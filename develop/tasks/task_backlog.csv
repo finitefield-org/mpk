@@ -1,0 +1,117 @@
+id,phase,phase_name,component,title,description,dependencies,priority,deliverable,acceptance,status
+GOV-001,P0,Governance and Spec Freeze,Governance,Create project charter,"Write the mission, non-goals, MVP scope, and acceptance philosophy.",none,P0,docs/CHARTER.md,Charter reviewed and merged.,todo
+GOV-002,P0,Governance and Spec Freeze,Governance,Approve trust boundary,Define trusted and untrusted artifacts with examples and taboo list.,GOV-001,P0,specs/TRUST_BOUNDARY_V0.md,All checker-facing crates reference the boundary.,todo
+GOV-003,P0,Governance and Spec Freeze,Governance,Define axiom policy,"Classify core, semantic, theory, and external axioms.",GOV-002,P0,specs/AXIOM_POLICY_V0.md,Axiom report categories are fixed.,todo
+GOV-004,P0,Governance and Spec Freeze,Governance,Define unsafe-code policy,Set no-unsafe policy for MVP kernel and checker crates.,GOV-002,P0,specs/UNSAFE_POLICY_V0.md,CI can enforce unsafe bans.,todo
+SPEC-001,P0,Governance and Spec Freeze,Spec,Freeze core grammar draft,"Finalize levels, terms, declarations, and defeq.",GOV-002,P0,specs/CORE_V0.md,Core grammar is stable for implementation.,todo
+SPEC-002,P0,Governance and Spec Freeze,Spec,Freeze certificate schema draft,"Finalize binary layout, canonical rules, and hash domains.",SPEC-001,P0,specs/CERT_V0.md,Schema has rejection conditions.,todo
+SPEC-003,P0,Governance and Spec Freeze,Spec,Freeze GIR draft,Finalize GIR module/function/block/instruction schema.,GOV-002,P0,specs/GIR_V0.md,GIR has supported and rejected features.,todo
+SPEC-004,P0,Governance and Spec Freeze,Spec,Freeze Go subset draft,Define accepted and rejected Go features.,SPEC-003,P0,specs/GO_SUBSET_V0.md,Unsupported behavior fails closed.,todo
+SPEC-005,P0,Governance and Spec Freeze,Spec,Freeze AI API draft,Define ID-based proof API and diagnostics.,SPEC-001,P0,specs/AI_API_V0.md,API cannot bypass certificate checking.,todo
+CORE-001,P1,Core Data Model,mpk-core,Create Rust workspace and crates,"Initialize mpk-core, mpk-cert, mpk-kernel, mpk-cli crates.",SPEC-001,P0,Cargo workspace,Workspace builds with empty crates.,todo
+CORE-002,P1,Core Data Model,mpk-core,Implement level arena,"Add LevelId, LevelNode, normalization, hashing.",CORE-001,P0,level.rs,Unit tests for level normalization pass.,todo
+CORE-003,P1,Core Data Model,mpk-core,Implement term arena,"Add TermId, TermNode, structural hashing, spine application.",CORE-002,P0,term.rs,Terms are interned and topologically inspectable.,todo
+CORE-004,P1,Core Data Model,mpk-core,Implement names and global IDs,Add canonical name validation and GlobalId resolution.,CORE-003,P0,name.rs,Invalid names reject deterministically.,todo
+CORE-005,P1,Core Data Model,mpk-core,Implement local context,Represent binders and local definitions.,CORE-003,P0,context.rs,Var lookup and local definition lookup tested.,todo
+CORE-006,P1,Core Data Model,mpk-core,Implement substitution and lifting,Add de Bruijn-safe lift/subst operations.,CORE-005,P0,subst.rs,Beta substitution tests pass.,todo
+CORE-007,P1,Core Data Model,mpk-core,Implement weak-head normalization skeleton,Support beta and zeta first.,CORE-006,P0,reduce.rs,WHNF tests for lambda and let pass.,todo
+CORE-008,P1,Core Data Model,mpk-core,Implement structured core errors,Define stable error codes and locations.,CORE-001,P0,error.rs,Errors serialize to deterministic JSON.,todo
+TYPE-001,P2,Type Checking and Definitional Equality,mpk-core,Implement environment and declarations,"Add Axiom, Def, Theorem skeletons.",CORE-004,P0,env.rs,Declarations can be registered and looked up.,todo
+TYPE-002,P2,Type Checking and Definitional Equality,mpk-core,Implement Sort inference,Check Sort u : Sort succ(u).,TYPE-001,P0,infer.rs,Sort tests pass.,todo
+TYPE-003,P2,Type Checking and Definitional Equality,mpk-core,Implement Var and Const inference,Check context and environment lookup.,TYPE-002,P0,infer.rs,Var/Const tests pass.,todo
+TYPE-004,P2,Type Checking and Definitional Equality,mpk-core,Implement Pi formation,Compute sort of Pi types.,TYPE-003,P0,infer.rs,Dependent Pi tests pass.,todo
+TYPE-005,P2,Type Checking and Definitional Equality,mpk-core,Implement Lam inference/checking,Infer/check lambda against Pi.,TYPE-004,P0,infer.rs,Lambda tests pass.,todo
+TYPE-006,P2,Type Checking and Definitional Equality,mpk-core,Implement App inference,WHNF function type to Pi and check arguments.,TYPE-005,P0,infer.rs,Application tests pass.,todo
+TYPE-007,P2,Type Checking and Definitional Equality,mpk-core,Implement Let inference,Check value and infer body with local definition.,TYPE-006,P0,infer.rs,Let tests pass.,todo
+DEFEQ-001,P2,Type Checking and Definitional Equality,mpk-core,Implement deterministic defeq fuel,Add fuel budget and exhaustion rejection.,CORE-007,P0,defeq.rs,Fuel exhaustion returns stable error.,todo
+DEFEQ-002,P2,Type Checking and Definitional Equality,mpk-core,Implement delta for reducible definitions,Unfold reducible defs only.,"TYPE-001,DEFEQ-001",P0,defeq.rs,Opaque defs never unfold.,todo
+DEFEQ-003,P2,Type Checking and Definitional Equality,mpk-core,Implement theorem opacity,Check theorem body but export opaque signature.,"TYPE-007,DEFEQ-002",P0,decl_check.rs,Downstream defeq cannot unfold theorem proof.,todo
+DEFEQ-004,P2,Type Checking and Definitional Equality,mpk-core,Add negative defeq fixtures,Test eta/proof-irrelevance/theorem-unfolding rejection.,DEFEQ-003,P0,fixtures/core-negative,All forbidden conversions reject.,todo
+IND-001,P2,Type Checking and Definitional Equality,mpk-core,Represent MVP inductive declarations,"Add inductive family metadata, constructors, recursor signatures, universe params, and dependency validation.",TYPE-007,P0,inductive.rs,MVP Bool/Eq/Nat shapes can be registered and exported.,todo
+IND-002,P2,Type Checking and Definitional Equality,mpk-core,Implement conservative positivity check,"Reject negative, nested, and unknown-functor occurrences; accept only documented MVP shapes.",IND-001,P0,positivity.rs,Positive and negative inductive fixtures are deterministic.,todo
+IND-003,P2,Type Checking and Definitional Equality,mpk-core,Generate constructor and recursor declarations,Generate canonical constructor and recursor artifacts from accepted inductives.,IND-002,P0,inductive_gen.rs,Generated artifacts have stable names and hashes.,todo
+IND-004,P2,Type Checking and Definitional Equality,mpk-core,Implement recursor iota reduction,Reduce only generated recursor applications under deterministic fuel.,"IND-003,DEFEQ-001",P0,reduce_inductive.rs,Generated recursor fixtures reduce and unknown recursor equations reject.,todo
+CERT-001,P3,Certificate Format,mpk-cert,Define binary tags,"Assign numeric tags for levels, terms, proof nodes, declarations.",SPEC-002,P0,binary_tags.rs,Tags documented and tested.,todo
+CERT-002,P3,Certificate Format,mpk-cert,Implement canonical encoder,Encode certificate with fixed field order and minimal varints.,CERT-001,P0,encode.rs,Golden encoding fixture produced.,todo
+CERT-003,P3,Certificate Format,mpk-cert,Implement canonical decoder,Decode and validate structural shape.,CERT-002,P0,decode.rs,Invalid byte fixtures reject.,todo
+CERT-004,P3,Certificate Format,mpk-cert,Implement re-encode check,Reject if decoded then encoded bytes differ.,CERT-003,P0,canonical.rs,Non-canonical fixture rejects.,todo
+CERT-005,P3,Certificate Format,mpk-cert,Implement hash domains,"Add certificate, export, axiom, term, and level hashes.",CERT-002,P0,hash.rs,Hash test vectors stable.,todo
+CERT-006,P3,Certificate Format,mpk-cert,Implement import table validation,Sort and validate module/export/certificate hashes.,CERT-005,P0,imports.rs,Bad import hashes reject.,todo
+CERT-007,P3,Certificate Format,mpk-cert,Implement export block builder,Derive public interfaces from checked declarations.,"TYPE-001,CERT-005",P0,export.rs,Opaque theorem proof body excluded.,todo
+CERT-008,P3,Certificate Format,mpk-cert,Implement axiom report builder,Compute direct and transitive axiom dependencies.,"TYPE-001,CERT-005",P0,axiom_report.rs,Axiom fixtures match expected report.,todo
+CERT-009,P3,Certificate Format,mpk-cert,Create minimal valid certificates,Add zero-axiom and one-theorem fixtures.,CERT-008,P0,fixtures/cert-basic,Fixtures decode and hash.,todo
+KERN-001,P4,Fast Rust Kernel,mpk-kernel,Create verifier driver,Load canonical certificate and invoke core checks.,"CERT-004,TYPE-007",P0,verifier.rs,CLI can verify minimal cert.,todo
+KERN-002,P4,Fast Rust Kernel,mpk-kernel,Implement declaration checker orchestration,Check declarations in dependency order.,KERN-001,P0,decl_driver.rs,Out-of-order dependencies reject.,todo
+KERN-003,P4,Fast Rust Kernel,mpk-kernel,Implement bootstrap proof-node checker,"Check Exact, Apply, Intro, Refl, and Conv under the core-bootstrap profile; reject other node tags by profile.",KERN-002,P0,proof_check.rs,Bootstrap proof-node fixtures pass.,todo
+KERN-004,P4,Fast Rust Kernel,mpk-kernel,Implement checker caches,"Cache inferred types, WHNF, and defeq results.",KERN-003,P0,cache.rs,Cache does not change verdicts.,todo
+KERN-005,P4,Fast Rust Kernel,mpk-kernel,Implement structured JSON output,"Emit verdict, hashes, axiom report, error code.",KERN-001,P0,json_output.rs,Output stable under snapshot tests.,todo
+KERN-006,P4,Fast Rust Kernel,mpk-cli,Implement mpk check,Command to verify one certificate.,KERN-005,P0,mpk check,Valid and invalid fixtures handled.,todo
+KERN-007,P4,Fast Rust Kernel,mpk-cli,Implement mpk axiom-report,Command to print recomputed axiom report.,"CERT-008,KERN-005",P0,mpk axiom-report,Report matches certificate hash.,todo
+KERN-008,P4,Fast Rust Kernel,mpk-kernel,Fuzz certificate decoder boundary,Run fuzz target against malformed inputs.,"CERT-003,KERN-001",P0,fuzz target,No panics on malformed inputs.,todo
+KERN-009,P4,Fast Rust Kernel,mpk-kernel,Implement structural proof-node checker,"Check LetProof, Rewrite, EqRec, Constructor, and Recursor nodes; reject unsupported nodes by active profile.","KERN-003,IND-004",P0,proof_structural.rs,Structural proof-node fixtures pass.,todo
+REF-001,P5,Independent Go Reference Checker,mpk-checker-ref,Create Go checker module,Initialize clean-room Go module.,SPEC-002,P0,go.mod,Module builds independently.,todo
+REF-002,P5,Independent Go Reference Checker,mpk-checker-ref,Implement Go decoder,Decode canonical certificate bytes without Rust code.,"REF-001,CERT-001",P0,decoder.go,Positive/negative decode fixtures pass.,todo
+REF-003,P5,Independent Go Reference Checker,mpk-checker-ref,Implement hash recomputation,Recompute certificate/export/axiom hashes.,"REF-002,CERT-005",P0,hash.go,Hash vectors match Rust.,todo
+REF-004,P5,Independent Go Reference Checker,mpk-checker-ref,Implement core term checker,Implement MVP term typing.,"REF-002,SPEC-001",P0,core_check.go,Core fixtures match Rust verdicts.,todo
+REF-005,P5,Independent Go Reference Checker,mpk-checker-ref,Implement defeq,Implement deterministic WHNF and defeq.,REF-004,P0,defeq.go,Defeq fixtures match Rust.,todo
+REF-006,P5,Independent Go Reference Checker,mpk-checker-ref,Implement proof-node checker,Check bootstrap and structural MVP proof node rules.,"REF-005,KERN-009",P0,proof_check.go,Proof fixtures match Rust.,todo
+REF-007,P5,Independent Go Reference Checker,mpk-checker-ref,Implement axiom report verifier,Recompute and compare axiom report.,"REF-006,CERT-008",P0,axiom_report.go,Axiom fixtures match Rust.,todo
+REF-008,P5,Independent Go Reference Checker,ci,Add checker agreement tests,Run Rust and Go checker against same corpus.,"REF-007,KERN-006",P0,CI job,Any disagreement fails CI.,todo
+STD-001,P6,Standard Library Foundation,Std.Logic,"Define implication, conjunction, disjunction interfaces",Create core logical constants/inductives needed by VCs.,"KERN-006,KERN-009",P1,proofs/std/logic,Certificates verify.,todo
+STD-002,P6,Standard Library Foundation,Std.Eq,Define equality and rewrite lemmas,"Add refl, symm, trans, congruence MVP.",STD-001,P1,proofs/std/eq,Rewrite fixtures verify.,todo
+STD-003,P6,Standard Library Foundation,Std.Bool,Define Bool and boolean normalization,"Add true/false, if, and/or/not.",STD-001,P1,proofs/std/bool,Bool certificates verify.,todo
+STD-004,P6,Standard Library Foundation,Std.Nat,Define minimal Nat,"Add zero, succ, basic order if needed.",STD-002,P1,proofs/std/nat,Nat fixtures verify.,todo
+STD-005,P6,Standard Library Foundation,Std.Int,Define Int interface,Add integer order and linear arithmetic hooks.,STD-002,P1,proofs/std/int,Axiom use reviewed.,todo
+STD-006,P6,Standard Library Foundation,Std.BitVec,Define BitVec interfaces,Add BV8/BV16/BV32/BV64 operations and signed views.,STD-003,P1,proofs/std/bitvec,Ground eval fixtures verify.,todo
+STD-007,P6,Standard Library Foundation,Std.Array.Fixed,Define fixed-array interface,"Add read, write, length, index safety predicates.",STD-006,P1,proofs/std/array,Read/write fixtures verify.,todo
+STD-008,P6,Standard Library Foundation,Std.Go.Base,Define Go semantic base types,Map Go bool/int/uint/array/struct to core types.,"STD-006,STD-007",P1,proofs/go/base,Go base certs verify.,todo
+GO-001,P7,Go Frontend and GIR,go2gir,Create Go frontend CLI,Initialize go2gir command.,"SPEC-003,SPEC-004",P1,go2gir,CLI accepts package path.,todo
+GO-002,P7,Go Frontend and GIR,go2gir,Load Go packages,Use Go package loading with pinned settings.,GO-001,P1,loader.go,Can load sample package.,todo
+GO-003,P7,Go Frontend and GIR,go2gir,Build SSA,Build SSA for target package.,GO-002,P1,ssa.go,SSA dump available for sample.,todo
+GO-004,P7,Go Frontend and GIR,go2gir,Implement feature detector,Reject unsupported Go features with exact reason.,"GO-003,SPEC-004",P1,features.go,Unsupported fixtures reject.,todo
+GO-005,P7,Go Frontend and GIR,go2gir,Lower pure functions to GIR,"Convert params, locals, blocks, binops, if, return.",GO-004,P1,lower.go,Max64 lowers to GIR.,todo
+GO-006,P7,Go Frontend and GIR,go2gir,Lower structs and fixed arrays,Support field and fixed-array indexing.,GO-005,P1,lower_types.go,Struct/array fixtures lower.,todo
+GO-007,P7,Go Frontend and GIR,go2gir,Emit canonical GIR JSON/binary,Stable field order and hashes.,GO-005,P1,emit.go,GIR hash deterministic.,todo
+GO-008,P7,Go Frontend and GIR,go2gir,Emit source manifest,"Record source hashes, Go version, frontend hash.",GO-007,P1,manifest.go,Manifest stable and complete.,todo
+GO-009,P7,Go Frontend and GIR,fixtures,Create Go frontend corpus,Add positive and negative subset examples.,GO-008,P1,fixtures/go-basic,CI covers Go subset.,todo
+GO-010,P7,Go Frontend and GIR,go2gir,Validate contract sidecars,"Parse mpk.go.contract.v0 JSON, resolve function identities, attach requires/ensures/modifies/loop metadata to GIR, and reject unsupported expression operators.","GO-007,SPEC-004",P1,contract_sidecar.go,Sample contract validates and malformed or unsupported contracts reject.,todo
+VC-001,P8,VC Generator,mpk-vc,Create VC generator crate,Initialize GIR importer and VC data model.,"GO-010,STD-008",P1,mpk-vc,Crate builds.,todo
+VC-002,P8,VC Generator,mpk-vc,Encode GIR types into MPK terms,Map Go bool/int/uint/struct/array types.,VC-001,P1,type_encode.rs,Type encoding snapshots pass.,todo
+VC-003,P8,VC Generator,mpk-vc,Encode expressions into MPK terms,"Map constants, variables, binops, comparisons.",VC-002,P1,expr_encode.rs,Expression fixtures pass.,todo
+VC-004,P8,VC Generator,mpk-vc,Generate straight-line VCs,Handle pure return functions.,VC-003,P1,wp.rs,Simple functions produce VCs.,todo
+VC-005,P8,VC Generator,mpk-vc,Generate branch VCs,Handle if/else path conditions.,VC-004,P1,wp_branch.rs,Max64 VCs produced.,todo
+VC-006,P8,VC Generator,mpk-vc,Generate runtime-safety VCs,"Division by zero, shift count, index bounds.",VC-005,P1,safety.rs,Unsafe operations produce obligations.,todo
+VC-007,P8,VC Generator,mpk-vc,Generate loop invariant VCs,"Initial, preservation, exit, and optional total-correctness variant obligations.",VC-006,P1,loops.rs,Annotated loop fixture produces expected partial-correctness VCs and total-correctness variants when requested.,todo
+VC-008,P8,VC Generator,mpk-vc,Emit theorem obligations,Create core declarations for VCs.,"VC-007,CERT-002",P1,obligation_emit.rs,VC cert skeletons created.,todo
+VC-009,P8,VC Generator,examples,Implement Max64 end-to-end example,Go source -> GIR -> VC theorem obligations.,VC-008,P1,examples/max64,Example documented.,todo
+API-001,P9,AI Proof API,mpk-api,Create API crate/server,Provide local server or library API.,"SPEC-005,KERN-006",P1,mpk-api,Can start session.,todo
+API-002,P9,AI Proof API,mpk-api,Implement term construction endpoints,Sort/Var/Const/App/Lam/Pi/Let over interned IDs.,API-001,P1,term_api.rs,Term API integration tests pass.,todo
+API-003,P9,AI Proof API,mpk-api,Implement bootstrap proof construction endpoints,Exact/Apply/Intro/Refl/Conv core-bootstrap endpoints.,"API-002,KERN-003",P1,proof_api.rs,Proof API can build simple theorem.,todo
+API-004,P9,AI Proof API,mpk-api,Implement check-node endpoint,Validate individual proof nodes.,API-003,P1,check_api.rs,Bad nodes return structured errors.,todo
+API-005,P9,AI Proof API,mpk-api,Implement batch candidate checking,Check many candidates and return per-candidate verdict.,API-004,P1,batch.rs,10k fake candidates handled.,todo
+API-006,P9,AI Proof API,mpk-api,Implement repair diagnostics,"Return expected/actual head, local context, hints.",API-004,P1,diagnostics.rs,Diagnostics snapshots stable.,todo
+API-007,P9,AI Proof API,mpk-api,Implement JSONL import/export,Support offline AI generation workflows.,API-005,P1,jsonl.rs,JSONL round trip works.,todo
+API-008,P9,AI Proof API,mpk-api,Add minimal automated strategies,"Try exact, refl, split, and apply in safe order without theory shortcuts.",API-006,P1,strategies.rs,Simple propositional and equality fixtures prove with strategies.,todo
+TH-001,P10,Theory Certificates,theory-bool,Implement Bool normalization checker,Check small boolean tautology certificates.,"STD-003,KERN-003",P1,bool_cert.rs,Malformed certs reject.,todo
+TH-002,P10,Theory Certificates,theory-bitvec,Implement BitVec ground evaluator,Normalize ground BV expressions.,"STD-006,KERN-003",P1,bitvec_eval.rs,Ground BV fixtures pass.,todo
+TH-003,P10,Theory Certificates,theory-bitvec,Define BitVec certificate schema,Schema for operation trace and normalized result.,TH-002,P1,bitvec_cert.md,Schema reviewed.,todo
+TH-004,P10,Theory Certificates,theory-int,Implement linear arithmetic certificate checker,Start with simple Farkas-style non-strict inequalities.,"STD-005,KERN-003",P1,linarith_cert.rs,Linear fixtures pass.,todo
+TH-005,P10,Theory Certificates,theory-array,Implement array read/write certificate checker,Check fixed-array read-over-write reasoning.,"STD-007,KERN-003",P1,array_cert.rs,Array fixtures pass.,todo
+TH-006,P10,Theory Certificates,theory,Integrate Theory proof node,Connect theory certificates to proof-node checker.,"TH-001,TH-002,TH-004,TH-005",P1,proof_theory.rs,Theory node fixtures verify.,todo
+TH-007,P10,Theory Certificates,theory,Fuzz malformed theory certificates,Fuzz each theory checker.,TH-006,P1,fuzz targets,No panics and deterministic rejects.,todo
+TH-008,P10,Theory Certificates,mpk-api,Add theory-backed proof strategy hook,Enable API strategy dispatcher to use checked theory certificate builders for enabled theory profiles.,"TH-006,API-008",P1,theory_strategy.rs,Max64 simple VCs prove only through checked theory certificates.,todo
+CI-001,P11,CI and Package Verification,ci,Create fast local gate,"Rust fmt, clippy, unit tests, small fixtures.",KERN-006,P2,scripts/check-fast.sh,Fast gate passes locally.,todo
+CI-002,P11,CI and Package Verification,ci,Create reference-checker gate,Run Go checker on fixture certificates.,REF-008,P2,scripts/check-reference.sh,Reference gate passes.,todo
+CI-003,P11,CI and Package Verification,ci,Create full corpus gate,"Run frontend, VC generator, both checkers, hash checks.","VC-009,TH-008",P2,scripts/check-all.sh,Full gate reproducible.,todo
+CI-004,P11,CI and Package Verification,package,Define package manifest,"Module name, imports, cert paths, expected hashes.",CERT-006,P2,package-manifest.md,Manifest fixtures validate.,todo
+CI-005,P11,CI and Package Verification,package,Define lock file,Hash-pinned imports and checker policy.,CI-004,P2,package-lock.md,Lock verification works.,todo
+CI-006,P11,CI and Package Verification,cli,Implement package check command,Validate package manifest and imports.,"CI-004,KERN-006",P2,mpk package check,Bad package rejects.,todo
+CI-007,P11,CI and Package Verification,cli,Implement package verify-certs command,Run all certificates through both checkers if configured.,"CI-006,REF-008",P2,mpk package verify-certs,Fixture package verifies.,todo
+CI-008,P11,CI and Package Verification,release,Generate release evidence report,"Collect versions, hashes, axiom reports, checker verdicts.",CI-007,P2,release-report.json,Report stable and complete.,todo
+ALPHA-001,P12,Alpha Corpus and Hardening,corpus,Create 100-function Go corpus,"Small pure functions covering arithmetic, branches, arrays.",VC-009,P2,fixtures/go-alpha,Corpus compiles and lowers.,todo
+ALPHA-002,P12,Alpha Corpus and Hardening,corpus,"Generate 1,000+ VCs",Expand contracts and branch cases.,"ALPHA-001,VC-008",P2,fixtures/vc-alpha,VC count and hash recorded.,todo
+ALPHA-003,P12,Alpha Corpus and Hardening,api,Generate invalid candidate benchmark,"Produce 10,000 invalid proof candidates.",API-005,P2,bench/invalid-candidates,Benchmark corpus available.,todo
+ALPHA-004,P12,Alpha Corpus and Hardening,perf,Profile fast kernel,"Measure decode, typecheck, defeq, proof-node checking.","ALPHA-002,KERN-004",P2,perf report,Hotspots identified.,todo
+ALPHA-005,P12,Alpha Corpus and Hardening,perf,Optimize without changing trust boundary,Improve caches/arena layout only.,ALPHA-004,P2,optimization PRs,Checker agreement maintained.,todo
+ALPHA-006,P12,Alpha Corpus and Hardening,docs,Write alpha demo guide,End-to-end Go source to certificate verification.,"ALPHA-002,TH-008",P2,docs/alpha-demo.md,Guide reproduces locally.,todo
+ALPHA-007,P12,Alpha Corpus and Hardening,release,Run alpha release gates,Apply all gates from RELEASE_GATES.md.,"CI-008,ALPHA-006",P2,alpha-release-report,All gates pass or exceptions documented.,todo

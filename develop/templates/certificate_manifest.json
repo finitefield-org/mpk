@@ -1,0 +1,33 @@
+{
+  "schema": "mpk.certificate.manifest.v0",
+  "module": "Example.Max64",
+  "certificate_path": "generated/example.max64.mpcert",
+  "format": "MPK-CERT-0.1",
+  "core_spec": "MPK-Core-0.1",
+  "source_manifest": {
+    "source_language": "go",
+    "go_version": "go1.xx",
+    "frontend": {
+      "name": "go2gir",
+      "version": "0.1.0",
+      "binary_sha256": "PLACEHOLDER"
+    },
+    "source_files": [
+      {
+        "path": "examples/sample_go_source.go",
+        "sha256": "PLACEHOLDER"
+      }
+    ],
+    "gir_hash": "PLACEHOLDER",
+    "vc_hash": "PLACEHOLDER"
+  },
+  "hashes": {
+    "export_hash": "PLACEHOLDER",
+    "axiom_report_hash": "PLACEHOLDER",
+    "certificate_hash": "PLACEHOLDER"
+  },
+  "checker_verdicts": {
+    "rust_fast_kernel": "required",
+    "go_reference_checker": "required"
+  }
+}

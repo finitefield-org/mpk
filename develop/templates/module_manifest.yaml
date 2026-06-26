@@ -1,0 +1,18 @@
+schema: mpk.package.v0
+module: Example.Max64
+imports:
+  - module: Std.Logic
+    export_hash: "MPK_EXPORT_HASH_PLACEHOLDER"
+  - module: Std.BitVec
+    export_hash: "MPK_EXPORT_HASH_PLACEHOLDER"
+  - module: Go.Int64
+    export_hash: "MPK_EXPORT_HASH_PLACEHOLDER"
+certificates:
+  - path: generated/example.max64.mpcert
+    expected_certificate_hash: "MPK_CERT_HASH_PLACEHOLDER"
+policy:
+  checker_profile: mvp-strict
+  allowed_axiom_profiles:
+    - core-mvp
+  require_reference_checker: true
+  require_source_free_check: true
