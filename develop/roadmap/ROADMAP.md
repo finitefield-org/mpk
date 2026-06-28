@@ -10,7 +10,7 @@ Deliverables:
 
 - `CORE_V0.md` frozen for implementation.
 - `CERT_V0.md` frozen for implementation.
-- `GIR_V0_DRAFT.md` promoted to `GIR_V0.md`.
+- `GIR_V0.md` frozen for implementation.
 - Axiom policy document.
 - Unsafe-code policy.
 - Supported/rejected Go subset document.
