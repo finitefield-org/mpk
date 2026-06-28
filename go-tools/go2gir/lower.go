@@ -55,9 +55,18 @@ type girBinding struct {
 }
 
 type girType struct {
-	Kind   string `json:"kind"`
-	Width  int    `json:"width,omitempty"`
-	Signed *bool  `json:"signed,omitempty"`
+	Kind    string         `json:"kind"`
+	Name    string         `json:"name,omitempty"`
+	Width   int            `json:"width,omitempty"`
+	Signed  *bool          `json:"signed,omitempty"`
+	Length  int64          `json:"length,omitempty"`
+	Element *girType       `json:"element,omitempty"`
+	Fields  []girFieldType `json:"fields,omitempty"`
+}
+
+type girFieldType struct {
+	Name string  `json:"name"`
+	Type girType `json:"type"`
 }
 
 type girBlock struct {
@@ -74,10 +83,20 @@ type girInstruction struct {
 	Type     girType    `json:"type"`
 	Target   string     `json:"target,omitempty"`
 	Value    *girValue  `json:"value,omitempty"`
+	Base     *girValue  `json:"base,omitempty"`
+	Index    *girValue  `json:"index,omitempty"`
+	Field    string     `json:"field,omitempty"`
+	Fields   []girField `json:"fields,omitempty"`
+	Elements []girValue `json:"elements,omitempty"`
 	LHS      *girValue  `json:"lhs,omitempty"`
 	RHS      *girValue  `json:"rhs,omitempty"`
 	Function string     `json:"function,omitempty"`
 	Args     []girValue `json:"args,omitempty"`
+}
+
+type girField struct {
+	Name  string   `json:"name"`
+	Value girValue `json:"value"`
 }
 
 type girTerminator struct {
@@ -207,7 +226,7 @@ func (l *girPackageLowerer) lowerFunction(decl *ast.FuncDecl) (girFunction, bool
 		Results:           results,
 		Locals:            locals,
 		Contracts:         emptyGIRContracts(),
-		SupportedFeatures: []string{"params", "locals", "blocks", "binops", "if", "return"},
+		SupportedFeatures: []string{"params", "locals", "blocks", "binops", "if", "return", "structs", "fixed_arrays", "field", "index"},
 		RejectedFeatures:  []rejectedFeature{},
 	}
 
@@ -518,10 +537,16 @@ func (l *girFunctionLowerer) lowerExpr(expr ast.Expr) (girValue, bool) {
 		return l.lowerBinaryExpr(expr)
 	case *ast.CallExpr:
 		return l.lowerCallExpr(expr)
+	case *ast.CompositeLit:
+		return l.lowerCompositeLit(expr)
 	case *ast.Ident:
 		return l.lowerIdent(expr)
+	case *ast.IndexExpr:
+		return l.lowerIndexExpr(expr)
 	case *ast.ParenExpr:
 		return l.lowerExpr(expr.X)
+	case *ast.SelectorExpr:
+		return l.lowerSelectorExpr(expr)
 	case *ast.UnaryExpr:
 		return l.lowerUnaryExpr(expr)
 	default:
@@ -927,6 +952,9 @@ func girTypeFromGoType(typ types.Type) (girType, bool) {
 	if typ == nil {
 		return girType{}, false
 	}
+	if named, ok := typ.(*types.Named); ok {
+		return girNamedType(named)
+	}
 	if basic, ok := typ.Underlying().(*types.Basic); ok {
 		switch basic.Kind() {
 		case types.Bool, types.UntypedBool:
@@ -935,6 +963,12 @@ func girTypeFromGoType(typ types.Type) (girType, bool) {
 		if width, signed, ok := fixedWidthInteger(typ); ok {
 			return girType{Kind: "bv", Width: width, Signed: boolPtr(signed)}, true
 		}
+	}
+	switch underlying := typ.Underlying().(type) {
+	case *types.Array:
+		return girArrayType(underlying)
+	case *types.Struct:
+		return girStructType("", underlying)
 	}
 	return girType{}, false
 }

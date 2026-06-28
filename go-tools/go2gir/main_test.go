@@ -148,6 +148,12 @@ func TestRunRejectsUnsupportedFixtures(t *testing.T) {
 			feature: "pointers",
 			reason:  "pointers are rejected by Go subset v0",
 		},
+		{
+			name:    "untyped int expression",
+			path:    "./testdata/unsupported/untypedint",
+			feature: "GIR lowering",
+			reason:  "type untyped int is not lowered by GO-005",
+		},
 	}
 
 	for _, tt := range tests {
@@ -224,6 +230,69 @@ func TestRunLowersMax64ToGIR(t *testing.T) {
 	}
 	if !hasGIRReturnValue(*function, "max") {
 		t.Fatalf("Max64 GIR blocks = %+v, want return for max", function.Blocks)
+	}
+}
+
+func TestRunLowersStructAndArrayFixturesToGIR(t *testing.T) {
+	var stdout bytes.Buffer
+	var stderr bytes.Buffer
+
+	exitCode := run([]string{"./testdata/structarray"}, &stdout, &stderr)
+	if exitCode != 0 {
+		t.Fatalf("exit code = %d, want 0; stderr=%s stdout=%s", exitCode, stderr.String(), stdout.String())
+	}
+	if stderr.Len() != 0 {
+		t.Fatalf("stderr = %q, want empty", stderr.String())
+	}
+
+	var result cliResult
+	if err := json.Unmarshal(stdout.Bytes(), &result); err != nil {
+		t.Fatalf("decode stdout: %v\n%s", err, stdout.String())
+	}
+	if result.Status != "gir-lowered" {
+		t.Fatalf("status = %q, want gir-lowered", result.Status)
+	}
+	if result.GIR == nil {
+		t.Fatal("GIR missing")
+	}
+
+	packagePath := "github.com/finitefield-org/mpk/go-tools/go2gir/testdata/structarray"
+	pickLeft := findGIRFunction(*result.GIR, packagePath, "PickLeft")
+	if pickLeft == nil {
+		t.Fatalf("GIR missing PickLeft: %+v", result.GIR)
+	}
+	if !hasGIRParamTypeKind(*pickLeft, "pair", "struct") {
+		t.Fatalf("PickLeft params = %+v, want struct param", pickLeft.Params)
+	}
+	if !hasGIRInstructionKind(*pickLeft, "Field") {
+		t.Fatalf("PickLeft GIR blocks = %+v, want Field instruction", pickLeft.Blocks)
+	}
+
+	makePair := findGIRFunction(*result.GIR, packagePath, "MakePair")
+	if makePair == nil {
+		t.Fatalf("GIR missing MakePair: %+v", result.GIR)
+	}
+	if !hasGIRInstructionKind(*makePair, "MakeStruct") {
+		t.Fatalf("MakePair GIR blocks = %+v, want MakeStruct instruction", makePair.Blocks)
+	}
+
+	pickSecond := findGIRFunction(*result.GIR, packagePath, "PickSecond")
+	if pickSecond == nil {
+		t.Fatalf("GIR missing PickSecond: %+v", result.GIR)
+	}
+	if !hasGIRParamTypeKind(*pickSecond, "values", "array") {
+		t.Fatalf("PickSecond params = %+v, want array param", pickSecond.Params)
+	}
+	if !hasGIRInstructionKind(*pickSecond, "Index") {
+		t.Fatalf("PickSecond GIR blocks = %+v, want Index instruction", pickSecond.Blocks)
+	}
+
+	makeArray := findGIRFunction(*result.GIR, packagePath, "MakeArray")
+	if makeArray == nil {
+		t.Fatalf("GIR missing MakeArray: %+v", result.GIR)
+	}
+	if !hasGIRInstructionKind(*makeArray, "MakeArray") {
+		t.Fatalf("MakeArray GIR blocks = %+v, want MakeArray instruction", makeArray.Blocks)
 	}
 }
 
@@ -379,9 +448,29 @@ func hasGIRInstruction(function girFunction, kind string, op string) bool {
 	return false
 }
 
+func hasGIRInstructionKind(function girFunction, kind string) bool {
+	for _, block := range function.Blocks {
+		for _, instruction := range block.Instructions {
+			if instruction.Kind == kind {
+				return true
+			}
+		}
+	}
+	return false
+}
+
 func hasGIRLocal(function girFunction, name string) bool {
 	for _, local := range function.Locals {
 		if local.Name == name {
+			return true
+		}
+	}
+	return false
+}
+
+func hasGIRParamTypeKind(function girFunction, name string, kind string) bool {
+	for _, param := range function.Params {
+		if param.Name == name && param.Type.Kind == kind {
 			return true
 		}
 	}

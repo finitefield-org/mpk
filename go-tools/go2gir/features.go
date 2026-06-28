@@ -277,11 +277,16 @@ func (d *featureDetector) detectAssignment(assign *ast.AssignStmt) {
 		if _, ok := obj.(*types.Var); !ok || obj.Parent() == d.pkg.Types.Scope() {
 			d.reject(lhs.Pos(), "assignments", "assignments are limited to local variables in Go subset v0")
 		}
+		if assign.Tok == token.DEFINE {
+			if variable, ok := d.pkg.TypesInfo.Defs[ident].(*types.Var); ok {
+				d.detectType(ident.Pos(), variable.Type())
+			}
+		}
 	}
 }
 
 func (d *featureDetector) detectExpression(expr ast.Expr) {
-	if typ := d.pkg.TypesInfo.TypeOf(expr); typ != nil {
+	if typ := d.pkg.TypesInfo.TypeOf(expr); typ != nil && !isIntegerLiteral(expr) {
 		d.detectType(expr.Pos(), typ)
 	}
 
@@ -310,6 +315,11 @@ func (d *featureDetector) detectExpression(expr ast.Expr) {
 			d.reject(expr.Pos(), "channels", "channel receives are rejected by Go subset v0")
 		}
 	}
+}
+
+func isIntegerLiteral(expr ast.Expr) bool {
+	lit, ok := expr.(*ast.BasicLit)
+	return ok && lit.Kind == token.INT
 }
 
 func (d *featureDetector) detectBasicLit(lit *ast.BasicLit) {
