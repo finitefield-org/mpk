@@ -48,9 +48,37 @@ pub(crate) fn check_proof_node_in_session(
     session: &mut ApiSession,
     proof_id: ApiProofId,
 ) -> Result<ApiTermId, ApiError> {
-    session.require_proof_id(proof_id, "proof_id")?;
-    let term = CheckNodeDriver { session }.check_node(proof_id, &LocalContext::new())?;
-    session.register_term_id(term)
+    diagnose_proof_node_in_session(session, proof_id).map_err(ProofCheckFailure::into_error)
+}
+
+pub(crate) fn diagnose_proof_node_in_session(
+    session: &mut ApiSession,
+    proof_id: ApiProofId,
+) -> Result<ApiTermId, ProofCheckFailure> {
+    let root_context = LocalContext::new();
+    let term = CheckNodeDriver { session }.check_node(proof_id, &root_context)?;
+    CheckNodeDriver::register_checked_term(session, proof_id, &root_context, term)
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub(crate) struct ProofCheckFailure {
+    pub(crate) proof_id: ApiProofId,
+    pub(crate) error: ApiError,
+    pub(crate) context_summary: Vec<ApiTermId>,
+}
+
+impl ProofCheckFailure {
+    fn new(proof_id: ApiProofId, context: &LocalContext, error: ApiError) -> Self {
+        Self {
+            proof_id,
+            error,
+            context_summary: context_summary(context),
+        }
+    }
+
+    fn into_error(self) -> ApiError {
+        self.error
+    }
 }
 
 struct CheckNodeDriver<'session> {
@@ -62,19 +90,18 @@ impl CheckNodeDriver<'_> {
         &mut self,
         proof_id: ApiProofId,
         context: &LocalContext,
-    ) -> Result<TermId, ApiError> {
-        let node = self
-            .session
-            .proof_node(proof_id)
-            .cloned()
-            .ok_or_else(|| unknown_proof(proof_id, "proof_id"))?;
+    ) -> Result<TermId, ProofCheckFailure> {
+        let node =
+            self.session.proof_node(proof_id).cloned().ok_or_else(|| {
+                self.failure(proof_id, context, unknown_proof(proof_id, "proof_id"))
+            })?;
 
         match node {
             ProofNode::Exact {
                 term,
                 expected_type,
             } => {
-                let term = self.term_id(proof_id, term, "term")?;
+                let term = self.term_id(proof_id, context, term, "term")?;
                 let expected_type = self.expected_type(proof_id, expected_type, context)?;
                 self.check_term(proof_id, context, term, expected_type)?;
                 Ok(term)
@@ -99,7 +126,7 @@ impl CheckNodeDriver<'_> {
                 body_proof,
                 expected_type,
             } => {
-                let domain_type = self.term_id(proof_id, domain_type, "domain_type")?;
+                let domain_type = self.term_id(proof_id, context, domain_type, "domain_type")?;
                 self.expect_type_is_sort(proof_id, context, "domain_type", domain_type)?;
                 let expected_type = self.expected_type(proof_id, expected_type, context)?;
 
@@ -114,7 +141,7 @@ impl CheckNodeDriver<'_> {
                 term,
                 expected_type,
             } => {
-                let term = self.term_id(proof_id, term, "term")?;
+                let term = self.term_id(proof_id, context, term, "term")?;
                 let expected_type = self.expected_type(proof_id, expected_type, context)?;
                 self.check_term(proof_id, context, term, expected_type)?;
                 Ok(term)
@@ -125,7 +152,7 @@ impl CheckNodeDriver<'_> {
                 defeq_witness,
             } => {
                 if let Some(defeq_witness) = defeq_witness {
-                    let _ = self.term_id(proof_id, defeq_witness, "defeq_witness")?;
+                    let _ = self.term_id(proof_id, context, defeq_witness, "defeq_witness")?;
                 }
                 let expected_type = self.expected_type(proof_id, expected_type, context)?;
                 let term = self.check_node(ApiProofId(proof), context)?;
@@ -137,14 +164,18 @@ impl CheckNodeDriver<'_> {
             | ProofNode::EqRec { .. }
             | ProofNode::Constructor { .. }
             | ProofNode::Recursor { .. }
-            | ProofNode::Theory { .. } => Err(ApiError::new(
-                ApiErrorCode::UnsupportedProofNodeKind,
-                format!(
-                    "proof node {} is not supported by the check-node endpoint",
-                    proof_id.as_u32()
+            | ProofNode::Theory { .. } => Err(self.failure(
+                proof_id,
+                context,
+                ApiError::new(
+                    ApiErrorCode::UnsupportedProofNodeKind,
+                    format!(
+                        "proof node {} is not supported by the check-node endpoint",
+                        proof_id.as_u32()
+                    ),
+                    Some("proof_id".to_owned()),
+                    Some(proof_id.as_u32().to_string()),
                 ),
-                Some("proof_id".to_owned()),
-                Some(proof_id.as_u32().to_string()),
             )),
         }
     }
@@ -154,8 +185,8 @@ impl CheckNodeDriver<'_> {
         proof_id: ApiProofId,
         term: u32,
         context: &LocalContext,
-    ) -> Result<TermId, ApiError> {
-        let expected_type = self.term_id(proof_id, term, "expected_type")?;
+    ) -> Result<TermId, ProofCheckFailure> {
+        let expected_type = self.term_id(proof_id, context, term, "expected_type")?;
         self.expect_type_is_sort(proof_id, context, "expected_type", expected_type)?;
         Ok(expected_type)
     }
@@ -163,12 +194,14 @@ impl CheckNodeDriver<'_> {
     fn term_id(
         &self,
         proof_id: ApiProofId,
+        context: &LocalContext,
         term: u32,
         field: impl Into<String>,
-    ) -> Result<TermId, ApiError> {
+    ) -> Result<TermId, ProofCheckFailure> {
         self.session
             .require_term_id(ApiTermId(term), field)
             .map_err(|error| proof_error_with_node(proof_id, error))
+            .map_err(|error| self.failure(proof_id, context, error))
     }
 
     fn infer_term(
@@ -176,13 +209,17 @@ impl CheckNodeDriver<'_> {
         proof_id: ApiProofId,
         context: &LocalContext,
         term: TermId,
-    ) -> Result<TermId, ApiError> {
+    ) -> Result<TermId, ProofCheckFailure> {
         let (levels, terms, env) = self.session.core_parts_mut();
         infer(levels, terms, context, env, term).map_err(|error| {
-            proof_check_failed(
+            self.failure(
                 proof_id,
-                "core inference failed while checking proof node",
-                error.to_deterministic_json(),
+                context,
+                proof_check_failed(
+                    proof_id,
+                    "core inference failed while checking proof node",
+                    error.to_deterministic_json(),
+                ),
             )
         })
     }
@@ -193,13 +230,17 @@ impl CheckNodeDriver<'_> {
         context: &LocalContext,
         term: TermId,
         expected_type: TermId,
-    ) -> Result<(), ApiError> {
+    ) -> Result<(), ProofCheckFailure> {
         let (levels, terms, env) = self.session.core_parts_mut();
         check(levels, terms, context, env, term, expected_type).map_err(|error| {
-            proof_check_failed(
+            self.failure(
                 proof_id,
-                "core checking failed while checking proof node",
-                error.to_deterministic_json(),
+                context,
+                proof_check_failed(
+                    proof_id,
+                    "core checking failed while checking proof node",
+                    error.to_deterministic_json(),
+                ),
             )
         })
     }
@@ -210,22 +251,57 @@ impl CheckNodeDriver<'_> {
         context: &LocalContext,
         field: &'static str,
         term: TermId,
-    ) -> Result<(), ApiError> {
+    ) -> Result<(), ProofCheckFailure> {
         let inferred = self.infer_term(proof_id, context, term)?;
         if matches!(self.session.terms().node(inferred), TermNode::Sort(_)) {
             return Ok(());
         }
 
-        Err(proof_check_failed(
+        Err(self.failure(
             proof_id,
-            format!("{field} must infer to a sort"),
-            format!(
-                "{{\"field\":\"{field}\",\"inferred_term\":{},\"term\":{}}}",
-                inferred.index(),
-                term.index()
+            context,
+            proof_check_failed(
+                proof_id,
+                format!("{field} must infer to a sort"),
+                format!(
+                    "{{\"field\":\"{field}\",\"inferred_term\":{},\"term\":{}}}",
+                    inferred.index(),
+                    term.index()
+                ),
             ),
         ))
     }
+
+    fn register_checked_term(
+        session: &mut ApiSession,
+        proof_id: ApiProofId,
+        context: &LocalContext,
+        term: TermId,
+    ) -> Result<ApiTermId, ProofCheckFailure> {
+        session
+            .register_term_id(term)
+            .map_err(|error| ProofCheckFailure::new(proof_id, context, error))
+    }
+
+    fn failure(
+        &self,
+        proof_id: ApiProofId,
+        context: &LocalContext,
+        error: ApiError,
+    ) -> ProofCheckFailure {
+        ProofCheckFailure::new(proof_id, context, error)
+    }
+}
+
+fn context_summary(context: &LocalContext) -> Vec<ApiTermId> {
+    context
+        .iter_outer_to_inner()
+        .map(|decl| {
+            ApiTermId(
+                u32::try_from(decl.ty().index()).expect("core term ids are represented as u32"),
+            )
+        })
+        .collect()
 }
 
 fn unknown_proof(proof_id: ApiProofId, field: impl Into<String>) -> ApiError {
