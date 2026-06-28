@@ -23,7 +23,7 @@ This package extends the prior MPK design with an implementation roadmap, task b
 │   ├── AXIOM_POLICY_V0.md
 │   ├── UNSAFE_POLICY_V0.md
 │   ├── GIR_V0.md
-│   ├── GO_SUBSET_V0_DRAFT.md
+│   ├── GO_SUBSET_V0.md
 │   └── AI_API_V0_DRAFT.md
 ├── roadmap/
 │   ├── ROADMAP.md

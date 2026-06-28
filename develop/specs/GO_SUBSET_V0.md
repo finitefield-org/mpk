@@ -1,8 +1,14 @@
-# Go Subset v0 Draft
+# Go Subset v0 Specification
+
+Status: frozen for implementation. This is the stable Go subset v0 source-language profile for SPEC-004. Changes require a new Go subset profile revision or a governance-approved amendment.
 
 ## Rationale
 
 The first MPK frontend targets a restricted Go subset to avoid semantic complexity while testing the proof-certificate pipeline. The goal is not full Go support. The goal is a credible, closed, auditable subset for program verification.
+
+## Fail-closed rule
+
+Any Go feature, type, statement, expression, build configuration, runtime behavior, or contract condition not explicitly accepted below must reject before GIR emission. The frontend must report the rejected feature rather than approximating or silently dropping semantics.
 
 ## Accepted language features
 

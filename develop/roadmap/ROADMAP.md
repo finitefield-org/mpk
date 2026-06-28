@@ -13,7 +13,7 @@ Deliverables:
 - `GIR_V0.md` frozen for implementation.
 - Axiom policy document.
 - Unsafe-code policy.
-- Supported/rejected Go subset document.
+- `GO_SUBSET_V0.md` frozen for implementation.
 - Deterministic hash-domain registry.
 
 Exit gate:
