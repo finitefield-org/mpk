@@ -10,6 +10,7 @@ pub mod gir;
 pub mod type_encode;
 pub mod vc;
 pub mod wp;
+pub mod wp_branch;
 
 pub use expr_encode::{
     encode_contract_expr, encode_gir_value, encode_instruction_expr, ExprContext, ExprEncodeError,
@@ -31,3 +32,4 @@ pub use type_encode::{
 };
 pub use vc::{VcModule, VcObligation, VcObligationKind};
 pub use wp::{generate_straight_line_vcs, WpError, WpGenerator};
+pub use wp_branch::{generate_branch_vcs, BranchWpGenerator};

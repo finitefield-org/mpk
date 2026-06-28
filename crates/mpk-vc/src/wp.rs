@@ -123,7 +123,7 @@ impl WpGenerator {
             .collect()
     }
 
-    fn execute_block(
+    pub(crate) fn execute_block(
         self,
         function: &GirFunction,
         block: &GirBlock,
@@ -136,7 +136,7 @@ impl WpGenerator {
         Ok(env)
     }
 
-    fn execute_instruction(
+    pub(crate) fn execute_instruction(
         self,
         function: &GirFunction,
         block: &GirBlock,
@@ -187,7 +187,7 @@ impl WpGenerator {
     }
 }
 
-fn initial_environment(function: &GirFunction) -> BTreeMap<String, MpkExprTerm> {
+pub(crate) fn initial_environment(function: &GirFunction) -> BTreeMap<String, MpkExprTerm> {
     let mut env = BTreeMap::new();
     for binding in function.params.iter().chain(function.locals.iter()) {
         if !binding.name.is_empty() {
@@ -202,7 +202,7 @@ fn initial_environment(function: &GirFunction) -> BTreeMap<String, MpkExprTerm> 
     env
 }
 
-fn encode_requires(
+pub(crate) fn encode_requires(
     function: &GirFunction,
     encoder: &ExprEncoder,
     env: &BTreeMap<String, MpkExprTerm>,
@@ -258,7 +258,7 @@ fn encode_return_terms(
         .collect()
 }
 
-fn ensure_supported_instruction(
+pub(crate) fn ensure_supported_instruction(
     function: &GirFunction,
     block: &GirBlock,
     instruction: &GirInstruction,
@@ -278,7 +278,7 @@ fn ensure_supported_instruction(
     }
 }
 
-fn ensure_instruction_shape(
+pub(crate) fn ensure_instruction_shape(
     function: &GirFunction,
     block: &GirBlock,
     instruction: &GirInstruction,
@@ -387,7 +387,7 @@ fn first_present<const N: usize>(checks: [(bool, &'static str); N]) -> Option<&'
         .find_map(|(present, reason)| present.then_some(reason))
 }
 
-fn validate_instruction_references(
+pub(crate) fn validate_instruction_references(
     function: &GirFunction,
     instruction: &GirInstruction,
     env: &BTreeMap<String, MpkExprTerm>,
@@ -419,7 +419,7 @@ fn validate_instruction_references(
     Ok(())
 }
 
-fn validate_value_reference(
+pub(crate) fn validate_value_reference(
     function: &GirFunction,
     value: &GirValue,
     env: &BTreeMap<String, MpkExprTerm>,
@@ -437,7 +437,7 @@ fn validate_value_reference(
     Ok(())
 }
 
-fn validate_contract_references(
+pub(crate) fn validate_contract_references(
     function: &GirFunction,
     input: &GirContractExpr,
     env: &BTreeMap<String, MpkExprTerm>,
@@ -483,7 +483,7 @@ fn validate_contract_references(
     Ok(())
 }
 
-fn substitute_term(
+pub(crate) fn substitute_term(
     input: &MpkExprTerm,
     variables: &BTreeMap<String, MpkExprTerm>,
     results: &BTreeMap<u32, MpkExprTerm>,
@@ -541,6 +541,30 @@ pub enum WpError {
         function_id: String,
         block_label: String,
         kind: GirTerminatorKind,
+    },
+    MissingBranchCondition {
+        function_id: String,
+        block_label: String,
+    },
+    MissingBranchLabel {
+        function_id: String,
+        block_label: String,
+        label_kind: &'static str,
+    },
+    UnknownBlockLabel {
+        function_id: String,
+        context: String,
+        block_label: String,
+    },
+    CyclicBranchPath {
+        function_id: String,
+        block_label: String,
+    },
+    UnsupportedTerminatorShape {
+        function_id: String,
+        block_label: String,
+        kind: GirTerminatorKind,
+        reason: &'static str,
     },
     ReturnArityMismatch {
         function_id: String,
@@ -638,6 +662,45 @@ impl fmt::Display for WpError {
             } => write!(
                 formatter,
                 "function {function_id:?} block {block_label:?} has unsupported terminator {kind:?}"
+            ),
+            Self::MissingBranchCondition {
+                function_id,
+                block_label,
+            } => write!(
+                formatter,
+                "function {function_id:?} block {block_label:?} is missing branch condition"
+            ),
+            Self::MissingBranchLabel {
+                function_id,
+                block_label,
+                label_kind,
+            } => write!(
+                formatter,
+                "function {function_id:?} block {block_label:?} is missing {label_kind} branch label"
+            ),
+            Self::UnknownBlockLabel {
+                function_id,
+                context,
+                block_label,
+            } => write!(
+                formatter,
+                "function {function_id:?} {context} references unknown block {block_label:?}"
+            ),
+            Self::CyclicBranchPath {
+                function_id,
+                block_label,
+            } => write!(
+                formatter,
+                "function {function_id:?} branch path cycles at block {block_label:?}"
+            ),
+            Self::UnsupportedTerminatorShape {
+                function_id,
+                block_label,
+                kind,
+                reason,
+            } => write!(
+                formatter,
+                "function {function_id:?} block {block_label:?} has invalid {kind:?} terminator shape: {reason}"
             ),
             Self::ReturnArityMismatch {
                 function_id,
