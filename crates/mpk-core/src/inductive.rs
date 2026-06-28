@@ -393,6 +393,7 @@ fn export_artifact(
         DeclarationKind::Constructor {
             ty,
             inductive: actual,
+            ..
         } if artifact_kind == "constructor" && actual == inductive => {
             Ok(ExportedInductiveDeclaration {
                 global,
@@ -403,6 +404,7 @@ fn export_artifact(
         DeclarationKind::Recursor {
             ty,
             inductive: actual,
+            ..
         } if artifact_kind == "recursor" && actual == inductive => {
             Ok(ExportedInductiveDeclaration {
                 global,
@@ -567,6 +569,7 @@ mod tests {
             DeclarationKind::Constructor {
                 ty,
                 inductive: registered.family,
+                generated: false,
             }
         );
     }
@@ -637,6 +640,7 @@ mod tests {
             DeclarationKind::Recursor {
                 ty,
                 inductive: registered.family,
+                generated: false,
             }
         );
     }

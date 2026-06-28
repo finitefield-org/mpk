@@ -14,6 +14,7 @@ pub mod level;
 pub mod name;
 pub mod positivity;
 pub mod reduce;
+pub mod reduce_inductive;
 pub mod subst;
 pub mod term;
 
@@ -36,5 +37,9 @@ pub use level::{LevelArena, LevelHash, LevelId, LevelNode};
 pub use name::{GlobalId, Name, NameError, NameResolver};
 pub use positivity::{check_mvp_positivity, PositivityErrorKind};
 pub use reduce::{whnf, whnf_with_fuel, ReduceError, DEFAULT_WHNF_FUEL};
+pub use reduce_inductive::{
+    reduce_generated_recursor_iota, reduce_generated_recursor_iota_with_fuel,
+    IotaReductionErrorKind, DEFAULT_IOTA_FUEL,
+};
 pub use subst::{beta_substitute, lift, lift_from, substitute, substitute_top, SubstError};
 pub use term::{TermArena, TermHash, TermId, TermNode};

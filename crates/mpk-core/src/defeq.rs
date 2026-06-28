@@ -5,6 +5,7 @@ use crate::{
     error::{CoreError, CoreErrorCode, CoreLocation},
     level::LevelId,
     reduce::{whnf_with_budget, ReduceError},
+    reduce_inductive::try_reduce_generated_recursor_iota_with_budget,
     term::{TermArena, TermId, TermNode},
 };
 
@@ -151,6 +152,16 @@ impl DefEqChecker<'_, '_> {
 
             if let Some(value) = self.reducible_definition_value(current) {
                 self.consume_delta_step(lhs, rhs, current)?;
+                current = value;
+                continue;
+            }
+
+            if let Some(value) = try_reduce_generated_recursor_iota_with_budget(
+                self.env,
+                self.terms,
+                current,
+                &mut self.fuel,
+            )? {
                 current = value;
                 continue;
             }

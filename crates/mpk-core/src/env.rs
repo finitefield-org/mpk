@@ -39,10 +39,12 @@ pub enum DeclarationKind {
     Constructor {
         ty: TermId,
         inductive: GlobalId,
+        generated: bool,
     },
     Recursor {
         ty: TermId,
         inductive: GlobalId,
+        generated: bool,
     },
 }
 
@@ -85,6 +87,26 @@ impl DeclarationKind {
             self,
             Self::Definition {
                 reducibility: DefinitionReducibility::Reducible,
+                ..
+            }
+        )
+    }
+
+    pub fn is_generated_constructor(self) -> bool {
+        matches!(
+            self,
+            Self::Constructor {
+                generated: true,
+                ..
+            }
+        )
+    }
+
+    pub fn is_generated_recursor(self) -> bool {
+        matches!(
+            self,
+            Self::Recursor {
+                generated: true,
                 ..
             }
         )
@@ -187,8 +209,34 @@ impl Environment {
         ty: TermId,
         inductive: GlobalId,
     ) -> Result<GlobalId, CoreError> {
+        self.register_constructor_with_generated(name, ty, inductive, false)
+    }
+
+    pub fn register_generated_constructor(
+        &mut self,
+        name: impl AsRef<str>,
+        ty: TermId,
+        inductive: GlobalId,
+    ) -> Result<GlobalId, CoreError> {
+        self.register_constructor_with_generated(name, ty, inductive, true)
+    }
+
+    fn register_constructor_with_generated(
+        &mut self,
+        name: impl AsRef<str>,
+        ty: TermId,
+        inductive: GlobalId,
+        generated: bool,
+    ) -> Result<GlobalId, CoreError> {
         self.validate_inductive_reference(inductive, "constructor")?;
-        self.register(name, DeclarationKind::Constructor { ty, inductive })
+        self.register(
+            name,
+            DeclarationKind::Constructor {
+                ty,
+                inductive,
+                generated,
+            },
+        )
     }
 
     pub fn register_recursor(
@@ -197,8 +245,34 @@ impl Environment {
         ty: TermId,
         inductive: GlobalId,
     ) -> Result<GlobalId, CoreError> {
+        self.register_recursor_with_generated(name, ty, inductive, false)
+    }
+
+    pub fn register_generated_recursor(
+        &mut self,
+        name: impl AsRef<str>,
+        ty: TermId,
+        inductive: GlobalId,
+    ) -> Result<GlobalId, CoreError> {
+        self.register_recursor_with_generated(name, ty, inductive, true)
+    }
+
+    fn register_recursor_with_generated(
+        &mut self,
+        name: impl AsRef<str>,
+        ty: TermId,
+        inductive: GlobalId,
+        generated: bool,
+    ) -> Result<GlobalId, CoreError> {
         self.validate_inductive_reference(inductive, "recursor")?;
-        self.register(name, DeclarationKind::Recursor { ty, inductive })
+        self.register(
+            name,
+            DeclarationKind::Recursor {
+                ty,
+                inductive,
+                generated,
+            },
+        )
     }
 
     pub fn register(
@@ -408,13 +482,50 @@ mod tests {
 
         assert_eq!(
             env.lookup(constructor).expect("constructor").kind(),
-            DeclarationKind::Constructor { ty, inductive }
+            DeclarationKind::Constructor {
+                ty,
+                inductive,
+                generated: false,
+            }
         );
         assert_eq!(
             env.lookup(recursor).expect("recursor").kind(),
-            DeclarationKind::Recursor { ty, inductive }
+            DeclarationKind::Recursor {
+                ty,
+                inductive,
+                generated: false,
+            }
         );
         assert_eq!(env.lookup(inductive).expect("inductive").ty(), ty);
+    }
+
+    #[test]
+    fn generated_constructor_and_recursor_are_marked() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let ty = sort(&mut terms, &mut levels, "u");
+        let mut env = Environment::new();
+
+        let inductive = env
+            .register_inductive("Std.Bool", ty)
+            .expect("valid inductive");
+        let constructor = env
+            .register_generated_constructor("Std.Bool.true", ty, inductive)
+            .expect("valid generated constructor");
+        let recursor = env
+            .register_generated_recursor("Std.Bool.rec", ty, inductive)
+            .expect("valid generated recursor");
+
+        assert!(env
+            .lookup(constructor)
+            .expect("constructor")
+            .kind()
+            .is_generated_constructor());
+        assert!(env
+            .lookup(recursor)
+            .expect("recursor")
+            .kind()
+            .is_generated_recursor());
     }
 
     #[test]

@@ -105,7 +105,7 @@ pub fn generate_mvp_inductive_declarations(
         .iter()
         .zip(constructor_types.iter().copied())
     {
-        constructors.push(env.register_constructor(
+        constructors.push(env.register_generated_constructor(
             constructor_name.as_str(),
             constructor_type,
             family,
@@ -114,7 +114,7 @@ pub fn generate_mvp_inductive_declarations(
 
     let recursor_type = generated_recursor_type(input.shape, terms, family_term);
     let recursor =
-        env.register_recursor(generated_names.recursor.as_str(), recursor_type, family)?;
+        env.register_generated_recursor(generated_names.recursor.as_str(), recursor_type, family)?;
 
     let registered = RegisteredInductive {
         shape: input.shape,
