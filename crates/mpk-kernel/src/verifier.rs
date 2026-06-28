@@ -113,7 +113,7 @@ fn verify_certificate(
     let mut declaration_context =
         check_declarations_with_context(&certificate).map_err(VerificationError::declaration)?;
     let declaration_count = declaration_context.declaration_count();
-    check_proof_nodes_with_context(&mut declaration_context, ProofCheckProfile::CoreBootstrap)
+    check_proof_nodes_with_context(&mut declaration_context, ProofCheckProfile::MvpStructural)
         .map_err(VerificationError::proof)?;
     reject_unsupported_certificate_features(&certificate)?;
     let axiom_report = verify_recomputed_certificate_sections(&certificate)?;
@@ -266,7 +266,7 @@ mod tests {
         axiom_report_hash_for_report, build_axiom_report, build_export_block,
         encode::{
             AxiomReport, Certificate, CertificateHashes, Declaration, DeclarationKind, LevelNode,
-            ProofNode, TermNode,
+            ProofNode, TermNode, TheoryCertificate,
         },
         encode_certificate, export_block_hash,
     };
@@ -486,11 +486,14 @@ mod tests {
     }
 
     #[test]
-    fn rejects_non_bootstrap_proof_node_by_profile() {
+    fn rejects_theory_proof_node_by_profile() {
         let mut certificate = bootstrap_proof_node_certificate();
-        certificate.proof_node_table.push(ProofNode::LetProof {
-            value: 2,
-            body_proof: 0,
+        certificate.theory_certificates.push(TheoryCertificate {
+            format: "dummy".to_owned(),
+            payload: Vec::new(),
+        });
+        certificate.proof_node_table.push(ProofNode::Theory {
+            theory_certificate: 0,
             expected_type: 0,
         });
         certificate = finalize_certificate(certificate);

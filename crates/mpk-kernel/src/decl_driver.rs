@@ -181,10 +181,50 @@ impl<'certificate> CheckedDeclarationContext<'certificate> {
                         .register_theorem(name, ty, proof)
                         .map_err(DeclarationCheckError::core)?
                 }
-                DeclarationKind::Inductive { .. }
-                | DeclarationKind::Constructor { .. }
-                | DeclarationKind::Recursor { .. }
-                | DeclarationKind::TheoryPrimitive { .. } => {
+                DeclarationKind::Inductive { ty } => {
+                    let ty = self.translate_term(*ty)?;
+                    self.expect_term_type_is_sort(index, "inductive_type", ty)?;
+                    self.env
+                        .register_inductive(name, ty)
+                        .map_err(DeclarationCheckError::core)?
+                }
+                DeclarationKind::Constructor {
+                    ty,
+                    inductive,
+                    generated,
+                } => {
+                    let ty = self.translate_term(*ty)?;
+                    let inductive = self.global_by_dependency(*inductive)?;
+                    self.expect_term_type_is_sort(index, "constructor_type", ty)?;
+                    if *generated {
+                        self.env
+                            .register_generated_constructor(name, ty, inductive)
+                            .map_err(DeclarationCheckError::core)?
+                    } else {
+                        self.env
+                            .register_constructor(name, ty, inductive)
+                            .map_err(DeclarationCheckError::core)?
+                    }
+                }
+                DeclarationKind::Recursor {
+                    ty,
+                    inductive,
+                    generated,
+                } => {
+                    let ty = self.translate_term(*ty)?;
+                    let inductive = self.global_by_dependency(*inductive)?;
+                    self.expect_term_type_is_sort(index, "recursor_type", ty)?;
+                    if *generated {
+                        self.env
+                            .register_generated_recursor(name, ty, inductive)
+                            .map_err(DeclarationCheckError::core)?
+                    } else {
+                        self.env
+                            .register_recursor(name, ty, inductive)
+                            .map_err(DeclarationCheckError::core)?
+                    }
+                }
+                DeclarationKind::TheoryPrimitive { .. } => {
                     return Err(DeclarationCheckError::unsupported(format!(
                         "declaration {index} uses a declaration kind not implemented by KERN-002"
                     )));
@@ -320,6 +360,16 @@ impl<'certificate> CheckedDeclarationContext<'certificate> {
 
         self.term_cache[index] = Some(translated);
         Ok(translated)
+    }
+
+    pub(crate) fn global_by_index(&self, global: u32) -> Result<GlobalId, DeclarationCheckError> {
+        let index = usize::try_from(global).expect("u32 id fits in usize");
+        self.globals.get(index).copied().ok_or_else(|| {
+            DeclarationCheckError::new(
+                DeclarationCheckErrorKind::MissingGlobal,
+                format!("certificate references missing global {global}"),
+            )
+        })
     }
 
     fn global_by_dependency(&self, global: u32) -> Result<GlobalId, DeclarationCheckError> {
