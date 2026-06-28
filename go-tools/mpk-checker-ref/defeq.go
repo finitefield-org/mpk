@@ -102,7 +102,7 @@ func (s *coreState) whnf(term coreTermID, fuel *uint32, unfoldDefinitions bool) 
 			current = declaration.value
 		case TermApp:
 			if unfoldDefinitions {
-				if reduced, ok, err := s.tryReduceGeneratedBoolRecursor(current, fuel); err != nil || ok {
+				if reduced, ok, err := s.tryReduceGeneratedRecursor(current, fuel); err != nil || ok {
 					return reduced, err
 				}
 			}
@@ -112,7 +112,7 @@ func (s *coreState) whnf(term coreTermID, fuel *uint32, unfoldDefinitions bool) 
 			}
 			if unfoldDefinitions {
 				next := s.terms.app(reducedFunction, node.Arguments)
-				if reduced, ok, err := s.tryReduceGeneratedBoolRecursor(next, fuel); err != nil || ok {
+				if reduced, ok, err := s.tryReduceGeneratedRecursor(next, fuel); err != nil || ok {
 					return reduced, err
 				}
 			}
@@ -142,7 +142,7 @@ func (s *coreState) whnf(term coreTermID, fuel *uint32, unfoldDefinitions bool) 
 	}
 }
 
-func (s *coreState) tryReduceGeneratedBoolRecursor(term coreTermID, fuel *uint32) (coreTermID, bool, error) {
+func (s *coreState) tryReduceGeneratedRecursor(term coreTermID, fuel *uint32) (coreTermID, bool, error) {
 	node := s.terms.node(term)
 	if node.Tag != TermApp || len(node.Arguments) < 3 {
 		return term, false, nil
@@ -159,33 +159,68 @@ func (s *coreState) tryReduceGeneratedBoolRecursor(term coreTermID, fuel *uint32
 	}
 	familyDecl, ok := s.env.lookup(recursorDecl.inductive)
 	if !ok || familyDecl.tag != DeclInductive {
-		return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated recursor references missing Bool family")
+		return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated recursor references missing family")
 	}
 	if recursorDecl.name != familyDecl.name+".rec" {
-		return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated recursor name does not match Bool family")
+		return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated recursor name does not match family")
 	}
 
 	constructors := s.generatedConstructors(recursorDecl.inductive)
-	if len(constructors) != 2 ||
-		constructors[0].name != familyDecl.name+".false" ||
-		constructors[1].name != familyDecl.name+".true" {
-		return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated Bool constructors do not match false/true shape")
+	isBoolShape := len(constructors) == 2 &&
+		constructors[0].name == familyDecl.name+".false" &&
+		constructors[1].name == familyDecl.name+".true"
+	isNatShape := len(constructors) == 2 &&
+		constructors[0].name == familyDecl.name+".zero" &&
+		constructors[1].name == familyDecl.name+".succ"
+	if !isBoolShape && !isNatShape {
+		return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated recursor constructors do not match supported Bool/Nat shape")
 	}
 
 	majorHead, majorArgs, ok := s.constSpine(node.Arguments[2])
-	if !ok || len(majorArgs) != 0 {
+	if !ok {
 		return term, false, nil
+	}
+	majorDecl, ok := s.env.lookup(majorHead)
+	if !ok {
+		return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated recursor has unknown major constructor")
+	}
+	if majorDecl.tag != DeclConstructor {
+		return term, false, nil
+	}
+	if majorDecl.inductive != recursorDecl.inductive || !majorDecl.generated {
+		return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated recursor has unknown major constructor")
 	}
 
 	var reduced coreTermID
-	switch majorHead {
-	case constructors[0].global:
-		reduced = node.Arguments[0]
-	case constructors[1].global:
-		reduced = node.Arguments[1]
-	default:
-		return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated Bool recursor has unknown major constructor")
+	if isBoolShape {
+		if len(majorArgs) != 0 {
+			return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated Bool constructor equation has unexpected arguments")
+		}
+		switch majorHead {
+		case constructors[0].global:
+			reduced = node.Arguments[0]
+		case constructors[1].global:
+			reduced = node.Arguments[1]
+		default:
+			return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated recursor has unknown major constructor")
+		}
+	} else {
+		switch majorHead {
+		case constructors[0].global:
+			if len(majorArgs) != 0 {
+				return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated Nat zero equation has unexpected arguments")
+			}
+			reduced = node.Arguments[0]
+		case constructors[1].global:
+			if len(majorArgs) != 1 {
+				return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated Nat succ equation has unexpected predecessor count")
+			}
+			reduced = s.reduceGeneratedNatSuccRecursor(recursor, function.Levels, node.Arguments, majorArgs[0])
+		default:
+			return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated recursor has unknown major constructor")
+		}
 	}
+
 	if err := consumeCoreFuel(fuel); err != nil {
 		return 0, true, err
 	}
@@ -193,6 +228,16 @@ func (s *coreState) tryReduceGeneratedBoolRecursor(term coreTermID, fuel *uint32
 		reduced = s.terms.app(reduced, node.Arguments[3:])
 	}
 	return reduced, true, nil
+}
+
+func (s *coreState) reduceGeneratedNatSuccRecursor(recursor coreGlobalID, levels []coreLevelID, recursorArgs []coreTermID, predecessor coreTermID) coreTermID {
+	recursorConst := s.terms.constant(recursor, levels)
+	recursiveResult := s.terms.app(recursorConst, []coreTermID{
+		recursorArgs[0],
+		recursorArgs[1],
+		predecessor,
+	})
+	return s.terms.app(recursorArgs[1], []coreTermID{predecessor, recursiveResult})
 }
 
 type generatedConstructor struct {

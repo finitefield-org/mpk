@@ -103,6 +103,45 @@ func TestDefeqReducesGeneratedBoolRecursorIota(t *testing.T) {
 	assertDefeq(t, &state, trueRedex, trueTerm, true)
 }
 
+func TestDefeqReducesGeneratedNatRecursorIota(t *testing.T) {
+	state := newCoreState()
+	natType := state.terms.sort(state.levels.zero())
+	natGlobal, err := state.env.registerInductive("Std.Nat", natType)
+	if err != nil {
+		t.Fatalf("register Nat: %v", err)
+	}
+	natTerm := state.terms.constant(natGlobal, nil)
+	zeroGlobal, err := state.env.registerGenerated("Std.Nat.zero", DeclConstructor, natTerm, natGlobal, true)
+	if err != nil {
+		t.Fatalf("register zero: %v", err)
+	}
+	succType := state.terms.pi(natTerm, natTerm)
+	succGlobal, err := state.env.registerGenerated("Std.Nat.succ", DeclConstructor, succType, natGlobal, true)
+	if err != nil {
+		t.Fatalf("register succ: %v", err)
+	}
+	stepType := state.terms.pi(natTerm, state.terms.pi(natTerm, natTerm))
+	recType := state.terms.pi(natTerm, state.terms.pi(stepType, state.terms.pi(natTerm, natTerm)))
+	recGlobal, err := state.env.registerGenerated("Std.Nat.rec", DeclRecursor, recType, natGlobal, true)
+	if err != nil {
+		t.Fatalf("register recursor: %v", err)
+	}
+
+	rec := state.terms.constant(recGlobal, nil)
+	zeroTerm := state.terms.constant(zeroGlobal, nil)
+	succ := state.terms.constant(succGlobal, nil)
+	step := state.terms.lam(
+		natTerm,
+		state.terms.lam(natTerm, state.terms.app(succ, []coreTermID{state.terms.varTerm(0)})),
+	)
+	succZero := state.terms.app(succ, []coreTermID{zeroTerm})
+	zeroRedex := state.terms.app(rec, []coreTermID{zeroTerm, step, zeroTerm})
+	succRedex := state.terms.app(rec, []coreTermID{zeroTerm, step, succZero})
+
+	assertDefeq(t, &state, zeroRedex, zeroTerm, true)
+	assertDefeq(t, &state, succRedex, succZero, true)
+}
+
 func TestDefeqDoesNotUnfoldOpaqueDefinitionsOrTheorems(t *testing.T) {
 	state := newCoreState()
 	zero := state.levels.zero()
