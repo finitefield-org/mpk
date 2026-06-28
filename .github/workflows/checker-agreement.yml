@@ -1,0 +1,23 @@
+name: Checker Agreement
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  checker-agreement:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go-tools/mpk-checker-ref/go.mod
+
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Run checker agreement corpus
+        run: ./scripts/checker-agreement.sh
