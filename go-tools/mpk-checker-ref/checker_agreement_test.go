@@ -50,6 +50,7 @@ func checkerAgreementFixtures(t *testing.T) []string {
 		"proofs/std/int/*.hex",
 		"proofs/std/bitvec/*.hex",
 		"proofs/std/array/*.hex",
+		"proofs/go/base/*.hex",
 	}
 
 	var fixtures []string
