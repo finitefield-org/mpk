@@ -2,6 +2,8 @@
 
 use std::collections::HashMap;
 
+use crate::{Name, NameError};
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash, Ord, PartialOrd)]
 pub struct LevelId(u32);
 
@@ -16,7 +18,7 @@ pub enum LevelNode {
     Zero,
     Succ(LevelId),
     Max(LevelId, LevelId),
-    Param(String),
+    Param(Name),
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
@@ -69,8 +71,12 @@ impl LevelArena {
         &self.nodes[id.index()]
     }
 
-    pub fn param(&mut self, name: impl Into<String>) -> LevelId {
-        self.intern_normalized(LevelNode::Param(name.into()))
+    pub fn param(&mut self, name: Name) -> LevelId {
+        self.intern_normalized(LevelNode::Param(name))
+    }
+
+    pub fn parse_param(&mut self, name: impl AsRef<str>) -> Result<LevelId, NameError> {
+        Ok(self.param(Name::parse(name)?))
     }
 
     pub fn succ(&mut self, inner: LevelId) -> LevelId {
@@ -147,7 +153,7 @@ impl LevelArena {
                     self.canonical_key(*rhs)
                 )
             }
-            LevelNode::Param(name) => format!("p:{}:{name}", name.len()),
+            LevelNode::Param(name) => format!("p:{}:{}", name.as_str().len(), name.as_str()),
         }
     }
 
@@ -171,8 +177,8 @@ impl LevelArena {
             }
             LevelNode::Param(name) => {
                 hasher.write_u8(3);
-                hasher.write_u64(name.len() as u64);
-                hasher.write_bytes(name.as_bytes());
+                hasher.write_u64(name.as_str().len() as u64);
+                hasher.write_bytes(name.as_str().as_bytes());
             }
         }
 
@@ -216,6 +222,10 @@ impl StableLevelHasher {
 mod tests {
     use super::{LevelArena, LevelNode};
 
+    fn param(arena: &mut LevelArena, name: &str) -> super::LevelId {
+        arena.parse_param(name).expect("valid level param name")
+    }
+
     #[test]
     fn zero_is_canonical() {
         let arena = LevelArena::new();
@@ -228,7 +238,7 @@ mod tests {
     #[test]
     fn max_drops_zero_and_deduplicates_terms() {
         let mut arena = LevelArena::new();
-        let u = arena.param("u");
+        let u = param(&mut arena, "u");
         let max_with_zero = arena.max(u, arena.zero());
         let duplicate = arena.max(u, u);
 
@@ -239,8 +249,8 @@ mod tests {
     #[test]
     fn max_normalization_is_order_independent() {
         let mut arena = LevelArena::new();
-        let u = arena.param("u");
-        let v = arena.param("v");
+        let u = param(&mut arena, "u");
+        let v = param(&mut arena, "v");
 
         let lhs = arena.max(u, v);
         let rhs = arena.max(v, u);
@@ -251,9 +261,9 @@ mod tests {
     #[test]
     fn nested_max_flattens_and_sorts_terms() {
         let mut arena = LevelArena::new();
-        let u = arena.param("u");
-        let v = arena.param("v");
-        let w = arena.param("w");
+        let u = param(&mut arena, "u");
+        let v = param(&mut arena, "v");
+        let w = param(&mut arena, "w");
         let uv = arena.max(u, v);
         let nested = arena.max(w, uv);
         let wv = arena.max(w, v);
@@ -269,7 +279,7 @@ mod tests {
     #[test]
     fn succ_normalizes_its_inner_level() {
         let mut arena = LevelArena::new();
-        let u = arena.param("u");
+        let u = param(&mut arena, "u");
         let with_zero = arena.max(arena.zero(), u);
 
         assert_eq!(with_zero, u);
@@ -279,8 +289,8 @@ mod tests {
     #[test]
     fn stable_hash_uses_normal_form() {
         let mut arena = LevelArena::new();
-        let u = arena.param("u");
-        let v = arena.param("v");
+        let u = param(&mut arena, "u");
+        let v = param(&mut arena, "v");
         let first = arena.max(u, v);
         let second = arena.max(v, u);
 

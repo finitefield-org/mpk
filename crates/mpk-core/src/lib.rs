@@ -3,7 +3,9 @@
 #![forbid(unsafe_code)]
 
 pub mod level;
+pub mod name;
 pub mod term;
 
 pub use level::{LevelArena, LevelHash, LevelId, LevelNode};
-pub use term::{GlobalId, TermArena, TermHash, TermId, TermNode};
+pub use name::{GlobalId, Name, NameError, NameResolver};
+pub use term::{TermArena, TermHash, TermId, TermNode};

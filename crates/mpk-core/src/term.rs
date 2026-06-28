@@ -2,20 +2,7 @@
 
 use std::collections::HashMap;
 
-use crate::{LevelArena, LevelId};
-
-#[derive(Clone, Debug, Eq, PartialEq, Hash, Ord, PartialOrd)]
-pub struct GlobalId(String);
-
-impl GlobalId {
-    pub fn unchecked(name: impl Into<String>) -> Self {
-        Self(name.into())
-    }
-
-    pub fn as_str(&self) -> &str {
-        &self.0
-    }
-}
+use crate::{GlobalId, LevelArena, LevelId};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash, Ord, PartialOrd)]
 pub struct TermId(u32);
@@ -177,7 +164,7 @@ impl TermArena {
             }
             TermNode::Const { global, levels: ls } => {
                 hasher.write_u8(2);
-                hasher.write_str(global.as_str());
+                hasher.write_u64(u64::from(global.as_u32()));
                 hasher.write_u64(ls.len() as u64);
                 for level in ls {
                     hasher.write_u64(levels.stable_hash(level).as_u64());
@@ -247,11 +234,6 @@ impl StableTermHasher {
         self.write_bytes(&value.to_le_bytes());
     }
 
-    fn write_str(&mut self, value: &str) {
-        self.write_u64(value.len() as u64);
-        self.write_bytes(value.as_bytes());
-    }
-
     fn write_bytes(&mut self, bytes: &[u8]) {
         for byte in bytes {
             self.write_u8(*byte);
@@ -265,13 +247,17 @@ impl StableTermHasher {
 
 #[cfg(test)]
 mod tests {
-    use crate::{GlobalId, LevelArena, TermArena, TermNode};
+    use crate::{LevelArena, NameResolver, TermArena, TermNode};
+
+    fn param(levels: &mut LevelArena, name: &str) -> crate::LevelId {
+        levels.parse_param(name).expect("valid level param name")
+    }
 
     #[test]
     fn interns_identical_terms() {
         let mut levels = LevelArena::new();
         let mut terms = TermArena::new();
-        let u = levels.param("u");
+        let u = param(&mut levels, "u");
 
         let first_sort = terms.sort(u);
         let second_sort = terms.sort(u);
@@ -314,7 +300,7 @@ mod tests {
     fn terms_are_topologically_inspectable() {
         let mut levels = LevelArena::new();
         let mut terms = TermArena::new();
-        let u = levels.param("u");
+        let u = param(&mut levels, "u");
         let ty = terms.sort(u);
         let var = terms.var(0);
         let lam = terms.lam(ty, var);
@@ -335,7 +321,7 @@ mod tests {
     fn structural_hash_is_stable_for_interned_terms() {
         let mut levels = LevelArena::new();
         let mut terms = TermArena::new();
-        let u = levels.param("u");
+        let u = param(&mut levels, "u");
         let ty = terms.sort(u);
         let var = terms.var(0);
 
@@ -352,12 +338,14 @@ mod tests {
     #[test]
     fn const_hash_includes_level_arguments() {
         let mut levels = LevelArena::new();
+        let mut names = NameResolver::new();
         let mut terms = TermArena::new();
-        let u = levels.param("u");
-        let v = levels.param("v");
+        let u = param(&mut levels, "u");
+        let v = param(&mut levels, "v");
+        let core_id = names.register("Core.Id").expect("valid global name");
 
-        let const_u = terms.constant(GlobalId::unchecked("Core.Id"), [u]);
-        let const_v = terms.constant(GlobalId::unchecked("Core.Id"), [v]);
+        let const_u = terms.constant(core_id, [u]);
+        let const_v = terms.constant(core_id, [v]);
         let const_u_hash = terms.structural_hash(&mut levels, const_u);
         let const_v_hash = terms.structural_hash(&mut levels, const_v);
 
