@@ -14,6 +14,7 @@ pub use decl_driver::{
 };
 pub use json_output::{
     render_verification_error_json, render_verification_report_json, verify_certificate_bytes_json,
+    verify_certificate_bytes_json_output, VerificationJsonOutput,
 };
 pub use proof_check::{
     check_proof_nodes, check_proof_nodes_with_profile, ProofCheckError, ProofCheckErrorKind,

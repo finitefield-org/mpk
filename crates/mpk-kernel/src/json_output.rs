@@ -12,11 +12,27 @@ use mpk_cert::{
 
 use crate::verifier::{verify_certificate_bytes, VerificationError, VerificationReport};
 
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct VerificationJsonOutput {
+    pub accepted: bool,
+    pub json: String,
+}
+
 pub fn verify_certificate_bytes_json(bytes: &[u8]) -> String {
+    verify_certificate_bytes_json_output(bytes).json
+}
+
+pub fn verify_certificate_bytes_json_output(bytes: &[u8]) -> VerificationJsonOutput {
     let computed_certificate_hash = certificate_hash(bytes);
     match verify_certificate_bytes(bytes) {
-        Ok(report) => render_verification_report_json(&report),
-        Err(error) => render_verification_error_json(&computed_certificate_hash, &error),
+        Ok(report) => VerificationJsonOutput {
+            accepted: true,
+            json: render_verification_report_json(&report),
+        },
+        Err(error) => VerificationJsonOutput {
+            accepted: false,
+            json: render_verification_error_json(&computed_certificate_hash, &error),
+        },
     }
 }
 
@@ -207,7 +223,10 @@ mod tests {
 
     use crate::verifier::VerificationReport;
 
-    use super::{render_verification_report_json, verify_certificate_bytes_json};
+    use super::{
+        render_verification_report_json, verify_certificate_bytes_json,
+        verify_certificate_bytes_json_output,
+    };
 
     const CERT_BASIC_FIXTURE_DIR: &str =
         concat!(env!("CARGO_MANIFEST_DIR"), "/../../fixtures/cert-basic");
@@ -240,9 +259,11 @@ mod tests {
     #[test]
     fn accepted_output_matches_snapshot() {
         let bytes = decode_hex_fixture(&Path::new(CERT_BASIC_FIXTURE_DIR).join("zero-axiom.hex"));
+        let output = verify_certificate_bytes_json_output(&bytes);
 
+        assert!(output.accepted);
         assert_eq!(
-            verify_certificate_bytes_json(&bytes),
+            output.json,
             concat!(
                 "{\"verdict\":\"accepted\",\"module\":\"Example.Basic.ZeroAxiom\",",
                 "\"declaration_count\":0,\"axiom_count\":0,",
@@ -263,9 +284,11 @@ mod tests {
         let bytes = decode_hex_fixture(
             &Path::new(CERT_CANONICAL_NONCANONICAL_FIXTURE_DIR).join("unsorted-name-table.hex"),
         );
+        let output = verify_certificate_bytes_json_output(&bytes);
 
+        assert!(!output.accepted);
         assert_eq!(
-            verify_certificate_bytes_json(&bytes),
+            output.json,
             concat!(
                 "{\"verdict\":\"rejected\",\"module\":null,\"declaration_count\":null,",
                 "\"axiom_count\":null,\"hashes\":{\"export\":null,\"axiom_report\":null,",
@@ -274,6 +297,7 @@ mod tests {
                 "\"error_detail\":\"name_table: Z before A\"}"
             )
         );
+        assert_eq!(verify_certificate_bytes_json(&bytes), output.json);
     }
 
     #[test]
