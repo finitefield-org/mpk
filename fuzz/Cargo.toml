@@ -11,10 +11,18 @@ cargo-fuzz = true
 libfuzzer-sys = "0.4"
 mpk-cert = { path = "../crates/mpk-cert" }
 mpk-kernel = { path = "../crates/mpk-kernel" }
+mpk-theory = { path = "../crates/mpk-theory" }
 
 [[bin]]
 name = "certificate_decoder"
 path = "fuzz_targets/certificate_decoder.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "theory_certificates"
+path = "fuzz_targets/theory_certificates.rs"
 test = false
 doc = false
 bench = false
