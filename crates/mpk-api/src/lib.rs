@@ -7,8 +7,13 @@
 #![forbid(unsafe_code)]
 
 pub mod session;
+pub mod term_api;
 
 pub use session::{
     ApiError, ApiErrorCode, ApiService, ApiSession, ProofProfile, SessionId, SessionStatus,
     SessionSummary, StartSessionRequest, StartSessionResponse,
+};
+pub use term_api::{
+    ApiTermId, AppTermRequest, BinderTermRequest, ConstTermRequest, LetTermRequest,
+    SortTermRequest, TermResponse, VarTermRequest,
 };

@@ -3,7 +3,8 @@
 use std::collections::BTreeMap;
 use std::fmt;
 
-use mpk_core::{Environment, LevelArena, Name, TermArena};
+use crate::term_api::ApiTermId;
+use mpk_core::{Environment, LevelArena, Name, TermArena, TermId};
 use mpk_kernel::ProofCheckProfile;
 use serde::{Deserialize, Serialize};
 
@@ -38,6 +39,7 @@ impl ApiService {
             status: SessionStatus::Active,
             levels: LevelArena::new(),
             terms: TermArena::new(),
+            term_ids: BTreeMap::new(),
             environment: Environment::new(),
         };
         let response = session.summary().into_start_response();
@@ -87,6 +89,7 @@ pub struct ApiSession {
     status: SessionStatus,
     levels: LevelArena,
     terms: TermArena,
+    term_ids: BTreeMap<ApiTermId, TermId>,
     environment: Environment,
 }
 
@@ -125,6 +128,41 @@ impl ApiSession {
 
     pub fn terms_mut(&mut self) -> &mut TermArena {
         &mut self.terms
+    }
+
+    pub fn core_term_id(&self, term_id: ApiTermId) -> Option<TermId> {
+        self.term_ids.get(&term_id).copied()
+    }
+
+    pub(crate) fn register_term_id(&mut self, term_id: TermId) -> Result<ApiTermId, ApiError> {
+        let api_term_id = ApiTermId(u32::try_from(term_id.index()).map_err(|_| {
+            ApiError::new(
+                ApiErrorCode::TermIdOverflow,
+                "core term id exceeded API u32 term ids",
+                None,
+                Some(term_id.index().to_string()),
+            )
+        })?);
+        self.term_ids.insert(api_term_id, term_id);
+        Ok(api_term_id)
+    }
+
+    pub(crate) fn require_term_id(
+        &self,
+        term_id: ApiTermId,
+        field: impl Into<String>,
+    ) -> Result<TermId, ApiError> {
+        self.core_term_id(term_id).ok_or_else(|| {
+            ApiError::new(
+                ApiErrorCode::UnknownTerm,
+                format!(
+                    "term id {} is not interned in this API session",
+                    term_id.as_u32()
+                ),
+                Some(field.into()),
+                None,
+            )
+        })
     }
 
     pub fn environment(&self) -> &Environment {
@@ -258,6 +296,20 @@ pub struct ApiError {
 }
 
 impl ApiError {
+    pub(crate) fn new(
+        code: ApiErrorCode,
+        message: impl Into<String>,
+        field: Option<String>,
+        detail: Option<String>,
+    ) -> Self {
+        Self {
+            code,
+            message: message.into(),
+            field,
+            detail,
+        }
+    }
+
     fn invalid_module_name(message: impl Into<String>, detail: impl Into<String>) -> Self {
         Self {
             code: ApiErrorCode::InvalidModuleName,
@@ -267,7 +319,7 @@ impl ApiError {
         }
     }
 
-    fn unknown_session(session_id: &SessionId) -> Self {
+    pub(crate) fn unknown_session(session_id: &SessionId) -> Self {
         Self {
             code: ApiErrorCode::UnknownSession,
             message: format!("API session {session_id} does not exist"),
@@ -298,16 +350,26 @@ impl std::error::Error for ApiError {}
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum ApiErrorCode {
     InvalidModuleName,
+    InvalidGlobalName,
     SessionLimitExceeded,
+    TermIdOverflow,
     UnknownSession,
+    UnknownGlobal,
+    UnknownTerm,
+    UnsupportedUniverseLevel,
 }
 
 impl ApiErrorCode {
     pub fn as_str(self) -> &'static str {
         match self {
             Self::InvalidModuleName => "INVALID_MODULE_NAME",
+            Self::InvalidGlobalName => "INVALID_GLOBAL_NAME",
             Self::SessionLimitExceeded => "SESSION_LIMIT_EXCEEDED",
+            Self::TermIdOverflow => "TERM_ID_OVERFLOW",
             Self::UnknownSession => "UNKNOWN_SESSION",
+            Self::UnknownGlobal => "UNKNOWN_GLOBAL",
+            Self::UnknownTerm => "UNKNOWN_TERM",
+            Self::UnsupportedUniverseLevel => "UNSUPPORTED_UNIVERSE_LEVEL",
         }
     }
 }
