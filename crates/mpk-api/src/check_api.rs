@@ -33,11 +33,7 @@ impl ApiService {
     ) -> Result<CheckNodeResponse, ApiError> {
         let session_id = request.session_id;
         let session = self.require_session_mut(&session_id)?;
-        session.require_proof_id(request.proof_id, "proof_id")?;
-
-        let term =
-            CheckNodeDriver { session }.check_node(request.proof_id, &LocalContext::new())?;
-        let term_id = session.register_term_id(term)?;
+        let term_id = check_proof_node_in_session(session, request.proof_id)?;
 
         Ok(CheckNodeResponse {
             session_id,
@@ -46,6 +42,15 @@ impl ApiService {
             term_id,
         })
     }
+}
+
+pub(crate) fn check_proof_node_in_session(
+    session: &mut ApiSession,
+    proof_id: ApiProofId,
+) -> Result<ApiTermId, ApiError> {
+    session.require_proof_id(proof_id, "proof_id")?;
+    let term = CheckNodeDriver { session }.check_node(proof_id, &LocalContext::new())?;
+    session.register_term_id(term)
 }
 
 struct CheckNodeDriver<'session> {
