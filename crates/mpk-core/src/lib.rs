@@ -3,6 +3,7 @@
 #![forbid(unsafe_code)]
 
 pub mod context;
+pub mod decl_check;
 pub mod defeq;
 pub mod env;
 pub mod error;
@@ -14,6 +15,7 @@ pub mod subst;
 pub mod term;
 
 pub use context::{LocalContext, LocalDecl, LocalDefinition};
+pub use decl_check::{check_theorem, register_checked_theorem};
 pub use defeq::{definitionally_equal, definitionally_equal_with_fuel, DEFAULT_DEFEQ_FUEL};
 pub use env::{Declaration, DeclarationKind, DefinitionReducibility, Environment};
 pub use error::{CoreError, CoreErrorCode, CoreLocation, CoreLocationPart};
