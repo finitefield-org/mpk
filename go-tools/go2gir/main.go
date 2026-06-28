@@ -14,10 +14,10 @@ const (
 )
 
 type cliResult struct {
-	Schema      string `json:"schema"`
-	Status      string `json:"status"`
-	PackagePath string `json:"package_path"`
-	Note        string `json:"note"`
+	Schema      string          `json:"schema"`
+	Status      string          `json:"status"`
+	PackagePath string          `json:"package_path"`
+	Packages    []loadedPackage `json:"packages"`
 }
 
 func main() {
@@ -45,11 +45,17 @@ func run(args []string, stdout io.Writer, stderr io.Writer) int {
 		return 2
 	}
 
+	loaded, err := loadPackages(packagePath, loadOptions{})
+	if err != nil {
+		fmt.Fprintf(stderr, "%s%s\n", usage, err)
+		return 1
+	}
+
 	result := cliResult{
 		Schema:      cliSchema,
-		Status:      "accepted",
+		Status:      "loaded",
 		PackagePath: packagePath,
-		Note:        "GO-001 initializes the CLI; package loading starts in GO-002.",
+		Packages:    loaded,
 	}
 	encoder := json.NewEncoder(stdout)
 	encoder.SetEscapeHTML(false)

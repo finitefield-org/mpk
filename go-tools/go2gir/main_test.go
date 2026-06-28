@@ -3,6 +3,8 @@ package main
 import (
 	"bytes"
 	"encoding/json"
+	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 )
@@ -11,7 +13,7 @@ func TestRunAcceptsPackagePath(t *testing.T) {
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
 
-	exitCode := run([]string{"./sample"}, &stdout, &stderr)
+	exitCode := run([]string{"./testdata/samplepkg"}, &stdout, &stderr)
 	if exitCode != 0 {
 		t.Fatalf("exit code = %d, want 0; stderr=%s", exitCode, stderr.String())
 	}
@@ -26,11 +28,24 @@ func TestRunAcceptsPackagePath(t *testing.T) {
 	if result.Schema != cliSchema {
 		t.Fatalf("schema = %q, want %q", result.Schema, cliSchema)
 	}
-	if result.Status != "accepted" {
-		t.Fatalf("status = %q, want accepted", result.Status)
+	if result.Status != "loaded" {
+		t.Fatalf("status = %q, want loaded", result.Status)
 	}
-	if result.PackagePath != "./sample" {
-		t.Fatalf("package path = %q, want ./sample", result.PackagePath)
+	if result.PackagePath != "./testdata/samplepkg" {
+		t.Fatalf("package path = %q, want ./testdata/samplepkg", result.PackagePath)
+	}
+	if len(result.Packages) != 1 {
+		t.Fatalf("package count = %d, want 1: %+v", len(result.Packages), result.Packages)
+	}
+	got := result.Packages[0]
+	if got.Name != "samplepkg" {
+		t.Fatalf("package name = %q, want samplepkg", got.Name)
+	}
+	if got.PackagePath != "github.com/finitefield-org/mpk/go-tools/go2gir/testdata/samplepkg" {
+		t.Fatalf("package path = %q", got.PackagePath)
+	}
+	if !contains(got.GoFiles, "testdata/samplepkg/sample.go") {
+		t.Fatalf("go files = %v, want sample.go", got.GoFiles)
 	}
 }
 
@@ -77,4 +92,75 @@ func TestRunPrintsUsage(t *testing.T) {
 	if stderr.Len() != 0 {
 		t.Fatalf("stderr = %q, want empty", stderr.String())
 	}
+}
+
+func TestLoadPackagesUsesPinnedSettings(t *testing.T) {
+	loaded, err := loadPackages("./testdata/samplepkg", loadOptions{
+		Dir: filepath.FromSlash("."),
+		Env: append(os.Environ(),
+			"CGO_ENABLED=1",
+			"GO111MODULE=off",
+		),
+	})
+	if err != nil {
+		t.Fatalf("load packages: %v", err)
+	}
+	if len(loaded) != 1 {
+		t.Fatalf("package count = %d, want 1", len(loaded))
+	}
+	if loaded[0].Name != "samplepkg" {
+		t.Fatalf("package name = %q, want samplepkg", loaded[0].Name)
+	}
+	if !contains(loaded[0].CompiledGoFiles, "testdata/samplepkg/sample.go") {
+		t.Fatalf("compiled go files = %v, want sample.go", loaded[0].CompiledGoFiles)
+	}
+}
+
+func TestPinnedPackageConfigUsesFixedSettings(t *testing.T) {
+	config := pinnedPackageConfig(loadOptions{
+		Dir: filepath.FromSlash("."),
+		Env: []string{
+			"CGO_ENABLED=1",
+			"GO111MODULE=off",
+			"PATH=/bin",
+		},
+	})
+
+	if config.Mode != packageLoadMode {
+		t.Fatalf("mode = %v, want %v", config.Mode, packageLoadMode)
+	}
+	if config.Tests {
+		t.Fatal("tests = true, want false")
+	}
+	if len(config.BuildFlags) != 1 || config.BuildFlags[0] != "-mod=readonly" {
+		t.Fatalf("build flags = %v, want [-mod=readonly]", config.BuildFlags)
+	}
+	if got := envValue(config.Env, "CGO_ENABLED"); got != "0" {
+		t.Fatalf("CGO_ENABLED = %q, want 0", got)
+	}
+	if got := envValue(config.Env, "GO111MODULE"); got != "on" {
+		t.Fatalf("GO111MODULE = %q, want on", got)
+	}
+	if got := envValue(config.Env, "PATH"); got != "/bin" {
+		t.Fatalf("PATH = %q, want /bin", got)
+	}
+}
+
+func contains(values []string, want string) bool {
+	for _, value := range values {
+		if value == want {
+			return true
+		}
+	}
+	return false
+}
+
+func envValue(env []string, key string) string {
+	prefix := key + "="
+	for _, entry := range env {
+		if strings.HasPrefix(entry, prefix) {
+			return strings.TrimPrefix(entry, prefix)
+		}
+	}
+	return ""
 }
