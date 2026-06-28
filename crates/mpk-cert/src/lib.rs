@@ -11,6 +11,9 @@ pub mod export;
 pub mod hash;
 pub mod imports;
 
+#[cfg(test)]
+mod cert_basic;
+
 pub use axiom_report::{
     axiom_report_hash_for_report, build_axiom_report, encode_axiom_report, AxiomReportBuildError,
     AxiomReportBuildErrorKind,
