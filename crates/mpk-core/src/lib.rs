@@ -8,6 +8,7 @@ pub mod defeq;
 pub mod env;
 pub mod error;
 pub mod inductive;
+pub mod inductive_gen;
 pub mod infer;
 pub mod level;
 pub mod name;
@@ -25,6 +26,10 @@ pub use inductive::{
     export_registered_inductive, register_mvp_inductive, ConstructorSignature, ExportedInductive,
     ExportedInductiveDeclaration, InductiveSpec, MvpInductiveShape, RecursorSignature,
     RegisteredInductive,
+};
+pub use inductive_gen::{
+    generate_mvp_inductive_declarations, GeneratedArtifact, GeneratedArtifactHash,
+    GeneratedArtifactKind, GeneratedInductiveDeclarations, InductiveGenerationInput,
 };
 pub use infer::{check, infer, infer_sort};
 pub use level::{LevelArena, LevelHash, LevelId, LevelNode};
