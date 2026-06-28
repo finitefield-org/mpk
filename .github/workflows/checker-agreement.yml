@@ -19,5 +19,5 @@ jobs:
       - name: Set up Rust
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Run checker agreement corpus
+      - name: Run checker agreement and Go frontend corpus
         run: ./scripts/checker-agreement.sh

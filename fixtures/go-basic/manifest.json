@@ -1,0 +1,60 @@
+{
+  "schema": "mpk.go_basic_corpus.v0",
+  "description": "GO-009 Go subset v0 frontend corpus.",
+  "positive": [
+    {
+      "name": "arith",
+      "path": "positive/arith",
+      "covers": [
+        "fixed-width integer arithmetic",
+        "fixed-width integer bit operations",
+        "boolean operations"
+      ]
+    },
+    {
+      "name": "branch",
+      "path": "positive/branch",
+      "covers": [
+        "local variables",
+        "if control flow",
+        "fixed-width integer comparison"
+      ]
+    },
+    {
+      "name": "structarray",
+      "path": "positive/structarray",
+      "covers": [
+        "struct construction",
+        "struct field read",
+        "fixed array construction",
+        "fixed array index read"
+      ]
+    }
+  ],
+  "negative": [
+    {
+      "name": "map",
+      "path": "negative/map",
+      "feature": "maps",
+      "reason": "maps are rejected by Go subset v0"
+    },
+    {
+      "name": "pointer",
+      "path": "negative/pointer",
+      "feature": "pointers",
+      "reason": "pointers are rejected by Go subset v0"
+    },
+    {
+      "name": "generic",
+      "path": "negative/generic",
+      "feature": "generics",
+      "reason": "generic functions are rejected by Go subset v0"
+    },
+    {
+      "name": "string",
+      "path": "negative/string",
+      "feature": "strings",
+      "reason": "strings are rejected by Go subset v0"
+    }
+  ]
+}
