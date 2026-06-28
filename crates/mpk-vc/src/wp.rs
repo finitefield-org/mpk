@@ -611,6 +611,12 @@ pub enum WpError {
         context: String,
         source: ExprEncodeError,
     },
+    UnsupportedSafetyCheck {
+        function_id: String,
+        block_label: String,
+        instruction_id: String,
+        reason: String,
+    },
 }
 
 impl fmt::Display for WpError {
@@ -770,6 +776,15 @@ impl fmt::Display for WpError {
             } => write!(
                 formatter,
                 "function {function_id:?} {context} expression encoding failed: {source}"
+            ),
+            Self::UnsupportedSafetyCheck {
+                function_id,
+                block_label,
+                instruction_id,
+                reason,
+            } => write!(
+                formatter,
+                "function {function_id:?} block {block_label:?} instruction {instruction_id:?} cannot generate runtime-safety check: {reason}"
             ),
         }
     }

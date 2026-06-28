@@ -7,6 +7,7 @@
 
 pub mod expr_encode;
 pub mod gir;
+pub mod safety;
 pub mod type_encode;
 pub mod vc;
 pub mod wp;
@@ -23,6 +24,7 @@ pub use gir::{
     GirLoopContract, GirModule, GirPackage, GirRejectedFeature, GirTerminator, GirTerminatorKind,
     GirType, GirTypeKind, GirValue, GIR_SCHEMA_VERSION,
 };
+pub use safety::{generate_safety_vcs, SafetyVcGenerator};
 pub use type_encode::{
     encode_gir_type, MpkTypeTerm, TypeEncodeError, TypeEncoder, STD_GO_BASE_ARRAY,
     STD_GO_BASE_ARRAY_LENGTH, STD_GO_BASE_BOOL, STD_GO_BASE_INT16, STD_GO_BASE_INT32,
