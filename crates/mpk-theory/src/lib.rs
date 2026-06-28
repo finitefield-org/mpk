@@ -2,10 +2,17 @@
 
 #![forbid(unsafe_code)]
 
+pub mod array_cert;
 pub mod bitvec_eval;
 pub mod bool_cert;
 pub mod linarith_cert;
 
+pub use array_cert::{
+    check_array_certificate, ArrayCertError, ArrayCertErrorKind, ArrayCertificate,
+    ArrayCertificateSummary, ArrayClaim, ArrayElement, ArrayExpr, ArrayQuery, ArrayResult,
+    BaseArray, ARRAY_CERT_FORMAT, MAX_ARRAY_BASES, MAX_ARRAY_CLAIMS, MAX_ARRAY_ELEMENT_SYMBOLS,
+    MAX_ARRAY_EXPR_NODES,
+};
 pub use bitvec_eval::{
     evaluate_bitvec_expr, BitVecBinaryOp, BitVecComparisonOp, BitVecEvalError, BitVecEvalErrorKind,
     BitVecEvalResult, BitVecExpr, BitVecUnaryOp, BitVecValue, MAX_BITVEC_EXPR_NODES,
