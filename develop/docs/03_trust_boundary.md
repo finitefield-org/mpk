@@ -102,6 +102,8 @@ Do not place these in the trusted kernel during MVP:
 
 ## Axiom policy
 
+Normative axiom categories and release-profile behavior are defined in `specs/AXIOM_POLICY_V0.md`.
+
 Every axiom must be visible in the axiom report. MVP should distinguish:
 
 - `CoreAxiom`: required logical primitives, ideally zero or near-zero;

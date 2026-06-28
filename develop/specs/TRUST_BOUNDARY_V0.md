@@ -144,6 +144,8 @@ Non-checker components such as `go2gir`, `mpk-vc`, and `mpk-api` may generate ar
 
 ## Release Gate
 
+Axiom category semantics and axiom allowlist profiles are defined in `specs/AXIOM_POLICY_V0.md`.
+
 Before any release:
 
 - no source parser is called by the checker;
