@@ -1,5 +1,7 @@
 # Trust Boundary
 
+Normative MVP trust-boundary requirements are defined in `specs/TRUST_BOUNDARY_V0.md`. This document is a design summary of the same boundary.
+
 ## Core policy
 
 MPK must maintain a narrow trusted base. The project should explicitly distinguish between:
