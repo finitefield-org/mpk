@@ -6,6 +6,7 @@ pub mod binary_tags;
 pub mod canonical;
 pub mod decode;
 pub mod encode;
+pub mod export;
 pub mod hash;
 pub mod imports;
 
@@ -16,6 +17,10 @@ pub use canonical::{
 };
 pub use decode::{decode_certificate, DecodeError, DecodeErrorKind};
 pub use encode::{encode_certificate, encode_unsigned_varint, Certificate, CertificateHashes};
+pub use export::{
+    build_export_block, build_export_block_for_declarations, declaration_interface_hash,
+    encode_export_block, export_block_hash, ExportBuildError, ExportBuildErrorKind,
+};
 pub use hash::{
     axiom_report_hash, certificate_hash, export_hash, hash_hex, hash_with_domain, level_hash,
     term_hash, HashDomain,
