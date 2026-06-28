@@ -11,6 +11,7 @@ pub mod inductive;
 pub mod infer;
 pub mod level;
 pub mod name;
+pub mod positivity;
 pub mod reduce;
 pub mod subst;
 pub mod term;
@@ -28,6 +29,7 @@ pub use inductive::{
 pub use infer::{check, infer, infer_sort};
 pub use level::{LevelArena, LevelHash, LevelId, LevelNode};
 pub use name::{GlobalId, Name, NameError, NameResolver};
+pub use positivity::{check_mvp_positivity, PositivityErrorKind};
 pub use reduce::{whnf, whnf_with_fuel, ReduceError, DEFAULT_WHNF_FUEL};
 pub use subst::{beta_substitute, lift, lift_from, substitute, substitute_top, SubstError};
 pub use term::{TermArena, TermHash, TermId, TermNode};
