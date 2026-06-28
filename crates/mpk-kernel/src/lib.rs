@@ -7,6 +7,7 @@ pub mod decl_driver;
 pub mod json_output;
 pub mod proof_check;
 pub mod proof_structural;
+pub mod proof_theory;
 pub mod verifier;
 
 pub use cache::{CheckerCache, CheckerCacheStats};

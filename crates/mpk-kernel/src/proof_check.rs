@@ -4,7 +4,8 @@ use crate::decl_driver::{
     check_declarations_with_context, CheckedDeclarationContext, DeclarationCheckError,
     DeclarationCheckErrorKind,
 };
-use crate::proof_structural::{is_core_bootstrap_node, is_mvp_structural_node};
+use crate::proof_structural::{is_core_bootstrap_node, is_mvp_strict_node, is_mvp_structural_node};
+use crate::proof_theory::{check_theory_certificate, TheoryProofError, TheoryProofErrorKind};
 
 use mpk_cert::encode::{Certificate, ProofNode};
 use mpk_core::{
@@ -16,6 +17,7 @@ use mpk_core::{
 pub enum ProofCheckProfile {
     CoreBootstrap,
     MvpStructural,
+    MvpStrict,
 }
 
 impl ProofCheckProfile {
@@ -23,6 +25,7 @@ impl ProofCheckProfile {
         match self {
             Self::CoreBootstrap => "core-bootstrap",
             Self::MvpStructural => "mvp-structural",
+            Self::MvpStrict => "mvp-strict",
         }
     }
 }
@@ -86,6 +89,25 @@ impl ProofCheckError {
             ),
         )
     }
+
+    fn theory(proof_node: u32, theory_certificate: u32, error: TheoryProofError) -> Self {
+        let kind = match error.kind() {
+            TheoryProofErrorKind::UnsupportedFormat => {
+                ProofCheckErrorKind::UnsupportedProofNodeKind
+            }
+            TheoryProofErrorKind::InvalidPayload
+            | TheoryProofErrorKind::BoolCertificate
+            | TheoryProofErrorKind::BitVecCertificate
+            | TheoryProofErrorKind::LinarithCertificate
+            | TheoryProofErrorKind::ArrayCertificate => ProofCheckErrorKind::CoreCheck,
+        };
+        Self::new(
+            kind,
+            format!(
+                "proof node {proof_node} failed theory certificate {theory_certificate}: {error}"
+            ),
+        )
+    }
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash, Ord, PartialOrd)]
@@ -132,6 +154,7 @@ struct ProofDriver<'context, 'certificate> {
 impl ProofDriver<'_, '_> {
     fn check(&mut self) -> Result<ProofCheckReport, ProofCheckError> {
         let referenced = self.referenced_nodes()?;
+        self.ensure_theory_certificates_covered()?;
         for (index, is_referenced) in referenced.into_iter().enumerate() {
             if !is_referenced {
                 let proof_node = proof_node_index(index)?;
@@ -174,6 +197,7 @@ impl ProofDriver<'_, '_> {
         let allowed = match self.profile {
             ProofCheckProfile::CoreBootstrap => is_core_bootstrap_node(node),
             ProofCheckProfile::MvpStructural => is_mvp_structural_node(node),
+            ProofCheckProfile::MvpStrict => is_mvp_strict_node(node),
         };
         if allowed {
             return Ok(());
@@ -359,8 +383,113 @@ impl ProofDriver<'_, '_> {
                 self.check_term(proof_node, context, term, expected_type)?;
                 Ok(term)
             }
-            ProofNode::Theory { .. } => unreachable!("profile gate rejects unsupported nodes"),
+            ProofNode::Theory {
+                theory_certificate,
+                expected_type,
+            } => {
+                let expected_type = self.expected_type(proof_node, expected_type, context)?;
+                let certificate = self
+                    .declarations
+                    .certificate()
+                    .theory_certificates
+                    .get(usize::try_from(theory_certificate).expect("u32 id fits in usize"))
+                    .cloned()
+                    .ok_or_else(|| {
+                        ProofCheckError::new(
+                            ProofCheckErrorKind::InternalInvariant,
+                            format!(
+                                "proof node {proof_node} references missing theory certificate {theory_certificate}"
+                            ),
+                        )
+                    })?;
+                check_theory_certificate(&certificate).map_err(|error| {
+                    ProofCheckError::theory(proof_node, theory_certificate, error)
+                })?;
+                self.find_theory_witness(proof_node, context, expected_type)
+            }
         }
+    }
+
+    fn ensure_theory_certificates_covered(&self) -> Result<(), ProofCheckError> {
+        let certificate_count = self.declarations.certificate().theory_certificates.len();
+        if certificate_count == 0 {
+            return Ok(());
+        }
+        if self.profile != ProofCheckProfile::MvpStrict {
+            return Err(ProofCheckError::new(
+                ProofCheckErrorKind::UnsupportedProofNodeKind,
+                format!(
+                    "profile {} does not permit theory certificate table",
+                    self.profile.canonical_name()
+                ),
+            ));
+        }
+
+        let mut referenced = vec![false; certificate_count];
+        for (proof_index, node) in self
+            .declarations
+            .certificate()
+            .proof_node_table
+            .iter()
+            .enumerate()
+        {
+            let ProofNode::Theory {
+                theory_certificate, ..
+            } = node
+            else {
+                continue;
+            };
+            let theory_index = usize::try_from(*theory_certificate).expect("u32 id fits in usize");
+            let Some(slot) = referenced.get_mut(theory_index) else {
+                return Err(ProofCheckError::new(
+                    ProofCheckErrorKind::InternalInvariant,
+                    format!(
+                        "proof node {} references missing theory certificate {theory_certificate}",
+                        proof_node_index(proof_index)?
+                    ),
+                ));
+            };
+            *slot = true;
+        }
+        if let Some(missing) = referenced.iter().position(|is_referenced| !*is_referenced) {
+            return Err(ProofCheckError::new(
+                ProofCheckErrorKind::CoreCheck,
+                format!("theory certificate {missing} is not referenced by any theory proof node"),
+            ));
+        }
+
+        Ok(())
+    }
+
+    fn find_theory_witness(
+        &mut self,
+        proof_node: u32,
+        context: &LocalContext,
+        expected_type: TermId,
+    ) -> Result<TermId, ProofCheckError> {
+        let term_count = self.declarations.certificate().term_table.len();
+        for term_index in 0..term_count {
+            let term = u32::try_from(term_index).map_err(|_| {
+                ProofCheckError::new(
+                    ProofCheckErrorKind::InternalInvariant,
+                    format!("term index {term_index} exceeds u32"),
+                )
+            })?;
+            let term = self.translate_term(proof_node, term)?;
+            if self
+                .check_term(proof_node, context, term, expected_type)
+                .is_ok()
+            {
+                return Ok(term);
+            }
+        }
+
+        Err(ProofCheckError::new(
+            ProofCheckErrorKind::CoreCheck,
+            format!(
+                "proof node {proof_node} checked its theory certificate but no term-table witness checks against the expected type"
+            ),
+        ))
     }
 
     fn expected_type(
@@ -599,8 +728,9 @@ fn core_declaration_kind_name(kind: CoreDeclarationKind) -> &'static str {
 mod tests {
     use mpk_cert::encode::{
         AxiomReport, Certificate, CertificateHashes, Declaration, DeclarationKind, LevelNode,
-        ProofNode, TermNode,
+        ProofNode, TermNode, TheoryCertificate,
     };
+    use mpk_theory::BOOL_CERT_FORMAT;
 
     use super::{
         check_proof_nodes, check_proof_nodes_with_profile, ProofCheckErrorKind, ProofCheckProfile,
@@ -776,6 +906,30 @@ mod tests {
         }
     }
 
+    fn bool_tautology_payload() -> Vec<u8> {
+        let mut payload = Vec::new();
+        payload.extend_from_slice(b"MPKBOOL0");
+        payload.push(0);
+        payload.push(0x01);
+        payload.extend_from_slice(&1u16.to_be_bytes());
+        payload.push(0);
+        payload.push(1);
+        payload
+    }
+
+    fn theory_certificate() -> Certificate {
+        let mut certificate = bootstrap_certificate();
+        certificate.theory_certificates.push(TheoryCertificate {
+            format: BOOL_CERT_FORMAT.to_owned(),
+            payload: bool_tautology_payload(),
+        });
+        certificate.proof_node_table.push(ProofNode::Theory {
+            theory_certificate: 0,
+            expected_type: 0,
+        });
+        certificate
+    }
+
     #[test]
     fn checks_core_bootstrap_nodes_with_local_intro_body() {
         let report = check_proof_nodes_with_profile(
@@ -831,6 +985,29 @@ mod tests {
         let error = check_proof_nodes(&certificate).unwrap_err();
 
         assert_eq!(error.kind(), ProofCheckErrorKind::UnsupportedProofNodeKind);
+    }
+
+    #[test]
+    fn mvp_strict_profile_checks_theory_nodes() {
+        let report =
+            check_proof_nodes_with_profile(&theory_certificate(), ProofCheckProfile::MvpStrict)
+                .expect("theory node checks");
+
+        assert_eq!(report.proof_node_count, 8);
+    }
+
+    #[test]
+    fn mvp_strict_profile_rejects_unreferenced_theory_certificates() {
+        let mut certificate = bootstrap_certificate();
+        certificate.theory_certificates.push(TheoryCertificate {
+            format: BOOL_CERT_FORMAT.to_owned(),
+            payload: bool_tautology_payload(),
+        });
+
+        let error =
+            check_proof_nodes_with_profile(&certificate, ProofCheckProfile::MvpStrict).unwrap_err();
+
+        assert_eq!(error.kind(), ProofCheckErrorKind::CoreCheck);
     }
 
     #[test]

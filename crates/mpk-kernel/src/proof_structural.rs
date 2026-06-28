@@ -24,3 +24,7 @@ pub(crate) fn is_mvp_structural_node(node: &ProofNode) -> bool {
                 | ProofNode::Recursor { .. }
         )
 }
+
+pub(crate) fn is_mvp_strict_node(node: &ProofNode) -> bool {
+    is_mvp_structural_node(node) || matches!(node, ProofNode::Theory { .. })
+}

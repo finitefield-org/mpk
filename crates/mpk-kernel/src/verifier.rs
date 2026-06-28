@@ -113,9 +113,8 @@ fn verify_certificate(
     let mut declaration_context =
         check_declarations_with_context(&certificate).map_err(VerificationError::declaration)?;
     let declaration_count = declaration_context.declaration_count();
-    check_proof_nodes_with_context(&mut declaration_context, ProofCheckProfile::MvpStructural)
+    check_proof_nodes_with_context(&mut declaration_context, ProofCheckProfile::MvpStrict)
         .map_err(VerificationError::proof)?;
-    reject_unsupported_certificate_features(&certificate)?;
     let axiom_report = verify_recomputed_certificate_sections(&certificate)?;
 
     Ok(VerificationReport {
@@ -190,17 +189,6 @@ fn reject_unsupported_imports(certificate: &Certificate) -> Result<(), Verificat
     Ok(())
 }
 
-fn reject_unsupported_certificate_features(
-    certificate: &Certificate,
-) -> Result<(), VerificationError> {
-    if !certificate.theory_certificates.is_empty() {
-        return Err(VerificationError::unsupported(
-            "theory certificate checking is not implemented by KERN-001",
-        ));
-    }
-    Ok(())
-}
-
 fn verify_recomputed_certificate_sections(
     certificate: &Certificate,
 ) -> Result<AxiomReport, VerificationError> {
@@ -270,6 +258,7 @@ mod tests {
         },
         encode_certificate, export_block_hash,
     };
+    use mpk_theory::BOOL_CERT_FORMAT;
 
     use super::{verify_certificate_bytes, VerificationErrorKind};
 
@@ -429,6 +418,17 @@ mod tests {
         })
     }
 
+    fn bool_tautology_payload() -> Vec<u8> {
+        let mut payload = Vec::new();
+        payload.extend_from_slice(b"MPKBOOL0");
+        payload.push(0);
+        payload.push(0x01);
+        payload.extend_from_slice(&1u16.to_be_bytes());
+        payload.push(0);
+        payload.push(1);
+        payload
+    }
+
     #[test]
     fn verifies_basic_certificate_fixtures() {
         for name in ["zero-axiom", "one-theorem"] {
@@ -486,10 +486,30 @@ mod tests {
     }
 
     #[test]
-    fn rejects_theory_proof_node_by_profile() {
+    fn verifies_theory_proof_node_fixture() {
         let mut certificate = bootstrap_proof_node_certificate();
         certificate.theory_certificates.push(TheoryCertificate {
-            format: "dummy".to_owned(),
+            format: BOOL_CERT_FORMAT.to_owned(),
+            payload: bool_tautology_payload(),
+        });
+        certificate.proof_node_table.push(ProofNode::Theory {
+            theory_certificate: 0,
+            expected_type: 0,
+        });
+        certificate = finalize_certificate(certificate);
+        let bytes = encode_certificate(&certificate);
+
+        let report = verify_certificate_bytes(&bytes).expect("theory proof-node fixture verifies");
+
+        assert_eq!(report.module, "Example.Kernel.ProofBootstrap");
+        assert_eq!(report.declaration_count, 1);
+    }
+
+    #[test]
+    fn rejects_malformed_theory_proof_node_fixture() {
+        let mut certificate = bootstrap_proof_node_certificate();
+        certificate.theory_certificates.push(TheoryCertificate {
+            format: BOOL_CERT_FORMAT.to_owned(),
             payload: Vec::new(),
         });
         certificate.proof_node_table.push(ProofNode::Theory {
@@ -501,7 +521,7 @@ mod tests {
 
         let error = verify_certificate_bytes(&bytes).unwrap_err();
 
-        assert_eq!(error.kind(), VerificationErrorKind::UnsupportedFeature);
+        assert_eq!(error.kind(), VerificationErrorKind::CoreCheck);
     }
 
     #[test]
