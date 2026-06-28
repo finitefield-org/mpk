@@ -1,6 +1,11 @@
 //! Source-free certificate verifier driver.
 
-use crate::decl_driver::{check_declarations, DeclarationCheckError, DeclarationCheckErrorKind};
+use crate::decl_driver::{
+    check_declarations_with_context, DeclarationCheckError, DeclarationCheckErrorKind,
+};
+use crate::proof_check::{
+    check_proof_nodes_with_context, ProofCheckError, ProofCheckErrorKind, ProofCheckProfile,
+};
 
 use mpk_cert::encode::ZERO_HASH;
 use mpk_cert::{
@@ -86,14 +91,18 @@ fn verify_certificate(
     certificate: Certificate,
     computed_certificate_hash: HashBytes,
 ) -> Result<VerificationReport, VerificationError> {
+    reject_unsupported_imports(&certificate)?;
+    let mut declaration_context =
+        check_declarations_with_context(&certificate).map_err(VerificationError::declaration)?;
+    let declaration_count = declaration_context.declaration_count();
+    check_proof_nodes_with_context(&mut declaration_context, ProofCheckProfile::CoreBootstrap)
+        .map_err(VerificationError::proof)?;
     reject_unsupported_certificate_features(&certificate)?;
-    let declaration_report =
-        check_declarations(&certificate).map_err(VerificationError::declaration)?;
     verify_recomputed_certificate_sections(&certificate)?;
 
     Ok(VerificationReport {
         module: certificate.module,
-        declaration_count: declaration_report.declaration_count,
+        declaration_count,
         axiom_count: certificate.axiom_report.summary.total_axiom_count,
         export_hash: certificate.hashes.export_hash,
         axiom_report_hash: certificate.hashes.axiom_report_hash,
@@ -125,21 +134,46 @@ impl VerificationError {
             }
         }
     }
+
+    fn proof(error: ProofCheckError) -> Self {
+        match error.kind() {
+            ProofCheckErrorKind::UnsupportedDeclarationKind
+            | ProofCheckErrorKind::UnsupportedProofNodeKind => Self::unsupported(error.detail()),
+            ProofCheckErrorKind::MissingName => {
+                Self::new(VerificationErrorKind::MissingName, error.detail())
+            }
+            ProofCheckErrorKind::MissingGlobal => {
+                Self::new(VerificationErrorKind::MissingGlobal, error.detail())
+            }
+            ProofCheckErrorKind::MissingProofNode => {
+                Self::new(VerificationErrorKind::InternalInvariant, error.detail())
+            }
+            ProofCheckErrorKind::OutOfOrderDeclarationDependency => Self::new(
+                VerificationErrorKind::OutOfOrderDeclarationDependency,
+                error.detail(),
+            ),
+            ProofCheckErrorKind::CoreCheck => {
+                Self::new(VerificationErrorKind::CoreCheck, error.detail())
+            }
+            ProofCheckErrorKind::InternalInvariant => {
+                Self::new(VerificationErrorKind::InternalInvariant, error.detail())
+            }
+        }
+    }
 }
 
-fn reject_unsupported_certificate_features(
-    certificate: &Certificate,
-) -> Result<(), VerificationError> {
+fn reject_unsupported_imports(certificate: &Certificate) -> Result<(), VerificationError> {
     if !certificate.imports.is_empty() {
         return Err(VerificationError::unsupported(
             "import resolution is not implemented by KERN-001",
         ));
     }
-    if !certificate.proof_node_table.is_empty() {
-        return Err(VerificationError::unsupported(
-            "proof-node checking is not implemented by KERN-001",
-        ));
-    }
+    Ok(())
+}
+
+fn reject_unsupported_certificate_features(
+    certificate: &Certificate,
+) -> Result<(), VerificationError> {
     if !certificate.theory_certificates.is_empty() {
         return Err(VerificationError::unsupported(
             "theory certificate checking is not implemented by KERN-001",
@@ -213,7 +247,7 @@ mod tests {
         axiom_report_hash_for_report, build_axiom_report, build_export_block,
         encode::{
             AxiomReport, Certificate, CertificateHashes, Declaration, DeclarationKind, LevelNode,
-            TermNode,
+            ProofNode, TermNode,
         },
         encode_certificate, export_block_hash,
     };
@@ -314,6 +348,68 @@ mod tests {
         certificate
     }
 
+    fn bootstrap_proof_node_certificate() -> Certificate {
+        finalize_certificate(Certificate {
+            module: "Example.Kernel.ProofBootstrap".to_owned(),
+            imports: Vec::new(),
+            name_table: vec!["Example.Kernel.ProofBootstrap.x".to_owned()],
+            level_table: vec![LevelNode::Zero, LevelNode::Succ(0)],
+            term_table: vec![
+                TermNode::Sort(0),
+                TermNode::Sort(1),
+                TermNode::Const {
+                    global: 0,
+                    levels: Vec::new(),
+                },
+                TermNode::Var(0),
+                TermNode::Lam { ty: 0, body: 3 },
+                TermNode::Pi { ty: 0, body: 0 },
+            ],
+            proof_node_table: vec![
+                ProofNode::Exact {
+                    term: 2,
+                    expected_type: 0,
+                },
+                ProofNode::Exact {
+                    term: 4,
+                    expected_type: 5,
+                },
+                ProofNode::Apply {
+                    function_proof: 1,
+                    argument_proofs: vec![0],
+                    expected_type: 0,
+                },
+                ProofNode::Exact {
+                    term: 3,
+                    expected_type: 0,
+                },
+                ProofNode::Intro {
+                    domain_type: 0,
+                    body_proof: 3,
+                    expected_type: 5,
+                },
+                ProofNode::Refl {
+                    term: 2,
+                    expected_type: 0,
+                },
+                ProofNode::Conv {
+                    proof: 0,
+                    expected_type: 0,
+                    defeq_witness: Some(0),
+                },
+            ],
+            declarations: vec![Declaration {
+                name: 0,
+                kind: DeclarationKind::Axiom { ty: 0 },
+            }],
+            theory_certificates: Vec::new(),
+            export_block: Vec::new(),
+            axiom_report: AxiomReport::default(),
+            source_manifest: None,
+            hashes: CertificateHashes::default(),
+        })
+    }
+
     #[test]
     fn verifies_basic_certificate_fixtures() {
         for name in ["zero-axiom", "one-theorem"] {
@@ -357,6 +453,33 @@ mod tests {
             error.kind(),
             VerificationErrorKind::OutOfOrderDeclarationDependency
         );
+    }
+
+    #[test]
+    fn verifies_core_bootstrap_proof_nodes() {
+        let certificate = bootstrap_proof_node_certificate();
+        let bytes = encode_certificate(&certificate);
+
+        let report = verify_certificate_bytes(&bytes).expect("proof-node certificate verifies");
+
+        assert_eq!(report.module, "Example.Kernel.ProofBootstrap");
+        assert_eq!(report.declaration_count, 1);
+    }
+
+    #[test]
+    fn rejects_non_bootstrap_proof_node_by_profile() {
+        let mut certificate = bootstrap_proof_node_certificate();
+        certificate.proof_node_table.push(ProofNode::LetProof {
+            value: 2,
+            body_proof: 0,
+            expected_type: 0,
+        });
+        certificate = finalize_certificate(certificate);
+        let bytes = encode_certificate(&certificate);
+
+        let error = verify_certificate_bytes(&bytes).unwrap_err();
+
+        assert_eq!(error.kind(), VerificationErrorKind::UnsupportedFeature);
     }
 
     #[test]

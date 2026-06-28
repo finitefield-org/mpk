@@ -61,14 +61,21 @@ pub enum DeclarationCheckErrorKind {
 pub fn check_declarations(
     certificate: &Certificate,
 ) -> Result<DeclarationCheckReport, DeclarationCheckError> {
-    let mut driver = DeclarationDriver::new(certificate);
-    driver.check_declarations()?;
+    let context = check_declarations_with_context(certificate)?;
     Ok(DeclarationCheckReport {
-        declaration_count: certificate.declarations.len(),
+        declaration_count: context.declaration_count(),
     })
 }
 
-struct DeclarationDriver<'certificate> {
+pub(crate) fn check_declarations_with_context(
+    certificate: &Certificate,
+) -> Result<CheckedDeclarationContext<'_>, DeclarationCheckError> {
+    let mut context = CheckedDeclarationContext::new(certificate);
+    context.check_declarations()?;
+    Ok(context)
+}
+
+pub(crate) struct CheckedDeclarationContext<'certificate> {
     certificate: &'certificate Certificate,
     levels: LevelArena,
     terms: TermArena,
@@ -78,7 +85,7 @@ struct DeclarationDriver<'certificate> {
     globals: Vec<GlobalId>,
 }
 
-impl<'certificate> DeclarationDriver<'certificate> {
+impl<'certificate> CheckedDeclarationContext<'certificate> {
     fn new(certificate: &'certificate Certificate) -> Self {
         Self {
             certificate,
@@ -89,6 +96,18 @@ impl<'certificate> DeclarationDriver<'certificate> {
             term_cache: vec![None; certificate.term_table.len()],
             globals: Vec::with_capacity(certificate.declarations.len()),
         }
+    }
+
+    pub(crate) fn certificate(&self) -> &'certificate Certificate {
+        self.certificate
+    }
+
+    pub(crate) fn declaration_count(&self) -> usize {
+        self.certificate.declarations.len()
+    }
+
+    pub(crate) fn core_parts(&mut self) -> (&mut LevelArena, &mut TermArena, &Environment) {
+        (&mut self.levels, &mut self.terms, &self.env)
     }
 
     fn check_declarations(&mut self) -> Result<(), DeclarationCheckError> {
@@ -220,7 +239,7 @@ impl<'certificate> DeclarationDriver<'certificate> {
         Ok(translated)
     }
 
-    fn translate_term(&mut self, term: u32) -> Result<TermId, DeclarationCheckError> {
+    pub(crate) fn translate_term(&mut self, term: u32) -> Result<TermId, DeclarationCheckError> {
         let index = usize::try_from(term).expect("u32 id fits in usize");
         if let Some(translated) = self.term_cache[index] {
             return Ok(translated);
