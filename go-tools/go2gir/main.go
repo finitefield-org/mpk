@@ -14,11 +14,12 @@ const (
 )
 
 type cliResult struct {
-	Schema      string          `json:"schema"`
-	Status      string          `json:"status"`
-	PackagePath string          `json:"package_path"`
-	Packages    []loadedPackage `json:"packages"`
-	SSA         ssaDump         `json:"ssa"`
+	Schema           string            `json:"schema"`
+	Status           string            `json:"status"`
+	PackagePath      string            `json:"package_path"`
+	Packages         []loadedPackage   `json:"packages"`
+	SSA              *ssaDump          `json:"ssa,omitempty"`
+	RejectedFeatures []rejectedFeature `json:"rejected_features,omitempty"`
 }
 
 func main() {
@@ -51,6 +52,21 @@ func run(args []string, stdout io.Writer, stderr io.Writer) int {
 		fmt.Fprintf(stderr, "%s%s\n", usage, err)
 		return 1
 	}
+	rejectedFeatures := detectUnsupportedFeatures(loaded)
+	if len(rejectedFeatures) > 0 {
+		if err := encodeCLIResult(stdout, cliResult{
+			Schema:           cliSchema,
+			Status:           "rejected",
+			PackagePath:      packagePath,
+			Packages:         loaded.Summaries,
+			RejectedFeatures: rejectedFeatures,
+		}); err != nil {
+			fmt.Fprintf(stderr, "encode go2gir result: %v\n", err)
+			return 1
+		}
+		return 1
+	}
+
 	ssaResult, err := buildSSADump(loaded.Packages)
 	if err != nil {
 		fmt.Fprintf(stderr, "%s%s\n", usage, err)
@@ -62,13 +78,17 @@ func run(args []string, stdout io.Writer, stderr io.Writer) int {
 		Status:      "ssa-built",
 		PackagePath: packagePath,
 		Packages:    loaded.Summaries,
-		SSA:         ssaResult,
+		SSA:         &ssaResult,
 	}
-	encoder := json.NewEncoder(stdout)
-	encoder.SetEscapeHTML(false)
-	if err := encoder.Encode(result); err != nil {
+	if err := encodeCLIResult(stdout, result); err != nil {
 		fmt.Fprintf(stderr, "encode go2gir result: %v\n", err)
 		return 1
 	}
 	return 0
+}
+
+func encodeCLIResult(stdout io.Writer, result cliResult) error {
+	encoder := json.NewEncoder(stdout)
+	encoder.SetEscapeHTML(false)
+	return encoder.Encode(result)
 }

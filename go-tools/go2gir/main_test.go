@@ -47,7 +47,10 @@ func TestRunAcceptsPackagePath(t *testing.T) {
 	if !contains(got.GoFiles, "testdata/samplepkg/sample.go") {
 		t.Fatalf("go files = %v, want sample.go", got.GoFiles)
 	}
-	identity := findSSAFunction(result.SSA, got.PackagePath, "Identity")
+	if result.SSA == nil {
+		t.Fatal("SSA dump missing")
+	}
+	identity := findSSAFunction(*result.SSA, got.PackagePath, "Identity")
 	if identity == nil {
 		t.Fatalf("SSA dump missing Identity function: %+v", result.SSA)
 	}
@@ -101,6 +104,69 @@ func TestRunPrintsUsage(t *testing.T) {
 	}
 	if stderr.Len() != 0 {
 		t.Fatalf("stderr = %q, want empty", stderr.String())
+	}
+}
+
+func TestRunRejectsUnsupportedFixtures(t *testing.T) {
+	tests := []struct {
+		name    string
+		path    string
+		feature string
+		reason  string
+	}{
+		{
+			name:    "map",
+			path:    "./testdata/unsupported/map",
+			feature: "maps",
+			reason:  "maps are rejected by Go subset v0",
+		},
+		{
+			name:    "goroutine",
+			path:    "./testdata/unsupported/goroutine",
+			feature: "goroutines",
+			reason:  "goroutines are rejected by Go subset v0",
+		},
+		{
+			name:    "generic",
+			path:    "./testdata/unsupported/generic",
+			feature: "generics",
+			reason:  "generic functions are rejected by Go subset v0",
+		},
+		{
+			name:    "pointer",
+			path:    "./testdata/unsupported/pointer",
+			feature: "pointers",
+			reason:  "pointers are rejected by Go subset v0",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var stdout bytes.Buffer
+			var stderr bytes.Buffer
+
+			exitCode := run([]string{tt.path}, &stdout, &stderr)
+			if exitCode != 1 {
+				t.Fatalf("exit code = %d, want 1; stdout=%s stderr=%s", exitCode, stdout.String(), stderr.String())
+			}
+			if stderr.Len() != 0 {
+				t.Fatalf("stderr = %q, want empty", stderr.String())
+			}
+
+			var result cliResult
+			if err := json.Unmarshal(stdout.Bytes(), &result); err != nil {
+				t.Fatalf("decode stdout: %v\n%s", err, stdout.String())
+			}
+			if result.Status != "rejected" {
+				t.Fatalf("status = %q, want rejected", result.Status)
+			}
+			if result.SSA != nil {
+				t.Fatalf("SSA = %+v, want nil for rejected package", result.SSA)
+			}
+			if !hasRejectedFeature(result.RejectedFeatures, tt.feature, tt.reason) {
+				t.Fatalf("rejected features = %+v, want %q / %q", result.RejectedFeatures, tt.feature, tt.reason)
+			}
+		})
 	}
 }
 
@@ -217,6 +283,15 @@ func hasSSAInstructionContaining(function ssaFunctionDump, substring string) boo
 			if strings.Contains(instruction, substring) {
 				return true
 			}
+		}
+	}
+	return false
+}
+
+func hasRejectedFeature(features []rejectedFeature, feature string, reason string) bool {
+	for _, got := range features {
+		if got.Feature == feature && got.Reason == reason && got.Location != "" {
+			return true
 		}
 	}
 	return false

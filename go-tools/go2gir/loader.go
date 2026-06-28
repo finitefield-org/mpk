@@ -35,6 +35,7 @@ type loadedPackage struct {
 }
 
 type packageLoadResult struct {
+	BaseDir   string
 	Packages  []*packages.Package
 	Summaries []loadedPackage
 }
@@ -81,6 +82,7 @@ func loadPackageSet(packagePath string, options loadOptions) (packageLoadResult,
 	}
 
 	return packageLoadResult{
+		BaseDir:   config.Dir,
 		Packages:  packagesLoaded,
 		Summaries: summaries,
 	}, nil
