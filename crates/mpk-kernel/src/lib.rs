@@ -4,12 +4,16 @@
 
 pub mod cache;
 pub mod decl_driver;
+pub mod json_output;
 pub mod proof_check;
 pub mod verifier;
 
 pub use cache::{CheckerCache, CheckerCacheStats};
 pub use decl_driver::{
     check_declarations, DeclarationCheckError, DeclarationCheckErrorKind, DeclarationCheckReport,
+};
+pub use json_output::{
+    render_verification_error_json, render_verification_report_json, verify_certificate_bytes_json,
 };
 pub use proof_check::{
     check_proof_nodes, check_proof_nodes_with_profile, ProofCheckError, ProofCheckErrorKind,

@@ -11,7 +11,7 @@ use mpk_cert::encode::ZERO_HASH;
 use mpk_cert::{
     axiom_report_hash_for_report, build_axiom_report, build_export_block, certificate_hash,
     decode_canonical_certificate,
-    encode::{Certificate, HashBytes},
+    encode::{AxiomReport, Certificate, HashBytes},
     export_block_hash,
 };
 
@@ -23,6 +23,7 @@ pub struct VerificationReport {
     pub export_hash: HashBytes,
     pub axiom_report_hash: HashBytes,
     pub certificate_hash: HashBytes,
+    pub axiom_report: AxiomReport,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -70,6 +71,23 @@ pub enum VerificationErrorKind {
     InternalInvariant,
 }
 
+impl VerificationErrorKind {
+    pub fn code(self) -> &'static str {
+        match self {
+            Self::CanonicalCertificate => "KERNEL_CANONICAL_CERTIFICATE",
+            Self::UnsupportedFeature => "KERNEL_UNSUPPORTED_FEATURE",
+            Self::ExportBlockMismatch => "KERNEL_EXPORT_BLOCK_MISMATCH",
+            Self::AxiomReportMismatch => "KERNEL_AXIOM_REPORT_MISMATCH",
+            Self::HashMismatch => "KERNEL_HASH_MISMATCH",
+            Self::MissingName => "KERNEL_MISSING_NAME",
+            Self::MissingGlobal => "KERNEL_MISSING_GLOBAL",
+            Self::OutOfOrderDeclarationDependency => "KERNEL_OUT_OF_ORDER_DECLARATION_DEPENDENCY",
+            Self::CoreCheck => "KERNEL_CORE_CHECK",
+            Self::InternalInvariant => "KERNEL_INTERNAL_INVARIANT",
+        }
+    }
+}
+
 pub fn verify_certificate_bytes(bytes: &[u8]) -> Result<VerificationReport, VerificationError> {
     let certificate = decode_canonical_certificate(bytes).map_err(|error| {
         VerificationError::canonical(
@@ -107,6 +125,7 @@ fn verify_certificate(
         export_hash: certificate.hashes.export_hash,
         axiom_report_hash: certificate.hashes.axiom_report_hash,
         certificate_hash: computed_certificate_hash,
+        axiom_report: certificate.axiom_report,
     })
 }
 
