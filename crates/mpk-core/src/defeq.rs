@@ -1,6 +1,7 @@
 //! Fuel-limited definitional equality for core terms.
 
 use crate::{
+    env::Environment,
     error::{CoreError, CoreErrorCode, CoreLocation},
     level::LevelId,
     reduce::{whnf_with_budget, ReduceError},
@@ -10,28 +11,31 @@ use crate::{
 pub const DEFAULT_DEFEQ_FUEL: u32 = 1024;
 
 pub fn definitionally_equal(
+    env: &Environment,
     terms: &mut TermArena,
     lhs: TermId,
     rhs: TermId,
 ) -> Result<bool, CoreError> {
-    definitionally_equal_with_fuel(terms, lhs, rhs, DEFAULT_DEFEQ_FUEL)
+    definitionally_equal_with_fuel(env, terms, lhs, rhs, DEFAULT_DEFEQ_FUEL)
 }
 
 pub fn definitionally_equal_with_fuel(
+    env: &Environment,
     terms: &mut TermArena,
     lhs: TermId,
     rhs: TermId,
     fuel: u32,
 ) -> Result<bool, CoreError> {
-    DefEqChecker { terms, fuel }.equal(lhs, rhs)
+    DefEqChecker { env, terms, fuel }.equal(lhs, rhs)
 }
 
-struct DefEqChecker<'a> {
-    terms: &'a mut TermArena,
+struct DefEqChecker<'env, 'terms> {
+    env: &'env Environment,
+    terms: &'terms mut TermArena,
     fuel: u32,
 }
 
-impl DefEqChecker<'_> {
+impl DefEqChecker<'_, '_> {
     fn equal(&mut self, lhs: TermId, rhs: TermId) -> Result<bool, CoreError> {
         self.consume_defeq_step(lhs, rhs)?;
         if lhs == rhs {
@@ -138,8 +142,59 @@ impl DefEqChecker<'_> {
         lhs: TermId,
         rhs: TermId,
     ) -> Result<TermId, CoreError> {
-        whnf_with_budget(self.terms, term, &mut self.fuel)
-            .map_err(|error| defeq_reduce_error(side, term, lhs, rhs, error))
+        let mut current = term;
+
+        loop {
+            let whnf = whnf_with_budget(self.terms, current, &mut self.fuel)
+                .map_err(|error| defeq_reduce_error(side, current, lhs, rhs, error))?;
+            current = whnf;
+
+            if let Some(value) = self.reducible_definition_value(current) {
+                self.consume_delta_step(lhs, rhs, current)?;
+                current = value;
+                continue;
+            }
+
+            let TermNode::App {
+                function,
+                arguments,
+            } = self.terms.node(current).clone()
+            else {
+                return Ok(current);
+            };
+
+            let reduced_function = self.whnf(side, function, lhs, rhs)?;
+            if reduced_function == function {
+                return Ok(current);
+            }
+
+            current = self.terms.app(reduced_function, arguments);
+        }
+    }
+
+    fn reducible_definition_value(&self, term: TermId) -> Option<TermId> {
+        let TermNode::Const { global, .. } = self.terms.node(term) else {
+            return None;
+        };
+        let declaration = self.env.lookup(*global)?;
+        declaration
+            .kind()
+            .is_reducible_definition()
+            .then(|| declaration.kind().definition_value())
+            .flatten()
+    }
+
+    fn consume_delta_step(
+        &mut self,
+        lhs: TermId,
+        rhs: TermId,
+        constant: TermId,
+    ) -> Result<(), CoreError> {
+        self.consume_defeq_step(lhs, rhs).map_err(|error| {
+            error
+                .with_detail("operation", "defeq_delta")
+                .with_detail("constant_term_index", constant.index().to_string())
+        })
     }
 
     fn consume_defeq_step(&mut self, lhs: TermId, rhs: TermId) -> Result<(), CoreError> {
@@ -184,7 +239,7 @@ fn defeq_location() -> CoreLocation {
 mod tests {
     use super::{definitionally_equal, definitionally_equal_with_fuel};
 
-    use crate::{LevelArena, TermArena, TermId};
+    use crate::{DefinitionReducibility, Environment, LevelArena, TermArena, TermId};
 
     fn sort(terms: &mut TermArena, levels: &mut LevelArena, name: &str) -> TermId {
         let level = levels.parse_param(name).expect("valid level param");
@@ -201,9 +256,108 @@ mod tests {
         let lambda = terms.lam(ty, body);
         let application = terms.app(lambda, [value]);
         let let_term = terms.let_term(ty, value, body);
+        let env = Environment::new();
 
-        assert!(definitionally_equal(&mut terms, application, value).expect("beta defeq"));
-        assert!(definitionally_equal(&mut terms, let_term, value).expect("zeta defeq"));
+        assert!(definitionally_equal(&env, &mut terms, application, value).expect("beta defeq"));
+        assert!(definitionally_equal(&env, &mut terms, let_term, value).expect("zeta defeq"));
+    }
+
+    #[test]
+    fn defeq_unfolds_reducible_definition() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let zero = levels.zero();
+        let value_type_level = levels.succ(zero);
+        let value = terms.sort(zero);
+        let ty = terms.sort(value_type_level);
+        let mut env = Environment::new();
+        let global = env
+            .register_definition(
+                "Core.ReducibleValue",
+                ty,
+                value,
+                DefinitionReducibility::Reducible,
+            )
+            .expect("valid definition");
+        let constant = terms.constant(global, []);
+
+        assert!(definitionally_equal(&env, &mut terms, constant, value).expect("delta defeq"));
+    }
+
+    #[test]
+    fn defeq_unfolds_reducible_function_head_before_beta() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let ty = sort(&mut terms, &mut levels, "u");
+        let argument = sort(&mut terms, &mut levels, "v");
+        let body = terms.var(0);
+        let lambda = terms.lam(ty, body);
+        let function_type = terms.pi(ty, ty);
+        let mut env = Environment::new();
+        let global = env
+            .register_definition(
+                "Core.ReducibleFn",
+                function_type,
+                lambda,
+                DefinitionReducibility::Reducible,
+            )
+            .expect("valid definition");
+        let constant = terms.constant(global, []);
+        let application = terms.app(constant, [argument]);
+
+        assert!(
+            definitionally_equal(&env, &mut terms, application, argument)
+                .expect("delta beta defeq")
+        );
+    }
+
+    #[test]
+    fn defeq_never_unfolds_opaque_definition() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let zero = levels.zero();
+        let value_type_level = levels.succ(zero);
+        let value = terms.sort(zero);
+        let ty = terms.sort(value_type_level);
+        let mut env = Environment::new();
+        let global = env
+            .register_definition(
+                "Core.OpaqueValue",
+                ty,
+                value,
+                DefinitionReducibility::Opaque,
+            )
+            .expect("valid definition");
+        let constant = terms.constant(global, []);
+
+        assert!(!definitionally_equal(&env, &mut terms, constant, value).expect("opaque defeq"));
+    }
+
+    #[test]
+    fn defeq_never_unfolds_opaque_function_head() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let ty = sort(&mut terms, &mut levels, "u");
+        let argument = sort(&mut terms, &mut levels, "v");
+        let body = terms.var(0);
+        let lambda = terms.lam(ty, body);
+        let function_type = terms.pi(ty, ty);
+        let mut env = Environment::new();
+        let global = env
+            .register_definition(
+                "Core.OpaqueFn",
+                function_type,
+                lambda,
+                DefinitionReducibility::Opaque,
+            )
+            .expect("valid definition");
+        let constant = terms.constant(global, []);
+        let application = terms.app(constant, [argument]);
+
+        assert!(
+            !definitionally_equal(&env, &mut terms, application, argument)
+                .expect("opaque function defeq")
+        );
     }
 
     #[test]
@@ -217,8 +371,9 @@ mod tests {
         let lhs = terms.lam(ty, body);
         let rhs_body = terms.var(0);
         let rhs = terms.lam(ty, rhs_body);
+        let env = Environment::new();
 
-        assert!(definitionally_equal(&mut terms, lhs, rhs).expect("binder body defeq"));
+        assert!(definitionally_equal(&env, &mut terms, lhs, rhs).expect("binder body defeq"));
     }
 
     #[test]
@@ -227,8 +382,9 @@ mod tests {
         let mut terms = TermArena::new();
         let lhs = sort(&mut terms, &mut levels, "u");
         let rhs = sort(&mut terms, &mut levels, "v");
+        let env = Environment::new();
 
-        assert!(!definitionally_equal(&mut terms, lhs, rhs).expect("defeq completes"));
+        assert!(!definitionally_equal(&env, &mut terms, lhs, rhs).expect("defeq completes"));
     }
 
     #[test]
@@ -236,8 +392,9 @@ mod tests {
         let mut levels = LevelArena::new();
         let mut terms = TermArena::new();
         let term = sort(&mut terms, &mut levels, "u");
+        let env = Environment::new();
 
-        let error = definitionally_equal_with_fuel(&mut terms, term, term, 0).unwrap_err();
+        let error = definitionally_equal_with_fuel(&env, &mut terms, term, term, 0).unwrap_err();
 
         assert_eq!(
             error.to_deterministic_json(),

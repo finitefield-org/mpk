@@ -274,7 +274,7 @@ fn check_lam(
     lambda: LambdaCheck,
 ) -> Result<(), CoreError> {
     infer(levels, terms, context, env, lambda.expected)?;
-    if !definitionally_equal(terms, lambda.ty, lambda.expected_ty)? {
+    if !definitionally_equal(env, terms, lambda.ty, lambda.expected_ty)? {
         return Err(lambda_domain_mismatch_error(
             terms,
             lambda.term,
@@ -303,7 +303,7 @@ fn check_by_inference(
     expected: TermId,
 ) -> Result<(), CoreError> {
     let inferred = infer(levels, terms, context, env, term)?;
-    if definitionally_equal(terms, inferred, expected)? {
+    if definitionally_equal(env, terms, inferred, expected)? {
         return Ok(());
     }
 
@@ -457,8 +457,8 @@ mod tests {
     use super::term_kind;
 
     use crate::{
-        check, infer, infer_sort, Environment, LevelArena, LevelNode, LocalContext, TermArena,
-        TermId, TermNode,
+        check, infer, infer_sort, DefinitionReducibility, Environment, LevelArena, LevelNode,
+        LocalContext, TermArena, TermId, TermNode,
     };
 
     fn check_type_mismatch_json(
@@ -860,6 +860,32 @@ mod tests {
 
         check(&mut levels, &mut terms, &context, &env, term, expected)
             .expect("zeta-equivalent expected type checks");
+    }
+
+    #[test]
+    fn check_by_inference_accepts_reducible_definition_expected_type() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let context = LocalContext::new();
+        let mut env = Environment::new();
+        let zero = levels.zero();
+        let succ_zero = levels.succ(zero);
+        let succ_succ_zero = levels.succ(succ_zero);
+        let term = terms.sort(zero);
+        let inferred_type = terms.sort(succ_zero);
+        let definition_type = terms.sort(succ_succ_zero);
+        let global = env
+            .register_definition(
+                "Core.ExpectedType",
+                definition_type,
+                inferred_type,
+                DefinitionReducibility::Reducible,
+            )
+            .expect("valid definition");
+        let expected = terms.constant(global, []);
+
+        check(&mut levels, &mut terms, &context, &env, term, expected)
+            .expect("reducible expected type checks");
     }
 
     #[test]
