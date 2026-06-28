@@ -9,6 +9,7 @@ pub mod expr_encode;
 pub mod gir;
 pub mod type_encode;
 pub mod vc;
+pub mod wp;
 
 pub use expr_encode::{
     encode_contract_expr, encode_gir_value, encode_instruction_expr, ExprContext, ExprEncodeError,
@@ -28,4 +29,5 @@ pub use type_encode::{
     STD_GO_BASE_STRUCT_SHAPE, STD_GO_BASE_STRUCT_VALUE, STD_GO_BASE_UINT16, STD_GO_BASE_UINT32,
     STD_GO_BASE_UINT64, STD_GO_BASE_UINT8,
 };
-pub use vc::{VcExpr, VcModule, VcObligation, VcObligationKind};
+pub use vc::{VcModule, VcObligation, VcObligationKind};
+pub use wp::{generate_straight_line_vcs, WpError, WpGenerator};

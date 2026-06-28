@@ -2,7 +2,8 @@
 
 use serde::{Deserialize, Serialize};
 
-use crate::gir::{GirIntLiteral, GirModule, GirType};
+use crate::expr_encode::MpkExprTerm;
+use crate::gir::GirModule;
 
 #[derive(Clone, Debug, Eq, PartialEq, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
@@ -29,8 +30,8 @@ pub struct VcObligation {
     pub function_id: String,
     pub kind: VcObligationKind,
     #[serde(default)]
-    pub assumptions: Vec<VcExpr>,
-    pub conclusion: VcExpr,
+    pub assumptions: Vec<MpkExprTerm>,
+    pub conclusion: MpkExprTerm,
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash, Deserialize, Serialize)]
@@ -45,20 +46,10 @@ pub enum VcObligationKind {
     Decreases,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, Deserialize, Serialize)]
-#[serde(tag = "kind", rename_all = "snake_case")]
-pub enum VcExpr {
-    Var { name: String },
-    Result { index: u32 },
-    Bool { value: bool },
-    Int { value: GirIntLiteral },
-    Apply { op: String, args: Vec<VcExpr> },
-    Convert { value: Box<VcExpr>, target: GirType },
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::expr_encode::{MpkExprTerm, STD_EQ};
     use crate::gir::{import_gir_json, GIR_SCHEMA_VERSION};
 
     #[test]
@@ -80,12 +71,12 @@ mod tests {
             id: "example.Identity.post0".to_owned(),
             function_id: "example.Identity".to_owned(),
             kind: VcObligationKind::Postcondition,
-            assumptions: vec![VcExpr::Bool { value: true }],
-            conclusion: VcExpr::Apply {
-                op: "eq".to_owned(),
+            assumptions: vec![MpkExprTerm::bool_literal(true)],
+            conclusion: MpkExprTerm::Apply {
+                function: STD_EQ.to_owned(),
                 args: vec![
-                    VcExpr::Result { index: 0 },
-                    VcExpr::Var {
+                    MpkExprTerm::Result { index: 0 },
+                    MpkExprTerm::Var {
                         name: "value".to_owned(),
                     },
                 ],
@@ -96,7 +87,7 @@ mod tests {
 
         assert!(encoded.contains("\"kind\":\"postcondition\""));
         assert!(encoded.contains("\"function_id\":\"example.Identity\""));
-        assert!(encoded.contains("\"op\":\"eq\""));
+        assert!(encoded.contains("\"function\":\"Std.Eq\""));
     }
 
     #[test]
