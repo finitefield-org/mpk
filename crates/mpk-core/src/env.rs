@@ -33,26 +33,50 @@ pub enum DeclarationKind {
         ty: TermId,
         proof: TermId,
     },
+    Inductive {
+        ty: TermId,
+    },
+    Constructor {
+        ty: TermId,
+        inductive: GlobalId,
+    },
+    Recursor {
+        ty: TermId,
+        inductive: GlobalId,
+    },
 }
 
 impl DeclarationKind {
     pub fn ty(self) -> TermId {
         match self {
-            Self::Axiom { ty } | Self::Definition { ty, .. } | Self::Theorem { ty, .. } => ty,
+            Self::Axiom { ty }
+            | Self::Definition { ty, .. }
+            | Self::Theorem { ty, .. }
+            | Self::Inductive { ty }
+            | Self::Constructor { ty, .. }
+            | Self::Recursor { ty, .. } => ty,
         }
     }
 
     pub fn definition_value(self) -> Option<TermId> {
         match self {
             Self::Definition { value, .. } => Some(value),
-            Self::Axiom { .. } | Self::Theorem { .. } => None,
+            Self::Axiom { .. }
+            | Self::Theorem { .. }
+            | Self::Inductive { .. }
+            | Self::Constructor { .. }
+            | Self::Recursor { .. } => None,
         }
     }
 
     pub fn theorem_proof(self) -> Option<TermId> {
         match self {
             Self::Theorem { proof, .. } => Some(proof),
-            Self::Axiom { .. } | Self::Definition { .. } => None,
+            Self::Axiom { .. }
+            | Self::Definition { .. }
+            | Self::Inductive { .. }
+            | Self::Constructor { .. }
+            | Self::Recursor { .. } => None,
         }
     }
 
@@ -149,6 +173,34 @@ impl Environment {
         self.register(name, DeclarationKind::Theorem { ty, proof })
     }
 
+    pub fn register_inductive(
+        &mut self,
+        name: impl AsRef<str>,
+        ty: TermId,
+    ) -> Result<GlobalId, CoreError> {
+        self.register(name, DeclarationKind::Inductive { ty })
+    }
+
+    pub fn register_constructor(
+        &mut self,
+        name: impl AsRef<str>,
+        ty: TermId,
+        inductive: GlobalId,
+    ) -> Result<GlobalId, CoreError> {
+        self.validate_inductive_reference(inductive, "constructor")?;
+        self.register(name, DeclarationKind::Constructor { ty, inductive })
+    }
+
+    pub fn register_recursor(
+        &mut self,
+        name: impl AsRef<str>,
+        ty: TermId,
+        inductive: GlobalId,
+    ) -> Result<GlobalId, CoreError> {
+        self.validate_inductive_reference(inductive, "recursor")?;
+        self.register(name, DeclarationKind::Recursor { ty, inductive })
+    }
+
     pub fn register(
         &mut self,
         name: impl AsRef<str>,
@@ -207,6 +259,26 @@ impl Environment {
     pub fn iter(&self) -> impl Iterator<Item = &Declaration> {
         self.declarations.iter()
     }
+
+    fn validate_inductive_reference(
+        &self,
+        inductive: GlobalId,
+        artifact_kind: &'static str,
+    ) -> Result<(), CoreError> {
+        match self.lookup(inductive).map(Declaration::kind) {
+            Some(DeclarationKind::Inductive { .. }) => Ok(()),
+            Some(_) => Err(invalid_inductive_reference_error(
+                inductive,
+                artifact_kind,
+                "not_inductive",
+            )),
+            None => Err(invalid_inductive_reference_error(
+                inductive,
+                artifact_kind,
+                "unknown_inductive",
+            )),
+        }
+    }
 }
 
 fn declarations_location() -> CoreLocation {
@@ -229,6 +301,17 @@ fn invalid_name_error(name: &str, name_error_code: &str) -> CoreError {
     )
     .with_detail("name", name)
     .with_detail("name_error", name_error_code)
+}
+
+fn invalid_inductive_reference_error(
+    inductive: GlobalId,
+    artifact_kind: &'static str,
+    kind: &'static str,
+) -> CoreError {
+    CoreError::new(CoreErrorCode::InvalidDeclaration, declarations_location())
+        .with_detail("kind", kind)
+        .with_detail("artifact_kind", artifact_kind)
+        .with_detail("inductive", inductive.as_u32().to_string())
 }
 
 #[cfg(test)]
@@ -304,6 +387,52 @@ mod tests {
         assert_eq!(declaration.kind(), DeclarationKind::Theorem { ty, proof });
         assert_eq!(declaration.kind().theorem_proof(), Some(proof));
         assert!(!declaration.kind().is_reducible_definition());
+    }
+
+    #[test]
+    fn registers_constructor_and_recursor_against_inductive() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let ty = sort(&mut terms, &mut levels, "u");
+        let mut env = Environment::new();
+
+        let inductive = env
+            .register_inductive("Std.Bool", ty)
+            .expect("valid inductive");
+        let constructor = env
+            .register_constructor("Std.Bool.true", ty, inductive)
+            .expect("valid constructor");
+        let recursor = env
+            .register_recursor("Std.Bool.rec", ty, inductive)
+            .expect("valid recursor");
+
+        assert_eq!(
+            env.lookup(constructor).expect("constructor").kind(),
+            DeclarationKind::Constructor { ty, inductive }
+        );
+        assert_eq!(
+            env.lookup(recursor).expect("recursor").kind(),
+            DeclarationKind::Recursor { ty, inductive }
+        );
+        assert_eq!(env.lookup(inductive).expect("inductive").ty(), ty);
+    }
+
+    #[test]
+    fn constructor_rejects_non_inductive_dependency() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let ty = sort(&mut terms, &mut levels, "u");
+        let mut env = Environment::new();
+
+        let axiom = env.register_axiom("Core.A", ty).expect("valid axiom");
+        let error = env
+            .register_constructor("Core.A.mk", ty, axiom)
+            .unwrap_err();
+
+        assert_eq!(
+            error.to_deterministic_json(),
+            "{\"code\":\"CORE_INVALID_DECLARATION\",\"location\":[{\"field\":\"declarations\"}],\"details\":{\"artifact_kind\":\"constructor\",\"inductive\":\"0\",\"kind\":\"not_inductive\"}}"
+        );
     }
 
     #[test]
