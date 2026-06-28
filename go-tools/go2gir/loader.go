@@ -14,7 +14,11 @@ const packageLoadMode = packages.NeedName |
 	packages.NeedFiles |
 	packages.NeedCompiledGoFiles |
 	packages.NeedImports |
-	packages.NeedModule
+	packages.NeedModule |
+	packages.NeedTypes |
+	packages.NeedSyntax |
+	packages.NeedTypesInfo |
+	packages.NeedTypesSizes
 
 type loadOptions struct {
 	Dir string
@@ -30,36 +34,56 @@ type loadedPackage struct {
 	Imports         []string `json:"imports"`
 }
 
+type packageLoadResult struct {
+	Packages  []*packages.Package
+	Summaries []loadedPackage
+}
+
 func loadPackages(packagePath string, options loadOptions) ([]loadedPackage, error) {
+	loaded, err := loadPackageSet(packagePath, options)
+	if err != nil {
+		return nil, err
+	}
+	return loaded.Summaries, nil
+}
+
+func loadPackageSet(packagePath string, options loadOptions) (packageLoadResult, error) {
 	config := pinnedPackageConfig(options)
 	packagesLoaded, err := packages.Load(config, packagePath)
 	if err != nil {
-		return nil, fmt.Errorf("load Go packages: %w", err)
+		return packageLoadResult{}, fmt.Errorf("load Go packages: %w", err)
 	}
 	if len(packagesLoaded) == 0 {
-		return nil, fmt.Errorf("load Go packages: no packages matched %q", packagePath)
+		return packageLoadResult{}, fmt.Errorf("load Go packages: no packages matched %q", packagePath)
 	}
 
 	var packageErrors []string
-	loaded := make([]loadedPackage, 0, len(packagesLoaded))
 	for _, pkg := range packagesLoaded {
 		for _, packageError := range pkg.Errors {
 			packageErrors = append(packageErrors, fmt.Sprintf("%s: %s", pkg.PkgPath, packageError.Msg))
 		}
-		loaded = append(loaded, summarizePackage(pkg, config.Dir))
 	}
 	if len(packageErrors) > 0 {
 		sort.Strings(packageErrors)
-		return nil, fmt.Errorf("load Go packages: %s", strings.Join(packageErrors, "; "))
+		return packageLoadResult{}, fmt.Errorf("load Go packages: %s", strings.Join(packageErrors, "; "))
 	}
 
-	sort.Slice(loaded, func(i, j int) bool {
-		if loaded[i].PackagePath != loaded[j].PackagePath {
-			return loaded[i].PackagePath < loaded[j].PackagePath
+	sort.Slice(packagesLoaded, func(i, j int) bool {
+		if packagesLoaded[i].PkgPath != packagesLoaded[j].PkgPath {
+			return packagesLoaded[i].PkgPath < packagesLoaded[j].PkgPath
 		}
-		return loaded[i].ID < loaded[j].ID
+		return packagesLoaded[i].ID < packagesLoaded[j].ID
 	})
-	return loaded, nil
+
+	summaries := make([]loadedPackage, 0, len(packagesLoaded))
+	for _, pkg := range packagesLoaded {
+		summaries = append(summaries, summarizePackage(pkg, config.Dir))
+	}
+
+	return packageLoadResult{
+		Packages:  packagesLoaded,
+		Summaries: summaries,
+	}, nil
 }
 
 func pinnedPackageConfig(options loadOptions) *packages.Config {

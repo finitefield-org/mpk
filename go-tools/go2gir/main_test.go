@@ -28,8 +28,8 @@ func TestRunAcceptsPackagePath(t *testing.T) {
 	if result.Schema != cliSchema {
 		t.Fatalf("schema = %q, want %q", result.Schema, cliSchema)
 	}
-	if result.Status != "loaded" {
-		t.Fatalf("status = %q, want loaded", result.Status)
+	if result.Status != "ssa-built" {
+		t.Fatalf("status = %q, want ssa-built", result.Status)
 	}
 	if result.PackagePath != "./testdata/samplepkg" {
 		t.Fatalf("package path = %q, want ./testdata/samplepkg", result.PackagePath)
@@ -46,6 +46,16 @@ func TestRunAcceptsPackagePath(t *testing.T) {
 	}
 	if !contains(got.GoFiles, "testdata/samplepkg/sample.go") {
 		t.Fatalf("go files = %v, want sample.go", got.GoFiles)
+	}
+	identity := findSSAFunction(result.SSA, got.PackagePath, "Identity")
+	if identity == nil {
+		t.Fatalf("SSA dump missing Identity function: %+v", result.SSA)
+	}
+	if identity.Signature != "func(value int64) int64" {
+		t.Fatalf("Identity signature = %q, want func(value int64) int64", identity.Signature)
+	}
+	if !hasSSAInstructionContaining(*identity, "return") {
+		t.Fatalf("Identity SSA instructions = %+v, want return instruction", identity.Blocks)
 	}
 }
 
@@ -116,6 +126,28 @@ func TestLoadPackagesUsesPinnedSettings(t *testing.T) {
 	}
 }
 
+func TestBuildSSADumpForSamplePackage(t *testing.T) {
+	loaded, err := loadPackageSet("./testdata/samplepkg", loadOptions{
+		Dir: filepath.FromSlash("."),
+	})
+	if err != nil {
+		t.Fatalf("load package set: %v", err)
+	}
+
+	dump, err := buildSSADump(loaded.Packages)
+	if err != nil {
+		t.Fatalf("build SSA dump: %v", err)
+	}
+
+	function := findSSAFunction(dump, loaded.Summaries[0].PackagePath, "Identity")
+	if function == nil {
+		t.Fatalf("SSA dump missing Identity function: %+v", dump)
+	}
+	if !hasSSAInstructionContaining(*function, "return") {
+		t.Fatalf("Identity SSA instructions = %+v, want return instruction", function.Blocks)
+	}
+}
+
 func TestPinnedPackageConfigUsesFixedSettings(t *testing.T) {
 	config := pinnedPackageConfig(loadOptions{
 		Dir: filepath.FromSlash("."),
@@ -163,4 +195,29 @@ func envValue(env []string, key string) string {
 		}
 	}
 	return ""
+}
+
+func findSSAFunction(dump ssaDump, packagePath string, functionName string) *ssaFunctionDump {
+	for _, pkg := range dump.Packages {
+		if pkg.PackagePath != packagePath {
+			continue
+		}
+		for index := range pkg.Functions {
+			if pkg.Functions[index].Name == functionName {
+				return &pkg.Functions[index]
+			}
+		}
+	}
+	return nil
+}
+
+func hasSSAInstructionContaining(function ssaFunctionDump, substring string) bool {
+	for _, block := range function.Blocks {
+		for _, instruction := range block.Instructions {
+			if strings.Contains(instruction, substring) {
+				return true
+			}
+		}
+	}
+	return false
 }

@@ -18,6 +18,7 @@ type cliResult struct {
 	Status      string          `json:"status"`
 	PackagePath string          `json:"package_path"`
 	Packages    []loadedPackage `json:"packages"`
+	SSA         ssaDump         `json:"ssa"`
 }
 
 func main() {
@@ -45,7 +46,12 @@ func run(args []string, stdout io.Writer, stderr io.Writer) int {
 		return 2
 	}
 
-	loaded, err := loadPackages(packagePath, loadOptions{})
+	loaded, err := loadPackageSet(packagePath, loadOptions{})
+	if err != nil {
+		fmt.Fprintf(stderr, "%s%s\n", usage, err)
+		return 1
+	}
+	ssaResult, err := buildSSADump(loaded.Packages)
 	if err != nil {
 		fmt.Fprintf(stderr, "%s%s\n", usage, err)
 		return 1
@@ -53,9 +59,10 @@ func run(args []string, stdout io.Writer, stderr io.Writer) int {
 
 	result := cliResult{
 		Schema:      cliSchema,
-		Status:      "loaded",
+		Status:      "ssa-built",
 		PackagePath: packagePath,
-		Packages:    loaded,
+		Packages:    loaded.Summaries,
+		SSA:         ssaResult,
 	}
 	encoder := json.NewEncoder(stdout)
 	encoder.SetEscapeHTML(false)
