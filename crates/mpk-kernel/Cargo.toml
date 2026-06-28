@@ -1,0 +1,12 @@
+[package]
+name = "mpk-kernel"
+version.workspace = true
+edition.workspace = true
+publish = false
+
+[dependencies]
+mpk-cert = { path = "../mpk-cert" }
+mpk-core = { path = "../mpk-core" }
+
+[lints]
+workspace = true

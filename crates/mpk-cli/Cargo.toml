@@ -1,0 +1,15 @@
+[package]
+name = "mpk-cli"
+version.workspace = true
+edition.workspace = true
+publish = false
+
+[dependencies]
+mpk-kernel = { path = "../mpk-kernel" }
+
+[[bin]]
+name = "mpk"
+path = "src/main.rs"
+
+[lints]
+workspace = true
