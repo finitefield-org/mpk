@@ -16,6 +16,7 @@ pub fn infer(
         TermNode::Sort(level) => Ok(infer_sort(levels, terms, level)),
         TermNode::Var(index) => infer_var(context, term, index),
         TermNode::Const { global, .. } => infer_const(env, term, global),
+        TermNode::Pi { ty, body } => infer_pi(levels, terms, context, env, term, ty, body),
         node => Err(unsupported_inference_error(term, &node)),
     }
 }
@@ -49,6 +50,52 @@ fn infer_const(env: &Environment, term: TermId, global: GlobalId) -> Result<Term
             .with_detail("global", global.as_u32().to_string())
             .with_detail("term_index", term.index().to_string())
         })
+}
+
+fn infer_pi(
+    levels: &mut LevelArena,
+    terms: &mut TermArena,
+    context: &LocalContext,
+    env: &Environment,
+    term: TermId,
+    ty: TermId,
+    body: TermId,
+) -> Result<TermId, CoreError> {
+    let domain_type = infer(levels, terms, context, env, ty)?;
+    let domain_level = expect_sort(terms, term, "domain", ty, domain_type)?;
+
+    let mut body_context = context.clone();
+    body_context.push_binder(ty);
+    let body_type = infer(levels, terms, &body_context, env, body)?;
+    let body_level = expect_sort(terms, term, "body", body, body_type)?;
+
+    let pi_level = levels.max(domain_level, body_level);
+    Ok(terms.sort(pi_level))
+}
+
+fn expect_sort(
+    terms: &TermArena,
+    term: TermId,
+    component: &'static str,
+    subject: TermId,
+    inferred: TermId,
+) -> Result<LevelId, CoreError> {
+    match terms.node(inferred) {
+        TermNode::Sort(level) => Ok(*level),
+        node => Err(CoreError::new(
+            CoreErrorCode::TypeMismatch,
+            CoreLocation::root()
+                .with_field("infer")
+                .with_field("pi")
+                .with_field(component),
+        )
+        .with_detail("kind", "pi_component_not_sort")
+        .with_detail("term_index", term.index().to_string())
+        .with_detail("subject_term_index", subject.index().to_string())
+        .with_detail("inferred_term_index", inferred.index().to_string())
+        .with_detail("expected", "sort")
+        .with_detail("actual", term_kind(node))),
+    }
 }
 
 fn unsupported_inference_error(term: TermId, node: &TermNode) -> CoreError {
@@ -220,6 +267,88 @@ mod tests {
             infer(&mut levels, &mut terms, &context, &env, constant).expect("const infers");
 
         assert_eq!(inferred, ty);
+    }
+
+    #[test]
+    fn infers_non_dependent_pi_sort_from_domain_and_body_sorts() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let context = LocalContext::new();
+        let env = Environment::new();
+        let u = levels.parse_param("u").expect("valid level param");
+        let v = levels.parse_param("v").expect("valid level param");
+        let domain = terms.sort(u);
+        let body = terms.sort(v);
+        let pi = terms.pi(domain, body);
+
+        let inferred = infer(&mut levels, &mut terms, &context, &env, pi).expect("pi infers");
+        let domain_level = levels.succ(u);
+        let body_level = levels.succ(v);
+        let expected_level = levels.max(domain_level, body_level);
+
+        assert_eq!(terms.node(inferred), &TermNode::Sort(expected_level));
+    }
+
+    #[test]
+    fn infers_dependent_pi_body_in_extended_context() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let context = LocalContext::new();
+        let env = Environment::new();
+        let u = levels.parse_param("u").expect("valid level param");
+        let domain = terms.sort(u);
+        let body = terms.var(0);
+        let pi = terms.pi(domain, body);
+
+        let inferred = infer(&mut levels, &mut terms, &context, &env, pi).expect("pi infers");
+        let domain_level = levels.succ(u);
+        let expected_level = levels.max(domain_level, u);
+
+        assert_eq!(terms.node(inferred), &TermNode::Sort(expected_level));
+    }
+
+    #[test]
+    fn pi_domain_must_infer_to_sort_deterministically() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let mut context = LocalContext::new();
+        let env = Environment::new();
+        let non_sort_type = terms.var(9);
+        let domain = terms.var(0);
+        let u = levels.parse_param("u").expect("valid level param");
+        let body = terms.sort(u);
+        let pi = terms.pi(domain, body);
+
+        context.push_binder(non_sort_type);
+
+        let error = infer(&mut levels, &mut terms, &context, &env, pi).unwrap_err();
+
+        assert_eq!(
+            error.to_deterministic_json(),
+            "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"infer\"},{\"field\":\"pi\"},{\"field\":\"domain\"}],\"details\":{\"actual\":\"var\",\"expected\":\"sort\",\"inferred_term_index\":\"0\",\"kind\":\"pi_component_not_sort\",\"subject_term_index\":\"1\",\"term_index\":\"3\"}}"
+        );
+    }
+
+    #[test]
+    fn pi_body_must_infer_to_sort_deterministically() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let mut context = LocalContext::new();
+        let env = Environment::new();
+        let non_sort_type = terms.var(9);
+        let u = levels.parse_param("u").expect("valid level param");
+        let domain = terms.sort(u);
+        let body = terms.var(1);
+        let pi = terms.pi(domain, body);
+
+        context.push_binder(non_sort_type);
+
+        let error = infer(&mut levels, &mut terms, &context, &env, pi).unwrap_err();
+
+        assert_eq!(
+            error.to_deterministic_json(),
+            "{\"code\":\"CORE_TYPE_MISMATCH\",\"location\":[{\"field\":\"infer\"},{\"field\":\"pi\"},{\"field\":\"body\"}],\"details\":{\"actual\":\"var\",\"expected\":\"sort\",\"inferred_term_index\":\"0\",\"kind\":\"pi_component_not_sort\",\"subject_term_index\":\"2\",\"term_index\":\"3\"}}"
+        );
     }
 
     #[test]
