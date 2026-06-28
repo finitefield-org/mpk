@@ -22,7 +22,18 @@ pub fn infer(
             arguments,
         } => infer_app(levels, terms, context, env, term, function, arguments),
         TermNode::Pi { ty, body } => infer_pi(levels, terms, context, env, term, ty, body),
-        node => Err(unsupported_inference_error(term, &node)),
+        TermNode::Let { ty, value, body } => infer_let(
+            levels,
+            terms,
+            context,
+            env,
+            LetInference {
+                term,
+                ty,
+                value,
+                body,
+            },
+        ),
     }
 }
 
@@ -213,6 +224,39 @@ fn infer_pi(
     Ok(terms.sort(pi_level))
 }
 
+struct LetInference {
+    term: TermId,
+    ty: TermId,
+    value: TermId,
+    body: TermId,
+}
+
+fn infer_let(
+    levels: &mut LevelArena,
+    terms: &mut TermArena,
+    context: &LocalContext,
+    env: &Environment,
+    let_term: LetInference,
+) -> Result<TermId, CoreError> {
+    let ty_type = infer(levels, terms, context, env, let_term.ty)?;
+    expect_sort(terms, let_term.term, "let", "type", let_term.ty, ty_type)?;
+    check(levels, terms, context, env, let_term.value, let_term.ty)?;
+
+    let body_context = extend_context_with_definition(context, let_term.ty, let_term.value);
+    let body_type = infer(levels, terms, &body_context, env, let_term.body)?;
+    substitute_top(terms, body_type, let_term.value)
+        .map_err(|error| CoreError::from_subst_error(let_body_location(), error))
+        .map_err(|error| {
+            error
+                .with_detail("operation", "let_body_type_substitution")
+                .with_detail("term_index", let_term.term.index().to_string())
+                .with_detail("type_index", let_term.ty.index().to_string())
+                .with_detail("value_term_index", let_term.value.index().to_string())
+                .with_detail("body_term_index", let_term.body.index().to_string())
+                .with_detail("body_type_index", body_type.index().to_string())
+        })
+}
+
 struct LambdaCheck {
     term: TermId,
     ty: TermId,
@@ -272,6 +316,16 @@ fn extend_context_with_binder(context: &LocalContext, ty: TermId) -> LocalContex
     extended
 }
 
+fn extend_context_with_definition(
+    context: &LocalContext,
+    ty: TermId,
+    value: TermId,
+) -> LocalContext {
+    let mut extended = context.clone();
+    extended.push_definition(ty, value);
+    extended
+}
+
 fn app_argument_index(term: TermId, index: usize) -> Result<u32, CoreError> {
     u32::try_from(index).map_err(|_| {
         CoreError::new(
@@ -289,6 +343,13 @@ fn app_location(argument_index: u32) -> CoreLocation {
         .with_field("infer")
         .with_field("app")
         .with_index(argument_index)
+}
+
+fn let_body_location() -> CoreLocation {
+    CoreLocation::root()
+        .with_field("infer")
+        .with_field("let")
+        .with_field("body")
 }
 
 fn expect_sort(
@@ -377,31 +438,6 @@ fn app_not_function_error(
         .with_detail("actual", term_kind(terms.node(whnf_type)))
         .with_detail("argument_index", argument_index.to_string())
         .with_detail("argument_term_index", argument.index().to_string())
-}
-
-fn unsupported_inference_error(term: TermId, node: &TermNode) -> CoreError {
-    let mut error = CoreError::new(
-        CoreErrorCode::UnsupportedFeature,
-        CoreLocation::root().with_field("infer"),
-    )
-    .with_detail("kind", "unsupported_term_inference")
-    .with_detail("term_index", term.index().to_string())
-    .with_detail("term_kind", term_kind(node));
-
-    match node {
-        TermNode::Var(index) => {
-            error = error.with_detail("var_index", index.to_string());
-        }
-        TermNode::Const { global, .. } => {
-            error = error.with_detail("global", global.as_u32().to_string());
-        }
-        TermNode::App { arguments, .. } => {
-            error = error.with_detail("argument_count", arguments.len().to_string());
-        }
-        TermNode::Lam { .. } | TermNode::Pi { .. } | TermNode::Let { .. } | TermNode::Sort(_) => {}
-    }
-
-    error
 }
 
 fn term_kind(node: &TermNode) -> &'static str {
@@ -1023,6 +1059,93 @@ mod tests {
     }
 
     #[test]
+    fn infers_let_body_with_local_definition() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let context = LocalContext::new();
+        let env = Environment::new();
+        let zero = levels.zero();
+        let type_level = levels.succ(zero);
+        let ty = terms.sort(type_level);
+        let value = terms.sort(zero);
+        let body = terms.var(0);
+        let let_term = terms.let_term(ty, value, body);
+
+        let inferred =
+            infer(&mut levels, &mut terms, &context, &env, let_term).expect("let infers");
+
+        assert_eq!(inferred, ty);
+    }
+
+    #[test]
+    fn infers_let_body_type_after_discharging_local_definition() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let mut context = LocalContext::new();
+        let env = Environment::new();
+        let u = levels.parse_param("u").expect("valid level param");
+        let type_sort = terms.sort(u);
+        let outer_type_before_value = terms.var(0);
+        context.push_binder(type_sort);
+        context.push_binder(outer_type_before_value);
+        let outer_type = terms.var(1);
+        let value = terms.var(0);
+        let body = terms.var(0);
+        let let_term = terms.let_term(outer_type, value, body);
+
+        let inferred =
+            infer(&mut levels, &mut terms, &context, &env, let_term).expect("let infers");
+
+        assert_eq!(inferred, outer_type);
+    }
+
+    #[test]
+    fn let_type_must_infer_to_sort_deterministically() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let mut context = LocalContext::new();
+        let env = Environment::new();
+        let non_sort_type = terms.var(9);
+        let ty = terms.var(0);
+        let value = terms.var(0);
+        let body = terms.var(0);
+        let let_term = terms.let_term(ty, value, body);
+
+        context.push_binder(non_sort_type);
+
+        let error = infer(&mut levels, &mut terms, &context, &env, let_term).unwrap_err();
+        let inferred_type_type = terms.var(10);
+
+        assert_eq!(
+            error.to_deterministic_json(),
+            infer_component_not_sort_json(&terms, "let", "type", let_term, ty, inferred_type_type)
+        );
+    }
+
+    #[test]
+    fn let_value_must_check_against_annotation_deterministically() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let context = LocalContext::new();
+        let env = Environment::new();
+        let zero = levels.zero();
+        let type_level = levels.succ(zero);
+        let wrong_value_type_level = levels.succ(type_level);
+        let ty = terms.sort(type_level);
+        let wrong_value = terms.sort(type_level);
+        let body = terms.var(0);
+        let let_term = terms.let_term(ty, wrong_value, body);
+
+        let error = infer(&mut levels, &mut terms, &context, &env, let_term).unwrap_err();
+        let wrong_value_type = terms.sort(wrong_value_type_level);
+
+        assert_eq!(
+            error.to_deterministic_json(),
+            check_type_mismatch_json(&terms, wrong_value, ty, wrong_value_type)
+        );
+    }
+
+    #[test]
     fn unknown_const_inference_rejects_deterministically() {
         let mut levels = LevelArena::new();
         let mut terms = TermArena::new();
@@ -1041,26 +1164,6 @@ mod tests {
         assert_eq!(
             error.to_deterministic_json(),
             "{\"code\":\"CORE_UNKNOWN_GLOBAL\",\"location\":[{\"field\":\"infer\"}],\"details\":{\"global\":\"0\",\"kind\":\"unknown_global\",\"term_index\":\"1\"}}"
-        );
-    }
-
-    #[test]
-    fn unsupported_let_inference_rejects_deterministically() {
-        let mut levels = LevelArena::new();
-        let mut terms = TermArena::new();
-        let context = LocalContext::new();
-        let env = Environment::new();
-        let u = levels.parse_param("u").expect("valid level param");
-        let ty = terms.sort(u);
-        let value = terms.var(0);
-        let body = terms.var(0);
-        let let_term = terms.let_term(ty, value, body);
-
-        let error = infer(&mut levels, &mut terms, &context, &env, let_term).unwrap_err();
-
-        assert_eq!(
-            error.to_deterministic_json(),
-            "{\"code\":\"CORE_UNSUPPORTED_FEATURE\",\"location\":[{\"field\":\"infer\"}],\"details\":{\"kind\":\"unsupported_term_inference\",\"term_index\":\"2\",\"term_kind\":\"let\"}}"
         );
     }
 }
