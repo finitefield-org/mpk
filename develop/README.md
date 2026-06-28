@@ -59,7 +59,7 @@ The only proof evidence is the canonical certificate and checker verdicts. Go so
 
 - Fast kernel: Rust.
 - Independent reference checker: Go.
-- First verified source-language frontend: Go subset, via an untrusted `go2gir` pipeline.
+- First source-language verification frontend: Go subset, via an untrusted `go2gir` pipeline.
 - Certificate format: canonical binary `.mpcert`, with deterministic hashes and axiom report.
 
 ## How to use this package

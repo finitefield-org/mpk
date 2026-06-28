@@ -59,7 +59,7 @@ The first MPK frontend targets a restricted Go subset to avoid semantic complexi
 - Generics.
 - Package-level mutable state.
 - Non-deterministic iteration.
-- Build tags that change semantics unless recorded and pinned in manifest.
+- Build tags or build constraints that change selected files or semantics. MVP rejects conditional builds rather than accepting them through manifest pinning.
 
 ## Integer semantics
 
@@ -88,7 +88,7 @@ Loops are accepted only if the contract sidecar supplies:
 
 A function is pure in MVP if:
 
-- it reads only parameters and local immutable values;
+- it reads only parameters and local variables or values created within the function;
 - it writes only local variables;
 - it makes only static calls to pure functions;
 - it does not read package-level mutable state;
