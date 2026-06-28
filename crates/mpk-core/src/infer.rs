@@ -1,8 +1,8 @@
 //! Core type inference and checking skeleton.
 
 use crate::{
-    lift, CoreError, CoreErrorCode, CoreLocation, Environment, GlobalId, LevelArena, LevelId,
-    LocalContext, TermArena, TermId, TermNode,
+    lift, substitute_top, whnf, CoreError, CoreErrorCode, CoreLocation, Environment, GlobalId,
+    LevelArena, LevelId, LocalContext, TermArena, TermId, TermNode,
 };
 
 pub fn infer(
@@ -17,6 +17,10 @@ pub fn infer(
         TermNode::Var(index) => infer_var(terms, context, term, index),
         TermNode::Const { global, .. } => infer_const(env, term, global),
         TermNode::Lam { ty, body } => infer_lam(levels, terms, context, env, term, ty, body),
+        TermNode::App {
+            function,
+            arguments,
+        } => infer_app(levels, terms, context, env, term, function, arguments),
         TermNode::Pi { ty, body } => infer_pi(levels, terms, context, env, term, ty, body),
         node => Err(unsupported_inference_error(term, &node)),
     }
@@ -139,6 +143,56 @@ fn infer_lam(
     Ok(terms.pi(ty, body_type))
 }
 
+fn infer_app(
+    levels: &mut LevelArena,
+    terms: &mut TermArena,
+    context: &LocalContext,
+    env: &Environment,
+    term: TermId,
+    function: TermId,
+    arguments: Vec<TermId>,
+) -> Result<TermId, CoreError> {
+    let mut function_type = infer(levels, terms, context, env, function)?;
+
+    for (argument_index, argument) in arguments.into_iter().enumerate() {
+        let argument_index = app_argument_index(term, argument_index)?;
+        let whnf_type = whnf(terms, function_type).map_err(|error| {
+            CoreError::from_reduce_error(app_location(argument_index), error)
+                .with_detail("operation", "app_function_type_whnf")
+                .with_detail("term_index", term.index().to_string())
+                .with_detail("function_term_index", function.index().to_string())
+                .with_detail("function_type_index", function_type.index().to_string())
+                .with_detail("argument_index", argument_index.to_string())
+                .with_detail("argument_term_index", argument.index().to_string())
+        })?;
+
+        let TermNode::Pi { ty, body } = terms.node(whnf_type).clone() else {
+            return Err(app_not_function_error(
+                terms,
+                term,
+                function,
+                function_type,
+                whnf_type,
+                argument_index,
+                argument,
+            ));
+        };
+
+        check(levels, terms, context, env, argument, ty)?;
+        function_type = substitute_top(terms, body, argument).map_err(|error| {
+            CoreError::from_subst_error(app_location(argument_index), error)
+                .with_detail("operation", "app_result_type_substitution")
+                .with_detail("term_index", term.index().to_string())
+                .with_detail("function_term_index", function.index().to_string())
+                .with_detail("body_type_index", body.index().to_string())
+                .with_detail("argument_index", argument_index.to_string())
+                .with_detail("argument_term_index", argument.index().to_string())
+        })?;
+    }
+
+    Ok(function_type)
+}
+
 fn infer_pi(
     levels: &mut LevelArena,
     terms: &mut TermArena,
@@ -218,6 +272,25 @@ fn extend_context_with_binder(context: &LocalContext, ty: TermId) -> LocalContex
     extended
 }
 
+fn app_argument_index(term: TermId, index: usize) -> Result<u32, CoreError> {
+    u32::try_from(index).map_err(|_| {
+        CoreError::new(
+            CoreErrorCode::InternalInvariant,
+            CoreLocation::root().with_field("infer").with_field("app"),
+        )
+        .with_detail("kind", "app_argument_index_overflow")
+        .with_detail("term_index", term.index().to_string())
+        .with_detail("argument_index", index.to_string())
+    })
+}
+
+fn app_location(argument_index: u32) -> CoreLocation {
+    CoreLocation::root()
+        .with_field("infer")
+        .with_field("app")
+        .with_index(argument_index)
+}
+
 fn expect_sort(
     terms: &TermArena,
     term: TermId,
@@ -284,6 +357,26 @@ fn lambda_domain_mismatch_error(
     .with_detail("actual_kind", term_kind(terms.node(actual)))
     .with_detail("expected_domain_index", expected.index().to_string())
     .with_detail("expected_kind", term_kind(terms.node(expected)))
+}
+
+fn app_not_function_error(
+    terms: &TermArena,
+    term: TermId,
+    function: TermId,
+    function_type: TermId,
+    whnf_type: TermId,
+    argument_index: u32,
+    argument: TermId,
+) -> CoreError {
+    CoreError::new(CoreErrorCode::NotAFunction, app_location(argument_index))
+        .with_detail("kind", "app_function_type_not_pi")
+        .with_detail("term_index", term.index().to_string())
+        .with_detail("function_term_index", function.index().to_string())
+        .with_detail("function_type_index", function_type.index().to_string())
+        .with_detail("whnf_type_index", whnf_type.index().to_string())
+        .with_detail("actual", term_kind(terms.node(whnf_type)))
+        .with_detail("argument_index", argument_index.to_string())
+        .with_detail("argument_term_index", argument.index().to_string())
 }
 
 fn unsupported_inference_error(term: TermId, node: &TermNode) -> CoreError {
@@ -381,6 +474,28 @@ mod tests {
             construct,
             subject.index(),
             term.index()
+        )
+    }
+
+    fn app_not_function_json(
+        terms: &TermArena,
+        app: TermId,
+        function: TermId,
+        function_type: TermId,
+        whnf_type: TermId,
+        argument_index: u32,
+        argument: TermId,
+    ) -> String {
+        format!(
+            "{{\"code\":\"CORE_NOT_A_FUNCTION\",\"location\":[{{\"field\":\"infer\"}},{{\"field\":\"app\"}},{{\"index\":{}}}],\"details\":{{\"actual\":\"{}\",\"argument_index\":\"{}\",\"argument_term_index\":\"{}\",\"function_term_index\":\"{}\",\"function_type_index\":\"{}\",\"kind\":\"app_function_type_not_pi\",\"term_index\":\"{}\",\"whnf_type_index\":\"{}\"}}}}",
+            argument_index,
+            term_kind(terms.node(whnf_type)),
+            argument_index,
+            argument.index(),
+            function.index(),
+            function_type.index(),
+            app.index(),
+            whnf_type.index()
         )
     }
 
@@ -765,6 +880,149 @@ mod tests {
     }
 
     #[test]
+    fn infers_application_by_checking_argument_against_pi_domain() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let context = LocalContext::new();
+        let env = Environment::new();
+        let zero = levels.zero();
+        let domain_level = levels.succ(zero);
+        let domain = terms.sort(domain_level);
+        let argument = terms.sort(zero);
+        let body = terms.var(0);
+        let lambda = terms.lam(domain, body);
+        let application = terms.app(lambda, [argument]);
+
+        let inferred =
+            infer(&mut levels, &mut terms, &context, &env, application).expect("app infers");
+
+        assert_eq!(inferred, domain);
+    }
+
+    #[test]
+    fn infers_application_substitutes_dependent_result_type() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let context = LocalContext::new();
+        let mut env = Environment::new();
+        let zero = levels.zero();
+        let domain_level = levels.succ(zero);
+        let domain = terms.sort(domain_level);
+        let argument = terms.sort(zero);
+        let dependent_body = terms.var(0);
+        let function_type = terms.pi(domain, dependent_body);
+        let global = env
+            .register_axiom("Core.DependentFn", function_type)
+            .expect("valid declaration");
+        let function = terms.constant(global, []);
+        let application = terms.app(function, [argument]);
+
+        let inferred =
+            infer(&mut levels, &mut terms, &context, &env, application).expect("app infers");
+
+        assert_eq!(inferred, argument);
+    }
+
+    #[test]
+    fn infers_application_after_whnf_function_type_to_pi() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let context = LocalContext::new();
+        let mut env = Environment::new();
+        let zero = levels.zero();
+        let domain_level = levels.succ(zero);
+        let domain = terms.sort(domain_level);
+        let argument = terms.sort(zero);
+        let pi_type = terms.pi(domain, domain);
+        let wrapped_body = terms.var(0);
+        let wrapped_type = terms.let_term(domain, pi_type, wrapped_body);
+        let global = env
+            .register_axiom("Core.WrappedFn", wrapped_type)
+            .expect("valid declaration");
+        let function = terms.constant(global, []);
+        let application = terms.app(function, [argument]);
+
+        let inferred =
+            infer(&mut levels, &mut terms, &context, &env, application).expect("app infers");
+
+        assert_eq!(inferred, domain);
+    }
+
+    #[test]
+    fn infers_multi_argument_application_spine() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let context = LocalContext::new();
+        let env = Environment::new();
+        let zero = levels.zero();
+        let domain_level = levels.succ(zero);
+        let domain = terms.sort(domain_level);
+        let first_argument = terms.sort(zero);
+        let second_argument = terms.sort(zero);
+        let inner_body = terms.var(0);
+        let inner_lambda = terms.lam(domain, inner_body);
+        let outer_lambda = terms.lam(domain, inner_lambda);
+        let application = terms.app(outer_lambda, [first_argument, second_argument]);
+
+        let inferred =
+            infer(&mut levels, &mut terms, &context, &env, application).expect("app infers");
+
+        assert_eq!(inferred, domain);
+    }
+
+    #[test]
+    fn application_rejects_non_function_type_deterministically() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let context = LocalContext::new();
+        let env = Environment::new();
+        let zero = levels.zero();
+        let function = terms.sort(zero);
+        let argument = terms.sort(zero);
+        let application = terms.app(function, [argument]);
+
+        let error = infer(&mut levels, &mut terms, &context, &env, application).unwrap_err();
+        let function_type = terms.sort(levels.succ(zero));
+
+        assert_eq!(
+            error.to_deterministic_json(),
+            app_not_function_json(
+                &terms,
+                application,
+                function,
+                function_type,
+                function_type,
+                0,
+                argument
+            )
+        );
+    }
+
+    #[test]
+    fn application_rejects_argument_type_mismatch_deterministically() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let context = LocalContext::new();
+        let env = Environment::new();
+        let zero = levels.zero();
+        let domain_level = levels.succ(zero);
+        let wrong_argument_type_level = levels.succ(domain_level);
+        let domain = terms.sort(domain_level);
+        let wrong_argument = terms.sort(domain_level);
+        let body = terms.var(0);
+        let lambda = terms.lam(domain, body);
+        let application = terms.app(lambda, [wrong_argument]);
+
+        let error = infer(&mut levels, &mut terms, &context, &env, application).unwrap_err();
+        let wrong_argument_type = terms.sort(wrong_argument_type_level);
+
+        assert_eq!(
+            error.to_deterministic_json(),
+            check_type_mismatch_json(&terms, wrong_argument, domain, wrong_argument_type)
+        );
+    }
+
+    #[test]
     fn unknown_const_inference_rejects_deterministically() {
         let mut levels = LevelArena::new();
         let mut terms = TermArena::new();
@@ -787,20 +1045,22 @@ mod tests {
     }
 
     #[test]
-    fn unsupported_app_inference_rejects_deterministically() {
+    fn unsupported_let_inference_rejects_deterministically() {
         let mut levels = LevelArena::new();
         let mut terms = TermArena::new();
         let context = LocalContext::new();
         let env = Environment::new();
-        let function = terms.var(0);
-        let argument = terms.var(1);
-        let app = terms.app(function, [argument]);
+        let u = levels.parse_param("u").expect("valid level param");
+        let ty = terms.sort(u);
+        let value = terms.var(0);
+        let body = terms.var(0);
+        let let_term = terms.let_term(ty, value, body);
 
-        let error = infer(&mut levels, &mut terms, &context, &env, app).unwrap_err();
+        let error = infer(&mut levels, &mut terms, &context, &env, let_term).unwrap_err();
 
         assert_eq!(
             error.to_deterministic_json(),
-            "{\"code\":\"CORE_UNSUPPORTED_FEATURE\",\"location\":[{\"field\":\"infer\"}],\"details\":{\"argument_count\":\"1\",\"kind\":\"unsupported_term_inference\",\"term_index\":\"2\",\"term_kind\":\"app\"}}"
+            "{\"code\":\"CORE_UNSUPPORTED_FEATURE\",\"location\":[{\"field\":\"infer\"}],\"details\":{\"kind\":\"unsupported_term_inference\",\"term_index\":\"2\",\"term_kind\":\"let\"}}"
         );
     }
 }
