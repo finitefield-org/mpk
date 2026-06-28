@@ -5,9 +5,11 @@
 pub mod context;
 pub mod level;
 pub mod name;
+pub mod subst;
 pub mod term;
 
 pub use context::{LocalContext, LocalDecl, LocalDefinition};
 pub use level::{LevelArena, LevelHash, LevelId, LevelNode};
 pub use name::{GlobalId, Name, NameError, NameResolver};
+pub use subst::{beta_substitute, lift, lift_from, substitute, substitute_top, SubstError};
 pub use term::{TermArena, TermHash, TermId, TermNode};
