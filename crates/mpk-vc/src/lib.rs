@@ -5,10 +5,16 @@
 
 #![forbid(unsafe_code)]
 
+pub mod expr_encode;
 pub mod gir;
 pub mod type_encode;
 pub mod vc;
 
+pub use expr_encode::{
+    encode_contract_expr, encode_gir_value, encode_instruction_expr, ExprContext, ExprEncodeError,
+    ExprEncoder, MpkExprTerm, MpkExprType, STD_BITVEC_MODULE, STD_BOOL_AND, STD_BOOL_FALSE,
+    STD_BOOL_NOT, STD_BOOL_OR, STD_BOOL_TRUE, STD_EQ,
+};
 pub use gir::{
     import_gir_json, GirBinding, GirBlock, GirContractExpr, GirContracts, GirField, GirFieldType,
     GirFunction, GirImportError, GirInstruction, GirInstructionKind, GirIntLiteral,
