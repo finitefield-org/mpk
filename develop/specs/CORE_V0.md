@@ -1,6 +1,6 @@
-# MPK Core v0 Draft Specification
+# MPK Core v0 Specification
 
-Status: draft. This file is an implementation target, not a final standard.
+Status: frozen for implementation. This file is the stable MPK Core v0 target for SPEC-001. Changes require a new spec revision or a governance-approved amendment.
 
 ## Design principles
 
@@ -99,7 +99,7 @@ The theorem is exported as an opaque constant. Its proof body is checked inside 
 
 ### Inductive
 
-MVP inductives should be minimal:
+MVP inductives are intentionally minimal:
 
 - Bool;
 - Nat;
@@ -107,7 +107,7 @@ MVP inductives should be minimal:
 - product/sigma only if needed;
 - list only after fixed-array verification works.
 
-The positivity checker should be conservative. Unknown nested functors fail closed.
+The positivity checker is conservative. Unknown nested functors fail closed.
 
 Implementation requirements:
 
@@ -169,4 +169,4 @@ Every reduction and definitional-equality path must be bounded by deterministic 
 
 ## Unsafe-code policy
 
-Normative MVP unsafe-code requirements are defined in `specs/UNSAFE_POLICY_V0.md`. The fast Rust kernel and certificate verifier should forbid unsafe code at crate level during MVP. If unsafe code is ever considered for performance, it must be isolated, audited, fuzzed, and kept outside the initial trusted path.
+Normative MVP unsafe-code requirements are defined in `specs/UNSAFE_POLICY_V0.md`. The fast Rust kernel and certificate verifier must forbid unsafe code at crate level during MVP. If unsafe code is ever considered for performance, it must be isolated, audited, fuzzed, and kept outside the initial trusted path.
