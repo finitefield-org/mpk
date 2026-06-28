@@ -6,6 +6,7 @@ pub mod binary_tags;
 pub mod canonical;
 pub mod decode;
 pub mod encode;
+pub mod hash;
 
 pub use binary_tags::{DeclarationTag, LevelTag, ProofNodeTag, TermTag};
 pub use canonical::{
@@ -14,3 +15,7 @@ pub use canonical::{
 };
 pub use decode::{decode_certificate, DecodeError, DecodeErrorKind};
 pub use encode::{encode_certificate, encode_unsigned_varint, Certificate, CertificateHashes};
+pub use hash::{
+    axiom_report_hash, certificate_hash, export_hash, hash_hex, hash_with_domain, level_hash,
+    term_hash, HashDomain,
+};
