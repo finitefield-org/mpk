@@ -3,9 +3,14 @@
 #![forbid(unsafe_code)]
 
 pub mod binary_tags;
+pub mod canonical;
 pub mod decode;
 pub mod encode;
 
 pub use binary_tags::{DeclarationTag, LevelTag, ProofNodeTag, TermTag};
+pub use canonical::{
+    decode_canonical_certificate, validate_canonical_certificate, CanonicalError,
+    CanonicalErrorKind,
+};
 pub use decode::{decode_certificate, DecodeError, DecodeErrorKind};
 pub use encode::{encode_certificate, encode_unsigned_varint, Certificate, CertificateHashes};
