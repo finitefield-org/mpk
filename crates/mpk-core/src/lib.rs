@@ -3,6 +3,7 @@
 #![forbid(unsafe_code)]
 
 pub mod context;
+pub mod env;
 pub mod error;
 pub mod level;
 pub mod name;
@@ -11,6 +12,7 @@ pub mod subst;
 pub mod term;
 
 pub use context::{LocalContext, LocalDecl, LocalDefinition};
+pub use env::{Declaration, DeclarationKind, DefinitionReducibility, Environment};
 pub use error::{CoreError, CoreErrorCode, CoreLocation, CoreLocationPart};
 pub use level::{LevelArena, LevelHash, LevelId, LevelNode};
 pub use name::{GlobalId, Name, NameError, NameResolver};
