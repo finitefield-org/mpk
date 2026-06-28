@@ -6,10 +6,12 @@
 
 #![forbid(unsafe_code)]
 
+pub mod check_api;
 pub mod proof_api;
 pub mod session;
 pub mod term_api;
 
+pub use check_api::{CheckNodeRequest, CheckNodeResponse};
 pub use proof_api::{
     ApiProofId, ApplyProofRequest, ConvProofRequest, ExactProofRequest, IntroProofRequest,
     ProofResponse, ReflProofRequest,

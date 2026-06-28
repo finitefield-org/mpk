@@ -219,6 +219,10 @@ impl ApiSession {
         ))
     }
 
+    pub(crate) fn core_parts_mut(&mut self) -> (&mut LevelArena, &mut TermArena, &Environment) {
+        (&mut self.levels, &mut self.terms, &self.environment)
+    }
+
     pub fn environment(&self) -> &Environment {
         &self.environment
     }
@@ -406,8 +410,10 @@ pub enum ApiErrorCode {
     InvalidModuleName,
     InvalidGlobalName,
     ProofIdOverflow,
+    ProofCheckFailed,
     SessionLimitExceeded,
     TermIdOverflow,
+    UnsupportedProofNodeKind,
     UnknownProof,
     UnknownSession,
     UnknownGlobal,
@@ -421,8 +427,10 @@ impl ApiErrorCode {
             Self::InvalidModuleName => "INVALID_MODULE_NAME",
             Self::InvalidGlobalName => "INVALID_GLOBAL_NAME",
             Self::ProofIdOverflow => "PROOF_ID_OVERFLOW",
+            Self::ProofCheckFailed => "PROOF_CHECK_FAILED",
             Self::SessionLimitExceeded => "SESSION_LIMIT_EXCEEDED",
             Self::TermIdOverflow => "TERM_ID_OVERFLOW",
+            Self::UnsupportedProofNodeKind => "UNSUPPORTED_PROOF_NODE_KIND",
             Self::UnknownProof => "UNKNOWN_PROOF",
             Self::UnknownSession => "UNKNOWN_SESSION",
             Self::UnknownGlobal => "UNKNOWN_GLOBAL",
