@@ -116,16 +116,16 @@ fn verify_certificate(
     check_proof_nodes_with_context(&mut declaration_context, ProofCheckProfile::CoreBootstrap)
         .map_err(VerificationError::proof)?;
     reject_unsupported_certificate_features(&certificate)?;
-    verify_recomputed_certificate_sections(&certificate)?;
+    let axiom_report = verify_recomputed_certificate_sections(&certificate)?;
 
     Ok(VerificationReport {
         module: certificate.module,
         declaration_count,
-        axiom_count: certificate.axiom_report.summary.total_axiom_count,
+        axiom_count: axiom_report.summary.total_axiom_count,
         export_hash: certificate.hashes.export_hash,
         axiom_report_hash: certificate.hashes.axiom_report_hash,
         certificate_hash: computed_certificate_hash,
-        axiom_report: certificate.axiom_report,
+        axiom_report,
     })
 }
 
@@ -203,7 +203,7 @@ fn reject_unsupported_certificate_features(
 
 fn verify_recomputed_certificate_sections(
     certificate: &Certificate,
-) -> Result<(), VerificationError> {
+) -> Result<AxiomReport, VerificationError> {
     let rebuilt_export_block = build_export_block(certificate).map_err(|error| {
         VerificationError::new(
             VerificationErrorKind::ExportBlockMismatch,
@@ -254,7 +254,7 @@ fn verify_recomputed_certificate_sections(
         ));
     }
 
-    Ok(())
+    Ok(rebuilt_axiom_report)
 }
 
 #[cfg(test)]

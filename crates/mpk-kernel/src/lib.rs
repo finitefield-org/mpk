@@ -13,7 +13,8 @@ pub use decl_driver::{
     check_declarations, DeclarationCheckError, DeclarationCheckErrorKind, DeclarationCheckReport,
 };
 pub use json_output::{
-    render_verification_error_json, render_verification_report_json, verify_certificate_bytes_json,
+    render_axiom_report_json, render_verification_error_json, render_verification_report_json,
+    verify_certificate_bytes_axiom_report_json_output, verify_certificate_bytes_json,
     verify_certificate_bytes_json_output, VerificationJsonOutput,
 };
 pub use proof_check::{

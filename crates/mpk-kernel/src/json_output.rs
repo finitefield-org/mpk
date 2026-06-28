@@ -36,6 +36,32 @@ pub fn verify_certificate_bytes_json_output(bytes: &[u8]) -> VerificationJsonOut
     }
 }
 
+pub fn verify_certificate_bytes_axiom_report_json_output(bytes: &[u8]) -> VerificationJsonOutput {
+    let computed_certificate_hash = certificate_hash(bytes);
+    match verify_certificate_bytes(bytes) {
+        Ok(report) => VerificationJsonOutput {
+            accepted: true,
+            json: render_axiom_report_json(&report),
+        },
+        Err(error) => VerificationJsonOutput {
+            accepted: false,
+            json: render_verification_error_json(&computed_certificate_hash, &error),
+        },
+    }
+}
+
+pub fn render_axiom_report_json(report: &VerificationReport) -> String {
+    let mut output = String::new();
+    output.push_str("{\"certificate_hash\":");
+    write_hash(&mut output, &report.certificate_hash);
+    output.push_str(",\"axiom_report_hash\":");
+    write_hash(&mut output, &report.axiom_report_hash);
+    output.push_str(",\"axiom_report\":");
+    write_axiom_report(&mut output, &report.axiom_report);
+    output.push('}');
+    output
+}
+
 pub fn render_verification_report_json(report: &VerificationReport) -> String {
     let mut output = String::new();
     output.push_str("{\"verdict\":\"accepted\",\"module\":");
@@ -224,7 +250,8 @@ mod tests {
     use crate::verifier::VerificationReport;
 
     use super::{
-        render_verification_report_json, verify_certificate_bytes_json,
+        render_axiom_report_json, render_verification_report_json,
+        verify_certificate_bytes_axiom_report_json_output, verify_certificate_bytes_json,
         verify_certificate_bytes_json_output,
     };
 
@@ -363,6 +390,48 @@ mod tests {
                 "\"direct_axiom_dependencies\":[0],",
                 "\"transitive_axiom_dependencies\":[0,3]}]},",
                 "\"error_code\":null,\"error_detail\":null}"
+            )
+        );
+        assert_eq!(
+            render_axiom_report_json(&report),
+            concat!(
+                "{\"certificate_hash\":\"1212121212121212121212121212121212121212121212121212121212121212\",",
+                "\"axiom_report_hash\":\"1111111111111111111111111111111111111111111111111111111111111111\",",
+                "\"axiom_report\":{\"summary\":{\"core_axiom_count\":1,",
+                "\"builtin_theory_axiom_count\":0,\"go_semantics_axiom_count\":0,",
+                "\"external_axiom_count\":0,\"total_axiom_count\":1},",
+                "\"entries\":[{\"category\":\"CoreAxiom\",\"name\":\"Example.Json.ax\",",
+                "\"origin_module\":\"Example.Json\",",
+                "\"type_hash\":\"1313131313131313131313131313131313131313131313131313131313131313\",",
+                "\"declaration_hash\":\"1414141414141414141414141414141414141414141414141414141414141414\",",
+                "\"source_certificate_hash\":\"1515151515151515151515151515151515151515151515151515151515151515\",",
+                "\"direct_dependent_declarations\":[0,2],",
+                "\"transitive_dependent_declarations\":[0,1,2],",
+                "\"approval_profile\":\"bootstrap\",",
+                "\"reviewer_note\":\"line \\\"one\\\"\\nline two\"}],",
+                "\"declaration_dependencies\":[{\"declaration_name\":\"Example.Json.thm\",",
+                "\"declaration_hash\":\"1616161616161616161616161616161616161616161616161616161616161616\",",
+                "\"direct_axiom_dependencies\":[0],",
+                "\"transitive_axiom_dependencies\":[0,3]}]}}"
+            )
+        );
+    }
+
+    #[test]
+    fn axiom_report_command_output_matches_snapshot() {
+        let bytes = decode_hex_fixture(&Path::new(CERT_BASIC_FIXTURE_DIR).join("one-theorem.hex"));
+        let output = verify_certificate_bytes_axiom_report_json_output(&bytes);
+
+        assert!(output.accepted);
+        assert_eq!(
+            output.json,
+            concat!(
+                "{\"certificate_hash\":\"37744c27174b7637485f6c005902dbf72604641ba66e2ebec90795eaddde1e94\",",
+                "\"axiom_report_hash\":\"0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5\",",
+                "\"axiom_report\":{\"summary\":{\"core_axiom_count\":0,",
+                "\"builtin_theory_axiom_count\":0,\"go_semantics_axiom_count\":0,",
+                "\"external_axiom_count\":0,\"total_axiom_count\":0},",
+                "\"entries\":[],\"declaration_dependencies\":[]}}"
             )
         );
     }

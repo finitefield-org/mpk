@@ -5,13 +5,22 @@ use std::path::Path;
 use std::process::ExitCode;
 
 use mpk_kernel::{
-    verify_certificate_bytes, verify_certificate_bytes_json_output, VerificationJsonOutput,
+    verify_certificate_bytes, verify_certificate_bytes_axiom_report_json_output,
+    verify_certificate_bytes_json_output, VerificationJsonOutput,
 };
 
 fn main() -> ExitCode {
     match run(std::env::args().skip(1).collect()) {
         Ok(RunOutcome::Help) => ExitCode::SUCCESS,
         Ok(RunOutcome::Check(output)) => {
+            println!("{}", output.json);
+            if output.accepted {
+                ExitCode::SUCCESS
+            } else {
+                ExitCode::FAILURE
+            }
+        }
+        Ok(RunOutcome::AxiomReport(output)) => {
             println!("{}", output.json);
             if output.accepted {
                 ExitCode::SUCCESS
@@ -37,13 +46,14 @@ fn main() -> ExitCode {
 fn run(args: Vec<String>) -> Result<RunOutcome, CliError> {
     match args.as_slice() {
         [command, path] if command == "check" => check_path(Path::new(path)),
+        [command, path] if command == "axiom-report" => axiom_report_path(Path::new(path)),
         [command, path] if command == "verify" => verify_path(Path::new(path)),
         [command] if command == "--help" || command == "-h" || command == "help" => {
             print_usage();
             Ok(RunOutcome::Help)
         }
         _ => Err(CliError::Usage(
-            "usage: mpk check <certificate.mpcert|fixture.hex>".to_owned(),
+            "usage: mpk <check|axiom-report> <certificate.mpcert|fixture.hex>".to_owned(),
         )),
     }
 }
@@ -53,6 +63,13 @@ fn check_path(path: &Path) -> Result<RunOutcome, CliError> {
     Ok(RunOutcome::Check(verify_certificate_bytes_json_output(
         &bytes,
     )))
+}
+
+fn axiom_report_path(path: &Path) -> Result<RunOutcome, CliError> {
+    let bytes = read_certificate_input(path)?;
+    Ok(RunOutcome::AxiomReport(
+        verify_certificate_bytes_axiom_report_json_output(&bytes),
+    ))
 }
 
 fn verify_path(path: &Path) -> Result<RunOutcome, CliError> {
@@ -106,12 +123,13 @@ fn decode_hex(bytes: &[u8]) -> Result<Vec<u8>, CliError> {
 }
 
 fn print_usage() {
-    println!("usage: mpk check <certificate.mpcert|fixture.hex>");
+    println!("usage: mpk <check|axiom-report> <certificate.mpcert|fixture.hex>");
 }
 
 enum RunOutcome {
     Help,
     Check(VerificationJsonOutput),
+    AxiomReport(VerificationJsonOutput),
     Verify(String),
 }
 
