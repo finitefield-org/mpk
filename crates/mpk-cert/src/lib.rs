@@ -2,6 +2,7 @@
 
 #![forbid(unsafe_code)]
 
+pub mod axiom_report;
 pub mod binary_tags;
 pub mod canonical;
 pub mod decode;
@@ -10,6 +11,10 @@ pub mod export;
 pub mod hash;
 pub mod imports;
 
+pub use axiom_report::{
+    axiom_report_hash_for_report, build_axiom_report, encode_axiom_report, AxiomReportBuildError,
+    AxiomReportBuildErrorKind,
+};
 pub use binary_tags::{DeclarationTag, LevelTag, ProofNodeTag, TermTag};
 pub use canonical::{
     decode_canonical_certificate, validate_canonical_certificate, CanonicalError,
