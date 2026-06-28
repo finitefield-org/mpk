@@ -17,6 +17,7 @@ const girSchemaVersion = "mpk.gir.v0"
 type girModule struct {
 	SchemaVersion string       `json:"schema_version"`
 	Packages      []girPackage `json:"packages"`
+	GIRHash       string       `json:"gir_hash,omitempty"`
 }
 
 type girPackage struct {

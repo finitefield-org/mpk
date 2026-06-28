@@ -2,6 +2,8 @@ package main
 
 import (
 	"bytes"
+	"encoding/base64"
+	"encoding/binary"
 	"encoding/json"
 	"os"
 	"path/filepath"
@@ -63,12 +65,87 @@ func TestRunAcceptsPackagePath(t *testing.T) {
 	if result.GIR == nil {
 		t.Fatal("GIR missing")
 	}
+	if result.GIR.GIRHash == "" {
+		t.Fatal("GIR hash missing")
+	}
+	if result.GIREmission == nil {
+		t.Fatal("GIR emission missing")
+	}
+	if result.GIREmission.Schema != girEmitSchema {
+		t.Fatalf("GIR emission schema = %q, want %q", result.GIREmission.Schema, girEmitSchema)
+	}
+	if result.GIREmission.GIRHash != result.GIR.GIRHash {
+		t.Fatalf("GIR emission hash = %q, want module hash %q", result.GIREmission.GIRHash, result.GIR.GIRHash)
+	}
 	identityGIR := findGIRFunction(*result.GIR, got.PackagePath, "Identity")
 	if identityGIR == nil {
 		t.Fatalf("GIR missing Identity function: %+v", result.GIR)
 	}
 	if !hasGIRTerminatorKind(*identityGIR, "Return") {
 		t.Fatalf("Identity GIR blocks = %+v, want Return terminator", identityGIR.Blocks)
+	}
+}
+
+func TestRunEmitsDeterministicGIRHash(t *testing.T) {
+	first := runSuccessfulPackage(t, "./testdata/max64")
+	second := runSuccessfulPackage(t, "./testdata/max64")
+
+	if first.GIR == nil || second.GIR == nil {
+		t.Fatal("GIR missing")
+	}
+	if first.GIR.GIRHash == "" {
+		t.Fatal("GIR hash missing")
+	}
+	if first.GIR.GIRHash != second.GIR.GIRHash {
+		t.Fatalf("GIR hash changed between runs: %q != %q", first.GIR.GIRHash, second.GIR.GIRHash)
+	}
+	if first.GIREmission == nil || second.GIREmission == nil {
+		t.Fatal("GIR emission missing")
+	}
+	if first.GIREmission.Schema != girEmitSchema {
+		t.Fatalf("GIR emission schema = %q, want %q", first.GIREmission.Schema, girEmitSchema)
+	}
+	if first.GIREmission.CanonicalJSON != second.GIREmission.CanonicalJSON {
+		t.Fatalf("canonical JSON changed between runs:\n%s\n---\n%s", first.GIREmission.CanonicalJSON, second.GIREmission.CanonicalJSON)
+	}
+	if first.GIREmission.BinaryBase64 != second.GIREmission.BinaryBase64 {
+		t.Fatal("canonical binary changed between runs")
+	}
+	if strings.Contains(first.GIREmission.CanonicalJSON, "gir_hash") {
+		t.Fatalf("canonical hash input must exclude gir_hash: %s", first.GIREmission.CanonicalJSON)
+	}
+
+	binaryPayload, err := base64.StdEncoding.DecodeString(first.GIREmission.BinaryBase64)
+	if err != nil {
+		t.Fatalf("decode binary payload: %v", err)
+	}
+	if !bytes.HasPrefix(binaryPayload, []byte(girBinaryMagic)) {
+		t.Fatalf("binary payload missing magic prefix: %x", binaryPayload[:min(len(binaryPayload), len(girBinaryMagic))])
+	}
+	if len(binaryPayload) < len(girBinaryMagic)+8 {
+		t.Fatalf("binary payload too short: %d", len(binaryPayload))
+	}
+	canonicalJSONBytes := []byte(first.GIREmission.CanonicalJSON)
+	declaredLength := binary.BigEndian.Uint64(binaryPayload[len(girBinaryMagic) : len(girBinaryMagic)+8])
+	if declaredLength != uint64(len(canonicalJSONBytes)) {
+		t.Fatalf("binary length = %d, want %d", declaredLength, len(canonicalJSONBytes))
+	}
+	if !bytes.Equal(binaryPayload[len(girBinaryMagic)+8:], canonicalJSONBytes) {
+		t.Fatal("binary payload body does not match canonical JSON")
+	}
+	if got := hashGIRBinary(binaryPayload); got != first.GIR.GIRHash {
+		t.Fatalf("binary hash = %q, want %q", got, first.GIR.GIRHash)
+	}
+
+	var canonical girCanonicalModule
+	if err := json.Unmarshal([]byte(first.GIREmission.CanonicalJSON), &canonical); err != nil {
+		t.Fatalf("decode canonical JSON: %v\n%s", err, first.GIREmission.CanonicalJSON)
+	}
+	if canonical.SchemaVersion != girSchemaVersion {
+		t.Fatalf("canonical schema = %q, want %q", canonical.SchemaVersion, girSchemaVersion)
+	}
+	if len(canonical.Packages) != 1 {
+		t.Fatalf("canonical packages = %d, want 1", len(canonical.Packages))
 	}
 }
 
@@ -178,6 +255,9 @@ func TestRunRejectsUnsupportedFixtures(t *testing.T) {
 			}
 			if result.SSA != nil {
 				t.Fatalf("SSA = %+v, want nil for rejected package", result.SSA)
+			}
+			if result.GIR != nil || result.GIREmission != nil {
+				t.Fatalf("GIR output = %+v / %+v, want nil for rejected package", result.GIR, result.GIREmission)
 			}
 			if !hasRejectedFeature(result.RejectedFeatures, tt.feature, tt.reason) {
 				t.Fatalf("rejected features = %+v, want %q / %q", result.RejectedFeatures, tt.feature, tt.reason)
@@ -389,6 +469,29 @@ func envValue(env []string, key string) string {
 	return ""
 }
 
+func runSuccessfulPackage(t *testing.T, path string) cliResult {
+	t.Helper()
+
+	var stdout bytes.Buffer
+	var stderr bytes.Buffer
+	exitCode := run([]string{path}, &stdout, &stderr)
+	if exitCode != 0 {
+		t.Fatalf("exit code = %d, want 0; stderr=%s stdout=%s", exitCode, stderr.String(), stdout.String())
+	}
+	if stderr.Len() != 0 {
+		t.Fatalf("stderr = %q, want empty", stderr.String())
+	}
+
+	var result cliResult
+	if err := json.Unmarshal(stdout.Bytes(), &result); err != nil {
+		t.Fatalf("decode stdout: %v\n%s", err, stdout.String())
+	}
+	if result.Status != "gir-lowered" {
+		t.Fatalf("status = %q, want gir-lowered", result.Status)
+	}
+	return result
+}
+
 func findSSAFunction(dump ssaDump, packagePath string, functionName string) *ssaFunctionDump {
 	for _, pkg := range dump.Packages {
 		if pkg.PackagePath != packagePath {
@@ -412,6 +515,13 @@ func hasSSAInstructionContaining(function ssaFunctionDump, substring string) boo
 		}
 	}
 	return false
+}
+
+func min(a int, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }
 
 func hasRejectedFeature(features []rejectedFeature, feature string, reason string) bool {

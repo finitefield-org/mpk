@@ -20,6 +20,7 @@ type cliResult struct {
 	Packages         []loadedPackage   `json:"packages"`
 	SSA              *ssaDump          `json:"ssa,omitempty"`
 	GIR              *girModule        `json:"gir,omitempty"`
+	GIREmission      *girEmission      `json:"gir_emit,omitempty"`
 	RejectedFeatures []rejectedFeature `json:"rejected_features,omitempty"`
 }
 
@@ -81,6 +82,11 @@ func run(args []string, stdout io.Writer, stderr io.Writer) int {
 		}
 		return 1
 	}
+	girResult, girEmission, err := emitCanonicalGIR(girResult)
+	if err != nil {
+		fmt.Fprintf(stderr, "emit GIR: %v\n", err)
+		return 1
+	}
 
 	ssaResult, err := buildSSADump(loaded.Packages)
 	if err != nil {
@@ -95,6 +101,7 @@ func run(args []string, stdout io.Writer, stderr io.Writer) int {
 		Packages:    loaded.Summaries,
 		SSA:         &ssaResult,
 		GIR:         &girResult,
+		GIREmission: &girEmission,
 	}
 	if err := encodeCLIResult(stdout, result); err != nil {
 		fmt.Fprintf(stderr, "encode go2gir result: %v\n", err)
