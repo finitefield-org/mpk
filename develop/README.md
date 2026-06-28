@@ -10,6 +10,7 @@ This package extends the prior MPK design with an implementation roadmap, task b
 .
 ├── README.md
 ├── docs/
+│   ├── CHARTER.md
 │   ├── 00_executive_summary.md
 │   ├── 01_design_added_implementation_roadmap.md
 │   ├── 02_architecture.md
@@ -66,11 +67,12 @@ The only proof evidence is the canonical certificate and checker verdicts. Go so
 
 Start with:
 
-1. `docs/00_executive_summary.md`
-2. `roadmap/ROADMAP.md`
-3. `tasks/TASK_BACKLOG.md`
-4. `specs/CORE_V0_DRAFT.md`
-5. `specs/CERT_V0_DRAFT.md`
+1. `docs/CHARTER.md`
+2. `docs/00_executive_summary.md`
+3. `roadmap/ROADMAP.md`
+4. `tasks/TASK_BACKLOG.md`
+5. `specs/CORE_V0_DRAFT.md`
+6. `specs/CERT_V0_DRAFT.md`
 
 Then seed project-management issues from `tasks/github_issues_seed.jsonl` or import `tasks/task_backlog.csv` into a spreadsheet or tracker.
 
