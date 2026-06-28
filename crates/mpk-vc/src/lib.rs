@@ -8,6 +8,7 @@
 pub mod expr_encode;
 pub mod gir;
 pub mod loops;
+pub mod obligation_emit;
 pub mod safety;
 pub mod type_encode;
 pub mod vc;
@@ -26,6 +27,11 @@ pub use gir::{
     GirType, GirTypeKind, GirValue, GIR_SCHEMA_VERSION,
 };
 pub use loops::{generate_loop_vcs, LoopVcGenerator};
+pub use obligation_emit::{
+    core_declaration_name, emit_theorem_obligations, theorem_type_for_obligation,
+    CoreTheoremDeclarationSkeleton, ObligationEmitError, ObligationEmitter, VcCertificateSkeleton,
+    STD_LOGIC_IMP, VC_CERT_SKELETON_SCHEMA_VERSION, VC_DECLARATION_PREFIX,
+};
 pub use safety::{generate_safety_vcs, SafetyVcGenerator};
 pub use type_encode::{
     encode_gir_type, MpkTypeTerm, TypeEncodeError, TypeEncoder, STD_GO_BASE_ARRAY,
