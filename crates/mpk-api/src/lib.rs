@@ -12,6 +12,7 @@ pub mod diagnostics;
 pub mod jsonl;
 pub mod proof_api;
 pub mod session;
+pub mod strategies;
 pub mod term_api;
 
 pub use batch::{
@@ -31,6 +32,10 @@ pub use proof_api::{
 pub use session::{
     ApiError, ApiErrorCode, ApiService, ApiSession, ProofProfile, SessionId, SessionStatus,
     SessionSummary, StartSessionRequest, StartSessionResponse,
+};
+pub use strategies::{
+    ApplyStrategyCandidate, StrategyAttempt, StrategyKind, StrategyProveRequest,
+    StrategyProveResponse,
 };
 pub use term_api::{
     ApiTermId, AppTermRequest, BinderTermRequest, ConstTermRequest, LetTermRequest,
