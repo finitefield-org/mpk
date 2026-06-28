@@ -1,8 +1,8 @@
 //! Core type inference and checking skeleton.
 
 use crate::{
-    lift, substitute_top, whnf, CoreError, CoreErrorCode, CoreLocation, Environment, GlobalId,
-    LevelArena, LevelId, LocalContext, TermArena, TermId, TermNode,
+    definitionally_equal, lift, substitute_top, whnf, CoreError, CoreErrorCode, CoreLocation,
+    Environment, GlobalId, LevelArena, LevelId, LocalContext, TermArena, TermId, TermNode,
 };
 
 pub fn infer(
@@ -274,7 +274,7 @@ fn check_lam(
     lambda: LambdaCheck,
 ) -> Result<(), CoreError> {
     infer(levels, terms, context, env, lambda.expected)?;
-    if lambda.ty != lambda.expected_ty {
+    if !definitionally_equal(terms, lambda.ty, lambda.expected_ty)? {
         return Err(lambda_domain_mismatch_error(
             terms,
             lambda.term,
@@ -303,7 +303,7 @@ fn check_by_inference(
     expected: TermId,
 ) -> Result<(), CoreError> {
     let inferred = infer(levels, terms, context, env, term)?;
-    if inferred == expected {
+    if definitionally_equal(terms, inferred, expected)? {
         return Ok(());
     }
 
@@ -820,6 +820,46 @@ mod tests {
 
         check(&mut levels, &mut terms, &context, &env, lambda, expected)
             .expect("lambda checks against pi");
+    }
+
+    #[test]
+    fn lambda_check_accepts_definitionally_equal_domain() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let context = LocalContext::new();
+        let env = Environment::new();
+        let zero = levels.zero();
+        let domain_level = levels.succ(zero);
+        let domain_type_level = levels.succ(domain_level);
+        let expected_domain = terms.sort(domain_level);
+        let domain_type = terms.sort(domain_type_level);
+        let body = terms.var(0);
+        let annotated_domain = terms.let_term(domain_type, expected_domain, body);
+        let lambda_body = terms.var(0);
+        let lambda = terms.lam(annotated_domain, lambda_body);
+        let expected = terms.pi(expected_domain, expected_domain);
+
+        check(&mut levels, &mut terms, &context, &env, lambda, expected)
+            .expect("zeta-equivalent lambda domain checks");
+    }
+
+    #[test]
+    fn check_by_inference_accepts_definitionally_equal_expected_type() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let context = LocalContext::new();
+        let env = Environment::new();
+        let zero = levels.zero();
+        let succ_zero = levels.succ(zero);
+        let succ_succ_zero = levels.succ(succ_zero);
+        let term = terms.sort(zero);
+        let inferred_type = terms.sort(succ_zero);
+        let inferred_type_type = terms.sort(succ_succ_zero);
+        let body = terms.var(0);
+        let expected = terms.let_term(inferred_type_type, inferred_type, body);
+
+        check(&mut levels, &mut terms, &context, &env, term, expected)
+            .expect("zeta-equivalent expected type checks");
     }
 
     #[test]

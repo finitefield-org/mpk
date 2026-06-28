@@ -25,15 +25,24 @@ pub fn whnf_with_fuel(
     term: TermId,
     fuel: u32,
 ) -> Result<TermId, ReduceError> {
+    let mut remaining = fuel;
+    whnf_with_budget(arena, term, &mut remaining)
+}
+
+pub(crate) fn whnf_with_budget(
+    arena: &mut TermArena,
+    term: TermId,
+    fuel: &mut u32,
+) -> Result<TermId, ReduceError> {
     WhnfReducer { arena, fuel }.reduce(term)
 }
 
-struct WhnfReducer<'a> {
-    arena: &'a mut TermArena,
-    fuel: u32,
+struct WhnfReducer<'arena, 'fuel> {
+    arena: &'arena mut TermArena,
+    fuel: &'fuel mut u32,
 }
 
-impl WhnfReducer<'_> {
+impl WhnfReducer<'_, '_> {
     fn reduce(&mut self, mut term: TermId) -> Result<TermId, ReduceError> {
         loop {
             match self.arena.node(term).clone() {
@@ -87,11 +96,11 @@ impl WhnfReducer<'_> {
     }
 
     fn consume_fuel(&mut self) -> Result<(), ReduceError> {
-        if self.fuel == 0 {
+        if *self.fuel == 0 {
             return Err(ReduceError::FuelExhausted);
         }
 
-        self.fuel -= 1;
+        *self.fuel -= 1;
         Ok(())
     }
 }
