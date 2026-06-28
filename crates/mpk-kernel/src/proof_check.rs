@@ -7,8 +7,7 @@ use crate::decl_driver::{
 
 use mpk_cert::encode::{Certificate, ProofNode};
 use mpk_core::{
-    check, infer, CoreError, CoreErrorCode, CoreLocation, LocalContext, TermId,
-    TermNode as CoreTermNode,
+    CoreError, CoreErrorCode, CoreLocation, LocalContext, TermId, TermNode as CoreTermNode,
 };
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash, Ord, PartialOrd)]
@@ -315,8 +314,9 @@ impl ProofDriver<'_, '_> {
         term: TermId,
     ) -> Result<(), ProofCheckError> {
         let inferred = {
-            let (levels, terms, env) = self.declarations.core_parts();
-            infer(levels, terms, context, env, term)
+            let (levels, terms, env, cache) = self.declarations.cached_core_parts();
+            cache
+                .infer(levels, terms, context, env, term)
                 .map_err(|error| ProofCheckError::core(proof_node, error))?
         };
         let is_sort = {
@@ -350,8 +350,9 @@ impl ProofDriver<'_, '_> {
         term: TermId,
         expected_type: TermId,
     ) -> Result<(), ProofCheckError> {
-        let (levels, terms, env) = self.declarations.core_parts();
-        check(levels, terms, context, env, term, expected_type)
+        let (levels, terms, env, cache) = self.declarations.cached_core_parts();
+        cache
+            .check(levels, terms, context, env, term, expected_type)
             .map_err(|error| ProofCheckError::core(proof_node, error))
     }
 }

@@ -2,10 +2,12 @@
 
 #![forbid(unsafe_code)]
 
+pub mod cache;
 pub mod decl_driver;
 pub mod proof_check;
 pub mod verifier;
 
+pub use cache::{CheckerCache, CheckerCacheStats};
 pub use decl_driver::{
     check_declarations, DeclarationCheckError, DeclarationCheckErrorKind, DeclarationCheckReport,
 };

@@ -1,9 +1,11 @@
 //! Declaration checking orchestration for canonical certificates.
 
+use crate::cache::CheckerCache;
+
 use mpk_cert::encode::{Certificate, DeclarationKind, DefinitionReducibility, LevelNode, TermNode};
 use mpk_core::{
-    check, infer, register_checked_theorem, CoreError, CoreErrorCode, CoreLocation, Environment,
-    GlobalId, LevelArena, LevelId, LocalContext, Name, TermArena, TermId, TermNode as CoreTermNode,
+    CoreError, CoreErrorCode, CoreLocation, Environment, GlobalId, LevelArena, LevelId,
+    LocalContext, Name, TermArena, TermId, TermNode as CoreTermNode,
 };
 
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -83,6 +85,7 @@ pub(crate) struct CheckedDeclarationContext<'certificate> {
     level_cache: Vec<Option<LevelId>>,
     term_cache: Vec<Option<TermId>>,
     globals: Vec<GlobalId>,
+    cache: CheckerCache,
 }
 
 impl<'certificate> CheckedDeclarationContext<'certificate> {
@@ -95,6 +98,7 @@ impl<'certificate> CheckedDeclarationContext<'certificate> {
             level_cache: vec![None; certificate.level_table.len()],
             term_cache: vec![None; certificate.term_table.len()],
             globals: Vec::with_capacity(certificate.declarations.len()),
+            cache: CheckerCache::new(),
         }
     }
 
@@ -108,6 +112,22 @@ impl<'certificate> CheckedDeclarationContext<'certificate> {
 
     pub(crate) fn core_parts(&mut self) -> (&mut LevelArena, &mut TermArena, &Environment) {
         (&mut self.levels, &mut self.terms, &self.env)
+    }
+
+    pub(crate) fn cached_core_parts(
+        &mut self,
+    ) -> (
+        &mut LevelArena,
+        &mut TermArena,
+        &Environment,
+        &mut CheckerCache,
+    ) {
+        (
+            &mut self.levels,
+            &mut self.terms,
+            &self.env,
+            &mut self.cache,
+        )
     }
 
     fn check_declarations(&mut self) -> Result<(), DeclarationCheckError> {
@@ -129,15 +149,16 @@ impl<'certificate> CheckedDeclarationContext<'certificate> {
                     let ty = self.translate_term(*ty)?;
                     let value = self.translate_term(*value)?;
                     self.expect_term_type_is_sort(index, "definition_type", ty)?;
-                    check(
-                        &mut self.levels,
-                        &mut self.terms,
-                        &LocalContext::new(),
-                        &self.env,
-                        value,
-                        ty,
-                    )
-                    .map_err(DeclarationCheckError::core)?;
+                    self.cache
+                        .check(
+                            &mut self.levels,
+                            &mut self.terms,
+                            &LocalContext::new(),
+                            &self.env,
+                            value,
+                            ty,
+                        )
+                        .map_err(DeclarationCheckError::core)?;
                     self.env
                         .register_definition(name, ty, value, convert_reducibility(*reducibility))
                         .map_err(DeclarationCheckError::core)?
@@ -145,15 +166,20 @@ impl<'certificate> CheckedDeclarationContext<'certificate> {
                 DeclarationKind::Theorem { ty, proof } => {
                     let ty = self.translate_term(*ty)?;
                     let proof = self.translate_term(*proof)?;
-                    register_checked_theorem(
-                        &mut self.levels,
-                        &mut self.terms,
-                        &mut self.env,
-                        name,
-                        ty,
-                        proof,
-                    )
-                    .map_err(DeclarationCheckError::core)?
+                    self.expect_term_type_is_sort(index, "theorem_type", ty)?;
+                    self.cache
+                        .check(
+                            &mut self.levels,
+                            &mut self.terms,
+                            &LocalContext::new(),
+                            &self.env,
+                            proof,
+                            ty,
+                        )
+                        .map_err(DeclarationCheckError::core)?;
+                    self.env
+                        .register_theorem(name, ty, proof)
+                        .map_err(DeclarationCheckError::core)?
                 }
                 DeclarationKind::Inductive { .. }
                 | DeclarationKind::Constructor { .. }
@@ -166,6 +192,7 @@ impl<'certificate> CheckedDeclarationContext<'certificate> {
             };
 
             self.push_global(index, global)?;
+            self.cache.clear();
         }
         Ok(())
     }
@@ -176,14 +203,16 @@ impl<'certificate> CheckedDeclarationContext<'certificate> {
         field: &'static str,
         term: TermId,
     ) -> Result<(), DeclarationCheckError> {
-        let inferred = infer(
-            &mut self.levels,
-            &mut self.terms,
-            &LocalContext::new(),
-            &self.env,
-            term,
-        )
-        .map_err(DeclarationCheckError::core)?;
+        let inferred = self
+            .cache
+            .infer(
+                &mut self.levels,
+                &mut self.terms,
+                &LocalContext::new(),
+                &self.env,
+                term,
+            )
+            .map_err(DeclarationCheckError::core)?;
         if matches!(self.terms.node(inferred), CoreTermNode::Sort(_)) {
             return Ok(());
         }
