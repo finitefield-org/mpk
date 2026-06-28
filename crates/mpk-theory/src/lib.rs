@@ -2,8 +2,14 @@
 
 #![forbid(unsafe_code)]
 
+pub mod bitvec_eval;
 pub mod bool_cert;
 
+pub use bitvec_eval::{
+    evaluate_bitvec_expr, BitVecBinaryOp, BitVecComparisonOp, BitVecEvalError, BitVecEvalErrorKind,
+    BitVecEvalResult, BitVecExpr, BitVecUnaryOp, BitVecValue, MAX_BITVEC_EXPR_NODES,
+    SUPPORTED_BITVEC_WIDTHS,
+};
 pub use bool_cert::{
     check_bool_certificate, check_bool_certificate_payload, decode_bool_certificate, BoolCertError,
     BoolCertErrorKind, BoolCertificate, BoolCertificateRow, BoolCertificateSummary, BoolExpr,
