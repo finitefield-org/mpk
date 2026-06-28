@@ -1,4 +1,6 @@
-# MPK AI API v0 Draft
+# MPK AI API v0 Specification
+
+Status: frozen for implementation. This is the stable AI API v0 profile for SPEC-005. Changes require a new API profile revision or a governance-approved amendment.
 
 ## Goal
 
@@ -12,6 +14,10 @@ The API is designed for AI and automated tools, not for human proof scripting. I
 - Make failed proof nodes locally repairable.
 - Support batch candidate checking.
 - Support cache-friendly repeated subgoal attempts.
+
+## Acceptance boundary
+
+The API may construct terms, proof nodes, candidate DAGs, diagnostics, and canonical certificates. It must not mark a theorem, declaration, module, package, or release artifact as accepted unless the relevant certificate checker verifies the canonical `.mpcert` bytes under the active policy. Session state, cached proof nodes, strategy success, diagnostic `ok` fields, and batch candidate verdicts are helper data only.
 
 ## Session operations
 
@@ -99,7 +105,7 @@ AI agents should submit many candidates cheaply:
 }
 ```
 
-The checker should return all deterministic rejections without mutating accepted module state unless explicitly committed.
+The checker must return deterministic rejections without mutating accepted module state unless explicitly committed.
 
 ## Repair loop
 
@@ -114,4 +120,4 @@ Recommended loop:
 
 ## Security posture
 
-The API must not provide hidden trusted shortcuts. Any convenience operation must expand into certificate-checkable proof nodes or theory certificates.
+The API must not provide hidden trusted shortcuts. Any convenience operation must expand into certificate-checkable proof nodes or theory certificates. No endpoint may bypass canonical certificate export and checker verification.

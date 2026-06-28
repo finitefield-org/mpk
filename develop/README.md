@@ -24,7 +24,7 @@ This package extends the prior MPK design with an implementation roadmap, task b
 │   ├── UNSAFE_POLICY_V0.md
 │   ├── GIR_V0.md
 │   ├── GO_SUBSET_V0.md
-│   └── AI_API_V0_DRAFT.md
+│   └── AI_API_V0.md
 ├── roadmap/
 │   ├── ROADMAP.md
 │   ├── MILESTONES.md

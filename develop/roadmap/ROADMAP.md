@@ -14,6 +14,7 @@ Deliverables:
 - Axiom policy document.
 - Unsafe-code policy.
 - `GO_SUBSET_V0.md` frozen for implementation.
+- `AI_API_V0.md` frozen for implementation.
 - Deterministic hash-domain registry.
 
 Exit gate:
