@@ -1,0 +1,304 @@
+{
+  "schema_version": "mpk.vc.cert_skeleton.v0",
+  "source_gir_hash": "a5f49bcfdf9dc1bd4df04e33ca93e90b098dd48af58be2b73261847426c18b6a",
+  "theorem_declarations": [
+    {
+      "name": "VC.Obligation.example.Max64.then.post0",
+      "obligation_id": "example.Max64.then.post0",
+      "function_id": "example.Max64",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sgt",
+            "args": [
+              {
+                "kind": "var",
+                "name": "b"
+              },
+              {
+                "kind": "var",
+                "name": "a"
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "b"
+              },
+              {
+                "kind": "var",
+                "name": "a"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.Max64.then.post1",
+      "obligation_id": "example.Max64.then.post1",
+      "function_id": "example.Max64",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sgt",
+            "args": [
+              {
+                "kind": "var",
+                "name": "b"
+              },
+              {
+                "kind": "var",
+                "name": "a"
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "b"
+              },
+              {
+                "kind": "var",
+                "name": "b"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.Max64.then.post2",
+      "obligation_id": "example.Max64.then.post2",
+      "function_id": "example.Max64",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sgt",
+            "args": [
+              {
+                "kind": "var",
+                "name": "b"
+              },
+              {
+                "kind": "var",
+                "name": "a"
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Bool.or",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.Eq",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "b"
+                  },
+                  {
+                    "kind": "var",
+                    "name": "a"
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Eq",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "b"
+                  },
+                  {
+                    "kind": "var",
+                    "name": "b"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.Max64.else.post0",
+      "obligation_id": "example.Max64.else.post0",
+      "function_id": "example.Max64",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.Bool.not",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sgt",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "b"
+                  },
+                  {
+                    "kind": "var",
+                    "name": "a"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "a"
+              },
+              {
+                "kind": "var",
+                "name": "a"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.Max64.else.post1",
+      "obligation_id": "example.Max64.else.post1",
+      "function_id": "example.Max64",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.Bool.not",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sgt",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "b"
+                  },
+                  {
+                    "kind": "var",
+                    "name": "a"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "a"
+              },
+              {
+                "kind": "var",
+                "name": "b"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.Max64.else.post2",
+      "obligation_id": "example.Max64.else.post2",
+      "function_id": "example.Max64",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.Bool.not",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sgt",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "b"
+                  },
+                  {
+                    "kind": "var",
+                    "name": "a"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Bool.or",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.Eq",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "a"
+                  },
+                  {
+                    "kind": "var",
+                    "name": "a"
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Eq",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "a"
+                  },
+                  {
+                    "kind": "var",
+                    "name": "b"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
