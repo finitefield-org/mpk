@@ -239,11 +239,143 @@ fn defeq_location() -> CoreLocation {
 mod tests {
     use super::{definitionally_equal, definitionally_equal_with_fuel};
 
-    use crate::{DefinitionReducibility, Environment, LevelArena, TermArena, TermId};
+    use std::collections::BTreeSet;
+    use std::fs;
+    use std::path::Path;
+
+    use crate::{
+        register_checked_theorem, CoreError, DefinitionReducibility, Environment, LevelArena,
+        TermArena, TermId,
+    };
+
+    const CORE_NEGATIVE_FIXTURE_DIR: &str =
+        concat!(env!("CARGO_MANIFEST_DIR"), "/../../fixtures/core-negative");
+
+    #[derive(Debug)]
+    struct NegativeDefeqFixture {
+        id: String,
+        forbidden_conversion: String,
+        expected: String,
+    }
 
     fn sort(terms: &mut TermArena, levels: &mut LevelArena, name: &str) -> TermId {
         let level = levels.parse_param(name).expect("valid level param");
         terms.sort(level)
+    }
+
+    fn read_core_negative_fixtures() -> Vec<NegativeDefeqFixture> {
+        let mut entries = fs::read_dir(CORE_NEGATIVE_FIXTURE_DIR)
+            .expect("core-negative fixture directory exists")
+            .map(|entry| entry.expect("fixture dir entry is readable").path())
+            .filter(|path| {
+                path.extension()
+                    .is_some_and(|extension| extension == "fixture")
+            })
+            .collect::<Vec<_>>();
+        entries.sort();
+
+        entries
+            .into_iter()
+            .map(|path| parse_core_negative_fixture(&path))
+            .collect()
+    }
+
+    fn parse_core_negative_fixture(path: &Path) -> NegativeDefeqFixture {
+        let contents = fs::read_to_string(path).expect("fixture is readable");
+        let mut id = None;
+        let mut forbidden_conversion = None;
+        let mut expected = None;
+
+        for line in contents.lines() {
+            let line = line.trim();
+            if line.is_empty() || line.starts_with('#') {
+                continue;
+            }
+            let (key, value) = line.split_once(':').unwrap_or_else(|| {
+                panic!("fixture line must be `key: value` in {}", path.display())
+            });
+            let value = value.trim().to_owned();
+            match key.trim() {
+                "id" => id = Some(value),
+                "forbidden_conversion" => forbidden_conversion = Some(value),
+                "expected" => expected = Some(value),
+                _ => {}
+            }
+        }
+
+        NegativeDefeqFixture {
+            id: id.unwrap_or_else(|| panic!("fixture id missing in {}", path.display())),
+            forbidden_conversion: forbidden_conversion.unwrap_or_else(|| {
+                panic!("fixture forbidden_conversion missing in {}", path.display())
+            }),
+            expected: expected.unwrap_or_else(|| {
+                panic!("fixture expected verdict missing in {}", path.display())
+            }),
+        }
+    }
+
+    fn run_core_negative_fixture(fixture: &NegativeDefeqFixture) -> Result<bool, CoreError> {
+        match fixture.id.as_str() {
+            "eta" => run_eta_rejection_fixture(),
+            "proof-irrelevance" => run_proof_irrelevance_rejection_fixture(),
+            "theorem-unfolding" => run_theorem_unfolding_rejection_fixture(),
+            id => panic!("unknown core-negative fixture id `{id}`"),
+        }
+    }
+
+    fn run_eta_rejection_fixture() -> Result<bool, CoreError> {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let env = Environment::new();
+        let ty = sort(&mut terms, &mut levels, "u");
+        let function = terms.var(0);
+        let lifted_function = terms.var(1);
+        let argument = terms.var(0);
+        let eta_body = terms.app(lifted_function, [argument]);
+        let eta_expansion = terms.lam(ty, eta_body);
+
+        definitionally_equal(&env, &mut terms, eta_expansion, function)
+    }
+
+    fn run_proof_irrelevance_rejection_fixture() -> Result<bool, CoreError> {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let mut env = Environment::new();
+        let zero = levels.zero();
+        let proof_type_level = levels.succ(zero);
+        let proof_type = terms.sort(proof_type_level);
+        let first = env
+            .register_axiom("Core.ProofIrrelevance.first", proof_type)
+            .expect("valid proof axiom");
+        let second = env
+            .register_axiom("Core.ProofIrrelevance.second", proof_type)
+            .expect("valid proof axiom");
+        let first_proof = terms.constant(first, []);
+        let second_proof = terms.constant(second, []);
+
+        definitionally_equal(&env, &mut terms, first_proof, second_proof)
+    }
+
+    fn run_theorem_unfolding_rejection_fixture() -> Result<bool, CoreError> {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let mut env = Environment::new();
+        let zero = levels.zero();
+        let theorem_type_level = levels.succ(zero);
+        let theorem_type = terms.sort(theorem_type_level);
+        let proof = terms.sort(zero);
+        let theorem = register_checked_theorem(
+            &mut levels,
+            &mut terms,
+            &mut env,
+            "Core.TheoremUnfolding.opaque",
+            theorem_type,
+            proof,
+        )
+        .expect("checked theorem registers");
+        let theorem_const = terms.constant(theorem, []);
+
+        definitionally_equal(&env, &mut terms, theorem_const, proof)
     }
 
     #[test]
@@ -399,6 +531,56 @@ mod tests {
         assert_eq!(
             error.to_deterministic_json(),
             "{\"code\":\"CORE_FUEL_EXHAUSTED\",\"location\":[{\"field\":\"defeq\"}],\"details\":{\"kind\":\"defeq_fuel_exhausted\",\"lhs_term_index\":\"0\",\"rhs_term_index\":\"0\"}}"
+        );
+    }
+
+    #[test]
+    fn core_negative_fixtures_reject_forbidden_conversions() {
+        let fixtures = read_core_negative_fixtures();
+        let expected_ids = ["eta", "proof-irrelevance", "theorem-unfolding"];
+        let expected_conversions = ["eta", "proof_irrelevance", "theorem_unfolding"];
+        let mut actual_ids = BTreeSet::new();
+        let mut actual_conversions = BTreeSet::new();
+
+        assert_eq!(fixtures.len(), expected_ids.len());
+        for fixture in fixtures {
+            assert_eq!(fixture.expected, "reject", "{fixture:?}");
+            let expected_conversion = match fixture.id.as_str() {
+                "eta" => "eta",
+                "proof-irrelevance" => "proof_irrelevance",
+                "theorem-unfolding" => "theorem_unfolding",
+                id => panic!("unknown core-negative fixture id `{id}`"),
+            };
+            assert_eq!(
+                fixture.forbidden_conversion, expected_conversion,
+                "{fixture:?}"
+            );
+            let accepted =
+                run_core_negative_fixture(&fixture).expect("negative fixture defeq completes");
+            assert!(
+                !accepted,
+                "negative fixture unexpectedly accepted: {fixture:?}"
+            );
+            assert!(
+                actual_conversions.insert(fixture.forbidden_conversion.clone()),
+                "duplicate forbidden conversion in fixture set: {fixture:?}"
+            );
+            assert!(
+                actual_ids.insert(fixture.id.clone()),
+                "duplicate fixture id in fixture set: {fixture:?}"
+            );
+        }
+
+        assert_eq!(
+            actual_ids,
+            expected_ids.into_iter().map(str::to_owned).collect()
+        );
+        assert_eq!(
+            actual_conversions,
+            expected_conversions
+                .into_iter()
+                .map(str::to_owned)
+                .collect()
         );
     }
 }

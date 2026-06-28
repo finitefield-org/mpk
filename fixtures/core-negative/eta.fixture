@@ -1,0 +1,6 @@
+# Lambda eta conversion is outside MPK Core v0 definitional equality.
+id: eta
+forbidden_conversion: eta
+expected: reject
+lhs: Lam A (App f [Var 0])
+rhs: f

@@ -1,0 +1,6 @@
+# Checked theorem constants do not unfold to their proof bodies downstream.
+id: theorem-unfolding
+forbidden_conversion: theorem_unfolding
+expected: reject
+lhs: Core.TheoremUnfolding.opaque
+rhs: checked theorem proof body
