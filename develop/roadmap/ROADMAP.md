@@ -9,7 +9,7 @@ This roadmap is ordered by dependency, not by calendar time. Do not begin a late
 Deliverables:
 
 - `CORE_V0.md` frozen for implementation.
-- `CERT_V0_DRAFT.md` promoted to `CERT_V0.md`.
+- `CERT_V0.md` frozen for implementation.
 - `GIR_V0_DRAFT.md` promoted to `GIR_V0.md`.
 - Axiom policy document.
 - Unsafe-code policy.

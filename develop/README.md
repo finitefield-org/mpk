@@ -18,7 +18,7 @@ This package extends the prior MPK design with an implementation roadmap, task b
 │   └── 04_references.md
 ├── specs/
 │   ├── CORE_V0.md
-│   ├── CERT_V0_DRAFT.md
+│   ├── CERT_V0.md
 │   ├── TRUST_BOUNDARY_V0.md
 │   ├── AXIOM_POLICY_V0.md
 │   ├── UNSAFE_POLICY_V0.md
@@ -78,7 +78,7 @@ Start with:
 6. `specs/AXIOM_POLICY_V0.md`
 7. `specs/UNSAFE_POLICY_V0.md`
 8. `specs/CORE_V0.md`
-9. `specs/CERT_V0_DRAFT.md`
+9. `specs/CERT_V0.md`
 
 Then seed project-management issues from `tasks/github_issues_seed.jsonl` or import `tasks/task_backlog.csv` into a spreadsheet or tracker.
 

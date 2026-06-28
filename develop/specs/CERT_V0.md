@@ -1,6 +1,6 @@
-# MPK Certificate v0 Draft Specification
+# MPK Certificate v0 Specification
 
-Status: draft. This is the target schema for canonical `.mpcert` files.
+Status: frozen for implementation. This is the stable MPK Certificate v0 schema for canonical `.mpcert` files. Changes require a new certificate format version or a governance-approved amendment.
 
 ## Goals
 
