@@ -566,6 +566,21 @@ pub enum WpError {
         kind: GirTerminatorKind,
         reason: &'static str,
     },
+    MissingLoopInvariant {
+        function_id: String,
+        block_label: String,
+    },
+    UnsupportedLoopShape {
+        function_id: String,
+        block_label: String,
+        reason: String,
+    },
+    UnsupportedLoopVariant {
+        function_id: String,
+        block_label: String,
+        variant_index: usize,
+        reason: String,
+    },
     ReturnArityMismatch {
         function_id: String,
         expected: usize,
@@ -707,6 +722,30 @@ impl fmt::Display for WpError {
             } => write!(
                 formatter,
                 "function {function_id:?} block {block_label:?} has invalid {kind:?} terminator shape: {reason}"
+            ),
+            Self::MissingLoopInvariant {
+                function_id,
+                block_label,
+            } => write!(
+                formatter,
+                "function {function_id:?} loop block {block_label:?} has no invariants"
+            ),
+            Self::UnsupportedLoopShape {
+                function_id,
+                block_label,
+                reason,
+            } => write!(
+                formatter,
+                "function {function_id:?} loop block {block_label:?} has unsupported shape: {reason}"
+            ),
+            Self::UnsupportedLoopVariant {
+                function_id,
+                block_label,
+                variant_index,
+                reason,
+            } => write!(
+                formatter,
+                "function {function_id:?} loop block {block_label:?} decreases[{variant_index}] is unsupported: {reason}"
             ),
             Self::ReturnArityMismatch {
                 function_id,
