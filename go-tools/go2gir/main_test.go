@@ -28,8 +28,8 @@ func TestRunAcceptsPackagePath(t *testing.T) {
 	if result.Schema != cliSchema {
 		t.Fatalf("schema = %q, want %q", result.Schema, cliSchema)
 	}
-	if result.Status != "ssa-built" {
-		t.Fatalf("status = %q, want ssa-built", result.Status)
+	if result.Status != "gir-lowered" {
+		t.Fatalf("status = %q, want gir-lowered", result.Status)
 	}
 	if result.PackagePath != "./testdata/samplepkg" {
 		t.Fatalf("package path = %q, want ./testdata/samplepkg", result.PackagePath)
@@ -59,6 +59,16 @@ func TestRunAcceptsPackagePath(t *testing.T) {
 	}
 	if !hasSSAInstructionContaining(*identity, "return") {
 		t.Fatalf("Identity SSA instructions = %+v, want return instruction", identity.Blocks)
+	}
+	if result.GIR == nil {
+		t.Fatal("GIR missing")
+	}
+	identityGIR := findGIRFunction(*result.GIR, got.PackagePath, "Identity")
+	if identityGIR == nil {
+		t.Fatalf("GIR missing Identity function: %+v", result.GIR)
+	}
+	if !hasGIRTerminatorKind(*identityGIR, "Return") {
+		t.Fatalf("Identity GIR blocks = %+v, want Return terminator", identityGIR.Blocks)
 	}
 }
 
@@ -167,6 +177,53 @@ func TestRunRejectsUnsupportedFixtures(t *testing.T) {
 				t.Fatalf("rejected features = %+v, want %q / %q", result.RejectedFeatures, tt.feature, tt.reason)
 			}
 		})
+	}
+}
+
+func TestRunLowersMax64ToGIR(t *testing.T) {
+	var stdout bytes.Buffer
+	var stderr bytes.Buffer
+
+	exitCode := run([]string{"./testdata/max64"}, &stdout, &stderr)
+	if exitCode != 0 {
+		t.Fatalf("exit code = %d, want 0; stderr=%s stdout=%s", exitCode, stderr.String(), stdout.String())
+	}
+	if stderr.Len() != 0 {
+		t.Fatalf("stderr = %q, want empty", stderr.String())
+	}
+
+	var result cliResult
+	if err := json.Unmarshal(stdout.Bytes(), &result); err != nil {
+		t.Fatalf("decode stdout: %v\n%s", err, stdout.String())
+	}
+	if result.Status != "gir-lowered" {
+		t.Fatalf("status = %q, want gir-lowered", result.Status)
+	}
+	if result.GIR == nil {
+		t.Fatal("GIR missing")
+	}
+
+	function := findGIRFunction(*result.GIR, "github.com/finitefield-org/mpk/go-tools/go2gir/testdata/max64", "Max64")
+	if function == nil {
+		t.Fatalf("GIR missing Max64: %+v", result.GIR)
+	}
+	if len(function.Params) != 2 {
+		t.Fatalf("params = %+v, want 2", function.Params)
+	}
+	if len(function.Results) != 1 {
+		t.Fatalf("results = %+v, want 1", function.Results)
+	}
+	if !hasGIRLocal(*function, "max") {
+		t.Fatalf("locals = %+v, want max", function.Locals)
+	}
+	if !hasGIRInstruction(*function, "BinOp", "signed_gt") {
+		t.Fatalf("Max64 GIR blocks = %+v, want signed_gt BinOp", function.Blocks)
+	}
+	if !hasGIRTerminatorKind(*function, "Branch") {
+		t.Fatalf("Max64 GIR blocks = %+v, want Branch terminator", function.Blocks)
+	}
+	if !hasGIRReturnValue(*function, "max") {
+		t.Fatalf("Max64 GIR blocks = %+v, want return for max", function.Blocks)
 	}
 }
 
@@ -292,6 +349,63 @@ func hasRejectedFeature(features []rejectedFeature, feature string, reason strin
 	for _, got := range features {
 		if got.Feature == feature && got.Reason == reason && got.Location != "" {
 			return true
+		}
+	}
+	return false
+}
+
+func findGIRFunction(module girModule, packagePath string, functionName string) *girFunction {
+	for _, pkg := range module.Packages {
+		if pkg.PackagePath != packagePath {
+			continue
+		}
+		for index := range pkg.Functions {
+			if pkg.Functions[index].Name == functionName {
+				return &pkg.Functions[index]
+			}
+		}
+	}
+	return nil
+}
+
+func hasGIRInstruction(function girFunction, kind string, op string) bool {
+	for _, block := range function.Blocks {
+		for _, instruction := range block.Instructions {
+			if instruction.Kind == kind && instruction.Op == op {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+func hasGIRLocal(function girFunction, name string) bool {
+	for _, local := range function.Locals {
+		if local.Name == name {
+			return true
+		}
+	}
+	return false
+}
+
+func hasGIRTerminatorKind(function girFunction, kind string) bool {
+	for _, block := range function.Blocks {
+		if block.Terminator.Kind == kind {
+			return true
+		}
+	}
+	return false
+}
+
+func hasGIRReturnValue(function girFunction, varName string) bool {
+	for _, block := range function.Blocks {
+		if block.Terminator.Kind != "Return" {
+			continue
+		}
+		for _, value := range block.Terminator.Values {
+			if value.Var == varName {
+				return true
+			}
 		}
 	}
 	return false
