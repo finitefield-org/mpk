@@ -45,6 +45,7 @@ func checkerAgreementFixtures(t *testing.T) []string {
 		"fixtures/cert-canonical/non-canonical/*.hex",
 		"proofs/std/logic/*.hex",
 		"proofs/std/eq/*.hex",
+		"proofs/std/bool/*.hex",
 	}
 
 	var fixtures []string

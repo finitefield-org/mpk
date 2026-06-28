@@ -68,6 +68,41 @@ func TestDefeqReducesBetaZetaAndReducibleDefinitions(t *testing.T) {
 	assertDefeq(t, &state, constant, reducibleValue, true)
 }
 
+func TestDefeqReducesGeneratedBoolRecursorIota(t *testing.T) {
+	state := newCoreState()
+	boolType := state.terms.sort(state.levels.zero())
+	boolGlobal, err := state.env.registerInductive("Std.Bool", boolType)
+	if err != nil {
+		t.Fatalf("register Bool: %v", err)
+	}
+	boolTerm := state.terms.constant(boolGlobal, nil)
+	falseGlobal, err := state.env.registerGenerated("Std.Bool.false", DeclConstructor, boolTerm, boolGlobal, true)
+	if err != nil {
+		t.Fatalf("register false: %v", err)
+	}
+	trueGlobal, err := state.env.registerGenerated("Std.Bool.true", DeclConstructor, boolTerm, boolGlobal, true)
+	if err != nil {
+		t.Fatalf("register true: %v", err)
+	}
+	recType := state.terms.pi(
+		boolTerm,
+		state.terms.pi(boolTerm, state.terms.pi(boolTerm, boolTerm)),
+	)
+	recGlobal, err := state.env.registerGenerated("Std.Bool.rec", DeclRecursor, recType, boolGlobal, true)
+	if err != nil {
+		t.Fatalf("register recursor: %v", err)
+	}
+
+	rec := state.terms.constant(recGlobal, nil)
+	falseTerm := state.terms.constant(falseGlobal, nil)
+	trueTerm := state.terms.constant(trueGlobal, nil)
+	falseRedex := state.terms.app(rec, []coreTermID{falseTerm, trueTerm, falseTerm})
+	trueRedex := state.terms.app(rec, []coreTermID{falseTerm, trueTerm, trueTerm})
+
+	assertDefeq(t, &state, falseRedex, falseTerm, true)
+	assertDefeq(t, &state, trueRedex, trueTerm, true)
+}
+
 func TestDefeqDoesNotUnfoldOpaqueDefinitionsOrTheorems(t *testing.T) {
 	state := newCoreState()
 	zero := state.levels.zero()

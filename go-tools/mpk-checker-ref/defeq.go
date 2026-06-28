@@ -101,9 +101,20 @@ func (s *coreState) whnf(term coreTermID, fuel *uint32, unfoldDefinitions bool) 
 			}
 			current = declaration.value
 		case TermApp:
+			if unfoldDefinitions {
+				if reduced, ok, err := s.tryReduceGeneratedBoolRecursor(current, fuel); err != nil || ok {
+					return reduced, err
+				}
+			}
 			reducedFunction, err := s.whnf(coreTermID(node.A), fuel, unfoldDefinitions)
 			if err != nil {
 				return 0, err
+			}
+			if unfoldDefinitions {
+				next := s.terms.app(reducedFunction, node.Arguments)
+				if reduced, ok, err := s.tryReduceGeneratedBoolRecursor(next, fuel); err != nil || ok {
+					return reduced, err
+				}
 			}
 			functionNode := s.terms.node(reducedFunction)
 			if functionNode.Tag == TermLam && len(node.Arguments) > 0 {
@@ -128,6 +139,93 @@ func (s *coreState) whnf(term coreTermID, fuel *uint32, unfoldDefinitions bool) 
 		default:
 			return current, nil
 		}
+	}
+}
+
+func (s *coreState) tryReduceGeneratedBoolRecursor(term coreTermID, fuel *uint32) (coreTermID, bool, error) {
+	node := s.terms.node(term)
+	if node.Tag != TermApp || len(node.Arguments) < 3 {
+		return term, false, nil
+	}
+	function := s.terms.node(coreTermID(node.A))
+	if function.Tag != TermConst {
+		return term, false, nil
+	}
+
+	recursor := coreGlobalID(function.A)
+	recursorDecl, ok := s.env.lookup(recursor)
+	if !ok || recursorDecl.tag != DeclRecursor || !recursorDecl.generated {
+		return term, false, nil
+	}
+	familyDecl, ok := s.env.lookup(recursorDecl.inductive)
+	if !ok || familyDecl.tag != DeclInductive {
+		return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated recursor references missing Bool family")
+	}
+	if recursorDecl.name != familyDecl.name+".rec" {
+		return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated recursor name does not match Bool family")
+	}
+
+	constructors := s.generatedConstructors(recursorDecl.inductive)
+	if len(constructors) != 2 ||
+		constructors[0].name != familyDecl.name+".false" ||
+		constructors[1].name != familyDecl.name+".true" {
+		return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated Bool constructors do not match false/true shape")
+	}
+
+	majorHead, majorArgs, ok := s.constSpine(node.Arguments[2])
+	if !ok || len(majorArgs) != 0 {
+		return term, false, nil
+	}
+
+	var reduced coreTermID
+	switch majorHead {
+	case constructors[0].global:
+		reduced = node.Arguments[0]
+	case constructors[1].global:
+		reduced = node.Arguments[1]
+	default:
+		return 0, true, newCoreError(CoreCheckInvalidDeclaration, "generated Bool recursor has unknown major constructor")
+	}
+	if err := consumeCoreFuel(fuel); err != nil {
+		return 0, true, err
+	}
+	if len(node.Arguments) > 3 {
+		reduced = s.terms.app(reduced, node.Arguments[3:])
+	}
+	return reduced, true, nil
+}
+
+type generatedConstructor struct {
+	global coreGlobalID
+	name   string
+}
+
+func (s *coreState) generatedConstructors(inductive coreGlobalID) []generatedConstructor {
+	constructors := make([]generatedConstructor, 0, 2)
+	for index, declaration := range s.env.declarations {
+		if declaration.tag == DeclConstructor && declaration.generated && declaration.inductive == inductive {
+			constructors = append(constructors, generatedConstructor{
+				global: coreGlobalID(index),
+				name:   declaration.name,
+			})
+		}
+	}
+	return constructors
+}
+
+func (s *coreState) constSpine(term coreTermID) (coreGlobalID, []coreTermID, bool) {
+	node := s.terms.node(term)
+	switch node.Tag {
+	case TermConst:
+		return coreGlobalID(node.A), nil, true
+	case TermApp:
+		function := s.terms.node(coreTermID(node.A))
+		if function.Tag != TermConst {
+			return 0, nil, false
+		}
+		return coreGlobalID(function.A), node.Arguments, true
+	default:
+		return 0, nil, false
 	}
 }
 
