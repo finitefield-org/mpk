@@ -6,8 +6,10 @@
 
 use crate::{
     decode_certificate,
-    encode::{AxiomReportEntry, DeclarationAxiomDependencies, Import},
-    encode_certificate, Certificate, DecodeError,
+    encode::{AxiomReportEntry, DeclarationAxiomDependencies},
+    encode_certificate,
+    imports::{validate_certificate_imports, ImportValidationError, ImportValidationErrorKind},
+    Certificate, DecodeError,
 };
 
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -45,11 +47,27 @@ impl CanonicalError {
             decode_error: None,
         }
     }
+
+    fn import(error: ImportValidationError) -> Self {
+        let kind = match error.kind() {
+            ImportValidationErrorKind::NonCanonicalOrder => CanonicalErrorKind::NonCanonicalOrder,
+            ImportValidationErrorKind::DuplicateImport => CanonicalErrorKind::DuplicateEntry,
+            ImportValidationErrorKind::InvalidModuleName
+            | ImportValidationErrorKind::ZeroExportHash
+            | ImportValidationErrorKind::ZeroCertificateHash => CanonicalErrorKind::ImportRejected,
+        };
+        Self {
+            kind,
+            detail: Some(error.detail().to_owned()),
+            decode_error: None,
+        }
+    }
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash, Ord, PartialOrd)]
 pub enum CanonicalErrorKind {
     DecodeRejected,
+    ImportRejected,
     ReencodeMismatch,
     NonCanonicalOrder,
     DuplicateEntry,
@@ -61,6 +79,7 @@ pub fn validate_canonical_certificate(bytes: &[u8]) -> Result<(), CanonicalError
 
 pub fn decode_canonical_certificate(bytes: &[u8]) -> Result<Certificate, CanonicalError> {
     let certificate = decode_certificate(bytes).map_err(CanonicalError::decode)?;
+    validate_certificate_imports(&certificate).map_err(CanonicalError::import)?;
     validate_canonical_order(&certificate)?;
     let reencoded = encode_certificate(&certificate);
     if reencoded != bytes {
@@ -77,18 +96,6 @@ pub fn decode_canonical_certificate(bytes: &[u8]) -> Result<Certificate, Canonic
 }
 
 fn validate_canonical_order(certificate: &Certificate) -> Result<(), CanonicalError> {
-    check_sorted_by(
-        &certificate.imports,
-        "imports",
-        |import| {
-            (
-                import.module_name.clone(),
-                import.export_hash,
-                import.certificate_hash,
-            )
-        },
-        import_identity,
-    )?;
     check_sorted_by(
         &certificate.name_table,
         "name_table",
@@ -160,15 +167,6 @@ fn check_sorted_by<T, K: Ord>(
 
 fn check_sorted_u32s(values: &[u32], field: &str) -> Result<(), CanonicalError> {
     check_sorted_by(values, field, |value| *value, |value| value.to_string())
-}
-
-fn import_identity(import: &Import) -> String {
-    let cert_hash = if import.certificate_hash.is_some() {
-        "with-cert"
-    } else {
-        "without-cert"
-    };
-    format!("{}:{cert_hash}", import.module_name)
 }
 
 fn axiom_entry_key(entry: &AxiomReportEntry) -> (String, String, String, [u8; 32], [u8; 32]) {
