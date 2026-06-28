@@ -408,6 +408,7 @@ impl std::error::Error for ApiError {}
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum ApiErrorCode {
     InvalidModuleName,
+    InvalidJsonl,
     InvalidGlobalName,
     ProofIdOverflow,
     ProofCheckFailed,
@@ -425,6 +426,7 @@ impl ApiErrorCode {
     pub fn as_str(self) -> &'static str {
         match self {
             Self::InvalidModuleName => "INVALID_MODULE_NAME",
+            Self::InvalidJsonl => "INVALID_JSONL",
             Self::InvalidGlobalName => "INVALID_GLOBAL_NAME",
             Self::ProofIdOverflow => "PROOF_ID_OVERFLOW",
             Self::ProofCheckFailed => "PROOF_CHECK_FAILED",

@@ -9,6 +9,7 @@
 pub mod batch;
 pub mod check_api;
 pub mod diagnostics;
+pub mod jsonl;
 pub mod proof_api;
 pub mod session;
 pub mod term_api;
@@ -19,6 +20,10 @@ pub use batch::{
 };
 pub use check_api::{CheckNodeRequest, CheckNodeResponse};
 pub use diagnostics::{RepairDiagnostic, RepairDiagnosticRequest, RepairDiagnosticResponse};
+pub use jsonl::{
+    export_batch_candidates_jsonl, import_batch_candidates_jsonl, JsonlExportRequest,
+    JsonlExportResponse, JsonlImportRequest, JsonlImportResponse,
+};
 pub use proof_api::{
     ApiProofId, ApplyProofRequest, ConvProofRequest, ExactProofRequest, IntroProofRequest,
     ProofResponse, ReflProofRequest,
