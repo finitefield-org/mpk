@@ -54,6 +54,8 @@ Before any release:
 
 ## Gate H: Security gate
 
+The unsafe-code portion of this gate is defined by `specs/UNSAFE_POLICY_V0.md`.
+
 - Kernel crates forbid unsafe code in MVP.
 - Fuzz tests cover certificate decoder.
 - Malformed certificates never panic.

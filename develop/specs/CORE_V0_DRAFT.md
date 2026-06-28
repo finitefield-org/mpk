@@ -169,4 +169,4 @@ Every reduction and definitional-equality path must be bounded by deterministic 
 
 ## Unsafe-code policy
 
-The fast Rust kernel and certificate verifier should forbid unsafe code at crate level during MVP. If unsafe code is ever considered for performance, it must be isolated, audited, fuzzed, and kept outside the initial trusted path.
+Normative MVP unsafe-code requirements are defined in `specs/UNSAFE_POLICY_V0.md`. The fast Rust kernel and certificate verifier should forbid unsafe code at crate level during MVP. If unsafe code is ever considered for performance, it must be isolated, audited, fuzzed, and kept outside the initial trusted path.

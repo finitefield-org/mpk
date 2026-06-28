@@ -120,6 +120,8 @@ The following must not enter the trusted MVP checker path:
 
 ## Checker-Facing Component Requirements
 
+Unsafe-code restrictions for checker-facing components are defined in `specs/UNSAFE_POLICY_V0.md`.
+
 Every checker-facing crate or tool must satisfy these requirements when created:
 
 - its crate-level documentation, README, or module overview must reference `specs/TRUST_BOUNDARY_V0.md`;
