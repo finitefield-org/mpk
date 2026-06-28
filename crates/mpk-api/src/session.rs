@@ -3,7 +3,9 @@
 use std::collections::BTreeMap;
 use std::fmt;
 
+use crate::proof_api::ApiProofId;
 use crate::term_api::ApiTermId;
+use mpk_cert::encode::ProofNode;
 use mpk_core::{Environment, LevelArena, Name, TermArena, TermId};
 use mpk_kernel::ProofCheckProfile;
 use serde::{Deserialize, Serialize};
@@ -40,6 +42,7 @@ impl ApiService {
             levels: LevelArena::new(),
             terms: TermArena::new(),
             term_ids: BTreeMap::new(),
+            proof_nodes: Vec::new(),
             environment: Environment::new(),
         };
         let response = session.summary().into_start_response();
@@ -53,6 +56,14 @@ impl ApiService {
 
     pub fn session_mut(&mut self, session_id: &SessionId) -> Option<&mut ApiSession> {
         self.sessions.get_mut(session_id)
+    }
+
+    pub(crate) fn require_session_mut(
+        &mut self,
+        session_id: &SessionId,
+    ) -> Result<&mut ApiSession, ApiError> {
+        self.session_mut(session_id)
+            .ok_or_else(|| ApiError::unknown_session(session_id))
     }
 
     pub fn session_summary(&self, session_id: &SessionId) -> Result<SessionSummary, ApiError> {
@@ -90,6 +101,7 @@ pub struct ApiSession {
     levels: LevelArena,
     terms: TermArena,
     term_ids: BTreeMap<ApiTermId, TermId>,
+    proof_nodes: Vec<ProofNode>,
     environment: Environment,
 }
 
@@ -163,6 +175,48 @@ impl ApiSession {
                 None,
             )
         })
+    }
+
+    pub fn proof_node(&self, proof_id: ApiProofId) -> Option<&ProofNode> {
+        self.proof_nodes
+            .get(usize::try_from(proof_id.as_u32()).expect("u32 id fits in usize"))
+    }
+
+    pub fn proof_node_count(&self) -> usize {
+        self.proof_nodes.len()
+    }
+
+    pub(crate) fn register_proof_node(&mut self, node: ProofNode) -> Result<ApiProofId, ApiError> {
+        let proof_id = ApiProofId(u32::try_from(self.proof_nodes.len()).map_err(|_| {
+            ApiError::new(
+                ApiErrorCode::ProofIdOverflow,
+                "API proof node table exceeded u32 ids",
+                None,
+                Some(self.proof_nodes.len().to_string()),
+            )
+        })?);
+        self.proof_nodes.push(node);
+        Ok(proof_id)
+    }
+
+    pub(crate) fn require_proof_id(
+        &self,
+        proof_id: ApiProofId,
+        field: impl Into<String>,
+    ) -> Result<u32, ApiError> {
+        if self.proof_node(proof_id).is_some() {
+            return Ok(proof_id.as_u32());
+        }
+
+        Err(ApiError::new(
+            ApiErrorCode::UnknownProof,
+            format!(
+                "proof id {} is not registered in this API session",
+                proof_id.as_u32()
+            ),
+            Some(field.into()),
+            None,
+        ))
     }
 
     pub fn environment(&self) -> &Environment {
@@ -351,8 +405,10 @@ impl std::error::Error for ApiError {}
 pub enum ApiErrorCode {
     InvalidModuleName,
     InvalidGlobalName,
+    ProofIdOverflow,
     SessionLimitExceeded,
     TermIdOverflow,
+    UnknownProof,
     UnknownSession,
     UnknownGlobal,
     UnknownTerm,
@@ -364,8 +420,10 @@ impl ApiErrorCode {
         match self {
             Self::InvalidModuleName => "INVALID_MODULE_NAME",
             Self::InvalidGlobalName => "INVALID_GLOBAL_NAME",
+            Self::ProofIdOverflow => "PROOF_ID_OVERFLOW",
             Self::SessionLimitExceeded => "SESSION_LIMIT_EXCEEDED",
             Self::TermIdOverflow => "TERM_ID_OVERFLOW",
+            Self::UnknownProof => "UNKNOWN_PROOF",
             Self::UnknownSession => "UNKNOWN_SESSION",
             Self::UnknownGlobal => "UNKNOWN_GLOBAL",
             Self::UnknownTerm => "UNKNOWN_TERM",

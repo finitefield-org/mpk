@@ -165,11 +165,6 @@ impl ApiService {
         let term = session.terms_mut().let_term(ty, value, body);
         response(session, session_id, term)
     }
-
-    fn require_session_mut(&mut self, session_id: &SessionId) -> Result<&mut ApiSession, ApiError> {
-        self.session_mut(session_id)
-            .ok_or_else(|| ApiError::unknown_session(session_id))
-    }
 }
 
 fn zero_universe(
