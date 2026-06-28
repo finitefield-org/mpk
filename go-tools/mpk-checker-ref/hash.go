@@ -98,11 +98,15 @@ type payloadEncoder struct {
 	bytes []byte
 }
 
+func (e *payloadEncoder) writeU8(value uint8) {
+	e.bytes = append(e.bytes, value)
+}
+
 func (e *payloadEncoder) writeBool(value bool) {
 	if value {
-		e.bytes = append(e.bytes, 1)
+		e.writeU8(1)
 	} else {
-		e.bytes = append(e.bytes, 0)
+		e.writeU8(0)
 	}
 }
 
