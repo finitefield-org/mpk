@@ -10,7 +10,9 @@ report, builds SSA with `golang.org/x/tools/go/ssa`, and emits deterministic
 JSON containing the package summary, source-function SSA dump, and GIR for
 supported pure functions including struct field reads and fixed-array indexing.
 The `gir_emit` payload contains canonical GIR JSON, a stable binary payload, and
-the SHA-256 GIR hash recorded on the GIR module.
+the SHA-256 GIR hash recorded on the GIR module. The `source_manifest` payload
+records normalized source paths, source SHA-256 hashes, the aggregate source
+hash, Go version, and frontend binary hash for audit traceability.
 
 ```sh
 go run . ./testdata/samplepkg

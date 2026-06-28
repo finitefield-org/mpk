@@ -4,9 +4,11 @@ import (
 	"bytes"
 	"encoding/base64"
 	"encoding/binary"
+	"encoding/hex"
 	"encoding/json"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"testing"
 )
@@ -77,6 +79,7 @@ func TestRunAcceptsPackagePath(t *testing.T) {
 	if result.GIREmission.GIRHash != result.GIR.GIRHash {
 		t.Fatalf("GIR emission hash = %q, want module hash %q", result.GIREmission.GIRHash, result.GIR.GIRHash)
 	}
+	assertSourceManifestForSamplePackage(t, result, got.PackagePath, "testdata/samplepkg/sample.go")
 	identityGIR := findGIRFunction(*result.GIR, got.PackagePath, "Identity")
 	if identityGIR == nil {
 		t.Fatalf("GIR missing Identity function: %+v", result.GIR)
@@ -147,6 +150,21 @@ func TestRunEmitsDeterministicGIRHash(t *testing.T) {
 	if len(canonical.Packages) != 1 {
 		t.Fatalf("canonical packages = %d, want 1", len(canonical.Packages))
 	}
+}
+
+func TestRunEmitsStableSourceManifest(t *testing.T) {
+	first := runSuccessfulPackage(t, "./testdata/max64")
+	second := runSuccessfulPackage(t, "./testdata/max64")
+
+	if first.SourceManifest == nil || second.SourceManifest == nil {
+		t.Fatal("source manifest missing")
+	}
+	firstManifest := mustJSON(t, first.SourceManifest)
+	secondManifest := mustJSON(t, second.SourceManifest)
+	if firstManifest != secondManifest {
+		t.Fatalf("source manifest changed between runs:\n%s\n---\n%s", firstManifest, secondManifest)
+	}
+	assertSourceManifestForSamplePackage(t, first, "github.com/finitefield-org/mpk/go-tools/go2gir/testdata/max64", "testdata/max64/max64.go")
 }
 
 func TestRunRejectsMissingPackagePath(t *testing.T) {
@@ -256,8 +274,8 @@ func TestRunRejectsUnsupportedFixtures(t *testing.T) {
 			if result.SSA != nil {
 				t.Fatalf("SSA = %+v, want nil for rejected package", result.SSA)
 			}
-			if result.GIR != nil || result.GIREmission != nil {
-				t.Fatalf("GIR output = %+v / %+v, want nil for rejected package", result.GIR, result.GIREmission)
+			if result.GIR != nil || result.GIREmission != nil || result.SourceManifest != nil {
+				t.Fatalf("GIR output = %+v / %+v / %+v, want nil for rejected package", result.GIR, result.GIREmission, result.SourceManifest)
 			}
 			if !hasRejectedFeature(result.RejectedFeatures, tt.feature, tt.reason) {
 				t.Fatalf("rejected features = %+v, want %q / %q", result.RejectedFeatures, tt.feature, tt.reason)
@@ -490,6 +508,76 @@ func runSuccessfulPackage(t *testing.T, path string) cliResult {
 		t.Fatalf("status = %q, want gir-lowered", result.Status)
 	}
 	return result
+}
+
+func assertSourceManifestForSamplePackage(t *testing.T, result cliResult, packagePath string, sourcePath string) {
+	t.Helper()
+
+	if result.GIR == nil {
+		t.Fatal("GIR missing")
+	}
+	manifest := result.SourceManifest
+	if manifest == nil {
+		t.Fatal("source manifest missing")
+	}
+	if manifest.Schema != sourceManifestSchema {
+		t.Fatalf("source manifest schema = %q, want %q", manifest.Schema, sourceManifestSchema)
+	}
+	if manifest.SourceLanguage != sourceManifestLanguage {
+		t.Fatalf("source language = %q, want %q", manifest.SourceLanguage, sourceManifestLanguage)
+	}
+	if manifest.GoVersion != runtime.Version() {
+		t.Fatalf("go version = %q, want %q", manifest.GoVersion, runtime.Version())
+	}
+	if manifest.Frontend.Name != frontendName {
+		t.Fatalf("frontend name = %q, want %q", manifest.Frontend.Name, frontendName)
+	}
+	if manifest.Frontend.Version != frontendVersion {
+		t.Fatalf("frontend version = %q, want %q", manifest.Frontend.Version, frontendVersion)
+	}
+	if _, err := hex.DecodeString(manifest.Frontend.BinarySHA256); err != nil || len(manifest.Frontend.BinarySHA256) != 64 {
+		t.Fatalf("frontend binary sha256 = %q, want 64-char hex", manifest.Frontend.BinarySHA256)
+	}
+	if manifest.GIRHash != result.GIR.GIRHash {
+		t.Fatalf("manifest GIR hash = %q, want %q", manifest.GIRHash, result.GIR.GIRHash)
+	}
+	if len(manifest.SourceFiles) != 1 {
+		t.Fatalf("source file count = %d, want 1: %+v", len(manifest.SourceFiles), manifest.SourceFiles)
+	}
+	sourceFile := manifest.SourceFiles[0]
+	if sourceFile.Path != sourcePath {
+		t.Fatalf("source path = %q, want %q", sourceFile.Path, sourcePath)
+	}
+	if filepath.IsAbs(sourceFile.Path) || strings.Contains(sourceFile.Path, `\`) || strings.HasPrefix(sourceFile.Path, "../") {
+		t.Fatalf("source path is not normalized module-relative: %q", sourceFile.Path)
+	}
+	expectedSHA256, err := fileSHA256(filepath.FromSlash(sourcePath))
+	if err != nil {
+		t.Fatalf("hash source fixture: %v", err)
+	}
+	if sourceFile.SHA256 != expectedSHA256 {
+		t.Fatalf("source sha256 = %q, want %q", sourceFile.SHA256, expectedSHA256)
+	}
+	expectedSourceHash, err := hashSourceManifestFiles(manifest.SourceFiles)
+	if err != nil {
+		t.Fatalf("hash source manifest files: %v", err)
+	}
+	if manifest.SourceHash != expectedSourceHash {
+		t.Fatalf("source hash = %q, want %q", manifest.SourceHash, expectedSourceHash)
+	}
+	if !strings.HasPrefix(packagePath, "github.com/finitefield-org/mpk/") {
+		t.Fatalf("test package path sanity check failed: %q", packagePath)
+	}
+}
+
+func mustJSON(t *testing.T, value any) string {
+	t.Helper()
+
+	encoded, err := json.Marshal(value)
+	if err != nil {
+		t.Fatalf("marshal JSON: %v", err)
+	}
+	return string(encoded)
 }
 
 func findSSAFunction(dump ssaDump, packagePath string, functionName string) *ssaFunctionDump {

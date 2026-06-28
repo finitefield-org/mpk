@@ -21,6 +21,7 @@ type cliResult struct {
 	SSA              *ssaDump          `json:"ssa,omitempty"`
 	GIR              *girModule        `json:"gir,omitempty"`
 	GIREmission      *girEmission      `json:"gir_emit,omitempty"`
+	SourceManifest   *sourceManifest   `json:"source_manifest,omitempty"`
 	RejectedFeatures []rejectedFeature `json:"rejected_features,omitempty"`
 }
 
@@ -87,6 +88,11 @@ func run(args []string, stdout io.Writer, stderr io.Writer) int {
 		fmt.Fprintf(stderr, "emit GIR: %v\n", err)
 		return 1
 	}
+	sourceManifest, err := buildSourceManifest(loaded, girResult.GIRHash)
+	if err != nil {
+		fmt.Fprintf(stderr, "source manifest: %v\n", err)
+		return 1
+	}
 
 	ssaResult, err := buildSSADump(loaded.Packages)
 	if err != nil {
@@ -95,13 +101,14 @@ func run(args []string, stdout io.Writer, stderr io.Writer) int {
 	}
 
 	result := cliResult{
-		Schema:      cliSchema,
-		Status:      "gir-lowered",
-		PackagePath: packagePath,
-		Packages:    loaded.Summaries,
-		SSA:         &ssaResult,
-		GIR:         &girResult,
-		GIREmission: &girEmission,
+		Schema:         cliSchema,
+		Status:         "gir-lowered",
+		PackagePath:    packagePath,
+		Packages:       loaded.Summaries,
+		SSA:            &ssaResult,
+		GIR:            &girResult,
+		GIREmission:    &girEmission,
+		SourceManifest: &sourceManifest,
 	}
 	if err := encodeCLIResult(stdout, result); err != nil {
 		fmt.Fprintf(stderr, "encode go2gir result: %v\n", err)
