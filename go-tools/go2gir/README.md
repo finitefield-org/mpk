@@ -14,6 +14,12 @@ the SHA-256 GIR hash recorded on the GIR module. The `source_manifest` payload
 records normalized source paths, source SHA-256 hashes, the aggregate source
 hash, Go version, and frontend binary hash for audit traceability.
 
+GO-010 adds `mpk.go.contract.v0` sidecar loading. `go2gir` scans each loaded Go
+package directory for `contract.json`, `*.contract.json`, and `*_contract.json`,
+validates contract JSON fail-closed, resolves the contract `function` identity to
+a lowered GIR function, and attaches accepted `requires`, `ensures`, empty
+`modifies`, and `loops` metadata to the GIR function before canonical emission.
+
 ```sh
 go run . ./testdata/samplepkg
 ```

@@ -46,9 +46,25 @@ type girContracts struct {
 	Loops    []girLoopContract `json:"loops"`
 }
 
-type girContractExpr struct{}
+type girContractExpr struct {
+	Op     string            `json:"op,omitempty"`
+	Args   []girContractExpr `json:"args,omitempty"`
+	LHS    *girContractExpr  `json:"lhs,omitempty"`
+	RHS    *girContractExpr  `json:"rhs,omitempty"`
+	Value  *girContractExpr  `json:"value,omitempty"`
+	Type   *girType          `json:"type,omitempty"`
+	Var    string            `json:"var,omitempty"`
+	Result *int              `json:"result,omitempty"`
+	Bool   *bool             `json:"bool,omitempty"`
+	Int    *girIntLiteral    `json:"int,omitempty"`
+}
 
-type girLoopContract struct{}
+type girLoopContract struct {
+	BlockID    string            `json:"block_id"`
+	Location   string            `json:"location,omitempty"`
+	Invariants []girContractExpr `json:"invariants"`
+	Decreases  []girContractExpr `json:"decreases,omitempty"`
+}
 
 type girBinding struct {
 	Name string  `json:"name"`
@@ -164,10 +180,17 @@ func lowerToGIR(loaded packageLoadResult) (girModule, []rejectedFeature) {
 		return girModule{}, findings
 	}
 
-	return girModule{
+	module := girModule{
 		SchemaVersion: girSchemaVersion,
 		Packages:      packagesLowered,
-	}, nil
+	}
+	contractFindings := attachContractSidecars(&module, loaded)
+	sortRejectedFeatures(contractFindings)
+	if len(contractFindings) > 0 {
+		return girModule{}, contractFindings
+	}
+
+	return module, nil
 }
 
 func (l *girPackageLowerer) lowerPackage() girPackage {
@@ -220,7 +243,7 @@ func (l *girPackageLowerer) lowerFunction(decl *ast.FuncDecl) (girFunction, bool
 	l.rejectDuplicateBindings(decl.Pos(), allBindings)
 
 	function := girFunction{
-		ID:                functionID(l.pkg.PkgPath, decl.Name.Name),
+		ID:                obj.FullName(),
 		Package:           l.pkg.PkgPath,
 		Name:              decl.Name.Name,
 		Params:            params,
@@ -943,10 +966,6 @@ func emptyGIRContracts() girContracts {
 		Modifies: []string{},
 		Loops:    []girLoopContract{},
 	}
-}
-
-func functionID(packagePath string, name string) string {
-	return packagePath + "." + name
 }
 
 func girTypeFromGoType(typ types.Type) (girType, bool) {
