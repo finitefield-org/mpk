@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"testing"
 )
@@ -24,6 +25,18 @@ type goBasicNegativeCase struct {
 	Path    string `json:"path"`
 	Feature string `json:"feature"`
 	Reason  string `json:"reason"`
+}
+
+type goAlphaCorpus struct {
+	Schema        string                `json:"schema"`
+	FunctionCount int                   `json:"function_count"`
+	Positive      []goAlphaPositiveCase `json:"positive"`
+}
+
+type goAlphaPositiveCase struct {
+	Name          string `json:"name"`
+	Path          string `json:"path"`
+	FunctionCount int    `json:"function_count"`
 }
 
 func TestGoBasicCorpusPositiveFixturesLowerToGIR(t *testing.T) {
@@ -103,6 +116,62 @@ func TestGoBasicCorpusNegativeFixturesRejectWithReasons(t *testing.T) {
 	}
 }
 
+func TestGoAlphaCorpusCompiles(t *testing.T) {
+	corpusRoot := goAlphaCorpusRoot(t)
+	command := exec.Command("go", "test", "./...")
+	command.Dir = corpusRoot
+	output, err := command.CombinedOutput()
+	if err != nil {
+		t.Fatalf("go test ./... failed: %v\n%s", err, output)
+	}
+}
+
+func TestGoAlphaCorpusPositiveFixturesLowerToGIR(t *testing.T) {
+	corpus := readGoAlphaCorpus(t)
+	corpusRoot := goAlphaCorpusRoot(t)
+	if corpus.Schema != "mpk.go_alpha_corpus.v0" {
+		t.Fatalf("schema = %q, want mpk.go_alpha_corpus.v0", corpus.Schema)
+	}
+	if corpus.FunctionCount != 100 {
+		t.Fatalf("function_count = %d, want 100", corpus.FunctionCount)
+	}
+	if len(corpus.Positive) == 0 {
+		t.Fatal("positive corpus is empty")
+	}
+
+	totalFunctions := 0
+	for _, tt := range corpus.Positive {
+		t.Run(tt.Name, func(t *testing.T) {
+			result := runGoAlphaCorpusPackage(t, corpusRoot, tt.Path)
+			if result.GIR == nil {
+				t.Fatal("GIR missing")
+			}
+			if result.GIR.GIRHash == "" {
+				t.Fatal("GIR hash missing")
+			}
+			if result.GIREmission == nil {
+				t.Fatal("GIR emission missing")
+			}
+			if result.SourceManifest == nil {
+				t.Fatal("source manifest missing")
+			}
+			if len(result.Packages) != 1 {
+				t.Fatalf("package count = %d, want 1: %+v", len(result.Packages), result.Packages)
+			}
+			if len(result.SourceManifest.SourceFiles) == 0 {
+				t.Fatal("source manifest files missing")
+			}
+			if got := countGIRFunctions(*result.GIR); got != tt.FunctionCount {
+				t.Fatalf("lowered function count = %d, want %d", got, tt.FunctionCount)
+			}
+		})
+		totalFunctions += tt.FunctionCount
+	}
+	if totalFunctions != corpus.FunctionCount {
+		t.Fatalf("manifest positive function count = %d, want %d", totalFunctions, corpus.FunctionCount)
+	}
+}
+
 func readGoBasicCorpus(t *testing.T) goBasicCorpus {
 	t.Helper()
 
@@ -117,7 +186,29 @@ func readGoBasicCorpus(t *testing.T) goBasicCorpus {
 	return corpus
 }
 
+func readGoAlphaCorpus(t *testing.T) goAlphaCorpus {
+	t.Helper()
+
+	content, err := os.ReadFile(filepath.Join(goAlphaCorpusRoot(t), "manifest.json"))
+	if err != nil {
+		t.Fatalf("read Go alpha corpus manifest: %v", err)
+	}
+	var corpus goAlphaCorpus
+	if err := json.Unmarshal(content, &corpus); err != nil {
+		t.Fatalf("decode Go alpha corpus manifest: %v", err)
+	}
+	return corpus
+}
+
 func runGoBasicCorpusPackage(t *testing.T, corpusRoot string, path string) cliResult {
+	t.Helper()
+
+	restoreWorkingDir := chdirForTest(t, corpusRoot)
+	defer restoreWorkingDir()
+	return runSuccessfulPackage(t, "./"+filepath.ToSlash(path))
+}
+
+func runGoAlphaCorpusPackage(t *testing.T, corpusRoot string, path string) cliResult {
 	t.Helper()
 
 	restoreWorkingDir := chdirForTest(t, corpusRoot)
@@ -133,6 +224,24 @@ func goBasicCorpusRoot(t *testing.T) string {
 		t.Fatalf("resolve Go basic corpus root: %v", err)
 	}
 	return root
+}
+
+func goAlphaCorpusRoot(t *testing.T) string {
+	t.Helper()
+
+	root, err := filepath.Abs(filepath.FromSlash("../../fixtures/go-alpha"))
+	if err != nil {
+		t.Fatalf("resolve Go alpha corpus root: %v", err)
+	}
+	return root
+}
+
+func countGIRFunctions(module girModule) int {
+	total := 0
+	for _, pkg := range module.Packages {
+		total += len(pkg.Functions)
+	}
+	return total
 }
 
 func chdirForTest(t *testing.T, dir string) func() {

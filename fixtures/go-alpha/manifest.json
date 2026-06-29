@@ -1,0 +1,39 @@
+{
+  "schema": "mpk.go_alpha_corpus.v0",
+  "description": "ALPHA-001 Go subset v0 corpus with 100 pure functions.",
+  "function_count": 100,
+  "positive": [
+    {
+      "name": "arith",
+      "path": "arith",
+      "function_count": 34,
+      "covers": [
+        "fixed-width signed integer arithmetic",
+        "fixed-width unsigned integer arithmetic",
+        "bit operations",
+        "boolean operations"
+      ]
+    },
+    {
+      "name": "branch",
+      "path": "branch",
+      "function_count": 33,
+      "covers": [
+        "if control flow",
+        "local assignments",
+        "signed and unsigned comparisons"
+      ]
+    },
+    {
+      "name": "array",
+      "path": "array",
+      "function_count": 33,
+      "covers": [
+        "fixed-array construction",
+        "fixed-array index reads",
+        "struct construction",
+        "struct field reads"
+      ]
+    }
+  ]
+}
