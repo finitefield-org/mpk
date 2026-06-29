@@ -12,3 +12,6 @@ run() {
 cd "$checker_dir"
 run go test -count=1 ./...
 run go test -count=1 -tags checkeragreement -run TestCheckerAgreementWithRustCLI ./...
+
+cd "$repo_root"
+run cargo run --quiet -p mpk-cli -- package verify-certs fixtures/package-manifest/valid/basic-package.json

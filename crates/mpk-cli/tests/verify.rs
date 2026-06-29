@@ -160,6 +160,25 @@ fn package_check_rejects_invalid_manifest_fixture() {
 }
 
 #[test]
+fn package_verify_certs_rejects_invalid_manifest_fixture() {
+    let output = Command::new(env!("CARGO_BIN_EXE_mpk"))
+        .current_dir(repo_root())
+        .args([
+            "package",
+            "verify-certs",
+            "fixtures/package-manifest/invalid/missing-certificate-hash.json",
+        ])
+        .output()
+        .expect("mpk command runs");
+
+    assert!(!output.status.success());
+    assert!(output.stdout.is_empty());
+    let stderr = String::from_utf8(output.stderr).expect("stderr is UTF-8");
+    assert!(stderr.contains("package verify-certs failed"));
+    assert!(stderr.contains("expected_certificate_hash"));
+}
+
+#[test]
 fn package_check_rejects_duplicate_import_manifest_fixture() {
     let output = Command::new(env!("CARGO_BIN_EXE_mpk"))
         .current_dir(repo_root())

@@ -4,7 +4,7 @@ use std::collections::HashSet;
 use std::fmt;
 use std::fs;
 use std::path::{Path, PathBuf};
-use std::process::ExitCode;
+use std::process::{Command, ExitCode};
 
 use mpk_core::Name;
 use mpk_kernel::{
@@ -51,7 +51,9 @@ fn main() -> ExitCode {
                 ExitCode::FAILURE
             }
         }
-        Ok(RunOutcome::Verify(message)) | Ok(RunOutcome::PackageCheck(message)) => {
+        Ok(RunOutcome::Verify(message))
+        | Ok(RunOutcome::PackageCheck(message))
+        | Ok(RunOutcome::PackageVerifyCerts(message)) => {
             println!("{message}");
             ExitCode::SUCCESS
         }
@@ -73,6 +75,9 @@ fn run(args: Vec<String>) -> Result<RunOutcome, CliError> {
         [command, path] if command == "verify" => verify_path(Path::new(path)),
         [command, subcommand, path] if command == "package" && subcommand == "check" => {
             package_check_path(Path::new(path))
+        }
+        [command, subcommand, path] if command == "package" && subcommand == "verify-certs" => {
+            package_verify_certs_path(Path::new(path))
         }
         [command] if command == "--help" || command == "-h" || command == "help" => {
             print_usage();
@@ -113,12 +118,32 @@ fn verify_path(path: &Path) -> Result<RunOutcome, CliError> {
 }
 
 fn package_check_path(path: &Path) -> Result<RunOutcome, CliError> {
-    let summary = validate_package_manifest(path)
+    let package = validate_package_manifest(path)
         .map_err(|error| CliError::Input(format!("package check failed: {error}")))?;
 
     Ok(RunOutcome::PackageCheck(format!(
         "ok package={} imports={} certificates={}",
-        summary.module, summary.import_count, summary.certificate_count
+        package.module,
+        package.import_count,
+        package.certificates.len()
+    )))
+}
+
+fn package_verify_certs_path(path: &Path) -> Result<RunOutcome, CliError> {
+    let package = validate_package_manifest(path)
+        .map_err(|error| CliError::Input(format!("package verify-certs failed: {error}")))?;
+    let reference_count = if package.policy.require_reference_checker {
+        verify_reference_certificates(&package)
+            .map_err(|error| CliError::Input(format!("package verify-certs failed: {error}")))?
+    } else {
+        0
+    };
+
+    Ok(RunOutcome::PackageVerifyCerts(format!(
+        "ok package={} source_free={} reference={}",
+        package.module,
+        package.certificates.len(),
+        reference_count
     )))
 }
 
@@ -156,7 +181,7 @@ fn decode_hex(bytes: &[u8]) -> Result<Vec<u8>, CliError> {
         .collect()
 }
 
-fn validate_package_manifest(path: &Path) -> Result<PackageCheckSummary, PackageError> {
+fn validate_package_manifest(path: &Path) -> Result<PackageValidation, PackageError> {
     let text = fs::read_to_string(path)
         .map_err(|error| PackageError(format!("failed to read {}: {error}", path.display())))?;
     let value = parse_strict_json(&text)
@@ -172,13 +197,14 @@ fn validate_package_manifest(path: &Path) -> Result<PackageCheckSummary, Package
     require_equal(manifest.get("schema"), PACKAGE_SCHEMA, "schema")?;
     let module = require_name(manifest.get("module"), "module")?.to_owned();
     let import_count = validate_imports(manifest.get("imports"))?;
-    let certificate_count = validate_certificates(manifest.get("certificates"))?;
-    validate_policy(manifest.get("policy"))?;
+    let certificates = validate_certificates(manifest.get("certificates"))?;
+    let policy = validate_policy(manifest.get("policy"))?;
 
-    Ok(PackageCheckSummary {
+    Ok(PackageValidation {
         module,
         import_count,
-        certificate_count,
+        certificates,
+        policy,
     })
 }
 
@@ -230,7 +256,7 @@ fn validate_imports(value: Option<&Value>) -> Result<usize, PackageError> {
     Ok(imports.len())
 }
 
-fn validate_certificates(value: Option<&Value>) -> Result<usize, PackageError> {
+fn validate_certificates(value: Option<&Value>) -> Result<Vec<VerifiedCertificate>, PackageError> {
     let certificates = require_array(value, "certificates")?;
     if certificates.is_empty() {
         return Err(PackageError(
@@ -241,6 +267,7 @@ fn validate_certificates(value: Option<&Value>) -> Result<usize, PackageError> {
     let package_root = std::env::current_dir()
         .map_err(|error| PackageError(format!("failed to resolve package root: {error}")))?;
     let mut seen_paths = HashSet::new();
+    let mut verified = Vec::with_capacity(certificates.len());
 
     for (index, entry) in certificates.iter().enumerate() {
         let field = format!("certificates[{index}]");
@@ -286,12 +313,21 @@ fn validate_certificates(value: Option<&Value>) -> Result<usize, PackageError> {
             expected_certificate_hash,
             &format!("{field}.expected_certificate_hash"),
         )?;
+
+        verified.push(VerifiedCertificate {
+            manifest_path: manifest_path.to_owned(),
+            resolved_path: certificate_path,
+            module: report.module,
+            export_hash: hash_hex(&report.export_hash),
+            axiom_report_hash: hash_hex(&report.axiom_report_hash),
+            certificate_hash: hash_hex(&report.certificate_hash),
+        });
     }
 
-    Ok(certificates.len())
+    Ok(verified)
 }
 
-fn validate_policy(value: Option<&Value>) -> Result<(), PackageError> {
+fn validate_policy(value: Option<&Value>) -> Result<PackagePolicy, PackageError> {
     let policy = require_object(value, "policy")?;
     require_exact_fields(policy, POLICY_FIELDS, "policy")?;
 
@@ -319,7 +355,7 @@ fn validate_policy(value: Option<&Value>) -> Result<(), PackageError> {
         }
     }
 
-    require_bool(
+    let require_reference_checker = require_bool(
         policy.get("require_reference_checker"),
         "policy.require_reference_checker",
     )?;
@@ -329,7 +365,105 @@ fn validate_policy(value: Option<&Value>) -> Result<(), PackageError> {
         ));
     }
 
+    Ok(PackagePolicy {
+        require_reference_checker,
+    })
+}
+
+fn verify_reference_certificates(package: &PackageValidation) -> Result<usize, PackageError> {
+    let package_root = std::env::current_dir()
+        .map_err(|error| PackageError(format!("failed to resolve package root: {error}")))?;
+    let checker_dir = package_root.join("go-tools/mpk-checker-ref");
+    if !checker_dir.join("go.mod").is_file() {
+        return Err(PackageError(format!(
+            "reference checker is required, but {} is missing",
+            checker_dir.display()
+        )));
+    }
+
+    for certificate in &package.certificates {
+        verify_reference_certificate(&checker_dir, certificate)?;
+    }
+
+    Ok(package.certificates.len())
+}
+
+fn verify_reference_certificate(
+    checker_dir: &Path,
+    certificate: &VerifiedCertificate,
+) -> Result<(), PackageError> {
+    let output = Command::new("go")
+        .current_dir(checker_dir)
+        .args(["run", "./cmd/mpk-checker-ref", "verify"])
+        .arg(&certificate.resolved_path)
+        .output()
+        .map_err(|error| {
+            PackageError(format!(
+                "failed to run reference checker for {}: {error}",
+                certificate.manifest_path
+            ))
+        })?;
+
+    if !output.status.success() {
+        return Err(PackageError(format!(
+            "reference checker rejected {}: status={} stdout={} stderr={}",
+            certificate.manifest_path,
+            output.status,
+            compact_output(&output.stdout),
+            compact_output(&output.stderr)
+        )));
+    }
+
+    let value = serde_json::from_slice::<Value>(&output.stdout).map_err(|error| {
+        PackageError(format!(
+            "reference checker output for {} is not valid JSON: {error}",
+            certificate.manifest_path
+        ))
+    })?;
+    let field_prefix = format!("reference checker output for {}", certificate.manifest_path);
+    let object = require_object(Some(&value), &field_prefix)?;
+    require_equal(
+        object.get("verdict"),
+        "accepted",
+        &format!("{field_prefix}.verdict"),
+    )?;
+    require_report_field(
+        require_string(object.get("module"), &format!("{field_prefix}.module"))?,
+        &certificate.module,
+        &format!("{field_prefix}.module"),
+    )?;
+
+    let hashes = require_object(object.get("hashes"), &format!("{field_prefix}.hashes"))?;
+    require_report_field(
+        require_hash(
+            hashes.get("export"),
+            &format!("{field_prefix}.hashes.export"),
+        )?,
+        &certificate.export_hash,
+        &format!("{field_prefix}.hashes.export"),
+    )?;
+    require_report_field(
+        require_hash(
+            hashes.get("axiom_report"),
+            &format!("{field_prefix}.hashes.axiom_report"),
+        )?,
+        &certificate.axiom_report_hash,
+        &format!("{field_prefix}.hashes.axiom_report"),
+    )?;
+    require_report_field(
+        require_hash(
+            hashes.get("certificate"),
+            &format!("{field_prefix}.hashes.certificate"),
+        )?,
+        &certificate.certificate_hash,
+        &format!("{field_prefix}.hashes.certificate"),
+    )?;
+
     Ok(())
+}
+
+fn compact_output(bytes: &[u8]) -> String {
+    String::from_utf8_lossy(bytes).trim().to_owned()
 }
 
 fn verify_manifest_certificate(
@@ -539,7 +673,7 @@ fn print_usage() {
 }
 
 fn usage_text() -> String {
-    "usage: mpk <check|axiom-report|verify> <certificate.mpcert|fixture.hex>\n       mpk package check <package-manifest.json>".to_owned()
+    "usage: mpk <check|axiom-report|verify> <certificate.mpcert|fixture.hex>\n       mpk package <check|verify-certs> <package-manifest.json>".to_owned()
 }
 
 enum RunOutcome {
@@ -548,6 +682,7 @@ enum RunOutcome {
     AxiomReport(VerificationJsonOutput),
     Verify(String),
     PackageCheck(String),
+    PackageVerifyCerts(String),
 }
 
 enum CliError {
@@ -563,10 +698,24 @@ impl fmt::Display for CliError {
     }
 }
 
-struct PackageCheckSummary {
+struct PackageValidation {
     module: String,
     import_count: usize,
-    certificate_count: usize,
+    certificates: Vec<VerifiedCertificate>,
+    policy: PackagePolicy,
+}
+
+struct VerifiedCertificate {
+    manifest_path: String,
+    resolved_path: PathBuf,
+    module: String,
+    export_hash: String,
+    axiom_report_hash: String,
+    certificate_hash: String,
+}
+
+struct PackagePolicy {
+    require_reference_checker: bool,
 }
 
 #[derive(Debug)]
