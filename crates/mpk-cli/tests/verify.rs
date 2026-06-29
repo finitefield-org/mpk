@@ -1,5 +1,9 @@
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use std::process::Command;
+
+fn repo_root() -> PathBuf {
+    Path::new(env!("CARGO_MANIFEST_DIR")).join("../..")
+}
 
 #[test]
 fn check_accepts_valid_certificate_fixture() {
@@ -109,4 +113,67 @@ fn legacy_verify_still_accepts_valid_certificate_fixture() {
     assert!(output.stderr.is_empty());
     let stdout = String::from_utf8(output.stdout).expect("stdout is UTF-8");
     assert!(stdout.contains("ok module=Example.Basic.OneTheorem"));
+}
+
+#[test]
+fn package_check_accepts_valid_manifest_fixture() {
+    let output = Command::new(env!("CARGO_BIN_EXE_mpk"))
+        .current_dir(repo_root())
+        .args([
+            "package",
+            "check",
+            "fixtures/package-manifest/valid/basic-package.json",
+        ])
+        .output()
+        .expect("mpk command runs");
+
+    assert!(
+        output.status.success(),
+        "stderr: {}",
+        String::from_utf8_lossy(&output.stderr)
+    );
+    assert!(output.stderr.is_empty());
+    let stdout = String::from_utf8(output.stdout).expect("stdout is UTF-8");
+    assert_eq!(
+        stdout,
+        "ok package=Example.Basic.Package imports=1 certificates=1\n"
+    );
+}
+
+#[test]
+fn package_check_rejects_invalid_manifest_fixture() {
+    let output = Command::new(env!("CARGO_BIN_EXE_mpk"))
+        .current_dir(repo_root())
+        .args([
+            "package",
+            "check",
+            "fixtures/package-manifest/invalid/missing-certificate-hash.json",
+        ])
+        .output()
+        .expect("mpk command runs");
+
+    assert!(!output.status.success());
+    assert!(output.stdout.is_empty());
+    let stderr = String::from_utf8(output.stderr).expect("stderr is UTF-8");
+    assert!(stderr.contains("package check failed"));
+    assert!(stderr.contains("expected_certificate_hash"));
+}
+
+#[test]
+fn package_check_rejects_duplicate_import_manifest_fixture() {
+    let output = Command::new(env!("CARGO_BIN_EXE_mpk"))
+        .current_dir(repo_root())
+        .args([
+            "package",
+            "check",
+            "fixtures/package-manifest/invalid/duplicate-import.json",
+        ])
+        .output()
+        .expect("mpk command runs");
+
+    assert!(!output.status.success());
+    assert!(output.stdout.is_empty());
+    let stderr = String::from_utf8(output.stderr).expect("stderr is UTF-8");
+    assert!(stderr.contains("package check failed"));
+    assert!(stderr.contains("duplicates import"));
 }

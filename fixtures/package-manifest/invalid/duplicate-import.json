@@ -1,0 +1,33 @@
+{
+  "schema": "mpk.package.v0",
+  "module": "Example.Basic.Package",
+  "imports": [
+    {
+      "module": "Example.Basic.ZeroAxiom",
+      "export_hash": "0eeef32184a5c39018828814a4a293d89075e3dccfee21d4a502483ca8ed1db0",
+      "certificate_hash": "a5e2465d422837c4a90e3e068f2818fc5cf88f191997a3d23f4e4a4585450cdf"
+    },
+    {
+      "module": "Example.Basic.ZeroAxiom",
+      "export_hash": "0eeef32184a5c39018828814a4a293d89075e3dccfee21d4a502483ca8ed1db0",
+      "certificate_hash": "a5e2465d422837c4a90e3e068f2818fc5cf88f191997a3d23f4e4a4585450cdf"
+    }
+  ],
+  "certificates": [
+    {
+      "module": "Example.Basic.OneTheorem",
+      "path": "fixtures/cert-basic/one-theorem.hex",
+      "expected_export_hash": "5e3396fad9702c2578204b2cb90c112e9653fdb57908ab455e3f77dd58b2e91e",
+      "expected_axiom_report_hash": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+      "expected_certificate_hash": "37744c27174b7637485f6c005902dbf72604641ba66e2ebec90795eaddde1e94"
+    }
+  ],
+  "policy": {
+    "checker_profile": "mvp-strict",
+    "allowed_axiom_profiles": [
+      "core-mvp"
+    ],
+    "require_reference_checker": true,
+    "require_source_free_check": true
+  }
+}
