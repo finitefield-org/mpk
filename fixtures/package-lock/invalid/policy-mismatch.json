@@ -1,0 +1,23 @@
+{
+  "schema": "mpk.package.lock.v0",
+  "manifest": {
+    "path": "fixtures/package-manifest/valid/basic-package.json",
+    "sha256": "c6f23347d7177171b8f1b14df8c9601aeff91e10c03d20c9058cc63fb8fce9bd"
+  },
+  "module": "Example.Basic.Package",
+  "locked_imports": [
+    {
+      "module": "Example.Basic.ZeroAxiom",
+      "export_hash": "0eeef32184a5c39018828814a4a293d89075e3dccfee21d4a502483ca8ed1db0",
+      "certificate_hash": "a5e2465d422837c4a90e3e068f2818fc5cf88f191997a3d23f4e4a4585450cdf"
+    }
+  ],
+  "checker_policy": {
+    "checker_profile": "mvp-strict",
+    "allowed_axiom_profiles": [
+      "core-mvp"
+    ],
+    "require_reference_checker": false,
+    "require_source_free_check": true
+  }
+}
