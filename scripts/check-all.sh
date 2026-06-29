@@ -19,6 +19,12 @@ run python3 "$repo_root/scripts/generate-release-report.py" --check
 cd "$repo_root/go-tools/go2gir"
 run go test -count=1 ./...
 
+cd "$repo_root/examples/order_policy"
+run go test -count=1 ./...
+
+cd "$repo_root/examples/order_policy/webapp"
+run go test -count=1 ./...
+
 cd "$repo_root"
 run cargo test -p mpk-vc --test max64_example
 run cargo test -p mpk-cert hash

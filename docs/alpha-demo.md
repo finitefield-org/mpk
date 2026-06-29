@@ -81,11 +81,25 @@ PY
 Expected result: the script prints `status=gir-lowered` and
 `matches_checked_in_gir=True`.
 
+The repository also includes an application-shaped Go example in
+`examples/order_policy`. It models the usual production shape: handlers,
+storage, and external effects stay in ordinary Go, while a pure order-reserve
+policy function is lowered and given a contract sidecar:
+
+```sh
+(cd examples/order_policy && ../../target/debug/go2gir . > /tmp/mpk-order-policy-go2gir.json)
+```
+
+Expected result: the generated GIR contains
+`example.com/orderpolicy.ApprovedReserveCents` and matches
+`examples/order_policy/gir.json`.
+
 ## 4. Reproduce VC outputs
 
-The Max64 regression test imports the checked-in `gir.json`, regenerates VC and
-skeleton output from it, and verifies that the generated output still matches
-the checked-in `vc.json` and `vc_skeleton.json`:
+The example regression test imports the checked-in `gir.json` files for Max64
+and the order-policy example, regenerates VC and skeleton output from them, and
+verifies that the generated output still matches each checked-in `vc.json` and
+`vc_skeleton.json`:
 
 ```sh
 cargo test -p mpk-vc --test max64_example
@@ -105,6 +119,7 @@ fixtures for a separate change:
 
 ```sh
 MPK_UPDATE_MAX64_EXAMPLE=1 cargo test -p mpk-vc --test max64_example
+MPK_UPDATE_ORDER_POLICY_EXAMPLE=1 cargo test -p mpk-vc --test max64_example
 MPK_UPDATE_VC_ALPHA=1 cargo test -p mpk-vc --test alpha_corpus
 ```
 
@@ -153,6 +168,8 @@ When all commands above pass locally, the alpha pipeline demonstrates:
 - the 100-function Go alpha corpus compiles and lowers to GIR;
 - the Max64 example lowers from Go source and reproduces its documented VC
   artifacts;
+- the order-policy example documents how a real Go service calls a pure
+  verified-boundary policy function while keeping side effects outside MPK;
 - the ALPHA-002 VC corpus still records 1,056 generated obligations;
 - the TH-008 strategy hook can close a Max64-shaped simple VC only through a
   checked theory certificate;
