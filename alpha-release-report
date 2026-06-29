@@ -1,0 +1,193 @@
+# Alpha Release Report
+
+Schema: `mpk.alpha_release_report.v0`
+
+Milestone: `ALPHA-007`
+
+Scope: apply `develop/roadmap/RELEASE_GATES.md` to the current alpha artifacts
+and release evidence. This report uses `release-report.json` from CI-008 and
+the local alpha demo guide in `docs/alpha-demo.md`.
+
+## Summary
+
+ALPHA-007 is reproducible locally with the commands listed below.
+
+Gate result:
+
+| Gate | Status | Evidence |
+| --- | --- | --- |
+| A: Trust boundary | Pass | Checkers accept only canonical certificate bytes or checked theory certificates; `docs/alpha-demo.md` documents GIR/VC artifacts as non-proof helper artifacts. |
+| B: Canonicality | Pass | `./scripts/check-all.sh` exercises canonical decode/re-encode, non-canonical rejection fixtures, and hash recomputation. |
+| C: Determinism | Pass | `./scripts/check-all.sh` and `scripts/generate-release-report.py --check` reproduce stable hashes, reports, and deterministic rejection fixtures. |
+| D: Checker agreement | Pass | Rust source-free checker and Go reference checker agree through `scripts/check-reference.sh` and `mpk package verify-certs`. |
+| E: Axiom | Pass | `release-report.json` records zero total axioms and zero external axioms for the package certificate. |
+| F: Go frontend | Pass | Go version, Go source hashes, `go2gir` binary hash, GIR hashes, and VC hashes are recorded below. |
+| G: Performance | Pass with documented limit | The full local suite and 10,000 invalid-candidate benchmark pass. No numeric release budget threshold is defined in `RELEASE_GATES.md`; ALPHA-004 records the current local timing profile. |
+| H: Security | Pass with documented exception | Rust checker-facing crates forbid unsafe code and the Go checker source does not import `unsafe`; `go list -deps` still includes Go's standard `unsafe` package through the standard library dependency closure. |
+
+Strict release note: Gate G and Gate H have documented limits/exceptions. A
+release process that requires unqualified gate success should either approve the
+documented exceptions or refine the gate checks before tagging a release.
+
+## Commands Run
+
+Core release gate:
+
+```sh
+./scripts/check-all.sh
+```
+
+CI-008 evidence report stability:
+
+```sh
+python3 scripts/generate-release-report.py --check
+```
+
+Alpha demo reproduction:
+
+```sh
+(cd fixtures/go-alpha && go test ./...)
+(cd go-tools/go2gir && go test -count=1 ./...)
+(cd go-tools/go2gir && go build -o ../../target/debug/go2gir .)
+(cd examples/max64 && ../../target/debug/go2gir . > /tmp/mpk-max64-go2gir.json)
+python3 - <<'PY'
+import json
+from pathlib import Path
+
+data = json.loads(Path("/tmp/mpk-max64-go2gir.json").read_text())
+checked_gir = json.loads(Path("examples/max64/gir.json").read_text())
+gir = data["gir"]
+function_count = sum(len(pkg["functions"]) for pkg in gir["packages"])
+
+assert data["status"] == "gir-lowered"
+assert gir == checked_gir
+assert function_count == 1
+print(f"status={data['status']}")
+print(f"gir_hash={gir['gir_hash']}")
+print(f"matches_checked_in_gir={gir == checked_gir}")
+print(f"function_count={function_count}")
+PY
+cargo test -p mpk-vc --test max64_example
+cargo test -p mpk-vc --test alpha_corpus
+cargo test -p mpk-api --test strategies \
+  theory_strategy_proves_max64_simple_vc_through_checked_certificate
+cargo run --quiet -p mpk-cli -- check fixtures/cert-basic/one-theorem.hex
+cargo run --quiet -p mpk-cli -- package verify-certs \
+  fixtures/package-manifest/valid/basic-package.json
+```
+
+Security gate detail:
+
+```sh
+command -v rg >/dev/null
+rg -n '#!\[forbid\(unsafe_code\)\]' \
+  crates/mpk-core/src/lib.rs \
+  crates/mpk-cert/src/lib.rs \
+  crates/mpk-kernel/src/lib.rs \
+  crates/mpk-theory/src/lib.rs \
+  crates/mpk-cli/src/main.rs \
+  crates/mpk-api/src/lib.rs \
+  crates/mpk-vc/src/lib.rs
+if rg -n 'allow\(unsafe_code\)|expect\(unsafe_code\)' crates; then
+  exit 1
+fi
+(cd go-tools/mpk-checker-ref && CGO_ENABLED=0 go test -count=1 ./...)
+(cd go-tools/mpk-checker-ref && \
+  ! rg -n '"unsafe"' . --glob '*.go')
+(cd go-tools/mpk-checker-ref && \
+  if CGO_ENABLED=0 go list -deps ./... | rg '^unsafe$'; then
+    echo 'documented exception: unsafe appears in Go dependency closure'
+  else
+    exit 1
+  fi)
+```
+
+The final security command confirms the documented Gate H exception: `unsafe`
+appears through Go standard library dependencies. The checker source search
+emits no matches. A strict policy form that fails on any dependency-closure
+`unsafe` match would block release until the exception is approved or the gate
+is refined.
+
+## Environment
+
+| Tool | Version |
+| --- | --- |
+| Go | `go version go1.23.2 darwin/arm64` |
+| rustc | `rustc 1.95.0 (59807616e 2026-04-14)` |
+| cargo | `cargo 1.95.0 (f2d3ce0bd 2026-03-21)` |
+| Python | `Python 3.12.1` |
+
+## Release Evidence Snapshot
+
+`release-report.json`:
+
+- schema: `mpk.release.evidence.v0`
+- sha256: `d08570ecccb27473414fa23379814a27b2f41ca48fdbc3a34c732eb0e195b64e`
+- package verification: `ok package=Example.Basic.Package source_free=1 reference=1`
+- source-free checker accepted: `true`
+- reference checker accepted: `true`
+- hash agreement: `true`
+- no external axioms: `true`
+- axiom category counts match: `true`
+- overall CI-008 release gate field: `passed=true`
+
+Package artifact hashes from `release-report.json`:
+
+| Artifact | SHA-256 |
+| --- | --- |
+| `fixtures/package-manifest/valid/basic-package.json` | `c6f23347d7177171b8f1b14df8c9601aeff91e10c03d20c9058cc63fb8fce9bd` |
+| `fixtures/package-lock/valid/basic-package-lock.json` | `f27f64a8adf8b002317906d774813ae0a93cdd4996004307ceb032d8e02bcc85` |
+
+Certificate evidence:
+
+| Certificate | Module | Source-free | Reference | Total axioms | External axioms |
+| --- | --- | --- | --- | ---: | ---: |
+| `fixtures/cert-basic/one-theorem.hex` | `Example.Basic.OneTheorem` | `accepted` | `accepted` | 0 | 0 |
+
+## Go Frontend Evidence
+
+Toolchain and binary:
+
+| Item | Value |
+| --- | --- |
+| Go version | `go version go1.23.2 darwin/arm64` |
+| `target/debug/go2gir` sha256 | `7b0d24e617edf25bc85792577adaa92e978085809518f230866984fd082a6d1c` |
+
+Input and generated artifact hashes:
+
+| Artifact | SHA-256 |
+| --- | --- |
+| `fixtures/go-alpha` source tree | `4d194de87052a8a7bd898eb3042193edd0971175e0dcc9fa99b64863713c2dea` |
+| `examples/max64` input tree | `4282c937f97f6a90b76919cd9dd2d0ded4e50feb1cff40559592d4d8db7285bb` |
+| `examples/max64/max64.go` | `b7addf05c795cde66d285154838709033da6221beefc4515b034940badeb7fa1` |
+| `examples/max64/max64_contract.json` | `07e12623b2af700189f0ac95e55a60aecf7ceabc57de8ab0e40a8253bb7187d9` |
+| `examples/max64/gir.json` | `0fbe5a7c0e876185cd22137a0b6f0fb533be2a488abb96d989fd82c7d73a0edc` |
+| `examples/max64/vc.json` | `03250550eefc7145ab7a177f3996a7d376c0aa240afdac8759406a0cc422932a` |
+| `examples/max64/vc_skeleton.json` | `ce03d2aaeffaad1af8114c3a6bd9f2908b48107b1789867e1b3a7e5114f276c7` |
+| `fixtures/vc-alpha/vc.json` | `999a3b2f34a9d25ee5972674ffc4dc1590439a7aa5c8e41dda4472d76cf82b97` |
+| `fixtures/vc-alpha/vc_skeleton.json` | `e1cea2c49ae72d5ba9e85c589d05577137a8b3d0cae2772388b711a633cd82fe` |
+
+Embedded VC evidence:
+
+| Corpus | Source GIR hash | Obligations |
+| --- | --- | ---: |
+| Max64 | `a5f49bcfdf9dc1bd4df04e33ca93e90b098dd48af58be2b73261847426c18b6a` | 6 |
+| ALPHA-002 | `84374e92fb2176e50a17c071fa73d59619a165a492406dd50845703d84e0a2f8` | 1056 |
+
+## Exceptions And Limits
+
+1. Gate G does not define a numeric release budget threshold. The current
+   evidence is `./scripts/check-all.sh`, the 10,000 invalid-candidate benchmark
+   in the workspace tests, deterministic defeq fuel tests, and the ALPHA-004
+   local profile in `perf/alpha-004-fast-kernel-profile.md`.
+2. Gate H's Go dependency-closure command reports `unsafe` because the Go
+   standard library dependency graph includes packages such as `runtime`,
+   `reflect`, `encoding/json`, and `bytes` that import or depend on `unsafe`.
+   The MPK Go reference checker source itself has no `import "unsafe"`, and its
+   tests pass with `CGO_ENABLED=0`.
+
+## Review Conclusion
+
+All ALPHA-007 release gates were applied. Gates A-F pass with recorded evidence.
+Gate G and Gate H have documented limits/exceptions as required by the ALPHA-007
+acceptance criterion.
