@@ -12,6 +12,7 @@ cd "$repo_root"
 
 run "$repo_root/scripts/check-fast.sh"
 run "$repo_root/scripts/check-reference.sh"
+run python3 "$repo_root/scripts/check-package-manifest-fixtures.py"
 
 cd "$repo_root/go-tools/go2gir"
 run go test -count=1 ./...
