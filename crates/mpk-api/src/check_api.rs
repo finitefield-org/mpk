@@ -2,11 +2,12 @@
 
 use mpk_cert::encode::ProofNode;
 use mpk_core::{check, infer, LocalContext, TermId, TermNode};
+use mpk_kernel::proof_theory::check_theory_certificate;
 use serde::{Deserialize, Serialize};
 
 use crate::{
     proof_api::ApiProofId,
-    session::{ApiError, ApiErrorCode, ApiService, ApiSession, SessionId},
+    session::{ApiError, ApiErrorCode, ApiService, ApiSession, ProofProfile, SessionId},
     term_api::ApiTermId,
 };
 
@@ -159,12 +160,56 @@ impl CheckNodeDriver<'_> {
                 self.check_term(proof_id, context, term, expected_type)?;
                 Ok(term)
             }
+            ProofNode::Theory {
+                theory_certificate,
+                expected_type,
+            } => {
+                if self.session.proof_profile() != ProofProfile::MvpStrict {
+                    return Err(self.failure(
+                        proof_id,
+                        context,
+                        ApiError::new(
+                            ApiErrorCode::UnsupportedProofNodeKind,
+                            "theory proof nodes require the mvp-strict proof profile",
+                            Some("proof_id".to_owned()),
+                            Some(proof_id.as_u32().to_string()),
+                        ),
+                    ));
+                }
+                let expected_type = self.expected_type(proof_id, expected_type, context)?;
+                let certificate = self
+                    .session
+                    .theory_certificate(theory_certificate)
+                    .cloned()
+                    .ok_or_else(|| {
+                        self.failure(
+                            proof_id,
+                            context,
+                            proof_check_failed(
+                                proof_id,
+                                "theory proof node references a missing theory certificate",
+                                theory_certificate.to_string(),
+                            ),
+                        )
+                    })?;
+                check_theory_certificate(&certificate).map_err(|error| {
+                    self.failure(
+                        proof_id,
+                        context,
+                        proof_check_failed(
+                            proof_id,
+                            "theory certificate rejected while checking proof node",
+                            error.to_string(),
+                        ),
+                    )
+                })?;
+                self.find_theory_witness(proof_id, context, expected_type)
+            }
             ProofNode::LetProof { .. }
             | ProofNode::Rewrite { .. }
             | ProofNode::EqRec { .. }
             | ProofNode::Constructor { .. }
-            | ProofNode::Recursor { .. }
-            | ProofNode::Theory { .. } => Err(self.failure(
+            | ProofNode::Recursor { .. } => Err(self.failure(
                 proof_id,
                 context,
                 ApiError::new(
@@ -178,6 +223,38 @@ impl CheckNodeDriver<'_> {
                 ),
             )),
         }
+    }
+
+    fn find_theory_witness(
+        &mut self,
+        proof_id: ApiProofId,
+        context: &LocalContext,
+        expected_type: TermId,
+    ) -> Result<TermId, ProofCheckFailure> {
+        let term_ids = self
+            .session
+            .terms()
+            .iter_topological()
+            .map(|(term, _)| term)
+            .collect::<Vec<_>>();
+        for term in term_ids {
+            if self
+                .check_term(proof_id, context, term, expected_type)
+                .is_ok()
+            {
+                return Ok(term);
+            }
+        }
+
+        Err(self.failure(
+            proof_id,
+            context,
+            proof_check_failed(
+                proof_id,
+                "theory certificate checked but no term-table witness checks against expected_type",
+                expected_type.index().to_string(),
+            ),
+        ))
     }
 
     fn expected_type(

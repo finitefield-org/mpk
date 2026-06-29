@@ -11,6 +11,7 @@ use crate::{
     },
     session::{ApiError, ApiErrorCode, ApiService, SessionId},
     term_api::ApiTermId,
+    theory_strategy::TheoryStrategyCandidate,
 };
 
 #[derive(Clone, Debug, Eq, PartialEq, Deserialize, Serialize)]
@@ -26,6 +27,8 @@ pub struct StrategyProveRequest {
     pub split: bool,
     #[serde(default)]
     pub apply: Vec<ApplyStrategyCandidate>,
+    #[serde(default)]
+    pub theory: Vec<TheoryStrategyCandidate>,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq, Deserialize, Serialize)]
@@ -69,6 +72,7 @@ pub enum StrategyKind {
     Refl,
     Split,
     Apply,
+    Theory,
 }
 
 impl ApiService {
@@ -112,6 +116,16 @@ impl ApiService {
 
         for candidate in request.apply {
             let attempt = self.try_apply_strategy(&session_id, request.expected_type, candidate);
+            if let Some(response) =
+                record_attempt(&session_id, request.expected_type, &mut attempts, attempt)
+            {
+                return Ok(response);
+            }
+        }
+
+        for candidate in request.theory {
+            let attempt =
+                self.try_theory_strategy_candidate(&session_id, request.expected_type, candidate);
             if let Some(response) =
                 record_attempt(&session_id, request.expected_type, &mut attempts, attempt)
             {
@@ -186,6 +200,18 @@ impl ApiService {
         }) {
             Ok(proof) => self.check_strategy_proof(session_id, StrategyKind::Apply, proof),
             Err(error) => StrategyAttempt::failed(StrategyKind::Apply, None, error),
+        }
+    }
+
+    fn try_theory_strategy_candidate(
+        &mut self,
+        session_id: &SessionId,
+        expected_type: ApiTermId,
+        candidate: TheoryStrategyCandidate,
+    ) -> StrategyAttempt {
+        match self.try_theory_strategy(session_id, expected_type, candidate) {
+            Ok(proof) => self.check_strategy_proof(session_id, StrategyKind::Theory, proof),
+            Err(error) => StrategyAttempt::failed(StrategyKind::Theory, None, error),
         }
     }
 

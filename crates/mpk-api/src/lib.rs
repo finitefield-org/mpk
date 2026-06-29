@@ -14,6 +14,7 @@ pub mod proof_api;
 pub mod session;
 pub mod strategies;
 pub mod term_api;
+pub mod theory_strategy;
 
 pub use batch::{
     BatchCandidate, BatchCheckMode, BatchCheckRequest, BatchCheckResponse, BatchCheckSummary,
@@ -41,3 +42,4 @@ pub use term_api::{
     ApiTermId, AppTermRequest, BinderTermRequest, ConstTermRequest, LetTermRequest,
     SortTermRequest, TermResponse, VarTermRequest,
 };
+pub use theory_strategy::{TheoryStrategyCandidate, TheoryStrategyKind};

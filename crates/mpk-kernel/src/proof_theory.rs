@@ -16,7 +16,7 @@ use mpk_theory::{
     LinearTerm, ARRAY_CERT_FORMAT, BOOL_CERT_FORMAT, LINARITH_CERT_FORMAT,
 };
 
-pub(crate) const BITVEC_CERT_FORMAT: &str = "mpk.bitvec-ground.v0";
+pub const BITVEC_CERT_FORMAT: &str = "mpk.bitvec-ground.v0";
 
 const BITVEC_CERT_MAGIC: &[u8; 8] = b"MPKBVGC0";
 const BITVEC_FORMAT_TAG: u8 = 0;
@@ -24,19 +24,23 @@ const LINARITH_CERT_MAGIC: &[u8; 8] = b"MPKLINR0";
 const ARRAY_CERT_MAGIC: &[u8; 8] = b"MPKARRY0";
 
 #[derive(Clone, Debug, Eq, PartialEq)]
-pub(crate) struct CheckedTheoryCertificate {
+pub struct CheckedTheoryCertificate {
     pub format: &'static str,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
-pub(crate) struct TheoryProofError {
+pub struct TheoryProofError {
     kind: TheoryProofErrorKind,
     detail: String,
 }
 
 impl TheoryProofError {
-    pub(crate) fn kind(&self) -> TheoryProofErrorKind {
+    pub fn kind(&self) -> TheoryProofErrorKind {
         self.kind
+    }
+
+    pub fn detail(&self) -> &str {
+        &self.detail
     }
 
     fn new(kind: TheoryProofErrorKind, detail: impl Into<String>) -> Self {
@@ -56,7 +60,7 @@ impl fmt::Display for TheoryProofError {
 impl std::error::Error for TheoryProofError {}
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash, Ord, PartialOrd)]
-pub(crate) enum TheoryProofErrorKind {
+pub enum TheoryProofErrorKind {
     UnsupportedFormat,
     InvalidPayload,
     BoolCertificate,
@@ -78,7 +82,7 @@ impl TheoryProofErrorKind {
     }
 }
 
-pub(crate) fn check_theory_certificate(
+pub fn check_theory_certificate(
     certificate: &TheoryCertificate,
 ) -> Result<CheckedTheoryCertificate, TheoryProofError> {
     match certificate.format.as_str() {

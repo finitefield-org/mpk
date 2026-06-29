@@ -5,7 +5,7 @@ use std::fmt;
 
 use crate::proof_api::ApiProofId;
 use crate::term_api::ApiTermId;
-use mpk_cert::encode::ProofNode;
+use mpk_cert::encode::{ProofNode, TheoryCertificate};
 use mpk_core::{Environment, LevelArena, Name, TermArena, TermId};
 use mpk_kernel::ProofCheckProfile;
 use serde::{Deserialize, Serialize};
@@ -43,6 +43,7 @@ impl ApiService {
             terms: TermArena::new(),
             term_ids: BTreeMap::new(),
             proof_nodes: Vec::new(),
+            theory_certificates: Vec::new(),
             environment: Environment::new(),
         };
         let response = session.summary().into_start_response();
@@ -102,6 +103,7 @@ pub struct ApiSession {
     terms: TermArena,
     term_ids: BTreeMap<ApiTermId, TermId>,
     proof_nodes: Vec<ProofNode>,
+    theory_certificates: Vec<TheoryCertificate>,
     environment: Environment,
 }
 
@@ -197,6 +199,31 @@ impl ApiSession {
         })?);
         self.proof_nodes.push(node);
         Ok(proof_id)
+    }
+
+    pub fn theory_certificate(&self, index: u32) -> Option<&TheoryCertificate> {
+        self.theory_certificates
+            .get(usize::try_from(index).expect("u32 id fits in usize"))
+    }
+
+    pub fn theory_certificate_count(&self) -> usize {
+        self.theory_certificates.len()
+    }
+
+    pub(crate) fn register_theory_certificate(
+        &mut self,
+        certificate: TheoryCertificate,
+    ) -> Result<u32, ApiError> {
+        let index = u32::try_from(self.theory_certificates.len()).map_err(|_| {
+            ApiError::new(
+                ApiErrorCode::ProofIdOverflow,
+                "API theory certificate table exceeded u32 ids",
+                None,
+                Some(self.theory_certificates.len().to_string()),
+            )
+        })?;
+        self.theory_certificates.push(certificate);
+        Ok(index)
     }
 
     pub(crate) fn require_proof_id(
@@ -316,6 +343,7 @@ pub enum ProofProfile {
     #[default]
     CoreBootstrap,
     MvpStructural,
+    MvpStrict,
 }
 
 impl ProofProfile {
@@ -323,6 +351,7 @@ impl ProofProfile {
         match self {
             Self::CoreBootstrap => "core-bootstrap",
             Self::MvpStructural => "mvp-structural",
+            Self::MvpStrict => "mvp-strict",
         }
     }
 }
@@ -332,6 +361,7 @@ impl From<ProofProfile> for ProofCheckProfile {
         match value {
             ProofProfile::CoreBootstrap => Self::CoreBootstrap,
             ProofProfile::MvpStructural => Self::MvpStructural,
+            ProofProfile::MvpStrict => Self::MvpStrict,
         }
     }
 }
@@ -563,6 +593,21 @@ mod tests {
         assert_eq!(
             ProofProfile::MvpStructural.canonical_name(),
             ProofCheckProfile::MvpStructural.canonical_name()
+        );
+
+        let strict = service
+            .start_session(
+                StartSessionRequest::new("Example.Api.Strict")
+                    .with_proof_profile(ProofProfile::MvpStrict),
+            )
+            .expect("strict session starts");
+        let strict = service
+            .session(&strict.session_id)
+            .expect("strict session exists");
+        assert_eq!(strict.kernel_proof_profile(), ProofCheckProfile::MvpStrict);
+        assert_eq!(
+            ProofProfile::MvpStrict.canonical_name(),
+            ProofCheckProfile::MvpStrict.canonical_name()
         );
     }
 
