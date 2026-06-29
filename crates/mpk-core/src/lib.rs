@@ -21,7 +21,9 @@ pub mod term;
 pub use context::{LocalContext, LocalDecl, LocalDefinition};
 pub use decl_check::{check_theorem, register_checked_theorem};
 pub use defeq::{definitionally_equal, definitionally_equal_with_fuel, DEFAULT_DEFEQ_FUEL};
-pub use env::{Declaration, DeclarationKind, DefinitionReducibility, Environment};
+pub use env::{
+    Declaration, DeclarationKind, DefinitionReducibility, Environment, EnvironmentCacheKey,
+};
 pub use error::{CoreError, CoreErrorCode, CoreLocation, CoreLocationPart};
 pub use inductive::{
     export_registered_inductive, register_mvp_inductive, ConstructorSignature, ExportedInductive,

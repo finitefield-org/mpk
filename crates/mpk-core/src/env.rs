@@ -1,8 +1,12 @@
 //! Global environment and declaration skeletons.
 
+use std::sync::atomic::{AtomicU64, Ordering};
+
 use crate::{
     CoreError, CoreErrorCode, CoreLocation, CoreLocationPart, GlobalId, Name, NameResolver, TermId,
 };
+
+static NEXT_ENVIRONMENT_ID: AtomicU64 = AtomicU64::new(1);
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub enum DefinitionReducibility {
@@ -138,10 +142,18 @@ impl Declaration {
     }
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug)]
 pub struct Environment {
     names: NameResolver,
     declarations: Vec<Declaration>,
+    cache_id: u64,
+    cache_revision: u64,
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub struct EnvironmentCacheKey {
+    id: u64,
+    revision: u64,
 }
 
 impl Environment {
@@ -159,6 +171,13 @@ impl Environment {
 
     pub fn names(&self) -> &NameResolver {
         &self.names
+    }
+
+    pub fn cache_key(&self) -> EnvironmentCacheKey {
+        EnvironmentCacheKey {
+            id: self.cache_id,
+            revision: self.cache_revision,
+        }
     }
 
     pub fn register_axiom(
@@ -305,6 +324,7 @@ impl Environment {
         }
 
         self.declarations.push(Declaration { global, name, kind });
+        self.cache_revision += 1;
         Ok(global)
     }
 
@@ -351,6 +371,17 @@ impl Environment {
                 artifact_kind,
                 "unknown_inductive",
             )),
+        }
+    }
+}
+
+impl Default for Environment {
+    fn default() -> Self {
+        Self {
+            names: NameResolver::new(),
+            declarations: Vec::new(),
+            cache_id: NEXT_ENVIRONMENT_ID.fetch_add(1, Ordering::Relaxed),
+            cache_revision: 0,
         }
     }
 }
@@ -416,6 +447,24 @@ mod tests {
         assert_eq!(declaration.ty(), ty);
         assert_eq!(env.resolve("Core.Prop").unwrap(), Some(global));
         assert_eq!(env.lookup_by_name("Core.Prop").unwrap(), Some(declaration));
+    }
+
+    #[test]
+    fn cache_keys_are_environment_local_and_revisioned() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let ty = sort(&mut terms, &mut levels, "u");
+        let mut first = Environment::new();
+        let second = Environment::new();
+        let initial = first.cache_key();
+
+        assert_ne!(initial, second.cache_key());
+
+        first.register_axiom("Core.Prop", ty).expect("valid axiom");
+        let after_register = first.cache_key();
+
+        assert_ne!(initial, after_register);
+        assert_eq!(after_register, first.cache_key());
     }
 
     #[test]

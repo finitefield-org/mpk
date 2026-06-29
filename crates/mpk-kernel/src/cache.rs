@@ -5,8 +5,8 @@ use std::time::Instant;
 
 use mpk_core::{
     check as core_check, definitionally_equal, infer as core_infer, whnf as core_whnf, CoreError,
-    DeclarationKind as CoreDeclarationKind, Environment, LevelArena, LocalContext, LocalDecl,
-    ReduceError, TermArena, TermId, TermNode,
+    Environment, EnvironmentCacheKey, LevelArena, LocalContext, LocalDecl, ReduceError, TermArena,
+    TermId, TermNode,
 };
 
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
@@ -296,28 +296,13 @@ impl DefEqKey {
     }
 }
 
-#[derive(Clone, Debug, Eq, PartialEq, Hash)]
-struct EnvironmentKey(Vec<EnvironmentEntryKey>);
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+struct EnvironmentKey(EnvironmentCacheKey);
 
 impl EnvironmentKey {
     fn new(env: &Environment) -> Self {
-        Self(
-            env.iter()
-                .map(|declaration| EnvironmentEntryKey {
-                    global: declaration.global().as_u32(),
-                    name: declaration.name().as_str().to_owned(),
-                    kind: declaration.kind(),
-                })
-                .collect(),
-        )
+        Self(env.cache_key())
     }
-}
-
-#[derive(Clone, Debug, Eq, PartialEq, Hash)]
-struct EnvironmentEntryKey {
-    global: u32,
-    name: String,
-    kind: CoreDeclarationKind,
 }
 
 fn term_arena_id(terms: &TermArena) -> usize {
@@ -368,7 +353,7 @@ mod tests {
     }
 
     #[test]
-    fn inferred_type_cache_keys_include_environment_snapshot() {
+    fn inferred_type_cache_keys_include_environment_identity() {
         let mut levels = LevelArena::new();
         let mut terms = TermArena::new();
         let mut first_env = Environment::new();
@@ -400,6 +385,36 @@ mod tests {
 
         assert_eq!(first, sort0);
         assert_eq!(second, sort1);
+        assert_eq!(cache.stats().inferred_type_entries, 2);
+    }
+
+    #[test]
+    fn inferred_type_cache_keys_include_environment_revision() {
+        let mut levels = LevelArena::new();
+        let mut terms = TermArena::new();
+        let mut env = Environment::new();
+        let context = LocalContext::new();
+        let sort0 = {
+            let zero = levels.zero();
+            terms.sort(zero)
+        };
+        let global = env
+            .register_axiom("Cache.EnvRevision.first", sort0)
+            .expect("first axiom");
+        let constant = terms.constant(global, []);
+        let mut cache = CheckerCache::new();
+
+        let first = cache
+            .infer(&mut levels, &mut terms, &context, &env, constant)
+            .expect("first revision infers");
+        env.register_axiom("Cache.EnvRevision.second", sort0)
+            .expect("second axiom");
+        let second = cache
+            .infer(&mut levels, &mut terms, &context, &env, constant)
+            .expect("second revision infers");
+
+        assert_eq!(first, sort0);
+        assert_eq!(second, sort0);
         assert_eq!(cache.stats().inferred_type_entries, 2);
     }
 
