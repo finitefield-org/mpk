@@ -18,6 +18,9 @@ use crate::wp::{
     validate_value_reference, WpError, WpGenerator,
 };
 
+type TermEnv = BTreeMap<String, MpkExprTerm>;
+type ResultTerms = BTreeMap<u32, MpkExprTerm>;
+
 pub fn generate_loop_vcs(input: &GirModule) -> Result<VcModule, WpError> {
     LoopVcGenerator::new().generate_module(input)
 }
@@ -301,6 +304,7 @@ fn preservation_obligations(
         .collect()
 }
 
+#[allow(clippy::too_many_arguments)]
 fn exit_obligations(
     function: &GirFunction,
     encoder: &ExprEncoder,
@@ -552,8 +556,8 @@ fn execute_exit_path_to_return(
     blocks: &BTreeMap<String, &GirBlock>,
     encoder: &ExprEncoder,
     start_label: &str,
-    mut env: BTreeMap<String, MpkExprTerm>,
-) -> Result<(BTreeMap<String, MpkExprTerm>, BTreeMap<u32, MpkExprTerm>), WpError> {
+    mut env: TermEnv,
+) -> Result<(TermEnv, ResultTerms), WpError> {
     let mut label = start_label.to_owned();
     let mut visited = BTreeSet::new();
     loop {
@@ -655,6 +659,7 @@ fn encode_branch_condition(
     Ok(substitute_term(&encoded, env, &BTreeMap::new()))
 }
 
+#[allow(clippy::too_many_arguments)]
 fn encode_loop_expr(
     function: &GirFunction,
     encoder: &ExprEncoder,
@@ -1120,11 +1125,58 @@ mod tests {
 
     #[test]
     fn rejects_loop_contract_without_invariant() {
-        let input = format!(
-            r#"{{"schema_version":"mpk.gir.v0","packages":[{{"package_path":"example/pkg","name":"example","functions":[{{"id":"example/pkg.BadLoop","package":"example/pkg","name":"BadLoop","params":[],"results":[],"locals":[],"blocks":[{{"label":"loop","parameters":[],"instructions":[],"terminator":{{"kind":"Branch","cond":{{"bool":false}},"then_label":"body","else_label":"exit"}}}},{{"label":"body","parameters":[],"instructions":[],"terminator":{{"kind":"Jump","label":"loop"}}}},{{"label":"exit","parameters":[],"instructions":[],"terminator":{{"kind":"Return","values":[]}}}}],"contracts":{{"requires":[],"ensures":[{{"bool":true}}],"modifies":[],"loops":[{{"block_id":"loop","invariants":[]}}]}},"supported_features":[],"rejected_features":[]}}]}}]}}"#
-        );
+        let input = r#"
+        {
+          "schema_version": "mpk.gir.v0",
+          "packages": [{
+            "package_path": "example/pkg",
+            "name": "example",
+            "functions": [{
+              "id": "example/pkg.BadLoop",
+              "package": "example/pkg",
+              "name": "BadLoop",
+              "params": [],
+              "results": [],
+              "locals": [],
+              "blocks": [
+                {
+                  "label": "loop",
+                  "parameters": [],
+                  "instructions": [],
+                  "terminator": {
+                    "kind": "Branch",
+                    "cond": { "bool": false },
+                    "then_label": "body",
+                    "else_label": "exit"
+                  }
+                },
+                {
+                  "label": "body",
+                  "parameters": [],
+                  "instructions": [],
+                  "terminator": { "kind": "Jump", "label": "loop" }
+                },
+                {
+                  "label": "exit",
+                  "parameters": [],
+                  "instructions": [],
+                  "terminator": { "kind": "Return", "values": [] }
+                }
+              ],
+              "contracts": {
+                "requires": [],
+                "ensures": [{ "bool": true }],
+                "modifies": [],
+                "loops": [{ "block_id": "loop", "invariants": [] }]
+              },
+              "supported_features": [],
+              "rejected_features": []
+            }]
+          }]
+        }
+        "#;
 
-        let error = generate(&input).expect_err("missing invariant rejects");
+        let error = generate(input).expect_err("missing invariant rejects");
 
         assert_eq!(
             error,

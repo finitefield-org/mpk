@@ -14,6 +14,9 @@ use crate::wp::{
     validate_value_reference, WpError, WpGenerator,
 };
 
+type TermEnv = BTreeMap<String, MpkExprTerm>;
+type ResultTerms = BTreeMap<u32, MpkExprTerm>;
+
 pub fn generate_branch_vcs(input: &GirModule) -> Result<VcModule, WpError> {
     BranchWpGenerator::new().generate_module(input)
 }
@@ -115,6 +118,7 @@ impl BranchWpGenerator {
         Ok(output)
     }
 
+    #[allow(clippy::too_many_arguments)]
     fn generate_path(
         self,
         function: &GirFunction,
@@ -195,8 +199,8 @@ fn execute_path_to_return(
     blocks: &BTreeMap<String, &GirBlock>,
     encoder: &ExprEncoder,
     start_label: &str,
-    mut env: BTreeMap<String, MpkExprTerm>,
-) -> Result<(BTreeMap<String, MpkExprTerm>, BTreeMap<u32, MpkExprTerm>), WpError> {
+    mut env: TermEnv,
+) -> Result<(TermEnv, ResultTerms), WpError> {
     let mut label = start_label.to_owned();
     let mut visited = BTreeSet::new();
     loop {

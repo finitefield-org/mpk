@@ -142,6 +142,7 @@ impl SafetyVcGenerator {
         }
     }
 
+    #[allow(clippy::too_many_arguments)]
     fn scan_path_to_return(
         self,
         function: &GirFunction,
@@ -206,6 +207,7 @@ impl SafetyVcGenerator {
         }
     }
 
+    #[allow(clippy::too_many_arguments)]
     fn scan_block(
         self,
         function: &GirFunction,
