@@ -189,7 +189,7 @@ fn reject_unsupported_imports(certificate: &Certificate) -> Result<(), Verificat
     Ok(())
 }
 
-fn verify_recomputed_certificate_sections(
+pub(crate) fn verify_recomputed_certificate_sections(
     certificate: &Certificate,
 ) -> Result<AxiomReport, VerificationError> {
     let rebuilt_export_block = build_export_block(certificate).map_err(|error| {

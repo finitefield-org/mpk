@@ -1,6 +1,6 @@
 //! Declaration checking orchestration for canonical certificates.
 
-use crate::cache::CheckerCache;
+use crate::cache::{CheckerCache, CheckerCacheMetrics};
 
 use mpk_cert::encode::{Certificate, DeclarationKind, DefinitionReducibility, LevelNode, TermNode};
 use mpk_core::{
@@ -72,7 +72,17 @@ pub fn check_declarations(
 pub(crate) fn check_declarations_with_context(
     certificate: &Certificate,
 ) -> Result<CheckedDeclarationContext<'_>, DeclarationCheckError> {
+    check_declarations_with_cache_timing(certificate, false)
+}
+
+pub(crate) fn check_declarations_with_cache_timing(
+    certificate: &Certificate,
+    cache_timing_enabled: bool,
+) -> Result<CheckedDeclarationContext<'_>, DeclarationCheckError> {
     let mut context = CheckedDeclarationContext::new(certificate);
+    if cache_timing_enabled {
+        context.enable_cache_timing();
+    }
     context.check_declarations()?;
     Ok(context)
 }
@@ -128,6 +138,14 @@ impl<'certificate> CheckedDeclarationContext<'certificate> {
             &self.env,
             &mut self.cache,
         )
+    }
+
+    pub(crate) fn cache_metrics(&self) -> CheckerCacheMetrics {
+        self.cache.metrics()
+    }
+
+    fn enable_cache_timing(&mut self) {
+        self.cache.enable_timing();
     }
 
     fn check_declarations(&mut self) -> Result<(), DeclarationCheckError> {

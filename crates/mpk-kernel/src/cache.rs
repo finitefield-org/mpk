@@ -1,6 +1,7 @@
 //! Checker-local caches for core inference, reduction, and conversion queries.
 
 use std::collections::HashMap;
+use std::time::Instant;
 
 use mpk_core::{
     check as core_check, definitionally_equal, infer as core_infer, whnf as core_whnf, CoreError,
@@ -15,11 +16,69 @@ pub struct CheckerCacheStats {
     pub defeq_entries: usize,
 }
 
+#[derive(Clone, Debug, Default, Eq, PartialEq)]
+pub struct CheckerCacheMetrics {
+    pub infer: CheckerCacheOperationMetrics,
+    pub whnf: CheckerCacheOperationMetrics,
+    pub defeq: CheckerCacheOperationMetrics,
+    pub check: CheckerCacheOperationMetrics,
+}
+
+impl CheckerCacheMetrics {
+    pub fn saturating_sub(&self, baseline: &Self) -> Self {
+        Self {
+            infer: self.infer.saturating_sub(&baseline.infer),
+            whnf: self.whnf.saturating_sub(&baseline.whnf),
+            defeq: self.defeq.saturating_sub(&baseline.defeq),
+            check: self.check.saturating_sub(&baseline.check),
+        }
+    }
+}
+
+#[derive(Clone, Debug, Default, Eq, PartialEq)]
+pub struct CheckerCacheOperationMetrics {
+    pub calls: u64,
+    pub hits: u64,
+    pub misses: u64,
+    pub elapsed_nanos: u128,
+}
+
+impl CheckerCacheOperationMetrics {
+    fn record_call(&mut self) {
+        self.calls += 1;
+    }
+
+    fn record_hit(&mut self) {
+        self.hits += 1;
+    }
+
+    fn record_miss(&mut self) {
+        self.misses += 1;
+    }
+
+    fn record_elapsed(&mut self, start: Option<Instant>) {
+        if let Some(start) = start {
+            self.elapsed_nanos += start.elapsed().as_nanos();
+        }
+    }
+
+    fn saturating_sub(&self, baseline: &Self) -> Self {
+        Self {
+            calls: self.calls.saturating_sub(baseline.calls),
+            hits: self.hits.saturating_sub(baseline.hits),
+            misses: self.misses.saturating_sub(baseline.misses),
+            elapsed_nanos: self.elapsed_nanos.saturating_sub(baseline.elapsed_nanos),
+        }
+    }
+}
+
 #[derive(Clone, Debug, Default)]
 pub struct CheckerCache {
     inferred_types: HashMap<InferKey, TermId>,
     whnfs: HashMap<WhnfKey, TermId>,
     defeqs: HashMap<DefEqKey, bool>,
+    metrics: CheckerCacheMetrics,
+    timing_enabled: bool,
 }
 
 impl CheckerCache {
@@ -41,6 +100,14 @@ impl CheckerCache {
         }
     }
 
+    pub fn metrics(&self) -> CheckerCacheMetrics {
+        self.metrics.clone()
+    }
+
+    pub fn enable_timing(&mut self) {
+        self.timing_enabled = true;
+    }
+
     pub fn infer(
         &mut self,
         levels: &mut LevelArena,
@@ -49,23 +116,37 @@ impl CheckerCache {
         env: &Environment,
         term: TermId,
     ) -> Result<TermId, CoreError> {
+        self.metrics.infer.record_call();
+        let start = self.timing_start();
         let key = InferKey::new(terms, env, context, term);
         if let Some(inferred) = self.inferred_types.get(&key).copied() {
+            self.metrics.infer.record_hit();
+            self.metrics.infer.record_elapsed(start);
             return Ok(inferred);
         }
 
-        let inferred = core_infer(levels, terms, context, env, term)?;
+        self.metrics.infer.record_miss();
+        let inferred = core_infer(levels, terms, context, env, term);
+        self.metrics.infer.record_elapsed(start);
+        let inferred = inferred?;
         self.inferred_types.insert(key, inferred);
         Ok(inferred)
     }
 
     pub fn whnf(&mut self, terms: &mut TermArena, term: TermId) -> Result<TermId, ReduceError> {
+        self.metrics.whnf.record_call();
+        let start = self.timing_start();
         let key = WhnfKey::new(terms, term);
         if let Some(reduced) = self.whnfs.get(&key).copied() {
+            self.metrics.whnf.record_hit();
+            self.metrics.whnf.record_elapsed(start);
             return Ok(reduced);
         }
 
-        let reduced = core_whnf(terms, term)?;
+        self.metrics.whnf.record_miss();
+        let reduced = core_whnf(terms, term);
+        self.metrics.whnf.record_elapsed(start);
+        let reduced = reduced?;
         self.whnfs.insert(key, reduced);
         Ok(reduced)
     }
@@ -77,17 +158,40 @@ impl CheckerCache {
         lhs: TermId,
         rhs: TermId,
     ) -> Result<bool, CoreError> {
+        self.metrics.defeq.record_call();
+        let start = self.timing_start();
         let key = DefEqKey::new(terms, env, lhs, rhs);
         if let Some(equal) = self.defeqs.get(&key).copied() {
+            self.metrics.defeq.record_hit();
+            self.metrics.defeq.record_elapsed(start);
             return Ok(equal);
         }
 
-        let equal = definitionally_equal(env, terms, lhs, rhs)?;
+        self.metrics.defeq.record_miss();
+        let equal = definitionally_equal(env, terms, lhs, rhs);
+        self.metrics.defeq.record_elapsed(start);
+        let equal = equal?;
         self.defeqs.insert(key, equal);
         Ok(equal)
     }
 
     pub fn check(
+        &mut self,
+        levels: &mut LevelArena,
+        terms: &mut TermArena,
+        context: &LocalContext,
+        env: &Environment,
+        term: TermId,
+        expected: TermId,
+    ) -> Result<(), CoreError> {
+        self.metrics.check.record_call();
+        let start = self.timing_start();
+        let result = self.check_uncounted(levels, terms, context, env, term, expected);
+        self.metrics.check.record_elapsed(start);
+        result
+    }
+
+    fn check_uncounted(
         &mut self,
         levels: &mut LevelArena,
         terms: &mut TermArena,
@@ -122,6 +226,10 @@ impl CheckerCache {
                 core_check(levels, terms, context, env, term, expected)
             }
         }
+    }
+
+    fn timing_start(&self) -> Option<Instant> {
+        self.timing_enabled.then(Instant::now)
     }
 }
 
@@ -381,6 +489,10 @@ mod tests {
         assert_eq!(first, expected);
         assert_eq!(second, expected);
         assert_eq!(cache.stats().defeq_entries, 1);
+        assert_eq!(cache.metrics().defeq.calls, 2);
+        assert_eq!(cache.metrics().defeq.hits, 1);
+        assert_eq!(cache.metrics().defeq.misses, 1);
+        assert_eq!(cache.metrics().defeq.elapsed_nanos, 0);
     }
 
     #[test]
