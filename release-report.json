@@ -1,0 +1,105 @@
+{
+  "schema": "mpk.release.evidence.v0",
+  "versions": {
+    "mpk_workspace": "0.1.0",
+    "package_manifest": "mpk.package.v0",
+    "package_lock": "mpk.package.lock.v0",
+    "go_reference_checker_module": "github.com/finitefield-org/mpk/go-tools/mpk-checker-ref",
+    "go_reference_checker_language": "1.23"
+  },
+  "artifacts": {
+    "manifest": {
+      "path": "fixtures/package-manifest/valid/basic-package.json",
+      "sha256": "c6f23347d7177171b8f1b14df8c9601aeff91e10c03d20c9058cc63fb8fce9bd"
+    },
+    "lock": {
+      "path": "fixtures/package-lock/valid/basic-package-lock.json",
+      "sha256": "f27f64a8adf8b002317906d774813ae0a93cdd4996004307ceb032d8e02bcc85"
+    }
+  },
+  "package": {
+    "module": "Example.Basic.Package",
+    "imports": [
+      {
+        "module": "Example.Basic.ZeroAxiom",
+        "export_hash": "0eeef32184a5c39018828814a4a293d89075e3dccfee21d4a502483ca8ed1db0",
+        "certificate_hash": "a5e2465d422837c4a90e3e068f2818fc5cf88f191997a3d23f4e4a4585450cdf"
+      }
+    ],
+    "policy": {
+      "checker_profile": "mvp-strict",
+      "allowed_axiom_profiles": [
+        "core-mvp"
+      ],
+      "require_reference_checker": true,
+      "require_source_free_check": true
+    },
+    "certificate_count": 1
+  },
+  "package_verification": {
+    "command": "cargo run --quiet -p mpk-cli -- package verify-certs fixtures/package-manifest/valid/basic-package.json",
+    "verdict": "accepted",
+    "stdout": "ok package=Example.Basic.Package source_free=1 reference=1"
+  },
+  "certificates": [
+    {
+      "path": "fixtures/cert-basic/one-theorem.hex",
+      "module": "Example.Basic.OneTheorem",
+      "expected_hashes": {
+        "export": "5e3396fad9702c2578204b2cb90c112e9653fdb57908ab455e3f77dd58b2e91e",
+        "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+        "certificate": "37744c27174b7637485f6c005902dbf72604641ba66e2ebec90795eaddde1e94"
+      },
+      "source_free_checker": {
+        "verdict": "accepted",
+        "module": "Example.Basic.OneTheorem",
+        "declaration_count": 1,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "5e3396fad9702c2578204b2cb90c112e9653fdb57908ab455e3f77dd58b2e91e",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "37744c27174b7637485f6c005902dbf72604641ba66e2ebec90795eaddde1e94"
+        }
+      },
+      "reference_checker": {
+        "verdict": "accepted",
+        "module": "Example.Basic.OneTheorem",
+        "declaration_count": 1,
+        "axiom_count": 0,
+        "hashes": {
+          "export": "5e3396fad9702c2578204b2cb90c112e9653fdb57908ab455e3f77dd58b2e91e",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "37744c27174b7637485f6c005902dbf72604641ba66e2ebec90795eaddde1e94"
+        }
+      },
+      "axiom_report": {
+        "certificate_hash": "37744c27174b7637485f6c005902dbf72604641ba66e2ebec90795eaddde1e94",
+        "axiom_report_hash": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+        "report": {
+          "summary": {
+            "core_axiom_count": 0,
+            "builtin_theory_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "external_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "entries": [],
+          "declaration_dependencies": []
+        }
+      },
+      "hash_agreement": {
+        "manifest_matches_source_free": true,
+        "source_free_matches_axiom_report": true,
+        "source_free_matches_reference": true
+      }
+    }
+  ],
+  "release_gates": {
+    "source_free_checker_accepted": true,
+    "reference_checker_accepted": true,
+    "hash_agreement": true,
+    "no_external_axioms": true,
+    "axiom_category_counts_match": true,
+    "passed": true
+  }
+}

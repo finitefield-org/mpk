@@ -14,6 +14,7 @@ run "$repo_root/scripts/check-fast.sh"
 run "$repo_root/scripts/check-reference.sh"
 run python3 "$repo_root/scripts/check-package-manifest-fixtures.py"
 run python3 "$repo_root/scripts/check-package-lock-fixtures.py"
+run python3 "$repo_root/scripts/generate-release-report.py" --check
 
 cd "$repo_root/go-tools/go2gir"
 run go test -count=1 ./...
