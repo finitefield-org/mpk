@@ -1,0 +1,23 @@
+{
+  "schema_version": "mpk.invalid_candidates_benchmark.v0",
+  "format": "mpk-api BatchCandidate JSONL",
+  "mode": "fail_fast_per_candidate",
+  "candidate_count": 10000,
+  "invalid_by_design": {
+    "expected_error_code": "UNKNOWN_PROOF",
+    "first_proof_id": 1000000,
+    "last_proof_id": 1009999
+  },
+  "artifacts": {
+    "candidates": {
+      "path": "candidates.jsonl",
+      "sha256": "4ed3cc7ec40a88e9caebb6b949792c82bc472a19bc9a679244cd93572aee03fe",
+      "records": 10000
+    }
+  },
+  "expected_summary": {
+    "total": 10000,
+    "accepted": 0,
+    "rejected": 10000
+  }
+}
