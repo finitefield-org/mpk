@@ -114,6 +114,27 @@ func reserve(balanceCents int64, requestedCents int64) {
 }
 
 #[test]
+fn malformed_contract_json_rejects_without_panic() {
+    let source = r#"
+package webapp
+
+func reserve(balanceCents int64, requestedCents int64) {
+	_ = orderpolicy.ApprovedReserveCents(balanceCents, requestedCents)
+}
+"#;
+    let error = analyze_policy_call_site_text(&PolicyCallSiteTextRequest {
+        source,
+        source_path: Some("inline/webapp/handler.go".to_owned()),
+        contract_json: "{ not json",
+        function_id: ORDER_POLICY_FUNCTION,
+        upstream_invariants: &[],
+    })
+    .expect_err("malformed contract JSON rejects");
+
+    assert!(error.to_string().contains("invalid policy contract JSON"));
+}
+
+#[test]
 fn loops_and_aliasing_report_unsupported_control_flow() {
     let loop_source = r#"
 package webapp

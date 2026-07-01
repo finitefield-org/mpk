@@ -130,6 +130,13 @@ fn count_status(report: &PolicyEvidenceReport, status: PolicyPropertyEvidenceSta
 }
 
 #[test]
+fn malformed_evidence_json_rejects_without_panic() {
+    let error = PolicyEvidenceReport::from_json("{").expect_err("malformed JSON rejects");
+
+    assert!(!error.to_string().is_empty());
+}
+
+#[test]
 fn policy_verify_reserve_writes_evidence_and_markdown() {
     let go2gir = ensure_go2gir();
     let (evidence_json, evidence_md) = temp_artifact_paths("reserve-verify");
@@ -229,6 +236,218 @@ fn policy_verify_reserve_writes_evidence_and_markdown() {
 
     let _ = fs::remove_file(evidence_json);
     let _ = fs::remove_file(evidence_md);
+}
+
+#[test]
+fn policy_verify_repeated_reserve_evidence_is_byte_identical() {
+    let go2gir = ensure_go2gir();
+    let (first_json, first_md) = temp_artifact_paths("reserve-determinism-a");
+    let (second_json, second_md) = temp_artifact_paths("reserve-determinism-b");
+
+    for (evidence_json, evidence_md) in [(&first_json, &first_md), (&second_json, &second_md)] {
+        let output = run_mpk(&[
+            "policy",
+            "verify",
+            RESERVE_TARGET,
+            "--function",
+            RESERVE_FUNCTION,
+            "--contract",
+            RESERVE_CONTRACT,
+            "--strategy-profile",
+            "payment-policy-alpha",
+            "--checker-profile",
+            "mvp-strict",
+            "--evidence-json",
+            evidence_json.to_str().expect("temp JSON path is UTF-8"),
+            "--evidence-md",
+            evidence_md.to_str().expect("temp Markdown path is UTF-8"),
+            "--go2gir",
+            go2gir.to_str().expect("go2gir path is UTF-8"),
+        ]);
+        assert!(output.status.success(), "stderr: {}", stderr(&output));
+    }
+
+    let first_json_text = fs::read_to_string(&first_json).expect("first evidence JSON is readable");
+    let second_json_text =
+        fs::read_to_string(&second_json).expect("second evidence JSON is readable");
+    let first_md_text = fs::read_to_string(&first_md).expect("first Markdown is readable");
+    let second_md_text = fs::read_to_string(&second_md).expect("second Markdown is readable");
+
+    assert_eq!(first_json_text, second_json_text);
+    assert_eq!(first_md_text, second_md_text);
+    assert!(first_json_text.contains("<evidence.json>"));
+    assert!(first_json_text.contains("<evidence.md>"));
+    assert!(first_json_text.contains("<go2gir>"));
+    assert!(!first_json_text.contains(first_json.to_str().expect("temp JSON path is UTF-8")));
+    assert!(!first_json_text.contains(second_json.to_str().expect("temp JSON path is UTF-8")));
+    assert!(!first_json_text.contains(go2gir.to_str().expect("go2gir path is UTF-8")));
+
+    let _ = fs::remove_file(first_json);
+    let _ = fs::remove_file(first_md);
+    let _ = fs::remove_file(second_json);
+    let _ = fs::remove_file(second_md);
+}
+
+#[test]
+fn policy_verify_rejects_unknown_profiles_deterministically() {
+    let cases: Vec<(&str, Vec<&str>, &str)> = vec![
+        (
+            "strategy",
+            vec![
+                "policy",
+                "verify",
+                RESERVE_TARGET,
+                "--function",
+                RESERVE_FUNCTION,
+                "--contract",
+                RESERVE_CONTRACT,
+                "--strategy-profile",
+                "payment-policy-basic",
+                "--checker-profile",
+                "mvp-strict",
+                "--evidence-json",
+                "/tmp/mpk-evidence.json",
+                "--evidence-md",
+                "/tmp/mpk-evidence.md",
+            ],
+            "policy verify has unknown strategy profile",
+        ),
+        (
+            "checker",
+            vec![
+                "policy",
+                "verify",
+                RESERVE_TARGET,
+                "--function",
+                RESERVE_FUNCTION,
+                "--contract",
+                RESERVE_CONTRACT,
+                "--strategy-profile",
+                "payment-policy-alpha",
+                "--checker-profile",
+                "unchecked",
+                "--evidence-json",
+                "/tmp/mpk-evidence.json",
+                "--evidence-md",
+                "/tmp/mpk-evidence.md",
+            ],
+            "policy verify has unknown checker profile",
+        ),
+    ];
+
+    for (name, args, expected) in cases {
+        let first = run_mpk(&args);
+        let second = run_mpk(&args);
+
+        assert_eq!(first.status.code(), Some(2), "{name} status");
+        assert!(first.stdout.is_empty(), "{name} stdout");
+        assert_eq!(stderr(&first), stderr(&second), "{name} stderr");
+        assert!(
+            stderr(&first).contains(expected),
+            "{name} stderr: {}",
+            stderr(&first)
+        );
+    }
+}
+
+#[test]
+fn policy_verify_rejects_path_traversal_product_paths() {
+    let cases: Vec<(&str, Vec<&str>)> = vec![
+        (
+            "target",
+            vec![
+                "policy",
+                "verify",
+                "examples/payment_policies/../payment_policies/reserve",
+                "--function",
+                RESERVE_FUNCTION,
+                "--contract",
+                RESERVE_CONTRACT,
+                "--strategy-profile",
+                "payment-policy-alpha",
+                "--checker-profile",
+                "mvp-strict",
+                "--evidence-json",
+                "/tmp/mpk-evidence.json",
+                "--evidence-md",
+                "/tmp/mpk-evidence.md",
+            ],
+        ),
+        (
+            "--contract",
+            vec![
+                "policy",
+                "verify",
+                RESERVE_TARGET,
+                "--function",
+                RESERVE_FUNCTION,
+                "--contract",
+                "examples/payment_policies/reserve/../reserve/policy_contract.json",
+                "--strategy-profile",
+                "payment-policy-alpha",
+                "--checker-profile",
+                "mvp-strict",
+                "--evidence-json",
+                "/tmp/mpk-evidence.json",
+                "--evidence-md",
+                "/tmp/mpk-evidence.md",
+            ],
+        ),
+        (
+            "--evidence-json",
+            vec![
+                "policy",
+                "verify",
+                RESERVE_TARGET,
+                "--function",
+                RESERVE_FUNCTION,
+                "--contract",
+                RESERVE_CONTRACT,
+                "--strategy-profile",
+                "payment-policy-alpha",
+                "--checker-profile",
+                "mvp-strict",
+                "--evidence-json",
+                "target/proof-ops/../evidence.json",
+                "--evidence-md",
+                "/tmp/mpk-evidence.md",
+            ],
+        ),
+        (
+            "--evidence-md",
+            vec![
+                "policy",
+                "verify",
+                RESERVE_TARGET,
+                "--function",
+                RESERVE_FUNCTION,
+                "--contract",
+                RESERVE_CONTRACT,
+                "--strategy-profile",
+                "payment-policy-alpha",
+                "--checker-profile",
+                "mvp-strict",
+                "--evidence-json",
+                "/tmp/mpk-evidence.json",
+                "--evidence-md",
+                "target/proof-ops/../evidence.md",
+            ],
+        ),
+    ];
+
+    for (label, args) in cases {
+        let output = run_mpk(&args);
+
+        assert_eq!(output.status.code(), Some(2), "{label} status");
+        assert!(output.stdout.is_empty(), "{label} stdout");
+        assert!(
+            stderr(&output).contains(&format!(
+                "policy verify {label} must not contain path traversal components"
+            )),
+            "{label} stderr: {}",
+            stderr(&output)
+        );
+    }
 }
 
 #[test]

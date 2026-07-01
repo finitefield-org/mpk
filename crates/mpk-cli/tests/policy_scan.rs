@@ -73,6 +73,13 @@ fn read_scan_report(path: &Path) -> PolicyScanReport {
 }
 
 #[test]
+fn malformed_scan_json_rejects_without_panic() {
+    let error = PolicyScanReport::from_json("{").expect_err("malformed JSON rejects");
+
+    assert!(!error.to_string().is_empty());
+}
+
+#[test]
 fn ready_order_policy_scan_snapshot_is_deterministic() {
     let report = ready_order_policy_report();
     let first = report.to_deterministic_json().expect("serializes");
@@ -216,6 +223,152 @@ fn policy_scan_cli_scans_order_policy_as_ready() {
     assert!(!json.contains("proof_acceptance"));
     assert!(!json.contains("verified_properties"));
     let _ = fs::remove_file(output_path);
+}
+
+#[test]
+fn policy_scan_cli_repeated_ready_scan_is_byte_identical() {
+    ensure_go2gir();
+    let first_path = temp_scan_path("ready-determinism-a");
+    let second_path = temp_scan_path("ready-determinism-b");
+
+    for output_path in [&first_path, &second_path] {
+        let output = run_mpk(&[
+            "policy",
+            "scan",
+            "examples/order_policy",
+            "--function",
+            ORDER_POLICY_FUNCTION,
+            "--contract",
+            "examples/order_policy/policy_contract.json",
+            "--json-out",
+            output_path.to_str().expect("temp path is UTF-8"),
+        ]);
+        assert!(output.status.success(), "stderr: {}", stderr(&output));
+    }
+
+    let first = fs::read(&first_path).expect("first scan JSON is readable");
+    let second = fs::read(&second_path).expect("second scan JSON is readable");
+    assert_eq!(first, second);
+
+    let _ = fs::remove_file(first_path);
+    let _ = fs::remove_file(second_path);
+}
+
+#[test]
+fn policy_scan_cli_rejects_malformed_contract_json_deterministically() {
+    ensure_go2gir();
+    let contract_path = temp_scan_path("malformed-contract");
+    fs::write(&contract_path, "{ not json").expect("malformed contract is writable");
+    let output_path = temp_scan_path("malformed-contract-output");
+
+    let args = [
+        "policy",
+        "scan",
+        "examples/order_policy",
+        "--function",
+        ORDER_POLICY_FUNCTION,
+        "--contract",
+        contract_path.to_str().expect("temp path is UTF-8"),
+        "--json-out",
+        output_path.to_str().expect("temp path is UTF-8"),
+    ];
+    let first = run_mpk(&args);
+    let second = run_mpk(&args);
+
+    assert_eq!(first.status.code(), Some(1));
+    assert!(first.stdout.is_empty());
+    assert_eq!(stderr(&first), stderr(&second));
+    assert!(stderr(&first).contains("policy scan failed: contract JSON failed to parse"));
+    assert!(!output_path.exists());
+
+    let _ = fs::remove_file(contract_path);
+}
+
+#[test]
+fn policy_scan_cli_rejects_missing_contract_for_ready_target_deterministically() {
+    ensure_go2gir();
+    let output_path = temp_scan_path("missing-contract-ready");
+    let args = [
+        "policy",
+        "scan",
+        "examples/order_policy",
+        "--function",
+        ORDER_POLICY_FUNCTION,
+        "--contract",
+        "examples/order_policy/does-not-exist.json",
+        "--json-out",
+        output_path.to_str().expect("temp path is UTF-8"),
+    ];
+    let first = run_mpk(&args);
+    let second = run_mpk(&args);
+
+    assert_eq!(first.status.code(), Some(1));
+    assert!(first.stdout.is_empty());
+    assert_eq!(stderr(&first), stderr(&second));
+    assert!(stderr(&first).contains("policy scan failed: contract path not found"));
+    assert!(!output_path.exists());
+}
+
+#[test]
+fn policy_scan_cli_rejects_path_traversal_product_paths() {
+    let cases: Vec<(&str, Vec<&str>)> = vec![
+        (
+            "target",
+            vec![
+                "policy",
+                "scan",
+                "examples/../order_policy",
+                "--function",
+                ORDER_POLICY_FUNCTION,
+                "--contract",
+                "examples/order_policy/policy_contract.json",
+                "--json-out",
+                "/tmp/mpk-policy-scan.json",
+            ],
+        ),
+        (
+            "--contract",
+            vec![
+                "policy",
+                "scan",
+                "examples/order_policy",
+                "--function",
+                ORDER_POLICY_FUNCTION,
+                "--contract",
+                "examples/order_policy/../order_policy/policy_contract.json",
+                "--json-out",
+                "/tmp/mpk-policy-scan.json",
+            ],
+        ),
+        (
+            "--json-out",
+            vec![
+                "policy",
+                "scan",
+                "examples/order_policy",
+                "--function",
+                ORDER_POLICY_FUNCTION,
+                "--contract",
+                "examples/order_policy/policy_contract.json",
+                "--json-out",
+                "target/proof-ops/../scan.json",
+            ],
+        ),
+    ];
+
+    for (label, args) in cases {
+        let output = run_mpk(&args);
+
+        assert_eq!(output.status.code(), Some(2), "{label} status");
+        assert!(output.stdout.is_empty(), "{label} stdout");
+        assert!(
+            stderr(&output).contains(&format!(
+                "policy scan {label} must not contain path traversal components"
+            )),
+            "{label} stderr: {}",
+            stderr(&output)
+        );
+    }
 }
 
 #[test]

@@ -34,6 +34,12 @@ pub fn run_policy_scan_with_artifacts(
     let go2gir_sha256 = file_sha256(&go2gir_path)?;
     let target_layout = PolicyScanTargetLayout::resolve(&current_dir, &request.target);
     let contract = ContractMetadata::load(&current_dir, &request.contract_path);
+    if let Some(error) = &contract.parse_error {
+        return Err(PolicyScanRunError::new(format!(
+            "contract JSON failed to parse: {}: {error}",
+            contract.path
+        )));
+    }
 
     let output = Command::new(&go2gir_path)
         .current_dir(&target_layout.working_dir)
@@ -44,6 +50,14 @@ pub fn run_policy_scan_with_artifacts(
     let gir_json = raw_gir_json(&output.stdout)?;
     let report =
         build_policy_scan_report(request, &target_layout, &contract, go2gir_sha256, go2gir)?;
+    if report.readiness.status == PolicyScanReadinessStatus::Ready {
+        if let Some(error) = &contract.read_error {
+            return Err(PolicyScanRunError::new(format!(
+                "contract path not found: {}: {error}",
+                contract.path
+            )));
+        }
+    }
 
     Ok(PolicyScanRunOutput { report, gir_json })
 }

@@ -3,7 +3,7 @@
 use std::collections::HashSet;
 use std::fmt;
 use std::fs;
-use std::path::{Path, PathBuf};
+use std::path::{Component, Path, PathBuf};
 use std::process::{Command, ExitCode};
 
 use mpk_api::{PolicyStrategyMetadata, PAYMENT_POLICY_ALPHA_PROFILE};
@@ -178,6 +178,24 @@ fn policy_scan_route(args: &[String]) -> Result<RunOutcome, CliError> {
         policy_scan_usage_text(),
     )?;
     let json_out = options.required_value("--json-out");
+    validate_policy_product_path(
+        "policy scan",
+        "target",
+        &options.target,
+        policy_scan_usage_text(),
+    )?;
+    validate_policy_product_path(
+        "policy scan",
+        "--contract",
+        options.required_value("--contract"),
+        policy_scan_usage_text(),
+    )?;
+    validate_policy_product_path(
+        "policy scan",
+        "--json-out",
+        json_out,
+        policy_scan_usage_text(),
+    )?;
     let request = PolicyScanRequest {
         target: options.target.clone(),
         function_id: options.required_value("--function").to_owned(),
@@ -245,6 +263,31 @@ fn policy_verify_route(args: &[String]) -> Result<RunOutcome, CliError> {
             policy_verify_usage_text(),
         ));
     }
+
+    validate_policy_product_path(
+        "policy verify",
+        "target",
+        &options.target,
+        policy_verify_usage_text(),
+    )?;
+    validate_policy_product_path(
+        "policy verify",
+        "--contract",
+        options.required_value("--contract"),
+        policy_verify_usage_text(),
+    )?;
+    validate_policy_product_path(
+        "policy verify",
+        "--evidence-json",
+        options.required_value("--evidence-json"),
+        policy_verify_usage_text(),
+    )?;
+    validate_policy_product_path(
+        "policy verify",
+        "--evidence-md",
+        options.required_value("--evidence-md"),
+        policy_verify_usage_text(),
+    )?;
 
     let request = PolicyVerifyRequest {
         target: options.target.clone(),
@@ -386,6 +429,25 @@ fn is_help_args(args: &[String]) -> bool {
 
 fn policy_usage_error(message: String, usage: &str) -> CliError {
     CliError::Usage(format!("{message}\n{usage}"))
+}
+
+fn validate_policy_product_path(
+    command: &str,
+    label: &str,
+    value: &str,
+    usage: &str,
+) -> Result<(), CliError> {
+    if value.contains('\\')
+        || Path::new(value)
+            .components()
+            .any(|component| matches!(component, Component::ParentDir))
+    {
+        return Err(policy_usage_error(
+            format!("{command} {label} must not contain path traversal components"),
+            usage,
+        ));
+    }
+    Ok(())
 }
 
 fn read_certificate_input(path: &Path) -> Result<Vec<u8>, CliError> {

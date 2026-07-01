@@ -453,22 +453,16 @@ fn scan_warning_artifact(scan: &PolicyScanReport) -> PolicyHelperArtifactKind {
 
 fn reproduction_commands(request: &PolicyVerifyRequest) -> Vec<PolicyEvidenceReproductionCommand> {
     let scan = format!(
-        "mpk policy scan {} --function {} --contract {} --json-out <scan.json> --go2gir {}",
-        request.target,
-        request.function_id,
-        request.contract_path,
-        display_path(&request.go2gir_path),
+        "mpk policy scan {} --function {} --contract {} --json-out <scan.json> --go2gir <go2gir>",
+        request.target, request.function_id, request.contract_path,
     );
     let mut verify = format!(
-        "mpk policy verify {} --function {} --contract {} --strategy-profile {} --checker-profile {} --evidence-json {} --evidence-md {} --go2gir {}",
+        "mpk policy verify {} --function {} --contract {} --strategy-profile {} --checker-profile {} --evidence-json <evidence.json> --evidence-md <evidence.md> --go2gir <go2gir>",
         request.target,
         request.function_id,
         request.contract_path,
         request.strategy_profile,
         request.checker_profile,
-        display_path(&request.evidence_json_path),
-        display_path(&request.evidence_md_path),
-        display_path(&request.go2gir_path),
     );
     if request.strict {
         verify.push_str(" --strict");
@@ -622,8 +616,4 @@ fn is_git_tracked(path: &Path) -> bool {
         .arg(relative)
         .output()
         .is_ok_and(|output| output.status.success())
-}
-
-fn display_path(path: &Path) -> String {
-    path.display().to_string().replace('\\', "/")
 }
