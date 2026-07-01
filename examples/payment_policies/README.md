@@ -16,3 +16,46 @@ under the active checker profile.
 
 The negative examples under `negative/` exercise deterministic rejection for
 unsupported floats, maps, pointers, and missing contract postconditions.
+
+## CI Usage
+
+The CI command pattern for this corpus is documented in
+`../../docs/proof-ops-policy-ci.md`. Run the reserve example from the repository
+root as the current end-to-end path for:
+
+```sh
+mkdir -p target/proof-ops
+
+(cd go-tools/go2gir && go build -o ../../target/debug/go2gir .)
+
+cargo run --quiet -p mpk-cli -- policy scan examples/payment_policies/reserve \
+  --function example.com/payment/reserve.ApprovedReserveCents \
+  --contract examples/payment_policies/reserve/policy_contract.json \
+  --json-out target/proof-ops/reserve.scan.json \
+  --go2gir target/debug/go2gir
+
+cargo run --quiet -p mpk-cli -- policy verify examples/payment_policies/reserve \
+  --function example.com/payment/reserve.ApprovedReserveCents \
+  --contract examples/payment_policies/reserve/policy_contract.json \
+  --strategy-profile payment-policy-alpha \
+  --checker-profile mvp-strict \
+  --evidence-json target/proof-ops/reserve.evidence.json \
+  --evidence-md target/proof-ops/reserve.evidence.md \
+  --go2gir target/debug/go2gir
+```
+
+Review these helper artifacts in PRs when a policy changes:
+
+- `policy.go`;
+- `policy_contract.json`;
+- generated `gir.json`;
+- generated `vc.json`;
+- generated `vc_skeleton.json`;
+- generated scan JSON from `mpk policy scan`;
+- generated evidence JSON and Markdown from `mpk policy verify`.
+
+Treat GIR, VC JSON, scan JSON, Markdown reports, and CI status as helper
+artifacts only. They are useful drift signals, but they are not proof evidence.
+Trusted proof evidence is limited to checked certificates, checked theory
+certificates, checker verdicts, and the corresponding axiom reports recorded in
+`mpk.policy.evidence.v0`.
