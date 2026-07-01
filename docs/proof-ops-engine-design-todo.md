@@ -69,10 +69,10 @@ Out of scope:
     known, and helper-evidence label.
 - Acceptance criteria:
   - Scan JSON includes `schema`, `target`, `source`, `contract`, `readiness`,
-    `supported_features`, `rejected_features`, `preconditions`, and
-    `proof_acceptance`.
-  - `proof_acceptance` is always `false` or absent in scan output; scan cannot
-    report a verified property.
+    `supported_features`, `rejected_features`, and `preconditions`.
+  - Scan output does not include `proof_acceptance`, `verified_properties`, or
+    any equivalent proof-acceptance field; scan cannot report a verified
+    property.
   - Unknown fields reject in tests for any scan request/config JSON that is
     deserialized by MPK.
   - Snapshot tests cover a ready order-policy function and one unsupported
@@ -115,7 +115,7 @@ Out of scope:
   - `--strategy-profile` is accepted only on `policy verify`.
   - `--checker-profile` accepts only existing checker profile names:
     `core-bootstrap`, `mvp-structural`, and `mvp-strict`.
-  - The verify route clearly reports `not implemented` until POE-08.
+  - The verify route clearly reports `not implemented` until POE-10.
 - Verification:
   - `cargo test -p mpk-cli --test policy_cli`
   - `cargo run --quiet -p mpk-cli -- policy scan --help`
@@ -622,6 +622,12 @@ Resolved findings:
   example, but checked theory strategies require `mvp-strict` in the current
   API and certificate profiles. The source design was updated to use
   `mvp-strict` for checked-theory policy verification.
+- POE-01 required a `proof_acceptance` field even though the source design says
+  scan output has no proof-acceptance field. POE-01 now forbids
+  `proof_acceptance`, `verified_properties`, and equivalent acceptance fields.
+- POE-02 said the `policy verify` stub should remain `not implemented` until
+  POE-08, but the orchestrator is POE-10. The dependency note now points to
+  POE-10.
 
 Remaining findings after self-review:
 
