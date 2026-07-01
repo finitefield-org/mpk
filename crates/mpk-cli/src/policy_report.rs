@@ -331,6 +331,26 @@ fn render_helper_artifacts(report: &PolicyEvidenceReport, output: &mut String) {
             output.push('\n');
         }
     }
+    if !report.helper_artifacts.call_site_preconditions.is_empty() {
+        output.push_str("- Call-site preconditions (helper analysis):\n");
+        for precondition in &report.helper_artifacts.call_site_preconditions {
+            output.push_str("  - `");
+            output.push_str(&precondition.expression);
+            output.push_str("`: `");
+            output.push_str(precondition.status.as_str());
+            output.push_str("` (`");
+            output.push_str(call_site_evidence_label(precondition.evidence_label));
+            output.push_str("`)\n");
+            double_nested_bullet(output, "Id", &precondition.id);
+            if let Some(source_path) = &precondition.source_path {
+                double_nested_bullet(output, "Source path", source_path);
+            }
+            if let Some(function_id) = &precondition.function_id {
+                double_nested_bullet(output, "Function", function_id);
+            }
+            double_nested_bullet(output, "Summary", &precondition.summary);
+        }
+    }
     output.push('\n');
 }
 
@@ -417,6 +437,14 @@ fn helper_artifact_label(artifact: PolicyHelperArtifactKind) -> &'static str {
     }
 }
 
+fn call_site_evidence_label(
+    label: crate::policy_evidence::PolicyCallSiteEvidenceLabel,
+) -> &'static str {
+    match label {
+        crate::policy_evidence::PolicyCallSiteEvidenceLabel::HelperAnalysis => "helper_analysis",
+    }
+}
+
 fn bullet(output: &mut String, label: &str, value: &str) {
     output.push_str("- ");
     output.push_str(label);
@@ -427,6 +455,14 @@ fn bullet(output: &mut String, label: &str, value: &str) {
 
 fn nested_bullet(output: &mut String, label: &str, value: &str) {
     output.push_str("  - ");
+    output.push_str(label);
+    output.push_str(": `");
+    output.push_str(value);
+    output.push_str("`\n");
+}
+
+fn double_nested_bullet(output: &mut String, label: &str, value: &str) {
+    output.push_str("    - ");
     output.push_str(label);
     output.push_str(": `");
     output.push_str(value);

@@ -318,6 +318,8 @@ pub struct PolicyHelperArtifacts {
     pub gir_hash: Option<String>,
     pub vc_hash: Option<String>,
     pub warnings: Vec<PolicyHelperWarning>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub call_site_preconditions: Vec<PolicyCallSitePreconditionEvidence>,
 }
 
 impl PolicyHelperArtifacts {
@@ -328,6 +330,7 @@ impl PolicyHelperArtifacts {
             gir_hash: None,
             vc_hash: None,
             warnings: Vec::new(),
+            call_site_preconditions: Vec::new(),
         }
     }
 }
@@ -423,6 +426,65 @@ pub enum PolicyHelperArtifactKind {
     Vc,
     AiAnalysis,
     CiStatus,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct PolicyCallSitePreconditionEvidence {
+    pub id: String,
+    pub expression: String,
+    pub status: PolicyCallSitePreconditionStatus,
+    pub evidence_label: PolicyCallSiteEvidenceLabel,
+    pub source_path: Option<String>,
+    pub function_id: Option<String>,
+    pub summary: String,
+}
+
+impl PolicyCallSitePreconditionEvidence {
+    pub fn new(
+        id: impl Into<String>,
+        expression: impl Into<String>,
+        status: PolicyCallSitePreconditionStatus,
+        source_path: Option<String>,
+        function_id: Option<String>,
+        summary: impl Into<String>,
+    ) -> Self {
+        Self {
+            id: id.into(),
+            expression: expression.into(),
+            status,
+            evidence_label: PolicyCallSiteEvidenceLabel::HelperAnalysis,
+            source_path,
+            function_id,
+            summary: summary.into(),
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum PolicyCallSitePreconditionStatus {
+    CheckedByLocalGuard,
+    DeclaredUpstreamInvariant,
+    NotObserved,
+    UnsupportedControlFlow,
+}
+
+impl PolicyCallSitePreconditionStatus {
+    pub fn as_str(self) -> &'static str {
+        match self {
+            Self::CheckedByLocalGuard => "checked_by_local_guard",
+            Self::DeclaredUpstreamInvariant => "declared_upstream_invariant",
+            Self::NotObserved => "not_observed",
+            Self::UnsupportedControlFlow => "unsupported_control_flow",
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum PolicyCallSiteEvidenceLabel {
+    HelperAnalysis,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
