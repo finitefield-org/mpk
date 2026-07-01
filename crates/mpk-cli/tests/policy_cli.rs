@@ -1,5 +1,8 @@
 use std::process::{Command, Output};
 
+const POLICY_SCAN_USAGE: &str = "mpk policy scan <target> --function <function-id> --contract <contract.json> --json-out <scan.json> [--go2gir <go2gir>]";
+const POLICY_VERIFY_USAGE: &str = "mpk policy verify <target> --function <function-id> --contract <contract.json> --strategy-profile <profile> --checker-profile <checker-profile> --evidence-json <evidence.json> --evidence-md <evidence.md>";
+
 fn run_mpk(args: &[&str]) -> Output {
     Command::new(env!("CARGO_BIN_EXE_mpk"))
         .args(args)
@@ -20,10 +23,7 @@ fn policy_scan_help_returns_success() {
     let output = run_mpk(&["policy", "scan", "--help"]);
 
     assert!(output.status.success(), "stderr: {}", stderr(&output));
-    assert_eq!(
-        stdout(&output),
-        "mpk policy scan <target> --function <function-id> --contract <contract.json> --json-out <scan.json>\n"
-    );
+    assert_eq!(stdout(&output), format!("{POLICY_SCAN_USAGE}\n"));
     assert!(output.stderr.is_empty());
 }
 
@@ -32,10 +32,7 @@ fn policy_verify_help_returns_success() {
     let output = run_mpk(&["policy", "verify", "--help"]);
 
     assert!(output.status.success(), "stderr: {}", stderr(&output));
-    assert_eq!(
-        stdout(&output),
-        "mpk policy verify <target> --function <function-id> --contract <contract.json> --strategy-profile <profile> --checker-profile <checker-profile> --evidence-json <evidence.json> --evidence-md <evidence.md>\n"
-    );
+    assert_eq!(stdout(&output), format!("{POLICY_VERIFY_USAGE}\n"));
     assert!(output.stderr.is_empty());
 }
 
@@ -47,7 +44,7 @@ fn policy_scan_missing_required_flags_returns_usage_error() {
     assert!(output.stdout.is_empty());
     assert_eq!(
         stderr(&output),
-        "policy scan missing required flags: --function, --contract, --json-out\nmpk policy scan <target> --function <function-id> --contract <contract.json> --json-out <scan.json>\n"
+        format!("policy scan missing required flags: --function, --contract, --json-out\n{POLICY_SCAN_USAGE}\n")
     );
 }
 
@@ -59,7 +56,7 @@ fn policy_verify_missing_required_flags_returns_usage_error() {
     assert!(output.stdout.is_empty());
     assert_eq!(
         stderr(&output),
-        "policy verify missing required flags: --function, --contract, --strategy-profile, --checker-profile, --evidence-json, --evidence-md\nmpk policy verify <target> --function <function-id> --contract <contract.json> --strategy-profile <profile> --checker-profile <checker-profile> --evidence-json <evidence.json> --evidence-md <evidence.md>\n"
+        format!("policy verify missing required flags: --function, --contract, --strategy-profile, --checker-profile, --evidence-json, --evidence-md\n{POLICY_VERIFY_USAGE}\n")
     );
 }
 
@@ -83,7 +80,7 @@ fn policy_scan_rejects_strategy_profile_flag() {
     assert!(output.stdout.is_empty());
     assert_eq!(
         stderr(&output),
-        "policy scan does not accept --strategy-profile; use mpk policy verify\nmpk policy scan <target> --function <function-id> --contract <contract.json> --json-out <scan.json>\n"
+        format!("policy scan does not accept --strategy-profile; use mpk policy verify\n{POLICY_SCAN_USAGE}\n")
     );
 }
 
@@ -111,7 +108,7 @@ fn policy_verify_rejects_unknown_checker_profile() {
     assert!(output.stdout.is_empty());
     assert_eq!(
         stderr(&output),
-        "policy verify has unknown checker profile: \"unchecked\"; expected one of: core-bootstrap, mvp-structural, mvp-strict\nmpk policy verify <target> --function <function-id> --contract <contract.json> --strategy-profile <profile> --checker-profile <checker-profile> --evidence-json <evidence.json> --evidence-md <evidence.md>\n"
+        format!("policy verify has unknown checker profile: \"unchecked\"; expected one of: core-bootstrap, mvp-structural, mvp-strict\n{POLICY_VERIFY_USAGE}\n")
     );
 }
 
@@ -135,7 +132,7 @@ fn policy_scan_rejects_duplicate_flag() {
     assert!(output.stdout.is_empty());
     assert_eq!(
         stderr(&output),
-        "policy scan has duplicate flag: --function\nmpk policy scan <target> --function <function-id> --contract <contract.json> --json-out <scan.json>\n"
+        format!("policy scan has duplicate flag: --function\n{POLICY_SCAN_USAGE}\n")
     );
 }
 
@@ -159,7 +156,7 @@ fn policy_scan_rejects_unknown_flag() {
     assert!(output.stdout.is_empty());
     assert_eq!(
         stderr(&output),
-        "policy scan has unknown flag: --evidence-json\nmpk policy scan <target> --function <function-id> --contract <contract.json> --json-out <scan.json>\n"
+        format!("policy scan has unknown flag: --evidence-json\n{POLICY_SCAN_USAGE}\n")
     );
 }
 
@@ -181,7 +178,7 @@ fn policy_scan_rejects_empty_flag_value() {
     assert!(output.stdout.is_empty());
     assert_eq!(
         stderr(&output),
-        "policy scan flag --function must not be empty\nmpk policy scan <target> --function <function-id> --contract <contract.json> --json-out <scan.json>\n"
+        format!("policy scan flag --function must not be empty\n{POLICY_SCAN_USAGE}\n")
     );
 }
 
@@ -202,7 +199,7 @@ fn policy_scan_rejects_missing_flag_value() {
     assert!(output.stdout.is_empty());
     assert_eq!(
         stderr(&output),
-        "policy scan flag --json-out requires a value\nmpk policy scan <target> --function <function-id> --contract <contract.json> --json-out <scan.json>\n"
+        format!("policy scan flag --json-out requires a value\n{POLICY_SCAN_USAGE}\n")
     );
 }
 
@@ -235,7 +232,11 @@ fn policy_verify_route_reports_not_implemented_after_valid_routing() {
 }
 
 #[test]
-fn policy_scan_route_reports_not_implemented_after_valid_routing() {
+fn policy_scan_reports_missing_go2gir_after_valid_routing() {
+    let missing_go2gir = std::env::temp_dir()
+        .join(format!("mpk-missing-go2gir-{}", std::process::id()))
+        .display()
+        .to_string();
     let output = run_mpk(&[
         "policy",
         "scan",
@@ -246,12 +247,11 @@ fn policy_scan_route_reports_not_implemented_after_valid_routing() {
         "examples/order_policy/policy_contract.json",
         "--json-out",
         "/tmp/mpk-policy-scan.json",
+        "--go2gir",
+        &missing_go2gir,
     ]);
 
     assert_eq!(output.status.code(), Some(1));
     assert!(output.stdout.is_empty());
-    assert_eq!(
-        stderr(&output),
-        "policy scan not implemented until POE-03\n"
-    );
+    assert!(stderr(&output).contains("policy scan failed: go2gir binary not found"));
 }

@@ -6,6 +6,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::{Command, ExitCode};
 
+use mpk_cli::policy_scan::{run_policy_scan, PolicyScanRequest};
 use mpk_core::Name;
 use mpk_kernel::{
     verify_certificate_bytes, verify_certificate_bytes_axiom_report_json_output,
@@ -53,7 +54,8 @@ fn main() -> ExitCode {
         }
         Ok(RunOutcome::Verify(message))
         | Ok(RunOutcome::PackageCheck(message))
-        | Ok(RunOutcome::PackageVerifyCerts(message)) => {
+        | Ok(RunOutcome::PackageVerifyCerts(message))
+        | Ok(RunOutcome::PolicyScan(message)) => {
             println!("{message}");
             ExitCode::SUCCESS
         }
@@ -163,17 +165,38 @@ fn policy_scan_route(args: &[String]) -> Result<RunOutcome, CliError> {
         return Ok(RunOutcome::Help);
     }
 
-    let _options = parse_policy_args(
+    let options = parse_policy_args(
         "policy scan",
         args,
         &["--function", "--contract", "--json-out"],
+        &["--go2gir"],
         &["--strategy-profile"],
         policy_scan_usage_text(),
     )?;
+    let json_out = options.required_value("--json-out");
+    let request = PolicyScanRequest {
+        target: options.target.clone(),
+        function_id: options.required_value("--function").to_owned(),
+        contract_path: options.required_value("--contract").to_owned(),
+        go2gir_path: PathBuf::from(
+            options
+                .optional_value("--go2gir")
+                .unwrap_or("target/debug/go2gir"),
+        ),
+    };
+    let report = run_policy_scan(&request)
+        .map_err(|error| CliError::Input(format!("policy scan failed: {error}")))?;
+    let json = report
+        .to_deterministic_json()
+        .map_err(|error| CliError::Input(format!("policy scan failed to encode JSON: {error}")))?;
+    fs::write(json_out, json).map_err(|error| {
+        CliError::Input(format!("policy scan failed to write {json_out}: {error}"))
+    })?;
 
-    Err(CliError::Input(
-        "policy scan not implemented until POE-03".to_owned(),
-    ))
+    Ok(RunOutcome::PolicyScan(format!(
+        "ok policy scan status={} json={json_out}",
+        report.readiness.status.as_str()
+    )))
 }
 
 fn policy_verify_route(args: &[String]) -> Result<RunOutcome, CliError> {
@@ -193,6 +216,7 @@ fn policy_verify_route(args: &[String]) -> Result<RunOutcome, CliError> {
             "--evidence-json",
             "--evidence-md",
         ],
+        &[],
         &[],
         policy_verify_usage_text(),
     )?;
@@ -216,6 +240,7 @@ fn parse_policy_args(
     command: &str,
     args: &[String],
     required_flags: &[&str],
+    optional_flags: &[&str],
     disallowed_flags: &[&str],
     usage: &str,
 ) -> Result<ParsedPolicyArgs, CliError> {
@@ -233,7 +258,7 @@ fn parse_policy_args(
                     usage,
                 ));
             }
-            if !required_flags.contains(&arg) {
+            if !required_flags.contains(&arg) && !optional_flags.contains(&arg) {
                 return Err(policy_usage_error(
                     format!("{command} has unknown flag: {arg}"),
                     usage,
@@ -297,10 +322,7 @@ fn parse_policy_args(
         ));
     }
 
-    Ok(ParsedPolicyArgs {
-        _target: target,
-        values,
-    })
+    Ok(ParsedPolicyArgs { target, values })
 }
 
 fn is_help_args(args: &[String]) -> bool {
@@ -867,7 +889,7 @@ fn policy_usage_text() -> String {
 }
 
 fn policy_scan_usage_text() -> &'static str {
-    "mpk policy scan <target> --function <function-id> --contract <contract.json> --json-out <scan.json>"
+    "mpk policy scan <target> --function <function-id> --contract <contract.json> --json-out <scan.json> [--go2gir <go2gir>]"
 }
 
 fn policy_verify_usage_text() -> &'static str {
@@ -881,10 +903,11 @@ enum RunOutcome {
     Verify(String),
     PackageCheck(String),
     PackageVerifyCerts(String),
+    PolicyScan(String),
 }
 
 struct ParsedPolicyArgs {
-    _target: String,
+    target: String,
     values: Vec<(String, String)>,
 }
 
@@ -894,6 +917,12 @@ impl ParsedPolicyArgs {
             .iter()
             .find_map(|(name, value)| (name == flag).then_some(value.as_str()))
             .expect("required policy flag was validated")
+    }
+
+    fn optional_value(&self, flag: &str) -> Option<&str> {
+        self.values
+            .iter()
+            .find_map(|(name, value)| (name == flag).then_some(value.as_str()))
     }
 }
 

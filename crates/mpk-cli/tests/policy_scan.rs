@@ -1,3 +1,8 @@
+use std::fs;
+use std::path::{Path, PathBuf};
+use std::process::{Command, Output};
+use std::sync::Once;
+
 use mpk_cli::policy_scan::{
     PolicyScanContract, PolicyScanContractStatus, PolicyScanEvidenceLabel, PolicyScanFeature,
     PolicyScanLocation, PolicyScanPrecondition, PolicyScanPreconditionSource, PolicyScanReadiness,
@@ -15,6 +20,57 @@ const ORDER_POLICY_GIR_HASH: &str =
     "83746ecfbc479a244f421a6df8ffece093c43aaef6bf9c126592ad260343b950";
 const GO2GIR_FIXTURE_HASH: &str =
     "1111111111111111111111111111111111111111111111111111111111111111";
+static BUILD_GO2GIR: Once = Once::new();
+
+fn repo_root() -> PathBuf {
+    Path::new(env!("CARGO_MANIFEST_DIR")).join("../..")
+}
+
+fn ensure_go2gir() -> PathBuf {
+    let repo = repo_root();
+    let go2gir = repo.join("target/debug/go2gir");
+    BUILD_GO2GIR.call_once(|| {
+        let output = Command::new("go")
+            .current_dir(repo.join("go-tools/go2gir"))
+            .args(["build", "-o", "../../target/debug/go2gir", "."])
+            .output()
+            .expect("go build runs");
+        assert!(
+            output.status.success(),
+            "go2gir build failed\nstdout: {}\nstderr: {}",
+            String::from_utf8_lossy(&output.stdout),
+            String::from_utf8_lossy(&output.stderr)
+        );
+    });
+    go2gir
+}
+
+fn run_mpk(args: &[&str]) -> Output {
+    Command::new(env!("CARGO_BIN_EXE_mpk"))
+        .current_dir(repo_root())
+        .args(args)
+        .output()
+        .expect("mpk command runs")
+}
+
+fn temp_scan_path(name: &str) -> PathBuf {
+    let path = std::env::temp_dir().join(format!("mpk-{name}-{}.json", std::process::id()));
+    let _ = fs::remove_file(&path);
+    path
+}
+
+fn stdout(output: &Output) -> String {
+    String::from_utf8(output.stdout.clone()).expect("stdout is UTF-8")
+}
+
+fn stderr(output: &Output) -> String {
+    String::from_utf8(output.stderr.clone()).expect("stderr is UTF-8")
+}
+
+fn read_scan_report(path: &Path) -> PolicyScanReport {
+    let json = fs::read_to_string(path).expect("scan JSON is readable");
+    PolicyScanReport::from_json(&json).expect("scan JSON matches schema")
+}
 
 #[test]
 fn ready_order_policy_scan_snapshot_is_deterministic() {
@@ -104,6 +160,176 @@ fn ready_order_policy_scan_snapshot_is_deterministic() {
 
     let reparsed = PolicyScanReport::from_json(&first).expect("valid schema parses");
     assert_eq!(reparsed, report);
+}
+
+#[test]
+fn policy_scan_cli_scans_order_policy_as_ready() {
+    ensure_go2gir();
+    let output_path = temp_scan_path("order-policy-ready");
+    let output = run_mpk(&[
+        "policy",
+        "scan",
+        "examples/order_policy",
+        "--function",
+        ORDER_POLICY_FUNCTION,
+        "--contract",
+        "examples/order_policy/policy_contract.json",
+        "--json-out",
+        output_path.to_str().expect("temp path is UTF-8"),
+    ]);
+
+    assert!(output.status.success(), "stderr: {}", stderr(&output));
+    assert_eq!(
+        stdout(&output),
+        format!(
+            "ok policy scan status=ready json={}\n",
+            output_path.display()
+        )
+    );
+    assert!(output.stderr.is_empty());
+    let report = read_scan_report(&output_path);
+
+    assert_eq!(report.readiness.status, PolicyScanReadinessStatus::Ready);
+    assert_eq!(
+        report.contract.status,
+        PolicyScanContractStatus::FunctionResolved
+    );
+    assert_eq!(
+        report.contract.function_id.as_deref(),
+        Some(ORDER_POLICY_FUNCTION)
+    );
+    assert_eq!(report.target.function_id, ORDER_POLICY_FUNCTION);
+    assert_eq!(report.target.package_path, "example.com/orderpolicy");
+    assert_eq!(report.source.root, "examples/order_policy");
+    assert!(report.source.go_toolchain.starts_with("go"));
+    assert_eq!(report.source.go2gir_sha256.len(), 64);
+    assert_eq!(
+        report.source.gir_sha256.as_deref(),
+        Some(ORDER_POLICY_GIR_HASH)
+    );
+    assert_eq!(report.rejected_features, []);
+    assert!(!report.supported_features.is_empty());
+    assert_eq!(report.preconditions.len(), 2);
+    assert_eq!(report.preconditions[0].expression, "balanceCents >= 0");
+
+    let json = fs::read_to_string(&output_path).expect("scan JSON is readable");
+    assert!(!json.contains("proof_acceptance"));
+    assert!(!json.contains("verified_properties"));
+    let _ = fs::remove_file(output_path);
+}
+
+#[test]
+fn policy_scan_cli_scans_unsupported_go_feature_as_unsupported() {
+    ensure_go2gir();
+    let output_path = temp_scan_path("unsupported-map");
+    let target = "go-tools/go2gir/testdata/unsupported/map";
+    let function_id =
+        "github.com/finitefield-org/mpk/go-tools/go2gir/testdata/unsupported/map.Lookup";
+    let output = run_mpk(&[
+        "policy",
+        "scan",
+        target,
+        "--function",
+        function_id,
+        "--contract",
+        "go-tools/go2gir/testdata/unsupported/map/missing_contract.json",
+        "--json-out",
+        output_path.to_str().expect("temp path is UTF-8"),
+    ]);
+
+    assert!(output.status.success(), "stderr: {}", stderr(&output));
+    let report = read_scan_report(&output_path);
+    assert_eq!(
+        report.readiness.status,
+        PolicyScanReadinessStatus::Unsupported
+    );
+    assert_eq!(report.target.function_id, function_id);
+    assert_eq!(report.source.root, target);
+    assert!(report.rejected_features.iter().any(|feature| {
+        feature.code == "GO2GIR_REJECTED_MAPS"
+            && feature.evidence_label == PolicyScanEvidenceLabel::HelperEvidence
+    }));
+    assert!(report
+        .rejected_features
+        .iter()
+        .all(|feature| feature.function_id.as_deref() == Some(function_id)));
+    let _ = fs::remove_file(output_path);
+}
+
+#[test]
+fn policy_scan_cli_maps_contract_rejection_to_needs_refactor() {
+    ensure_go2gir();
+    let output_path = temp_scan_path("contract-needs-refactor");
+    let target = "go-tools/go2gir/testdata/contract_unknown_function";
+    let function_id =
+        "github.com/finitefield-org/mpk/go-tools/go2gir/testdata/contract_unknown_function.Identity";
+    let output = run_mpk(&[
+        "policy",
+        "scan",
+        target,
+        "--function",
+        function_id,
+        "--contract",
+        "go-tools/go2gir/testdata/contract_unknown_function/unknown_contract.json",
+        "--json-out",
+        output_path.to_str().expect("temp path is UTF-8"),
+    ]);
+
+    assert!(output.status.success(), "stderr: {}", stderr(&output));
+    let report = read_scan_report(&output_path);
+    assert_eq!(
+        report.readiness.status,
+        PolicyScanReadinessStatus::NeedsRefactor
+    );
+    assert_eq!(
+        report.contract.status,
+        PolicyScanContractStatus::FunctionNotFound
+    );
+    assert!(report.rejected_features.iter().any(|feature| {
+        feature.code == "GO2GIR_REJECTED_CONTRACT_SIDECAR"
+            && feature.message.contains("does not resolve")
+    }));
+    let _ = fs::remove_file(output_path);
+}
+
+#[cfg(unix)]
+#[test]
+fn policy_scan_cli_rejects_non_json_go2gir_failure_as_input_error() {
+    use std::os::unix::fs::PermissionsExt;
+
+    let script_path =
+        std::env::temp_dir().join(format!("mpk-non-json-go2gir-{}.sh", std::process::id()));
+    fs::write(
+        &script_path,
+        "#!/bin/sh\necho 'not json'\necho 'go2gir exploded' >&2\nexit 1\n",
+    )
+    .expect("fake go2gir script is writable");
+    let mut permissions = fs::metadata(&script_path)
+        .expect("fake go2gir metadata")
+        .permissions();
+    permissions.set_mode(0o755);
+    fs::set_permissions(&script_path, permissions).expect("fake go2gir permissions");
+
+    let output_path = temp_scan_path("non-json-go2gir");
+    let output = run_mpk(&[
+        "policy",
+        "scan",
+        "examples/order_policy",
+        "--function",
+        ORDER_POLICY_FUNCTION,
+        "--contract",
+        "examples/order_policy/policy_contract.json",
+        "--json-out",
+        output_path.to_str().expect("temp path is UTF-8"),
+        "--go2gir",
+        script_path.to_str().expect("script path is UTF-8"),
+    ]);
+
+    assert_eq!(output.status.code(), Some(1));
+    assert!(output.stdout.is_empty());
+    assert!(stderr(&output).contains("policy scan failed: go2gir failed without valid JSON"));
+    assert!(!output_path.exists());
+    let _ = fs::remove_file(script_path);
 }
 
 #[test]
