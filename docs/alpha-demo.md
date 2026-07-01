@@ -8,7 +8,7 @@ The demo intentionally separates candidate artifacts from trusted evidence:
 
 - Go source, contracts, GIR, and VC skeletons are helper artifacts.
 - A strategy success is trusted only when it attaches a checked theory
-  certificate under the enabled proof profile.
+  certificate under the active checker profile.
 - A theorem or package is accepted only from canonical certificate bytes checked
   source-free by the Rust kernel and, when required, the independent Go
   reference checker.
