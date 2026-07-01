@@ -6,6 +6,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::{Command, ExitCode};
 
+use mpk_api::{PolicyStrategyMetadata, PAYMENT_POLICY_ALPHA_PROFILE};
 use mpk_cli::policy_scan::{run_policy_scan, PolicyScanRequest};
 use mpk_core::Name;
 use mpk_kernel::{
@@ -220,6 +221,16 @@ fn policy_verify_route(args: &[String]) -> Result<RunOutcome, CliError> {
         &[],
         policy_verify_usage_text(),
     )?;
+    let strategy_profile = options.required_value("--strategy-profile");
+    if PolicyStrategyMetadata::parse_profile(strategy_profile).is_err() {
+        return Err(policy_usage_error(
+            format!(
+                "policy verify has unknown strategy profile: {strategy_profile:?}; expected one of: {PAYMENT_POLICY_ALPHA_PROFILE}"
+            ),
+            policy_verify_usage_text(),
+        ));
+    }
+
     let checker_profile = options.required_value("--checker-profile");
     if !CHECKER_PROFILES.contains(&checker_profile) {
         return Err(policy_usage_error(

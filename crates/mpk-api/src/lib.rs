@@ -10,6 +10,7 @@ pub mod batch;
 pub mod check_api;
 pub mod diagnostics;
 pub mod jsonl;
+pub mod policy_strategy;
 pub mod proof_api;
 pub mod session;
 pub mod strategies;
@@ -25,6 +26,11 @@ pub use diagnostics::{RepairDiagnostic, RepairDiagnosticRequest, RepairDiagnosti
 pub use jsonl::{
     export_batch_candidates_jsonl, import_batch_candidates_jsonl, JsonlExportRequest,
     JsonlExportResponse, JsonlImportRequest, JsonlImportResponse,
+};
+pub use policy_strategy::{
+    PolicyObligationDescriptor, PolicyObligationPattern, PolicyStrategyError,
+    PolicyStrategyErrorCode, PolicyStrategyMetadata, PolicyStrategyProfile,
+    PAYMENT_POLICY_ALPHA_PROFILE,
 };
 pub use proof_api::{
     ApiProofId, ApplyProofRequest, ConvProofRequest, ExactProofRequest, IntroProofRequest,

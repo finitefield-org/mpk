@@ -17,7 +17,7 @@ fn accepted_evidence_json_renders_markdown_snapshot() {
 
 - Package: `example.com/orderpolicy`
 - Function: `example.com/orderpolicy.ApprovedReserveCents`
-- Strategy profile: `payment-policy-basic`
+- Strategy profile: `payment-policy-alpha`
 - Checker profile: `mvp-strict`
 - Allowed axiom profiles: `zero-axiom`
 
@@ -219,7 +219,7 @@ fn accepted_evidence_json() -> &'static str {
     "package_path": "example.com/orderpolicy",
     "function_id": "example.com/orderpolicy.ApprovedReserveCents"
   },
-  "strategy_profile": "payment-policy-basic",
+  "strategy_profile": "payment-policy-alpha",
   "checker_profile": "mvp-strict",
   "allowed_axiom_profiles": [
     "zero-axiom"
@@ -335,7 +335,7 @@ fn helper_only_evidence_json() -> &'static str {
     "package_path": "example.com/orderpolicy",
     "function_id": "example.com/orderpolicy.ApprovedReserveCents"
   },
-  "strategy_profile": "payment-policy-basic",
+  "strategy_profile": "payment-policy-alpha",
   "checker_profile": "mvp-strict",
   "allowed_axiom_profiles": [
     "zero-axiom"
@@ -391,7 +391,7 @@ fn rejected_evidence_json() -> &'static str {
     "package_path": "example.com/orderpolicy",
     "function_id": "example.com/orderpolicy.ApprovedReserveCents"
   },
-  "strategy_profile": "payment-policy-basic",
+  "strategy_profile": "payment-policy-alpha",
   "checker_profile": "mvp-strict",
   "allowed_axiom_profiles": [
     "zero-axiom"
@@ -453,7 +453,7 @@ fn unsupported_evidence_json() -> &'static str {
     "package_path": "example.com/orderpolicy",
     "function_id": "example.com/orderpolicy.ApprovedReserveCents"
   },
-  "strategy_profile": "payment-policy-basic",
+  "strategy_profile": "payment-policy-alpha",
   "checker_profile": "mvp-strict",
   "allowed_axiom_profiles": [
     "zero-axiom"

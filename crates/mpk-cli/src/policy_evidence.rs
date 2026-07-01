@@ -545,7 +545,7 @@ mod tests {
     "package_path": "example.com/orderpolicy",
     "function_id": "example.com/orderpolicy.ApprovedReserveCents"
   },
-  "strategy_profile": "payment-policy-basic",
+  "strategy_profile": "payment-policy-alpha",
   "checker_profile": "mvp-strict",
   "allowed_axiom_profiles": [
     "zero-axiom"

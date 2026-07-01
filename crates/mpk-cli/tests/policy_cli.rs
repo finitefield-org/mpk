@@ -113,6 +113,34 @@ fn policy_verify_rejects_unknown_checker_profile() {
 }
 
 #[test]
+fn policy_verify_rejects_unknown_strategy_profile() {
+    let output = run_mpk(&[
+        "policy",
+        "verify",
+        "examples/order_policy",
+        "--function",
+        "example.com/orderpolicy.ApprovedReserveCents",
+        "--contract",
+        "examples/order_policy/policy_contract.json",
+        "--strategy-profile",
+        "payment-policy-basic",
+        "--checker-profile",
+        "mvp-strict",
+        "--evidence-json",
+        "/tmp/mpk-evidence.json",
+        "--evidence-md",
+        "/tmp/mpk-evidence.md",
+    ]);
+
+    assert_eq!(output.status.code(), Some(2));
+    assert!(output.stdout.is_empty());
+    assert_eq!(
+        stderr(&output),
+        format!("policy verify has unknown strategy profile: \"payment-policy-basic\"; expected one of: payment-policy-alpha\n{POLICY_VERIFY_USAGE}\n")
+    );
+}
+
+#[test]
 fn policy_scan_rejects_duplicate_flag() {
     let output = run_mpk(&[
         "policy",

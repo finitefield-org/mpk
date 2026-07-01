@@ -34,7 +34,7 @@ fn accepted_policy_evidence_snapshot_is_deterministic() {
     "package_path": "example.com/orderpolicy",
     "function_id": "example.com/orderpolicy.ApprovedReserveCents"
   },
-  "strategy_profile": "payment-policy-basic",
+  "strategy_profile": "payment-policy-alpha",
   "checker_profile": "mvp-strict",
   "allowed_axiom_profiles": [
     "zero-axiom"
@@ -222,6 +222,33 @@ fn evidence_sections_keep_trust_boundary_hashes_separate() {
 }
 
 #[test]
+fn evidence_records_strategy_checker_and_axiom_profiles_separately() {
+    let report = accepted_evidence_report();
+    assert_eq!(report.strategy_profile, "payment-policy-alpha");
+    assert_eq!(report.checker_profile, "mvp-strict");
+    assert_eq!(report.allowed_axiom_profiles, vec!["zero-axiom".to_owned()]);
+    assert_ne!(report.strategy_profile, report.checker_profile);
+    assert!(!report
+        .allowed_axiom_profiles
+        .iter()
+        .any(|profile| profile == &report.strategy_profile || profile == &report.checker_profile));
+
+    let json = report.to_deterministic_json().expect("serializes");
+    let value = serde_json::from_str::<Value>(&json).expect("valid JSON");
+    assert_eq!(value["strategy_profile"], json!("payment-policy-alpha"));
+    assert_eq!(value["checker_profile"], json!("mvp-strict"));
+    assert_eq!(value["allowed_axiom_profiles"], json!(["zero-axiom"]));
+
+    let reparsed = PolicyEvidenceReport::from_json(&json).expect("valid schema parses");
+    assert_eq!(reparsed.strategy_profile, "payment-policy-alpha");
+    assert_eq!(reparsed.checker_profile, "mvp-strict");
+    assert_eq!(
+        reparsed.allowed_axiom_profiles,
+        vec!["zero-axiom".to_owned()]
+    );
+}
+
+#[test]
 fn unknown_top_level_field_rejects() {
     let mut value =
         serde_json::from_str::<Value>(&accepted_evidence_report().to_deterministic_json().unwrap())
@@ -333,7 +360,7 @@ fn accepted_evidence_report() -> PolicyEvidenceReport {
 
     let mut report = PolicyEvidenceReport::new(
         PolicyEvidenceTarget::new("example.com/orderpolicy", ORDER_POLICY_FUNCTION),
-        "payment-policy-basic",
+        "payment-policy-alpha",
         "mvp-strict",
         vec!["zero-axiom".to_owned()],
         trusted,
@@ -375,7 +402,7 @@ fn accepted_evidence_report() -> PolicyEvidenceReport {
 fn helper_only_evidence_report() -> PolicyEvidenceReport {
     let mut report = PolicyEvidenceReport::new(
         PolicyEvidenceTarget::new("example.com/orderpolicy", ORDER_POLICY_FUNCTION),
-        "payment-policy-basic",
+        "payment-policy-alpha",
         "mvp-strict",
         vec!["zero-axiom".to_owned()],
         PolicyTrustedEvidence::empty(),
@@ -409,7 +436,7 @@ fn unsupported_evidence_report() -> PolicyEvidenceReport {
     ));
     let mut report = PolicyEvidenceReport::new(
         PolicyEvidenceTarget::new("example.com/orderpolicy", ORDER_POLICY_FUNCTION),
-        "payment-policy-basic",
+        "payment-policy-alpha",
         "mvp-strict",
         vec!["zero-axiom".to_owned()],
         PolicyTrustedEvidence::empty(),
