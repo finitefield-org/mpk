@@ -199,6 +199,34 @@ certificate accepted under the active checker profile. If a property is only
 represented by source text, contract text, GIR, VC JSON, CI status, or Gemini
 analysis, the schema must label it as helper analysis or proof-pending.
 
+POE-04 pins the Rust-facing JSON shape as `mpk.policy.evidence.v0`:
+
+- top-level workflow policy fields:
+  - `strategy_profile`;
+  - `checker_profile`;
+  - `allowed_axiom_profiles`;
+- `trusted_evidence`, limited to:
+  - checked certificate identities, `certificate_hash`, `export_hash`, and
+    `axiom_report_hash`;
+  - checked theory-certificate hashes and checked obligation ids;
+  - recomputed axiom report category counts;
+  - Rust fast-kernel verdicts;
+  - independent reference-checker verdicts when required;
+- `helper_artifacts`, limited to:
+  - source hashes and source-file hashes;
+  - contract hash and contract schema;
+  - GIR hash;
+  - VC hash;
+  - helper warnings from source, contract, GIR, VC, AI analysis, or CI status;
+- `properties`, where each property has one of `mpk_verified`,
+  `proof_pending`, `helper_only`, or `unsupported`.
+
+The schema validator rejects unknown top-level fields and unknown property
+statuses. A property with `mpk_verified` is valid only when it references a
+checked declaration id from `trusted_evidence.certificates` or a checked
+obligation id from `trusted_evidence.theory_certificates`. Helper artifacts can
+explain a property, but they cannot make it verified.
+
 ### 6. Call-Site Precondition Helper
 
 Payment contracts often require preconditions such as `requestedCents >= 0`.
