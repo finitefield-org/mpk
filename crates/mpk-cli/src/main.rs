@@ -8,6 +8,7 @@ use std::process::{Command, ExitCode};
 
 use mpk_api::{PolicyStrategyMetadata, PAYMENT_POLICY_ALPHA_PROFILE};
 use mpk_cli::policy_scan::{run_policy_scan, PolicyScanRequest};
+use mpk_cli::policy_verify::{run_policy_verify, PolicyVerifyRequest};
 use mpk_core::Name;
 use mpk_kernel::{
     verify_certificate_bytes, verify_certificate_bytes_axiom_report_json_output,
@@ -56,7 +57,8 @@ fn main() -> ExitCode {
         Ok(RunOutcome::Verify(message))
         | Ok(RunOutcome::PackageCheck(message))
         | Ok(RunOutcome::PackageVerifyCerts(message))
-        | Ok(RunOutcome::PolicyScan(message)) => {
+        | Ok(RunOutcome::PolicyScan(message))
+        | Ok(RunOutcome::PolicyVerify(message)) => {
             println!("{message}");
             ExitCode::SUCCESS
         }
@@ -171,6 +173,7 @@ fn policy_scan_route(args: &[String]) -> Result<RunOutcome, CliError> {
         args,
         &["--function", "--contract", "--json-out"],
         &["--go2gir"],
+        &[],
         &["--strategy-profile"],
         policy_scan_usage_text(),
     )?;
@@ -217,7 +220,8 @@ fn policy_verify_route(args: &[String]) -> Result<RunOutcome, CliError> {
             "--evidence-json",
             "--evidence-md",
         ],
-        &[],
+        &["--go2gir"],
+        &["--strict", "--update-fixtures"],
         &[],
         policy_verify_usage_text(),
     )?;
@@ -242,9 +246,34 @@ fn policy_verify_route(args: &[String]) -> Result<RunOutcome, CliError> {
         ));
     }
 
-    Err(CliError::Input(
-        "policy verify not implemented until POE-10".to_owned(),
-    ))
+    let request = PolicyVerifyRequest {
+        target: options.target.clone(),
+        function_id: options.required_value("--function").to_owned(),
+        contract_path: options.required_value("--contract").to_owned(),
+        strategy_profile: strategy_profile.to_owned(),
+        checker_profile: checker_profile.to_owned(),
+        evidence_json_path: PathBuf::from(options.required_value("--evidence-json")),
+        evidence_md_path: PathBuf::from(options.required_value("--evidence-md")),
+        go2gir_path: PathBuf::from(
+            options
+                .optional_value("--go2gir")
+                .unwrap_or("target/debug/go2gir"),
+        ),
+        strict: options.has_flag("--strict"),
+        update_fixtures: options.has_flag("--update-fixtures"),
+    };
+    match run_policy_verify(&request) {
+        Ok(output) => Ok(RunOutcome::PolicyVerify(format!(
+            "ok policy verify status={} verified={} proof_pending={} unsupported={} evidence_json={} evidence_md={}",
+            output.status_label(),
+            output.verified_count,
+            output.proof_pending_count,
+            output.unsupported_count,
+            output.evidence_json_path.display(),
+            output.evidence_md_path.display()
+        ))),
+        Err(error) => Err(CliError::Input(error.to_string())),
+    }
 }
 
 fn parse_policy_args(
@@ -252,6 +281,7 @@ fn parse_policy_args(
     args: &[String],
     required_flags: &[&str],
     optional_flags: &[&str],
+    boolean_flags: &[&str],
     disallowed_flags: &[&str],
     usage: &str,
 ) -> Result<ParsedPolicyArgs, CliError> {
@@ -270,6 +300,16 @@ fn parse_policy_args(
                 ));
             }
             if !required_flags.contains(&arg) && !optional_flags.contains(&arg) {
+                if boolean_flags.contains(&arg) {
+                    if !seen_flags.insert(arg.to_owned()) {
+                        return Err(policy_usage_error(
+                            format!("{command} has duplicate flag: {arg}"),
+                            usage,
+                        ));
+                    }
+                    index += 1;
+                    continue;
+                }
                 return Err(policy_usage_error(
                     format!("{command} has unknown flag: {arg}"),
                     usage,
@@ -333,7 +373,11 @@ fn parse_policy_args(
         ));
     }
 
-    Ok(ParsedPolicyArgs { target, values })
+    Ok(ParsedPolicyArgs {
+        target,
+        values,
+        flags: seen_flags,
+    })
 }
 
 fn is_help_args(args: &[String]) -> bool {
@@ -904,7 +948,7 @@ fn policy_scan_usage_text() -> &'static str {
 }
 
 fn policy_verify_usage_text() -> &'static str {
-    "mpk policy verify <target> --function <function-id> --contract <contract.json> --strategy-profile <profile> --checker-profile <checker-profile> --evidence-json <evidence.json> --evidence-md <evidence.md>"
+    "mpk policy verify <target> --function <function-id> --contract <contract.json> --strategy-profile <profile> --checker-profile <checker-profile> --evidence-json <evidence.json> --evidence-md <evidence.md> [--go2gir <go2gir>] [--strict] [--update-fixtures]"
 }
 
 enum RunOutcome {
@@ -915,11 +959,13 @@ enum RunOutcome {
     PackageCheck(String),
     PackageVerifyCerts(String),
     PolicyScan(String),
+    PolicyVerify(String),
 }
 
 struct ParsedPolicyArgs {
     target: String,
     values: Vec<(String, String)>,
+    flags: HashSet<String>,
 }
 
 impl ParsedPolicyArgs {
@@ -934,6 +980,10 @@ impl ParsedPolicyArgs {
         self.values
             .iter()
             .find_map(|(name, value)| (name == flag).then_some(value.as_str()))
+    }
+
+    fn has_flag(&self, flag: &str) -> bool {
+        self.flags.contains(flag)
     }
 }
 

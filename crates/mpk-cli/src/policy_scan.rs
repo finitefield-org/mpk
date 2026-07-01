@@ -22,6 +22,12 @@ pub struct PolicyScanRequest {
 pub fn run_policy_scan(
     request: &PolicyScanRequest,
 ) -> Result<PolicyScanReport, PolicyScanRunError> {
+    Ok(run_policy_scan_with_artifacts(request)?.report)
+}
+
+pub fn run_policy_scan_with_artifacts(
+    request: &PolicyScanRequest,
+) -> Result<PolicyScanRunOutput, PolicyScanRunError> {
     let current_dir = std::env::current_dir()
         .map_err(|error| PolicyScanRunError::io("resolve current directory", error))?;
     let go2gir_path = resolve_existing_path(&current_dir, &request.go2gir_path, "go2gir binary")?;
@@ -35,8 +41,27 @@ pub fn run_policy_scan(
         .output()
         .map_err(|error| PolicyScanRunError::io("run go2gir", error))?;
     let go2gir = parse_go2gir_output(&output.stdout, output.status, &output.stderr)?;
+    let gir_json = raw_gir_json(&output.stdout)?;
+    let report =
+        build_policy_scan_report(request, &target_layout, &contract, go2gir_sha256, go2gir)?;
 
-    build_policy_scan_report(request, &target_layout, &contract, go2gir_sha256, go2gir)
+    Ok(PolicyScanRunOutput { report, gir_json })
+}
+
+fn raw_gir_json(stdout: &[u8]) -> Result<Option<String>, PolicyScanRunError> {
+    let value = serde_json::from_slice::<Value>(stdout)
+        .map_err(|error| PolicyScanRunError::with_source("parse go2gir raw JSON", error))?;
+    value
+        .get("gir")
+        .map(serde_json::to_string)
+        .transpose()
+        .map_err(|error| PolicyScanRunError::with_source("encode raw GIR artifact", error))
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct PolicyScanRunOutput {
+    pub report: PolicyScanReport,
+    pub gir_json: Option<String>,
 }
 
 #[derive(Debug)]

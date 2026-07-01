@@ -1,7 +1,7 @@
 use std::process::{Command, Output};
 
 const POLICY_SCAN_USAGE: &str = "mpk policy scan <target> --function <function-id> --contract <contract.json> --json-out <scan.json> [--go2gir <go2gir>]";
-const POLICY_VERIFY_USAGE: &str = "mpk policy verify <target> --function <function-id> --contract <contract.json> --strategy-profile <profile> --checker-profile <checker-profile> --evidence-json <evidence.json> --evidence-md <evidence.md>";
+const POLICY_VERIFY_USAGE: &str = "mpk policy verify <target> --function <function-id> --contract <contract.json> --strategy-profile <profile> --checker-profile <checker-profile> --evidence-json <evidence.json> --evidence-md <evidence.md> [--go2gir <go2gir>] [--strict] [--update-fixtures]";
 
 fn run_mpk(args: &[&str]) -> Output {
     Command::new(env!("CARGO_BIN_EXE_mpk"))
@@ -232,7 +232,13 @@ fn policy_scan_rejects_missing_flag_value() {
 }
 
 #[test]
-fn policy_verify_route_reports_not_implemented_after_valid_routing() {
+fn policy_verify_reports_missing_go2gir_after_valid_routing() {
+    let missing_go2gir =
+        std::env::temp_dir().join(format!("mpk-missing-go2gir-{}", std::process::id()));
+    let missing_go2gir = missing_go2gir
+        .to_str()
+        .expect("temp path is UTF-8")
+        .to_owned();
     let output = run_mpk(&[
         "policy",
         "verify",
@@ -249,13 +255,15 @@ fn policy_verify_route_reports_not_implemented_after_valid_routing() {
         "/tmp/mpk-evidence.json",
         "--evidence-md",
         "/tmp/mpk-evidence.md",
+        "--go2gir",
+        &missing_go2gir,
     ]);
 
     assert_eq!(output.status.code(), Some(1));
     assert!(output.stdout.is_empty());
     assert_eq!(
         stderr(&output),
-        "policy verify not implemented until POE-10\n"
+        format!("policy verify scan failed: go2gir binary not found: {missing_go2gir}\n")
     );
 }
 
