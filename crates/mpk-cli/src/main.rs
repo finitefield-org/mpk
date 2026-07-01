@@ -79,6 +79,16 @@ fn run(args: Vec<String>) -> Result<RunOutcome, CliError> {
         [command, subcommand, path] if command == "package" && subcommand == "verify-certs" => {
             package_verify_certs_path(Path::new(path))
         }
+        [command, subcommand, rest @ ..] if command == "policy" && subcommand == "scan" => {
+            policy_scan_route(rest)
+        }
+        [command, subcommand, rest @ ..] if command == "policy" && subcommand == "verify" => {
+            policy_verify_route(rest)
+        }
+        [command, rest @ ..] if command == "policy" && is_help_args(rest) => {
+            print_policy_usage();
+            Ok(RunOutcome::Help)
+        }
         [command] if command == "--help" || command == "-h" || command == "help" => {
             print_usage();
             Ok(RunOutcome::Help)
@@ -145,6 +155,160 @@ fn package_verify_certs_path(path: &Path) -> Result<RunOutcome, CliError> {
         package.certificates.len(),
         reference_count
     )))
+}
+
+fn policy_scan_route(args: &[String]) -> Result<RunOutcome, CliError> {
+    if is_help_args(args) {
+        print_policy_scan_usage();
+        return Ok(RunOutcome::Help);
+    }
+
+    let _options = parse_policy_args(
+        "policy scan",
+        args,
+        &["--function", "--contract", "--json-out"],
+        &["--strategy-profile"],
+        policy_scan_usage_text(),
+    )?;
+
+    Err(CliError::Input(
+        "policy scan not implemented until POE-03".to_owned(),
+    ))
+}
+
+fn policy_verify_route(args: &[String]) -> Result<RunOutcome, CliError> {
+    if is_help_args(args) {
+        print_policy_verify_usage();
+        return Ok(RunOutcome::Help);
+    }
+
+    let options = parse_policy_args(
+        "policy verify",
+        args,
+        &[
+            "--function",
+            "--contract",
+            "--strategy-profile",
+            "--checker-profile",
+            "--evidence-json",
+            "--evidence-md",
+        ],
+        &[],
+        policy_verify_usage_text(),
+    )?;
+    let checker_profile = options.required_value("--checker-profile");
+    if !CHECKER_PROFILES.contains(&checker_profile) {
+        return Err(policy_usage_error(
+            format!(
+                "policy verify has unknown checker profile: {checker_profile:?}; expected one of: {}",
+                CHECKER_PROFILES.join(", ")
+            ),
+            policy_verify_usage_text(),
+        ));
+    }
+
+    Err(CliError::Input(
+        "policy verify not implemented until POE-10".to_owned(),
+    ))
+}
+
+fn parse_policy_args(
+    command: &str,
+    args: &[String],
+    required_flags: &[&str],
+    disallowed_flags: &[&str],
+    usage: &str,
+) -> Result<ParsedPolicyArgs, CliError> {
+    let mut target: Option<String> = None;
+    let mut values = Vec::new();
+    let mut seen_flags = HashSet::new();
+    let mut index = 0;
+
+    while index < args.len() {
+        let arg = args[index].as_str();
+        if arg.starts_with("--") {
+            if disallowed_flags.contains(&arg) {
+                return Err(policy_usage_error(
+                    format!("{command} does not accept {arg}; use mpk policy verify"),
+                    usage,
+                ));
+            }
+            if !required_flags.contains(&arg) {
+                return Err(policy_usage_error(
+                    format!("{command} has unknown flag: {arg}"),
+                    usage,
+                ));
+            }
+            if !seen_flags.insert(arg.to_owned()) {
+                return Err(policy_usage_error(
+                    format!("{command} has duplicate flag: {arg}"),
+                    usage,
+                ));
+            }
+            let Some(value) = args.get(index + 1) else {
+                return Err(policy_usage_error(
+                    format!("{command} flag {arg} requires a value"),
+                    usage,
+                ));
+            };
+            if value.starts_with("--") {
+                return Err(policy_usage_error(
+                    format!("{command} flag {arg} requires a value"),
+                    usage,
+                ));
+            }
+            if value.is_empty() {
+                return Err(policy_usage_error(
+                    format!("{command} flag {arg} must not be empty"),
+                    usage,
+                ));
+            }
+            values.push((arg.to_owned(), value.to_owned()));
+            index += 2;
+        } else {
+            if arg.is_empty() {
+                return Err(policy_usage_error(
+                    format!("{command} target must not be empty"),
+                    usage,
+                ));
+            }
+            if target.is_some() {
+                return Err(policy_usage_error(
+                    format!("{command} has unexpected positional argument: {arg:?}"),
+                    usage,
+                ));
+            }
+            target = Some(arg.to_owned());
+            index += 1;
+        }
+    }
+
+    let target = target
+        .ok_or_else(|| policy_usage_error(format!("{command} missing required target"), usage))?;
+    let missing = required_flags
+        .iter()
+        .copied()
+        .filter(|flag| !seen_flags.contains(*flag))
+        .collect::<Vec<_>>();
+    if !missing.is_empty() {
+        return Err(policy_usage_error(
+            format!("{command} missing required flags: {}", missing.join(", ")),
+            usage,
+        ));
+    }
+
+    Ok(ParsedPolicyArgs {
+        _target: target,
+        values,
+    })
+}
+
+fn is_help_args(args: &[String]) -> bool {
+    matches!(args, [arg] if arg == "--help" || arg == "-h" || arg == "help")
+}
+
+fn policy_usage_error(message: String, usage: &str) -> CliError {
+    CliError::Usage(format!("{message}\n{usage}"))
 }
 
 fn read_certificate_input(path: &Path) -> Result<Vec<u8>, CliError> {
@@ -672,8 +836,42 @@ fn print_usage() {
     println!("{}", usage_text());
 }
 
+fn print_policy_usage() {
+    println!("{}", policy_usage_text());
+}
+
+fn print_policy_scan_usage() {
+    println!("{}", policy_scan_usage_text());
+}
+
+fn print_policy_verify_usage() {
+    println!("{}", policy_verify_usage_text());
+}
+
 fn usage_text() -> String {
-    "usage: mpk <check|axiom-report|verify> <certificate.mpcert|fixture.hex>\n       mpk package <check|verify-certs> <package-manifest.json>".to_owned()
+    format!(
+        "{}\n       {}\n       {}\n       {}",
+        "usage: mpk <check|axiom-report|verify> <certificate.mpcert|fixture.hex>",
+        "mpk package <check|verify-certs> <package-manifest.json>",
+        policy_scan_usage_text(),
+        policy_verify_usage_text()
+    )
+}
+
+fn policy_usage_text() -> String {
+    format!(
+        "usage: {}\n       {}",
+        policy_scan_usage_text(),
+        policy_verify_usage_text()
+    )
+}
+
+fn policy_scan_usage_text() -> &'static str {
+    "mpk policy scan <target> --function <function-id> --contract <contract.json> --json-out <scan.json>"
+}
+
+fn policy_verify_usage_text() -> &'static str {
+    "mpk policy verify <target> --function <function-id> --contract <contract.json> --strategy-profile <profile> --checker-profile <checker-profile> --evidence-json <evidence.json> --evidence-md <evidence.md>"
 }
 
 enum RunOutcome {
@@ -683,6 +881,20 @@ enum RunOutcome {
     Verify(String),
     PackageCheck(String),
     PackageVerifyCerts(String),
+}
+
+struct ParsedPolicyArgs {
+    _target: String,
+    values: Vec<(String, String)>,
+}
+
+impl ParsedPolicyArgs {
+    fn required_value(&self, flag: &str) -> &str {
+        self.values
+            .iter()
+            .find_map(|(name, value)| (name == flag).then_some(value.as_str()))
+            .expect("required policy flag was validated")
+    }
 }
 
 enum CliError {
