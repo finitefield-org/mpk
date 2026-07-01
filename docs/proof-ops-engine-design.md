@@ -94,7 +94,7 @@ mpk policy verify ./internal/paymentpolicy \
   --function paymentpolicy.ApprovedReserveCents \
   --contract policy_contract.json \
   --strategy-profile payment-policy-alpha \
-  --checker-profile mvp-structural \
+  --checker-profile mvp-strict \
   --evidence-json mpk-evidence.json \
   --evidence-md mpk-evidence.md
 ```
@@ -114,7 +114,9 @@ The command should orchestrate:
 
 The orchestrator must not introduce a new acceptance path. It may report
 `verified=true` only if checker-facing evidence passes the MPK trust-boundary
-rules.
+rules. Use `mvp-strict` when the selected strategy profile may emit checked
+theory certificates; narrower checker profiles may still be useful for
+helper-only scans or non-theory proof-node experiments.
 
 ### 3. Payment-Policy Strategy Profile
 
