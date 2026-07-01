@@ -25,7 +25,14 @@ run go test -count=1 ./...
 cd "$repo_root/examples/order_policy/webapp"
 run go test -count=1 ./...
 
+for policy in reserve refund discount fee points; do
+  cd "$repo_root/examples/payment_policies/$policy"
+  run go test -count=1 ./...
+done
+
 cd "$repo_root"
 run cargo test -p mpk-vc --test max64_example
+run cargo test -p mpk-cli --test policy_scan policy_scan_cli_scans_payment_policy_corpus_as_ready
+run cargo test -p mpk-cli --test policy_verify policy_verify_reserve_writes_evidence_and_markdown
 run cargo test -p mpk-cert hash
 run cargo test -p mpk-cert cert_basic

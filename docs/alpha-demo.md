@@ -123,7 +123,39 @@ MPK_UPDATE_ORDER_POLICY_EXAMPLE=1 cargo test -p mpk-vc --test max64_example
 MPK_UPDATE_VC_ALPHA=1 cargo test -p mpk-vc --test alpha_corpus
 ```
 
-## 5. Check the Max64-shaped theory proof hook
+## 5. Run the ProofOps policy engine path
+
+The payment-policy corpus exercises the ProofOps product-facing commands. The
+reserve example is the first supported policy verify path: `mpk policy scan`
+checks readiness as helper analysis, and `mpk policy verify` writes deterministic
+policy evidence JSON and Markdown.
+
+```sh
+mkdir -p target/proof-ops
+
+cargo run --quiet -p mpk-cli -- policy scan examples/payment_policies/reserve \
+  --function example.com/payment/reserve.ApprovedReserveCents \
+  --contract examples/payment_policies/reserve/policy_contract.json \
+  --json-out target/proof-ops/reserve.scan.json \
+  --go2gir target/debug/go2gir
+
+cargo run --quiet -p mpk-cli -- policy verify examples/payment_policies/reserve \
+  --function example.com/payment/reserve.ApprovedReserveCents \
+  --contract examples/payment_policies/reserve/policy_contract.json \
+  --strategy-profile payment-policy-alpha \
+  --checker-profile mvp-strict \
+  --evidence-json target/proof-ops/reserve.evidence.json \
+  --evidence-md target/proof-ops/reserve.evidence.md \
+  --go2gir target/debug/go2gir
+```
+
+Expected result: `policy scan` reports `status=ready`, and `policy verify`
+reports `status=proof_pending` with one `mpk_verified` reserve obligation and
+the remaining obligations still `proof_pending`. The evidence JSON keeps
+`helper_artifacts` such as source hashes, GIR, VC, and Markdown report context
+separate from `trusted_evidence` such as checked theory-certificate entries.
+
+## 6. Check the Max64-shaped theory proof hook
 
 TH-008 adds a checked theory-certificate path for strategy proofs. This command
 exercises the Max64 simple VC fixture through the API strategy dispatcher and
@@ -136,7 +168,7 @@ cargo test -p mpk-api --test strategies \
 
 Expected result: the targeted test passes.
 
-## 6. Verify source-free certificate artifacts
+## 7. Verify source-free certificate artifacts
 
 Finally, verify canonical certificate bytes directly:
 
@@ -171,6 +203,8 @@ When all commands above pass locally, the alpha pipeline demonstrates:
 - the order-policy example documents how a real Go service calls a pure
   verified-boundary policy function while keeping side effects outside MPK;
 - the ALPHA-002 VC corpus still records 1,056 generated obligations;
+- the reserve payment policy scans as MPK-ready and emits policy evidence with
+  helper artifacts separated from trusted checked theory evidence;
 - the TH-008 strategy hook can close a Max64-shaped simple VC only through a
   checked theory certificate;
 - canonical certificate bytes are accepted by source-free verification;
@@ -180,7 +214,10 @@ When all commands above pass locally, the alpha pipeline demonstrates:
 ## What this demo does not claim
 
 The checked-in GIR, VC, and skeleton JSON files are not proof evidence. They are
-candidate theorem-obligation artifacts. Until a later milestone emits checked
-`.mpcert` certificates for the generated alpha VCs, acceptance is demonstrated
-by the certificate fixtures and package verification commands in step 6, not by
-the Go source, contract sidecars, GIR, VC JSON, skeleton JSON, or strategy logs.
+candidate theorem-obligation artifacts. Policy scan JSON, policy verify
+Markdown, helper-artifact hashes, CI status, and generated policy evidence prose
+are also not proof evidence. Until a later milestone emits checked `.mpcert`
+certificates for the generated alpha VCs, acceptance is demonstrated by the
+certificate fixtures and package verification commands in step 7, not by the Go
+source, contract sidecars, GIR, VC JSON, skeleton JSON, policy scan output,
+Markdown reports, or strategy logs.

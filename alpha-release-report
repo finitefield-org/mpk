@@ -16,12 +16,12 @@ Gate result:
 
 | Gate | Status | Evidence |
 | --- | --- | --- |
-| A: Trust boundary | Pass | Checkers accept only canonical certificate bytes or checked theory certificates; `docs/alpha-demo.md` documents GIR/VC artifacts as non-proof helper artifacts. |
+| A: Trust boundary | Pass | Checkers accept only canonical certificate bytes or checked theory certificates; `docs/alpha-demo.md` documents GIR/VC and policy scan/verify helper artifacts as non-proof evidence. |
 | B: Canonicality | Pass | `./scripts/check-all.sh` exercises canonical decode/re-encode, non-canonical rejection fixtures, and hash recomputation. |
 | C: Determinism | Pass | `./scripts/check-all.sh` and `scripts/generate-release-report.py --check` reproduce stable hashes, reports, and deterministic rejection fixtures. |
 | D: Checker agreement | Pass | Rust source-free checker and Go reference checker agree through `scripts/check-reference.sh` and `mpk package verify-certs`. |
 | E: Axiom | Pass | `release-report.json` records zero total axioms and zero external axioms for the package certificate. |
-| F: Go frontend | Pass | Go version, Go source hashes, `go2gir` binary hash, GIR hashes, and VC hashes are recorded below. |
+| F: Go frontend and policy helper path | Pass | Go version, Go source hashes, `go2gir` binary hash, GIR/VC helper hashes, and ProofOps policy scan/verify commands are recorded below. |
 | G: Performance | Pass with documented limit | The full local suite and 10,000 invalid-candidate benchmark pass. No numeric release budget threshold is defined in `RELEASE_GATES.md`; ALPHA-004 records the current local timing profile. |
 | H: Security | Pass with documented exception | Rust checker-facing crates forbid unsafe code and the Go checker source does not import `unsafe`; `go list -deps` still includes Go's standard `unsafe` package through the standard library dependency closure. |
 
@@ -74,6 +74,27 @@ cargo test -p mpk-api --test strategies \
 cargo run --quiet -p mpk-cli -- check fixtures/cert-basic/one-theorem.hex
 cargo run --quiet -p mpk-cli -- package verify-certs \
   fixtures/package-manifest/valid/basic-package.json
+```
+
+ProofOps policy engine reproduction:
+
+```sh
+mkdir -p target/proof-ops
+(cd go-tools/go2gir && go build -o ../../target/debug/go2gir .)
+cargo run --quiet -p mpk-cli -- policy scan examples/payment_policies/reserve \
+  --function example.com/payment/reserve.ApprovedReserveCents \
+  --contract examples/payment_policies/reserve/policy_contract.json \
+  --json-out target/proof-ops/reserve.scan.json \
+  --go2gir target/debug/go2gir
+cargo run --quiet -p mpk-cli -- policy verify examples/payment_policies/reserve \
+  --function example.com/payment/reserve.ApprovedReserveCents \
+  --contract examples/payment_policies/reserve/policy_contract.json \
+  --strategy-profile payment-policy-alpha \
+  --checker-profile mvp-strict \
+  --evidence-json target/proof-ops/reserve.evidence.json \
+  --evidence-md target/proof-ops/reserve.evidence.md \
+  --go2gir target/debug/go2gir
+cargo test -p mpk-cli --test policy_verify
 ```
 
 Security gate detail:
@@ -144,7 +165,41 @@ Certificate evidence:
 | --- | --- | --- | --- | ---: | ---: |
 | `fixtures/cert-basic/one-theorem.hex` | `Example.Basic.OneTheorem` | `accepted` | `accepted` | 0 | 0 |
 
-## Go Frontend Evidence
+## ProofOps Policy Evidence Snapshot
+
+Policy evidence is separate from the package release evidence above.
+`examples/payment_policies/reserve/evidence_alpha.json` is
+`mpk.policy.evidence.v0` evidence for the reserve payment policy. It is not
+`mpk.release.evidence.v0` package release evidence.
+
+Reserve policy evidence:
+
+- evidence JSON sha256:
+  `799ef6d51ebc24a8e1af2a5b17d1c72e50fbb696d0b96eb4f8bab8b6da02b906`
+- target:
+  `example.com/payment/reserve.ApprovedReserveCents`
+- strategy profile: `payment-policy-alpha`
+- checker profile: `mvp-strict`
+- trusted certificates: `0`
+- checked theory certificates: `1`
+- property statuses: `mpk_verified=1`, `proof_pending=5`, `unsupported=2`
+
+Tracked reserve helper artifacts:
+
+| Artifact | SHA-256 |
+| --- | --- |
+| `examples/payment_policies/manifest.json` | `a3fe95a98653d1370587231ae84c555a784e68a7f019192bafaf274900435ca3` |
+| `examples/payment_policies/reserve/gir.json` | `8ac5bef38a77d64ca4015c5c8acc236651143a1430f79e7967faffdbc6709d94` |
+| `examples/payment_policies/reserve/vc.json` | `19d2fdc205f5d20dce92e81cc3e19afea0d29de416311b8c9d87498755417ca7` |
+| `examples/payment_policies/reserve/vc_skeleton.json` | `0d87cfcffd9f570b1d6e287fc04aaae9f0e890469a636bc6f3c8631d9d3c8e7c` |
+
+The tracked GIR, VC, skeleton, scan JSON, Markdown report, and helper sections
+of policy evidence are helper artifacts. They are review inputs and drift
+signals, not proof evidence. In the reserve evidence, only the
+checked-theory-certificate reference for the one `mpk_verified` property is
+trusted proof evidence; pending and unsupported properties remain unverified.
+
+## Go Frontend Helper Evidence
 
 Toolchain and binary:
 
@@ -153,7 +208,7 @@ Toolchain and binary:
 | Go version | `go version go1.23.2 darwin/arm64` |
 | `target/debug/go2gir` sha256 | `7b0d24e617edf25bc85792577adaa92e978085809518f230866984fd082a6d1c` |
 
-Input and generated artifact hashes:
+Input and generated helper artifact hashes:
 
 | Artifact | SHA-256 |
 | --- | --- |
@@ -167,7 +222,7 @@ Input and generated artifact hashes:
 | `fixtures/vc-alpha/vc.json` | `999a3b2f34a9d25ee5972674ffc4dc1590439a7aa5c8e41dda4472d76cf82b97` |
 | `fixtures/vc-alpha/vc_skeleton.json` | `e1cea2c49ae72d5ba9e85c589d05577137a8b3d0cae2772388b711a633cd82fe` |
 
-Embedded VC evidence:
+Embedded VC helper evidence:
 
 | Corpus | Source GIR hash | Obligations |
 | --- | --- | ---: |
