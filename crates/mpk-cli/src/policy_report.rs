@@ -169,6 +169,7 @@ fn render_hashes(report: &PolicyEvidenceReport, output: &mut String) {
             output.push_str(&theory_certificate.id);
             output.push_str("`\n");
             nested_bullet(output, "Theory", &theory_certificate.theory);
+            nested_bullet(output, "Format", &theory_certificate.format);
             nested_bullet(
                 output,
                 "Theory certificate hash",

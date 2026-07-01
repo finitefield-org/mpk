@@ -24,7 +24,10 @@ pub use canonical::{
     CanonicalErrorKind,
 };
 pub use decode::{decode_certificate, DecodeError, DecodeErrorKind};
-pub use encode::{encode_certificate, encode_unsigned_varint, Certificate, CertificateHashes};
+pub use encode::{
+    encode_certificate, encode_theory_certificate, encode_unsigned_varint, Certificate,
+    CertificateHashes,
+};
 pub use export::{
     build_export_block, build_export_block_for_declarations, declaration_interface_hash,
     encode_export_block, export_block_hash, ExportBuildError, ExportBuildErrorKind,

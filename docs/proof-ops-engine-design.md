@@ -186,7 +186,7 @@ Required fields:
 - checker profile;
 - Rust checker verdict;
 - reference checker verdict, when required;
-- checked theory-certificate hashes, when present;
+- checked theory-certificate formats and hashes, when present;
 - verified property list;
 - helper-artifact warnings;
 - unsupported or unverified property list;
@@ -208,7 +208,7 @@ POE-04 pins the Rust-facing JSON shape as `mpk.policy.evidence.v0`:
 - `trusted_evidence`, limited to:
   - checked certificate identities, `certificate_hash`, `export_hash`, and
     `axiom_report_hash`;
-  - checked theory-certificate hashes and checked obligation ids;
+  - checked theory-certificate formats, hashes, and checked obligation ids;
   - recomputed axiom report category counts;
   - Rust fast-kernel verdicts;
   - independent reference-checker verdicts when required;

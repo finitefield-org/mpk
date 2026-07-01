@@ -1,9 +1,14 @@
 use mpk_api::{
-    ApiErrorCode, ApiService, PolicyObligationDescriptor, PolicyObligationPattern,
-    PolicyStrategyErrorCode, PolicyStrategyMetadata, PolicyStrategyProfile, SortTermRequest,
-    StartSessionRequest, StrategyKind, StrategyProveRequest, TheoryStrategyKind,
+    theory_strategy_certificate, theory_strategy_certificate_evidence, ApiErrorCode, ApiProofId,
+    ApiService, ApiTermId, ConstTermRequest, PolicyObligationDescriptor, PolicyObligationPattern,
+    PolicyStrategyErrorCode, PolicyStrategyMetadata, PolicyStrategyProfile, ProofProfile,
+    SortTermRequest, StartSessionRequest, StrategyKind, StrategyProveRequest, TheoryStrategyKind,
     PAYMENT_POLICY_ALPHA_PROFILE,
 };
+use mpk_cert::encode::ProofNode;
+
+const RESERVE_FIRST_OBLIGATION: &str =
+    "example.com/payment/reserve.ApprovedReserveCents.then.post0";
 
 fn start_session(api: &mut ApiService) -> mpk_api::SessionId {
     api.start_session(StartSessionRequest::new("Example.Api.PolicyStrategy"))
@@ -11,12 +16,47 @@ fn start_session(api: &mut ApiService) -> mpk_api::SessionId {
         .session_id
 }
 
-fn sort_zero(api: &mut ApiService, session_id: &mpk_api::SessionId) -> mpk_api::ApiTermId {
+fn start_session_with_profile(
+    api: &mut ApiService,
+    proof_profile: ProofProfile,
+) -> mpk_api::SessionId {
+    api.start_session(
+        StartSessionRequest::new("Example.Api.PolicyStrategy").with_proof_profile(proof_profile),
+    )
+    .expect("session starts")
+    .session_id
+}
+
+fn sort_zero(api: &mut ApiService, session_id: &mpk_api::SessionId) -> ApiTermId {
     api.term_sort(SortTermRequest {
         session_id: session_id.clone(),
         universe: 0,
     })
     .expect("sort term constructs")
+    .term_id
+}
+
+fn register_simple_axiom(
+    api: &mut ApiService,
+    session_id: &mpk_api::SessionId,
+    sort: ApiTermId,
+    name: &str,
+) -> ApiTermId {
+    let sort_core = api
+        .session(session_id)
+        .and_then(|session| session.core_term_id(sort))
+        .expect("sort core term is addressable");
+    api.session_mut(session_id)
+        .expect("session exists")
+        .environment_mut()
+        .register_axiom(name, sort_core)
+        .expect("test axiom registers");
+    api.term_const(ConstTermRequest {
+        session_id: session_id.clone(),
+        name: name.to_owned(),
+        levels: Vec::new(),
+    })
+    .expect("const term constructs")
     .term_id
 }
 
@@ -90,6 +130,121 @@ fn payment_policy_alpha_profile_metadata_is_stable() {
   ]
 }"#
     );
+}
+
+#[test]
+fn payment_policy_alpha_closes_first_reserve_nonnegative_with_checked_linarith() {
+    let metadata =
+        PolicyStrategyMetadata::parse_profile(PAYMENT_POLICY_ALPHA_PROFILE).expect("metadata");
+    metadata
+        .validate_obligation(&PolicyObligationDescriptor::new(
+            RESERVE_FIRST_OBLIGATION,
+            PolicyObligationPattern::NonNegativeResult,
+        ))
+        .expect("first reserve obligation is inside payment-policy-alpha");
+    let theory_candidate = metadata
+        .theory_candidates()
+        .into_iter()
+        .find(|candidate| candidate.theory == TheoryStrategyKind::Linarith)
+        .expect("linarith candidate exists");
+    let evidence = theory_strategy_certificate_evidence(theory_candidate.theory);
+    assert_eq!(evidence.format, "mpk.linarith.v0");
+    assert_eq!(
+        evidence.theory_certificate_hash,
+        "a85d54f8d5c32dba5f414490120847013b7c727a3ce8b6ae2c3a44aae4edd7e1"
+    );
+
+    let mut api = ApiService::new();
+    let session_id = start_session_with_profile(&mut api, ProofProfile::MvpStrict);
+    let sort = sort_zero(&mut api, &session_id);
+    let _witness = register_simple_axiom(
+        &mut api,
+        &session_id,
+        sort,
+        "Example.Api.PolicyStrategy.reserveNonnegativeWitness",
+    );
+
+    let response = api
+        .proof_try_strategies(StrategyProveRequest {
+            session_id: session_id.clone(),
+            expected_type: sort,
+            exact_terms: Vec::new(),
+            refl_terms: Vec::new(),
+            split: false,
+            apply: Vec::new(),
+            theory: vec![theory_candidate],
+        })
+        .expect("strategy runner succeeds");
+
+    assert!(response.ok);
+    assert_eq!(response.proof_id, Some(ApiProofId(0)));
+    assert_eq!(response.attempts.len(), 1);
+    assert_eq!(response.attempts[0].strategy, StrategyKind::Theory);
+    assert!(response.attempts[0].ok);
+
+    let session = api.session(&session_id).expect("session exists");
+    assert_eq!(session.theory_certificate_count(), 1);
+    assert_eq!(
+        session
+            .theory_certificate(0)
+            .expect("registered theory certificate"),
+        &theory_strategy_certificate(TheoryStrategyKind::Linarith)
+    );
+    assert!(matches!(
+        session.proof_node(ApiProofId(0)),
+        Some(ProofNode::Theory {
+            theory_certificate: 0,
+            expected_type
+        }) if *expected_type == sort.as_u32()
+    ));
+}
+
+#[test]
+fn payment_policy_alpha_reserve_theory_fails_under_non_theory_profile() {
+    let metadata =
+        PolicyStrategyMetadata::parse_profile(PAYMENT_POLICY_ALPHA_PROFILE).expect("metadata");
+    metadata
+        .validate_obligation(&PolicyObligationDescriptor::new(
+            RESERVE_FIRST_OBLIGATION,
+            PolicyObligationPattern::NonNegativeResult,
+        ))
+        .expect("first reserve obligation is inside payment-policy-alpha");
+    let theory_candidate = metadata
+        .theory_candidates()
+        .into_iter()
+        .find(|candidate| candidate.theory == TheoryStrategyKind::Linarith)
+        .expect("linarith candidate exists");
+
+    let mut api = ApiService::new();
+    let session_id = start_session_with_profile(&mut api, ProofProfile::MvpStructural);
+    let sort = sort_zero(&mut api, &session_id);
+
+    let response = api
+        .proof_try_strategies(StrategyProveRequest {
+            session_id: session_id.clone(),
+            expected_type: sort,
+            exact_terms: Vec::new(),
+            refl_terms: Vec::new(),
+            split: false,
+            apply: Vec::new(),
+            theory: vec![theory_candidate],
+        })
+        .expect("strategy runner succeeds");
+
+    assert!(!response.ok);
+    assert_eq!(response.attempts.len(), 1);
+    assert_eq!(response.attempts[0].strategy, StrategyKind::Theory);
+    assert_eq!(
+        response.attempts[0]
+            .error
+            .as_ref()
+            .expect("theory attempt has error")
+            .code,
+        ApiErrorCode::StrategyNotApplicable
+    );
+    let session = api.session(&session_id).expect("session exists");
+    assert_eq!(session.theory_certificate_count(), 0);
+    assert_eq!(session.proof_node_count(), 0);
 }
 
 #[test]

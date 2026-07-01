@@ -1,3 +1,4 @@
+use mpk_api::{theory_strategy_certificate_evidence, TheoryStrategyKind};
 use mpk_cli::policy_evidence::{
     PolicyAxiomCategoryCounts, PolicyAxiomReportEvidence, PolicyCertificateEvidence,
     PolicyCheckerVerdictEvidence, PolicyContractArtifact, PolicyEvidenceReport,
@@ -9,6 +10,11 @@ use mpk_cli::policy_evidence::{
 use serde_json::{json, Value};
 
 const ORDER_POLICY_FUNCTION: &str = "example.com/orderpolicy.ApprovedReserveCents";
+const RESERVE_POLICY_FUNCTION: &str = "example.com/payment/reserve.ApprovedReserveCents";
+const RESERVE_EVIDENCE_FIXTURE: &str = concat!(
+    env!("CARGO_MANIFEST_DIR"),
+    "/../../examples/payment_policies/reserve/evidence_alpha.json"
+);
 const SOURCE_HASH: &str = "5059e9b3d3e45e2310ec2bdeefcc8fda71c0dd95a506afd10d84bb41ee5ee502";
 const SOURCE_FILE_HASH: &str = "4b8fab6e2f2d9e20dc77eee7f1b8813fc423acd858d1dab802259725f1801948";
 const CONTRACT_HASH: &str = "fcf5c2aec662011ea5b00382710a35d051a4b93ce56b70cadbf22a9573f14a00";
@@ -17,7 +23,9 @@ const VC_HASH: &str = "222222222222222222222222222222222222222222222222222222222
 const CERTIFICATE_HASH: &str = "37744c27174b7637485f6c005902dbf72604641ba66e2ebec90795eaddde1e94";
 const EXPORT_HASH: &str = "5e3396fad9702c2578204b2cb90c112e9653fdb57908ab455e3f77dd58b2e91e";
 const AXIOM_REPORT_HASH: &str = "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5";
-const THEORY_CERT_HASH: &str = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+const LINARITH_THEORY_CERT_FORMAT: &str = "mpk.linarith.v0";
+const LINARITH_THEORY_CERT_HASH: &str =
+    "a85d54f8d5c32dba5f414490120847013b7c727a3ce8b6ae2c3a44aae4edd7e1";
 
 #[test]
 fn accepted_policy_evidence_snapshot_is_deterministic() {
@@ -57,7 +65,8 @@ fn accepted_policy_evidence_snapshot_is_deterministic() {
       {
         "id": "theory:int-linear-001",
         "theory": "signed_int_linear",
-        "theory_certificate_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "format": "mpk.linarith.v0",
+        "theory_certificate_hash": "a85d54f8d5c32dba5f414490120847013b7c727a3ce8b6ae2c3a44aae4edd7e1",
         "checker_profile": "mvp-strict",
         "checked_obligations": [
           "vc:approved_reserve_nonnegative"
@@ -145,6 +154,82 @@ fn accepted_policy_evidence_snapshot_is_deterministic() {
 
     let reparsed = PolicyEvidenceReport::from_json(&first).expect("valid schema parses");
     assert_eq!(reparsed, report);
+}
+
+#[test]
+fn checked_linarith_evidence_matches_strategy_certificate_hash() {
+    let evidence = theory_strategy_certificate_evidence(TheoryStrategyKind::Linarith);
+
+    assert_eq!(evidence.format, LINARITH_THEORY_CERT_FORMAT);
+    assert_eq!(evidence.theory_certificate_hash, LINARITH_THEORY_CERT_HASH);
+}
+
+#[test]
+fn reserve_policy_evidence_fixture_marks_only_closed_property_verified() {
+    let json = std::fs::read_to_string(RESERVE_EVIDENCE_FIXTURE)
+        .expect("reserve evidence fixture is readable");
+    let report = PolicyEvidenceReport::from_json(&json).expect("reserve evidence fixture parses");
+
+    assert_eq!(report.target.package_path, "example.com/payment/reserve");
+    assert_eq!(report.target.function_id, RESERVE_POLICY_FUNCTION);
+    assert_eq!(report.strategy_profile, "payment-policy-alpha");
+    assert_eq!(report.checker_profile, "mvp-strict");
+    assert!(report.trusted_evidence.certificates.is_empty());
+    assert_eq!(report.trusted_evidence.theory_certificates.len(), 1);
+
+    let theory_certificate = &report.trusted_evidence.theory_certificates[0];
+    assert_eq!(theory_certificate.id, "theory:reserve-nonnegative-001");
+    assert_eq!(theory_certificate.theory, "linarith");
+    assert_eq!(theory_certificate.format, LINARITH_THEORY_CERT_FORMAT);
+    assert_eq!(
+        theory_certificate.theory_certificate_hash,
+        LINARITH_THEORY_CERT_HASH
+    );
+    assert_eq!(
+        theory_certificate.checked_obligations,
+        vec!["example.com/payment/reserve.ApprovedReserveCents.then.post0".to_owned()]
+    );
+
+    let verified = report
+        .properties
+        .iter()
+        .filter(|property| property.status == PolicyPropertyEvidenceStatus::MpkVerified)
+        .collect::<Vec<_>>();
+    assert_eq!(verified.len(), 1);
+    assert_eq!(
+        verified[0].id,
+        "example.com/payment/reserve.ApprovedReserveCents.then.post0"
+    );
+    assert!(matches!(
+        verified[0].evidence.as_slice(),
+        [PolicyPropertyEvidenceRef::CheckedTheoryCertificate {
+            theory_certificate_id,
+            obligation_id
+        }] if theory_certificate_id == "theory:reserve-nonnegative-001"
+            && obligation_id == "example.com/payment/reserve.ApprovedReserveCents.then.post0"
+    ));
+
+    assert_eq!(report.properties.len(), 8);
+    for property in report
+        .properties
+        .iter()
+        .filter(|property| property.id != verified[0].id)
+    {
+        assert!(matches!(
+            property.status,
+            PolicyPropertyEvidenceStatus::ProofPending | PolicyPropertyEvidenceStatus::Unsupported
+        ));
+        assert!(!property.evidence.iter().any(|evidence| {
+            matches!(
+                evidence,
+                PolicyPropertyEvidenceRef::CheckedDeclaration { .. }
+                    | PolicyPropertyEvidenceRef::CheckedTheoryCertificate { .. }
+            )
+        }));
+    }
+
+    assert!(!json.contains("\"ai_analysis\""));
+    assert!(!json.contains("solver"));
 }
 
 #[test]
@@ -335,7 +420,8 @@ fn accepted_evidence_report() -> PolicyEvidenceReport {
         .push(PolicyTheoryCertificateEvidence::new(
             "theory:int-linear-001",
             "signed_int_linear",
-            THEORY_CERT_HASH,
+            LINARITH_THEORY_CERT_FORMAT,
+            LINARITH_THEORY_CERT_HASH,
             "mvp-strict",
             vec!["vc:approved_reserve_nonnegative".to_owned()],
         ));

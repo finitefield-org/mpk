@@ -48,4 +48,7 @@ pub use term_api::{
     ApiTermId, AppTermRequest, BinderTermRequest, ConstTermRequest, LetTermRequest,
     SortTermRequest, TermResponse, VarTermRequest,
 };
-pub use theory_strategy::{TheoryStrategyCandidate, TheoryStrategyKind};
+pub use theory_strategy::{
+    theory_strategy_certificate, theory_strategy_certificate_evidence, TheoryStrategyCandidate,
+    TheoryStrategyCertificateEvidence, TheoryStrategyKind,
+};

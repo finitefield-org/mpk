@@ -222,6 +222,7 @@ impl PolicyCertificateEvidence {
 pub struct PolicyTheoryCertificateEvidence {
     pub id: String,
     pub theory: String,
+    pub format: String,
     pub theory_certificate_hash: String,
     pub checker_profile: String,
     pub checked_obligations: Vec<String>,
@@ -231,6 +232,7 @@ impl PolicyTheoryCertificateEvidence {
     pub fn new(
         id: impl Into<String>,
         theory: impl Into<String>,
+        format: impl Into<String>,
         theory_certificate_hash: impl Into<String>,
         checker_profile: impl Into<String>,
         checked_obligations: Vec<String>,
@@ -238,6 +240,7 @@ impl PolicyTheoryCertificateEvidence {
         Self {
             id: id.into(),
             theory: theory.into(),
+            format: format.into(),
             theory_certificate_hash: theory_certificate_hash.into(),
             checker_profile: checker_profile.into(),
             checked_obligations,

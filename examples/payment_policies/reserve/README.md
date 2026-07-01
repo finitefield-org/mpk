@@ -8,8 +8,10 @@ Helper artifacts:
 - contract sidecar in `policy_contract.json`;
 - generated `gir.json`;
 - generated `vc.json`;
-- generated `vc_skeleton.json`.
+- generated `vc_skeleton.json`;
+- representative `evidence_alpha.json`.
 
-Trusted proof evidence is not present in this example. A property becomes
-trusted only after canonical `.mpcert` bytes or checked theory certificates are
-accepted by MPK under the active checker profile.
+`evidence_alpha.json` records the first reserve nonnegativity obligation as
+`mpk_verified` through a checked `mpk.linarith.v0` theory certificate under the
+`mvp-strict` profile. The remaining reserve obligations are deliberately left as
+`proof_pending` or `unsupported` until they have their own checked evidence.

@@ -289,6 +289,12 @@ pub fn encode_certificate(certificate: &Certificate) -> Vec<u8> {
     encoder.finish()
 }
 
+pub fn encode_theory_certificate(certificate: &TheoryCertificate) -> Vec<u8> {
+    let mut encoder = Encoder::new();
+    encoder.write_theory_certificate(certificate);
+    encoder.finish()
+}
+
 pub fn encode_unsigned_varint(value: u64, out: &mut Vec<u8>) {
     Encoder::write_unsigned_varint_to(value, out);
 }

@@ -1,6 +1,7 @@
 //! Checked theory-certificate strategy builders.
 
 use mpk_cert::encode::{ProofNode, TheoryCertificate};
+use mpk_cert::{encode_theory_certificate, hash_hex, hash_with_domain, HashDomain};
 use mpk_kernel::proof_theory::BITVEC_CERT_FORMAT;
 use mpk_theory::{ARRAY_CERT_FORMAT, BOOL_CERT_FORMAT, LINARITH_CERT_FORMAT};
 use serde::{Deserialize, Serialize};
@@ -24,6 +25,32 @@ pub enum TheoryStrategyKind {
     BitVecGround,
     Linarith,
     ArrayReadWrite,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq, Deserialize, Serialize)]
+#[serde(deny_unknown_fields)]
+pub struct TheoryStrategyCertificateEvidence {
+    pub theory: TheoryStrategyKind,
+    pub format: String,
+    pub theory_certificate_hash: String,
+}
+
+pub fn theory_strategy_certificate(theory: TheoryStrategyKind) -> TheoryCertificate {
+    build_theory_certificate(theory)
+}
+
+pub fn theory_strategy_certificate_evidence(
+    theory: TheoryStrategyKind,
+) -> TheoryStrategyCertificateEvidence {
+    let certificate = build_theory_certificate(theory);
+    let canonical = encode_theory_certificate(&certificate);
+    let hash = hash_with_domain(HashDomain::TheoryCertificate, &canonical);
+
+    TheoryStrategyCertificateEvidence {
+        theory,
+        format: certificate.format,
+        theory_certificate_hash: hash_hex(&hash),
+    }
 }
 
 impl ApiService {
@@ -153,11 +180,22 @@ fn push_bitvec_result(payload: &mut Vec<u8>, width_tag: u8, bits: u64) {
 fn linarith_payload() -> Vec<u8> {
     let mut payload = Vec::new();
     payload.extend_from_slice(b"MPKLINR0");
-    payload.push(0);
-    payload.push(0);
-    payload.extend_from_slice(&0i128.to_be_bytes());
-    payload.push(0);
+    payload.push(1);
+    push_linear_inequality(&mut payload, &[(0, -1)], 0);
+    push_linear_inequality(&mut payload, &[(0, -1)], 0);
+    payload.push(1);
+    payload.extend_from_slice(&0u32.to_be_bytes());
+    payload.extend_from_slice(&1u64.to_be_bytes());
     payload
+}
+
+fn push_linear_inequality(payload: &mut Vec<u8>, terms: &[(u32, i128)], constant: i128) {
+    payload.push(u8::try_from(terms.len()).expect("strategy fixture has <= u8 terms"));
+    for (variable, coefficient) in terms {
+        payload.extend_from_slice(&variable.to_be_bytes());
+        payload.extend_from_slice(&coefficient.to_be_bytes());
+    }
+    payload.extend_from_slice(&constant.to_be_bytes());
 }
 
 fn array_read_write_payload() -> Vec<u8> {

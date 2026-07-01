@@ -63,7 +63,8 @@ fn accepted_evidence_json_renders_markdown_snapshot() {
   - Axiom report hash: `0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5`
 - Theory certificate `theory:int-linear-001`
   - Theory: `signed_int_linear`
-  - Theory certificate hash: `aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`
+  - Format: `mpk.linarith.v0`
+  - Theory certificate hash: `a85d54f8d5c32dba5f414490120847013b7c727a3ce8b6ae2c3a44aae4edd7e1`
   - Checker profile: `mvp-strict`
 - Axiom report
   - Axiom report hash: `0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5`
@@ -242,7 +243,8 @@ fn accepted_evidence_json() -> &'static str {
       {
         "id": "theory:int-linear-001",
         "theory": "signed_int_linear",
-        "theory_certificate_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "format": "mpk.linarith.v0",
+        "theory_certificate_hash": "a85d54f8d5c32dba5f414490120847013b7c727a3ce8b6ae2c3a44aae4edd7e1",
         "checker_profile": "mvp-strict",
         "checked_obligations": [
           "vc:approved_reserve_nonnegative"
