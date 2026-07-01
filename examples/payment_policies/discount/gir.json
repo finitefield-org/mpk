@@ -1,0 +1,235 @@
+{
+  "schema_version": "mpk.gir.v0",
+  "packages": [
+    {
+      "package_path": "example.com/payment/discount",
+      "name": "discount",
+      "functions": [
+        {
+          "id": "example.com/payment/discount.ApprovedDiscountCents",
+          "package": "example.com/payment/discount",
+          "name": "ApprovedDiscountCents",
+          "params": [
+            {
+              "name": "subtotalCents",
+              "type": {
+                "kind": "bv",
+                "width": 64,
+                "signed": true
+              }
+            },
+            {
+              "name": "requestedDiscountCents",
+              "type": {
+                "kind": "bv",
+                "width": 64,
+                "signed": true
+              }
+            }
+          ],
+          "results": [
+            {
+              "name": "result0",
+              "type": {
+                "kind": "bv",
+                "width": 64,
+                "signed": true
+              }
+            }
+          ],
+          "locals": [
+            {
+              "name": "approved",
+              "type": {
+                "kind": "bv",
+                "width": 64,
+                "signed": true
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "label": "entry",
+              "parameters": [],
+              "instructions": [
+                {
+                  "id": "t0",
+                  "kind": "Copy",
+                  "type": {
+                    "kind": "bv",
+                    "width": 64,
+                    "signed": true
+                  },
+                  "target": "approved",
+                  "value": {
+                    "var": "requestedDiscountCents"
+                  }
+                },
+                {
+                  "id": "t1",
+                  "kind": "BinOp",
+                  "op": "signed_gt",
+                  "type": {
+                    "kind": "bool"
+                  },
+                  "lhs": {
+                    "var": "requestedDiscountCents"
+                  },
+                  "rhs": {
+                    "var": "subtotalCents"
+                  }
+                }
+              ],
+              "terminator": {
+                "kind": "Branch",
+                "cond": {
+                  "var": "t1"
+                },
+                "then_label": "if_then_0",
+                "else_label": "if_after_2"
+              }
+            },
+            {
+              "label": "if_then_0",
+              "parameters": [],
+              "instructions": [
+                {
+                  "id": "t2",
+                  "kind": "Copy",
+                  "type": {
+                    "kind": "bv",
+                    "width": 64,
+                    "signed": true
+                  },
+                  "target": "approved",
+                  "value": {
+                    "var": "subtotalCents"
+                  }
+                }
+              ],
+              "terminator": {
+                "kind": "Jump",
+                "label": "if_after_2"
+              }
+            },
+            {
+              "label": "if_after_2",
+              "parameters": [],
+              "instructions": [],
+              "terminator": {
+                "kind": "Return",
+                "values": [
+                  {
+                    "var": "approved"
+                  }
+                ]
+              }
+            }
+          ],
+          "contracts": {
+            "requires": [
+              {
+                "op": "signed_ge",
+                "lhs": {
+                  "var": "subtotalCents"
+                },
+                "rhs": {
+                  "int": {
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                }
+              },
+              {
+                "op": "signed_ge",
+                "lhs": {
+                  "var": "requestedDiscountCents"
+                },
+                "rhs": {
+                  "int": {
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                }
+              }
+            ],
+            "ensures": [
+              {
+                "op": "signed_ge",
+                "lhs": {
+                  "result": 0
+                },
+                "rhs": {
+                  "int": {
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                }
+              },
+              {
+                "op": "signed_le",
+                "lhs": {
+                  "result": 0
+                },
+                "rhs": {
+                  "var": "subtotalCents"
+                }
+              },
+              {
+                "op": "signed_le",
+                "lhs": {
+                  "result": 0
+                },
+                "rhs": {
+                  "var": "requestedDiscountCents"
+                }
+              },
+              {
+                "op": "or",
+                "args": [
+                  {
+                    "op": "eq",
+                    "lhs": {
+                      "result": 0
+                    },
+                    "rhs": {
+                      "var": "subtotalCents"
+                    }
+                  },
+                  {
+                    "op": "eq",
+                    "lhs": {
+                      "result": 0
+                    },
+                    "rhs": {
+                      "var": "requestedDiscountCents"
+                    }
+                  }
+                ]
+              }
+            ],
+            "modifies": [],
+            "loops": []
+          },
+          "supported_features": [
+            "params",
+            "locals",
+            "blocks",
+            "binops",
+            "if",
+            "return",
+            "structs",
+            "fixed_arrays",
+            "field",
+            "index"
+          ],
+          "rejected_features": []
+        }
+      ]
+    }
+  ],
+  "gir_hash": "92af353b7c13dffc859334501f0578b9338a21030ca686127e366d69c251fc94"
+}

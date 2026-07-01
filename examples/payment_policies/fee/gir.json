@@ -1,0 +1,235 @@
+{
+  "schema_version": "mpk.gir.v0",
+  "packages": [
+    {
+      "package_path": "example.com/payment/fee",
+      "name": "fee",
+      "functions": [
+        {
+          "id": "example.com/payment/fee.AppliedPlatformFeeCents",
+          "package": "example.com/payment/fee",
+          "name": "AppliedPlatformFeeCents",
+          "params": [
+            {
+              "name": "calculatedFeeCents",
+              "type": {
+                "kind": "bv",
+                "width": 64,
+                "signed": true
+              }
+            },
+            {
+              "name": "minimumFeeCents",
+              "type": {
+                "kind": "bv",
+                "width": 64,
+                "signed": true
+              }
+            }
+          ],
+          "results": [
+            {
+              "name": "result0",
+              "type": {
+                "kind": "bv",
+                "width": 64,
+                "signed": true
+              }
+            }
+          ],
+          "locals": [
+            {
+              "name": "applied",
+              "type": {
+                "kind": "bv",
+                "width": 64,
+                "signed": true
+              }
+            }
+          ],
+          "blocks": [
+            {
+              "label": "entry",
+              "parameters": [],
+              "instructions": [
+                {
+                  "id": "t0",
+                  "kind": "Copy",
+                  "type": {
+                    "kind": "bv",
+                    "width": 64,
+                    "signed": true
+                  },
+                  "target": "applied",
+                  "value": {
+                    "var": "calculatedFeeCents"
+                  }
+                },
+                {
+                  "id": "t1",
+                  "kind": "BinOp",
+                  "op": "signed_lt",
+                  "type": {
+                    "kind": "bool"
+                  },
+                  "lhs": {
+                    "var": "calculatedFeeCents"
+                  },
+                  "rhs": {
+                    "var": "minimumFeeCents"
+                  }
+                }
+              ],
+              "terminator": {
+                "kind": "Branch",
+                "cond": {
+                  "var": "t1"
+                },
+                "then_label": "if_then_0",
+                "else_label": "if_after_2"
+              }
+            },
+            {
+              "label": "if_then_0",
+              "parameters": [],
+              "instructions": [
+                {
+                  "id": "t2",
+                  "kind": "Copy",
+                  "type": {
+                    "kind": "bv",
+                    "width": 64,
+                    "signed": true
+                  },
+                  "target": "applied",
+                  "value": {
+                    "var": "minimumFeeCents"
+                  }
+                }
+              ],
+              "terminator": {
+                "kind": "Jump",
+                "label": "if_after_2"
+              }
+            },
+            {
+              "label": "if_after_2",
+              "parameters": [],
+              "instructions": [],
+              "terminator": {
+                "kind": "Return",
+                "values": [
+                  {
+                    "var": "applied"
+                  }
+                ]
+              }
+            }
+          ],
+          "contracts": {
+            "requires": [
+              {
+                "op": "signed_ge",
+                "lhs": {
+                  "var": "calculatedFeeCents"
+                },
+                "rhs": {
+                  "int": {
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                }
+              },
+              {
+                "op": "signed_ge",
+                "lhs": {
+                  "var": "minimumFeeCents"
+                },
+                "rhs": {
+                  "int": {
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                }
+              }
+            ],
+            "ensures": [
+              {
+                "op": "signed_ge",
+                "lhs": {
+                  "result": 0
+                },
+                "rhs": {
+                  "int": {
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                }
+              },
+              {
+                "op": "signed_ge",
+                "lhs": {
+                  "result": 0
+                },
+                "rhs": {
+                  "var": "calculatedFeeCents"
+                }
+              },
+              {
+                "op": "signed_ge",
+                "lhs": {
+                  "result": 0
+                },
+                "rhs": {
+                  "var": "minimumFeeCents"
+                }
+              },
+              {
+                "op": "or",
+                "args": [
+                  {
+                    "op": "eq",
+                    "lhs": {
+                      "result": 0
+                    },
+                    "rhs": {
+                      "var": "calculatedFeeCents"
+                    }
+                  },
+                  {
+                    "op": "eq",
+                    "lhs": {
+                      "result": 0
+                    },
+                    "rhs": {
+                      "var": "minimumFeeCents"
+                    }
+                  }
+                ]
+              }
+            ],
+            "modifies": [],
+            "loops": []
+          },
+          "supported_features": [
+            "params",
+            "locals",
+            "blocks",
+            "binops",
+            "if",
+            "return",
+            "structs",
+            "fixed_arrays",
+            "field",
+            "index"
+          ],
+          "rejected_features": []
+        }
+      ]
+    }
+  ],
+  "gir_hash": "e4d4e656ad3611ba9829639562a02b79315b61a8a274799b736cf00ad50c24f6"
+}

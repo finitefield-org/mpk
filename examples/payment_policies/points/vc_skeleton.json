@@ -1,0 +1,746 @@
+{
+  "schema_version": "mpk.vc.cert_skeleton.v0",
+  "source_gir_hash": "cf2e7c40b497ef4c8a6bd7612f1554223d1017d7640ad60fe7fd2332fa8e3f66",
+  "theorem_declarations": [
+    {
+      "name": "VC.Obligation.example.com.payment.points.ApprovedRedemptionPoints.then.post0",
+      "obligation_id": "example.com/payment/points.ApprovedRedemptionPoints.then.post0",
+      "function_id": "example.com/payment/points.ApprovedRedemptionPoints",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "pointsBalance"
+              },
+              {
+                "kind": "bit_vec_literal",
+                "value": "0",
+                "width": 64,
+                "signed": true
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Logic.Imp",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sge",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "requestedPoints"
+                  },
+                  {
+                    "kind": "bit_vec_literal",
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Logic.Imp",
+                "args": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sgt",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "requestedPoints"
+                      },
+                      {
+                        "kind": "var",
+                        "name": "pointsBalance"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sge",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "pointsBalance"
+                      },
+                      {
+                        "kind": "bit_vec_literal",
+                        "value": "0",
+                        "width": 64,
+                        "signed": true
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.com.payment.points.ApprovedRedemptionPoints.then.post1",
+      "obligation_id": "example.com/payment/points.ApprovedRedemptionPoints.then.post1",
+      "function_id": "example.com/payment/points.ApprovedRedemptionPoints",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "pointsBalance"
+              },
+              {
+                "kind": "bit_vec_literal",
+                "value": "0",
+                "width": 64,
+                "signed": true
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Logic.Imp",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sge",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "requestedPoints"
+                  },
+                  {
+                    "kind": "bit_vec_literal",
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Logic.Imp",
+                "args": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sgt",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "requestedPoints"
+                      },
+                      {
+                        "kind": "var",
+                        "name": "pointsBalance"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sle",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "pointsBalance"
+                      },
+                      {
+                        "kind": "var",
+                        "name": "pointsBalance"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.com.payment.points.ApprovedRedemptionPoints.then.post2",
+      "obligation_id": "example.com/payment/points.ApprovedRedemptionPoints.then.post2",
+      "function_id": "example.com/payment/points.ApprovedRedemptionPoints",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "pointsBalance"
+              },
+              {
+                "kind": "bit_vec_literal",
+                "value": "0",
+                "width": 64,
+                "signed": true
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Logic.Imp",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sge",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "requestedPoints"
+                  },
+                  {
+                    "kind": "bit_vec_literal",
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Logic.Imp",
+                "args": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sgt",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "requestedPoints"
+                      },
+                      {
+                        "kind": "var",
+                        "name": "pointsBalance"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sle",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "pointsBalance"
+                      },
+                      {
+                        "kind": "var",
+                        "name": "requestedPoints"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.com.payment.points.ApprovedRedemptionPoints.then.post3",
+      "obligation_id": "example.com/payment/points.ApprovedRedemptionPoints.then.post3",
+      "function_id": "example.com/payment/points.ApprovedRedemptionPoints",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "pointsBalance"
+              },
+              {
+                "kind": "bit_vec_literal",
+                "value": "0",
+                "width": 64,
+                "signed": true
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Logic.Imp",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sge",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "requestedPoints"
+                  },
+                  {
+                    "kind": "bit_vec_literal",
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Logic.Imp",
+                "args": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sgt",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "requestedPoints"
+                      },
+                      {
+                        "kind": "var",
+                        "name": "pointsBalance"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "apply",
+                    "function": "Std.Bool.or",
+                    "args": [
+                      {
+                        "kind": "apply",
+                        "function": "Std.Eq",
+                        "args": [
+                          {
+                            "kind": "var",
+                            "name": "pointsBalance"
+                          },
+                          {
+                            "kind": "var",
+                            "name": "pointsBalance"
+                          }
+                        ]
+                      },
+                      {
+                        "kind": "apply",
+                        "function": "Std.Eq",
+                        "args": [
+                          {
+                            "kind": "var",
+                            "name": "pointsBalance"
+                          },
+                          {
+                            "kind": "var",
+                            "name": "requestedPoints"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.com.payment.points.ApprovedRedemptionPoints.else.post0",
+      "obligation_id": "example.com/payment/points.ApprovedRedemptionPoints.else.post0",
+      "function_id": "example.com/payment/points.ApprovedRedemptionPoints",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "pointsBalance"
+              },
+              {
+                "kind": "bit_vec_literal",
+                "value": "0",
+                "width": 64,
+                "signed": true
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Logic.Imp",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sge",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "requestedPoints"
+                  },
+                  {
+                    "kind": "bit_vec_literal",
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Logic.Imp",
+                "args": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.Bool.not",
+                    "args": [
+                      {
+                        "kind": "apply",
+                        "function": "Std.BitVec.BV64.sgt",
+                        "args": [
+                          {
+                            "kind": "var",
+                            "name": "requestedPoints"
+                          },
+                          {
+                            "kind": "var",
+                            "name": "pointsBalance"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sge",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "requestedPoints"
+                      },
+                      {
+                        "kind": "bit_vec_literal",
+                        "value": "0",
+                        "width": 64,
+                        "signed": true
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.com.payment.points.ApprovedRedemptionPoints.else.post1",
+      "obligation_id": "example.com/payment/points.ApprovedRedemptionPoints.else.post1",
+      "function_id": "example.com/payment/points.ApprovedRedemptionPoints",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "pointsBalance"
+              },
+              {
+                "kind": "bit_vec_literal",
+                "value": "0",
+                "width": 64,
+                "signed": true
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Logic.Imp",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sge",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "requestedPoints"
+                  },
+                  {
+                    "kind": "bit_vec_literal",
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Logic.Imp",
+                "args": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.Bool.not",
+                    "args": [
+                      {
+                        "kind": "apply",
+                        "function": "Std.BitVec.BV64.sgt",
+                        "args": [
+                          {
+                            "kind": "var",
+                            "name": "requestedPoints"
+                          },
+                          {
+                            "kind": "var",
+                            "name": "pointsBalance"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sle",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "requestedPoints"
+                      },
+                      {
+                        "kind": "var",
+                        "name": "pointsBalance"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.com.payment.points.ApprovedRedemptionPoints.else.post2",
+      "obligation_id": "example.com/payment/points.ApprovedRedemptionPoints.else.post2",
+      "function_id": "example.com/payment/points.ApprovedRedemptionPoints",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "pointsBalance"
+              },
+              {
+                "kind": "bit_vec_literal",
+                "value": "0",
+                "width": 64,
+                "signed": true
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Logic.Imp",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sge",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "requestedPoints"
+                  },
+                  {
+                    "kind": "bit_vec_literal",
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Logic.Imp",
+                "args": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.Bool.not",
+                    "args": [
+                      {
+                        "kind": "apply",
+                        "function": "Std.BitVec.BV64.sgt",
+                        "args": [
+                          {
+                            "kind": "var",
+                            "name": "requestedPoints"
+                          },
+                          {
+                            "kind": "var",
+                            "name": "pointsBalance"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sle",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "requestedPoints"
+                      },
+                      {
+                        "kind": "var",
+                        "name": "requestedPoints"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.com.payment.points.ApprovedRedemptionPoints.else.post3",
+      "obligation_id": "example.com/payment/points.ApprovedRedemptionPoints.else.post3",
+      "function_id": "example.com/payment/points.ApprovedRedemptionPoints",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "pointsBalance"
+              },
+              {
+                "kind": "bit_vec_literal",
+                "value": "0",
+                "width": 64,
+                "signed": true
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Logic.Imp",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sge",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "requestedPoints"
+                  },
+                  {
+                    "kind": "bit_vec_literal",
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Logic.Imp",
+                "args": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.Bool.not",
+                    "args": [
+                      {
+                        "kind": "apply",
+                        "function": "Std.BitVec.BV64.sgt",
+                        "args": [
+                          {
+                            "kind": "var",
+                            "name": "requestedPoints"
+                          },
+                          {
+                            "kind": "var",
+                            "name": "pointsBalance"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "apply",
+                    "function": "Std.Bool.or",
+                    "args": [
+                      {
+                        "kind": "apply",
+                        "function": "Std.Eq",
+                        "args": [
+                          {
+                            "kind": "var",
+                            "name": "requestedPoints"
+                          },
+                          {
+                            "kind": "var",
+                            "name": "pointsBalance"
+                          }
+                        ]
+                      },
+                      {
+                        "kind": "apply",
+                        "function": "Std.Eq",
+                        "args": [
+                          {
+                            "kind": "var",
+                            "name": "requestedPoints"
+                          },
+                          {
+                            "kind": "var",
+                            "name": "requestedPoints"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

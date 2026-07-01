@@ -259,6 +259,9 @@ func validateContractSidecar(baseDir string, sidecar contractSidecar, function g
 	context := contractValidationContextForFunction(function)
 	contracts := emptyGIRContracts()
 
+	if len(sidecar.Ensures) == 0 {
+		findings = append(findings, contractFinding(baseDir, sidecar.Path, "contract sidecar requires at least one postcondition"))
+	}
 	for _, raw := range sidecar.Requires {
 		expr, err := parseContractExpr(raw, context)
 		if err != nil {

@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"reflect"
 	"testing"
 )
 
@@ -37,6 +38,26 @@ type goAlphaPositiveCase struct {
 	Name          string `json:"name"`
 	Path          string `json:"path"`
 	FunctionCount int    `json:"function_count"`
+}
+
+type paymentPolicyCorpus struct {
+	Schema   string                      `json:"schema"`
+	Positive []paymentPolicyPositiveCase `json:"positive"`
+	Negative []paymentPolicyNegativeCase `json:"negative"`
+}
+
+type paymentPolicyPositiveCase struct {
+	Name       string `json:"name"`
+	Path       string `json:"path"`
+	FunctionID string `json:"function_id"`
+	Contract   string `json:"contract"`
+}
+
+type paymentPolicyNegativeCase struct {
+	Name    string `json:"name"`
+	Path    string `json:"path"`
+	Feature string `json:"feature"`
+	Reason  string `json:"reason"`
 }
 
 func TestGoBasicCorpusPositiveFixturesLowerToGIR(t *testing.T) {
@@ -105,6 +126,84 @@ func TestGoBasicCorpusNegativeFixturesRejectWithReasons(t *testing.T) {
 			}
 			if result.SSA != nil {
 				t.Fatalf("SSA = %+v, want nil for rejected package", result.SSA)
+			}
+			if result.GIR != nil || result.GIREmission != nil || result.SourceManifest != nil {
+				t.Fatalf("GIR output = %+v / %+v / %+v, want nil for rejected package", result.GIR, result.GIREmission, result.SourceManifest)
+			}
+			if !hasRejectedFeature(result.RejectedFeatures, tt.Feature, tt.Reason) {
+				t.Fatalf("rejected features = %+v, want %q / %q", result.RejectedFeatures, tt.Feature, tt.Reason)
+			}
+		})
+	}
+}
+
+func TestPaymentPolicyPositiveFixturesLowerToGIR(t *testing.T) {
+	corpus := readPaymentPolicyCorpus(t)
+	corpusRoot := paymentPolicyCorpusRoot(t)
+	if corpus.Schema != "mpk.payment_policy_corpus.v0" {
+		t.Fatalf("schema = %q, want mpk.payment_policy_corpus.v0", corpus.Schema)
+	}
+	if len(corpus.Positive) != 5 {
+		t.Fatalf("positive case count = %d, want 5", len(corpus.Positive))
+	}
+
+	for _, tt := range corpus.Positive {
+		t.Run(tt.Name, func(t *testing.T) {
+			result := runPaymentPolicyCorpusPackage(t, corpusRoot, tt.Path)
+			if result.GIR == nil {
+				t.Fatal("GIR missing")
+			}
+			if result.GIR.GIRHash == "" {
+				t.Fatal("GIR hash missing")
+			}
+			if result.GIREmission == nil {
+				t.Fatal("GIR emission missing")
+			}
+			if result.SourceManifest == nil {
+				t.Fatal("source manifest missing")
+			}
+			if len(result.Packages) != 1 {
+				t.Fatalf("package count = %d, want 1: %+v", len(result.Packages), result.Packages)
+			}
+			if findGIRFunctionByID(*result.GIR, tt.FunctionID) == nil {
+				t.Fatalf("GIR missing function %q", tt.FunctionID)
+			}
+			assertPaymentPolicyGIRFixture(t, corpusRoot, tt.Path, *result.GIR)
+			if _, err := os.Stat(filepath.Join(corpusRoot, tt.Contract)); err != nil {
+				t.Fatalf("contract %q not readable: %v", tt.Contract, err)
+			}
+		})
+	}
+}
+
+func TestPaymentPolicyNegativeFixturesRejectWithReasons(t *testing.T) {
+	corpus := readPaymentPolicyCorpus(t)
+	corpusRoot := paymentPolicyCorpusRoot(t)
+	if len(corpus.Negative) != 4 {
+		t.Fatalf("negative case count = %d, want 4", len(corpus.Negative))
+	}
+
+	for _, tt := range corpus.Negative {
+		t.Run(tt.Name, func(t *testing.T) {
+			var stdout bytes.Buffer
+			var stderr bytes.Buffer
+
+			restoreWorkingDir := chdirForTest(t, filepath.Join(corpusRoot, filepath.FromSlash(tt.Path)))
+			exitCode := run([]string{"."}, &stdout, &stderr)
+			restoreWorkingDir()
+			if exitCode != 1 {
+				t.Fatalf("exit code = %d, want 1; stdout=%s stderr=%s", exitCode, stdout.String(), stderr.String())
+			}
+			if stderr.Len() != 0 {
+				t.Fatalf("stderr = %q, want empty", stderr.String())
+			}
+
+			var result cliResult
+			if err := json.Unmarshal(stdout.Bytes(), &result); err != nil {
+				t.Fatalf("decode stdout: %v\n%s", err, stdout.String())
+			}
+			if result.Status != "rejected" {
+				t.Fatalf("status = %q, want rejected", result.Status)
 			}
 			if result.GIR != nil || result.GIREmission != nil || result.SourceManifest != nil {
 				t.Fatalf("GIR output = %+v / %+v / %+v, want nil for rejected package", result.GIR, result.GIREmission, result.SourceManifest)
@@ -200,6 +299,20 @@ func readGoAlphaCorpus(t *testing.T) goAlphaCorpus {
 	return corpus
 }
 
+func readPaymentPolicyCorpus(t *testing.T) paymentPolicyCorpus {
+	t.Helper()
+
+	content, err := os.ReadFile(filepath.Join(paymentPolicyCorpusRoot(t), "manifest.json"))
+	if err != nil {
+		t.Fatalf("read payment policy corpus manifest: %v", err)
+	}
+	var corpus paymentPolicyCorpus
+	if err := json.Unmarshal(content, &corpus); err != nil {
+		t.Fatalf("decode payment policy corpus manifest: %v", err)
+	}
+	return corpus
+}
+
 func runGoBasicCorpusPackage(t *testing.T, corpusRoot string, path string) cliResult {
 	t.Helper()
 
@@ -214,6 +327,31 @@ func runGoAlphaCorpusPackage(t *testing.T, corpusRoot string, path string) cliRe
 	restoreWorkingDir := chdirForTest(t, corpusRoot)
 	defer restoreWorkingDir()
 	return runSuccessfulPackage(t, "./"+filepath.ToSlash(path))
+}
+
+func runPaymentPolicyCorpusPackage(t *testing.T, corpusRoot string, path string) cliResult {
+	t.Helper()
+
+	restoreWorkingDir := chdirForTest(t, filepath.Join(corpusRoot, filepath.FromSlash(path)))
+	defer restoreWorkingDir()
+	return runSuccessfulPackage(t, ".")
+}
+
+func assertPaymentPolicyGIRFixture(t *testing.T, corpusRoot string, path string, actual girModule) {
+	t.Helper()
+
+	fixturePath := filepath.Join(corpusRoot, filepath.FromSlash(path), "gir.json")
+	content, err := os.ReadFile(fixturePath)
+	if err != nil {
+		t.Fatalf("read payment policy GIR fixture %q: %v", fixturePath, err)
+	}
+	var expected girModule
+	if err := json.Unmarshal(content, &expected); err != nil {
+		t.Fatalf("decode payment policy GIR fixture %q: %v", fixturePath, err)
+	}
+	if !reflect.DeepEqual(actual, expected) {
+		t.Fatalf("payment policy GIR fixture %q is stale", fixturePath)
+	}
 }
 
 func goBasicCorpusRoot(t *testing.T) string {
@@ -236,12 +374,34 @@ func goAlphaCorpusRoot(t *testing.T) string {
 	return root
 }
 
+func paymentPolicyCorpusRoot(t *testing.T) string {
+	t.Helper()
+
+	root, err := filepath.Abs(filepath.FromSlash("../../examples/payment_policies"))
+	if err != nil {
+		t.Fatalf("resolve payment policy corpus root: %v", err)
+	}
+	return root
+}
+
 func countGIRFunctions(module girModule) int {
 	total := 0
 	for _, pkg := range module.Packages {
 		total += len(pkg.Functions)
 	}
 	return total
+}
+
+func findGIRFunctionByID(module girModule, functionID string) *girFunction {
+	for packageIndex := range module.Packages {
+		for functionIndex := range module.Packages[packageIndex].Functions {
+			function := &module.Packages[packageIndex].Functions[functionIndex]
+			if function.ID == functionID {
+				return function
+			}
+		}
+	}
+	return nil
 }
 
 func chdirForTest(t *testing.T, dir string) func() {

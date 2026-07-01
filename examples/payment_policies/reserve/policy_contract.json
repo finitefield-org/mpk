@@ -1,0 +1,88 @@
+{
+  "schema": "mpk.go.contract.v0",
+  "function": "reserve.ApprovedReserveCents",
+  "requires": [
+    {
+      "op": "signed_ge",
+      "lhs": {
+        "var": "balanceCents"
+      },
+      "rhs": {
+        "int": {
+          "value": "0",
+          "width": 64,
+          "signed": true
+        }
+      }
+    },
+    {
+      "op": "signed_ge",
+      "lhs": {
+        "var": "requestedCents"
+      },
+      "rhs": {
+        "int": {
+          "value": "0",
+          "width": 64,
+          "signed": true
+        }
+      }
+    }
+  ],
+  "ensures": [
+    {
+      "op": "signed_ge",
+      "lhs": {
+        "result": 0
+      },
+      "rhs": {
+        "int": {
+          "value": "0",
+          "width": 64,
+          "signed": true
+        }
+      }
+    },
+    {
+      "op": "signed_le",
+      "lhs": {
+        "result": 0
+      },
+      "rhs": {
+        "var": "balanceCents"
+      }
+    },
+    {
+      "op": "signed_le",
+      "lhs": {
+        "result": 0
+      },
+      "rhs": {
+        "var": "requestedCents"
+      }
+    },
+    {
+      "op": "or",
+      "args": [
+        {
+          "op": "eq",
+          "lhs": {
+            "result": 0
+          },
+          "rhs": {
+            "var": "balanceCents"
+          }
+        },
+        {
+          "op": "eq",
+          "lhs": {
+            "result": 0
+          },
+          "rhs": {
+            "var": "requestedCents"
+          }
+        }
+      ]
+    }
+  ]
+}

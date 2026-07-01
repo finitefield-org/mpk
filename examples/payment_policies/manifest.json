@@ -1,0 +1,61 @@
+{
+  "schema": "mpk.payment_policy_corpus.v0",
+  "positive": [
+    {
+      "name": "reserve",
+      "path": "reserve",
+      "function_id": "example.com/payment/reserve.ApprovedReserveCents",
+      "contract": "reserve/policy_contract.json"
+    },
+    {
+      "name": "refund",
+      "path": "refund",
+      "function_id": "example.com/payment/refund.ApprovedRefundCents",
+      "contract": "refund/policy_contract.json"
+    },
+    {
+      "name": "discount",
+      "path": "discount",
+      "function_id": "example.com/payment/discount.ApprovedDiscountCents",
+      "contract": "discount/policy_contract.json"
+    },
+    {
+      "name": "fee",
+      "path": "fee",
+      "function_id": "example.com/payment/fee.AppliedPlatformFeeCents",
+      "contract": "fee/policy_contract.json"
+    },
+    {
+      "name": "points",
+      "path": "points",
+      "function_id": "example.com/payment/points.ApprovedRedemptionPoints",
+      "contract": "points/policy_contract.json"
+    }
+  ],
+  "negative": [
+    {
+      "name": "float",
+      "path": "negative/float",
+      "feature": "floating point",
+      "reason": "floating-point numbers are rejected by Go subset v0"
+    },
+    {
+      "name": "map",
+      "path": "negative/map",
+      "feature": "maps",
+      "reason": "maps are rejected by Go subset v0"
+    },
+    {
+      "name": "pointer",
+      "path": "negative/pointer",
+      "feature": "pointers",
+      "reason": "pointers are rejected by Go subset v0"
+    },
+    {
+      "name": "missing_postconditions",
+      "path": "negative/missing_postconditions",
+      "feature": "contract sidecar",
+      "reason": "contract sidecar requires at least one postcondition"
+    }
+  ]
+}

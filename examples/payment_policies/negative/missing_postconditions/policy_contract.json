@@ -1,0 +1,20 @@
+{
+  "schema": "mpk.go.contract.v0",
+  "function": "missingcontract.IdentityCents",
+  "requires": [
+    {
+      "op": "signed_ge",
+      "lhs": {
+        "var": "value"
+      },
+      "rhs": {
+        "int": {
+          "value": "0",
+          "width": 64,
+          "signed": true
+        }
+      }
+    }
+  ],
+  "ensures": []
+}

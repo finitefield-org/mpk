@@ -1,0 +1,746 @@
+{
+  "schema_version": "mpk.vc.cert_skeleton.v0",
+  "source_gir_hash": "2b7b42fba9b656183ed1a0edfdef144ef3b699e9db79a33aec7a463f869969ab",
+  "theorem_declarations": [
+    {
+      "name": "VC.Obligation.example.com.payment.refund.ApprovedRefundCents.then.post0",
+      "obligation_id": "example.com/payment/refund.ApprovedRefundCents.then.post0",
+      "function_id": "example.com/payment/refund.ApprovedRefundCents",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "paidCents"
+              },
+              {
+                "kind": "bit_vec_literal",
+                "value": "0",
+                "width": 64,
+                "signed": true
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Logic.Imp",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sge",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "requestedCents"
+                  },
+                  {
+                    "kind": "bit_vec_literal",
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Logic.Imp",
+                "args": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sgt",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "requestedCents"
+                      },
+                      {
+                        "kind": "var",
+                        "name": "paidCents"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sge",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "paidCents"
+                      },
+                      {
+                        "kind": "bit_vec_literal",
+                        "value": "0",
+                        "width": 64,
+                        "signed": true
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.com.payment.refund.ApprovedRefundCents.then.post1",
+      "obligation_id": "example.com/payment/refund.ApprovedRefundCents.then.post1",
+      "function_id": "example.com/payment/refund.ApprovedRefundCents",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "paidCents"
+              },
+              {
+                "kind": "bit_vec_literal",
+                "value": "0",
+                "width": 64,
+                "signed": true
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Logic.Imp",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sge",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "requestedCents"
+                  },
+                  {
+                    "kind": "bit_vec_literal",
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Logic.Imp",
+                "args": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sgt",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "requestedCents"
+                      },
+                      {
+                        "kind": "var",
+                        "name": "paidCents"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sle",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "paidCents"
+                      },
+                      {
+                        "kind": "var",
+                        "name": "paidCents"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.com.payment.refund.ApprovedRefundCents.then.post2",
+      "obligation_id": "example.com/payment/refund.ApprovedRefundCents.then.post2",
+      "function_id": "example.com/payment/refund.ApprovedRefundCents",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "paidCents"
+              },
+              {
+                "kind": "bit_vec_literal",
+                "value": "0",
+                "width": 64,
+                "signed": true
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Logic.Imp",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sge",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "requestedCents"
+                  },
+                  {
+                    "kind": "bit_vec_literal",
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Logic.Imp",
+                "args": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sgt",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "requestedCents"
+                      },
+                      {
+                        "kind": "var",
+                        "name": "paidCents"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sle",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "paidCents"
+                      },
+                      {
+                        "kind": "var",
+                        "name": "requestedCents"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.com.payment.refund.ApprovedRefundCents.then.post3",
+      "obligation_id": "example.com/payment/refund.ApprovedRefundCents.then.post3",
+      "function_id": "example.com/payment/refund.ApprovedRefundCents",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "paidCents"
+              },
+              {
+                "kind": "bit_vec_literal",
+                "value": "0",
+                "width": 64,
+                "signed": true
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Logic.Imp",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sge",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "requestedCents"
+                  },
+                  {
+                    "kind": "bit_vec_literal",
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Logic.Imp",
+                "args": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sgt",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "requestedCents"
+                      },
+                      {
+                        "kind": "var",
+                        "name": "paidCents"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "apply",
+                    "function": "Std.Bool.or",
+                    "args": [
+                      {
+                        "kind": "apply",
+                        "function": "Std.Eq",
+                        "args": [
+                          {
+                            "kind": "var",
+                            "name": "paidCents"
+                          },
+                          {
+                            "kind": "var",
+                            "name": "paidCents"
+                          }
+                        ]
+                      },
+                      {
+                        "kind": "apply",
+                        "function": "Std.Eq",
+                        "args": [
+                          {
+                            "kind": "var",
+                            "name": "paidCents"
+                          },
+                          {
+                            "kind": "var",
+                            "name": "requestedCents"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.com.payment.refund.ApprovedRefundCents.else.post0",
+      "obligation_id": "example.com/payment/refund.ApprovedRefundCents.else.post0",
+      "function_id": "example.com/payment/refund.ApprovedRefundCents",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "paidCents"
+              },
+              {
+                "kind": "bit_vec_literal",
+                "value": "0",
+                "width": 64,
+                "signed": true
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Logic.Imp",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sge",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "requestedCents"
+                  },
+                  {
+                    "kind": "bit_vec_literal",
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Logic.Imp",
+                "args": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.Bool.not",
+                    "args": [
+                      {
+                        "kind": "apply",
+                        "function": "Std.BitVec.BV64.sgt",
+                        "args": [
+                          {
+                            "kind": "var",
+                            "name": "requestedCents"
+                          },
+                          {
+                            "kind": "var",
+                            "name": "paidCents"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sge",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "requestedCents"
+                      },
+                      {
+                        "kind": "bit_vec_literal",
+                        "value": "0",
+                        "width": 64,
+                        "signed": true
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.com.payment.refund.ApprovedRefundCents.else.post1",
+      "obligation_id": "example.com/payment/refund.ApprovedRefundCents.else.post1",
+      "function_id": "example.com/payment/refund.ApprovedRefundCents",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "paidCents"
+              },
+              {
+                "kind": "bit_vec_literal",
+                "value": "0",
+                "width": 64,
+                "signed": true
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Logic.Imp",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sge",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "requestedCents"
+                  },
+                  {
+                    "kind": "bit_vec_literal",
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Logic.Imp",
+                "args": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.Bool.not",
+                    "args": [
+                      {
+                        "kind": "apply",
+                        "function": "Std.BitVec.BV64.sgt",
+                        "args": [
+                          {
+                            "kind": "var",
+                            "name": "requestedCents"
+                          },
+                          {
+                            "kind": "var",
+                            "name": "paidCents"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sle",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "requestedCents"
+                      },
+                      {
+                        "kind": "var",
+                        "name": "paidCents"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.com.payment.refund.ApprovedRefundCents.else.post2",
+      "obligation_id": "example.com/payment/refund.ApprovedRefundCents.else.post2",
+      "function_id": "example.com/payment/refund.ApprovedRefundCents",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "paidCents"
+              },
+              {
+                "kind": "bit_vec_literal",
+                "value": "0",
+                "width": 64,
+                "signed": true
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Logic.Imp",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sge",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "requestedCents"
+                  },
+                  {
+                    "kind": "bit_vec_literal",
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Logic.Imp",
+                "args": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.Bool.not",
+                    "args": [
+                      {
+                        "kind": "apply",
+                        "function": "Std.BitVec.BV64.sgt",
+                        "args": [
+                          {
+                            "kind": "var",
+                            "name": "requestedCents"
+                          },
+                          {
+                            "kind": "var",
+                            "name": "paidCents"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sle",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "requestedCents"
+                      },
+                      {
+                        "kind": "var",
+                        "name": "requestedCents"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.com.payment.refund.ApprovedRefundCents.else.post3",
+      "obligation_id": "example.com/payment/refund.ApprovedRefundCents.else.post3",
+      "function_id": "example.com/payment/refund.ApprovedRefundCents",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "paidCents"
+              },
+              {
+                "kind": "bit_vec_literal",
+                "value": "0",
+                "width": 64,
+                "signed": true
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Logic.Imp",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sge",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "requestedCents"
+                  },
+                  {
+                    "kind": "bit_vec_literal",
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Logic.Imp",
+                "args": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.Bool.not",
+                    "args": [
+                      {
+                        "kind": "apply",
+                        "function": "Std.BitVec.BV64.sgt",
+                        "args": [
+                          {
+                            "kind": "var",
+                            "name": "requestedCents"
+                          },
+                          {
+                            "kind": "var",
+                            "name": "paidCents"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "apply",
+                    "function": "Std.Bool.or",
+                    "args": [
+                      {
+                        "kind": "apply",
+                        "function": "Std.Eq",
+                        "args": [
+                          {
+                            "kind": "var",
+                            "name": "requestedCents"
+                          },
+                          {
+                            "kind": "var",
+                            "name": "paidCents"
+                          }
+                        ]
+                      },
+                      {
+                        "kind": "apply",
+                        "function": "Std.Eq",
+                        "args": [
+                          {
+                            "kind": "var",
+                            "name": "requestedCents"
+                          },
+                          {
+                            "kind": "var",
+                            "name": "requestedCents"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

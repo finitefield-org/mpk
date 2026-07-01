@@ -1,0 +1,609 @@
+{
+  "source_gir_hash": "cf2e7c40b497ef4c8a6bd7612f1554223d1017d7640ad60fe7fd2332fa8e3f66",
+  "obligations": [
+    {
+      "id": "example.com/payment/points.ApprovedRedemptionPoints.then.post0",
+      "function_id": "example.com/payment/points.ApprovedRedemptionPoints",
+      "kind": "postcondition",
+      "assumptions": [
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "pointsBalance"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "requestedPoints"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sgt",
+          "args": [
+            {
+              "kind": "var",
+              "name": "requestedPoints"
+            },
+            {
+              "kind": "var",
+              "name": "pointsBalance"
+            }
+          ]
+        }
+      ],
+      "conclusion": {
+        "kind": "apply",
+        "function": "Std.BitVec.BV64.sge",
+        "args": [
+          {
+            "kind": "var",
+            "name": "pointsBalance"
+          },
+          {
+            "kind": "bit_vec_literal",
+            "value": "0",
+            "width": 64,
+            "signed": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "example.com/payment/points.ApprovedRedemptionPoints.then.post1",
+      "function_id": "example.com/payment/points.ApprovedRedemptionPoints",
+      "kind": "postcondition",
+      "assumptions": [
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "pointsBalance"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "requestedPoints"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sgt",
+          "args": [
+            {
+              "kind": "var",
+              "name": "requestedPoints"
+            },
+            {
+              "kind": "var",
+              "name": "pointsBalance"
+            }
+          ]
+        }
+      ],
+      "conclusion": {
+        "kind": "apply",
+        "function": "Std.BitVec.BV64.sle",
+        "args": [
+          {
+            "kind": "var",
+            "name": "pointsBalance"
+          },
+          {
+            "kind": "var",
+            "name": "pointsBalance"
+          }
+        ]
+      }
+    },
+    {
+      "id": "example.com/payment/points.ApprovedRedemptionPoints.then.post2",
+      "function_id": "example.com/payment/points.ApprovedRedemptionPoints",
+      "kind": "postcondition",
+      "assumptions": [
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "pointsBalance"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "requestedPoints"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sgt",
+          "args": [
+            {
+              "kind": "var",
+              "name": "requestedPoints"
+            },
+            {
+              "kind": "var",
+              "name": "pointsBalance"
+            }
+          ]
+        }
+      ],
+      "conclusion": {
+        "kind": "apply",
+        "function": "Std.BitVec.BV64.sle",
+        "args": [
+          {
+            "kind": "var",
+            "name": "pointsBalance"
+          },
+          {
+            "kind": "var",
+            "name": "requestedPoints"
+          }
+        ]
+      }
+    },
+    {
+      "id": "example.com/payment/points.ApprovedRedemptionPoints.then.post3",
+      "function_id": "example.com/payment/points.ApprovedRedemptionPoints",
+      "kind": "postcondition",
+      "assumptions": [
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "pointsBalance"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "requestedPoints"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sgt",
+          "args": [
+            {
+              "kind": "var",
+              "name": "requestedPoints"
+            },
+            {
+              "kind": "var",
+              "name": "pointsBalance"
+            }
+          ]
+        }
+      ],
+      "conclusion": {
+        "kind": "apply",
+        "function": "Std.Bool.or",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.Eq",
+            "args": [
+              {
+                "kind": "var",
+                "name": "pointsBalance"
+              },
+              {
+                "kind": "var",
+                "name": "pointsBalance"
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Eq",
+            "args": [
+              {
+                "kind": "var",
+                "name": "pointsBalance"
+              },
+              {
+                "kind": "var",
+                "name": "requestedPoints"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "example.com/payment/points.ApprovedRedemptionPoints.else.post0",
+      "function_id": "example.com/payment/points.ApprovedRedemptionPoints",
+      "kind": "postcondition",
+      "assumptions": [
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "pointsBalance"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "requestedPoints"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.Bool.not",
+          "args": [
+            {
+              "kind": "apply",
+              "function": "Std.BitVec.BV64.sgt",
+              "args": [
+                {
+                  "kind": "var",
+                  "name": "requestedPoints"
+                },
+                {
+                  "kind": "var",
+                  "name": "pointsBalance"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "conclusion": {
+        "kind": "apply",
+        "function": "Std.BitVec.BV64.sge",
+        "args": [
+          {
+            "kind": "var",
+            "name": "requestedPoints"
+          },
+          {
+            "kind": "bit_vec_literal",
+            "value": "0",
+            "width": 64,
+            "signed": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "example.com/payment/points.ApprovedRedemptionPoints.else.post1",
+      "function_id": "example.com/payment/points.ApprovedRedemptionPoints",
+      "kind": "postcondition",
+      "assumptions": [
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "pointsBalance"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "requestedPoints"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.Bool.not",
+          "args": [
+            {
+              "kind": "apply",
+              "function": "Std.BitVec.BV64.sgt",
+              "args": [
+                {
+                  "kind": "var",
+                  "name": "requestedPoints"
+                },
+                {
+                  "kind": "var",
+                  "name": "pointsBalance"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "conclusion": {
+        "kind": "apply",
+        "function": "Std.BitVec.BV64.sle",
+        "args": [
+          {
+            "kind": "var",
+            "name": "requestedPoints"
+          },
+          {
+            "kind": "var",
+            "name": "pointsBalance"
+          }
+        ]
+      }
+    },
+    {
+      "id": "example.com/payment/points.ApprovedRedemptionPoints.else.post2",
+      "function_id": "example.com/payment/points.ApprovedRedemptionPoints",
+      "kind": "postcondition",
+      "assumptions": [
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "pointsBalance"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "requestedPoints"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.Bool.not",
+          "args": [
+            {
+              "kind": "apply",
+              "function": "Std.BitVec.BV64.sgt",
+              "args": [
+                {
+                  "kind": "var",
+                  "name": "requestedPoints"
+                },
+                {
+                  "kind": "var",
+                  "name": "pointsBalance"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "conclusion": {
+        "kind": "apply",
+        "function": "Std.BitVec.BV64.sle",
+        "args": [
+          {
+            "kind": "var",
+            "name": "requestedPoints"
+          },
+          {
+            "kind": "var",
+            "name": "requestedPoints"
+          }
+        ]
+      }
+    },
+    {
+      "id": "example.com/payment/points.ApprovedRedemptionPoints.else.post3",
+      "function_id": "example.com/payment/points.ApprovedRedemptionPoints",
+      "kind": "postcondition",
+      "assumptions": [
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "pointsBalance"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "requestedPoints"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.Bool.not",
+          "args": [
+            {
+              "kind": "apply",
+              "function": "Std.BitVec.BV64.sgt",
+              "args": [
+                {
+                  "kind": "var",
+                  "name": "requestedPoints"
+                },
+                {
+                  "kind": "var",
+                  "name": "pointsBalance"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "conclusion": {
+        "kind": "apply",
+        "function": "Std.Bool.or",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.Eq",
+            "args": [
+              {
+                "kind": "var",
+                "name": "requestedPoints"
+              },
+              {
+                "kind": "var",
+                "name": "pointsBalance"
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Eq",
+            "args": [
+              {
+                "kind": "var",
+                "name": "requestedPoints"
+              },
+              {
+                "kind": "var",
+                "name": "requestedPoints"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

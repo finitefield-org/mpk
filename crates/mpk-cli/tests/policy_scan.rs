@@ -219,6 +219,82 @@ fn policy_scan_cli_scans_order_policy_as_ready() {
 }
 
 #[test]
+fn policy_scan_cli_scans_payment_policy_corpus_as_ready() {
+    ensure_go2gir();
+    let cases = [
+        (
+            "reserve",
+            "example.com/payment/reserve.ApprovedReserveCents",
+            "balanceCents >= 0",
+        ),
+        (
+            "refund",
+            "example.com/payment/refund.ApprovedRefundCents",
+            "paidCents >= 0",
+        ),
+        (
+            "discount",
+            "example.com/payment/discount.ApprovedDiscountCents",
+            "subtotalCents >= 0",
+        ),
+        (
+            "fee",
+            "example.com/payment/fee.AppliedPlatformFeeCents",
+            "calculatedFeeCents >= 0",
+        ),
+        (
+            "points",
+            "example.com/payment/points.ApprovedRedemptionPoints",
+            "pointsBalance >= 0",
+        ),
+    ];
+
+    for (name, function_id, first_precondition) in cases {
+        let output_path = temp_scan_path(&format!("payment-policy-{name}"));
+        let target = format!("examples/payment_policies/{name}");
+        let contract = format!("{target}/policy_contract.json");
+        let output = run_mpk(&[
+            "policy",
+            "scan",
+            &target,
+            "--function",
+            function_id,
+            "--contract",
+            &contract,
+            "--json-out",
+            output_path.to_str().expect("temp path is UTF-8"),
+        ]);
+
+        assert!(
+            output.status.success(),
+            "{name} stderr: {}",
+            stderr(&output)
+        );
+        assert_eq!(
+            stdout(&output),
+            format!(
+                "ok policy scan status=ready json={}\n",
+                output_path.display()
+            ),
+            "{name} stdout"
+        );
+        let report = read_scan_report(&output_path);
+        assert_eq!(report.readiness.status, PolicyScanReadinessStatus::Ready);
+        assert_eq!(
+            report.contract.status,
+            PolicyScanContractStatus::FunctionResolved
+        );
+        assert_eq!(report.target.function_id, function_id);
+        assert_eq!(report.source.root, target);
+        assert_eq!(report.source.gir_sha256.as_ref().map(String::len), Some(64));
+        assert_eq!(report.preconditions.len(), 2);
+        assert_eq!(report.preconditions[0].expression, first_precondition);
+        assert_eq!(report.rejected_features, []);
+        let _ = fs::remove_file(output_path);
+    }
+}
+
+#[test]
 fn policy_scan_cli_scans_unsupported_go_feature_as_unsupported() {
     ensure_go2gir();
     let output_path = temp_scan_path("unsupported-map");
@@ -254,6 +330,74 @@ fn policy_scan_cli_scans_unsupported_go_feature_as_unsupported() {
         .iter()
         .all(|feature| feature.function_id.as_deref() == Some(function_id)));
     let _ = fs::remove_file(output_path);
+}
+
+#[test]
+fn policy_scan_cli_maps_payment_policy_negative_examples() {
+    ensure_go2gir();
+    let cases = [
+        (
+            "float",
+            "example.com/payment/negative/float.ApprovedRate",
+            "examples/payment_policies/negative/float/missing_contract.json",
+            PolicyScanReadinessStatus::Unsupported,
+            "GO2GIR_REJECTED_FLOATING_POINT",
+        ),
+        (
+            "map",
+            "example.com/payment/negative/map.LookupReserve",
+            "examples/payment_policies/negative/map/missing_contract.json",
+            PolicyScanReadinessStatus::Unsupported,
+            "GO2GIR_REJECTED_MAPS",
+        ),
+        (
+            "pointer",
+            "example.com/payment/negative/pointer.DereferenceReserve",
+            "examples/payment_policies/negative/pointer/missing_contract.json",
+            PolicyScanReadinessStatus::Unsupported,
+            "GO2GIR_REJECTED_POINTERS",
+        ),
+        (
+            "missing_postconditions",
+            "example.com/payment/negative/missing_postconditions.IdentityCents",
+            "examples/payment_policies/negative/missing_postconditions/policy_contract.json",
+            PolicyScanReadinessStatus::NeedsRefactor,
+            "GO2GIR_REJECTED_CONTRACT_SIDECAR",
+        ),
+    ];
+
+    for (name, function_id, contract, expected_status, expected_feature_code) in cases {
+        let output_path = temp_scan_path(&format!("payment-policy-negative-{name}"));
+        let target = format!("examples/payment_policies/negative/{name}");
+        let output = run_mpk(&[
+            "policy",
+            "scan",
+            &target,
+            "--function",
+            function_id,
+            "--contract",
+            contract,
+            "--json-out",
+            output_path.to_str().expect("temp path is UTF-8"),
+        ]);
+
+        assert!(
+            output.status.success(),
+            "{name} stderr: {}",
+            stderr(&output)
+        );
+        let report = read_scan_report(&output_path);
+        assert_eq!(report.readiness.status, expected_status, "{name} status");
+        assert!(
+            report
+                .rejected_features
+                .iter()
+                .any(|feature| feature.code == expected_feature_code),
+            "{name} rejected features: {:?}",
+            report.rejected_features
+        );
+        let _ = fs::remove_file(output_path);
+    }
 }
 
 #[test]

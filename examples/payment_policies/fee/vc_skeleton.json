@@ -1,0 +1,746 @@
+{
+  "schema_version": "mpk.vc.cert_skeleton.v0",
+  "source_gir_hash": "e4d4e656ad3611ba9829639562a02b79315b61a8a274799b736cf00ad50c24f6",
+  "theorem_declarations": [
+    {
+      "name": "VC.Obligation.example.com.payment.fee.AppliedPlatformFeeCents.then.post0",
+      "obligation_id": "example.com/payment/fee.AppliedPlatformFeeCents.then.post0",
+      "function_id": "example.com/payment/fee.AppliedPlatformFeeCents",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "calculatedFeeCents"
+              },
+              {
+                "kind": "bit_vec_literal",
+                "value": "0",
+                "width": 64,
+                "signed": true
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Logic.Imp",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sge",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "minimumFeeCents"
+                  },
+                  {
+                    "kind": "bit_vec_literal",
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Logic.Imp",
+                "args": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.slt",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "calculatedFeeCents"
+                      },
+                      {
+                        "kind": "var",
+                        "name": "minimumFeeCents"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sge",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "minimumFeeCents"
+                      },
+                      {
+                        "kind": "bit_vec_literal",
+                        "value": "0",
+                        "width": 64,
+                        "signed": true
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.com.payment.fee.AppliedPlatformFeeCents.then.post1",
+      "obligation_id": "example.com/payment/fee.AppliedPlatformFeeCents.then.post1",
+      "function_id": "example.com/payment/fee.AppliedPlatformFeeCents",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "calculatedFeeCents"
+              },
+              {
+                "kind": "bit_vec_literal",
+                "value": "0",
+                "width": 64,
+                "signed": true
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Logic.Imp",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sge",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "minimumFeeCents"
+                  },
+                  {
+                    "kind": "bit_vec_literal",
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Logic.Imp",
+                "args": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.slt",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "calculatedFeeCents"
+                      },
+                      {
+                        "kind": "var",
+                        "name": "minimumFeeCents"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sge",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "minimumFeeCents"
+                      },
+                      {
+                        "kind": "var",
+                        "name": "calculatedFeeCents"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.com.payment.fee.AppliedPlatformFeeCents.then.post2",
+      "obligation_id": "example.com/payment/fee.AppliedPlatformFeeCents.then.post2",
+      "function_id": "example.com/payment/fee.AppliedPlatformFeeCents",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "calculatedFeeCents"
+              },
+              {
+                "kind": "bit_vec_literal",
+                "value": "0",
+                "width": 64,
+                "signed": true
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Logic.Imp",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sge",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "minimumFeeCents"
+                  },
+                  {
+                    "kind": "bit_vec_literal",
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Logic.Imp",
+                "args": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.slt",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "calculatedFeeCents"
+                      },
+                      {
+                        "kind": "var",
+                        "name": "minimumFeeCents"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sge",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "minimumFeeCents"
+                      },
+                      {
+                        "kind": "var",
+                        "name": "minimumFeeCents"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.com.payment.fee.AppliedPlatformFeeCents.then.post3",
+      "obligation_id": "example.com/payment/fee.AppliedPlatformFeeCents.then.post3",
+      "function_id": "example.com/payment/fee.AppliedPlatformFeeCents",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "calculatedFeeCents"
+              },
+              {
+                "kind": "bit_vec_literal",
+                "value": "0",
+                "width": 64,
+                "signed": true
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Logic.Imp",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sge",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "minimumFeeCents"
+                  },
+                  {
+                    "kind": "bit_vec_literal",
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Logic.Imp",
+                "args": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.slt",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "calculatedFeeCents"
+                      },
+                      {
+                        "kind": "var",
+                        "name": "minimumFeeCents"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "apply",
+                    "function": "Std.Bool.or",
+                    "args": [
+                      {
+                        "kind": "apply",
+                        "function": "Std.Eq",
+                        "args": [
+                          {
+                            "kind": "var",
+                            "name": "minimumFeeCents"
+                          },
+                          {
+                            "kind": "var",
+                            "name": "calculatedFeeCents"
+                          }
+                        ]
+                      },
+                      {
+                        "kind": "apply",
+                        "function": "Std.Eq",
+                        "args": [
+                          {
+                            "kind": "var",
+                            "name": "minimumFeeCents"
+                          },
+                          {
+                            "kind": "var",
+                            "name": "minimumFeeCents"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.com.payment.fee.AppliedPlatformFeeCents.else.post0",
+      "obligation_id": "example.com/payment/fee.AppliedPlatformFeeCents.else.post0",
+      "function_id": "example.com/payment/fee.AppliedPlatformFeeCents",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "calculatedFeeCents"
+              },
+              {
+                "kind": "bit_vec_literal",
+                "value": "0",
+                "width": 64,
+                "signed": true
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Logic.Imp",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sge",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "minimumFeeCents"
+                  },
+                  {
+                    "kind": "bit_vec_literal",
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Logic.Imp",
+                "args": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.Bool.not",
+                    "args": [
+                      {
+                        "kind": "apply",
+                        "function": "Std.BitVec.BV64.slt",
+                        "args": [
+                          {
+                            "kind": "var",
+                            "name": "calculatedFeeCents"
+                          },
+                          {
+                            "kind": "var",
+                            "name": "minimumFeeCents"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sge",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "calculatedFeeCents"
+                      },
+                      {
+                        "kind": "bit_vec_literal",
+                        "value": "0",
+                        "width": 64,
+                        "signed": true
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.com.payment.fee.AppliedPlatformFeeCents.else.post1",
+      "obligation_id": "example.com/payment/fee.AppliedPlatformFeeCents.else.post1",
+      "function_id": "example.com/payment/fee.AppliedPlatformFeeCents",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "calculatedFeeCents"
+              },
+              {
+                "kind": "bit_vec_literal",
+                "value": "0",
+                "width": 64,
+                "signed": true
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Logic.Imp",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sge",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "minimumFeeCents"
+                  },
+                  {
+                    "kind": "bit_vec_literal",
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Logic.Imp",
+                "args": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.Bool.not",
+                    "args": [
+                      {
+                        "kind": "apply",
+                        "function": "Std.BitVec.BV64.slt",
+                        "args": [
+                          {
+                            "kind": "var",
+                            "name": "calculatedFeeCents"
+                          },
+                          {
+                            "kind": "var",
+                            "name": "minimumFeeCents"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sge",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "calculatedFeeCents"
+                      },
+                      {
+                        "kind": "var",
+                        "name": "calculatedFeeCents"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.com.payment.fee.AppliedPlatformFeeCents.else.post2",
+      "obligation_id": "example.com/payment/fee.AppliedPlatformFeeCents.else.post2",
+      "function_id": "example.com/payment/fee.AppliedPlatformFeeCents",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "calculatedFeeCents"
+              },
+              {
+                "kind": "bit_vec_literal",
+                "value": "0",
+                "width": 64,
+                "signed": true
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Logic.Imp",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sge",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "minimumFeeCents"
+                  },
+                  {
+                    "kind": "bit_vec_literal",
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Logic.Imp",
+                "args": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.Bool.not",
+                    "args": [
+                      {
+                        "kind": "apply",
+                        "function": "Std.BitVec.BV64.slt",
+                        "args": [
+                          {
+                            "kind": "var",
+                            "name": "calculatedFeeCents"
+                          },
+                          {
+                            "kind": "var",
+                            "name": "minimumFeeCents"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "apply",
+                    "function": "Std.BitVec.BV64.sge",
+                    "args": [
+                      {
+                        "kind": "var",
+                        "name": "calculatedFeeCents"
+                      },
+                      {
+                        "kind": "var",
+                        "name": "minimumFeeCents"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VC.Obligation.example.com.payment.fee.AppliedPlatformFeeCents.else.post3",
+      "obligation_id": "example.com/payment/fee.AppliedPlatformFeeCents.else.post3",
+      "function_id": "example.com/payment/fee.AppliedPlatformFeeCents",
+      "obligation_kind": "postcondition",
+      "ty": {
+        "kind": "apply",
+        "function": "Std.Logic.Imp",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.BitVec.BV64.sge",
+            "args": [
+              {
+                "kind": "var",
+                "name": "calculatedFeeCents"
+              },
+              {
+                "kind": "bit_vec_literal",
+                "value": "0",
+                "width": 64,
+                "signed": true
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Logic.Imp",
+            "args": [
+              {
+                "kind": "apply",
+                "function": "Std.BitVec.BV64.sge",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "minimumFeeCents"
+                  },
+                  {
+                    "kind": "bit_vec_literal",
+                    "value": "0",
+                    "width": 64,
+                    "signed": true
+                  }
+                ]
+              },
+              {
+                "kind": "apply",
+                "function": "Std.Logic.Imp",
+                "args": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.Bool.not",
+                    "args": [
+                      {
+                        "kind": "apply",
+                        "function": "Std.BitVec.BV64.slt",
+                        "args": [
+                          {
+                            "kind": "var",
+                            "name": "calculatedFeeCents"
+                          },
+                          {
+                            "kind": "var",
+                            "name": "minimumFeeCents"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "apply",
+                    "function": "Std.Bool.or",
+                    "args": [
+                      {
+                        "kind": "apply",
+                        "function": "Std.Eq",
+                        "args": [
+                          {
+                            "kind": "var",
+                            "name": "calculatedFeeCents"
+                          },
+                          {
+                            "kind": "var",
+                            "name": "calculatedFeeCents"
+                          }
+                        ]
+                      },
+                      {
+                        "kind": "apply",
+                        "function": "Std.Eq",
+                        "args": [
+                          {
+                            "kind": "var",
+                            "name": "calculatedFeeCents"
+                          },
+                          {
+                            "kind": "var",
+                            "name": "minimumFeeCents"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

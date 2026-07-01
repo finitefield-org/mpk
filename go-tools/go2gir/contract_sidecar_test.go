@@ -161,12 +161,27 @@ func TestValidateContractSidecarRejectsNonEmptyModifies(t *testing.T) {
 	sidecar := contractSidecar{
 		Path:     "contract.json",
 		Function: "example.Identity",
+		Ensures: []json.RawMessage{
+			json.RawMessage(`{"op":"eq","lhs":{"result":0},"rhs":{"var":"value"}}`),
+		},
 		Modifies: []string{"global"},
 	}
 
 	_, findings := validateContractSidecar("", sidecar, girFunction{})
 	if !hasRejectedFeatureReasonContaining(findings, "contract sidecar", "non-empty modifies are rejected by Go subset v0") {
 		t.Fatalf("findings = %+v, want non-empty modifies rejection", findings)
+	}
+}
+
+func TestValidateContractSidecarRejectsMissingPostconditions(t *testing.T) {
+	sidecar := contractSidecar{
+		Path:     "contract.json",
+		Function: "example.Identity",
+	}
+
+	_, findings := validateContractSidecar("", sidecar, girFunction{})
+	if !hasRejectedFeatureReasonContaining(findings, "contract sidecar", "contract sidecar requires at least one postcondition") {
+		t.Fatalf("findings = %+v, want missing postcondition rejection", findings)
 	}
 }
 

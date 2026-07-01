@@ -1,0 +1,609 @@
+{
+  "source_gir_hash": "92af353b7c13dffc859334501f0578b9338a21030ca686127e366d69c251fc94",
+  "obligations": [
+    {
+      "id": "example.com/payment/discount.ApprovedDiscountCents.then.post0",
+      "function_id": "example.com/payment/discount.ApprovedDiscountCents",
+      "kind": "postcondition",
+      "assumptions": [
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "subtotalCents"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "requestedDiscountCents"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sgt",
+          "args": [
+            {
+              "kind": "var",
+              "name": "requestedDiscountCents"
+            },
+            {
+              "kind": "var",
+              "name": "subtotalCents"
+            }
+          ]
+        }
+      ],
+      "conclusion": {
+        "kind": "apply",
+        "function": "Std.BitVec.BV64.sge",
+        "args": [
+          {
+            "kind": "var",
+            "name": "subtotalCents"
+          },
+          {
+            "kind": "bit_vec_literal",
+            "value": "0",
+            "width": 64,
+            "signed": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "example.com/payment/discount.ApprovedDiscountCents.then.post1",
+      "function_id": "example.com/payment/discount.ApprovedDiscountCents",
+      "kind": "postcondition",
+      "assumptions": [
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "subtotalCents"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "requestedDiscountCents"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sgt",
+          "args": [
+            {
+              "kind": "var",
+              "name": "requestedDiscountCents"
+            },
+            {
+              "kind": "var",
+              "name": "subtotalCents"
+            }
+          ]
+        }
+      ],
+      "conclusion": {
+        "kind": "apply",
+        "function": "Std.BitVec.BV64.sle",
+        "args": [
+          {
+            "kind": "var",
+            "name": "subtotalCents"
+          },
+          {
+            "kind": "var",
+            "name": "subtotalCents"
+          }
+        ]
+      }
+    },
+    {
+      "id": "example.com/payment/discount.ApprovedDiscountCents.then.post2",
+      "function_id": "example.com/payment/discount.ApprovedDiscountCents",
+      "kind": "postcondition",
+      "assumptions": [
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "subtotalCents"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "requestedDiscountCents"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sgt",
+          "args": [
+            {
+              "kind": "var",
+              "name": "requestedDiscountCents"
+            },
+            {
+              "kind": "var",
+              "name": "subtotalCents"
+            }
+          ]
+        }
+      ],
+      "conclusion": {
+        "kind": "apply",
+        "function": "Std.BitVec.BV64.sle",
+        "args": [
+          {
+            "kind": "var",
+            "name": "subtotalCents"
+          },
+          {
+            "kind": "var",
+            "name": "requestedDiscountCents"
+          }
+        ]
+      }
+    },
+    {
+      "id": "example.com/payment/discount.ApprovedDiscountCents.then.post3",
+      "function_id": "example.com/payment/discount.ApprovedDiscountCents",
+      "kind": "postcondition",
+      "assumptions": [
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "subtotalCents"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "requestedDiscountCents"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sgt",
+          "args": [
+            {
+              "kind": "var",
+              "name": "requestedDiscountCents"
+            },
+            {
+              "kind": "var",
+              "name": "subtotalCents"
+            }
+          ]
+        }
+      ],
+      "conclusion": {
+        "kind": "apply",
+        "function": "Std.Bool.or",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.Eq",
+            "args": [
+              {
+                "kind": "var",
+                "name": "subtotalCents"
+              },
+              {
+                "kind": "var",
+                "name": "subtotalCents"
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Eq",
+            "args": [
+              {
+                "kind": "var",
+                "name": "subtotalCents"
+              },
+              {
+                "kind": "var",
+                "name": "requestedDiscountCents"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "example.com/payment/discount.ApprovedDiscountCents.else.post0",
+      "function_id": "example.com/payment/discount.ApprovedDiscountCents",
+      "kind": "postcondition",
+      "assumptions": [
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "subtotalCents"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "requestedDiscountCents"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.Bool.not",
+          "args": [
+            {
+              "kind": "apply",
+              "function": "Std.BitVec.BV64.sgt",
+              "args": [
+                {
+                  "kind": "var",
+                  "name": "requestedDiscountCents"
+                },
+                {
+                  "kind": "var",
+                  "name": "subtotalCents"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "conclusion": {
+        "kind": "apply",
+        "function": "Std.BitVec.BV64.sge",
+        "args": [
+          {
+            "kind": "var",
+            "name": "requestedDiscountCents"
+          },
+          {
+            "kind": "bit_vec_literal",
+            "value": "0",
+            "width": 64,
+            "signed": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "example.com/payment/discount.ApprovedDiscountCents.else.post1",
+      "function_id": "example.com/payment/discount.ApprovedDiscountCents",
+      "kind": "postcondition",
+      "assumptions": [
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "subtotalCents"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "requestedDiscountCents"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.Bool.not",
+          "args": [
+            {
+              "kind": "apply",
+              "function": "Std.BitVec.BV64.sgt",
+              "args": [
+                {
+                  "kind": "var",
+                  "name": "requestedDiscountCents"
+                },
+                {
+                  "kind": "var",
+                  "name": "subtotalCents"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "conclusion": {
+        "kind": "apply",
+        "function": "Std.BitVec.BV64.sle",
+        "args": [
+          {
+            "kind": "var",
+            "name": "requestedDiscountCents"
+          },
+          {
+            "kind": "var",
+            "name": "subtotalCents"
+          }
+        ]
+      }
+    },
+    {
+      "id": "example.com/payment/discount.ApprovedDiscountCents.else.post2",
+      "function_id": "example.com/payment/discount.ApprovedDiscountCents",
+      "kind": "postcondition",
+      "assumptions": [
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "subtotalCents"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "requestedDiscountCents"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.Bool.not",
+          "args": [
+            {
+              "kind": "apply",
+              "function": "Std.BitVec.BV64.sgt",
+              "args": [
+                {
+                  "kind": "var",
+                  "name": "requestedDiscountCents"
+                },
+                {
+                  "kind": "var",
+                  "name": "subtotalCents"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "conclusion": {
+        "kind": "apply",
+        "function": "Std.BitVec.BV64.sle",
+        "args": [
+          {
+            "kind": "var",
+            "name": "requestedDiscountCents"
+          },
+          {
+            "kind": "var",
+            "name": "requestedDiscountCents"
+          }
+        ]
+      }
+    },
+    {
+      "id": "example.com/payment/discount.ApprovedDiscountCents.else.post3",
+      "function_id": "example.com/payment/discount.ApprovedDiscountCents",
+      "kind": "postcondition",
+      "assumptions": [
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "subtotalCents"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.BitVec.BV64.sge",
+          "args": [
+            {
+              "kind": "var",
+              "name": "requestedDiscountCents"
+            },
+            {
+              "kind": "bit_vec_literal",
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          ]
+        },
+        {
+          "kind": "apply",
+          "function": "Std.Bool.not",
+          "args": [
+            {
+              "kind": "apply",
+              "function": "Std.BitVec.BV64.sgt",
+              "args": [
+                {
+                  "kind": "var",
+                  "name": "requestedDiscountCents"
+                },
+                {
+                  "kind": "var",
+                  "name": "subtotalCents"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "conclusion": {
+        "kind": "apply",
+        "function": "Std.Bool.or",
+        "args": [
+          {
+            "kind": "apply",
+            "function": "Std.Eq",
+            "args": [
+              {
+                "kind": "var",
+                "name": "requestedDiscountCents"
+              },
+              {
+                "kind": "var",
+                "name": "subtotalCents"
+              }
+            ]
+          },
+          {
+            "kind": "apply",
+            "function": "Std.Eq",
+            "args": [
+              {
+                "kind": "var",
+                "name": "requestedDiscountCents"
+              },
+              {
+                "kind": "var",
+                "name": "requestedDiscountCents"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
