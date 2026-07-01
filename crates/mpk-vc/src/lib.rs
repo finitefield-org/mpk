@@ -9,6 +9,7 @@ pub mod expr_encode;
 pub mod gir;
 pub mod loops;
 pub mod obligation_emit;
+pub mod policy_obligation;
 pub mod safety;
 pub mod type_encode;
 pub mod vc;
@@ -31,6 +32,13 @@ pub use obligation_emit::{
     core_declaration_name, emit_theorem_obligations, theorem_type_for_obligation,
     CoreTheoremDeclarationSkeleton, ObligationEmitError, ObligationEmitter, VcCertificateSkeleton,
     STD_LOGIC_IMP, VC_CERT_SKELETON_SCHEMA_VERSION, VC_DECLARATION_PREFIX,
+};
+pub use policy_obligation::{
+    classify_payment_policy_obligation, classify_payment_policy_obligations,
+    PaymentPolicyClassificationOutcome, PaymentPolicyClassificationReport,
+    PaymentPolicyClassifierPropertyStatus, PaymentPolicyEvidenceLabel,
+    PaymentPolicyObligationClassification, PaymentPolicyObligationPattern, UnsupportedPropertyCode,
+    UnsupportedPropertyDiagnostic, PAYMENT_OBLIGATION_CLASSIFICATION_SCHEMA,
 };
 pub use safety::{generate_safety_vcs, SafetyVcGenerator};
 pub use type_encode::{

@@ -56,6 +56,19 @@ fn payment_policy_alpha_profile_metadata_is_stable() {
             PolicyObligationPattern::NonNegativeResult,
         ))
         .expect("supported obligation is accepted");
+    for pattern in [
+        PolicyObligationPattern::ResultBoundedByInputAmount,
+        PolicyObligationPattern::RefundBoundedByPaidMinusAlreadyRefunded,
+        PolicyObligationPattern::DiscountOrFeeBoundedByConfiguredCaps,
+        PolicyObligationPattern::BranchResultEqualsSelectedInput,
+    ] {
+        metadata
+            .validate_obligation(&PolicyObligationDescriptor::new(
+                format!("vc:{pattern:?}"),
+                pattern,
+            ))
+            .expect("POE-08 classifier pattern is accepted by payment-policy-alpha");
+    }
 
     let encoded = serde_json::to_string_pretty(&metadata).expect("metadata serializes");
     assert_eq!(

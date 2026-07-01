@@ -4,7 +4,11 @@ use std::path::PathBuf;
 
 use serde::Serialize;
 
-use mpk_vc::{emit_theorem_obligations, generate_branch_vcs, import_gir_json};
+use mpk_vc::{
+    classify_payment_policy_obligations, emit_theorem_obligations, generate_branch_vcs,
+    import_gir_json, PaymentPolicyClassificationOutcome, PaymentPolicyClassifierPropertyStatus,
+    PaymentPolicyEvidenceLabel, PaymentPolicyObligationPattern,
+};
 
 const UPDATE_ENV: &str = "MPK_UPDATE_PAYMENT_POLICY_EXAMPLES";
 
@@ -14,6 +18,7 @@ struct PaymentPolicyExample {
     function_id: &'static str,
     first_theorem: &'static str,
     last_theorem: &'static str,
+    expected_patterns: &'static [(PaymentPolicyObligationPattern, usize)],
 }
 
 #[test]
@@ -29,6 +34,7 @@ fn payment_policy_examples_generate_stable_vc_outputs() {
             .unwrap_or_else(|error| panic!("generate {} branch VCs: {error}", example.name));
         let skeleton = emit_theorem_obligations(&vc_module)
             .unwrap_or_else(|error| panic!("emit {} theorem skeletons: {error}", example.name));
+        let classification = classify_payment_policy_obligations(&vc_module);
 
         assert_eq!(
             vc_module.source_gir_hash, gir.gir_hash,
@@ -65,6 +71,41 @@ fn payment_policy_examples_generate_stable_vc_outputs() {
             "{} last theorem",
             example.name
         );
+        assert_eq!(
+            classification.source_gir_hash, gir.gir_hash,
+            "{} classification source GIR hash",
+            example.name
+        );
+        assert_eq!(
+            classification.obligations.len(),
+            8,
+            "{} classification count",
+            example.name
+        );
+        assert!(
+            classification.obligations.iter().all(|classification| {
+                classification.outcome == PaymentPolicyClassificationOutcome::SupportedProperty
+                    && classification.evidence_label == PaymentPolicyEvidenceLabel::HelperAnalysis
+                    && classification.property_status
+                        == PaymentPolicyClassifierPropertyStatus::ProofPending
+            }),
+            "{} classifications should be helper-only proof-pending outputs: {:#?}",
+            example.name,
+            classification.obligations
+        );
+        for (pattern, count) in example.expected_patterns {
+            let actual = classification
+                .obligations
+                .iter()
+                .filter(|classification| classification.pattern == Some(*pattern))
+                .count();
+            assert_eq!(actual, *count, "{} pattern {:?}", example.name, pattern);
+        }
+        let classification_json =
+            serde_json::to_string(&classification).expect("classification serializes");
+        assert!(classification_json.contains("\"evidence_label\":\"helper_analysis\""));
+        assert!(classification_json.contains("\"property_status\":\"proof_pending\""));
+        assert!(!classification_json.contains("mpk_verified"));
 
         assert_fixture(&example_dir.join("vc.json"), &pretty_json(&vc_module));
         assert_fixture(
@@ -83,6 +124,14 @@ fn payment_policy_examples() -> [PaymentPolicyExample; 5] {
                 "VC.Obligation.example.com.payment.reserve.ApprovedReserveCents.then.post0",
             last_theorem:
                 "VC.Obligation.example.com.payment.reserve.ApprovedReserveCents.else.post3",
+            expected_patterns: &[
+                (PaymentPolicyObligationPattern::NonNegativeResult, 2),
+                (PaymentPolicyObligationPattern::ResultBoundedByInput, 4),
+                (
+                    PaymentPolicyObligationPattern::SelectedBranchResultEqualsInput,
+                    2,
+                ),
+            ],
         },
         PaymentPolicyExample {
             name: "refund",
@@ -90,6 +139,17 @@ fn payment_policy_examples() -> [PaymentPolicyExample; 5] {
             first_theorem:
                 "VC.Obligation.example.com.payment.refund.ApprovedRefundCents.then.post0",
             last_theorem: "VC.Obligation.example.com.payment.refund.ApprovedRefundCents.else.post3",
+            expected_patterns: &[
+                (PaymentPolicyObligationPattern::NonNegativeResult, 2),
+                (
+                    PaymentPolicyObligationPattern::RefundBoundedByAvailablePaidAmount,
+                    4,
+                ),
+                (
+                    PaymentPolicyObligationPattern::SelectedBranchResultEqualsInput,
+                    2,
+                ),
+            ],
         },
         PaymentPolicyExample {
             name: "discount",
@@ -98,6 +158,14 @@ fn payment_policy_examples() -> [PaymentPolicyExample; 5] {
                 "VC.Obligation.example.com.payment.discount.ApprovedDiscountCents.then.post0",
             last_theorem:
                 "VC.Obligation.example.com.payment.discount.ApprovedDiscountCents.else.post3",
+            expected_patterns: &[
+                (PaymentPolicyObligationPattern::NonNegativeResult, 2),
+                (PaymentPolicyObligationPattern::FeeOrDiscountBoundedByCap, 4),
+                (
+                    PaymentPolicyObligationPattern::SelectedBranchResultEqualsInput,
+                    2,
+                ),
+            ],
         },
         PaymentPolicyExample {
             name: "fee",
@@ -106,6 +174,14 @@ fn payment_policy_examples() -> [PaymentPolicyExample; 5] {
                 "VC.Obligation.example.com.payment.fee.AppliedPlatformFeeCents.then.post0",
             last_theorem:
                 "VC.Obligation.example.com.payment.fee.AppliedPlatformFeeCents.else.post3",
+            expected_patterns: &[
+                (PaymentPolicyObligationPattern::NonNegativeResult, 2),
+                (PaymentPolicyObligationPattern::FeeOrDiscountBoundedByCap, 4),
+                (
+                    PaymentPolicyObligationPattern::SelectedBranchResultEqualsInput,
+                    2,
+                ),
+            ],
         },
         PaymentPolicyExample {
             name: "points",
@@ -114,6 +190,14 @@ fn payment_policy_examples() -> [PaymentPolicyExample; 5] {
                 "VC.Obligation.example.com.payment.points.ApprovedRedemptionPoints.then.post0",
             last_theorem:
                 "VC.Obligation.example.com.payment.points.ApprovedRedemptionPoints.else.post3",
+            expected_patterns: &[
+                (PaymentPolicyObligationPattern::NonNegativeResult, 2),
+                (PaymentPolicyObligationPattern::ResultBoundedByInput, 4),
+                (
+                    PaymentPolicyObligationPattern::SelectedBranchResultEqualsInput,
+                    2,
+                ),
+            ],
         },
     ]
 }
