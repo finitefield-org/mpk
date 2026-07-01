@@ -82,6 +82,14 @@ Required output:
 This output powers ProofOps free scans and $99 diagnosis reports. It is helper
 evidence only.
 
+The stable scan schema is `mpk.policy.scan.v0`. Its top-level JSON object must
+contain `schema`, `target`, `source`, `contract`, `readiness`,
+`supported_features`, `rejected_features`, and `preconditions`. `readiness`
+uses exactly `ready`, `needs_refactor`, or `unsupported`. Feature and
+precondition entries are labeled as `helper_evidence`; this schema must not
+include `proof_acceptance`, `verified_properties`, or any field that implies
+checked proof acceptance.
+
 ### 2. Policy Verification Orchestrator
 
 Add a single command that runs the existing pipeline in a stable, product-ready
