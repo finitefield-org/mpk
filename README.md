@@ -1,9 +1,11 @@
 # mpk
 
-See `docs/alpha-demo.md` for the current alpha verification path and
-`docs/web-system-integration.md` for the web-system integration pattern.
-See `docs/proof-ops-engine-design.md` for the MPK-side engine work needed by
-the ProofOps product repository in `../proof-ops`.
+Start with [docs/alpha-demo.md](docs/alpha-demo.md) for the current alpha
+verification path and [docs/proof-ops-engine-design.md](docs/proof-ops-engine-design.md)
+for the ProofOps engine contract consumed by `../proof-ops`. See
+[docs/web-system-integration.md](docs/web-system-integration.md) for the
+web-system integration pattern and [docs/proof-ops-policy-ci.md](docs/proof-ops-policy-ci.md)
+for the CI handoff shape.
 
 Examples:
 

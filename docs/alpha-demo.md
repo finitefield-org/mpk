@@ -154,6 +154,10 @@ reports `status=proof_pending` with one `mpk_verified` reserve obligation and
 the remaining obligations still `proof_pending`. The evidence JSON keeps
 `helper_artifacts` such as source hashes, GIR, VC, and Markdown report context
 separate from `trusted_evidence` such as checked theory-certificate entries.
+It also keeps `strategy_profile`, `checker_profile`, and
+`allowed_axiom_profiles` as separate policy fields: the strategy profile selects
+the payment workflow, the checker profile selects the MPK proof checker mode,
+and the axiom policy profile records the allowed axiom class.
 
 ## 6. Check the Max64-shaped theory proof hook
 

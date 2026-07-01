@@ -89,10 +89,41 @@ When intentionally regenerating checked-in VC artifacts:
 MPK_UPDATE_ORDER_POLICY_EXAMPLE=1 cargo test -p mpk-vc --test max64_example
 ```
 
+For the ProofOps product-facing path, run the current policy engine commands
+against the pure package:
+
+```sh
+mkdir -p target/proof-ops
+
+cargo run --quiet -p mpk-cli -- policy scan examples/order_policy \
+  --function example.com/orderpolicy.ApprovedReserveCents \
+  --contract examples/order_policy/policy_contract.json \
+  --json-out target/proof-ops/order-policy.scan.json \
+  --go2gir target/debug/go2gir
+
+cargo run --quiet -p mpk-cli -- policy verify examples/order_policy \
+  --function example.com/orderpolicy.ApprovedReserveCents \
+  --contract examples/order_policy/policy_contract.json \
+  --strategy-profile payment-policy-alpha \
+  --checker-profile mvp-strict \
+  --evidence-json target/proof-ops/order-policy.evidence.json \
+  --evidence-md target/proof-ops/order-policy.evidence.md \
+  --go2gir target/debug/go2gir
+```
+
+Treat `mpk.policy.scan.v0` as helper analysis. In
+`mpk.policy.evidence.v0`, only `trusted_evidence` can support an
+`mpk_verified` claim. `helper_artifacts`, call-site precondition output, and
+Markdown text can explain the integration but do not prove a property.
+
 ## CI Checklist
 
 - Run normal Go tests for the web package.
 - Run normal Go tests for the pure policy package.
+- Run `mpk policy scan` and keep the scan JSON as helper-analysis review
+  evidence.
+- Run `mpk policy verify` and keep the evidence JSON as the product source of
+  truth.
 - Re-run `go2gir` and fail if `gir.json` changes unexpectedly.
 - Run the VC fixture test and fail if `vc.json` or `vc_skeleton.json` changes
   unexpectedly.

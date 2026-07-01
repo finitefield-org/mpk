@@ -1,6 +1,6 @@
 # ProofOps Engine Support Design
 
-Status: draft product-enablement design
+Status: implemented product-enablement handoff
 
 This document defines the MPK-side work needed to support the ProofOps product
 and service repository in `../proof-ops`. MPK remains the verification engine:
@@ -56,16 +56,17 @@ without scraping human logs or trusting generated prose.
 
 ### 1. Policy Readiness Scan
 
-Add an engine-level readiness command or API that inspects a target Go package,
-function, and optional contract sidecar without claiming proof acceptance.
+MPK exposes an engine-level readiness command that inspects a target Go
+package, function, and contract sidecar without claiming proof acceptance.
 
-Proposed CLI:
+Current CLI:
 
 ```sh
 mpk policy scan ./internal/paymentpolicy \
   --function paymentpolicy.ApprovedReserveCents \
   --contract policy_contract.json \
-  --json-out mpk-policy-scan.json
+  --json-out mpk-policy-scan.json \
+  --go2gir go2gir
 ```
 
 Required output:
@@ -90,12 +91,16 @@ precondition entries are labeled as `helper_evidence`; this schema must not
 include `proof_acceptance`, `verified_properties`, or any field that implies
 checked proof acceptance.
 
+For product-facing artifact paths, `policy scan` rejects path traversal
+components in the target, `--contract`, and `--json-out` values. The `--go2gir`
+flag points to a local tool binary and is not a product artifact path.
+
 ### 2. Policy Verification Orchestrator
 
-Add a single command that runs the existing pipeline in a stable, product-ready
-order for one policy bundle.
+MPK exposes a single command that runs the existing pipeline in a stable,
+product-ready order for one policy bundle.
 
-Proposed CLI:
+Current CLI:
 
 ```sh
 mpk policy verify ./internal/paymentpolicy \
@@ -104,37 +109,42 @@ mpk policy verify ./internal/paymentpolicy \
   --strategy-profile payment-policy-alpha \
   --checker-profile mvp-strict \
   --evidence-json mpk-evidence.json \
-  --evidence-md mpk-evidence.md
+  --evidence-md mpk-evidence.md \
+  --go2gir go2gir
 ```
 
-The command should orchestrate:
+The command orchestrates:
 
 1. Go package loading and subset rejection;
 2. contract sidecar validation;
 3. GIR generation and hash computation;
 4. VC generation and hash computation;
 5. selected strategy profile execution;
-6. certificate or checked-theory evidence export;
-7. Rust fast-kernel verification;
-8. optional Go reference-checker verification;
-9. axiom report recomputation;
-10. deterministic evidence output.
+6. checked-theory evidence export for the supported reserve path;
+7. deterministic evidence JSON and Markdown output.
 
-The orchestrator must not introduce a new acceptance path. It may report
-`verified=true` only if checker-facing evidence passes the MPK trust-boundary
-rules. Use `mvp-strict` when the selected strategy profile may emit checked
-theory certificates; narrower checker profiles may still be useful for
-helper-only scans or non-theory proof-node experiments.
+The orchestrator must not introduce a new acceptance path. A property may use
+status `mpk_verified` only if checker-facing evidence passes the MPK
+trust-boundary rules. Use `mvp-strict` when the selected strategy profile may
+emit checked theory certificates; narrower checker profiles may still be useful
+for helper-only scans or non-theory proof-node experiments. `--strict` turns
+remaining `proof_pending` properties into a failing verify run.
+
+For product-facing artifact paths, `policy verify` rejects path traversal
+components in the target, `--contract`, `--evidence-json`, and `--evidence-md`
+values. The generated evidence uses placeholder reproduction paths such as
+`<go2gir>`, `<evidence.json>`, and `<evidence.md>` so local absolute paths do
+not enter stable product reports.
 
 ### 3. Payment-Policy Strategy Profile
 
-Define a narrow strategy profile for the first commercial policies. This is not
-an MPK checker profile or axiom-policy profile. The strategy profile selects
-generated obligations, payment templates, and proof-search strategies; the
-checker profile still uses the MPK release-policy values such as
-`core-bootstrap`, `mvp-structural`, or `mvp-strict`. The strategy profile should
-cover linear integer and comparison obligations that occur in common payment
-policy functions.
+MPK defines a narrow strategy profile for the first commercial policies. This
+is not an MPK checker profile or axiom-policy profile. The strategy profile
+selects generated obligations, payment templates, and proof-search strategies;
+the checker profile still uses the MPK release-policy values such as
+`core-bootstrap`, `mvp-structural`, or `mvp-strict`. The current
+`payment-policy-alpha` profile covers the initial linear integer and comparison
+obligations that occur in common payment policy functions.
 
 Initial obligations:
 
@@ -145,16 +155,18 @@ Initial obligations:
 - branch result equals one of the branch-selected inputs;
 - runtime-safety checks for supported integer operations.
 
-The profile should initially prefer fixed-width integer cents and basis points.
-Float, decimal packages, arbitrary precision arithmetic, maps, dynamic slices,
-database state, network state, time, randomness, and concurrency remain out of
-scope unless separately specified.
+The profile prefers fixed-width integer cents and basis points. Float, decimal
+packages, arbitrary precision arithmetic, maps, dynamic slices, database state,
+network state, time, randomness, and concurrency remain out of scope unless
+separately specified.
 
 ### 4. Checked Theory Certificates For Common Payment Obligations
 
 The product is only credible if generated payment VCs can close to checked
-evidence for a useful subset. MPK should add or harden strategy paths that emit
-checked theory certificates for:
+evidence for a useful subset. The current path emits a checked `linarith`
+theory certificate for the first supported reserve non-negative obligation and
+keeps remaining reserve obligations `proof_pending`. Additional strategy
+coverage should harden checked theory certificates for:
 
 - signed integer linear inequalities;
 - simple branch path-condition reasoning;
@@ -164,13 +176,13 @@ checked theory certificates for:
 
 Each strategy success must attach checked theory evidence or expand into
 certificate-checkable proof nodes. Solver yes/no results and AI explanations are
-never accepted directly.
+never accepted directly; unsupported or not-yet-closed obligations remain
+`proof_pending` or `unsupported`.
 
 ### 5. Evidence Schema
 
-Define a stable evidence schema for product integration.
-
-Suggested schema id: `mpk.policy.evidence.v0`
+The stable evidence schema for product integration is
+`mpk.policy.evidence.v0`.
 
 Required fields:
 
@@ -187,9 +199,8 @@ Required fields:
 - Rust checker verdict;
 - reference checker verdict, when required;
 - checked theory-certificate formats and hashes, when present;
-- verified property list;
+- property list with per-property status;
 - helper-artifact warnings;
-- unsupported or unverified property list;
 - reproduction commands.
 
 The JSON schema is the product API. Markdown output is useful for humans but is
@@ -227,13 +238,57 @@ checked declaration id from `trusted_evidence.certificates` or a checked
 obligation id from `trusted_evidence.theory_certificates`. Helper artifacts can
 explain a property, but they cannot make it verified.
 
+## ProofOps Repository Handoff
+
+The ProofOps repository can consume MPK as an external engine pinned by git SHA
+or binary hash. It should treat the following MPK outputs as the stable product
+contract:
+
+- `mpk policy scan` output with schema `mpk.policy.scan.v0`;
+- `mpk policy verify` output with schema `mpk.policy.evidence.v0`;
+- Markdown evidence reports generated from the evidence JSON for human review;
+- command stdout only as an operator status line, not as product data.
+
+ProofOps can display these fields directly in reports and dashboards:
+
+- scan `readiness.status`: `ready`, `needs_refactor`, or `unsupported`;
+- scan `supported_features`, `rejected_features`, and `preconditions`, all as
+  helper analysis from `helper_evidence` entries;
+- evidence `strategy_profile`, currently `payment-policy-alpha`;
+- evidence `checker_profile`, for example `mvp-strict`;
+- evidence `allowed_axiom_profiles`, which is the axiom policy allowlist and is
+  not the strategy profile or checker profile;
+- evidence `trusted_evidence`, which is the only machine-readable source for
+  checked certificate, checked theory-certificate, checker verdict, and axiom
+  report claims;
+- evidence `helper_artifacts`, which can explain source, contract, GIR, VC,
+  AI, CI, or call-site context but cannot verify a property;
+- evidence `properties[*].status`: `mpk_verified`, `proof_pending`,
+  `helper_only`, or `unsupported`;
+- evidence `reproduction_commands`, whose product-facing paths are placeholders
+  rather than local absolute paths.
+
+Customer-facing ProofOps claims must map MPK fields this way:
+
+| Claim label | MPK source | Customer meaning |
+| --- | --- | --- |
+| `mpk_verified` | `properties[*].status == "mpk_verified"` with checked declaration or checked theory-certificate evidence under `trusted_evidence` | MPK accepted this property under the active checker profile. |
+| `mpk_helper` | scan output, `helper_artifacts`, call-site preconditions, GIR hash, VC hash, or Markdown text | Useful analysis or traceability, not proof evidence. |
+| `proof_pending` | `properties[*].status == "proof_pending"` | MPK generated and classified the obligation, but no checked proof evidence closed it. |
+| `unsupported` | scan `unsupported`, rejected features, unsupported helper warnings, or `properties[*].status == "unsupported"` | The current MPK subset or strategy cannot verify this path. |
+
+ProofOps must not turn Go source, contract JSON, GIR, VC JSON, helper hashes,
+Markdown prose, CI status, Gemini logs, or operator notes into proof evidence.
+Those artifacts can support explanations, triage, and sales reporting only when
+they are labeled as helper analysis or AI/manual context.
+
 ### 6. Call-Site Precondition Helper
 
 Payment contracts often require preconditions such as `requestedCents >= 0`.
-MPK should provide a helper lint that reports whether nearby call sites visibly
+MPK provides a helper lint that reports whether nearby call sites visibly
 enforce required preconditions before calling the policy function.
 
-This helper is not proof evidence. It should clearly report:
+This helper is not proof evidence. It reports:
 
 - `checked_by_local_guard`;
 - `declared_upstream_invariant`;
@@ -245,19 +300,18 @@ checker trust boundary.
 
 ### 7. Payment Policy Corpus
 
-Add a regression corpus for product-relevant examples:
+MPK includes a regression corpus for product-relevant examples:
 
 - wallet reserve;
 - partial refund;
 - coupon discount;
 - platform fee cap;
 - loyalty points redemption;
-- subscription quota;
-- negative and overflow rejection fixtures.
+- negative fixtures for floats, maps, pointers, and missing postconditions.
 
-Each corpus entry should include Go source, contract sidecar, expected GIR/VC
-hashes, expected scan output, and expected verification/evidence output when
-the strategy profile supports the case.
+Each positive corpus entry includes Go source, contract sidecar, expected GIR
+and VC artifacts, scan coverage, and verification/evidence output when the
+strategy profile supports the case.
 
 ## Non-Goals
 
