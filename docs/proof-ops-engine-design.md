@@ -151,7 +151,7 @@ Initial obligations:
 - non-negative result under non-negative inputs;
 - result bounded by an input amount;
 - refund bounded by paid minus already-refunded amount;
-- discount or fee bounded by configured caps;
+- discount caps and fee floors bounded by configured amounts;
 - branch result equals one of the branch-selected inputs;
 - runtime-safety checks for supported integer operations.
 
@@ -311,7 +311,7 @@ MPK includes a regression corpus for product-relevant examples:
 - wallet reserve;
 - partial refund;
 - coupon discount;
-- platform fee cap;
+- platform fee floor;
 - loyalty points redemption;
 - negative fixtures for floats, maps, pointers, and missing postconditions.
 

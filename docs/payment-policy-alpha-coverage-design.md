@@ -37,18 +37,30 @@ The current `mpk policy verify` path is implemented in
 - emits all other supported obligations as `proof_pending`;
 - fails `--strict` when any property remains `proof_pending`.
 
+This baseline refers to the live CLI behavior covered by
+`crates/mpk-cli/tests/policy_verify.rs`, currently
+`verified=1 proof_pending=7 unsupported=0` for reserve. The checked-in
+`examples/payment_policies/reserve/evidence_alpha.json` file is a representative
+schema fixture and may not have the same status counts until PAYALPHA-COV-05
+refreshes it with the deterministic CLI output.
+
 The positive payment-policy corpus currently has five examples:
 
 | Example | Function shape | Obligation mix |
 | --- | --- | --- |
 | `reserve` | `min(requestedCents, balanceCents)` | 2 non-negative, 4 bound, 2 branch equality |
 | `refund` | `min(requestedCents, paidCents)` | 2 non-negative, 4 refund bound, 2 branch equality |
-| `discount` | `min(requestedDiscountCents, subtotalCents)` | 2 non-negative, 4 discount/fee bound, 2 branch equality |
-| `fee` | `max(calculatedFeeCents, minimumFeeCents)` | 2 non-negative, 4 discount/fee bound, 2 branch equality |
+| `discount` | `min(requestedDiscountCents, subtotalCents)` | 2 non-negative, 4 discount-cap bound, 2 branch equality |
+| `fee` | `max(calculatedFeeCents, minimumFeeCents)` | 2 non-negative, 4 fee-floor bound, 2 branch equality |
 | `points` | `min(requestedPoints, pointsBalance)` | 2 non-negative, 4 bound, 2 branch equality |
 
 The classifier in `crates/mpk-vc/src/policy_obligation.rs` is helper analysis
 only. Its output must never directly create trusted evidence.
+
+The current Rust enum name `FeeOrDiscountBoundedByCap` is broader than the
+current examples. In this design, it covers both discount-cap obligations and
+fee-floor obligations emitted by the min/max-shaped corpus. Do not implement
+the closure as a cap-only rule.
 
 ## Trust Boundary Requirements
 
@@ -365,6 +377,11 @@ This means `mpk policy verify --checker-profile mvp-structural --strict` must
 still fail for the payment corpus, because theory-backed properties remain
 pending.
 
+Implementation must parse `checker_profile` through the existing proof-profile
+parser before comparing it with `ProofProfile::MvpStrict`. A string inequality
+such as `checker_profile != "mvp-strict"` is not sufficient, because it would
+risk treating an unknown checker profile as a known non-theory profile.
+
 ### 5. Replace Single-Obligation Closure Planning
 
 Replace `try_close_first_linarith_obligation` with a deterministic multi-close
@@ -522,8 +539,9 @@ Implementation notes:
   policy-closure path once payload-bound linarith closure is active;
 - do not remove the generic `TheoryStrategyKind::Linarith` tests, because they
   still cover API strategy dispatch;
-- if `checker_profile != "mvp-strict"`, return an empty closure map rather than
-  trying to check linarith evidence.
+- parse `checker_profile`; for known profiles other than `ProofProfile::MvpStrict`,
+  return an empty closure map rather than trying to check linarith evidence.
+  Unknown checker profiles must still reject before evidence is written.
 
 Required tests:
 
@@ -536,6 +554,8 @@ Required tests:
   `verified_count >= 1`;
 - a `mpk-cli` test proving non-`mvp-strict` checker profiles do not produce
   `trusted_evidence.theory_certificates`.
+- a `mpk-cli` test proving an unknown checker profile still rejects even after
+  the non-`mvp-strict` empty-closure path exists.
 
 Validation:
 

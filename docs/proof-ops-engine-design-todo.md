@@ -254,7 +254,7 @@ Out of scope:
     - reserve cap;
     - partial refund cap;
     - discount cap;
-    - platform fee floor or cap;
+    - platform fee floor;
     - points redemption cap.
   - Contract sidecars for each example.
   - Checked-in GIR, VC, and skeleton fixtures for examples supported by current
@@ -333,7 +333,7 @@ Out of scope:
     - non-negative result;
     - result bounded by an input;
     - refund bounded by available paid amount;
-    - fee or discount bounded by cap;
+    - discount cap or fee floor bounded by a configured amount;
     - selected branch result equals an input.
   - Classification output used by evidence as helper analysis until proof
     evidence closes the property.
