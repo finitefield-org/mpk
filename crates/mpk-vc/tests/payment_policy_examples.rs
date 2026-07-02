@@ -8,7 +8,7 @@ use mpk_vc::{
     classify_payment_policy_obligations, emit_theorem_obligations, generate_branch_vcs,
     import_gir_json, policy_theory_goal_from_obligation, PaymentPolicyClassificationOutcome,
     PaymentPolicyClassifierPropertyStatus, PaymentPolicyEvidenceLabel,
-    PaymentPolicyObligationPattern, PolicyTheoryGoalKind,
+    PaymentPolicyObligationPattern, PolicyBoolTautology, PolicyTheoryGoalKind,
 };
 
 const UPDATE_ENV: &str = "MPK_UPDATE_PAYMENT_POLICY_EXAMPLES";
@@ -125,10 +125,44 @@ fn payment_policy_examples_generate_stable_vc_outputs() {
             })
             .count();
         assert_eq!(linear_goal_count, 6, "{} linear theory goals", example.name);
+        let true_or_opaque_count = extracted_goals
+            .iter()
+            .filter(|goal| {
+                matches!(
+                    goal,
+                    Some(mpk_vc::PolicyTheoryGoal {
+                        kind: PolicyTheoryGoalKind::BoolTautology(goal),
+                        ..
+                    }) if goal.tautology == PolicyBoolTautology::TrueOrOpaque
+                )
+            })
+            .count();
+        let opaque_or_true_count = extracted_goals
+            .iter()
+            .filter(|goal| {
+                matches!(
+                    goal,
+                    Some(mpk_vc::PolicyTheoryGoal {
+                        kind: PolicyTheoryGoalKind::BoolTautology(goal),
+                        ..
+                    }) if goal.tautology == PolicyBoolTautology::OpaqueOrTrue
+                )
+            })
+            .count();
+        assert_eq!(
+            true_or_opaque_count, 1,
+            "{} true-or-opaque branch equality goal",
+            example.name
+        );
+        assert_eq!(
+            opaque_or_true_count, 1,
+            "{} opaque-or-true branch equality goal",
+            example.name
+        );
         assert_eq!(
             extracted_goals.iter().filter(|goal| goal.is_none()).count(),
-            2,
-            "{} branch equality goals stay pending for PAYALPHA-COV-T03",
+            0,
+            "{} supported payment-policy goals should all extract neutrally by PAYALPHA-COV-T05",
             example.name
         );
         let classification_json =

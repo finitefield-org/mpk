@@ -9,7 +9,7 @@ use std::fmt;
 
 use serde::{Deserialize, Serialize};
 
-use crate::expr_encode::{MpkExprTerm, STD_BITVEC_MODULE, STD_BOOL_NOT};
+use crate::expr_encode::{MpkExprTerm, STD_BITVEC_MODULE, STD_BOOL_NOT, STD_BOOL_OR, STD_EQ};
 use crate::policy_obligation::{
     PaymentPolicyClassificationOutcome, PaymentPolicyObligationClassification,
     PaymentPolicyObligationPattern,
@@ -150,10 +150,20 @@ pub fn policy_theory_goal_from_obligation(
             ),
         )
     })?;
-    if !is_linear_pattern(pattern) {
-        return Ok(None);
+    if pattern == PaymentPolicyObligationPattern::SelectedBranchResultEqualsInput {
+        return Ok(bool_goal_from_branch_equality(obligation, pattern));
+    }
+    if is_linear_pattern(pattern) {
+        return linear_goal_from_obligation(obligation, pattern);
     }
 
+    Ok(None)
+}
+
+fn linear_goal_from_obligation(
+    obligation: &VcObligation,
+    pattern: PaymentPolicyObligationPattern,
+) -> Result<Option<PolicyTheoryGoal>, PolicyTheoryGoalError> {
     let raw_goal = normalize_direct_linear_comparison(&obligation.conclusion)?.ok_or_else(|| {
         PolicyTheoryGoalError::new(
             PolicyTheoryGoalErrorKind::UnsupportedLinearConclusion,
@@ -187,6 +197,49 @@ pub fn policy_theory_goal_from_obligation(
             goal,
         }),
     }))
+}
+
+fn bool_goal_from_branch_equality(
+    obligation: &VcObligation,
+    pattern: PaymentPolicyObligationPattern,
+) -> Option<PolicyTheoryGoal> {
+    let MpkExprTerm::Apply { function, args } = &obligation.conclusion else {
+        return None;
+    };
+    if function != STD_BOOL_OR {
+        return None;
+    }
+    let [lhs, rhs] = args.as_slice() else {
+        return None;
+    };
+
+    let tautology = if is_reflexive_equality(lhs) {
+        PolicyBoolTautology::TrueOrOpaque
+    } else if is_reflexive_equality(rhs) {
+        PolicyBoolTautology::OpaqueOrTrue
+    } else {
+        return None;
+    };
+
+    Some(PolicyTheoryGoal {
+        obligation_id: obligation.id.clone(),
+        function_id: obligation.function_id.clone(),
+        pattern,
+        kind: PolicyTheoryGoalKind::BoolTautology(PolicyBoolGoal {
+            reason: PolicyBoolTautologyReason::ReflexiveSelectedBranchDisjunct,
+            tautology,
+        }),
+    })
+}
+
+fn is_reflexive_equality(term: &MpkExprTerm) -> bool {
+    let MpkExprTerm::Apply { function, args } = term else {
+        return false;
+    };
+    let [lhs, rhs] = args.as_slice() else {
+        return false;
+    };
+    function == STD_EQ && lhs == rhs
 }
 
 fn validate_classification_target(
@@ -626,6 +679,17 @@ mod tests {
         goal
     }
 
+    fn bool_goal(goal: Option<PolicyTheoryGoal>) -> PolicyBoolGoal {
+        let Some(PolicyTheoryGoal {
+            kind: PolicyTheoryGoalKind::BoolTautology(goal),
+            ..
+        }) = goal
+        else {
+            panic!("expected bool tautology goal");
+        };
+        goal
+    }
+
     #[test]
     fn policy_theory_goal_extracts_exact_premise_linear_candidate() {
         let predicate = sge(result(0), int64("0"));
@@ -777,13 +841,90 @@ mod tests {
     }
 
     #[test]
-    fn policy_theory_goal_returns_none_for_bool_branch_goal_until_bool_milestone() {
+    fn policy_theory_goal_extracts_true_or_opaque_bool_branch_goal() {
+        let obligation = obligation(apply(
+            STD_BOOL_OR,
+            vec![
+                eq(var("selected"), var("selected")),
+                eq(var("selected"), var("other")),
+            ],
+        ));
+        let goal = bool_goal(
+            policy_theory_goal_from_obligation(&obligation, &classification(&obligation))
+                .expect("extracts reflexive bool branch goal"),
+        );
+
+        assert_eq!(
+            goal,
+            PolicyBoolGoal {
+                reason: PolicyBoolTautologyReason::ReflexiveSelectedBranchDisjunct,
+                tautology: PolicyBoolTautology::TrueOrOpaque,
+            }
+        );
+    }
+
+    #[test]
+    fn policy_theory_goal_extracts_opaque_or_true_bool_branch_goal() {
+        let obligation = obligation(apply(
+            STD_BOOL_OR,
+            vec![
+                eq(var("selected"), var("other")),
+                eq(var("selected"), var("selected")),
+            ],
+        ));
+        let goal = bool_goal(
+            policy_theory_goal_from_obligation(&obligation, &classification(&obligation))
+                .expect("extracts reflexive bool branch goal"),
+        );
+
+        assert_eq!(
+            goal,
+            PolicyBoolGoal {
+                reason: PolicyBoolTautologyReason::ReflexiveSelectedBranchDisjunct,
+                tautology: PolicyBoolTautology::OpaqueOrTrue,
+            }
+        );
+    }
+
+    #[test]
+    fn policy_theory_goal_returns_none_for_non_reflexive_bool_branch_goal() {
         let obligation = obligation(apply(
             STD_BOOL_OR,
             vec![eq(var("selected"), var("a")), eq(var("selected"), var("b"))],
         ));
         let goal = policy_theory_goal_from_obligation(&obligation, &classification(&obligation))
             .expect("branch equality is non-applicable");
+
+        assert_eq!(goal, None);
+    }
+
+    #[test]
+    fn policy_theory_goal_returns_none_for_non_or_bool_branch_goal() {
+        let obligation = obligation(eq(var("selected"), var("selected")));
+        let mut classification = classification(&obligation);
+        classification.outcome = PaymentPolicyClassificationOutcome::SupportedProperty;
+        classification.pattern =
+            Some(PaymentPolicyObligationPattern::SelectedBranchResultEqualsInput);
+
+        let goal = policy_theory_goal_from_obligation(&obligation, &classification)
+            .expect("non-or branch equality is non-applicable");
+
+        assert_eq!(goal, None);
+    }
+
+    #[test]
+    fn policy_theory_goal_returns_none_for_wrong_arity_bool_branch_goal() {
+        let obligation = obligation(apply(
+            STD_BOOL_OR,
+            vec![eq(var("selected"), var("selected"))],
+        ));
+        let mut classification = classification(&obligation);
+        classification.outcome = PaymentPolicyClassificationOutcome::SupportedProperty;
+        classification.pattern =
+            Some(PaymentPolicyObligationPattern::SelectedBranchResultEqualsInput);
+
+        let goal = policy_theory_goal_from_obligation(&obligation, &classification)
+            .expect("wrong arity branch equality is non-applicable");
 
         assert_eq!(goal, None);
     }
