@@ -179,6 +179,12 @@ certificate-checkable proof nodes. Solver yes/no results and AI explanations are
 never accepted directly; unsupported or not-yet-closed obligations remain
 `proof_pending` or `unsupported`.
 
+The implementation design for the first coverage expansion lives in
+[`payment-policy-alpha-coverage-design.md`](payment-policy-alpha-coverage-design.md).
+It covers the reserve pending-count reduction, corpus-wide `mpk_verified`
+coverage for refund, discount, fee, and points, and the first `--strict`
+success path.
+
 ### 5. Evidence Schema
 
 The stable evidence schema for product integration is
