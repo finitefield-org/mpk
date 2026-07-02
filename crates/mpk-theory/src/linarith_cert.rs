@@ -8,6 +8,7 @@ use std::collections::{BTreeMap, BTreeSet};
 use std::fmt;
 
 pub const LINARITH_CERT_FORMAT: &str = "mpk.linarith.v0";
+const LINARITH_CERT_MAGIC: &[u8; 8] = b"MPKLINR0";
 pub const MAX_LINARITH_PREMISES: usize = 64;
 pub const MAX_LINARITH_TERMS_PER_INEQUALITY: usize = 64;
 pub const MAX_LINARITH_COMBINATION_TERMS: usize = 64;
@@ -208,6 +209,39 @@ pub fn check_linarith_certificate(
     })
 }
 
+pub fn encode_linarith_certificate(certificate: &LinarithCertificate) -> Vec<u8> {
+    let mut payload = Vec::new();
+    payload.extend_from_slice(LINARITH_CERT_MAGIC);
+    payload.push(u8::try_from(certificate.premises.len()).expect("linarith premise count fits u8"));
+    for premise in &certificate.premises {
+        push_linear_inequality_payload(&mut payload, premise);
+    }
+    push_linear_inequality_payload(&mut payload, &certificate.goal);
+    payload.push(
+        u8::try_from(certificate.combination.len()).expect("linarith combination count fits u8"),
+    );
+    for multiplier in &certificate.combination {
+        payload.extend_from_slice(
+            &u32::try_from(multiplier.premise_index)
+                .expect("linarith premise index fits u32")
+                .to_be_bytes(),
+        );
+        payload.extend_from_slice(&multiplier.multiplier.to_be_bytes());
+    }
+    payload
+}
+
+fn push_linear_inequality_payload(payload: &mut Vec<u8>, inequality: &LinearInequality) {
+    payload.push(
+        u8::try_from(inequality.terms.len()).expect("linarith inequality term count fits u8"),
+    );
+    for term in &inequality.terms {
+        payload.extend_from_slice(&term.variable.to_be_bytes());
+        payload.extend_from_slice(&term.coefficient.to_be_bytes());
+    }
+    payload.extend_from_slice(&inequality.constant.to_be_bytes());
+}
+
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
 struct NormalizedLinearExpr {
     terms: BTreeMap<u32, i128>,
@@ -393,6 +427,31 @@ mod tests {
 
     fn row(premise_index: usize, multiplier: u64) -> FarkasMultiplier {
         FarkasMultiplier::new(premise_index, multiplier)
+    }
+
+    #[test]
+    fn encodes_linarith_static_strategy_payload() {
+        let certificate = LinarithCertificate {
+            premises: vec![ineq(vec![term(0, -1)], 0)],
+            goal: ineq(vec![term(0, -1)], 0),
+            combination: vec![row(0, 1)],
+        };
+        let mut expected = Vec::new();
+        expected.extend_from_slice(b"MPKLINR0");
+        expected.push(1);
+        expected.push(1);
+        expected.extend_from_slice(&0u32.to_be_bytes());
+        expected.extend_from_slice(&(-1i128).to_be_bytes());
+        expected.extend_from_slice(&0i128.to_be_bytes());
+        expected.push(1);
+        expected.extend_from_slice(&0u32.to_be_bytes());
+        expected.extend_from_slice(&(-1i128).to_be_bytes());
+        expected.extend_from_slice(&0i128.to_be_bytes());
+        expected.push(1);
+        expected.extend_from_slice(&0u32.to_be_bytes());
+        expected.extend_from_slice(&1u64.to_be_bytes());
+
+        assert_eq!(encode_linarith_certificate(&certificate), expected);
     }
 
     #[test]

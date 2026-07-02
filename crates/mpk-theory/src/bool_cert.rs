@@ -135,6 +135,72 @@ pub fn decode_bool_certificate(payload: &[u8]) -> Result<BoolCertificate, BoolCe
     })
 }
 
+pub fn encode_bool_certificate(certificate: &BoolCertificate) -> Vec<u8> {
+    let mut payload = Vec::new();
+    payload.extend_from_slice(BOOL_CERT_MAGIC);
+    payload.push(certificate.variable_count);
+    push_bool_expr_payload(&mut payload, &certificate.root);
+    payload.extend_from_slice(
+        &u16::try_from(certificate.rows.len())
+            .expect("bool certificate row count fits u16")
+            .to_be_bytes(),
+    );
+    for row in &certificate.rows {
+        payload.push(row_assignment_mask(&row.assignment));
+        payload.push(u8::from(row.normalized_value));
+    }
+    payload
+}
+
+fn push_bool_expr_payload(payload: &mut Vec<u8>, expression: &BoolExpr) {
+    match expression {
+        BoolExpr::Const(false) => payload.push(0x00),
+        BoolExpr::Const(true) => payload.push(0x01),
+        BoolExpr::Var(index) => {
+            payload.push(0x02);
+            payload.push(*index);
+        }
+        BoolExpr::Not(inner) => {
+            payload.push(0x03);
+            push_bool_expr_payload(payload, inner);
+        }
+        BoolExpr::And(lhs, rhs) => {
+            payload.push(0x04);
+            push_bool_expr_payload(payload, lhs);
+            push_bool_expr_payload(payload, rhs);
+        }
+        BoolExpr::Or(lhs, rhs) => {
+            payload.push(0x05);
+            push_bool_expr_payload(payload, lhs);
+            push_bool_expr_payload(payload, rhs);
+        }
+        BoolExpr::Implies(lhs, rhs) => {
+            payload.push(0x06);
+            push_bool_expr_payload(payload, lhs);
+            push_bool_expr_payload(payload, rhs);
+        }
+        BoolExpr::Iff(lhs, rhs) => {
+            payload.push(0x07);
+            push_bool_expr_payload(payload, lhs);
+            push_bool_expr_payload(payload, rhs);
+        }
+    }
+}
+
+fn row_assignment_mask(assignment: &[bool]) -> u8 {
+    assert!(assignment.len() <= usize::from(MAX_BOOL_VARIABLES));
+    assignment.iter().enumerate().fold(
+        0u8,
+        |mask, (index, bit)| {
+            if *bit {
+                mask | (1u8 << index)
+            } else {
+                mask
+            }
+        },
+    )
+}
+
 pub fn check_bool_certificate(
     certificate: &BoolCertificate,
 ) -> Result<BoolCertificateSummary, BoolCertError> {
@@ -471,6 +537,48 @@ mod tests {
             payload.push(u8::from(*value));
         }
         payload
+    }
+
+    #[test]
+    fn encodes_bool_static_tautology_payload() {
+        let certificate = BoolCertificate {
+            variable_count: 0,
+            root: BoolExpr::Const(true),
+            rows: vec![BoolCertificateRow {
+                assignment: Vec::new(),
+                normalized_value: true,
+            }],
+        };
+        let expected = encode_payload(0, &[0x01], &[(0, true)]);
+
+        assert_eq!(encode_bool_certificate(&certificate), expected);
+    }
+
+    #[test]
+    fn encodes_and_decodes_all_bool_expression_tags() {
+        let root = BoolExpr::Iff(
+            Box::new(BoolExpr::Implies(
+                Box::new(BoolExpr::And(
+                    Box::new(BoolExpr::Var(0)),
+                    Box::new(BoolExpr::Not(Box::new(BoolExpr::Var(1)))),
+                )),
+                Box::new(BoolExpr::Or(
+                    Box::new(BoolExpr::Var(0)),
+                    Box::new(BoolExpr::Const(false)),
+                )),
+            )),
+            Box::new(BoolExpr::Const(true)),
+        );
+        let certificate = BoolCertificate {
+            variable_count: 2,
+            rows: rows_for(2, &root),
+            root,
+        };
+
+        let decoded = decode_bool_certificate(&encode_bool_certificate(&certificate))
+            .expect("encoded bool certificate decodes");
+
+        assert_eq!(decoded, certificate);
     }
 
     #[test]
