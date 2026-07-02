@@ -1,3 +1,4 @@
+use std::collections::BTreeMap;
 use std::error::Error;
 use std::fmt;
 use std::fs;
@@ -14,6 +15,7 @@ use mpk_vc::{
     PaymentPolicyClassificationOutcome, PaymentPolicyClassifierPropertyStatus,
     PaymentPolicyObligationClassification,
     PaymentPolicyObligationPattern as VcPolicyObligationPattern, UnsupportedPropertyCode,
+    VcObligation,
 };
 use sha2::{Digest, Sha256};
 
@@ -100,6 +102,36 @@ impl Error for PolicyVerifyRunError {
     }
 }
 
+#[derive(Debug, Clone, PartialEq, Eq)]
+struct PolicyClosedObligation {
+    obligation_id: String,
+    certificate_id: String,
+    theory: String,
+    format: String,
+    theory_certificate_hash: String,
+    evidence_note: String,
+}
+
+impl PolicyClosedObligation {
+    fn new(
+        obligation_id: impl Into<String>,
+        certificate_id: impl Into<String>,
+        theory: impl Into<String>,
+        format: impl Into<String>,
+        theory_certificate_hash: impl Into<String>,
+        evidence_note: impl Into<String>,
+    ) -> Self {
+        Self {
+            obligation_id: obligation_id.into(),
+            certificate_id: certificate_id.into(),
+            theory: theory.into(),
+            format: format.into(),
+            theory_certificate_hash: theory_certificate_hash.into(),
+            evidence_note: evidence_note.into(),
+        }
+    }
+}
+
 pub fn run_policy_verify(
     request: &PolicyVerifyRequest,
 ) -> Result<PolicyVerifyOutput, PolicyVerifyRunError> {
@@ -139,20 +171,17 @@ pub fn run_policy_verify(
             .into_iter()
             .filter(|classification| classification.function_id == request.function_id)
             .collect::<Vec<_>>();
-        let has_unsupported_property = classifications.iter().any(|classification| {
-            classification.outcome == PaymentPolicyClassificationOutcome::UnsupportedProperty
-        });
-        let verified_obligation = if has_unsupported_property {
-            None
-        } else {
-            try_close_first_linarith_obligation(request, &classifications, &mut trusted)?
-        };
+        let closed_obligations =
+            try_close_policy_obligations(request, &vc_module.obligations, &classifications)?;
+        add_closed_obligations_to_trusted(
+            &mut trusted,
+            &closed_obligations,
+            &request.checker_profile,
+        );
 
         properties = classifications
             .iter()
-            .map(|classification| {
-                property_from_classification(classification, verified_obligation.as_deref())
-            })
+            .map(|classification| property_from_classification(classification, &closed_obligations))
             .collect();
     } else {
         helper_artifacts.warnings.push(PolicyHelperWarning::new(
@@ -213,15 +242,89 @@ pub fn run_policy_verify(
     Ok(output)
 }
 
-fn try_close_first_linarith_obligation(
+fn try_close_policy_obligations(
     request: &PolicyVerifyRequest,
+    vc_obligations: &[VcObligation],
     classifications: &[PaymentPolicyObligationClassification],
-    trusted: &mut PolicyTrustedEvidence,
-) -> Result<Option<String>, PolicyVerifyRunError> {
+) -> Result<BTreeMap<String, PolicyClosedObligation>, PolicyVerifyRunError> {
+    validate_policy_closure_inputs(vc_obligations, classifications)?;
+
     let metadata =
         PolicyStrategyMetadata::parse_profile(&request.strategy_profile).map_err(|error| {
             PolicyVerifyRunError::with_source("policy strategy profile failed", error)
         })?;
+    let proof_profile = parse_proof_profile(&request.checker_profile)?;
+    if proof_profile != ProofProfile::MvpStrict {
+        return Ok(BTreeMap::new());
+    }
+    if classifications.iter().any(|classification| {
+        classification.outcome == PaymentPolicyClassificationOutcome::UnsupportedProperty
+    }) {
+        return Ok(BTreeMap::new());
+    }
+
+    let mut closed_obligations = BTreeMap::new();
+    if let Some(closed) =
+        try_close_first_linarith_obligation(classifications, &metadata, proof_profile)?
+    {
+        closed_obligations.insert(closed.obligation_id.clone(), closed);
+    }
+    Ok(closed_obligations)
+}
+
+fn validate_policy_closure_inputs(
+    vc_obligations: &[VcObligation],
+    classifications: &[PaymentPolicyObligationClassification],
+) -> Result<(), PolicyVerifyRunError> {
+    let mut obligations_by_id = BTreeMap::new();
+    for obligation in vc_obligations {
+        if obligations_by_id
+            .insert(obligation.id.as_str(), obligation)
+            .is_some()
+        {
+            return Err(policy_closure_failed(format!(
+                "duplicate VC obligation id {:?}",
+                obligation.id
+            )));
+        }
+    }
+
+    for classification in classifications {
+        if !obligations_by_id.contains_key(classification.obligation_id.as_str()) {
+            return Err(policy_closure_failed(format!(
+                "classification references missing VC obligation {:?}",
+                classification.obligation_id
+            )));
+        }
+    }
+
+    Ok(())
+}
+
+fn add_closed_obligations_to_trusted(
+    trusted: &mut PolicyTrustedEvidence,
+    closed_obligations: &BTreeMap<String, PolicyClosedObligation>,
+    checker_profile: &str,
+) {
+    for closed in closed_obligations.values() {
+        trusted
+            .theory_certificates
+            .push(PolicyTheoryCertificateEvidence::new(
+                closed.certificate_id.clone(),
+                closed.theory.clone(),
+                closed.format.clone(),
+                closed.theory_certificate_hash.clone(),
+                checker_profile.to_owned(),
+                vec![closed.obligation_id.clone()],
+            ));
+    }
+}
+
+fn try_close_first_linarith_obligation(
+    classifications: &[PaymentPolicyObligationClassification],
+    metadata: &PolicyStrategyMetadata,
+    proof_profile: ProofProfile,
+) -> Result<Option<PolicyClosedObligation>, PolicyVerifyRunError> {
     let Some(classification) = classifications.iter().find(|classification| {
         classification.pattern == Some(VcPolicyObligationPattern::NonNegativeResult)
     }) else {
@@ -250,7 +353,6 @@ fn try_close_first_linarith_obligation(
         return Ok(None);
     };
 
-    let proof_profile = parse_proof_profile(&request.checker_profile)?;
     let mut api = ApiService::new();
     let session_id = api
         .start_session(
@@ -296,18 +398,14 @@ fn try_close_first_linarith_obligation(
     }
 
     let evidence = theory_strategy_certificate_evidence(TheoryStrategyKind::Linarith);
-    trusted
-        .theory_certificates
-        .push(PolicyTheoryCertificateEvidence::new(
-            "theory:policy-linarith-001",
-            "linarith",
-            evidence.format,
-            evidence.theory_certificate_hash,
-            request.checker_profile.clone(),
-            vec![classification.obligation_id.clone()],
-        ));
-
-    Ok(Some(classification.obligation_id.clone()))
+    Ok(Some(PolicyClosedObligation::new(
+        classification.obligation_id.clone(),
+        "theory:policy-linarith-001",
+        "linarith",
+        evidence.format,
+        evidence.theory_certificate_hash,
+        "Closed by a checked linarith theory certificate under the configured checker profile.",
+    )))
 }
 
 fn register_strategy_witness(
@@ -342,9 +440,9 @@ fn register_strategy_witness(
 
 fn property_from_classification(
     classification: &PaymentPolicyObligationClassification,
-    verified_obligation: Option<&str>,
+    closed_obligations: &BTreeMap<String, PolicyClosedObligation>,
 ) -> PolicyPropertyEvidence {
-    if verified_obligation == Some(classification.obligation_id.as_str()) {
+    if let Some(closed) = closed_obligations.get(&classification.obligation_id) {
         let mut property = PolicyPropertyEvidence::new(
             classification.obligation_id.clone(),
             property_description(classification),
@@ -353,13 +451,10 @@ fn property_from_classification(
         property
             .evidence
             .push(PolicyPropertyEvidenceRef::CheckedTheoryCertificate {
-                theory_certificate_id: "theory:policy-linarith-001".to_owned(),
+                theory_certificate_id: closed.certificate_id.clone(),
                 obligation_id: classification.obligation_id.clone(),
             });
-        property.notes.push(
-            "Closed by a checked linarith theory certificate under the configured checker profile."
-                .to_owned(),
-        );
+        property.notes.push(closed.evidence_note.clone());
         return property;
     }
 
@@ -403,6 +498,13 @@ fn property_from_classification(
             property
         }
     }
+}
+
+fn policy_closure_failed(message: impl Into<String>) -> PolicyVerifyRunError {
+    PolicyVerifyRunError::new(format!(
+        "policy verify proof closure failed: {}",
+        message.into()
+    ))
 }
 
 fn helper_artifacts_from_scan(
@@ -616,4 +718,59 @@ fn is_git_tracked(path: &Path) -> bool {
         .arg(relative)
         .output()
         .is_ok_and(|output| output.status.success())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use mpk_vc::{
+        MpkExprTerm, PaymentPolicyEvidenceLabel, PaymentPolicyObligationPattern, VcObligationKind,
+    };
+
+    #[test]
+    fn policy_closure_input_validation_rejects_duplicate_obligation_ids() {
+        let obligations = vec![test_obligation("dup"), test_obligation("dup")];
+        let error = validate_policy_closure_inputs(&obligations, &[])
+            .expect_err("duplicate obligation ids reject");
+
+        assert_eq!(
+            error.to_string(),
+            "policy verify proof closure failed: duplicate VC obligation id \"dup\""
+        );
+    }
+
+    #[test]
+    fn policy_closure_input_validation_rejects_missing_classification_refs() {
+        let obligations = vec![test_obligation("present")];
+        let classifications = vec![supported_classification("missing")];
+        let error = validate_policy_closure_inputs(&obligations, &classifications)
+            .expect_err("missing classification obligation rejects");
+
+        assert_eq!(
+            error.to_string(),
+            "policy verify proof closure failed: classification references missing VC obligation \"missing\""
+        );
+    }
+
+    fn test_obligation(id: &str) -> VcObligation {
+        VcObligation {
+            id: id.to_owned(),
+            function_id: "example.Policy".to_owned(),
+            kind: VcObligationKind::Postcondition,
+            assumptions: Vec::new(),
+            conclusion: MpkExprTerm::bool_literal(true),
+        }
+    }
+
+    fn supported_classification(id: &str) -> PaymentPolicyObligationClassification {
+        PaymentPolicyObligationClassification {
+            obligation_id: id.to_owned(),
+            function_id: "example.Policy".to_owned(),
+            outcome: PaymentPolicyClassificationOutcome::SupportedProperty,
+            pattern: Some(PaymentPolicyObligationPattern::NonNegativeResult),
+            evidence_label: PaymentPolicyEvidenceLabel::HelperAnalysis,
+            property_status: PaymentPolicyClassifierPropertyStatus::ProofPending,
+            diagnostic: None,
+        }
+    }
 }

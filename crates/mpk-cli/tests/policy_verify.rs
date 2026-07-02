@@ -194,6 +194,7 @@ fn policy_verify_reserve_writes_evidence_and_markdown() {
     assert_eq!(report.trusted_evidence.certificates, []);
     assert_eq!(report.trusted_evidence.theory_certificates.len(), 1);
     let theory = &report.trusted_evidence.theory_certificates[0];
+    assert_eq!(theory.id, "theory:policy-linarith-001");
     assert_eq!(theory.theory, "linarith");
     assert_eq!(theory.format, "mpk.linarith.v0");
     assert_eq!(theory.theory_certificate_hash, LINARITH_THEORY_CERT_HASH);
@@ -207,14 +208,22 @@ fn policy_verify_reserve_writes_evidence_and_markdown() {
         .iter()
         .find(|property| property.status == PolicyPropertyEvidenceStatus::MpkVerified)
         .expect("one property is verified");
-    assert!(matches!(
-        verified.evidence.as_slice(),
-        [PolicyPropertyEvidenceRef::CheckedTheoryCertificate {
-            theory_certificate_id,
-            obligation_id
-        }] if theory_certificate_id == "theory:policy-linarith-001"
-            && obligation_id == "example.com/payment/reserve.ApprovedReserveCents.then.post0"
-    ));
+    let [PolicyPropertyEvidenceRef::CheckedTheoryCertificate {
+        theory_certificate_id,
+        obligation_id,
+    }] = verified.evidence.as_slice()
+    else {
+        panic!("verified property should reference exactly one checked theory certificate");
+    };
+    assert_eq!(theory_certificate_id, &theory.id);
+    assert_eq!(
+        obligation_id,
+        "example.com/payment/reserve.ApprovedReserveCents.then.post0"
+    );
+    assert!(theory
+        .checked_obligations
+        .iter()
+        .any(|checked| checked == obligation_id));
     assert!(report
         .properties
         .iter()
@@ -236,6 +245,75 @@ fn policy_verify_reserve_writes_evidence_and_markdown() {
 
     let _ = fs::remove_file(evidence_json);
     let _ = fs::remove_file(evidence_md);
+}
+
+#[test]
+fn policy_verify_known_non_strict_checker_profiles_keep_supported_properties_pending() {
+    let go2gir = ensure_go2gir();
+
+    for checker_profile in ["core-bootstrap", "mvp-structural"] {
+        let (evidence_json, evidence_md) =
+            temp_artifact_paths(&format!("reserve-{checker_profile}"));
+        let output = run_mpk(&[
+            "policy",
+            "verify",
+            RESERVE_TARGET,
+            "--function",
+            RESERVE_FUNCTION,
+            "--contract",
+            RESERVE_CONTRACT,
+            "--strategy-profile",
+            "payment-policy-alpha",
+            "--checker-profile",
+            checker_profile,
+            "--evidence-json",
+            evidence_json.to_str().expect("temp JSON path is UTF-8"),
+            "--evidence-md",
+            evidence_md.to_str().expect("temp Markdown path is UTF-8"),
+            "--go2gir",
+            go2gir.to_str().expect("go2gir path is UTF-8"),
+        ]);
+
+        assert!(
+            output.status.success(),
+            "{checker_profile} stderr: {}",
+            stderr(&output)
+        );
+        assert_eq!(
+            stdout(&output),
+            format!(
+                "ok policy verify status=proof_pending verified=0 proof_pending=8 unsupported=0 evidence_json={} evidence_md={}\n",
+                evidence_json.display(),
+                evidence_md.display()
+            )
+        );
+        assert!(output.stderr.is_empty());
+
+        let report = read_evidence(&evidence_json);
+        assert_eq!(report.checker_profile, checker_profile);
+        assert!(report.trusted_evidence.theory_certificates.is_empty());
+        assert_eq!(
+            count_status(&report, PolicyPropertyEvidenceStatus::MpkVerified),
+            0
+        );
+        assert_eq!(
+            count_status(&report, PolicyPropertyEvidenceStatus::ProofPending),
+            8
+        );
+        assert!(report.properties.iter().all(|property| {
+            property.status == PolicyPropertyEvidenceStatus::ProofPending
+                && !property.evidence.iter().any(|evidence| {
+                    matches!(
+                        evidence,
+                        PolicyPropertyEvidenceRef::CheckedDeclaration { .. }
+                            | PolicyPropertyEvidenceRef::CheckedTheoryCertificate { .. }
+                    )
+                })
+        }));
+
+        let _ = fs::remove_file(evidence_json);
+        let _ = fs::remove_file(evidence_md);
+    }
 }
 
 #[test]
