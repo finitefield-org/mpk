@@ -11,8 +11,6 @@ const RESERVE_FUNCTION: &str = "example.com/payment/reserve.ApprovedReserveCents
 const RESERVE_TARGET: &str = "examples/payment_policies/reserve";
 const RESERVE_CONTRACT: &str = "examples/payment_policies/reserve/policy_contract.json";
 const RESERVE_TRACKED_EVIDENCE: &str = "examples/payment_policies/reserve/evidence_alpha.json";
-const LINARITH_THEORY_CERT_HASH: &str =
-    "a85d54f8d5c32dba5f414490120847013b7c727a3ce8b6ae2c3a44aae4edd7e1";
 static BUILD_GO2GIR: Once = Once::new();
 
 fn repo_root() -> PathBuf {
@@ -167,7 +165,7 @@ fn policy_verify_reserve_writes_evidence_and_markdown() {
     assert_eq!(
         stdout(&output),
         format!(
-            "ok policy verify status=proof_pending verified=1 proof_pending=7 unsupported=0 evidence_json={} evidence_md={}\n",
+            "ok policy verify status=proof_pending verified=6 proof_pending=2 unsupported=0 evidence_json={} evidence_md={}\n",
             evidence_json.display(),
             evidence_md.display()
         )
@@ -181,60 +179,95 @@ fn policy_verify_reserve_writes_evidence_and_markdown() {
     assert_eq!(report.checker_profile, "mvp-strict");
     assert_eq!(
         count_status(&report, PolicyPropertyEvidenceStatus::MpkVerified),
-        1
+        6
     );
     assert_eq!(
         count_status(&report, PolicyPropertyEvidenceStatus::ProofPending),
-        7
+        2
     );
     assert_eq!(
         count_status(&report, PolicyPropertyEvidenceStatus::Unsupported),
         0
     );
     assert_eq!(report.trusted_evidence.certificates, []);
-    assert_eq!(report.trusted_evidence.theory_certificates.len(), 1);
-    let theory = &report.trusted_evidence.theory_certificates[0];
-    assert_eq!(theory.id, "theory:policy-linarith-001");
-    assert_eq!(theory.theory, "linarith");
-    assert_eq!(theory.format, "mpk.linarith.v0");
-    assert_eq!(theory.theory_certificate_hash, LINARITH_THEORY_CERT_HASH);
+    assert_eq!(report.trusted_evidence.theory_certificates.len(), 6);
+    let mut unique_hashes = std::collections::BTreeSet::new();
+    for (index, theory) in report
+        .trusted_evidence
+        .theory_certificates
+        .iter()
+        .enumerate()
+    {
+        assert_eq!(
+            theory.id,
+            format!("theory:policy-linarith-{:04}", index + 1)
+        );
+        assert_eq!(theory.theory, "linarith");
+        assert_eq!(theory.format, "mpk.linarith.v0");
+        assert_eq!(theory.theory_certificate_hash.len(), 64);
+        assert_eq!(theory.checker_profile, "mvp-strict");
+        assert_eq!(theory.checked_obligations.len(), 1);
+        assert!(unique_hashes.insert(theory.theory_certificate_hash.clone()));
+    }
     assert_eq!(
-        theory.checked_obligations,
-        vec!["example.com/payment/reserve.ApprovedReserveCents.then.post0".to_owned()]
+        unique_hashes.len(),
+        6,
+        "payload-bound linarith certificates should differ by concrete VC payload"
     );
 
+    let checked_by_id = report
+        .trusted_evidence
+        .theory_certificates
+        .iter()
+        .map(|theory| (theory.id.as_str(), theory.checked_obligations[0].as_str()))
+        .collect::<std::collections::BTreeMap<_, _>>();
     let verified = report
         .properties
         .iter()
-        .find(|property| property.status == PolicyPropertyEvidenceStatus::MpkVerified)
-        .expect("one property is verified");
-    let [PolicyPropertyEvidenceRef::CheckedTheoryCertificate {
-        theory_certificate_id,
-        obligation_id,
-    }] = verified.evidence.as_slice()
-    else {
-        panic!("verified property should reference exactly one checked theory certificate");
-    };
-    assert_eq!(theory_certificate_id, &theory.id);
-    assert_eq!(
-        obligation_id,
-        "example.com/payment/reserve.ApprovedReserveCents.then.post0"
-    );
-    assert!(theory
-        .checked_obligations
-        .iter()
-        .any(|checked| checked == obligation_id));
-    assert!(report
+        .filter(|property| property.status == PolicyPropertyEvidenceStatus::MpkVerified)
+        .collect::<Vec<_>>();
+    assert_eq!(verified.len(), 6);
+    for property in verified {
+        let [PolicyPropertyEvidenceRef::CheckedTheoryCertificate {
+            theory_certificate_id,
+            obligation_id,
+        }] = property.evidence.as_slice()
+        else {
+            panic!("verified property should reference exactly one checked theory certificate");
+        };
+        assert_eq!(obligation_id, &property.id);
+        assert_eq!(
+            checked_by_id
+                .get(theory_certificate_id.as_str())
+                .copied()
+                .expect("verified property references known theory certificate"),
+            obligation_id
+        );
+        assert!(property
+            .notes
+            .iter()
+            .any(|note| note.contains("checked linarith evidence")));
+    }
+    let pending = report
         .properties
         .iter()
-        .filter(|property| property.status != PolicyPropertyEvidenceStatus::MpkVerified)
-        .all(|property| !property.evidence.iter().any(|evidence| {
-            matches!(
-                evidence,
-                PolicyPropertyEvidenceRef::CheckedDeclaration { .. }
-                    | PolicyPropertyEvidenceRef::CheckedTheoryCertificate { .. }
-            )
-        })));
+        .filter(|property| property.status == PolicyPropertyEvidenceStatus::ProofPending)
+        .collect::<Vec<_>>();
+    assert_eq!(pending.len(), 2);
+    assert!(pending.iter().all(|property| {
+        property.id.ends_with(".post3")
+            && property.evidence.iter().all(|evidence| {
+                matches!(evidence, PolicyPropertyEvidenceRef::HelperArtifact { .. })
+            })
+    }));
+    assert_eq!(
+        pending
+            .iter()
+            .flat_map(|property| property.notes.iter())
+            .filter(|note| note.contains("selected_branch_result_equals_input"))
+            .count(),
+        2
+    );
 
     let markdown = fs::read_to_string(&evidence_md).expect("Markdown is readable");
     assert!(markdown.contains("## Verified Properties"));
@@ -557,18 +590,18 @@ fn policy_verify_strict_fails_after_writing_proof_pending_evidence() {
     assert!(output.stdout.is_empty());
     assert_eq!(
         stderr(&output),
-        "policy verify failed: proof-pending properties=7\n"
+        "policy verify failed: proof-pending properties=2\n"
     );
     assert!(evidence_json.is_file());
     assert!(evidence_md.is_file());
     let report = read_evidence(&evidence_json);
     assert_eq!(
         count_status(&report, PolicyPropertyEvidenceStatus::MpkVerified),
-        1
+        6
     );
     assert_eq!(
         count_status(&report, PolicyPropertyEvidenceStatus::ProofPending),
-        7
+        2
     );
 
     let _ = fs::remove_file(evidence_json);

@@ -6,16 +6,21 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 
 use mpk_api::{
-    theory_strategy_certificate_evidence, ApiService, ConstTermRequest, PolicyObligationDescriptor,
-    PolicyObligationPattern, PolicyStrategyMetadata, ProofProfile, SortTermRequest,
-    StartSessionRequest, StrategyKind, StrategyProveRequest, TheoryStrategyKind,
+    PolicyObligationDescriptor, PolicyObligationPattern, PolicyStrategyMetadata, ProofProfile,
+};
+use mpk_cert::encode::TheoryCertificate;
+use mpk_cert::{encode_theory_certificate, hash_hex, hash_with_domain, HashDomain};
+use mpk_kernel::proof_theory::check_theory_certificate;
+use mpk_theory::{
+    check_linarith_certificate, encode_linarith_certificate, FarkasMultiplier, LinarithCertificate,
+    LinearInequality, LinearTerm, LINARITH_CERT_FORMAT,
 };
 use mpk_vc::{
     classify_payment_policy_obligations, generate_branch_vcs, import_gir_json,
-    PaymentPolicyClassificationOutcome, PaymentPolicyClassifierPropertyStatus,
-    PaymentPolicyObligationClassification,
-    PaymentPolicyObligationPattern as VcPolicyObligationPattern, UnsupportedPropertyCode,
-    VcObligation,
+    policy_theory_goal_from_obligation, PaymentPolicyClassificationOutcome,
+    PaymentPolicyClassifierPropertyStatus, PaymentPolicyObligationClassification,
+    PaymentPolicyObligationPattern as VcPolicyObligationPattern, PolicyLinearGoal,
+    PolicyTheoryGoalKind, UnsupportedPropertyCode, VcObligation,
 };
 use sha2::{Digest, Sha256};
 
@@ -247,35 +252,61 @@ fn try_close_policy_obligations(
     vc_obligations: &[VcObligation],
     classifications: &[PaymentPolicyObligationClassification],
 ) -> Result<BTreeMap<String, PolicyClosedObligation>, PolicyVerifyRunError> {
-    validate_policy_closure_inputs(vc_obligations, classifications)?;
-
-    let metadata =
-        PolicyStrategyMetadata::parse_profile(&request.strategy_profile).map_err(|error| {
-            PolicyVerifyRunError::with_source("policy strategy profile failed", error)
-        })?;
     let proof_profile = parse_proof_profile(&request.checker_profile)?;
     if proof_profile != ProofProfile::MvpStrict {
         return Ok(BTreeMap::new());
     }
-    if classifications.iter().any(|classification| {
-        classification.outcome == PaymentPolicyClassificationOutcome::UnsupportedProperty
-    }) {
-        return Ok(BTreeMap::new());
-    }
 
+    let obligations_by_id = validate_policy_closure_inputs(vc_obligations, classifications)?;
+    let metadata =
+        PolicyStrategyMetadata::parse_profile(&request.strategy_profile).map_err(|error| {
+            PolicyVerifyRunError::with_source("policy strategy profile failed", error)
+        })?;
+    let supported_classifications = supported_classifications_by_id(classifications, &metadata)?;
     let mut closed_obligations = BTreeMap::new();
-    if let Some(closed) =
-        try_close_first_linarith_obligation(classifications, &metadata, proof_profile)?
-    {
+    let mut linarith_certificate_index = 1usize;
+    for (obligation_id, classification) in supported_classifications {
+        let obligation = obligations_by_id.get(obligation_id).ok_or_else(|| {
+            policy_closure_failed(format!(
+                "classification references missing VC obligation {obligation_id:?}"
+            ))
+        })?;
+        let Some(theory_goal) = policy_theory_goal_from_obligation(obligation, classification)
+            .map_err(|error| {
+                policy_closure_failed(format!(
+                    "extract theory goal for obligation {obligation_id:?}: {error}"
+                ))
+            })?
+        else {
+            continue;
+        };
+        let PolicyTheoryGoalKind::Linear(linear_goal) = theory_goal.kind else {
+            continue;
+        };
+        let Some((certificate, reason)) = linarith_certificate_from_goal(
+            &linear_goal,
+            classification
+                .pattern
+                .expect("supported classification has a validated pattern"),
+        ) else {
+            continue;
+        };
+        let closed = checked_linarith_closure(
+            obligation_id,
+            certificate,
+            reason,
+            linarith_certificate_index,
+        )?;
+        linarith_certificate_index += 1;
         closed_obligations.insert(closed.obligation_id.clone(), closed);
     }
     Ok(closed_obligations)
 }
 
-fn validate_policy_closure_inputs(
-    vc_obligations: &[VcObligation],
+fn validate_policy_closure_inputs<'a>(
+    vc_obligations: &'a [VcObligation],
     classifications: &[PaymentPolicyObligationClassification],
-) -> Result<(), PolicyVerifyRunError> {
+) -> Result<BTreeMap<&'a str, &'a VcObligation>, PolicyVerifyRunError> {
     let mut obligations_by_id = BTreeMap::new();
     for obligation in vc_obligations {
         if obligations_by_id
@@ -289,6 +320,7 @@ fn validate_policy_closure_inputs(
         }
     }
 
+    let mut classifications_by_id = BTreeMap::new();
     for classification in classifications {
         if !obligations_by_id.contains_key(classification.obligation_id.as_str()) {
             return Err(policy_closure_failed(format!(
@@ -296,9 +328,44 @@ fn validate_policy_closure_inputs(
                 classification.obligation_id
             )));
         }
+        if classifications_by_id
+            .insert(classification.obligation_id.as_str(), ())
+            .is_some()
+        {
+            return Err(policy_closure_failed(format!(
+                "duplicate classification for VC obligation {:?}",
+                classification.obligation_id
+            )));
+        }
     }
 
-    Ok(())
+    Ok(obligations_by_id)
+}
+
+fn supported_classifications_by_id<'a>(
+    classifications: &'a [PaymentPolicyObligationClassification],
+    metadata: &PolicyStrategyMetadata,
+) -> Result<BTreeMap<&'a str, &'a PaymentPolicyObligationClassification>, PolicyVerifyRunError> {
+    let mut supported = BTreeMap::new();
+    for classification in classifications {
+        if classification.outcome == PaymentPolicyClassificationOutcome::UnsupportedProperty {
+            continue;
+        }
+        let pattern = classification.pattern.ok_or_else(|| {
+            policy_closure_failed(format!(
+                "classification for obligation {:?} is supported but has no pattern",
+                classification.obligation_id
+            ))
+        })?;
+        metadata
+            .validate_obligation(&PolicyObligationDescriptor::new(
+                classification.obligation_id.clone(),
+                map_vc_pattern(pattern),
+            ))
+            .map_err(|error| policy_closure_failed(error.to_string()))?;
+        supported.insert(classification.obligation_id.as_str(), classification);
+    }
+    Ok(supported)
 }
 
 fn add_closed_obligations_to_trusted(
@@ -320,122 +387,116 @@ fn add_closed_obligations_to_trusted(
     }
 }
 
-fn try_close_first_linarith_obligation(
-    classifications: &[PaymentPolicyObligationClassification],
-    metadata: &PolicyStrategyMetadata,
-    proof_profile: ProofProfile,
-) -> Result<Option<PolicyClosedObligation>, PolicyVerifyRunError> {
-    let Some(classification) = classifications.iter().find(|classification| {
-        classification.pattern == Some(VcPolicyObligationPattern::NonNegativeResult)
-    }) else {
-        return Ok(None);
-    };
-    let pattern = map_vc_pattern(
-        classification
-            .pattern
-            .expect("classification was filtered to a supported pattern"),
-    );
-    if metadata
-        .validate_obligation(&PolicyObligationDescriptor::new(
-            classification.obligation_id.clone(),
-            pattern,
-        ))
-        .is_err()
-    {
-        return Ok(None);
-    }
-
-    let Some(theory_candidate) = metadata
-        .theory_candidates()
-        .into_iter()
-        .find(|candidate| candidate.theory == TheoryStrategyKind::Linarith)
-    else {
-        return Ok(None);
-    };
-
-    let mut api = ApiService::new();
-    let session_id = api
-        .start_session(
-            StartSessionRequest::new("ProofOps.PolicyVerify").with_proof_profile(proof_profile),
-        )
-        .map_err(|error| {
-            PolicyVerifyRunError::with_source("policy strategy session failed", error)
-        })?
-        .session_id;
-    let sort = api
-        .term_sort(SortTermRequest {
-            session_id: session_id.clone(),
-            universe: 0,
-        })
-        .map_err(|error| PolicyVerifyRunError::with_source("policy strategy goal failed", error))?
-        .term_id;
-    register_strategy_witness(&mut api, &session_id, sort)?;
-    let response = api
-        .proof_try_strategies(StrategyProveRequest {
-            session_id: session_id.clone(),
-            expected_type: sort,
-            exact_terms: Vec::new(),
-            refl_terms: Vec::new(),
-            split: false,
-            apply: Vec::new(),
-            theory: vec![theory_candidate],
-        })
-        .map_err(|error| {
-            PolicyVerifyRunError::with_source("policy strategy attempt failed", error)
-        })?;
-    if !response.ok
-        || response.attempts.len() != 1
-        || response.attempts[0].strategy != StrategyKind::Theory
-        || !response.attempts[0].ok
-    {
-        return Ok(None);
-    }
-    let session = api
-        .session(&session_id)
-        .ok_or_else(|| PolicyVerifyRunError::new("policy strategy session disappeared"))?;
-    if session.theory_certificate_count() != 1 {
-        return Ok(None);
-    }
-
-    let evidence = theory_strategy_certificate_evidence(TheoryStrategyKind::Linarith);
-    Ok(Some(PolicyClosedObligation::new(
-        classification.obligation_id.clone(),
-        "theory:policy-linarith-001",
-        "linarith",
-        evidence.format,
-        evidence.theory_certificate_hash,
-        "Closed by a checked linarith theory certificate under the configured checker profile.",
-    )))
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+enum LinarithClosureReason {
+    ExactPremise,
+    IdentityGoal,
+    BranchPremise,
 }
 
-fn register_strategy_witness(
-    api: &mut ApiService,
-    session_id: &mpk_api::SessionId,
-    sort: mpk_api::ApiTermId,
-) -> Result<(), PolicyVerifyRunError> {
-    let sort_core = api
-        .session(session_id)
-        .and_then(|session| session.core_term_id(sort))
-        .ok_or_else(|| PolicyVerifyRunError::new("policy strategy sort term is missing"))?;
-    api.session_mut(session_id)
-        .ok_or_else(|| PolicyVerifyRunError::new("policy strategy session disappeared"))?
-        .environment_mut()
-        .register_axiom("ProofOps.PolicyVerify.theoryWitness", sort_core)
-        .map_err(|error| {
-            PolicyVerifyRunError::new(format!(
-                "policy strategy witness failed: {:?}",
-                error.code()
-            ))
-        })?;
-    api.term_const(ConstTermRequest {
-        session_id: session_id.clone(),
-        name: "ProofOps.PolicyVerify.theoryWitness".to_owned(),
-        levels: Vec::new(),
-    })
-    .map_err(|error| {
-        PolicyVerifyRunError::with_source("policy strategy witness term failed", error)
+impl LinarithClosureReason {
+    fn evidence_note(self) -> &'static str {
+        match self {
+            Self::ExactPremise => {
+                "Closed by checked linarith evidence for an exact linear premise."
+            }
+            Self::IdentityGoal => {
+                "Closed by checked linarith evidence for an identity linear goal."
+            }
+            Self::BranchPremise => {
+                "Closed by checked linarith evidence for a branch-premise linear bound."
+            }
+        }
+    }
+}
+
+fn linarith_certificate_from_goal(
+    goal: &PolicyLinearGoal,
+    pattern: VcPolicyObligationPattern,
+) -> Option<(LinarithCertificate, LinarithClosureReason)> {
+    let premises = goal
+        .premises
+        .iter()
+        .map(policy_linear_inequality_to_linarith)
+        .collect::<Vec<_>>();
+    let linarith_goal = policy_linear_inequality_to_linarith(&goal.goal);
+
+    if goal.goal.terms.is_empty() && goal.goal.constant <= 0 {
+        return Some((
+            LinarithCertificate {
+                premises,
+                goal: linarith_goal,
+                combination: Vec::new(),
+            },
+            LinarithClosureReason::IdentityGoal,
+        ));
+    }
+
+    let (premise_index, premise) = goal.premises.iter().enumerate().find(|(_, premise)| {
+        premise.terms == goal.goal.terms && premise.constant >= goal.goal.constant
     })?;
-    Ok(())
+    let reason = if pattern == VcPolicyObligationPattern::NonNegativeResult
+        && premise.constant == goal.goal.constant
+    {
+        LinarithClosureReason::ExactPremise
+    } else {
+        LinarithClosureReason::BranchPremise
+    };
+    Some((
+        LinarithCertificate {
+            premises,
+            goal: linarith_goal,
+            combination: vec![FarkasMultiplier::new(premise_index, 1)],
+        },
+        reason,
+    ))
+}
+
+fn policy_linear_inequality_to_linarith(
+    inequality: &mpk_vc::PolicyLinearInequality,
+) -> LinearInequality {
+    LinearInequality::new(
+        inequality
+            .terms
+            .iter()
+            .map(|term| LinearTerm::new(term.variable, term.coefficient))
+            .collect(),
+        inequality.constant,
+    )
+}
+
+fn checked_linarith_closure(
+    obligation_id: &str,
+    certificate: LinarithCertificate,
+    reason: LinarithClosureReason,
+    certificate_index: usize,
+) -> Result<PolicyClosedObligation, PolicyVerifyRunError> {
+    check_linarith_certificate(&certificate).map_err(|error| {
+        policy_closure_failed(format!(
+            "linarith certificate rejected for obligation {obligation_id:?}: {error}"
+        ))
+    })?;
+    let theory_certificate = TheoryCertificate {
+        format: LINARITH_CERT_FORMAT.to_owned(),
+        payload: encode_linarith_certificate(&certificate),
+    };
+    check_theory_certificate(&theory_certificate).map_err(|error| {
+        policy_closure_failed(format!(
+            "encoded linarith theory certificate rejected for obligation {obligation_id:?}: {error}"
+        ))
+    })?;
+    let canonical = encode_theory_certificate(&theory_certificate);
+    let theory_certificate_hash =
+        hash_hex(&hash_with_domain(HashDomain::TheoryCertificate, &canonical));
+
+    Ok(PolicyClosedObligation::new(
+        obligation_id.to_owned(),
+        format!("theory:policy-linarith-{certificate_index:04}"),
+        "linarith",
+        LINARITH_CERT_FORMAT,
+        theory_certificate_hash,
+        reason.evidence_note(),
+    ))
 }
 
 fn property_from_classification(
@@ -752,6 +813,77 @@ mod tests {
         );
     }
 
+    #[test]
+    fn policy_linarith_closure_leaves_unproved_tampered_goal_pending() {
+        let obligations = vec![linear_obligation(
+            "tampered",
+            vec![sge(var("balance"), int64("0"))],
+            sge(var("requested"), int64("0")),
+        )];
+        let classifications = vec![supported_classification("tampered")];
+
+        let closed =
+            try_close_policy_obligations(&strict_request(), &obligations, &classifications)
+                .expect("closure planner runs");
+
+        assert!(closed.is_empty());
+    }
+
+    #[test]
+    fn policy_linarith_closure_hash_changes_with_linear_payload() {
+        let first_obligations = vec![linear_obligation(
+            "first",
+            vec![sge(result(0), int64("0"))],
+            sge(result(0), int64("0")),
+        )];
+        let second_obligations = vec![linear_obligation(
+            "second",
+            vec![sge(result(0), int64("1"))],
+            sge(result(0), int64("0")),
+        )];
+
+        let first = try_close_policy_obligations(
+            &strict_request(),
+            &first_obligations,
+            &[supported_classification("first")],
+        )
+        .expect("first closure runs");
+        let second = try_close_policy_obligations(
+            &strict_request(),
+            &second_obligations,
+            &[supported_classification("second")],
+        )
+        .expect("second closure runs");
+
+        assert_ne!(
+            first
+                .get("first")
+                .expect("first obligation closes")
+                .theory_certificate_hash,
+            second
+                .get("second")
+                .expect("second obligation closes")
+                .theory_certificate_hash
+        );
+    }
+
+    #[test]
+    fn policy_linarith_closure_surfaces_internal_certificate_failures() {
+        let certificate = LinarithCertificate {
+            premises: vec![LinearInequality::new(vec![LinearTerm::new(0, -1)], 0)],
+            goal: LinearInequality::new(vec![LinearTerm::new(0, 1)], 0),
+            combination: vec![FarkasMultiplier::new(0, 1)],
+        };
+
+        let error =
+            checked_linarith_closure("bad", certificate, LinarithClosureReason::ExactPremise, 1)
+                .expect_err("invalid certificate rejects");
+
+        assert!(error
+            .to_string()
+            .starts_with("policy verify proof closure failed: linarith certificate rejected"));
+    }
+
     fn test_obligation(id: &str) -> VcObligation {
         VcObligation {
             id: id.to_owned(),
@@ -759,6 +891,18 @@ mod tests {
             kind: VcObligationKind::Postcondition,
             assumptions: Vec::new(),
             conclusion: MpkExprTerm::bool_literal(true),
+        }
+    }
+
+    fn linear_obligation(
+        id: &str,
+        assumptions: Vec<MpkExprTerm>,
+        conclusion: MpkExprTerm,
+    ) -> VcObligation {
+        VcObligation {
+            assumptions,
+            conclusion,
+            ..test_obligation(id)
         }
     }
 
@@ -772,5 +916,42 @@ mod tests {
             property_status: PaymentPolicyClassifierPropertyStatus::ProofPending,
             diagnostic: None,
         }
+    }
+
+    fn strict_request() -> PolicyVerifyRequest {
+        PolicyVerifyRequest {
+            target: "unused".to_owned(),
+            function_id: "example.Policy".to_owned(),
+            contract_path: "unused".to_owned(),
+            strategy_profile: "payment-policy-alpha".to_owned(),
+            checker_profile: "mvp-strict".to_owned(),
+            evidence_json_path: PathBuf::from("unused.json"),
+            evidence_md_path: PathBuf::from("unused.md"),
+            go2gir_path: PathBuf::from("unused-go2gir"),
+            strict: false,
+            update_fixtures: false,
+        }
+    }
+
+    fn var(name: &str) -> MpkExprTerm {
+        MpkExprTerm::Var {
+            name: name.to_owned(),
+        }
+    }
+
+    fn result(index: u32) -> MpkExprTerm {
+        MpkExprTerm::Result { index }
+    }
+
+    fn int64(value: &str) -> MpkExprTerm {
+        MpkExprTerm::BitVecLiteral {
+            value: value.to_owned(),
+            width: 64,
+            signed: true,
+        }
+    }
+
+    fn sge(lhs: MpkExprTerm, rhs: MpkExprTerm) -> MpkExprTerm {
+        MpkExprTerm::apply("Std.BitVec.BV64.sge", vec![lhs, rhs])
     }
 }
