@@ -127,6 +127,99 @@ fn count_status(report: &PolicyEvidenceReport, status: PolicyPropertyEvidenceSta
         .count()
 }
 
+fn assert_reserve_report_fully_verified(report: &PolicyEvidenceReport) {
+    assert_eq!(report.target.package_path, "example.com/payment/reserve");
+    assert_eq!(report.target.function_id, RESERVE_FUNCTION);
+    assert_eq!(report.strategy_profile, "payment-policy-alpha");
+    assert_eq!(report.checker_profile, "mvp-strict");
+    assert_eq!(
+        count_status(report, PolicyPropertyEvidenceStatus::MpkVerified),
+        8
+    );
+    assert_eq!(
+        count_status(report, PolicyPropertyEvidenceStatus::ProofPending),
+        0
+    );
+    assert_eq!(
+        count_status(report, PolicyPropertyEvidenceStatus::Unsupported),
+        0
+    );
+    assert!(report.trusted_evidence.certificates.is_empty());
+    assert_eq!(report.trusted_evidence.theory_certificates.len(), 8);
+
+    let mut unique_hashes = std::collections::BTreeSet::new();
+    let mut theory_by_id = std::collections::BTreeMap::new();
+    for theory in &report.trusted_evidence.theory_certificates {
+        assert_eq!(theory.theory_certificate_hash.len(), 64);
+        assert_eq!(theory.checker_profile, "mvp-strict");
+        assert_eq!(theory.checked_obligations.len(), 1);
+        assert!(unique_hashes.insert(theory.theory_certificate_hash.clone()));
+        assert!(
+            theory_by_id.insert(theory.id.as_str(), theory).is_none(),
+            "duplicate theory certificate id {}",
+            theory.id
+        );
+    }
+    assert_eq!(
+        unique_hashes.len(),
+        8,
+        "payload-bound theory certificates should differ by concrete VC payload"
+    );
+
+    for index in 1..=6 {
+        let id = format!("theory:policy-linarith-{index:04}");
+        let theory = theory_by_id
+            .get(id.as_str())
+            .unwrap_or_else(|| panic!("missing linarith certificate {id}"));
+        assert_eq!(theory.theory, "linarith");
+        assert_eq!(theory.format, "mpk.linarith.v0");
+    }
+    for index in 1..=2 {
+        let id = format!("theory:policy-bool-tautology-{index:04}");
+        let theory = theory_by_id
+            .get(id.as_str())
+            .unwrap_or_else(|| panic!("missing bool certificate {id}"));
+        assert_eq!(theory.theory, "bool_tautology");
+        assert_eq!(theory.format, "mpk.bool-normalize.v0");
+    }
+
+    assert_eq!(report.properties.len(), 8);
+    for property in &report.properties {
+        assert_eq!(property.status, PolicyPropertyEvidenceStatus::MpkVerified);
+        let [PolicyPropertyEvidenceRef::CheckedTheoryCertificate {
+            theory_certificate_id,
+            obligation_id,
+        }] = property.evidence.as_slice()
+        else {
+            panic!("verified property should reference exactly one checked theory certificate");
+        };
+        assert_eq!(obligation_id, &property.id);
+        let theory = theory_by_id
+            .get(theory_certificate_id.as_str())
+            .unwrap_or_else(|| {
+                panic!(
+                    "property {} references missing theory certificate",
+                    property.id
+                )
+            });
+        assert_eq!(
+            theory.checked_obligations[0].as_str(),
+            obligation_id.as_str()
+        );
+        match theory.theory.as_str() {
+            "linarith" => assert!(property
+                .notes
+                .iter()
+                .any(|note| note.contains("checked linarith evidence"))),
+            "bool_tautology" => assert!(property
+                .notes
+                .iter()
+                .any(|note| note.contains("checked bool tautology evidence"))),
+            other => panic!("unexpected theory kind {other}"),
+        }
+    }
+}
+
 #[test]
 fn malformed_evidence_json_rejects_without_panic() {
     let error = PolicyEvidenceReport::from_json("{").expect_err("malformed JSON rejects");
@@ -165,7 +258,7 @@ fn policy_verify_reserve_writes_evidence_and_markdown() {
     assert_eq!(
         stdout(&output),
         format!(
-            "ok policy verify status=proof_pending verified=6 proof_pending=2 unsupported=0 evidence_json={} evidence_md={}\n",
+            "ok policy verify status=verified verified=8 proof_pending=0 unsupported=0 evidence_json={} evidence_md={}\n",
             evidence_json.display(),
             evidence_md.display()
         )
@@ -173,101 +266,7 @@ fn policy_verify_reserve_writes_evidence_and_markdown() {
     assert!(output.stderr.is_empty());
 
     let report = read_evidence(&evidence_json);
-    assert_eq!(report.target.package_path, "example.com/payment/reserve");
-    assert_eq!(report.target.function_id, RESERVE_FUNCTION);
-    assert_eq!(report.strategy_profile, "payment-policy-alpha");
-    assert_eq!(report.checker_profile, "mvp-strict");
-    assert_eq!(
-        count_status(&report, PolicyPropertyEvidenceStatus::MpkVerified),
-        6
-    );
-    assert_eq!(
-        count_status(&report, PolicyPropertyEvidenceStatus::ProofPending),
-        2
-    );
-    assert_eq!(
-        count_status(&report, PolicyPropertyEvidenceStatus::Unsupported),
-        0
-    );
-    assert_eq!(report.trusted_evidence.certificates, []);
-    assert_eq!(report.trusted_evidence.theory_certificates.len(), 6);
-    let mut unique_hashes = std::collections::BTreeSet::new();
-    for (index, theory) in report
-        .trusted_evidence
-        .theory_certificates
-        .iter()
-        .enumerate()
-    {
-        assert_eq!(
-            theory.id,
-            format!("theory:policy-linarith-{:04}", index + 1)
-        );
-        assert_eq!(theory.theory, "linarith");
-        assert_eq!(theory.format, "mpk.linarith.v0");
-        assert_eq!(theory.theory_certificate_hash.len(), 64);
-        assert_eq!(theory.checker_profile, "mvp-strict");
-        assert_eq!(theory.checked_obligations.len(), 1);
-        assert!(unique_hashes.insert(theory.theory_certificate_hash.clone()));
-    }
-    assert_eq!(
-        unique_hashes.len(),
-        6,
-        "payload-bound linarith certificates should differ by concrete VC payload"
-    );
-
-    let checked_by_id = report
-        .trusted_evidence
-        .theory_certificates
-        .iter()
-        .map(|theory| (theory.id.as_str(), theory.checked_obligations[0].as_str()))
-        .collect::<std::collections::BTreeMap<_, _>>();
-    let verified = report
-        .properties
-        .iter()
-        .filter(|property| property.status == PolicyPropertyEvidenceStatus::MpkVerified)
-        .collect::<Vec<_>>();
-    assert_eq!(verified.len(), 6);
-    for property in verified {
-        let [PolicyPropertyEvidenceRef::CheckedTheoryCertificate {
-            theory_certificate_id,
-            obligation_id,
-        }] = property.evidence.as_slice()
-        else {
-            panic!("verified property should reference exactly one checked theory certificate");
-        };
-        assert_eq!(obligation_id, &property.id);
-        assert_eq!(
-            checked_by_id
-                .get(theory_certificate_id.as_str())
-                .copied()
-                .expect("verified property references known theory certificate"),
-            obligation_id
-        );
-        assert!(property
-            .notes
-            .iter()
-            .any(|note| note.contains("checked linarith evidence")));
-    }
-    let pending = report
-        .properties
-        .iter()
-        .filter(|property| property.status == PolicyPropertyEvidenceStatus::ProofPending)
-        .collect::<Vec<_>>();
-    assert_eq!(pending.len(), 2);
-    assert!(pending.iter().all(|property| {
-        property.id.ends_with(".post3")
-            && property.evidence.iter().all(|evidence| {
-                matches!(evidence, PolicyPropertyEvidenceRef::HelperArtifact { .. })
-            })
-    }));
-    assert_eq!(
-        pending
-            .iter()
-            .flat_map(|property| property.notes.iter())
-            .filter(|note| note.contains("selected_branch_result_equals_input"))
-            .count(),
-        2
-    );
+    assert_reserve_report_fully_verified(&report);
 
     let markdown = fs::read_to_string(&evidence_md).expect("Markdown is readable");
     assert!(markdown.contains("## Verified Properties"));
@@ -562,7 +561,7 @@ fn policy_verify_rejects_path_traversal_product_paths() {
 }
 
 #[test]
-fn policy_verify_strict_fails_after_writing_proof_pending_evidence() {
+fn policy_verify_strict_reserve_succeeds_with_checked_theory_evidence() {
     let go2gir = ensure_go2gir();
     let (evidence_json, evidence_md) = temp_artifact_paths("reserve-strict");
     let output = run_mpk(&[
@@ -586,23 +585,20 @@ fn policy_verify_strict_fails_after_writing_proof_pending_evidence() {
         "--strict",
     ]);
 
-    assert_eq!(output.status.code(), Some(1));
-    assert!(output.stdout.is_empty());
+    assert!(output.status.success(), "stderr: {}", stderr(&output));
     assert_eq!(
-        stderr(&output),
-        "policy verify failed: proof-pending properties=2\n"
+        stdout(&output),
+        format!(
+            "ok policy verify status=verified verified=8 proof_pending=0 unsupported=0 evidence_json={} evidence_md={}\n",
+            evidence_json.display(),
+            evidence_md.display()
+        )
     );
+    assert!(output.stderr.is_empty());
     assert!(evidence_json.is_file());
     assert!(evidence_md.is_file());
     let report = read_evidence(&evidence_json);
-    assert_eq!(
-        count_status(&report, PolicyPropertyEvidenceStatus::MpkVerified),
-        6
-    );
-    assert_eq!(
-        count_status(&report, PolicyPropertyEvidenceStatus::ProofPending),
-        2
-    );
+    assert_reserve_report_fully_verified(&report);
 
     let _ = fs::remove_file(evidence_json);
     let _ = fs::remove_file(evidence_md);

@@ -12,15 +12,17 @@ use mpk_cert::encode::TheoryCertificate;
 use mpk_cert::{encode_theory_certificate, hash_hex, hash_with_domain, HashDomain};
 use mpk_kernel::proof_theory::check_theory_certificate;
 use mpk_theory::{
-    check_linarith_certificate, encode_linarith_certificate, FarkasMultiplier, LinarithCertificate,
-    LinearInequality, LinearTerm, LINARITH_CERT_FORMAT,
+    check_bool_certificate, check_linarith_certificate, encode_bool_certificate,
+    encode_linarith_certificate, BoolCertificate, BoolCertificateRow, BoolExpr, FarkasMultiplier,
+    LinarithCertificate, LinearInequality, LinearTerm, BOOL_CERT_FORMAT, LINARITH_CERT_FORMAT,
 };
 use mpk_vc::{
     classify_payment_policy_obligations, generate_branch_vcs, import_gir_json,
     policy_theory_goal_from_obligation, PaymentPolicyClassificationOutcome,
     PaymentPolicyClassifierPropertyStatus, PaymentPolicyObligationClassification,
-    PaymentPolicyObligationPattern as VcPolicyObligationPattern, PolicyLinearGoal,
-    PolicyTheoryGoalKind, UnsupportedPropertyCode, VcObligation,
+    PaymentPolicyObligationPattern as VcPolicyObligationPattern, PolicyBoolGoal,
+    PolicyBoolTautology, PolicyLinearGoal, PolicyTheoryGoalKind, UnsupportedPropertyCode,
+    VcObligation,
 };
 use sha2::{Digest, Sha256};
 
@@ -265,6 +267,7 @@ fn try_close_policy_obligations(
     let supported_classifications = supported_classifications_by_id(classifications, &metadata)?;
     let mut closed_obligations = BTreeMap::new();
     let mut linarith_certificate_index = 1usize;
+    let mut bool_certificate_index = 1usize;
     for (obligation_id, classification) in supported_classifications {
         let obligation = obligations_by_id.get(obligation_id).ok_or_else(|| {
             policy_closure_failed(format!(
@@ -280,25 +283,35 @@ fn try_close_policy_obligations(
         else {
             continue;
         };
-        let PolicyTheoryGoalKind::Linear(linear_goal) = theory_goal.kind else {
-            continue;
-        };
-        let Some((certificate, reason)) = linarith_certificate_from_goal(
-            &linear_goal,
-            classification
-                .pattern
-                .expect("supported classification has a validated pattern"),
-        ) else {
-            continue;
-        };
-        let closed = checked_linarith_closure(
-            obligation_id,
-            certificate,
-            reason,
-            linarith_certificate_index,
-        )?;
-        linarith_certificate_index += 1;
-        closed_obligations.insert(closed.obligation_id.clone(), closed);
+        match theory_goal.kind {
+            PolicyTheoryGoalKind::Linear(linear_goal) => {
+                let Some((certificate, reason)) = linarith_certificate_from_goal(
+                    &linear_goal,
+                    classification
+                        .pattern
+                        .expect("supported classification has a validated pattern"),
+                ) else {
+                    continue;
+                };
+                let closed = checked_linarith_closure(
+                    obligation_id,
+                    certificate,
+                    reason,
+                    linarith_certificate_index,
+                )?;
+                linarith_certificate_index += 1;
+                closed_obligations.insert(closed.obligation_id.clone(), closed);
+            }
+            PolicyTheoryGoalKind::BoolTautology(bool_goal) => {
+                let closed = checked_bool_closure(
+                    obligation_id,
+                    bool_certificate_from_goal(&bool_goal),
+                    bool_certificate_index,
+                )?;
+                bool_certificate_index += 1;
+                closed_obligations.insert(closed.obligation_id.clone(), closed);
+            }
+        }
     }
     Ok(closed_obligations)
 }
@@ -485,18 +498,76 @@ fn checked_linarith_closure(
             "encoded linarith theory certificate rejected for obligation {obligation_id:?}: {error}"
         ))
     })?;
-    let canonical = encode_theory_certificate(&theory_certificate);
-    let theory_certificate_hash =
-        hash_hex(&hash_with_domain(HashDomain::TheoryCertificate, &canonical));
 
     Ok(PolicyClosedObligation::new(
         obligation_id.to_owned(),
         format!("theory:policy-linarith-{certificate_index:04}"),
         "linarith",
         LINARITH_CERT_FORMAT,
-        theory_certificate_hash,
+        theory_certificate_hash(&theory_certificate),
         reason.evidence_note(),
     ))
+}
+
+fn bool_certificate_from_goal(goal: &PolicyBoolGoal) -> BoolCertificate {
+    let root = match goal.tautology {
+        PolicyBoolTautology::TrueOrOpaque => {
+            BoolExpr::Or(Box::new(BoolExpr::Const(true)), Box::new(BoolExpr::Var(0)))
+        }
+        PolicyBoolTautology::OpaqueOrTrue => {
+            BoolExpr::Or(Box::new(BoolExpr::Var(0)), Box::new(BoolExpr::Const(true)))
+        }
+    };
+
+    BoolCertificate {
+        variable_count: 1,
+        root,
+        rows: vec![
+            BoolCertificateRow {
+                assignment: vec![false],
+                normalized_value: true,
+            },
+            BoolCertificateRow {
+                assignment: vec![true],
+                normalized_value: true,
+            },
+        ],
+    }
+}
+
+fn checked_bool_closure(
+    obligation_id: &str,
+    certificate: BoolCertificate,
+    certificate_index: usize,
+) -> Result<PolicyClosedObligation, PolicyVerifyRunError> {
+    check_bool_certificate(&certificate).map_err(|error| {
+        policy_closure_failed(format!(
+            "bool certificate rejected for obligation {obligation_id:?}: {error}"
+        ))
+    })?;
+    let theory_certificate = TheoryCertificate {
+        format: BOOL_CERT_FORMAT.to_owned(),
+        payload: encode_bool_certificate(&certificate),
+    };
+    check_theory_certificate(&theory_certificate).map_err(|error| {
+        policy_closure_failed(format!(
+            "encoded bool theory certificate rejected for obligation {obligation_id:?}: {error}"
+        ))
+    })?;
+
+    Ok(PolicyClosedObligation::new(
+        obligation_id.to_owned(),
+        format!("theory:policy-bool-tautology-{certificate_index:04}"),
+        "bool_tautology",
+        BOOL_CERT_FORMAT,
+        theory_certificate_hash(&theory_certificate),
+        "Closed by checked bool tautology evidence for a reflexive selected-branch equality.",
+    ))
+}
+
+fn theory_certificate_hash(certificate: &TheoryCertificate) -> String {
+    let canonical = encode_theory_certificate(certificate);
+    hash_hex(&hash_with_domain(HashDomain::TheoryCertificate, &canonical))
 }
 
 fn property_from_classification(
@@ -882,6 +953,42 @@ mod tests {
         assert!(error
             .to_string()
             .starts_with("policy verify proof closure failed: linarith certificate rejected"));
+    }
+
+    #[test]
+    fn policy_bool_closure_rejects_malformed_payload_before_verifying_branch_property() {
+        let certificate = BoolCertificate {
+            variable_count: 1,
+            root: BoolExpr::Var(0),
+            rows: vec![
+                BoolCertificateRow {
+                    assignment: vec![false],
+                    normalized_value: true,
+                },
+                BoolCertificateRow {
+                    assignment: vec![true],
+                    normalized_value: true,
+                },
+            ],
+        };
+
+        let error = checked_bool_closure("bad-branch", certificate, 1)
+            .expect_err("invalid bool certificate rejects");
+
+        assert!(error
+            .to_string()
+            .starts_with("policy verify proof closure failed: bool certificate rejected"));
+
+        let mut classification = supported_classification("bad-branch");
+        classification.pattern =
+            Some(PaymentPolicyObligationPattern::SelectedBranchResultEqualsInput);
+        let property = property_from_classification(&classification, &BTreeMap::new());
+
+        assert_eq!(property.status, PolicyPropertyEvidenceStatus::ProofPending);
+        assert!(property.evidence.iter().all(|evidence| !matches!(
+            evidence,
+            PolicyPropertyEvidenceRef::CheckedTheoryCertificate { .. }
+        )));
     }
 
     fn test_obligation(id: &str) -> VcObligation {
