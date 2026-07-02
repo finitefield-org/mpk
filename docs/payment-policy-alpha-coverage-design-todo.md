@@ -3,10 +3,10 @@
 Source design: `docs/payment-policy-alpha-coverage-design.md`
 
 This document breaks the payment-policy alpha coverage design into
-implementation milestones that can be executed one at a time. Each milestone is
-scoped so a later implementation pass can pick exactly one ID, change the
-minimal files needed for that ID, run the listed verification, and leave the
-repository in a reviewable state.
+implementation milestones that can be executed one at a time. Source design
+phase IDs keep the form `PAYALPHA-COV-0x`; implementation task IDs in this file
+use `PAYALPHA-COV-T0x` so a later implementation pass can pick exactly one
+task ID without overloading the source phase names.
 
 ## Scope
 
@@ -28,15 +28,21 @@ Out of scope:
 ## Design Phase Mapping
 
 The source design describes five phases. This TODO expands them into smaller
-implementation milestones:
+implementation task milestones:
 
 | Design phase | Implementation milestones |
 | --- | --- |
-| PAYALPHA-COV-01 baseline and closure plumbing | PAYALPHA-COV-01 |
-| PAYALPHA-COV-02 payload-bound linarith closure | PAYALPHA-COV-02, PAYALPHA-COV-03, PAYALPHA-COV-04 |
-| PAYALPHA-COV-03 reflexive branch bool closure | PAYALPHA-COV-05, PAYALPHA-COV-06 |
-| PAYALPHA-COV-04 corpus-wide evidence coverage | PAYALPHA-COV-07 |
-| PAYALPHA-COV-05 docs and CI gate | PAYALPHA-COV-08 |
+| PAYALPHA-COV-01 baseline and closure plumbing | PAYALPHA-COV-T01 |
+| PAYALPHA-COV-02 payload-bound linarith closure | PAYALPHA-COV-T02, PAYALPHA-COV-T03, PAYALPHA-COV-T04 |
+| PAYALPHA-COV-03 reflexive branch bool closure | PAYALPHA-COV-T05, PAYALPHA-COV-T06 |
+| PAYALPHA-COV-04 corpus-wide evidence coverage | PAYALPHA-COV-T07 |
+| PAYALPHA-COV-05 docs and CI gate | PAYALPHA-COV-T08 |
+
+The source phase PAYALPHA-COV-01 included the neutral `policy_theory_goal` setup
+as part of baseline plumbing. This task plan intentionally keeps
+PAYALPHA-COV-T01 behavior-preserving and implements the neutral linear-goal
+extraction in PAYALPHA-COV-T03 before any payload-bound linarith closure
+consumes it.
 
 ## Cross-Cutting Constraints
 
@@ -68,7 +74,7 @@ implementation milestones:
 
 ## Milestones
 
-### PAYALPHA-COV-01 Baseline Closure Plumbing
+### PAYALPHA-COV-T01 Baseline Closure Plumbing
 
 Status: Pending
 
@@ -139,15 +145,15 @@ git diff --check
 Notes:
 
 - This milestone intentionally does not add `mpk-vc` policy theory extraction.
-- Keep the old static strategy witness isolated so PAYALPHA-COV-04 can remove
+- Keep the old static strategy witness isolated so PAYALPHA-COV-T04 can remove
   it from policy closure cleanly.
 
-### PAYALPHA-COV-02 Add Theory Certificate Encoders
+### PAYALPHA-COV-T02 Add Theory Certificate Encoders
 
 Status: Pending
 
-Depends on: none, but PAYALPHA-COV-04 consumes the linarith encoder and
-PAYALPHA-COV-06 consumes the bool encoder.
+Depends on: none, but PAYALPHA-COV-T04 consumes the linarith encoder and
+PAYALPHA-COV-T06 consumes the bool encoder.
 
 Inputs:
 
@@ -211,6 +217,7 @@ cargo fmt --all -- --check
 cargo test -p mpk-theory linarith
 cargo test -p mpk-theory bool
 cargo test -p mpk-kernel theory
+cargo test -p mpk-cli --test policy_verify
 git diff --check
 ```
 
@@ -220,11 +227,11 @@ Notes:
   design. Bounds and shape failures should be caught by the existing checker
   tests before payloads are used as trusted evidence.
 
-### PAYALPHA-COV-03 Extract Policy Linear Theory Goals
+### PAYALPHA-COV-T03 Extract Policy Linear Theory Goals
 
 Status: Pending
 
-Depends on: PAYALPHA-COV-01.
+Depends on: PAYALPHA-COV-T01.
 
 Inputs:
 
@@ -293,9 +300,9 @@ Acceptance criteria:
 - The five positive payment-policy examples still classify as eight supported
   obligations each.
 - Linear extraction can produce goals for the non-negative and bound obligations
-  needed by PAYALPHA-COV-04.
+  needed by PAYALPHA-COV-T04.
 - Branch equality obligations are either represented as bool goals only after
-  PAYALPHA-COV-05 or left non-applicable in this milestone.
+  PAYALPHA-COV-T05 or left non-applicable in this milestone.
 - No CLI behavior changes are required by this milestone.
 
 Verification:
@@ -312,11 +319,11 @@ Notes:
 - Keep the local max-variable constant in `mpk-vc` at 64, matching
   `mpk_theory::MAX_LINARITH_VARIABLES`, without importing `mpk-theory`.
 
-### PAYALPHA-COV-04 Enable Payload-Bound Linarith Closure
+### PAYALPHA-COV-T04 Enable Payload-Bound Linarith Closure
 
 Status: Pending
 
-Depends on: PAYALPHA-COV-01, PAYALPHA-COV-02, PAYALPHA-COV-03.
+Depends on: PAYALPHA-COV-T01, PAYALPHA-COV-T02, PAYALPHA-COV-T03.
 
 Inputs:
 
@@ -378,6 +385,11 @@ Tasks:
 13. Add a non-strict checker-profile test proving `mvp-structural` or
     `core-bootstrap` produces no checked theory closures and remains
     proof-pending.
+14. Add a tamper regression for the linear closure path. If the concrete VC
+    conclusion or generated linarith certificate no longer matches the checked
+    normalized goal, the policy closure path must not emit `mpk_verified`; an
+    internal checked-certificate failure must surface as `policy verify proof
+    closure failed: <detail>`.
 
 Deliverables:
 
@@ -391,8 +403,8 @@ Acceptance criteria:
   `status=proof_pending verified=6 proof_pending=2 unsupported=0`.
 - Reserve strict CLI failure is exactly
   `policy verify failed: proof-pending properties=2`.
-- `rg "theory_strategy_certificate_evidence|theoryWitness" crates/mpk-cli/src/policy_verify.rs`
-  finds no policy closure use.
+- `! rg -n "theory_strategy_certificate_evidence|theoryWitness" crates/mpk-cli/src/policy_verify.rs`
+  succeeds, proving no policy closure use remains.
 - Each checked linarith certificate hash changes with its concrete VC payload
   when the obligation changes.
 - Unknown checker profiles still fail before evidence is written through the
@@ -405,21 +417,20 @@ cargo fmt --all -- --check
 cargo test -p mpk-theory linarith
 cargo test -p mpk-vc --test payment_policy_examples
 cargo test -p mpk-cli --test policy_verify
-rg "theory_strategy_certificate_evidence|theoryWitness" crates/mpk-cli/src/policy_verify.rs
+! rg -n "theory_strategy_certificate_evidence|theoryWitness" crates/mpk-cli/src/policy_verify.rs
 git diff --check
 ```
 
 Notes:
 
-- The final `rg` command is expected to produce no matches in
-  `policy_verify.rs`; if it exits nonzero because there are no matches, record
-  that as the desired result.
+- The final `! rg` command is expected to produce no matches in
+  `policy_verify.rs` and therefore exit successfully.
 
-### PAYALPHA-COV-05 Extract Reflexive Branch Bool Goals
+### PAYALPHA-COV-T05 Extract Reflexive Branch Bool Goals
 
 Status: Pending
 
-Depends on: PAYALPHA-COV-03.
+Depends on: PAYALPHA-COV-T03.
 
 Inputs:
 
@@ -436,7 +447,7 @@ Likely touched files:
 
 Tasks:
 
-1. Add bool goal structs if they were not fully added in PAYALPHA-COV-03:
+1. Add bool goal structs if they were not fully added in PAYALPHA-COV-T03:
    - `PolicyBoolGoal { reason, tautology }`
    - `PolicyBoolTautologyReason::ReflexiveSelectedBranchDisjunct`
    - `PolicyBoolTautology::{TrueOrOpaque, OpaqueOrTrue}`.
@@ -470,7 +481,7 @@ Acceptance criteria:
 - Branch equality extraction never marks a property verified by itself.
 - The extraction result contains no trusted evidence and no checker-facing
   payload bytes.
-- Existing linarith CLI behavior from PAYALPHA-COV-04 remains unchanged.
+- Existing linarith CLI behavior from PAYALPHA-COV-T04 remains unchanged.
 
 Verification:
 
@@ -482,11 +493,11 @@ cargo test -p mpk-cli --test policy_verify
 git diff --check
 ```
 
-### PAYALPHA-COV-06 Enable Payload-Bound Bool Closure
+### PAYALPHA-COV-T06 Enable Payload-Bound Bool Closure
 
 Status: Pending
 
-Depends on: PAYALPHA-COV-02, PAYALPHA-COV-04, PAYALPHA-COV-05.
+Depends on: PAYALPHA-COV-T02, PAYALPHA-COV-T04, PAYALPHA-COV-T05.
 
 Inputs:
 
@@ -528,6 +539,9 @@ Tasks:
      certificates;
    - every `mpk_verified` property has exactly one checked-theory ref.
 9. Keep non-strict checker-profile tests proof-pending.
+10. Add a bool-certificate tamper regression proving a malformed normalized
+    bool payload is rejected before any branch equality property is marked
+    `mpk_verified`.
 
 Deliverables:
 
@@ -553,11 +567,11 @@ cargo test -p mpk-cli --test policy_verify
 git diff --check
 ```
 
-### PAYALPHA-COV-07 Verify the Positive Payment-Policy Corpus
+### PAYALPHA-COV-T07 Verify the Positive Payment-Policy Corpus
 
 Status: Pending
 
-Depends on: PAYALPHA-COV-06.
+Depends on: PAYALPHA-COV-T06.
 
 Inputs:
 
@@ -579,9 +593,10 @@ Tasks:
    test covering `reserve`, `refund`, `discount`, `fee`, and `points`.
 2. Reuse the existing `go2gir` build helper in CLI tests so the corpus test
    does not rebuild the binary for every example.
-3. For every positive example, run `mpk policy verify` with
+3. For every positive example, run `mpk policy verify --strict` with
    `--strategy-profile payment-policy-alpha` and `--checker-profile mvp-strict`
-   and assert `verified=8 proof_pending=0 unsupported=0`.
+   and assert the command succeeds with
+   `verified=8 proof_pending=0 unsupported=0`.
 4. For `refund`, `discount`, `fee`, and `points`, assert at least one property
    is `mpk_verified` and references checked theory evidence. This proves the
    implementation is not reserve-only.
@@ -591,27 +606,36 @@ Tasks:
    - discount and fee obligations close under
      `FeeOrDiscountBoundedByCap`;
    - points obligations close under `ResultBoundedByInput`.
-6. Keep the existing `mpk-vc` fixture test that asserts each example still has
+6. Parse every generated evidence JSON with `PolicyEvidenceReport::from_json`.
+7. Add a determinism assertion for at least one non-reserve example, preferably
+   `refund`, proving repeated evidence output is byte-identical and
+   multi-certificate numbering is stable outside reserve.
+8. Keep the existing `mpk-vc` fixture test that asserts each example still has
    two non-negative, four bound, and two branch-equality obligations.
-7. If fixture regeneration is required, use the existing
+9. If fixture regeneration is required, use the existing
    `MPK_UPDATE_PAYMENT_POLICY_EXAMPLES=1 cargo test -p mpk-vc --test
    payment_policy_examples` flow and commit only intentional fixture changes.
-8. Run Go tests for all five example packages.
-9. Update `scripts/check-all.sh` only if it does not already run a CLI test that
-   would fail on loss of corpus coverage.
+10. Run Go tests for all five example packages.
+11. Update `scripts/check-all.sh` only if it does not already run a CLI test
+    that would fail on loss of strict corpus coverage.
 
 Deliverables:
 
-- Corpus-level regression coverage proving all five positive examples verify
-  under `mvp-strict`.
+- Corpus-level regression coverage proving all five positive examples pass
+  strict verification under `mvp-strict`.
 
 Acceptance criteria:
 
-- All five positive examples produce `verified=8 proof_pending=0 unsupported=0`.
+- All five positive examples pass `mpk policy verify --strict` and produce
+  `verified=8 proof_pending=0 unsupported=0`.
 - At least one `refund`, one `discount`, one `fee`, and one `points` property is
   backed by checked theory-certificate evidence.
 - The `FeeOrDiscountBoundedByCap` implementation is not discount-cap-only; fee
   floor examples must pass.
+- Repeated evidence generation is deterministic for at least one non-reserve
+  example.
+- Every generated corpus evidence JSON parses with
+  `PolicyEvidenceReport::from_json`.
 - Existing scan and VC classification tests still pass.
 
 Verification:
@@ -627,11 +651,11 @@ cargo test -p mpk-cli --test policy_verify
 git diff --check
 ```
 
-### PAYALPHA-COV-08 Refresh Docs, Fixture, and CI Guidance
+### PAYALPHA-COV-T08 Refresh Docs, Fixture, and CI Guidance
 
 Status: Pending
 
-Depends on: PAYALPHA-COV-07.
+Depends on: PAYALPHA-COV-T07.
 
 Inputs:
 
@@ -719,15 +743,15 @@ cargo fmt --all -- --check
 cargo test -p mpk-cli --test policy_verify
 cargo test -p mpk-vc --test payment_policy_examples
 ./scripts/check-fast.sh
-rg -n "verified=1|proof_pending=7|proof_pending=2|may report `status=proof_pending`|one `mpk_verified`" docs examples/payment_policies
+rg -n 'verified=1|proof_pending=7|proof_pending=2|may report `status=proof_pending`|one `mpk_verified`' docs examples/payment_policies || printf 'no stale-text hits\n'
 git diff --check
 ```
 
 Notes:
 
-- The final `rg` command is a stale-text audit. It may still find historical
-  design references in `docs/payment-policy-alpha-coverage-design.md`; review
-  each hit and update only user-facing instructions or final-state claims.
+- The final stale-text search is an audit. It may still find historical design
+  references in `docs/payment-policy-alpha-coverage-design.md`; review each hit
+  and update only user-facing instructions or final-state claims.
 
 ## Final Done Definition
 
@@ -735,7 +759,8 @@ The overall payment-policy alpha coverage work is complete when:
 
 - reserve strict verification succeeds with
   `verified=8 proof_pending=0 unsupported=0`;
-- all five positive payment-policy examples verify with
+- all five positive payment-policy examples pass `mpk policy verify --strict`
+  with
   `verified=8 proof_pending=0 unsupported=0`;
 - refund, discount, fee, and points each contain at least one checked
   `mpk_verified` property;
@@ -754,9 +779,15 @@ Resolved findings:
 - Split the source design's large linarith phase into encoder, extraction, and
   CLI-closure milestones so each implementation pass has a narrow ownership
   boundary.
+- Gave implementation tasks distinct `PAYALPHA-COV-T0x` IDs so they do not
+  overload the source design's `PAYALPHA-COV-0x` phase IDs.
 - Split bool extraction from bool closure so `mpk-vc` can remain proof-neutral.
 - Added an explicit note that kernel-acceptance tests for encoders may need to
   live outside `mpk-theory` to avoid a dependency cycle.
+- Replaced copy-paste-hostile search commands with executable forms, including
+  a no-match `! rg` check and a single-quoted stale-text search pattern.
+- Restored source-design coverage for strict corpus verification, non-reserve
+  determinism, schema parsing, and tamper regressions.
 - Preserved the trust-boundary distinction between `strategy_profile`,
   `checker_profile`, and `allowed_axiom_profiles`.
 - Made fixture refresh and stale-doc search explicit in the final milestone.
