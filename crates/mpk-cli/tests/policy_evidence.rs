@@ -165,7 +165,7 @@ fn checked_linarith_evidence_matches_strategy_certificate_hash() {
 }
 
 #[test]
-fn reserve_policy_evidence_fixture_marks_only_closed_property_verified() {
+fn reserve_policy_evidence_fixture_marks_all_properties_verified() {
     let json = std::fs::read_to_string(RESERVE_EVIDENCE_FIXTURE)
         .expect("reserve evidence fixture is readable");
     let report = PolicyEvidenceReport::from_json(&json).expect("reserve evidence fixture parses");
@@ -175,57 +175,61 @@ fn reserve_policy_evidence_fixture_marks_only_closed_property_verified() {
     assert_eq!(report.strategy_profile, "payment-policy-alpha");
     assert_eq!(report.checker_profile, "mvp-strict");
     assert!(report.trusted_evidence.certificates.is_empty());
-    assert_eq!(report.trusted_evidence.theory_certificates.len(), 1);
-
-    let theory_certificate = &report.trusted_evidence.theory_certificates[0];
-    assert_eq!(theory_certificate.id, "theory:reserve-nonnegative-001");
-    assert_eq!(theory_certificate.theory, "linarith");
-    assert_eq!(theory_certificate.format, LINARITH_THEORY_CERT_FORMAT);
-    assert_eq!(
-        theory_certificate.theory_certificate_hash,
-        LINARITH_THEORY_CERT_HASH
-    );
-    assert_eq!(
-        theory_certificate.checked_obligations,
-        vec!["example.com/payment/reserve.ApprovedReserveCents.then.post0".to_owned()]
-    );
-
-    let verified = report
-        .properties
-        .iter()
-        .filter(|property| property.status == PolicyPropertyEvidenceStatus::MpkVerified)
-        .collect::<Vec<_>>();
-    assert_eq!(verified.len(), 1);
-    assert_eq!(
-        verified[0].id,
-        "example.com/payment/reserve.ApprovedReserveCents.then.post0"
-    );
-    assert!(matches!(
-        verified[0].evidence.as_slice(),
-        [PolicyPropertyEvidenceRef::CheckedTheoryCertificate {
-            theory_certificate_id,
-            obligation_id
-        }] if theory_certificate_id == "theory:reserve-nonnegative-001"
-            && obligation_id == "example.com/payment/reserve.ApprovedReserveCents.then.post0"
-    ));
+    assert_eq!(report.trusted_evidence.theory_certificates.len(), 8);
 
     assert_eq!(report.properties.len(), 8);
-    for property in report
+    assert!(report
         .properties
         .iter()
-        .filter(|property| property.id != verified[0].id)
-    {
-        assert!(matches!(
-            property.status,
-            PolicyPropertyEvidenceStatus::ProofPending | PolicyPropertyEvidenceStatus::Unsupported
-        ));
-        assert!(!property.evidence.iter().any(|evidence| {
-            matches!(
-                evidence,
-                PolicyPropertyEvidenceRef::CheckedDeclaration { .. }
-                    | PolicyPropertyEvidenceRef::CheckedTheoryCertificate { .. }
-            )
-        }));
+        .all(|property| property.status == PolicyPropertyEvidenceStatus::MpkVerified));
+
+    let theory_by_id = report
+        .trusted_evidence
+        .theory_certificates
+        .iter()
+        .map(|theory| (theory.id.as_str(), theory))
+        .collect::<std::collections::BTreeMap<_, _>>();
+
+    for index in 1..=6 {
+        let id = format!("theory:policy-linarith-{index:04}");
+        let theory = theory_by_id
+            .get(id.as_str())
+            .unwrap_or_else(|| panic!("missing linarith theory certificate {id}"));
+        assert_eq!(theory.theory, "linarith");
+        assert_eq!(theory.format, LINARITH_THEORY_CERT_FORMAT);
+        assert_eq!(theory.checker_profile, "mvp-strict");
+        assert_eq!(theory.theory_certificate_hash.len(), 64);
+        assert_eq!(theory.checked_obligations.len(), 1);
+    }
+
+    for index in 1..=2 {
+        let id = format!("theory:policy-bool-tautology-{index:04}");
+        let theory = theory_by_id
+            .get(id.as_str())
+            .unwrap_or_else(|| panic!("missing bool theory certificate {id}"));
+        assert_eq!(theory.theory, "bool_tautology");
+        assert_eq!(theory.format, "mpk.bool-normalize.v0");
+        assert_eq!(theory.checker_profile, "mvp-strict");
+        assert_eq!(theory.theory_certificate_hash.len(), 64);
+        assert_eq!(theory.checked_obligations.len(), 1);
+    }
+
+    for property in &report.properties {
+        let [PolicyPropertyEvidenceRef::CheckedTheoryCertificate {
+            theory_certificate_id,
+            obligation_id,
+        }] = property.evidence.as_slice()
+        else {
+            panic!("reserve property should reference exactly one checked theory certificate");
+        };
+        assert_eq!(obligation_id, &property.id);
+        let theory = theory_by_id
+            .get(theory_certificate_id.as_str())
+            .unwrap_or_else(|| panic!("missing theory certificate {theory_certificate_id}"));
+        assert_eq!(
+            theory.checked_obligations[0].as_str(),
+            obligation_id.as_str()
+        );
     }
 
     assert!(!json.contains("\"ai_analysis\""));

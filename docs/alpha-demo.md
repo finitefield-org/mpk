@@ -126,9 +126,10 @@ MPK_UPDATE_VC_ALPHA=1 cargo test -p mpk-vc --test alpha_corpus
 ## 5. Run the ProofOps policy engine path
 
 The payment-policy corpus exercises the ProofOps product-facing commands. The
-reserve example is the first supported policy verify path: `mpk policy scan`
-checks readiness as helper analysis, and `mpk policy verify` writes deterministic
-policy evidence JSON and Markdown.
+reserve example is the strict supported policy verify path: `mpk policy scan`
+checks readiness as helper analysis, and `mpk policy verify --strict` writes
+deterministic policy evidence JSON and Markdown while requiring every supported
+property to have checked theory-certificate evidence.
 
 ```sh
 mkdir -p target/proof-ops
@@ -146,18 +147,19 @@ cargo run --quiet -p mpk-cli -- policy verify examples/payment_policies/reserve 
   --checker-profile mvp-strict \
   --evidence-json target/proof-ops/reserve.evidence.json \
   --evidence-md target/proof-ops/reserve.evidence.md \
-  --go2gir target/debug/go2gir
+  --go2gir target/debug/go2gir \
+  --strict
 ```
 
 Expected result: `policy scan` reports `status=ready`, and `policy verify`
-reports `status=proof_pending` with one `mpk_verified` reserve obligation and
-the remaining obligations still `proof_pending`. The evidence JSON keeps
-`helper_artifacts` such as source hashes, GIR, VC, and Markdown report context
-separate from `trusted_evidence` such as checked theory-certificate entries.
-It also keeps `strategy_profile`, `checker_profile`, and
-`allowed_axiom_profiles` as separate policy fields: the strategy profile selects
-the payment workflow, the checker profile selects the MPK proof checker mode,
-and the axiom policy profile records the allowed axiom class.
+reports `status=verified` with `verified=8 proof_pending=0 unsupported=0`. The
+evidence JSON keeps `helper_artifacts` such as source hashes, GIR, VC, and
+Markdown report context separate from `trusted_evidence` such as checked
+theory-certificate entries. It also keeps `strategy_profile`,
+`checker_profile`, and `allowed_axiom_profiles` as separate policy fields: the
+strategy profile selects the payment workflow, the checker profile selects the
+MPK proof checker mode, and the axiom policy profile records the allowed axiom
+class.
 
 ## 6. Check the Max64-shaped theory proof hook
 
@@ -207,8 +209,9 @@ When all commands above pass locally, the alpha pipeline demonstrates:
 - the order-policy example documents how a real Go service calls a pure
   verified-boundary policy function while keeping side effects outside MPK;
 - the ALPHA-002 VC corpus still records 1,056 generated obligations;
-- the reserve payment policy scans as MPK-ready and emits policy evidence with
-  helper artifacts separated from trusted checked theory evidence;
+- the reserve payment policy scans as MPK-ready and verifies strictly with
+  eight checked theory-backed `mpk_verified` properties while keeping helper
+  artifacts separated from trusted checked evidence;
 - the TH-008 strategy hook can close a Max64-shaped simple VC only through a
   checked theory certificate;
 - canonical certificate bytes are accepted by source-free verification;

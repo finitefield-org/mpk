@@ -13,13 +13,83 @@
     "certificates": [],
     "theory_certificates": [
       {
-        "id": "theory:reserve-nonnegative-001",
+        "id": "theory:policy-linarith-0001",
         "theory": "linarith",
         "format": "mpk.linarith.v0",
-        "theory_certificate_hash": "a85d54f8d5c32dba5f414490120847013b7c727a3ce8b6ae2c3a44aae4edd7e1",
+        "theory_certificate_hash": "2e12cbd80cddfba77893221df1ed36018be2d1ae27b14d410b22c2bb1d796e4d",
+        "checker_profile": "mvp-strict",
+        "checked_obligations": [
+          "example.com/payment/reserve.ApprovedReserveCents.else.post0"
+        ]
+      },
+      {
+        "id": "theory:policy-linarith-0002",
+        "theory": "linarith",
+        "format": "mpk.linarith.v0",
+        "theory_certificate_hash": "0cd96b97f3d6afc00ce328b3b0afcf60481d11da0bb9d69da4325135a46b5083",
+        "checker_profile": "mvp-strict",
+        "checked_obligations": [
+          "example.com/payment/reserve.ApprovedReserveCents.else.post1"
+        ]
+      },
+      {
+        "id": "theory:policy-linarith-0003",
+        "theory": "linarith",
+        "format": "mpk.linarith.v0",
+        "theory_certificate_hash": "a150f7f22e7a0883f025460a7843b3fc9c8850e62818b63f4281b952df7270d0",
+        "checker_profile": "mvp-strict",
+        "checked_obligations": [
+          "example.com/payment/reserve.ApprovedReserveCents.else.post2"
+        ]
+      },
+      {
+        "id": "theory:policy-bool-tautology-0001",
+        "theory": "bool_tautology",
+        "format": "mpk.bool-normalize.v0",
+        "theory_certificate_hash": "eb10e75d2087f323f74bf5ef56972dc0c6ca228de99725e2323a7d8afdd350d0",
+        "checker_profile": "mvp-strict",
+        "checked_obligations": [
+          "example.com/payment/reserve.ApprovedReserveCents.else.post3"
+        ]
+      },
+      {
+        "id": "theory:policy-linarith-0004",
+        "theory": "linarith",
+        "format": "mpk.linarith.v0",
+        "theory_certificate_hash": "5ad2b15928a0c1f24e47da56095d8fd47626a0b4ed2d6a2153fc9059624ff2ac",
         "checker_profile": "mvp-strict",
         "checked_obligations": [
           "example.com/payment/reserve.ApprovedReserveCents.then.post0"
+        ]
+      },
+      {
+        "id": "theory:policy-linarith-0005",
+        "theory": "linarith",
+        "format": "mpk.linarith.v0",
+        "theory_certificate_hash": "6a2a651de9b2bf4708e514bd78f0fce8563f4890126bd75bee9292ef3b85515c",
+        "checker_profile": "mvp-strict",
+        "checked_obligations": [
+          "example.com/payment/reserve.ApprovedReserveCents.then.post1"
+        ]
+      },
+      {
+        "id": "theory:policy-linarith-0006",
+        "theory": "linarith",
+        "format": "mpk.linarith.v0",
+        "theory_certificate_hash": "e399138dad6b21029bf005e5e20e1670d0fb3fda07a83505ec41ba1411bb8a11",
+        "checker_profile": "mvp-strict",
+        "checked_obligations": [
+          "example.com/payment/reserve.ApprovedReserveCents.then.post2"
+        ]
+      },
+      {
+        "id": "theory:policy-bool-tautology-0002",
+        "theory": "bool_tautology",
+        "format": "mpk.bool-normalize.v0",
+        "theory_certificate_hash": "f8a89bdb523c66fa77a33bf5e1f2c501cc228c0f2b773f154c6e214a9d782e67",
+        "checker_profile": "mvp-strict",
+        "checked_obligations": [
+          "example.com/payment/reserve.ApprovedReserveCents.then.post3"
         ]
       }
     ],
@@ -30,7 +100,7 @@
   "helper_artifacts": {
     "source": {
       "root": "examples/payment_policies/reserve",
-      "source_hash": "d844f257c70887dab36e13347755a44f28f7c35095dd7efa4fc84dbeaf4044f2",
+      "source_hash": "6f3f6af22f9ca554c6ca73d5384299711d83e46d8c3ae156275607e6daae3010",
       "files": [
         {
           "path": "examples/payment_policies/reserve/policy.go",
@@ -50,119 +120,133 @@
   "properties": [
     {
       "id": "example.com/payment/reserve.ApprovedReserveCents.then.post0",
-      "description": "Then branch reserve result is nonnegative.",
+      "description": "Payment policy obligation classified as non_negative_result.",
       "status": "mpk_verified",
       "evidence": [
         {
           "kind": "checked_theory_certificate",
-          "theory_certificate_id": "theory:reserve-nonnegative-001",
+          "theory_certificate_id": "theory:policy-linarith-0004",
           "obligation_id": "example.com/payment/reserve.ApprovedReserveCents.then.post0"
         }
       ],
       "notes": [
-        "Closed by the deterministic linarith certificate for the x >= 0 identity obligation shape."
+        "Closed by checked linarith evidence for an exact linear premise."
       ]
     },
     {
       "id": "example.com/payment/reserve.ApprovedReserveCents.then.post1",
-      "description": "Then branch reserve result does not exceed balance.",
-      "status": "proof_pending",
+      "description": "Payment policy obligation classified as result_bounded_by_input.",
+      "status": "mpk_verified",
       "evidence": [
         {
-          "kind": "helper_artifact",
-          "artifact": "vc",
-          "summary": "VC is generated, but no checked proof certificate is attached for this obligation."
+          "kind": "checked_theory_certificate",
+          "theory_certificate_id": "theory:policy-linarith-0005",
+          "obligation_id": "example.com/payment/reserve.ApprovedReserveCents.then.post1"
         }
       ],
-      "notes": []
+      "notes": [
+        "Closed by checked linarith evidence for an identity linear goal."
+      ]
     },
     {
       "id": "example.com/payment/reserve.ApprovedReserveCents.then.post2",
-      "description": "Then branch reserve result does not exceed the requested amount.",
-      "status": "proof_pending",
+      "description": "Payment policy obligation classified as result_bounded_by_input.",
+      "status": "mpk_verified",
       "evidence": [
         {
-          "kind": "helper_artifact",
-          "artifact": "vc",
-          "summary": "VC is generated, but no checked proof certificate is attached for this obligation."
+          "kind": "checked_theory_certificate",
+          "theory_certificate_id": "theory:policy-linarith-0006",
+          "obligation_id": "example.com/payment/reserve.ApprovedReserveCents.then.post2"
         }
       ],
-      "notes": []
+      "notes": [
+        "Closed by checked linarith evidence for a branch-premise linear bound."
+      ]
     },
     {
       "id": "example.com/payment/reserve.ApprovedReserveCents.then.post3",
-      "description": "Then branch reserve result is one of the selected inputs.",
-      "status": "unsupported",
+      "description": "Payment policy obligation classified as selected_branch_result_equals_input.",
+      "status": "mpk_verified",
       "evidence": [
         {
-          "kind": "unsupported_feature",
-          "code": "UNSUPPORTED_BOOL_DISJUNCTION",
-          "message": "The current checked linarith certificate path does not close Boolean disjunction obligations."
+          "kind": "checked_theory_certificate",
+          "theory_certificate_id": "theory:policy-bool-tautology-0002",
+          "obligation_id": "example.com/payment/reserve.ApprovedReserveCents.then.post3"
         }
       ],
-      "notes": []
+      "notes": [
+        "Closed by checked bool tautology evidence for a reflexive selected-branch equality."
+      ]
     },
     {
       "id": "example.com/payment/reserve.ApprovedReserveCents.else.post0",
-      "description": "Else branch reserve result is nonnegative.",
-      "status": "proof_pending",
+      "description": "Payment policy obligation classified as non_negative_result.",
+      "status": "mpk_verified",
       "evidence": [
         {
-          "kind": "helper_artifact",
-          "artifact": "vc",
-          "summary": "VC is generated, but no checked proof certificate is attached for this obligation."
+          "kind": "checked_theory_certificate",
+          "theory_certificate_id": "theory:policy-linarith-0001",
+          "obligation_id": "example.com/payment/reserve.ApprovedReserveCents.else.post0"
         }
       ],
-      "notes": []
+      "notes": [
+        "Closed by checked linarith evidence for an exact linear premise."
+      ]
     },
     {
       "id": "example.com/payment/reserve.ApprovedReserveCents.else.post1",
-      "description": "Else branch reserve result does not exceed balance.",
-      "status": "proof_pending",
+      "description": "Payment policy obligation classified as result_bounded_by_input.",
+      "status": "mpk_verified",
       "evidence": [
         {
-          "kind": "helper_artifact",
-          "artifact": "vc",
-          "summary": "VC is generated, but no checked proof certificate is attached for this obligation."
+          "kind": "checked_theory_certificate",
+          "theory_certificate_id": "theory:policy-linarith-0002",
+          "obligation_id": "example.com/payment/reserve.ApprovedReserveCents.else.post1"
         }
       ],
-      "notes": []
+      "notes": [
+        "Closed by checked linarith evidence for a branch-premise linear bound."
+      ]
     },
     {
       "id": "example.com/payment/reserve.ApprovedReserveCents.else.post2",
-      "description": "Else branch reserve result does not exceed the requested amount.",
-      "status": "proof_pending",
+      "description": "Payment policy obligation classified as result_bounded_by_input.",
+      "status": "mpk_verified",
       "evidence": [
         {
-          "kind": "helper_artifact",
-          "artifact": "vc",
-          "summary": "VC is generated, but no checked proof certificate is attached for this obligation."
+          "kind": "checked_theory_certificate",
+          "theory_certificate_id": "theory:policy-linarith-0003",
+          "obligation_id": "example.com/payment/reserve.ApprovedReserveCents.else.post2"
         }
       ],
-      "notes": []
+      "notes": [
+        "Closed by checked linarith evidence for an identity linear goal."
+      ]
     },
     {
       "id": "example.com/payment/reserve.ApprovedReserveCents.else.post3",
-      "description": "Else branch reserve result is one of the selected inputs.",
-      "status": "unsupported",
+      "description": "Payment policy obligation classified as selected_branch_result_equals_input.",
+      "status": "mpk_verified",
       "evidence": [
         {
-          "kind": "unsupported_feature",
-          "code": "UNSUPPORTED_BOOL_DISJUNCTION",
-          "message": "The current checked linarith certificate path does not close Boolean disjunction obligations."
+          "kind": "checked_theory_certificate",
+          "theory_certificate_id": "theory:policy-bool-tautology-0001",
+          "obligation_id": "example.com/payment/reserve.ApprovedReserveCents.else.post3"
         }
       ],
-      "notes": []
+      "notes": [
+        "Closed by checked bool tautology evidence for a reflexive selected-branch equality."
+      ]
     }
   ],
   "reproduction_commands": [
     {
-      "label": "strategy-test",
-      "command": "cargo test -p mpk-api --test policy_strategy payment_policy_alpha_closes_first_reserve_nonnegative_with_checked_linarith"
+      "label": "scan",
+      "command": "mpk policy scan examples/payment_policies/reserve --function example.com/payment/reserve.ApprovedReserveCents --contract examples/payment_policies/reserve/policy_contract.json --json-out <scan.json> --go2gir <go2gir>"
     },
     {
-      "label": "evidence-test",
-      "command": "cargo test -p mpk-cli --test policy_evidence reserve_policy_evidence_fixture_marks_only_closed_property_verified"
+      "label": "verify",
+      "command": "mpk policy verify examples/payment_policies/reserve --function example.com/payment/reserve.ApprovedReserveCents --contract examples/payment_policies/reserve/policy_contract.json --strategy-profile payment-policy-alpha --checker-profile mvp-strict --evidence-json <evidence.json> --evidence-md <evidence.md> --go2gir <go2gir> --strict --update-fixtures"
     }
   ]
 }

@@ -21,7 +21,7 @@ unsupported floats, maps, pointers, and missing contract postconditions.
 
 The CI command pattern for this corpus is documented in
 `../../docs/proof-ops-policy-ci.md`. Run the reserve example from the repository
-root as the current end-to-end path for:
+root as the current strict end-to-end path for checked theory evidence:
 
 ```sh
 mkdir -p target/proof-ops
@@ -41,8 +41,14 @@ cargo run --quiet -p mpk-cli -- policy verify examples/payment_policies/reserve 
   --checker-profile mvp-strict \
   --evidence-json target/proof-ops/reserve.evidence.json \
   --evidence-md target/proof-ops/reserve.evidence.md \
-  --go2gir target/debug/go2gir
+  --go2gir target/debug/go2gir \
+  --strict
 ```
+
+Expected `policy verify` result for the supported positive corpus is
+`status=verified verified=8 proof_pending=0 unsupported=0`. The repository test
+`policy_verify_positive_payment_corpus_has_expected_counts` checks the same
+strict result for `reserve`, `refund`, `discount`, `fee`, and `points`.
 
 Review these helper artifacts in PRs when a policy changes:
 

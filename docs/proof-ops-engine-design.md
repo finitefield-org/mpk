@@ -163,10 +163,12 @@ separately specified.
 ### 4. Checked Theory Certificates For Common Payment Obligations
 
 The product is only credible if generated payment VCs can close to checked
-evidence for a useful subset. The current path emits a checked `linarith`
-theory certificate for the first supported reserve non-negative obligation and
-keeps remaining reserve obligations `proof_pending`. Additional strategy
-coverage should harden checked theory certificates for:
+evidence for a useful subset. The current payment-policy alpha path emits
+checked `linarith` certificates for supported linear obligations and checked
+`bool_tautology` certificates for reflexive selected-branch equality
+obligations. The reserve, refund, discount, fee, and points positive corpus
+passes strict verification with eight checked properties per example. Additional
+strategy coverage should harden checked theory certificates for:
 
 - signed integer linear inequalities;
 - simple branch path-condition reasoning;
@@ -181,9 +183,9 @@ never accepted directly; unsupported or not-yet-closed obligations remain
 
 The implementation design for the first coverage expansion lives in
 [`payment-policy-alpha-coverage-design.md`](payment-policy-alpha-coverage-design.md).
-It covers the reserve pending-count reduction, corpus-wide `mpk_verified`
-coverage for refund, discount, fee, and points, and the first `--strict`
-success path.
+It covers the reserve checked-theory fixture, corpus-wide strict verification
+for refund, discount, fee, and points, and the `--strict` success path for the
+supported positive corpus.
 
 ### 5. Evidence Schema
 

@@ -35,6 +35,8 @@ cargo run --quiet -p mpk-cli -- policy scan examples/payment_policies/reserve \
   --json-out target/proof-ops/reserve.scan.json \
   --go2gir target/debug/go2gir
 
+# Non-strict evidence generation for drift review. This writes the helper
+# sections and any available trusted evidence, but it is not the strict gate.
 cargo run --quiet -p mpk-cli -- policy verify examples/payment_policies/reserve \
   --function example.com/payment/reserve.ApprovedReserveCents \
   --contract examples/payment_policies/reserve/policy_contract.json \
@@ -44,6 +46,17 @@ cargo run --quiet -p mpk-cli -- policy verify examples/payment_policies/reserve 
   --evidence-md target/proof-ops/reserve.evidence.md \
   --go2gir target/debug/go2gir
 
+# Strict product gate for the supported payment-policy alpha subset.
+cargo run --quiet -p mpk-cli -- policy verify examples/payment_policies/reserve \
+  --function example.com/payment/reserve.ApprovedReserveCents \
+  --contract examples/payment_policies/reserve/policy_contract.json \
+  --strategy-profile payment-policy-alpha \
+  --checker-profile mvp-strict \
+  --evidence-json target/proof-ops/reserve.strict.evidence.json \
+  --evidence-md target/proof-ops/reserve.strict.evidence.md \
+  --go2gir target/debug/go2gir \
+  --strict
+
 # Trusted-evidence checker smoke checks against existing repository fixtures.
 cargo run --quiet -p mpk-cli -- check fixtures/cert-basic/one-theorem.hex
 cargo run --quiet -p mpk-cli -- axiom-report fixtures/cert-basic/one-theorem.hex
@@ -51,10 +64,10 @@ cargo run --quiet -p mpk-cli -- package verify-certs \
   fixtures/package-manifest/valid/basic-package.json
 ```
 
-The `policy verify` command above may report `status=proof_pending`. That is a
-valid CI result for helper-artifact generation as long as the team reviews the
-generated evidence JSON and does not claim pending properties as verified.
-Use `--strict` only in a gate that should fail when any property remains
+For the supported reserve policy, the strict `policy verify` command must report
+`status=verified verified=8 proof_pending=0 unsupported=0`. The non-strict
+command is still useful for helper-artifact generation and drift review, but the
+strict command is the product gate that fails if any property remains
 `proof_pending` or `unsupported`.
 
 The trusted-evidence smoke checks above prove the checkers are running against
@@ -114,13 +127,21 @@ mpk policy verify ./internal/paymentpolicy \
   --checker-profile mvp-strict \
   --evidence-json build/proof-ops/paymentpolicy.evidence.json \
   --evidence-md build/proof-ops/paymentpolicy.evidence.md \
-  --go2gir go2gir
+  --go2gir go2gir \
+  --strict
 ```
 
 Keep `build/proof-ops/*.scan.json`, `*.evidence.json`, and `*.evidence.md` as
 CI artifacts for review. Commit generated GIR, VC, and skeleton files only when
 the repository intentionally tracks them; otherwise, compare them against a
 golden artifact store or upload them as CI artifacts.
+
+For targets inside the supported alpha subset, the customer strict gate should
+expect `status=verified`, zero `proof_pending` properties, and zero
+`unsupported` properties. If a target is intentionally outside the supported
+subset, run non-strict `policy verify` for drift review and do not claim
+`mpk_verified` unless the evidence JSON contains checked declaration or checked
+theory-certificate references under `trusted_evidence`.
 
 ## Drift Checks
 
@@ -164,7 +185,10 @@ not establish `mpk_verified` by themselves.
 
 - Go tests for the policy package and any web handler wrapper pass.
 - `mpk policy scan` exits successfully and reports the target as `ready`.
-- `mpk policy verify` writes deterministic evidence JSON and Markdown.
+- Non-strict `mpk policy verify` writes deterministic evidence JSON and
+  Markdown for drift review.
+- Strict `mpk policy verify --strict` passes for supported alpha policies and
+  reports zero `proof_pending` and zero `unsupported` properties.
 - Helper-artifact drift is either absent or intentionally reviewed.
 - Trusted proof artifacts are checked by MPK checkers when the PR claims a
   property is verified.

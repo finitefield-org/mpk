@@ -1,6 +1,6 @@
 # Payment Policy Alpha Coverage Design
 
-Status: implementation design
+Status: implemented through PAYALPHA-COV-T08
 
 This document defines the first practical coverage expansion for the
 `payment-policy-alpha` strategy profile. The goal is to make the MPK-side
@@ -9,21 +9,22 @@ boundary.
 
 ## Objective
 
-Implement the first coverage step for common payment policies:
+This document records the first coverage step for common payment policies. The
+implemented result is:
 
-- reduce the current reserve example from one verified obligation and seven
-  `proof_pending` obligations to mostly checked evidence;
-- make refund, discount, fee, and points examples produce at least one
-  `mpk_verified` property when run through `mpk policy verify`;
-- add at least one small `--strict` success path where all emitted properties
-  are `mpk_verified`;
+- the reserve example verifies all eight emitted properties with checked
+  theory-certificate evidence;
+- refund, discount, fee, and points also pass strict verification with all
+  eight emitted properties `mpk_verified`;
+- all five positive payment-policy examples pass `mpk policy verify --strict`
+  with `verified=8 proof_pending=0 unsupported=0`;
 - keep every `mpk_verified` claim backed by checked theory-certificate evidence
   under `trusted_evidence`.
 
 This work is MPK-side engine work. ProofOps can consume the resulting
 `mpk.policy.evidence.v0` output, but ProofOps product code is out of scope.
 
-## Current State
+## Implementation State
 
 The current `mpk policy verify` path is implemented in
 `crates/mpk-cli/src/policy_verify.rs`:
@@ -32,17 +33,20 @@ The current `mpk policy verify` path is implemented in
 - imports GIR and generates VCs;
 - classifies each obligation with
   `classify_payment_policy_obligations`;
-- calls `try_close_first_linarith_obligation`;
-- marks exactly one reserve `NonNegativeResult` obligation as `mpk_verified`;
-- emits all other supported obligations as `proof_pending`;
-- fails `--strict` when any property remains `proof_pending`.
+- extracts payload-bound policy theory goals from each supported obligation;
+- closes supported linear obligations with checked `mpk.linarith.v0`
+  certificates;
+- closes reflexive selected-branch equality obligations with checked
+  `mpk.bool-normalize.v0` certificates;
+- marks a property `mpk_verified` only when the accepted checked theory
+  certificate names that obligation;
+- fails `--strict` when any property remains `proof_pending` or when any
+  unsupported property is emitted.
 
-This baseline refers to the live CLI behavior covered by
-`crates/mpk-cli/tests/policy_verify.rs`, currently
-`verified=1 proof_pending=7 unsupported=0` for reserve. The checked-in
-`examples/payment_policies/reserve/evidence_alpha.json` file is a representative
-schema fixture and may not have the same status counts until PAYALPHA-COV-05
-refreshes it with the deterministic CLI output.
+The live CLI behavior is covered by `crates/mpk-cli/tests/policy_verify.rs`.
+The checked-in `examples/payment_policies/reserve/evidence_alpha.json` fixture
+is refreshed with `--update-fixtures` and records
+`verified=8 proof_pending=0 unsupported=0` for reserve.
 
 The positive payment-policy corpus currently has five examples:
 
@@ -699,12 +703,10 @@ handle that as a separate evidence-schema versioning task.
 
 This coverage step is complete when:
 
-- `reserve` has fewer `proof_pending` properties than today after the linear
-  phase;
-- refund, discount, fee, and points each produce at least one `mpk_verified`
-  property;
-- at least one positive payment-policy example passes `mpk policy verify
-  --strict`;
+- `reserve` passes `mpk policy verify --strict` with
+  `verified=8 proof_pending=0 unsupported=0`;
+- refund, discount, fee, and points each pass `mpk policy verify --strict` with
+  `verified=8 proof_pending=0 unsupported=0`;
 - no `mpk_verified` property is created without checked theory-certificate
   evidence under `trusted_evidence`;
 - the full product-path verification commands are deterministic and covered by
