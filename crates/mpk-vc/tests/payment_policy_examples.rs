@@ -6,8 +6,9 @@ use serde::Serialize;
 
 use mpk_vc::{
     classify_payment_policy_obligations, emit_theorem_obligations, generate_branch_vcs,
-    import_gir_json, PaymentPolicyClassificationOutcome, PaymentPolicyClassifierPropertyStatus,
-    PaymentPolicyEvidenceLabel, PaymentPolicyObligationPattern,
+    import_gir_json, policy_theory_goal_from_obligation, PaymentPolicyClassificationOutcome,
+    PaymentPolicyClassifierPropertyStatus, PaymentPolicyEvidenceLabel,
+    PaymentPolicyObligationPattern, PolicyTheoryGoalKind,
 };
 
 const UPDATE_ENV: &str = "MPK_UPDATE_PAYMENT_POLICY_EXAMPLES";
@@ -101,6 +102,35 @@ fn payment_policy_examples_generate_stable_vc_outputs() {
                 .count();
             assert_eq!(actual, *count, "{} pattern {:?}", example.name, pattern);
         }
+        let extracted_goals = vc_module
+            .obligations
+            .iter()
+            .zip(&classification.obligations)
+            .map(|(obligation, classification)| {
+                policy_theory_goal_from_obligation(obligation, classification).unwrap_or_else(
+                    |error| panic!("extract {} theory goal: {error}", obligation.id),
+                )
+            })
+            .collect::<Vec<_>>();
+        let linear_goal_count = extracted_goals
+            .iter()
+            .filter(|goal| {
+                matches!(
+                    goal,
+                    Some(mpk_vc::PolicyTheoryGoal {
+                        kind: PolicyTheoryGoalKind::Linear(_),
+                        ..
+                    })
+                )
+            })
+            .count();
+        assert_eq!(linear_goal_count, 6, "{} linear theory goals", example.name);
+        assert_eq!(
+            extracted_goals.iter().filter(|goal| goal.is_none()).count(),
+            2,
+            "{} branch equality goals stay pending for PAYALPHA-COV-T03",
+            example.name
+        );
         let classification_json =
             serde_json::to_string(&classification).expect("classification serializes");
         assert!(classification_json.contains("\"evidence_label\":\"helper_analysis\""));

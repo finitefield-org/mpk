@@ -10,6 +10,7 @@ pub mod gir;
 pub mod loops;
 pub mod obligation_emit;
 pub mod policy_obligation;
+pub mod policy_theory_goal;
 pub mod safety;
 pub mod type_encode;
 pub mod vc;
@@ -39,6 +40,12 @@ pub use policy_obligation::{
     PaymentPolicyClassifierPropertyStatus, PaymentPolicyEvidenceLabel,
     PaymentPolicyObligationClassification, PaymentPolicyObligationPattern, UnsupportedPropertyCode,
     UnsupportedPropertyDiagnostic, PAYMENT_OBLIGATION_CLASSIFICATION_SCHEMA,
+};
+pub use policy_theory_goal::{
+    policy_theory_goal_from_obligation, PolicyBoolGoal, PolicyBoolTautology,
+    PolicyBoolTautologyReason, PolicyLinearGoal, PolicyLinearInequality, PolicyLinearTerm,
+    PolicyTheoryGoal, PolicyTheoryGoalError, PolicyTheoryGoalErrorKind, PolicyTheoryGoalKind,
+    MAX_POLICY_LINEAR_VARIABLES,
 };
 pub use safety::{generate_safety_vcs, SafetyVcGenerator};
 pub use type_encode::{
