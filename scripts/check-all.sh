@@ -32,7 +32,9 @@ done
 
 cd "$repo_root"
 run cargo test -p mpk-vc --test max64_example
+run cargo test -p mpk-vc --test payment_policy_examples
 run cargo test -p mpk-cli --test policy_scan policy_scan_cli_scans_payment_policy_corpus_as_ready
 run cargo test -p mpk-cli --test policy_verify policy_verify_reserve_writes_evidence_and_markdown
+run cargo test -p mpk-cli --test policy_verify policy_verify_positive_payment_corpus_has_expected_counts
 run cargo test -p mpk-cert hash
 run cargo test -p mpk-cert cert_basic

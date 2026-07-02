@@ -6,12 +6,36 @@ use std::sync::Once;
 use mpk_cli::policy_evidence::{
     PolicyEvidenceReport, PolicyPropertyEvidenceRef, PolicyPropertyEvidenceStatus,
 };
+use serde::Deserialize;
 
 const RESERVE_FUNCTION: &str = "example.com/payment/reserve.ApprovedReserveCents";
 const RESERVE_TARGET: &str = "examples/payment_policies/reserve";
 const RESERVE_CONTRACT: &str = "examples/payment_policies/reserve/policy_contract.json";
 const RESERVE_TRACKED_EVIDENCE: &str = "examples/payment_policies/reserve/evidence_alpha.json";
+const PAYMENT_POLICY_MANIFEST: &str = "examples/payment_policies/manifest.json";
 static BUILD_GO2GIR: Once = Once::new();
+
+#[derive(Debug, Deserialize)]
+struct PaymentPolicyManifest {
+    positive: Vec<PaymentPolicyManifestEntry>,
+}
+
+#[derive(Debug, Deserialize)]
+struct PaymentPolicyManifestEntry {
+    name: String,
+    path: String,
+    function_id: String,
+    contract: String,
+}
+
+#[derive(Debug)]
+struct PaymentPolicyCorpusCase {
+    name: String,
+    path: String,
+    function_id: String,
+    contract: String,
+    expected_bound_pattern: &'static str,
+}
 
 fn repo_root() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("../..")
@@ -119,6 +143,75 @@ fn read_evidence(path: &Path) -> PolicyEvidenceReport {
     PolicyEvidenceReport::from_json(&json).expect("evidence JSON parses")
 }
 
+fn positive_payment_policy_corpus_cases() -> Vec<PaymentPolicyCorpusCase> {
+    let manifest_path = repo_root().join(PAYMENT_POLICY_MANIFEST);
+    let manifest_json = fs::read_to_string(&manifest_path)
+        .unwrap_or_else(|error| panic!("read {}: {error}", manifest_path.display()));
+    let manifest = serde_json::from_str::<PaymentPolicyManifest>(&manifest_json)
+        .expect("payment policy manifest parses");
+    let mut cases = manifest
+        .positive
+        .into_iter()
+        .map(|entry| PaymentPolicyCorpusCase {
+            expected_bound_pattern: expected_bound_pattern(&entry.name),
+            name: entry.name,
+            path: entry.path,
+            function_id: entry.function_id,
+            contract: entry.contract,
+        })
+        .collect::<Vec<_>>();
+    cases.sort_by(|lhs, rhs| lhs.name.cmp(&rhs.name));
+    assert_eq!(
+        cases
+            .iter()
+            .map(|case| case.name.as_str())
+            .collect::<Vec<_>>(),
+        ["discount", "fee", "points", "refund", "reserve"],
+        "positive payment-policy corpus should cover the known five examples"
+    );
+    cases
+}
+
+fn expected_bound_pattern(name: &str) -> &'static str {
+    match name {
+        "reserve" | "points" => "result_bounded_by_input",
+        "refund" => "refund_bounded_by_available_paid_amount",
+        "discount" | "fee" => "fee_or_discount_bounded_by_cap",
+        other => panic!("unexpected positive payment-policy example {other}"),
+    }
+}
+
+fn run_policy_verify_for_case(
+    case: &PaymentPolicyCorpusCase,
+    artifact_name: &str,
+    go2gir: &Path,
+) -> (Output, PathBuf, PathBuf) {
+    let (evidence_json, evidence_md) = temp_artifact_paths(artifact_name);
+    let target = format!("examples/payment_policies/{}", case.path);
+    let contract = format!("examples/payment_policies/{}", case.contract);
+    let output = run_mpk(&[
+        "policy",
+        "verify",
+        &target,
+        "--function",
+        &case.function_id,
+        "--contract",
+        &contract,
+        "--strategy-profile",
+        "payment-policy-alpha",
+        "--checker-profile",
+        "mvp-strict",
+        "--evidence-json",
+        evidence_json.to_str().expect("temp JSON path is UTF-8"),
+        "--evidence-md",
+        evidence_md.to_str().expect("temp Markdown path is UTF-8"),
+        "--go2gir",
+        go2gir.to_str().expect("go2gir path is UTF-8"),
+        "--strict",
+    ]);
+    (output, evidence_json, evidence_md)
+}
+
 fn count_status(report: &PolicyEvidenceReport, status: PolicyPropertyEvidenceStatus) -> usize {
     report
         .properties
@@ -128,8 +221,25 @@ fn count_status(report: &PolicyEvidenceReport, status: PolicyPropertyEvidenceSta
 }
 
 fn assert_reserve_report_fully_verified(report: &PolicyEvidenceReport) {
-    assert_eq!(report.target.package_path, "example.com/payment/reserve");
-    assert_eq!(report.target.function_id, RESERVE_FUNCTION);
+    assert_payment_policy_report_fully_verified(
+        report,
+        "reserve",
+        RESERVE_FUNCTION,
+        "result_bounded_by_input",
+    );
+}
+
+fn assert_payment_policy_report_fully_verified(
+    report: &PolicyEvidenceReport,
+    example_name: &str,
+    function_id: &str,
+    expected_bound_pattern: &str,
+) {
+    assert_eq!(
+        report.target.package_path,
+        format!("example.com/payment/{example_name}")
+    );
+    assert_eq!(report.target.function_id, function_id);
     assert_eq!(report.strategy_profile, "payment-policy-alpha");
     assert_eq!(report.checker_profile, "mvp-strict");
     assert_eq!(
@@ -146,6 +256,9 @@ fn assert_reserve_report_fully_verified(report: &PolicyEvidenceReport) {
     );
     assert!(report.trusted_evidence.certificates.is_empty());
     assert_eq!(report.trusted_evidence.theory_certificates.len(), 8);
+    assert_pattern_closed_count(report, "non_negative_result", 2);
+    assert_pattern_closed_count(report, expected_bound_pattern, 4);
+    assert_pattern_closed_count(report, "selected_branch_result_equals_input", 2);
 
     let mut unique_hashes = std::collections::BTreeSet::new();
     let mut theory_by_id = std::collections::BTreeMap::new();
@@ -220,6 +333,33 @@ fn assert_reserve_report_fully_verified(report: &PolicyEvidenceReport) {
     }
 }
 
+fn assert_pattern_closed_count(
+    report: &PolicyEvidenceReport,
+    pattern: &str,
+    expected_count: usize,
+) {
+    let pattern_description = format!("Payment policy obligation classified as {pattern}.");
+    let properties = report
+        .properties
+        .iter()
+        .filter(|property| property.description == pattern_description)
+        .collect::<Vec<_>>();
+    assert_eq!(
+        properties.len(),
+        expected_count,
+        "pattern {pattern} count for {}",
+        report.target.function_id
+    );
+    assert!(
+        properties.iter().all(|property| matches!(
+            property.evidence.as_slice(),
+            [PolicyPropertyEvidenceRef::CheckedTheoryCertificate { .. }]
+        )),
+        "pattern {pattern} should close with checked theory evidence for {}",
+        report.target.function_id
+    );
+}
+
 #[test]
 fn malformed_evidence_json_rejects_without_panic() {
     let error = PolicyEvidenceReport::from_json("{").expect_err("malformed JSON rejects");
@@ -277,6 +417,55 @@ fn policy_verify_reserve_writes_evidence_and_markdown() {
 
     let _ = fs::remove_file(evidence_json);
     let _ = fs::remove_file(evidence_md);
+}
+
+#[test]
+fn policy_verify_positive_payment_corpus_has_expected_counts() {
+    let go2gir = ensure_go2gir();
+
+    for case in positive_payment_policy_corpus_cases() {
+        let (output, evidence_json, evidence_md) =
+            run_policy_verify_for_case(&case, &format!("{}-strict-corpus", case.name), &go2gir);
+
+        assert!(
+            output.status.success(),
+            "{} stderr: {}",
+            case.name,
+            stderr(&output)
+        );
+        assert_eq!(
+            stdout(&output),
+            format!(
+                "ok policy verify status=verified verified=8 proof_pending=0 unsupported=0 evidence_json={} evidence_md={}\n",
+                evidence_json.display(),
+                evidence_md.display()
+            ),
+            "{} stdout",
+            case.name
+        );
+        assert!(output.stderr.is_empty(), "{} stderr", case.name);
+
+        let report = read_evidence(&evidence_json);
+        assert_payment_policy_report_fully_verified(
+            &report,
+            &case.name,
+            &case.function_id,
+            case.expected_bound_pattern,
+        );
+        if case.name != "reserve" {
+            assert!(
+                report.properties.iter().any(|property| matches!(
+                    property.evidence.as_slice(),
+                    [PolicyPropertyEvidenceRef::CheckedTheoryCertificate { .. }]
+                )),
+                "{} should prove this is not reserve-only coverage",
+                case.name
+            );
+        }
+
+        let _ = fs::remove_file(evidence_json);
+        let _ = fs::remove_file(evidence_md);
+    }
 }
 
 #[test]
@@ -346,6 +535,51 @@ fn policy_verify_known_non_strict_checker_profiles_keep_supported_properties_pen
         let _ = fs::remove_file(evidence_json);
         let _ = fs::remove_file(evidence_md);
     }
+}
+
+#[test]
+fn policy_verify_repeated_refund_evidence_is_byte_identical() {
+    let go2gir = ensure_go2gir();
+    let refund = positive_payment_policy_corpus_cases()
+        .into_iter()
+        .find(|case| case.name == "refund")
+        .expect("refund corpus case exists");
+    let (first_output, first_json, first_md) =
+        run_policy_verify_for_case(&refund, "refund-determinism-a", &go2gir);
+    let (second_output, second_json, second_md) =
+        run_policy_verify_for_case(&refund, "refund-determinism-b", &go2gir);
+
+    assert!(
+        first_output.status.success(),
+        "stderr: {}",
+        stderr(&first_output)
+    );
+    assert!(
+        second_output.status.success(),
+        "stderr: {}",
+        stderr(&second_output)
+    );
+
+    let first_json_text = fs::read_to_string(&first_json).expect("first evidence JSON is readable");
+    let second_json_text =
+        fs::read_to_string(&second_json).expect("second evidence JSON is readable");
+    let first_md_text = fs::read_to_string(&first_md).expect("first Markdown is readable");
+    let second_md_text = fs::read_to_string(&second_md).expect("second Markdown is readable");
+
+    assert_eq!(first_json_text, second_json_text);
+    assert_eq!(first_md_text, second_md_text);
+    let report = PolicyEvidenceReport::from_json(&first_json_text).expect("refund JSON parses");
+    assert_payment_policy_report_fully_verified(
+        &report,
+        &refund.name,
+        &refund.function_id,
+        refund.expected_bound_pattern,
+    );
+
+    let _ = fs::remove_file(first_json);
+    let _ = fs::remove_file(first_md);
+    let _ = fs::remove_file(second_json);
+    let _ = fs::remove_file(second_md);
 }
 
 #[test]
