@@ -76,7 +76,7 @@ consumes it.
 
 ### PAYALPHA-COV-T01 Baseline Closure Plumbing
 
-Status: Pending
+Status: Completed
 
 Depends on: current `policy verify` behavior from POE-10.
 
@@ -150,7 +150,7 @@ Notes:
 
 ### PAYALPHA-COV-T02 Add Theory Certificate Encoders
 
-Status: Pending
+Status: Completed
 
 Depends on: none, but PAYALPHA-COV-T04 consumes the linarith encoder and
 PAYALPHA-COV-T06 consumes the bool encoder.
@@ -229,7 +229,7 @@ Notes:
 
 ### PAYALPHA-COV-T03 Extract Policy Linear Theory Goals
 
-Status: Pending
+Status: Completed
 
 Depends on: PAYALPHA-COV-T01.
 
@@ -321,7 +321,7 @@ Notes:
 
 ### PAYALPHA-COV-T04 Enable Payload-Bound Linarith Closure
 
-Status: Pending
+Status: Completed
 
 Depends on: PAYALPHA-COV-T01, PAYALPHA-COV-T02, PAYALPHA-COV-T03.
 
@@ -428,7 +428,7 @@ Notes:
 
 ### PAYALPHA-COV-T05 Extract Reflexive Branch Bool Goals
 
-Status: Pending
+Status: Completed
 
 Depends on: PAYALPHA-COV-T03.
 
@@ -495,7 +495,7 @@ git diff --check
 
 ### PAYALPHA-COV-T06 Enable Payload-Bound Bool Closure
 
-Status: Pending
+Status: Completed
 
 Depends on: PAYALPHA-COV-T02, PAYALPHA-COV-T04, PAYALPHA-COV-T05.
 
@@ -569,7 +569,7 @@ git diff --check
 
 ### PAYALPHA-COV-T07 Verify the Positive Payment-Policy Corpus
 
-Status: Pending
+Status: Completed
 
 Depends on: PAYALPHA-COV-T06.
 
@@ -653,7 +653,7 @@ git diff --check
 
 ### PAYALPHA-COV-T08 Refresh Docs, Fixture, and CI Guidance
 
-Status: Pending
+Status: Completed
 
 Depends on: PAYALPHA-COV-T07.
 
