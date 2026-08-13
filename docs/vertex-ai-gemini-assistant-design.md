@@ -99,22 +99,26 @@ CIでは実認証を使わずfake認証とfake通信を使用します。コミ�
 - 通常ビルドにはHTTP依存を含めず、既存チェッカーは認証やネットワークへ
   到達できない構造を維持する。
 
-### 実装マイルストーン
+### 実装タスク
 
-| 段階 | 内容 | 完了条件 |
+| タスク番号 | 実装単位 | 完了条件 |
 | --- | --- | --- |
-| T01 | 型、信頼ラベル、feature、エラーを固定 | 通常ビルドにHTTP依存がない |
-| T02 | 入力検証、匿名化、dry run | 禁止データが送信JSONに存在しない |
-| T03 | ADC、Vertex AI通信、timeout/retry | fake通信で全成功・失敗経路を検証 |
-| T04 | 応答検証、JSON/Markdown、安全なファイル更新 | AIがstatusや警告文を変更できない |
-| T05 | 実プロジェクトで英語・日本語統合テストとリリース判定 | AI停止時も既存検証が同じ結果になる |
+| `GEMINI-AUX-01` | feature、型、信頼境界、秘密情報対策 | 通常ビルドにHTTP依存がなく、secret scanが動く |
+| `GEMINI-AUX-02` | 入力検証、匿名化、prompt、dry run | 禁止データを含まない完全なrequest JSONをオフライン生成できる |
+| `GEMINI-AUX-03` | ADC、Vertex AI通信、timeout/retry | fake認証・fake通信で全成功・失敗経路を検証できる |
+| `GEMINI-AUX-04` | 応答検証、通常CLI、JSON/Markdown、安全なファイル更新 | fake応答から最終出力を生成し、AIがstatusや警告文を変更できない |
+| `GEMINI-AUX-05` | 総合テスト、実通信、リリース判定 | AI停止時も既存検証が同じ結果になり、全受け入れ条件を満たす |
 
 実装完了の判断には、通常ビルドのネットワーク非依存、dry runで通信ゼロ、
 入力・出力エラー時の通信ゼロ、禁止情報の不送信、AI応答の厳格な再検証、
 既存テストの無変更合格、実際のVertex AI response IDとtoken usageの記録を
 すべて要求します。
 
-実装はT01から順に進め、各段階の完了条件を満たしてから次へ進みます。
+実装は `GEMINI-AUX-01` から番号順に進め、各タスクのチェック項目、
+完了条件、必須検証を満たしてから次へ進みます。各タスクの正式な作業範囲は
+Section 18にあり、1タスクを1回の実装・レビュー単位として別の実装担当へ
+渡せます。各タスク内のチェック項目は、そのタスクの完了確認であり、さらに
+細かく分割して別タスクとして実行するためのものではありません。
 初期リリースの範囲は説明機能、dry run、信頼警告、英語・日本語出力、
 ADC認証、provider provenanceに限定します。証明生成、ソース修正、UI、
 Cloud Run、prompt customization、native ADCは個別に設計・レビューする
@@ -1617,28 +1621,355 @@ cargo tree -p mpk-cli --no-default-features
 git diff --check
 ```
 
-## 18. Milestones
+## 18. Implementation Tasks
 
-### 18.1 Delivery Sequence
+### 18.1 Execution Rules
 
-Delivery is dependency-ordered rather than deadline-ordered. A phase begins
-only after the previous phase satisfies its exit evidence.
+Execute `GEMINI-AUX-01` through `GEMINI-AUX-05` in numerical order. Each task
+is intentionally large enough to be one implementation assignment and one
+review cycle. Do not split a task merely by file; the code, tests, and directly
+related documentation in that task form one deliverable.
 
-| Phase | Scope | Exit evidence |
+For every task:
+
+1. Read the listed design sections before editing code. Those sections remain
+   the authoritative behavioral contract when a task summary is shorter.
+2. Start only after the dependency task is complete and its required
+   verification passes.
+3. Implement only the listed scope plus fixes required to keep existing
+   behavior working. Move additional product ideas to a separate design.
+4. Preserve all Section 6 trust-boundary invariants. An implementation is not
+   acceptable if an AI path can affect proof acceptance.
+5. Use fake authentication and fake transport through `GEMINI-AUX-04`. Real
+   Google Cloud credentials and network access are allowed only in
+   `GEMINI-AUX-05` manual tests.
+6. Never add an API key, credential file, live token, customer payload, or live
+   model output to Git. Store local generated artifacts under `target/`.
+7. Mark the task and its scope checkboxes complete only after its exit criteria
+   and required verification all pass. Record any intentionally deferred item
+   explicitly; do not silently mark it complete. Do not mark later tasks while
+   completing the current task.
+8. Review the completed task against the full design, fix every finding, and
+   rerun its verification before handoff. The handoff must name the task ID,
+   changed files, commands run, results, and any still-unchecked item.
+9. Treat `GEMINI-AUX-01` through `GEMINI-AUX-03` as intermediate states. Do
+   not advertise or release `mpk explain` as available until
+   `GEMINI-AUX-04` passes; do not approve live use until `GEMINI-AUX-05`
+   passes.
+
+### 18.2 Task Sequence
+
+| Order | Task | Result available to the next task |
 | --- | --- | --- |
-| Boundary | T01 types, trust labels, feature isolation, repository secret controls, and schemas | default build remains offline; static credentials have no input surface; secret scan passes |
-| Data minimization | T02 validation, canonical redaction, schema builder, and dry run | synthetic fixture produces a reviewed request body; leak tests pass |
-| Transport | T03 ADC subprocess, endpoint/header construction, response limits, and retry state machine | scripted private transport tests pass; no secret reaches output or logs |
-| Output | T04 response validation, JSON/Markdown rendering, provenance hashes, documentation, and dual-output transaction | fake end-to-end English and Japanese outputs pass rollback tests |
-| Release validation | T05 dedicated-project IAM, budget/quota review, live Vertex calls, and offline regression tests | reviewed English and Japanese responses carry provider provenance; offline verification remains unchanged |
+| 1 | `GEMINI-AUX-01` Foundation And Security Controls | Compilable optional feature, frozen types, disabled-feature behavior, and repository secret scanning |
+| 2 | `GEMINI-AUX-02` Local Validation, Redaction, And Dry Run | Deterministic credential-free Vertex request body generated with no auth or network |
+| 3 | `GEMINI-AUX-03` Vertex AI Transport And ADC | Fully tested provider transport behind fakeable auth and HTTP boundaries |
+| 4 | `GEMINI-AUX-04` End-To-End Explain Command And Outputs | Complete normal CLI using strict response validation and transactional JSON/Markdown output |
+| 5 | `GEMINI-AUX-05` Integration And Release Gate | Reviewed live English/Japanese results and all release criteria satisfied |
 
-The first release requires dry run, one reviewed model, English and Japanese
-explanations, strict trust labels, response validation, repository secret
-controls, and a real integration response with provenance. Native ADC, Cloud
-Run, UI, prompt customization, and proof-candidate generation require separate
-design and review.
+### GEMINI-AUX-01: Foundation And Security Controls
 
-### 18.2 Risk Register
+- [ ] Task complete
+
+Depends on: none beyond approval of this design.
+
+Read first: Sections 4-7, 14.2, 16, and 17.4.
+
+Primary files: `crates/mpk-cli/Cargo.toml`, `Cargo.lock`,
+`crates/mpk-cli/src/lib.rs`, `crates/mpk-cli/src/main.rs`,
+`crates/mpk-cli/src/ai_explain.rs`, `.gitignore`, `.gitleaks.toml`,
+`scripts/check-secrets.sh`,
+`.github/workflows/secret-scan.yml`, and focused tests.
+
+Implementation scope:
+
+- [ ] Add the opt-in `vertex-ai` Cargo feature and optional dependencies while
+      keeping the default build free of HTTP and authentication dependencies.
+- [ ] Add typed request, response, output, trust-label, provider-provenance,
+      usage, and stable error-code models described by this design.
+- [ ] Pin the schema, redaction-profile, and prompt-template identifiers.
+- [ ] Reserve the `mpk explain` CLI route, help text, and exit-code mapping. A
+      build without `vertex-ai` must return the exact disabled-feature error;
+      the feature-enabled route may use a deterministic non-success placeholder
+      in this task, but that placeholder must perform no auth or network
+      operation and must not be presented as implemented behavior.
+- [ ] Make invalid states unrepresentable where practical, especially any
+      model-supplied proof verdict, trusted-evidence reference, or status.
+- [ ] Confirm that no API-key, raw-token, or credential-path input exists in
+      CLI arguments, configuration, schemas, or MPK-specific environment
+      variables.
+- [ ] Review the existing credential ignore rules and implement the redacting
+      local/CI secret scan specified in Sections 14.2 and 17.4.
+- [ ] Add tests for feature isolation, schema constants, trust labels,
+      disabled-feature behavior, secret redaction, and synthetic-canary
+      detection.
+
+Out of scope: evidence projection, request-body generation, ADC invocation,
+HTTP requests, model-response parsing, and final explanation files.
+
+Exit criteria:
+
+- both default and `vertex-ai` builds compile;
+- the default dependency tree contains no HTTP client introduced by this work;
+- no public or CLI type can accept a static credential or model-controlled
+  proof status;
+- the secret scanner passes the clean tree and fails safely on its ephemeral
+  canary without printing or retaining the canary;
+- all pre-existing `mpk-cli` tests pass.
+
+Required verification:
+
+```sh
+cargo fmt --all -- --check
+cargo test -p mpk-cli
+cargo test -p mpk-cli --features vertex-ai
+cargo tree -p mpk-cli --no-default-features
+./scripts/check-secrets.sh
+git diff --check
+```
+
+### GEMINI-AUX-02: Local Validation, Redaction, And Dry Run
+
+- [ ] Task complete
+
+Depends on: `GEMINI-AUX-01`.
+
+Read first: Sections 7.2-10, 12.3, 14.1, and 17.1.
+
+Primary files: `crates/mpk-cli/src/ai_explain.rs`,
+`crates/mpk-cli/src/main.rs`, `crates/mpk-cli/tests/ai_explain.rs`, and
+`fixtures/ai-explain/*`.
+
+Implementation scope:
+
+- [ ] Parse only `mpk.policy.evidence.v0` with the existing typed validator and
+      enforce all explain-specific item, byte, path, and trust-reference limits
+      before authentication could occur.
+- [ ] Compute the exact evidence hash, deterministic local summary, canonical
+      property order, stable aliases, and `minimal-v0` allowlist projection.
+- [ ] Implement exact profile, theory, evidence-format, and obligation-category
+      mappings; reduce unknown values to the specified safe representation.
+- [ ] Build the fixed system instruction, task prompt, dynamic response schema,
+      and exact credential-free Vertex request body with pinned hashes.
+- [ ] Implement `mpk explain --dry-run --request-json-out` with no project,
+      ADC, `gcloud`, HTTP, or overwrite behavior.
+- [ ] Implement the dry-run no-clobber file write and deterministic status line.
+- [ ] Add boundary, determinism, aliasing, prompt-hash, request-hash, path,
+      no-network, and forbidden-field leak tests using synthetic fixtures.
+
+Out of scope: spawning `gcloud`, sending HTTP, accepting a model response, and
+writing final explanation JSON or Markdown. This task replaces the temporary
+placeholder for dry-run mode only; normal mode remains unavailable until
+`GEMINI-AUX-04`.
+
+Exit criteria:
+
+- a valid fixture produces the exact inspectable request JSON entirely
+  offline;
+- dry-run and future live serialization share one request builder;
+- no source, customer identifier, command, path, hash, certificate, free-form
+  warning, environment value, or credential from Section 9 reaches the model
+  input;
+- every invalid input and output path fails before auth or transport;
+- repeated identical input produces byte-identical request output.
+
+Required verification:
+
+```sh
+cargo fmt --all -- --check
+cargo test -p mpk-cli
+cargo test -p mpk-cli --features vertex-ai
+cargo build -p mpk-cli --features vertex-ai
+TASK_DIR="$(mktemp -d target/vertex-ai-task-02.XXXXXX)"
+target/debug/mpk explain \
+  examples/payment_policies/reserve/evidence_alpha.json \
+  --provider vertex-ai \
+  --language en \
+  --dry-run \
+  --request-json-out "$TASK_DIR/request.json"
+./scripts/check-secrets.sh
+git diff --check
+```
+
+### GEMINI-AUX-03: Vertex AI Transport And ADC
+
+- [ ] Task complete
+
+Depends on: `GEMINI-AUX-02`.
+
+Read first: Sections 11.1-11.3, 13, 14.2, 14.4, 15, and 17.2.
+
+Primary files: `crates/mpk-cli/src/vertex_ai.rs`,
+`crates/mpk-cli/Cargo.toml`, its private test module, and transport fixtures if
+needed.
+
+Implementation scope:
+
+- [ ] Implement `AccessTokenProvider`, the redacted `SecretAccessToken`, and
+      direct fixed-argument invocation of
+      `gcloud auth application-default print-access-token --quiet`.
+- [ ] Enforce the child-process timeout, bounded stdout/stderr draining, strict
+      token parsing, child termination/reaping, and secret-free errors.
+- [ ] Build only validated global or regional Vertex AI v1 endpoints and the
+      fixed headers; disable redirects, proxies, arbitrary endpoints, and
+      unsupported HTTP features.
+- [ ] Implement the controlled `generateContent` request and bounded response
+      transport behind `VertexTransport` and a private fakeable HTTP executor.
+      Send the exact request-body bytes produced by `GEMINI-AUX-02`; do not
+      independently rebuild or reserialize the body in the transport.
+- [ ] Implement the exact timeout, response-size, status mapping,
+      `Retry-After`, and maximum-three-attempt policy from Section 13.
+- [ ] Add deterministic transport and auth tests for every success, rejection,
+      timeout, retry, blocked-response, malformed-provider-envelope, and
+      secret-leak path.
+
+Out of scope: a real Vertex AI call, normal CLI orchestration, final response
+schema validation, and writing explanation files.
+
+Exit criteria:
+
+- fake auth and fake HTTP cover the complete provider state machine without
+  network access or Google Cloud credentials;
+- all failures map to stable codes and expose no token, body, credential path,
+  or uncontrolled provider text;
+- only the allowlisted host and model can receive the bearer token;
+- checker commands cannot initialize auth or transport code;
+- no provider test requires network access or a real credential.
+
+Required verification:
+
+```sh
+cargo fmt --all -- --check
+cargo test -p mpk-cli --features vertex-ai
+cargo test -p mpk-cli
+cargo tree -p mpk-cli --no-default-features
+./scripts/check-secrets.sh
+git diff --check
+```
+
+### GEMINI-AUX-04: End-To-End Explain Command And Outputs
+
+- [ ] Task complete
+
+Depends on: `GEMINI-AUX-03`.
+
+Read first: Sections 7.1, 11.4, 12, 13, 16, 17.3, and 19.
+
+Primary files: `crates/mpk-cli/src/main.rs`,
+`crates/mpk-cli/src/ai_explain.rs`, `crates/mpk-cli/src/vertex_ai.rs`,
+`crates/mpk-cli/tests/ai_explain.rs`, `README.md`, `SECURITY.md`, and
+`docs/proof-ops-engine-design.md`.
+
+Implementation scope:
+
+- [ ] Wire normal `mpk explain` argument resolution, pre-auth validation,
+      output preflight, ADC, transport, response validation, rendering, and
+      exit/status behavior end to end.
+- [ ] Parse the controlled model response strictly, reject unknown or unsafe
+      content, validate provider provenance, and remap aliases to original
+      property IDs only in local code.
+- [ ] Produce the exact `mpk.ai.explanation.v0` JSON and plain-text-safe
+      Markdown while restoring only locally trusted statuses and references.
+- [ ] Implement the staged two-output transaction, no-clobber default,
+      `--overwrite`, rollback, owner-only permissions where supported, and
+      `cleanup=complete|pending` behavior.
+- [ ] Add fake end-to-end English and Japanese tests plus collision, symlink,
+      overwrite, rollback, cleanup, escaping, malformed-response, and
+      AI-unavailable tests.
+- [ ] Update the public documentation named in Section 16, including the
+      untrusted-analysis warning, ADC-only setup, remote-processing disclosure,
+      and ownership boundary.
+
+Out of scope: real credentials, a live provider call, UI, Cloud Run support,
+native ADC, source repair, and proof generation.
+
+Exit criteria:
+
+- a fake successful response produces both final outputs with exact hashes,
+  provenance, trust labels, English or Japanese content, and original local
+  statuses;
+- invalid input, output, auth, transport, or response leaves no partial final
+  result and never changes proof evidence;
+- model text cannot create a verdict, status, evidence reference, heading,
+  warning, link, HTML block, or terminal control effect;
+- existing checker behavior and fixtures remain unchanged;
+- user-facing documentation never describes the explanation as proof evidence.
+
+Required verification:
+
+```sh
+cargo fmt --all -- --check
+cargo test -p mpk-cli
+cargo test -p mpk-cli --features vertex-ai
+cargo test --workspace
+cargo tree -p mpk-cli --no-default-features
+./scripts/check-fast.sh
+./scripts/check-secrets.sh
+git diff --check
+```
+
+### GEMINI-AUX-05: Integration And Release Gate
+
+- [ ] Task complete
+
+Depends on: `GEMINI-AUX-04`.
+
+Read first: Sections 14-17, 19-21, and the current official Google Cloud
+documentation linked in Section 22.
+
+Primary files: no product-code change is expected except fixes found during
+release review. Documentation, fixtures, or tests may change when required to
+make the verified behavior reproducible without committing live artifacts.
+
+Implementation scope:
+
+- [ ] Recheck the allowed model lifecycle, Vertex v1 contract, structured
+      output support, data-governance terms, and required IAM against current
+      official Google documentation; update stale design or user documentation.
+- [ ] Configure a dedicated non-production billed project, Vertex AI API,
+      quotas/budget alerts, least-privilege IAM, and local ADC outside the
+      repository. Do not create or use a static API key.
+- [ ] Review the exact English and Japanese dry-run payloads before network
+      access and confirm the Section 9 forbidden fields are absent.
+- [ ] Run one live English and one live Japanese explanation, then inspect
+      response ID, model version, finish reason, token usage, hashes, trust
+      labels, statuses, and first-line warnings.
+- [ ] Run the complete offline MPK verification path with AI available and
+      unavailable and prove that proof results are identical.
+- [ ] Run every Section 17.6 command and satisfy every Section 19 checkbox.
+- [ ] Confirm Git contains no credential, live request, live response, customer
+      artifact, or generated output before marking the task complete.
+
+Out of scope: weakening a gate to obtain a release, checking in a live response
+as a fallback, adding another model without review, or expanding the product
+scope.
+
+Exit criteria:
+
+- a clean checkout can build and run the documented command after an operator
+  configures ADC externally;
+- reviewed live English and Japanese outputs carry real provider provenance and
+  remain visibly separate from proof evidence;
+- a controlled auth-unavailable test breaks only `mpk explain`, while all
+  offline verification still passes with unchanged results;
+- the secret scan and Git review are clean;
+- every Section 19 acceptance criterion is checked and supported by test or
+  manual evidence.
+
+Required verification:
+
+1. Run the live manual procedure in Section 17.5 for `en` and `ja`, writing all
+   generated artifacts under a fresh `target/` directory.
+2. Run every command in Section 17.6 from a clean checkout.
+3. Point `--gcloud` at a controlled executable that always fails, such as
+   `--gcloud "$(command -v false)"`, confirm `mpk explain` reports the
+   documented auth error, and then confirm all offline verification commands
+   still pass. Do not revoke or alter the operator's normal ADC merely to run
+   this test.
+4. Inspect `git status`, the staged diff, and the repository secret-scan result
+   before completing the task.
+
+### Shared Risk Register
 
 | Risk | Impact | Mitigation and release decision |
 | --- | --- | --- |
@@ -1649,109 +1980,7 @@ design and review.
 | Sanitized data is still sensitive | unintended external disclosure | mandatory explicit invocation, exact dry run, allowlist projection, customer consent, and no automatic policy-command hook |
 | Malformed or adversarial model output | misleading report or terminal/Markdown injection | controlled JSON, strict local parser, fixed local statuses and warnings, byte/control limits, and plain-text Markdown escaping |
 | Unreviewed scope expansion | incomplete or weakly isolated integration | keep AI explanation-only; require separate designs for UI, Cloud Run, source upload, proof repair, and native ADC |
-| Output transaction cleanup fails | valid reports exist with hidden backup files | commit both outputs first, return `cleanup=pending`, print escaped owned paths, and never delete unknown files automatically |
-
-### GEMINI-AUX-T01: Freeze Boundaries And Schemas
-
-Depends on: this design approval
-
-- [ ] Add typed request, response, output, trust-label, and error models.
-- [ ] Pin `mpk.ai.explain.request.v0`, `mpk.ai.explanation.v0`,
-      `mpk.ai.explanation.response.v0`, `minimal-v0`, and
-      `mpk.evidence-explainer.v0` constants.
-- [ ] Add the opt-in Cargo feature with no behavior change to existing commands.
-- [ ] Add disabled-feature CLI behavior and usage text.
-- [ ] Confirm that no API-key, raw-token, or credential-path field exists in
-      CLI arguments, MPK configuration, schemas, or environment-variable
-      handling.
-- [ ] Review and extend narrow `.gitignore` credential rules and add a
-      redacting secret scan for local and CI use.
-- [ ] Add unit tests proving output cannot encode a proof verdict supplied by
-      the model.
-
-Exit criteria:
-
-- schemas and trust labels are reviewable without a network implementation;
-- the default build has no HTTP dependency;
-- a runtime-generated synthetic-secret test proves the scanner fails without
-  printing or retaining the assembled canary value;
-- all existing tests pass.
-
-### GEMINI-AUX-T02: Implement Validation, Redaction, And Dry Run
-
-Depends on: GEMINI-AUX-T01
-
-- [ ] Parse only `mpk.policy.evidence.v0` through the existing typed validator.
-- [ ] Compute exact input hash and local summary.
-- [ ] Implement stable aliases and `minimal-v0` whitelist projection.
-- [ ] Implement exact profile/theory/category allowlist mapping.
-- [ ] Implement byte and item limits.
-- [ ] Add `--dry-run --request-json-out` with no auth or network access.
-- [ ] Add leak-focused tests covering every forbidden source field.
-
-Exit criteria:
-
-- an operator can inspect the exact outbound data;
-- fixtures prove customer paths, identifiers, commands, hashes, and free-form
-  messages are excluded;
-- dry run works in offline CI.
-
-### GEMINI-AUX-T03: Implement Vertex AI Transport And ADC
-
-Depends on: GEMINI-AUX-T02
-
-- [ ] Add the blocking HTTPS transport under `vertex-ai`.
-- [ ] Add the `gcloud` ADC token provider behind a trait.
-- [ ] Build only validated global or regional Vertex endpoints.
-- [ ] Add controlled generation configuration and response schema.
-- [ ] Implement timeouts, retries, bounded provider errors, and blocked-response
-      handling.
-- [ ] Add fake transport and auth tests with secret-leak assertions.
-
-Exit criteria:
-
-- mocked end-to-end generation succeeds without real credentials;
-- all failure paths return stable codes and write no final outputs;
-- checker commands cannot reach auth or transport code.
-
-### GEMINI-AUX-T04: Implement Outputs And Documentation
-
-Depends on: GEMINI-AUX-T03
-
-- [ ] Validate structured model responses and restore property IDs locally.
-- [ ] Implement `mpk.ai.explanation.v0` JSON.
-- [ ] Implement Markdown with a local first-line warning.
-- [ ] Implement staged, process-transactional dual-output writes and explicit
-      overwrite behavior.
-- [ ] Update README, SECURITY, and ProofOps ownership documentation.
-- [ ] Record current model lifecycle and data-governance caveats.
-
-Exit criteria:
-
-- fake and live responses produce usable JSON and Markdown;
-- no model-controlled field can precede or replace the trust warning;
-- documentation never describes AI output as proof evidence.
-
-### GEMINI-AUX-T05: Integration And Release Gate
-
-Depends on: GEMINI-AUX-T04
-
-- [ ] Configure a dedicated billed Google Cloud project and Vertex AI API.
-- [ ] Configure ADC and least-privilege IAM.
-- [ ] Run the reserve evidence dry run and review the outbound payload.
-- [ ] Run one live English and one live Japanese explanation.
-- [ ] Capture provider response ID, model version, and token usage in outputs.
-- [ ] Re-run the full MPK verification path with AI unavailable.
-- [ ] Run the repository secret scan against the release candidate and confirm
-      that no live request or response artifact is tracked.
-
-Exit criteria:
-
-- the live command works from a clean checkout using documented setup;
-- the live response and MPK verifier result remain separate artifacts with
-  distinct trust classifications;
-- disabling credentials breaks only `mpk explain`;
-- all release checks pass.
+| Output transaction cleanup fails | valid reports exist with hidden backup files | install both outputs transactionally, return `cleanup=pending`, print escaped owned paths, and never delete unknown files automatically |
 
 ## 19. Acceptance Criteria
 
