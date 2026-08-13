@@ -16,3 +16,9 @@ application_default_credentials.json
 service-account-key.json
 gcp-service-account.json
 google-service-account.json
+
+# Generated Vertex AI previews and explanation artifacts are local customer data.
+target/proof-ops/vertex-ai-*/
+target/vertex-ai-*/
+*.ai-explanation.json
+*.ai-explanation.md

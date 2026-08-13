@@ -1669,7 +1669,7 @@ For every task:
 
 ### GEMINI-AUX-01: Foundation And Security Controls
 
-- [ ] Task complete
+- [x] Task complete
 
 Depends on: none beyond approval of this design.
 
@@ -1683,24 +1683,24 @@ Primary files: `crates/mpk-cli/Cargo.toml`, `Cargo.lock`,
 
 Implementation scope:
 
-- [ ] Add the opt-in `vertex-ai` Cargo feature and optional dependencies while
+- [x] Add the opt-in `vertex-ai` Cargo feature and optional dependencies while
       keeping the default build free of HTTP and authentication dependencies.
-- [ ] Add typed request, response, output, trust-label, provider-provenance,
+- [x] Add typed request, response, output, trust-label, provider-provenance,
       usage, and stable error-code models described by this design.
-- [ ] Pin the schema, redaction-profile, and prompt-template identifiers.
-- [ ] Reserve the `mpk explain` CLI route, help text, and exit-code mapping. A
+- [x] Pin the schema, redaction-profile, and prompt-template identifiers.
+- [x] Reserve the `mpk explain` CLI route, help text, and exit-code mapping. A
       build without `vertex-ai` must return the exact disabled-feature error;
       the feature-enabled route may use a deterministic non-success placeholder
       in this task, but that placeholder must perform no auth or network
       operation and must not be presented as implemented behavior.
-- [ ] Make invalid states unrepresentable where practical, especially any
+- [x] Make invalid states unrepresentable where practical, especially any
       model-supplied proof verdict, trusted-evidence reference, or status.
-- [ ] Confirm that no API-key, raw-token, or credential-path input exists in
+- [x] Confirm that no API-key, raw-token, or credential-path input exists in
       CLI arguments, configuration, schemas, or MPK-specific environment
       variables.
-- [ ] Review the existing credential ignore rules and implement the redacting
+- [x] Review the existing credential ignore rules and implement the redacting
       local/CI secret scan specified in Sections 14.2 and 17.4.
-- [ ] Add tests for feature isolation, schema constants, trust labels,
+- [x] Add tests for feature isolation, schema constants, trust labels,
       disabled-feature behavior, secret redaction, and synthetic-canary
       detection.
 

@@ -34,6 +34,11 @@ const POLICY_FIELDS: &[&str] = &[
     "require_source_free_check",
 ];
 const CHECKER_PROFILES: &[&str] = &["core-bootstrap", "mvp-structural", "mvp-strict"];
+#[cfg(not(feature = "vertex-ai"))]
+const EXPLAIN_DISABLED_MESSAGE: &str = "mpk explain requires a build with --features vertex-ai";
+#[cfg(feature = "vertex-ai")]
+const EXPLAIN_FOUNDATION_PLACEHOLDER: &str =
+    "mpk explain is reserved for the Vertex AI foundation and is not implemented yet";
 
 fn main() -> ExitCode {
     match run(std::env::args().skip(1).collect()) {
@@ -90,6 +95,7 @@ fn run(args: Vec<String>) -> Result<RunOutcome, CliError> {
         [command, subcommand, rest @ ..] if command == "policy" && subcommand == "verify" => {
             policy_verify_route(rest)
         }
+        [command, rest @ ..] if command == "explain" => explain_route(rest),
         [command, rest @ ..] if command == "policy" && is_help_args(rest) => {
             print_policy_usage();
             Ok(RunOutcome::Help)
@@ -99,6 +105,25 @@ fn run(args: Vec<String>) -> Result<RunOutcome, CliError> {
             Ok(RunOutcome::Help)
         }
         _ => Err(CliError::Usage(usage_text())),
+    }
+}
+
+fn explain_route(args: &[String]) -> Result<RunOutcome, CliError> {
+    #[cfg(not(feature = "vertex-ai"))]
+    {
+        let _ = args;
+        Err(CliError::Usage(EXPLAIN_DISABLED_MESSAGE.to_owned()))
+    }
+
+    #[cfg(feature = "vertex-ai")]
+    {
+        if is_help_args(args) {
+            print_explain_usage();
+            return Ok(RunOutcome::Help);
+        }
+
+        let _ = args;
+        Err(CliError::Input(EXPLAIN_FOUNDATION_PLACEHOLDER.to_owned()))
     }
 }
 
@@ -987,13 +1012,19 @@ fn print_policy_verify_usage() {
     println!("{}", policy_verify_usage_text());
 }
 
+#[cfg(feature = "vertex-ai")]
+fn print_explain_usage() {
+    println!("{}", explain_usage_text());
+}
+
 fn usage_text() -> String {
     format!(
-        "{}\n       {}\n       {}\n       {}",
+        "{}\n       {}\n       {}\n       {}\n       {}",
         "usage: mpk <check|axiom-report|verify> <certificate.mpcert|fixture.hex>",
         "mpk package <check|verify-certs> <package-manifest.json>",
         policy_scan_usage_text(),
-        policy_verify_usage_text()
+        policy_verify_usage_text(),
+        explain_usage_text()
     )
 }
 
@@ -1011,6 +1042,10 @@ fn policy_scan_usage_text() -> &'static str {
 
 fn policy_verify_usage_text() -> &'static str {
     "mpk policy verify <target> --function <function-id> --contract <contract.json> --strategy-profile <profile> --checker-profile <checker-profile> --evidence-json <evidence.json> --evidence-md <evidence.md> [--go2gir <go2gir>] [--strict] [--update-fixtures]"
+}
+
+fn explain_usage_text() -> &'static str {
+    "mpk explain <evidence.json> --provider vertex-ai [--project <google-cloud-project-id>] [--location <vertex-location>] [--model <model-id>] [--language <en|ja>] --output-json <explanation.json> --output-md <explanation.md> [--gcloud <gcloud-binary>] [--overwrite] | mpk explain <evidence.json> --provider vertex-ai [--model <model-id>] [--language <en|ja>] --dry-run --request-json-out <sanitized-request.json>\n       note: the route is reserved and is not available until the implementation tasks are complete"
 }
 
 enum RunOutcome {
