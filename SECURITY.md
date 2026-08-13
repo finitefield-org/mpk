@@ -32,6 +32,33 @@ Include:
 Please do not include private customer code, secrets, tokens, or production
 logs in the initial report.
 
+## Credentials And Repository Hygiene
+
+Never commit API keys, access or refresh tokens, local Application Default
+Credentials (ADC) files, service-account key JSON, private keys,
+credential-bearing `.env` files, copied `gcloud` configuration, or real
+customer AI request and response artifacts.
+
+- Keep local Google Cloud ADC in the platform's normal user configuration
+  directory outside this checkout.
+- Prefer user ADC for local development and attached workload identities for
+  deployed environments. Do not copy a downloaded service-account key into the
+  repository.
+- Put local generated reports and request previews under the ignored `target/`
+  tree unless another approved, non-repository location is required.
+- Use placeholders and deterministic fake authentication in documentation,
+  fixtures, snapshots, and tests.
+- Inspect staged changes before pushing and run every configured repository
+  secret scanner. `.gitignore` is defense in depth, not a security boundary.
+- Do not paste credentials or credential-bearing logs into commits, issues,
+  pull requests, CI output, or release artifacts.
+
+If a credential may have been exposed, revoke or rotate it first. Then report
+the incident privately, inspect provider audit logs, remove retained copies and
+Git history as appropriate, and verify the replacement credential. Deleting
+the value in a later commit or rewriting history does not make the exposed
+credential safe to reuse.
+
 ## Security Boundary
 
 Only these artifacts can support proof acceptance:

@@ -4,3 +4,15 @@ target/
 fuzz/artifacts/
 fuzz/corpus/
 fuzz/target/
+
+# Local environment and Google Cloud credentials. See SECURITY.md.
+.env
+.env.*
+!.env.example
+!.env.*.example
+!.env.template
+.gcloud/
+application_default_credentials.json
+service-account-key.json
+gcp-service-account.json
+google-service-account.json

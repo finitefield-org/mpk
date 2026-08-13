@@ -38,9 +38,9 @@ Geminiは証明を作らず、検証結果も決めません。AIが停止して
 4. GeminiのJSON応答をローカルで再検証し、すべての出力に
    `untrusted_helper_analysis` と明記する。
 5. 専用のGoogle Cloudプロジェクトで英語・日本語の実通信テストを行い、
-   MPKの検証結果とAI説明が独立していることを動画で示す。
+   MPKの検証結果とAI説明が独立していることをリリース検証で確認する。
 
-応募用の初期構成では、モデルを `gemini-3.5-flash` に限定します。
+初期リリースでは、モデルを `gemini-3.5-flash` に限定します。
 必要なものは、課金を有効にしたGoogle Cloudプロジェクト、Vertex AI API、
 ADC認証、`roles/aiplatform.user` です。API有効化権限とquota project用の
 `serviceusage.services.use` は、実行者の役割に応じて別途必要です。
@@ -53,14 +53,24 @@ modelと、AuthorizationヘッダーのADCトークンが必要です。
 それでも外部処理であるため、顧客データを扱う場合は同意、リージョン、
 保持条件を確認します。
 
+Vertex AIへの認証にはADCだけを使用し、固定APIキーをCLI、環境変数、
+設定ファイルで受け取る機能は実装しません。APIキー、アクセストークン、
+リフレッシュトークン、ADCファイル、サービスアカウント鍵、秘密値を含む
+`.env`、実顧客のAI入出力は、Gitの追跡対象、テストfixture、文書、ログへ
+入れてはいけません。ローカル生成物はGit管理外の `target/` 配下へ置き、
+CIでは実認証を使わずfake認証とfake通信を使用します。コミット前とCIで
+秘密情報検査を行い、漏えいが疑われる場合は削除だけで済ませず、先に認証
+情報を失効またはローテーションし、履歴と監査ログを確認します。
+
 ### 採用する構成
 
 - UIではなく既存のRust CLIへ `mpk explain` を追加する。
 - HTTPクライアントはCargo feature `vertex-ai` を付けたビルドだけに含める。
 - Vertex AIのstable v1 `generateContent` REST APIを使用する。
-- 応募時のモデルは、確認済みの `gemini-3.5-flash` だけを許可する。
+- 初期リリースのモデルは、確認済みの `gemini-3.5-flash` だけを許可する。
 - ローカル開発の認証はADCを使用し、MPKから固定引数で
   `gcloud auth application-default print-access-token --quiet` を実行する。
+- Google AI StudioのAPIキーや固定Bearer tokenは受け取らない。
 - 通常は1回だけ生成し、明確に再試行可能な429、一時的5xx、送信前の
   接続タイムアウトだけを最大3回まで再試行する。
 
@@ -97,23 +107,22 @@ modelと、AuthorizationヘッダーのADCトークンが必要です。
 | T02 | 入力検証、匿名化、dry run | 禁止データが送信JSONに存在しない |
 | T03 | ADC、Vertex AI通信、timeout/retry | fake通信で全成功・失敗経路を検証 |
 | T04 | 応答検証、JSON/Markdown、安全なファイル更新 | AIがstatusや警告文を変更できない |
-| T05 | 実プロジェクトで英語・日本語テストと動画 | AI停止時も既存検証が同じ結果になる |
+| T05 | 実プロジェクトで英語・日本語統合テストとリリース判定 | AI停止時も既存検証が同じ結果になる |
 
 実装完了の判断には、通常ビルドのネットワーク非依存、dry runで通信ゼロ、
 入力・出力エラー時の通信ゼロ、禁止情報の不送信、AI応答の厳格な再検証、
 既存テストの無変更合格、実際のVertex AI response IDとtoken usageの記録を
 すべて要求します。
 
-5日間で実装する場合は、1日目に型・匿名化・dry run、2日目にADCと通信、
-3日目に応答検証と出力、4日目に総合テストと実通信、5日目に修正と動画収録を
-割り当てます。期限に間に合わない場合も、証明生成、ソース修正、UI、Cloud
-Run対応へ範囲を広げず、まず `mpk explain` の英語説明、dry run、信頼警告、
-実際のresponse ID取得を完成させます。日本語説明は同じ構造のため次の優先、
-ネイティブADCと本番デプロイは応募後へ延期できます。
+実装はT01から順に進め、各段階の完了条件を満たしてから次へ進みます。
+初期リリースの範囲は説明機能、dry run、信頼警告、英語・日本語出力、
+ADC認証、provider provenanceに限定します。証明生成、ソース修正、UI、
+Cloud Run、prompt customization、native ADCは個別に設計・レビューする
+将来候補であり、この実装へ暗黙に含めません。
 
 以下の英語部分を実装時の正式な技術契約として使用します。CLI仕様、
 送信スキーマ、認証、失敗時の動作、テスト、受け入れ条件、ロールバック、
-ハッカソン動画の手順まで定義しています。
+運用上の安全策まで定義しています。
 
 ## 1. Decision Summary
 
@@ -211,7 +220,8 @@ The first release must not:
 - claim deterministic AI prose;
 - claim zero data retention without the required Google Cloud configuration
   and contractual review;
-- support Google AI Studio API keys in this milestone.
+- support Google AI Studio API keys, static API keys, or user-supplied bearer
+  tokens.
 
 Proof-candidate generation or repair can be proposed later against
 [`develop/specs/AI_API_V0.md`](../develop/specs/AI_API_V0.md), but it is not
@@ -1172,8 +1182,8 @@ evidence input.
 Normal mode rejects an existing output path unless `--overwrite` is supplied.
 `--overwrite` is valid only for normal mode and must still use replacement from
 a synced sibling file. Dry run performs a single staged, no-clobber write and
-rejects an existing preview path. This makes recording repeated demos explicit
-and prevents an accidental overwrite of a prior AI report.
+rejects an existing preview path. This makes repeated runs explicit and
+prevents an accidental overwrite of a prior AI report.
 
 The v0 CLI assumes the selected output directory is controlled by the invoking
 user, not by a hostile concurrent writer. Path rechecks reduce ordinary races
@@ -1258,17 +1268,57 @@ implementation must:
 - render trust warnings and statuses entirely in local code;
 - never execute, import, open, or follow anything suggested by the response.
 
-### 14.2 Credentials
+### 14.2 Credentials And Repository Hygiene
 
-- Never accept credentials in a CLI argument or evidence file.
-- Never commit ADC files or service-account keys.
-- Never print access tokens.
+Vertex AI authentication is ADC-only. The CLI must not define `--api-key`,
+`--access-token`, `--credentials`, or equivalent configuration fields, and it
+must not read a static secret from an MPK-specific environment variable. Google
+Cloud project IDs, locations, and model IDs are configuration identifiers, not
+authorization credentials, but deployments may still classify them as
+confidential metadata and must not commit them through live output artifacts.
+
+Credential handling must satisfy all of the following:
+
+- Never accept credentials in a CLI argument, evidence file, request preview,
+  output report, or checked-in configuration file.
+- Never commit API keys, access or refresh tokens, ADC files, service-account
+  key JSON, private keys, credential-bearing `.env` files, or copied `gcloud`
+  configuration.
+- Keep the ADC access token only in a redacted in-memory wrapper for the
+  duration of a request. Never print, serialize, persist, cache, or include it
+  in panic or error output.
 - Prefer local user ADC for development and an attached service account in a
-  Google Cloud runtime.
-- Do not recommend downloaded service-account keys unless there is no safer
-  supported alternative.
-- Document how to revoke local ADC with
+  Google Cloud runtime. Do not recommend downloaded service-account keys when
+  a safer supported identity mechanism is available.
+- Keep local ADC in the platform's normal user configuration directory outside
+  the repository. Documentation must not instruct users to copy credentials
+  into the checkout.
+- Use deterministic fake tokens and fake transports in tests. Test fixtures,
+  snapshots, examples, and documentation must contain obvious placeholders,
+  not complete provider-shaped secret values.
+- Extend `.gitignore` with narrowly scoped rules for known local credential
+  filenames and credential-bearing `.env` files before integration work begins.
+  Ignore rules are defense in depth and never replace review or scanning.
+- Add an automated secret scan that checks the committed tree and commits
+  introduced by a change. It must run in CI without cloud credentials, redact
+  findings in logs, and fail before release or merge on a confirmed secret.
+- Run the GitHub workflow with read-only repository contents permission, no
+  repository or environment secrets, no `pull_request_target` execution, and
+  third-party actions pinned to full reviewed commit SHAs. Checkout must not
+  persist a writable GitHub credential after source retrieval.
+- Inspect staged changes before every commit. Generated request previews and
+  customer explanation outputs belong under the already ignored `target/`
+  tree during development and must not be staged.
+- Document local ADC revocation with
   `gcloud auth application-default revoke`.
+
+If a credential may have entered a Git object, log, CI artifact, issue, or
+release bundle, deletion in a follow-up commit is insufficient. The response
+order is: revoke or rotate the credential, restrict further access, notify the
+repository security contact, inspect provider audit logs, remove the material
+from retained artifacts and Git history using the repository incident process,
+then verify the replacement credential. History rewriting does not remove the
+need to revoke the exposed credential.
 
 ### 14.3 Customer Data
 
@@ -1311,13 +1361,13 @@ operator review and never records a response.
 
 Recommended Google Cloud operations:
 
-- enable billing-budget alerts before a public demo;
-- use a dedicated project for the hackathon integration;
+- enable billing-budget alerts before enabling live use;
+- use a dedicated project per environment or deployment boundary;
 - restrict the calling identity to the required project;
 - inspect Vertex AI quota and audit logs;
 - set project quotas appropriate for a single-request CLI;
 - do not enable tools, grounding, caching, or batch inference for v0;
-- review model lifecycle before release and before the recorded demo.
+- review model lifecycle before each release and on a scheduled basis.
 
 The command sends one generation request per invocation unless a retryable
 failure occurs. It does not call `countTokens`; local byte and item limits bound
@@ -1344,10 +1394,13 @@ Likely touched files:
 | `crates/mpk-cli/tests/ai_explain.rs` | CLI and orchestration integration tests |
 | `crates/mpk-cli/src/vertex_ai.rs` test module | Private HTTP request, retry, redaction, and protocol unit tests |
 | `fixtures/ai-explain/*` | Minimal valid and invalid evidence/response fixtures without secrets |
+| `.gitignore` | Ignore narrowly named local credential files, credential-bearing `.env` files, and generated local AI artifacts |
+| `.gitleaks.toml` | Define reviewed secret-detection rules and narrowly constrained false-positive exceptions that cannot mask a provider credential format; do not blanket-allow paths |
+| `scripts/check-secrets.sh` | Provide the single redacting local and CI entry point for repository secret scanning |
+| `.github/workflows/secret-scan.yml` | Run a commit-pinned secret scanner with redacted output and no Google Cloud credentials |
 | `README.md` | Build, setup, command, and trust warning |
 | `SECURITY.md` | Remote-processing and credential guidance |
 | `docs/proof-ops-engine-design.md` | Record the narrow ownership exception after implementation |
-| `docs/alpha-demo.md` | Add optional Vertex AI demo after implementation |
 
 Suggested internal interfaces:
 
@@ -1500,10 +1553,27 @@ must not require Google credentials, call `gcloud`, or access Vertex AI.
   `cleanup=pending`, and never deletes another invocation's hidden file;
 - stdout contains only the status line;
 - stderr never contains a fake secret token;
+- static API-key, raw-token, and credential-file inputs are absent from the CLI
+  and configuration surface;
 - existing `check`, `verify`, `package`, `policy scan`, and `policy verify`
   tests pass unchanged.
 
-### 17.4 Live Manual Test
+### 17.4 Repository Security Tests
+
+- the clean committed tree passes `scripts/check-secrets.sh`;
+- CI scans the committed tree and every commit introduced by the change;
+- the test harness creates a temporary Git repository outside the source tree,
+  assembles a synthetic provider-shaped canary at runtime from non-secret
+  fragments, and proves the scanner exits nonzero;
+- scanner output contains a redaction marker but not the assembled canary;
+- the temporary canary is removed by test cleanup and never exists in a
+  tracked source, fixture, snapshot, or CI artifact;
+- allowlist exceptions are narrowly constrained and justified; no entire
+  fixture, examples, docs, or `target/` path is exempted from scanning, and no
+  exception can mask a complete provider credential format;
+- scanning requires no Google Cloud credential and does not access Vertex AI.
+
+### 17.5 Live Manual Test
 
 Live tests are opt-in and never part of ordinary CI:
 
@@ -1534,57 +1604,51 @@ The operator verifies:
 - rerunning `mpk policy verify --strict` yields the same result whether the AI
   output exists or not.
 
-### 17.5 Verification Commands
+### 17.6 Verification Commands
 
 ```sh
-# Compatibility pin for go2gir's current golang.org/x/tools v0.24.0.
-export GOTOOLCHAIN=go1.23.12
-
 cargo fmt --all -- --check
 cargo test -p mpk-cli
 cargo test -p mpk-cli --features vertex-ai
 cargo test --workspace
 cargo tree -p mpk-cli --no-default-features
 ./scripts/check-fast.sh
+./scripts/check-secrets.sh
 git diff --check
 ```
 
-Keep this process-local toolchain pin until a separate reviewed dependency
-change makes `go2gir` compatible with the default Go toolchain. Do not hide that
-upgrade inside the Vertex AI implementation.
-
 ## 18. Milestones
 
-### 18.1 Five-Day Delivery Plan
+### 18.1 Delivery Sequence
 
-This schedule assumes one engineer, an existing working MPK alpha environment,
-and a Google Cloud project whose billing and IAM can be configured on day 1.
+Delivery is dependency-ordered rather than deadline-ordered. A phase begins
+only after the previous phase satisfies its exit evidence.
 
-| Day | Scope | Exit evidence |
+| Phase | Scope | Exit evidence |
 | --- | --- | --- |
-| 1 | T01 plus T02 types, validation, canonical redaction, schema builder, and dry run | offline fixture produces a reviewed request body; leak tests pass |
-| 2 | T03 ADC subprocess, endpoint/header construction, response limits, and retry state machine | scripted private transport tests pass; no secret reaches logs |
-| 3 | T04 response validation, JSON/Markdown rendering, provenance hashes, and dual-output transaction | fake end-to-end English and Japanese outputs pass rollback tests |
-| 4 | full Rust tests, Go 1.23 checker setup, dedicated-project IAM, budget/quota review, and live Vertex calls | one English and one Japanese response ID are captured; offline checks remain unchanged |
-| 5 | fix findings, rerun release gates, record terminal demo, and retain a clean fallback recording | final commands work from a clean checkout; no fabricated AI or checker result is shown |
+| Boundary | T01 types, trust labels, feature isolation, repository secret controls, and schemas | default build remains offline; static credentials have no input surface; secret scan passes |
+| Data minimization | T02 validation, canonical redaction, schema builder, and dry run | synthetic fixture produces a reviewed request body; leak tests pass |
+| Transport | T03 ADC subprocess, endpoint/header construction, response limits, and retry state machine | scripted private transport tests pass; no secret reaches output or logs |
+| Output | T04 response validation, JSON/Markdown rendering, provenance hashes, documentation, and dual-output transaction | fake end-to-end English and Japanese outputs pass rollback tests |
+| Release validation | T05 dedicated-project IAM, budget/quota review, live Vertex calls, and offline regression tests | reviewed English and Japanese responses carry provider provenance; offline verification remains unchanged |
 
-The release-critical path is dry run, one reviewed model, English explanation,
-strict trust labels, response validation, and one real response with provenance.
-Japanese rendering uses the same schema and is next priority. Native ADC,
-Cloud Run, UI, prompt customization, and proof-candidate generation remain
-post-hackathon work.
+The first release requires dry run, one reviewed model, English and Japanese
+explanations, strict trust labels, response validation, repository secret
+controls, and a real integration response with provenance. Native ADC, Cloud
+Run, UI, prompt customization, and proof-candidate generation require separate
+design and review.
 
 ### 18.2 Risk Register
 
 | Risk | Impact | Mitigation and release decision |
 | --- | --- | --- |
-| Model or REST contract changes | live demo fails or response parsing drifts | allowlist one model, pin request fixtures, recheck official lifecycle on day 4, and keep the offline MPK demo independent |
-| ADC/IAM is unavailable | only `mpk explain` fails | configure the project on day 1, test `print-access-token`, document roles, and never block checker demos on AI |
-| Quota, billing, or transient 5xx | live generation cannot complete or costs repeat | dedicated project, budget alert, low request limits, bounded retries, and a pre-recorded genuine response artifact with its response ID |
+| Model or REST contract changes | integration fails or response parsing drifts | allowlist one model, pin request fixtures, review lifecycle before release, and keep offline MPK verification independent |
+| ADC/IAM is unavailable | only `mpk explain` fails | validate `print-access-token` during environment setup, document roles, and never couple a checker command to AI |
+| Quota, billing, or transient 5xx | live generation cannot complete or costs repeat | dedicated project, budget alerts, low request limits, bounded retries, and an operational disable procedure |
+| Credential reaches Git or logs | unauthorized cloud access and durable disclosure | ADC-only design, no static-secret inputs, redacted wrappers, ignored local files, automated secret scanning, immediate revoke/rotate, and incident response |
 | Sanitized data is still sensitive | unintended external disclosure | mandatory explicit invocation, exact dry run, allowlist projection, customer consent, and no automatic policy-command hook |
 | Malformed or adversarial model output | misleading report or terminal/Markdown injection | controlled JSON, strict local parser, fixed local statuses and warnings, byte/control limits, and plain-text Markdown escaping |
-| Go 1.25 breaks `go2gir` v0.24.0 | policy evidence cannot be regenerated for the demo | use the repository-declared Go 1.23 toolchain; keep this AI change separate from dependency upgrades |
-| Five-day scope expansion | incomplete or unreviewed integration | keep AI explanation-only; defer UI, Cloud Run, source upload, proof repair, and native ADC |
+| Unreviewed scope expansion | incomplete or weakly isolated integration | keep AI explanation-only; require separate designs for UI, Cloud Run, source upload, proof repair, and native ADC |
 | Output transaction cleanup fails | valid reports exist with hidden backup files | commit both outputs first, return `cleanup=pending`, print escaped owned paths, and never delete unknown files automatically |
 
 ### GEMINI-AUX-T01: Freeze Boundaries And Schemas
@@ -1597,6 +1661,11 @@ Depends on: this design approval
       `mpk.evidence-explainer.v0` constants.
 - [ ] Add the opt-in Cargo feature with no behavior change to existing commands.
 - [ ] Add disabled-feature CLI behavior and usage text.
+- [ ] Confirm that no API-key, raw-token, or credential-path field exists in
+      CLI arguments, MPK configuration, schemas, or environment-variable
+      handling.
+- [ ] Review and extend narrow `.gitignore` credential rules and add a
+      redacting secret scan for local and CI use.
 - [ ] Add unit tests proving output cannot encode a proof verdict supplied by
       the model.
 
@@ -1604,6 +1673,8 @@ Exit criteria:
 
 - schemas and trust labels are reviewable without a network implementation;
 - the default build has no HTTP dependency;
+- a runtime-generated synthetic-secret test proves the scanner fails without
+  printing or retaining the assembled canary value;
 - all existing tests pass.
 
 ### GEMINI-AUX-T02: Implement Validation, Redaction, And Dry Run
@@ -1652,7 +1723,7 @@ Depends on: GEMINI-AUX-T03
 - [ ] Implement Markdown with a local first-line warning.
 - [ ] Implement staged, process-transactional dual-output writes and explicit
       overwrite behavior.
-- [ ] Update README, SECURITY, ProofOps ownership, and alpha demo docs.
+- [ ] Update README, SECURITY, and ProofOps ownership documentation.
 - [ ] Record current model lifecycle and data-governance caveats.
 
 Exit criteria:
@@ -1661,7 +1732,7 @@ Exit criteria:
 - no model-controlled field can precede or replace the trust warning;
 - documentation never describes AI output as proof evidence.
 
-### GEMINI-AUX-T05: Live Demo And Release Gate
+### GEMINI-AUX-T05: Integration And Release Gate
 
 Depends on: GEMINI-AUX-T04
 
@@ -1671,13 +1742,14 @@ Depends on: GEMINI-AUX-T04
 - [ ] Run one live English and one live Japanese explanation.
 - [ ] Capture provider response ID, model version, and token usage in outputs.
 - [ ] Re-run the full MPK verification path with AI unavailable.
-- [ ] Record the hackathon terminal demo using the verified workflow.
+- [ ] Run the repository secret scan against the release candidate and confirm
+      that no live request or response artifact is tracked.
 
 Exit criteria:
 
 - the live command works from a clean checkout using documented setup;
-- the demo shows an actual Vertex AI response and an MPK verifier result as
-  separate artifacts;
+- the live response and MPK verifier result remain separate artifacts with
+  distinct trust classifications;
 - disabling credentials breaks only `mpk explain`;
 - all release checks pass.
 
@@ -1703,21 +1775,37 @@ Implementation is complete only when all of the following are observable:
       existing fixtures.
 - [ ] The default build remains network-independent.
 - [ ] CI runs fully without Google Cloud credentials.
-- [ ] Live Vertex AI use is demonstrated with provider provenance and no
-      fabricated response data.
+- [ ] Secret-scanning CI uses no repository or environment secrets, has only
+      read-only contents permission, does not use `pull_request_target`, pins
+      third-party actions to full commit SHAs, and does not persist checkout
+      credentials.
+- [ ] No CLI argument, MPK configuration field, or MPK-specific environment
+      variable accepts an API key, raw bearer token, or credential-file path.
+- [ ] Access tokens are absent from stdout, stderr, structured errors, panic
+      diagnostics, request previews, output reports, and test snapshots.
+- [ ] The repository secret scan detects its runtime-generated synthetic
+      canary, redacts the value in logs, leaves no tracked copy, and passes the
+      release candidate.
+- [ ] A manual Vertex AI integration test succeeds with provider provenance,
+      and no live credential, request, response, or customer artifact is
+      tracked in Git.
 - [ ] Removing or corrupting an AI report has no effect on proof verification.
 - [ ] README and SECURITY explain remote processing, ADC, IAM, retention
-      caveats, and the trust boundary.
+      caveats, credential incident response, and the trust boundary.
 
 ## 20. Rollout And Rollback
 
 Rollout sequence:
 
-1. Merge schemas, redaction, and dry run with the feature still optional.
-2. Merge mocked transport and output rendering.
-3. Run a manual live test in a dedicated project.
-4. Add the optional command to the alpha demo.
-5. Record the hackathon video only after the dry-run payload is reviewed.
+1. Add repository secret controls, schemas, redaction, and dry run while the
+   feature remains optional.
+2. Add mocked transport, strict response validation, and output rendering.
+3. Complete security review, customer-data review, and all offline release
+   gates.
+4. Run opt-in manual integration tests in a dedicated non-production project.
+5. Enable the feature for approved environments only after reviewing the
+   exact dry-run payload, IAM, region, quotas, retention posture, and secret
+   scan results.
 
 The feature is not called by any verification command, so rollback is simple:
 
@@ -1731,97 +1819,7 @@ The feature is not called by any verification command, so rollback is simple:
 No data migration or backfill is required. `mpk.policy.evidence.v0` remains
 unchanged.
 
-## 21. Hackathon Demo Sequence
-
-Before recording, complete the existing [Alpha Demo Guide](alpha-demo.md) and
-produce `target/debug/go2gir` with a repository-compatible Go 1.23 patch
-toolchain. With a current Go launcher, `GOTOOLCHAIN=go1.23.12` selects that
-toolchain and downloads it on first use when allowed. Run the download before
-recording. The Vertex AI work must not be coupled to a `go2gir` dependency
-upgrade. Use Go 1.23.12 only to build `go2gir` from this trusted checkout; do
-not deploy it as an application runtime. The independent checker can use the
-current Go toolchain. Build the AI-enabled Rust CLI and both Go tools, then run
-the terminal-only sequence below:
-
-```sh
-# Prerequisites for this recording session.
-cargo build -p mpk-cli --features vertex-ai
-GOTOOLCHAIN=go1.23.12 go version
-(cd go-tools/go2gir && \
-  GOTOOLCHAIN=go1.23.12 go build -o ../../target/debug/go2gir .)
-(cd go-tools/mpk-checker-ref && \
-  go build -o ../../target/debug/mpk-checker-ref ./cmd/mpk-checker-ref)
-
-# 0. Use a fresh directory so the no-clobber outputs are reproducible.
-DEMO_DIR="target/proof-ops/vertex-ai-$(date +%Y%m%d-%H%M%S)"
-mkdir -p "$DEMO_DIR"
-printf '%s\n' \
-  "MPK ProofOps: AI-assisted policy verification with checkable evidence"
-sleep 4
-
-# 1. Produce MPK evidence without AI.
-target/debug/mpk policy verify examples/payment_policies/reserve \
-  --function example.com/payment/reserve.ApprovedReserveCents \
-  --contract examples/payment_policies/reserve/policy_contract.json \
-  --strategy-profile payment-policy-alpha \
-  --checker-profile mvp-strict \
-  --evidence-json "$DEMO_DIR/reserve.evidence.json" \
-  --evidence-md "$DEMO_DIR/reserve.evidence.md" \
-  --go2gir target/debug/go2gir \
-  --strict
-sleep 4
-
-# 2. Preview what will be sent, with no network call.
-target/debug/mpk explain "$DEMO_DIR/reserve.evidence.json" \
-  --provider vertex-ai \
-  --language en \
-  --dry-run \
-  --request-json-out "$DEMO_DIR/reserve.ai-request.json"
-sleep 4
-
-# 3. Ask Gemini on Vertex AI to explain the existing result.
-target/debug/mpk explain "$DEMO_DIR/reserve.evidence.json" \
-  --provider vertex-ai \
-  --project "$GOOGLE_CLOUD_PROJECT" \
-  --location global \
-  --model gemini-3.5-flash \
-  --language en \
-  --output-json "$DEMO_DIR/reserve.ai-explanation.json" \
-  --output-md "$DEMO_DIR/reserve.ai-explanation.md"
-python3 - "$DEMO_DIR/reserve.ai-explanation.json" <<'PY'
-import json
-import sys
-
-with open(sys.argv[1], encoding="utf-8") as stream:
-    report = json.load(stream)
-provider = report["provider_response"]
-print(f'ai_trust={report["trust"]["classification"]}')
-print(f'proof_evidence={str(report["trust"]["proof_evidence"]).lower()}')
-print(f'vertex_model_version={provider["model_version"]}')
-print(f'vertex_response_id={provider["response_id"]}')
-print(f'vertex_total_tokens={provider["total_tokens"]}')
-PY
-sleep 4
-
-# 4. Independently check a canonical proof certificate.
-target/debug/mpk check fixtures/cert-basic/one-theorem.hex
-sleep 4
-target/debug/mpk-checker-ref verify fixtures/cert-basic/one-theorem.hex
-sleep 4
-printf '%s\n' \
-  "Same certificate. Independent Rust and Go verification. Checkable evidence."
-```
-
-The narration must say that Gemini explains the evidence. It must not say that
-Gemini proves the policy, produces the current canonical certificate, or
-participates in the Rust/Go checker agreement.
-
-The two `printf` lines are narration only. The recording must center the actual
-`status=verified`, dry-run `network=0`, Vertex response ID, and both checkers'
-`"verdict":"accepted"` output. Pause lengths can be shortened or extended to
-3-5 seconds without changing the commands.
-
-## 22. Residual Assumptions
+## 21. Residual Assumptions
 
 - The first consumer is a local CLI user who explicitly chooses remote
   processing.
@@ -1829,19 +1827,19 @@ The two `printf` lines are narration only. The recording must center the actual
   customer files.
 - `gemini-3.5-flash` remains available at implementation time; model selection
   is restricted to the reviewed allowlist and must be rechecked before release.
-- `global` is acceptable for the hackathon demo. A product handling regulated
-  customer data must select and review a suitable regional configuration.
+- No location is universally suitable. Each deployment must select a supported
+  Vertex AI location that satisfies its data-residency and governance rules;
+  `global` may be used only after that review.
 - The first release may depend on an installed `gcloud` CLI for ADC token
   acquisition. Native ADC support is a compatible future improvement.
 
 No unresolved assumption changes the MPK trust boundary.
 
-## 23. References
+## 22. References
 
 - [MPK Trust Boundary v0](../develop/specs/TRUST_BOUNDARY_V0.md)
 - [MPK AI API v0](../develop/specs/AI_API_V0.md)
 - [MPK Security Policy](../SECURITY.md)
-- [MPK Alpha Demo Guide](alpha-demo.md)
 - [Gemini API on Vertex AI quickstart](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/start/quickstart)
 - [Vertex AI generateContent REST method](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/rest/v1/projects.locations.publishers.models/generateContent)
 - [Vertex AI v1 GenerationConfig RPC schema](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/reference/rpc/google.cloud.aiplatform.v1#google.cloud.aiplatform.v1.GenerationConfig)
@@ -1856,5 +1854,3 @@ No unresolved assumption changes the MPK trust boundary.
 - [Gemini 3.5 Flash model capabilities](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/gemini/3-5-flash)
 - [Gemini thinking controls](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/thinking)
 - [Vertex AI data retention](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/vertex-ai-zero-data-retention)
-- [Go toolchain selection with `GOTOOLCHAIN`](https://go.dev/doc/toolchain)
-- [Go 1.23.12 release history](https://go.dev/doc/devel/release#go1.23.12)
