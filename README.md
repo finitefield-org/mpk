@@ -169,6 +169,7 @@ Start with the current user-facing guides:
 - [Alpha Demo Guide](docs/alpha-demo.md)
 - [ProofOps Engine Support Design](docs/proof-ops-engine-design.md)
 - [ProofOps Policy CI](docs/proof-ops-policy-ci.md)
+- [Vertex AI Gemini Assistant Design](docs/vertex-ai-gemini-assistant-design.md)
 - [Web System Integration Guide](docs/web-system-integration.md)
 - [Contributing Guide](CONTRIBUTING.md)
 - [Security Policy](SECURITY.md)
