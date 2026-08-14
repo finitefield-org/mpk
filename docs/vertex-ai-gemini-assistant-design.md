@@ -1730,7 +1730,7 @@ git diff --check
 
 ### GEMINI-AUX-02: Local Validation, Redaction, And Dry Run
 
-- [ ] Task complete
+- [x] Task complete
 
 Depends on: `GEMINI-AUX-01`.
 
@@ -1742,19 +1742,19 @@ Primary files: `crates/mpk-cli/src/ai_explain.rs`,
 
 Implementation scope:
 
-- [ ] Parse only `mpk.policy.evidence.v0` with the existing typed validator and
+- [x] Parse only `mpk.policy.evidence.v0` with the existing typed validator and
       enforce all explain-specific item, byte, path, and trust-reference limits
       before authentication could occur.
-- [ ] Compute the exact evidence hash, deterministic local summary, canonical
+- [x] Compute the exact evidence hash, deterministic local summary, canonical
       property order, stable aliases, and `minimal-v0` allowlist projection.
-- [ ] Implement exact profile, theory, evidence-format, and obligation-category
+- [x] Implement exact profile, theory, evidence-format, and obligation-category
       mappings; reduce unknown values to the specified safe representation.
-- [ ] Build the fixed system instruction, task prompt, dynamic response schema,
+- [x] Build the fixed system instruction, task prompt, dynamic response schema,
       and exact credential-free Vertex request body with pinned hashes.
-- [ ] Implement `mpk explain --dry-run --request-json-out` with no project,
+- [x] Implement `mpk explain --dry-run --request-json-out` with no project,
       ADC, `gcloud`, HTTP, or overwrite behavior.
-- [ ] Implement the dry-run no-clobber file write and deterministic status line.
-- [ ] Add boundary, determinism, aliasing, prompt-hash, request-hash, path,
+- [x] Implement the dry-run no-clobber file write and deterministic status line.
+- [x] Add boundary, determinism, aliasing, prompt-hash, request-hash, path,
       no-network, and forbidden-field leak tests using synthetic fixtures.
 
 Out of scope: spawning `gcloud`, sending HTTP, accepting a model response, and
