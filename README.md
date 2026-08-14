@@ -147,9 +147,20 @@ The opt-in `mpk explain` command is available only in a build with the
 cargo build -p mpk-cli --features vertex-ai
 export GOOGLE_CLOUD_PROJECT="your-lowercase-project-id"
 export GOOGLE_CLOUD_LOCATION="global"
+gcloud services enable aiplatform.googleapis.com \
+  --project "$GOOGLE_CLOUD_PROJECT"
 gcloud auth application-default login
 gcloud auth application-default set-quota-project "$GOOGLE_CLOUD_PROJECT"
+mkdir -p target/proof-ops
 ```
+
+Use a dedicated billed non-production project with approved quotas and budget
+alerts. A cloud administrator must enable the Vertex AI API. The calling
+identity needs `roles/aiplatform.user`; when user ADC assigns a quota project,
+it also needs `serviceusage.services.use` on that project, normally through
+`roles/serviceusage.serviceUsageConsumer`. Grant these roles only at the
+narrowest practical scope. Do not approve live use until the `GEMINI-AUX-05`
+English and Japanese release gate in the design document has been completed.
 
 Before sending anything, inspect the exact credential-free request body with
 the offline dry run:

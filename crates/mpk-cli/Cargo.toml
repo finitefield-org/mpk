@@ -33,6 +33,9 @@ features = ["blocking", "json", "rustls"]
 version = "0.2.1"
 optional = true
 
+[dev-dependencies]
+pulldown-cmark = "0.13"
+
 [[bin]]
 name = "mpk"
 path = "src/main.rs"

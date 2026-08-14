@@ -815,8 +815,9 @@ The initial request uses:
 | Thinking level | `MINIMAL` | The task is summarization; bound latency and thinking-token cost |
 | Returned thoughts | `false` | Do not request model reasoning text |
 | Maximum output tokens | `8192` | Cover the bounded 32-property English/Japanese response while limiting cost |
-| Response MIME type | `application/json` | Structured response |
-| Response schema | fixed v0 schema | Constrain shape |
+| Response format | `responseFormat[0].text` | Current v1 structured-response contract |
+| Response MIME type | `APPLICATION_JSON` | `responseFormat[0].text.mimeType` enum for structured JSON |
+| Response schema | `responseFormat[0].text.schema` fixed v0 schema | Constrain shape |
 | Tools | none | Explanation only |
 | Grounding | none | Avoid unrelated data flows |
 | `cachedContent` | omitted | Do not create or reference an explicit prompt cache |
@@ -849,63 +850,69 @@ The request body is serialized from typed structs and has this shape:
     "candidateCount": 1,
     "temperature": 0,
     "maxOutputTokens": 8192,
-    "responseMimeType": "application/json",
-    "responseSchema": {
-      "type": "OBJECT",
-      "properties": {
-        "overview": {
-          "type": "STRING",
-          "minLength": "1",
-          "maxLength": "2000"
-        },
-        "property_explanations": {
-          "type": "ARRAY",
-          "minItems": "1",
-          "maxItems": "1",
-          "items": {
-            "type": "OBJECT",
+    "responseFormat": [
+      {
+        "text": {
+          "mimeType": "APPLICATION_JSON",
+          "schema": {
+            "type": "object",
             "properties": {
-              "property_ref": {
-                "type": "STRING",
-                "enum": ["property-0001"]
+              "overview": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000
               },
-              "explanation": {
-                "type": "STRING",
-                "minLength": "1",
-                "maxLength": "500"
+              "property_explanations": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 1,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "property_ref": {
+                      "type": "string",
+                      "enum": ["property-0001"]
+                    },
+                    "explanation": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500
+                    }
+                  },
+                  "required": ["property_ref", "explanation"],
+                  "additionalProperties": false
+                }
+              },
+              "limitations": {
+                "type": "array",
+                "maxItems": 10,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500
+                }
+              },
+              "next_steps": {
+                "type": "array",
+                "maxItems": 10,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500
+                }
               }
             },
-            "required": ["property_ref", "explanation"],
+            "required": [
+              "overview",
+              "property_explanations",
+              "limitations",
+              "next_steps"
+            ],
             "additionalProperties": false
           }
-        },
-        "limitations": {
-          "type": "ARRAY",
-          "maxItems": "10",
-          "items": {
-            "type": "STRING",
-            "minLength": "1",
-            "maxLength": "500"
-          }
-        },
-        "next_steps": {
-          "type": "ARRAY",
-          "maxItems": "10",
-          "items": {
-            "type": "STRING",
-            "minLength": "1",
-            "maxLength": "500"
-          }
         }
-      },
-      "required": [
-        "overview",
-        "property_explanations",
-        "limitations",
-        "next_steps"
-      ],
-      "additionalProperties": false
-    },
+      }
+    ],
     "thinkingConfig": {
       "thinkingLevel": "MINIMAL",
       "includeThoughts": false
@@ -919,6 +926,14 @@ sets both property-explanation item bounds to `N` and fills the `property_ref`
 enum with exactly the `N` generated aliases. The schema remains a constraint,
 not a trust decision; local code still checks alias uniqueness, completeness,
 byte limits, and source-status restoration.
+
+`responseFormat[0].text.schema` is an arbitrary JSON value containing JSON
+Schema; it is not the deprecated typed Vertex `Schema` message. The request
+therefore uses the lowercase JSON Schema primitive names (`object`, `array`,
+and `string`) and JSON integers for `minItems`, `maxItems`, `minLength`, and
+`maxLength`. Local response validation remains authoritative for every byte and
+list limit; provider-side schema enforcement must not be treated as a security
+boundary.
 
 The prompt template hash covers the exact system-instruction bytes and fixed
 user-task template bytes, including an explicit payload placeholder. The dry
@@ -1135,12 +1150,15 @@ Required semantic sections, with locally selected English or Japanese labels:
 
 The model cannot provide headings, the warning block, local status counts, or
 provenance fields. JSON preserves the validated generated strings. For
-Markdown, local code first replaces `&`, `<`, and `>` with HTML entities, then
-backslash-escapes backslash, backtick, `*`, `_`, braces, brackets, parentheses,
-`#`, `+`, `-`, `.`, `!`, and `|` on every LF-separated line. It does not emit a
-model-provided URL as a Markdown link. This plain-text rendering prevents
-generated text from creating headings, block quotes, raw HTML, links, images,
-lists, or fenced code that could hide the warning.
+Markdown, local code first replaces `&`, `<`, and `>` with HTML entities,
+encodes `:` to break bare URL autolinking, and backslash-escapes every other
+ASCII punctuation character on every LF-separated line. It encodes leading
+spaces as `&#32;` so four-space indentation cannot create a code block. It does
+not emit a model-provided URL as a Markdown link. Parser-based tests cover raw
+HTML, links, ATX and Setext headings, indented code, and fenced code. This
+plain-text rendering prevents generated text from creating headings, block
+quotes, raw HTML, links, images, lists, or fenced code that could hide the
+warning.
 
 ### 12.3 File Writes
 
@@ -1923,21 +1941,21 @@ make the verified behavior reproducible without committing live artifacts.
 
 Implementation scope:
 
-- [ ] Recheck the allowed model lifecycle, Vertex v1 contract, structured
+- [x] Recheck the allowed model lifecycle, Vertex v1 contract, structured
       output support, data-governance terms, and required IAM against current
       official Google documentation; update stale design or user documentation.
 - [ ] Configure a dedicated non-production billed project, Vertex AI API,
       quotas/budget alerts, least-privilege IAM, and local ADC outside the
       repository. Do not create or use a static API key.
-- [ ] Review the exact English and Japanese dry-run payloads before network
+- [x] Review the exact English and Japanese dry-run payloads before network
       access and confirm the Section 9 forbidden fields are absent.
 - [ ] Run one live English and one live Japanese explanation, then inspect
       response ID, model version, finish reason, token usage, hashes, trust
       labels, statuses, and first-line warnings.
-- [ ] Run the complete offline MPK verification path with AI available and
+- [x] Run the complete offline MPK verification path with AI available and
       unavailable and prove that proof results are identical.
 - [ ] Run every Section 17.6 command and satisfy every Section 19 checkbox.
-- [ ] Confirm Git contains no credential, live request, live response, customer
+- [x] Confirm Git contains no credential, live request, live response, customer
       artifact, or generated output before marking the task complete.
 
 Out of scope: weakening a gate to obtain a release, checking in a live response
@@ -1986,40 +2004,40 @@ Required verification:
 
 Implementation is complete only when all of the following are observable:
 
-- [ ] `mpk explain` makes one logical Vertex AI generation request for a valid
+- [x] `mpk explain` makes one logical Vertex AI generation request for a valid
       evidence report, uses one HTTP attempt absent a retryable failure, never
       exceeds three attempts, and writes both documented outputs.
-- [ ] `mpk explain --dry-run` performs no auth and no network I/O.
-- [ ] Invalid evidence cannot trigger authentication or a network request.
-- [ ] Invalid, colliding, or unwritable output destinations cannot trigger
+- [x] `mpk explain --dry-run` performs no auth and no network I/O.
+- [x] Invalid evidence cannot trigger authentication or a network request.
+- [x] Invalid, colliding, or unwritable output destinations cannot trigger
       authentication or a network request.
-- [ ] The outbound payload contains none of the forbidden fields in Section 9.
-- [ ] The outbound payload contains no free-form string copied from evidence.
-- [ ] The model never receives original property IDs.
-- [ ] The model response has no authority to set statuses or evidence refs.
-- [ ] Both outputs carry the exact source-evidence SHA-256.
-- [ ] Both outputs carry the exact credential-free request-body SHA-256.
-- [ ] Both outputs are visibly labeled untrusted helper analysis.
-- [ ] Existing MPK checker commands and outputs are byte-for-byte unchanged for
+- [x] The outbound payload contains none of the forbidden fields in Section 9.
+- [x] The outbound payload contains no free-form string copied from evidence.
+- [x] The model never receives original property IDs.
+- [x] The model response has no authority to set statuses or evidence refs.
+- [x] Both outputs carry the exact source-evidence SHA-256.
+- [x] Both outputs carry the exact credential-free request-body SHA-256.
+- [x] Both outputs are visibly labeled untrusted helper analysis.
+- [x] Existing MPK checker commands and outputs are byte-for-byte unchanged for
       existing fixtures.
-- [ ] The default build remains network-independent.
-- [ ] CI runs fully without Google Cloud credentials.
-- [ ] Secret-scanning CI uses no repository or environment secrets, has only
+- [x] The default build remains network-independent.
+- [x] CI runs fully without Google Cloud credentials.
+- [x] Secret-scanning CI uses no repository or environment secrets, has only
       read-only contents permission, does not use `pull_request_target`, pins
       third-party actions to full commit SHAs, and does not persist checkout
       credentials.
-- [ ] No CLI argument, MPK configuration field, or MPK-specific environment
+- [x] No CLI argument, MPK configuration field, or MPK-specific environment
       variable accepts an API key, raw bearer token, or credential-file path.
-- [ ] Access tokens are absent from stdout, stderr, structured errors, panic
+- [x] Access tokens are absent from stdout, stderr, structured errors, panic
       diagnostics, request previews, output reports, and test snapshots.
-- [ ] The repository secret scan detects its runtime-generated synthetic
+- [x] The repository secret scan detects its runtime-generated synthetic
       canary, redacts the value in logs, leaves no tracked copy, and passes the
       release candidate.
 - [ ] A manual Vertex AI integration test succeeds with provider provenance,
       and no live credential, request, response, or customer artifact is
       tracked in Git.
-- [ ] Removing or corrupting an AI report has no effect on proof verification.
-- [ ] README and SECURITY explain remote processing, ADC, IAM, retention
+- [x] Removing or corrupting an AI report has no effect on proof verification.
+- [x] README and SECURITY explain remote processing, ADC, IAM, retention
       caveats, credential incident response, and the trust boundary.
 
 ## 20. Rollout And Rollback
@@ -2069,17 +2087,75 @@ No unresolved assumption changes the MPK trust boundary.
 - [MPK Trust Boundary v0](../develop/specs/TRUST_BOUNDARY_V0.md)
 - [MPK AI API v0](../develop/specs/AI_API_V0.md)
 - [MPK Security Policy](../SECURITY.md)
-- [Gemini API on Vertex AI quickstart](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/start/quickstart)
+- [Gemini Enterprise Agent Platform quickstart](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/start)
 - [Vertex AI generateContent REST method](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/rest/v1/projects.locations.publishers.models/generateContent)
-- [Vertex AI v1 GenerationConfig RPC schema](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/reference/rpc/google.cloud.aiplatform.v1#google.cloud.aiplatform.v1.GenerationConfig)
-- [Vertex AI GenerateContentResponse REST schema](https://cloud.google.com/vertex-ai/generative-ai/docs/reference/rest/v1/GenerateContentResponse)
+- [Vertex AI v1 GenerationConfig and ThinkingConfig shared REST schema](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/rest/Shared.Types/GeminiExample)
+- [Vertex AI GenerateContentResponse REST schema](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/rest/v1/GenerateContentResponse)
 - [Vertex AI structured-output Schema](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/rest/v1/Schema)
-- [Controlled JSON generation with a response schema](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/samples/generativeaionvertexai-gemini-controlled-generation-response-schema-2)
+- [Controlled JSON generation with a response schema](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/capabilities/control-generated-output)
 - [Application Default Credentials](https://docs.cloud.google.com/docs/authentication/provide-credentials-adc)
 - [ADC access-token command](https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/print-access-token)
-- [Vertex AI IAM requirements](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/start/quickstart)
+- [Vertex AI IAM requirements](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/start)
 - [Service Usage roles and permissions](https://docs.cloud.google.com/service-usage/docs/access-control)
 - [Gemini model lifecycle](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions)
 - [Gemini 3.5 Flash model capabilities](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/gemini/3-5-flash)
 - [Gemini thinking controls](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/thinking)
-- [Vertex AI data retention](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/vertex-ai-zero-data-retention)
+- [Vertex AI data retention](https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/zero-data-retention)
+
+### 22.1 AUX-05 Release Review Record (2026-08-14)
+
+The current official documentation review confirmed that `gemini-3.5-flash`
+is GA, supports structured output and thinking, and is listed through at least
+May 19, 2027. Its documented supported locations include `global`, `us`, `eu`,
+`northamerica-northeast1`, `europe-west2`, `europe-west3`,
+`asia-northeast1`, `asia-south1`, and `asia-southeast1`. The v1
+`generateContent` resource path and response provenance fields used by MPK
+remain documented.
+
+The shared v1 reference labels the legacy `responseMimeType` and
+`responseSchema` fields as deprecated and defines `responseFormat[]` with the
+`text.mimeType` and `text.schema` union members. For JSON output, the new
+`text.mimeType` enum value is `APPLICATION_JSON`; MPK emits that current
+shape. The current model-specific structured-output guide still illustrates
+the legacy field names, so the dedicated live gate must confirm that the
+allowlisted model accepts the current shared shape before release. The
+provider schema is never treated as the local trust or output-validation
+boundary. The request uses the current `thinkingConfig.thinkingLevel` field,
+and `MINIMAL` is listed as supported for Gemini 3.5 Flash.
+
+The new `responseFormat[0].text.schema` field contains JSON Schema rather than
+the deprecated typed Vertex `Schema` message. MPK therefore uses lowercase
+JSON Schema primitive names and serializes `minItems`, `maxItems`, `minLength`,
+and `maxLength` as JSON integers. The existing local byte and list validators
+remain authoritative.
+
+The current setup guidance requires a billed project, the Agent Platform API,
+local ADC, and the Agent Platform User role (`roles/aiplatform.user`). API
+enablement and quota-project use require the documented Service Usage
+permissions. Google states that customer data is not used for training or
+fine-tuning without permission or instruction, but abuse-monitoring prompt
+logging and caching/retention caveats remain; MPK makes no zero-retention
+promise.
+
+The current working tree passed every Section 17.6 command without a Google
+Cloud credential in the test path. The credentialless secret-scanning workflow
+has read-only contents permission, commit-pinned actions, disabled persisted
+checkout credentials, and no `pull_request_target` trigger. The scanner's
+runtime-generated canary self-test also passed. Go 1.23.0 and the local Go
+1.25.4 toolchains both pass the updated `go2gir` module tests.
+
+The reviewed English and Japanese dry-run request SHA-256 values are
+`c2a0b1b1c5a37050eed6601eb10fccf83ff307748fe33d9c89b98966d3016fed` and
+`3a9ead1bd3557baae9f3453849a3abe421aff1d99f4599e3e4814d7137b559fd`,
+respectively. Their sanitized payloads contain none of the Section 9 forbidden
+fixture values. The controlled `--gcloud /usr/bin/false` test returned
+`VERTEX_AUTH_FAILED` without partial outputs, and the offline policy evidence,
+Markdown, and status output were byte-identical before and after that failure.
+All generated review artifacts remain under ignored `target/` paths.
+
+Local `gcloud` has a configured project and can obtain an ADC access token, but
+the operator has not identified or authorized that project as the dedicated
+billed non-production project with the required API, quota, budget, and IAM
+controls. No cloud state was changed and no billable English or Japanese live
+request was sent. Consequently the live acceptance item and `GEMINI-AUX-05`
+task-complete checkbox remain deliberately unchecked.

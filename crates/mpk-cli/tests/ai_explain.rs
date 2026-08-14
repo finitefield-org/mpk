@@ -21,6 +21,7 @@ use mpk_cli::policy_evidence::{
     PolicyTheoryCertificateEvidence, PolicyTrustedEvidence,
 };
 use mpk_cli::vertex_ai::{AccessTokenProvider, SecretAccessToken, VertexTransport};
+use pulldown_cmark::{Event, Options, Parser, Tag};
 use serde_json::Value;
 use sha2::{Digest, Sha256};
 
@@ -82,9 +83,14 @@ fn valid_fixture_is_redacted_and_request_is_byte_deterministic() {
     assert_eq!(body["generationConfig"]["temperature"], 0.0);
     assert_eq!(body["generationConfig"]["maxOutputTokens"], 8192);
     assert_eq!(
-        body["generationConfig"]["responseMimeType"],
-        "application/json"
+        body["generationConfig"]["responseFormat"][0]["text"]["mimeType"],
+        "APPLICATION_JSON"
     );
+    assert!(body["generationConfig"].get("responseMimeType").is_none());
+    assert!(body["generationConfig"].get("responseSchema").is_none());
+    let response_schema = &body["generationConfig"]["responseFormat"][0]["text"]["schema"];
+    assert_eq!(response_schema["type"], "object");
+    assert_standard_json_schema_types(response_schema);
     assert_eq!(
         body["generationConfig"]["thinkingConfig"]["thinkingLevel"],
         "MINIMAL"
@@ -94,18 +100,43 @@ fn valid_fixture_is_redacted_and_request_is_byte_deterministic() {
         false
     );
     assert_eq!(
-        body["generationConfig"]["responseSchema"]["properties"]["property_explanations"]
-            ["minItems"],
+        body["generationConfig"]["responseFormat"][0]["text"]["schema"]["properties"]
+            ["property_explanations"]["minItems"],
         8
     );
     assert_eq!(
-        body["generationConfig"]["responseSchema"]["properties"]["property_explanations"]
-            ["maxItems"],
+        body["generationConfig"]["responseFormat"][0]["text"]["schema"]["properties"]
+            ["property_explanations"]["maxItems"],
         8
     );
     assert_eq!(
-        body["generationConfig"]["responseSchema"]["properties"]["property_explanations"]["items"]
-            ["properties"]["property_ref"]["enum"]
+        body["generationConfig"]["responseFormat"][0]["text"]["schema"]["properties"]["overview"]
+            ["minLength"],
+        1
+    );
+    assert_eq!(
+        body["generationConfig"]["responseFormat"][0]["text"]["schema"]["properties"]["overview"]
+            ["maxLength"],
+        2000
+    );
+    assert_eq!(
+        body["generationConfig"]["responseFormat"][0]["text"]["schema"]["properties"]
+            ["limitations"]["maxItems"],
+        10
+    );
+    assert_eq!(
+        body["generationConfig"]["responseFormat"][0]["text"]["schema"]["properties"]
+            ["limitations"]["items"]["minLength"],
+        1
+    );
+    assert_eq!(
+        body["generationConfig"]["responseFormat"][0]["text"]["schema"]["properties"]
+            ["limitations"]["items"]["maxLength"],
+        500
+    );
+    assert_eq!(
+        body["generationConfig"]["responseFormat"][0]["text"]["schema"]["properties"]
+            ["property_explanations"]["items"]["properties"]["property_ref"]["enum"]
             .as_array()
             .unwrap()
             .len(),
@@ -552,7 +583,9 @@ fn fake_normal_explanation_installs_english_and_japanese_outputs() {
             output_markdown: markdown_path.clone(),
             overwrite: false,
         };
-        let transport = FakeTransport::new(model_response("<script>\n# generated heading"));
+        let transport = FakeTransport::new(model_response(
+            "<script>\n# generated heading\nplain text\n===\n~~~\nhidden code\n> generated quote",
+        ));
         let result = run_explanation(&request, &FakeAuth, &transport).unwrap();
         assert_eq!(
             result.report.source_evidence.sha256,
@@ -601,9 +634,16 @@ fn fake_normal_explanation_installs_english_and_japanese_outputs() {
         }
         assert!(markdown.contains("&lt;script&gt;"));
         assert!(markdown.contains("\\# generated heading"));
-        assert!(markdown.contains("\\[link\\]\\(https://example\\.invalid\\)"));
+        assert!(markdown.contains("\\=\\=\\="));
+        assert!(markdown.contains("\\~\\~\\~"));
+        assert!(markdown.contains("&gt; generated quote"));
+        assert!(markdown.contains("\\[link\\]\\(https&#58;\\/\\/example\\.invalid\\)"));
+        assert!(markdown.contains("&#32;&#32;&#32;&#32;https&#58;\\/\\/evil\\.example"));
         assert!(!markdown.contains("[link](https://example.invalid)"));
+        assert!(!markdown.contains("https://example.invalid"));
+        assert!(!markdown.contains("https://evil.example"));
         assert!(!markdown.contains("<script>"));
+        assert_markdown_has_no_generated_structure(&markdown);
         #[cfg(unix)]
         {
             use std::os::unix::fs::PermissionsExt;
@@ -838,7 +878,7 @@ struct FakeAuth;
 
 impl AccessTokenProvider for FakeAuth {
     fn access_token(&self) -> Result<SecretAccessToken, AiExplainError> {
-        SecretAccessToken::new("FAKE_TOKEN_PLACEHOLDER")
+        Ok(SecretAccessToken::test_token())
     }
 }
 
@@ -853,13 +893,63 @@ impl AccessTokenProvider for FailingAuth {
     }
 }
 
+fn assert_standard_json_schema_types(value: &Value) {
+    match value {
+        Value::Array(values) => {
+            for value in values {
+                assert_standard_json_schema_types(value);
+            }
+        }
+        Value::Object(object) => {
+            if let Some(schema_type) = object.get("type") {
+                let schema_type = schema_type
+                    .as_str()
+                    .expect("JSON Schema type is serialized as a string");
+                assert!(
+                    matches!(schema_type, "array" | "object" | "string"),
+                    "non-standard JSON Schema type spelling: {schema_type}"
+                );
+            }
+            for value in object.values() {
+                assert_standard_json_schema_types(value);
+            }
+        }
+        _ => {}
+    }
+}
+
+fn assert_markdown_has_no_generated_structure(markdown: &str) {
+    let mut heading_count = 0;
+    let mut block_quote_count = 0;
+    for event in Parser::new_ext(markdown, Options::all()) {
+        match event {
+            Event::Start(Tag::Heading { .. }) => heading_count += 1,
+            Event::Start(Tag::BlockQuote(_)) => block_quote_count += 1,
+            Event::Start(Tag::CodeBlock(_)) => {
+                panic!("model text created a Markdown code block")
+            }
+            Event::Start(Tag::Link { .. }) => panic!("model text created a Markdown link"),
+            Event::Start(Tag::Image { .. }) => panic!("model text created a Markdown image"),
+            Event::Html(_) | Event::InlineHtml(_) => {
+                panic!("model text created raw Markdown HTML")
+            }
+            _ => {}
+        }
+    }
+    assert_eq!(heading_count, 8, "model text created a Markdown heading");
+    assert_eq!(
+        block_quote_count, 1,
+        "model text created a Markdown block quote"
+    );
+}
+
 fn model_response(overview: &str) -> VertexGenerateResponse {
     let model = ModelExplanationResponse {
         overview: overview.to_owned(),
         property_explanations: (0..8)
             .map(|index| mpk_cli::ai_explain::ModelPropertyExplanation {
                 property_ref: format!("property-{:04}", index + 1),
-                explanation: "[link](https://example.invalid)".to_owned(),
+                explanation: "[link](https://example.invalid)\n    https://evil.example".to_owned(),
             })
             .collect(),
         limitations: vec!["* generated limitation".to_owned()],

@@ -143,7 +143,7 @@ pub struct ExplainRequest {
 }
 
 /// The typed shape of the credential-free Vertex request. The same value is
-/// serialized by dry-run and the future transport task.
+/// serialized by dry-run and the normal transport path.
 #[derive(Debug, Clone, PartialEq, Serialize)]
 pub struct VertexGenerateRequest {
     #[serde(rename = "systemInstruction")]
@@ -172,12 +172,28 @@ pub struct VertexGenerationConfig {
     pub temperature: f32,
     #[serde(rename = "maxOutputTokens")]
     pub max_output_tokens: u32,
-    #[serde(rename = "responseMimeType")]
-    pub response_mime_type: String,
-    #[serde(rename = "responseSchema")]
-    pub response_schema: VertexResponseSchema,
+    #[serde(rename = "responseFormat")]
+    pub response_format: Vec<VertexResponseFormat>,
     #[serde(rename = "thinkingConfig")]
     pub thinking_config: VertexThinkingConfig,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize)]
+pub struct VertexResponseFormat {
+    pub text: VertexTextResponseFormat,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize)]
+pub struct VertexTextResponseFormat {
+    #[serde(rename = "mimeType")]
+    pub mime_type: VertexTextMimeType,
+    pub schema: VertexResponseSchema,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
+pub enum VertexTextMimeType {
+    #[serde(rename = "APPLICATION_JSON")]
+    ApplicationJson,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize)]
@@ -191,11 +207,24 @@ pub struct VertexThinkingConfig {
 #[derive(Debug, Clone, PartialEq, Serialize)]
 pub struct VertexResponseSchema {
     #[serde(rename = "type")]
-    pub schema_type: String,
+    pub schema_type: VertexJsonSchemaType,
     pub properties: VertexResponseSchemaProperties,
     pub required: Vec<String>,
     #[serde(rename = "additionalProperties")]
     pub additional_properties: bool,
+}
+
+/// The JSON Schema primitive names accepted by
+/// `responseFormat[0].text.schema`.
+///
+/// This is deliberately separate from Vertex's deprecated `Schema.Type` enum,
+/// whose REST spellings are uppercase.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "lowercase")]
+pub enum VertexJsonSchemaType {
+    Array,
+    Object,
+    String,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize)]
@@ -209,7 +238,7 @@ pub struct VertexResponseSchemaProperties {
 #[derive(Debug, Clone, PartialEq, Serialize)]
 pub struct VertexStringSchema {
     #[serde(rename = "type")]
-    pub schema_type: String,
+    pub schema_type: VertexJsonSchemaType,
     #[serde(rename = "minLength", skip_serializing_if = "Option::is_none")]
     pub min_length: Option<u32>,
     #[serde(rename = "maxLength")]
@@ -219,7 +248,7 @@ pub struct VertexStringSchema {
 #[derive(Debug, Clone, PartialEq, Serialize)]
 pub struct VertexPropertyExplanationsSchema {
     #[serde(rename = "type")]
-    pub schema_type: String,
+    pub schema_type: VertexJsonSchemaType,
     #[serde(rename = "minItems")]
     pub min_items: u32,
     #[serde(rename = "maxItems")]
@@ -230,7 +259,7 @@ pub struct VertexPropertyExplanationsSchema {
 #[derive(Debug, Clone, PartialEq, Serialize)]
 pub struct VertexPropertyExplanationSchema {
     #[serde(rename = "type")]
-    pub schema_type: String,
+    pub schema_type: VertexJsonSchemaType,
     pub properties: VertexPropertyExplanationProperties,
     pub required: Vec<String>,
     #[serde(rename = "additionalProperties")]
@@ -246,21 +275,21 @@ pub struct VertexPropertyExplanationProperties {
 #[derive(Debug, Clone, PartialEq, Serialize)]
 pub struct VertexEnumStringSchema {
     #[serde(rename = "type")]
-    pub schema_type: String,
+    pub schema_type: VertexJsonSchemaType,
     pub r#enum: Vec<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize)]
 pub struct VertexTextListSchema {
     #[serde(rename = "type")]
-    pub schema_type: String,
+    pub schema_type: VertexJsonSchemaType,
     #[serde(rename = "maxItems")]
     pub max_items: u32,
     pub items: VertexStringSchema,
 }
 
 /// Provider envelopes remain forward-compatible with fields added by Google;
-/// the later transport/parser task extracts only the fields in this type.
+/// the transport/parser layer extracts only the fields in this type.
 #[derive(Debug, Clone, PartialEq, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct VertexGenerateResponse {
@@ -940,7 +969,7 @@ pub fn build_vertex_request(
     })?;
     let sanitized_payload_sha256 = sha256_hex(payload_json.as_bytes());
 
-    let response_schema = build_response_schema(projection.payload.properties.len());
+    let response_schema = build_response_schema(projection.payload.properties.len())?;
     let response_schema_bytes = serde_json::to_vec(&response_schema).map_err(|_| {
         AiExplainError::new(
             AiExplainErrorCode::AiExplainPayloadTooLarge,
@@ -965,8 +994,12 @@ pub fn build_vertex_request(
             candidate_count: 1,
             temperature: 0.0,
             max_output_tokens: 8192,
-            response_mime_type: "application/json".to_owned(),
-            response_schema,
+            response_format: vec![VertexResponseFormat {
+                text: VertexTextResponseFormat {
+                    mime_type: VertexTextMimeType::ApplicationJson,
+                    schema: response_schema,
+                },
+            }],
             thinking_config: VertexThinkingConfig {
                 thinking_level: "MINIMAL".to_owned(),
                 include_thoughts: false,
@@ -1570,18 +1603,38 @@ fn optional_number(value: Option<u64>) -> String {
 }
 
 fn escape_markdown_text(value: &str) -> String {
-    let value = value
-        .replace('&', "&amp;")
-        .replace('<', "&lt;")
-        .replace('>', "&gt;");
-    value
-        .chars()
-        .map(|character| match character {
-            '\\' | '`' | '*' | '_' | '{' | '}' | '[' | ']' | '(' | ')' | '#' | '+' | '-' | '.'
-            | '!' | '|' => format!("\\{character}"),
-            _ => character.to_string(),
-        })
-        .collect()
+    let mut escaped = String::with_capacity(value.len());
+    let mut at_line_start = true;
+    for character in value.chars() {
+        if character == '\n' {
+            escaped.push('\n');
+            at_line_start = true;
+            continue;
+        }
+        if at_line_start && character == ' ' {
+            // An entity is rendered as a space but is not parsed as an
+            // indented code block when four or more occur at line start.
+            escaped.push_str("&#32;");
+            continue;
+        }
+        at_line_start = false;
+        match character {
+            '&' => escaped.push_str("&amp;"),
+            '<' => escaped.push_str("&lt;"),
+            '>' => escaped.push_str("&gt;"),
+            // Encoding the scheme separator prevents GFM bare-URL
+            // autolinking while preserving the displayed text.
+            ':' => escaped.push_str("&#58;"),
+            // Escape every remaining ASCII punctuation character so newly
+            // introduced Markdown constructs cannot bypass this boundary.
+            character if character.is_ascii_punctuation() => {
+                escaped.push('\\');
+                escaped.push(character);
+            }
+            _ => escaped.push(character),
+        }
+    }
+    escaped
 }
 
 struct MarkdownLabels {
@@ -2188,12 +2241,11 @@ impl<'a, O: OutputFileOps> OutputTransaction<'a, O> {
                 ));
             }
         };
-        let identity = file_identity(&staging_path, &staging_metadata)?;
-        if json {
-            self.installed_json = Some(identity);
-        } else {
-            self.installed_markdown = Some(identity);
-        }
+        // Unix identities come from the staging inode, while platforms
+        // without a portable file-id API use the final path. The latter is
+        // intentional: after rename/hard-link the rollback probe must use the
+        // same path identity that it will observe at the destination.
+        let identity = file_identity(&target.path, &staging_metadata)?;
         let install_result = if self.preflight.overwrite {
             self.operations.rename(&staging_path, &target.path)
         } else {
@@ -2206,6 +2258,11 @@ impl<'a, O: OutputFileOps> OutputTransaction<'a, O> {
             } else {
                 "explanation Markdown install failed"
             }));
+        }
+        if json {
+            self.installed_json = Some(identity);
+        } else {
+            self.installed_markdown = Some(identity);
         }
         if !self.preflight.overwrite {
             if let Err(error) = self.operations.remove_file(&staging_path) {
@@ -2353,8 +2410,10 @@ fn remove_if_identity<O: OutputFileOps>(
     path: &Path,
     expected: &FileIdentity,
 ) -> bool {
-    let Ok(metadata) = operations.symlink_metadata(path) else {
-        return true;
+    let metadata = match operations.symlink_metadata(path) {
+        Ok(metadata) => metadata,
+        Err(error) if error.kind() == io::ErrorKind::NotFound => return true,
+        Err(_) => return false,
     };
     if metadata.file_type().is_symlink()
         || !metadata.file_type().is_file()
@@ -2774,31 +2833,35 @@ fn extract_category(description: &str) -> String {
     }
 }
 
-fn build_response_schema(property_count: usize) -> VertexResponseSchema {
+fn build_response_schema(property_count: usize) -> Result<VertexResponseSchema, AiExplainError> {
+    // Explain input validation currently limits this value to 32. Keep the
+    // conversion fallible and perform it before allocating aliases so a count
+    // that cannot be represented by the serialized constraints is rejected.
+    let property_count_u32 = u32::try_from(property_count).map_err(|_| invalid_evidence())?;
     let aliases = (1..=property_count)
         .map(|index| format!("property-{:04}", index))
         .collect::<Vec<_>>();
-    VertexResponseSchema {
-        schema_type: "OBJECT".to_owned(),
+    Ok(VertexResponseSchema {
+        schema_type: VertexJsonSchemaType::Object,
         properties: VertexResponseSchemaProperties {
             overview: VertexStringSchema {
-                schema_type: "STRING".to_owned(),
+                schema_type: VertexJsonSchemaType::String,
                 min_length: Some(1),
                 max_length: 2000,
             },
             property_explanations: VertexPropertyExplanationsSchema {
-                schema_type: "ARRAY".to_owned(),
-                min_items: u32::try_from(property_count).unwrap_or(u32::MAX),
-                max_items: u32::try_from(property_count).unwrap_or(u32::MAX),
+                schema_type: VertexJsonSchemaType::Array,
+                min_items: property_count_u32,
+                max_items: property_count_u32,
                 items: VertexPropertyExplanationSchema {
-                    schema_type: "OBJECT".to_owned(),
+                    schema_type: VertexJsonSchemaType::Object,
                     properties: VertexPropertyExplanationProperties {
                         property_ref: VertexEnumStringSchema {
-                            schema_type: "STRING".to_owned(),
+                            schema_type: VertexJsonSchemaType::String,
                             r#enum: aliases,
                         },
                         explanation: VertexStringSchema {
-                            schema_type: "STRING".to_owned(),
+                            schema_type: VertexJsonSchemaType::String,
                             min_length: Some(1),
                             max_length: 500,
                         },
@@ -2817,15 +2880,15 @@ fn build_response_schema(property_count: usize) -> VertexResponseSchema {
             "next_steps".to_owned(),
         ],
         additional_properties: false,
-    }
+    })
 }
 
 fn text_list_schema() -> VertexTextListSchema {
     VertexTextListSchema {
-        schema_type: "ARRAY".to_owned(),
+        schema_type: VertexJsonSchemaType::Array,
         max_items: 10,
         items: VertexStringSchema {
-            schema_type: "STRING".to_owned(),
+            schema_type: VertexJsonSchemaType::String,
             min_length: Some(1),
             max_length: 500,
         },
@@ -3053,11 +3116,22 @@ mod tests {
         );
     }
 
+    #[cfg(target_pointer_width = "64")]
+    #[test]
+    fn response_schema_rejects_unrepresentable_property_count_before_allocation() {
+        assert_eq!(
+            build_response_schema(usize::MAX)
+                .expect_err("an unrepresentable count is rejected")
+                .code(),
+            AiExplainErrorCode::AiExplainInvalidEvidence
+        );
+    }
+
     struct TestAuth;
 
     impl crate::vertex_ai::AccessTokenProvider for TestAuth {
         fn access_token(&self) -> Result<crate::vertex_ai::SecretAccessToken, AiExplainError> {
-            crate::vertex_ai::SecretAccessToken::new("fake-token")
+            Ok(crate::vertex_ai::SecretAccessToken::test_token())
         }
     }
 
@@ -3133,6 +3207,26 @@ mod tests {
             self.before_operation()?;
             self.inner.remove_file(path)
         }
+    }
+
+    #[test]
+    fn rollback_metadata_failure_is_not_treated_as_removed() {
+        let directory =
+            std::env::temp_dir().join(format!("mpk-output-metadata-error-{}", std::process::id()));
+        let _ = fs::remove_dir_all(&directory);
+        fs::create_dir_all(&directory).expect("test directory exists");
+        let path = directory.join("output.md");
+        fs::write(&path, b"output").expect("output exists");
+        let metadata = fs::symlink_metadata(&path).expect("output metadata exists");
+        let identity = file_identity(&path, &metadata).expect("output identity exists");
+        let operations = FailingOutputOps::new(1);
+
+        assert!(!remove_if_identity(&operations, &path, &identity));
+        assert!(
+            path.exists(),
+            "rollback must not claim a metadata error removed output"
+        );
+        fs::remove_dir_all(&directory).expect("test directory removed");
     }
 
     #[test]

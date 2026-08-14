@@ -55,18 +55,15 @@ fn error(code: AiExplainErrorCode, detail: &'static str) -> VertexAiError {
 pub struct SecretAccessToken(String);
 
 impl SecretAccessToken {
-    /// Construct a token for a fake provider or another reviewed token source.
-    /// The value is never included in a returned error.
-    pub fn new(value: impl Into<String>) -> Result<Self, VertexAiError> {
-        let value = value.into();
-        if validate_token68(value.as_bytes(), MAX_TOKEN_OUTPUT_BYTES) {
-            Ok(Self(value))
-        } else {
-            Err(error(
-                AiExplainErrorCode::VertexAuthFailed,
-                AUTH_FAILED_DETAIL,
-            ))
-        }
+    /// Return the fixed non-credential token used by in-process test doubles.
+    ///
+    /// Integration tests compile as an external crate, so they need a way to
+    /// satisfy the public transport boundary without accepting caller-provided
+    /// bearer material. This method deliberately accepts no input and must not
+    /// be used as an authentication source.
+    #[doc(hidden)]
+    pub fn test_token() -> Self {
+        Self("test-token".to_owned())
     }
 
     fn parse_output(output: &[u8]) -> Result<Self, VertexAiError> {
@@ -866,7 +863,7 @@ mod tests {
     }
 
     fn token() -> SecretAccessToken {
-        SecretAccessToken::new(TEST_TOKEN).expect("test token is valid")
+        SecretAccessToken::parse_output(TEST_TOKEN.as_bytes()).expect("test token is valid")
     }
 
     fn prepared_request() -> ExplainPreparedRequest {
@@ -974,7 +971,8 @@ mod tests {
                 .code(),
             AiExplainErrorCode::VertexAuthFailed
         );
-        let secret = SecretAccessToken::new(TEST_TOKEN).expect("test token is valid");
+        let secret =
+            SecretAccessToken::parse_output(TEST_TOKEN.as_bytes()).expect("test token is valid");
         assert!(!format!("{secret:?}").contains(TEST_TOKEN));
         assert!(!format!("{secret:?}").contains("TEST_TOKEN"));
     }
@@ -1002,7 +1000,10 @@ mod tests {
         );
         let provider = GcloudAccessTokenProvider::new(&executable);
         let token = provider.access_token().expect("fake ADC succeeds");
-        assert_eq!(token, SecretAccessToken::new(TEST_TOKEN).unwrap());
+        assert_eq!(
+            token,
+            SecretAccessToken::parse_output(TEST_TOKEN.as_bytes()).unwrap()
+        );
         assert_eq!(
             fs::read_to_string(args_file).expect("arguments are recorded"),
             "auth\napplication-default\nprint-access-token\n--quiet\n"

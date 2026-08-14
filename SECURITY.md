@@ -70,6 +70,14 @@ request remotely, so operators must obtain appropriate customer consent and
 review Google's current retention, abuse-monitoring, caching, and data-use
 terms. MPK does not promise zero retention.
 
+A cloud administrator must enable `aiplatform.googleapis.com` in a dedicated
+billed non-production project and configure approved quota and budget
+controls. The calling identity should receive only `roles/aiplatform.user`;
+user ADC that assigns a quota project additionally requires
+`serviceusage.services.use`, normally through
+`roles/serviceusage.serviceUsageConsumer`. Do not use broad owner/editor roles
+or place cloud credentials in this repository to bypass an IAM failure.
+
 The final JSON and Markdown reports are customer artifacts even though they
 are untrusted helper analysis: they contain the project ID, exact source hash,
 and locally restored property identifiers. Store them under an approved
