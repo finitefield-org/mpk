@@ -4,12 +4,15 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::{Command, Output};
 use std::sync::atomic::{AtomicU64, Ordering};
+use std::sync::Mutex;
 use std::time::{SystemTime, UNIX_EPOCH};
 
 use mpk_cli::ai_explain::{
-    build_sanitized_request, build_vertex_request, read_evidence_file, AiExplainErrorCode,
-    ExplainLanguage, SanitizedEvidenceKind, SourcePropertyStatus, MAX_INPUT_BYTES,
-    SYSTEM_INSTRUCTION_V0, USER_TEMPLATE_V0,
+    build_sanitized_request, build_vertex_request, read_evidence_file, run_explanation,
+    AiExplainError, AiExplainErrorCode, ExplainLanguage, ExplainProvider, ExplainRequest,
+    ModelExplanationResponse, SanitizedEvidenceKind, SourcePropertyStatus, VertexCandidate,
+    VertexGenerateResponse, VertexResponseContent, VertexResponsePart, VertexUsageMetadata,
+    MAX_INPUT_BYTES, SYSTEM_INSTRUCTION_V0, USER_TEMPLATE_V0,
 };
 use mpk_cli::policy_evidence::{
     PolicyCertificateEvidence, PolicyContractArtifact, PolicyEvidenceReport, PolicyEvidenceTarget,
@@ -17,6 +20,7 @@ use mpk_cli::policy_evidence::{
     PolicyPropertyEvidenceRef, PolicyPropertyEvidenceStatus, PolicySourceArtifact,
     PolicyTheoryCertificateEvidence, PolicyTrustedEvidence,
 };
+use mpk_cli::vertex_ai::{AccessTokenProvider, SecretAccessToken, VertexTransport};
 use serde_json::Value;
 use sha2::{Digest, Sha256};
 
@@ -524,6 +528,378 @@ fn dry_run_rejects_invalid_model_language_provider_and_paths() {
     assert!(!missing_parent_output.status.success());
     assert!(stderr(&missing_parent_output).contains("AI_EXPLAIN_OUTPUT_FAILED"));
     cleanup(&directory);
+}
+
+#[test]
+fn fake_normal_explanation_installs_english_and_japanese_outputs() {
+    for (label, language) in [
+        ("english", ExplainLanguage::English),
+        ("japanese", ExplainLanguage::Japanese),
+    ] {
+        let directory = test_directory(label);
+        let evidence_path = directory.join("evidence.json");
+        let json_path = directory.join("explanation.json");
+        let markdown_path = directory.join("explanation.md");
+        fs::write(&evidence_path, EVIDENCE_FIXTURE).unwrap();
+        let request = ExplainRequest {
+            evidence_path: evidence_path.clone(),
+            provider: ExplainProvider::VertexAi,
+            project: "sample-project".to_owned(),
+            location: "global".to_owned(),
+            model: "gemini-3.5-flash".to_owned(),
+            language,
+            output_json: json_path.clone(),
+            output_markdown: markdown_path.clone(),
+            overwrite: false,
+        };
+        let transport = FakeTransport::new(model_response("<script>\n# generated heading"));
+        let result = run_explanation(&request, &FakeAuth, &transport).unwrap();
+        assert_eq!(
+            result.report.source_evidence.sha256,
+            sha256(EVIDENCE_FIXTURE)
+        );
+        assert_eq!(result.report.provider_response.attempts.get(), 1);
+        assert_eq!(result.report.local_summary.total, 8);
+        assert!(!result.report.trust.proof_evidence());
+        assert_eq!(transport.request_count(), 1);
+        assert_eq!(
+            transport.request_body(),
+            build_vertex_request(EVIDENCE_FIXTURE, language)
+                .unwrap()
+                .request_body
+        );
+
+        let json: Value = serde_json::from_slice(&fs::read(&json_path).unwrap()).unwrap();
+        assert_eq!(json["schema"], "mpk.ai.explanation.v0");
+        assert_eq!(json["trust"]["proof_evidence"], false);
+        assert_eq!(json["source_evidence"]["sha256"], sha256(EVIDENCE_FIXTURE));
+        assert_eq!(
+            json["ai_analysis"]["property_explanations"][0]["property_id"],
+            "example.com/payment/reserve.ApprovedReserveCents.then.post0"
+        );
+        assert_eq!(
+            json["ai_analysis"]["property_explanations"][0]["source_status"],
+            "mpk_verified"
+        );
+        let prepared = build_vertex_request(EVIDENCE_FIXTURE, language).unwrap();
+        assert_eq!(
+            json["request"]["request_body_sha256"],
+            prepared.request_body_sha256
+        );
+        assert_eq!(
+            json["request"]["sanitized_payload_sha256"],
+            prepared.sanitized_payload_sha256
+        );
+
+        let markdown = fs::read_to_string(&markdown_path).unwrap();
+        if language == ExplainLanguage::English {
+            assert!(markdown.starts_with("> **UNTRUSTED AI-GENERATED EXPLANATION**"));
+            assert!(markdown.contains("## MPK Evidence Reference"));
+        } else {
+            assert!(markdown.starts_with("> **信頼できないAI生成の説明**"));
+            assert!(markdown.contains("## MPK証拠の参照"));
+        }
+        assert!(markdown.contains("&lt;script&gt;"));
+        assert!(markdown.contains("\\# generated heading"));
+        assert!(markdown.contains("\\[link\\]\\(https://example\\.invalid\\)"));
+        assert!(!markdown.contains("[link](https://example.invalid)"));
+        assert!(!markdown.contains("<script>"));
+        #[cfg(unix)]
+        {
+            use std::os::unix::fs::PermissionsExt;
+            assert_eq!(
+                fs::metadata(&json_path).unwrap().permissions().mode() & 0o777,
+                0o600
+            );
+            assert_eq!(
+                fs::metadata(&markdown_path).unwrap().permissions().mode() & 0o777,
+                0o600
+            );
+        }
+        assert!(result.cleanup_warning().is_none());
+        cleanup(&directory);
+    }
+}
+
+#[test]
+fn normal_explanation_overwrite_replaces_both_outputs_without_hidden_files() {
+    let directory = test_directory("normal-overwrite");
+    let evidence_path = directory.join("evidence.json");
+    let json_path = directory.join("explanation.json");
+    let markdown_path = directory.join("explanation.md");
+    fs::write(&evidence_path, EVIDENCE_FIXTURE).unwrap();
+    fs::write(&json_path, b"old-json").unwrap();
+    fs::write(&markdown_path, b"old-markdown").unwrap();
+    let request = ExplainRequest {
+        evidence_path,
+        provider: ExplainProvider::VertexAi,
+        project: "sample-project".to_owned(),
+        location: "global".to_owned(),
+        model: "gemini-3.5-flash".to_owned(),
+        language: ExplainLanguage::English,
+        output_json: json_path.clone(),
+        output_markdown: markdown_path.clone(),
+        overwrite: true,
+    };
+
+    run_explanation(
+        &request,
+        &FakeAuth,
+        &FakeTransport::new(model_response("replacement")),
+    )
+    .unwrap();
+
+    let json = fs::read(&json_path).unwrap();
+    let markdown = fs::read(&markdown_path).unwrap();
+    assert_ne!(json, b"old-json");
+    assert_ne!(markdown, b"old-markdown");
+    assert!(String::from_utf8_lossy(&markdown).contains("replacement"));
+    assert!(!fs::read_dir(&directory)
+        .unwrap()
+        .filter_map(Result::ok)
+        .any(|entry| entry
+            .file_name()
+            .to_string_lossy()
+            .starts_with(".mpk-explain-")));
+    cleanup(&directory);
+}
+
+#[test]
+fn malformed_model_response_writes_neither_final_output() {
+    let directory = test_directory("normal-malformed");
+    let evidence_path = directory.join("evidence.json");
+    let json_path = directory.join("explanation.json");
+    let markdown_path = directory.join("explanation.md");
+    fs::write(&evidence_path, EVIDENCE_FIXTURE).unwrap();
+    let request = ExplainRequest {
+        evidence_path,
+        provider: ExplainProvider::VertexAi,
+        project: "sample-project".to_owned(),
+        location: "global".to_owned(),
+        model: "gemini-3.5-flash".to_owned(),
+        language: ExplainLanguage::English,
+        output_json: json_path.clone(),
+        output_markdown: markdown_path.clone(),
+        overwrite: false,
+    };
+    let mut response = model_response("unused");
+    response.candidates[0].content.as_mut().unwrap().parts[0].text = Some(
+        r#"{"overview":"unsafe","property_explanations":[],"limitations":[],"next_steps":[],"status":"mpk_verified"}"#.to_owned(),
+    );
+    let transport = FakeTransport::new(response);
+
+    let error = run_explanation(&request, &FakeAuth, &transport).unwrap_err();
+    assert_eq!(error.code(), AiExplainErrorCode::AiExplainResponseInvalid);
+    assert_eq!(transport.request_count(), 1);
+    assert!(!json_path.exists());
+    assert!(!markdown_path.exists());
+    assert!(!fs::read_dir(&directory)
+        .unwrap()
+        .filter_map(Result::ok)
+        .any(|entry| entry
+            .file_name()
+            .to_string_lossy()
+            .starts_with(".mpk-explain-")));
+    cleanup(&directory);
+}
+
+#[test]
+fn normal_cli_reports_usage_before_project_resolution_for_missing_outputs() {
+    let directory = test_directory("normal-usage");
+    let evidence_path = directory.join("evidence.json");
+    fs::write(&evidence_path, EVIDENCE_FIXTURE).unwrap();
+    let output = run_mpk(&[
+        "explain",
+        evidence_path.to_str().unwrap(),
+        "--provider",
+        "vertex-ai",
+    ]);
+    assert_eq!(output.status.code(), Some(2));
+    assert!(stderr(&output).contains("mpk explain requires --output-json"));
+    assert!(stdout(&output).is_empty());
+    cleanup(&directory);
+}
+
+#[test]
+fn invalid_normal_outputs_and_auth_leave_no_partial_files() {
+    let directory = test_directory("normal-failures");
+    let evidence_path = directory.join("evidence.json");
+    let json_path = directory.join("explanation.json");
+    let markdown_path = directory.join("explanation.md");
+    fs::write(&evidence_path, EVIDENCE_FIXTURE).unwrap();
+    fs::write(&json_path, b"old-json").unwrap();
+    let request = ExplainRequest {
+        evidence_path: evidence_path.clone(),
+        provider: ExplainProvider::VertexAi,
+        project: "sample-project".to_owned(),
+        location: "global".to_owned(),
+        model: "gemini-3.5-flash".to_owned(),
+        language: ExplainLanguage::English,
+        output_json: json_path.clone(),
+        output_markdown: markdown_path.clone(),
+        overwrite: false,
+    };
+    let transport = FakeTransport::new(model_response("unused"));
+    let error = run_explanation(&request, &FakeAuth, &transport).unwrap_err();
+    assert_eq!(error.code(), AiExplainErrorCode::AiExplainOutputFailed);
+    assert_eq!(transport.request_count(), 0);
+    assert_eq!(fs::read(&json_path).unwrap(), b"old-json");
+    assert!(!markdown_path.exists());
+
+    let request = ExplainRequest {
+        overwrite: true,
+        output_json: directory.join("auth.json"),
+        output_markdown: directory.join("auth.md"),
+        ..request
+    };
+    let error = run_explanation(&request, &FailingAuth, &transport).unwrap_err();
+    assert_eq!(error.code(), AiExplainErrorCode::VertexAuthUnavailable);
+    assert!(!request.output_json.exists());
+    assert!(!request.output_markdown.exists());
+    assert!(!fs::read_dir(&directory)
+        .unwrap()
+        .filter_map(Result::ok)
+        .any(|entry| entry
+            .file_name()
+            .to_string_lossy()
+            .starts_with(".mpk-explain-")));
+    cleanup(&directory);
+}
+
+#[cfg(unix)]
+#[test]
+fn normal_output_rejects_symlink_destinations() {
+    use std::os::unix::fs::symlink;
+
+    let directory = test_directory("normal-symlink");
+    let evidence_path = directory.join("evidence.json");
+    let json_path = directory.join("explanation.json");
+    let markdown_path = directory.join("explanation.md");
+    let target = directory.join("target.txt");
+    fs::write(&evidence_path, EVIDENCE_FIXTURE).unwrap();
+    fs::write(&target, b"must remain").unwrap();
+    symlink(&target, &json_path).unwrap();
+    let request = ExplainRequest {
+        evidence_path,
+        provider: ExplainProvider::VertexAi,
+        project: "sample-project".to_owned(),
+        location: "global".to_owned(),
+        model: "gemini-3.5-flash".to_owned(),
+        language: ExplainLanguage::English,
+        output_json: json_path,
+        output_markdown: markdown_path,
+        overwrite: true,
+    };
+    let transport = FakeTransport::new(model_response("unused"));
+    let error = run_explanation(&request, &FakeAuth, &transport).unwrap_err();
+    assert_eq!(error.code(), AiExplainErrorCode::AiExplainOutputFailed);
+    assert_eq!(transport.request_count(), 0);
+    assert_eq!(fs::read(&target).unwrap(), b"must remain");
+    cleanup(&directory);
+}
+
+struct FakeTransport {
+    response: VertexGenerateResponse,
+    requests: Mutex<Vec<Vec<u8>>>,
+}
+
+impl FakeTransport {
+    fn new(response: VertexGenerateResponse) -> Self {
+        Self {
+            response,
+            requests: Mutex::new(Vec::new()),
+        }
+    }
+
+    fn request_count(&self) -> usize {
+        self.requests.lock().unwrap().len()
+    }
+
+    fn request_body(&self) -> Vec<u8> {
+        self.requests.lock().unwrap()[0].clone()
+    }
+}
+
+impl VertexTransport for FakeTransport {
+    fn generate(
+        &self,
+        request: &mpk_cli::ai_explain::ExplainPreparedRequest,
+        _token: &SecretAccessToken,
+    ) -> Result<VertexGenerateResponse, AiExplainError> {
+        self.requests
+            .lock()
+            .unwrap()
+            .push(request.request_body.clone());
+        Ok(self.response.clone())
+    }
+}
+
+struct FakeAuth;
+
+impl AccessTokenProvider for FakeAuth {
+    fn access_token(&self) -> Result<SecretAccessToken, AiExplainError> {
+        SecretAccessToken::new("FAKE_TOKEN_PLACEHOLDER")
+    }
+}
+
+struct FailingAuth;
+
+impl AccessTokenProvider for FailingAuth {
+    fn access_token(&self) -> Result<SecretAccessToken, AiExplainError> {
+        Err(AiExplainError::new(
+            AiExplainErrorCode::VertexAuthUnavailable,
+            "fake authentication unavailable",
+        ))
+    }
+}
+
+fn model_response(overview: &str) -> VertexGenerateResponse {
+    let model = ModelExplanationResponse {
+        overview: overview.to_owned(),
+        property_explanations: (0..8)
+            .map(|index| mpk_cli::ai_explain::ModelPropertyExplanation {
+                property_ref: format!("property-{:04}", index + 1),
+                explanation: "[link](https://example.invalid)".to_owned(),
+            })
+            .collect(),
+        limitations: vec!["* generated limitation".to_owned()],
+        next_steps: vec!["next step".to_owned()],
+    };
+    let text = serde_json::to_string(&model).unwrap();
+    VertexGenerateResponse {
+        candidates: vec![VertexCandidate {
+            content: Some(VertexResponseContent {
+                role: Some("model".to_owned()),
+                parts: vec![VertexResponsePart {
+                    text: Some(text),
+                    thought: None,
+                    inline_data: None,
+                    function_call: None,
+                    function_response: None,
+                    file_data: None,
+                    executable_code: None,
+                    code_execution_result: None,
+                }],
+            }),
+            finish_reason: Some("STOP".to_owned()),
+            index: Some(0),
+            safety_ratings: None,
+            grounding_metadata: None,
+            citation_metadata: None,
+            url_context_metadata: None,
+        }],
+        usage_metadata: Some(VertexUsageMetadata {
+            prompt_token_count: Some(10),
+            thoughts_token_count: Some(2),
+            candidates_token_count: Some(20),
+            total_token_count: Some(32),
+        }),
+        response_id: Some("fake-response-1".to_owned()),
+        model_version: Some("gemini-3.5-flash-001".to_owned()),
+        create_time: Some("2026-08-14T12:34:56Z".to_owned()),
+        prompt_feedback: None,
+        attempts: 1,
+    }
 }
 
 fn report_json(property_count: usize) -> Vec<u8> {

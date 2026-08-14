@@ -606,7 +606,9 @@ impl VertexTransport for ReqwestVertexTransport {
             }
 
             if response.status == 200 {
-                return parse_provider_response(&response.body);
+                let mut response = parse_provider_response(&response.body)?;
+                response.attempts = attempt;
+                return Ok(response);
             }
 
             let retryable_status = matches!(response.status, 429 | 500 | 502 | 503 | 504);
@@ -665,7 +667,9 @@ fn parse_provider_response(body: &[u8]) -> Result<VertexGenerateResponse, Vertex
     Ok(response)
 }
 
-fn validate_provider_response(response: &VertexGenerateResponse) -> Result<(), VertexAiError> {
+pub(crate) fn validate_provider_response(
+    response: &VertexGenerateResponse,
+) -> Result<(), VertexAiError> {
     if response
         .prompt_feedback
         .as_ref()

@@ -290,6 +290,21 @@ Markdown prose, CI status, Gemini logs, or operator notes into proof evidence.
 Those artifacts can support explanations, triage, and sales reporting only when
 they are labeled as helper analysis or AI/manual context.
 
+### MPK-Owned Optional Explanation Boundary
+
+MPK also owns one narrow, opt-in helper path: `mpk explain`, built with the
+optional `vertex-ai` feature, can send a minimal allowlisted projection of a
+validated `mpk.policy.evidence.v0` report to Gemini on Vertex AI through local
+ADC. It writes separate `mpk.ai.explanation.v0` JSON and Markdown outputs.
+Those outputs are always untrusted helper analysis; they carry no authority to
+create proof evidence, change a property status, or alter a checker result.
+The command does not modify evidence, run automatically from policy commands,
+accept static credentials, upload source or certificates, or own customer
+consent and retention policy. The dry run is offline, and normal remote
+processing must be disclosed and configured by the operator. ProofOps remains
+the owner of customer workflows, presentation, consent, and retention
+decisions around these reports.
+
 ### 6. Call-Site Precondition Helper
 
 Payment contracts often require preconditions such as `requestedCents >= 0`.

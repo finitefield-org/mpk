@@ -1,21 +1,22 @@
-//! Local validation, redaction, and request types for the optional Vertex AI
-//! evidence explainer.
+//! Local validation, redaction, request/response types, rendering, and output
+//! orchestration for the optional Vertex AI evidence explainer.
 //!
-//! This module deliberately stops at the credential-free request body. ADC,
-//! transport, model-response validation, and final output orchestration belong
-//! to later implementation tasks.
+//! The model remains outside MPK's proof boundary: local code owns statuses,
+//! evidence references, trust labels, and the two-output transaction.
 
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 use std::error::Error;
 use std::fmt;
 use std::fs::{self, File, OpenOptions};
-use std::io::{Read, Write};
+use std::io::{self, Read, Write};
 use std::path::{Component, Path, PathBuf};
+use std::sync::atomic::{AtomicU64, Ordering};
 
 use crate::policy_evidence::{
     PolicyAxiomCategoryCounts, PolicyCheckerVerdictStatus, PolicyEvidenceReport,
     PolicyHelperArtifactKind, PolicyPropertyEvidenceRef, PolicyPropertyEvidenceStatus,
 };
+use serde::de::{self, MapAccess, Visitor};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 
@@ -55,6 +56,24 @@ pub const MAX_VERTEX_REQUEST_BYTES: usize = 96 * 1024;
 pub const MAX_RETAINED_IDENTIFIER_BYTES: usize = 4 * 1024;
 const EXPLAIN_PROPERTY_LIMIT: usize = 32;
 const OUTPUT_PATH_TRAVERSAL_DETAIL: &str = "dry-run output path is not allowed";
+const MAX_OVERVIEW_BYTES: usize = 2_000;
+const MAX_PROPERTY_EXPLANATION_BYTES: usize = 500;
+const MAX_LIST_ITEM_BYTES: usize = 500;
+const MAX_AI_TEXT_BYTES: usize = 32 * 1024;
+const MAX_LIST_ITEMS: usize = 10;
+const EN_WARNING: &str = concat!(
+    "> **UNTRUSTED AI-GENERATED EXPLANATION**\n",
+    ">\n",
+    "> This report is helper analysis, not proof evidence. Verification status is\n",
+    "> determined only by the referenced MPK evidence and MPK checkers.\n",
+);
+const JA_WARNING: &str = concat!(
+    "> **信頼できないAI生成の説明**\n",
+    ">\n",
+    "> このレポートは補助的な分析であり、証明証拠ではありません。検証状態は、\n",
+    "> 参照先のMPK証拠とMPKチェッカーだけが決定します。\n",
+);
+static OUTPUT_COUNTER: AtomicU64 = AtomicU64::new(0);
 
 const RECOGNIZED_STRATEGY_PROFILES: &[&str] = &["payment-policy-alpha"];
 const RECOGNIZED_CHECKER_PROFILES: &[&str] = &["core-bootstrap", "mvp-structural", "mvp-strict"];
@@ -251,6 +270,8 @@ pub struct VertexGenerateResponse {
     pub model_version: Option<String>,
     pub create_time: Option<String>,
     pub prompt_feedback: Option<VertexPromptFeedback>,
+    #[serde(skip)]
+    pub attempts: u8,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize)]
@@ -308,8 +329,7 @@ pub struct VertexUsageMetadata {
 
 /// This is the only shape accepted from the model. In particular, it has no
 /// status, verdict, certificate, hash, or trusted-evidence field.
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
 pub struct ModelExplanationResponse {
     pub overview: String,
     pub property_explanations: Vec<ModelPropertyExplanation>,
@@ -317,11 +337,131 @@ pub struct ModelExplanationResponse {
     pub next_steps: Vec<String>,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
 pub struct ModelPropertyExplanation {
     pub property_ref: String,
     pub explanation: String,
+}
+
+const MODEL_RESPONSE_FIELDS: &[&str] = &[
+    "overview",
+    "property_explanations",
+    "limitations",
+    "next_steps",
+];
+const MODEL_PROPERTY_FIELDS: &[&str] = &["property_ref", "explanation"];
+
+impl<'de> Deserialize<'de> for ModelExplanationResponse {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_map(ModelExplanationResponseVisitor)
+    }
+}
+
+struct ModelExplanationResponseVisitor;
+
+impl<'de> Visitor<'de> for ModelExplanationResponseVisitor {
+    type Value = ModelExplanationResponse;
+
+    fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        formatter.write_str("a strict MPK model explanation object")
+    }
+
+    fn visit_map<M>(self, mut map: M) -> Result<Self::Value, M::Error>
+    where
+        M: MapAccess<'de>,
+    {
+        let mut overview = None;
+        let mut property_explanations = None;
+        let mut limitations = None;
+        let mut next_steps = None;
+        while let Some(field) = map.next_key::<String>()? {
+            match field.as_str() {
+                "overview" => {
+                    if overview.is_some() {
+                        return Err(de::Error::duplicate_field("overview"));
+                    }
+                    overview = Some(map.next_value()?);
+                }
+                "property_explanations" => {
+                    if property_explanations.is_some() {
+                        return Err(de::Error::duplicate_field("property_explanations"));
+                    }
+                    property_explanations = Some(map.next_value()?);
+                }
+                "limitations" => {
+                    if limitations.is_some() {
+                        return Err(de::Error::duplicate_field("limitations"));
+                    }
+                    limitations = Some(map.next_value()?);
+                }
+                "next_steps" => {
+                    if next_steps.is_some() {
+                        return Err(de::Error::duplicate_field("next_steps"));
+                    }
+                    next_steps = Some(map.next_value()?);
+                }
+                _ => return Err(de::Error::unknown_field(&field, MODEL_RESPONSE_FIELDS)),
+            }
+        }
+        Ok(ModelExplanationResponse {
+            overview: overview.ok_or_else(|| de::Error::missing_field("overview"))?,
+            property_explanations: property_explanations
+                .ok_or_else(|| de::Error::missing_field("property_explanations"))?,
+            limitations: limitations.ok_or_else(|| de::Error::missing_field("limitations"))?,
+            next_steps: next_steps.ok_or_else(|| de::Error::missing_field("next_steps"))?,
+        })
+    }
+}
+
+impl<'de> Deserialize<'de> for ModelPropertyExplanation {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_map(ModelPropertyExplanationVisitor)
+    }
+}
+
+struct ModelPropertyExplanationVisitor;
+
+impl<'de> Visitor<'de> for ModelPropertyExplanationVisitor {
+    type Value = ModelPropertyExplanation;
+
+    fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        formatter.write_str("a strict MPK property explanation object")
+    }
+
+    fn visit_map<M>(self, mut map: M) -> Result<Self::Value, M::Error>
+    where
+        M: MapAccess<'de>,
+    {
+        let mut property_ref = None;
+        let mut explanation = None;
+        while let Some(field) = map.next_key::<String>()? {
+            match field.as_str() {
+                "property_ref" => {
+                    if property_ref.is_some() {
+                        return Err(de::Error::duplicate_field("property_ref"));
+                    }
+                    property_ref = Some(map.next_value()?);
+                }
+                "explanation" => {
+                    if explanation.is_some() {
+                        return Err(de::Error::duplicate_field("explanation"));
+                    }
+                    explanation = Some(map.next_value()?);
+                }
+                _ => return Err(de::Error::unknown_field(&field, MODEL_PROPERTY_FIELDS)),
+            }
+        }
+        Ok(ModelPropertyExplanation {
+            property_ref: property_ref.ok_or_else(|| de::Error::missing_field("property_ref"))?,
+            explanation: explanation.ok_or_else(|| de::Error::missing_field("explanation"))?,
+        })
+    }
 }
 
 /// A closed trust classification. There is no trusted or proof-evidence
@@ -473,6 +613,17 @@ pub enum SourcePropertyStatus {
     ProofPending,
     HelperOnly,
     Unsupported,
+}
+
+impl SourcePropertyStatus {
+    pub const fn as_str(self) -> &'static str {
+        match self {
+            Self::MpkVerified => "mpk_verified",
+            Self::ProofPending => "proof_pending",
+            Self::HelperOnly => "helper_only",
+            Self::Unsupported => "unsupported",
+        }
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
@@ -734,6 +885,7 @@ pub enum SanitizedArtifactKind {
 pub struct PropertyAlias {
     pub property_ref: String,
     pub original_id: String,
+    pub original_index: usize,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize)]
@@ -917,6 +1069,644 @@ pub fn execute_dry_run(
     ))
 }
 
+/// The result of a normal explanation run.  The report is fully assembled
+/// locally; the model only contributes the validated `ai_analysis` fields.
+#[derive(Debug)]
+pub struct ExplainRunResult {
+    pub report: AiExplanationReport,
+    pub json_path: PathBuf,
+    pub markdown_path: PathBuf,
+    cleanup_pending_paths: Vec<PathBuf>,
+}
+
+impl ExplainRunResult {
+    pub fn status_line(&self) -> String {
+        let cleanup = if self.cleanup_pending_paths.is_empty() {
+            "complete"
+        } else {
+            "pending"
+        };
+        format!(
+            "ok explain trust={} provider={} model={} input_sha256={} cleanup={} json={} md={}",
+            self.report.trust.classification().as_str(),
+            self.report.request.provider.as_str(),
+            self.report.request.requested_model,
+            self.report.source_evidence.sha256,
+            cleanup,
+            json_escaped_path(&self.json_path),
+            json_escaped_path(&self.markdown_path),
+        )
+    }
+
+    pub fn cleanup_warning(&self) -> Option<String> {
+        if self.cleanup_pending_paths.is_empty() {
+            return None;
+        }
+        let paths = self
+            .cleanup_pending_paths
+            .iter()
+            .map(|path| json_escaped_path(path))
+            .collect::<Vec<_>>()
+            .join(",");
+        Some(format!("mpk explain cleanup=pending paths=[{paths}]"))
+    }
+}
+
+/// Execute the normal explanation flow with an injected auth provider and
+/// transport.  Input validation and output reservation happen before auth.
+pub fn run_explanation<A, T>(
+    request: &ExplainRequest,
+    auth: &A,
+    transport: &T,
+) -> Result<ExplainRunResult, AiExplainError>
+where
+    A: crate::vertex_ai::AccessTokenProvider,
+    T: crate::vertex_ai::VertexTransport,
+{
+    let operations = FsOutputFileOps;
+    run_explanation_with_ops(request, auth, transport, &operations)
+}
+
+fn run_explanation_with_ops<A, T, O>(
+    request: &ExplainRequest,
+    auth: &A,
+    transport: &T,
+    operations: &O,
+) -> Result<ExplainRunResult, AiExplainError>
+where
+    A: crate::vertex_ai::AccessTokenProvider,
+    T: crate::vertex_ai::VertexTransport,
+    O: OutputFileOps,
+{
+    crate::vertex_ai::build_vertex_endpoint(&request.project, &request.location, &request.model)?;
+    let prepared = build_sanitized_request_from_path(&request.evidence_path, request.language)?;
+    let preflight = preflight_output_paths(
+        &request.evidence_path,
+        &request.output_json,
+        &request.output_markdown,
+        request.overwrite,
+    )?;
+    let mut transaction = OutputTransaction::reserve(preflight, operations)?;
+
+    let token = auth.access_token()?;
+    let provider_response = transport.generate(&prepared, &token);
+    drop(token);
+    let provider_response = provider_response?;
+    let report = build_explanation_report(request, &prepared, &provider_response)?;
+    let json_body = serialize_report(&report)?;
+    let markdown_body = render_markdown(&report);
+    let cleanup_pending_paths = transaction.commit(&json_body, markdown_body.as_bytes())?;
+
+    Ok(ExplainRunResult {
+        report,
+        json_path: request.output_json.clone(),
+        markdown_path: request.output_markdown.clone(),
+        cleanup_pending_paths,
+    })
+}
+
+fn build_explanation_report(
+    request: &ExplainRequest,
+    prepared: &ExplainPreparedRequest,
+    provider_response: &VertexGenerateResponse,
+) -> Result<AiExplanationReport, AiExplainError> {
+    crate::vertex_ai::validate_provider_response(provider_response)?;
+    let candidate = provider_response
+        .candidates
+        .first()
+        .ok_or_else(response_invalid)?;
+    let content = candidate.content.as_ref().ok_or_else(response_invalid)?;
+    let text = content
+        .parts
+        .first()
+        .and_then(|part| part.text.as_deref())
+        .ok_or_else(response_invalid)?;
+    let model_response: ModelExplanationResponse =
+        serde_json::from_str(text).map_err(|_| response_invalid())?;
+    validate_model_explanation(&model_response, &prepared.alias_map)?;
+
+    let attempts = AttemptCount::new(provider_response.attempts)?;
+    let usage = provider_response
+        .usage_metadata
+        .as_ref()
+        .map(|usage| ProviderUsage {
+            prompt_tokens: usage.prompt_token_count,
+            thinking_tokens: usage.thoughts_token_count,
+            response_tokens: usage.candidates_token_count,
+            total_tokens: usage.total_token_count,
+        })
+        .unwrap_or_else(ProviderUsage::empty);
+    let provider_provenance = ProviderProvenance {
+        model_version: provider_response
+            .model_version
+            .clone()
+            .ok_or_else(response_invalid)?,
+        response_id: provider_response
+            .response_id
+            .clone()
+            .ok_or_else(response_invalid)?,
+        create_time: provider_response
+            .create_time
+            .clone()
+            .ok_or_else(response_invalid)?,
+        finish_reason: ProviderFinishReason::Stop,
+        attempts,
+        usage,
+    };
+    let ai_analysis = build_ai_analysis(prepared, &model_response)?;
+    let local_summary = LocalSummary {
+        strategy_profile: prepared.payload.policy.strategy_profile.clone(),
+        checker_profile: prepared.payload.policy.checker_profile.clone(),
+        allowed_axiom_profiles: prepared.payload.policy.allowed_axiom_profiles.clone(),
+        total: prepared.payload.summary.total,
+        mpk_verified: prepared.payload.summary.mpk_verified,
+        proof_pending: prepared.payload.summary.proof_pending,
+        helper_only: prepared.payload.summary.helper_only,
+        unsupported: prepared.payload.summary.unsupported,
+    };
+
+    Ok(AiExplanationReport::new(
+        SourceEvidenceReference {
+            schema: POLICY_EVIDENCE_SCHEMA.to_owned(),
+            sha256: prepared.evidence_sha256.clone(),
+        },
+        ExplainOutputRequest {
+            provider: request.provider,
+            project: request.project.clone(),
+            location: request.location.clone(),
+            requested_model: request.model.clone(),
+            language: request.language,
+            redaction_profile: MINIMAL_REDACTION_PROFILE.to_owned(),
+            prompt_template: PROMPT_TEMPLATE_ID.to_owned(),
+            prompt_template_sha256: prepared.prompt_template_sha256.clone(),
+            response_schema: AI_EXPLANATION_RESPONSE_SCHEMA.to_owned(),
+            response_schema_sha256: prepared.response_schema_sha256.clone(),
+            sanitized_payload_sha256: prepared.sanitized_payload_sha256.clone(),
+            request_body_sha256: prepared.request_body_sha256.clone(),
+        },
+        provider_provenance,
+        local_summary,
+        ai_analysis,
+    ))
+}
+
+fn build_ai_analysis(
+    prepared: &ExplainPreparedRequest,
+    model_response: &ModelExplanationResponse,
+) -> Result<AiAnalysis, AiExplainError> {
+    let mut generated = HashMap::new();
+    for property in &model_response.property_explanations {
+        if generated
+            .insert(property.property_ref.as_str(), property.explanation.clone())
+            .is_some()
+        {
+            return Err(response_invalid());
+        }
+    }
+
+    let statuses = prepared
+        .payload
+        .properties
+        .iter()
+        .map(|property| (property.property_ref.as_str(), property.status))
+        .collect::<HashMap<_, _>>();
+    let mut aliases = prepared.alias_map.clone();
+    aliases.sort_by_key(|alias| alias.original_index);
+    let mut property_explanations = Vec::with_capacity(aliases.len());
+    for alias in aliases {
+        let Some(explanation) = generated.get(alias.property_ref.as_str()) else {
+            return Err(response_invalid());
+        };
+        let Some(status) = statuses.get(alias.property_ref.as_str()).copied() else {
+            return Err(response_invalid());
+        };
+        property_explanations.push(AiPropertyExplanation {
+            property_id: alias.original_id,
+            source_status: status,
+            explanation: explanation.clone(),
+        });
+    }
+
+    Ok(AiAnalysis {
+        overview: model_response.overview.clone(),
+        property_explanations,
+        limitations: model_response.limitations.clone(),
+        next_steps: model_response.next_steps.clone(),
+    })
+}
+
+fn validate_model_explanation(
+    response: &ModelExplanationResponse,
+    aliases: &[PropertyAlias],
+) -> Result<(), AiExplainError> {
+    let mut total_text_bytes = 0_usize;
+    validate_generated_text(
+        &response.overview,
+        MAX_OVERVIEW_BYTES,
+        &mut total_text_bytes,
+    )?;
+    if response.property_explanations.len() != aliases.len()
+        || response.limitations.len() > MAX_LIST_ITEMS
+        || response.next_steps.len() > MAX_LIST_ITEMS
+    {
+        return Err(response_invalid());
+    }
+
+    let allowed = aliases
+        .iter()
+        .map(|alias| alias.property_ref.as_str())
+        .collect::<HashSet<_>>();
+    let mut seen = HashSet::new();
+    for property in &response.property_explanations {
+        if !allowed.contains(property.property_ref.as_str())
+            || !seen.insert(property.property_ref.as_str())
+        {
+            return Err(response_invalid());
+        }
+        validate_generated_text(
+            &property.explanation,
+            MAX_PROPERTY_EXPLANATION_BYTES,
+            &mut total_text_bytes,
+        )?;
+    }
+    if seen.len() != allowed.len() {
+        return Err(response_invalid());
+    }
+    for item in response
+        .limitations
+        .iter()
+        .chain(response.next_steps.iter())
+    {
+        validate_generated_text(item, MAX_LIST_ITEM_BYTES, &mut total_text_bytes)?;
+    }
+    Ok(())
+}
+
+fn validate_generated_text(
+    value: &str,
+    max_bytes: usize,
+    total_bytes: &mut usize,
+) -> Result<(), AiExplainError> {
+    if value.trim().is_empty()
+        || value.len() > max_bytes
+        || value.chars().any(|character| {
+            (character.is_control() && character != '\n') || is_bidi_control(character)
+        })
+    {
+        return Err(response_invalid());
+    }
+    *total_bytes = total_bytes.saturating_add(value.len());
+    if *total_bytes > MAX_AI_TEXT_BYTES {
+        return Err(response_invalid());
+    }
+    Ok(())
+}
+
+fn response_invalid() -> AiExplainError {
+    AiExplainError::new(
+        AiExplainErrorCode::AiExplainResponseInvalid,
+        "model response failed local validation",
+    )
+}
+
+fn serialize_report(report: &AiExplanationReport) -> Result<Vec<u8>, AiExplainError> {
+    let mut body = serde_json::to_vec_pretty(report).map_err(|_| {
+        AiExplainError::new(
+            AiExplainErrorCode::AiExplainOutputFailed,
+            "explanation JSON could not be serialized",
+        )
+    })?;
+    body.push(b'\n');
+    Ok(body)
+}
+
+fn render_markdown(report: &AiExplanationReport) -> String {
+    let japanese = report.request.language == ExplainLanguage::Japanese;
+    let mut output = if japanese {
+        JA_WARNING.to_owned()
+    } else {
+        EN_WARNING.to_owned()
+    };
+    output.push('\n');
+
+    let labels = MarkdownLabels::for_language(report.request.language);
+    output.push_str("## ");
+    output.push_str(labels.evidence_reference);
+    output.push_str("\n\n");
+    markdown_field(&mut output, labels.schema, POLICY_EVIDENCE_SCHEMA);
+    markdown_field(
+        &mut output,
+        labels.evidence_hash,
+        &report.source_evidence.sha256,
+    );
+    output.push('\n');
+
+    output.push_str("## ");
+    output.push_str(labels.status);
+    output.push_str("\n\n");
+    markdown_field(
+        &mut output,
+        labels.strategy_profile,
+        &report.local_summary.strategy_profile,
+    );
+    markdown_field(
+        &mut output,
+        labels.checker_profile,
+        &report.local_summary.checker_profile,
+    );
+    markdown_field(
+        &mut output,
+        labels.allowed_axioms,
+        &report.local_summary.allowed_axiom_profiles.join(", "),
+    );
+    for (label, value) in [
+        (labels.total, report.local_summary.total),
+        (labels.mpk_verified, report.local_summary.mpk_verified),
+        (labels.proof_pending, report.local_summary.proof_pending),
+        (labels.helper_only, report.local_summary.helper_only),
+        (labels.unsupported, report.local_summary.unsupported),
+    ] {
+        markdown_field(&mut output, label, &value.to_string());
+    }
+    output.push('\n');
+
+    output.push_str("## ");
+    output.push_str(labels.explanation);
+    output.push_str("\n\n### ");
+    output.push_str(labels.overview);
+    output.push_str("\n\n");
+    output.push_str(&escape_markdown_text(&report.ai_analysis.overview));
+    output.push_str("\n\n### ");
+    output.push_str(labels.properties);
+    output.push_str("\n\n");
+    for property in &report.ai_analysis.property_explanations {
+        output.push_str("- ");
+        output.push_str(&escape_markdown_text(&property.property_id));
+        output.push_str(" [");
+        output.push_str(property.source_status.as_str());
+        output.push_str("]: ");
+        output.push_str(&escape_markdown_text(&property.explanation));
+        output.push('\n');
+    }
+    output.push('\n');
+
+    output.push_str("## ");
+    output.push_str(labels.limitations);
+    output.push_str("\n\n");
+    append_list(&mut output, &report.ai_analysis.limitations, labels.none);
+    output.push('\n');
+
+    output.push_str("## ");
+    output.push_str(labels.next_steps);
+    output.push_str("\n\n");
+    append_list(&mut output, &report.ai_analysis.next_steps, labels.none);
+    output.push('\n');
+
+    output.push_str("## ");
+    output.push_str(labels.provenance);
+    output.push_str("\n\n");
+    markdown_field(
+        &mut output,
+        labels.provider,
+        report.request.provider.as_str(),
+    );
+    markdown_field(&mut output, labels.project, &report.request.project);
+    markdown_field(&mut output, labels.location, &report.request.location);
+    markdown_field(
+        &mut output,
+        labels.requested_model,
+        &report.request.requested_model,
+    );
+    markdown_field(
+        &mut output,
+        labels.model_version,
+        &report.provider_response.model_version,
+    );
+    markdown_field(
+        &mut output,
+        labels.create_time,
+        &report.provider_response.create_time,
+    );
+    markdown_field(&mut output, labels.finish_reason, "STOP");
+    markdown_field(
+        &mut output,
+        labels.response_id,
+        &report.provider_response.response_id,
+    );
+    markdown_field(
+        &mut output,
+        labels.prompt_hash,
+        &report.request.prompt_template_sha256,
+    );
+    markdown_field(
+        &mut output,
+        labels.response_schema_hash,
+        &report.request.response_schema_sha256,
+    );
+    markdown_field(
+        &mut output,
+        labels.request_body_hash,
+        &report.request.request_body_sha256,
+    );
+    markdown_field(
+        &mut output,
+        labels.redaction_profile,
+        &report.request.redaction_profile,
+    );
+    markdown_field(
+        &mut output,
+        labels.attempts,
+        &report.provider_response.attempts.get().to_string(),
+    );
+    markdown_field(
+        &mut output,
+        labels.prompt_tokens,
+        &optional_number(report.provider_response.usage.prompt_tokens),
+    );
+    markdown_field(
+        &mut output,
+        labels.thinking_tokens,
+        &optional_number(report.provider_response.usage.thinking_tokens),
+    );
+    markdown_field(
+        &mut output,
+        labels.response_tokens,
+        &optional_number(report.provider_response.usage.response_tokens),
+    );
+    markdown_field(
+        &mut output,
+        labels.total_tokens,
+        &optional_number(report.provider_response.usage.total_tokens),
+    );
+    output
+}
+
+fn markdown_field(output: &mut String, label: &str, value: &str) {
+    output.push_str("- ");
+    output.push_str(label);
+    output.push_str(": ");
+    output.push_str(&escape_markdown_text(value));
+    output.push('\n');
+}
+
+fn append_list(output: &mut String, values: &[String], none: &str) {
+    if values.is_empty() {
+        output.push_str("- ");
+        output.push_str(none);
+        output.push('\n');
+        return;
+    }
+    for value in values {
+        output.push_str("- ");
+        output.push_str(&escape_markdown_text(value));
+        output.push('\n');
+    }
+}
+
+fn optional_number(value: Option<u64>) -> String {
+    value
+        .map(|value| value.to_string())
+        .unwrap_or_else(|| "null".to_owned())
+}
+
+fn escape_markdown_text(value: &str) -> String {
+    let value = value
+        .replace('&', "&amp;")
+        .replace('<', "&lt;")
+        .replace('>', "&gt;");
+    value
+        .chars()
+        .map(|character| match character {
+            '\\' | '`' | '*' | '_' | '{' | '}' | '[' | ']' | '(' | ')' | '#' | '+' | '-' | '.'
+            | '!' | '|' => format!("\\{character}"),
+            _ => character.to_string(),
+        })
+        .collect()
+}
+
+struct MarkdownLabels {
+    evidence_reference: &'static str,
+    schema: &'static str,
+    evidence_hash: &'static str,
+    status: &'static str,
+    strategy_profile: &'static str,
+    checker_profile: &'static str,
+    allowed_axioms: &'static str,
+    total: &'static str,
+    mpk_verified: &'static str,
+    proof_pending: &'static str,
+    helper_only: &'static str,
+    unsupported: &'static str,
+    explanation: &'static str,
+    overview: &'static str,
+    properties: &'static str,
+    limitations: &'static str,
+    next_steps: &'static str,
+    provenance: &'static str,
+    provider: &'static str,
+    project: &'static str,
+    location: &'static str,
+    requested_model: &'static str,
+    model_version: &'static str,
+    create_time: &'static str,
+    finish_reason: &'static str,
+    response_id: &'static str,
+    prompt_hash: &'static str,
+    response_schema_hash: &'static str,
+    request_body_hash: &'static str,
+    redaction_profile: &'static str,
+    attempts: &'static str,
+    prompt_tokens: &'static str,
+    thinking_tokens: &'static str,
+    response_tokens: &'static str,
+    total_tokens: &'static str,
+    none: &'static str,
+}
+
+impl MarkdownLabels {
+    fn for_language(language: ExplainLanguage) -> Self {
+        if language == ExplainLanguage::Japanese {
+            Self {
+                evidence_reference: "MPK証拠の参照",
+                schema: "スキーマ",
+                evidence_hash: "入力SHA-256",
+                status: "MPKから取得した状態",
+                strategy_profile: "戦略プロファイル",
+                checker_profile: "チェッカープロファイル",
+                allowed_axioms: "許可された公理プロファイル",
+                total: "合計",
+                mpk_verified: "mpk_verified",
+                proof_pending: "proof_pending",
+                helper_only: "helper_only",
+                unsupported: "unsupported",
+                explanation: "Geminiによる説明",
+                overview: "概要",
+                properties: "プロパティの説明",
+                limitations: "制限事項",
+                next_steps: "推奨される次の手順",
+                provenance: "AIの来歴",
+                provider: "プロバイダ",
+                project: "プロジェクト",
+                location: "ロケーション",
+                requested_model: "要求モデル",
+                model_version: "返却モデルバージョン",
+                create_time: "生成時刻",
+                finish_reason: "終了理由",
+                response_id: "レスポンスID",
+                prompt_hash: "プロンプトテンプレートSHA-256",
+                response_schema_hash: "レスポンススキーマSHA-256",
+                request_body_hash: "リクエスト本文SHA-256",
+                redaction_profile: "匿名化プロファイル",
+                attempts: "試行回数",
+                prompt_tokens: "プロンプトトークン",
+                thinking_tokens: "思考トークン",
+                response_tokens: "応答トークン",
+                total_tokens: "合計トークン",
+                none: "なし",
+            }
+        } else {
+            Self {
+                evidence_reference: "MPK Evidence Reference",
+                schema: "Schema",
+                evidence_hash: "Input SHA-256",
+                status: "Status Copied From MPK",
+                strategy_profile: "Strategy profile",
+                checker_profile: "Checker profile",
+                allowed_axioms: "Allowed axiom profiles",
+                total: "Total",
+                mpk_verified: "mpk_verified",
+                proof_pending: "proof_pending",
+                helper_only: "helper_only",
+                unsupported: "unsupported",
+                explanation: "Gemini Explanation",
+                overview: "Overview",
+                properties: "Property Explanations",
+                limitations: "Limitations",
+                next_steps: "Suggested Next Steps",
+                provenance: "AI Provenance",
+                provider: "Provider",
+                project: "Project",
+                location: "Location",
+                requested_model: "Requested model",
+                model_version: "Returned model version",
+                create_time: "Create time",
+                finish_reason: "Finish reason",
+                response_id: "Response ID",
+                prompt_hash: "Prompt template SHA-256",
+                response_schema_hash: "Response schema SHA-256",
+                request_body_hash: "Request body SHA-256",
+                redaction_profile: "Redaction profile",
+                attempts: "Attempts",
+                prompt_tokens: "Prompt tokens",
+                thinking_tokens: "Thinking tokens",
+                response_tokens: "Response tokens",
+                total_tokens: "Total tokens",
+                none: "None",
+            }
+        }
+    }
+}
+
 pub fn read_evidence_file(path: &Path) -> Result<Vec<u8>, AiExplainError> {
     let metadata = fs::symlink_metadata(path).map_err(|_| {
         AiExplainError::new(
@@ -1071,6 +1861,520 @@ pub fn write_dry_run_request(path: &Path, body: &[u8]) -> Result<(), AiExplainEr
     Ok(())
 }
 
+trait OutputFileOps {
+    fn create_new(&self, path: &Path) -> io::Result<File>;
+    fn write_sync(&self, path: &Path, body: &[u8]) -> io::Result<()>;
+    fn symlink_metadata(&self, path: &Path) -> io::Result<fs::Metadata>;
+    fn metadata(&self, path: &Path) -> io::Result<fs::Metadata>;
+    fn hard_link(&self, source: &Path, destination: &Path) -> io::Result<()>;
+    fn rename(&self, source: &Path, destination: &Path) -> io::Result<()>;
+    fn remove_file(&self, path: &Path) -> io::Result<()>;
+}
+
+struct FsOutputFileOps;
+
+impl OutputFileOps for FsOutputFileOps {
+    fn create_new(&self, path: &Path) -> io::Result<File> {
+        let mut options = OpenOptions::new();
+        options.write(true).create_new(true);
+        #[cfg(unix)]
+        {
+            use std::os::unix::fs::OpenOptionsExt;
+            options.mode(0o600);
+        }
+        options.open(path)
+    }
+
+    fn write_sync(&self, path: &Path, body: &[u8]) -> io::Result<()> {
+        let mut file = OpenOptions::new().write(true).open(path)?;
+        file.write_all(body)?;
+        file.sync_all()
+    }
+
+    fn symlink_metadata(&self, path: &Path) -> io::Result<fs::Metadata> {
+        fs::symlink_metadata(path)
+    }
+
+    fn metadata(&self, path: &Path) -> io::Result<fs::Metadata> {
+        fs::metadata(path)
+    }
+
+    fn hard_link(&self, source: &Path, destination: &Path) -> io::Result<()> {
+        fs::hard_link(source, destination)
+    }
+
+    fn rename(&self, source: &Path, destination: &Path) -> io::Result<()> {
+        fs::rename(source, destination)
+    }
+
+    fn remove_file(&self, path: &Path) -> io::Result<()> {
+        fs::remove_file(path)
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+struct FileIdentity {
+    #[cfg(unix)]
+    device: u64,
+    #[cfg(unix)]
+    inode: u64,
+    #[cfg(not(unix))]
+    normalized_path: PathBuf,
+}
+
+fn file_identity(path: &Path, metadata: &fs::Metadata) -> Result<FileIdentity, AiExplainError> {
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::MetadataExt;
+        let _ = path;
+        Ok(FileIdentity {
+            device: metadata.dev(),
+            inode: metadata.ino(),
+        })
+    }
+    #[cfg(not(unix))]
+    {
+        Ok(FileIdentity {
+            normalized_path: normalized_absolute_path(path)?,
+        })
+    }
+}
+
+#[derive(Debug, Clone)]
+struct OutputTarget {
+    path: PathBuf,
+    existed: bool,
+    identity: Option<FileIdentity>,
+}
+
+#[derive(Debug, Clone)]
+struct OutputPreflight {
+    json: OutputTarget,
+    markdown: OutputTarget,
+    overwrite: bool,
+}
+
+fn preflight_output_paths(
+    evidence_path: &Path,
+    json_path: &Path,
+    markdown_path: &Path,
+    overwrite: bool,
+) -> Result<OutputPreflight, AiExplainError> {
+    validate_normal_output_path(json_path)?;
+    validate_normal_output_path(markdown_path)?;
+
+    let evidence_metadata = fs::metadata(evidence_path)
+        .map_err(|_| output_error("explanation input could not be inspected"))?;
+    let evidence_identity = file_identity(evidence_path, &evidence_metadata)?;
+    let evidence_normalized = normalized_absolute_path(evidence_path)?;
+    let json = inspect_output_target(json_path, overwrite)?;
+    let markdown = inspect_output_target(markdown_path, overwrite)?;
+
+    if normalized_absolute_path(json_path)? == normalized_absolute_path(markdown_path)?
+        || (json.identity.is_some()
+            && markdown.identity.is_some()
+            && json.identity == markdown.identity)
+    {
+        return Err(output_error(
+            "JSON and Markdown outputs must be distinct files",
+        ));
+    }
+    for target in [&json, &markdown] {
+        if normalized_absolute_path(&target.path)? == evidence_normalized
+            || target.identity.as_ref() == Some(&evidence_identity)
+        {
+            return Err(output_error(
+                "explanation input and outputs must be distinct files",
+            ));
+        }
+    }
+
+    Ok(OutputPreflight {
+        json,
+        markdown,
+        overwrite,
+    })
+}
+
+fn validate_normal_output_path(path: &Path) -> Result<(), AiExplainError> {
+    if path.as_os_str().is_empty()
+        || path.to_string_lossy().contains('\\')
+        || path
+            .components()
+            .any(|component| matches!(component, Component::ParentDir))
+        || path.file_name().is_none()
+    {
+        return Err(output_error("explanation output path is not allowed"));
+    }
+    let parent = path.parent().unwrap_or_else(|| Path::new("."));
+    let metadata = fs::metadata(parent)
+        .map_err(|_| output_error("explanation output parent is unavailable"))?;
+    if !metadata.is_dir() {
+        return Err(output_error(
+            "explanation output parent must be a directory",
+        ));
+    }
+    Ok(())
+}
+
+fn inspect_output_target(path: &Path, overwrite: bool) -> Result<OutputTarget, AiExplainError> {
+    match fs::symlink_metadata(path) {
+        Ok(metadata) => {
+            if metadata.file_type().is_symlink() || !metadata.file_type().is_file() {
+                return Err(output_error(
+                    "explanation output must be a regular non-symlink file",
+                ));
+            }
+            if !overwrite {
+                return Err(output_error(
+                    "explanation output exists; pass --overwrite to replace it",
+                ));
+            }
+            Ok(OutputTarget {
+                path: path.to_owned(),
+                existed: true,
+                identity: Some(file_identity(path, &metadata)?),
+            })
+        }
+        Err(error) if error.kind() == io::ErrorKind::NotFound => Ok(OutputTarget {
+            path: path.to_owned(),
+            existed: false,
+            identity: None,
+        }),
+        Err(_) => Err(output_error("explanation output cannot be inspected")),
+    }
+}
+
+fn output_error(detail: &'static str) -> AiExplainError {
+    AiExplainError::new(AiExplainErrorCode::AiExplainOutputFailed, detail)
+}
+
+struct OutputTransaction<'a, O: OutputFileOps> {
+    operations: &'a O,
+    preflight: OutputPreflight,
+    json_staging: Option<PathBuf>,
+    markdown_staging: Option<PathBuf>,
+    json_backup: Option<PathBuf>,
+    markdown_backup: Option<PathBuf>,
+    installed_json: Option<FileIdentity>,
+    installed_markdown: Option<FileIdentity>,
+    committed: bool,
+}
+
+impl<'a, O: OutputFileOps> OutputTransaction<'a, O> {
+    fn reserve(preflight: OutputPreflight, operations: &'a O) -> Result<Self, AiExplainError> {
+        let json_staging = reserve_hidden_path(operations, &preflight.json.path, "json-stage")?;
+        let markdown_staging =
+            match reserve_hidden_path(operations, &preflight.markdown.path, "md-stage") {
+                Ok(path) => path,
+                Err(error) => {
+                    let _ = operations.remove_file(&json_staging);
+                    return Err(error);
+                }
+            };
+        Ok(Self {
+            operations,
+            preflight,
+            json_staging: Some(json_staging),
+            markdown_staging: Some(markdown_staging),
+            json_backup: None,
+            markdown_backup: None,
+            installed_json: None,
+            installed_markdown: None,
+            committed: false,
+        })
+    }
+
+    fn commit(
+        &mut self,
+        json_body: &[u8],
+        markdown_body: &[u8],
+    ) -> Result<Vec<PathBuf>, AiExplainError> {
+        let result = self.commit_inner(json_body, markdown_body);
+        if result.is_err() && !self.rollback() {
+            return Err(output_error("explanation output rollback failed"));
+        }
+        result
+    }
+
+    fn commit_inner(
+        &mut self,
+        json_body: &[u8],
+        markdown_body: &[u8],
+    ) -> Result<Vec<PathBuf>, AiExplainError> {
+        let json_staging = self
+            .json_staging
+            .as_ref()
+            .ok_or_else(|| output_error("explanation output staging is unavailable"))?;
+        self.operations
+            .write_sync(json_staging, json_body)
+            .map_err(|_| output_error("explanation JSON staging write failed"))?;
+        let markdown_staging = self
+            .markdown_staging
+            .as_ref()
+            .ok_or_else(|| output_error("explanation output staging is unavailable"))?;
+        self.operations
+            .write_sync(markdown_staging, markdown_body)
+            .map_err(|_| output_error("explanation Markdown staging write failed"))?;
+
+        self.recheck_destination(&self.preflight.json)?;
+        self.recheck_destination(&self.preflight.markdown)?;
+
+        if self.preflight.overwrite {
+            if self.preflight.json.existed {
+                let backup = reserve_backup_path(self.operations, &self.preflight.json.path)?;
+                if self
+                    .operations
+                    .rename(&self.preflight.json.path, &backup)
+                    .is_err()
+                {
+                    let _ = self.operations.remove_file(&backup);
+                    return Err(output_error("explanation JSON backup failed"));
+                }
+                self.json_backup = Some(backup);
+            }
+            if self.preflight.markdown.existed {
+                let backup = reserve_backup_path(self.operations, &self.preflight.markdown.path)?;
+                if self
+                    .operations
+                    .rename(&self.preflight.markdown.path, &backup)
+                    .is_err()
+                {
+                    let _ = self.operations.remove_file(&backup);
+                    return Err(output_error("explanation Markdown backup failed"));
+                }
+                self.markdown_backup = Some(backup);
+            }
+        }
+
+        self.install_one(true)?;
+        self.install_one(false)?;
+        self.committed = true;
+        Ok(self.cleanup_after_commit())
+    }
+
+    fn recheck_destination(&self, target: &OutputTarget) -> Result<(), AiExplainError> {
+        match self.operations.symlink_metadata(&target.path) {
+            Ok(metadata) => {
+                if !target.existed
+                    || metadata.file_type().is_symlink()
+                    || !metadata.file_type().is_file()
+                    || target.identity.as_ref() != Some(&file_identity(&target.path, &metadata)?)
+                {
+                    return Err(output_error("explanation output destination changed"));
+                }
+            }
+            Err(error) if error.kind() == io::ErrorKind::NotFound && !target.existed => {}
+            Err(_) => return Err(output_error("explanation output destination changed")),
+        }
+        Ok(())
+    }
+
+    fn install_one(&mut self, json: bool) -> Result<(), AiExplainError> {
+        let (staging, target) = if json {
+            (&mut self.json_staging, &self.preflight.json)
+        } else {
+            (&mut self.markdown_staging, &self.preflight.markdown)
+        };
+        let Some(staging_path) = staging.take() else {
+            return Err(output_error("explanation output staging is unavailable"));
+        };
+        let staging_metadata = match self.operations.metadata(&staging_path) {
+            Ok(metadata) => metadata,
+            Err(_) => {
+                *staging = Some(staging_path);
+                return Err(output_error(
+                    "explanation output staging could not be inspected",
+                ));
+            }
+        };
+        let identity = file_identity(&staging_path, &staging_metadata)?;
+        if json {
+            self.installed_json = Some(identity);
+        } else {
+            self.installed_markdown = Some(identity);
+        }
+        let install_result = if self.preflight.overwrite {
+            self.operations.rename(&staging_path, &target.path)
+        } else {
+            self.operations.hard_link(&staging_path, &target.path)
+        };
+        if install_result.is_err() {
+            *staging = Some(staging_path);
+            return Err(output_error(if json {
+                "explanation JSON install failed"
+            } else {
+                "explanation Markdown install failed"
+            }));
+        }
+        if !self.preflight.overwrite {
+            if let Err(error) = self.operations.remove_file(&staging_path) {
+                *staging = Some(staging_path);
+                return Err(output_error(if error.kind() == io::ErrorKind::NotFound {
+                    "explanation output staging disappeared"
+                } else if json {
+                    "explanation JSON staging cleanup failed"
+                } else {
+                    "explanation Markdown staging cleanup failed"
+                }));
+            }
+        }
+        Ok(())
+    }
+
+    fn rollback(&mut self) -> bool {
+        let mut ok = true;
+        if let Some(identity) = self.installed_json.take() {
+            ok &= remove_if_identity(self.operations, &self.preflight.json.path, &identity);
+        }
+        if let Some(identity) = self.installed_markdown.take() {
+            ok &= remove_if_identity(self.operations, &self.preflight.markdown.path, &identity);
+        }
+        if let Some(backup) = self.json_backup.take() {
+            ok &= restore_backup(self.operations, &backup, &self.preflight.json.path);
+        }
+        if let Some(backup) = self.markdown_backup.take() {
+            ok &= restore_backup(self.operations, &backup, &self.preflight.markdown.path);
+        }
+        ok
+    }
+
+    fn cleanup_after_commit(&mut self) -> Vec<PathBuf> {
+        let mut pending = Vec::new();
+        for staging in [&mut self.json_staging, &mut self.markdown_staging] {
+            if let Some(path) = staging.take() {
+                match self.operations.remove_file(&path) {
+                    Ok(()) => {}
+                    Err(error) if error.kind() == io::ErrorKind::NotFound => {}
+                    Err(_) => {
+                        pending.push(path.clone());
+                        *staging = Some(path);
+                    }
+                }
+            }
+        }
+        for backup in [&mut self.json_backup, &mut self.markdown_backup] {
+            if let Some(path) = backup.take() {
+                match self.operations.remove_file(&path) {
+                    Ok(()) => {}
+                    Err(error) if error.kind() == io::ErrorKind::NotFound => {}
+                    Err(_) => {
+                        pending.push(path.clone());
+                        *backup = Some(path);
+                    }
+                }
+            }
+        }
+        pending
+    }
+}
+
+impl<O: OutputFileOps> Drop for OutputTransaction<'_, O> {
+    fn drop(&mut self) {
+        if self.committed {
+            return;
+        }
+        if let Some(path) = self.json_staging.take() {
+            let _ = self.operations.remove_file(&path);
+        }
+        if let Some(path) = self.markdown_staging.take() {
+            let _ = self.operations.remove_file(&path);
+        }
+    }
+}
+
+fn reserve_hidden_path<O: OutputFileOps>(
+    operations: &O,
+    final_path: &Path,
+    role: &str,
+) -> Result<PathBuf, AiExplainError> {
+    let parent = final_path.parent().unwrap_or_else(|| Path::new("."));
+    let name = final_path
+        .file_name()
+        .ok_or_else(|| output_error("explanation output path is not allowed"))?
+        .to_string_lossy();
+    for _ in 0..128 {
+        let counter = OUTPUT_COUNTER.fetch_add(1, Ordering::Relaxed);
+        let candidate = parent.join(format!(
+            ".mpk-explain-{}-{counter}-{role}-{name}",
+            std::process::id()
+        ));
+        match operations.create_new(&candidate) {
+            Ok(file) => {
+                drop(file);
+                return Ok(candidate);
+            }
+            Err(error) if error.kind() == io::ErrorKind::AlreadyExists => continue,
+            Err(_) => {
+                return Err(output_error(
+                    "explanation staging file could not be reserved",
+                ))
+            }
+        }
+    }
+    Err(output_error(
+        "explanation staging file collision limit exceeded",
+    ))
+}
+
+fn reserve_backup_path<O: OutputFileOps>(
+    operations: &O,
+    final_path: &Path,
+) -> Result<PathBuf, AiExplainError> {
+    let parent = final_path.parent().unwrap_or_else(|| Path::new("."));
+    let name = final_path
+        .file_name()
+        .ok_or_else(|| output_error("explanation output path is not allowed"))?
+        .to_string_lossy();
+    for _ in 0..128 {
+        let counter = OUTPUT_COUNTER.fetch_add(1, Ordering::Relaxed);
+        let candidate = parent.join(format!(
+            ".mpk-explain-{}-{counter}-backup-{name}",
+            std::process::id()
+        ));
+        match operations.create_new(&candidate) {
+            Ok(file) => {
+                drop(file);
+                return Ok(candidate);
+            }
+            Err(error) if error.kind() == io::ErrorKind::AlreadyExists => continue,
+            Err(_) => {
+                return Err(output_error(
+                    "explanation backup path could not be reserved",
+                ))
+            }
+        }
+    }
+    Err(output_error("explanation backup collision limit exceeded"))
+}
+
+fn remove_if_identity<O: OutputFileOps>(
+    operations: &O,
+    path: &Path,
+    expected: &FileIdentity,
+) -> bool {
+    let Ok(metadata) = operations.symlink_metadata(path) else {
+        return true;
+    };
+    if metadata.file_type().is_symlink()
+        || !metadata.file_type().is_file()
+        || file_identity(path, &metadata).ok().as_ref() != Some(expected)
+    {
+        return false;
+    }
+    operations.remove_file(path).map(|_| true).unwrap_or(false)
+}
+
+fn restore_backup<O: OutputFileOps>(operations: &O, backup: &Path, final_path: &Path) -> bool {
+    match operations.symlink_metadata(final_path) {
+        Err(error) if error.kind() == io::ErrorKind::NotFound => {}
+        Ok(metadata) if metadata.file_type().is_symlink() => return false,
+        Ok(_) => return false,
+        Err(_) => return false,
+    }
+    operations.rename(backup, final_path).is_ok()
+}
+
 pub fn prompt_template_sha256() -> String {
     let mut hasher = Sha256::new();
     hasher.update(b"systemInstruction\0");
@@ -1184,6 +2488,7 @@ fn project_evidence(
         alias_map.push(PropertyAlias {
             property_ref: property_ref.clone(),
             original_id: property.original_id,
+            original_index: property.position,
         });
         sanitized_properties.push(SanitizedProperty {
             property_ref,
@@ -1602,6 +2907,7 @@ fn hex_digest(bytes: impl AsRef<[u8]>) -> String {
 mod tests {
     use super::*;
     use serde_json::json;
+    use std::sync::atomic::{AtomicUsize, Ordering};
 
     #[test]
     fn schema_and_policy_identifiers_are_pinned() {
@@ -1648,6 +2954,18 @@ mod tests {
         });
 
         assert!(serde_json::from_value::<ModelExplanationResponse>(response).is_err());
+    }
+
+    #[test]
+    fn model_response_rejects_duplicate_fields() {
+        let response = r#"{
+            "overview": "first",
+            "overview": "second",
+            "property_explanations": [],
+            "limitations": [],
+            "next_steps": []
+        }"#;
+        assert!(serde_json::from_str::<ModelExplanationResponse>(response).is_err());
     }
 
     #[test]
@@ -1733,5 +3051,247 @@ mod tests {
             error.to_string(),
             "VERTEX_PROTOCOL_ERROR: provider response was incomplete"
         );
+    }
+
+    struct TestAuth;
+
+    impl crate::vertex_ai::AccessTokenProvider for TestAuth {
+        fn access_token(&self) -> Result<crate::vertex_ai::SecretAccessToken, AiExplainError> {
+            crate::vertex_ai::SecretAccessToken::new("fake-token")
+        }
+    }
+
+    struct TestTransport;
+
+    impl crate::vertex_ai::VertexTransport for TestTransport {
+        fn generate(
+            &self,
+            _request: &ExplainPreparedRequest,
+            _token: &crate::vertex_ai::SecretAccessToken,
+        ) -> Result<VertexGenerateResponse, AiExplainError> {
+            Ok(test_provider_response())
+        }
+    }
+
+    struct FailingOutputOps {
+        inner: FsOutputFileOps,
+        fail_at: usize,
+        calls: AtomicUsize,
+    }
+
+    impl FailingOutputOps {
+        fn new(fail_at: usize) -> Self {
+            Self {
+                inner: FsOutputFileOps,
+                fail_at,
+                calls: AtomicUsize::new(0),
+            }
+        }
+
+        fn before_operation(&self) -> io::Result<()> {
+            let call = self.calls.fetch_add(1, Ordering::Relaxed) + 1;
+            if call == self.fail_at {
+                Err(io::Error::other("deterministic output operation failure"))
+            } else {
+                Ok(())
+            }
+        }
+    }
+
+    impl OutputFileOps for FailingOutputOps {
+        fn create_new(&self, path: &Path) -> io::Result<File> {
+            self.before_operation()?;
+            self.inner.create_new(path)
+        }
+
+        fn write_sync(&self, path: &Path, body: &[u8]) -> io::Result<()> {
+            self.before_operation()?;
+            self.inner.write_sync(path, body)
+        }
+
+        fn symlink_metadata(&self, path: &Path) -> io::Result<fs::Metadata> {
+            self.before_operation()?;
+            self.inner.symlink_metadata(path)
+        }
+
+        fn metadata(&self, path: &Path) -> io::Result<fs::Metadata> {
+            self.before_operation()?;
+            self.inner.metadata(path)
+        }
+
+        fn hard_link(&self, source: &Path, destination: &Path) -> io::Result<()> {
+            self.before_operation()?;
+            self.inner.hard_link(source, destination)
+        }
+
+        fn rename(&self, source: &Path, destination: &Path) -> io::Result<()> {
+            self.before_operation()?;
+            self.inner.rename(source, destination)
+        }
+
+        fn remove_file(&self, path: &Path) -> io::Result<()> {
+            self.before_operation()?;
+            self.inner.remove_file(path)
+        }
+    }
+
+    #[test]
+    fn output_transaction_rolls_back_every_no_overwrite_transition() {
+        for fail_at in 1..=12 {
+            let directory = std::env::temp_dir().join(format!(
+                "mpk-output-rollback-{}-{fail_at}",
+                std::process::id()
+            ));
+            let _ = fs::remove_dir_all(&directory);
+            fs::create_dir_all(&directory).expect("test directory exists");
+            let evidence = directory.join("evidence.json");
+            let json_path = directory.join("explanation.json");
+            let markdown_path = directory.join("explanation.md");
+            fs::write(
+                &evidence,
+                include_bytes!("../../../examples/payment_policies/reserve/evidence_alpha.json"),
+            )
+            .expect("test evidence exists");
+            let request = test_explain_request(&evidence, &json_path, &markdown_path, false);
+            let operations = FailingOutputOps::new(fail_at);
+            let result = run_explanation_with_ops(&request, &TestAuth, &TestTransport, &operations);
+            assert!(
+                result.is_err(),
+                "operation {fail_at} unexpectedly succeeded"
+            );
+            assert!(!json_path.exists());
+            assert!(!markdown_path.exists());
+            assert!(!fs::read_dir(&directory)
+                .expect("test directory readable")
+                .filter_map(Result::ok)
+                .any(|entry| entry
+                    .file_name()
+                    .to_string_lossy()
+                    .starts_with(".mpk-explain-")));
+            fs::remove_dir_all(&directory).expect("test directory removed");
+        }
+    }
+
+    #[test]
+    fn output_transaction_restores_overwrite_state_and_reports_pending_cleanup() {
+        for fail_at in 1..=14 {
+            let directory = std::env::temp_dir().join(format!(
+                "mpk-output-overwrite-{}-{fail_at}",
+                std::process::id()
+            ));
+            let _ = fs::remove_dir_all(&directory);
+            fs::create_dir_all(&directory).expect("test directory exists");
+            let evidence = directory.join("evidence.json");
+            let json_path = directory.join("explanation.json");
+            let markdown_path = directory.join("explanation.md");
+            fs::write(
+                &evidence,
+                include_bytes!("../../../examples/payment_policies/reserve/evidence_alpha.json"),
+            )
+            .expect("test evidence exists");
+            fs::write(&json_path, b"old-json").expect("old JSON exists");
+            fs::write(&markdown_path, b"old-markdown").expect("old Markdown exists");
+            let request = test_explain_request(&evidence, &json_path, &markdown_path, true);
+            let operations = FailingOutputOps::new(fail_at);
+            let result = run_explanation_with_ops(&request, &TestAuth, &TestTransport, &operations);
+            assert!(
+                result.is_err(),
+                "operation {fail_at} unexpectedly succeeded"
+            );
+            assert_eq!(fs::read(&json_path).unwrap(), b"old-json");
+            assert_eq!(fs::read(&markdown_path).unwrap(), b"old-markdown");
+            fs::remove_dir_all(&directory).expect("test directory removed");
+        }
+
+        let directory =
+            std::env::temp_dir().join(format!("mpk-output-pending-{}", std::process::id()));
+        let _ = fs::remove_dir_all(&directory);
+        fs::create_dir_all(&directory).expect("test directory exists");
+        let evidence = directory.join("evidence.json");
+        let json_path = directory.join("explanation.json");
+        let markdown_path = directory.join("explanation.md");
+        fs::write(
+            &evidence,
+            include_bytes!("../../../examples/payment_policies/reserve/evidence_alpha.json"),
+        )
+        .expect("test evidence exists");
+        fs::write(&json_path, b"old-json").expect("old JSON exists");
+        fs::write(&markdown_path, b"old-markdown").expect("old Markdown exists");
+        let request = test_explain_request(&evidence, &json_path, &markdown_path, true);
+        let operations = FailingOutputOps::new(15);
+        let result = run_explanation_with_ops(&request, &TestAuth, &TestTransport, &operations)
+            .expect("post-commit cleanup failure keeps outputs valid");
+        assert!(result.cleanup_warning().is_some());
+        assert_ne!(fs::read(&json_path).unwrap(), b"old-json");
+        assert_ne!(fs::read(&markdown_path).unwrap(), b"old-markdown");
+        fs::remove_dir_all(&directory).expect("test directory removed");
+    }
+
+    fn test_explain_request(
+        evidence_path: &Path,
+        json_path: &Path,
+        markdown_path: &Path,
+        overwrite: bool,
+    ) -> ExplainRequest {
+        ExplainRequest {
+            evidence_path: evidence_path.to_owned(),
+            provider: ExplainProvider::VertexAi,
+            project: "sample-project".to_owned(),
+            location: "global".to_owned(),
+            model: DEFAULT_GEMINI_MODEL.to_owned(),
+            language: ExplainLanguage::English,
+            output_json: json_path.to_owned(),
+            output_markdown: markdown_path.to_owned(),
+            overwrite,
+        }
+    }
+
+    fn test_provider_response() -> VertexGenerateResponse {
+        let model = ModelExplanationResponse {
+            overview: "validated overview".to_owned(),
+            property_explanations: (1..=8)
+                .map(|index| ModelPropertyExplanation {
+                    property_ref: format!("property-{index:04}"),
+                    explanation: "validated explanation".to_owned(),
+                })
+                .collect(),
+            limitations: Vec::new(),
+            next_steps: Vec::new(),
+        };
+        let text = serde_json::to_string(&model).expect("model response serializes");
+        VertexGenerateResponse {
+            candidates: vec![VertexCandidate {
+                content: Some(VertexResponseContent {
+                    role: Some("model".to_owned()),
+                    parts: vec![VertexResponsePart {
+                        text: Some(text),
+                        thought: None,
+                        inline_data: None,
+                        function_call: None,
+                        function_response: None,
+                        file_data: None,
+                        executable_code: None,
+                        code_execution_result: None,
+                    }],
+                }),
+                finish_reason: Some("STOP".to_owned()),
+                index: Some(0),
+                safety_ratings: None,
+                grounding_metadata: None,
+                citation_metadata: None,
+                url_context_metadata: None,
+            }],
+            usage_metadata: Some(VertexUsageMetadata {
+                prompt_token_count: Some(1),
+                thoughts_token_count: Some(1),
+                candidates_token_count: Some(1),
+                total_token_count: Some(3),
+            }),
+            response_id: Some("test-response".to_owned()),
+            model_version: Some("gemini-3.5-flash-001".to_owned()),
+            create_time: Some("2026-08-14T12:34:56Z".to_owned()),
+            prompt_feedback: None,
+            attempts: 1,
+        }
     }
 }

@@ -1849,7 +1849,7 @@ git diff --check
 
 ### GEMINI-AUX-04: End-To-End Explain Command And Outputs
 
-- [ ] Task complete
+- [x] Task complete
 
 Depends on: `GEMINI-AUX-03`.
 
@@ -1862,21 +1862,21 @@ Primary files: `crates/mpk-cli/src/main.rs`,
 
 Implementation scope:
 
-- [ ] Wire normal `mpk explain` argument resolution, pre-auth validation,
+- [x] Wire normal `mpk explain` argument resolution, pre-auth validation,
       output preflight, ADC, transport, response validation, rendering, and
       exit/status behavior end to end.
-- [ ] Parse the controlled model response strictly, reject unknown or unsafe
+- [x] Parse the controlled model response strictly, reject unknown or unsafe
       content, validate provider provenance, and remap aliases to original
       property IDs only in local code.
-- [ ] Produce the exact `mpk.ai.explanation.v0` JSON and plain-text-safe
+- [x] Produce the exact `mpk.ai.explanation.v0` JSON and plain-text-safe
       Markdown while restoring only locally trusted statuses and references.
-- [ ] Implement the staged two-output transaction, no-clobber default,
+- [x] Implement the staged two-output transaction, no-clobber default,
       `--overwrite`, rollback, owner-only permissions where supported, and
       `cleanup=complete|pending` behavior.
-- [ ] Add fake end-to-end English and Japanese tests plus collision, symlink,
+- [x] Add fake end-to-end English and Japanese tests plus collision, symlink,
       overwrite, rollback, cleanup, escaping, malformed-response, and
       AI-unavailable tests.
-- [ ] Update the public documentation named in Section 16, including the
+- [x] Update the public documentation named in Section 16, including the
       untrusted-analysis warning, ADC-only setup, remote-processing disclosure,
       and ownership boundary.
 

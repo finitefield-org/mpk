@@ -59,6 +59,23 @@ Git history as appropriate, and verify the replacement credential. Deleting
 the value in a later commit or rewriting history does not make the exposed
 credential safe to reuse.
 
+The optional `mpk explain` command is ADC-only. It invokes the fixed
+`gcloud auth application-default print-access-token --quiet` argument vector
+and never accepts an API key, raw bearer token, or credential-file path. The
+dry run does not authenticate or access the network. Normal mode sends only
+the reviewed minimal redacted evidence payload to the selected Vertex AI
+project/location; it does not send source, contracts, certificates, paths,
+commands, or original property identifiers. The provider still processes the
+request remotely, so operators must obtain appropriate customer consent and
+review Google's current retention, abuse-monitoring, caching, and data-use
+terms. MPK does not promise zero retention.
+
+The final JSON and Markdown reports are customer artifacts even though they
+are untrusted helper analysis: they contain the project ID, exact source hash,
+and locally restored property identifiers. Store them under an approved
+location, restrict access, and delete local ADC with
+`gcloud auth application-default revoke` when it is no longer needed.
+
 ## Security Boundary
 
 Only these artifacts can support proof acceptance:
