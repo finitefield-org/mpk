@@ -1793,7 +1793,7 @@ git diff --check
 
 ### GEMINI-AUX-03: Vertex AI Transport And ADC
 
-- [ ] Task complete
+- [x] Task complete
 
 Depends on: `GEMINI-AUX-02`.
 
@@ -1805,21 +1805,21 @@ needed.
 
 Implementation scope:
 
-- [ ] Implement `AccessTokenProvider`, the redacted `SecretAccessToken`, and
+- [x] Implement `AccessTokenProvider`, the redacted `SecretAccessToken`, and
       direct fixed-argument invocation of
       `gcloud auth application-default print-access-token --quiet`.
-- [ ] Enforce the child-process timeout, bounded stdout/stderr draining, strict
+- [x] Enforce the child-process timeout, bounded stdout/stderr draining, strict
       token parsing, child termination/reaping, and secret-free errors.
-- [ ] Build only validated global or regional Vertex AI v1 endpoints and the
+- [x] Build only validated global or regional Vertex AI v1 endpoints and the
       fixed headers; disable redirects, proxies, arbitrary endpoints, and
       unsupported HTTP features.
-- [ ] Implement the controlled `generateContent` request and bounded response
+- [x] Implement the controlled `generateContent` request and bounded response
       transport behind `VertexTransport` and a private fakeable HTTP executor.
       Send the exact request-body bytes produced by `GEMINI-AUX-02`; do not
       independently rebuild or reserialize the body in the transport.
-- [ ] Implement the exact timeout, response-size, status mapping,
+- [x] Implement the exact timeout, response-size, status mapping,
       `Retry-After`, and maximum-three-attempt policy from Section 13.
-- [ ] Add deterministic transport and auth tests for every success, rejection,
+- [x] Add deterministic transport and auth tests for every success, rejection,
       timeout, retry, blocked-response, malformed-provider-envelope, and
       secret-leak path.
 

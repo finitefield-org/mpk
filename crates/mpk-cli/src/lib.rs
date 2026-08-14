@@ -8,3 +8,5 @@ pub mod policy_verify;
 
 #[cfg(feature = "vertex-ai")]
 pub mod ai_explain;
+#[cfg(feature = "vertex-ai")]
+pub mod vertex_ai;

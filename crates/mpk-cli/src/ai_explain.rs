@@ -250,6 +250,7 @@ pub struct VertexGenerateResponse {
     pub response_id: Option<String>,
     pub model_version: Option<String>,
     pub create_time: Option<String>,
+    pub prompt_feedback: Option<VertexPromptFeedback>,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize)]
@@ -258,6 +259,10 @@ pub struct VertexCandidate {
     pub content: Option<VertexResponseContent>,
     pub finish_reason: Option<String>,
     pub index: Option<u32>,
+    pub safety_ratings: Option<Vec<VertexSafetyRating>>,
+    pub grounding_metadata: Option<serde_json::Value>,
+    pub citation_metadata: Option<serde_json::Value>,
+    pub url_context_metadata: Option<serde_json::Value>,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize)]
@@ -268,8 +273,28 @@ pub struct VertexResponseContent {
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct VertexResponsePart {
     pub text: Option<String>,
+    pub thought: Option<bool>,
+    pub inline_data: Option<serde_json::Value>,
+    pub function_call: Option<serde_json::Value>,
+    pub function_response: Option<serde_json::Value>,
+    pub file_data: Option<serde_json::Value>,
+    pub executable_code: Option<serde_json::Value>,
+    pub code_execution_result: Option<serde_json::Value>,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct VertexPromptFeedback {
+    pub block_reason: Option<String>,
+}
+
+#[derive(Debug, Clone, PartialEq, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct VertexSafetyRating {
+    pub blocked: Option<bool>,
 }
 
 #[derive(Debug, Clone, PartialEq, Deserialize)]
