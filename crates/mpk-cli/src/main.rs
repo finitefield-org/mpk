@@ -7,8 +7,15 @@ use std::path::{Component, Path, PathBuf};
 use std::process::{Command, ExitCode};
 
 use mpk_api::{PolicyStrategyMetadata, PAYMENT_POLICY_ALPHA_PROFILE};
+#[cfg(feature = "vertex-ai")]
+use mpk_cli::ai_explain::{
+    execute_dry_run, run_explanation, validate_model_id, ExplainLanguage, ExplainProvider,
+    ExplainRequest, DEFAULT_GEMINI_MODEL, VERTEX_AI_PROVIDER,
+};
 use mpk_cli::policy_scan::{run_policy_scan, PolicyScanRequest};
 use mpk_cli::policy_verify::{run_policy_verify, PolicyVerifyRequest};
+#[cfg(feature = "vertex-ai")]
+use mpk_cli::vertex_ai::{GcloudAccessTokenProvider, ReqwestVertexTransport};
 use mpk_core::Name;
 use mpk_kernel::{
     verify_certificate_bytes, verify_certificate_bytes_axiom_report_json_output,
@@ -34,7 +41,8 @@ const POLICY_FIELDS: &[&str] = &[
     "require_source_free_check",
 ];
 const CHECKER_PROFILES: &[&str] = &["core-bootstrap", "mvp-structural", "mvp-strict"];
-
+#[cfg(not(feature = "vertex-ai"))]
+const EXPLAIN_DISABLED_MESSAGE: &str = "mpk explain requires a build with --features vertex-ai";
 fn main() -> ExitCode {
     match run(std::env::args().skip(1).collect()) {
         Ok(RunOutcome::Help) => ExitCode::SUCCESS,
@@ -60,6 +68,17 @@ fn main() -> ExitCode {
         | Ok(RunOutcome::PolicyScan(message))
         | Ok(RunOutcome::PolicyVerify(message)) => {
             println!("{message}");
+            ExitCode::SUCCESS
+        }
+        #[cfg(feature = "vertex-ai")]
+        Ok(RunOutcome::Explain {
+            status,
+            cleanup_warning,
+        }) => {
+            println!("{status}");
+            if let Some(warning) = cleanup_warning {
+                eprintln!("{warning}");
+            }
             ExitCode::SUCCESS
         }
         Err(CliError::Usage(message)) => {
@@ -90,6 +109,7 @@ fn run(args: Vec<String>) -> Result<RunOutcome, CliError> {
         [command, subcommand, rest @ ..] if command == "policy" && subcommand == "verify" => {
             policy_verify_route(rest)
         }
+        [command, rest @ ..] if command == "explain" => explain_route(rest),
         [command, rest @ ..] if command == "policy" && is_help_args(rest) => {
             print_policy_usage();
             Ok(RunOutcome::Help)
@@ -100,6 +120,362 @@ fn run(args: Vec<String>) -> Result<RunOutcome, CliError> {
         }
         _ => Err(CliError::Usage(usage_text())),
     }
+}
+
+fn explain_route(args: &[String]) -> Result<RunOutcome, CliError> {
+    #[cfg(not(feature = "vertex-ai"))]
+    {
+        let _ = args;
+        Err(CliError::Usage(EXPLAIN_DISABLED_MESSAGE.to_owned()))
+    }
+
+    #[cfg(feature = "vertex-ai")]
+    {
+        if is_help_args(args) {
+            print_explain_usage();
+            return Ok(RunOutcome::Help);
+        }
+
+        if args
+            .iter()
+            .any(|argument| argument == "--dry-run" || argument == "--request-json-out")
+        {
+            let request = parse_explain_dry_run_args(args)?;
+            let status = execute_dry_run(
+                &request.evidence_path,
+                &request.request_json_path,
+                &request.model,
+                request.language,
+            )
+            .map_err(|error| CliError::Input(error.to_string()))?;
+            return Ok(RunOutcome::Explain {
+                status,
+                cleanup_warning: None,
+            });
+        }
+
+        let parsed = parse_explain_args(args)?;
+        let transport = ReqwestVertexTransport::new(
+            parsed.request.project.clone(),
+            parsed.request.location.clone(),
+            parsed.request.model.clone(),
+        )
+        .map_err(|error| CliError::Input(error.to_string()))?;
+        let auth = GcloudAccessTokenProvider::new(parsed.gcloud);
+        let result = run_explanation(&parsed.request, &auth, &transport)
+            .map_err(|error| CliError::Input(error.to_string()))?;
+        Ok(RunOutcome::Explain {
+            status: result.status_line(),
+            cleanup_warning: result.cleanup_warning(),
+        })
+    }
+}
+
+#[cfg(feature = "vertex-ai")]
+fn parse_explain_args(args: &[String]) -> Result<ParsedExplainNormal, CliError> {
+    let usage = explain_usage_text();
+    let value_flags = [
+        "--provider",
+        "--project",
+        "--location",
+        "--model",
+        "--language",
+        "--output-json",
+        "--output-md",
+        "--gcloud",
+    ];
+    let boolean_flags = ["--overwrite"];
+    let disallowed_flags = ["--dry-run", "--request-json-out"];
+    let mut evidence_path: Option<String> = None;
+    let mut values = Vec::new();
+    let mut seen = HashSet::new();
+    let mut index = 0;
+
+    while index < args.len() {
+        let argument = args[index].as_str();
+        if argument.starts_with("--") {
+            if disallowed_flags.contains(&argument) {
+                return Err(explain_usage_error(
+                    format!("mpk explain normal mode does not accept {argument}"),
+                    usage,
+                ));
+            }
+            if !value_flags.contains(&argument) && !boolean_flags.contains(&argument) {
+                return Err(explain_usage_error(
+                    format!("mpk explain has unknown flag: {argument}"),
+                    usage,
+                ));
+            }
+            if !seen.insert(argument.to_owned()) {
+                return Err(explain_usage_error(
+                    format!("mpk explain has duplicate flag: {argument}"),
+                    usage,
+                ));
+            }
+            if boolean_flags.contains(&argument) {
+                index += 1;
+                continue;
+            }
+            let Some(value) = args.get(index + 1) else {
+                return Err(explain_usage_error(
+                    format!("mpk explain flag {argument} requires a value"),
+                    usage,
+                ));
+            };
+            if value.is_empty() || value.starts_with("--") {
+                return Err(explain_usage_error(
+                    format!("mpk explain flag {argument} requires a non-empty value"),
+                    usage,
+                ));
+            }
+            values.push((argument.to_owned(), value.to_owned()));
+            index += 2;
+        } else {
+            if argument.is_empty() || evidence_path.replace(argument.to_owned()).is_some() {
+                return Err(explain_usage_error(
+                    "mpk explain accepts exactly one evidence path".to_owned(),
+                    usage,
+                ));
+            }
+            index += 1;
+        }
+    }
+
+    let evidence_path = evidence_path.ok_or_else(|| {
+        explain_usage_error("mpk explain is missing the evidence path".to_owned(), usage)
+    })?;
+    let provider = value_of(&values, "--provider").ok_or_else(|| {
+        explain_usage_error(
+            "mpk explain requires --provider vertex-ai".to_owned(),
+            usage,
+        )
+    })?;
+    if provider != VERTEX_AI_PROVIDER {
+        return Err(explain_usage_error(
+            "mpk explain requires --provider vertex-ai".to_owned(),
+            usage,
+        ));
+    }
+
+    let language = match value_of(&values, "--language").unwrap_or("en") {
+        "en" => ExplainLanguage::English,
+        "ja" => ExplainLanguage::Japanese,
+        _ => {
+            return Err(explain_usage_error(
+                "mpk explain language must be en or ja".to_owned(),
+                usage,
+            ));
+        }
+    };
+    let output_json = value_of(&values, "--output-json").ok_or_else(|| {
+        explain_usage_error("mpk explain requires --output-json".to_owned(), usage)
+    })?;
+    let output_md = value_of(&values, "--output-md")
+        .ok_or_else(|| explain_usage_error("mpk explain requires --output-md".to_owned(), usage))?;
+    validate_policy_product_path("mpk explain", "--output-json", output_json, usage)?;
+    validate_policy_product_path("mpk explain", "--output-md", output_md, usage)?;
+
+    let project = value_of(&values, "--project")
+        .map(str::to_owned)
+        .or_else(|| std::env::var("GOOGLE_CLOUD_PROJECT").ok())
+        .ok_or_else(|| {
+            CliError::Input(
+                "VERTEX_CONFIG_INVALID: Google Cloud project is required via --project or GOOGLE_CLOUD_PROJECT"
+                    .to_owned(),
+            )
+        })?;
+    let location = value_of(&values, "--location")
+        .map(str::to_owned)
+        .or_else(|| std::env::var("GOOGLE_CLOUD_LOCATION").ok())
+        .unwrap_or_else(|| "global".to_owned());
+    let model = value_of(&values, "--model")
+        .map(str::to_owned)
+        .or_else(|| std::env::var("MPK_GEMINI_MODEL").ok())
+        .unwrap_or_else(|| DEFAULT_GEMINI_MODEL.to_owned());
+    if validate_model_id(&model).is_err() {
+        return Err(CliError::Input(
+            "VERTEX_CONFIG_INVALID: model is not supported".to_owned(),
+        ));
+    }
+
+    Ok(ParsedExplainNormal {
+        request: ExplainRequest {
+            evidence_path: PathBuf::from(evidence_path),
+            provider: ExplainProvider::VertexAi,
+            project,
+            location,
+            model,
+            language,
+            output_json: PathBuf::from(output_json),
+            output_markdown: PathBuf::from(output_md),
+            overwrite: seen.contains("--overwrite"),
+        },
+        gcloud: PathBuf::from(value_of(&values, "--gcloud").unwrap_or("gcloud")),
+    })
+}
+
+#[cfg(feature = "vertex-ai")]
+fn value_of<'a>(values: &'a [(String, String)], flag: &str) -> Option<&'a str> {
+    values
+        .iter()
+        .find_map(|(name, value)| (name == flag).then_some(value.as_str()))
+}
+
+#[cfg(feature = "vertex-ai")]
+fn parse_explain_dry_run_args(args: &[String]) -> Result<ParsedExplainDryRun, CliError> {
+    let usage = explain_usage_text();
+    let value_flags = ["--provider", "--model", "--language", "--request-json-out"];
+    let boolean_flags = ["--dry-run"];
+    let disallowed_flags = [
+        "--project",
+        "--location",
+        "--gcloud",
+        "--output-json",
+        "--output-md",
+        "--overwrite",
+    ];
+    let mut evidence_path: Option<String> = None;
+    let mut values = Vec::new();
+    let mut seen = HashSet::new();
+    let mut index = 0;
+
+    while index < args.len() {
+        let argument = args[index].as_str();
+        if argument.starts_with("--") {
+            if disallowed_flags.contains(&argument) {
+                return Err(explain_usage_error(
+                    format!("mpk explain --dry-run does not accept {argument}"),
+                    usage,
+                ));
+            }
+            if !value_flags.contains(&argument) && !boolean_flags.contains(&argument) {
+                return Err(explain_usage_error(
+                    format!("mpk explain --dry-run has unknown flag: {argument}"),
+                    usage,
+                ));
+            }
+            if !seen.insert(argument.to_owned()) {
+                return Err(explain_usage_error(
+                    format!("mpk explain --dry-run has duplicate flag: {argument}"),
+                    usage,
+                ));
+            }
+            if boolean_flags.contains(&argument) {
+                index += 1;
+                continue;
+            }
+            let Some(value) = args.get(index + 1) else {
+                return Err(explain_usage_error(
+                    format!("mpk explain --dry-run flag {argument} requires a value"),
+                    usage,
+                ));
+            };
+            if value.is_empty() || value.starts_with("--") {
+                return Err(explain_usage_error(
+                    format!("mpk explain --dry-run flag {argument} requires a non-empty value"),
+                    usage,
+                ));
+            }
+            values.push((argument.to_owned(), value.to_owned()));
+            index += 2;
+        } else {
+            if argument.is_empty() {
+                return Err(explain_usage_error(
+                    "mpk explain --dry-run evidence path must not be empty".to_owned(),
+                    usage,
+                ));
+            }
+            if evidence_path.replace(argument.to_owned()).is_some() {
+                return Err(explain_usage_error(
+                    "mpk explain --dry-run accepts exactly one evidence path".to_owned(),
+                    usage,
+                ));
+            }
+            index += 1;
+        }
+    }
+
+    let evidence_path = evidence_path.ok_or_else(|| {
+        explain_usage_error(
+            "mpk explain --dry-run is missing the evidence path".to_owned(),
+            usage,
+        )
+    })?;
+    if !seen.contains("--dry-run") {
+        return Err(explain_usage_error(
+            "mpk explain --request-json-out requires --dry-run".to_owned(),
+            usage,
+        ));
+    }
+    let provider = values
+        .iter()
+        .find_map(|(flag, value)| (flag == "--provider").then_some(value.as_str()))
+        .ok_or_else(|| {
+            explain_usage_error(
+                "mpk explain --dry-run requires --provider vertex-ai".to_owned(),
+                usage,
+            )
+        })?;
+    if provider != VERTEX_AI_PROVIDER {
+        return Err(explain_usage_error(
+            "mpk explain --dry-run requires --provider vertex-ai".to_owned(),
+            usage,
+        ));
+    }
+
+    let model = values
+        .iter()
+        .find_map(|(flag, value)| (flag == "--model").then_some(value.as_str()))
+        .unwrap_or(DEFAULT_GEMINI_MODEL);
+    if validate_model_id(model).is_err() {
+        return Err(explain_usage_error(
+            "mpk explain --dry-run model is not supported".to_owned(),
+            usage,
+        ));
+    }
+
+    let language = match values
+        .iter()
+        .find_map(|(flag, value)| (flag == "--language").then_some(value.as_str()))
+        .unwrap_or("en")
+    {
+        "en" => ExplainLanguage::English,
+        "ja" => ExplainLanguage::Japanese,
+        _ => {
+            return Err(explain_usage_error(
+                "mpk explain --dry-run language must be en or ja".to_owned(),
+                usage,
+            ));
+        }
+    };
+
+    let request_json_path = values
+        .iter()
+        .find_map(|(flag, value)| (flag == "--request-json-out").then_some(value.as_str()))
+        .ok_or_else(|| {
+            explain_usage_error(
+                "mpk explain --dry-run requires --request-json-out".to_owned(),
+                usage,
+            )
+        })?;
+    validate_policy_product_path(
+        "mpk explain --dry-run",
+        "--request-json-out",
+        request_json_path,
+        usage,
+    )?;
+
+    Ok(ParsedExplainDryRun {
+        evidence_path: PathBuf::from(evidence_path),
+        request_json_path: PathBuf::from(request_json_path),
+        model: model.to_owned(),
+        language,
+    })
+}
+
+#[cfg(feature = "vertex-ai")]
+fn explain_usage_error(message: String, usage: &str) -> CliError {
+    CliError::Usage(format!("{message}\n{usage}"))
 }
 
 fn check_path(path: &Path) -> Result<RunOutcome, CliError> {
@@ -987,13 +1363,19 @@ fn print_policy_verify_usage() {
     println!("{}", policy_verify_usage_text());
 }
 
+#[cfg(feature = "vertex-ai")]
+fn print_explain_usage() {
+    println!("{}", explain_usage_text());
+}
+
 fn usage_text() -> String {
     format!(
-        "{}\n       {}\n       {}\n       {}",
+        "{}\n       {}\n       {}\n       {}\n       {}",
         "usage: mpk <check|axiom-report|verify> <certificate.mpcert|fixture.hex>",
         "mpk package <check|verify-certs> <package-manifest.json>",
         policy_scan_usage_text(),
-        policy_verify_usage_text()
+        policy_verify_usage_text(),
+        explain_usage_text()
     )
 }
 
@@ -1013,6 +1395,10 @@ fn policy_verify_usage_text() -> &'static str {
     "mpk policy verify <target> --function <function-id> --contract <contract.json> --strategy-profile <profile> --checker-profile <checker-profile> --evidence-json <evidence.json> --evidence-md <evidence.md> [--go2gir <go2gir>] [--strict] [--update-fixtures]"
 }
 
+fn explain_usage_text() -> &'static str {
+    "mpk explain <evidence.json> --provider vertex-ai [--project <google-cloud-project-id>] [--location <vertex-location>] [--model <model-id>] [--language <en|ja>] --output-json <explanation.json> --output-md <explanation.md> [--gcloud <gcloud-binary>] [--overwrite] | mpk explain <evidence.json> --provider vertex-ai [--model <model-id>] [--language <en|ja>] --dry-run --request-json-out <sanitized-request.json>\n       note: dry-run is available offline; normal mode uses ADC and labels output as untrusted helper analysis"
+}
+
 enum RunOutcome {
     Help,
     Check(VerificationJsonOutput),
@@ -1022,12 +1408,31 @@ enum RunOutcome {
     PackageVerifyCerts(String),
     PolicyScan(String),
     PolicyVerify(String),
+    #[cfg(feature = "vertex-ai")]
+    Explain {
+        status: String,
+        cleanup_warning: Option<String>,
+    },
 }
 
 struct ParsedPolicyArgs {
     target: String,
     values: Vec<(String, String)>,
     flags: HashSet<String>,
+}
+
+#[cfg(feature = "vertex-ai")]
+struct ParsedExplainDryRun {
+    evidence_path: PathBuf,
+    request_json_path: PathBuf,
+    model: String,
+    language: ExplainLanguage,
+}
+
+#[cfg(feature = "vertex-ai")]
+struct ParsedExplainNormal {
+    request: ExplainRequest,
+    gcloud: PathBuf,
 }
 
 impl ParsedPolicyArgs {

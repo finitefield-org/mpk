@@ -138,6 +138,64 @@ property is `mpk_verified` only when it references checked declaration evidence
 or checked theory-certificate evidence under `trusted_evidence`; GIR, VC JSON,
 Markdown, CI status, and Gemini output remain helper analysis.
 
+## Optional Vertex AI Explanation
+
+The opt-in `mpk explain` command is available only in a build with the
+`vertex-ai` feature:
+
+```sh
+cargo build -p mpk-cli --features vertex-ai
+export GOOGLE_CLOUD_PROJECT="your-lowercase-project-id"
+export GOOGLE_CLOUD_LOCATION="global"
+gcloud services enable aiplatform.googleapis.com \
+  --project "$GOOGLE_CLOUD_PROJECT"
+gcloud auth application-default login
+gcloud auth application-default set-quota-project "$GOOGLE_CLOUD_PROJECT"
+mkdir -p target/proof-ops
+```
+
+Use a dedicated billed non-production project with approved quotas and budget
+alerts. A cloud administrator must enable the Vertex AI API. The calling
+identity needs `roles/aiplatform.user`; when user ADC assigns a quota project,
+it also needs `serviceusage.services.use` on that project, normally through
+`roles/serviceusage.serviceUsageConsumer`. Grant these roles only at the
+narrowest practical scope. Do not approve live use until the `GEMINI-AUX-05`
+English and Japanese release gate in the design document has been completed.
+
+Before sending anything, inspect the exact credential-free request body with
+the offline dry run:
+
+```sh
+target/debug/mpk explain examples/payment_policies/reserve/evidence_alpha.json \
+  --provider vertex-ai \
+  --language en \
+  --dry-run \
+  --request-json-out target/proof-ops/reserve.explain-request.json
+```
+
+Normal mode obtains a short-lived token from local ADC through
+`gcloud auth application-default print-access-token --quiet`, then sends the
+allowlisted, redacted payload to Vertex AI. It writes separate JSON and
+Markdown helper reports:
+
+```sh
+target/debug/mpk explain examples/payment_policies/reserve/evidence_alpha.json \
+  --provider vertex-ai \
+  --output-json target/proof-ops/reserve.ai-explanation.json \
+  --output-md target/proof-ops/reserve.ai-explanation.md
+```
+
+Every report is explicitly untrusted helper analysis. The JSON carries
+`proof_evidence: false`, and the Markdown warning is inserted locally before
+any generated text. MPK restores property IDs and statuses only from the
+validated local evidence; AI prose cannot change proof results. Remote
+processing, project metadata, source-evidence hashes, and provider retention
+or abuse-monitoring policies still require customer consent and a current
+Google Cloud data-governance review. Do not treat this feature as a zero-
+retention guarantee, and never commit real request previews or reports.
+
+To remove local ADC after use, run `gcloud auth application-default revoke`.
+
 ## Repository Layout
 
 ```text
@@ -169,6 +227,7 @@ Start with the current user-facing guides:
 - [Alpha Demo Guide](docs/alpha-demo.md)
 - [ProofOps Engine Support Design](docs/proof-ops-engine-design.md)
 - [ProofOps Policy CI](docs/proof-ops-policy-ci.md)
+- [Vertex AI Gemini Assistant Design](docs/vertex-ai-gemini-assistant-design.md)
 - [Web System Integration Guide](docs/web-system-integration.md)
 - [Contributing Guide](CONTRIBUTING.md)
 - [Security Policy](SECURITY.md)
