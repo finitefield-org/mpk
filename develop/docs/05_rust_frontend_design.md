@@ -1,15 +1,17 @@
 # Rust Verification Frontend and Unified VIR Migration Design
 
 Status: proposed breaking migration for implementation. The current release
-continues to follow the frozen GIR v0, Go subset v0, certificate v0, and
-trust-boundary v0 specifications until the cutover described here is complete.
+continues to follow the frozen GIR v0, Go subset v0, AI API v0, certificate v0,
+and trust-boundary v0 specifications until the cutover described here is
+complete.
 
 This design never reinterprets the `mpk.gir.v0` schema identifier. It introduces
 `mpk.vir.v0` as the only post-cutover source-program IR, migrates the Go path to
 that schema, and then retires GIR v0 and its Go-specific frontend, VC, hash, and
-policy interfaces. Certificate v0 encoding and the mathematical trust boundary
-remain unchanged, although their Go-specific documentation examples will be
-amended to describe VIR and multiple source languages.
+policy interfaces plus the GIR-bound AI helper API route. Certificate v0
+encoding and the mathematical trust boundary remain unchanged, although their
+Go-specific documentation examples will be amended to describe VIR and
+multiple source languages.
 
 Prepared: 2026-08-20
 
@@ -31,8 +33,9 @@ The implementation will make the following architectural changes:
 1. Add `mpk.vir.v0` as the sole serialized program input to VC generation.
 2. Replace `go2gir` with `go2vir`, migrate every accepted Go program to VIR,
    and remove the production GIR importer rather than maintaining an adapter.
-3. Replace Go-specific IR, VC, source-manifest, frontend, and policy field names
-   with one versioned language-neutral contract used by both frontends.
+3. Replace Go-specific IR, VC, source-manifest, frontend, policy, and AI helper
+   API boundaries with versioned language-neutral contracts used by both
+   frontends.
 4. Regenerate Go fixtures and hashes under the new schema; semantic behavior
    and rejection coverage must be preserved, but byte compatibility is not a
    goal.
@@ -69,6 +72,7 @@ acceptance, but several helper-layer interfaces remain Go-specific.
 | `crates/mpk-vc/src/type_encode.rs` | Types encode to `Std.Go.Base.*`. | Replace it with a `Std.Program.Base.*` encoder used by both semantic profiles. |
 | `crates/mpk-cli/src/policy_scan.rs` | The runner accepts only `mpk.go2gir.cli.v0` and `--go2gir`. | Replace the route with the generic frontend protocol and policy schemas v1. |
 | `crates/mpk-cli/src/policy_evidence.rs`, `policy_report.rs`, and `ai_explain.rs` | Evidence targets, helper kinds, renderers, and the optional `mpk explain` path are typed around `package_path`, `gir_hash`, `GoSource`/`Gir`, and `mpk.policy.evidence.v0`. | Migrate every producer and consumer to the language-neutral evidence v1 model in the atomic cutover, including the explainer's validation, redaction, tests, and documentation. |
+| `develop/specs/AI_API_V0.md` | The frozen VC helper API exposes `POST /gir/import`. | Replace the active profile with `AI_API_V1.md` and `POST /vir/import`; keep v0 only as a historical record after cutover. |
 | `mpk.gir.v0` | The schema lacks source semantic context and complete checked-operation metadata. | VIR hashes the semantic profile and target parameters and carries canonical safety checks. |
 | `mpk-vc` safety generation | Go-specific rules are derived from instruction names; ordinary arithmetic is wrapping. | Make every profile's required check set explicit, including both existing Go behavior and Rust checked arithmetic. |
 | `mpk-vc` control-flow paths | Acyclic WP and Go loop handling are split across GIR-specific modules. | One VIR engine handles acyclic CFGs and contract-delimited loop cutpoints; Rust rejects cyclic CFGs. |
@@ -96,7 +100,8 @@ The Rust v0 work must provide:
 - preservation of the accepted Go subset's value, runtime-safety, contract, and
   loop semantics through regenerated VIR/VC/certificate fixtures;
 - removal of active `mpk.gir.v0`, `mpk.go2gir.cli.v0`, `source_gir_hash`,
-  `--go2gir`, and policy v0 interfaces at the atomic cutover;
+  `--go2gir`, the AI API v0 `/gir/import` route, and policy v0 interfaces at the
+  atomic cutover;
 - unchanged source-free certificate checking and checker agreement.
 
 ## 4. Non-goals
@@ -121,8 +126,8 @@ Rust v0 will not support:
 - Cargo workspaces or workspace-inherited package configuration;
 - floating point, `i128`, or `u128`;
 - verification of ABI, physical struct layout, object code, or LLVM IR;
-- runtime backward compatibility for GIR v0, `go2gir`, old VC JSON, or policy
-  scan/evidence v0 after the cutover;
+- runtime backward compatibility for GIR v0, `go2gir`, old VC JSON, policy
+  scan/evidence v0, or AI helper API v0 after the cutover;
 - changing certificate v0 binary encoding or adding source artifacts to the
   trusted checker inputs;
 - cross-language calls inside one VIR module in v0.
@@ -604,7 +609,8 @@ Accepted:
 - named structs used by value and containing only accepted fields;
 - source paths made only from `crate`, `self`, `super`, and ordinary module/item
   identifier segments, resolving to an accepted item in the selected crate;
-- private helper functions in the selected function's static call closure.
+- same-crate helper functions in the selected function's static call closure,
+  using either inherited/private or bare `pub` visibility as allowed above.
 
 Crate, module, function, parameter, local, constant, struct, and field names in
 the selected dependency closure must use ASCII Rust identifiers matching
@@ -1531,7 +1537,7 @@ rust2vir lower <source-root>
   --driver-sha256 <expected-sha256>
   --toolchain-bundle-id <launcher-selected-toolchain-bundle-id>
   --toolchain-root <launcher-validated-toolchain-root>
-  --toolchain-manifest-sha256 <expected-sha256>
+  --toolchain-distribution-sha256 <expected-distribution-sha256>
   --contract <relative-contract-path> ...
 ```
 
@@ -1549,7 +1555,7 @@ go2vir lower <source-root>
   --release-registry-sha256 <launcher-validated-registry-sha256>
   --toolchain-bundle-id <launcher-selected-toolchain-bundle-id>
   --toolchain-root <launcher-validated-toolchain-root>
-  --toolchain-manifest-sha256 <expected-sha256>
+  --toolchain-distribution-sha256 <expected-distribution-sha256>
   --contract <relative-contract-path> ...
 ```
 
@@ -1558,17 +1564,20 @@ Rust v0 requires `--manifest-path` to normalize to the literal `Cargo.toml` at
 that root; the explicit option prevents ancestor lookup rather than permitting
 a nested package. The generic policy runner supplies that fixed value for Rust;
 the machine-local `source-root` locator itself is never recorded.
-The registry identity/hash, bundle ID, expected main digest, toolchain-root, and
-executable arguments in the lower protocol are launcher-only values, not
-policy-user flags. Executable and toolchain paths are absolute inside validated
-private bundles, are opened and hashed before execution, and never enter
-canonical artifacts as paths. A standalone developer invocation not launched
-from that registry cannot yield accepted policy evidence. Private snapshot,
-target, and driver-output paths are absolute validated sandbox paths and are
-likewise excluded. User-facing policy report destinations follow the CLI's
-safe-write and explicit fixture-overwrite rules but are not frontend request
-fields or artifact hash inputs. Policy v1 does not copy their machine-local
-spellings into evidence.
+The registry identity/hash, frontend and toolchain bundle IDs, expected main
+digest, expected toolchain distribution digest, toolchain root, and executable
+arguments in the lower protocol are launcher-only values, not policy-user
+flags. The toolchain distribution argument is exactly the
+`distribution_sha256` from the validated release toolchain-bundle descriptor;
+it is not a separate manifest hash. Executable and toolchain paths are absolute
+inside validated private bundles, are opened and hashed before execution, and
+never enter canonical artifacts as paths. A standalone developer invocation
+not launched from that registry cannot yield accepted policy evidence. Private
+snapshot, target, and driver-output paths are absolute validated sandbox paths
+and are likewise excluded. User-facing policy report destinations follow the
+CLI's safe-write and explicit fixture-overwrite rules but are not frontend
+request fields or artifact hash inputs. Policy v1 does not copy their
+machine-local spellings into evidence.
 
 ## 14. Generic source manifest
 
@@ -1763,7 +1772,9 @@ consumers, fixtures, examples, CI, and user-facing ProofOps documentation move
 together. The post-cutover release removes rather than aliases:
 
 - `mpk.go2gir.cli.v0` and the `go2gir` executable;
-- `mpk.gir.v0`, its importer, canonical binary wrapper, and `gir_hash` fields;
+- `mpk.gir.v0`, `mpk.gir.emit.v0`, the `MPK_GIR_V0` canonical binary wrapper,
+  and the associated importer, `gir_emit`, `gir_hash`, and `gir-lowered`
+  interfaces;
 - `source_gir_hash` in VC, certificate-skeleton, policy, and fixture payloads;
 - the unversioned GIR-bound VC document and
   `mpk.vc.cert_skeleton.v0` payload/parser;
@@ -1774,7 +1785,15 @@ together. The post-cutover release removes rather than aliases:
   of one explicit strategy-compatible `axiom_profile`;
 - `mpk.ai.explain.request.v0`, `mpk.ai.explanation.v0`, and the
   `mpk.evidence-explainer.v0` prompt template and `minimal-v0` redaction
-  profile.
+  profile;
+- the AI API v0 `POST /gir/import` route in favor of the v1
+  `POST /vir/import` route.
+
+AI API v1 retains the session, term, proof, and non-import VC operations whose
+semantics do not change. `POST /vir/import` accepts only a canonical, validated
+`mpk.vir.v0` module, and subsequent VC operations emit or consume `mpk.vc.v1`
+artifacts using `source_ir_schema`/`source_ir_hash`. `POST /gir/import` is an
+unknown route after cutover, not an alias.
 
 Removal of policy v0 includes every typed downstream consumer, not only the
 scan producer. `PolicyEvidenceReport`, Markdown rendering, ProofOps
@@ -1783,11 +1802,11 @@ compatibility parser remains. The explainer's sanitized helper kinds change
 from `go_source`/`gir` to `source`/`verification_ir`, so its credential-free
 request carries the non-sensitive `source_language`, `semantic_profile`, and
 canonical non-path semantic parameters needed to distinguish wrapping,
-checked, and target-width behavior, plus the validated `axiom_profile`. It
-continues to exclude raw package, crate, function, and filesystem-path
-identities, compiler prose, rendered diagnostics, and source spans; only stable
-diagnostic codes and counts may survive sanitization. Its schema and prompt
-template are versioned as
+checked, and target-width behavior, plus the validated `strategy_profile`,
+`checker_profile`, and `axiom_profile`. It continues to exclude raw package,
+crate, function, and filesystem-path identities, compiler prose, rendered
+diagnostics, and source spans; only stable diagnostic codes and counts may
+survive sanitization. Its schema and prompt template are versioned as
 `mpk.ai.explain.request.v1` and `mpk.evidence-explainer.v1`, and the mandatory
 non-user-selectable redaction profile becomes `minimal-v1`, rather than
 silently changing their v0 canonical payload. The `mpk.ai.explanation.v0`
@@ -1808,8 +1827,9 @@ contract version and design amendment rather than changing v0 in place.
 Historical GIR JSON is not accepted by the post-cutover `mpk-vc` importer. No
 automatic converter is shipped as a production path. Checked-in generated Go
 artifacts are regenerated, reviewed, and committed in the cutover change.
-`GIR_V0.md` and `GO_SUBSET_V0.md` remain historical records; `VIR_V0.md` and
-`GO_VIR_PROFILE_V0.md` become normative for the active Go path.
+`GIR_V0.md`, `GO_SUBSET_V0.md`, and `AI_API_V0.md` remain historical records;
+`VIR_V0.md`, `GO_VIR_PROFILE_V0.md`, and `AI_API_V1.md` become normative for
+the active source-program helper path.
 
 ### 15.2 Unified route
 
@@ -1931,14 +1951,23 @@ them. Other shared names include `frontend`, `semantic_profile`, and
 `gir`. The schemas do not expose fields such as `go_version`,
 `go2gir_sha256`, or `gir_sha256`.
 
+Evidence v1 additionally records the validated `strategy_profile`,
+`checker_profile`, and `axiom_profile`. Scan v1 does not claim checker, strategy,
+or axiom selections that its route has not used.
+
 Each policy `contract` helper entry distinguishes the raw manifest input SHA
 from the normalized `contract_hash` repeated by VIR and call sites; reports do
 not label one as the other.
 
 `mpk.policy.evidence.v1` records the one validated `axiom_profile`; it does not
 derive or silently broaden a policy-evidence allowlist. Package-level manifests
-may still express their separately governed allowed-profile sets, but verify
-must prove that the selected evidence profile is permitted there.
+continue to express their separately governed checker profile and allowed axiom
+profile set. The source-free package/release gate, not `policy verify`, checks
+its active profiles against that manifest and the recomputed axiom report;
+release orchestration requires both active selections to equal the checker and
+axiom profiles recorded in evidence. `policy verify` neither reads nor
+reproduces those package-manifest policy fields, and its explicit selections
+cannot override them.
 
 Both policy v1 payloads' `release_registry` object repeats the validated
 registry schema, ID, and hash from the source manifest and runner. The policy
@@ -2228,8 +2257,9 @@ The minimum corpus contains:
 7. fixed-array read with a proved bounds condition;
 8. simple struct construction, field selection, and a whole-value struct move;
 9. early returns;
-10. an acyclic two-function contracted call across an ordinary module using an
-    accepted explicit same-crate path;
+10. paired acyclic two-function contracted calls across ordinary modules using
+    accepted explicit same-crate paths, covering inherited/private and bare
+    `pub` helper visibility;
 11. `usize` indexing on every release-tested target width;
 12. an ordinary multi-file module closure with an unrelated `.rs` file that is
     neither read, snapshotted, nor listed in the source manifest.
@@ -2266,6 +2296,8 @@ At minimum, fixtures must deterministically reject:
 - missing target, unsupported pointer width, stale lockfile, and compiler commit
   mismatch, plus exit-2/pre-launch handling for missing, unknown, or
   language-mismatched semantic profiles and crossed strategy/axiom profiles;
+- evidence checker or axiom profiles that differ from the release gate's active
+  profiles or are not permitted by the package manifest;
 - unknown MIR statement, rvalue, projection, terminator, assertion kind, and
   changed checked-operation pattern;
 - non-regular source inputs, symlink/reparse-point inputs, or source files
@@ -2364,16 +2396,17 @@ Before removing GIR, the migration suite must:
   unexplained semantic loss;
 - test Go loops, conversions, runtime checks, contracts, policy classification,
   and all payment-policy examples on the shared VIR path;
-- prove `mpk.gir.v0`, `mpk.go2gir.cli.v0`, policy v0 payloads, and retired CLI
-  flags reject deterministically after cutover;
+- prove `mpk.gir.v0`, `mpk.gir.emit.v0`, the `MPK_GIR_V0` wrapper,
+  `mpk.go2gir.cli.v0`, `gir-lowered`, policy v0 payloads, and retired CLI flags
+  reject deterministically after cutover;
 - verify `mpk explain` accepts evidence v1, rejects evidence v0, and produces
   `mpk.ai.explanation.v1` plus deterministic v1 sanitized/dry-run request
   fixtures, while retaining only `mpk.ai.explanation.response.v0` for the
   unchanged model-response shape and using `minimal-v1`; fixtures use only the
   generic `source` and `verification_ir` helper kinds, the correct source
-  language, semantic profile/parameters, axiom profile, both recognized Go/Rust
-  strategy profiles, and no raw source-selection identity, compiler prose,
-  source span, or sentinel source text; crossed known
+  language, semantic profile/parameters, checker and axiom profiles, both
+  recognized Go/Rust strategy profiles, and no raw source-selection identity,
+  compiler prose, source span, or sentinel source text; crossed known
   language/semantic/axiom/strategy tuples must reject rather than map to
   unrecognized;
 - verify both `mpk policy scan` and `mpk policy verify` reject `--go2gir`, use
@@ -2383,15 +2416,21 @@ Before removing GIR, the migration suite must:
   language/profile/selection/bundle configuration from a canonical structured
   argv recipe using source-root-relative inputs and outputs, without a
   machine-local path, caller output destination, or unresolved placeholder;
-- search production code, examples, CI, and user documentation for obsolete
-  `go2gir`, `mpk.go2gir.cli.v0`, `mpk.go.source_manifest.v0`,
+- search production code, examples, CI, and active user documentation,
+  excluding explicitly labeled historical specifications and migration reports,
+  for obsolete `go2gir`, `Go2Gir`, `GO2GIR`, `mpk.go2gir.cli.v0`,
+  `mpk.go.source_manifest.v0`, `mpk.gir.emit.v0`, `MPK_GIR_V0`, `gir_emit`,
+  `gir-lowered`,
   `source_gir_hash`, `mpk.policy.scan.v0`, `mpk.policy.evidence.v0`,
   `mpk.vc.cert_skeleton.v0`, `go_source`, `GoSource`,
-  `PolicyHelperArtifactKind::Gir`, the policy-evidence
-  `allowed_axiom_profiles` field, `gir_hash`, `mpk.ai.explain.request.v0`,
-  `mpk.ai.explanation.v0`, `mpk.evidence-explainer.v0`, `minimal-v0`,
+  `PolicyScanTarget`, `PolicyEvidenceTarget`,
+  `PolicyHelperArtifactKind::Gir`, `SanitizedArtifactKind::GoSource`,
+  `SanitizedArtifactKind::Gir`, the policy-evidence
+  `allowed_axiom_profiles` field, `gir_hash`, `gir_sha256`, `go2gir_sha256`,
+  `mpk.ai.explain.request.v0`, `mpk.ai.explanation.v0`,
+  `mpk.evidence-explainer.v0`, `minimal-v0`,
   the v0 `reproduction_commands`/`PolicyEvidenceReproductionCommand` string
-  model, and GIR-only paths.
+  model, the AI API `POST /gir/import` route, and GIR-only paths.
 
 ## 20. Implementation sequence
 
@@ -2409,11 +2448,14 @@ Deliverables:
 - `VC_V1.md` for the VC/certificate-skeleton schemas, self-hash, group/member
   mapping, and deterministic limits;
 - `POLICY_V1.md` for policy scan/evidence schemas, registered-bundle routing,
-  manifest lifecycle, explicit axiom profile, and structured reproduction
-  recipes;
+  manifest lifecycle, explicit checker/axiom profiles, package/release profile
+  equality, and structured reproduction recipes;
 - `AI_EXPLAIN_V1.md` for the sanitized request, prompt/redaction references,
   explanation output, strategy tuple validation, and unchanged provider-response
   v0 boundary;
+- `AI_API_V1.md` for the helper API's `POST /vir/import` boundary and its
+  language-neutral VC operations, with no v0 GIR adapter or change to the
+  certificate-check acceptance boundary;
 - `RUST_SUBSET_V0.md` derived from sections 7 through 11 and the Rust-specific
   diagnostic and resource-limit rules in sections 17 and 18;
 - `GO_VIR_PROFILE_V0.md`, derived from the accepted behavior of the historical
@@ -2466,11 +2508,14 @@ Deliverables:
   serialized adapter;
 - generic `policy scan` and `policy verify` runner plus policy scan/evidence v1
   for the existing Go product path, including explicit registered bundle and
-  axiom-profile selection plus generic structured reproduction recipes;
+  axiom-profile selection, package/release checker/axiom-profile cross-checks,
+  and generic structured reproduction recipes;
 - evidence v1 report/rendering plus the migrated `mpk explain` validator,
   language-neutral redaction model, v1 sanitized request/prompt and explanation
   output, unchanged provider-response v0 schema, tests, and Vertex assistant
   documentation;
+- the AI helper API v1 `POST /vir/import` route and removal of the active
+  `/gir/import` route;
 - regenerated Go, VC, certificate, policy, AI-explanation, example, and release
   fixtures;
 - a reviewed old/new semantic migration report;
@@ -2494,25 +2539,32 @@ Deliverables:
 - `mpk.rust.targets.v0` with pinned i686/x86_64 Linux standard libraries;
 - `RUST_DRIVER_PROTOCOL_V0.md` freezing the exact `mpk.rust.driver.v0` private
   artifact schema, limits, and cross-process identity checks;
+- Rust population of `mpk.frontend.cli.v0` and the frontend-stage
+  `mpk.source_manifest.v0`, with canonical VIR/source-map/manifest hash and
+  repeated-identity validation;
 - Cargo preflight with explicit snapshot manifest paths, target toolchain-file
   rejection, exact default library crate type, and sanitized metadata/check
   invocation;
 - validating pre-expansion file loader and source/AST gate;
 - fixed lint/attribute policy and deterministic pre-parse input limits;
 - HIR subset validator;
+- Rust contract parser, typed selected-function resolution, and normalized
+  contract attachment;
 - MIR extraction and deterministic diagnostics;
-- identity, comparison, branch, and return lowering with validated source-map
-  coverage.
+- constant/copy/local-assignment, Boolean, comparison, branch, and early-return
+  lowering with validated source-map coverage.
 
-Exit gate: simple positive fixtures emit deterministic VIR and all preflight
-negative fixtures reject without executing user build code.
+Exit gate: simple single-function positive fixtures emit deterministic generic
+frontend envelopes containing schema-valid VIR, source maps, frontend-stage
+manifests, and normalized contracts; all preflight negative fixtures reject
+without executing user build code.
 
 ### RUST-04: Add arithmetic and runtime safety
 
 Deliverables:
 
 - checked MIR pattern recognizers;
-- arithmetic, division/remainder, shift, and index lowering;
+- arithmetic, bitwise, division/remainder, shift, and index lowering;
 - golden fixtures distinguishing accepted minimum-value literals from checked
   nonconstant signed negation;
 - safety-check completeness validation;
@@ -2525,8 +2577,10 @@ deterministic rejection or a failed golden test, never silent approximation.
 
 Deliverables:
 
-- fixed arrays and by-value structs;
-- Rust contract parser and typed resolution;
+- fixed-array construction plus by-value struct construction, field selection,
+  and whole-value moves;
+- aggregate and closure-wide contract-set resolution, including duplicate and
+  unused sidecar rejection plus callee contract-hash binding;
 - call-closure discovery and cycle rejection;
 - contract-based static-call WP;
 - topological theorem and certificate dependencies.
@@ -2543,6 +2597,8 @@ Deliverables:
   bundle and registered toolchain bundle;
 - Rust population of the shared policy scan/evidence v1 schemas;
 - `payment-policy-rust-alpha` strategy metadata and language-neutral reports;
+- Rust example package/release policy whose checker and allowed axiom profiles
+  admit the exact selections recorded by evidence;
 - generic source-manifest payload attached to certificate artifacts.
 
 Exit gate: a Rust payment-policy example passes both source-free checkers and
@@ -2581,6 +2637,7 @@ develop/specs/
   RUST_DRIVER_PROTOCOL_V0.md
   POLICY_V1.md
   AI_EXPLAIN_V1.md
+  AI_API_V1.md
 
 go-tools/go2vir/
   go.mod
@@ -2615,9 +2672,11 @@ Expected modifications:
 
 - root `Cargo.toml` workspace exclusion for the isolated compiler frontend;
 - `mpk-vc` type, expression, WP, safety, obligation, and export modules;
-- `mpk-cli` frontend runner, routing, policy scan, evidence, and report modules;
+- `mpk-cli` frontend runner, routing, package/release profile cross-checks,
+  policy scan, evidence, and report modules;
 - `mpk-cli` AI explainer validation/redaction models and its CLI integration
   tests;
+- `mpk-api` import/VC route models and tests for the v1 VIR boundary;
 - Go frontend module identity and direct VIR emitter;
 - every Go/VC/policy generated fixture and hash-bearing example;
 - development specs, trust-boundary examples, templates, user documentation
@@ -2628,6 +2687,7 @@ Removed at cutover:
 - `go-tools/go2gir` and production GIR import/emission code;
 - active `Std.Go.Base` VC mappings once `Std.Program.Base` migration passes;
 - GIR-only fixtures and old frontend/policy protocol parsers;
+- the active AI API v0 `/gir/import` route;
 - the unversioned GIR-bound VC serializer and
   `mpk.vc.cert_skeleton.v0` parser/fixtures;
 - `--go2gir`, `source_gir_hash`, and other public GIR-specific fields.
@@ -2715,7 +2775,7 @@ fixes overflow checks on and proves their safety conditions.
 | New Rust axioms weaken release policy | Require zero new Rust semantic category; stop for governance review if checked foundations are insufficient. |
 | Go behavior regresses during the breaking migration | Baseline every positive/negative fixture, compare obligation intent, run Go/VIR differential tests, and require a reviewed migration report. |
 | Temporary dual paths drift before cutover | No released dual mode; one atomic gate removes GIR producers and consumers together. |
-| `policy verify`, ProofOps, `mpk explain`, or CI consumes removed v0 fields | Inventory every downstream typed model, route, reproduction recipe, field, enum, flag, prompt input, and golden hash; update them in the cutover change and reject old schemas deterministically. |
+| `policy verify`, `mpk-api`, ProofOps, `mpk explain`, or CI consumes removed v0 fields | Inventory every downstream typed model, route, reproduction recipe, field, enum, flag, prompt input, and golden hash; update them in the cutover change and reject old schemas deterministically. |
 | Scan-stage and certificate-stage manifest hashes are confused | Distinct policy v1 field names, deterministic final-manifest derivation, and exact certificate payload comparison. |
 | Target-dependent semantics reuse a hash | Hash target and pointer width in VIR semantic parameters and exercise multi-target fixtures. |
 | Compiler or parser resource exhaustion | Enforce per-input and aggregate byte/count limits before full parsing, bound protocol output, and ensure operational failures never become acceptance. |
@@ -2727,24 +2787,26 @@ The unified migration and Rust v0 are complete only when all of the following
 hold:
 
 - the normative Go/Rust semantic profiles, Rust subset, VIR, release-bundle,
-  source-map, source-manifest, frontend, Rust-driver, VC, policy v1, and AI
-  explanation v1 specs are frozen;
+  source-map, source-manifest, frontend, Rust-driver, VC, policy v1, AI API v1,
+  and AI explanation v1 specs are frozen;
 - Go source, contracts, loops, runtime checks, policy classification, and
   examples use the sole VIR path with reviewed regenerated artifacts;
 - no production parser, CLI flag, schema, fixture, CI command, or user guide
   consumes or emits GIR v0, `go2gir`, the GIR-bound VC/skeleton formats, policy
-  v0, or `source_gir_hash`;
+  v0, the AI API v0 `/gir/import` route, or `source_gir_hash`;
 - policy reports model the shared `source_language`/`selection` union;
   `mpk explain` consumes evidence v1 only, validates that union, redacts raw
-  selection identity, preserves the non-sensitive semantic and axiom-profile
-  context plus generic helper kinds, emits `mpk.ai.explanation.v1`, and rejects
-  v0 without an adapter;
+  selection identity, preserves the non-sensitive semantic, strategy, checker,
+  and axiom-profile context plus generic helper kinds, emits
+  `mpk.ai.explanation.v1`, and rejects v0 without an adapter;
 - `policy scan` and `policy verify` use the same validated generic frontend,
   release registry, and frontend/toolchain bundle configuration, repeat the
   registry identity in evidence, require matching registry assertions, and
   produce no Go-only or machine-local-path-dependent reproduction recipe;
-- `policy verify` records an explicit strategy-compatible axiom profile and
-  never injects an unreported default allowlist;
+- `policy verify` records explicit checker and strategy-compatible axiom
+  profiles and never injects an unreported default allowlist; release
+  orchestration requires the same active selections, and the source-free
+  package gate proves that the package manifest permits them;
 - every accepted Go/SSA and Rust/HIR/MIR form has an explicit semantics and
   test;
 - both `mpk.rust.targets.v0` target corpora pass with the pinned component
