@@ -1,0 +1,772 @@
+{
+  "schema": "mpk.ai.api.conformance.v1",
+  "api_profile": "mpk.ai.api.v1",
+  "dependencies": {
+    "api_spec": "develop/specs/AI_API_V1.md",
+    "frontend_spec": "develop/specs/FRONTEND_PROTOCOL_V0.md",
+    "release_spec": "develop/specs/RELEASE_BUNDLES_V0.md",
+    "vir_spec": "develop/specs/VIR_V0.md",
+    "vir_vector": "develop/specs/vectors/vir-v0.json",
+    "manifest_spec": "develop/specs/SOURCE_MANIFEST_V0.md",
+    "manifest_vector": "develop/specs/vectors/source-manifest-v0.json",
+    "source_map_spec": "develop/specs/SOURCE_MAP_V0.md",
+    "source_map_vector": "develop/specs/vectors/source-map-v0.json",
+    "vc_spec": "develop/specs/VC_V1.md",
+    "certificate_spec": "develop/specs/CERT_V0.md"
+  },
+  "owner_test": "crates/mpk-api/src/v1_tests.rs",
+  "route_registry": [
+    {"method": "POST", "path": "/module/new", "handler": "module_new"},
+    {"method": "POST", "path": "/module/import", "handler": "module_import"},
+    {"method": "POST", "path": "/module/freeze", "handler": "module_freeze"},
+    {"method": "POST", "path": "/module/export-certificate", "handler": "module_export_certificate"},
+    {"method": "POST", "path": "/term/sort", "handler": "term_sort"},
+    {"method": "POST", "path": "/term/var", "handler": "term_var"},
+    {"method": "POST", "path": "/term/const", "handler": "term_const"},
+    {"method": "POST", "path": "/term/app", "handler": "term_app"},
+    {"method": "POST", "path": "/term/lam", "handler": "term_lam"},
+    {"method": "POST", "path": "/term/pi", "handler": "term_pi"},
+    {"method": "POST", "path": "/term/let", "handler": "term_let"},
+    {"method": "POST", "path": "/term/check", "handler": "term_check"},
+    {"method": "POST", "path": "/term/infer", "handler": "term_infer"},
+    {"method": "POST", "path": "/term/defeq", "handler": "term_defeq"},
+    {"method": "POST", "path": "/proof/exact", "handler": "proof_exact"},
+    {"method": "POST", "path": "/proof/apply", "handler": "proof_apply"},
+    {"method": "POST", "path": "/proof/intro", "handler": "proof_intro"},
+    {"method": "POST", "path": "/proof/refl", "handler": "proof_refl"},
+    {"method": "POST", "path": "/proof/let", "handler": "proof_let"},
+    {"method": "POST", "path": "/proof/rewrite", "handler": "proof_rewrite"},
+    {"method": "POST", "path": "/proof/eq-rec", "handler": "proof_eq_rec"},
+    {"method": "POST", "path": "/proof/constructor", "handler": "proof_constructor"},
+    {"method": "POST", "path": "/proof/recursor", "handler": "proof_recursor"},
+    {"method": "POST", "path": "/proof/conv", "handler": "proof_conv"},
+    {"method": "POST", "path": "/proof/theory", "handler": "proof_theory"},
+    {"method": "POST", "path": "/proof/check-node", "handler": "proof_check_node"},
+    {"method": "POST", "path": "/proof/check-decl", "handler": "proof_check_decl"},
+    {"method": "POST", "path": "/vir/import", "handler": "vir_import"},
+    {"method": "POST", "path": "/vc/generate", "handler": "vc_generate"},
+    {"method": "GET", "path": "/vc/list", "handler": "vc_list"},
+    {"method": "POST", "path": "/vc/start-proof", "handler": "vc_start_proof"},
+    {"method": "POST", "path": "/vc/attach-candidate", "handler": "vc_attach_candidate"},
+    {"method": "POST", "path": "/vc/check-candidate", "handler": "vc_check_candidate"}
+  ],
+  "error_contract": {
+    "operation_shape": "api_error_v0",
+    "operation_example": {
+      "code": "AI_API_VIR_HASH",
+      "message": "AI API v1 request rejected",
+      "field": "source_ir_hash"
+    },
+    "proof_diagnostic_shape": "repair_diagnostic_v0",
+    "proof_diagnostic_example": {
+      "ok": false,
+      "error_code": "DEF_EQ_HEAD_MISMATCH",
+      "node_id": 481,
+      "expected_type_id": 921,
+      "actual_type_id": 877,
+      "expected_head": "Core.And",
+      "actual_head": "Core.Or",
+      "context_summary": [31, 44, 45],
+      "repair_hints": ["split", "apply", "rewrite"]
+    },
+    "optional_field_encoding": "omit_when_absent",
+    "forbidden_dynamic_sources": [
+      "raw_source",
+      "artifact_bytes",
+      "compiler_prose",
+      "filesystem_path",
+      "credential",
+      "provider_body"
+    ]
+  },
+  "artifact_contexts": [
+    {
+      "id": "context.go_identity",
+      "vir_case": "module.valid_go_identity",
+      "source_ir_schema": "mpk.vir.v0",
+      "source_ir_hash": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690",
+      "source_language": "go",
+      "semantic_profile": "mpk.go.fixed.v0",
+      "semantic_parameters": {"target_id": "linux/amd64", "pointer_width": 64}
+    },
+    {
+      "id": "context.rust_identity",
+      "vir_case": "module.valid_rust_identity",
+      "source_ir_schema": "mpk.vir.v0",
+      "source_ir_hash": "374b123698ff7f4a3cce1a430026bc468b6be1a1eac24fd007556816b210e64b",
+      "source_language": "rust",
+      "semantic_profile": "mpk.rust.checked.v0",
+      "semantic_parameters": {
+        "target_id": "x86_64-unknown-linux-gnu",
+        "pointer_width": 64,
+        "overflow_mode": "checked",
+        "panic_mode": "abort"
+      }
+    },
+    {
+      "id": "context.go_vc_identity",
+      "vc_fixture": "generate.go_identity.expected_response.vc",
+      "vc_source_context": "context.go_identity",
+      "source_ir_schema": "mpk.vir.v0",
+      "source_ir_hash": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690",
+      "source_language": "go",
+      "semantic_profile": "mpk.go.fixed.v0",
+      "semantic_parameters": {"target_id": "linux/amd64", "pointer_width": 64},
+      "source_manifest_schema": "mpk.source_manifest.v0",
+      "frontend_source_manifest_hash": "14a180a4d319bf66d288b8e7e65321f361d5fc48739513a42032c593865f125f",
+      "input_set_hash": "e05e9fa46ee44a198470ada4935f756b12e9d6779601a7f88e4cb468d151ab31",
+      "source_vc_schema": "mpk.vc.v1",
+      "vc_hash": "5aff044facb7d10f04e4bc813bfc6ae990ff59454208be431f0afb10e9a337f9"
+    }
+  ],
+  "import_fixtures": [
+    {
+      "id": "import.go_identity",
+      "artifact_context": "context.go_identity",
+      "request": {
+        "session_id": "s1",
+        "source_ir_schema": "mpk.vir.v0",
+        "source_ir_hash": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690",
+        "vir": {
+          "schema": "mpk.vir.v0",
+          "source_language": "go",
+          "semantic_profile": "mpk.go.fixed.v0",
+          "semantic_parameters": {"target_id": "linux/amd64", "pointer_width": 64},
+          "units": [
+            {
+              "id": "example.com/mpk/vector",
+              "name": "vector",
+              "type_decls": [],
+              "const_decls": [],
+              "functions": [
+                {
+                  "id": "example.com/mpk/vector.Identity",
+                  "unit_id": "example.com/mpk/vector",
+                  "name": "Identity",
+                  "params": [
+                    {"id": "arg0", "type": {"kind": "bv", "width": 8, "signed": true}}
+                  ],
+                  "results": [
+                    {"id": "result0", "type": {"kind": "bv", "width": 8, "signed": true}}
+                  ],
+                  "locals": [],
+                  "blocks": [
+                    {
+                      "label": "bb0",
+                      "parameters": [],
+                      "instructions": [],
+                      "terminator": {"kind": "Return", "values": [{"var": "arg0"}]}
+                    }
+                  ],
+                  "contracts": {
+                    "unit_id": "example.com/mpk/vector",
+                    "function_id": "example.com/mpk/vector.Identity",
+                    "semantic_profile": "mpk.go.fixed.v0",
+                    "semantic_parameters": {"target_id": "linux/amd64", "pointer_width": 64},
+                    "requires": [],
+                    "ensures": [
+                      {"op": "eq", "lhs": {"result": 0}, "rhs": {"var": "arg0"}}
+                    ],
+                    "modifies": [],
+                    "panic": "forbidden",
+                    "termination": "total",
+                    "loops": [],
+                    "contract_hash": "a09b6fa6bf3ab7a88b3e808e3d3b658dff65418704804837c8f36f9a3a550cb5"
+                  },
+                  "features_used": []
+                }
+              ]
+            }
+          ],
+          "vir_hash": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690"
+        }
+      },
+      "canonical_request_utf8_length": 1296,
+      "canonical_request_sha256": "250aa1c677dfbc59a8981c2ba674bd636c49eb56725ae0377d6040b2ddab9f7d",
+      "expected_response": {
+        "session_id": "s1",
+        "source_ir_schema": "mpk.vir.v0",
+        "source_ir_hash": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690",
+        "source_language": "go",
+        "semantic_profile": "mpk.go.fixed.v0",
+        "semantic_parameters": {"target_id": "linux/amd64", "pointer_width": 64},
+        "unit_count": 1,
+        "function_count": 1,
+        "helper_only": true
+      }
+    },
+    {
+      "id": "import.rust_identity",
+      "artifact_context": "context.rust_identity",
+      "request": {
+        "session_id": "s2",
+        "source_ir_schema": "mpk.vir.v0",
+        "source_ir_hash": "374b123698ff7f4a3cce1a430026bc468b6be1a1eac24fd007556816b210e64b",
+        "vir": {
+          "schema": "mpk.vir.v0",
+          "source_language": "rust",
+          "semantic_profile": "mpk.rust.checked.v0",
+          "semantic_parameters": {
+            "target_id": "x86_64-unknown-linux-gnu",
+            "pointer_width": 64,
+            "overflow_mode": "checked",
+            "panic_mode": "abort"
+          },
+          "units": [
+            {
+              "id": "vector",
+              "name": "vector",
+              "type_decls": [],
+              "const_decls": [],
+              "functions": [
+                {
+                  "id": "vector::identity",
+                  "unit_id": "vector",
+                  "name": "identity",
+                  "params": [
+                    {"id": "arg0", "type": {"kind": "bv", "width": 8, "signed": true}}
+                  ],
+                  "results": [
+                    {"id": "result0", "type": {"kind": "bv", "width": 8, "signed": true}}
+                  ],
+                  "locals": [],
+                  "blocks": [
+                    {
+                      "label": "bb0",
+                      "parameters": [],
+                      "instructions": [],
+                      "terminator": {"kind": "Return", "values": [{"var": "arg0"}]}
+                    }
+                  ],
+                  "contracts": {
+                    "unit_id": "vector",
+                    "function_id": "vector::identity",
+                    "semantic_profile": "mpk.rust.checked.v0",
+                    "semantic_parameters": {
+                      "target_id": "x86_64-unknown-linux-gnu",
+                      "pointer_width": 64,
+                      "overflow_mode": "checked",
+                      "panic_mode": "abort"
+                    },
+                    "requires": [],
+                    "ensures": [
+                      {"op": "eq", "lhs": {"result": 0}, "rhs": {"var": "arg0"}}
+                    ],
+                    "modifies": [],
+                    "panic": "forbidden",
+                    "termination": "total",
+                    "loops": [],
+                    "contract_hash": "8bbd30566c16ab9cb37212518fd6a6d5777cda3214bd6c97725fcbc90d170a2f"
+                  },
+                  "features_used": []
+                }
+              ]
+            }
+          ],
+          "vir_hash": "374b123698ff7f4a3cce1a430026bc468b6be1a1eac24fd007556816b210e64b"
+        }
+      },
+      "canonical_request_utf8_length": 1348,
+      "canonical_request_sha256": "e9058a0260aef8899cf21403312343f068ed5b43cdab457f8e194b8cfc67c397",
+      "expected_response": {
+        "session_id": "s2",
+        "source_ir_schema": "mpk.vir.v0",
+        "source_ir_hash": "374b123698ff7f4a3cce1a430026bc468b6be1a1eac24fd007556816b210e64b",
+        "source_language": "rust",
+        "semantic_profile": "mpk.rust.checked.v0",
+        "semantic_parameters": {
+          "target_id": "x86_64-unknown-linux-gnu",
+          "pointer_width": 64,
+          "overflow_mode": "checked",
+          "panic_mode": "abort"
+        },
+        "unit_count": 1,
+        "function_count": 1,
+        "helper_only": true
+      }
+    }
+  ],
+  "generate_fixtures": [
+    {
+      "id": "generate.go_identity",
+      "artifact_context": "context.go_identity",
+      "source_manifest_case": "manifest.valid_go_frontend_stage",
+      "request": {
+        "session_id": "s10",
+        "source_ir_schema": "mpk.vir.v0",
+        "source_ir_hash": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690",
+        "source_manifest_schema": "mpk.source_manifest.v0",
+        "frontend_source_manifest_hash": "14a180a4d319bf66d288b8e7e65321f361d5fc48739513a42032c593865f125f",
+        "input_set_hash": "e05e9fa46ee44a198470ada4935f756b12e9d6779601a7f88e4cb468d151ab31"
+      },
+      "canonical_request_utf8_length": 370,
+      "canonical_request_sha256": "579f7c0613eed1f6fc058ee1528dedd2127e81a066a6fc03bedfd3e9ecd2435b",
+      "expected_response": {
+        "session_id": "s10",
+        "source_ir_schema": "mpk.vir.v0",
+        "source_ir_hash": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690",
+        "source_manifest_schema": "mpk.source_manifest.v0",
+        "frontend_source_manifest_hash": "14a180a4d319bf66d288b8e7e65321f361d5fc48739513a42032c593865f125f",
+        "input_set_hash": "e05e9fa46ee44a198470ada4935f756b12e9d6779601a7f88e4cb468d151ab31",
+        "source_vc_schema": "mpk.vc.v1",
+        "vc_hash": "5aff044facb7d10f04e4bc813bfc6ae990ff59454208be431f0afb10e9a337f9",
+        "function_count": 1,
+        "member_count": 1,
+        "group_count": 2,
+        "helper_only": true,
+        "vc": {
+          "schema": "mpk.vc.v1",
+          "source_ir_schema": "mpk.vir.v0",
+          "source_ir_hash": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690",
+          "input_set_hash": "e05e9fa46ee44a198470ada4935f756b12e9d6779601a7f88e4cb468d151ab31",
+          "semantic_profile": "mpk.go.fixed.v0",
+          "semantic_parameters": {
+            "target_id": "linux/amd64",
+            "pointer_width": 64
+          },
+          "verification_limit_profile": "mpk.verify.limits.v0",
+          "functions": [
+            {
+              "function_id": "example.com/mpk/vector.Identity",
+              "contract_hash": "a09b6fa6bf3ab7a88b3e808e3d3b658dff65418704804837c8f36f9a3a550cb5",
+              "parameters": [
+                {
+                  "id": "arg0",
+                  "type": {
+                    "kind": "constant",
+                    "name": "Std.Program.Base.Int8"
+                  }
+                }
+              ],
+              "requires": [],
+              "members": [
+                {
+                  "id": "example.com/mpk/vector.Identity#postcondition#000000",
+                  "function_id": "example.com/mpk/vector.Identity",
+                  "kind": "postcondition",
+                  "local_binders": [],
+                  "assumptions": [],
+                  "conclusion": {
+                    "kind": "apply",
+                    "function": "Std.Eq",
+                    "args": [
+                      {"kind": "var", "name": "arg0"},
+                      {"kind": "var", "name": "arg0"}
+                    ]
+                  },
+                  "group_id": "example.com/mpk/vector.Identity.contract"
+                }
+              ],
+              "groups": [
+                {
+                  "id": "example.com/mpk/vector.Identity.contract",
+                  "kind": "contract",
+                  "declaration_name": "VC.Function.f6578616d706c652e636f6d2f6d706b2f766563746f722e4964656e74697479.contract",
+                  "member_ids": [
+                    "example.com/mpk/vector.Identity#postcondition#000000"
+                  ],
+                  "dependencies": []
+                },
+                {
+                  "id": "example.com/mpk/vector.Identity.panic_free",
+                  "kind": "panic_free",
+                  "declaration_name": "VC.Function.f6578616d706c652e636f6d2f6d706b2f766563746f722e4964656e74697479.panic_free",
+                  "member_ids": [],
+                  "dependencies": [
+                    "VC.Function.f6578616d706c652e636f6d2f6d706b2f766563746f722e4964656e74697479.contract"
+                  ]
+                }
+              ]
+            }
+          ],
+          "vc_hash": "5aff044facb7d10f04e4bc813bfc6ae990ff59454208be431f0afb10e9a337f9"
+        }
+      },
+      "canonical_response_utf8_length": 2185,
+      "canonical_response_sha256": "acb385f1b52188e40430e7863ef80846489d517dc32fd5ff57f4c2698ffd8088"
+    }
+  ],
+  "route_cases": [
+    {"id": "route.resolve_vir_import", "method": "POST", "path": "/vir/import", "expect": {"outcome": "resolve", "handler": "vir_import"}},
+    {"id": "route.reject_gir_import", "method": "POST", "path": "/gir/import", "expect": {"outcome": "reject", "phase": "route", "code": "AI_API_ROUTE_UNKNOWN"}},
+    {"id": "route.reject_vir_import_get", "method": "GET", "path": "/vir/import", "expect": {"outcome": "reject", "phase": "route", "code": "AI_API_ROUTE_UNKNOWN"}},
+    {"id": "route.reject_trailing_slash", "method": "POST", "path": "/vir/import/", "expect": {"outcome": "reject", "phase": "route", "code": "AI_API_ROUTE_UNKNOWN"}},
+    {"id": "route.reject_case_alias", "method": "POST", "path": "/VIR/import", "expect": {"outcome": "reject", "phase": "route", "code": "AI_API_ROUTE_UNKNOWN"}}
+  ],
+  "import_cases": [
+    {"id": "import.accept_go", "input_from": "import.go_identity", "expect": {"outcome": "accept", "mutation_count": 1}},
+    {"id": "import.accept_rust", "input_from": "import.rust_identity", "expect": {"outcome": "accept", "mutation_count": 1}},
+    {
+      "id": "import.reject_noncanonical_wrapper",
+      "transport_from": {
+        "fixture": "import.go_identity",
+        "encoding": "two_space_indent_with_final_lf"
+      },
+      "expect": {"outcome": "reject", "mutation_count": 0, "phase": "canonical_transport", "code": "AI_API_CANONICAL_TRANSPORT"}
+    },
+    {
+      "id": "import.reject_duplicate_key",
+      "json_text": "{\"session_id\":\"s1\",\"session_id\":\"s1\"}\n",
+      "expect": {"outcome": "reject", "mutation_count": 0, "phase": "transport", "code": "AI_API_JSON_INVALID"}
+    },
+    {
+      "id": "import.reject_gir_schema",
+      "construction": {
+        "base": "import.go_identity",
+        "operations": [
+          {"op": "replace", "path": "/source_ir_schema", "value": "mpk.gir.v0"}
+        ]
+      },
+      "expect": {"outcome": "reject", "mutation_count": 0, "phase": "shape", "code": "AI_API_VIR_SCHEMA"}
+    },
+    {
+      "id": "import.reject_source_gir_hash",
+      "construction": {
+        "base": "import.go_identity",
+        "operations": [
+          {"op": "add", "path": "/source_gir_hash", "value": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690"}
+        ]
+      },
+      "expect": {"outcome": "reject", "mutation_count": 0, "phase": "shape", "code": "AI_API_SHAPE"}
+    },
+    {
+      "id": "import.reject_repeated_hash_mismatch",
+      "construction": {
+        "base": "import.rust_identity",
+        "operations": [
+          {"op": "replace", "path": "/source_ir_hash", "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
+        ]
+      },
+      "expect": {"outcome": "reject", "mutation_count": 0, "phase": "artifact", "code": "AI_API_VIR_HASH"}
+    },
+    {
+      "id": "import.reject_embedded_hash_mismatch",
+      "construction": {
+        "base": "import.rust_identity",
+        "operations": [
+          {"op": "replace", "path": "/vir/vir_hash", "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"}
+        ]
+      },
+      "expect": {"outcome": "reject", "mutation_count": 0, "phase": "artifact", "code": "AI_API_VIR_INVALID"}
+    },
+    {
+      "id": "import.reject_crossed_semantic_profile",
+      "construction": {
+        "base": "import.rust_identity",
+        "operations": [
+          {"op": "replace", "path": "/vir/semantic_profile", "value": "mpk.go.fixed.v0"}
+        ]
+      },
+      "expect": {"outcome": "reject", "mutation_count": 0, "phase": "artifact", "code": "AI_API_VIR_INVALID"}
+    }
+  ],
+  "context_cases": [
+    {
+      "id": "context.generate_matching_vc",
+      "operation": "vc_generate",
+      "session_state": {
+        "session_id": "s10",
+        "state": "vir_imported",
+        "artifact_context": "context.go_identity"
+      },
+      "request_from": "generate.go_identity",
+      "expect": {
+        "outcome": "accept",
+        "mutation_count": 1,
+        "response_from": "generate.go_identity"
+      }
+    },
+    {
+      "id": "context.reject_cross_session_source",
+      "operation": "vc_generate",
+      "session_state": {
+        "session_id": "s11",
+        "state": "vir_imported",
+        "artifact_context": "context.rust_identity",
+        "foreign_session_id": "s10",
+        "foreign_artifact_context": "context.go_identity"
+      },
+      "construction": {
+        "base": "generate.go_identity",
+        "operations": [
+          {"op": "replace", "path": "/session_id", "value": "s11"}
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "mutation_count": 0,
+        "phase": "context",
+        "code": "AI_API_CONTEXT_MISMATCH"
+      }
+    },
+    {
+      "id": "context.list_matching_vc",
+      "operation": "vc_list",
+      "session_state": {
+        "session_id": "s10",
+        "state": "vc_generated",
+        "artifact_context": "context.go_vc_identity"
+      },
+      "request": {
+        "session_id": "s10",
+        "source_ir_schema": "mpk.vir.v0",
+        "source_ir_hash": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690",
+        "input_set_hash": "e05e9fa46ee44a198470ada4935f756b12e9d6779601a7f88e4cb468d151ab31",
+        "source_vc_schema": "mpk.vc.v1",
+        "vc_hash": "5aff044facb7d10f04e4bc813bfc6ae990ff59454208be431f0afb10e9a337f9"
+      },
+      "expect": {"outcome": "accept", "mutation_count": 0, "member_count": 1}
+    },
+    {
+      "id": "context.start_member_proof",
+      "operation": "vc_start_proof",
+      "session_state": {
+        "session_id": "s10",
+        "state": "vc_generated",
+        "artifact_context": "context.go_vc_identity"
+      },
+      "request": {
+        "session_id": "s10",
+        "source_ir_schema": "mpk.vir.v0",
+        "source_ir_hash": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690",
+        "input_set_hash": "e05e9fa46ee44a198470ada4935f756b12e9d6779601a7f88e4cb468d151ab31",
+        "source_vc_schema": "mpk.vc.v1",
+        "vc_hash": "5aff044facb7d10f04e4bc813bfc6ae990ff59454208be431f0afb10e9a337f9",
+        "target": {
+          "kind": "member",
+          "id": "example.com/mpk/vector.Identity#postcondition#000000"
+        }
+      },
+      "expect": {"outcome": "accept", "mutation_count": 1, "target_id": "t1"}
+    },
+    {
+      "id": "context.attach_candidate",
+      "operation": "vc_attach_candidate",
+      "session_state": {
+        "session_id": "s10",
+        "state": "vc_generated",
+        "artifact_context": "context.go_vc_identity",
+        "target_id": "t1",
+        "proof_recipe": "proof.go_identity_member.refl",
+        "proof_root": 2
+      },
+      "request": {
+        "session_id": "s10",
+        "source_ir_schema": "mpk.vir.v0",
+        "source_ir_hash": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690",
+        "input_set_hash": "e05e9fa46ee44a198470ada4935f756b12e9d6779601a7f88e4cb468d151ab31",
+        "source_vc_schema": "mpk.vc.v1",
+        "vc_hash": "5aff044facb7d10f04e4bc813bfc6ae990ff59454208be431f0afb10e9a337f9",
+        "target_id": "t1",
+        "candidate_id": "candidate-good",
+        "proof_root": 2
+      },
+      "expect": {"outcome": "accept", "mutation_count": 1}
+    },
+    {
+      "id": "context.reject_stale_source_hash",
+      "operation": "vc_generate",
+      "session_state": {
+        "session_id": "s10",
+        "state": "vir_imported",
+        "artifact_context": "context.go_identity"
+      },
+      "construction": {
+        "base": "generate.go_identity",
+        "operations": [
+          {
+            "op": "replace",
+            "path": "/source_ir_hash",
+            "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "mutation_count": 0,
+        "phase": "context",
+        "code": "AI_API_CONTEXT_MISMATCH"
+      }
+    },
+    {
+      "id": "context.reject_source_manifest_schema",
+      "operation": "vc_generate",
+      "session_state": {
+        "session_id": "s10",
+        "state": "vir_imported",
+        "artifact_context": "context.go_identity"
+      },
+      "construction": {
+        "base": "generate.go_identity",
+        "operations": [
+          {
+            "op": "replace",
+            "path": "/source_manifest_schema",
+            "value": "mpk.source_manifest.v1"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "mutation_count": 0,
+        "phase": "shape",
+        "code": "AI_API_SOURCE_MANIFEST_SCHEMA"
+      }
+    },
+    {
+      "id": "context.reject_unknown_source_context",
+      "operation": "vc_generate",
+      "session_state": {
+        "session_id": "s10",
+        "state": "vir_imported",
+        "artifact_context": "context.go_identity"
+      },
+      "construction": {
+        "base": "generate.go_identity",
+        "operations": [
+          {
+            "op": "replace",
+            "path": "/frontend_source_manifest_hash",
+            "value": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "mutation_count": 0,
+        "phase": "artifact",
+        "code": "AI_API_SOURCE_CONTEXT_UNKNOWN"
+      }
+    },
+    {
+      "id": "context.reject_stale_input_set_hash",
+      "operation": "vc_generate",
+      "session_state": {
+        "session_id": "s10",
+        "state": "vir_imported",
+        "artifact_context": "context.go_identity"
+      },
+      "construction": {
+        "base": "generate.go_identity",
+        "operations": [
+          {
+            "op": "replace",
+            "path": "/input_set_hash",
+            "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "mutation_count": 0,
+        "phase": "artifact",
+        "code": "AI_API_SOURCE_MANIFEST_HASH"
+      }
+    },
+    {
+      "id": "context.reject_second_import",
+      "operation": "vir_import",
+      "session_state": {
+        "session_id": "s1",
+        "state": "vir_imported",
+        "artifact_context": "context.go_identity"
+      },
+      "request_from": "import.go_identity",
+      "expect": {
+        "outcome": "reject",
+        "mutation_count": 0,
+        "phase": "session",
+        "code": "AI_API_SESSION_STATE"
+      }
+    },
+    {
+      "id": "context.reject_stale_proof_root",
+      "operation": "vc_check_candidate",
+      "session_state": {
+        "session_id": "s10",
+        "state": "vc_generated",
+        "artifact_context": "context.go_vc_identity",
+        "target_id": "t1",
+        "candidate_id": "candidate-good",
+        "proof_recipe": "proof.go_identity_member.refl",
+        "proof_root": 2
+      },
+      "request": {
+        "session_id": "s10",
+        "source_ir_schema": "mpk.vir.v0",
+        "source_ir_hash": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690",
+        "input_set_hash": "e05e9fa46ee44a198470ada4935f756b12e9d6779601a7f88e4cb468d151ab31",
+        "source_vc_schema": "mpk.vc.v1",
+        "vc_hash": "5aff044facb7d10f04e4bc813bfc6ae990ff59454208be431f0afb10e9a337f9",
+        "target_id": "t1",
+        "mode": "fail_fast_per_candidate",
+        "candidates": [{"candidate_id": "candidate-good", "proof_root": 1}]
+      },
+      "expect": {
+        "outcome": "reject",
+        "mutation_count": 0,
+        "phase": "context",
+        "code": "AI_API_CONTEXT_MISMATCH"
+      }
+    },
+    {
+      "id": "context.rejected_candidate_does_not_commit",
+      "operation": "vc_check_candidate",
+      "session_state": {
+        "session_id": "s10",
+        "state": "vc_generated",
+        "artifact_context": "context.go_vc_identity",
+        "target_id": "t1",
+        "candidate_id": "candidate-bad",
+        "proof_recipe": "proof.go_identity_member.wrong_head",
+        "proof_root": 0
+      },
+      "request": {
+        "session_id": "s10",
+        "source_ir_schema": "mpk.vir.v0",
+        "source_ir_hash": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690",
+        "input_set_hash": "e05e9fa46ee44a198470ada4935f756b12e9d6779601a7f88e4cb468d151ab31",
+        "source_vc_schema": "mpk.vc.v1",
+        "vc_hash": "5aff044facb7d10f04e4bc813bfc6ae990ff59454208be431f0afb10e9a337f9",
+        "target_id": "t1",
+        "mode": "fail_fast_per_candidate",
+        "candidates": [{"candidate_id": "candidate-bad", "proof_root": 0}]
+      },
+      "expect": {
+        "outcome": "helper_reject",
+        "mutation_count": 0,
+        "proof_acceptance": false,
+        "diagnostic_code": "DEF_EQ_HEAD_MISMATCH"
+      }
+    },
+    {
+      "id": "context.accepted_candidate_remains_helper_only",
+      "operation": "vc_check_candidate",
+      "session_state": {
+        "session_id": "s10",
+        "state": "vc_generated",
+        "artifact_context": "context.go_vc_identity",
+        "target_id": "t1",
+        "candidate_id": "candidate-good",
+        "proof_recipe": "proof.go_identity_member.refl",
+        "proof_root": 2
+      },
+      "request": {
+        "session_id": "s10",
+        "source_ir_schema": "mpk.vir.v0",
+        "source_ir_hash": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690",
+        "input_set_hash": "e05e9fa46ee44a198470ada4935f756b12e9d6779601a7f88e4cb468d151ab31",
+        "source_vc_schema": "mpk.vc.v1",
+        "vc_hash": "5aff044facb7d10f04e4bc813bfc6ae990ff59454208be431f0afb10e9a337f9",
+        "target_id": "t1",
+        "mode": "fail_fast_per_candidate",
+        "candidates": [{"candidate_id": "candidate-good", "proof_root": 2}]
+      },
+      "expect": {
+        "outcome": "helper_accept",
+        "mutation_count": 0,
+        "proof_acceptance": false
+      }
+    }
+  ]
+}
