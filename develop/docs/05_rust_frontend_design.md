@@ -1267,15 +1267,22 @@ is not an alternate representation.
 The declaration type has one form: canonical function-parameter binders,
 followed by an implication from the canonical conjunction of `requires`
 clauses (empty means checked `True`) to the group conjunction. Each member is
-itself an implication from its ordered path-specific assumptions (empty also
-means checked `True`) to its conclusion. Common preconditions are never
-distributed into the members, and member implications are never flattened or
+an implication from its ordered path-specific assumptions (empty also means
+checked `True`) to its conclusion, wrapped by that member's canonical anonymous
+loop-state binders. Those binders are empty outside a loop cutpoint; otherwise
+they are exactly the free post-substitution function locals followed by header
+block parameters in VIR order, encoded by type and referenced with de Bruijn
+indices. This keeps loop preservation, exit, decreases, safety, and call
+members closed without promoting compiler-local names to declaration-level
+parameters. Common preconditions are never distributed into the members, and
+member implications or their local binder scopes are never flattened or
 reassociated. For ordered terms, `Conjoin([]) = True`, `Conjoin([x]) = x`, and
 for `n >= 2`, `Conjoin(xs) = And(Conjoin(xs[..floor(n/2)]),
 Conjoin(xs[floor(n/2)..]))`. This order-preserving balanced split avoids linear
 term depth. The outer and member implications are emitted even when their
 antecedent is `True`. VC v1 freezes the checked `And`/implication identities and
-binder order, so logically equivalent syntax cannot change declaration hashes.
+both outer and member-local binder order, so logically equivalent syntax cannot
+change declaration hashes.
 
 Within one function, the contract declaration is emitted first. Among generated
 function-group declarations, the dependency set is exact: the caller's
@@ -2573,7 +2580,8 @@ The shared VC/policy stages additionally allow:
   and 256 levels inside any member before balanced group conjunctions are
   added;
 - at most 512 levels in any final grouped theorem type or generated proof after
-  parameter binders and balanced conjunctions are added;
+  outer parameter binders, member-local binders, and balanced conjunctions are
+  added;
 - at most 256 MiB each for canonical VC and certificate-skeleton JSON;
 - at most 512 MiB for a generated canonical certificate and 256 MiB each for
   policy evidence JSON and rendered Markdown.

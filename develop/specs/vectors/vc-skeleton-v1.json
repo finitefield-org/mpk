@@ -1,0 +1,527 @@
+{
+  "schema": "mpk.vc.cert_skeleton.conformance.v1",
+  "spec_schema": "mpk.vc.cert_skeleton.v1",
+  "source_vector": "develop/specs/vectors/vc-v1.json",
+  "owner_test": "crates/mpk-vc/tests/vc_skeleton_v1.rs",
+  "fixture_digest_semantics": {
+    "algorithm": "sha256",
+    "payload": "jcs_without_domain_separator",
+    "artifact_identity": false
+  },
+  "construction_operations": [
+    {
+      "op": "emit",
+      "rule": "emit the exact skeleton from validated canonical source VC bytes"
+    },
+    {
+      "op": "add",
+      "rule": "RFC 6902 add at path"
+    },
+    {
+      "op": "remove",
+      "rule": "RFC 6902 remove at path"
+    },
+    {
+      "op": "replace",
+      "rule": "RFC 6902 replace at path"
+    },
+    {
+      "op": "copy",
+      "rule": "copy the value at from and insert it at path"
+    },
+    {
+      "op": "swap",
+      "rule": "swap the two array indices first and second at path"
+    },
+    {
+      "op": "reverse",
+      "rule": "reverse the array at path"
+    },
+    {
+      "op": "right_associate_group_members",
+      "rule": "replace only the named declaration group-member conjunction with an order-preserving right fold"
+    }
+  ],
+  "emission_cases": [
+    {
+      "id": "skeleton.accept_identity_empty_and_singleton",
+      "construction": {
+        "emit_from": "vc.rust_identity",
+        "mutations": []
+      },
+      "expect": {
+        "outcome": "accept",
+        "canonical_jcs_utf8_length": 1720,
+        "canonical_jcs_sha256": "cc589758cd066497e4c118684e1b66e08f6d3f054ea1ee691948883539ed1d58",
+        "declarations": [
+          {
+            "name": "VC.Function.f64656d6f3a3a6964656e74697479.contract",
+            "group_id": "demo::identity.contract",
+            "member_ids": [
+              "demo::identity#postcondition#000000"
+            ],
+            "dependencies": [],
+            "theorem_type_jcs_utf8_length": 388,
+            "theorem_type_jcs_sha256": "90c388772abefda1cc875158c47d224bdb30c7e42b8ebf3f5f2179e699cb630b"
+          },
+          {
+            "name": "VC.Function.f64656d6f3a3a6964656e74697479.panic_free",
+            "group_id": "demo::identity.panic_free",
+            "member_ids": [],
+            "dependencies": [
+              "VC.Function.f64656d6f3a3a6964656e74697479.contract"
+            ],
+            "theorem_type_jcs_utf8_length": 231,
+            "theorem_type_jcs_sha256": "4a9654d2f09679bf003fb204d752f6cc0f4a73945204cc2d21a39f299a0b78fc"
+          }
+        ]
+      }
+    },
+    {
+      "id": "skeleton.accept_call_pair_balanced_and_topological",
+      "construction": {
+        "emit_from": "vc.rust_call_pair",
+        "mutations": []
+      },
+      "expect": {
+        "outcome": "accept",
+        "canonical_jcs_utf8_length": 4550,
+        "canonical_jcs_sha256": "7ea18875a43f7e5772fc20457ef6d65896188d9dd454321fbb009f0bb083f535",
+        "declarations": [
+          {
+            "name": "VC.Function.f64656d6f3a3a63616c6c6565.contract",
+            "group_id": "demo::callee.contract",
+            "member_ids": [
+              "demo::callee#postcondition#000000"
+            ],
+            "dependencies": [],
+            "theorem_type_jcs_utf8_length": 388,
+            "theorem_type_jcs_sha256": "90c388772abefda1cc875158c47d224bdb30c7e42b8ebf3f5f2179e699cb630b"
+          },
+          {
+            "name": "VC.Function.f64656d6f3a3a63616c6c6565.panic_free",
+            "group_id": "demo::callee.panic_free",
+            "member_ids": [
+              "demo::callee#operation_safety#000000"
+            ],
+            "dependencies": [
+              "VC.Function.f64656d6f3a3a63616c6c6565.contract"
+            ],
+            "theorem_type_jcs_utf8_length": 327,
+            "theorem_type_jcs_sha256": "f0765f5e6d1678272a4d080a25439daf7e5b4eedfddf5ce4d3a40ded59c4f19b"
+          },
+          {
+            "name": "VC.Function.f64656d6f3a3a63616c6c6572.contract",
+            "group_id": "demo::caller.contract",
+            "member_ids": [
+              "demo::caller#callee_precondition#000000",
+              "demo::caller#postcondition#000000"
+            ],
+            "dependencies": [
+              "VC.Function.f64656d6f3a3a63616c6c6565.contract"
+            ],
+            "theorem_type_jcs_utf8_length": 822,
+            "theorem_type_jcs_sha256": "394e7a207be28d9f39873746febae41cf03b8bd0323b576f43037a3ba7901235"
+          },
+          {
+            "name": "VC.Function.f64656d6f3a3a63616c6c6572.panic_free",
+            "group_id": "demo::caller.panic_free",
+            "member_ids": [
+              "demo::caller#callee_panic_free#000000",
+              "demo::caller#operation_safety#000000",
+              "demo::caller#operation_safety#000001",
+              "demo::caller#operation_safety#000002"
+            ],
+            "dependencies": [
+              "VC.Function.f64656d6f3a3a63616c6c6565.contract",
+              "VC.Function.f64656d6f3a3a63616c6c6565.panic_free",
+              "VC.Function.f64656d6f3a3a63616c6c6572.contract"
+            ],
+            "theorem_type_jcs_utf8_length": 1069,
+            "theorem_type_jcs_sha256": "3847e706e8ef92dd6c91c08d31d985adeb34aeeda7d33de528e7ae07832dcb9b"
+          }
+        ]
+      }
+    },
+    {
+      "id": "skeleton.accept_go_loop_member_binders",
+      "construction": {
+        "emit_from": "vc.go_loop_cutpoint",
+        "mutations": []
+      },
+      "expect": {
+        "outcome": "accept",
+        "canonical_jcs_utf8_length": 3205,
+        "canonical_jcs_sha256": "683368b29d0c840f74f284cdaadd4cd4a63670bee9bf8792feb908aa3d52435c",
+        "declarations": [
+          {
+            "name": "VC.Function.f6578616d706c652e636f6d2f64656d6f2e4c6f6f70.contract",
+            "group_id": "example.com/demo.Loop.contract",
+            "member_ids": [
+              "example.com/demo.Loop#loop_decreases#000000",
+              "example.com/demo.Loop#loop_exit#000000",
+              "example.com/demo.Loop#loop_initialization#000000",
+              "example.com/demo.Loop#loop_preservation#000000"
+            ],
+            "dependencies": [],
+            "theorem_type_jcs_utf8_length": 1717,
+            "theorem_type_jcs_sha256": "6d3977e57866f776a00d39652dcc8e3db4a01aeca71296f4a1a32ec97d0218fa"
+          },
+          {
+            "name": "VC.Function.f6578616d706c652e636f6d2f64656d6f2e4c6f6f70.panic_free",
+            "group_id": "example.com/demo.Loop.panic_free",
+            "member_ids": [],
+            "dependencies": [
+              "VC.Function.f6578616d706c652e636f6d2f64656d6f2e4c6f6f70.contract"
+            ],
+            "theorem_type_jcs_utf8_length": 232,
+            "theorem_type_jcs_sha256": "6e6b88de94cee84dcd20896d6ef529603a2b7e95ff73881fedcb7a535da4cd96"
+          }
+        ]
+      }
+    }
+  ],
+  "mutation_cases": [
+    {
+      "id": "skeleton.reject_duplicate_key",
+      "json_text": "{\"schema\":\"mpk.vc.cert_skeleton.v1\",\"schema\":\"mpk.vc.cert_skeleton.v1\"}",
+      "expect": {
+        "outcome": "reject",
+        "phase": "transport",
+        "code": "VC_SKELETON_JSON_DUPLICATE_KEY"
+      }
+    },
+    {
+      "id": "skeleton.reject_invalid_json",
+      "json_text": "{",
+      "expect": {
+        "outcome": "reject",
+        "phase": "transport",
+        "code": "VC_SKELETON_JSON_INVALID"
+      }
+    },
+    {
+      "id": "skeleton.reject_noncanonical_transport",
+      "construction": {
+        "emit_from": "vc.rust_identity",
+        "mutations": [],
+        "transport_encoding": "two_space_indent_no_final_lf"
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "canonical_transport",
+        "code": "VC_SKELETON_CANONICAL_TRANSPORT"
+      }
+    },
+    {
+      "id": "skeleton.reject_wrong_schema",
+      "construction": {
+        "emit_from": "vc.rust_identity",
+        "mutations": [
+          {
+            "op": "replace",
+            "path": "/schema",
+            "value": "mpk.vc.cert_skeleton.v0"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "VC_SKELETON_SCHEMA"
+      }
+    },
+    {
+      "id": "skeleton.reject_legacy_schema_version",
+      "construction": {
+        "emit_from": "vc.rust_identity",
+        "mutations": [
+          {
+            "op": "remove",
+            "path": "/schema"
+          },
+          {
+            "op": "add",
+            "path": "/schema_version",
+            "value": "mpk.vc.cert_skeleton.v1"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "VC_SKELETON_SHAPE"
+      }
+    },
+    {
+      "id": "skeleton.reject_legacy_source_gir_hash",
+      "construction": {
+        "emit_from": "vc.rust_identity",
+        "mutations": [
+          {
+            "op": "remove",
+            "path": "/source_ir_hash"
+          },
+          {
+            "op": "add",
+            "path": "/source_gir_hash",
+            "value": "1111111111111111111111111111111111111111111111111111111111111111"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "VC_SKELETON_SHAPE"
+      }
+    },
+    {
+      "id": "skeleton.reject_unowned_self_hash",
+      "construction": {
+        "emit_from": "vc.rust_identity",
+        "mutations": [
+          {
+            "op": "add",
+            "path": "/skeleton_hash",
+            "value": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "VC_SKELETON_SHAPE"
+      }
+    },
+    {
+      "id": "skeleton.reject_source_vc_hash_mismatch",
+      "construction": {
+        "emit_from": "vc.rust_identity",
+        "mutations": [
+          {
+            "op": "replace",
+            "path": "/source_vc_hash",
+            "value": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "vc_linkage",
+        "code": "VC_SKELETON_VC_LINKAGE"
+      }
+    },
+    {
+      "id": "skeleton.reject_repeated_source_ir_hash",
+      "construction": {
+        "emit_from": "vc.rust_identity",
+        "mutations": [
+          {
+            "op": "replace",
+            "path": "/source_ir_hash",
+            "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "vc_linkage",
+        "code": "VC_SKELETON_VC_LINKAGE"
+      }
+    },
+    {
+      "id": "skeleton.reject_duplicate_declaration",
+      "construction": {
+        "emit_from": "vc.rust_call_pair",
+        "mutations": [
+          {
+            "op": "copy",
+            "from": "/theorem_declarations/0",
+            "path": "/theorem_declarations/1"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "declarations",
+        "code": "VC_SKELETON_DECLARATIONS"
+      }
+    },
+    {
+      "id": "skeleton.reject_reordered_declarations",
+      "construction": {
+        "emit_from": "vc.rust_call_pair",
+        "mutations": [
+          {
+            "op": "swap",
+            "path": "/theorem_declarations",
+            "first": 2,
+            "second": 3
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "declarations",
+        "code": "VC_SKELETON_DECLARATIONS"
+      }
+    },
+    {
+      "id": "skeleton.reject_missing_group_member",
+      "construction": {
+        "emit_from": "vc.rust_call_pair",
+        "mutations": [
+          {
+            "op": "remove",
+            "path": "/theorem_declarations/3/member_ids/3"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "declarations",
+        "code": "VC_SKELETON_DECLARATIONS"
+      }
+    },
+    {
+      "id": "skeleton.reject_wrong_group_kind",
+      "construction": {
+        "emit_from": "vc.rust_identity",
+        "mutations": [
+          {
+            "op": "replace",
+            "path": "/theorem_declarations/0/group_kind",
+            "value": "panic_free"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "declarations",
+        "code": "VC_SKELETON_DECLARATIONS"
+      }
+    },
+    {
+      "id": "skeleton.reject_missing_dependency",
+      "construction": {
+        "emit_from": "vc.rust_call_pair",
+        "mutations": [
+          {
+            "op": "remove",
+            "path": "/theorem_declarations/2/dependencies/0"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "declarations",
+        "code": "VC_SKELETON_DECLARATIONS"
+      }
+    },
+    {
+      "id": "skeleton.reject_reordered_dependencies",
+      "construction": {
+        "emit_from": "vc.rust_call_pair",
+        "mutations": [
+          {
+            "op": "reverse",
+            "path": "/theorem_declarations/3/dependencies"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "declarations",
+        "code": "VC_SKELETON_DECLARATIONS"
+      }
+    },
+    {
+      "id": "skeleton.reject_dependency_cycle",
+      "construction": {
+        "emit_from": "vc.rust_call_pair",
+        "mutations": [
+          {
+            "op": "add",
+            "path": "/theorem_declarations/0/dependencies/0",
+            "value": "VC.Function.f64656d6f3a3a63616c6c6572.contract"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "declarations",
+        "code": "VC_SKELETON_DECLARATIONS"
+      }
+    },
+    {
+      "id": "skeleton.reject_extra_dependency",
+      "construction": {
+        "emit_from": "vc.rust_call_pair",
+        "mutations": [
+          {
+            "op": "add",
+            "path": "/theorem_declarations/2/dependencies/1",
+            "value": "VC.Function.f64656d6f3a3a63616c6c6565.panic_free"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "declarations",
+        "code": "VC_SKELETON_DECLARATIONS"
+      }
+    },
+    {
+      "id": "skeleton.reject_right_associated_group_members",
+      "construction": {
+        "emit_from": "vc.rust_call_pair",
+        "mutations": [
+          {
+            "op": "right_associate_group_members",
+            "declaration_index": 3
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "theorem_type",
+        "code": "VC_SKELETON_THEOREM_TYPE"
+      }
+    },
+    {
+      "id": "skeleton.reject_missing_parameter_binder",
+      "construction": {
+        "emit_from": "vc.rust_identity",
+        "mutations": [
+          {
+            "op": "remove",
+            "path": "/theorem_declarations/0/theorem_type/binders/0"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "theorem_type",
+        "code": "VC_SKELETON_THEOREM_TYPE"
+      }
+    }
+  ],
+  "limit_cases": [
+    {
+      "id": "skeleton_limit.grouped_theorem_depth",
+      "limit_id": "grouped_theorem_depth",
+      "maximum": 512,
+      "below": {"construction":{"fixture":"grouped_theorem_depth","count":511},"expect":{"outcome":"accept"}},
+      "at": {"construction":{"fixture":"grouped_theorem_depth","count":512},"expect":{"outcome":"accept"}},
+      "above": {"construction":{"fixture":"grouped_theorem_depth","count":513},"expect":{"outcome":"reject","code":"VC_LIMIT_GROUPED_THEOREM_DEPTH"}}
+    },
+    {
+      "id": "skeleton_limit.canonical_json_bytes",
+      "limit_id": "canonical_skeleton_json_bytes",
+      "maximum": 268435456,
+      "below": {"construction":{"fixture":"canonical_skeleton_size","count":268435455},"expect":{"outcome":"accept"}},
+      "at": {"construction":{"fixture":"canonical_skeleton_size","count":268435456},"expect":{"outcome":"accept"}},
+      "above": {"construction":{"fixture":"canonical_skeleton_size","count":268435457},"expect":{"outcome":"reject","code":"VC_LIMIT_CANONICAL_SKELETON_JSON_BYTES"}}
+    }
+  ]
+}

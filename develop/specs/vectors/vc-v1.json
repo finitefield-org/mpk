@@ -1,0 +1,1607 @@
+{
+  "schema": "mpk.vc.conformance.v1",
+  "spec_schema": "mpk.vc.v1",
+  "dependencies": {
+    "vir_spec": "develop/specs/VIR_V0.md",
+    "manifest_spec": "develop/specs/SOURCE_MANIFEST_V0.md",
+    "vir_vector": "develop/specs/vectors/vir-v0.json",
+    "manifest_vector": "develop/specs/vectors/source-manifest-v0.json"
+  },
+  "owner_tests": [
+    "crates/mpk-vc/tests/vc_v1.rs"
+  ],
+  "source_contexts": [
+    {
+      "id": "context.rust_identity",
+      "source_ir_schema": "mpk.vir.v0",
+      "source_ir_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+      "input_set_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+      "semantic_profile": "mpk.rust.checked.v0",
+      "semantic_parameters": {
+        "target_id": "x86_64-unknown-linux-gnu",
+        "pointer_width": 64,
+        "overflow_mode": "checked",
+        "panic_mode": "abort"
+      },
+      "verification_limit_profile": "mpk.verify.limits.v0",
+      "functions": [
+        {
+          "function_id": "demo::identity",
+          "contract_hash": "3333333333333333333333333333333333333333333333333333333333333333",
+          "direct_callees": [],
+          "parameters": [
+            {
+              "id": "arg0",
+              "type": {
+                "kind": "constant",
+                "name": "Std.Program.Base.Int8"
+              }
+            }
+          ],
+          "requires": [],
+          "regenerated_members": [
+            {
+              "id": "demo::identity#postcondition#000000",
+              "function_id": "demo::identity",
+              "kind": "postcondition",
+              "local_binders": [],
+              "assumptions": [],
+              "conclusion": {
+                "kind": "apply",
+                "function": "Std.Eq",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "arg0"
+                  },
+                  {
+                    "kind": "var",
+                    "name": "arg0"
+                  }
+                ]
+              },
+              "group_id": "demo::identity.contract"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "context.rust_call_pair",
+      "source_ir_schema": "mpk.vir.v0",
+      "source_ir_hash": "4444444444444444444444444444444444444444444444444444444444444444",
+      "input_set_hash": "5555555555555555555555555555555555555555555555555555555555555555",
+      "semantic_profile": "mpk.rust.checked.v0",
+      "semantic_parameters": {
+        "target_id": "x86_64-unknown-linux-gnu",
+        "pointer_width": 64,
+        "overflow_mode": "checked",
+        "panic_mode": "abort"
+      },
+      "verification_limit_profile": "mpk.verify.limits.v0",
+      "functions": [
+        {
+          "function_id": "demo::callee",
+          "contract_hash": "6666666666666666666666666666666666666666666666666666666666666666",
+          "direct_callees": [],
+          "parameters": [
+            {
+              "id": "arg0",
+              "type": {
+                "kind": "constant",
+                "name": "Std.Program.Base.Int8"
+              }
+            }
+          ],
+          "requires": [
+            {
+              "kind": "constant",
+              "name": "Std.Bool.true"
+            }
+          ],
+          "regenerated_members": [
+            {
+              "id": "demo::callee#operation_safety#000000",
+              "function_id": "demo::callee",
+              "kind": "operation_safety",
+              "local_binders": [],
+              "assumptions": [
+                {
+                  "kind": "constant",
+                  "name": "Std.Bool.true"
+                }
+              ],
+              "conclusion": {
+                "kind": "constant",
+                "name": "Std.Bool.true"
+              },
+              "group_id": "demo::callee.panic_free"
+            },
+            {
+              "id": "demo::callee#postcondition#000000",
+              "function_id": "demo::callee",
+              "kind": "postcondition",
+              "local_binders": [],
+              "assumptions": [],
+              "conclusion": {
+                "kind": "apply",
+                "function": "Std.Eq",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "arg0"
+                  },
+                  {
+                    "kind": "var",
+                    "name": "arg0"
+                  }
+                ]
+              },
+              "group_id": "demo::callee.contract"
+            }
+          ]
+        },
+        {
+          "function_id": "demo::caller",
+          "contract_hash": "7777777777777777777777777777777777777777777777777777777777777777",
+          "direct_callees": [
+            "demo::callee"
+          ],
+          "parameters": [
+            {
+              "id": "arg0",
+              "type": {
+                "kind": "constant",
+                "name": "Std.Program.Base.Int8"
+              }
+            }
+          ],
+          "requires": [
+            {
+              "kind": "constant",
+              "name": "Std.Bool.true"
+            }
+          ],
+          "regenerated_members": [
+            {
+              "id": "demo::caller#callee_panic_free#000000",
+              "function_id": "demo::caller",
+              "kind": "callee_panic_free",
+              "local_binders": [],
+              "assumptions": [],
+              "conclusion": {
+                "kind": "apply",
+                "function": "VC.Function.f64656d6f3a3a63616c6c6565.panic_free",
+                "args": [
+                  {
+                    "kind": "var",
+                    "name": "arg0"
+                  }
+                ]
+              },
+              "group_id": "demo::caller.panic_free"
+            },
+            {
+              "id": "demo::caller#callee_precondition#000000",
+              "function_id": "demo::caller",
+              "kind": "callee_precondition",
+              "local_binders": [],
+              "assumptions": [
+                {
+                  "kind": "constant",
+                  "name": "Std.Bool.true"
+                }
+              ],
+              "conclusion": {
+                "kind": "constant",
+                "name": "Std.Bool.true"
+              },
+              "group_id": "demo::caller.contract"
+            },
+            {
+              "id": "demo::caller#operation_safety#000000",
+              "function_id": "demo::caller",
+              "kind": "operation_safety",
+              "local_binders": [],
+              "assumptions": [
+                {
+                  "kind": "constant",
+                  "name": "Std.Bool.true"
+                },
+                {
+                  "kind": "constant",
+                  "name": "Std.Bool.true"
+                }
+              ],
+              "conclusion": {
+                "kind": "constant",
+                "name": "Std.Bool.true"
+              },
+              "group_id": "demo::caller.panic_free"
+            },
+            {
+              "id": "demo::caller#operation_safety#000001",
+              "function_id": "demo::caller",
+              "kind": "operation_safety",
+              "local_binders": [],
+              "assumptions": [],
+              "conclusion": {
+                "kind": "constant",
+                "name": "Std.Bool.true"
+              },
+              "group_id": "demo::caller.panic_free"
+            },
+            {
+              "id": "demo::caller#operation_safety#000002",
+              "function_id": "demo::caller",
+              "kind": "operation_safety",
+              "local_binders": [],
+              "assumptions": [],
+              "conclusion": {
+                "kind": "constant",
+                "name": "Std.Bool.true"
+              },
+              "group_id": "demo::caller.panic_free"
+            },
+            {
+              "id": "demo::caller#postcondition#000000",
+              "function_id": "demo::caller",
+              "kind": "postcondition",
+              "local_binders": [],
+              "assumptions": [],
+              "conclusion": {
+                "kind": "forall",
+                "binder_type": {
+                  "kind": "constant",
+                  "name": "Std.Program.Base.Int8"
+                },
+                "body": {
+                  "kind": "apply",
+                  "function": "Std.Logic.Imp",
+                  "args": [
+                    {
+                      "kind": "apply",
+                      "function": "Std.Eq",
+                      "args": [
+                        {
+                          "kind": "bound",
+                          "index": 0
+                        },
+                        {
+                          "kind": "var",
+                          "name": "arg0"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "apply",
+                      "function": "Std.Eq",
+                      "args": [
+                        {
+                          "kind": "bound",
+                          "index": 0
+                        },
+                        {
+                          "kind": "var",
+                          "name": "arg0"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "group_id": "demo::caller.contract"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "context.go_loop_cutpoint",
+      "source_ir_schema": "mpk.vir.v0",
+      "source_ir_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "input_set_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "semantic_profile": "mpk.go.fixed.v0",
+      "semantic_parameters": {
+        "target_id": "linux/amd64",
+        "pointer_width": 64
+      },
+      "verification_limit_profile": "mpk.verify.limits.v0",
+      "functions": [
+        {
+          "function_id": "example.com/demo.Loop",
+          "contract_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "direct_callees": [],
+          "parameters": [
+            {
+              "id": "arg0",
+              "type": {
+                "kind": "constant",
+                "name": "Std.Program.Base.Uint8"
+              }
+            }
+          ],
+          "requires": [],
+          "regenerated_members": [
+            {
+              "id": "example.com/demo.Loop#loop_decreases#000000",
+              "function_id": "example.com/demo.Loop",
+              "kind": "loop_decreases",
+              "local_binders": [
+                {
+                  "kind": "constant",
+                  "name": "Std.Program.Base.Uint8"
+                }
+              ],
+              "assumptions": [
+                {
+                  "kind": "constant",
+                  "name": "Std.Bool.true"
+                }
+              ],
+              "conclusion": {
+                "kind": "apply",
+                "function": "Std.BitVec.BV8.ult",
+                "args": [
+                  {
+                    "kind": "bound",
+                    "index": 0
+                  },
+                  {
+                    "kind": "bound",
+                    "index": 0
+                  }
+                ]
+              },
+              "group_id": "example.com/demo.Loop.contract"
+            },
+            {
+              "id": "example.com/demo.Loop#loop_exit#000000",
+              "function_id": "example.com/demo.Loop",
+              "kind": "loop_exit",
+              "local_binders": [
+                {
+                  "kind": "constant",
+                  "name": "Std.Program.Base.Uint8"
+                }
+              ],
+              "assumptions": [
+                {
+                  "kind": "apply",
+                  "function": "Std.Eq",
+                  "args": [
+                    {
+                      "kind": "bound",
+                      "index": 0
+                    },
+                    {
+                      "kind": "bound",
+                      "index": 0
+                    }
+                  ]
+                }
+              ],
+              "conclusion": {
+                "kind": "forall",
+                "binder_type": {
+                  "kind": "constant",
+                  "name": "Std.Program.Base.Uint8"
+                },
+                "body": {
+                  "kind": "apply",
+                  "function": "Std.Logic.Imp",
+                  "args": [
+                    {
+                      "kind": "apply",
+                      "function": "Std.Eq",
+                      "args": [
+                        {
+                          "kind": "bound",
+                          "index": 0
+                        },
+                        {
+                          "kind": "var",
+                          "name": "arg0"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "apply",
+                      "function": "Std.Eq",
+                      "args": [
+                        {
+                          "kind": "bound",
+                          "index": 1
+                        },
+                        {
+                          "kind": "bound",
+                          "index": 1
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              "group_id": "example.com/demo.Loop.contract"
+            },
+            {
+              "id": "example.com/demo.Loop#loop_initialization#000000",
+              "function_id": "example.com/demo.Loop",
+              "kind": "loop_initialization",
+              "local_binders": [],
+              "assumptions": [],
+              "conclusion": {
+                "kind": "constant",
+                "name": "Std.Bool.true"
+              },
+              "group_id": "example.com/demo.Loop.contract"
+            },
+            {
+              "id": "example.com/demo.Loop#loop_preservation#000000",
+              "function_id": "example.com/demo.Loop",
+              "kind": "loop_preservation",
+              "local_binders": [
+                {
+                  "kind": "constant",
+                  "name": "Std.Program.Base.Uint8"
+                }
+              ],
+              "assumptions": [
+                {
+                  "kind": "apply",
+                  "function": "Std.Eq",
+                  "args": [
+                    {
+                      "kind": "bound",
+                      "index": 0
+                    },
+                    {
+                      "kind": "bound",
+                      "index": 0
+                    }
+                  ]
+                }
+              ],
+              "conclusion": {
+                "kind": "apply",
+                "function": "Std.Eq",
+                "args": [
+                  {
+                    "kind": "bound",
+                    "index": 0
+                  },
+                  {
+                    "kind": "bound",
+                    "index": 0
+                  }
+                ]
+              },
+              "group_id": "example.com/demo.Loop.contract"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "fixtures": [
+    {
+      "id": "vc.rust_identity",
+      "source_context": "context.rust_identity",
+      "input": {
+        "schema": "mpk.vc.v1",
+        "source_ir_schema": "mpk.vir.v0",
+        "source_ir_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+        "input_set_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+        "semantic_profile": "mpk.rust.checked.v0",
+        "semantic_parameters": {
+          "target_id": "x86_64-unknown-linux-gnu",
+          "pointer_width": 64,
+          "overflow_mode": "checked",
+          "panic_mode": "abort"
+        },
+        "verification_limit_profile": "mpk.verify.limits.v0",
+        "functions": [
+          {
+            "function_id": "demo::identity",
+            "contract_hash": "3333333333333333333333333333333333333333333333333333333333333333",
+            "parameters": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "constant",
+                  "name": "Std.Program.Base.Int8"
+                }
+              }
+            ],
+            "requires": [],
+            "members": [
+              {
+                "id": "demo::identity#postcondition#000000",
+                "function_id": "demo::identity",
+                "kind": "postcondition",
+                "local_binders": [],
+                "assumptions": [],
+                "conclusion": {
+                  "kind": "apply",
+                  "function": "Std.Eq",
+                  "args": [
+                    {
+                      "kind": "var",
+                      "name": "arg0"
+                    },
+                    {
+                      "kind": "var",
+                      "name": "arg0"
+                    }
+                  ]
+                },
+                "group_id": "demo::identity.contract"
+              }
+            ],
+            "groups": [
+              {
+                "id": "demo::identity.contract",
+                "kind": "contract",
+                "declaration_name": "VC.Function.f64656d6f3a3a6964656e74697479.contract",
+                "member_ids": [
+                  "demo::identity#postcondition#000000"
+                ],
+                "dependencies": []
+              },
+              {
+                "id": "demo::identity.panic_free",
+                "kind": "panic_free",
+                "declaration_name": "VC.Function.f64656d6f3a3a6964656e74697479.panic_free",
+                "member_ids": [],
+                "dependencies": [
+                  "VC.Function.f64656d6f3a3a6964656e74697479.contract"
+                ]
+              }
+            ]
+          }
+        ],
+        "vc_hash": "d7ddcfb4aa3388fbca6ca3b8ab2455a1d1aabc9430bd0c81ac19ea75c6d5b231"
+      }
+    },
+    {
+      "id": "vc.rust_call_pair",
+      "source_context": "context.rust_call_pair",
+      "input": {
+        "schema": "mpk.vc.v1",
+        "source_ir_schema": "mpk.vir.v0",
+        "source_ir_hash": "4444444444444444444444444444444444444444444444444444444444444444",
+        "input_set_hash": "5555555555555555555555555555555555555555555555555555555555555555",
+        "semantic_profile": "mpk.rust.checked.v0",
+        "semantic_parameters": {
+          "target_id": "x86_64-unknown-linux-gnu",
+          "pointer_width": 64,
+          "overflow_mode": "checked",
+          "panic_mode": "abort"
+        },
+        "verification_limit_profile": "mpk.verify.limits.v0",
+        "functions": [
+          {
+            "function_id": "demo::callee",
+            "contract_hash": "6666666666666666666666666666666666666666666666666666666666666666",
+            "parameters": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "constant",
+                  "name": "Std.Program.Base.Int8"
+                }
+              }
+            ],
+            "requires": [
+              {
+                "kind": "constant",
+                "name": "Std.Bool.true"
+              }
+            ],
+            "members": [
+              {
+                "id": "demo::callee#operation_safety#000000",
+                "function_id": "demo::callee",
+                "kind": "operation_safety",
+                "local_binders": [],
+                "assumptions": [
+                  {
+                    "kind": "constant",
+                    "name": "Std.Bool.true"
+                  }
+                ],
+                "conclusion": {
+                  "kind": "constant",
+                  "name": "Std.Bool.true"
+                },
+                "group_id": "demo::callee.panic_free"
+              },
+              {
+                "id": "demo::callee#postcondition#000000",
+                "function_id": "demo::callee",
+                "kind": "postcondition",
+                "local_binders": [],
+                "assumptions": [],
+                "conclusion": {
+                  "kind": "apply",
+                  "function": "Std.Eq",
+                  "args": [
+                    {
+                      "kind": "var",
+                      "name": "arg0"
+                    },
+                    {
+                      "kind": "var",
+                      "name": "arg0"
+                    }
+                  ]
+                },
+                "group_id": "demo::callee.contract"
+              }
+            ],
+            "groups": [
+              {
+                "id": "demo::callee.contract",
+                "kind": "contract",
+                "declaration_name": "VC.Function.f64656d6f3a3a63616c6c6565.contract",
+                "member_ids": [
+                  "demo::callee#postcondition#000000"
+                ],
+                "dependencies": []
+              },
+              {
+                "id": "demo::callee.panic_free",
+                "kind": "panic_free",
+                "declaration_name": "VC.Function.f64656d6f3a3a63616c6c6565.panic_free",
+                "member_ids": [
+                  "demo::callee#operation_safety#000000"
+                ],
+                "dependencies": [
+                  "VC.Function.f64656d6f3a3a63616c6c6565.contract"
+                ]
+              }
+            ]
+          },
+          {
+            "function_id": "demo::caller",
+            "contract_hash": "7777777777777777777777777777777777777777777777777777777777777777",
+            "parameters": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "constant",
+                  "name": "Std.Program.Base.Int8"
+                }
+              }
+            ],
+            "requires": [
+              {
+                "kind": "constant",
+                "name": "Std.Bool.true"
+              }
+            ],
+            "members": [
+              {
+                "id": "demo::caller#callee_panic_free#000000",
+                "function_id": "demo::caller",
+                "kind": "callee_panic_free",
+                "local_binders": [],
+                "assumptions": [],
+                "conclusion": {
+                  "kind": "apply",
+                  "function": "VC.Function.f64656d6f3a3a63616c6c6565.panic_free",
+                  "args": [
+                    {
+                      "kind": "var",
+                      "name": "arg0"
+                    }
+                  ]
+                },
+                "group_id": "demo::caller.panic_free"
+              },
+              {
+                "id": "demo::caller#callee_precondition#000000",
+                "function_id": "demo::caller",
+                "kind": "callee_precondition",
+                "local_binders": [],
+                "assumptions": [
+                  {
+                    "kind": "constant",
+                    "name": "Std.Bool.true"
+                  }
+                ],
+                "conclusion": {
+                  "kind": "constant",
+                  "name": "Std.Bool.true"
+                },
+                "group_id": "demo::caller.contract"
+              },
+              {
+                "id": "demo::caller#operation_safety#000000",
+                "function_id": "demo::caller",
+                "kind": "operation_safety",
+                "local_binders": [],
+                "assumptions": [
+                  {
+                    "kind": "constant",
+                    "name": "Std.Bool.true"
+                  },
+                  {
+                    "kind": "constant",
+                    "name": "Std.Bool.true"
+                  }
+                ],
+                "conclusion": {
+                  "kind": "constant",
+                  "name": "Std.Bool.true"
+                },
+                "group_id": "demo::caller.panic_free"
+              },
+              {
+                "id": "demo::caller#operation_safety#000001",
+                "function_id": "demo::caller",
+                "kind": "operation_safety",
+                "local_binders": [],
+                "assumptions": [],
+                "conclusion": {
+                  "kind": "constant",
+                  "name": "Std.Bool.true"
+                },
+                "group_id": "demo::caller.panic_free"
+              },
+              {
+                "id": "demo::caller#operation_safety#000002",
+                "function_id": "demo::caller",
+                "kind": "operation_safety",
+                "local_binders": [],
+                "assumptions": [],
+                "conclusion": {
+                  "kind": "constant",
+                  "name": "Std.Bool.true"
+                },
+                "group_id": "demo::caller.panic_free"
+              },
+              {
+                "id": "demo::caller#postcondition#000000",
+                "function_id": "demo::caller",
+                "kind": "postcondition",
+                "local_binders": [],
+                "assumptions": [],
+                "conclusion": {
+                  "kind": "forall",
+                  "binder_type": {
+                    "kind": "constant",
+                    "name": "Std.Program.Base.Int8"
+                  },
+                  "body": {
+                    "kind": "apply",
+                    "function": "Std.Logic.Imp",
+                    "args": [
+                      {
+                        "kind": "apply",
+                        "function": "Std.Eq",
+                        "args": [
+                          {
+                            "kind": "bound",
+                            "index": 0
+                          },
+                          {
+                            "kind": "var",
+                            "name": "arg0"
+                          }
+                        ]
+                      },
+                      {
+                        "kind": "apply",
+                        "function": "Std.Eq",
+                        "args": [
+                          {
+                            "kind": "bound",
+                            "index": 0
+                          },
+                          {
+                            "kind": "var",
+                            "name": "arg0"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "group_id": "demo::caller.contract"
+              }
+            ],
+            "groups": [
+              {
+                "id": "demo::caller.contract",
+                "kind": "contract",
+                "declaration_name": "VC.Function.f64656d6f3a3a63616c6c6572.contract",
+                "member_ids": [
+                  "demo::caller#callee_precondition#000000",
+                  "demo::caller#postcondition#000000"
+                ],
+                "dependencies": [
+                  "VC.Function.f64656d6f3a3a63616c6c6565.contract"
+                ]
+              },
+              {
+                "id": "demo::caller.panic_free",
+                "kind": "panic_free",
+                "declaration_name": "VC.Function.f64656d6f3a3a63616c6c6572.panic_free",
+                "member_ids": [
+                  "demo::caller#callee_panic_free#000000",
+                  "demo::caller#operation_safety#000000",
+                  "demo::caller#operation_safety#000001",
+                  "demo::caller#operation_safety#000002"
+                ],
+                "dependencies": [
+                  "VC.Function.f64656d6f3a3a63616c6c6565.contract",
+                  "VC.Function.f64656d6f3a3a63616c6c6565.panic_free",
+                  "VC.Function.f64656d6f3a3a63616c6c6572.contract"
+                ]
+              }
+            ]
+          }
+        ],
+        "vc_hash": "d2722cfb9ff407909aafc5492e17f36c28ee84409f4f56c9e60d6e97d29391b3"
+      }
+    },
+    {
+      "id": "vc.go_loop_cutpoint",
+      "source_context": "context.go_loop_cutpoint",
+      "input": {
+        "schema": "mpk.vc.v1",
+        "source_ir_schema": "mpk.vir.v0",
+        "source_ir_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "input_set_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "semantic_profile": "mpk.go.fixed.v0",
+        "semantic_parameters": {
+          "target_id": "linux/amd64",
+          "pointer_width": 64
+        },
+        "verification_limit_profile": "mpk.verify.limits.v0",
+        "functions": [
+          {
+            "function_id": "example.com/demo.Loop",
+            "contract_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+            "parameters": [
+              {
+                "id": "arg0",
+                "type": {
+                  "kind": "constant",
+                  "name": "Std.Program.Base.Uint8"
+                }
+              }
+            ],
+            "requires": [],
+            "members": [
+              {
+                "id": "example.com/demo.Loop#loop_decreases#000000",
+                "function_id": "example.com/demo.Loop",
+                "kind": "loop_decreases",
+                "local_binders": [
+                  {
+                    "kind": "constant",
+                    "name": "Std.Program.Base.Uint8"
+                  }
+                ],
+                "assumptions": [
+                  {
+                    "kind": "constant",
+                    "name": "Std.Bool.true"
+                  }
+                ],
+                "conclusion": {
+                  "kind": "apply",
+                  "function": "Std.BitVec.BV8.ult",
+                  "args": [
+                    {
+                      "kind": "bound",
+                      "index": 0
+                    },
+                    {
+                      "kind": "bound",
+                      "index": 0
+                    }
+                  ]
+                },
+                "group_id": "example.com/demo.Loop.contract"
+              },
+              {
+                "id": "example.com/demo.Loop#loop_exit#000000",
+                "function_id": "example.com/demo.Loop",
+                "kind": "loop_exit",
+                "local_binders": [
+                  {
+                    "kind": "constant",
+                    "name": "Std.Program.Base.Uint8"
+                  }
+                ],
+                "assumptions": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.Eq",
+                    "args": [
+                      {
+                        "kind": "bound",
+                        "index": 0
+                      },
+                      {
+                        "kind": "bound",
+                        "index": 0
+                      }
+                    ]
+                  }
+                ],
+                "conclusion": {
+                  "kind": "forall",
+                  "binder_type": {
+                    "kind": "constant",
+                    "name": "Std.Program.Base.Uint8"
+                  },
+                  "body": {
+                    "kind": "apply",
+                    "function": "Std.Logic.Imp",
+                    "args": [
+                      {
+                        "kind": "apply",
+                        "function": "Std.Eq",
+                        "args": [
+                          {
+                            "kind": "bound",
+                            "index": 0
+                          },
+                          {
+                            "kind": "var",
+                            "name": "arg0"
+                          }
+                        ]
+                      },
+                      {
+                        "kind": "apply",
+                        "function": "Std.Eq",
+                        "args": [
+                          {
+                            "kind": "bound",
+                            "index": 1
+                          },
+                          {
+                            "kind": "bound",
+                            "index": 1
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "group_id": "example.com/demo.Loop.contract"
+              },
+              {
+                "id": "example.com/demo.Loop#loop_initialization#000000",
+                "function_id": "example.com/demo.Loop",
+                "kind": "loop_initialization",
+                "local_binders": [],
+                "assumptions": [],
+                "conclusion": {
+                  "kind": "constant",
+                  "name": "Std.Bool.true"
+                },
+                "group_id": "example.com/demo.Loop.contract"
+              },
+              {
+                "id": "example.com/demo.Loop#loop_preservation#000000",
+                "function_id": "example.com/demo.Loop",
+                "kind": "loop_preservation",
+                "local_binders": [
+                  {
+                    "kind": "constant",
+                    "name": "Std.Program.Base.Uint8"
+                  }
+                ],
+                "assumptions": [
+                  {
+                    "kind": "apply",
+                    "function": "Std.Eq",
+                    "args": [
+                      {
+                        "kind": "bound",
+                        "index": 0
+                      },
+                      {
+                        "kind": "bound",
+                        "index": 0
+                      }
+                    ]
+                  }
+                ],
+                "conclusion": {
+                  "kind": "apply",
+                  "function": "Std.Eq",
+                  "args": [
+                    {
+                      "kind": "bound",
+                      "index": 0
+                    },
+                    {
+                      "kind": "bound",
+                      "index": 0
+                    }
+                  ]
+                },
+                "group_id": "example.com/demo.Loop.contract"
+              }
+            ],
+            "groups": [
+              {
+                "id": "example.com/demo.Loop.contract",
+                "kind": "contract",
+                "declaration_name": "VC.Function.f6578616d706c652e636f6d2f64656d6f2e4c6f6f70.contract",
+                "member_ids": [
+                  "example.com/demo.Loop#loop_decreases#000000",
+                  "example.com/demo.Loop#loop_exit#000000",
+                  "example.com/demo.Loop#loop_initialization#000000",
+                  "example.com/demo.Loop#loop_preservation#000000"
+                ],
+                "dependencies": []
+              },
+              {
+                "id": "example.com/demo.Loop.panic_free",
+                "kind": "panic_free",
+                "declaration_name": "VC.Function.f6578616d706c652e636f6d2f64656d6f2e4c6f6f70.panic_free",
+                "member_ids": [],
+                "dependencies": [
+                  "VC.Function.f6578616d706c652e636f6d2f64656d6f2e4c6f6f70.contract"
+                ]
+              }
+            ]
+          }
+        ],
+        "vc_hash": "4a77ab0143df0fbb4665747909a6e77c776bffbe3f58dae1041973daa3ccc61a"
+      }
+    }
+  ],
+  "vc_cases": [
+    {
+      "id": "vc.accept_rust_identity",
+      "input_from": "vc.rust_identity",
+      "expect": {
+        "outcome": "accept"
+      }
+    },
+    {
+      "id": "vc.accept_rust_call_pair",
+      "input_from": "vc.rust_call_pair",
+      "expect": {
+        "outcome": "accept"
+      }
+    },
+    {
+      "id": "vc.accept_go_loop_member_binders",
+      "input_from": "vc.go_loop_cutpoint",
+      "expect": {
+        "outcome": "accept"
+      }
+    },
+    {
+      "id": "vc.reject_duplicate_key",
+      "json_text": "{\"schema\":\"mpk.vc.v1\",\"schema\":\"mpk.vc.v1\"}",
+      "expect": {
+        "outcome": "reject",
+        "phase": "transport",
+        "code": "VC_JSON_DUPLICATE_KEY"
+      }
+    },
+    {
+      "id": "vc.reject_invalid_json",
+      "json_text": "{",
+      "expect": {
+        "outcome": "reject",
+        "phase": "transport",
+        "code": "VC_JSON_INVALID"
+      }
+    },
+    {
+      "id": "vc.reject_noncanonical_transport",
+      "transport_from": {
+        "fixture": "vc.rust_identity",
+        "encoding": "two_space_indent_no_final_lf"
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "canonical_transport",
+        "code": "VC_CANONICAL_TRANSPORT"
+      }
+    },
+    {
+      "id": "vc.reject_wrong_schema",
+      "construction": {
+        "base": "vc.rust_identity",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/schema",
+            "value": "mpk.vc.v0"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "VC_SCHEMA"
+      }
+    },
+    {
+      "id": "vc.reject_legacy_schema_version",
+      "construction": {
+        "base": "vc.rust_identity",
+        "patches": [
+          {
+            "op": "remove",
+            "path": "/schema"
+          },
+          {
+            "op": "add",
+            "path": "/schema_version",
+            "value": "mpk.vc.v1"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "VC_SHAPE"
+      }
+    },
+    {
+      "id": "vc.reject_legacy_source_gir_hash",
+      "construction": {
+        "base": "vc.rust_identity",
+        "patches": [
+          {
+            "op": "add",
+            "path": "/source_gir_hash",
+            "value": "1111111111111111111111111111111111111111111111111111111111111111"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "VC_SHAPE"
+      }
+    },
+    {
+      "id": "vc.reject_source_ir_hash_linkage",
+      "construction": {
+        "base": "vc.rust_identity",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/source_ir_hash",
+            "value": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "linkage",
+        "code": "VC_SOURCE_LINKAGE"
+      }
+    },
+    {
+      "id": "vc.reject_profile_repetition",
+      "construction": {
+        "base": "vc.rust_identity",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/semantic_parameters/pointer_width",
+            "value": 32
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "linkage",
+        "code": "VC_PROFILE_LINKAGE"
+      }
+    },
+    {
+      "id": "vc.reject_function_reorder",
+      "construction": {
+        "base": "vc.rust_call_pair",
+        "patches": [
+          {
+            "op": "swap",
+            "path": "/functions",
+            "first": 0,
+            "second": 1
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "linkage",
+        "code": "VC_FUNCTION_ORDER"
+      }
+    },
+    {
+      "id": "vc.reject_member_reorder",
+      "construction": {
+        "base": "vc.rust_call_pair",
+        "patches": [
+          {
+            "op": "swap",
+            "path": "/functions/1/members",
+            "first": 0,
+            "second": 1
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "members",
+        "code": "VC_MEMBER_ORDER"
+      }
+    },
+    {
+      "id": "vc.reject_missing_member",
+      "construction": {
+        "base": "vc.rust_call_pair",
+        "patches": [
+          {
+            "op": "remove",
+            "path": "/functions/1/members/5"
+          },
+          {
+            "op": "remove",
+            "path": "/functions/1/groups/0/member_ids/1"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "members",
+        "code": "VC_MEMBER_SET"
+      }
+    },
+    {
+      "id": "vc.reject_duplicate_member",
+      "construction": {
+        "base": "vc.rust_call_pair",
+        "patches": [
+          {
+            "op": "copy",
+            "from": "/functions/1/members/0",
+            "path": "/functions/1/members/1"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "members",
+        "code": "VC_MEMBER_ID"
+      }
+    },
+    {
+      "id": "vc.reject_ungrouped_member",
+      "construction": {
+        "base": "vc.rust_call_pair",
+        "patches": [
+          {
+            "op": "remove",
+            "path": "/functions/1/groups/1/member_ids/1"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "groups",
+        "code": "VC_GROUP_PARTITION"
+      }
+    },
+    {
+      "id": "vc.reject_wrongly_grouped_member",
+      "construction": {
+        "base": "vc.rust_call_pair",
+        "patches": [
+          {
+            "op": "add",
+            "path": "/functions/1/groups/0/member_ids/1",
+            "value": "demo::caller#operation_safety#000000"
+          },
+          {
+            "op": "remove",
+            "path": "/functions/1/groups/1/member_ids/1"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "groups",
+        "code": "VC_GROUP_KIND"
+      }
+    },
+    {
+      "id": "vc.reject_reordered_dependencies",
+      "construction": {
+        "base": "vc.rust_call_pair",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/functions/1/groups/1/dependencies",
+            "value": [
+              "VC.Function.f64656d6f3a3a63616c6c6572.contract",
+              "VC.Function.f64656d6f3a3a63616c6c6565.panic_free",
+              "VC.Function.f64656d6f3a3a63616c6c6565.contract"
+            ]
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "dependencies",
+        "code": "VC_DEPENDENCY_ORDER"
+      }
+    },
+    {
+      "id": "vc.reject_unknown_dependency_reference",
+      "construction": {
+        "base": "vc.rust_call_pair",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/functions/1/groups/0/dependencies/0",
+            "value": "VC.Function.f64656d6f3a3a67686f7374.contract"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "dependencies",
+        "code": "VC_DEPENDENCY_REFERENCE"
+      }
+    },
+    {
+      "id": "vc.reject_dependency_cycle",
+      "construction": {
+        "base": "vc.rust_call_pair",
+        "patches": [
+          {
+            "op": "add",
+            "path": "/functions/0/groups/0/dependencies/0",
+            "value": "VC.Function.f64656d6f3a3a63616c6c6572.contract"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "dependencies",
+        "code": "VC_DEPENDENCY_CYCLE"
+      }
+    },
+    {
+      "id": "vc.reject_extra_dependency_edge",
+      "construction": {
+        "base": "vc.rust_call_pair",
+        "patches": [
+          {
+            "op": "add",
+            "path": "/functions/1/groups/0/dependencies/1",
+            "value": "VC.Function.f64656d6f3a3a63616c6c6565.panic_free"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "dependencies",
+        "code": "VC_DEPENDENCY_SET"
+      }
+    },
+    {
+      "id": "vc.reject_missing_dependency_edge",
+      "construction": {
+        "base": "vc.rust_call_pair",
+        "patches": [
+          {
+            "op": "remove",
+            "path": "/functions/1/groups/0/dependencies/0"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "dependencies",
+        "code": "VC_DEPENDENCY_SET"
+      }
+    },
+    {
+      "id": "vc.reject_group_declaration_name",
+      "construction": {
+        "base": "vc.rust_identity",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/functions/0/groups/0/declaration_name",
+            "value": "VC.Obligation.demo.identity.contract"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "groups",
+        "code": "VC_GROUP_SHAPE"
+      }
+    },
+    {
+      "id": "vc.reject_group_reorder",
+      "construction": {
+        "base": "vc.rust_identity",
+        "patches": [
+          {
+            "op": "swap",
+            "path": "/functions/0/groups",
+            "first": 0,
+            "second": 1
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "groups",
+        "code": "VC_GROUP_SHAPE"
+      }
+    },
+    {
+      "id": "vc.reject_legacy_result_term",
+      "construction": {
+        "base": "vc.rust_identity",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/functions/0/members/0/conclusion",
+            "value": {
+              "kind": "result",
+              "index": 0
+            }
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "VC_SHAPE"
+      }
+    },
+    {
+      "id": "vc.reject_open_bound_term",
+      "construction": {
+        "base": "vc.rust_identity",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/functions/0/members/0/conclusion",
+            "value": {
+              "kind": "bound",
+              "index": 0
+            }
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "scalar",
+        "code": "VC_SCALAR"
+      }
+    },
+    {
+      "id": "vc.reject_missing_member_local_binder",
+      "construction": {
+        "base": "vc.go_loop_cutpoint",
+        "patches": [
+          {
+            "op": "remove",
+            "path": "/functions/0/members/0/local_binders/0"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "scalar",
+        "code": "VC_SCALAR"
+      }
+    },
+    {
+      "id": "vc.reject_hash_mismatch",
+      "construction": {
+        "base": "vc.rust_identity",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/vc_hash",
+            "value": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "hash",
+        "code": "VC_HASH"
+      }
+    }
+  ],
+  "limit_cases": [
+    {
+      "id": "limit.members_per_function",
+      "limit_id": "members_per_function",
+      "maximum": 100000,
+      "below": {"construction":{"fixture":"members_one_function","count":99999},"expect":{"outcome":"accept"}},
+      "at": {"construction":{"fixture":"members_one_function","count":100000},"expect":{"outcome":"accept"}},
+      "above": {"construction":{"fixture":"members_one_function","count":100001},"expect":{"outcome":"reject","code":"VC_LIMIT_MEMBERS_PER_FUNCTION"}}
+    },
+    {
+      "id": "limit.members_per_document",
+      "limit_id": "members_per_document",
+      "maximum": 262144,
+      "below": {"construction":{"fixture":"members_document","count":262143},"expect":{"outcome":"accept"}},
+      "at": {"construction":{"fixture":"members_document","count":262144},"expect":{"outcome":"accept"}},
+      "above": {"construction":{"fixture":"members_document","count":262145},"expect":{"outcome":"reject","code":"VC_LIMIT_MEMBERS_PER_DOCUMENT"}}
+    },
+    {
+      "id": "limit.assumptions_per_member",
+      "limit_id": "assumptions_per_member",
+      "maximum": 4096,
+      "below": {"construction":{"fixture":"assumptions_one_member","count":4095},"expect":{"outcome":"accept"}},
+      "at": {"construction":{"fixture":"assumptions_one_member","count":4096},"expect":{"outcome":"accept"}},
+      "above": {"construction":{"fixture":"assumptions_one_member","count":4097},"expect":{"outcome":"reject","code":"VC_LIMIT_ASSUMPTIONS_PER_MEMBER"}}
+    },
+    {
+      "id": "limit.expression_nodes_per_member",
+      "limit_id": "expression_nodes_per_member",
+      "maximum": 8192,
+      "below": {"construction":{"fixture":"balanced_member_nodes","count":8191},"expect":{"outcome":"accept"}},
+      "at": {"construction":{"fixture":"balanced_member_nodes","count":8192},"expect":{"outcome":"accept"}},
+      "above": {"construction":{"fixture":"balanced_member_nodes","count":8193},"expect":{"outcome":"reject","code":"VC_LIMIT_EXPRESSION_NODES_PER_MEMBER"}}
+    },
+    {
+      "id": "limit.expression_nodes_per_document",
+      "limit_id": "expression_nodes_per_document",
+      "maximum": 4194304,
+      "below": {"construction":{"fixture":"balanced_document_nodes","count":4194303},"expect":{"outcome":"accept"}},
+      "at": {"construction":{"fixture":"balanced_document_nodes","count":4194304},"expect":{"outcome":"accept"}},
+      "above": {"construction":{"fixture":"balanced_document_nodes","count":4194305},"expect":{"outcome":"reject","code":"VC_LIMIT_EXPRESSION_NODES_PER_DOCUMENT"}}
+    },
+    {
+      "id": "limit.member_expression_depth",
+      "limit_id": "member_expression_depth",
+      "maximum": 256,
+      "below": {"construction":{"fixture":"nested_member_not","count":255},"expect":{"outcome":"accept"}},
+      "at": {"construction":{"fixture":"nested_member_not","count":256},"expect":{"outcome":"accept"}},
+      "above": {"construction":{"fixture":"nested_member_not","count":257},"expect":{"outcome":"reject","code":"VC_LIMIT_MEMBER_EXPRESSION_DEPTH"}}
+    },
+    {
+      "id": "limit.grouped_theorem_depth",
+      "limit_id": "grouped_theorem_depth",
+      "maximum": 512,
+      "below": {"construction":{"fixture":"grouped_theorem_depth","count":511},"expect":{"outcome":"accept"}},
+      "at": {"construction":{"fixture":"grouped_theorem_depth","count":512},"expect":{"outcome":"accept"}},
+      "above": {"construction":{"fixture":"grouped_theorem_depth","count":513},"expect":{"outcome":"reject","code":"VC_LIMIT_GROUPED_THEOREM_DEPTH"}}
+    },
+    {
+      "id": "limit.canonical_vc_json_bytes",
+      "limit_id": "canonical_vc_json_bytes",
+      "maximum": 268435456,
+      "below": {"construction":{"fixture":"canonical_vc_size","count":268435455},"expect":{"outcome":"accept"}},
+      "at": {"construction":{"fixture":"canonical_vc_size","count":268435456},"expect":{"outcome":"accept"}},
+      "above": {"construction":{"fixture":"canonical_vc_size","count":268435457},"expect":{"outcome":"reject","code":"VC_LIMIT_CANONICAL_JSON_BYTES"}}
+    },
+    {
+      "id": "limit.canonical_skeleton_json_bytes",
+      "limit_id": "canonical_skeleton_json_bytes",
+      "maximum": 268435456,
+      "below": {"construction":{"fixture":"canonical_skeleton_size","count":268435455},"expect":{"outcome":"accept"}},
+      "at": {"construction":{"fixture":"canonical_skeleton_size","count":268435456},"expect":{"outcome":"accept"}},
+      "above": {"construction":{"fixture":"canonical_skeleton_size","count":268435457},"expect":{"outcome":"reject","code":"VC_LIMIT_CANONICAL_SKELETON_JSON_BYTES"}}
+    }
+  ]
+}

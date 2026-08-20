@@ -678,7 +678,7 @@ git diff --check
 
 ### VIR-00-T05 Freeze VC v1 and Grouped Declaration Semantics
 
-Status: Pending
+Status: Complete (2026-08-21).
 
 Depends on: VIR-00-T02, VIR-00-T04.
 
@@ -705,9 +705,10 @@ Tasks:
 3. Freeze exhaustive partitioning into exactly one `FUNCTION_ID.contract` or
    `FUNCTION_ID.panic_free` group and require policy member rows to bind to the
    containing declaration name and hash.
-4. Freeze parameter binders, outer and member implications, balanced ordered
-   conjunction, empty/singleton cases, group/dependency sort order, callee-first
-   topological order, and contract-before-panic-free order.
+4. Freeze outer parameter binders, member-local loop-state binders, outer and
+   member implications, balanced ordered conjunction, empty/singleton cases,
+   group/dependency sort order, callee-first topological order, and
+   contract-before-panic-free order.
 5. Freeze `MPK-VC-1.0`, repeated-field validation, skeleton linkage, streaming
    counters, exact `verification_limit_profile = mpk.verify.limits.v0`, and
    downstream resource-limit precedence.
@@ -1733,7 +1734,8 @@ Tasks:
    engine rather than a separate serialized input or alternate WP API.
 2. Generate initialization, preservation, exit, and conditional decreases
    members with the same assumption/substitution rules and stable IDs as the
-   acyclic engine.
+   acyclic engine, closing free cutpoint state with the VC v1 member-local
+   binders.
 3. Require exact loop-contract/header linkage, reject uncovered cycles,
    multiple ambiguous cutpoints, bad successor shapes, and profile-incompatible
    termination metadata.
@@ -1889,9 +1891,9 @@ Tasks:
 
 1. Emit exactly two theorem declarations per function in callee-first
    topological order: contract then panic-free.
-2. Build canonical parameter binders, outer/member implications, balanced
-   conjunctions, empty `True`, exact member lists, and exact sorted generated
-   declaration dependencies.
+2. Build canonical outer parameter and member-local binders, outer/member
+   implications, balanced conjunctions, empty `True`, exact member lists, and
+   exact sorted generated declaration dependencies.
 3. Emit `mpk.vc.cert_skeleton.v1` with source VC/IR/input/profile/limit
    identities and recompute the referenced VC hash before serialization.
 4. Reject every missing, reversed, duplicate, cyclic, or extra dependency edge

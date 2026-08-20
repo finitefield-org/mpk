@@ -1,0 +1,222 @@
+{
+  "schema": "mpk.vc.hash_vectors.v1",
+  "spec_schema": "mpk.vc.v1",
+  "source_vector": "develop/specs/vectors/vc-v1.json",
+  "owner_test": "crates/mpk-vc/tests/vc_hash_v1.rs",
+  "domain": {
+    "text": "MPK-VC-1.0",
+    "utf8_hex": "4d504b2d56432d312e30",
+    "separator_hex": "00",
+    "digest": "sha256"
+  },
+  "canonical_cases": [
+    {
+      "id": "canonical.rust_identity",
+      "source_fixture": "vc.rust_identity",
+      "excluded_fields": [
+        "vc_hash"
+      ],
+      "expected_payload_jcs_utf8_length": 1396,
+      "expected_complete_jcs_utf8_length": 1473,
+      "expected_preimage_length": 1407,
+      "expected_sha256": "d7ddcfb4aa3388fbca6ca3b8ab2455a1d1aabc9430bd0c81ac19ea75c6d5b231"
+    },
+    {
+      "id": "canonical.rust_call_pair",
+      "source_fixture": "vc.rust_call_pair",
+      "excluded_fields": [
+        "vc_hash"
+      ],
+      "expected_payload_jcs_utf8_length": 4622,
+      "expected_complete_jcs_utf8_length": 4699,
+      "expected_preimage_length": 4633,
+      "expected_sha256": "d2722cfb9ff407909aafc5492e17f36c28ee84409f4f56c9e60d6e97d29391b3"
+    },
+    {
+      "id": "canonical.go_loop_cutpoint",
+      "source_fixture": "vc.go_loop_cutpoint",
+      "excluded_fields": [
+        "vc_hash"
+      ],
+      "expected_payload_jcs_utf8_length": 3088,
+      "expected_complete_jcs_utf8_length": 3165,
+      "expected_preimage_length": 3099,
+      "expected_sha256": "4a77ab0143df0fbb4665747909a6e77c776bffbe3f58dae1041973daa3ccc61a"
+    }
+  ],
+  "equivalence_cases": [
+    {
+      "id": "canonical.object_key_order_and_whitespace",
+      "source_fixture": "vc.rust_identity",
+      "encodings": [
+        "fixture_jcs",
+        "reverse_each_object_key_order_with_two_space_indent"
+      ],
+      "expected_payload_jcs_utf8_length": 1396,
+      "expected_sha256": "d7ddcfb4aa3388fbca6ca3b8ab2455a1d1aabc9430bd0c81ac19ea75c6d5b231"
+    },
+    {
+      "id": "canonical.root_self_hash_excluded",
+      "source_fixture": "vc.rust_identity",
+      "patches": [
+        {
+          "op": "replace",
+          "path": "/vc_hash",
+          "value": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+        }
+      ],
+      "expected_payload_jcs_utf8_length": 1396,
+      "expected_sha256": "d7ddcfb4aa3388fbca6ca3b8ab2455a1d1aabc9430bd0c81ac19ea75c6d5b231"
+    },
+    {
+      "id": "canonical.domain_separator_required",
+      "source_fixture": "vc.rust_identity",
+      "expected_sha256": "d7ddcfb4aa3388fbca6ca3b8ab2455a1d1aabc9430bd0c81ac19ea75c6d5b231",
+      "without_separator_preimage_length": 1406,
+      "without_separator_sha256": "a3681430c3e6ade3bd71a0d351cefb687eb84cb07a5fe4a709dc17ad28299c54",
+      "wrong_domain_text": "MPK-VC-1.1",
+      "wrong_domain_sha256": "1242c4af75c2d448b2d13487c09294ae6a0118bfe3af0f99bd05313842254ee5"
+    }
+  ],
+  "ordered_array_cases": [
+    {
+      "id": "ordered.dependencies_are_not_sorted_by_jcs",
+      "source_fixture": "vc.rust_call_pair",
+      "patches": [
+        {
+          "op": "reverse",
+          "path": "/functions/1/groups/1/dependencies"
+        }
+      ],
+      "expected_payload_jcs_utf8_length": 4622,
+      "expected_sha256": "2c659a20ff9fe5aa6fe5c5803d169cca2d5fd7df480153e10a6110f60dc47250",
+      "different_from": "d2722cfb9ff407909aafc5492e17f36c28ee84409f4f56c9e60d6e97d29391b3"
+    }
+  ],
+  "mutation_cases": [
+    {
+      "id": "mutation.source_ir_hash",
+      "source_fixture": "vc.rust_identity",
+      "patches": [
+        {
+          "op": "replace",
+          "path": "/source_ir_hash",
+          "value": "8888888888888888888888888888888888888888888888888888888888888888"
+        }
+      ],
+      "expected_payload_jcs_utf8_length": 1396,
+      "expected_sha256": "013b82fe9ef4f127636a4261718fbb2694273335d487d0acfd206c2b6948139f"
+    },
+    {
+      "id": "mutation.input_set_hash",
+      "source_fixture": "vc.rust_identity",
+      "patches": [
+        {
+          "op": "replace",
+          "path": "/input_set_hash",
+          "value": "9999999999999999999999999999999999999999999999999999999999999999"
+        }
+      ],
+      "expected_payload_jcs_utf8_length": 1396,
+      "expected_sha256": "9e23c3316c675a39be1288c3a4a46866183421eb06049cbe80a934701e321dc9"
+    },
+    {
+      "id": "mutation.semantic_parameter",
+      "source_fixture": "vc.rust_identity",
+      "patches": [
+        {
+          "op": "replace",
+          "path": "/semantic_parameters/pointer_width",
+          "value": 32
+        }
+      ],
+      "expected_payload_jcs_utf8_length": 1396,
+      "expected_sha256": "7fdd0760900390bf83288bf778754a06865766631590719726df19790c1b4ae0"
+    },
+    {
+      "id": "mutation.verification_limit_profile",
+      "source_fixture": "vc.rust_identity",
+      "patches": [
+        {
+          "op": "replace",
+          "path": "/verification_limit_profile",
+          "value": "mpk.verify.limits.v1"
+        }
+      ],
+      "expected_payload_jcs_utf8_length": 1396,
+      "expected_sha256": "9f6e688e151308b465747734cf740e065970871c57b2a0aa46a21615b6e7d69e"
+    },
+    {
+      "id": "mutation.contract_hash",
+      "source_fixture": "vc.rust_identity",
+      "patches": [
+        {
+          "op": "replace",
+          "path": "/functions/0/contract_hash",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      ],
+      "expected_payload_jcs_utf8_length": 1396,
+      "expected_sha256": "207e2dd58362f309429c3942a8fe76fd1fe35530cad9c2af5c34da509bddbd18"
+    },
+    {
+      "id": "mutation.member_assumption",
+      "source_fixture": "vc.rust_identity",
+      "patches": [
+        {
+          "op": "replace",
+          "path": "/functions/0/members/0/assumptions",
+          "value": [
+            {
+              "kind": "constant",
+              "name": "Std.Bool.true"
+            }
+          ]
+        }
+      ],
+      "expected_payload_jcs_utf8_length": 1438,
+      "expected_sha256": "1033dd7df5785ba58302384de2f3466afd2442f15fcc1e1f9331259d6b5e111e"
+    },
+    {
+      "id": "mutation.member_local_binder",
+      "source_fixture": "vc.go_loop_cutpoint",
+      "patches": [
+        {
+          "op": "replace",
+          "path": "/functions/0/members/0/local_binders/0/name",
+          "value": "Std.Program.Base.Int8"
+        }
+      ],
+      "expected_payload_jcs_utf8_length": 3087,
+      "expected_sha256": "78ab03878be95ebe802d9d3bd8983bbb4225243b4445cf7d5e3db3f353d6a00f"
+    },
+    {
+      "id": "mutation.group_member_ids",
+      "source_fixture": "vc.rust_identity",
+      "patches": [
+        {
+          "op": "replace",
+          "path": "/functions/0/groups/0/member_ids",
+          "value": []
+        }
+      ],
+      "expected_payload_jcs_utf8_length": 1359,
+      "expected_sha256": "36689b0a571ac29a6b522ca1b4fb2645565a0d2001e2c21f768a95c7f56d337d"
+    },
+    {
+      "id": "mutation.dependency",
+      "source_fixture": "vc.rust_identity",
+      "patches": [
+        {
+          "op": "replace",
+          "path": "/functions/0/groups/0/dependencies",
+          "value": [
+            "VC.Function.f64656d6f3a3a6964656e74697479.panic_free"
+          ]
+        }
+      ],
+      "expected_payload_jcs_utf8_length": 1450,
+      "expected_sha256": "0e3571ce1dde8b1b9de7d9edd35d155c991f5b7186178946fc33924abc7b0307"
+    }
+  ]
+}
