@@ -1,0 +1,123 @@
+{
+  "schema": "mpk.gir_to_vir.search_fixtures.v0",
+  "design_status_marker": "GIR_CUTOVER_STATUS: complete; RUST_PHASES: active; RETAINED_GIR_TERMINOLOGY: historical",
+  "scanner_files": [
+    "develop/migrations/gir-to-vir-obsolete-terms.txt",
+    "scripts/check-no-active-gir.sh"
+  ],
+  "historical_records": [
+    {
+      "path": "develop/specs/GIR_V0.md",
+      "activation": "always"
+    },
+    {
+      "path": "develop/specs/GO_SUBSET_V0.md",
+      "activation": "always"
+    },
+    {
+      "path": "develop/specs/AI_API_V0.md",
+      "activation": "always"
+    },
+    {
+      "path": "develop/specs/CERT_V0.md",
+      "activation": "always"
+    },
+    {
+      "path": "develop/specs/TRUST_BOUNDARY_V0.md",
+      "activation": "always"
+    },
+    {
+      "path": "develop/specs/UNSAFE_POLICY_V0.md",
+      "activation": "always"
+    },
+    {
+      "path": "develop/migrations/gir-to-vir-inventory.md",
+      "activation": "always"
+    },
+    {
+      "path": "develop/migrations/go-gir-semantic-baseline.json",
+      "activation": "always"
+    },
+    {
+      "path": "develop/docs/05_rust_frontend_design.md",
+      "activation": "design_status_marker"
+    },
+    {
+      "path": "develop/docs/05_rust_frontend_design-todo.md",
+      "activation": "design_status_marker"
+    }
+  ],
+  "fixtures": [
+    {
+      "path": "develop/migrations/gir-to-vir-search-fixtures/manifest.json",
+      "role": "manifest"
+    },
+    {
+      "path": "develop/migrations/gir-to-vir-search-fixtures/positive-global-token.txt",
+      "role": "positive",
+      "expected_matchers": [
+        "schema-gir-v0"
+      ]
+    },
+    {
+      "path": "develop/migrations/gir-to-vir-search-fixtures/positive-exact-path.txt",
+      "role": "positive",
+      "virtual_path": "go-tools/go2gir/main.go",
+      "expected_matchers": [
+        "path-go2gir"
+      ]
+    },
+    {
+      "path": "develop/migrations/gir-to-vir-search-fixtures/positive-policy-evidence-v0.json",
+      "role": "positive",
+      "expected_matchers": [
+        "field-policy-v0-allowed-axiom-profiles",
+        "field-policy-v0-reproduction-commands",
+        "schema-policy-evidence-v0"
+      ]
+    },
+    {
+      "path": "develop/migrations/gir-to-vir-search-fixtures/positive-qualified-symbols.rs",
+      "role": "positive",
+      "expected_matchers": [
+        "symbol-policy-helper-gir",
+        "symbol-policy-helper-go-source",
+        "symbol-sanitized-gir",
+        "symbol-sanitized-go-source"
+      ]
+    },
+    {
+      "path": "develop/migrations/gir-to-vir-search-fixtures/negative-global-token.txt",
+      "role": "negative"
+    },
+    {
+      "path": "develop/migrations/gir-to-vir-search-fixtures/negative-exact-path.txt",
+      "role": "negative",
+      "virtual_path": "go-tools/go2vir/main.go"
+    },
+    {
+      "path": "develop/migrations/gir-to-vir-search-fixtures/negative-package-manifest-field.json",
+      "role": "negative",
+      "guards": [
+        "field-policy-v0-allowed-axiom-profiles"
+      ]
+    },
+    {
+      "path": "develop/migrations/gir-to-vir-search-fixtures/negative-policy-evidence-v1.json",
+      "role": "negative",
+      "guards": [
+        "field-policy-v0-reproduction-commands"
+      ]
+    },
+    {
+      "path": "develop/migrations/gir-to-vir-search-fixtures/negative-qualified-symbols.rs",
+      "role": "negative",
+      "guards": [
+        "symbol-policy-helper-gir",
+        "symbol-policy-helper-go-source",
+        "symbol-sanitized-gir",
+        "symbol-sanitized-go-source"
+      ]
+    }
+  ]
+}

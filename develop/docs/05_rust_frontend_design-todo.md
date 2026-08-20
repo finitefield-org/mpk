@@ -308,7 +308,7 @@ never staged.
 
 ### VIR-00-T01 Freeze the GIR Baseline and Removal Inventory
 
-Status: Pending
+Status: Complete (2026-08-20).
 
 Depends on: none.
 

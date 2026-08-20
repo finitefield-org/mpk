@@ -1,0 +1,639 @@
+{
+  "schema": "mpk.go_gir_semantic_baseline.v0",
+  "captured_from_revision": "1b3fb3c778b9301d8a214c4bbd3cd8aafa6bb8d4",
+  "source_profile": "Go subset v0 (active at capture; historical after cutover)",
+  "source_ir_schema": "mpk.gir.v0",
+  "purpose": "Pre-cutover semantic audit input for GO-VIR-02-T01 and GO-VIR-02-T11; this file is not an accepted runtime artifact.",
+  "hash_policy": {
+    "comparison": "audit_only",
+    "expected_byte_equality_after_vir_cutover": false,
+    "rule": "Hash changes are expected when GIR, VC, skeleton, policy, and evidence schemas are regenerated; semantic differences require a reviewed disposition."
+  },
+  "frontend_contract": {
+    "cli_schema": "mpk.go2gir.cli.v0",
+    "success_status": "gir-lowered",
+    "gir_emit_schema": "mpk.gir.emit.v0",
+    "source_manifest_schema": "mpk.go.source_manifest.v0",
+    "canonical_binary": {
+      "magic": "MPK_GIR_V0\u0000",
+      "magic_hex": "4d504b5f4749525f563000",
+      "length_encoding": "unsigned big-endian 64-bit canonical-JSON byte length",
+      "hash": "SHA-256 over magic, length, and canonical JSON",
+      "hash_input_excludes": [
+        "gir_hash"
+      ]
+    },
+    "fail_closed": true
+  },
+  "obligation_model": {
+    "kinds": [
+      "precondition",
+      "postcondition",
+      "runtime_safety",
+      "loop_invariant_initial",
+      "loop_invariant_preservation",
+      "loop_exit",
+      "decreases"
+    ],
+    "theorem_intent": {
+      "precondition": "A static call site establishes the callee precondition; the current public enum reserves this kind even though the GIR WP path does not yet accept CallStatic.",
+      "postcondition": "For each feasible return path, requires and path assumptions imply the normalized ensures expression after instruction and result substitution.",
+      "runtime_safety": "Path assumptions imply the no-panic predicate for a supported division, signed shift count, or fixed-array index operation.",
+      "loop_invariant_initial": "Function preconditions and the preheader establish each loop invariant.",
+      "loop_invariant_preservation": "Invariants and the loop condition imply each invariant after one body step.",
+      "loop_exit": "Invariants and the negated loop condition imply each function postcondition.",
+      "decreases": "The optional total-correctness variant is nonnegative before the body and strictly decreases after one body step."
+    }
+  },
+  "corpora": {
+    "go_alpha": {
+      "manifest": {
+        "path": "fixtures/go-alpha/manifest.json",
+        "sha256": "4f3371e0bc768724cab86831b3daa24c76d64cf926284fee72c571160399aed7",
+        "schema": "mpk.go_alpha_corpus.v0",
+        "function_count": 100
+      },
+      "module_path": "fixtures/go-alpha/go.mod",
+      "module_sha256": "4a3cb8b7a0c57d3ad6619e79e6b0dffbcbcc631a23c9f437b3133d964f1a0aac",
+      "expected_outcome": "accepted",
+      "expected_cli_status": "gir-lowered",
+      "groups": [
+        {
+          "name": "arith",
+          "source": "fixtures/go-alpha/arith/arith.go",
+          "source_sha256": "7ea7cedcc016a0beacc1184741b1079ce7e4595100dee6c029cd5ac8f101c31d",
+          "function_count": 34,
+          "functions": [
+            "Add64",
+            "Sub64",
+            "Mul64",
+            "Neg64",
+            "Add32",
+            "Sub32",
+            "Mul32",
+            "Neg32",
+            "Add16",
+            "Sub16",
+            "Add8",
+            "Sub8",
+            "AddU64",
+            "SubU64",
+            "MulU64",
+            "AndU64",
+            "OrU64",
+            "XorU64",
+            "NotU64",
+            "ShiftLeftU64",
+            "ShiftRightU64",
+            "AndU8",
+            "OrU8",
+            "XorU8",
+            "NotU8",
+            "Less64",
+            "LessEqual64",
+            "Greater64",
+            "GreaterEqual64",
+            "Equal64",
+            "NotEqual64",
+            "BoolAnd",
+            "BoolOr",
+            "BoolNot"
+          ],
+          "semantics": [
+            "fixed-width signed and unsigned wrapping arithmetic",
+            "fixed-width bit operations",
+            "signed comparisons",
+            "Boolean operations",
+            "signed shift counts require runtime-safety coverage"
+          ]
+        },
+        {
+          "name": "branch",
+          "source": "fixtures/go-alpha/branch/branch.go",
+          "source_sha256": "b3d2487cf5b8305eea5e84dbdbb112d7efe4eafd792cfc4ad7380138f8379240",
+          "function_count": 33,
+          "functions": [
+            "Max64",
+            "Min64",
+            "Max32",
+            "Min32",
+            "Max16",
+            "Min16",
+            "Max8",
+            "Min8",
+            "MaxU64",
+            "MinU64",
+            "MaxU32",
+            "MinU32",
+            "MaxU16",
+            "MinU16",
+            "MaxU8",
+            "MinU8",
+            "Pick64",
+            "Pick32",
+            "Pick16",
+            "Pick8",
+            "PickU64",
+            "PickU32",
+            "PickU16",
+            "PickU8",
+            "Clamp64",
+            "Clamp32",
+            "ClampU64",
+            "ClampU32",
+            "AbsDiff64",
+            "AbsDiff32",
+            "AbsDiff16",
+            "AbsDiff8",
+            "Ordered64"
+          ],
+          "semantics": [
+            "if control flow",
+            "early path selection",
+            "local assignment",
+            "signed and unsigned comparisons"
+          ]
+        },
+        {
+          "name": "array",
+          "source": "fixtures/go-alpha/array/array.go",
+          "source_sha256": "d6bfc8d7c4ca5f06be35d1d7bdb9a3e7807856bc6a16fd67280555a556d4344c",
+          "function_count": 33,
+          "functions": [
+            "BuildPair64",
+            "SumPair64",
+            "PickPairLeft",
+            "PickPairRight",
+            "SwapPair64",
+            "BuildTriple64",
+            "SumTriple64",
+            "PickTripleFirst",
+            "PickTripleSecond",
+            "PickTripleThird",
+            "BuildArray2",
+            "BuildArray3",
+            "FirstArray2",
+            "SecondArray2",
+            "SumArray2",
+            "FirstArray3",
+            "SecondArray3",
+            "ThirdArray3",
+            "SumArray3",
+            "BuildUArray2",
+            "FirstUArray2",
+            "SecondUArray2",
+            "SumUArray2",
+            "BuildBoolArray2",
+            "FirstBoolArray2",
+            "SecondBoolArray2",
+            "AllBoolArray2",
+            "AnyBoolArray2",
+            "BuildPairArray64",
+            "SumPairArray64",
+            "SelectArrayValue",
+            "AddArrayFirst",
+            "BuildPairU64"
+          ],
+          "semantics": [
+            "fixed-array construction and read",
+            "by-value struct construction and field read",
+            "nested aggregate values",
+            "fixed-array reads require bounds coverage"
+          ]
+        }
+      ],
+      "vc_fixture": {
+        "manifest_path": "fixtures/vc-alpha/manifest.json",
+        "manifest_sha256": "2430aad74fad185d2dde4a3e38eb4a93375c2a4f65835eb331a60bc0617a244e",
+        "source_gir_hash": "84374e92fb2176e50a17c071fa73d59619a165a492406dd50845703d84e0a2f8",
+        "branch_case_count": 33,
+        "postconditions_per_case": 16,
+        "obligation_count": 1056,
+        "obligation_kinds": [
+          "postcondition"
+        ],
+        "first_obligation": "alpha.branch.Case000.then.post0",
+        "last_obligation": "alpha.branch.Case032.else.post15",
+        "vc": {
+          "path": "fixtures/vc-alpha/vc.json",
+          "sha256": "999a3b2f34a9d25ee5972674ffc4dc1590439a7aa5c8e41dda4472d76cf82b97"
+        },
+        "skeleton": {
+          "path": "fixtures/vc-alpha/vc_skeleton.json",
+          "sha256": "e1cea2c49ae72d5ba9e85c589d05577137a8b3d0cae2772388b711a633cd82fe",
+          "theorem_declaration_count": 1056
+        },
+        "checker_verdict": "not_run_no_canonical_certificate"
+      }
+    },
+    "go_basic": {
+      "manifest_path": "fixtures/go-basic/manifest.json",
+      "manifest_sha256": "512c522568a44b930dcd1ddbccc6d5203231a09d5eaf3f428ff47bf673097fc1",
+      "module_path": "fixtures/go-basic/go.mod",
+      "module_sha256": "fbaecf3a2fa13def8774c5ed6d6439b5032975224b7569e1464cfd0a014e903a",
+      "positive": [
+        {
+          "name": "arith",
+          "path": "positive/arith",
+          "source_sha256": "be472595e9029249dcc0f35c43c6a441cb935c78a03ec0d06c07c2123fbaf28c",
+          "expected": "accepted",
+          "covers": [
+            "fixed-width integer arithmetic",
+            "fixed-width integer bit operations",
+            "boolean operations"
+          ]
+        },
+        {
+          "name": "branch",
+          "path": "positive/branch",
+          "source_sha256": "2f5af9661edc9e1e078640fd48e6fa1d511ff9b82a3ac07f62163a9ec3ac65b4",
+          "expected": "accepted",
+          "covers": [
+            "local variables",
+            "if control flow",
+            "fixed-width integer comparison"
+          ]
+        },
+        {
+          "name": "structarray",
+          "path": "positive/structarray",
+          "source_sha256": "d7c8a95e23a31708d0aa83f23f1d55903f1d30079d6d0f2ff128e487a99b3ef8",
+          "expected": "accepted",
+          "covers": [
+            "struct construction",
+            "struct field read",
+            "fixed array construction",
+            "fixed array index read"
+          ]
+        }
+      ],
+      "negative": [
+        {
+          "name": "map",
+          "path": "negative/map",
+          "source_sha256": "8097f84018a3b41013c0da83883e83c2641589670753c32a657de81d20c7a33f",
+          "feature": "maps",
+          "reason": "maps are rejected by Go subset v0"
+        },
+        {
+          "name": "pointer",
+          "path": "negative/pointer",
+          "source_sha256": "bd36d4dc0bb00dcac2b0ab640e1928de89df4e84e7a0375779a5384c214bdb64",
+          "feature": "pointers",
+          "reason": "pointers are rejected by Go subset v0"
+        },
+        {
+          "name": "generic",
+          "path": "negative/generic",
+          "source_sha256": "6c6ec14df0ff94da8fbb67c95e0686ae4b244301069211b01bae52776d56938c",
+          "feature": "generics",
+          "reason": "generic functions are rejected by Go subset v0"
+        },
+        {
+          "name": "string",
+          "path": "negative/string",
+          "source_sha256": "02ca8d5fff33dd866aecac787fa64048bc491a882aca5777d673d03c48abf52a",
+          "feature": "strings",
+          "reason": "strings are rejected by Go subset v0"
+        }
+      ]
+    },
+    "payment_policies": {
+      "manifest_path": "examples/payment_policies/manifest.json",
+      "manifest_sha256": "a3fe95a98653d1370587231ae84c555a784e68a7f019192bafaf274900435ca3",
+      "shared_expectation": {
+        "frontend_outcome": "accepted",
+        "frontend_cli_status": "gir-lowered",
+        "requires_count": 2,
+        "ensures_count": 4,
+        "obligation_count": 8,
+        "obligation_kinds": [
+          "postcondition"
+        ],
+        "linear_theory_goal_count": 6,
+        "true_or_opaque_goal_count": 1,
+        "opaque_or_true_goal_count": 1,
+        "classification_evidence_label": "helper_analysis",
+        "classification_property_status": "proof_pending",
+        "checker_verdict": "not_run_no_canonical_certificate"
+      },
+      "positive": [
+        {
+          "name": "reserve",
+          "path": "examples/payment_policies/reserve",
+          "function_id": "example.com/payment/reserve.ApprovedReserveCents",
+          "module_path": "examples/payment_policies/reserve/go.mod",
+          "source_path": "examples/payment_policies/reserve/policy.go",
+          "contract_path": "examples/payment_policies/reserve/policy_contract.json",
+          "gir_path": "examples/payment_policies/reserve/gir.json",
+          "vc_path": "examples/payment_policies/reserve/vc.json",
+          "skeleton_path": "examples/payment_policies/reserve/vc_skeleton.json",
+          "module_sha256": "a3987b8027dcbc02b3b2f72a8a3effa7d35cb84799f534690e407600ba3f97ee",
+          "source_sha256": "d844f257c70887dab36e13347755a44f28f7c35095dd7efa4fc84dbeaf4044f2",
+          "contract_sha256": "7b5ae3065faa320474ac2feaf6a99c33c891417b8d14e8683dcdea34485f80a6",
+          "gir_file_sha256": "8ac5bef38a77d64ca4015c5c8acc236651143a1430f79e7967faffdbc6709d94",
+          "gir_hash": "c03601f2dd28e94cb4ac47d00927763847fe28a0db60fa7696275c9ef349f3b7",
+          "vc_file_sha256": "19d2fdc205f5d20dce92e81cc3e19afea0d29de416311b8c9d87498755417ca7",
+          "skeleton_file_sha256": "0d87cfcffd9f570b1d6e287fc04aaae9f0e890469a636bc6f3c8631d9d3c8e7c",
+          "first_theorem": "VC.Obligation.example.com.payment.reserve.ApprovedReserveCents.then.post0",
+          "last_theorem": "VC.Obligation.example.com.payment.reserve.ApprovedReserveCents.else.post3",
+          "classification_patterns": {
+            "non_negative_result": 2,
+            "result_bounded_by_input": 4,
+            "selected_branch_result_equals_input": 2
+          }
+        },
+        {
+          "name": "refund",
+          "path": "examples/payment_policies/refund",
+          "function_id": "example.com/payment/refund.ApprovedRefundCents",
+          "module_path": "examples/payment_policies/refund/go.mod",
+          "source_path": "examples/payment_policies/refund/policy.go",
+          "contract_path": "examples/payment_policies/refund/policy_contract.json",
+          "gir_path": "examples/payment_policies/refund/gir.json",
+          "vc_path": "examples/payment_policies/refund/vc.json",
+          "skeleton_path": "examples/payment_policies/refund/vc_skeleton.json",
+          "module_sha256": "e72da78fa681084726169fd13d61b9faf474ca233b78391172c1a2725303e385",
+          "source_sha256": "832d61bc348519351d9d95294c1110c38a612e391021033478467543dc0d189b",
+          "contract_sha256": "c1e084bed11e55fc1459353e2f7b55fa50c51ff88ed08ce8768f3313aef2c2d7",
+          "gir_file_sha256": "cb4e9ec97c3384d0547f0d51a133c7b5e03abad103092085e7cabdd382d3ff02",
+          "gir_hash": "2b7b42fba9b656183ed1a0edfdef144ef3b699e9db79a33aec7a463f869969ab",
+          "vc_file_sha256": "9309ef79eaa5df4d01ac6fd2fabc280d987e02ad43e2bf5621b357525c139ce0",
+          "skeleton_file_sha256": "52a659f4096cf862f59dcfd369ad836628708ad9a500f54c2bd3ed140bc271a7",
+          "first_theorem": "VC.Obligation.example.com.payment.refund.ApprovedRefundCents.then.post0",
+          "last_theorem": "VC.Obligation.example.com.payment.refund.ApprovedRefundCents.else.post3",
+          "classification_patterns": {
+            "non_negative_result": 2,
+            "refund_bounded_by_available_paid_amount": 4,
+            "selected_branch_result_equals_input": 2
+          }
+        },
+        {
+          "name": "discount",
+          "path": "examples/payment_policies/discount",
+          "function_id": "example.com/payment/discount.ApprovedDiscountCents",
+          "module_path": "examples/payment_policies/discount/go.mod",
+          "source_path": "examples/payment_policies/discount/policy.go",
+          "contract_path": "examples/payment_policies/discount/policy_contract.json",
+          "gir_path": "examples/payment_policies/discount/gir.json",
+          "vc_path": "examples/payment_policies/discount/vc.json",
+          "skeleton_path": "examples/payment_policies/discount/vc_skeleton.json",
+          "module_sha256": "4a661d37f78e488cb5eaba57d4514a8513f2bad61207bdf1bbcda811fa0a754f",
+          "source_sha256": "3f53035e86e57ad70ed953cbfe5d04db926cb76aaaff35ce627c47b139c7cb4d",
+          "contract_sha256": "c496bf1b675fa674eba84e4cde91ab1f82b5816c5b86fb82cec9a566e8897672",
+          "gir_file_sha256": "00e601bbcacd16a9322e14caaa086238a85e5dfbca0aecc75934ceb6691d64af",
+          "gir_hash": "92af353b7c13dffc859334501f0578b9338a21030ca686127e366d69c251fc94",
+          "vc_file_sha256": "675759ccfa7288d5dd08ea77ca61714ce52dca5d9a1ce5c4d1701d7307691388",
+          "skeleton_file_sha256": "48ed21762bf005296466c3ba143f79cd09ffc7199547a77c56546154f910b4d2",
+          "first_theorem": "VC.Obligation.example.com.payment.discount.ApprovedDiscountCents.then.post0",
+          "last_theorem": "VC.Obligation.example.com.payment.discount.ApprovedDiscountCents.else.post3",
+          "classification_patterns": {
+            "non_negative_result": 2,
+            "fee_or_discount_bounded_by_cap": 4,
+            "selected_branch_result_equals_input": 2
+          }
+        },
+        {
+          "name": "fee",
+          "path": "examples/payment_policies/fee",
+          "function_id": "example.com/payment/fee.AppliedPlatformFeeCents",
+          "module_path": "examples/payment_policies/fee/go.mod",
+          "source_path": "examples/payment_policies/fee/policy.go",
+          "contract_path": "examples/payment_policies/fee/policy_contract.json",
+          "gir_path": "examples/payment_policies/fee/gir.json",
+          "vc_path": "examples/payment_policies/fee/vc.json",
+          "skeleton_path": "examples/payment_policies/fee/vc_skeleton.json",
+          "module_sha256": "85b08ea1c733a7f92115b6d3a4de3e583be37d6ca47b175f42970e552dd2967a",
+          "source_sha256": "46bdd70a14cdd399b780fe91986687bc68cbcc8ec640bf79311c721db7465a56",
+          "contract_sha256": "fdf8250ac83d4d94b1a59b8dc69423919bee8c7032658190a4532706ee970601",
+          "gir_file_sha256": "7a265d95df64449448b090bfb6170150228e8e160b318063c59fe8a3b1993cd5",
+          "gir_hash": "e4d4e656ad3611ba9829639562a02b79315b61a8a274799b736cf00ad50c24f6",
+          "vc_file_sha256": "e4a3b755cd3570c42795d7a80d2151ff42f08fcb1824dfe3fd80d703c2968e9c",
+          "skeleton_file_sha256": "712dc179b8263eedb0e0bddbb57f8c9a641d10894e7e42e31df8db5e7a58c3a1",
+          "first_theorem": "VC.Obligation.example.com.payment.fee.AppliedPlatformFeeCents.then.post0",
+          "last_theorem": "VC.Obligation.example.com.payment.fee.AppliedPlatformFeeCents.else.post3",
+          "classification_patterns": {
+            "non_negative_result": 2,
+            "fee_or_discount_bounded_by_cap": 4,
+            "selected_branch_result_equals_input": 2
+          }
+        },
+        {
+          "name": "points",
+          "path": "examples/payment_policies/points",
+          "function_id": "example.com/payment/points.ApprovedRedemptionPoints",
+          "module_path": "examples/payment_policies/points/go.mod",
+          "source_path": "examples/payment_policies/points/policy.go",
+          "contract_path": "examples/payment_policies/points/policy_contract.json",
+          "gir_path": "examples/payment_policies/points/gir.json",
+          "vc_path": "examples/payment_policies/points/vc.json",
+          "skeleton_path": "examples/payment_policies/points/vc_skeleton.json",
+          "module_sha256": "bbb69536b147e6e4ee4d18827d327b2d47b23ed79723842f0d5911ee8f175bc5",
+          "source_sha256": "6c5c1919cceeb97071340ac60c43777d2e03006939c67045e57595eee4a1ac1c",
+          "contract_sha256": "16327bb94f33d19b17e758192b174aee1b7b5e1a3155989f0f02bc761303bec3",
+          "gir_file_sha256": "59a3cd0349e77ccec19d752c60567ef4823320335b0141296fce0ea16cfce1cb",
+          "gir_hash": "cf2e7c40b497ef4c8a6bd7612f1554223d1017d7640ad60fe7fd2332fa8e3f66",
+          "vc_file_sha256": "beafb3d0f3be7123e915dd8e284b8fa54ad43cc794b4c59bbb50b917d29daa58",
+          "skeleton_file_sha256": "23998748a4f313c558b40de0c9534b7d7bdbca95dee4b553104e40079fd93ba9",
+          "first_theorem": "VC.Obligation.example.com.payment.points.ApprovedRedemptionPoints.then.post0",
+          "last_theorem": "VC.Obligation.example.com.payment.points.ApprovedRedemptionPoints.else.post3",
+          "classification_patterns": {
+            "non_negative_result": 2,
+            "result_bounded_by_input": 4,
+            "selected_branch_result_equals_input": 2
+          }
+        }
+      ],
+      "negative": [
+        {
+          "name": "float",
+          "path": "negative/float",
+          "files": {
+            "go.mod": "1a57ac67fcfffe17fa17b3423d292eb3866e23903a6d1796aeb9c7c72f1be1af",
+            "policy.go": "4f0b86a34953dfc5c38af23433ce4264a5676df4c1d92524febcbe6f86ad3d72"
+          },
+          "feature": "floating point",
+          "reason": "floating-point numbers are rejected by Go subset v0"
+        },
+        {
+          "name": "map",
+          "path": "negative/map",
+          "files": {
+            "go.mod": "d56a9b31b97c25445820bb3931044ed04e7d416864899198ae457cfb66202673",
+            "policy.go": "d3d3e66214b08a41097bb49e2cf96ad83f9842184e4795b9ac455b565e1eead6"
+          },
+          "feature": "maps",
+          "reason": "maps are rejected by Go subset v0"
+        },
+        {
+          "name": "pointer",
+          "path": "negative/pointer",
+          "files": {
+            "go.mod": "44d78282450153c0881cc1a896a79b9f533188aa7ead05c9dae5d09f3dba0704",
+            "policy.go": "36552871fb2e39b95dfc01efd1d5bce0dde4fa4c0cfc20b24ebbd259164c1977"
+          },
+          "feature": "pointers",
+          "reason": "pointers are rejected by Go subset v0"
+        },
+        {
+          "name": "missing_postconditions",
+          "path": "negative/missing_postconditions",
+          "files": {
+            "go.mod": "a6d2f7b11a5fcd8823a802add721d8578b182823b8c04f5d8689a34dfb08c560",
+            "policy.go": "917ae60cffd658f8c010f889d5d69389ecf536f5f002332f2bc8e56f2ffa6db7",
+            "policy_contract.json": "a1b24c6b9690da9ee6038b1156d0939071cbc145336875abb09c2888e5d0f81f"
+          },
+          "feature": "contract sidecar",
+          "reason": "contract sidecar requires at least one postcondition"
+        }
+      ]
+    },
+    "focused_frontend_negative_cases": [
+      {
+        "path": "go-tools/go2gir/testdata/unsupported/map",
+        "feature": "maps",
+        "reason": "maps are rejected by Go subset v0"
+      },
+      {
+        "path": "go-tools/go2gir/testdata/unsupported/goroutine",
+        "feature": "goroutines",
+        "reason": "goroutines are rejected by Go subset v0"
+      },
+      {
+        "path": "go-tools/go2gir/testdata/unsupported/generic",
+        "feature": "generics",
+        "reason": "generic functions are rejected by Go subset v0"
+      },
+      {
+        "path": "go-tools/go2gir/testdata/unsupported/pointer",
+        "feature": "pointers",
+        "reason": "pointers are rejected by Go subset v0"
+      },
+      {
+        "path": "go-tools/go2gir/testdata/unsupported/untypedint",
+        "feature": "GIR lowering",
+        "reason": "type untyped int is not lowered by GO-005"
+      },
+      {
+        "path": "go-tools/go2gir/testdata/contract_malformed",
+        "feature": "contract sidecar",
+        "reason": "invalid contract sidecar JSON"
+      },
+      {
+        "path": "go-tools/go2gir/testdata/contract_unknown_function",
+        "feature": "contract sidecar",
+        "reason": "contract function \"unknowncontract.Missing\" does not resolve to a lowered GIR function"
+      },
+      {
+        "path": "go-tools/go2gir/testdata/contract_unsupported_operator",
+        "feature": "contract sidecar",
+        "reason": "unsupported contract expression operator \"float_eq\""
+      }
+    ]
+  },
+  "behavioral_anchors": {
+    "contracts": {
+      "test_file": "go-tools/go2gir/contract_sidecar_test.go",
+      "test_file_sha256": "ea7f5463cd522010d657c5eff1ebba80a08bed11073c67aa24c00b24320639d4",
+      "rules": [
+        "requires and loops default to empty",
+        "ensures must be present and nonempty",
+        "modifies must be empty",
+        "function identity must resolve exactly",
+        "loop contracts retain invariant and optional decreases expressions",
+        "unknown operators and malformed typed literals reject"
+      ]
+    },
+    "loops": {
+      "test_file": "crates/mpk-vc/src/loops.rs",
+      "test_file_sha256": "f6b6293ca104fcb47eb951542380c9fb9463eaa978e83080ecd94f96bb8617ac",
+      "partial_correctness_test": "annotated_loop_produces_partial_correctness_obligations",
+      "partial_obligation_kinds": [
+        "loop_invariant_initial",
+        "loop_invariant_initial",
+        "loop_invariant_preservation",
+        "loop_invariant_preservation",
+        "loop_exit"
+      ],
+      "total_correctness_test": "annotated_loop_produces_decreases_obligations_when_requested",
+      "total_obligation_count": 7,
+      "additional_total_kinds": [
+        "decreases",
+        "decreases"
+      ],
+      "negative_tests": [
+        "rejects_loop_contract_without_invariant",
+        "rejects_unsupported_variant_shape",
+        "rejects_loop_body_that_does_not_jump_back_to_header"
+      ]
+    },
+    "conversions": {
+      "test_file": "crates/mpk-vc/src/expr_encode.rs",
+      "test_file_sha256": "c95141d3053434d5b369accce98ddd61cf8168b75e2fc8dcacb641b81a89758b",
+      "positive_test": "encodes_convert_snapshot",
+      "intent": "A conversion remains an explicit typed expression with the source value and exact fixed-width target type.",
+      "negative_test": "TestContractExprRejectsExtraConvertTargetTypeFields",
+      "negative_test_file": "go-tools/go2gir/contract_sidecar_test.go"
+    },
+    "runtime_checks": {
+      "test_file": "crates/mpk-vc/src/safety.rs",
+      "test_file_sha256": "811e3990432f18228a870e73fda17da462e3252fce80f86a3bff8edcbbacd7d1",
+      "checks": [
+        {
+          "operation": "signed division",
+          "test": "emits_division_by_zero_obligation",
+          "obligation_kind": "runtime_safety",
+          "predicate": "divisor != 0"
+        },
+        {
+          "operation": "shift with signed count",
+          "test": "emits_shift_nonnegative_obligation_for_signed_shift_count",
+          "obligation_kind": "runtime_safety",
+          "predicate": "count >= 0"
+        },
+        {
+          "operation": "fixed-array read with signed index",
+          "test": "emits_signed_array_index_bounds_obligations",
+          "obligation_kind": "runtime_safety",
+          "predicate": "0 <= index && index < length",
+          "obligation_count": 2
+        }
+      ],
+      "path_behavior_test": "emits_branch_path_assumptions_for_safety_obligations",
+      "negative_tests": [
+        "rejects_signed_division_on_unsigned_bitvectors",
+        "rejects_extra_blocks_for_straight_line_safety_generation",
+        "rejects_index_against_non_array_base"
+      ]
+    }
+  },
+  "checker_baseline": {
+    "release_report": {
+      "path": "release-report.json",
+      "sha256": "d08570ecccb27473414fa23379814a27b2f41ca48fdbc3a34c732eb0e195b64e",
+      "package_verdict": "accepted",
+      "source_free_checker_accepted": true,
+      "reference_checker_accepted": true,
+      "hash_agreement": true,
+      "certificate": {
+        "path": "fixtures/cert-basic/one-theorem.hex",
+        "module": "Example.Basic.OneTheorem",
+        "source_free_verdict": "accepted",
+        "reference_verdict": "accepted",
+        "export_hash": "5e3396fad9702c2578204b2cb90c112e9653fdb57908ab455e3f77dd58b2e91e",
+        "axiom_report_hash": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+        "certificate_hash": "37744c27174b7637485f6c005902dbf72604641ba66e2ebec90795eaddde1e94"
+      }
+    },
+    "payment_reserve_theory_evidence": {
+      "path": "examples/payment_policies/reserve/evidence_alpha.json",
+      "sha256": "30033e84878fb8cbcdadee8b675dd470e3f73db230da584f9db7e79709015aec",
+      "property_count": 8,
+      "property_status": "mpk_verified",
+      "checked_theory_certificate_count": 8,
+      "source_free_checker_verdict": null,
+      "reference_checker_verdict": null,
+      "note": "The current evidence records checked theory certificates but no canonical program certificate or source-free checker verdict. GO-VIR-02-T11 must add both checker verdicts for regenerated certificate artifacts."
+    }
+  }
+}
