@@ -1,0 +1,924 @@
+{
+  "schema": "mpk.policy.scan.conformance.v1",
+  "spec_schemas": [
+    "mpk.policy.scan.v1",
+    "mpk.frontend.cli.v0",
+    "mpk.source_manifest.v0",
+    "mpk.vir.v0"
+  ],
+  "dependencies": {
+    "policy_spec": "develop/specs/POLICY_V1.md",
+    "frontend_spec": "develop/specs/FRONTEND_PROTOCOL_V0.md",
+    "source_manifest_spec": "develop/specs/SOURCE_MANIFEST_V0.md",
+    "source_map_spec": "develop/specs/SOURCE_MAP_V0.md",
+    "release_spec": "develop/specs/RELEASE_BUNDLES_V0.md",
+    "vir_spec": "develop/specs/VIR_V0.md"
+  },
+  "owner_test": "crates/mpk-cli/tests/policy_schema_v1.rs",
+  "linkage_contexts": [
+    {
+      "id": "context.go_identity_ready",
+      "frontend_status": "ir-lowered",
+      "frontend_phase": "emission",
+      "source_language": "go",
+      "semantic_profile": "mpk.go.fixed.v0",
+      "semantic_parameters": {
+        "target_id": "linux/amd64",
+        "pointer_width": 64
+      },
+      "selection": {
+        "package": "example.com/mpk/vector",
+        "function": "example.com/mpk/vector.Identity"
+      },
+      "release_registry": {
+        "schema": "mpk.release.bundle_registry.v0",
+        "id": "mpk.release.registry.v0",
+        "registry_sha256": "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7"
+      },
+      "frontend": {
+        "bundle_id": "frontend.go.synthetic.v0",
+        "name": "go2vir",
+        "version": "vector-1",
+        "binary_sha256": "306c6ca7407560340797866e077e053627ad409277d1b9da58106fce4cf717cb",
+        "subordinate_binaries": []
+      },
+      "toolchain": {
+        "bundle_id": "toolchain.go.synthetic.v0",
+        "distribution_sha256": "1dfc37014daf7080cfe690d97ff3d5856fd28dc556a430cb510bad757de7d1f9",
+        "components": [
+          {
+            "kind": "executable",
+            "name": "go",
+            "release": "go1.25.0",
+            "binary_sha256": "306c6ca7407560340797866e077e053627ad409277d1b9da58106fce4cf717cb"
+          },
+          {
+            "kind": "content",
+            "name": "go-stdlib",
+            "release": "go1.25.0",
+            "content_sha256": "d0e474c3d4c5604aa8d233021e24e742322ff0cea7cf55c1ce7f2c87dfefa469"
+          },
+          {
+            "kind": "content",
+            "name": "native-runtime",
+            "release": "synthetic-1",
+            "content_sha256": "dcabd7c7214d69d0cc474407283579497db30f56e2dc4e388a71886446d5c948"
+          },
+          {
+            "kind": "content",
+            "name": "notices",
+            "release": "synthetic-1",
+            "content_sha256": "e0b4c60c121662d43796c29e52be87b45907687b40de12a76bf92e8a928c02e6"
+          }
+        ]
+      },
+      "limit_profile": "mpk.vir.limits.v0",
+      "frontend_source_manifest_hash": "14a180a4d319bf66d288b8e7e65321f361d5fc48739513a42032c593865f125f",
+      "input_set_hash": "e05e9fa46ee44a198470ada4935f756b12e9d6779601a7f88e4cb468d151ab31",
+      "source_map_hash": "f66b38fcdba7dd4b6250269c566d5599c2b1821a69370f67aa961fdb5893b6f9",
+      "source_ir_schema": "mpk.vir.v0",
+      "source_ir_hash": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690",
+      "helper_artifacts": [
+        {
+          "id": "source:identity.go",
+          "kind": "source",
+          "normalized_path": "identity.go",
+          "sha256": "f387d3ec7532adabcc75407d7cad3e4df113cd255ff177b1b9f02985bbccacea"
+        },
+        {
+          "id": "contract:example.com/mpk/vector.Identity",
+          "kind": "contract",
+          "normalized_path": "contracts/identity.json",
+          "schema": "mpk.go.contract.v0",
+          "raw_input_sha256": "ddfafe866f187501b19a19b0e89106361db7401d160195c652c162a876c80ba4",
+          "function_id": "example.com/mpk/vector.Identity",
+          "contract_hash": "a09b6fa6bf3ab7a88b3e808e3d3b658dff65418704804837c8f36f9a3a550cb5"
+        },
+        {
+          "id": "verification_ir",
+          "kind": "verification_ir",
+          "schema": "mpk.vir.v0",
+          "sha256": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690"
+        }
+      ],
+      "rejected_features": [],
+      "diagnostics": []
+    },
+    {
+      "id": "context.rust_call_pair_ready",
+      "frontend_status": "ir-lowered",
+      "frontend_phase": "emission",
+      "source_language": "rust",
+      "semantic_profile": "mpk.rust.checked.v0",
+      "semantic_parameters": {
+        "target_id": "x86_64-unknown-linux-gnu",
+        "pointer_width": 64,
+        "overflow_mode": "checked",
+        "panic_mode": "abort"
+      },
+      "selection": {
+        "package": "demo",
+        "crate": "demo",
+        "kind": "lib",
+        "function": "demo::caller"
+      },
+      "release_registry": {
+        "schema": "mpk.release.bundle_registry.v0",
+        "id": "mpk.release.registry.v0",
+        "registry_sha256": "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7"
+      },
+      "frontend": {
+        "bundle_id": "frontend.rust.synthetic.v0",
+        "name": "rust2vir",
+        "version": "vector-1",
+        "binary_sha256": "8181818181818181818181818181818181818181818181818181818181818181",
+        "subordinate_binaries": [
+          {
+            "name": "rust2vir-driver",
+            "version": "vector-1",
+            "binary_sha256": "8282828282828282828282828282828282828282828282828282828282828282"
+          }
+        ]
+      },
+      "toolchain": {
+        "bundle_id": "toolchain.rust.synthetic.v0",
+        "distribution_sha256": "8383838383838383838383838383838383838383838383838383838383838383",
+        "components": [
+          {
+            "kind": "executable",
+            "name": "cargo",
+            "release": "1.89.0-nightly",
+            "binary_sha256": "8484848484848484848484848484848484848484848484848484848484848484"
+          },
+          {
+            "kind": "content",
+            "name": "llvm",
+            "release": "20.1.0",
+            "content_sha256": "8585858585858585858585858585858585858585858585858585858585858585"
+          },
+          {
+            "kind": "content",
+            "name": "rust-stdlib",
+            "release": "1.89.0-nightly",
+            "content_sha256": "8686868686868686868686868686868686868686868686868686868686868686"
+          },
+          {
+            "kind": "executable",
+            "name": "rustc",
+            "release": "1.89.0-nightly",
+            "commit_hash": "8787878787878787878787878787878787878787",
+            "binary_sha256": "8888888888888888888888888888888888888888888888888888888888888888"
+          }
+        ]
+      },
+      "limit_profile": "mpk.vir.limits.v0",
+      "frontend_source_manifest_hash": "8989898989898989898989898989898989898989898989898989898989898989",
+      "input_set_hash": "5555555555555555555555555555555555555555555555555555555555555555",
+      "source_map_hash": "9090909090909090909090909090909090909090909090909090909090909090",
+      "source_ir_schema": "mpk.vir.v0",
+      "source_ir_hash": "4444444444444444444444444444444444444444444444444444444444444444",
+      "helper_artifacts": [
+        {
+          "id": "source:src/lib.rs",
+          "kind": "source",
+          "normalized_path": "src/lib.rs",
+          "sha256": "9191919191919191919191919191919191919191919191919191919191919191"
+        },
+        {
+          "id": "contract:demo::callee",
+          "kind": "contract",
+          "normalized_path": "contracts/callee.json",
+          "schema": "mpk.rust.contract.v0",
+          "raw_input_sha256": "9292929292929292929292929292929292929292929292929292929292929292",
+          "function_id": "demo::callee",
+          "contract_hash": "6666666666666666666666666666666666666666666666666666666666666666"
+        },
+        {
+          "id": "contract:demo::caller",
+          "kind": "contract",
+          "normalized_path": "contracts/caller.json",
+          "schema": "mpk.rust.contract.v0",
+          "raw_input_sha256": "9393939393939393939393939393939393939393939393939393939393939393",
+          "function_id": "demo::caller",
+          "contract_hash": "7777777777777777777777777777777777777777777777777777777777777777"
+        },
+        {
+          "id": "verification_ir",
+          "kind": "verification_ir",
+          "schema": "mpk.vir.v0",
+          "sha256": "4444444444444444444444444444444444444444444444444444444444444444"
+        }
+      ],
+      "rejected_features": [],
+      "diagnostics": []
+    },
+    {
+      "id": "context.rust_source_error",
+      "frontend_status": "source-error",
+      "frontend_phase": "typecheck",
+      "source_language": "rust",
+      "semantic_profile": "mpk.rust.checked.v0",
+      "semantic_parameters": {
+        "target_id": "x86_64-unknown-linux-gnu",
+        "pointer_width": 64,
+        "overflow_mode": "checked",
+        "panic_mode": "abort"
+      },
+      "selection": {
+        "package": "demo",
+        "crate": "demo",
+        "kind": "lib",
+        "function": "demo::caller"
+      },
+      "release_registry": {
+        "schema": "mpk.release.bundle_registry.v0",
+        "id": "mpk.release.registry.v0",
+        "registry_sha256": "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7"
+      },
+      "frontend": {
+        "bundle_id": "frontend.rust.synthetic.v0",
+        "name": "rust2vir",
+        "version": "vector-1",
+        "binary_sha256": "8181818181818181818181818181818181818181818181818181818181818181",
+        "subordinate_binaries": [
+          {
+            "name": "rust2vir-driver",
+            "version": "vector-1",
+            "binary_sha256": "8282828282828282828282828282828282828282828282828282828282828282"
+          }
+        ]
+      },
+      "toolchain": {
+        "bundle_id": "toolchain.rust.synthetic.v0",
+        "distribution_sha256": "8383838383838383838383838383838383838383838383838383838383838383",
+        "components": [
+          {
+            "kind": "executable",
+            "name": "cargo",
+            "release": "1.89.0-nightly",
+            "binary_sha256": "8484848484848484848484848484848484848484848484848484848484848484"
+          },
+          {
+            "kind": "content",
+            "name": "llvm",
+            "release": "20.1.0",
+            "content_sha256": "8585858585858585858585858585858585858585858585858585858585858585"
+          },
+          {
+            "kind": "content",
+            "name": "rust-stdlib",
+            "release": "1.89.0-nightly",
+            "content_sha256": "8686868686868686868686868686868686868686868686868686868686868686"
+          },
+          {
+            "kind": "executable",
+            "name": "rustc",
+            "release": "1.89.0-nightly",
+            "commit_hash": "8787878787878787878787878787878787878787",
+            "binary_sha256": "8888888888888888888888888888888888888888888888888888888888888888"
+          }
+        ]
+      },
+      "rejected_features": [],
+      "diagnostics": [
+        {
+          "code": "RUST_TYPE_MISMATCH",
+          "message": "selected function has a type mismatch",
+          "function_id": "demo::caller",
+          "span": {
+            "normalized_path": "src/lib.rs",
+            "start": 16,
+            "end": 24
+          }
+        }
+      ]
+    }
+  ],
+  "fixtures": [
+    {
+      "id": "scan.go_identity_ready",
+      "linkage_context": "context.go_identity_ready",
+      "canonical_transport_utf8_length": 2585,
+      "canonical_transport_sha256": "3509fb6d9aa4a7b01984cd6855d352194991996cc833900ed8ef49dbfc9d2465",
+      "input": {
+        "schema": "mpk.policy.scan.v1",
+        "frontend_status": "ir-lowered",
+        "frontend_phase": "emission",
+        "source_language": "go",
+        "semantic_profile": "mpk.go.fixed.v0",
+        "semantic_parameters": {
+          "target_id": "linux/amd64",
+          "pointer_width": 64
+        },
+        "selection": {
+          "package": "example.com/mpk/vector",
+          "function": "example.com/mpk/vector.Identity"
+        },
+        "release_registry": {
+          "schema": "mpk.release.bundle_registry.v0",
+          "id": "mpk.release.registry.v0",
+          "registry_sha256": "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7"
+        },
+        "frontend": {
+          "bundle_id": "frontend.go.synthetic.v0",
+          "name": "go2vir",
+          "version": "vector-1",
+          "binary_sha256": "306c6ca7407560340797866e077e053627ad409277d1b9da58106fce4cf717cb",
+          "subordinate_binaries": []
+        },
+        "toolchain": {
+          "bundle_id": "toolchain.go.synthetic.v0",
+          "distribution_sha256": "1dfc37014daf7080cfe690d97ff3d5856fd28dc556a430cb510bad757de7d1f9",
+          "components": [
+            {
+              "kind": "executable",
+              "name": "go",
+              "release": "go1.25.0",
+              "binary_sha256": "306c6ca7407560340797866e077e053627ad409277d1b9da58106fce4cf717cb"
+            },
+            {
+              "kind": "content",
+              "name": "go-stdlib",
+              "release": "go1.25.0",
+              "content_sha256": "d0e474c3d4c5604aa8d233021e24e742322ff0cea7cf55c1ce7f2c87dfefa469"
+            },
+            {
+              "kind": "content",
+              "name": "native-runtime",
+              "release": "synthetic-1",
+              "content_sha256": "dcabd7c7214d69d0cc474407283579497db30f56e2dc4e388a71886446d5c948"
+            },
+            {
+              "kind": "content",
+              "name": "notices",
+              "release": "synthetic-1",
+              "content_sha256": "e0b4c60c121662d43796c29e52be87b45907687b40de12a76bf92e8a928c02e6"
+            }
+          ]
+        },
+        "readiness": "ready",
+        "rejected_features": [],
+        "diagnostics": [],
+        "limit_profile": "mpk.vir.limits.v0",
+        "frontend_source_manifest_hash": "14a180a4d319bf66d288b8e7e65321f361d5fc48739513a42032c593865f125f",
+        "input_set_hash": "e05e9fa46ee44a198470ada4935f756b12e9d6779601a7f88e4cb468d151ab31",
+        "source_map_hash": "f66b38fcdba7dd4b6250269c566d5599c2b1821a69370f67aa961fdb5893b6f9",
+        "source_ir_schema": "mpk.vir.v0",
+        "source_ir_hash": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690",
+        "helper_artifacts": [
+          {
+            "id": "source:identity.go",
+            "kind": "source",
+            "normalized_path": "identity.go",
+            "sha256": "f387d3ec7532adabcc75407d7cad3e4df113cd255ff177b1b9f02985bbccacea"
+          },
+          {
+            "id": "contract:example.com/mpk/vector.Identity",
+            "kind": "contract",
+            "normalized_path": "contracts/identity.json",
+            "schema": "mpk.go.contract.v0",
+            "raw_input_sha256": "ddfafe866f187501b19a19b0e89106361db7401d160195c652c162a876c80ba4",
+            "function_id": "example.com/mpk/vector.Identity",
+            "contract_hash": "a09b6fa6bf3ab7a88b3e808e3d3b658dff65418704804837c8f36f9a3a550cb5"
+          },
+          {
+            "id": "verification_ir",
+            "kind": "verification_ir",
+            "schema": "mpk.vir.v0",
+            "sha256": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scan.rust_call_pair_ready",
+      "linkage_context": "context.rust_call_pair_ready",
+      "canonical_transport_utf8_length": 3121,
+      "canonical_transport_sha256": "171dfe93347badd95c3e2ce8709becdb24ecf4f00c22335c5bab9c6227c87572",
+      "input": {
+        "schema": "mpk.policy.scan.v1",
+        "frontend_status": "ir-lowered",
+        "frontend_phase": "emission",
+        "source_language": "rust",
+        "semantic_profile": "mpk.rust.checked.v0",
+        "semantic_parameters": {
+          "target_id": "x86_64-unknown-linux-gnu",
+          "pointer_width": 64,
+          "overflow_mode": "checked",
+          "panic_mode": "abort"
+        },
+        "selection": {
+          "package": "demo",
+          "crate": "demo",
+          "kind": "lib",
+          "function": "demo::caller"
+        },
+        "release_registry": {
+          "schema": "mpk.release.bundle_registry.v0",
+          "id": "mpk.release.registry.v0",
+          "registry_sha256": "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7"
+        },
+        "frontend": {
+          "bundle_id": "frontend.rust.synthetic.v0",
+          "name": "rust2vir",
+          "version": "vector-1",
+          "binary_sha256": "8181818181818181818181818181818181818181818181818181818181818181",
+          "subordinate_binaries": [
+            {
+              "name": "rust2vir-driver",
+              "version": "vector-1",
+              "binary_sha256": "8282828282828282828282828282828282828282828282828282828282828282"
+            }
+          ]
+        },
+        "toolchain": {
+          "bundle_id": "toolchain.rust.synthetic.v0",
+          "distribution_sha256": "8383838383838383838383838383838383838383838383838383838383838383",
+          "components": [
+            {
+              "kind": "executable",
+              "name": "cargo",
+              "release": "1.89.0-nightly",
+              "binary_sha256": "8484848484848484848484848484848484848484848484848484848484848484"
+            },
+            {
+              "kind": "content",
+              "name": "llvm",
+              "release": "20.1.0",
+              "content_sha256": "8585858585858585858585858585858585858585858585858585858585858585"
+            },
+            {
+              "kind": "content",
+              "name": "rust-stdlib",
+              "release": "1.89.0-nightly",
+              "content_sha256": "8686868686868686868686868686868686868686868686868686868686868686"
+            },
+            {
+              "kind": "executable",
+              "name": "rustc",
+              "release": "1.89.0-nightly",
+              "commit_hash": "8787878787878787878787878787878787878787",
+              "binary_sha256": "8888888888888888888888888888888888888888888888888888888888888888"
+            }
+          ]
+        },
+        "readiness": "ready",
+        "rejected_features": [],
+        "diagnostics": [],
+        "limit_profile": "mpk.vir.limits.v0",
+        "frontend_source_manifest_hash": "8989898989898989898989898989898989898989898989898989898989898989",
+        "input_set_hash": "5555555555555555555555555555555555555555555555555555555555555555",
+        "source_map_hash": "9090909090909090909090909090909090909090909090909090909090909090",
+        "source_ir_schema": "mpk.vir.v0",
+        "source_ir_hash": "4444444444444444444444444444444444444444444444444444444444444444",
+        "helper_artifacts": [
+          {
+            "id": "source:src/lib.rs",
+            "kind": "source",
+            "normalized_path": "src/lib.rs",
+            "sha256": "9191919191919191919191919191919191919191919191919191919191919191"
+          },
+          {
+            "id": "contract:demo::callee",
+            "kind": "contract",
+            "normalized_path": "contracts/callee.json",
+            "schema": "mpk.rust.contract.v0",
+            "raw_input_sha256": "9292929292929292929292929292929292929292929292929292929292929292",
+            "function_id": "demo::callee",
+            "contract_hash": "6666666666666666666666666666666666666666666666666666666666666666"
+          },
+          {
+            "id": "contract:demo::caller",
+            "kind": "contract",
+            "normalized_path": "contracts/caller.json",
+            "schema": "mpk.rust.contract.v0",
+            "raw_input_sha256": "9393939393939393939393939393939393939393939393939393939393939393",
+            "function_id": "demo::caller",
+            "contract_hash": "7777777777777777777777777777777777777777777777777777777777777777"
+          },
+          {
+            "id": "verification_ir",
+            "kind": "verification_ir",
+            "schema": "mpk.vir.v0",
+            "sha256": "4444444444444444444444444444444444444444444444444444444444444444"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scan.rust_source_error",
+      "linkage_context": "context.rust_source_error",
+      "canonical_transport_utf8_length": 1918,
+      "canonical_transport_sha256": "1201dce51b4f88d5201e6933322532a57c8b6d843e378a34284b2cffe6f82962",
+      "input": {
+        "schema": "mpk.policy.scan.v1",
+        "frontend_status": "source-error",
+        "frontend_phase": "typecheck",
+        "source_language": "rust",
+        "semantic_profile": "mpk.rust.checked.v0",
+        "semantic_parameters": {
+          "target_id": "x86_64-unknown-linux-gnu",
+          "pointer_width": 64,
+          "overflow_mode": "checked",
+          "panic_mode": "abort"
+        },
+        "selection": {
+          "package": "demo",
+          "crate": "demo",
+          "kind": "lib",
+          "function": "demo::caller"
+        },
+        "release_registry": {
+          "schema": "mpk.release.bundle_registry.v0",
+          "id": "mpk.release.registry.v0",
+          "registry_sha256": "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7"
+        },
+        "frontend": {
+          "bundle_id": "frontend.rust.synthetic.v0",
+          "name": "rust2vir",
+          "version": "vector-1",
+          "binary_sha256": "8181818181818181818181818181818181818181818181818181818181818181",
+          "subordinate_binaries": [
+            {
+              "name": "rust2vir-driver",
+              "version": "vector-1",
+              "binary_sha256": "8282828282828282828282828282828282828282828282828282828282828282"
+            }
+          ]
+        },
+        "toolchain": {
+          "bundle_id": "toolchain.rust.synthetic.v0",
+          "distribution_sha256": "8383838383838383838383838383838383838383838383838383838383838383",
+          "components": [
+            {
+              "kind": "executable",
+              "name": "cargo",
+              "release": "1.89.0-nightly",
+              "binary_sha256": "8484848484848484848484848484848484848484848484848484848484848484"
+            },
+            {
+              "kind": "content",
+              "name": "llvm",
+              "release": "20.1.0",
+              "content_sha256": "8585858585858585858585858585858585858585858585858585858585858585"
+            },
+            {
+              "kind": "content",
+              "name": "rust-stdlib",
+              "release": "1.89.0-nightly",
+              "content_sha256": "8686868686868686868686868686868686868686868686868686868686868686"
+            },
+            {
+              "kind": "executable",
+              "name": "rustc",
+              "release": "1.89.0-nightly",
+              "commit_hash": "8787878787878787878787878787878787878787",
+              "binary_sha256": "8888888888888888888888888888888888888888888888888888888888888888"
+            }
+          ]
+        },
+        "readiness": "source_error",
+        "rejected_features": [],
+        "diagnostics": [
+          {
+            "code": "RUST_TYPE_MISMATCH",
+            "message": "selected function has a type mismatch",
+            "function_id": "demo::caller",
+            "span": {
+              "normalized_path": "src/lib.rs",
+              "start": 16,
+              "end": 24
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "scan_cases": [
+    {
+      "id": "scan.accept_go_ready",
+      "input_from": "scan.go_identity_ready",
+      "expect": {"outcome": "accept"}
+    },
+    {
+      "id": "scan.accept_rust_ready",
+      "input_from": "scan.rust_call_pair_ready",
+      "expect": {"outcome": "accept"}
+    },
+    {
+      "id": "scan.accept_rust_source_error",
+      "input_from": "scan.rust_source_error",
+      "expect": {"outcome": "accept"}
+    },
+    {
+      "id": "scan.reject_noncanonical_transport",
+      "transport_from": {
+        "fixture": "scan.go_identity_ready",
+        "encoding": "two_space_indent_with_final_lf"
+      },
+      "expect": {"outcome": "reject", "phase": "canonical_transport", "code": "POLICY_CANONICAL_TRANSPORT"}
+    },
+    {
+      "id": "scan.reject_missing_final_lf",
+      "transport_from": {
+        "fixture": "scan.go_identity_ready",
+        "encoding": "jcs_without_final_lf"
+      },
+      "expect": {"outcome": "reject", "phase": "canonical_transport", "code": "POLICY_CANONICAL_TRANSPORT"}
+    },
+    {
+      "id": "scan.reject_duplicate_key",
+      "json_text": "{\"schema\":\"mpk.policy.scan.v1\",\"schema\":\"mpk.policy.scan.v1\"}\n",
+      "expect": {"outcome": "reject", "phase": "transport", "code": "POLICY_JSON_DUPLICATE_KEY"}
+    },
+    {
+      "id": "scan.reject_invalid_json",
+      "json_text": "{\"schema\":\"mpk.policy.scan.v1\"\n",
+      "expect": {"outcome": "reject", "phase": "transport", "code": "POLICY_JSON_INVALID"}
+    },
+    {
+      "id": "scan.reject_wrong_schema",
+      "construction": {
+        "base": "scan.go_identity_ready",
+        "patches": [
+          {"op": "replace", "path": "/schema", "value": "mpk.policy.scan.v2"}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SCAN_SCHEMA"}
+    },
+    {
+      "id": "scan.reject_v0_schema",
+      "construction": {
+        "base": "scan.go_identity_ready",
+        "patches": [
+          {"op": "replace", "path": "/schema", "value": "mpk.policy.scan.v0"}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SCAN_SCHEMA"}
+    },
+    {
+      "id": "scan.reject_unknown_field",
+      "construction": {
+        "base": "scan.go_identity_ready",
+        "patches": [
+          {"op": "add", "path": "/go_version", "value": "go1.25.0"}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
+    },
+    {
+      "id": "scan.reject_legacy_target_shape",
+      "construction": {
+        "base": "scan.go_identity_ready",
+        "patches": [
+          {"op": "add", "path": "/target", "value": {"package_path": "example.com/mpk/vector", "function_id": "example.com/mpk/vector.Identity"}}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
+    },
+    {
+      "id": "scan.reject_legacy_gir_hash",
+      "construction": {
+        "base": "scan.go_identity_ready",
+        "patches": [
+          {"op": "add", "path": "/gir_hash", "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
+    },
+    {
+      "id": "scan.reject_strategy_claim",
+      "construction": {
+        "base": "scan.go_identity_ready",
+        "patches": [
+          {"op": "add", "path": "/strategy_profile", "value": "payment-policy-alpha"}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
+    },
+    {
+      "id": "scan.reject_axiom_claim",
+      "construction": {
+        "base": "scan.go_identity_ready",
+        "patches": [
+          {"op": "add", "path": "/axiom_profile", "value": "zero-axiom"}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
+    },
+    {
+      "id": "scan.reject_checker_claim",
+      "construction": {
+        "base": "scan.go_identity_ready",
+        "patches": [
+          {"op": "add", "path": "/checker_profile", "value": "mvp-strict"}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
+    },
+    {
+      "id": "scan.reject_vc_hash_claim",
+      "construction": {
+        "base": "scan.go_identity_ready",
+        "patches": [
+          {"op": "add", "path": "/vc_hash", "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
+    },
+    {
+      "id": "scan.reject_certificate_manifest_hash_claim",
+      "construction": {
+        "base": "scan.go_identity_ready",
+        "patches": [
+          {"op": "add", "path": "/certificate_source_manifest_hash", "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
+    },
+    {
+      "id": "scan.reject_ambiguous_source_manifest_hash",
+      "construction": {
+        "base": "scan.go_identity_ready",
+        "patches": [
+          {"op": "add", "path": "/source_manifest_hash", "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
+    },
+    {
+      "id": "scan.reject_unknown_language",
+      "construction": {
+        "base": "scan.go_identity_ready",
+        "patches": [
+          {"op": "replace", "path": "/source_language", "value": "typescript"}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "scalar", "code": "POLICY_SCALAR"}
+    },
+    {
+      "id": "scan.reject_unknown_semantic_profile",
+      "construction": {
+        "base": "scan.go_identity_ready",
+        "patches": [
+          {"op": "replace", "path": "/semantic_profile", "value": "mpk.future.fixed.v0"}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "profile", "code": "POLICY_PROFILE_UNKNOWN"}
+    },
+    {
+      "id": "scan.reject_crossed_semantic_profile",
+      "construction": {
+        "base": "scan.go_identity_ready",
+        "patches": [
+          {"op": "replace", "path": "/semantic_profile", "value": "mpk.rust.checked.v0"}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "profile", "code": "POLICY_PROFILE_TUPLE"}
+    },
+    {
+      "id": "scan.reject_registry_projection",
+      "construction": {
+        "base": "scan.go_identity_ready",
+        "patches": [
+          {"op": "replace", "path": "/release_registry/registry_sha256", "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "release", "code": "POLICY_RELEASE_LINKAGE"}
+    },
+    {
+      "id": "scan.reject_frontend_manifest_hash",
+      "construction": {
+        "base": "scan.go_identity_ready",
+        "patches": [
+          {"op": "replace", "path": "/frontend_source_manifest_hash", "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "source_linkage", "code": "POLICY_SOURCE_LINKAGE"}
+    },
+    {
+      "id": "scan.reject_source_ir_hash",
+      "construction": {
+        "base": "scan.go_identity_ready",
+        "patches": [
+          {"op": "replace", "path": "/source_ir_hash", "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "source_linkage", "code": "POLICY_SOURCE_LINKAGE"}
+    },
+    {
+      "id": "scan.reject_contract_raw_hash_as_normalized",
+      "construction": {
+        "base": "scan.go_identity_ready",
+        "patches": [
+          {"op": "replace", "path": "/helper_artifacts/1/contract_hash", "value": "ddfafe866f187501b19a19b0e89106361db7401d160195c652c162a876c80ba4"}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "source_linkage", "code": "POLICY_HELPER_LINKAGE"}
+    },
+    {
+      "id": "scan.reject_missing_source_helper",
+      "construction": {
+        "base": "scan.go_identity_ready",
+        "patches": [
+          {"op": "remove", "path": "/helper_artifacts/0"}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "source_linkage", "code": "POLICY_HELPER_LINKAGE"}
+    },
+    {
+      "id": "scan.reject_missing_normalized_contract_hash",
+      "construction": {
+        "base": "scan.go_identity_ready",
+        "patches": [
+          {"op": "remove", "path": "/helper_artifacts/1/contract_hash"}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
+    },
+    {
+      "id": "scan.reject_helper_order",
+      "construction": {
+        "base": "scan.go_identity_ready",
+        "patches": [
+          {"op": "swap", "path": "/helper_artifacts", "first": 0, "second": 1}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "order", "code": "POLICY_ORDER"}
+    },
+    {
+      "id": "scan.reject_vc_helper_claim",
+      "construction": {
+        "base": "scan.go_identity_ready",
+        "patches": [
+          {"op": "replace", "path": "/helper_artifacts/2/kind", "value": "vc"},
+          {"op": "replace", "path": "/helper_artifacts/2/id", "value": "vc"},
+          {"op": "replace", "path": "/helper_artifacts/2/schema", "value": "mpk.vc.v1"}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "source_linkage", "code": "POLICY_HELPER_LINKAGE"}
+    },
+    {
+      "id": "scan.reject_non_success_artifact_leak",
+      "construction": {
+        "base": "scan.rust_source_error",
+        "patches": [
+          {"op": "add", "path": "/source_ir_hash", "value": "4444444444444444444444444444444444444444444444444444444444444444"}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
+    },
+    {
+      "id": "scan.reject_wrong_readiness",
+      "construction": {
+        "base": "scan.rust_source_error",
+        "patches": [
+          {"op": "replace", "path": "/readiness", "value": "ready"}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
+    }
+  ],
+  "limit_cases": [
+    {
+      "id": "limit.scan_json_transport_bytes",
+      "limit": 268435456,
+      "counter": "json_transport_bytes",
+      "below": {"count": 268435455, "outcome": "accept"},
+      "at": {"count": 268435456, "outcome": "accept"},
+      "above": {"count": 268435457, "outcome": "reject", "phase": "transport", "code": "POLICY_LIMIT_JSON_BYTES"}
+    },
+    {
+      "id": "limit.scan_json_nesting",
+      "limit": 256,
+      "counter": "json_nesting",
+      "below": {"count": 255, "outcome": "accept"},
+      "at": {"count": 256, "outcome": "accept"},
+      "above": {"count": 257, "outcome": "reject", "phase": "transport", "code": "POLICY_JSON_INVALID"}
+    },
+    {
+      "id": "limit.scan_string_bytes",
+      "limit": 1048576,
+      "counter": "string_bytes",
+      "below": {"count": 1048575, "outcome": "accept"},
+      "at": {"count": 1048576, "outcome": "accept"},
+      "above": {"count": 1048577, "outcome": "reject", "phase": "transport", "code": "POLICY_JSON_INVALID"}
+    },
+    {
+      "id": "limit.scan_object_members_default",
+      "limit": 262144,
+      "counter": "object_members_default",
+      "below": {"count": 262143, "outcome": "accept"},
+      "at": {"count": 262144, "outcome": "accept"},
+      "above": {"count": 262145, "outcome": "reject", "phase": "transport", "code": "POLICY_LIMIT_COLLECTION"}
+    },
+    {
+      "id": "limit.scan_helper_artifacts",
+      "limit": 65536,
+      "counter": "helper_artifacts",
+      "below": {"count": 65535, "outcome": "accept"},
+      "at": {"count": 65536, "outcome": "accept"},
+      "above": {"count": 65537, "outcome": "reject", "phase": "transport", "code": "POLICY_LIMIT_COLLECTION"}
+    }
+  ]
+}

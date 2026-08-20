@@ -744,7 +744,7 @@ git diff --check
 
 ### VIR-00-T06 Freeze Policy v1, Profile Tuples, and Reproduction Recipes
 
-Status: Pending
+Status: Complete (2026-08-21).
 
 Depends on: VIR-00-T03, VIR-00-T04, VIR-00-T05.
 

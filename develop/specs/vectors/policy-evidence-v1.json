@@ -1,0 +1,1108 @@
+{
+  "schema": "mpk.policy.evidence.conformance.v1",
+  "spec_schemas": [
+    "mpk.policy.evidence.v1",
+    "mpk.policy.scan.v1",
+    "mpk.source_manifest.v0",
+    "mpk.vc.v1"
+  ],
+  "dependencies": {
+    "policy_spec": "develop/specs/POLICY_V1.md",
+    "scan_vector": "develop/specs/vectors/policy-scan-v1.json",
+    "recipe_vector": "develop/specs/vectors/policy-recipes-v1.json",
+    "source_manifest_spec": "develop/specs/SOURCE_MANIFEST_V0.md",
+    "source_manifest_vector": "develop/specs/vectors/source-manifest-v0.json",
+    "vc_spec": "develop/specs/VC_V1.md",
+    "vc_vector": "develop/specs/vectors/vc-v1.json",
+    "certificate_spec": "develop/specs/CERT_V0.md",
+    "axiom_policy": "develop/specs/AXIOM_POLICY_V0.md"
+  },
+  "owner_test": "crates/mpk-cli/tests/policy_schema_v1.rs",
+  "linkage_contexts": [
+    {
+      "id": "context.go_identity_pending",
+      "scan_fixture": "scan.go_identity_ready",
+      "frontend_manifest_case": "manifest.valid_go_frontend_stage",
+      "certificate_manifest_case": "lifecycle.valid_certificate_stage",
+      "frontend_source_manifest_hash": "14a180a4d319bf66d288b8e7e65321f361d5fc48739513a42032c593865f125f",
+      "certificate_source_manifest_hash": "053fe3e866b5717d40d1c4d4c7884a9543edbf8ee15cef36776710f8d92e4861",
+      "source_vc_schema": "mpk.vc.v1",
+      "vc_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "verification_limit_profile": "mpk.verify.limits.v0",
+      "members": [
+        {
+          "member_id": "example.com/mpk/vector.Identity#postcondition#000000",
+          "function_id": "example.com/mpk/vector.Identity",
+          "kind": "postcondition",
+          "group_id": "example.com/mpk/vector.Identity.contract",
+          "declaration_name": "VC.Function.f6578616d706c652e636f6d2f6d706b2f766563746f722e4964656e74697479.contract",
+          "declaration_hash": "9696969696969696969696969696969696969696969696969696969696969696",
+          "dependencies": []
+        }
+      ]
+    },
+    {
+      "id": "context.rust_call_pair_verified",
+      "scan_fixture": "scan.rust_call_pair_ready",
+      "vc_fixture": "vc.rust_call_pair",
+      "frontend_source_manifest_hash": "8989898989898989898989898989898989898989898989898989898989898989",
+      "certificate_source_manifest_hash": "9797979797979797979797979797979797979797979797979797979797979797",
+      "source_vc_schema": "mpk.vc.v1",
+      "vc_hash": "d2722cfb9ff407909aafc5492e17f36c28ee84409f4f56c9e60d6e97d29391b3",
+      "verification_limit_profile": "mpk.verify.limits.v0",
+      "declarations": [
+        {
+          "name": "VC.Function.f64656d6f3a3a63616c6c6565.contract",
+          "declaration_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "function_id": "demo::callee",
+          "group_id": "demo::callee.contract",
+          "group_kind": "contract",
+          "member_ids": ["demo::callee#postcondition#000000"],
+          "dependencies": []
+        },
+        {
+          "name": "VC.Function.f64656d6f3a3a63616c6c6565.panic_free",
+          "declaration_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "function_id": "demo::callee",
+          "group_id": "demo::callee.panic_free",
+          "group_kind": "panic_free",
+          "member_ids": ["demo::callee#operation_safety#000000"],
+          "dependencies": [
+            {
+              "name": "VC.Function.f64656d6f3a3a63616c6c6565.contract",
+              "declaration_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+          ]
+        },
+        {
+          "name": "VC.Function.f64656d6f3a3a63616c6c6572.contract",
+          "declaration_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "function_id": "demo::caller",
+          "group_id": "demo::caller.contract",
+          "group_kind": "contract",
+          "member_ids": [
+            "demo::caller#callee_precondition#000000",
+            "demo::caller#postcondition#000000"
+          ],
+          "dependencies": [
+            {
+              "name": "VC.Function.f64656d6f3a3a63616c6c6565.contract",
+              "declaration_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            }
+          ]
+        },
+        {
+          "name": "VC.Function.f64656d6f3a3a63616c6c6572.panic_free",
+          "declaration_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+          "function_id": "demo::caller",
+          "group_id": "demo::caller.panic_free",
+          "group_kind": "panic_free",
+          "member_ids": [
+            "demo::caller#callee_panic_free#000000",
+            "demo::caller#operation_safety#000000",
+            "demo::caller#operation_safety#000001",
+            "demo::caller#operation_safety#000002"
+          ],
+          "dependencies": [
+            {
+              "name": "VC.Function.f64656d6f3a3a63616c6c6565.contract",
+              "declaration_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            },
+            {
+              "name": "VC.Function.f64656d6f3a3a63616c6c6565.panic_free",
+              "declaration_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+            },
+            {
+              "name": "VC.Function.f64656d6f3a3a63616c6c6572.contract",
+              "declaration_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+            }
+          ]
+        }
+      ],
+      "accepted_certificate_id": "program",
+      "accepted_certificate_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "accepted_export_hash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "accepted_axiom_report_hash": "abababababababababababababababababababababababababababababababab"
+    }
+  ],
+  "fixtures": [
+    {
+      "id": "evidence.go_identity_pending",
+      "linkage_context": "context.go_identity_pending",
+      "canonical_transport_utf8_length": 5364,
+      "canonical_transport_sha256": "19fe83b60f0a40acc823b77193f115664e6730066d412647faea6b4b33c99cbc",
+      "input": {
+        "schema": "mpk.policy.evidence.v1",
+        "source_language": "go",
+        "semantic_profile": "mpk.go.fixed.v0",
+        "semantic_parameters": {
+          "target_id": "linux/amd64",
+          "pointer_width": 64
+        },
+        "selection": {
+          "package": "example.com/mpk/vector",
+          "function": "example.com/mpk/vector.Identity"
+        },
+        "limit_profile": "mpk.vir.limits.v0",
+        "release_registry": {
+          "schema": "mpk.release.bundle_registry.v0",
+          "id": "mpk.release.registry.v0",
+          "registry_sha256": "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7"
+        },
+        "frontend": {
+          "bundle_id": "frontend.go.synthetic.v0",
+          "name": "go2vir",
+          "version": "vector-1",
+          "binary_sha256": "306c6ca7407560340797866e077e053627ad409277d1b9da58106fce4cf717cb",
+          "subordinate_binaries": []
+        },
+        "toolchain": {
+          "bundle_id": "toolchain.go.synthetic.v0",
+          "distribution_sha256": "1dfc37014daf7080cfe690d97ff3d5856fd28dc556a430cb510bad757de7d1f9",
+          "components": [
+            {
+              "kind": "executable",
+              "name": "go",
+              "release": "go1.25.0",
+              "binary_sha256": "306c6ca7407560340797866e077e053627ad409277d1b9da58106fce4cf717cb"
+            },
+            {
+              "kind": "content",
+              "name": "go-stdlib",
+              "release": "go1.25.0",
+              "content_sha256": "d0e474c3d4c5604aa8d233021e24e742322ff0cea7cf55c1ce7f2c87dfefa469"
+            },
+            {
+              "kind": "content",
+              "name": "native-runtime",
+              "release": "synthetic-1",
+              "content_sha256": "dcabd7c7214d69d0cc474407283579497db30f56e2dc4e388a71886446d5c948"
+            },
+            {
+              "kind": "content",
+              "name": "notices",
+              "release": "synthetic-1",
+              "content_sha256": "e0b4c60c121662d43796c29e52be87b45907687b40de12a76bf92e8a928c02e6"
+            }
+          ]
+        },
+        "frontend_source_manifest_hash": "14a180a4d319bf66d288b8e7e65321f361d5fc48739513a42032c593865f125f",
+        "input_set_hash": "e05e9fa46ee44a198470ada4935f756b12e9d6779601a7f88e4cb468d151ab31",
+        "source_map_hash": "f66b38fcdba7dd4b6250269c566d5599c2b1821a69370f67aa961fdb5893b6f9",
+        "source_ir_schema": "mpk.vir.v0",
+        "source_ir_hash": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690",
+        "certificate_source_manifest_hash": "053fe3e866b5717d40d1c4d4c7884a9543edbf8ee15cef36776710f8d92e4861",
+        "source_vc_schema": "mpk.vc.v1",
+        "vc_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "verification_limit_profile": "mpk.verify.limits.v0",
+        "strategy_profile": "payment-policy-alpha",
+        "checker_profile": "mvp-strict",
+        "axiom_profile": "zero-axiom",
+        "verification_options": {
+          "strict": false,
+          "update_fixtures": false
+        },
+        "helper_artifacts": [
+          {
+            "id": "source:identity.go",
+            "kind": "source",
+            "normalized_path": "identity.go",
+            "sha256": "f387d3ec7532adabcc75407d7cad3e4df113cd255ff177b1b9f02985bbccacea"
+          },
+          {
+            "id": "contract:example.com/mpk/vector.Identity",
+            "kind": "contract",
+            "normalized_path": "contracts/identity.json",
+            "schema": "mpk.go.contract.v0",
+            "raw_input_sha256": "ddfafe866f187501b19a19b0e89106361db7401d160195c652c162a876c80ba4",
+            "function_id": "example.com/mpk/vector.Identity",
+            "contract_hash": "a09b6fa6bf3ab7a88b3e808e3d3b658dff65418704804837c8f36f9a3a550cb5"
+          },
+          {
+            "id": "verification_ir",
+            "kind": "verification_ir",
+            "schema": "mpk.vir.v0",
+            "sha256": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690"
+          },
+          {
+            "id": "vc",
+            "kind": "vc",
+            "schema": "mpk.vc.v1",
+            "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ],
+        "trusted_evidence": {
+          "certificates": [],
+          "theory_certificates": [],
+          "axiom_report": {"status": "not_generated"},
+          "checker_verdicts": [
+            {
+              "checker": "rust_fast_kernel",
+              "checker_profile": "mvp-strict",
+              "verdict": "not_run",
+              "certificate_ids": []
+            },
+            {
+              "checker": "reference_checker",
+              "checker_profile": "mvp-strict",
+              "verdict": "not_run",
+              "certificate_ids": []
+            }
+          ]
+        },
+        "properties": [
+          {
+            "id": "identity_postcondition",
+            "description": "The selected identity result equals its input.",
+            "status": "proof_pending",
+            "members": [
+              {
+                "member_id": "example.com/mpk/vector.Identity#postcondition#000000",
+                "function_id": "example.com/mpk/vector.Identity",
+                "kind": "postcondition",
+                "group_id": "example.com/mpk/vector.Identity.contract",
+                "declaration_name": "VC.Function.f6578616d706c652e636f6d2f6d706b2f766563746f722e4964656e74697479.contract",
+                "declaration_hash": "9696969696969696969696969696969696969696969696969696969696969696",
+                "status": "proof_pending",
+                "evidence": [
+                  {"kind": "helper_artifact", "artifact_id": "vc"}
+                ]
+              }
+            ],
+            "notes": []
+          }
+        ],
+        "reproduction_recipes": [
+          {
+            "label": "scan",
+            "working_directory_role": "source_root",
+            "argv": [
+              "mpk", "policy", "scan", ".",
+              "--language", "go",
+              "--semantic-profile", "mpk.go.fixed.v0",
+              "--require-release-registry-id", "mpk.release.registry.v0",
+              "--require-release-registry-sha256", "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7",
+              "--frontend-bundle", "frontend.go.synthetic.v0",
+              "--toolchain-bundle", "toolchain.go.synthetic.v0",
+              "--target", "linux/amd64",
+              "--package", "example.com/mpk/vector",
+              "--function", "example.com/mpk/vector.Identity",
+              "--contract", "contracts/identity.json",
+              "--json-out", "mpk-reproduction-scan.json"
+            ]
+          },
+          {
+            "label": "verify",
+            "working_directory_role": "source_root",
+            "argv": [
+              "mpk", "policy", "verify", ".",
+              "--language", "go",
+              "--semantic-profile", "mpk.go.fixed.v0",
+              "--require-release-registry-id", "mpk.release.registry.v0",
+              "--require-release-registry-sha256", "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7",
+              "--frontend-bundle", "frontend.go.synthetic.v0",
+              "--toolchain-bundle", "toolchain.go.synthetic.v0",
+              "--target", "linux/amd64",
+              "--package", "example.com/mpk/vector",
+              "--function", "example.com/mpk/vector.Identity",
+              "--contract", "contracts/identity.json",
+              "--strategy-profile", "payment-policy-alpha",
+              "--checker-profile", "mvp-strict",
+              "--axiom-profile", "zero-axiom",
+              "--evidence-json", "mpk-reproduction-evidence.json",
+              "--evidence-md", "mpk-reproduction-evidence.md"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "evidence.rust_call_pair_verified",
+      "linkage_context": "context.rust_call_pair_verified",
+      "canonical_transport_utf8_length": 9044,
+      "canonical_transport_sha256": "1a7de7a58132e54ca958995079474803ebf287ce9935ccec014954531b242937",
+      "input": {
+        "schema": "mpk.policy.evidence.v1",
+        "source_language": "rust",
+        "semantic_profile": "mpk.rust.checked.v0",
+        "semantic_parameters": {
+          "target_id": "x86_64-unknown-linux-gnu",
+          "pointer_width": 64,
+          "overflow_mode": "checked",
+          "panic_mode": "abort"
+        },
+        "selection": {
+          "package": "demo",
+          "crate": "demo",
+          "kind": "lib",
+          "function": "demo::caller"
+        },
+        "limit_profile": "mpk.vir.limits.v0",
+        "release_registry": {
+          "schema": "mpk.release.bundle_registry.v0",
+          "id": "mpk.release.registry.v0",
+          "registry_sha256": "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7"
+        },
+        "frontend": {
+          "bundle_id": "frontend.rust.synthetic.v0",
+          "name": "rust2vir",
+          "version": "vector-1",
+          "binary_sha256": "8181818181818181818181818181818181818181818181818181818181818181",
+          "subordinate_binaries": [
+            {
+              "name": "rust2vir-driver",
+              "version": "vector-1",
+              "binary_sha256": "8282828282828282828282828282828282828282828282828282828282828282"
+            }
+          ]
+        },
+        "toolchain": {
+          "bundle_id": "toolchain.rust.synthetic.v0",
+          "distribution_sha256": "8383838383838383838383838383838383838383838383838383838383838383",
+          "components": [
+            {
+              "kind": "executable",
+              "name": "cargo",
+              "release": "1.89.0-nightly",
+              "binary_sha256": "8484848484848484848484848484848484848484848484848484848484848484"
+            },
+            {
+              "kind": "content",
+              "name": "llvm",
+              "release": "20.1.0",
+              "content_sha256": "8585858585858585858585858585858585858585858585858585858585858585"
+            },
+            {
+              "kind": "content",
+              "name": "rust-stdlib",
+              "release": "1.89.0-nightly",
+              "content_sha256": "8686868686868686868686868686868686868686868686868686868686868686"
+            },
+            {
+              "kind": "executable",
+              "name": "rustc",
+              "release": "1.89.0-nightly",
+              "commit_hash": "8787878787878787878787878787878787878787",
+              "binary_sha256": "8888888888888888888888888888888888888888888888888888888888888888"
+            }
+          ]
+        },
+        "frontend_source_manifest_hash": "8989898989898989898989898989898989898989898989898989898989898989",
+        "input_set_hash": "5555555555555555555555555555555555555555555555555555555555555555",
+        "source_map_hash": "9090909090909090909090909090909090909090909090909090909090909090",
+        "source_ir_schema": "mpk.vir.v0",
+        "source_ir_hash": "4444444444444444444444444444444444444444444444444444444444444444",
+        "certificate_source_manifest_hash": "9797979797979797979797979797979797979797979797979797979797979797",
+        "source_vc_schema": "mpk.vc.v1",
+        "vc_hash": "d2722cfb9ff407909aafc5492e17f36c28ee84409f4f56c9e60d6e97d29391b3",
+        "verification_limit_profile": "mpk.verify.limits.v0",
+        "strategy_profile": "payment-policy-rust-alpha",
+        "checker_profile": "mvp-strict",
+        "axiom_profile": "mvp-theory",
+        "verification_options": {
+          "strict": true,
+          "update_fixtures": false
+        },
+        "helper_artifacts": [
+          {
+            "id": "source:src/lib.rs",
+            "kind": "source",
+            "normalized_path": "src/lib.rs",
+            "sha256": "9191919191919191919191919191919191919191919191919191919191919191"
+          },
+          {
+            "id": "contract:demo::callee",
+            "kind": "contract",
+            "normalized_path": "contracts/callee.json",
+            "schema": "mpk.rust.contract.v0",
+            "raw_input_sha256": "9292929292929292929292929292929292929292929292929292929292929292",
+            "function_id": "demo::callee",
+            "contract_hash": "6666666666666666666666666666666666666666666666666666666666666666"
+          },
+          {
+            "id": "contract:demo::caller",
+            "kind": "contract",
+            "normalized_path": "contracts/caller.json",
+            "schema": "mpk.rust.contract.v0",
+            "raw_input_sha256": "9393939393939393939393939393939393939393939393939393939393939393",
+            "function_id": "demo::caller",
+            "contract_hash": "7777777777777777777777777777777777777777777777777777777777777777"
+          },
+          {
+            "id": "verification_ir",
+            "kind": "verification_ir",
+            "schema": "mpk.vir.v0",
+            "sha256": "4444444444444444444444444444444444444444444444444444444444444444"
+          },
+          {
+            "id": "vc",
+            "kind": "vc",
+            "schema": "mpk.vc.v1",
+            "sha256": "d2722cfb9ff407909aafc5492e17f36c28ee84409f4f56c9e60d6e97d29391b3"
+          }
+        ],
+        "trusted_evidence": {
+          "certificates": [
+            {
+              "id": "program",
+              "module": "Policy.Generated",
+              "certificate_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "export_hash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+              "axiom_report_hash": "abababababababababababababababababababababababababababababababab",
+              "checked_declarations": [
+                {
+                  "name": "VC.Function.f64656d6f3a3a63616c6c6565.contract",
+                  "declaration_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                  "function_id": "demo::callee",
+                  "group_id": "demo::callee.contract",
+                  "group_kind": "contract",
+                  "member_ids": ["demo::callee#postcondition#000000"],
+                  "dependencies": []
+                },
+                {
+                  "name": "VC.Function.f64656d6f3a3a63616c6c6565.panic_free",
+                  "declaration_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                  "function_id": "demo::callee",
+                  "group_id": "demo::callee.panic_free",
+                  "group_kind": "panic_free",
+                  "member_ids": ["demo::callee#operation_safety#000000"],
+                  "dependencies": [
+                    {
+                      "name": "VC.Function.f64656d6f3a3a63616c6c6565.contract",
+                      "declaration_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    }
+                  ]
+                },
+                {
+                  "name": "VC.Function.f64656d6f3a3a63616c6c6572.contract",
+                  "declaration_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+                  "function_id": "demo::caller",
+                  "group_id": "demo::caller.contract",
+                  "group_kind": "contract",
+                  "member_ids": [
+                    "demo::caller#callee_precondition#000000",
+                    "demo::caller#postcondition#000000"
+                  ],
+                  "dependencies": [
+                    {
+                      "name": "VC.Function.f64656d6f3a3a63616c6c6565.contract",
+                      "declaration_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    }
+                  ]
+                },
+                {
+                  "name": "VC.Function.f64656d6f3a3a63616c6c6572.panic_free",
+                  "declaration_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+                  "function_id": "demo::caller",
+                  "group_id": "demo::caller.panic_free",
+                  "group_kind": "panic_free",
+                  "member_ids": [
+                    "demo::caller#callee_panic_free#000000",
+                    "demo::caller#operation_safety#000000",
+                    "demo::caller#operation_safety#000001",
+                    "demo::caller#operation_safety#000002"
+                  ],
+                  "dependencies": [
+                    {
+                      "name": "VC.Function.f64656d6f3a3a63616c6c6565.contract",
+                      "declaration_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    },
+                    {
+                      "name": "VC.Function.f64656d6f3a3a63616c6c6565.panic_free",
+                      "declaration_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+                    },
+                    {
+                      "name": "VC.Function.f64656d6f3a3a63616c6c6572.contract",
+                      "declaration_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "theory_certificates": [
+            {
+              "id": "theory:caller-panic",
+              "theory": "bitvector",
+              "format": "mpk.theory.bool.v0",
+              "theory_certificate_hash": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+              "checker_profile": "mvp-strict",
+              "checked_member_ids": ["demo::caller#callee_panic_free#000000"]
+            }
+          ],
+          "axiom_report": {
+            "status": "checked",
+            "axiom_report_hash": "abababababababababababababababababababababababababababababababab",
+            "category_counts": {
+              "total_axiom_count": 1,
+              "core_axiom_count": 0,
+              "builtin_theory_axiom_count": 1,
+              "go_semantics_axiom_count": 0,
+              "external_axiom_count": 0
+            }
+          },
+          "checker_verdicts": [
+            {
+              "checker": "rust_fast_kernel",
+              "checker_profile": "mvp-strict",
+              "verdict": "accepted",
+              "certificate_ids": ["program"]
+            },
+            {
+              "checker": "reference_checker",
+              "checker_profile": "mvp-strict",
+              "verdict": "accepted",
+              "certificate_ids": ["program"]
+            }
+          ]
+        },
+        "properties": [
+          {
+            "id": "caller_panic_free",
+            "description": "The selected caller satisfies the checked callee panic-free obligation.",
+            "status": "mpk_verified",
+            "members": [
+              {
+                "member_id": "demo::caller#callee_panic_free#000000",
+                "function_id": "demo::caller",
+                "kind": "callee_panic_free",
+                "group_id": "demo::caller.panic_free",
+                "declaration_name": "VC.Function.f64656d6f3a3a63616c6c6572.panic_free",
+                "declaration_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+                "status": "mpk_verified",
+                "evidence": [
+                  {"kind": "checked_declaration", "certificate_id": "program"},
+                  {"kind": "checked_theory_certificate", "theory_certificate_id": "theory:caller-panic"}
+                ]
+              }
+            ],
+            "notes": ["Both configured source-free checkers accepted the containing declaration and its generated dependency closure."]
+          }
+        ],
+        "reproduction_recipes": [
+          {
+            "label": "scan",
+            "working_directory_role": "source_root",
+            "argv": [
+              "mpk", "policy", "scan", ".",
+              "--language", "rust",
+              "--semantic-profile", "mpk.rust.checked.v0",
+              "--require-release-registry-id", "mpk.release.registry.v0",
+              "--require-release-registry-sha256", "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7",
+              "--frontend-bundle", "frontend.rust.synthetic.v0",
+              "--toolchain-bundle", "toolchain.rust.synthetic.v0",
+              "--target", "x86_64-unknown-linux-gnu",
+              "--package", "demo",
+              "--function", "demo::caller",
+              "--contract", "contracts/callee.json",
+              "--contract", "contracts/caller.json",
+              "--json-out", "mpk-reproduction-scan.json"
+            ]
+          },
+          {
+            "label": "verify",
+            "working_directory_role": "source_root",
+            "argv": [
+              "mpk", "policy", "verify", ".",
+              "--language", "rust",
+              "--semantic-profile", "mpk.rust.checked.v0",
+              "--require-release-registry-id", "mpk.release.registry.v0",
+              "--require-release-registry-sha256", "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7",
+              "--frontend-bundle", "frontend.rust.synthetic.v0",
+              "--toolchain-bundle", "toolchain.rust.synthetic.v0",
+              "--target", "x86_64-unknown-linux-gnu",
+              "--package", "demo",
+              "--function", "demo::caller",
+              "--contract", "contracts/callee.json",
+              "--contract", "contracts/caller.json",
+              "--strategy-profile", "payment-policy-rust-alpha",
+              "--checker-profile", "mvp-strict",
+              "--axiom-profile", "mvp-theory",
+              "--evidence-json", "mpk-reproduction-evidence.json",
+              "--evidence-md", "mpk-reproduction-evidence.md",
+              "--strict"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "evidence_cases": [
+    {
+      "id": "evidence.accept_go_pending",
+      "input_from": "evidence.go_identity_pending",
+      "expect": {"outcome": "accept"}
+    },
+    {
+      "id": "evidence.accept_rust_verified_with_transitive_dependencies",
+      "input_from": "evidence.rust_call_pair_verified",
+      "expect": {"outcome": "accept"}
+    },
+    {
+      "id": "evidence.reject_noncanonical_transport",
+      "transport_from": {
+        "fixture": "evidence.go_identity_pending",
+        "encoding": "two_space_indent_with_final_lf"
+      },
+      "expect": {"outcome": "reject", "phase": "canonical_transport", "code": "POLICY_CANONICAL_TRANSPORT"}
+    },
+    {
+      "id": "evidence.reject_missing_final_lf",
+      "transport_from": {
+        "fixture": "evidence.go_identity_pending",
+        "encoding": "jcs_without_final_lf"
+      },
+      "expect": {"outcome": "reject", "phase": "canonical_transport", "code": "POLICY_CANONICAL_TRANSPORT"}
+    },
+    {
+      "id": "evidence.reject_duplicate_key",
+      "json_text": "{\"schema\":\"mpk.policy.evidence.v1\",\"schema\":\"mpk.policy.evidence.v1\"}\n",
+      "expect": {"outcome": "reject", "phase": "transport", "code": "POLICY_JSON_DUPLICATE_KEY"}
+    },
+    {
+      "id": "evidence.reject_invalid_json",
+      "json_text": "{\"schema\":\"mpk.policy.evidence.v1\"\n",
+      "expect": {"outcome": "reject", "phase": "transport", "code": "POLICY_JSON_INVALID"}
+    },
+    {
+      "id": "evidence.reject_wrong_schema",
+      "construction": {
+        "base": "evidence.go_identity_pending",
+        "patches": [{"op": "replace", "path": "/schema", "value": "mpk.policy.evidence.v2"}]
+      },
+      "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_EVIDENCE_SCHEMA"}
+    },
+    {
+      "id": "evidence.reject_v0_schema",
+      "construction": {
+        "base": "evidence.go_identity_pending",
+        "patches": [{"op": "replace", "path": "/schema", "value": "mpk.policy.evidence.v0"}]
+      },
+      "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_EVIDENCE_SCHEMA"}
+    },
+    {
+      "id": "evidence.reject_allowed_axiom_profiles",
+      "construction": {
+        "base": "evidence.go_identity_pending",
+        "patches": [{"op": "add", "path": "/allowed_axiom_profiles", "value": ["zero-axiom"]}]
+      },
+      "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
+    },
+    {
+      "id": "evidence.reject_legacy_target_shape",
+      "construction": {
+        "base": "evidence.go_identity_pending",
+        "patches": [{"op": "add", "path": "/target", "value": {"package_path": "example.com/mpk/vector", "function_id": "example.com/mpk/vector.Identity"}}]
+      },
+      "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
+    },
+    {
+      "id": "evidence.reject_go_version",
+      "construction": {
+        "base": "evidence.go_identity_pending",
+        "patches": [{"op": "add", "path": "/go_version", "value": "go1.25.0"}]
+      },
+      "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
+    },
+    {
+      "id": "evidence.reject_missing_axiom_profile",
+      "construction": {
+        "base": "evidence.go_identity_pending",
+        "patches": [{"op": "remove", "path": "/axiom_profile"}]
+      },
+      "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
+    },
+    {
+      "id": "evidence.reject_ambiguous_source_manifest_hash",
+      "construction": {
+        "base": "evidence.go_identity_pending",
+        "patches": [{"op": "add", "path": "/source_manifest_hash", "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}]
+      },
+      "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
+    },
+    {
+      "id": "evidence.reject_free_form_reproduction_commands",
+      "construction": {
+        "base": "evidence.go_identity_pending",
+        "patches": [{"op": "add", "path": "/reproduction_commands", "value": [{"label": "scan", "command": "mpk policy scan /tmp/source"}]}]
+      },
+      "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
+    },
+    {
+      "id": "evidence.reject_checker_command",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [{"op": "add", "path": "/trusted_evidence/checker_verdicts/0/command", "value": "mpk check program.mpcert"}]
+      },
+      "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
+    },
+    {
+      "id": "evidence.reject_legacy_gir_hash",
+      "construction": {
+        "base": "evidence.go_identity_pending",
+        "patches": [{"op": "add", "path": "/source_gir_hash", "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}]
+      },
+      "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
+    },
+    {
+      "id": "evidence.reject_unknown_language",
+      "construction": {
+        "base": "evidence.go_identity_pending",
+        "patches": [{"op": "replace", "path": "/source_language", "value": "typescript"}]
+      },
+      "expect": {"outcome": "reject", "phase": "scalar", "code": "POLICY_SCALAR"}
+    },
+    {
+      "id": "evidence.reject_unknown_semantic_profile",
+      "construction": {
+        "base": "evidence.go_identity_pending",
+        "patches": [{"op": "replace", "path": "/semantic_profile", "value": "mpk.future.fixed.v0"}]
+      },
+      "expect": {"outcome": "reject", "phase": "profile", "code": "POLICY_PROFILE_UNKNOWN"}
+    },
+    {
+      "id": "evidence.reject_program_certificate_id",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [{"op": "replace", "path": "/trusted_evidence/certificates/0/id", "value": "candidate"}]
+      },
+      "expect": {"outcome": "reject", "phase": "scalar", "code": "POLICY_SCALAR"}
+    },
+    {
+      "id": "evidence.reject_crossed_rust_axiom_profile",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [{"op": "replace", "path": "/axiom_profile", "value": "zero-axiom"}]
+      },
+      "expect": {"outcome": "reject", "phase": "profile", "code": "POLICY_PROFILE_TUPLE"}
+    },
+    {
+      "id": "evidence.reject_crossed_go_strategy",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [
+          {"op": "replace", "path": "/strategy_profile", "value": "payment-policy-alpha"},
+          {"op": "replace", "path": "/axiom_profile", "value": "zero-axiom"}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "profile", "code": "POLICY_PROFILE_TUPLE"}
+    },
+    {
+      "id": "evidence.reject_unknown_strategy_profile",
+      "construction": {
+        "base": "evidence.go_identity_pending",
+        "patches": [{"op": "replace", "path": "/strategy_profile", "value": "future-alpha"}]
+      },
+      "expect": {"outcome": "reject", "phase": "profile", "code": "POLICY_PROFILE_UNKNOWN"}
+    },
+    {
+      "id": "evidence.reject_unknown_axiom_profile",
+      "construction": {
+        "base": "evidence.go_identity_pending",
+        "patches": [{"op": "replace", "path": "/axiom_profile", "value": "future-theory"}]
+      },
+      "expect": {"outcome": "reject", "phase": "profile", "code": "POLICY_PROFILE_UNKNOWN"}
+    },
+    {
+      "id": "evidence.reject_unknown_checker_profile",
+      "construction": {
+        "base": "evidence.go_identity_pending",
+        "patches": [{"op": "replace", "path": "/checker_profile", "value": "unchecked"}]
+      },
+      "expect": {"outcome": "reject", "phase": "profile", "code": "POLICY_PROFILE_UNKNOWN"}
+    },
+    {
+      "id": "evidence.reject_release_projection",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [{"op": "replace", "path": "/frontend/binary_sha256", "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}]
+      },
+      "expect": {"outcome": "reject", "phase": "release", "code": "POLICY_RELEASE_LINKAGE"}
+    },
+    {
+      "id": "evidence.reject_frontend_manifest_hash",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [{"op": "replace", "path": "/frontend_source_manifest_hash", "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}]
+      },
+      "expect": {"outcome": "reject", "phase": "source_linkage", "code": "POLICY_SOURCE_LINKAGE"}
+    },
+    {
+      "id": "evidence.reject_certificate_manifest_lifecycle",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [{"op": "replace", "path": "/certificate_source_manifest_hash", "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}]
+      },
+      "expect": {"outcome": "reject", "phase": "manifest_lifecycle", "code": "POLICY_MANIFEST_LIFECYCLE"}
+    },
+    {
+      "id": "evidence.reject_vc_hash",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [{"op": "replace", "path": "/vc_hash", "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}]
+      },
+      "expect": {"outcome": "reject", "phase": "vc_linkage", "code": "POLICY_VC_LINKAGE"}
+    },
+    {
+      "id": "evidence.reject_verification_limit_profile",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [{"op": "replace", "path": "/verification_limit_profile", "value": "mpk.verify.limits.v1"}]
+      },
+      "expect": {"outcome": "reject", "phase": "vc_linkage", "code": "POLICY_VC_LINKAGE"}
+    },
+    {
+      "id": "evidence.reject_vc_helper_hash",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [{"op": "replace", "path": "/helper_artifacts/4/sha256", "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}]
+      },
+      "expect": {"outcome": "reject", "phase": "helpers", "code": "POLICY_HELPER_LINKAGE"}
+    },
+    {
+      "id": "evidence.reject_contract_raw_normalized_alias",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [{"op": "replace", "path": "/helper_artifacts/1/contract_hash", "value": "9292929292929292929292929292929292929292929292929292929292929292"}]
+      },
+      "expect": {"outcome": "reject", "phase": "helpers", "code": "POLICY_HELPER_LINKAGE"}
+    },
+    {
+      "id": "evidence.reject_theory_member_binding",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [{"op": "replace", "path": "/trusted_evidence/theory_certificates/0/checked_member_ids/0", "value": "demo::caller#operation_safety#000000"}]
+      },
+      "expect": {"outcome": "reject", "phase": "trusted", "code": "POLICY_TRUSTED_EVIDENCE"}
+    },
+    {
+      "id": "evidence.reject_declaration_dependency_hash",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [{"op": "replace", "path": "/trusted_evidence/certificates/0/checked_declarations/3/dependencies/0/declaration_hash", "value": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"}]
+      },
+      "expect": {"outcome": "reject", "phase": "dependencies", "code": "POLICY_DEPENDENCY_CLOSURE"}
+    },
+    {
+      "id": "evidence.reject_missing_axiom_report_for_candidate",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [{"op": "replace", "path": "/trusted_evidence/axiom_report", "value": {"status": "not_generated"}}]
+      },
+      "expect": {"outcome": "reject", "phase": "trusted", "code": "POLICY_TRUSTED_EVIDENCE"}
+    },
+    {
+      "id": "evidence.reject_axiom_report_without_candidate",
+      "construction": {
+        "base": "evidence.go_identity_pending",
+        "patches": [{"op": "replace", "path": "/trusted_evidence/axiom_report", "value": {"status": "checked", "axiom_report_hash": "abababababababababababababababababababababababababababababababab", "category_counts": {"total_axiom_count": 0, "core_axiom_count": 0, "builtin_theory_axiom_count": 0, "go_semantics_axiom_count": 0, "external_axiom_count": 0}}}]
+      },
+      "expect": {"outcome": "reject", "phase": "trusted", "code": "POLICY_TRUSTED_EVIDENCE"}
+    },
+    {
+      "id": "evidence.reject_checker_incomplete_candidate_set",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [{"op": "replace", "path": "/trusted_evidence/checker_verdicts/0/certificate_ids", "value": []}]
+      },
+      "expect": {"outcome": "reject", "phase": "trusted", "code": "POLICY_TRUSTED_EVIDENCE"}
+    },
+    {
+      "id": "evidence.reject_property_wrong_group",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [{"op": "replace", "path": "/properties/0/members/0/group_id", "value": "demo::caller.contract"}]
+      },
+      "expect": {"outcome": "reject", "phase": "properties", "code": "POLICY_MEMBER_LINKAGE"}
+    },
+    {
+      "id": "evidence.reject_property_declaration_hash",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [{"op": "replace", "path": "/properties/0/members/0/declaration_hash", "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}]
+      },
+      "expect": {"outcome": "reject", "phase": "properties", "code": "POLICY_MEMBER_LINKAGE"}
+    },
+    {
+      "id": "evidence.reject_verified_with_helper_only",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [{"op": "replace", "path": "/properties/0/members/0/evidence", "value": [{"kind": "helper_artifact", "artifact_id": "vc"}]}]
+      },
+      "expect": {"outcome": "reject", "phase": "properties", "code": "POLICY_PROPERTY_STATUS"}
+    },
+    {
+      "id": "evidence.reject_property_status_aggregate",
+      "construction": {
+        "base": "evidence.go_identity_pending",
+        "patches": [{"op": "replace", "path": "/properties/0/status", "value": "mpk_verified"}]
+      },
+      "expect": {"outcome": "reject", "phase": "properties", "code": "POLICY_PROPERTY_STATUS"}
+    },
+    {
+      "id": "evidence.reject_checker_verdict_projection",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [
+          {"op": "replace", "path": "/trusted_evidence/checker_verdicts/1/verdict", "value": "not_run"},
+          {"op": "replace", "path": "/trusted_evidence/checker_verdicts/1/certificate_ids", "value": []}
+        ]
+      },
+      "expect": {"outcome": "reject", "phase": "trusted", "code": "POLICY_TRUSTED_EVIDENCE"}
+    },
+    {
+      "id": "evidence.reject_missing_direct_dependency_edge",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [{"op": "remove", "path": "/trusted_evidence/certificates/0/checked_declarations/3/dependencies/0"}]
+      },
+      "expect": {"outcome": "reject", "phase": "dependencies", "code": "POLICY_DEPENDENCY_CLOSURE"}
+    },
+    {
+      "id": "evidence.reject_missing_transitive_declaration",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [{"op": "remove", "path": "/trusted_evidence/certificates/0/checked_declarations/0"}]
+      },
+      "expect": {"outcome": "reject", "phase": "trusted", "code": "POLICY_TRUSTED_EVIDENCE"}
+    },
+    {
+      "id": "evidence.reject_duplicate_member_row",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [{"op": "copy", "from": "/properties/0/members/0", "path": "/properties/0/members/1"}]
+      },
+      "expect": {"outcome": "reject", "phase": "order", "code": "POLICY_ORDER"}
+    },
+    {
+      "id": "evidence.reject_duplicate_note",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [{"op": "add", "path": "/properties/0/notes/1", "value": "Both configured source-free checkers accepted the containing declaration and its generated dependency closure."}]
+      },
+      "expect": {"outcome": "reject", "phase": "order", "code": "POLICY_ORDER"}
+    },
+    {
+      "id": "evidence.reject_recipe_machine_source_root",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [{"op": "replace", "path": "/reproduction_recipes/0/argv/3", "value": "/Users/example/source"}]
+      },
+      "expect": {"outcome": "reject", "phase": "recipes", "code": "POLICY_RECIPE"}
+    },
+    {
+      "id": "evidence.reject_recipe_unresolved_substitution",
+      "construction": {
+        "base": "evidence.go_identity_pending",
+        "patches": [{"op": "replace", "path": "/reproduction_recipes/0/argv/3", "value": "${SOURCE_ROOT}"}]
+      },
+      "expect": {"outcome": "reject", "phase": "recipes", "code": "POLICY_RECIPE"}
+    },
+    {
+      "id": "evidence.reject_recipe_contract_order",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [{"op": "swap", "path": "/reproduction_recipes/0/argv", "first": 23, "second": 25}]
+      },
+      "expect": {"outcome": "reject", "phase": "recipes", "code": "POLICY_RECIPE"}
+    },
+    {
+      "id": "evidence.reject_recipe_raw_frontend",
+      "construction": {
+        "base": "evidence.go_identity_pending",
+        "patches": [{"op": "add", "path": "/reproduction_recipes/0/argv/26", "value": "--frontend"}]
+      },
+      "expect": {"outcome": "reject", "phase": "recipes", "code": "POLICY_RECIPE"}
+    },
+    {
+      "id": "evidence.reject_recipe_missing_strict",
+      "construction": {
+        "base": "evidence.rust_call_pair_verified",
+        "patches": [{"op": "remove", "path": "/reproduction_recipes/1/argv/36"}]
+      },
+      "expect": {"outcome": "reject", "phase": "recipes", "code": "POLICY_RECIPE"}
+    }
+  ],
+  "limit_cases": [
+    {
+      "id": "limit.evidence_json_transport_bytes",
+      "limit": 268435456,
+      "counter": "json_transport_bytes",
+      "below": {"count": 268435455, "outcome": "accept"},
+      "at": {"count": 268435456, "outcome": "accept"},
+      "above": {"count": 268435457, "outcome": "reject", "phase": "transport", "code": "POLICY_LIMIT_JSON_BYTES"}
+    },
+    {
+      "id": "limit.markdown_bytes",
+      "limit": 268435456,
+      "counter": "markdown_bytes",
+      "below": {"count": 268435455, "outcome": "accept"},
+      "at": {"count": 268435456, "outcome": "accept"},
+      "above": {"count": 268435457, "outcome": "reject", "phase": "report", "code": "POLICY_LIMIT_MARKDOWN_BYTES"}
+    },
+    {
+      "id": "limit.certificates",
+      "limit": 1,
+      "counter": "certificates",
+      "below": {"count": 0, "outcome": "accept"},
+      "at": {"count": 1, "outcome": "accept"},
+      "above": {"count": 2, "outcome": "reject", "phase": "transport", "code": "POLICY_LIMIT_COLLECTION"}
+    },
+    {
+      "id": "limit.array_elements_default",
+      "limit": 262144,
+      "counter": "array_elements_default",
+      "below": {"count": 262143, "outcome": "accept"},
+      "at": {"count": 262144, "outcome": "accept"},
+      "above": {"count": 262145, "outcome": "reject", "phase": "transport", "code": "POLICY_LIMIT_COLLECTION"}
+    },
+    {
+      "id": "limit.checked_declarations",
+      "limit": 262144,
+      "counter": "checked_declarations",
+      "below": {"count": 262143, "outcome": "accept"},
+      "at": {"count": 262144, "outcome": "accept"},
+      "above": {"count": 262145, "outcome": "reject", "phase": "transport", "code": "POLICY_LIMIT_COLLECTION"}
+    },
+    {
+      "id": "limit.theory_certificates",
+      "limit": 262144,
+      "counter": "theory_certificates",
+      "below": {"count": 262143, "outcome": "accept"},
+      "at": {"count": 262144, "outcome": "accept"},
+      "above": {"count": 262145, "outcome": "reject", "phase": "transport", "code": "POLICY_LIMIT_COLLECTION"}
+    },
+    {
+      "id": "limit.properties",
+      "limit": 262144,
+      "counter": "properties",
+      "below": {"count": 262143, "outcome": "accept"},
+      "at": {"count": 262144, "outcome": "accept"},
+      "above": {"count": 262145, "outcome": "reject", "phase": "transport", "code": "POLICY_LIMIT_COLLECTION"}
+    },
+    {
+      "id": "limit.member_rows",
+      "limit": 262144,
+      "counter": "member_rows",
+      "below": {"count": 262143, "outcome": "accept"},
+      "at": {"count": 262144, "outcome": "accept"},
+      "above": {"count": 262145, "outcome": "reject", "phase": "transport", "code": "POLICY_LIMIT_COLLECTION"}
+    },
+    {
+      "id": "limit.references_per_member",
+      "limit": 4096,
+      "counter": "references_per_member",
+      "below": {"count": 4095, "outcome": "accept"},
+      "at": {"count": 4096, "outcome": "accept"},
+      "above": {"count": 4097, "outcome": "reject", "phase": "transport", "code": "POLICY_LIMIT_COLLECTION"}
+    },
+    {
+      "id": "limit.recipe_argv_elements",
+      "limit": 65536,
+      "counter": "recipe_argv_elements",
+      "below": {"count": 65535, "outcome": "accept"},
+      "at": {"count": 65536, "outcome": "accept"},
+      "above": {"count": 65537, "outcome": "reject", "phase": "transport", "code": "POLICY_LIMIT_COLLECTION"}
+    }
+  ]
+}

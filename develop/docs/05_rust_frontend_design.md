@@ -2353,6 +2353,15 @@ axiom profiles recorded in evidence. `policy verify` neither reads nor
 reproduces those package-manifest policy fields, and its explicit selections
 cannot override them.
 
+Evidence v1's `trusted_evidence.certificates` is exactly empty or the singleton
+candidate program certificate with `id = program`; all generated declarations
+for the VC are assembled into that one canonical byte sequence and foundation
+modules remain hash-pinned imports. A candidate row is not itself an acceptance
+claim. Both source-free checker verdicts cover the same singleton ID, and only
+two accepted verdicts can support `mpk_verified`. A deterministic rejection is
+written as valid untrusted evidence and makes `policy verify` fail regardless
+of strict mode; a checker crash or internal failure writes neither report.
+
 Both policy v1 payloads' `release_registry` object repeats the validated
 registry schema, ID, and hash from the source manifest and runner. The policy
 CLI cannot select or override it; its mandatory registry flags only assert
@@ -2377,6 +2386,12 @@ the allowed final manifest from those bytes, never from a hash alone,
 recomputes both hashes, and requires the certificate's opaque source-manifest
 payload to match it exactly. There is no ambiguous `source_manifest_hash` field
 whose stage must be guessed.
+
+The certificate-stage manifest is derived immediately after validated VC
+generation even when proof search remains pending and no candidate certificate
+is emitted. Every candidate that is emitted must attach those exact bytes, so a
+proof-pending evidence report can still record the lifecycle hash without
+pretending that a certificate exists.
 
 The migrated Go path uses the same v1 schemas with `--language go`,
 `--semantic-profile mpk.go.fixed.v0`, and registered `go2vir` frontend and Go

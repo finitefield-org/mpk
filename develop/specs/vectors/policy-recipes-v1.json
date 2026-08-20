@@ -1,0 +1,748 @@
+{
+  "schema": "mpk.policy.recipes.conformance.v1",
+  "spec_schema": "mpk.policy.evidence.v1",
+  "owner_test": "crates/mpk-cli/tests/policy_recipes_v1.rs",
+  "invocations": [
+    {
+      "id": "invocation.go_scan",
+      "route": "scan",
+      "argv": [
+        "mpk", "policy", "scan", "examples/go-policy",
+        "--language", "go",
+        "--semantic-profile", "mpk.go.fixed.v0",
+        "--require-release-registry-id", "mpk.release.registry.v0",
+        "--require-release-registry-sha256", "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7",
+        "--frontend-bundle", "frontend.go.synthetic.v0",
+        "--toolchain-bundle", "toolchain.go.synthetic.v0",
+        "--target", "linux/amd64",
+        "--package", "example.com/mpk/vector",
+        "--function", "example.com/mpk/vector.Identity",
+        "--contract", "contracts/identity.json",
+        "--json-out", "out/scan.json"
+      ],
+      "parsed": {
+        "source_root": "examples/go-policy",
+        "source_language": "go",
+        "semantic_profile": "mpk.go.fixed.v0",
+        "registry_id": "mpk.release.registry.v0",
+        "registry_sha256": "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7",
+        "frontend_bundle_id": "frontend.go.synthetic.v0",
+        "toolchain_bundle_id": "toolchain.go.synthetic.v0",
+        "target_id": "linux/amd64",
+        "package": "example.com/mpk/vector",
+        "function": "example.com/mpk/vector.Identity",
+        "contracts": ["contracts/identity.json"],
+        "json_out": "out/scan.json"
+      }
+    },
+    {
+      "id": "invocation.go_verify",
+      "route": "verify",
+      "argv": [
+        "mpk", "policy", "verify", "examples/go-policy",
+        "--language", "go",
+        "--semantic-profile", "mpk.go.fixed.v0",
+        "--require-release-registry-id", "mpk.release.registry.v0",
+        "--require-release-registry-sha256", "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7",
+        "--frontend-bundle", "frontend.go.synthetic.v0",
+        "--toolchain-bundle", "toolchain.go.synthetic.v0",
+        "--target", "linux/amd64",
+        "--package", "example.com/mpk/vector",
+        "--function", "example.com/mpk/vector.Identity",
+        "--contract", "contracts/identity.json",
+        "--strategy-profile", "payment-policy-alpha",
+        "--checker-profile", "mvp-strict",
+        "--axiom-profile", "zero-axiom",
+        "--evidence-json", "out/evidence.json",
+        "--evidence-md", "out/evidence.md"
+      ],
+      "parsed": {
+        "source_root": "examples/go-policy",
+        "source_language": "go",
+        "semantic_profile": "mpk.go.fixed.v0",
+        "registry_id": "mpk.release.registry.v0",
+        "registry_sha256": "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7",
+        "frontend_bundle_id": "frontend.go.synthetic.v0",
+        "toolchain_bundle_id": "toolchain.go.synthetic.v0",
+        "target_id": "linux/amd64",
+        "package": "example.com/mpk/vector",
+        "function": "example.com/mpk/vector.Identity",
+        "contracts": ["contracts/identity.json"],
+        "strategy_profile": "payment-policy-alpha",
+        "checker_profile": "mvp-strict",
+        "axiom_profile": "zero-axiom",
+        "evidence_json": "out/evidence.json",
+        "evidence_md": "out/evidence.md",
+        "strict": false,
+        "update_fixtures": false
+      }
+    },
+    {
+      "id": "invocation.rust_verify_fixture_update",
+      "route": "verify",
+      "argv": [
+        "mpk", "policy", "verify", "/Users/vector/rust-policy",
+        "--contract", "contracts/caller.json",
+        "--language", "rust",
+        "--semantic-profile", "mpk.rust.checked.v0",
+        "--require-release-registry-id", "mpk.release.registry.v0",
+        "--require-release-registry-sha256", "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7",
+        "--frontend-bundle", "frontend.rust.synthetic.v0",
+        "--toolchain-bundle", "toolchain.rust.synthetic.v0",
+        "--target", "x86_64-unknown-linux-gnu",
+        "--package", "demo",
+        "--function", "demo::caller",
+        "--contract", "contracts/callee.json",
+        "--strategy-profile", "payment-policy-rust-alpha",
+        "--checker-profile", "mvp-strict",
+        "--axiom-profile", "mvp-theory",
+        "--evidence-json", "fixtures/evidence.json",
+        "--evidence-md", "fixtures/evidence.md",
+        "--strict",
+        "--update-fixtures"
+      ],
+      "parsed": {
+        "source_root": "/Users/vector/rust-policy",
+        "source_language": "rust",
+        "semantic_profile": "mpk.rust.checked.v0",
+        "registry_id": "mpk.release.registry.v0",
+        "registry_sha256": "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7",
+        "frontend_bundle_id": "frontend.rust.synthetic.v0",
+        "toolchain_bundle_id": "toolchain.rust.synthetic.v0",
+        "target_id": "x86_64-unknown-linux-gnu",
+        "package": "demo",
+        "function": "demo::caller",
+        "contracts": ["contracts/callee.json", "contracts/caller.json"],
+        "strategy_profile": "payment-policy-rust-alpha",
+        "checker_profile": "mvp-strict",
+        "axiom_profile": "mvp-theory",
+        "evidence_json": "fixtures/evidence.json",
+        "evidence_md": "fixtures/evidence.md",
+        "strict": true,
+        "update_fixtures": true
+      }
+    }
+  ],
+  "cli_cases": [
+    {
+      "id": "cli.accept_go_scan",
+      "input_from": "invocation.go_scan",
+      "expect": {"outcome": "accept", "launch_count": 1}
+    },
+    {
+      "id": "cli.accept_go_verify",
+      "input_from": "invocation.go_verify",
+      "expect": {"outcome": "accept", "launch_count": 1}
+    },
+    {
+      "id": "cli.accept_checker_profile_independent_of_strategy",
+      "construction": {"base": "invocation.go_verify", "operations": [{"op": "replace_option", "name": "--checker-profile", "value": "core-bootstrap"}]},
+      "expect": {"outcome": "accept", "launch_count": 1}
+    },
+    {
+      "id": "cli.accept_rust_repeatable_contracts",
+      "input_from": "invocation.rust_verify_fixture_update",
+      "expect": {"outcome": "accept", "launch_count": 1}
+    },
+    {
+      "id": "cli.reject_missing_source_root",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "remove_source_root"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_ARGUMENT", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_extra_positional",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_positional", "value": "extra-source-root"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_ARGUMENT", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_missing_language",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "remove_option", "name": "--language"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_REQUIRED", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_missing_language_value",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "remove_option_value", "name": "--language"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_ARGUMENT", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_missing_semantic_profile",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "remove_option", "name": "--semantic-profile"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_REQUIRED", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_missing_registry_id",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "remove_option", "name": "--require-release-registry-id"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_REQUIRED", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_missing_registry_hash",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "remove_option", "name": "--require-release-registry-sha256"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_REQUIRED", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_missing_frontend_bundle",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "remove_option", "name": "--frontend-bundle"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_REQUIRED", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_missing_toolchain_bundle",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "remove_option", "name": "--toolchain-bundle"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_REQUIRED", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_missing_target",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "remove_option", "name": "--target"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_REQUIRED", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_missing_package",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "remove_option", "name": "--package"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_REQUIRED", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_missing_function",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "remove_option", "name": "--function"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_REQUIRED", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_missing_contract",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "remove_all_options", "name": "--contract"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_REQUIRED", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_missing_json_out",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "remove_option", "name": "--json-out"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_REQUIRED", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_missing_strategy_profile",
+      "construction": {"base": "invocation.go_verify", "operations": [{"op": "remove_option", "name": "--strategy-profile"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_REQUIRED", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_missing_checker_profile",
+      "construction": {"base": "invocation.go_verify", "operations": [{"op": "remove_option", "name": "--checker-profile"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_REQUIRED", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_missing_axiom_profile",
+      "construction": {"base": "invocation.go_verify", "operations": [{"op": "remove_option", "name": "--axiom-profile"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_REQUIRED", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_missing_evidence_json",
+      "construction": {"base": "invocation.go_verify", "operations": [{"op": "remove_option", "name": "--evidence-json"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_REQUIRED", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_missing_evidence_md",
+      "construction": {"base": "invocation.go_verify", "operations": [{"op": "remove_option", "name": "--evidence-md"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_REQUIRED", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_duplicate_identical_contract",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_option", "name": "--contract", "value": "contracts/identity.json"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_ARGUMENT", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_casefold_contract_collision",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_option", "name": "--contract", "value": "CONTRACTS/identity.json"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_SCALAR", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_duplicate_language",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_option", "name": "--language", "value": "go"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_ARGUMENT", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_duplicate_strict",
+      "construction": {"base": "invocation.rust_verify_fixture_update", "operations": [{"op": "append_flag", "name": "--strict"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_ARGUMENT", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_strict_value",
+      "construction": {"base": "invocation.go_verify", "operations": [{"op": "append_option", "name": "--strict", "value": "true"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_ARGUMENT", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_strict_on_scan",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_flag", "name": "--strict"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_UNKNOWN_OPTION", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_update_fixtures_on_scan",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_flag", "name": "--update-fixtures"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_UNKNOWN_OPTION", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_strategy_profile_on_scan",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_option", "name": "--strategy-profile", "value": "payment-policy-alpha"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_UNKNOWN_OPTION", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_checker_profile_on_scan",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_option", "name": "--checker-profile", "value": "mvp-strict"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_UNKNOWN_OPTION", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_axiom_profile_on_scan",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_option", "name": "--axiom-profile", "value": "zero-axiom"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_UNKNOWN_OPTION", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_evidence_json_on_scan",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_option", "name": "--evidence-json", "value": "out/evidence.json"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_UNKNOWN_OPTION", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_evidence_md_on_scan",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_option", "name": "--evidence-md", "value": "out/evidence.md"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_UNKNOWN_OPTION", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_json_out_on_verify",
+      "construction": {"base": "invocation.go_verify", "operations": [{"op": "append_option", "name": "--json-out", "value": "out/scan.json"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_UNKNOWN_OPTION", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_absolute_contract",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "replace_option", "name": "--contract", "value": "/tmp/identity.json"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_SCALAR", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_absolute_evidence_output",
+      "construction": {"base": "invocation.go_verify", "operations": [{"op": "replace_option", "name": "--evidence-json", "value": "/tmp/evidence.json"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_SCALAR", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_verify_output_alias_before_launch",
+      "construction": {"base": "invocation.go_verify", "operations": [{"op": "replace_option", "name": "--evidence-md", "value": "out/evidence.json"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_OUTPUT", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_go_function_outside_package",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "replace_option", "name": "--function", "value": "example.com/other.Identity"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_SCALAR", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_rust_function_without_item_path",
+      "construction": {"base": "invocation.rust_verify_fixture_update", "operations": [{"op": "replace_option", "name": "--function", "value": "demo"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_SCALAR", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_unknown_language",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "replace_option", "name": "--language", "value": "typescript"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_SCALAR", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_unknown_semantic_profile",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "replace_option", "name": "--semantic-profile", "value": "mpk.future.fixed.v0"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_PROFILE_UNKNOWN", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_crossed_semantic_profile",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "replace_option", "name": "--semantic-profile", "value": "mpk.rust.checked.v0"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_PROFILE_TUPLE", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_crossed_strategy",
+      "construction": {"base": "invocation.rust_verify_fixture_update", "operations": [{"op": "replace_option", "name": "--strategy-profile", "value": "payment-policy-alpha"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_PROFILE_TUPLE", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_crossed_axiom",
+      "construction": {"base": "invocation.rust_verify_fixture_update", "operations": [{"op": "replace_option", "name": "--axiom-profile", "value": "zero-axiom"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_PROFILE_TUPLE", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_unknown_strategy",
+      "construction": {"base": "invocation.go_verify", "operations": [{"op": "replace_option", "name": "--strategy-profile", "value": "future-alpha"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_PROFILE_UNKNOWN", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_unknown_checker",
+      "construction": {"base": "invocation.go_verify", "operations": [{"op": "replace_option", "name": "--checker-profile", "value": "unchecked"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_PROFILE_UNKNOWN", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_unknown_axiom",
+      "construction": {"base": "invocation.go_verify", "operations": [{"op": "replace_option", "name": "--axiom-profile", "value": "future-theory"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_PROFILE_UNKNOWN", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_registry_id_assertion",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "replace_option", "name": "--require-release-registry-id", "value": "mpk.release.registry.future"}]},
+      "expect": {"outcome": "reject", "code": "FRONTEND_REGISTRY_ASSERTION", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_registry_hash_assertion",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "replace_option", "name": "--require-release-registry-sha256", "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}]},
+      "expect": {"outcome": "reject", "code": "FRONTEND_REGISTRY_ASSERTION", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_unknown_frontend_bundle",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "replace_option", "name": "--frontend-bundle", "value": "frontend.go.future.v0"}]},
+      "expect": {"outcome": "reject", "code": "FRONTEND_BUNDLE_UNKNOWN", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_unknown_toolchain_bundle",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "replace_option", "name": "--toolchain-bundle", "value": "toolchain.go.future.v0"}]},
+      "expect": {"outcome": "reject", "code": "FRONTEND_BUNDLE_UNKNOWN", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_incompatible_frontend_bundle",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "replace_option", "name": "--frontend-bundle", "value": "frontend.rust.synthetic.v0"}]},
+      "expect": {"outcome": "reject", "code": "FRONTEND_BUNDLE_INCOMPATIBLE", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_incompatible_toolchain_bundle",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "replace_option", "name": "--toolchain-bundle", "value": "toolchain.rust.synthetic.v0"}]},
+      "expect": {"outcome": "reject", "code": "FRONTEND_BUNDLE_INCOMPATIBLE", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_raw_frontend",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_option", "name": "--frontend", "value": "/tmp/go2vir"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_FORBIDDEN_LOCATOR", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_raw_frontend_helper",
+      "construction": {"base": "invocation.rust_verify_fixture_update", "operations": [{"op": "append_option", "name": "--frontend-helper", "value": "/tmp/rust2vir-driver"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_FORBIDDEN_LOCATOR", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_raw_driver",
+      "construction": {"base": "invocation.rust_verify_fixture_update", "operations": [{"op": "append_option", "name": "--driver", "value": "/tmp/rust2vir-driver"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_FORBIDDEN_LOCATOR", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_go2gir",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_option", "name": "--go2gir", "value": "/tmp/go2gir"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_FORBIDDEN_LOCATOR", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_toolchain_root",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_option", "name": "--toolchain-root", "value": "/tmp/go"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_FORBIDDEN_LOCATOR", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_toolchain_path",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_option", "name": "--toolchain-path", "value": "/tmp/go"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_FORBIDDEN_LOCATOR", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_registry",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_option", "name": "--registry", "value": "/tmp/registry.json"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_FORBIDDEN_LOCATOR", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_registry_path",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_option", "name": "--registry-path", "value": "/tmp/registry.json"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_FORBIDDEN_LOCATOR", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_release_registry_path",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_option", "name": "--release-registry-path", "value": "/tmp/registry.json"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_FORBIDDEN_LOCATOR", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_unknown_option",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_option", "name": "--latest", "value": "true"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_UNKNOWN_OPTION", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_equals_option_spelling",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_flag", "name": "--language=go"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_UNKNOWN_OPTION", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_short_option_alias",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_option", "name": "-l", "value": "go"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_UNKNOWN_OPTION", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_option_terminator",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_flag", "name": "--"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_UNKNOWN_OPTION", "launch_count": 0}
+    },
+    {
+      "id": "cli.reject_mixed_help",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_flag", "name": "--help"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_UNKNOWN_OPTION", "launch_count": 0}
+    },
+    {
+      "id": "cli.precedence_forbidden_before_required",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "remove_option", "name": "--language"}, {"op": "append_option", "name": "--frontend", "value": "/tmp/go2vir"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_FORBIDDEN_LOCATOR", "launch_count": 0}
+    },
+    {
+      "id": "cli.precedence_argument_before_scalar",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_option", "name": "--language", "value": "go"}, {"op": "replace_option", "name": "--contract", "value": "/tmp/identity.json"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_ARGUMENT", "launch_count": 0}
+    },
+    {
+      "id": "cli.precedence_profile_before_registry_assertion",
+      "construction": {"base": "invocation.rust_verify_fixture_update", "operations": [{"op": "replace_option", "name": "--strategy-profile", "value": "payment-policy-alpha"}, {"op": "replace_option", "name": "--require-release-registry-sha256", "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}]},
+      "expect": {"outcome": "reject", "code": "POLICY_PROFILE_TUPLE", "launch_count": 0}
+    }
+  ],
+  "recipe_cases": [
+    {
+      "id": "recipe.go_verify",
+      "invocation": "invocation.go_verify",
+      "expect": {
+        "recipes": [
+          {
+            "label": "scan",
+            "working_directory_role": "source_root",
+            "argv": [
+              "mpk", "policy", "scan", ".",
+              "--language", "go",
+              "--semantic-profile", "mpk.go.fixed.v0",
+              "--require-release-registry-id", "mpk.release.registry.v0",
+              "--require-release-registry-sha256", "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7",
+              "--frontend-bundle", "frontend.go.synthetic.v0",
+              "--toolchain-bundle", "toolchain.go.synthetic.v0",
+              "--target", "linux/amd64",
+              "--package", "example.com/mpk/vector",
+              "--function", "example.com/mpk/vector.Identity",
+              "--contract", "contracts/identity.json",
+              "--json-out", "mpk-reproduction-scan.json"
+            ]
+          },
+          {
+            "label": "verify",
+            "working_directory_role": "source_root",
+            "argv": [
+              "mpk", "policy", "verify", ".",
+              "--language", "go",
+              "--semantic-profile", "mpk.go.fixed.v0",
+              "--require-release-registry-id", "mpk.release.registry.v0",
+              "--require-release-registry-sha256", "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7",
+              "--frontend-bundle", "frontend.go.synthetic.v0",
+              "--toolchain-bundle", "toolchain.go.synthetic.v0",
+              "--target", "linux/amd64",
+              "--package", "example.com/mpk/vector",
+              "--function", "example.com/mpk/vector.Identity",
+              "--contract", "contracts/identity.json",
+              "--strategy-profile", "payment-policy-alpha",
+              "--checker-profile", "mvp-strict",
+              "--axiom-profile", "zero-axiom",
+              "--evidence-json", "mpk-reproduction-evidence.json",
+              "--evidence-md", "mpk-reproduction-evidence.md"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "recipe.rust_sorted_contracts_and_flags",
+      "invocation": "invocation.rust_verify_fixture_update",
+      "expect": {
+        "recipes": [
+          {
+            "label": "scan",
+            "working_directory_role": "source_root",
+            "argv": [
+              "mpk", "policy", "scan", ".",
+              "--language", "rust",
+              "--semantic-profile", "mpk.rust.checked.v0",
+              "--require-release-registry-id", "mpk.release.registry.v0",
+              "--require-release-registry-sha256", "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7",
+              "--frontend-bundle", "frontend.rust.synthetic.v0",
+              "--toolchain-bundle", "toolchain.rust.synthetic.v0",
+              "--target", "x86_64-unknown-linux-gnu",
+              "--package", "demo",
+              "--function", "demo::caller",
+              "--contract", "contracts/callee.json",
+              "--contract", "contracts/caller.json",
+              "--json-out", "mpk-reproduction-scan.json"
+            ]
+          },
+          {
+            "label": "verify",
+            "working_directory_role": "source_root",
+            "argv": [
+              "mpk", "policy", "verify", ".",
+              "--language", "rust",
+              "--semantic-profile", "mpk.rust.checked.v0",
+              "--require-release-registry-id", "mpk.release.registry.v0",
+              "--require-release-registry-sha256", "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7",
+              "--frontend-bundle", "frontend.rust.synthetic.v0",
+              "--toolchain-bundle", "toolchain.rust.synthetic.v0",
+              "--target", "x86_64-unknown-linux-gnu",
+              "--package", "demo",
+              "--function", "demo::caller",
+              "--contract", "contracts/callee.json",
+              "--contract", "contracts/caller.json",
+              "--strategy-profile", "payment-policy-rust-alpha",
+              "--checker-profile", "mvp-strict",
+              "--axiom-profile", "mvp-theory",
+              "--evidence-json", "mpk-reproduction-evidence.json",
+              "--evidence-md", "mpk-reproduction-evidence.md",
+              "--strict",
+              "--update-fixtures"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "render_cases": [
+    {
+      "id": "render.safe_ascii",
+      "argv": ["mpk", "policy", "scan", ".", "--target", "linux/amd64"],
+      "expected_posix": "mpk policy scan . --target linux/amd64"
+    },
+    {
+      "id": "render.empty_space_quote_and_dollar",
+      "argv": ["mpk", "", "payment policy", "demo::it's_ok", "$HOME"],
+      "expected_posix": "mpk '' 'payment policy' 'demo::it'\\''s_ok' '$HOME'"
+    },
+    {
+      "id": "render.unicode",
+      "argv": ["mpk", "policy", "verify", "支払い"],
+      "expected_posix": "mpk policy verify '支払い'"
+    }
+  ],
+  "output_cases": [
+    {
+      "id": "output.scan_create_new",
+      "route": "scan",
+      "update_fixtures": false,
+      "destinations": [
+        {"path": "out/scan.json", "state": "absent"}
+      ],
+      "expect": {"outcome": "accept", "launch_count": 1, "committed_writes": 1}
+    },
+    {
+      "id": "output.scan_existing_rejects",
+      "route": "scan",
+      "update_fixtures": false,
+      "destinations": [
+        {"path": "out/scan.json", "state": "untracked_regular"}
+      ],
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_OUTPUT", "launch_count": 0, "committed_writes": 0}
+    },
+    {
+      "id": "output.verify_create_both",
+      "route": "verify",
+      "update_fixtures": false,
+      "destinations": [
+        {"path": "out/evidence.json", "state": "absent"},
+        {"path": "out/evidence.md", "state": "absent"}
+      ],
+      "expect": {"outcome": "accept", "launch_count": 1, "committed_writes": 2}
+    },
+    {
+      "id": "output.verify_update_tracked_pair",
+      "route": "verify",
+      "update_fixtures": true,
+      "destinations": [
+        {"path": "fixtures/evidence.json", "state": "tracked_regular"},
+        {"path": "fixtures/evidence.md", "state": "tracked_regular"}
+      ],
+      "expect": {"outcome": "accept", "launch_count": 1, "committed_writes": 2}
+    },
+    {
+      "id": "output.verify_rollback_after_markdown_publish_failure",
+      "route": "verify",
+      "update_fixtures": true,
+      "destinations": [
+        {"path": "fixtures/evidence.json", "state": "tracked_regular"},
+        {"path": "fixtures/evidence.md", "state": "tracked_regular"}
+      ],
+      "injected_failure": "publish_markdown",
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_OUTPUT", "launch_count": 1, "committed_writes": 0}
+    },
+    {
+      "id": "output.verify_rollback_after_directory_sync_failure",
+      "route": "verify",
+      "update_fixtures": true,
+      "destinations": [
+        {"path": "fixtures/evidence.json", "state": "tracked_regular"},
+        {"path": "fixtures/evidence.md", "state": "tracked_regular"}
+      ],
+      "injected_failure": "sync_output_directory",
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_OUTPUT", "launch_count": 1, "committed_writes": 0}
+    },
+    {
+      "id": "output.verify_tracked_without_update",
+      "route": "verify",
+      "update_fixtures": false,
+      "destinations": [
+        {"path": "fixtures/evidence.json", "state": "tracked_regular"},
+        {"path": "fixtures/evidence.md", "state": "tracked_regular"}
+      ],
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_OUTPUT", "launch_count": 0, "committed_writes": 0}
+    },
+    {
+      "id": "output.verify_untracked_not_overwritten_with_update",
+      "route": "verify",
+      "update_fixtures": true,
+      "destinations": [
+        {"path": "out/evidence.json", "state": "untracked_regular"},
+        {"path": "out/evidence.md", "state": "absent"}
+      ],
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_OUTPUT", "launch_count": 0, "committed_writes": 0}
+    },
+    {
+      "id": "output.verify_alias_rejects",
+      "route": "verify",
+      "update_fixtures": false,
+      "destinations": [
+        {"path": "out/evidence", "state": "absent"},
+        {"path": "out/evidence", "state": "absent"}
+      ],
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_OUTPUT", "launch_count": 0, "committed_writes": 0}
+    },
+    {
+      "id": "output.verify_ascii_casefold_alias_rejects",
+      "route": "verify",
+      "update_fixtures": false,
+      "destinations": [
+        {"path": "out/Evidence", "state": "absent"},
+        {"path": "out/evidence", "state": "absent"}
+      ],
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_OUTPUT", "launch_count": 0, "committed_writes": 0}
+    },
+    {
+      "id": "output.scan_directory_rejects",
+      "route": "scan",
+      "update_fixtures": false,
+      "destinations": [
+        {"path": "out/scan.json", "state": "directory"}
+      ],
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_OUTPUT", "launch_count": 0, "committed_writes": 0}
+    },
+    {
+      "id": "output.verify_symlink_rejects_transaction",
+      "route": "verify",
+      "update_fixtures": true,
+      "destinations": [
+        {"path": "fixtures/evidence.json", "state": "tracked_regular"},
+        {"path": "fixtures/evidence.md", "state": "symlink"}
+      ],
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_OUTPUT", "launch_count": 0, "committed_writes": 0}
+    },
+    {
+      "id": "output.verify_hardlink_alias_rejects_transaction",
+      "route": "verify",
+      "update_fixtures": true,
+      "destinations": [
+        {"path": "fixtures/evidence.json", "state": "tracked_regular"},
+        {"path": "fixtures/evidence.md", "state": "hardlink_alias"}
+      ],
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_OUTPUT", "launch_count": 0, "committed_writes": 0}
+    },
+    {
+      "id": "output.verify_reparse_point_rejects_transaction",
+      "route": "verify",
+      "update_fixtures": true,
+      "destinations": [
+        {"path": "fixtures/evidence.json", "state": "tracked_regular"},
+        {"path": "fixtures/evidence.md", "state": "reparse_point"}
+      ],
+      "expect": {"outcome": "reject", "code": "POLICY_CLI_OUTPUT", "launch_count": 0, "committed_writes": 0}
+    }
+  ]
+}
