@@ -76,14 +76,25 @@ Out of scope:
    rejected.
 10. Each milestone preserves a green default branch, updates directly affected
     documentation and fixtures, and stages only its own files.
-11. Before RUST-03-T12, Rust bundle tests use only the unregistered injected
-    candidate inventories from RUST-03-T01. RUST-03-T12 performs the first
-    release registration. After that point, any milestone that changes bytes
-    of `rust2vir`, `rust2vir-driver`, the pinned toolchain, or their release
-    build inputs must atomically rebuild the complete bundles, update and
-    review the registry root, rebuild `mpk-cli` with that root, validate the
-    installed tree, and rerun the registered Go path. A tracked descriptor may
-    never describe an older build of the current registered sources.
+11. Bundle lifecycle is state-dependent and never permits a stale descriptor:
+    before GO-VIR-02-T05, Go tests use only the test-injected unregistered
+    candidate from GO-VIR-02-T03; GO-VIR-02-T05 performs the first Go release
+    registration. From that point through RUST-03-T11, a milestone that changes
+    `go2vir`, the pinned Go toolchain, or their release-build inputs must run
+    `./scripts/build-release-bundles.sh --update go`, review the complete
+    registry/inventory and root-hash diff, rerun
+    `./scripts/build-release-bundles.sh --check go`, rebuild `mpk-cli`, and
+    validate the installed Go tree. Before RUST-03-T12, Rust
+    tests use only the unregistered injected candidate inventories from
+    RUST-03-T01; RUST-03-T12 performs the first Rust release registration with
+    `--update all`. After that point, any milestone that changes bytes of
+    either registered frontend, subordinate, pinned toolchain, or their
+    release-build inputs must run
+    `./scripts/build-release-bundles.sh --update all`, review the complete
+    diff, rerun `./scripts/build-release-bundles.sh --check all`, rebuild
+    `mpk-cli`, validate the combined installed tree, and rerun both registered
+    language paths. A tracked descriptor may never describe an older build of
+    the current registered sources.
 
 ## Component Ownership
 
@@ -153,26 +164,53 @@ allow it. A phase exit gate still requires every task in that phase.
 Every milestone satisfies all applicable items below in addition to its own
 acceptance criteria:
 
-- public schemas and error codes have positive, negative, unknown-field,
-  duplicate-key, wrong-schema, boundary-limit, and deterministic-byte tests;
+- VIR-00 specification milestones provide positive, negative, unknown-field,
+  duplicate-key, wrong-schema, boundary-limit, and deterministic-byte
+  conformance vectors and name their owning implementation test; each later
+  parser/emitter milestone must load those vectors and add the corresponding
+  executable tests before it closes;
 - trusted and untrusted artifacts are labeled consistently with
   `develop/specs/TRUST_BOUNDARY_V0.md`;
 - unsupported input fails closed and no operational failure is converted into
   a successful, ready, verified, or proof-pending result;
 - canonical outputs contain no absolute source, toolchain, workspace, home, or
   temporary path and no timestamp, hostname, random ID, or raw compiler prose;
-- test fixtures are generated only through an explicit update mode and ordinary
-  tests compare without rewriting tracked files;
+- generated implementation fixtures change only through an explicit update
+  mode and ordinary tests compare without rewriting tracked files; normative
+  VIR-00 vectors are reviewed directly and hash-manifested by VIR-00-T10;
 - Rust workspace changes pass `cargo fmt --all -- --check`, targeted tests, and
   `cargo clippy --workspace --all-targets -- -D warnings` when the touched code
   is in the root workspace;
 - Go frontend changes pass `go test -count=1 ./...` in the affected Go module;
 - isolated Rust frontend changes pass `cargo fmt --all -- --check` and
   `cargo test --locked` from `rust-tools/rust2vir` under its pinned toolchain;
+- from GO-VIR-02-T05 through RUST-03-T11, a milestone that changes registered
+  Go frontend, toolchain, or release-build bytes also satisfies Execution Rule
+  11: run `./scripts/build-release-bundles.sh --update go`, review the complete
+  registry/inventory and root-hash diff, rerun
+  `./scripts/build-release-bundles.sh --check go`, rebuild `mpk-cli`, then run
+  `./scripts/check-release-bundles.sh --fixture go` and
+  `cargo test -p mpk-cli --test frontend_runner`;
+- after RUST-03-T12, a milestone that changes either registered frontend,
+  subordinate, toolchain, or release-build bytes also satisfies Execution Rule
+  11:
+  run `./scripts/build-release-bundles.sh --update all`, review the complete
+  registry/inventory and root-hash diff, rerun
+  `./scripts/build-release-bundles.sh --check all`, rebuild `mpk-cli`, then run
+  `./scripts/check-release-bundles.sh --fixture all` and
+  both `cargo test -p mpk-cli --test frontend_runner` and
+  `cargo test -p mpk-cli --test rust_frontend_runner`;
 - documentation changes pass `git diff --check` and contain no unresolved
   design placeholders;
 - the default release path remains source-free for proof checking and both
   checker verdicts remain the only accepted checker evidence.
+
+For a milestone that triggers Execution Rule 11, its `Likely touched files`
+implicitly also include `release/bundles/bundle-registry.json`, the complete
+generated registered inventories owned by `RELEASE_BUNDLES_V0.md`, and any
+tracked embedded-registry ID/hash fixture frozen by that specification. Those
+rotation outputs are part of that milestone's own change and must not be
+deferred to a later cleanup task.
 
 ## Milestones
 
@@ -310,8 +348,14 @@ Acceptance criteria:
 Verification:
 
 ```sh
-rg -n "mpk\.go\.fixed\.v0|mpk\.rust\.checked\.v0|MPK-VIR-0\.1|MPK-CONTRACT-0\.1" develop/specs/VIR_V0.md
-rg -n "[T]ODO|[T]BD|未[定]|[P]LACEHOLDER" develop/specs/VIR_V0.md develop/specs/vectors/vir-v0.json develop/specs/vectors/vir-hash-v0.json
+rg -n -F "mpk.go.fixed.v0" develop/specs/VIR_V0.md
+rg -n -F "mpk.rust.checked.v0" develop/specs/VIR_V0.md
+rg -n -F "MPK-VIR-0.1" develop/specs/VIR_V0.md
+rg -n -F "MPK-CONTRACT-0.1" develop/specs/VIR_V0.md
+test -f develop/specs/VIR_V0.md
+test -f develop/specs/vectors/vir-v0.json
+test -f develop/specs/vectors/vir-hash-v0.json
+! rg -n "[T]ODO|[T]BD|[F]IXME|[X]XX|未[定]|[P]LACEHOLDER" develop/specs/VIR_V0.md develop/specs/vectors/vir-v0.json develop/specs/vectors/vir-hash-v0.json
 git diff --check
 ```
 
@@ -360,6 +404,18 @@ Tasks:
    enabled in non-test builds; production evidence routes never accept paths.
 6. Add canonical vectors for missing, extra, duplicate, reordered, mutated,
    oversized, and unsupported tuple cases.
+7. Freeze the deterministic assembler lifecycle and exact internal CLI:
+   `--update-candidate rust` is the only mode that writes the tracked,
+   unregistered Rust test candidate; `--check-candidate rust` rebuilds and
+   byte-compares it without writes; `--update go` and `--update all` are the
+   only modes that write registered inventories and the registry; and
+   `--check go` and `--check all` rebuild and byte-compare registered state
+   without writes. Bare invocation, unsupported mode/target pairs, and any
+   partial rebuild reject. Every writer
+   stages a complete tree before atomic replacement. `all` rebuilds every
+   language declared by the assembler's reviewed release configuration from
+   current sources; after RUST-03-T01 that set is Go and Rust even before
+   RUST-03-T12 adds Rust's first registry entry.
 
 Deliverables:
 
@@ -371,12 +427,18 @@ Acceptance criteria:
   language/profile/target tuple;
 - changing any descriptor, inventory entry, executable, library, or target
   standard library changes the validated registry or content identity;
+- assembler check modes never rewrite tracked files, and an unregistered
+  candidate cannot enter the registry without an explicit registered update;
 - the specification leaves no search-path or environment fallback.
 
 Verification:
 
 ```sh
-rg -n "MPK-BUNDLE-REGISTRY-0\.1|MPK-BUNDLE-CONTENT-0\.1|bundle_registry|frontend_bundle|toolchain_bundle" develop/specs/RELEASE_BUNDLES_V0.md
+rg -n -F "MPK-BUNDLE-REGISTRY-0.1" develop/specs/RELEASE_BUNDLES_V0.md
+rg -n -F "MPK-BUNDLE-CONTENT-0.1" develop/specs/RELEASE_BUNDLES_V0.md
+rg -n -F "bundle_registry" develop/specs/RELEASE_BUNDLES_V0.md
+rg -n -F "frontend_bundle" develop/specs/RELEASE_BUNDLES_V0.md
+rg -n -F "toolchain_bundle" develop/specs/RELEASE_BUNDLES_V0.md
 python3 -m json.tool release/bundles/bundle-registry.json
 git diff --check
 ```
@@ -437,7 +499,12 @@ Acceptance criteria:
 Verification:
 
 ```sh
-rg -n "ir-lowered|source-error|frontend-error|MPK-SOURCE-MAP-0\.1|MPK-INPUT-SET-0\.1|MPK-SOURCE-MANIFEST-0\.1" develop/specs/FRONTEND_PROTOCOL_V0.md develop/specs/SOURCE_MAP_V0.md develop/specs/SOURCE_MANIFEST_V0.md
+rg -n -F "ir-lowered" develop/specs/FRONTEND_PROTOCOL_V0.md
+rg -n -F "source-error" develop/specs/FRONTEND_PROTOCOL_V0.md
+rg -n -F "frontend-error" develop/specs/FRONTEND_PROTOCOL_V0.md
+rg -n -F "MPK-SOURCE-MAP-0.1" develop/specs/SOURCE_MAP_V0.md
+rg -n -F "MPK-INPUT-SET-0.1" develop/specs/SOURCE_MANIFEST_V0.md
+rg -n -F "MPK-SOURCE-MANIFEST-0.1" develop/specs/SOURCE_MANIFEST_V0.md
 git diff --check
 ```
 
@@ -495,7 +562,11 @@ Acceptance criteria:
 Verification:
 
 ```sh
-rg -n "mpk\.vc\.v1|mpk\.vc\.cert_skeleton\.v1|MPK-VC-1\.0|panic_free|balanced" develop/specs/VC_V1.md
+rg -n -F "mpk.vc.v1" develop/specs/VC_V1.md
+rg -n -F "mpk.vc.cert_skeleton.v1" develop/specs/VC_V1.md
+rg -n -F "MPK-VC-1.0" develop/specs/VC_V1.md
+rg -n -F "panic_free" develop/specs/VC_V1.md
+rg -n -F "balanced" develop/specs/VC_V1.md
 git diff --check
 ```
 
@@ -563,7 +634,11 @@ Acceptance criteria:
 Verification:
 
 ```sh
-rg -n "mpk\.policy\.scan\.v1|mpk\.policy\.evidence\.v1|reproduction_recipes|axiom_profile|working_directory_role" develop/specs/POLICY_V1.md
+rg -n -F "mpk.policy.scan.v1" develop/specs/POLICY_V1.md
+rg -n -F "mpk.policy.evidence.v1" develop/specs/POLICY_V1.md
+rg -n -F "reproduction_recipes" develop/specs/POLICY_V1.md
+rg -n -F "axiom_profile" develop/specs/POLICY_V1.md
+rg -n -F "working_directory_role" develop/specs/POLICY_V1.md
 git diff --check
 ```
 
@@ -621,7 +696,11 @@ Acceptance criteria:
 Verification:
 
 ```sh
-rg -n "POST /vir/import|mpk\.ai\.explain\.request\.v1|mpk\.ai\.explanation\.v1|mpk\.evidence-explainer\.v1|minimal-v1" develop/specs/AI_API_V1.md develop/specs/AI_EXPLAIN_V1.md
+rg -n -F "POST /vir/import" develop/specs/AI_API_V1.md
+rg -n -F "mpk.ai.explain.request.v1" develop/specs/AI_EXPLAIN_V1.md
+rg -n -F "mpk.ai.explanation.v1" develop/specs/AI_EXPLAIN_V1.md
+rg -n -F "mpk.evidence-explainer.v1" develop/specs/AI_EXPLAIN_V1.md
+rg -n -F "minimal-v1" develop/specs/AI_EXPLAIN_V1.md
 git diff --check
 ```
 
@@ -675,7 +754,12 @@ Acceptance criteria:
 Verification:
 
 ```sh
-rg -n "mpk\.go\.fixed\.v0|GOOS|GOARCH|CGO_ENABLED|wrapping|loop" develop/specs/GO_VIR_PROFILE_V0.md
+rg -n -F "mpk.go.fixed.v0" develop/specs/GO_VIR_PROFILE_V0.md
+rg -n -F "GOOS" develop/specs/GO_VIR_PROFILE_V0.md
+rg -n -F "GOARCH" develop/specs/GO_VIR_PROFILE_V0.md
+rg -n -F "CGO_ENABLED" develop/specs/GO_VIR_PROFILE_V0.md
+rg -n -F "wrapping" develop/specs/GO_VIR_PROFILE_V0.md
+rg -n -F "loop" develop/specs/GO_VIR_PROFILE_V0.md
 git diff --check
 ```
 
@@ -732,7 +816,11 @@ Acceptance criteria:
 Verification:
 
 ```sh
-rg -n "mpk\.rust\.checked\.v0|mir_drops_elaborated_and_const_checked|mpk\.rust\.driver\.v0|RUST_PREFLIGHT_|RUST_MIR_" develop/specs/RUST_SUBSET_V0.md develop/specs/RUST_DRIVER_PROTOCOL_V0.md
+rg -n -F "mpk.rust.checked.v0" develop/specs/RUST_SUBSET_V0.md
+rg -n -F "mir_drops_elaborated_and_const_checked" develop/specs/RUST_SUBSET_V0.md
+rg -n -F "mpk.rust.driver.v0" develop/specs/RUST_DRIVER_PROTOCOL_V0.md
+rg -n -F "RUST_PREFLIGHT_" develop/specs/RUST_SUBSET_V0.md develop/specs/RUST_DRIVER_PROTOCOL_V0.md
+rg -n -F "RUST_MIR_" develop/specs/RUST_SUBSET_V0.md develop/specs/RUST_DRIVER_PROTOCOL_V0.md
 git diff --check
 ```
 
@@ -794,8 +882,21 @@ Acceptance criteria:
 Verification:
 
 ```sh
-rg -n "VIR_V0|VC_V1|FRONTEND_PROTOCOL_V0|RELEASE_BUNDLES_V0|SOURCE_MAP_V0|SOURCE_MANIFEST_V0|GO_VIR_PROFILE_V0|RUST_SUBSET_V0|RUST_DRIVER_PROTOCOL_V0|POLICY_V1|AI_EXPLAIN_V1|AI_API_V1" develop/README.md
+rg -n -F "VIR_V0.md" develop/README.md
+rg -n -F "VC_V1.md" develop/README.md
+rg -n -F "FRONTEND_PROTOCOL_V0.md" develop/README.md
+rg -n -F "RELEASE_BUNDLES_V0.md" develop/README.md
+rg -n -F "SOURCE_MAP_V0.md" develop/README.md
+rg -n -F "SOURCE_MANIFEST_V0.md" develop/README.md
+rg -n -F "GO_VIR_PROFILE_V0.md" develop/README.md
+rg -n -F "RUST_SUBSET_V0.md" develop/README.md
+rg -n -F "RUST_DRIVER_PROTOCOL_V0.md" develop/README.md
+rg -n -F "POLICY_V1.md" develop/README.md
+rg -n -F "AI_EXPLAIN_V1.md" develop/README.md
+rg -n -F "AI_API_V1.md" develop/README.md
 rg -n "RustSemanticsAxiom" develop/specs develop/docs
+cargo test -p mpk-cert
+(cd go-tools/mpk-checker-ref && CGO_ENABLED=0 go test -count=1 ./...)
 git diff --check
 ```
 
@@ -1161,9 +1262,12 @@ Tasks:
    arbitrary proposition.
 3. Map each safety-check instance to a canonical source-neutral obligation kind
    and stable ID component.
-4. Provide checked-definition or existing checked-theory discharge fixtures and
-   review resulting axiom reports under `zero-axiom` and `mvp-theory` as
-   appropriate.
+4. Encode every safety proposition through checked definitions and aliases.
+   Go-profile fixtures must check under `zero-axiom`; Rust-profile fixtures may
+   use only the existing checked-theory-certificate path admitted by
+   `mvp-theory`. Record any temporarily proof-pending vector with VIR-01-T12
+   as its owner; VIR-01-T12 cannot close until every such vector has a checked
+   discharge path.
 5. Test every operation/profile combination plus missing, extra, duplicate,
    reordered, wrong-width, and wrong-signedness checks.
 
@@ -1177,8 +1281,9 @@ Acceptance criteria:
   condition;
 - an unsupported theory need stops with a test failure rather than adding a
   Rust axiom;
-- all safety vectors have a checked discharge path or a documented
-  proof-pending result.
+- every safety vector is either already discharged through its required
+  checked path or is explicitly assigned to VIR-01-T12; no such assignment
+  may remain at the VIR-01 phase exit.
 
 Verification:
 
@@ -1431,8 +1536,10 @@ Tasks:
 4. Reject every missing, reversed, duplicate, cyclic, or extra dependency edge
    and every policy-member binding that does not name its containing
    declaration.
-5. Add handcrafted cross-language total-operation/safety vectors, both-checker
-   checked foundation fixtures, and parser fuzz targets for VIR and source maps.
+5. Close every proof-pending safety vector explicitly assigned by VIR-01-T07,
+   then add handcrafted cross-language total-operation/safety vectors,
+   both-checker checked foundation fixtures, and parser fuzz targets for VIR
+   and source maps.
 6. Run a phase review against all VIR-00 vectors and the Go semantic baseline;
    close only when the findings ledger is empty.
 
@@ -1586,6 +1693,7 @@ Likely touched files:
 - `go-tools/go2vir/snapshot.go`
 - `go-tools/go2vir/loader.go`
 - `go-tools/go2vir/manifest.go`
+- `go-tools/go2vir/bundle_candidate_test.go`
 - `go-tools/go2vir/testdata/preflight`
 
 Tasks:
@@ -1596,10 +1704,18 @@ Tasks:
 2. Open each allowed original input without following links, read once into an
    immutable buffer, hash it, and build a private snapshot without rereading
    original paths.
-3. Resolve the registered Go toolchain descriptor and construct the exact
-   allowlisted loader environment, explicit `GOOS`/`GOARCH`,
-   `CGO_ENABLED=0`, read-only module settings, isolated cache/home, and network
-   denial.
+3. Accept only the exact launcher-selected Go toolchain bundle ID, validated
+   root, distribution digest, and target from the private CLI. Derive the
+   allowlisted Go executable, standard-library, and support-file locations only
+   beneath that root, independently open/hash/revalidate them, and neither
+   parse a registry nor search the host. Then construct the exact allowlisted
+   loader environment, explicit `GOOS`/`GOARCH`, `CGO_ENABLED=0`, read-only
+   module settings, isolated cache/home, and network denial. Before
+   GO-VIR-02-T05, tests reach this boundary only through a test-only injected,
+   unregistered candidate selection and inventory; no evidence route accepts
+   that candidate.
+   GO-VIR-02-T05 owns registry resolution, the first release build,
+   installed-tree integration, and the registry entry for `go2vir`.
 4. Run package loading only against the snapshot and require its compiled-file
    inventory to match captured inputs and documented toolchain inputs exactly.
 5. Emit the frontend-stage generic source manifest with complete build
@@ -1615,8 +1731,11 @@ Deliverables:
 Acceptance criteria:
 
 - no successful load reads the original tree after capture;
-- identical inputs and registered bundles yield identical manifest bytes under
-  hostile ambient environments;
+- identical inputs and the same injected candidate identity yield identical
+  manifest bytes under hostile ambient environments;
+- candidate injection is test-only, and production exposes only the private
+  launcher-selection validation boundary that GO-VIR-02-T05 supplies from the
+  registered resolver;
 - unrecorded module-cache or standard-library input is impossible or rejects.
 
 Verification:
@@ -1684,7 +1803,7 @@ Verification:
 ```sh
 (cd go-tools/go2vir && go test -count=1 ./...)
 cargo test -p mpk-vc --test go_migration
-rg -n "mpk\.gir|gir_hash|gir_emit|MPK_GIR_V0" go-tools/go2vir
+! rg -n "mpk\.gir|gir_hash|gir_emit|MPK_GIR_V0" go-tools/go2vir
 git diff --check
 ```
 
@@ -1715,9 +1834,13 @@ Tasks:
 
 1. Build `go2vir` and the exact Go toolchain frozen by
    `GO_VIR_PROFILE_V0.md`; assemble their complete inventories in the
-   specification-defined installation layout, register every supported Go
-   profile/target tuple with no subordinate frontend binary, and fail the
-   assembly if generated descriptors differ from the reviewed registry.
+   specification-defined installation layout, and register every supported Go
+   profile/target tuple with no subordinate frontend binary. Run
+   `./scripts/build-release-bundles.sh --update go` to write the complete
+   candidate inventories and registry for review, then require
+   `./scripts/build-release-bundles.sh --check go` to reproduce them without
+   writes. Review the generated registry diff and root hash before embedding
+   them in `mpk-cli`.
 2. Generate and embed the expected registry ID/hash at `mpk-cli` build time,
    then derive
    the exact release root from the already opened `mpk` executable, open the
@@ -1757,6 +1880,7 @@ Acceptance criteria:
 Verification:
 
 ```sh
+./scripts/build-release-bundles.sh --check go
 ./scripts/check-release-bundles.sh --fixture go
 cargo test -p mpk-cli --test frontend_runner
 cargo test -p mpk-cli frontend_runner
@@ -2253,25 +2377,28 @@ Tasks:
 3. Add minimal main/driver version output and make the driver refuse a compiler
    commit other than the embedded one before analysis.
 4. Define reproducible isolated release-build commands and use the deterministic
-   assembler to create unregistered test candidate inventories for the main,
+   assembler's `--update-candidate rust` mode to create unregistered test
+   candidate inventories for the main,
    exactly one driver, toolchain distribution, components, executable digests,
    both target libraries, limit profile, environment profile, and argument
    allowlist. These candidates exercise digest/inventory validation but cannot
-   be selected by an evidence route; final executable registration is owned by
-   RUST-03-T12 after the binaries stop changing.
+   be selected by an evidence route; first release registration is owned by
+   RUST-03-T12 after the RUST-03 skeleton build inputs are fixed. Any later
+   byte change follows Execution Rule 11.
 5. Add a root test proving `cargo test --workspace` does not select or require
    the nightly frontend package.
 
 Deliverables:
 
-- isolated buildable pinned frontend project and initial release registration.
+- isolated buildable pinned frontend project and unregistered release-bundle
+  candidate inventories.
 
 Acceptance criteria:
 
 - stable root workspace and pinned frontend build independently;
 - toolchain mismatch fails deterministically;
-- Rust registration requires exactly one subordinate binary named
-  `rust2vir-driver` when finalized;
+- candidate validation already requires exactly one subordinate binary named
+  `rust2vir-driver`, which is the only shape RUST-03-T12 may register;
 - the active release registry and its Go tuples/hash remain unchanged in this
   milestone, and no candidate bundle can produce policy evidence.
 
@@ -2279,9 +2406,13 @@ Verification:
 
 ```sh
 cargo test --workspace
+./scripts/build-release-bundles.sh --check-candidate rust
+./scripts/build-release-bundles.sh --check go
+./scripts/check-release-bundles.sh --fixture go
 (cd rust-tools/rust2vir && cargo fmt --all -- --check)
 (cd rust-tools/rust2vir && cargo test --locked)
 (cd rust-tools/rust2vir && cargo run --locked --bin rust2vir -- --version)
+cargo test -p mpk-cli --test frontend_runner
 git diff --check
 ```
 
@@ -2477,19 +2608,20 @@ Likely touched files:
 
 Tasks:
 
-1. Implement resolution/revalidation of the launcher-supplied registered
-   toolchain bundle,
-   distribution digest, Cargo/rustc binaries, support files, target library,
-   driver, and target tuple before process creation. Until RUST-03-T12, tests
-   reach that code only through dependency injection of the unregistered
-   candidate; no evidence route accepts the candidate.
+1. Independently open and revalidate the launcher-selected driver path/digest
+   plus the toolchain bundle ID, immutable root, distribution digest,
+   Cargo/rustc binaries, support files, target library, and target tuple before
+   process creation, without parsing the release registry or searching the
+   host. Until RUST-03-T12, tests reach that code only through dependency
+   injection of the unregistered candidate; no evidence route accepts the
+   candidate.
 2. Construct the child environment from an empty map with only the exact
    profile values, private empty home/Cargo home/temp/target, toolchain-only
    path, deterministic locale/timezone, offline/no-incremental settings,
-   `RUSTC` set to the snapshotted registered rustc,
-   `RUSTC_WORKSPACE_WRAPPER` set to the snapshotted registered driver, and
+   `RUSTC` set to the snapshotted selected rustc,
+   `RUSTC_WORKSPACE_WRAPPER` set to the snapshotted selected driver, and
    `CARGO_ENCODED_RUSTFLAGS` set to the exact unit-separator encoding of the
-   registered semantic arguments in their specified order. Keep `RUSTFLAGS`
+   selected semantic arguments in their specified order. Keep `RUSTFLAGS`
    and `RUSTC_WRAPPER` absent. The initial profile sets private `HOME`,
    `CARGO_HOME`, `TMPDIR`, and `CARGO_TARGET_DIR`; toolchain-only `PATH`;
    `LC_ALL=C`, `LANG=C`, `TZ=UTC`, `TERM=dumb`,
@@ -2517,8 +2649,9 @@ Tasks:
    `--offline`, `--no-default-features`, `--jobs 1`,
    `--message-format json`, and `--color never`. Bound/normalize its structured
    message stream without copying raw stderr into canonical output. Use a
-   registered fixture wrapper until the real private handshake lands in
-   RUST-03-T06.
+   dependency-injected unregistered candidate wrapper until the real private
+   handshake lands in RUST-03-T06; that wrapper remains unreachable from every
+   evidence route.
 6. Prove effective environment, flags, target, and filesystem view are
    unchanged under hostile ambient `CARGO_*`, `RUST*`, proxy, credential,
    locale, wrapper, rustup, and working-directory inputs.
@@ -2902,13 +3035,16 @@ Likely touched files:
 
 Tasks:
 
-1. Release-build the completed skeleton main/driver and pinned toolchain,
-   generate complete inventories, add every Rust profile/target tuple to the
-   reviewed combined Go/Rust registry, rebuild `mpk-cli` with the new expected
-   registry ID/hash, and validate the installed tree. Require exactly one
-   registered subordinate named `rust2vir-driver` and preserve every existing
-   Go tuple byte-for-byte apart from the registry root/hash fields derived from
-   adding Rust.
+1. Release-build the completed skeleton main/driver and pinned toolchain. Run
+   `./scripts/build-release-bundles.sh --update all` to generate complete
+   candidate inventories and add every Rust profile/target tuple to the
+   combined Go/Rust registry; review the full descriptor/inventory diff and new
+   registry root, then require `./scripts/build-release-bundles.sh --check all`
+   to reproduce it exactly without writes. Rebuild
+   `mpk-cli` with the reviewed registry ID/hash and validate the installed
+   tree. Require exactly one registered subordinate named `rust2vir-driver`
+   and preserve every existing Go tuple byte-for-byte apart from the registry
+   root/hash fields derived from adding Rust.
 2. Strictly consume the validated private artifact, recompute its payload and
    inventory hashes, and construct canonical public VIR, source map, and
    frontend-stage manifest using launcher-selected identities.
@@ -2942,6 +3078,7 @@ Acceptance criteria:
 Verification:
 
 ```sh
+./scripts/build-release-bundles.sh --check all
 ./scripts/check-release-bundles.sh --fixture all
 (cd rust-tools/rust2vir && cargo test --locked --test frontend_envelope)
 (cd rust-tools/rust2vir && cargo test --locked)
@@ -3905,16 +4042,18 @@ Inputs:
 
 Likely touched files:
 
-- `crates/mpk-vc/src/interpreter.rs`
+- `crates/mpk-vc/tests/support/vir_interpreter.rs`
 - `crates/mpk-vc/tests/vir_differential.rs`
 - `rust-tools/rust2vir/tests/differential.rs`
 - `scripts/check-artifact-paths.py`
 
 Tasks:
 
-1. Implement a small test-only or explicitly untrusted VIR interpreter for
-   accepted total scalar, branch, aggregate, projection, and static-call value
-   semantics plus evaluation of modeled safety conditions.
+1. Implement a small test-only VIR interpreter under
+   `crates/mpk-vc/tests/support`; label it explicitly untrusted, do not export
+   it from `mpk-vc`, and do not compile or package it in release artifacts. It
+   covers accepted total scalar, branch, aggregate, projection, and static-call
+   value semantics plus evaluation of modeled safety conditions.
 2. Compare accepted Rust execution and panic behavior with VIR over exhaustive
    small widths and deterministic generated inputs; compare migrated Go/VIR for
    the shared operation corpus.
@@ -3936,6 +4075,7 @@ Acceptance criteria:
 - all accepted corpus executions agree for value and modeled panic behavior;
 - known Go/Rust semantic differences match profile vectors rather than being
   treated as drift;
+- the interpreter is unreachable from production APIs and release binaries;
 - repeated canonical outputs are byte-identical and path-clean.
 
 Verification:
