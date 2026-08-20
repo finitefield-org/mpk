@@ -410,7 +410,7 @@ Notes:
 
 ### VIR-00-T02 Freeze VIR v0 and the Two Semantic Profiles
 
-Status: Pending
+Status: Complete (2026-08-20).
 
 Depends on: VIR-00-T01.
 

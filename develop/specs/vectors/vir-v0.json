@@ -1,0 +1,919 @@
+{
+  "schema": "mpk.vir.conformance.v0",
+  "spec_schema": "mpk.vir.v0",
+  "owner_tests": [
+    "crates/mpk-vc/tests/vir_model.rs",
+    "crates/mpk-vc/tests/vir_validation.rs"
+  ],
+  "module_cases": [
+    {
+      "id": "module.valid_go_identity",
+      "input": {
+        "schema": "mpk.vir.v0",
+        "source_language": "go",
+        "semantic_profile": "mpk.go.fixed.v0",
+        "semantic_parameters": {
+          "target_id": "linux/amd64",
+          "pointer_width": 64
+        },
+        "units": [
+          {
+            "id": "example.com/mpk/vector",
+            "name": "vector",
+            "type_decls": [],
+            "const_decls": [],
+            "functions": [
+              {
+                "id": "example.com/mpk/vector.Identity",
+                "unit_id": "example.com/mpk/vector",
+                "name": "Identity",
+                "params": [
+                  {
+                    "id": "arg0",
+                    "type": {
+                      "kind": "bv",
+                      "width": 8,
+                      "signed": true
+                    }
+                  }
+                ],
+                "results": [
+                  {
+                    "id": "result0",
+                    "type": {
+                      "kind": "bv",
+                      "width": 8,
+                      "signed": true
+                    }
+                  }
+                ],
+                "locals": [],
+                "blocks": [
+                  {
+                    "label": "bb0",
+                    "parameters": [],
+                    "instructions": [],
+                    "terminator": {
+                      "kind": "Return",
+                      "values": [
+                        {
+                          "var": "arg0"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "contracts": {
+                  "unit_id": "example.com/mpk/vector",
+                  "function_id": "example.com/mpk/vector.Identity",
+                  "semantic_profile": "mpk.go.fixed.v0",
+                  "semantic_parameters": {
+                    "target_id": "linux/amd64",
+                    "pointer_width": 64
+                  },
+                  "requires": [],
+                  "ensures": [
+                    {
+                      "op": "eq",
+                      "lhs": {
+                        "result": 0
+                      },
+                      "rhs": {
+                        "var": "arg0"
+                      }
+                    }
+                  ],
+                  "modifies": [],
+                  "panic": "forbidden",
+                  "termination": "total",
+                  "loops": [],
+                  "contract_hash": "a09b6fa6bf3ab7a88b3e808e3d3b658dff65418704804837c8f36f9a3a550cb5"
+                },
+                "features_used": []
+              }
+            ]
+          }
+        ],
+        "vir_hash": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690"
+      },
+      "expect": {
+        "outcome": "accept"
+      }
+    },
+    {
+      "id": "module.valid_rust_identity",
+      "input": {
+        "schema": "mpk.vir.v0",
+        "source_language": "rust",
+        "semantic_profile": "mpk.rust.checked.v0",
+        "semantic_parameters": {
+          "target_id": "x86_64-unknown-linux-gnu",
+          "pointer_width": 64,
+          "overflow_mode": "checked",
+          "panic_mode": "abort"
+        },
+        "units": [
+          {
+            "id": "vector",
+            "name": "vector",
+            "type_decls": [],
+            "const_decls": [],
+            "functions": [
+              {
+                "id": "vector::identity",
+                "unit_id": "vector",
+                "name": "identity",
+                "params": [
+                  {
+                    "id": "arg0",
+                    "type": {
+                      "kind": "bv",
+                      "width": 8,
+                      "signed": true
+                    }
+                  }
+                ],
+                "results": [
+                  {
+                    "id": "result0",
+                    "type": {
+                      "kind": "bv",
+                      "width": 8,
+                      "signed": true
+                    }
+                  }
+                ],
+                "locals": [],
+                "blocks": [
+                  {
+                    "label": "bb0",
+                    "parameters": [],
+                    "instructions": [],
+                    "terminator": {
+                      "kind": "Return",
+                      "values": [
+                        {
+                          "var": "arg0"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "contracts": {
+                  "unit_id": "vector",
+                  "function_id": "vector::identity",
+                  "semantic_profile": "mpk.rust.checked.v0",
+                  "semantic_parameters": {
+                    "target_id": "x86_64-unknown-linux-gnu",
+                    "pointer_width": 64,
+                    "overflow_mode": "checked",
+                    "panic_mode": "abort"
+                  },
+                  "requires": [],
+                  "ensures": [
+                    {
+                      "op": "eq",
+                      "lhs": {
+                        "result": 0
+                      },
+                      "rhs": {
+                        "var": "arg0"
+                      }
+                    }
+                  ],
+                  "modifies": [],
+                  "panic": "forbidden",
+                  "termination": "total",
+                  "loops": [],
+                  "contract_hash": "8bbd30566c16ab9cb37212518fd6a6d5777cda3214bd6c97725fcbc90d170a2f"
+                },
+                "features_used": []
+              }
+            ]
+          }
+        ],
+        "vir_hash": "374b123698ff7f4a3cce1a430026bc468b6be1a1eac24fd007556816b210e64b"
+      },
+      "expect": {
+        "outcome": "accept"
+      }
+    },
+    {
+      "id": "module.reject_duplicate_key",
+      "json_text": "{\"schema\":\"mpk.vir.v0\",\"schema\":\"mpk.vir.v0\"}",
+      "expect": {
+        "outcome": "reject",
+        "code": "VIR_JSON_DUPLICATE_KEY"
+      }
+    },
+    {
+      "id": "module.reject_wrong_schema",
+      "construction": {
+        "base": "module.valid_go_identity",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/schema",
+            "value": "mpk.pre_cutover.v0"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "code": "VIR_SCHEMA_UNSUPPORTED"
+      }
+    },
+    {
+      "id": "module.reject_unknown_field",
+      "construction": {
+        "base": "module.valid_go_identity",
+        "patches": [
+          {
+            "op": "add",
+            "path": "/source_legacy_ir_hash",
+            "value": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "code": "VIR_UNKNOWN_FIELD"
+      }
+    },
+    {
+      "id": "module.reject_missing_required_field",
+      "construction": {
+        "base": "module.valid_go_identity",
+        "patches": [
+          {
+            "op": "remove",
+            "path": "/semantic_parameters"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "code": "VIR_MISSING_FIELD"
+      }
+    },
+    {
+      "id": "module.reject_uppercase_hash",
+      "construction": {
+        "base": "module.valid_go_identity",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/vir_hash",
+            "value": "374DBBCC0C9454BF29C0117C02F1BBDC0424DF970297AF9FE4560512D40D0690"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "code": "VIR_HASH_FORMAT"
+      }
+    }
+  ],
+  "type_cases": [
+    {"id":"type.valid_bool","input":{"kind":"bool"},"expect":{"outcome":"accept"}},
+    {"id":"type.valid_i8","input":{"kind":"bv","width":8,"signed":true},"expect":{"outcome":"accept"}},
+    {"id":"type.valid_u8","input":{"kind":"bv","width":8,"signed":false},"expect":{"outcome":"accept"}},
+    {"id":"type.valid_i16","input":{"kind":"bv","width":16,"signed":true},"expect":{"outcome":"accept"}},
+    {"id":"type.valid_u16","input":{"kind":"bv","width":16,"signed":false},"expect":{"outcome":"accept"}},
+    {"id":"type.valid_i32","input":{"kind":"bv","width":32,"signed":true},"expect":{"outcome":"accept"}},
+    {"id":"type.valid_u32","input":{"kind":"bv","width":32,"signed":false},"expect":{"outcome":"accept"}},
+    {"id":"type.valid_i64","input":{"kind":"bv","width":64,"signed":true},"expect":{"outcome":"accept"}},
+    {"id":"type.valid_u64","input":{"kind":"bv","width":64,"signed":false},"expect":{"outcome":"accept"}},
+    {"id":"type.valid_zero_array","input":{"kind":"array","length":0,"element":{"kind":"bool"}},"expect":{"outcome":"accept"}},
+    {"id":"type.valid_max_array","input":{"kind":"array","length":256,"element":{"kind":"bv","width":64,"signed":false}},"expect":{"outcome":"accept"}},
+    {"id":"type.valid_nominal_struct","context":{"type_decls":["vector::Pair"]},"input":{"kind":"struct","id":"vector::Pair"},"expect":{"outcome":"accept"}},
+    {"id":"type.reject_bool_extra_field","input":{"kind":"bool","signed":false},"expect":{"outcome":"reject","code":"VIR_TYPE_SHAPE"}},
+    {"id":"type.reject_bv_missing_signed","input":{"kind":"bv","width":8},"expect":{"outcome":"reject","code":"VIR_TYPE_SHAPE"}},
+    {"id":"type.reject_bv_width_128","input":{"kind":"bv","width":128,"signed":true},"expect":{"outcome":"reject","code":"VIR_TYPE_WIDTH"}},
+    {"id":"type.reject_array_above_limit","input":{"kind":"array","length":257,"element":{"kind":"bool"}},"expect":{"outcome":"reject","code":"VIR_LIMIT_ARRAY_ELEMENTS"}},
+    {"id":"type.reject_array_missing_element","input":{"kind":"array","length":1},"expect":{"outcome":"reject","code":"VIR_TYPE_SHAPE"}},
+    {"id":"type.reject_inline_struct","input":{"kind":"struct","id":"vector::Pair","fields":[]},"expect":{"outcome":"reject","code":"VIR_TYPE_SHAPE"}},
+    {"id":"type.reject_unknown_struct","context":{"type_decls":[]},"input":{"kind":"struct","id":"vector::Missing"},"expect":{"outcome":"reject","code":"VIR_UNKNOWN_TYPE"}},
+    {"id":"type.reject_unknown_kind","input":{"kind":"tuple"},"expect":{"outcome":"reject","code":"VIR_TYPE_KIND"}},
+    {"id":"type.valid_empty_struct_decl","context":{"validator":"struct_decl","source_language":"rust","unit_id":"vector"},"input":{"id":"vector::Empty","name":"Empty","fields":[]},"expect":{"outcome":"accept"}},
+    {"id":"type.reject_duplicate_struct_field","context":{"validator":"struct_decl","source_language":"rust","unit_id":"vector"},"input":{"id":"vector::Pair","name":"Pair","fields":[{"name":"value","type":{"kind":"bool"}},{"name":"value","type":{"kind":"bool"}}]},"expect":{"outcome":"reject","code":"VIR_DUPLICATE_FIELD"}},
+    {"id":"type.valid_bool_const_decl","context":{"validator":"const_decl","source_language":"rust","unit_id":"vector"},"input":{"id":"vector::ENABLED","name":"ENABLED","type":{"kind":"bool"},"value":{"bool":true}},"expect":{"outcome":"accept"}},
+    {"id":"type.valid_u64_max_const_decl","context":{"validator":"const_decl","source_language":"rust","unit_id":"vector"},"input":{"id":"vector::MAX","name":"MAX","type":{"kind":"bv","width":64,"signed":false},"value":{"int":{"value":"18446744073709551615","width":64,"signed":false}}},"expect":{"outcome":"accept"}},
+    {"id":"type.reject_const_literal_type_mismatch","context":{"validator":"const_decl","source_language":"rust","unit_id":"vector"},"input":{"id":"vector::BAD","name":"BAD","type":{"kind":"bv","width":8,"signed":false},"value":{"int":{"value":"1","width":16,"signed":false}}},"expect":{"outcome":"reject","code":"VIR_CONST_TYPE"}},
+    {"id":"type.reject_aggregate_const_decl","context":{"validator":"const_decl","source_language":"rust","unit_id":"vector"},"input":{"id":"vector::BAD","name":"BAD","type":{"kind":"array","length":1,"element":{"kind":"bool"}},"value":{"bool":true}},"expect":{"outcome":"reject","code":"VIR_CONST_TYPE"}}
+  ],
+  "instruction_cases": [
+    {
+      "id": "instruction.valid_const",
+      "context": {"semantic_profile":"mpk.rust.checked.v0","bindings":[],"locals":[],"type_decls":[],"callees":[]},
+      "input": {"id":"t0","kind":"Const","type":{"kind":"bv","width":8,"signed":true},"value":{"int":{"value":"-128","width":8,"signed":true}},"safety_checks":[]},
+      "expect": {"outcome":"accept"}
+    },
+    {
+      "id": "instruction.reject_const_inapplicable_target",
+      "context": {"semantic_profile":"mpk.rust.checked.v0","bindings":[],"locals":[],"type_decls":[],"callees":[]},
+      "input": {"id":"t0","kind":"Const","type":{"kind":"bool"},"target":"local0","value":{"bool":true},"safety_checks":[]},
+      "expect": {"outcome":"reject","code":"VIR_INSTRUCTION_SHAPE"}
+    },
+    {
+      "id": "instruction.valid_copy",
+      "context": {"semantic_profile":"mpk.go.fixed.v0","bindings":[{"id":"arg0","type":{"kind":"bv","width":8,"signed":true}}],"locals":[{"id":"local0","type":{"kind":"bv","width":8,"signed":true}}],"type_decls":[],"callees":[]},
+      "input": {"id":"t0","kind":"Copy","type":{"kind":"bv","width":8,"signed":true},"target":"local0","value":{"var":"arg0"},"safety_checks":[]},
+      "expect": {"outcome":"accept"}
+    },
+    {
+      "id": "instruction.valid_copy_const_reference",
+      "context": {"semantic_profile":"mpk.go.fixed.v0","bindings":[],"locals":[{"id":"local0","type":{"kind":"bool"}}],"type_decls":[],"const_decls":[{"id":"example.com/mpk/vector.ENABLED","name":"ENABLED","type":{"kind":"bool"},"value":{"bool":true}}],"callees":[]},
+      "input": {"id":"t0","kind":"Copy","type":{"kind":"bool"},"target":"local0","value":{"const":"example.com/mpk/vector.ENABLED"},"safety_checks":[]},
+      "expect": {"outcome":"accept"}
+    },
+    {
+      "id": "instruction.reject_unknown_const_reference",
+      "context": {"semantic_profile":"mpk.go.fixed.v0","bindings":[],"locals":[{"id":"local0","type":{"kind":"bool"}}],"type_decls":[],"const_decls":[],"callees":[]},
+      "input": {"id":"t0","kind":"Copy","type":{"kind":"bool"},"target":"local0","value":{"const":"example.com/mpk/vector.MISSING"},"safety_checks":[]},
+      "expect": {"outcome":"reject","code":"VIR_UNKNOWN_CONST"}
+    },
+    {
+      "id": "instruction.reject_value_multiple_tags",
+      "context": {"semantic_profile":"mpk.go.fixed.v0","bindings":[{"id":"arg0","type":{"kind":"bool"}}],"locals":[{"id":"local0","type":{"kind":"bool"}}],"type_decls":[],"const_decls":[],"callees":[]},
+      "input": {"id":"t0","kind":"Copy","type":{"kind":"bool"},"target":"local0","value":{"var":"arg0","bool":true},"safety_checks":[]},
+      "expect": {"outcome":"reject","code":"VIR_VALUE_SHAPE"}
+    },
+    {
+      "id": "instruction.reject_copy_missing_target",
+      "context": {"semantic_profile":"mpk.go.fixed.v0","bindings":[{"id":"arg0","type":{"kind":"bv","width":8,"signed":true}}],"locals":[],"type_decls":[],"callees":[]},
+      "input": {"id":"t0","kind":"Copy","type":{"kind":"bv","width":8,"signed":true},"value":{"var":"arg0"},"safety_checks":[]},
+      "expect": {"outcome":"reject","code":"VIR_INSTRUCTION_SHAPE"}
+    },
+    {
+      "id": "instruction.valid_binop",
+      "context": {"semantic_profile":"mpk.go.fixed.v0","bindings":[{"id":"arg0","type":{"kind":"bv","width":8,"signed":true}},{"id":"arg1","type":{"kind":"bv","width":8,"signed":true}}],"locals":[],"type_decls":[],"callees":[]},
+      "input": {"id":"t0","kind":"BinOp","op":"bv_add","type":{"kind":"bv","width":8,"signed":true},"lhs":{"var":"arg0"},"rhs":{"var":"arg1"},"safety_checks":[]},
+      "expect": {"outcome":"accept"}
+    },
+    {
+      "id": "instruction.reject_binop_inapplicable_value",
+      "context": {"semantic_profile":"mpk.go.fixed.v0","bindings":[{"id":"arg0","type":{"kind":"bv","width":8,"signed":true}}],"locals":[],"type_decls":[],"callees":[]},
+      "input": {"id":"t0","kind":"BinOp","op":"bv_add","type":{"kind":"bv","width":8,"signed":true},"lhs":{"var":"arg0"},"rhs":{"var":"arg0"},"value":{"var":"arg0"},"safety_checks":[]},
+      "expect": {"outcome":"reject","code":"VIR_INSTRUCTION_SHAPE"}
+    },
+    {
+      "id": "instruction.valid_unary",
+      "context": {"semantic_profile":"mpk.rust.checked.v0","bindings":[{"id":"arg0","type":{"kind":"bool"}}],"locals":[],"type_decls":[],"callees":[]},
+      "input": {"id":"t0","kind":"UnaryOp","op":"not","type":{"kind":"bool"},"value":{"var":"arg0"},"safety_checks":[]},
+      "expect": {"outcome":"accept"}
+    },
+    {
+      "id": "instruction.reject_unary_inapplicable_lhs",
+      "context": {"semantic_profile":"mpk.rust.checked.v0","bindings":[{"id":"arg0","type":{"kind":"bool"}}],"locals":[],"type_decls":[],"callees":[]},
+      "input": {"id":"t0","kind":"UnaryOp","op":"not","type":{"kind":"bool"},"value":{"var":"arg0"},"lhs":{"var":"arg0"},"safety_checks":[]},
+      "expect": {"outcome":"reject","code":"VIR_INSTRUCTION_SHAPE"}
+    },
+    {
+      "id": "instruction.valid_convert",
+      "context": {"semantic_profile":"mpk.go.fixed.v0","bindings":[{"id":"arg0","type":{"kind":"bv","width":8,"signed":true}}],"locals":[],"type_decls":[],"callees":[]},
+      "input": {"id":"t0","kind":"Convert","type":{"kind":"bv","width":16,"signed":false},"value":{"var":"arg0"},"safety_checks":[]},
+      "expect": {"outcome":"accept"}
+    },
+    {
+      "id": "instruction.reject_convert_with_op",
+      "context": {"semantic_profile":"mpk.go.fixed.v0","bindings":[{"id":"arg0","type":{"kind":"bv","width":8,"signed":true}}],"locals":[],"type_decls":[],"callees":[]},
+      "input": {"id":"t0","kind":"Convert","op":"convert","type":{"kind":"bv","width":16,"signed":false},"value":{"var":"arg0"},"safety_checks":[]},
+      "expect": {"outcome":"reject","code":"VIR_INSTRUCTION_SHAPE"}
+    },
+    {
+      "id": "instruction.valid_field",
+      "context": {"semantic_profile":"mpk.rust.checked.v0","bindings":[{"id":"arg0","type":{"kind":"struct","id":"vector::Pair"}}],"locals":[],"type_decls":[{"id":"vector::Pair","name":"Pair","fields":[{"name":"left","type":{"kind":"bv","width":8,"signed":true}}]}],"callees":[]},
+      "input": {"id":"t0","kind":"Field","type":{"kind":"bv","width":8,"signed":true},"base":{"var":"arg0"},"field":"left","safety_checks":[]},
+      "expect": {"outcome":"accept"}
+    },
+    {
+      "id": "instruction.reject_field_missing_name",
+      "context": {"semantic_profile":"mpk.rust.checked.v0","bindings":[{"id":"arg0","type":{"kind":"struct","id":"vector::Pair"}}],"locals":[],"type_decls":[{"id":"vector::Pair","name":"Pair","fields":[{"name":"left","type":{"kind":"bv","width":8,"signed":true}}]}],"callees":[]},
+      "input": {"id":"t0","kind":"Field","type":{"kind":"bv","width":8,"signed":true},"base":{"var":"arg0"},"safety_checks":[]},
+      "expect": {"outcome":"reject","code":"VIR_INSTRUCTION_SHAPE"}
+    },
+    {
+      "id": "instruction.valid_index",
+      "context": {"semantic_profile":"mpk.rust.checked.v0","bindings":[{"id":"arg0","type":{"kind":"array","length":2,"element":{"kind":"bv","width":8,"signed":true}}},{"id":"arg1","type":{"kind":"bv","width":64,"signed":false}}],"locals":[],"type_decls":[],"callees":[]},
+      "input": {"id":"t0","kind":"Index","type":{"kind":"bv","width":8,"signed":true},"base":{"var":"arg0"},"index":{"var":"arg1"},"safety_checks":[{"kind":"index_in_bounds"}]},
+      "expect": {"outcome":"accept"}
+    },
+    {
+      "id": "instruction.reject_index_missing_index",
+      "context": {"semantic_profile":"mpk.rust.checked.v0","bindings":[{"id":"arg0","type":{"kind":"array","length":2,"element":{"kind":"bv","width":8,"signed":true}}}],"locals":[],"type_decls":[],"callees":[]},
+      "input": {"id":"t0","kind":"Index","type":{"kind":"bv","width":8,"signed":true},"base":{"var":"arg0"},"safety_checks":[{"kind":"index_in_bounds"}]},
+      "expect": {"outcome":"reject","code":"VIR_INSTRUCTION_SHAPE"}
+    },
+    {
+      "id": "instruction.valid_make_struct",
+      "context": {"semantic_profile":"mpk.rust.checked.v0","bindings":[{"id":"arg0","type":{"kind":"bv","width":8,"signed":true}}],"locals":[],"type_decls":[{"id":"vector::Pair","name":"Pair","fields":[{"name":"left","type":{"kind":"bv","width":8,"signed":true}}]}],"callees":[]},
+      "input": {"id":"t0","kind":"MakeStruct","type":{"kind":"struct","id":"vector::Pair"},"fields":[{"name":"left","value":{"var":"arg0"}}],"safety_checks":[]},
+      "expect": {"outcome":"accept"}
+    },
+    {
+      "id": "instruction.reject_make_struct_omitted_field",
+      "context": {"semantic_profile":"mpk.rust.checked.v0","bindings":[],"locals":[],"type_decls":[{"id":"vector::Pair","name":"Pair","fields":[{"name":"left","type":{"kind":"bv","width":8,"signed":true}}]}],"callees":[]},
+      "input": {"id":"t0","kind":"MakeStruct","type":{"kind":"struct","id":"vector::Pair"},"fields":[],"safety_checks":[]},
+      "expect": {"outcome":"reject","code":"VIR_STRUCT_FIELDS"}
+    },
+    {
+      "id": "instruction.valid_make_array",
+      "context": {"semantic_profile":"mpk.go.fixed.v0","bindings":[{"id":"arg0","type":{"kind":"bv","width":8,"signed":true}}],"locals":[],"type_decls":[],"callees":[]},
+      "input": {"id":"t0","kind":"MakeArray","type":{"kind":"array","length":2,"element":{"kind":"bv","width":8,"signed":true}},"elements":[{"var":"arg0"},{"var":"arg0"}],"safety_checks":[]},
+      "expect": {"outcome":"accept"}
+    },
+    {
+      "id": "instruction.reject_make_array_wrong_length",
+      "context": {"semantic_profile":"mpk.go.fixed.v0","bindings":[{"id":"arg0","type":{"kind":"bv","width":8,"signed":true}}],"locals":[],"type_decls":[],"callees":[]},
+      "input": {"id":"t0","kind":"MakeArray","type":{"kind":"array","length":2,"element":{"kind":"bv","width":8,"signed":true}},"elements":[{"var":"arg0"}],"safety_checks":[]},
+      "expect": {"outcome":"reject","code":"VIR_ARRAY_ELEMENTS"}
+    },
+    {
+      "id": "instruction.valid_call_static",
+      "context": {"semantic_profile":"mpk.rust.checked.v0","bindings":[{"id":"arg0","type":{"kind":"bv","width":8,"signed":true}}],"locals":[],"type_decls":[],"callees":[{"function":"vector::callee","contract_hash":"1111111111111111111111111111111111111111111111111111111111111111","params":[{"kind":"bv","width":8,"signed":true}],"result":{"kind":"bv","width":8,"signed":true}}]},
+      "input": {"id":"t0","kind":"CallStatic","type":{"kind":"bv","width":8,"signed":true},"function":"vector::callee","contract_hash":"1111111111111111111111111111111111111111111111111111111111111111","args":[{"var":"arg0"}],"safety_checks":[]},
+      "expect": {"outcome":"accept"}
+    },
+    {
+      "id": "instruction.reject_call_static_missing_hash",
+      "context": {"semantic_profile":"mpk.rust.checked.v0","bindings":[],"locals":[],"type_decls":[],"callees":[]},
+      "input": {"id":"t0","kind":"CallStatic","type":{"kind":"bv","width":8,"signed":true},"function":"vector::callee","args":[],"safety_checks":[]},
+      "expect": {"outcome":"reject","code":"VIR_INSTRUCTION_SHAPE"}
+    },
+    {
+      "id": "instruction.reject_call_static_hash_mismatch",
+      "context": {"semantic_profile":"mpk.rust.checked.v0","bindings":[{"id":"arg0","type":{"kind":"bv","width":8,"signed":true}}],"locals":[],"type_decls":[],"callees":[{"function":"vector::callee","contract_hash":"1111111111111111111111111111111111111111111111111111111111111111","params":[{"kind":"bv","width":8,"signed":true}],"result":{"kind":"bv","width":8,"signed":true}}]},
+      "input": {"id":"t0","kind":"CallStatic","type":{"kind":"bv","width":8,"signed":true},"function":"vector::callee","contract_hash":"2222222222222222222222222222222222222222222222222222222222222222","args":[{"var":"arg0"}],"safety_checks":[]},
+      "expect": {"outcome":"reject","code":"VIR_CALLEE_CONTRACT_HASH"}
+    },
+    {
+      "id": "instruction.reject_call_static_signature_mismatch",
+      "context": {"semantic_profile":"mpk.rust.checked.v0","bindings":[{"id":"arg0","type":{"kind":"bool"}}],"locals":[],"type_decls":[],"callees":[{"function":"vector::callee","contract_hash":"1111111111111111111111111111111111111111111111111111111111111111","params":[{"kind":"bv","width":8,"signed":true}],"result":{"kind":"bv","width":8,"signed":true}}]},
+      "input": {"id":"t0","kind":"CallStatic","type":{"kind":"bv","width":8,"signed":true},"function":"vector::callee","contract_hash":"1111111111111111111111111111111111111111111111111111111111111111","args":[{"var":"arg0"}],"safety_checks":[]},
+      "expect": {"outcome":"reject","code":"VIR_CALL_SIGNATURE"}
+    },
+    {
+      "id": "instruction.reject_legacy_phi",
+      "context": {"semantic_profile":"mpk.go.fixed.v0","bindings":[],"locals":[],"type_decls":[],"callees":[]},
+      "input": {"id":"t0","kind":"Phi","type":{"kind":"bool"},"safety_checks":[]},
+      "expect": {"outcome":"reject","code":"VIR_INSTRUCTION_KIND"}
+    },
+    {
+      "id": "instruction.reject_legacy_unsupported",
+      "context": {"semantic_profile":"mpk.go.fixed.v0","bindings":[],"locals":[],"type_decls":[],"callees":[]},
+      "input": {"id":"t0","kind":"Unsupported","type":{"kind":"bool"},"safety_checks":[]},
+      "expect": {"outcome":"reject","code":"VIR_INSTRUCTION_KIND"}
+    }
+  ],
+  "terminator_cases": [
+    {
+      "id":"terminator.valid_return",
+      "context":{"function_results":[{"kind":"bv","width":8,"signed":true}],"bindings":[{"id":"arg0","type":{"kind":"bv","width":8,"signed":true}}],"blocks":[]},
+      "input":{"kind":"Return","values":[{"var":"arg0"}]},
+      "expect":{"outcome":"accept"}
+    },
+    {
+      "id":"terminator.reject_return_inapplicable_args",
+      "context":{"function_results":[{"kind":"bv","width":8,"signed":true}],"bindings":[{"id":"arg0","type":{"kind":"bv","width":8,"signed":true}}],"blocks":[]},
+      "input":{"kind":"Return","values":[{"var":"arg0"}],"args":[]},
+      "expect":{"outcome":"reject","code":"VIR_TERMINATOR_SHAPE"}
+    },
+    {
+      "id":"terminator.valid_jump",
+      "context":{"function_results":[],"bindings":[{"id":"arg0","type":{"kind":"bool"}}],"blocks":[{"label":"bb1","parameters":[{"id":"p0","type":{"kind":"bool"}}]}]},
+      "input":{"kind":"Jump","label":"bb1","args":[{"var":"arg0"}]},
+      "expect":{"outcome":"accept"}
+    },
+    {
+      "id":"terminator.reject_jump_missing_args",
+      "context":{"function_results":[],"bindings":[],"blocks":[{"label":"bb1","parameters":[]}]},
+      "input":{"kind":"Jump","label":"bb1"},
+      "expect":{"outcome":"reject","code":"VIR_TERMINATOR_SHAPE"}
+    },
+    {
+      "id":"terminator.valid_branch",
+      "context":{"function_results":[],"bindings":[{"id":"arg0","type":{"kind":"bool"}}],"blocks":[{"label":"bb1","parameters":[]},{"label":"bb2","parameters":[]}]},
+      "input":{"kind":"Branch","cond":{"var":"arg0"},"then_label":"bb2","then_args":[],"else_label":"bb1","else_args":[]},
+      "expect":{"outcome":"accept"}
+    },
+    {
+      "id":"terminator.reject_branch_same_target",
+      "context":{"function_results":[],"bindings":[{"id":"arg0","type":{"kind":"bool"}}],"blocks":[{"label":"bb1","parameters":[]}]},
+      "input":{"kind":"Branch","cond":{"var":"arg0"},"then_label":"bb1","then_args":[],"else_label":"bb1","else_args":[]},
+      "expect":{"outcome":"reject","code":"VIR_BRANCH_NONCANONICAL"}
+    },
+    {
+      "id":"terminator.reject_legacy_panic_unsupported",
+      "context":{"function_results":[],"bindings":[],"blocks":[]},
+      "input":{"kind":"PanicUnsupported","reason":"unsupported"},
+      "expect":{"outcome":"reject","code":"VIR_TERMINATOR_KIND"}
+    }
+  ],
+  "contract_cases": [
+    {
+      "id":"contract.valid_normalized_go",
+      "construction":{"base":"module.valid_go_identity","pointer":"/units/0/functions/0/contracts","patches":[]},
+      "context":{"validator":"contract","semantic_profile":"mpk.go.fixed.v0","cfg_shape":"acyclic"},
+      "expect":{"outcome":"accept"}
+    },
+    {
+      "id":"contract.valid_ordered_boolean_tree",
+      "context":{"validator":"expression","semantic_profile":"mpk.rust.checked.v0","bindings":[{"id":"arg0","type":{"kind":"bool"}},{"id":"arg1","type":{"kind":"bool"}}],"results":[],"locals":[],"type_decls":[]},
+      "input":{"op":"and","args":[{"var":"arg0"},{"op":"not","value":{"var":"arg1"}}]},
+      "expect":{"outcome":"accept","type":{"kind":"bool"}}
+    },
+    {
+      "id":"contract.valid_array_equality",
+      "context":{"validator":"expression","semantic_profile":"mpk.rust.checked.v0","bindings":[{"id":"arg0","type":{"kind":"array","length":2,"element":{"kind":"bool"}}},{"id":"arg1","type":{"kind":"array","length":2,"element":{"kind":"bool"}}}],"results":[],"locals":[],"type_decls":[]},
+      "input":{"op":"eq","lhs":{"var":"arg0"},"rhs":{"var":"arg1"}},
+      "expect":{"outcome":"accept","type":{"kind":"bool"},"equality":"componentwise_in_index_order"}
+    },
+    {
+      "id":"contract.valid_nominal_struct_equality",
+      "context":{"validator":"expression","semantic_profile":"mpk.rust.checked.v0","bindings":[{"id":"arg0","type":{"kind":"struct","id":"vector::Pair"}},{"id":"arg1","type":{"kind":"struct","id":"vector::Pair"}}],"results":[],"locals":[],"type_decls":[{"id":"vector::Pair","name":"Pair","fields":[{"name":"left","type":{"kind":"bool"}},{"name":"right","type":{"kind":"bool"}}]}]},
+      "input":{"op":"not_eq","lhs":{"var":"arg0"},"rhs":{"var":"arg1"}},
+      "expect":{"outcome":"accept","type":{"kind":"bool"},"equality":"fields_in_declaration_order_then_negate"}
+    },
+    {
+      "id":"contract.valid_go_convert",
+      "context":{"validator":"expression","semantic_profile":"mpk.go.fixed.v0","bindings":[{"id":"arg0","type":{"kind":"bv","width":8,"signed":true}}],"results":[],"locals":[],"type_decls":[]},
+      "input":{"op":"convert","value":{"var":"arg0"},"type":{"kind":"bv","width":16,"signed":false}},
+      "expect":{"outcome":"accept","type":{"kind":"bv","width":16,"signed":false}}
+    },
+    {
+      "id":"contract.valid_go_total_division",
+      "context":{"validator":"expression","semantic_profile":"mpk.go.fixed.v0","bindings":[{"id":"arg0","type":{"kind":"bv","width":8,"signed":true}},{"id":"arg1","type":{"kind":"bv","width":8,"signed":true}}],"results":[],"locals":[],"type_decls":[]},
+      "input":{"op":"bv_sdiv","lhs":{"var":"arg0"},"rhs":{"var":"arg1"}},
+      "expect":{"outcome":"accept","type":{"kind":"bv","width":8,"signed":true},"safety_checks_created":[]}
+    },
+    {
+      "id":"contract.reject_rust_division",
+      "context":{"validator":"expression","semantic_profile":"mpk.rust.checked.v0","bindings":[{"id":"arg0","type":{"kind":"bv","width":8,"signed":true}},{"id":"arg1","type":{"kind":"bv","width":8,"signed":true}}],"results":[],"locals":[],"type_decls":[]},
+      "input":{"op":"bv_sdiv","lhs":{"var":"arg0"},"rhs":{"var":"arg1"}},
+      "expect":{"outcome":"reject","code":"VIR_CONTRACT_OPERATOR"}
+    },
+    {
+      "id":"contract.reject_rust_convert",
+      "context":{"validator":"expression","semantic_profile":"mpk.rust.checked.v0","bindings":[{"id":"arg0","type":{"kind":"bv","width":8,"signed":true}}],"results":[],"locals":[],"type_decls":[]},
+      "input":{"op":"convert","value":{"var":"arg0"},"type":{"kind":"bv","width":16,"signed":true}},
+      "expect":{"outcome":"reject","code":"VIR_CONTRACT_OPERATOR"}
+    },
+    {
+      "id":"contract.reject_nominal_struct_mismatch",
+      "context":{"validator":"expression","semantic_profile":"mpk.rust.checked.v0","bindings":[{"id":"arg0","type":{"kind":"struct","id":"vector::Left"}},{"id":"arg1","type":{"kind":"struct","id":"vector::Right"}}],"results":[],"locals":[],"type_decls":[{"id":"vector::Left","name":"Left","fields":[]},{"id":"vector::Right","name":"Right","fields":[]}]},
+      "input":{"op":"eq","lhs":{"var":"arg0"},"rhs":{"var":"arg1"}},
+      "expect":{"outcome":"reject","code":"VIR_CONTRACT_TYPE"}
+    },
+    {
+      "id":"contract.reject_rust_local_visibility",
+      "context":{"validator":"expression","semantic_profile":"mpk.rust.checked.v0","bindings":[],"results":[],"locals":[{"id":"local0","type":{"kind":"bool"}}],"type_decls":[]},
+      "input":{"var":"local0"},
+      "expect":{"outcome":"reject","code":"VIR_CONTRACT_NAME"}
+    },
+    {
+      "id":"contract.reject_field_selection",
+      "context":{"validator":"expression","semantic_profile":"mpk.rust.checked.v0","bindings":[{"id":"arg0","type":{"kind":"struct","id":"vector::Pair"}}],"results":[],"locals":[],"type_decls":[{"id":"vector::Pair","name":"Pair","fields":[]}]},
+      "input":{"op":"field","value":{"var":"arg0"},"field":"left"},
+      "expect":{"outcome":"reject","code":"VIR_CONTRACT_OPERATOR"}
+    },
+    {
+      "id":"contract.reject_empty_ensures",
+      "construction":{"base":"module.valid_go_identity","pointer":"/units/0/functions/0/contracts","patches":[{"op":"replace","path":"/ensures","value":[]}]},
+      "context":{"validator":"contract","semantic_profile":"mpk.go.fixed.v0","cfg_shape":"acyclic"},
+      "expect":{"outcome":"reject","code":"VIR_EMPTY_ENSURES"}
+    },
+    {
+      "id":"contract.reject_nonempty_modifies",
+      "construction":{"base":"module.valid_go_identity","pointer":"/units/0/functions/0/contracts","patches":[{"op":"replace","path":"/modifies","value":["local0"]}]},
+      "context":{"validator":"contract","semantic_profile":"mpk.go.fixed.v0","cfg_shape":"acyclic"},
+      "expect":{"outcome":"reject","code":"VIR_CONTRACT_MODIFIES"}
+    },
+    {
+      "id":"contract.reject_unknown_field",
+      "construction":{"base":"module.valid_go_identity","pointer":"/units/0/functions/0/contracts","patches":[{"op":"add","path":"/raw_input_hash","value":"0000000000000000000000000000000000000000000000000000000000000000"}]},
+      "context":{"validator":"contract","semantic_profile":"mpk.go.fixed.v0","cfg_shape":"acyclic"},
+      "expect":{"outcome":"reject","code":"VIR_UNKNOWN_FIELD"}
+    },
+    {
+      "id":"contract.reject_hash_mismatch",
+      "construction":{"base":"module.valid_go_identity","pointer":"/units/0/functions/0/contracts","patches":[{"op":"replace","path":"/contract_hash","value":"0000000000000000000000000000000000000000000000000000000000000000"}]},
+      "context":{"validator":"contract","semantic_profile":"mpk.go.fixed.v0","cfg_shape":"acyclic"},
+      "expect":{"outcome":"reject","code":"VIR_CONTRACT_HASH_MISMATCH"}
+    },
+    {
+      "id":"contract.reject_rust_loop_metadata",
+      "construction":{"base":"module.valid_rust_identity","pointer":"/units/0/functions/0/contracts","patches":[{"op":"replace","path":"/loops","value":[{"header":"bb0","invariants":[{"bool":true}],"decreases":[]}] }]},
+      "context":{"validator":"contract","semantic_profile":"mpk.rust.checked.v0","cfg_shape":"acyclic"},
+      "expect":{"outcome":"reject","code":"VIR_RUST_LOOPS"}
+    },
+    {
+      "id":"contract.reject_partial_with_decreases",
+      "input":{"unit_id":"example.com/mpk/vector","function_id":"example.com/mpk/vector.Loop","semantic_profile":"mpk.go.fixed.v0","semantic_parameters":{"target_id":"linux/amd64","pointer_width":64},"requires":[],"ensures":[{"bool":true}],"modifies":[],"panic":"forbidden","termination":"partial","loops":[{"header":"bb1","invariants":[{"bool":true}],"decreases":[{"int":{"value":"1","width":8,"signed":false}}]}],"contract_hash":"0000000000000000000000000000000000000000000000000000000000000000"},
+      "context":{"validator":"contract","semantic_profile":"mpk.go.fixed.v0","cfg_shape":"validated_single_header_loop"},
+      "expect":{"outcome":"reject","code":"VIR_LOOP_TERMINATION"}
+    }
+  ],
+  "safety_check_cases": [
+    {
+      "id":"check.valid_integer_no_overflow_add_signed",
+      "context":{"semantic_profile":"mpk.rust.checked.v0","operand_types":[{"kind":"bv","width":8,"signed":true},{"kind":"bv","width":8,"signed":true}],"instruction_kind":"BinOp","op":"bv_add"},
+      "input":[{"kind":"integer_no_overflow","operation":"add","signed":true}],
+      "expect":{"outcome":"accept"}
+    },
+    {
+      "id":"check.valid_integer_no_overflow_sub_unsigned",
+      "context":{"semantic_profile":"mpk.rust.checked.v0","operand_types":[{"kind":"bv","width":8,"signed":false},{"kind":"bv","width":8,"signed":false}],"instruction_kind":"BinOp","op":"bv_sub"},
+      "input":[{"kind":"integer_no_overflow","operation":"sub","signed":false}],
+      "expect":{"outcome":"accept"}
+    },
+    {
+      "id":"check.valid_integer_no_overflow_mul",
+      "context":{"semantic_profile":"mpk.rust.checked.v0","operand_types":[{"kind":"bv","width":8,"signed":true},{"kind":"bv","width":8,"signed":true}],"instruction_kind":"BinOp","op":"bv_mul"},
+      "input":[{"kind":"integer_no_overflow","operation":"mul","signed":true}],
+      "expect":{"outcome":"accept"}
+    },
+    {
+      "id":"check.valid_integer_no_overflow_neg",
+      "context":{"semantic_profile":"mpk.rust.checked.v0","operand_types":[{"kind":"bv","width":8,"signed":true}],"instruction_kind":"UnaryOp","op":"bv_neg"},
+      "input":[{"kind":"integer_no_overflow","operation":"neg","signed":true}],
+      "expect":{"outcome":"accept"}
+    },
+    {
+      "id":"check.valid_divisor_nonzero",
+      "context":{"semantic_profile":"mpk.go.fixed.v0","operand_types":[{"kind":"bv","width":8,"signed":false},{"kind":"bv","width":8,"signed":false}],"instruction_kind":"BinOp","op":"bv_udiv"},
+      "input":[{"kind":"divisor_nonzero"}],
+      "expect":{"outcome":"accept"}
+    },
+    {
+      "id":"check.valid_signed_div_representable",
+      "context":{"semantic_profile":"mpk.rust.checked.v0","operand_types":[{"kind":"bv","width":8,"signed":true},{"kind":"bv","width":8,"signed":true}],"instruction_kind":"BinOp","op":"bv_sdiv"},
+      "input":[{"kind":"divisor_nonzero"},{"kind":"signed_divrem_representable","operation":"div"}],
+      "expect":{"outcome":"accept"}
+    },
+    {
+      "id":"check.valid_signed_rem_representable",
+      "context":{"semantic_profile":"mpk.rust.checked.v0","operand_types":[{"kind":"bv","width":8,"signed":true},{"kind":"bv","width":8,"signed":true}],"instruction_kind":"BinOp","op":"bv_srem"},
+      "input":[{"kind":"divisor_nonzero"},{"kind":"signed_divrem_representable","operation":"rem"}],
+      "expect":{"outcome":"accept"}
+    },
+    {
+      "id":"check.valid_shift_nonnegative_and_width",
+      "context":{"semantic_profile":"mpk.rust.checked.v0","operand_types":[{"kind":"bv","width":8,"signed":true},{"kind":"bv","width":16,"signed":true}],"instruction_kind":"BinOp","op":"bv_ashr"},
+      "input":[{"kind":"shift_count_nonnegative"},{"kind":"shift_count_less_than_width"}],
+      "expect":{"outcome":"accept"}
+    },
+    {
+      "id":"check.valid_shift_width_unsigned_count",
+      "context":{"semantic_profile":"mpk.rust.checked.v0","operand_types":[{"kind":"bv","width":8,"signed":false},{"kind":"bv","width":64,"signed":false}],"instruction_kind":"BinOp","op":"bv_lshr"},
+      "input":[{"kind":"shift_count_less_than_width"}],
+      "expect":{"outcome":"accept"}
+    },
+    {
+      "id":"check.valid_index_in_bounds",
+      "context":{"semantic_profile":"mpk.go.fixed.v0","operand_types":[{"kind":"array","length":2,"element":{"kind":"bool"}},{"kind":"bv","width":8,"signed":true}],"instruction_kind":"Index"},
+      "input":[{"kind":"index_in_bounds"}],
+      "expect":{"outcome":"accept"}
+    },
+    {
+      "id":"check.reject_unknown_kind",
+      "context":{"semantic_profile":"mpk.go.fixed.v0","operand_types":[],"instruction_kind":"Const"},
+      "input":[{"kind":"callee_precondition"}],
+      "expect":{"outcome":"reject","code":"VIR_SAFETY_CHECK_KIND"}
+    },
+    {
+      "id":"check.reject_missing",
+      "context":{"semantic_profile":"mpk.rust.checked.v0","operand_types":[{"kind":"bv","width":8,"signed":true},{"kind":"bv","width":8,"signed":true}],"instruction_kind":"BinOp","op":"bv_add"},
+      "input":[],
+      "expect":{"outcome":"reject","code":"VIR_SAFETY_CHECK_MISSING"}
+    },
+    {
+      "id":"check.reject_extra",
+      "context":{"semantic_profile":"mpk.go.fixed.v0","operand_types":[{"kind":"bv","width":8,"signed":true},{"kind":"bv","width":8,"signed":true}],"instruction_kind":"BinOp","op":"bv_add"},
+      "input":[{"kind":"integer_no_overflow","operation":"add","signed":true}],
+      "expect":{"outcome":"reject","code":"VIR_SAFETY_CHECK_EXTRA"}
+    },
+    {
+      "id":"check.reject_duplicate",
+      "context":{"semantic_profile":"mpk.rust.checked.v0","operand_types":[{"kind":"bv","width":8,"signed":true},{"kind":"bv","width":8,"signed":true}],"instruction_kind":"BinOp","op":"bv_sdiv"},
+      "input":[{"kind":"divisor_nonzero"},{"kind":"divisor_nonzero"},{"kind":"signed_divrem_representable","operation":"div"}],
+      "expect":{"outcome":"reject","code":"VIR_SAFETY_CHECK_DUPLICATE"}
+    },
+    {
+      "id":"check.reject_order",
+      "context":{"semantic_profile":"mpk.rust.checked.v0","operand_types":[{"kind":"bv","width":8,"signed":true},{"kind":"bv","width":8,"signed":true}],"instruction_kind":"BinOp","op":"bv_sdiv"},
+      "input":[{"kind":"signed_divrem_representable","operation":"div"},{"kind":"divisor_nonzero"}],
+      "expect":{"outcome":"reject","code":"VIR_SAFETY_CHECK_ORDER"}
+    },
+    {
+      "id":"check.reject_wrong_operation",
+      "context":{"semantic_profile":"mpk.rust.checked.v0","operand_types":[{"kind":"bv","width":8,"signed":true},{"kind":"bv","width":8,"signed":true}],"instruction_kind":"BinOp","op":"bv_add"},
+      "input":[{"kind":"integer_no_overflow","operation":"sub","signed":true}],
+      "expect":{"outcome":"reject","code":"VIR_SAFETY_CHECK_OPERATION"}
+    },
+    {
+      "id":"check.reject_wrong_signedness",
+      "context":{"semantic_profile":"mpk.rust.checked.v0","operand_types":[{"kind":"bv","width":8,"signed":false},{"kind":"bv","width":8,"signed":false}],"instruction_kind":"BinOp","op":"bv_add"},
+      "input":[{"kind":"integer_no_overflow","operation":"add","signed":true}],
+      "expect":{"outcome":"reject","code":"VIR_SAFETY_CHECK_SIGNEDNESS"}
+    }
+  ],
+  "profile_cases": [
+    {
+      "id":"profile.reject_go_with_rust_profile",
+      "input":{"source_language":"go","semantic_profile":"mpk.rust.checked.v0","semantic_parameters":{"target_id":"x86_64-unknown-linux-gnu","pointer_width":64,"overflow_mode":"checked","panic_mode":"abort"}},
+      "expect":{"outcome":"reject","code":"VIR_PROFILE_MISMATCH"}
+    },
+    {
+      "id":"profile.reject_rust_with_go_profile",
+      "input":{"source_language":"rust","semantic_profile":"mpk.go.fixed.v0","semantic_parameters":{"target_id":"linux/amd64","pointer_width":64}},
+      "expect":{"outcome":"reject","code":"VIR_PROFILE_MISMATCH"}
+    },
+    {
+      "id":"profile.reject_go_unknown_parameter",
+      "input":{"source_language":"go","semantic_profile":"mpk.go.fixed.v0","semantic_parameters":{"target_id":"linux/amd64","pointer_width":64,"overflow_mode":"wrap"}},
+      "expect":{"outcome":"reject","code":"VIR_SEMANTIC_PARAMETERS"}
+    },
+    {
+      "id":"profile.reject_rust_wrong_overflow_mode",
+      "input":{"source_language":"rust","semantic_profile":"mpk.rust.checked.v0","semantic_parameters":{"target_id":"x86_64-unknown-linux-gnu","pointer_width":64,"overflow_mode":"wrap","panic_mode":"abort"}},
+      "expect":{"outcome":"reject","code":"VIR_SEMANTIC_PARAMETERS"}
+    },
+    {
+      "id":"profile.reject_go_target_width_mismatch",
+      "input":{"source_language":"go","semantic_profile":"mpk.go.fixed.v0","semantic_parameters":{"target_id":"linux/amd64","pointer_width":32}},
+      "expect":{"outcome":"reject","code":"VIR_TARGET_WIDTH"}
+    },
+    {
+      "id":"profile.reject_rust_target_width_mismatch",
+      "input":{"source_language":"rust","semantic_profile":"mpk.rust.checked.v0","semantic_parameters":{"target_id":"x86_64-unknown-linux-gnu","pointer_width":32,"overflow_mode":"checked","panic_mode":"abort"}},
+      "expect":{"outcome":"reject","code":"VIR_TARGET_WIDTH"}
+    },
+    {
+      "id":"profile.rust_i686_target_width",
+      "input":{"source_language":"rust","semantic_profile":"mpk.rust.checked.v0","semantic_parameters":{"target_id":"i686-unknown-linux-gnu","pointer_width":32,"overflow_mode":"checked","panic_mode":"abort"}},
+      "expect":{"outcome":"accept"}
+    },
+    {
+      "id":"profile.go_zero_result_function",
+      "input":{"semantic_profile":"mpk.go.fixed.v0","result_types":[],"terminator":{"kind":"Return","values":[]}},
+      "expect":{"outcome":"accept"}
+    },
+    {
+      "id":"profile.reject_rust_zero_result_function",
+      "input":{"semantic_profile":"mpk.rust.checked.v0","result_types":[],"terminator":{"kind":"Return","values":[]}},
+      "expect":{"outcome":"reject","code":"VIR_RUST_RESULT_COUNT"}
+    },
+    {
+      "id":"profile.go_add_wraps_without_check",
+      "input":{"semantic_profile":"mpk.go.fixed.v0","op":"bv_add","type":{"kind":"bv","width":8,"signed":true},"lhs":"127","rhs":"1","safety_checks":[]},
+      "expect":{"outcome":"accept","result":"-128","check_results":[]}
+    },
+    {
+      "id":"profile.rust_add_same_value_requires_check",
+      "input":{"semantic_profile":"mpk.rust.checked.v0","op":"bv_add","type":{"kind":"bv","width":8,"signed":true},"lhs":"127","rhs":"1","safety_checks":[{"kind":"integer_no_overflow","operation":"add","signed":true}]},
+      "expect":{"outcome":"accept","result":"-128","check_results":[false]}
+    },
+    {
+      "id":"profile.go_overwidth_shift_is_valid",
+      "input":{"semantic_profile":"mpk.go.fixed.v0","op":"bv_shl","lhs_type":{"kind":"bv","width":8,"signed":false},"rhs_type":{"kind":"bv","width":16,"signed":false},"lhs":"1","rhs":"9","safety_checks":[]},
+      "expect":{"outcome":"accept","result":"0","check_results":[]}
+    },
+    {
+      "id":"profile.rust_overwidth_shift_has_failed_check",
+      "input":{"semantic_profile":"mpk.rust.checked.v0","op":"bv_shl","lhs_type":{"kind":"bv","width":8,"signed":false},"rhs_type":{"kind":"bv","width":16,"signed":false},"lhs":"1","rhs":"9","safety_checks":[{"kind":"shift_count_less_than_width"}]},
+      "expect":{"outcome":"accept","result":"0","check_results":[false]}
+    },
+    {
+      "id":"profile.full_width_signed_ashr",
+      "input":{"semantic_profile":"mpk.go.fixed.v0","op":"bv_ashr","lhs_type":{"kind":"bv","width":8,"signed":true},"rhs_type":{"kind":"bv","width":16,"signed":false},"lhs":"-2","rhs":"8","safety_checks":[]},
+      "expect":{"outcome":"accept","result":"-1","check_results":[]}
+    },
+    {
+      "id":"profile.full_width_unsigned_lshr",
+      "input":{"semantic_profile":"mpk.go.fixed.v0","op":"bv_lshr","lhs_type":{"kind":"bv","width":8,"signed":false},"rhs_type":{"kind":"bv","width":16,"signed":false},"lhs":"254","rhs":"8","safety_checks":[]},
+      "expect":{"outcome":"accept","result":"0","check_results":[]}
+    },
+    {
+      "id":"profile.go_negative_signed_shift_count",
+      "input":{"semantic_profile":"mpk.go.fixed.v0","op":"bv_shl","lhs_type":{"kind":"bv","width":8,"signed":false},"rhs_type":{"kind":"bv","width":8,"signed":true},"lhs":"1","rhs":"-1","safety_checks":[{"kind":"shift_count_nonnegative"}]},
+      "expect":{"outcome":"accept","result":"0","check_results":[false]}
+    },
+    {
+      "id":"profile.rust_negative_signed_shift_count",
+      "input":{"semantic_profile":"mpk.rust.checked.v0","op":"bv_shl","lhs_type":{"kind":"bv","width":8,"signed":false},"rhs_type":{"kind":"bv","width":8,"signed":true},"lhs":"1","rhs":"-1","safety_checks":[{"kind":"shift_count_nonnegative"},{"kind":"shift_count_less_than_width"}]},
+      "expect":{"outcome":"accept","result":"0","check_results":[false,false]}
+    },
+    {
+      "id":"profile.signed_division_zero_total_value",
+      "input":{"semantic_profile":"mpk.go.fixed.v0","op":"bv_sdiv","type":{"kind":"bv","width":8,"signed":true},"lhs":"-7","rhs":"0","safety_checks":[{"kind":"divisor_nonzero"}]},
+      "expect":{"outcome":"accept","result":"1","check_results":[false]}
+    },
+    {
+      "id":"profile.signed_nonnegative_division_zero_total_value",
+      "input":{"semantic_profile":"mpk.go.fixed.v0","op":"bv_sdiv","type":{"kind":"bv","width":8,"signed":true},"lhs":"7","rhs":"0","safety_checks":[{"kind":"divisor_nonzero"}]},
+      "expect":{"outcome":"accept","result":"-1","check_results":[false]}
+    },
+    {
+      "id":"profile.signed_remainder_zero_total_value",
+      "input":{"semantic_profile":"mpk.go.fixed.v0","op":"bv_srem","type":{"kind":"bv","width":8,"signed":true},"lhs":"-7","rhs":"0","safety_checks":[{"kind":"divisor_nonzero"}]},
+      "expect":{"outcome":"accept","result":"-7","check_results":[false]}
+    },
+    {
+      "id":"profile.unsigned_division_zero_total_value",
+      "input":{"semantic_profile":"mpk.go.fixed.v0","op":"bv_udiv","type":{"kind":"bv","width":8,"signed":false},"lhs":"7","rhs":"0","safety_checks":[{"kind":"divisor_nonzero"}]},
+      "expect":{"outcome":"accept","result":"255","check_results":[false]}
+    },
+    {
+      "id":"profile.unsigned_remainder_zero_total_value",
+      "input":{"semantic_profile":"mpk.go.fixed.v0","op":"bv_urem","type":{"kind":"bv","width":8,"signed":false},"lhs":"7","rhs":"0","safety_checks":[{"kind":"divisor_nonzero"}]},
+      "expect":{"outcome":"accept","result":"7","check_results":[false]}
+    },
+    {
+      "id":"profile.go_signed_min_div_negative_one",
+      "input":{"semantic_profile":"mpk.go.fixed.v0","op":"bv_sdiv","type":{"kind":"bv","width":8,"signed":true},"lhs":"-128","rhs":"-1","safety_checks":[{"kind":"divisor_nonzero"}]},
+      "expect":{"outcome":"accept","result":"-128","check_results":[true]}
+    },
+    {
+      "id":"profile.rust_signed_min_div_negative_one",
+      "input":{"semantic_profile":"mpk.rust.checked.v0","op":"bv_sdiv","type":{"kind":"bv","width":8,"signed":true},"lhs":"-128","rhs":"-1","safety_checks":[{"kind":"divisor_nonzero"},{"kind":"signed_divrem_representable","operation":"div"}]},
+      "expect":{"outcome":"accept","result":"-128","check_results":[true,false]}
+    },
+    {
+      "id":"profile.go_signed_min_rem_negative_one",
+      "input":{"semantic_profile":"mpk.go.fixed.v0","op":"bv_srem","type":{"kind":"bv","width":8,"signed":true},"lhs":"-128","rhs":"-1","safety_checks":[{"kind":"divisor_nonzero"}]},
+      "expect":{"outcome":"accept","result":"0","check_results":[true]}
+    },
+    {
+      "id":"profile.rust_signed_min_rem_negative_one",
+      "input":{"semantic_profile":"mpk.rust.checked.v0","op":"bv_srem","type":{"kind":"bv","width":8,"signed":true},"lhs":"-128","rhs":"-1","safety_checks":[{"kind":"divisor_nonzero"},{"kind":"signed_divrem_representable","operation":"rem"}]},
+      "expect":{"outcome":"accept","result":"0","check_results":[true,false]}
+    },
+    {
+      "id":"profile.reject_rust_unsigned_neg",
+      "input":{"semantic_profile":"mpk.rust.checked.v0","instruction_kind":"UnaryOp","op":"bv_neg","type":{"kind":"bv","width":8,"signed":false},"safety_checks":[]},
+      "expect":{"outcome":"reject","code":"VIR_PROFILE_OPERATION"}
+    },
+    {
+      "id":"profile.reject_rust_convert",
+      "input":{"semantic_profile":"mpk.rust.checked.v0","instruction_kind":"Convert","source_type":{"kind":"bv","width":8,"signed":true},"type":{"kind":"bv","width":16,"signed":true},"safety_checks":[]},
+      "expect":{"outcome":"reject","code":"VIR_PROFILE_OPERATION"}
+    },
+    {
+      "id":"profile.go_negative_index_total_value",
+      "input":{"semantic_profile":"mpk.go.fixed.v0","instruction_kind":"Index","base_type":{"kind":"array","length":2,"element":{"kind":"bool"}},"base":[true,true],"index_type":{"kind":"bv","width":8,"signed":true},"index":"-1","safety_checks":[{"kind":"index_in_bounds"}]},
+      "expect":{"outcome":"accept","result":false,"check_results":[false]}
+    },
+    {
+      "id":"profile.reject_rust_non_usize_index",
+      "input":{"semantic_profile":"mpk.rust.checked.v0","pointer_width":64,"instruction_kind":"Index","base_type":{"kind":"array","length":2,"element":{"kind":"bool"}},"index_type":{"kind":"bv","width":32,"signed":false},"safety_checks":[{"kind":"index_in_bounds"}]},
+      "expect":{"outcome":"reject","code":"VIR_RUST_INDEX_TYPE"}
+    },
+    {
+      "id":"profile.go_cycle_with_cutpoint",
+      "input":{"semantic_profile":"mpk.go.fixed.v0","cfg_shape":"validated_single_header_loop","loop_contracts":"exact"},
+      "expect":{"outcome":"accept"}
+    },
+    {
+      "id":"profile.reject_rust_same_cycle",
+      "input":{"semantic_profile":"mpk.rust.checked.v0","cfg_shape":"validated_single_header_loop","loop_contracts":"empty"},
+      "expect":{"outcome":"reject","code":"VIR_RUST_CYCLIC_CFG"}
+    }
+  ],
+  "limit_cases": [
+    {"id":"limit.canonical_json_bytes","limit_id":"canonical_json_bytes","maximum":201326592,"at":{"construction":{"fixture":"canonical_size","count":201326592},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"canonical_size","count":201326593},"expect":{"outcome":"reject","code":"VIR_LIMIT_CANONICAL_JSON_BYTES"}}},
+    {"id":"limit.input_json_bytes","limit_id":"input_json_bytes","maximum":268435456,"at":{"construction":{"fixture":"transport_size","count":268435456},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"transport_size","count":268435457},"expect":{"outcome":"reject","code":"VIR_LIMIT_INPUT_JSON_BYTES"}}},
+    {"id":"limit.json_nesting","limit_id":"json_nesting","maximum":256,"at":{"construction":{"fixture":"unknown_nested_value","count":256},"expect":{"outcome":"reject","code":"VIR_UNKNOWN_FIELD"}},"above":{"construction":{"fixture":"unknown_nested_value","count":257},"expect":{"outcome":"reject","code":"VIR_LIMIT_JSON_NESTING"}}},
+    {"id":"limit.string_bytes","limit_id":"string_bytes","maximum":1048576,"at":{"construction":{"fixture":"unknown_string","count":1048576},"expect":{"outcome":"reject","code":"VIR_UNKNOWN_FIELD"}},"above":{"construction":{"fixture":"unknown_string","count":1048577},"expect":{"outcome":"reject","code":"VIR_LIMIT_STRING_BYTES"}}},
+    {"id":"limit.identifier_bytes","limit_id":"identifier_bytes","maximum":1024,"at":{"construction":{"fixture":"go_function_id","count":1024},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"go_function_id","count":1025},"expect":{"outcome":"reject","code":"VIR_LIMIT_IDENTIFIER_BYTES"}}},
+    {"id":"limit.units","limit_id":"units","maximum":256,"at":{"construction":{"fixture":"minimal_units","count":256},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"minimal_units","count":257},"expect":{"outcome":"reject","code":"VIR_LIMIT_UNITS"}}},
+    {"id":"limit.type_decls","limit_id":"type_decls","maximum":4096,"at":{"construction":{"fixture":"independent_struct_decls","count":4096},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"independent_struct_decls","count":4097},"expect":{"outcome":"reject","code":"VIR_LIMIT_TYPE_DECLS"}}},
+    {"id":"limit.const_decls","limit_id":"const_decls","maximum":65536,"at":{"construction":{"fixture":"bool_const_decls","count":65536},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"bool_const_decls","count":65537},"expect":{"outcome":"reject","code":"VIR_LIMIT_CONST_DECLS"}}},
+    {"id":"limit.functions","limit_id":"functions","maximum":8192,"at":{"construction":{"fixture":"go_identity_functions","count":8192},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"go_identity_functions","count":8193},"expect":{"outcome":"reject","code":"VIR_LIMIT_FUNCTIONS"}}},
+    {"id":"limit.params","limit_id":"params","maximum":256,"at":{"construction":{"fixture":"bool_params","count":256},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"bool_params","count":257},"expect":{"outcome":"reject","code":"VIR_LIMIT_PARAMS"}}},
+    {"id":"limit.results","limit_id":"results","maximum":16,"at":{"construction":{"fixture":"go_bool_results","count":16},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"go_bool_results","count":17},"expect":{"outcome":"reject","code":"VIR_LIMIT_RESULTS"}}},
+    {"id":"limit.locals","limit_id":"locals","maximum":65536,"at":{"construction":{"fixture":"initialized_bool_locals","count":65536},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"initialized_bool_locals","count":65537},"expect":{"outcome":"reject","code":"VIR_LIMIT_LOCALS"}}},
+    {"id":"limit.blocks_per_function","limit_id":"blocks_per_function","maximum":8192,"at":{"construction":{"fixture":"jump_chain_blocks","count":8192},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"jump_chain_blocks","count":8193},"expect":{"outcome":"reject","code":"VIR_LIMIT_BLOCKS_PER_FUNCTION"}}},
+    {"id":"limit.blocks_per_module","limit_id":"blocks_per_module","maximum":65536,"at":{"construction":{"fixture":"module_jump_chain_blocks","count":65536},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"module_jump_chain_blocks","count":65537},"expect":{"outcome":"reject","code":"VIR_LIMIT_BLOCKS_PER_MODULE"}}},
+    {"id":"limit.block_parameters","limit_id":"block_parameters","maximum":4096,"at":{"construction":{"fixture":"bool_block_parameters","count":4096},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"bool_block_parameters","count":4097},"expect":{"outcome":"reject","code":"VIR_LIMIT_BLOCK_PARAMETERS"}}},
+    {"id":"limit.instructions_per_block","limit_id":"instructions_per_block","maximum":100000,"at":{"construction":{"fixture":"const_instructions_one_block","count":100000},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"const_instructions_one_block","count":100001},"expect":{"outcome":"reject","code":"VIR_LIMIT_INSTRUCTIONS_PER_BLOCK"}}},
+    {"id":"limit.instructions_per_function","limit_id":"instructions_per_function","maximum":100000,"at":{"construction":{"fixture":"const_instructions_one_function","count":100000},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"const_instructions_one_function","count":100001},"expect":{"outcome":"reject","code":"VIR_LIMIT_INSTRUCTIONS_PER_FUNCTION"}}},
+    {"id":"limit.instructions_per_module","limit_id":"instructions_per_module","maximum":250000,"at":{"construction":{"fixture":"const_instructions_module","count":250000},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"const_instructions_module","count":250001},"expect":{"outcome":"reject","code":"VIR_LIMIT_INSTRUCTIONS_PER_MODULE"}}},
+    {"id":"limit.cfg_edges_per_function","limit_id":"cfg_edges_per_function","maximum":16000,"at":{"construction":{"fixture":"acyclic_branch_edges","count":16000},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"acyclic_branch_edges","count":16001},"expect":{"outcome":"reject","code":"VIR_LIMIT_CFG_EDGES_PER_FUNCTION"}}},
+    {"id":"limit.call_args","limit_id":"call_args","maximum":256,"at":{"construction":{"fixture":"bool_call_args","count":256},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"bool_call_args","count":257},"expect":{"outcome":"reject","code":"VIR_LIMIT_CALL_ARGS"}}},
+    {"id":"limit.array_elements","limit_id":"array_elements","maximum":256,"at":{"construction":{"fixture":"bool_array_elements","count":256},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"bool_array_elements","count":257},"expect":{"outcome":"reject","code":"VIR_LIMIT_ARRAY_ELEMENTS"}}},
+    {"id":"limit.struct_fields","limit_id":"struct_fields","maximum":64,"at":{"construction":{"fixture":"bool_struct_fields","count":64},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"bool_struct_fields","count":65},"expect":{"outcome":"reject","code":"VIR_LIMIT_STRUCT_FIELDS"}}},
+    {"id":"limit.aggregate_type_nesting","limit_id":"aggregate_type_nesting","maximum":16,"at":{"construction":{"fixture":"nested_array_type","count":16},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"nested_array_type","count":17},"expect":{"outcome":"reject","code":"VIR_LIMIT_AGGREGATE_TYPE_NESTING"}}},
+    {"id":"limit.contract_clauses","limit_id":"contract_clauses","maximum":64,"at":{"construction":{"fixture":"bool_contract_clauses","count":64},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"bool_contract_clauses","count":65},"expect":{"outcome":"reject","code":"VIR_LIMIT_CONTRACT_CLAUSES"}}},
+    {"id":"limit.contract_expr_nodes_per_function","limit_id":"contract_expr_nodes_per_function","maximum":1024,"at":{"construction":{"fixture":"balanced_contract_nodes_function","count":1024},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"balanced_contract_nodes_function","count":1025},"expect":{"outcome":"reject","code":"VIR_LIMIT_CONTRACT_EXPR_NODES_PER_FUNCTION"}}},
+    {"id":"limit.contract_expr_nodes_per_module","limit_id":"contract_expr_nodes_per_module","maximum":8192,"at":{"construction":{"fixture":"balanced_contract_nodes_module","count":8192},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"balanced_contract_nodes_module","count":8193},"expect":{"outcome":"reject","code":"VIR_LIMIT_CONTRACT_EXPR_NODES_PER_MODULE"}}},
+    {"id":"limit.contract_expr_nesting","limit_id":"contract_expr_nesting","maximum":32,"at":{"construction":{"fixture":"nested_not_contract","count":32},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"nested_not_contract","count":33},"expect":{"outcome":"reject","code":"VIR_LIMIT_CONTRACT_EXPR_NESTING"}}},
+    {"id":"limit.loops","limit_id":"loops","maximum":1024,"at":{"construction":{"fixture":"disjoint_go_loops","count":1024},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"disjoint_go_loops","count":1025},"expect":{"outcome":"reject","code":"VIR_LIMIT_LOOPS"}}},
+    {"id":"limit.loop_invariants","limit_id":"loop_invariants","maximum":64,"at":{"construction":{"fixture":"bool_loop_invariants","count":64},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"bool_loop_invariants","count":65},"expect":{"outcome":"reject","code":"VIR_LIMIT_LOOP_INVARIANTS"}}},
+    {"id":"limit.loop_decreases","limit_id":"loop_decreases","maximum":64,"at":{"construction":{"fixture":"bv_loop_decreases","count":64},"expect":{"outcome":"accept"}},"above":{"construction":{"fixture":"bv_loop_decreases","count":65},"expect":{"outcome":"reject","code":"VIR_LIMIT_LOOP_DECREASES"}}},
+    {"id":"limit.minimum_units","limit_id":"minimum_units","minimum":1,"at":{"construction":{"fixture":"minimal_units","count":1},"expect":{"outcome":"accept"}},"below":{"construction":{"fixture":"minimal_units","count":0},"expect":{"outcome":"reject","code":"VIR_EMPTY_UNITS"}}},
+    {"id":"limit.minimum_functions","limit_id":"minimum_functions","minimum":1,"at":{"construction":{"fixture":"go_identity_functions","count":1},"expect":{"outcome":"accept"}},"below":{"construction":{"fixture":"go_identity_functions","count":0},"expect":{"outcome":"reject","code":"VIR_EMPTY_FUNCTIONS"}}},
+    {"id":"limit.minimum_blocks","limit_id":"minimum_blocks","minimum":1,"at":{"construction":{"fixture":"jump_chain_blocks","count":1},"expect":{"outcome":"accept"}},"below":{"construction":{"fixture":"jump_chain_blocks","count":0},"expect":{"outcome":"reject","code":"VIR_EMPTY_BLOCKS"}}},
+    {"id":"limit.minimum_ensures","limit_id":"minimum_ensures","minimum":1,"at":{"construction":{"fixture":"bool_ensures","count":1},"expect":{"outcome":"accept"}},"below":{"construction":{"fixture":"bool_ensures","count":0},"expect":{"outcome":"reject","code":"VIR_EMPTY_ENSURES"}}}
+  ]
+}
