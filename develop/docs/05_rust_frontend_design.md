@@ -68,6 +68,7 @@ acceptance, but several helper-layer interfaces remain Go-specific.
 | `develop/specs/GO_SUBSET_V0.md` | Its fail-closed boundary is phrased in terms of GIR emission. | Preserve its accepted/rejected behavior in a new `GO_VIR_PROFILE_V0.md`; mark the GIR-bound document historical after cutover. |
 | `crates/mpk-vc/src/type_encode.rs` | Types encode to `Std.Go.Base.*`. | Replace it with a `Std.Program.Base.*` encoder used by both semantic profiles. |
 | `crates/mpk-cli/src/policy_scan.rs` | The runner accepts only `mpk.go2gir.cli.v0` and `--go2gir`. | Replace the route with the generic frontend protocol and policy schemas v1. |
+| `crates/mpk-cli/src/policy_evidence.rs`, `policy_report.rs`, and `ai_explain.rs` | Evidence targets, helper kinds, renderers, and the optional `mpk explain` path are typed around `package_path`, `gir_hash`, `GoSource`/`Gir`, and `mpk.policy.evidence.v0`. | Migrate every producer and consumer to the language-neutral evidence v1 model in the atomic cutover, including the explainer's validation, redaction, tests, and documentation. |
 | `mpk.gir.v0` | The schema lacks source semantic context and complete checked-operation metadata. | VIR hashes the semantic profile and target parameters and carries canonical safety checks. |
 | `mpk-vc` safety generation | Go-specific rules are derived from instruction names; ordinary arithmetic is wrapping. | Make every profile's required check set explicit, including both existing Go behavior and Rust checked arithmetic. |
 | `mpk-vc` control-flow paths | Acyclic WP and Go loop handling are split across GIR-specific modules. | One VIR engine handles acyclic CFGs and contract-delimited loop cutpoints; Rust rejects cyclic CFGs. |
@@ -237,11 +238,36 @@ The pre-expansion source gate is responsible for:
   rustc;
 - rejecting a source read outside the normalized source root.
 
-The driver installs a custom rustc `FileLoader`. On every Rust source read, the
-loader lexes/parses and validates the file before returning its bytes to the
-compiler. The crate-root parsing callback performs the same validation on the
-root AST. This covers submodules parsed during expansion while avoiding a scan
-of unrelated `.rs` files that are not in the selected crate.
+The same source gate runs first during deterministic module-closure discovery
+and again at the compiler boundary. Before rustc starts, `rust2vir` parses the
+allowlisted library-root setting from `Cargo.toml` (or uses Cargo's documented
+default), reads that root once, and recursively resolves only ordinary
+out-of-line `mod name;` declarations using the pinned profile's default Rust
+module-path rules. Inline modules are traversed in their containing file.
+`cfg`, `cfg_attr`, `path`, macros, and every other construct that could alter
+module discovery reject before a child path is followed. Both `name.rs` and
+`name/mod.rs` existing for one declaration, duplicate normalized paths,
+case-fold collisions, cycles, a missing module, or a path outside the source
+root also reject deterministically. The walker does not glob the tree or scan
+unrelated `.rs` files.
+
+Expansion-affecting constructs are valid Rust outside this profile and return
+`rejected` with `RUST_SUBSET_*`. Ordinary parse/name failures such as a missing
+or ambiguous module return `source-error` with `RUST_SOURCE_*`. Symlink, root-
+escape, path-normalization, and case-collision failures return `rejected` with
+`RUST_PREFLIGHT_*`. The normative Rust subset specification freezes the exact
+codes within those families.
+
+Each discovered file is opened without following symlinks, read exactly once
+into an immutable buffer, validated, and then copied from that buffer into the
+private analysis snapshot. The driver installs a custom rustc `FileLoader`
+that can return only those snapshotted bytes. On every Rust source read, the
+loader lexes/parses and validates the file before returning it to the compiler;
+the crate-root parsing callback performs the same validation on the root AST.
+After compilation, the root callback plus loader inventory must equal the
+preflight-discovered set exactly. An unexpected or unread discovered file is a
+`frontend-error`, because it means the pinned compiler and discovery profile
+disagree; it never causes a broader filesystem scan or an unsnapshotted read.
 
 Expansion-affecting source-gate rules are crate-wide for every file compiled
 into the selected library. Type, purity, and control-flow subset checks are
@@ -304,9 +330,11 @@ toolchain. `rust-tools/rust2vir` is not a root workspace member.
 Rust v0 requires `source-root` to be one self-contained Cargo package root with
 one selected library target. A structural TOML/filesystem preflight first
 rejects Cargo workspaces, workspace-inherited fields, symlinks, `.cargo`
-configuration, build scripts, and dependencies. It then creates a private
-analysis snapshot containing the exact accepted manifests, lockfile, contract
-files, and Rust source bytes.
+configuration, build scripts, and dependencies. It then performs the
+module-closure discovery from section 7 and creates a private analysis snapshot
+from the already captured immutable buffers for the exact accepted manifests,
+lockfile, contract files, and discovered Rust sources. Snapshot creation never
+rereads an original input path.
 
 From that snapshot, before invoking rustc, `rust2vir` runs:
 
@@ -810,7 +838,7 @@ VirInstruction:
   id
   kind
   type
-  operands
+  kind-specific fields, flattened into the tagged instruction object
   safety_checks
 
 VirBlock:
@@ -819,6 +847,12 @@ VirBlock:
   instructions
   terminator
 ```
+
+`VirInstruction` is an exact tagged union, not a record with a generic
+`operands` bag. `VIR_V0.md` freezes the required and forbidden fields for every
+instruction kind; for example, `BinOp` has the flattened `op`, `lhs`, and `rhs`
+fields shown below. Unknown, missing, or inapplicable kind-specific fields
+reject.
 
 One VIR module contains units from exactly one source language and semantic
 profile. A unit is a Go package or Rust crate; mixed-language modules and
@@ -1053,6 +1087,13 @@ Statuses and exits:
 | no JSON | 2 | CLI usage error. |
 | `frontend-error` | 1 | Compiler crash, protocol failure, toolchain mismatch, or internal error. |
 
+Exit 2 is the only protocol classification that intentionally has no JSON
+response. If a child is killed, exits without a complete JSON value, or cannot
+report its own internal failure, the consumer locally classifies the attempt as
+`frontend-error`; it does not invent a successful envelope or reuse partial
+stdout. A frontend that remains able to handle an internal failure emits the
+canonical `frontend-error` envelope and exits 1.
+
 The protocol consumer treats the complete response as untrusted. It accepts
 only an exact status/exit pairing and one size-bounded JSON value, rejects
 duplicate keys, unknown fields, and trailing stdout, recomputes
@@ -1060,9 +1101,16 @@ the canonical VIR and source-manifest hashes, and verifies all repeated
 language, profile, semantic-parameter, compilation-target, source-selection,
 and artifact-hash fields for equality wherever they recur. The selected
 function must resolve uniquely inside the returned VIR. The launcher snapshots
-and hashes each configured frontend or driver binary before starting it; a
-response cannot redirect execution to another helper path. Any mismatch is
-`frontend-error`, not `rejected` and never a partially ready scan.
+and hashes the complete configured frontend binary set before starting it. A
+frontend bundle consists of one main executable and a closed, name-keyed set of
+subordinate executables. Rust v0 requires exactly `rust2vir-driver`; Go v0
+requires no subordinate executable. The launcher passes only its snapshotted
+helper path and expected digest to the main frontend, constrains sandbox
+execution to that set plus the recorded toolchain, and requires
+`source_manifest.frontend.subordinate_binaries` to match the configured names
+and digests exactly. A response cannot add a helper or redirect execution to
+another path. Any mismatch is `frontend-error`, not `rejected` and never a
+partially ready scan.
 
 For `rejected` and `source-error`, no partial VIR, VIR hash, or source manifest
 is emitted. Rejected features and normalized source diagnostics are sorted by
@@ -1076,6 +1124,8 @@ rust2vir lower <source-root>
   --package <package-name>
   --target <target-triple>
   --function <canonical-function-id>
+  --driver <launcher-snapshotted-rust2vir-driver>
+  --driver-sha256 <expected-sha256>
   --contract <relative-contract-path> ...
 ```
 
@@ -1089,8 +1139,11 @@ go2vir lower <source-root>
   --contract <relative-contract-path> ...
 ```
 
-All filesystem arguments are resolved against `source-root`. Output paths are
-relative and normalized after symlink resolution.
+Source, manifest, and contract arguments are resolved against `source-root`.
+Executable arguments are absolute paths inside the launcher's private binary
+snapshot, are opened and hashed before execution, and never enter canonical
+artifacts as paths. Output paths are relative and normalized after symlink
+resolution.
 
 ## 14. Generic source manifest
 
@@ -1125,7 +1178,7 @@ units[]:
   kind
 target:
   id
-  pointer_width?
+  pointer_width
   language_configuration
 inputs[]:
   kind
@@ -1138,15 +1191,18 @@ source_manifest_hash
 ```
 
 The manifest's `source_language`, `semantic_profile`, `semantic_parameters`,
-target, and `vir_hash` must exactly match VIR and the frontend request. Rust's
-toolchain components include rustc, Cargo, and LLVM identities; Go records the
-Go toolchain identity. `binary_sha256` is required for every directly invoked
-toolchain executable; a non-executable bundled component uses its exact release
-and commit identity plus the approved toolchain-distribution digest defined by
-the profile specification. A subordinate compiler driver is listed as another
-binary rather than as a Rust-only top-level field. `language_configuration`
-records the normalized effective compiler flags and, for Rust, the complete
-sorted rustc `cfg` set.
+and `vir_hash` must exactly match VIR and the frontend request. The duplicate
+`target.id` and `target.pointer_width` values must equal the corresponding
+`semantic_parameters.target_id` and `semantic_parameters.pointer_width`;
+`language_configuration` must equal the normalized effective configuration
+prescribed by the request and selected profile. Rust's toolchain components
+include rustc, Cargo, and LLVM identities; Go records the Go toolchain identity.
+`binary_sha256` is required for every directly invoked toolchain executable; a
+non-executable bundled component uses its exact release and commit identity plus
+the approved toolchain-distribution digest defined by the profile
+specification. A subordinate compiler driver is listed as another binary rather
+than as a Rust-only top-level field. For Rust, `language_configuration` includes
+the complete sorted rustc `cfg` set.
 
 Each input entry has a versioned `kind`, a normalized relative path, and a
 SHA-256 digest. Rust inputs include the selected `Cargo.toml`, `Cargo.lock`,
@@ -1155,11 +1211,12 @@ The Go migration specification must similarly enumerate module/workspace
 files, contract files, and every source file used by package loading; it may not
 fall back to the old source-only manifest behavior.
 
-The compiled source-file set comes from the frontend's compiler or package
-loader inventory and is cross-checked against the normalized source root and
-the pre-compilation snapshot. Synthetic or external source files reject unless
-they are a documented compiler builtin covered by the recorded toolchain
-identity.
+For Rust, the compiled source-file set is the exact-match result of the
+preflight module closure and rustc inventory. For Go, it is the exact package-
+loader inventory defined by `GO_VIR_PROFILE_V0.md`. Both are cross-checked
+against the normalized source root and their pre-compilation snapshot.
+Synthetic or external source files reject unless they are a documented
+compiler builtin covered by the recorded toolchain identity.
 
 Each unit entry uses a canonical Go import path or Rust package/crate identity
 and, when applicable, a separate normalized manifest-relative path. Cargo's
@@ -1223,6 +1280,20 @@ together. The post-cutover release removes rather than aliases:
 - `mpk.go.source_manifest.v0`;
 - `mpk.policy.scan.v0` and `mpk.policy.evidence.v0`.
 
+Removal of policy v0 includes every typed downstream consumer, not only the
+scan producer. `PolicyEvidenceReport`, Markdown rendering, ProofOps
+integrations, and `mpk explain` move to evidence v1 in the same cutover; no v0
+compatibility parser remains. The explainer's sanitized helper kinds change
+from `go_source`/`gir` to `source`/`verification_ir`, so its credential-free
+request carries the non-sensitive `source_language` enum while continuing to
+exclude raw package, crate, function, and path identities. Its schema and
+prompt template are versioned as
+`mpk.ai.explain.request.v1` and `mpk.evidence-explainer.v1` rather than silently
+changing their v0 canonical payload. The AI explanation and provider-response
+schema identifiers may remain unchanged only if their own exact fields and
+semantics do not change. The Vertex assistant design, root README, ProofOps
+documents, tests, and golden request hashes are updated atomically.
+
 `mpk.go.contract.v0` may remain a Go source-side input because contracts are
 language-specific before lowering, but `go2vir` normalizes it into the shared
 VIR contract model. Any necessary schema correction uses a new Go contract
@@ -1242,6 +1313,7 @@ The policy CLI replaces the Go-only route with a generic frontend route:
 mpk policy scan <source-root>
   --language rust
   --frontend <rust2vir>
+  --frontend-helper rust2vir-driver=<rust2vir-driver>
   --target <target-id>
   --package <cargo-package>
   --function <function-id>
@@ -1249,12 +1321,27 @@ mpk policy scan <source-root>
   --json-out <scan.json>
 ```
 
+`--frontend-helper <name>=<path>` is repeatable at the protocol level. Rust v0
+requires the one entry shown above, while Go v0 rejects any helper entry. The
+policy runner resolves, snapshots, and hashes these executables as described in
+section 13 before it launches the frontend.
+
 Both source paths use `mpk.policy.scan.v1` and `mpk.policy.evidence.v1`. Their
-source and helper-artifact sections use generic names such as `frontend`, `language`,
-`semantic_profile`, `semantic_parameters`, `ir_schema`, and `ir_sha256`; they
-do not expose fields such as `go_version`, `go2gir_sha256`, or `gir_sha256`.
+shared top-level identity fields are `source_language` and the same exact
+language-specific `selection` union used by the frontend protocol; the v0
+Go-only `target.package_path`/`target.function_id` shape is removed. Cross-
+artifact fields are named `source_ir_schema` and `source_ir_hash`, matching VC
+v1; the frontend envelope's nested `ir.schema` and `ir.sha256` values must equal
+them. Other shared names include `frontend`, `semantic_profile`, and
+`semantic_parameters`. Helper-artifact kinds are `source`, `contract`,
+`verification_ir`, `vc`, `ai_analysis`, and `ci_status`, never `go_source` or
+`gir`. The schemas do not expose fields such as `go_version`,
+`go2gir_sha256`, or `gir_sha256`.
+
 The migrated Go path uses the same v1 schemas with `--language go`, `go2vir`,
-and `mpk.go.fixed.v0`. Unknown v0 policy payloads reject after cutover.
+and `mpk.go.fixed.v0`. `mpk explain` accepts only a valid evidence v1 report
+after cutover and preserves the existing rule that AI output is untrusted
+helper analysis. Unknown v0 policy payloads reject after cutover.
 
 The initial product strategy profile is distinct:
 
@@ -1375,19 +1462,24 @@ The minimum corpus contains:
 1. boolean identity and negation;
 2. signed and unsigned `Max` branch functions;
 3. checked addition with a precondition sufficient to prove no overflow;
-4. signed division with the profile-required nonzero condition and, for Rust,
+4. the canonical minimum literal `-128_i8` lowering to one `Const` without a
+   safety check, paired with a nonconstant signed negation whose precondition
+   proves `integer_no_overflow(neg)`;
+5. signed division with the profile-required nonzero condition and, for Rust,
    a `MIN / -1` representability condition;
-5. left and right shifts with each profile's required count conditions;
-6. fixed-array read with a proved bounds condition;
-7. simple struct construction, field selection, and a whole-value struct move;
-8. early returns;
-9. an acyclic two-function contracted call;
-10. `usize` indexing on every release-tested target width.
+6. left and right shifts with each profile's required count conditions;
+7. fixed-array read with a proved bounds condition;
+8. simple struct construction, field selection, and a whole-value struct move;
+9. early returns;
+10. an acyclic two-function contracted call;
+11. `usize` indexing on every release-tested target width;
+12. an ordinary multi-file module closure with an unrelated `.rs` file that is
+    neither read, snapshotted, nor listed in the source manifest.
 
 Every positive fixture has golden frontend JSON, VIR, VC, certificate, axiom
 report, fast-kernel verdict, and reference-checker verdict.
 
-### 19.2 Negative source corpus
+### 19.2 Negative and adversarial corpus
 
 At minimum, fixtures must deterministically reject:
 
@@ -1396,8 +1488,11 @@ At minimum, fixtures must deterministically reject:
 - trait, generic, method, closure, and function-pointer calls;
 - async, loop, recursion, match, enum, and tuple use;
 - float, 128-bit integer, and cast use;
+- an out-of-range typed integer literal as `source-error`;
 - static state, explicit panic, assert macro, and drop type use;
 - build script, external dependency, proc macro, macro expansion, and `cfg`;
+- missing, ambiguous, cyclic, path-attributed, and root-escaping module edges,
+  plus a simulated rustc/preflight source-inventory disagreement;
 - field/index mutation and a projected or partial move;
 - malformed or unresolved contracts;
 - missing target, unsupported pointer width, stale lockfile, and compiler commit
@@ -1406,8 +1501,12 @@ At minimum, fixtures must deterministically reject:
   changed checked-operation pattern;
 - source files or symlinks escaping the root;
 - missing required safety checks and extra noncanonical safety checks;
-- status/exit disagreement, repeated-identity mismatch, and incorrect VIR or
-  source-manifest hashes in the frontend response.
+- missing, duplicate, or unknown frontend-helper names, a driver digest
+  mismatch, and a subordinate-binary manifest that differs from the launcher's
+  snapshotted bundle;
+- status/exit disagreement, missing or truncated JSON on any non-usage exit,
+  repeated-identity mismatch, and incorrect VIR or source-manifest hashes in
+  the frontend response.
 
 ### 19.3 Translation confidence
 
@@ -1444,8 +1543,14 @@ Before removing GIR, the migration suite must:
   and all payment-policy examples on the shared VIR path;
 - prove `mpk.gir.v0`, `mpk.go2gir.cli.v0`, policy v0 payloads, and retired CLI
   flags reject deterministically after cutover;
+- verify `mpk explain` accepts evidence v1, rejects evidence v0, and produces
+  deterministic v1 sanitized/dry-run request fixtures with only the generic
+  `source` and `verification_ir` helper kinds, the correct `source_language`,
+  and no raw source-selection identity;
 - search production code, examples, CI, and user documentation for obsolete
-  `go2gir`, `source_gir_hash`, and GIR-only paths.
+  `go2gir`, `source_gir_hash`, `mpk.policy.scan.v0`,
+  `mpk.policy.evidence.v0`, `go_source`, `GoSource`,
+  `PolicyHelperArtifactKind::Gir`, `gir_hash`, and GIR-only paths.
 
 ## 20. Implementation sequence
 
@@ -1465,7 +1570,8 @@ Deliverables:
 - registration and vectors for `MPK-VIR-0.1`, `MPK-INPUT-SET-0.1`, and the
   existing opaque `MPK-SOURCE-MANIFEST-0.1` certificate domain;
 - a complete inventory of GIR schemas, fields, flags, files, fixtures, and
-  downstream documentation to remove or regenerate;
+  downstream documentation and typed policy/evidence consumers, including
+  `mpk explain`, to remove or regenerate;
 - governance-approved language-neutral amendments or successor documentation
   for the certificate source-manifest example and trust-boundary frontend/IR
   terminology, confirming that certificate encoding, trusted evidence, and
@@ -1501,6 +1607,9 @@ Deliverables:
   adapter;
 - generic policy runner plus policy scan/evidence v1 for the existing Go
   product path;
+- evidence v1 report/rendering plus the migrated `mpk explain` validator,
+  language-neutral redaction model, v1 sanitized request/prompt, tests, and
+  Vertex assistant documentation;
 - regenerated Go, VC, certificate, policy, example, and release fixtures;
 - a reviewed old/new semantic migration report;
 - updated CLI help, CI, developer docs, ProofOps docs, templates, and examples;
@@ -1531,6 +1640,8 @@ Deliverables:
 
 - checked MIR pattern recognizers;
 - arithmetic, division/remainder, shift, and index lowering;
+- golden fixtures distinguishing accepted minimum-value literals from checked
+  nonconstant signed negation;
 - safety-check completeness validation;
 - runtime-safety VC generation and negative pattern fixtures.
 
@@ -1615,10 +1726,12 @@ Expected modifications:
 - root `Cargo.toml` workspace exclusion for the isolated compiler frontend;
 - `mpk-vc` type, expression, WP, safety, obligation, and export modules;
 - `mpk-cli` frontend runner, routing, policy scan, evidence, and report modules;
+- `mpk-cli` AI explainer validation/redaction models and its CLI integration
+  tests;
 - Go frontend module identity and direct VIR emitter;
 - every Go/VC/policy generated fixture and hash-bearing example;
-- development specs, trust-boundary examples, templates, user documentation,
-  CI scripts, and release reporting.
+- development specs, trust-boundary examples, templates, user documentation
+  including the Vertex assistant design, CI scripts, and release reporting.
 
 Removed at cutover:
 
@@ -1707,7 +1820,7 @@ fixes overflow checks on and proves their safety conditions.
 | New Rust axioms weaken release policy | Require zero new Rust semantic category; stop for governance review if checked foundations are insufficient. |
 | Go behavior regresses during the breaking migration | Baseline every positive/negative fixture, compare obligation intent, run Go/VIR differential tests, and require a reviewed migration report. |
 | Temporary dual paths drift before cutover | No released dual mode; one atomic gate removes GIR producers and consumers together. |
-| ProofOps or CI consumes removed v0 fields | Inventory every downstream field/flag, update them in the cutover change, and reject old schemas deterministically. |
+| ProofOps, `mpk explain`, or CI consumes removed v0 fields | Inventory every downstream typed model, field, enum, flag, prompt input, and golden hash; update them in the cutover change and reject old schemas deterministically. |
 | Target-dependent semantics reuse a hash | Hash target and pointer width in VIR semantic parameters and exercise multi-target fixtures. |
 | Compiler resource exhaustion | Deterministic structural limits; operational failures never become acceptance. |
 
@@ -1722,6 +1835,9 @@ hold:
   examples use the sole VIR path with reviewed regenerated artifacts;
 - no production parser, CLI flag, schema, fixture, CI command, or user guide
   consumes or emits GIR v0, `go2gir`, policy v0, or `source_gir_hash`;
+- policy reports and `mpk explain` consume evidence v1 only, use the shared
+  `source_language`/`selection` identity and generic helper kinds, and reject
+  v0 without an adapter;
 - every accepted Go/SSA and Rust/HIR/MIR form has an explicit semantics and
   test;
 - unsupported or unknown forms fail closed with deterministic codes;
