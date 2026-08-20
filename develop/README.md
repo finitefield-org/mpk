@@ -15,7 +15,8 @@ This package extends the prior MPK design with an implementation roadmap, task b
 │   ├── 01_design_added_implementation_roadmap.md
 │   ├── 02_architecture.md
 │   ├── 03_trust_boundary.md
-│   └── 04_references.md
+│   ├── 04_references.md
+│   └── 05_rust_frontend_design.md
 ├── specs/
 │   ├── CORE_V0.md
 │   ├── CERT_V0.md
@@ -79,6 +80,12 @@ Start with:
 7. `specs/UNSAFE_POLICY_V0.md`
 8. `specs/CORE_V0.md`
 9. `specs/CERT_V0.md`
+
+For the proposed Rust source-language path and unified VIR migration, continue
+with `docs/05_rust_frontend_design.md`. It is a breaking post-cutover design:
+the current frozen Go/GIR v0 documents remain authoritative until the migration
+lands atomically, after which GIR is retired rather than reinterpreted.
+Certificate v0 encoding and the mathematical trust boundary remain unchanged.
 
 Then seed project-management issues from `tasks/github_issues_seed.jsonl` or import `tasks/task_backlog.csv` into a spreadsheet or tracker.
 
