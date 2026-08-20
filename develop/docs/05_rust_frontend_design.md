@@ -320,12 +320,183 @@ source-level safety checks and make hashes more sensitive to optimizer changes.
 frontend therefore has its own exact `rust-toolchain.toml` and records the
 rustc commit hash it was built against.
 
-The pinned toolchain must include at least:
+The isolated Cargo package has one non-installable internal library target named
+`rust2vir_internal`, used by its two binaries, unit/integration tests, and the
+separately frozen fuzz package. The release frontend bundle contains only the
+`rust2vir` main and `rust2vir-driver` executables; no rlib, dylib, test, example,
+fuzz binary, or build artifact can enter an installed inventory.
 
-- an exact dated nightly toolchain;
+The pinned build/test toolchain must include at least:
+
+- an exact dated nightly toolchain, its host `rustc`, Cargo, and host standard
+  library;
 - `rustc-dev`;
-- `rust-src` if required by the selected integration;
+- `llvm-tools`, whose contents are unstable and therefore pinned and inventoried
+  at the selected nightly just like compiler libraries;
+- `rust-src` only if the selected integration proves it is required;
+- the exact nightly `rustfmt` and Clippy components used by repository gates;
+- the exact `cargo-fuzz` executable used by the bounded hardening gate, built
+  from its frozen source/manifest/lock dependency graph, plus its pinned C/C++
+  compiler and libFuzzer/sanitizer build/runtime closure;
 - the target standard library for every release-tested target.
+
+`RUST_SUBSET_V0.md` freezes two related but distinct closed inventories. The
+build/test materialization contains every component needed to build, format,
+lint, link, and test `rust2vir`. In addition to the Rust components, it includes
+the exact host linker/archiver and every other specification-allowlisted native
+build-tool binary, startup objects, native development sysroot and libraries,
+linker configuration, and runtime closure required by those tools; no ambient
+`cc`, `ld`, SDK, or host development directory is used. It also includes the
+checksum-verified dependency-source closure selected by the committed
+`Cargo.lock`, plus separately frozen fuzz-manifest/lock and cargo-fuzz-tool
+manifest/lock source closures, in an assembler-owned offline Cargo cache.
+
+The reviewed production descriptor is tracked at the repository-derived path
+`release/build-inputs/rust/build-inputs.json`; no environment or CLI value may
+relocate it. The tracked transport is one compact RFC 8785 object followed by
+one LF; the LF counts toward the descriptor byte limit but is excluded from
+the hash preimage. Its canonical schema is `mpk.rust.build_inputs.v0`, and its
+`build_inputs_sha256` field is:
+
+```text
+SHA256(
+  "MPK-RUST-BUILD-INPUTS-0.1" || 0x00 ||
+  canonical_build_inputs_without_build_inputs_sha256
+)
+```
+
+The closed descriptor fields are: schema/profile/recipe and execution-host
+profile IDs; Rust distribution, commit, components, targets, distribution-
+archive digests, and inventoried tool-source digests; native linker/archiver/
+tool/sysroot/runtime identities and origins;
+the registry plus exact manifest/lock raw hashes and parsed package graphs for
+the frontend, fuzz package, and cargo-fuzz tool; the cargo-fuzz source identity,
+build recipe, and resulting executable digest; component provenance and
+license/notice references; sorted component inventories whose file entries are
+portable relative path, executable bit, byte length, and raw SHA-256; and
+`build_inputs_sha256`. Unknown fields, duplicate IDs/paths, a machine-local
+path, or an inventory/graph disagreement reject.
+Before RUST-07-T03 creates the fuzz package, its manifest/lock fields refer to
+the byte-exact spec-owned template hashes and graph; RUST-07-T03 must materialize
+those template bytes unchanged before cargo-fuzz may run.
+
+`develop/specs/vectors/rust-build-inputs-v0.json` owns synthetic byte-exact
+schema/hash vectors and invalid mutations; the production descriptor is a
+generated, reviewed instance of that frozen contract. It inventories every
+build-only regular file exactly once and cannot list itself. Directories are
+implicit; symlinks, hard-link aliases, devices, sockets, and unlisted entries
+reject. The ignored materialized content lives only at
+`release/build-input-cache/rust/<build_inputs_sha256>/`, whose final component
+is the descriptor's recomputed lowercase hex digest. That cache subtree has
+exactly `toolchain/`, `tool-sources/`, `native-sysroot/`, `native-runtime/`,
+`vendor/`, `cargo-home-seed/`, and `notices/` as top-level entries.
+Every reader enforces the section 18 descriptor, graph, path, per-file, and
+aggregate-cache limits with checked counters before full JSON allocation or
+unbounded file reads. A declared length outside the profile, an arithmetic
+overflow, or an actual byte count that differs rejects before any cache content
+is mounted or executed.
+
+For the internal build launcher, `cargo-home-seed/` contains exactly one regular
+file, `config.toml`, whose
+byte-exact specification-owned contents replace the one frozen registry source
+with a named Cargo directory source at fixed `/mpk/vendor` and set offline
+operation. The seed contains no credentials, registry index/cache, executable,
+link, or alternate configuration. No other source, registry, network,
+credential-provider, alias, or external command is configured. Every directory
+source package has the exact inventoried `.cargo-checksum.json`; the assembler
+cross-checks those file hashes, the lockfile checksum, the parsed dependency
+graph, and the descriptor before Cargo starts. A seed/config mutation, missing
+checksum file, unlisted vendor child, or Cargo attempt to resolve outside
+`/mpk/vendor` rejects.
+After copying the seed, the launcher binds `config.toml` as a read-only,
+no-replace file. `RUST_SUBSET_V0.md` freezes the exact other path shapes that
+the pinned Cargo may create in the fresh private Cargo home; another config,
+credential, source, executable, or unlisted entry rejects at the post-run
+inventory check. A dependency custom-build, proc-macro, or native-tool child
+cannot launch a nested Cargo process; only the separately frozen top-level
+cargo-fuzz child graph may contain its exact nested Cargo invocation.
+
+The launcher never executes or compiles directly from the ignored cache or a
+mutable checkout. For each invocation it first enumerates the exact
+specification-allowed frontend project paths, opens every source/cache input
+without following links, and streams each opened regular file once into a
+fresh invocation-owned materialization while hashing those copied bytes. Cache
+entries must match the descriptor; descriptor-bound frontend manifest,
+lockfile, toolchain file, and fuzz-template bytes must also match, while the
+remaining current frontend sources form one captured invocation inventory.
+Those current `.rs`, test, fixture, and fuzz-harness source bytes are not cache
+entries or production-descriptor fields, so an ordinary source-only edit does
+not rotate `build_inputs_sha256`.
+The launcher normalizes the specified executable bits and metadata, seals the
+completed frontend/vendor/toolchain/sysroot/runtime views read-only, and binds
+only those private copies at the fixed `/mpk/*` paths. It never reopens an
+original cache or checkout path after capture. The release assembler
+re-enumerates and rehashes the current frontend source closure before candidate
+or registered publication and requires equality with the captured build
+inventory. A concurrent change, path-set disagreement, short read, or hash/
+length mismatch rejects; `--check-build-inputs rust` is not authorization to
+skip this invocation-local capture.
+
+The assembler's exact `--update-build-inputs rust` maintainer mode is the sole
+writer of the tracked descriptor. It fetches only frozen origins/digests,
+builds cargo-fuzz twice from the inventoried tool source and dependency closure
+inside separate empty sandboxes, and requires byte-identical output. It then
+stages the complete cache at a fresh private temporary path, emits and validates
+the descriptor from those staged bytes, computes the descriptor hash and final
+cache key, publishes the cache to that no-replace path, and only then atomically
+replaces the tracked descriptor as the commit point. An unused fully validated
+cache published before a failed descriptor commit is harmless because no
+descriptor selects it. The separate `--provision-build-inputs rust` mode
+recreates only the ignored cache from an unchanged tracked descriptor for clean
+machines: it stages the complete bytes privately, validates them against that
+descriptor, and publishes only to its already fixed cache key. Both modes use
+no-replace cache publication: an existing path is reused only after full byte
+equality, while a malformed or unequal occupant fails without overwrite or
+repair.
+`--check-build-inputs rust` and `run-rust2vir-toolchain.sh` never fetch, write,
+or repair either location. They strictly validate the tracked descriptor, path
+key, and complete cache inventory before mounting any content. Before a routine
+build, the launcher copies validated `cargo-home-seed/` into a fresh private
+`/mpk/cargo-home`, without links or metadata drift, and discards all resulting
+writes after the gate. Neither the descriptor nor cache is copied into a
+candidate or installed release or accepted as a release-bundle root. Clean CI
+may restore a cache only as untrusted input to the same complete check.
+
+The frontend, fuzz, and cargo-fuzz-tool lockfiles may select only the one
+specification-frozen registry and registry packages with nonempty lockfile
+checksums. Git dependencies, alternate registries, `[patch]`, and `[replace]`
+are rejected. The release frontend and cargo-fuzz-tool manifests have no path
+dependency. The separate fuzz manifest may contain exactly one non-release path
+edge to the parent `rust2vir` package at its fixed sandbox location and must
+import only its `rust2vir_internal` library target; package identity,
+library-target identity, and the complete already-inventoried frontend source
+root must match. Every other path dependency or escape rejects.
+Every vendored regular file, package checksum, source origin, license, and
+required notice is inventoried, as are the provenance, license, and notices for
+the linker and native development sysroot. Any dependency custom-build target
+or procedural macro that executes while building/testing the frontend,
+cargo-fuzz tool, or fuzz harness must be named by an exact package/version/
+target/source-hash allowlist in
+`RUST_SUBSET_V0.md`; an unlisted executable target fails before Cargo starts.
+These build-only dependencies are distinct from analyzed Rust input, whose
+dependencies, build scripts, and procedural macros remain entirely forbidden.
+
+The evidence-execution toolchain bundle contains only Cargo, rustc, the
+host/target standard libraries, and the complete compiler/LLVM runtime-file
+closure needed to launch the registered driver. For the initial Linux host
+this execution closure also includes the exact ELF interpreter and native
+shared-library closure required by the staged Cargo, rustc, main, and driver
+executables. The launcher constructs a private runtime root in which their
+frozen interpreter paths resolve to those inventoried bytes; it never discovers
+or mounts the host's `/lib`, `/lib64`, or `/usr/lib` as a fallback.
+Developer-only `rustfmt`, Clippy, `rust-src`, dependency sources, build linker/
+sysroot content, and caches are excluded unless the pinned integration proves a
+file is part of the execution closure. The deterministic assembler may fetch
+the exact pinned distribution and locked dependency sources only in
+`--update-build-inputs rust` or `--provision-build-inputs rust`. Its
+`--check-build-inputs rust`, bundle check modes, and evidence routes use the
+already materialized bytes with network disabled, never install a component,
+and never read or modify ambient rustup, Cargo, or native-library state.
 
 All frontend and toolchain descriptor authority comes from one closed release
 registry with schema `mpk.release.bundle_registry.v0`. It contains a unique
@@ -351,9 +522,35 @@ Changing any descriptor or inventory requires a new reviewed registry hash and
 MPK release. The registry is reproducibility metadata and does not become
 trusted proof evidence.
 
+`RELEASE_BUNDLES_V0.md` freezes the assembler's stateful lifecycle. Before Go's
+first registration, Go tests construct an in-process candidate afresh and no
+tracked candidate or candidate assembler mode exists. After that registration,
+`--update go`/`--check go` are the registered Go-only pair. Rust first uses the
+tracked, non-installable `release/bundles/candidates/rust` projection:
+`--update-candidate rust` is its sole writer and `--check-candidate rust` is
+write-free. The first `--update all` must rebuild bytes equal to that current
+candidate, register every Go/Rust tuple, and remove the candidate in the same
+atomic publication. Thereafter both candidate modes reject without writes, and
+`--update all`/`--check all` are the only complete registered Go/Rust rotation
+pair. Every Rust candidate build and every registered `all` build first passes
+`--check-build-inputs rust`; Rust candidate/registered update and all check
+modes are network-disabled and cannot create or repair build inputs. Candidate
+content is never an installation source or evidence selection.
+
 Each release profile contains a closed toolchain-bundle descriptor with its
 bundle ID, distribution digest, component names and releases, rustc commit,
 directly invoked executable digests, and allowlisted target-library digests.
+When an execution profile needs dynamically loaded native support, the same
+descriptor also names its closed execution-host/runtime-layout profile and a
+content component whose inventory contains the interpreter and native shared-
+library closure. Those files are ordinary hash-checked bundle content, not an
+ambient operating-system prerequisite.
+The profile freezes the host OS/architecture/ABI, minimum kernel ABI, exact
+interpreter mount locations, and every required isolation/file-publication
+primitive, including read-only/no-exec bindings, network isolation, no-follow
+opens, and atomic no-replace rename. The runner performs the profile's bounded
+capability probes before exposing source or starting a frontend; a version or
+capability mismatch is sandbox-unavailable, with no weaker fallback.
 Its exact schema is `mpk.release.toolchain_bundle.v0`.
 The evidence-producing caller names a registered bundle ID; language, semantic
 profile, and target must match its registry tuple, with no default or
@@ -391,6 +588,50 @@ reviewed change that regenerates every MIR/VIR golden fixture.
 
 The ordinary root workspace remains buildable with its current stable Rust
 toolchain. `rust-tools/rust2vir` is not a root workspace member.
+Repository build, format-check, lint, test, and run gates for that isolated
+project invoke a single internal launcher that directly selects the validated
+pinned build/test materialization, native build sysroot, and private runtime
+root. Its build namespace exposes the frontend source, vendored sources,
+toolchain, and native sysroot read-only at specification-fixed paths, with
+writes only to fresh home/Cargo-home/temp/target directories. The frontend
+source is mounted at `/mpk/frontend`, vendor at `/mpk/vendor`, toolchain at
+`/mpk/toolchain`, native development sysroot at `/mpk/native-sysroot`, and the
+validated native-runtime view at `/mpk/native-runtime`; Cargo's working
+directory is `/mpk/frontend`. It starts from a closed environment, disables
+network and credentials, freezes linker selection and path-remapping flags,
+normalizes input metadata, and fixes locale, timezone, hostname, job count, and
+`SOURCE_DATE_EPOCH`. It constructs a toolchain-only `PATH` plus the fresh
+offline `CARGO_HOME` copied from the validated seed. Cargo can therefore resolve
+only inventoried rustfmt/Clippy, linker, build-script/proc-macro, and dependency-
+source bytes; it cannot read an ambient SDK, Cargo configuration, host library
+directory, or user file.
+The launcher accepts only specification-frozen argv shapes for clean release
+builds, format checks, Clippy, unit/integration tests, the version probe, and
+the bounded fuzz-smoke targets; an arbitrary Cargo subcommand, target, feature,
+profile, package, or trailing argument rejects before Cargo starts.
+Fuzz-smoke copies an enumerated read-only seed corpus into a fresh private
+writable corpus and uses a separate fixed private artifact directory, so
+libFuzzer never mutates the checkout or chooses an output path.
+`RUST_SUBSET_V0.md` also freezes the selected cargo-fuzz version's complete
+bounded-smoke child-process graph: exact Cargo/rustc/native-tool argv, target,
+engine/sanitizer/profile settings, and every environment addition, removal, or
+replacement (including any rustflags or Cargo profile variable). The launcher
+validates those children against the fixed sandbox paths and input inventories;
+an unknown executable, argument, variable transformation, nested Cargo shape,
+engine, or output locator rejects. No cargo-fuzz default may vary with an
+ambient environment or a later tool release.
+The initial dynamic-loader environment and every directory the pinned Cargo
+version adds for a child process are frozen by the build profile; such additions
+may resolve only inside the fresh private target directory or the validated
+toolchain view, never to a host directory.
+Process, memory, stdout/stderr, temporary-file, and output-size limits apply to
+Cargo and every build-time child. Unavailability of that sandbox is a gate
+failure. The release-bundle assembler uses the same materialization and
+requires two separately empty clean release builds to produce byte-identical
+main and driver files before it updates or checks an inventory. The launcher
+never invokes a rustup proxy, installs a
+component, or accepts an arbitrary toolchain path. Direct developer `cargo`
+invocation is not an evidence or release gate.
 
 ### 8.2 Cargo preflight
 
@@ -410,7 +651,7 @@ From that snapshot, before invoking rustc, `rust2vir` runs:
 
 ```text
 cargo metadata \
-  --manifest-path <analysis-snapshot-root>/Cargo.toml \
+  --manifest-path /mpk/input/Cargo.toml \
   --format-version 1 --no-deps --locked --offline --no-default-features \
   --color never
 ```
@@ -482,28 +723,79 @@ variables are absent unless the profile explicitly sets a deterministic value.
 The wrapper and target directory variables required by this design are then
 added with validated paths inside the analysis sandbox.
 
-The Rust v0 environment profile sets a private empty `HOME`, isolated
-`CARGO_HOME`, private `TMPDIR` and `CARGO_TARGET_DIR`, a toolchain-only `PATH`,
+The Rust v0 environment profile initially passed to Cargo sets a private empty
+`HOME`, isolated `CARGO_HOME`, private `TMPDIR` and `CARGO_TARGET_DIR`, a
+toolchain-only `PATH`,
 `LC_ALL=C`, `LANG=C`, `TZ=UTC`, `TERM=dumb`, `CARGO_TERM_COLOR=never`,
 `CARGO_NET_OFFLINE=true`, `CARGO_INCREMENTAL=0`, and `RUST_BACKTRACE=0`.
+For the exact initial Linux host triple/ABI frozen by `RUST_SUBSET_V0.md`, it
+also sets `LD_LIBRARY_PATH` to the exact
+nonempty, colon-separated, specification-ordered directories in the validated
+private toolchain view that contain the pinned compiler and LLVM runtime
+libraries. The value has no inherited suffix or empty element; every directory
+and regular file reachable through it belongs to the validated toolchain
+inventory. Other loader-path variables remain absent. A non-Linux host or a
+toolchain layout that does not match the frozen loader-directory list is
+sandbox-unavailable rather than an ambient-loader fallback.
+
+The pinned Cargo version may extend the loader path it passes to an allowlisted
+rustc child. `RUST_SUBSET_V0.md` freezes that exact per-invocation
+transformation and directory order. The result may add only the applicable
+compiler-created directories beneath the initially empty private `/mpk/target`
+and validated sysroot directories beneath `/mpk/toolchain`; it may not add an
+empty element, a source-controlled directory, or any host path. The wrapper
+validates the transformed value before classifying a probe or primary
+compilation. Before that wrapper process starts, the empty target is writable
+only by the selected Cargo/rustc processes, and analyzed build scripts,
+procedural macros, and user executables are forbidden. A different Cargo
+transformation rejects as a pinned-toolchain mismatch.
+
+Inside each fresh sandbox namespace, machine-local paths are mounted only at
+these fixed virtual locations: the immutable source snapshot at `/mpk/input`,
+the immutable selected toolchain view at `/mpk/toolchain`, the controlled
+frontend view at `/mpk/frontend`, working directory at `/mpk/work`, the empty
+home at `/mpk/home`, Cargo home at `/mpk/cargo-home`, temporary files at
+`/mpk/tmp`, Cargo target output at `/mpk/target`, and driver output at
+`/mpk/driver-output`, whose only final file is
+`/mpk/driver-output/result.json`. The read-only private driver request is
+mounted at `/mpk/driver-request.json`, and the validated read-only runtime is
+mounted at `/mpk/native-runtime`. Thus `PATH` is exactly
+`/mpk/toolchain/bin`, `RUSTC` is
+`/mpk/toolchain/bin/rustc`, and `RUSTC_WORKSPACE_WRAPPER` is
+`/mpk/frontend/rust2vir-driver`. The private native runtime root supplies its
+frozen interpreter paths separately. Each individual fixed path value just
+listed contains no `:`, `=`, or byte `0x1f`; the separately constructed
+`LD_LIBRARY_PATH` contains only its required `:` separators between validated
+path elements. No original install, workspace, source, home, or temporary
+locator is forwarded into the namespace as an argv or environment value. A
+platform unable to create these exact bindings is sandbox-unavailable.
+The input, toolchain, frontend, work directory, request, and native-runtime
+views are read-only; the work directory is freshly empty. Execution is enabled
+only for inventoried toolchain/frontend/runtime executables, never for the input,
+request, or work views. Only the freshly empty home, Cargo home, temporary,
+target, and driver-output directories are writable, are owned by this
+invocation, and cannot alias one another or any read-only view.
+
 After digest and boundary validation, it sets `RUSTC` to the snapshotted rustc,
 `RUSTC_WORKSPACE_WRAPPER` to the snapshotted driver, and
 `CARGO_ENCODED_RUSTFLAGS` to the unit-separator encoding of the semantic flag
-arguments below in their displayed order. `RUSTFLAGS` remains absent. The
-environment-profile specification freezes the exact byte construction,
-including the validated snapshot path substituted into the remap argument. No
-other variable is present unless that profile gives its exact name and value.
-
-It uses an isolated empty `CARGO_HOME`, offline mode, and these semantic flags:
+argv below. `RUSTFLAGS` remains absent. The value is the UTF-8 encoding of
+these individual argv elements joined by one byte `0x1f`, with no leading or
+trailing separator:
 
 ```text
--C overflow-checks=yes
--C panic=abort
--C debug-assertions=no
--C opt-level=0
--Z mir-opt-level=0
---remap-path-prefix=<analysis-snapshot-root>=.
+["-C", "overflow-checks=yes",
+ "-C", "panic=abort",
+ "-C", "debug-assertions=no",
+ "-C", "opt-level=0",
+ "-Z", "mir-opt-level=0",
+ "--remap-path-prefix=/mpk/input=."]
 ```
+
+The final element is one argument. No element contains an incidental separating
+space. The environment-profile specification freezes this exact byte
+construction and the loader-directory construction above. No other variable is
+present unless that profile gives its exact name and value.
 
 Cargo's working directory is a controlled launcher root, not the original
 repository. Every ancestor visible to Cargo's hierarchical configuration
@@ -515,7 +807,7 @@ The compile command is equivalent to:
 
 ```text
 cargo check --lib --package <package> --target <target> \
-  --manifest-path <analysis-snapshot-root>/Cargo.toml \
+  --manifest-path /mpk/input/Cargo.toml \
   --locked --offline --no-default-features --jobs 1 \
   --message-format json --color never
 ```
@@ -541,22 +833,91 @@ emit exactly one raw frontend artifact. Zero or multiple matching artifacts are
 a deterministic frontend error. Cargo treats a single-package project as a
 workspace for this wrapper mechanism.
 
-That private boundary uses the versioned schema `mpk.rust.driver.v0`; it is not
-VIR and never appears in a certificate or evidence report. The main frontend
-provides a fresh output directory, and each matching driver invocation may
-atomically create one regular artifact there without following links. A partial
-temporary file, unexpected directory entry, second artifact, or oversized file
-is `RUST_FRONTEND_DRIVER_PROTOCOL_*`. The artifact serialization is compact
-JCS, as defined in section 12.5, followed by one LF. It has an exact tagged
+Before Cargo starts, `rust2vir` atomically creates one bounded canonical
+JCS+LF private request with schema `mpk.rust.driver.request.v0`, then exposes
+those immutable bytes to the wrapper only at `/mpk/driver-request.json`. The
+request contains the normalized source inventory and input-set hash, language/
+profile/semantic parameters, target and selection, limit/environment/argument/
+target-allowlist profile IDs, release-registry identity, expected main/driver
+digests, toolchain bundle/distribution/component identities, compiler commit,
+and its own `request_fingerprint`. It contains no executable, installation,
+source-root, snapshot, output, home, or temporary path. No `MPK_*` environment
+variable is used to transmit request state or an output locator; the output
+file is the fixed `/mpk/driver-output/result.json` profile path.
+
+`request_fingerprint` is recomputed as:
+
+```text
+SHA256(
+  "MPK-RUST-DRIVER-REQUEST-0.1" || 0x00 ||
+  canonical_driver_request_without_request_fingerprint
+)
+```
+
+The driver strictly parses and byte-reencodes the request before classifying
+an invocation. Missing, mutable, noncanonical, duplicate-key, oversized, or
+identity-mismatched request bytes are a private protocol frontend error and
+produce no output artifact.
+
+The wrapper contract also freezes every Cargo compiler-probe invocation for the
+pinned Cargo version, including its initial `rustc -vV` probe. An allowlisted
+probe is delegated to the already selected rustc with the exact validated argv,
+exit status, bounded stdout, and bounded stderr and emits no driver artifact.
+The same no-artifact rule applies to any other explicitly allowlisted
+non-primary invocation. An unknown probe or non-primary invocation rejects; it
+is not silently passed through. Only the exact selected library compilation may
+create the one private driver artifact.
+
+The corresponding output boundary uses the versioned schema
+`mpk.rust.driver.v0`; neither private schema is VIR or appears in a certificate
+or evidence report. The main frontend provides a fresh output directory. A
+matching driver creates the exact regular
+temporary file `/mpk/driver-output/result.json.partial` with no-follow and
+exclusive-create semantics, writes and bounds the complete bytes, then
+atomically renames it without replacement to the exact regular file
+`/mpk/driver-output/result.json`. After the child exits, the directory must
+contain only `result.json`; a missing/remaining partial, unexpected entry,
+second writer, replacement attempt, link, or oversized file is
+`RUST_FRONTEND_DRIVER_PROTOCOL_*`. The artifact serialization is compact JCS,
+as defined in section 12.5, followed by one LF. It has an exact tagged
 status, and every status carries the deterministic request
 fingerprint, expected driver digest, compiler/toolchain identity, and requested
-package, crate, and function. Success additionally carries the
-normalized source inventory with hashes and raw lowered program/source-map
-data. A non-success driver status carries bounded normalized diagnostics but no
-partial source inventory, lowered program, source map, or payload hash.
-The request fingerprint covers canonical profile, target, selection, option-
-profile IDs, validated release-registry identity/hash, and expected
-binary/toolchain digests; it excludes executable, snapshot, and output paths.
+package, crate, and function, plus `source_inventory_hash`. Success additionally
+carries the normalized source inventory with hashes and raw lowered program/
+source-map data. A non-success driver status carries bounded normalized
+diagnostics but no partial source inventory, lowered program, source map, or
+payload hash.
+
+The always-present output `source_inventory_hash` and success-only
+`payload_hash` are:
+
+```text
+SHA256(
+  "MPK-RUST-SOURCE-INVENTORY-0.1" || 0x00 ||
+  canonical_normalized_source_inventory
+)
+
+SHA256(
+  "MPK-RUST-DRIVER-PAYLOAD-0.1" || 0x00 ||
+  canonical_driver_success_payload_without_payload_hash
+)
+```
+
+For all three private hash domains, each `canonical_*` operand is the exact RFC
+8785 UTF-8 byte sequence frozen by `RUST_DRIVER_PROTOCOL_V0.md`, with the named
+self-hash field omitted where applicable and without a trailing LF. The single
+LF belongs only to the request/output file transport and is appended after the
+complete object has been encoded; it is never part of a hash preimage.
+
+The request carries the expected `source_inventory_hash`; every output repeats
+the `request_fingerprint` and `source_inventory_hash`. The main recomputes the
+request and source-inventory domains for every status and, on success, the
+payload domain before it interprets the raw lowered payload.
+
+The request fingerprint covers the normalized source-inventory/input-set
+identities, canonical profile, target, selection, option-profile IDs, validated
+release-registry identity/hash, and expected binary/compiler/toolchain digests;
+it excludes executable, installation, snapshot, and output paths.
 
 `rust2vir` strictly parses this artifact, rejects duplicate or unknown fields,
 recomputes its inventory and payload hashes, and compares every repeated
@@ -658,7 +1019,7 @@ Accepted source types and VIR encodings:
 | `i8`, `i16`, `i32`, `i64` | signed BV8/BV16/BV32/BV64 |
 | `u8`, `u16`, `u32`, `u64` | unsigned BV8/BV16/BV32/BV64 |
 | `isize`, `usize` | signed/unsigned BV32 or BV64 from the explicit target |
-| `[T; N]` | fixed array, when `T` is accepted and `N` is a literal or accepted primitive constant within limits |
+| `[T; N]` | fixed array, when `T` is accepted and `N` is an in-range literal or accepted primitive constant whose compiler-resolved type is exactly target-width `usize` |
 | named struct | nominal VIR struct with fields in declaration order |
 
 Rejected types include:
@@ -668,6 +1029,13 @@ Rejected types include:
 - tuples, enums, unions, function types, closures, and never type;
 - generic or dynamically sized types;
 - any type for which rustc reports that drop glue is required.
+
+Array length constants are not generalized from their numeric value. A named
+constant of `u8`, `u32`, `isize`, or any type other than `usize` does not become
+a valid length merely because its value fits; ordinary rustc type checking
+rejects it before lowering. The accepted length is then converted to the
+schema-bounded mathematical array arity, while its source constant declaration
+retains target-width `usize` type and target-sensitive hashes.
 
 VIR models struct fields nominally and never relies on Rust's physical layout.
 Endianness, padding, ABI, and niche optimizations are outside the profile.
@@ -717,7 +1085,7 @@ Accepted:
 - equality for booleans and accepted integers, and signed/unsigned ordered
   comparisons for accepted integers;
 - fixed-array construction with an explicit full element list and read-only
-  indexing;
+  indexing by a compiler-resolved `usize` expression;
 - struct construction with every field explicitly initialized and direct field
   read;
 - simple local values and accepted constants;
@@ -731,6 +1099,7 @@ Rejected:
 - integer `as` casts in v0;
 - wrapping, checked, overflowing, or saturating library methods in v0;
 - user method calls and indexing through `Index`/`IndexMut`;
+- an array index whose compiler-resolved type is not `usize`;
 - ranges, closures, allocation, references, dereference, and raw-address
   operations;
 - repeated array expressions such as `[value; length]`;
@@ -1201,6 +1570,14 @@ contract-side `and` and `or` are total logical operators, not source execution.
 | shift with signed count | `shift_count_nonnegative` | `shift_count_nonnegative` and `shift_count_less_than_width` |
 | shift with unsigned count | none | `shift_count_less_than_width` |
 | fixed-array index | `index_in_bounds` | `index_in_bounds` |
+
+The shared `index_in_bounds` predicate supports signed and unsigned VIR index
+types because the Go profile needs both. Rust source array indexing is narrower:
+the source/HIR/MIR validators require the compiler-resolved primitive array
+index to be exactly target-width `usize`, so a Rust `Index` instruction always
+uses the unsigned bound. An `isize`, fixed-width integer, cast, or user
+`Index`/`IndexMut` route is rejected before Rust lowering and is not justified
+by the shared predicate's wider type support.
 
 VIR shift instructions permit an accepted integer RHS whose width and
 signedness differ from the LHS. The total value operation interprets the RHS
@@ -2144,6 +2521,11 @@ input and IR limits, initially:
 
 - at most 64 MiB of canonical release-registry JSON, 1,024 bundle descriptors,
   and 262,144 regular-file inventory entries across that registry;
+- for the build-only `mpk.rust.build_inputs.v0` boundary, at most 256 MiB for
+  the complete JCS+LF descriptor, 1,048,576 inventoried regular files, 8,192
+  package records across the three parsed dependency graphs, 1 KiB per
+  portable relative inventory path, 4 GiB per cache regular file, and 32 GiB
+  for the checked sum of all declared and observed cache file bytes;
 - at most 1 MiB for `Cargo.toml` and 4 MiB for `Cargo.lock`;
 - at most 128 contract files, 1 MiB per contract, and 8 MiB total contract
   bytes;
@@ -2168,6 +2550,8 @@ input and IR limits, initially:
   bytes;
 - at most 64 MiB total Cargo/rustc child stdout across metadata and check and
   2 MiB total captured child stderr, neither of which is embedded verbatim;
+- at most 4 MiB for the canonical `mpk.rust.driver.request.v0` request,
+  including its normalized input inventory;
 - at most 256 MiB for the private `mpk.rust.driver.v0` artifact, leaving bounded
   space beyond the maximum lowered program and source map for its required
   inventory and protocol metadata;
@@ -2175,6 +2559,11 @@ input and IR limits, initially:
   and 4 MiB of canonical source-manifest JSON;
 - at most 256 MiB of frontend stdout containing the one protocol JSON value
   plus its LF, and 2 MiB of captured frontend stderr.
+
+Each serialized request, private output, and public frontend size limit counts
+the entire transported JCS+LF byte sequence; the JSON portion therefore has at
+most one byte less than the stated limit. Stream limits count every observed
+byte. Hash preimages still exclude the transport LF as specified above.
 
 The shared VC/policy stages additionally allow:
 
@@ -2287,8 +2676,8 @@ At minimum, fixtures must deterministically reject:
 - missing, ambiguous, cyclic, path-attributed, and root-escaping module edges,
   nonportable/reserved or case-colliding input paths, plus a simulated
   rustc/preflight source-inventory disagreement;
-- mutable-parameter patterns, field/index mutation, and a projected or partial
-  move;
+- mutable-parameter patterns, field/index mutation, a non-`usize` primitive
+  array index, and a projected or partial move;
 - malformed or unresolved contracts and a `CallStatic` callee-contract hash
   mismatch;
 - mixed preflight/source/subset/contract failures proving fixed phase precedence
@@ -2307,6 +2696,9 @@ At minimum, fixtures must deterministically reject:
   Cargo/rustc child stdout and stderr, and frontend protocol stdout/stderr at
   their exact boundaries, including deterministic diagnostic truncation
   without status reclassification;
+- oversized/noncanonical build-input descriptor bytes, inventory/graph/path/
+  per-file/aggregate-cache limit breaches, declared-size overflow or mismatch,
+  and any attempt to mount or execute cache content before those checks finish;
 - downstream VC member/assumption/node/depth limits, VC/skeleton JSON,
   generated certificate, and policy JSON/Markdown at their exact boundaries,
   with no partial evidence or source-status reclassification;
@@ -2329,7 +2721,9 @@ At minimum, fixtures must deterministically reject:
   recipe, a wrong working-directory role, a positional source root other than
   `.`, noncanonical argv/contract order, caller-selected output paths, or an
   absolute path in any recipe argument;
-- missing, partial, duplicate, oversized, noncanonical, or identity-mismatched
+- missing, mutable, oversized, noncanonical, duplicate-key, or identity-
+  mismatched `mpk.rust.driver.request.v0` requests, plus missing, partial,
+  duplicate, oversized, noncanonical, or identity-mismatched
   `mpk.rust.driver.v0` artifacts;
 - status/exit disagreement, missing or truncated JSON on any non-usage exit,
   noncanonical JSON or extra stdout, any partial artifact on a non-success
@@ -2365,8 +2759,8 @@ they reduce translation risk. The suite includes:
   `ir-lowered`, the required safety VCs remain present, non-strict evidence is
   proof-pending, and strict policy verification fails rather than reporting a
   source rejection;
-- public frontend, private driver-artifact, VIR, source-map, and contract parser
-  fuzzing;
+- public frontend, private driver-request/output, VIR, source-map, and contract
+  parser fuzzing;
 - both-checker agreement for every emitted certificate;
 - assertions that canonical artifacts contain no absolute workspace or temp
   paths, including normalized compiler diagnostics;
@@ -2416,9 +2810,15 @@ Before removing GIR, the migration suite must:
   language/profile/selection/bundle configuration from a canonical structured
   argv recipe using source-root-relative inputs and outputs, without a
   machine-local path, caller output destination, or unresolved placeholder;
-- search production code, examples, CI, and active user documentation,
-  excluding explicitly labeled historical specifications and migration reports,
-  for obsolete `go2gir`, `Go2Gir`, `GO2GIR`, `mpk.go2gir.cli.v0`,
+- search production code, examples, CI, and active user documentation for
+  obsolete interfaces. Historical specifications and migration reports form
+  one exact-file allowlist. Scanner metadata/implementation and focused
+  positive/negative self-test fixtures form two separate, disjoint exact-file
+  exclusion classes; a checked-in fixture manifest must enumerate regular
+  files, not directories, and the gate must reject missing, unknown, symlinked,
+  overlapping, or directory-wide exclusions before it tests the fixtures and
+  scans the active tree. The obsolete set includes `go2gir`, `Go2Gir`,
+  `GO2GIR`, `mpk.go2gir.cli.v0`,
   `mpk.go.source_manifest.v0`, `mpk.gir.emit.v0`, `MPK_GIR_V0`, `gir_emit`,
   `gir-lowered`,
   `source_gir_hash`, `mpk.policy.scan.v0`, `mpk.policy.evidence.v0`,
@@ -2464,8 +2864,11 @@ Deliverables:
   matrices;
 - registration and vectors for `MPK-VIR-0.1`, `MPK-SOURCE-MAP-0.1`,
   `MPK-CONTRACT-0.1`, `MPK-BUNDLE-REGISTRY-0.1`,
-  `MPK-BUNDLE-CONTENT-0.1`, `MPK-INPUT-SET-0.1`, `MPK-VC-1.0`, and the
-  existing opaque `MPK-SOURCE-MANIFEST-0.1` certificate domain;
+  `MPK-BUNDLE-CONTENT-0.1`, `MPK-INPUT-SET-0.1`,
+  `MPK-RUST-BUILD-INPUTS-0.1`,
+  `MPK-RUST-DRIVER-REQUEST-0.1`, `MPK-RUST-SOURCE-INVENTORY-0.1`,
+  `MPK-RUST-DRIVER-PAYLOAD-0.1`, `MPK-VC-1.0`, and the existing opaque
+  `MPK-SOURCE-MANIFEST-0.1` certificate domain;
 - a complete inventory of GIR schemas, fields, flags, files, fixtures, and
   downstream documentation and typed policy/evidence consumers, including
   `mpk explain`, to remove or regenerate;
@@ -2532,13 +2935,26 @@ and targeted searches find no obsolete interface in active code or user docs.
 
 Deliverables:
 
-- isolated `rust-tools/rust2vir` project and toolchain pin;
+- isolated `rust-tools/rust2vir` project with the `rust2vir_internal` library
+  and exactly two installed binaries, exact toolchain pin, closed build/test
+  materialization and locked dependency-source inventory, plus the internal
+  offline launcher used by every frontend build, format-check, lint, test, and
+  run gate;
+- content-addressed `mpk.rust.build_inputs.v0` build-only descriptor and ignored
+  materialization with reproducibly built cargo-fuzz, complete provenance, and
+  no installation path;
+- smaller evidence-execution toolchain inventory with the pinned compiler/LLVM
+  files, target libraries, Linux interpreter/native-library closure, private
+  runtime layout, provenance, and redistribution notices;
+- tracked, non-installable pre-registration Rust bundle candidate followed by
+  atomic first registration and candidate removal once the skeleton is final;
 - Rust release frontend-bundle registration for the main and driver digests,
   with a reviewed new release-registry root hash;
 - release toolchain-bundle descriptor resolution and pre-launch digest checks;
 - `mpk.rust.targets.v0` with pinned i686/x86_64 Linux standard libraries;
-- `RUST_DRIVER_PROTOCOL_V0.md` freezing the exact `mpk.rust.driver.v0` private
-  artifact schema, limits, and cross-process identity checks;
+- `RUST_DRIVER_PROTOCOL_V0.md` freezing the exact
+  `mpk.rust.driver.request.v0` request and `mpk.rust.driver.v0` output schemas,
+  all three private hash domains, limits, and cross-process identity checks;
 - Rust population of `mpk.frontend.cli.v0` and the frontend-stage
   `mpk.source_manifest.v0`, with canonical VIR/source-map/manifest hash and
   repeated-identity validation;
@@ -2609,11 +3025,12 @@ produces evidence that separates trusted proof evidence from helper artifacts.
 Deliverables:
 
 - positive and negative corpus completion;
-- public frontend, private driver-artifact, VIR, source-map, and contract parser
-  fuzzing;
+- public frontend, private driver-request/output, VIR, source-map, and contract
+  parser fuzzing;
 - differential interpreter tests;
 - diagnostic normalization and every boundary/aggregate resource-limit test;
-- deterministic clean-machine CI job with the pinned nightly toolchain;
+- deterministic clean-machine CI that validates the pinned build/test closure
+  separately while exposing only registered bundles to evidence routes;
 - compiler-upgrade procedure and release report integration.
 
 Exit gate: all Rust gates, all migrated Go gates, checker agreement, path
@@ -2639,6 +3056,15 @@ develop/specs/
   AI_EXPLAIN_V1.md
   AI_API_V1.md
 
+develop/specs/vectors/
+  manifest.json
+
+develop/migrations/
+  gir-to-vir-inventory.md
+  gir-to-vir-obsolete-terms.txt
+  gir-to-vir-search-fixtures/manifest.json
+  go-gir-semantic-baseline.json
+
 go-tools/go2vir/
   go.mod
   main.go
@@ -2648,9 +3074,19 @@ rust-tools/rust2vir/
   Cargo.toml
   Cargo.lock
   rust-toolchain.toml
+  src/lib.rs
   src/bin/rust2vir.rs
   src/bin/rust2vir-driver.rs
-  src/{preflight,source_gate,hir_check,mir_lower,contract,emit,source_map,manifest}.rs
+  src/{cli,path,preflight,source_capture,module_closure,snapshot,metadata_request}.rs
+  src/{environment,sandbox,cargo_metadata,cargo_check}.rs
+  src/{driver_protocol,driver_process,source_gate,file_loader}.rs
+  src/{rustc_driver,session,mir_access,hir_check,mir_lower}.rs
+  src/{limits,stable_id,type_lower,const_lower}.rs
+  src/{mir_arithmetic,mir_projection,mir_aggregate,mir_call,call_closure}.rs
+  src/{contract,contract_typecheck,diagnostics,emit,source_map,manifest}.rs
+  fuzz/Cargo.toml
+  fuzz/Cargo.lock
+  fuzz/fuzz_targets/{driver_protocol,rust_contract}.rs
 
 crates/mpk-vc/src/
   vir.rs
@@ -2663,7 +3099,28 @@ proofs/program/base/
 fixtures/vir-go/
 fixtures/rust-basic/
 examples/rust-payment-policy/
+
+release/bundles/
+  bundle-registry.json
+
+release/build-inputs/rust/
+  build-inputs.json
+
+scripts/
+  build-release-bundles.sh
+  check-release-bundles.sh
+  check-no-active-gir.sh
+  check-spec-vectors.py
+  run-rust2vir-toolchain.sh
 ```
+
+`release/bundles/candidates/rust` is a tracked migration-only staging path, not
+an installed release path. It exists from RUST-03-T01 through RUST-03-T11 and
+is atomically removed by the first Rust registration in RUST-03-T12.
+`release/build-inputs/rust/build-inputs.json` is the tracked reviewed build-only
+descriptor. Its content cache at
+`release/build-input-cache/rust/<build_inputs_sha256>` is ignored and is neither
+a likely touched file nor an installation input.
 
 `go-tools/go2vir` replaces the existing `go-tools/go2gir` directory rather than
 coexisting with it in the post-cutover tree.
@@ -2765,10 +3222,12 @@ fixes overflow checks on and proves their safety conditions.
 |---|---|
 | rustc internal API changes | Exact toolchain pin, isolated project, compiler-upgrade corpus, no automatic upgrades. |
 | MIR shape changes silently | Exact pattern matching, deny unknown variants, golden MIR/VIR fixtures. |
-| A stale or malformed private driver artifact is reused | Fresh output directory, versioned JCS schema, exact one-file rule, size bound, and request/binary/toolchain/source identity checks. |
+| A stale or malformed private driver request/artifact is reused | Fixed read-only request and result paths, exclusive partial creation plus atomic no-replace publication, versioned JCS schemas, domain-separated request fingerprint, size bounds, and request/binary/toolchain/source identity checks. |
 | A local installation rewrites the release registry | Runner-embedded registry ID/hash, bounded canonical registry validation before launch, no override path, and registry identity repeated in manifests and evidence. |
 | A caller substitutes an unregistered frontend binary | Evidence routes accept only a registered bundle ID; resolve paths internally and require exact pre-launch main/helper digests, while retaining the untrusted-frontend label. |
-| Build scripts or proc macros execute code | Metadata preflight, dependency ban, build-script/proc-macro rejection before compilation. |
+| An analyzed package build script or proc macro executes code | Metadata preflight, dependency ban, and build-script/proc-macro rejection before target compilation. |
+| A frontend dependency build script, proc macro, linker, or SDK reads ambient state or changes release bytes | Registry/checksum/source inventories, an exact build-time executable allowlist, fixed linker/sysroot, a credential-free OS sandbox, and byte comparison of two separately empty clean release builds. |
+| An ignored build cache or frontend checkout changes after validation | No-follow open and stream-copy every input into a fresh invocation tree while hashing, execute only sealed private copies, and recheck the current source inventory before release publication. |
 | User, rustup, lint, or Cargo config changes semantics | Launcher-validated release toolchain bundle, sanitized metadata/check environment, isolated Cargo home, target `rust-toolchain*` and project-config rejection, fixed lint policy, explicit snapshot manifest, flags, and target. |
 | Frontend omits a panic condition | MIR assertion consumption checks plus VIR profile safety-completeness validation and differential tests. |
 | Rust source claim is overstated | Keep compiler/frontend/VIR untrusted and label source linkage as traceability only. |
@@ -2780,6 +3239,7 @@ fixes overflow checks on and proves their safety conditions.
 | Target-dependent semantics reuse a hash | Hash target and pointer width in VIR semantic parameters and exercise multi-target fixtures. |
 | Compiler or parser resource exhaustion | Enforce per-input and aggregate byte/count limits before full parsing, bound protocol output, and ensure operational failures never become acceptance. |
 | Compiler diagnostics leak host paths or vary by host | Emit stable MPK codes, normalize bounded optional detail, omit unnormalizable prose, and never embed raw Cargo/rustc stderr. |
+| Native loader/library drift or incomplete redistribution metadata | Freeze the exact execution-host ABI, interpreter/shared-library closure, component provenance, hashes, and required notices; run only inside the private runtime root and block release on any missing file, host fallback, or notice. |
 
 ## 24. Completion criteria
 
@@ -2841,6 +3301,7 @@ hold:
 - [SMT-LIB 2.7 FixedSizeBitVectors theory](https://smt-lib.org/theories-FixedSizeBitVectors.shtml)
 - [SMT-LIB standard logic extensions](https://smt-lib.org/logics-all.shtml)
 - [rustc_driver and rustc_interface](https://rustc-dev-guide.rust-lang.org/rustc-driver/intro.html)
+- [External rustc drivers](https://rustc-dev-guide.rust-lang.org/rustc-driver/external-rustc-drivers.html)
 - [rustc_driver callback stages](https://doc.rust-lang.org/nightly/nightly-rustc/rustc_driver_impl/trait.Callbacks.html)
 - [rustc `FileLoader`](https://doc.rust-lang.org/nightly/nightly-rustc/rustc_span/source_map/trait.FileLoader.html)
 - [MIR overview](https://rustc-dev-guide.rust-lang.org/mir/index.html)
@@ -2853,6 +3314,13 @@ hold:
 - [Rust conditional compilation](https://doc.rust-lang.org/reference/conditional-compilation.html)
 - [Rust array indexing behavior](https://doc.rust-lang.org/reference/expressions/array-expr.html#array-and-array-index-expressions)
 - [Cargo metadata](https://doc.rust-lang.org/cargo/commands/cargo-metadata.html)
+- [Cargo source replacement](https://doc.rust-lang.org/cargo/reference/source-replacement.html)
+- [Cargo build scripts](https://doc.rust-lang.org/cargo/reference/build-scripts.html)
+- [Rust procedural macros](https://doc.rust-lang.org/reference/procedural-macros.html)
+- [rustc linker codegen options](https://doc.rust-lang.org/rustc/codegen-options/index.html#linker)
+- [cargo-fuzz](https://github.com/rust-fuzz/cargo-fuzz)
 - [Cargo support for external tools](https://doc.rust-lang.org/cargo/reference/external-tools.html)
 - [Cargo environment and workspace-wrapper behavior](https://doc.rust-lang.org/cargo/reference/environment-variables.html)
+- [Cargo wrapper coverage for the initial `rustc -vV` probe](https://github.com/rust-lang/cargo/pull/13659)
+- [rustup toolchain components](https://rust-lang.github.io/rustup/concepts/components.html)
 - [rustup overrides and toolchain files](https://rust-lang.github.io/rustup/overrides.html)

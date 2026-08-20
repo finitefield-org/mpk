@@ -63,7 +63,7 @@ Out of scope:
 6. All canonical JSON follows the narrowed RFC 8785 rules in the source design.
    Object-name ordering follows RFC 8785; schema-declared unordered arrays are
    normalized separately using their specification-defined order. Transport LF
-   bytes never enter a nested hash preimage.
+   bytes never enter any hash preimage.
 7. Every hash implementation has domain-separation vectors for empty, minimal,
    normal, boundary, non-ASCII-key, and mutation cases. Producers and consumers
    recompute rather than trust repeated hashes.
@@ -78,23 +78,88 @@ Out of scope:
     documentation and fixtures, and stages only its own files.
 11. Bundle lifecycle is state-dependent and never permits a stale descriptor:
     before GO-VIR-02-T05, Go tests use only the test-injected unregistered
-    candidate from GO-VIR-02-T03; GO-VIR-02-T05 performs the first Go release
-    registration. From that point through RUST-03-T11, a milestone that changes
+    candidate from GO-VIR-02-T03. That Go candidate is constructed afresh
+    inside the test process from a freshly built current `go2vir` executable
+    and fixed toolchain fixture; it is neither a tracked descriptor nor an
+    assembler target. GO-VIR-02-T05 performs the first Go release registration.
+    From that point through RUST-03-T11, a milestone that changes
     `go2vir`, the pinned Go toolchain, or their release-build inputs must run
     `./scripts/build-release-bundles.sh --update go`, review the complete
     registry/inventory and root-hash diff, rerun
     `./scripts/build-release-bundles.sh --check go`, rebuild `mpk-cli`, and
-    validate the installed Go tree. Before RUST-03-T12, Rust
-    tests use only the unregistered injected candidate inventories from
-    RUST-03-T01; RUST-03-T12 performs the first Rust release registration with
-    `--update all`. After that point, any milestone that changes bytes of
-    either registered frontend, subordinate, pinned toolchain, or their
-    release-build inputs must run
+    validate the installed Go tree. RUST-03-T01 creates the first unregistered
+    Rust candidate. From RUST-03-T02 through RUST-03-T11, every milestone that
+    changes `rust2vir`, `rust2vir-driver`, the pinned build/execution
+    toolchains, locked dependency sources, native runtime, or their release-
+    build inputs must first run
+    `./scripts/build-release-bundles.sh --check-build-inputs rust`, then run
+    `./scripts/build-release-bundles.sh --update-candidate rust`, review the
+    complete unregistered candidate inventory/root-hash diff, and rerun
+    `./scripts/build-release-bundles.sh --check-candidate rust`. Tests may
+    inject only that current candidate; the active registry and embedded
+    registry constants must remain byte-identical. RUST-03-T12 performs the
+    first Rust release registration with `--update all`, which atomically
+    removes the superseded tracked candidate. After that point, any milestone
+    that changes bytes of either registered frontend, subordinate,
+    pinned toolchain, native runtime, locked dependency source, or their
+    release-build inputs must first run
+    `./scripts/build-release-bundles.sh --check-build-inputs rust`, then run
     `./scripts/build-release-bundles.sh --update all`, review the complete
     diff, rerun `./scripts/build-release-bundles.sh --check all`, rebuild
     `mpk-cli`, validate the combined installed tree, and rerun both registered
     language paths. A tracked descriptor may never describe an older build of
     the current registered sources.
+    From RUST-03-T01 onward, whenever the spec-frozen build-input descriptor
+    changes, the owning milestone first runs `--update-build-inputs rust`,
+    reviews the complete descriptor/path-key/provenance change, and then reruns
+    `--check-build-inputs rust`; changes only to the invocation-captured
+    frontend `.rs`, test, fixture, or fuzz-harness sources neither update nor
+    provision. The first production descriptor/cache update from the
+    VIR-00-T09 contract belongs to RUST-03-T01. Clean machines may run
+    `--provision-build-inputs rust` to recreate only the ignored cache from that
+    unchanged tracked descriptor.
+12. From RUST-03-T01 onward, every repository build, format-check, lint, test,
+    bounded fuzz-smoke, or run gate for the isolated frontend goes through
+    `./scripts/run-rust2vir-toolchain.sh`. That internal launcher validates the
+    spec-frozen Rust toolchain, host linker/native development sysroot, private
+    runtime, and vendored dependency-source inventories. It runs with
+    a no-follow, invocation-captured copy of `rust-tools/rust2vir` mounted
+    read-only at `/mpk/frontend` as its logical working directory inside the
+    fixed build namespace; source, vendor, toolchain, and sysroot inputs are
+    read-only, while home/Cargo-home/temp/target outputs are fresh and private. The
+    validated `cargo-home-seed` is copied without links or metadata drift into
+    the fresh Cargo home before execution; its `config.toml` is bound read-only
+    and no-replace, only spec-allowlisted Cargo runtime entries may be created,
+    and all later writes are inventoried and discarded.
+    It denies network and credentials, starts from the exact environment,
+    linker, and remapping profile, and directly invokes the materialized pinned binary with a
+    toolchain-only `PATH` and offline `CARGO_HOME`. Cargo can resolve only
+    inventoried rustfmt/Clippy/cargo-fuzz/linker/dependency bytes, and only
+    explicitly allowlisted dependency custom-build/proc-macro targets may
+    execute. The initial loader path and every pinned-Cargo child-process
+    extension are exact; added directories may exist only beneath the fresh
+    private target directory or validated toolchain view. Its host inputs come
+    only from the tracked repository-derived
+    `release/build-inputs/rust/build-inputs.json` descriptor and complete
+    validated `release/build-input-cache/rust/<build_inputs_sha256>` cache; the
+    launcher cannot fetch, write, repair, or relocate either one.
+    It streams cache and frontend inputs into fresh private views while hashing,
+    executes only those sealed copies, never reopens an original path, and
+    requires the current source inventory still to match before release
+    publication.
+    `--check-build-inputs rust` is the mandatory no-write/no-network gate before
+    any candidate or registered Rust build. The launcher accepts only spec-
+    frozen argv shapes for clean release build,
+    frontend/fuzz-manifest format-check, Clippy, test, version-probe, and bounded
+    fuzz-smoke modes; an arbitrary Cargo subcommand, target, feature, profile,
+    package, or trailing argument rejects before Cargo starts. The
+    launcher never consults ambient `PATH`, SDK, Cargo configuration, user
+    files, or host library directories, invokes a rustup proxy, installs a
+    component, or changes ambient rustup/Cargo state. Direct `cargo` commands
+    from the isolated project are not release gates. The deterministic bundle
+    assembler uses the same materialization and accepts release output only
+    after two separately empty clean builds produce byte-identical main/driver
+    files.
 
 ## Component Ownership
 
@@ -104,9 +169,10 @@ Out of scope:
 | VIR, semantic profiles, contracts, source map, source manifest, VC v1 | `mpk-vc` | Strictly validated untrusted artifacts. |
 | Release registry parsing and bundle inventory models | `mpk-vc` | Portable data validation only. |
 | Installed bundle resolution, immutable snapshots, process limits, frontend protocol consumption | `mpk-cli` | No user-selected executable path on evidence routes. |
+| Rust build-input descriptor, provision/update/check lifecycle, and hermetic build launcher | `scripts/build-release-bundles.sh` plus `scripts/run-rust2vir-toolchain.sh` | Build-only stable-workspace tooling; descriptor/cache never enters an installed bundle or evidence route. |
 | Go snapshot, source gate, contract parsing, SSA lowering, envelope emission | `go-tools/go2vir` | Separate untrusted Go executable. |
-| Rust preflight, Cargo orchestration, contract parsing, envelope emission | `rust-tools/rust2vir` main binary | Isolated pinned project, outside the root Cargo workspace. |
-| rustc callbacks, HIR/MIR validation and raw lowering | `rust2vir-driver` | Private `mpk.rust.driver.v0` protocol; never a public evidence format. |
+| Rust preflight, Cargo orchestration, contract parsing, envelope emission | `rust-tools/rust2vir` internal library and main binary | Isolated pinned project, outside the root Cargo workspace; the library is never installed. |
+| rustc callbacks, HIR/MIR validation and raw lowering | `rust2vir-driver` | Private `mpk.rust.driver.request.v0`/`mpk.rust.driver.v0` request-output protocol; never a public evidence format. |
 | Policy scan, verification orchestration, evidence, report, explainer | `mpk-cli` | JSON is the stable product API; Markdown and AI output are derived helper views. |
 | Strategy tuple metadata | `mpk-api` | Keeps strategy, checker, semantic, and axiom profiles distinct. |
 | Certificate checking | Existing `mpk-kernel` and Go reference checker | Source-free and unchanged. |
@@ -168,7 +234,9 @@ acceptance criteria:
   duplicate-key, wrong-schema, boundary-limit, and deterministic-byte
   conformance vectors and name their owning implementation test; each later
   parser/emitter milestone must load those vectors and add the corresponding
-  executable tests before it closes;
+  executable tests before it closes; each specification milestone
+  syntax-checks every JSON vector container it owns, and VIR-00-T10 strictly
+  validates their complete hash/owner manifest;
 - trusted and untrusted artifacts are labeled consistently with
   `develop/specs/TRUST_BOUNDARY_V0.md`;
 - unsupported input fails closed and no operational failure is converted into
@@ -182,8 +250,11 @@ acceptance criteria:
   `cargo clippy --workspace --all-targets -- -D warnings` when the touched code
   is in the root workspace;
 - Go frontend changes pass `go test -count=1 ./...` in the affected Go module;
-- isolated Rust frontend changes pass `cargo fmt --all -- --check` and
-  `cargo test --locked` from `rust-tools/rust2vir` under its pinned toolchain;
+- isolated Rust frontend changes pass
+  `./scripts/build-release-bundles.sh --check-build-inputs rust`,
+  `./scripts/run-rust2vir-toolchain.sh cargo fmt --all -- --check` and
+  `./scripts/run-rust2vir-toolchain.sh cargo test --locked` under the pinned
+  build/test inventory;
 - from GO-VIR-02-T05 through RUST-03-T11, a milestone that changes registered
   Go frontend, toolchain, or release-build bytes also satisfies Execution Rule
   11: run `./scripts/build-release-bundles.sh --update go`, review the complete
@@ -191,10 +262,21 @@ acceptance criteria:
   `./scripts/build-release-bundles.sh --check go`, rebuild `mpk-cli`, then run
   `./scripts/check-release-bundles.sh --fixture go` and
   `cargo test -p mpk-cli --test frontend_runner`;
-- after RUST-03-T12, a milestone that changes either registered frontend,
-  subordinate, toolchain, or release-build bytes also satisfies Execution Rule
-  11:
-  run `./scripts/build-release-bundles.sh --update all`, review the complete
+- from RUST-03-T02 through RUST-03-T11, a milestone that changes unregistered
+  Rust main, driver, build/test or execution toolchain, native-runtime,
+  dependency-source, or release-build bytes also satisfies Execution Rule 11:
+  run `./scripts/build-release-bundles.sh --check-build-inputs rust`, then
+  `./scripts/build-release-bundles.sh --update-candidate rust`, review the
+  complete candidate inventory/root-hash diff, rerun
+  `./scripts/build-release-bundles.sh --check-candidate rust`, and prove with
+  `./scripts/build-release-bundles.sh --check go` plus
+  `./scripts/check-release-bundles.sh --fixture go` that the registered Go
+  release and registry did not change;
+- after RUST-03-T12, a milestone that changes a registered frontend,
+  subordinate, build/test or execution toolchain, native-runtime,
+  dependency-source, or release-build bytes also satisfies Execution Rule 11:
+  run `./scripts/build-release-bundles.sh --check-build-inputs rust`, then
+  `./scripts/build-release-bundles.sh --update all`, review the complete
   registry/inventory and root-hash diff, rerun
   `./scripts/build-release-bundles.sh --check all`, rebuild `mpk-cli`, then run
   `./scripts/check-release-bundles.sh --fixture all` and
@@ -205,12 +287,22 @@ acceptance criteria:
 - the default release path remains source-free for proof checking and both
   checker verdicts remain the only accepted checker evidence.
 
-For a milestone that triggers Execution Rule 11, its `Likely touched files`
-implicitly also include `release/bundles/bundle-registry.json`, the complete
-generated registered inventories owned by `RELEASE_BUNDLES_V0.md`, and any
-tracked embedded-registry ID/hash fixture frozen by that specification. Those
-rotation outputs are part of that milestone's own change and must not be
-deferred to a later cleanup task.
+For a pre-registration Rust milestone that triggers the candidate branch of
+Execution Rule 11, its `Likely touched files` implicitly include the complete
+tracked unregistered candidate inventories owned by `RELEASE_BUNDLES_V0.md`,
+but never the active registry, registered inventories, or embedded-registry
+fixtures. For a milestone that triggers a registered update, its `Likely
+touched files` implicitly also include `release/bundles/bundle-registry.json`,
+the complete generated registered inventories owned by
+`RELEASE_BUNDLES_V0.md`, and any tracked embedded-registry ID/hash fixture
+frozen by that specification. Candidate regeneration or registered rotation is
+part of that milestone's own change and must not be deferred to a later cleanup
+task.
+For any milestone that runs `--update-build-inputs rust`, its `Likely touched
+files` also include the tracked
+`release/build-inputs/rust/build-inputs.json` descriptor and any directly
+changed owning spec/vector; the ignored `release/build-input-cache` subtree is
+never staged.
 
 ## Milestones
 
@@ -232,6 +324,8 @@ Likely touched files:
 
 - `develop/migrations/gir-to-vir-inventory.md`
 - `develop/migrations/gir-to-vir-obsolete-terms.txt`
+- `develop/migrations/gir-to-vir-search-fixtures/manifest.json` and every exact
+  regular-file fixture it enumerates
 - `develop/migrations/go-gir-semantic-baseline.json`
 - `scripts/check-no-active-gir.sh`
 
@@ -246,6 +340,11 @@ Tasks:
    `mpk.policy.scan.v0`, `mpk.policy.evidence.v0`,
    `mpk.ai.explain.request.v0`, `mpk.ai.explanation.v0`, and
    `mpk.evidence-explainer.v0`.
+   Classify matcher scope as an exact global token, exact path, schema-qualified
+   JSON field, or type/variant-qualified code symbol. In particular, only the
+   policy-evidence v0 `allowed_axiom_profiles` field is obsolete; the separately
+   governed package-manifest field required by `AXIOM_POLICY_V0.md` remains
+   active and must be a passing negative-control fixture for the search gate.
 2. Classify each hit as remove, rename/regenerate, or historical-allowlist.
    Historical hits are limited to frozen v0 specs, the checked-in migration
    report, and the exact migration-design records
@@ -254,14 +353,24 @@ Tasks:
    paths, not broad directories, and accepts the two design paths only after
    GO-VIR-02-T12 adds a status marker saying the Go cutover is complete, Rust
    phases remain active, and every retained old identifier is historical
-   migration terminology.
+   migration terminology. Scanner metadata, the scanner implementation, and
+   focused positive/negative scanner fixtures are not historical records.
+   Keep them in a separate exact-path exclusion class: the fixture manifest
+   names regular files rather than directories, every file beneath its fixture
+   root is named exactly once, and the gate rejects an unknown, missing,
+   symlinked, overlapping, or directory-wide exclusion.
 3. Capture the pre-cutover positive and negative Go corpus, obligation kinds,
    theorem intent, contract and loop behavior, checker verdicts, and hashes in a
    machine-readable semantic baseline. Hash bytes are recorded for audit but
    are explicitly not expected to remain equal.
 4. Add a search gate that fails on an obsolete term outside the exact
    historical allowlist and supports a pre-cutover audit mode plus a strict
-   post-cutover mode.
+   post-cutover mode. Add one positive detection fixture per matcher kind and
+   negative controls for every retained same-spelling context, so a broad grep
+   cannot replace schema/type-aware matching. Before scanning the active tree,
+   its self-test must validate the exact scanner-metadata and fixture exclusion
+   sets and prove that every positive fixture is detected and every negative
+   fixture is accepted.
 5. Record the owner milestone for every removal so the final cutover cannot
    close with an unassigned item.
 
@@ -273,6 +382,11 @@ Deliverables:
 Acceptance criteria:
 
 - every design-section 19.4 term appears in the inventory;
+- every context-qualified obsolete term has both a detected retired-context
+  fixture and an accepted retained-context fixture;
+- scanner metadata, focused self-test fixtures, and historical records are
+  three disjoint exact-file classes, with no directory exclusion from the
+  active repository scan;
 - every current production hit has one removal owner;
 - the baseline covers all 100 Go alpha functions, five positive payment-policy
   examples, current negative corpora, loops, conversions, and runtime checks;
@@ -283,6 +397,8 @@ Verification:
 
 ```sh
 ./scripts/check-no-active-gir.sh --audit
+! ./scripts/check-no-active-gir.sh --strict
+python3 -m json.tool develop/migrations/go-gir-semantic-baseline.json >/dev/null
 cargo test -p mpk-vc --test alpha_corpus
 (cd go-tools/go2gir && go test -count=1 ./...)
 git diff --check
@@ -355,6 +471,8 @@ rg -n -F "MPK-CONTRACT-0.1" develop/specs/VIR_V0.md
 test -f develop/specs/VIR_V0.md
 test -f develop/specs/vectors/vir-v0.json
 test -f develop/specs/vectors/vir-hash-v0.json
+python3 -m json.tool develop/specs/vectors/vir-v0.json >/dev/null
+python3 -m json.tool develop/specs/vectors/vir-hash-v0.json >/dev/null
 ! rg -n "[T]ODO|[T]BD|[F]IXME|[X]XX|未[定]|[P]LACEHOLDER" develop/specs/VIR_V0.md develop/specs/vectors/vir-v0.json develop/specs/vectors/vir-hash-v0.json
 git diff --check
 ```
@@ -383,7 +501,12 @@ Tasks:
    canonical inventory schemas as `mpk.release.bundle_registry.v0`,
    `mpk.release.frontend_bundle.v0`, and
    `mpk.release.toolchain_bundle.v0`, including uniqueness rules, tuple keys,
-   sort order, the `distribution_sha256` field, and
+   sort order, the `distribution_sha256` field, closed execution-host and
+   native-runtime-layout profile IDs, the optional profile-required native
+   runtime content component, exact host OS/architecture/ABI and minimum kernel
+   ABI, interpreter mount locations, required namespace/read-only/no-exec/
+   network/no-follow/atomic-no-replace primitives, bounded pre-launch capability
+   probes and sandbox-unavailable mapping, and
    `MPK-BUNDLE-REGISTRY-0.1`/`MPK-BUNDLE-CONTENT-0.1` preimages.
 2. Freeze the installation layout: a release root contains `bin/mpk`, the
    installed registry at `share/mpk/bundle-registry.json`, and bundles at
@@ -395,7 +518,13 @@ Tasks:
    CLI values cannot replace the installed registry or root algorithm.
 3. Freeze open-before-hash, immutable-handle, executable-bit, regular-file,
    link/reparse-point, hard-link-alias, unlisted-file, and complete-inventory
-   validation rules.
+   validation rules. A native-runtime component includes every interpreter and
+   shared-library byte exposed in its private runtime root; an undeclared host
+   `/lib`, `/lib64`, `/usr/lib`, loader path, or ABI fallback rejects.
+   The tracked build-only descriptor under `release/build-inputs` and ignored
+   materialization under `release/build-input-cache` are outside every
+   installation source and must make an installer or installed-tree validator
+   reject if copied beneath a release root.
 4. Define build-time checks that recompute the source registry hash and embed
    only the expected registry ID/hash constants without trusting hand-copied
    values; runtime still validates the separately installed bytes and can
@@ -405,8 +534,26 @@ Tasks:
 6. Add canonical vectors for missing, extra, duplicate, reordered, mutated,
    oversized, and unsupported tuple cases.
 7. Freeze the deterministic assembler lifecycle and exact internal CLI:
+   `--update-build-inputs rust` is the only mode that writes the tracked Rust
+   build-input descriptor; it may fetch only specification-fixed origins/
+   digests, stages the complete cache at a fresh private temporary path, emits
+   and validates the descriptor from those bytes, computes its hash/final cache
+   key, publishes the cache without replacement, and only then makes atomic
+   descriptor replacement the commit point without writing a candidate or
+   registry.
+   `--provision-build-inputs rust` may use the same fixed network sources to
+   recreate only the ignored cache from an unchanged tracked descriptor; it
+   privately stages and validates the complete bytes before publishing only to
+   the descriptor's already fixed no-replace cache path.
+   `--check-build-inputs rust` validates the exact descriptor/path-key/cache
+   without network or writes and is mandatory before every Rust candidate/
+   registered build; a missing or invalid cache is not provisioned implicitly.
+   The common dispatcher exists after GO-VIR-02-T05, but all three Rust build-
+   input modes return a stable not-configured error without writes until
+   RUST-03-T01 installs the VIR-00-T09 handler and expected descriptor contract.
    `--update-candidate rust` is the only mode that writes the tracked,
-   unregistered Rust test candidate; `--check-candidate rust` rebuilds and
+   unregistered Rust test candidate at the exact non-installed path
+   `release/bundles/candidates/rust`; `--check-candidate rust` rebuilds and
    byte-compares it without writes; `--update go` and `--update all` are the
    only modes that write registered inventories and the registry; and
    `--check go` and `--check all` rebuild and byte-compare registered state
@@ -415,7 +562,14 @@ Tasks:
    stages a complete tree before atomic replacement. `all` rebuilds every
    language declared by the assembler's reviewed release configuration from
    current sources; after RUST-03-T01 that set is Go and Rust even before
-   RUST-03-T12 adds Rust's first registry entry.
+   RUST-03-T12 adds Rust's first registry entry. Candidate modes are valid only
+   while no Rust tuple is registered. The candidate subtree is excluded from
+   every installation input, and its presence anywhere under an installed
+   release root rejects. The first `--update all` requires the
+   rebuilt Rust tree to equal the reviewed current candidate, writes the
+   registered descriptors/inventories, and removes that candidate in the same
+   atomic update; after registration, both candidate modes reject without
+   writes.
 
 Deliverables:
 
@@ -427,8 +581,18 @@ Acceptance criteria:
   language/profile/target tuple;
 - changing any descriptor, inventory entry, executable, library, or target
   standard library changes the validated registry or content identity;
+- a dynamic frontend/toolchain can start only through its registered execution
+  host/runtime-layout profile and complete native-runtime inventory;
 - assembler check modes never rewrite tracked files, and an unregistered
   candidate cannot enter the registry without an explicit registered update;
+- only build-input update can write the tracked build-input descriptor;
+  provisioning can write only the ignored hash-keyed cache, while candidate/
+  registered update and every check mode are network-disabled and cannot repair
+  either location;
+- no installer or installed-tree validator can copy or accept the source-only
+  candidate subtree;
+- first registration cannot leave a second stale unregistered Rust descriptor,
+  and candidate commands cannot recreate one after registration;
 - the specification leaves no search-path or environment fallback.
 
 Verification:
@@ -439,7 +603,8 @@ rg -n -F "MPK-BUNDLE-CONTENT-0.1" develop/specs/RELEASE_BUNDLES_V0.md
 rg -n -F "bundle_registry" develop/specs/RELEASE_BUNDLES_V0.md
 rg -n -F "frontend_bundle" develop/specs/RELEASE_BUNDLES_V0.md
 rg -n -F "toolchain_bundle" develop/specs/RELEASE_BUNDLES_V0.md
-python3 -m json.tool release/bundles/bundle-registry.json
+python3 -m json.tool develop/specs/vectors/release-bundles-v0.json >/dev/null
+python3 -m json.tool release/bundles/bundle-registry.json >/dev/null
 git diff --check
 ```
 
@@ -505,6 +670,9 @@ rg -n -F "frontend-error" develop/specs/FRONTEND_PROTOCOL_V0.md
 rg -n -F "MPK-SOURCE-MAP-0.1" develop/specs/SOURCE_MAP_V0.md
 rg -n -F "MPK-INPUT-SET-0.1" develop/specs/SOURCE_MANIFEST_V0.md
 rg -n -F "MPK-SOURCE-MANIFEST-0.1" develop/specs/SOURCE_MANIFEST_V0.md
+python3 -m json.tool develop/specs/vectors/frontend-protocol-v0.json >/dev/null
+python3 -m json.tool develop/specs/vectors/source-map-v0.json >/dev/null
+python3 -m json.tool develop/specs/vectors/source-manifest-v0.json >/dev/null
 git diff --check
 ```
 
@@ -567,6 +735,9 @@ rg -n -F "mpk.vc.cert_skeleton.v1" develop/specs/VC_V1.md
 rg -n -F "MPK-VC-1.0" develop/specs/VC_V1.md
 rg -n -F "panic_free" develop/specs/VC_V1.md
 rg -n -F "balanced" develop/specs/VC_V1.md
+python3 -m json.tool develop/specs/vectors/vc-v1.json >/dev/null
+python3 -m json.tool develop/specs/vectors/vc-hash-v1.json >/dev/null
+python3 -m json.tool develop/specs/vectors/vc-skeleton-v1.json >/dev/null
 git diff --check
 ```
 
@@ -639,6 +810,9 @@ rg -n -F "mpk.policy.evidence.v1" develop/specs/POLICY_V1.md
 rg -n -F "reproduction_recipes" develop/specs/POLICY_V1.md
 rg -n -F "axiom_profile" develop/specs/POLICY_V1.md
 rg -n -F "working_directory_role" develop/specs/POLICY_V1.md
+python3 -m json.tool develop/specs/vectors/policy-scan-v1.json >/dev/null
+python3 -m json.tool develop/specs/vectors/policy-evidence-v1.json >/dev/null
+python3 -m json.tool develop/specs/vectors/policy-recipes-v1.json >/dev/null
 git diff --check
 ```
 
@@ -701,6 +875,8 @@ rg -n -F "mpk.ai.explain.request.v1" develop/specs/AI_EXPLAIN_V1.md
 rg -n -F "mpk.ai.explanation.v1" develop/specs/AI_EXPLAIN_V1.md
 rg -n -F "mpk.evidence-explainer.v1" develop/specs/AI_EXPLAIN_V1.md
 rg -n -F "minimal-v1" develop/specs/AI_EXPLAIN_V1.md
+python3 -m json.tool develop/specs/vectors/ai-api-v1.json >/dev/null
+python3 -m json.tool develop/specs/vectors/ai-explain-v1.json >/dev/null
 git diff --check
 ```
 
@@ -760,6 +936,7 @@ rg -n -F "GOARCH" develop/specs/GO_VIR_PROFILE_V0.md
 rg -n -F "CGO_ENABLED" develop/specs/GO_VIR_PROFILE_V0.md
 rg -n -F "wrapping" develop/specs/GO_VIR_PROFILE_V0.md
 rg -n -F "loop" develop/specs/GO_VIR_PROFILE_V0.md
+python3 -m json.tool develop/specs/vectors/go-vir-profile-v0.json >/dev/null
 git diff --check
 ```
 
@@ -779,6 +956,7 @@ Likely touched files:
 - `develop/specs/RUST_SUBSET_V0.md`
 - `develop/specs/RUST_DRIVER_PROTOCOL_V0.md`
 - `develop/specs/vectors/rust-subset-v0.json`
+- `develop/specs/vectors/rust-build-inputs-v0.json`
 - `develop/specs/vectors/rust-driver-v0.json`
 
 Tasks:
@@ -787,14 +965,172 @@ Tasks:
    purity, contract, target, path, module, visibility, attribute, call, and
    panic rules into `RUST_SUBSET_V0.md` with exact diagnostic codes and
    same-phase precedence.
-2. Freeze portable path grammar, module-closure discovery, immutable-read
-   rules, Cargo manifest allowlists, environment profile, rustc argument
-   allowlist, MIR query/callback, the exact required toolchain component list
-   (including a normative yes/no decision for `rust-src`), target allowlist
-   `mpk.rust.targets.v0`, and every Rust-specific deterministic limit.
-3. Freeze `mpk.rust.driver.v0` status-tagged schemas, request fingerprint,
-   repeated identities, normalized inventory, raw lowered payload, diagnostics,
-   JCS+LF transport, output-directory rules, and non-success artifact absence.
+2. Freeze the isolated package target set as the non-installable
+   `rust2vir_internal` library, one `rust2vir` main binary, and one
+   `rust2vir-driver` binary. Tests and the sole frozen fuzz path edge may consume
+   the library; release bundle inventories must reject an rlib, dylib, test,
+   example, fuzz executable, or other Cargo artifact. Also freeze portable path
+   grammar, module-closure discovery, immutable-read rules, Cargo manifest
+   allowlists, environment profile, rustc argument allowlist, MIR query/
+   callback, and both closed toolchain inventories. The
+   build/test materialization inventory includes the pinned host rustc/Cargo/
+   standard library, `rustc-dev`, `llvm-tools`, nightly rustfmt and Clippy,
+   the exact `cargo-fuzz` binary/source identity, tool manifest/lock dependency
+   graph, and its C/C++ compiler plus libFuzzer/sanitizer build/runtime closure,
+   both target standard libraries, a
+   normative yes/no decision for `rust-src`,
+   the exact host linker/archiver/allowlisted-native-build-tool/startup-object/
+   native-development-sysroot closure, and the checksum-verified dependency
+   source closure that RUST-03-T01 must encode in the committed frontend
+   manifest/lock, plus the separate source closure that RUST-07-T03 must encode
+   in its fuzz manifest/lock and the cargo-fuzz tool-build source closure; all
+   three closures are materialized in the isolated offline Cargo cache. Before
+   implementation, freeze every direct/transitive package name, version,
+   registry source, checksum, enabled feature, dependency edge, manifest
+   section, lockfile format, exact lockfile bytes/raw SHA-256, and final-newline
+   rule for all three closures; T01 and RUST-07-T03 may not select or upgrade a
+   dependency. Freeze the one allowed registry, require
+   a nonempty lock checksum for every registry package, and reject git/
+   alternate-registry dependencies, `[patch]`, and
+   `[replace]`. The release frontend and cargo-fuzz-tool manifests have no path
+   dependency. Freeze
+   exactly one fuzz-only path edge to the parent `rust2vir` package at the fixed
+   sandbox path, require it to import only the `rust2vir_internal` library
+   target, and bind it to the complete frontend source inventory; every other
+   path dependency or escape rejects. Inventory every vendored file, source
+   origin, license, and required notice, and freeze an exact package/version/
+   target/source-hash allowlist for dependency custom-build and proc-macro
+   targets that may execute during frontend, cargo-fuzz-tool, or fuzz-harness
+   builds; everything else rejects before Cargo starts. Freeze the build
+   namespace paths, closed environment, linker
+   executable/configuration, native sysroot, path remapping, read/write mounts,
+   normalized input metadata, fixed locale/timezone/hostname/job count/
+   `SOURCE_DATE_EPOCH`, build process/memory/output/file limits, and clean-build
+   byte-comparison procedure. Freeze the launcher's exact permitted argv grammar
+   for release-build, frontend/fuzz-manifest format-check, Clippy, test,
+   version-probe, and bounded fuzz-smoke modes, including exact private writable
+   corpus/artifact paths and the validated read-only-seed-to-private-work-copy
+   rule. For the pinned cargo-fuzz version, freeze the complete bounded-smoke
+   child-process graph, including every Cargo/rustc/native-tool argv, target,
+   engine/sanitizer/profile setting, and environment addition/removal/
+   replacement; unknown child, argument, variable transformation, nested Cargo
+   shape, engine, or output locator rejects. The smaller evidence-execution
+   inventory includes every and only
+   Cargo/rustc/compiler/LLVM/host-library/target-library file needed at runtime,
+   plus the pinned Linux ELF interpreter and native shared-library closure for
+   every staged executable. Freeze the exact initial release host triple/ABI, the
+   private runtime-root layout that satisfies all frozen interpreter paths,
+   minimum kernel ABI and exact isolation/file-publication capability probes,
+   the Linux dynamic-loader directory order, the exact
+   no-inheritance initial `LD_LIBRARY_PATH` construction, the exact child-value
+   transformation performed by the pinned Cargo version, and the rule that it
+   may add only compiler-created directories beneath a freshly empty private
+   target root or validated toolchain sysroot. Freeze rejection of an empty,
+   source-controlled, or host directory and the rule that only
+   `--update-build-inputs rust` and `--provision-build-inputs rust` may fetch
+   components. Freeze component
+   provenance and every redistribution notice required by the selected native
+   runtime as reviewed release-bundle content. Freeze the sandbox-internal path
+   constants `/mpk/input`, `/mpk/toolchain`, `/mpk/frontend`, `/mpk/work`,
+   `/mpk/home`, `/mpk/cargo-home`, `/mpk/tmp`, `/mpk/target`, and
+   `/mpk/driver-output`, exact final `/mpk/driver-output/result.json`, exact
+   temporary `/mpk/driver-output/result.json.partial`, plus read-only
+   `/mpk/driver-request.json` and `/mpk/native-runtime`, with no host-locator or
+   delimiter-bearing substitution. Also freeze the
+   element-by-element `CARGO_ENCODED_RUSTFLAGS` argv encoding, Cargo probe and
+   non-primary wrapper invocation allowlists, target allowlist
+   `mpk.rust.targets.v0`, and every Rust-specific deterministic limit, with
+   serialized byte limits explicitly counting the required transport LF.
+   Freeze canonical `mpk.rust.build_inputs.v0`, its
+   `MPK-RUST-BUILD-INPUTS-0.1` preimage with `build_inputs_sha256` omitted, and
+   compact JCS+LF tracked transport whose LF is excluded from that preimage but
+   included in its byte limit. Freeze its closed fields:
+   schema/profile/recipe/execution-host profile IDs; Rust distribution, commit,
+   components, targets, distribution-archive digests, and inventoried tool-
+   source digests; native
+   linker/archiver/tool/sysroot/runtime identities and origins; one registry
+   plus all three manifest/lock raw hashes and parsed package graphs; cargo-fuzz
+   source, build recipe, and executable digest; component provenance and
+   license/notice references; sorted component file inventories of portable
+   relative path, executable bit, byte length, and raw SHA-256; and the self
+   hash. Freeze duplicate/unknown/path/order/cross-field rejection and prohibit
+   machine-local paths. Until RUST-07-T03, the fuzz manifest/lock fields bind the
+   byte-exact spec-owned template and graph; that milestone must materialize the
+   template bytes unchanged.
+   Freeze the sole tracked production descriptor path
+   `release/build-inputs/rust/build-inputs.json`. Freeze the ignored content
+   cache path `release/build-input-cache/rust/<build_inputs_sha256>`, where the
+   final component is the recomputed lowercase hex digest, and its exact
+   top-level `toolchain/`, `tool-sources/`, `native-sysroot/`,
+   `native-runtime/`, `vendor/`, `cargo-home-seed/`, and `notices/` entries.
+   The descriptor cannot inventory itself and must list every cache regular file
+   exactly once; directories are implicit and symlinks, hard-link aliases,
+   devices, sockets, and unlisted entries reject. Freeze update-only private
+   staging, descriptor emission/validation and hash/key computation from the
+   staged bytes, no-replace/no-follow cache publication, and only then atomic
+   descriptor replacement as the commit point. Freeze provision-only private
+   staging and validation against an unchanged descriptor before publication to
+   its fixed cache key, exact reuse of an already valid occupant, failure
+   without repair for an unequal occupant, validated seed copying into a fresh
+   private Cargo home, and exclusion of both locations from candidates and
+   installation; only the cache is Git-ignored.
+   Freeze pre-allocation/streaming limits of 256 MiB for the complete
+   descriptor JCS+LF bytes, 1,048,576 regular-file entries, 8,192 package
+   records across all three dependency graphs, 1 KiB per inventory path, 4 GiB
+   per regular file, and a checked 32 GiB sum for declared and observed cache
+   bytes. Any overflow, declared/observed-size mismatch, or limit breach rejects
+   before a cache byte is mounted or executed.
+   Freeze `cargo-home-seed/` to exactly one regular `config.toml` with
+   specification-owned bytes: it replaces the sole frozen registry with a
+   named directory source at `/mpk/vendor`, enforces offline operation, and
+   contains no credential, registry index/cache, executable, link, alternate
+   source/registry, credential-provider, alias, or external-command setting.
+   Require every vendored package's inventoried `.cargo-checksum.json` to agree
+   with its files, lockfile checksum, parsed graph, and descriptor before Cargo
+   starts; any resolution outside `/mpk/vendor` rejects. Bind the copied
+   `config.toml` read-only and no-replace, freeze the exact other entries the
+   pinned Cargo may create in its private home, reject any extra config,
+   credential, source, executable, or unlisted post-run entry, and prohibit a
+   dependency custom-build/proc-macro/native-tool child from launching nested
+   Cargo; only the separately frozen top-level cargo-fuzz graph may contain its
+   exact nested Cargo shape.
+   For the build launcher, freeze `/mpk/frontend`, `/mpk/vendor`,
+   `/mpk/toolchain`, `/mpk/native-sysroot`, `/mpk/native-runtime`,
+   `/mpk/cargo-home`, `/mpk/home`, `/mpk/tmp`, and `/mpk/target`, with working
+   directory `/mpk/frontend`; keep `/mpk/input`, `/mpk/work`, and the driver
+   request/output paths for evidence execution.
+   Freeze the exact build-project path enumeration and invocation capture
+   procedure: open every allowed checkout/cache regular file no-follow, stream
+   it once into a fresh private tree while hashing the copied bytes, match all
+   descriptor-bound bytes, record the remaining frontend-source inventory,
+   normalize specified executable bits/metadata, seal every input view
+   read-only, and execute only from those copies. The launcher never reopens an
+   original path. Before candidate or registered publication, re-enumerate and
+   rehash the current frontend closure and require equality with the build
+   inventory; concurrent mutation, path-set drift, short reads, and hash/length
+   disagreement reject.
+   Explicitly exclude current `.rs`, test, fixture, and fuzz-harness source
+   bytes from cache/descriptor fields so source-only edits reuse the unchanged
+   build-input identity while still receiving a fresh invocation inventory.
+   Freeze synthetic byte-exact descriptor/hash vectors plus wrong-hash,
+   wrong-path-key, self-entry, missing/extra-file, source/checksum, seed/source-
+   replacement, provenance/notice, top-level-shape, transport-LF, descriptor/
+   inventory/graph/path/file/aggregate limit, and checked-overflow mutations in
+   `rust-build-inputs-v0.json`; production descriptor values are generated only
+   by the frozen update recipe and reviewed as a tracked diff in RUST-03-T01.
+3. Freeze canonical `mpk.rust.driver.request.v0` and status-tagged
+   `mpk.rust.driver.v0` schemas. The request contains normalized source/input
+   identities, every selection/profile/registry/frontend/toolchain/compiler
+   identity needed by the wrapper, no runtime path, and a
+   `MPK-RUST-DRIVER-REQUEST-0.1` fingerprint. Freeze repeated output identities,
+   `MPK-RUST-SOURCE-INVENTORY-0.1` over the normalized source inventory,
+   `MPK-RUST-DRIVER-PAYLOAD-0.1` over the success payload, raw lowered data,
+   diagnostics, the exact RFC 8785 hash preimages with every transport LF
+   excluded, JCS+LF transport, fixed request/output paths, and the exact fields
+   absent from a non-success output. The request and every output contain the
+   same `source_inventory_hash`; every output also repeats `request_fingerprint`.
+   A non-success output omits the inventory body, raw lowering, source map, and
+   `payload_hash`.
 4. Define exact cross-process comparison responsibility between runner,
    `rust2vir`, driver, manifest, VIR, and source map.
 5. Add positive and negative vectors for every accepted construct family,
@@ -810,17 +1146,35 @@ Acceptance criteria:
 - omitted compiler forms reject by default;
 - no implementer must infer whether a construct belongs to preflight, source,
   HIR, MIR, contract, semantics, limit, or frontend failure;
-- the private artifact can never be mistaken for a public frontend response or
-  certificate input.
+- the pinned inventories can build, format-check, lint, and run the external
+  driver without ambient rustup state, compiler/linker/SDK bytes, an unlisted
+  LLVM library or build-time executable target, an inherited loader path, a
+  host native-library mount, or an ambiguous encoded rustc argument;
+- two clean release builds over the same frozen source/toolchain/vendor/sysroot
+  inventories produce byte-identical main and driver files;
+- neither private request nor output can be mistaken for a public frontend
+  response or certificate input.
 
 Verification:
 
 ```sh
 rg -n -F "mpk.rust.checked.v0" develop/specs/RUST_SUBSET_V0.md
 rg -n -F "mir_drops_elaborated_and_const_checked" develop/specs/RUST_SUBSET_V0.md
+rg -n -F "cargo-fuzz" develop/specs/RUST_SUBSET_V0.md
+rg -n -F "SOURCE_DATE_EPOCH" develop/specs/RUST_SUBSET_V0.md
+rg -n -F "mpk.rust.build_inputs.v0" develop/specs/RUST_SUBSET_V0.md
+rg -n -F "MPK-RUST-BUILD-INPUTS-0.1" develop/specs/RUST_SUBSET_V0.md
+rg -n -F "mpk.rust.driver.request.v0" develop/specs/RUST_DRIVER_PROTOCOL_V0.md
 rg -n -F "mpk.rust.driver.v0" develop/specs/RUST_DRIVER_PROTOCOL_V0.md
+rg -n -F "result.json.partial" develop/specs/RUST_DRIVER_PROTOCOL_V0.md
+rg -n -F "MPK-RUST-DRIVER-REQUEST-0.1" develop/specs/RUST_DRIVER_PROTOCOL_V0.md
+rg -n -F "MPK-RUST-SOURCE-INVENTORY-0.1" develop/specs/RUST_DRIVER_PROTOCOL_V0.md
+rg -n -F "MPK-RUST-DRIVER-PAYLOAD-0.1" develop/specs/RUST_DRIVER_PROTOCOL_V0.md
 rg -n -F "RUST_PREFLIGHT_" develop/specs/RUST_SUBSET_V0.md develop/specs/RUST_DRIVER_PROTOCOL_V0.md
 rg -n -F "RUST_MIR_" develop/specs/RUST_SUBSET_V0.md develop/specs/RUST_DRIVER_PROTOCOL_V0.md
+python3 -m json.tool develop/specs/vectors/rust-subset-v0.json >/dev/null
+python3 -m json.tool develop/specs/vectors/rust-build-inputs-v0.json >/dev/null
+python3 -m json.tool develop/specs/vectors/rust-driver-v0.json >/dev/null
 git diff --check
 ```
 
@@ -847,6 +1201,7 @@ Likely touched files:
 - `develop/templates/certificate_manifest.json`
 - `develop/templates/module_manifest.yaml`
 - `develop/specs/vectors/manifest.json`
+- `scripts/check-spec-vectors.py`
 
 Tasks:
 
@@ -863,7 +1218,11 @@ Tasks:
    GIR, Go subset, and AI API v0 documents historical only after the atomic
    cutover, not before it.
 5. Add a vector manifest containing schema ID, file path, SHA-256, owning spec,
-   and implementation test owner for every vector set.
+   and implementation test owner for every vector set. Add a check-only script
+   that strictly parses the manifest, rejects duplicate object names, requires
+   every declared vector path to stay under `develop/specs/vectors`, verifies
+   each digest and owner field, rejects duplicate/missing/extra vector files
+   other than the manifest itself, and never rewrites a vector or manifest.
 6. Run a cross-document review for schema IDs, field names, status/exit pairs,
    hash domains, limits, profile tuples, and ownership until no finding remains.
 
@@ -895,6 +1254,8 @@ rg -n -F "POLICY_V1.md" develop/README.md
 rg -n -F "AI_EXPLAIN_V1.md" develop/README.md
 rg -n -F "AI_API_V1.md" develop/README.md
 rg -n "RustSemanticsAxiom" develop/specs develop/docs
+python3 -m json.tool develop/specs/vectors/manifest.json >/dev/null
+python3 scripts/check-spec-vectors.py --check
 cargo test -p mpk-cert
 (cd go-tools/mpk-checker-ref && CGO_ENABLED=0 go test -count=1 ./...)
 git diff --check
@@ -1712,8 +2073,10 @@ Tasks:
    loader environment, explicit `GOOS`/`GOARCH`, `CGO_ENABLED=0`, read-only
    module settings, isolated cache/home, and network denial. Before
    GO-VIR-02-T05, tests reach this boundary only through a test-only injected,
-   unregistered candidate selection and inventory; no evidence route accepts
-   that candidate.
+   unregistered candidate selection and inventory constructed afresh from the
+   freshly built current `go2vir` executable and fixed toolchain fixture on
+   each test run. It is not written under `release/bundles`, has no assembler
+   update mode, and no evidence route accepts it.
    GO-VIR-02-T05 owns registry resolution, the first release build,
    installed-tree integration, and the registry entry for `go2vir`.
 4. Run package loading only against the snapshot and require its compiled-file
@@ -1736,6 +2099,8 @@ Acceptance criteria:
 - candidate injection is test-only, and production exposes only the private
   launcher-selection validation boundary that GO-VIR-02-T05 supplies from the
   registered resolver;
+- the unregistered candidate is recomputed on each test run, so GO-VIR-02-T04
+  cannot leave a tracked frontend digest stale;
 - unrecorded module-cache or standard-library input is impossible or rejects.
 
 Verification:
@@ -1837,7 +2202,7 @@ Tasks:
    specification-defined installation layout, and register every supported Go
    profile/target tuple with no subordinate frontend binary. Run
    `./scripts/build-release-bundles.sh --update go` to write the complete
-   candidate inventories and registry for review, then require
+   registered release inventories and registry for review, then require
    `./scripts/build-release-bundles.sh --check go` to reproduce them without
    writes. Review the generated registry diff and root hash before embedding
    them in `mpk-cli`.
@@ -1852,8 +2217,11 @@ Tasks:
    reject links/aliases/unlisted entries, hash the complete inventory, and hold
    immutable file handles or equivalent identities through launch.
 4. Launch only the snapshotted registered main/subordinate/toolchain set under
-   process, filesystem, network, stdout/stderr, and memory controls; failure to
-   establish controls is `frontend-error`, never an unsandboxed retry.
+   process, filesystem, network, stdout/stderr, and memory controls. Before
+   `exec`, construct any descriptor-required private native-runtime root from
+   its validated inventory and require the frozen interpreter/library layout;
+   never expose ambient host library directories. Failure to establish either
+   boundary is `frontend-error`, never an unsandboxed or host-runtime retry.
 5. Capture stdout/stderr with streaming limits and require one compact canonical
    envelope plus LF, exact status/exit pairing, no extra bytes, and no partial
    artifact on non-success.
@@ -2334,6 +2702,9 @@ Verification:
 
 ```sh
 ./scripts/check-no-active-gir.sh --strict
+./scripts/build-release-bundles.sh --check go
+./scripts/check-release-bundles.sh --fixture go
+cargo test -p mpk-cli --test frontend_runner
 ./scripts/check-fast.sh
 ./scripts/check-all.sh
 (cd go-tools/go2vir && go test -count=1 ./...)
@@ -2360,45 +2731,134 @@ Likely touched files:
 - `rust-tools/rust2vir/Cargo.toml`
 - `rust-tools/rust2vir/Cargo.lock`
 - `rust-tools/rust2vir/rust-toolchain.toml`
+- `rust-tools/rust2vir/src/lib.rs`
 - `rust-tools/rust2vir/src/bin/rust2vir.rs`
 - `rust-tools/rust2vir/src/bin/rust2vir-driver.rs`
-- `rust-tools/rust2vir/testdata/bundle-candidate` (unregistered test data)
+- `.gitignore`
+- `release/build-inputs/rust/build-inputs.json`
+- `release/bundles/candidates/rust` (unregistered, never installed)
 - `scripts/build-release-bundles.sh`
+- `scripts/run-rust2vir-toolchain.sh`
 
 Tasks:
 
 1. Add `rust-tools/rust2vir` as an explicitly excluded root-workspace package
-   with two binaries and exact locked dependencies; the ordinary workspace
+   with one non-installable `rust2vir_internal` library, exactly two release
+   binaries, and the exact manifest sections, dependency graph, registry
+   sources, checksums, features, and lockfile format frozen by VIR-00-T09; it
+   declares no implementation-selected dependency. The ordinary workspace
    continues to build on stable Rust.
-2. Pin the exact nightly and install exactly the component inventory frozen by
-   `RUST_SUBSET_V0.md`, plus both i686/x86_64 Linux standard-library targets.
+2. Pin the exact nightly and materialize the two component/file inventories
+   frozen by `RUST_SUBSET_V0.md`: the build/test toolchain, including
+   `rustc-dev`, `llvm-tools`, nightly rustfmt and Clippy, the pinned host linker/
+   archiver/allowlisted native build tools (including the cargo-fuzz C/C++ and
+   libFuzzer/sanitizer closure), startup objects/native development sysroot, and
+   the smaller evidence-execution closure, including both i686/x86_64 Linux
+   standard-library targets plus the frozen host ELF interpreter/native
+   shared-library closure. Also materialize and inventory the exact `Cargo.lock`
+   registry-only dependency-source closure, the separately frozen future fuzz
+   and cargo-fuzz tool-build source/lock closures, and all their notices in the
+   assembler-owned offline Cargo cache; reject an unchecksummed registry
+   package, git, alternate-registry, patch,
+   replacement, missing, extra, or mutated source, and reject every path edge
+   other than the spec-frozen fuzz-to-parent edge after exact source-root/hash
+   validation.
+   Commit the exact `Cargo.lock` bytes frozen by VIR-00-T09, then use the pinned
+   Cargo in locked/offline mode to require the raw hash, parsed graph, and format
+   to remain equal to that vector without any rewrite before a frontend build.
+   Activate the three previously not-configured Rust build-input modes using
+   only the VIR-00-T09 handler and descriptor contract. Run
+   `./scripts/build-release-bundles.sh --update-build-inputs rust`; within that
+   single mode, fetch and materialize the exact frozen inputs, build cargo-fuzz
+   twice from only the pinned tool source/lock/vendor closure in separately
+   empty sandboxes, require byte-identical executable bytes, bind the accepted
+   digest, and stage the complete cache at a fresh private temporary path. Emit
+   and validate the canonical descriptor from those staged bytes, require its
+   recomputed hash to be the lowercase final cache path key, reject a descriptor
+   self-entry or any missing/extra cache child, and validate every VIR-00-T09
+   build-input vector. Publish the complete cache without replacement at
+   `release/build-input-cache/rust/<build_inputs_sha256>`, then atomically
+   replace the tracked
+   `release/build-inputs/rust/build-inputs.json` as the commit point. Review the
+   descriptor's full tracked diff. Add the root-anchored
+   `/release/build-input-cache/` ignore rule and fail if any cache file is
+   tracked. `--provision-build-inputs rust`, `--check-build-inputs rust`, test,
+   and evidence modes must not install or change ambient/default rustup, Cargo,
+   or native-library state; after provisioning, all checks use the materialized
+   bytes with network disabled and copy only the validated one-file
+   `cargo-home-seed/` into each fresh private Cargo home.
+   Require `--check-build-inputs rust` before either clean frontend build.
    Record the rustc commit in a build-generated constant used by the driver
    startup check; do not decide component membership during implementation.
 3. Add minimal main/driver version output and make the driver refuse a compiler
    commit other than the embedded one before analysis.
 4. Define reproducible isolated release-build commands and use the deterministic
-   assembler's `--update-candidate rust` mode to create unregistered test
-   candidate inventories for the main,
-   exactly one driver, toolchain distribution, components, executable digests,
-   both target libraries, limit profile, environment profile, and argument
-   allowlist. These candidates exercise digest/inventory validation but cannot
+   assembler's `--update-candidate rust` mode to perform two separately empty
+   sandboxed builds, require byte-identical main/driver output, and create
+   the unregistered candidate release projection for the main, exactly one
+   driver, execution toolchain/native-runtime content, executable digests, both
+   target libraries, limit profile, environment profile, and argument
+   allowlist. This candidate exercises digest/inventory validation but cannot
    be selected by an evidence route; first release registration is owned by
    RUST-03-T12 after the RUST-03 skeleton build inputs are fixed. Any later
    byte change follows Execution Rule 11.
-5. Add a root test proving `cargo test --workspace` does not select or require
+5. Implement the internal pinned-toolchain launcher from Execution Rule 12 and
+   test a wrong cache root/hash/descriptor/top-level entry/Cargo-home seed;
+   noncanonical or oversized descriptor transport; inventory/graph/path/
+   per-file/aggregate-cache limits, checked-size overflow, and declared/actual
+   byte disagreement before mount or execution;
+   symlink/hard-link/special/unlisted cache entries; unequal existing hash-path
+   occupant and no-repair behavior;
+   wrong/missing/tampered toolchain, linker, sysroot, vendor, checksum, and
+   license inventory; mutated/extra Cargo-home seed configuration, a missing or
+   mismatched `.cargo-checksum.json`, vendor escape, unlisted build-script/
+   proc-macro execution, unlisted nested Cargo execution, alternate config/
+   credential/executable creation, and post-run Cargo-home inventory drift;
+   ambient
+   rustup/toolchain/linker/SDK variables; network/credential denial; private
+   native-runtime root; host-file/library exclusion; concurrent checkout/cache
+   mutation during capture and before publication; original-path reopening;
+   working-directory
+   selection; allowed and forbidden subcommand/option/target/feature/profile/
+   trailing-argument shapes; argument preservation; every build resource-limit
+   boundary;
+   clean-build disagreement; and exit/stdout/stderr forwarding. The launcher
+   has no update, install, arbitrary toolchain path, or public evidence mode.
+6. Add a root test proving `cargo test --workspace` does not select or require
    the nightly frontend package.
 
 Deliverables:
 
 - isolated buildable pinned frontend project and unregistered release-bundle
-  candidate inventories.
+  candidate inventories;
+- validated ignored `mpk.rust.build_inputs.v0` materialization and hermetic
+  launcher.
 
 Acceptance criteria:
 
-- stable root workspace and pinned frontend build independently;
+- the stable root workspace builds independently everywhere it currently does,
+  while the pinned frontend builds through its hermetic launcher on the exact
+  frozen Linux host and rejects unsupported hosts before partial output;
+- no frontend dependency source or build-time executable can enter outside the
+  frozen registry/checksum/inventory/allowlist, and no build can read an
+  ambient linker, SDK, credential, user file, or host library;
+- builds execute only from invocation-captured sealed input copies, and a
+  mutable cache or checkout cannot change bytes after validation or publish a
+  candidate for a different current source inventory;
+- the committed manifest and lockfile reproduce exactly the complete dependency
+  graph and lockfile format frozen before implementation in VIR-00-T09;
+- independently empty clean builds produce identical candidate main and driver
+  bytes;
+- two empty cargo-fuzz tool builds produce the one hash-bound executable used by
+  the bounded fuzz gate;
 - toolchain mismatch fails deterministically;
 - candidate validation already requires exactly one subordinate binary named
   `rust2vir-driver`, which is the only shape RUST-03-T12 may register;
+- candidate and installed inventories contain no internal library, test,
+  example, fuzz, or other Cargo build artifact;
+- the tracked build-input descriptor is reviewed and canonical, while its
+  content-addressed cache is ignored, complete, hash-bound, and absent from the
+  candidate, Git index, and installed release;
 - the active release registry and its Go tuples/hash remain unchanged in this
   milestone, and no candidate bundle can produce policy evidence.
 
@@ -2406,12 +2866,15 @@ Verification:
 
 ```sh
 cargo test --workspace
+./scripts/build-release-bundles.sh --check-build-inputs rust
 ./scripts/build-release-bundles.sh --check-candidate rust
 ./scripts/build-release-bundles.sh --check go
 ./scripts/check-release-bundles.sh --fixture go
-(cd rust-tools/rust2vir && cargo fmt --all -- --check)
-(cd rust-tools/rust2vir && cargo test --locked)
-(cd rust-tools/rust2vir && cargo run --locked --bin rust2vir -- --version)
+./scripts/run-rust2vir-toolchain.sh cargo fmt --all -- --check
+./scripts/run-rust2vir-toolchain.sh cargo test --locked
+./scripts/run-rust2vir-toolchain.sh cargo run --locked --bin rust2vir -- --version
+git check-ignore --no-index release/build-input-cache/rust/probe
+test -z "$(git ls-files release/build-input-cache)"
 cargo test -p mpk-cli --test frontend_runner
 git diff --check
 ```
@@ -2468,9 +2931,9 @@ Acceptance criteria:
 Verification:
 
 ```sh
-(cd rust-tools/rust2vir && cargo test --locked --test cli)
-(cd rust-tools/rust2vir && cargo test --locked --test preflight_paths)
-(cd rust-tools/rust2vir && cargo clippy --locked --all-targets -- -D warnings)
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test cli
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test preflight_paths
+./scripts/run-rust2vir-toolchain.sh cargo clippy --locked --all-targets -- -D warnings
 git diff --check
 ```
 
@@ -2524,9 +2987,9 @@ Acceptance criteria:
 Verification:
 
 ```sh
-(cd rust-tools/rust2vir && cargo test --locked --test module_closure)
-(cd rust-tools/rust2vir && cargo test --locked --test snapshot)
-(cd rust-tools/rust2vir && cargo clippy --locked --all-targets -- -D warnings)
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test module_closure
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test snapshot
+./scripts/run-rust2vir-toolchain.sh cargo clippy --locked --all-targets -- -D warnings
 git diff --check
 ```
 
@@ -2579,8 +3042,8 @@ Acceptance criteria:
 Verification:
 
 ```sh
-(cd rust-tools/rust2vir && cargo test --locked --test manifest_preflight)
-(cd rust-tools/rust2vir && cargo clippy --locked --all-targets -- -D warnings)
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test manifest_preflight
+./scripts/run-rust2vir-toolchain.sh cargo clippy --locked --all-targets -- -D warnings
 git diff --check
 ```
 
@@ -2617,44 +3080,64 @@ Tasks:
    candidate.
 2. Construct the child environment from an empty map with only the exact
    profile values, private empty home/Cargo home/temp/target, toolchain-only
-   path, deterministic locale/timezone, offline/no-incremental settings,
+   path, the exact initial no-inheritance Linux `LD_LIBRARY_PATH` over validated
+   compiler/LLVM runtime directories, deterministic locale/timezone,
+   offline/no-incremental settings,
    `RUSTC` set to the snapshotted selected rustc,
    `RUSTC_WORKSPACE_WRAPPER` set to the snapshotted selected driver, and
    `CARGO_ENCODED_RUSTFLAGS` set to the exact unit-separator encoding of the
    selected semantic arguments in their specified order. Keep `RUSTFLAGS`
-   and `RUSTC_WRAPPER` absent. The initial profile sets private `HOME`,
-   `CARGO_HOME`, `TMPDIR`, and `CARGO_TARGET_DIR`; toolchain-only `PATH`;
+   and `RUSTC_WRAPPER` absent. The initial profile sets
+   `HOME=/mpk/home`, `CARGO_HOME=/mpk/cargo-home`, `TMPDIR=/mpk/tmp`,
+   `CARGO_TARGET_DIR=/mpk/target`, `PATH=/mpk/toolchain/bin`,
+   `RUSTC=/mpk/toolchain/bin/rustc`, and
+   `RUSTC_WORKSPACE_WRAPPER=/mpk/frontend/rust2vir-driver`;
    `LC_ALL=C`, `LANG=C`, `TZ=UTC`, `TERM=dumb`,
    `CARGO_TERM_COLOR=never`, `CARGO_NET_OFFLINE=true`,
    `CARGO_INCREMENTAL=0`, and `RUST_BACKTRACE=0`; and leaves
    `RUSTC_BOOTSTRAP` plus every other `CARGO_*`/`RUST*` variable absent. Its
-   encoded arguments are exactly `-C overflow-checks=yes`, `-C panic=abort`,
-   `-C debug-assertions=no`, `-C opt-level=0`, `-Z mir-opt-level=0`, and
-   `--remap-path-prefix=SNAPSHOT_ROOT=.` in that order, with `SNAPSHOT_ROOT`
-   replaced only after boundary validation.
-3. Establish the release OS sandbox with read access only to immutable
-   toolchain and snapshot, write access only to private temp/target/driver
-   output, no network/home/credentials, and explicit process/memory/output
-   controls. Unsupported hosts or unavailable controls return the stable
-   sandbox-unavailable frontend error with no fallback.
+   encoded argv elements are exactly `-C`, `overflow-checks=yes`, `-C`,
+   `panic=abort`, `-C`, `debug-assertions=no`, `-C`, `opt-level=0`, `-Z`,
+   `mir-opt-level=0`, and `--remap-path-prefix=/mpk/input=.` in that order,
+   joined by one `0x1f` byte with no leading/trailing separator.
+   Freeze and validate the exact loader-path directory order that the pinned
+   Cargo adds to each allowlisted rustc child: additions may resolve only under
+   the freshly empty `/mpk/target` or validated `/mpk/toolchain` sysroot, never
+   to an empty element, source-controlled directory, or host path.
+3. Establish the release OS sandbox with read-only mounts for immutable
+   `/mpk/input`, `/mpk/toolchain`, `/mpk/frontend`, freshly empty `/mpk/work`,
+   the private `/mpk/native-runtime` view, and, once T06 supplies it,
+   `/mpk/driver-request.json`. Permit execution only for inventoried toolchain,
+   frontend, and runtime executables; input, work, and request views are
+   non-executable. Permit writes only in invocation-owned, freshly empty
+   `/mpk/home`, `/mpk/cargo-home`, `/mpk/tmp`,
+   `/mpk/target`, and `/mpk/driver-output`; reject any alias among these paths
+   or to a read-only view. Expose no host library directory, network,
+   credential, or original home and apply explicit process/memory/output
+   controls.
+   Unsupported hosts, interpreter/runtime-closure mismatches, or unavailable
+   controls return the stable sandbox-unavailable frontend error with no
+   fallback.
 4. Run the exact pinned Cargo `metadata` command first under that same sandbox
-   and environment with `--manifest-path SNAPSHOT_ROOT/Cargo.toml`,
+   and environment with `--manifest-path /mpk/input/Cargo.toml`,
    `--format-version 1`, `--no-deps`, `--locked`, `--offline`,
    `--no-default-features`, and `--color never` in the frozen order. Strictly
    parse its bounded JSON, select exactly one matching default library target,
    and cross-check lockfile freshness, package/crate/manifest identity,
    dependency/proc-macro/build closure, and absence of ancestor configuration.
 5. Run the exact `cargo check --lib --package PACKAGE --target TARGET`
-   invocation with the same explicit snapshot manifest followed by `--locked`,
+   invocation with `--manifest-path /mpk/input/Cargo.toml` followed by
+   `--locked`,
    `--offline`, `--no-default-features`, `--jobs 1`,
    `--message-format json`, and `--color never`. Bound/normalize its structured
    message stream without copying raw stderr into canonical output. Use a
    dependency-injected unregistered candidate wrapper until the real private
    handshake lands in RUST-03-T06; that wrapper remains unreachable from every
    evidence route.
-6. Prove effective environment, flags, target, and filesystem view are
-   unchanged under hostile ambient `CARGO_*`, `RUST*`, proxy, credential,
-   locale, wrapper, rustup, and working-directory inputs.
+6. Prove the initial and every pinned-Cargo child environment, flags, target,
+   and filesystem view are exact under hostile ambient `CARGO_*`, `RUST*`,
+   loader path, proxy, credential, locale, wrapper, rustup, target-directory,
+   and working-directory inputs.
 
 Deliverables:
 
@@ -2671,10 +3154,10 @@ Acceptance criteria:
 Verification:
 
 ```sh
-(cd rust-tools/rust2vir && cargo test --locked --test sandbox)
-(cd rust-tools/rust2vir && cargo test --locked --test cargo_preflight)
-(cd rust-tools/rust2vir && cargo test --locked --test cargo_check)
-(cd rust-tools/rust2vir && cargo clippy --locked --all-targets -- -D warnings)
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test sandbox
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test cargo_preflight
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test cargo_check
+./scripts/run-rust2vir-toolchain.sh cargo clippy --locked --all-targets -- -D warnings
 git diff --check
 ```
 
@@ -2686,7 +3169,7 @@ Depends on: RUST-03-T05.
 
 Inputs:
 
-- `RUST_DRIVER_PROTOCOL_V0.md` and private artifact vectors.
+- `RUST_DRIVER_PROTOCOL_V0.md` and private request/output vectors.
 
 Likely touched files:
 
@@ -2697,21 +3180,36 @@ Likely touched files:
 
 Tasks:
 
-1. Implement exact request fingerprint construction over profile, target,
-   selection, option-profile IDs, registry identity, and expected binary and
-   toolchain digests, excluding all runtime paths.
+1. Implement exact `mpk.rust.driver.request.v0` construction over the captured
+   normalized source inventory/input-set hash, profile, target, selection,
+   option-profile IDs, registry identity, and expected binary, compiler, and
+   toolchain identities, including `source_inventory_hash`. Compute
+   `MPK-RUST-DRIVER-REQUEST-0.1` over the bounded canonical JCS request without
+   its transport LF, append the one required LF, and atomically create and mount
+   those bytes read-only only at
+   `/mpk/driver-request.json`; exclude every runtime path and transmit no state
+   through an `MPK_*` environment variable.
 2. Create a fresh validated empty driver-output directory and enforce exactly
-   one atomic regular artifact, no links, unexpected entries, partial files,
-   duplicates, or oversize output.
+   one `result.json.partial` created with no-follow and exclusive-create
+   semantics, a bounded complete write, atomic no-replace rename to
+   `result.json`, and the exact post-exit directory containing only that regular
+   final file; reject links, unexpected entries, remaining partials,
+   duplicates, replacement races, or oversized output.
 3. Emit and parse exact status-tagged JCS+LF `mpk.rust.driver.v0` artifacts;
-   non-success variants contain only repeated identities and bounded normalized
-   diagnostics.
-4. Cross-check every request, compiler, driver, toolchain, package, crate,
-   function, inventory, payload, and present source identity before public
-   emission; never reuse stale output.
+   every variant repeats `request_fingerprint` and `source_inventory_hash`, and
+   non-success variants contain only the specified repeated identities and
+   bounded normalized diagnostics, without `payload_hash`.
+4. Strictly parse/re-encode the fixed request before invocation classification,
+   recompute the request and source-inventory domains for every status and the
+   payload domain only for success over their specified RFC 8785 bytes without
+   either transport LF, then cross-check every request, compiler, driver,
+   toolchain, package, crate, function, inventory, payload, and present source
+   identity before public emission; never reuse stale output.
 5. Classify compiler failure without a complete artifact locally as
-   `frontend-error` and test missing, partial, duplicate, noncanonical,
-   mismatched, killed, and oversized cases.
+   `frontend-error` and test missing/mutable/noncanonical/duplicate-key/
+   oversized request bytes plus missing, partial, duplicate, noncanonical,
+   mismatched, killed, and oversized output cases, including the exact
+   limit-minus-one JSON plus LF acceptance boundary.
 
 Deliverables:
 
@@ -2720,6 +3218,10 @@ Deliverables:
 Acceptance criteria:
 
 - zero or multiple matching artifacts reject;
+- the output name, temporary name, and atomic publication behavior admit no
+  caller-selected path, enumeration order, or last-writer-wins behavior;
+- no wrapper invocation can obtain request state or an output locator from an
+  inherited environment or machine-local path;
 - no non-success artifact contains a partial VIR, source map, manifest, or
   lowered payload;
 - all private protocol vectors pass byte-for-byte.
@@ -2727,8 +3229,8 @@ Acceptance criteria:
 Verification:
 
 ```sh
-(cd rust-tools/rust2vir && cargo test --locked --test driver_protocol)
-(cd rust-tools/rust2vir && cargo clippy --locked --all-targets -- -D warnings)
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test driver_protocol
+./scripts/run-rust2vir-toolchain.sh cargo clippy --locked --all-targets -- -D warnings
 git diff --check
 ```
 
@@ -2779,8 +3281,8 @@ Acceptance criteria:
 Verification:
 
 ```sh
-(cd rust-tools/rust2vir && cargo test --locked --test source_gate)
-(cd rust-tools/rust2vir && cargo clippy --locked --all-targets -- -D warnings)
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test source_gate
+./scripts/run-rust2vir-toolchain.sh cargo clippy --locked --all-targets -- -D warnings
 git diff --check
 ```
 
@@ -2805,9 +3307,14 @@ Likely touched files:
 
 Tasks:
 
-1. Filter wrapper invocations on exact primary package, crate, lib crate type,
-   manifest identity, target, and request fingerprint; nonmatching rustc
-   invocations produce no artifact.
+1. Classify every wrapper invocation before compiler analysis. Delegate only
+   the specification-allowlisted Cargo compiler probes (including the pinned
+   Cargo version's initial `rustc -vV`) and other explicitly allowlisted
+   non-primary invocations to the snapshotted rustc, preserving their bounded
+   stdout/stderr and exit status while producing no artifact. Match the one
+   selected compilation on exact primary package, crate, lib crate type,
+   manifest identity, target, and request fingerprint; unknown probe,
+   non-primary, or selection shapes reject rather than pass through.
 2. Reject every rustc argument outside the versioned allowlist after
    normalizing the explicitly permitted input/output paths; unapproved `-A`,
    `-W`, `-D`, `-F`, and `--cap-lints` arguments always reject.
@@ -2833,9 +3340,9 @@ Acceptance criteria:
 Verification:
 
 ```sh
-(cd rust-tools/rust2vir && cargo test --locked --test session)
-(cd rust-tools/rust2vir && cargo test --locked --test mir_access)
-(cd rust-tools/rust2vir && cargo clippy --locked --all-targets -- -D warnings)
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test session
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test mir_access
+./scripts/run-rust2vir-toolchain.sh cargo clippy --locked --all-targets -- -D warnings
 git diff --check
 ```
 
@@ -2889,9 +3396,9 @@ Acceptance criteria:
 Verification:
 
 ```sh
-(cd rust-tools/rust2vir && cargo test --locked --test hir_subset)
-(cd rust-tools/rust2vir && cargo test --locked --test call_closure)
-(cd rust-tools/rust2vir && cargo clippy --locked --all-targets -- -D warnings)
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test hir_subset
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test call_closure
+./scripts/run-rust2vir-toolchain.sh cargo clippy --locked --all-targets -- -D warnings
 git diff --check
 ```
 
@@ -2944,8 +3451,8 @@ Acceptance criteria:
 Verification:
 
 ```sh
-(cd rust-tools/rust2vir && cargo test --locked --test contracts)
-(cd rust-tools/rust2vir && cargo clippy --locked --all-targets -- -D warnings)
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test contracts
+./scripts/run-rust2vir-toolchain.sh cargo clippy --locked --all-targets -- -D warnings
 git diff --check
 ```
 
@@ -3002,9 +3509,9 @@ Acceptance criteria:
 Verification:
 
 ```sh
-(cd rust-tools/rust2vir && cargo test --locked --test mir_basic)
-(cd rust-tools/rust2vir && cargo test --locked --test stable_ids)
-(cd rust-tools/rust2vir && cargo clippy --locked --all-targets -- -D warnings)
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test mir_basic
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test stable_ids
+./scripts/run-rust2vir-toolchain.sh cargo clippy --locked --all-targets -- -D warnings
 git diff --check
 ```
 
@@ -3026,6 +3533,7 @@ Likely touched files:
 - `rust-tools/rust2vir/src/diagnostics.rs`
 - `rust-tools/rust2vir/src/bin/rust2vir.rs`
 - `rust-tools/rust2vir/tests/frontend_envelope.rs`
+- `release/bundles/candidates/rust` removed after registration
 - `release/bundles/bundle-registry.json`
 - `crates/mpk-cli/build.rs`
 - `crates/mpk-cli/tests/rust_frontend_runner.rs`
@@ -3035,16 +3543,22 @@ Likely touched files:
 
 Tasks:
 
-1. Release-build the completed skeleton main/driver and pinned toolchain. Run
-   `./scripts/build-release-bundles.sh --update all` to generate complete
-   candidate inventories and add every Rust profile/target tuple to the
-   combined Go/Rust registry; review the full descriptor/inventory diff and new
-   registry root, then require `./scripts/build-release-bundles.sh --check all`
-   to reproduce it exactly without writes. Rebuild
+1. Release-build the completed skeleton main/driver and pinned toolchain. First
+   run `./scripts/build-release-bundles.sh --update-candidate rust`, review the
+   final unregistered envelope/diagnostic build inventory, and require
+   `./scripts/build-release-bundles.sh --check-candidate rust` to reproduce it.
+   Then run `./scripts/build-release-bundles.sh --update all` to require that
+   same Rust tree, atomically remove the candidate, and add every Rust profile/
+   target tuple to the combined Go/Rust registry; review the full registered
+   descriptor/inventory diff and new registry root, then require
+   `./scripts/build-release-bundles.sh --check all` to reproduce it exactly
+   without writes. Rebuild
    `mpk-cli` with the reviewed registry ID/hash and validate the installed
    tree. Require exactly one registered subordinate named `rust2vir-driver`
    and preserve every existing Go tuple byte-for-byte apart from the registry
-   root/hash fields derived from adding Rust.
+   root/hash fields derived from adding Rust. Require the rebuilt Rust tree to
+   match the current reviewed unregistered candidate, then remove the tracked
+   candidate atomically with registration; candidate modes reject thereafter.
 2. Strictly consume the validated private artifact, recompute its payload and
    inventory hashes, and construct canonical public VIR, source map, and
    frontend-stage manifest using launcher-selected identities.
@@ -3071,6 +3585,8 @@ Acceptance criteria:
 - all preflight negatives reject without executing user build code;
 - the installed combined registry launches the Rust main/driver/toolchain set,
   and all existing registered Go frontend tests still pass;
+- no unregistered Rust candidate descriptor remains after the registered tree
+  has replaced it;
 - compiler, frontend, source, contracts, VIR, map, and manifest remain labeled
   untrusted helper data;
 - the RUST-03 phase review has zero findings.
@@ -3078,10 +3594,12 @@ Acceptance criteria:
 Verification:
 
 ```sh
+./scripts/build-release-bundles.sh --check-build-inputs rust
 ./scripts/build-release-bundles.sh --check all
 ./scripts/check-release-bundles.sh --fixture all
-(cd rust-tools/rust2vir && cargo test --locked --test frontend_envelope)
-(cd rust-tools/rust2vir && cargo test --locked)
+test ! -e release/bundles/candidates/rust
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test frontend_envelope
+./scripts/run-rust2vir-toolchain.sh cargo test --locked
 cargo test -p mpk-cli --test rust_frontend_runner
 cargo test -p mpk-cli --test frontend_runner
 git diff --check
@@ -3136,7 +3654,7 @@ Acceptance criteria:
 Verification:
 
 ```sh
-(cd rust-tools/rust2vir && cargo test --locked --test checked_arithmetic)
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test checked_arithmetic
 cargo test -p mpk-vc --test safety_profiles
 git diff --check
 ```
@@ -3187,7 +3705,7 @@ Acceptance criteria:
 Verification:
 
 ```sh
-(cd rust-tools/rust2vir && cargo test --locked --test div_rem)
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test div_rem
 cargo test -p mpk-vc --test safety_profiles
 git diff --check
 ```
@@ -3237,12 +3755,12 @@ Acceptance criteria:
 Verification:
 
 ```sh
-(cd rust-tools/rust2vir && cargo test --locked --test bitwise_shift)
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test bitwise_shift
 cargo test -p mpk-vc --test safety_profiles
 git diff --check
 ```
 
-### RUST-04-T04 Lower Fixed-Array Index Reads on Both Target Widths
+### RUST-04-T04 Lower `usize` Fixed-Array Index Reads on Both Target Widths
 
 Status: Pending
 
@@ -3262,19 +3780,22 @@ Likely touched files:
 Tasks:
 
 1. Accept only read-only fixed-array projections whose base, element, length,
-   and index types are compiler-resolved and whose projected operand is Copy;
-   reject mutation, references, slices, user indexing, partial moves, and
-   opaque projections.
+   and index types are compiler-resolved, whose index is exactly target-width
+   `usize`, and whose projected operand is Copy; reject `isize`, fixed-width or
+   cast indices, mutation, references, slices, user indexing, partial moves,
+   and opaque projections.
 2. Bind the exact bounds-assert pattern to the owning projection and emit one
-   canonical `index_in_bounds` check over the original index type and fixed
-   length.
-3. Encode signed index lower/upper bounds and unsigned upper bound correctly;
-   derive `usize`/`isize` width only from the mandatory target.
+   canonical `index_in_bounds` check over the target-width unsigned `usize`
+   value and fixed length.
+3. Encode the unsigned upper bound correctly and derive `usize` width only
+   from the mandatory target. Signed-index and other-width predicate coverage
+   remains in the shared VIR/Go safety vectors; it is not a Rust source form.
 4. Run equivalent fixtures under i686 and x86_64 registered target bundles and
    require different semantic/VIR/manifest/VC hashes where target context
    differs.
-5. Test zero/last/length/negative indices, missing/changed assertions, target
-   mismatch, target-library digest mismatch, and insufficient preconditions.
+5. Test zero/last/length indices, signed/non-`usize` source type errors,
+   missing/changed assertions, target mismatch, target-library digest mismatch,
+   and insufficient preconditions.
 
 Deliverables:
 
@@ -3283,13 +3804,14 @@ Deliverables:
 Acceptance criteria:
 
 - host pointer width never influences the result;
+- no signed or non-`usize` Rust source index reaches MIR lowering;
 - index assertion cannot be consumed by a different projection;
 - both target corpora pass their exact registered component checks.
 
 Verification:
 
 ```sh
-(cd rust-tools/rust2vir && cargo test --locked --test array_index)
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test array_index
 cargo test -p mpk-vc --test safety_profiles
 git diff --check
 ```
@@ -3339,7 +3861,7 @@ Acceptance criteria:
 Verification:
 
 ```sh
-(cd rust-tools/rust2vir && cargo test --locked --test runtime_safety_e2e)
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test runtime_safety_e2e
 cargo test -p mpk-vc --test rust_runtime_safety
 cargo test -p mpk-vc --test vc_skeleton_v1
 git diff --check
@@ -3369,8 +3891,10 @@ Tasks:
    accepted types and literal values; reject evaluated expressions, unsupported
    values, duplicate IDs, statics, layout-dependent constants, and unused
    out-of-closure declarations entering VIR.
-2. Lower fixed-array types with literal or accepted primitive-constant lengths,
-   enforce length and nesting limits, and preserve the element type exactly.
+2. Lower fixed-array types only when a literal or accepted primitive constant
+   resolves to target-width `usize`; reject every other constant type even when
+   its value fits. Enforce length and nesting limits and preserve the element
+   type exactly.
 3. Recognize complete explicit-list MIR array aggregates and emit
    `MakeArray` with exact arity, element type, source order, and stable ID;
    repeated `[value; length]` syntax remains rejected by HIR.
@@ -3386,13 +3910,14 @@ Deliverables:
 Acceptance criteria:
 
 - array length and elements cannot be inferred from physical layout;
+- array arity cannot erase the target-width `usize` typing of its source length;
 - source order is preserved and every aggregate element is typed;
 - array construction/read fixtures produce stable VIR and VCs.
 
 Verification:
 
 ```sh
-(cd rust-tools/rust2vir && cargo test --locked --test arrays_constants)
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test arrays_constants
 cargo test -p mpk-vc --test program_encoding
 git diff --check
 ```
@@ -3445,7 +3970,7 @@ Acceptance criteria:
 Verification:
 
 ```sh
-(cd rust-tools/rust2vir && cargo test --locked --test structs)
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test structs
 cargo test -p mpk-vc --test program_encoding
 git diff --check
 ```
@@ -3501,7 +4026,7 @@ Acceptance criteria:
 Verification:
 
 ```sh
-(cd rust-tools/rust2vir && cargo test --locked --test static_calls)
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test static_calls
 cargo test -p mpk-vc --test call_wp
 git diff --check
 ```
@@ -3552,7 +4077,7 @@ Acceptance criteria:
 Verification:
 
 ```sh
-(cd rust-tools/rust2vir && cargo test --locked --test call_wp_e2e)
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test call_wp_e2e
 cargo test -p mpk-vc --test rust_calls
 cargo test -p mpk-vc --test vc_skeleton_v1
 git diff --check
@@ -3608,7 +4133,7 @@ Acceptance criteria:
 Verification:
 
 ```sh
-(cd rust-tools/rust2vir && cargo test --locked --test positive_corpus)
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test positive_corpus
 cargo test -p mpk-vc --test rust_positive_corpus
 cargo test -p mpk-vc --test rust_calls
 git diff --check
@@ -3897,7 +4422,7 @@ Acceptance criteria:
 Verification:
 
 ```sh
-(cd rust-tools/rust2vir && cargo test --locked --test negative_corpus)
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test negative_corpus
 cargo test -p mpk-cli --test rust_frontend_negative
 python3 scripts/check-rust-subset-coverage.py
 git diff --check
@@ -3918,16 +4443,20 @@ Likely touched files:
 - `rust-tools/rust2vir/src/limits.rs`
 - `rust-tools/rust2vir/src/diagnostics.rs`
 - `rust-tools/rust2vir/tests/limits.rs`
+- `scripts/build-release-bundles.sh`
+- `scripts/run-rust2vir-toolchain.sh`
+- `develop/specs/vectors/rust-build-inputs-v0.json`
 - `crates/mpk-vc/tests/verification_limits.rs`
 - `crates/mpk-cli/tests/frontend_limits.rs`
 - `crates/mpk-cli/tests/policy_limits.rs`
 
 Tasks:
 
-1. Audit that release registry, input capture, contracts, source, MIR, driver,
-   VIR, source map, manifest, child streams, frontend streams, VC/skeleton,
-   generated certificate, evidence JSON, and Markdown limits are enforced by
-   streaming counters before full allocation or output write.
+1. Audit that release registry, build-input descriptor/cache, input capture,
+   contracts, source, MIR, driver, VIR, source map, manifest, child streams,
+   frontend streams, VC/skeleton, generated certificate, evidence JSON, and
+   Markdown limits are enforced by streaming/checked counters before full
+   allocation, cache mount/execution, or output write.
 2. Add exact below/at/above tests for every byte, count, nesting, path,
    aggregate, message, process, and output limit in the normative profiles.
 3. Implement diagnostic per-message and combined-list truncation exactly:
@@ -3958,7 +4487,9 @@ Acceptance criteria:
 Verification:
 
 ```sh
-(cd rust-tools/rust2vir && cargo test --locked --test limits)
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test limits
+./scripts/build-release-bundles.sh --check-build-inputs rust
+python3 -m json.tool develop/specs/vectors/rust-build-inputs-v0.json >/dev/null
 cargo test -p mpk-vc --test verification_limits
 cargo test -p mpk-cli --test frontend_limits
 cargo test -p mpk-cli --test policy_limits
@@ -3973,8 +4504,10 @@ Depends on: RUST-07-T01, RUST-07-T02.
 
 Inputs:
 
-- public frontend, private driver, VIR, source-map, contract, manifest, VC, and
-  policy parsers;
+- public frontend, private driver request/output, VIR, source-map, contract,
+  manifest, VC, and policy parsers;
+- the exact cargo-fuzz executable, fuzz dependency graph, manifest/lock format,
+  and bounded launcher argv frozen by VIR-00-T09;
 - existing `fuzz` package conventions.
 
 Likely touched files:
@@ -3986,6 +4519,7 @@ Likely touched files:
 - `fuzz/fuzz_targets/source_manifest_parser.rs`
 - `fuzz/fuzz_targets/policy_v1.rs`
 - `rust-tools/rust2vir/fuzz`
+- `rust-tools/rust2vir/fuzz/Cargo.lock`
 - `rust-tools/rust2vir/fuzz/fuzz_targets/driver_protocol.rs`
 - `rust-tools/rust2vir/fuzz/fuzz_targets/rust_contract.rs`
 - `scripts/check-fuzz-smoke.sh`
@@ -3994,18 +4528,30 @@ Tasks:
 
 1. Retain and extend the VIR/source-map harnesses created in VIR-01-T12 and add
    bounded entry points for every remaining public/shared parser and isolated
-   driver/contract parser without invoking Cargo, rustc, network, or arbitrary
-   filesystem input.
+   driver-request, driver-output, and contract parser without invoking Cargo,
+   rustc, network, or arbitrary filesystem input.
 2. Assert no panic, abort, unbounded recursion, uncontrolled allocation,
    acceptance of noncanonical JSON, duplicate-key loss, or partial-success
    artifact on arbitrary bytes.
 3. Seed corpora from all normative valid/invalid/boundary vectors and preserve
    discovered minimal regressions as deterministic unit fixtures.
-4. Register every harness in its fuzz manifest and add
-   `scripts/check-fuzz-smoke.sh`, which invokes each target for exactly 256
-   runs with libFuzzer seed 1 from its checked-in seed corpus. Document
-   unbounded `cargo fuzz run` commands separately; elapsed fuzz time never
-   participates in artifact acceptance.
+4. Materialize the exact isolated fuzz manifest and lockfile frozen by
+   VIR-00-T09 with byte-for-byte equality to the template hashes already bound
+   by `build-inputs.json`, bind its sole allowed parent-package path edge to the
+   immutable inventoried `rust2vir` source root and its `rust2vir_internal`
+   library target, and reject any graph/checksum/format/path/target difference.
+   Register every
+   harness in that manifest, apply the frozen fuzz-manifest rustfmt gate, and
+   add `scripts/check-fuzz-smoke.sh`, which routes every isolated target through
+   `run-rust2vir-toolchain.sh` using the exact allowlisted cargo-fuzz argv and
+   validates its spec-frozen child argv/environment/process graph while invoking
+   each target for exactly 256 runs with libFuzzer seed 1. Validate
+   every checked-in seed as an enumerated regular file, copy the corpus into a
+   fresh private writable fuzz-work directory, and
+   force crash/artifact output to the separate fixed private artifact path;
+   neither path may resolve into the checkout. Document unbounded
+   developer `cargo fuzz run` commands separately as explicitly non-gate local
+   diagnostics; elapsed fuzz time never participates in artifact acceptance.
 5. Keep frontend fuzz dependencies outside the trusted checker dependency
    graph and the isolated nightly project outside the stable workspace.
 
@@ -4017,13 +4563,16 @@ Acceptance criteria:
 
 - each parser named in design section 19.3 has a harness;
 - smoke runs complete without crashes and regression seeds pass as unit tests;
+- no isolated fuzz-smoke build/run reads an ambient cargo-fuzz, dependency
+  source, toolchain, network, or host file;
 - fuzz targets cannot execute a user project.
 
 Verification:
 
 ```sh
+./scripts/run-rust2vir-toolchain.sh cargo fmt --manifest-path fuzz/Cargo.toml --all -- --check
 ./scripts/check-fuzz-smoke.sh
-(cd rust-tools/rust2vir && cargo test --locked)
+./scripts/run-rust2vir-toolchain.sh cargo test --locked
 cargo test -p mpk-vc
 cargo test -p mpk-cli
 git diff --check
@@ -4082,7 +4631,7 @@ Verification:
 
 ```sh
 cargo test -p mpk-vc --test vir_differential
-(cd rust-tools/rust2vir && cargo test --locked --test differential)
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test differential
 python3 scripts/check-artifact-paths.py
 git diff --check
 ```
@@ -4115,19 +4664,38 @@ Likely touched files:
 
 Tasks:
 
-1. Add a clean Linux CI job that materializes only registered bundles, uses the
-   exact pinned nightly and both target libraries, disables network during
-   evidence runs, and executes frontend, Go migration, policy, both-checker,
-   path, determinism, limit, fuzz-smoke, and obsolete-interface gates.
+1. Add a clean Linux CI job that validates the spec-frozen build/test
+   toolchain, linker/sysroot, vendor, cargo-fuzz, and private-runtime
+   materialization from the tracked descriptor and reviewed CI artifacts. A
+   cache miss runs `--provision-build-inputs rust`; a restored cache is treated
+   as untrusted, and both paths run `--check-build-inputs rust` before use. The
+   job then disables network, installs only registered release bundles for
+   evidence routes, uses both registered target libraries, rejects every
+   unregistered candidate, and executes frontend, Go migration, policy,
+   both-checker, path,
+   clean-build determinism, limit, fuzz-smoke, and obsolete-interface gates.
 2. Add a local aggregate gate with the same command ordering and no implicit
    rustup/toolchain download during verification.
-3. Document compiler upgrade as a reviewed registry/toolchain/commit/argument/
-   MIR-adapter change that regenerates all MIR/VIR/map/manifest/VC/certificate
-   goldens, reruns differential tests, and requires a new registry root hash;
-   automatic upgrades are prohibited.
-4. Extend release evidence with registry/bundle/target identities, both manifest
-   hashes, VIR/VC/certificate hashes, checker agreement, axiom report/profile
-   equality, determinism/path gates, and the Rust example result.
+3. Document the compiler/build-closure upgrade as an ordered, reviewed
+   transaction. First update the applicable specification/vector identities for
+   the registry, nightly, components, linker/sysroot/native runtime,
+   dependency/fuzz locks, cargo-fuzz, arguments, and MIR adapter, including all
+   licenses/notices. Next run `--update-build-inputs rust`, review the complete
+   tracked descriptor/provenance/path-key diff, and require
+   `--check-build-inputs rust` to pass from those unchanged bytes. Then follow
+   Execution Rule 11 to rebuild and review all registered bundles and registry
+   roots, regenerate every MIR/VIR/map/manifest/VC/certificate golden, and rerun
+   differential and clean-build determinism tests. No generated change is
+   committed or released unless the whole sequence passes, so the last
+   committed descriptor and registered release remain authoritative after a
+   failure; automatic upgrades are prohibited.
+4. Extend the untrusted `release-report.json` provenance with registry/bundle/
+   target identities, `build_inputs_sha256`, dependency and cargo-fuzz
+   identities, native-runtime and notice checks, the two-clean-build comparison,
+   both manifest hashes, VIR/VC/certificate hashes, checker agreement, axiom
+   report/profile equality, determinism/path gates, and the Rust example result.
+   Do not add build-input identity to `mpk.policy.evidence.v1`, a source
+   manifest, a certificate payload, or either checker input.
 5. Update active user/developer/ProofOps documentation without overstating
    source correspondence or trusting rustc/frontend/VIR; keep GIR-era docs only
    as labeled historical records.
@@ -4143,7 +4711,10 @@ Deliverables:
 Acceptance criteria:
 
 - all Rust gates, migrated Go gates, both target corpora, both checkers,
-  determinism, path sanitation, limits, fuzz smoke, and release report pass;
+  build/evidence inventory validation, two-clean-build determinism, path
+  sanitation, limits, fuzz smoke, and release report pass;
+- no CI evidence route can select the removed Rust candidate or a build-only
+  tool, dependency cache, linker, or sysroot as a release bundle;
 - no active production/interface/documentation GIR or v0 policy/AI hit remains;
 - certificate v0, trust boundary, checker semantics, and axiom categories are
   unchanged;
@@ -4153,11 +4724,13 @@ Verification:
 
 ```sh
 ./scripts/check-rust-frontend.sh
+./scripts/build-release-bundles.sh --check-build-inputs rust
 ./scripts/check-no-active-gir.sh --strict
 ./scripts/check-all.sh
 cargo test --workspace
 (cd go-tools/go2vir && go test -count=1 ./...)
-(cd rust-tools/rust2vir && cargo test --locked)
+./scripts/run-rust2vir-toolchain.sh cargo test --locked
+python3 -m json.tool develop/specs/vectors/rust-build-inputs-v0.json >/dev/null
 python3 scripts/generate-release-report.py --check
 git diff --check
 ```
@@ -4182,14 +4755,14 @@ git diff --check
 | 15 CLI, policy, evidence, AI | VIR-00-T06, VIR-00-T07, GO-VIR-02-T06 through GO-VIR-02-T10, GO-VIR-02-T12, RUST-06-T01 through RUST-06-T04 |
 | 16 VC generation | VIR-00-T05, VIR-01-T07 through VIR-01-T12, RUST-04-T05, RUST-05-T04 |
 | 17 diagnostics | VIR-00-T04, RUST-03-T12, RUST-07-T01, RUST-07-T02 |
-| 18 limits | VIR-00-T02 through VIR-00-T06, VIR-01-T08, VIR-01-T11, RUST-03-T02 through RUST-03-T06, RUST-07-T02 |
+| 18 limits | VIR-00-T02 through VIR-00-T06, VIR-00-T09, VIR-01-T08, VIR-01-T11, RUST-03-T01 through RUST-03-T06, RUST-07-T02 |
 | 19.1 positive corpus | RUST-05-T05, RUST-06-T04 |
 | 19.2 negative/adversarial corpus | RUST-07-T01, RUST-07-T02 |
 | 19.3 translation confidence | GO-VIR-02-T11, RUST-07-T03, RUST-07-T04 |
 | 19.4 migration gates | VIR-00-T01, GO-VIR-02-T01, GO-VIR-02-T11, GO-VIR-02-T12, RUST-07-T05 |
 | 20 sequence and exit gates | every milestone in its matching phase |
 | 21 file/module impact | all implementation milestones; removals are owned by GO-VIR-02-T12 |
-| 22 alternatives | execution rules 1-11; no adapter, dual release path, GIR reinterpretation, syn-only, textual MIR, LLVM, or trusted frontend task exists |
+| 22 alternatives | execution rules 1-12; no adapter, dual release path, GIR reinterpretation, syn-only, textual MIR, LLVM, or trusted frontend task exists |
 | 23 risks | bundle/compiler risks: RUST-03; semantics: VIR-01/RUST-04; migration: GO-VIR-02; hardening: RUST-07 |
 | 24 completion criteria | GO-VIR-02-T12, RUST-06-T04, RUST-07-T05 |
 
