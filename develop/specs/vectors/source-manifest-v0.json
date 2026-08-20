@@ -1,0 +1,997 @@
+{
+  "schema": "mpk.source_manifest.conformance.v0",
+  "spec_schema": "mpk.source_manifest.v0",
+  "dependencies": {
+    "vir_vector": "develop/specs/vectors/vir-v0.json",
+    "vir_case": "module.valid_go_identity",
+    "source_map_vector": "develop/specs/vectors/source-map-v0.json",
+    "source_map_case": "map.valid_go_identity",
+    "release_vector": "develop/specs/vectors/release-bundles-v0.json",
+    "release_case": "valid_registry"
+  },
+  "owner_tests": [
+    "crates/mpk-vc/tests/source_manifest.rs",
+    "go-tools/go2vir/bundle_candidate_test.go",
+    "rust-tools/rust2vir/tests/frontend_envelope.rs"
+  ],
+  "fixture_inputs": [
+    {
+      "id": "input.identity_contract",
+      "kind": "contract",
+      "normalized_path": "contracts/identity.json",
+      "base64": "eyJzY2hlbWEiOiJtcGsuZ28uY29udHJhY3QudjAiLCJmdW5jdGlvbiI6ImV4YW1wbGUuY29tL21way92ZWN0b3IuSWRlbnRpdHkiLCJyZXF1aXJlcyI6W10sImVuc3VyZXMiOlt7Im9wIjoiZXEiLCJsaHMiOnsicmVzdWx0IjowfSwicmhzIjp7InZhciI6InZhbHVlIn19XSwibW9kaWZpZXMiOltdLCJsb29wcyI6W119Cg==",
+      "size_bytes": 181,
+      "sha256": "ddfafe866f187501b19a19b0e89106361db7401d160195c652c162a876c80ba4"
+    },
+    {
+      "id": "input.go_mod",
+      "kind": "build_manifest",
+      "normalized_path": "go.mod",
+      "base64": "bW9kdWxlIGV4YW1wbGUuY29tL21way92ZWN0b3IKCmdvIDEuMjUK",
+      "size_bytes": 39,
+      "sha256": "94645134dec3f6ee36248523c1b67d2dc9032c3a6977c377e0a5266b8b571b37"
+    },
+    {
+      "id": "input.go_sum",
+      "kind": "lockfile",
+      "normalized_path": "go.sum",
+      "base64": "",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "input.identity_go",
+      "kind": "source",
+      "normalized_path": "identity.go",
+      "base64": "cGFja2FnZSB2ZWN0b3IKCmZ1bmMgSWRlbnRpdHkodmFsdWUgaW50OCkgaW50OCB7IHJldHVybiB2YWx1ZSB9Cg==",
+      "size_bytes": 64,
+      "sha256": "f387d3ec7532adabcc75407d7cad3e4df113cd255ff177b1b9f02985bbccacea"
+    }
+  ],
+  "manifest_cases": [
+    {
+      "id": "manifest.valid_go_frontend_stage",
+      "context": {
+        "lifecycle": "frontend",
+        "input_cases": [
+          "input.identity_contract",
+          "input.go_mod",
+          "input.go_sum",
+          "input.identity_go"
+        ],
+        "vir_case": "module.valid_go_identity",
+        "source_map_case": "map.valid_go_identity",
+        "release_case": "valid_registry"
+      },
+      "input": {
+        "schema": "mpk.source_manifest.v0",
+        "source_language": "go",
+        "semantic_profile": "mpk.go.fixed.v0",
+        "semantic_parameters": {
+          "target_id": "linux/amd64",
+          "pointer_width": 64
+        },
+        "selection": {
+          "package": "example.com/mpk/vector",
+          "function": "example.com/mpk/vector.Identity"
+        },
+        "limit_profile": "mpk.vir.limits.v0",
+        "release_registry": {
+          "schema": "mpk.release.bundle_registry.v0",
+          "id": "mpk.release.registry.v0",
+          "registry_sha256": "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7"
+        },
+        "toolchain": {
+          "bundle_id": "toolchain.go.synthetic.v0",
+          "distribution_sha256": "1dfc37014daf7080cfe690d97ff3d5856fd28dc556a430cb510bad757de7d1f9",
+          "components": [
+            {
+              "kind": "executable",
+              "name": "go",
+              "release": "go1.25.0",
+              "binary_sha256": "306c6ca7407560340797866e077e053627ad409277d1b9da58106fce4cf717cb"
+            },
+            {
+              "kind": "content",
+              "name": "go-stdlib",
+              "release": "go1.25.0",
+              "content_sha256": "d0e474c3d4c5604aa8d233021e24e742322ff0cea7cf55c1ce7f2c87dfefa469"
+            },
+            {
+              "kind": "content",
+              "name": "native-runtime",
+              "release": "synthetic-1",
+              "content_sha256": "dcabd7c7214d69d0cc474407283579497db30f56e2dc4e388a71886446d5c948"
+            },
+            {
+              "kind": "content",
+              "name": "notices",
+              "release": "synthetic-1",
+              "content_sha256": "e0b4c60c121662d43796c29e52be87b45907687b40de12a76bf92e8a928c02e6"
+            }
+          ]
+        },
+        "frontend": {
+          "bundle_id": "frontend.go.synthetic.v0",
+          "name": "go2vir",
+          "version": "vector-1",
+          "binary_sha256": "306c6ca7407560340797866e077e053627ad409277d1b9da58106fce4cf717cb",
+          "subordinate_binaries": []
+        },
+        "units": [
+          {
+            "identity": "example.com/mpk/vector",
+            "name": "vector",
+            "kind": "package"
+          }
+        ],
+        "target": {
+          "id": "linux/amd64",
+          "pointer_width": 64,
+          "language_configuration": {
+            "kind": "go",
+            "compiler": "gc",
+            "cgo_enabled": false,
+            "go111module": "on",
+            "module_mode": "readonly",
+            "workspace_mode": "off",
+            "tests": false,
+            "build_tags": [],
+            "environment_profile_id": "mpk.go.frontend_environment.v0",
+            "argument_profile_id": "mpk.go.frontend_arguments.v0"
+          }
+        },
+        "inputs": [
+          {
+            "kind": "contract",
+            "normalized_path": "contracts/identity.json",
+            "size_bytes": 181,
+            "sha256": "ddfafe866f187501b19a19b0e89106361db7401d160195c652c162a876c80ba4"
+          },
+          {
+            "kind": "build_manifest",
+            "normalized_path": "go.mod",
+            "size_bytes": 39,
+            "sha256": "94645134dec3f6ee36248523c1b67d2dc9032c3a6977c377e0a5266b8b571b37"
+          },
+          {
+            "kind": "lockfile",
+            "normalized_path": "go.sum",
+            "size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          {
+            "kind": "source",
+            "normalized_path": "identity.go",
+            "size_bytes": 64,
+            "sha256": "f387d3ec7532adabcc75407d7cad3e4df113cd255ff177b1b9f02985bbccacea"
+          }
+        ],
+        "input_set_hash": "e05e9fa46ee44a198470ada4935f756b12e9d6779601a7f88e4cb468d151ab31",
+        "vir_hash": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690",
+        "source_map_hash": "f66b38fcdba7dd4b6250269c566d5599c2b1821a69370f67aa961fdb5893b6f9",
+        "source_manifest_hash": "14a180a4d319bf66d288b8e7e65321f361d5fc48739513a42032c593865f125f"
+      },
+      "expect": {
+        "outcome": "accept",
+        "canonical_jcs_utf8_length": 2748
+      }
+    },
+    {
+      "id": "manifest.reject_wrong_schema",
+      "construction": {
+        "base": "manifest.valid_go_frontend_stage",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/schema",
+            "value": "mpk.go.source_manifest.v0"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "SOURCE_MANIFEST_SCHEMA"
+      }
+    },
+    {
+      "id": "manifest.reject_unknown_root_field",
+      "construction": {
+        "base": "manifest.valid_go_frontend_stage",
+        "patches": [
+          {
+            "op": "add",
+            "path": "/source_root",
+            "value": "/workspace"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "SOURCE_MANIFEST_SHAPE"
+      }
+    },
+    {
+      "id": "manifest.reject_duplicate_key",
+      "json_text": "{\"schema\":\"mpk.source_manifest.v0\",\"schema\":\"mpk.source_manifest.v0\"}",
+      "expect": {
+        "outcome": "reject",
+        "phase": "transport",
+        "code": "SOURCE_MANIFEST_JSON_DUPLICATE_KEY"
+      }
+    },
+    {
+      "id": "manifest.reject_target_repetition",
+      "construction": {
+        "base": "manifest.valid_go_frontend_stage",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/target/pointer_width",
+            "value": 32
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "semantic",
+        "code": "SOURCE_MANIFEST_PROFILE"
+      }
+    },
+    {
+      "id": "manifest.reject_selection",
+      "construction": {
+        "base": "manifest.valid_go_frontend_stage",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/selection/function",
+            "value": "example.com/mpk/vector.Other"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "semantic",
+        "code": "SOURCE_MANIFEST_SELECTION"
+      }
+    },
+    {
+      "id": "manifest.reject_units",
+      "construction": {
+        "base": "manifest.valid_go_frontend_stage",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/units/0/name",
+            "value": "other"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "semantic",
+        "code": "SOURCE_MANIFEST_UNITS"
+      }
+    },
+    {
+      "id": "manifest.reject_vir_hash_linkage",
+      "construction": {
+        "base": "manifest.valid_go_frontend_stage",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/vir_hash",
+            "value": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "artifacts",
+        "code": "SOURCE_MANIFEST_IR_LINKAGE"
+      }
+    },
+    {
+      "id": "manifest.reject_source_map_linkage",
+      "construction": {
+        "base": "manifest.valid_go_frontend_stage",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/source_map_hash",
+            "value": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "artifacts",
+        "code": "SOURCE_MANIFEST_SOURCE_MAP_LINKAGE"
+      }
+    }
+  ],
+  "configuration_cases": [
+    {
+      "id": "configuration.valid_go",
+      "context": {
+        "validator": "language_configuration_profile"
+      },
+      "source_language": "go",
+      "semantic_profile": "mpk.go.fixed.v0",
+      "input": {
+        "kind": "go",
+        "compiler": "gc",
+        "cgo_enabled": false,
+        "go111module": "on",
+        "module_mode": "readonly",
+        "workspace_mode": "off",
+        "tests": false,
+        "build_tags": [],
+        "environment_profile_id": "mpk.go.frontend_environment.v0",
+        "argument_profile_id": "mpk.go.frontend_arguments.v0"
+      },
+      "expect": {
+        "outcome": "accept"
+      }
+    },
+    {
+      "id": "configuration.valid_rust_std",
+      "context": {
+        "validator": "language_configuration_shape"
+      },
+      "source_language": "rust",
+      "semantic_profile": "mpk.rust.checked.v0",
+      "input": {
+        "kind": "rust",
+        "edition": "2021",
+        "crate_type": "lib",
+        "enabled_features": [],
+        "prelude": "std",
+        "locked": true,
+        "offline": true,
+        "default_features": false,
+        "overflow_checks": true,
+        "panic": "abort",
+        "debug_assertions": false,
+        "rustc_opt_level": 0,
+        "mir_opt_level": 0,
+        "jobs": 1,
+        "message_format": "json",
+        "target_allowlist_id": "mpk.rust.targets.v0",
+        "environment_profile_id": "mpk.rust.frontend_environment.v0",
+        "argument_profile_id": "mpk.rust.frontend_arguments.v0",
+        "cfg": [
+          "panic=\"abort\"",
+          "target_arch=\"x86_64\"",
+          "target_endian=\"little\"",
+          "target_pointer_width=\"64\""
+        ]
+      },
+      "expect": {
+        "outcome": "accept"
+      }
+    },
+    {
+      "id": "configuration.valid_rust_core",
+      "construction": {
+        "base": "configuration.valid_rust_std",
+        "pointer": "/input",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/prelude",
+            "value": "core"
+          }
+        ]
+      },
+      "context": {
+        "validator": "language_configuration_shape"
+      },
+      "expect": {
+        "outcome": "accept"
+      }
+    },
+    {
+      "id": "configuration.reject_wrong_language_branch",
+      "context": {
+        "validator": "language_configuration_shape"
+      },
+      "source_language": "rust",
+      "semantic_profile": "mpk.rust.checked.v0",
+      "input_from": "configuration.valid_go",
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "SOURCE_MANIFEST_SHAPE"
+      }
+    },
+    {
+      "id": "configuration.reject_rust_unknown_field",
+      "context": {
+        "validator": "language_configuration_shape"
+      },
+      "construction": {
+        "base": "configuration.valid_rust_std",
+        "pointer": "/input",
+        "patches": [
+          {
+            "op": "add",
+            "path": "/target_dir",
+            "value": "/tmp/target"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "SOURCE_MANIFEST_SHAPE"
+      }
+    }
+  ],
+  "release_cases": [
+    {
+      "id": "release.valid_rustc_component",
+      "context": {
+        "validator": "component_identity",
+        "source_language": "rust",
+        "compiler_release": "1.89.0-nightly",
+        "rustc_commit": "0000000000000000000000000000000000000000"
+      },
+      "input": {
+        "kind": "executable",
+        "name": "rustc",
+        "release": "1.89.0-nightly",
+        "commit_hash": "0000000000000000000000000000000000000000",
+        "binary_sha256": "306c6ca7407560340797866e077e053627ad409277d1b9da58106fce4cf717cb"
+      },
+      "expect": {
+        "outcome": "accept"
+      }
+    },
+    {
+      "id": "release.reject_rustc_missing_commit",
+      "context": {
+        "validator": "component_identity",
+        "source_language": "rust",
+        "compiler_release": "1.89.0-nightly",
+        "rustc_commit": "0000000000000000000000000000000000000000"
+      },
+      "input": {
+        "kind": "executable",
+        "name": "rustc",
+        "release": "1.89.0-nightly",
+        "binary_sha256": "306c6ca7407560340797866e077e053627ad409277d1b9da58106fce4cf717cb"
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "SOURCE_MANIFEST_SHAPE"
+      }
+    },
+    {
+      "id": "release.reject_commit_on_non_rustc",
+      "context": {
+        "validator": "component_identity",
+        "source_language": "rust"
+      },
+      "input": {
+        "kind": "executable",
+        "name": "cargo",
+        "release": "1.89.0-nightly",
+        "commit_hash": "0000000000000000000000000000000000000000",
+        "binary_sha256": "306c6ca7407560340797866e077e053627ad409277d1b9da58106fce4cf717cb"
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "SOURCE_MANIFEST_SHAPE"
+      }
+    },
+    {
+      "id": "release.reject_registry_hash_mismatch",
+      "construction": {
+        "base": "manifest.valid_go_frontend_stage",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/release_registry/registry_sha256",
+            "value": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "release",
+        "code": "SOURCE_MANIFEST_RELEASE"
+      }
+    },
+    {
+      "id": "release.reject_frontend_binary_mismatch",
+      "construction": {
+        "base": "manifest.valid_go_frontend_stage",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/frontend/binary_sha256",
+            "value": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "release",
+        "code": "SOURCE_MANIFEST_RELEASE"
+      }
+    },
+    {
+      "id": "release.reject_component_omission",
+      "construction": {
+        "base": "manifest.valid_go_frontend_stage",
+        "patches": [
+          {
+            "op": "remove",
+            "path": "/toolchain/components/3"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "release",
+        "code": "SOURCE_MANIFEST_RELEASE"
+      }
+    }
+  ],
+  "input_cases": [
+    {
+      "id": "input.reject_wrong_input_set_hash",
+      "construction": {
+        "base": "manifest.valid_go_frontend_stage",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/input_set_hash",
+            "value": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "inputs",
+        "code": "SOURCE_MANIFEST_INPUT_SET_HASH"
+      }
+    },
+    {
+      "id": "input.reject_unknown_kind",
+      "construction": {
+        "base": "manifest.valid_go_frontend_stage",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/inputs/1/kind",
+            "value": "module"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "SOURCE_MANIFEST_SHAPE"
+      }
+    },
+    {
+      "id": "input.reject_profile_kind",
+      "construction": {
+        "base": "manifest.valid_go_frontend_stage",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/inputs/1/kind",
+            "value": "source"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "inputs",
+        "code": "SOURCE_MANIFEST_INPUT_KIND"
+      }
+    },
+    {
+      "id": "input.reject_byte_digest_mismatch",
+      "construction": {
+        "base": "manifest.valid_go_frontend_stage",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/inputs/3/sha256",
+            "value": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "inputs",
+        "code": "SOURCE_MANIFEST_INPUT_BYTES"
+      }
+    },
+    {
+      "id": "input.reject_reordered",
+      "construction": {
+        "base": "manifest.valid_go_frontend_stage",
+        "fixture": "swap_inputs",
+        "indices": [
+          0,
+          1
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "order",
+        "code": "SOURCE_MANIFEST_ORDER"
+      }
+    },
+    {
+      "id": "input.reject_duplicate_path",
+      "construction": {
+        "base": "manifest.valid_go_frontend_stage",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/inputs/1/normalized_path",
+            "value": "contracts/identity.json"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "order",
+        "code": "SOURCE_MANIFEST_ORDER"
+      }
+    }
+  ],
+  "lifecycle_cases": [
+    {
+      "id": "lifecycle.valid_certificate_stage",
+      "construction": {
+        "fixture": "attach_vc",
+        "base": "manifest.valid_go_frontend_stage",
+        "vc": {
+          "input_set_hash": "e05e9fa46ee44a198470ada4935f756b12e9d6779601a7f88e4cb468d151ab31",
+          "source_ir_schema": "mpk.vir.v0",
+          "source_ir_hash": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690",
+          "semantic_profile": "mpk.go.fixed.v0",
+          "semantic_parameters": {
+            "target_id": "linux/amd64",
+            "pointer_width": 64
+          },
+          "vc_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "expected_source_manifest_hash": "053fe3e866b5717d40d1c4d4c7884a9543edbf8ee15cef36776710f8d92e4861",
+        "expected_canonical_jcs_utf8_length": 2825
+      },
+      "expect": {
+        "outcome": "accept"
+      }
+    },
+    {
+      "id": "lifecycle.reject_vc_at_frontend_stage",
+      "construction": {
+        "base": "manifest.valid_go_frontend_stage",
+        "context": {
+          "lifecycle": "frontend"
+        },
+        "patches": [
+          {
+            "op": "add",
+            "path": "/vc_hash",
+            "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "SOURCE_MANIFEST_STAGE"
+      }
+    },
+    {
+      "id": "lifecycle.reject_missing_vc_at_certificate_stage",
+      "input_from": "manifest.valid_go_frontend_stage",
+      "context": {
+        "lifecycle": "certificate"
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "SOURCE_MANIFEST_STAGE"
+      }
+    },
+    {
+      "id": "lifecycle.reject_mismatched_vc",
+      "construction": {
+        "fixture": "attach_vc",
+        "base": "manifest.valid_go_frontend_stage",
+        "vc_from": "lifecycle.valid_certificate_stage",
+        "vc_patches": [
+          {
+            "op": "replace",
+            "path": "/source_ir_hash",
+            "value": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "vc_linkage",
+        "code": "SOURCE_MANIFEST_VC_LINKAGE"
+      }
+    },
+    {
+      "id": "lifecycle.reject_other_field_mutation",
+      "construction": {
+        "fixture": "mutate_during_attach",
+        "base": "manifest.valid_go_frontend_stage",
+        "vc_from": "lifecycle.valid_certificate_stage",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/frontend/version",
+            "value": "vector-2"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "vc_linkage",
+        "code": "SOURCE_MANIFEST_LIFECYCLE_MUTATION"
+      }
+    }
+  ],
+  "path_cases": [
+    {
+      "id": "path.reject_absolute_posix",
+      "construction": {
+        "base": "manifest.valid_go_frontend_stage",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/inputs/3/normalized_path",
+            "value": "/home/alice/identity.go"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "scalar",
+        "code": "SOURCE_MANIFEST_PATH"
+      }
+    },
+    {
+      "id": "path.reject_windows_drive",
+      "construction": {
+        "base": "manifest.valid_go_frontend_stage",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/inputs/3/normalized_path",
+            "value": "C:/src/identity.go"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "scalar",
+        "code": "SOURCE_MANIFEST_PATH"
+      }
+    },
+    {
+      "id": "path.reject_casefold_collision",
+      "construction": {
+        "base": "manifest.valid_go_frontend_stage",
+        "patches": [
+          {
+            "op": "add",
+            "path": "/inputs/4",
+            "value": {
+              "kind": "source",
+              "normalized_path": "IDENTITY.GO",
+              "size_bytes": 64,
+              "sha256": "f387d3ec7532adabcc75407d7cad3e4df113cd255ff177b1b9f02985bbccacea"
+            }
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "scalar",
+        "code": "SOURCE_MANIFEST_PATH"
+      }
+    }
+  ],
+  "hash_cases": [
+    {
+      "id": "hash.valid_input_set",
+      "source_case": "manifest.valid_go_frontend_stage",
+      "source_pointer": "/inputs",
+      "domain_utf8": "MPK-INPUT-SET-0.1",
+      "separator_hex": "00",
+      "canonical_preimage_utf8_length": 583,
+      "expected_sha256": "e05e9fa46ee44a198470ada4935f756b12e9d6779601a7f88e4cb468d151ab31"
+    },
+    {
+      "id": "hash.valid_frontend_manifest",
+      "source_case": "manifest.valid_go_frontend_stage",
+      "domain_utf8": "MPK-SOURCE-MANIFEST-0.1",
+      "separator_hex": "00",
+      "canonical_without_hash_utf8_length": 2658,
+      "expected_sha256": "14a180a4d319bf66d288b8e7e65321f361d5fc48739513a42032c593865f125f"
+    },
+    {
+      "id": "hash.valid_certificate_manifest",
+      "source_case": "lifecycle.valid_certificate_stage",
+      "domain_utf8": "MPK-SOURCE-MANIFEST-0.1",
+      "separator_hex": "00",
+      "canonical_without_hash_utf8_length": 2735,
+      "expected_sha256": "053fe3e866b5717d40d1c4d4c7884a9543edbf8ee15cef36776710f8d92e4861"
+    },
+    {
+      "id": "hash.reject_wrong_manifest_hash",
+      "construction": {
+        "base": "manifest.valid_go_frontend_stage",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/source_manifest_hash",
+            "value": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "hash",
+        "code": "SOURCE_MANIFEST_HASH"
+      }
+    },
+    {
+      "id": "hash.input_domain_is_distinct",
+      "source_case": "manifest.valid_go_frontend_stage",
+      "source_pointer": "/inputs",
+      "wrong_domain_utf8": "MPK-SOURCE-MANIFEST-0.1",
+      "separator_hex": "00",
+      "wrong_domain_sha256": "4f695715fd3d98eb3c62a750adcf06c40351b450ffb73aa06d41541d60a2c412",
+      "expect_different": true
+    },
+    {
+      "id": "hash.input_separator_required",
+      "source_case": "manifest.valid_go_frontend_stage",
+      "source_pointer": "/inputs",
+      "domain_utf8": "MPK-INPUT-SET-0.1",
+      "wrong_separator_hex": "",
+      "wrong_separator_sha256": "eb42089e43689c0f4fc3bfcd6331aa072253335f630b9be24c24544a3b366382",
+      "expect_different": true
+    },
+    {
+      "id": "hash.manifest_separator_required",
+      "source_case": "manifest.valid_go_frontend_stage",
+      "domain_utf8": "MPK-SOURCE-MANIFEST-0.1",
+      "wrong_separator_hex": "",
+      "wrong_separator_sha256": "b783caab2530ee4a7a971c4d3910139d995117352ad38ee2d893b6e88cec35f3",
+      "expect_different": true
+    }
+  ],
+  "limit_cases": [
+    {
+      "id": "limit.canonical_bytes_at",
+      "construction": {
+        "fixture": "canonical_size",
+        "count": 4194304,
+        "context": {
+          "validator": "canonical_size_counter"
+        }
+      },
+      "expect": {
+        "outcome": "accept"
+      }
+    },
+    {
+      "id": "limit.canonical_bytes_above",
+      "construction": {
+        "fixture": "canonical_size",
+        "count": 4194305,
+        "context": {
+          "validator": "canonical_size_counter"
+        }
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "canonical_size",
+        "code": "SOURCE_MANIFEST_LIMIT"
+      }
+    },
+    {
+      "id": "limit.rust_inputs_at",
+      "construction": {
+        "fixture": "profile_input_count",
+        "source_language": "rust",
+        "count": 512,
+        "context": {
+          "validator": "input_count_counter"
+        }
+      },
+      "expect": {
+        "outcome": "accept"
+      }
+    },
+    {
+      "id": "limit.rust_inputs_above",
+      "construction": {
+        "fixture": "profile_input_count",
+        "source_language": "rust",
+        "count": 513,
+        "context": {
+          "validator": "input_count_counter"
+        }
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "transport",
+        "code": "SOURCE_MANIFEST_LIMIT"
+      }
+    },
+    {
+      "id": "limit.go_inputs_at",
+      "construction": {
+        "fixture": "profile_input_count",
+        "source_language": "go",
+        "count": 32768,
+        "context": {
+          "validator": "input_count_counter"
+        }
+      },
+      "expect": {
+        "outcome": "accept"
+      }
+    },
+    {
+      "id": "limit.go_inputs_above",
+      "construction": {
+        "fixture": "profile_input_count",
+        "source_language": "go",
+        "count": 32769,
+        "context": {
+          "validator": "input_count_counter"
+        }
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "transport",
+        "code": "SOURCE_MANIFEST_LIMIT"
+      }
+    },
+    {
+      "id": "limit.path_bytes_at",
+      "construction": {
+        "fixture": "normalized_path",
+        "count": 1024
+      },
+      "expect": {
+        "outcome": "accept"
+      }
+    },
+    {
+      "id": "limit.path_bytes_above",
+      "construction": {
+        "fixture": "normalized_path",
+        "count": 1025
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "scalar",
+        "code": "SOURCE_MANIFEST_PATH"
+      }
+    }
+  ]
+}

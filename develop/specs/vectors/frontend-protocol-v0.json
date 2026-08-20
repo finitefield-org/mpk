@@ -1,0 +1,826 @@
+{
+  "schema": "mpk.frontend.protocol.conformance.v0",
+  "spec_schema": "mpk.frontend.cli.v0",
+  "dependencies": {
+    "vir_vector": "develop/specs/vectors/vir-v0.json",
+    "vir_case": "module.valid_go_identity",
+    "source_map_vector": "develop/specs/vectors/source-map-v0.json",
+    "source_map_case": "map.valid_go_identity",
+    "source_manifest_vector": "develop/specs/vectors/source-manifest-v0.json",
+    "source_manifest_case": "manifest.valid_go_frontend_stage"
+  },
+  "owner_tests": [
+    "crates/mpk-cli/tests/frontend_runner.rs",
+    "go-tools/go2vir/main_test.go",
+    "rust-tools/rust2vir/tests/frontend_envelope.rs"
+  ],
+  "status_cases": [
+    {
+      "id": "status.valid_ir_lowered",
+      "construction": {
+        "fixture": "canonical_from_dependencies",
+        "source_language": "go",
+        "semantic_profile": "mpk.go.fixed.v0",
+        "semantic_parameters": {
+          "target_id": "linux/amd64",
+          "pointer_width": 64
+        },
+        "selection": {
+          "package": "example.com/mpk/vector",
+          "function": "example.com/mpk/vector.Identity"
+        },
+        "vir_case": "module.valid_go_identity",
+        "source_map_case": "map.valid_go_identity",
+        "source_manifest_case": "manifest.valid_go_frontend_stage"
+      },
+      "process": {
+        "exit": 0,
+        "stdout": "canonical",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "accept",
+        "status": "ir-lowered",
+        "phase": "emission",
+        "canonical_jcs_utf8_length": 5079,
+        "stdout_utf8_length": 5080,
+        "stdout_sha256": "4421354b2afb2e8d663fe99c65e7f7c226ebb5b674d4bfca61856a6c70b96d89"
+      }
+    },
+    {
+      "id": "status.valid_rejected",
+      "input": {
+        "schema": "mpk.frontend.cli.v0",
+        "status": "rejected",
+        "phase": "subset",
+        "source_language": "go",
+        "semantic_profile": "mpk.go.fixed.v0",
+        "semantic_parameters": {
+          "target_id": "linux/amd64",
+          "pointer_width": 64
+        },
+        "selection": {
+          "package": "example.com/mpk/vector",
+          "function": "example.com/mpk/vector.Identity"
+        },
+        "rejected_features": [
+          {
+            "code": "GO_SUBSET_MAP",
+            "message": "map type is outside mpk.go.fixed.v0",
+            "function_id": "example.com/mpk/vector.Identity",
+            "span": {
+              "normalized_path": "identity.go",
+              "start": 16,
+              "end": 63
+            }
+          }
+        ],
+        "diagnostics": []
+      },
+      "process": {
+        "exit": 3,
+        "stdout": "canonical",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "accept",
+        "status": "rejected",
+        "phase": "subset"
+      }
+    },
+    {
+      "id": "status.valid_source_error",
+      "input": {
+        "schema": "mpk.frontend.cli.v0",
+        "status": "source-error",
+        "phase": "source",
+        "source_language": "rust",
+        "semantic_profile": "mpk.rust.checked.v0",
+        "semantic_parameters": {
+          "target_id": "x86_64-unknown-linux-gnu",
+          "pointer_width": 64,
+          "overflow_mode": "checked",
+          "panic_mode": "abort"
+        },
+        "selection": {
+          "package": "vector",
+          "crate": "vector",
+          "kind": "lib",
+          "function": "vector::identity"
+        },
+        "rejected_features": [],
+        "diagnostics": [
+          {
+            "code": "RUST_SOURCE_PARSE",
+            "message": "expected expression",
+            "span": {
+              "normalized_path": "src/lib.rs",
+              "start": 42,
+              "end": 43
+            }
+          }
+        ]
+      },
+      "process": {
+        "exit": 4,
+        "stdout": "canonical",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "accept",
+        "status": "source-error",
+        "phase": "source"
+      }
+    },
+    {
+      "id": "status.valid_frontend_error",
+      "input": {
+        "schema": "mpk.frontend.cli.v0",
+        "status": "frontend-error",
+        "phase": "lowering",
+        "source_language": "rust",
+        "semantic_profile": "mpk.rust.checked.v0",
+        "semantic_parameters": {
+          "target_id": "x86_64-unknown-linux-gnu",
+          "pointer_width": 64,
+          "overflow_mode": "checked",
+          "panic_mode": "abort"
+        },
+        "selection": {
+          "package": "vector",
+          "crate": "vector",
+          "kind": "lib",
+          "function": "vector::identity"
+        },
+        "rejected_features": [],
+        "diagnostics": [
+          {
+            "code": "RUST_FRONTEND_INTERNAL",
+            "message": "lowering invariant failed",
+            "function_id": "vector::identity"
+          }
+        ]
+      },
+      "process": {
+        "exit": 1,
+        "stdout": "canonical",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "accept",
+        "status": "frontend-error",
+        "phase": "lowering"
+      }
+    },
+    {
+      "id": "status.valid_cli_configuration_error",
+      "process": {
+        "exit": 2,
+        "stdout_base64": "",
+        "stderr_base64": "dXNhZ2UgZXJyb3IK"
+      },
+      "expect": {
+        "outcome": "configuration-error",
+        "json": false
+      }
+    },
+    {
+      "id": "status.reject_wrong_schema",
+      "construction": {
+        "base": "status.valid_rejected",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/schema",
+            "value": "mpk.go2gir.cli.v0"
+          }
+        ]
+      },
+      "process": {
+        "exit": 3,
+        "stdout": "canonical",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_SHAPE"
+      }
+    },
+    {
+      "id": "status.reject_unknown_field",
+      "construction": {
+        "base": "status.valid_rejected",
+        "patches": [
+          {
+            "op": "add",
+            "path": "/ssa",
+            "value": {}
+          }
+        ]
+      },
+      "process": {
+        "exit": 3,
+        "stdout": "canonical",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_SHAPE"
+      }
+    },
+    {
+      "id": "status.reject_partial_artifact",
+      "construction": {
+        "base": "status.valid_rejected",
+        "patches": [
+          {
+            "op": "add",
+            "path": "/ir",
+            "value": {
+              "schema": "mpk.vir.v0",
+              "sha256": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690",
+              "value": {}
+            }
+          }
+        ]
+      },
+      "process": {
+        "exit": 3,
+        "stdout": "canonical",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_SHAPE"
+      }
+    },
+    {
+      "id": "status.reject_source_error_with_feature",
+      "construction": {
+        "base": "status.valid_source_error",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/rejected_features",
+            "value": [
+              {
+                "code": "RUST_SUBSET_MAP",
+                "message": "map is unsupported"
+              }
+            ]
+          }
+        ]
+      },
+      "process": {
+        "exit": 4,
+        "stdout": "canonical",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_SHAPE"
+      }
+    },
+    {
+      "id": "status.reject_wrong_phase_for_success",
+      "construction": {
+        "base": "status.valid_ir_lowered",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/phase",
+            "value": "lowering"
+          }
+        ]
+      },
+      "process": {
+        "exit": 0,
+        "stdout": "canonical",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_SHAPE"
+      }
+    },
+    {
+      "id": "status.reject_exit_pair",
+      "input_from": "status.valid_rejected",
+      "process": {
+        "exit": 1,
+        "stdout": "canonical",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_STATUS_EXIT"
+      }
+    },
+    {
+      "id": "status.reject_success_exit_pair",
+      "input_from": "status.valid_ir_lowered",
+      "process": {
+        "exit": 1,
+        "stdout": "canonical",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_STATUS_EXIT"
+      }
+    },
+    {
+      "id": "status.reject_source_error_exit_pair",
+      "input_from": "status.valid_source_error",
+      "process": {
+        "exit": 3,
+        "stdout": "canonical",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_STATUS_EXIT"
+      }
+    },
+    {
+      "id": "status.reject_frontend_error_exit_pair",
+      "input_from": "status.valid_frontend_error",
+      "process": {
+        "exit": 4,
+        "stdout": "canonical",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_STATUS_EXIT"
+      }
+    },
+    {
+      "id": "status.reject_issue_order",
+      "construction": {
+        "base": "status.valid_rejected",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/rejected_features",
+            "value": [
+              {
+                "code": "GO_SUBSET_Z",
+                "message": "later",
+                "function_id": "example.com/mpk/vector.Identity"
+              },
+              {
+                "code": "GO_SUBSET_A",
+                "message": "earlier",
+                "function_id": "example.com/mpk/vector.Identity"
+              }
+            ]
+          }
+        ]
+      },
+      "process": {
+        "exit": 3,
+        "stdout": "canonical",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_SHAPE"
+      }
+    }
+  ],
+  "transport_cases": [
+    {
+      "id": "transport.accept_exact_canonical_lf",
+      "input_from": "status.valid_ir_lowered",
+      "process": {
+        "exit": 0,
+        "stdout": "canonical",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "accept"
+      }
+    },
+    {
+      "id": "transport.reject_pretty_json",
+      "input_from": "status.valid_rejected",
+      "process": {
+        "exit": 3,
+        "stdout": "pretty",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_NONCANONICAL"
+      }
+    },
+    {
+      "id": "transport.reject_missing_lf",
+      "input_from": "status.valid_rejected",
+      "process": {
+        "exit": 3,
+        "stdout": "missing_lf",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_TRUNCATED"
+      }
+    },
+    {
+      "id": "transport.reject_extra_lf",
+      "input_from": "status.valid_rejected",
+      "process": {
+        "exit": 3,
+        "stdout": "extra_lf",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_NONCANONICAL"
+      }
+    },
+    {
+      "id": "transport.reject_bom",
+      "input_from": "status.valid_rejected",
+      "process": {
+        "exit": 3,
+        "stdout": "bom",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_NONCANONICAL"
+      }
+    },
+    {
+      "id": "transport.reject_second_value",
+      "input_from": "status.valid_rejected",
+      "process": {
+        "exit": 3,
+        "stdout": "second_value",
+        "second_value": {},
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_NONCANONICAL"
+      }
+    },
+    {
+      "id": "transport.reject_duplicate_root_key",
+      "process": {
+        "exit": 3,
+        "stdout_utf8": "{\"schema\":\"mpk.frontend.cli.v0\",\"schema\":\"mpk.frontend.cli.v0\"}\n",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_MALFORMED"
+      }
+    },
+    {
+      "id": "transport.reject_truncated_json",
+      "input_from": "status.valid_rejected",
+      "process": {
+        "exit": 3,
+        "stdout": "truncate",
+        "truncate_bytes": 1,
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_TRUNCATED"
+      }
+    },
+    {
+      "id": "transport.reject_missing_response",
+      "process": {
+        "exit": 1,
+        "stdout_base64": "",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_MISSING"
+      }
+    },
+    {
+      "id": "transport.reject_killed_child",
+      "process": {
+        "signal": "SIGKILL",
+        "stdout_base64": "",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROCESS_KILLED"
+      }
+    },
+    {
+      "id": "transport.reject_unexpected_exit_2",
+      "process": {
+        "exit": 2,
+        "stdout_base64": "",
+        "stderr_base64": ""
+      },
+      "context": {
+        "child_was_launched": true
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_UNEXPECTED_USAGE"
+      }
+    }
+  ],
+  "identity_cases": [
+    {
+      "id": "identity.reject_envelope_language",
+      "construction": {
+        "base": "status.valid_ir_lowered",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/source_language",
+            "value": "rust"
+          }
+        ]
+      },
+      "process": {
+        "exit": 0,
+        "stdout": "canonical",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_IDENTITY_MISMATCH"
+      }
+    },
+    {
+      "id": "identity.reject_selection",
+      "construction": {
+        "base": "status.valid_ir_lowered",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/selection/function",
+            "value": "example.com/mpk/vector.Other"
+          }
+        ]
+      },
+      "process": {
+        "exit": 0,
+        "stdout": "canonical",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_IDENTITY_MISMATCH"
+      }
+    },
+    {
+      "id": "identity.reject_ir_wrapper_hash",
+      "construction": {
+        "base": "status.valid_ir_lowered",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/ir/sha256",
+            "value": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        ]
+      },
+      "process": {
+        "exit": 0,
+        "stdout": "canonical",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_ARTIFACT_MISMATCH"
+      }
+    },
+    {
+      "id": "identity.reject_source_map_ir_hash",
+      "construction": {
+        "base": "status.valid_ir_lowered",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/source_map/source_ir_hash",
+            "value": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        ]
+      },
+      "process": {
+        "exit": 0,
+        "stdout": "canonical",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_ARTIFACT_MISMATCH"
+      }
+    },
+    {
+      "id": "identity.reject_manifest_registry",
+      "construction": {
+        "base": "status.valid_ir_lowered",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/source_manifest/release_registry/registry_sha256",
+            "value": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        ]
+      },
+      "process": {
+        "exit": 0,
+        "stdout": "canonical",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_IDENTITY_MISMATCH"
+      }
+    }
+  ],
+  "limit_cases": [
+    {
+      "id": "limit.stdout_bytes_at_continues_parsing",
+      "construction": {
+        "fixture": "stream_bytes",
+        "byte": "7b",
+        "terminal_lf": true,
+        "count": 268435456
+      },
+      "process": {
+        "exit": 1,
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_MALFORMED"
+      }
+    },
+    {
+      "id": "limit.stdout_bytes_above",
+      "construction": {
+        "fixture": "stream_bytes",
+        "byte": "7b",
+        "terminal_lf": true,
+        "count": 268435457
+      },
+      "process": {
+        "exit": 1,
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_LIMIT"
+      }
+    },
+    {
+      "id": "limit.stderr_bytes_at",
+      "input_from": "status.valid_rejected",
+      "process": {
+        "exit": 3,
+        "stdout": "canonical",
+        "stderr": {
+          "fixture": "stderr_bytes",
+          "byte": "78",
+          "count": 2097152
+        }
+      },
+      "expect": {
+        "outcome": "accept"
+      }
+    },
+    {
+      "id": "limit.stderr_bytes_above",
+      "input_from": "status.valid_rejected",
+      "process": {
+        "exit": 3,
+        "stdout": "canonical",
+        "stderr": {
+          "fixture": "stderr_bytes",
+          "byte": "78",
+          "count": 2097153
+        }
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_LIMIT"
+      }
+    },
+    {
+      "id": "limit.issue_entries_at",
+      "construction": {
+        "fixture": "normalized_issues",
+        "base": "status.valid_rejected",
+        "rejected_features": 1024,
+        "diagnostics": 0,
+        "message_bytes_each": 1
+      },
+      "expect": {
+        "outcome": "accept",
+        "marker": false
+      }
+    },
+    {
+      "id": "limit.issue_entries_above_truncates",
+      "construction": {
+        "fixture": "normalized_issues",
+        "base": "status.valid_rejected",
+        "rejected_features": 1025,
+        "diagnostics": 0,
+        "message_bytes_each": 1
+      },
+      "expect": {
+        "outcome": "accept",
+        "retained_before_marker": 1023,
+        "marker_code": "GO_LIMIT_DIAGNOSTICS_TRUNCATED",
+        "marker_message": "2 normalized issues omitted"
+      }
+    },
+    {
+      "id": "limit.message_bytes_at",
+      "construction": {
+        "fixture": "normalized_message",
+        "base": "status.valid_rejected",
+        "input_utf8_bytes": 4096
+      },
+      "expect": {
+        "outcome": "accept",
+        "truncated": false
+      }
+    },
+    {
+      "id": "limit.message_bytes_above",
+      "construction": {
+        "fixture": "normalized_message",
+        "base": "status.valid_rejected",
+        "input_utf8_bytes": 4097
+      },
+      "expect": {
+        "outcome": "accept",
+        "output_utf8_bytes": 4096,
+        "suffix": " [truncated]"
+      }
+    },
+    {
+      "id": "limit.combined_message_bytes_at",
+      "construction": {
+        "fixture": "normalized_issues",
+        "base": "status.valid_rejected",
+        "rejected_features": 512,
+        "diagnostics": 0,
+        "message_bytes_each": 4096
+      },
+      "expect": {
+        "outcome": "accept",
+        "marker": false,
+        "combined_message_bytes": 2097152
+      }
+    },
+    {
+      "id": "limit.combined_message_bytes_above_truncates",
+      "construction": {
+        "fixture": "normalized_issues",
+        "base": "status.valid_rejected",
+        "rejected_features": 513,
+        "diagnostics": 0,
+        "message_bytes_each": 4096
+      },
+      "expect": {
+        "outcome": "accept",
+        "retained_before_marker": 511,
+        "marker_code": "GO_LIMIT_DIAGNOSTICS_TRUNCATED",
+        "marker_message": "2 normalized issues omitted"
+      }
+    },
+    {
+      "id": "limit.path_leak_in_message",
+      "construction": {
+        "base": "status.valid_frontend_error",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/diagnostics/0/message",
+            "value": "failed under /home/alice/project"
+          }
+        ]
+      },
+      "process": {
+        "exit": 1,
+        "stdout": "canonical",
+        "stderr_base64": ""
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "code": "FRONTEND_PROTOCOL_SHAPE"
+      }
+    }
+  ]
+}

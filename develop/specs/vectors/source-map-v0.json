@@ -1,0 +1,586 @@
+{
+  "schema": "mpk.source_map.conformance.v0",
+  "spec_schema": "mpk.source_map.v0",
+  "dependencies": {
+    "vir_vector": "develop/specs/vectors/vir-v0.json",
+    "vir_case": "module.valid_go_identity"
+  },
+  "owner_tests": [
+    "crates/mpk-vc/tests/source_map.rs",
+    "go-tools/go2vir/corpus_test.go",
+    "rust-tools/rust2vir/tests/frontend_envelope.rs"
+  ],
+  "fixture_sources": [
+    {
+      "id": "source.identity_go",
+      "kind": "source",
+      "normalized_path": "identity.go",
+      "base64": "cGFja2FnZSB2ZWN0b3IKCmZ1bmMgSWRlbnRpdHkodmFsdWUgaW50OCkgaW50OCB7IHJldHVybiB2YWx1ZSB9Cg==",
+      "size_bytes": 64,
+      "sha256": "f387d3ec7532adabcc75407d7cad3e4df113cd255ff177b1b9f02985bbccacea"
+    },
+    {
+      "id": "source.unicode_go",
+      "kind": "source",
+      "normalized_path": "unicode.go",
+      "base64": "cGFja2FnZSBwCi8vIGNhZsOpCg==",
+      "size_bytes": 19,
+      "sha256": "7d7ecc55093c27229024e2a93c2f3e42ec94efc6e5fe762ed3f67fe622d90558"
+    }
+  ],
+  "map_cases": [
+    {
+      "id": "map.valid_go_identity",
+      "context": {
+        "vir_case": "module.valid_go_identity",
+        "source_cases": [
+          "source.identity_go"
+        ],
+        "synthetic_profile": "none"
+      },
+      "input": {
+        "schema": "mpk.source_map.v0",
+        "source_ir_schema": "mpk.vir.v0",
+        "source_ir_hash": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690",
+        "entries": [
+          {
+            "reference": {
+              "kind": "function",
+              "unit_id": "example.com/mpk/vector",
+              "function_id": "example.com/mpk/vector.Identity"
+            },
+            "origin": {
+              "kind": "source",
+              "input_kind": "source",
+              "normalized_path": "identity.go",
+              "start": 16,
+              "end": 63
+            }
+          },
+          {
+            "reference": {
+              "kind": "terminator",
+              "unit_id": "example.com/mpk/vector",
+              "function_id": "example.com/mpk/vector.Identity",
+              "block": "bb0"
+            },
+            "origin": {
+              "kind": "source",
+              "input_kind": "source",
+              "normalized_path": "identity.go",
+              "start": 49,
+              "end": 61
+            }
+          }
+        ],
+        "source_map_hash": "f66b38fcdba7dd4b6250269c566d5599c2b1821a69370f67aa961fdb5893b6f9"
+      },
+      "expect": {
+        "outcome": "accept",
+        "canonical_jcs_utf8_length": 695
+      }
+    },
+    {
+      "id": "map.reject_wrong_schema",
+      "construction": {
+        "base": "map.valid_go_identity",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/schema",
+            "value": "mpk.source_map.v1"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "SOURCE_MAP_SCHEMA"
+      }
+    },
+    {
+      "id": "map.reject_unknown_root_field",
+      "construction": {
+        "base": "map.valid_go_identity",
+        "patches": [
+          {
+            "op": "add",
+            "path": "/line_map",
+            "value": []
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "SOURCE_MAP_SHAPE"
+      }
+    },
+    {
+      "id": "map.reject_duplicate_key",
+      "json_text": "{\"schema\":\"mpk.source_map.v0\",\"schema\":\"mpk.source_map.v0\"}",
+      "expect": {
+        "outcome": "reject",
+        "phase": "transport",
+        "code": "SOURCE_MAP_JSON_DUPLICATE_KEY"
+      }
+    }
+  ],
+  "reference_cases": [
+    {
+      "id": "reference.reject_unknown_kind",
+      "construction": {
+        "base": "map.valid_go_identity",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/entries/0/reference/kind",
+            "value": "block"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "SOURCE_MAP_SHAPE"
+      }
+    },
+    {
+      "id": "reference.reject_instruction_only_field_on_function",
+      "construction": {
+        "base": "map.valid_go_identity",
+        "patches": [
+          {
+            "op": "add",
+            "path": "/entries/0/reference/instruction",
+            "value": "t0"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "SOURCE_MAP_SHAPE"
+      }
+    },
+    {
+      "id": "reference.reject_unknown_block",
+      "construction": {
+        "base": "map.valid_go_identity",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/entries/1/reference/block",
+            "value": "bb1"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "linkage",
+        "code": "SOURCE_MAP_REFERENCE"
+      }
+    }
+  ],
+  "mapping_cases": [
+    {
+      "id": "mapping.reject_missing_terminator",
+      "construction": {
+        "base": "map.valid_go_identity",
+        "patches": [
+          {
+            "op": "remove",
+            "path": "/entries/1"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "coverage",
+        "code": "SOURCE_MAP_TOTAL"
+      }
+    },
+    {
+      "id": "mapping.reject_duplicate_reference",
+      "construction": {
+        "base": "map.valid_go_identity",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/entries/1/reference",
+            "value": {
+              "kind": "function",
+              "unit_id": "example.com/mpk/vector",
+              "function_id": "example.com/mpk/vector.Identity"
+            }
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "order",
+        "code": "SOURCE_MAP_ORDER"
+      }
+    },
+    {
+      "id": "mapping.reject_reversed_order",
+      "construction": {
+        "base": "map.valid_go_identity",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/entries",
+            "value": [
+              {
+                "reference": {
+                  "kind": "terminator",
+                  "unit_id": "example.com/mpk/vector",
+                  "function_id": "example.com/mpk/vector.Identity",
+                  "block": "bb0"
+                },
+                "origin": {
+                  "kind": "source",
+                  "input_kind": "source",
+                  "normalized_path": "identity.go",
+                  "start": 49,
+                  "end": 61
+                }
+              },
+              {
+                "reference": {
+                  "kind": "function",
+                  "unit_id": "example.com/mpk/vector",
+                  "function_id": "example.com/mpk/vector.Identity"
+                },
+                "origin": {
+                  "kind": "source",
+                  "input_kind": "source",
+                  "normalized_path": "identity.go",
+                  "start": 16,
+                  "end": 63
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "order",
+        "code": "SOURCE_MAP_ORDER"
+      }
+    },
+    {
+      "id": "mapping.reject_synthetic_function",
+      "construction": {
+        "base": "map.valid_go_identity",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/entries/0/origin",
+            "value": {
+              "kind": "synthetic",
+              "reason": "profile.control_flow_join"
+            }
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "coverage",
+        "code": "SOURCE_MAP_SYNTHETIC"
+      }
+    },
+    {
+      "id": "mapping.accept_profile_synthetic_instruction",
+      "construction": {
+        "fixture": "valid_synthetic_instruction",
+        "reason": "profile.control_flow_join"
+      },
+      "expect": {
+        "outcome": "accept"
+      }
+    },
+    {
+      "id": "mapping.reject_source_ir_identity",
+      "construction": {
+        "base": "map.valid_go_identity",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/source_ir_hash",
+            "value": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "linkage",
+        "code": "SOURCE_MAP_IR_IDENTITY"
+      }
+    }
+  ],
+  "path_cases": [
+    {
+      "id": "path.reject_absolute",
+      "construction": {
+        "base": "map.valid_go_identity",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/entries/0/origin/normalized_path",
+            "value": "/home/alice/identity.go"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "scalar",
+        "code": "SOURCE_MAP_PATH"
+      }
+    },
+    {
+      "id": "path.reject_contract_input_kind",
+      "construction": {
+        "base": "map.valid_go_identity",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/entries/0/origin/input_kind",
+            "value": "contract"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "SOURCE_MAP_SHAPE"
+      }
+    },
+    {
+      "id": "path.reject_path_resolving_to_contract",
+      "construction": {
+        "base": "map.valid_go_identity",
+        "context": {
+          "additional_manifest_inputs": [
+            {
+              "kind": "contract",
+              "normalized_path": "contracts/identity.json",
+              "size_bytes": 181,
+              "sha256": "ddfafe866f187501b19a19b0e89106361db7401d160195c652c162a876c80ba4"
+            }
+          ]
+        },
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/entries/0/origin/normalized_path",
+            "value": "contracts/identity.json"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "linkage",
+        "code": "SOURCE_MAP_INPUT_KIND"
+      }
+    },
+    {
+      "id": "path.accept_range_at_input_size",
+      "construction": {
+        "base": "map.valid_go_identity",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/entries/0/origin/end",
+            "value": 64
+          },
+          {
+            "op": "replace",
+            "path": "/source_map_hash",
+            "value": "0145cb3c81dfa48c091de0d8f2cd25f47c305a712103dac6c98ec87c8778b501"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "accept"
+      }
+    },
+    {
+      "id": "path.reject_range_above_input_size",
+      "construction": {
+        "base": "map.valid_go_identity",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/entries/0/origin/end",
+            "value": 65
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "linkage",
+        "code": "SOURCE_MAP_RANGE"
+      }
+    },
+    {
+      "id": "path.reject_utf8_split",
+      "construction": {
+        "base": "map.valid_go_identity",
+        "context": {
+          "source_cases": [
+            "source.identity_go",
+            "source.unicode_go"
+          ]
+        },
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/entries/0/origin/normalized_path",
+            "value": "unicode.go"
+          },
+          {
+            "op": "replace",
+            "path": "/entries/0/origin/start",
+            "value": 16
+          },
+          {
+            "op": "replace",
+            "path": "/entries/0/origin/end",
+            "value": 17
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "utf8",
+        "code": "SOURCE_MAP_UTF8_BOUNDARY"
+      }
+    }
+  ],
+  "hash_cases": [
+    {
+      "id": "hash.valid_go_identity",
+      "source_case": "map.valid_go_identity",
+      "domain_utf8": "MPK-SOURCE-MAP-0.1",
+      "separator_hex": "00",
+      "canonical_without_hash_utf8_length": 610,
+      "expected_sha256": "f66b38fcdba7dd4b6250269c566d5599c2b1821a69370f67aa961fdb5893b6f9"
+    },
+    {
+      "id": "hash.reject_wrong_hash",
+      "construction": {
+        "base": "map.valid_go_identity",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/source_map_hash",
+            "value": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "hash",
+        "code": "SOURCE_MAP_HASH"
+      }
+    },
+    {
+      "id": "hash.domain_text_required",
+      "source_case": "map.valid_go_identity",
+      "wrong_domain_utf8": "MPK-SOURCE-MAP-0.2",
+      "separator_hex": "00",
+      "wrong_domain_sha256": "6f38eced98082dd409247aa0c99a2d6ede1935f4a74e28773ef9a8a5847eb2e4",
+      "expect_different": true
+    },
+    {
+      "id": "hash.separator_required",
+      "source_case": "map.valid_go_identity",
+      "domain_utf8": "MPK-SOURCE-MAP-0.1",
+      "wrong_separator_hex": "",
+      "wrong_separator_sha256": "93bc730c2da123c2e981ef99b32a330ff5b489789aba2ebaf00d0c500debfd9e",
+      "expect_different": true
+    }
+  ],
+  "limit_cases": [
+    {
+      "id": "limit.entries_at",
+      "construction": {
+        "fixture": "entry_count",
+        "count": 323728,
+        "context": {
+          "validator": "entry_count_counter"
+        }
+      },
+      "expect": {
+        "outcome": "accept"
+      }
+    },
+    {
+      "id": "limit.entries_above",
+      "construction": {
+        "fixture": "entry_count",
+        "count": 323729,
+        "context": {
+          "validator": "entry_count_counter"
+        }
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "transport",
+        "code": "SOURCE_MAP_LIMIT_ENTRIES"
+      }
+    },
+    {
+      "id": "limit.canonical_bytes_at",
+      "construction": {
+        "fixture": "canonical_size",
+        "count": 33554432,
+        "context": {
+          "validator": "canonical_size_counter"
+        }
+      },
+      "expect": {
+        "outcome": "accept"
+      }
+    },
+    {
+      "id": "limit.canonical_bytes_above",
+      "construction": {
+        "fixture": "canonical_size",
+        "count": 33554433,
+        "context": {
+          "validator": "canonical_size_counter"
+        }
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "canonical_size",
+        "code": "SOURCE_MAP_LIMIT_CANONICAL_BYTES"
+      }
+    },
+    {
+      "id": "limit.path_bytes_at",
+      "construction": {
+        "fixture": "normalized_path",
+        "count": 1024
+      },
+      "expect": {
+        "outcome": "accept"
+      }
+    },
+    {
+      "id": "limit.path_bytes_above",
+      "construction": {
+        "fixture": "normalized_path",
+        "count": 1025
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "scalar",
+        "code": "SOURCE_MAP_PATH"
+      }
+    }
+  ]
+}

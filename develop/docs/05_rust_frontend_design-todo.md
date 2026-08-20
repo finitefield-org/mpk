@@ -610,7 +610,7 @@ git diff --check
 
 ### VIR-00-T04 Freeze the Frontend, Source Map, and Source Manifest Protocols
 
-Status: Pending
+Status: Complete (2026-08-20).
 
 Depends on: VIR-00-T02, VIR-00-T03.
 
