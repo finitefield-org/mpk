@@ -479,7 +479,7 @@ git diff --check
 
 ### VIR-00-T03 Freeze Release Registry and Bundle Installation Contracts
 
-Status: Pending
+Status: Complete (2026-08-20).
 
 Depends on: VIR-00-T02.
 

@@ -1,0 +1,2355 @@
+{
+  "schema": "mpk.release.bundle_conformance.v0",
+  "spec_schemas": [
+    "mpk.release.bundle_candidate.v0",
+    "mpk.release.bundle_inventory.v0",
+    "mpk.release.bundle_registry.v0",
+    "mpk.release.frontend_bundle.v0",
+    "mpk.release.toolchain_bundle.v0"
+  ],
+  "owner_tests": [
+    "crates/mpk-vc/tests/release_bundle.rs",
+    "crates/mpk-cli/tests/frontend_runner.rs"
+  ],
+  "fixtures": {
+    "bootstrap_registry": {
+      "schema": "mpk.release.bundle_registry.v0",
+      "id": "mpk.release.registry.v0",
+      "execution_host_profiles": [],
+      "native_runtime_layout_profiles": [],
+      "frontend_bundles": [],
+      "toolchain_bundles": [],
+      "tuples": [],
+      "registry_sha256": "2af7063ea0b01da6947cb06b4cd6b244d985ca39943147f7bf55f0e7bba192a7"
+    },
+    "valid_registry": {
+      "schema": "mpk.release.bundle_registry.v0",
+      "id": "mpk.release.registry.v0",
+      "execution_host_profiles": [
+        {
+          "id": "mpk.host.linux-x86_64-gnu.synthetic.v0",
+          "os": "linux",
+          "architecture": "x86_64",
+          "abi": "gnu",
+          "minimum_kernel_abi": "5.10.0",
+          "probe_profile_id": "mpk.release.probe.linux_namespaces.v0",
+          "required_primitives": [
+            "filesystem.atomic_no_replace",
+            "filesystem.immutable_handle",
+            "filesystem.no_follow_open",
+            "isolation.mount_namespace",
+            "isolation.network_namespace",
+            "isolation.user_namespace",
+            "mount.no_exec",
+            "mount.read_only",
+            "process.closed_environment",
+            "process.no_new_privileges"
+          ]
+        }
+      ],
+      "native_runtime_layout_profiles": [
+        {
+          "id": "mpk.runtime.linux-x86_64-gnu.synthetic.v0",
+          "execution_host_profile_id": "mpk.host.linux-x86_64-gnu.synthetic.v0",
+          "runtime_root": "/mpk/native-runtime",
+          "interpreter_mounts": [
+            {
+              "component_path": "lib64/ld-linux-x86-64.so.2",
+              "sandbox_path": "/lib64/ld-linux-x86-64.so.2"
+            }
+          ],
+          "library_mounts": [
+            {
+              "component_path": "lib/x86_64-linux-gnu",
+              "sandbox_path": "/lib/x86_64-linux-gnu"
+            }
+          ],
+          "loader_search_paths": [
+            "/lib/x86_64-linux-gnu"
+          ],
+          "forbidden_host_roots": [
+            "/lib",
+            "/lib64",
+            "/usr/lib"
+          ]
+        }
+      ],
+      "frontend_bundles": [
+        {
+          "schema": "mpk.release.frontend_bundle.v0",
+          "bundle_id": "frontend.go.synthetic.v0",
+          "source_language": "go",
+          "name": "go2vir",
+          "version": "vector-1",
+          "limit_profile_id": "mpk.vir.limits.v0",
+          "environment_profile_id": "mpk.go.frontend_environment.v0",
+          "argument_profile_id": "mpk.go.frontend_arguments.v0",
+          "main": {
+            "name": "go2vir",
+            "version": "vector-1",
+            "path": "bin/go2vir",
+            "binary_sha256": "306c6ca7407560340797866e077e053627ad409277d1b9da58106fce4cf717cb",
+            "runtime": {
+              "kind": "dynamic",
+              "interpreter_mount": "/lib64/ld-linux-x86-64.so.2",
+              "libraries": [
+                {
+                  "soname": "libc.so.6",
+                  "component_path": "lib/x86_64-linux-gnu/libc.so.6",
+                  "sha256": "626bb7de4f22f82671af5471457c277a1c342eda3c5a609ae919a5ae7d27e4bb"
+                }
+              ]
+            }
+          },
+          "subordinate_binaries": [],
+          "inventory": {
+            "schema": "mpk.release.bundle_inventory.v0",
+            "scope": {
+              "kind": "frontend_bundle",
+              "bundle_id": "frontend.go.synthetic.v0"
+            },
+            "files": [
+              {
+                "path": "NOTICE.txt",
+                "executable": false,
+                "size_bytes": 26,
+                "sha256": "abfe8af06854a5398523da8ace7350153cb71e8d23ee817c498f530600c149d7"
+              },
+              {
+                "path": "bin/go2vir",
+                "executable": true,
+                "size_bytes": 17,
+                "sha256": "306c6ca7407560340797866e077e053627ad409277d1b9da58106fce4cf717cb"
+              }
+            ]
+          },
+          "bundle_sha256": "082cd9a1128430e62c66200169464bae09a6330ae04d2e1ea7c07aa2fe8c44cb"
+        }
+      ],
+      "toolchain_bundles": [
+        {
+          "schema": "mpk.release.toolchain_bundle.v0",
+          "bundle_id": "toolchain.go.synthetic.v0",
+          "source_language": "go",
+          "compiler": {
+            "kind": "go",
+            "release": "go1.25.0"
+          },
+          "execution_host_profile_id": "mpk.host.linux-x86_64-gnu.synthetic.v0",
+          "native_runtime": {
+            "kind": "component",
+            "component_name": "native-runtime",
+            "component_root": "native-runtime",
+            "layout_profile_id": "mpk.runtime.linux-x86_64-gnu.synthetic.v0"
+          },
+          "components": [
+            {
+              "kind": "executable",
+              "name": "go",
+              "release": "go1.25.0",
+              "path": "bin/go",
+              "binary_sha256": "306c6ca7407560340797866e077e053627ad409277d1b9da58106fce4cf717cb",
+              "runtime": {
+                "kind": "dynamic",
+                "interpreter_mount": "/lib64/ld-linux-x86-64.so.2",
+                "libraries": [
+                  {
+                    "soname": "libc.so.6",
+                    "component_path": "lib/x86_64-linux-gnu/libc.so.6",
+                    "sha256": "626bb7de4f22f82671af5471457c277a1c342eda3c5a609ae919a5ae7d27e4bb"
+                  }
+                ]
+              }
+            },
+            {
+              "kind": "content",
+              "name": "go-stdlib",
+              "release": "go1.25.0",
+              "inventory": {
+                "schema": "mpk.release.bundle_inventory.v0",
+                "scope": {
+                  "kind": "component",
+                  "bundle_id": "toolchain.go.synthetic.v0",
+                  "component_name": "go-stdlib"
+                },
+                "files": [
+                  {
+                    "path": "pkg/linux_amd64/runtime.a",
+                    "executable": false,
+                    "size_bytes": 20,
+                    "sha256": "3515da3323fbaabace949c65c2259a4c0d59e584222ffd417ae55c51aae97b2a"
+                  }
+                ]
+              },
+              "content_sha256": "d0e474c3d4c5604aa8d233021e24e742322ff0cea7cf55c1ce7f2c87dfefa469"
+            },
+            {
+              "kind": "content",
+              "name": "native-runtime",
+              "release": "synthetic-1",
+              "inventory": {
+                "schema": "mpk.release.bundle_inventory.v0",
+                "scope": {
+                  "kind": "component",
+                  "bundle_id": "toolchain.go.synthetic.v0",
+                  "component_name": "native-runtime"
+                },
+                "files": [
+                  {
+                    "path": "native-runtime/lib/x86_64-linux-gnu/libc.so.6",
+                    "executable": true,
+                    "size_bytes": 15,
+                    "sha256": "626bb7de4f22f82671af5471457c277a1c342eda3c5a609ae919a5ae7d27e4bb"
+                  },
+                  {
+                    "path": "native-runtime/lib64/ld-linux-x86-64.so.2",
+                    "executable": true,
+                    "size_bytes": 26,
+                    "sha256": "1f2c11da83a846ff7de18960efc313618a009f3ec7f4b0ac9d4f5d4c527c7ab2"
+                  }
+                ]
+              },
+              "content_sha256": "dcabd7c7214d69d0cc474407283579497db30f56e2dc4e388a71886446d5c948"
+            },
+            {
+              "kind": "content",
+              "name": "notices",
+              "release": "synthetic-1",
+              "inventory": {
+                "schema": "mpk.release.bundle_inventory.v0",
+                "scope": {
+                  "kind": "component",
+                  "bundle_id": "toolchain.go.synthetic.v0",
+                  "component_name": "notices"
+                },
+                "files": [
+                  {
+                    "path": "NOTICE.txt",
+                    "executable": false,
+                    "size_bytes": 27,
+                    "sha256": "7e2ad68ab6517364fc7fd2594d83d204a1560a8657575f27fff1db0463a765a6"
+                  }
+                ]
+              },
+              "content_sha256": "e0b4c60c121662d43796c29e52be87b45907687b40de12a76bf92e8a928c02e6"
+            }
+          ],
+          "target_libraries": [
+            {
+              "target_id": "linux/amd64",
+              "pointer_width": 64,
+              "component_name": "go-stdlib",
+              "content_sha256": "d0e474c3d4c5604aa8d233021e24e742322ff0cea7cf55c1ce7f2c87dfefa469"
+            }
+          ],
+          "inventory": {
+            "schema": "mpk.release.bundle_inventory.v0",
+            "scope": {
+              "kind": "toolchain_bundle",
+              "bundle_id": "toolchain.go.synthetic.v0"
+            },
+            "files": [
+              {
+                "path": "NOTICE.txt",
+                "executable": false,
+                "size_bytes": 27,
+                "sha256": "7e2ad68ab6517364fc7fd2594d83d204a1560a8657575f27fff1db0463a765a6"
+              },
+              {
+                "path": "bin/go",
+                "executable": true,
+                "size_bytes": 17,
+                "sha256": "306c6ca7407560340797866e077e053627ad409277d1b9da58106fce4cf717cb"
+              },
+              {
+                "path": "native-runtime/lib/x86_64-linux-gnu/libc.so.6",
+                "executable": true,
+                "size_bytes": 15,
+                "sha256": "626bb7de4f22f82671af5471457c277a1c342eda3c5a609ae919a5ae7d27e4bb"
+              },
+              {
+                "path": "native-runtime/lib64/ld-linux-x86-64.so.2",
+                "executable": true,
+                "size_bytes": 26,
+                "sha256": "1f2c11da83a846ff7de18960efc313618a009f3ec7f4b0ac9d4f5d4c527c7ab2"
+              },
+              {
+                "path": "pkg/linux_amd64/runtime.a",
+                "executable": false,
+                "size_bytes": 20,
+                "sha256": "3515da3323fbaabace949c65c2259a4c0d59e584222ffd417ae55c51aae97b2a"
+              }
+            ]
+          },
+          "distribution_sha256": "1dfc37014daf7080cfe690d97ff3d5856fd28dc556a430cb510bad757de7d1f9"
+        }
+      ],
+      "tuples": [
+        {
+          "source_language": "go",
+          "semantic_profile": "mpk.go.fixed.v0",
+          "target_id": "linux/amd64",
+          "pointer_width": 64,
+          "limit_profile_id": "mpk.vir.limits.v0",
+          "frontend_bundle_id": "frontend.go.synthetic.v0",
+          "toolchain_bundle_id": "toolchain.go.synthetic.v0"
+        }
+      ],
+      "registry_sha256": "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7"
+    },
+    "bundle_bytes": [
+      {
+        "bundle_id": "frontend.go.synthetic.v0",
+        "files": [
+          {
+            "path": "NOTICE.txt",
+            "mode": "0444",
+            "base64": "U3ludGhldGljIGZyb250ZW5kIG5vdGljZQo="
+          },
+          {
+            "path": "bin/go2vir",
+            "mode": "0555",
+            "base64": "IyEvYmluL3NoCmV4aXQgMAo="
+          }
+        ]
+      },
+      {
+        "bundle_id": "toolchain.go.synthetic.v0",
+        "files": [
+          {
+            "path": "NOTICE.txt",
+            "mode": "0444",
+            "base64": "U3ludGhldGljIHRvb2xjaGFpbiBub3RpY2UK"
+          },
+          {
+            "path": "bin/go",
+            "mode": "0555",
+            "base64": "IyEvYmluL3NoCmV4aXQgMAo="
+          },
+          {
+            "path": "native-runtime/lib/x86_64-linux-gnu/libc.so.6",
+            "mode": "0555",
+            "base64": "c3ludGhldGljLWxpYmMK"
+          },
+          {
+            "path": "native-runtime/lib64/ld-linux-x86-64.so.2",
+            "mode": "0555",
+            "base64": "c3ludGhldGljLWVsZi1pbnRlcnByZXRlcgo="
+          },
+          {
+            "path": "pkg/linux_amd64/runtime.a",
+            "mode": "0444",
+            "base64": "c3ludGhldGljLWdvLXN0ZGxpYgo="
+          }
+        ]
+      }
+    ]
+  },
+  "registry_cases": [
+    {
+      "id": "registry.bootstrap_accept",
+      "construction": {
+        "fixture": "bootstrap_registry",
+        "operations": []
+      },
+      "expect": {
+        "outcome": "accept"
+      }
+    },
+    {
+      "id": "registry.synthetic_accept",
+      "construction": {
+        "fixture": "valid_registry",
+        "operations": []
+      },
+      "expect": {
+        "outcome": "accept"
+      }
+    },
+    {
+      "id": "registry.wrong_schema",
+      "construction": {
+        "fixture": "valid_registry",
+        "operations": [
+          {
+            "op": "replace",
+            "path": "/schema",
+            "value": "mpk.release.bundle_registry.v1"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    },
+    {
+      "id": "registry.unknown_field",
+      "construction": {
+        "fixture": "valid_registry",
+        "operations": [
+          {
+            "op": "add",
+            "path": "/registry_path",
+            "value": "/tmp/alternate.json"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    },
+    {
+      "id": "registry.frontend_descriptor_unknown_field",
+      "construction": {
+        "fixture": "valid_registry",
+        "operations": [
+          {
+            "op": "add",
+            "path": "/frontend_bundles/0/executable_path_override",
+            "value": "/tmp/go2vir"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    },
+    {
+      "id": "registry.executable_component_wrong_union_shape",
+      "construction": {
+        "fixture": "valid_registry",
+        "operations": [
+          {
+            "op": "add",
+            "path": "/toolchain_bundles/0/components/0/content_sha256",
+            "value": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    },
+    {
+      "id": "registry.missing_tuples",
+      "construction": {
+        "fixture": "valid_registry",
+        "operations": [
+          {
+            "op": "remove",
+            "path": "/tuples"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    },
+    {
+      "id": "registry.duplicate_json_name",
+      "json_text": "{\"execution_host_profiles\":[],\"frontend_bundles\":[],\"id\":\"mpk.release.registry.v0\",\"native_runtime_layout_profiles\":[],\"registry_sha256\":\"2af7063ea0b01da6947cb06b4cd6b244d985ca39943147f7bf55f0e7bba192a7\",\"schema\":\"mpk.release.bundle_registry.v0\",\"schema\":\"mpk.release.bundle_registry.v0\",\"toolchain_bundles\":[],\"tuples\":[]}\n",
+      "expect": {
+        "outcome": "reject",
+        "phase": "transport",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    },
+    {
+      "id": "registry.duplicate_tuple",
+      "construction": {
+        "fixture": "valid_registry",
+        "operations": [
+          {
+            "op": "copy",
+            "from": "/tuples/0",
+            "path": "/tuples/-"
+          }
+        ],
+        "rehash_registry": true
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "order",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    },
+    {
+      "id": "registry.duplicate_bundle_id",
+      "construction": {
+        "fixture": "valid_registry",
+        "operations": [
+          {
+            "op": "copy",
+            "from": "/frontend_bundles/0",
+            "path": "/frontend_bundles/-"
+          }
+        ],
+        "rehash_registry": true
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "order",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    },
+    {
+      "id": "registry.reordered_components",
+      "construction": {
+        "fixture": "valid_registry",
+        "operations": [
+          {
+            "op": "move",
+            "from": "/toolchain_bundles/0/components/1",
+            "path": "/toolchain_bundles/0/components/0"
+          }
+        ],
+        "rehash_registry": true
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "order",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    },
+    {
+      "id": "registry.mutated_descriptor_without_root_update",
+      "construction": {
+        "fixture": "valid_registry",
+        "operations": [
+          {
+            "op": "replace",
+            "path": "/frontend_bundles/0/version",
+            "value": "vector-2"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "registry_hash",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    },
+    {
+      "id": "registry.mutated_main_digest_rehashed",
+      "construction": {
+        "fixture": "valid_registry",
+        "operations": [
+          {
+            "op": "replace",
+            "path": "/frontend_bundles/0/main/binary_sha256",
+            "value": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        ],
+        "rehash_registry": true
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "invariant",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    },
+    {
+      "id": "registry.added_subordinate_rehashed",
+      "construction": {
+        "fixture": "valid_registry",
+        "operations": [
+          {
+            "op": "add",
+            "path": "/frontend_bundles/0/subordinate_binaries/-",
+            "value": {
+              "name": "hidden-driver",
+              "version": "vector-1",
+              "path": "bin/hidden-driver",
+              "binary_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "runtime": {
+                "kind": "static"
+              }
+            }
+          }
+        ],
+        "rehash_registry": true
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "invariant",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    },
+    {
+      "id": "registry.added_toolchain_component_rehashed",
+      "construction": {
+        "fixture": "valid_registry",
+        "operations": [
+          {
+            "op": "copy",
+            "from": "/toolchain_bundles/0/components/3",
+            "path": "/toolchain_bundles/0/components/-"
+          },
+          {
+            "op": "replace",
+            "path": "/toolchain_bundles/0/components/4/name",
+            "value": "zzz-hidden"
+          },
+          {
+            "op": "replace",
+            "path": "/toolchain_bundles/0/components/4/inventory/scope/component_name",
+            "value": "zzz-hidden"
+          }
+        ],
+        "rehash_registry": true
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "invariant",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    },
+    {
+      "id": "registry.unknown_host_profile",
+      "construction": {
+        "fixture": "valid_registry",
+        "operations": [
+          {
+            "op": "replace",
+            "path": "/toolchain_bundles/0/execution_host_profile_id",
+            "value": "mpk.host.unregistered.v0"
+          }
+        ],
+        "rehash_registry": true
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "order",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    },
+    {
+      "id": "registry.unsupported_language_profile_pair",
+      "construction": {
+        "fixture": "valid_registry",
+        "operations": [
+          {
+            "op": "replace",
+            "path": "/tuples/0/semantic_profile",
+            "value": "mpk.rust.checked.v0"
+          }
+        ],
+        "rehash_registry": true
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "invariant",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    },
+    {
+      "id": "registry.unsupported_target_tuple",
+      "construction": {
+        "fixture": "valid_registry",
+        "operations": [
+          {
+            "op": "replace",
+            "path": "/tuples/0/target_id",
+            "value": "linux/386"
+          },
+          {
+            "op": "replace",
+            "path": "/tuples/0/pointer_width",
+            "value": 32
+          }
+        ],
+        "rehash_registry": true
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "invariant",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    },
+    {
+      "id": "registry.noncanonical_transport",
+      "json_text": "{\n  \"schema\": \"mpk.release.bundle_registry.v0\",\n  \"id\": \"mpk.release.registry.v0\",\n  \"execution_host_profiles\": [],\n  \"native_runtime_layout_profiles\": [],\n  \"frontend_bundles\": [],\n  \"toolchain_bundles\": [],\n  \"tuples\": [],\n  \"registry_sha256\": \"2af7063ea0b01da6947cb06b4cd6b244d985ca39943147f7bf55f0e7bba192a7\"\n}\n",
+      "expect": {
+        "outcome": "reject",
+        "phase": "canonical_transport",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    }
+  ],
+  "inventory_cases": [
+    {
+      "id": "inventory.frontend_accept",
+      "construction": {
+        "fixture": "valid_registry",
+        "pointer": "/frontend_bundles/0/inventory",
+        "operations": []
+      },
+      "expect": {
+        "outcome": "accept"
+      }
+    },
+    {
+      "id": "inventory.wrong_schema",
+      "construction": {
+        "fixture": "valid_registry",
+        "operations": [
+          {
+            "op": "replace",
+            "path": "/frontend_bundles/0/inventory/schema",
+            "value": "mpk.release.bundle_inventory.v1"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    },
+    {
+      "id": "inventory.unknown_file_field",
+      "construction": {
+        "fixture": "valid_registry",
+        "operations": [
+          {
+            "op": "add",
+            "path": "/frontend_bundles/0/inventory/files/0/mtime",
+            "value": 0
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "shape",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    },
+    {
+      "id": "inventory.missing_root_file",
+      "construction": {
+        "fixture": "valid_registry",
+        "operations": [
+          {
+            "op": "remove",
+            "path": "/toolchain_bundles/0/inventory/files/4"
+          }
+        ],
+        "rehash_content": [
+          "/toolchain_bundles/0"
+        ],
+        "rehash_registry": true
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "invariant",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    },
+    {
+      "id": "inventory.extra_root_file",
+      "construction": {
+        "fixture": "valid_registry",
+        "operations": [
+          {
+            "op": "add",
+            "path": "/toolchain_bundles/0/inventory/files/-",
+            "value": {
+              "path": "zzz-extra.dat",
+              "executable": false,
+              "size_bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        ],
+        "rehash_content": [
+          "/toolchain_bundles/0"
+        ],
+        "rehash_registry": true
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "invariant",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    },
+    {
+      "id": "inventory.duplicate_path",
+      "construction": {
+        "fixture": "valid_registry",
+        "operations": [
+          {
+            "op": "copy",
+            "from": "/frontend_bundles/0/inventory/files/1",
+            "path": "/frontend_bundles/0/inventory/files/-"
+          }
+        ],
+        "rehash_content": [
+          "/frontend_bundles/0"
+        ],
+        "rehash_registry": true
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "order",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    },
+    {
+      "id": "inventory.reordered_files",
+      "construction": {
+        "fixture": "valid_registry",
+        "operations": [
+          {
+            "op": "move",
+            "from": "/frontend_bundles/0/inventory/files/1",
+            "path": "/frontend_bundles/0/inventory/files/0"
+          }
+        ],
+        "rehash_content": [
+          "/frontend_bundles/0"
+        ],
+        "rehash_registry": true
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "order",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    },
+    {
+      "id": "inventory.component_digest_mutated",
+      "construction": {
+        "fixture": "valid_registry",
+        "operations": [
+          {
+            "op": "replace",
+            "path": "/toolchain_bundles/0/components/3/content_sha256",
+            "value": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        ],
+        "rehash_registry": true
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "content_hash",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    },
+    {
+      "id": "inventory.target_library_digest_crossed",
+      "construction": {
+        "fixture": "valid_registry",
+        "operations": [
+          {
+            "op": "replace",
+            "path": "/toolchain_bundles/0/target_libraries/0/content_sha256",
+            "value": "0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        ],
+        "rehash_registry": true
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "invariant",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    }
+  ],
+  "installation_cases": [
+    {
+      "id": "installation.synthetic_accept",
+      "construction": {
+        "registry_fixture": "valid_registry",
+        "bundle_bytes_fixture": "bundle_bytes",
+        "mutations": []
+      },
+      "expect": {
+        "outcome": "accept"
+      }
+    },
+    {
+      "id": "installation.root_overrides_ignored",
+      "construction": {
+        "registry_fixture": "valid_registry",
+        "bundle_bytes_fixture": "bundle_bytes",
+        "mutations": [],
+        "ambient_inputs": {
+          "environment_mpk_release_root": "/attacker/environment",
+          "project_registry": "/attacker/project/bundle-registry.json",
+          "adjacent_registry": "/attacker/bin/bundle-registry.json",
+          "cli_release_root": "/attacker/cli"
+        }
+      },
+      "expect": {
+        "outcome": "accept",
+        "root_source": "already_opened_bin_mpk"
+      }
+    },
+    {
+      "id": "installation.registry_missing",
+      "construction": {
+        "registry_fixture": "valid_registry",
+        "bundle_bytes_fixture": "bundle_bytes",
+        "mutations": [
+          {
+            "kind": "remove",
+            "path": "share/mpk/bundle-registry.json"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "installed_registry",
+        "code": "FRONTEND_REGISTRY_MISSING"
+      }
+    },
+    {
+      "id": "installation.registry_symlink",
+      "construction": {
+        "registry_fixture": "valid_registry",
+        "bundle_bytes_fixture": "bundle_bytes",
+        "mutations": [
+          {
+            "kind": "symlink",
+            "path": "share/mpk/bundle-registry.json",
+            "target": "alternate-registry.json"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "installed_registry",
+        "code": "FRONTEND_REGISTRY_INVALID"
+      }
+    },
+    {
+      "id": "installation.missing_bundle_file",
+      "construction": {
+        "registry_fixture": "valid_registry",
+        "bundle_bytes_fixture": "bundle_bytes",
+        "mutations": [
+          {
+            "kind": "remove",
+            "bundle_id": "frontend.go.synthetic.v0",
+            "path": "bin/go2vir"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "installed_bundle",
+        "code": "FRONTEND_BUNDLE_INVALID"
+      }
+    },
+    {
+      "id": "installation.extra_bundle_file",
+      "construction": {
+        "registry_fixture": "valid_registry",
+        "bundle_bytes_fixture": "bundle_bytes",
+        "mutations": [
+          {
+            "kind": "regular_file",
+            "bundle_id": "frontend.go.synthetic.v0",
+            "path": "extra",
+            "mode": "0444",
+            "base64": ""
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "installed_bundle",
+        "code": "FRONTEND_BUNDLE_INVALID"
+      }
+    },
+    {
+      "id": "installation.executable_bit_changed",
+      "construction": {
+        "registry_fixture": "valid_registry",
+        "bundle_bytes_fixture": "bundle_bytes",
+        "mutations": [
+          {
+            "kind": "chmod",
+            "bundle_id": "frontend.go.synthetic.v0",
+            "path": "bin/go2vir",
+            "mode": "0444"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "installed_bundle",
+        "code": "FRONTEND_BUNDLE_INVALID"
+      }
+    },
+    {
+      "id": "installation.file_bytes_mutated",
+      "construction": {
+        "registry_fixture": "valid_registry",
+        "bundle_bytes_fixture": "bundle_bytes",
+        "mutations": [
+          {
+            "kind": "replace_bytes",
+            "bundle_id": "frontend.go.synthetic.v0",
+            "path": "bin/go2vir",
+            "base64": "IyEvYmluL3NoCmV4aXQgMQo="
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "installed_bundle",
+        "code": "FRONTEND_BUNDLE_INVALID"
+      }
+    },
+    {
+      "id": "installation.target_library_mutated",
+      "construction": {
+        "registry_fixture": "valid_registry",
+        "bundle_bytes_fixture": "bundle_bytes",
+        "mutations": [
+          {
+            "kind": "replace_bytes",
+            "bundle_id": "toolchain.go.synthetic.v0",
+            "path": "pkg/linux_amd64/runtime.a",
+            "base64": "bXV0YXRlZC1zdGRsaWIK"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "installed_bundle",
+        "code": "FRONTEND_BUNDLE_INVALID"
+      }
+    },
+    {
+      "id": "installation.native_library_missing_no_host_fallback",
+      "construction": {
+        "registry_fixture": "valid_registry",
+        "bundle_bytes_fixture": "bundle_bytes",
+        "mutations": [
+          {
+            "kind": "remove",
+            "bundle_id": "toolchain.go.synthetic.v0",
+            "path": "native-runtime/lib/x86_64-linux-gnu/libc.so.6"
+          },
+          {
+            "kind": "ambient_regular_file",
+            "path": "/lib/x86_64-linux-gnu/libc.so.6",
+            "matches_declared_digest": true
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "installed_bundle",
+        "code": "FRONTEND_BUNDLE_INVALID"
+      }
+    },
+    {
+      "id": "installation.symlink_bundle_file",
+      "construction": {
+        "registry_fixture": "valid_registry",
+        "bundle_bytes_fixture": "bundle_bytes",
+        "mutations": [
+          {
+            "kind": "symlink",
+            "bundle_id": "frontend.go.synthetic.v0",
+            "path": "bin/go2vir",
+            "target": "../other"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "installed_bundle",
+        "code": "FRONTEND_BUNDLE_INVALID"
+      }
+    },
+    {
+      "id": "installation.reparse_bundle_file",
+      "construction": {
+        "registry_fixture": "valid_registry",
+        "bundle_bytes_fixture": "bundle_bytes",
+        "mutations": [
+          {
+            "kind": "reparse_point",
+            "bundle_id": "frontend.go.synthetic.v0",
+            "path": "bin/go2vir"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "installed_bundle",
+        "code": "FRONTEND_BUNDLE_INVALID"
+      }
+    },
+    {
+      "id": "installation.hard_link_alias",
+      "construction": {
+        "registry_fixture": "valid_registry",
+        "bundle_bytes_fixture": "bundle_bytes",
+        "mutations": [
+          {
+            "kind": "hard_link",
+            "bundle_id": "frontend.go.synthetic.v0",
+            "path": "bin/go2vir",
+            "target_bundle_id": "toolchain.go.synthetic.v0",
+            "target_path": "bin/go"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "installed_bundle",
+        "code": "FRONTEND_BUNDLE_INVALID"
+      }
+    },
+    {
+      "id": "installation.special_file",
+      "construction": {
+        "registry_fixture": "valid_registry",
+        "bundle_bytes_fixture": "bundle_bytes",
+        "mutations": [
+          {
+            "kind": "fifo",
+            "bundle_id": "frontend.go.synthetic.v0",
+            "path": "bin/go2vir"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "installed_bundle",
+        "code": "FRONTEND_BUNDLE_INVALID"
+      }
+    },
+    {
+      "id": "installation.candidate_subtree",
+      "construction": {
+        "registry_fixture": "valid_registry",
+        "bundle_bytes_fixture": "bundle_bytes",
+        "mutations": [
+          {
+            "kind": "directory",
+            "path": "libexec/mpk/bundles/candidates"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "installed_layout",
+        "code": "FRONTEND_BUNDLE_INVALID"
+      }
+    },
+    {
+      "id": "installation.build_inputs_subtree",
+      "construction": {
+        "registry_fixture": "valid_registry",
+        "bundle_bytes_fixture": "bundle_bytes",
+        "mutations": [
+          {
+            "kind": "directory",
+            "path": "release/build-inputs"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "installed_layout",
+        "code": "FRONTEND_BUNDLE_INVALID"
+      }
+    },
+    {
+      "id": "installation.build_input_cache_subtree",
+      "construction": {
+        "registry_fixture": "valid_registry",
+        "bundle_bytes_fixture": "bundle_bytes",
+        "mutations": [
+          {
+            "kind": "directory",
+            "path": "libexec/mpk/bundles/build-input-cache"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "installed_layout",
+        "code": "FRONTEND_BUNDLE_INVALID"
+      }
+    },
+    {
+      "id": "installation.path_replaced_after_open",
+      "construction": {
+        "registry_fixture": "valid_registry",
+        "bundle_bytes_fixture": "bundle_bytes",
+        "mutations": [
+          {
+            "kind": "replace_after_open",
+            "bundle_id": "frontend.go.synthetic.v0",
+            "path": "bin/go2vir",
+            "replacement_base64": "IyEvYmluL3NoCmV4aXQgMQo="
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "accept_snapshot_original",
+        "executed_sha256": "306c6ca7407560340797866e077e053627ad409277d1b9da58106fce4cf717cb"
+      }
+    }
+  ],
+  "selection_cases": [
+    {
+      "id": "selection.exact_tuple_accept",
+      "registry_fixture": "valid_registry",
+      "request": {
+        "registry_id": "mpk.release.registry.v0",
+        "registry_sha256": "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7",
+        "source_language": "go",
+        "semantic_profile": "mpk.go.fixed.v0",
+        "target_id": "linux/amd64",
+        "frontend_bundle_id": "frontend.go.synthetic.v0",
+        "toolchain_bundle_id": "toolchain.go.synthetic.v0"
+      },
+      "expect": {
+        "outcome": "accept",
+        "selected_pointer_width": 64,
+        "selected_limit_profile_id": "mpk.vir.limits.v0"
+      }
+    },
+    {
+      "id": "selection.unknown_frontend_id",
+      "registry_fixture": "valid_registry",
+      "request": {
+        "registry_id": "mpk.release.registry.v0",
+        "registry_sha256": "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7",
+        "source_language": "go",
+        "semantic_profile": "mpk.go.fixed.v0",
+        "target_id": "linux/amd64",
+        "frontend_bundle_id": "frontend.go.unknown.v0",
+        "toolchain_bundle_id": "toolchain.go.synthetic.v0"
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "selection",
+        "code": "FRONTEND_BUNDLE_UNKNOWN"
+      }
+    },
+    {
+      "id": "selection.crossed_known_tuple",
+      "registry_fixture": "valid_registry",
+      "request": {
+        "registry_id": "mpk.release.registry.v0",
+        "registry_sha256": "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7",
+        "source_language": "go",
+        "semantic_profile": "mpk.go.fixed.v0",
+        "target_id": "linux/386",
+        "frontend_bundle_id": "frontend.go.synthetic.v0",
+        "toolchain_bundle_id": "toolchain.go.synthetic.v0"
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "selection",
+        "code": "FRONTEND_BUNDLE_INCOMPATIBLE"
+      }
+    },
+    {
+      "id": "selection.registry_assertion_mismatch",
+      "registry_fixture": "valid_registry",
+      "request": {
+        "registry_id": "mpk.release.registry.v0",
+        "registry_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "source_language": "go",
+        "semantic_profile": "mpk.go.fixed.v0",
+        "target_id": "linux/amd64",
+        "frontend_bundle_id": "frontend.go.synthetic.v0",
+        "toolchain_bundle_id": "toolchain.go.synthetic.v0"
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "selection",
+        "code": "FRONTEND_REGISTRY_ASSERTION"
+      }
+    },
+    {
+      "id": "selection.missing_bundle_ids_no_default",
+      "registry_fixture": "valid_registry",
+      "request": {
+        "registry_id": "mpk.release.registry.v0",
+        "registry_sha256": "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7",
+        "source_language": "go",
+        "semantic_profile": "mpk.go.fixed.v0",
+        "target_id": "linux/amd64"
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "selection",
+        "code": "FRONTEND_BUNDLE_UNKNOWN"
+      }
+    },
+    {
+      "id": "selection.candidate_schema_forbidden",
+      "input": {
+        "schema": "mpk.release.bundle_candidate.v0",
+        "source_language": "rust",
+        "execution_host_profiles": [],
+        "native_runtime_layout_profiles": [],
+        "frontend_bundles": [],
+        "toolchain_bundles": [],
+        "tuples": []
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "selection",
+        "code": "FRONTEND_BUNDLE_UNKNOWN"
+      }
+    }
+  ],
+  "assembler_cases": [
+    {
+      "id": "assembler.build_inputs_not_configured_update",
+      "argv": [
+        "--update-build-inputs",
+        "rust"
+      ],
+      "handler_state": "not_configured",
+      "expect": {
+        "outcome": "reject",
+        "exit": 65,
+        "stderr": "BUNDLE_BUILD_INPUTS_NOT_CONFIGURED\n",
+        "network": "disabled",
+        "persistent_writes": []
+      }
+    },
+    {
+      "id": "assembler.build_inputs_not_configured_provision",
+      "argv": [
+        "--provision-build-inputs",
+        "rust"
+      ],
+      "handler_state": "not_configured",
+      "expect": {
+        "outcome": "reject",
+        "exit": 65,
+        "stderr": "BUNDLE_BUILD_INPUTS_NOT_CONFIGURED\n",
+        "network": "disabled",
+        "persistent_writes": []
+      }
+    },
+    {
+      "id": "assembler.build_inputs_not_configured_check",
+      "argv": [
+        "--check-build-inputs",
+        "rust"
+      ],
+      "handler_state": "not_configured",
+      "expect": {
+        "outcome": "reject",
+        "exit": 65,
+        "stderr": "BUNDLE_BUILD_INPUTS_NOT_CONFIGURED\n",
+        "network": "disabled",
+        "persistent_writes": []
+      }
+    },
+    {
+      "id": "assembler.update_build_inputs_write_scope",
+      "argv": [
+        "--update-build-inputs",
+        "rust"
+      ],
+      "handler_state": "configured",
+      "expect": {
+        "outcome": "accept",
+        "network": "fixed_origins_only",
+        "persistent_writes": [
+          "release/build-input-cache/rust/<build_inputs_sha256>",
+          "release/build-inputs/rust/build-inputs.json"
+        ],
+        "commit_point": "tracked_descriptor_atomic_replace"
+      }
+    },
+    {
+      "id": "assembler.provision_write_scope",
+      "argv": [
+        "--provision-build-inputs",
+        "rust"
+      ],
+      "handler_state": "configured",
+      "expect": {
+        "outcome": "accept",
+        "network": "fixed_origins_only",
+        "persistent_writes": [
+          "release/build-input-cache/rust/<build_inputs_sha256>"
+        ],
+        "commit_point": "cache_atomic_no_replace"
+      }
+    },
+    {
+      "id": "assembler.check_build_inputs_read_only",
+      "argv": [
+        "--check-build-inputs",
+        "rust"
+      ],
+      "handler_state": "configured",
+      "expect": {
+        "outcome": "accept",
+        "network": "disabled",
+        "persistent_writes": []
+      }
+    },
+    {
+      "id": "assembler.check_build_inputs_missing_cache_no_repair",
+      "argv": [
+        "--check-build-inputs",
+        "rust"
+      ],
+      "handler_state": "configured",
+      "build_input_state": "cache_missing",
+      "expect": {
+        "outcome": "reject",
+        "exit": 65,
+        "stderr": "BUNDLE_BUILD_INPUTS_INVALID\n",
+        "network": "disabled",
+        "persistent_writes": []
+      }
+    },
+    {
+      "id": "assembler.provision_unequal_occupant_no_repair",
+      "argv": [
+        "--provision-build-inputs",
+        "rust"
+      ],
+      "handler_state": "configured",
+      "build_input_state": "cache_key_occupied_unequal",
+      "expect": {
+        "outcome": "reject",
+        "exit": 65,
+        "stderr": "BUNDLE_BUILD_INPUTS_INVALID\n",
+        "network": "fixed_origins_only",
+        "persistent_writes": [],
+        "occupant_preserved": true
+      }
+    },
+    {
+      "id": "assembler.update_candidate_scope",
+      "argv": [
+        "--update-candidate",
+        "rust"
+      ],
+      "state": "go_registered",
+      "release_languages": [
+        "go",
+        "rust"
+      ],
+      "expect": {
+        "outcome": "accept",
+        "network": "disabled",
+        "prerequisite": "--check-build-inputs rust",
+        "persistent_writes": [
+          "release/bundles/candidates/rust/candidate.json"
+        ],
+        "commit_point": "release_bundles_atomic_exchange"
+      }
+    },
+    {
+      "id": "assembler.check_candidate_read_only",
+      "argv": [
+        "--check-candidate",
+        "rust"
+      ],
+      "state": "rust_candidate",
+      "expect": {
+        "outcome": "accept",
+        "network": "disabled",
+        "prerequisite": "--check-build-inputs rust",
+        "persistent_writes": []
+      }
+    },
+    {
+      "id": "assembler.update_candidate_invalid_build_inputs_no_repair",
+      "argv": [
+        "--update-candidate",
+        "rust"
+      ],
+      "state": "go_registered",
+      "build_input_state": "cache_invalid",
+      "expect": {
+        "outcome": "reject",
+        "exit": 65,
+        "stderr": "BUNDLE_BUILD_INPUTS_INVALID\n",
+        "network": "disabled",
+        "persistent_writes": []
+      }
+    },
+    {
+      "id": "assembler.update_go_scope",
+      "argv": [
+        "--update",
+        "go"
+      ],
+      "state": "go_registered",
+      "expect": {
+        "outcome": "accept",
+        "network": "disabled",
+        "persistent_writes": [
+          "release/bundles/bundle-registry.json"
+        ],
+        "commit_point": "release_bundles_atomic_exchange"
+      }
+    },
+    {
+      "id": "assembler.update_go_preserves_compatible_candidate",
+      "argv": [
+        "--update",
+        "go"
+      ],
+      "state": "rust_candidate",
+      "prospective_candidate_compatibility": "equal_or_disjoint_ids",
+      "expect": {
+        "outcome": "accept",
+        "network": "disabled",
+        "persistent_writes": [
+          "release/bundles/bundle-registry.json"
+        ],
+        "candidate_bytes": "unchanged",
+        "commit_point": "release_bundles_atomic_exchange"
+      }
+    },
+    {
+      "id": "assembler.check_go_read_only",
+      "argv": [
+        "--check",
+        "go"
+      ],
+      "state": "go_registered",
+      "expect": {
+        "outcome": "accept",
+        "network": "disabled",
+        "persistent_writes": []
+      }
+    },
+    {
+      "id": "assembler.first_update_all_atomic_registration",
+      "argv": [
+        "--update",
+        "all"
+      ],
+      "state": "rust_candidate",
+      "release_languages": [
+        "go",
+        "rust"
+      ],
+      "expect": {
+        "outcome": "accept",
+        "network": "disabled",
+        "prerequisite": "--check-build-inputs rust",
+        "requires_candidate_equality": true,
+        "persistent_writes": [
+          "release/bundles/bundle-registry.json"
+        ],
+        "persistent_removals": [
+          "release/bundles/candidates/rust"
+        ],
+        "commit_point": "release_bundles_atomic_exchange"
+      }
+    },
+    {
+      "id": "assembler.first_update_all_candidate_mismatch",
+      "argv": [
+        "--update",
+        "all"
+      ],
+      "state": "rust_candidate",
+      "release_languages": [
+        "go",
+        "rust"
+      ],
+      "rebuilt_rust_equals_candidate": false,
+      "expect": {
+        "outcome": "reject",
+        "exit": 65,
+        "stderr": "BUNDLE_REPRODUCIBILITY_MISMATCH\n",
+        "network": "disabled",
+        "persistent_writes": [],
+        "candidate_preserved": true
+      }
+    },
+    {
+      "id": "assembler.update_all_registered_rotation",
+      "argv": [
+        "--update",
+        "all"
+      ],
+      "state": "all_registered",
+      "release_languages": [
+        "go",
+        "rust"
+      ],
+      "expect": {
+        "outcome": "accept",
+        "network": "disabled",
+        "prerequisite": "--check-build-inputs rust",
+        "persistent_writes": [
+          "release/bundles/bundle-registry.json"
+        ],
+        "commit_point": "release_bundles_atomic_exchange"
+      }
+    },
+    {
+      "id": "assembler.check_all_read_only",
+      "argv": [
+        "--check",
+        "all"
+      ],
+      "state": "all_registered",
+      "expect": {
+        "outcome": "accept",
+        "network": "disabled",
+        "prerequisite": "--check-build-inputs rust",
+        "persistent_writes": []
+      }
+    },
+    {
+      "id": "assembler.candidate_after_registration",
+      "argv": [
+        "--update-candidate",
+        "rust"
+      ],
+      "state": "all_registered",
+      "expect": {
+        "outcome": "reject",
+        "exit": 65,
+        "stderr": "BUNDLE_CANDIDATE_STATE\n",
+        "network": "disabled",
+        "persistent_writes": [],
+        "private_build_directory_created": false
+      }
+    },
+    {
+      "id": "assembler.check_candidate_after_registration",
+      "argv": [
+        "--check-candidate",
+        "rust"
+      ],
+      "state": "all_registered",
+      "expect": {
+        "outcome": "reject",
+        "exit": 65,
+        "stderr": "BUNDLE_CANDIDATE_STATE\n",
+        "network": "disabled",
+        "persistent_writes": [],
+        "private_build_directory_created": false
+      }
+    },
+    {
+      "id": "assembler.check_go_after_registration",
+      "argv": [
+        "--check",
+        "go"
+      ],
+      "state": "all_registered",
+      "expect": {
+        "outcome": "reject",
+        "exit": 65,
+        "stderr": "BUNDLE_REGISTERED_STATE\n",
+        "network": "disabled",
+        "persistent_writes": []
+      }
+    },
+    {
+      "id": "assembler.partial_all_forbidden",
+      "argv": [
+        "--update",
+        "all"
+      ],
+      "state": "rust_candidate",
+      "release_languages": [
+        "go",
+        "rust"
+      ],
+      "build_result": {
+        "go": "complete",
+        "rust": "missing"
+      },
+      "expect": {
+        "outcome": "reject",
+        "exit": 65,
+        "stderr": "BUNDLE_REPRODUCIBILITY_MISMATCH\n",
+        "network": "disabled",
+        "persistent_writes": [],
+        "candidate_preserved": true
+      }
+    },
+    {
+      "id": "assembler.bare_invocation",
+      "argv": [],
+      "expect": {
+        "outcome": "reject",
+        "exit": 64,
+        "stderr": "BUNDLE_ASSEMBLER_USAGE\n",
+        "network": "disabled",
+        "persistent_writes": []
+      }
+    },
+    {
+      "id": "assembler.unsupported_pair",
+      "argv": [
+        "--update-candidate",
+        "go"
+      ],
+      "expect": {
+        "outcome": "reject",
+        "exit": 64,
+        "stderr": "BUNDLE_ASSEMBLER_USAGE\n",
+        "network": "disabled",
+        "persistent_writes": []
+      }
+    },
+    {
+      "id": "assembler.extra_argument",
+      "argv": [
+        "--check",
+        "all",
+        "rust"
+      ],
+      "expect": {
+        "outcome": "reject",
+        "exit": 64,
+        "stderr": "BUNDLE_ASSEMBLER_USAGE\n",
+        "network": "disabled",
+        "persistent_writes": []
+      }
+    }
+  ],
+  "limit_cases": [
+    {
+      "id": "limit.registry_canonical_below",
+      "construction": {
+        "kind": "registry_canonical_bytes",
+        "value": 67108863
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.registry_canonical_at",
+      "construction": {
+        "kind": "registry_canonical_bytes",
+        "value": 67108864
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.registry_canonical_above",
+      "construction": {
+        "kind": "registry_canonical_bytes",
+        "value": 67108865
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "transport",
+        "code": "FRONTEND_REGISTRY_LIMIT"
+      }
+    },
+    {
+      "id": "limit.registry_transport_below",
+      "construction": {
+        "kind": "registry_transport_bytes",
+        "value": 67108864
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.registry_transport_at",
+      "construction": {
+        "kind": "registry_transport_bytes",
+        "value": 67108865
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.registry_transport_above",
+      "construction": {
+        "kind": "registry_transport_bytes",
+        "value": 67108866
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "transport",
+        "code": "FRONTEND_REGISTRY_LIMIT"
+      }
+    },
+    {
+      "id": "limit.string_bytes_below",
+      "construction": {
+        "kind": "string_bytes",
+        "value": 1048575
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.string_bytes_at",
+      "construction": {
+        "kind": "string_bytes",
+        "value": 1048576
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.string_bytes_above",
+      "construction": {
+        "kind": "string_bytes",
+        "value": 1048577
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "transport",
+        "code": "FRONTEND_REGISTRY_LIMIT"
+      }
+    },
+    {
+      "id": "limit.descriptors_below",
+      "construction": {
+        "kind": "bundle_descriptors",
+        "value": 1023
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.descriptors_at",
+      "construction": {
+        "kind": "bundle_descriptors",
+        "value": 1024
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.descriptors_above",
+      "construction": {
+        "kind": "bundle_descriptors",
+        "value": 1025
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "scalar",
+        "code": "FRONTEND_REGISTRY_LIMIT"
+      }
+    },
+    {
+      "id": "limit.tuples_below",
+      "construction": {
+        "kind": "tuples",
+        "value": 4095
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.tuples_at",
+      "construction": {
+        "kind": "tuples",
+        "value": 4096
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.tuples_above",
+      "construction": {
+        "kind": "tuples",
+        "value": 4097
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "scalar",
+        "code": "FRONTEND_REGISTRY_LIMIT"
+      }
+    },
+    {
+      "id": "limit.execution_host_profiles_below",
+      "construction": {
+        "kind": "execution_host_profiles",
+        "value": 255
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.execution_host_profiles_at",
+      "construction": {
+        "kind": "execution_host_profiles",
+        "value": 256
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.execution_host_profiles_above",
+      "construction": {
+        "kind": "execution_host_profiles",
+        "value": 257
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "scalar",
+        "code": "FRONTEND_REGISTRY_LIMIT"
+      }
+    },
+    {
+      "id": "limit.native_runtime_layout_profiles_below",
+      "construction": {
+        "kind": "native_runtime_layout_profiles",
+        "value": 255
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.native_runtime_layout_profiles_at",
+      "construction": {
+        "kind": "native_runtime_layout_profiles",
+        "value": 256
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.native_runtime_layout_profiles_above",
+      "construction": {
+        "kind": "native_runtime_layout_profiles",
+        "value": 257
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "scalar",
+        "code": "FRONTEND_REGISTRY_LIMIT"
+      }
+    },
+    {
+      "id": "limit.components_below",
+      "construction": {
+        "kind": "components",
+        "value": 8191
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.components_at",
+      "construction": {
+        "kind": "components",
+        "value": 8192
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.components_above",
+      "construction": {
+        "kind": "components",
+        "value": 8193
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "scalar",
+        "code": "FRONTEND_REGISTRY_LIMIT"
+      }
+    },
+    {
+      "id": "limit.inventory_entries_below",
+      "construction": {
+        "kind": "serialized_inventory_entries",
+        "value": 262143
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.inventory_entries_at",
+      "construction": {
+        "kind": "serialized_inventory_entries",
+        "value": 262144
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.inventory_entries_above",
+      "construction": {
+        "kind": "serialized_inventory_entries",
+        "value": 262145
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "scalar",
+        "code": "FRONTEND_REGISTRY_LIMIT"
+      }
+    },
+    {
+      "id": "limit.unique_bundle_files_below",
+      "construction": {
+        "kind": "unique_bundle_files",
+        "value": 262143
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.unique_bundle_files_at",
+      "construction": {
+        "kind": "unique_bundle_files",
+        "value": 262144
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.unique_bundle_files_above",
+      "construction": {
+        "kind": "unique_bundle_files",
+        "value": 262145
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "scalar",
+        "code": "FRONTEND_REGISTRY_LIMIT"
+      }
+    },
+    {
+      "id": "limit.file_bytes_below",
+      "construction": {
+        "kind": "bundle_file_bytes",
+        "value": 4294967295
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.file_bytes_at",
+      "construction": {
+        "kind": "bundle_file_bytes",
+        "value": 4294967296
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.file_bytes_above",
+      "construction": {
+        "kind": "bundle_file_bytes",
+        "value": 4294967297
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "scalar",
+        "code": "FRONTEND_REGISTRY_LIMIT"
+      }
+    },
+    {
+      "id": "limit.bundle_declared_bytes_below",
+      "construction": {
+        "kind": "bundle_declared_bytes",
+        "value": 34359738367
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.bundle_declared_bytes_at",
+      "construction": {
+        "kind": "bundle_declared_bytes",
+        "value": 34359738368
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.bundle_declared_bytes_above",
+      "construction": {
+        "kind": "bundle_declared_bytes",
+        "value": 34359738369
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "scalar",
+        "code": "FRONTEND_REGISTRY_LIMIT"
+      }
+    },
+    {
+      "id": "limit.path_bytes_below",
+      "construction": {
+        "kind": "portable_path_bytes",
+        "value": 1023
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.path_bytes_at",
+      "construction": {
+        "kind": "portable_path_bytes",
+        "value": 1024
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.path_bytes_above",
+      "construction": {
+        "kind": "portable_path_bytes",
+        "value": 1025
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "scalar",
+        "code": "FRONTEND_REGISTRY_LIMIT"
+      }
+    },
+    {
+      "id": "limit.json_nesting_below",
+      "construction": {
+        "kind": "json_nesting",
+        "value": 255
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.json_nesting_at",
+      "construction": {
+        "kind": "json_nesting",
+        "value": 256
+      },
+      "expect": {
+        "outcome": "accept_boundary"
+      }
+    },
+    {
+      "id": "limit.json_nesting_above",
+      "construction": {
+        "kind": "json_nesting",
+        "value": 257
+      },
+      "expect": {
+        "outcome": "reject",
+        "phase": "transport",
+        "code": "FRONTEND_REGISTRY_LIMIT"
+      }
+    }
+  ],
+  "hash_cases": [
+    {
+      "id": "hash.registry_empty_jcs",
+      "domain": "MPK-BUNDLE-REGISTRY-0.1",
+      "canonical_payload": "{}",
+      "canonical_payload_utf8_length": 2,
+      "expected_preimage_length": 26,
+      "expected_sha256": "97485a644dabe9bd0c3c6c7bf1929467df2177e9365a24b157f68670f1af151a"
+    },
+    {
+      "id": "hash.registry_minimal_jcs",
+      "domain": "MPK-BUNDLE-REGISTRY-0.1",
+      "canonical_payload": "{\"a\":0}",
+      "canonical_payload_utf8_length": 7,
+      "expected_preimage_length": 31,
+      "expected_sha256": "6d2e5f3c69c759ef6ee98db3f90b9d397ee74bb529f00653622068b107a496c9"
+    },
+    {
+      "id": "hash.registry_integer_boundary_jcs",
+      "domain": "MPK-BUNDLE-REGISTRY-0.1",
+      "canonical_payload": "{\"n\":9007199254740991}",
+      "canonical_payload_utf8_length": 22,
+      "expected_preimage_length": 46,
+      "expected_sha256": "c997f361da3bfd077e0f74c5022949b4a44c3dec7fb50a93436e4f9d0118e4bd"
+    },
+    {
+      "id": "hash.registry_non_ascii_key_jcs",
+      "domain": "MPK-BUNDLE-REGISTRY-0.1",
+      "canonical_payload": "{\"a\":1,\"é\":\"雪\"}",
+      "canonical_payload_utf8_length": 18,
+      "expected_preimage_length": 42,
+      "expected_sha256": "b0de1be7716cef12a78f1034d92933f302fd1dd781b7e631b3b4b47f203c5fce"
+    },
+    {
+      "id": "hash.registry_mutation_before_jcs",
+      "domain": "MPK-BUNDLE-REGISTRY-0.1",
+      "canonical_payload": "{\"a\":1}",
+      "canonical_payload_utf8_length": 7,
+      "expected_preimage_length": 31,
+      "expected_sha256": "d83529f5791e1ad0101bf5e0e7153ea3b1dd46c86bb4f05efb760d3b6a90570a"
+    },
+    {
+      "id": "hash.registry_mutation_after_jcs",
+      "domain": "MPK-BUNDLE-REGISTRY-0.1",
+      "canonical_payload": "{\"a\":2}",
+      "canonical_payload_utf8_length": 7,
+      "expected_preimage_length": 31,
+      "expected_sha256": "1c098cc6a9ab16aab8a6ea7bc4f1942fa5c680af52db39b9808f49c2c0f41d56",
+      "different_from": "d83529f5791e1ad0101bf5e0e7153ea3b1dd46c86bb4f05efb760d3b6a90570a"
+    },
+    {
+      "id": "hash.content_empty_jcs",
+      "domain": "MPK-BUNDLE-CONTENT-0.1",
+      "canonical_payload": "{}",
+      "canonical_payload_utf8_length": 2,
+      "expected_preimage_length": 25,
+      "expected_sha256": "3135fd1d0802cf15f9dcbfd402769f479855b6828440b210e88488aece19dcfa"
+    },
+    {
+      "id": "hash.content_minimal_jcs",
+      "domain": "MPK-BUNDLE-CONTENT-0.1",
+      "canonical_payload": "{\"a\":0}",
+      "canonical_payload_utf8_length": 7,
+      "expected_preimage_length": 30,
+      "expected_sha256": "51611960dbcfef0406fc9b969979e8357c140df7406f4f86de86518705d42c6b"
+    },
+    {
+      "id": "hash.content_integer_boundary_jcs",
+      "domain": "MPK-BUNDLE-CONTENT-0.1",
+      "canonical_payload": "{\"n\":9007199254740991}",
+      "canonical_payload_utf8_length": 22,
+      "expected_preimage_length": 45,
+      "expected_sha256": "fabdecac5e32c241935979b3e82aa513a2524e2b6ee190cc9818383bf5290650"
+    },
+    {
+      "id": "hash.content_non_ascii_key_jcs",
+      "domain": "MPK-BUNDLE-CONTENT-0.1",
+      "canonical_payload": "{\"a\":1,\"é\":\"雪\"}",
+      "canonical_payload_utf8_length": 18,
+      "expected_preimage_length": 41,
+      "expected_sha256": "8c7cd492a9329756d009922f658e36b72c2d94b7a12aa8fe26907d56e788ed8f"
+    },
+    {
+      "id": "hash.content_mutation_before_jcs",
+      "domain": "MPK-BUNDLE-CONTENT-0.1",
+      "canonical_payload": "{\"a\":1}",
+      "canonical_payload_utf8_length": 7,
+      "expected_preimage_length": 30,
+      "expected_sha256": "3db5d28b5dcbf210b4438eaeae373da98f7e181f15c262a789996676b7dfbe94"
+    },
+    {
+      "id": "hash.content_mutation_after_jcs",
+      "domain": "MPK-BUNDLE-CONTENT-0.1",
+      "canonical_payload": "{\"a\":2}",
+      "canonical_payload_utf8_length": 7,
+      "expected_preimage_length": 30,
+      "expected_sha256": "e34f6d4777e7b7a1dcf244c2973b0a58370c37980668c74815a8fd82be695216",
+      "different_from": "3db5d28b5dcbf210b4438eaeae373da98f7e181f15c262a789996676b7dfbe94"
+    },
+    {
+      "id": "hash.bootstrap_registry",
+      "domain": "MPK-BUNDLE-REGISTRY-0.1",
+      "fixture": "bootstrap_registry",
+      "remove_pointer": "/registry_sha256",
+      "canonical_payload": "{\"execution_host_profiles\":[],\"frontend_bundles\":[],\"id\":\"mpk.release.registry.v0\",\"native_runtime_layout_profiles\":[],\"schema\":\"mpk.release.bundle_registry.v0\",\"toolchain_bundles\":[],\"tuples\":[]}",
+      "canonical_payload_utf8_length": 196,
+      "expected_preimage_length": 220,
+      "expected_sha256": "2af7063ea0b01da6947cb06b4cd6b244d985ca39943147f7bf55f0e7bba192a7"
+    },
+    {
+      "id": "hash.synthetic_registry_normal",
+      "domain": "MPK-BUNDLE-REGISTRY-0.1",
+      "fixture": "valid_registry",
+      "remove_pointer": "/registry_sha256",
+      "canonical_payload_utf8_length": 6085,
+      "canonical_payload_sha256": "bb7b2e905dc5fb219816ab34d28c29e9d964771c2cecece24514442dbe63dbfa",
+      "expected_preimage_length": 6109,
+      "expected_sha256": "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7"
+    },
+    {
+      "id": "hash.frontend_inventory",
+      "domain": "MPK-BUNDLE-CONTENT-0.1",
+      "fixture": "valid_registry",
+      "pointer": "/frontend_bundles/0/inventory",
+      "canonical_payload": "{\"files\":[{\"executable\":false,\"path\":\"NOTICE.txt\",\"sha256\":\"abfe8af06854a5398523da8ace7350153cb71e8d23ee817c498f530600c149d7\",\"size_bytes\":26},{\"executable\":true,\"path\":\"bin/go2vir\",\"sha256\":\"306c6ca7407560340797866e077e053627ad409277d1b9da58106fce4cf717cb\",\"size_bytes\":17}],\"schema\":\"mpk.release.bundle_inventory.v0\",\"scope\":{\"bundle_id\":\"frontend.go.synthetic.v0\",\"kind\":\"frontend_bundle\"}}",
+      "canonical_payload_utf8_length": 393,
+      "expected_preimage_length": 416,
+      "expected_sha256": "082cd9a1128430e62c66200169464bae09a6330ae04d2e1ea7c07aa2fe8c44cb"
+    },
+    {
+      "id": "hash.native_runtime_inventory",
+      "domain": "MPK-BUNDLE-CONTENT-0.1",
+      "fixture": "valid_registry",
+      "pointer": "/toolchain_bundles/0/components/2/inventory",
+      "canonical_payload": "{\"files\":[{\"executable\":true,\"path\":\"native-runtime/lib/x86_64-linux-gnu/libc.so.6\",\"sha256\":\"626bb7de4f22f82671af5471457c277a1c342eda3c5a609ae919a5ae7d27e4bb\",\"size_bytes\":15},{\"executable\":true,\"path\":\"native-runtime/lib64/ld-linux-x86-64.so.2\",\"sha256\":\"1f2c11da83a846ff7de18960efc313618a009f3ec7f4b0ac9d4f5d4c527c7ab2\",\"size_bytes\":26}],\"schema\":\"mpk.release.bundle_inventory.v0\",\"scope\":{\"bundle_id\":\"toolchain.go.synthetic.v0\",\"component_name\":\"native-runtime\",\"kind\":\"component\"}}",
+      "canonical_payload_utf8_length": 487,
+      "expected_preimage_length": 510,
+      "expected_sha256": "dcabd7c7214d69d0cc474407283579497db30f56e2dc4e388a71886446d5c948"
+    },
+    {
+      "id": "hash.target_library_inventory",
+      "domain": "MPK-BUNDLE-CONTENT-0.1",
+      "fixture": "valid_registry",
+      "pointer": "/toolchain_bundles/0/components/1/inventory",
+      "canonical_payload": "{\"files\":[{\"executable\":false,\"path\":\"pkg/linux_amd64/runtime.a\",\"sha256\":\"3515da3323fbaabace949c65c2259a4c0d59e584222ffd417ae55c51aae97b2a\",\"size_bytes\":20}],\"schema\":\"mpk.release.bundle_inventory.v0\",\"scope\":{\"bundle_id\":\"toolchain.go.synthetic.v0\",\"component_name\":\"go-stdlib\",\"kind\":\"component\"}}",
+      "canonical_payload_utf8_length": 300,
+      "expected_preimage_length": 323,
+      "expected_sha256": "d0e474c3d4c5604aa8d233021e24e742322ff0cea7cf55c1ce7f2c87dfefa469"
+    },
+    {
+      "id": "hash.notices_inventory",
+      "domain": "MPK-BUNDLE-CONTENT-0.1",
+      "fixture": "valid_registry",
+      "pointer": "/toolchain_bundles/0/components/3/inventory",
+      "canonical_payload": "{\"files\":[{\"executable\":false,\"path\":\"NOTICE.txt\",\"sha256\":\"7e2ad68ab6517364fc7fd2594d83d204a1560a8657575f27fff1db0463a765a6\",\"size_bytes\":27}],\"schema\":\"mpk.release.bundle_inventory.v0\",\"scope\":{\"bundle_id\":\"toolchain.go.synthetic.v0\",\"component_name\":\"notices\",\"kind\":\"component\"}}",
+      "canonical_payload_utf8_length": 283,
+      "expected_preimage_length": 306,
+      "expected_sha256": "e0b4c60c121662d43796c29e52be87b45907687b40de12a76bf92e8a928c02e6"
+    },
+    {
+      "id": "hash.toolchain_distribution",
+      "domain": "MPK-BUNDLE-CONTENT-0.1",
+      "fixture": "valid_registry",
+      "pointer": "/toolchain_bundles/0/inventory",
+      "canonical_payload": "{\"files\":[{\"executable\":false,\"path\":\"NOTICE.txt\",\"sha256\":\"7e2ad68ab6517364fc7fd2594d83d204a1560a8657575f27fff1db0463a765a6\",\"size_bytes\":27},{\"executable\":true,\"path\":\"bin/go\",\"sha256\":\"306c6ca7407560340797866e077e053627ad409277d1b9da58106fce4cf717cb\",\"size_bytes\":17},{\"executable\":true,\"path\":\"native-runtime/lib/x86_64-linux-gnu/libc.so.6\",\"sha256\":\"626bb7de4f22f82671af5471457c277a1c342eda3c5a609ae919a5ae7d27e4bb\",\"size_bytes\":15},{\"executable\":true,\"path\":\"native-runtime/lib64/ld-linux-x86-64.so.2\",\"sha256\":\"1f2c11da83a846ff7de18960efc313618a009f3ec7f4b0ac9d4f5d4c527c7ab2\",\"size_bytes\":26},{\"executable\":false,\"path\":\"pkg/linux_amd64/runtime.a\",\"sha256\":\"3515da3323fbaabace949c65c2259a4c0d59e584222ffd417ae55c51aae97b2a\",\"size_bytes\":20}],\"schema\":\"mpk.release.bundle_inventory.v0\",\"scope\":{\"bundle_id\":\"toolchain.go.synthetic.v0\",\"kind\":\"toolchain_bundle\"}}",
+      "canonical_payload_utf8_length": 869,
+      "expected_preimage_length": 892,
+      "expected_sha256": "1dfc37014daf7080cfe690d97ff3d5856fd28dc556a430cb510bad757de7d1f9"
+    }
+  ]
+}
