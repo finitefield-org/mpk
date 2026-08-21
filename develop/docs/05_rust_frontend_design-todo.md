@@ -1449,7 +1449,7 @@ git diff --check
 
 ### VIR-01-T04 Implement Complete VIR Validation, Canonicalization, and Hashing
 
-Status: Pending
+Status: Complete (2026-08-21).
 
 Depends on: VIR-01-T03.
 

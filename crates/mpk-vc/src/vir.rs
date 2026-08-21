@@ -11,6 +11,7 @@ use crate::semantic_profile::{
     validate_semantic_context, validate_semantic_parameters, SemanticParameters, SemanticProfile,
     SemanticProfileError, SourceLanguage,
 };
+use crate::vir_validate::{validate_vir, VirValidationError};
 use serde::{Deserialize, Serialize};
 use std::error::Error;
 use std::fmt;
@@ -27,17 +28,23 @@ const VIR_STRICT_JSON_LIMITS: StrictJsonLimits = StrictJsonLimits::new(
     VIR_STRING_BYTES_MAX,
 );
 
-/// Strictly parses one VIR document and validates its structural invariants.
+/// Strictly parses and fully validates one VIR document.
 ///
-/// Full reference, graph, type, collection-limit, and hash validation is owned
-/// by the next VIR validation layer. This importer is not wired to a production
-/// CLI before the atomic Go cutover.
+/// No partially validated module crosses this boundary. The importer remains
+/// test-only at call sites until the atomic Go cutover.
 pub fn import_vir_json(input: &[u8]) -> Result<VirModule, VirImportError> {
     let strict = parse_strict_json(input, VIR_STRICT_JSON_LIMITS)?;
     let canonical = canonical_json_bytes(&strict)?;
-    let module: VirModule = serde_json::from_slice(&canonical)
-        .map_err(|error| VirImportError::InvalidShape(error.to_string()))?;
-    module.validate_structure()?;
+    let wire: WireModule = serde_json::from_slice(&canonical).map_err(|error| {
+        let message = error.to_string();
+        if message.contains("SemanticParameters") {
+            VirImportError::Validation(VirValidationError::new("VIR_SEMANTIC_PARAMETERS", message))
+        } else {
+            VirImportError::InvalidShape(message)
+        }
+    })?;
+    let module = wire.into();
+    validate_vir(&module)?;
     Ok(module)
 }
 
@@ -51,31 +58,37 @@ pub struct VirModule {
     pub vir_hash: LowercaseSha256,
 }
 
-impl<'de> Deserialize<'de> for VirModule {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        #[derive(Deserialize)]
-        #[serde(deny_unknown_fields)]
-        struct WireModule {
-            schema: String,
-            source_language: SourceLanguage,
-            semantic_profile: SemanticProfile,
-            semantic_parameters: SemanticParameters,
-            units: Vec<VirUnit>,
-            vir_hash: LowercaseSha256,
-        }
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct WireModule {
+    schema: String,
+    source_language: SourceLanguage,
+    semantic_profile: SemanticProfile,
+    semantic_parameters: SemanticParameters,
+    units: Vec<VirUnit>,
+    vir_hash: LowercaseSha256,
+}
 
-        let wire = WireModule::deserialize(deserializer)?;
-        let module = Self {
+impl From<WireModule> for VirModule {
+    fn from(wire: WireModule) -> Self {
+        Self {
             schema: wire.schema,
             source_language: wire.source_language,
             semantic_profile: wire.semantic_profile,
             semantic_parameters: wire.semantic_parameters,
             units: wire.units,
             vir_hash: wire.vir_hash,
-        };
+        }
+    }
+}
+
+impl<'de> Deserialize<'de> for VirModule {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let wire = WireModule::deserialize(deserializer)?;
+        let module = Self::from(wire);
         module
             .validate_structure()
             .map_err(serde::de::Error::custom)?;
@@ -734,7 +747,7 @@ pub struct VirBlock {
     pub terminator: VirTerminator,
 }
 
-#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Deserialize, Serialize)]
+#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, Deserialize, Serialize)]
 #[serde(rename_all = "snake_case")]
 pub enum VirFeature {
     Array,
@@ -876,6 +889,7 @@ pub enum VirImportError {
     InvalidShape(String),
     UnsupportedSchema { found: String },
     SemanticProfile(SemanticProfileError),
+    Validation(VirValidationError),
     NonemptyModifies { function_id: String },
 }
 
@@ -894,6 +908,7 @@ impl fmt::Display for VirImportError {
             Self::SemanticProfile(error) => {
                 write!(formatter, "invalid VIR semantic context: {error}")
             }
+            Self::Validation(error) => write!(formatter, "invalid VIR: {error}"),
             Self::NonemptyModifies { function_id } => write!(
                 formatter,
                 "function {function_id:?} has a nonempty VIR v0 modifies list"
@@ -908,6 +923,7 @@ impl Error for VirImportError {
             Self::StrictJson(error) => Some(error),
             Self::CanonicalJson(error) => Some(error),
             Self::SemanticProfile(error) => Some(error),
+            Self::Validation(error) => Some(error),
             Self::InvalidShape(_)
             | Self::UnsupportedSchema { .. }
             | Self::NonemptyModifies { .. } => None,
@@ -930,5 +946,11 @@ impl From<CanonicalJsonError> for VirImportError {
 impl From<SemanticProfileError> for VirImportError {
     fn from(error: SemanticProfileError) -> Self {
         Self::SemanticProfile(error)
+    }
+}
+
+impl From<VirValidationError> for VirImportError {
+    fn from(error: VirValidationError) -> Self {
+        Self::Validation(error)
     }
 }

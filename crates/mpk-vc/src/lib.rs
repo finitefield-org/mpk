@@ -20,6 +20,8 @@ pub mod semantic_profile;
 pub mod type_encode;
 pub mod vc;
 pub mod vir;
+pub mod vir_canonical;
+pub mod vir_validate;
 pub mod wp;
 pub mod wp_branch;
 
@@ -97,11 +99,23 @@ pub use vc::{VcModule, VcObligation, VcObligationKind};
 pub use vir::{
     import_vir_json, ArrayLength, ArrayLengthError, BitVectorWidth, BitVectorWidthError,
     DecimalInteger, DecimalIntegerError, DivRemOperation, LowercaseSha256, LowercaseSha256Error,
-    OverflowOperation, VirBinding, VirBlock, VirConstDecl, VirContract, VirContractExpr,
-    VirFeature, VirFunction, VirImportError, VirInstruction, VirInstructionKind, VirIntLiteral,
-    VirLiteral, VirLoopContract, VirModule, VirSafetyCheck, VirSafetyCheckKind, VirStructDecl,
-    VirStructField, VirTerminator, VirTerminatorKind, VirType, VirUnit, VirValue,
-    VIR_INPUT_JSON_BYTES_MAX, VIR_JSON_NESTING_MAX, VIR_SCHEMA_VERSION, VIR_STRING_BYTES_MAX,
+    OverflowOperation, VirBinaryOperator, VirBinding, VirBlock, VirConstDecl, VirContract,
+    VirContractExpr, VirFeature, VirFunction, VirImportError, VirInstruction, VirInstructionKind,
+    VirIntLiteral, VirLiteral, VirLoopContract, VirModule, VirSafetyCheck, VirSafetyCheckKind,
+    VirStructDecl, VirStructField, VirTerminator, VirTerminatorKind, VirType, VirUnaryOperator,
+    VirUnit, VirValue, VIR_INPUT_JSON_BYTES_MAX, VIR_JSON_NESTING_MAX, VIR_SCHEMA_VERSION,
+    VIR_STRING_BYTES_MAX,
+};
+pub use vir_canonical::{
+    canonical_contract_hash_payload, canonical_contract_json, canonical_vir_hash_payload,
+    canonical_vir_json, contract_hash, vir_hash, VirCanonicalError, CONTRACT_HASH_DOMAIN,
+    VIR_HASH_DOMAIN,
+};
+pub use vir_validate::{
+    validate_safety_checks, validate_vir, validate_vir_const_decl_fragment,
+    validate_vir_contract_expr_fragment, validate_vir_limit_count, validate_vir_safety_fragment,
+    validate_vir_struct_decl_fragment, validate_vir_type_fragment, VirSafetyOperation,
+    VirValidationError,
 };
 pub use wp::{generate_straight_line_vcs, WpError, WpGenerator};
 pub use wp_branch::{generate_branch_vcs, BranchWpGenerator};
