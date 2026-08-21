@@ -1559,7 +1559,7 @@ git diff --check
 
 ### VIR-01-T06 Add `Std.Program.Base` and Profile-Aware Type/Expression Encoding
 
-Status: Pending
+Status: Complete (2026-08-21).
 
 Depends on: VIR-01-T03.
 

@@ -14,6 +14,7 @@ pub mod loops;
 pub mod obligation_emit;
 pub mod policy_obligation;
 pub mod policy_theory_goal;
+pub mod program_encode;
 pub mod release_bundle;
 pub mod safety;
 pub mod semantic_profile;
@@ -37,7 +38,7 @@ pub use canonical_json::{
 pub use expr_encode::{
     encode_contract_expr, encode_gir_value, encode_instruction_expr, ExprContext, ExprEncodeError,
     ExprEncoder, MpkExprTerm, MpkExprType, STD_BITVEC_MODULE, STD_BOOL_AND, STD_BOOL_FALSE,
-    STD_BOOL_NOT, STD_BOOL_OR, STD_BOOL_TRUE, STD_EQ,
+    STD_BOOL_IF, STD_BOOL_NOT, STD_BOOL_OR, STD_BOOL_TRUE, STD_EQ,
 };
 pub use gir::{
     import_gir_json, GirBinding, GirBlock, GirContractExpr, GirContracts, GirField, GirFieldType,
@@ -67,6 +68,11 @@ pub use policy_theory_goal::{
     PolicyBoolTautologyReason, PolicyLinearGoal, PolicyLinearInequality, PolicyLinearTerm,
     PolicyTheoryGoal, PolicyTheoryGoalError, PolicyTheoryGoalErrorKind, PolicyTheoryGoalKind,
     MAX_POLICY_LINEAR_VARIABLES,
+};
+pub use program_encode::{
+    encode_vir_contract_expr, encode_vir_instruction_expr, encode_vir_value,
+    evaluate_total_bitvector_operation, ProgramExprContext, ProgramExprEncodeError,
+    ProgramExprEncoder, TotalBitVectorResult,
 };
 pub use release_bundle::{
     registry_build_constants, validate_release_limit, validate_release_registry, BundleInventory,
@@ -116,11 +122,16 @@ pub use source_map::{
     SOURCE_MAP_JSON_NESTING_MAX, SOURCE_MAP_SCHEMA_VERSION, SOURCE_MAP_STRING_BYTES_MAX,
 };
 pub use type_encode::{
-    encode_gir_type, MpkTypeTerm, TypeEncodeError, TypeEncoder, STD_GO_BASE_ARRAY,
-    STD_GO_BASE_ARRAY_LENGTH, STD_GO_BASE_BOOL, STD_GO_BASE_INT16, STD_GO_BASE_INT32,
-    STD_GO_BASE_INT64, STD_GO_BASE_INT8, STD_GO_BASE_STRUCT_FIELD, STD_GO_BASE_STRUCT_FIELD_TYPE,
-    STD_GO_BASE_STRUCT_SHAPE, STD_GO_BASE_STRUCT_VALUE, STD_GO_BASE_UINT16, STD_GO_BASE_UINT32,
-    STD_GO_BASE_UINT64, STD_GO_BASE_UINT8,
+    encode_gir_type, encode_vir_type, MpkTypeTerm, ProgramTypeEncoder, TypeEncodeError,
+    TypeEncoder, STD_GO_BASE_ARRAY, STD_GO_BASE_ARRAY_LENGTH, STD_GO_BASE_BOOL, STD_GO_BASE_INT16,
+    STD_GO_BASE_INT32, STD_GO_BASE_INT64, STD_GO_BASE_INT8, STD_GO_BASE_STRUCT_FIELD,
+    STD_GO_BASE_STRUCT_FIELD_TYPE, STD_GO_BASE_STRUCT_SHAPE, STD_GO_BASE_STRUCT_VALUE,
+    STD_GO_BASE_UINT16, STD_GO_BASE_UINT32, STD_GO_BASE_UINT64, STD_GO_BASE_UINT8,
+    STD_PROGRAM_BASE_ARRAY, STD_PROGRAM_BASE_ARRAY_LENGTH, STD_PROGRAM_BASE_BOOL,
+    STD_PROGRAM_BASE_INT16, STD_PROGRAM_BASE_INT32, STD_PROGRAM_BASE_INT64, STD_PROGRAM_BASE_INT8,
+    STD_PROGRAM_BASE_STRUCT_FIELD, STD_PROGRAM_BASE_STRUCT_FIELD_TYPE,
+    STD_PROGRAM_BASE_STRUCT_SHAPE, STD_PROGRAM_BASE_STRUCT_VALUE, STD_PROGRAM_BASE_UINT16,
+    STD_PROGRAM_BASE_UINT32, STD_PROGRAM_BASE_UINT64, STD_PROGRAM_BASE_UINT8,
 };
 pub use vc::{VcModule, VcObligation, VcObligationKind};
 pub use vir::{

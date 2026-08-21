@@ -20,6 +20,7 @@ pub const STD_BOOL_FALSE: &str = "Std.Bool.false";
 pub const STD_BOOL_NOT: &str = "Std.Bool.not";
 pub const STD_BOOL_AND: &str = "Std.Bool.and";
 pub const STD_BOOL_OR: &str = "Std.Bool.or";
+pub const STD_BOOL_IF: &str = "Std.Bool.if";
 pub const STD_EQ: &str = "Std.Eq";
 pub const STD_BITVEC_MODULE: &str = "Std.BitVec";
 
@@ -1477,7 +1478,7 @@ mod tests {
   },
   "target": {
     "kind": "constant",
-    "name": "Std.Go.Base.Uint32"
+    "name": "Std.Program.Base.Uint32"
   }
 }"#
         );
