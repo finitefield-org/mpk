@@ -1394,7 +1394,7 @@ git diff --check
 
 ### VIR-01-T03 Implement Semantic Profiles and the VIR Data Model
 
-Status: Pending
+Status: Complete (2026-08-21).
 
 Depends on: VIR-01-T01.
 

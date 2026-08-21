@@ -1,6 +1,7 @@
-//! Untrusted GIR importer and verification-condition data model.
+//! Untrusted program-IR importers and verification-condition data model.
 //!
-//! `mpk-vc` does not accept proofs. It imports untrusted GIR and prepares
+//! `mpk-vc` does not accept proofs. The released path still imports GIR while
+//! the internal VIR foundation is built for the atomic cutover; both prepare
 //! theorem-obligation data for later certificate emission.
 
 #![forbid(unsafe_code)]
@@ -15,8 +16,10 @@ pub mod policy_obligation;
 pub mod policy_theory_goal;
 pub mod release_bundle;
 pub mod safety;
+pub mod semantic_profile;
 pub mod type_encode;
 pub mod vc;
+pub mod vir;
 pub mod wp;
 pub mod wp_branch;
 
@@ -78,6 +81,11 @@ pub use release_bundle::{
     UNIQUE_BUNDLE_FILES_MAX,
 };
 pub use safety::{generate_safety_vcs, SafetyVcGenerator};
+pub use semantic_profile::{
+    validate_semantic_context, validate_semantic_parameters, GoFixedParameters, OverflowMode,
+    PanicMode, PointerWidth, PointerWidthError, RustCheckedParameters, SemanticContext,
+    SemanticParameters, SemanticProfile, SemanticProfileError, SourceLanguage,
+};
 pub use type_encode::{
     encode_gir_type, MpkTypeTerm, TypeEncodeError, TypeEncoder, STD_GO_BASE_ARRAY,
     STD_GO_BASE_ARRAY_LENGTH, STD_GO_BASE_BOOL, STD_GO_BASE_INT16, STD_GO_BASE_INT32,
@@ -86,5 +94,14 @@ pub use type_encode::{
     STD_GO_BASE_UINT64, STD_GO_BASE_UINT8,
 };
 pub use vc::{VcModule, VcObligation, VcObligationKind};
+pub use vir::{
+    import_vir_json, ArrayLength, ArrayLengthError, BitVectorWidth, BitVectorWidthError,
+    DecimalInteger, DecimalIntegerError, DivRemOperation, LowercaseSha256, LowercaseSha256Error,
+    OverflowOperation, VirBinding, VirBlock, VirConstDecl, VirContract, VirContractExpr,
+    VirFeature, VirFunction, VirImportError, VirInstruction, VirInstructionKind, VirIntLiteral,
+    VirLiteral, VirLoopContract, VirModule, VirSafetyCheck, VirSafetyCheckKind, VirStructDecl,
+    VirStructField, VirTerminator, VirTerminatorKind, VirType, VirUnit, VirValue,
+    VIR_INPUT_JSON_BYTES_MAX, VIR_JSON_NESTING_MAX, VIR_SCHEMA_VERSION, VIR_STRING_BYTES_MAX,
+};
 pub use wp::{generate_straight_line_vcs, WpError, WpGenerator};
 pub use wp_branch::{generate_branch_vcs, BranchWpGenerator};
