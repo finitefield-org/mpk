@@ -4,12 +4,13 @@ This directory contains reviewed source metadata for the release-bundle
 assembler. Its normative format, installation boundary, and state machine are
 defined by [`develop/specs/RELEASE_BUNDLES_V0.md`](../../develop/specs/RELEASE_BUNDLES_V0.md).
 
-`bundle-registry.json` is the canonical bootstrap
+`bundle-registry.json` is the canonical registered
 `mpk.release.bundle_registry.v0` transport: one compact RFC 8785 object plus
-one LF. It intentionally contains no registered descriptors or tuples until
-the first Go release registration milestone. Its `registry_sha256` must be
-recomputed from the canonical object with only that field removed; it is not a
-hand-maintained build constant.
+one LF. `scripts/build-release-bundles.sh --update go` derives the Go
+descriptors and complete inventories from the digest-pinned Linux build image;
+`--check go` performs the same network-disabled build without repository
+writes. Its `registry_sha256` is recomputed from the canonical object with only
+that field removed; it is not a hand-maintained build constant.
 
 The following repository paths have distinct roles and are never copied as an
 installed bundle root:

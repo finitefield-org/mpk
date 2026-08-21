@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -67,18 +68,84 @@ func run(args []string, stdout io.Writer, stderr io.Writer) int {
 		return 2
 	}
 
-	// GO-VIR-02-T03 provides the private validated-selection/capture pipeline.
-	// GO-VIR-02-T05 supplies its production registered resolver; until then no
-	// unregistered filesystem candidate may enter the released command path.
-	envelope := newFrontendErrorEnvelope(
-		request,
-		"capture",
-		"GO_FRONTEND_INTERNAL",
-		"registered Go release selection is not installed",
-	)
-	exitCode, err := writeNonSuccessEnvelope(stdout, request, envelope)
+	return runRegisteredLowering(request, stdout, stderr)
+}
+
+func runRegisteredLowering(request lowerRequest, stdout, stderr io.Writer) int {
+	candidate, err := buildRegisteredLauncherSelection(request)
 	if err != nil {
-		_, _ = fmt.Fprintf(stderr, "go2vir protocol emission failed: %v\n", err)
+		return writeFrontendFailure(stdout, stderr, request, err)
+	}
+	selection, err := validateLauncherSelection(request, candidate)
+	if err != nil {
+		return writeFrontendFailure(stdout, stderr, request, err)
+	}
+	capture, err := captureSourceTree(request.SourceRoot, request)
+	if err != nil {
+		return writeFrontendFailure(stdout, stderr, request, err)
+	}
+	snapshot, err := buildSourceSnapshot("/mpk/tmp", capture)
+	if err != nil {
+		return writeFrontendFailure(stdout, stderr, request, fail("frontend-error", "capture", "GO_FRONTEND_SANDBOX", "private source snapshot cannot be constructed"))
+	}
+	loaded, err := loadCapturedPackages(capture, snapshot, selection)
+	if err != nil {
+		_ = snapshot.Close()
+		return writeFrontendFailure(stdout, stderr, request, err)
+	}
+	artifacts, findings, err := lowerPrivatePipeline(request, capture, loaded, selection)
+	if closeErr := snapshot.Close(); closeErr != nil && err == nil {
+		err = fail("frontend-error", "emission", "GO_FRONTEND_INTERNAL", "private source snapshot cleanup failed")
+	}
+	if err != nil {
+		return writeFrontendFailure(stdout, stderr, request, err)
+	}
+	if len(findings) != 0 {
+		envelope, envelopeErr := loweringFindingsEnvelope(request, findings)
+		if envelopeErr != nil {
+			return writeFrontendFailure(stdout, stderr, request, fail("frontend-error", "emission", "GO_FRONTEND_INTERNAL", "lowering findings cannot be normalized"))
+		}
+		exitCode, writeErr := writeNonSuccessEnvelope(stdout, request, envelope)
+		if writeErr != nil {
+			_, _ = fmt.Fprintln(stderr, "go2vir protocol emission failed")
+			return 1
+		}
+		return exitCode
+	}
+	if err := writeSuccessEnvelope(stdout, artifacts); err != nil {
+		_, _ = fmt.Fprintln(stderr, "go2vir protocol emission failed")
+		return 1
+	}
+	return 0
+}
+
+func writeFrontendFailure(stdout, stderr io.Writer, request lowerRequest, err error) int {
+	failure := &frontendFailure{}
+	if !errors.As(err, &failure) {
+		failure = &frontendFailure{
+			Status: "frontend-error", Phase: "emission", Code: "GO_FRONTEND_INTERNAL",
+			Message: "frontend pipeline failed",
+		}
+	}
+	value := issue{Code: failure.Code, Message: failure.Message}
+	if oneOf(failure.Phase, "subset", "lowering", "emission") {
+		value.FunctionID = &request.Function
+	}
+	envelope := nonSuccessEnvelope{
+		Schema: frontendCLISchema, Status: failure.Status, Phase: failure.Phase,
+		SourceLanguage: "go", SemanticProfile: request.SemanticProfile,
+		SemanticParameters: semanticParameters{TargetID: request.Target, PointerWidth: goPointerWidth},
+		Selection:          goSelection{Package: request.Package, Function: request.Function},
+		RejectedFeatures:   []issue{}, Diagnostics: []issue{},
+	}
+	if failure.Status == "rejected" {
+		envelope.RejectedFeatures = append(envelope.RejectedFeatures, value)
+	} else {
+		envelope.Diagnostics = append(envelope.Diagnostics, value)
+	}
+	exitCode, writeErr := writeNonSuccessEnvelope(stdout, request, envelope)
+	if writeErr != nil {
+		_, _ = fmt.Fprintln(stderr, "go2vir protocol emission failed")
 		return 1
 	}
 	return exitCode

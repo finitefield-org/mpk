@@ -128,7 +128,7 @@ func TestLowerArgumentsEnforceContractAndTransportBoundaries(t *testing.T) {
 	}
 }
 
-func TestRunEmitsOnlyCanonicalSkeletonFrontendError(t *testing.T) {
+func TestRunRejectsAnUninstalledRegisteredFrontendWithoutFallback(t *testing.T) {
 	fixture := loadInvocationFixture(t)
 	request, err := parseLowerArguments(fixture.Args)
 	if err != nil {
@@ -151,8 +151,8 @@ func TestRunEmitsOnlyCanonicalSkeletonFrontendError(t *testing.T) {
 	wantEnvelope := newFrontendErrorEnvelope(
 		wantRequest,
 		"capture",
-		"GO_FRONTEND_INTERNAL",
-		"registered Go release selection is not installed",
+		"GO_FRONTEND_TOOLCHAIN",
+		"registered frontend inventory is invalid",
 	)
 	want, err := canonicalJSON(wantEnvelope)
 	if err != nil {

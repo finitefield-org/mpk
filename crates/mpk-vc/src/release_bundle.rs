@@ -1138,12 +1138,10 @@ fn validate_runtime_order(runtime: &ExecutableRuntime) -> Result<(), ReleaseRegi
 
 fn validate_invariants(registry: &BundleRegistry) -> Result<(), ReleaseRegistryError> {
     let all_empty = registry.execution_host_profiles.is_empty()
-        && registry.native_runtime_layout_profiles.is_empty()
         && registry.frontend_bundles.is_empty()
         && registry.toolchain_bundles.is_empty()
         && registry.tuples.is_empty();
     let any_empty = registry.execution_host_profiles.is_empty()
-        || registry.native_runtime_layout_profiles.is_empty()
         || registry.frontend_bundles.is_empty()
         || registry.toolchain_bundles.is_empty()
         || registry.tuples.is_empty();
@@ -1152,7 +1150,10 @@ fn validate_invariants(registry: &BundleRegistry) -> Result<(), ReleaseRegistryE
         "bootstrap arrays must be empty together",
     )?;
     if all_empty {
-        return Ok(());
+        return invariant_require(
+            registry.native_runtime_layout_profiles.is_empty(),
+            "bootstrap registry must not contain a native runtime layout",
+        );
     }
 
     for profile in &registry.execution_host_profiles {

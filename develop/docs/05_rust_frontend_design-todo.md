@@ -2194,7 +2194,7 @@ git diff --check
 
 ### GO-VIR-02-T05 Implement the Registry-Pinned Generic Frontend Runner
 
-Status: Pending
+Status: Complete (2026-08-22).
 
 Depends on: VIR-01-T02, VIR-01-T05, GO-VIR-02-T04.
 

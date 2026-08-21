@@ -1,9 +1,9 @@
 use mpk_vc::{
     canonical_json_bytes, hash_canonical_inventory, hash_canonical_json, parse_strict_json,
     registry_build_constants, sha256_raw_file_bytes, validate_release_limit,
-    validate_release_registry, HashDomain, ReleaseSelectionError, ReleaseSelectionRequest,
-    ReleaseValidationPhase, StrictJsonLimits, StrictJsonValue, BUNDLE_CONTENT_HASH_DOMAIN,
-    BUNDLE_REGISTRY_HASH_DOMAIN,
+    validate_release_registry, ExecutableRuntime, HashDomain, ReleaseSelectionError,
+    ReleaseSelectionRequest, ReleaseValidationPhase, StrictJsonLimits, StrictJsonValue,
+    BUNDLE_CONTENT_HASH_DOMAIN, BUNDLE_REGISTRY_HASH_DOMAIN,
 };
 use serde::Deserialize;
 use serde_json::{Map, Value};
@@ -369,7 +369,7 @@ fn release_bundle_hash_vectors_match_every_payload_and_domain() {
 }
 
 #[test]
-fn release_bundle_tracked_bootstrap_registry_is_valid_and_build_constants_are_derived() {
+fn release_bundle_tracked_go_registry_is_valid_and_build_constants_are_derived() {
     let path = repository_root().join("release/bundles/bundle-registry.json");
     let bytes = fs::read(path).expect("read tracked bundle registry");
     let validated = validate_release_registry(&bytes).expect("tracked registry validates");
@@ -379,10 +379,18 @@ fn release_bundle_tracked_bootstrap_registry_is_valid_and_build_constants_are_de
         constants.registry_sha256,
         *validated.registry_digest().as_bytes()
     );
-    assert!(validated.registry().frontend_bundles.is_empty());
+    assert_eq!(validated.registry().frontend_bundles.len(), 1);
+    assert_eq!(validated.registry().toolchain_bundles.len(), 1);
+    assert_eq!(validated.registry().tuples.len(), 1);
     assert!(validated
-        .frontend_bundle("frontend.go.synthetic.v0")
-        .is_none());
+        .registry()
+        .native_runtime_layout_profiles
+        .is_empty());
+    let frontend = validated
+        .frontend_bundle("frontend.go.go2vir.v0")
+        .expect("registered Go frontend");
+    assert!(frontend.subordinate_binaries.is_empty());
+    assert!(matches!(frontend.main.runtime, ExecutableRuntime::Static));
 }
 
 #[test]

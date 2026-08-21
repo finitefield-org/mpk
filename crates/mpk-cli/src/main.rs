@@ -44,7 +44,14 @@ const CHECKER_PROFILES: &[&str] = &["core-bootstrap", "mvp-structural", "mvp-str
 #[cfg(not(feature = "vertex-ai"))]
 const EXPLAIN_DISABLED_MESSAGE: &str = "mpk explain requires a build with --features vertex-ai";
 fn main() -> ExitCode {
-    match run(std::env::args().skip(1).collect()) {
+    let arguments: Vec<String> = std::env::args().skip(1).collect();
+    if arguments.first().map(String::as_str) == Some("__mpk_frontend_sandbox_v0") {
+        return ExitCode::from(mpk_cli::run_frontend_sandbox_bootstrap(&arguments[1..]));
+    }
+    if arguments.as_slice() == ["__mpk_frontend_probe_v0"] {
+        return ExitCode::from(mpk_cli::run_frontend_sandbox_probe());
+    }
+    match run(arguments) {
         Ok(RunOutcome::Help) => ExitCode::SUCCESS,
         Ok(RunOutcome::Check(output)) => {
             println!("{}", output.json);
