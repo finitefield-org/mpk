@@ -17,6 +17,8 @@ pub mod policy_theory_goal;
 pub mod release_bundle;
 pub mod safety;
 pub mod semantic_profile;
+pub mod source_manifest;
+pub mod source_map;
 pub mod type_encode;
 pub mod vc;
 pub mod vir;
@@ -87,6 +89,31 @@ pub use semantic_profile::{
     validate_semantic_context, validate_semantic_parameters, GoFixedParameters, OverflowMode,
     PanicMode, PointerWidth, PointerWidthError, RustCheckedParameters, SemanticContext,
     SemanticParameters, SemanticProfile, SemanticProfileError, SourceLanguage,
+};
+pub use source_manifest::{
+    attach_vc_hash, canonical_source_manifest_json, import_certificate_source_manifest_json,
+    import_frontend_source_manifest_json, input_set_hash, source_manifest_hash,
+    validate_component_identity, validate_language_configuration,
+    validate_manifest_normalized_path, validate_source_manifest_canonical_size,
+    validate_source_manifest_input_count, validate_source_manifest_transition, ComponentIdentity,
+    FrontendIdentity, GoSelection, InputEntry, LanguageConfiguration, ManifestSelection,
+    ManifestUnit, ManifestUnitKind, ReleaseRegistryIdentity, RustPrelude, RustSelection,
+    RustUnitKind, SourceManifest, SourceManifestError, SourceManifestErrorCode,
+    SourceManifestStage, SourceManifestValidationContext, SourceManifestValidationPhase,
+    SubordinateIdentity, TargetIdentity, ToolchainIdentity, ValidatedSourceManifest,
+    ValidatedVcIdentity, INPUT_SET_HASH_DOMAIN, SOURCE_MANIFEST_CANONICAL_BYTES_MAX,
+    SOURCE_MANIFEST_CFG_ENTRIES_MAX, SOURCE_MANIFEST_GO_INPUTS_MAX, SOURCE_MANIFEST_HASH_DOMAIN,
+    SOURCE_MANIFEST_RUST_INPUTS_MAX, SOURCE_MANIFEST_SCHEMA_VERSION,
+    SOURCE_MANIFEST_TOOLCHAIN_COMPONENTS_MAX, SOURCE_MANIFEST_UNITS_MAX,
+};
+pub use source_map::{
+    import_source_map_json, source_map_hash, validate_normalized_path,
+    validate_source_map_canonical_size, validate_source_map_entry_count, CapturedInput, InputKind,
+    SourceInputKind, SourceMap, SourceMapEntry, SourceMapError, SourceMapErrorCode,
+    SourceMapValidationContext, SourceMapValidationPhase, SourceOrigin, SourceReference,
+    SyntheticPermission, ValidatedSourceMap, NORMALIZED_PATH_BYTES_MAX,
+    SOURCE_MAP_CANONICAL_BYTES_MAX, SOURCE_MAP_ENTRIES_MAX, SOURCE_MAP_HASH_DOMAIN,
+    SOURCE_MAP_JSON_NESTING_MAX, SOURCE_MAP_SCHEMA_VERSION, SOURCE_MAP_STRING_BYTES_MAX,
 };
 pub use type_encode::{
     encode_gir_type, MpkTypeTerm, TypeEncodeError, TypeEncoder, STD_GO_BASE_ARRAY,

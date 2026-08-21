@@ -1506,7 +1506,7 @@ git diff --check
 
 ### VIR-01-T05 Implement Source Map and Two-Stage Source Manifest Validation
 
-Status: Pending
+Status: Complete (2026-08-21).
 
 Depends on: VIR-01-T02, VIR-01-T04.
 
