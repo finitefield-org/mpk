@@ -1,16 +1,17 @@
-//! Unified acyclic VIR weakest-precondition and operation-safety generation.
+//! Unified VIR weakest-precondition and operation-safety generation.
 //!
 //! The engine consumes only fully validated VIR. It propagates one bounded
 //! symbolic state per block, substitutes block arguments at edges, and merges
-//! predecessor states deterministically. Postconditions and safety checks are
-//! collected during that same traversal so their path semantics cannot drift.
+//! predecessor states deterministically. Validated Go loop backedges are cut at
+//! their contracted headers. Contract and safety members are collected during
+//! that same traversal so their path semantics cannot drift.
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::fmt;
 
 use crate::expr_encode::{
-    MpkExprTerm, STD_BOOL_AND, STD_BOOL_FALSE, STD_BOOL_IF, STD_BOOL_NOT, STD_BOOL_OR,
-    STD_BOOL_TRUE,
+    MpkExprTerm, STD_BITVEC_MODULE, STD_BOOL_AND, STD_BOOL_FALSE, STD_BOOL_IF, STD_BOOL_NOT,
+    STD_BOOL_OR, STD_BOOL_TRUE,
 };
 use crate::program_encode::{
     encode_vir_contract_expr, encode_vir_instruction_expr, encode_vir_value, ProgramExprContext,
@@ -19,9 +20,10 @@ use crate::program_encode::{
 use crate::safety_check::{
     classify_safety_evidence, encode_instruction_safety, SafetyCheckError, SafetyEvidenceRoute,
 };
-use crate::type_encode::MpkTypeTerm;
+use crate::type_encode::{encode_vir_type, MpkTypeTerm};
 use crate::vir::{
-    VirBinding, VirFunction, VirInstruction, VirModule, VirTerminator, VirUnit, VirValue,
+    VirBinding, VirFunction, VirInstruction, VirLoopContract, VirModule, VirTerminator, VirType,
+    VirUnit, VirValue,
 };
 use crate::vir_validate::{validate_vir, VirValidationError};
 
@@ -50,6 +52,10 @@ pub struct ProgramVcFunction {
 
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub enum ProgramVcMemberKind {
+    LoopDecreases,
+    LoopExit,
+    LoopInitialization,
+    LoopPreservation,
     OperationSafety,
     Postcondition,
 }
@@ -57,6 +63,10 @@ pub enum ProgramVcMemberKind {
 impl ProgramVcMemberKind {
     pub const fn as_str(self) -> &'static str {
         match self {
+            Self::LoopDecreases => "loop_decreases",
+            Self::LoopExit => "loop_exit",
+            Self::LoopInitialization => "loop_initialization",
+            Self::LoopPreservation => "loop_preservation",
             Self::OperationSafety => "operation_safety",
             Self::Postcondition => "postcondition",
         }
@@ -65,7 +75,11 @@ impl ProgramVcMemberKind {
     const fn group_suffix(self) -> &'static str {
         match self {
             Self::OperationSafety => "panic_free",
-            Self::Postcondition => "contract",
+            Self::LoopDecreases
+            | Self::LoopExit
+            | Self::LoopInitialization
+            | Self::LoopPreservation
+            | Self::Postcondition => "contract",
         }
     }
 }
@@ -127,16 +141,10 @@ impl ProgramWpGenerator {
         function: &VirFunction,
         budget: &mut GenerationBudget,
     ) -> Result<ProgramVcFunction, ProgramWpError> {
-        if function.contracts.loops.is_empty() {
-            self.generate_acyclic_function(module, unit, function, budget)
-        } else {
-            Err(ProgramWpError::UnsupportedLoopCutpoint {
-                function_id: function.id.clone(),
-            })
-        }
+        self.generate_program_function(module, unit, function, budget)
     }
 
-    fn generate_acyclic_function(
+    fn generate_program_function(
         self,
         module: &VirModule,
         unit: &VirUnit,
@@ -183,8 +191,10 @@ impl ProgramWpGenerator {
             .enumerate()
             .map(|(index, block)| (block.label.as_str(), index))
             .collect::<BTreeMap<_, _>>();
+        let loop_analysis = LoopAnalysis::for_validated_function(function, &labels)?;
+        let mut loop_runtime = LoopRuntime::default();
         let mut remaining_predecessors = vec![0_usize; function.blocks.len()];
-        for block in &function.blocks {
+        for (source_index, block) in function.blocks.iter().enumerate() {
             for successor in successors(&block.terminator) {
                 let target =
                     labels
@@ -194,6 +204,9 @@ impl ProgramWpGenerator {
                             function_id: function.id.clone(),
                             detail: format!("unknown successor {successor}"),
                         })?;
+                if loop_analysis.is_cut_edge(source_index, target) {
+                    continue;
+                }
                 remaining_predecessors[target] = remaining_predecessors[target]
                     .checked_add(1)
                     .ok_or_else(|| ProgramWpError::CounterOverflow {
@@ -214,6 +227,7 @@ impl ProgramWpGenerator {
         };
         let mut processed = 0_usize;
         let mut pending = Vec::new();
+        let mut loop_returns = BTreeMap::<usize, Vec<LoopReturnState>>::new();
         let mut function_member_count = 0_usize;
 
         while let Some(block_index) = worklist.ready.pop_first() {
@@ -228,6 +242,7 @@ impl ProgramWpGenerator {
                 SymbolicState {
                     env: initial_env.clone(),
                     assumptions: Vec::new(),
+                    origin_header: None,
                 }
             } else {
                 merge_incoming_states(
@@ -236,6 +251,21 @@ impl ProgramWpGenerator {
                     std::mem::take(&mut worklist.incoming[block_index]),
                 )?
             };
+            if let Some(loop_contract) = loop_analysis.contract(block_index, function) {
+                generate_loop_initialization(
+                    function,
+                    &context,
+                    &builder,
+                    budget,
+                    &mut function_member_count,
+                    &mut pending,
+                    block_index,
+                    loop_contract,
+                    &state,
+                )?;
+                state =
+                    loop_cutpoint_state(function, &context, &builder, block_index, loop_contract)?;
+            }
             processed =
                 processed
                     .checked_add(1)
@@ -266,18 +296,19 @@ impl ProgramWpGenerator {
                         reservation.conclusion_ceiling,
                     )?;
                     budget.finish_member(reservation, &proposition)?;
-                    pending.push(PendingMember {
-                        block_index,
-                        instruction_index,
-                        item_index: check_index,
-                        kind: ProgramVcMemberKind::OperationSafety,
-                        assumptions: state.assumptions.clone(),
-                        conclusion: proposition.clone(),
-                        safety_evidence: Some(classify_safety_evidence(
+                    pending.push(close_pending_member(
+                        function,
+                        &context,
+                        state.origin_header,
+                        MemberOrigin::new(block_index, instruction_index, check_index),
+                        ProgramVcMemberKind::OperationSafety,
+                        state.assumptions.clone(),
+                        proposition.clone(),
+                        Some(classify_safety_evidence(
                             module.semantic_profile,
                             &proposition,
                         )),
-                    });
+                    )?);
                 }
 
                 let raw = encode_vir_instruction_expr(&context, instruction).map_err(|source| {
@@ -301,6 +332,17 @@ impl ProgramWpGenerator {
                 }
             }
 
+            if let Some(loop_contract) = loop_analysis.contract(block_index, function) {
+                loop_runtime.record_before_variants(
+                    function,
+                    &context,
+                    &builder,
+                    block_index,
+                    loop_contract,
+                    &state,
+                )?;
+            }
+
             match &block.terminator {
                 VirTerminator::Return { values } => {
                     let mut results = BTreeMap::new();
@@ -320,32 +362,46 @@ impl ProgramWpGenerator {
                             })?;
                         results.insert(index, value);
                     }
-                    for (ensure_index, ensure) in function.contracts.ensures.iter().enumerate() {
-                        let reservation =
-                            budget.begin_member(&mut function_member_count, &state.assumptions)?;
-                        let raw = encode_vir_contract_expr(&context, ensure).map_err(|source| {
-                            expression_error(
+                    if let Some(header) = state.origin_header {
+                        loop_returns
+                            .entry(header)
+                            .or_default()
+                            .push(LoopReturnState {
+                                block_index,
+                                state,
+                                results,
+                            });
+                    } else {
+                        for (ensure_index, ensure) in function.contracts.ensures.iter().enumerate()
+                        {
+                            let reservation = budget
+                                .begin_member(&mut function_member_count, &state.assumptions)?;
+                            let raw =
+                                encode_vir_contract_expr(&context, ensure).map_err(|source| {
+                                    expression_error(
+                                        function,
+                                        format!("bb{block_index}.ensures[{ensure_index}]"),
+                                        source,
+                                    )
+                                })?;
+                            let conclusion = builder.substitute(
+                                &raw,
+                                &state.env,
+                                &results,
+                                reservation.conclusion_ceiling,
+                            )?;
+                            budget.finish_member(reservation, &conclusion)?;
+                            pending.push(close_pending_member(
                                 function,
-                                format!("bb{block_index}.ensures[{ensure_index}]"),
-                                source,
-                            )
-                        })?;
-                        let conclusion = builder.substitute(
-                            &raw,
-                            &state.env,
-                            &results,
-                            reservation.conclusion_ceiling,
-                        )?;
-                        budget.finish_member(reservation, &conclusion)?;
-                        pending.push(PendingMember {
-                            block_index,
-                            instruction_index: usize::MAX,
-                            item_index: ensure_index,
-                            kind: ProgramVcMemberKind::Postcondition,
-                            assumptions: state.assumptions.clone(),
-                            conclusion,
-                            safety_evidence: None,
-                        });
+                                &context,
+                                None,
+                                MemberOrigin::new(block_index, ensure_index, 0),
+                                ProgramVcMemberKind::Postcondition,
+                                state.assumptions.clone(),
+                                conclusion,
+                                None,
+                            )?);
+                        }
                     }
                 }
                 VirTerminator::Jump { label, args } => {
@@ -359,14 +415,30 @@ impl ProgramWpGenerator {
                         &function.blocks[target_index].parameters,
                         args,
                     )?;
-                    push_incoming(
-                        function,
-                        block_index,
-                        0,
-                        target_index,
-                        edge_state,
-                        &mut worklist,
-                    )?;
+                    if loop_analysis.is_cut_edge(block_index, target_index) {
+                        generate_loop_backedge_members(
+                            function,
+                            &context,
+                            &builder,
+                            budget,
+                            &mut function_member_count,
+                            &mut pending,
+                            &loop_analysis,
+                            &loop_runtime,
+                            block_index,
+                            target_index,
+                            &edge_state,
+                        )?;
+                    } else {
+                        push_incoming(
+                            function,
+                            block_index,
+                            0,
+                            target_index,
+                            edge_state,
+                            &mut worklist,
+                        )?;
+                    }
                 }
                 VirTerminator::Branch {
                     cond,
@@ -398,6 +470,24 @@ impl ProgramWpGenerator {
                         let target_index = labels[label.as_str()];
                         let mut branch_state = state.clone();
                         push_assumption(&mut branch_state.assumptions, guard, self.limits)?;
+                        if edge_index == 1 {
+                            if let Some(loop_contract) =
+                                loop_analysis.contract(block_index, function)
+                            {
+                                generate_loop_nonnegative_members(
+                                    function,
+                                    &context,
+                                    &builder,
+                                    budget,
+                                    &mut function_member_count,
+                                    &mut pending,
+                                    block_index,
+                                    loop_contract,
+                                    &loop_runtime,
+                                    &branch_state,
+                                )?;
+                            }
+                        }
                         let edge_state = edge_state(
                             function,
                             &context,
@@ -407,6 +497,12 @@ impl ProgramWpGenerator {
                             &function.blocks[target_index].parameters,
                             args,
                         )?;
+                        if loop_analysis.is_cut_edge(block_index, target_index) {
+                            return Err(ProgramWpError::InvalidGraph {
+                                function_id: function.id.clone(),
+                                detail: "validated loop backedge is not a Jump".to_owned(),
+                            });
+                        }
                         push_incoming(
                             function,
                             block_index,
@@ -420,9 +516,20 @@ impl ProgramWpGenerator {
             }
         }
 
+        generate_loop_exit_members(
+            function,
+            &context,
+            &builder,
+            budget,
+            &mut function_member_count,
+            &mut pending,
+            loop_returns,
+        )?;
+
         if processed != function.blocks.len() {
-            return Err(ProgramWpError::UnsupportedLoopCutpoint {
+            return Err(ProgramWpError::InvalidGraph {
                 function_id: function.id.clone(),
+                detail: "cut CFG traversal did not process every block".to_owned(),
             });
         }
 
@@ -461,6 +568,14 @@ impl ProgramWpLimits {
 struct SymbolicState {
     env: BTreeMap<String, MpkExprTerm>,
     assumptions: Vec<MpkExprTerm>,
+    origin_header: Option<usize>,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+struct LoopReturnState {
+    block_index: usize,
+    state: SymbolicState,
+    results: BTreeMap<u32, MpkExprTerm>,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -477,29 +592,866 @@ struct DataflowWorklist {
     ready: BTreeSet<usize>,
 }
 
+#[derive(Clone, Debug, Default, Eq, PartialEq)]
+struct LoopAnalysis {
+    contract_by_header: BTreeMap<usize, usize>,
+    cut_edges: BTreeSet<(usize, usize)>,
+    backedges_by_header: BTreeMap<usize, Vec<usize>>,
+}
+
+impl LoopAnalysis {
+    fn for_validated_function(
+        function: &VirFunction,
+        labels: &BTreeMap<&str, usize>,
+    ) -> Result<Self, ProgramWpError> {
+        if function.contracts.loops.is_empty() {
+            return Ok(Self::default());
+        }
+
+        let edges = function
+            .blocks
+            .iter()
+            .map(|block| {
+                successors(&block.terminator)
+                    .into_iter()
+                    .map(|label| {
+                        labels
+                            .get(label)
+                            .copied()
+                            .ok_or_else(|| ProgramWpError::InvalidGraph {
+                                function_id: function.id.clone(),
+                                detail: format!("unknown loop successor {label}"),
+                            })
+                    })
+                    .collect::<Result<Vec<_>, _>>()
+            })
+            .collect::<Result<Vec<_>, _>>()?;
+        let components = strongly_connected_components(&edges);
+        let mut component_by_block = vec![0_usize; function.blocks.len()];
+        for (component_index, component) in components.iter().enumerate() {
+            for block in component {
+                component_by_block[*block] = component_index;
+            }
+        }
+        let mut analysis = Self::default();
+        let mut contracted_components = BTreeSet::new();
+
+        for (contract_index, contract) in function.contracts.loops.iter().enumerate() {
+            let header = labels
+                .get(contract.header.as_str())
+                .copied()
+                .ok_or_else(|| ProgramWpError::InvalidGraph {
+                    function_id: function.id.clone(),
+                    detail: format!("unknown loop header {}", contract.header),
+                })?;
+            if analysis
+                .contract_by_header
+                .insert(header, contract_index)
+                .is_some()
+            {
+                return Err(ProgramWpError::InvalidGraph {
+                    function_id: function.id.clone(),
+                    detail: format!("duplicate loop header {}", contract.header),
+                });
+            }
+
+            let component_index = component_by_block[header];
+            if !contracted_components.insert(component_index) {
+                return Err(ProgramWpError::InvalidGraph {
+                    function_id: function.id.clone(),
+                    detail: "validated loop component has multiple headers".to_owned(),
+                });
+            }
+            let members = &components[component_index];
+
+            let mut backedges = members
+                .iter()
+                .copied()
+                .filter(|source| *source != header && edges[*source].contains(&header))
+                .collect::<Vec<_>>();
+            backedges.sort_unstable();
+            if backedges.is_empty() {
+                return Err(ProgramWpError::InvalidGraph {
+                    function_id: function.id.clone(),
+                    detail: format!("loop header {} has no backedge", contract.header),
+                });
+            }
+            for source in &backedges {
+                if !matches!(
+                    function.blocks[*source].terminator,
+                    VirTerminator::Jump { .. }
+                ) {
+                    return Err(ProgramWpError::InvalidGraph {
+                        function_id: function.id.clone(),
+                        detail: "validated loop backedge is not a Jump".to_owned(),
+                    });
+                }
+                analysis.cut_edges.insert((*source, header));
+            }
+            analysis.backedges_by_header.insert(header, backedges);
+        }
+
+        if !is_acyclic_after_cut(&edges, &analysis.cut_edges) {
+            return Err(ProgramWpError::InvalidGraph {
+                function_id: function.id.clone(),
+                detail: "loop cutpoints leave an uncovered cycle".to_owned(),
+            });
+        }
+        Ok(analysis)
+    }
+
+    fn contract<'a>(
+        &self,
+        header: usize,
+        function: &'a VirFunction,
+    ) -> Option<&'a VirLoopContract> {
+        self.contract_by_header
+            .get(&header)
+            .map(|index| &function.contracts.loops[*index])
+    }
+
+    fn is_cut_edge(&self, source: usize, target: usize) -> bool {
+        self.cut_edges.contains(&(source, target))
+    }
+
+    fn backedge_rank(&self, header: usize, source: usize) -> Option<usize> {
+        self.backedges_by_header
+            .get(&header)
+            .and_then(|sources| sources.binary_search(&source).ok())
+    }
+}
+
+fn strongly_connected_components(edges: &[Vec<usize>]) -> Vec<Vec<usize>> {
+    let mut reverse = vec![Vec::new(); edges.len()];
+    for (source, successors) in edges.iter().enumerate() {
+        for target in successors {
+            reverse[*target].push(source);
+        }
+    }
+    let mut seen = vec![false; edges.len()];
+    let mut order = Vec::with_capacity(edges.len());
+    for source in 0..edges.len() {
+        if seen[source] {
+            continue;
+        }
+        seen[source] = true;
+        let mut pending = vec![(source, 0_usize)];
+        while let Some((node, next_edge)) = pending.last_mut() {
+            if let Some(target) = edges[*node].get(*next_edge).copied() {
+                *next_edge += 1;
+                if !seen[target] {
+                    seen[target] = true;
+                    pending.push((target, 0));
+                }
+            } else {
+                order.push(*node);
+                pending.pop();
+            }
+        }
+    }
+    seen.fill(false);
+    let mut components = Vec::new();
+    while let Some(source) = order.pop() {
+        if seen[source] {
+            continue;
+        }
+        seen[source] = true;
+        let mut component = Vec::new();
+        let mut pending = vec![source];
+        while let Some(node) = pending.pop() {
+            component.push(node);
+            for target in reverse[node].iter().rev() {
+                if !seen[*target] {
+                    seen[*target] = true;
+                    pending.push(*target);
+                }
+            }
+        }
+        components.push(component);
+    }
+    components
+}
+
+fn is_acyclic_after_cut(edges: &[Vec<usize>], cut_edges: &BTreeSet<(usize, usize)>) -> bool {
+    let mut indegree = vec![0_usize; edges.len()];
+    for (source, successors) in edges.iter().enumerate() {
+        for target in successors {
+            if !cut_edges.contains(&(source, *target)) {
+                indegree[*target] += 1;
+            }
+        }
+    }
+    let mut ready = indegree
+        .iter()
+        .enumerate()
+        .filter_map(|(index, count)| (*count == 0).then_some(index))
+        .collect::<Vec<_>>();
+    let mut processed = 0_usize;
+    while let Some(source) = ready.pop() {
+        processed += 1;
+        for target in &edges[source] {
+            if cut_edges.contains(&(source, *target)) {
+                continue;
+            }
+            indegree[*target] -= 1;
+            if indegree[*target] == 0 {
+                ready.push(*target);
+            }
+        }
+    }
+    processed == edges.len()
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+struct LoopVariant {
+    before: MpkExprTerm,
+    width: u32,
+    signed: bool,
+}
+
+#[derive(Clone, Debug, Default, Eq, PartialEq)]
+struct LoopRuntime {
+    variants_by_header: BTreeMap<usize, Vec<LoopVariant>>,
+}
+
+impl LoopRuntime {
+    fn record_before_variants(
+        &mut self,
+        function: &VirFunction,
+        context: &ProgramExprContext,
+        builder: &TermBuilder,
+        header: usize,
+        contract: &VirLoopContract,
+        state: &SymbolicState,
+    ) -> Result<(), ProgramWpError> {
+        let mut variants = Vec::with_capacity(contract.decreases.len());
+        for (index, expression) in contract.decreases.iter().enumerate() {
+            let raw = encode_vir_contract_expr(context, expression).map_err(|source| {
+                expression_error(
+                    function,
+                    format!("loop {} decreases[{index}]", contract.header),
+                    source,
+                )
+            })?;
+            let before = builder.substitute(
+                &raw,
+                &state.env,
+                &BTreeMap::new(),
+                NodeCeiling::member(builder.limits.expression_nodes_per_member),
+            )?;
+            let VirType::Bv { width, signed } = context
+                .contract_expr_type(expression)
+                .map_err(|source| expression_error(function, "loop decreases type", source))?
+            else {
+                return Err(ProgramWpError::InvalidGraph {
+                    function_id: function.id.clone(),
+                    detail: "validated loop decreases is not a bitvector".to_owned(),
+                });
+            };
+            variants.push(LoopVariant {
+                before,
+                width: width.bits(),
+                signed,
+            });
+        }
+        if self.variants_by_header.insert(header, variants).is_some() {
+            return Err(ProgramWpError::InvalidGraph {
+                function_id: function.id.clone(),
+                detail: format!("loop header {} processed twice", contract.header),
+            });
+        }
+        Ok(())
+    }
+
+    fn variants(
+        &self,
+        function: &VirFunction,
+        header: usize,
+    ) -> Result<&[LoopVariant], ProgramWpError> {
+        self.variants_by_header
+            .get(&header)
+            .map(Vec::as_slice)
+            .ok_or_else(|| ProgramWpError::InvalidGraph {
+                function_id: function.id.clone(),
+                detail: format!(
+                    "loop header {} has no cutpoint variants",
+                    function.blocks[header].label
+                ),
+            })
+    }
+}
+
 #[derive(Clone, Debug, Eq, PartialEq)]
 struct PendingMember {
-    block_index: usize,
-    instruction_index: usize,
-    item_index: usize,
+    origin: MemberOrigin,
+    kind: ProgramVcMemberKind,
+    local_binders: Vec<MpkTypeTerm>,
+    assumptions: Vec<MpkExprTerm>,
+    conclusion: MpkExprTerm,
+    safety_evidence: Option<SafetyEvidenceRoute>,
+}
+
+#[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
+struct MemberOrigin {
+    primary: usize,
+    secondary: usize,
+    tertiary: usize,
+}
+
+impl MemberOrigin {
+    const fn new(primary: usize, secondary: usize, tertiary: usize) -> Self {
+        Self {
+            primary,
+            secondary,
+            tertiary,
+        }
+    }
+}
+
+fn loop_cutpoint_state(
+    function: &VirFunction,
+    context: &ProgramExprContext,
+    builder: &TermBuilder,
+    header: usize,
+    contract: &VirLoopContract,
+) -> Result<SymbolicState, ProgramWpError> {
+    let mut env = function
+        .params
+        .iter()
+        .chain(function.locals.iter())
+        .chain(function.blocks[header].parameters.iter())
+        .map(|binding| {
+            (
+                binding.id.clone(),
+                MpkExprTerm::Var {
+                    name: binding.id.clone(),
+                },
+            )
+        })
+        .collect::<BTreeMap<_, _>>();
+    let mut assumptions = Vec::with_capacity(contract.invariants.len());
+    for (index, invariant) in contract.invariants.iter().enumerate() {
+        let raw = encode_vir_contract_expr(context, invariant).map_err(|source| {
+            expression_error(
+                function,
+                format!("loop {} invariant[{index}]", contract.header),
+                source,
+            )
+        })?;
+        let encoded = builder.substitute(
+            &raw,
+            &env,
+            &BTreeMap::new(),
+            NodeCeiling::member(builder.limits.expression_nodes_per_member),
+        )?;
+        push_assumption(&mut assumptions, encoded, builder.limits)?;
+    }
+    // Instruction temporaries are introduced only while traversing the header.
+    env.retain(|name, _| {
+        function.params.iter().any(|binding| binding.id == *name)
+            || function.locals.iter().any(|binding| binding.id == *name)
+            || function.blocks[header]
+                .parameters
+                .iter()
+                .any(|binding| binding.id == *name)
+    });
+    Ok(SymbolicState {
+        env,
+        assumptions,
+        origin_header: Some(header),
+    })
+}
+
+#[allow(clippy::too_many_arguments)]
+fn generate_loop_initialization(
+    function: &VirFunction,
+    context: &ProgramExprContext,
+    builder: &TermBuilder,
+    budget: &mut GenerationBudget,
+    function_member_count: &mut usize,
+    pending: &mut Vec<PendingMember>,
+    header: usize,
+    contract: &VirLoopContract,
+    incoming: &SymbolicState,
+) -> Result<(), ProgramWpError> {
+    for (invariant_index, invariant) in contract.invariants.iter().enumerate() {
+        let reservation = budget.begin_member(function_member_count, &incoming.assumptions)?;
+        let raw = encode_vir_contract_expr(context, invariant).map_err(|source| {
+            expression_error(
+                function,
+                format!("loop {} initialization[{invariant_index}]", contract.header),
+                source,
+            )
+        })?;
+        let conclusion = builder.substitute(
+            &raw,
+            &incoming.env,
+            &BTreeMap::new(),
+            reservation.conclusion_ceiling,
+        )?;
+        budget.finish_member(reservation, &conclusion)?;
+        pending.push(close_pending_member(
+            function,
+            context,
+            incoming.origin_header,
+            MemberOrigin::new(header, invariant_index, 0),
+            ProgramVcMemberKind::LoopInitialization,
+            incoming.assumptions.clone(),
+            conclusion,
+            None,
+        )?);
+    }
+    Ok(())
+}
+
+#[allow(clippy::too_many_arguments)]
+fn generate_loop_exit_members(
+    function: &VirFunction,
+    context: &ProgramExprContext,
+    builder: &TermBuilder,
+    budget: &mut GenerationBudget,
+    function_member_count: &mut usize,
+    pending: &mut Vec<PendingMember>,
+    loop_returns: BTreeMap<usize, Vec<LoopReturnState>>,
+) -> Result<(), ProgramWpError> {
+    for (header, returns) in loop_returns {
+        let (state, results) = merge_loop_return_states(function, builder, header, returns)?;
+        for (ensure_index, ensure) in function.contracts.ensures.iter().enumerate() {
+            let reservation = budget.begin_member(function_member_count, &state.assumptions)?;
+            let raw = encode_vir_contract_expr(context, ensure).map_err(|source| {
+                expression_error(
+                    function,
+                    format!(
+                        "loop {} exit ensures[{ensure_index}]",
+                        function.blocks[header].label
+                    ),
+                    source,
+                )
+            })?;
+            let conclusion =
+                builder.substitute(&raw, &state.env, &results, reservation.conclusion_ceiling)?;
+            budget.finish_member(reservation, &conclusion)?;
+            pending.push(close_pending_member(
+                function,
+                context,
+                Some(header),
+                MemberOrigin::new(header, ensure_index, 0),
+                ProgramVcMemberKind::LoopExit,
+                state.assumptions.clone(),
+                conclusion,
+                None,
+            )?);
+        }
+    }
+    Ok(())
+}
+
+fn merge_loop_return_states(
+    function: &VirFunction,
+    builder: &TermBuilder,
+    header: usize,
+    mut returns: Vec<LoopReturnState>,
+) -> Result<(SymbolicState, BTreeMap<u32, MpkExprTerm>), ProgramWpError> {
+    if returns.is_empty() {
+        return Err(ProgramWpError::InvalidGraph {
+            function_id: function.id.clone(),
+            detail: "loop exit has no return state".to_owned(),
+        });
+    }
+    returns.sort_by_key(|state| state.block_index);
+    if returns
+        .iter()
+        .any(|state| state.state.origin_header != Some(header))
+    {
+        return Err(ProgramWpError::InvalidGraph {
+            function_id: function.id.clone(),
+            detail: "loop exit return has the wrong cutpoint scope".to_owned(),
+        });
+    }
+    if returns.len() == 1 {
+        let state = returns.pop().ok_or_else(|| ProgramWpError::InvalidGraph {
+            function_id: function.id.clone(),
+            detail: "loop exit return disappeared".to_owned(),
+        })?;
+        return Ok((state.state, state.results));
+    }
+
+    let common_length = returns
+        .iter()
+        .map(|state| state.state.assumptions.len())
+        .min()
+        .unwrap_or(0);
+    let common_length = (0..common_length)
+        .take_while(|index| {
+            let expected = &returns[0].state.assumptions[*index];
+            returns[1..]
+                .iter()
+                .all(|state| state.state.assumptions[*index] == *expected)
+        })
+        .count();
+    let selectors = returns
+        .iter()
+        .map(|state| builder.conjoin(&state.state.assumptions[common_length..]))
+        .collect::<Result<Vec<_>, _>>()?;
+    let mut assumptions = returns[0].state.assumptions[..common_length].to_vec();
+    let reach = builder.disjoin(&selectors)?;
+    if !is_true(&reach) {
+        push_assumption(&mut assumptions, reach, builder.limits)?;
+    }
+
+    let env_keys = returns[0]
+        .state
+        .env
+        .keys()
+        .filter(|key| {
+            returns[1..]
+                .iter()
+                .all(|state| state.state.env.contains_key(*key))
+        })
+        .cloned()
+        .collect::<Vec<_>>();
+    let mut env = BTreeMap::new();
+    for key in env_keys {
+        let values = returns
+            .iter()
+            .map(|state| state.state.env[&key].clone())
+            .collect::<Vec<_>>();
+        env.insert(key, builder.select(&selectors, &values)?);
+    }
+
+    let result_keys = returns[0].results.keys().copied().collect::<Vec<_>>();
+    if returns[1..]
+        .iter()
+        .any(|state| state.results.keys().copied().collect::<Vec<_>>() != result_keys)
+    {
+        return Err(ProgramWpError::InvalidGraph {
+            function_id: function.id.clone(),
+            detail: "loop exits have mismatched return results".to_owned(),
+        });
+    }
+    let mut results = BTreeMap::new();
+    for key in result_keys {
+        let values = returns
+            .iter()
+            .map(|state| state.results[&key].clone())
+            .collect::<Vec<_>>();
+        results.insert(key, builder.select(&selectors, &values)?);
+    }
+    Ok((
+        SymbolicState {
+            env,
+            assumptions,
+            origin_header: Some(header),
+        },
+        results,
+    ))
+}
+
+#[allow(clippy::too_many_arguments)]
+fn generate_loop_nonnegative_members(
+    function: &VirFunction,
+    context: &ProgramExprContext,
+    builder: &TermBuilder,
+    budget: &mut GenerationBudget,
+    function_member_count: &mut usize,
+    pending: &mut Vec<PendingMember>,
+    header: usize,
+    contract: &VirLoopContract,
+    runtime: &LoopRuntime,
+    state: &SymbolicState,
+) -> Result<(), ProgramWpError> {
+    let variants = runtime.variants(function, header)?;
+    if variants.len() != contract.decreases.len() {
+        return Err(ProgramWpError::InvalidGraph {
+            function_id: function.id.clone(),
+            detail: format!("loop {} decrease count changed", contract.header),
+        });
+    }
+    for (decrease_index, variant) in variants.iter().enumerate() {
+        if !variant.signed {
+            continue;
+        }
+        let reservation = budget.begin_member(function_member_count, &state.assumptions)?;
+        let conclusion = builder.apply_with_ceiling(
+            &bitvec_function(variant.width, "sge"),
+            vec![
+                variant.before.clone(),
+                MpkExprTerm::BitVecLiteral {
+                    value: "0".to_owned(),
+                    width: variant.width,
+                    signed: true,
+                },
+            ],
+            reservation.conclusion_ceiling,
+        )?;
+        budget.finish_member(reservation, &conclusion)?;
+        pending.push(close_pending_member(
+            function,
+            context,
+            Some(header),
+            MemberOrigin::new(header, decrease_index, 0),
+            ProgramVcMemberKind::LoopDecreases,
+            state.assumptions.clone(),
+            conclusion,
+            None,
+        )?);
+    }
+    Ok(())
+}
+
+#[allow(clippy::too_many_arguments)]
+fn generate_loop_backedge_members(
+    function: &VirFunction,
+    context: &ProgramExprContext,
+    builder: &TermBuilder,
+    budget: &mut GenerationBudget,
+    function_member_count: &mut usize,
+    pending: &mut Vec<PendingMember>,
+    analysis: &LoopAnalysis,
+    runtime: &LoopRuntime,
+    backedge_source: usize,
+    header: usize,
+    state: &SymbolicState,
+) -> Result<(), ProgramWpError> {
+    if state.origin_header != Some(header) {
+        return Err(ProgramWpError::InvalidGraph {
+            function_id: function.id.clone(),
+            detail: "loop backedge escaped its cutpoint scope".to_owned(),
+        });
+    }
+    let contract =
+        analysis
+            .contract(header, function)
+            .ok_or_else(|| ProgramWpError::InvalidGraph {
+                function_id: function.id.clone(),
+                detail: "loop backedge targets an uncontracted header".to_owned(),
+            })?;
+    let backedge_rank = analysis
+        .backedge_rank(header, backedge_source)
+        .ok_or_else(|| ProgramWpError::InvalidGraph {
+            function_id: function.id.clone(),
+            detail: "loop backedge has no canonical rank".to_owned(),
+        })?;
+
+    for (invariant_index, invariant) in contract.invariants.iter().enumerate() {
+        let reservation = budget.begin_member(function_member_count, &state.assumptions)?;
+        let raw = encode_vir_contract_expr(context, invariant).map_err(|source| {
+            expression_error(
+                function,
+                format!(
+                    "loop {} backedge bb{backedge_source} invariant[{invariant_index}]",
+                    contract.header
+                ),
+                source,
+            )
+        })?;
+        let conclusion = builder.substitute(
+            &raw,
+            &state.env,
+            &BTreeMap::new(),
+            reservation.conclusion_ceiling,
+        )?;
+        budget.finish_member(reservation, &conclusion)?;
+        pending.push(close_pending_member(
+            function,
+            context,
+            Some(header),
+            MemberOrigin::new(header, backedge_source, invariant_index),
+            ProgramVcMemberKind::LoopPreservation,
+            state.assumptions.clone(),
+            conclusion,
+            None,
+        )?);
+    }
+
+    let variants = runtime.variants(function, header)?;
+    for (decrease_index, (expression, variant)) in
+        contract.decreases.iter().zip(variants).enumerate()
+    {
+        let reservation = budget.begin_member(function_member_count, &state.assumptions)?;
+        let raw = encode_vir_contract_expr(context, expression).map_err(|source| {
+            expression_error(
+                function,
+                format!(
+                    "loop {} backedge bb{backedge_source} decreases[{decrease_index}]",
+                    contract.header
+                ),
+                source,
+            )
+        })?;
+        let after = builder.substitute(
+            &raw,
+            &state.env,
+            &BTreeMap::new(),
+            reservation.conclusion_ceiling,
+        )?;
+        let conclusion = builder.apply_with_ceiling(
+            &bitvec_function(variant.width, if variant.signed { "slt" } else { "ult" }),
+            vec![after, variant.before.clone()],
+            reservation.conclusion_ceiling,
+        )?;
+        budget.finish_member(reservation, &conclusion)?;
+        let phase = backedge_rank
+            .checked_add(usize::from(variant.signed))
+            .ok_or_else(|| ProgramWpError::CounterOverflow {
+                context: "loop decrease origin".to_owned(),
+            })?;
+        pending.push(close_pending_member(
+            function,
+            context,
+            Some(header),
+            MemberOrigin::new(header, decrease_index, phase),
+            ProgramVcMemberKind::LoopDecreases,
+            state.assumptions.clone(),
+            conclusion,
+            None,
+        )?);
+    }
+    Ok(())
+}
+
+#[allow(clippy::too_many_arguments)]
+fn close_pending_member(
+    function: &VirFunction,
+    context: &ProgramExprContext,
+    binder_header: Option<usize>,
+    origin: MemberOrigin,
     kind: ProgramVcMemberKind,
     assumptions: Vec<MpkExprTerm>,
     conclusion: MpkExprTerm,
     safety_evidence: Option<SafetyEvidenceRoute>,
+) -> Result<PendingMember, ProgramWpError> {
+    let parameter_ids = function
+        .params
+        .iter()
+        .map(|binding| binding.id.as_str())
+        .collect::<BTreeSet<_>>();
+    let mut referenced = BTreeSet::new();
+    for assumption in &assumptions {
+        collect_term_variables(assumption, &mut referenced);
+    }
+    collect_term_variables(&conclusion, &mut referenced);
+    let non_parameters = referenced
+        .iter()
+        .filter(|name| !parameter_ids.contains(name.as_str()))
+        .cloned()
+        .collect::<BTreeSet<_>>();
+
+    let candidates = binder_header
+        .map(|header| {
+            function
+                .locals
+                .iter()
+                .chain(function.blocks[header].parameters.iter())
+                .collect::<Vec<_>>()
+        })
+        .unwrap_or_default();
+    let candidate_ids = candidates
+        .iter()
+        .map(|binding| binding.id.as_str())
+        .collect::<BTreeSet<_>>();
+    if let Some(name) = non_parameters
+        .iter()
+        .find(|name| !candidate_ids.contains(name.as_str()))
+    {
+        return Err(ProgramWpError::UnclosedValue { name: name.clone() });
+    }
+    let selected = candidates
+        .into_iter()
+        .filter(|binding| non_parameters.contains(&binding.id))
+        .collect::<Vec<_>>();
+    let binder_count = selected.len();
+    let mut replacements = BTreeMap::new();
+    let mut local_binders = Vec::with_capacity(binder_count);
+    for (index, binding) in selected.into_iter().enumerate() {
+        let debruijn = binder_count
+            .checked_sub(index + 1)
+            .and_then(|value| u32::try_from(value).ok())
+            .ok_or_else(|| ProgramWpError::CounterOverflow {
+                context: "loop local-binder index".to_owned(),
+            })?;
+        replacements.insert(binding.id.clone(), debruijn);
+        local_binders.push(
+            encode_vir_type(
+                context.profile(),
+                context.parameters(),
+                context.declarations(),
+                &binding.r#type,
+            )
+            .map_err(|source| {
+                expression_error(function, "loop local-binder type", source.into())
+            })?,
+        );
+    }
+    let assumptions = assumptions
+        .iter()
+        .map(|term| bind_term(term, &replacements))
+        .collect::<Result<Vec<_>, _>>()?;
+    let conclusion = bind_term(&conclusion, &replacements)?;
+    Ok(PendingMember {
+        origin,
+        kind,
+        local_binders,
+        assumptions,
+        conclusion,
+        safety_evidence,
+    })
+}
+
+fn collect_term_variables(term: &MpkExprTerm, output: &mut BTreeSet<String>) {
+    match term {
+        MpkExprTerm::Var { name } => {
+            output.insert(name.clone());
+        }
+        MpkExprTerm::Apply { args, .. } => {
+            for argument in args {
+                collect_term_variables(argument, output);
+            }
+        }
+        MpkExprTerm::Convert { value, .. } => collect_term_variables(value, output),
+        MpkExprTerm::Bound { .. }
+        | MpkExprTerm::Result { .. }
+        | MpkExprTerm::Constant { .. }
+        | MpkExprTerm::BitVecLiteral { .. } => {}
+    }
+}
+
+fn bind_term(
+    term: &MpkExprTerm,
+    replacements: &BTreeMap<String, u32>,
+) -> Result<MpkExprTerm, ProgramWpError> {
+    match term {
+        MpkExprTerm::Var { name } => Ok(replacements.get(name).map_or_else(
+            || term.clone(),
+            |index| MpkExprTerm::Bound { index: *index },
+        )),
+        MpkExprTerm::Bound { .. }
+        | MpkExprTerm::Constant { .. }
+        | MpkExprTerm::BitVecLiteral { .. } => Ok(term.clone()),
+        MpkExprTerm::Result { index } => Err(ProgramWpError::UnclosedResult { index: *index }),
+        MpkExprTerm::Apply { function, args } => Ok(MpkExprTerm::Apply {
+            function: function.clone(),
+            args: args
+                .iter()
+                .map(|argument| bind_term(argument, replacements))
+                .collect::<Result<Vec<_>, _>>()?,
+        }),
+        MpkExprTerm::Convert { value, target } => Ok(MpkExprTerm::Convert {
+            value: Box::new(bind_term(value, replacements)?),
+            target: target.clone(),
+        }),
+    }
+}
+
+fn bitvec_function(width: u32, suffix: &str) -> String {
+    format!("{STD_BITVEC_MODULE}.BV{width}.{suffix}")
 }
 
 fn finalize_members(
     function: &VirFunction,
     mut pending: Vec<PendingMember>,
 ) -> Result<Vec<ProgramVcMember>, ProgramWpError> {
-    pending.sort_by_key(|member| {
-        (
-            member.kind,
-            member.block_index,
-            member.instruction_index,
-            member.item_index,
-        )
-    });
+    pending.sort_by_key(|member| (member.kind, member.origin));
     let mut ordinals = BTreeMap::<ProgramVcMemberKind, usize>::new();
     let mut members = Vec::with_capacity(pending.len());
     for member in pending {
@@ -516,7 +1468,7 @@ fn finalize_members(
             id: format!("{}#{kind}#{:06}", function.id, *ordinal),
             function_id: function.id.clone(),
             kind: member.kind,
-            local_binders: Vec::new(),
+            local_binders: member.local_binders,
             assumptions: member.assumptions,
             conclusion: member.conclusion,
             group_id: format!("{}.{}", function.id, member.kind.group_suffix()),
@@ -563,6 +1515,7 @@ fn edge_state(
     Ok(SymbolicState {
         env,
         assumptions: state.assumptions.clone(),
+        origin_header: state.origin_header,
     })
 }
 
@@ -616,6 +1569,16 @@ fn merge_incoming_states(
             });
     }
 
+    let origin_header = incoming[0].state.origin_header;
+    if incoming[1..]
+        .iter()
+        .any(|edge| edge.state.origin_header != origin_header)
+    {
+        return Err(ProgramWpError::InvalidGraph {
+            function_id: function.id.clone(),
+            detail: "dataflow join mixes distinct loop-cutpoint scopes".to_owned(),
+        });
+    }
     let common_length = longest_common_assumption_prefix(&incoming);
     let selectors = incoming
         .iter()
@@ -646,7 +1609,11 @@ fn merge_incoming_states(
             .collect::<Vec<_>>();
         env.insert(key, builder.select(&selectors, &values)?);
     }
-    Ok(SymbolicState { env, assumptions })
+    Ok(SymbolicState {
+        env,
+        assumptions,
+        origin_header,
+    })
 }
 
 fn longest_common_assumption_prefix(incoming: &[IncomingState]) -> usize {
@@ -896,15 +1863,24 @@ impl TermBuilder {
     }
 
     fn apply(self, function: &str, args: Vec<MpkExprTerm>) -> Result<MpkExprTerm, ProgramWpError> {
+        self.apply_with_ceiling(
+            function,
+            args,
+            NodeCeiling::member(self.limits.expression_nodes_per_member),
+        )
+    }
+
+    fn apply_with_ceiling(
+        self,
+        function: &str,
+        args: Vec<MpkExprTerm>,
+        ceiling: NodeCeiling,
+    ) -> Result<MpkExprTerm, ProgramWpError> {
         let term = MpkExprTerm::Apply {
             function: function.to_owned(),
             args,
         };
-        measure_term(
-            &term,
-            NodeCeiling::member(self.limits.expression_nodes_per_member),
-            self.limits.member_expression_depth,
-        )?;
+        measure_term(&term, ceiling, self.limits.member_expression_depth)?;
         Ok(term)
     }
 }
@@ -945,7 +1921,9 @@ fn substitute_unchecked(
             .get(index)
             .cloned()
             .ok_or(ProgramWpError::UnclosedResult { index: *index }),
-        MpkExprTerm::Constant { .. } | MpkExprTerm::BitVecLiteral { .. } => Ok(input.clone()),
+        MpkExprTerm::Bound { .. }
+        | MpkExprTerm::Constant { .. }
+        | MpkExprTerm::BitVecLiteral { .. } => Ok(input.clone()),
         MpkExprTerm::Apply { function, args } => Ok(MpkExprTerm::Apply {
             function: function.clone(),
             args: args
@@ -976,7 +1954,9 @@ fn projected_metrics(
             .get(index)
             .ok_or(ProgramWpError::UnclosedResult { index: *index })
             .and_then(|term| measure_term(term, ceiling, depth_limit)),
-        MpkExprTerm::Constant { .. } | MpkExprTerm::BitVecLiteral { .. } => {
+        MpkExprTerm::Bound { .. }
+        | MpkExprTerm::Constant { .. }
+        | MpkExprTerm::BitVecLiteral { .. } => {
             check_metrics(TermMetrics { nodes: 1, depth: 1 }, ceiling, depth_limit)
         }
         MpkExprTerm::Apply { args, .. } => {
@@ -1011,6 +1991,7 @@ fn measure_term(
 ) -> Result<TermMetrics, ProgramWpError> {
     match input {
         MpkExprTerm::Var { .. }
+        | MpkExprTerm::Bound { .. }
         | MpkExprTerm::Result { .. }
         | MpkExprTerm::Constant { .. }
         | MpkExprTerm::BitVecLiteral { .. } => {
@@ -1376,9 +2357,6 @@ pub enum ProgramWpError {
         block_label: String,
         instruction_id: String,
     },
-    UnsupportedLoopCutpoint {
-        function_id: String,
-    },
     InvalidGraph {
         function_id: String,
         detail: String,
@@ -1406,7 +2384,6 @@ impl ProgramWpError {
             Self::Expression { .. } => "VC_PROGRAM_EXPRESSION",
             Self::Safety { .. } => "VC_PROGRAM_SAFETY",
             Self::UnsupportedStaticCall { .. } => "VC_PROGRAM_CALL_UNSUPPORTED",
-            Self::UnsupportedLoopCutpoint { .. } => "VC_PROGRAM_LOOP_UNSUPPORTED",
             Self::InvalidGraph { .. } => "VC_PROGRAM_GRAPH",
             Self::UnclosedValue { .. } | Self::UnclosedResult { .. } => "VC_PROGRAM_UNCLOSED_TERM",
             Self::Limit { code, .. } => code,
@@ -1443,12 +2420,6 @@ impl fmt::Display for ProgramWpError {
                 formatter,
                 "static call {instruction_id} in {function_id}/{block_label} awaits VIR-01-T10"
             ),
-            Self::UnsupportedLoopCutpoint { function_id } => {
-                write!(
-                    formatter,
-                    "loop cutpoint in {function_id} awaits VIR-01-T09"
-                )
-            }
             Self::InvalidGraph {
                 function_id,
                 detail,

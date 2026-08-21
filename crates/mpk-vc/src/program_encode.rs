@@ -302,6 +302,16 @@ impl ProgramExprContext {
         }
     }
 
+    /// Resolves the exact VIR type of a validated contract expression.
+    pub fn contract_expr_type(
+        &self,
+        input: &VirContractExpr,
+    ) -> Result<VirType, ProgramExprEncodeError> {
+        Ok(ProgramExprEncoder::new(self)
+            .encode_contract_expr_typed(input)?
+            .ty)
+    }
+
     fn insert_constant(&mut self, declaration: &VirConstDecl) {
         self.constants.insert(
             declaration.id.clone(),

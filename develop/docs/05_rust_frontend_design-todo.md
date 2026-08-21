@@ -1731,7 +1731,7 @@ git diff --check
 
 ### VIR-01-T09 Port Go Loop Cutpoints to the Unified WP Engine
 
-Status: Pending
+Status: Complete (2026-08-21).
 
 Depends on: VIR-01-T08.
 

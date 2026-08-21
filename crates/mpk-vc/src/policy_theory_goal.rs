@@ -446,6 +446,7 @@ fn linear_operand(term: &MpkExprTerm) -> Result<Option<LinearOperand>, PolicyThe
         MpkExprTerm::Result { index } => {
             Ok(Some(LinearOperand::Variable(format!("result:{index}"))))
         }
+        MpkExprTerm::Bound { .. } => Ok(None),
         MpkExprTerm::BitVecLiteral {
             value,
             width: 64,

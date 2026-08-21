@@ -496,7 +496,9 @@ pub(crate) fn substitute_term(
         MpkExprTerm::Result { index } => {
             results.get(index).cloned().unwrap_or_else(|| input.clone())
         }
-        MpkExprTerm::Constant { .. } | MpkExprTerm::BitVecLiteral { .. } => input.clone(),
+        MpkExprTerm::Bound { .. }
+        | MpkExprTerm::Constant { .. }
+        | MpkExprTerm::BitVecLiteral { .. } => input.clone(),
         MpkExprTerm::Apply { function, args } => MpkExprTerm::Apply {
             function: function.clone(),
             args: args

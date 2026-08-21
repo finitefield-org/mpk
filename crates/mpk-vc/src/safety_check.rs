@@ -878,7 +878,7 @@ fn bool_or(lhs: MpkExprTerm, rhs: MpkExprTerm) -> MpkExprTerm {
 
 fn is_ground(term: &MpkExprTerm) -> bool {
     match term {
-        MpkExprTerm::Var { .. } | MpkExprTerm::Result { .. } => false,
+        MpkExprTerm::Var { .. } | MpkExprTerm::Bound { .. } | MpkExprTerm::Result { .. } => false,
         MpkExprTerm::Constant { .. } | MpkExprTerm::BitVecLiteral { .. } => true,
         MpkExprTerm::Apply { args, .. } => args.iter().all(is_ground),
         MpkExprTerm::Convert { value, .. } => is_ground(value),

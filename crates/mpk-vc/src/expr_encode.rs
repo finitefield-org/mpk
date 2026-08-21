@@ -949,6 +949,9 @@ pub enum MpkExprTerm {
     Var {
         name: String,
     },
+    Bound {
+        index: u32,
+    },
     Result {
         index: u32,
     },
