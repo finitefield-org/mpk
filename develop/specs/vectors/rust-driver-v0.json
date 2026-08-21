@@ -1,0 +1,1265 @@
+{
+  "schema": "mpk.rust.driver.conformance.v0",
+  "request_schema": "mpk.rust.driver.request.v0",
+  "output_schema": "mpk.rust.driver.v0",
+  "hash_domains": {
+    "request": "MPK-RUST-DRIVER-REQUEST-0.1",
+    "source_inventory": "MPK-RUST-SOURCE-INVENTORY-0.1",
+    "success_payload": "MPK-RUST-DRIVER-PAYLOAD-0.1"
+  },
+  "fixtures": {
+    "captured_bytes": [
+      {
+        "normalized_path": "Cargo.lock",
+        "base64": "IyBUaGlzIGZpbGUgaXMgYXV0b21hdGljYWxseSBAZ2VuZXJhdGVkIGJ5IENhcmdvLgp2ZXJzaW9uID0gNAoKW1twYWNrYWdlXV0KbmFtZSA9ICJ2ZWN0b3IiCnZlcnNpb24gPSAiMC4xLjAiCg=="
+      },
+      {
+        "normalized_path": "Cargo.toml",
+        "base64": "W3BhY2thZ2VdCm5hbWUgPSAidmVjdG9yIgp2ZXJzaW9uID0gIjAuMS4wIgplZGl0aW9uID0gIjIwMjEiCgpbZGVwZW5kZW5jaWVzXQo="
+      },
+      {
+        "normalized_path": "contracts/identity.json",
+        "base64": "eyJlbnN1cmVzIjpbeyJhcmdzIjpbeyJyZXN1bHQiOjB9LHsicGFyYW1ldGVyIjoieCJ9XSwib3AiOiJlcSJ9XSwiZnVuY3Rpb24iOiJ2ZWN0b3I6OmlkZW50aXR5IiwibG9vcHMiOltdLCJtb2RpZmllcyI6W10sInBhbmljIjoiZm9yYmlkZGVuIiwicmVxdWlyZXMiOltdLCJzY2hlbWEiOiJtcGsucnVzdC5jb250cmFjdC52MCIsInNlbWFudGljX3Byb2ZpbGUiOiJtcGsucnVzdC5jaGVja2VkLnYwIiwidGFyZ2V0X3BvaW50ZXJfd2lkdGgiOjY0LCJ0ZXJtaW5hdGlvbiI6InRvdGFsIn0K"
+      },
+      {
+        "normalized_path": "src/lib.rs",
+        "base64": "cHViIGZuIGlkZW50aXR5KHg6IGk4KSAtPiBpOCB7IHggfQo="
+      }
+    ],
+    "inputs": [
+      {
+        "kind": "lockfile",
+        "normalized_path": "Cargo.lock",
+        "size_bytes": 109,
+        "sha256": "a9c21cd641b1bfd3a7c21ef4d1369a9603db06e2ac9b9597079835f9dca4b698"
+      },
+      {
+        "kind": "build_manifest",
+        "normalized_path": "Cargo.toml",
+        "size_bytes": 77,
+        "sha256": "465b02c530420b3282aae2d329996f572a187255ee81c2bf591773d211c3b038"
+      },
+      {
+        "kind": "contract",
+        "normalized_path": "contracts/identity.json",
+        "size_bytes": 276,
+        "sha256": "79d3ac7c15be4446d9ab58f5d89e773ef2398b554345bc367778f70f983b09fd"
+      },
+      {
+        "kind": "source",
+        "normalized_path": "src/lib.rs",
+        "size_bytes": 35,
+        "sha256": "43be2fffdb73ff45411108f22ed83d1b6bab58e603f21d446aa15e2863bfd4f3"
+      }
+    ],
+    "input_set_hash": "15a53341e318c8abdd561631f381f9d44b1a4ea8cb0ad7bbd60e2958992a608e",
+    "source_inventory": [
+      {
+        "normalized_path": "src/lib.rs",
+        "size_bytes": 35,
+        "sha256": "43be2fffdb73ff45411108f22ed83d1b6bab58e603f21d446aa15e2863bfd4f3"
+      }
+    ],
+    "source_inventory_hash": "802469f1b9b513febfaa67a0031ea9f4015e3769512c0d833a8e7314dedee0c0"
+  },
+  "valid_request": {
+    "value": {
+      "schema": "mpk.rust.driver.request.v0",
+      "source_language": "rust",
+      "semantic_profile": "mpk.rust.checked.v0",
+      "semantic_parameters": {
+        "target_id": "x86_64-unknown-linux-gnu",
+        "pointer_width": 64,
+        "overflow_mode": "checked",
+        "panic_mode": "abort"
+      },
+      "selection": {
+        "package": "vector",
+        "crate": "vector",
+        "kind": "lib",
+        "function": "vector::identity"
+      },
+      "limit_profile": "mpk.rust.limits.v0",
+      "target_allowlist_id": "mpk.rust.targets.v0",
+      "environment_profile_id": "mpk.rust.frontend_environment.v0",
+      "argument_profile_id": "mpk.rust.frontend_arguments.v0",
+      "mir_profile_id": "mpk.rust.mir.4d08223c.v0",
+      "release_registry": {
+        "schema": "mpk.release.bundle_registry.v0",
+        "id": "mpk.release.registry.v0",
+        "registry_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "frontend": {
+        "bundle_id": "mpk.frontend.rust2vir.nightly-2025-06-01.v0",
+        "name": "rust2vir",
+        "version": "0.1.0",
+        "binary_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "subordinate_binaries": [
+          {
+            "name": "rust2vir-driver",
+            "version": "0.1.0",
+            "binary_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+          }
+        ]
+      },
+      "toolchain": {
+        "bundle_id": "mpk.toolchain.rust.nightly-2025-06-01.v0",
+        "distribution_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "components": [
+          {
+            "kind": "executable",
+            "name": "cargo",
+            "release": "1.89.0-nightly",
+            "binary_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+          },
+          {
+            "kind": "content",
+            "name": "rust-std-i686",
+            "release": "1.89.0-nightly",
+            "content_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+          },
+          {
+            "kind": "content",
+            "name": "rust-std-x86_64",
+            "release": "1.89.0-nightly",
+            "content_sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          {
+            "kind": "executable",
+            "name": "rustc",
+            "release": "1.89.0-nightly",
+            "commit_hash": "4d08223c054cf5a56d9761ca925fd46ffebe7115",
+            "binary_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+          }
+        ]
+      },
+      "compiler": {
+        "name": "rustc",
+        "release": "1.89.0-nightly",
+        "commit_hash": "4d08223c054cf5a56d9761ca925fd46ffebe7115",
+        "binary_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+        "target": "x86_64-unknown-linux-gnu"
+      },
+      "inputs": [
+        {
+          "kind": "lockfile",
+          "normalized_path": "Cargo.lock",
+          "size_bytes": 109,
+          "sha256": "a9c21cd641b1bfd3a7c21ef4d1369a9603db06e2ac9b9597079835f9dca4b698"
+        },
+        {
+          "kind": "build_manifest",
+          "normalized_path": "Cargo.toml",
+          "size_bytes": 77,
+          "sha256": "465b02c530420b3282aae2d329996f572a187255ee81c2bf591773d211c3b038"
+        },
+        {
+          "kind": "contract",
+          "normalized_path": "contracts/identity.json",
+          "size_bytes": 276,
+          "sha256": "79d3ac7c15be4446d9ab58f5d89e773ef2398b554345bc367778f70f983b09fd"
+        },
+        {
+          "kind": "source",
+          "normalized_path": "src/lib.rs",
+          "size_bytes": 35,
+          "sha256": "43be2fffdb73ff45411108f22ed83d1b6bab58e603f21d446aa15e2863bfd4f3"
+        }
+      ],
+      "input_set_hash": "15a53341e318c8abdd561631f381f9d44b1a4ea8cb0ad7bbd60e2958992a608e",
+      "source_inventory": [
+        {
+          "normalized_path": "src/lib.rs",
+          "size_bytes": 35,
+          "sha256": "43be2fffdb73ff45411108f22ed83d1b6bab58e603f21d446aa15e2863bfd4f3"
+        }
+      ],
+      "source_inventory_hash": "802469f1b9b513febfaa67a0031ea9f4015e3769512c0d833a8e7314dedee0c0",
+      "request_fingerprint": "4726919a5c8b3aa8d21f6a93bb71c2e030300a34d52cca9b30036f3d983c3831"
+    },
+    "fingerprint_preimage_utf8_length": 3075,
+    "transport": {
+      "path": "/mpk/driver-request.json",
+      "utf8_length": 3165,
+      "sha256": "8da64953412d2d89edc3cc2d99c765b1964c9b5724ac6390ac66915ff8837779",
+      "base64": "eyJhcmd1bWVudF9wcm9maWxlX2lkIjoibXBrLnJ1c3QuZnJvbnRlbmRfYXJndW1lbnRzLnYwIiwiY29tcGlsZXIiOnsiYmluYXJ5X3NoYTI1NiI6IjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIiLCJjb21taXRfaGFzaCI6IjRkMDgyMjNjMDU0Y2Y1YTU2ZDk3NjFjYTkyNWZkNDZmZmViZTcxMTUiLCJuYW1lIjoicnVzdGMiLCJyZWxlYXNlIjoiMS44OS4wLW5pZ2h0bHkiLCJ0YXJnZXQiOiJ4ODZfNjQtdW5rbm93bi1saW51eC1nbnUifSwiZW52aXJvbm1lbnRfcHJvZmlsZV9pZCI6Im1way5ydXN0LmZyb250ZW5kX2Vudmlyb25tZW50LnYwIiwiZnJvbnRlbmQiOnsiYmluYXJ5X3NoYTI1NiI6ImJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmIiLCJidW5kbGVfaWQiOiJtcGsuZnJvbnRlbmQucnVzdDJ2aXIubmlnaHRseS0yMDI1LTA2LTAxLnYwIiwibmFtZSI6InJ1c3QydmlyIiwic3Vib3JkaW5hdGVfYmluYXJpZXMiOlt7ImJpbmFyeV9zaGEyNTYiOiJjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjIiwibmFtZSI6InJ1c3QydmlyLWRyaXZlciIsInZlcnNpb24iOiIwLjEuMCJ9XSwidmVyc2lvbiI6IjAuMS4wIn0sImlucHV0X3NldF9oYXNoIjoiMTVhNTMzNDFlMzE4YzhhYmRkNTYxNjMxZjM4MWY5ZDQ0YjFhNGVhOGNiMGFkN2JiZDYwZTI5NTg5OTJhNjA4ZSIsImlucHV0cyI6W3sia2luZCI6ImxvY2tmaWxlIiwibm9ybWFsaXplZF9wYXRoIjoiQ2FyZ28ubG9jayIsInNoYTI1NiI6ImE5YzIxY2Q2NDFiMWJmZDNhN2MyMWVmNGQxMzY5YTk2MDNkYjA2ZTJhYzliOTU5NzA3OTgzNWY5ZGNhNGI2OTgiLCJzaXplX2J5dGVzIjoxMDl9LHsia2luZCI6ImJ1aWxkX21hbmlmZXN0Iiwibm9ybWFsaXplZF9wYXRoIjoiQ2FyZ28udG9tbCIsInNoYTI1NiI6IjQ2NWIwMmM1MzA0MjBiMzI4MmFhZTJkMzI5OTk2ZjU3MmExODcyNTVlZTgxYzJiZjU5MTc3M2QyMTFjM2IwMzgiLCJzaXplX2J5dGVzIjo3N30seyJraW5kIjoiY29udHJhY3QiLCJub3JtYWxpemVkX3BhdGgiOiJjb250cmFjdHMvaWRlbnRpdHkuanNvbiIsInNoYTI1NiI6Ijc5ZDNhYzdjMTViZTQ0NDZkOWFiNThmNWQ4OWU3NzNlZjIzOThiNTU0MzQ1YmMzNjc3NzhmNzBmOTgzYjA5ZmQiLCJzaXplX2J5dGVzIjoyNzZ9LHsia2luZCI6InNvdXJjZSIsIm5vcm1hbGl6ZWRfcGF0aCI6InNyYy9saWIucnMiLCJzaGEyNTYiOiI0M2JlMmZmZmRiNzNmZjQ1NDExMTA4ZjIyZWQ4M2QxYjZiYWI1OGU2MDNmMjFkNDQ2YWExNWUyODYzYmZkNGYzIiwic2l6ZV9ieXRlcyI6MzV9XSwibGltaXRfcHJvZmlsZSI6Im1way5ydXN0LmxpbWl0cy52MCIsIm1pcl9wcm9maWxlX2lkIjoibXBrLnJ1c3QubWlyLjRkMDgyMjNjLnYwIiwicmVsZWFzZV9yZWdpc3RyeSI6eyJpZCI6Im1way5yZWxlYXNlLnJlZ2lzdHJ5LnYwIiwicmVnaXN0cnlfc2hhMjU2IjoiYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYSIsInNjaGVtYSI6Im1way5yZWxlYXNlLmJ1bmRsZV9yZWdpc3RyeS52MCJ9LCJyZXF1ZXN0X2ZpbmdlcnByaW50IjoiNDcyNjkxOWE1YzhiM2FhOGQyMWY2YTkzYmI3MWMyZTAzMDMwMGEzNGQ1MmNjYTliMzAwMzZmM2Q5ODNjMzgzMSIsInNjaGVtYSI6Im1way5ydXN0LmRyaXZlci5yZXF1ZXN0LnYwIiwic2VsZWN0aW9uIjp7ImNyYXRlIjoidmVjdG9yIiwiZnVuY3Rpb24iOiJ2ZWN0b3I6OmlkZW50aXR5Iiwia2luZCI6ImxpYiIsInBhY2thZ2UiOiJ2ZWN0b3IifSwic2VtYW50aWNfcGFyYW1ldGVycyI6eyJvdmVyZmxvd19tb2RlIjoiY2hlY2tlZCIsInBhbmljX21vZGUiOiJhYm9ydCIsInBvaW50ZXJfd2lkdGgiOjY0LCJ0YXJnZXRfaWQiOiJ4ODZfNjQtdW5rbm93bi1saW51eC1nbnUifSwic2VtYW50aWNfcHJvZmlsZSI6Im1way5ydXN0LmNoZWNrZWQudjAiLCJzb3VyY2VfaW52ZW50b3J5IjpbeyJub3JtYWxpemVkX3BhdGgiOiJzcmMvbGliLnJzIiwic2hhMjU2IjoiNDNiZTJmZmZkYjczZmY0NTQxMTEwOGYyMmVkODNkMWI2YmFiNThlNjAzZjIxZDQ0NmFhMTVlMjg2M2JmZDRmMyIsInNpemVfYnl0ZXMiOjM1fV0sInNvdXJjZV9pbnZlbnRvcnlfaGFzaCI6IjgwMjQ2OWYxYjliNTEzZmViZmFhNjdhMDAzMWVhOWY0MDE1ZTM3Njk1MTJjMGQ4MzNhOGU3MzE0ZGVkZWUwYzAiLCJzb3VyY2VfbGFuZ3VhZ2UiOiJydXN0IiwidGFyZ2V0X2FsbG93bGlzdF9pZCI6Im1way5ydXN0LnRhcmdldHMudjAiLCJ0b29sY2hhaW4iOnsiYnVuZGxlX2lkIjoibXBrLnRvb2xjaGFpbi5ydXN0Lm5pZ2h0bHktMjAyNS0wNi0wMS52MCIsImNvbXBvbmVudHMiOlt7ImJpbmFyeV9zaGEyNTYiOiJlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlIiwia2luZCI6ImV4ZWN1dGFibGUiLCJuYW1lIjoiY2FyZ28iLCJyZWxlYXNlIjoiMS44OS4wLW5pZ2h0bHkifSx7ImNvbnRlbnRfc2hhMjU2IjoiZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZiIsImtpbmQiOiJjb250ZW50IiwibmFtZSI6InJ1c3Qtc3RkLWk2ODYiLCJyZWxlYXNlIjoiMS44OS4wLW5pZ2h0bHkifSx7ImNvbnRlbnRfc2hhMjU2IjoiMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMSIsImtpbmQiOiJjb250ZW50IiwibmFtZSI6InJ1c3Qtc3RkLXg4Nl82NCIsInJlbGVhc2UiOiIxLjg5LjAtbmlnaHRseSJ9LHsiYmluYXJ5X3NoYTI1NiI6IjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIiLCJjb21taXRfaGFzaCI6IjRkMDgyMjNjMDU0Y2Y1YTU2ZDk3NjFjYTkyNWZkNDZmZmViZTcxMTUiLCJraW5kIjoiZXhlY3V0YWJsZSIsIm5hbWUiOiJydXN0YyIsInJlbGVhc2UiOiIxLjg5LjAtbmlnaHRseSJ9XSwiZGlzdHJpYnV0aW9uX3NoYTI1NiI6ImRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGQifX0K"
+    }
+  },
+  "valid_lowered": {
+    "exit": 0,
+    "value": {
+      "schema": "mpk.rust.driver.v0",
+      "source_language": "rust",
+      "semantic_profile": "mpk.rust.checked.v0",
+      "semantic_parameters": {
+        "target_id": "x86_64-unknown-linux-gnu",
+        "pointer_width": 64,
+        "overflow_mode": "checked",
+        "panic_mode": "abort"
+      },
+      "selection": {
+        "package": "vector",
+        "crate": "vector",
+        "kind": "lib",
+        "function": "vector::identity"
+      },
+      "limit_profile": "mpk.rust.limits.v0",
+      "target_allowlist_id": "mpk.rust.targets.v0",
+      "environment_profile_id": "mpk.rust.frontend_environment.v0",
+      "argument_profile_id": "mpk.rust.frontend_arguments.v0",
+      "mir_profile_id": "mpk.rust.mir.4d08223c.v0",
+      "release_registry": {
+        "schema": "mpk.release.bundle_registry.v0",
+        "id": "mpk.release.registry.v0",
+        "registry_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "frontend": {
+        "bundle_id": "mpk.frontend.rust2vir.nightly-2025-06-01.v0",
+        "name": "rust2vir",
+        "version": "0.1.0",
+        "binary_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "subordinate_binaries": [
+          {
+            "name": "rust2vir-driver",
+            "version": "0.1.0",
+            "binary_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+          }
+        ]
+      },
+      "toolchain": {
+        "bundle_id": "mpk.toolchain.rust.nightly-2025-06-01.v0",
+        "distribution_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "components": [
+          {
+            "kind": "executable",
+            "name": "cargo",
+            "release": "1.89.0-nightly",
+            "binary_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+          },
+          {
+            "kind": "content",
+            "name": "rust-std-i686",
+            "release": "1.89.0-nightly",
+            "content_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+          },
+          {
+            "kind": "content",
+            "name": "rust-std-x86_64",
+            "release": "1.89.0-nightly",
+            "content_sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          {
+            "kind": "executable",
+            "name": "rustc",
+            "release": "1.89.0-nightly",
+            "commit_hash": "4d08223c054cf5a56d9761ca925fd46ffebe7115",
+            "binary_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+          }
+        ]
+      },
+      "compiler": {
+        "name": "rustc",
+        "release": "1.89.0-nightly",
+        "commit_hash": "4d08223c054cf5a56d9761ca925fd46ffebe7115",
+        "binary_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+        "target": "x86_64-unknown-linux-gnu"
+      },
+      "input_set_hash": "15a53341e318c8abdd561631f381f9d44b1a4ea8cb0ad7bbd60e2958992a608e",
+      "source_inventory_hash": "802469f1b9b513febfaa67a0031ea9f4015e3769512c0d833a8e7314dedee0c0",
+      "request_fingerprint": "4726919a5c8b3aa8d21f6a93bb71c2e030300a34d52cca9b30036f3d983c3831",
+      "status": "lowered",
+      "phase": "lowering",
+      "diagnostics": [],
+      "source_inventory": [
+        {
+          "normalized_path": "src/lib.rs",
+          "size_bytes": 35,
+          "sha256": "43be2fffdb73ff45411108f22ed83d1b6bab58e603f21d446aa15e2863bfd4f3"
+        }
+      ],
+      "raw_lowering": {
+        "schema": "mpk.rust.driver.lowering.v0",
+        "mir_profile_id": "mpk.rust.mir.4d08223c.v0",
+        "vir": {
+          "schema": "mpk.vir.v0",
+          "source_language": "rust",
+          "semantic_profile": "mpk.rust.checked.v0",
+          "semantic_parameters": {
+            "target_id": "x86_64-unknown-linux-gnu",
+            "pointer_width": 64,
+            "overflow_mode": "checked",
+            "panic_mode": "abort"
+          },
+          "units": [
+            {
+              "id": "vector",
+              "name": "vector",
+              "type_decls": [],
+              "const_decls": [],
+              "functions": [
+                {
+                  "id": "vector::identity",
+                  "unit_id": "vector",
+                  "name": "identity",
+                  "params": [
+                    {
+                      "id": "arg0",
+                      "type": {
+                        "kind": "bv",
+                        "width": 8,
+                        "signed": true
+                      }
+                    }
+                  ],
+                  "results": [
+                    {
+                      "id": "result0",
+                      "type": {
+                        "kind": "bv",
+                        "width": 8,
+                        "signed": true
+                      }
+                    }
+                  ],
+                  "locals": [],
+                  "blocks": [
+                    {
+                      "label": "bb0",
+                      "parameters": [],
+                      "instructions": [],
+                      "terminator": {
+                        "kind": "Return",
+                        "values": [
+                          {
+                            "var": "arg0"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "contracts": {
+                    "unit_id": "vector",
+                    "function_id": "vector::identity",
+                    "semantic_profile": "mpk.rust.checked.v0",
+                    "semantic_parameters": {
+                      "target_id": "x86_64-unknown-linux-gnu",
+                      "pointer_width": 64,
+                      "overflow_mode": "checked",
+                      "panic_mode": "abort"
+                    },
+                    "requires": [],
+                    "ensures": [
+                      {
+                        "op": "eq",
+                        "lhs": {
+                          "result": 0
+                        },
+                        "rhs": {
+                          "var": "arg0"
+                        }
+                      }
+                    ],
+                    "modifies": [],
+                    "panic": "forbidden",
+                    "termination": "total",
+                    "loops": [],
+                    "contract_hash": "8bbd30566c16ab9cb37212518fd6a6d5777cda3214bd6c97725fcbc90d170a2f"
+                  },
+                  "features_used": []
+                }
+              ]
+            }
+          ],
+          "vir_hash": "374b123698ff7f4a3cce1a430026bc468b6be1a1eac24fd007556816b210e64b"
+        }
+      },
+      "raw_source_map": {
+        "schema": "mpk.rust.driver.raw_source_map.v0",
+        "source_ir_schema": "mpk.vir.v0",
+        "source_ir_hash": "374b123698ff7f4a3cce1a430026bc468b6be1a1eac24fd007556816b210e64b",
+        "entries": [
+          {
+            "reference": {
+              "kind": "function",
+              "unit_id": "vector",
+              "function_id": "vector::identity"
+            },
+            "origin": {
+              "kind": "source",
+              "input_kind": "source",
+              "normalized_path": "src/lib.rs",
+              "start": 0,
+              "end": 34
+            }
+          },
+          {
+            "reference": {
+              "kind": "terminator",
+              "unit_id": "vector",
+              "function_id": "vector::identity",
+              "block": "bb0"
+            },
+            "origin": {
+              "kind": "source",
+              "input_kind": "source",
+              "normalized_path": "src/lib.rs",
+              "start": 31,
+              "end": 32
+            }
+          }
+        ]
+      },
+      "payload_hash": "85ac64ca3f3d892546a56b1228b8d6758d7426785f6c3ca37c42ccfd21258cee"
+    },
+    "payload_preimage_utf8_length": 4500,
+    "transport": {
+      "partial_path": "/mpk/driver-output/result.json.partial",
+      "final_path": "/mpk/driver-output/result.json",
+      "utf8_length": 4583,
+      "sha256": "884b66cf9ec9fc847b9b9c994a3a8e5b2e30831f474a677a3473b89d4afb2eb9",
+      "base64": "eyJhcmd1bWVudF9wcm9maWxlX2lkIjoibXBrLnJ1c3QuZnJvbnRlbmRfYXJndW1lbnRzLnYwIiwiY29tcGlsZXIiOnsiYmluYXJ5X3NoYTI1NiI6IjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIiLCJjb21taXRfaGFzaCI6IjRkMDgyMjNjMDU0Y2Y1YTU2ZDk3NjFjYTkyNWZkNDZmZmViZTcxMTUiLCJuYW1lIjoicnVzdGMiLCJyZWxlYXNlIjoiMS44OS4wLW5pZ2h0bHkiLCJ0YXJnZXQiOiJ4ODZfNjQtdW5rbm93bi1saW51eC1nbnUifSwiZGlhZ25vc3RpY3MiOltdLCJlbnZpcm9ubWVudF9wcm9maWxlX2lkIjoibXBrLnJ1c3QuZnJvbnRlbmRfZW52aXJvbm1lbnQudjAiLCJmcm9udGVuZCI6eyJiaW5hcnlfc2hhMjU2IjoiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYiIsImJ1bmRsZV9pZCI6Im1way5mcm9udGVuZC5ydXN0MnZpci5uaWdodGx5LTIwMjUtMDYtMDEudjAiLCJuYW1lIjoicnVzdDJ2aXIiLCJzdWJvcmRpbmF0ZV9iaW5hcmllcyI6W3siYmluYXJ5X3NoYTI1NiI6ImNjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2MiLCJuYW1lIjoicnVzdDJ2aXItZHJpdmVyIiwidmVyc2lvbiI6IjAuMS4wIn1dLCJ2ZXJzaW9uIjoiMC4xLjAifSwiaW5wdXRfc2V0X2hhc2giOiIxNWE1MzM0MWUzMThjOGFiZGQ1NjE2MzFmMzgxZjlkNDRiMWE0ZWE4Y2IwYWQ3YmJkNjBlMjk1ODk5MmE2MDhlIiwibGltaXRfcHJvZmlsZSI6Im1way5ydXN0LmxpbWl0cy52MCIsIm1pcl9wcm9maWxlX2lkIjoibXBrLnJ1c3QubWlyLjRkMDgyMjNjLnYwIiwicGF5bG9hZF9oYXNoIjoiODVhYzY0Y2EzZjNkODkyNTQ2YTU2YjEyMjhiOGQ2NzU4ZDc0MjY3ODVmNmMzY2EzN2M0MmNjZmQyMTI1OGNlZSIsInBoYXNlIjoibG93ZXJpbmciLCJyYXdfbG93ZXJpbmciOnsibWlyX3Byb2ZpbGVfaWQiOiJtcGsucnVzdC5taXIuNGQwODIyM2MudjAiLCJzY2hlbWEiOiJtcGsucnVzdC5kcml2ZXIubG93ZXJpbmcudjAiLCJ2aXIiOnsic2NoZW1hIjoibXBrLnZpci52MCIsInNlbWFudGljX3BhcmFtZXRlcnMiOnsib3ZlcmZsb3dfbW9kZSI6ImNoZWNrZWQiLCJwYW5pY19tb2RlIjoiYWJvcnQiLCJwb2ludGVyX3dpZHRoIjo2NCwidGFyZ2V0X2lkIjoieDg2XzY0LXVua25vd24tbGludXgtZ251In0sInNlbWFudGljX3Byb2ZpbGUiOiJtcGsucnVzdC5jaGVja2VkLnYwIiwic291cmNlX2xhbmd1YWdlIjoicnVzdCIsInVuaXRzIjpbeyJjb25zdF9kZWNscyI6W10sImZ1bmN0aW9ucyI6W3siYmxvY2tzIjpbeyJpbnN0cnVjdGlvbnMiOltdLCJsYWJlbCI6ImJiMCIsInBhcmFtZXRlcnMiOltdLCJ0ZXJtaW5hdG9yIjp7ImtpbmQiOiJSZXR1cm4iLCJ2YWx1ZXMiOlt7InZhciI6ImFyZzAifV19fV0sImNvbnRyYWN0cyI6eyJjb250cmFjdF9oYXNoIjoiOGJiZDMwNTY2YzE2YWI5Y2IzNzIxMjUxOGZkNmE2ZDU3NzdjZGEzMjE0YmQ2Yzk3NzI1ZmNiYzkwZDE3MGEyZiIsImVuc3VyZXMiOlt7ImxocyI6eyJyZXN1bHQiOjB9LCJvcCI6ImVxIiwicmhzIjp7InZhciI6ImFyZzAifX1dLCJmdW5jdGlvbl9pZCI6InZlY3Rvcjo6aWRlbnRpdHkiLCJsb29wcyI6W10sIm1vZGlmaWVzIjpbXSwicGFuaWMiOiJmb3JiaWRkZW4iLCJyZXF1aXJlcyI6W10sInNlbWFudGljX3BhcmFtZXRlcnMiOnsib3ZlcmZsb3dfbW9kZSI6ImNoZWNrZWQiLCJwYW5pY19tb2RlIjoiYWJvcnQiLCJwb2ludGVyX3dpZHRoIjo2NCwidGFyZ2V0X2lkIjoieDg2XzY0LXVua25vd24tbGludXgtZ251In0sInNlbWFudGljX3Byb2ZpbGUiOiJtcGsucnVzdC5jaGVja2VkLnYwIiwidGVybWluYXRpb24iOiJ0b3RhbCIsInVuaXRfaWQiOiJ2ZWN0b3IifSwiZmVhdHVyZXNfdXNlZCI6W10sImlkIjoidmVjdG9yOjppZGVudGl0eSIsImxvY2FscyI6W10sIm5hbWUiOiJpZGVudGl0eSIsInBhcmFtcyI6W3siaWQiOiJhcmcwIiwidHlwZSI6eyJraW5kIjoiYnYiLCJzaWduZWQiOnRydWUsIndpZHRoIjo4fX1dLCJyZXN1bHRzIjpbeyJpZCI6InJlc3VsdDAiLCJ0eXBlIjp7ImtpbmQiOiJidiIsInNpZ25lZCI6dHJ1ZSwid2lkdGgiOjh9fV0sInVuaXRfaWQiOiJ2ZWN0b3IifV0sImlkIjoidmVjdG9yIiwibmFtZSI6InZlY3RvciIsInR5cGVfZGVjbHMiOltdfV0sInZpcl9oYXNoIjoiMzc0YjEyMzY5OGZmN2Y0YTNjY2UxYTQzMDAyNmJjNDY4YjZiZTFhMWVhYzI0ZmQwMDc1NTY4MTZiMjEwZTY0YiJ9fSwicmF3X3NvdXJjZV9tYXAiOnsiZW50cmllcyI6W3sib3JpZ2luIjp7ImVuZCI6MzQsImlucHV0X2tpbmQiOiJzb3VyY2UiLCJraW5kIjoic291cmNlIiwibm9ybWFsaXplZF9wYXRoIjoic3JjL2xpYi5ycyIsInN0YXJ0IjowfSwicmVmZXJlbmNlIjp7ImZ1bmN0aW9uX2lkIjoidmVjdG9yOjppZGVudGl0eSIsImtpbmQiOiJmdW5jdGlvbiIsInVuaXRfaWQiOiJ2ZWN0b3IifX0seyJvcmlnaW4iOnsiZW5kIjozMiwiaW5wdXRfa2luZCI6InNvdXJjZSIsImtpbmQiOiJzb3VyY2UiLCJub3JtYWxpemVkX3BhdGgiOiJzcmMvbGliLnJzIiwic3RhcnQiOjMxfSwicmVmZXJlbmNlIjp7ImJsb2NrIjoiYmIwIiwiZnVuY3Rpb25faWQiOiJ2ZWN0b3I6OmlkZW50aXR5Iiwia2luZCI6InRlcm1pbmF0b3IiLCJ1bml0X2lkIjoidmVjdG9yIn19XSwic2NoZW1hIjoibXBrLnJ1c3QuZHJpdmVyLnJhd19zb3VyY2VfbWFwLnYwIiwic291cmNlX2lyX2hhc2giOiIzNzRiMTIzNjk4ZmY3ZjRhM2NjZTFhNDMwMDI2YmM0NjhiNmJlMWExZWFjMjRmZDAwNzU1NjgxNmIyMTBlNjRiIiwic291cmNlX2lyX3NjaGVtYSI6Im1way52aXIudjAifSwicmVsZWFzZV9yZWdpc3RyeSI6eyJpZCI6Im1way5yZWxlYXNlLnJlZ2lzdHJ5LnYwIiwicmVnaXN0cnlfc2hhMjU2IjoiYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYSIsInNjaGVtYSI6Im1way5yZWxlYXNlLmJ1bmRsZV9yZWdpc3RyeS52MCJ9LCJyZXF1ZXN0X2ZpbmdlcnByaW50IjoiNDcyNjkxOWE1YzhiM2FhOGQyMWY2YTkzYmI3MWMyZTAzMDMwMGEzNGQ1MmNjYTliMzAwMzZmM2Q5ODNjMzgzMSIsInNjaGVtYSI6Im1way5ydXN0LmRyaXZlci52MCIsInNlbGVjdGlvbiI6eyJjcmF0ZSI6InZlY3RvciIsImZ1bmN0aW9uIjoidmVjdG9yOjppZGVudGl0eSIsImtpbmQiOiJsaWIiLCJwYWNrYWdlIjoidmVjdG9yIn0sInNlbWFudGljX3BhcmFtZXRlcnMiOnsib3ZlcmZsb3dfbW9kZSI6ImNoZWNrZWQiLCJwYW5pY19tb2RlIjoiYWJvcnQiLCJwb2ludGVyX3dpZHRoIjo2NCwidGFyZ2V0X2lkIjoieDg2XzY0LXVua25vd24tbGludXgtZ251In0sInNlbWFudGljX3Byb2ZpbGUiOiJtcGsucnVzdC5jaGVja2VkLnYwIiwic291cmNlX2ludmVudG9yeSI6W3sibm9ybWFsaXplZF9wYXRoIjoic3JjL2xpYi5ycyIsInNoYTI1NiI6IjQzYmUyZmZmZGI3M2ZmNDU0MTExMDhmMjJlZDgzZDFiNmJhYjU4ZTYwM2YyMWQ0NDZhYTE1ZTI4NjNiZmQ0ZjMiLCJzaXplX2J5dGVzIjozNX1dLCJzb3VyY2VfaW52ZW50b3J5X2hhc2giOiI4MDI0NjlmMWI5YjUxM2ZlYmZhYTY3YTAwMzFlYTlmNDAxNWUzNzY5NTEyYzBkODMzYThlNzMxNGRlZGVlMGMwIiwic291cmNlX2xhbmd1YWdlIjoicnVzdCIsInN0YXR1cyI6Imxvd2VyZWQiLCJ0YXJnZXRfYWxsb3dsaXN0X2lkIjoibXBrLnJ1c3QudGFyZ2V0cy52MCIsInRvb2xjaGFpbiI6eyJidW5kbGVfaWQiOiJtcGsudG9vbGNoYWluLnJ1c3QubmlnaHRseS0yMDI1LTA2LTAxLnYwIiwiY29tcG9uZW50cyI6W3siYmluYXJ5X3NoYTI1NiI6ImVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWUiLCJraW5kIjoiZXhlY3V0YWJsZSIsIm5hbWUiOiJjYXJnbyIsInJlbGVhc2UiOiIxLjg5LjAtbmlnaHRseSJ9LHsiY29udGVudF9zaGEyNTYiOiJmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmIiwia2luZCI6ImNvbnRlbnQiLCJuYW1lIjoicnVzdC1zdGQtaTY4NiIsInJlbGVhc2UiOiIxLjg5LjAtbmlnaHRseSJ9LHsiY29udGVudF9zaGEyNTYiOiIxMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExIiwia2luZCI6ImNvbnRlbnQiLCJuYW1lIjoicnVzdC1zdGQteDg2XzY0IiwicmVsZWFzZSI6IjEuODkuMC1uaWdodGx5In0seyJiaW5hcnlfc2hhMjU2IjoiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMiIsImNvbW1pdF9oYXNoIjoiNGQwODIyM2MwNTRjZjVhNTZkOTc2MWNhOTI1ZmQ0NmZmZWJlNzExNSIsImtpbmQiOiJleGVjdXRhYmxlIiwibmFtZSI6InJ1c3RjIiwicmVsZWFzZSI6IjEuODkuMC1uaWdodGx5In1dLCJkaXN0cmlidXRpb25fc2hhMjU2IjoiZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZCJ9fQo="
+    }
+  },
+  "non_success": [
+    {
+      "status": "rejected",
+      "exit": 3,
+      "value": {
+        "schema": "mpk.rust.driver.v0",
+        "source_language": "rust",
+        "semantic_profile": "mpk.rust.checked.v0",
+        "semantic_parameters": {
+          "target_id": "x86_64-unknown-linux-gnu",
+          "pointer_width": 64,
+          "overflow_mode": "checked",
+          "panic_mode": "abort"
+        },
+        "selection": {
+          "package": "vector",
+          "crate": "vector",
+          "kind": "lib",
+          "function": "vector::identity"
+        },
+        "limit_profile": "mpk.rust.limits.v0",
+        "target_allowlist_id": "mpk.rust.targets.v0",
+        "environment_profile_id": "mpk.rust.frontend_environment.v0",
+        "argument_profile_id": "mpk.rust.frontend_arguments.v0",
+        "mir_profile_id": "mpk.rust.mir.4d08223c.v0",
+        "release_registry": {
+          "schema": "mpk.release.bundle_registry.v0",
+          "id": "mpk.release.registry.v0",
+          "registry_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "frontend": {
+          "bundle_id": "mpk.frontend.rust2vir.nightly-2025-06-01.v0",
+          "name": "rust2vir",
+          "version": "0.1.0",
+          "binary_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "subordinate_binaries": [
+            {
+              "name": "rust2vir-driver",
+              "version": "0.1.0",
+              "binary_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+            }
+          ]
+        },
+        "toolchain": {
+          "bundle_id": "mpk.toolchain.rust.nightly-2025-06-01.v0",
+          "distribution_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+          "components": [
+            {
+              "kind": "executable",
+              "name": "cargo",
+              "release": "1.89.0-nightly",
+              "binary_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+            },
+            {
+              "kind": "content",
+              "name": "rust-std-i686",
+              "release": "1.89.0-nightly",
+              "content_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+            },
+            {
+              "kind": "content",
+              "name": "rust-std-x86_64",
+              "release": "1.89.0-nightly",
+              "content_sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+            },
+            {
+              "kind": "executable",
+              "name": "rustc",
+              "release": "1.89.0-nightly",
+              "commit_hash": "4d08223c054cf5a56d9761ca925fd46ffebe7115",
+              "binary_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+            }
+          ]
+        },
+        "compiler": {
+          "name": "rustc",
+          "release": "1.89.0-nightly",
+          "commit_hash": "4d08223c054cf5a56d9761ca925fd46ffebe7115",
+          "binary_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+          "target": "x86_64-unknown-linux-gnu"
+        },
+        "input_set_hash": "15a53341e318c8abdd561631f381f9d44b1a4ea8cb0ad7bbd60e2958992a608e",
+        "source_inventory_hash": "802469f1b9b513febfaa67a0031ea9f4015e3769512c0d833a8e7314dedee0c0",
+        "request_fingerprint": "4726919a5c8b3aa8d21f6a93bb71c2e030300a34d52cca9b30036f3d983c3831",
+        "status": "rejected",
+        "phase": "subset",
+        "diagnostics": [
+          {
+            "code": "RUST_SUBSET_TYPE",
+            "message": "reference type is outside mpk.rust.checked.v0",
+            "function_id": "vector::identity"
+          }
+        ]
+      },
+      "transport": {
+        "utf8_length": 2581,
+        "sha256": "bb0a11bae40cdb5bd0bf6fb8f5aaff1e3d0b926ce35c87070459a32f59b0e133",
+        "base64": "eyJhcmd1bWVudF9wcm9maWxlX2lkIjoibXBrLnJ1c3QuZnJvbnRlbmRfYXJndW1lbnRzLnYwIiwiY29tcGlsZXIiOnsiYmluYXJ5X3NoYTI1NiI6IjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIiLCJjb21taXRfaGFzaCI6IjRkMDgyMjNjMDU0Y2Y1YTU2ZDk3NjFjYTkyNWZkNDZmZmViZTcxMTUiLCJuYW1lIjoicnVzdGMiLCJyZWxlYXNlIjoiMS44OS4wLW5pZ2h0bHkiLCJ0YXJnZXQiOiJ4ODZfNjQtdW5rbm93bi1saW51eC1nbnUifSwiZGlhZ25vc3RpY3MiOlt7ImNvZGUiOiJSVVNUX1NVQlNFVF9UWVBFIiwiZnVuY3Rpb25faWQiOiJ2ZWN0b3I6OmlkZW50aXR5IiwibWVzc2FnZSI6InJlZmVyZW5jZSB0eXBlIGlzIG91dHNpZGUgbXBrLnJ1c3QuY2hlY2tlZC52MCJ9XSwiZW52aXJvbm1lbnRfcHJvZmlsZV9pZCI6Im1way5ydXN0LmZyb250ZW5kX2Vudmlyb25tZW50LnYwIiwiZnJvbnRlbmQiOnsiYmluYXJ5X3NoYTI1NiI6ImJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmIiLCJidW5kbGVfaWQiOiJtcGsuZnJvbnRlbmQucnVzdDJ2aXIubmlnaHRseS0yMDI1LTA2LTAxLnYwIiwibmFtZSI6InJ1c3QydmlyIiwic3Vib3JkaW5hdGVfYmluYXJpZXMiOlt7ImJpbmFyeV9zaGEyNTYiOiJjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjIiwibmFtZSI6InJ1c3QydmlyLWRyaXZlciIsInZlcnNpb24iOiIwLjEuMCJ9XSwidmVyc2lvbiI6IjAuMS4wIn0sImlucHV0X3NldF9oYXNoIjoiMTVhNTMzNDFlMzE4YzhhYmRkNTYxNjMxZjM4MWY5ZDQ0YjFhNGVhOGNiMGFkN2JiZDYwZTI5NTg5OTJhNjA4ZSIsImxpbWl0X3Byb2ZpbGUiOiJtcGsucnVzdC5saW1pdHMudjAiLCJtaXJfcHJvZmlsZV9pZCI6Im1way5ydXN0Lm1pci40ZDA4MjIzYy52MCIsInBoYXNlIjoic3Vic2V0IiwicmVsZWFzZV9yZWdpc3RyeSI6eyJpZCI6Im1way5yZWxlYXNlLnJlZ2lzdHJ5LnYwIiwicmVnaXN0cnlfc2hhMjU2IjoiYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYSIsInNjaGVtYSI6Im1way5yZWxlYXNlLmJ1bmRsZV9yZWdpc3RyeS52MCJ9LCJyZXF1ZXN0X2ZpbmdlcnByaW50IjoiNDcyNjkxOWE1YzhiM2FhOGQyMWY2YTkzYmI3MWMyZTAzMDMwMGEzNGQ1MmNjYTliMzAwMzZmM2Q5ODNjMzgzMSIsInNjaGVtYSI6Im1way5ydXN0LmRyaXZlci52MCIsInNlbGVjdGlvbiI6eyJjcmF0ZSI6InZlY3RvciIsImZ1bmN0aW9uIjoidmVjdG9yOjppZGVudGl0eSIsImtpbmQiOiJsaWIiLCJwYWNrYWdlIjoidmVjdG9yIn0sInNlbWFudGljX3BhcmFtZXRlcnMiOnsib3ZlcmZsb3dfbW9kZSI6ImNoZWNrZWQiLCJwYW5pY19tb2RlIjoiYWJvcnQiLCJwb2ludGVyX3dpZHRoIjo2NCwidGFyZ2V0X2lkIjoieDg2XzY0LXVua25vd24tbGludXgtZ251In0sInNlbWFudGljX3Byb2ZpbGUiOiJtcGsucnVzdC5jaGVja2VkLnYwIiwic291cmNlX2ludmVudG9yeV9oYXNoIjoiODAyNDY5ZjFiOWI1MTNmZWJmYWE2N2EwMDMxZWE5ZjQwMTVlMzc2OTUxMmMwZDgzM2E4ZTczMTRkZWRlZTBjMCIsInNvdXJjZV9sYW5ndWFnZSI6InJ1c3QiLCJzdGF0dXMiOiJyZWplY3RlZCIsInRhcmdldF9hbGxvd2xpc3RfaWQiOiJtcGsucnVzdC50YXJnZXRzLnYwIiwidG9vbGNoYWluIjp7ImJ1bmRsZV9pZCI6Im1way50b29sY2hhaW4ucnVzdC5uaWdodGx5LTIwMjUtMDYtMDEudjAiLCJjb21wb25lbnRzIjpbeyJiaW5hcnlfc2hhMjU2IjoiZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZSIsImtpbmQiOiJleGVjdXRhYmxlIiwibmFtZSI6ImNhcmdvIiwicmVsZWFzZSI6IjEuODkuMC1uaWdodGx5In0seyJjb250ZW50X3NoYTI1NiI6ImZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmYiLCJraW5kIjoiY29udGVudCIsIm5hbWUiOiJydXN0LXN0ZC1pNjg2IiwicmVsZWFzZSI6IjEuODkuMC1uaWdodGx5In0seyJjb250ZW50X3NoYTI1NiI6IjExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTEiLCJraW5kIjoiY29udGVudCIsIm5hbWUiOiJydXN0LXN0ZC14ODZfNjQiLCJyZWxlYXNlIjoiMS44OS4wLW5pZ2h0bHkifSx7ImJpbmFyeV9zaGEyNTYiOiIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyIiwiY29tbWl0X2hhc2giOiI0ZDA4MjIzYzA1NGNmNWE1NmQ5NzYxY2E5MjVmZDQ2ZmZlYmU3MTE1Iiwia2luZCI6ImV4ZWN1dGFibGUiLCJuYW1lIjoicnVzdGMiLCJyZWxlYXNlIjoiMS44OS4wLW5pZ2h0bHkifV0sImRpc3RyaWJ1dGlvbl9zaGEyNTYiOiJkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkIn19Cg=="
+      }
+    },
+    {
+      "status": "source-error",
+      "exit": 4,
+      "value": {
+        "schema": "mpk.rust.driver.v0",
+        "source_language": "rust",
+        "semantic_profile": "mpk.rust.checked.v0",
+        "semantic_parameters": {
+          "target_id": "x86_64-unknown-linux-gnu",
+          "pointer_width": 64,
+          "overflow_mode": "checked",
+          "panic_mode": "abort"
+        },
+        "selection": {
+          "package": "vector",
+          "crate": "vector",
+          "kind": "lib",
+          "function": "vector::identity"
+        },
+        "limit_profile": "mpk.rust.limits.v0",
+        "target_allowlist_id": "mpk.rust.targets.v0",
+        "environment_profile_id": "mpk.rust.frontend_environment.v0",
+        "argument_profile_id": "mpk.rust.frontend_arguments.v0",
+        "mir_profile_id": "mpk.rust.mir.4d08223c.v0",
+        "release_registry": {
+          "schema": "mpk.release.bundle_registry.v0",
+          "id": "mpk.release.registry.v0",
+          "registry_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "frontend": {
+          "bundle_id": "mpk.frontend.rust2vir.nightly-2025-06-01.v0",
+          "name": "rust2vir",
+          "version": "0.1.0",
+          "binary_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "subordinate_binaries": [
+            {
+              "name": "rust2vir-driver",
+              "version": "0.1.0",
+              "binary_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+            }
+          ]
+        },
+        "toolchain": {
+          "bundle_id": "mpk.toolchain.rust.nightly-2025-06-01.v0",
+          "distribution_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+          "components": [
+            {
+              "kind": "executable",
+              "name": "cargo",
+              "release": "1.89.0-nightly",
+              "binary_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+            },
+            {
+              "kind": "content",
+              "name": "rust-std-i686",
+              "release": "1.89.0-nightly",
+              "content_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+            },
+            {
+              "kind": "content",
+              "name": "rust-std-x86_64",
+              "release": "1.89.0-nightly",
+              "content_sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+            },
+            {
+              "kind": "executable",
+              "name": "rustc",
+              "release": "1.89.0-nightly",
+              "commit_hash": "4d08223c054cf5a56d9761ca925fd46ffebe7115",
+              "binary_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+            }
+          ]
+        },
+        "compiler": {
+          "name": "rustc",
+          "release": "1.89.0-nightly",
+          "commit_hash": "4d08223c054cf5a56d9761ca925fd46ffebe7115",
+          "binary_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+          "target": "x86_64-unknown-linux-gnu"
+        },
+        "input_set_hash": "15a53341e318c8abdd561631f381f9d44b1a4ea8cb0ad7bbd60e2958992a608e",
+        "source_inventory_hash": "802469f1b9b513febfaa67a0031ea9f4015e3769512c0d833a8e7314dedee0c0",
+        "request_fingerprint": "4726919a5c8b3aa8d21f6a93bb71c2e030300a34d52cca9b30036f3d983c3831",
+        "status": "source-error",
+        "phase": "typecheck",
+        "diagnostics": [
+          {
+            "code": "RUST_SOURCE_TYPE",
+            "message": "expression type does not match the declared result",
+            "function_id": "vector::identity"
+          }
+        ]
+      },
+      "transport": {
+        "utf8_length": 2593,
+        "sha256": "6d2edf870c33fd62127d02849823ff84eb53d06e7a3dee8a290d07a950a73d8a",
+        "base64": "eyJhcmd1bWVudF9wcm9maWxlX2lkIjoibXBrLnJ1c3QuZnJvbnRlbmRfYXJndW1lbnRzLnYwIiwiY29tcGlsZXIiOnsiYmluYXJ5X3NoYTI1NiI6IjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIiLCJjb21taXRfaGFzaCI6IjRkMDgyMjNjMDU0Y2Y1YTU2ZDk3NjFjYTkyNWZkNDZmZmViZTcxMTUiLCJuYW1lIjoicnVzdGMiLCJyZWxlYXNlIjoiMS44OS4wLW5pZ2h0bHkiLCJ0YXJnZXQiOiJ4ODZfNjQtdW5rbm93bi1saW51eC1nbnUifSwiZGlhZ25vc3RpY3MiOlt7ImNvZGUiOiJSVVNUX1NPVVJDRV9UWVBFIiwiZnVuY3Rpb25faWQiOiJ2ZWN0b3I6OmlkZW50aXR5IiwibWVzc2FnZSI6ImV4cHJlc3Npb24gdHlwZSBkb2VzIG5vdCBtYXRjaCB0aGUgZGVjbGFyZWQgcmVzdWx0In1dLCJlbnZpcm9ubWVudF9wcm9maWxlX2lkIjoibXBrLnJ1c3QuZnJvbnRlbmRfZW52aXJvbm1lbnQudjAiLCJmcm9udGVuZCI6eyJiaW5hcnlfc2hhMjU2IjoiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYiIsImJ1bmRsZV9pZCI6Im1way5mcm9udGVuZC5ydXN0MnZpci5uaWdodGx5LTIwMjUtMDYtMDEudjAiLCJuYW1lIjoicnVzdDJ2aXIiLCJzdWJvcmRpbmF0ZV9iaW5hcmllcyI6W3siYmluYXJ5X3NoYTI1NiI6ImNjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2MiLCJuYW1lIjoicnVzdDJ2aXItZHJpdmVyIiwidmVyc2lvbiI6IjAuMS4wIn1dLCJ2ZXJzaW9uIjoiMC4xLjAifSwiaW5wdXRfc2V0X2hhc2giOiIxNWE1MzM0MWUzMThjOGFiZGQ1NjE2MzFmMzgxZjlkNDRiMWE0ZWE4Y2IwYWQ3YmJkNjBlMjk1ODk5MmE2MDhlIiwibGltaXRfcHJvZmlsZSI6Im1way5ydXN0LmxpbWl0cy52MCIsIm1pcl9wcm9maWxlX2lkIjoibXBrLnJ1c3QubWlyLjRkMDgyMjNjLnYwIiwicGhhc2UiOiJ0eXBlY2hlY2siLCJyZWxlYXNlX3JlZ2lzdHJ5Ijp7ImlkIjoibXBrLnJlbGVhc2UucmVnaXN0cnkudjAiLCJyZWdpc3RyeV9zaGEyNTYiOiJhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhIiwic2NoZW1hIjoibXBrLnJlbGVhc2UuYnVuZGxlX3JlZ2lzdHJ5LnYwIn0sInJlcXVlc3RfZmluZ2VycHJpbnQiOiI0NzI2OTE5YTVjOGIzYWE4ZDIxZjZhOTNiYjcxYzJlMDMwMzAwYTM0ZDUyY2NhOWIzMDAzNmYzZDk4M2MzODMxIiwic2NoZW1hIjoibXBrLnJ1c3QuZHJpdmVyLnYwIiwic2VsZWN0aW9uIjp7ImNyYXRlIjoidmVjdG9yIiwiZnVuY3Rpb24iOiJ2ZWN0b3I6OmlkZW50aXR5Iiwia2luZCI6ImxpYiIsInBhY2thZ2UiOiJ2ZWN0b3IifSwic2VtYW50aWNfcGFyYW1ldGVycyI6eyJvdmVyZmxvd19tb2RlIjoiY2hlY2tlZCIsInBhbmljX21vZGUiOiJhYm9ydCIsInBvaW50ZXJfd2lkdGgiOjY0LCJ0YXJnZXRfaWQiOiJ4ODZfNjQtdW5rbm93bi1saW51eC1nbnUifSwic2VtYW50aWNfcHJvZmlsZSI6Im1way5ydXN0LmNoZWNrZWQudjAiLCJzb3VyY2VfaW52ZW50b3J5X2hhc2giOiI4MDI0NjlmMWI5YjUxM2ZlYmZhYTY3YTAwMzFlYTlmNDAxNWUzNzY5NTEyYzBkODMzYThlNzMxNGRlZGVlMGMwIiwic291cmNlX2xhbmd1YWdlIjoicnVzdCIsInN0YXR1cyI6InNvdXJjZS1lcnJvciIsInRhcmdldF9hbGxvd2xpc3RfaWQiOiJtcGsucnVzdC50YXJnZXRzLnYwIiwidG9vbGNoYWluIjp7ImJ1bmRsZV9pZCI6Im1way50b29sY2hhaW4ucnVzdC5uaWdodGx5LTIwMjUtMDYtMDEudjAiLCJjb21wb25lbnRzIjpbeyJiaW5hcnlfc2hhMjU2IjoiZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZSIsImtpbmQiOiJleGVjdXRhYmxlIiwibmFtZSI6ImNhcmdvIiwicmVsZWFzZSI6IjEuODkuMC1uaWdodGx5In0seyJjb250ZW50X3NoYTI1NiI6ImZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmYiLCJraW5kIjoiY29udGVudCIsIm5hbWUiOiJydXN0LXN0ZC1pNjg2IiwicmVsZWFzZSI6IjEuODkuMC1uaWdodGx5In0seyJjb250ZW50X3NoYTI1NiI6IjExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTEiLCJraW5kIjoiY29udGVudCIsIm5hbWUiOiJydXN0LXN0ZC14ODZfNjQiLCJyZWxlYXNlIjoiMS44OS4wLW5pZ2h0bHkifSx7ImJpbmFyeV9zaGEyNTYiOiIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyIiwiY29tbWl0X2hhc2giOiI0ZDA4MjIzYzA1NGNmNWE1NmQ5NzYxY2E5MjVmZDQ2ZmZlYmU3MTE1Iiwia2luZCI6ImV4ZWN1dGFibGUiLCJuYW1lIjoicnVzdGMiLCJyZWxlYXNlIjoiMS44OS4wLW5pZ2h0bHkifV0sImRpc3RyaWJ1dGlvbl9zaGEyNTYiOiJkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkIn19Cg=="
+      }
+    },
+    {
+      "status": "frontend-error",
+      "exit": 1,
+      "value": {
+        "schema": "mpk.rust.driver.v0",
+        "source_language": "rust",
+        "semantic_profile": "mpk.rust.checked.v0",
+        "semantic_parameters": {
+          "target_id": "x86_64-unknown-linux-gnu",
+          "pointer_width": 64,
+          "overflow_mode": "checked",
+          "panic_mode": "abort"
+        },
+        "selection": {
+          "package": "vector",
+          "crate": "vector",
+          "kind": "lib",
+          "function": "vector::identity"
+        },
+        "limit_profile": "mpk.rust.limits.v0",
+        "target_allowlist_id": "mpk.rust.targets.v0",
+        "environment_profile_id": "mpk.rust.frontend_environment.v0",
+        "argument_profile_id": "mpk.rust.frontend_arguments.v0",
+        "mir_profile_id": "mpk.rust.mir.4d08223c.v0",
+        "release_registry": {
+          "schema": "mpk.release.bundle_registry.v0",
+          "id": "mpk.release.registry.v0",
+          "registry_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "frontend": {
+          "bundle_id": "mpk.frontend.rust2vir.nightly-2025-06-01.v0",
+          "name": "rust2vir",
+          "version": "0.1.0",
+          "binary_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "subordinate_binaries": [
+            {
+              "name": "rust2vir-driver",
+              "version": "0.1.0",
+              "binary_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+            }
+          ]
+        },
+        "toolchain": {
+          "bundle_id": "mpk.toolchain.rust.nightly-2025-06-01.v0",
+          "distribution_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+          "components": [
+            {
+              "kind": "executable",
+              "name": "cargo",
+              "release": "1.89.0-nightly",
+              "binary_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+            },
+            {
+              "kind": "content",
+              "name": "rust-std-i686",
+              "release": "1.89.0-nightly",
+              "content_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+            },
+            {
+              "kind": "content",
+              "name": "rust-std-x86_64",
+              "release": "1.89.0-nightly",
+              "content_sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+            },
+            {
+              "kind": "executable",
+              "name": "rustc",
+              "release": "1.89.0-nightly",
+              "commit_hash": "4d08223c054cf5a56d9761ca925fd46ffebe7115",
+              "binary_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+            }
+          ]
+        },
+        "compiler": {
+          "name": "rustc",
+          "release": "1.89.0-nightly",
+          "commit_hash": "4d08223c054cf5a56d9761ca925fd46ffebe7115",
+          "binary_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+          "target": "x86_64-unknown-linux-gnu"
+        },
+        "input_set_hash": "15a53341e318c8abdd561631f381f9d44b1a4ea8cb0ad7bbd60e2958992a608e",
+        "source_inventory_hash": "802469f1b9b513febfaa67a0031ea9f4015e3769512c0d833a8e7314dedee0c0",
+        "request_fingerprint": "4726919a5c8b3aa8d21f6a93bb71c2e030300a34d52cca9b30036f3d983c3831",
+        "status": "frontend-error",
+        "phase": "lowering",
+        "diagnostics": [
+          {
+            "code": "RUST_TOOLCHAIN_MIR_ADAPTER",
+            "message": "pinned MIR adapter identity does not match",
+            "function_id": "vector::identity"
+          }
+        ]
+      },
+      "transport": {
+        "utf8_length": 2596,
+        "sha256": "4cd7b34f7a96ee9071f7ea68239ecc03ddc2c204d47361588bcea25100d0a7de",
+        "base64": "eyJhcmd1bWVudF9wcm9maWxlX2lkIjoibXBrLnJ1c3QuZnJvbnRlbmRfYXJndW1lbnRzLnYwIiwiY29tcGlsZXIiOnsiYmluYXJ5X3NoYTI1NiI6IjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIiLCJjb21taXRfaGFzaCI6IjRkMDgyMjNjMDU0Y2Y1YTU2ZDk3NjFjYTkyNWZkNDZmZmViZTcxMTUiLCJuYW1lIjoicnVzdGMiLCJyZWxlYXNlIjoiMS44OS4wLW5pZ2h0bHkiLCJ0YXJnZXQiOiJ4ODZfNjQtdW5rbm93bi1saW51eC1nbnUifSwiZGlhZ25vc3RpY3MiOlt7ImNvZGUiOiJSVVNUX1RPT0xDSEFJTl9NSVJfQURBUFRFUiIsImZ1bmN0aW9uX2lkIjoidmVjdG9yOjppZGVudGl0eSIsIm1lc3NhZ2UiOiJwaW5uZWQgTUlSIGFkYXB0ZXIgaWRlbnRpdHkgZG9lcyBub3QgbWF0Y2gifV0sImVudmlyb25tZW50X3Byb2ZpbGVfaWQiOiJtcGsucnVzdC5mcm9udGVuZF9lbnZpcm9ubWVudC52MCIsImZyb250ZW5kIjp7ImJpbmFyeV9zaGEyNTYiOiJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiIiwiYnVuZGxlX2lkIjoibXBrLmZyb250ZW5kLnJ1c3QydmlyLm5pZ2h0bHktMjAyNS0wNi0wMS52MCIsIm5hbWUiOiJydXN0MnZpciIsInN1Ym9yZGluYXRlX2JpbmFyaWVzIjpbeyJiaW5hcnlfc2hhMjU2IjoiY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjYyIsIm5hbWUiOiJydXN0MnZpci1kcml2ZXIiLCJ2ZXJzaW9uIjoiMC4xLjAifV0sInZlcnNpb24iOiIwLjEuMCJ9LCJpbnB1dF9zZXRfaGFzaCI6IjE1YTUzMzQxZTMxOGM4YWJkZDU2MTYzMWYzODFmOWQ0NGIxYTRlYThjYjBhZDdiYmQ2MGUyOTU4OTkyYTYwOGUiLCJsaW1pdF9wcm9maWxlIjoibXBrLnJ1c3QubGltaXRzLnYwIiwibWlyX3Byb2ZpbGVfaWQiOiJtcGsucnVzdC5taXIuNGQwODIyM2MudjAiLCJwaGFzZSI6Imxvd2VyaW5nIiwicmVsZWFzZV9yZWdpc3RyeSI6eyJpZCI6Im1way5yZWxlYXNlLnJlZ2lzdHJ5LnYwIiwicmVnaXN0cnlfc2hhMjU2IjoiYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYSIsInNjaGVtYSI6Im1way5yZWxlYXNlLmJ1bmRsZV9yZWdpc3RyeS52MCJ9LCJyZXF1ZXN0X2ZpbmdlcnByaW50IjoiNDcyNjkxOWE1YzhiM2FhOGQyMWY2YTkzYmI3MWMyZTAzMDMwMGEzNGQ1MmNjYTliMzAwMzZmM2Q5ODNjMzgzMSIsInNjaGVtYSI6Im1way5ydXN0LmRyaXZlci52MCIsInNlbGVjdGlvbiI6eyJjcmF0ZSI6InZlY3RvciIsImZ1bmN0aW9uIjoidmVjdG9yOjppZGVudGl0eSIsImtpbmQiOiJsaWIiLCJwYWNrYWdlIjoidmVjdG9yIn0sInNlbWFudGljX3BhcmFtZXRlcnMiOnsib3ZlcmZsb3dfbW9kZSI6ImNoZWNrZWQiLCJwYW5pY19tb2RlIjoiYWJvcnQiLCJwb2ludGVyX3dpZHRoIjo2NCwidGFyZ2V0X2lkIjoieDg2XzY0LXVua25vd24tbGludXgtZ251In0sInNlbWFudGljX3Byb2ZpbGUiOiJtcGsucnVzdC5jaGVja2VkLnYwIiwic291cmNlX2ludmVudG9yeV9oYXNoIjoiODAyNDY5ZjFiOWI1MTNmZWJmYWE2N2EwMDMxZWE5ZjQwMTVlMzc2OTUxMmMwZDgzM2E4ZTczMTRkZWRlZTBjMCIsInNvdXJjZV9sYW5ndWFnZSI6InJ1c3QiLCJzdGF0dXMiOiJmcm9udGVuZC1lcnJvciIsInRhcmdldF9hbGxvd2xpc3RfaWQiOiJtcGsucnVzdC50YXJnZXRzLnYwIiwidG9vbGNoYWluIjp7ImJ1bmRsZV9pZCI6Im1way50b29sY2hhaW4ucnVzdC5uaWdodGx5LTIwMjUtMDYtMDEudjAiLCJjb21wb25lbnRzIjpbeyJiaW5hcnlfc2hhMjU2IjoiZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZSIsImtpbmQiOiJleGVjdXRhYmxlIiwibmFtZSI6ImNhcmdvIiwicmVsZWFzZSI6IjEuODkuMC1uaWdodGx5In0seyJjb250ZW50X3NoYTI1NiI6ImZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmYiLCJraW5kIjoiY29udGVudCIsIm5hbWUiOiJydXN0LXN0ZC1pNjg2IiwicmVsZWFzZSI6IjEuODkuMC1uaWdodGx5In0seyJjb250ZW50X3NoYTI1NiI6IjExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTEiLCJraW5kIjoiY29udGVudCIsIm5hbWUiOiJydXN0LXN0ZC14ODZfNjQiLCJyZWxlYXNlIjoiMS44OS4wLW5pZ2h0bHkifSx7ImJpbmFyeV9zaGEyNTYiOiIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyIiwiY29tbWl0X2hhc2giOiI0ZDA4MjIzYzA1NGNmNWE1NmQ5NzYxY2E5MjVmZDQ2ZmZlYmU3MTE1Iiwia2luZCI6ImV4ZWN1dGFibGUiLCJuYW1lIjoicnVzdGMiLCJyZWxlYXNlIjoiMS44OS4wLW5pZ2h0bHkifV0sImRpc3RyaWJ1dGlvbl9zaGEyNTYiOiJkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkIn19Cg=="
+      }
+    }
+  ],
+  "request_negative_cases": [
+    {
+      "id": "request.missing",
+      "mutation": "no request file",
+      "expect": {
+        "artifact": false,
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_FILESYSTEM"
+      }
+    },
+    {
+      "id": "request.mutable",
+      "mutation": "mode permits write or identity changes",
+      "expect": {
+        "artifact": false,
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_FILESYSTEM"
+      }
+    },
+    {
+      "id": "request.invalid_utf8",
+      "mutation": "replace one JSON string byte with 0xff",
+      "expect": {
+        "artifact": false,
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_CANONICAL"
+      }
+    },
+    {
+      "id": "request.invalid_json",
+      "mutation": "remove the root closing brace while retaining one LF",
+      "expect": {
+        "artifact": false,
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_CANONICAL"
+      }
+    },
+    {
+      "id": "request.duplicate_key",
+      "mutation": "duplicate selection",
+      "expect": {
+        "artifact": false,
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_CANONICAL"
+      }
+    },
+    {
+      "id": "request.noncanonical",
+      "mutation": "pretty-print valid request",
+      "expect": {
+        "artifact": false,
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_CANONICAL"
+      }
+    },
+    {
+      "id": "request.no_lf",
+      "mutation": "remove LF",
+      "expect": {
+        "artifact": false,
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_TRANSPORT"
+      }
+    },
+    {
+      "id": "request.crlf",
+      "mutation": "replace LF with CRLF",
+      "expect": {
+        "artifact": false,
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_TRANSPORT"
+      }
+    },
+    {
+      "id": "request.unknown_field",
+      "mutation": "add output_path",
+      "expect": {
+        "artifact": false,
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_SHAPE"
+      }
+    },
+    {
+      "id": "request.wrong_schema",
+      "mutation": "replace schema with mpk.rust.driver.request.v1",
+      "expect": {
+        "artifact": false,
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_SHAPE"
+      }
+    },
+    {
+      "id": "request.runtime_path",
+      "mutation": "add source_root",
+      "expect": {
+        "artifact": false,
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_SHAPE"
+      }
+    },
+    {
+      "id": "request.wrong_fingerprint",
+      "mutation": "flip request_fingerprint nibble",
+      "expect": {
+        "artifact": false,
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_HASH"
+      }
+    },
+    {
+      "id": "request.wrong_source_hash",
+      "mutation": "flip inventory hash then recompute request",
+      "expect": {
+        "artifact": false,
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_HASH"
+      }
+    },
+    {
+      "id": "request.input_set_mismatch",
+      "mutation": "replace input_set_hash then recompute request",
+      "expect": {
+        "artifact": false,
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_IDENTITY"
+      }
+    },
+    {
+      "id": "request.driver_digest_change",
+      "mutation": "replace subordinate digest then recompute request",
+      "expect": {
+        "artifact": false,
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_IDENTITY"
+      }
+    },
+    {
+      "id": "request.target_change",
+      "mutation": "replace compiler target only then recompute request",
+      "expect": {
+        "artifact": false,
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_IDENTITY"
+      }
+    },
+    {
+      "id": "request.compiler_commit_change",
+      "mutation": "replace commit with 4d08223c054cf5a56d9761ca925fd46ffebe7114 then recompute request",
+      "expect": {
+        "artifact": false,
+        "code": "RUST_TOOLCHAIN_COMMIT"
+      }
+    }
+  ],
+  "output_negative_cases": [
+    {
+      "id": "output.missing",
+      "mutation": "primary exits with empty directory",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_FILESYSTEM"
+      }
+    },
+    {
+      "id": "output.partial_only",
+      "mutation": "leave result.json.partial",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_FILESYSTEM"
+      }
+    },
+    {
+      "id": "output.final_and_partial",
+      "mutation": "both names exist",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_FILESYSTEM"
+      }
+    },
+    {
+      "id": "output.extra_entry",
+      "mutation": "add stderr.log",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_FILESYSTEM"
+      }
+    },
+    {
+      "id": "output.symlink",
+      "mutation": "result.json is symlink",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_FILESYSTEM"
+      }
+    },
+    {
+      "id": "output.duplicate_writer",
+      "mutation": "second exclusive create",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_FILESYSTEM"
+      }
+    },
+    {
+      "id": "output.invalid_utf8",
+      "mutation": "replace one JSON string byte with 0xff",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_CANONICAL"
+      }
+    },
+    {
+      "id": "output.invalid_json",
+      "mutation": "remove the root closing brace while retaining one LF",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_CANONICAL"
+      }
+    },
+    {
+      "id": "output.duplicate_key",
+      "mutation": "duplicate the status member",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_CANONICAL"
+      }
+    },
+    {
+      "id": "output.noncanonical",
+      "mutation": "pretty-print lowered output",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_CANONICAL"
+      }
+    },
+    {
+      "id": "output.no_lf",
+      "mutation": "remove final LF from lowered output",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_TRANSPORT"
+      }
+    },
+    {
+      "id": "output.crlf",
+      "mutation": "replace final LF with CRLF in lowered output",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_TRANSPORT"
+      }
+    },
+    {
+      "id": "output.unknown_field",
+      "mutation": "add certificate_path and recompute payload hash",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_SHAPE"
+      }
+    },
+    {
+      "id": "output.wrong_schema",
+      "mutation": "replace schema with mpk.rust.driver.v1 and recompute payload hash",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_SHAPE"
+      }
+    },
+    {
+      "id": "output.phase_status_mismatch",
+      "mutation": "set lowered phase to typecheck and recompute payload hash",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_SHAPE"
+      }
+    },
+    {
+      "id": "output.wrong_request",
+      "mutation": "flip repeated request_fingerprint",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_IDENTITY"
+      }
+    },
+    {
+      "id": "output.wrong_inventory_hash",
+      "mutation": "flip repeated source_inventory_hash",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_HASH"
+      }
+    },
+    {
+      "id": "output.wrong_driver_digest",
+      "mutation": "flip subordinate digest and recompute payload",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_IDENTITY"
+      }
+    },
+    {
+      "id": "output.wrong_payload_hash",
+      "mutation": "flip payload_hash",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_HASH"
+      }
+    },
+    {
+      "id": "output.vir_hash_change",
+      "mutation": "change vir_hash and recompute payload only",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_IDENTITY"
+      }
+    },
+    {
+      "id": "output.non_success_inventory",
+      "mutation": "add source_inventory",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_SHAPE"
+      }
+    },
+    {
+      "id": "output.non_success_lowering",
+      "mutation": "add raw_lowering",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_SHAPE"
+      }
+    },
+    {
+      "id": "output.non_success_map",
+      "mutation": "add raw_source_map",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_SHAPE"
+      }
+    },
+    {
+      "id": "output.non_success_payload_hash",
+      "mutation": "add payload_hash",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_SHAPE"
+      }
+    },
+    {
+      "id": "output.killed",
+      "mutation": "process killed before atomic rename",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_PROCESS"
+      }
+    },
+    {
+      "id": "output.wrong_compiler",
+      "mutation": "change compiler commit and recompute payload",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_TOOLCHAIN_COMMIT"
+      }
+    },
+    {
+      "id": "output.map_external",
+      "mutation": "source origin points into rustc sysroot and payload is recomputed",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_SOURCE_MAP_EXTERNAL"
+      }
+    },
+    {
+      "id": "output.map_range",
+      "mutation": "source range exceeds input and payload is recomputed",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_SOURCE_MAP_RANGE"
+      }
+    },
+    {
+      "id": "output.map_reference",
+      "mutation": "remove terminator reference and payload is recomputed",
+      "expect": {
+        "status": "frontend-error",
+        "code": "RUST_FRONTEND_SOURCE_MAP_REFERENCE"
+      }
+    }
+  ],
+  "invocation_cases": [
+    {
+      "id": "probe.rustc_vv",
+      "argv": [
+        "/mpk/toolchain/bin/rustc",
+        "-vV"
+      ],
+      "expect": {
+        "delegate": true,
+        "artifact_count": 0
+      }
+    },
+    {
+      "id": "probe.sysroot",
+      "argv": [
+        "/mpk/toolchain/bin/rustc",
+        "--print",
+        "sysroot"
+      ],
+      "expect": {
+        "delegate": true,
+        "artifact_count": 0
+      }
+    },
+    {
+      "id": "probe.crate_information_host",
+      "argv_ref": "rust-subset-v0.json#/rustc_wrapper_argv/crate_information_host/argv",
+      "expect": {
+        "delegate": true,
+        "artifact_count": 0
+      }
+    },
+    {
+      "id": "probe.crate_information_target",
+      "argv_ref": "rust-subset-v0.json#/rustc_wrapper_argv/crate_information_target/argv",
+      "expect": {
+        "delegate": true,
+        "artifact_count": 0
+      }
+    },
+    {
+      "id": "primary.selected_lib",
+      "argv_ref": "rust-subset-v0.json#/rustc_wrapper_argv/selected_primary_lib/argv",
+      "expect": {
+        "delegate": false,
+        "driver": true,
+        "artifact_count": 1
+      }
+    },
+    {
+      "id": "reject.response_file",
+      "argv": [
+        "/mpk/toolchain/bin/rustc",
+        "@args"
+      ],
+      "expect": {
+        "code": "RUST_TOOLCHAIN_ARGUMENT",
+        "artifact_count": 0
+      }
+    },
+    {
+      "id": "reject.target_cpu_native",
+      "mutation": "add -C target-cpu=native",
+      "expect": {
+        "code": "RUST_TOOLCHAIN_ARGUMENT",
+        "artifact_count": 0
+      }
+    },
+    {
+      "id": "reject.second_primary",
+      "construction": "two selected-lib matches",
+      "expect": {
+        "code": "RUST_FRONTEND_DRIVER_PROTOCOL_COUNT",
+        "private_artifact_count": 1,
+        "public_artifact": false
+      }
+    },
+    {
+      "id": "reject.unknown_non_primary",
+      "construction": "unselected bin invocation",
+      "expect": {
+        "code": "RUST_TOOLCHAIN_ARGUMENT",
+        "artifact_count": 0
+      }
+    }
+  ],
+  "filesystem_cases": [
+    {
+      "id": "publish.valid",
+      "initial": [],
+      "operations": [
+        "exclusive-create partial",
+        "bounded-write",
+        "file-fsync",
+        "atomic-no-replace-rename",
+        "directory-fsync"
+      ],
+      "final": [
+        "result.json"
+      ],
+      "expect": "accept"
+    },
+    {
+      "id": "publish.final_preexists",
+      "initial": [
+        "result.json"
+      ],
+      "operation": "rename-no-replace",
+      "expect": "RUST_FRONTEND_DRIVER_PROTOCOL_FILESYSTEM"
+    },
+    {
+      "id": "publish.partial_preexists",
+      "initial": [
+        "result.json.partial"
+      ],
+      "operation": "exclusive-create",
+      "expect": "RUST_FRONTEND_DRIVER_PROTOCOL_FILESYSTEM"
+    },
+    {
+      "id": "consume.unstable_identity",
+      "initial": [
+        "result.json"
+      ],
+      "mutation": "replace during read",
+      "expect": "RUST_FRONTEND_DRIVER_PROTOCOL_FILESYSTEM"
+    }
+  ],
+  "limit_cases": [
+    {
+      "id": "request.at",
+      "construction": {
+        "jcs_bytes": 4194303,
+        "lf_bytes": 1
+      },
+      "expect": "accept"
+    },
+    {
+      "id": "request.above",
+      "construction": {
+        "jcs_bytes": 4194304,
+        "lf_bytes": 1
+      },
+      "expect": "RUST_FRONTEND_DRIVER_PROTOCOL_TRANSPORT"
+    },
+    {
+      "id": "output.at",
+      "construction": {
+        "jcs_bytes": 268435455,
+        "lf_bytes": 1
+      },
+      "expect": "accept"
+    },
+    {
+      "id": "output.above",
+      "construction": {
+        "jcs_bytes": 268435456,
+        "lf_bytes": 1
+      },
+      "expect": "RUST_FRONTEND_DRIVER_PROTOCOL_OUTPUT_LIMIT"
+    },
+    {
+      "id": "request.counter_overflow",
+      "construction": "checked byte counter maximum plus one",
+      "expect": "RUST_FRONTEND_DRIVER_PROTOCOL_TRANSPORT"
+    },
+    {
+      "id": "output.counter_overflow",
+      "construction": "checked byte counter maximum plus one",
+      "expect": "RUST_FRONTEND_DRIVER_PROTOCOL_OUTPUT_LIMIT"
+    }
+  ]
+}
