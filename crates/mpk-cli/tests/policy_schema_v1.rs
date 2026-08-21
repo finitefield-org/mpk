@@ -4,11 +4,11 @@ use std::path::PathBuf;
 
 use mpk_cli::policy_schema::{
     canonical_policy_evidence_v1_json, canonical_policy_scan_v1_json,
-    import_policy_evidence_v1_json, import_policy_scan_v1_json, validate_policy_limit,
-    PolicyCheckedDeclaration, PolicyEvidenceLinkageContext, PolicyExpectedCertificateV1,
-    PolicyExpectedMemberV1, PolicyExpectedPropertyV1, PolicyHelperArtifact, PolicyIssue,
-    PolicyPropertyV1, PolicyScanLinkageContext, PolicySelection, PolicySemanticParameters,
-    PolicyTrustedEvidenceV1,
+    import_policy_evidence_v1_for_consumer, import_policy_evidence_v1_json,
+    import_policy_scan_v1_json, validate_policy_limit, PolicyCheckedDeclaration,
+    PolicyEvidenceLinkageContext, PolicyExpectedCertificateV1, PolicyExpectedMemberV1,
+    PolicyExpectedPropertyV1, PolicyHelperArtifact, PolicyIssue, PolicyPropertyV1,
+    PolicyScanLinkageContext, PolicySelection, PolicySemanticParameters, PolicyTrustedEvidenceV1,
 };
 use mpk_vc::{
     canonical_json_bytes, parse_strict_json, FrontendIdentity, ReleaseRegistryIdentity,
@@ -362,11 +362,63 @@ fn policy_evidence_v1_executes_every_normative_case() {
 }
 
 #[test]
+fn policy_evidence_v1_consumer_recomputes_all_internal_links() {
+    let vector: EvidenceVector = load("develop/specs/vectors/policy-evidence-v1.json");
+    for fixture in &vector.fixtures {
+        let bytes = canonical_transport(&fixture.input);
+        import_policy_evidence_v1_for_consumer(&bytes)
+            .unwrap_or_else(|error| panic!("{} consumer import failed: {error}", fixture.id));
+    }
+    let active_fixture = fs::read(
+        PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            .join("../..")
+            .join("fixtures/vir-go/policy/evidence.json"),
+    )
+    .unwrap();
+    import_policy_evidence_v1_for_consumer(&active_fixture)
+        .unwrap_or_else(|error| panic!("active policy evidence consumer import failed: {error}"));
+
+    let mut unresolved_helper = vector.fixtures[0].input.clone();
+    unresolved_helper["properties"][0]["members"][0]["evidence"][0]["artifact_id"] =
+        Value::String("missing-helper".to_owned());
+    let error = import_policy_evidence_v1_for_consumer(&canonical_transport(&unresolved_helper))
+        .expect_err("unresolved helper reference rejects");
+    assert_eq!(error.phase().as_str(), "properties");
+    assert_eq!(error.code(), "POLICY_PROPERTY_STATUS");
+
+    let mut false_verdict = vector.fixtures[0].input.clone();
+    false_verdict["trusted_evidence"]["checker_verdicts"][0]["verdict"] =
+        Value::String("accepted".to_owned());
+    let error = import_policy_evidence_v1_for_consumer(&canonical_transport(&false_verdict))
+        .expect_err("accepted verdict without a certificate rejects");
+    assert_eq!(error.phase().as_str(), "trusted");
+    assert_eq!(error.code(), "POLICY_TRUSTED_EVIDENCE");
+
+    let mut wrong_vc_profile = vector.fixtures[0].input.clone();
+    wrong_vc_profile["source_vc_schema"] = Value::String("mpk.vc.v2".to_owned());
+    let error = import_policy_evidence_v1_for_consumer(&canonical_transport(&wrong_vc_profile))
+        .expect_err("unknown VC profile rejects");
+    assert_eq!(error.phase().as_str(), "vc_linkage");
+    assert_eq!(error.code(), "POLICY_VC_LINKAGE");
+
+    let mut missing_theory_reference = vector.fixtures[1].input.clone();
+    missing_theory_reference["properties"][0]["members"][0]["evidence"]
+        .as_array_mut()
+        .unwrap()
+        .retain(|reference| reference["kind"] != "checked_theory_certificate");
+    let error =
+        import_policy_evidence_v1_for_consumer(&canonical_transport(&missing_theory_reference))
+            .expect_err("verified member must reference every checked theory");
+    assert_eq!(error.phase().as_str(), "properties");
+    assert_eq!(error.code(), "POLICY_PROPERTY_STATUS");
+}
+
+#[test]
 fn policy_field_limits_precede_schema_shape_validation() {
     let vector: ScanVector = load("develop/specs/vectors/policy-scan-v1.json");
     let context = vector.linkage_contexts.first().expect("scan context");
     let value = serde_json::json!({
-        "schema": "mpk.policy.scan.v0",
+        "schema": "mpk.policy.scan.unknown",
         "helper_artifacts": vec![Value::Null; 65_537],
     });
     let error = import_policy_scan_v1_json(&canonical_transport(&value), &context.linkage())

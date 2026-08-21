@@ -666,6 +666,189 @@ pub fn import_policy_evidence_v1_json(
     })
 }
 
+/// Imports a standalone evidence report at a consumer boundary that has no
+/// access to the source-side linkage context used while producing it.
+///
+/// This applies every validation that can be recomputed from the evidence
+/// itself, including helper, trusted-evidence, member/status, and dependency
+/// links. Rechecking the named external artifact bytes remains the
+/// responsibility of the policy verifier that created the report.
+pub fn import_policy_evidence_v1_for_consumer(
+    input: &[u8],
+) -> Result<ValidatedPolicyEvidenceV1, PolicyValidationError> {
+    let (strict, canonical_without_lf) = parse_policy_transport(input)?;
+    require_schema(&strict, POLICY_EVIDENCE_V1_SCHEMA, "POLICY_EVIDENCE_SCHEMA")?;
+    reject_null(&strict)?;
+    let document: PolicyEvidenceV1 =
+        serde_json::from_slice(&canonical_without_lf).map_err(|error| {
+            PolicyValidationError::new(
+                PolicyValidationPhase::Shape,
+                "POLICY_SHAPE",
+                error.to_string(),
+            )
+        })?;
+
+    validate_evidence_collection_limits(&document)?;
+    validate_evidence_shape(&document)?;
+    validate_evidence_scalars(&document)?;
+    validate_evidence_order(&document)?;
+    validate_evidence_profiles(&document)?;
+    validate_consumer_evidence_linkage(&document)?;
+    validate_recipes(&document)?;
+    validate_canonical_size(canonical_without_lf.len().saturating_add(1))?;
+    validate_canonical_transport(input, canonical_without_lf)?;
+
+    Ok(ValidatedPolicyEvidenceV1 {
+        document,
+        canonical_bytes: input.to_vec(),
+    })
+}
+
+fn validate_consumer_evidence_linkage(
+    document: &PolicyEvidenceV1,
+) -> Result<(), PolicyValidationError> {
+    if document.release_registry.schema != "mpk.release.bundle_registry.v0"
+        || document.release_registry.id != "mpk.release.registry.v0"
+        || document.limit_profile != "mpk.vir.limits.v0"
+        || document.source_ir_schema != "mpk.vir.v0"
+    {
+        return Err(PolicyValidationError::new(
+            PolicyValidationPhase::Release,
+            "POLICY_RELEASE_LINKAGE",
+            "standalone evidence does not name the active release and VIR profiles",
+        ));
+    }
+
+    let scan_helpers = document
+        .helper_artifacts
+        .iter()
+        .filter(|helper| {
+            matches!(
+                helper,
+                PolicyHelperArtifact::Source { .. }
+                    | PolicyHelperArtifact::Contract { .. }
+                    | PolicyHelperArtifact::VerificationIr { .. }
+            )
+        })
+        .cloned()
+        .collect::<Vec<_>>();
+    let optional_helpers = document
+        .helper_artifacts
+        .iter()
+        .filter(|helper| {
+            matches!(
+                helper,
+                PolicyHelperArtifact::AiAnalysis { .. } | PolicyHelperArtifact::CiStatus { .. }
+            )
+        })
+        .cloned()
+        .collect::<Vec<_>>();
+    let scan = ValidatedPolicyScanV1 {
+        document: PolicyScanV1 {
+            schema: POLICY_SCAN_V1_SCHEMA.to_owned(),
+            frontend_status: "ir-lowered".to_owned(),
+            frontend_phase: "complete".to_owned(),
+            source_language: document.source_language.clone(),
+            semantic_profile: document.semantic_profile.clone(),
+            semantic_parameters: document.semantic_parameters.clone(),
+            selection: document.selection.clone(),
+            release_registry: document.release_registry.clone(),
+            frontend: document.frontend.clone(),
+            toolchain: document.toolchain.clone(),
+            readiness: "ready".to_owned(),
+            rejected_features: Vec::new(),
+            diagnostics: Vec::new(),
+            limit_profile: Some(document.limit_profile.clone()),
+            frontend_source_manifest_hash: Some(document.frontend_source_manifest_hash.clone()),
+            input_set_hash: Some(document.input_set_hash.clone()),
+            source_map_hash: Some(document.source_map_hash.clone()),
+            source_ir_schema: Some(document.source_ir_schema.clone()),
+            source_ir_hash: Some(document.source_ir_hash.clone()),
+            helper_artifacts: Some(scan_helpers),
+        },
+        canonical_bytes: Vec::new(),
+    };
+    let expected_members = document
+        .properties
+        .iter()
+        .flat_map(|property| &property.members)
+        .map(|member| PolicyExpectedMemberV1 {
+            member_id: member.member_id.clone(),
+            function_id: member.function_id.clone(),
+            kind: member.kind.clone(),
+            group_id: member.group_id.clone(),
+            declaration_name: member.declaration_name.clone(),
+            declaration_hash: member.declaration_hash.clone(),
+        })
+        .collect::<Vec<_>>();
+    let expected_properties = document
+        .properties
+        .iter()
+        .map(|property| PolicyExpectedPropertyV1 {
+            id: property.id.clone(),
+            description: property.description.clone(),
+            member_ids: property
+                .members
+                .iter()
+                .map(|member| member.member_id.clone())
+                .collect(),
+            notes: property.notes.clone(),
+        })
+        .collect::<Vec<_>>();
+    let expected_unsupported_codes = document
+        .properties
+        .iter()
+        .flat_map(|property| &property.members)
+        .flat_map(|member| &member.evidence)
+        .filter_map(|reference| match reference {
+            PolicyEvidenceReferenceV1::UnsupportedFeature { code } => Some(code.clone()),
+            _ => None,
+        })
+        .collect::<BTreeSet<_>>()
+        .into_iter()
+        .collect::<Vec<_>>();
+    let expected_certificate = document
+        .trusted_evidence
+        .certificates
+        .first()
+        .map(|certificate| PolicyExpectedCertificateV1 {
+            module: certificate.module.clone(),
+            certificate_hash: certificate.certificate_hash.clone(),
+            export_hash: certificate.export_hash.clone(),
+            axiom_report_hash: certificate.axiom_report_hash.clone(),
+        });
+    let expected_declarations = document
+        .trusted_evidence
+        .certificates
+        .first()
+        .map(|certificate| certificate.checked_declarations.clone())
+        .unwrap_or_default();
+    let context = PolicyEvidenceLinkageContext {
+        scan: &scan,
+        certificate_source_manifest_hash: document.certificate_source_manifest_hash.clone(),
+        source_vc_schema: document.source_vc_schema.clone(),
+        vc_hash: document.vc_hash.clone(),
+        verification_limit_profile: document.verification_limit_profile.clone(),
+        expected_members,
+        expected_declarations,
+        expected_certificate,
+        expected_theory_certificates: document.trusted_evidence.theory_certificates.clone(),
+        expected_axiom_report: document.trusted_evidence.axiom_report.clone(),
+        expected_checker_verdicts: document.trusted_evidence.checker_verdicts.clone(),
+        expected_properties,
+        expected_unsupported_codes,
+        expected_optional_helpers: optional_helpers,
+    };
+
+    validate_evidence_release(document, &context)?;
+    validate_evidence_source_linkage(document, &context)?;
+    validate_evidence_vc(document, &context)?;
+    validate_evidence_helpers(document, &context)?;
+    validate_trusted_evidence(document, &context)?;
+    validate_properties(document, &context)?;
+    validate_dependencies(document, &context)
+}
+
 pub fn canonical_policy_scan_v1_json(
     document: &PolicyScanV1,
 ) -> Result<Vec<u8>, PolicyValidationError> {
@@ -2656,16 +2839,27 @@ fn validate_properties(
                 .filter(|certificate| certificate.checked_member_ids.contains(&row.member_id))
                 .map(|certificate| certificate.id.as_str())
                 .collect::<BTreeSet<_>>();
+            let expected_checked_declarations = document
+                .trusted_evidence
+                .certificates
+                .iter()
+                .flat_map(|certificate| &certificate.checked_declarations)
+                .filter(|declaration| declaration.member_ids.contains(&row.member_id))
+                .count();
             let status_valid = match row.status.as_str() {
                 "mpk_verified" => {
                     checked_declarations == 1
+                        && expected_checked_declarations == 1
                         && checked_theories == expected_theories
                         && helpers == 0
                         && unsupported == 0
                         && both_checkers_accepted
                         && checked_axiom_report
                 }
-                "proof_pending" => checked_declarations == 0 && checked_theories.is_empty() && unsupported == 0 && row.evidence.iter().any(|reference| matches!(reference, PolicyEvidenceReferenceV1::HelperArtifact { artifact_id } if artifact_id == "vc")),
+                "proof_pending" => checked_declarations == 0
+                    && checked_theories.is_empty()
+                    && unsupported == 0
+                    && row.evidence.iter().any(|reference| matches!(reference, PolicyEvidenceReferenceV1::HelperArtifact { artifact_id } if artifact_id == "vc")),
                 "helper_only" => {
                     checked_declarations == 0
                         && checked_theories.is_empty()
@@ -2673,7 +2867,9 @@ fn validate_properties(
                         && helpers > 0
                 }
                 "unsupported" => {
-                    checked_declarations == 0 && checked_theories.is_empty() && unsupported > 0
+                    checked_declarations == 0
+                        && checked_theories.is_empty()
+                        && unsupported > 0
                 }
                 _ => false,
             };

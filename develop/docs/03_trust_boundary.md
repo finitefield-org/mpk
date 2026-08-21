@@ -2,9 +2,8 @@
 
 Normative MVP trust-boundary requirements are defined in `specs/TRUST_BOUNDARY_V0.md`. This document is a design summary of the same boundary.
 
-The current Go/GIR helper path remains the active pre-cutover release path and
-is not historical yet. The staged VIR/Rust migration changes helper schemas,
-not this proof-acceptance boundary; its atomic sequence is owned by
+Status: historical helper-interface baseline. The active VIR/Rust migration
+changes helper schemas, not this proof-acceptance boundary; its sequence is owned by
 `05_rust_frontend_design-todo.md`.
 
 ## Core policy
@@ -41,7 +40,7 @@ release-registry and bundle bytes
 toolchains, compilers, and frontend binaries
 source and contract text
 parser, elaborator, package-loader, HIR, SSA, and MIR output
-GIR before cutover; VIR after cutover
+VIR before cutover; VIR after cutover
 source maps and source manifests, including every internal claim
 VC and certificate-skeleton output
 policy scans, evidence, reports, and reproduction recipes
@@ -87,7 +86,7 @@ Do not place these in the trusted kernel during MVP:
 
 - parser trust;
 - source-language frontend, toolchain, or compiler trust;
-- GIR/VIR, source-map, source-manifest-claim, VC-generator, or policy-output
+- VIR/VIR, source-map, source-manifest-claim, VC-generator, or policy-output
   trust;
 - tactic replay trust;
 - SMT solver yes/no trust;

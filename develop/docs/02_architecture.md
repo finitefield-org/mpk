@@ -1,17 +1,14 @@
 # Architecture
 
-Migration note: the architecture and repository layout below describe the
-current pre-cutover Go/GIR release. They remain current, not historical, until
-the atomic cutover owned by `05_rust_frontend_design-todo.md`. The staged
-language-neutral design in `05_rust_frontend_design.md` must not be partially
-activated, and it does not change Certificate v0 or proof acceptance.
+Status: historical baseline. The active language-neutral architecture is in
+`05_rust_frontend_design.md`; Certificate v0 and proof acceptance are unchanged.
 
 ## System overview
 
 ```mermaid
 flowchart TD
-    A[Go source files] --> B[go2gir frontend]
-    B --> C[GIR: Go Verification IR]
+    A[Go source files] --> B[go2vir frontend]
+    B --> C[VIR: Go Verification IR]
     C --> D[VC generator]
     D --> E[VC theorem obligations]
     E --> F[AI / solver / tactic candidate generation]
@@ -32,9 +29,9 @@ mpk/
     mpk-kernel/        # fast Rust verifier
     mpk-cli/           # command-line interface
     mpk-api/           # untrusted AI/tooling API
-    mpk-vc/            # GIR importer, contract-to-obligation adapter, and VC builder
+    mpk-vc/            # VIR importer, contract-to-obligation adapter, and VC builder
   go-tools/
-    go2gir/            # Go source -> GIR using go/packages and go/ssa
+    go2vir/            # Go source -> VIR using go/packages and go/ssa
     mpk-checker-ref/   # independent clean-room source-free reference checker
   specs/
     CORE_V0.md
@@ -70,8 +67,8 @@ A bundle includes:
 
 - Go source file hashes;
 - Go toolchain version;
-- `go2gir` binary hash;
-- GIR hash;
+- `go2vir` binary hash;
+- VIR hash;
 - VC hash;
 - certificate hash;
 - fast-kernel verdict;
@@ -82,7 +79,7 @@ This supports engineering traceability, but the Go frontend remains outside the 
 
 ### Level 2: future verified frontend mode
 
-A later version may verify a narrow Go subset decoder and GIR semantics, moving part of the frontend into a checked chain. This is explicitly out of MVP scope.
+A later version may verify a narrow Go subset decoder and VIR semantics, moving part of the frontend into a checked chain. This is explicitly out of MVP scope.
 
 ## Main data artifacts
 
@@ -90,7 +87,7 @@ A later version may verify a narrow Go subset decoder and GIR semantics, moving 
 |---|---|---|
 | Go source | User code | No |
 | Contract JSON | User specification | No, except as encoded theorem statement |
-| GIR | Verification IR | No |
+| VIR | Verification IR | No |
 | VC file | Theorem obligations | No, until encoded in certificate |
 | AI trace | Candidate-generation evidence | No |
 | Solver output | Candidate-generation evidence | No |
@@ -150,7 +147,7 @@ Owns:
 - stricter code-style constraints;
 - no shared kernel implementation code.
 
-### `go2gir`
+### `go2vir`
 
 Owns:
 
@@ -158,7 +155,7 @@ Owns:
 - SSA extraction;
 - Go subset rejection;
 - `mpk.go.contract.v0` sidecar loading and schema validation;
-- GIR emission;
+- VIR emission;
 - source manifest generation;
 - no trusted proof semantics.
 
@@ -166,7 +163,7 @@ Owns:
 
 Owns:
 
-- GIR-to-core model encoding;
+- VIR-to-core model encoding;
 - weakest-precondition or symbolic-execution VC generation;
 - loop-invariant obligations and optional total-correctness variant obligations;
 - theorem-obligation output;

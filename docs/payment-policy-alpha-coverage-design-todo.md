@@ -2,6 +2,8 @@
 
 Source design: `docs/payment-policy-alpha-coverage-design.md`
 
+Status: historical completed task record; not an active command reference.
+
 This document breaks the payment-policy alpha coverage design into
 implementation milestones that can be executed one at a time. Source design
 phase IDs keep the form `PAYALPHA-COV-0x`; implementation task IDs in this file
@@ -21,8 +23,8 @@ Out of scope:
 - product-side ProofOps code in `../proof-ops`;
 - database, network, payment-gateway, handler-effect, access-control, or IAM
   verification;
-- changes to the `mpk.policy.evidence.v0` JSON schema;
-- trusting the classifier, GIR, VC JSON, Markdown, strategy candidates, or AI
+- changes to the `mpk.policy.evidence.v1` JSON schema;
+- trusting the classifier, VIR, VC JSON, Markdown, strategy candidates, or AI
   explanation text as proof evidence.
 
 ## Design Phase Mapping
@@ -131,7 +133,7 @@ Acceptance criteria:
   `status=proof_pending`, `verified=1`, and `proof_pending=7`.
 - `policy_verify_strict_fails_after_writing_proof_pending_evidence` still fails
   with `proof-pending properties=7`.
-- No `mpk.policy.evidence.v0` schema fields are added, removed, or renamed.
+- No `mpk.policy.evidence.v1` schema fields are added, removed, or renamed.
 - No unclosed property receives trusted checked evidence.
 
 Verification:
@@ -591,7 +593,7 @@ Tasks:
 
 1. Add a table-driven `policy_verify_positive_payment_corpus_has_expected_counts`
    test covering `reserve`, `refund`, `discount`, `fee`, and `points`.
-2. Reuse the existing `go2gir` build helper in CLI tests so the corpus test
+2. Reuse the existing `go2vir` build helper in CLI tests so the corpus test
    does not rebuild the binary for every example.
 3. For every positive example, run `mpk policy verify --strict` with
    `--strategy-profile payment-policy-alpha` and `--checker-profile mvp-strict`
@@ -679,10 +681,10 @@ Likely touched files:
 
 Tasks:
 
-1. Build `target/debug/go2gir` first if it is not already present:
+1. Build `target/debug/go2vir` first if it is not already present:
 
    ```sh
-   (cd go-tools/go2gir && go build -o ../../target/debug/go2gir .)
+   (cd go-tools/go2vir && go build -o ../../target/debug/go2vir .)
    ```
 
 2. Refresh the tracked reserve evidence fixture with the explicit update flag:
@@ -695,7 +697,7 @@ Tasks:
      --checker-profile mvp-strict \
      --evidence-json examples/payment_policies/reserve/evidence_alpha.json \
      --evidence-md /tmp/mpk-reserve-evidence.md \
-     --go2gir target/debug/go2gir \
+     --frontend-bundle target/debug/go2vir \
      --strict \
      --update-fixtures
    ```
@@ -789,7 +791,7 @@ Resolved findings:
 - Restored source-design coverage for strict corpus verification, non-reserve
   determinism, schema parsing, and tamper regressions.
 - Preserved the trust-boundary distinction between `strategy_profile`,
-  `checker_profile`, and `allowed_axiom_profiles`.
+  `checker_profile`, and `axiom_profile`.
 - Made fixture refresh and stale-doc search explicit in the final milestone.
 
 Remaining findings after self-review:
@@ -802,4 +804,4 @@ Review checks applied:
 - Checked that every milestone has likely touched files, concrete tasks,
   acceptance criteria, and verification commands.
 - Checked trust-boundary-sensitive terms against the existing
-  `mpk.policy.evidence.v0` model.
+  `mpk.policy.evidence.v1` model.

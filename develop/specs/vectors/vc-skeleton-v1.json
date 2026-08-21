@@ -221,7 +221,7 @@
           {
             "op": "replace",
             "path": "/schema",
-            "value": "mpk.vc.cert_skeleton.v0"
+            "value": "mpk.vc.unknown.v0"
           }
         ]
       },
@@ -254,7 +254,7 @@
       }
     },
     {
-      "id": "skeleton.reject_legacy_source_gir_hash",
+      "id": "skeleton.reject_legacy_source_legacy_hash",
       "construction": {
         "emit_from": "vc.rust_identity",
         "mutations": [
@@ -264,7 +264,7 @@
           },
           {
             "op": "add",
-            "path": "/source_gir_hash",
+            "path": "/source_legacy_hash",
             "value": "1111111111111111111111111111111111111111111111111111111111111111"
           }
         ]

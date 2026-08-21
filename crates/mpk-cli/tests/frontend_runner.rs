@@ -235,7 +235,7 @@ fn assembler_rejects_unconfigured_and_unknown_argv_without_writes() {
 }
 
 #[test]
-fn released_cli_help_has_no_staged_vir_frontend_route() {
+fn released_cli_help_exposes_only_registered_frontend_selection() {
     let output = Command::new(env!("CARGO_BIN_EXE_mpk"))
         .arg("--help")
         .output()
@@ -243,15 +243,16 @@ fn released_cli_help_has_no_staged_vir_frontend_route() {
     assert!(output.status.success());
     assert!(output.stderr.is_empty());
     let help = String::from_utf8(output.stdout).expect("help is UTF-8");
-    for staged in [
+    for expected in ["--frontend-bundle", "--toolchain-bundle"] {
+        assert!(help.contains(expected), "released help omitted {expected}");
+    }
+    for private in [
         "go2vir",
         "rust2vir",
-        "--frontend-bundle",
-        "--toolchain-bundle",
         "--release-registry",
         "__mpk_frontend_",
     ] {
-        assert!(!help.contains(staged), "released help exposed {staged}");
+        assert!(!help.contains(private), "released help exposed {private}");
     }
 }
 

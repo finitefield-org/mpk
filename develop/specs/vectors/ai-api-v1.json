@@ -388,7 +388,7 @@
   ],
   "route_cases": [
     {"id": "route.resolve_vir_import", "method": "POST", "path": "/vir/import", "expect": {"outcome": "resolve", "handler": "vir_import"}},
-    {"id": "route.reject_gir_import", "method": "POST", "path": "/gir/import", "expect": {"outcome": "reject", "phase": "route", "code": "AI_API_ROUTE_UNKNOWN"}},
+    {"id": "route.reject_gir_import", "method": "POST", "path": "/removed/import", "expect": {"outcome": "reject", "phase": "route", "code": "AI_API_ROUTE_UNKNOWN"}},
     {"id": "route.reject_vir_import_get", "method": "GET", "path": "/vir/import", "expect": {"outcome": "reject", "phase": "route", "code": "AI_API_ROUTE_UNKNOWN"}},
     {"id": "route.reject_trailing_slash", "method": "POST", "path": "/vir/import/", "expect": {"outcome": "reject", "phase": "route", "code": "AI_API_ROUTE_UNKNOWN"}},
     {"id": "route.reject_case_alias", "method": "POST", "path": "/VIR/import", "expect": {"outcome": "reject", "phase": "route", "code": "AI_API_ROUTE_UNKNOWN"}}
@@ -414,17 +414,17 @@
       "construction": {
         "base": "import.go_identity",
         "operations": [
-          {"op": "replace", "path": "/source_ir_schema", "value": "mpk.gir.v0"}
+          {"op": "replace", "path": "/source_ir_schema", "value": "mpk.unknown.v0"}
         ]
       },
       "expect": {"outcome": "reject", "mutation_count": 0, "phase": "shape", "code": "AI_API_VIR_SCHEMA"}
     },
     {
-      "id": "import.reject_source_gir_hash",
+      "id": "import.reject_source_legacy_hash",
       "construction": {
         "base": "import.go_identity",
         "operations": [
-          {"op": "add", "path": "/source_gir_hash", "value": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690"}
+          {"op": "add", "path": "/source_legacy_hash", "value": "374dbbcc0c9454bf29c0117c02f1bbdc0424df970297af9fe4560512d40d0690"}
         ]
       },
       "expect": {"outcome": "reject", "mutation_count": 0, "phase": "shape", "code": "AI_API_SHAPE"}

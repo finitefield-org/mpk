@@ -18,7 +18,6 @@ use sha2::{Digest, Sha256};
 const UPDATE_ENV: &str = "MPK_UPDATE_GO_VIR_CORPUS";
 const FRONTEND_INDEX: &str = "fixtures/vir-go/frontend-index.json";
 const SHARED_ROOT: &str = "fixtures/vir-go";
-const STAGING_ROOT: &str = "develop/migrations/go-vir-staging";
 const JSON_LIMITS: StrictJsonLimits =
     StrictJsonLimits::new(268_435_456, 268_435_456, 256, 1_048_576);
 
@@ -45,7 +44,7 @@ struct FrontendCase {
     function_count: u64,
     frontend_status: String,
     artifacts: Vec<FrontendArtifact>,
-    example_stage_path: Option<String>,
+    example_path: Option<String>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -140,7 +139,7 @@ struct GenerationAudit {
     leakage_scan: &'static str,
     intentional_hash_migration: bool,
     compatibility_aliases: bool,
-    active_release_selects_staging: bool,
+    active_release_uses_vir: bool,
 }
 
 #[derive(Debug, Serialize)]
@@ -168,7 +167,7 @@ struct CheckerAudit {
 }
 
 #[test]
-fn regenerated_go_vir_corpus_is_linked_deterministic_and_staged() {
+fn regenerated_go_vir_corpus_is_linked_deterministic_and_active() {
     let root = repo_root();
     let index: FrontendIndex = read_json(&root.join(FRONTEND_INDEX));
     validate_frontend_index(&root, &index);
@@ -205,7 +204,7 @@ fn regenerated_go_vir_corpus_is_linked_deterministic_and_staged() {
             let artifact = artifact(kind, &path, bytes);
             artifacts.push(artifact.clone());
             all_artifacts.push(artifact);
-            if let Some(example) = &corpus_case.example_stage_path {
+            if let Some(example) = &corpus_case.example_path {
                 let example_name = if name == "vc-skeleton.json" {
                     "vc_skeleton.json"
                 } else {
@@ -220,10 +219,7 @@ fn regenerated_go_vir_corpus_is_linked_deterministic_and_staged() {
                 ("vc.json", first.vc.as_slice()),
                 ("vc_skeleton.json", first.skeleton.as_slice()),
             ] {
-                assert_fixture(
-                    &root.join(STAGING_ROOT).join("fixtures/vc-alpha").join(name),
-                    bytes,
-                );
+                assert_fixture(&root.join("fixtures/vc-alpha").join(name), bytes);
             }
             let alpha_manifest = canonical(&json!({
                 "schema_version": "mpk.vc_alpha_manifest.v1",
@@ -249,9 +245,7 @@ fn regenerated_go_vir_corpus_is_linked_deterministic_and_staged() {
             let alpha_path = "derived/alpha-branch/vc-alpha-manifest.json";
             assert_corpus_fixture(&root, alpha_path, &alpha_manifest);
             assert_fixture(
-                &root
-                    .join(STAGING_ROOT)
-                    .join("fixtures/vc-alpha/manifest.json"),
+                &root.join("fixtures/vc-alpha/manifest.json"),
                 &alpha_manifest,
             );
             let alpha_artifact = artifact("vc_alpha_manifest", alpha_path, &alpha_manifest);
@@ -295,12 +289,6 @@ fn regenerated_go_vir_corpus_is_linked_deterministic_and_staged() {
         assert_corpus_fixture(&root, path, bytes);
         all_artifacts.push(artifact(kind, path, bytes));
     }
-    let active_release = fs::read(root.join("release-report.json")).expect("active release report");
-    assert_fixture(
-        &root.join(STAGING_ROOT).join("release-report.json"),
-        &active_release,
-    );
-
     all_artifacts.sort_by(|left, right| left.path.cmp(&right.path));
     assert!(all_artifacts
         .windows(2)
@@ -312,14 +300,14 @@ fn regenerated_go_vir_corpus_is_linked_deterministic_and_staged() {
             commands: vec![
                 "MPK_UPDATE_GO_VIR_CORPUS=1 go test -count=1 -run TestRegenerateGoVIRFrontendCorpus",
                 "MPK_UPDATE_GO_VIR_CORPUS=1 cargo test -p mpk-vc --test go_vir_corpus",
-                "python3 scripts/compare-go-gir-vir.py --write",
+                "python3 scripts/generate-release-report.py --check",
             ],
             clean_runs: 2,
             byte_identical: true,
             leakage_scan: "local_path,temp_path,host,timestamp,obsolete_interface",
             intentional_hash_migration: true,
             compatibility_aliases: false,
-            active_release_selects_staging: false,
+            active_release_uses_vir: true,
         },
         coverage: CoverageAudit {
             alpha_functions: index.alpha_function_count,
@@ -395,15 +383,6 @@ fn validate_frontend_index(root: &Path, index: &FrontendIndex) {
             assert_eq!(bytes.len() as u64, artifact.bytes);
             assert_eq!(sha256(&bytes), artifact.sha256);
             assert_no_unintended_leakage(root, &bytes);
-            assert_eq!(
-                bytes,
-                fs::read(
-                    root.join(STAGING_ROOT)
-                        .join("fixtures/vir-go")
-                        .join(&artifact.path)
-                )
-                .expect("mirrored staging artifact")
-            );
         }
     }
     assert_eq!(alpha_functions, 100);
@@ -437,7 +416,7 @@ fn derive_case(
     let source_map_bytes = fs::read(frontend_root.join("source-map.json")).expect("source map");
     let manifest_bytes =
         fs::read(frontend_root.join("source-manifest.frontend.json")).expect("frontend manifest");
-    let vir = import_vir_json(&vir_bytes).expect("staged VIR imports");
+    let vir = import_vir_json(&vir_bytes).expect("VIR imports");
     let manifest_value: Value = serde_json::from_slice(&manifest_bytes).expect("manifest JSON");
     let storage = captured_storage(root, corpus_case, &manifest_value);
     let captures = captured_refs(&storage);
@@ -470,7 +449,7 @@ fn derive_case(
             synthetic_permissions: &synthetic_permissions,
         },
     )
-    .expect("staged source map imports");
+    .expect("source map imports");
     let context = SourceManifestValidationContext {
         vir: &vir,
         source_map: &source_map,
@@ -479,9 +458,9 @@ fn derive_case(
         expected_language_configuration: None,
     };
     let frontend_manifest = import_frontend_source_manifest_json(&manifest_bytes, context)
-        .expect("staged frontend manifest imports");
-    let vc = generate_vc_v1(&vir, &frontend_manifest).expect("staged VIR generates VC v1");
-    let skeleton = emit_validated_vc_skeleton_v1(&vc).expect("staged VC emits grouped skeleton");
+        .expect("frontend manifest imports");
+    let vc = generate_vc_v1(&vir, &frontend_manifest).expect("VIR generates VC v1");
+    let skeleton = emit_validated_vc_skeleton_v1(&vc).expect("VC emits grouped skeleton");
     let document = vc.document();
     let identity = ValidatedVcIdentity::new(
         document.input_set_hash.clone(),
@@ -581,12 +560,14 @@ fn generate_support_artifacts(root: &Path) -> Vec<(&'static str, &'static str, V
         (
             "policy_scan_v1",
             "policy/scan.json",
-            canonical(&fixture(&scans, "fixtures", "scan.go_identity_ready")["input"]),
+            canonical_transport(&fixture(&scans, "fixtures", "scan.go_identity_ready")["input"]),
         ),
         (
             "policy_evidence_v1",
             "policy/evidence.json",
-            canonical(&fixture(&evidence, "fixtures", "evidence.go_identity_pending")["input"]),
+            canonical_transport(
+                &fixture(&evidence, "fixtures", "evidence.go_identity_pending")["input"],
+            ),
         ),
         (
             "ai_v1_dry_run",
@@ -596,14 +577,14 @@ fn generate_support_artifacts(root: &Path) -> Vec<(&'static str, &'static str, V
         (
             "ai_v1_output",
             "ai/output.json",
-            canonical(
+            pretty_transport(
                 &fixture(&ai, "explanation_fixtures", "explanation.rust_verified.v1")["input"],
             ),
         ),
         (
             "ai_api_v1",
             "ai/api-v1-response.json",
-            canonical(
+            canonical_transport(
                 &fixture(&api, "generate_fixtures", "generate.go_identity")["expected_response"],
             ),
         ),
@@ -648,12 +629,7 @@ fn assert_derived_equal(id: &str, left: &DerivedArtifacts, right: &DerivedArtifa
 }
 
 fn assert_corpus_fixture(root: &Path, relative: &str, bytes: &[u8]) {
-    for base in [
-        root.join(SHARED_ROOT),
-        root.join(STAGING_ROOT).join("fixtures/vir-go"),
-    ] {
-        assert_fixture(&base.join(relative), bytes);
-    }
+    assert_fixture(&root.join(SHARED_ROOT).join(relative), bytes);
     assert_no_unintended_leakage(root, bytes);
 }
 
@@ -685,13 +661,10 @@ fn assert_no_unintended_leakage(root: &Path, bytes: &[u8]) {
         );
     }
     let mut forbidden_values = vec![
-        b"source_gir_hash".as_slice(),
-        b"mpk.gir.v0",
-        b"go2gir",
-        br#""timestamp""#,
-        br#""generated_at""#,
-        br#""generatedAt""#,
-        br#""hostname""#,
+        br#""timestamp""#.as_slice(),
+        br#""generated_at""#.as_slice(),
+        br#""generatedAt""#.as_slice(),
+        br#""hostname""#.as_slice(),
     ];
     let hostname = env::var("HOSTNAME").ok();
     if let Some(hostname) = hostname.as_deref().filter(|value| !value.is_empty()) {
@@ -736,6 +709,18 @@ fn canonical(value: &impl Serialize) -> Vec<u8> {
     let transport = serde_json::to_vec(value).expect("serialize JSON fixture");
     let strict = parse_strict_json(&transport, JSON_LIMITS).expect("strict JSON fixture");
     canonical_json_bytes(&strict).expect("canonical JSON fixture")
+}
+
+fn canonical_transport(value: &impl Serialize) -> Vec<u8> {
+    let mut bytes = canonical(value);
+    bytes.push(b'\n');
+    bytes
+}
+
+fn pretty_transport(value: &impl Serialize) -> Vec<u8> {
+    let mut bytes = serde_json::to_vec_pretty(value).expect("serialize pretty JSON fixture");
+    bytes.push(b'\n');
+    bytes
 }
 
 fn stable_json(value: &impl Serialize) -> Vec<u8> {

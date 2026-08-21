@@ -4,11 +4,9 @@ Status: normative and frozen for implementation.
 
 This specification defines the complete source-language boundary for Go
 programs lowered to `mpk.vir.v0` with semantic profile
-`mpk.go.fixed.v0`. `GO_SUBSET_V0.md` and GIR remain the current pre-cutover
-release contracts and are not historical while this profile is staged. At the
-atomic GIR-to-VIR cutover this specification replaces their active helper-path
-meaning; only then do they become historical migration records. Post-cutover
-components do not accept those records as inputs or derive defaults from them.
+`mpk.go.fixed.v0`. This is the sole active Go source-language profile.
+`GO_SUBSET_V0.md` is a historical migration record and is not accepted as a
+runtime input or a source of defaults.
 
 ## 1. Conformance, dependencies, and precedence
 
@@ -865,7 +863,7 @@ instructions, and terminators.
 
 Lowering consumes only compiler-resolved typed syntax/SSA derived from the
 captured buffers. It recognizes the source forms in this document and then
-constructs VIR directly; it does not serialize or re-import GIR. Any SSA
+constructs VIR directly; it does not serialize or re-import VIR. Any SSA
 instruction, implicit effect, or control-flow shape not explained by one
 accepted source form rejects.
 
@@ -1007,7 +1005,7 @@ The two selection-resolution codes are the sole case that use the validated
 requested function ID before a declaration match exists, as fixed in section
 2. The truncation marker remains function-free.
 
-Messages are concise normalized English and contain no GIR names, absolute
+Messages are concise normalized English and contain no VIR names, absolute
 paths, source snippets, raw compiler prose, environment, argv, or sandbox
 locators. The focused migration messages and codes are frozen by the
 conformance vector. Each `GO_SOURCE_PARSE` message is exactly
@@ -1093,7 +1091,7 @@ The historical accepted source rules map as follows:
 | division, signed shift, array bounds | exact `divisor_nonzero`, `shift_count_nonnegative`, `index_in_bounds` checks |
 | function purity | closed read/write/call rules and rejection matrix |
 
-Every historical negative class remains rejected under section 12. GIR schema,
+Every historical negative class remains rejected under section 12. VIR schema,
 field, hash, CLI status, and byte equality are intentionally not preserved.
 The source semantics are preserved while identities become VIR/VC v1
 identities.
@@ -1137,7 +1135,7 @@ unexplained semantic widening:
   predicates. Obligation IDs/count grouping may change, but neither predicate
   is lost.
 
-The baseline's old hashes, GIR/VC/skeleton bytes, theorem names, and synthetic
+The baseline's old hashes, VIR/VC/skeleton bytes, theorem names, and synthetic
 VC-alpha counts are audit anchors, not equality targets. Payment-policy clause
 order, branch-path meaning, eight postcondition intents per policy, proof
 pending state until checked certificates exist, and all focused negative

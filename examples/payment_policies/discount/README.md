@@ -7,7 +7,7 @@ Helper artifacts:
 
 - Go source in `policy.go`;
 - contract sidecar in `policy_contract.json`;
-- generated `gir.json`;
+- generated `vir.json`;
 - generated `vc.json`;
 - generated `vc_skeleton.json`.
 

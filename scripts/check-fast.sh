@@ -50,6 +50,7 @@ require_fixture() {
 }
 
 run cargo fmt --check
+run "$repo_root/scripts/check-no-active-gir.sh" --strict
 run cargo clippy --workspace --all-targets -- -D warnings
 run cargo test --workspace
 run cargo build -p mpk-cli

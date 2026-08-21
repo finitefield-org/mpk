@@ -9,7 +9,6 @@ use serde::Deserialize;
 use serde_json::{Map, Value};
 
 const VIR_VECTORS: &[u8] = include_bytes!("../../../develop/specs/vectors/vir-v0.json");
-const LEGACY_GIR: &[u8] = include_bytes!("../../../examples/max64/gir.json");
 
 #[test]
 fn imports_valid_module_vectors_and_rejects_every_structural_module_case() {
@@ -304,10 +303,10 @@ fn profile_parameters_are_closed_and_language_pairing_is_explicit() {
 }
 
 #[test]
-fn legacy_gir_and_wrong_language_module_do_not_convert_to_vir() {
+fn unknown_document_and_wrong_language_module_do_not_convert_to_vir() {
     assert!(
-        import_vir_json(LEGACY_GIR).is_err(),
-        "a GIR document must not deserialize through the VIR importer"
+        import_vir_json(br#"{"schema":"mpk.unknown.v0"}"#).is_err(),
+        "an unknown source-program document must not deserialize through the VIR importer"
     );
 
     let vectors = vectors();

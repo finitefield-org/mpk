@@ -3,19 +3,17 @@
 use std::collections::HashSet;
 use std::fmt;
 use std::fs;
-use std::path::{Component, Path, PathBuf};
+#[cfg(feature = "vertex-ai")]
+use std::path::Component;
+use std::path::{Path, PathBuf};
 use std::process::{Command, ExitCode};
 
-use mpk_api::{PolicyStrategyMetadata, PAYMENT_POLICY_ALPHA_PROFILE};
 #[cfg(feature = "vertex-ai")]
 use mpk_cli::ai_explain::{
-    execute_dry_run, run_explanation, validate_model_id, ExplainLanguage, ExplainProvider,
-    ExplainRequest, DEFAULT_GEMINI_MODEL, VERTEX_AI_PROVIDER,
+    execute_dry_run_file_v1, execute_vertex_file_v1, ExplainLanguageV1, DEFAULT_GEMINI_MODEL,
 };
-use mpk_cli::policy_scan::{run_policy_scan, PolicyScanRequest};
-use mpk_cli::policy_verify::{run_policy_verify, PolicyVerifyRequest};
-#[cfg(feature = "vertex-ai")]
-use mpk_cli::vertex_ai::{GcloudAccessTokenProvider, ReqwestVertexTransport};
+use mpk_cli::policy_scan::v1::run_cli as run_policy_scan_cli;
+use mpk_cli::policy_verify::v1::run_cli as run_policy_verify_cli;
 use mpk_core::Name;
 use mpk_kernel::{
     verify_certificate_bytes, verify_certificate_bytes_axiom_report_json_output,
@@ -41,6 +39,8 @@ const POLICY_FIELDS: &[&str] = &[
     "require_source_free_check",
 ];
 const CHECKER_PROFILES: &[&str] = &["core-bootstrap", "mvp-structural", "mvp-strict"];
+#[cfg(feature = "vertex-ai")]
+const VERTEX_AI_PROVIDER: &str = "vertex-ai";
 #[cfg(not(feature = "vertex-ai"))]
 const EXPLAIN_DISABLED_MESSAGE: &str = "mpk explain requires a build with --features vertex-ai";
 fn main() -> ExitCode {
@@ -148,7 +148,7 @@ fn explain_route(args: &[String]) -> Result<RunOutcome, CliError> {
             .any(|argument| argument == "--dry-run" || argument == "--request-json-out")
         {
             let request = parse_explain_dry_run_args(args)?;
-            let status = execute_dry_run(
+            let status = execute_dry_run_file_v1(
                 &request.evidence_path,
                 &request.request_json_path,
                 &request.model,
@@ -162,18 +162,21 @@ fn explain_route(args: &[String]) -> Result<RunOutcome, CliError> {
         }
 
         let parsed = parse_explain_args(args)?;
-        let transport = ReqwestVertexTransport::new(
-            parsed.request.project.clone(),
-            parsed.request.location.clone(),
-            parsed.request.model.clone(),
+        let result = execute_vertex_file_v1(
+            &parsed.evidence_path,
+            &parsed.output_json,
+            &parsed.output_markdown,
+            &parsed.project,
+            &parsed.location,
+            &parsed.model,
+            parsed.language,
+            &parsed.gcloud,
+            parsed.overwrite,
         )
         .map_err(|error| CliError::Input(error.to_string()))?;
-        let auth = GcloudAccessTokenProvider::new(parsed.gcloud);
-        let result = run_explanation(&parsed.request, &auth, &transport)
-            .map_err(|error| CliError::Input(error.to_string()))?;
         Ok(RunOutcome::Explain {
-            status: result.status_line(),
-            cleanup_warning: result.cleanup_warning(),
+            status: result.status,
+            cleanup_warning: result.cleanup_warning,
         })
     }
 }
@@ -265,8 +268,8 @@ fn parse_explain_args(args: &[String]) -> Result<ParsedExplainNormal, CliError> 
     }
 
     let language = match value_of(&values, "--language").unwrap_or("en") {
-        "en" => ExplainLanguage::English,
-        "ja" => ExplainLanguage::Japanese,
+        "en" => ExplainLanguageV1::En,
+        "ja" => ExplainLanguageV1::Ja,
         _ => {
             return Err(explain_usage_error(
                 "mpk explain language must be en or ja".to_owned(),
@@ -299,24 +302,21 @@ fn parse_explain_args(args: &[String]) -> Result<ParsedExplainNormal, CliError> 
         .map(str::to_owned)
         .or_else(|| std::env::var("MPK_GEMINI_MODEL").ok())
         .unwrap_or_else(|| DEFAULT_GEMINI_MODEL.to_owned());
-    if validate_model_id(&model).is_err() {
+    if model != DEFAULT_GEMINI_MODEL {
         return Err(CliError::Input(
             "VERTEX_CONFIG_INVALID: model is not supported".to_owned(),
         ));
     }
 
     Ok(ParsedExplainNormal {
-        request: ExplainRequest {
-            evidence_path: PathBuf::from(evidence_path),
-            provider: ExplainProvider::VertexAi,
-            project,
-            location,
-            model,
-            language,
-            output_json: PathBuf::from(output_json),
-            output_markdown: PathBuf::from(output_md),
-            overwrite: seen.contains("--overwrite"),
-        },
+        evidence_path: PathBuf::from(evidence_path),
+        project,
+        location,
+        model,
+        language,
+        output_json: PathBuf::from(output_json),
+        output_markdown: PathBuf::from(output_md),
+        overwrite: seen.contains("--overwrite"),
         gcloud: PathBuf::from(value_of(&values, "--gcloud").unwrap_or("gcloud")),
     })
 }
@@ -434,7 +434,7 @@ fn parse_explain_dry_run_args(args: &[String]) -> Result<ParsedExplainDryRun, Cl
         .iter()
         .find_map(|(flag, value)| (flag == "--model").then_some(value.as_str()))
         .unwrap_or(DEFAULT_GEMINI_MODEL);
-    if validate_model_id(model).is_err() {
+    if model != DEFAULT_GEMINI_MODEL {
         return Err(explain_usage_error(
             "mpk explain --dry-run model is not supported".to_owned(),
             usage,
@@ -446,8 +446,8 @@ fn parse_explain_dry_run_args(args: &[String]) -> Result<ParsedExplainDryRun, Cl
         .find_map(|(flag, value)| (flag == "--language").then_some(value.as_str()))
         .unwrap_or("en")
     {
-        "en" => ExplainLanguage::English,
-        "ja" => ExplainLanguage::Japanese,
+        "en" => ExplainLanguageV1::En,
+        "ja" => ExplainLanguageV1::Ja,
         _ => {
             return Err(explain_usage_error(
                 "mpk explain --dry-run language must be en or ja".to_owned(),
@@ -551,57 +551,24 @@ fn policy_scan_route(args: &[String]) -> Result<RunOutcome, CliError> {
         return Ok(RunOutcome::Help);
     }
 
-    let options = parse_policy_args(
-        "policy scan",
-        args,
-        &["--function", "--contract", "--json-out"],
-        &["--go2gir"],
-        &[],
-        &["--strategy-profile"],
-        policy_scan_usage_text(),
-    )?;
-    let json_out = options.required_value("--json-out");
-    validate_policy_product_path(
-        "policy scan",
-        "target",
-        &options.target,
-        policy_scan_usage_text(),
-    )?;
-    validate_policy_product_path(
-        "policy scan",
-        "--contract",
-        options.required_value("--contract"),
-        policy_scan_usage_text(),
-    )?;
-    validate_policy_product_path(
-        "policy scan",
-        "--json-out",
-        json_out,
-        policy_scan_usage_text(),
-    )?;
-    let request = PolicyScanRequest {
-        target: options.target.clone(),
-        function_id: options.required_value("--function").to_owned(),
-        contract_path: options.required_value("--contract").to_owned(),
-        go2gir_path: PathBuf::from(
-            options
-                .optional_value("--go2gir")
-                .unwrap_or("target/debug/go2gir"),
-        ),
-    };
-    let report = run_policy_scan(&request)
+    let argv = [
+        vec!["mpk".to_owned(), "policy".to_owned(), "scan".to_owned()],
+        args.to_vec(),
+    ]
+    .concat();
+    let cwd = std::env::current_dir()
         .map_err(|error| CliError::Input(format!("policy scan failed: {error}")))?;
-    let json = report
-        .to_deterministic_json()
-        .map_err(|error| CliError::Input(format!("policy scan failed to encode JSON: {error}")))?;
-    fs::write(json_out, json).map_err(|error| {
-        CliError::Input(format!("policy scan failed to write {json_out}: {error}"))
-    })?;
-
-    Ok(RunOutcome::PolicyScan(format!(
-        "ok policy scan status={} json={json_out}",
-        report.readiness.status.as_str()
-    )))
+    run_policy_scan_cli(&argv, &cwd)
+        .map_err(|error| {
+            let message = format!("policy scan failed: {error}");
+            if error.code().starts_with("POLICY_CLI_") {
+                CliError::Usage(format!("{message}\n{}", policy_scan_usage_text()))
+            } else {
+                CliError::Input(message)
+            }
+        })?
+        .map(RunOutcome::PolicyScan)
+        .ok_or_else(|| CliError::Usage(policy_scan_usage_text().to_owned()))
 }
 
 fn policy_verify_route(args: &[String]) -> Result<RunOutcome, CliError> {
@@ -610,210 +577,36 @@ fn policy_verify_route(args: &[String]) -> Result<RunOutcome, CliError> {
         return Ok(RunOutcome::Help);
     }
 
-    let options = parse_policy_args(
-        "policy verify",
-        args,
-        &[
-            "--function",
-            "--contract",
-            "--strategy-profile",
-            "--checker-profile",
-            "--evidence-json",
-            "--evidence-md",
-        ],
-        &["--go2gir"],
-        &["--strict", "--update-fixtures"],
-        &[],
-        policy_verify_usage_text(),
-    )?;
-    let strategy_profile = options.required_value("--strategy-profile");
-    if PolicyStrategyMetadata::parse_profile(strategy_profile).is_err() {
-        return Err(policy_usage_error(
-            format!(
-                "policy verify has unknown strategy profile: {strategy_profile:?}; expected one of: {PAYMENT_POLICY_ALPHA_PROFILE}"
-            ),
-            policy_verify_usage_text(),
-        ));
-    }
-
-    let checker_profile = options.required_value("--checker-profile");
-    if !CHECKER_PROFILES.contains(&checker_profile) {
-        return Err(policy_usage_error(
-            format!(
-                "policy verify has unknown checker profile: {checker_profile:?}; expected one of: {}",
-                CHECKER_PROFILES.join(", ")
-            ),
-            policy_verify_usage_text(),
-        ));
-    }
-
-    validate_policy_product_path(
-        "policy verify",
-        "target",
-        &options.target,
-        policy_verify_usage_text(),
-    )?;
-    validate_policy_product_path(
-        "policy verify",
-        "--contract",
-        options.required_value("--contract"),
-        policy_verify_usage_text(),
-    )?;
-    validate_policy_product_path(
-        "policy verify",
-        "--evidence-json",
-        options.required_value("--evidence-json"),
-        policy_verify_usage_text(),
-    )?;
-    validate_policy_product_path(
-        "policy verify",
-        "--evidence-md",
-        options.required_value("--evidence-md"),
-        policy_verify_usage_text(),
-    )?;
-
-    let request = PolicyVerifyRequest {
-        target: options.target.clone(),
-        function_id: options.required_value("--function").to_owned(),
-        contract_path: options.required_value("--contract").to_owned(),
-        strategy_profile: strategy_profile.to_owned(),
-        checker_profile: checker_profile.to_owned(),
-        evidence_json_path: PathBuf::from(options.required_value("--evidence-json")),
-        evidence_md_path: PathBuf::from(options.required_value("--evidence-md")),
-        go2gir_path: PathBuf::from(
-            options
-                .optional_value("--go2gir")
-                .unwrap_or("target/debug/go2gir"),
-        ),
-        strict: options.has_flag("--strict"),
-        update_fixtures: options.has_flag("--update-fixtures"),
-    };
-    match run_policy_verify(&request) {
-        Ok(output) => Ok(RunOutcome::PolicyVerify(format!(
-            "ok policy verify status={} verified={} proof_pending={} unsupported={} evidence_json={} evidence_md={}",
-            output.status_label(),
-            output.verified_count,
-            output.proof_pending_count,
-            output.unsupported_count,
-            output.evidence_json_path.display(),
-            output.evidence_md_path.display()
-        ))),
-        Err(error) => Err(CliError::Input(error.to_string())),
-    }
-}
-
-fn parse_policy_args(
-    command: &str,
-    args: &[String],
-    required_flags: &[&str],
-    optional_flags: &[&str],
-    boolean_flags: &[&str],
-    disallowed_flags: &[&str],
-    usage: &str,
-) -> Result<ParsedPolicyArgs, CliError> {
-    let mut target: Option<String> = None;
-    let mut values = Vec::new();
-    let mut seen_flags = HashSet::new();
-    let mut index = 0;
-
-    while index < args.len() {
-        let arg = args[index].as_str();
-        if arg.starts_with("--") {
-            if disallowed_flags.contains(&arg) {
-                return Err(policy_usage_error(
-                    format!("{command} does not accept {arg}; use mpk policy verify"),
-                    usage,
-                ));
+    let argv = [
+        vec!["mpk".to_owned(), "policy".to_owned(), "verify".to_owned()],
+        args.to_vec(),
+    ]
+    .concat();
+    let cwd = std::env::current_dir()
+        .map_err(|error| CliError::Input(format!("policy verify failed: {error}")))?;
+    run_policy_verify_cli(&argv, &cwd)
+        .map_err(|error| {
+            let message = format!("policy verify failed: {error}");
+            if error.code().starts_with("POLICY_CLI_") {
+                CliError::Usage(format!("{message}\n{}", policy_verify_usage_text()))
+            } else {
+                CliError::Input(message)
             }
-            if !required_flags.contains(&arg) && !optional_flags.contains(&arg) {
-                if boolean_flags.contains(&arg) {
-                    if !seen_flags.insert(arg.to_owned()) {
-                        return Err(policy_usage_error(
-                            format!("{command} has duplicate flag: {arg}"),
-                            usage,
-                        ));
-                    }
-                    index += 1;
-                    continue;
-                }
-                return Err(policy_usage_error(
-                    format!("{command} has unknown flag: {arg}"),
-                    usage,
-                ));
-            }
-            if !seen_flags.insert(arg.to_owned()) {
-                return Err(policy_usage_error(
-                    format!("{command} has duplicate flag: {arg}"),
-                    usage,
-                ));
-            }
-            let Some(value) = args.get(index + 1) else {
-                return Err(policy_usage_error(
-                    format!("{command} flag {arg} requires a value"),
-                    usage,
-                ));
-            };
-            if value.starts_with("--") {
-                return Err(policy_usage_error(
-                    format!("{command} flag {arg} requires a value"),
-                    usage,
-                ));
-            }
-            if value.is_empty() {
-                return Err(policy_usage_error(
-                    format!("{command} flag {arg} must not be empty"),
-                    usage,
-                ));
-            }
-            values.push((arg.to_owned(), value.to_owned()));
-            index += 2;
-        } else {
-            if arg.is_empty() {
-                return Err(policy_usage_error(
-                    format!("{command} target must not be empty"),
-                    usage,
-                ));
-            }
-            if target.is_some() {
-                return Err(policy_usage_error(
-                    format!("{command} has unexpected positional argument: {arg:?}"),
-                    usage,
-                ));
-            }
-            target = Some(arg.to_owned());
-            index += 1;
-        }
-    }
-
-    let target = target
-        .ok_or_else(|| policy_usage_error(format!("{command} missing required target"), usage))?;
-    let missing = required_flags
-        .iter()
-        .copied()
-        .filter(|flag| !seen_flags.contains(*flag))
-        .collect::<Vec<_>>();
-    if !missing.is_empty() {
-        return Err(policy_usage_error(
-            format!("{command} missing required flags: {}", missing.join(", ")),
-            usage,
-        ));
-    }
-
-    Ok(ParsedPolicyArgs {
-        target,
-        values,
-        flags: seen_flags,
-    })
+        })?
+        .map(RunOutcome::PolicyVerify)
+        .ok_or_else(|| CliError::Usage(policy_verify_usage_text().to_owned()))
 }
 
 fn is_help_args(args: &[String]) -> bool {
     matches!(args, [arg] if arg == "--help" || arg == "-h" || arg == "help")
 }
 
+#[cfg(feature = "vertex-ai")]
 fn policy_usage_error(message: String, usage: &str) -> CliError {
     CliError::Usage(format!("{message}\n{usage}"))
 }
 
+#[cfg(feature = "vertex-ai")]
 fn validate_policy_product_path(
     command: &str,
     label: &str,
@@ -1395,11 +1188,11 @@ fn policy_usage_text() -> String {
 }
 
 fn policy_scan_usage_text() -> &'static str {
-    "mpk policy scan <target> --function <function-id> --contract <contract.json> --json-out <scan.json> [--go2gir <go2gir>]"
+    mpk_cli::policy_scan::v1::USAGE
 }
 
 fn policy_verify_usage_text() -> &'static str {
-    "mpk policy verify <target> --function <function-id> --contract <contract.json> --strategy-profile <profile> --checker-profile <checker-profile> --evidence-json <evidence.json> --evidence-md <evidence.md> [--go2gir <go2gir>] [--strict] [--update-fixtures]"
+    mpk_cli::policy_verify::v1::USAGE
 }
 
 fn explain_usage_text() -> &'static str {
@@ -1422,43 +1215,25 @@ enum RunOutcome {
     },
 }
 
-struct ParsedPolicyArgs {
-    target: String,
-    values: Vec<(String, String)>,
-    flags: HashSet<String>,
-}
-
 #[cfg(feature = "vertex-ai")]
 struct ParsedExplainDryRun {
     evidence_path: PathBuf,
     request_json_path: PathBuf,
     model: String,
-    language: ExplainLanguage,
+    language: ExplainLanguageV1,
 }
 
 #[cfg(feature = "vertex-ai")]
 struct ParsedExplainNormal {
-    request: ExplainRequest,
+    evidence_path: PathBuf,
+    project: String,
+    location: String,
+    model: String,
+    language: ExplainLanguageV1,
+    output_json: PathBuf,
+    output_markdown: PathBuf,
+    overwrite: bool,
     gcloud: PathBuf,
-}
-
-impl ParsedPolicyArgs {
-    fn required_value(&self, flag: &str) -> &str {
-        self.values
-            .iter()
-            .find_map(|(name, value)| (name == flag).then_some(value.as_str()))
-            .expect("required policy flag was validated")
-    }
-
-    fn optional_value(&self, flag: &str) -> Option<&str> {
-        self.values
-            .iter()
-            .find_map(|(name, value)| (name == flag).then_some(value.as_str()))
-    }
-
-    fn has_flag(&self, flag: &str) -> bool {
-        self.flags.contains(flag)
-    }
 }
 
 enum CliError {

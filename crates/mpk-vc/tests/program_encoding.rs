@@ -143,10 +143,6 @@ fn foundation_fixture_manifest_matches_canonical_certificates() {
                 .as_str()
                 .expect("certificate hash")
         );
-        assert!(certificate
-            .name_table
-            .iter()
-            .all(|name| !name.starts_with("Std.Go.Base")));
     }
 
     let foundation = decode_canonical_certificate(&decode_hex(
@@ -205,18 +201,36 @@ fn vir_types_and_target_sized_integers_use_program_base() {
         MpkTypeTerm::constant("Std.Program.Base.Uint64")
     );
 
-    for width in [
-        BitVectorWidth::Bits8,
-        BitVectorWidth::Bits16,
-        BitVectorWidth::Bits32,
-        BitVectorWidth::Bits64,
+    for (width, unsigned_name, signed_name) in [
+        (
+            BitVectorWidth::Bits8,
+            "Std.Program.Base.Uint8",
+            "Std.Program.Base.Int8",
+        ),
+        (
+            BitVectorWidth::Bits16,
+            "Std.Program.Base.Uint16",
+            "Std.Program.Base.Int16",
+        ),
+        (
+            BitVectorWidth::Bits32,
+            "Std.Program.Base.Uint32",
+            "Std.Program.Base.Int32",
+        ),
+        (
+            BitVectorWidth::Bits64,
+            "Std.Program.Base.Uint64",
+            "Std.Program.Base.Int64",
+        ),
     ] {
-        for signed in [false, true] {
-            let term = go.encode(&bv(width, signed)).expect("BV type encodes");
-            let serialized = serde_json::to_string(&term).unwrap();
-            assert!(serialized.contains("Std.Program.Base."));
-            assert!(!serialized.contains("Std.Go.Base."));
-        }
+        assert_eq!(
+            go.encode(&bv(width, false)).expect("BV type encodes"),
+            MpkTypeTerm::constant(unsigned_name)
+        );
+        assert_eq!(
+            go.encode(&bv(width, true)).expect("BV type encodes"),
+            MpkTypeTerm::constant(signed_name)
+        );
     }
 
     let array = VirType::Array {

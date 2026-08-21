@@ -1,6 +1,6 @@
 # MPK AI API v0 Specification
 
-Status: frozen for implementation. This is the stable AI API v0 profile for SPEC-005. Changes require a new API profile revision or a governance-approved amendment.
+Status: historical; replaced by `AI_API_V1.md`.
 
 ## Goal
 

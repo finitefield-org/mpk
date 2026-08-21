@@ -32,25 +32,16 @@ axiom categories remain unchanged by the VIR/Rust migration.
 
 ## Specification authority during migration
 
-The repository has two deliberately separate helper-interface states:
-
-1. The current public release continues to use the frozen `GIR_V0.md`,
-   `GO_SUBSET_V0.md`, and `AI_API_V0.md` contracts until the atomic cutover in
-   `GO-VIR-02-T12`. These documents are still current pre-cutover release
-   specifications; they are not historical yet.
-2. The replacement specifications below are normative and frozen for staged
-   implementation. They must not be partially exposed through the current
-   release surface.
-3. The atomic cutover moves all runtime producers, consumers, fixtures,
-   examples, CI, template use, and user-facing operational documentation
-   together. Only after that cutover are the GIR, Go-subset/GIR, and AI API v0
-   documents labeled historical and the staged VIR interfaces activated as the
-   sole public helper path.
+The Go cutover completed in `GO-VIR-02-T12`. `VIR_V0.md`,
+`GO_VIR_PROFILE_V0.md`, `VC_V1.md`, `POLICY_V1.md`, `AI_EXPLAIN_V1.md`, and
+`AI_API_V1.md` now define the sole active helper path. The former Go IR, Go
+subset, and API v0 specifications are historical records, not compatibility
+contracts.
 
 The implementation sequence and cutover owner are
 `docs/05_rust_frontend_design.md` and
 `docs/05_rust_frontend_design-todo.md`. The older numbered roadmap records the
-pre-cutover baseline; it does not override that migration dependency graph.
+completed baseline; it does not override that migration dependency graph.
 
 ## Future source-language expansion
 
@@ -126,8 +117,8 @@ do not activate a staged runtime interface. In
 template-only audit reference to separately serialized certificate-stage
 `mpk.source_manifest.v0` bytes. Its `path`, `lifecycle`, `expected_*`, and
 `trust` members are not fields of that normative source-manifest schema and are
-never embedded as a substitute payload. The current pre-cutover release keeps
-using its complete current artifact set until the atomic cutover.
+never embedded as a substitute payload. The post-cutover release uses the
+complete VIR artifact set installed at the active paths.
 
 ## Package contents
 

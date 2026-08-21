@@ -2,12 +2,13 @@
 
 Source: `docs/proof-ops-engine-design.md`
 
-Status: implementation-ready task breakdown
+Status: historical completed task breakdown; active operations are documented
+in `docs/proof-ops-policy-ci.md` and `develop/specs/POLICY_V1.md`.
 
 ## Scope
 
 This task list covers MPK-side work required by the ProofOps product. It turns
-the existing `go2gir`, `mpk-vc`, `mpk-api`, `mpk-kernel`, and `mpk-cli` pieces
+the existing `go2vir`, `mpk-vc`, `mpk-api`, `mpk-kernel`, and `mpk-cli` pieces
 into a product-ready policy scan and verification workflow for payment-policy
 functions.
 
@@ -27,7 +28,7 @@ Out of scope:
 - Gemini prompts, agent orchestration, web forms, billing, and customer storage;
 - whole-service verification;
 - database, network, payment-gateway, handler-effect, or full IAM verification;
-- treating Go source, contract JSON, GIR, VC JSON, CI status, AI logs, or report
+- treating Go source, contract JSON, VIR, VC JSON, CI status, AI logs, or report
   prose as proof evidence;
 - broad Go language support beyond the existing Go subset v0.
 
@@ -38,7 +39,7 @@ Out of scope:
   hash-pinned imports as defined in `develop/specs/TRUST_BOUNDARY_V0.md`.
 - `strategy_profile` is product workflow selection. It must not be confused with
   `checker_profile` or axiom policy profiles.
-- Any command that reads Go source, contract JSON, GIR, VC JSON, or source maps
+- Any command that reads Go source, contract JSON, VIR, VC JSON, or source maps
   must label those results as helper analysis unless checked certificate or
   checked theory evidence accepts the corresponding property.
 - Unsupported input must fail closed with deterministic error codes.
@@ -62,7 +63,7 @@ Out of scope:
   - `crates/mpk-cli/src/main.rs`
   - `crates/mpk-cli/tests/policy_scan.rs`
 - Deliverables:
-  - `mpk.policy.scan.v0` Rust structs.
+  - `mpk.policy.scan.v1` Rust structs.
   - Deterministic JSON serialization for scan success and rejection cases.
   - Status enum with exactly `ready`, `needs_refactor`, and `unsupported`.
   - Feature report entries with code, message, source path, function id when
@@ -83,7 +84,7 @@ Out of scope:
   - `git diff --check`
 - Notes:
   - This milestone defines the schema only. It may use hand-built fixture data
-    and must not shell out to `go2gir` yet.
+    and must not shell out to `go2vir` yet.
 
 ### POE-02 Add `mpk policy` CLI Routing
 
@@ -124,13 +125,13 @@ Out of scope:
   - Keep CLI parsing non-interactive and dependency-free unless a parser crate is
     already adopted elsewhere.
 
-### POE-03 Implement Scan Runner Around `go2gir`
+### POE-03 Implement Scan Runner Around `go2vir`
 
 - Status: Pending
 - Depends on: POE-02
 - Inputs:
-  - `go-tools/go2gir/main.go`
-  - `go-tools/go2gir/README.md`
+  - `go-tools/go2vir/main.go`
+  - `go-tools/go2vir/README.md`
   - `docs/web-system-integration.md`
   - `examples/order_policy`
 - Likely touched files:
@@ -139,28 +140,28 @@ Out of scope:
   - `crates/mpk-cli/tests/policy_scan.rs`
   - `examples/order_policy`
 - Deliverables:
-  - Scan runner that executes a configured `go2gir` binary or a default
-    `target/debug/go2gir` path.
-  - Parsing of `mpk.go2gir.cli.v0` output.
-  - Mapping from `go2gir` statuses to `ready`, `needs_refactor`, or
+  - Scan runner that executes a configured `go2vir` binary or a default
+    `target/debug/go2vir` path.
+  - Parsing of `mpk.go2vir.cli.v0` output.
+  - Mapping from `go2vir` statuses to `ready`, `needs_refactor`, or
     `unsupported`.
-  - Inclusion of Go version, frontend binary hash, source hashes, GIR hash, and
+  - Inclusion of Go version, frontend binary hash, source hashes, VIR hash, and
     rejected-feature details when available.
 - Acceptance criteria:
   - `examples/order_policy` scans as `ready`.
   - A fixture containing an unsupported Go feature scans as `unsupported`.
   - A function that is syntactically supported but lacks a usable contract scans
     as `needs_refactor`.
-  - A non-zero `go2gir` exit with valid rejected-feature JSON is not treated as a
+  - A non-zero `go2vir` exit with valid rejected-feature JSON is not treated as a
     process failure; it is represented as scan output.
-  - A non-zero `go2gir` exit without valid JSON is a deterministic CLI input
+  - A non-zero `go2vir` exit without valid JSON is a deterministic CLI input
     error.
 - Verification:
-  - `(cd go-tools/go2gir && go build -o ../../target/debug/go2gir .)`
+  - `(cd go-tools/go2vir && go build -o ../../target/debug/go2vir .)`
   - `cargo test -p mpk-cli --test policy_scan`
   - `cargo run --quiet -p mpk-cli -- policy scan examples/order_policy --function example.com/orderpolicy.ApprovedReserveCents --contract examples/order_policy/policy_contract.json --json-out /tmp/mpk-policy-scan.json`
 - Notes:
-  - The scan runner may use process execution. It must label all `go2gir` output
+  - The scan runner may use process execution. It must label all `go2vir` output
     as helper analysis.
 
 ### POE-04 Define Evidence Schema
@@ -177,7 +178,7 @@ Out of scope:
   - `crates/mpk-cli/tests/policy_evidence.rs`
   - `docs/proof-ops-engine-design.md`
 - Deliverables:
-  - `mpk.policy.evidence.v0` Rust structs.
+  - `mpk.policy.evidence.v1` Rust structs.
   - Stable JSON serialization for accepted, helper-only, and rejected evidence.
   - Property evidence status enum with at least:
     - `mpk_verified`
@@ -185,13 +186,13 @@ Out of scope:
     - `helper_only`
     - `unsupported`
   - Separate fields for `strategy_profile`, `checker_profile`, and
-    `allowed_axiom_profiles`.
+    `axiom_profile`.
 - Acceptance criteria:
   - Evidence JSON has separate `trusted_evidence` and `helper_artifacts`
     sections.
   - A property can be `mpk_verified` only when it references checked
     declaration evidence or checked theory-certificate evidence.
-  - GIR hash and VC hash appear only under `helper_artifacts`.
+  - VIR hash and VC hash appear only under `helper_artifacts`.
   - Certificate hash, export hash, axiom report hash, Rust checker verdict, and
     reference-checker verdict appear only under `trusted_evidence`.
   - Tests reject unknown property status values and unknown top-level fields.
@@ -214,14 +215,14 @@ Out of scope:
   - `crates/mpk-cli/src/policy_report.rs`
   - `crates/mpk-cli/tests/policy_report.rs`
 - Deliverables:
-  - Deterministic Markdown renderer for `mpk.policy.evidence.v0`.
+  - Deterministic Markdown renderer for `mpk.policy.evidence.v1`.
   - Sections for target function, verified properties, proof-pending
     properties, unsupported properties, required preconditions, hashes,
     checker verdicts, reproduction commands, and trust-boundary notes.
 - Acceptance criteria:
   - Markdown output never becomes the source of truth; tests construct Markdown
     from evidence JSON fixtures.
-  - The report explicitly says GIR, VC JSON, source text, contract JSON, and CI
+  - The report explicitly says VIR, VC JSON, source text, contract JSON, and CI
     status are helper artifacts.
   - Line ordering is deterministic.
   - A rejected or helper-only evidence JSON still renders with a clear
@@ -257,13 +258,13 @@ Out of scope:
     - platform fee floor;
     - points redemption cap.
   - Contract sidecars for each example.
-  - Checked-in GIR, VC, and skeleton fixtures for examples supported by current
+  - Checked-in VIR, VC, and skeleton fixtures for examples supported by current
     VC generation.
   - Negative examples for unsupported floats, maps, pointers, and missing
     contract postconditions.
 - Acceptance criteria:
   - Every positive example compiles with `go test ./...`.
-  - `go2gir` lowers every positive example and rejects every negative example
+  - `go2vir` lowers every positive example and rejects every negative example
     with deterministic rejected-feature JSON.
   - `cargo test -p mpk-vc --test payment_policy_examples` verifies stable VC and
     skeleton output for positive examples.
@@ -275,7 +276,7 @@ Out of scope:
   - `(cd examples/payment_policies/discount && go test ./...)`
   - `(cd examples/payment_policies/fee && go test ./...)`
   - `(cd examples/payment_policies/points && go test ./...)`
-  - `(cd go-tools/go2gir && go test -count=1 ./...)`
+  - `(cd go-tools/go2vir && go test -count=1 ./...)`
   - `cargo test -p mpk-vc --test payment_policy_examples`
 - Notes:
   - This milestone creates examples and helper fixtures. It does not require
@@ -392,7 +393,7 @@ Out of scope:
 - Depends on: POE-03, POE-04, POE-05, POE-07, POE-09
 - Inputs:
   - `crates/mpk-cli/src/main.rs`
-  - `go-tools/go2gir/main.go`
+  - `go-tools/go2vir/main.go`
   - `crates/mpk-vc/src/lib.rs`
   - `crates/mpk-api/src/strategies.rs`
   - `crates/mpk-kernel/src/json_output.rs`
@@ -402,7 +403,7 @@ Out of scope:
   - `crates/mpk-cli/src/policy_evidence.rs`
   - `crates/mpk-cli/tests/policy_verify.rs`
 - Deliverables:
-  - `mpk policy verify` implementation that runs scan, GIR import, VC
+  - `mpk policy verify` implementation that runs scan, VIR import, VC
     generation, selected strategy attempts, checker verification for trusted
     evidence, evidence JSON writing, and Markdown report writing.
   - Artifact layout under a caller-provided output directory or explicit output
@@ -419,7 +420,7 @@ Out of scope:
   - `mpk policy verify` does not mutate checked-in fixtures unless an explicit
     update flag is provided.
 - Verification:
-  - `(cd go-tools/go2gir && go build -o ../../target/debug/go2gir .)`
+  - `(cd go-tools/go2vir && go build -o ../../target/debug/go2vir .)`
   - `cargo test -p mpk-cli --test policy_verify`
   - `cargo run --quiet -p mpk-cli -- policy verify examples/payment_policies/reserve --function example.com/payment/reserve.ApprovedReserveCents --contract examples/payment_policies/reserve/policy_contract.json --strategy-profile payment-policy-alpha --checker-profile mvp-strict --evidence-json /tmp/mpk-evidence.json --evidence-md /tmp/mpk-evidence.md`
 - Notes:
@@ -474,7 +475,7 @@ Out of scope:
   - `examples/payment_policies/README.md`
   - `.github/workflows` if this repository already uses workflow files
 - Deliverables:
-  - CI documentation showing how to build `go2gir`, run `mpk policy scan`, run
+  - CI documentation showing how to build `go2vir`, run `mpk policy scan`, run
     `mpk policy verify`, and fail on unexpected artifact drift.
   - Example command block suitable for customer repositories.
   - Trust-boundary warning that CI success does not replace checker evidence.
@@ -484,7 +485,7 @@ Out of scope:
     checks.
   - Documentation states which artifacts should be reviewed in PRs.
 - Verification:
-  - `rg -n "mpk policy scan|mpk policy verify|GIR|proof evidence" docs/proof-ops-policy-ci.md examples/payment_policies/README.md`
+  - `rg -n "mpk policy scan|mpk policy verify|VIR|proof evidence" docs/proof-ops-policy-ci.md examples/payment_policies/README.md`
   - `git diff --check`
 - Notes:
   - Do not add a GitHub workflow unless the repository already has a workflow
@@ -513,7 +514,7 @@ Out of scope:
     they remain outside the full suite.
   - `docs/alpha-demo.md` includes reproduction commands for policy scan and the
     first supported policy verify path.
-  - The release report does not claim generated GIR/VC artifacts are proof
+  - The release report does not claim generated VIR/VC artifacts are proof
     evidence.
 - Verification:
   - `./scripts/check-all.sh`

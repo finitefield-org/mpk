@@ -1,4 +1,4 @@
-//! Staged VIR import state for AI API v1.
+//! Active VIR import state for AI API v1.
 
 use std::collections::BTreeMap;
 
@@ -17,18 +17,18 @@ use crate::v1_router::{
 };
 
 #[derive(Clone, Debug)]
-pub(crate) struct ValidatedFrontendArtifacts {
-    pub(crate) vir: VirModule,
-    pub(crate) source_map: ValidatedSourceMap,
-    pub(crate) source_manifest: ValidatedSourceManifest,
+pub struct ValidatedFrontendArtifacts {
+    pub vir: VirModule,
+    pub source_map: ValidatedSourceMap,
+    pub source_manifest: ValidatedSourceManifest,
 }
 
 #[derive(Clone, Debug)]
-pub(crate) struct ValidatedFrontendArtifactRecord {
-    pub(crate) vir: VirModule,
-    pub(crate) vir_bytes: Vec<u8>,
-    pub(crate) source_map: ValidatedSourceMap,
-    pub(crate) source_manifest: ValidatedSourceManifest,
+pub struct ValidatedFrontendArtifactRecord {
+    pub vir: VirModule,
+    pub vir_bytes: Vec<u8>,
+    pub source_map: ValidatedSourceMap,
+    pub source_manifest: ValidatedSourceManifest,
 }
 
 impl ValidatedFrontendArtifactRecord {
@@ -62,19 +62,19 @@ impl ValidatedFrontendArtifactRecord {
 }
 
 #[derive(Clone, Debug, Default)]
-pub(crate) struct ValidatedFrontendArtifactStore {
+pub struct ValidatedFrontendArtifactStore {
     records: BTreeMap<String, ValidatedFrontendArtifactRecord>,
 }
 
 impl ValidatedFrontendArtifactStore {
-    pub(crate) fn empty() -> Self {
+    pub fn empty() -> Self {
         Self::default()
     }
 
     /// Builds the immutable store only from capabilities produced by the
     /// successful frontend protocol path. Request JSON has no access to this
     /// constructor or to a record insertion operation.
-    pub(crate) fn from_frontend_successes(
+    pub fn from_frontend_successes(
         artifacts: impl IntoIterator<Item = ValidatedFrontendArtifacts>,
     ) -> Result<Self, V1ApiError> {
         let mut records = BTreeMap::<String, ValidatedFrontendArtifactRecord>::new();
@@ -94,26 +94,26 @@ impl ValidatedFrontendArtifactStore {
         Ok(Self { records })
     }
 
-    pub(crate) fn get(&self, manifest_hash: &str) -> Option<&ValidatedFrontendArtifactRecord> {
+    pub fn get(&self, manifest_hash: &str) -> Option<&ValidatedFrontendArtifactRecord> {
         self.records.get(manifest_hash)
     }
 }
 
 #[derive(Clone, Debug)]
-pub(crate) struct ImportedVir {
-    pub(crate) module: VirModule,
-    pub(crate) canonical_bytes: Vec<u8>,
+pub struct ImportedVir {
+    pub module: VirModule,
+    pub canonical_bytes: Vec<u8>,
 }
 
 #[derive(Clone, Debug)]
-pub(crate) enum SessionSourceState {
+pub enum SessionSourceState {
     Empty,
     VirImported(ImportedVir),
     VcGenerated(Box<crate::vc_api::VcSessionState>),
 }
 
 impl SessionSourceState {
-    pub(crate) const fn label(&self) -> &'static str {
+    pub const fn label(&self) -> &'static str {
         match self {
             Self::Empty => "empty",
             Self::VirImported(_) => "vir_imported",
@@ -123,15 +123,15 @@ impl SessionSourceState {
 }
 
 #[derive(Debug)]
-pub(crate) struct V1ApiService {
-    pub(crate) legacy: ApiService,
-    pub(crate) store: ValidatedFrontendArtifactStore,
-    pub(crate) sources: BTreeMap<SessionId, SessionSourceState>,
+pub struct V1ApiService {
+    pub legacy: ApiService,
+    pub store: ValidatedFrontendArtifactStore,
+    pub sources: BTreeMap<SessionId, SessionSourceState>,
     mutation_count: u64,
 }
 
 impl V1ApiService {
-    pub(crate) fn new(store: ValidatedFrontendArtifactStore) -> Self {
+    pub fn new(store: ValidatedFrontendArtifactStore) -> Self {
         Self {
             legacy: ApiService::new(),
             store,
@@ -140,7 +140,7 @@ impl V1ApiService {
         }
     }
 
-    pub(crate) fn start_session(
+    pub fn start_session(
         &mut self,
         request: StartSessionRequest,
     ) -> Result<StartSessionResponse, crate::session::ApiError> {
@@ -150,19 +150,19 @@ impl V1ApiService {
         Ok(response)
     }
 
-    pub(crate) const fn mutation_count(&self) -> u64 {
+    pub const fn mutation_count(&self) -> u64 {
         self.mutation_count
     }
 
-    pub(crate) fn commit_mutation_count(&mut self, mutation_count: u64) {
+    pub fn commit_mutation_count(&mut self, mutation_count: u64) {
         self.mutation_count = mutation_count;
     }
 
-    pub(crate) fn source_state(&self, session_id: &SessionId) -> Option<&SessionSourceState> {
+    pub fn source_state(&self, session_id: &SessionId) -> Option<&SessionSourceState> {
         self.sources.get(session_id)
     }
 
-    pub(crate) fn handle_vir_import(&mut self, input: &[u8]) -> Result<Vec<u8>, V1ApiError> {
+    pub fn handle_vir_import(&mut self, input: &[u8]) -> Result<Vec<u8>, V1ApiError> {
         let parsed = parse_request::<VirImportRequest>(input, VIR_INPUT_JSON_BYTES_MAX)?;
         let response = self.validate_vir_import(&parsed)?;
         parsed.require_canonical()?;
@@ -266,25 +266,25 @@ impl V1ApiService {
 
 #[derive(Clone, Debug, Deserialize)]
 #[serde(deny_unknown_fields)]
-pub(crate) struct VirImportRequest {
-    pub(crate) session_id: SessionId,
-    pub(crate) source_ir_schema: String,
-    pub(crate) source_ir_hash: String,
-    pub(crate) vir: Value,
+pub struct VirImportRequest {
+    pub session_id: SessionId,
+    pub source_ir_schema: String,
+    pub source_ir_hash: String,
+    pub vir: Value,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 #[serde(deny_unknown_fields)]
-pub(crate) struct VirImportResponse {
-    pub(crate) session_id: SessionId,
-    pub(crate) source_ir_schema: String,
-    pub(crate) source_ir_hash: String,
-    pub(crate) source_language: mpk_vc::SourceLanguage,
-    pub(crate) semantic_profile: mpk_vc::SemanticProfile,
-    pub(crate) semantic_parameters: mpk_vc::SemanticParameters,
-    pub(crate) unit_count: u64,
-    pub(crate) function_count: u64,
-    pub(crate) helper_only: bool,
+pub struct VirImportResponse {
+    pub session_id: SessionId,
+    pub source_ir_schema: String,
+    pub source_ir_hash: String,
+    pub source_language: mpk_vc::SourceLanguage,
+    pub semantic_profile: mpk_vc::SemanticProfile,
+    pub semantic_parameters: mpk_vc::SemanticParameters,
+    pub unit_count: u64,
+    pub function_count: u64,
+    pub helper_only: bool,
 }
 
 struct PreparedVirImport {

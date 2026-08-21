@@ -2,7 +2,9 @@
 
 Source design: `develop/docs/05_rust_frontend_design.md`
 
-Status: implementation-ready task breakdown
+Status: active Rust migration task breakdown; the Go cutover is complete.
+
+GIR_CUTOVER_STATUS: complete; RUST_PHASES: active; RETAINED_GIR_TERMINOLOGY: historical
 
 This document turns the breaking GIR-to-VIR migration and Rust frontend design
 into independently implementable milestones. Source-design phase IDs remain
@@ -2650,7 +2652,7 @@ git diff --check
 
 ### GO-VIR-02-T12 Perform the Atomic VIR Cutover and Remove GIR
 
-Status: Pending
+Status: Complete (2026-08-22)
 
 Depends on: GO-VIR-02-T01 through GO-VIR-02-T11.
 

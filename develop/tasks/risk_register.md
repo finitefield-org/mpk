@@ -4,7 +4,7 @@
 |---|---|---:|---:|---|---|
 | R-001 | Trusted-base creep | Critical | High | Enforce trust-boundary gate and review every checker dependency. | Kernel lead |
 | R-002 | Definitional equality becomes too powerful | Critical | Medium | Keep conversion rules small; reject eta, proof irrelevance, theorem unfolding, and SMT-backed conversion. | Core lead |
-| R-003 | Go frontend semantics mismatch | High | High | Keep frontend untrusted; hash source/GIR/VC; fail closed on unsupported features. | Frontend lead |
+| R-003 | Go frontend semantics mismatch | High | High | Keep frontend untrusted; hash source/VIR/VC; fail closed on unsupported features. | Frontend lead |
 | R-004 | Integer overflow modeled incorrectly | High | Medium | Model fixed-width integers as bitvectors with explicit signed views. | VC lead |
 | R-005 | Solver yes/no accidentally trusted | Critical | Medium | Only accept checkable solver certificates; add negative tests. | Theory lead |
 | R-006 | Certificate decoder vulnerabilities | High | Medium | Fuzz decoder; reject non-canonical encodings; avoid panics. | Cert lead |

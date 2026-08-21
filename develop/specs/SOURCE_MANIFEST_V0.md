@@ -391,7 +391,7 @@ reorder an ordered array, or mutate any other value is
 VC does not contain "source_manifest_hash". It contains "input_set_hash",
 "source_ir_schema", "source_ir_hash", semantic profile/parameters, and its own
 "vc_hash", so there is no manifest/VC hash cycle. The retired
-"source_gir_hash" name is invalid.
+"source_legacy_hash" name is invalid.
 
 The certificate-stage canonical JSON bytes may be placed unchanged in the
 existing opaque certificate SourceManifest payload. Source-free checkers

@@ -1,15 +1,17 @@
 # VC Alpha Corpus
 
-`fixtures/vc-alpha` is the ALPHA-002 VC corpus.
+`fixtures/vc-alpha` is the active alpha-branch VIR/VC v1 corpus.
 
-The corpus records 1,056 branch verification-condition obligations generated
-from the 33 ALPHA-001 branch cases expanded to 16 postconditions per case.
-The artifacts are candidate theorem obligations only; they are not proof
-evidence until later certificate generation and checker milestones.
+The corpus records 33 source functions, 33 VC v1 members, and 66 grouped
+skeleton declarations. The artifacts are helper theorem obligations only;
+they are not proof evidence unless a source-free checker accepts the matching
+canonical certificate bytes.
 
 Regenerate the checked-in artifacts from the repository root with:
 
 ```sh
-MPK_UPDATE_VC_ALPHA=1 cargo test -p mpk-vc --test alpha_corpus
-cargo test -p mpk-vc --test alpha_corpus
+./scripts/regenerate-go-vir-corpus.sh --update
+./scripts/regenerate-go-vir-corpus.sh --check
 ```
+
+Review every artifact and hash change before committing an update.

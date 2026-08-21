@@ -21,7 +21,7 @@ must stay narrow:
 - generate or validate safety contracts for payment policies;
 - turn a supported policy function into reproducible verification artifacts;
 - produce reviewable evidence for CI, customers, and XPRIZE judges;
-- never treat AI output, source text, GIR, VC JSON, CI status, or report prose as
+- never treat AI output, source text, VIR, VC JSON, CI status, or report prose as
   proof evidence.
 
 The MPK trust boundary remains unchanged. A payment policy is accepted only when
@@ -34,7 +34,7 @@ MPK owns generic verification capabilities:
 
 - Go subset feature detection and fail-closed diagnostics;
 - contract sidecar parsing, validation, and function resolution;
-- GIR emission, VC generation, and stable artifact hashing;
+- VIR emission, VC generation, and stable artifact hashing;
 - theory-certificate-backed proof strategies for supported payment obligations;
 - source-free Rust checker and independent Go reference-checker invocation;
 - package/evidence schemas and deterministic machine-readable output;
@@ -63,16 +63,23 @@ Current CLI:
 
 ```sh
 mpk policy scan ./internal/paymentpolicy \
-  --function paymentpolicy.ApprovedReserveCents \
+  --language go \
+  --semantic-profile mpk.go.fixed.v0 \
+  --require-release-registry-id mpk.release.registry.v0 \
+  --require-release-registry-sha256 <registry-sha256> \
+  --frontend-bundle frontend.go.go2vir.v0 \
+  --toolchain-bundle toolchain.go.go1.25.0.linux-amd64.v0 \
+  --target linux/amd64 \
+  --package example.com/customer/internal/paymentpolicy \
+  --function example.com/customer/internal/paymentpolicy.ApprovedReserveCents \
   --contract policy_contract.json \
-  --json-out mpk-policy-scan.json \
-  --go2gir go2gir
+  --json-out mpk-policy-scan.json
 ```
 
 Required output:
 
 - function identity and source file hashes;
-- Go toolchain and `go2gir` binary hash;
+- Go toolchain and `go2vir` binary hash;
 - supported/unsupported feature report;
 - contract parse and function-resolution status;
 - required preconditions;
@@ -83,17 +90,14 @@ Required output:
 This output powers ProofOps free scans and $99 diagnosis reports. It is helper
 evidence only.
 
-The stable scan schema is `mpk.policy.scan.v0`. Its top-level JSON object must
-contain `schema`, `target`, `source`, `contract`, `readiness`,
-`supported_features`, `rejected_features`, and `preconditions`. `readiness`
-uses exactly `ready`, `needs_refactor`, or `unsupported`. Feature and
-precondition entries are labeled as `helper_evidence`; this schema must not
-include `proof_acceptance`, `verified_properties`, or any field that implies
-checked proof acceptance.
+The stable scan schema is `mpk.policy.scan.v1`. It records the source language,
+semantic profile and parameters, registered release identities, source/IR/map
+hashes, selected function, helper artifacts, readiness, issues, and
+unsupported codes. The closed shape and ordering rules are owned by
+`develop/specs/POLICY_V1.md`.
 
-For product-facing artifact paths, `policy scan` rejects path traversal
-components in the target, `--contract`, and `--json-out` values. The `--go2gir`
-flag points to a local tool binary and is not a product artifact path.
+For product-facing artifact paths, `policy scan` rejects path traversal.
+Frontend and toolchain options are registered bundle IDs, never local paths.
 
 ### 2. Policy Verification Orchestrator
 
@@ -104,20 +108,28 @@ Current CLI:
 
 ```sh
 mpk policy verify ./internal/paymentpolicy \
-  --function paymentpolicy.ApprovedReserveCents \
+  --language go \
+  --semantic-profile mpk.go.fixed.v0 \
+  --require-release-registry-id mpk.release.registry.v0 \
+  --require-release-registry-sha256 <registry-sha256> \
+  --frontend-bundle frontend.go.go2vir.v0 \
+  --toolchain-bundle toolchain.go.go1.25.0.linux-amd64.v0 \
+  --target linux/amd64 \
+  --package example.com/customer/internal/paymentpolicy \
+  --function example.com/customer/internal/paymentpolicy.ApprovedReserveCents \
   --contract policy_contract.json \
   --strategy-profile payment-policy-alpha \
   --checker-profile mvp-strict \
+  --axiom-profile zero-axiom \
   --evidence-json mpk-evidence.json \
-  --evidence-md mpk-evidence.md \
-  --go2gir go2gir
+  --evidence-md mpk-evidence.md
 ```
 
 The command orchestrates:
 
 1. Go package loading and subset rejection;
 2. contract sidecar validation;
-3. GIR generation and hash computation;
+3. VIR generation and hash computation;
 4. VC generation and hash computation;
 5. selected strategy profile execution;
 6. checked-theory evidence export for the supported reserve path;
@@ -133,7 +145,7 @@ remaining `proof_pending` properties into a failing verify run.
 For product-facing artifact paths, `policy verify` rejects path traversal
 components in the target, `--contract`, `--evidence-json`, and `--evidence-md`
 values. The generated evidence uses placeholder reproduction paths such as
-`<go2gir>`, `<evidence.json>`, and `<evidence.md>` so local absolute paths do
+`<go2vir>`, `<evidence.json>`, and `<evidence.md>` so local absolute paths do
 not enter stable product reports.
 
 ### 3. Payment-Policy Strategy Profile
@@ -190,14 +202,14 @@ supported positive corpus.
 ### 5. Evidence Schema
 
 The stable evidence schema for product integration is
-`mpk.policy.evidence.v0`.
+`mpk.policy.evidence.v1`.
 
 Required fields:
 
 - target function identity;
 - source artifact hashes;
 - contract hash;
-- GIR hash;
+- VIR hash;
 - VC hash;
 - certificate hash, when present;
 - export hash, when present;
@@ -215,15 +227,15 @@ The JSON schema is the product API. Markdown output is useful for humans but is
 not the source of truth. A property may be marked verified only when its evidence
 is either a checked declaration in canonical `.mpcert` bytes or a checked theory
 certificate accepted under the active checker profile. If a property is only
-represented by source text, contract text, GIR, VC JSON, CI status, or Gemini
+represented by source text, contract text, VIR, VC JSON, CI status, or Gemini
 analysis, the schema must label it as helper analysis or proof-pending.
 
-POE-04 pins the Rust-facing JSON shape as `mpk.policy.evidence.v0`:
+POE-04 pins the Rust-facing JSON shape as `mpk.policy.evidence.v1`:
 
 - top-level workflow policy fields:
   - `strategy_profile`;
   - `checker_profile`;
-  - `allowed_axiom_profiles`;
+  - `axiom_profile`;
 - `trusted_evidence`, limited to:
   - checked certificate identities, `certificate_hash`, `export_hash`, and
     `axiom_report_hash`;
@@ -234,9 +246,9 @@ POE-04 pins the Rust-facing JSON shape as `mpk.policy.evidence.v0`:
 - `helper_artifacts`, limited to:
   - source hashes and source-file hashes;
   - contract hash and contract schema;
-  - GIR hash;
+  - VIR hash;
   - VC hash;
-  - helper warnings from source, contract, GIR, VC, AI analysis, or CI status;
+  - helper warnings from source, contract, VIR, VC, AI analysis, or CI status;
 - `properties`, where each property has one of `mpk_verified`,
   `proof_pending`, `helper_only`, or `unsupported`.
 
@@ -252,8 +264,8 @@ The ProofOps repository can consume MPK as an external engine pinned by git SHA
 or binary hash. It should treat the following MPK outputs as the stable product
 contract:
 
-- `mpk policy scan` output with schema `mpk.policy.scan.v0`;
-- `mpk policy verify` output with schema `mpk.policy.evidence.v0`;
+- `mpk policy scan` output with schema `mpk.policy.scan.v1`;
+- `mpk policy verify` output with schema `mpk.policy.evidence.v1`;
 - Markdown evidence reports generated from the evidence JSON for human review;
 - command stdout only as an operator status line, not as product data.
 
@@ -264,16 +276,16 @@ ProofOps can display these fields directly in reports and dashboards:
   helper analysis from `helper_evidence` entries;
 - evidence `strategy_profile`, currently `payment-policy-alpha`;
 - evidence `checker_profile`, for example `mvp-strict`;
-- evidence `allowed_axiom_profiles`, which is the axiom policy allowlist and is
+- evidence `axiom_profile`, which is the axiom policy allowlist and is
   not the strategy profile or checker profile;
 - evidence `trusted_evidence`, which is the only machine-readable source for
   checked certificate, checked theory-certificate, checker verdict, and axiom
   report claims;
-- evidence `helper_artifacts`, which can explain source, contract, GIR, VC,
+- evidence `helper_artifacts`, which can explain source, contract, VIR, VC,
   AI, CI, or call-site context but cannot verify a property;
 - evidence `properties[*].status`: `mpk_verified`, `proof_pending`,
   `helper_only`, or `unsupported`;
-- evidence `reproduction_commands`, whose product-facing paths are placeholders
+- evidence `reproduction_recipes`, whose product-facing paths are placeholders
   rather than local absolute paths.
 
 Customer-facing ProofOps claims must map MPK fields this way:
@@ -281,11 +293,11 @@ Customer-facing ProofOps claims must map MPK fields this way:
 | Claim label | MPK source | Customer meaning |
 | --- | --- | --- |
 | `mpk_verified` | `properties[*].status == "mpk_verified"` with checked declaration or checked theory-certificate evidence under `trusted_evidence` | MPK accepted this property under the active checker profile. |
-| `mpk_helper` | scan output, `helper_artifacts`, call-site preconditions, GIR hash, VC hash, or Markdown text | Useful analysis or traceability, not proof evidence. |
+| `mpk_helper` | scan output, `helper_artifacts`, call-site preconditions, VIR hash, VC hash, or Markdown text | Useful analysis or traceability, not proof evidence. |
 | `proof_pending` | `properties[*].status == "proof_pending"` | MPK generated and classified the obligation, but no checked proof evidence closed it. |
 | `unsupported` | scan `unsupported`, rejected features, unsupported helper warnings, or `properties[*].status == "unsupported"` | The current MPK subset or strategy cannot verify this path. |
 
-ProofOps must not turn Go source, contract JSON, GIR, VC JSON, helper hashes,
+ProofOps must not turn Go source, contract JSON, VIR, VC JSON, helper hashes,
 Markdown prose, CI status, Gemini logs, or operator notes into proof evidence.
 Those artifacts can support explanations, triage, and sales reporting only when
 they are labeled as helper analysis or AI/manual context.
@@ -294,8 +306,8 @@ they are labeled as helper analysis or AI/manual context.
 
 MPK also owns one narrow, opt-in helper path: `mpk explain`, built with the
 optional `vertex-ai` feature, can send a minimal allowlisted projection of a
-validated `mpk.policy.evidence.v0` report to Gemini on Vertex AI through local
-ADC. It writes separate `mpk.ai.explanation.v0` JSON and Markdown outputs.
+validated `mpk.policy.evidence.v1` report to Gemini on Vertex AI through local
+ADC. It writes separate `mpk.ai.explanation.v1` JSON and Markdown outputs.
 Those outputs are always untrusted helper analysis; they carry no authority to
 create proof evidence, change a property status, or alter a checker result.
 The command does not modify evidence, run automatically from policy commands,
@@ -332,7 +344,7 @@ MPK includes a regression corpus for product-relevant examples:
 - loyalty points redemption;
 - negative fixtures for floats, maps, pointers, and missing postconditions.
 
-Each positive corpus entry includes Go source, contract sidecar, expected GIR
+Each positive corpus entry includes Go source, contract sidecar, expected VIR
 and VC artifacts, scan coverage, and verification/evidence output when the
 strategy profile supports the case.
 
@@ -355,7 +367,7 @@ The MPK-side work must not implement:
 Deliverables:
 
 - this design reviewed against `develop/specs/TRUST_BOUNDARY_V0.md`;
-- `mpk.policy.scan.v0` and `mpk.policy.evidence.v0` draft schemas;
+- `mpk.policy.scan.v1` and `mpk.policy.evidence.v1` draft schemas;
 - list of supported payment patterns and explicit exclusions.
 
 Exit criteria:
@@ -380,7 +392,7 @@ Exit criteria:
 Deliverables:
 
 - `mpk policy verify`;
-- stable GIR/VC/certificate/evidence artifact layout;
+- stable VIR/VC/certificate/evidence artifact layout;
 - Markdown and JSON evidence output.
 
 Exit criteria:

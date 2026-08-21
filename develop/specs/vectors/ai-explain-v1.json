@@ -129,7 +129,7 @@
         "f387d3ec7532adabcc75407d7cad3e4df113cd255ff177b1b9f02985bbccacea",
         "The selected identity result equals its input.",
         "mpk policy verify",
-        "\"go_source\"",
+        "\"language_specific_source\"",
         "\"gir\""
       ]
     },
@@ -218,7 +218,7 @@
         "Both configured source-free checkers accepted",
         "4444444444444444444444444444444444444444444444444444444444444444",
         "mpk policy verify",
-        "\"go_source\"",
+        "\"language_specific_source\"",
         "\"gir\""
       ]
     },
@@ -307,7 +307,7 @@
         "Both configured source-free checkers accepted",
         "4444444444444444444444444444444444444444444444444444444444444444",
         "mpk policy verify",
-        "\"go_source\"",
+        "\"language_specific_source\"",
         "\"gir\""
       ]
     }
@@ -400,7 +400,7 @@
       "expect": {
         "outcome": "accept",
         "artifact_kinds": ["source", "contract", "verification_ir", "vc"],
-        "absent_artifact_kinds": ["go_source", "gir"]
+        "absent_artifact_kinds": ["language_specific_source", "removed_ir"]
       }
     },
     {
@@ -453,14 +453,14 @@
     {
       "id": "projection.reject_evidence_v0",
       "input": {
-        "schema": "mpk.policy.evidence.v0",
+        "schema": "mpk.policy.evidence.unknown",
         "target": {
           "package_path": "historical.example/package",
           "function_id": "historical.example/package.Function"
         },
         "strategy_profile": "payment-policy-alpha",
         "checker_profile": "mvp-strict",
-        "allowed_axiom_profiles": ["zero-axiom"],
+        "retired_axiom_list": ["zero-axiom"],
         "trusted_evidence": {
           "certificates": [],
           "theory_certificates": [],
@@ -479,7 +479,7 @@
             "schema": "mpk.go.contract.v0",
             "contract_hash": "2222222222222222222222222222222222222222222222222222222222222222"
           },
-          "gir_hash": null,
+          "legacy_ir_hash": null,
           "vc_hash": null,
           "warnings": []
         },
@@ -489,12 +489,12 @@
             "description": "Historical complete evidence v0 property.",
             "status": "helper_only",
             "evidence": [
-              {"kind": "helper_artifact", "artifact": "go_source", "summary": "Historical helper only."}
+              {"kind": "helper_artifact", "artifact": "language_specific_source", "summary": "Historical helper only."}
             ],
             "notes": []
           }
         ],
-        "reproduction_commands": []
+        "retired_recipes": []
       },
       "expect": {
         "outcome": "reject",
@@ -684,7 +684,7 @@
     {
       "id": "explanation.historical_v0",
       "input": {
-        "schema": "mpk.ai.explanation.v0",
+        "schema": "mpk.ai.explanation.unknown",
         "generator": {"name": "mpk", "version": "0.1.0"},
         "trust": {
           "classification": "untrusted_helper_analysis",
@@ -692,7 +692,7 @@
           "disclaimer": "AI-generated explanation. Verification status is determined only by MPK evidence and checkers."
         },
         "source_evidence": {
-          "schema": "mpk.policy.evidence.v0",
+          "schema": "mpk.policy.evidence.unknown",
           "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
         },
         "request": {
@@ -701,8 +701,8 @@
           "location": "global",
           "requested_model": "gemini-3.5-flash",
           "language": "en",
-          "redaction_profile": "minimal-v0",
-          "prompt_template": "mpk.evidence-explainer.v0",
+          "redaction_profile": "removed-profile",
+          "prompt_template": "mpk.evidence-explainer.unknown",
           "prompt_template_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
           "response_schema": "mpk.ai.explanation.response.v0",
           "response_schema_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
@@ -723,7 +723,7 @@
         "local_summary": {
           "strategy_profile": "payment-policy-alpha",
           "checker_profile": "mvp-strict",
-          "allowed_axiom_profiles": ["zero-axiom"],
+          "retired_axiom_list": ["zero-axiom"],
           "total": 1,
           "mpk_verified": 1,
           "proof_pending": 0,

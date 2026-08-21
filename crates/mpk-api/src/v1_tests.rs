@@ -27,7 +27,7 @@ const SOURCE_MANIFEST_VECTOR: &str =
 const RELEASE_VECTOR: &str = include_str!("../../../develop/specs/vectors/release-bundles-v0.json");
 
 #[test]
-fn v1_router_matches_the_frozen_registry_and_rejects_gir_aliases() {
+fn v1_router_matches_the_frozen_registry_and_rejects_unknown_aliases() {
     let vectors = vectors();
     validate_vector_model(&vectors);
     assert_eq!(vectors["api_profile"], AI_API_V1_PROFILE);
@@ -39,7 +39,7 @@ fn v1_router_matches_the_frozen_registry_and_rejects_gir_aliases() {
         assert_eq!(expected["method"], actual.method);
         assert_eq!(expected["path"], actual.path);
         assert_eq!(expected["handler"], actual.handler.as_str());
-        assert!(!actual.path.contains("/gir/"));
+        assert!(!actual.path.contains("/removed/"));
     }
 
     let mut executed = BTreeSet::new();

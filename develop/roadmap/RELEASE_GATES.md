@@ -39,13 +39,7 @@ Before any release:
 
 ## Gate F: Source frontend and traceability gate
 
-The generic VIR branch of this gate is frozen now but activates only in the
-atomic Go/VIR cutover. Until that cutover, the current Go/GIR gate and its
-frozen specifications remain the active release requirement and are not
-historical. A release must use one complete branch; mixing pre-cutover and
-post-cutover schemas is forbidden.
-
-For the post-cutover branch:
+The generic VIR branch is the sole active source-frontend release gate:
 
 - Unsupported source-language and semantic-profile features fail closed.
 - The validated release-registry identity and selected frontend/toolchain
@@ -60,11 +54,6 @@ For the post-cutover branch:
 - Registry bytes, toolchains, compilers, frontends, inputs, VIR, maps,
   manifests' internal claims, VCs, policy output, and AI output remain
   untrusted helper artifacts.
-
-For the pre-cutover branch, unsupported Go features still fail closed and the
-Go source, Go version, frontend binary, GIR, and VC identities are recorded as
-required by the current frozen Go/GIR documents. The atomic cutover replaces
-this branch; only then are those documents labeled historical.
 
 ## Gate G: Performance gate
 

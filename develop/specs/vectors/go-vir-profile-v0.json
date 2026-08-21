@@ -2015,7 +2015,7 @@
   ],
   "migration_baseline": {
     "integrity": {
-      "path": "develop/migrations/go-gir-semantic-baseline.json",
+      "path": "develop/migrations/go-vir-semantic-baseline.json",
       "sha256": "cfb7b13a782ec6753df50117c35bce1ac43a94e157e79cc8fb1645c82679b8a4",
       "schema": "mpk.go_gir_semantic_baseline.v0",
       "captured_from_revision": "1b3fb3c778b9301d8a214c4bbd3cd8aafa6bb8d4"
@@ -2039,7 +2039,7 @@
     },
     "identity_disposition": {
       "source_profile": "replaced by normative mpk.go.fixed.v0",
-      "source_ir_schema": "mpk.gir.v0 rejects after cutover; regenerated artifact is mpk.vir.v0",
+      "source_ir_schema": "mpk.unknown.v0 rejects after cutover; regenerated artifact is mpk.vir.v0",
       "purpose": "remains audit-only and is never a runtime input",
       "hash_policy": "all old hashes are audit anchors; byte equality is not required and every semantic difference requires reviewed disposition"
     },
@@ -2234,32 +2234,32 @@
     },
     "implementation_anchors": [
       {
-        "path": "go-tools/go2gir/loader.go",
+        "path": "go-tools/removed-frontend/loader.go",
         "sha256": "c8dea15e3aac2d9c891fa8479cbc6fd18975c672b75715a4df491a41dfc302e8",
         "disposition": "preserve current package metadata needs and readonly/tests=false intent; replace ambient cwd/environment with immutable root, closed environment, explicit target, NeedDeps, and exact one-pattern closure"
       },
       {
-        "path": "go-tools/go2gir/features.go",
+        "path": "go-tools/removed-frontend/features.go",
         "sha256": "f8add48050d86b97a4a3b4c10b048aef76345e7050ad5f4941f4f54d51e4e086",
         "disposition": "preserve all baseline negative classes; activate only contracted loops and same-module static dependency calls; add sound VIR-only restrictions"
       },
       {
-        "path": "go-tools/go2gir/contract_sidecar.go",
+        "path": "go-tools/removed-frontend/contract_sidecar.go",
         "sha256": "d6231f6b7e365909302630f91b14efd498431f8b9ee832d67a99bd38414a1d15",
         "disposition": "continue mpk.go.contract.v0 filename discovery and require equality with the canonical explicit launcher path set; preserve strict parsing, aliases, nonempty ensures, empty modifies, loop expressions, and exact failure intent; normalize into VirContract"
       },
       {
-        "path": "go-tools/go2gir/lower.go",
+        "path": "go-tools/removed-frontend/lower.go",
         "sha256": "68b72971300bcbde514f6ba88b421f6cd1b121e221d06ae7844787025f61c684",
-        "disposition": "replace GIR shapes/names with canonical VIR IDs, block parameters, checks, contracts, calls, loops, conversions, and source-map coverage while preserving accepted value/control intent"
+        "disposition": "replace VIR shapes/names with canonical VIR IDs, block parameters, checks, contracts, calls, loops, conversions, and source-map coverage while preserving accepted value/control intent"
       },
       {
-        "path": "go-tools/go2gir/lower_types.go",
+        "path": "go-tools/removed-frontend/lower_types.go",
         "sha256": "72c172a65a88ef6cce2cee40aff4d5a3e576a617f0b7fa7a4e6bf3b159061b44",
-        "disposition": "preserve complete aggregate literals, direct field reads, and fixed-array reads; replace inline GIR struct names with nominal StructDecl references"
+        "disposition": "preserve complete aggregate literals, direct field reads, and fixed-array reads; replace inline VIR struct names with nominal StructDecl references"
       },
       {
-        "path": "go-tools/go2gir/ssa.go",
+        "path": "go-tools/removed-frontend/ssa.go",
         "sha256": "ff1ab5fd50b0298753e1d84189943d36d26de915b81ffa93a8d3e1f827565add",
         "disposition": "retain typed SSA only as private recognized lowering input; compiler function/block/value strings and debug dump order never become public VIR identities"
       }
@@ -2267,31 +2267,31 @@
     "frontend_contract": [
       {
         "baseline_pointer": "/frontend_contract/cli_schema",
-        "old": "mpk.go2gir.cli.v0",
+        "old": "mpk.frontend.unknown.v0",
         "new": "mpk.frontend.cli.v0",
         "disposition": "breaking replacement"
       },
       {
         "baseline_pointer": "/frontend_contract/success_status",
-        "old": "gir-lowered",
+        "old": "legacy-lowered",
         "new": "ir-lowered",
         "disposition": "breaking replacement"
       },
       {
         "baseline_pointer": "/frontend_contract/gir_emit_schema",
-        "old": "mpk.gir.emit.v0",
+        "old": "mpk.unknown.emit.v0",
         "new": "mpk.vir.v0 nested in the generic frontend envelope",
         "disposition": "breaking replacement"
       },
       {
         "baseline_pointer": "/frontend_contract/source_manifest_schema",
-        "old": "mpk.go.source_manifest.v0",
+        "old": "mpk.source_manifest.unknown.v0",
         "new": "mpk.source_manifest.v0",
         "disposition": "breaking replacement with preserved input traceability"
       },
       {
         "baseline_pointer": "/frontend_contract/canonical_binary",
-        "old": "MPK_GIR_V0 framing and hash",
+        "old": "MPK_REMOVED_V0 framing and hash",
         "new": "MPK-VIR-0.1 canonical JSON hash and generic JCS envelope",
         "disposition": "no byte or hash equality"
       },
@@ -2346,7 +2346,7 @@
         "manifest_sha256": "4f3371e0bc768724cab86831b3daa24c76d64cf926284fee72c571160399aed7",
         "module_path": "fixtures/go-alpha/go.mod",
         "module_sha256": "4a3cb8b7a0c57d3ad6619e79e6b0dffbcbcc631a23c9f437b3133d964f1a0aac",
-        "old_expected_status": "gir-lowered",
+        "old_expected_status": "legacy-lowered",
         "new_expected_status": "ir-lowered",
         "function_count": 100,
         "groups": [
@@ -2498,7 +2498,7 @@
           "baseline_pointer": "/corpora/go_alpha/vc_fixture",
           "manifest_path": "fixtures/vc-alpha/manifest.json",
           "manifest_sha256": "2430aad74fad185d2dde4a3e38eb4a93375c2a4f65835eb331a60bc0617a244e",
-          "old_source_gir_hash": "84374e92fb2176e50a17c071fa73d59619a165a492406dd50845703d84e0a2f8",
+          "old_source_legacy_hash": "84374e92fb2176e50a17c071fa73d59619a165a492406dd50845703d84e0a2f8",
           "branch_case_count": 33,
           "postconditions_per_case": 16,
           "old_obligation_count": 1056,
@@ -2513,7 +2513,7 @@
           "old_skeleton_sha256": "e1cea2c49ae72d5ba9e85c589d05577137a8b3d0cae2772388b711a633cd82fe",
           "old_theorem_declaration_count": 1056,
           "old_checker_verdict": "not_run_no_canonical_certificate",
-          "disposition": "audit-only synthetic GIR-era VC fixture; regenerate under VC v1 with no hash, theorem-name, or obligation-count equality; preserve postcondition intent and branch-path semantics"
+          "disposition": "audit-only synthetic VIR-era VC fixture; regenerate under VC v1 with no hash, theorem-name, or obligation-count equality; preserve postcondition intent and branch-path semantics"
         }
       },
       "go_basic": {
@@ -2618,7 +2618,7 @@
               "result_bounded_by_input": 4,
               "selected_branch_result_equals_input": 2
             },
-            "disposition": "preserve complete deep semantic/classification subtree; regenerate GIR, VC, skeleton, theorem IDs, and hashes as VIR/VC v1"
+            "disposition": "preserve complete deep semantic/classification subtree; regenerate VIR, VC, skeleton, theorem IDs, and hashes as VIR/VC v1"
           },
           {
             "name": "refund",
@@ -2632,7 +2632,7 @@
               "refund_bounded_by_available_paid_amount": 4,
               "selected_branch_result_equals_input": 2
             },
-            "disposition": "preserve complete deep semantic/classification subtree; regenerate GIR, VC, skeleton, theorem IDs, and hashes as VIR/VC v1"
+            "disposition": "preserve complete deep semantic/classification subtree; regenerate VIR, VC, skeleton, theorem IDs, and hashes as VIR/VC v1"
           },
           {
             "name": "discount",
@@ -2646,7 +2646,7 @@
               "fee_or_discount_bounded_by_cap": 4,
               "selected_branch_result_equals_input": 2
             },
-            "disposition": "preserve complete deep semantic/classification subtree; regenerate GIR, VC, skeleton, theorem IDs, and hashes as VIR/VC v1"
+            "disposition": "preserve complete deep semantic/classification subtree; regenerate VIR, VC, skeleton, theorem IDs, and hashes as VIR/VC v1"
           },
           {
             "name": "fee",
@@ -2660,7 +2660,7 @@
               "fee_or_discount_bounded_by_cap": 4,
               "selected_branch_result_equals_input": 2
             },
-            "disposition": "preserve complete deep semantic/classification subtree; regenerate GIR, VC, skeleton, theorem IDs, and hashes as VIR/VC v1"
+            "disposition": "preserve complete deep semantic/classification subtree; regenerate VIR, VC, skeleton, theorem IDs, and hashes as VIR/VC v1"
           },
           {
             "name": "points",
@@ -2674,7 +2674,7 @@
               "result_bounded_by_input": 4,
               "selected_branch_result_equals_input": 2
             },
-            "disposition": "preserve complete deep semantic/classification subtree; regenerate GIR, VC, skeleton, theorem IDs, and hashes as VIR/VC v1"
+            "disposition": "preserve complete deep semantic/classification subtree; regenerate VIR, VC, skeleton, theorem IDs, and hashes as VIR/VC v1"
           }
         ],
         "negative": [
@@ -2707,45 +2707,45 @@
       "focused_frontend_negative_cases": [
         {
           "baseline_index": 0,
-          "path": "go-tools/go2gir/testdata/unsupported/map",
+          "path": "go-tools/removed-frontend/testdata/unsupported/map",
           "new_code": "GO_SUBSET_MAPS"
         },
         {
           "baseline_index": 1,
-          "path": "go-tools/go2gir/testdata/unsupported/goroutine",
+          "path": "go-tools/removed-frontend/testdata/unsupported/goroutine",
           "new_code": "GO_SUBSET_GOROUTINE"
         },
         {
           "baseline_index": 2,
-          "path": "go-tools/go2gir/testdata/unsupported/generic",
+          "path": "go-tools/removed-frontend/testdata/unsupported/generic",
           "new_code": "GO_SUBSET_GENERICS"
         },
         {
           "baseline_index": 3,
-          "path": "go-tools/go2gir/testdata/unsupported/pointer",
+          "path": "go-tools/removed-frontend/testdata/unsupported/pointer",
           "new_code": "GO_SUBSET_POINTER"
         },
         {
           "baseline_index": 4,
-          "path": "go-tools/go2gir/testdata/unsupported/untypedint",
+          "path": "go-tools/removed-frontend/testdata/unsupported/untypedint",
           "new_code": "GO_LOWER_UNTYPED_INTEGER",
           "new_message": "untyped integer expression has no accepted fixed-width context"
         },
         {
           "baseline_index": 5,
-          "path": "go-tools/go2gir/testdata/contract_malformed",
+          "path": "go-tools/removed-frontend/testdata/contract_malformed",
           "new_code": "GO_CONTRACT_JSON",
           "new_message": "invalid contract sidecar JSON"
         },
         {
           "baseline_index": 6,
-          "path": "go-tools/go2gir/testdata/contract_unknown_function",
+          "path": "go-tools/removed-frontend/testdata/contract_unknown_function",
           "new_code": "GO_CONTRACT_FUNCTION",
           "new_message": "contract function \"unknowncontract.Missing\" does not resolve to an included Go function"
         },
         {
           "baseline_index": 7,
-          "path": "go-tools/go2gir/testdata/contract_unsupported_operator",
+          "path": "go-tools/removed-frontend/testdata/contract_unsupported_operator",
           "new_code": "GO_CONTRACT_OPERATOR",
           "new_message": "unsupported contract expression operator \"float_eq\""
         }

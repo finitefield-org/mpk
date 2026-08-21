@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 #[cfg(any(test, target_os = "linux"))]
 use crate::frontend_protocol::{FRONTEND_STDERR_BYTES_MAX, FRONTEND_STDOUT_BYTES_MAX};
 use crate::frontend_registry::BundleSnapshot;

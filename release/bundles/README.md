@@ -12,6 +12,12 @@ descriptors and complete inventories from the digest-pinned Linux build image;
 writes. Its `registry_sha256` is recomputed from the canonical object with only
 that field removed; it is not a hand-maintained build constant.
 
+The active Go tuple is `frontend.go.go2vir.v0` plus
+`toolchain.go.go1.25.0.linux-amd64.v0` for `mpk.go.fixed.v0` on
+`linux/amd64`. Production policy commands select those IDs and assert the
+installed registry ID and digest; raw executable, toolchain, or registry paths
+are rejected.
+
 The following repository paths have distinct roles and are never copied as an
 installed bundle root:
 

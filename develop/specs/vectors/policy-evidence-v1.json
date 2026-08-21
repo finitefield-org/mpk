@@ -676,15 +676,15 @@
       "id": "evidence.reject_v0_schema",
       "construction": {
         "base": "evidence.go_identity_pending",
-        "patches": [{"op": "replace", "path": "/schema", "value": "mpk.policy.evidence.v0"}]
+        "patches": [{"op": "replace", "path": "/schema", "value": "mpk.policy.evidence.unknown"}]
       },
       "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_EVIDENCE_SCHEMA"}
     },
     {
-      "id": "evidence.reject_allowed_axiom_profiles",
+      "id": "evidence.reject_retired_axiom_list",
       "construction": {
         "base": "evidence.go_identity_pending",
-        "patches": [{"op": "add", "path": "/allowed_axiom_profiles", "value": ["zero-axiom"]}]
+        "patches": [{"op": "add", "path": "/retired_axiom_list", "value": ["zero-axiom"]}]
       },
       "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
     },
@@ -721,10 +721,10 @@
       "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
     },
     {
-      "id": "evidence.reject_free_form_reproduction_commands",
+      "id": "evidence.reject_free_form_retired_recipes",
       "construction": {
         "base": "evidence.go_identity_pending",
-        "patches": [{"op": "add", "path": "/reproduction_commands", "value": [{"label": "scan", "command": "mpk policy scan /tmp/source"}]}]
+        "patches": [{"op": "add", "path": "/retired_recipes", "value": [{"label": "scan", "command": "mpk policy scan /tmp/source"}]}]
       },
       "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
     },
@@ -737,10 +737,10 @@
       "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
     },
     {
-      "id": "evidence.reject_legacy_gir_hash",
+      "id": "evidence.reject_legacy_legacy_ir_hash",
       "construction": {
         "base": "evidence.go_identity_pending",
-        "patches": [{"op": "add", "path": "/source_gir_hash", "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}]
+        "patches": [{"op": "add", "path": "/source_legacy_hash", "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}]
       },
       "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
     },

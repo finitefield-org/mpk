@@ -55,6 +55,8 @@ EXPECTED_RETAINED_RECORDS = {
     "develop/specs/UNSAFE_POLICY_V0.md": "always",
     "develop/migrations/gir-to-vir-inventory.md": "always",
     "develop/migrations/go-gir-semantic-baseline.json": "always",
+    "develop/migrations/archive/go-gir-to-vir-report.json": "always",
+    "develop/migrations/archive/go-gir-to-vir-report.md": "always",
     "develop/docs/05_rust_frontend_design.md": "design_status_marker",
     "develop/docs/05_rust_frontend_design-todo.md": "design_status_marker",
 }

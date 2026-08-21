@@ -1,154 +1,74 @@
 # Web System Integration Guide
 
-This guide shows the production integration pattern for MPK alpha artifacts in a
-Go web system. The short version is: keep web and storage effects in ordinary
-Go, extract the deterministic decision into a small pure package, and make MPK
-check the contract for that pure package.
+MPK verifies a small deterministic policy function; it does not verify an
+entire web service. Keep authentication, request parsing, storage, retries,
+logging, and network effects in ordinary application code, and isolate the
+decision rule in a pure package with a reviewed contract.
 
-The concrete example lives in `examples/order_policy`.
-
-## Recommended Layout
+The runnable example is `examples/order_policy`:
 
 ```text
-internal/orderpolicy/
-  policy.go              # pure deterministic rules, no imports
-  policy_contract.json   # MPK contract sidecar
-  gir.json               # checked-in lowered GIR
-  vc.json                # checked-in generated obligations
-  vc_skeleton.json       # checked-in theorem declaration skeletons
-
-internal/httpapi/
-  handler.go             # HTTP parsing, auth, persistence, side effects
-  handler_test.go        # normal web tests
+examples/order_policy/
+  policy.go
+  policy_contract.json
+  frontend-envelope.json
+  vir.json
+  source-map.json
+  source-manifest.frontend.json
+  source-manifest.certificate.json
+  vc.json
+  vc_skeleton.json
+  webapp/
 ```
 
-The policy package should be boring Go: fixed-width integers, booleans,
-structs, fixed arrays, local variables, branches, and returns. Avoid imports,
-pointers, goroutines, reflection, maps, channels, package-level mutable state,
-and I/O in the verified-boundary function.
+All JSON files in this list are helper artifacts. Canonical certificates and
+checked theory certificates become proof evidence only after source-free
+checker acceptance.
 
-## Request Flow
+## Application boundary
 
-1. The HTTP handler authenticates the user and decodes JSON.
-2. The handler validates preconditions that appear in `policy_contract.json`.
-3. The handler fetches current state from storage or another service.
-4. The handler calls the pure policy function.
-5. The handler performs the side effect only if the policy result allows it.
-6. Tests cover handler behavior, while MPK covers the pure policy contract.
+The web handler validates request-level preconditions, reads its upstream
+state, calls `ApprovedReserveCents`, and performs a side effect only after the
+pure function returns the requested amount. MPK does not infer the database,
+authentication, or concurrency invariants around that call.
 
-In `examples/order_policy/webapp`, the handler follows that pattern:
-
-```go
-balanceCents, err := h.Wallet.AvailableCents(r.Context(), request.AccountID)
-if err != nil {
-	return
-}
-
-approvedCents := orderpolicy.ApprovedReserveCents(balanceCents, request.RequestedCents)
-if approvedCents != request.RequestedCents {
-	return
-}
-
-_ = h.Ledger.Reserve(r.Context(), request.AccountID, request.OrderID, approvedCents)
-```
-
-The ledger call is outside MPK. The contract tells you what is true about
-`approvedCents` if the inputs satisfy the preconditions.
-
-## Preconditions At The Boundary
-
-Every `requires` clause must be enforced before calling the pure function, or
-must be guaranteed by a trusted upstream invariant. For the order policy:
-
-```json
-{
-  "op": "signed_ge",
-  "lhs": { "var": "requestedCents" },
-  "rhs": { "int": { "value": "0", "width": 64, "signed": true } }
-}
-```
-
-The web handler rejects negative `requested_cents` before calling the policy.
-It also treats a negative wallet balance as an upstream invariant violation.
-
-## Build And Verification Commands
-
-Run these from the repository root:
+Run the ordinary application tests independently:
 
 ```sh
 (cd examples/order_policy && go test ./...)
 (cd examples/order_policy/webapp && go test ./...)
-(cd go-tools/go2gir && go build -o ../../target/debug/go2gir .)
-(cd examples/order_policy && ../../target/debug/go2gir . | jq '.gir' > gir.json)
-cargo test -p mpk-vc --test max64_example
 ```
 
-When intentionally regenerating checked-in VC artifacts:
+## Artifact drift
+
+The active corpus owner regenerates the frontend and VC artifacts through the
+same canonical pipeline used by all Go examples:
 
 ```sh
-MPK_UPDATE_ORDER_POLICY_EXAMPLE=1 cargo test -p mpk-vc --test max64_example
+./scripts/regenerate-go-vir-corpus.sh --check
+cargo test -p mpk-vc --test go_vir_corpus
 ```
 
-For the ProofOps product-facing path, run the current policy engine commands
-against the pure package:
+Use `./scripts/regenerate-go-vir-corpus.sh --update` only for intentional
+changes and review the resulting VIR, source map, manifest, VC, skeleton, and
+hash differences together.
 
-```sh
-mkdir -p target/proof-ops
+## Policy and CI integration
 
-cargo run --quiet -p mpk-cli -- policy scan examples/order_policy \
-  --function example.com/orderpolicy.ApprovedReserveCents \
-  --contract examples/order_policy/policy_contract.json \
-  --json-out target/proof-ops/order-policy.scan.json \
-  --go2gir target/debug/go2gir
+Run `mpk policy scan` and `mpk policy verify` from an installed Linux release.
+Both commands select the registered Go frontend/toolchain tuple; no raw binary
+or registry path is accepted. The complete argument contract and reusable CI
+block are in [`proof-ops-policy-ci.md`](proof-ops-policy-ci.md).
 
-cargo run --quiet -p mpk-cli -- policy verify examples/order_policy \
-  --function example.com/orderpolicy.ApprovedReserveCents \
-  --contract examples/order_policy/policy_contract.json \
-  --strategy-profile payment-policy-alpha \
-  --checker-profile mvp-strict \
-  --evidence-json target/proof-ops/order-policy.evidence.json \
-  --evidence-md target/proof-ops/order-policy.evidence.md \
-  --go2gir target/debug/go2gir
-```
+Store scan/evidence/Markdown outputs as review artifacts. Only
+`trusted_evidence` entries backed by accepted declarations or theory
+certificates can support an `mpk_verified` property. VIR, VC JSON, skeletons,
+source locations, diagnostics, AI prose, and HTTP logs remain helper data.
 
-Treat `mpk.policy.scan.v0` as helper analysis. In
-`mpk.policy.evidence.v0`, only `trusted_evidence` can support an
-`mpk_verified` claim. `helper_artifacts`, call-site precondition output, and
-Markdown text can explain the integration but do not prove a property.
+## Review checklist
 
-## CI Checklist
-
-- Run normal Go tests for the web package.
-- Run normal Go tests for the pure policy package.
-- Run `mpk policy scan` and keep the scan JSON as helper-analysis review
-  evidence.
-- Run `mpk policy verify` and keep the evidence JSON as the product source of
-  truth.
-- Re-run `go2gir` and fail if `gir.json` changes unexpectedly.
-- Run the VC fixture test and fail if `vc.json` or `vc_skeleton.json` changes
-  unexpectedly.
-- Keep generated GIR, VC, and skeleton files in review so contract drift is
-  visible.
-- Do not treat GIR, VC JSON, skeleton JSON, HTTP logs, or frontend traces as
-  proof evidence.
-
-## Review Checklist
-
-For every web integration PR:
-
-- The verified function has no side effects and stays inside the Go subset.
-- Every handler call site checks the policy preconditions before calling the
-  verified function.
-- Money, counts, and IDs use explicit fixed-width types at the boundary.
-- Handler tests cover success, rejection, malformed input, and upstream failure.
-- The contract sidecar changed when the business rule changed.
-- Regenerated artifacts are either intentionally committed or the PR explains
-  why they did not change.
-
-## Current Alpha Limit
-
-The current alpha pipeline generates candidate theorem obligations for the pure
-Go policy. Those artifacts are useful for development review and regression
-testing, but they are not proof evidence by themselves. Acceptance still comes
-from canonical `.mpcert` artifacts checked source-free by the Rust kernel and,
-when configured, the Go reference checker.
+- Run pure-package and web-handler Go tests.
+- Run the Go/VIR corpus and release-bundle drift gates.
+- Review source, contract, VIR, source-map, manifest, VC, and skeleton changes.
+- Keep policy v1 property statuses separate from helper-artifact readiness.
+- Run source-free certificate checkers for every proof claim.

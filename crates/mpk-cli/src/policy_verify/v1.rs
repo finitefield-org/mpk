@@ -1,16 +1,14 @@
-//! Test-gated policy verification orchestration over the VIR/VC/evidence v1
-//! boundary. Public command dispatch deliberately remains on v0.
-
-#![allow(dead_code)]
+//! Policy verification orchestration over the VIR/VC/evidence v1 boundary.
 
 use crate::frontend_runner::{
     prepare_installed_frontend, run_prepared_frontend, AcceptedFrontendRun, FrontendRunRequest,
 };
 use crate::policy_report::render_policy_evidence_v1_markdown;
 use crate::policy_scan::v1::{
-    build_policy_scan_v1_output, parse_policy_scan_v1_argv_through_scalars,
-    validate_owned_captured_inputs, validate_policy_scan_v1_profile, OwnedCapturedInput,
-    PolicyScanV1Error, PolicyScanV1Invocation, PolicyScanV1RunOutput,
+    build_policy_scan_v1_output, capture_invocation_inputs,
+    parse_policy_scan_v1_argv_through_scalars, validate_owned_captured_inputs,
+    validate_policy_scan_v1_profile, OwnedCapturedInput, PolicyScanV1Error, PolicyScanV1Invocation,
+    PolicyScanV1RunOutput,
 };
 use crate::policy_schema::{
     canonical_policy_evidence_v1_json, expected_reproduction_recipes,
@@ -39,6 +37,8 @@ use std::os::unix::fs::MetadataExt;
 use std::path::{Component, Path, PathBuf};
 use std::process::Command;
 
+pub const USAGE: &str = "mpk policy verify <source-root> --language <go|rust> --semantic-profile <profile> --require-release-registry-id <id> --require-release-registry-sha256 <sha256> --frontend-bundle <id> --toolchain-bundle <id> --target <target> --package <package> --function <function-id> --contract <contract.json> [--contract <contract.json> ...] --strategy-profile <profile> --checker-profile <profile> --axiom-profile <profile> --evidence-json <evidence.json> --evidence-md <evidence.md> [--strict] [--update-fixtures]";
+
 const INTERNAL_SCAN_OUTPUT: &str = "mpk-internal-policy-scan.json";
 const VALUE_OPTIONS: [&str; 15] = [
     "--language",
@@ -65,11 +65,10 @@ const VERIFY_ONLY_OPTIONS: [&str; 5] = [
     "--evidence-md",
 ];
 const FLAGS: [&str; 2] = ["--strict", "--update-fixtures"];
-const FORBIDDEN_LOCATORS: [&str; 9] = [
+const FORBIDDEN_LOCATORS: [&str; 8] = [
     "--frontend",
     "--frontend-helper",
     "--driver",
-    "--go2gir",
     "--toolchain-root",
     "--toolchain-path",
     "--registry",
@@ -90,6 +89,7 @@ pub(crate) struct PolicyVerifyV1Invocation {
 }
 
 #[derive(Debug)]
+#[allow(dead_code)]
 pub(crate) struct PolicyVerifyV1RunOutput {
     pub(crate) invocation: PolicyVerifyV1Invocation,
     pub(crate) scan: PolicyScanV1RunOutput,
@@ -101,7 +101,7 @@ pub(crate) struct PolicyVerifyV1RunOutput {
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
-pub(crate) struct PolicyVerifyV1Error {
+pub struct PolicyVerifyV1Error {
     code: &'static str,
     detail: String,
 }
@@ -114,7 +114,7 @@ impl PolicyVerifyV1Error {
         }
     }
 
-    pub(crate) const fn code(&self) -> &'static str {
+    pub const fn code(&self) -> &'static str {
         self.code
     }
 }
@@ -323,6 +323,25 @@ pub(crate) fn run_policy_verify_v1(
         },
         |relative| git_tracked(working_directory, relative),
     )
+}
+
+/// Runs the released policy-verification command over one immutable source
+/// snapshot and the registry-selected frontend/toolchain pair.
+pub fn run_cli(
+    argv: &[String],
+    working_directory: &Path,
+) -> Result<Option<String>, PolicyVerifyV1Error> {
+    let Some(invocation) = parse_policy_verify_v1_argv(argv)? else {
+        return Ok(None);
+    };
+    let captured_inputs =
+        capture_invocation_inputs(&invocation.scan, working_directory).map_err(scan_error)?;
+    let output = run_policy_verify_v1(argv, working_directory, captured_inputs)?
+        .ok_or_else(|| cli_error("verify invocation unexpectedly selected help"))?;
+    Ok(Some(format!(
+        "ok policy verify status=complete evidence_json={} evidence_md={}",
+        output.invocation.evidence_json, output.invocation.evidence_md
+    )))
 }
 
 pub(crate) fn run_policy_verify_v1_with<P, F, R, T>(
@@ -791,12 +810,14 @@ fn linkage_error(detail: impl Into<String>) -> PolicyVerifyV1Error {
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
+#[allow(dead_code)]
 pub(crate) struct PackagePolicyV1 {
     pub(crate) checker_profile: String,
     pub(crate) allowed_axiom_profiles: Vec<String>,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
+#[allow(dead_code)]
 pub(crate) struct ActiveReleasePolicyV1 {
     pub(crate) source_language: String,
     pub(crate) semantic_profile: String,
@@ -805,6 +826,7 @@ pub(crate) struct ActiveReleasePolicyV1 {
     pub(crate) axiom_profile: String,
 }
 
+#[allow(dead_code)]
 pub(crate) fn validate_package_release_policy_v1(
     evidence: &ValidatedPolicyEvidenceV1,
     package: &PackagePolicyV1,
@@ -1442,7 +1464,10 @@ mod tests {
         );
 
         let mut forbidden = argv.clone();
-        forbidden.extend(["--go2gir".to_owned(), "/tmp/go2gir".to_owned()]);
+        forbidden.extend([
+            "--frontend".to_owned(),
+            "/tmp/unregistered-frontend".to_owned(),
+        ]);
         assert_eq!(
             parse_policy_verify_v1_argv(&forbidden).unwrap_err().code(),
             "POLICY_CLI_FORBIDDEN_LOCATOR"

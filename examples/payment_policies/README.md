@@ -6,7 +6,7 @@ current Go subset v0 and has:
 
 - `policy.go`: the pure function;
 - `policy_contract.json`: helper contract input;
-- `gir.json`: generated helper GIR;
+- `vir.json`: generated helper VIR;
 - `vc.json`: generated helper verification conditions;
 - `vc_skeleton.json`: generated helper theorem-obligation skeletons.
 
@@ -25,43 +25,58 @@ root as the current strict end-to-end path for checked theory evidence:
 
 ```sh
 mkdir -p target/proof-ops
+registry_id=mpk.release.registry.v0
+registry_sha256=29e4d26c223b90a94684c02246779ab03da6807a78608ef34be628b7c989cf20
+frontend_bundle=frontend.go.go2vir.v0
+toolchain_bundle=toolchain.go.go1.25.0.linux-amd64.v0
 
-(cd go-tools/go2gir && go build -o ../../target/debug/go2gir .)
-
-cargo run --quiet -p mpk-cli -- policy scan examples/payment_policies/reserve \
+mpk policy scan examples/payment_policies/reserve \
+  --language go \
+  --semantic-profile mpk.go.fixed.v0 \
+  --require-release-registry-id "$registry_id" \
+  --require-release-registry-sha256 "$registry_sha256" \
+  --frontend-bundle "$frontend_bundle" \
+  --toolchain-bundle "$toolchain_bundle" \
+  --target linux/amd64 \
+  --package example.com/payment/reserve \
   --function example.com/payment/reserve.ApprovedReserveCents \
-  --contract examples/payment_policies/reserve/policy_contract.json \
-  --json-out target/proof-ops/reserve.scan.json \
-  --go2gir target/debug/go2gir
+  --contract policy_contract.json \
+  --json-out target/proof-ops/reserve.scan.json
 
-cargo run --quiet -p mpk-cli -- policy verify examples/payment_policies/reserve \
+mpk policy verify examples/payment_policies/reserve \
+  --language go \
+  --semantic-profile mpk.go.fixed.v0 \
+  --require-release-registry-id "$registry_id" \
+  --require-release-registry-sha256 "$registry_sha256" \
+  --frontend-bundle "$frontend_bundle" \
+  --toolchain-bundle "$toolchain_bundle" \
+  --target linux/amd64 \
+  --package example.com/payment/reserve \
   --function example.com/payment/reserve.ApprovedReserveCents \
-  --contract examples/payment_policies/reserve/policy_contract.json \
+  --contract policy_contract.json \
   --strategy-profile payment-policy-alpha \
   --checker-profile mvp-strict \
+  --axiom-profile zero-axiom \
   --evidence-json target/proof-ops/reserve.evidence.json \
   --evidence-md target/proof-ops/reserve.evidence.md \
-  --go2gir target/debug/go2gir \
   --strict
 ```
 
-Expected `policy verify` result for the supported positive corpus is
-`status=verified verified=8 proof_pending=0 unsupported=0`. The repository test
-`policy_verify_positive_payment_corpus_has_expected_counts` checks the same
-strict result for `reserve`, `refund`, `discount`, `fee`, and `points`.
+Expected CLI output is `ok policy verify status=complete`; the generated v1
+evidence contains the reviewed property counts and statuses.
 
 Review these helper artifacts in PRs when a policy changes:
 
 - `policy.go`;
 - `policy_contract.json`;
-- generated `gir.json`;
+- generated `vir.json`;
 - generated `vc.json`;
 - generated `vc_skeleton.json`;
 - generated scan JSON from `mpk policy scan`;
 - generated evidence JSON and Markdown from `mpk policy verify`.
 
-Treat GIR, VC JSON, scan JSON, Markdown reports, and CI status as helper
+Treat VIR, VC JSON, scan JSON, Markdown reports, and CI status as helper
 artifacts only. They are useful drift signals, but they are not proof evidence.
 Trusted proof evidence is limited to checked certificates, checked theory
 certificates, checker verdicts, and the corresponding axiom reports recorded in
-`mpk.policy.evidence.v0`.
+`mpk.policy.evidence.v1`.

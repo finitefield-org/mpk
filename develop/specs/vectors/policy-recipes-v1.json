@@ -415,8 +415,8 @@
       "expect": {"outcome": "reject", "code": "POLICY_CLI_FORBIDDEN_LOCATOR", "launch_count": 0}
     },
     {
-      "id": "cli.reject_go2gir",
-      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_option", "name": "--go2gir", "value": "/tmp/go2gir"}]},
+      "id": "cli.reject_raw_go_frontend_helper",
+      "construction": {"base": "invocation.go_scan", "operations": [{"op": "append_option", "name": "--frontend-helper", "value": "/tmp/go2vir-helper"}]},
       "expect": {"outcome": "reject", "code": "POLICY_CLI_FORBIDDEN_LOCATOR", "launch_count": 0}
     },
     {

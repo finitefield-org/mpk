@@ -1,6 +1,6 @@
 # Go Subset v0 Specification
 
-Status: frozen for implementation. This is the stable Go subset v0 source-language profile for SPEC-004. Changes require a new Go subset profile revision or a governance-approved amendment.
+Status: historical; replaced by `GO_VIR_PROFILE_V0.md`.
 
 ## Rationale
 

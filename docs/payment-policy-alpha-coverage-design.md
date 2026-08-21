@@ -1,6 +1,7 @@
 # Payment Policy Alpha Coverage Design
 
-Status: implemented through PAYALPHA-COV-T08
+Status: historical implementation record; active policy contracts are in
+`develop/specs/POLICY_V1.md`.
 
 This document defines the first practical coverage expansion for the
 `payment-policy-alpha` strategy profile. The goal is to make the MPK-side
@@ -22,7 +23,7 @@ implemented result is:
   under `trusted_evidence`.
 
 This work is MPK-side engine work. ProofOps can consume the resulting
-`mpk.policy.evidence.v0` output, but ProofOps product code is out of scope.
+`mpk.policy.evidence.v1` output, but ProofOps product code is out of scope.
 
 ## Implementation State
 
@@ -30,7 +31,7 @@ The current `mpk policy verify` path is implemented in
 `crates/mpk-cli/src/policy_verify.rs`:
 
 - runs `policy scan`;
-- imports GIR and generates VCs;
+- imports VIR and generates VCs;
 - classifies each obligation with
   `classify_payment_policy_obligations`;
 - extracts payload-bound policy theory goals from each supported obligation;
@@ -71,7 +72,7 @@ the closure as a cap-only rule.
 The expansion must preserve these invariants:
 
 - A classifier pattern is only a closure candidate, not proof evidence.
-- `helper_artifacts`, GIR JSON, VC JSON, Markdown, command success, and AI output
+- `helper_artifacts`, VIR JSON, VC JSON, Markdown, command success, and AI output
   never make a property verified.
 - `mpk_verified` may be emitted only by a closure result that was produced from
   the actual `VcObligation` and checked by MPK code.
@@ -436,7 +437,7 @@ obligation ids must still be distinct.
 
 ### 6. Evidence Handling
 
-No `mpk.policy.evidence.v0` shape change is required for this step.
+No `mpk.policy.evidence.v1` shape change is required for this step.
 
 For each closure:
 
@@ -695,7 +696,7 @@ and runtime-safety obligations remain pending until a dedicated bit-vector or
 range proof path is designed.
 
 The third risk is schema churn. This design intentionally keeps
-`mpk.policy.evidence.v0` unchanged and strengthens the producing code instead.
+`mpk.policy.evidence.v1` unchanged and strengthens the producing code instead.
 If external consumers later need independently auditable normalized-goal hashes,
 handle that as a separate evidence-schema versioning task.
 

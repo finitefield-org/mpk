@@ -22,21 +22,21 @@ release acceptance boundary.
 The following identifiers are retired together at the atomic cutover and have
 no alias or adapter:
 
-- `mpk.ai.explain.request.v0`;
-- `mpk.ai.explanation.v0`;
-- `mpk.evidence-explainer.v0`;
-- `minimal-v0`; and
-- `mpk.policy.evidence.v0` as explainer input.
+- `mpk.ai.explain.request.unknown`;
+- `mpk.ai.explanation.unknown`;
+- `mpk.evidence-explainer.unknown`;
+- `removed-profile`; and
+- `mpk.policy.evidence.unknown` as explainer input.
 
 A v1 evidence parser rejects evidence v0 by exact schema before projection. A
 v1 explanation parser rejects explanation v0. Rejection is not repaired by
 renaming a schema field, supplying both names, or translating
-`allowed_axiom_profiles` to `axiom_profile`. No production converter is part
+`retired_axiom_list` to `axiom_profile`. No production converter is part
 of `mpk explain`.
 
 Only `mpk.ai.explanation.response.v0` remains active because its exact
 provider-controlled JSON shape—property alias plus explanation text—does not
-contain evidence, profile, helper-kind, or GIR/VIR fields and therefore does
+contain evidence, profile, helper-kind, or VIR/VIR fields and therefore does
 not change in v1. It is an input parser contract, not a trusted MPK artifact.
 
 The final explanation root always contains:
@@ -129,7 +129,7 @@ reject upstream and in this phase.
 
 `checker_profile` is independently one of `core-bootstrap`,
 `mvp-structural`, or `mvp-strict`. `axiom_profile` is one scalar, never
-`allowed_axiom_profiles`, and must equal the selected strategy row. The
+`retired_axiom_list`, and must equal the selected strategy row. The
 explainer neither chooses defaults nor widens a package allowlist.
 
 If governance later registers another strategy while retaining the exact
@@ -191,7 +191,7 @@ source, contract, verification_ir, vc, ai_analysis, ci_status
 ```
 
 `source` and `verification_ir` are the only replacements for the retired
-`go_source` and `gir` concepts. Those retired strings must not occur anywhere
+`language_specific_source` and `vir` concepts. Those retired strings must not occur anywhere
 in a v1 sanitized payload or dry-run request. Counts are over complete
 validated `helper_artifacts` rows grouped by kind. A count is omitted when
 zero. IDs, paths, schemas, systems, checks, statuses, and hashes from those rows
@@ -755,8 +755,7 @@ The owner feeds checked counters before allocation and must cover every section
 All vector objects are closed; IDs are unique; all cases execute exactly once;
 unknown fields, skipped cases, fixture/reference mismatch, hash mismatch, or a
 forbidden substring in either compact payload or exact request body fails the
-owner. The staged owner is `crates/mpk-cli/tests/ai_explain_v1.rs` under the
-pre-cutover test gate.
+owner. The active owner is `crates/mpk-cli/tests/ai_explain_v1.rs`.
 
 ## 13. References
 

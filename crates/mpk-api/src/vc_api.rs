@@ -1,4 +1,4 @@
-//! Staged VIR-bound VC workflow for AI API v1.
+//! Active VIR-bound VC workflow for AI API v1.
 
 use std::collections::{BTreeMap, BTreeSet};
 
@@ -26,25 +26,25 @@ const SOURCE_MANIFEST_SCHEMA: &str = "mpk.source_manifest.v0";
 const CHECK_MODE: &str = "fail_fast_per_candidate";
 
 #[derive(Clone, Debug)]
-pub(crate) struct VcSessionState {
-    pub(crate) imported: ImportedVir,
-    pub(crate) source_manifest_schema: String,
-    pub(crate) frontend_source_manifest_hash: String,
-    pub(crate) input_set_hash: String,
-    pub(crate) vc: ValidatedVcDocument,
-    pub(crate) targets: BTreeMap<String, ProofTargetRecord>,
-    pub(crate) next_target_index: u64,
+pub struct VcSessionState {
+    pub imported: ImportedVir,
+    pub source_manifest_schema: String,
+    pub frontend_source_manifest_hash: String,
+    pub input_set_hash: String,
+    pub vc: ValidatedVcDocument,
+    pub targets: BTreeMap<String, ProofTargetRecord>,
+    pub next_target_index: u64,
 }
 
 #[derive(Clone, Debug)]
-pub(crate) struct ProofTargetRecord {
-    pub(crate) target: VcProofTarget,
-    pub(crate) target_term: ApiTermId,
-    pub(crate) candidates: BTreeMap<String, ApiProofId>,
+pub struct ProofTargetRecord {
+    pub target: VcProofTarget,
+    pub target_term: ApiTermId,
+    pub candidates: BTreeMap<String, ApiProofId>,
 }
 
 impl V1ApiService {
-    pub(crate) fn handle_vc_generate(&mut self, input: &[u8]) -> Result<Vec<u8>, V1ApiError> {
+    pub fn handle_vc_generate(&mut self, input: &[u8]) -> Result<Vec<u8>, V1ApiError> {
         let parsed = parse_request::<VcGenerateRequest>(input, VC_CANONICAL_JSON_BYTES_MAX)?;
         let prepared = self.validate_vc_generate(&parsed)?;
         parsed.require_canonical()?;
@@ -147,7 +147,7 @@ impl V1ApiService {
         Ok(PreparedVcGeneration { state, response })
     }
 
-    pub(crate) fn handle_vc_list(&self, input: &[u8]) -> Result<Vec<u8>, V1ApiError> {
+    pub fn handle_vc_list(&self, input: &[u8]) -> Result<Vec<u8>, V1ApiError> {
         let parsed = parse_request::<VcListRequest>(input, 1_048_576)?;
         let state = self.validate_vc_context(&parsed.value)?;
         parsed.require_canonical()?;
@@ -177,7 +177,7 @@ impl V1ApiService {
         })
     }
 
-    pub(crate) fn handle_vc_start_proof(&mut self, input: &[u8]) -> Result<Vec<u8>, V1ApiError> {
+    pub fn handle_vc_start_proof(&mut self, input: &[u8]) -> Result<Vec<u8>, V1ApiError> {
         let parsed = parse_request::<VcStartProofRequest>(input, 1_048_576)?;
         let (target_term, next_index) = {
             let state = self.validate_vc_context(&parsed.value.context)?;
@@ -215,10 +215,7 @@ impl V1ApiService {
         Ok(response)
     }
 
-    pub(crate) fn handle_vc_attach_candidate(
-        &mut self,
-        input: &[u8],
-    ) -> Result<Vec<u8>, V1ApiError> {
+    pub fn handle_vc_attach_candidate(&mut self, input: &[u8]) -> Result<Vec<u8>, V1ApiError> {
         let parsed = parse_request::<VcAttachCandidateRequest>(input, 1_048_576)?;
         validate_target_id(&parsed.value.target_id)?;
         validate_candidate_id(&parsed.value.candidate_id)?;
@@ -269,7 +266,7 @@ impl V1ApiService {
         Ok(response)
     }
 
-    pub(crate) fn handle_vc_check_candidate(&self, input: &[u8]) -> Result<Vec<u8>, V1ApiError> {
+    pub fn handle_vc_check_candidate(&self, input: &[u8]) -> Result<Vec<u8>, V1ApiError> {
         let parsed = parse_request::<VcCheckCandidateRequest>(input, 1_048_576)?;
         validate_target_id(&parsed.value.target_id)?;
         if parsed.value.mode != CHECK_MODE || parsed.value.candidates.is_empty() {
@@ -337,11 +334,7 @@ impl V1ApiService {
         })
     }
 
-    pub(crate) fn target_term_id(
-        &self,
-        session_id: &SessionId,
-        target_id: &str,
-    ) -> Option<ApiTermId> {
+    pub fn target_term_id(&self, session_id: &SessionId, target_id: &str) -> Option<ApiTermId> {
         match self.sources.get(session_id)? {
             SessionSourceState::VcGenerated(state) => state
                 .targets
@@ -351,7 +344,7 @@ impl V1ApiService {
         }
     }
 
-    pub(crate) fn retained_context(&self, session_id: &SessionId) -> Option<(&str, &str)> {
+    pub fn retained_context(&self, session_id: &SessionId) -> Option<(&str, &str)> {
         match self.sources.get(session_id)? {
             SessionSourceState::VcGenerated(state) => Some((
                 state.source_manifest_schema.as_str(),
@@ -361,7 +354,7 @@ impl V1ApiService {
         }
     }
 
-    pub(crate) fn target_binding(
+    pub fn target_binding(
         &self,
         session_id: &SessionId,
         target_id: &str,
@@ -429,31 +422,31 @@ impl V1ApiService {
 
 #[derive(Clone, Debug, Deserialize)]
 #[serde(deny_unknown_fields)]
-pub(crate) struct VcGenerateRequest {
-    pub(crate) session_id: SessionId,
-    pub(crate) source_ir_schema: String,
-    pub(crate) source_ir_hash: String,
-    pub(crate) source_manifest_schema: String,
-    pub(crate) frontend_source_manifest_hash: String,
-    pub(crate) input_set_hash: String,
+pub struct VcGenerateRequest {
+    pub session_id: SessionId,
+    pub source_ir_schema: String,
+    pub source_ir_hash: String,
+    pub source_manifest_schema: String,
+    pub frontend_source_manifest_hash: String,
+    pub input_set_hash: String,
 }
 
 #[derive(Clone, Debug, Serialize)]
 #[serde(deny_unknown_fields)]
-pub(crate) struct VcGenerateResponse {
-    pub(crate) session_id: SessionId,
-    pub(crate) source_ir_schema: String,
-    pub(crate) source_ir_hash: String,
-    pub(crate) source_manifest_schema: String,
-    pub(crate) frontend_source_manifest_hash: String,
-    pub(crate) input_set_hash: String,
-    pub(crate) source_vc_schema: String,
-    pub(crate) vc_hash: String,
-    pub(crate) function_count: u64,
-    pub(crate) member_count: u64,
-    pub(crate) group_count: u64,
-    pub(crate) helper_only: bool,
-    pub(crate) vc: Value,
+pub struct VcGenerateResponse {
+    pub session_id: SessionId,
+    pub source_ir_schema: String,
+    pub source_ir_hash: String,
+    pub source_manifest_schema: String,
+    pub frontend_source_manifest_hash: String,
+    pub input_set_hash: String,
+    pub source_vc_schema: String,
+    pub vc_hash: String,
+    pub function_count: u64,
+    pub member_count: u64,
+    pub group_count: u64,
+    pub helper_only: bool,
+    pub vc: Value,
 }
 
 struct PreparedVcGeneration {
@@ -463,126 +456,126 @@ struct PreparedVcGeneration {
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
-pub(crate) struct VcListRequest {
-    pub(crate) session_id: SessionId,
-    pub(crate) source_ir_schema: String,
-    pub(crate) source_ir_hash: String,
-    pub(crate) input_set_hash: String,
-    pub(crate) source_vc_schema: String,
-    pub(crate) vc_hash: String,
+pub struct VcListRequest {
+    pub session_id: SessionId,
+    pub source_ir_schema: String,
+    pub source_ir_hash: String,
+    pub input_set_hash: String,
+    pub source_vc_schema: String,
+    pub vc_hash: String,
 }
 
 #[derive(Clone, Debug, Serialize)]
 #[serde(deny_unknown_fields)]
-pub(crate) struct VcListResponse {
-    pub(crate) session_id: SessionId,
-    pub(crate) source_ir_schema: String,
-    pub(crate) source_ir_hash: String,
-    pub(crate) input_set_hash: String,
-    pub(crate) source_vc_schema: String,
-    pub(crate) vc_hash: String,
-    pub(crate) members: Vec<VcMemberSummary>,
-    pub(crate) helper_only: bool,
+pub struct VcListResponse {
+    pub session_id: SessionId,
+    pub source_ir_schema: String,
+    pub source_ir_hash: String,
+    pub input_set_hash: String,
+    pub source_vc_schema: String,
+    pub vc_hash: String,
+    pub members: Vec<VcMemberSummary>,
+    pub helper_only: bool,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 #[serde(deny_unknown_fields)]
-pub(crate) struct VcMemberSummary {
-    pub(crate) member_id: String,
-    pub(crate) function_id: String,
-    pub(crate) kind: mpk_vc::VcMemberKind,
-    pub(crate) group_id: String,
+pub struct VcMemberSummary {
+    pub member_id: String,
+    pub function_id: String,
+    pub kind: mpk_vc::VcMemberKind,
+    pub group_id: String,
 }
 
 #[derive(Clone, Debug, Deserialize)]
 #[serde(deny_unknown_fields)]
-pub(crate) struct VcStartProofRequest {
+pub struct VcStartProofRequest {
     #[serde(flatten)]
-    pub(crate) context: VcListRequest,
-    pub(crate) target: VcProofTarget,
+    pub context: VcListRequest,
+    pub target: VcProofTarget,
 }
 
 #[derive(Clone, Debug, Serialize)]
 #[serde(deny_unknown_fields)]
-pub(crate) struct VcStartProofResponse {
+pub struct VcStartProofResponse {
     #[serde(flatten)]
-    pub(crate) context: VcListRequest,
-    pub(crate) target: VcProofTarget,
-    pub(crate) target_id: String,
-    pub(crate) helper_only: bool,
+    pub context: VcListRequest,
+    pub target: VcProofTarget,
+    pub target_id: String,
+    pub helper_only: bool,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq, Deserialize, Serialize)]
 #[serde(tag = "kind", rename_all = "snake_case", deny_unknown_fields)]
-pub(crate) enum VcProofTarget {
+pub enum VcProofTarget {
     Member { id: String },
     Group { id: String },
 }
 
 #[derive(Clone, Debug, Deserialize)]
 #[serde(deny_unknown_fields)]
-pub(crate) struct VcAttachCandidateRequest {
+pub struct VcAttachCandidateRequest {
     #[serde(flatten)]
-    pub(crate) context: VcListRequest,
-    pub(crate) target_id: String,
-    pub(crate) candidate_id: String,
-    pub(crate) proof_root: ApiProofId,
+    pub context: VcListRequest,
+    pub target_id: String,
+    pub candidate_id: String,
+    pub proof_root: ApiProofId,
 }
 
 #[derive(Clone, Debug, Serialize)]
 #[serde(deny_unknown_fields)]
-pub(crate) struct VcAttachCandidateResponse {
+pub struct VcAttachCandidateResponse {
     #[serde(flatten)]
-    pub(crate) context: VcListRequest,
-    pub(crate) target_id: String,
-    pub(crate) candidate_id: String,
-    pub(crate) proof_root: ApiProofId,
-    pub(crate) helper_only: bool,
+    pub context: VcListRequest,
+    pub target_id: String,
+    pub candidate_id: String,
+    pub proof_root: ApiProofId,
+    pub helper_only: bool,
 }
 
 #[derive(Clone, Debug, Deserialize)]
 #[serde(deny_unknown_fields)]
-pub(crate) struct VcCheckCandidateRequest {
+pub struct VcCheckCandidateRequest {
     #[serde(flatten)]
-    pub(crate) context: VcListRequest,
-    pub(crate) target_id: String,
-    pub(crate) mode: String,
-    pub(crate) candidates: Vec<VcCandidateBinding>,
+    pub context: VcListRequest,
+    pub target_id: String,
+    pub mode: String,
+    pub candidates: Vec<VcCandidateBinding>,
 }
 
 #[derive(Clone, Debug, Deserialize)]
 #[serde(deny_unknown_fields)]
-pub(crate) struct VcCandidateBinding {
-    pub(crate) candidate_id: String,
-    pub(crate) proof_root: ApiProofId,
+pub struct VcCandidateBinding {
+    pub candidate_id: String,
+    pub proof_root: ApiProofId,
 }
 
 #[derive(Clone, Debug, Serialize)]
 #[serde(deny_unknown_fields)]
-pub(crate) struct VcCheckCandidateResponse {
+pub struct VcCheckCandidateResponse {
     #[serde(flatten)]
-    pub(crate) context: VcListRequest,
-    pub(crate) target_id: String,
-    pub(crate) mode: String,
-    pub(crate) results: Vec<VcCandidateResult>,
-    pub(crate) helper_only: bool,
+    pub context: VcListRequest,
+    pub target_id: String,
+    pub mode: String,
+    pub results: Vec<VcCandidateResult>,
+    pub helper_only: bool,
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize)]
 #[serde(rename_all = "snake_case")]
-pub(crate) enum HelperStatus {
+pub enum HelperStatus {
     Valid,
     Invalid,
 }
 
 #[derive(Clone, Debug, Serialize)]
 #[serde(deny_unknown_fields)]
-pub(crate) struct VcCandidateResult {
-    pub(crate) candidate_id: String,
-    pub(crate) proof_root: ApiProofId,
-    pub(crate) helper_status: HelperStatus,
+pub struct VcCandidateResult {
+    pub candidate_id: String,
+    pub proof_root: ApiProofId,
+    pub helper_status: HelperStatus,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub(crate) diagnostic: Option<RepairDiagnostic>,
+    pub diagnostic: Option<RepairDiagnostic>,
 }
 
 trait VcContext {
@@ -995,7 +988,7 @@ fn check_proof_against(
             }
             check_proof_against(session, ApiProofId(*body_proof), *body)
         }
-        // The staged owner currently has complete, read-only target checking
+        // The v1 owner has complete, read-only target checking
         // for the frozen v1 recipes. Other node kinds must go through their
         // unchanged declaration/check workflow and cannot be upgraded to a
         // helper-valid VC candidate merely by repeating the target ID.

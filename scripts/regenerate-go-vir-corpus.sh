@@ -13,7 +13,7 @@ case "$mode" in
       MPK_UPDATE_GO_VIR_CORPUS=1 go test -count=1 -run TestRegenerateGoVIRFrontendCorpus
     )
     MPK_UPDATE_GO_VIR_CORPUS=1 cargo test -p mpk-vc --test go_vir_corpus
-    python3 scripts/compare-go-gir-vir.py --write
+    python3 scripts/generate-release-report.py --check
     ;;
   --check)
     (
@@ -21,7 +21,7 @@ case "$mode" in
       go test -count=1 -run TestRegenerateGoVIRFrontendCorpus
     )
     cargo test -p mpk-vc --test go_vir_corpus
-    python3 scripts/compare-go-gir-vir.py --check
+    python3 scripts/generate-release-report.py --check
     ;;
   *)
     echo "usage: $0 [--check|--update]" >&2

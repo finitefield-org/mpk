@@ -5,7 +5,7 @@ GOV-003,P0,Governance and Spec Freeze,Governance,Define axiom policy,"Classify c
 GOV-004,P0,Governance and Spec Freeze,Governance,Define unsafe-code policy,Set no-unsafe policy for MVP kernel and checker crates.,GOV-002,P0,specs/UNSAFE_POLICY_V0.md,CI can enforce unsafe bans.,todo
 SPEC-001,P0,Governance and Spec Freeze,Spec,Freeze core grammar draft,"Finalize levels, terms, declarations, and defeq.",GOV-002,P0,specs/CORE_V0.md,Core grammar is stable for implementation.,todo
 SPEC-002,P0,Governance and Spec Freeze,Spec,Freeze certificate schema draft,"Finalize binary layout, canonical rules, and hash domains.",SPEC-001,P0,specs/CERT_V0.md,Schema has rejection conditions.,todo
-SPEC-003,P0,Governance and Spec Freeze,Spec,Freeze GIR draft,Finalize GIR module/function/block/instruction schema.,GOV-002,P0,specs/GIR_V0.md,GIR has supported and rejected features.,todo
+SPEC-003,P0,Governance and Spec Freeze,Spec,Freeze VIR draft,Finalize VIR module/function/block/instruction schema.,GOV-002,P0,specs/GIR_V0.md,VIR has supported and rejected features.,todo
 SPEC-004,P0,Governance and Spec Freeze,Spec,Freeze Go subset draft,Define accepted and rejected Go features.,SPEC-003,P0,specs/GO_SUBSET_V0.md,Unsupported behavior fails closed.,todo
 SPEC-005,P0,Governance and Spec Freeze,Spec,Freeze AI API draft,Define ID-based proof API and diagnostics.,SPEC-001,P0,specs/AI_API_V0.md,API cannot bypass certificate checking.,todo
 CORE-001,P1,Core Data Model,mpk-core,Create Rust workspace and crates,"Initialize mpk-core, mpk-cert, mpk-kernel, mpk-cli crates.",SPEC-001,P0,Cargo workspace,Workspace builds with empty crates.,todo
@@ -64,26 +64,26 @@ STD-004,P6,Standard Library Foundation,Std.Nat,Define minimal Nat,"Add zero, suc
 STD-005,P6,Standard Library Foundation,Std.Int,Define Int interface,Add integer order and linear arithmetic hooks.,STD-002,P1,proofs/std/int,Axiom use reviewed.,todo
 STD-006,P6,Standard Library Foundation,Std.BitVec,Define BitVec interfaces,Add BV8/BV16/BV32/BV64 operations and signed views.,STD-003,P1,proofs/std/bitvec,Ground eval fixtures verify.,todo
 STD-007,P6,Standard Library Foundation,Std.Array.Fixed,Define fixed-array interface,"Add read, write, length, index safety predicates.",STD-006,P1,proofs/std/array,Read/write fixtures verify.,todo
-STD-008,P6,Standard Library Foundation,Std.Go.Base,Define Go semantic base types,Map Go bool/int/uint/array/struct to core types.,"STD-006,STD-007",P1,proofs/go/base,Go base certs verify.,todo
-GO-001,P7,Go Frontend and GIR,go2gir,Create Go frontend CLI,Initialize go2gir command.,"SPEC-003,SPEC-004",P1,go2gir,CLI accepts package path.,todo
-GO-002,P7,Go Frontend and GIR,go2gir,Load Go packages,Use Go package loading with pinned settings.,GO-001,P1,loader.go,Can load sample package.,todo
-GO-003,P7,Go Frontend and GIR,go2gir,Build SSA,Build SSA for target package.,GO-002,P1,ssa.go,SSA dump available for sample.,todo
-GO-004,P7,Go Frontend and GIR,go2gir,Implement feature detector,Reject unsupported Go features with exact reason.,"GO-003,SPEC-004",P1,features.go,Unsupported fixtures reject.,todo
-GO-005,P7,Go Frontend and GIR,go2gir,Lower pure functions to GIR,"Convert params, locals, blocks, binops, if, return.",GO-004,P1,lower.go,Max64 lowers to GIR.,todo
-GO-006,P7,Go Frontend and GIR,go2gir,Lower structs and fixed arrays,Support field and fixed-array indexing.,GO-005,P1,lower_types.go,Struct/array fixtures lower.,todo
-GO-007,P7,Go Frontend and GIR,go2gir,Emit canonical GIR JSON/binary,Stable field order and hashes.,GO-005,P1,emit.go,GIR hash deterministic.,todo
-GO-008,P7,Go Frontend and GIR,go2gir,Emit source manifest,"Record source hashes, Go version, frontend hash.",GO-007,P1,manifest.go,Manifest stable and complete.,todo
-GO-009,P7,Go Frontend and GIR,fixtures,Create Go frontend corpus,Add positive and negative subset examples.,GO-008,P1,fixtures/go-basic,CI covers Go subset.,todo
-GO-010,P7,Go Frontend and GIR,go2gir,Validate contract sidecars,"Parse mpk.go.contract.v0 JSON, resolve function identities, attach requires/ensures/modifies/loop metadata to GIR, and reject unsupported expression operators.","GO-007,SPEC-004",P1,contract_sidecar.go,Sample contract validates and malformed or unsupported contracts reject.,todo
-VC-001,P8,VC Generator,mpk-vc,Create VC generator crate,Initialize GIR importer and VC data model.,"GO-010,STD-008",P1,mpk-vc,Crate builds.,todo
-VC-002,P8,VC Generator,mpk-vc,Encode GIR types into MPK terms,Map Go bool/int/uint/struct/array types.,VC-001,P1,type_encode.rs,Type encoding snapshots pass.,todo
+STD-008,P6,Standard Library Foundation,Std.Program.Base,Define Go semantic base types,Map Go bool/int/uint/array/struct to core types.,"STD-006,STD-007",P1,proofs/go/base,Go base certs verify.,todo
+GO-001,P7,Go Frontend and VIR,go2vir,Create Go frontend CLI,Initialize go2vir command.,"SPEC-003,SPEC-004",P1,go2vir,CLI accepts package path.,todo
+GO-002,P7,Go Frontend and VIR,go2vir,Load Go packages,Use Go package loading with pinned settings.,GO-001,P1,loader.go,Can load sample package.,todo
+GO-003,P7,Go Frontend and VIR,go2vir,Build SSA,Build SSA for target package.,GO-002,P1,ssa.go,SSA dump available for sample.,todo
+GO-004,P7,Go Frontend and VIR,go2vir,Implement feature detector,Reject unsupported Go features with exact reason.,"GO-003,SPEC-004",P1,features.go,Unsupported fixtures reject.,todo
+GO-005,P7,Go Frontend and VIR,go2vir,Lower pure functions to VIR,"Convert params, locals, blocks, binops, if, return.",GO-004,P1,lower.go,Max64 lowers to VIR.,todo
+GO-006,P7,Go Frontend and VIR,go2vir,Lower structs and fixed arrays,Support field and fixed-array indexing.,GO-005,P1,lower_types.go,Struct/array fixtures lower.,todo
+GO-007,P7,Go Frontend and VIR,go2vir,Emit canonical VIR JSON/binary,Stable field order and hashes.,GO-005,P1,emit.go,VIR hash deterministic.,todo
+GO-008,P7,Go Frontend and VIR,go2vir,Emit source manifest,"Record source hashes, Go version, frontend hash.",GO-007,P1,manifest.go,Manifest stable and complete.,todo
+GO-009,P7,Go Frontend and VIR,fixtures,Create Go frontend corpus,Add positive and negative subset examples.,GO-008,P1,fixtures/go-basic,CI covers Go subset.,todo
+GO-010,P7,Go Frontend and VIR,go2vir,Validate contract sidecars,"Parse mpk.go.contract.v0 JSON, resolve function identities, attach requires/ensures/modifies/loop metadata to VIR, and reject unsupported expression operators.","GO-007,SPEC-004",P1,contract_sidecar.go,Sample contract validates and malformed or unsupported contracts reject.,todo
+VC-001,P8,VC Generator,mpk-vc,Create VC generator crate,Initialize VIR importer and VC data model.,"GO-010,STD-008",P1,mpk-vc,Crate builds.,todo
+VC-002,P8,VC Generator,mpk-vc,Encode VIR types into MPK terms,Map Go bool/int/uint/struct/array types.,VC-001,P1,type_encode.rs,Type encoding snapshots pass.,todo
 VC-003,P8,VC Generator,mpk-vc,Encode expressions into MPK terms,"Map constants, variables, binops, comparisons.",VC-002,P1,expr_encode.rs,Expression fixtures pass.,todo
 VC-004,P8,VC Generator,mpk-vc,Generate straight-line VCs,Handle pure return functions.,VC-003,P1,wp.rs,Simple functions produce VCs.,todo
 VC-005,P8,VC Generator,mpk-vc,Generate branch VCs,Handle if/else path conditions.,VC-004,P1,wp_branch.rs,Max64 VCs produced.,todo
 VC-006,P8,VC Generator,mpk-vc,Generate runtime-safety VCs,"Division by zero, shift count, index bounds.",VC-005,P1,safety.rs,Unsafe operations produce obligations.,todo
 VC-007,P8,VC Generator,mpk-vc,Generate loop invariant VCs,"Initial, preservation, exit, and optional total-correctness variant obligations.",VC-006,P1,loops.rs,Annotated loop fixture produces expected partial-correctness VCs and total-correctness variants when requested.,todo
 VC-008,P8,VC Generator,mpk-vc,Emit theorem obligations,Create core declarations for VCs.,"VC-007,CERT-002",P1,obligation_emit.rs,VC cert skeletons created.,todo
-VC-009,P8,VC Generator,examples,Implement Max64 end-to-end example,Go source -> GIR -> VC theorem obligations.,VC-008,P1,examples/max64,Example documented.,todo
+VC-009,P8,VC Generator,examples,Implement Max64 end-to-end example,Go source -> VIR -> VC theorem obligations.,VC-008,P1,examples/max64,Example documented.,todo
 API-001,P9,AI Proof API,mpk-api,Create API crate/server,Provide local server or library API.,"SPEC-005,KERN-006",P1,mpk-api,Can start session.,todo
 API-002,P9,AI Proof API,mpk-api,Implement term construction endpoints,Sort/Var/Const/App/Lam/Pi/Let over interned IDs.,API-001,P1,term_api.rs,Term API integration tests pass.,todo
 API-003,P9,AI Proof API,mpk-api,Implement bootstrap proof construction endpoints,Exact/Apply/Intro/Refl/Conv core-bootstrap endpoints.,"API-002,KERN-003",P1,proof_api.rs,Proof API can build simple theorem.,todo

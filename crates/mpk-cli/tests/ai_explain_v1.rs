@@ -1,4 +1,6 @@
-#[path = "../src/ai_explain_v1.rs"]
+#[path = "../src/ai_explain.rs"]
+#[allow(dead_code)]
+// This conformance test intentionally exercises a subset of the included module.
 mod ai_explain_v1;
 
 use std::collections::BTreeMap;
@@ -203,7 +205,7 @@ fn ai_explain_v1_normative_payload_and_request_vectors_match_exact_bytes() {
         );
 
         let body = String::from_utf8(first.request_body).unwrap();
-        assert!(!body.contains("go_source"));
+        assert!(!body.contains("language_specific_source"));
         assert!(!body.contains("\"gir\""));
         for forbidden in fixture["forbidden_substrings"].as_array().unwrap() {
             let forbidden = forbidden.as_str().unwrap();

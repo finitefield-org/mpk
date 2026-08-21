@@ -6,11 +6,9 @@ VIR is the untrusted, language-neutral program input to verification-condition
 generation. A valid VIR document is not proof evidence. Only a certificate
 accepted by both configured MPK checkers is proof evidence.
 
-The only schema specified here is `mpk.vir.v0`. This schema is intentionally
-incompatible with the Go-specific program IR that remains current before the
-atomic cutover and is retired only by that cutover. A pre-cutover document
-never parses as VIR, and no post-cutover component may reinterpret a legacy
-schema discriminator as VIR.
+The only schema specified here is `mpk.vir.v0`. Removed predecessor documents
+never parse as VIR, and no component may reinterpret a legacy schema
+discriminator as VIR.
 
 ## 1. Conformance language
 

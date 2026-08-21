@@ -25,7 +25,7 @@ Install Rust, Go, and Python 3. Then build the CLI and Go frontend:
 
 ```sh
 cargo build -p mpk-cli
-(cd go-tools/go2gir && go build -o ../../target/debug/go2gir .)
+(cd go-tools/go2vir && go build -o ../../target/debug/go2vir .)
 ```
 
 ## Local Gates
@@ -46,10 +46,10 @@ Targeted checks are acceptable while iterating:
 
 ```sh
 cargo test --workspace
-cargo test -p mpk-cli --test policy_scan
-cargo test -p mpk-cli --test policy_verify
-cargo test -p mpk-vc --test payment_policy_examples
-(cd go-tools/go2gir && go test -count=1 ./...)
+cargo test -p mpk-cli --test policy_cli
+cargo test -p mpk-cli --test policy_report
+cargo test -p mpk-vc --test go_vir_corpus
+(cd go-tools/go2vir && go test -count=1 ./...)
 ```
 
 Always run:
@@ -61,12 +61,12 @@ git diff --check
 
 ## Trust-Boundary Rules
 
-- Do not make Go source, contracts, GIR, VC JSON, Markdown, CI status, AI
+- Do not make Go source, contracts, VIR, VC JSON, Markdown, CI status, AI
   output, or solver yes/no output proof evidence.
 - Do not mark a property `mpk_verified` unless it references checked
   declaration evidence or checked theory-certificate evidence under
   `trusted_evidence`.
-- Keep `strategy_profile`, `checker_profile`, and `allowed_axiom_profiles`
+- Keep `strategy_profile`, `checker_profile`, and `axiom_profile`
   distinct.
 - Keep product-facing JSON deterministic.
 - Do not add local absolute paths, secrets, or private customer code to stable
@@ -81,10 +81,10 @@ and tests together:
 - [docs/proof-ops-engine-design.md](docs/proof-ops-engine-design.md)
 - [docs/proof-ops-policy-ci.md](docs/proof-ops-policy-ci.md)
 - [docs/alpha-demo.md](docs/alpha-demo.md)
-- `crates/mpk-cli/tests/policy_scan.rs`
-- `crates/mpk-cli/tests/policy_verify.rs`
+- `crates/mpk-cli/tests/policy_cli.rs`
+- `crates/mpk-cli/tests/policy_report.rs`
 
-Keep `mpk.policy.scan.v0` as helper analysis. Keep `mpk.policy.evidence.v0` as
+Keep `mpk.policy.scan.v1` as helper analysis. Keep `mpk.policy.evidence.v1` as
 the product source of truth.
 
 ## Pull Requests

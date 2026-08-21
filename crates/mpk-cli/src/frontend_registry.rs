@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 #[cfg(test)]
 use mpk_vc::InventoryFile;
 #[cfg(test)]

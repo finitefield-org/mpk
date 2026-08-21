@@ -1,21 +1,21 @@
-# Std.Go.Base
+# Std.Program.Base
 
 `std-go-base.hex` is the canonical MPK certificate for the Go-facing semantic
-base types used by future GIR and VC generation work.
+base types used by future VIR and VC generation work.
 
 It exports self-contained core carriers and reducible Go-facing aliases because
 certificate import resolution is not implemented yet. The stable Go-facing
 aliases are:
 
-- `Std.Go.Base.Bool`.
-- `Std.Go.Base.Int8`, `Std.Go.Base.Int16`, `Std.Go.Base.Int32`,
-  `Std.Go.Base.Int64`.
-- `Std.Go.Base.Uint8`, `Std.Go.Base.Uint16`, `Std.Go.Base.Uint32`,
-  `Std.Go.Base.Uint64`.
-- `Std.Go.Base.Array.Length`, `Std.Go.Base.Array`,
-  `Std.Go.Base.Array.Index`, `Std.Go.Base.Array.InBounds`.
-- `Std.Go.Base.Struct.Shape`, `Std.Go.Base.Struct.Field`,
-  `Std.Go.Base.Struct.FieldType`, `Std.Go.Base.Struct.Value`.
+- `Std.Program.Base.Bool`.
+- `Std.Program.Base.Int8`, `Std.Program.Base.Int16`, `Std.Program.Base.Int32`,
+  `Std.Program.Base.Int64`.
+- `Std.Program.Base.Uint8`, `Std.Program.Base.Uint16`, `Std.Program.Base.Uint32`,
+  `Std.Program.Base.Uint64`.
+- `Std.Program.Base.Array.Length`, `Std.Program.Base.Array`,
+  `Std.Program.Base.Array.Index`, `Std.Program.Base.Array.InBounds`.
+- `Std.Program.Base.Struct.Shape`, `Std.Program.Base.Struct.Field`,
+  `Std.Program.Base.Struct.FieldType`, `Std.Program.Base.Struct.Value`.
 
 The signed and unsigned integer aliases for a width reduce to the same
 fixed-width bitvector carrier. Signedness is an explicit semantic view used by

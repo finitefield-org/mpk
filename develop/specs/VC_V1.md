@@ -8,8 +8,7 @@ This specification defines the untrusted verification-condition document
 Only the resulting certificate declarations accepted by both configured MPK
 checkers are proof evidence.
 
-The two v1 schemas are intentionally incompatible with the pre-cutover GIR VC
-model. There is no adapter at either public boundary.
+The two v1 schemas have no adapter for the removed predecessor VC model.
 
 ## 1. Conformance language and validation order
 
@@ -73,10 +72,10 @@ Skeleton validation uses the same `transport`, `shape`, `scalar`, and
 The first failing phase owns the stable code in section 10. A later hash error
 cannot hide a missing member, extra dependency, or limit failure.
 
-The exact retired root names `schema_version`, `source_gir_hash`, `gir_hash`,
+The exact retired root names `schema_version`, `source_legacy_hash`, `legacy_ir_hash`,
 and `source_manifest_hash` are unknown fields and reject with the applicable
 shape code. In particular, `schema_version: "mpk.vc.v1"` is not an alias for
-`schema`, and `source_gir_hash` is never interpreted as `source_ir_hash`.
+`schema`, and `source_legacy_hash` is never interpreted as `source_ir_hash`.
 
 ## 2. VC document root and repeated identities
 
@@ -118,7 +117,7 @@ manifest attachment recomputes this exact hash and copies it to the manifest's
 
 VC v1 stores unresolved, name-based MPK terms. Certificate assembly resolves
 the names only against checked imports and declarations. A solver builtin,
-host integer, GIR-era `Std.Go.Base.*` name, or caller-supplied global numeric ID
+host integer, VIR-era `Std.Program.Base.*` name, or caller-supplied global numeric ID
 is not an alternate encoding.
 
 ### 3.1 `VcTypeTerm`
@@ -435,7 +434,7 @@ The `mpk.vc.cert_skeleton.v1` root has exactly:
 There is deliberately no skeleton self-hash. `source_vc_hash` binds the
 complete grouped input, and the assembled certificate and declaration
 interfaces already use the domain-separated hashes in `CERT_V0.md`. A
-`skeleton_hash`, `vc_hash`, `schema_version`, or `source_gir_hash` root member
+`skeleton_hash`, `vc_hash`, `schema_version`, or `source_legacy_hash` root member
 is therefore unknown and rejects.
 
 A `GroupedTheoremDeclaration` has exactly:

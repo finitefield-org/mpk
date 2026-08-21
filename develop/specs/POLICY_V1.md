@@ -10,9 +10,8 @@ evidence-producing `policy verify` invocation. Neither policy document is proof
 evidence by itself. Only canonical certificates and theory certificates
 accepted by the configured source-free checkers are trusted evidence.
 
-Policy v1 is an atomic, intentionally incompatible replacement for
-`mpk.policy.scan.v0` and `mpk.policy.evidence.v0`. There is no v0 adapter at a
-v1 parser or CLI boundary.
+Policy v1 is the sole active policy boundary. There is no adapter for removed
+predecessor policy documents at a parser or CLI boundary.
 
 ## 1. Conformance language, transport, and validation order
 
@@ -186,7 +185,7 @@ The exact forbidden locator-option set is:
 --frontend
 --frontend-helper
 --driver
---go2gir
+--removed-frontend
 --toolchain-root
 --toolchain-path
 --registry
@@ -331,7 +330,7 @@ axiom allowlist. Evidence may be proof-pending under a checker profile that
 cannot accept a required proof node.
 
 `axiom_profile` is one explicit selection. Evidence v1 has no
-`allowed_axiom_profiles`, implicit list, default, or category-wide widening.
+`retired_axiom_list`, implicit list, default, or category-wide widening.
 The profile names and approved concrete axiom identities remain governed by
 `AXIOM_POLICY_V0.md`. The Go strategy selects `zero-axiom`; the Rust strategy
 selects `mvp-theory` without adding a Rust axiom category.
@@ -798,7 +797,7 @@ iff `verification_options.strict` is true; `--update-fixtures` is present iff
 `verification_options.update_fixtures` is true. Caller source-root and output
 spellings are replaced by the fixed values; all other values repeat the
 validated invocation. No placeholder, `$` expansion, angle-bracket token,
-raw executable option, retired `--go2gir`, or machine-local path is permitted.
+raw executable option, retired `--removed-frontend`, or machine-local path is permitted.
 
 Markdown is a deterministic derived view and does not add a command field to
 JSON. To render one argv array for a POSIX shell display:
@@ -869,7 +868,7 @@ JSON, a recipe argv, or any verification status.
 
 `policy verify` validates and records one checker, strategy, semantic, and
 axiom profile. It does not read, reproduce, or override package-manifest
-`checker_profile` or `allowed_axiom_profiles` fields.
+`checker_profile` or `retired_axiom_list` fields.
 
 The source-free package/release gate owns the later cross-check. Given
 validated evidence, canonical certificate bytes, the recomputed axiom report,
@@ -878,7 +877,7 @@ the active release selection, and a validated package manifest, it requires:
 1. active checker profile equals evidence `checker_profile` and package
    `checker_profile`;
 2. active axiom profile equals evidence `axiom_profile` and is a member of the
-   package manifest's `allowed_axiom_profiles`;
+   package manifest's `retired_axiom_list`;
 3. the recomputed complete axiom report is allowed by that exact active
    profile;
 4. release strategy/language/semantic/axiom selection equals the evidence

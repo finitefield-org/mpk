@@ -100,8 +100,8 @@ proof evidence:
 
 - Go source;
 - contract JSON;
-- `go2gir` output;
-- GIR JSON;
+- `go2vir` output;
+- VIR JSON;
 - VC JSON;
 - policy scan JSON;
 - Markdown reports;

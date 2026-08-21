@@ -2,11 +2,9 @@
 
 Status: project charter for the MPK MVP.
 
-Migration note: this charter's Go/GIR scope describes the current pre-cutover
-release baseline. It remains current, not historical, until the atomic cutover
-owned by `05_rust_frontend_design-todo.md`. The staged language-neutral VIR and
-Rust work must follow that dependency graph and must not partially reinterpret
-this baseline. Certificate v0 and the trust boundary do not change.
+The Go cutover is complete. Rust work follows
+`05_rust_frontend_design-todo.md`; Certificate v0 and the trust boundary do not
+change.
 
 ## Mission
 
@@ -28,7 +26,7 @@ MPK is not a human-first interactive proof assistant. Human proof syntax, tactic
 The MVP also does not aim to trust:
 
 - Go source text;
-- parser, frontend, SSA, GIR, or VC generator output;
+- parser, frontend, SSA, VIR, or VC generator output;
 - AI traces or proof-search logs;
 - tactic scripts or tactic replay;
 - solver yes/no answers;
@@ -47,8 +45,8 @@ The MVP is limited to the smallest chain needed to demonstrate certificate-first
 - minimal inductives and theory interfaces for equality, Bool, Nat, Int, BitVec8/16/32/64, and fixed arrays;
 - canonical binary `.mpcert` encoding, decoding, hashing, import resolution, and axiom reporting;
 - Rust fast kernel and independent Go source-free reference checker;
-- untrusted `go2gir` frontend for pure functions in the supported Go subset;
-- untrusted GIR-to-VC generation for straight-line code, branches, runtime-safety checks, and annotated loops;
+- untrusted `go2vir` frontend for pure functions in the supported Go subset;
+- untrusted VIR-to-VC generation for straight-line code, branches, runtime-safety checks, and annotated loops;
 - AI-oriented proof-node API and repair diagnostics that cannot bypass certificate checking.
 
 Unsupported or ambiguous behavior must fail closed. The MVP must reject rather than approximate unsupported core features, unsupported Go features, unknown certificate tags, non-canonical encodings, unresolved metavariables, checker fuel exhaustion, unrecognized theory-certificate formats, and solver evidence that is not independently checkable.

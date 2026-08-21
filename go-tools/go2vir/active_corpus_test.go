@@ -9,7 +9,7 @@ import (
 
 const updateGoVIRCorpusEnv = "MPK_UPDATE_GO_VIR_CORPUS"
 
-type stagingFrontendCase struct {
+type activeFrontendCase struct {
 	ID                string
 	SourceRoot        string
 	SourcePath        string
@@ -20,7 +20,7 @@ type stagingFrontendCase struct {
 	ExamplePath       string
 }
 
-type stagingNegativeCase struct {
+type activeNegativeCase struct {
 	ID           string
 	SourceRoot   string
 	SourcePath   string
@@ -30,29 +30,29 @@ type stagingNegativeCase struct {
 	ExpectedCode string
 }
 
-type stagingFrontendIndex struct {
-	Schema              string                       `json:"schema"`
-	UpdateCommand       string                       `json:"update_command"`
-	DeterministicRuns   int                          `json:"deterministic_runs"`
-	AlphaFunctionCount  int                          `json:"alpha_function_count"`
-	PositiveSourceCount int                          `json:"positive_source_count"`
-	Cases               []stagingFrontendIndexEntry  `json:"cases"`
-	NegativeCases       []stagingNegativeIndexEntry  `json:"negative_cases"`
-	SemanticVector      stagingSemanticVectorSummary `json:"semantic_vector"`
+type activeFrontendIndex struct {
+	Schema              string                      `json:"schema"`
+	UpdateCommand       string                      `json:"update_command"`
+	DeterministicRuns   int                         `json:"deterministic_runs"`
+	AlphaFunctionCount  int                         `json:"alpha_function_count"`
+	PositiveSourceCount int                         `json:"positive_source_count"`
+	Cases               []activeFrontendIndexEntry  `json:"cases"`
+	NegativeCases       []activeNegativeIndexEntry  `json:"negative_cases"`
+	SemanticVector      activeSemanticVectorSummary `json:"semantic_vector"`
 }
 
-type stagingFrontendIndexEntry struct {
-	ID               string                 `json:"id"`
-	SourceRoot       string                 `json:"source_root"`
-	SourcePath       string                 `json:"source_path"`
-	Selection        goSelection            `json:"selection"`
-	FunctionCount    int                    `json:"function_count"`
-	FrontendStatus   string                 `json:"frontend_status"`
-	Artifacts        []stagingArtifactIndex `json:"artifacts"`
-	ExampleStagePath string                 `json:"example_stage_path,omitempty"`
+type activeFrontendIndexEntry struct {
+	ID             string                `json:"id"`
+	SourceRoot     string                `json:"source_root"`
+	SourcePath     string                `json:"source_path"`
+	Selection      goSelection           `json:"selection"`
+	FunctionCount  int                   `json:"function_count"`
+	FrontendStatus string                `json:"frontend_status"`
+	Artifacts      []activeArtifactIndex `json:"artifacts"`
+	ExamplePath    string                `json:"example_path,omitempty"`
 }
 
-type stagingNegativeIndexEntry struct {
+type activeNegativeIndexEntry struct {
 	ID           string `json:"id"`
 	SourceRoot   string `json:"source_root"`
 	SourcePath   string `json:"source_path"`
@@ -61,14 +61,14 @@ type stagingNegativeIndexEntry struct {
 	Outcome      string `json:"outcome"`
 }
 
-type stagingArtifactIndex struct {
+type activeArtifactIndex struct {
 	Kind   string `json:"kind"`
 	Path   string `json:"path"`
 	SHA256 string `json:"sha256"`
 	Bytes  int    `json:"bytes"`
 }
 
-type stagingSemanticVectorSummary struct {
+type activeSemanticVectorSummary struct {
 	Path            string `json:"path"`
 	AcceptedCases   int    `json:"accepted_cases"`
 	RejectedCases   int    `json:"rejected_cases"`
@@ -80,7 +80,7 @@ type stagingSemanticVectorSummary struct {
 	UnresolvedCases int    `json:"unresolved_cases"`
 }
 
-type stagedFrontendArtifacts struct {
+type activeFrontendArtifacts struct {
 	Envelope []byte
 	VIR      []byte
 	Map      []byte
@@ -91,15 +91,15 @@ type stagedFrontendArtifacts struct {
 func TestRegenerateGoVIRFrontendCorpus(t *testing.T) {
 	referenceManifest := frontendManifestReference(t)
 	cases := frontendCorpusCases()
-	first := make(map[string]stagedFrontendArtifacts, len(cases))
-	second := make(map[string]stagedFrontendArtifacts, len(cases))
+	first := make(map[string]activeFrontendArtifacts, len(cases))
+	second := make(map[string]activeFrontendArtifacts, len(cases))
 	for _, corpusCase := range cases {
 		first[corpusCase.ID] = generateFrontendCorpusCase(t, corpusCase, referenceManifest)
 		second[corpusCase.ID] = generateFrontendCorpusCase(t, corpusCase, referenceManifest)
-		assertStagedFrontendEqual(t, corpusCase.ID, first[corpusCase.ID], second[corpusCase.ID])
+		assertActiveFrontendEqual(t, corpusCase.ID, first[corpusCase.ID], second[corpusCase.ID])
 	}
 
-	index := stagingFrontendIndex{
+	index := activeFrontendIndex{
 		Schema:              "mpk.go_vir_frontend_corpus.v0",
 		UpdateCommand:       "MPK_UPDATE_GO_VIR_CORPUS=1 go test -count=1 -run TestRegenerateGoVIRFrontendCorpus",
 		DeterministicRuns:   2,
@@ -119,22 +119,22 @@ func TestRegenerateGoVIRFrontendCorpus(t *testing.T) {
 			{"source_map", "source-map.json", artifacts.Map},
 			{"source_manifest_frontend", "source-manifest.frontend.json", artifacts.Manifest},
 		}
-		entry := stagingFrontendIndexEntry{
+		entry := activeFrontendIndexEntry{
 			ID: corpusCase.ID, SourceRoot: corpusCase.SourceRoot, SourcePath: corpusCase.SourcePath,
 			Selection:     goSelection{Package: corpusCase.ImportPath, Function: corpusCase.SelectedFunction},
 			FunctionCount: artifacts.Function, FrontendStatus: "ir-lowered",
 		}
 		if corpusCase.ExamplePath != "" {
-			entry.ExampleStagePath = "develop/migrations/go-vir-staging/examples/" + corpusCase.ExamplePath
+			entry.ExamplePath = "examples/" + corpusCase.ExamplePath
 		}
 		for _, file := range files {
 			path := base + "/" + file.name
 			assertCorpusFixture(t, path, file.bytes)
-			entry.Artifacts = append(entry.Artifacts, stagingArtifactIndex{
+			entry.Artifacts = append(entry.Artifacts, activeArtifactIndex{
 				Kind: file.kind, Path: path, SHA256: sha256Hex(file.bytes), Bytes: len(file.bytes),
 			})
 			if corpusCase.ExamplePath != "" {
-				assertFixtureAt(t, repoPath("develop/migrations/go-vir-staging/examples/"+corpusCase.ExamplePath+"/"+file.name), file.bytes)
+				assertFixtureAt(t, repoPath("examples/"+corpusCase.ExamplePath+"/"+file.name), file.bytes)
 			}
 		}
 		index.Cases = append(index.Cases, entry)
@@ -148,8 +148,8 @@ func TestRegenerateGoVIRFrontendCorpus(t *testing.T) {
 	assertNoCorpusLeakage(t, indexBytes)
 }
 
-func frontendCorpusCases() []stagingFrontendCase {
-	return []stagingFrontendCase{
+func frontendCorpusCases() []activeFrontendCase {
+	return []activeFrontendCase{
 		{ID: "alpha-arith", SourceRoot: "fixtures/go-alpha", SourcePath: "arith/arith.go", ImportPath: "github.com/finitefield-org/mpk/fixtures/go-alpha/arith", SelectedFunction: "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.Add64", ExpectedFunctions: 34},
 		{ID: "alpha-array", SourceRoot: "fixtures/go-alpha", SourcePath: "array/array.go", ImportPath: "github.com/finitefield-org/mpk/fixtures/go-alpha/array", SelectedFunction: "github.com/finitefield-org/mpk/fixtures/go-alpha/array.BuildPair64", ExpectedFunctions: 33},
 		{ID: "alpha-branch", SourceRoot: "fixtures/go-alpha", SourcePath: "branch/branch.go", ImportPath: "github.com/finitefield-org/mpk/fixtures/go-alpha/branch", SelectedFunction: "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.Max64", ExpectedFunctions: 33},
@@ -166,8 +166,8 @@ func frontendCorpusCases() []stagingFrontendCase {
 	}
 }
 
-func negativeCorpusCases() []stagingNegativeCase {
-	return []stagingNegativeCase{
+func negativeCorpusCases() []activeNegativeCase {
+	return []activeNegativeCase{
 		{ID: "basic-generic", SourceRoot: "fixtures/go-basic", SourcePath: "negative/generic/generic.go", ImportPath: "github.com/finitefield-org/mpk/fixtures/go-basic/negative/generic", Function: "github.com/finitefield-org/mpk/fixtures/go-basic/negative/generic.Identity", ExpectedCode: "GO_SUBSET_GENERICS"},
 		{ID: "basic-map", SourceRoot: "fixtures/go-basic", SourcePath: "negative/map/map.go", ImportPath: "github.com/finitefield-org/mpk/fixtures/go-basic/negative/map", Function: "github.com/finitefield-org/mpk/fixtures/go-basic/negative/map.Lookup", ExpectedCode: "GO_SUBSET_MAPS"},
 		{ID: "basic-pointer", SourceRoot: "fixtures/go-basic", SourcePath: "negative/pointer/pointer.go", ImportPath: "github.com/finitefield-org/mpk/fixtures/go-basic/negative/pointer", Function: "github.com/finitefield-org/mpk/fixtures/go-basic/negative/pointer.Deref", ExpectedCode: "GO_SUBSET_POINTER"},
@@ -188,7 +188,7 @@ func frontendManifestReference(t *testing.T) sourceManifest {
 	return manifest
 }
 
-func generateFrontendCorpusCase(t *testing.T, corpusCase stagingFrontendCase, reference sourceManifest) stagedFrontendArtifacts {
+func generateFrontendCorpusCase(t *testing.T, corpusCase activeFrontendCase, reference sourceManifest) activeFrontendArtifacts {
 	t.Helper()
 	source := mustReadFile(t, repoPath(corpusCase.SourceRoot+"/"+corpusCase.SourcePath))
 	loaded, capture := typedSinglePackage(t, corpusCase.ImportPath, corpusCase.SourcePath, string(source))
@@ -230,15 +230,15 @@ func generateFrontendCorpusCase(t *testing.T, corpusCase stagingFrontendCase, re
 	for _, content := range [][]byte{artifacts.EnvelopeJSON, artifacts.ModuleJSON, artifacts.MapJSON, artifacts.ManifestJSON} {
 		assertNoCorpusLeakage(t, content)
 	}
-	return stagedFrontendArtifacts{
+	return activeFrontendArtifacts{
 		Envelope: copyBytes(artifacts.EnvelopeJSON), VIR: copyBytes(artifacts.ModuleJSON),
 		Map: copyBytes(artifacts.MapJSON), Manifest: copyBytes(artifacts.ManifestJSON), Function: functionCount,
 	}
 }
 
-func auditNegativeCorpus(t *testing.T) []stagingNegativeIndexEntry {
+func auditNegativeCorpus(t *testing.T) []activeNegativeIndexEntry {
 	t.Helper()
-	entries := make([]stagingNegativeIndexEntry, 0, len(negativeCorpusCases()))
+	entries := make([]activeNegativeIndexEntry, 0, len(negativeCorpusCases()))
 	for _, corpusCase := range negativeCorpusCases() {
 		source := mustReadFile(t, repoPath(corpusCase.SourceRoot+"/"+corpusCase.SourcePath))
 		loaded, capture := typedSinglePackage(t, corpusCase.ImportPath, corpusCase.SourcePath, string(source))
@@ -257,14 +257,14 @@ func auditNegativeCorpus(t *testing.T) []stagingNegativeIndexEntry {
 		if actual != corpusCase.ExpectedCode {
 			t.Fatalf("negative case %s code = %s, want %s", corpusCase.ID, actual, corpusCase.ExpectedCode)
 		}
-		entries = append(entries, stagingNegativeIndexEntry{
+		entries = append(entries, activeNegativeIndexEntry{
 			ID: corpusCase.ID, SourceRoot: corpusCase.SourceRoot, SourcePath: corpusCase.SourcePath,
 			ExpectedCode: corpusCase.ExpectedCode, ActualCode: actual, Outcome: "rejected",
 		})
 	}
 	bytes, err := canonicalJSON(struct {
-		Schema string                      `json:"schema"`
-		Cases  []stagingNegativeIndexEntry `json:"cases"`
+		Schema string                     `json:"schema"`
+		Cases  []activeNegativeIndexEntry `json:"cases"`
 	}{Schema: "mpk.go_vir_negative_audit.v0", Cases: entries})
 	if err != nil {
 		t.Fatal(err)
@@ -273,7 +273,7 @@ func auditNegativeCorpus(t *testing.T) []stagingNegativeIndexEntry {
 	return entries
 }
 
-func semanticVectorSummary(t *testing.T) stagingSemanticVectorSummary {
+func semanticVectorSummary(t *testing.T) activeSemanticVectorSummary {
 	t.Helper()
 	vectors := loadStrictObjectFile(t, repoPath("develop/specs/vectors/go-vir-profile-v0.json"))
 	accepted, rejected, runtimeChecks, loops, conversions, calls, contracts := 0, 0, 0, 0, 0, 0, 0
@@ -304,14 +304,14 @@ func semanticVectorSummary(t *testing.T) stagingSemanticVectorSummary {
 			}
 		}
 	}
-	return stagingSemanticVectorSummary{
+	return activeSemanticVectorSummary{
 		Path: "develop/specs/vectors/go-vir-profile-v0.json", AcceptedCases: accepted, RejectedCases: rejected,
 		RuntimeChecks: runtimeChecks, Loops: loops, Conversions: conversions, Calls: calls, Contracts: contracts,
 		UnresolvedCases: 0,
 	}
 }
 
-func assertStagedFrontendEqual(t *testing.T, id string, left, right stagedFrontendArtifacts) {
+func assertActiveFrontendEqual(t *testing.T, id string, left, right activeFrontendArtifacts) {
 	t.Helper()
 	if left.Function != right.Function || !bytes.Equal(left.Envelope, right.Envelope) || !bytes.Equal(left.VIR, right.VIR) || !bytes.Equal(left.Map, right.Map) || !bytes.Equal(left.Manifest, right.Manifest) {
 		t.Fatalf("%s changed between two clean frontend generations", id)
@@ -320,9 +320,7 @@ func assertStagedFrontendEqual(t *testing.T, id string, left, right stagedFronte
 
 func assertCorpusFixture(t *testing.T, relative string, content []byte) {
 	t.Helper()
-	for _, root := range []string{"fixtures/vir-go", "develop/migrations/go-vir-staging/fixtures/vir-go"} {
-		assertFixtureAt(t, repoPath(root+"/"+relative), content)
-	}
+	assertFixtureAt(t, repoPath("fixtures/vir-go/"+relative), content)
 }
 
 func assertFixtureAt(t *testing.T, path string, content []byte) {
@@ -348,7 +346,7 @@ func assertFixtureAt(t *testing.T, path string, content []byte) {
 func assertNoCorpusLeakage(t *testing.T, content []byte) {
 	t.Helper()
 	forbiddenValues := []string{
-		repoPath(""), os.TempDir(), "source_gir_hash", "mpk.gir.v0", "go2gir",
+		repoPath(""), os.TempDir(),
 		`"timestamp"`, `"generated_at"`, `"generatedAt"`, `"hostname"`,
 	}
 	if hostname, err := os.Hostname(); err == nil {

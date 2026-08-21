@@ -2,8 +2,8 @@
 
 This example demonstrates the current untrusted pipeline boundary:
 
-1. `go2gir` lowers `max64.go` and `max64_contract.json` to GIR.
-2. `mpk-vc` generates branch verification conditions from the GIR.
+1. `go2vir` lowers `max64.go` and `max64_contract.json` to VIR.
+2. `mpk-vc` generates branch verification conditions from the VIR.
 3. `mpk-vc` emits theorem-obligation skeletons for later certificate emission.
 
 The generated artifacts are checked into this directory so the end-to-end shape
@@ -17,23 +17,23 @@ is inspectable without treating any untrusted artifact as proof evidence.
 `Max64` returns a selected `int64` maximum. The contract states that the result
 is greater than or equal to both inputs and equals one of them.
 
-## Rebuild GIR
+## Rebuild VIR
 
 From the repository root:
 
 ```sh
-(cd go-tools/go2gir && go build -o ../../target/debug/go2gir .)
-(cd examples/max64 && ../../target/debug/go2gir . | jq '.gir' > gir.json)
+(cd go-tools/go2vir && go build -o ../../target/debug/go2vir .)
+(cd examples/max64 && ../../target/debug/go2vir . | jq '.vir' > vir.json)
 ```
 
 ## Rebuild VC Outputs
 
-The checked-in `vc.json` and `vc_skeleton.json` are generated from `gir.json`
-by the `mpk-vc` example regression test:
+The checked-in frontend, manifest, VC, and skeleton artifacts are owned by the
+shared Go/VIR corpus:
 
 ```sh
-MPK_UPDATE_MAX64_EXAMPLE=1 cargo test -p mpk-vc --test max64_example
-cargo test -p mpk-vc --test max64_example
+./scripts/regenerate-go-vir-corpus.sh --update
+./scripts/regenerate-go-vir-corpus.sh --check
 ```
 
 `vc.json` contains six branch path obligations:

@@ -1,6 +1,6 @@
 # GIR v0 Specification
 
-Status: frozen for implementation. This is the stable GIR v0 schema for SPEC-003. Changes require a new GIR schema revision or a governance-approved amendment.
+Status: historical; retained only to document the removed pre-VIR interface.
 
 GIR means **Go Verification IR**. It is an untrusted intermediate representation used to generate theorem obligations.
 

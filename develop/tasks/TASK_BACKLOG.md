@@ -58,14 +58,14 @@ This backlog is dependency-ordered. Estimates are intentionally omitted; use dep
 - **Description:** Finalize binary layout, canonical rules, and hash domains.
 - **Acceptance:** Schema has rejection conditions.
 
-### SPEC-003 — Freeze GIR draft
+### SPEC-003 — Freeze VIR draft
 
 - **Component:** Spec
 - **Priority:** P0
 - **Dependencies:** GOV-002
 - **Deliverable:** `specs/GIR_V0.md`
-- **Description:** Finalize GIR module/function/block/instruction schema.
-- **Acceptance:** GIR has supported and rejected features.
+- **Description:** Finalize VIR module/function/block/instruction schema.
+- **Acceptance:** VIR has supported and rejected features.
 
 ### SPEC-004 — Freeze Go subset draft
 
@@ -603,27 +603,27 @@ This backlog is dependency-ordered. Estimates are intentionally omitted; use dep
 
 ### STD-008 — Define Go semantic base types
 
-- **Component:** Std.Go.Base
+- **Component:** Std.Program.Base
 - **Priority:** P1
 - **Dependencies:** STD-006,STD-007
 - **Deliverable:** `proofs/go/base`
 - **Description:** Map Go bool/int/uint/array/struct to core types.
 - **Acceptance:** Go base certs verify.
 
-## P7: Go Frontend and GIR
+## P7: Go Frontend and VIR
 
 ### GO-001 — Create Go frontend CLI
 
-- **Component:** go2gir
+- **Component:** go2vir
 - **Priority:** P1
 - **Dependencies:** SPEC-003,SPEC-004
-- **Deliverable:** `go2gir`
-- **Description:** Initialize go2gir command.
+- **Deliverable:** `go2vir`
+- **Description:** Initialize go2vir command.
 - **Acceptance:** CLI accepts package path.
 
 ### GO-002 — Load Go packages
 
-- **Component:** go2gir
+- **Component:** go2vir
 - **Priority:** P1
 - **Dependencies:** GO-001
 - **Deliverable:** `loader.go`
@@ -632,7 +632,7 @@ This backlog is dependency-ordered. Estimates are intentionally omitted; use dep
 
 ### GO-003 — Build SSA
 
-- **Component:** go2gir
+- **Component:** go2vir
 - **Priority:** P1
 - **Dependencies:** GO-002
 - **Deliverable:** `ssa.go`
@@ -641,43 +641,43 @@ This backlog is dependency-ordered. Estimates are intentionally omitted; use dep
 
 ### GO-004 — Implement feature detector
 
-- **Component:** go2gir
+- **Component:** go2vir
 - **Priority:** P1
 - **Dependencies:** GO-003,SPEC-004
 - **Deliverable:** `features.go`
 - **Description:** Reject unsupported Go features with exact reason.
 - **Acceptance:** Unsupported fixtures reject.
 
-### GO-005 — Lower pure functions to GIR
+### GO-005 — Lower pure functions to VIR
 
-- **Component:** go2gir
+- **Component:** go2vir
 - **Priority:** P1
 - **Dependencies:** GO-004
 - **Deliverable:** `lower.go`
 - **Description:** Convert params, locals, blocks, binops, if, return.
-- **Acceptance:** Max64 lowers to GIR.
+- **Acceptance:** Max64 lowers to VIR.
 
 ### GO-006 — Lower structs and fixed arrays
 
-- **Component:** go2gir
+- **Component:** go2vir
 - **Priority:** P1
 - **Dependencies:** GO-005
 - **Deliverable:** `lower_types.go`
 - **Description:** Support field and fixed-array indexing.
 - **Acceptance:** Struct/array fixtures lower.
 
-### GO-007 — Emit canonical GIR JSON/binary
+### GO-007 — Emit canonical VIR JSON/binary
 
-- **Component:** go2gir
+- **Component:** go2vir
 - **Priority:** P1
 - **Dependencies:** GO-005
 - **Deliverable:** `emit.go`
 - **Description:** Stable field order and hashes.
-- **Acceptance:** GIR hash deterministic.
+- **Acceptance:** VIR hash deterministic.
 
 ### GO-008 — Emit source manifest
 
-- **Component:** go2gir
+- **Component:** go2vir
 - **Priority:** P1
 - **Dependencies:** GO-007
 - **Deliverable:** `manifest.go`
@@ -695,11 +695,11 @@ This backlog is dependency-ordered. Estimates are intentionally omitted; use dep
 
 ### GO-010 — Validate contract sidecars
 
-- **Component:** go2gir
+- **Component:** go2vir
 - **Priority:** P1
 - **Dependencies:** GO-007,SPEC-004
 - **Deliverable:** `contract_sidecar.go`
-- **Description:** Parse mpk.go.contract.v0 JSON, resolve function identities, attach requires/ensures/modifies/loop metadata to GIR, and reject unsupported expression operators.
+- **Description:** Parse mpk.go.contract.v0 JSON, resolve function identities, attach requires/ensures/modifies/loop metadata to VIR, and reject unsupported expression operators.
 - **Acceptance:** Sample contract validates and malformed or unsupported contracts reject.
 
 ## P8: VC Generator
@@ -710,10 +710,10 @@ This backlog is dependency-ordered. Estimates are intentionally omitted; use dep
 - **Priority:** P1
 - **Dependencies:** GO-010,STD-008
 - **Deliverable:** `mpk-vc`
-- **Description:** Initialize GIR importer and VC data model.
+- **Description:** Initialize VIR importer and VC data model.
 - **Acceptance:** Crate builds.
 
-### VC-002 — Encode GIR types into MPK terms
+### VC-002 — Encode VIR types into MPK terms
 
 - **Component:** mpk-vc
 - **Priority:** P1
@@ -782,7 +782,7 @@ This backlog is dependency-ordered. Estimates are intentionally omitted; use dep
 - **Priority:** P1
 - **Dependencies:** VC-008
 - **Deliverable:** `examples/max64`
-- **Description:** Go source -> GIR -> VC theorem obligations.
+- **Description:** Go source -> VIR -> VC theorem obligations.
 - **Acceptance:** Example documented.
 
 ## P9: AI Proof API

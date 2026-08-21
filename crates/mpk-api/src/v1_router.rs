@@ -1,15 +1,15 @@
-//! Private AI API v1 route and transport boundary.
+//! AI API v1 route and transport boundary.
 //!
-//! This module is compiled only by the staged conformance owner.  The public
-//! crate continues to expose the v0 API until the atomic cutover.
+//! This is the active source-program API. It accepts validated VIR artifacts;
+//! the removed predecessor source-import route has no compatibility adapter.
 
 use std::fmt;
 
 use mpk_vc::{canonical_json_bytes, parse_strict_json, StrictJsonLimits};
 use serde::{de::DeserializeOwned, Serialize};
 
-pub(crate) const AI_API_V1_PROFILE: &str = "mpk.ai.api.v1";
-pub(crate) const API_REJECTION_MESSAGE: &str = "AI API v1 request rejected";
+pub const AI_API_V1_PROFILE: &str = "mpk.ai.api.v1";
+pub const API_REJECTION_MESSAGE: &str = "AI API v1 request rejected";
 
 const API_ENVELOPE_OVERHEAD: u64 = 1_048_576;
 const API_WRAPPER_LEVELS: u64 = 257;
@@ -18,7 +18,7 @@ const API_TRANSPORT_BYTES_MAX: u64 = 269_484_032;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize)]
 #[serde(rename_all = "snake_case")]
-pub(crate) enum V1ValidationPhase {
+pub enum V1ValidationPhase {
     Route,
     Transport,
     Shape,
@@ -30,7 +30,7 @@ pub(crate) enum V1ValidationPhase {
 }
 
 impl V1ValidationPhase {
-    pub(crate) const fn as_str(self) -> &'static str {
+    pub const fn as_str(self) -> &'static str {
         match self {
             Self::Route => "route",
             Self::Transport => "transport",
@@ -45,7 +45,7 @@ impl V1ValidationPhase {
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize)]
-pub(crate) enum V1ErrorCode {
+pub enum V1ErrorCode {
     #[serde(rename = "AI_API_ROUTE_UNKNOWN")]
     RouteUnknown,
     #[serde(rename = "AI_API_JSON_INVALID")]
@@ -87,7 +87,7 @@ pub(crate) enum V1ErrorCode {
 }
 
 impl V1ErrorCode {
-    pub(crate) const fn as_str(self) -> &'static str {
+    pub const fn as_str(self) -> &'static str {
         match self {
             Self::RouteUnknown => "AI_API_ROUTE_UNKNOWN",
             Self::JsonInvalid => "AI_API_JSON_INVALID",
@@ -114,19 +114,19 @@ impl V1ErrorCode {
 
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 #[serde(deny_unknown_fields)]
-pub(crate) struct V1ApiError {
-    pub(crate) code: V1ErrorCode,
-    pub(crate) message: String,
+pub struct V1ApiError {
+    pub code: V1ErrorCode,
+    pub message: String,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub(crate) field: Option<&'static str>,
+    pub field: Option<&'static str>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub(crate) detail: Option<String>,
+    pub detail: Option<String>,
     #[serde(skip)]
     phase: V1ValidationPhase,
 }
 
 impl V1ApiError {
-    pub(crate) fn new(
+    pub fn new(
         phase: V1ValidationPhase,
         code: V1ErrorCode,
         field: Option<&'static str>,
@@ -141,7 +141,7 @@ impl V1ApiError {
         }
     }
 
-    pub(crate) fn inherited(
+    pub fn inherited(
         phase: V1ValidationPhase,
         code: V1ErrorCode,
         message: impl Into<String>,
@@ -156,7 +156,7 @@ impl V1ApiError {
         }
     }
 
-    pub(crate) const fn phase(&self) -> V1ValidationPhase {
+    pub const fn phase(&self) -> V1ValidationPhase {
         self.phase
     }
 }
@@ -175,7 +175,7 @@ impl fmt::Display for V1ApiError {
 impl std::error::Error for V1ApiError {}
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub(crate) enum V1Handler {
+pub enum V1Handler {
     ModuleNew,
     ModuleImport,
     ModuleFreeze,
@@ -212,7 +212,7 @@ pub(crate) enum V1Handler {
 }
 
 impl V1Handler {
-    pub(crate) const fn as_str(self) -> &'static str {
+    pub const fn as_str(self) -> &'static str {
         match self {
             Self::ModuleNew => "module_new",
             Self::ModuleImport => "module_import",
@@ -252,13 +252,13 @@ impl V1Handler {
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub(crate) struct V1Route {
-    pub(crate) method: &'static str,
-    pub(crate) path: &'static str,
-    pub(crate) handler: V1Handler,
+pub struct V1Route {
+    pub method: &'static str,
+    pub path: &'static str,
+    pub handler: V1Handler,
 }
 
-pub(crate) const V1_ROUTES: &[V1Route] = &[
+pub const V1_ROUTES: &[V1Route] = &[
     route("POST", "/module/new", V1Handler::ModuleNew),
     route("POST", "/module/import", V1Handler::ModuleImport),
     route("POST", "/module/freeze", V1Handler::ModuleFreeze),
@@ -306,7 +306,7 @@ const fn route(method: &'static str, path: &'static str, handler: V1Handler) -> 
     }
 }
 
-pub(crate) fn resolve_route(method: &str, path: &str) -> Result<V1Handler, V1ApiError> {
+pub fn resolve_route(method: &str, path: &str) -> Result<V1Handler, V1ApiError> {
     V1_ROUTES
         .iter()
         .find(|route| route.method == method && route.path == path)
@@ -321,13 +321,13 @@ pub(crate) fn resolve_route(method: &str, path: &str) -> Result<V1Handler, V1Api
         })
 }
 
-pub(crate) struct ParsedRequest<T> {
-    pub(crate) value: T,
+pub struct ParsedRequest<T> {
+    pub value: T,
     canonical_transport: bool,
 }
 
 impl<T> ParsedRequest<T> {
-    pub(crate) fn require_canonical(&self) -> Result<(), V1ApiError> {
+    pub fn require_canonical(&self) -> Result<(), V1ApiError> {
         if self.canonical_transport {
             Ok(())
         } else {
@@ -341,7 +341,7 @@ impl<T> ParsedRequest<T> {
     }
 }
 
-pub(crate) fn parse_request<T: DeserializeOwned>(
+pub fn parse_request<T: DeserializeOwned>(
     input: &[u8],
     embedded_bytes_max: u64,
 ) -> Result<ParsedRequest<T>, V1ApiError> {
@@ -383,7 +383,7 @@ pub(crate) fn parse_request<T: DeserializeOwned>(
     })
 }
 
-pub(crate) fn encode_response<T: Serialize>(response: &T) -> Result<Vec<u8>, V1ApiError> {
+pub fn encode_response<T: Serialize>(response: &T) -> Result<Vec<u8>, V1ApiError> {
     let serialized = serde_json::to_vec(response).map_err(|_| {
         V1ApiError::new(
             V1ValidationPhase::Artifact,
@@ -407,7 +407,7 @@ pub(crate) fn encode_response<T: Serialize>(response: &T) -> Result<Vec<u8>, V1A
     Ok(canonical)
 }
 
-pub(crate) fn validate_session_id(value: &str) -> Result<(), V1ApiError> {
+pub fn validate_session_id(value: &str) -> Result<(), V1ApiError> {
     let valid = value.strip_prefix('s').is_some_and(|digits| {
         !digits.is_empty()
             && !digits.starts_with('0')
@@ -426,7 +426,7 @@ pub(crate) fn validate_session_id(value: &str) -> Result<(), V1ApiError> {
     }
 }
 
-pub(crate) fn validate_sha256(value: &str, field: &'static str) -> Result<(), V1ApiError> {
+pub fn validate_sha256(value: &str, field: &'static str) -> Result<(), V1ApiError> {
     if value.len() == 64
         && value
             .bytes()

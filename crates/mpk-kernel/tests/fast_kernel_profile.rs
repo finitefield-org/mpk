@@ -20,27 +20,27 @@ const PROFILE_REPORT: &str = "perf/alpha-004-fast-kernel-profile.md";
 #[test]
 fn alpha004_fast_kernel_profile_report_identifies_hotspots() {
     let repo_root = repo_root();
-    let obligation_count = alpha_vc_obligation_count(&repo_root);
-    let certificate = alpha_shaped_profile_certificate(obligation_count);
+    let member_count = alpha_vc_member_count(&repo_root);
+    let certificate = alpha_shaped_profile_certificate(member_count);
     let bytes = encode_certificate(&certificate);
 
     let verification = verify_certificate_bytes(&bytes).expect("profile workload verifies");
-    assert_eq!(verification.declaration_count, obligation_count);
+    assert_eq!(verification.declaration_count, member_count);
 
     let profile = profile_certificate_bytes(&bytes).expect("profile workload profiles");
     assert_eq!(profile.module, "Bench.Alpha004.FastKernelProfile");
     assert_eq!(profile.input_bytes, bytes.len());
-    assert_eq!(profile.table_counts.declarations, obligation_count);
-    assert_eq!(profile.table_counts.proof_nodes, obligation_count);
+    assert_eq!(profile.table_counts.declarations, member_count);
+    assert_eq!(profile.table_counts.proof_nodes, member_count);
     assert_eq!(profile.table_counts.terms, 2);
     assert!(profile.timings.total_nanos > 0);
-    assert!(profile.combined_cache_metrics.defeq.calls >= obligation_count as u64);
+    assert!(profile.combined_cache_metrics.defeq.calls >= member_count as u64);
     assert!(profile
         .hotspots_by_elapsed()
         .iter()
         .any(|hotspot| hotspot.name == "defeq"));
 
-    let report = render_profile_report(&profile, obligation_count);
+    let report = render_profile_report(&profile, member_count);
     let report_path = repo_root.join(PROFILE_REPORT);
     if env::var_os(UPDATE_ENV).is_some() {
         if let Some(parent) = report_path.parent() {
@@ -66,7 +66,7 @@ fn alpha004_fast_kernel_profile_report_identifies_hotspots() {
         "defeq",
         "proof-node checking",
         "fixtures/vc-alpha/manifest.json",
-        &format!("ALPHA-002 obligation count | `{obligation_count}`"),
+        &format!("Active VC member count | `{member_count}`"),
     ] {
         assert!(
             recorded.contains(required),
@@ -75,25 +75,31 @@ fn alpha004_fast_kernel_profile_report_identifies_hotspots() {
     }
 }
 
-fn alpha_vc_obligation_count(repo_root: &Path) -> usize {
+fn alpha_vc_member_count(repo_root: &Path) -> usize {
     let path = repo_root.join(ALPHA_VC_MANIFEST);
     let manifest = fs::read_to_string(&path)
         .unwrap_or_else(|error| panic!("read {}: {error}", path.display()));
     let value: Value = serde_json::from_str(&manifest)
         .unwrap_or_else(|error| panic!("decode {}: {error}", path.display()));
-    let vc_count = value
-        .pointer("/artifacts/vc/obligation_count")
+    let member_count = value
+        .pointer("/artifacts/vc/member_count")
         .and_then(Value::as_u64)
-        .expect("alpha VC manifest records obligation_count");
-    let skeleton_count = value
-        .pointer("/artifacts/skeleton/theorem_declaration_count")
+        .expect("alpha VC manifest records member_count");
+    let group_count = value
+        .pointer("/artifacts/skeleton/group_count")
         .and_then(Value::as_u64)
-        .expect("alpha VC manifest records theorem_declaration_count");
+        .expect("alpha VC manifest records group_count");
+    let function_count = value
+        .pointer("/source/function_count")
+        .and_then(Value::as_u64)
+        .expect("alpha VC manifest records function_count");
     assert_eq!(
-        vc_count, skeleton_count,
-        "alpha VC and skeleton counts must match"
+        group_count,
+        function_count * 2,
+        "active skeleton contains contract and panic-free groups per function"
     );
-    usize::try_from(vc_count).expect("alpha VC count fits usize")
+    assert!(member_count > 0, "active VC corpus contains members");
+    usize::try_from(member_count).expect("alpha VC member count fits usize")
 }
 
 fn alpha_shaped_profile_certificate(declaration_count: usize) -> Certificate {
@@ -138,7 +144,7 @@ fn finalize_certificate(mut certificate: Certificate) -> Certificate {
     certificate
 }
 
-fn render_profile_report(profile: &KernelProfileReport, obligation_count: usize) -> String {
+fn render_profile_report(profile: &KernelProfileReport, member_count: usize) -> String {
     let hotspots = profile.hotspots_by_elapsed();
     let mut output = String::new();
     output.push_str("# ALPHA-004 Fast Kernel Profile\n\n");
@@ -148,9 +154,7 @@ fn render_profile_report(profile: &KernelProfileReport, obligation_count: usize)
     output.push_str("| Field | Value |\n");
     output.push_str("| --- | --- |\n");
     output.push_str(&format!("| ALPHA-002 manifest | `{ALPHA_VC_MANIFEST}` |\n"));
-    output.push_str(&format!(
-        "| ALPHA-002 obligation count | `{obligation_count}` |\n"
-    ));
+    output.push_str(&format!("| Active VC member count | `{member_count}` |\n"));
     output.push_str(&format!("| Profile module | `{}` |\n", profile.module));
     output.push_str(&format!("| Input bytes | `{}` |\n", profile.input_bytes));
     output.push_str(&format!(

@@ -2,7 +2,7 @@
 
 This example shows how MPK fits into a normal Go system. The application keeps
 its handlers, storage calls, logging, and payment gateway code in ordinary Go.
-Only the small deterministic business rule is lowered to GIR and turned into
+Only the small deterministic business rule is lowered to VIR and turned into
 verification obligations.
 
 For the broader checklist and CI pattern, see
@@ -61,23 +61,23 @@ Run the web adapter tests with:
 The adapter enforces the policy preconditions at the HTTP boundary, calls
 `ApprovedReserveCents`, and only then performs the ledger side effect.
 
-## Rebuild GIR
+## Rebuild VIR
 
 From the repository root:
 
 ```sh
-(cd go-tools/go2gir && go build -o ../../target/debug/go2gir .)
-(cd examples/order_policy && ../../target/debug/go2gir . | jq '.gir' > gir.json)
+(cd go-tools/go2vir && go build -o ../../target/debug/go2vir .)
+(cd examples/order_policy && ../../target/debug/go2vir . | jq '.vir' > vir.json)
 ```
 
 ## Rebuild VC Outputs
 
-The checked-in `vc.json` and `vc_skeleton.json` are generated from `gir.json`
-by the `mpk-vc` example regression test:
+The checked-in frontend, manifest, VC, and skeleton artifacts are owned by the
+shared Go/VIR corpus:
 
 ```sh
-MPK_UPDATE_ORDER_POLICY_EXAMPLE=1 cargo test -p mpk-vc --test max64_example
-cargo test -p mpk-vc --test max64_example
+./scripts/regenerate-go-vir-corpus.sh --update
+./scripts/regenerate-go-vir-corpus.sh --check
 ```
 
 `vc.json` contains eight branch path obligations:

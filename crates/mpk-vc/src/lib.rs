@@ -1,25 +1,18 @@
 //! Untrusted program-IR importers and verification-condition data model.
 //!
-//! `mpk-vc` does not accept proofs. The released path still imports GIR while
-//! the internal VIR foundation is built for the atomic cutover; both prepare
-//! theorem-obligation data for later certificate emission.
+//! `mpk-vc` does not accept proofs. It imports canonical VIR and prepares
+//! versioned verification-condition data for later certificate emission.
 
 #![forbid(unsafe_code)]
 
 pub mod call_wp;
 pub mod canonical_json;
 pub mod expr_encode;
-pub mod gir;
 pub mod grouping;
 pub mod hash;
-pub mod loops;
-pub mod obligation_emit;
-pub mod policy_obligation;
-pub mod policy_theory_goal;
 pub mod program_encode;
 pub mod program_wp;
 pub mod release_bundle;
-pub mod safety;
 pub mod safety_check;
 pub mod semantic_profile;
 pub mod source_manifest;
@@ -32,8 +25,6 @@ pub mod verification_limits;
 pub mod vir;
 pub mod vir_canonical;
 pub mod vir_validate;
-pub mod wp;
-pub mod wp_branch;
 
 pub use call_wp::{
     program_declaration_name, CallWpError, ProgramCallDependencies, ProgramDeclarationKind,
@@ -47,15 +38,8 @@ pub use canonical_json::{
 };
 
 pub use expr_encode::{
-    encode_contract_expr, encode_gir_value, encode_instruction_expr, ExprContext, ExprEncodeError,
-    ExprEncoder, MpkExprTerm, MpkExprType, STD_BITVEC_MODULE, STD_BOOL_AND, STD_BOOL_FALSE,
-    STD_BOOL_IF, STD_BOOL_NOT, STD_BOOL_OR, STD_BOOL_TRUE, STD_EQ,
-};
-pub use gir::{
-    import_gir_json, GirBinding, GirBlock, GirContractExpr, GirContracts, GirField, GirFieldType,
-    GirFunction, GirImportError, GirInstruction, GirInstructionKind, GirIntLiteral,
-    GirLoopContract, GirModule, GirPackage, GirRejectedFeature, GirTerminator, GirTerminatorKind,
-    GirType, GirTypeKind, GirValue, GIR_SCHEMA_VERSION,
+    MpkExprTerm, STD_BITVEC_MODULE, STD_BOOL_AND, STD_BOOL_FALSE, STD_BOOL_IF, STD_BOOL_NOT,
+    STD_BOOL_OR, STD_BOOL_TRUE, STD_EQ,
 };
 pub use grouping::{
     conjoin_terms, group_body, imply, member_theorem_type, GroupingError,
@@ -64,25 +48,6 @@ pub use grouping::{
 pub use hash::{
     hash_canonical_inventory, hash_canonical_json, hash_domain_separated_raw,
     sha256_raw_file_bytes, HashDomain, HashError, Sha256Digest,
-};
-pub use loops::{generate_loop_vcs, LoopVcGenerator};
-pub use obligation_emit::{
-    core_declaration_name, emit_theorem_obligations, theorem_type_for_obligation,
-    CoreTheoremDeclarationSkeleton, ObligationEmitError, ObligationEmitter, VcCertificateSkeleton,
-    STD_LOGIC_IMP, VC_CERT_SKELETON_SCHEMA_VERSION, VC_DECLARATION_PREFIX,
-};
-pub use policy_obligation::{
-    classify_payment_policy_obligation, classify_payment_policy_obligations,
-    PaymentPolicyClassificationOutcome, PaymentPolicyClassificationReport,
-    PaymentPolicyClassifierPropertyStatus, PaymentPolicyEvidenceLabel,
-    PaymentPolicyObligationClassification, PaymentPolicyObligationPattern, UnsupportedPropertyCode,
-    UnsupportedPropertyDiagnostic, PAYMENT_OBLIGATION_CLASSIFICATION_SCHEMA,
-};
-pub use policy_theory_goal::{
-    policy_theory_goal_from_obligation, PolicyBoolGoal, PolicyBoolTautology,
-    PolicyBoolTautologyReason, PolicyLinearGoal, PolicyLinearInequality, PolicyLinearTerm,
-    PolicyTheoryGoal, PolicyTheoryGoalError, PolicyTheoryGoalErrorKind, PolicyTheoryGoalKind,
-    MAX_POLICY_LINEAR_VARIABLES,
 };
 pub use program_encode::{
     encode_vir_contract_expr, encode_vir_instruction_expr, encode_vir_value,
@@ -111,7 +76,6 @@ pub use release_bundle::{
     SERIALIZED_INVENTORY_ENTRIES_MAX, TOOLCHAIN_BUNDLE_SCHEMA, TOOLCHAIN_COMPONENTS_MAX,
     UNIQUE_BUNDLE_FILES_MAX,
 };
-pub use safety::{generate_safety_vcs, SafetyVcGenerator};
 pub use safety_check::{
     encode_instruction_safety, required_safety_checks, validate_safety_check_sequence,
     EncodedSafetyPredicate, SafetyCheckError, SafetyEvidenceRoute, SafetyObligationKind,
@@ -149,21 +113,17 @@ pub use source_map::{
     SOURCE_MAP_JSON_NESTING_MAX, SOURCE_MAP_SCHEMA_VERSION, SOURCE_MAP_STRING_BYTES_MAX,
 };
 pub use type_encode::{
-    encode_gir_type, encode_vir_type, MpkTypeTerm, ProgramTypeEncoder, TypeEncodeError,
-    TypeEncoder, STD_GO_BASE_ARRAY, STD_GO_BASE_ARRAY_LENGTH, STD_GO_BASE_BOOL, STD_GO_BASE_INT16,
-    STD_GO_BASE_INT32, STD_GO_BASE_INT64, STD_GO_BASE_INT8, STD_GO_BASE_STRUCT_FIELD,
-    STD_GO_BASE_STRUCT_FIELD_TYPE, STD_GO_BASE_STRUCT_SHAPE, STD_GO_BASE_STRUCT_VALUE,
-    STD_GO_BASE_UINT16, STD_GO_BASE_UINT32, STD_GO_BASE_UINT64, STD_GO_BASE_UINT8,
-    STD_PROGRAM_BASE_ARRAY, STD_PROGRAM_BASE_ARRAY_LENGTH, STD_PROGRAM_BASE_BOOL,
-    STD_PROGRAM_BASE_INT16, STD_PROGRAM_BASE_INT32, STD_PROGRAM_BASE_INT64, STD_PROGRAM_BASE_INT8,
+    encode_vir_type, MpkTypeTerm, ProgramTypeEncoder, TypeEncodeError, STD_PROGRAM_BASE_ARRAY,
+    STD_PROGRAM_BASE_ARRAY_LENGTH, STD_PROGRAM_BASE_BOOL, STD_PROGRAM_BASE_INT16,
+    STD_PROGRAM_BASE_INT32, STD_PROGRAM_BASE_INT64, STD_PROGRAM_BASE_INT8,
     STD_PROGRAM_BASE_STRUCT_FIELD, STD_PROGRAM_BASE_STRUCT_FIELD_TYPE,
     STD_PROGRAM_BASE_STRUCT_SHAPE, STD_PROGRAM_BASE_STRUCT_VALUE, STD_PROGRAM_BASE_UINT16,
     STD_PROGRAM_BASE_UINT32, STD_PROGRAM_BASE_UINT64, STD_PROGRAM_BASE_UINT8,
 };
 pub use vc::{
-    VcBinder, VcDocument, VcFunction, VcGroup, VcGroupKind, VcMember, VcMemberKind, VcModule,
-    VcObligation, VcObligationKind, VcSourceContext, VcSourceFunction, VcTerm,
-    VcTermConversionError, VcTypeTerm, VC_SCHEMA_VERSION, VERIFICATION_LIMIT_PROFILE,
+    VcBinder, VcDocument, VcFunction, VcGroup, VcGroupKind, VcMember, VcMemberKind,
+    VcSourceContext, VcSourceFunction, VcTerm, VcTermConversionError, VcTypeTerm,
+    VC_SCHEMA_VERSION, VERIFICATION_LIMIT_PROFILE,
 };
 pub use vc_canonical::{
     canonical_vc_hash_payload, canonical_vc_json, generate_vc_v1, generate_vc_v1_from_context,
@@ -203,5 +163,3 @@ pub use vir_validate::{
     validate_vir_contract_expr_fragment, validate_vir_limit_count, validate_vir_safety_fragment,
     validate_vir_struct_decl_fragment, validate_vir_type_fragment, VirValidationError,
 };
-pub use wp::{generate_straight_line_vcs, WpError, WpGenerator};
-pub use wp_branch::{generate_branch_vcs, BranchWpGenerator};

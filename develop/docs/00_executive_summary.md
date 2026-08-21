@@ -1,11 +1,7 @@
 # Executive Summary
 
-Migration note: the Go/GIR flow below describes the current pre-cutover
-release baseline. It remains current, not historical, until the atomic cutover
-owned by `05_rust_frontend_design-todo.md`; staged VIR schemas must not be mixed
-into it. The language-neutral post-cutover design is
-`05_rust_frontend_design.md`, and it leaves Certificate v0 and proof acceptance
-unchanged.
+Status: historical baseline. The active Go/Rust migration reference is
+`05_rust_frontend_design.md`; Certificate v0 and proof acceptance are unchanged.
 
 ## Goal
 
@@ -29,7 +25,7 @@ The project should adopt a certificate-first architecture:
 Untrusted side:
   source parser
   Go frontend
-  SSA/GIR conversion
+  SSA/VIR conversion
   VC generator
   AI proof search
   tactic search

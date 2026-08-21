@@ -1,8 +1,7 @@
 # MPK Design with Implementation Roadmap and Task Plan
 
-Migration note: this document records the current pre-cutover Go/GIR baseline.
-It remains current, not historical, until the atomic cutover owned by
-`05_rust_frontend_design-todo.md`. Forward work follows that file's VIR-00,
+Status: historical baseline. Forward work follows
+`05_rust_frontend_design-todo.md` from the active Rust phases onward. Its VIR-00,
 VIR-01, GO-VIR-02, then RUST dependency order and must not expose a mixed
 helper interface. Certificate v0 and checker acceptance remain unchanged.
 
@@ -14,8 +13,8 @@ MPK is an AI-oriented theorem prover and program-verification toolchain. Its fir
 
 ```text
 Go source
-  -> untrusted go2gir frontend
-  -> untrusted GIR
+  -> untrusted go2vir frontend
+  -> untrusted VIR
   -> untrusted VC generator
   -> theorem obligations
   -> untrusted AI / solver / tactic candidate generation
@@ -44,7 +43,7 @@ Untrusted evidence:
 ```text
 Go source
 Go frontend
-GIR
+VIR
 VC generator
 AI output
 solver yes/no output
@@ -123,7 +122,7 @@ The implementation proceeds through these phases:
 5. Fast Rust kernel.
 6. Independent Go reference checker.
 7. Foundational standard library.
-8. Go frontend and GIR.
+8. Go frontend and VIR.
 9. VC generator.
 10. AI proof API.
 11. Theory certificate checkers.

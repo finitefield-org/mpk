@@ -651,7 +651,7 @@
       "construction": {
         "base": "scan.go_identity_ready",
         "patches": [
-          {"op": "replace", "path": "/schema", "value": "mpk.policy.scan.v0"}
+          {"op": "replace", "path": "/schema", "value": "mpk.policy.scan.unknown"}
         ]
       },
       "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SCAN_SCHEMA"}
@@ -677,11 +677,11 @@
       "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}
     },
     {
-      "id": "scan.reject_legacy_gir_hash",
+      "id": "scan.reject_legacy_legacy_ir_hash",
       "construction": {
         "base": "scan.go_identity_ready",
         "patches": [
-          {"op": "add", "path": "/gir_hash", "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
+          {"op": "add", "path": "/legacy_ir_hash", "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
         ]
       },
       "expect": {"outcome": "reject", "phase": "shape", "code": "POLICY_SHAPE"}

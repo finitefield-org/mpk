@@ -87,15 +87,6 @@ impl fmt::Display for FrontendRunError {
 
 impl Error for FrontendRunError {}
 
-/// Staged generic entry point. It is intentionally not wired into `mpk` command
-/// dispatch until GO-VIR-02-T12.
-pub(crate) fn run_installed_frontend(
-    request: FrontendRunRequest<'_>,
-) -> Result<AcceptedFrontendRun, FrontendRunError> {
-    let prepared = prepare_installed_frontend(&request.release)?;
-    run_prepared_frontend(prepared, request)
-}
-
 pub(crate) fn prepare_installed_frontend(
     release: &ReleaseSelectionRequest,
 ) -> Result<PreparedFrontendRun, FrontendRunError> {

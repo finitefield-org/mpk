@@ -8,9 +8,9 @@ VIR cutover. It replaces the source import route from AI API v0 while retaining
 the session, term, proof, certificate-module, and non-import VC operations
 whose meaning is unchanged.
 
-AI API v1 is intentionally incompatible with the GIR import boundary. There
-is no GIR parser, route alias, request adapter, or hash-field fallback in this
-profile.
+AI API v1 is intentionally incompatible with its removed predecessor import
+boundary. There is no predecessor parser, route alias, request adapter, or
+hash-field fallback in this profile.
 
 ## 1. Scope, conformance, and transport
 
@@ -22,7 +22,7 @@ accepted-state marker.
 Route matching uses the exact uppercase HTTP method and exact case-sensitive
 path listed in section 3. A trailing slash, path normalization, percent-decoded
 alternate spelling, method override, query-selected operation, or unlisted
-path is not equivalent. In particular, `POST /gir/import` is an unknown route;
+path is not equivalent. In particular, `POST /removed/import` is an unknown route;
 it is not a deprecated request and is never forwarded to `POST /vir/import`.
 
 The v1 router's JSON request and response objects are closed. Unknown fields,
@@ -34,7 +34,7 @@ hexadecimal ASCII characters. Integral values are in the JSON
 interoperable range `[-9007199254740991, 9007199254740991]` unless a smaller
 request type applies; floating-point values are absent from API-owned models.
 
-The HTTP-like method/path notation is the exact router key. The staged v1
+The HTTP-like method/path notation is the exact router key. The active v1
 router is an in-process typed service and does not itself open a network
 listener; every operation still receives the request model specified here.
 Any later HTTP server binding must preserve the same method/path, canonical
@@ -203,7 +203,7 @@ POST /vc/check-candidate
 The five non-import VC operations preserve their v0 workflow meaning but are
 bound exclusively to `mpk.vir.v0`, `mpk.vc.v1`,
 `source_ir_schema`/`source_ir_hash`, and `source_vc_schema`/`vc_hash` identities
-as defined below. There is no `source_gir_hash`, `gir_hash`, or unversioned VC
+as defined below. There is no `source_legacy_hash`, `legacy_ir_hash`, or unversioned VC
 identity in v1 state or messages.
 
 ## 4. Session source and VC state
@@ -253,7 +253,7 @@ The request object has exactly:
 | `source_ir_hash` | exact embedded VIR `vir_hash` |
 | `vir` | complete `mpk.vir.v0` JSON value |
 
-`vir` is not a path, URI, artifact ID, hash-only promise, GIR object, or lossy
+`vir` is not a path, URI, artifact ID, hash-only promise, VIR object, or lossy
 projection. Because the wrapper itself is JCS, extracting and JCS-encoding the
 `vir` value yields the exact canonical standalone VIR bytes. The importer runs
 the complete `VIR_V0.md` validation, including profile/parameter pairing,
@@ -466,7 +466,7 @@ and `UNKNOWN_PROOF` are the unchanged existing `ApiError` codes; every
 
 | Code | Meaning |
 |---|---|
-| `AI_API_ROUTE_UNKNOWN` | exact method/path pair is not registered, including `POST /gir/import` |
+| `AI_API_ROUTE_UNKNOWN` | exact method/path pair is not registered, including `POST /removed/import` |
 | `AI_API_JSON_INVALID` | malformed transport, duplicate name, invalid UTF-8/number, or limit failure |
 | `AI_API_SHAPE` | missing, unknown, retired, or wrong-union field |
 | `AI_API_SCALAR` | malformed session, target, candidate, hash, profile, or enum scalar |
@@ -520,8 +520,8 @@ fields named `canonical_request_sha256` or `canonical_response_sha256` are
 test assertions over exact API transport bytes and are not public request or
 response fields.
 
-The exact retired source-import tokens `POST /gir/import`, `/gir/import`,
-`source_gir_hash`, `gir_hash`, `mpk.gir.v0`, and `mpk.vc.cert_skeleton.v0` have
+The exact retired source-import tokens `POST /removed/import`, `/removed/import`,
+`source_legacy_hash`, `legacy_ir_hash`, `mpk.unknown.v0`, and `mpk.vc.unknown.v0` have
 no active interpretation. A closed shape rejects retired fields before any
 attempt to compare their values.
 
@@ -629,14 +629,11 @@ Every operation rejection and helper rejection has `mutation_count = 0`.
 All vector objects are closed. The owning test rejects unknown fields,
 duplicate case IDs, an unexecuted case, a route-order mismatch, a fixture hash
 mismatch, or a case whose before/after session snapshot differs despite zero
-expected mutations. The staged owner is
-`crates/mpk-api/src/v1_tests.rs`; it remains private until the atomic cutover
-task publishes the v1 router.
+expected mutations. The active owner is `crates/mpk-api/src/v1_tests.rs`.
 
 ## 10. References
 
-- `develop/specs/AI_API_V0.md` — current pre-cutover route profile; it becomes
-  historical only at the atomic cutover
+- `develop/specs/AI_API_V0.md` — historical predecessor route profile
 - `develop/specs/FRONTEND_PROTOCOL_V0.md` — validated frontend-result boundary
 - `develop/specs/RELEASE_BUNDLES_V0.md` — registered release identities used by the validated store
 - `develop/specs/VIR_V0.md` — canonical source IR and `MPK-VIR-0.1`

@@ -30,8 +30,7 @@ const VIR_STRICT_JSON_LIMITS: StrictJsonLimits = StrictJsonLimits::new(
 
 /// Strictly parses and fully validates one VIR document.
 ///
-/// No partially validated module crosses this boundary. The importer remains
-/// test-only at call sites until the atomic Go cutover.
+/// No partially validated module crosses this active production boundary.
 pub fn import_vir_json(input: &[u8]) -> Result<VirModule, VirImportError> {
     let strict = parse_strict_json(input, VIR_STRICT_JSON_LIMITS)?;
     let canonical = canonical_json_bytes(&strict)?;
