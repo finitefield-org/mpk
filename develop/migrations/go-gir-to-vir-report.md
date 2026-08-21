@@ -18,6 +18,7 @@
 | Obligation kinds | 7 |
 | Checker anchors | 2 |
 | Checked fixture files | 66 |
+| Regenerated Go/VIR artifacts | 97 |
 
 ## Explicitly allowed changes
 
@@ -81,7 +82,16 @@
 | Anchor | Source-free | Reference | Hash agreement | Status |
 |---|---|---|---|---|
 | `release_report` | accepted | accepted | true | `preserved` |
-| `payment_reserve_theory_evidence` | pending | pending | pending | `audit_only_pending_GO-VIR-02-T11` |
+| `payment_reserve_theory_evidence` | pending | pending | pending | `historical_audit_only_proof_pending` |
+
+## Regenerated Go/VIR corpus
+
+- `fixtures/vir-go/manifest.json` records 97 hash-linked artifacts, mirrored byte-for-byte into the staging root.
+- Frontend coverage: 100 alpha functions, 13 positive roots, 8 deterministic negative roots, and 5 payment policies.
+- VC fixture coverage: 11 roots; aggregate roots `alpha-array, basic-structarray` remain explicit frontend-only fixtures for the current VC foundation.
+- Both independent checkers accepted the staged certificate with hash agreement and 0 axioms.
+- Two clean generations were byte-identical; unresolved dispositions: 0.
+- VIR/VC hashes are recorded as an intentional migration; no compatibility alias or old byte form is installed.
 
 ## Coverage
 

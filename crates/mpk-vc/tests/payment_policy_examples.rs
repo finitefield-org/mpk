@@ -179,6 +179,61 @@ fn payment_policy_examples_generate_stable_vc_outputs() {
     }
 }
 
+#[test]
+fn go_vir_payment_replacements_are_staged_without_changing_active_examples() {
+    let root = repo_root();
+    let corpus: serde_json::Value = serde_json::from_slice(
+        &fs::read(root.join("fixtures/vir-go/manifest.json")).expect("Go/VIR corpus manifest"),
+    )
+    .expect("parse Go/VIR corpus manifest");
+    assert_eq!(corpus["coverage"]["payment_policies"], 5);
+    assert_eq!(corpus["unresolved_dispositions"], serde_json::json!([]));
+
+    for example in payment_policy_examples() {
+        let id = format!("payment-{}", example.name);
+        let frontend = root.join("fixtures/vir-go/frontend").join(&id);
+        let derived = root.join("fixtures/vir-go/derived").join(&id);
+        let staged = root
+            .join("develop/migrations/go-vir-staging/examples/payment_policies")
+            .join(example.name);
+        for (source_root, source, replacement) in [
+            (
+                &frontend,
+                "frontend-envelope.json",
+                "frontend-envelope.json",
+            ),
+            (&frontend, "vir.json", "vir.json"),
+            (&frontend, "source-map.json", "source-map.json"),
+            (
+                &frontend,
+                "source-manifest.frontend.json",
+                "source-manifest.frontend.json",
+            ),
+            (&derived, "vc.json", "vc.json"),
+            (&derived, "vc-skeleton.json", "vc_skeleton.json"),
+            (
+                &derived,
+                "source-manifest.certificate.json",
+                "source-manifest.certificate.json",
+            ),
+        ] {
+            assert_eq!(
+                fs::read(source_root.join(source)).expect("shared Go/VIR payment artifact"),
+                fs::read(staged.join(replacement)).expect("staged Go/VIR payment artifact"),
+                "{} staged artifact {replacement}",
+                example.name
+            );
+        }
+
+        assert!(
+            payment_policy_dir(example.name).join("gir.json").is_file(),
+            "{} active GIR example remains selected until GO-VIR-02-T12",
+            example.name
+        );
+        assert!(!staged.join("gir.json").exists());
+    }
+}
+
 fn payment_policy_examples() -> [PaymentPolicyExample; 5] {
     [
         PaymentPolicyExample {
@@ -267,9 +322,16 @@ fn payment_policy_examples() -> [PaymentPolicyExample; 5] {
 }
 
 fn payment_policy_dir(name: &str) -> PathBuf {
-    PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-        .join("../../examples/payment_policies")
+    repo_root()
+        .join("examples/payment_policies")
         .join(name)
+        .components()
+        .collect()
+}
+
+fn repo_root() -> PathBuf {
+    PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+        .join("../..")
         .components()
         .collect()
 }

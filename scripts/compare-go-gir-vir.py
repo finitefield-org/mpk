@@ -21,9 +21,12 @@ PROFILE_VECTOR_PATH = "develop/specs/vectors/go-vir-profile-v0.json"
 VECTOR_MANIFEST_PATH = "develop/specs/vectors/manifest.json"
 REPORT_JSON_PATH = "develop/migrations/go-gir-to-vir-report.json"
 REPORT_MARKDOWN_PATH = "develop/migrations/go-gir-to-vir-report.md"
+CORPUS_MANIFEST_PATH = "fixtures/vir-go/manifest.json"
+STAGING_ROOT_PATH = "develop/migrations/go-vir-staging"
 BASELINE_SCHEMA = "mpk.go_gir_semantic_baseline.v0"
 PROFILE_VECTOR_SCHEMA = "mpk.go.vir_profile.conformance.v0"
 REPORT_SCHEMA = "mpk.go_gir_to_vir_report.v0"
+CORPUS_SCHEMA = "mpk.go_vir_corpus.v0"
 
 MIGRATION_FIELDS = {
     "integrity",
@@ -172,6 +175,11 @@ def main() -> int:
         default=REPORT_MARKDOWN_PATH,
         help="checked derived Markdown report path",
     )
+    parser.add_argument(
+        "--corpus-manifest",
+        default=CORPUS_MANIFEST_PATH,
+        help="regenerated Go/VIR corpus manifest",
+    )
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument(
         "--check",
@@ -197,8 +205,10 @@ def main() -> int:
         vector_path = resolve_path(repo_root, args.profile_vector)
         report_json_path = resolve_path(repo_root, args.report_json)
         report_markdown_path = resolve_path(repo_root, args.report_markdown)
+        corpus_manifest_path = resolve_path(repo_root, args.corpus_manifest)
         baseline_bytes, baseline = read_json_object(baseline_path)
         vector_bytes, vector = read_json_object(vector_path)
+        corpus_manifest_bytes, corpus_manifest = read_json_object(corpus_manifest_path)
         report = compare(
             repo_root,
             baseline_path,
@@ -207,6 +217,9 @@ def main() -> int:
             vector_path,
             vector_bytes,
             vector,
+            corpus_manifest_path,
+            corpus_manifest_bytes,
+            corpus_manifest,
         )
         json_output = render_json(report)
         markdown_output = render_markdown(report)
@@ -249,6 +262,9 @@ def compare(
     vector_path: Path,
     vector_bytes: bytes,
     vector: dict[str, Any],
+    corpus_manifest_path: Path,
+    corpus_manifest_bytes: bytes,
+    corpus_manifest: dict[str, Any],
 ) -> dict[str, Any]:
     expect_equal(
         baseline.get("schema"),
@@ -296,6 +312,9 @@ def compare(
     source_inventory = validate_corpora(baseline, migration)
     semantics = validate_behavioral_anchors(baseline, migration)
     checker_verdicts = validate_checker_anchors(repo_root, baseline, migration)
+    regenerated_corpus = validate_regenerated_corpus(
+        repo_root, corpus_manifest_path, corpus_manifest_bytes, corpus_manifest
+    )
     allowed_changes = [
         {
             "id": "schema",
@@ -380,6 +399,11 @@ def compare(
                 "sha256": vector_digest,
                 "profile": vector["spec_profile"],
             },
+            "regenerated_corpus": {
+                "path": display_path(repo_root, corpus_manifest_path),
+                "schema": corpus_manifest["schema"],
+                "sha256": sha256(corpus_manifest_bytes),
+            },
         },
         "summary": {
             "baseline_leaf_count": coverage["baseline_leaf_count"],
@@ -400,6 +424,7 @@ def compare(
             "obligation_kind_count": len(obligation_changes),
             "checker_anchor_count": len(checker_verdicts["anchors"]),
             "checked_fixture_file_count": fixture_integrity["checked_file_count"],
+            "regenerated_artifact_count": regenerated_corpus["artifact_count"],
             "unexplained_difference_count": 0,
         },
         "coverage_policy": coverage_policy,
@@ -419,6 +444,7 @@ def compare(
             key: value for key, value in semantics.items() if key != "dispositions"
         },
         "checker_verdicts": checker_verdicts["anchors"],
+        "regenerated_corpus": regenerated_corpus,
         "coverage": coverage,
         "reviewed_dispositions": dispositions,
         "findings": [],
@@ -1706,6 +1732,338 @@ def validate_loop_members(old_value: Any, disposition: str) -> dict[str, Any]:
     }
 
 
+def validate_regenerated_corpus(
+    repo_root: Path,
+    manifest_path: Path,
+    manifest_bytes: bytes,
+    manifest: dict[str, Any],
+) -> dict[str, Any]:
+    require_exact_fields(
+        manifest,
+        {
+            "schema",
+            "status",
+            "generation",
+            "coverage",
+            "checker_audit",
+            "artifacts",
+            "unresolved_dispositions",
+        },
+        "MIGRATION_CORPUS",
+        "regenerated corpus manifest",
+    )
+    expect_equal(manifest["schema"], CORPUS_SCHEMA, "MIGRATION_CORPUS", "corpus schema")
+    expect_equal(
+        manifest["status"],
+        "reviewed_zero_unexplained_differences",
+        "MIGRATION_CORPUS",
+        "corpus status",
+    )
+    expect_equal(
+        manifest["unresolved_dispositions"],
+        [],
+        "MIGRATION_CORPUS",
+        "corpus unresolved dispositions",
+    )
+
+    generation = require_object(manifest["generation"], "corpus generation")
+    require_exact_fields(
+        generation,
+        {
+            "commands",
+            "clean_runs",
+            "byte_identical",
+            "leakage_scan",
+            "intentional_hash_migration",
+            "compatibility_aliases",
+            "active_release_selects_staging",
+        },
+        "MIGRATION_CORPUS",
+        "corpus generation",
+    )
+    expect_equal(generation["clean_runs"], 2, "MIGRATION_CORPUS", "clean generation runs")
+    expect_equal(generation["byte_identical"], True, "MIGRATION_CORPUS", "byte equality")
+    expect_equal(
+        generation["intentional_hash_migration"],
+        True,
+        "MIGRATION_CORPUS",
+        "intentional hash migration",
+    )
+    expect_equal(
+        generation["compatibility_aliases"],
+        False,
+        "MIGRATION_CORPUS",
+        "compatibility aliases",
+    )
+    expect_equal(
+        generation["active_release_selects_staging"],
+        False,
+        "MIGRATION_CORPUS",
+        "active release staging selection",
+    )
+    expect_equal(
+        generation["commands"],
+        [
+            "MPK_UPDATE_GO_VIR_CORPUS=1 go test -count=1 -run TestRegenerateGoVIRFrontendCorpus",
+            "MPK_UPDATE_GO_VIR_CORPUS=1 cargo test -p mpk-vc --test go_vir_corpus",
+            "python3 scripts/compare-go-gir-vir.py --write",
+        ],
+        "MIGRATION_CORPUS",
+        "explicit regeneration commands",
+    )
+    leakage = require_nonempty(generation["leakage_scan"], "corpus leakage scan")
+    for category in ("local_path", "temp_path", "host", "timestamp", "obsolete_interface"):
+        expect_true(category in leakage, "MIGRATION_CORPUS", f"missing leakage category {category}")
+
+    coverage = require_object(manifest["coverage"], "corpus coverage")
+    expected_coverage = {
+        "alpha_functions": 100,
+        "positive_frontend_roots": 13,
+        "vc_fixture_roots": 11,
+        "frontend_only_aggregate_roots": ["alpha-array", "basic-structarray"],
+        "negative_frontend_roots": 8,
+        "payment_policies": 5,
+        "loops": 5,
+        "conversions": 5,
+        "runtime_operations": 9,
+        "calls": 6,
+        "contracts": 21,
+    }
+    expect_equal(coverage, expected_coverage, "MIGRATION_CORPUS", "corpus coverage")
+
+    checker = require_object(manifest["checker_audit"], "corpus checker audit")
+    expect_equal(
+        checker,
+        {
+            "certificate": "checker/one-theorem.hex",
+            "source_free": "accepted",
+            "reference": "accepted",
+            "hash_agreement": True,
+            "axiom_count": 0,
+        },
+        "MIGRATION_CORPUS",
+        "corpus checker audit",
+    )
+
+    artifacts = require_array(manifest["artifacts"], "corpus artifacts")
+    artifact_paths: list[str] = []
+    artifact_kinds: set[str] = set()
+    corpus_root = manifest_path.parent
+    staging_fixture_root = repo_root / STAGING_ROOT_PATH / "fixtures/vir-go"
+    for index, value in enumerate(artifacts):
+        item = require_object(value, f"corpus artifacts[{index}]")
+        require_exact_fields(
+            item,
+            {"kind", "path", "sha256", "bytes"},
+            "MIGRATION_CORPUS",
+            f"corpus artifacts[{index}]",
+        )
+        relative = require_nonempty(item["path"], f"corpus artifacts[{index}].path")
+        relative_path = Path(relative)
+        expect_true(
+            not relative_path.is_absolute()
+            and ".." not in relative_path.parts
+            and relative_path.as_posix() == relative,
+            "MIGRATION_CORPUS",
+            f"unsafe corpus artifact path {relative!r}",
+        )
+        kind = require_nonempty(item["kind"], f"corpus artifacts[{index}].kind")
+        expect_true(
+            isinstance(item["bytes"], int) and item["bytes"] >= 0,
+            "MIGRATION_CORPUS",
+            f"invalid corpus artifact byte count for {relative}",
+        )
+        shared = require_regular_path(corpus_root / relative, relative)
+        mirrored = require_regular_path(staging_fixture_root / relative, relative)
+        try:
+            shared_bytes = shared.read_bytes()
+            mirrored_bytes = mirrored.read_bytes()
+        except OSError as error:
+            raise MigrationError(
+                "MIGRATION_CORPUS", f"cannot read corpus artifact {relative}: {error}"
+            ) from error
+        expect_equal(len(shared_bytes), item["bytes"], "MIGRATION_CORPUS", f"{relative} bytes")
+        expect_equal(sha256(shared_bytes), item["sha256"], "MIGRATION_CORPUS", f"{relative} SHA-256")
+        expect_equal(mirrored_bytes, shared_bytes, "MIGRATION_CORPUS", f"{relative} staging mirror")
+        artifact_paths.append(relative)
+        artifact_kinds.add(kind)
+
+    expect_equal(artifact_paths, sorted(artifact_paths), "MIGRATION_CORPUS", "artifact path order")
+    require_unique(artifact_paths, "regenerated corpus artifact paths")
+    expect_true(len(artifacts) >= 90, "MIGRATION_CORPUS", "regenerated artifact inventory is incomplete")
+    expected_kinds = {
+        "frontend_envelope",
+        "vir",
+        "source_map",
+        "source_manifest_frontend",
+        "vc_v1",
+        "grouped_skeleton",
+        "source_manifest_certificate",
+        "certificate",
+        "axiom_report",
+        "checker_audit",
+        "policy_scan_v1",
+        "policy_evidence_v1",
+        "ai_v1_dry_run",
+        "ai_v1_output",
+        "ai_api_v1",
+    }
+    expect_true(
+        expected_kinds <= artifact_kinds,
+        "MIGRATION_CORPUS",
+        f"regenerated artifact kinds are incomplete: {sorted(expected_kinds - artifact_kinds)!r}",
+    )
+    expected_files = set(artifact_paths) | {manifest_path.name}
+    expect_equal(
+        regular_file_inventory(corpus_root),
+        expected_files,
+        "MIGRATION_CORPUS",
+        "shared corpus file inventory",
+    )
+    expect_equal(
+        regular_file_inventory(staging_fixture_root),
+        expected_files,
+        "MIGRATION_CORPUS",
+        "staging corpus file inventory",
+    )
+    expect_equal(
+        (staging_fixture_root / manifest_path.name).read_bytes(),
+        manifest_bytes,
+        "MIGRATION_CORPUS",
+        "staging corpus manifest",
+    )
+
+    frontend_index = read_json_object(corpus_root / "frontend-index.json")[1]
+    derived_index = read_json_object(corpus_root / "derived-index.json")[1]
+    expect_equal(frontend_index["alpha_function_count"], 100, "MIGRATION_CORPUS", "frontend alpha count")
+    expect_equal(len(frontend_index["cases"]), 13, "MIGRATION_CORPUS", "frontend root count")
+    expect_equal(len(frontend_index["negative_cases"]), 8, "MIGRATION_CORPUS", "negative root count")
+    expect_equal(frontend_index["semantic_vector"]["unresolved_cases"], 0, "MIGRATION_CORPUS", "semantic vector unresolved cases")
+    expect_equal(derived_index["deterministic_runs"], 2, "MIGRATION_CORPUS", "derived clean runs")
+    expect_equal(len(derived_index["cases"]), 11, "MIGRATION_CORPUS", "derived VC roots")
+
+    example_count = validate_staged_examples(repo_root, corpus_root, frontend_index)
+    validate_staged_alpha(repo_root, corpus_root)
+    active_release = require_regular_file(repo_root, "release-report.json").read_bytes()
+    staged_release = require_regular_file(repo_root, f"{STAGING_ROOT_PATH}/release-report.json").read_bytes()
+    expect_equal(staged_release, active_release, "MIGRATION_CORPUS", "staged release report")
+    expect_true(
+        STAGING_ROOT_PATH.encode() not in active_release,
+        "MIGRATION_CORPUS",
+        "active release report selects staging",
+    )
+
+    checker_verdicts = read_json_object(corpus_root / "checker/verdicts.json")[1]
+    expect_equal(checker_verdicts["unresolved"], [], "MIGRATION_CORPUS", "checker unresolved")
+    expect_equal(checker_verdicts["source_free_checker"]["verdict"], "accepted", "MIGRATION_CORPUS", "source-free checker")
+    expect_equal(checker_verdicts["reference_checker"]["verdict"], "accepted", "MIGRATION_CORPUS", "reference checker")
+    hash_agreement = require_object(checker_verdicts["hash_agreement"], "checker hash agreement")
+    expect_true(all(value is True for value in hash_agreement.values()), "MIGRATION_CORPUS", "checker hashes disagree")
+    axiom_report = read_json_object(corpus_root / "checker/axiom-report.json")[1]
+    expect_equal(axiom_report["report"]["summary"]["total_axiom_count"], 0, "MIGRATION_CORPUS", "axiom count")
+
+    return {
+        "path": display_path(repo_root, manifest_path),
+        "sha256": sha256(manifest_bytes),
+        "status": manifest["status"],
+        "artifact_count": len(artifacts),
+        "staging_mirror_count": len(artifacts),
+        "example_replacement_count": example_count,
+        "coverage": coverage,
+        "generation": generation,
+        "checker_audit": checker,
+        "unresolved_disposition_count": 0,
+    }
+
+
+def validate_staged_examples(
+    repo_root: Path, corpus_root: Path, frontend_index: dict[str, Any]
+) -> int:
+    cases = [item for item in frontend_index["cases"] if item.get("example_stage_path")]
+    expect_equal(len(cases), 7, "MIGRATION_CORPUS", "staged example count")
+    for item in cases:
+        stage = require_nonempty(item["example_stage_path"], "example stage path")
+        expect_true(
+            stage.startswith(f"{STAGING_ROOT_PATH}/examples/"),
+            "MIGRATION_CORPUS",
+            f"example is outside staging root: {stage}",
+        )
+        stage_root = repo_root / stage
+        expected = {
+            "frontend-envelope.json",
+            "vir.json",
+            "source-map.json",
+            "source-manifest.frontend.json",
+            "vc.json",
+            "vc_skeleton.json",
+            "source-manifest.certificate.json",
+        }
+        frontend_names = {
+            "frontend-envelope.json",
+            "vir.json",
+            "source-map.json",
+            "source-manifest.frontend.json",
+        }
+        expect_equal(regular_file_inventory(stage_root), expected, "MIGRATION_CORPUS", f"{stage} inventory")
+        frontend_root = corpus_root / "frontend" / item["id"]
+        derived_root = corpus_root / "derived" / item["id"]
+        for source_name, staged_name in (
+            ("frontend-envelope.json", "frontend-envelope.json"),
+            ("vir.json", "vir.json"),
+            ("source-map.json", "source-map.json"),
+            ("source-manifest.frontend.json", "source-manifest.frontend.json"),
+            ("vc.json", "vc.json"),
+            ("vc-skeleton.json", "vc_skeleton.json"),
+            ("source-manifest.certificate.json", "source-manifest.certificate.json"),
+        ):
+            source_root = frontend_root if source_name in frontend_names else derived_root
+            expect_equal(
+                require_regular_path(stage_root / staged_name, staged_name).read_bytes(),
+                require_regular_path(source_root / source_name, source_name).read_bytes(),
+                "MIGRATION_CORPUS",
+                f"{stage}/{staged_name}",
+            )
+    return len(cases)
+
+
+def validate_staged_alpha(repo_root: Path, corpus_root: Path) -> None:
+    stage = repo_root / STAGING_ROOT_PATH / "fixtures/vc-alpha"
+    expected = {"manifest.json", "vc.json", "vc_skeleton.json"}
+    expect_equal(regular_file_inventory(stage), expected, "MIGRATION_CORPUS", "staged alpha inventory")
+    derived = corpus_root / "derived/alpha-branch"
+    for source_name, staged_name in (
+        ("vc-alpha-manifest.json", "manifest.json"),
+        ("vc.json", "vc.json"),
+        ("vc-skeleton.json", "vc_skeleton.json"),
+    ):
+        expect_equal(
+            require_regular_path(stage / staged_name, staged_name).read_bytes(),
+            require_regular_path(derived / source_name, source_name).read_bytes(),
+            "MIGRATION_CORPUS",
+            f"staged alpha {staged_name}",
+        )
+
+
+def regular_file_inventory(root: Path) -> set[str]:
+    try:
+        paths = list(root.rglob("*"))
+    except OSError as error:
+        raise MigrationError("MIGRATION_CORPUS", f"cannot enumerate {root}: {error}") from error
+    files = set()
+    for path in paths:
+        if path.is_symlink():
+            raise MigrationError("MIGRATION_CORPUS", f"corpus contains symlink: {path}")
+        if path.is_file():
+            files.add(path.relative_to(root).as_posix())
+    return files
+
+
+def require_regular_path(path: Path, label: str) -> Path:
+    if not path.is_file() or path.is_symlink():
+        raise MigrationError("MIGRATION_CORPUS", f"corpus artifact must be a regular file: {label}")
+    return path
+
+
 def validate_checker_anchors(
     repo_root: Path, baseline: dict[str, Any], migration: dict[str, Any]
 ) -> dict[str, Any]:
@@ -1760,7 +2118,7 @@ def validate_checker_anchors(
         payment["source_free_checker_verdict"],
         None,
         "MIGRATION_CHECKER_DISAGREEMENT",
-        "payment checker verdict remains pending until GO-VIR-02-T11",
+        "historical payment checker verdict remains an audit-only proof-pending anchor",
     )
     verify_fixture_digest(repo_root, payment["path"], payment["sha256"])
     anchors = [
@@ -1778,7 +2136,7 @@ def validate_checker_anchors(
             "source_free_verdict": None,
             "reference_verdict": None,
             "hash_agreement": None,
-            "status": "audit_only_pending_GO-VIR-02-T11",
+            "status": "historical_audit_only_proof_pending",
         },
     ]
     dispositions = []
@@ -1996,6 +2354,7 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"| Obligation kinds | {summary['obligation_kind_count']} |",
         f"| Checker anchors | {summary['checker_anchor_count']} |",
         f"| Checked fixture files | {summary['checked_fixture_file_count']} |",
+        f"| Regenerated Go/VIR artifacts | {summary['regenerated_artifact_count']} |",
         "",
         "## Explicitly allowed changes",
         "",
@@ -2075,6 +2434,21 @@ def render_markdown(report: dict[str, Any]) -> str:
         lines.append(
             f"| `{md(item['id'])}` | {md_value(item['source_free_verdict'])} | {md_value(item['reference_verdict'])} | {md_value(item['hash_agreement'])} | `{md(item['status'])}` |"
         )
+    corpus = report["regenerated_corpus"]
+    corpus_coverage = corpus["coverage"]
+    lines.extend(
+        [
+            "",
+            "## Regenerated Go/VIR corpus",
+            "",
+            f"- `{md(corpus['path'])}` records {corpus['artifact_count']} hash-linked artifacts, mirrored byte-for-byte into the staging root.",
+            f"- Frontend coverage: {corpus_coverage['alpha_functions']} alpha functions, {corpus_coverage['positive_frontend_roots']} positive roots, {corpus_coverage['negative_frontend_roots']} deterministic negative roots, and {corpus_coverage['payment_policies']} payment policies.",
+            f"- VC fixture coverage: {corpus_coverage['vc_fixture_roots']} roots; aggregate roots `{md(', '.join(corpus_coverage['frontend_only_aggregate_roots']))}` remain explicit frontend-only fixtures for the current VC foundation.",
+            f"- Both independent checkers accepted the staged certificate with hash agreement and {corpus['checker_audit']['axiom_count']} axioms.",
+            f"- Two clean generations were byte-identical; unresolved dispositions: {corpus['unresolved_disposition_count']}.",
+            "- VIR/VC hashes are recorded as an intentional migration; no compatibility alias or old byte form is installed.",
+        ]
+    )
     lines.extend(
         [
             "",

@@ -46,7 +46,7 @@
       "id": "payment_reserve_theory_evidence",
       "reference_verdict": null,
       "source_free_verdict": null,
-      "status": "audit_only_pending_GO-VIR-02-T11"
+      "status": "historical_audit_only_proof_pending"
     }
   ],
   "coverage": {
@@ -916,7 +916,12 @@
       "path": "develop/specs/vectors/go-vir-profile-v0.json",
       "profile": "mpk.go.fixed.v0",
       "schema": "mpk.go.vir_profile.conformance.v0",
-      "sha256": "c4f1459482838bff82d82168167dbb29be87f8657e935722f0b9689140bcae18"
+      "sha256": "5c248360f577602b09cf69b1f41c1a78e41dd729444dc54092818f248be94bad"
+    },
+    "regenerated_corpus": {
+      "path": "fixtures/vir-go/manifest.json",
+      "schema": "mpk.go_vir_corpus.v0",
+      "sha256": "f684df4824be292f558c85dddf120f64697ab69d233e4d42a05d1c6afe48717a"
     }
   },
   "lifecycle": {
@@ -983,6 +988,51 @@
       "old_intent": "The optional total-correctness variant is nonnegative before the body and strictly decreases after one body step."
     }
   ],
+  "regenerated_corpus": {
+    "artifact_count": 97,
+    "checker_audit": {
+      "axiom_count": 0,
+      "certificate": "checker/one-theorem.hex",
+      "hash_agreement": true,
+      "reference": "accepted",
+      "source_free": "accepted"
+    },
+    "coverage": {
+      "alpha_functions": 100,
+      "calls": 6,
+      "contracts": 21,
+      "conversions": 5,
+      "frontend_only_aggregate_roots": [
+        "alpha-array",
+        "basic-structarray"
+      ],
+      "loops": 5,
+      "negative_frontend_roots": 8,
+      "payment_policies": 5,
+      "positive_frontend_roots": 13,
+      "runtime_operations": 9,
+      "vc_fixture_roots": 11
+    },
+    "example_replacement_count": 7,
+    "generation": {
+      "active_release_selects_staging": false,
+      "byte_identical": true,
+      "clean_runs": 2,
+      "commands": [
+        "MPK_UPDATE_GO_VIR_CORPUS=1 go test -count=1 -run TestRegenerateGoVIRFrontendCorpus",
+        "MPK_UPDATE_GO_VIR_CORPUS=1 cargo test -p mpk-vc --test go_vir_corpus",
+        "python3 scripts/compare-go-gir-vir.py --write"
+      ],
+      "compatibility_aliases": false,
+      "intentional_hash_migration": true,
+      "leakage_scan": "local_path,temp_path,host,timestamp,obsolete_interface"
+    },
+    "path": "fixtures/vir-go/manifest.json",
+    "sha256": "f684df4824be292f558c85dddf120f64697ab69d233e4d42a05d1c6afe48717a",
+    "staging_mirror_count": 97,
+    "status": "reviewed_zero_unexplained_differences",
+    "unresolved_disposition_count": 0
+  },
   "reviewed_dispositions": [
     {
       "disposition": "reviewed breaking replacement; no compatibility importer",
@@ -1435,9 +1485,9 @@
     },
     {
       "baseline_pointer": "/checker_baseline/payment_reserve_theory_evidence",
-      "disposition": "eight theory-certificate property intents remain an audit anchor; regenerated program certificate and both checker verdicts are required by GO-VIR-02-T11 before mpk_verified evidence",
+      "disposition": "eight v0 theory-certificate property intents remain a historical audit anchor; the regenerated canonical certificate is accepted by both checkers with hash agreement and zero axioms, while VC v1 properties remain proof_pending unless an exact VC-linked program certificate is accepted",
       "id": "checker.payment_reserve_theory_evidence",
-      "new": "audit_only_pending_GO-VIR-02-T11",
+      "new": "historical_audit_only_proof_pending",
       "old": "captured independent checker facts"
     }
   ],
@@ -2449,6 +2499,7 @@
     "historical_accepted_rule_count": 23,
     "historical_rejected_rule_count": 21,
     "obligation_kind_count": 7,
+    "regenerated_artifact_count": 97,
     "rejected_source_case_count": 16,
     "reviewed_disposition_count": 62,
     "runtime_check_count": 3,

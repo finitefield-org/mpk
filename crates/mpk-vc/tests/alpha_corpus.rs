@@ -3,6 +3,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
 use sha2::{Digest, Sha256};
 
 use mpk_vc::{
@@ -88,6 +89,47 @@ fn alpha_vc_corpus_fixture_has_recorded_count_and_hash() {
         recorded.artifacts.skeleton.theorem_declaration_count,
         Some(EXPECTED_VC_COUNT)
     );
+}
+
+#[test]
+fn go_vir_alpha_replacement_is_complete_but_not_active() {
+    let root = repo_root();
+    let shared = root.join("fixtures/vir-go/derived/alpha-branch");
+    let staged = root.join("develop/migrations/go-vir-staging/fixtures/vc-alpha");
+    let corpus: Value = serde_json::from_slice(
+        &fs::read(root.join("fixtures/vir-go/manifest.json")).expect("Go/VIR corpus manifest"),
+    )
+    .expect("parse Go/VIR corpus manifest");
+    assert_eq!(corpus["coverage"]["alpha_functions"], 100);
+    assert_eq!(corpus["coverage"]["vc_fixture_roots"], 11);
+    assert_eq!(corpus["unresolved_dispositions"], Value::Array(Vec::new()));
+
+    let staged_manifest: Value = serde_json::from_slice(
+        &fs::read(staged.join("manifest.json")).expect("staged alpha manifest"),
+    )
+    .expect("parse staged alpha manifest");
+    assert_eq!(
+        staged_manifest["schema_version"],
+        "mpk.vc_alpha_manifest.v1"
+    );
+    assert_eq!(staged_manifest["source"]["frontend_case"], "alpha-branch");
+    for (source, replacement) in [
+        ("vc-alpha-manifest.json", "manifest.json"),
+        ("vc.json", "vc.json"),
+        ("vc-skeleton.json", "vc_skeleton.json"),
+    ] {
+        assert_eq!(
+            fs::read(shared.join(source)).expect("shared Go/VIR alpha artifact"),
+            fs::read(staged.join(replacement)).expect("staged Go/VIR alpha artifact")
+        );
+    }
+
+    let active: Value = serde_json::from_slice(
+        &fs::read(root.join("fixtures/vc-alpha/manifest.json")).expect("active alpha manifest"),
+    )
+    .expect("parse active alpha manifest");
+    assert_eq!(active["schema_version"], MANIFEST_SCHEMA);
+    assert_eq!(active["source"]["gir_schema_version"], GIR_SCHEMA_VERSION);
 }
 
 #[derive(Debug, Deserialize, Serialize)]

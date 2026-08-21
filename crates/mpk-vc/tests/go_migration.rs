@@ -14,6 +14,7 @@ const BASELINE: &str = "develop/migrations/go-gir-semantic-baseline.json";
 const PROFILE_VECTOR: &str = "develop/specs/vectors/go-vir-profile-v0.json";
 const REPORT_JSON: &str = "develop/migrations/go-gir-to-vir-report.json";
 const REPORT_MARKDOWN: &str = "develop/migrations/go-gir-to-vir-report.md";
+const CORPUS_MANIFEST: &str = "fixtures/vir-go/manifest.json";
 const SCRIPT: &str = "scripts/compare-go-gir-vir.py";
 
 static NEXT_TEMP: AtomicU64 = AtomicU64::new(0);
@@ -80,6 +81,27 @@ fn checked_reports_are_exactly_derived_and_development_only() {
         "GO-VIR-02-T12"
     );
     assert_eq!(report["summary"]["unexplained_difference_count"], 0);
+    assert_eq!(report["summary"]["regenerated_artifact_count"], 97);
+    assert_eq!(
+        report["regenerated_corpus"]["coverage"]["alpha_functions"],
+        100
+    );
+    assert_eq!(
+        report["regenerated_corpus"]["coverage"]["payment_policies"],
+        5
+    );
+    assert_eq!(
+        report["regenerated_corpus"]["checker_audit"]["source_free"],
+        "accepted"
+    );
+    assert_eq!(
+        report["regenerated_corpus"]["checker_audit"]["reference"],
+        "accepted"
+    );
+    assert_eq!(
+        report["regenerated_corpus"]["unresolved_disposition_count"],
+        0
+    );
     assert_eq!(report["findings"], Value::Array(Vec::new()));
 
     let markdown = run_comparator(&root, &["--format", "markdown"]);
@@ -91,6 +113,34 @@ fn checked_reports_are_exactly_derived_and_development_only() {
 
     let checked = run_comparator(&root, &["--check"]);
     assert_success(&checked);
+}
+
+#[test]
+fn unresolved_regenerated_corpus_disposition_fails_the_harness() {
+    let root = repo_root();
+    let temporary = TestDirectory::new(&root, "unresolved-corpus-disposition");
+    let mut manifest = read_json(&root.join(CORPUS_MANIFEST));
+    manifest["unresolved_dispositions"] = serde_json::json!([{
+        "id": "unreviewed",
+        "reason": "test mutation"
+    }]);
+    let manifest_path = temporary.path.join("manifest.json");
+    write_json(&manifest_path, &manifest);
+
+    let output = Command::new("python3")
+        .current_dir(&root)
+        .arg(SCRIPT)
+        .arg("--corpus-manifest")
+        .arg(&manifest_path)
+        .arg("--format")
+        .arg("json")
+        .output()
+        .expect("run migration comparator with mutated corpus manifest");
+    assert!(
+        !output.status.success(),
+        "unresolved corpus disposition was accepted"
+    );
+    assert_stderr_contains(&output, "MIGRATION_CORPUS");
 }
 
 #[test]

@@ -2585,7 +2585,7 @@ git diff --check
 
 ### GO-VIR-02-T11 Regenerate the Go Corpus and Complete the Semantic Audit
 
-Status: Pending
+Status: Complete (2026-08-22)
 
 Depends on: GO-VIR-02-T04, GO-VIR-02-T08, GO-VIR-02-T09, GO-VIR-02-T10.
 
