@@ -7,6 +7,11 @@ pub mod policy_scan;
 pub mod policy_schema;
 pub mod policy_verify;
 
+#[cfg(test)]
+extern crate self as mpk_cli;
+#[cfg(test)]
+mod ai_explain_v1;
+
 pub mod frontend_protocol;
 #[allow(dead_code)]
 mod frontend_registry;

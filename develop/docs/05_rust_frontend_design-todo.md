@@ -2467,7 +2467,7 @@ git diff --check
 
 ### GO-VIR-02-T09 Stage `mpk explain` for Evidence and Explanation v1
 
-Status: Pending
+Status: Complete (2026-08-22)
 
 Depends on: GO-VIR-02-T06, GO-VIR-02-T08.
 
