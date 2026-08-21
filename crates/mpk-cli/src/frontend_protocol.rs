@@ -2,6 +2,7 @@ use mpk_vc::{
     canonical_json_bytes, import_frontend_source_manifest_json, import_source_map_json,
     import_vir_json, parse_strict_json, CapturedInput, SourceManifestValidationContext,
     SourceMapValidationContext, StrictJsonLimits, ValidatedReleaseRegistry,
+    ValidatedSourceManifest, ValidatedSourceMap, VirModule,
 };
 use serde::de::IgnoredAny;
 use serde_json::{Map, Value};
@@ -37,12 +38,20 @@ pub struct FrontendProcessFacts<'a> {
     pub stderr_observed_bytes: usize,
 }
 
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug)]
 pub struct AcceptedFrontendEnvelope {
     pub status: String,
     pub phase: String,
     pub value: Value,
     pub canonical_bytes: Vec<u8>,
+    pub artifacts: Option<AcceptedFrontendArtifacts>,
+}
+
+#[derive(Clone, Debug)]
+pub struct AcceptedFrontendArtifacts {
+    pub vir: VirModule,
+    pub source_map: ValidatedSourceMap,
+    pub source_manifest: ValidatedSourceManifest,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -149,9 +158,11 @@ pub fn validate_frontend_process(
         return Err(protocol(FrontendProtocolCode::ProtocolNoncanonical));
     }
     validate_identity(&value, request)?;
-    if status == "ir-lowered" {
-        validate_success_artifacts(&value, request)?;
-    }
+    let artifacts = if status == "ir-lowered" {
+        Some(validate_success_artifacts(&value, request)?)
+    } else {
+        None
+    };
     let mut transport = canonical.clone();
     transport.push(b'\n');
     Ok(AcceptedFrontendEnvelope {
@@ -159,6 +170,7 @@ pub fn validate_frontend_process(
         phase: phase.to_owned(),
         value,
         canonical_bytes: transport,
+        artifacts,
     })
 }
 
@@ -455,7 +467,7 @@ fn validate_identity(
 fn validate_success_artifacts(
     envelope: &Value,
     request: FrontendProtocolRequest<'_>,
-) -> Result<(), FrontendProtocolError> {
+) -> Result<AcceptedFrontendArtifacts, FrontendProtocolError> {
     let registry = request
         .release_registry
         .ok_or_else(|| protocol(FrontendProtocolCode::ProtocolArtifactMismatch))?;
@@ -515,7 +527,11 @@ fn validate_success_artifacts(
     if count != 1 {
         return Err(protocol(FrontendProtocolCode::ProtocolArtifactMismatch));
     }
-    Ok(())
+    Ok(AcceptedFrontendArtifacts {
+        vir,
+        source_map,
+        source_manifest: manifest,
+    })
 }
 
 fn validate_success_issues(

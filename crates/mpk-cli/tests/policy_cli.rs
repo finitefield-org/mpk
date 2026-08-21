@@ -189,6 +189,30 @@ fn policy_scan_rejects_unknown_flag() {
 }
 
 #[test]
+fn released_policy_scan_does_not_expose_staged_v1_options() {
+    let output = run_mpk(&[
+        "policy",
+        "scan",
+        "examples/order_policy",
+        "--function",
+        "example.com/orderpolicy.ApprovedReserveCents",
+        "--contract",
+        "examples/order_policy/policy_contract.json",
+        "--json-out",
+        "/tmp/mpk-policy-scan.json",
+        "--language",
+        "go",
+    ]);
+
+    assert_eq!(output.status.code(), Some(2));
+    assert!(output.stdout.is_empty());
+    assert_eq!(
+        stderr(&output),
+        format!("policy scan has unknown flag: --language\n{POLICY_SCAN_USAGE}\n")
+    );
+}
+
+#[test]
 fn policy_scan_rejects_empty_flag_value() {
     let output = run_mpk(&[
         "policy",

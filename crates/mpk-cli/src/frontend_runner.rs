@@ -6,18 +6,43 @@ use crate::frontend_registry::{
     FrontendReleaseCode, InstalledReleaseResolver, SelectedFrontendRelease,
 };
 use crate::frontend_sandbox::{launch_release_frontend, SandboxError};
-use mpk_vc::{CapturedInput, ReleaseSelectionRequest};
+use mpk_vc::{
+    CapturedInput, CompilerIdentity, ComponentIdentity, FrontendIdentity, ReleaseRegistryIdentity,
+    ReleaseSelectionRequest, SubordinateIdentity, ToolchainComponent, ToolchainIdentity,
+};
 use serde_json::Value;
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, BTreeSet};
 use std::error::Error;
 use std::fmt;
+
+const GO_FRONTEND_ARGUMENT_BYTES_MAX: usize = 262_144;
+const GO_FRONTEND_CONTRACTS_MAX: usize = 128;
 
 pub(crate) struct FrontendRunRequest<'a> {
     pub(crate) release: ReleaseSelectionRequest,
     pub(crate) semantic_parameters: &'a Value,
     pub(crate) selection: &'a Value,
     pub(crate) captured_inputs: &'a [CapturedInput<'a>],
-    pub(crate) args: Vec<String>,
+    pub(crate) contracts: &'a [String],
+}
+
+#[derive(Clone, Debug)]
+pub(crate) struct FrontendReleaseIdentity {
+    pub(crate) release_registry: ReleaseRegistryIdentity,
+    pub(crate) frontend: FrontendIdentity,
+    pub(crate) toolchain: ToolchainIdentity,
+    pub(crate) limit_profile: String,
+}
+
+#[derive(Clone, Debug)]
+pub(crate) struct AcceptedFrontendRun {
+    pub(crate) envelope: AcceptedFrontendEnvelope,
+    pub(crate) release: FrontendReleaseIdentity,
+}
+
+pub(crate) struct PreparedFrontendRun {
+    selected: SelectedFrontendRelease,
+    release: ReleaseSelectionRequest,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -26,6 +51,17 @@ pub(crate) enum FrontendRunCode {
     ProcessSpawn,
     ProcessKilled,
     Protocol(FrontendProtocolCode),
+}
+
+impl FrontendRunCode {
+    pub(crate) const fn as_str(self) -> &'static str {
+        match self {
+            Self::Release(code) => code.as_str(),
+            Self::ProcessSpawn => "FRONTEND_PROCESS_SPAWN",
+            Self::ProcessKilled => "FRONTEND_PROCESS_KILLED",
+            Self::Protocol(code) => code.as_str(),
+        }
+    }
 }
 
 #[derive(Debug)]
@@ -41,12 +77,7 @@ impl FrontendRunError {
 
 impl fmt::Display for FrontendRunError {
     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match self.code {
-            FrontendRunCode::Release(code) => formatter.write_str(code.as_str()),
-            FrontendRunCode::ProcessSpawn => formatter.write_str("FRONTEND_PROCESS_SPAWN"),
-            FrontendRunCode::ProcessKilled => formatter.write_str("FRONTEND_PROCESS_KILLED"),
-            FrontendRunCode::Protocol(code) => formatter.write_str(code.as_str()),
-        }
+        formatter.write_str(self.code.as_str())
     }
 }
 
@@ -56,28 +87,46 @@ impl Error for FrontendRunError {}
 /// dispatch until GO-VIR-02-T12.
 pub(crate) fn run_installed_frontend(
     request: FrontendRunRequest<'_>,
-) -> Result<AcceptedFrontendEnvelope, FrontendRunError> {
+) -> Result<AcceptedFrontendRun, FrontendRunError> {
+    let prepared = prepare_installed_frontend(&request.release)?;
+    run_prepared_frontend(prepared, request)
+}
+
+pub(crate) fn prepare_installed_frontend(
+    release: &ReleaseSelectionRequest,
+) -> Result<PreparedFrontendRun, FrontendRunError> {
     let resolver = InstalledReleaseResolver::open().map_err(|error| FrontendRunError {
         code: FrontendRunCode::Release(error.code()),
     })?;
     let selected = resolver
-        .resolve(&request.release)
+        .resolve(release)
         .map_err(|error| FrontendRunError {
             code: FrontendRunCode::Release(error.code()),
         })?;
-    run_selected(selected, request)
+    Ok(PreparedFrontendRun {
+        selected,
+        release: release.clone(),
+    })
 }
 
-fn run_selected(
-    selected: SelectedFrontendRelease,
+pub(crate) fn run_prepared_frontend(
+    prepared: PreparedFrontendRun,
     request: FrontendRunRequest<'_>,
-) -> Result<AcceptedFrontendEnvelope, FrontendRunError> {
+) -> Result<AcceptedFrontendRun, FrontendRunError> {
+    if request.release != prepared.release {
+        return Err(FrontendRunError {
+            code: FrontendRunCode::Release(FrontendReleaseCode::BundleIncompatible),
+        });
+    }
+    let selected = prepared.selected;
     let environment = registered_environment(&selected, &request.release)?;
+    let args = registered_arguments(&selected, &request)?;
+    let release = release_identity(&selected);
     let output = launch_release_frontend(
         &selected.frontend_snapshot,
         &selected.toolchain_snapshot,
         &selected.frontend.main.path,
-        &request.args,
+        &args,
         &environment,
         request.captured_inputs,
     )
@@ -95,7 +144,7 @@ fn run_selected(
             code: FrontendRunCode::Protocol(FrontendProtocolCode::ProtocolLimit),
         });
     }
-    validate_frontend_process(
+    let envelope = validate_frontend_process(
         FrontendProtocolRequest {
             source_language: &request.release.source_language,
             semantic_profile: &request.release.semantic_profile,
@@ -111,7 +160,183 @@ fn run_selected(
             stderr_observed_bytes: output.stderr_observed_bytes,
         },
     )
-    .map_err(protocol_error)
+    .map_err(protocol_error)?;
+    Ok(AcceptedFrontendRun { envelope, release })
+}
+
+fn registered_arguments(
+    selected: &SelectedFrontendRelease,
+    request: &FrontendRunRequest<'_>,
+) -> Result<Vec<String>, FrontendRunError> {
+    if selected.frontend.source_language != "go"
+        || selected.toolchain.source_language != "go"
+        || selected.pointer_width != 64
+        || selected.limit_profile_id != "mpk.vir.limits.v0"
+        || selected.frontend.limit_profile_id != "mpk.vir.limits.v0"
+        || selected.frontend.argument_profile_id != "mpk.go.frontend_arguments.v0"
+        || !selected.frontend.subordinate_binaries.is_empty()
+        || request.release.source_language != "go"
+        || request.release.semantic_profile != "mpk.go.fixed.v0"
+        || request.release.target_id != "linux/amd64"
+        || !exact_go_semantic_parameters(request.semantic_parameters)
+    {
+        return Err(bundle_incompatible());
+    }
+    let selection = request
+        .selection
+        .as_object()
+        .ok_or_else(bundle_incompatible)?;
+    if selection.len() != 2
+        || !selection.contains_key("package")
+        || !selection.contains_key("function")
+    {
+        return Err(bundle_incompatible());
+    }
+    let package = request
+        .selection
+        .get("package")
+        .and_then(Value::as_str)
+        .ok_or_else(bundle_incompatible)?;
+    let function = request
+        .selection
+        .get("function")
+        .and_then(Value::as_str)
+        .ok_or_else(bundle_incompatible)?;
+    let contracts = normalized_contract_arguments(request.contracts)?;
+    let mut arguments = vec![
+        "lower".to_owned(),
+        "/mpk/source".to_owned(),
+        "--package".to_owned(),
+        package.to_owned(),
+        "--semantic-profile".to_owned(),
+        request.release.semantic_profile.clone(),
+        "--target".to_owned(),
+        request.release.target_id.clone(),
+        "--function".to_owned(),
+        function.to_owned(),
+        "--frontend-bundle-id".to_owned(),
+        selected.frontend.bundle_id.clone(),
+        "--frontend-sha256".to_owned(),
+        selected.frontend.main.binary_sha256.clone(),
+        "--release-registry-id".to_owned(),
+        selected.registry_id.clone(),
+        "--release-registry-sha256".to_owned(),
+        selected.registry_sha256.clone(),
+        "--toolchain-bundle-id".to_owned(),
+        selected.toolchain.bundle_id.clone(),
+        "--toolchain-root".to_owned(),
+        "/mpk/toolchain".to_owned(),
+        "--toolchain-distribution-sha256".to_owned(),
+        selected.toolchain.distribution_sha256.clone(),
+    ];
+    for contract in contracts {
+        arguments.push("--contract".to_owned());
+        arguments.push(contract);
+    }
+    let argument_bytes = arguments.iter().try_fold(0usize, |total, argument| {
+        total.checked_add(argument.len() + 1)
+    });
+    if argument_bytes.is_none_or(|bytes| bytes > GO_FRONTEND_ARGUMENT_BYTES_MAX) {
+        return Err(bundle_incompatible());
+    }
+    Ok(arguments)
+}
+
+fn exact_go_semantic_parameters(parameters: &Value) -> bool {
+    parameters.as_object().is_some_and(|object| {
+        object.len() == 2
+            && object.get("target_id").and_then(Value::as_str) == Some("linux/amd64")
+            && object.get("pointer_width").and_then(Value::as_i64) == Some(64)
+    })
+}
+
+fn normalized_contract_arguments(contracts: &[String]) -> Result<Vec<String>, FrontendRunError> {
+    if contracts.len() > GO_FRONTEND_CONTRACTS_MAX {
+        return Err(bundle_incompatible());
+    }
+    let mut folded = BTreeSet::new();
+    for contract in contracts {
+        if mpk_vc::validate_manifest_normalized_path(contract).is_err()
+            || !folded.insert(contract.to_ascii_lowercase())
+        {
+            return Err(bundle_incompatible());
+        }
+    }
+    let mut normalized = contracts.to_vec();
+    normalized.sort_by(|left, right| left.as_bytes().cmp(right.as_bytes()));
+    Ok(normalized)
+}
+
+fn bundle_incompatible() -> FrontendRunError {
+    FrontendRunError {
+        code: FrontendRunCode::Release(FrontendReleaseCode::BundleIncompatible),
+    }
+}
+
+fn release_identity(selected: &SelectedFrontendRelease) -> FrontendReleaseIdentity {
+    let rustc_commit = match &selected.toolchain.compiler {
+        CompilerIdentity::Rust { rustc_commit, .. } => Some(rustc_commit.as_str()),
+        CompilerIdentity::Go { .. } => None,
+    };
+    let components = selected
+        .toolchain
+        .components
+        .iter()
+        .map(|component| match component {
+            ToolchainComponent::Executable {
+                name,
+                release,
+                binary_sha256,
+                ..
+            } => ComponentIdentity::Executable {
+                name: name.clone(),
+                release: release.clone(),
+                commit_hash: (name == "rustc")
+                    .then(|| rustc_commit.map(str::to_owned))
+                    .flatten(),
+                binary_sha256: binary_sha256.clone(),
+            },
+            ToolchainComponent::Content {
+                name,
+                release,
+                content_sha256,
+                ..
+            } => ComponentIdentity::Content {
+                name: name.clone(),
+                release: release.clone(),
+                content_sha256: content_sha256.clone(),
+            },
+        })
+        .collect();
+    FrontendReleaseIdentity {
+        release_registry: ReleaseRegistryIdentity {
+            schema: selected.registry.registry().schema.clone(),
+            id: selected.registry_id.clone(),
+            registry_sha256: selected.registry_sha256.clone(),
+        },
+        frontend: FrontendIdentity {
+            bundle_id: selected.frontend.bundle_id.clone(),
+            name: selected.frontend.name.clone(),
+            version: selected.frontend.version.clone(),
+            binary_sha256: selected.frontend.main.binary_sha256.clone(),
+            subordinate_binaries: selected
+                .frontend
+                .subordinate_binaries
+                .iter()
+                .map(|binary| SubordinateIdentity {
+                    name: binary.name.clone(),
+                    version: binary.version.clone(),
+                    binary_sha256: binary.binary_sha256.clone(),
+                })
+                .collect(),
+        },
+        toolchain: ToolchainIdentity {
+            bundle_id: selected.toolchain.bundle_id.clone(),
+            distribution_sha256: selected.toolchain.distribution_sha256.clone(),
+            components,
+        },
+        limit_profile: selected.limit_profile_id.clone(),
+    }
 }
 
 fn registered_environment(
@@ -194,5 +419,27 @@ mod tests {
             launch_snapshot_for_test(&snapshot, &[], &BTreeMap::new()).expect("snapshot launches");
         assert_eq!(output.exit_code, Some(0));
         assert_eq!(output.stdout, b"snapshot-original");
+    }
+
+    #[test]
+    fn registered_contract_arguments_are_sorted_and_closed() {
+        let contracts = vec!["contracts/z.json".to_owned(), "contracts/a.json".to_owned()];
+        assert_eq!(
+            normalized_contract_arguments(&contracts).expect("registered contract arguments"),
+            ["contracts/a.json", "contracts/z.json"]
+        );
+
+        let collision = vec!["contracts/a.json".to_owned(), "contracts/A.json".to_owned()];
+        assert_eq!(
+            normalized_contract_arguments(&collision)
+                .expect_err("ASCII case-fold collisions reject")
+                .code(),
+            FrontendRunCode::Release(FrontendReleaseCode::BundleIncompatible)
+        );
+
+        let too_many = (0..=GO_FRONTEND_CONTRACTS_MAX)
+            .map(|index| format!("contracts/c{index}.json"))
+            .collect::<Vec<_>>();
+        assert!(normalized_contract_arguments(&too_many).is_err());
     }
 }

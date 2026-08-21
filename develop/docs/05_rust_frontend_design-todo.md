@@ -2338,7 +2338,7 @@ git diff --check
 
 ### GO-VIR-02-T07 Stage Generic `policy scan` Through `go2vir`
 
-Status: Pending
+Status: Complete (2026-08-22)
 
 Depends on: GO-VIR-02-T05, GO-VIR-02-T06.
 
