@@ -13,6 +13,7 @@ pub mod loops;
 pub mod obligation_emit;
 pub mod policy_obligation;
 pub mod policy_theory_goal;
+pub mod release_bundle;
 pub mod safety;
 pub mod type_encode;
 pub mod vc;
@@ -59,6 +60,22 @@ pub use policy_theory_goal::{
     PolicyBoolTautologyReason, PolicyLinearGoal, PolicyLinearInequality, PolicyLinearTerm,
     PolicyTheoryGoal, PolicyTheoryGoalError, PolicyTheoryGoalErrorKind, PolicyTheoryGoalKind,
     MAX_POLICY_LINEAR_VARIABLES,
+};
+pub use release_bundle::{
+    registry_build_constants, validate_release_limit, validate_release_registry, BundleInventory,
+    BundleRegistry, CompilerIdentity, ExecutableRecord, ExecutableRuntime, ExecutionHostProfile,
+    FrontendBundle, InterpreterMount, InventoryFile, InventoryScope, LibraryMount,
+    NativeRuntimeLayoutProfile, NativeRuntimeSelection, RegistryBuildConstants,
+    ReleaseRegistryError, ReleaseRegistryErrorCode, ReleaseSelectionError, ReleaseSelectionRequest,
+    ReleaseTuple, ReleaseValidationPhase, ResolvedRelease, RuntimeLibrary, TargetLibrary,
+    ToolchainBundle, ToolchainComponent, ValidatedReleaseRegistry, BUNDLE_CONTENT_HASH_DOMAIN,
+    BUNDLE_DECLARED_BYTES_MAX, BUNDLE_DESCRIPTORS_MAX, BUNDLE_FILE_BYTES_MAX,
+    BUNDLE_INVENTORY_SCHEMA, BUNDLE_REGISTRY_HASH_DOMAIN, EXECUTION_HOST_PROFILES_MAX,
+    FRONTEND_BUNDLE_SCHEMA, NATIVE_RUNTIME_LAYOUT_PROFILES_MAX, PORTABLE_PATH_BYTES_MAX,
+    REGISTRY_CANONICAL_BYTES_MAX, REGISTRY_TRANSPORT_BYTES_MAX, RELEASE_JSON_NESTING_MAX,
+    RELEASE_REGISTRY_ID, RELEASE_REGISTRY_SCHEMA, RELEASE_STRING_BYTES_MAX, RELEASE_TUPLES_MAX,
+    SERIALIZED_INVENTORY_ENTRIES_MAX, TOOLCHAIN_BUNDLE_SCHEMA, TOOLCHAIN_COMPONENTS_MAX,
+    UNIQUE_BUNDLE_FILES_MAX,
 };
 pub use safety::{generate_safety_vcs, SafetyVcGenerator};
 pub use type_encode::{

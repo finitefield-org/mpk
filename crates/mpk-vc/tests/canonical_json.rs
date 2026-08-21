@@ -262,7 +262,7 @@ fn canonical_json_hash_api_separates_domains_and_raw_preimages() {
     );
     assert!(matches!(
         hash_canonical_inventory(VIR_DOMAIN, &StrictJsonValue::Null),
-        Err(HashError::InventoryNotArray)
+        Err(HashError::InventoryNotContainer)
     ));
 
     let raw = b"{ \"not\": \"canonical JSON\" }\n";

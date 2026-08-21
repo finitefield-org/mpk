@@ -68,7 +68,7 @@ impl fmt::Display for Sha256Digest {
 #[derive(Debug)]
 pub enum HashError {
     InvalidDomain { domain: &'static str },
-    InventoryNotArray,
+    InventoryNotContainer,
     CanonicalJson(CanonicalJsonError),
 }
 
@@ -78,8 +78,8 @@ impl fmt::Display for HashError {
             Self::InvalidDomain { domain } => {
                 write!(formatter, "invalid nonempty ASCII hash domain {domain:?}")
             }
-            Self::InventoryNotArray => {
-                formatter.write_str("canonical JSON inventory must be an array")
+            Self::InventoryNotContainer => {
+                formatter.write_str("canonical JSON inventory must be an array or object")
             }
             Self::CanonicalJson(error) => write!(formatter, "canonical JSON failed: {error}"),
         }
@@ -89,7 +89,7 @@ impl fmt::Display for HashError {
 impl Error for HashError {
     fn source(&self) -> Option<&(dyn Error + 'static)> {
         match self {
-            Self::InvalidDomain { .. } | Self::InventoryNotArray => None,
+            Self::InvalidDomain { .. } | Self::InventoryNotContainer => None,
             Self::CanonicalJson(error) => Some(error),
         }
     }
@@ -113,13 +113,17 @@ pub fn hash_canonical_json(
     hash_domain_separated_raw(domain, &canonical)
 }
 
-/// Hashes a canonical JSON array used as a specification-owned inventory.
+/// Hashes a complete canonical JSON inventory container.
+///
+/// Some specifications define an inventory as an array while release bundles
+/// use a closed object containing scope and file entries. Scalars reject so a
+/// caller cannot accidentally hash one entry in place of the complete value.
 pub fn hash_canonical_inventory(
     domain: HashDomain,
     inventory: &StrictJsonValue,
 ) -> Result<Sha256Digest, HashError> {
-    if inventory.as_array().is_none() {
-        return Err(HashError::InventoryNotArray);
+    if inventory.as_array().is_none() && inventory.as_object().is_none() {
+        return Err(HashError::InventoryNotContainer);
     }
     hash_canonical_json(domain, inventory)
 }

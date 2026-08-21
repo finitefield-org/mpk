@@ -1341,7 +1341,7 @@ Notes:
 
 ### VIR-01-T02 Implement Release Registry and Bundle Validation Models
 
-Status: Pending
+Status: Complete (2026-08-21).
 
 Depends on: VIR-01-T01.
 
