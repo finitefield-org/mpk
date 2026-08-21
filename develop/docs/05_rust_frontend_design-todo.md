@@ -1282,7 +1282,7 @@ git diff --check
 
 ### VIR-01-T01 Implement Strict JSON, JCS, and Domain-Separated Hash Primitives
 
-Status: Pending
+Status: Complete (2026-08-21).
 
 Depends on: VIR-00-T10.
 

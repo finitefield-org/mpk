@@ -5,8 +5,10 @@
 
 #![forbid(unsafe_code)]
 
+pub mod canonical_json;
 pub mod expr_encode;
 pub mod gir;
+pub mod hash;
 pub mod loops;
 pub mod obligation_emit;
 pub mod policy_obligation;
@@ -16,6 +18,13 @@ pub mod type_encode;
 pub mod vc;
 pub mod wp;
 pub mod wp_branch;
+
+pub use canonical_json::{
+    canonical_json_bytes, compare_utf16_code_units, normalize_unordered_set_by,
+    normalize_unordered_utf8_strings, parse_strict_json, CanonicalJsonError, ObjectFieldsError,
+    StrictJsonError, StrictJsonLimits, StrictJsonValue, UnorderedSetError, MAX_SAFE_JSON_INTEGER,
+    MAX_SUPPORTED_JSON_DEPTH, MIN_SAFE_JSON_INTEGER,
+};
 
 pub use expr_encode::{
     encode_contract_expr, encode_gir_value, encode_instruction_expr, ExprContext, ExprEncodeError,
@@ -27,6 +36,10 @@ pub use gir::{
     GirFunction, GirImportError, GirInstruction, GirInstructionKind, GirIntLiteral,
     GirLoopContract, GirModule, GirPackage, GirRejectedFeature, GirTerminator, GirTerminatorKind,
     GirType, GirTypeKind, GirValue, GIR_SCHEMA_VERSION,
+};
+pub use hash::{
+    hash_canonical_inventory, hash_canonical_json, hash_domain_separated_raw,
+    sha256_raw_file_bytes, HashDomain, HashError, Sha256Digest,
 };
 pub use loops::{generate_loop_vcs, LoopVcGenerator};
 pub use obligation_emit::{
