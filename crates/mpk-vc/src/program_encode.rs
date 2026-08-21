@@ -199,6 +199,14 @@ impl ProgramExprContext {
                 unit_id: unit.id.clone(),
             })?;
 
+        Self::for_validated_function(module, validated_unit, validated_function)
+    }
+
+    pub(crate) fn for_validated_function(
+        module: &VirModule,
+        validated_unit: &VirUnit,
+        validated_function: &VirFunction,
+    ) -> Result<Self, ProgramExprEncodeError> {
         let mut context = Self::new(
             module.semantic_profile,
             module.semantic_parameters.clone(),

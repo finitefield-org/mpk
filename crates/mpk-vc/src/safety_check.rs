@@ -439,7 +439,7 @@ fn encode_safety_predicate(
             ));
         }
     };
-    let evidence_route = evidence_route(context.profile(), &proposition);
+    let evidence_route = classify_safety_evidence(context.profile(), &proposition);
     Ok(EncodedSafetyPredicate {
         check: check.clone(),
         obligation_kind: SafetyObligationKind::OperationSafety,
@@ -619,7 +619,10 @@ fn encode_index_bounds(
     }
 }
 
-fn evidence_route(profile: SemanticProfile, proposition: &MpkExprTerm) -> SafetyEvidenceRoute {
+pub(crate) fn classify_safety_evidence(
+    profile: SemanticProfile,
+    proposition: &MpkExprTerm,
+) -> SafetyEvidenceRoute {
     if !is_ground(proposition) {
         return SafetyEvidenceRoute::ProofPending {
             owner: SAFETY_PROOF_PENDING_OWNER,

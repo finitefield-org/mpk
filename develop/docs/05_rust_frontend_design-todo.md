@@ -1676,7 +1676,7 @@ git diff --check
 
 ### VIR-01-T08 Implement the Unified Acyclic Program WP Engine
 
-Status: Pending
+Status: Complete (2026-08-21).
 
 Depends on: VIR-01-T04, VIR-01-T06, VIR-01-T07.
 

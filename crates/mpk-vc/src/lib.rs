@@ -15,6 +15,7 @@ pub mod obligation_emit;
 pub mod policy_obligation;
 pub mod policy_theory_goal;
 pub mod program_encode;
+pub mod program_wp;
 pub mod release_bundle;
 pub mod safety;
 pub mod safety_check;
@@ -74,6 +75,12 @@ pub use program_encode::{
     encode_vir_contract_expr, encode_vir_instruction_expr, encode_vir_value,
     evaluate_total_bitvector_operation, ProgramExprContext, ProgramExprEncodeError,
     ProgramExprEncoder, TotalBitVectorResult,
+};
+pub use program_wp::{
+    generate_program_vcs, ProgramVcFunction, ProgramVcMember, ProgramVcMemberKind, ProgramVcModule,
+    ProgramWpError, ProgramWpGenerator, VC_ASSUMPTIONS_PER_MEMBER_MAX,
+    VC_EXPRESSION_NODES_PER_DOCUMENT_MAX, VC_EXPRESSION_NODES_PER_MEMBER_MAX,
+    VC_MEMBERS_PER_DOCUMENT_MAX, VC_MEMBERS_PER_FUNCTION_MAX, VC_MEMBER_EXPRESSION_DEPTH_MAX,
 };
 pub use release_bundle::{
     registry_build_constants, validate_release_limit, validate_release_registry, BundleInventory,
