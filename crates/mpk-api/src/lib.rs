@@ -17,6 +17,17 @@ pub mod strategies;
 pub mod term_api;
 pub mod theory_strategy;
 
+// AI API v1 stays deliberately unreachable from released builds until the
+// atomic cutover publishes these modules in GO-VIR-02-T12.
+#[cfg(test)]
+mod v1_router;
+#[cfg(test)]
+mod v1_tests;
+#[cfg(test)]
+mod vc_api;
+#[cfg(test)]
+mod vir_api;
+
 pub use batch::{
     BatchCandidate, BatchCheckMode, BatchCheckRequest, BatchCheckResponse, BatchCheckSummary,
     CandidateVerdict,
