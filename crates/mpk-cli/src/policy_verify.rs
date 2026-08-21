@@ -852,6 +852,11 @@ fn is_git_tracked(path: &Path) -> bool {
         .is_ok_and(|output| output.status.success())
 }
 
+/// Staged VIR/VC/evidence v1 orchestration. It remains test-gated until the
+/// atomic public CLI cutover in GO-VIR-02-T12.
+#[cfg(test)]
+pub(crate) mod v1;
+
 #[cfg(test)]
 mod tests {
     use super::*;

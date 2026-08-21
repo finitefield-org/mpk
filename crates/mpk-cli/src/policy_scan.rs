@@ -1120,7 +1120,7 @@ pub(crate) mod v1 {
             }
         }
 
-        fn semantic_parameters(&self) -> PolicySemanticParameters {
+        pub(crate) fn semantic_parameters(&self) -> PolicySemanticParameters {
             match self.source_language.as_str() {
                 "go" => PolicySemanticParameters::Go(PolicyGoSemanticParameters {
                     target_id: self.target_id.clone(),
@@ -1136,7 +1136,7 @@ pub(crate) mod v1 {
             }
         }
 
-        fn selection(&self) -> PolicySelection {
+        pub(crate) fn selection(&self) -> PolicySelection {
             match self.source_language.as_str() {
                 "go" => PolicySelection::Go(PolicyGoSelection {
                     package: self.package.clone(),
@@ -1166,7 +1166,7 @@ pub(crate) mod v1 {
     }
 
     impl OwnedCapturedInput {
-        fn as_ref(&self) -> CapturedInput<'_> {
+        pub(crate) fn as_ref(&self) -> CapturedInput<'_> {
             CapturedInput {
                 kind: self.kind,
                 normalized_path: &self.normalized_path,
@@ -1211,6 +1211,18 @@ pub(crate) mod v1 {
     impl Error for PolicyScanV1Error {}
 
     pub(crate) fn parse_policy_scan_v1_argv(
+        argv: &[String],
+    ) -> Result<Option<PolicyScanV1Invocation>, PolicyScanV1Error> {
+        let Some(invocation) = parse_policy_scan_v1_argv_through_scalars(argv)? else {
+            return Ok(None);
+        };
+        validate_policy_scan_v1_profile(&invocation)?;
+        Ok(Some(invocation))
+    }
+
+    /// Shared CLI prefix used by staged verify so its evidence-path scalar
+    /// checks remain before language/profile tuple validation.
+    pub(crate) fn parse_policy_scan_v1_argv_through_scalars(
         argv: &[String],
     ) -> Result<Option<PolicyScanV1Invocation>, PolicyScanV1Error> {
         if argv.first().map(String::as_str) != Some("mpk")
@@ -1312,7 +1324,6 @@ pub(crate) mod v1 {
             json_out: take(&mut singleton, "--json-out"),
         };
         validate_invocation_scalars(&mut invocation)?;
-        validate_invocation_profile(&invocation)?;
         Ok(Some(invocation))
     }
 
@@ -1411,7 +1422,7 @@ pub(crate) mod v1 {
         Ok(())
     }
 
-    fn validate_invocation_profile(
+    pub(crate) fn validate_policy_scan_v1_profile(
         invocation: &PolicyScanV1Invocation,
     ) -> Result<(), PolicyScanV1Error> {
         if !matches!(
@@ -1594,7 +1605,7 @@ pub(crate) mod v1 {
         };
         let prepared = prepare(&invocation.release_request())?;
         let output_target = preflight_scan_output(working_directory, &invocation.json_out)?;
-        validate_captured_inputs(&captured_inputs)?;
+        validate_owned_captured_inputs(&captured_inputs)?;
         let policy_parameters = invocation.semantic_parameters();
         let policy_selection = invocation.selection();
         let semantic_parameters = serde_json::to_value(&policy_parameters)
@@ -1615,7 +1626,23 @@ pub(crate) mod v1 {
                 contracts: &invocation.contracts,
             },
         )?;
+        let output = build_policy_scan_v1_output(invocation, frontend, captured_inputs)?;
+        safe_create_scan(&output_target, output.scan.canonical_bytes())?;
+        Ok(Some(output))
+    }
+
+    /// Builds the exact validated scan projection from a retained frontend run
+    /// without writing a scan artifact. The staged v1 verify path uses this
+    /// after its single frontend launch so it cannot drift into a hidden scan.
+    pub(crate) fn build_policy_scan_v1_output(
+        invocation: PolicyScanV1Invocation,
+        frontend: AcceptedFrontendRun,
+        captured_inputs: Vec<OwnedCapturedInput>,
+    ) -> Result<PolicyScanV1RunOutput, PolicyScanV1Error> {
+        validate_owned_captured_inputs(&captured_inputs)?;
         validate_runner_selection(&invocation, &frontend.release)?;
+        let policy_parameters = invocation.semantic_parameters();
+        let policy_selection = invocation.selection();
         let context = scan_linkage_context(
             &invocation,
             &policy_parameters,
@@ -1628,16 +1655,17 @@ pub(crate) mod v1 {
             .map_err(|error| PolicyScanV1Error::new(error.code(), error.to_string()))?;
         let scan = import_policy_scan_v1_json(&canonical, &context)
             .map_err(|error| PolicyScanV1Error::new(error.code(), error.to_string()))?;
-        safe_create_scan(&output_target, scan.canonical_bytes())?;
-        Ok(Some(PolicyScanV1RunOutput {
+        Ok(PolicyScanV1RunOutput {
             invocation,
             scan,
             frontend,
             captured_inputs,
-        }))
+        })
     }
 
-    fn validate_captured_inputs(inputs: &[OwnedCapturedInput]) -> Result<(), PolicyScanV1Error> {
+    pub(crate) fn validate_owned_captured_inputs(
+        inputs: &[OwnedCapturedInput],
+    ) -> Result<(), PolicyScanV1Error> {
         let mut paths = BTreeSet::new();
         let mut folded = BTreeSet::new();
         for input in inputs {
@@ -2099,7 +2127,7 @@ pub(crate) mod v1 {
     }
 
     #[cfg(test)]
-    mod tests {
+    pub(crate) mod tests {
         use super::*;
         use crate::frontend_protocol::{
             validate_frontend_process, FrontendProcessFacts, FrontendProtocolRequest,
@@ -2461,7 +2489,7 @@ pub(crate) mod v1 {
             }
         }
 
-        fn go_scan_argv() -> Vec<String> {
+        pub(crate) fn go_scan_argv() -> Vec<String> {
             vec![
                 "mpk",
                 "policy",
@@ -2542,7 +2570,7 @@ pub(crate) mod v1 {
             }
         }
 
-        fn synthetic_registry() -> mpk_vc::ValidatedReleaseRegistry {
+        pub(crate) fn synthetic_registry() -> mpk_vc::ValidatedReleaseRegistry {
             let vector: Value = serde_json::from_slice(include_bytes!(
                 "../../../develop/specs/vectors/release-bundles-v0.json"
             ))
@@ -2563,7 +2591,7 @@ pub(crate) mod v1 {
             bytes
         }
 
-        fn go_identity_inputs() -> Vec<OwnedCapturedInput> {
+        pub(crate) fn go_identity_inputs() -> Vec<OwnedCapturedInput> {
             vec![
                 OwnedCapturedInput {
                     kind: InputKind::Contract,
@@ -2588,7 +2616,9 @@ pub(crate) mod v1 {
             ]
         }
 
-        fn successful_frontend_run(inputs: &[OwnedCapturedInput]) -> AcceptedFrontendRun {
+        pub(crate) fn successful_frontend_run(
+            inputs: &[OwnedCapturedInput],
+        ) -> AcceptedFrontendRun {
             let vir_vectors: Value = serde_json::from_slice(include_bytes!(
                 "../../../develop/specs/vectors/vir-v0.json"
             ))
@@ -2657,10 +2687,15 @@ pub(crate) mod v1 {
             AcceptedFrontendRun {
                 envelope: accepted,
                 release: release_from_manifest(&envelope["source_manifest"]),
+                registry,
             }
         }
 
-        fn non_success_frontend_run(status: &str, phase: &str, exit: i32) -> AcceptedFrontendRun {
+        pub(crate) fn non_success_frontend_run(
+            status: &str,
+            phase: &str,
+            exit: i32,
+        ) -> AcceptedFrontendRun {
             let parameters = json!({"target_id":"linux/amd64","pointer_width":64});
             let selection = json!({
                 "package":"example.com/mpk/vector",
@@ -2728,6 +2763,7 @@ pub(crate) mod v1 {
                     toolchain: serde_json::from_value(context["toolchain"].clone()).unwrap(),
                     limit_profile: "mpk.vir.limits.v0".to_owned(),
                 },
+                registry: synthetic_registry(),
             }
         }
 

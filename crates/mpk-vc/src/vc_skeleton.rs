@@ -163,6 +163,40 @@ pub fn emit_vc_skeleton_v1(
     import_vc_skeleton_v1_json(&canonical_bytes, source_vc_bytes, source)
 }
 
+/// Emits the grouped declaration skeleton directly from an already linked and
+/// canonical VC. This keeps callers from reconstructing a source context after
+/// the validated VC boundary has been crossed.
+pub fn emit_validated_vc_skeleton_v1(
+    vc: &ValidatedVcDocument,
+) -> Result<ValidatedVcCertificateSkeleton, VcSkeletonValidationError> {
+    let skeleton = build_skeleton(vc)?;
+    validate_scalars(&skeleton)?;
+    validate_skeleton_stream_limits(&skeleton)?;
+    validate_grouped_theorem_limits(vc.document()).map_err(|error| {
+        VcSkeletonValidationError::new(
+            VcSkeletonValidationPhase::TheoremLimits,
+            error.code(),
+            error.to_string(),
+        )
+    })?;
+    let canonical_bytes = canonical_skeleton_json(&skeleton)?;
+    validate_verification_limit(
+        "canonical_skeleton_json_bytes",
+        u64::try_from(canonical_bytes.len()).unwrap_or(u64::MAX),
+    )
+    .map_err(|error| {
+        VcSkeletonValidationError::new(
+            VcSkeletonValidationPhase::CanonicalSize,
+            error.code(),
+            error.to_string(),
+        )
+    })?;
+    Ok(ValidatedVcCertificateSkeleton {
+        skeleton,
+        canonical_bytes,
+    })
+}
+
 /// Imports a skeleton against complete canonical source VC bytes. Every
 /// repeated identity and theorem declaration is reconstructed, never trusted.
 pub fn import_vc_skeleton_v1_json(

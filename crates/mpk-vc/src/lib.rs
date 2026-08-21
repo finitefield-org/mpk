@@ -171,10 +171,11 @@ pub use vc_canonical::{
     VC_HASH_DOMAIN,
 };
 pub use vc_skeleton::{
-    canonical_skeleton_json, emit_vc_skeleton_v1, import_vc_skeleton_v1_json,
-    validate_policy_member_binding, GroupedTheoremDeclaration, GroupedTheoremType,
-    PolicyMemberBindingError, ValidatedVcCertificateSkeleton, VcCertificateSkeletonV1,
-    VcSkeletonValidationError, VcSkeletonValidationPhase, VC_CERT_SKELETON_V1_SCHEMA_VERSION,
+    canonical_skeleton_json, emit_validated_vc_skeleton_v1, emit_vc_skeleton_v1,
+    import_vc_skeleton_v1_json, validate_policy_member_binding, GroupedTheoremDeclaration,
+    GroupedTheoremType, PolicyMemberBindingError, ValidatedVcCertificateSkeleton,
+    VcCertificateSkeletonV1, VcSkeletonValidationError, VcSkeletonValidationPhase,
+    VC_CERT_SKELETON_V1_SCHEMA_VERSION,
 };
 pub use verification_limits::{
     validate_verification_limit, VerificationLimitError, VerificationLimitId,

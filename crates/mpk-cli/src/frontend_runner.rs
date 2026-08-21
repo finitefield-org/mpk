@@ -9,6 +9,7 @@ use crate::frontend_sandbox::{launch_release_frontend, SandboxError};
 use mpk_vc::{
     CapturedInput, CompilerIdentity, ComponentIdentity, FrontendIdentity, ReleaseRegistryIdentity,
     ReleaseSelectionRequest, SubordinateIdentity, ToolchainComponent, ToolchainIdentity,
+    ValidatedReleaseRegistry,
 };
 use serde_json::Value;
 use std::collections::{BTreeMap, BTreeSet};
@@ -38,6 +39,9 @@ pub(crate) struct FrontendReleaseIdentity {
 pub(crate) struct AcceptedFrontendRun {
     pub(crate) envelope: AcceptedFrontendEnvelope,
     pub(crate) release: FrontendReleaseIdentity,
+    /// Retained validated registry bytes and entries are needed to validate
+    /// the same source-manifest lifecycle after VC generation.
+    pub(crate) registry: ValidatedReleaseRegistry,
 }
 
 pub(crate) struct PreparedFrontendRun {
@@ -161,7 +165,11 @@ pub(crate) fn run_prepared_frontend(
         },
     )
     .map_err(protocol_error)?;
-    Ok(AcceptedFrontendRun { envelope, release })
+    Ok(AcceptedFrontendRun {
+        envelope,
+        release,
+        registry: selected.registry,
+    })
 }
 
 fn registered_arguments(

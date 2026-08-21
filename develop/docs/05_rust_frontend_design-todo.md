@@ -2398,7 +2398,7 @@ git diff --check
 
 ### GO-VIR-02-T08 Stage `policy verify` Through VC v1 and Finalize Evidence
 
-Status: Pending
+Status: Complete (2026-08-22)
 
 Depends on: GO-VIR-02-T07, VIR-01-T12.
 

@@ -3,7 +3,8 @@ use std::fs;
 use std::path::PathBuf;
 
 use mpk_vc::{
-    canonical_json_bytes, emit_vc_skeleton_v1, import_vc_skeleton_v1_json, parse_strict_json,
+    canonical_json_bytes, emit_validated_vc_skeleton_v1, emit_vc_skeleton_v1,
+    import_vc_skeleton_v1_json, import_vc_v1_json, parse_strict_json,
     validate_policy_member_binding, validate_verification_limit, GroupedTheoremType,
     PolicyMemberBindingError, StrictJsonLimits, VcSourceContext, VcTerm,
 };
@@ -186,7 +187,11 @@ fn emits_every_canonical_skeleton_vector() {
         let first = emit_vc_skeleton_v1(&vc_bytes, context)
             .unwrap_or_else(|error| panic!("{} rejected: {error}", case.id));
         let second = emit_vc_skeleton_v1(&vc_bytes, context).expect("repeat emission");
+        let validated_vc = import_vc_v1_json(&vc_bytes, context).expect("source VC imports");
+        let retained =
+            emit_validated_vc_skeleton_v1(&validated_vc).expect("retained validated VC emits");
         assert_eq!(first.canonical_bytes(), second.canonical_bytes());
+        assert_eq!(first.canonical_bytes(), retained.canonical_bytes());
         assert_eq!(
             first.canonical_bytes().len(),
             case.expect.canonical_jcs_utf8_length,
