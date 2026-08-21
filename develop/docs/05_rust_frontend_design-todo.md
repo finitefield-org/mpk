@@ -2278,7 +2278,7 @@ git diff --check
 
 ### GO-VIR-02-T06 Implement Policy Scan and Evidence v1 Data Models
 
-Status: Pending
+Status: Complete (2026-08-22).
 
 Depends on: VIR-01-T05, VIR-01-T11.
 
