@@ -971,6 +971,10 @@ pub enum MpkExprTerm {
         value: Box<MpkExprTerm>,
         target: MpkTypeTerm,
     },
+    Forall {
+        binder_type: MpkTypeTerm,
+        body: Box<MpkExprTerm>,
+    },
 }
 
 impl MpkExprTerm {

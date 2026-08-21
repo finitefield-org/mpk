@@ -6,6 +6,7 @@
 
 #![forbid(unsafe_code)]
 
+pub mod call_wp;
 pub mod canonical_json;
 pub mod expr_encode;
 pub mod gir;
@@ -30,6 +31,10 @@ pub mod vir_validate;
 pub mod wp;
 pub mod wp_branch;
 
+pub use call_wp::{
+    program_declaration_name, CallWpError, ProgramCallDependencies, ProgramDeclarationKind,
+    VC_FUNCTION_DECLARATION_PREFIX,
+};
 pub use canonical_json::{
     canonical_json_bytes, compare_utf16_code_units, normalize_unordered_set_by,
     normalize_unordered_utf8_strings, parse_strict_json, CanonicalJsonError, ObjectFieldsError,

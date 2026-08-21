@@ -510,6 +510,10 @@ pub(crate) fn substitute_term(
             value: Box::new(substitute_term(value, variables, results)),
             target: target.clone(),
         },
+        MpkExprTerm::Forall { binder_type, body } => MpkExprTerm::Forall {
+            binder_type: binder_type.clone(),
+            body: Box::new(substitute_term(body, variables, results)),
+        },
     }
 }
 

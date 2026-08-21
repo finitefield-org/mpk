@@ -1,14 +1,19 @@
 //! Unified VIR weakest-precondition and operation-safety generation.
 //!
-//! The engine consumes only fully validated VIR. It propagates one bounded
-//! symbolic state per block, substitutes block arguments at edges, and merges
-//! predecessor states deterministically. Validated Go loop backedges are cut at
-//! their contracted headers. Contract and safety members are collected during
-//! that same traversal so their path semantics cannot drift.
+//! The engine consumes only fully validated VIR. It propagates bounded symbolic
+//! states, substitutes block arguments at edges, and merges predecessor states
+//! with identical relational-call scopes deterministically. Validated Go loop
+//! backedges are cut at their contracted headers. Contract and safety members
+//! are collected during that same traversal so their path semantics cannot
+//! drift.
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::fmt;
 
+use crate::call_wp::{
+    program_declaration_name, CallWpError, ProgramCallDependencies, ProgramCallGraph,
+    ProgramDeclarationKind,
+};
 use crate::expr_encode::{
     MpkExprTerm, STD_BITVEC_MODULE, STD_BOOL_AND, STD_BOOL_FALSE, STD_BOOL_IF, STD_BOOL_NOT,
     STD_BOOL_OR, STD_BOOL_TRUE,
@@ -48,10 +53,15 @@ pub struct ProgramVcFunction {
     pub function_id: String,
     pub requires: Vec<MpkExprTerm>,
     pub members: Vec<ProgramVcMember>,
+    pub direct_callees: Vec<String>,
+    pub contract_dependencies: Vec<String>,
+    pub panic_free_dependencies: Vec<String>,
 }
 
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 pub enum ProgramVcMemberKind {
+    CalleePanicFree,
+    CalleePrecondition,
     LoopDecreases,
     LoopExit,
     LoopInitialization,
@@ -63,6 +73,8 @@ pub enum ProgramVcMemberKind {
 impl ProgramVcMemberKind {
     pub const fn as_str(self) -> &'static str {
         match self {
+            Self::CalleePanicFree => "callee_panic_free",
+            Self::CalleePrecondition => "callee_precondition",
             Self::LoopDecreases => "loop_decreases",
             Self::LoopExit => "loop_exit",
             Self::LoopInitialization => "loop_initialization",
@@ -74,8 +86,9 @@ impl ProgramVcMemberKind {
 
     const fn group_suffix(self) -> &'static str {
         match self {
-            Self::OperationSafety => "panic_free",
-            Self::LoopDecreases
+            Self::CalleePanicFree | Self::OperationSafety => "panic_free",
+            Self::CalleePrecondition
+            | Self::LoopDecreases
             | Self::LoopExit
             | Self::LoopInitialization
             | Self::LoopPreservation
@@ -116,20 +129,12 @@ impl ProgramWpGenerator {
 
     pub fn generate_module(self, input: &VirModule) -> Result<ProgramVcModule, ProgramWpError> {
         validate_vir(input).map_err(ProgramWpError::Validation)?;
-
-        let mut functions = input
-            .units
-            .iter()
-            .flat_map(|unit| unit.functions.iter().map(move |function| (unit, function)))
-            .collect::<Vec<_>>();
-        // T08 rejects calls below, so every function is ready in the
-        // callee-first order and the normative tie-break is the UTF-8 ID.
-        functions.sort_by(|(_, lhs), (_, rhs)| lhs.id.as_bytes().cmp(rhs.id.as_bytes()));
+        let call_graph = ProgramCallGraph::analyze(input).map_err(ProgramWpError::Call)?;
 
         let mut budget = GenerationBudget::new(self.limits);
-        let mut output = Vec::with_capacity(functions.len());
-        for (unit, function) in functions {
-            output.push(self.generate_function(input, unit, function, &mut budget)?);
+        let mut output = Vec::new();
+        for (unit, function) in call_graph.ordered_functions() {
+            output.push(self.generate_function(input, unit, function, &call_graph, &mut budget)?);
         }
         Ok(ProgramVcModule { functions: output })
     }
@@ -139,9 +144,10 @@ impl ProgramWpGenerator {
         module: &VirModule,
         unit: &VirUnit,
         function: &VirFunction,
+        call_graph: &ProgramCallGraph<'_>,
         budget: &mut GenerationBudget,
     ) -> Result<ProgramVcFunction, ProgramWpError> {
-        self.generate_program_function(module, unit, function, budget)
+        self.generate_program_function(module, unit, function, call_graph, budget)
     }
 
     fn generate_program_function(
@@ -149,6 +155,7 @@ impl ProgramWpGenerator {
         module: &VirModule,
         unit: &VirUnit,
         function: &VirFunction,
+        call_graph: &ProgramCallGraph<'_>,
         budget: &mut GenerationBudget,
     ) -> Result<ProgramVcFunction, ProgramWpError> {
         let context = ProgramExprContext::for_validated_function(module, unit, function)
@@ -223,6 +230,7 @@ impl ProgramWpGenerator {
         let mut worklist = DataflowWorklist {
             incoming: vec![Vec::<IncomingState>::new(); function.blocks.len()],
             remaining_predecessors,
+            delivered_edges: BTreeSet::new(),
             ready,
         };
         let mut processed = 0_usize;
@@ -232,18 +240,20 @@ impl ProgramWpGenerator {
 
         while let Some(block_index) = worklist.ready.pop_first() {
             let block = &function.blocks[block_index];
-            let mut state = if block_index == 0 {
+            let states = if block_index == 0 {
                 if !worklist.incoming[block_index].is_empty() {
                     return Err(ProgramWpError::InvalidGraph {
                         function_id: function.id.clone(),
                         detail: "entry block has an incoming edge".to_owned(),
                     });
                 }
-                SymbolicState {
+                vec![SymbolicState {
                     env: initial_env.clone(),
                     assumptions: Vec::new(),
+                    outer_assumptions: Vec::new(),
+                    call_scopes: Vec::new(),
                     origin_header: None,
-                }
+                }]
             } else {
                 merge_incoming_states(
                     function,
@@ -251,266 +261,307 @@ impl ProgramWpGenerator {
                     std::mem::take(&mut worklist.incoming[block_index]),
                 )?
             };
-            if let Some(loop_contract) = loop_analysis.contract(block_index, function) {
-                generate_loop_initialization(
-                    function,
-                    &context,
-                    &builder,
-                    budget,
-                    &mut function_member_count,
-                    &mut pending,
-                    block_index,
-                    loop_contract,
-                    &state,
-                )?;
-                state =
-                    loop_cutpoint_state(function, &context, &builder, block_index, loop_contract)?;
-            }
             processed =
                 processed
                     .checked_add(1)
                     .ok_or_else(|| ProgramWpError::CounterOverflow {
                         context: "processed block count".to_owned(),
                     })?;
+            let loop_contract = loop_analysis.contract(block_index, function);
+            let mut loop_body_processed = false;
 
-            for (instruction_index, instruction) in block.instructions.iter().enumerate() {
-                if matches!(instruction, VirInstruction::CallStatic { .. }) {
-                    return Err(ProgramWpError::UnsupportedStaticCall {
-                        function_id: function.id.clone(),
-                        block_label: block.label.clone(),
-                        instruction_id: instruction_id(instruction).to_owned(),
-                    });
-                }
-
-                let safety =
-                    encode_instruction_safety(&context, instruction).map_err(|source| {
-                        safety_error(function, instruction_id(instruction), source)
-                    })?;
-                for (check_index, predicate) in safety.into_iter().enumerate() {
-                    let reservation =
-                        budget.begin_member(&mut function_member_count, &state.assumptions)?;
-                    let proposition = builder.substitute(
-                        &predicate.proposition,
-                        &state.env,
-                        &empty_results,
-                        reservation.conclusion_ceiling,
-                    )?;
-                    budget.finish_member(reservation, &proposition)?;
-                    pending.push(close_pending_member(
-                        function,
-                        &context,
-                        state.origin_header,
-                        MemberOrigin::new(block_index, instruction_index, check_index),
-                        ProgramVcMemberKind::OperationSafety,
-                        state.assumptions.clone(),
-                        proposition.clone(),
-                        Some(classify_safety_evidence(
-                            module.semantic_profile,
-                            &proposition,
-                        )),
-                    )?);
-                }
-
-                let raw = encode_vir_instruction_expr(&context, instruction).map_err(|source| {
-                    expression_error(
-                        function,
-                        format!("instruction {}", instruction_id(instruction)),
-                        source,
-                    )
-                })?;
-                let value = builder.substitute(
-                    &raw,
-                    &state.env,
-                    &empty_results,
-                    NodeCeiling::member(self.limits.expression_nodes_per_member),
-                )?;
-                state
-                    .env
-                    .insert(instruction_id(instruction).to_owned(), value.clone());
-                if let VirInstruction::Copy { target, .. } = instruction {
-                    state.env.insert(target.clone(), value);
-                }
-            }
-
-            if let Some(loop_contract) = loop_analysis.contract(block_index, function) {
-                loop_runtime.record_before_variants(
-                    function,
-                    &context,
-                    &builder,
-                    block_index,
-                    loop_contract,
-                    &state,
-                )?;
-            }
-
-            match &block.terminator {
-                VirTerminator::Return { values } => {
-                    let mut results = BTreeMap::new();
-                    for (index, value) in values.iter().enumerate() {
-                        let raw = encode_vir_value(&context, value).map_err(|source| {
-                            expression_error(function, format!("return[{index}]"), source)
-                        })?;
-                        let value = builder.substitute(
-                            &raw,
-                            &state.env,
-                            &empty_results,
-                            NodeCeiling::member(self.limits.expression_nodes_per_member),
-                        )?;
-                        let index =
-                            u32::try_from(index).map_err(|_| ProgramWpError::CounterOverflow {
-                                context: format!("{} return index", function.id),
-                            })?;
-                        results.insert(index, value);
-                    }
-                    if let Some(header) = state.origin_header {
-                        loop_returns
-                            .entry(header)
-                            .or_default()
-                            .push(LoopReturnState {
-                                block_index,
-                                state,
-                                results,
-                            });
-                    } else {
-                        for (ensure_index, ensure) in function.contracts.ensures.iter().enumerate()
-                        {
-                            let reservation = budget
-                                .begin_member(&mut function_member_count, &state.assumptions)?;
-                            let raw =
-                                encode_vir_contract_expr(&context, ensure).map_err(|source| {
-                                    expression_error(
-                                        function,
-                                        format!("bb{block_index}.ensures[{ensure_index}]"),
-                                        source,
-                                    )
-                                })?;
-                            let conclusion = builder.substitute(
-                                &raw,
-                                &state.env,
-                                &results,
-                                reservation.conclusion_ceiling,
-                            )?;
-                            budget.finish_member(reservation, &conclusion)?;
-                            pending.push(close_pending_member(
-                                function,
-                                &context,
-                                None,
-                                MemberOrigin::new(block_index, ensure_index, 0),
-                                ProgramVcMemberKind::Postcondition,
-                                state.assumptions.clone(),
-                                conclusion,
-                                None,
-                            )?);
-                        }
-                    }
-                }
-                VirTerminator::Jump { label, args } => {
-                    let target_index = labels[label.as_str()];
-                    let edge_state = edge_state(
+            for mut state in states {
+                if let Some(loop_contract) = loop_contract {
+                    generate_loop_initialization(
                         function,
                         &context,
                         &builder,
-                        &base_bindings,
+                        budget,
+                        &mut function_member_count,
+                        &mut pending,
+                        block_index,
+                        loop_contract,
                         &state,
-                        &function.blocks[target_index].parameters,
-                        args,
                     )?;
-                    if loop_analysis.is_cut_edge(block_index, target_index) {
-                        generate_loop_backedge_members(
+                    if loop_body_processed {
+                        continue;
+                    }
+                    state = loop_cutpoint_state(
+                        function,
+                        &context,
+                        &builder,
+                        block_index,
+                        loop_contract,
+                    )?;
+                    loop_body_processed = true;
+                }
+
+                for (instruction_index, instruction) in block.instructions.iter().enumerate() {
+                    if matches!(instruction, VirInstruction::CallStatic { .. }) {
+                        process_static_call(
+                            module,
                             function,
                             &context,
                             &builder,
                             budget,
                             &mut function_member_count,
                             &mut pending,
-                            &loop_analysis,
-                            &loop_runtime,
+                            call_graph,
                             block_index,
-                            target_index,
-                            &edge_state,
+                            instruction_index,
+                            instruction,
+                            &mut state,
                         )?;
-                    } else {
-                        push_incoming(
-                            function,
-                            block_index,
-                            0,
-                            target_index,
-                            edge_state,
-                            &mut worklist,
-                        )?;
+                        continue;
                     }
-                }
-                VirTerminator::Branch {
-                    cond,
-                    then_label,
-                    then_args,
-                    else_label,
-                    else_args,
-                } => {
-                    let raw = encode_vir_value(&context, cond).map_err(|source| {
-                        expression_error(
+
+                    let safety =
+                        encode_instruction_safety(&context, instruction).map_err(|source| {
+                            safety_error(function, instruction_id(instruction), source)
+                        })?;
+                    for (check_index, predicate) in safety.into_iter().enumerate() {
+                        let assumptions = member_assumptions(&state).to_vec();
+                        let reservation =
+                            budget.begin_member(&mut function_member_count, &assumptions)?;
+                        let proposition = builder.substitute(
+                            &predicate.proposition,
+                            &state.env,
+                            &empty_results,
+                            reservation.conclusion_ceiling,
+                        )?;
+                        let evidence =
+                            classify_safety_evidence(module.semantic_profile, &proposition);
+                        let conclusion = wrap_call_continuation(
+                            &builder,
+                            &state,
+                            proposition,
+                            reservation.conclusion_ceiling,
+                        )?;
+                        budget.finish_member(reservation, &conclusion)?;
+                        pending.push(close_pending_member(
                             function,
-                            format!("{} branch condition", block.label),
-                            source,
-                        )
-                    })?;
-                    let condition = builder.substitute(
+                            &context,
+                            state.origin_header,
+                            MemberOrigin::new(block_index, instruction_index, check_index),
+                            ProgramVcMemberKind::OperationSafety,
+                            assumptions,
+                            conclusion,
+                            Some(evidence),
+                        )?);
+                    }
+
+                    let raw =
+                        encode_vir_instruction_expr(&context, instruction).map_err(|source| {
+                            expression_error(
+                                function,
+                                format!("instruction {}", instruction_id(instruction)),
+                                source,
+                            )
+                        })?;
+                    let value = builder.substitute(
                         &raw,
                         &state.env,
                         &empty_results,
                         NodeCeiling::member(self.limits.expression_nodes_per_member),
                     )?;
-                    let negative = builder.negate(condition.clone())?;
+                    state
+                        .env
+                        .insert(instruction_id(instruction).to_owned(), value.clone());
+                    if let VirInstruction::Copy { target, .. } = instruction {
+                        state.env.insert(target.clone(), value);
+                    }
+                }
 
-                    // False before true is the canonical VIR successor order.
-                    for (edge_index, label, args, guard) in [
-                        (0_usize, else_label, else_args, negative),
-                        (1_usize, then_label, then_args, condition),
-                    ] {
-                        let target_index = labels[label.as_str()];
-                        let mut branch_state = state.clone();
-                        push_assumption(&mut branch_state.assumptions, guard, self.limits)?;
-                        if edge_index == 1 {
-                            if let Some(loop_contract) =
-                                loop_analysis.contract(block_index, function)
+                if let Some(loop_contract) = loop_analysis.contract(block_index, function) {
+                    loop_runtime.record_before_variants(
+                        function,
+                        &context,
+                        &builder,
+                        block_index,
+                        loop_contract,
+                        &state,
+                    )?;
+                }
+
+                match &block.terminator {
+                    VirTerminator::Return { values } => {
+                        let mut results = BTreeMap::new();
+                        for (index, value) in values.iter().enumerate() {
+                            let raw = encode_vir_value(&context, value).map_err(|source| {
+                                expression_error(function, format!("return[{index}]"), source)
+                            })?;
+                            let value = builder.substitute(
+                                &raw,
+                                &state.env,
+                                &empty_results,
+                                NodeCeiling::member(self.limits.expression_nodes_per_member),
+                            )?;
+                            let index = u32::try_from(index).map_err(|_| {
+                                ProgramWpError::CounterOverflow {
+                                    context: format!("{} return index", function.id),
+                                }
+                            })?;
+                            results.insert(index, value);
+                        }
+                        if let Some(header) = state.origin_header {
+                            loop_returns
+                                .entry(header)
+                                .or_default()
+                                .push(LoopReturnState {
+                                    block_index,
+                                    state,
+                                    results,
+                                });
+                        } else {
+                            for (ensure_index, ensure) in
+                                function.contracts.ensures.iter().enumerate()
                             {
-                                generate_loop_nonnegative_members(
+                                let assumptions = member_assumptions(&state).to_vec();
+                                let reservation = budget
+                                    .begin_member(&mut function_member_count, &assumptions)?;
+                                let raw = encode_vir_contract_expr(&context, ensure).map_err(
+                                    |source| {
+                                        expression_error(
+                                            function,
+                                            format!("bb{block_index}.ensures[{ensure_index}]"),
+                                            source,
+                                        )
+                                    },
+                                )?;
+                                let conclusion = builder.substitute(
+                                    &raw,
+                                    &state.env,
+                                    &results,
+                                    reservation.conclusion_ceiling,
+                                )?;
+                                let conclusion = wrap_call_continuation(
+                                    &builder,
+                                    &state,
+                                    conclusion,
+                                    reservation.conclusion_ceiling,
+                                )?;
+                                budget.finish_member(reservation, &conclusion)?;
+                                pending.push(close_pending_member(
                                     function,
                                     &context,
-                                    &builder,
-                                    budget,
-                                    &mut function_member_count,
-                                    &mut pending,
-                                    block_index,
-                                    loop_contract,
-                                    &loop_runtime,
-                                    &branch_state,
-                                )?;
+                                    None,
+                                    MemberOrigin::new(block_index, ensure_index, 0),
+                                    ProgramVcMemberKind::Postcondition,
+                                    assumptions,
+                                    conclusion,
+                                    None,
+                                )?);
                             }
                         }
+                    }
+                    VirTerminator::Jump { label, args } => {
+                        let target_index = labels[label.as_str()];
                         let edge_state = edge_state(
                             function,
                             &context,
                             &builder,
                             &base_bindings,
-                            &branch_state,
+                            &state,
                             &function.blocks[target_index].parameters,
                             args,
                         )?;
                         if loop_analysis.is_cut_edge(block_index, target_index) {
-                            return Err(ProgramWpError::InvalidGraph {
-                                function_id: function.id.clone(),
-                                detail: "validated loop backedge is not a Jump".to_owned(),
-                            });
+                            generate_loop_backedge_members(
+                                function,
+                                &context,
+                                &builder,
+                                budget,
+                                &mut function_member_count,
+                                &mut pending,
+                                &loop_analysis,
+                                &loop_runtime,
+                                block_index,
+                                target_index,
+                                &edge_state,
+                            )?;
+                        } else {
+                            push_incoming(
+                                function,
+                                block_index,
+                                0,
+                                target_index,
+                                edge_state,
+                                &mut worklist,
+                            )?;
                         }
-                        push_incoming(
-                            function,
-                            block_index,
-                            edge_index,
-                            target_index,
-                            edge_state,
-                            &mut worklist,
+                    }
+                    VirTerminator::Branch {
+                        cond,
+                        then_label,
+                        then_args,
+                        else_label,
+                        else_args,
+                    } => {
+                        let raw = encode_vir_value(&context, cond).map_err(|source| {
+                            expression_error(
+                                function,
+                                format!("{} branch condition", block.label),
+                                source,
+                            )
+                        })?;
+                        let condition = builder.substitute(
+                            &raw,
+                            &state.env,
+                            &empty_results,
+                            NodeCeiling::member(self.limits.expression_nodes_per_member),
                         )?;
+                        let negative = builder.negate(condition.clone())?;
+
+                        // False before true is the canonical VIR successor order.
+                        for (edge_index, label, args, guard) in [
+                            (0_usize, else_label, else_args, negative),
+                            (1_usize, then_label, then_args, condition),
+                        ] {
+                            let target_index = labels[label.as_str()];
+                            let mut branch_state = state.clone();
+                            push_assumption(&mut branch_state.assumptions, guard, self.limits)?;
+                            if edge_index == 1 {
+                                if let Some(loop_contract) =
+                                    loop_analysis.contract(block_index, function)
+                                {
+                                    generate_loop_nonnegative_members(
+                                        function,
+                                        &context,
+                                        &builder,
+                                        budget,
+                                        &mut function_member_count,
+                                        &mut pending,
+                                        block_index,
+                                        loop_contract,
+                                        &loop_runtime,
+                                        &branch_state,
+                                    )?;
+                                }
+                            }
+                            let edge_state = edge_state(
+                                function,
+                                &context,
+                                &builder,
+                                &base_bindings,
+                                &branch_state,
+                                &function.blocks[target_index].parameters,
+                                args,
+                            )?;
+                            if loop_analysis.is_cut_edge(block_index, target_index) {
+                                return Err(ProgramWpError::InvalidGraph {
+                                    function_id: function.id.clone(),
+                                    detail: "validated loop backedge is not a Jump".to_owned(),
+                                });
+                            }
+                            push_incoming(
+                                function,
+                                block_index,
+                                edge_index,
+                                target_index,
+                                edge_state,
+                                &mut worklist,
+                            )?;
+                        }
                     }
                 }
             }
@@ -533,10 +584,20 @@ impl ProgramWpGenerator {
             });
         }
 
+        let ProgramCallDependencies {
+            direct_callees,
+            contract_dependencies,
+            panic_free_dependencies,
+        } = call_graph
+            .dependencies(&function.id)
+            .map_err(ProgramWpError::Call)?;
         Ok(ProgramVcFunction {
             function_id: function.id.clone(),
             requires,
             members: finalize_members(function, pending)?,
+            direct_callees,
+            contract_dependencies,
+            panic_free_dependencies,
         })
     }
 }
@@ -568,7 +629,16 @@ impl ProgramWpLimits {
 struct SymbolicState {
     env: BTreeMap<String, MpkExprTerm>,
     assumptions: Vec<MpkExprTerm>,
+    outer_assumptions: Vec<MpkExprTerm>,
+    call_scopes: Vec<CallScope>,
     origin_header: Option<usize>,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+struct CallScope {
+    binder_type: MpkTypeTerm,
+    ensures: Vec<MpkExprTerm>,
+    continuation_assumptions: Vec<MpkExprTerm>,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -589,6 +659,7 @@ struct IncomingState {
 struct DataflowWorklist {
     incoming: Vec<Vec<IncomingState>>,
     remaining_predecessors: Vec<usize>,
+    delivered_edges: BTreeSet<(usize, usize, usize)>,
     ready: BTreeSet<usize>,
 }
 
@@ -908,6 +979,40 @@ impl MemberOrigin {
     }
 }
 
+fn member_assumptions(state: &SymbolicState) -> &[MpkExprTerm] {
+    if state.call_scopes.is_empty() {
+        &state.assumptions
+    } else {
+        &state.outer_assumptions
+    }
+}
+
+fn wrap_call_continuation(
+    builder: &TermBuilder,
+    state: &SymbolicState,
+    mut body: MpkExprTerm,
+    ceiling: NodeCeiling,
+) -> Result<MpkExprTerm, ProgramWpError> {
+    if state.call_scopes.is_empty() {
+        return Ok(body);
+    }
+    for (index, scope) in state.call_scopes.iter().enumerate().rev() {
+        let continuation_assumptions = if index + 1 == state.call_scopes.len() {
+            state.assumptions.as_slice()
+        } else {
+            scope.continuation_assumptions.as_slice()
+        };
+        if !continuation_assumptions.is_empty() {
+            let antecedent = builder.conjoin_exact(continuation_assumptions, ceiling)?;
+            body = builder.imply(antecedent, body, ceiling)?;
+        }
+        let ensures = builder.conjoin_exact(&scope.ensures, ceiling)?;
+        body = builder.imply(ensures, body, ceiling)?;
+        body = builder.forall(scope.binder_type.clone(), body, ceiling)?;
+    }
+    Ok(body)
+}
+
 fn loop_cutpoint_state(
     function: &VirFunction,
     context: &ProgramExprContext,
@@ -958,6 +1063,8 @@ fn loop_cutpoint_state(
     Ok(SymbolicState {
         env,
         assumptions,
+        outer_assumptions: Vec::new(),
+        call_scopes: Vec::new(),
         origin_header: Some(header),
     })
 }
@@ -975,7 +1082,8 @@ fn generate_loop_initialization(
     incoming: &SymbolicState,
 ) -> Result<(), ProgramWpError> {
     for (invariant_index, invariant) in contract.invariants.iter().enumerate() {
-        let reservation = budget.begin_member(function_member_count, &incoming.assumptions)?;
+        let assumptions = member_assumptions(incoming).to_vec();
+        let reservation = budget.begin_member(function_member_count, &assumptions)?;
         let raw = encode_vir_contract_expr(context, invariant).map_err(|source| {
             expression_error(
                 function,
@@ -989,6 +1097,12 @@ fn generate_loop_initialization(
             &BTreeMap::new(),
             reservation.conclusion_ceiling,
         )?;
+        let conclusion = wrap_call_continuation(
+            builder,
+            incoming,
+            conclusion,
+            reservation.conclusion_ceiling,
+        )?;
         budget.finish_member(reservation, &conclusion)?;
         pending.push(close_pending_member(
             function,
@@ -996,11 +1110,199 @@ fn generate_loop_initialization(
             incoming.origin_header,
             MemberOrigin::new(header, invariant_index, 0),
             ProgramVcMemberKind::LoopInitialization,
-            incoming.assumptions.clone(),
+            assumptions,
             conclusion,
             None,
         )?);
     }
+    Ok(())
+}
+
+#[allow(clippy::too_many_arguments)]
+fn process_static_call(
+    module: &VirModule,
+    caller: &VirFunction,
+    caller_context: &ProgramExprContext,
+    builder: &TermBuilder,
+    budget: &mut GenerationBudget,
+    function_member_count: &mut usize,
+    pending: &mut Vec<PendingMember>,
+    call_graph: &ProgramCallGraph<'_>,
+    block_index: usize,
+    instruction_index: usize,
+    instruction: &VirInstruction,
+    state: &mut SymbolicState,
+) -> Result<(), ProgramWpError> {
+    let VirInstruction::CallStatic {
+        id,
+        r#type,
+        function,
+        args,
+        ..
+    } = instruction
+    else {
+        return Err(ProgramWpError::InvalidGraph {
+            function_id: caller.id.clone(),
+            detail: "non-call reached static-call processing".to_owned(),
+        });
+    };
+    let (callee_unit, callee) = call_graph.resolve(function).map_err(ProgramWpError::Call)?;
+    if callee.results.len() != 1
+        || callee.results[0].r#type != *r#type
+        || callee.params.len() != args.len()
+    {
+        return Err(ProgramWpError::CallSignature {
+            caller: caller.id.clone(),
+            callee: callee.id.clone(),
+        });
+    }
+    let mut encoded_args = Vec::with_capacity(args.len());
+    for (argument_index, (argument, parameter)) in args.iter().zip(&callee.params).enumerate() {
+        let actual_type = caller_context.value_type(argument).map_err(|source| {
+            expression_error(
+                caller,
+                format!("call {id} argument[{argument_index}] type"),
+                source,
+            )
+        })?;
+        if actual_type != parameter.r#type {
+            return Err(ProgramWpError::CallSignature {
+                caller: caller.id.clone(),
+                callee: callee.id.clone(),
+            });
+        }
+        let raw = encode_vir_value(caller_context, argument).map_err(|source| {
+            expression_error(
+                caller,
+                format!("call {id} argument[{argument_index}]"),
+                source,
+            )
+        })?;
+        encoded_args.push(builder.substitute(
+            &raw,
+            &state.env,
+            &BTreeMap::new(),
+            NodeCeiling::member(builder.limits.expression_nodes_per_member),
+        )?);
+    }
+
+    let callee_context = ProgramExprContext::for_validated_function(module, callee_unit, callee)
+        .map_err(|source| expression_error(caller, format!("callee context {function}"), source))?;
+    let callee_variables = callee
+        .params
+        .iter()
+        .zip(&encoded_args)
+        .map(|(parameter, argument)| (parameter.id.clone(), argument.clone()))
+        .collect::<BTreeMap<_, _>>();
+    let outer_assumptions = member_assumptions(state).to_vec();
+    for (require_index, require) in callee.contracts.requires.iter().enumerate() {
+        let reservation = budget.begin_member(function_member_count, &outer_assumptions)?;
+        let raw = encode_vir_contract_expr(&callee_context, require).map_err(|source| {
+            expression_error(
+                caller,
+                format!("call {id} requires[{require_index}]"),
+                source,
+            )
+        })?;
+        let conclusion = builder.substitute(
+            &raw,
+            &callee_variables,
+            &BTreeMap::new(),
+            reservation.conclusion_ceiling,
+        )?;
+        let conclusion =
+            wrap_call_continuation(builder, state, conclusion, reservation.conclusion_ceiling)?;
+        budget.finish_member(reservation, &conclusion)?;
+        pending.push(close_pending_member(
+            caller,
+            caller_context,
+            state.origin_header,
+            MemberOrigin::new(block_index, instruction_index, require_index),
+            ProgramVcMemberKind::CalleePrecondition,
+            outer_assumptions.clone(),
+            conclusion,
+            None,
+        )?);
+    }
+
+    let reservation = budget.begin_member(function_member_count, &outer_assumptions)?;
+    let panic_name = program_declaration_name(&callee.id, ProgramDeclarationKind::PanicFree);
+    let panic_free = if encoded_args.is_empty() {
+        MpkExprTerm::Constant { name: panic_name }
+    } else {
+        builder.apply_with_ceiling(
+            &panic_name,
+            encoded_args.clone(),
+            reservation.conclusion_ceiling,
+        )?
+    };
+    let panic_free =
+        wrap_call_continuation(builder, state, panic_free, reservation.conclusion_ceiling)?;
+    budget.finish_member(reservation, &panic_free)?;
+    pending.push(close_pending_member(
+        caller,
+        caller_context,
+        state.origin_header,
+        MemberOrigin::new(block_index, instruction_index, 0),
+        ProgramVcMemberKind::CalleePanicFree,
+        outer_assumptions,
+        panic_free,
+        None,
+    )?);
+
+    if state.call_scopes.is_empty() {
+        state.outer_assumptions = std::mem::take(&mut state.assumptions);
+    } else {
+        let current = std::mem::take(&mut state.assumptions);
+        let scope = state
+            .call_scopes
+            .last_mut()
+            .ok_or_else(|| ProgramWpError::InvalidGraph {
+                function_id: caller.id.clone(),
+                detail: "call scope disappeared".to_owned(),
+            })?;
+        scope.continuation_assumptions = current;
+    }
+    for value in state.env.values_mut() {
+        *value = shift_bound_indices(value, 1, 0)?;
+    }
+    let shifted_args = encoded_args
+        .iter()
+        .map(|argument| shift_bound_indices(argument, 1, 0))
+        .collect::<Result<Vec<_>, _>>()?;
+    let shifted_variables = callee
+        .params
+        .iter()
+        .zip(&shifted_args)
+        .map(|(parameter, argument)| (parameter.id.clone(), argument.clone()))
+        .collect::<BTreeMap<_, _>>();
+    let fresh_result = MpkExprTerm::Bound { index: 0 };
+    let result_terms = BTreeMap::from([(0_u32, fresh_result.clone())]);
+    let mut ensures = Vec::with_capacity(callee.contracts.ensures.len());
+    for (ensure_index, ensure) in callee.contracts.ensures.iter().enumerate() {
+        let raw = encode_vir_contract_expr(&callee_context, ensure).map_err(|source| {
+            expression_error(caller, format!("call {id} ensures[{ensure_index}]"), source)
+        })?;
+        ensures.push(builder.substitute(
+            &raw,
+            &shifted_variables,
+            &result_terms,
+            NodeCeiling::member(builder.limits.expression_nodes_per_member),
+        )?);
+    }
+    let binder_type = encode_vir_type(
+        module.semantic_profile,
+        &module.semantic_parameters,
+        &callee_unit.type_decls,
+        r#type,
+    )
+    .map_err(|source| expression_error(caller, format!("call {id} result type"), source.into()))?;
+    state.env.insert(id.clone(), fresh_result);
+    state.call_scopes.push(CallScope {
+        binder_type,
+        ensures,
+        continuation_assumptions: Vec::new(),
+    });
     Ok(())
 }
 
@@ -1015,35 +1317,63 @@ fn generate_loop_exit_members(
     loop_returns: BTreeMap<usize, Vec<LoopReturnState>>,
 ) -> Result<(), ProgramWpError> {
     for (header, returns) in loop_returns {
-        let (state, results) = merge_loop_return_states(function, builder, header, returns)?;
-        for (ensure_index, ensure) in function.contracts.ensures.iter().enumerate() {
-            let reservation = budget.begin_member(function_member_count, &state.assumptions)?;
-            let raw = encode_vir_contract_expr(context, ensure).map_err(|source| {
-                expression_error(
+        for returns in group_loop_return_states(returns) {
+            let (state, results) = merge_loop_return_states(function, builder, header, returns)?;
+            for (ensure_index, ensure) in function.contracts.ensures.iter().enumerate() {
+                let assumptions = member_assumptions(&state).to_vec();
+                let reservation = budget.begin_member(function_member_count, &assumptions)?;
+                let raw = encode_vir_contract_expr(context, ensure).map_err(|source| {
+                    expression_error(
+                        function,
+                        format!(
+                            "loop {} exit ensures[{ensure_index}]",
+                            function.blocks[header].label
+                        ),
+                        source,
+                    )
+                })?;
+                let conclusion = builder.substitute(
+                    &raw,
+                    &state.env,
+                    &results,
+                    reservation.conclusion_ceiling,
+                )?;
+                let conclusion = wrap_call_continuation(
+                    builder,
+                    &state,
+                    conclusion,
+                    reservation.conclusion_ceiling,
+                )?;
+                budget.finish_member(reservation, &conclusion)?;
+                pending.push(close_pending_member(
                     function,
-                    format!(
-                        "loop {} exit ensures[{ensure_index}]",
-                        function.blocks[header].label
-                    ),
-                    source,
-                )
-            })?;
-            let conclusion =
-                builder.substitute(&raw, &state.env, &results, reservation.conclusion_ceiling)?;
-            budget.finish_member(reservation, &conclusion)?;
-            pending.push(close_pending_member(
-                function,
-                context,
-                Some(header),
-                MemberOrigin::new(header, ensure_index, 0),
-                ProgramVcMemberKind::LoopExit,
-                state.assumptions.clone(),
-                conclusion,
-                None,
-            )?);
+                    context,
+                    Some(header),
+                    MemberOrigin::new(header, ensure_index, 0),
+                    ProgramVcMemberKind::LoopExit,
+                    assumptions,
+                    conclusion,
+                    None,
+                )?);
+            }
         }
     }
     Ok(())
+}
+
+fn group_loop_return_states(returns: Vec<LoopReturnState>) -> Vec<Vec<LoopReturnState>> {
+    let mut groups = Vec::<Vec<LoopReturnState>>::new();
+    for state in returns {
+        if let Some(group) = groups
+            .iter_mut()
+            .find(|group| same_relational_scope(&group[0].state, &state.state))
+        {
+            group.push(state);
+        } else {
+            groups.push(vec![state]);
+        }
+    }
+    groups
 }
 
 fn merge_loop_return_states(
@@ -1141,6 +1471,8 @@ fn merge_loop_return_states(
         SymbolicState {
             env,
             assumptions,
+            outer_assumptions: returns[0].state.outer_assumptions.clone(),
+            call_scopes: returns[0].state.call_scopes.clone(),
             origin_header: Some(header),
         },
         results,
@@ -1171,7 +1503,8 @@ fn generate_loop_nonnegative_members(
         if !variant.signed {
             continue;
         }
-        let reservation = budget.begin_member(function_member_count, &state.assumptions)?;
+        let assumptions = member_assumptions(state).to_vec();
+        let reservation = budget.begin_member(function_member_count, &assumptions)?;
         let conclusion = builder.apply_with_ceiling(
             &bitvec_function(variant.width, "sge"),
             vec![
@@ -1184,6 +1517,8 @@ fn generate_loop_nonnegative_members(
             ],
             reservation.conclusion_ceiling,
         )?;
+        let conclusion =
+            wrap_call_continuation(builder, state, conclusion, reservation.conclusion_ceiling)?;
         budget.finish_member(reservation, &conclusion)?;
         pending.push(close_pending_member(
             function,
@@ -1191,7 +1526,7 @@ fn generate_loop_nonnegative_members(
             Some(header),
             MemberOrigin::new(header, decrease_index, 0),
             ProgramVcMemberKind::LoopDecreases,
-            state.assumptions.clone(),
+            assumptions,
             conclusion,
             None,
         )?);
@@ -1234,7 +1569,8 @@ fn generate_loop_backedge_members(
         })?;
 
     for (invariant_index, invariant) in contract.invariants.iter().enumerate() {
-        let reservation = budget.begin_member(function_member_count, &state.assumptions)?;
+        let assumptions = member_assumptions(state).to_vec();
+        let reservation = budget.begin_member(function_member_count, &assumptions)?;
         let raw = encode_vir_contract_expr(context, invariant).map_err(|source| {
             expression_error(
                 function,
@@ -1251,6 +1587,8 @@ fn generate_loop_backedge_members(
             &BTreeMap::new(),
             reservation.conclusion_ceiling,
         )?;
+        let conclusion =
+            wrap_call_continuation(builder, state, conclusion, reservation.conclusion_ceiling)?;
         budget.finish_member(reservation, &conclusion)?;
         pending.push(close_pending_member(
             function,
@@ -1258,7 +1596,7 @@ fn generate_loop_backedge_members(
             Some(header),
             MemberOrigin::new(header, backedge_source, invariant_index),
             ProgramVcMemberKind::LoopPreservation,
-            state.assumptions.clone(),
+            assumptions,
             conclusion,
             None,
         )?);
@@ -1268,7 +1606,8 @@ fn generate_loop_backedge_members(
     for (decrease_index, (expression, variant)) in
         contract.decreases.iter().zip(variants).enumerate()
     {
-        let reservation = budget.begin_member(function_member_count, &state.assumptions)?;
+        let assumptions = member_assumptions(state).to_vec();
+        let reservation = budget.begin_member(function_member_count, &assumptions)?;
         let raw = encode_vir_contract_expr(context, expression).map_err(|source| {
             expression_error(
                 function,
@@ -1290,6 +1629,8 @@ fn generate_loop_backedge_members(
             vec![after, variant.before.clone()],
             reservation.conclusion_ceiling,
         )?;
+        let conclusion =
+            wrap_call_continuation(builder, state, conclusion, reservation.conclusion_ceiling)?;
         budget.finish_member(reservation, &conclusion)?;
         let phase = backedge_rank
             .checked_add(usize::from(variant.signed))
@@ -1302,7 +1643,7 @@ fn generate_loop_backedge_members(
             Some(header),
             MemberOrigin::new(header, decrease_index, phase),
             ProgramVcMemberKind::LoopDecreases,
-            state.assumptions.clone(),
+            assumptions,
             conclusion,
             None,
         )?);
@@ -1409,6 +1750,7 @@ fn collect_term_variables(term: &MpkExprTerm, output: &mut BTreeSet<String>) {
             }
         }
         MpkExprTerm::Convert { value, .. } => collect_term_variables(value, output),
+        MpkExprTerm::Forall { body, .. } => collect_term_variables(body, output),
         MpkExprTerm::Bound { .. }
         | MpkExprTerm::Result { .. }
         | MpkExprTerm::Constant { .. }
@@ -1420,11 +1762,26 @@ fn bind_term(
     term: &MpkExprTerm,
     replacements: &BTreeMap<String, u32>,
 ) -> Result<MpkExprTerm, ProgramWpError> {
+    bind_term_at_depth(term, replacements, 0)
+}
+
+fn bind_term_at_depth(
+    term: &MpkExprTerm,
+    replacements: &BTreeMap<String, u32>,
+    inline_depth: u32,
+) -> Result<MpkExprTerm, ProgramWpError> {
     match term {
-        MpkExprTerm::Var { name } => Ok(replacements.get(name).map_or_else(
-            || term.clone(),
-            |index| MpkExprTerm::Bound { index: *index },
-        )),
+        MpkExprTerm::Var { name } => replacements.get(name).map_or_else(
+            || Ok(term.clone()),
+            |index| {
+                index
+                    .checked_add(inline_depth)
+                    .map(|index| MpkExprTerm::Bound { index })
+                    .ok_or_else(|| ProgramWpError::CounterOverflow {
+                        context: "member-local de Bruijn shift".to_owned(),
+                    })
+            },
+        ),
         MpkExprTerm::Bound { .. }
         | MpkExprTerm::Constant { .. }
         | MpkExprTerm::BitVecLiteral { .. } => Ok(term.clone()),
@@ -1433,12 +1790,68 @@ fn bind_term(
             function: function.clone(),
             args: args
                 .iter()
-                .map(|argument| bind_term(argument, replacements))
+                .map(|argument| bind_term_at_depth(argument, replacements, inline_depth))
                 .collect::<Result<Vec<_>, _>>()?,
         }),
         MpkExprTerm::Convert { value, target } => Ok(MpkExprTerm::Convert {
-            value: Box::new(bind_term(value, replacements)?),
+            value: Box::new(bind_term_at_depth(value, replacements, inline_depth)?),
             target: target.clone(),
+        }),
+        MpkExprTerm::Forall { binder_type, body } => Ok(MpkExprTerm::Forall {
+            binder_type: binder_type.clone(),
+            body: Box::new(bind_term_at_depth(
+                body,
+                replacements,
+                inline_depth
+                    .checked_add(1)
+                    .ok_or_else(|| ProgramWpError::CounterOverflow {
+                        context: "inline binder depth".to_owned(),
+                    })?,
+            )?),
+        }),
+    }
+}
+
+fn shift_bound_indices(
+    term: &MpkExprTerm,
+    amount: u32,
+    cutoff: u32,
+) -> Result<MpkExprTerm, ProgramWpError> {
+    match term {
+        MpkExprTerm::Bound { index } if *index >= cutoff => Ok(MpkExprTerm::Bound {
+            index: index
+                .checked_add(amount)
+                .ok_or_else(|| ProgramWpError::CounterOverflow {
+                    context: "de Bruijn index shift".to_owned(),
+                })?,
+        }),
+        MpkExprTerm::Bound { .. }
+        | MpkExprTerm::Var { .. }
+        | MpkExprTerm::Result { .. }
+        | MpkExprTerm::Constant { .. }
+        | MpkExprTerm::BitVecLiteral { .. } => Ok(term.clone()),
+        MpkExprTerm::Apply { function, args } => Ok(MpkExprTerm::Apply {
+            function: function.clone(),
+            args: args
+                .iter()
+                .map(|argument| shift_bound_indices(argument, amount, cutoff))
+                .collect::<Result<Vec<_>, _>>()?,
+        }),
+        MpkExprTerm::Convert { value, target } => Ok(MpkExprTerm::Convert {
+            value: Box::new(shift_bound_indices(value, amount, cutoff)?),
+            target: target.clone(),
+        }),
+        MpkExprTerm::Forall { binder_type, body } => Ok(MpkExprTerm::Forall {
+            binder_type: binder_type.clone(),
+            body: Box::new(shift_bound_indices(
+                body,
+                amount,
+                cutoff
+                    .checked_add(1)
+                    .ok_or_else(|| ProgramWpError::CounterOverflow {
+                        context: "de Bruijn cutoff shift".to_owned(),
+                    })?,
+            )?),
         }),
     }
 }
@@ -1515,6 +1928,8 @@ fn edge_state(
     Ok(SymbolicState {
         env,
         assumptions: state.assumptions.clone(),
+        outer_assumptions: state.outer_assumptions.clone(),
+        call_scopes: state.call_scopes.clone(),
         origin_header: state.origin_header,
     })
 }
@@ -1532,17 +1947,23 @@ fn push_incoming(
         edge_index,
         state,
     });
-    worklist.remaining_predecessors[target_index] = worklist.remaining_predecessors[target_index]
-        .checked_sub(1)
-        .ok_or_else(|| ProgramWpError::InvalidGraph {
-            function_id: function.id.clone(),
-            detail: format!(
-                "block {} received more edges than declared",
-                function.blocks[target_index].label
-            ),
-        })?;
-    if worklist.remaining_predecessors[target_index] == 0 {
-        worklist.ready.insert(target_index);
+    if worklist
+        .delivered_edges
+        .insert((predecessor_index, edge_index, target_index))
+    {
+        worklist.remaining_predecessors[target_index] = worklist.remaining_predecessors
+            [target_index]
+            .checked_sub(1)
+            .ok_or_else(|| ProgramWpError::InvalidGraph {
+                function_id: function.id.clone(),
+                detail: format!(
+                    "block {} received more edges than declared",
+                    function.blocks[target_index].label
+                ),
+            })?;
+        if worklist.remaining_predecessors[target_index] == 0 {
+            worklist.ready.insert(target_index);
+        }
     }
     Ok(())
 }
@@ -1551,7 +1972,7 @@ fn merge_incoming_states(
     function: &VirFunction,
     builder: &TermBuilder,
     mut incoming: Vec<IncomingState>,
-) -> Result<SymbolicState, ProgramWpError> {
+) -> Result<Vec<SymbolicState>, ProgramWpError> {
     if incoming.is_empty() {
         return Err(ProgramWpError::InvalidGraph {
             function_id: function.id.clone(),
@@ -1559,6 +1980,34 @@ fn merge_incoming_states(
         });
     }
     incoming.sort_by_key(|edge| (edge.predecessor_index, edge.edge_index));
+    let mut groups = Vec::<Vec<IncomingState>>::new();
+    for edge in incoming {
+        if let Some(group) = groups
+            .iter_mut()
+            .find(|group| same_relational_scope(&group[0].state, &edge.state))
+        {
+            group.push(edge);
+        } else {
+            groups.push(vec![edge]);
+        }
+    }
+    groups
+        .into_iter()
+        .map(|group| merge_incoming_group(function, builder, group))
+        .collect()
+}
+
+fn same_relational_scope(lhs: &SymbolicState, rhs: &SymbolicState) -> bool {
+    lhs.origin_header == rhs.origin_header
+        && lhs.outer_assumptions == rhs.outer_assumptions
+        && lhs.call_scopes == rhs.call_scopes
+}
+
+fn merge_incoming_group(
+    function: &VirFunction,
+    builder: &TermBuilder,
+    mut incoming: Vec<IncomingState>,
+) -> Result<SymbolicState, ProgramWpError> {
     if incoming.len() == 1 {
         return incoming
             .pop()
@@ -1568,17 +2017,7 @@ fn merge_incoming_states(
                 detail: "incoming state disappeared".to_owned(),
             });
     }
-
     let origin_header = incoming[0].state.origin_header;
-    if incoming[1..]
-        .iter()
-        .any(|edge| edge.state.origin_header != origin_header)
-    {
-        return Err(ProgramWpError::InvalidGraph {
-            function_id: function.id.clone(),
-            detail: "dataflow join mixes distinct loop-cutpoint scopes".to_owned(),
-        });
-    }
     let common_length = longest_common_assumption_prefix(&incoming);
     let selectors = incoming
         .iter()
@@ -1612,6 +2051,8 @@ fn merge_incoming_states(
     Ok(SymbolicState {
         env,
         assumptions,
+        outer_assumptions: incoming[0].state.outer_assumptions.clone(),
+        call_scopes: incoming[0].state.call_scopes.clone(),
         origin_header,
     })
 }
@@ -1786,6 +2227,48 @@ impl TermBuilder {
         Ok(result)
     }
 
+    fn conjoin_exact(
+        self,
+        values: &[MpkExprTerm],
+        ceiling: NodeCeiling,
+    ) -> Result<MpkExprTerm, ProgramWpError> {
+        match values {
+            [] => Ok(MpkExprTerm::Constant {
+                name: STD_BOOL_TRUE.to_owned(),
+            }),
+            [value] => Ok(value.clone()),
+            values => {
+                let split = values.len() / 2;
+                let left = self.conjoin_exact(&values[..split], ceiling)?;
+                let right = self.conjoin_exact(&values[split..], ceiling)?;
+                self.apply_with_ceiling(STD_BOOL_AND, vec![left, right], ceiling)
+            }
+        }
+    }
+
+    fn imply(
+        self,
+        antecedent: MpkExprTerm,
+        consequent: MpkExprTerm,
+        ceiling: NodeCeiling,
+    ) -> Result<MpkExprTerm, ProgramWpError> {
+        self.apply_with_ceiling("Std.Logic.Imp", vec![antecedent, consequent], ceiling)
+    }
+
+    fn forall(
+        self,
+        binder_type: MpkTypeTerm,
+        body: MpkExprTerm,
+        ceiling: NodeCeiling,
+    ) -> Result<MpkExprTerm, ProgramWpError> {
+        let term = MpkExprTerm::Forall {
+            binder_type,
+            body: Box::new(body),
+        };
+        measure_term(&term, ceiling, self.limits.member_expression_depth)?;
+        Ok(term)
+    }
+
     fn bool_and(self, lhs: MpkExprTerm, rhs: MpkExprTerm) -> Result<MpkExprTerm, ProgramWpError> {
         if is_false(&lhs) || is_false(&rhs) || are_complements(&lhs, &rhs) {
             return Ok(MpkExprTerm::Constant {
@@ -1935,6 +2418,20 @@ fn substitute_unchecked(
             value: Box::new(substitute_unchecked(value, variables, results)?),
             target: target.clone(),
         }),
+        MpkExprTerm::Forall { binder_type, body } => {
+            let variables = variables
+                .iter()
+                .map(|(name, value)| Ok((name.clone(), shift_bound_indices(value, 1, 0)?)))
+                .collect::<Result<BTreeMap<_, _>, ProgramWpError>>()?;
+            let results = results
+                .iter()
+                .map(|(index, value)| Ok((*index, shift_bound_indices(value, 1, 0)?)))
+                .collect::<Result<BTreeMap<_, _>, ProgramWpError>>()?;
+            Ok(MpkExprTerm::Forall {
+                binder_type: binder_type.clone(),
+                body: Box::new(substitute_unchecked(body, &variables, &results)?),
+            })
+        }
     }
 }
 
@@ -1981,6 +2478,10 @@ fn projected_metrics(
                     })?;
             check_metrics(TermMetrics { nodes, depth }, ceiling, depth_limit)
         }
+        MpkExprTerm::Forall { .. } => {
+            let substituted = substitute_unchecked(input, variables, results)?;
+            measure_term(&substituted, ceiling, depth_limit)
+        }
     }
 }
 
@@ -2016,6 +2517,22 @@ fn measure_term(
                     .checked_add(value.depth.max(type_depth(target)?))
                     .ok_or_else(|| ProgramWpError::CounterOverflow {
                         context: "converted expression depth".to_owned(),
+                    })?,
+            };
+            check_metrics(metrics, ceiling, depth_limit)
+        }
+        MpkExprTerm::Forall { binder_type, body } => {
+            let body = measure_term(body, ceiling, depth_limit)?;
+            let metrics = TermMetrics {
+                nodes: body.nodes.checked_add(1).ok_or_else(|| {
+                    ProgramWpError::CounterOverflow {
+                        context: "forall expression nodes".to_owned(),
+                    }
+                })?,
+                depth: 1_usize
+                    .checked_add(body.depth.max(type_depth(binder_type)?))
+                    .ok_or_else(|| ProgramWpError::CounterOverflow {
+                        context: "forall expression depth".to_owned(),
                     })?,
             };
             check_metrics(metrics, ceiling, depth_limit)
@@ -2342,6 +2859,11 @@ fn safety_error(
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum ProgramWpError {
     Validation(VirValidationError),
+    Call(CallWpError),
+    CallSignature {
+        caller: String,
+        callee: String,
+    },
     Expression {
         function_id: String,
         context: String,
@@ -2351,11 +2873,6 @@ pub enum ProgramWpError {
         function_id: String,
         instruction_id: String,
         source: SafetyCheckError,
-    },
-    UnsupportedStaticCall {
-        function_id: String,
-        block_label: String,
-        instruction_id: String,
     },
     InvalidGraph {
         function_id: String,
@@ -2381,9 +2898,10 @@ impl ProgramWpError {
     pub const fn code(&self) -> &'static str {
         match self {
             Self::Validation(_) => "VC_PROGRAM_VIR_INVALID",
+            Self::Call(_) => "VC_PROGRAM_CALL_GRAPH",
+            Self::CallSignature { .. } => "VC_PROGRAM_CALL_SIGNATURE",
             Self::Expression { .. } => "VC_PROGRAM_EXPRESSION",
             Self::Safety { .. } => "VC_PROGRAM_SAFETY",
-            Self::UnsupportedStaticCall { .. } => "VC_PROGRAM_CALL_UNSUPPORTED",
             Self::InvalidGraph { .. } => "VC_PROGRAM_GRAPH",
             Self::UnclosedValue { .. } | Self::UnclosedResult { .. } => "VC_PROGRAM_UNCLOSED_TERM",
             Self::Limit { code, .. } => code,
@@ -2396,6 +2914,13 @@ impl fmt::Display for ProgramWpError {
     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Self::Validation(error) => write!(formatter, "VIR validation failed: {error}"),
+            Self::Call(error) => write!(formatter, "program call analysis failed: {error}"),
+            Self::CallSignature { caller, callee } => {
+                write!(
+                    formatter,
+                    "static-call signature mismatch for {caller} -> {callee}"
+                )
+            }
             Self::Expression {
                 function_id,
                 context,
@@ -2411,14 +2936,6 @@ impl fmt::Display for ProgramWpError {
             } => write!(
                 formatter,
                 "program safety failed in {function_id} at {instruction_id}: {source}"
-            ),
-            Self::UnsupportedStaticCall {
-                function_id,
-                block_label,
-                instruction_id,
-            } => write!(
-                formatter,
-                "static call {instruction_id} in {function_id}/{block_label} awaits VIR-01-T10"
             ),
             Self::InvalidGraph {
                 function_id,
@@ -2443,6 +2960,7 @@ impl std::error::Error for ProgramWpError {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         match self {
             Self::Validation(error) => Some(error),
+            Self::Call(error) => Some(error),
             Self::Expression { source, .. } => Some(source),
             Self::Safety { source, .. } => Some(source),
             _ => None,

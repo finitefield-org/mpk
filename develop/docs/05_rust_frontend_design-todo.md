@@ -1782,7 +1782,7 @@ git diff --check
 
 ### VIR-01-T10 Implement Contract Hashing and Static-Call WP
 
-Status: Pending
+Status: Complete (2026-08-21).
 
 Depends on: VIR-01-T04, VIR-01-T08.
 

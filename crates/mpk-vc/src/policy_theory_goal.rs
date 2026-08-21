@@ -455,6 +455,7 @@ fn linear_operand(term: &MpkExprTerm) -> Result<Option<LinearOperand>, PolicyThe
         MpkExprTerm::BitVecLiteral { .. }
         | MpkExprTerm::Apply { .. }
         | MpkExprTerm::Convert { .. }
+        | MpkExprTerm::Forall { .. }
         | MpkExprTerm::Constant { .. } => Ok(None),
     }
 }
