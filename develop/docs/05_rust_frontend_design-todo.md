@@ -38,7 +38,11 @@ Out of scope:
 - Rust features excluded by `mpk.rust.checked.v0`, including references,
   pointers, allocation, traits, generics, enums, loops, recursion, external
   dependencies, macros, build scripts, floating point, and 128-bit integers;
-- mixed-language VIR modules or cross-language calls in v0.
+- mixed-language VIR modules or cross-language calls in v0;
+- multi-language design, feasibility, specification, or production milestones
+  during this Go/VIR/Rust program; and
+- placeholder future-language IDs, selection branches, semantic profiles,
+  release tuples, bundles, or dormant production hooks.
 
 ## Execution Rules
 
@@ -160,6 +164,14 @@ Out of scope:
     assembler uses the same materialization and accepts release output only
     after two separately empty clean builds produce byte-identical main/driver
     files.
+13. Future-language work follows
+    `06_multilanguage_frontend_design.md` and
+    `06_multilanguage_frontend_design-todo.md` only after this entire program
+    completes. No `MLANG-*` or future-language milestone starts before
+    `RUST-07-T05`; thereafter every design, specification, and implementation
+    phase waits for its immediate predecessor. This program may not add or
+    reserve future-language schemas, profile IDs, registry entries, CLI
+    selection branches, release tuples, bundles, or frontend code.
 
 ## Component Ownership
 
@@ -224,6 +236,11 @@ VIR-00-T01..T10
 
 Tasks within a phase may run in parallel only when their explicit dependencies
 allow it. A phase exit gate still requires every task in that phase.
+
+The multi-language sequence is outside and strictly after this critical path.
+`MLANG-00` starts only when `RUST-07-T05` completes; all later phases follow
+the serial order in `06_multilanguage_frontend_design-todo.md`. Completing this
+Rust program does not require implementing or designing a future language.
 
 ## Common Definition of Done
 
@@ -4769,9 +4786,10 @@ git diff --check
 | 19.4 migration gates | VIR-00-T01, GO-VIR-02-T01, GO-VIR-02-T11, GO-VIR-02-T12, RUST-07-T05 |
 | 20 sequence and exit gates | every milestone in its matching phase |
 | 21 file/module impact | all implementation milestones; removals are owned by GO-VIR-02-T12 |
-| 22 alternatives | execution rules 1-12; no adapter, dual release path, GIR reinterpretation, syn-only, textual MIR, LLVM, or trusted frontend task exists |
+| 22 alternatives | execution rules 1-13; no adapter, dual release path, GIR reinterpretation, syn-only, textual MIR, LLVM, or trusted frontend task exists |
 | 23 risks | bundle/compiler risks: RUST-03; semantics: VIR-01/RUST-04; migration: GO-VIR-02; hardening: RUST-07 |
 | 24 completion criteria | GO-VIR-02-T12, RUST-06-T04, RUST-07-T05 |
+| 25 post-Rust multi-language handoff | RUST-07-T05, then MLANG-00, MLANG-01, and CSHARP-02 in `06_multilanguage_frontend_design-todo.md` |
 
 ## Final Handoff Checklist
 
@@ -4792,4 +4810,8 @@ The full program is complete only when:
   report validation pass from a clean checkout with registered bundles only;
 - final documentation distinguishes mathematical certificate proof from
   untrusted source/compiler/frontend/VIR traceability;
+- no future-language design phase or production schema, ID, branch, tuple,
+  bundle, hook, or frontend was started during the Rust program, and the
+  strictly post-Rust handoff is documented without becoming a Rust v0 exit
+  dependency; and
 - the implementation review ledger is empty and the working tree is clean.

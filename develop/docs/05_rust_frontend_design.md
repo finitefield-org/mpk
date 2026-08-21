@@ -60,6 +60,14 @@ pass both source-free checkers. The migration is complete only when Go reaches
 the same shared path and no production component consumes or emits GIR v0.
 Producing VIR alone is not source-program verification.
 
+C#, Java, Dart, TypeScript, and Python are planned only as post-Rust expansion.
+No multi-language design, feasibility, specification, or production milestone
+starts while this program runs. After the Rust hardening/release gate
+`RUST-07-T05`, the follow-on program starts its own design phase and then
+continues one phase at a time. The governing follow-on documents are
+`06_multilanguage_frontend_design.md` and
+`06_multilanguage_frontend_design-todo.md`.
+
 ## 2. Context and current constraints
 
 The current implementation already separates its source frontend from proof
@@ -130,7 +138,11 @@ Rust v0 will not support:
   scan/evidence v0, or AI helper API v0 after the cutover;
 - changing certificate v0 binary encoding or adding source artifacts to the
   trusted checker inputs;
-- cross-language calls inside one VIR module in v0.
+- cross-language calls inside one VIR module in v0;
+- multi-language design, feasibility, specification, or production milestones
+  before Rust v0 completes its final release gate; or
+- placeholder future-language IDs, selection branches, semantic profiles,
+  release tuples, or bundles in the frozen Go/Rust contracts.
 
 These features require later semantic profiles. An unsupported feature must not
 be approximated, erased, or interpreted as an unconstrained value.
@@ -3321,7 +3333,34 @@ hold:
 - documentation never presents rustc, `rust2vir`, VIR, or a successful build as
   trusted proof evidence.
 
-## 25. Primary references
+## 25. Post-Rust multi-language handoff
+
+This design deliberately validates the shared architecture with exactly two
+source languages before starting the multi-language program. No multi-language
+design, feasibility, specification, or production milestone runs during this
+Go/VIR/Rust program. It must not add an unused plugin framework, future-
+language branch, or widened frozen parser.
+
+After `RUST-07-T05`, `MLANG-00` may use the completed Go/Rust path for semantic
+comparison and compiler-API feasibility work. `MLANG-01` then designs the
+strict successor extension mechanism and freezes the C# specification package.
+Production frontends then proceed serially: C#, Java, Dart, TypeScript, and
+Python. Each language has its own semantic profile, pinned registered frontend/
+toolchain bundle, complete conformance vectors, and both-checker release gate.
+
+The first added language may require successor versions of VIR, frontend,
+selection, manifest, release, policy, or evidence contracts because current v0
+unions are closed over Go and Rust. If a shared serialized contract changes,
+all active Go/Rust producers and consumers migrate atomically; no permanent
+dual public IR input is introduced. Certificate v0, the trust boundary, and
+axiom-category encoding remain unchanged.
+
+Mixed-language VIR and source-language FFI remain out of scope. Independently
+verified languages compose only through checked hash-pinned certificate
+imports. Exact gates and language-specific risks are owned by
+`06_multilanguage_frontend_design.md` and its todo.
+
+## 26. Primary references
 
 - [RFC 8785: JSON Canonicalization Scheme](https://www.rfc-editor.org/rfc/rfc8785)
 - [SMT-LIB 2.7 FixedSizeBitVectors theory](https://smt-lib.org/theories-FixedSizeBitVectors.shtml)

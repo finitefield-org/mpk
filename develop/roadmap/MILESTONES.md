@@ -15,6 +15,18 @@ pinned Rust frontend. The cutover replaces the applicable M6/M7 helper
 interfaces as one release change while leaving Certificate v0 and checker
 acceptance unchanged.
 
+The multi-language program in
+`../docs/06_multilanguage_frontend_design-todo.md` is a strictly post-Rust
+handoff, not a parallel track, an extension of M0 through M10, or a prerequisite
+for completing Rust v0. Its single sequence is:
+
+```text
+RUST-07-T05 -> MLANG-00 -> MLANG-01 -> CSHARP-02 -> JAVA-03
+  -> DART-04 -> TYPESCRIPT-05 -> PYTHON-06
+```
+
+No phase in that sequence overlaps its predecessor.
+
 ## M0: Project charter accepted
 
 Acceptance criteria:

@@ -15,6 +15,15 @@ The forward VIR/Rust migration sequence is owned by
 4. RUST-03 starts only after that cutover and builds the pinned Rust frontend.
 5. Later RUST phases add semantics without widening the proof trust boundary.
 
+Post-Rust source-language expansion is queued in
+`../docs/06_multilanguage_frontend_design.md` and
+`../docs/06_multilanguage_frontend_design-todo.md`. It is one continuation of
+the same flow, not a parallel track: complete `RUST-07-T05`, then run
+`MLANG-00`, then `MLANG-01`, then implement and release C#, Java, Dart,
+TypeScript, and Python in that order. No future-language design phase,
+placeholder ID, profile, selection branch, release tuple, bundle, or frontend
+belongs in the current Go/Rust program.
+
 The Phase 0 through Phase 12 Go/GIR entries below remain the current release
 baseline until `GO-VIR-02-T12`. They are not historical before that task and
 must not be mixed with staged VIR schemas. At the cutover they become a record

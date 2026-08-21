@@ -76,6 +76,23 @@ stable deterministic hashes across machines
 zero trusted use of source text, tactics, AI traces, or solver yes/no answers
 ```
 
+## Post-Rust source-language direction
+
+C#, Java, Dart, TypeScript, and Python are queued after the scoped Rust v0
+release. Recording that direction now does not start a parallel design track:
+all multi-language semantic research, compiler-API feasibility work,
+specification, and production implementation wait for `RUST-07-T05`.
+
+The continuation is strictly serial: `MLANG-00` research, `MLANG-01` successor
+contract and C# specification freeze, then C#, Java, Dart, TypeScript, and
+Python implementation and release, one at a time. Each frontend remains
+untrusted, has a frozen language-specific subset and semantic profile, emits a
+language-isolated VIR module, and preserves the existing Certificate v0 and
+source-free checker boundary. No placeholder future-language value or dormant
+production hook is added to the Go/Rust path. See
+`06_multilanguage_frontend_design.md` and
+`06_multilanguage_frontend_design-todo.md`.
+
 ## Main implementation risk
 
 The main risk is not proof-search intelligence. The main risk is allowing trusted scope creep. The kernel must remain small, deterministic, fuel-limited, and boring. Solvers may be powerful, but they must emit checkable certificates. Frontends may be useful, but their output must be hash-pinned and treated as untrusted unless a later verified frontend is built.

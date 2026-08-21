@@ -1,0 +1,457 @@
+# Post-Rust Multi-Language Frontend Expansion Design
+
+Status: queued planning direction only. This document does not activate a new
+source language or amend a frozen serialized schema. Every `MLANG-*` milestone
+waits for its stated entry gate, and none starts before `RUST-07-T05`.
+
+Prepared: 2026-08-21
+
+## 1. Decision summary
+
+MPK records the future C#, Java, Dart, TypeScript, and Python expansion now,
+but finishes the existing Go-to-VIR migration and scoped Rust v0 implementation
+before starting any multi-language design, feasibility, specification, or
+production task.
+
+The sequencing decision is:
+
+1. `RUST-07-T05` first completes the Rust v0 determinism, fuzzing,
+   compiler-upgrade, CI, and release gates.
+2. `MLANG-00` then performs the semantic comparison and compiler-API
+   feasibility work for all five candidate languages.
+3. `MLANG-01` then audits the completed Go/Rust implementation and freezes the
+   successor extension mechanism and first C# specification package.
+4. New production frontends are then added serially, initially in this order:
+   C#, Java, Dart, TypeScript, then Python.
+5. “Rust v0 complete” means the deliberately restricted Rust profile in
+   `05_rust_frontend_design.md` satisfies its release gates. It does not mean
+   waiting for full-language Rust support.
+
+The language comparison and official references below are non-normative
+roadmap rationale recorded to choose this queue. They are not completion of an
+`MLANG-00` deliverable. `MLANG-00` revalidates them against the completed Rust
+implementation and then produces the reviewed semantic and feasibility
+records.
+
+The order may change only through a reviewed governance amendment that records
+the user value, semantic risk, compiler integration quality, and effect on the
+critical path. It must not be changed merely to start several frontend
+implementations in parallel.
+
+## 2. Authority and relationship to the active program
+
+Until `RUST-07-T05` completes, the implementation authority remains:
+
+- `05_rust_frontend_design.md`;
+- `05_rust_frontend_design-todo.md`;
+- the frozen VIR-00 specifications and vectors; and
+- the dependency order `VIR-01 -> GO-VIR-02 -> RUST-03..RUST-07`.
+
+This document is subordinate to those contracts. In particular, it does not:
+
+- add language identifiers to `mpk.vir.v0`;
+- add selection branches to `mpk.frontend.cli.v0`;
+- add release tuples or bundles for future languages;
+- change Go or Rust semantic profiles;
+- create a second public VIR input during the Go cutover;
+- permit mixed-language VIR modules; or
+- change Certificate v0, checker inputs, trust, or axiom categories.
+
+If this document conflicts with a frozen v0/v1 specification or with the
+current Rust task graph, the frozen specification and Rust task graph win until
+a separately reviewed successor specification is activated.
+
+## 3. Goals
+
+The multi-language expansion should:
+
+- reuse the same certificate, checker, VC, policy, evidence, source-map,
+  source-manifest, and registered-frontend architecture;
+- make each language's runtime semantics explicit in a distinct semantic
+  profile rather than infer semantics from syntax or a frontend name;
+- keep every compiler, SDK, analyzer, frontend, source file, contract, IR,
+  source map, manifest claim, and VC outside the proof trust boundary;
+- pin every compiler API, target, standard-library/reference input, option,
+  subordinate executable, and release bundle needed for deterministic
+  lowering;
+- define a small fail-closed subset before accepting any source program;
+- reuse VIR operations only where the source-language behavior is exact;
+- add checked definitions or checked theory-certificate support when a new
+  value model is required;
+- preserve one source language and one semantic profile per VIR module; and
+- make language additions repeatable without creating an unreviewed plugin or
+  raw-executable escape hatch.
+
+## 4. Non-goals
+
+This plan does not aim to:
+
+- run a multi-language milestone while the Rust program is active;
+- design or implement multiple future-language phases concurrently;
+- add placeholder language enum values, empty selection variants, dummy
+  semantic profiles, or registry entries without complete semantics;
+- define one “universal” semantic profile for superficially similar syntax;
+- trust compiler ASTs, typed trees, control-flow graphs, bytecode, IL, or
+  analyzer results as proof evidence;
+- support a full source language in its first profile;
+- accept heap allocation, object identity, dynamic dispatch, reflection,
+  exceptions, async execution, threads, FFI, floating point, or runtime code
+  generation merely because a compiler API exposes them;
+- load third-party frontend plugins into `mpk-cli` or a checker;
+- accept a user-selected compiler or frontend path on an evidence route;
+- add `CSharpSemanticsAxiom`, `JavaSemanticsAxiom`, `DartSemanticsAxiom`,
+  `TypeScriptSemanticsAxiom`, `PythonSemanticsAxiom`, or another Certificate v0
+  axiom category; or
+- model cross-language calls inside one VIR document.
+
+Cross-language composition remains a certificate/package concern: separately
+verified modules may interact only through declared, hash-pinned certificate
+imports whose exported theorem interfaces are checked by the existing
+checkers. Source-language FFI behavior is outside the initial expansion.
+
+## 5. Invariants every language must preserve
+
+### 5.1 Proof boundary
+
+The only proof-acceptance route remains canonical `.mpcert` checking. A pinned
+compiler or byte-identical frontend build improves traceability and
+reproducibility; it does not establish that lowering matches the source.
+
+Each report must continue to distinguish:
+
+- a mathematical certificate/checker claim; and
+- an untrusted source-to-certificate traceability claim.
+
+### 5.2 Fail-closed semantics
+
+For every accepted source operation, the owning language profile specifies:
+
+- source operand and result types;
+- value semantics and evaluation order;
+- normal and abrupt completion behavior;
+- every required runtime-safety check;
+- target- or option-dependent parameters;
+- the exact VIR operation and contract encoding; and
+- the first stable rejection class for unsupported or ambiguous forms.
+
+Unknown syntax, types, compiler nodes, implicit conversions, dispatch targets,
+runtime behavior, or profile parameters reject. They are never erased,
+approximated, modeled as unconstrained values, or accepted under another
+language's profile.
+
+### 5.3 Registered, isolated frontends
+
+Each language uses a separate untrusted registered frontend bundle. A bundle
+contains only the exact main executable, permitted subordinate tools, pinned
+compiler/analyzer/runtime inputs, and redistribution metadata frozen by its
+own specification.
+
+The generic runner resolves bundles internally, uses immutable snapshots,
+denies ambient credentials and network access, enforces resource limits, and
+accepts no raw executable path. A language may use an in-process compiler API
+inside its own frontend process; that API is never linked into a checker.
+
+### 5.4 One module, one semantic profile
+
+A VIR module continues to contain exactly one source language, one semantic
+profile, one parameter object, and one target identity. A frontend cannot
+self-select or silently default those values. The caller-selected registered
+release tuple must agree with the request, frontend response, VIR, source map,
+source manifest, VC, policy evidence, and reproduction recipe.
+
+### 5.5 No speculative shared abstraction
+
+Shared implementation code may be introduced only when at least two completed
+frontends require the same behavior and their specifications prove the
+behavior identical. Ordinary Rust milestone work may make an already-required
+Go/Rust boundary language-neutral because those two active profiles need it;
+that work is not a multi-language phase and must not add a plugin framework or
+unused abstraction solely for the five future languages.
+
+## 6. Versioning and extension strategy
+
+`mpk.vir.v0` and `mpk.frontend.cli.v0` are closed over Go and Rust. Adding only
+a string such as `"csharp"` would change their accepted language/selection
+sets without defining corresponding semantics, so placeholder additions are
+forbidden.
+
+After `RUST-07-T05` and `MLANG-00`, `MLANG-01` performs a gap audit over the
+completed Go/Rust system and chooses one reviewed successor strategy:
+
+1. a new closed schema revision whose tagged unions explicitly include the
+   first added language; or
+2. a new schema revision with a closed, hash-pinned semantic-profile registry
+   that owns the allowed language/profile/parameter/selection tuple.
+
+The second strategy is acceptable only if:
+
+- unknown registry IDs fail closed;
+- the exact registry root is embedded in the release and repeated in evidence;
+- all consumers compile validators for every activated selection and parameter
+  schema;
+- a registry entry cannot supply executable validation or checker code;
+- profile activation requires a normative specification and complete vectors;
+  and
+- registry updates are reviewed release changes rather than runtime plugin
+  installation.
+
+The gap audit also determines whether VIR value/control-flow operations are
+sufficient. If a new source language needs a new numeric carrier, abrupt-
+completion model, heap model, or call semantics, the schema and hash-domain
+revision must include those semantics explicitly. Reusing an existing VIR
+operation with a different meaning is forbidden.
+
+If the successor changes a shared serialized contract, all active Go/Rust
+producers, consumers, fixtures, reports, and examples migrate atomically. A
+released configuration must not accept both old and successor program-IR
+schemas as parallel public inputs. Certificate v0 does not change.
+
+The first successor specification must be designed so later languages can be
+added by a reviewed profile/registry revision when their semantics fit the
+existing representation. It must not pre-register the remaining languages
+before their profiles and vectors exist.
+
+## 7. Common initial subset policy
+
+A new language begins with the smallest subset that can exercise the shared
+path without introducing heap or dynamic-language semantics. The candidate
+baseline is:
+
+- explicitly selected, non-generic, pure top-level or static functions;
+- scalar `bool` and only those integer types whose source behavior has an exact
+  checked representation;
+- parameters, local values, deterministic assignments, comparisons, Boolean
+  operations, conditional branches, and early return;
+- explicit preconditions and postconditions normalized into the shared VIR
+  contract form;
+- no recursion and no cycles in the selected call graph; and
+- no ambient I/O, time, randomness, locale, environment, process, reflection,
+  or package initialization effect.
+
+Loops, aggregates, calls, and additional integer operations are follow-up
+profile revisions after the straight-line/branch corpus passes differential
+and certificate gates. A feature is not part of the common baseline when its
+source-language behavior differs; it remains language-profile work.
+
+## 8. Language evaluation and implementation order
+
+| Order | Language | Compiler boundary to evaluate | Initial profile direction | Principal blockers before freeze |
+| --- | --- | --- | --- | --- |
+| 1 | C# | Pinned Roslyn compilation, semantic model, operations, and control-flow graph | Pure static methods over `bool` and fixed-width built-in integers, locals, branches, and return | Checked/unchecked context and compiler option, implicit/user-defined conversions and operators, nullable/reference values, exceptions, virtual dispatch, target framework/reference assemblies |
+| 2 | Java | Pinned JDK `JavaCompiler`/`JavacTask`, Compiler Tree API, language/type model | Pure static methods over primitives, locals, branches, and return | Class initialization, references/null, exceptions and abrupt completion, narrowing/unboxing, virtual calls, annotation processing, module/class paths, JDK release target |
+| 3 | Dart | Pinned Dart SDK and analyzer resolved-unit API | Pure top-level/static functions after one runtime target and exact scalar model are selected | Target-dependent runtime behavior, integer representation, null safety, `dynamic`, operator dispatch, async, package configuration, analyzer API evolution |
+| 4 | TypeScript | Pinned TypeScript `Program`, AST, symbols, and type checker plus an explicit ECMAScript runtime target | Pure functions after an exact JavaScript numeric subset is chosen | Types are erased at runtime, `number`/`bigint` semantics, coercion, objects/prototypes, getters, closures, exceptions, async, module resolution, compiler API evolution |
+| 5 | Python | Pinned CPython parser/AST plus an MPK-owned name/type/subset analysis layer | Fully annotated pure functions after exact integer and operation semantics are frozen | Dynamic dispatch and mutation, arbitrary-size integers, exceptions, descriptors/operators, imports/decorators, generators/async, runtime introspection, AST evolution |
+
+This order favors compiler integrations that expose resolved semantic and
+control-flow information before languages whose static types do not determine
+runtime behavior. User value may justify swapping adjacent languages, but the
+entry and exit gates remain unchanged.
+
+### 8.1 C# boundary
+
+Roslyn exposes syntax and semantic models and a compiler control-flow graph,
+making C# the preferred third source language. The initial profile still
+rejects reference types, allocation, properties with accessors, delegates,
+virtual/interface calls, exceptions, iterators, async, reflection, unsafe code,
+user-defined operators/conversions, and ambiguous overflow contexts.
+
+The language version, nullable mode, default overflow-checking option, target
+framework, reference assemblies, preprocessor symbols, analyzer/source-
+generator policy, and compiler package graph are pinned inputs.
+
+### 8.2 Java boundary
+
+The supported JDK compiler APIs expose parse/analyze trees and language/type
+models. The initial profile rejects allocation, reference values, instance and
+virtual calls, exceptions, synchronization, lambdas, reflection, native calls,
+annotation processors, static initialization with effects, and unpinned
+classpath/module-path inputs.
+
+The JDK distribution, `--release` target, compiler options, system modules,
+source/class/module paths, and permitted processor set are pinned inputs. The
+default processor set is empty.
+
+### 8.3 Dart boundary
+
+The analyzer can provide resolved syntax, elements, types, and diagnostics,
+but the profile is not frozen until one execution target and its integer,
+null, dispatch, and failure semantics are fixed. An analyzer result is not a
+runtime-semantics oracle.
+
+The Dart SDK, analyzer package/source graph, language version, package config,
+analysis options, experiment flags, target runtime, and platform libraries are
+pinned. `dynamic`, allocation, instance dispatch, extension/member ambiguity,
+exceptions, async, isolates, FFI, and platform-dependent libraries initially
+reject.
+
+### 8.4 TypeScript boundary
+
+TypeScript static types are erased, so the semantic profile must model the
+selected JavaScript/ECMAScript runtime behavior rather than treat TypeScript
+types as runtime proof. General `number` arithmetic is not mapped to existing
+bitvectors without an explicit, reviewed numeric model.
+
+The TypeScript compiler, Node/runtime target if used, `lib.*.d.ts` set, module
+resolution mode, ECMAScript target, JSX/decorator settings, package/lock graph,
+and ambient declarations are pinned. `any`, `unknown` use without refinement,
+objects/prototypes, getters/setters, closures, exceptions, async, generators,
+dynamic import, eval, and host APIs initially reject.
+
+### 8.5 Python boundary
+
+Python requires an MPK-owned closed subset analysis after parsing because an
+AST alone does not resolve dynamic runtime behavior. Type annotations are
+untrusted subset inputs, not proof evidence, and do not authorize an operation
+whose runtime semantics are not frozen.
+
+The CPython distribution, language version, standard-library input set,
+optimization flags, import root, annotations policy, and allowed builtins are
+pinned. Attribute access, user objects, mutation through aliases, operator
+overloading, exceptions, decorators, imports with effects, comprehensions,
+generators, async, reflection, native extensions, and monkey patching initially
+reject.
+
+## 9. Required specification package per language
+
+Before implementation, each language owns a complete package containing:
+
+- a frozen subset specification with accepted and rejected forms;
+- a semantic-profile specification with exact parameter and required-check
+  matrices;
+- a compiler/frontend/private-driver boundary specification where applicable;
+- pinned build and execution input descriptors;
+- registered release bundle and tuple definitions;
+- source selection, unit, path, source-map, and source-manifest rules;
+- contract grammar, type checking, attachment, and stable IDs;
+- deterministic phase/code/status/exit precedence;
+- byte/count/depth/graph/resource limits;
+- positive, negative, duplicate-key, unknown-field, boundary, mutation, and
+  hash-domain vector sets;
+- named implementation test owners recorded in the vector manifest; and
+- an upgrade procedure that treats compiler/API changes as reviewed semantic
+  changes, not dependency maintenance.
+
+No producer or consumer for a new serialized branch merges before this package
+and its vectors are frozen.
+
+## 10. Verification strategy
+
+Every new frontend must pass:
+
+1. subset conformance against all accepted and rejected source families;
+2. exact semantic-profile operation/check validation;
+3. frontend protocol, source-map, and manifest conformance;
+4. deterministic two-build and two-run byte comparisons;
+5. differential execution against the pinned source runtime for bounded
+   generated and handwritten cases;
+6. cross-profile rejection proving another language cannot select or reuse the
+   profile;
+7. mutation, parser, protocol, path, resource, and compiler-output fuzzing;
+8. certificate generation and identical-byte acceptance by both source-free
+   checkers; and
+9. an axiom report proving no new language-specific category was introduced.
+
+Differential execution is translation-confidence evidence only. A matching
+runtime result is not proof evidence and never replaces certificate checking.
+
+## 11. Stage gates
+
+### Gate A: complete Rust v0 before multi-language work
+
+`RUST-07-T05` must pass before `MLANG-00` starts. Recording this queued roadmap
+does not authorize further semantic research, feasibility experiments,
+successor-contract work, or production frontend work during the Rust program.
+
+### Gate B: post-Rust design and feasibility
+
+Allowed work:
+
+- semantic comparison tables;
+- official compiler/API research;
+- non-normative feasibility notes and disposable local experiments;
+- candidate subset and target analysis; and
+- documenting potential VIR gaps.
+
+Forbidden work:
+
+- production frontend or runner code;
+- new accepted schema IDs or enum variants;
+- release registry entries or bundles;
+- future-language paths in policy/evidence APIs; and
+- speculative shared plugin/refactor infrastructure.
+
+### Gate C: successor specification work after `MLANG-00`
+
+The completed Rust path and `MLANG-00` feasibility records must show which VIR,
+VC, contract, source-map, manifest, runner, policy, and evidence abstractions
+are genuinely shared. `MLANG-01` then freezes the successor versioning
+strategy and C# specification package.
+
+### Gate D: C# production work after `MLANG-01`
+
+Only after `MLANG-01` completes may C# production code and release bundles
+merge. The earlier `RUST-07-T05 -> MLANG-00 -> MLANG-01` dependencies are
+transitive and may not be bypassed.
+
+### Gate E: serial language admission
+
+A later language's entire phase, including its feasibility refresh,
+specification freeze, implementation, and release work, starts only after the
+previous language has:
+
+- a frozen specification/vector package;
+- an end-to-end accepted certificate corpus;
+- complete negative and deterministic gates;
+- a registered release bundle;
+- both-checker agreement; and
+- a clean review ledger.
+
+## 12. Risks and mitigations
+
+| Risk | Mitigation |
+| --- | --- |
+| Shared contracts churn while Rust is incomplete | Do not start `MLANG-00`; audit only the completed Rust release path. |
+| Placeholder language support becomes accidental acceptance | Keep v0 enums/unions closed; unknown profiles and registry entries reject. |
+| A universal IR operation hides different source behavior | Per-language profile matrices and exact required checks; add a new operation/version when meanings differ. |
+| Five compiler ecosystems multiply supply-chain and sandbox scope | One frontend at a time, complete pinned inventories, registered bundles, no ambient package manager or network. |
+| Static type information is mistaken for runtime semantics | Differential tests plus source-language specifications; TypeScript/Python annotations remain untrusted helper input. |
+| New numeric or heap semantics expand the trusted base | Checked definitions/theory certificates only; stop for governance rather than adding a language axiom. |
+| A compiler API changes silently | Exact compiler/SDK/library pins, exhaustive node matching, upgrade corpus, no automatic upgrades. |
+| Cross-language FFI bypasses module isolation | No mixed-language VIR or FFI profile; compose only checked certificate imports. |
+
+## 13. Completion criteria
+
+The queued-roadmap documentation is complete when:
+
+- this sequencing is routed from README and the roadmaps;
+- current Rust milestones explicitly exclude all future-language milestone
+  work;
+- the semantic/API feasibility matrix has an owner and review gate;
+- no frozen v0 schema contains a placeholder future-language value; and
+- the release gates define how a new language is admitted.
+
+A language implementation is complete only when its own specification package,
+frontend, deterministic registered bundle, conformance/differential corpus,
+policy/evidence path, certificate corpus, both-checker agreement, axiom review,
+upgrade procedure, and clean review ledger all pass.
+
+## 14. Primary references
+
+- [Roslyn SDK overview](https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/)
+- [Roslyn semantic model](https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/work-with-semantics)
+- [Roslyn control-flow graph](https://learn.microsoft.com/en-us/dotnet/api/microsoft.codeanalysis.flowanalysis.controlflowgraph)
+- [C# checked and unchecked semantics](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/statements/checked-and-unchecked)
+- [C# language specification](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/)
+- [JDK Compiler module and Compiler Tree API](https://docs.oracle.com/en/java/javase/25/docs/api/jdk.compiler/module-summary.html)
+- [`JavacTask` parse/analyze API](https://docs.oracle.com/en/java/javase/25/docs/api/jdk.compiler/com/sun/source/util/JavacTask.html)
+- [Java language and compiler APIs](https://docs.oracle.com/en/java/javase/25/docs/api/java.compiler/module-summary.html)
+- [Java Language Specification](https://docs.oracle.com/javase/specs/jls/se25/html/)
+- [Dart language specification](https://dart.dev/resources/language/spec)
+- [Dart analyzer package](https://pub.dev/packages/analyzer)
+- [Dart analyzer `AnalysisSession`](https://pub.dev/documentation/analyzer/latest/dart_analysis_session/AnalysisSession-class.html)
+- [TypeScript compiler API](https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API)
+- [TypeScript runtime behavior and erased types](https://www.typescriptlang.org/docs/handbook/typescript-from-scratch.html)
+- [ECMAScript language specification](https://tc39.es/ecma262/)
+- [Python AST](https://docs.python.org/3/library/ast.html)
+- [Python language reference](https://docs.python.org/3/reference/)

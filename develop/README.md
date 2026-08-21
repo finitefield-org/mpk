@@ -52,6 +52,28 @@ The implementation sequence and cutover owner are
 `docs/05_rust_frontend_design-todo.md`. The older numbered roadmap records the
 pre-cutover baseline; it does not override that migration dependency graph.
 
+## Future source-language expansion
+
+MPK plans to add C#, Java, Dart, TypeScript, and Python after the scoped Rust
+v0 program proves and hardens the shared frontend path. This document records
+the queue now, but project execution is one strictly serial flow:
+
+1. complete the Go/VIR/Rust program through `RUST-07-T05`;
+2. run `MLANG-00` semantic comparison and compiler-API feasibility work;
+3. run `MLANG-01` successor-contract and C# specification freeze; and
+4. implement and release C#, Java, Dart, TypeScript, and Python, one language
+   at a time in that order.
+
+No multi-language design, feasibility, specification, or implementation phase
+runs in parallel with the Rust program or with another language phase.
+
+The order and gates are defined by `docs/06_multilanguage_frontend_design.md`
+and `docs/06_multilanguage_frontend_design-todo.md`. They do not amend the
+currently frozen Go/Rust schemas. In particular, `mpk.vir.v0` receives no
+placeholder language IDs, every future language gets a distinct semantic
+profile, mixed-language VIR remains forbidden, and cross-language composition
+uses checked hash-pinned certificate imports.
+
 ## Normative specification routes
 
 Checker and governance foundations:
@@ -120,7 +142,9 @@ using its complete current artifact set until the atomic cutover.
 │   ├── 03_trust_boundary.md
 │   ├── 04_references.md
 │   ├── 05_rust_frontend_design.md
-│   └── 05_rust_frontend_design-todo.md
+│   ├── 05_rust_frontend_design-todo.md
+│   ├── 06_multilanguage_frontend_design.md
+│   └── 06_multilanguage_frontend_design-todo.md
 ├── specs/
 │   ├── CORE_V0.md
 │   ├── CERT_V0.md
@@ -169,7 +193,8 @@ using its complete current artifact set until the atomic cutover.
 - Fast kernel: Rust.
 - Independent reference checker: Go.
 - Source-language frontends: untrusted, registered producers of the shared VIR
-  contract; Go migrates first, and the pinned Rust frontend follows.
+  contract; Go migrates first, the pinned Rust frontend follows, and later
+  languages are admitted serially after the Rust v0 release gate.
 - Certificate format: canonical binary `.mpcert`, with deterministic hashes
   and a recomputed axiom report.
 
@@ -185,7 +210,9 @@ Start with:
 6. `specs/CERT_V0.md`
 7. `docs/05_rust_frontend_design.md`
 8. `docs/05_rust_frontend_design-todo.md`
-9. `roadmap/RELEASE_GATES.md`
+9. `docs/06_multilanguage_frontend_design.md`
+10. `docs/06_multilanguage_frontend_design-todo.md`
+11. `roadmap/RELEASE_GATES.md`
 
 Then seed project-management issues from `tasks/github_issues_seed.jsonl` or
 import `tasks/task_backlog.csv` into a tracker.
@@ -196,4 +223,5 @@ This plan is inspired by NPA's certificate-first trust boundary and source-free
 checker design, but it is a new system design for language-neutral program
 verification and AI-generated proof-candidate checking.
 
-Prepared: 2026-06-26. VIR governance amendment: 2026-08-21.
+Prepared: 2026-06-26. VIR governance and multi-language planning amendments:
+2026-08-21.
