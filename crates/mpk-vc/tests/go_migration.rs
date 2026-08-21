@@ -6,6 +6,10 @@ use std::sync::atomic::{AtomicU64, Ordering};
 use serde_json::Value;
 use sha2::{Digest, Sha256};
 
+use mpk_vc::{
+    import_source_map_json, import_vir_json, CapturedInput, InputKind, SourceMapValidationContext,
+};
+
 const BASELINE: &str = "develop/migrations/go-gir-semantic-baseline.json";
 const PROFILE_VECTOR: &str = "develop/specs/vectors/go-vir-profile-v0.json";
 const REPORT_JSON: &str = "develop/migrations/go-gir-to-vir-report.json";
@@ -13,6 +17,46 @@ const REPORT_MARKDOWN: &str = "develop/migrations/go-gir-to-vir-report.md";
 const SCRIPT: &str = "scripts/compare-go-gir-vir.py";
 
 static NEXT_TEMP: AtomicU64 = AtomicU64::new(0);
+
+#[test]
+fn go_frontend_identity_output_imports_through_the_independent_rust_boundary() {
+    let root = repo_root();
+    let vir_vectors = read_json(&root.join("develop/specs/vectors/vir-v0.json"));
+    let source_map_vectors = read_json(&root.join("develop/specs/vectors/source-map-v0.json"));
+    let vir_value = vir_vectors["module_cases"]
+        .as_array()
+        .expect("VIR module cases")
+        .iter()
+        .find(|case| case["id"] == "module.valid_go_identity")
+        .expect("shared Go identity VIR")["input"]
+        .clone();
+    let source_map_value = source_map_vectors["map_cases"]
+        .as_array()
+        .expect("source-map cases")
+        .iter()
+        .find(|case| case["id"] == "map.valid_go_identity")
+        .expect("shared Go identity source map")["input"]
+        .clone();
+
+    let vir = import_vir_json(&serde_json::to_vec(&vir_value).expect("serialize Go VIR"))
+        .expect("Go frontend VIR imports independently in Rust");
+    let source = b"package vector\n\nfunc Identity(value int8) int8 { return value }\n";
+    let captured = [CapturedInput {
+        kind: InputKind::Source,
+        normalized_path: "identity.go",
+        bytes: source,
+    }];
+    let map = import_source_map_json(
+        &serde_json::to_vec(&source_map_value).expect("serialize Go source map"),
+        SourceMapValidationContext {
+            vir: &vir,
+            captured_inputs: &captured,
+            synthetic_permissions: &[],
+        },
+    )
+    .expect("Go frontend source map imports independently in Rust");
+    assert_eq!(map.map().source_ir_hash, vir.vir_hash.as_str());
+}
 
 #[test]
 fn checked_reports_are_exactly_derived_and_development_only() {

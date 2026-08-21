@@ -135,6 +135,27 @@ func TestPreflightRejectsClosedProfileViolations(t *testing.T) {
 			},
 			code: "GO_SUBSET_IMPORT", status: "rejected",
 		},
+		{
+			name: "unsafe import",
+			mutate: func(t *testing.T, root string, _ *lowerRequest) {
+				writeTestFile(t, filepath.Join(root, "identity.go"), []byte("package vector\n\nimport \"unsafe\"\n\nfunc Identity(value int8) int8 { _ = unsafe.Sizeof(value); return value }\n"), 0o600)
+			},
+			code: "GO_SUBSET_UNSAFE", status: "rejected",
+		},
+		{
+			name: "reflection import",
+			mutate: func(t *testing.T, root string, _ *lowerRequest) {
+				writeTestFile(t, filepath.Join(root, "identity.go"), []byte("package vector\n\nimport \"reflect\"\n\nfunc Identity(value int8) int8 { _ = reflect.TypeOf(value); return value }\n"), 0o600)
+			},
+			code: "GO_SUBSET_REFLECTION", status: "rejected",
+		},
+		{
+			name: "cgo import",
+			mutate: func(t *testing.T, root string, _ *lowerRequest) {
+				writeTestFile(t, filepath.Join(root, "identity.go"), []byte("package vector\n\nimport \"C\"\n\nfunc Identity(value int8) int8 { return value }\n"), 0o600)
+			},
+			code: "GO_SUBSET_CGO", status: "rejected",
+		},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {

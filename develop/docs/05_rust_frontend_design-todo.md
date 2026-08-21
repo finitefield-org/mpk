@@ -2133,7 +2133,7 @@ git diff --check
 
 ### GO-VIR-02-T04 Port Go Feature Detection, Contracts, SSA Lowering, and Source Maps
 
-Status: Pending
+Status: Complete (2026-08-22).
 
 Depends on: GO-VIR-02-T03, VIR-01-T04, VIR-01-T05.
 

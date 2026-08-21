@@ -462,8 +462,13 @@ func parseCapturedGoFile(path string, content []byte) (string, []string, error) 
 		if unquoteErr != nil || !validGoUnitID(path) {
 			return "", nil, fail("source-error", "source", "GO_SOURCE_PARSE", "import path is malformed")
 		}
-		if oneOf(path, "C", "unsafe", "reflect") {
-			return "", nil, fail("rejected", "source", "GO_SUBSET_IMPORT", "special Go imports are forbidden")
+		switch path {
+		case "C":
+			return "", nil, fail("rejected", "source", "GO_SUBSET_CGO", "cgo is outside the Go profile")
+		case "unsafe":
+			return "", nil, fail("rejected", "source", "GO_SUBSET_UNSAFE", "unsafe is outside the Go profile")
+		case "reflect":
+			return "", nil, fail("rejected", "source", "GO_SUBSET_REFLECTION", "reflection is outside the Go profile")
 		}
 		imports = append(imports, path)
 	}

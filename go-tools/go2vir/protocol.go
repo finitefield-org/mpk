@@ -147,7 +147,11 @@ func validateIssue(value issue, phase string) error {
 	if value.FunctionID != nil && !validGoFunctionID(*value.FunctionID) {
 		return fmt.Errorf("frontend issue has an invalid function ID")
 	}
-	if oneOf(phase, "subset", "lowering", "emission") && value.FunctionID == nil {
+	truncationMarker := value.Code == "GO_LIMIT_DIAGNOSTICS_TRUNCATED"
+	if truncationMarker && (value.FunctionID != nil || value.Span != nil) {
+		return fmt.Errorf("diagnostic truncation marker must be function- and span-free")
+	}
+	if oneOf(phase, "subset", "lowering", "emission") && value.FunctionID == nil && !truncationMarker {
 		return fmt.Errorf("frontend issue in phase %s requires a function ID", phase)
 	}
 	if value.Span != nil {

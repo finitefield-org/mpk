@@ -47,6 +47,19 @@ func TestLoaderUsesSnapshotPinnedToolchainAndHostileEnvironmentCannotChangeManif
 	if err != nil {
 		t.Fatalf("build first manifest: %v", err)
 	}
+	artifacts, findings, err := lowerPrivatePipeline(request, capture, first, selection)
+	if err != nil {
+		t.Fatalf("lower private Go/VIR pipeline: %v", err)
+	}
+	if len(findings) != 0 {
+		t.Fatalf("private Go/VIR pipeline rejected valid fixture: %+v", findings[0])
+	}
+	if artifacts.Envelope.Status != "ir-lowered" || artifacts.Envelope.Phase != "emission" ||
+		artifacts.Module.VIRHash != artifacts.Manifest.VIRHash ||
+		artifacts.Map.SourceMapHash != artifacts.Manifest.SourceMapHash ||
+		len(artifacts.EnvelopeJSON) == 0 {
+		t.Fatalf("private Go/VIR artifacts are not fully linked: %+v", artifacts.Envelope)
+	}
 
 	setHostileGoEnvironment(t, "second")
 	second, err := loadCapturedPackages(capture, snapshot, selection)
