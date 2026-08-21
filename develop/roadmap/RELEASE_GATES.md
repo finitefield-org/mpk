@@ -37,14 +37,34 @@ Before any release:
 - Release profile specifies allowed axioms.
 - Any new axiom is a release blocker unless explicitly approved.
 
-## Gate F: Go frontend gate
+## Gate F: Source frontend and traceability gate
 
-- Unsupported Go features fail closed.
-- Go source hash is recorded.
-- Go version is recorded.
-- Frontend binary hash is recorded.
-- GIR hash is recorded.
-- VC hash is recorded.
+The generic VIR branch of this gate is frozen now but activates only in the
+atomic Go/VIR cutover. Until that cutover, the current Go/GIR gate and its
+frozen specifications remain the active release requirement and are not
+historical. A release must use one complete branch; mixing pre-cutover and
+post-cutover schemas is forbidden.
+
+For the post-cutover branch:
+
+- Unsupported source-language and semantic-profile features fail closed.
+- The validated release-registry identity and selected frontend/toolchain
+  bundle identities are recorded.
+- Compiler, subordinate binary, and frontend binary identities are recorded.
+- Every captured source, contract, build-manifest, and lockfile input is
+  recorded through the canonical input set.
+- VIR, source-map, frontend-stage manifest, certificate-stage manifest, and VC
+  hashes recompute and all repeated identities agree.
+- Status/exit pairs, profile tuples, target identity, limits, and manifest
+  lifecycle follow their owning frozen specifications.
+- Registry bytes, toolchains, compilers, frontends, inputs, VIR, maps,
+  manifests' internal claims, VCs, policy output, and AI output remain
+  untrusted helper artifacts.
+
+For the pre-cutover branch, unsupported Go features still fail closed and the
+Go source, Go version, frontend binary, GIR, and VC identities are recorded as
+required by the current frozen Go/GIR documents. The atomic cutover replaces
+this branch; only then are those documents labeled historical.
 
 ## Gate G: Performance gate
 

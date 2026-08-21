@@ -4,10 +4,11 @@ Status: normative and frozen for implementation.
 
 This specification defines the complete source-language boundary for Go
 programs lowered to `mpk.vir.v0` with semantic profile
-`mpk.go.fixed.v0`. It replaces the active meaning of the historical
-`GO_SUBSET_V0.md` at the GIR-to-VIR cutover. `GO_SUBSET_V0.md` and GIR artifacts
-remain migration records only; they are not accepted inputs and do not supply
-defaults to this profile.
+`mpk.go.fixed.v0`. `GO_SUBSET_V0.md` and GIR remain the current pre-cutover
+release contracts and are not historical while this profile is staged. At the
+atomic GIR-to-VIR cutover this specification replaces their active helper-path
+meaning; only then do they become historical migration records. Post-cutover
+components do not accept those records as inputs or derive defaults from them.
 
 ## 1. Conformance, dependencies, and precedence
 
@@ -1180,6 +1181,12 @@ file, verifies its digest and captured revision, compares complete set equality
 for all named inventories, and proves no baseline array member is uncovered.
 Changing the baseline or vector therefore requires an explicit reviewed
 disposition rather than silently adding an accepted behavior.
+
+The required root `owner_tests` array is exactly, in order:
+
+1. `go-tools/go2vir/profile_v0_test.go`;
+2. `go-tools/go2vir/profile_v0_vectors_test.go`; and
+3. `crates/mpk-vc/tests/go_profile_vectors.rs`.
 
 The owner tests MUST reject unknown vector/case fields, verify unique IDs,
 execute every case, assert exact same-phase diagnostic precedence, and prove

@@ -1,5 +1,11 @@
 # MPK Design with Implementation Roadmap and Task Plan
 
+Migration note: this document records the current pre-cutover Go/GIR baseline.
+It remains current, not historical, until the atomic cutover owned by
+`05_rust_frontend_design-todo.md`. Forward work follows that file's VIR-00,
+VIR-01, GO-VIR-02, then RUST dependency order and must not expose a mixed
+helper interface. Certificate v0 and checker acceptance remain unchanged.
+
 ## 1. Purpose
 
 MPK is an AI-oriented theorem prover and program-verification toolchain. Its first target is a restricted Go subset. The system is designed for machine-generated proof certificates, fast kernel checking, deterministic rejection diagnostics, and source-free verification.

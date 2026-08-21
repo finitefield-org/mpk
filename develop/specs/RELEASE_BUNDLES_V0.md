@@ -1012,6 +1012,11 @@ order. `fixtures` has exactly `bootstrap_registry`, `valid_registry`, and
 `bundle_id` and `files`; each file has exact `path`, four-digit octal `mode`,
 and canonical padded `base64` fields.
 
+The required root `owner_tests` array is exactly, in order:
+
+1. `crates/mpk-vc/tests/release_bundle.rs`; and
+2. `crates/mpk-cli/tests/frontend_runner.rs`.
+
 The `bundle_bytes` values are opaque metadata/snapshot fixtures. Their short
 synthetic bytes intentionally are not Linux ELF files and are used only for
 raw length/digest, mode, no-follow, alias, enumeration, and immutable-snapshot

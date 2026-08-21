@@ -2,6 +2,12 @@
 
 Status: project charter for the MPK MVP.
 
+Migration note: this charter's Go/GIR scope describes the current pre-cutover
+release baseline. It remains current, not historical, until the atomic cutover
+owned by `05_rust_frontend_design-todo.md`. The staged language-neutral VIR and
+Rust work must follow that dependency graph and must not partially reinterpret
+this baseline. Certificate v0 and the trust boundary do not change.
+
 ## Mission
 
 MPK exists to make machine-generated proof candidates cheap to reject and safe to accept. The project builds a certificate-first theorem proving and program-verification toolchain for a restricted Go subset, with acceptance based on canonical proof certificates and independent checker verdicts.

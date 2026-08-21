@@ -1,8 +1,111 @@
 # MPK: Machine Proof Kernel
 
-**Subtitle:** An AI-oriented, certificate-first theorem prover and program-verification kernel, initially targeting a restricted Go subset.
+**Subtitle:** An AI-oriented, certificate-first theorem prover and
+program-verification kernel with language-neutral verification interfaces.
 
-This package extends the prior MPK design with an implementation roadmap, task backlog, milestone gates, draft specifications, examples, and project-start templates.
+This package extends the prior MPK design with an implementation roadmap, task
+backlog, milestone gates, frozen specifications, conformance vectors,
+examples, and project-start templates.
+
+## Core decision
+
+MPK is a machine-proof container and checker toolchain:
+
+```text
+source + contracts
+  -> untrusted registered frontend / compiler / VIR + source metadata
+  -> untrusted VC generator
+  -> untrusted AI / solver / tactic candidate generation
+  -> canonical .mpcert
+  -> Rust fast kernel + independent source-free Go reference checker
+```
+
+Only canonical certificate bytes, checked theory certificates, and checker
+results derived from them can justify proof acceptance. Registry bytes,
+toolchains, compilers, frontends, source, contracts, VIR, source maps, source
+manifests and their internal claims, VCs, policy output, AI output, solver
+answers, tactic traces, theorem indexes, diagnostics, and CI metadata are
+untrusted helper artifacts.
+
+Certificate v0 encoding, checker acceptance inputs, hash domains, and the four
+axiom categories remain unchanged by the VIR/Rust migration.
+
+## Specification authority during migration
+
+The repository has two deliberately separate helper-interface states:
+
+1. The current public release continues to use the frozen `GIR_V0.md`,
+   `GO_SUBSET_V0.md`, and `AI_API_V0.md` contracts until the atomic cutover in
+   `GO-VIR-02-T12`. These documents are still current pre-cutover release
+   specifications; they are not historical yet.
+2. The replacement specifications below are normative and frozen for staged
+   implementation. They must not be partially exposed through the current
+   release surface.
+3. The atomic cutover moves all runtime producers, consumers, fixtures,
+   examples, CI, template use, and user-facing operational documentation
+   together. Only after that cutover are the GIR, Go-subset/GIR, and AI API v0
+   documents labeled historical and the staged VIR interfaces activated as the
+   sole public helper path.
+
+The implementation sequence and cutover owner are
+`docs/05_rust_frontend_design.md` and
+`docs/05_rust_frontend_design-todo.md`. The older numbered roadmap records the
+pre-cutover baseline; it does not override that migration dependency graph.
+
+## Normative specification routes
+
+Checker and governance foundations:
+
+| Specification | Responsibility |
+|---|---|
+| `specs/CORE_V0.md` | Core term, declaration, and checking semantics |
+| `specs/CERT_V0.md` | Unchanged canonical Certificate v0 encoding |
+| `specs/TRUST_BOUNDARY_V0.md` | Sole proof-acceptance boundary |
+| `specs/AXIOM_POLICY_V0.md` | Exactly four Certificate v0 axiom categories |
+| `specs/UNSAFE_POLICY_V0.md` | Checker-facing unsafe-code policy |
+
+Frozen replacement specifications and their complete conformance-vector
+ownership are:
+
+| Specification | Conformance vector set(s) |
+|---|---|
+| `specs/VIR_V0.md` | `specs/vectors/vir-v0.json`, `specs/vectors/vir-hash-v0.json` |
+| `specs/VC_V1.md` | `specs/vectors/vc-v1.json`, `specs/vectors/vc-hash-v1.json`, `specs/vectors/vc-skeleton-v1.json` |
+| `specs/FRONTEND_PROTOCOL_V0.md` | `specs/vectors/frontend-protocol-v0.json` |
+| `specs/RELEASE_BUNDLES_V0.md` | `specs/vectors/release-bundles-v0.json` |
+| `specs/SOURCE_MAP_V0.md` | `specs/vectors/source-map-v0.json` |
+| `specs/SOURCE_MANIFEST_V0.md` | `specs/vectors/source-manifest-v0.json` |
+| `specs/GO_VIR_PROFILE_V0.md` | `specs/vectors/go-vir-profile-v0.json` |
+| `specs/RUST_SUBSET_V0.md` | `specs/vectors/rust-subset-v0.json`, `specs/vectors/rust-build-inputs-v0.json` |
+| `specs/RUST_DRIVER_PROTOCOL_V0.md` | `specs/vectors/rust-driver-v0.json` |
+| `specs/POLICY_V1.md` | `specs/vectors/policy-scan-v1.json`, `specs/vectors/policy-evidence-v1.json`, `specs/vectors/policy-recipes-v1.json` |
+| `specs/AI_EXPLAIN_V1.md` | `specs/vectors/ai-explain-v1.json` |
+| `specs/AI_API_V1.md` | `specs/vectors/ai-api-v1.json` |
+
+`specs/vectors/manifest.json` is the closed repository index for every vector
+set. Its repository-governance schema is
+`mpk.spec.vector_manifest.v0`, owned by this section and
+`scripts/check-spec-vectors.py`; it is not a proof artifact, adds no hash
+domain, and is excluded from its own vector inventory. Each entry pins the
+vector schema ID, repository path, raw-byte SHA-256, normative owning
+specification, and implementation test owner. Run:
+
+```sh
+python3 scripts/check-spec-vectors.py --check
+```
+
+The command is check-only: it strictly parses the manifest and every vector,
+rejects duplicate JSON names, verifies digests and ownership, and rejects
+missing or unlisted vector files. It never rewrites normative bytes.
+
+The two files under `templates/` are language-neutral governance examples; they
+do not activate a staged runtime interface. In
+`templates/certificate_manifest.json`, `source_manifest_reference` is a
+template-only audit reference to separately serialized certificate-stage
+`mpk.source_manifest.v0` bytes. Its `path`, `lifecycle`, `expected_*`, and
+`trust` members are not fields of that normative source-manifest schema and are
+never embedded as a substitute payload. The current pre-cutover release keeps
+using its complete current artifact set until the atomic cutover.
 
 ## Package contents
 
@@ -16,7 +119,8 @@ This package extends the prior MPK design with an implementation roadmap, task b
 │   ├── 02_architecture.md
 │   ├── 03_trust_boundary.md
 │   ├── 04_references.md
-│   └── 05_rust_frontend_design.md
+│   ├── 05_rust_frontend_design.md
+│   └── 05_rust_frontend_design-todo.md
 ├── specs/
 │   ├── CORE_V0.md
 │   ├── CERT_V0.md
@@ -25,7 +129,22 @@ This package extends the prior MPK design with an implementation roadmap, task b
 │   ├── UNSAFE_POLICY_V0.md
 │   ├── GIR_V0.md
 │   ├── GO_SUBSET_V0.md
-│   └── AI_API_V0.md
+│   ├── AI_API_V0.md
+│   ├── VIR_V0.md
+│   ├── VC_V1.md
+│   ├── FRONTEND_PROTOCOL_V0.md
+│   ├── RELEASE_BUNDLES_V0.md
+│   ├── SOURCE_MAP_V0.md
+│   ├── SOURCE_MANIFEST_V0.md
+│   ├── GO_VIR_PROFILE_V0.md
+│   ├── RUST_SUBSET_V0.md
+│   ├── RUST_DRIVER_PROTOCOL_V0.md
+│   ├── POLICY_V1.md
+│   ├── AI_EXPLAIN_V1.md
+│   ├── AI_API_V1.md
+│   └── vectors/
+│       ├── manifest.json
+│       └── 18 owned vector sets listed above
 ├── roadmap/
 │   ├── ROADMAP.md
 │   ├── MILESTONES.md
@@ -40,57 +159,41 @@ This package extends the prior MPK design with an implementation roadmap, task b
 │   ├── max64_example.md
 │   ├── sample_contract.json
 │   └── sample_go_source.go
-├── templates/
-│   ├── certificate_manifest.json
-│   └── module_manifest.yaml
+└── templates/
+    ├── certificate_manifest.json
+    └── module_manifest.yaml
 ```
-
-## Core decision
-
-MPK should not be a human-first proof assistant. It should be a **machine-proof container and checker toolchain**:
-
-```text
-Go source
-  -> Go frontend / SSA / GIR
-  -> VC generator
-  -> AI / solver / tactic candidate generation
-  -> canonical .mpcert
-  -> Rust fast kernel + independent source-free reference checker
-```
-
-The only proof evidence is the canonical certificate and checker verdicts. Go source, frontend output, AI traces, solver answers, tactic traces, theorem indexes, diagnostics, and CI metadata are useful engineering data, but they are not proof evidence.
 
 ## Primary implementation language choices
 
 - Fast kernel: Rust.
 - Independent reference checker: Go.
-- First source-language verification frontend: Go subset, via an untrusted `go2gir` pipeline.
-- Certificate format: canonical binary `.mpcert`, with deterministic hashes and axiom report.
+- Source-language frontends: untrusted, registered producers of the shared VIR
+  contract; Go migrates first, and the pinned Rust frontend follows.
+- Certificate format: canonical binary `.mpcert`, with deterministic hashes
+  and a recomputed axiom report.
 
 ## How to use this package
 
 Start with:
 
 1. `docs/CHARTER.md`
-2. `docs/00_executive_summary.md`
-3. `roadmap/ROADMAP.md`
-4. `tasks/TASK_BACKLOG.md`
-5. `specs/TRUST_BOUNDARY_V0.md`
-6. `specs/AXIOM_POLICY_V0.md`
-7. `specs/UNSAFE_POLICY_V0.md`
-8. `specs/CORE_V0.md`
-9. `specs/CERT_V0.md`
+2. `specs/TRUST_BOUNDARY_V0.md`
+3. `specs/AXIOM_POLICY_V0.md`
+4. `specs/UNSAFE_POLICY_V0.md`
+5. `specs/CORE_V0.md`
+6. `specs/CERT_V0.md`
+7. `docs/05_rust_frontend_design.md`
+8. `docs/05_rust_frontend_design-todo.md`
+9. `roadmap/RELEASE_GATES.md`
 
-For the proposed Rust source-language path and unified VIR migration, continue
-with `docs/05_rust_frontend_design.md`. It is a breaking post-cutover design:
-the current frozen Go/GIR v0 documents remain authoritative until the migration
-lands atomically, after which GIR is retired rather than reinterpreted.
-Certificate v0 encoding and the mathematical trust boundary remain unchanged.
-
-Then seed project-management issues from `tasks/github_issues_seed.jsonl` or import `tasks/task_backlog.csv` into a spreadsheet or tracker.
+Then seed project-management issues from `tasks/github_issues_seed.jsonl` or
+import `tasks/task_backlog.csv` into a tracker.
 
 ## Reference posture
 
-This plan is inspired by NPA's certificate-first trust boundary and source-free checker design, but it is a new system design aimed at Go program verification and AI-generated proof-candidate checking.
+This plan is inspired by NPA's certificate-first trust boundary and source-free
+checker design, but it is a new system design for language-neutral program
+verification and AI-generated proof-candidate checking.
 
-Prepared: 2026-06-26
+Prepared: 2026-06-26. VIR governance amendment: 2026-08-21.

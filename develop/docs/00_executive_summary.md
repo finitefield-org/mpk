@@ -1,5 +1,12 @@
 # Executive Summary
 
+Migration note: the Go/GIR flow below describes the current pre-cutover
+release baseline. It remains current, not historical, until the atomic cutover
+owned by `05_rust_frontend_design-todo.md`; staged VIR schemas must not be mixed
+into it. The language-neutral post-cutover design is
+`05_rust_frontend_design.md`, and it leaves Certificate v0 and proof acceptance
+unchanged.
+
 ## Goal
 
 Build **MPK: Machine Proof Kernel**, an AI-oriented theorem proving and program-verification system optimized for:

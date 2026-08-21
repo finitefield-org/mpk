@@ -147,28 +147,46 @@ The active checker profile is part of package/release policy. A certificate may 
 
 ## Source manifest
 
-The source manifest is included for audit traceability only.
+The optional source-manifest field remains the same length-prefixed opaque byte
+payload in Certificate v0. This governance amendment changes only the example
+and terminology: it does not change a certificate tag, field order, byte
+encoding, hash preimage, or checker acceptance input.
 
-```json
-{
-  "source_language": "go",
-  "go_version": "go1.xx",
-  "frontend": {
-    "name": "go2gir",
-    "version": "0.1.0",
-    "binary_sha256": "..."
-  },
-  "source_files": [
-    {"path": "examples/sample_go_source.go", "sha256": "..."}
-  ],
-  "gir_hash": "...",
-  "vc_hash": "..."
-}
+When the payload follows `SOURCE_MANIFEST_V0.md`, certificate assembly embeds
+the canonical certificate-stage `mpk.source_manifest.v0` value. Its
+language-neutral shape records:
+
+```text
+SourceManifestPayload:
+  schema = "mpk.source_manifest.v0"
+  source_language
+  semantic_profile
+  semantic_parameters
+  selection
+  limit_profile
+  release_registry
+  toolchain
+  frontend
+  units
+  target
+  inputs
+  input_set_hash
+  vir_hash
+  source_map_hash
+  vc_hash                 # required only at certificate stage
+  source_manifest_hash
 ```
 
-The manifest is never a proof of source correctness. It only links the certificate to an engineering artifact.
+The payload is audit traceability only. The certificate checker treats the
+payload bytes and every internal schema, release identity, input digest, and
+VIR/map/VC/hash claim as untrusted metadata; none proves source correctness or
+changes proof acceptance. Certificate identity still commits to the encoded
+payload bytes through the unchanged Certificate v0 encoding.
 
-Source paths are normalized module-relative UTF-8 paths with `/` separators. Absolute local paths, symlinks after resolution, and platform-specific separators must not enter the canonical manifest payload because they would make hashes machine-dependent.
+Input paths use the portable source-root-relative UTF-8 grammar from
+`SOURCE_MANIFEST_V0.md` with `/` separators. Absolute local paths, links,
+escapes, and platform-specific separators must not enter the canonical payload
+because they would make hashes machine-dependent.
 
 ## Rejection conditions
 

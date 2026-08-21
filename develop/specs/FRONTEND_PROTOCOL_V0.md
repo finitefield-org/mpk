@@ -418,5 +418,11 @@ the same retention algorithm. "expect" has "outcome" and, for local failure,
 "code"; accepted cases may freeze status, phase, lengths, marker, and retained
 counts.
 
+The required root `owner_tests` array is exactly, in order:
+
+1. `crates/mpk-cli/tests/frontend_runner.rs`;
+2. `go-tools/go2vir/main_test.go`; and
+3. `rust-tools/rust2vir/tests/frontend_envelope.rs`.
+
 The owning tests MUST load every case, reject unknown case fields, verify that
 IDs are unique across arrays, and prove that no case is skipped.

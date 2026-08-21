@@ -402,7 +402,9 @@ payload, VIR, and raw-map checks all complete.
 `develop/specs/vectors/rust-driver-v0.json`, schema
 `mpk.rust.driver.conformance.v0`, owns exact request/success bytes and hashes,
 all non-success branches, filesystem state cases, identity/compiler changes,
-hash-domain mutations, raw-map coverage, and serialized limit boundaries.
+hash-domain mutations, raw-map coverage, and serialized limit boundaries. Its
+required root `owner_test` field is exactly
+`rust-tools/rust2vir/tests/driver_protocol.rs`.
 
 The private protocol code set is closed:
 

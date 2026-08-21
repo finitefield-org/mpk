@@ -46,7 +46,7 @@ SCOPES = {
 }
 DISPOSITIONS = {"remove", "rename/regenerate"}
 EXPECTED_SCANNER_FILES = {METADATA_PATH, SCRIPT_PATH}
-EXPECTED_HISTORICAL = {
+EXPECTED_RETAINED_RECORDS = {
     "develop/specs/GIR_V0.md": "always",
     "develop/specs/GO_SUBSET_V0.md": "always",
     "develop/specs/AI_API_V0.md": "always",
@@ -59,7 +59,7 @@ EXPECTED_HISTORICAL = {
     "develop/docs/05_rust_frontend_design-todo.md": "design_status_marker",
 }
 DESIGN_PATHS = {
-    path for path, activation in EXPECTED_HISTORICAL.items()
+    path for path, activation in EXPECTED_RETAINED_RECORDS.items()
     if activation == "design_status_marker"
 }
 
@@ -207,7 +207,7 @@ def validate_manifest() -> tuple[dict[str, Any], set[str], set[str], set[str]]:
     manifest = read_strict_json(path)
     require_exact_keys(
         manifest,
-        {"schema", "design_status_marker", "scanner_files", "historical_records", "fixtures"},
+        {"schema", "design_status_marker", "scanner_files", "retained_records", "fixtures"},
         set(),
         "fixture manifest",
     )
@@ -233,24 +233,24 @@ def validate_manifest() -> tuple[dict[str, Any], set[str], set[str], set[str]]:
     for relative in scanner_files:
         validate_regular_file(relative, "scanner exclusion")
 
-    historical_values = manifest["historical_records"]
-    if not isinstance(historical_values, list):
-        fail("historical_records must be an array")
-    historical: dict[str, str] = {}
-    for index, item in enumerate(historical_values):
+    retained_values = manifest["retained_records"]
+    if not isinstance(retained_values, list):
+        fail("retained_records must be an array")
+    retained: dict[str, str] = {}
+    for index, item in enumerate(retained_values):
         if not isinstance(item, dict):
-            fail(f"historical_records[{index}] must be an object")
-        require_exact_keys(item, {"path", "activation"}, set(), f"historical_records[{index}]")
-        relative = normalized_relative_path(item["path"], f"historical_records[{index}].path")
+            fail(f"retained_records[{index}] must be an object")
+        require_exact_keys(item, {"path", "activation"}, set(), f"retained_records[{index}]")
+        relative = normalized_relative_path(item["path"], f"retained_records[{index}].path")
         activation = item["activation"]
         if activation not in {"always", "design_status_marker"}:
-            fail(f"historical_records[{index}] has unknown activation {activation!r}")
-        if relative in historical:
-            fail(f"historical_records contains duplicate path {relative!r}")
-        historical[relative] = activation
-        validate_regular_file(relative, "historical record")
-    if historical != EXPECTED_HISTORICAL:
-        fail("historical_records must equal the frozen exact-file allowlist")
+            fail(f"retained_records[{index}] has unknown activation {activation!r}")
+        if relative in retained:
+            fail(f"retained_records contains duplicate path {relative!r}")
+        retained[relative] = activation
+        validate_regular_file(relative, "retained record")
+    if retained != EXPECTED_RETAINED_RECORDS:
+        fail("retained_records must equal the frozen exact-file exclusion set")
 
     fixture_values = manifest["fixtures"]
     if not isinstance(fixture_values, list):
@@ -311,11 +311,11 @@ def validate_manifest() -> tuple[dict[str, Any], set[str], set[str], set[str]]:
             f"missing={sorted(actual_fixture_files - fixtures)}, unknown={sorted(fixtures - actual_fixture_files)}"
         )
 
-    historical_files = set(historical)
+    retained_files = set(retained)
     classes = {
         "scanner": scanner_files,
         "fixtures": fixtures,
-        "historical": historical_files,
+        "retained": retained_files,
     }
     names = list(classes)
     for index, left_name in enumerate(names):
@@ -323,7 +323,7 @@ def validate_manifest() -> tuple[dict[str, Any], set[str], set[str], set[str]]:
             overlap = classes[left_name] & classes[right_name]
             if overlap:
                 fail(f"exclusion classes {left_name}/{right_name} overlap: {sorted(overlap)}")
-    return manifest, scanner_files, fixtures, historical_files
+    return manifest, scanner_files, fixtures, retained_files
 
 
 def token_pattern(token: str) -> re.Pattern[str]:
@@ -493,11 +493,11 @@ def run_fixture_self_test(manifest: dict[str, Any], matchers: list[dict[str, Any
         )
 
 
-def active_historical_allowlist(manifest: dict[str, Any]) -> set[str]:
+def active_retained_record_exclusions(manifest: dict[str, Any]) -> set[str]:
     marker = manifest["design_status_marker"]
     design_ready = all(marker in (REPO_ROOT / path).read_text(encoding="utf-8") for path in DESIGN_PATHS)
     active: set[str] = set()
-    for item in manifest["historical_records"]:
+    for item in manifest["retained_records"]:
         if item["activation"] == "always" or design_ready:
             active.add(item["path"])
     return active
@@ -553,10 +553,10 @@ def scan_repository(
     return findings, scanned
 
 
-def report(findings: list[Finding], scanned: int, historical_count: int) -> int:
+def report(findings: list[Finding], scanned: int, retained_count: int) -> int:
     print(
         f"GIR obsolete-interface self-test: ok "
-        f"({scanned} active files scanned; {historical_count} historical files allowed)"
+        f"({scanned} active files scanned; {retained_count} retained records excluded)"
     )
     if not findings:
         print("No active obsolete GIR interfaces found.")
@@ -585,12 +585,12 @@ def report(findings: list[Finding], scanned: int, historical_count: int) -> int:
 def main() -> int:
     try:
         matchers = load_matchers()
-        manifest, scanner_files, fixtures, _historical = validate_manifest()
+        manifest, scanner_files, fixtures, _retained = validate_manifest()
         run_fixture_self_test(manifest, matchers)
-        historical = active_historical_allowlist(manifest)
-        excluded = scanner_files | fixtures | historical
+        retained = active_retained_record_exclusions(manifest)
+        excluded = scanner_files | fixtures | retained
         findings, scanned = scan_repository(matchers, excluded)
-        return report(findings, scanned, len(historical))
+        return report(findings, scanned, len(retained))
     except GateError as error:
         print(f"GIR obsolete-interface gate configuration error: {error}", file=sys.stderr)
         return 2

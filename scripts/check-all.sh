@@ -12,6 +12,7 @@ cd "$repo_root"
 
 run "$repo_root/scripts/check-fast.sh"
 run "$repo_root/scripts/check-reference.sh"
+run python3 "$repo_root/scripts/check-spec-vectors.py" --check
 run python3 "$repo_root/scripts/check-package-manifest-fixtures.py"
 run python3 "$repo_root/scripts/check-package-lock-fixtures.py"
 run python3 "$repo_root/scripts/generate-release-report.py" --check

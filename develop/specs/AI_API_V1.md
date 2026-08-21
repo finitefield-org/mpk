@@ -635,7 +635,8 @@ task publishes the v1 router.
 
 ## 10. References
 
-- `develop/specs/AI_API_V0.md` — historical pre-cutover route profile
+- `develop/specs/AI_API_V0.md` — current pre-cutover route profile; it becomes
+  historical only at the atomic cutover
 - `develop/specs/FRONTEND_PROTOCOL_V0.md` — validated frontend-result boundary
 - `develop/specs/RELEASE_BUNDLES_V0.md` — registered release identities used by the validated store
 - `develop/specs/VIR_V0.md` — canonical source IR and `MPK-VIR-0.1`

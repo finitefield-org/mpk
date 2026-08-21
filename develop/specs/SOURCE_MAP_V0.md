@@ -300,5 +300,11 @@ only to test input-kind linkage and does not make them eligible source origins.
 exact "phase" and "code"; accepted hash cases may additionally freeze lengths
 and digests.
 
+The required root "owner_tests" array is exactly, in order:
+
+1. "crates/mpk-vc/tests/source_map.rs";
+2. "go-tools/go2vir/corpus_test.go"; and
+3. "rust-tools/rust2vir/tests/frontend_envelope.rs".
+
 The owning tests MUST load every case, reject unknown vector/case fields,
 verify unique IDs across all arrays, and prove no case is skipped.

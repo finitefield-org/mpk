@@ -1356,7 +1356,9 @@ handling is exactly `FRONTEND_PROTOCOL_V0.md`; it does not reclassify status.
 `develop/specs/vectors/rust-subset-v0.json` has schema
 `mpk.rust.subset.conformance.v0` and owns accepted/rejected source families,
 manifest/module/path rules, targets/cfg, MIR/semantic cases, phase precedence,
-diagnostics, and every exact limit boundary.
+diagnostics, and every exact limit boundary. Its required root `owner_test`
+field is exactly
+`rust-tools/rust2vir/tests/subset_conformance.rs`.
 
 `develop/specs/vectors/rust-build-inputs-v0.json` has schema
 `mpk.rust.build_inputs.conformance.v0` and owns raw templates, graphs,
@@ -1364,6 +1366,8 @@ component/native projections, launcher/fuzz child graphs, valid descriptor and
 hash preimage, publication state cases, and invalid mutations. Synthetic
 digests are fixtures; production descriptor values are emitted only by the
 frozen update recipe and first reviewed in RUST-03-T01.
+Its required root `owner_test` field is exactly
+`rust-tools/rust2vir/tests/build_inputs_conformance.rs`.
 
 An implementation MUST exercise every vector case and compare exact outcome,
 phase, code, repeated identity, and hash. A compiler or Cargo update requires a

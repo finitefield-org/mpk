@@ -1,24 +1,24 @@
 schema: mpk.package.v0
-module: Example.Max64
+module: Example.Identity
 imports:
-  - module: Go.Int64
+  - module: Std.Bool
     export_hash: "MPK_EXPORT_HASH_PLACEHOLDER"
     certificate_hash: "MPK_CERT_HASH_PLACEHOLDER"
-  - module: Std.BitVec
+  - module: Std.Eq
     export_hash: "MPK_EXPORT_HASH_PLACEHOLDER"
     certificate_hash: "MPK_CERT_HASH_PLACEHOLDER"
-  - module: Std.Logic
+  - module: Std.Program.Base
     export_hash: "MPK_EXPORT_HASH_PLACEHOLDER"
     certificate_hash: "MPK_CERT_HASH_PLACEHOLDER"
 certificates:
-  - path: generated/example.max64.mpcert
-    module: Example.Max64
+  - path: generated/example.identity.mpcert
+    module: Example.Identity
     expected_export_hash: "MPK_EXPORT_HASH_PLACEHOLDER"
     expected_axiom_report_hash: "MPK_AXIOM_REPORT_HASH_PLACEHOLDER"
     expected_certificate_hash: "MPK_CERT_HASH_PLACEHOLDER"
 policy:
   checker_profile: mvp-strict
   allowed_axiom_profiles:
-    - core-mvp
+    - zero-axiom
   require_reference_checker: true
   require_source_free_check: true

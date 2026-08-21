@@ -37,7 +37,8 @@ entry before scanning source files.
 - `develop/migrations/gir-to-vir-obsolete-terms.txt`
 - `scripts/check-no-active-gir.sh`
 
-These files are executable scanner machinery, not historical records.
+These files are executable scanner machinery, not retained specification
+records.
 
 ### Focused self-test fixtures
 
@@ -55,20 +56,26 @@ matcher scopes. Negative fixtures prove that:
 - `GoSource` and `Gir` variants on an unrelated type are not the retired
   policy/sanitizer variants.
 
-### Historical records
+### Frozen retained records
+
+The scanner excludes these exact files because they intentionally describe or
+inventory the interface being replaced. Exclusion is not a lifecycle label:
+`GIR_V0.md`, `GO_SUBSET_V0.md`, and `AI_API_V0.md` remain current release
+specifications before `GO-VIR-02-T12` and become historical only after that
+atomic cutover.
 
 | Exact file | Activation | Classification |
 | --- | --- | --- |
-| `develop/specs/GIR_V0.md` | immediate | historical-allowlist |
-| `develop/specs/GO_SUBSET_V0.md` | immediate | historical-allowlist |
-| `develop/specs/AI_API_V0.md` | immediate | historical-allowlist |
-| `develop/specs/CERT_V0.md` | immediate | historical-allowlist |
-| `develop/specs/TRUST_BOUNDARY_V0.md` | immediate | historical-allowlist |
-| `develop/specs/UNSAFE_POLICY_V0.md` | immediate | historical-allowlist |
-| `develop/migrations/gir-to-vir-inventory.md` | immediate | historical-allowlist |
-| `develop/migrations/go-gir-semantic-baseline.json` | immediate | historical-allowlist |
-| `develop/docs/05_rust_frontend_design.md` | conditional | historical-allowlist after the marker below exists in both design records |
-| `develop/docs/05_rust_frontend_design-todo.md` | conditional | historical-allowlist after the marker below exists in both design records |
+| `develop/specs/GIR_V0.md` | immediate | retained-record exclusion |
+| `develop/specs/GO_SUBSET_V0.md` | immediate | retained-record exclusion |
+| `develop/specs/AI_API_V0.md` | immediate | retained-record exclusion |
+| `develop/specs/CERT_V0.md` | immediate | retained-record exclusion |
+| `develop/specs/TRUST_BOUNDARY_V0.md` | immediate | retained-record exclusion |
+| `develop/specs/UNSAFE_POLICY_V0.md` | immediate | retained-record exclusion |
+| `develop/migrations/gir-to-vir-inventory.md` | immediate | retained-record exclusion |
+| `develop/migrations/go-gir-semantic-baseline.json` | immediate | retained-record exclusion |
+| `develop/docs/05_rust_frontend_design.md` | conditional | retained-record exclusion after the marker below exists in both design records |
+| `develop/docs/05_rust_frontend_design-todo.md` | conditional | retained-record exclusion after the marker below exists in both design records |
 
 The exact atomic marker is:
 
@@ -83,8 +90,8 @@ document from hiding live terminology.
 ## Retired schema inventory
 
 Every schema below is a case-sensitive global token. The disposition describes
-the active artifact; the frozen specification itself follows the historical
-allowlist above.
+the active artifact; the frozen specification itself follows the retained-
+record exclusion above.
 
 | Retired schema | Current producer/consumer | Disposition | Preparation owner | Removal owner |
 | --- | --- | --- | --- | --- |
@@ -116,7 +123,7 @@ review.
 | `go2gir_sha256` | exact-global-token | policy scan frontend digest | replace with registered bundle identity | GO-VIR-02-T05/T06/T07 | GO-VIR-02-T12 |
 | `--go2gir` | exact-global-token | released scan/verify executable-path flag | remove; no raw executable fallback | GO-VIR-02-T07/T08 | GO-VIR-02-T12 |
 | `go2gir`, `Go2Gir`, `GO2GIR` | exact-global-token | executable/module/name variants | remove or rename/regenerate as `go2vir` | GO-VIR-02-T02/T04/T11 | GO-VIR-02-T12 |
-| `GIR` | exact-global-token | active prose, comments, diagnostics, examples | remove from active records; keep only exact historical files | GO-VIR-02-T11 | GO-VIR-02-T12 |
+| `GIR` | exact-global-token | active prose, comments, diagnostics, examples | remove from active records; keep only exact retained files, which become historical after cutover | GO-VIR-02-T11 | GO-VIR-02-T12 |
 | `POST /gir/import` and `/gir/import` | exact-global-token | AI API v0 import route | remove; v1 exposes only `/vir/import` | VIR-00-T07, GO-VIR-02-T10 | GO-VIR-02-T12 |
 | `Std.Go.Base` | exact-global-token | VC foundational type names and fixtures | rename/regenerate as `Std.Program.Base` | VIR-01-T06, GO-VIR-02-T11 | GO-VIR-02-T12 |
 
@@ -227,13 +234,13 @@ behind the common final cutover owner.
 | Go-specific type/expression/WP/safety exports | `type_encode.rs`, `expr_encode.rs`, `wp*.rs`, `loops.rs`, `safety.rs` | rename/regenerate, then remove legacy exports | VIR-01-T06 through T10 | GO-VIR-02-T12 |
 | Policy scan/verify/evidence/report | `crates/mpk-cli/src/policy_*.rs` and tests | rename/regenerate | GO-VIR-02-T06 through T08 | GO-VIR-02-T12 |
 | AI explanation sanitizer/prompt/output | `ai_explain.rs`, its tests, Vertex documentation | rename/regenerate | GO-VIR-02-T09/T11 | GO-VIR-02-T12 |
-| AI API import boundary | AI v0 specification and staged v1 router | historical-allowlist for v0 spec; remove active v0 route | GO-VIR-02-T10 | GO-VIR-02-T12 |
+| AI API import boundary | AI v0 specification and staged v1 router | retained-record exclusion for the current v0 spec; remove active v0 route | GO-VIR-02-T10 | GO-VIR-02-T12 |
 | Go/VC/payment fixtures and examples | `fixtures/go-*`, `fixtures/vc-alpha`, `examples/*` | rename/regenerate | GO-VIR-02-T11 | GO-VIR-02-T12 |
 | Release evidence and templates | `release-report.json`, `develop/templates`, generated hashes | rename/regenerate | GO-VIR-02-T11 | GO-VIR-02-T12 |
 | Build/check/release scripts | `check-all.sh`, `checker-agreement.sh`, release report generation | rename/regenerate | GO-VIR-02-T11 | GO-VIR-02-T12 |
 | Root/developer/architecture/ProofOps docs and CI | `README.md`, `develop/README.md`, active docs, `.github` | remove active terminology or regenerate commands | GO-VIR-02-T11 | GO-VIR-02-T12 |
-| Frozen v0 specifications and this migration record | exact historical table above | historical-allowlist | VIR-00-T10 and GO-VIR-02-T12 governance updates | GO-VIR-02-T12 gate activation |
-| Two Rust migration design records | exact conditional records above | historical-allowlist only after atomic marker | GO-VIR-02-T12 | GO-VIR-02-T12 |
+| Frozen v0 specifications and this migration record | exact retained-record table above | retained-record exclusion; the replaced helper specs become historical only after cutover | VIR-00-T10 and GO-VIR-02-T12 governance updates | GO-VIR-02-T12 gate activation |
+| Two Rust migration design records | exact conditional records above | retained-record exclusion only after atomic marker | GO-VIR-02-T12 | GO-VIR-02-T12 |
 
 ## Semantic baseline coverage
 

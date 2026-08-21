@@ -2,6 +2,11 @@
 
 Normative MVP trust-boundary requirements are defined in `specs/TRUST_BOUNDARY_V0.md`. This document is a design summary of the same boundary.
 
+The current Go/GIR helper path remains the active pre-cutover release path and
+is not historical yet. The staged VIR/Rust migration changes helper schemas,
+not this proof-acceptance boundary; its atomic sequence is owned by
+`05_rust_frontend_design-todo.md`.
+
 ## Core policy
 
 MPK must maintain a narrow trusted base. The project should explicitly distinguish between:
@@ -17,6 +22,7 @@ The trusted/checker-facing evidence is:
 
 ```text
 canonical .mpcert bytes
+checked theory certificates
 Rust fast-kernel verdict
 independent source-free reference-checker verdict
 deterministic export_hash
@@ -31,24 +37,20 @@ hash-pinned imports
 The following are useful but untrusted:
 
 ```text
-Go source text
-contract sidecar text
-parser output
-elaborator output
-Go SSA output
-GIR output
-VC generator output
-AI proof candidates before checking
-AI traces
+release-registry and bundle bytes
+toolchains, compilers, and frontend binaries
+source and contract text
+parser, elaborator, package-loader, HIR, SSA, and MIR output
+GIR before cutover; VIR after cutover
+source maps and source manifests, including every internal claim
+VC and certificate-skeleton output
+policy scans, evidence, reports, and reproduction recipes
+AI proof candidates, explanations, provider output, and traces
 solver yes/no answers
-tactic scripts
-tactic replay files
+tactic scripts and replay files
 theorem indexes
-source maps
-comments
-pretty-printed goals
-CI status
-package registry metadata
+comments, pretty-printed goals, and diagnostics
+CI status and package/release-registry metadata
 ```
 
 ## Acceptance rule
@@ -73,7 +75,7 @@ MPK must reject rather than approximate when encountering:
 - non-canonical binary encoding;
 - unresolved metavariables;
 - unsupported core features;
-- unsupported Go language features;
+- unsupported source-language, semantic-profile, or lowering features;
 - non-deterministic orderings;
 - checker fuel exhaustion;
 - unrecognized theory-certificate formats;
@@ -84,7 +86,9 @@ MPK must reject rather than approximate when encountering:
 Do not place these in the trusted kernel during MVP:
 
 - parser trust;
-- Go frontend trust;
+- source-language frontend, toolchain, or compiler trust;
+- GIR/VIR, source-map, source-manifest-claim, VC-generator, or policy-output
+  trust;
 - tactic replay trust;
 - SMT solver yes/no trust;
 - theorem graph trust;

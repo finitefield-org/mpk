@@ -1,25 +1,19 @@
 {
   "schema": "mpk.certificate.manifest.v0",
-  "module": "Example.Max64",
-  "certificate_path": "generated/example.max64.mpcert",
+  "module": "Example.Identity",
+  "certificate_path": "generated/example.identity.mpcert",
   "format": "MPK-CERT-0.1",
   "core_spec": "MPK-Core-0.1",
-  "source_manifest": {
-    "source_language": "go",
-    "go_version": "go1.xx",
-    "frontend": {
-      "name": "go2gir",
-      "version": "0.1.0",
-      "binary_sha256": "PLACEHOLDER"
-    },
-    "source_files": [
-      {
-        "path": "examples/sample_go_source.go",
-        "sha256": "PLACEHOLDER"
-      }
-    ],
-    "gir_hash": "PLACEHOLDER",
-    "vc_hash": "PLACEHOLDER"
+  "source_manifest_reference": {
+    "schema": "mpk.source_manifest.v0",
+    "path": "generated/example.identity.source-manifest.json",
+    "lifecycle": "certificate-stage",
+    "expected_source_manifest_hash": "PLACEHOLDER",
+    "expected_input_set_hash": "PLACEHOLDER",
+    "expected_vir_hash": "PLACEHOLDER",
+    "expected_source_map_hash": "PLACEHOLDER",
+    "expected_vc_hash": "PLACEHOLDER",
+    "trust": "untrusted-helper"
   },
   "hashes": {
     "export_hash": "PLACEHOLDER",

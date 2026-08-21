@@ -33,6 +33,21 @@ MPK v0 has exactly four axiom categories:
 
 No other category name is valid in v0. Renaming, splitting, or adding categories requires a new policy revision and matching certificate/report migration.
 
+The language-neutral VIR migration does not alter this table. In particular:
+
+- no `RustSemanticsAxiom` category exists;
+- Rust artifacts must not reuse `GoSemanticsAxiom`;
+- migrating Go artifacts to VIR neither renames nor broadens
+  `GoSemanticsAxiom`; and
+- `Std.Program.Base` aliases are checked aliases over existing foundations and
+  introduce no axiom.
+
+Rust semantics must use checked definitions or an already permitted
+`BuiltinTheoryAxiom` backed by a checked theory certificate. If an unchecked
+Rust-specific semantic assumption becomes necessary, implementation stops for
+a new governance and certificate-format design; it must not be hidden in an
+existing category.
+
 ## Category Examples
 
 Examples are illustrative; they do not approve a concrete axiom name:

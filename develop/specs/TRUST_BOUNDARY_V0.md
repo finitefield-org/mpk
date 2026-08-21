@@ -33,7 +33,11 @@ The following artifacts may justify acceptance only after the checker recomputes
 | Recomputed axiom report | Trusted dependency disclosure | Derived from checked declarations and proof nodes, then evaluated by release policy. |
 | Hash-pinned imports | Import identity | Resolved by module name and export hash; high-trust mode also verifies certificate hash in the current session. |
 
-Example: a package can claim that `Example.Max64.correct` is accepted only if the canonical certificate checks, hashes recompute, imports resolve by policy, the axiom report is permitted, and required checker verdicts agree. The original Go source and contract sidecar remain traceability data, not proof evidence.
+Example: a package can claim that `Example.Identity.correct` is accepted only
+if the canonical certificate checks, hashes recompute, imports resolve by
+policy, the axiom report is permitted, and required checker verdicts agree.
+The original source, contract, lowering artifacts, and manifest remain
+traceability data, not proof evidence.
 
 ## Untrusted Helper Evidence
 
@@ -41,17 +45,28 @@ The following artifacts are useful engineering inputs but never justify acceptan
 
 | Artifact | Allowed use | Trust-boundary rule |
 |---|---|---|
-| Go source text | Source of candidate verification tasks | Affects acceptance only through theorem statements encoded in checked certificates. |
-| Contract JSON sidecar | User specification input | Untrusted text until translated into certificate-checked theorem statements. |
-| Parser, type-checker, package loader, and SSA output | Frontend engineering | Never read by the checker as proof evidence. |
-| GIR output | Verification IR | Untrusted until theorem obligations are encoded in checked certificates. |
-| VC generator output | Candidate theorem obligations | Untrusted until emitted obligations are checked as certificate declarations. |
+| Release-registry and bundle bytes | Reproducible helper selection and execution | IDs, descriptors, inventories, and hashes do not establish a theorem or authorize an import without checker validation. |
+| Toolchains, compilers, and frontend binaries | Parse, type-check, and lower source | Executable identity is traceability and reproducibility data, never proof acceptance evidence. |
+| Source text in any language | Source of candidate verification tasks | Affects acceptance only through theorem statements encoded in checked certificates. |
+| Contract sidecars | User specification input | Untrusted text until translated into certificate-checked theorem statements. |
+| Parser, type-checker, package/module loader, HIR/SSA/MIR, and other compiler output | Frontend engineering | Never read by the checker as proof evidence. |
+| VIR and other frontend IR output | Verification intermediate representation | Untrusted until theorem obligations are encoded in checked certificates. |
+| Source maps | Source correlation | Locations and spans are diagnostic metadata, never proof evidence. |
+| Source manifests | Reproducibility and lifecycle linkage | The payload and all internal registry, toolchain, input, VIR, map, VC, and hash claims remain untrusted even when hash-pinned. |
+| VC and certificate-skeleton output | Candidate theorem obligations and declaration plans | Untrusted until the resulting declarations and proof nodes are checked from canonical certificate bytes. |
+| Policy scan, evidence, reports, and reproduction recipes | Release workflow and audit presentation | Cannot approve a theorem, axiom, import, or checker verdict. |
 | AI proof candidates and traces | Proof search and repair hints | Affect acceptance only after expansion into certificate-checkable proof nodes or checked theory certificates. |
 | Tactic scripts and replay files | Candidate generation hints | Never trusted as replay evidence in MVP. |
 | Solver yes/no answers | Search hints | Never trusted; solvers must emit independently checkable certificates when used for proof. |
 | Theorem indexes and theorem graphs | Retrieval or dependency hints | Never accepted as proof of availability, type, or dependency correctness. |
-| Source maps, comments, pretty-printed goals, and diagnostics | Debugging and repair | Human-readable context only. |
-| CI status and package registry metadata | Operational signal | Cannot replace source-free checker verdicts and hash recomputation. |
+| Comments, pretty-printed goals, and diagnostics | Debugging and repair | Human-readable context only. |
+| AI explanations and provider output | Explanatory helper output | Cannot be interpreted as proof, policy approval, or a checker verdict. |
+| CI status and package-registry metadata | Operational signal | Cannot replace source-free checker verdicts and hash recomputation. |
+
+Thus registry bytes, toolchains, compilers, frontends, source, contracts, VIR,
+source maps, manifests and their internal claims, VCs, policy output, and AI
+output are all untrusted helper artifacts. Validating their structure, hashes,
+or provenance does not promote them to trusted proof evidence.
 
 Example: an AI API response may say that a proof node is likely repairable by `rewrite`, but the checker must still verify the resulting proof node against the expected type. The diagnostic text cannot be a success condition.
 
@@ -83,7 +98,7 @@ MVP components must reject rather than approximate when encountering:
 - unresolved metavariables or holes;
 - unsupported core features;
 - unsupported proof-node tags under the active checker profile;
-- unsupported Go language features;
+- unsupported source-language, semantic-profile, or lowering features;
 - non-deterministic ordering;
 - checker fuel exhaustion;
 - unrecognized theory-certificate formats;
@@ -97,17 +112,19 @@ MVP components must reject rather than approximate when encountering:
 The following must not enter the trusted MVP checker path:
 
 - parser trust;
-- Go frontend trust;
+- source-language frontend, toolchain, or compiler trust;
 - contract sidecar trust;
-- GIR trust;
+- VIR or other frontend IR trust;
+- source-map or source-manifest-claim trust;
 - VC generator trust;
+- policy-output trust;
 - tactic replay trust;
 - SMT/SAT solver yes/no trust;
 - theorem graph trust;
 - theorem-index trust;
 - AI search trust;
 - CI status trust;
-- package registry metadata trust;
+- package or release-registry metadata trust;
 - general equality saturation;
 - typeclass search;
 - proof irrelevance as conversion;
@@ -142,7 +159,9 @@ The planned checker-facing components are:
 | `mpk-checker-ref` | Independent source-free reference checking and verdict agreement. |
 | Theory-certificate checkers | Independently check compact theory evidence before a `Theory` proof node can be accepted. |
 
-Non-checker components such as `go2gir`, `mpk-vc`, and `mpk-api` may generate artifacts and call checkers, but they must not create alternate acceptance paths.
+Non-checker components such as source-language frontends, compilers,
+`mpk-vc`, policy/reporting tools, and `mpk-api` may generate artifacts and call
+checkers, but they must not create alternate acceptance paths.
 
 ## Release Gate
 
@@ -157,3 +176,6 @@ Before any release:
 - all accepted proof evidence is in `.mpcert` bytes or checked theory certificates;
 - required fast-kernel and reference-checker verdicts agree;
 - axiom reports are recomputed and evaluated by release policy.
+
+Frontend, VIR, source-map, source-manifest, VC, policy, and AI schema revisions
+do not modify these Certificate v0 acceptance inputs.

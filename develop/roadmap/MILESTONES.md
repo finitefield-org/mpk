@@ -1,5 +1,20 @@
 # Milestones and Acceptance Criteria
 
+## Authority during the VIR migration
+
+M0 through M10 record the current pre-cutover implementation baseline. In
+particular, the Go/GIR entries below are still current release facts and are
+not historical before `GO-VIR-02-T12`; they are not instructions to build a
+second or partial migration path.
+
+Forward implementation follows the dependency-ordered milestones in
+`../docs/05_rust_frontend_design-todo.md`: VIR-00 freezes the replacement
+contracts, VIR-01 builds shared foundations, GO-VIR-02 stages and atomically
+cuts the existing Go path over to VIR, and only then does RUST-03 begin the
+pinned Rust frontend. The cutover replaces the applicable M6/M7 helper
+interfaces as one release change while leaving Certificate v0 and checker
+acceptance unchanged.
+
 ## M0: Project charter accepted
 
 Acceptance criteria:
@@ -55,7 +70,7 @@ Acceptance criteria:
 - Standard library certificates verify under both checkers.
 - Axiom report is explicit and reviewable.
 
-## M6: Go-to-GIR frontend
+## M6: Pre-cutover Go-to-GIR frontend baseline
 
 Acceptance criteria:
 
@@ -64,7 +79,7 @@ Acceptance criteria:
 - GIR output is canonical and hashable.
 - Source manifest records Go version and frontend hash.
 
-## M7: VC generation
+## M7: Pre-cutover GIR VC generation baseline
 
 Acceptance criteria:
 
@@ -92,7 +107,7 @@ Acceptance criteria:
 - Array read/write certificates check independently.
 - Malformed theory certificates reject deterministically.
 
-## M10: Alpha verification demo
+## M10: Pre-cutover Go alpha verification demo baseline
 
 Acceptance criteria:
 

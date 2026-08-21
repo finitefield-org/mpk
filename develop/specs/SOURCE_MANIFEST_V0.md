@@ -499,5 +499,11 @@ presence rule without requiring an installed Rust registry fixture.
 "expect" has "outcome" and, for rejection, exact "phase" and "code"; accepted
 hash/lifecycle cases may additionally freeze canonical lengths and digests.
 
+The required root "owner_tests" array is exactly, in order:
+
+1. "crates/mpk-vc/tests/source_manifest.rs";
+2. "go-tools/go2vir/bundle_candidate_test.go"; and
+3. "rust-tools/rust2vir/tests/frontend_envelope.rs".
+
 The owning tests MUST load every case, reject unknown vector/case fields,
 verify unique IDs across all arrays, and prove no case is skipped.

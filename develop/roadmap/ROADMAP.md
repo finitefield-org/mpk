@@ -1,6 +1,25 @@
 # Implementation Roadmap
 
-This roadmap is ordered by dependency, not by calendar time. Do not begin a later phase by expanding the trusted base to compensate for incomplete earlier phases.
+This file records the dependency-ordered pre-cutover implementation baseline.
+Do not begin a later phase by expanding the trusted base to compensate for an
+incomplete earlier phase.
+
+The forward VIR/Rust migration sequence is owned by
+`../docs/05_rust_frontend_design.md` and
+`../docs/05_rust_frontend_design-todo.md`:
+
+1. VIR-00 freezes all replacement specifications, vectors, ownership, and
+   governance amendments.
+2. VIR-01 implements the shared VIR/VC/checking foundations.
+3. GO-VIR-02 stages all new Go consumers and performs one atomic cutover.
+4. RUST-03 starts only after that cutover and builds the pinned Rust frontend.
+5. Later RUST phases add semantics without widening the proof trust boundary.
+
+The Phase 0 through Phase 12 Go/GIR entries below remain the current release
+baseline until `GO-VIR-02-T12`. They are not historical before that task and
+must not be mixed with staged VIR schemas. At the cutover they become a record
+of the replaced baseline rather than a parallel active path. Certificate v0,
+source-free checker inputs, and axiom categories do not change.
 
 ## Phase 0: Governance and spec freeze
 
@@ -139,7 +158,7 @@ Exit gate:
 - Axiom reports are clean and intentional.
 - No unproved convenience theorem is admitted without report.
 
-## Phase 7: Go frontend to GIR
+## Phase 7: Pre-cutover Go frontend to GIR baseline
 
 **Objective:** convert a safe Go subset into a verification IR.
 
@@ -159,7 +178,7 @@ Exit gate:
 - Pure examples lower to stable GIR.
 - GIR hash is deterministic.
 
-## Phase 8: GIR semantics and VC generator
+## Phase 8: Pre-cutover GIR semantics and VC generator baseline
 
 **Objective:** generate theorem obligations from Go subset programs.
 
@@ -231,7 +250,7 @@ Exit gate:
 - Clean checkout can rebuild and verify artifacts deterministically.
 - Rust and Go checker verdicts are both included in release evidence.
 
-## Phase 12: Alpha corpus and performance hardening
+## Phase 12: Pre-cutover Go alpha corpus and performance-hardening baseline
 
 **Objective:** demonstrate the system on realistic small Go verification tasks.
 

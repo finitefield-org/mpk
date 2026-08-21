@@ -67,7 +67,7 @@ acceptance, but several helper-layer interfaces remain Go-specific.
 
 | Current component | Go-specific constraint | Replacement design |
 |---|---|---|
-| `develop/specs/GIR_V0.md` | GIR means Go Verification IR and is frozen. | Keep its historical meaning, introduce VIR, migrate all producers and consumers, then retire GIR. |
+| `develop/specs/GIR_V0.md` | GIR means Go Verification IR and is frozen. | Keep its frozen Go-specific meaning, introduce VIR, migrate all producers and consumers, then retire GIR. |
 | `develop/specs/GO_SUBSET_V0.md` | Its fail-closed boundary is phrased in terms of GIR emission. | Preserve its accepted/rejected behavior in a new `GO_VIR_PROFILE_V0.md`; mark the GIR-bound document historical after cutover. |
 | `crates/mpk-vc/src/type_encode.rs` | Types encode to `Std.Go.Base.*`. | Replace it with a `Std.Program.Base.*` encoder used by both semantic profiles. |
 | `crates/mpk-cli/src/policy_scan.rs` | The runner accepts only `mpk.go2gir.cli.v0` and `--go2gir`. | Replace the route with the generic frontend protocol and policy schemas v1. |
@@ -2208,12 +2208,14 @@ shared VIR contract model. If the migration audit discovers that a field or
 semantic correction is actually required, the cutover gate stops for a new Go
 contract version and design amendment rather than changing v0 in place.
 
-Historical GIR JSON is not accepted by the post-cutover `mpk-vc` importer. No
+After the atomic cutover, historical GIR JSON is not accepted by the
+post-cutover `mpk-vc` importer. No
 automatic converter is shipped as a production path. Checked-in generated Go
 artifacts are regenerated, reviewed, and committed in the cutover change.
-`GIR_V0.md`, `GO_SUBSET_V0.md`, and `AI_API_V0.md` remain historical records;
-`VIR_V0.md`, `GO_VIR_PROFILE_V0.md`, and `AI_API_V1.md` become normative for
-the active source-program helper path.
+Only then do `GIR_V0.md`, `GO_SUBSET_V0.md`, and `AI_API_V0.md` become
+historical records; before the cutover they remain the current release
+specifications. `VIR_V0.md`, `GO_VIR_PROFILE_V0.md`, and `AI_API_V1.md` become
+normative for the active source-program helper path in the same cutover.
 
 ### 15.2 Unified route
 
@@ -2881,8 +2883,9 @@ Deliverables:
   certificate-check acceptance boundary;
 - `RUST_SUBSET_V0.md` derived from sections 7 through 11 and the Rust-specific
   diagnostic and resource-limit rules in sections 17 and 18;
-- `GO_VIR_PROFILE_V0.md`, derived from the accepted behavior of the historical
-  `GO_SUBSET_V0.md`, with the normative profile ID `mpk.go.fixed.v0`;
+- `GO_VIR_PROFILE_V0.md`, derived from the accepted behavior of the current
+  pre-cutover `GO_SUBSET_V0.md`, with the normative profile ID
+  `mpk.go.fixed.v0`;
 - normative `mpk.go.fixed.v0` and `mpk.rust.checked.v0` operation/check
   matrices;
 - registration and vectors for `MPK-VIR-0.1`, `MPK-SOURCE-MAP-0.1`,

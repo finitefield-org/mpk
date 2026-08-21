@@ -1,5 +1,11 @@
 # Architecture
 
+Migration note: the architecture and repository layout below describe the
+current pre-cutover Go/GIR release. They remain current, not historical, until
+the atomic cutover owned by `05_rust_frontend_design-todo.md`. The staged
+language-neutral design in `05_rust_frontend_design.md` must not be partially
+activated, and it does not change Certificate v0 or proof acceptance.
+
 ## System overview
 
 ```mermaid

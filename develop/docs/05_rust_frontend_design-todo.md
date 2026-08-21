@@ -890,7 +890,8 @@ Depends on: VIR-00-T01, VIR-00-T02, VIR-00-T04.
 Inputs:
 
 - design sections 12.2-12.3, 14, and 19.4;
-- historical `develop/specs/GO_SUBSET_V0.md`;
+- current pre-cutover `develop/specs/GO_SUBSET_V0.md`, which becomes historical
+  only at the atomic cutover;
 - current `go-tools/go2gir` loader, feature, contract, and lowering behavior.
 
 Likely touched files:
@@ -1181,7 +1182,7 @@ git diff --check
 
 ### VIR-00-T10 Amend Governance Documents and Close the Specification Gate
 
-Status: Pending
+Status: Complete (2026-08-21).
 
 Depends on: VIR-00-T01 through VIR-00-T09.
 
@@ -2736,6 +2737,7 @@ Likely touched files:
 - `rust-tools/rust2vir/src/lib.rs`
 - `rust-tools/rust2vir/src/bin/rust2vir.rs`
 - `rust-tools/rust2vir/src/bin/rust2vir-driver.rs`
+- `rust-tools/rust2vir/tests/build_inputs_conformance.rs`
 - `.gitignore`
 - `release/build-inputs/rust/build-inputs.json`
 - `release/bundles/candidates/rust` (unregistered, never installed)
@@ -2873,6 +2875,7 @@ cargo test --workspace
 ./scripts/build-release-bundles.sh --check go
 ./scripts/check-release-bundles.sh --fixture go
 ./scripts/run-rust2vir-toolchain.sh cargo fmt --all -- --check
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test build_inputs_conformance
 ./scripts/run-rust2vir-toolchain.sh cargo test --locked
 ./scripts/run-rust2vir-toolchain.sh cargo run --locked --bin rust2vir -- --version
 git check-ignore --no-index release/build-input-cache/rust/probe
@@ -4445,6 +4448,7 @@ Likely touched files:
 - `rust-tools/rust2vir/src/limits.rs`
 - `rust-tools/rust2vir/src/diagnostics.rs`
 - `rust-tools/rust2vir/tests/limits.rs`
+- `rust-tools/rust2vir/tests/subset_conformance.rs`
 - `scripts/build-release-bundles.sh`
 - `scripts/run-rust2vir-toolchain.sh`
 - `develop/specs/vectors/rust-build-inputs-v0.json`
@@ -4490,6 +4494,7 @@ Verification:
 
 ```sh
 ./scripts/run-rust2vir-toolchain.sh cargo test --locked --test limits
+./scripts/run-rust2vir-toolchain.sh cargo test --locked --test subset_conformance
 ./scripts/build-release-bundles.sh --check-build-inputs rust
 python3 -m json.tool develop/specs/vectors/rust-build-inputs-v0.json >/dev/null
 cargo test -p mpk-vc --test verification_limits
