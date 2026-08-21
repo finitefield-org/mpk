@@ -1836,7 +1836,7 @@ git diff --check
 
 ### VIR-01-T11 Implement VC v1 Canonical Documents and Resource Accounting
 
-Status: Pending
+Status: Complete (2026-08-21).
 
 Depends on: VIR-01-T08, VIR-01-T09, VIR-01-T10.
 

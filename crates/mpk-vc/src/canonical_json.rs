@@ -20,7 +20,7 @@ pub const MIN_SAFE_JSON_INTEGER: i64 = -MAX_SAFE_JSON_INTEGER;
 /// Every VIR-era specification limit is at or below this value. Rejecting a
 /// larger configured limit keeps the call stack bounded even when a caller
 /// accidentally supplies an unconstrained value.
-pub const MAX_SUPPORTED_JSON_DEPTH: u64 = 256;
+pub const MAX_SUPPORTED_JSON_DEPTH: u64 = 768;
 
 /// Explicit limits applied while parsing an untrusted JSON value.
 ///

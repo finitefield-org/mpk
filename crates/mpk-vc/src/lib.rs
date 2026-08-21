@@ -25,6 +25,8 @@ pub mod source_manifest;
 pub mod source_map;
 pub mod type_encode;
 pub mod vc;
+pub mod vc_canonical;
+pub mod verification_limits;
 pub mod vir;
 pub mod vir_canonical;
 pub mod vir_validate;
@@ -152,7 +154,22 @@ pub use type_encode::{
     STD_PROGRAM_BASE_STRUCT_SHAPE, STD_PROGRAM_BASE_STRUCT_VALUE, STD_PROGRAM_BASE_UINT16,
     STD_PROGRAM_BASE_UINT32, STD_PROGRAM_BASE_UINT64, STD_PROGRAM_BASE_UINT8,
 };
-pub use vc::{VcModule, VcObligation, VcObligationKind};
+pub use vc::{
+    VcBinder, VcDocument, VcFunction, VcGroup, VcGroupKind, VcMember, VcMemberKind, VcModule,
+    VcObligation, VcObligationKind, VcSourceContext, VcSourceFunction, VcTerm,
+    VcTermConversionError, VcTypeTerm, VC_SCHEMA_VERSION, VERIFICATION_LIMIT_PROFILE,
+};
+pub use vc_canonical::{
+    canonical_vc_hash_payload, canonical_vc_json, generate_vc_v1, generate_vc_v1_from_context,
+    import_vc_v1_json, vc_hash, ValidatedVcDocument, VcValidationError, VcValidationPhase,
+    VC_HASH_DOMAIN,
+};
+pub use verification_limits::{
+    validate_verification_limit, VerificationLimitError, VerificationLimitId,
+    VC_CANONICAL_CERTIFICATE_BYTES_MAX, VC_CANONICAL_JSON_BYTES_MAX,
+    VC_CANONICAL_SKELETON_JSON_BYTES_MAX, VC_GENERATED_PROOF_DEPTH_MAX,
+    VC_GROUPED_THEOREM_DEPTH_MAX,
+};
 pub use vir::{
     import_vir_json, ArrayLength, ArrayLengthError, BitVectorWidth, BitVectorWidthError,
     DecimalInteger, DecimalIntegerError, DivRemOperation, LowercaseSha256, LowercaseSha256Error,
