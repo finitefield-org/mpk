@@ -17,6 +17,7 @@ pub mod policy_theory_goal;
 pub mod program_encode;
 pub mod release_bundle;
 pub mod safety;
+pub mod safety_check;
 pub mod semantic_profile;
 pub mod source_manifest;
 pub mod source_map;
@@ -91,6 +92,12 @@ pub use release_bundle::{
     UNIQUE_BUNDLE_FILES_MAX,
 };
 pub use safety::{generate_safety_vcs, SafetyVcGenerator};
+pub use safety_check::{
+    encode_instruction_safety, required_safety_checks, validate_safety_check_sequence,
+    EncodedSafetyPredicate, SafetyCheckError, SafetyEvidenceRoute, SafetyObligationKind,
+    VirSafetyOperation, SAFETY_BITVEC_THEORY_FORMAT, SAFETY_OBLIGATION_KIND_COMPONENT,
+    SAFETY_PROOF_PENDING_OWNER,
+};
 pub use semantic_profile::{
     validate_semantic_context, validate_semantic_parameters, GoFixedParameters, OverflowMode,
     PanicMode, PointerWidth, PointerWidthError, RustCheckedParameters, SemanticContext,
@@ -152,8 +159,7 @@ pub use vir_canonical::{
 pub use vir_validate::{
     validate_safety_checks, validate_vir, validate_vir_const_decl_fragment,
     validate_vir_contract_expr_fragment, validate_vir_limit_count, validate_vir_safety_fragment,
-    validate_vir_struct_decl_fragment, validate_vir_type_fragment, VirSafetyOperation,
-    VirValidationError,
+    validate_vir_struct_decl_fragment, validate_vir_type_fragment, VirValidationError,
 };
 pub use wp::{generate_straight_line_vcs, WpError, WpGenerator};
 pub use wp_branch::{generate_branch_vcs, BranchWpGenerator};

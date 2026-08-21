@@ -269,6 +269,31 @@ impl ProgramExprContext {
         &self.declarations
     }
 
+    /// Resolves the exact VIR type of a value in this validated context.
+    pub fn value_type(&self, input: &VirValue) -> Result<VirType, ProgramExprEncodeError> {
+        match input {
+            VirValue::Variable(reference) => {
+                self.variables.get(&reference.var).cloned().ok_or_else(|| {
+                    ProgramExprEncodeError::UnknownVariable {
+                        id: reference.var.clone(),
+                    }
+                })
+            }
+            VirValue::Constant(reference) => self
+                .constants
+                .get(&reference.constant)
+                .map(|(r#type, _)| r#type.clone())
+                .ok_or_else(|| ProgramExprEncodeError::UnknownConstant {
+                    id: reference.constant.clone(),
+                }),
+            VirValue::Boolean(_) => Ok(VirType::Bool {}),
+            VirValue::Integer(literal) => Ok(VirType::Bv {
+                width: literal.int.width,
+                signed: literal.int.signed,
+            }),
+        }
+    }
+
     fn insert_constant(&mut self, declaration: &VirConstDecl) {
         self.constants.insert(
             declaration.id.clone(),

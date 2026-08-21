@@ -1,14 +1,16 @@
 //! Complete semantic validation for VIR v0.
 
+use crate::safety_check::{
+    required_safety_checks, validate_safety_check_sequence, SafetyCheckError, VirSafetyOperation,
+};
 use crate::semantic_profile::{
     validate_semantic_context, validate_semantic_parameters, PointerWidth, SemanticParameters,
     SemanticProfile, SourceLanguage,
 };
 use crate::vir::{
-    DivRemOperation, LowercaseSha256, OverflowOperation, VirBinaryOperator, VirBlock, VirConstDecl,
-    VirContract, VirContractExpr, VirFeature, VirFunction, VirInstruction, VirInstructionKind,
-    VirModule, VirSafetyCheck, VirStructDecl, VirTerminator, VirType, VirUnaryOperator, VirUnit,
-    VirValue, VIR_SCHEMA_VERSION,
+    LowercaseSha256, VirBinaryOperator, VirBlock, VirConstDecl, VirContract, VirContractExpr,
+    VirFeature, VirFunction, VirInstruction, VirModule, VirSafetyCheck, VirStructDecl,
+    VirTerminator, VirType, VirUnit, VirValue, VIR_SCHEMA_VERSION,
 };
 use crate::vir_canonical::{canonical_vir_json, contract_hash, vir_hash, VirCanonicalError};
 use std::collections::{BTreeMap, BTreeSet, VecDeque};
@@ -1696,14 +1698,24 @@ fn validate_instruction(
                 r#type,
                 context.module.semantic_profile,
             )?;
-            expected_binary_checks(context.module.semantic_profile, *op, &lhs_type, &rhs_type)
+            required_safety_checks(
+                context.module.semantic_profile,
+                VirSafetyOperation::Binary(*op),
+                &[lhs_type, rhs_type],
+            )
+            .map_err(safety_check_error)?
         }
         VirInstruction::UnaryOp {
             op, r#type, value, ..
         } => {
             let value_type = resolve(value)?;
             validate_unary_operation(*op, &value_type, r#type, context.module.semantic_profile)?;
-            expected_unary_checks(context.module.semantic_profile, *op, &value_type)
+            required_safety_checks(
+                context.module.semantic_profile,
+                VirSafetyOperation::Unary(*op),
+                &[value_type],
+            )
+            .map_err(safety_check_error)?
         }
         VirInstruction::Convert { r#type, value, .. } => {
             if context.module.semantic_profile != SemanticProfile::GoFixedV0
@@ -1753,24 +1765,25 @@ fn validate_instruction(
             index,
             ..
         } => {
-            let VirType::Array { element, .. } = resolve(base)? else {
+            let base_type = resolve(base)?;
+            let VirType::Array { element, .. } = &base_type else {
                 return Err(invalid(
                     "VIR_INSTRUCTION_TYPE",
                     "Index base is not an array",
                 ));
             };
             let index_type = resolve(index)?;
-            let VirType::Bv { width, signed } = index_type else {
+            let VirType::Bv { width, signed } = &index_type else {
                 return Err(invalid("VIR_INSTRUCTION_TYPE", "Index is not a bitvector"));
             };
-            if *element != *r#type {
+            if element.as_ref() != r#type {
                 return Err(invalid(
                     "VIR_INSTRUCTION_TYPE",
                     "Index result type mismatch",
                 ));
             }
             if context.module.semantic_profile == SemanticProfile::RustCheckedV0
-                && (signed
+                && (*signed
                     || width.bits() != context.module.semantic_parameters.pointer_width().bits())
             {
                 return Err(invalid(
@@ -1778,7 +1791,12 @@ fn validate_instruction(
                     "Rust Index requires unsigned pointer-width index",
                 ));
             }
-            vec![VirSafetyCheck::IndexInBounds {}]
+            required_safety_checks(
+                context.module.semantic_profile,
+                VirSafetyOperation::Index,
+                &[base_type, index_type],
+            )
+            .map_err(safety_check_error)?
         }
         VirInstruction::MakeStruct { r#type, fields, .. } => {
             let VirType::Struct { id } = r#type else {
@@ -2001,113 +2019,14 @@ fn validate_unary_operation(
     }
 }
 
-fn expected_binary_checks(
-    profile: SemanticProfile,
-    op: VirBinaryOperator,
-    lhs: &VirType,
-    rhs: &VirType,
-) -> Vec<VirSafetyCheck> {
-    use VirBinaryOperator as Op;
-    let signed = matches!(lhs, VirType::Bv { signed: true, .. });
-    match (profile, op) {
-        (SemanticProfile::RustCheckedV0, Op::BvAdd) => {
-            vec![integer_check(OverflowOperation::Add, signed)]
-        }
-        (SemanticProfile::RustCheckedV0, Op::BvSub) => {
-            vec![integer_check(OverflowOperation::Sub, signed)]
-        }
-        (SemanticProfile::RustCheckedV0, Op::BvMul) => {
-            vec![integer_check(OverflowOperation::Mul, signed)]
-        }
-        (_, Op::BvSdiv) => {
-            let mut checks = vec![VirSafetyCheck::DivisorNonzero {}];
-            if profile == SemanticProfile::RustCheckedV0 {
-                checks.push(VirSafetyCheck::SignedDivremRepresentable {
-                    operation: DivRemOperation::Div,
-                });
-            }
-            checks
-        }
-        (_, Op::BvSrem) => {
-            let mut checks = vec![VirSafetyCheck::DivisorNonzero {}];
-            if profile == SemanticProfile::RustCheckedV0 {
-                checks.push(VirSafetyCheck::SignedDivremRepresentable {
-                    operation: DivRemOperation::Rem,
-                });
-            }
-            checks
-        }
-        (_, Op::BvUdiv | Op::BvUrem) => vec![VirSafetyCheck::DivisorNonzero {}],
-        (_, Op::BvShl | Op::BvAshr | Op::BvLshr) => {
-            let rhs_signed = matches!(rhs, VirType::Bv { signed: true, .. });
-            let mut checks = Vec::new();
-            if rhs_signed {
-                checks.push(VirSafetyCheck::ShiftCountNonnegative {});
-            }
-            if profile == SemanticProfile::RustCheckedV0 {
-                checks.push(VirSafetyCheck::ShiftCountLessThanWidth {});
-            }
-            checks
-        }
-        _ => Vec::new(),
-    }
-}
-
-fn expected_unary_checks(
-    profile: SemanticProfile,
-    op: crate::vir::VirUnaryOperator,
-    operand: &VirType,
-) -> Vec<VirSafetyCheck> {
-    if profile == SemanticProfile::RustCheckedV0
-        && op == crate::vir::VirUnaryOperator::BvNeg
-        && matches!(operand, VirType::Bv { signed: true, .. })
-    {
-        vec![integer_check(OverflowOperation::Neg, true)]
-    } else {
-        Vec::new()
-    }
-}
-
-fn integer_check(operation: OverflowOperation, signed: bool) -> VirSafetyCheck {
-    VirSafetyCheck::IntegerNoOverflow { operation, signed }
-}
-
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub enum VirSafetyOperation {
-    None(VirInstructionKind),
-    Binary(VirBinaryOperator),
-    Unary(VirUnaryOperator),
-    Index,
-}
-
 pub fn validate_vir_safety_fragment(
     profile: SemanticProfile,
     operation: VirSafetyOperation,
     operand_types: &[VirType],
     actual: &[VirSafetyCheck],
 ) -> Result<(), VirValidationError> {
-    let expected = match operation {
-        VirSafetyOperation::None(_) => Vec::new(),
-        VirSafetyOperation::Binary(operator) => {
-            if operand_types.len() != 2 {
-                return Err(invalid(
-                    "VIR_INSTRUCTION_TYPE",
-                    "binary safety context requires two operands",
-                ));
-            }
-            expected_binary_checks(profile, operator, &operand_types[0], &operand_types[1])
-        }
-        VirSafetyOperation::Unary(operator) => {
-            if operand_types.len() != 1 {
-                return Err(invalid(
-                    "VIR_INSTRUCTION_TYPE",
-                    "unary safety context requires one operand",
-                ));
-            }
-            expected_unary_checks(profile, operator, &operand_types[0])
-        }
-        VirSafetyOperation::Index => vec![VirSafetyCheck::IndexInBounds {}],
-    };
+    let expected =
+        required_safety_checks(profile, operation, operand_types).map_err(safety_check_error)?;
     validate_safety_checks(actual, &expected)
 }
 
@@ -2115,79 +2034,7 @@ pub fn validate_safety_checks(
     actual: &[VirSafetyCheck],
     expected: &[VirSafetyCheck],
 ) -> Result<(), VirValidationError> {
-    let mut seen = BTreeSet::new();
-    for check in actual {
-        let key = format!("{check:?}");
-        if !seen.insert(key) {
-            return Err(invalid(
-                "VIR_SAFETY_CHECK_DUPLICATE",
-                "duplicate safety check",
-            ));
-        }
-    }
-    if actual == expected {
-        return Ok(());
-    }
-    if actual.len() < expected.len() {
-        return Err(invalid("VIR_SAFETY_CHECK_MISSING", "missing safety check"));
-    }
-    if actual.len() > expected.len() {
-        return Err(invalid("VIR_SAFETY_CHECK_EXTRA", "extra safety check"));
-    }
-    let actual_kinds: Vec<_> = actual.iter().map(VirSafetyCheck::kind).collect();
-    let expected_kinds: Vec<_> = expected.iter().map(VirSafetyCheck::kind).collect();
-    let mut sorted_actual = actual_kinds.clone();
-    let mut sorted_expected = expected_kinds.clone();
-    sorted_actual.sort_by_key(|kind| safety_kind_order(*kind));
-    sorted_expected.sort_by_key(|kind| safety_kind_order(*kind));
-    if sorted_actual == sorted_expected && actual_kinds != expected_kinds {
-        return Err(invalid("VIR_SAFETY_CHECK_ORDER", "safety checks reordered"));
-    }
-    for (actual, expected) in actual.iter().zip(expected) {
-        match (actual, expected) {
-            (
-                VirSafetyCheck::IntegerNoOverflow {
-                    operation: actual_operation,
-                    signed: actual_signed,
-                },
-                VirSafetyCheck::IntegerNoOverflow {
-                    operation: expected_operation,
-                    signed: expected_signed,
-                },
-            ) => {
-                if actual_operation != expected_operation {
-                    return Err(invalid(
-                        "VIR_SAFETY_CHECK_OPERATION",
-                        "overflow-check operation mismatch",
-                    ));
-                }
-                if actual_signed != expected_signed {
-                    return Err(invalid(
-                        "VIR_SAFETY_CHECK_SIGNEDNESS",
-                        "overflow-check signedness mismatch",
-                    ));
-                }
-            }
-            (
-                VirSafetyCheck::SignedDivremRepresentable {
-                    operation: actual_operation,
-                },
-                VirSafetyCheck::SignedDivremRepresentable {
-                    operation: expected_operation,
-                },
-            ) if actual_operation != expected_operation => {
-                return Err(invalid(
-                    "VIR_SAFETY_CHECK_OPERATION",
-                    "division/remainder check operation mismatch",
-                ));
-            }
-            _ => {}
-        }
-    }
-    Err(invalid(
-        "VIR_SAFETY_CHECK_EXTRA",
-        "safety-check kind does not match the required set",
-    ))
+    validate_safety_check_sequence(actual, expected).map_err(safety_check_error)
 }
 
 pub fn validate_vir_limit_count(limit_id: &str, count: u64) -> Result<(), VirValidationError> {
@@ -2273,18 +2120,6 @@ pub fn validate_vir_limit_count(limit_id: &str, count: u64) -> Result<(), VirVal
         Err(limit(code, format!("count {count} exceeds {maximum}")))
     } else {
         Ok(())
-    }
-}
-
-fn safety_kind_order(kind: crate::vir::VirSafetyCheckKind) -> u8 {
-    use crate::vir::VirSafetyCheckKind as Kind;
-    match kind {
-        Kind::IntegerNoOverflow => 0,
-        Kind::DivisorNonzero => 1,
-        Kind::SignedDivremRepresentable => 2,
-        Kind::ShiftCountNonnegative => 3,
-        Kind::ShiftCountLessThanWidth => 4,
-        Kind::IndexInBounds => 5,
     }
 }
 
@@ -3108,6 +2943,10 @@ fn decode_lower_hex(byte: u8) -> u8 {
 
 fn canonical_error(error: VirCanonicalError) -> VirValidationError {
     invalid("VIR_CANONICAL", error.to_string())
+}
+
+fn safety_check_error(error: SafetyCheckError) -> VirValidationError {
+    invalid(error.code(), error.detail())
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]

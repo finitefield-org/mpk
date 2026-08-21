@@ -20,6 +20,22 @@ struct aliases reduce to their core carriers. Both certificates contain zero
 axioms; `hashes.csv` records their canonical export, axiom-report, and complete
 certificate hashes.
 
+Checked-operation safety predicates are derived from the semantic profile,
+operation, and encoded operand types; callers cannot supply an arbitrary
+predicate. The encoder expands each predicate through `Std.Bool` and
+`Std.BitVec` checked operations and assigns it the source-neutral
+`operation_safety` obligation kind and stable-ID kind component; the unified
+WP engine assigns the dense per-kind ordinal.
+
+`fixtures/program-safety/expected.json` records the permitted evidence route
+for the safety vectors. Go ground vectors retain the zero-axiom checked path
+exercised by `proofs/std/bitvec/ground-eval-fixture.hex`. Rust ground formulas
+supported by the existing `mpk.bitvec-ground.v0` evaluator use that
+`mvp-theory` path. Symbolic formulas and ground compositions not yet supported
+by that evaluator are explicitly proof-pending under VIR-01-T12. They must not
+be discharged by adding a Rust axiom, and VIR-01 cannot exit while any such row
+remains pending.
+
 Verify them with:
 
 ```sh

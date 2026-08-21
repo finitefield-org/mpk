@@ -1,0 +1,52 @@
+{
+  "schema": "mpk.program_safety_paths.v0",
+  "proof_pending_owner": "VIR-01-T12",
+  "rust_checked_theory_format": "mpk.bitvec-ground.v0",
+  "unchecked_axioms": 0,
+  "check_kinds": [
+    "integer_no_overflow",
+    "divisor_nonzero",
+    "signed_divrem_representable",
+    "shift_count_nonnegative",
+    "shift_count_less_than_width",
+    "index_in_bounds"
+  ],
+  "vectors": [
+    {
+      "id": "go.ground.safety",
+      "profile": "mpk.go.fixed.v0",
+      "route": "zero_axiom",
+      "fixture": "proofs/std/bitvec/ground-eval-fixture.hex"
+    },
+    {
+      "id": "rust.ground.simple-bitvector",
+      "profile": "mpk.rust.checked.v0",
+      "route": "mvp_theory",
+      "format": "mpk.bitvec-ground.v0"
+    },
+    {
+      "id": "rust.ground.unsupported-composition",
+      "profile": "mpk.rust.checked.v0",
+      "route": "proof_pending",
+      "owner": "VIR-01-T12",
+      "checks": [
+        "integer_no_overflow",
+        "signed_divrem_representable"
+      ]
+    },
+    {
+      "id": "rust.symbolic.safety",
+      "profile": "mpk.rust.checked.v0",
+      "route": "proof_pending",
+      "owner": "VIR-01-T12",
+      "checks": [
+        "integer_no_overflow",
+        "divisor_nonzero",
+        "signed_divrem_representable",
+        "shift_count_nonnegative",
+        "shift_count_less_than_width",
+        "index_in_bounds"
+      ]
+    }
+  ]
+}
