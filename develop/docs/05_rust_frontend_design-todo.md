@@ -1949,7 +1949,7 @@ git diff --check
 
 ### GO-VIR-02-T01 Build the Executable Go Migration Harness
 
-Status: Pending
+Status: Complete (2026-08-21).
 
 Depends on: VIR-00-T01, VIR-01-T12.
 

@@ -1,0 +1,2457 @@
+{
+  "allowed_changes": [
+    {
+      "disposition": "reviewed breaking replacement; no compatibility importer",
+      "id": "schema",
+      "new": "mpk.vir.v0 and generic frontend envelopes",
+      "old": "mpk.gir.v0 and GIR-era envelopes"
+    },
+    {
+      "disposition": "reviewed identity replacement; semantic ownership preserved",
+      "id": "identifier",
+      "new": "canonical import-path declaration IDs and stable VC member IDs",
+      "old": "GIR function and theorem strings"
+    },
+    {
+      "disposition": "reviewed grouping change; every member remains assigned exactly once",
+      "id": "declaration_group",
+      "new": "contract and panic-free declarations containing ordered VC members",
+      "old": "one theorem declaration per GIR obligation"
+    },
+    {
+      "disposition": "reviewed zero-axiom checked-foundation rename",
+      "id": "foundation_name",
+      "new": "Std.Program.Base.*",
+      "old": "Std.Go.Base.*"
+    },
+    {
+      "disposition": "audit anchors only; byte and hash equality is not required",
+      "id": "artifact_bytes_and_hashes",
+      "new": "regenerated VIR, VC v1, grouped skeleton, policy, and evidence bytes/hashes",
+      "old": "GIR, VC v0, skeleton, policy, and evidence bytes/hashes"
+    }
+  ],
+  "checker_verdicts": [
+    {
+      "baseline_pointer": "/checker_baseline/release_report",
+      "hash_agreement": true,
+      "id": "release_report",
+      "reference_verdict": "accepted",
+      "source_free_verdict": "accepted",
+      "status": "preserved"
+    },
+    {
+      "baseline_pointer": "/checker_baseline/payment_reserve_theory_evidence",
+      "hash_agreement": null,
+      "id": "payment_reserve_theory_evidence",
+      "reference_verdict": null,
+      "source_free_verdict": null,
+      "status": "audit_only_pending_GO-VIR-02-T11"
+    }
+  ],
+  "coverage": {
+    "ambiguous": [],
+    "assignment_count": 66,
+    "assignments": [
+      {
+        "baseline_pointer": "/schema",
+        "disposition_id": "schema"
+      },
+      {
+        "baseline_pointer": "/captured_from_revision",
+        "disposition_id": "identity.captured_revision"
+      },
+      {
+        "baseline_pointer": "/source_profile",
+        "disposition_id": "identity.source_profile"
+      },
+      {
+        "baseline_pointer": "/source_ir_schema",
+        "disposition_id": "identity.source_ir_schema"
+      },
+      {
+        "baseline_pointer": "/purpose",
+        "disposition_id": "identity.purpose"
+      },
+      {
+        "baseline_pointer": "/hash_policy",
+        "disposition_id": "identity.hash_policy"
+      },
+      {
+        "baseline_pointer": "/obligation_model/kinds",
+        "disposition_id": "obligation.kind_inventory"
+      },
+      {
+        "baseline_pointer": "/frontend_contract/cli_schema",
+        "disposition_id": "frontend.cli_schema"
+      },
+      {
+        "baseline_pointer": "/frontend_contract/success_status",
+        "disposition_id": "frontend.success_status"
+      },
+      {
+        "baseline_pointer": "/frontend_contract/gir_emit_schema",
+        "disposition_id": "frontend.gir_emit_schema"
+      },
+      {
+        "baseline_pointer": "/frontend_contract/source_manifest_schema",
+        "disposition_id": "frontend.source_manifest_schema"
+      },
+      {
+        "baseline_pointer": "/frontend_contract/canonical_binary",
+        "disposition_id": "frontend.canonical_binary"
+      },
+      {
+        "baseline_pointer": "/frontend_contract/fail_closed",
+        "disposition_id": "frontend.fail_closed"
+      },
+      {
+        "baseline_pointer": "/obligation_model/theorem_intent/precondition",
+        "disposition_id": "obligation.precondition"
+      },
+      {
+        "baseline_pointer": "/obligation_model/theorem_intent/postcondition",
+        "disposition_id": "obligation.postcondition"
+      },
+      {
+        "baseline_pointer": "/obligation_model/theorem_intent/runtime_safety",
+        "disposition_id": "obligation.runtime_safety"
+      },
+      {
+        "baseline_pointer": "/obligation_model/theorem_intent/loop_invariant_initial",
+        "disposition_id": "obligation.loop_invariant_initial"
+      },
+      {
+        "baseline_pointer": "/obligation_model/theorem_intent/loop_invariant_preservation",
+        "disposition_id": "obligation.loop_invariant_preservation"
+      },
+      {
+        "baseline_pointer": "/obligation_model/theorem_intent/loop_exit",
+        "disposition_id": "obligation.loop_exit"
+      },
+      {
+        "baseline_pointer": "/obligation_model/theorem_intent/decreases",
+        "disposition_id": "obligation.decreases"
+      },
+      {
+        "baseline_pointer": "/corpora/go_alpha/manifest",
+        "disposition_id": "source.go_alpha.envelope"
+      },
+      {
+        "baseline_pointer": "/corpora/go_alpha/module_path",
+        "disposition_id": "source.go_alpha.envelope"
+      },
+      {
+        "baseline_pointer": "/corpora/go_alpha/module_sha256",
+        "disposition_id": "source.go_alpha.envelope"
+      },
+      {
+        "baseline_pointer": "/corpora/go_alpha/expected_outcome",
+        "disposition_id": "source.go_alpha.envelope"
+      },
+      {
+        "baseline_pointer": "/corpora/go_alpha/expected_cli_status",
+        "disposition_id": "source.go_alpha.envelope"
+      },
+      {
+        "baseline_pointer": "/corpora/go_alpha/vc_fixture",
+        "disposition_id": "source.go_alpha.vc_fixture"
+      },
+      {
+        "baseline_pointer": "/corpora/go_basic/manifest_path",
+        "disposition_id": "source.go_basic.envelope"
+      },
+      {
+        "baseline_pointer": "/corpora/go_basic/manifest_sha256",
+        "disposition_id": "source.go_basic.envelope"
+      },
+      {
+        "baseline_pointer": "/corpora/go_basic/module_path",
+        "disposition_id": "source.go_basic.envelope"
+      },
+      {
+        "baseline_pointer": "/corpora/go_basic/module_sha256",
+        "disposition_id": "source.go_basic.envelope"
+      },
+      {
+        "baseline_pointer": "/corpora/payment_policies/manifest_path",
+        "disposition_id": "source.payment.envelope"
+      },
+      {
+        "baseline_pointer": "/corpora/payment_policies/manifest_sha256",
+        "disposition_id": "source.payment.envelope"
+      },
+      {
+        "baseline_pointer": "/corpora/payment_policies/shared_expectation",
+        "disposition_id": "source.payment.shared_property_intent"
+      },
+      {
+        "baseline_pointer": "/corpora/go_alpha/groups/0",
+        "disposition_id": "source.go_alpha.arith"
+      },
+      {
+        "baseline_pointer": "/corpora/go_alpha/groups/1",
+        "disposition_id": "source.go_alpha.branch"
+      },
+      {
+        "baseline_pointer": "/corpora/go_alpha/groups/2",
+        "disposition_id": "source.go_alpha.array"
+      },
+      {
+        "baseline_pointer": "/corpora/go_basic/positive/0",
+        "disposition_id": "source.go_basic.positive.arith"
+      },
+      {
+        "baseline_pointer": "/corpora/go_basic/positive/1",
+        "disposition_id": "source.go_basic.positive.branch"
+      },
+      {
+        "baseline_pointer": "/corpora/go_basic/positive/2",
+        "disposition_id": "source.go_basic.positive.structarray"
+      },
+      {
+        "baseline_pointer": "/corpora/go_basic/negative/0",
+        "disposition_id": "source.go_basic.negative.map"
+      },
+      {
+        "baseline_pointer": "/corpora/go_basic/negative/1",
+        "disposition_id": "source.go_basic.negative.pointer"
+      },
+      {
+        "baseline_pointer": "/corpora/go_basic/negative/2",
+        "disposition_id": "source.go_basic.negative.generic"
+      },
+      {
+        "baseline_pointer": "/corpora/go_basic/negative/3",
+        "disposition_id": "source.go_basic.negative.string"
+      },
+      {
+        "baseline_pointer": "/corpora/payment_policies/positive/0",
+        "disposition_id": "source.payment.positive.reserve"
+      },
+      {
+        "baseline_pointer": "/corpora/payment_policies/positive/1",
+        "disposition_id": "source.payment.positive.refund"
+      },
+      {
+        "baseline_pointer": "/corpora/payment_policies/positive/2",
+        "disposition_id": "source.payment.positive.discount"
+      },
+      {
+        "baseline_pointer": "/corpora/payment_policies/positive/3",
+        "disposition_id": "source.payment.positive.fee"
+      },
+      {
+        "baseline_pointer": "/corpora/payment_policies/positive/4",
+        "disposition_id": "source.payment.positive.points"
+      },
+      {
+        "baseline_pointer": "/corpora/payment_policies/negative/0",
+        "disposition_id": "source.payment.negative.float"
+      },
+      {
+        "baseline_pointer": "/corpora/payment_policies/negative/1",
+        "disposition_id": "source.payment.negative.map"
+      },
+      {
+        "baseline_pointer": "/corpora/payment_policies/negative/2",
+        "disposition_id": "source.payment.negative.pointer"
+      },
+      {
+        "baseline_pointer": "/corpora/payment_policies/negative/3",
+        "disposition_id": "source.payment.negative.missing_postconditions"
+      },
+      {
+        "baseline_pointer": "/corpora/focused_frontend_negative_cases/0",
+        "disposition_id": "source.focused_rejection.0"
+      },
+      {
+        "baseline_pointer": "/corpora/focused_frontend_negative_cases/1",
+        "disposition_id": "source.focused_rejection.1"
+      },
+      {
+        "baseline_pointer": "/corpora/focused_frontend_negative_cases/2",
+        "disposition_id": "source.focused_rejection.2"
+      },
+      {
+        "baseline_pointer": "/corpora/focused_frontend_negative_cases/3",
+        "disposition_id": "source.focused_rejection.3"
+      },
+      {
+        "baseline_pointer": "/corpora/focused_frontend_negative_cases/4",
+        "disposition_id": "source.focused_rejection.4"
+      },
+      {
+        "baseline_pointer": "/corpora/focused_frontend_negative_cases/5",
+        "disposition_id": "source.focused_rejection.5"
+      },
+      {
+        "baseline_pointer": "/corpora/focused_frontend_negative_cases/6",
+        "disposition_id": "source.focused_rejection.6"
+      },
+      {
+        "baseline_pointer": "/corpora/focused_frontend_negative_cases/7",
+        "disposition_id": "source.focused_rejection.7"
+      },
+      {
+        "baseline_pointer": "/behavioral_anchors/contracts",
+        "disposition_id": "behavior.contracts"
+      },
+      {
+        "baseline_pointer": "/behavioral_anchors/loops",
+        "disposition_id": "behavior.loops"
+      },
+      {
+        "baseline_pointer": "/behavioral_anchors/conversions",
+        "disposition_id": "behavior.conversions"
+      },
+      {
+        "baseline_pointer": "/behavioral_anchors/runtime_checks",
+        "disposition_id": "behavior.runtime_checks"
+      },
+      {
+        "baseline_pointer": "/checker_baseline/release_report",
+        "disposition_id": "checker.release_report"
+      },
+      {
+        "baseline_pointer": "/checker_baseline/payment_reserve_theory_evidence",
+        "disposition_id": "checker.payment_reserve_theory_evidence"
+      }
+    ],
+    "baseline_leaf_count": 463,
+    "covered_leaf_count": 463,
+    "uncovered": []
+  },
+  "coverage_policy": {
+    "mode": "complete_deep_subtree",
+    "rule": "The owner compares every leaf below each baseline_pointer with the named disposition; no unknown root member, array member, or leaf may remain uncovered."
+  },
+  "findings": [],
+  "fixture_integrity": {
+    "certificate_fixture_present": "fixtures/cert-basic/one-theorem.hex",
+    "checked_file_count": 66,
+    "checked_files": [
+      {
+        "path": "develop/specs/GO_SUBSET_V0.md",
+        "sha256": "0a3d7a63489369337d5c946de5d7f53be9df28829260f9edf791f7acb2f5e00f"
+      },
+      {
+        "path": "examples/payment_policies/discount/gir.json",
+        "sha256": "00e601bbcacd16a9322e14caaa086238a85e5dfbca0aecc75934ceb6691d64af"
+      },
+      {
+        "path": "examples/payment_policies/discount/go.mod",
+        "sha256": "4a661d37f78e488cb5eaba57d4514a8513f2bad61207bdf1bbcda811fa0a754f"
+      },
+      {
+        "path": "examples/payment_policies/discount/policy.go",
+        "sha256": "3f53035e86e57ad70ed953cbfe5d04db926cb76aaaff35ce627c47b139c7cb4d"
+      },
+      {
+        "path": "examples/payment_policies/discount/policy_contract.json",
+        "sha256": "c496bf1b675fa674eba84e4cde91ab1f82b5816c5b86fb82cec9a566e8897672"
+      },
+      {
+        "path": "examples/payment_policies/discount/vc.json",
+        "sha256": "675759ccfa7288d5dd08ea77ca61714ce52dca5d9a1ce5c4d1701d7307691388"
+      },
+      {
+        "path": "examples/payment_policies/discount/vc_skeleton.json",
+        "sha256": "48ed21762bf005296466c3ba143f79cd09ffc7199547a77c56546154f910b4d2"
+      },
+      {
+        "path": "examples/payment_policies/fee/gir.json",
+        "sha256": "7a265d95df64449448b090bfb6170150228e8e160b318063c59fe8a3b1993cd5"
+      },
+      {
+        "path": "examples/payment_policies/fee/go.mod",
+        "sha256": "85b08ea1c733a7f92115b6d3a4de3e583be37d6ca47b175f42970e552dd2967a"
+      },
+      {
+        "path": "examples/payment_policies/fee/policy.go",
+        "sha256": "46bdd70a14cdd399b780fe91986687bc68cbcc8ec640bf79311c721db7465a56"
+      },
+      {
+        "path": "examples/payment_policies/fee/policy_contract.json",
+        "sha256": "fdf8250ac83d4d94b1a59b8dc69423919bee8c7032658190a4532706ee970601"
+      },
+      {
+        "path": "examples/payment_policies/fee/vc.json",
+        "sha256": "e4a3b755cd3570c42795d7a80d2151ff42f08fcb1824dfe3fd80d703c2968e9c"
+      },
+      {
+        "path": "examples/payment_policies/fee/vc_skeleton.json",
+        "sha256": "712dc179b8263eedb0e0bddbb57f8c9a641d10894e7e42e31df8db5e7a58c3a1"
+      },
+      {
+        "path": "examples/payment_policies/manifest.json",
+        "sha256": "a3fe95a98653d1370587231ae84c555a784e68a7f019192bafaf274900435ca3"
+      },
+      {
+        "path": "examples/payment_policies/negative/float/go.mod",
+        "sha256": "1a57ac67fcfffe17fa17b3423d292eb3866e23903a6d1796aeb9c7c72f1be1af"
+      },
+      {
+        "path": "examples/payment_policies/negative/float/policy.go",
+        "sha256": "4f0b86a34953dfc5c38af23433ce4264a5676df4c1d92524febcbe6f86ad3d72"
+      },
+      {
+        "path": "examples/payment_policies/negative/map/go.mod",
+        "sha256": "d56a9b31b97c25445820bb3931044ed04e7d416864899198ae457cfb66202673"
+      },
+      {
+        "path": "examples/payment_policies/negative/map/policy.go",
+        "sha256": "d3d3e66214b08a41097bb49e2cf96ad83f9842184e4795b9ac455b565e1eead6"
+      },
+      {
+        "path": "examples/payment_policies/negative/missing_postconditions/go.mod",
+        "sha256": "a6d2f7b11a5fcd8823a802add721d8578b182823b8c04f5d8689a34dfb08c560"
+      },
+      {
+        "path": "examples/payment_policies/negative/missing_postconditions/policy.go",
+        "sha256": "917ae60cffd658f8c010f889d5d69389ecf536f5f002332f2bc8e56f2ffa6db7"
+      },
+      {
+        "path": "examples/payment_policies/negative/missing_postconditions/policy_contract.json",
+        "sha256": "a1b24c6b9690da9ee6038b1156d0939071cbc145336875abb09c2888e5d0f81f"
+      },
+      {
+        "path": "examples/payment_policies/negative/pointer/go.mod",
+        "sha256": "44d78282450153c0881cc1a896a79b9f533188aa7ead05c9dae5d09f3dba0704"
+      },
+      {
+        "path": "examples/payment_policies/negative/pointer/policy.go",
+        "sha256": "36552871fb2e39b95dfc01efd1d5bce0dde4fa4c0cfc20b24ebbd259164c1977"
+      },
+      {
+        "path": "examples/payment_policies/points/gir.json",
+        "sha256": "59a3cd0349e77ccec19d752c60567ef4823320335b0141296fce0ea16cfce1cb"
+      },
+      {
+        "path": "examples/payment_policies/points/go.mod",
+        "sha256": "bbb69536b147e6e4ee4d18827d327b2d47b23ed79723842f0d5911ee8f175bc5"
+      },
+      {
+        "path": "examples/payment_policies/points/policy.go",
+        "sha256": "6c5c1919cceeb97071340ac60c43777d2e03006939c67045e57595eee4a1ac1c"
+      },
+      {
+        "path": "examples/payment_policies/points/policy_contract.json",
+        "sha256": "16327bb94f33d19b17e758192b174aee1b7b5e1a3155989f0f02bc761303bec3"
+      },
+      {
+        "path": "examples/payment_policies/points/vc.json",
+        "sha256": "beafb3d0f3be7123e915dd8e284b8fa54ad43cc794b4c59bbb50b917d29daa58"
+      },
+      {
+        "path": "examples/payment_policies/points/vc_skeleton.json",
+        "sha256": "23998748a4f313c558b40de0c9534b7d7bdbca95dee4b553104e40079fd93ba9"
+      },
+      {
+        "path": "examples/payment_policies/refund/gir.json",
+        "sha256": "cb4e9ec97c3384d0547f0d51a133c7b5e03abad103092085e7cabdd382d3ff02"
+      },
+      {
+        "path": "examples/payment_policies/refund/go.mod",
+        "sha256": "e72da78fa681084726169fd13d61b9faf474ca233b78391172c1a2725303e385"
+      },
+      {
+        "path": "examples/payment_policies/refund/policy.go",
+        "sha256": "832d61bc348519351d9d95294c1110c38a612e391021033478467543dc0d189b"
+      },
+      {
+        "path": "examples/payment_policies/refund/policy_contract.json",
+        "sha256": "c1e084bed11e55fc1459353e2f7b55fa50c51ff88ed08ce8768f3313aef2c2d7"
+      },
+      {
+        "path": "examples/payment_policies/refund/vc.json",
+        "sha256": "9309ef79eaa5df4d01ac6fd2fabc280d987e02ad43e2bf5621b357525c139ce0"
+      },
+      {
+        "path": "examples/payment_policies/refund/vc_skeleton.json",
+        "sha256": "52a659f4096cf862f59dcfd369ad836628708ad9a500f54c2bd3ed140bc271a7"
+      },
+      {
+        "path": "examples/payment_policies/reserve/evidence_alpha.json",
+        "sha256": "30033e84878fb8cbcdadee8b675dd470e3f73db230da584f9db7e79709015aec"
+      },
+      {
+        "path": "examples/payment_policies/reserve/gir.json",
+        "sha256": "8ac5bef38a77d64ca4015c5c8acc236651143a1430f79e7967faffdbc6709d94"
+      },
+      {
+        "path": "examples/payment_policies/reserve/go.mod",
+        "sha256": "a3987b8027dcbc02b3b2f72a8a3effa7d35cb84799f534690e407600ba3f97ee"
+      },
+      {
+        "path": "examples/payment_policies/reserve/policy.go",
+        "sha256": "d844f257c70887dab36e13347755a44f28f7c35095dd7efa4fc84dbeaf4044f2"
+      },
+      {
+        "path": "examples/payment_policies/reserve/policy_contract.json",
+        "sha256": "7b5ae3065faa320474ac2feaf6a99c33c891417b8d14e8683dcdea34485f80a6"
+      },
+      {
+        "path": "examples/payment_policies/reserve/vc.json",
+        "sha256": "19d2fdc205f5d20dce92e81cc3e19afea0d29de416311b8c9d87498755417ca7"
+      },
+      {
+        "path": "examples/payment_policies/reserve/vc_skeleton.json",
+        "sha256": "0d87cfcffd9f570b1d6e287fc04aaae9f0e890469a636bc6f3c8631d9d3c8e7c"
+      },
+      {
+        "path": "fixtures/go-alpha/arith/arith.go",
+        "sha256": "7ea7cedcc016a0beacc1184741b1079ce7e4595100dee6c029cd5ac8f101c31d"
+      },
+      {
+        "path": "fixtures/go-alpha/array/array.go",
+        "sha256": "d6bfc8d7c4ca5f06be35d1d7bdb9a3e7807856bc6a16fd67280555a556d4344c"
+      },
+      {
+        "path": "fixtures/go-alpha/branch/branch.go",
+        "sha256": "b3d2487cf5b8305eea5e84dbdbb112d7efe4eafd792cfc4ad7380138f8379240"
+      },
+      {
+        "path": "fixtures/go-alpha/go.mod",
+        "sha256": "4a3cb8b7a0c57d3ad6619e79e6b0dffbcbcc631a23c9f437b3133d964f1a0aac"
+      },
+      {
+        "path": "fixtures/go-alpha/manifest.json",
+        "sha256": "4f3371e0bc768724cab86831b3daa24c76d64cf926284fee72c571160399aed7"
+      },
+      {
+        "path": "fixtures/go-basic/go.mod",
+        "sha256": "fbaecf3a2fa13def8774c5ed6d6439b5032975224b7569e1464cfd0a014e903a"
+      },
+      {
+        "path": "fixtures/go-basic/manifest.json",
+        "sha256": "512c522568a44b930dcd1ddbccc6d5203231a09d5eaf3f428ff47bf673097fc1"
+      },
+      {
+        "path": "fixtures/go-basic/negative/generic/generic.go",
+        "sha256": "6c6ec14df0ff94da8fbb67c95e0686ae4b244301069211b01bae52776d56938c"
+      },
+      {
+        "path": "fixtures/go-basic/negative/map/map.go",
+        "sha256": "8097f84018a3b41013c0da83883e83c2641589670753c32a657de81d20c7a33f"
+      },
+      {
+        "path": "fixtures/go-basic/negative/pointer/pointer.go",
+        "sha256": "bd36d4dc0bb00dcac2b0ab640e1928de89df4e84e7a0375779a5384c214bdb64"
+      },
+      {
+        "path": "fixtures/go-basic/negative/string/string.go",
+        "sha256": "02ca8d5fff33dd866aecac787fa64048bc491a882aca5777d673d03c48abf52a"
+      },
+      {
+        "path": "fixtures/go-basic/positive/arith/arith.go",
+        "sha256": "be472595e9029249dcc0f35c43c6a441cb935c78a03ec0d06c07c2123fbaf28c"
+      },
+      {
+        "path": "fixtures/go-basic/positive/branch/branch.go",
+        "sha256": "2f5af9661edc9e1e078640fd48e6fa1d511ff9b82a3ac07f62163a9ec3ac65b4"
+      },
+      {
+        "path": "fixtures/go-basic/positive/structarray/struct_array.go",
+        "sha256": "d7c8a95e23a31708d0aa83f23f1d55903f1d30079d6d0f2ff128e487a99b3ef8"
+      },
+      {
+        "path": "fixtures/vc-alpha/manifest.json",
+        "sha256": "2430aad74fad185d2dde4a3e38eb4a93375c2a4f65835eb331a60bc0617a244e"
+      },
+      {
+        "path": "fixtures/vc-alpha/vc.json",
+        "sha256": "999a3b2f34a9d25ee5972674ffc4dc1590439a7aa5c8e41dda4472d76cf82b97"
+      },
+      {
+        "path": "fixtures/vc-alpha/vc_skeleton.json",
+        "sha256": "e1cea2c49ae72d5ba9e85c589d05577137a8b3d0cae2772388b711a633cd82fe"
+      },
+      {
+        "path": "go-tools/go2gir/contract_sidecar.go",
+        "sha256": "d6231f6b7e365909302630f91b14efd498431f8b9ee832d67a99bd38414a1d15"
+      },
+      {
+        "path": "go-tools/go2gir/features.go",
+        "sha256": "f8add48050d86b97a4a3b4c10b048aef76345e7050ad5f4941f4f54d51e4e086"
+      },
+      {
+        "path": "go-tools/go2gir/loader.go",
+        "sha256": "c8dea15e3aac2d9c891fa8479cbc6fd18975c672b75715a4df491a41dfc302e8"
+      },
+      {
+        "path": "go-tools/go2gir/lower.go",
+        "sha256": "68b72971300bcbde514f6ba88b421f6cd1b121e221d06ae7844787025f61c684"
+      },
+      {
+        "path": "go-tools/go2gir/lower_types.go",
+        "sha256": "72c172a65a88ef6cce2cee40aff4d5a3e576a617f0b7fa7a4e6bf3b159061b44"
+      },
+      {
+        "path": "go-tools/go2gir/ssa.go",
+        "sha256": "ff1ab5fd50b0298753e1d84189943d36d26de915b81ffa93a8d3e1f827565add"
+      },
+      {
+        "path": "release-report.json",
+        "sha256": "d08570ecccb27473414fa23379814a27b2f41ca48fdbc3a34c732eb0e195b64e"
+      }
+    ]
+  },
+  "frontend_contract": [
+    {
+      "baseline_pointer": "/frontend_contract/cli_schema",
+      "disposition": "breaking replacement",
+      "id": "frontend.cli_schema",
+      "new": "mpk.frontend.cli.v0",
+      "old": "mpk.go2gir.cli.v0"
+    },
+    {
+      "baseline_pointer": "/frontend_contract/success_status",
+      "disposition": "breaking replacement",
+      "id": "frontend.success_status",
+      "new": "ir-lowered",
+      "old": "gir-lowered"
+    },
+    {
+      "baseline_pointer": "/frontend_contract/gir_emit_schema",
+      "disposition": "breaking replacement",
+      "id": "frontend.gir_emit_schema",
+      "new": "mpk.vir.v0 nested in the generic frontend envelope",
+      "old": "mpk.gir.emit.v0"
+    },
+    {
+      "baseline_pointer": "/frontend_contract/source_manifest_schema",
+      "disposition": "breaking replacement with preserved input traceability",
+      "id": "frontend.source_manifest_schema",
+      "new": "mpk.source_manifest.v0",
+      "old": "mpk.go.source_manifest.v0"
+    },
+    {
+      "baseline_pointer": "/frontend_contract/canonical_binary",
+      "disposition": "no byte or hash equality",
+      "id": "frontend.canonical_binary",
+      "new": "MPK-VIR-0.1 canonical JSON hash and generic JCS envelope",
+      "old": "MPK_GIR_V0 framing and hash"
+    },
+    {
+      "baseline_pointer": "/frontend_contract/fail_closed",
+      "disposition": "preserved",
+      "id": "frontend.fail_closed",
+      "new": true,
+      "old": true
+    }
+  ],
+  "historical_rules": {
+    "accepted_rule_count": 23,
+    "accepted_rules": [
+      {
+        "new": "VirFunction with canonical import-path identity",
+        "rule": "top-level functions"
+      },
+      {
+        "new": "canonical value-method VirFunction with receiver arg0",
+        "rule": "non-pointer receiver methods"
+      },
+      {
+        "new": "VirConstDecl with canonical same-unit constant references",
+        "rule": "top-level fixed Boolean/integer constants"
+      },
+      {
+        "new": "VIR bool",
+        "rule": "bool"
+      },
+      {
+        "new": "signed BV8/BV16/BV32/BV64",
+        "rule": "int8/int16/int32/int64"
+      },
+      {
+        "new": "unsigned BV8/BV16/BV32/BV64",
+        "rule": "uint8/uint16/uint32/uint64"
+      },
+      {
+        "new": "structural VirType array, MakeArray, and checked Index",
+        "rule": "fixed arrays"
+      },
+      {
+        "new": "nominal StructDecl, MakeStruct, and Field",
+        "rule": "structs of accepted fields"
+      },
+      {
+        "new": "canonical local plus explicit initializer/Go zero instructions",
+        "rule": "variable declarations"
+      },
+      {
+        "new": "Copy and canonical SSA/block-parameter state",
+        "rule": "local assignments"
+      },
+      {
+        "new": "Branch/Jump CFG with else-before-then BFS numbering",
+        "rule": "if/else"
+      },
+      {
+        "new": "typed Return terminator",
+        "rule": "return"
+      },
+      {
+        "new": "single-header contracted cyclic CFG and normalized LoopContract",
+        "rule": "for loop with invariant and optional decreases"
+      },
+      {
+        "new": "not plus short-circuit Branch lowering",
+        "rule": "Boolean operators"
+      },
+      {
+        "new": "total wrapping BV operations and exact Go safety checks",
+        "rule": "fixed-width arithmetic"
+      },
+      {
+        "new": "exact signed_*/unsigned_* BinOp",
+        "rule": "signed and unsigned comparisons"
+      },
+      {
+        "new": "complete MakeStruct and direct Field",
+        "rule": "struct construction and field read"
+      },
+      {
+        "new": "complete MakeArray and Index with index_in_bounds",
+        "rule": "fixed-array construction and index read"
+      },
+      {
+        "new": "same-module CallStatic with contract hash and VC call dependencies",
+        "rule": "static verified pure call"
+      },
+      {
+        "new": "divisor_nonzero operation_safety member",
+        "rule": "division by zero runtime safety"
+      },
+      {
+        "new": "shift_count_nonnegative operation_safety member for signed RHS",
+        "rule": "negative shift runtime safety"
+      },
+      {
+        "new": "one index_in_bounds record preserving the complete signed/unsigned predicate",
+        "rule": "array index runtime safety"
+      },
+      {
+        "new": "closed locals/values/static-call closure and side-effect rejection matrix",
+        "rule": "function purity"
+      }
+    ],
+    "rejected_rule_count": 21,
+    "rejected_rules": [
+      {
+        "code": "GO_SUBSET_FUNCTION_VALUE",
+        "rule": "closures"
+      },
+      {
+        "code": "GO_SUBSET_GLOBAL_STATE",
+        "rule": "init functions"
+      },
+      {
+        "code": "GO_SUBSET_UNSAFE",
+        "rule": "unsafe"
+      },
+      {
+        "code": "GO_SUBSET_CGO",
+        "rule": "cgo"
+      },
+      {
+        "code": "GO_SUBSET_POINTER",
+        "rule": "pointers and address-taking"
+      },
+      {
+        "code": "GO_SUBSET_HEAP",
+        "rule": "heap allocation"
+      },
+      {
+        "code": "GO_SUBSET_REFLECTION",
+        "rule": "reflection"
+      },
+      {
+        "code": "GO_SUBSET_INTERFACE",
+        "rule": "interfaces and dynamic dispatch"
+      },
+      {
+        "code": "GO_SUBSET_GOROUTINE",
+        "rule": "goroutines"
+      },
+      {
+        "code": "GO_SUBSET_CHANNEL",
+        "rule": "channels"
+      },
+      {
+        "code": "GO_SUBSET_DEFER",
+        "rule": "defer"
+      },
+      {
+        "code": "GO_SUBSET_PANIC",
+        "rule": "panic/recover"
+      },
+      {
+        "code": "GO_SUBSET_MAPS",
+        "rule": "maps"
+      },
+      {
+        "code": "GO_SUBSET_SLICES",
+        "rule": "mutable slices"
+      },
+      {
+        "code": "GO_SUBSET_STRING",
+        "rule": "strings"
+      },
+      {
+        "codes": [
+          "GO_SUBSET_FLOAT",
+          "GO_SUBSET_COMPLEX"
+        ],
+        "rule": "floating-point and complex numbers"
+      },
+      {
+        "code": "GO_SUBSET_GENERICS",
+        "rule": "generics"
+      },
+      {
+        "code": "GO_SUBSET_GLOBAL_STATE",
+        "rule": "package-level mutable state"
+      },
+      {
+        "code": "GO_SUBSET_IO",
+        "rule": "I/O"
+      },
+      {
+        "code": "GO_SUBSET_ITERATION",
+        "rule": "non-deterministic iteration"
+      },
+      {
+        "code": "GO_BUILD_CONSTRAINT",
+        "rule": "build tags or build constraints"
+      }
+    ],
+    "source_spec": {
+      "path": "develop/specs/GO_SUBSET_V0.md",
+      "sha256": "0a3d7a63489369337d5c946de5d7f53be9df28829260f9edf791f7acb2f5e00f"
+    }
+  },
+  "identity_changes": [
+    {
+      "baseline_pointer": "/captured_from_revision",
+      "disposition": "immutable pre-cutover audit revision preserved",
+      "id": "identity.captured_revision",
+      "new": "1b3fb3c778b9301d8a214c4bbd3cd8aafa6bb8d4",
+      "old": "1b3fb3c778b9301d8a214c4bbd3cd8aafa6bb8d4"
+    },
+    {
+      "baseline_pointer": "/source_profile",
+      "disposition": "reviewed identity disposition",
+      "id": "identity.source_profile",
+      "new": "replaced by normative mpk.go.fixed.v0",
+      "old": "Go subset v0 (active at capture; historical after cutover)"
+    },
+    {
+      "baseline_pointer": "/source_ir_schema",
+      "disposition": "reviewed identity disposition",
+      "id": "identity.source_ir_schema",
+      "new": "mpk.gir.v0 rejects after cutover; regenerated artifact is mpk.vir.v0",
+      "old": "mpk.gir.v0"
+    },
+    {
+      "baseline_pointer": "/purpose",
+      "disposition": "reviewed identity disposition",
+      "id": "identity.purpose",
+      "new": "remains audit-only and is never a runtime input",
+      "old": "Pre-cutover semantic audit input for GO-VIR-02-T01 and GO-VIR-02-T11; this file is not an accepted runtime artifact."
+    },
+    {
+      "baseline_pointer": "/hash_policy",
+      "disposition": "reviewed identity disposition",
+      "id": "identity.hash_policy",
+      "new": "all old hashes are audit anchors; byte equality is not required and every semantic difference requires reviewed disposition",
+      "old": {
+        "comparison": "audit_only",
+        "expected_byte_equality_after_vir_cutover": false,
+        "rule": "Hash changes are expected when GIR, VC, skeleton, policy, and evidence schemas are regenerated; semantic differences require a reviewed disposition."
+      }
+    }
+  ],
+  "implementation_anchors": [
+    {
+      "disposition": "preserve current package metadata needs and readonly/tests=false intent; replace ambient cwd/environment with immutable root, closed environment, explicit target, NeedDeps, and exact one-pattern closure",
+      "path": "go-tools/go2gir/loader.go",
+      "sha256": "c8dea15e3aac2d9c891fa8479cbc6fd18975c672b75715a4df491a41dfc302e8"
+    },
+    {
+      "disposition": "preserve all baseline negative classes; activate only contracted loops and same-module static dependency calls; add sound VIR-only restrictions",
+      "path": "go-tools/go2gir/features.go",
+      "sha256": "f8add48050d86b97a4a3b4c10b048aef76345e7050ad5f4941f4f54d51e4e086"
+    },
+    {
+      "disposition": "continue mpk.go.contract.v0 filename discovery and require equality with the canonical explicit launcher path set; preserve strict parsing, aliases, nonempty ensures, empty modifies, loop expressions, and exact failure intent; normalize into VirContract",
+      "path": "go-tools/go2gir/contract_sidecar.go",
+      "sha256": "d6231f6b7e365909302630f91b14efd498431f8b9ee832d67a99bd38414a1d15"
+    },
+    {
+      "disposition": "replace GIR shapes/names with canonical VIR IDs, block parameters, checks, contracts, calls, loops, conversions, and source-map coverage while preserving accepted value/control intent",
+      "path": "go-tools/go2gir/lower.go",
+      "sha256": "68b72971300bcbde514f6ba88b421f6cd1b121e221d06ae7844787025f61c684"
+    },
+    {
+      "disposition": "preserve complete aggregate literals, direct field reads, and fixed-array reads; replace inline GIR struct names with nominal StructDecl references",
+      "path": "go-tools/go2gir/lower_types.go",
+      "sha256": "72c172a65a88ef6cce2cee40aff4d5a3e576a617f0b7fa7a4e6bf3b159061b44"
+    },
+    {
+      "disposition": "retain typed SSA only as private recognized lowering input; compiler function/block/value strings and debug dump order never become public VIR identities",
+      "path": "go-tools/go2gir/ssa.go",
+      "sha256": "ff1ab5fd50b0298753e1d84189943d36d26de915b81ffa93a8d3e1f827565add"
+    }
+  ],
+  "inputs": {
+    "baseline": {
+      "captured_from_revision": "1b3fb3c778b9301d8a214c4bbd3cd8aafa6bb8d4",
+      "path": "develop/migrations/go-gir-semantic-baseline.json",
+      "schema": "mpk.go_gir_semantic_baseline.v0",
+      "sha256": "cfb7b13a782ec6753df50117c35bce1ac43a94e157e79cc8fb1645c82679b8a4"
+    },
+    "profile_vector": {
+      "path": "develop/specs/vectors/go-vir-profile-v0.json",
+      "profile": "mpk.go.fixed.v0",
+      "schema": "mpk.go.vir_profile.conformance.v0",
+      "sha256": "c4f1459482838bff82d82168167dbb29be87f8657e935722f0b9689140bcae18"
+    }
+  },
+  "lifecycle": {
+    "archive_or_delete_owner": "GO-VIR-02-T12",
+    "development_only": true,
+    "production_input": false,
+    "release_artifact": false
+  },
+  "obligation_kinds": [
+    {
+      "baseline_pointer": "/obligation_model/theorem_intent/precondition",
+      "disposition": "call site proves each ordered callee requirement",
+      "id": "obligation.precondition",
+      "new": "callee_precondition",
+      "old": "precondition",
+      "old_intent": "A static call site establishes the callee precondition; the current public enum reserves this kind even though the GIR WP path does not yet accept CallStatic."
+    },
+    {
+      "baseline_pointer": "/obligation_model/theorem_intent/postcondition",
+      "disposition": "each reachable return proves each ordered ensure",
+      "id": "obligation.postcondition",
+      "new": "postcondition",
+      "old": "postcondition",
+      "old_intent": "For each feasible return path, requires and path assumptions imply the normalized ensures expression after instruction and result substitution."
+    },
+    {
+      "baseline_pointer": "/obligation_model/theorem_intent/runtime_safety",
+      "disposition": "path assumptions prove each exact VIR safety check",
+      "id": "obligation.runtime_safety",
+      "new": "operation_safety",
+      "old": "runtime_safety",
+      "old_intent": "Path assumptions imply the no-panic predicate for a supported division, signed shift count, or fixed-array index operation."
+    },
+    {
+      "baseline_pointer": "/obligation_model/theorem_intent/loop_invariant_initial",
+      "disposition": "preheader establishes each invariant",
+      "id": "obligation.loop_invariant_initial",
+      "new": "loop_initialization",
+      "old": "loop_invariant_initial",
+      "old_intent": "Function preconditions and the preheader establish each loop invariant."
+    },
+    {
+      "baseline_pointer": "/obligation_model/theorem_intent/loop_invariant_preservation",
+      "disposition": "each backedge preserves each invariant",
+      "id": "obligation.loop_invariant_preservation",
+      "new": "loop_preservation",
+      "old": "loop_invariant_preservation",
+      "old_intent": "Invariants and the loop condition imply each invariant after one body step."
+    },
+    {
+      "baseline_pointer": "/obligation_model/theorem_intent/loop_exit",
+      "disposition": "invariant plus false header condition establishes ensures",
+      "id": "obligation.loop_exit",
+      "new": "loop_exit",
+      "old": "loop_exit",
+      "old_intent": "Invariants and the negated loop condition imply each function postcondition."
+    },
+    {
+      "baseline_pointer": "/obligation_model/theorem_intent/decreases",
+      "disposition": "signed nonnegativity where required and strict decrease per backedge",
+      "id": "obligation.decreases",
+      "new": "loop_decreases",
+      "old": "decreases",
+      "old_intent": "The optional total-correctness variant is nonnegative before the body and strictly decreases after one body step."
+    }
+  ],
+  "reviewed_dispositions": [
+    {
+      "disposition": "reviewed breaking replacement; no compatibility importer",
+      "id": "schema",
+      "new": "mpk.vir.v0 and generic frontend envelopes",
+      "old": "mpk.gir.v0 and GIR-era envelopes"
+    },
+    {
+      "disposition": "reviewed identity replacement; semantic ownership preserved",
+      "id": "identifier",
+      "new": "canonical import-path declaration IDs and stable VC member IDs",
+      "old": "GIR function and theorem strings"
+    },
+    {
+      "disposition": "reviewed grouping change; every member remains assigned exactly once",
+      "id": "declaration_group",
+      "new": "contract and panic-free declarations containing ordered VC members",
+      "old": "one theorem declaration per GIR obligation"
+    },
+    {
+      "disposition": "reviewed zero-axiom checked-foundation rename",
+      "id": "foundation_name",
+      "new": "Std.Program.Base.*",
+      "old": "Std.Go.Base.*"
+    },
+    {
+      "disposition": "audit anchors only; byte and hash equality is not required",
+      "id": "artifact_bytes_and_hashes",
+      "new": "regenerated VIR, VC v1, grouped skeleton, policy, and evidence bytes/hashes",
+      "old": "GIR, VC v0, skeleton, policy, and evidence bytes/hashes"
+    },
+    {
+      "baseline_pointer": "/captured_from_revision",
+      "disposition": "immutable pre-cutover audit revision preserved",
+      "id": "identity.captured_revision",
+      "new": "1b3fb3c778b9301d8a214c4bbd3cd8aafa6bb8d4",
+      "old": "1b3fb3c778b9301d8a214c4bbd3cd8aafa6bb8d4"
+    },
+    {
+      "baseline_pointer": "/source_profile",
+      "disposition": "reviewed identity disposition",
+      "id": "identity.source_profile",
+      "new": "replaced by normative mpk.go.fixed.v0",
+      "old": "Go subset v0 (active at capture; historical after cutover)"
+    },
+    {
+      "baseline_pointer": "/source_ir_schema",
+      "disposition": "reviewed identity disposition",
+      "id": "identity.source_ir_schema",
+      "new": "mpk.gir.v0 rejects after cutover; regenerated artifact is mpk.vir.v0",
+      "old": "mpk.gir.v0"
+    },
+    {
+      "baseline_pointer": "/purpose",
+      "disposition": "reviewed identity disposition",
+      "id": "identity.purpose",
+      "new": "remains audit-only and is never a runtime input",
+      "old": "Pre-cutover semantic audit input for GO-VIR-02-T01 and GO-VIR-02-T11; this file is not an accepted runtime artifact."
+    },
+    {
+      "baseline_pointer": "/hash_policy",
+      "disposition": "reviewed identity disposition",
+      "id": "identity.hash_policy",
+      "new": "all old hashes are audit anchors; byte equality is not required and every semantic difference requires reviewed disposition",
+      "old": {
+        "comparison": "audit_only",
+        "expected_byte_equality_after_vir_cutover": false,
+        "rule": "Hash changes are expected when GIR, VC, skeleton, policy, and evidence schemas are regenerated; semantic differences require a reviewed disposition."
+      }
+    },
+    {
+      "baseline_pointer": "/frontend_contract/cli_schema",
+      "disposition": "breaking replacement",
+      "id": "frontend.cli_schema",
+      "new": "mpk.frontend.cli.v0",
+      "old": "mpk.go2gir.cli.v0"
+    },
+    {
+      "baseline_pointer": "/frontend_contract/success_status",
+      "disposition": "breaking replacement",
+      "id": "frontend.success_status",
+      "new": "ir-lowered",
+      "old": "gir-lowered"
+    },
+    {
+      "baseline_pointer": "/frontend_contract/gir_emit_schema",
+      "disposition": "breaking replacement",
+      "id": "frontend.gir_emit_schema",
+      "new": "mpk.vir.v0 nested in the generic frontend envelope",
+      "old": "mpk.gir.emit.v0"
+    },
+    {
+      "baseline_pointer": "/frontend_contract/source_manifest_schema",
+      "disposition": "breaking replacement with preserved input traceability",
+      "id": "frontend.source_manifest_schema",
+      "new": "mpk.source_manifest.v0",
+      "old": "mpk.go.source_manifest.v0"
+    },
+    {
+      "baseline_pointer": "/frontend_contract/canonical_binary",
+      "disposition": "no byte or hash equality",
+      "id": "frontend.canonical_binary",
+      "new": "MPK-VIR-0.1 canonical JSON hash and generic JCS envelope",
+      "old": "MPK_GIR_V0 framing and hash"
+    },
+    {
+      "baseline_pointer": "/frontend_contract/fail_closed",
+      "disposition": "preserved",
+      "id": "frontend.fail_closed",
+      "new": true,
+      "old": true
+    },
+    {
+      "baseline_pointer": "/obligation_model/theorem_intent/precondition",
+      "disposition": "call site proves each ordered callee requirement",
+      "id": "obligation.precondition",
+      "new": "callee_precondition",
+      "old": "precondition",
+      "old_intent": "A static call site establishes the callee precondition; the current public enum reserves this kind even though the GIR WP path does not yet accept CallStatic."
+    },
+    {
+      "baseline_pointer": "/obligation_model/theorem_intent/postcondition",
+      "disposition": "each reachable return proves each ordered ensure",
+      "id": "obligation.postcondition",
+      "new": "postcondition",
+      "old": "postcondition",
+      "old_intent": "For each feasible return path, requires and path assumptions imply the normalized ensures expression after instruction and result substitution."
+    },
+    {
+      "baseline_pointer": "/obligation_model/theorem_intent/runtime_safety",
+      "disposition": "path assumptions prove each exact VIR safety check",
+      "id": "obligation.runtime_safety",
+      "new": "operation_safety",
+      "old": "runtime_safety",
+      "old_intent": "Path assumptions imply the no-panic predicate for a supported division, signed shift count, or fixed-array index operation."
+    },
+    {
+      "baseline_pointer": "/obligation_model/theorem_intent/loop_invariant_initial",
+      "disposition": "preheader establishes each invariant",
+      "id": "obligation.loop_invariant_initial",
+      "new": "loop_initialization",
+      "old": "loop_invariant_initial",
+      "old_intent": "Function preconditions and the preheader establish each loop invariant."
+    },
+    {
+      "baseline_pointer": "/obligation_model/theorem_intent/loop_invariant_preservation",
+      "disposition": "each backedge preserves each invariant",
+      "id": "obligation.loop_invariant_preservation",
+      "new": "loop_preservation",
+      "old": "loop_invariant_preservation",
+      "old_intent": "Invariants and the loop condition imply each invariant after one body step."
+    },
+    {
+      "baseline_pointer": "/obligation_model/theorem_intent/loop_exit",
+      "disposition": "invariant plus false header condition establishes ensures",
+      "id": "obligation.loop_exit",
+      "new": "loop_exit",
+      "old": "loop_exit",
+      "old_intent": "Invariants and the negated loop condition imply each function postcondition."
+    },
+    {
+      "baseline_pointer": "/obligation_model/theorem_intent/decreases",
+      "disposition": "signed nonnegativity where required and strict decrease per backedge",
+      "id": "obligation.decreases",
+      "new": "loop_decreases",
+      "old": "decreases",
+      "old_intent": "The optional total-correctness variant is nonnegative before the body and strictly decreases after one body step."
+    },
+    {
+      "baseline_pointer": "/obligation_model/kinds",
+      "disposition": "complete one-to-one reviewed obligation kind inventory",
+      "id": "obligation.kind_inventory",
+      "new": [
+        "callee_precondition",
+        "postcondition",
+        "operation_safety",
+        "loop_initialization",
+        "loop_preservation",
+        "loop_exit",
+        "loop_decreases"
+      ],
+      "old": [
+        "precondition",
+        "postcondition",
+        "runtime_safety",
+        "loop_invariant_initial",
+        "loop_invariant_preservation",
+        "loop_exit",
+        "decreases"
+      ]
+    },
+    {
+      "baseline_pointer": "/corpora/go_alpha",
+      "disposition": "corpus identity and acceptance preserved; frontend status renamed",
+      "id": "source.go_alpha.envelope",
+      "new": "same source inventory with ir-lowered status",
+      "old": "frozen corpus manifest, module, and gir-lowered status"
+    },
+    {
+      "baseline_pointer": "/corpora/go_alpha/groups/0",
+      "disposition": "complete function inventory and operation intent preserved",
+      "id": "source.go_alpha.arith",
+      "new": "34 canonical VIR function identities",
+      "old": "34 GIR function identities"
+    },
+    {
+      "baseline_pointer": "/corpora/go_alpha/groups/1",
+      "disposition": "complete function inventory and operation intent preserved",
+      "id": "source.go_alpha.branch",
+      "new": "33 canonical VIR function identities",
+      "old": "33 GIR function identities"
+    },
+    {
+      "baseline_pointer": "/corpora/go_alpha/groups/2",
+      "disposition": "complete function inventory and operation intent preserved",
+      "id": "source.go_alpha.array",
+      "new": "33 canonical VIR function identities",
+      "old": "33 GIR function identities"
+    },
+    {
+      "baseline_pointer": "/corpora/go_alpha/vc_fixture",
+      "disposition": "audit-only synthetic GIR-era VC fixture; regenerate under VC v1 with no hash, theorem-name, or obligation-count equality; preserve postcondition intent and branch-path semantics",
+      "id": "source.go_alpha.vc_fixture",
+      "new": "regenerated VC v1 members and grouped declarations",
+      "old": "1056 GIR-era obligations"
+    },
+    {
+      "baseline_pointer": "/corpora/go_basic",
+      "disposition": "manifest and module identities preserved",
+      "id": "source.go_basic.envelope",
+      "new": "same source corpus under the generic frontend",
+      "old": "frozen corpus manifest and module"
+    },
+    {
+      "baseline_pointer": "/corpora/go_basic/positive/0",
+      "disposition": "source acceptance and operation intent preserved",
+      "id": "source.go_basic.positive.arith",
+      "new": "accepted/ir-lowered",
+      "old": "accepted/gir-lowered"
+    },
+    {
+      "baseline_pointer": "/corpora/go_basic/positive/1",
+      "disposition": "source acceptance and operation intent preserved",
+      "id": "source.go_basic.positive.branch",
+      "new": "accepted/ir-lowered",
+      "old": "accepted/gir-lowered"
+    },
+    {
+      "baseline_pointer": "/corpora/go_basic/positive/2",
+      "disposition": "source acceptance and operation intent preserved",
+      "id": "source.go_basic.positive.structarray",
+      "new": "accepted/ir-lowered",
+      "old": "accepted/gir-lowered"
+    },
+    {
+      "baseline_pointer": "/corpora/go_basic/negative/0",
+      "disposition": "reviewed deterministic rejection classification",
+      "id": "source.go_basic.negative.map",
+      "new": "GO_SUBSET_MAPS",
+      "old": "maps are rejected by Go subset v0"
+    },
+    {
+      "baseline_pointer": "/corpora/go_basic/negative/1",
+      "disposition": "reviewed deterministic rejection classification",
+      "id": "source.go_basic.negative.pointer",
+      "new": "GO_SUBSET_POINTER",
+      "old": "pointers are rejected by Go subset v0"
+    },
+    {
+      "baseline_pointer": "/corpora/go_basic/negative/2",
+      "disposition": "reviewed deterministic rejection classification",
+      "id": "source.go_basic.negative.generic",
+      "new": "GO_SUBSET_GENERICS",
+      "old": "generic functions are rejected by Go subset v0"
+    },
+    {
+      "baseline_pointer": "/corpora/go_basic/negative/3",
+      "disposition": "reviewed deterministic rejection classification",
+      "id": "source.go_basic.negative.string",
+      "new": "GO_SUBSET_STRING",
+      "old": "strings are rejected by Go subset v0"
+    },
+    {
+      "baseline_pointer": "/corpora/payment_policies",
+      "disposition": "payment corpus manifest identity preserved",
+      "id": "source.payment.envelope",
+      "new": "same source-policy inventory under VIR/VC v1",
+      "old": "frozen payment-policy manifest"
+    },
+    {
+      "baseline_pointer": "/corpora/payment_policies/shared_expectation",
+      "disposition": "clause order, branch order, classification, and proof-pending state preserved",
+      "id": "source.payment.shared_property_intent",
+      "new": "8 postcondition members per policy",
+      "old": "8 postcondition intents per policy"
+    },
+    {
+      "baseline_pointer": "/corpora/payment_policies/positive/0",
+      "disposition": "preserve complete deep semantic/classification subtree; regenerate GIR, VC, skeleton, theorem IDs, and hashes as VIR/VC v1",
+      "id": "source.payment.positive.reserve",
+      "new": "example.com/payment/reserve.ApprovedReserveCents",
+      "old": "example.com/payment/reserve.ApprovedReserveCents"
+    },
+    {
+      "baseline_pointer": "/corpora/payment_policies/positive/1",
+      "disposition": "preserve complete deep semantic/classification subtree; regenerate GIR, VC, skeleton, theorem IDs, and hashes as VIR/VC v1",
+      "id": "source.payment.positive.refund",
+      "new": "example.com/payment/refund.ApprovedRefundCents",
+      "old": "example.com/payment/refund.ApprovedRefundCents"
+    },
+    {
+      "baseline_pointer": "/corpora/payment_policies/positive/2",
+      "disposition": "preserve complete deep semantic/classification subtree; regenerate GIR, VC, skeleton, theorem IDs, and hashes as VIR/VC v1",
+      "id": "source.payment.positive.discount",
+      "new": "example.com/payment/discount.ApprovedDiscountCents",
+      "old": "example.com/payment/discount.ApprovedDiscountCents"
+    },
+    {
+      "baseline_pointer": "/corpora/payment_policies/positive/3",
+      "disposition": "preserve complete deep semantic/classification subtree; regenerate GIR, VC, skeleton, theorem IDs, and hashes as VIR/VC v1",
+      "id": "source.payment.positive.fee",
+      "new": "example.com/payment/fee.AppliedPlatformFeeCents",
+      "old": "example.com/payment/fee.AppliedPlatformFeeCents"
+    },
+    {
+      "baseline_pointer": "/corpora/payment_policies/positive/4",
+      "disposition": "preserve complete deep semantic/classification subtree; regenerate GIR, VC, skeleton, theorem IDs, and hashes as VIR/VC v1",
+      "id": "source.payment.positive.points",
+      "new": "example.com/payment/points.ApprovedRedemptionPoints",
+      "old": "example.com/payment/points.ApprovedRedemptionPoints"
+    },
+    {
+      "baseline_pointer": "/corpora/payment_policies/negative/0",
+      "disposition": "preserve complete file-digest and rejection subtree",
+      "id": "source.payment.negative.float",
+      "new": "GO_SUBSET_FLOAT",
+      "old": "floating-point numbers are rejected by Go subset v0"
+    },
+    {
+      "baseline_pointer": "/corpora/payment_policies/negative/1",
+      "disposition": "preserve complete file-digest and rejection subtree",
+      "id": "source.payment.negative.map",
+      "new": "GO_SUBSET_MAPS",
+      "old": "maps are rejected by Go subset v0"
+    },
+    {
+      "baseline_pointer": "/corpora/payment_policies/negative/2",
+      "disposition": "preserve complete file-digest and rejection subtree",
+      "id": "source.payment.negative.pointer",
+      "new": "GO_SUBSET_POINTER",
+      "old": "pointers are rejected by Go subset v0"
+    },
+    {
+      "baseline_pointer": "/corpora/payment_policies/negative/3",
+      "disposition": "present sidecar still rejects; default true contract is not applied",
+      "id": "source.payment.negative.missing_postconditions",
+      "new": "GO_CONTRACT_ENSURES",
+      "old": "contract sidecar requires at least one postcondition"
+    },
+    {
+      "baseline_pointer": "/corpora/focused_frontend_negative_cases/0",
+      "disposition": "reviewed deterministic rejection classification",
+      "id": "source.focused_rejection.0",
+      "new": "GO_SUBSET_MAPS",
+      "old": "maps are rejected by Go subset v0"
+    },
+    {
+      "baseline_pointer": "/corpora/focused_frontend_negative_cases/1",
+      "disposition": "reviewed deterministic rejection classification",
+      "id": "source.focused_rejection.1",
+      "new": "GO_SUBSET_GOROUTINE",
+      "old": "goroutines are rejected by Go subset v0"
+    },
+    {
+      "baseline_pointer": "/corpora/focused_frontend_negative_cases/2",
+      "disposition": "reviewed deterministic rejection classification",
+      "id": "source.focused_rejection.2",
+      "new": "GO_SUBSET_GENERICS",
+      "old": "generic functions are rejected by Go subset v0"
+    },
+    {
+      "baseline_pointer": "/corpora/focused_frontend_negative_cases/3",
+      "disposition": "reviewed deterministic rejection classification",
+      "id": "source.focused_rejection.3",
+      "new": "GO_SUBSET_POINTER",
+      "old": "pointers are rejected by Go subset v0"
+    },
+    {
+      "baseline_pointer": "/corpora/focused_frontend_negative_cases/4",
+      "disposition": "reviewed deterministic rejection classification",
+      "id": "source.focused_rejection.4",
+      "new": "GO_LOWER_UNTYPED_INTEGER",
+      "old": "type untyped int is not lowered by GO-005"
+    },
+    {
+      "baseline_pointer": "/corpora/focused_frontend_negative_cases/5",
+      "disposition": "reviewed deterministic rejection classification",
+      "id": "source.focused_rejection.5",
+      "new": "GO_CONTRACT_JSON",
+      "old": "invalid contract sidecar JSON"
+    },
+    {
+      "baseline_pointer": "/corpora/focused_frontend_negative_cases/6",
+      "disposition": "reviewed deterministic rejection classification",
+      "id": "source.focused_rejection.6",
+      "new": "GO_CONTRACT_FUNCTION",
+      "old": "contract function \"unknowncontract.Missing\" does not resolve to a lowered GIR function"
+    },
+    {
+      "baseline_pointer": "/corpora/focused_frontend_negative_cases/7",
+      "disposition": "reviewed deterministic rejection classification",
+      "id": "source.focused_rejection.7",
+      "new": "GO_CONTRACT_OPERATOR",
+      "old": "unsupported contract expression operator \"float_eq\""
+    },
+    {
+      "baseline_pointer": "/behavioral_anchors/contracts",
+      "disposition": "requires and loops default empty; a present sidecar has nonempty ensures and empty modifies; function resolution, loop expressions, unknown operators, and malformed typed literals retain fail-closed intent; absent acyclic sidecar alone gets normalized true",
+      "id": "behavior.contracts",
+      "new": "normalized VIR/VC v1 behavior",
+      "old": "complete captured behavioral subtree"
+    },
+    {
+      "baseline_pointer": "/behavioral_anchors/loops",
+      "disposition": "partial and total obligation intent is preserved under VC v1 names; missing invariant, unsupported variant, and invalid backedge remain rejection cases",
+      "id": "behavior.loops",
+      "new": "normalized VIR/VC v1 behavior",
+      "old": "complete captured behavioral subtree"
+    },
+    {
+      "baseline_pointer": "/behavioral_anchors/conversions",
+      "disposition": "conversion remains an explicit value plus exact fixed-BV target; extra target fields reject; source program Convert is intentionally activated",
+      "id": "behavior.conversions",
+      "new": "normalized VIR/VC v1 behavior",
+      "old": "complete captured behavioral subtree"
+    },
+    {
+      "baseline_pointer": "/behavioral_anchors/runtime_checks",
+      "disposition": "divisor nonzero, signed shift nonnegative, both signed array bounds, branch path assumptions, wrong signedness, unsupported CFG, and non-array base intent are all preserved; one index_in_bounds record owns the two signed conjuncts",
+      "id": "behavior.runtime_checks",
+      "new": "normalized VIR/VC v1 behavior",
+      "old": "complete captured behavioral subtree"
+    },
+    {
+      "baseline_pointer": "/checker_baseline/release_report",
+      "disposition": "independent source-free/reference checker acceptance and hash-agreement anchor remains unchanged; this profile does not reinterpret the certificate",
+      "id": "checker.release_report",
+      "new": "preserved",
+      "old": "captured independent checker facts"
+    },
+    {
+      "baseline_pointer": "/checker_baseline/payment_reserve_theory_evidence",
+      "disposition": "eight theory-certificate property intents remain an audit anchor; regenerated program certificate and both checker verdicts are required by GO-VIR-02-T11 before mpk_verified evidence",
+      "id": "checker.payment_reserve_theory_evidence",
+      "new": "audit_only_pending_GO-VIR-02-T11",
+      "old": "captured independent checker facts"
+    }
+  ],
+  "schema": "mpk.go_gir_to_vir_report.v0",
+  "semantics": {
+    "conversion": {
+      "new_intent": "explicit Convert with an exact fixed-BV target",
+      "old_intent": "A conversion remains an explicit typed expression with the source value and exact fixed-width target type."
+    },
+    "loop_members": {
+      "negative_cases": [
+        "rejects_loop_contract_without_invariant",
+        "rejects_unsupported_variant_shape",
+        "rejects_loop_body_that_does_not_jump_back_to_header"
+      ],
+      "new_partial_members": [
+        "loop_initialization",
+        "loop_initialization",
+        "loop_preservation",
+        "loop_preservation",
+        "loop_exit"
+      ],
+      "new_total_additional_members": [
+        "loop_decreases",
+        "loop_decreases"
+      ],
+      "old_partial_members": [
+        "loop_invariant_initial",
+        "loop_invariant_initial",
+        "loop_invariant_preservation",
+        "loop_invariant_preservation",
+        "loop_exit"
+      ],
+      "old_total_additional_members": [
+        "decreases",
+        "decreases"
+      ],
+      "total_member_count": 7
+    },
+    "normalized_contracts": {
+      "new_rules": [
+        "requires and loops default empty",
+        "present sidecar requires nonempty ensures and empty modifies",
+        "function and loop identity resolve canonically",
+        "unknown operators and malformed typed literals reject",
+        "absent sidecar on an acyclic function normalizes to true"
+      ],
+      "old_rules": [
+        "requires and loops default to empty",
+        "ensures must be present and nonempty",
+        "modifies must be empty",
+        "function identity must resolve exactly",
+        "loop contracts retain invariant and optional decreases expressions",
+        "unknown operators and malformed typed literals reject"
+      ]
+    },
+    "runtime_checks": [
+      {
+        "new_check": "divisor_nonzero",
+        "new_obligation_kind": "operation_safety",
+        "old_member_count": 1,
+        "old_predicate": "divisor != 0",
+        "operation": "signed division",
+        "predicate_components": 1,
+        "safety_semantics": "preserved"
+      },
+      {
+        "new_check": "shift_count_nonnegative",
+        "new_obligation_kind": "operation_safety",
+        "old_member_count": 1,
+        "old_predicate": "count >= 0",
+        "operation": "shift with signed count",
+        "predicate_components": 1,
+        "safety_semantics": "preserved"
+      },
+      {
+        "new_check": "index_in_bounds",
+        "new_obligation_kind": "operation_safety",
+        "old_member_count": 2,
+        "old_predicate": "0 <= index && index < length",
+        "operation": "fixed-array read with signed index",
+        "predicate_components": 2,
+        "safety_semantics": "preserved"
+      }
+    ]
+  },
+  "source_inventory": {
+    "accepted_source_case_count": 108,
+    "canonical_function_identity_count": 105,
+    "focused_rejections": [
+      {
+        "baseline_index": 0,
+        "new_code": "GO_SUBSET_MAPS",
+        "new_message": null,
+        "old_reason": "maps are rejected by Go subset v0",
+        "path": "go-tools/go2gir/testdata/unsupported/map"
+      },
+      {
+        "baseline_index": 1,
+        "new_code": "GO_SUBSET_GOROUTINE",
+        "new_message": null,
+        "old_reason": "goroutines are rejected by Go subset v0",
+        "path": "go-tools/go2gir/testdata/unsupported/goroutine"
+      },
+      {
+        "baseline_index": 2,
+        "new_code": "GO_SUBSET_GENERICS",
+        "new_message": null,
+        "old_reason": "generic functions are rejected by Go subset v0",
+        "path": "go-tools/go2gir/testdata/unsupported/generic"
+      },
+      {
+        "baseline_index": 3,
+        "new_code": "GO_SUBSET_POINTER",
+        "new_message": null,
+        "old_reason": "pointers are rejected by Go subset v0",
+        "path": "go-tools/go2gir/testdata/unsupported/pointer"
+      },
+      {
+        "baseline_index": 4,
+        "new_code": "GO_LOWER_UNTYPED_INTEGER",
+        "new_message": "untyped integer expression has no accepted fixed-width context",
+        "old_reason": "type untyped int is not lowered by GO-005",
+        "path": "go-tools/go2gir/testdata/unsupported/untypedint"
+      },
+      {
+        "baseline_index": 5,
+        "new_code": "GO_CONTRACT_JSON",
+        "new_message": "invalid contract sidecar JSON",
+        "old_reason": "invalid contract sidecar JSON",
+        "path": "go-tools/go2gir/testdata/contract_malformed"
+      },
+      {
+        "baseline_index": 6,
+        "new_code": "GO_CONTRACT_FUNCTION",
+        "new_message": "contract function \"unknowncontract.Missing\" does not resolve to an included Go function",
+        "old_reason": "contract function \"unknowncontract.Missing\" does not resolve to a lowered GIR function",
+        "path": "go-tools/go2gir/testdata/contract_unknown_function"
+      },
+      {
+        "baseline_index": 7,
+        "new_code": "GO_CONTRACT_OPERATOR",
+        "new_message": "unsupported contract expression operator \"float_eq\"",
+        "old_reason": "unsupported contract expression operator \"float_eq\"",
+        "path": "go-tools/go2gir/testdata/contract_unsupported_operator"
+      }
+    ],
+    "go_alpha": {
+      "dispositions": [
+        {
+          "baseline_pointer": "/corpora/go_alpha",
+          "disposition": "corpus identity and acceptance preserved; frontend status renamed",
+          "id": "source.go_alpha.envelope",
+          "new": "same source inventory with ir-lowered status",
+          "old": "frozen corpus manifest, module, and gir-lowered status"
+        },
+        {
+          "baseline_pointer": "/corpora/go_alpha/groups/0",
+          "disposition": "complete function inventory and operation intent preserved",
+          "id": "source.go_alpha.arith",
+          "new": "34 canonical VIR function identities",
+          "old": "34 GIR function identities"
+        },
+        {
+          "baseline_pointer": "/corpora/go_alpha/groups/1",
+          "disposition": "complete function inventory and operation intent preserved",
+          "id": "source.go_alpha.branch",
+          "new": "33 canonical VIR function identities",
+          "old": "33 GIR function identities"
+        },
+        {
+          "baseline_pointer": "/corpora/go_alpha/groups/2",
+          "disposition": "complete function inventory and operation intent preserved",
+          "id": "source.go_alpha.array",
+          "new": "33 canonical VIR function identities",
+          "old": "33 GIR function identities"
+        },
+        {
+          "baseline_pointer": "/corpora/go_alpha/vc_fixture",
+          "disposition": "audit-only synthetic GIR-era VC fixture; regenerate under VC v1 with no hash, theorem-name, or obligation-count equality; preserve postcondition intent and branch-path semantics",
+          "id": "source.go_alpha.vc_fixture",
+          "new": "regenerated VC v1 members and grouped declarations",
+          "old": "1056 GIR-era obligations"
+        }
+      ],
+      "function_count": 100,
+      "function_identities": [
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.Add64",
+          "old_group": "arith",
+          "old_name": "Add64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.Sub64",
+          "old_group": "arith",
+          "old_name": "Sub64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.Mul64",
+          "old_group": "arith",
+          "old_name": "Mul64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.Neg64",
+          "old_group": "arith",
+          "old_name": "Neg64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.Add32",
+          "old_group": "arith",
+          "old_name": "Add32"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.Sub32",
+          "old_group": "arith",
+          "old_name": "Sub32"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.Mul32",
+          "old_group": "arith",
+          "old_name": "Mul32"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.Neg32",
+          "old_group": "arith",
+          "old_name": "Neg32"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.Add16",
+          "old_group": "arith",
+          "old_name": "Add16"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.Sub16",
+          "old_group": "arith",
+          "old_name": "Sub16"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.Add8",
+          "old_group": "arith",
+          "old_name": "Add8"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.Sub8",
+          "old_group": "arith",
+          "old_name": "Sub8"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.AddU64",
+          "old_group": "arith",
+          "old_name": "AddU64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.SubU64",
+          "old_group": "arith",
+          "old_name": "SubU64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.MulU64",
+          "old_group": "arith",
+          "old_name": "MulU64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.AndU64",
+          "old_group": "arith",
+          "old_name": "AndU64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.OrU64",
+          "old_group": "arith",
+          "old_name": "OrU64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.XorU64",
+          "old_group": "arith",
+          "old_name": "XorU64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.NotU64",
+          "old_group": "arith",
+          "old_name": "NotU64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.ShiftLeftU64",
+          "old_group": "arith",
+          "old_name": "ShiftLeftU64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.ShiftRightU64",
+          "old_group": "arith",
+          "old_name": "ShiftRightU64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.AndU8",
+          "old_group": "arith",
+          "old_name": "AndU8"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.OrU8",
+          "old_group": "arith",
+          "old_name": "OrU8"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.XorU8",
+          "old_group": "arith",
+          "old_name": "XorU8"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.NotU8",
+          "old_group": "arith",
+          "old_name": "NotU8"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.Less64",
+          "old_group": "arith",
+          "old_name": "Less64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.LessEqual64",
+          "old_group": "arith",
+          "old_name": "LessEqual64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.Greater64",
+          "old_group": "arith",
+          "old_name": "Greater64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.GreaterEqual64",
+          "old_group": "arith",
+          "old_name": "GreaterEqual64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.Equal64",
+          "old_group": "arith",
+          "old_name": "Equal64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.NotEqual64",
+          "old_group": "arith",
+          "old_name": "NotEqual64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.BoolAnd",
+          "old_group": "arith",
+          "old_name": "BoolAnd"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.BoolOr",
+          "old_group": "arith",
+          "old_name": "BoolOr"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/arith.BoolNot",
+          "old_group": "arith",
+          "old_name": "BoolNot"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.Max64",
+          "old_group": "branch",
+          "old_name": "Max64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.Min64",
+          "old_group": "branch",
+          "old_name": "Min64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.Max32",
+          "old_group": "branch",
+          "old_name": "Max32"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.Min32",
+          "old_group": "branch",
+          "old_name": "Min32"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.Max16",
+          "old_group": "branch",
+          "old_name": "Max16"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.Min16",
+          "old_group": "branch",
+          "old_name": "Min16"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.Max8",
+          "old_group": "branch",
+          "old_name": "Max8"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.Min8",
+          "old_group": "branch",
+          "old_name": "Min8"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.MaxU64",
+          "old_group": "branch",
+          "old_name": "MaxU64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.MinU64",
+          "old_group": "branch",
+          "old_name": "MinU64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.MaxU32",
+          "old_group": "branch",
+          "old_name": "MaxU32"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.MinU32",
+          "old_group": "branch",
+          "old_name": "MinU32"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.MaxU16",
+          "old_group": "branch",
+          "old_name": "MaxU16"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.MinU16",
+          "old_group": "branch",
+          "old_name": "MinU16"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.MaxU8",
+          "old_group": "branch",
+          "old_name": "MaxU8"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.MinU8",
+          "old_group": "branch",
+          "old_name": "MinU8"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.Pick64",
+          "old_group": "branch",
+          "old_name": "Pick64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.Pick32",
+          "old_group": "branch",
+          "old_name": "Pick32"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.Pick16",
+          "old_group": "branch",
+          "old_name": "Pick16"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.Pick8",
+          "old_group": "branch",
+          "old_name": "Pick8"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.PickU64",
+          "old_group": "branch",
+          "old_name": "PickU64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.PickU32",
+          "old_group": "branch",
+          "old_name": "PickU32"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.PickU16",
+          "old_group": "branch",
+          "old_name": "PickU16"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.PickU8",
+          "old_group": "branch",
+          "old_name": "PickU8"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.Clamp64",
+          "old_group": "branch",
+          "old_name": "Clamp64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.Clamp32",
+          "old_group": "branch",
+          "old_name": "Clamp32"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.ClampU64",
+          "old_group": "branch",
+          "old_name": "ClampU64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.ClampU32",
+          "old_group": "branch",
+          "old_name": "ClampU32"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.AbsDiff64",
+          "old_group": "branch",
+          "old_name": "AbsDiff64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.AbsDiff32",
+          "old_group": "branch",
+          "old_name": "AbsDiff32"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.AbsDiff16",
+          "old_group": "branch",
+          "old_name": "AbsDiff16"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.AbsDiff8",
+          "old_group": "branch",
+          "old_name": "AbsDiff8"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/branch.Ordered64",
+          "old_group": "branch",
+          "old_name": "Ordered64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.BuildPair64",
+          "old_group": "array",
+          "old_name": "BuildPair64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.SumPair64",
+          "old_group": "array",
+          "old_name": "SumPair64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.PickPairLeft",
+          "old_group": "array",
+          "old_name": "PickPairLeft"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.PickPairRight",
+          "old_group": "array",
+          "old_name": "PickPairRight"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.SwapPair64",
+          "old_group": "array",
+          "old_name": "SwapPair64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.BuildTriple64",
+          "old_group": "array",
+          "old_name": "BuildTriple64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.SumTriple64",
+          "old_group": "array",
+          "old_name": "SumTriple64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.PickTripleFirst",
+          "old_group": "array",
+          "old_name": "PickTripleFirst"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.PickTripleSecond",
+          "old_group": "array",
+          "old_name": "PickTripleSecond"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.PickTripleThird",
+          "old_group": "array",
+          "old_name": "PickTripleThird"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.BuildArray2",
+          "old_group": "array",
+          "old_name": "BuildArray2"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.BuildArray3",
+          "old_group": "array",
+          "old_name": "BuildArray3"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.FirstArray2",
+          "old_group": "array",
+          "old_name": "FirstArray2"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.SecondArray2",
+          "old_group": "array",
+          "old_name": "SecondArray2"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.SumArray2",
+          "old_group": "array",
+          "old_name": "SumArray2"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.FirstArray3",
+          "old_group": "array",
+          "old_name": "FirstArray3"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.SecondArray3",
+          "old_group": "array",
+          "old_name": "SecondArray3"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.ThirdArray3",
+          "old_group": "array",
+          "old_name": "ThirdArray3"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.SumArray3",
+          "old_group": "array",
+          "old_name": "SumArray3"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.BuildUArray2",
+          "old_group": "array",
+          "old_name": "BuildUArray2"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.FirstUArray2",
+          "old_group": "array",
+          "old_name": "FirstUArray2"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.SecondUArray2",
+          "old_group": "array",
+          "old_name": "SecondUArray2"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.SumUArray2",
+          "old_group": "array",
+          "old_name": "SumUArray2"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.BuildBoolArray2",
+          "old_group": "array",
+          "old_name": "BuildBoolArray2"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.FirstBoolArray2",
+          "old_group": "array",
+          "old_name": "FirstBoolArray2"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.SecondBoolArray2",
+          "old_group": "array",
+          "old_name": "SecondBoolArray2"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.AllBoolArray2",
+          "old_group": "array",
+          "old_name": "AllBoolArray2"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.AnyBoolArray2",
+          "old_group": "array",
+          "old_name": "AnyBoolArray2"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.BuildPairArray64",
+          "old_group": "array",
+          "old_name": "BuildPairArray64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.SumPairArray64",
+          "old_group": "array",
+          "old_name": "SumPairArray64"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.SelectArrayValue",
+          "old_group": "array",
+          "old_name": "SelectArrayValue"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.AddArrayFirst",
+          "old_group": "array",
+          "old_name": "AddArrayFirst"
+        },
+        {
+          "new_function_id": "github.com/finitefield-org/mpk/fixtures/go-alpha/array.BuildPairU64",
+          "old_group": "array",
+          "old_name": "BuildPairU64"
+        }
+      ],
+      "groups": [
+        {
+          "function_count": 34,
+          "name": "arith",
+          "preserved_operation_semantics": [
+            "fixed-width signed and unsigned wrapping arithmetic",
+            "fixed-width bit operations",
+            "signed comparisons",
+            "Boolean operations",
+            "signed shift counts require operation-safety coverage"
+          ]
+        },
+        {
+          "function_count": 33,
+          "name": "branch",
+          "preserved_operation_semantics": [
+            "if control flow",
+            "early path selection",
+            "local assignment",
+            "signed and unsigned comparisons"
+          ]
+        },
+        {
+          "function_count": 33,
+          "name": "array",
+          "preserved_operation_semantics": [
+            "fixed-array construction and read",
+            "by-value struct construction and field read",
+            "nested aggregate values",
+            "fixed-array reads require complete bounds coverage"
+          ]
+        }
+      ],
+      "vc_fixture": {
+        "byte_or_hash_equality_required": false,
+        "old_obligation_count": 1056,
+        "preserved_intent": "postcondition and branch-path semantics"
+      }
+    },
+    "go_basic": {
+      "accepted": [
+        {
+          "name": "arith",
+          "new_status": "ir-lowered",
+          "old_outcome": "accepted",
+          "path": "positive/arith"
+        },
+        {
+          "name": "branch",
+          "new_status": "ir-lowered",
+          "old_outcome": "accepted",
+          "path": "positive/branch"
+        },
+        {
+          "name": "structarray",
+          "new_status": "ir-lowered",
+          "old_outcome": "accepted",
+          "path": "positive/structarray"
+        }
+      ],
+      "dispositions": [
+        {
+          "baseline_pointer": "/corpora/go_basic",
+          "disposition": "manifest and module identities preserved",
+          "id": "source.go_basic.envelope",
+          "new": "same source corpus under the generic frontend",
+          "old": "frozen corpus manifest and module"
+        },
+        {
+          "baseline_pointer": "/corpora/go_basic/positive/0",
+          "disposition": "source acceptance and operation intent preserved",
+          "id": "source.go_basic.positive.arith",
+          "new": "accepted/ir-lowered",
+          "old": "accepted/gir-lowered"
+        },
+        {
+          "baseline_pointer": "/corpora/go_basic/positive/1",
+          "disposition": "source acceptance and operation intent preserved",
+          "id": "source.go_basic.positive.branch",
+          "new": "accepted/ir-lowered",
+          "old": "accepted/gir-lowered"
+        },
+        {
+          "baseline_pointer": "/corpora/go_basic/positive/2",
+          "disposition": "source acceptance and operation intent preserved",
+          "id": "source.go_basic.positive.structarray",
+          "new": "accepted/ir-lowered",
+          "old": "accepted/gir-lowered"
+        },
+        {
+          "baseline_pointer": "/corpora/go_basic/negative/0",
+          "disposition": "reviewed deterministic rejection classification",
+          "id": "source.go_basic.negative.map",
+          "new": "GO_SUBSET_MAPS",
+          "old": "maps are rejected by Go subset v0"
+        },
+        {
+          "baseline_pointer": "/corpora/go_basic/negative/1",
+          "disposition": "reviewed deterministic rejection classification",
+          "id": "source.go_basic.negative.pointer",
+          "new": "GO_SUBSET_POINTER",
+          "old": "pointers are rejected by Go subset v0"
+        },
+        {
+          "baseline_pointer": "/corpora/go_basic/negative/2",
+          "disposition": "reviewed deterministic rejection classification",
+          "id": "source.go_basic.negative.generic",
+          "new": "GO_SUBSET_GENERICS",
+          "old": "generic functions are rejected by Go subset v0"
+        },
+        {
+          "baseline_pointer": "/corpora/go_basic/negative/3",
+          "disposition": "reviewed deterministic rejection classification",
+          "id": "source.go_basic.negative.string",
+          "new": "GO_SUBSET_STRING",
+          "old": "strings are rejected by Go subset v0"
+        }
+      ],
+      "rejected": [
+        {
+          "name": "map",
+          "new_code": "GO_SUBSET_MAPS",
+          "old_reason": "maps are rejected by Go subset v0",
+          "path": "negative/map"
+        },
+        {
+          "name": "pointer",
+          "new_code": "GO_SUBSET_POINTER",
+          "old_reason": "pointers are rejected by Go subset v0",
+          "path": "negative/pointer"
+        },
+        {
+          "name": "generic",
+          "new_code": "GO_SUBSET_GENERICS",
+          "old_reason": "generic functions are rejected by Go subset v0",
+          "path": "negative/generic"
+        },
+        {
+          "name": "string",
+          "new_code": "GO_SUBSET_STRING",
+          "old_reason": "strings are rejected by Go subset v0",
+          "path": "negative/string"
+        }
+      ]
+    },
+    "payment_policies": {
+      "accepted": [
+        {
+          "classification_patterns": {
+            "non_negative_result": 2,
+            "result_bounded_by_input": 4,
+            "selected_branch_result_equals_input": 2
+          },
+          "function_id": "example.com/payment/reserve.ApprovedReserveCents",
+          "name": "reserve",
+          "postcondition_intent_count": 8
+        },
+        {
+          "classification_patterns": {
+            "non_negative_result": 2,
+            "refund_bounded_by_available_paid_amount": 4,
+            "selected_branch_result_equals_input": 2
+          },
+          "function_id": "example.com/payment/refund.ApprovedRefundCents",
+          "name": "refund",
+          "postcondition_intent_count": 8
+        },
+        {
+          "classification_patterns": {
+            "fee_or_discount_bounded_by_cap": 4,
+            "non_negative_result": 2,
+            "selected_branch_result_equals_input": 2
+          },
+          "function_id": "example.com/payment/discount.ApprovedDiscountCents",
+          "name": "discount",
+          "postcondition_intent_count": 8
+        },
+        {
+          "classification_patterns": {
+            "fee_or_discount_bounded_by_cap": 4,
+            "non_negative_result": 2,
+            "selected_branch_result_equals_input": 2
+          },
+          "function_id": "example.com/payment/fee.AppliedPlatformFeeCents",
+          "name": "fee",
+          "postcondition_intent_count": 8
+        },
+        {
+          "classification_patterns": {
+            "non_negative_result": 2,
+            "result_bounded_by_input": 4,
+            "selected_branch_result_equals_input": 2
+          },
+          "function_id": "example.com/payment/points.ApprovedRedemptionPoints",
+          "name": "points",
+          "postcondition_intent_count": 8
+        }
+      ],
+      "dispositions": [
+        {
+          "baseline_pointer": "/corpora/payment_policies",
+          "disposition": "payment corpus manifest identity preserved",
+          "id": "source.payment.envelope",
+          "new": "same source-policy inventory under VIR/VC v1",
+          "old": "frozen payment-policy manifest"
+        },
+        {
+          "baseline_pointer": "/corpora/payment_policies/shared_expectation",
+          "disposition": "clause order, branch order, classification, and proof-pending state preserved",
+          "id": "source.payment.shared_property_intent",
+          "new": "8 postcondition members per policy",
+          "old": "8 postcondition intents per policy"
+        },
+        {
+          "baseline_pointer": "/corpora/payment_policies/positive/0",
+          "disposition": "preserve complete deep semantic/classification subtree; regenerate GIR, VC, skeleton, theorem IDs, and hashes as VIR/VC v1",
+          "id": "source.payment.positive.reserve",
+          "new": "example.com/payment/reserve.ApprovedReserveCents",
+          "old": "example.com/payment/reserve.ApprovedReserveCents"
+        },
+        {
+          "baseline_pointer": "/corpora/payment_policies/positive/1",
+          "disposition": "preserve complete deep semantic/classification subtree; regenerate GIR, VC, skeleton, theorem IDs, and hashes as VIR/VC v1",
+          "id": "source.payment.positive.refund",
+          "new": "example.com/payment/refund.ApprovedRefundCents",
+          "old": "example.com/payment/refund.ApprovedRefundCents"
+        },
+        {
+          "baseline_pointer": "/corpora/payment_policies/positive/2",
+          "disposition": "preserve complete deep semantic/classification subtree; regenerate GIR, VC, skeleton, theorem IDs, and hashes as VIR/VC v1",
+          "id": "source.payment.positive.discount",
+          "new": "example.com/payment/discount.ApprovedDiscountCents",
+          "old": "example.com/payment/discount.ApprovedDiscountCents"
+        },
+        {
+          "baseline_pointer": "/corpora/payment_policies/positive/3",
+          "disposition": "preserve complete deep semantic/classification subtree; regenerate GIR, VC, skeleton, theorem IDs, and hashes as VIR/VC v1",
+          "id": "source.payment.positive.fee",
+          "new": "example.com/payment/fee.AppliedPlatformFeeCents",
+          "old": "example.com/payment/fee.AppliedPlatformFeeCents"
+        },
+        {
+          "baseline_pointer": "/corpora/payment_policies/positive/4",
+          "disposition": "preserve complete deep semantic/classification subtree; regenerate GIR, VC, skeleton, theorem IDs, and hashes as VIR/VC v1",
+          "id": "source.payment.positive.points",
+          "new": "example.com/payment/points.ApprovedRedemptionPoints",
+          "old": "example.com/payment/points.ApprovedRedemptionPoints"
+        },
+        {
+          "baseline_pointer": "/corpora/payment_policies/negative/0",
+          "disposition": "preserve complete file-digest and rejection subtree",
+          "id": "source.payment.negative.float",
+          "new": "GO_SUBSET_FLOAT",
+          "old": "floating-point numbers are rejected by Go subset v0"
+        },
+        {
+          "baseline_pointer": "/corpora/payment_policies/negative/1",
+          "disposition": "preserve complete file-digest and rejection subtree",
+          "id": "source.payment.negative.map",
+          "new": "GO_SUBSET_MAPS",
+          "old": "maps are rejected by Go subset v0"
+        },
+        {
+          "baseline_pointer": "/corpora/payment_policies/negative/2",
+          "disposition": "preserve complete file-digest and rejection subtree",
+          "id": "source.payment.negative.pointer",
+          "new": "GO_SUBSET_POINTER",
+          "old": "pointers are rejected by Go subset v0"
+        },
+        {
+          "baseline_pointer": "/corpora/payment_policies/negative/3",
+          "disposition": "present sidecar still rejects; default true contract is not applied",
+          "id": "source.payment.negative.missing_postconditions",
+          "new": "GO_CONTRACT_ENSURES",
+          "old": "contract sidecar requires at least one postcondition"
+        }
+      ],
+      "rejected": [
+        {
+          "name": "float",
+          "new_code": "GO_SUBSET_FLOAT",
+          "old_reason": "floating-point numbers are rejected by Go subset v0",
+          "path": "negative/float"
+        },
+        {
+          "name": "map",
+          "new_code": "GO_SUBSET_MAPS",
+          "old_reason": "maps are rejected by Go subset v0",
+          "path": "negative/map"
+        },
+        {
+          "name": "pointer",
+          "new_code": "GO_SUBSET_POINTER",
+          "old_reason": "pointers are rejected by Go subset v0",
+          "path": "negative/pointer"
+        },
+        {
+          "name": "missing_postconditions",
+          "new_code": "GO_CONTRACT_ENSURES",
+          "old_reason": "contract sidecar requires at least one postcondition",
+          "path": "negative/missing_postconditions"
+        }
+      ],
+      "shared_property_intent": {
+        "classification_property_status": "proof_pending",
+        "clause_and_branch_order": "preserved",
+        "old_artifact_hash_equality": false,
+        "postcondition_intent_count": 8
+      }
+    },
+    "rejected_source_case_count": 16
+  },
+  "status": "equivalent_with_reviewed_changes",
+  "summary": {
+    "accepted_source_case_count": 108,
+    "baseline_leaf_count": 463,
+    "canonical_function_identity_count": 105,
+    "checked_fixture_file_count": 66,
+    "checker_anchor_count": 2,
+    "covered_leaf_count": 463,
+    "historical_accepted_rule_count": 23,
+    "historical_rejected_rule_count": 21,
+    "obligation_kind_count": 7,
+    "rejected_source_case_count": 16,
+    "reviewed_disposition_count": 62,
+    "runtime_check_count": 3,
+    "unexplained_difference_count": 0
+  }
+}
