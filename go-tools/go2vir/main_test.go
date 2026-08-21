@@ -152,7 +152,7 @@ func TestRunEmitsOnlyCanonicalSkeletonFrontendError(t *testing.T) {
 		wantRequest,
 		"capture",
 		"GO_FRONTEND_INTERNAL",
-		"Go source capture is not implemented",
+		"registered Go release selection is not installed",
 	)
 	want, err := canonicalJSON(wantEnvelope)
 	if err != nil {

@@ -67,13 +67,14 @@ func run(args []string, stdout io.Writer, stderr io.Writer) int {
 		return 2
 	}
 
-	// GO-VIR-02-T02 owns only the protocol skeleton. GO-VIR-02-T03 replaces
-	// this capture-phase stop with immutable source capture.
+	// GO-VIR-02-T03 provides the private validated-selection/capture pipeline.
+	// GO-VIR-02-T05 supplies its production registered resolver; until then no
+	// unregistered filesystem candidate may enter the released command path.
 	envelope := newFrontendErrorEnvelope(
 		request,
 		"capture",
 		"GO_FRONTEND_INTERNAL",
-		"Go source capture is not implemented",
+		"registered Go release selection is not installed",
 	)
 	exitCode, err := writeNonSuccessEnvelope(stdout, request, envelope)
 	if err != nil {
