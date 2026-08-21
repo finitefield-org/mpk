@@ -1,0 +1,2783 @@
+{
+  "schema": "mpk.go.vir_profile.conformance.v0",
+  "spec_profile": "mpk.go.fixed.v0",
+  "dependencies": [
+    {
+      "path": "develop/specs/VIR_V0.md",
+      "schema": "mpk.vir.v0"
+    },
+    {
+      "path": "develop/specs/VC_V1.md",
+      "schema": "mpk.vc.v1"
+    },
+    {
+      "path": "develop/specs/FRONTEND_PROTOCOL_V0.md",
+      "schema": "mpk.frontend.cli.v0"
+    },
+    {
+      "path": "develop/specs/RELEASE_BUNDLES_V0.md",
+      "schema": "mpk.release.bundle_registry.v0"
+    },
+    {
+      "path": "develop/specs/SOURCE_MANIFEST_V0.md",
+      "schema": "mpk.source_manifest.v0"
+    },
+    {
+      "path": "develop/specs/SOURCE_MAP_V0.md",
+      "schema": "mpk.source_map.v0"
+    }
+  ],
+  "owner_tests": [
+    "go-tools/go2vir/profile_v0_test.go",
+    "go-tools/go2vir/profile_v0_vectors_test.go",
+    "crates/mpk-vc/tests/go_profile_vectors.rs"
+  ],
+  "profile_cases": [
+    {
+      "id": "profile.valid_linux_amd64",
+      "construction": {
+        "kind": "registered_request",
+        "source_language": "go",
+        "semantic_profile": "mpk.go.fixed.v0",
+        "semantic_parameters": {
+          "target_id": "linux/amd64",
+          "pointer_width": 64
+        },
+        "selection": {
+          "package": "example.com/mpk/vector",
+          "function": "example.com/mpk/vector.Identity"
+        }
+      },
+      "expect": {
+        "outcome": "accepted",
+        "goos": "linux",
+        "goarch": "amd64",
+        "cgo_enabled": "0"
+      }
+    },
+    {
+      "id": "profile.reject_language_pair",
+      "construction": {
+        "kind": "registered_request_patch",
+        "base": "profile.valid_linux_amd64",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/semantic_profile",
+            "value": "mpk.rust.checked.v0"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "configuration-error",
+        "phase": "configuration",
+        "code": "FRONTEND_BUNDLE_INCOMPATIBLE"
+      }
+    },
+    {
+      "id": "profile.reject_pointer_width_override",
+      "construction": {
+        "kind": "registered_request_patch",
+        "base": "profile.valid_linux_amd64",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/semantic_parameters/pointer_width",
+            "value": 32
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "configuration-error",
+        "phase": "configuration",
+        "code": "FRONTEND_BUNDLE_INCOMPATIBLE"
+      }
+    },
+    {
+      "id": "profile.host_target_substitution_ignored",
+      "construction": {
+        "kind": "repeat_with_poisoned_host",
+        "base": "profile.valid_linux_amd64",
+        "host_environment": {
+          "GOOS": "darwin",
+          "GOARCH": "arm64"
+        }
+      },
+      "expect": {
+        "outcome": "accepted",
+        "equal_artifact_bytes_to": "profile.valid_linux_amd64",
+        "goos": "linux",
+        "goarch": "amd64"
+      }
+    },
+    {
+      "id": "profile.reject_loaded_type_sizes_mismatch",
+      "construction": {
+        "kind": "loaded_type_sizes_mismatch",
+        "base": "profile.valid_linux_amd64",
+        "compiler": "gc",
+        "goarch": "amd64",
+        "reported_pointer_width": 32
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "phase": "typecheck",
+        "code": "GO_FRONTEND_TOOLCHAIN"
+      }
+    },
+    {
+      "id": "profile.reject_unregistered_target",
+      "construction": {
+        "kind": "registered_request_patch",
+        "base": "profile.valid_linux_amd64",
+        "patches": [
+          {
+            "op": "replace",
+            "path": "/semantic_parameters/target_id",
+            "value": "linux/arm64"
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "configuration-error",
+        "phase": "configuration",
+        "code": "FRONTEND_BUNDLE_INCOMPATIBLE"
+      }
+    }
+  ],
+  "capture_cases": [
+    {
+      "id": "capture.valid_closed_environment",
+      "construction": {
+        "kind": "minimal_module",
+        "files": {
+          "go.mod": "module example.com/mpk/vector\n\ngo 1.23\n",
+          "identity.go": "package vector\nfunc Identity(value int64) int64 { return value }\n"
+        },
+        "selection": {
+          "package": "example.com/mpk/vector",
+          "function": "example.com/mpk/vector.Identity"
+        }
+      },
+      "expect": {
+        "outcome": "accepted",
+        "manifest_inputs": [
+          {
+            "kind": "build_manifest",
+            "normalized_path": "go.mod"
+          },
+          {
+            "kind": "source",
+            "normalized_path": "identity.go"
+          }
+        ],
+        "environment_profile_id": "mpk.go.frontend_environment.v0",
+        "argument_profile_id": "mpk.go.frontend_arguments.v0",
+        "contract_paths": [],
+        "frontend_process_environment_equals_config_env": true,
+        "go_packages_config_env_pwd": "absent",
+        "go_child_final_environment_entry": "PWD=/mpk/source",
+        "go_version_probe_appended_environment_entries": [
+          "GO111MODULE=off",
+          "PWD=/mpk/source"
+        ],
+        "diagnostics": []
+      }
+    },
+    {
+      "id": "capture.poisoned_inherited_environment",
+      "construction": {
+        "kind": "repeat_with_poisoned_host",
+        "base": "capture.valid_closed_environment",
+        "host_environment": {
+          "CGO_ENABLED": "1",
+          "GO111MODULE": "off",
+          "GOAMD64": "v4",
+          "GOARCH": "arm64",
+          "GOCACHE": "/host/cache",
+          "GODEBUG": "gocacheverify=1",
+          "GOENV": "/host/go/env",
+          "GOEXPERIMENT": "hostexperiment",
+          "GOFLAGS": "-race -tags=host",
+          "GOMAXPROCS": "64",
+          "GOMODCACHE": "/host/mod",
+          "GONOPROXY": "*",
+          "GONOSUMDB": "*",
+          "GOOS": "darwin",
+          "GOPACKAGESDRIVER": "/host/bin/gopackagesdriver",
+          "GOPATH": "/host/gopath",
+          "GOPRIVATE": "*",
+          "GOPROXY": "https://host.invalid",
+          "GOROOT": "/host/go",
+          "GOSUMDB": "sum.host.invalid",
+          "GOTELEMETRY": "on",
+          "GOTOOLCHAIN": "auto",
+          "GOVCS": "*:all",
+          "GOWORK": "/host/go.work",
+          "HOME": "/host/home",
+          "LANG": "ja_JP.UTF-8",
+          "LC_ALL": "ja_JP.UTF-8",
+          "MPK_ENV_SENTINEL": "must-not-reach-child",
+          "PATH": "/host/bin",
+          "PWD": "/host/source",
+          "TMPDIR": "/host/tmp",
+          "TZ": "Asia/Tokyo"
+        }
+      },
+      "expect": {
+        "outcome": "accepted",
+        "equal_artifact_bytes_to": "capture.valid_closed_environment"
+      }
+    },
+    {
+      "id": "capture.reject_missing_module",
+      "construction": {
+        "kind": "module_patch",
+        "base": "capture.valid_closed_environment",
+        "remove_files": [
+          "go.mod"
+        ]
+      },
+      "expect": {
+        "outcome": "source-error",
+        "phase": "capture",
+        "code": "GO_MODULE_MISSING"
+      }
+    },
+    {
+      "id": "capture.reject_invalid_module",
+      "construction": {
+        "kind": "module_patch",
+        "base": "capture.valid_closed_environment",
+        "replace_files": {
+          "go.mod": "this is not a Go module file\n"
+        }
+      },
+      "expect": {
+        "outcome": "source-error",
+        "phase": "capture",
+        "code": "GO_MODULE_INVALID"
+      }
+    },
+    {
+      "id": "capture.reject_missing_package",
+      "construction": {
+        "kind": "module_patch",
+        "base": "capture.valid_closed_environment",
+        "selection": {
+          "package": "example.com/mpk/vector/missing",
+          "function": "example.com/mpk/vector/missing.Identity"
+        }
+      },
+      "expect": {
+        "outcome": "source-error",
+        "phase": "capture",
+        "code": "GO_PACKAGE_MISSING"
+      }
+    },
+    {
+      "id": "capture.reject_pattern_like_package",
+      "construction": {
+        "kind": "module_patch",
+        "base": "capture.valid_closed_environment",
+        "selection": {
+          "package": "example.com/mpk/vector...pkg",
+          "function": "example.com/mpk/vector...pkg.Identity"
+        }
+      },
+      "expect": {
+        "outcome": "source-error",
+        "phase": "capture",
+        "code": "GO_PACKAGE_AMBIGUOUS"
+      }
+    },
+    {
+      "id": "capture.reject_reserved_package_pattern",
+      "construction": {
+        "kind": "module_patch",
+        "base": "capture.valid_closed_environment",
+        "selection": {
+          "package": "all",
+          "function": "all.Identity"
+        }
+      },
+      "expect": {
+        "outcome": "source-error",
+        "phase": "capture",
+        "code": "GO_PACKAGE_AMBIGUOUS"
+      }
+    },
+    {
+      "id": "capture.host_cache_population_irrelevant",
+      "construction": {
+        "kind": "repeat_with_host_cache",
+        "base": "capture.valid_closed_environment",
+        "host_cache_state": "nonempty-adversarial"
+      },
+      "expect": {
+        "outcome": "accepted",
+        "equal_artifact_bytes_to": "capture.valid_closed_environment"
+      }
+    },
+    {
+      "id": "capture.reject_loader_write",
+      "construction": {
+        "kind": "sandbox_attempt",
+        "base": "capture.valid_closed_environment",
+        "operation": "write",
+        "logical_path": "/mpk/source/go.mod"
+      },
+      "expect": {
+        "outcome": "frontend-error",
+        "phase": "metadata",
+        "code": "GO_FRONTEND_SANDBOX"
+      }
+    },
+    {
+      "id": "capture.empty_go_sum",
+      "construction": {
+        "kind": "module_patch",
+        "base": "capture.valid_closed_environment",
+        "add_files": {
+          "go.sum": ""
+        }
+      },
+      "expect": {
+        "outcome": "accepted",
+        "additional_manifest_input": {
+          "kind": "lockfile",
+          "normalized_path": "go.sum",
+          "size_bytes": 0
+        },
+        "vir_hash_equal_to": "capture.valid_closed_environment",
+        "source_manifest_hash_equal": false
+      }
+    },
+    {
+      "id": "capture.reject_nonempty_go_sum",
+      "construction": {
+        "kind": "module_patch",
+        "base": "capture.valid_closed_environment",
+        "add_files": {
+          "go.sum": "example.com/external v1.0.0 h1:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=\n"
+        }
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "metadata",
+        "code": "GO_MODULE_DEPENDENCY"
+      }
+    },
+    {
+      "id": "capture.reject_workspace",
+      "construction": {
+        "kind": "module_patch",
+        "base": "capture.valid_closed_environment",
+        "add_files": {
+          "go.work": "go 1.23\nuse .\n"
+        }
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "metadata",
+        "code": "GO_WORKSPACE_FORBIDDEN"
+      }
+    },
+    {
+      "id": "capture.reject_external_requirement",
+      "construction": {
+        "kind": "module_patch",
+        "base": "capture.valid_closed_environment",
+        "replace_files": {
+          "go.mod": "module example.com/mpk/vector\n\ngo 1.23\n\nrequire example.com/external v1.0.0\n"
+        }
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "metadata",
+        "code": "GO_MODULE_POLICY"
+      }
+    },
+    {
+      "id": "capture.reject_vendor",
+      "construction": {
+        "kind": "module_patch",
+        "base": "capture.valid_closed_environment",
+        "add_files": {
+          "vendor/modules.txt": "# ambient dependency\n"
+        }
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "metadata",
+        "code": "GO_MODULE_POLICY"
+      }
+    },
+    {
+      "id": "capture.reject_source_symlink",
+      "construction": {
+        "kind": "module_entry_patch",
+        "base": "capture.valid_closed_environment",
+        "replace_entry": {
+          "path": "identity.go",
+          "kind": "symlink",
+          "target": "/host/secret.go"
+        }
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "capture",
+        "code": "GO_CAPTURE_FILE_KIND"
+      }
+    },
+    {
+      "id": "capture.reject_capture_race",
+      "construction": {
+        "kind": "mutate_between_open_and_seal",
+        "base": "capture.valid_closed_environment",
+        "path": "identity.go"
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "capture",
+        "code": "GO_CAPTURE_CHANGED"
+      }
+    },
+    {
+      "id": "capture.reject_nonportable_source_path",
+      "construction": {
+        "kind": "module_patch",
+        "base": "capture.valid_closed_environment",
+        "rename_files": {
+          "identity.go": "identity:bad.go"
+        }
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "capture",
+        "code": "GO_CAPTURE_PATH"
+      }
+    },
+    {
+      "id": "capture.reject_build_tag",
+      "construction": {
+        "kind": "module_patch",
+        "base": "capture.valid_closed_environment",
+        "replace_files": {
+          "identity.go": "//go:build linux\n\npackage vector\nfunc Identity(value int64) int64 { return value }\n"
+        }
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "source",
+        "code": "GO_BUILD_CONSTRAINT"
+      }
+    },
+    {
+      "id": "capture.reject_target_suffix",
+      "construction": {
+        "kind": "module_patch",
+        "base": "capture.valid_closed_environment",
+        "rename_files": {
+          "identity.go": "identity_linux.go"
+        }
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "source",
+        "code": "GO_BUILD_CONSTRAINT"
+      }
+    },
+    {
+      "id": "capture.reject_ignored_filename",
+      "construction": {
+        "kind": "module_patch",
+        "base": "capture.valid_closed_environment",
+        "rename_files": {
+          "identity.go": ".identity.go"
+        }
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "source",
+        "code": "GO_BUILD_CONSTRAINT"
+      }
+    },
+    {
+      "id": "capture.reject_documentation_package",
+      "construction": {
+        "kind": "module_patch",
+        "base": "capture.valid_closed_environment",
+        "replace_files": {
+          "identity.go": "package documentation\nfunc Identity(value int64) int64 { return value }\n"
+        }
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "source",
+        "code": "GO_BUILD_CONSTRAINT"
+      }
+    },
+    {
+      "id": "capture.test_file_irrelevant",
+      "construction": {
+        "kind": "module_patch",
+        "base": "capture.valid_closed_environment",
+        "add_files": {
+          "identity_test.go": "package vector\nfunc HostOnlyTest() { panic(\"not loaded\") }\n"
+        }
+      },
+      "expect": {
+        "outcome": "accepted",
+        "equal_artifact_bytes_to": "capture.valid_closed_environment"
+      }
+    },
+    {
+      "id": "capture.nested_module_pruned",
+      "construction": {
+        "kind": "module_patch",
+        "base": "capture.valid_closed_environment",
+        "add_files": {
+          "webapp/go.mod": "module example.com/unrelated\n\ngo 1.23\n",
+          "webapp/main.go": "package main\nimport \"fmt\"\nfunc main() { fmt.Println(\"ignored\") }\n"
+        }
+      },
+      "expect": {
+        "outcome": "accepted",
+        "equal_artifact_bytes_to": "capture.valid_closed_environment"
+      }
+    },
+    {
+      "id": "capture.reject_stdlib_import",
+      "construction": {
+        "kind": "module_patch",
+        "base": "capture.valid_closed_environment",
+        "replace_files": {
+          "identity.go": "package vector\nimport \"math\"\nfunc Identity(value int64) int64 { return int64(math.Abs(float64(value))) }\n"
+        }
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "source",
+        "code": "GO_SUBSET_IMPORT"
+      }
+    },
+    {
+      "id": "capture.reject_toolchain_namespace_collision",
+      "construction": {
+        "kind": "module_patch",
+        "base": "capture.valid_closed_environment",
+        "replace_files": {
+          "go.mod": "module fmt\n\ngo 1.23\n",
+          "identity.go": "package fmt\nfunc Identity(value int64) int64 { return value }\n"
+        },
+        "selection": {
+          "package": "fmt",
+          "function": "fmt.Identity"
+        }
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "source",
+        "code": "GO_SUBSET_IMPORT"
+      }
+    },
+    {
+      "id": "capture.reject_go_directive",
+      "construction": {
+        "kind": "module_patch",
+        "base": "capture.valid_closed_environment",
+        "replace_files": {
+          "identity.go": "package vector\n//go:generate host-command\nfunc Identity(value int64) int64 { return value }\n"
+        }
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "source",
+        "code": "GO_SOURCE_DIRECTIVE"
+      }
+    },
+    {
+      "id": "capture.reject_auxiliary_source",
+      "construction": {
+        "kind": "module_patch",
+        "base": "capture.valid_closed_environment",
+        "add_files": {
+          "native.m": "int host_only(void) { return 0; }\n"
+        }
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "source",
+        "code": "GO_CGO_OR_AUX_SOURCE"
+      }
+    }
+  ],
+  "source_cases": [
+    {
+      "id": "source.accept_core_surface",
+      "source": "package p\ntype Pair struct { Left int64; Right int64 }\nconst Limit int64 = 7\nfunc F(flag bool, x int64, a [2]int64) Pair { var y int64; if flag { y = x + a[0] } else { y = Limit }; return Pair{Left:y, Right:x} }\n",
+      "expect": {
+        "outcome": "accepted",
+        "features_used": [
+          "array",
+          "branch",
+          "constant_decl",
+          "mutable_local",
+          "struct"
+        ]
+      }
+    },
+    {
+      "id": "source.accept_zero_local",
+      "source": "package p\nfunc F() int64 { var x int64; return x }\n",
+      "expect": {
+        "outcome": "accepted",
+        "zero_initialization": "explicit",
+        "source_origin": "var_declaration"
+      }
+    },
+    {
+      "id": "source.accept_value_method",
+      "source": "package p\ntype Pair struct { Left int64; Right int64 }\nfunc (p Pair) Sum() int64 { return p.Left + p.Right }\n",
+      "expect": {
+        "outcome": "accepted",
+        "function_id": "example.com/p.Pair.Sum",
+        "receiver_binding": "arg0"
+      }
+    },
+    {
+      "id": "source.accept_unnamed_parameter",
+      "source": "package p\nfunc F(int64) int64 { return 0 }\n",
+      "expect": {
+        "outcome": "accepted",
+        "parameter_binding": "arg0",
+        "source_name_binding": "absent",
+        "contract_visible": false
+      }
+    },
+    {
+      "id": "source.reject_missing_selected_function",
+      "construction": {
+        "kind": "source_with_selection",
+        "source": "package p\nfunc Present(x int64) int64 { return x }\n",
+        "selection": {
+          "package": "example.com/p",
+          "function": "example.com/p.Missing"
+        }
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_SELECTION_FUNCTION_MISSING",
+        "function_id": "example.com/p.Missing"
+      }
+    },
+    {
+      "id": "source.reject_machine_int",
+      "source": "package p\nfunc F(x int) int { return x + 1 }\n",
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_SUBSET_MACHINE_INT"
+      }
+    },
+    {
+      "id": "source.reject_iota_constant",
+      "source": "package p\nconst A int64 = iota\nfunc F() int64 { return A }\n",
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_SUBSET_SYNTAX"
+      }
+    },
+    {
+      "id": "source.reject_untyped_comparison",
+      "source": "package p\nfunc F() bool { return 1 == 2 }\n",
+      "expect": {
+        "outcome": "rejected",
+        "phase": "lowering",
+        "code": "GO_LOWER_UNTYPED_INTEGER"
+      }
+    },
+    {
+      "id": "source.reject_short_circuit_call_argument",
+      "source": "package p\nfunc G(x bool) bool { return x }\nfunc F(a bool, b bool) bool { return G(a && b) }\n",
+      "expect": {
+        "outcome": "rejected",
+        "phase": "lowering",
+        "code": "GO_LOWER_PATTERN"
+      }
+    },
+    {
+      "id": "source.reject_named_integer",
+      "source": "package p\ntype Amount int64\nfunc F(x Amount) Amount { return x }\n",
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_SUBSET_SYNTAX"
+      }
+    },
+    {
+      "id": "source.reject_partial_struct_literal",
+      "source": "package p\ntype Pair struct { Left int64; Right int64 }\nfunc F(x int64) Pair { return Pair{Left:x} }\n",
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_SUBSET_AGGREGATE"
+      }
+    },
+    {
+      "id": "source.reject_parallel_assignment",
+      "source": "package p\nfunc F(x int64, y int64) int64 { x, y = y, x; return x }\n",
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_SUBSET_ASSIGNMENT"
+      }
+    },
+    {
+      "id": "source.reject_parameter_assignment",
+      "source": "package p\nfunc F(x int64) int64 { x = x + 1; return x }\n",
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_SUBSET_ASSIGNMENT"
+      }
+    },
+    {
+      "id": "source.reject_aggregate_equality",
+      "source": "package p\nfunc F(x [2]int64, y [2]int64) bool { return x == y }\n",
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_SUBSET_SYNTAX"
+      }
+    },
+    {
+      "id": "source.reject_map",
+      "source": "package p\nfunc F(x map[int64]int64, key int64) int64 { return x[key] }\n",
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_SUBSET_MAPS"
+      }
+    },
+    {
+      "id": "source.reject_pointer",
+      "source": "package p\nfunc F(x *int64) int64 { return *x }\n",
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_SUBSET_POINTER"
+      }
+    },
+    {
+      "id": "source.reject_generic",
+      "source": "package p\nfunc F[T int64](x T) T { return x }\n",
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_SUBSET_GENERICS"
+      }
+    },
+    {
+      "id": "source.reject_string",
+      "source": "package p\nfunc F(x string) string { return x }\n",
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_SUBSET_STRING"
+      }
+    },
+    {
+      "id": "source.reject_float",
+      "source": "package p\nfunc F(x float64) float64 { return x }\n",
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_SUBSET_FLOAT"
+      }
+    },
+    {
+      "id": "source.reject_goroutine",
+      "source": "package p\nfunc G() {}\nfunc F(x int64) int64 { go G(); return x }\n",
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_SUBSET_GOROUTINE"
+      }
+    },
+    {
+      "id": "source.reject_global_state",
+      "source": "package p\nvar state int64\nfunc F() int64 { return state }\n",
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_SUBSET_GLOBAL_STATE"
+      }
+    },
+    {
+      "id": "source.reject_range",
+      "source": "package p\nfunc F(a [2]int64) int64 { var x int64; for range a { x = x + 1 }; return x }\n",
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_SUBSET_ITERATION"
+      }
+    }
+  ],
+  "operation_cases": [
+    {
+      "id": "operation.wrapping_add_i8",
+      "source": "package p\nfunc F(x int8, y int8) int8 { return x + y }\n",
+      "expect": {
+        "outcome": "accepted",
+        "instruction": {
+          "kind": "BinOp",
+          "op": "bv_add",
+          "type": {
+            "kind": "bv",
+            "width": 8,
+            "signed": true
+          },
+          "safety_checks": []
+        },
+        "witness": {
+          "lhs": "127",
+          "rhs": "1",
+          "result_bit_pattern": "128",
+          "signed_result": "-128"
+        }
+      }
+    },
+    {
+      "id": "operation.wrapping_neg_i8",
+      "source": "package p\nfunc F(x int8) int8 { return -x }\n",
+      "expect": {
+        "outcome": "accepted",
+        "instruction": {
+          "kind": "UnaryOp",
+          "op": "bv_neg",
+          "safety_checks": []
+        },
+        "witness": {
+          "input": "-128",
+          "signed_result": "-128"
+        }
+      }
+    },
+    {
+      "id": "operation.signed_divisor_check",
+      "source": "package p\nfunc F(x int64, y int64) int64 { return x / y }\n",
+      "expect": {
+        "outcome": "accepted",
+        "instruction": {
+          "kind": "BinOp",
+          "op": "bv_sdiv",
+          "safety_checks": [
+            {
+              "kind": "divisor_nonzero"
+            }
+          ]
+        },
+        "forbidden_check": "signed_divrem_representable"
+      }
+    },
+    {
+      "id": "operation.signed_min_div_minus_one",
+      "source": "package p\nfunc F(x int8) int8 { return x / int8(-1) }\n",
+      "expect": {
+        "outcome": "accepted",
+        "witness": {
+          "input": "-128",
+          "result": "-128"
+        },
+        "safety_checks": [
+          {
+            "kind": "divisor_nonzero"
+          }
+        ]
+      }
+    },
+    {
+      "id": "operation.unsigned_remainder_check",
+      "source": "package p\nfunc F(x uint32, y uint32) uint32 { return x % y }\n",
+      "expect": {
+        "outcome": "accepted",
+        "instruction": {
+          "kind": "BinOp",
+          "op": "bv_urem",
+          "safety_checks": [
+            {
+              "kind": "divisor_nonzero"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "operation.signed_shift_count",
+      "source": "package p\nfunc F(x int64, n int8) int64 { return x << n }\n",
+      "expect": {
+        "outcome": "accepted",
+        "instruction": {
+          "kind": "BinOp",
+          "op": "bv_shl",
+          "safety_checks": [
+            {
+              "kind": "shift_count_nonnegative"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "operation.unsigned_shift_count",
+      "source": "package p\nfunc F(x uint64, n uint8) uint64 { return x >> n }\n",
+      "expect": {
+        "outcome": "accepted",
+        "instruction": {
+          "kind": "BinOp",
+          "op": "bv_lshr",
+          "safety_checks": []
+        }
+      }
+    },
+    {
+      "id": "operation.over_width_left_shift",
+      "source": "package p\nfunc F(x uint8) uint8 { return x << uint16(9) }\n",
+      "expect": {
+        "outcome": "accepted",
+        "result": "0",
+        "forbidden_check": "shift_count_less_than_width"
+      }
+    },
+    {
+      "id": "operation.over_width_arithmetic_right_shift",
+      "source": "package p\nfunc F(x int8) int8 { return x >> uint16(9) }\n",
+      "expect": {
+        "outcome": "accepted",
+        "witness": {
+          "input": "-2",
+          "result": "-1"
+        },
+        "forbidden_check": "shift_count_less_than_width"
+      }
+    },
+    {
+      "id": "operation.full_width_shift_count",
+      "source": "package p\nfunc F(x uint64, n uint64) uint64 { return x << n }\n",
+      "expect": {
+        "outcome": "accepted",
+        "count_interpretation": "complete_rhs_width"
+      }
+    },
+    {
+      "id": "operation.signed_index_check",
+      "source": "package p\nfunc F(a [2]int64, i int8) int64 { return a[i] }\n",
+      "expect": {
+        "outcome": "accepted",
+        "instruction": {
+          "kind": "Index",
+          "safety_checks": [
+            {
+              "kind": "index_in_bounds"
+            }
+          ]
+        },
+        "predicate": "0 <= S(i) && S(i) < 2"
+      }
+    },
+    {
+      "id": "operation.unsigned_index_check",
+      "source": "package p\nfunc F(a [2]int64, i uint32) int64 { return a[i] }\n",
+      "expect": {
+        "outcome": "accepted",
+        "instruction": {
+          "kind": "Index",
+          "safety_checks": [
+            {
+              "kind": "index_in_bounds"
+            }
+          ]
+        },
+        "predicate": "U(i) < 2"
+      }
+    },
+    {
+      "id": "operation.convert_sign_extend",
+      "source": "package p\nfunc F(x int8) int64 { return int64(x) }\n",
+      "expect": {
+        "outcome": "accepted",
+        "instruction": {
+          "kind": "Convert",
+          "type": {
+            "kind": "bv",
+            "width": 64,
+            "signed": true
+          },
+          "safety_checks": []
+        },
+        "extension": "sign"
+      }
+    },
+    {
+      "id": "operation.convert_zero_extend",
+      "source": "package p\nfunc F(x uint8) int64 { return int64(x) }\n",
+      "expect": {
+        "outcome": "accepted",
+        "instruction": {
+          "kind": "Convert",
+          "type": {
+            "kind": "bv",
+            "width": 64,
+            "signed": true
+          },
+          "safety_checks": []
+        },
+        "extension": "zero"
+      }
+    },
+    {
+      "id": "operation.convert_truncate",
+      "source": "package p\nfunc F(x uint64) uint8 { return uint8(x) }\n",
+      "expect": {
+        "outcome": "accepted",
+        "instruction": {
+          "kind": "Convert",
+          "safety_checks": []
+        },
+        "result_rule": "low_8_bits"
+      }
+    },
+    {
+      "id": "operation.short_circuit_and",
+      "source": "package p\nfunc F(guard bool, a [1]int64, i int8) bool { return guard && a[i] == 0 }\n",
+      "expect": {
+        "outcome": "accepted",
+        "eager_boolean_binop": false,
+        "rhs_index_path_assumption": "guard"
+      }
+    },
+    {
+      "id": "operation.reject_bit_clear",
+      "source": "package p\nfunc F(x uint8, y uint8) uint8 { return x &^ y }\n",
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_SUBSET_SYNTAX"
+      }
+    }
+  ],
+  "contract_cases": [
+    {
+      "id": "contract.absent_synthesizes_true",
+      "construction": {
+        "kind": "function_without_sidecar",
+        "function_id": "example.com/mpk/vector.Identity"
+      },
+      "expect": {
+        "outcome": "accepted",
+        "requires": [],
+        "ensures": [
+          {
+            "bool": true
+          }
+        ],
+        "modifies": [],
+        "panic": "forbidden",
+        "termination": "total",
+        "loops": []
+      }
+    },
+    {
+      "id": "contract.valid_historical_function_alias",
+      "construction": {
+        "kind": "sidecar",
+        "input": {
+          "schema": "mpk.go.contract.v0",
+          "function": "vector.Identity",
+          "ensures": [
+            {
+              "op": "eq",
+              "lhs": {
+                "result": 0
+              },
+              "rhs": {
+                "var": "value"
+              }
+            }
+          ]
+        }
+      },
+      "expect": {
+        "outcome": "accepted",
+        "normalized_function_id": "example.com/mpk/vector.Identity",
+        "normalized_variable": "arg0"
+      }
+    },
+    {
+      "id": "contract.raw_whitespace_changes_only_manifest",
+      "construction": {
+        "kind": "equivalent_sidecar_bytes",
+        "left": "{\"schema\":\"mpk.go.contract.v0\",\"function\":\"vector.Identity\",\"ensures\":[{\"bool\":true}]}",
+        "right": "{\n  \"ensures\": [ { \"bool\": true } ],\n  \"function\": \"vector.Identity\",\n  \"schema\": \"mpk.go.contract.v0\"\n}\n"
+      },
+      "expect": {
+        "outcome": "accepted",
+        "contract_hash_equal": true,
+        "vir_hash_equal": true,
+        "input_sha256_equal": false,
+        "source_manifest_hash_equal": false
+      }
+    },
+    {
+      "id": "contract.valid_legacy_args_aliases",
+      "construction": {
+        "kind": "sidecar",
+        "input": {
+          "schema": "mpk.go.contract.v0",
+          "function": "vector.Identity",
+          "ensures": [
+            {
+              "op": "and",
+              "args": [
+                {
+                  "op": "not",
+                  "args": [
+                    {
+                      "bool": false
+                    }
+                  ]
+                },
+                {
+                  "op": "eq",
+                  "args": [
+                    {
+                      "result": 0
+                    },
+                    {
+                      "var": "value"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "expect": {
+        "outcome": "accepted",
+        "normalized_ensures": [
+          {
+            "op": "and",
+            "args": [
+              {
+                "op": "not",
+                "value": {
+                  "bool": false
+                }
+              },
+              {
+                "op": "eq",
+                "lhs": {
+                  "result": 0
+                },
+                "rhs": {
+                  "var": "arg0"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "contract.explicit_path_order_is_irrelevant",
+      "construction": {
+        "kind": "repeat_with_reordered_contract_options",
+        "discovered_paths": [
+          "a.contract.json",
+          "z_contract.json"
+        ],
+        "caller_paths": [
+          "z_contract.json",
+          "a.contract.json"
+        ]
+      },
+      "expect": {
+        "outcome": "accepted",
+        "launcher_paths": [
+          "a.contract.json",
+          "z_contract.json"
+        ],
+        "equal_artifact_bytes_after_reordering": true
+      }
+    },
+    {
+      "id": "contract.reject_unlisted_discovered_path",
+      "construction": {
+        "kind": "contract_path_set",
+        "discovered_paths": [
+          "identity.contract.json"
+        ],
+        "launcher_paths": []
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_CONTRACT_FUNCTION"
+      }
+    },
+    {
+      "id": "contract.reject_listed_non_candidate_path",
+      "construction": {
+        "kind": "contract_path_set",
+        "discovered_paths": [],
+        "launcher_paths": [
+          "notes.json"
+        ]
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_CONTRACT_FUNCTION"
+      }
+    },
+    {
+      "id": "contract.reject_duplicate_json_member",
+      "construction": {
+        "kind": "contract_bytes",
+        "utf8": "{\"schema\":\"mpk.go.contract.v0\",\"schema\":\"mpk.go.contract.v0\",\"function\":\"vector.Identity\",\"ensures\":[{\"bool\":true}]}"
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_CONTRACT_JSON"
+      }
+    },
+    {
+      "id": "contract.reject_explicit_null",
+      "construction": {
+        "kind": "contract_bytes",
+        "utf8": "{\"schema\":\"mpk.go.contract.v0\",\"function\":\"vector.Identity\",\"requires\":null,\"ensures\":[{\"bool\":true}]}"
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_CONTRACT_SCHEMA"
+      }
+    },
+    {
+      "id": "contract.reject_wrong_schema",
+      "construction": {
+        "kind": "sidecar",
+        "input": {
+          "schema": "mpk.go.contract.v1",
+          "function": "vector.Identity",
+          "ensures": [
+            {
+              "bool": true
+            }
+          ]
+        }
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_CONTRACT_SCHEMA"
+      }
+    },
+    {
+      "id": "contract.reject_wrong_root_field_type",
+      "construction": {
+        "kind": "contract_bytes",
+        "utf8": "{\"schema\":\"mpk.go.contract.v0\",\"function\":\"vector.Identity\",\"requires\":{},\"ensures\":[{\"bool\":true}]}"
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_CONTRACT_SCHEMA"
+      }
+    },
+    {
+      "id": "contract.reject_missing_ensures",
+      "construction": {
+        "kind": "sidecar",
+        "input": {
+          "schema": "mpk.go.contract.v0",
+          "function": "vector.Identity"
+        }
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_CONTRACT_ENSURES"
+      }
+    },
+    {
+      "id": "contract.reject_empty_ensures",
+      "construction": {
+        "kind": "sidecar",
+        "input": {
+          "schema": "mpk.go.contract.v0",
+          "function": "vector.Identity",
+          "ensures": []
+        }
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_CONTRACT_ENSURES"
+      }
+    },
+    {
+      "id": "contract.reject_nonempty_modifies",
+      "construction": {
+        "kind": "sidecar",
+        "input": {
+          "schema": "mpk.go.contract.v0",
+          "function": "vector.Identity",
+          "ensures": [
+            {
+              "bool": true
+            }
+          ],
+          "modifies": [
+            "state"
+          ]
+        }
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_CONTRACT_MODIFIES"
+      }
+    },
+    {
+      "id": "contract.reject_unknown_function",
+      "construction": {
+        "kind": "sidecar",
+        "input": {
+          "schema": "mpk.go.contract.v0",
+          "function": "vector.Missing",
+          "ensures": [
+            {
+              "bool": true
+            }
+          ]
+        }
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_CONTRACT_FUNCTION",
+        "message": "contract function \"vector.Missing\" does not resolve to an included Go function"
+      }
+    },
+    {
+      "id": "contract.reject_unknown_operator",
+      "construction": {
+        "kind": "sidecar",
+        "input": {
+          "schema": "mpk.go.contract.v0",
+          "function": "vector.Identity",
+          "ensures": [
+            {
+              "op": "float_eq",
+              "lhs": {
+                "result": 0
+              },
+              "rhs": {
+                "result": 0
+              }
+            }
+          ]
+        }
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_CONTRACT_OPERATOR",
+        "message": "unsupported contract expression operator \"float_eq\""
+      }
+    },
+    {
+      "id": "contract.reject_operator_arity",
+      "construction": {
+        "kind": "contract_expression",
+        "input": {
+          "op": "not",
+          "args": [
+            {
+              "bool": true
+            },
+            {
+              "bool": false
+            }
+          ]
+        }
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_CONTRACT_OPERATOR"
+      }
+    },
+    {
+      "id": "contract.reject_extra_convert_type_field",
+      "construction": {
+        "kind": "contract_expression",
+        "input": {
+          "op": "convert",
+          "value": {
+            "int": {
+              "value": "0",
+              "width": 64,
+              "signed": true
+            }
+          },
+          "type": {
+            "kind": "bv",
+            "width": 8,
+            "signed": true,
+            "name": "Amount"
+          }
+        }
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_CONTRACT_TYPE"
+      }
+    },
+    {
+      "id": "contract.reject_non_bv_convert",
+      "construction": {
+        "kind": "contract_expression",
+        "input": {
+          "op": "convert",
+          "value": {
+            "bool": true
+          },
+          "type": {
+            "kind": "bool"
+          }
+        }
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_CONTRACT_TYPE"
+      }
+    },
+    {
+      "id": "contract.reject_unused_sidecar",
+      "construction": {
+        "kind": "discovered_sidecar_without_target",
+        "filename": "unused.contract.json"
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_CONTRACT_FUNCTION"
+      }
+    },
+    {
+      "id": "contract.reject_duplicate_sidecar",
+      "construction": {
+        "kind": "two_sidecars_one_target",
+        "filenames": [
+          "contract.json",
+          "identity_contract.json"
+        ]
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_CONTRACT_DUPLICATE"
+      }
+    }
+  ],
+  "loop_call_cases": [
+    {
+      "id": "loop.partial_contract",
+      "construction": {
+        "kind": "contracted_natural_loop",
+        "header": "bb1",
+        "invariants": [
+          {
+            "bool": true
+          },
+          {
+            "op": "signed_ge",
+            "lhs": {
+              "var": "i"
+            },
+            "rhs": {
+              "int": {
+                "value": "0",
+                "width": 64,
+                "signed": true
+              }
+            }
+          }
+        ],
+        "decreases": []
+      },
+      "expect": {
+        "outcome": "accepted",
+        "termination": "partial",
+        "vc_member_kinds": [
+          "loop_initialization",
+          "loop_initialization",
+          "loop_preservation",
+          "loop_preservation",
+          "loop_exit"
+        ]
+      }
+    },
+    {
+      "id": "loop.total_contract",
+      "construction": {
+        "kind": "contracted_natural_loop",
+        "header": "bb1",
+        "invariants": [
+          {
+            "bool": true
+          },
+          {
+            "bool": true
+          }
+        ],
+        "decreases": [
+          {
+            "int": {
+              "value": "1",
+              "width": 8,
+              "signed": true
+            }
+          }
+        ]
+      },
+      "expect": {
+        "outcome": "accepted",
+        "termination": "total",
+        "vc_member_count": 7,
+        "additional_member_kinds": [
+          "loop_decreases",
+          "loop_decreases"
+        ]
+      }
+    },
+    {
+      "id": "loop.reject_missing_invariant",
+      "construction": {
+        "kind": "contracted_natural_loop",
+        "header": "bb1",
+        "invariants": [],
+        "decreases": []
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_CONTRACT_LOOP"
+      }
+    },
+    {
+      "id": "loop.reject_nested",
+      "construction": {
+        "kind": "nested_source_loops"
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_SUBSET_LOOP"
+      }
+    },
+    {
+      "id": "loop.reject_mixed_termination",
+      "construction": {
+        "kind": "two_disjoint_loops",
+        "decreases_counts": [
+          0,
+          1
+        ]
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_CONTRACT_LOOP"
+      }
+    },
+    {
+      "id": "call.same_module_static",
+      "construction": {
+        "kind": "two_package_direct_call",
+        "caller": "example.com/mpk/vector.Main",
+        "callee": "example.com/mpk/vector/helper.Increment",
+        "callee_results": 1,
+        "callee_requires": 1
+      },
+      "expect": {
+        "outcome": "accepted",
+        "instruction_kind": "CallStatic",
+        "callee_first": true,
+        "contract_hash_bound": true,
+        "vc_member_kinds": [
+          "callee_precondition",
+          "callee_panic_free"
+        ]
+      }
+    },
+    {
+      "id": "call.reject_recursive",
+      "construction": {
+        "kind": "recursive_static_call"
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_SUBSET_CALL"
+      }
+    },
+    {
+      "id": "call.reject_multi_result_callee",
+      "construction": {
+        "kind": "direct_call",
+        "callee_results": 2
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_SUBSET_CALL"
+      }
+    },
+    {
+      "id": "call.reject_external",
+      "construction": {
+        "kind": "direct_call",
+        "callee_module": "example.com/external"
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "source",
+        "code": "GO_SUBSET_IMPORT"
+      }
+    },
+    {
+      "id": "call.reject_cross_unit_struct_signature",
+      "construction": {
+        "kind": "two_package_direct_call",
+        "callee_parameter": "example.com/mpk/vector/helper.Pair"
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_SUBSET_IMPORT"
+      }
+    }
+  ],
+  "diagnostic_cases": [
+    {
+      "id": "diagnostic.malformed_contract",
+      "construction": {
+        "kind": "contract_bytes",
+        "utf8": "{not-json"
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_CONTRACT_JSON",
+        "message": "invalid contract sidecar JSON"
+      }
+    },
+    {
+      "id": "diagnostic.parse_before_subset",
+      "construction": {
+        "kind": "source_with_parse_and_subset_failures"
+      },
+      "expect": {
+        "outcome": "source-error",
+        "phase": "source",
+        "code": "GO_SOURCE_PARSE",
+        "message": "invalid Go source syntax"
+      }
+    },
+    {
+      "id": "diagnostic.typecheck_before_subset",
+      "construction": {
+        "kind": "source_with_type_and_subset_failures"
+      },
+      "expect": {
+        "outcome": "source-error",
+        "phase": "typecheck",
+        "code": "GO_TYPECHECK",
+        "message": "Go type checking failed"
+      }
+    },
+    {
+      "id": "diagnostic.source_before_module_policy",
+      "construction": {
+        "kind": "module_policy_and_source_failure"
+      },
+      "expect": {
+        "outcome": "source-error",
+        "phase": "source",
+        "code": "GO_SOURCE_PARSE"
+      }
+    },
+    {
+      "id": "diagnostic.normalized_path_only",
+      "construction": {
+        "kind": "loader_error_with_host_path",
+        "host_path": "/Users/alice/private/source.go",
+        "normalized_path": "source.go"
+      },
+      "expect": {
+        "outcome": "source-error",
+        "phase": "typecheck",
+        "code": "GO_TYPECHECK",
+        "forbidden_substrings": [
+          "/Users/alice",
+          "/mpk/source"
+        ]
+      }
+    },
+    {
+      "id": "diagnostic.reject_missing_source_origin",
+      "construction": {
+        "kind": "lowered_node_without_faithful_source_origin"
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "lowering",
+        "code": "GO_SOURCE_MAP_ORIGIN"
+      }
+    },
+    {
+      "id": "diagnostic.truncation_marker",
+      "construction": {
+        "kind": "normalized_issue_count",
+        "count": 1025
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "subset",
+        "code": "GO_SUBSET_SYNTAX",
+        "marker_code": "GO_LIMIT_DIAGNOSTICS_TRUNCATED",
+        "retained_nonmarker_maximum": 1023
+      }
+    }
+  ],
+  "limit_cases": [
+    {
+      "id": "limit.candidates_at_max",
+      "construction": {
+        "kind": "checked_counter",
+        "counter": "loader_relevant_candidates",
+        "count": 32768
+      },
+      "expect": {
+        "outcome": "accepted"
+      }
+    },
+    {
+      "id": "limit.candidates_over_max",
+      "construction": {
+        "kind": "checked_counter",
+        "counter": "loader_relevant_candidates",
+        "count": 32769
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "capture",
+        "code": "GO_LIMIT_INPUTS"
+      }
+    },
+    {
+      "id": "limit.file_bytes_at_max",
+      "construction": {
+        "kind": "checked_counter",
+        "counter": "captured_candidate_bytes",
+        "count": 16777216
+      },
+      "expect": {
+        "outcome": "accepted"
+      }
+    },
+    {
+      "id": "limit.file_bytes_over_max",
+      "construction": {
+        "kind": "checked_counter",
+        "counter": "captured_candidate_bytes",
+        "count": 16777217
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "capture",
+        "code": "GO_LIMIT_INPUT_BYTES"
+      }
+    },
+    {
+      "id": "limit.total_bytes_at_max",
+      "construction": {
+        "kind": "checked_counter",
+        "counter": "total_captured_candidate_bytes",
+        "count": 268435456
+      },
+      "expect": {
+        "outcome": "accepted"
+      }
+    },
+    {
+      "id": "limit.total_bytes_over_max",
+      "construction": {
+        "kind": "checked_counter",
+        "counter": "total_captured_candidate_bytes",
+        "count": 268435457
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "capture",
+        "code": "GO_LIMIT_INPUT_BYTES"
+      }
+    },
+    {
+      "id": "limit.contract_candidates_at_max",
+      "construction": {
+        "kind": "checked_counter",
+        "counter": "contract_candidates",
+        "count": 128
+      },
+      "expect": {
+        "outcome": "accepted"
+      }
+    },
+    {
+      "id": "limit.contract_candidates_over_max",
+      "construction": {
+        "kind": "checked_counter",
+        "counter": "contract_candidates",
+        "count": 129
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "capture",
+        "code": "GO_LIMIT_INPUTS"
+      }
+    },
+    {
+      "id": "limit.contract_bytes_at_max",
+      "construction": {
+        "kind": "checked_counter",
+        "counter": "contract_candidate_bytes",
+        "count": 1048576
+      },
+      "expect": {
+        "outcome": "accepted"
+      }
+    },
+    {
+      "id": "limit.contract_bytes_over_max",
+      "construction": {
+        "kind": "checked_counter",
+        "counter": "contract_candidate_bytes",
+        "count": 1048577
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "capture",
+        "code": "GO_LIMIT_INPUT_BYTES"
+      }
+    },
+    {
+      "id": "limit.total_contract_bytes_at_max",
+      "construction": {
+        "kind": "checked_counter",
+        "counter": "total_contract_candidate_bytes",
+        "count": 8388608
+      },
+      "expect": {
+        "outcome": "accepted"
+      }
+    },
+    {
+      "id": "limit.total_contract_bytes_over_max",
+      "construction": {
+        "kind": "checked_counter",
+        "counter": "total_contract_candidate_bytes",
+        "count": 8388609
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "capture",
+        "code": "GO_LIMIT_INPUT_BYTES"
+      }
+    },
+    {
+      "id": "limit.syntax_nodes_at_max",
+      "construction": {
+        "kind": "checked_counter",
+        "counter": "typed_syntax_nodes",
+        "count": 1000000
+      },
+      "expect": {
+        "outcome": "accepted"
+      }
+    },
+    {
+      "id": "limit.syntax_nodes_over_max",
+      "construction": {
+        "kind": "checked_counter",
+        "counter": "typed_syntax_nodes",
+        "count": 1000001
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "source",
+        "code": "GO_LIMIT_SYNTAX"
+      }
+    },
+    {
+      "id": "limit.manifest_inputs_at_max",
+      "construction": {
+        "kind": "checked_counter",
+        "counter": "manifest_inputs",
+        "count": 32768
+      },
+      "expect": {
+        "outcome": "accepted"
+      }
+    },
+    {
+      "id": "limit.manifest_inputs_over_max",
+      "construction": {
+        "kind": "checked_counter",
+        "counter": "manifest_inputs",
+        "count": 32769
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "capture",
+        "code": "GO_LIMIT_INPUTS"
+      }
+    },
+    {
+      "id": "limit.directories_at_max",
+      "construction": {
+        "kind": "checked_counter",
+        "counter": "directories_visited",
+        "count": 32768
+      },
+      "expect": {
+        "outcome": "accepted"
+      }
+    },
+    {
+      "id": "limit.directories_over_max",
+      "construction": {
+        "kind": "checked_counter",
+        "counter": "directories_visited",
+        "count": 32769
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "capture",
+        "code": "GO_LIMIT_INPUTS"
+      }
+    },
+    {
+      "id": "limit.directory_entries_at_max",
+      "construction": {
+        "kind": "checked_counter",
+        "counter": "directory_entries_examined",
+        "count": 131072
+      },
+      "expect": {
+        "outcome": "accepted"
+      }
+    },
+    {
+      "id": "limit.directory_entries_over_max",
+      "construction": {
+        "kind": "checked_counter",
+        "counter": "directory_entries_examined",
+        "count": 131073
+      },
+      "expect": {
+        "outcome": "rejected",
+        "phase": "capture",
+        "code": "GO_LIMIT_INPUTS"
+      }
+    }
+  ],
+  "migration_baseline": {
+    "integrity": {
+      "path": "develop/migrations/go-gir-semantic-baseline.json",
+      "sha256": "cfb7b13a782ec6753df50117c35bce1ac43a94e157e79cc8fb1645c82679b8a4",
+      "schema": "mpk.go_gir_semantic_baseline.v0",
+      "captured_from_revision": "1b3fb3c778b9301d8a214c4bbd3cd8aafa6bb8d4"
+    },
+    "coverage_policy": {
+      "mode": "complete_deep_subtree",
+      "covered_root_members": [
+        "schema",
+        "captured_from_revision",
+        "source_profile",
+        "source_ir_schema",
+        "purpose",
+        "hash_policy",
+        "frontend_contract",
+        "obligation_model",
+        "corpora",
+        "behavioral_anchors",
+        "checker_baseline"
+      ],
+      "rule": "The owner compares every leaf below each baseline_pointer with the named disposition; no unknown root member, array member, or leaf may remain uncovered."
+    },
+    "identity_disposition": {
+      "source_profile": "replaced by normative mpk.go.fixed.v0",
+      "source_ir_schema": "mpk.gir.v0 rejects after cutover; regenerated artifact is mpk.vir.v0",
+      "purpose": "remains audit-only and is never a runtime input",
+      "hash_policy": "all old hashes are audit anchors; byte equality is not required and every semantic difference requires reviewed disposition"
+    },
+    "historical_rule_map": {
+      "source_spec": {
+        "path": "develop/specs/GO_SUBSET_V0.md",
+        "sha256": "0a3d7a63489369337d5c946de5d7f53be9df28829260f9edf791f7acb2f5e00f"
+      },
+      "accepted": [
+        {
+          "rule": "top-level functions",
+          "new": "VirFunction with canonical import-path identity"
+        },
+        {
+          "rule": "non-pointer receiver methods",
+          "new": "canonical value-method VirFunction with receiver arg0"
+        },
+        {
+          "rule": "top-level fixed Boolean/integer constants",
+          "new": "VirConstDecl with canonical same-unit constant references"
+        },
+        {
+          "rule": "bool",
+          "new": "VIR bool"
+        },
+        {
+          "rule": "int8/int16/int32/int64",
+          "new": "signed BV8/BV16/BV32/BV64"
+        },
+        {
+          "rule": "uint8/uint16/uint32/uint64",
+          "new": "unsigned BV8/BV16/BV32/BV64"
+        },
+        {
+          "rule": "fixed arrays",
+          "new": "structural VirType array, MakeArray, and checked Index"
+        },
+        {
+          "rule": "structs of accepted fields",
+          "new": "nominal StructDecl, MakeStruct, and Field"
+        },
+        {
+          "rule": "variable declarations",
+          "new": "canonical local plus explicit initializer/Go zero instructions"
+        },
+        {
+          "rule": "local assignments",
+          "new": "Copy and canonical SSA/block-parameter state"
+        },
+        {
+          "rule": "if/else",
+          "new": "Branch/Jump CFG with else-before-then BFS numbering"
+        },
+        {
+          "rule": "return",
+          "new": "typed Return terminator"
+        },
+        {
+          "rule": "for loop with invariant and optional decreases",
+          "new": "single-header contracted cyclic CFG and normalized LoopContract"
+        },
+        {
+          "rule": "Boolean operators",
+          "new": "not plus short-circuit Branch lowering"
+        },
+        {
+          "rule": "fixed-width arithmetic",
+          "new": "total wrapping BV operations and exact Go safety checks"
+        },
+        {
+          "rule": "signed and unsigned comparisons",
+          "new": "exact signed_*/unsigned_* BinOp"
+        },
+        {
+          "rule": "struct construction and field read",
+          "new": "complete MakeStruct and direct Field"
+        },
+        {
+          "rule": "fixed-array construction and index read",
+          "new": "complete MakeArray and Index with index_in_bounds"
+        },
+        {
+          "rule": "static verified pure call",
+          "new": "same-module CallStatic with contract hash and VC call dependencies"
+        },
+        {
+          "rule": "division by zero runtime safety",
+          "new": "divisor_nonzero operation_safety member"
+        },
+        {
+          "rule": "negative shift runtime safety",
+          "new": "shift_count_nonnegative operation_safety member for signed RHS"
+        },
+        {
+          "rule": "array index runtime safety",
+          "new": "one index_in_bounds record preserving the complete signed/unsigned predicate"
+        },
+        {
+          "rule": "function purity",
+          "new": "closed locals/values/static-call closure and side-effect rejection matrix"
+        }
+      ],
+      "rejected": [
+        {
+          "rule": "closures",
+          "code": "GO_SUBSET_FUNCTION_VALUE"
+        },
+        {
+          "rule": "init functions",
+          "code": "GO_SUBSET_GLOBAL_STATE"
+        },
+        {
+          "rule": "unsafe",
+          "code": "GO_SUBSET_UNSAFE"
+        },
+        {
+          "rule": "cgo",
+          "code": "GO_SUBSET_CGO"
+        },
+        {
+          "rule": "pointers and address-taking",
+          "code": "GO_SUBSET_POINTER"
+        },
+        {
+          "rule": "heap allocation",
+          "code": "GO_SUBSET_HEAP"
+        },
+        {
+          "rule": "reflection",
+          "code": "GO_SUBSET_REFLECTION"
+        },
+        {
+          "rule": "interfaces and dynamic dispatch",
+          "code": "GO_SUBSET_INTERFACE"
+        },
+        {
+          "rule": "goroutines",
+          "code": "GO_SUBSET_GOROUTINE"
+        },
+        {
+          "rule": "channels",
+          "code": "GO_SUBSET_CHANNEL"
+        },
+        {
+          "rule": "defer",
+          "code": "GO_SUBSET_DEFER"
+        },
+        {
+          "rule": "panic/recover",
+          "code": "GO_SUBSET_PANIC"
+        },
+        {
+          "rule": "maps",
+          "code": "GO_SUBSET_MAPS"
+        },
+        {
+          "rule": "mutable slices",
+          "code": "GO_SUBSET_SLICES"
+        },
+        {
+          "rule": "strings",
+          "code": "GO_SUBSET_STRING"
+        },
+        {
+          "rule": "floating-point and complex numbers",
+          "codes": [
+            "GO_SUBSET_FLOAT",
+            "GO_SUBSET_COMPLEX"
+          ]
+        },
+        {
+          "rule": "generics",
+          "code": "GO_SUBSET_GENERICS"
+        },
+        {
+          "rule": "package-level mutable state",
+          "code": "GO_SUBSET_GLOBAL_STATE"
+        },
+        {
+          "rule": "I/O",
+          "code": "GO_SUBSET_IO"
+        },
+        {
+          "rule": "non-deterministic iteration",
+          "code": "GO_SUBSET_ITERATION"
+        },
+        {
+          "rule": "build tags or build constraints",
+          "code": "GO_BUILD_CONSTRAINT"
+        }
+      ]
+    },
+    "implementation_anchors": [
+      {
+        "path": "go-tools/go2gir/loader.go",
+        "sha256": "c8dea15e3aac2d9c891fa8479cbc6fd18975c672b75715a4df491a41dfc302e8",
+        "disposition": "preserve current package metadata needs and readonly/tests=false intent; replace ambient cwd/environment with immutable root, closed environment, explicit target, NeedDeps, and exact one-pattern closure"
+      },
+      {
+        "path": "go-tools/go2gir/features.go",
+        "sha256": "f8add48050d86b97a4a3b4c10b048aef76345e7050ad5f4941f4f54d51e4e086",
+        "disposition": "preserve all baseline negative classes; activate only contracted loops and same-module static dependency calls; add sound VIR-only restrictions"
+      },
+      {
+        "path": "go-tools/go2gir/contract_sidecar.go",
+        "sha256": "d6231f6b7e365909302630f91b14efd498431f8b9ee832d67a99bd38414a1d15",
+        "disposition": "continue mpk.go.contract.v0 filename discovery and require equality with the canonical explicit launcher path set; preserve strict parsing, aliases, nonempty ensures, empty modifies, loop expressions, and exact failure intent; normalize into VirContract"
+      },
+      {
+        "path": "go-tools/go2gir/lower.go",
+        "sha256": "68b72971300bcbde514f6ba88b421f6cd1b121e221d06ae7844787025f61c684",
+        "disposition": "replace GIR shapes/names with canonical VIR IDs, block parameters, checks, contracts, calls, loops, conversions, and source-map coverage while preserving accepted value/control intent"
+      },
+      {
+        "path": "go-tools/go2gir/lower_types.go",
+        "sha256": "72c172a65a88ef6cce2cee40aff4d5a3e576a617f0b7fa7a4e6bf3b159061b44",
+        "disposition": "preserve complete aggregate literals, direct field reads, and fixed-array reads; replace inline GIR struct names with nominal StructDecl references"
+      },
+      {
+        "path": "go-tools/go2gir/ssa.go",
+        "sha256": "ff1ab5fd50b0298753e1d84189943d36d26de915b81ffa93a8d3e1f827565add",
+        "disposition": "retain typed SSA only as private recognized lowering input; compiler function/block/value strings and debug dump order never become public VIR identities"
+      }
+    ],
+    "frontend_contract": [
+      {
+        "baseline_pointer": "/frontend_contract/cli_schema",
+        "old": "mpk.go2gir.cli.v0",
+        "new": "mpk.frontend.cli.v0",
+        "disposition": "breaking replacement"
+      },
+      {
+        "baseline_pointer": "/frontend_contract/success_status",
+        "old": "gir-lowered",
+        "new": "ir-lowered",
+        "disposition": "breaking replacement"
+      },
+      {
+        "baseline_pointer": "/frontend_contract/gir_emit_schema",
+        "old": "mpk.gir.emit.v0",
+        "new": "mpk.vir.v0 nested in the generic frontend envelope",
+        "disposition": "breaking replacement"
+      },
+      {
+        "baseline_pointer": "/frontend_contract/source_manifest_schema",
+        "old": "mpk.go.source_manifest.v0",
+        "new": "mpk.source_manifest.v0",
+        "disposition": "breaking replacement with preserved input traceability"
+      },
+      {
+        "baseline_pointer": "/frontend_contract/canonical_binary",
+        "old": "MPK_GIR_V0 framing and hash",
+        "new": "MPK-VIR-0.1 canonical JSON hash and generic JCS envelope",
+        "disposition": "no byte or hash equality"
+      },
+      {
+        "baseline_pointer": "/frontend_contract/fail_closed",
+        "old": true,
+        "new": true,
+        "disposition": "preserved"
+      }
+    ],
+    "obligation_kind_map": [
+      {
+        "old": "precondition",
+        "new": "callee_precondition",
+        "intent": "call site proves each ordered callee requirement"
+      },
+      {
+        "old": "postcondition",
+        "new": "postcondition",
+        "intent": "each reachable return proves each ordered ensure"
+      },
+      {
+        "old": "runtime_safety",
+        "new": "operation_safety",
+        "intent": "path assumptions prove each exact VIR safety check"
+      },
+      {
+        "old": "loop_invariant_initial",
+        "new": "loop_initialization",
+        "intent": "preheader establishes each invariant"
+      },
+      {
+        "old": "loop_invariant_preservation",
+        "new": "loop_preservation",
+        "intent": "each backedge preserves each invariant"
+      },
+      {
+        "old": "loop_exit",
+        "new": "loop_exit",
+        "intent": "invariant plus false header condition establishes ensures"
+      },
+      {
+        "old": "decreases",
+        "new": "loop_decreases",
+        "intent": "signed nonnegativity where required and strict decrease per backedge"
+      }
+    ],
+    "corpora": {
+      "go_alpha": {
+        "baseline_pointer": "/corpora/go_alpha",
+        "manifest_path": "fixtures/go-alpha/manifest.json",
+        "manifest_sha256": "4f3371e0bc768724cab86831b3daa24c76d64cf926284fee72c571160399aed7",
+        "module_path": "fixtures/go-alpha/go.mod",
+        "module_sha256": "4a3cb8b7a0c57d3ad6619e79e6b0dffbcbcc631a23c9f437b3133d964f1a0aac",
+        "old_expected_status": "gir-lowered",
+        "new_expected_status": "ir-lowered",
+        "function_count": 100,
+        "groups": [
+          {
+            "name": "arith",
+            "source": "fixtures/go-alpha/arith/arith.go",
+            "source_sha256": "7ea7cedcc016a0beacc1184741b1079ce7e4595100dee6c029cd5ac8f101c31d",
+            "function_count": 34,
+            "functions": [
+              "Add64",
+              "Sub64",
+              "Mul64",
+              "Neg64",
+              "Add32",
+              "Sub32",
+              "Mul32",
+              "Neg32",
+              "Add16",
+              "Sub16",
+              "Add8",
+              "Sub8",
+              "AddU64",
+              "SubU64",
+              "MulU64",
+              "AndU64",
+              "OrU64",
+              "XorU64",
+              "NotU64",
+              "ShiftLeftU64",
+              "ShiftRightU64",
+              "AndU8",
+              "OrU8",
+              "XorU8",
+              "NotU8",
+              "Less64",
+              "LessEqual64",
+              "Greater64",
+              "GreaterEqual64",
+              "Equal64",
+              "NotEqual64",
+              "BoolAnd",
+              "BoolOr",
+              "BoolNot"
+            ],
+            "preservation": [
+              "fixed-width signed and unsigned wrapping arithmetic",
+              "fixed-width bit operations",
+              "signed comparisons",
+              "Boolean operations",
+              "signed shift counts require operation-safety coverage"
+            ]
+          },
+          {
+            "name": "branch",
+            "source": "fixtures/go-alpha/branch/branch.go",
+            "source_sha256": "b3d2487cf5b8305eea5e84dbdbb112d7efe4eafd792cfc4ad7380138f8379240",
+            "function_count": 33,
+            "functions": [
+              "Max64",
+              "Min64",
+              "Max32",
+              "Min32",
+              "Max16",
+              "Min16",
+              "Max8",
+              "Min8",
+              "MaxU64",
+              "MinU64",
+              "MaxU32",
+              "MinU32",
+              "MaxU16",
+              "MinU16",
+              "MaxU8",
+              "MinU8",
+              "Pick64",
+              "Pick32",
+              "Pick16",
+              "Pick8",
+              "PickU64",
+              "PickU32",
+              "PickU16",
+              "PickU8",
+              "Clamp64",
+              "Clamp32",
+              "ClampU64",
+              "ClampU32",
+              "AbsDiff64",
+              "AbsDiff32",
+              "AbsDiff16",
+              "AbsDiff8",
+              "Ordered64"
+            ],
+            "preservation": [
+              "if control flow",
+              "early path selection",
+              "local assignment",
+              "signed and unsigned comparisons"
+            ]
+          },
+          {
+            "name": "array",
+            "source": "fixtures/go-alpha/array/array.go",
+            "source_sha256": "d6bfc8d7c4ca5f06be35d1d7bdb9a3e7807856bc6a16fd67280555a556d4344c",
+            "function_count": 33,
+            "functions": [
+              "BuildPair64",
+              "SumPair64",
+              "PickPairLeft",
+              "PickPairRight",
+              "SwapPair64",
+              "BuildTriple64",
+              "SumTriple64",
+              "PickTripleFirst",
+              "PickTripleSecond",
+              "PickTripleThird",
+              "BuildArray2",
+              "BuildArray3",
+              "FirstArray2",
+              "SecondArray2",
+              "SumArray2",
+              "FirstArray3",
+              "SecondArray3",
+              "ThirdArray3",
+              "SumArray3",
+              "BuildUArray2",
+              "FirstUArray2",
+              "SecondUArray2",
+              "SumUArray2",
+              "BuildBoolArray2",
+              "FirstBoolArray2",
+              "SecondBoolArray2",
+              "AllBoolArray2",
+              "AnyBoolArray2",
+              "BuildPairArray64",
+              "SumPairArray64",
+              "SelectArrayValue",
+              "AddArrayFirst",
+              "BuildPairU64"
+            ],
+            "preservation": [
+              "fixed-array construction and read",
+              "by-value struct construction and field read",
+              "nested aggregate values",
+              "fixed-array reads require complete bounds coverage"
+            ]
+          }
+        ],
+        "vc_fixture": {
+          "baseline_pointer": "/corpora/go_alpha/vc_fixture",
+          "manifest_path": "fixtures/vc-alpha/manifest.json",
+          "manifest_sha256": "2430aad74fad185d2dde4a3e38eb4a93375c2a4f65835eb331a60bc0617a244e",
+          "old_source_gir_hash": "84374e92fb2176e50a17c071fa73d59619a165a492406dd50845703d84e0a2f8",
+          "branch_case_count": 33,
+          "postconditions_per_case": 16,
+          "old_obligation_count": 1056,
+          "old_obligation_kinds": [
+            "postcondition"
+          ],
+          "old_first_obligation": "alpha.branch.Case000.then.post0",
+          "old_last_obligation": "alpha.branch.Case032.else.post15",
+          "old_vc_path": "fixtures/vc-alpha/vc.json",
+          "old_vc_sha256": "999a3b2f34a9d25ee5972674ffc4dc1590439a7aa5c8e41dda4472d76cf82b97",
+          "old_skeleton_path": "fixtures/vc-alpha/vc_skeleton.json",
+          "old_skeleton_sha256": "e1cea2c49ae72d5ba9e85c589d05577137a8b3d0cae2772388b711a633cd82fe",
+          "old_theorem_declaration_count": 1056,
+          "old_checker_verdict": "not_run_no_canonical_certificate",
+          "disposition": "audit-only synthetic GIR-era VC fixture; regenerate under VC v1 with no hash, theorem-name, or obligation-count equality; preserve postcondition intent and branch-path semantics"
+        }
+      },
+      "go_basic": {
+        "baseline_pointer": "/corpora/go_basic",
+        "manifest_path": "fixtures/go-basic/manifest.json",
+        "manifest_sha256": "512c522568a44b930dcd1ddbccc6d5203231a09d5eaf3f428ff47bf673097fc1",
+        "module_path": "fixtures/go-basic/go.mod",
+        "module_sha256": "fbaecf3a2fa13def8774c5ed6d6439b5032975224b7569e1464cfd0a014e903a",
+        "positive": [
+          {
+            "name": "arith",
+            "path": "positive/arith",
+            "source_sha256": "be472595e9029249dcc0f35c43c6a441cb935c78a03ec0d06c07c2123fbaf28c",
+            "new_expected_status": "ir-lowered",
+            "preserves": [
+              "fixed-width integer arithmetic",
+              "fixed-width integer bit operations",
+              "boolean operations"
+            ]
+          },
+          {
+            "name": "branch",
+            "path": "positive/branch",
+            "source_sha256": "2f5af9661edc9e1e078640fd48e6fa1d511ff9b82a3ac07f62163a9ec3ac65b4",
+            "new_expected_status": "ir-lowered",
+            "preserves": [
+              "local variables",
+              "if control flow",
+              "fixed-width integer comparison"
+            ]
+          },
+          {
+            "name": "structarray",
+            "path": "positive/structarray",
+            "source_sha256": "d7c8a95e23a31708d0aa83f23f1d55903f1d30079d6d0f2ff128e487a99b3ef8",
+            "new_expected_status": "ir-lowered",
+            "preserves": [
+              "struct construction",
+              "struct field read",
+              "fixed array construction",
+              "fixed array index read"
+            ]
+          }
+        ],
+        "negative": [
+          {
+            "name": "map",
+            "path": "negative/map",
+            "source_sha256": "8097f84018a3b41013c0da83883e83c2641589670753c32a657de81d20c7a33f",
+            "code": "GO_SUBSET_MAPS"
+          },
+          {
+            "name": "pointer",
+            "path": "negative/pointer",
+            "source_sha256": "bd36d4dc0bb00dcac2b0ab640e1928de89df4e84e7a0375779a5384c214bdb64",
+            "code": "GO_SUBSET_POINTER"
+          },
+          {
+            "name": "generic",
+            "path": "negative/generic",
+            "source_sha256": "6c6ec14df0ff94da8fbb67c95e0686ae4b244301069211b01bae52776d56938c",
+            "code": "GO_SUBSET_GENERICS"
+          },
+          {
+            "name": "string",
+            "path": "negative/string",
+            "source_sha256": "02ca8d5fff33dd866aecac787fa64048bc491a882aca5777d673d03c48abf52a",
+            "code": "GO_SUBSET_STRING"
+          }
+        ]
+      },
+      "payment_policies": {
+        "baseline_pointer": "/corpora/payment_policies",
+        "manifest_path": "examples/payment_policies/manifest.json",
+        "manifest_sha256": "a3fe95a98653d1370587231ae84c555a784e68a7f019192bafaf274900435ca3",
+        "shared_preservation": {
+          "frontend_outcome": "accepted",
+          "new_frontend_status": "ir-lowered",
+          "requires_count": 2,
+          "ensures_count": 4,
+          "postcondition_intent_count": 8,
+          "new_obligation_kind": "postcondition",
+          "linear_theory_goal_count": 6,
+          "true_or_opaque_goal_count": 1,
+          "opaque_or_true_goal_count": 1,
+          "clause_and_branch_order": "preserved",
+          "classification_evidence_label": "helper_analysis",
+          "classification_property_status_until_program_certificate": "proof_pending",
+          "old_checker_verdict": "not_run_no_canonical_certificate",
+          "old_artifact_hash_equality": false
+        },
+        "positive": [
+          {
+            "name": "reserve",
+            "function_id": "example.com/payment/reserve.ApprovedReserveCents",
+            "module_sha256": "a3987b8027dcbc02b3b2f72a8a3effa7d35cb84799f534690e407600ba3f97ee",
+            "source_sha256": "d844f257c70887dab36e13347755a44f28f7c35095dd7efa4fc84dbeaf4044f2",
+            "contract_sha256": "7b5ae3065faa320474ac2feaf6a99c33c891417b8d14e8683dcdea34485f80a6",
+            "baseline_pointer": "/corpora/payment_policies/positive/0",
+            "classification_patterns": {
+              "non_negative_result": 2,
+              "result_bounded_by_input": 4,
+              "selected_branch_result_equals_input": 2
+            },
+            "disposition": "preserve complete deep semantic/classification subtree; regenerate GIR, VC, skeleton, theorem IDs, and hashes as VIR/VC v1"
+          },
+          {
+            "name": "refund",
+            "function_id": "example.com/payment/refund.ApprovedRefundCents",
+            "module_sha256": "e72da78fa681084726169fd13d61b9faf474ca233b78391172c1a2725303e385",
+            "source_sha256": "832d61bc348519351d9d95294c1110c38a612e391021033478467543dc0d189b",
+            "contract_sha256": "c1e084bed11e55fc1459353e2f7b55fa50c51ff88ed08ce8768f3313aef2c2d7",
+            "baseline_pointer": "/corpora/payment_policies/positive/1",
+            "classification_patterns": {
+              "non_negative_result": 2,
+              "refund_bounded_by_available_paid_amount": 4,
+              "selected_branch_result_equals_input": 2
+            },
+            "disposition": "preserve complete deep semantic/classification subtree; regenerate GIR, VC, skeleton, theorem IDs, and hashes as VIR/VC v1"
+          },
+          {
+            "name": "discount",
+            "function_id": "example.com/payment/discount.ApprovedDiscountCents",
+            "module_sha256": "4a661d37f78e488cb5eaba57d4514a8513f2bad61207bdf1bbcda811fa0a754f",
+            "source_sha256": "3f53035e86e57ad70ed953cbfe5d04db926cb76aaaff35ce627c47b139c7cb4d",
+            "contract_sha256": "c496bf1b675fa674eba84e4cde91ab1f82b5816c5b86fb82cec9a566e8897672",
+            "baseline_pointer": "/corpora/payment_policies/positive/2",
+            "classification_patterns": {
+              "non_negative_result": 2,
+              "fee_or_discount_bounded_by_cap": 4,
+              "selected_branch_result_equals_input": 2
+            },
+            "disposition": "preserve complete deep semantic/classification subtree; regenerate GIR, VC, skeleton, theorem IDs, and hashes as VIR/VC v1"
+          },
+          {
+            "name": "fee",
+            "function_id": "example.com/payment/fee.AppliedPlatformFeeCents",
+            "module_sha256": "85b08ea1c733a7f92115b6d3a4de3e583be37d6ca47b175f42970e552dd2967a",
+            "source_sha256": "46bdd70a14cdd399b780fe91986687bc68cbcc8ec640bf79311c721db7465a56",
+            "contract_sha256": "fdf8250ac83d4d94b1a59b8dc69423919bee8c7032658190a4532706ee970601",
+            "baseline_pointer": "/corpora/payment_policies/positive/3",
+            "classification_patterns": {
+              "non_negative_result": 2,
+              "fee_or_discount_bounded_by_cap": 4,
+              "selected_branch_result_equals_input": 2
+            },
+            "disposition": "preserve complete deep semantic/classification subtree; regenerate GIR, VC, skeleton, theorem IDs, and hashes as VIR/VC v1"
+          },
+          {
+            "name": "points",
+            "function_id": "example.com/payment/points.ApprovedRedemptionPoints",
+            "module_sha256": "bbb69536b147e6e4ee4d18827d327b2d47b23ed79723842f0d5911ee8f175bc5",
+            "source_sha256": "6c5c1919cceeb97071340ac60c43777d2e03006939c67045e57595eee4a1ac1c",
+            "contract_sha256": "16327bb94f33d19b17e758192b174aee1b7b5e1a3155989f0f02bc761303bec3",
+            "baseline_pointer": "/corpora/payment_policies/positive/4",
+            "classification_patterns": {
+              "non_negative_result": 2,
+              "result_bounded_by_input": 4,
+              "selected_branch_result_equals_input": 2
+            },
+            "disposition": "preserve complete deep semantic/classification subtree; regenerate GIR, VC, skeleton, theorem IDs, and hashes as VIR/VC v1"
+          }
+        ],
+        "negative": [
+          {
+            "name": "float",
+            "baseline_pointer": "/corpora/payment_policies/negative/0",
+            "code": "GO_SUBSET_FLOAT",
+            "disposition": "preserve complete file-digest and rejection subtree"
+          },
+          {
+            "name": "map",
+            "baseline_pointer": "/corpora/payment_policies/negative/1",
+            "code": "GO_SUBSET_MAPS",
+            "disposition": "preserve complete file-digest and rejection subtree"
+          },
+          {
+            "name": "pointer",
+            "baseline_pointer": "/corpora/payment_policies/negative/2",
+            "code": "GO_SUBSET_POINTER",
+            "disposition": "preserve complete file-digest and rejection subtree"
+          },
+          {
+            "name": "missing_postconditions",
+            "baseline_pointer": "/corpora/payment_policies/negative/3",
+            "code": "GO_CONTRACT_ENSURES",
+            "disposition": "present sidecar still rejects; default true contract is not applied"
+          }
+        ]
+      },
+      "focused_frontend_negative_cases": [
+        {
+          "baseline_index": 0,
+          "path": "go-tools/go2gir/testdata/unsupported/map",
+          "new_code": "GO_SUBSET_MAPS"
+        },
+        {
+          "baseline_index": 1,
+          "path": "go-tools/go2gir/testdata/unsupported/goroutine",
+          "new_code": "GO_SUBSET_GOROUTINE"
+        },
+        {
+          "baseline_index": 2,
+          "path": "go-tools/go2gir/testdata/unsupported/generic",
+          "new_code": "GO_SUBSET_GENERICS"
+        },
+        {
+          "baseline_index": 3,
+          "path": "go-tools/go2gir/testdata/unsupported/pointer",
+          "new_code": "GO_SUBSET_POINTER"
+        },
+        {
+          "baseline_index": 4,
+          "path": "go-tools/go2gir/testdata/unsupported/untypedint",
+          "new_code": "GO_LOWER_UNTYPED_INTEGER",
+          "new_message": "untyped integer expression has no accepted fixed-width context"
+        },
+        {
+          "baseline_index": 5,
+          "path": "go-tools/go2gir/testdata/contract_malformed",
+          "new_code": "GO_CONTRACT_JSON",
+          "new_message": "invalid contract sidecar JSON"
+        },
+        {
+          "baseline_index": 6,
+          "path": "go-tools/go2gir/testdata/contract_unknown_function",
+          "new_code": "GO_CONTRACT_FUNCTION",
+          "new_message": "contract function \"unknowncontract.Missing\" does not resolve to an included Go function"
+        },
+        {
+          "baseline_index": 7,
+          "path": "go-tools/go2gir/testdata/contract_unsupported_operator",
+          "new_code": "GO_CONTRACT_OPERATOR",
+          "new_message": "unsupported contract expression operator \"float_eq\""
+        }
+      ]
+    },
+    "behavioral_anchors": [
+      {
+        "baseline_pointer": "/behavioral_anchors/contracts",
+        "disposition": "requires and loops default empty; a present sidecar has nonempty ensures and empty modifies; function resolution, loop expressions, unknown operators, and malformed typed literals retain fail-closed intent; absent acyclic sidecar alone gets normalized true"
+      },
+      {
+        "baseline_pointer": "/behavioral_anchors/loops",
+        "disposition": "partial and total obligation intent is preserved under VC v1 names; missing invariant, unsupported variant, and invalid backedge remain rejection cases"
+      },
+      {
+        "baseline_pointer": "/behavioral_anchors/conversions",
+        "disposition": "conversion remains an explicit value plus exact fixed-BV target; extra target fields reject; source program Convert is intentionally activated"
+      },
+      {
+        "baseline_pointer": "/behavioral_anchors/runtime_checks",
+        "disposition": "divisor nonzero, signed shift nonnegative, both signed array bounds, branch path assumptions, wrong signedness, unsupported CFG, and non-array base intent are all preserved; one index_in_bounds record owns the two signed conjuncts"
+      }
+    ],
+    "checker_anchors": [
+      {
+        "baseline_pointer": "/checker_baseline/release_report",
+        "disposition": "independent source-free/reference checker acceptance and hash-agreement anchor remains unchanged; this profile does not reinterpret the certificate"
+      },
+      {
+        "baseline_pointer": "/checker_baseline/payment_reserve_theory_evidence",
+        "disposition": "eight theory-certificate property intents remain an audit anchor; regenerated program certificate and both checker verdicts are required by GO-VIR-02-T11 before mpk_verified evidence"
+      }
+    ]
+  }
+}

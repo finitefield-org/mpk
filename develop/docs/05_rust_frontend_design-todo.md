@@ -883,7 +883,7 @@ git diff --check
 
 ### VIR-00-T08 Freeze the Go VIR Profile
 
-Status: Pending
+Status: Complete (2026-08-21).
 
 Depends on: VIR-00-T01, VIR-00-T02, VIR-00-T04.
 
