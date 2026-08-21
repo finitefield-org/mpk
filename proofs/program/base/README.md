@@ -31,10 +31,11 @@ WP engine assigns the dense per-kind ordinal.
 for the safety vectors. Go ground vectors retain the zero-axiom checked path
 exercised by `proofs/std/bitvec/ground-eval-fixture.hex`. Rust ground formulas
 supported by the existing `mpk.bitvec-ground.v0` evaluator use that
-`mvp-theory` path. Symbolic formulas and ground compositions not yet supported
-by that evaluator are explicitly proof-pending under VIR-01-T12. They must not
-be discharged by adding a Rust axiom, and VIR-01 cannot exit while any such row
-remains pending.
+`mvp-theory` path. Symbolic formulas and ground compositions outside that
+evaluator are members of the canonical panic-free grouped declaration over
+`Std.Program.Base`; they become evidence only when the complete generated
+certificate is accepted by both checkers. No Rust axiom or independently
+accepted conjunct is introduced by this route.
 
 Verify them with:
 

@@ -282,7 +282,9 @@ impl StrategyAttempt {
     }
 
     fn success(&self) -> Option<(ApiProofId, ApiTermId)> {
-        Some((self.proof_id?, self.term_id?)).filter(|_| self.ok)
+        let proof_id = self.proof_id?;
+        let term_id = self.term_id?;
+        self.ok.then_some((proof_id, term_id))
     }
 }
 

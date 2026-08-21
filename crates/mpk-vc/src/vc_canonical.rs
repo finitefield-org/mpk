@@ -560,7 +560,7 @@ fn validate_scalars(document: &VcDocument) -> Result<(), VcValidationError> {
     Ok(())
 }
 
-fn validate_type_term(term: &VcTypeTerm) -> Result<(), VcValidationError> {
+pub(crate) fn validate_type_term(term: &VcTypeTerm) -> Result<(), VcValidationError> {
     match term {
         VcTypeTerm::Constant { name } => validate_name_scalar(name, "type constant"),
         VcTypeTerm::Apply { function, args } => {
@@ -584,7 +584,7 @@ fn validate_type_term(term: &VcTypeTerm) -> Result<(), VcValidationError> {
     }
 }
 
-fn validate_term(
+pub(crate) fn validate_term(
     term: &VcTerm,
     parameters: &BTreeSet<&str>,
     binder_depth: usize,
@@ -679,7 +679,7 @@ fn validate_name_scalar(name: &str, field: &str) -> Result<(), VcValidationError
     }
 }
 
-fn is_mpk_name(name: &str) -> bool {
+pub(crate) fn is_mpk_name(name: &str) -> bool {
     !name.is_empty()
         && name.split('.').all(|component| {
             let mut bytes = component.bytes();

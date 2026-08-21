@@ -9,7 +9,7 @@ use mpk_vc::{
     SemanticProfile, SourceLanguage, VirBinaryOperator, VirBinding, VirBlock, VirContract,
     VirContractExpr, VirFeature, VirFunction, VirInstruction, VirIntLiteral, VirLiteral,
     VirLoopContract, VirModule, VirSafetyCheck, VirTerminator, VirType, VirUnit, VirValue,
-    SAFETY_PROOF_PENDING_OWNER, VIR_SCHEMA_VERSION,
+    SAFETY_GROUPED_CERTIFICATE_FOUNDATION, VIR_SCHEMA_VERSION,
 };
 
 fn bool_ty() -> VirType {
@@ -519,8 +519,8 @@ fn safety_inside_loop_uses_the_same_cutpoint_scope_and_path_guards() {
     assert_eq!(safety[0].assumptions.len(), 2);
     assert_eq!(
         safety[0].safety_evidence,
-        Some(SafetyEvidenceRoute::ProofPending {
-            owner: SAFETY_PROOF_PENDING_OWNER
+        Some(SafetyEvidenceRoute::GroupedCertificate {
+            foundation: SAFETY_GROUPED_CERTIFICATE_FOUNDATION
         })
     );
 }

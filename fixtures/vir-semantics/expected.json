@@ -1,0 +1,205 @@
+{
+  "schema": "mpk.vir_semantics_gate.v0",
+  "status": "closed",
+  "unchecked_axioms": 0,
+  "proof_pending_assignments": [],
+  "safety_routes": "fixtures/program-safety/expected.json",
+  "reviewed_vectors": [
+    {
+      "path": "develop/specs/vectors/vir-v0.json",
+      "schema": "mpk.vir.conformance.v0"
+    },
+    {
+      "path": "develop/specs/vectors/vir-hash-v0.json",
+      "schema": "mpk.vir.hash_vectors.v0"
+    },
+    {
+      "path": "develop/specs/vectors/source-map-v0.json",
+      "schema": "mpk.source_map.conformance.v0"
+    },
+    {
+      "path": "develop/specs/vectors/source-manifest-v0.json",
+      "schema": "mpk.source_manifest.conformance.v0"
+    },
+    {
+      "path": "develop/specs/vectors/vc-v1.json",
+      "schema": "mpk.vc.conformance.v1"
+    },
+    {
+      "path": "develop/specs/vectors/vc-hash-v1.json",
+      "schema": "mpk.vc.hash_vectors.v1"
+    },
+    {
+      "path": "develop/specs/vectors/vc-skeleton-v1.json",
+      "schema": "mpk.vc.cert_skeleton.conformance.v1"
+    },
+    {
+      "path": "develop/specs/vectors/go-vir-profile-v0.json",
+      "schema": "mpk.go.vir_profile.conformance.v0"
+    }
+  ],
+  "go_semantic_baseline": {
+    "path": "develop/migrations/go-gir-semantic-baseline.json",
+    "schema": "mpk.go_gir_semantic_baseline.v0",
+    "sha256": "cfb7b13a782ec6753df50117c35bce1ac43a94e157e79cc8fb1645c82679b8a4"
+  },
+  "checked_foundation_fixtures": [
+    "proofs/program/base/std-program-base.hex",
+    "proofs/program/base/type-map-fixture.hex",
+    "proofs/std/bitvec/ground-eval-fixture.hex"
+  ],
+  "parser_fuzz_targets": [
+    "fuzz/fuzz_targets/vir_parser.rs",
+    "fuzz/fuzz_targets/source_map_parser.rs"
+  ],
+  "total_operation_cases": [
+    {
+      "id": "shared.udiv-by-zero",
+      "profiles": [
+        "mpk.go.fixed.v0",
+        "mpk.rust.checked.v0"
+      ],
+      "operation": "bv_udiv",
+      "width": 8,
+      "lhs": 7,
+      "rhs_width": 8,
+      "rhs": 0,
+      "result_kind": "bitvector",
+      "result": 255
+    },
+    {
+      "id": "shared.sdiv-min-by-negative-one",
+      "profiles": [
+        "mpk.go.fixed.v0",
+        "mpk.rust.checked.v0"
+      ],
+      "operation": "bv_sdiv",
+      "width": 8,
+      "lhs": 128,
+      "rhs_width": 8,
+      "rhs": 255,
+      "result_kind": "bitvector",
+      "result": 128
+    },
+    {
+      "id": "shared.over-width-left-shift",
+      "profiles": [
+        "mpk.go.fixed.v0",
+        "mpk.rust.checked.v0"
+      ],
+      "operation": "bv_shl",
+      "width": 8,
+      "lhs": 1,
+      "rhs_width": 16,
+      "rhs": 9,
+      "result_kind": "bitvector",
+      "result": 0
+    },
+    {
+      "id": "shared.signed-comparison",
+      "profiles": [
+        "mpk.go.fixed.v0",
+        "mpk.rust.checked.v0"
+      ],
+      "operation": "signed_lt",
+      "width": 8,
+      "lhs": 255,
+      "rhs_width": 8,
+      "rhs": 0,
+      "result_kind": "boolean",
+      "result": true
+    }
+  ],
+  "safety_check_cases": [
+    {
+      "id": "go.add-wraps-without-check",
+      "profile": "mpk.go.fixed.v0",
+      "operation": "bv_add",
+      "lhs_width": 8,
+      "lhs_signed": true,
+      "rhs_width": 8,
+      "rhs_signed": true,
+      "checks": []
+    },
+    {
+      "id": "rust.add-requires-overflow-check",
+      "profile": "mpk.rust.checked.v0",
+      "operation": "bv_add",
+      "lhs_width": 8,
+      "lhs_signed": true,
+      "rhs_width": 8,
+      "rhs_signed": true,
+      "checks": [
+        {
+          "kind": "integer_no_overflow",
+          "operation": "add",
+          "signed": true
+        }
+      ]
+    },
+    {
+      "id": "go.signed-shift-requires-nonnegative",
+      "profile": "mpk.go.fixed.v0",
+      "operation": "bv_shl",
+      "lhs_width": 8,
+      "lhs_signed": false,
+      "rhs_width": 16,
+      "rhs_signed": true,
+      "checks": [
+        {
+          "kind": "shift_count_nonnegative"
+        }
+      ]
+    },
+    {
+      "id": "rust.signed-shift-adds-width-check",
+      "profile": "mpk.rust.checked.v0",
+      "operation": "bv_shl",
+      "lhs_width": 8,
+      "lhs_signed": false,
+      "rhs_width": 16,
+      "rhs_signed": true,
+      "checks": [
+        {
+          "kind": "shift_count_nonnegative"
+        },
+        {
+          "kind": "shift_count_less_than_width"
+        }
+      ]
+    },
+    {
+      "id": "go.signed-div-requires-nonzero",
+      "profile": "mpk.go.fixed.v0",
+      "operation": "bv_sdiv",
+      "lhs_width": 8,
+      "lhs_signed": true,
+      "rhs_width": 8,
+      "rhs_signed": true,
+      "checks": [
+        {
+          "kind": "divisor_nonzero"
+        }
+      ]
+    },
+    {
+      "id": "rust.signed-div-adds-representability",
+      "profile": "mpk.rust.checked.v0",
+      "operation": "bv_sdiv",
+      "lhs_width": 8,
+      "lhs_signed": true,
+      "rhs_width": 8,
+      "rhs_signed": true,
+      "checks": [
+        {
+          "kind": "divisor_nonzero"
+        },
+        {
+          "kind": "signed_divrem_representable",
+          "operation": "div"
+        }
+      ]
+    }
+  ],
+  "findings": []
+}

@@ -8,8 +8,8 @@ use mpk_vc::{
     ProgramVcMemberKind, RustCheckedParameters, SafetyEvidenceRoute, SemanticParameters,
     SemanticProfile, SourceLanguage, VirBinaryOperator, VirBinding, VirBlock, VirContract,
     VirContractExpr, VirFeature, VirFunction, VirInstruction, VirIntLiteral, VirModule,
-    VirSafetyCheck, VirTerminator, VirType, VirUnit, VirValue, SAFETY_PROOF_PENDING_OWNER,
-    VIR_SCHEMA_VERSION,
+    VirSafetyCheck, VirTerminator, VirType, VirUnit, VirValue,
+    SAFETY_GROUPED_CERTIFICATE_FOUNDATION, VIR_SCHEMA_VERSION,
 };
 
 fn bool_ty() -> VirType {
@@ -397,8 +397,8 @@ fn nested_short_circuit_and_early_returns_keep_guard_order() {
         );
         assert_eq!(
             safety[0].safety_evidence,
-            Some(SafetyEvidenceRoute::ProofPending {
-                owner: SAFETY_PROOF_PENDING_OWNER
+            Some(SafetyEvidenceRoute::GroupedCertificate {
+                foundation: SAFETY_GROUPED_CERTIFICATE_FOUNDATION
             })
         );
 
@@ -550,7 +550,7 @@ fn empty_safety_paths_are_identical_for_go_and_rust() {
 }
 
 #[test]
-fn symbolic_go_safety_is_proof_pending_without_changing_value_semantics() {
+fn symbolic_go_safety_uses_grouped_certificate_without_changing_value_semantics() {
     let blocks = vec![VirBlock {
         label: "bb0".to_owned(),
         parameters: Vec::new(),
@@ -582,8 +582,8 @@ fn symbolic_go_safety_is_proof_pending_without_changing_value_semantics() {
     assert_eq!(safety.len(), 1);
     assert_eq!(
         safety[0].safety_evidence,
-        Some(SafetyEvidenceRoute::ProofPending {
-            owner: SAFETY_PROOF_PENDING_OWNER
+        Some(SafetyEvidenceRoute::GroupedCertificate {
+            foundation: SAFETY_GROUPED_CERTIFICATE_FOUNDATION
         })
     );
     assert!(contains_function(

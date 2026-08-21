@@ -1,6 +1,6 @@
 {
   "schema": "mpk.program_safety_paths.v0",
-  "proof_pending_owner": "VIR-01-T12",
+  "proof_pending_owner": null,
   "rust_checked_theory_format": "mpk.bitvec-ground.v0",
   "unchecked_axioms": 0,
   "check_kinds": [
@@ -27,8 +27,9 @@
     {
       "id": "rust.ground.unsupported-composition",
       "profile": "mpk.rust.checked.v0",
-      "route": "proof_pending",
-      "owner": "VIR-01-T12",
+      "route": "grouped_certificate",
+      "foundation": "Std.Program.Base",
+      "checked_path": "mpk.vc.cert_skeleton.v1",
       "checks": [
         "integer_no_overflow",
         "signed_divrem_representable"
@@ -37,8 +38,9 @@
     {
       "id": "rust.symbolic.safety",
       "profile": "mpk.rust.checked.v0",
-      "route": "proof_pending",
-      "owner": "VIR-01-T12",
+      "route": "grouped_certificate",
+      "foundation": "Std.Program.Base",
+      "checked_path": "mpk.vc.cert_skeleton.v1",
       "checks": [
         "integer_no_overflow",
         "divisor_nonzero",

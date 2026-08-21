@@ -10,6 +10,7 @@ pub mod call_wp;
 pub mod canonical_json;
 pub mod expr_encode;
 pub mod gir;
+pub mod grouping;
 pub mod hash;
 pub mod loops;
 pub mod obligation_emit;
@@ -26,6 +27,7 @@ pub mod source_map;
 pub mod type_encode;
 pub mod vc;
 pub mod vc_canonical;
+pub mod vc_skeleton;
 pub mod verification_limits;
 pub mod vir;
 pub mod vir_canonical;
@@ -54,6 +56,10 @@ pub use gir::{
     GirFunction, GirImportError, GirInstruction, GirInstructionKind, GirIntLiteral,
     GirLoopContract, GirModule, GirPackage, GirRejectedFeature, GirTerminator, GirTerminatorKind,
     GirType, GirTypeKind, GirValue, GIR_SCHEMA_VERSION,
+};
+pub use grouping::{
+    conjoin_terms, group_body, imply, member_theorem_type, GroupingError,
+    STD_BOOL_AND as VC_STD_BOOL_AND, STD_BOOL_TRUE as VC_STD_BOOL_TRUE, STD_LOGIC_IMP_V1,
 };
 pub use hash::{
     hash_canonical_inventory, hash_canonical_json, hash_domain_separated_raw,
@@ -109,8 +115,8 @@ pub use safety::{generate_safety_vcs, SafetyVcGenerator};
 pub use safety_check::{
     encode_instruction_safety, required_safety_checks, validate_safety_check_sequence,
     EncodedSafetyPredicate, SafetyCheckError, SafetyEvidenceRoute, SafetyObligationKind,
-    VirSafetyOperation, SAFETY_BITVEC_THEORY_FORMAT, SAFETY_OBLIGATION_KIND_COMPONENT,
-    SAFETY_PROOF_PENDING_OWNER,
+    VirSafetyOperation, SAFETY_BITVEC_THEORY_FORMAT, SAFETY_GROUPED_CERTIFICATE_FOUNDATION,
+    SAFETY_OBLIGATION_KIND_COMPONENT,
 };
 pub use semantic_profile::{
     validate_semantic_context, validate_semantic_parameters, GoFixedParameters, OverflowMode,
@@ -163,6 +169,12 @@ pub use vc_canonical::{
     canonical_vc_hash_payload, canonical_vc_json, generate_vc_v1, generate_vc_v1_from_context,
     import_vc_v1_json, vc_hash, ValidatedVcDocument, VcValidationError, VcValidationPhase,
     VC_HASH_DOMAIN,
+};
+pub use vc_skeleton::{
+    canonical_skeleton_json, emit_vc_skeleton_v1, import_vc_skeleton_v1_json,
+    validate_policy_member_binding, GroupedTheoremDeclaration, GroupedTheoremType,
+    PolicyMemberBindingError, ValidatedVcCertificateSkeleton, VcCertificateSkeletonV1,
+    VcSkeletonValidationError, VcSkeletonValidationPhase, VC_CERT_SKELETON_V1_SCHEMA_VERSION,
 };
 pub use verification_limits::{
     validate_verification_limit, VerificationLimitError, VerificationLimitId,

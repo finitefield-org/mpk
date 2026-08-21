@@ -11,7 +11,7 @@ use mpk_vc::{
     SafetyObligationKind, SemanticParameters, SemanticProfile, TotalBitVectorResult,
     VirBinaryOperator, VirInstruction, VirInstructionKind, VirIntLiteral, VirSafetyCheck,
     VirSafetyOperation, VirType, VirUnaryOperator, VirValue, SAFETY_BITVEC_THEORY_FORMAT,
-    SAFETY_OBLIGATION_KIND_COMPONENT, SAFETY_PROOF_PENDING_OWNER,
+    SAFETY_GROUPED_CERTIFICATE_FOUNDATION, SAFETY_OBLIGATION_KIND_COMPONENT,
 };
 use serde_json::Value;
 
@@ -567,8 +567,8 @@ fn division_shift_and_index_predicates_cover_total_corner_cases() {
     );
     assert_eq!(
         predicates[1].evidence_route,
-        SafetyEvidenceRoute::ProofPending {
-            owner: SAFETY_PROOF_PENDING_OWNER
+        SafetyEvidenceRoute::GroupedCertificate {
+            foundation: SAFETY_GROUPED_CERTIFICATE_FOUNDATION
         }
     );
 
@@ -666,7 +666,7 @@ fn division_shift_and_index_predicates_cover_total_corner_cases() {
 }
 
 #[test]
-fn symbolic_predicates_are_explicitly_owned_by_the_phase_gate() {
+fn symbolic_predicates_use_the_grouped_checked_certificate_path() {
     let ty = bv(BitVectorWidth::Bits8, false);
     let instruction = binary_instruction(
         VirBinaryOperator::BvAdd,
@@ -684,8 +684,8 @@ fn symbolic_predicates_are_explicitly_owned_by_the_phase_gate() {
         .expect("one predicate");
     assert_eq!(
         predicate.evidence_route,
-        SafetyEvidenceRoute::ProofPending {
-            owner: SAFETY_PROOF_PENDING_OWNER
+        SafetyEvidenceRoute::GroupedCertificate {
+            foundation: SAFETY_GROUPED_CERTIFICATE_FOUNDATION
         }
     );
     assert_eq!(
@@ -725,8 +725,8 @@ fn symbolic_predicates_are_explicitly_owned_by_the_phase_gate() {
             .expect("one predicate");
     assert_eq!(
         predicate.evidence_route,
-        SafetyEvidenceRoute::ProofPending {
-            owner: SAFETY_PROOF_PENDING_OWNER
+        SafetyEvidenceRoute::GroupedCertificate {
+            foundation: SAFETY_GROUPED_CERTIFICATE_FOUNDATION
         }
     );
 }
@@ -740,7 +740,7 @@ fn safety_path_ledger_covers_every_check_without_unchecked_axioms() {
     .expect("valid safety ledger");
     assert_eq!(ledger["schema"], "mpk.program_safety_paths.v0");
     assert_eq!(ledger["unchecked_axioms"], 0);
-    assert_eq!(ledger["proof_pending_owner"], SAFETY_PROOF_PENDING_OWNER);
+    assert!(ledger["proof_pending_owner"].is_null());
     assert_eq!(
         ledger["rust_checked_theory_format"],
         SAFETY_BITVEC_THEORY_FORMAT
@@ -769,10 +769,11 @@ fn safety_path_ledger_covers_every_check_without_unchecked_axioms() {
         let route = vector["route"].as_str().expect("route");
         assert!(matches!(
             route,
-            "zero_axiom" | "mvp_theory" | "proof_pending"
+            "zero_axiom" | "mvp_theory" | "grouped_certificate"
         ));
-        if route == "proof_pending" {
-            assert_eq!(vector["owner"], SAFETY_PROOF_PENDING_OWNER);
+        if route == "grouped_certificate" {
+            assert_eq!(vector["foundation"], SAFETY_GROUPED_CERTIFICATE_FOUNDATION);
+            assert_eq!(vector["checked_path"], "mpk.vc.cert_skeleton.v1");
         } else if route == "mvp_theory" {
             assert_eq!(vector["format"], SAFETY_BITVEC_THEORY_FORMAT);
         } else {

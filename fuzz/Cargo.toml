@@ -12,6 +12,8 @@ libfuzzer-sys = "0.4"
 mpk-cert = { path = "../crates/mpk-cert" }
 mpk-kernel = { path = "../crates/mpk-kernel" }
 mpk-theory = { path = "../crates/mpk-theory" }
+mpk-vc = { path = "../crates/mpk-vc" }
+serde_json = "1"
 
 [[bin]]
 name = "certificate_decoder"
@@ -23,6 +25,20 @@ bench = false
 [[bin]]
 name = "theory_certificates"
 path = "fuzz_targets/theory_certificates.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "vir_parser"
+path = "fuzz_targets/vir_parser.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "source_map_parser"
+path = "fuzz_targets/source_map_parser.rs"
 test = false
 doc = false
 bench = false

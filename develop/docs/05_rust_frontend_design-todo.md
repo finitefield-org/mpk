@@ -1886,7 +1886,7 @@ git diff --check
 
 ### VIR-01-T12 Emit Grouped Certificate Skeletons and Close the Shared Foundation Gate
 
-Status: Pending
+Status: Complete (2026-08-21).
 
 Depends on: VIR-01-T05, VIR-01-T07, VIR-01-T11.
 

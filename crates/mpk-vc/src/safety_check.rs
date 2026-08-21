@@ -17,8 +17,8 @@ use crate::vir::{
 };
 
 pub const SAFETY_OBLIGATION_KIND_COMPONENT: &str = "operation_safety";
-pub const SAFETY_PROOF_PENDING_OWNER: &str = "VIR-01-T12";
 pub const SAFETY_BITVEC_THEORY_FORMAT: &str = "mpk.bitvec-ground.v0";
+pub const SAFETY_GROUPED_CERTIFICATE_FOUNDATION: &str = "Std.Program.Base";
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum VirSafetyOperation {
@@ -45,7 +45,7 @@ impl SafetyObligationKind {
 pub enum SafetyEvidenceRoute {
     ZeroAxiomGround,
     MvpTheoryGround { format: &'static str },
-    ProofPending { owner: &'static str },
+    GroupedCertificate { foundation: &'static str },
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -624,8 +624,8 @@ pub(crate) fn classify_safety_evidence(
     proposition: &MpkExprTerm,
 ) -> SafetyEvidenceRoute {
     if !is_ground(proposition) {
-        return SafetyEvidenceRoute::ProofPending {
-            owner: SAFETY_PROOF_PENDING_OWNER,
+        return SafetyEvidenceRoute::GroupedCertificate {
+            foundation: SAFETY_GROUPED_CERTIFICATE_FOUNDATION,
         };
     }
     if profile == SemanticProfile::GoFixedV0 {
@@ -636,8 +636,8 @@ pub(crate) fn classify_safety_evidence(
             format: SAFETY_BITVEC_THEORY_FORMAT,
         }
     } else {
-        SafetyEvidenceRoute::ProofPending {
-            owner: SAFETY_PROOF_PENDING_OWNER,
+        SafetyEvidenceRoute::GroupedCertificate {
+            foundation: SAFETY_GROUPED_CERTIFICATE_FOUNDATION,
         }
     }
 }
