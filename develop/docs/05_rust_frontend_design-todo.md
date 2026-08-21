@@ -2003,7 +2003,7 @@ git diff --check
 
 ### GO-VIR-02-T02 Create `go2vir` and the Generic CLI Envelope
 
-Status: Pending
+Status: Complete (2026-08-22).
 
 Depends on: VIR-01-T04, VIR-01-T05.
 

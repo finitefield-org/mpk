@@ -1,0 +1,48 @@
+{
+  "schema": "mpk.go2vir.invocation_fixture.v0",
+  "args": [
+    "lower",
+    "/mpk/source",
+    "--package",
+    "example.com/mpk/vector",
+    "--semantic-profile",
+    "mpk.go.fixed.v0",
+    "--target",
+    "linux/amd64",
+    "--function",
+    "example.com/mpk/vector.Identity",
+    "--frontend-bundle-id",
+    "frontend.go.synthetic.v0",
+    "--frontend-sha256",
+    "306c6ca7407560340797866e077e053627ad409277d1b9da58106fce4cf717cb",
+    "--release-registry-id",
+    "mpk.release.registry.v0",
+    "--release-registry-sha256",
+    "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7",
+    "--toolchain-bundle-id",
+    "toolchain.go.synthetic.v0",
+    "--toolchain-root",
+    "/mpk/toolchain",
+    "--toolchain-distribution-sha256",
+    "1dfc37014daf7080cfe690d97ff3d5856fd28dc556a430cb510bad757de7d1f9",
+    "--contract",
+    "contracts/identity.json"
+  ],
+  "request": {
+    "source_root": "/mpk/source",
+    "package": "example.com/mpk/vector",
+    "semantic_profile": "mpk.go.fixed.v0",
+    "target": "linux/amd64",
+    "function": "example.com/mpk/vector.Identity",
+    "frontend_bundle_id": "frontend.go.synthetic.v0",
+    "frontend_sha256": "306c6ca7407560340797866e077e053627ad409277d1b9da58106fce4cf717cb",
+    "release_registry_id": "mpk.release.registry.v0",
+    "release_registry_sha256": "47f80ab09e8cde24af73ddc198aef254ff1dbd18c1423a2e7e0ebb69f8c787a7",
+    "toolchain_bundle_id": "toolchain.go.synthetic.v0",
+    "toolchain_root": "/mpk/toolchain",
+    "toolchain_distribution_sha256": "1dfc37014daf7080cfe690d97ff3d5856fd28dc556a430cb510bad757de7d1f9",
+    "contracts": [
+      "contracts/identity.json"
+    ]
+  }
+}
