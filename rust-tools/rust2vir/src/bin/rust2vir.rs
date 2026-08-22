@@ -10,6 +10,19 @@ const USAGE: &str = "rust2vir lower SOURCE_ROOT --manifest-path Cargo.toml --pac
 
 fn main() -> ExitCode {
     let arguments = std::env::args_os().skip(1).collect::<Vec<_>>();
+    if arguments.first().and_then(|argument| argument.to_str())
+        == Some("__rust2vir_cargo_sandbox_v0")
+    {
+        let arguments = arguments[1..]
+            .iter()
+            .map(|argument| argument.to_str().map(str::to_owned))
+            .collect::<Option<Vec<_>>>();
+        return ExitCode::from(
+            arguments
+                .as_deref()
+                .map_or(125, rust2vir_internal::sandbox::run_bootstrap),
+        );
+    }
     if arguments.len() == 1 && arguments[0] == "--version" {
         println!("{}", rust2vir_internal::version_line("rust2vir"));
         return ExitCode::SUCCESS;

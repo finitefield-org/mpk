@@ -68,6 +68,10 @@ impl Snapshot {
     pub fn validate(&self) -> Result<(), SnapshotError> {
         self.guard.validate_named_root()
     }
+
+    pub(crate) fn try_clone_root(&self) -> Result<std::fs::File, SnapshotError> {
+        self.guard.try_clone_root()
+    }
 }
 
 impl Drop for Snapshot {
@@ -265,6 +269,11 @@ mod platform {
                 return Err(SnapshotError::FileType);
             }
             Ok(())
+        }
+
+        pub fn try_clone_root(&self) -> Result<File, SnapshotError> {
+            self.validate_named_root()?;
+            self.root.try_clone().map_err(|_| SnapshotError::FileType)
         }
 
         pub fn cleanup(&mut self) {
@@ -539,6 +548,7 @@ mod platform {
 mod platform {
     use super::SnapshotError;
     use crate::path::PortablePath;
+    use std::fs::File;
     use std::path::{Path, PathBuf};
 
     pub struct CleanupGuard;
@@ -562,6 +572,10 @@ mod platform {
         }
 
         pub fn validate_named_root(&self) -> Result<(), SnapshotError> {
+            Err(SnapshotError::FileType)
+        }
+
+        pub fn try_clone_root(&self) -> Result<File, SnapshotError> {
             Err(SnapshotError::FileType)
         }
 

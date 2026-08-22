@@ -2,12 +2,17 @@
 
 use std::fmt;
 
+pub mod cargo_check;
+pub mod cargo_metadata;
 pub mod cli;
+pub mod environment;
+mod json;
 pub mod manifest;
 pub mod metadata_request;
 pub mod module_closure;
 pub mod path;
 pub mod preflight;
+pub mod sandbox;
 pub mod sha256;
 pub mod snapshot;
 pub mod source_capture;

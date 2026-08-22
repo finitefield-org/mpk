@@ -3073,7 +3073,7 @@ git diff --check
 
 ### RUST-03-T05 Implement the Sandboxed Cargo Metadata and Check Launcher
 
-Status: Pending
+Status: Complete (2026-08-22)
 
 Depends on: RUST-03-T01, RUST-03-T04.
 
