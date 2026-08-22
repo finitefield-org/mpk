@@ -1712,6 +1712,7 @@
     "minimum_kernel": "5.10.0"
   },
   "production_projection": {
+    "inventory_path_equality": "byte-exact",
     "cache_top_level": [
       "cargo-home-seed",
       "native-runtime",
@@ -1784,6 +1785,7 @@
       "elf_entrypoints_ref": "#/production_projection/toolchain_executables",
       "interpreter_source": "/lib64/ld-linux-x86-64.so.2",
       "interpreter_output": "native-runtime/lib64/ld-linux-x86-64.so.2",
+      "toolchain_runpath": "$ORIGIN/../lib",
       "soname_source_directories": [
         "/lib/x86_64-linux-gnu",
         "/usr/lib/x86_64-linux-gnu"
@@ -1810,9 +1812,16 @@
     "prebuilt_libfuzzer_file": "toolchain/lib/libfuzzer.a"
   },
   "cargo_home_post_run_allowlist": [
+    ".global-cache",
     ".package-cache",
+    ".package-cache-mutate",
     "config.toml"
   ],
+  "cargo_home_post_run_global_cache": {
+    "format": "sqlite3",
+    "magic_hex": "53514c69746520666f726d6174203300",
+    "maximum_size_bytes": 1048576
+  },
   "launcher": {
     "fixed_paths": [
       "/mpk/cargo-home",

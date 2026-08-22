@@ -416,16 +416,49 @@ def classify_registry(data: bytes) -> str:
     raise BundleFailure("BUNDLE_REGISTERED_STATE")
 
 
+def current_rust_candidate(active: Path) -> bytes | None:
+    candidates = active / "candidates"
+    if not candidates.exists() and not candidates.is_symlink():
+        return None
+    if candidates.is_symlink() or not candidates.is_dir():
+        raise BundleFailure("BUNDLE_REGISTERED_STATE")
+    if {path.name for path in candidates.iterdir()} != {"rust"}:
+        raise BundleFailure("BUNDLE_REGISTERED_STATE")
+    rust = candidates / "rust"
+    if rust.is_symlink() or not rust.is_dir():
+        raise BundleFailure("BUNDLE_REGISTERED_STATE")
+    if {path.name for path in rust.iterdir()} != {"candidate.json"}:
+        raise BundleFailure("BUNDLE_REGISTERED_STATE")
+    candidate = rust / "candidate.json"
+    metadata = candidate.lstat()
+    if (
+        candidate.is_symlink()
+        or not stat.S_ISREG(metadata.st_mode)
+        or metadata.st_nlink != 1
+    ):
+        raise BundleFailure("BUNDLE_REGISTERED_STATE")
+    return candidate.read_bytes()
+
+
 def atomic_publish_registry(registry: bytes) -> None:
     root = repository_root()
     active = root / "release/bundles"
     parent = active.parent
+    candidate = current_rust_candidate(active)
     staging = Path(tempfile.mkdtemp(prefix=".bundles-stage-", dir=parent))
     try:
         shutil.copyfile(active / "README.md", staging / "README.md", follow_symlinks=False)
         (staging / "bundle-registry.json").write_bytes(registry)
+        if candidate is not None:
+            directory = staging / "candidates/rust"
+            directory.mkdir(parents=True)
+            candidate_path = directory / "candidate.json"
+            candidate_path.write_bytes(candidate)
+            candidate_path.chmod(0o644)
         for path in (staging / "README.md", staging / "bundle-registry.json"):
             path.chmod(0o644)
+        if current_rust_candidate(active) != candidate:
+            raise BundleFailure("BUNDLE_REGISTERED_STATE")
         exchange_directories(staging, active)
         shutil.rmtree(staging)
     except BundleFailure:

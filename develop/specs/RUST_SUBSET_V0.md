@@ -710,7 +710,11 @@ with its leading slash removed. A selected symbolic or hard-link
 name is resolved only inside that immutable merged image, with bounded hops,
 and materialized as an independent ordinary file containing the terminal
 regular file's bytes; an escape, cycle, dangling link, non-regular terminal,
-or output-path collision rejects. Directory entries themselves are implicit.
+or byte-exact output-path collision rejects. The projection preserves
+case-distinct Linux paths as distinct ordinary files; build-input inventory
+path equality is therefore the vector's `byte-exact` rule and is deliberately
+not the invocation-source ASCII-case-folded equality from section 2.1.
+Directory entries themselves are implicit.
 This yields the complete C/C++ header, startup-object, GNU library/linker-script,
 and GCC runtime development view without retaining a link. Every
 `required_output_paths` member must result from that projection with exactly
@@ -726,9 +730,14 @@ breadth-first `DT_NEEDED` closure. For each needed SONAME it searches the
 immutable runtime image's `soname_source_directories` in vector order, resolves
 a link with the same bounded in-image rule, and copies the terminal bytes under
 `native-runtime/lib/x86_64-linux-gnu/<SONAME>`. Duplicate SONAME candidates are
-allowed only when their terminal bytes are equal; an unresolved SONAME,
-nonliteral loader token, `RPATH`/`RUNPATH`, interpreter change, cycle-counter
-overflow, or dependency outside the resulting closure rejects. Before candidate
+allowed only when their terminal bytes are equal. The immutable Rust and LLVM
+toolchain entrypoints and their internal libraries may contain exactly one
+`DT_RUNPATH` whose value equals the vector's exact `$ORIGIN/../lib`; it resolves
+only to the already inventoried read-only `/mpk/toolchain/lib`. `DT_RPATH`, any
+other or repeated `DT_RUNPATH`, and every loader token in a runtime or
+post-build entrypoint reject. An unresolved SONAME, interpreter change,
+cycle-counter overflow, or dependency outside the resulting closure also
+rejects. Before candidate
 publication, the assembler repeats that inspection for all four exact
 `post_build_entrypoints`: `rust2vir`, `rust2vir-driver`, and the
 `driver_protocol` and `rust_contract` fuzz targets at the absolute paths in the
@@ -1043,8 +1052,10 @@ The exact nested fields and valid synthetic instance are normative in
   process DAG, target/scratch substitutions, and every Cargo/rustc/build-script/
   linker/fuzz-engine argv;
 - component provenance and license/notice references; and
-- each component's sorted regular files with portable relative `path`, Boolean
-  `executable`, integer `size_bytes`, and raw `sha256`.
+- each component's sorted regular files with an ASCII relative `path` satisfying
+  the section 2.1 component syntax and reserved-name exclusions but using the
+  production projection's byte-exact equality, Boolean `executable`, integer
+  `size_bytes`, and raw `sha256`.
 
 The vector's sibling `production_projection` object is frozen recipe input,
 not a field of `mpk.rust.build_inputs.v0`. Its roots and ELF entrypoints MUST be
@@ -1115,9 +1126,12 @@ section 10 is not extended by this table.
 bytes replace `crates-io` with named directory source `mpk-vendor` at
 `/mpk/vendor` and set offline mode. It contains no registry cache/index,
 credential, provider, alias, external command, executable, link, or alternate
-config. The copied file is read-only and no-replace. Cargo may leave only that
-file and an optional zero-byte regular `.package-cache` lock file; every other
-post-run Cargo-home entry rejects. Resolution outside `/mpk/vendor` rejects.
+config. The copied file is read-only and no-replace. Pinned Cargo may leave the
+two zero-byte regular lock files `.package-cache` and
+`.package-cache-mutate`, plus a non-executable regular `.global-cache` SQLite 3
+database with the vector's exact magic and inclusive 1,048,576-byte limit.
+Every other post-run Cargo-home entry, wrong mode/type/magic, or oversized
+database rejects. Resolution outside `/mpk/vendor` rejects.
 
 `--update-build-inputs rust` is the sole tracked descriptor writer and the only
 mode besides provisioning that may fetch. It fetches fixed origins, stages

@@ -212,15 +212,10 @@ fn release_installation_selection_and_assembler_vectors_are_all_owned() {
 }
 
 #[test]
-fn assembler_rejects_unconfigured_and_unknown_argv_without_writes() {
+fn assembler_rejects_unknown_argv_without_writes() {
     let root = repository_root();
     let script = root.join("scripts/build-release-bundles.sh");
     for (args, exit, stderr) in [
-        (
-            vec!["--check-build-inputs", "rust"],
-            65,
-            "BUNDLE_BUILD_INPUTS_NOT_CONFIGURED\n",
-        ),
         (vec!["--unsupported", "go"], 64, "BUNDLE_ASSEMBLER_USAGE\n"),
         (vec![], 64, "BUNDLE_ASSEMBLER_USAGE\n"),
     ] {
@@ -232,6 +227,56 @@ fn assembler_rejects_unconfigured_and_unknown_argv_without_writes() {
         assert!(output.stdout.is_empty());
         assert_eq!(String::from_utf8(output.stderr).unwrap(), stderr);
     }
+}
+
+#[test]
+fn stable_root_workspace_explicitly_excludes_the_pinned_nightly_frontend() {
+    let root = repository_root();
+    let manifest = fs::read_to_string(root.join("Cargo.toml")).expect("read root manifest");
+    assert!(
+        manifest.contains("exclude = [\"rust-tools/rust2vir\"]"),
+        "root workspace must explicitly exclude the pinned nightly package"
+    );
+
+    let metadata = Command::new("cargo")
+        .args(["metadata", "--format-version", "1", "--no-deps"])
+        .current_dir(&root)
+        .output()
+        .expect("read stable workspace metadata");
+    assert!(metadata.status.success());
+    assert!(metadata.stderr.is_empty());
+    let value: Value = serde_json::from_slice(&metadata.stdout).expect("parse workspace metadata");
+    let nightly_manifest = root.join("rust-tools/rust2vir/Cargo.toml");
+    assert!(
+        value["packages"]
+            .as_array()
+            .expect("metadata packages")
+            .iter()
+            .all(|package| package["manifest_path"].as_str() != nightly_manifest.to_str()),
+        "stable workspace metadata selected the pinned nightly package"
+    );
+}
+
+#[test]
+fn rust_build_input_vectors_are_owned_by_the_internal_conformance_harness() {
+    let root = repository_root();
+    let output = Command::new("/usr/bin/env")
+        .args([
+            "-i",
+            "PATH=/usr/bin:/bin",
+            "/usr/bin/python3",
+            "scripts/rust_build_inputs.py",
+            "self-test",
+        ])
+        .current_dir(root)
+        .output()
+        .expect("run Rust build-input conformance harness");
+    assert!(
+        output.status.success(),
+        "Rust build-input conformance failed: {}",
+        String::from_utf8_lossy(&output.stderr)
+    );
+    assert!(output.stdout.is_empty());
 }
 
 #[test]
