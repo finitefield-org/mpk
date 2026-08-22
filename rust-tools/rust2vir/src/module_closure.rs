@@ -35,6 +35,7 @@ pub enum ModuleClosureCode {
     SubsetPath,
     SubsetExpansion,
     SubsetIdentifier,
+    SubsetFunctionKind,
 }
 
 impl ModuleClosureCode {
@@ -58,6 +59,7 @@ impl ModuleClosureCode {
             Self::SubsetPath => "RUST_SUBSET_PATH",
             Self::SubsetExpansion => "RUST_SUBSET_EXPANSION",
             Self::SubsetIdentifier => "RUST_SUBSET_IDENTIFIER",
+            Self::SubsetFunctionKind => "RUST_SUBSET_FUNCTION_KIND",
         }
     }
 
@@ -81,6 +83,7 @@ impl ModuleClosureCode {
             Self::SubsetPath => "explicit module paths are not permitted",
             Self::SubsetExpansion => "expansion-affecting source syntax is not permitted",
             Self::SubsetIdentifier => "source identifier is not canonical",
+            Self::SubsetFunctionKind => "function kind is outside the closed Rust subset",
         }
     }
 
@@ -105,7 +108,7 @@ impl ModuleClosureCode {
             | Self::SubsetVisibility
             | Self::SubsetPath
             | Self::SubsetExpansion => "source",
-            Self::SubsetIdentifier => "subset",
+            Self::SubsetIdentifier | Self::SubsetFunctionKind => "subset",
             _ => "capture",
         }
     }
@@ -344,6 +347,7 @@ fn map_source_gate(code: SourceGateCode) -> ModuleClosureError {
         SourceGateCode::SubsetPath => ModuleClosureCode::SubsetPath,
         SourceGateCode::SubsetExpansion => ModuleClosureCode::SubsetExpansion,
         SourceGateCode::SubsetIdentifier => ModuleClosureCode::SubsetIdentifier,
+        SourceGateCode::SubsetFunctionKind => ModuleClosureCode::SubsetFunctionKind,
     }
     .into()
 }

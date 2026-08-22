@@ -2,6 +2,7 @@
 
 use std::fmt;
 
+pub mod call_closure;
 pub mod cargo_check;
 pub mod cargo_metadata;
 pub mod cli;

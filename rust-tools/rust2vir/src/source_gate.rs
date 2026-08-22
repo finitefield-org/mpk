@@ -9,6 +9,7 @@ pub enum SourceGateCode {
     SubsetPath,
     SubsetExpansion,
     SubsetIdentifier,
+    SubsetFunctionKind,
 }
 
 impl SourceGateCode {
@@ -23,6 +24,7 @@ impl SourceGateCode {
             Self::SubsetPath => "RUST_SUBSET_PATH",
             Self::SubsetExpansion => "RUST_SUBSET_EXPANSION",
             Self::SubsetIdentifier => "RUST_SUBSET_IDENTIFIER",
+            Self::SubsetFunctionKind => "RUST_SUBSET_FUNCTION_KIND",
         }
     }
 
@@ -37,12 +39,13 @@ impl SourceGateCode {
             Self::SubsetPath => "explicit module paths are not permitted",
             Self::SubsetExpansion => "expansion-affecting source syntax is not permitted",
             Self::SubsetIdentifier => "source identifier is not canonical",
+            Self::SubsetFunctionKind => "function kind is outside the closed Rust subset",
         }
     }
 
     pub fn phase(self) -> &'static str {
         match self {
-            Self::SubsetIdentifier => "subset",
+            Self::SubsetIdentifier | Self::SubsetFunctionKind => "subset",
             _ => "source",
         }
     }
@@ -353,6 +356,13 @@ fn validate_profile_tokens(tokens: &[Token], role: SourceRole) -> Result<(), Sou
                     .is_some_and(|token| token.is_identifier("crate")))
         {
             findings.push(SourceGateCode::SubsetImport);
+        }
+        if tokens[index].is_identifier("extern")
+            && tokens
+                .get(index + 1)
+                .is_none_or(|token| !token.is_identifier("crate"))
+        {
+            findings.push(SourceGateCode::SubsetFunctionKind);
         }
         if tokens[index].is_identifier("pub")
             && tokens
@@ -713,5 +723,6 @@ fn source_gate_precedence(code: SourceGateCode) -> u8 {
         SourceGateCode::SubsetPath => 6,
         SourceGateCode::SubsetExpansion => 7,
         SourceGateCode::SubsetIdentifier => 8,
+        SourceGateCode::SubsetFunctionKind => 9,
     }
 }

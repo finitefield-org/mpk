@@ -3372,7 +3372,7 @@ git diff --check
 
 ### RUST-03-T09 Implement the HIR Subset, Purity, and Conservative Call Closure
 
-Status: Pending
+Status: Complete (2026-08-22)
 
 Depends on: RUST-03-T08.
 

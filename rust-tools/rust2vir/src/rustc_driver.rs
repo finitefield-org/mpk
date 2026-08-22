@@ -21,10 +21,16 @@ use std::panic::{catch_unwind, AssertUnwindSafe};
 use std::path::Path;
 use std::sync::Arc;
 
+#[path = "hir_check.rs"]
+mod hir_check;
+
+pub use hir_check::{HirAnalysis, HirCheckCode};
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum RustcDriverError {
     Source(SourceLoaderError),
     Session,
+    Subset(HirCheckCode),
     MirAdapter,
     Compiler,
 }
@@ -37,11 +43,20 @@ enum CallbackPhase {
     MirBorrowed,
 }
 
+#[allow(dead_code)]
 pub fn run_primary(
     arguments: &[String],
     request: &DriverRequest,
     loader: Arc<SnapshotFileLoader>,
 ) -> Result<(), RustcDriverError> {
+    analyze_primary(arguments, request, loader).map(drop)
+}
+
+pub fn analyze_primary(
+    arguments: &[String],
+    request: &DriverRequest,
+    loader: Arc<SnapshotFileLoader>,
+) -> Result<HirAnalysis, RustcDriverError> {
     validate_compatibility(
         MIR_PROFILE_ID,
         EXPECTED_RUSTC_COMMIT,
@@ -55,6 +70,7 @@ pub fn run_primary(
         loader,
         phase: CallbackPhase::Created,
         failure: None,
+        analysis: None,
     };
     if rustc_driver::catch_fatal_errors(|| rustc_driver::run_compiler(arguments, &mut callbacks))
         .is_err()
@@ -72,6 +88,7 @@ struct PinnedCallbacks<'a> {
     loader: Arc<SnapshotFileLoader>,
     phase: CallbackPhase,
     failure: Option<RustcDriverError>,
+    analysis: Option<HirAnalysis>,
 }
 
 impl PinnedCallbacks<'_> {
@@ -82,7 +99,7 @@ impl PinnedCallbacks<'_> {
         Compilation::Stop
     }
 
-    fn finish(self) -> Result<(), RustcDriverError> {
+    fn finish(self) -> Result<HirAnalysis, RustcDriverError> {
         if let Some(error) = self.failure {
             return Err(error);
         }
@@ -95,7 +112,8 @@ impl PinnedCallbacks<'_> {
         }
         self.loader
             .verify_inventory()
-            .map_err(RustcDriverError::Source)
+            .map_err(RustcDriverError::Source)?;
+        self.analysis.ok_or(RustcDriverError::MirAdapter)
     }
 }
 
@@ -136,38 +154,61 @@ impl Callbacks for PinnedCallbacks<'_> {
         }
 
         let function = self.request.selection().2;
+        let analysis = match hir_check::analyze_hir(tcx, function) {
+            Ok(analysis) => analysis,
+            Err(error) => return self.reject(RustcDriverError::Subset(error)),
+        };
+
         let crate_name_symbol = tcx.crate_name(LOCAL_CRATE);
         let crate_name = crate_name_symbol.as_str();
-        let mut matching = tcx.mir_keys(()).iter().copied().filter(|def_id| {
-            format!("{crate_name}::{}", tcx.def_path_str(def_id.to_def_id())) == function
-        });
-        let Some(def_id) = matching.next() else {
-            return self.reject(RustcDriverError::MirAdapter);
-        };
-        if matching.next().is_some() {
+        let mut definitions = analysis
+            .call_closure
+            .iter()
+            .map(|function| function.function_id.as_str())
+            .map(|function_id| {
+                let mut matching = tcx.mir_keys(()).iter().copied().filter(|def_id| {
+                    format!("{crate_name}::{}", tcx.def_path_str(def_id.to_def_id())) == function_id
+                });
+                let result = matching.next().filter(|_| matching.next().is_none());
+                (function_id, result)
+            })
+            .collect::<Vec<_>>();
+        if definitions.iter().any(|(_, def_id)| def_id.is_none()) {
             return self.reject(RustcDriverError::MirAdapter);
         }
 
-        let mut access = match MirAccessTracker::new([function.to_owned()]) {
+        let mut access = match MirAccessTracker::new(
+            analysis
+                .call_closure
+                .iter()
+                .map(|function| function.function_id.clone()),
+        ) {
             Ok(access) => access,
             Err(_) => return self.reject(RustcDriverError::MirAdapter),
         };
-        if access.force(function, MIR_QUERY).is_err() {
+        definitions.sort_by_key(|(function_id, _)| *function_id);
+        for (function_id, def_id) in definitions {
+            if access.force(function_id, MIR_QUERY).is_err() {
+                return self.reject(RustcDriverError::MirAdapter);
+            }
+            let body = match catch_unwind(AssertUnwindSafe(|| {
+                tcx.mir_drops_elaborated_and_const_checked(def_id.expect("checked definition"))
+                    .borrow()
+            })) {
+                Ok(body) => body,
+                Err(_) => return self.reject(RustcDriverError::MirAdapter),
+            };
+            if body.phase != MirPhase::Runtime(RuntimePhase::PostCleanup)
+                || access.mark_borrowed(function_id).is_err()
+            {
+                return self.reject(RustcDriverError::MirAdapter);
+            }
+            drop(body);
+        }
+        if access.finish().is_err() {
             return self.reject(RustcDriverError::MirAdapter);
         }
-        let body = match catch_unwind(AssertUnwindSafe(|| {
-            tcx.mir_drops_elaborated_and_const_checked(def_id).borrow()
-        })) {
-            Ok(body) => body,
-            Err(_) => return self.reject(RustcDriverError::MirAdapter),
-        };
-        if body.phase != MirPhase::Runtime(RuntimePhase::PostCleanup)
-            || access.mark_borrowed(function).is_err()
-            || access.finish().is_err()
-        {
-            return self.reject(RustcDriverError::MirAdapter);
-        }
-        drop(body);
+        self.analysis = Some(analysis);
         self.phase = CallbackPhase::MirBorrowed;
         Compilation::Stop
     }

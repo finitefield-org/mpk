@@ -1,8 +1,10 @@
 #![allow(internal_features)]
 #![feature(rustc_private)]
 
+extern crate rustc_abi;
 extern crate rustc_ast;
 extern crate rustc_driver;
+extern crate rustc_hir;
 extern crate rustc_interface;
 extern crate rustc_middle;
 extern crate rustc_session;
@@ -112,6 +114,13 @@ fn publish_rustc_failure(
             "typecheck",
             "RUST_TOOLCHAIN_OPTIONS",
             "effective rustc session differs from the pinned profile",
+        ),
+        RustcDriverError::Subset(error) => publish_primary_diagnostic(
+            request,
+            DriverStatus::Rejected,
+            "subset",
+            error.as_str(),
+            error.message(),
         ),
         RustcDriverError::MirAdapter => publish_primary_diagnostic(
             request,

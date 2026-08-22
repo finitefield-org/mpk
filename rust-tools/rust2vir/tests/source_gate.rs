@@ -223,6 +223,16 @@ fn no_std_is_exactly_one_root_only_attribute_and_identifiers_are_canonical() {
 }
 
 #[test]
+fn explicit_rust_abi_is_still_an_extern_function() {
+    assert_gate(
+        "pub extern \"Rust\" fn f(x: u8) -> u8 { x }",
+        SourceRole::CrateRoot,
+        SourceGateCode::SubsetFunctionKind,
+    );
+    assert_eq!(SourceGateCode::SubsetFunctionKind.phase(), "subset");
+}
+
+#[test]
 fn loader_returns_only_preflight_inventory_from_retained_bytes() {
     let root = TestRoot::new();
     let root_bytes = b"mod child;\npub fn f(x:u8)->u8{child::f(x)}\n";
