@@ -272,6 +272,34 @@ impl DriverRequest {
             .collect()
     }
 
+    pub fn contract_inventory(&self) -> Vec<DriverInputIdentity> {
+        object_member(self.root(), "inputs")
+            .and_then(JsonValue::as_array)
+            .expect("validated input inventory")
+            .iter()
+            .filter_map(|entry| {
+                let entry = entry.as_object()?;
+                (entry.get("kind")?.as_str()? == "contract").then(|| DriverInputIdentity {
+                    kind: "contract".to_owned(),
+                    normalized_path: entry["normalized_path"]
+                        .as_str()
+                        .expect("validated contract path")
+                        .to_owned(),
+                    size_bytes: u64::try_from(
+                        entry["size_bytes"]
+                            .integer()
+                            .expect("validated contract size"),
+                    )
+                    .expect("validated contract size is nonnegative"),
+                    sha256: entry["sha256"]
+                        .as_str()
+                        .expect("validated contract hash")
+                        .to_owned(),
+                })
+            })
+            .collect()
+    }
+
     fn source_size(&self, path: &str) -> Option<i64> {
         object_member(self.root(), "source_inventory")
             .and_then(JsonValue::as_array)

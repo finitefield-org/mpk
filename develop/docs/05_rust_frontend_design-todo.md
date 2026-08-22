@@ -3428,7 +3428,7 @@ git diff --check
 
 ### RUST-03-T10 Implement Typed Rust Contract Parsing and Attachment
 
-Status: Pending
+Status: Complete (2026-08-22)
 
 Depends on: RUST-03-T03, RUST-03-T09.
 

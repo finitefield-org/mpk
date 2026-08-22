@@ -6,6 +6,10 @@ use rust2vir_internal::mir_access::{
 };
 use rust2vir_internal::session::EffectiveSession;
 use rust2vir_internal::EXPECTED_RUSTC_COMMIT;
+use rust2vir_internal::{
+    contract::{ContractError, ContractFunction, ContractSet},
+    contract_typecheck::attach_contracts,
+};
 use rustc_ast as ast;
 use rustc_driver::{Callbacks, Compilation};
 use rustc_interface::interface::{Compiler, Config};
@@ -26,13 +30,20 @@ mod hir_check;
 
 pub use hir_check::{HirAnalysis, HirCheckCode};
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Eq, PartialEq)]
 pub enum RustcDriverError {
     Source(SourceLoaderError),
     Session,
     Subset(HirCheckCode),
+    Contract(ContractError),
     MirAdapter,
     Compiler,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+pub struct PrimaryAnalysis {
+    pub hir: HirAnalysis,
+    pub contracts: ContractSet,
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -56,7 +67,26 @@ pub fn analyze_primary(
     arguments: &[String],
     request: &DriverRequest,
     loader: Arc<SnapshotFileLoader>,
+) -> Result<PrimaryAnalysis, RustcDriverError> {
+    analyze_with_mode(arguments, request, loader, true)
+}
+
+#[cfg(test)]
+#[allow(dead_code)]
+pub fn analyze_hir_primary(
+    arguments: &[String],
+    request: &DriverRequest,
+    loader: Arc<SnapshotFileLoader>,
 ) -> Result<HirAnalysis, RustcDriverError> {
+    analyze_with_mode(arguments, request, loader, false).map(|analysis| analysis.hir)
+}
+
+fn analyze_with_mode(
+    arguments: &[String],
+    request: &DriverRequest,
+    loader: Arc<SnapshotFileLoader>,
+    enforce_contracts: bool,
+) -> Result<PrimaryAnalysis, RustcDriverError> {
     validate_compatibility(
         MIR_PROFILE_ID,
         EXPECTED_RUSTC_COMMIT,
@@ -71,6 +101,7 @@ pub fn analyze_primary(
         phase: CallbackPhase::Created,
         failure: None,
         analysis: None,
+        enforce_contracts,
     };
     if rustc_driver::catch_fatal_errors(|| rustc_driver::run_compiler(arguments, &mut callbacks))
         .is_err()
@@ -88,7 +119,8 @@ struct PinnedCallbacks<'a> {
     loader: Arc<SnapshotFileLoader>,
     phase: CallbackPhase,
     failure: Option<RustcDriverError>,
-    analysis: Option<HirAnalysis>,
+    analysis: Option<PrimaryAnalysis>,
+    enforce_contracts: bool,
 }
 
 impl PinnedCallbacks<'_> {
@@ -99,7 +131,7 @@ impl PinnedCallbacks<'_> {
         Compilation::Stop
     }
 
-    fn finish(self) -> Result<HirAnalysis, RustcDriverError> {
+    fn finish(self) -> Result<PrimaryAnalysis, RustcDriverError> {
         if let Some(error) = self.failure {
             return Err(error);
         }
@@ -158,6 +190,29 @@ impl Callbacks for PinnedCallbacks<'_> {
             Ok(analysis) => analysis,
             Err(error) => return self.reject(RustcDriverError::Subset(error)),
         };
+        let contracts = if self.enforce_contracts {
+            let signatures = analysis
+                .call_closure
+                .iter()
+                .map(|function| ContractFunction {
+                    function_id: function.function_id.clone(),
+                    parameter_names: function.parameter_names.clone(),
+                    parameter_types: function.parameter_types.clone(),
+                    result_type: function.result_type.clone(),
+                })
+                .collect::<Vec<_>>();
+            match attach_contracts(
+                self.loader.contract_inputs(),
+                &signatures,
+                self.request.target(),
+                self.request.pointer_width(),
+            ) {
+                Ok(contracts) => contracts,
+                Err(error) => return self.reject(RustcDriverError::Contract(error)),
+            }
+        } else {
+            ContractSet::default()
+        };
 
         let crate_name_symbol = tcx.crate_name(LOCAL_CRATE);
         let crate_name = crate_name_symbol.as_str();
@@ -208,7 +263,10 @@ impl Callbacks for PinnedCallbacks<'_> {
         if access.finish().is_err() {
             return self.reject(RustcDriverError::MirAdapter);
         }
-        self.analysis = Some(analysis);
+        self.analysis = Some(PrimaryAnalysis {
+            hir: analysis,
+            contracts,
+        });
         self.phase = CallbackPhase::MirBorrowed;
         Compilation::Stop
     }

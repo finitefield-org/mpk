@@ -66,11 +66,23 @@ impl JsonValue {
 pub struct JsonError;
 
 pub fn parse(bytes: &[u8], maximum: usize) -> Result<JsonValue, JsonError> {
+    parse_with_depth(bytes, maximum, JSON_DEPTH_MAX)
+}
+
+pub fn parse_with_depth(
+    bytes: &[u8],
+    maximum: usize,
+    maximum_depth: usize,
+) -> Result<JsonValue, JsonError> {
     if bytes.len() > maximum {
         return Err(JsonError);
     }
     let source = std::str::from_utf8(bytes).map_err(|_| JsonError)?;
-    let mut parser = Parser { source, cursor: 0 };
+    let mut parser = Parser {
+        source,
+        cursor: 0,
+        maximum_depth,
+    };
     parser.skip_whitespace();
     let value = parser.value(0)?;
     parser.skip_whitespace();
@@ -160,11 +172,12 @@ fn encode_string(value: &str, output: &mut Vec<u8>) {
 struct Parser<'a> {
     source: &'a str,
     cursor: usize,
+    maximum_depth: usize,
 }
 
 impl Parser<'_> {
     fn value(&mut self, depth: usize) -> Result<JsonValue, JsonError> {
-        if depth > JSON_DEPTH_MAX {
+        if depth > self.maximum_depth {
             return Err(JsonError);
         }
         match self.peek() {

@@ -1,3 +1,4 @@
+use crate::contract::ContractInput;
 use crate::driver_protocol::{DriverInputIdentity, DriverRequest};
 use crate::path::PortablePath;
 use crate::preflight::platform::{regular_file_identity, RootDirectory};
@@ -92,6 +93,7 @@ pub struct SnapshotFileLoader {
     root_path: PathBuf,
     crate_root: PortablePath,
     sources: BTreeMap<PortablePath, ImmutableSource>,
+    contracts: Vec<ContractInput>,
     state: Mutex<LoaderState>,
 }
 
@@ -102,6 +104,7 @@ impl fmt::Debug for SnapshotFileLoader {
             .field("root_path", &self.root_path)
             .field("crate_root", &self.crate_root)
             .field("source_count", &self.sources.len())
+            .field("contract_count", &self.contracts.len())
             .finish_non_exhaustive()
     }
 }
@@ -112,7 +115,12 @@ impl SnapshotFileLoader {
         crate_root: &str,
         request: &DriverRequest,
     ) -> Result<Self, SourceLoaderError> {
-        Self::open(root_path, crate_root, &request.source_inventory())
+        Self::open_with_contracts(
+            root_path,
+            crate_root,
+            &request.source_inventory(),
+            &request.contract_inventory(),
+        )
     }
 
     pub fn open(
@@ -120,53 +128,46 @@ impl SnapshotFileLoader {
         crate_root: &str,
         inventory: &[DriverInputIdentity],
     ) -> Result<Self, SourceLoaderError> {
+        Self::open_with_contracts(root_path, crate_root, inventory, &[])
+    }
+
+    pub fn open_with_contracts(
+        root_path: &Path,
+        crate_root: &str,
+        source_inventory: &[DriverInputIdentity],
+        contract_inventory: &[DriverInputIdentity],
+    ) -> Result<Self, SourceLoaderError> {
         let crate_root = PortablePath::parse(crate_root)
             .map_err(|_| SourceLoaderCode::FrontendSourceInventory)?;
         let directory = RootDirectory::open(root_path)
             .map_err(|_| SourceLoaderCode::FrontendSourceInventory)?;
         let mut sources = BTreeMap::new();
-        for expected in inventory {
-            if expected.kind != "source" {
-                return Err(SourceLoaderCode::FrontendSourceInventory.into());
-            }
-            let path = PortablePath::parse(&expected.normalized_path)
-                .map_err(|_| SourceLoaderCode::FrontendSourceInventory)?;
-            if sources.contains_key(&path) {
-                return Err(SourceLoaderCode::FrontendSourceInventory.into());
-            }
-            let mut file = directory
-                .open_regular_file(&path)
-                .map_err(|_| SourceLoaderCode::FrontendSourceInventory)?;
-            let before = regular_file_identity(&file)
-                .map_err(|_| SourceLoaderCode::FrontendSourceInventory)?;
-            if before.size != expected.size_bytes {
-                return Err(SourceLoaderCode::FrontendSourceInventory.into());
-            }
-            let maximum = expected
-                .size_bytes
-                .checked_add(1)
-                .ok_or(SourceLoaderCode::FrontendSourceInventory)?;
-            let capacity = usize::try_from(expected.size_bytes)
-                .map_err(|_| SourceLoaderCode::FrontendSourceInventory)?;
-            let mut bytes = Vec::with_capacity(capacity);
-            file.by_ref()
-                .take(maximum)
-                .read_to_end(&mut bytes)
-                .map_err(|_| SourceLoaderCode::FrontendSourceInventory)?;
-            let after = regular_file_identity(&file)
-                .map_err(|_| SourceLoaderCode::FrontendSourceInventory)?;
-            if before != after
-                || bytes.len() as u64 != expected.size_bytes
-                || hex(&digest(&bytes)) != expected.sha256
+        let mut seen_paths = BTreeSet::new();
+        for expected in source_inventory {
+            if expected.kind != "source"
+                || !seen_paths.insert(expected.normalized_path.to_ascii_lowercase())
             {
                 return Err(SourceLoaderCode::FrontendSourceInventory.into());
             }
-            sources.insert(
-                path,
-                ImmutableSource {
-                    bytes: Arc::from(bytes),
-                },
-            );
+            let (path, bytes) = read_inventory_input(&directory, expected)?;
+            if sources.contains_key(&path) {
+                return Err(SourceLoaderCode::FrontendSourceInventory.into());
+            }
+            sources.insert(path, ImmutableSource { bytes });
+        }
+        let mut contracts = Vec::with_capacity(contract_inventory.len());
+        for expected in contract_inventory {
+            if expected.kind != "contract"
+                || !seen_paths.insert(expected.normalized_path.to_ascii_lowercase())
+            {
+                return Err(SourceLoaderCode::FrontendSourceInventory.into());
+            }
+            let (path, bytes) = read_inventory_input(&directory, expected)?;
+            contracts.push(ContractInput {
+                normalized_path: path.as_str().to_owned(),
+                raw_input_sha256: expected.sha256.clone(),
+                bytes,
+            });
         }
         if sources.is_empty() || !sources.contains_key(&crate_root) {
             return Err(SourceLoaderCode::FrontendSourceInventory.into());
@@ -175,6 +176,7 @@ impl SnapshotFileLoader {
             root_path: root_path.to_owned(),
             crate_root,
             sources,
+            contracts,
             state: Mutex::new(LoaderState::default()),
         };
         loader.validate_preflight_inventory()?;
@@ -226,6 +228,10 @@ impl SnapshotFileLoader {
                 .expect("validated inventory contains the crate root")
                 .bytes,
         )
+    }
+
+    pub fn contract_inputs(&self) -> Vec<ContractInput> {
+        self.contracts.clone()
     }
 
     pub fn validate_root_ast(&self, path: &Path, bytes: &[u8]) -> Result<(), SourceLoaderError> {
@@ -320,4 +326,40 @@ impl SnapshotFileLoader {
             .lock()
             .unwrap_or_else(std::sync::PoisonError::into_inner)
     }
+}
+
+fn read_inventory_input(
+    directory: &RootDirectory,
+    expected: &DriverInputIdentity,
+) -> Result<(PortablePath, Arc<[u8]>), SourceLoaderError> {
+    let path = PortablePath::parse(&expected.normalized_path)
+        .map_err(|_| SourceLoaderCode::FrontendSourceInventory)?;
+    let mut file = directory
+        .open_regular_file(&path)
+        .map_err(|_| SourceLoaderCode::FrontendSourceInventory)?;
+    let before =
+        regular_file_identity(&file).map_err(|_| SourceLoaderCode::FrontendSourceInventory)?;
+    if before.size != expected.size_bytes {
+        return Err(SourceLoaderCode::FrontendSourceInventory.into());
+    }
+    let maximum = expected
+        .size_bytes
+        .checked_add(1)
+        .ok_or(SourceLoaderCode::FrontendSourceInventory)?;
+    let capacity = usize::try_from(expected.size_bytes)
+        .map_err(|_| SourceLoaderCode::FrontendSourceInventory)?;
+    let mut bytes = Vec::with_capacity(capacity);
+    file.by_ref()
+        .take(maximum)
+        .read_to_end(&mut bytes)
+        .map_err(|_| SourceLoaderCode::FrontendSourceInventory)?;
+    let after =
+        regular_file_identity(&file).map_err(|_| SourceLoaderCode::FrontendSourceInventory)?;
+    if before != after
+        || bytes.len() as u64 != expected.size_bytes
+        || hex(&digest(&bytes)) != expected.sha256
+    {
+        return Err(SourceLoaderCode::FrontendSourceInventory.into());
+    }
+    Ok((path, Arc::from(bytes)))
 }

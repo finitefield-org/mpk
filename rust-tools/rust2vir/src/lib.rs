@@ -6,6 +6,8 @@ pub mod call_closure;
 pub mod cargo_check;
 pub mod cargo_metadata;
 pub mod cli;
+pub mod contract;
+pub mod contract_typecheck;
 pub mod driver_process;
 pub mod driver_protocol;
 pub mod environment;

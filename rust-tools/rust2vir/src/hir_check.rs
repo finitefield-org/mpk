@@ -1,6 +1,7 @@
 use rust2vir_internal::call_closure::{
     resolve_call_closure, CallClosureError, MAX_CALL_CLOSURE_FUNCTIONS,
 };
+use rust2vir_internal::contract::ContractType;
 use rustc_abi::ExternAbi;
 use rustc_ast::ast::{BinOpKind, ByRef, LitKind, Mutability, UnOp};
 use rustc_hir as hir;
@@ -85,6 +86,8 @@ impl HirCheckCode {
 pub struct HirFunction {
     pub function_id: String,
     pub parameter_names: Vec<String>,
+    pub parameter_types: Vec<ContractType>,
+    pub result_type: ContractType,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -362,6 +365,12 @@ fn validate_function(
         validate_value_type(tcx, def_id, *ty, 0)?;
     }
     validate_value_type(tcx, def_id, resolved_sig.output(), 0)?;
+    let parameter_types = resolved_sig
+        .inputs()
+        .iter()
+        .map(|ty| contract_type(tcx, def_id, *ty))
+        .collect::<Result<Vec<_>, _>>()?;
+    let result_type = contract_type(tcx, def_id, resolved_sig.output())?;
     validator.validate_expr(body.value)?;
     if mutable_parameter {
         return Err(HirCheckCode::Pattern);
@@ -369,6 +378,8 @@ fn validate_function(
     Ok(HirFunction {
         function_id: function_id.to_owned(),
         parameter_names,
+        parameter_types,
+        result_type,
     })
 }
 
@@ -911,6 +922,63 @@ fn reject_drop<'tcx>(
         Err(HirCheckCode::Drop)
     } else {
         Ok(())
+    }
+}
+
+fn contract_type<'tcx>(
+    tcx: TyCtxt<'tcx>,
+    owner: LocalDefId,
+    ty: Ty<'tcx>,
+) -> Result<ContractType, HirCheckCode> {
+    match ty.kind() {
+        ty::Bool => Ok(ContractType::Bool),
+        ty::Int(integer) => Ok(ContractType::BitVector {
+            width: match integer {
+                IntTy::I8 => 8,
+                IntTy::I16 => 16,
+                IntTy::I32 => 32,
+                IntTy::I64 => 64,
+                IntTy::Isize => u8::try_from(tcx.sess.target.pointer_width).unwrap_or(0),
+                _ => return Err(HirCheckCode::Type),
+            },
+            signed: true,
+        }),
+        ty::Uint(integer) => Ok(ContractType::BitVector {
+            width: match integer {
+                UintTy::U8 => 8,
+                UintTy::U16 => 16,
+                UintTy::U32 => 32,
+                UintTy::U64 => 64,
+                UintTy::Usize => u8::try_from(tcx.sess.target.pointer_width).unwrap_or(0),
+                _ => return Err(HirCheckCode::Type),
+            },
+            signed: false,
+        }),
+        ty::Array(element, length) => {
+            let typing_env = ty::TypingEnv::post_analysis(tcx, owner);
+            let length = length.try_to_target_usize(tcx).or_else(|| {
+                let ty::ConstKind::Unevaluated(unevaluated) = length.kind() else {
+                    return None;
+                };
+                rustc_middle::mir::Const::Unevaluated(
+                    rustc_middle::mir::UnevaluatedConst::new(unevaluated.def, unevaluated.args),
+                    tcx.types.usize,
+                )
+                .try_eval_target_usize(tcx, typing_env)
+            });
+            Ok(ContractType::Array {
+                element: Box::new(contract_type(tcx, owner, *element)?),
+                length: length.ok_or(HirCheckCode::Type)?,
+            })
+        }
+        ty::Adt(adt, arguments)
+            if adt.is_struct() && adt.did().is_local() && arguments.is_empty() =>
+        {
+            Ok(ContractType::Struct {
+                id: canonical_item_id(tcx, adt.did().as_local().ok_or(HirCheckCode::Type)?),
+            })
+        }
+        _ => Err(HirCheckCode::Type),
     }
 }
 

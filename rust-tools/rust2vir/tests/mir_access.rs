@@ -160,7 +160,8 @@ fn pinned_callbacks_borrow_preoptimization_mir_from_the_real_compiler() {
         .unwrap();
         let arguments = compiler_arguments(&source_path, &output_path, target);
         assert_eq!(
-            rustc_driver_adapter::run_primary(&arguments, &request, Arc::new(loader)),
+            rustc_driver_adapter::analyze_hir_primary(&arguments, &request, Arc::new(loader),)
+                .map(drop),
             Ok(())
         );
         fs::remove_dir_all(root).unwrap();

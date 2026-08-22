@@ -122,6 +122,13 @@ fn publish_rustc_failure(
             error.as_str(),
             error.message(),
         ),
+        RustcDriverError::Contract(error) => publish_primary_diagnostic(
+            request,
+            DriverStatus::Rejected,
+            "subset",
+            error.code.as_str(),
+            error.code.message(),
+        ),
         RustcDriverError::MirAdapter => publish_primary_diagnostic(
             request,
             DriverStatus::FrontendError,
