@@ -52,6 +52,7 @@ impl fmt::Debug for CapturedInput {
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub(crate) enum CaptureFailure {
+    Missing,
     FileType,
     Path,
     PathLimit,
@@ -129,9 +130,7 @@ impl CaptureState {
         kind: InputKind,
         maximum_bytes: u64,
     ) -> Result<CapturedInput, CaptureFailure> {
-        let opened = self
-            .open_candidate(&path)?
-            .ok_or(CaptureFailure::FileType)?;
+        let opened = self.open_candidate(&path)?.ok_or(CaptureFailure::Missing)?;
         self.capture_opened(path, kind, maximum_bytes, opened)
     }
 

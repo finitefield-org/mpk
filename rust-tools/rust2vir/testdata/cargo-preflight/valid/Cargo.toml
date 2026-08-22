@@ -1,0 +1,36 @@
+[package]
+name = "vector"
+version = "1.2.3-alpha.1+fixture"
+edition = "2021"
+publish = false
+authors = ["MPK"]
+description = """
+descriptive metadata is parsed but not retained
+"""
+homepage = "https://invalid.example"
+documentation = "https://invalid.example/docs"
+repository = "https://invalid.example/repository"
+license = "Apache-2.0"
+keywords = ["verification"]
+categories = ["development-tools"]
+
+[lib]
+name = "vector"
+path = "src/lib.rs"
+
+[features]
+default = []
+
+[dependencies]
+
+[dev-dependencies]
+
+[build-dependencies]
+
+[[bin]]
+name = "unselected"
+path = "tools/unselected.rs"
+test = false
+bench = false
+doc = false
+required-features = []

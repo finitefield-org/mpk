@@ -3,6 +3,8 @@
 use std::fmt;
 
 pub mod cli;
+pub mod manifest;
+pub mod metadata_request;
 pub mod module_closure;
 pub mod path;
 pub mod preflight;

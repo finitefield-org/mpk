@@ -1,4 +1,5 @@
 use rust2vir_internal::cli::{parse_lower_args, LowerRequest, SEMANTIC_PROFILE};
+use rust2vir_internal::manifest;
 use rust2vir_internal::module_closure::{self, ClosureStatus, ModuleClosure, ModuleClosureCode};
 use rust2vir_internal::preflight;
 use rust2vir_internal::sha256;
@@ -110,7 +111,9 @@ fn request(root: &Path) -> LowerRequest {
 }
 
 fn discover(root: &TestRoot) -> Result<ModuleClosure, module_closure::ModuleClosureError> {
-    module_closure::discover(preflight::run(&request(root.path())).unwrap())
+    let request = request(root.path());
+    let validated = manifest::validate(&request, preflight::run(&request).unwrap()).unwrap();
+    module_closure::discover(validated).map(|(closure, _expected)| closure)
 }
 
 fn assert_error(root: &TestRoot, code: ModuleClosureCode) {

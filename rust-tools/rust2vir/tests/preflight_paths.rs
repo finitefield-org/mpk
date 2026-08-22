@@ -158,6 +158,7 @@ fn path_and_contract_count_limits_precede_filesystem_access() {
 fn file_type_precedes_non_limit_path_failures() {
     let root = TestRoot::valid();
     fs::remove_file(root.path.join("Cargo.lock")).unwrap();
+    fs::create_dir(root.path.join("Cargo.lock")).unwrap();
     let mut selected = request(root.path());
     replace_contract(&mut selected, &["../outside.json"]);
     assert_code(preflight::run(&selected), PreflightCode::FileType);
@@ -247,6 +248,8 @@ fn manifest_lock_and_contract_byte_limits_are_checked_before_parsing() {
 fn cargo_authority_files_are_rejected_in_fixed_precedence() {
     let root = TestRoot::valid();
     fs::write(root.path.join("Cargo.toml"), b"[workspace]\nmembers = []\n").unwrap();
+    fs::create_dir(root.path.join("nested")).unwrap();
+    fs::write(root.path.join("nested/Cargo.toml"), MANIFEST).unwrap();
     fs::create_dir(root.path.join(".cargo")).unwrap();
     fs::write(root.path.join(".cargo/config.toml"), b"[build]\n").unwrap();
     fs::write(root.path.join("rust-toolchain.toml"), b"[toolchain]\n").unwrap();
@@ -255,7 +258,7 @@ fn cargo_authority_files_are_rejected_in_fixed_precedence() {
         PreflightCode::Workspace,
     );
 
-    fs::write(root.path.join("Cargo.toml"), MANIFEST).unwrap();
+    fs::remove_dir_all(root.path.join("nested")).unwrap();
     assert_code(preflight::run(&request(root.path())), PreflightCode::Config);
 
     fs::remove_dir_all(root.path.join(".cargo")).unwrap();

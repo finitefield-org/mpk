@@ -110,9 +110,14 @@ pub fn run(request: &LowerRequest) -> Result<StructuralPreflight, PreflightError
     let manifest = capture
         .capture_registered(manifest_path, InputKind::BuildManifest, MANIFEST_BYTES_MAX)
         .map_err(|failure| map_capture_limit(failure, PreflightCode::LimitInputBytes))?;
-    let lockfile = capture
-        .capture_registered(lockfile_path, InputKind::Lockfile, LOCKFILE_BYTES_MAX)
-        .map_err(|failure| map_capture_limit(failure, PreflightCode::LimitInputBytes))?;
+    let lockfile =
+        match capture.capture_registered(lockfile_path, InputKind::Lockfile, LOCKFILE_BYTES_MAX) {
+            Ok(lockfile) => Some(lockfile),
+            Err(CaptureFailure::Missing) => None,
+            Err(failure) => {
+                return Err(map_capture_limit(failure, PreflightCode::LimitInputBytes));
+            }
+        };
 
     let mut contract_total = 0_u64;
     let mut contracts = Vec::with_capacity(contract_paths.len());
@@ -136,7 +141,7 @@ pub fn run(request: &LowerRequest) -> Result<StructuralPreflight, PreflightError
     if path_failure {
         return Err(PreflightCode::Path.into());
     }
-    if has_workspace_table(&manifest.bytes) || layout.workspace {
+    if layout.workspace {
         return Err(PreflightCode::Workspace.into());
     }
     if layout.config {
@@ -145,8 +150,8 @@ pub fn run(request: &LowerRequest) -> Result<StructuralPreflight, PreflightError
     if layout.toolchain_file {
         return Err(PreflightCode::ToolchainFile.into());
     }
-
-    let mut inputs = vec![manifest, lockfile];
+    let mut inputs = vec![manifest];
+    inputs.extend(lockfile);
     inputs.extend(contracts);
     inputs.sort_by(|left, right| left.normalized_path.cmp(&right.normalized_path));
     Ok(StructuralPreflight { inputs, capture })
@@ -166,6 +171,7 @@ fn insert_path(paths: &mut PortablePathSet, value: &str) -> Result<PortablePath,
 
 fn map_capture_failure(failure: CaptureFailure) -> PreflightError {
     match failure {
+        CaptureFailure::Missing => PreflightCode::FileType,
         CaptureFailure::FileType => PreflightCode::FileType,
         CaptureFailure::Path => PreflightCode::Path,
         CaptureFailure::PathLimit => PreflightCode::LimitPath,
@@ -180,120 +186,6 @@ fn map_capture_limit(failure: CaptureFailure, byte_limit: PreflightCode) -> Pref
         CaptureFailure::ByteLimit => byte_limit.into(),
         other => map_capture_failure(other),
     }
-}
-
-fn has_workspace_table(bytes: &[u8]) -> bool {
-    #[derive(Clone, Copy)]
-    enum StringState {
-        Normal,
-        Basic,
-        Literal,
-        MultilineBasic,
-        MultilineLiteral,
-    }
-
-    let mut state = StringState::Normal;
-    let mut position = 0;
-    let mut line_has_token = false;
-    while position < bytes.len() {
-        match state {
-            StringState::Normal => match bytes[position] {
-                b'\n' => {
-                    line_has_token = false;
-                    position += 1;
-                }
-                byte if byte.is_ascii_whitespace() => position += 1,
-                b'#' => {
-                    position += 1;
-                    while position < bytes.len() && bytes[position] != b'\n' {
-                        position += 1;
-                    }
-                }
-                b'[' if !line_has_token => {
-                    let line_end = bytes[position..]
-                        .iter()
-                        .position(|byte| *byte == b'\n')
-                        .map_or(bytes.len(), |offset| position + offset);
-                    let line = trim_ascii(&bytes[position..line_end]);
-                    if line.strip_prefix(b"[workspace]").is_some_and(|rest| {
-                        trim_ascii(rest).is_empty() || trim_ascii(rest).starts_with(b"#")
-                    }) || line.starts_with(b"[workspace.")
-                    {
-                        return true;
-                    }
-                    line_has_token = true;
-                    position += 1;
-                }
-                b'"' if bytes[position..].starts_with(b"\"\"\"") => {
-                    state = StringState::MultilineBasic;
-                    line_has_token = true;
-                    position += 3;
-                }
-                b'\'' if bytes[position..].starts_with(b"'''") => {
-                    state = StringState::MultilineLiteral;
-                    line_has_token = true;
-                    position += 3;
-                }
-                b'"' => {
-                    state = StringState::Basic;
-                    line_has_token = true;
-                    position += 1;
-                }
-                b'\'' => {
-                    state = StringState::Literal;
-                    line_has_token = true;
-                    position += 1;
-                }
-                _ => {
-                    line_has_token = true;
-                    position += 1;
-                }
-            },
-            StringState::Basic => match bytes[position] {
-                b'\\' => position = position.saturating_add(2),
-                b'"' => {
-                    state = StringState::Normal;
-                    position += 1;
-                }
-                _ => position += 1,
-            },
-            StringState::Literal => {
-                if bytes[position] == b'\'' {
-                    state = StringState::Normal;
-                }
-                position += 1;
-            }
-            StringState::MultilineBasic => {
-                if bytes[position..].starts_with(b"\"\"\"") {
-                    state = StringState::Normal;
-                    position += 3;
-                } else if bytes[position] == b'\\' {
-                    position = position.saturating_add(2);
-                } else {
-                    position += 1;
-                }
-            }
-            StringState::MultilineLiteral => {
-                if bytes[position..].starts_with(b"'''") {
-                    state = StringState::Normal;
-                    position += 3;
-                } else {
-                    position += 1;
-                }
-            }
-        }
-    }
-    false
-}
-
-fn trim_ascii(mut bytes: &[u8]) -> &[u8] {
-    while bytes.first().is_some_and(u8::is_ascii_whitespace) {
-        bytes = &bytes[1..];
-    }
-    while bytes.last().is_some_and(u8::is_ascii_whitespace) {
-        bytes = &bytes[..bytes.len() - 1];
-    }
-    bytes
 }
 
 #[derive(Default)]
@@ -696,22 +588,5 @@ pub(crate) mod platform {
 
     pub fn regular_file_identity(_file: &File) -> io::Result<FileIdentity> {
         Err(io::Error::from(io::ErrorKind::Unsupported))
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn workspace_table_detection_ignores_comments_and_prefixes() {
-        assert!(has_workspace_table(b"[workspace]\n"));
-        assert!(has_workspace_table(b"  [workspace.package] # inherited\n"));
-        assert!(!has_workspace_table(
-            b"# [workspace]\n[package]\nname='workspace'\n"
-        ));
-        assert!(!has_workspace_table(
-            b"description = \"\"\"\n[workspace]\n\"\"\"\nname = '[workspace]'\n"
-        ));
     }
 }

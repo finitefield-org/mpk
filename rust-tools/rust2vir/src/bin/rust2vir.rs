@@ -1,4 +1,6 @@
 use rust2vir_internal::cli::{self, NonSuccessStatus};
+use rust2vir_internal::manifest::{self, ManifestStatus};
+use rust2vir_internal::metadata_request::MetadataRequest;
 use rust2vir_internal::module_closure::{self, ClosureStatus};
 use rust2vir_internal::preflight;
 use rust2vir_internal::snapshot::Snapshot;
@@ -24,38 +26,72 @@ fn main() -> ExitCode {
         }
     };
     match preflight::run(&request) {
-        Ok(preflight) => match module_closure::discover(preflight) {
-            Ok(closure) => {
-                let _snapshot = match Snapshot::create(&std::env::temp_dir(), &closure) {
-                    Ok(snapshot) => snapshot,
-                    Err(_) => {
-                        println!(
-                            "{}",
-                            cli::non_success_envelope(
-                                &request,
-                                NonSuccessStatus::FrontendError,
-                                "RUST_FRONTEND_SOURCE_INVENTORY",
-                                "immutable source snapshot could not be created",
-                            )
-                        );
-                        return ExitCode::from(1);
-                    }
-                };
-                println!(
-                    "{}",
-                    cli::non_success_envelope(
-                        &request,
-                        NonSuccessStatus::FrontendError,
-                        "RUST_FRONTEND_DRIVER_PROTOCOL_PROCESS",
-                        "lowering stage is unavailable",
-                    )
-                );
-                ExitCode::from(1)
-            }
+        Ok(preflight) => match manifest::validate(&request, preflight) {
+            Ok(validated) => match module_closure::discover(validated) {
+                Ok((closure, expected)) => {
+                    let snapshot = match Snapshot::create(&std::env::temp_dir(), &closure) {
+                        Ok(snapshot) => snapshot,
+                        Err(_) => {
+                            println!(
+                                "{}",
+                                cli::non_success_envelope(
+                                    &request,
+                                    NonSuccessStatus::FrontendError,
+                                    "RUST_FRONTEND_SOURCE_INVENTORY",
+                                    "immutable source snapshot could not be created",
+                                )
+                            );
+                            return ExitCode::from(1);
+                        }
+                    };
+                    let _metadata_request = match MetadataRequest::for_snapshot(&snapshot, expected)
+                    {
+                        Ok(request) => request,
+                        Err(_) => {
+                            println!(
+                                "{}",
+                                cli::non_success_envelope(
+                                    &request,
+                                    NonSuccessStatus::FrontendError,
+                                    "RUST_FRONTEND_SOURCE_INVENTORY",
+                                    "immutable source snapshot could not be validated",
+                                )
+                            );
+                            return ExitCode::from(1);
+                        }
+                    };
+                    println!(
+                        "{}",
+                        cli::non_success_envelope(
+                            &request,
+                            NonSuccessStatus::FrontendError,
+                            "RUST_FRONTEND_DRIVER_PROTOCOL_PROCESS",
+                            "lowering stage is unavailable",
+                        )
+                    );
+                    ExitCode::from(1)
+                }
+                Err(error) => {
+                    let (status, exit) = match error.code.status() {
+                        ClosureStatus::Rejected => (NonSuccessStatus::Rejected, 3),
+                        ClosureStatus::SourceError => (NonSuccessStatus::SourceError, 4),
+                    };
+                    println!(
+                        "{}",
+                        cli::non_success_envelope(
+                            &request,
+                            status,
+                            error.code.as_str(),
+                            error.code.message(),
+                        )
+                    );
+                    ExitCode::from(exit)
+                }
+            },
             Err(error) => {
                 let (status, exit) = match error.code.status() {
-                    ClosureStatus::Rejected => (NonSuccessStatus::Rejected, 3),
-                    ClosureStatus::SourceError => (NonSuccessStatus::SourceError, 4),
+                    ManifestStatus::Rejected => (NonSuccessStatus::Rejected, 3),
+                    ManifestStatus::SourceError => (NonSuccessStatus::SourceError, 4),
                 };
                 println!(
                     "{}",

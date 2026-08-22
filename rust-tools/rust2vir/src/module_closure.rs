@@ -1,3 +1,4 @@
+use crate::manifest::{ExpectedManifestSelection, ValidatedManifest};
 use crate::path::{PortablePath, PortablePathError};
 use crate::preflight::StructuralPreflight;
 use crate::source_capture::{CaptureFailure, CaptureState, CapturedInput, InputKind, OpenedInput};
@@ -20,7 +21,6 @@ pub enum ModuleClosureCode {
     LimitPath,
     PreflightFileType,
     PreflightPath,
-    SourceManifestParse,
     SourceModuleMissing,
     SourceModuleAmbiguous,
     SourceModuleDuplicate,
@@ -39,7 +39,6 @@ impl ModuleClosureCode {
             Self::LimitPath => "RUST_LIMIT_PATH",
             Self::PreflightFileType => "RUST_PREFLIGHT_FILE_TYPE",
             Self::PreflightPath => "RUST_PREFLIGHT_PATH",
-            Self::SourceManifestParse => "RUST_SOURCE_MANIFEST_PARSE",
             Self::SourceModuleMissing => "RUST_SOURCE_MODULE_MISSING",
             Self::SourceModuleAmbiguous => "RUST_SOURCE_MODULE_AMBIGUOUS",
             Self::SourceModuleDuplicate => "RUST_SOURCE_MODULE_DUPLICATE",
@@ -58,7 +57,6 @@ impl ModuleClosureCode {
             Self::LimitPath => "normalized path limit exceeded",
             Self::PreflightFileType => "input file type is not permitted",
             Self::PreflightPath => "input path is not portable and contained",
-            Self::SourceManifestParse => "Cargo manifest could not be parsed",
             Self::SourceModuleMissing => "module source is missing or unresolved",
             Self::SourceModuleAmbiguous => "module source is ambiguous",
             Self::SourceModuleDuplicate => "module source is duplicated",
@@ -72,8 +70,7 @@ impl ModuleClosureCode {
 
     pub fn status(self) -> ClosureStatus {
         match self {
-            Self::SourceManifestParse
-            | Self::SourceModuleMissing
+            Self::SourceModuleMissing
             | Self::SourceModuleAmbiguous
             | Self::SourceModuleDuplicate
             | Self::SourceModuleCycle => ClosureStatus::SourceError,
@@ -108,13 +105,18 @@ impl ModuleClosure {
     }
 }
 
-pub fn discover(preflight: StructuralPreflight) -> Result<ModuleClosure, ModuleClosureError> {
-    let manifest = preflight
-        .inputs
-        .iter()
-        .find(|input| input.kind == InputKind::BuildManifest)
-        .ok_or(ModuleClosureCode::SourceManifestParse)?;
-    let library_root = parse_library_root(&manifest.bytes)?;
+pub fn discover(
+    validated: ValidatedManifest,
+) -> Result<(ModuleClosure, ExpectedManifestSelection), ModuleClosureError> {
+    let (preflight, expected) = validated.into_parts();
+    let closure = discover_at(preflight, expected.library_path().clone())?;
+    Ok((closure, expected))
+}
+
+fn discover_at(
+    preflight: StructuralPreflight,
+    library_root: PortablePath,
+) -> Result<ModuleClosure, ModuleClosureError> {
     let StructuralPreflight {
         mut inputs,
         mut capture,
@@ -288,6 +290,7 @@ fn capture_source(
 
 fn map_capture_failure(failure: CaptureFailure) -> ModuleClosureError {
     match failure {
+        CaptureFailure::Missing => ModuleClosureCode::PreflightFileType,
         CaptureFailure::FileType => ModuleClosureCode::PreflightFileType,
         CaptureFailure::Path => ModuleClosureCode::PreflightPath,
         CaptureFailure::PathLimit => ModuleClosureCode::LimitPath,
@@ -326,203 +329,6 @@ fn portable_join(base: &str, suffix: &str) -> Result<PortablePath, ModuleClosure
             ModuleClosureCode::PreflightPath.into()
         }
     })
-}
-
-fn parse_library_root(bytes: &[u8]) -> Result<PortablePath, ModuleClosureError> {
-    let text = std::str::from_utf8(bytes).map_err(|_| ModuleClosureCode::SourceManifestParse)?;
-    let mut table = "";
-    let mut library_path = None;
-    let mut multiline: Option<&str> = None;
-    for raw_line in text.lines() {
-        if let Some(delimiter) = multiline {
-            if multiline_close(raw_line, delimiter).is_some() {
-                multiline = None;
-            }
-            continue;
-        }
-        let scanned = scan_toml_line(raw_line)?;
-        multiline = scanned.open_multiline;
-        let line = scanned.code.trim();
-        if line.is_empty() {
-            continue;
-        }
-        if line.starts_with('[') {
-            if !line.ends_with(']') {
-                return Err(ModuleClosureCode::SourceManifestParse.into());
-            }
-            table = line[1..line.len() - 1].trim();
-            continue;
-        }
-        if table != "lib" {
-            continue;
-        }
-        let Some((key, value)) = line.split_once('=') else {
-            return Err(ModuleClosureCode::SourceManifestParse.into());
-        };
-        if key.trim() != "path" {
-            continue;
-        }
-        if library_path.is_some() {
-            return Err(ModuleClosureCode::SourceManifestParse.into());
-        }
-        library_path = Some(parse_toml_path(value.trim())?);
-    }
-    if multiline.is_some() {
-        return Err(ModuleClosureCode::SourceManifestParse.into());
-    }
-    let value = library_path.unwrap_or_else(|| "src/lib.rs".to_owned());
-    PortablePath::parse(&value).map_err(|error| match error {
-        PortablePathError::Limit => ModuleClosureCode::LimitPath.into(),
-        PortablePathError::Invalid | PortablePathError::Collision => {
-            ModuleClosureCode::PreflightPath.into()
-        }
-    })
-}
-
-struct ScannedTomlLine<'a> {
-    code: &'a str,
-    open_multiline: Option<&'static str>,
-}
-
-fn scan_toml_line(line: &str) -> Result<ScannedTomlLine<'_>, ModuleClosureError> {
-    let bytes = line.as_bytes();
-    let mut index = 0;
-    while index < bytes.len() {
-        if bytes[index] == b'#' {
-            return Ok(ScannedTomlLine {
-                code: &line[..index],
-                open_multiline: None,
-            });
-        }
-        if bytes[index..].starts_with(b"\"\"\"") {
-            if let Some(close) = multiline_close(&line[index + 3..], "\"\"\"") {
-                index += 3 + close + 3;
-            } else {
-                return Ok(ScannedTomlLine {
-                    code: line,
-                    open_multiline: Some("\"\"\""),
-                });
-            }
-        } else if bytes[index..].starts_with(b"'''") {
-            if let Some(close) = multiline_close(&line[index + 3..], "'''") {
-                index += 3 + close + 3;
-            } else {
-                return Ok(ScannedTomlLine {
-                    code: line,
-                    open_multiline: Some("'''"),
-                });
-            }
-        } else if bytes[index] == b'"' {
-            index = skip_toml_string(bytes, index, b'"', true)?;
-        } else if bytes[index] == b'\'' {
-            index = skip_toml_string(bytes, index, b'\'', false)?;
-        } else {
-            index += 1;
-        }
-    }
-    Ok(ScannedTomlLine {
-        code: line,
-        open_multiline: None,
-    })
-}
-
-fn skip_toml_string(
-    bytes: &[u8],
-    start: usize,
-    delimiter: u8,
-    escapes: bool,
-) -> Result<usize, ModuleClosureError> {
-    let mut index = start + 1;
-    while index < bytes.len() {
-        if escapes && bytes[index] == b'\\' {
-            index = index.saturating_add(2);
-        } else if bytes[index] == delimiter {
-            return Ok(index + 1);
-        } else {
-            index += 1;
-        }
-    }
-    Err(ModuleClosureCode::SourceManifestParse.into())
-}
-
-fn multiline_close(line: &str, delimiter: &str) -> Option<usize> {
-    let mut offset = 0;
-    while let Some(found) = line[offset..].find(delimiter) {
-        let absolute = offset + found;
-        if delimiter == "'''"
-            || line.as_bytes()[..absolute]
-                .iter()
-                .rev()
-                .take_while(|byte| **byte == b'\\')
-                .count()
-                % 2
-                == 0
-        {
-            return Some(absolute);
-        }
-        offset = absolute + delimiter.len();
-    }
-    None
-}
-
-fn parse_toml_path(value: &str) -> Result<String, ModuleClosureError> {
-    let bytes = value.as_bytes();
-    if bytes.len() < 2 || !matches!(bytes[0], b'"' | b'\'') || bytes[bytes.len() - 1] != bytes[0] {
-        return Err(ModuleClosureCode::SourceManifestParse.into());
-    }
-    let body = &value[1..value.len() - 1];
-    if bytes[0] == b'\'' {
-        if body.contains('\'') {
-            return Err(ModuleClosureCode::SourceManifestParse.into());
-        }
-        return Ok(body.to_owned());
-    }
-    let mut output = String::with_capacity(body.len());
-    let mut characters = body.chars();
-    while let Some(character) = characters.next() {
-        if character != '\\' {
-            if character == '"' {
-                return Err(ModuleClosureCode::SourceManifestParse.into());
-            }
-            output.push(character);
-            continue;
-        }
-        let escaped = characters
-            .next()
-            .ok_or(ModuleClosureCode::SourceManifestParse)?;
-        let decoded = match escaped {
-            '"' => '"',
-            '\\' => '\\',
-            'b' => '\u{0008}',
-            't' => '\t',
-            'n' => '\n',
-            'f' => '\u{000c}',
-            'r' => '\r',
-            'u' => decode_toml_unicode_escape(&mut characters, 4)?,
-            'U' => decode_toml_unicode_escape(&mut characters, 8)?,
-            _ => return Err(ModuleClosureCode::SourceManifestParse.into()),
-        };
-        output.push(decoded);
-    }
-    Ok(output)
-}
-
-fn decode_toml_unicode_escape(
-    characters: &mut std::str::Chars<'_>,
-    digits: usize,
-) -> Result<char, ModuleClosureError> {
-    let mut value = 0_u32;
-    for _ in 0..digits {
-        let digit = characters
-            .next()
-            .and_then(|character| character.to_digit(16))
-            .ok_or(ModuleClosureCode::SourceManifestParse)?;
-        value = value
-            .checked_mul(16)
-            .and_then(|value| value.checked_add(digit))
-            .ok_or(ModuleClosureCode::SourceManifestParse)?;
-    }
-    char::from_u32(value).ok_or_else(|| ModuleClosureCode::SourceManifestParse.into())
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -809,25 +615,6 @@ mod tests {
                 .filter(|name| *name == "mod")
                 .count(),
             1
-        );
-    }
-
-    #[test]
-    fn manifest_library_path_uses_default_or_allowlisted_value() {
-        assert_eq!(
-            parse_library_root(b"[package]\nname='x'\n")
-                .unwrap()
-                .as_str(),
-            "src/lib.rs"
-        );
-        assert_eq!(
-            parse_library_root(
-                b"[package]\ndescription = \"\"\"\n[lib] is only text here\n\"\"\"\n\
-                  [lib]\npath = \"\\u006cibrary/root.rs\" # selected\n"
-            )
-            .unwrap()
-            .as_str(),
-            "library/root.rs"
         );
     }
 }

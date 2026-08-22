@@ -1,4 +1,5 @@
 use rust2vir_internal::cli::{parse_lower_args, LowerRequest, SEMANTIC_PROFILE};
+use rust2vir_internal::manifest;
 use rust2vir_internal::module_closure::{self, ModuleClosure};
 use rust2vir_internal::preflight;
 use rust2vir_internal::sha256;
@@ -130,7 +131,8 @@ fn arguments(root: &Path) -> Vec<OsString> {
 
 fn capture(root: &TestDirectory) -> ModuleClosure {
     let request: LowerRequest = parse_lower_args(arguments(root.path())).unwrap();
-    module_closure::discover(preflight::run(&request).unwrap()).unwrap()
+    let validated = manifest::validate(&request, preflight::run(&request).unwrap()).unwrap();
+    module_closure::discover(validated).unwrap().0
 }
 
 #[test]
