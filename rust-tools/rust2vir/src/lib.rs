@@ -2,6 +2,10 @@
 
 use std::fmt;
 
+pub mod cli;
+pub mod path;
+pub mod preflight;
+
 pub const PACKAGE_VERSION: &str = "0.1.0";
 pub const EXPECTED_RUSTC_RELEASE: &str = "1.89.0-nightly";
 pub const EXPECTED_RUSTC_COMMIT: &str = "4d08223c054cf5a56d9761ca925fd46ffebe7115";

@@ -2905,7 +2905,7 @@ git diff --check
 
 ### RUST-03-T02 Implement Rust CLI Selection and Structural Path Preflight
 
-Status: Pending
+Status: Complete (2026-08-22)
 
 Depends on: RUST-03-T01.
 
