@@ -214,6 +214,20 @@ impl SnapshotFileLoader {
             .map_err(|error| self.record_io_failure(error))
     }
 
+    pub fn crate_root_path(&self) -> PathBuf {
+        self.root_path.join(self.crate_root.as_str())
+    }
+
+    pub fn crate_root_bytes(&self) -> Arc<[u8]> {
+        Arc::clone(
+            &self
+                .sources
+                .get(&self.crate_root)
+                .expect("validated inventory contains the crate root")
+                .bytes,
+        )
+    }
+
     pub fn validate_root_ast(&self, path: &Path, bytes: &[u8]) -> Result<(), SourceLoaderError> {
         let normalized = self.requested_path(path)?;
         if normalized != self.crate_root {

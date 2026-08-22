@@ -37,7 +37,7 @@ strip = "none"
 debug-assertions = false
 overflow-checks = true
 lto = "thin"
-panic = "abort"
+panic = "unwind"
 incremental = false
 codegen-units = 1
 "#;

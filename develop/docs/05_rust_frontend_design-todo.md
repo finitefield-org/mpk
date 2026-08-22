@@ -3312,7 +3312,7 @@ git diff --check
 
 ### RUST-03-T08 Wire rustc Callbacks and Validate the Effective Session
 
-Status: Pending
+Status: Complete (2026-08-22)
 
 Depends on: RUST-03-T05, RUST-03-T06, RUST-03-T07.
 

@@ -1,3 +1,17 @@
+#![allow(internal_features)]
+#![feature(rustc_private)]
+
+extern crate rustc_ast;
+extern crate rustc_driver;
+extern crate rustc_interface;
+extern crate rustc_middle;
+extern crate rustc_session;
+extern crate rustc_span;
+extern crate rustc_target;
+
+#[path = "../rustc_driver.rs"]
+mod rustc_driver_adapter;
+
 use rust2vir_internal::driver_process::{
     classify_invocation, publish_primary_result, read_request, validate_fixed_binary_identities,
     WrapperInvocation,
@@ -14,6 +28,8 @@ use std::process::{Command, ExitCode, ExitStatus, Stdio};
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
 use std::thread;
+
+use rustc_driver_adapter::RustcDriverError;
 
 const PROBE_STREAM_MAX: usize = 65_536;
 
@@ -62,12 +78,17 @@ fn main() -> ExitCode {
             let crate_root = arguments
                 .get(4)
                 .expect("classified primary invocation has a crate root");
-            let _source_loader =
+            let source_loader =
                 match SnapshotFileLoader::from_request(Path::new(INPUT_ROOT), crate_root, &request)
                 {
-                    Ok(loader) => loader,
+                    Ok(loader) => Arc::new(loader),
                     Err(error) => return publish_source_failure(&request, error),
                 };
+            if let Err(error) =
+                rustc_driver_adapter::run_primary(&arguments, &request, source_loader)
+            {
+                return publish_rustc_failure(&request, error);
+            }
             publish_primary_diagnostic(
                 &request,
                 DriverStatus::FrontendError,
@@ -76,6 +97,36 @@ fn main() -> ExitCode {
                 "pinned MIR adapter is not initialized",
             )
         }
+    }
+}
+
+fn publish_rustc_failure(
+    request: &rust2vir_internal::driver_protocol::DriverRequest,
+    error: RustcDriverError,
+) -> ExitCode {
+    match error {
+        RustcDriverError::Source(error) => publish_source_failure(request, error),
+        RustcDriverError::Session => publish_primary_diagnostic(
+            request,
+            DriverStatus::FrontendError,
+            "typecheck",
+            "RUST_TOOLCHAIN_OPTIONS",
+            "effective rustc session differs from the pinned profile",
+        ),
+        RustcDriverError::MirAdapter => publish_primary_diagnostic(
+            request,
+            DriverStatus::FrontendError,
+            "lowering",
+            "RUST_TOOLCHAIN_MIR_ADAPTER",
+            "pinned MIR adapter identity or access point differs",
+        ),
+        RustcDriverError::Compiler => publish_primary_diagnostic(
+            request,
+            DriverStatus::SourceError,
+            "typecheck",
+            "RUST_SOURCE_TYPE",
+            "rustc rejected the captured source before MIR access",
+        ),
     }
 }
 
@@ -225,16 +276,17 @@ fn bounded_reader<R: Read + Send + 'static>(
 }
 
 fn delegate(arguments: &[String]) -> ExitCode {
-    let status = match rustc(arguments)
-        .stdin(Stdio::null())
-        .stdout(Stdio::inherit())
-        .stderr(Stdio::inherit())
-        .status()
-    {
-        Ok(status) => status,
+    let output = match bounded_probe(arguments) {
+        Ok(output) => output,
         Err(_) => return fail("RUST_TOOLCHAIN_COMPONENT"),
     };
-    status
+    if std::io::stdout().write_all(&output.stdout).is_err()
+        || std::io::stderr().write_all(&output.stderr).is_err()
+    {
+        return fail("RUST_FRONTEND_DRIVER_PROTOCOL_PROCESS");
+    }
+    output
+        .status
         .code()
         .and_then(|code| u8::try_from(code).ok())
         .map_or_else(

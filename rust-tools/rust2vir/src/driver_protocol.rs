@@ -231,6 +231,15 @@ impl DriverRequest {
             .expect("validated target")
     }
 
+    pub fn pointer_width(&self) -> u8 {
+        let width = object_member(self.root(), "semantic_parameters")
+            .and_then(JsonValue::as_object)
+            .and_then(|parameters| parameters.get("pointer_width"))
+            .and_then(JsonValue::integer)
+            .expect("validated pointer width");
+        u8::try_from(width).expect("validated pointer width fits in u8")
+    }
+
     pub fn has_source_path(&self, path: &str) -> bool {
         self.source_size(path).is_some()
     }
