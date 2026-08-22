@@ -235,6 +235,34 @@ impl DriverRequest {
         self.source_size(path).is_some()
     }
 
+    pub fn source_inventory(&self) -> Vec<DriverInputIdentity> {
+        object_member(self.root(), "source_inventory")
+            .and_then(JsonValue::as_array)
+            .expect("validated source inventory")
+            .iter()
+            .map(|entry| {
+                let entry = entry.as_object().expect("validated source entry");
+                DriverInputIdentity {
+                    kind: "source".to_owned(),
+                    normalized_path: entry["normalized_path"]
+                        .as_str()
+                        .expect("validated source path")
+                        .to_owned(),
+                    size_bytes: u64::try_from(
+                        entry["size_bytes"]
+                            .integer()
+                            .expect("validated source size"),
+                    )
+                    .expect("validated source size is nonnegative"),
+                    sha256: entry["sha256"]
+                        .as_str()
+                        .expect("validated source digest")
+                        .to_owned(),
+                }
+            })
+            .collect()
+    }
+
     fn source_size(&self, path: &str) -> Option<i64> {
         object_member(self.root(), "source_inventory")
             .and_then(JsonValue::as_array)

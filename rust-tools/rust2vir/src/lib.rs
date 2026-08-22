@@ -8,6 +8,7 @@ pub mod cli;
 pub mod driver_process;
 pub mod driver_protocol;
 pub mod environment;
+pub mod file_loader;
 pub mod json;
 pub mod manifest;
 pub mod metadata_request;
@@ -18,6 +19,7 @@ pub mod sandbox;
 pub mod sha256;
 pub mod snapshot;
 pub mod source_capture;
+pub mod source_gate;
 
 pub const PACKAGE_VERSION: &str = "0.1.0";
 pub const EXPECTED_RUSTC_RELEASE: &str = "1.89.0-nightly";

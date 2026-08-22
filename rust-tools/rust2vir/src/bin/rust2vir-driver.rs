@@ -6,7 +6,8 @@ use rust2vir_internal::driver_protocol::{
     encode_non_success, parse_request_transport, DriverStatus, PrivateDiagnostic, OUTPUT_DIRECTORY,
     REQUEST_PATH,
 };
-use rust2vir_internal::environment::EvidenceEnvironment;
+use rust2vir_internal::environment::{EvidenceEnvironment, INPUT_ROOT};
+use rust2vir_internal::file_loader::{SnapshotFileLoader, SourceLoaderError, SourceLoaderStatus};
 use std::io::{Read, Write};
 use std::path::Path;
 use std::process::{Command, ExitCode, ExitStatus, Stdio};
@@ -58,22 +59,67 @@ fn main() -> ExitCode {
             if compiler_identity(&arguments[0]).is_err() {
                 return fail("RUST_TOOLCHAIN_COMMIT");
             }
-            let result = encode_non_success(
+            let crate_root = arguments
+                .get(4)
+                .expect("classified primary invocation has a crate root");
+            let _source_loader =
+                match SnapshotFileLoader::from_request(Path::new(INPUT_ROOT), crate_root, &request)
+                {
+                    Ok(loader) => loader,
+                    Err(error) => return publish_source_failure(&request, error),
+                };
+            publish_primary_diagnostic(
                 &request,
                 DriverStatus::FrontendError,
                 "lowering",
-                &[PrivateDiagnostic {
-                    code: "RUST_TOOLCHAIN_MIR_ADAPTER".to_owned(),
-                    message: "pinned MIR adapter is not initialized".to_owned(),
-                    function_id: Some(request.selection().2.to_owned()),
-                }],
+                "RUST_TOOLCHAIN_MIR_ADAPTER",
+                "pinned MIR adapter is not initialized",
             )
-            .and_then(|bytes| publish_primary_result(Path::new(OUTPUT_DIRECTORY), &bytes));
-            match result {
-                Ok(()) => ExitCode::from(1),
-                Err(error) => fail(error.code.as_str()),
-            }
         }
+    }
+}
+
+fn publish_source_failure(
+    request: &rust2vir_internal::driver_protocol::DriverRequest,
+    error: SourceLoaderError,
+) -> ExitCode {
+    let status = match error.code.status() {
+        SourceLoaderStatus::Rejected => DriverStatus::Rejected,
+        SourceLoaderStatus::SourceError => DriverStatus::SourceError,
+        SourceLoaderStatus::FrontendError => DriverStatus::FrontendError,
+    };
+    publish_primary_diagnostic(
+        request,
+        status,
+        error.code.phase(),
+        error.code.as_str(),
+        error.code.message(),
+    )
+}
+
+fn publish_primary_diagnostic(
+    request: &rust2vir_internal::driver_protocol::DriverRequest,
+    status: DriverStatus,
+    phase: &str,
+    code: &str,
+    message: &str,
+) -> ExitCode {
+    let result = encode_non_success(
+        request,
+        status,
+        phase,
+        &[PrivateDiagnostic {
+            code: code.to_owned(),
+            message: message.to_owned(),
+            function_id: Some(request.selection().2.to_owned()),
+        }],
+    )
+    .and_then(|bytes| publish_primary_result(Path::new(OUTPUT_DIRECTORY), &bytes));
+    match result {
+        Ok(()) => ExitCode::from(
+            u8::try_from(status.exit_code()).expect("driver status exit codes fit in u8"),
+        ),
+        Err(error) => fail(error.code.as_str()),
     }
 }
 

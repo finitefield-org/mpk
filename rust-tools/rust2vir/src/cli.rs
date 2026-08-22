@@ -83,10 +83,20 @@ pub fn non_success_envelope(
     code: &str,
     message: &str,
 ) -> String {
+    non_success_envelope_at_phase(request, status, "capture", code, message)
+}
+
+pub fn non_success_envelope_at_phase(
+    request: &LowerRequest,
+    status: NonSuccessStatus,
+    phase: &str,
+    code: &str,
+    message: &str,
+) -> String {
     format!(
         concat!(
             "{{\"diagnostics\":[{{\"code\":\"{}\",\"message\":\"{}\"}}],",
-            "\"phase\":\"capture\",\"rejected_features\":[],",
+            "\"phase\":\"{}\",\"rejected_features\":[],",
             "\"schema\":\"mpk.frontend.cli.v0\",",
             "\"selection\":{{\"crate\":\"{}\",\"function\":\"{}\",",
             "\"kind\":\"lib\",\"package\":\"{}\"}},",
@@ -97,6 +107,7 @@ pub fn non_success_envelope(
         ),
         code,
         message,
+        phase,
         request.selection.crate_name,
         request.selection.function,
         request.selection.package,

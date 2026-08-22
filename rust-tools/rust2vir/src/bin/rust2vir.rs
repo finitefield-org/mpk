@@ -91,9 +91,10 @@ fn main() -> ExitCode {
                     };
                     println!(
                         "{}",
-                        cli::non_success_envelope(
+                        cli::non_success_envelope_at_phase(
                             &request,
                             status,
+                            error.code.phase(),
                             error.code.as_str(),
                             error.code.message(),
                         )

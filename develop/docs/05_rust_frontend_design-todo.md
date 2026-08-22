@@ -3260,7 +3260,7 @@ git diff --check
 
 ### RUST-03-T07 Implement the Pre-Expansion Source Gate and Custom File Loader
 
-Status: Pending
+Status: Complete (2026-08-22)
 
 Depends on: RUST-03-T03, RUST-03-T06.
 

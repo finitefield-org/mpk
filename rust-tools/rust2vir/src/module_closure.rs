@@ -2,6 +2,7 @@ use crate::manifest::{ExpectedManifestSelection, ValidatedManifest};
 use crate::path::{PortablePath, PortablePathError};
 use crate::preflight::StructuralPreflight;
 use crate::source_capture::{CaptureFailure, CaptureState, CapturedInput, InputKind, OpenedInput};
+use crate::source_gate::{validate_source, SourceGateCode, SourceRole};
 use std::collections::BTreeSet;
 
 const SOURCE_FILES_MAX: usize = 256;
@@ -25,10 +26,15 @@ pub enum ModuleClosureCode {
     SourceModuleAmbiguous,
     SourceModuleDuplicate,
     SourceModuleCycle,
+    SourceParse,
     SubsetCfg,
     SubsetMacro,
     SubsetAttribute,
+    SubsetImport,
+    SubsetVisibility,
     SubsetPath,
+    SubsetExpansion,
+    SubsetIdentifier,
 }
 
 impl ModuleClosureCode {
@@ -43,10 +49,15 @@ impl ModuleClosureCode {
             Self::SourceModuleAmbiguous => "RUST_SOURCE_MODULE_AMBIGUOUS",
             Self::SourceModuleDuplicate => "RUST_SOURCE_MODULE_DUPLICATE",
             Self::SourceModuleCycle => "RUST_SOURCE_MODULE_CYCLE",
+            Self::SourceParse => "RUST_SOURCE_PARSE",
             Self::SubsetCfg => "RUST_SUBSET_CFG",
             Self::SubsetMacro => "RUST_SUBSET_MACRO",
             Self::SubsetAttribute => "RUST_SUBSET_ATTRIBUTE",
+            Self::SubsetImport => "RUST_SUBSET_IMPORT",
+            Self::SubsetVisibility => "RUST_SUBSET_VISIBILITY",
             Self::SubsetPath => "RUST_SUBSET_PATH",
+            Self::SubsetExpansion => "RUST_SUBSET_EXPANSION",
+            Self::SubsetIdentifier => "RUST_SUBSET_IDENTIFIER",
         }
     }
 
@@ -61,10 +72,15 @@ impl ModuleClosureCode {
             Self::SourceModuleAmbiguous => "module source is ambiguous",
             Self::SourceModuleDuplicate => "module source is duplicated",
             Self::SourceModuleCycle => "module source cycle is not permitted",
+            Self::SourceParse => "Rust source could not be parsed",
             Self::SubsetCfg => "conditional source configuration is not permitted",
             Self::SubsetMacro => "macro expansion is not permitted",
             Self::SubsetAttribute => "source attribute is not permitted",
+            Self::SubsetImport => "source imports are not permitted",
+            Self::SubsetVisibility => "restricted visibility is not permitted",
             Self::SubsetPath => "explicit module paths are not permitted",
+            Self::SubsetExpansion => "expansion-affecting source syntax is not permitted",
+            Self::SubsetIdentifier => "source identifier is not canonical",
         }
     }
 
@@ -73,8 +89,24 @@ impl ModuleClosureCode {
             Self::SourceModuleMissing
             | Self::SourceModuleAmbiguous
             | Self::SourceModuleDuplicate
-            | Self::SourceModuleCycle => ClosureStatus::SourceError,
+            | Self::SourceModuleCycle
+            | Self::SourceParse => ClosureStatus::SourceError,
             _ => ClosureStatus::Rejected,
+        }
+    }
+
+    pub fn phase(self) -> &'static str {
+        match self {
+            Self::SourceParse
+            | Self::SubsetCfg
+            | Self::SubsetMacro
+            | Self::SubsetAttribute
+            | Self::SubsetImport
+            | Self::SubsetVisibility
+            | Self::SubsetPath
+            | Self::SubsetExpansion => "source",
+            Self::SubsetIdentifier => "subset",
+            _ => "capture",
         }
     }
 }
@@ -141,7 +173,7 @@ fn discover_at(
         source_bytes: root_bytes.len() as u64,
         source_count: 1,
     };
-    walker.walk_file(&library_root, &root_bytes, &[])?;
+    walker.walk_file(&library_root, &root_bytes, &[], SourceRole::CrateRoot)?;
     inputs.append(&mut walker.sources);
     inputs.sort_by(|left, right| left.normalized_path.cmp(&right.normalized_path));
 
@@ -169,9 +201,10 @@ impl Walker<'_> {
         file_path: &PortablePath,
         bytes: &[u8],
         inline_segments: &[String],
+        role: SourceRole,
     ) -> Result<(), ModuleClosureError> {
+        validate_source(bytes, role).map_err(|error| map_source_gate(error.code))?;
         let tokens = tokenize(bytes)?;
-        validate_expansion_forms(&tokens)?;
         self.walk_tokens(file_path, &tokens, 0, tokens.len(), inline_segments)
     }
 
@@ -270,7 +303,7 @@ impl Walker<'_> {
         self.seen_identities.insert(identity);
         self.active_paths.insert(path.clone());
         self.active_identities.insert(identity);
-        self.walk_file(&path, &captured.bytes, &[])?;
+        self.walk_file(&path, &captured.bytes, &[], SourceRole::Module)?;
         self.active_paths.remove(&path);
         self.active_identities.remove(&identity);
         self.sources.push(captured);
@@ -296,6 +329,21 @@ fn map_capture_failure(failure: CaptureFailure) -> ModuleClosureError {
         CaptureFailure::PathLimit => ModuleClosureCode::LimitPath,
         CaptureFailure::ByteLimit => ModuleClosureCode::LimitInputBytes,
         CaptureFailure::CountLimit => ModuleClosureCode::LimitInputCount,
+    }
+    .into()
+}
+
+fn map_source_gate(code: SourceGateCode) -> ModuleClosureError {
+    match code {
+        SourceGateCode::SourceParse => ModuleClosureCode::SourceParse,
+        SourceGateCode::SubsetCfg => ModuleClosureCode::SubsetCfg,
+        SourceGateCode::SubsetMacro => ModuleClosureCode::SubsetMacro,
+        SourceGateCode::SubsetAttribute => ModuleClosureCode::SubsetAttribute,
+        SourceGateCode::SubsetImport => ModuleClosureCode::SubsetImport,
+        SourceGateCode::SubsetVisibility => ModuleClosureCode::SubsetVisibility,
+        SourceGateCode::SubsetPath => ModuleClosureCode::SubsetPath,
+        SourceGateCode::SubsetExpansion => ModuleClosureCode::SubsetExpansion,
+        SourceGateCode::SubsetIdentifier => ModuleClosureCode::SubsetIdentifier,
     }
     .into()
 }
@@ -482,81 +530,8 @@ fn looks_like_character_literal(bytes: &[u8], start: usize) -> bool {
     false
 }
 
-fn validate_expansion_forms(tokens: &[Token]) -> Result<(), ModuleClosureError> {
-    let mut index = 0;
-    while index < tokens.len() {
-        if tokens[index].is_ident("macro") {
-            return Err(ModuleClosureCode::SubsetMacro.into());
-        }
-        if tokens[index].kind == TokenKind::Symbol(b'#') {
-            let bracket = if tokens.get(index + 1).is_some_and(|token| {
-                token.kind == TokenKind::Symbol(b'!')
-                    && tokens
-                        .get(index + 2)
-                        .is_some_and(|next| next.kind == TokenKind::Symbol(b'['))
-            }) {
-                index + 2
-            } else if tokens
-                .get(index + 1)
-                .is_some_and(|token| token.kind == TokenKind::Symbol(b'['))
-            {
-                index + 1
-            } else {
-                return Err(ModuleClosureCode::SubsetAttribute.into());
-            };
-            let close =
-                matching_square(tokens, bracket).ok_or(ModuleClosureCode::SubsetAttribute)?;
-            let name = tokens
-                .get(bracket + 1)
-                .and_then(Token::identifier)
-                .ok_or(ModuleClosureCode::SubsetAttribute)?;
-            match name {
-                "cfg" | "cfg_attr" => return Err(ModuleClosureCode::SubsetCfg.into()),
-                "path" => return Err(ModuleClosureCode::SubsetPath.into()),
-                "doc" | "no_std" => {
-                    if contains_macro_invocation(&tokens[bracket + 1..close]) {
-                        return Err(ModuleClosureCode::SubsetMacro.into());
-                    }
-                }
-                _ => return Err(ModuleClosureCode::SubsetAttribute.into()),
-            }
-            index = close + 1;
-            continue;
-        }
-        if macro_invocation_at(tokens, index) {
-            return Err(ModuleClosureCode::SubsetMacro.into());
-        }
-        index += 1;
-    }
-    Ok(())
-}
-
-fn contains_macro_invocation(tokens: &[Token]) -> bool {
-    (0..tokens.len()).any(|index| macro_invocation_at(tokens, index))
-}
-
-fn macro_invocation_at(tokens: &[Token], index: usize) -> bool {
-    let Some(name) = tokens.get(index).and_then(Token::identifier) else {
-        return false;
-    };
-    if !tokens
-        .get(index + 1)
-        .is_some_and(|token| token.kind == TokenKind::Symbol(b'!'))
-    {
-        return false;
-    }
-    name == "macro_rules"
-        || tokens
-            .get(index + 2)
-            .is_some_and(|token| matches!(token.kind, TokenKind::Symbol(b'(' | b'[' | b'{')))
-}
-
 fn matching_brace(tokens: &[Token], open: usize, end: usize) -> Option<usize> {
     matching_delimiter(tokens, open, end, b'{', b'}')
-}
-
-fn matching_square(tokens: &[Token], open: usize) -> Option<usize> {
-    matching_delimiter(tokens, open, tokens.len(), b'[', b']')
 }
 
 fn matching_delimiter(

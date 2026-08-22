@@ -246,6 +246,27 @@ fn expansion_forms_reject_before_any_child_is_followed() {
 }
 
 #[test]
+fn ordinary_parse_errors_precede_subset_findings_and_use_source_phase() {
+    let malformed =
+        TestRoot::default_package(b"macro_rules! m {()=>{1}} pub fn f( -> u8 { m!() }\n");
+    assert_error(&malformed, ModuleClosureCode::SourceParse);
+    assert_eq!(ModuleClosureCode::SourceParse.phase(), "source");
+    assert_eq!(ModuleClosureCode::SubsetMacro.phase(), "source");
+
+    let output = Command::new(env!("CARGO_BIN_EXE_rust2vir"))
+        .args(arguments(malformed.path()))
+        .output()
+        .unwrap();
+    assert_eq!(output.status.code(), Some(4));
+    assert!(output.stderr.is_empty());
+    let envelope = String::from_utf8(output.stdout).unwrap();
+    assert!(envelope.contains("\"status\":\"source-error\""));
+    assert!(envelope.contains("\"phase\":\"source\""));
+    assert!(envelope.contains("RUST_SOURCE_PARSE"));
+    assert!(!envelope.contains("RUST_SUBSET_MACRO"));
+}
+
+#[test]
 fn candidate_links_and_ascii_fold_collisions_are_preflight_rejections() {
     let linked = TestRoot::default_package(b"mod linked;\n");
     let outside = TestRoot::new();
