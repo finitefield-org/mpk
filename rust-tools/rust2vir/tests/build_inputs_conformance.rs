@@ -102,7 +102,7 @@ fn binaries_expose_only_the_frozen_version_identity() {
 }
 
 #[test]
-fn driver_refuses_another_compiler_commit_before_analysis() {
+fn driver_requires_the_fixed_private_request_before_compiler_analysis() {
     let executable = std::env::current_exe().unwrap();
     let fake_rustc = executable
         .parent()
@@ -123,5 +123,5 @@ fn driver_refuses_another_compiler_commit_before_analysis() {
 
     assert_eq!(output.status.code(), Some(1));
     assert!(output.stdout.is_empty());
-    assert_eq!(output.stderr, b"RUST_TOOLCHAIN_COMMIT\n");
+    assert_eq!(output.stderr, b"RUST_FRONTEND_DRIVER_PROTOCOL_FILESYSTEM\n");
 }

@@ -5,7 +5,51 @@ use common::{
 };
 use rust2vir_internal::cargo_check::{CargoCheckCode, CompilerMessageLevel};
 use rust2vir_internal::cargo_metadata::MetadataPhase;
-use rust2vir_internal::sandbox::{CargoInvocationKind, ProcessOutput, SandboxError};
+use rust2vir_internal::driver_process::{publish_result, read_request};
+use rust2vir_internal::driver_protocol::{
+    encode_non_success, parse_request_transport, DriverProtocolCode, DriverStatus,
+    PrivateDiagnostic,
+};
+use rust2vir_internal::environment::DRIVER_OUTPUT_ROOT;
+use rust2vir_internal::sandbox::{
+    CargoInvocation, CargoInvocationKind, ProcessOutput, SandboxContext, SandboxError,
+    SandboxExecutor,
+};
+
+#[derive(Default)]
+struct HandshakeExecutor;
+
+impl SandboxExecutor for HandshakeExecutor {
+    fn execute(
+        &mut self,
+        context: &SandboxContext<'_>,
+        invocation: &CargoInvocation,
+    ) -> Result<ProcessOutput, SandboxError> {
+        if invocation.kind() == CargoInvocationKind::Metadata {
+            return Ok(ProcessOutput::success(metadata_json()));
+        }
+        let request =
+            parse_request_transport(&read_request(context.driver_request_host_path()).unwrap())
+                .unwrap();
+        let bytes = encode_non_success(
+            &request,
+            DriverStatus::SourceError,
+            "typecheck",
+            &[PrivateDiagnostic {
+                code: "RUST_SOURCE_TYPE".to_owned(),
+                message: "expression type does not match the declared result".to_owned(),
+                function_id: Some("vector::identity".to_owned()),
+            }],
+        )
+        .unwrap();
+        publish_result(
+            context.writable_host_path(DRIVER_OUTPUT_ROOT).unwrap(),
+            &bytes,
+        )
+        .unwrap();
+        Ok(common::failed_process_output())
+    }
+}
 
 #[test]
 fn check_uses_the_exact_package_target_command_and_same_sandbox_state() {
@@ -91,6 +135,78 @@ fn failed_compilation_retains_only_bounded_structured_classification() {
     assert_eq!(result.messages().len(), 1);
     assert_eq!(result.messages()[0].level(), CompilerMessageLevel::Error);
     assert_eq!(result.messages()[0].code(), Some("E0308"));
+}
+
+#[test]
+fn check_handshake_consumes_one_status_artifact_or_classifies_missing_locally() {
+    let mut fixture = Fixture::new();
+    let metadata_request = fixture.metadata_request();
+    let (_, check) = MetadataPhase::prepare(
+        fixture.request(),
+        fixture.snapshot(),
+        metadata_request,
+        fixture.candidate(),
+        fixture.private_parent(),
+        HandshakeExecutor,
+    )
+    .unwrap()
+    .run()
+    .unwrap();
+    let (handshake, _) = check.run_driver_handshake().unwrap();
+    assert_eq!(
+        handshake.driver().unwrap().status(),
+        DriverStatus::SourceError
+    );
+    assert!(handshake.cargo().is_some_and(|cargo| !cargo.succeeded()));
+    assert_eq!(handshake.local_frontend_error(), None);
+
+    let mut fixture = Fixture::new();
+    let metadata_request = fixture.metadata_request();
+    let executor = RecordingExecutor::with_responses([
+        Ok(ProcessOutput::success(metadata_json())),
+        Ok(common::failed_process_output()),
+    ]);
+    let (_, check) = MetadataPhase::prepare(
+        fixture.request(),
+        fixture.snapshot(),
+        metadata_request,
+        fixture.candidate(),
+        fixture.private_parent(),
+        executor,
+    )
+    .unwrap()
+    .run()
+    .unwrap();
+    let (handshake, _) = check.run_driver_handshake().unwrap();
+    assert!(handshake.driver().is_none());
+    assert_eq!(
+        handshake.local_frontend_error(),
+        Some(DriverProtocolCode::Filesystem)
+    );
+
+    let mut fixture = Fixture::new();
+    let metadata_request = fixture.metadata_request();
+    let executor = RecordingExecutor::with_responses([
+        Ok(ProcessOutput::success(metadata_json())),
+        Ok(ProcessOutput::success(successful_check_stream())),
+    ]);
+    let (_, check) = MetadataPhase::prepare(
+        fixture.request(),
+        fixture.snapshot(),
+        metadata_request,
+        fixture.candidate(),
+        fixture.private_parent(),
+        executor,
+    )
+    .unwrap()
+    .run()
+    .unwrap();
+    let (handshake, _) = check.run_driver_handshake().unwrap();
+    assert!(handshake.driver().is_none());
+    assert_eq!(
+        handshake.local_frontend_error(),
+        Some(DriverProtocolCode::Count)
+    );
 }
 
 #[test]

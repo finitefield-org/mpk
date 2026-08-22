@@ -2,6 +2,8 @@ mod common;
 
 use common::{frozen_environment, metadata_json, Fixture};
 use rust2vir_internal::cargo_metadata::{MetadataCode, MetadataPhase};
+use rust2vir_internal::driver_process::read_request;
+use rust2vir_internal::driver_protocol::parse_request_transport;
 use rust2vir_internal::environment::{EvidenceEnvironment, ENCODED_RUSTFLAGS_ELEMENTS};
 use rust2vir_internal::sandbox::{
     fixed_read_only_views, fixed_writable_views, CargoInvocation, ProcessOutput, SandboxContext,
@@ -18,6 +20,40 @@ use std::sync::{Arc, Mutex};
 struct SharedExecutor {
     calls: Arc<Mutex<usize>>,
     responses: Arc<Mutex<Vec<Result<ProcessOutput, SandboxError>>>>,
+}
+
+#[derive(Default)]
+struct RequestMountExecutor;
+
+impl SandboxExecutor for RequestMountExecutor {
+    fn execute(
+        &mut self,
+        context: &SandboxContext<'_>,
+        invocation: &CargoInvocation,
+    ) -> Result<ProcessOutput, SandboxError> {
+        assert_eq!(
+            invocation.kind(),
+            rust2vir_internal::sandbox::CargoInvocationKind::Metadata
+        );
+        let path = context.driver_request_host_path();
+        assert_eq!(
+            fs::symlink_metadata(path).unwrap().permissions().mode() & 0o7777,
+            0o400
+        );
+        let bytes = read_request(path).unwrap();
+        parse_request_transport(&bytes).unwrap();
+        assert!(context
+            .environment()
+            .entries()
+            .keys()
+            .all(|name| !name.starts_with("MPK_")));
+        let placeholder = context.rootfs().join("mpk/driver-request.json");
+        let placeholder = fs::symlink_metadata(placeholder).unwrap();
+        assert!(placeholder.is_file());
+        assert_eq!(placeholder.len(), 0);
+        assert_eq!(placeholder.permissions().mode() & 0o7777, 0o444);
+        Ok(ProcessOutput::success(metadata_json()))
+    }
 }
 
 impl SandboxExecutor for SharedExecutor {
@@ -74,6 +110,23 @@ fn environment_views_and_limits_are_the_exact_closed_profiles() {
     assert_eq!(OUTPUT_FILES_LIMIT, 262_144);
     assert_eq!(STDOUT_BYTES_LIMIT, 67_108_864);
     assert_eq!(STDERR_BYTES_LIMIT, 2_097_152);
+}
+
+#[test]
+fn private_request_is_sealed_before_any_cargo_process_and_uses_no_mpk_environment() {
+    let mut fixture = Fixture::new();
+    let metadata_request = fixture.metadata_request();
+    let (_, _) = MetadataPhase::prepare(
+        fixture.request(),
+        fixture.snapshot(),
+        metadata_request,
+        fixture.candidate(),
+        fixture.private_parent(),
+        RequestMountExecutor,
+    )
+    .unwrap()
+    .run()
+    .unwrap();
 }
 
 #[test]

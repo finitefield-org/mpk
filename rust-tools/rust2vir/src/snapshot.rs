@@ -1,3 +1,4 @@
+use crate::driver_protocol::DriverInputIdentity;
 use crate::module_closure::ModuleClosure;
 use crate::path::PortablePath;
 use crate::source_capture::{SNAPSHOT_ENTRIES_MAX, SNAPSHOT_TOTAL_BYTES_MAX};
@@ -19,6 +20,7 @@ pub enum SnapshotError {
 pub struct Snapshot {
     path: PathBuf,
     guard: platform::CleanupGuard,
+    inputs: Vec<DriverInputIdentity>,
 }
 
 impl fmt::Debug for Snapshot {
@@ -54,7 +56,16 @@ impl Snapshot {
         }
         guard.seal()?;
         guard.validate_named_root()?;
-        Ok(Self { path, guard })
+        let inputs = closure
+            .inputs
+            .iter()
+            .map(DriverInputIdentity::from_captured)
+            .collect();
+        Ok(Self {
+            path,
+            guard,
+            inputs,
+        })
     }
 
     pub fn path(&self) -> &Path {
@@ -67,6 +78,10 @@ impl Snapshot {
 
     pub fn validate(&self) -> Result<(), SnapshotError> {
         self.guard.validate_named_root()
+    }
+
+    pub fn inputs(&self) -> &[DriverInputIdentity] {
+        &self.inputs
     }
 
     pub(crate) fn try_clone_root(&self) -> Result<std::fs::File, SnapshotError> {

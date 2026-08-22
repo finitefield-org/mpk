@@ -3,7 +3,7 @@ use std::collections::BTreeMap;
 const JSON_DEPTH_MAX: usize = 64;
 
 #[derive(Clone, Debug, PartialEq)]
-pub(crate) enum JsonValue {
+pub enum JsonValue {
     Null,
     Bool(bool),
     Number(String),
@@ -13,39 +13,39 @@ pub(crate) enum JsonValue {
 }
 
 impl JsonValue {
-    pub(crate) fn as_object(&self) -> Option<&BTreeMap<String, JsonValue>> {
+    pub fn as_object(&self) -> Option<&BTreeMap<String, JsonValue>> {
         match self {
             Self::Object(value) => Some(value),
             _ => None,
         }
     }
 
-    pub(crate) fn as_array(&self) -> Option<&[JsonValue]> {
+    pub fn as_array(&self) -> Option<&[JsonValue]> {
         match self {
             Self::Array(value) => Some(value),
             _ => None,
         }
     }
 
-    pub(crate) fn as_str(&self) -> Option<&str> {
+    pub fn as_str(&self) -> Option<&str> {
         match self {
             Self::String(value) => Some(value),
             _ => None,
         }
     }
 
-    pub(crate) fn as_bool(&self) -> Option<bool> {
+    pub fn as_bool(&self) -> Option<bool> {
         match self {
             Self::Bool(value) => Some(*value),
             _ => None,
         }
     }
 
-    pub(crate) fn is_null(&self) -> bool {
+    pub fn is_null(&self) -> bool {
         matches!(self, Self::Null)
     }
 
-    pub(crate) fn integer(&self) -> Option<i64> {
+    pub fn integer(&self) -> Option<i64> {
         match self {
             Self::Number(value) if !value.contains(['.', 'e', 'E']) && value != "-0" => {
                 value.parse().ok()
@@ -53,12 +53,19 @@ impl JsonValue {
             _ => None,
         }
     }
+
+    pub fn as_object_mut(&mut self) -> Option<&mut BTreeMap<String, JsonValue>> {
+        match self {
+            Self::Object(value) => Some(value),
+            _ => None,
+        }
+    }
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub(crate) struct JsonError;
+pub struct JsonError;
 
-pub(crate) fn parse(bytes: &[u8], maximum: usize) -> Result<JsonValue, JsonError> {
+pub fn parse(bytes: &[u8], maximum: usize) -> Result<JsonValue, JsonError> {
     if bytes.len() > maximum {
         return Err(JsonError);
     }
@@ -71,6 +78,83 @@ pub(crate) fn parse(bytes: &[u8], maximum: usize) -> Result<JsonValue, JsonError
         return Err(JsonError);
     }
     Ok(value)
+}
+
+pub fn canonical(value: &JsonValue) -> Result<Vec<u8>, JsonError> {
+    let mut output = Vec::new();
+    encode(value, &mut output)?;
+    Ok(output)
+}
+
+fn encode(value: &JsonValue, output: &mut Vec<u8>) -> Result<(), JsonError> {
+    match value {
+        JsonValue::Null => output.extend_from_slice(b"null"),
+        JsonValue::Bool(true) => output.extend_from_slice(b"true"),
+        JsonValue::Bool(false) => output.extend_from_slice(b"false"),
+        JsonValue::Number(number) => {
+            let integer = number.parse::<i64>().map_err(|_| JsonError)?;
+            if number == "-0"
+                || integer.unsigned_abs() > 9_007_199_254_740_991_u64
+                || integer.to_string() != *number
+            {
+                return Err(JsonError);
+            }
+            output.extend_from_slice(number.as_bytes());
+        }
+        JsonValue::String(string) => encode_string(string, output),
+        JsonValue::Array(values) => {
+            output.push(b'[');
+            for (index, value) in values.iter().enumerate() {
+                if index != 0 {
+                    output.push(b',');
+                }
+                encode(value, output)?;
+            }
+            output.push(b']');
+        }
+        JsonValue::Object(values) => {
+            output.push(b'{');
+            let mut entries = values.iter().collect::<Vec<_>>();
+            entries.sort_by(|(left, _), (right, _)| left.encode_utf16().cmp(right.encode_utf16()));
+            for (index, (key, value)) in entries.into_iter().enumerate() {
+                if index != 0 {
+                    output.push(b',');
+                }
+                encode_string(key, output);
+                output.push(b':');
+                encode(value, output)?;
+            }
+            output.push(b'}');
+        }
+    }
+    Ok(())
+}
+
+fn encode_string(value: &str, output: &mut Vec<u8>) {
+    output.push(b'"');
+    for character in value.chars() {
+        match character {
+            '"' => output.extend_from_slice(br#"\""#),
+            '\\' => output.extend_from_slice(br#"\\"#),
+            '\u{8}' => output.extend_from_slice(br#"\b"#),
+            '\u{9}' => output.extend_from_slice(br#"\t"#),
+            '\u{a}' => output.extend_from_slice(br#"\n"#),
+            '\u{c}' => output.extend_from_slice(br#"\f"#),
+            '\u{d}' => output.extend_from_slice(br#"\r"#),
+            '\u{0}'..='\u{1f}' => {
+                const HEX: &[u8; 16] = b"0123456789abcdef";
+                let byte = character as u8;
+                output.extend_from_slice(b"\\u00");
+                output.push(HEX[usize::from(byte >> 4)]);
+                output.push(HEX[usize::from(byte & 0x0f)]);
+            }
+            _ => {
+                let mut bytes = [0_u8; 4];
+                output.extend_from_slice(character.encode_utf8(&mut bytes).as_bytes());
+            }
+        }
+    }
+    output.push(b'"');
 }
 
 struct Parser<'a> {
@@ -337,5 +421,26 @@ mod tests {
         let deep = format!("{}0{}", "[".repeat(66), "]".repeat(66));
         assert_eq!(parse(deep.as_bytes(), 1_024), Err(JsonError));
         assert_eq!(parse(b"null", 3), Err(JsonError));
+    }
+
+    #[test]
+    fn canonical_json_uses_utf16_key_order_minimal_escapes_and_safe_integers() {
+        let value = parse(
+            br#"{"\uE000":"private","\uD83D\uDE00":"astral","control":"\u000f"}"#,
+            1_024,
+        )
+        .unwrap();
+        assert_eq!(
+            canonical(&value).unwrap(),
+            "{\"control\":\"\\u000f\",\"😀\":\"astral\",\"\":\"private\"}".as_bytes()
+        );
+        assert_eq!(
+            canonical(&JsonValue::Number("1.0".to_owned())),
+            Err(JsonError)
+        );
+        assert_eq!(
+            canonical(&JsonValue::Number("9007199254740992".to_owned())),
+            Err(JsonError)
+        );
     }
 }

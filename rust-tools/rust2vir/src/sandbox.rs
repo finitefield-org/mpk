@@ -1,4 +1,5 @@
 use crate::cli::{LowerRequest, RustTarget};
+use crate::driver_protocol::{self, DriverReleaseIdentity};
 use crate::environment::{
     EvidenceEnvironment, ARGUMENT_PROFILE_ID, CARGO_PATH, DRIVER_OUTPUT_ROOT,
     ENVIRONMENT_PROFILE_ID, FRONTEND_ROOT, HOME_ROOT, INPUT_ROOT, NATIVE_RUNTIME_ROOT, TARGET_ROOT,
@@ -8,7 +9,7 @@ use crate::sha256::{digest, hex};
 use crate::snapshot::Snapshot;
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs::{self, File, Metadata, OpenOptions};
-use std::io::{self, Read};
+use std::io::{self, Read, Seek, SeekFrom, Write};
 use std::path::{Component, Path, PathBuf};
 use std::sync::atomic::{AtomicU64, Ordering};
 
@@ -164,6 +165,7 @@ pub struct InjectedCandidate {
     target_libraries: Vec<TargetLibrary>,
     execution_host_profile_id: String,
     runtime_layout_profile_id: String,
+    driver_release_identity: DriverReleaseIdentity,
 }
 
 #[derive(Clone, Debug)]
@@ -186,6 +188,7 @@ pub struct CandidateDefinition {
     pub compiler_commit: String,
     pub native_runtime_component_root: String,
     pub native_runtime_content_sha256: String,
+    pub driver_release_identity: DriverReleaseIdentity,
 }
 
 impl InjectedCandidate {
@@ -230,6 +233,7 @@ impl InjectedCandidate {
             || definition.target_libraries[1].target != RustTarget::X86_64UnknownLinuxGnu
             || definition.target_libraries[0].component_name != "rust-target-i686"
             || definition.target_libraries[1].component_name != "rust-target-x86_64"
+            || validate_driver_release_identity(&definition).is_err()
         {
             return Err(SandboxError::ToolchainComponent);
         }
@@ -261,6 +265,7 @@ impl InjectedCandidate {
             target_libraries: definition.target_libraries,
             execution_host_profile_id: definition.execution_host_profile_id,
             runtime_layout_profile_id: definition.runtime_layout_profile_id,
+            driver_release_identity: definition.driver_release_identity,
         })
     }
 
@@ -274,6 +279,10 @@ impl InjectedCandidate {
 
     pub fn native_runtime_root(&self) -> PathBuf {
         self.toolchain_root.join("native-runtime")
+    }
+
+    pub fn driver_release_identity(&self) -> &DriverReleaseIdentity {
+        &self.driver_release_identity
     }
 
     pub fn validate_for(&self, request: &LowerRequest) -> Result<ValidatedCandidate, SandboxError> {
@@ -363,6 +372,97 @@ impl InjectedCandidate {
             native_runtime_handle,
         })
     }
+}
+
+fn validate_driver_release_identity(definition: &CandidateDefinition) -> Result<(), SandboxError> {
+    let identity = &definition.driver_release_identity;
+    if identity.frontend_bundle_id != definition.frontend_bundle_id
+        || identity.toolchain_bundle_id != definition.toolchain_bundle_id
+        || identity.toolchain_distribution_sha256 != definition.toolchain_distribution_sha256
+        || identity.frontend_binary_sha256
+            != required_file(&definition.frontend_inventory, "bin/rust2vir", true)?.sha256
+        || identity.driver_binary_sha256
+            != required_file(&definition.frontend_inventory, "bin/rust2vir-driver", true)?.sha256
+        || identity.toolchain_components.is_empty()
+        || identity
+            .toolchain_components
+            .iter()
+            .map(|component| component.name.as_str())
+            .ne([
+                "cargo",
+                "native-runtime",
+                "rust-compiler-runtime",
+                "rust-target-i686",
+                "rust-target-x86_64",
+                "rustc",
+            ])
+    {
+        return Err(SandboxError::ToolchainComponent);
+    }
+    let mut previous = None;
+    for component in &identity.toolchain_components {
+        validate_sha256(&component.sha256)?;
+        if component.name.is_empty()
+            || component.release.is_empty()
+            || previous
+                .is_some_and(|previous: &str| previous.as_bytes() >= component.name.as_bytes())
+        {
+            return Err(SandboxError::ToolchainComponent);
+        }
+        previous = Some(component.name.as_str());
+        match (component.kind.as_str(), component.name.as_str()) {
+            ("executable", "cargo") => {
+                if component.commit_hash.is_some()
+                    || component.sha256
+                        != required_file(&definition.toolchain_inventory, "bin/cargo", true)?.sha256
+                {
+                    return Err(SandboxError::ToolchainComponent);
+                }
+            }
+            ("executable", "rustc") => {
+                if component.release != definition.compiler_release
+                    || component.commit_hash.as_deref() != Some(&definition.compiler_commit)
+                    || component.sha256
+                        != required_file(&definition.toolchain_inventory, "bin/rustc", true)?.sha256
+                {
+                    return Err(SandboxError::ToolchainComponent);
+                }
+            }
+            (
+                "content",
+                "native-runtime"
+                | "rust-compiler-runtime"
+                | "rust-target-i686"
+                | "rust-target-x86_64",
+            ) if component.commit_hash.is_none() => {}
+            _ => return Err(SandboxError::ToolchainComponent),
+        }
+    }
+    for (name, hash) in [
+        (
+            "native-runtime",
+            definition.native_runtime_content_sha256.as_str(),
+        ),
+        (
+            "rust-target-i686",
+            definition.target_libraries[0]
+                .component_content_sha256
+                .as_str(),
+        ),
+        (
+            "rust-target-x86_64",
+            definition.target_libraries[1]
+                .component_content_sha256
+                .as_str(),
+        ),
+    ] {
+        if !identity.toolchain_components.iter().any(|component| {
+            component.kind == "content" && component.name == name && component.sha256 == hash
+        }) {
+            return Err(SandboxError::ToolchainComponent);
+        }
+    }
+    Ok(())
 }
 
 pub struct ValidatedCandidate {
@@ -567,6 +667,10 @@ impl SandboxContext<'_> {
         &self.workspace.rootfs
     }
 
+    pub fn driver_request_host_path(&self) -> &Path {
+        self.workspace.driver_request_host_path()
+    }
+
     #[cfg(target_os = "linux")]
     fn retained_descriptors(&self) -> Vec<i32> {
         let [frontend, toolchain, native_runtime] = self.candidate.retained_descriptors();
@@ -625,6 +729,7 @@ pub struct PreparedSandbox<'a, E> {
     executor: E,
     observed_stdout_bytes: usize,
     observed_stderr_bytes: usize,
+    driver_request: driver_protocol::DriverRequest,
 }
 
 impl<'a, E: SandboxExecutor> PreparedSandbox<'a, E> {
@@ -646,11 +751,18 @@ impl<'a, E: SandboxExecutor> PreparedSandbox<'a, E> {
         environment
             .validate()
             .map_err(|_| SandboxError::ToolchainArgument)?;
+        let driver_request = driver_protocol::construct_request(
+            request,
+            snapshot.inputs(),
+            candidate.driver_release_identity(),
+        )
+        .map_err(|_| SandboxError::ToolchainComponent)?;
         let workspace = InvocationWorkspace::create(
             private_parent,
             snapshot.path(),
             &validated.frontend_root,
             &validated.toolchain_root,
+            driver_request.transport(),
         )?;
         Ok(Self {
             request,
@@ -663,6 +775,7 @@ impl<'a, E: SandboxExecutor> PreparedSandbox<'a, E> {
             executor,
             observed_stdout_bytes: 0,
             observed_stderr_bytes: 0,
+            driver_request,
         })
     }
 
@@ -719,6 +832,41 @@ impl<'a, E: SandboxExecutor> PreparedSandbox<'a, E> {
         self.workspace.invocation_id
     }
 
+    pub fn driver_request(&self) -> &driver_protocol::DriverRequest {
+        &self.driver_request
+    }
+
+    pub fn consume_driver_output(
+        &self,
+        driver_exit_code: i32,
+        signaled: bool,
+    ) -> Result<driver_protocol::DriverOutput, driver_protocol::DriverProtocolError> {
+        let bytes = crate::driver_process::consume_result_from_open_directory(
+            self.workspace.driver_output_handle(),
+        )?;
+        driver_protocol::parse_output_transport(
+            &bytes,
+            &self.driver_request,
+            driver_exit_code,
+            signaled,
+        )
+    }
+
+    pub(crate) fn consume_driver_output_artifact(
+        &self,
+    ) -> Result<driver_protocol::DriverOutput, driver_protocol::DriverProtocolError> {
+        let bytes = crate::driver_process::consume_result_from_open_directory(
+            self.workspace.driver_output_handle(),
+        )?;
+        driver_protocol::parse_output_artifact(&bytes, &self.driver_request)
+    }
+
+    pub(crate) fn driver_output_is_empty(
+        &self,
+    ) -> Result<bool, driver_protocol::DriverProtocolError> {
+        crate::driver_process::open_directory_is_empty(self.workspace.driver_output_handle())
+    }
+
     pub(crate) fn target_id(&self) -> &'static str {
         self.candidate.target.id()
     }
@@ -768,6 +916,7 @@ fn execute_linux_namespace(
         retained_fd_path(retained_descriptors[7]),
         retained_fd_path(retained_descriptors[8]),
         retained_fd_path(retained_descriptors[9]),
+        retained_fd_path(retained_descriptors[10]),
     ];
     if !context.rootfs().is_absolute() || context.rootfs().to_str().is_none() {
         return Err(SandboxError::SandboxUnavailable);
@@ -936,24 +1085,24 @@ fn linux_bootstrap(arguments: &[String]) -> Result<u8, u8> {
     use std::os::unix::ffi::OsStrExt;
     use std::os::unix::process::ExitStatusExt;
 
-    if arguments.len() < 13 || arguments[11] != "--" {
+    if arguments.len() < 14 || arguments[12] != "--" {
         return Err(125);
     }
-    let paths = arguments[..11]
+    let paths = arguments[..12]
         .iter()
         .map(PathBuf::from)
         .collect::<Vec<_>>();
     if paths
         .iter()
         .any(|path| !path.is_absolute() || path.as_os_str().as_bytes().contains(&0))
-        || arguments[12..]
+        || arguments[13..]
             .iter()
             .any(|argument| argument.is_empty() || argument.contains('\0'))
         || current_environment() != EvidenceEnvironment::frozen().entries().clone()
     {
         return Err(125);
     }
-    let [rootfs, input, toolchain, frontend, native_runtime, work, home, cargo_home, temporary, target, driver_output]: [&Path; 11] =
+    let [rootfs, input, toolchain, frontend, native_runtime, work, home, cargo_home, temporary, target, driver_output, driver_request]: [&Path; 12] =
         paths.iter().map(PathBuf::as_path).collect::<Vec<_>>().try_into().map_err(|_| 125)?;
 
     linux::enter_namespaces()?;
@@ -978,6 +1127,12 @@ fn linux_bootstrap(arguments: &[String]) -> Result<u8, u8> {
         true,
         true,
     )?;
+    linux::bind_view(
+        driver_request,
+        &rootfs.join("mpk/driver-request.json"),
+        true,
+        false,
+    )?;
     for (source, destination) in [
         (home, "mpk/home"),
         (cargo_home, "mpk/cargo-home"),
@@ -990,10 +1145,13 @@ fn linux_bootstrap(arguments: &[String]) -> Result<u8, u8> {
     linux::seal_root(rootfs)?;
     linux::enter_root(rootfs)?;
     linux::apply_process_controls()?;
+    for source in &paths[1..] {
+        linux::close_retained_path(source)?;
+    }
 
     let environment = EvidenceEnvironment::frozen();
     let status = Command::new(CARGO_PATH)
-        .args(&arguments[12..])
+        .args(&arguments[13..])
         .env_clear()
         .envs(environment.entries())
         .current_dir(WORK_ROOT)
@@ -1055,6 +1213,7 @@ mod linux {
 
     unsafe extern "C" {
         fn chroot(path: *const c_char) -> c_int;
+        fn close(descriptor: c_int) -> c_int;
         fn fcntl(fd: c_int, command: c_int, ...) -> c_int;
         fn getgid() -> u32;
         fn getuid() -> u32;
@@ -1079,6 +1238,20 @@ mod linux {
         // only its close-on-exec flag in the post-fork child.
         if unsafe { fcntl(descriptor, F_SETFD, 0) } == -1 {
             return Err(std::io::Error::last_os_error());
+        }
+        Ok(())
+    }
+
+    pub(super) fn close_retained_path(path: &Path) -> Result<(), u8> {
+        let descriptor = path
+            .file_name()
+            .and_then(|name| name.to_str())
+            .and_then(|name| name.parse::<c_int>().ok())
+            .ok_or(125)?;
+        // SAFETY: the descriptor number came from the trusted retained /proc/self/fd path and
+        // is closed only after all bind mounts have completed.
+        if unsafe { close(descriptor) } != 0 {
+            return Err(125);
         }
         Ok(())
     }
@@ -1211,6 +1384,9 @@ struct InvocationWorkspace {
     work: PathBuf,
     work_handle: File,
     writable_handles: BTreeMap<&'static str, File>,
+    driver_request: PathBuf,
+    driver_request_handle: File,
+    driver_request_bytes: Vec<u8>,
 }
 
 impl InvocationWorkspace {
@@ -1219,6 +1395,7 @@ impl InvocationWorkspace {
         snapshot: &Path,
         frontend: &Path,
         toolchain: &Path,
+        driver_request_bytes: &[u8],
     ) -> Result<Self, SandboxError> {
         let invocation_id = NEXT_INVOCATION.fetch_add(1, Ordering::Relaxed);
         let root = parent.join(format!(
@@ -1247,6 +1424,8 @@ impl InvocationWorkspace {
                 set_mode(&path, 0o700)?;
                 writable.insert(virtual_path, path);
             }
+            let (driver_request, driver_request_handle) =
+                create_driver_request(&root, driver_request_bytes)?;
             create_rootfs_mountpoints(&rootfs)?;
             let rootfs_handle = open_workspace_directory(&rootfs)?;
             let work_handle = open_workspace_directory(&work)?;
@@ -1265,6 +1444,9 @@ impl InvocationWorkspace {
                 work,
                 work_handle,
                 writable_handles,
+                driver_request,
+                driver_request_handle,
+                driver_request_bytes: driver_request_bytes.to_vec(),
             };
             workspace.validate(snapshot, frontend, toolchain)?;
             Ok(workspace)
@@ -1280,8 +1462,16 @@ impl InvocationWorkspace {
         self.writable.get(sandbox_path).map(PathBuf::as_path)
     }
 
+    fn driver_request_host_path(&self) -> &Path {
+        &self.driver_request
+    }
+
+    fn driver_output_handle(&self) -> &File {
+        &self.writable_handles[DRIVER_OUTPUT_ROOT]
+    }
+
     #[cfg(target_os = "linux")]
-    fn retained_descriptors(&self) -> [i32; 6] {
+    fn retained_descriptors(&self) -> [i32; 7] {
         [
             self.work_handle.as_raw_fd(),
             self.writable_handles[HOME_ROOT].as_raw_fd(),
@@ -1289,6 +1479,7 @@ impl InvocationWorkspace {
             self.writable_handles[TEMP_ROOT].as_raw_fd(),
             self.writable_handles[TARGET_ROOT].as_raw_fd(),
             self.writable_handles[DRIVER_OUTPUT_ROOT].as_raw_fd(),
+            self.driver_request_handle.as_raw_fd(),
         ]
     }
 
@@ -1370,6 +1561,11 @@ impl InvocationWorkspace {
             return Err(SandboxError::SandboxUnavailable);
         }
         validate_rootfs_scaffold(&self.rootfs)?;
+        validate_driver_request(
+            &self.driver_request,
+            &self.driver_request_handle,
+            &self.driver_request_bytes,
+        )?;
         Ok(())
     }
 
@@ -1429,6 +1625,9 @@ fn create_rootfs_mountpoints(root: &Path) -> Result<(), SandboxError> {
     let interpreter = root.join(ROOTFS_INTERPRETER);
     File::create(&interpreter).map_err(|_| SandboxError::SandboxUnavailable)?;
     set_mode(&interpreter, 0o444)?;
+    let request = root.join(ROOTFS_DRIVER_REQUEST);
+    File::create(&request).map_err(|_| SandboxError::SandboxUnavailable)?;
+    set_mode(&request, 0o444)?;
     for path in ROOTFS_DIRECTORIES {
         set_mode(&root.join(path), 0o555)?;
     }
@@ -1452,6 +1651,7 @@ const ROOTFS_DIRECTORIES: [&str; 14] = [
     "mpk/work",
 ];
 const ROOTFS_INTERPRETER: &str = "lib64/ld-linux-x86-64.so.2";
+const ROOTFS_DRIVER_REQUEST: &str = "mpk/driver-request.json";
 
 fn validate_rootfs_scaffold(root: &Path) -> Result<(), SandboxError> {
     let mut directories = BTreeSet::new();
@@ -1491,8 +1691,90 @@ fn validate_rootfs_scaffold(root: &Path) -> Result<(), SandboxError> {
         }
     }
     let expected_directories = ROOTFS_DIRECTORIES.into_iter().map(str::to_owned).collect();
-    let expected_files = [ROOTFS_INTERPRETER.to_owned()].into_iter().collect();
+    let expected_files = [
+        ROOTFS_INTERPRETER.to_owned(),
+        ROOTFS_DRIVER_REQUEST.to_owned(),
+    ]
+    .into_iter()
+    .collect();
     if directories != expected_directories || files != expected_files {
+        return Err(SandboxError::SandboxUnavailable);
+    }
+    Ok(())
+}
+
+fn create_driver_request(root: &Path, bytes: &[u8]) -> Result<(PathBuf, File), SandboxError> {
+    if bytes.len() > driver_protocol::REQUEST_TRANSPORT_MAX {
+        return Err(SandboxError::SandboxUnavailable);
+    }
+    let path = root.join("driver-request.json");
+    let mut options = OpenOptions::new();
+    options.read(true).write(true).create_new(true);
+    #[cfg(target_os = "linux")]
+    options.mode(0o600).custom_flags(0o400_000 | 0o2_000_000);
+    let mut writer = options
+        .open(&path)
+        .map_err(|_| SandboxError::SandboxUnavailable)?;
+    writer
+        .write_all(bytes)
+        .map_err(|_| SandboxError::SandboxUnavailable)?;
+    writer
+        .flush()
+        .map_err(|_| SandboxError::SandboxUnavailable)?;
+    writer
+        .sync_all()
+        .map_err(|_| SandboxError::SandboxUnavailable)?;
+    set_mode(&path, 0o400)?;
+    writer
+        .sync_all()
+        .map_err(|_| SandboxError::SandboxUnavailable)?;
+    drop(writer);
+    File::open(root)
+        .and_then(|directory| directory.sync_all())
+        .map_err(|_| SandboxError::SandboxUnavailable)?;
+    let handle = open_workspace_regular(&path)?;
+    validate_driver_request(&path, &handle, bytes)?;
+    Ok((path, handle))
+}
+
+fn validate_driver_request(
+    path: &Path,
+    handle: &File,
+    expected: &[u8],
+) -> Result<(), SandboxError> {
+    let named = fs::symlink_metadata(path).map_err(|_| SandboxError::SandboxUnavailable)?;
+    let opened = handle
+        .metadata()
+        .map_err(|_| SandboxError::SandboxUnavailable)?;
+    if !named.is_file()
+        || named.file_type().is_symlink()
+        || metadata_mode(&named)? & 0o7777 != 0o400
+        || metadata_link_count(&named)? != 1
+        || regular_file_identity(&named)? != regular_file_identity(&opened)?
+        || named.len() != expected.len() as u64
+    {
+        return Err(SandboxError::SandboxUnavailable);
+    }
+    let mut reader = handle
+        .try_clone()
+        .map_err(|_| SandboxError::SandboxUnavailable)?;
+    reader
+        .seek(SeekFrom::Start(0))
+        .map_err(|_| SandboxError::SandboxUnavailable)?;
+    let mut bytes = Vec::with_capacity(expected.len());
+    reader
+        .take(expected.len().saturating_add(1) as u64)
+        .read_to_end(&mut bytes)
+        .map_err(|_| SandboxError::SandboxUnavailable)?;
+    if bytes != expected
+        || regular_file_identity(
+            &fs::symlink_metadata(path).map_err(|_| SandboxError::SandboxUnavailable)?,
+        )? != regular_file_identity(
+            &handle
+                .metadata()
+                .map_err(|_| SandboxError::SandboxUnavailable)?,
+        )?
+    {
         return Err(SandboxError::SandboxUnavailable);
     }
     Ok(())
@@ -1689,6 +1971,10 @@ fn validate_distinct_roots(left: &File, right: &File) -> Result<(), SandboxError
 
 fn open_workspace_directory(path: &Path) -> Result<File, SandboxError> {
     open_directory_nofollow(path).map_err(|_| SandboxError::SandboxUnavailable)
+}
+
+fn open_workspace_regular(path: &Path) -> Result<File, SandboxError> {
+    open_regular_nofollow(path).map_err(|_| SandboxError::SandboxUnavailable)
 }
 
 #[cfg(target_os = "linux")]
@@ -1957,7 +2243,7 @@ pub fn fixed_read_only_views() -> [&'static str; 6] {
         FRONTEND_ROOT,
         WORK_ROOT,
         NATIVE_RUNTIME_ROOT,
-        "/mpk/driver-request.json",
+        driver_protocol::REQUEST_PATH,
     ]
 }
 

@@ -1,42 +1,212 @@
-use std::ffi::OsString;
-use std::process::{Command, ExitCode, Stdio};
+use rust2vir_internal::driver_process::{
+    classify_invocation, publish_primary_result, read_request, validate_fixed_binary_identities,
+    WrapperInvocation,
+};
+use rust2vir_internal::driver_protocol::{
+    encode_non_success, parse_request_transport, DriverStatus, PrivateDiagnostic, OUTPUT_DIRECTORY,
+    REQUEST_PATH,
+};
+use rust2vir_internal::environment::EvidenceEnvironment;
+use std::io::{Read, Write};
+use std::path::Path;
+use std::process::{Command, ExitCode, ExitStatus, Stdio};
+use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::Arc;
+use std::thread;
+
+const PROBE_STREAM_MAX: usize = 65_536;
 
 fn main() -> ExitCode {
-    let arguments = std::env::args_os().skip(1).collect::<Vec<_>>();
-    if arguments.len() == 1 && arguments[0] == "--version" {
+    let arguments = match std::env::args_os()
+        .skip(1)
+        .map(|argument| argument.into_string())
+        .collect::<Result<Vec<_>, _>>()
+    {
+        Ok(arguments) => arguments,
+        Err(_) => return fail("RUST_TOOLCHAIN_ARGUMENT"),
+    };
+    if arguments == ["--version"] {
         println!("{}", rust2vir_internal::version_line("rust2vir-driver"));
         return ExitCode::SUCCESS;
     }
-    let Some(rustc) = arguments.first() else {
-        eprintln!("RUST_TOOLCHAIN_ARGUMENT");
-        return ExitCode::from(1);
+    let bytes = match read_request(Path::new(REQUEST_PATH)) {
+        Ok(bytes) => bytes,
+        Err(error) => return fail(error.code.as_str()),
     };
-    match compiler_identity(rustc) {
-        Ok(()) => {
-            eprintln!("RUST_FRONTEND_DRIVER_PROTOCOL_COUNT");
-            ExitCode::from(1)
+    let request = match parse_request_transport(&bytes) {
+        Ok(request) => request,
+        Err(error) => return fail(error.code.as_str()),
+    };
+    if let Err(error) = validate_fixed_binary_identities(&request) {
+        return fail(error.code.as_str());
+    }
+    let invocation = match classify_invocation(&request, &arguments) {
+        Ok(invocation) => invocation,
+        Err(_) => return fail("RUST_TOOLCHAIN_ARGUMENT"),
+    };
+    match invocation {
+        WrapperInvocation::VersionProbe => version_probe(&arguments),
+        WrapperInvocation::SysrootProbe
+        | WrapperInvocation::CrateInformationHost
+        | WrapperInvocation::CrateInformationTarget => {
+            if compiler_identity(&arguments[0]).is_err() {
+                return fail("RUST_TOOLCHAIN_COMMIT");
+            }
+            delegate(&arguments)
         }
-        Err(code) => {
-            eprintln!("{code}");
-            ExitCode::from(1)
+        WrapperInvocation::Primary => {
+            if compiler_identity(&arguments[0]).is_err() {
+                return fail("RUST_TOOLCHAIN_COMMIT");
+            }
+            let result = encode_non_success(
+                &request,
+                DriverStatus::FrontendError,
+                "lowering",
+                &[PrivateDiagnostic {
+                    code: "RUST_TOOLCHAIN_MIR_ADAPTER".to_owned(),
+                    message: "pinned MIR adapter is not initialized".to_owned(),
+                    function_id: Some(request.selection().2.to_owned()),
+                }],
+            )
+            .and_then(|bytes| publish_primary_result(Path::new(OUTPUT_DIRECTORY), &bytes));
+            match result {
+                Ok(()) => ExitCode::from(1),
+                Err(error) => fail(error.code.as_str()),
+            }
         }
     }
 }
 
-fn compiler_identity(rustc: &OsString) -> Result<(), &'static str> {
-    let output = Command::new(rustc)
-        .arg("-vV")
-        .env_clear()
-        .env("LANG", "C")
-        .env("LC_ALL", "C")
-        .env("LD_LIBRARY_PATH", "/mpk/toolchain/lib")
-        .env("PATH", "/mpk/toolchain/bin")
-        .env("TZ", "UTC")
-        .stdin(Stdio::null())
-        .output()
-        .map_err(|_| "RUST_TOOLCHAIN_COMPONENT")?;
-    if !output.status.success() || !output.stderr.is_empty() {
-        return Err("RUST_TOOLCHAIN_COMPONENT");
+fn version_probe(arguments: &[String]) -> ExitCode {
+    let output = match bounded_probe(arguments) {
+        Ok(output) => output,
+        Err(_) => return fail("RUST_TOOLCHAIN_COMPONENT"),
+    };
+    if !output.status.success()
+        || !output.stderr.is_empty()
+        || rust2vir_internal::validate_rustc_verbose(&output.stdout).is_err()
+    {
+        return fail("RUST_TOOLCHAIN_COMMIT");
     }
-    rust2vir_internal::validate_rustc_verbose(&output.stdout).map_err(|_| "RUST_TOOLCHAIN_COMMIT")
+    if std::io::stdout().write_all(&output.stdout).is_err() {
+        return fail("RUST_FRONTEND_DRIVER_PROTOCOL_PROCESS");
+    }
+    ExitCode::SUCCESS
+}
+
+fn compiler_identity(rustc_path: &str) -> Result<(), ()> {
+    let output = bounded_probe(&[rustc_path.to_owned(), "-vV".to_owned()])?;
+    if !output.status.success() || !output.stderr.is_empty() {
+        return Err(());
+    }
+    rust2vir_internal::validate_rustc_verbose(&output.stdout).map_err(|_| ())
+}
+
+struct ProbeOutput {
+    status: ExitStatus,
+    stdout: Vec<u8>,
+    stderr: Vec<u8>,
+}
+
+fn bounded_probe(arguments: &[String]) -> Result<ProbeOutput, ()> {
+    let mut child = rustc(arguments)
+        .stdin(Stdio::null())
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped())
+        .spawn()
+        .map_err(|_| ())?;
+    let stdout = child.stdout.take().ok_or(())?;
+    let stderr = child.stderr.take().ok_or(())?;
+    let overflow = Arc::new(AtomicBool::new(false));
+    let read_failed = Arc::new(AtomicBool::new(false));
+    let stdout_reader = bounded_reader(stdout, Arc::clone(&overflow), Arc::clone(&read_failed));
+    let stderr_reader = bounded_reader(stderr, Arc::clone(&overflow), Arc::clone(&read_failed));
+    let status = loop {
+        if overflow.load(Ordering::Acquire) {
+            let _ = child.kill();
+        }
+        match child.try_wait() {
+            Ok(Some(status)) => break status,
+            Ok(None) => thread::yield_now(),
+            Err(_) => {
+                let _ = child.kill();
+                let _ = child.wait();
+                return Err(());
+            }
+        }
+    };
+    let stdout = stdout_reader.join().map_err(|_| ())??;
+    let stderr = stderr_reader.join().map_err(|_| ())??;
+    if overflow.load(Ordering::Acquire) || read_failed.load(Ordering::Acquire) {
+        return Err(());
+    }
+    Ok(ProbeOutput {
+        status,
+        stdout,
+        stderr,
+    })
+}
+
+fn bounded_reader<R: Read + Send + 'static>(
+    mut reader: R,
+    overflow: Arc<AtomicBool>,
+    read_failed: Arc<AtomicBool>,
+) -> thread::JoinHandle<Result<Vec<u8>, ()>> {
+    thread::spawn(move || {
+        let mut retained = Vec::new();
+        let mut buffer = [0_u8; 4_096];
+        loop {
+            let count = match reader.read(&mut buffer) {
+                Ok(0) => break,
+                Ok(count) => count,
+                Err(_) => {
+                    read_failed.store(true, Ordering::Release);
+                    return Err(());
+                }
+            };
+            if retained
+                .len()
+                .checked_add(count)
+                .is_none_or(|length| length > PROBE_STREAM_MAX)
+            {
+                overflow.store(true, Ordering::Release);
+                continue;
+            }
+            retained.extend_from_slice(&buffer[..count]);
+        }
+        Ok(retained)
+    })
+}
+
+fn delegate(arguments: &[String]) -> ExitCode {
+    let status = match rustc(arguments)
+        .stdin(Stdio::null())
+        .stdout(Stdio::inherit())
+        .stderr(Stdio::inherit())
+        .status()
+    {
+        Ok(status) => status,
+        Err(_) => return fail("RUST_TOOLCHAIN_COMPONENT"),
+    };
+    status
+        .code()
+        .and_then(|code| u8::try_from(code).ok())
+        .map_or_else(
+            || fail("RUST_FRONTEND_DRIVER_PROTOCOL_PROCESS"),
+            ExitCode::from,
+        )
+}
+
+fn rustc(arguments: &[String]) -> Command {
+    let mut command = Command::new(&arguments[0]);
+    command
+        .args(&arguments[1..])
+        .env_clear()
+        .envs(EvidenceEnvironment::frozen().entries());
+    command
+}
+
+fn fail(code: &str) -> ExitCode {
+    eprintln!("{code}");
+    ExitCode::from(1)
 }

@@ -1,4 +1,5 @@
 use crate::cargo_metadata::ValidatedCargoMetadata;
+use crate::driver_protocol::{DriverOutput, DriverProtocolCode, DriverStatus};
 use crate::environment::INPUT_ROOT;
 use crate::json::{self, JsonValue};
 use crate::manifest::ExpectedManifestSelection;
@@ -100,6 +101,27 @@ pub struct CheckPhase<'a, E> {
     metadata: ValidatedCargoMetadata,
 }
 
+#[derive(Debug)]
+pub struct DriverHandshake {
+    cargo: Option<CargoCheckOutput>,
+    driver: Option<DriverOutput>,
+    local_frontend_error: Option<DriverProtocolCode>,
+}
+
+impl DriverHandshake {
+    pub fn cargo(&self) -> Option<&CargoCheckOutput> {
+        self.cargo.as_ref()
+    }
+
+    pub fn driver(&self) -> Option<&DriverOutput> {
+        self.driver.as_ref()
+    }
+
+    pub fn local_frontend_error(&self) -> Option<DriverProtocolCode> {
+        self.local_frontend_error
+    }
+}
+
 impl<'a, E: SandboxExecutor> CheckPhase<'a, E> {
     pub(crate) fn from_validated_metadata(
         sandbox: PreparedSandbox<'a, E>,
@@ -150,6 +172,58 @@ impl<'a, E: SandboxExecutor> CheckPhase<'a, E> {
         }
         let executor = self.sandbox.into_executor();
         Ok((parsed, executor))
+    }
+
+    pub fn run_driver_handshake(mut self) -> Result<(DriverHandshake, E), CargoCheckError> {
+        let arguments = self.arguments();
+        let references = arguments.iter().map(String::as_str).collect::<Vec<_>>();
+        let invocation = CargoInvocation::new(CargoInvocationKind::Check, &references)?;
+        let process = self.sandbox.execute(&invocation)?;
+        if process.signaled || process.exit_code.is_none() {
+            let executor = self.sandbox.into_executor();
+            return Ok((
+                DriverHandshake {
+                    cargo: None,
+                    driver: None,
+                    local_frontend_error: Some(DriverProtocolCode::Process),
+                },
+                executor,
+            ));
+        }
+        let parsed = parse_message_stream(&process.stdout, &self.metadata, &self.expected)?;
+        if (process.exit_code == Some(0)) != parsed.succeeded {
+            return Err(CargoCheckCode::Protocol.into());
+        }
+        let driver = self.sandbox.consume_driver_output_artifact();
+        let (driver, local_frontend_error) = match driver {
+            Ok(driver)
+                if (parsed.succeeded && driver.status() == DriverStatus::Lowered)
+                    || (!parsed.succeeded && driver.status() != DriverStatus::Lowered) =>
+            {
+                (Some(driver), None)
+            }
+            Ok(driver) if !parsed.succeeded && driver.status() == DriverStatus::Lowered => {
+                (None, Some(DriverProtocolCode::Count))
+            }
+            Ok(_) => (None, Some(DriverProtocolCode::Identity)),
+            Err(error)
+                if parsed.succeeded
+                    && error.code == DriverProtocolCode::Filesystem
+                    && self.sandbox.driver_output_is_empty() == Ok(true) =>
+            {
+                (None, Some(DriverProtocolCode::Count))
+            }
+            Err(error) => (None, Some(error.code)),
+        };
+        let executor = self.sandbox.into_executor();
+        Ok((
+            DriverHandshake {
+                cargo: Some(parsed),
+                driver,
+                local_frontend_error,
+            },
+            executor,
+        ))
     }
 
     fn sandbox_target(&self) -> &'static str {

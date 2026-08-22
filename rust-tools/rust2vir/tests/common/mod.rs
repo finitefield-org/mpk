@@ -1,6 +1,7 @@
 #![allow(dead_code)]
 
 use rust2vir_internal::cli::{parse_lower_args, LowerRequest, SEMANTIC_PROFILE};
+use rust2vir_internal::driver_protocol::{DriverComponentIdentity, DriverReleaseIdentity};
 use rust2vir_internal::environment::{
     EvidenceEnvironment, ARGUMENT_PROFILE_ID, DRIVER_OUTPUT_ROOT, ENVIRONMENT_PROFILE_ID,
     HOME_ROOT, TARGET_ROOT, TEMP_ROOT,
@@ -173,6 +174,30 @@ impl Fixture {
             &toolchain_inventory,
             "native-runtime/",
         );
+        let compiler_runtime_content_sha256 = component_content_sha256(
+            TOOLCHAIN_BUNDLE_ID,
+            "rust-compiler-runtime",
+            &toolchain_inventory,
+            "lib/librustc",
+        );
+        let cargo_sha256 = toolchain_inventory
+            .iter()
+            .find(|file| file.path() == "bin/cargo")
+            .unwrap()
+            .sha256()
+            .to_owned();
+        let rustc_sha256 = toolchain_inventory
+            .iter()
+            .find(|file| file.path() == "bin/rustc")
+            .unwrap()
+            .sha256()
+            .to_owned();
+        let frontend_binary_sha256 = frontend_inventory
+            .iter()
+            .find(|file| file.path() == "bin/rust2vir")
+            .unwrap()
+            .sha256()
+            .to_owned();
         seal_tree(&frontend);
         seal_tree(&toolchain);
 
@@ -202,7 +227,7 @@ impl Fixture {
             frontend_root: frontend,
             frontend_inventory,
             toolchain_bundle_id: TOOLCHAIN_BUNDLE_ID.to_owned(),
-            toolchain_distribution_sha256: distribution_sha256,
+            toolchain_distribution_sha256: distribution_sha256.clone(),
             toolchain_root: toolchain,
             toolchain_inventory,
             target_libraries: vec![
@@ -210,7 +235,7 @@ impl Fixture {
                     rust2vir_internal::cli::RustTarget::I686UnknownLinuxGnu,
                     32,
                     "rust-target-i686",
-                    i686_content_sha256,
+                    i686_content_sha256.clone(),
                     "lib/rustlib/i686-unknown-linux-gnu/",
                 )
                 .unwrap(),
@@ -218,7 +243,7 @@ impl Fixture {
                     rust2vir_internal::cli::RustTarget::X86_64UnknownLinuxGnu,
                     64,
                     "rust-target-x86_64",
-                    x86_64_content_sha256,
+                    x86_64_content_sha256.clone(),
                     "lib/rustlib/x86_64-unknown-linux-gnu/",
                 )
                 .unwrap(),
@@ -231,7 +256,58 @@ impl Fixture {
             compiler_release: rust2vir_internal::EXPECTED_RUSTC_RELEASE.to_owned(),
             compiler_commit: rust2vir_internal::EXPECTED_RUSTC_COMMIT.to_owned(),
             native_runtime_component_root: "native-runtime".to_owned(),
-            native_runtime_content_sha256,
+            native_runtime_content_sha256: native_runtime_content_sha256.clone(),
+            driver_release_identity: DriverReleaseIdentity {
+                frontend_bundle_id: FRONTEND_BUNDLE_ID.to_owned(),
+                frontend_binary_sha256,
+                driver_binary_sha256: driver_sha256,
+                toolchain_bundle_id: TOOLCHAIN_BUNDLE_ID.to_owned(),
+                toolchain_distribution_sha256: distribution_sha256,
+                toolchain_components: vec![
+                    DriverComponentIdentity {
+                        kind: "executable".to_owned(),
+                        name: "cargo".to_owned(),
+                        release: rust2vir_internal::EXPECTED_RUSTC_RELEASE.to_owned(),
+                        sha256: cargo_sha256,
+                        commit_hash: None,
+                    },
+                    DriverComponentIdentity {
+                        kind: "content".to_owned(),
+                        name: "native-runtime".to_owned(),
+                        release: "nightly-2025-06-01".to_owned(),
+                        sha256: native_runtime_content_sha256.clone(),
+                        commit_hash: None,
+                    },
+                    DriverComponentIdentity {
+                        kind: "content".to_owned(),
+                        name: "rust-compiler-runtime".to_owned(),
+                        release: "nightly-2025-06-01".to_owned(),
+                        sha256: compiler_runtime_content_sha256,
+                        commit_hash: None,
+                    },
+                    DriverComponentIdentity {
+                        kind: "content".to_owned(),
+                        name: "rust-target-i686".to_owned(),
+                        release: "nightly-2025-06-01".to_owned(),
+                        sha256: i686_content_sha256,
+                        commit_hash: None,
+                    },
+                    DriverComponentIdentity {
+                        kind: "content".to_owned(),
+                        name: "rust-target-x86_64".to_owned(),
+                        release: "nightly-2025-06-01".to_owned(),
+                        sha256: x86_64_content_sha256,
+                        commit_hash: None,
+                    },
+                    DriverComponentIdentity {
+                        kind: "executable".to_owned(),
+                        name: "rustc".to_owned(),
+                        release: rust2vir_internal::EXPECTED_RUSTC_RELEASE.to_owned(),
+                        sha256: rustc_sha256,
+                        commit_hash: Some(rust2vir_internal::EXPECTED_RUSTC_COMMIT.to_owned()),
+                    },
+                ],
+            },
         })
         .unwrap();
 

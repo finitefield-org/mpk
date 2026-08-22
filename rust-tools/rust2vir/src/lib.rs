@@ -5,8 +5,10 @@ use std::fmt;
 pub mod cargo_check;
 pub mod cargo_metadata;
 pub mod cli;
+pub mod driver_process;
+pub mod driver_protocol;
 pub mod environment;
-mod json;
+pub mod json;
 pub mod manifest;
 pub mod metadata_request;
 pub mod module_closure;
@@ -25,6 +27,9 @@ pub const EXPECTED_RUSTC_COMMIT: &str = "4d08223c054cf5a56d9761ca925fd46ffebe711
 pub enum CompilerIdentityError {
     OutputLimit,
     InvalidUtf8,
+    MissingRelease,
+    DuplicateRelease,
+    ReleaseMismatch,
     MissingCommit,
     DuplicateCommit,
     InvalidCommit,
@@ -36,6 +41,9 @@ impl fmt::Display for CompilerIdentityError {
         formatter.write_str(match self {
             Self::OutputLimit => "RUST_TOOLCHAIN_COMPONENT",
             Self::InvalidUtf8 => "RUST_TOOLCHAIN_COMMIT",
+            Self::MissingRelease | Self::DuplicateRelease | Self::ReleaseMismatch => {
+                "RUST_TOOLCHAIN_COMPONENT"
+            }
             Self::MissingCommit => "RUST_TOOLCHAIN_COMMIT",
             Self::DuplicateCommit => "RUST_TOOLCHAIN_COMMIT",
             Self::InvalidCommit => "RUST_TOOLCHAIN_COMMIT",
@@ -54,6 +62,21 @@ pub fn validate_rustc_verbose(bytes: &[u8]) -> Result<(), CompilerIdentityError>
         return Err(CompilerIdentityError::OutputLimit);
     }
     let text = std::str::from_utf8(bytes).map_err(|_| CompilerIdentityError::InvalidUtf8)?;
+    let mut releases = text.lines().filter_map(|line| line.strip_prefix("rustc "));
+    let release = releases
+        .next()
+        .ok_or(CompilerIdentityError::MissingRelease)?;
+    if releases.next().is_some() {
+        return Err(CompilerIdentityError::DuplicateRelease);
+    }
+    if release
+        .split_ascii_whitespace()
+        .next()
+        .filter(|release| *release == EXPECTED_RUSTC_RELEASE)
+        .is_none()
+    {
+        return Err(CompilerIdentityError::ReleaseMismatch);
+    }
     let mut commits = text
         .lines()
         .filter_map(|line| line.strip_prefix("commit-hash: "));
@@ -89,7 +112,8 @@ mod tests {
 
     #[test]
     fn another_commit_is_refused_before_analysis() {
-        let output = b"commit-hash: 0000000000000000000000000000000000000000\n";
+        let output =
+            b"rustc 1.89.0-nightly\ncommit-hash: 0000000000000000000000000000000000000000\n";
         assert_eq!(
             validate_rustc_verbose(output),
             Err(CompilerIdentityError::CommitMismatch)
@@ -100,10 +124,11 @@ mod tests {
     fn malformed_or_ambiguous_identity_is_refused() {
         assert_eq!(
             validate_rustc_verbose(b"release: nightly\n"),
-            Err(CompilerIdentityError::MissingCommit)
+            Err(CompilerIdentityError::MissingRelease)
         );
-        let duplicate =
-            format!("commit-hash: {EXPECTED_RUSTC_COMMIT}\ncommit-hash: {EXPECTED_RUSTC_COMMIT}\n");
+        let duplicate = format!(
+            "rustc {EXPECTED_RUSTC_RELEASE}\ncommit-hash: {EXPECTED_RUSTC_COMMIT}\ncommit-hash: {EXPECTED_RUSTC_COMMIT}\n"
+        );
         assert_eq!(
             validate_rustc_verbose(duplicate.as_bytes()),
             Err(CompilerIdentityError::DuplicateCommit)
