@@ -2963,7 +2963,7 @@ git diff --check
 
 ### RUST-03-T03 Implement Module Closure, Immutable Capture, and Snapshot Creation
 
-Status: Pending
+Status: Complete (2026-08-22)
 
 Depends on: RUST-03-T02.
 

@@ -114,7 +114,7 @@ fn valid_structural_inputs_are_captured_in_portable_order() {
         .collect::<Vec<_>>();
     assert_eq!(paths, ["Cargo.lock", "Cargo.toml", "contracts/vector.json"]);
     assert_eq!(preflight.inputs[0].kind, InputKind::Lockfile);
-    assert_eq!(preflight.inputs[1].bytes, MANIFEST);
+    assert_eq!(preflight.inputs[1].bytes.as_ref(), MANIFEST);
     assert_eq!(preflight.inputs[2].kind, InputKind::Contract);
 }
 

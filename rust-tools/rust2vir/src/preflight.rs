@@ -1,15 +1,14 @@
 use crate::cli::LowerRequest;
 use crate::path::{PortablePath, PortablePathError, PortablePathSet};
-use std::collections::BTreeSet;
-use std::io::Read;
+use crate::source_capture::{CaptureFailure, CaptureState};
+
+pub use crate::source_capture::{CapturedInput as StructuralInput, InputKind};
 
 const MANIFEST_BYTES_MAX: u64 = 1_048_576;
 const LOCKFILE_BYTES_MAX: u64 = 4_194_304;
 const CONTRACT_FILES_MAX: usize = 128;
 const CONTRACT_FILE_BYTES_MAX: u64 = 1_048_576;
 const CONTRACT_TOTAL_BYTES_MAX: u64 = 8_388_608;
-const SNAPSHOT_ENTRIES_MAX: usize = 512;
-const SNAPSHOT_TOTAL_BYTES_MAX: u64 = 33_554_432;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum PreflightCode {
@@ -65,38 +64,16 @@ impl From<PreflightCode> for PreflightError {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub enum InputKind {
-    BuildManifest,
-    Lockfile,
-    Contract,
-}
-
-#[derive(Debug)]
-pub struct StructuralInput {
-    pub kind: InputKind,
-    pub normalized_path: PortablePath,
-    pub bytes: Vec<u8>,
-}
-
 #[derive(Debug)]
 pub struct StructuralPreflight {
     pub inputs: Vec<StructuralInput>,
+    pub(crate) capture: CaptureState,
 }
 
 pub fn run(request: &LowerRequest) -> Result<StructuralPreflight, PreflightError> {
     if request.contracts.len() > CONTRACT_FILES_MAX {
         return Err(PreflightCode::LimitContract.into());
     }
-    let input_count = request
-        .contracts
-        .len()
-        .checked_add(2)
-        .ok_or(PreflightCode::LimitInputCount)?;
-    if input_count > SNAPSHOT_ENTRIES_MAX {
-        return Err(PreflightCode::LimitInputCount.into());
-    }
-
     let mut path_set = PortablePathSet::default();
     let manifest_path = insert_path(&mut path_set, "Cargo.toml")?;
     let lockfile_path = insert_path(&mut path_set, "Cargo.lock")?;
@@ -118,37 +95,31 @@ pub fn run(request: &LowerRequest) -> Result<StructuralPreflight, PreflightError
         }
     }
 
-    let root =
-        platform::RootDirectory::open(&request.source_root).map_err(|_| PreflightCode::FileType)?;
-    let mut identities = BTreeSet::new();
-    let manifest = capture_file(
-        &root,
-        manifest_path,
-        InputKind::BuildManifest,
-        MANIFEST_BYTES_MAX,
-        PreflightCode::LimitInputBytes,
-        &mut identities,
-    )?;
-    let lockfile = capture_file(
-        &root,
-        lockfile_path,
-        InputKind::Lockfile,
-        LOCKFILE_BYTES_MAX,
-        PreflightCode::LimitInputBytes,
-        &mut identities,
-    )?;
+    let mut capture = CaptureState::open(&request.source_root).map_err(map_capture_failure)?;
+    capture
+        .register_path(manifest_path.clone())
+        .map_err(map_capture_failure)?;
+    capture
+        .register_path(lockfile_path.clone())
+        .map_err(map_capture_failure)?;
+    for path in &contract_paths {
+        capture
+            .register_path(path.clone())
+            .map_err(map_capture_failure)?;
+    }
+    let manifest = capture
+        .capture_registered(manifest_path, InputKind::BuildManifest, MANIFEST_BYTES_MAX)
+        .map_err(|failure| map_capture_limit(failure, PreflightCode::LimitInputBytes))?;
+    let lockfile = capture
+        .capture_registered(lockfile_path, InputKind::Lockfile, LOCKFILE_BYTES_MAX)
+        .map_err(|failure| map_capture_limit(failure, PreflightCode::LimitInputBytes))?;
 
     let mut contract_total = 0_u64;
     let mut contracts = Vec::with_capacity(contract_paths.len());
     for path in contract_paths {
-        let input = capture_file(
-            &root,
-            path,
-            InputKind::Contract,
-            CONTRACT_FILE_BYTES_MAX,
-            PreflightCode::LimitContract,
-            &mut identities,
-        )?;
+        let input = capture
+            .capture_registered(path, InputKind::Contract, CONTRACT_FILE_BYTES_MAX)
+            .map_err(|failure| map_capture_limit(failure, PreflightCode::LimitContract))?;
         contract_total = contract_total
             .checked_add(input.bytes.len() as u64)
             .ok_or(PreflightCode::LimitContract)?;
@@ -158,15 +129,8 @@ pub fn run(request: &LowerRequest) -> Result<StructuralPreflight, PreflightError
         contracts.push(input);
     }
 
-    let snapshot_total = (manifest.bytes.len() as u64)
-        .checked_add(lockfile.bytes.len() as u64)
-        .and_then(|total| total.checked_add(contract_total))
-        .ok_or(PreflightCode::LimitInputBytes)?;
-    if snapshot_total > SNAPSHOT_TOTAL_BYTES_MAX {
-        return Err(PreflightCode::LimitInputBytes.into());
-    }
-
-    let layout = root
+    let layout = capture
+        .root()
         .inspect_forbidden_layout()
         .map_err(|_| PreflightCode::FileType)?;
     if path_failure {
@@ -185,7 +149,7 @@ pub fn run(request: &LowerRequest) -> Result<StructuralPreflight, PreflightError
     let mut inputs = vec![manifest, lockfile];
     inputs.extend(contracts);
     inputs.sort_by(|left, right| left.normalized_path.cmp(&right.normalized_path));
-    Ok(StructuralPreflight { inputs })
+    Ok(StructuralPreflight { inputs, capture })
 }
 
 fn insert_path(paths: &mut PortablePathSet, value: &str) -> Result<PortablePath, PreflightError> {
@@ -200,43 +164,22 @@ fn insert_path(paths: &mut PortablePathSet, value: &str) -> Result<PortablePath,
     Ok(path)
 }
 
-fn capture_file(
-    root: &platform::RootDirectory,
-    normalized_path: PortablePath,
-    kind: InputKind,
-    maximum_bytes: u64,
-    limit_code: PreflightCode,
-    identities: &mut BTreeSet<platform::FileIdentity>,
-) -> Result<StructuralInput, PreflightError> {
-    let mut file = root
-        .open_regular_file(&normalized_path)
-        .map_err(|_| PreflightCode::FileType)?;
-    let before = platform::regular_file_identity(&file).map_err(|_| PreflightCode::FileType)?;
-    if before.size > maximum_bytes {
-        return Err(limit_code.into());
+fn map_capture_failure(failure: CaptureFailure) -> PreflightError {
+    match failure {
+        CaptureFailure::FileType => PreflightCode::FileType,
+        CaptureFailure::Path => PreflightCode::Path,
+        CaptureFailure::PathLimit => PreflightCode::LimitPath,
+        CaptureFailure::ByteLimit => PreflightCode::LimitInputBytes,
+        CaptureFailure::CountLimit => PreflightCode::LimitInputCount,
     }
-    if !identities.insert(before.without_size()) {
-        return Err(PreflightCode::FileType.into());
-    }
+    .into()
+}
 
-    let capacity = usize::try_from(before.size).map_err(|_| limit_code)?;
-    let mut bytes = Vec::with_capacity(capacity);
-    file.by_ref()
-        .take(maximum_bytes.saturating_add(1))
-        .read_to_end(&mut bytes)
-        .map_err(|_| PreflightCode::FileType)?;
-    if bytes.len() as u64 > maximum_bytes {
-        return Err(limit_code.into());
+fn map_capture_limit(failure: CaptureFailure, byte_limit: PreflightCode) -> PreflightError {
+    match failure {
+        CaptureFailure::ByteLimit => byte_limit.into(),
+        other => map_capture_failure(other),
     }
-    let after = platform::regular_file_identity(&file).map_err(|_| PreflightCode::FileType)?;
-    if before != after || after.size != bytes.len() as u64 {
-        return Err(PreflightCode::FileType.into());
-    }
-    Ok(StructuralInput {
-        kind,
-        normalized_path,
-        bytes,
-    })
 }
 
 fn has_workspace_table(bytes: &[u8]) -> bool {
@@ -354,14 +297,14 @@ fn trim_ascii(mut bytes: &[u8]) -> &[u8] {
 }
 
 #[derive(Default)]
-struct LayoutFindings {
+pub(crate) struct LayoutFindings {
     workspace: bool,
     config: bool,
     toolchain_file: bool,
 }
 
 #[cfg(all(target_os = "linux", target_arch = "x86_64"))]
-mod platform {
+pub(crate) mod platform {
     use super::{LayoutFindings, PortablePath};
     use std::ffi::{c_int, c_long, c_void, CString};
     use std::fs::{File, Metadata};
@@ -419,6 +362,14 @@ mod platform {
             open_relative_file(self.file.as_raw_fd(), path.as_str().as_bytes())
         }
 
+        pub fn validate_retained(&self) -> io::Result<()> {
+            if self.file.metadata()?.is_dir() {
+                Ok(())
+            } else {
+                Err(io::Error::from(io::ErrorKind::InvalidInput))
+            }
+        }
+
         pub fn inspect_forbidden_layout(&self) -> io::Result<LayoutFindings> {
             let root = open_relative_directory(self.file.as_raw_fd(), b".", false)?;
             let mut pending = vec![(root, 0_usize, false)];
@@ -474,11 +425,22 @@ mod platform {
         device: u64,
         inode: u64,
         pub size: u64,
+        modified_seconds: i64,
+        modified_nanoseconds: i64,
+        changed_seconds: i64,
+        changed_nanoseconds: i64,
     }
 
     impl FileIdentity {
         pub fn without_size(self) -> Self {
-            Self { size: 0, ..self }
+            Self {
+                size: 0,
+                modified_seconds: 0,
+                modified_nanoseconds: 0,
+                changed_seconds: 0,
+                changed_nanoseconds: 0,
+                ..self
+            }
         }
     }
 
@@ -494,6 +456,10 @@ mod platform {
             device: metadata.dev(),
             inode: metadata.ino(),
             size: metadata.len(),
+            modified_seconds: metadata.mtime(),
+            modified_nanoseconds: metadata.mtime_nsec(),
+            changed_seconds: metadata.ctime(),
+            changed_nanoseconds: metadata.ctime_nsec(),
         })
     }
 
@@ -596,7 +562,7 @@ mod platform {
         Ok(unsafe { File::from_raw_fd(descriptor) })
     }
 
-    fn supported_filesystem(descriptor: RawFd) -> io::Result<bool> {
+    pub(crate) fn supported_filesystem(descriptor: RawFd) -> io::Result<bool> {
         let mut information = StatFs {
             filesystem_type: 0,
             block_size: 0,
@@ -691,7 +657,7 @@ mod platform {
 }
 
 #[cfg(not(all(target_os = "linux", target_arch = "x86_64")))]
-mod platform {
+pub(crate) mod platform {
     use super::{LayoutFindings, PortablePath};
     use std::fs::File;
     use std::io;
@@ -705,6 +671,10 @@ mod platform {
         }
 
         pub fn open_regular_file(&self, _path: &PortablePath) -> io::Result<File> {
+            Err(io::Error::from(io::ErrorKind::Unsupported))
+        }
+
+        pub fn validate_retained(&self) -> io::Result<()> {
             Err(io::Error::from(io::ErrorKind::Unsupported))
         }
 

@@ -63,6 +63,7 @@ pub struct CliError;
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum NonSuccessStatus {
     Rejected,
+    SourceError,
     FrontendError,
 }
 
@@ -70,6 +71,7 @@ impl NonSuccessStatus {
     fn as_str(self) -> &'static str {
         match self {
             Self::Rejected => "rejected",
+            Self::SourceError => "source-error",
             Self::FrontendError => "frontend-error",
         }
     }

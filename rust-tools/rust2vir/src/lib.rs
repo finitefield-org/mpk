@@ -3,8 +3,12 @@
 use std::fmt;
 
 pub mod cli;
+pub mod module_closure;
 pub mod path;
 pub mod preflight;
+pub mod sha256;
+pub mod snapshot;
+pub mod source_capture;
 
 pub const PACKAGE_VERSION: &str = "0.1.0";
 pub const EXPECTED_RUSTC_RELEASE: &str = "1.89.0-nightly";
