@@ -3482,7 +3482,7 @@ git diff --check
 
 ### RUST-03-T11 Lower Basic MIR with Stable IDs and Source Mapping
 
-Status: Pending
+Status: Complete (2026-08-23)
 
 Depends on: RUST-03-T08, RUST-03-T09, RUST-03-T10.
 

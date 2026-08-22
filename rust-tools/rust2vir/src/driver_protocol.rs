@@ -715,6 +715,55 @@ pub fn encode_non_success(
     if status == DriverStatus::Lowered || diagnostics.is_empty() {
         return Err(DriverProtocolCode::Shape.into());
     }
+    let mut root = common_output_root(request)?;
+    root.insert(
+        "status".to_owned(),
+        JsonValue::String(status.as_str().to_owned()),
+    );
+    root.insert("phase".to_owned(), JsonValue::String(phase.to_owned()));
+    root.insert("diagnostics".to_owned(), diagnostics_json(diagnostics));
+    let mut bytes =
+        json::canonical(&JsonValue::Object(root)).map_err(|_| DriverProtocolCode::Canonical)?;
+    bytes.push(b'\n');
+    parse_output_transport(&bytes, request, status.exit_code(), false)?;
+    Ok(bytes)
+}
+
+pub fn encode_lowered(
+    request: &DriverRequest,
+    raw_lowering: JsonValue,
+    raw_source_map: JsonValue,
+) -> Result<Vec<u8>, DriverProtocolError> {
+    let mut root = common_output_root(request)?;
+    root.insert("status".to_owned(), JsonValue::String("lowered".to_owned()));
+    root.insert("phase".to_owned(), JsonValue::String("lowering".to_owned()));
+    root.insert("diagnostics".to_owned(), JsonValue::Array(Vec::new()));
+    root.insert(
+        "source_inventory".to_owned(),
+        request
+            .root()
+            .get("source_inventory")
+            .ok_or(DriverProtocolCode::Shape)?
+            .clone(),
+    );
+    root.insert("raw_lowering".to_owned(), raw_lowering);
+    root.insert("raw_source_map".to_owned(), raw_source_map);
+    let preimage = json::canonical(&JsonValue::Object(root.clone()))
+        .map_err(|_| DriverProtocolCode::Canonical)?;
+    root.insert(
+        "payload_hash".to_owned(),
+        JsonValue::String(domain_hash(PAYLOAD_DOMAIN, &preimage)),
+    );
+    let mut bytes =
+        json::canonical(&JsonValue::Object(root)).map_err(|_| DriverProtocolCode::Canonical)?;
+    bytes.push(b'\n');
+    parse_output_transport(&bytes, request, DriverStatus::Lowered.exit_code(), false)?;
+    Ok(bytes)
+}
+
+fn common_output_root(
+    request: &DriverRequest,
+) -> Result<BTreeMap<String, JsonValue>, DriverProtocolError> {
     let mut root = BTreeMap::new();
     for field in COMMON_OUTPUT_FIELDS {
         if matches!(*field, "diagnostics" | "phase" | "schema" | "status") {
@@ -733,43 +782,34 @@ pub fn encode_non_success(
         "schema".to_owned(),
         JsonValue::String("mpk.rust.driver.v0".to_owned()),
     );
-    root.insert(
-        "status".to_owned(),
-        JsonValue::String(status.as_str().to_owned()),
-    );
-    root.insert("phase".to_owned(), JsonValue::String(phase.to_owned()));
-    root.insert(
-        "diagnostics".to_owned(),
-        JsonValue::Array(
-            diagnostics
-                .iter()
-                .map(|diagnostic| {
-                    let mut issue = BTreeMap::from([
-                        (
-                            "code".to_owned(),
-                            JsonValue::String(diagnostic.code.clone()),
-                        ),
-                        (
-                            "message".to_owned(),
-                            JsonValue::String(diagnostic.message.clone()),
-                        ),
-                    ]);
-                    if let Some(function) = &diagnostic.function_id {
-                        issue.insert(
-                            "function_id".to_owned(),
-                            JsonValue::String(function.clone()),
-                        );
-                    }
-                    JsonValue::Object(issue)
-                })
-                .collect(),
-        ),
-    );
-    let mut bytes =
-        json::canonical(&JsonValue::Object(root)).map_err(|_| DriverProtocolCode::Canonical)?;
-    bytes.push(b'\n');
-    parse_output_transport(&bytes, request, status.exit_code(), false)?;
-    Ok(bytes)
+    Ok(root)
+}
+
+fn diagnostics_json(diagnostics: &[PrivateDiagnostic]) -> JsonValue {
+    JsonValue::Array(
+        diagnostics
+            .iter()
+            .map(|diagnostic| {
+                let mut issue = BTreeMap::from([
+                    (
+                        "code".to_owned(),
+                        JsonValue::String(diagnostic.code.clone()),
+                    ),
+                    (
+                        "message".to_owned(),
+                        JsonValue::String(diagnostic.message.clone()),
+                    ),
+                ]);
+                if let Some(function) = &diagnostic.function_id {
+                    issue.insert(
+                        "function_id".to_owned(),
+                        JsonValue::String(function.clone()),
+                    );
+                }
+                JsonValue::Object(issue)
+            })
+            .collect(),
+    )
 }
 
 pub fn parse_output_transport(

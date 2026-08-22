@@ -5,6 +5,7 @@ extern crate rustc_abi;
 extern crate rustc_ast;
 extern crate rustc_driver;
 extern crate rustc_hir;
+extern crate rustc_index;
 extern crate rustc_interface;
 extern crate rustc_middle;
 extern crate rustc_session;
@@ -19,8 +20,8 @@ use rust2vir_internal::driver_process::{
     WrapperInvocation,
 };
 use rust2vir_internal::driver_protocol::{
-    encode_non_success, parse_request_transport, DriverStatus, PrivateDiagnostic, OUTPUT_DIRECTORY,
-    REQUEST_PATH,
+    encode_lowered, encode_non_success, parse_request_transport, DriverStatus, PrivateDiagnostic,
+    OUTPUT_DIRECTORY, REQUEST_PATH,
 };
 use rust2vir_internal::environment::{EvidenceEnvironment, INPUT_ROOT};
 use rust2vir_internal::file_loader::{SnapshotFileLoader, SourceLoaderError, SourceLoaderStatus};
@@ -86,18 +87,12 @@ fn main() -> ExitCode {
                     Ok(loader) => Arc::new(loader),
                     Err(error) => return publish_source_failure(&request, error),
                 };
-            if let Err(error) =
-                rustc_driver_adapter::run_primary(&arguments, &request, source_loader)
-            {
-                return publish_rustc_failure(&request, error);
-            }
-            publish_primary_diagnostic(
-                &request,
-                DriverStatus::FrontendError,
-                "lowering",
-                "RUST_TOOLCHAIN_MIR_ADAPTER",
-                "pinned MIR adapter is not initialized",
-            )
+            let lowering =
+                match rustc_driver_adapter::run_primary(&arguments, &request, source_loader) {
+                    Ok(lowering) => lowering,
+                    Err(error) => return publish_rustc_failure(&request, error),
+                };
+            publish_lowered(&request, lowering)
         }
     }
 }
@@ -129,6 +124,21 @@ fn publish_rustc_failure(
             error.code.as_str(),
             error.code.message(),
         ),
+        RustcDriverError::Mir(error) => {
+            let status = if error.is_frontend_error() {
+                DriverStatus::FrontendError
+            } else {
+                DriverStatus::Rejected
+            };
+            publish_primary_diagnostic_for_function(
+                request,
+                status,
+                "lowering",
+                error.code.as_str(),
+                error.code.message(),
+                &error.function_id,
+            )
+        }
         RustcDriverError::MirAdapter => publish_primary_diagnostic(
             request,
             DriverStatus::FrontendError,
@@ -143,6 +153,18 @@ fn publish_rustc_failure(
             "RUST_SOURCE_TYPE",
             "rustc rejected the captured source before MIR access",
         ),
+    }
+}
+
+fn publish_lowered(
+    request: &rust2vir_internal::driver_protocol::DriverRequest,
+    lowering: rustc_driver_adapter::MirLowering,
+) -> ExitCode {
+    let result = encode_lowered(request, lowering.raw_lowering, lowering.raw_source_map)
+        .and_then(|bytes| publish_primary_result(Path::new(OUTPUT_DIRECTORY), &bytes));
+    match result {
+        Ok(()) => ExitCode::SUCCESS,
+        Err(error) => fail(error.code.as_str()),
     }
 }
 
@@ -171,6 +193,24 @@ fn publish_primary_diagnostic(
     code: &str,
     message: &str,
 ) -> ExitCode {
+    publish_primary_diagnostic_for_function(
+        request,
+        status,
+        phase,
+        code,
+        message,
+        request.selection().2,
+    )
+}
+
+fn publish_primary_diagnostic_for_function(
+    request: &rust2vir_internal::driver_protocol::DriverRequest,
+    status: DriverStatus,
+    phase: &str,
+    code: &str,
+    message: &str,
+    function_id: &str,
+) -> ExitCode {
     let result = encode_non_success(
         request,
         status,
@@ -178,7 +218,7 @@ fn publish_primary_diagnostic(
         &[PrivateDiagnostic {
             code: code.to_owned(),
             message: message.to_owned(),
-            function_id: Some(request.selection().2.to_owned()),
+            function_id: Some(function_id.to_owned()),
         }],
     )
     .and_then(|bytes| publish_primary_result(Path::new(OUTPUT_DIRECTORY), &bytes));

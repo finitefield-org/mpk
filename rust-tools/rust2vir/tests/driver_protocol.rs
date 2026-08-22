@@ -3,9 +3,9 @@ use rust2vir_internal::driver_process::{
     WrapperInvocation,
 };
 use rust2vir_internal::driver_protocol::{
-    construct_request, encode_non_success, parse_output_transport, parse_request_transport,
-    validate_transport_size, DriverProtocolCode, DriverStatus, PrivateDiagnostic,
-    OUTPUT_TRANSPORT_MAX, REQUEST_TRANSPORT_MAX,
+    construct_request, encode_lowered, encode_non_success, parse_output_transport,
+    parse_request_transport, validate_transport_size, DriverProtocolCode, DriverStatus,
+    PrivateDiagnostic, OUTPUT_TRANSPORT_MAX, REQUEST_TRANSPORT_MAX,
 };
 use rust2vir_internal::json::{self, JsonValue};
 use rust2vir_internal::sha256::{digest, hex};
@@ -120,6 +120,20 @@ fn normative_vector_request_and_every_status_are_byte_exact() {
         assert!(!value.contains_key("raw_lowering"));
         assert!(!value.contains_key("raw_source_map"));
     }
+}
+
+#[test]
+fn lowered_encoder_reconstructs_the_exact_success_inventory_and_hashes() {
+    let request = parse_request_transport(&valid_request_bytes()).unwrap();
+    let expected = output_value();
+    let expected = expected.as_object().unwrap();
+    let encoded = encode_lowered(
+        &request,
+        expected["raw_lowering"].clone(),
+        expected["raw_source_map"].clone(),
+    )
+    .unwrap();
+    assert_eq!(encoded, valid_lowered_bytes());
 }
 
 #[test]

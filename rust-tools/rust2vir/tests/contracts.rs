@@ -5,6 +5,7 @@ extern crate rustc_abi;
 extern crate rustc_ast;
 extern crate rustc_driver;
 extern crate rustc_hir;
+extern crate rustc_index;
 extern crate rustc_interface;
 extern crate rustc_middle;
 extern crate rustc_session;
@@ -25,7 +26,7 @@ use rustc_driver_adapter::RustcDriverError;
 
 const IDENTITY: &[u8] = include_bytes!("../testdata/contracts/identity.json");
 const IDENTITY_WHITESPACE: &[u8] = include_bytes!("../testdata/contracts/identity-whitespace.json");
-const SUBSET_VECTOR: &[u8] = include_bytes!("../../../develop/specs/vectors/rust-subset-v0.json");
+const SUBSET_VECTOR: &[u8] = include_bytes!("../testdata/rust-subset-v0.json");
 
 #[test]
 fn frozen_complete_operator_vector_is_compiler_typed_and_normalized() {

@@ -11,6 +11,19 @@ use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex, MutexGuard};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum SourceRangeError {
+    External,
+    Range,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct CapturedSourceRange {
+    pub normalized_path: String,
+    pub start: u64,
+    pub end: u64,
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum SourceLoaderCode {
     Gate(SourceGateCode),
     FrontendSourceInventory,
@@ -278,6 +291,36 @@ impl SnapshotFileLoader {
             .union(&state.root_callbacks)
             .map(|path| path.as_str().to_owned())
             .collect()
+    }
+
+    pub fn captured_source_range(
+        &self,
+        path: &Path,
+        start: u64,
+        end: u64,
+    ) -> Result<CapturedSourceRange, SourceRangeError> {
+        let normalized = self
+            .requested_path(path)
+            .map_err(|_| SourceRangeError::External)?;
+        let source = self
+            .sources
+            .get(&normalized)
+            .ok_or(SourceRangeError::External)?;
+        let start_index = usize::try_from(start).map_err(|_| SourceRangeError::Range)?;
+        let end_index = usize::try_from(end).map_err(|_| SourceRangeError::Range)?;
+        let text = std::str::from_utf8(&source.bytes).map_err(|_| SourceRangeError::Range)?;
+        if start_index >= end_index
+            || end_index > source.bytes.len()
+            || !text.is_char_boundary(start_index)
+            || !text.is_char_boundary(end_index)
+        {
+            return Err(SourceRangeError::Range);
+        }
+        Ok(CapturedSourceRange {
+            normalized_path: normalized.as_str().to_owned(),
+            start,
+            end,
+        })
     }
 
     pub fn failure(&self) -> Option<SourceLoaderError> {

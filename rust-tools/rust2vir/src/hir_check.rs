@@ -9,6 +9,7 @@ use rustc_hir::def::{DefKind, Res};
 use rustc_hir::intravisit::{self, Visitor};
 use rustc_middle::ty::{self, IntTy, Ty, TyCtxt, UintTy};
 use rustc_span::def_id::{DefId, LocalDefId, LOCAL_CRATE};
+use rustc_span::Span;
 use std::collections::{BTreeSet, HashMap, HashSet};
 
 #[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
@@ -88,6 +89,11 @@ pub struct HirFunction {
     pub parameter_names: Vec<String>,
     pub parameter_types: Vec<ContractType>,
     pub result_type: ContractType,
+    pub local_names: Vec<String>,
+    pub local_types: Vec<ContractType>,
+    pub local_spans: Vec<Span>,
+    pub control_flow_spans: Vec<Span>,
+    pub return_value_spans: Vec<Span>,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -336,6 +342,13 @@ fn validate_function(
         typeck,
         names: BTreeSet::new(),
         mutable_bindings: HashSet::new(),
+        local_names: Vec::new(),
+        local_types: Vec::new(),
+        local_spans: Vec::new(),
+        control_flow_spans: Vec::new(),
+        return_value_spans: top_level_return_value_span(body.value)
+            .into_iter()
+            .collect(),
     };
     let mut parameter_names = Vec::with_capacity(body.params.len());
     let mut mutable_parameter = false;
@@ -380,6 +393,11 @@ fn validate_function(
         parameter_names,
         parameter_types,
         result_type,
+        local_names: validator.local_names,
+        local_types: validator.local_types,
+        local_spans: validator.local_spans,
+        control_flow_spans: validator.control_flow_spans,
+        return_value_spans: validator.return_value_spans,
     })
 }
 
@@ -413,6 +431,11 @@ struct BodyValidator<'a, 'tcx> {
     typeck: &'a ty::TypeckResults<'tcx>,
     names: BTreeSet<String>,
     mutable_bindings: HashSet<hir::HirId>,
+    local_names: Vec<String>,
+    local_types: Vec<ContractType>,
+    local_spans: Vec<Span>,
+    control_flow_spans: Vec<Span>,
+    return_value_spans: Vec<Span>,
 }
 
 impl BodyValidator<'_, '_> {
@@ -440,7 +463,11 @@ impl BodyValidator<'_, '_> {
             hir::ExprKind::Binary(operator, left, right) => {
                 self.validate_expr(left)?;
                 self.validate_expr(right)?;
-                self.validate_binary(operator.node, left, right)
+                self.validate_binary(operator.node, left, right)?;
+                if matches!(operator.node, BinOpKind::And | BinOpKind::Or) {
+                    self.control_flow_spans.push(expression.span);
+                }
+                Ok(())
             }
             hir::ExprKind::Unary(operator, operand) => {
                 self.validate_expr(operand)?;
@@ -458,6 +485,7 @@ impl BodyValidator<'_, '_> {
             }
             hir::ExprKind::DropTemps(inner) => self.validate_expr(inner),
             hir::ExprKind::If(condition, then_expression, else_expression) => {
+                self.control_flow_spans.push(expression.span);
                 self.validate_expr(condition)?;
                 if !self.typeck.expr_ty(condition).is_bool() {
                     return Err(HirCheckCode::Operation);
@@ -500,7 +528,10 @@ impl BodyValidator<'_, '_> {
                 self.validate_copy_projection(expression)
             }
             hir::ExprKind::Path(path) => self.validate_value_path(expression, &path),
-            hir::ExprKind::Ret(Some(value)) => self.validate_expr(value),
+            hir::ExprKind::Ret(Some(value)) => {
+                self.return_value_spans.push(value.span);
+                self.validate_expr(value)
+            }
             hir::ExprKind::Ret(None) => Err(HirCheckCode::Type),
             hir::ExprKind::Struct(path, fields, hir::StructTailExpr::None) => {
                 self.validate_struct_path(expression, path, fields.len())?;
@@ -603,9 +634,15 @@ impl BodyValidator<'_, '_> {
         if let Some(source_ty) = local.ty {
             validate_hir_value_type(self.tcx, source_ty)?;
         }
-        validate_value_type(self.tcx, self.def_id, self.typeck.pat_ty(local.pat), 0)?;
+        let resolved_type = self.typeck.pat_ty(local.pat);
+        validate_value_type(self.tcx, self.def_id, resolved_type, 0)?;
+        self.local_names.push(name.clone());
+        self.local_types
+            .push(contract_type(self.tcx, self.def_id, resolved_type)?);
+        self.local_spans.push(local.span);
         self.validate_expr(local.init.expect("checked initialized local"))?;
-        self.add_binding(binding_id, &name, mutable)
+        self.add_binding(binding_id, &name, mutable)?;
+        Ok(())
     }
 
     fn add_binding(
@@ -718,6 +755,16 @@ impl BodyValidator<'_, '_> {
             Err(HirCheckCode::Operation)
         }
     }
+}
+
+fn top_level_return_value_span(mut expression: &hir::Expr<'_>) -> Option<Span> {
+    while let hir::ExprKind::DropTemps(inner) = expression.kind {
+        expression = inner;
+    }
+    let hir::ExprKind::Block(block, None) = expression.kind else {
+        return Some(expression.span);
+    };
+    block.expr.map(|value| value.span)
 }
 
 fn binding_pattern(
@@ -925,7 +972,7 @@ fn reject_drop<'tcx>(
     }
 }
 
-fn contract_type<'tcx>(
+pub(super) fn contract_type<'tcx>(
     tcx: TyCtxt<'tcx>,
     owner: LocalDefId,
     ty: Ty<'tcx>,

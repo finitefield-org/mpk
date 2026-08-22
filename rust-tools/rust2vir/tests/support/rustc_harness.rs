@@ -1,4 +1,6 @@
-use crate::rustc_driver_adapter::{self, HirAnalysis, PrimaryAnalysis, RustcDriverError};
+use crate::rustc_driver_adapter::{
+    self, HirAnalysis, MirLowering, PrimaryAnalysis, RustcDriverError,
+};
 use rust2vir_internal::driver_protocol::{
     parse_request_transport, DriverInputIdentity, DriverRequest,
 };
@@ -103,6 +105,63 @@ pub fn analyze_contracts(
         Arc::new(loader),
     );
     fs::remove_dir_all(root).expect("remove contract fixture");
+    result
+}
+
+#[allow(dead_code)]
+pub fn lower(
+    source: &[u8],
+    function: &str,
+    contracts: &[(&str, &[u8])],
+) -> Result<MirLowering, RustcDriverError> {
+    let root = std::env::temp_dir().join(format!(
+        "rust2vir-mir-lower-{}-{}",
+        std::process::id(),
+        NEXT_TEMP.fetch_add(1, Ordering::Relaxed)
+    ));
+    let source_path = root.join("src/lib.rs");
+    let output_path = root.join("target");
+    fs::create_dir_all(source_path.parent().expect("source parent")).expect("create source tree");
+    fs::create_dir(&output_path).expect("create output directory");
+    fs::write(&source_path, source).expect("write source fixture");
+
+    let source_inventory = [DriverInputIdentity {
+        kind: "source".to_owned(),
+        normalized_path: "src/lib.rs".to_owned(),
+        size_bytes: source.len() as u64,
+        sha256: hex(&digest(source)),
+    }];
+    let mut contract_inventory = Vec::with_capacity(contracts.len());
+    for (path, bytes) in contracts {
+        let contract_path = root.join(path);
+        fs::create_dir_all(contract_path.parent().expect("contract parent"))
+            .expect("create contract directory");
+        fs::write(&contract_path, bytes).expect("write contract fixture");
+        contract_inventory.push(DriverInputIdentity {
+            kind: "contract".to_owned(),
+            normalized_path: (*path).to_owned(),
+            size_bytes: bytes.len() as u64,
+            sha256: hex(&digest(bytes)),
+        });
+    }
+    let loader = match SnapshotFileLoader::open_with_contracts(
+        &root,
+        "src/lib.rs",
+        &source_inventory,
+        &contract_inventory,
+    ) {
+        Ok(loader) => loader,
+        Err(error) => {
+            fs::remove_dir_all(root).expect("remove rejected lowering fixture");
+            return Err(RustcDriverError::Source(error));
+        }
+    };
+    let result = rustc_driver_adapter::lower_primary(
+        &compiler_arguments(&source_path, &output_path),
+        &request(function),
+        Arc::new(loader),
+    );
+    fs::remove_dir_all(root).expect("remove lowering fixture");
     result
 }
 

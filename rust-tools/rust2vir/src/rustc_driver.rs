@@ -27,8 +27,11 @@ use std::sync::Arc;
 
 #[path = "hir_check.rs"]
 mod hir_check;
+#[path = "mir_lower.rs"]
+mod mir_lower;
 
 pub use hir_check::{HirAnalysis, HirCheckCode};
+pub use mir_lower::{MirError, MirLowering};
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum RustcDriverError {
@@ -36,6 +39,7 @@ pub enum RustcDriverError {
     Session,
     Subset(HirCheckCode),
     Contract(ContractError),
+    Mir(MirError),
     MirAdapter,
     Compiler,
 }
@@ -54,21 +58,47 @@ enum CallbackPhase {
     MirBorrowed,
 }
 
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[allow(dead_code)]
+enum AnalysisMode {
+    Hir,
+    Contracts,
+    Lower,
+}
+
+#[allow(dead_code)]
+struct CallbackResult {
+    primary: PrimaryAnalysis,
+    lowering: Option<MirLowering>,
+}
+
 #[allow(dead_code)]
 pub fn run_primary(
     arguments: &[String],
     request: &DriverRequest,
     loader: Arc<SnapshotFileLoader>,
-) -> Result<(), RustcDriverError> {
-    analyze_primary(arguments, request, loader).map(drop)
+) -> Result<MirLowering, RustcDriverError> {
+    lower_primary(arguments, request, loader)
 }
 
+#[allow(dead_code)]
 pub fn analyze_primary(
     arguments: &[String],
     request: &DriverRequest,
     loader: Arc<SnapshotFileLoader>,
 ) -> Result<PrimaryAnalysis, RustcDriverError> {
-    analyze_with_mode(arguments, request, loader, true)
+    analyze_with_mode(arguments, request, loader, AnalysisMode::Contracts)
+        .map(|result| result.primary)
+}
+
+pub fn lower_primary(
+    arguments: &[String],
+    request: &DriverRequest,
+    loader: Arc<SnapshotFileLoader>,
+) -> Result<MirLowering, RustcDriverError> {
+    analyze_with_mode(arguments, request, loader, AnalysisMode::Lower)?
+        .lowering
+        .ok_or(RustcDriverError::MirAdapter)
 }
 
 #[cfg(test)]
@@ -78,15 +108,16 @@ pub fn analyze_hir_primary(
     request: &DriverRequest,
     loader: Arc<SnapshotFileLoader>,
 ) -> Result<HirAnalysis, RustcDriverError> {
-    analyze_with_mode(arguments, request, loader, false).map(|analysis| analysis.hir)
+    analyze_with_mode(arguments, request, loader, AnalysisMode::Hir)
+        .map(|result| result.primary.hir)
 }
 
 fn analyze_with_mode(
     arguments: &[String],
     request: &DriverRequest,
     loader: Arc<SnapshotFileLoader>,
-    enforce_contracts: bool,
-) -> Result<PrimaryAnalysis, RustcDriverError> {
+    mode: AnalysisMode,
+) -> Result<CallbackResult, RustcDriverError> {
     validate_compatibility(
         MIR_PROFILE_ID,
         EXPECTED_RUSTC_COMMIT,
@@ -101,7 +132,8 @@ fn analyze_with_mode(
         phase: CallbackPhase::Created,
         failure: None,
         analysis: None,
-        enforce_contracts,
+        lowering: None,
+        mode,
     };
     if rustc_driver::catch_fatal_errors(|| rustc_driver::run_compiler(arguments, &mut callbacks))
         .is_err()
@@ -120,7 +152,8 @@ struct PinnedCallbacks<'a> {
     phase: CallbackPhase,
     failure: Option<RustcDriverError>,
     analysis: Option<PrimaryAnalysis>,
-    enforce_contracts: bool,
+    lowering: Option<MirLowering>,
+    mode: AnalysisMode,
 }
 
 impl PinnedCallbacks<'_> {
@@ -131,7 +164,7 @@ impl PinnedCallbacks<'_> {
         Compilation::Stop
     }
 
-    fn finish(self) -> Result<PrimaryAnalysis, RustcDriverError> {
+    fn finish(self) -> Result<CallbackResult, RustcDriverError> {
         if let Some(error) = self.failure {
             return Err(error);
         }
@@ -145,7 +178,14 @@ impl PinnedCallbacks<'_> {
         self.loader
             .verify_inventory()
             .map_err(RustcDriverError::Source)?;
-        self.analysis.ok_or(RustcDriverError::MirAdapter)
+        let primary = self.analysis.ok_or(RustcDriverError::MirAdapter)?;
+        if self.mode == AnalysisMode::Lower && self.lowering.is_none() {
+            return Err(RustcDriverError::MirAdapter);
+        }
+        Ok(CallbackResult {
+            primary,
+            lowering: self.lowering,
+        })
     }
 }
 
@@ -190,7 +230,7 @@ impl Callbacks for PinnedCallbacks<'_> {
             Ok(analysis) => analysis,
             Err(error) => return self.reject(RustcDriverError::Subset(error)),
         };
-        let contracts = if self.enforce_contracts {
+        let contracts = if self.mode != AnalysisMode::Hir {
             let signatures = analysis
                 .call_closure
                 .iter()
@@ -242,6 +282,7 @@ impl Callbacks for PinnedCallbacks<'_> {
             Err(_) => return self.reject(RustcDriverError::MirAdapter),
         };
         definitions.sort_by_key(|(function_id, _)| *function_id);
+        let mut lowered = Vec::new();
         for (function_id, def_id) in definitions {
             if access.force(function_id, MIR_QUERY).is_err() {
                 return self.reject(RustcDriverError::MirAdapter);
@@ -258,10 +299,37 @@ impl Callbacks for PinnedCallbacks<'_> {
             {
                 return self.reject(RustcDriverError::MirAdapter);
             }
+            if self.mode == AnalysisMode::Lower {
+                let function = analysis
+                    .call_closure
+                    .iter()
+                    .find(|function| function.function_id == function_id)
+                    .expect("definition was built from analyzed closure");
+                let contract = contracts
+                    .get(function_id)
+                    .expect("contract attachment covers the analyzed closure");
+                match mir_lower::lower_function(
+                    tcx,
+                    def_id.expect("checked definition"),
+                    &body,
+                    function,
+                    &contract.value,
+                    &self.loader,
+                ) {
+                    Ok(function) => lowered.push(function),
+                    Err(error) => return self.reject(RustcDriverError::Mir(error)),
+                }
+            }
             drop(body);
         }
         if access.finish().is_err() {
             return self.reject(RustcDriverError::MirAdapter);
+        }
+        if self.mode == AnalysisMode::Lower {
+            self.lowering = match mir_lower::finish_module(self.request, lowered) {
+                Ok(lowering) => Some(lowering),
+                Err(error) => return self.reject(RustcDriverError::Mir(error)),
+            };
         }
         self.analysis = Some(PrimaryAnalysis {
             hir: analysis,
