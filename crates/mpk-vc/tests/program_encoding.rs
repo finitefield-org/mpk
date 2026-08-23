@@ -373,6 +373,40 @@ fn go_and_rust_share_value_encoding_after_check_metadata_validation() {
 }
 
 #[test]
+fn fixed_array_index_value_waits_for_the_checked_array_read_foundation() {
+    let array_type = VirType::Array {
+        length: ArrayLength::try_from(4).unwrap(),
+        element: Box::new(bv(BitVectorWidth::Bits8, false)),
+    };
+    let context = ProgramExprContext::new(
+        SemanticProfile::RustCheckedV0,
+        rust_parameters(PointerWidth::Bits64),
+        Vec::new(),
+    )
+    .unwrap()
+    .with_variable("arg0", array_type)
+    .with_variable("arg1", bv(BitVectorWidth::Bits64, false));
+    let error = encode_vir_instruction_expr(
+        &context,
+        &VirInstruction::Index {
+            id: "t0".to_owned(),
+            r#type: bv(BitVectorWidth::Bits8, false),
+            base: variable("arg0"),
+            index: variable("arg1"),
+            safety_checks: vec![VirSafetyCheck::IndexInBounds {}],
+        },
+    )
+    .expect_err("array-read values are not encoded before foundation integration");
+
+    assert!(matches!(
+        error,
+        ProgramExprEncodeError::UnsupportedInstruction {
+            kind: mpk_vc::VirInstructionKind::Index,
+        }
+    ));
+}
+
+#[test]
 fn cross_width_shifts_guard_before_count_conversion() {
     let lhs_type = bv(BitVectorWidth::Bits8, false);
     let rhs_type = bv(BitVectorWidth::Bits16, false);

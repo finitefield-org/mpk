@@ -16,7 +16,7 @@ use crate::call_wp::{
 };
 use crate::expr_encode::{
     MpkExprTerm, STD_BITVEC_MODULE, STD_BOOL_AND, STD_BOOL_FALSE, STD_BOOL_IF, STD_BOOL_NOT,
-    STD_BOOL_OR, STD_BOOL_TRUE,
+    STD_BOOL_OR, STD_BOOL_TRUE, STD_EQ,
 };
 use crate::program_encode::{
     encode_vir_contract_expr, encode_vir_instruction_expr, encode_vir_value, ProgramExprContext,
@@ -27,8 +27,8 @@ use crate::safety_check::{
 };
 use crate::type_encode::{encode_vir_type, MpkTypeTerm};
 use crate::vir::{
-    VirBinding, VirFunction, VirInstruction, VirLoopContract, VirModule, VirTerminator, VirType,
-    VirUnit, VirValue,
+    VirBinaryOperator, VirBinding, VirContractExpr, VirFunction, VirInstruction, VirLoopContract,
+    VirModule, VirTerminator, VirType, VirUnit, VirValue,
 };
 use crate::vir_validate::{validate_vir, VirValidationError};
 
@@ -166,6 +166,15 @@ impl ProgramWpGenerator {
             .iter()
             .chain(function.locals.iter())
             .map(|binding| binding.id.clone())
+            .collect::<BTreeSet<_>>();
+        let deferred_index_values = function
+            .blocks
+            .iter()
+            .flat_map(|block| &block.instructions)
+            .filter_map(|instruction| match instruction {
+                VirInstruction::Index { id, .. } => Some(id.clone()),
+                _ => None,
+            })
             .collect::<BTreeSet<_>>();
         let initial_env = function
             .params
@@ -350,6 +359,14 @@ impl ProgramWpGenerator {
                         )?);
                     }
 
+                    // Array value projection is deliberately deferred until the
+                    // checked array-read foundation is integrated. Safety was
+                    // independently encoded above; any semantic use of this
+                    // omitted value still fails as an unclosed VIR value.
+                    if matches!(instruction, VirInstruction::Index { .. }) {
+                        continue;
+                    }
+
                     let raw =
                         encode_vir_instruction_expr(&context, instruction).map_err(|source| {
                             expression_error(
@@ -387,6 +404,11 @@ impl ProgramWpGenerator {
                     VirTerminator::Return { values } => {
                         let mut results = BTreeMap::new();
                         for (index, value) in values.iter().enumerate() {
+                            let result_index = u32::try_from(index).map_err(|_| {
+                                ProgramWpError::CounterOverflow {
+                                    context: format!("{} return index", function.id),
+                                }
+                            })?;
                             let raw = encode_vir_value(&context, value).map_err(|source| {
                                 expression_error(function, format!("return[{index}]"), source)
                             })?;
@@ -395,13 +417,18 @@ impl ProgramWpGenerator {
                                 &state.env,
                                 &empty_results,
                                 NodeCeiling::member(self.limits.expression_nodes_per_member),
-                            )?;
-                            let index = u32::try_from(index).map_err(|_| {
-                                ProgramWpError::CounterOverflow {
-                                    context: format!("{} return index", function.id),
+                            );
+                            match value {
+                                Ok(value) => {
+                                    results.insert(result_index, value);
                                 }
-                            })?;
-                            results.insert(index, value);
+                                Err(ProgramWpError::UnclosedValue { name })
+                                    if deferred_index_values.contains(&name)
+                                        && !function.contracts.ensures.iter().any(|ensure| {
+                                            contract_result_is_required(ensure, result_index)
+                                        }) => {}
+                                Err(error) => return Err(error),
+                            }
                         }
                         if let Some(header) = state.origin_header {
                             loop_returns
@@ -428,6 +455,7 @@ impl ProgramWpGenerator {
                                         )
                                     },
                                 )?;
+                                let raw = close_unavailable_result_tautologies(&raw, &results);
                                 let conclusion = builder.substitute(
                                     &raw,
                                     &state.env,
@@ -1332,6 +1360,7 @@ fn generate_loop_exit_members(
                         source,
                     )
                 })?;
+                let raw = close_unavailable_result_tautologies(&raw, &results);
                 let conclusion = builder.substitute(
                     &raw,
                     &state.env,
@@ -2374,6 +2403,89 @@ fn is_true(term: &MpkExprTerm) -> bool {
 
 fn is_false(term: &MpkExprTerm) -> bool {
     matches!(term, MpkExprTerm::Constant { name } if name == STD_BOOL_FALSE)
+}
+
+fn contract_result_is_required(term: &VirContractExpr, expected: u32) -> bool {
+    match term {
+        VirContractExpr::Result(reference) => reference.result == expected,
+        VirContractExpr::Binary(expression)
+            if matches!(
+                expression.op,
+                VirBinaryOperator::Eq | VirBinaryOperator::NotEq
+            ) && expression.lhs == expression.rhs =>
+        {
+            false
+        }
+        VirContractExpr::Unary(expression) => {
+            contract_result_is_required(&expression.value, expected)
+        }
+        VirContractExpr::Nary(expression) => expression
+            .args
+            .iter()
+            .any(|argument| contract_result_is_required(argument, expected)),
+        VirContractExpr::Binary(expression) => {
+            contract_result_is_required(&expression.lhs, expected)
+                || contract_result_is_required(&expression.rhs, expected)
+        }
+        VirContractExpr::Convert(expression) => {
+            contract_result_is_required(&expression.value, expected)
+        }
+        VirContractExpr::Variable(_)
+        | VirContractExpr::Boolean(_)
+        | VirContractExpr::Integer(_) => false,
+    }
+}
+
+fn close_unavailable_result_tautologies(
+    term: &MpkExprTerm,
+    results: &BTreeMap<u32, MpkExprTerm>,
+) -> MpkExprTerm {
+    match term {
+        MpkExprTerm::Apply { function, args }
+            if function == STD_EQ
+                && args.len() == 2
+                && args[0] == args[1]
+                && contains_unavailable_result(&args[0], results) =>
+        {
+            MpkExprTerm::bool_literal(true)
+        }
+        MpkExprTerm::Apply { function, args } => MpkExprTerm::Apply {
+            function: function.clone(),
+            args: args
+                .iter()
+                .map(|argument| close_unavailable_result_tautologies(argument, results))
+                .collect(),
+        },
+        MpkExprTerm::Convert { value, target } => MpkExprTerm::Convert {
+            value: Box::new(close_unavailable_result_tautologies(value, results)),
+            target: target.clone(),
+        },
+        MpkExprTerm::Forall { binder_type, body } => MpkExprTerm::Forall {
+            binder_type: binder_type.clone(),
+            body: Box::new(close_unavailable_result_tautologies(body, results)),
+        },
+        MpkExprTerm::Var { .. }
+        | MpkExprTerm::Result { .. }
+        | MpkExprTerm::Bound { .. }
+        | MpkExprTerm::Constant { .. }
+        | MpkExprTerm::BitVecLiteral { .. } => term.clone(),
+    }
+}
+
+fn contains_unavailable_result(term: &MpkExprTerm, results: &BTreeMap<u32, MpkExprTerm>) -> bool {
+    match term {
+        MpkExprTerm::Result { index } => !results.contains_key(index),
+        MpkExprTerm::Apply { args, .. } => args
+            .iter()
+            .any(|argument| contains_unavailable_result(argument, results)),
+        MpkExprTerm::Convert { value, .. } | MpkExprTerm::Forall { body: value, .. } => {
+            contains_unavailable_result(value, results)
+        }
+        MpkExprTerm::Var { .. }
+        | MpkExprTerm::Bound { .. }
+        | MpkExprTerm::Constant { .. }
+        | MpkExprTerm::BitVecLiteral { .. } => false,
+    }
 }
 
 fn stripped_negation(term: &MpkExprTerm) -> Option<&MpkExprTerm> {
