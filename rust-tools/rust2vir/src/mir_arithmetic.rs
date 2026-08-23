@@ -3,7 +3,7 @@ use super::mir_lower::MirCode;
 use rust2vir_internal::contract::ContractType;
 use rustc_index::Idx;
 use rustc_middle::mir::{
-    AssertKind, BasicBlock, BinOp, Body, Local, Operand, Place, ProjectionElem, Rvalue,
+    AssertKind, BasicBlock, BinOp, Body, CastKind, Local, Operand, Place, ProjectionElem, Rvalue,
     StatementKind, TerminatorKind, UnOp,
 };
 use rustc_middle::ty::{self, TyCtxt};
@@ -23,6 +23,22 @@ pub(crate) enum ArithmeticOperation {
 pub(crate) enum DivRemOperation {
     Div,
     Rem,
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub(crate) enum ShiftOperation {
+    Shl,
+    Shr,
+}
+
+impl ShiftOperation {
+    pub(super) fn vir_name(self, lhs_signed: bool) -> &'static str {
+        match (self, lhs_signed) {
+            (Self::Shl, _) => "bv_shl",
+            (Self::Shr, true) => "bv_ashr",
+            (Self::Shr, false) => "bv_lshr",
+        }
+    }
 }
 
 impl DivRemOperation {
@@ -204,6 +220,74 @@ pub(crate) fn validate_div_rem_pattern(vector: &DivRemPatternVector) -> Result<(
     }
 }
 
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub(crate) struct ShiftPatternVector {
+    pub operation: ShiftOperation,
+    pub value_operation: ShiftOperation,
+    pub signed_rhs: bool,
+    pub operands_match: bool,
+    pub operand_modes_match: bool,
+    pub lhs_type_matches: bool,
+    pub rhs_type_matches: bool,
+    pub cast_matches: bool,
+    pub predicate_matches: bool,
+    pub threshold_matches: bool,
+    pub message_matches: bool,
+    pub expected_true: bool,
+    pub condition_moved: bool,
+    pub unwind_unreachable: bool,
+    pub continuation_matches: bool,
+    pub assertion_uses: usize,
+    pub guard_uses_match: bool,
+}
+
+impl ShiftPatternVector {
+    pub(crate) fn pinned(operation: ShiftOperation, signed_rhs: bool) -> Self {
+        Self {
+            operation,
+            value_operation: operation,
+            signed_rhs,
+            operands_match: true,
+            operand_modes_match: true,
+            lhs_type_matches: true,
+            rhs_type_matches: true,
+            cast_matches: signed_rhs,
+            predicate_matches: true,
+            threshold_matches: true,
+            message_matches: true,
+            expected_true: true,
+            condition_moved: true,
+            unwind_unreachable: true,
+            continuation_matches: true,
+            assertion_uses: 1,
+            guard_uses_match: true,
+        }
+    }
+}
+
+pub(crate) fn validate_shift_pattern(vector: &ShiftPatternVector) -> Result<(), MirCode> {
+    if vector.operation != vector.value_operation
+        || !vector.operands_match
+        || !vector.operand_modes_match
+        || !vector.lhs_type_matches
+        || !vector.rhs_type_matches
+        || vector.cast_matches != vector.signed_rhs
+        || !vector.predicate_matches
+        || !vector.threshold_matches
+        || !vector.message_matches
+        || !vector.expected_true
+        || !vector.condition_moved
+        || !vector.unwind_unreachable
+        || !vector.continuation_matches
+        || vector.assertion_uses != 1
+        || !vector.guard_uses_match
+    {
+        Err(MirCode::Assertion)
+    } else {
+        Ok(())
+    }
+}
+
 #[derive(Clone)]
 struct PlannedBinary {
     operation: ArithmeticOperation,
@@ -227,6 +311,16 @@ struct PlannedDivRem {
     overflow_block: Option<usize>,
     guards: Vec<Local>,
     vector: DivRemPatternVector,
+}
+
+#[derive(Clone)]
+struct PlannedShift {
+    operation: ShiftOperation,
+    lhs_ty: ContractType,
+    rhs_ty: ContractType,
+    assertion_block: usize,
+    guards: Vec<Local>,
+    vector: ShiftPatternVector,
 }
 
 struct DivRemOperationSite<'a, 'tcx> {
@@ -253,6 +347,15 @@ struct SignedDivRemSite<'a, 'tcx> {
     unwind_unreachable: bool,
 }
 
+struct ShiftOperationSite<'a, 'tcx> {
+    block: BasicBlock,
+    statement: usize,
+    destination: Place<'tcx>,
+    operation: ShiftOperation,
+    lhs: &'a Operand<'tcx>,
+    rhs: &'a Operand<'tcx>,
+}
+
 #[derive(Clone, Default)]
 pub(super) struct ArithmeticPlan {
     binaries: BTreeMap<(usize, usize), PlannedBinary>,
@@ -260,6 +363,8 @@ pub(super) struct ArithmeticPlan {
     negations: BTreeMap<(usize, usize), PlannedNegation>,
     div_rem_guards: BTreeSet<(usize, usize)>,
     div_rems: BTreeMap<(usize, usize), PlannedDivRem>,
+    shift_guards: BTreeSet<(usize, usize)>,
+    shifts: BTreeMap<(usize, usize), PlannedShift>,
     assertions: BTreeMap<usize, usize>,
     scalar_locals: BTreeMap<usize, ContractType>,
 }
@@ -311,6 +416,19 @@ impl ArithmeticPlan {
                     block_index,
                     DivRemOperation::Rem,
                     message_lhs,
+                );
+            }
+            AssertKind::Overflow(message_op, message_lhs, message_rhs)
+                if primitive_shift(*message_op).is_some() =>
+            {
+                return self.recognize_shift(
+                    tcx,
+                    def_id,
+                    body,
+                    block_index,
+                    primitive_shift(*message_op).expect("guarded shift operation"),
+                    message_lhs,
+                    message_rhs,
                 );
             }
             AssertKind::Overflow(message_op, message_lhs, message_rhs) => {
@@ -649,6 +767,182 @@ impl ArithmeticPlan {
         Ok(zero_target.index())
     }
 
+    #[allow(clippy::too_many_arguments)]
+    fn recognize_shift<'tcx>(
+        &mut self,
+        tcx: TyCtxt<'tcx>,
+        def_id: LocalDefId,
+        body: &Body<'tcx>,
+        assertion_block_index: usize,
+        operation: ShiftOperation,
+        message_lhs: &Operand<'tcx>,
+        message_rhs: &Operand<'tcx>,
+    ) -> Result<usize, MirCode> {
+        let block = &body.basic_blocks[BasicBlock::new(assertion_block_index)];
+        let TerminatorKind::Assert {
+            cond,
+            expected,
+            target,
+            unwind,
+            ..
+        } = &block.terminator().kind
+        else {
+            return Err(MirCode::Assertion);
+        };
+        let (predicate_guard, condition_moved) =
+            plain_operand_local(cond).ok_or(MirCode::Assertion)?;
+        let (predicate_statement, predicate_count, threshold) = block
+            .statements
+            .iter()
+            .enumerate()
+            .filter_map(|(index, statement)| match &statement.kind {
+                StatementKind::Assign(assignment)
+                    if assignment.0.projection.is_empty()
+                        && assignment.0.local == predicate_guard =>
+                {
+                    match &assignment.1 {
+                        Rvalue::BinaryOp(BinOp::Lt, operands) => {
+                            Some((index, &operands.0, &operands.1))
+                        }
+                        _ => None,
+                    }
+                }
+                _ => None,
+            })
+            .next()
+            .ok_or(MirCode::Assertion)?;
+        if block
+            .statements
+            .iter()
+            .skip(predicate_statement + 1)
+            .any(|statement| matches!(statement.kind, StatementKind::Assign(_)))
+        {
+            return Err(MirCode::Assertion);
+        }
+
+        let lhs_ty = operand_contract_type(tcx, def_id, body, message_lhs)?;
+        let rhs_ty = operand_contract_type(tcx, def_id, body, message_rhs)?;
+        let signed_rhs = matches!(rhs_ty, ContractType::BitVector { signed: true, .. });
+        let mut guard_locations = vec![(assertion_block_index, predicate_statement)];
+        let mut guards = vec![predicate_guard];
+        let (original_guard_count, cast_matches, predicate_mode_matches) = if signed_rhs {
+            let (cast_local, cast_value_moved) =
+                plain_operand_local(predicate_count).ok_or(MirCode::Assertion)?;
+            let (cast_statement, cast_source, cast_type, cast_kind) = block
+                .statements
+                .iter()
+                .enumerate()
+                .take(predicate_statement)
+                .rev()
+                .find_map(|(index, statement)| match &statement.kind {
+                    StatementKind::Assign(assignment)
+                        if assignment.0.projection.is_empty()
+                            && assignment.0.local == cast_local =>
+                    {
+                        match &assignment.1 {
+                            Rvalue::Cast(kind, source, ty) => Some((index, source, *ty, *kind)),
+                            _ => None,
+                        }
+                    }
+                    _ => None,
+                })
+                .ok_or(MirCode::Assertion)?;
+            let no_intervening_assignment = block
+                .statements
+                .iter()
+                .enumerate()
+                .skip(cast_statement + 1)
+                .take(predicate_statement - cast_statement - 1)
+                .all(|(_, statement)| !matches!(statement.kind, StatementKind::Assign(_)));
+            let expected_cast_type = unsigned_equivalent(&rhs_ty).ok_or(MirCode::Assertion)?;
+            let actual_cast_type = contract_type(tcx, def_id, cast_type).ok();
+            guard_locations.push((assertion_block_index, cast_statement));
+            guards.push(cast_local);
+            (
+                cast_source,
+                matches!(cast_kind, CastKind::IntToInt)
+                    && actual_cast_type.as_ref() == Some(&expected_cast_type)
+                    && contract_type(tcx, def_id, body.local_decls[cast_local].ty)
+                        .ok()
+                        .as_ref()
+                        == Some(&expected_cast_type)
+                    && no_intervening_assignment,
+                cast_value_moved && matches!(cast_source, Operand::Copy(_)),
+            )
+        } else {
+            (
+                predicate_count,
+                false,
+                matches!(predicate_count, Operand::Copy(_)),
+            )
+        };
+
+        let operation_site = shift_operation_site(body, *target)?;
+        let operation_lhs_ty = operand_contract_type(tcx, def_id, body, operation_site.lhs)?;
+        let operation_rhs_ty = operand_contract_type(tcx, def_id, body, operation_site.rhs)?;
+        let mut vector = ShiftPatternVector::pinned(operation, signed_rhs);
+        vector.value_operation = operation_site.operation;
+        vector.operands_match = same_value_operand(message_lhs, operation_site.lhs)
+            && same_value_operand(message_rhs, operation_site.rhs)
+            && same_value_operand(original_guard_count, message_rhs);
+        vector.operand_modes_match = checked_binary_operand_mode(message_lhs, operation_site.lhs)
+            && checked_binary_operand_mode(message_rhs, operation_site.rhs)
+            && predicate_mode_matches;
+        vector.lhs_type_matches = supported_integer(&lhs_ty) && operation_lhs_ty == lhs_ty;
+        vector.rhs_type_matches = supported_integer(&rhs_ty) && operation_rhs_ty == rhs_ty;
+        vector.cast_matches = cast_matches;
+        vector.predicate_matches = body.local_decls[predicate_guard].ty.is_bool();
+        vector.threshold_matches = integer_width_constant(
+            tcx,
+            def_id,
+            threshold,
+            unsigned_equivalent(&rhs_ty)
+                .as_ref()
+                .ok_or(MirCode::Assertion)?,
+            lhs_ty
+                .as_bit_vector()
+                .map(|(width, _)| u128::from(width))
+                .ok_or(MirCode::Assertion)?,
+        );
+        vector.message_matches = operation_site.operation == operation;
+        vector.expected_true = *expected;
+        vector.condition_moved = condition_moved;
+        vector.unwind_unreachable = matches!(unwind, rustc_middle::mir::UnwindAction::Unreachable);
+        vector.continuation_matches = operation_site.destination.projection.is_empty();
+        validate_shift_pattern(&vector)?;
+
+        for location in guard_locations {
+            if !self.shift_guards.insert(location) {
+                return Err(MirCode::Assertion);
+            }
+        }
+        if self
+            .assertions
+            .insert(assertion_block_index, target.index())
+            .is_some()
+        {
+            return Err(MirCode::Assertion);
+        }
+        if self
+            .shifts
+            .insert(
+                (operation_site.block.index(), operation_site.statement),
+                PlannedShift {
+                    operation,
+                    lhs_ty,
+                    rhs_ty,
+                    assertion_block: assertion_block_index,
+                    guards,
+                    vector,
+                },
+            )
+            .is_some()
+        {
+            return Err(MirCode::Assertion);
+        }
+        Ok(target.index())
+    }
+
     pub(super) fn finish<'tcx>(
         &mut self,
         body: &Body<'tcx>,
@@ -730,6 +1024,23 @@ impl ArithmeticPlan {
                 );
             validate_div_rem_pattern(&div_rem.vector)?;
         }
+        for ((block_index, statement_index), shift) in &mut self.shifts {
+            shift.vector.assertion_uses =
+                usize::from(self.assertions.contains_key(&shift.assertion_block));
+            let unique_guards = shift.guards.iter().copied().collect::<BTreeSet<_>>();
+            shift.vector.guard_uses_match = unique_guards.len() == shift.guards.len()
+                && shift.guards.iter().all(|guard| {
+                    plain_local_uses(body, order, *guard) == 1
+                        && statement_destination_count(body, order, *guard) == 1
+                });
+            shift.vector.continuation_matches &= predecessors[*block_index] == 1
+                && matches!(
+                    body.basic_blocks[BasicBlock::new(*block_index)].statements[*statement_index]
+                        .kind,
+                    StatementKind::Assign(_)
+                );
+            validate_shift_pattern(&shift.vector)?;
+        }
         for block_index in order {
             for (statement_index, statement) in body.basic_blocks[BasicBlock::new(*block_index)]
                 .statements
@@ -749,13 +1060,16 @@ impl ArithmeticPlan {
                     || self
                         .div_rem_guards
                         .contains(&(*block_index, statement_index))
-                    || self.div_rems.contains_key(&(*block_index, statement_index));
+                    || self.div_rems.contains_key(&(*block_index, statement_index))
+                    || self.shift_guards.contains(&(*block_index, statement_index))
+                    || self.shifts.contains_key(&(*block_index, statement_index));
                 if matches!(
                     assignment.1,
                     Rvalue::BinaryOp(
                         BinOp::AddWithOverflow | BinOp::SubWithOverflow | BinOp::MulWithOverflow,
                         _
                     ) | Rvalue::BinaryOp(BinOp::Div | BinOp::Rem, _)
+                        | Rvalue::BinaryOp(BinOp::Shl | BinOp::Shr, _)
                         | Rvalue::UnaryOp(UnOp::Neg, _)
                 ) && !planned
                 {
@@ -800,6 +1114,20 @@ impl ArithmeticPlan {
             .map(|planned| (planned.operation, &planned.ty))
     }
 
+    pub(super) fn is_shift_guard(&self, block: usize, statement: usize) -> bool {
+        self.shift_guards.contains(&(block, statement))
+    }
+
+    pub(super) fn shift(
+        &self,
+        block: usize,
+        statement: usize,
+    ) -> Option<(ShiftOperation, &ContractType, &ContractType)> {
+        self.shifts
+            .get(&(block, statement))
+            .map(|planned| (planned.operation, &planned.lhs_ty, &planned.rhs_ty))
+    }
+
     pub(super) fn projected_type(&self, place: &Place<'_>) -> Option<&ContractType> {
         let (local, field) = place_field(place)?;
         (field == 0)
@@ -810,6 +1138,33 @@ impl ArithmeticPlan {
     pub(super) fn scalar_local_type(&self, local: Local) -> Option<&ContractType> {
         self.scalar_locals.get(&local.index())
     }
+}
+
+fn shift_operation_site<'a, 'tcx>(
+    body: &'a Body<'tcx>,
+    block: BasicBlock,
+) -> Result<ShiftOperationSite<'a, 'tcx>, MirCode> {
+    let (statement, first_assignment) = body.basic_blocks[block]
+        .statements
+        .iter()
+        .enumerate()
+        .find(|(_, statement)| matches!(statement.kind, StatementKind::Assign(_)))
+        .ok_or(MirCode::Assertion)?;
+    let StatementKind::Assign(assignment) = &first_assignment.kind else {
+        unreachable!("selected assignment")
+    };
+    let Rvalue::BinaryOp(operation, operands) = &assignment.1 else {
+        return Err(MirCode::Assertion);
+    };
+    let operation = primitive_shift(*operation).ok_or(MirCode::Assertion)?;
+    Ok(ShiftOperationSite {
+        block,
+        statement,
+        destination: assignment.0,
+        operation,
+        lhs: &operands.0,
+        rhs: &operands.1,
+    })
 }
 
 fn div_rem_operation_site<'a, 'tcx>(
@@ -986,6 +1341,33 @@ fn integer_constant<'tcx>(
         == Some(expected)
 }
 
+fn integer_width_constant<'tcx>(
+    tcx: TyCtxt<'tcx>,
+    def_id: LocalDefId,
+    operand: &Operand<'tcx>,
+    ty: &ContractType,
+    expected: u128,
+) -> bool {
+    let Operand::Constant(constant) = operand else {
+        return false;
+    };
+    constant_type_matches(tcx, def_id, constant.const_.ty(), ty)
+        && constant
+            .const_
+            .try_eval_bits(tcx, ty::TypingEnv::post_analysis(tcx, def_id))
+            == Some(expected)
+}
+
+fn unsigned_equivalent(ty: &ContractType) -> Option<ContractType> {
+    let ContractType::BitVector { width, .. } = ty else {
+        return None;
+    };
+    Some(ContractType::BitVector {
+        width: *width,
+        signed: false,
+    })
+}
+
 fn constant_type_matches<'tcx>(
     tcx: TyCtxt<'tcx>,
     def_id: LocalDefId,
@@ -1007,6 +1389,14 @@ fn primitive_div_rem(operation: BinOp) -> Option<DivRemOperation> {
     match operation {
         BinOp::Div => Some(DivRemOperation::Div),
         BinOp::Rem => Some(DivRemOperation::Rem),
+        _ => None,
+    }
+}
+
+fn primitive_shift(operation: BinOp) -> Option<ShiftOperation> {
+    match operation {
+        BinOp::Shl => Some(ShiftOperation::Shl),
+        BinOp::Shr => Some(ShiftOperation::Shr),
         _ => None,
     }
 }

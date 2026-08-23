@@ -20,6 +20,8 @@ const RUST_FRONTEND_ARITHMETIC_VIR: &[u8] =
     include_bytes!("../../../rust-tools/rust2vir/testdata/arithmetic/expected-vir.json");
 const RUST_FRONTEND_DIV_REM_VIR: &[u8] =
     include_bytes!("../../../rust-tools/rust2vir/testdata/div-rem/expected-vir.json");
+const RUST_FRONTEND_BITWISE_SHIFT_VIR: &[u8] =
+    include_bytes!("../../../rust-tools/rust2vir/testdata/bitwise-shift/expected-vir.json");
 
 #[test]
 fn rust_frontend_checked_arithmetic_fixture_is_profile_complete() {
@@ -37,6 +39,25 @@ fn rust_frontend_div_rem_fixture_imports_and_emits_pending_safety_vcs() {
     let module =
         mpk_vc::import_vir_json(RUST_FRONTEND_DIV_REM_VIR).expect("division VIR fixture imports");
     let generated = generate_program_vcs(&module).expect("division safety VCs generate");
+    let safety = generated.functions[0]
+        .members
+        .iter()
+        .filter(|member| member.kind == ProgramVcMemberKind::OperationSafety)
+        .collect::<Vec<_>>();
+
+    assert_eq!(safety.len(), 2);
+    assert!(safety.iter().all(|member| member.assumptions.is_empty()));
+    assert!(safety
+        .iter()
+        .all(|member| member.id.contains("#operation_safety#")));
+    assert!(safety.iter().all(|member| member.safety_evidence.is_some()));
+}
+
+#[test]
+fn rust_frontend_cross_width_shift_fixture_imports_and_emits_pending_safety_vcs() {
+    let module = mpk_vc::import_vir_json(RUST_FRONTEND_BITWISE_SHIFT_VIR)
+        .expect("cross-width shift VIR fixture imports");
+    let generated = generate_program_vcs(&module).expect("shift safety VCs generate");
     let safety = generated.functions[0]
         .members
         .iter()
@@ -82,6 +103,84 @@ fn handwritten_div_rem_vectors_follow_total_vir_equations() {
                 TotalBitVectorResult::BitVector(expected)
             );
         }
+    }
+}
+
+#[test]
+fn handwritten_cross_width_shift_vectors_preserve_full_counts_and_profile_differences() {
+    use BitVectorWidth::{Bits16, Bits32, Bits64, Bits8};
+    use VirBinaryOperator::{BvAshr, BvLshr, BvShl};
+
+    for width in [Bits8, Bits16, Bits32, Bits64] {
+        let bits = width.bits();
+        let mask = if bits == 64 {
+            u64::MAX
+        } else {
+            (1_u64 << bits) - 1
+        };
+        let minimum = 1_u64 << (bits - 1);
+        for (operation, lhs, rhs_width, rhs, expected) in [
+            (BvShl, 1, Bits8, u64::from(bits - 1), minimum),
+            (BvShl, 1, Bits64, u64::from(bits), 0),
+            (BvShl, 1, Bits64, u64::from(bits + 1), 0),
+            (BvLshr, mask, Bits8, u64::from(bits - 1), 1),
+            (BvLshr, mask, Bits64, u64::from(bits), 0),
+            (BvAshr, minimum, Bits8, u64::from(bits - 1), mask),
+            (BvAshr, minimum, Bits64, u64::from(bits), mask),
+        ] {
+            assert_eq!(
+                evaluate_total_bitvector_operation(operation, width, lhs, rhs_width, rhs)
+                    .expect("total cross-width shift equation"),
+                TotalBitVectorResult::BitVector(expected)
+            );
+        }
+    }
+
+    assert_eq!(
+        evaluate_total_bitvector_operation(BvShl, Bits8, 1, Bits64, 256)
+            .expect("wide count is not truncated"),
+        TotalBitVectorResult::BitVector(0)
+    );
+    assert_eq!(
+        evaluate_total_bitvector_operation(BvAshr, Bits8, 128, Bits64, u64::MAX)
+            .expect("negative signed count still has a total unsigned value"),
+        TotalBitVectorResult::BitVector(255)
+    );
+
+    let lhs = bv(Bits32, false);
+    for (rhs, go_checks, rust_checks) in [
+        (
+            bv(Bits16, true),
+            vec![VirSafetyCheck::ShiftCountNonnegative {}],
+            vec![
+                VirSafetyCheck::ShiftCountNonnegative {},
+                VirSafetyCheck::ShiftCountLessThanWidth {},
+            ],
+        ),
+        (
+            bv(Bits64, false),
+            vec![],
+            vec![VirSafetyCheck::ShiftCountLessThanWidth {}],
+        ),
+    ] {
+        assert_eq!(
+            required_safety_checks(
+                SemanticProfile::GoFixedV0,
+                VirSafetyOperation::Binary(BvShl),
+                &[lhs.clone(), rhs.clone()],
+            )
+            .unwrap(),
+            go_checks
+        );
+        assert_eq!(
+            required_safety_checks(
+                SemanticProfile::RustCheckedV0,
+                VirSafetyOperation::Binary(BvShl),
+                &[lhs.clone(), rhs],
+            )
+            .unwrap(),
+            rust_checks
+        );
     }
 }
 

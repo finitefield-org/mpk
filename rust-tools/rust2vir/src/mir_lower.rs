@@ -1,5 +1,5 @@
 use super::hir_check::{contract_type, HirFunction};
-use super::mir_arithmetic::{ArithmeticOperation, ArithmeticPlan, DivRemOperation};
+use super::mir_arithmetic::{ArithmeticOperation, ArithmeticPlan, DivRemOperation, ShiftOperation};
 use rust2vir_internal::contract::ContractType;
 use rust2vir_internal::driver_protocol::DriverRequest;
 use rust2vir_internal::file_loader::{SnapshotFileLoader, SourceRangeError};
@@ -948,6 +948,7 @@ fn live_compiler_locals<'tcx>(
                     let mut reads = Vec::new();
                     if arithmetic.is_negation_guard(*block_index, statement_index)
                         || arithmetic.is_div_rem_guard(*block_index, statement_index)
+                        || arithmetic.is_shift_guard(*block_index, statement_index)
                     {
                         // The guard is represented by the attached VIR safety check.
                     } else if let Some((_, ty)) = arithmetic.binary(*block_index, statement_index) {
@@ -984,6 +985,22 @@ fn live_compiler_locals<'tcx>(
                             rvalue,
                             operation,
                             ty,
+                            local_kinds,
+                            arithmetic,
+                            function_id,
+                            &mut reads,
+                        )?;
+                    } else if let Some((operation, lhs_ty, rhs_ty)) =
+                        arithmetic.shift(*block_index, statement_index)
+                    {
+                        validate_shift_rvalue(
+                            tcx,
+                            def_id,
+                            body,
+                            rvalue,
+                            operation,
+                            lhs_ty,
+                            rhs_ty,
                             local_kinds,
                             arithmetic,
                             function_id,
@@ -1210,9 +1227,28 @@ fn validate_rvalue<'tcx>(
                 function_id,
                 reads,
             )?;
-            if operand_type(tcx, def_id, body, operand, arithmetic, function_id)?
-                != ContractType::Bool
-            {
+            let ty = operand_type(tcx, def_id, body, operand, arithmetic, function_id)?;
+            if ty != ContractType::Bool && ty.as_bit_vector().is_none() {
+                return Err(MirError::new(MirCode::Rvalue, function_id));
+            }
+            Ok(())
+        }
+        Rvalue::BinaryOp(BinOp::BitAnd | BinOp::BitOr | BinOp::BitXor, operands) => {
+            for operand in [&operands.0, &operands.1] {
+                validate_operand(
+                    tcx,
+                    def_id,
+                    body,
+                    operand,
+                    local_kinds,
+                    arithmetic,
+                    function_id,
+                    reads,
+                )?;
+            }
+            let left = operand_type(tcx, def_id, body, &operands.0, arithmetic, function_id)?;
+            let right = operand_type(tcx, def_id, body, &operands.1, arithmetic, function_id)?;
+            if left != right || left.as_bit_vector().is_none() {
                 return Err(MirError::new(MirCode::Rvalue, function_id));
             }
             Ok(())
@@ -1350,6 +1386,52 @@ fn validate_div_rem_rvalue<'tcx>(
         return Err(MirError::new(MirCode::Assertion, function_id));
     }
     for operand in [&operands.0, &operands.1] {
+        validate_operand(
+            tcx,
+            def_id,
+            body,
+            operand,
+            local_kinds,
+            arithmetic,
+            function_id,
+            reads,
+        )?;
+        if operand_type(tcx, def_id, body, operand, arithmetic, function_id)? != *expected_type {
+            return Err(MirError::new(MirCode::Assertion, function_id));
+        }
+    }
+    Ok(())
+}
+
+#[allow(clippy::too_many_arguments)]
+fn validate_shift_rvalue<'tcx>(
+    tcx: TyCtxt<'tcx>,
+    def_id: LocalDefId,
+    body: &Body<'tcx>,
+    rvalue: &Rvalue<'tcx>,
+    expected_operation: ShiftOperation,
+    expected_lhs_type: &ContractType,
+    expected_rhs_type: &ContractType,
+    local_kinds: &[LocalKind],
+    arithmetic: &ArithmeticPlan,
+    function_id: &str,
+    reads: &mut Vec<Local>,
+) -> Result<(), MirError> {
+    let Rvalue::BinaryOp(operation @ (BinOp::Shl | BinOp::Shr), operands) = rvalue else {
+        return Err(MirError::new(MirCode::Assertion, function_id));
+    };
+    let operation = match operation {
+        BinOp::Shl => ShiftOperation::Shl,
+        BinOp::Shr => ShiftOperation::Shr,
+        _ => unreachable!("matched shift"),
+    };
+    if operation != expected_operation {
+        return Err(MirError::new(MirCode::Assertion, function_id));
+    }
+    for (operand, expected_type) in [
+        (&operands.0, expected_lhs_type),
+        (&operands.1, expected_rhs_type),
+    ] {
         validate_operand(
             tcx,
             def_id,
@@ -1525,6 +1607,7 @@ fn lower_assignment<'tcx>(
     validate_destination(destination, local_kinds, function_id)?;
     if arithmetic.is_negation_guard(mir_block, statement_index)
         || arithmetic.is_div_rem_guard(mir_block, statement_index)
+        || arithmetic.is_shift_guard(mir_block, statement_index)
     {
         return Ok(());
     }
@@ -1650,6 +1733,50 @@ fn lower_assignment<'tcx>(
             instructions,
             source_entries,
         )?
+    } else if let Some((operation, lhs_ty, rhs_ty)) = arithmetic.shift(mir_block, statement_index) {
+        let Rvalue::BinaryOp(_, operands) = rvalue else {
+            return Err(MirError::new(MirCode::Assertion, function_id));
+        };
+        let left = lower_operand(
+            tcx,
+            def_id,
+            body,
+            &operands.0,
+            local_kinds,
+            environment,
+            arithmetic,
+            function_id,
+        )?;
+        let right = lower_operand(
+            tcx,
+            def_id,
+            body,
+            &operands.1,
+            local_kinds,
+            environment,
+            arithmetic,
+            function_id,
+        )?;
+        if left.ty != *lhs_ty || right.ty != *rhs_ty {
+            return Err(MirError::new(MirCode::Assertion, function_id));
+        }
+        emit_shift(
+            operation,
+            lhs_ty,
+            rhs_ty,
+            left,
+            right,
+            statement_span,
+            tcx,
+            loader,
+            ids,
+            next_instruction,
+            block_index,
+            unit_id,
+            function_id,
+            instructions,
+            source_entries,
+        )?
     } else {
         match rvalue {
             Rvalue::Use(Operand::Constant(constant)) => {
@@ -1701,21 +1828,72 @@ fn lower_assignment<'tcx>(
                     arithmetic,
                     function_id,
                 )?;
-                if operand.ty != ContractType::Bool {
+                let (operation, result_type) = if operand.ty == ContractType::Bool {
+                    ("not", ContractType::Bool)
+                } else if operand.ty.as_bit_vector().is_some() {
+                    ("bv_not", operand.ty.clone())
+                } else {
                     return Err(MirError::new(MirCode::Rvalue, function_id));
-                }
-                let mut instruction = instruction_base(
-                    ids,
-                    next_instruction,
-                    "UnaryOp",
-                    &ContractType::Bool,
-                    function_id,
-                )?;
-                instruction.insert("op".to_owned(), string("not"));
+                };
+                let mut instruction =
+                    instruction_base(ids, next_instruction, "UnaryOp", &result_type, function_id)?;
+                instruction.insert("op".to_owned(), string(operation));
                 instruction.insert("value".to_owned(), operand.json);
                 emitted_value(
                     instruction,
-                    ContractType::Bool,
+                    result_type,
+                    statement_span,
+                    tcx,
+                    loader,
+                    block_index,
+                    unit_id,
+                    function_id,
+                    instructions,
+                    source_entries,
+                    *next_instruction - 1,
+                )?
+            }
+            Rvalue::BinaryOp(
+                operation @ (BinOp::BitAnd | BinOp::BitOr | BinOp::BitXor),
+                operands,
+            ) => {
+                let left = lower_operand(
+                    tcx,
+                    def_id,
+                    body,
+                    &operands.0,
+                    local_kinds,
+                    environment,
+                    arithmetic,
+                    function_id,
+                )?;
+                let right = lower_operand(
+                    tcx,
+                    def_id,
+                    body,
+                    &operands.1,
+                    local_kinds,
+                    environment,
+                    arithmetic,
+                    function_id,
+                )?;
+                if left.ty != right.ty || left.ty.as_bit_vector().is_none() {
+                    return Err(MirError::new(MirCode::Rvalue, function_id));
+                }
+                let operation = match operation {
+                    BinOp::BitAnd => "bv_and",
+                    BinOp::BitOr => "bv_or",
+                    BinOp::BitXor => "bv_xor",
+                    _ => unreachable!("matched bitwise operation"),
+                };
+                let mut instruction =
+                    instruction_base(ids, next_instruction, "BinOp", &left.ty, function_id)?;
+                instruction.insert("op".to_owned(), string(operation));
+                instruction.insert("lhs".to_owned(), left.json);
+                instruction.insert("rhs".to_owned(), right.json);
+                emitted_value(
+                    instruction,
+                    left.ty,
                     statement_span,
                     tcx,
                     loader,
@@ -1917,6 +2095,61 @@ fn emit_div_rem(
     emitted_value(
         instruction,
         ty.clone(),
+        span,
+        tcx,
+        loader,
+        block_index,
+        unit_id,
+        function_id,
+        instructions,
+        source_entries,
+        *next_instruction - 1,
+    )
+}
+
+#[allow(clippy::too_many_arguments)]
+fn emit_shift(
+    operation: ShiftOperation,
+    lhs_ty: &ContractType,
+    rhs_ty: &ContractType,
+    left: Value,
+    right: Value,
+    span: Span,
+    tcx: TyCtxt<'_>,
+    loader: &SnapshotFileLoader,
+    ids: &mut DenseIds,
+    next_instruction: &mut usize,
+    block_index: usize,
+    unit_id: &str,
+    function_id: &str,
+    instructions: &mut Vec<JsonValue>,
+    source_entries: &mut Vec<SourceMapEntry>,
+) -> Result<Value, MirError> {
+    let (_, lhs_signed) = lhs_ty
+        .as_bit_vector()
+        .ok_or_else(|| MirError::new(MirCode::Rvalue, function_id))?;
+    let (_, rhs_signed) = rhs_ty
+        .as_bit_vector()
+        .ok_or_else(|| MirError::new(MirCode::Rvalue, function_id))?;
+    let mut instruction = instruction_base(ids, next_instruction, "BinOp", lhs_ty, function_id)?;
+    instruction.insert("op".to_owned(), string(operation.vir_name(lhs_signed)));
+    instruction.insert("lhs".to_owned(), left.json);
+    instruction.insert("rhs".to_owned(), right.json);
+    let mut checks = Vec::new();
+    if rhs_signed {
+        checks.push(JsonValue::Object(BTreeMap::from([(
+            "kind".to_owned(),
+            string("shift_count_nonnegative"),
+        )])));
+    }
+    checks.push(JsonValue::Object(BTreeMap::from([(
+        "kind".to_owned(),
+        string("shift_count_less_than_width"),
+    )])));
+    instruction.insert("safety_checks".to_owned(), JsonValue::Array(checks));
+    emitted_value(
+        instruction,
+        lhs_ty.clone(),
         span,
         tcx,
         loader,
