@@ -1,11 +1,14 @@
 use crate::frontend_protocol::{
-    validate_frontend_process, AcceptedFrontendEnvelope, FrontendProcessFacts,
-    FrontendProtocolCode, FrontendProtocolError, FrontendProtocolRequest,
+    validate_frontend_process_from_staging, AcceptedFrontendEnvelope, FrontendProcessFacts,
+    FrontendProtocolCode, FrontendProtocolError, FrontendStagingRequest,
 };
 use crate::frontend_registry::{
-    FrontendReleaseCode, InstalledReleaseResolver, SelectedFrontendRelease,
+    assert_embedded_registry, FrontendReleaseCode, InstalledReleaseResolver,
+    SelectedFrontendRelease,
 };
-use crate::frontend_sandbox::{launch_release_frontend, SandboxError};
+use crate::frontend_sandbox::{
+    launch_release_frontend, prepare_release_sandbox, PreparedSandbox, SandboxError,
+};
 use mpk_vc::{
     CapturedInput, CompilerIdentity, ComponentIdentity, FrontendIdentity, ReleaseRegistryIdentity,
     ReleaseSelectionRequest, SubordinateIdentity, ToolchainComponent, ToolchainIdentity,
@@ -24,6 +27,8 @@ pub(crate) struct FrontendRunRequest<'a> {
     pub(crate) semantic_parameters: &'a Value,
     pub(crate) selection: &'a Value,
     pub(crate) captured_inputs: &'a [CapturedInput<'a>],
+    pub(crate) staged_directories: &'a [&'a str],
+    pub(crate) staged_placeholders: &'a [&'a str],
     pub(crate) contracts: &'a [String],
 }
 
@@ -47,6 +52,7 @@ pub(crate) struct AcceptedFrontendRun {
 pub(crate) struct PreparedFrontendRun {
     selected: SelectedFrontendRelease,
     release: ReleaseSelectionRequest,
+    sandbox: PreparedSandbox,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -90,6 +96,9 @@ impl Error for FrontendRunError {}
 pub(crate) fn prepare_installed_frontend(
     release: &ReleaseSelectionRequest,
 ) -> Result<PreparedFrontendRun, FrontendRunError> {
+    assert_embedded_registry(release).map_err(|error| FrontendRunError {
+        code: FrontendRunCode::Release(error.code()),
+    })?;
     let resolver = InstalledReleaseResolver::open().map_err(|error| FrontendRunError {
         code: FrontendRunCode::Release(error.code()),
     })?;
@@ -98,9 +107,13 @@ pub(crate) fn prepare_installed_frontend(
         .map_err(|error| FrontendRunError {
             code: FrontendRunCode::Release(error.code()),
         })?;
+    let sandbox = prepare_release_sandbox().map_err(|_| FrontendRunError {
+        code: FrontendRunCode::Release(FrontendReleaseCode::SandboxUnavailable),
+    })?;
     Ok(PreparedFrontendRun {
         selected,
         release: release.clone(),
+        sandbox,
     })
 }
 
@@ -108,22 +121,29 @@ pub(crate) fn run_prepared_frontend(
     prepared: PreparedFrontendRun,
     request: FrontendRunRequest<'_>,
 ) -> Result<AcceptedFrontendRun, FrontendRunError> {
-    if request.release != prepared.release {
+    let PreparedFrontendRun {
+        selected,
+        release,
+        sandbox,
+    } = prepared;
+    if request.release != release {
         return Err(FrontendRunError {
             code: FrontendRunCode::Release(FrontendReleaseCode::BundleIncompatible),
         });
     }
-    let selected = prepared.selected;
     let environment = registered_environment(&selected, &request.release)?;
     let args = registered_arguments(&selected, &request)?;
     let release = release_identity(&selected);
     let output = launch_release_frontend(
+        sandbox,
         &selected.frontend_snapshot,
         &selected.toolchain_snapshot,
         &selected.frontend.main.path,
         &args,
         &environment,
         request.captured_inputs,
+        request.staged_directories,
+        request.staged_placeholders,
     )
     .map_err(|error| FrontendRunError {
         code: match error {
@@ -139,14 +159,14 @@ pub(crate) fn run_prepared_frontend(
             code: FrontendRunCode::Protocol(FrontendProtocolCode::ProtocolLimit),
         });
     }
-    let envelope = validate_frontend_process(
-        FrontendProtocolRequest {
+    let envelope = validate_frontend_process_from_staging(
+        FrontendStagingRequest {
             source_language: &request.release.source_language,
             semantic_profile: &request.release.semantic_profile,
             semantic_parameters: request.semantic_parameters,
             selection: request.selection,
             release_registry: Some(&selected.registry),
-            captured_inputs: request.captured_inputs,
+            available_inputs: request.captured_inputs,
         },
         FrontendProcessFacts {
             exit_code: output.exit_code,
@@ -363,7 +383,7 @@ fn exact_rust_semantic_parameters(parameters: &Value, release: &ReleaseSelection
     })
 }
 
-fn rust_pointer_width(target: &str) -> Option<i64> {
+pub(crate) fn rust_pointer_width(target: &str) -> Option<i64> {
     match target {
         "i686-unknown-linux-gnu" => Some(32),
         "x86_64-unknown-linux-gnu" => Some(64),
@@ -371,14 +391,17 @@ fn rust_pointer_width(target: &str) -> Option<i64> {
     }
 }
 
-fn rust_package_name(value: &str) -> bool {
+pub(crate) fn rust_package_name(value: &str) -> bool {
+    if value.len() > 1_024 {
+        return false;
+    }
     let mut bytes = value.bytes();
     bytes.next().is_some_and(|byte| byte.is_ascii_alphabetic())
         && bytes.all(|byte| byte.is_ascii_alphanumeric() || matches!(byte, b'_' | b'-'))
 }
 
 fn rust_identifier(value: &str) -> bool {
-    if value == "_" || !value.is_ascii() {
+    if value == "_" || value.len() > 255 || !value.is_ascii() {
         return false;
     }
     let mut bytes = value.bytes();
@@ -388,9 +411,13 @@ fn rust_identifier(value: &str) -> bool {
         && bytes.all(|byte| byte.is_ascii_alphanumeric() || byte == b'_')
 }
 
-fn rust_function_id(value: &str, crate_name: &str) -> bool {
+pub(crate) fn rust_function_id(value: &str, crate_name: &str) -> bool {
+    if value.len() > 1_024 {
+        return false;
+    }
     let mut segments = value.split("::");
-    segments.next() == Some(crate_name)
+    rust_identifier(crate_name)
+        && segments.next() == Some(crate_name)
         && segments.next().is_some_and(rust_identifier)
         && segments.all(rust_identifier)
 }
@@ -618,16 +645,50 @@ mod tests {
         for package in ["", "2vector", "vector.core"] {
             assert!(!rust_package_name(package));
         }
+        assert!(!rust_package_name(&"a".repeat(1_025)));
         for identifier in ["vector", "_vector", "vector_2"] {
             assert!(rust_identifier(identifier));
         }
         for identifier in ["", "_", "2vector", "vector-core", "véctor"] {
             assert!(!rust_identifier(identifier));
         }
+        assert!(!rust_identifier(&"a".repeat(256)));
         assert!(rust_function_id("vector::identity", "vector"));
         assert!(rust_function_id("vector::module_2::identity", "vector"));
-        for function in ["vector", "other::identity", "vector::", "vector::2identity"] {
+        assert!(!rust_function_id(
+            &format!("vector::{}", vec!["a"; 510].join("::")),
+            "vector"
+        ));
+        for function in [
+            "vector",
+            "::identity",
+            "other::identity",
+            "vector::",
+            "vector::2identity",
+        ] {
             assert!(!rust_function_id(function, "vector"));
         }
+    }
+
+    #[test]
+    fn registry_assertions_reject_before_installed_release_access() {
+        let request = ReleaseSelectionRequest {
+            registry_id: "mpk.release.registry.v0".to_owned(),
+            registry_sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+                .to_owned(),
+            source_language: "rust".to_owned(),
+            semantic_profile: "mpk.rust.checked.v0".to_owned(),
+            target_id: "x86_64-unknown-linux-gnu".to_owned(),
+            frontend_bundle_id: Some("frontend.rust.rust2vir.candidate.v0".to_owned()),
+            toolchain_bundle_id: Some("toolchain.rust.nightly-2025-06-01.candidate.v0".to_owned()),
+        };
+        let error = match prepare_installed_frontend(&request) {
+            Ok(_) => panic!("wrong embedded assertion reached resolver access"),
+            Err(error) => error,
+        };
+        assert_eq!(
+            error.code(),
+            FrontendRunCode::Release(FrontendReleaseCode::RegistryAssertion)
+        );
     }
 }

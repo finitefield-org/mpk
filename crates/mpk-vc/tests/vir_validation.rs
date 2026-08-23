@@ -376,6 +376,18 @@ fn identity_reference_cfg_call_and_hash_mutations_fail_closed() {
         .push(duplicate);
     assert_validation_code(&rust_units, "VIR_RUST_UNIT_COUNT");
 
+    let mut distinct_rust_package = base_module(&vectors, "module.valid_rust_identity");
+    distinct_rust_package["units"][0]["name"] = json!("vector-core");
+    rehash(&mut distinct_rust_package);
+    import_vir_json(&serde_json::to_vec(&distinct_rust_package).expect("module serializes"))
+        .expect("Rust Cargo package name may differ from its crate identity");
+    for invalid_package in ["2vector", "vector.core", "vector/core"] {
+        let mut invalid = distinct_rust_package.clone();
+        invalid["units"][0]["name"] = json!(invalid_package);
+        rehash(&mut invalid);
+        assert_validation_code(&invalid, "VIR_IDENTIFIER");
+    }
+
     let mut recursive = base_module(&vectors, "module.valid_rust_identity");
     let contract_hash = recursive["units"][0]["functions"][0]["contracts"]["contract_hash"].clone();
     recursive["units"][0]["functions"][0]["blocks"][0]["instructions"] = json!([{

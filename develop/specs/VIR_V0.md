@@ -116,15 +116,16 @@ A unit has exactly:
 | Field | Type | Rule |
 |---|---|---|
 | `id` | string | canonical Go import path or Rust crate name |
-| `name` | string | validated source package/crate identifier |
+| `name` | string | validated Go package identifier or Rust Cargo package name |
 | `type_decls` | array of `StructDecl` | declaration-dependency order |
 | `const_decls` | array of `ConstDecl` | increasing `id` UTF-8 byte order |
 | `functions` | array of `VirFunction` | callee-first order from section 5.4 |
 
 Units are sorted by `id` in increasing UTF-8 byte order. Duplicate unit IDs
 reject; distinct Go units may have the same package `name`. Rust v0 has exactly
-one unit and requires `id == name`; Go v0 may have more than one same-module
-unit, but each call remains within `units`.
+one unit: `id` is its library crate name and `name` is its exact Cargo package
+name, which may differ; Go v0 may have more than one same-module unit, but each
+call remains within `units`.
 
 ## 3. Identifiers and canonical renaming
 
@@ -133,7 +134,9 @@ unit, but each call remains within `units`.
 `AsciiIdent` matches `[A-Za-z_][A-Za-z0-9_]*`, is not `_`, and is at most 255
 UTF-8 bytes. Rust crate, module, item, function, struct, constant, field, and
 source binding names are `AsciiIdent`. Raw and non-ASCII Rust identifiers
-reject before VIR emission.
+reject before VIR emission. A Rust unit `name` is instead the accepted Cargo
+package name and matches `[A-Za-z][A-Za-z0-9_-]*` within the global 1,024-byte
+identifier limit.
 
 A Rust public item ID is `<crate>(::<AsciiIdent>)+`, has no empty segment, and
 is at most 1,024 bytes.

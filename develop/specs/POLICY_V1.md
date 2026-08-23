@@ -210,6 +210,43 @@ contract, or reconstruct an executable path.
 the capture boundary, but its spelling never enters a policy artifact. The
 recipe replacement is the literal `.`.
 
+Before allocating input buffers, the generic pre-sandbox staging boundary
+enforces inclusive operational maxima of 65,536 staged files, 33,554,432 bytes
+per staged file, 536,870,912 staged bytes total, 65,536 visited directories,
+262,144 examined directory entries, and the shared portable-path maximum of
+1,024 bytes per relative path. It opens entries descriptor-relative without
+following links, rejects staged inode aliases when the selected frontend
+profile forbids them, checks file identity before and after one bounded read,
+and re-enumerates the retained namespace. Go byte-bearing candidate
+classification is its exact frozen filename set, so wrong-language sources and
+build metadata consume no Go staged-file or staged-byte budget. Rust permits an
+arbitrary portable `[lib].path`; its broader transport therefore retains every
+regular file's bytes under the operational maxima, and the validated frontend
+manifest later selects the exact Rust closure.
+
+The private sandbox projection nevertheless preserves every enumerated
+directory and every Go-noncandidate regular entry name. Directories retain
+their directory kind; Go-noncandidate regular names are represented by empty
+private placeholders because the Go profile excludes them before open. This
+lets the frontend observe the retained directory-entry counts, excluded test
+names, forbidden directory names, and candidate-name file kinds. Private
+placeholders never enter a public source manifest and are bounded by the
+examined-entry maximum rather than the byte-bearing staged-file maximum. The
+two-pass comparison retains full stable metadata for traversed directories and
+byte-bearing candidates. A Go placeholder, and a skipped `.git` directory,
+contributes only its path and regular-file/directory kind; its excluded bytes,
+size, identity, permissions, timestamps, and unvisited descendants cannot
+affect acceptance or any public artifact.
+
+The operational count and byte maxima are strictly larger than either
+frontend closure profile's corresponding maxima. A candidate at a frontend
+maximum plus one therefore reaches that frontend and retains its language
+profile limit status/code. Generic staging is nevertheless a broader transport
+inventory, not a semantic closure and not a replacement for frontend capture;
+an input tree that exceeds an operational maximum fails artifact-free with
+`POLICY_CLI_INPUT` before launch. Only the validated successful source manifest
+selects the exact retained input closure.
+
 The exact selection object is the union in `FRONTEND_PROTOCOL_V0.md`:
 
 ```json
@@ -267,8 +304,9 @@ CLI validation completes before frontend launch in this exact order:
 7. on verify, known strategy, checker, and axiom profiles followed by the exact
    strategy tuple in section 3;
 8. registry ID/hash equality against embedded constants;
-9. registered release tuple and bundle compatibility, followed by installed
-   registry, bundle, host, runtime, and sandbox validation;
+9. installed registry validation, followed by registered release tuple and
+   bundle compatibility, then all-bundle metadata, selected-bundle snapshot,
+   host, runtime, and sandbox validation;
 10. route output collision and safe-write policy;
 11. frontend launch.
 
@@ -279,6 +317,11 @@ before registry I/O or child launch. Failure in the installed-registry,
 installed-bundle, host, runtime, or sandbox validation part of step 9 is the
 artifact-free release `frontend-error` from `RELEASE_BUNDLES_V0.md`: it exits 1
 and also does not create a scan document.
+
+Because the build embeds only the registry ID/hash commitment, an unavailable
+or invalid installed registry is observed before tuple membership can be
+resolved. No duplicate build-embedded tuple allowlist is permitted to reverse
+that release-boundary precedence.
 
 Scan output uses create-new semantics and rejects any existing destination.
 Verify validates both destinations before writing either. An existing

@@ -762,20 +762,18 @@ fn validate_unit_identity(
     unit: &VirUnit,
 ) -> Result<(), VirValidationError> {
     validate_identifier_bytes(&unit.id)?;
-    if !is_ascii_ident(&unit.name) {
-        return Err(invalid("VIR_IDENTIFIER", "unit name is not AsciiIdent"));
-    }
+    validate_identifier_bytes(&unit.name)?;
     match language {
         SourceLanguage::Rust => {
-            if unit.id != unit.name {
+            if !is_ascii_ident(&unit.id) || !is_cargo_package_name(&unit.name) {
                 return Err(invalid(
                     "VIR_IDENTIFIER",
-                    "Rust unit id must equal its name",
+                    "Rust unit id or Cargo package name is invalid",
                 ));
             }
         }
         SourceLanguage::Go => {
-            if !is_go_unit_id(&unit.id) {
+            if !is_ascii_ident(&unit.name) || !is_go_unit_id(&unit.id) {
                 return Err(invalid("VIR_IDENTIFIER", "invalid Go unit id"));
             }
         }
@@ -845,6 +843,12 @@ fn is_ascii_ident(value: &str) -> bool {
     };
     (first.is_ascii_alphabetic() || first == b'_')
         && bytes.all(|byte| byte.is_ascii_alphanumeric() || byte == b'_')
+}
+
+fn is_cargo_package_name(value: &str) -> bool {
+    let mut bytes = value.bytes();
+    bytes.next().is_some_and(|byte| byte.is_ascii_alphabetic())
+        && bytes.all(|byte| byte.is_ascii_alphanumeric() || matches!(byte, b'_' | b'-'))
 }
 
 fn is_go_unit_id(value: &str) -> bool {

@@ -5,8 +5,8 @@ pub mod v1 {
 
     use crate::frontend_protocol::AcceptedFrontendArtifacts;
     use crate::frontend_runner::{
-        prepare_installed_frontend, run_prepared_frontend, AcceptedFrontendRun,
-        FrontendReleaseIdentity, FrontendRunRequest,
+        prepare_installed_frontend, run_prepared_frontend, rust_function_id, rust_package_name,
+        rust_pointer_width, AcceptedFrontendRun, FrontendReleaseIdentity, FrontendRunRequest,
     };
     use crate::policy_schema::{
         canonical_policy_scan_v1_json, import_policy_scan_v1_json, PolicyGoSelection,
@@ -16,7 +16,7 @@ pub mod v1 {
     };
     use mpk_vc::{
         canonical_json_bytes, parse_strict_json, CapturedInput, InputKind, ReleaseSelectionRequest,
-        StrictJsonLimits,
+        SourceLanguage, StrictJsonLimits,
     };
     use serde::Serialize;
     #[cfg(test)]
@@ -26,10 +26,17 @@ pub mod v1 {
     use std::error::Error;
     use std::fmt;
     use std::fs::{self, OpenOptions};
+    #[cfg(target_os = "linux")]
+    use std::io::Read;
     use std::io::{self, Write};
+    #[cfg(target_os = "linux")]
+    use std::mem::MaybeUninit;
     #[cfg(unix)]
     use std::os::unix::fs::MetadataExt;
     use std::path::{Component, Path, PathBuf};
+
+    #[cfg(target_os = "linux")]
+    use rustix::fs::{openat2, Mode, OFlags, RawDir, ResolveFlags, CWD};
 
     const SCAN_OPTIONS: [&str; 11] = [
         "--language",
@@ -44,15 +51,26 @@ pub mod v1 {
         "--contract",
         "--json-out",
     ];
-    const FORBIDDEN_LOCATORS: [&str; 8] = [
+    const FORBIDDEN_LOCATORS: [&str; 9] = [
         "--frontend",
         "--frontend-helper",
         "--driver",
+        "--removed-frontend",
         "--toolchain-root",
         "--toolchain-path",
         "--registry",
         "--registry-path",
         "--release-registry-path",
+    ];
+    const STAGING_FILES_MAX: usize = 65_536;
+    const STAGING_FILE_BYTES_MAX: u64 = 33_554_432;
+    const STAGING_TOTAL_BYTES_MAX: u64 = 536_870_912;
+    const STAGING_DIRECTORIES_MAX: usize = 65_536;
+    const STAGING_DIRECTORY_ENTRIES_MAX: usize = 262_144;
+    const STAGING_PATH_BYTES_MAX: usize = 1_024;
+    const GO_AUXILIARY_SUFFIXES: [&str; 19] = [
+        ".c", ".cc", ".cpp", ".cxx", ".m", ".h", ".hh", ".hpp", ".hxx", ".f", ".F", ".for", ".f90",
+        ".s", ".S", ".sx", ".swig", ".swigcxx", ".syso",
     ];
     const REQUIRED_OPTIONS: [&str; 10] = [
         "--language",
@@ -104,7 +122,8 @@ pub mod v1 {
                 }),
                 "rust" => PolicySemanticParameters::Rust(PolicyRustSemanticParameters {
                     target_id: self.target_id.clone(),
-                    pointer_width: 64,
+                    pointer_width: rust_pointer_width(&self.target_id)
+                        .expect("profile validation closes the Rust target set"),
                     overflow_mode: "checked".to_owned(),
                     panic_mode: "abort".to_owned(),
                 }),
@@ -149,6 +168,13 @@ pub mod v1 {
                 bytes: &self.bytes,
             }
         }
+    }
+
+    #[derive(Debug)]
+    pub(crate) struct OwnedFrontendStaging {
+        pub(crate) captured_inputs: Vec<OwnedCapturedInput>,
+        pub(crate) staged_directories: Vec<String>,
+        pub(crate) staged_placeholders: Vec<String>,
     }
 
     #[derive(Debug)]
@@ -360,11 +386,12 @@ pub mod v1 {
             }
             "rust"
                 if !valid_rust_target(&invocation.target_id)
+                    || !rust_package_name(&invocation.package)
                     || !valid_rust_selection(&invocation.function) =>
             {
                 return Err(cli_error(
                     "POLICY_CLI_SCALAR",
-                    "Rust target or function identity is not canonical",
+                    "Rust target, package, or function identity is not canonical",
                 ));
             }
             _ => {}
@@ -410,16 +437,18 @@ pub mod v1 {
                 "semantic profile is not registered",
             ));
         }
-        let expected = match invocation.source_language.as_str() {
-            "go" => ("mpk.go.fixed.v0", "linux/amd64"),
-            "rust" => ("mpk.rust.checked.v0", "x86_64-unknown-linux-gnu"),
+        let compatible = match invocation.source_language.as_str() {
+            "go" => {
+                invocation.semantic_profile == "mpk.go.fixed.v0"
+                    && invocation.target_id == "linux/amd64"
+            }
+            "rust" => {
+                invocation.semantic_profile == "mpk.rust.checked.v0"
+                    && rust_pointer_width(&invocation.target_id).is_some()
+            }
             _ => unreachable!("source language was validated first"),
         };
-        if (
-            invocation.semantic_profile.as_str(),
-            invocation.target_id.as_str(),
-        ) != expected
-        {
+        if !compatible {
             return Err(cli_error(
                 "POLICY_PROFILE_TUPLE",
                 "language, semantic profile, and target form a crossed tuple",
@@ -514,12 +543,10 @@ pub mod v1 {
     }
 
     fn valid_rust_selection(function: &str) -> bool {
-        let mut segments = function.split("::");
-        segments
+        function
+            .split("::")
             .next()
-            .is_some_and(|segment| valid_ascii_identifier(segment, 255))
-            && segments.clone().next().is_some()
-            && segments.all(|segment| valid_ascii_identifier(segment, 255))
+            .is_some_and(|crate_name| rust_function_id(function, crate_name))
     }
 
     fn valid_ascii_identifier(value: &str, maximum: usize) -> bool {
@@ -537,31 +564,6 @@ pub mod v1 {
         PolicyScanV1Error::new(code, detail)
     }
 
-    pub(crate) fn run_policy_scan_v1(
-        argv: &[String],
-        working_directory: &Path,
-        captured_inputs: Vec<OwnedCapturedInput>,
-    ) -> Result<Option<PolicyScanV1RunOutput>, PolicyScanV1Error> {
-        run_policy_scan_v1_with(
-            argv,
-            working_directory,
-            captured_inputs,
-            |release| {
-                prepare_installed_frontend(release).map_err(|error| {
-                    PolicyScanV1Error::new(
-                        error.code().as_str(),
-                        "generic frontend release preflight failed",
-                    )
-                })
-            },
-            |prepared, request| {
-                run_prepared_frontend(prepared, request).map_err(|error| {
-                    PolicyScanV1Error::new(error.code().as_str(), "generic frontend runner failed")
-                })
-            },
-        )
-    }
-
     /// Runs the released policy-scan command with an immutable snapshot of all
     /// profile-relevant files below the selected source root.
     pub fn run_cli(
@@ -571,9 +573,26 @@ pub mod v1 {
         let Some(invocation) = parse_policy_scan_v1_argv(argv)? else {
             return Ok(None);
         };
-        let captured_inputs = capture_invocation_inputs(&invocation, working_directory)?;
-        let output = run_policy_scan_v1(argv, working_directory, captured_inputs)?
-            .ok_or_else(|| input_error("scan invocation unexpectedly selected help"))?;
+        let prepared =
+            prepare_installed_frontend(&invocation.release_request()).map_err(|error| {
+                PolicyScanV1Error::new(
+                    error.code().as_str(),
+                    "generic frontend release preflight failed",
+                )
+            })?;
+        let output_target = preflight_scan_output(working_directory, &invocation.json_out)?;
+        let staging = capture_invocation_staging(&invocation, working_directory)?;
+        let output = run_prepared_policy_scan_v1(
+            invocation,
+            output_target,
+            staging,
+            prepared,
+            |prepared, request| {
+                run_prepared_frontend(prepared, request).map_err(|error| {
+                    PolicyScanV1Error::new(error.code().as_str(), "generic frontend runner failed")
+                })
+            },
+        )?;
         Ok(Some(format!(
             "ok policy scan status={} json={}",
             output.scan.document().readiness,
@@ -581,47 +600,569 @@ pub mod v1 {
         )))
     }
 
+    #[cfg(test)]
+    #[allow(dead_code)]
     pub(crate) fn capture_invocation_inputs(
         invocation: &PolicyScanV1Invocation,
         working_directory: &Path,
     ) -> Result<Vec<OwnedCapturedInput>, PolicyScanV1Error> {
-        let root = working_directory.join(&invocation.source_root);
-        let metadata = fs::symlink_metadata(&root)
-            .map_err(|error| input_error(format!("source root is unavailable: {error}")))?;
-        if !metadata.is_dir() || metadata.file_type().is_symlink() {
-            return Err(input_error("source root must be a regular directory"));
-        }
+        Ok(capture_invocation_staging(invocation, working_directory)?.captured_inputs)
+    }
 
+    pub(crate) fn capture_invocation_staging(
+        invocation: &PolicyScanV1Invocation,
+        working_directory: &Path,
+    ) -> Result<OwnedFrontendStaging, PolicyScanV1Error> {
+        let root = working_directory.join(&invocation.source_root);
         let contract_paths = invocation
             .contracts
             .iter()
             .cloned()
             .collect::<BTreeSet<_>>();
-        let mut inputs = Vec::new();
-        capture_directory(&root, &root, &contract_paths, &mut inputs)?;
-        for contract in &contract_paths {
-            if !inputs.iter().any(|input| {
-                input.kind == InputKind::Contract && input.normalized_path == *contract
-            }) {
-                return Err(input_error(format!(
-                    "contract is missing from the source snapshot: {contract}"
-                )));
+        #[cfg(target_os = "linux")]
+        let mut staging = capture_linux_tree(&root, &invocation.source_language, &contract_paths)?;
+        #[cfg(not(target_os = "linux"))]
+        let mut staging = {
+            let metadata = fs::symlink_metadata(&root)
+                .map_err(|error| input_error(format!("source root is unavailable: {error}")))?;
+            if !metadata.is_dir() || metadata.file_type().is_symlink() {
+                return Err(input_error("source root must be a regular directory"));
             }
-        }
-        inputs.sort_by(|left, right| {
+            let mut inputs = Vec::new();
+            let mut staged_directories = Vec::new();
+            let mut staged_placeholders = Vec::new();
+            capture_directory(
+                &root,
+                &root,
+                &invocation.source_language,
+                &contract_paths,
+                &mut inputs,
+                &mut staged_directories,
+                &mut staged_placeholders,
+            )?;
+            OwnedFrontendStaging {
+                captured_inputs: inputs,
+                staged_directories,
+                staged_placeholders,
+            }
+        };
+        staging.captured_inputs.sort_by(|left, right| {
             left.normalized_path
                 .as_bytes()
                 .cmp(right.normalized_path.as_bytes())
         });
-        validate_owned_captured_inputs(&inputs)?;
-        Ok(inputs)
+        staging
+            .staged_directories
+            .sort_by(|left, right| left.as_bytes().cmp(right.as_bytes()));
+        staging
+            .staged_placeholders
+            .sort_by(|left, right| left.as_bytes().cmp(right.as_bytes()));
+        validate_owned_staging(&staging)?;
+        Ok(staging)
     }
 
+    #[cfg(target_os = "linux")]
+    #[derive(Clone, Debug, Eq, PartialEq)]
+    struct CaptureStableMetadata {
+        device: u64,
+        inode: u64,
+        mode: u32,
+        links: u64,
+        size: u64,
+        modified_seconds: i64,
+        modified_nanoseconds: i64,
+        changed_seconds: i64,
+        changed_nanoseconds: i64,
+    }
+
+    #[cfg(target_os = "linux")]
+    struct CapturePass {
+        observed: BTreeMap<String, CaptureObservation>,
+        inputs: Vec<OwnedCapturedInput>,
+        staged_directories: Vec<String>,
+        staged_placeholders: Vec<String>,
+    }
+
+    #[cfg(target_os = "linux")]
+    #[derive(Clone, Debug, Eq, PartialEq)]
+    enum CaptureObservation {
+        Stable(CaptureStableMetadata),
+        DirectoryKind,
+        RegularFileKind,
+    }
+
+    #[cfg(target_os = "linux")]
+    struct CaptureState<'a> {
+        source_language: &'a str,
+        contracts: &'a BTreeSet<String>,
+        retain_bytes: bool,
+        observed: BTreeMap<String, CaptureObservation>,
+        inputs: Vec<OwnedCapturedInput>,
+        staged_directories: Vec<String>,
+        staged_placeholders: Vec<String>,
+        staged_identities: BTreeSet<(u64, u64)>,
+        directories_visited: usize,
+        entries_examined: usize,
+        staged_bytes: u64,
+    }
+
+    #[cfg(target_os = "linux")]
+    struct CaptureDirectoryFrame {
+        directory: fs::File,
+        relative_directory: String,
+        stable_before: Option<CaptureStableMetadata>,
+        names: Vec<String>,
+        next_name: usize,
+    }
+
+    #[cfg(target_os = "linux")]
+    fn capture_linux_tree(
+        path: &Path,
+        source_language: &str,
+        contracts: &BTreeSet<String>,
+    ) -> Result<OwnedFrontendStaging, PolicyScanV1Error> {
+        let descriptor = openat2(
+            CWD,
+            path,
+            OFlags::RDONLY | OFlags::DIRECTORY | OFlags::CLOEXEC | OFlags::NOFOLLOW,
+            Mode::empty(),
+            ResolveFlags::NO_MAGICLINKS | ResolveFlags::NO_SYMLINKS,
+        )
+        .map_err(|error| input_error(format!("source root is unavailable: {error}")))?;
+        let root = fs::File::from(descriptor);
+        let metadata = root
+            .metadata()
+            .map_err(|error| input_error(format!("source root is unavailable: {error}")))?;
+        if !metadata.is_dir() {
+            return Err(input_error("source root must be a regular directory"));
+        }
+        let captured = capture_linux_pass(&root, source_language, contracts, true)?;
+        let observed_after = capture_linux_pass(&root, source_language, contracts, false)?;
+        if captured.observed != observed_after.observed {
+            return Err(input_error(
+                "source snapshot namespace changed during capture",
+            ));
+        }
+        Ok(OwnedFrontendStaging {
+            captured_inputs: captured.inputs,
+            staged_directories: captured.staged_directories,
+            staged_placeholders: captured.staged_placeholders,
+        })
+    }
+
+    #[cfg(target_os = "linux")]
+    fn capture_linux_pass(
+        root: &fs::File,
+        source_language: &str,
+        contracts: &BTreeSet<String>,
+        retain_bytes: bool,
+    ) -> Result<CapturePass, PolicyScanV1Error> {
+        let root = open_capture_entry(root, ".", true)?;
+        let root_metadata = root
+            .metadata()
+            .map_err(|error| input_error(format!("source snapshot failed: {error}")))?;
+        let root_stable = capture_stable(&root_metadata);
+        let mut state = CaptureState {
+            source_language,
+            contracts,
+            retain_bytes,
+            observed: BTreeMap::from([(
+                String::new(),
+                CaptureObservation::Stable(root_stable.clone()),
+            )]),
+            inputs: Vec::new(),
+            staged_directories: Vec::new(),
+            staged_placeholders: Vec::new(),
+            staged_identities: BTreeSet::new(),
+            directories_visited: 1,
+            entries_examined: 0,
+            staged_bytes: 0,
+        };
+        capture_linux_directory(root, root_stable, &mut state)?;
+        Ok(CapturePass {
+            observed: state.observed,
+            inputs: state.inputs,
+            staged_directories: state.staged_directories,
+            staged_placeholders: state.staged_placeholders,
+        })
+    }
+
+    #[cfg(target_os = "linux")]
+    fn capture_linux_directory(
+        root: fs::File,
+        root_stable: CaptureStableMetadata,
+        state: &mut CaptureState<'_>,
+    ) -> Result<(), PolicyScanV1Error> {
+        let mut frames = vec![capture_directory_frame(
+            root,
+            String::new(),
+            Some(root_stable),
+            state,
+        )?];
+        while !frames.is_empty() {
+            let next = {
+                let frame = frames.last_mut().expect("the loop requires one frame");
+                if frame.next_name == frame.names.len() {
+                    None
+                } else {
+                    let name = frame.names[frame.next_name].clone();
+                    frame.next_name += 1;
+                    Some((name, frame.relative_directory.clone()))
+                }
+            };
+            let Some((name, relative_directory)) = next else {
+                let frame = frames.pop().expect("the loop requires one frame");
+                if let Some(stable_before) = frame.stable_before {
+                    let after = frame
+                        .directory
+                        .metadata()
+                        .map_err(|error| input_error(format!("source snapshot failed: {error}")))?;
+                    if stable_before != capture_stable(&after) {
+                        return Err(input_error("source directory changed during capture"));
+                    }
+                }
+                continue;
+            };
+            let child = capture_linux_entry(
+                &frames
+                    .last()
+                    .expect("the loop requires one frame")
+                    .directory,
+                &name,
+                &relative_directory,
+                state,
+            )?;
+            if let Some((directory, relative, stable_before)) = child {
+                frames.push(capture_directory_frame(
+                    directory,
+                    relative,
+                    Some(stable_before),
+                    state,
+                )?);
+            }
+        }
+        Ok(())
+    }
+
+    #[cfg(target_os = "linux")]
+    fn capture_directory_frame(
+        directory: fs::File,
+        relative_directory: String,
+        stable_before: Option<CaptureStableMetadata>,
+        state: &mut CaptureState<'_>,
+    ) -> Result<CaptureDirectoryFrame, PolicyScanV1Error> {
+        let remaining_entries = STAGING_DIRECTORY_ENTRIES_MAX
+            .checked_sub(state.entries_examined)
+            .ok_or_else(|| input_error("source staging entry limit exceeded"))?;
+        let names = capture_directory_names(&directory, remaining_entries)?;
+        state.entries_examined = state
+            .entries_examined
+            .checked_add(names.len())
+            .filter(|count| *count <= STAGING_DIRECTORY_ENTRIES_MAX)
+            .ok_or_else(|| input_error("source staging entry limit exceeded"))?;
+        Ok(CaptureDirectoryFrame {
+            directory,
+            relative_directory,
+            stable_before,
+            names,
+            next_name: 0,
+        })
+    }
+
+    #[cfg(target_os = "linux")]
+    fn capture_linux_entry(
+        directory: &fs::File,
+        name: &str,
+        relative_directory: &str,
+        state: &mut CaptureState<'_>,
+    ) -> Result<Option<(fs::File, String, CaptureStableMetadata)>, PolicyScanV1Error> {
+        let relative = if relative_directory.is_empty() {
+            name.to_owned()
+        } else {
+            format!("{relative_directory}/{name}")
+        };
+        if relative.len() > STAGING_PATH_BYTES_MAX {
+            return Err(input_error("source staging path limit exceeded"));
+        }
+        let inspected = inspect_capture_entry(directory, name)?;
+        let before = inspected
+            .metadata()
+            .map_err(|error| input_error(format!("source snapshot failed: {error}")))?;
+        let stable_before = capture_stable(&before);
+        let observation = capture_entry_observation(
+            state.source_language,
+            state.contracts,
+            &relative,
+            name,
+            &before,
+        )?;
+        if state
+            .observed
+            .insert(relative.clone(), observation)
+            .is_some()
+        {
+            return Err(input_error("source snapshot contains duplicate paths"));
+        }
+        // `stable_before` owns the complete comparison metadata. Release the
+        // O_PATH fd before opening a byte-bearing entry or descending.
+        drop(inspected);
+        if before.is_dir() {
+            if state.retain_bytes {
+                state.staged_directories.push(relative.clone());
+            }
+            if state.source_language == "go" && name == ".git" {
+                return Ok(None);
+            }
+            let entry = open_capture_entry(directory, name, true)?;
+            let opened = entry
+                .metadata()
+                .map_err(|error| input_error(format!("source snapshot failed: {error}")))?;
+            if stable_before != capture_stable(&opened) {
+                return Err(input_error("source directory changed during capture"));
+            }
+            state.directories_visited = state
+                .directories_visited
+                .checked_add(1)
+                .filter(|count| *count <= STAGING_DIRECTORIES_MAX)
+                .ok_or_else(|| input_error("source staging directory limit exceeded"))?;
+            return Ok(Some((entry, relative, stable_before)));
+        }
+        debug_assert!(before.is_file());
+        let kind = captured_input_kind(state.source_language, state.contracts, &relative);
+        if !state.retain_bytes {
+            return Ok(None);
+        }
+        let Some(kind) = kind else {
+            state.staged_placeholders.push(relative);
+            return Ok(None);
+        };
+        if state.inputs.len() >= STAGING_FILES_MAX {
+            return Err(input_error("source staging file-count limit exceeded"));
+        }
+        if before.len() > STAGING_FILE_BYTES_MAX {
+            return Err(input_error("source staging file-size limit exceeded"));
+        }
+        state.staged_bytes = state
+            .staged_bytes
+            .checked_add(before.len())
+            .filter(|bytes| *bytes <= STAGING_TOTAL_BYTES_MAX)
+            .ok_or_else(|| input_error("source staging total-byte limit exceeded"))?;
+        if state.source_language == "rust"
+            && !state.staged_identities.insert((before.dev(), before.ino()))
+        {
+            return Err(input_error("source snapshot contains a hard-link alias"));
+        }
+        let mut entry = open_capture_entry(directory, name, false)?;
+        let opened = entry
+            .metadata()
+            .map_err(|error| input_error(format!("source snapshot failed: {error}")))?;
+        if stable_before != capture_stable(&opened) {
+            return Err(input_error("source input changed during capture"));
+        }
+        let mut bytes = Vec::with_capacity(usize::try_from(before.len()).unwrap_or(0));
+        Read::by_ref(&mut entry)
+            .take(STAGING_FILE_BYTES_MAX + 1)
+            .read_to_end(&mut bytes)
+            .map_err(|error| input_error(format!("source snapshot failed: {error}")))?;
+        let after = entry
+            .metadata()
+            .map_err(|error| input_error(format!("source snapshot failed: {error}")))?;
+        if bytes.len() as u64 > STAGING_FILE_BYTES_MAX
+            || bytes.len() as u64 != before.len()
+            || stable_before != capture_stable(&after)
+        {
+            return Err(input_error("source input changed during capture"));
+        }
+        state.inputs.push(OwnedCapturedInput {
+            kind,
+            normalized_path: relative,
+            bytes,
+        });
+        Ok(None)
+    }
+
+    #[cfg(target_os = "linux")]
+    fn capture_entry_observation(
+        source_language: &str,
+        contracts: &BTreeSet<String>,
+        relative: &str,
+        name: &str,
+        metadata: &fs::Metadata,
+    ) -> Result<CaptureObservation, PolicyScanV1Error> {
+        if metadata.is_dir() {
+            return Ok(if source_language == "go" && name == ".git" {
+                CaptureObservation::DirectoryKind
+            } else {
+                CaptureObservation::Stable(capture_stable(metadata))
+            });
+        }
+        if !metadata.is_file() {
+            return Err(input_error("source snapshot contains a non-regular file"));
+        }
+        Ok(
+            if captured_input_kind(source_language, contracts, relative).is_some() {
+                CaptureObservation::Stable(capture_stable(metadata))
+            } else {
+                CaptureObservation::RegularFileKind
+            },
+        )
+    }
+
+    #[cfg(target_os = "linux")]
+    fn inspect_capture_entry(
+        directory: &fs::File,
+        name: &str,
+    ) -> Result<fs::File, PolicyScanV1Error> {
+        let descriptor = openat2(
+            directory,
+            name,
+            OFlags::PATH | OFlags::CLOEXEC | OFlags::NOFOLLOW,
+            Mode::empty(),
+            capture_inspection_resolve_flags(),
+        )
+        .map_err(|error| input_error(format!("source snapshot failed: {error}")))?;
+        Ok(fs::File::from(descriptor))
+    }
+
+    #[cfg(target_os = "linux")]
+    fn open_capture_entry(
+        directory: &fs::File,
+        name: &str,
+        require_directory: bool,
+    ) -> Result<fs::File, PolicyScanV1Error> {
+        let mut flags = OFlags::RDONLY | OFlags::CLOEXEC | OFlags::NOFOLLOW | OFlags::NONBLOCK;
+        if require_directory {
+            flags |= OFlags::DIRECTORY;
+        }
+        let descriptor = openat2(
+            directory,
+            name,
+            flags,
+            Mode::empty(),
+            capture_content_resolve_flags(),
+        )
+        .map_err(|error| input_error(format!("source snapshot failed: {error}")))?;
+        Ok(fs::File::from(descriptor))
+    }
+
+    #[cfg(target_os = "linux")]
+    fn capture_inspection_resolve_flags() -> ResolveFlags {
+        // Name/kind-only entries may be mountpoints. The O_PATH descriptor
+        // cannot expose bytes, and candidates/traversed directories are
+        // reopened below with the cross-device boundary enforced.
+        ResolveFlags::BENEATH | ResolveFlags::NO_MAGICLINKS | ResolveFlags::NO_SYMLINKS
+    }
+
+    #[cfg(target_os = "linux")]
+    fn capture_content_resolve_flags() -> ResolveFlags {
+        capture_inspection_resolve_flags() | ResolveFlags::NO_XDEV
+    }
+
+    #[cfg(target_os = "linux")]
+    fn capture_directory_names(
+        directory: &fs::File,
+        maximum: usize,
+    ) -> Result<Vec<String>, PolicyScanV1Error> {
+        let mut storage = [MaybeUninit::uninit(); 64 * 1024];
+        let mut reader = RawDir::new(directory, &mut storage);
+        let mut names = Vec::new();
+        while let Some(entry) = reader.next() {
+            let entry =
+                entry.map_err(|error| input_error(format!("source snapshot failed: {error}")))?;
+            let bytes = entry.file_name().to_bytes();
+            if matches!(bytes, b"." | b"..") {
+                continue;
+            }
+            let name = std::str::from_utf8(bytes)
+                .map_err(|_| input_error("source snapshot path is not UTF-8"))?;
+            if name.is_empty() || name.contains('/') {
+                return Err(input_error("source snapshot path is invalid"));
+            }
+            if names.len() >= maximum {
+                return Err(input_error("source staging entry limit exceeded"));
+            }
+            names.push(name.to_owned());
+        }
+        names.sort_by(|left, right| left.as_bytes().cmp(right.as_bytes()));
+        if names.windows(2).any(|pair| pair[0] == pair[1]) {
+            return Err(input_error("source snapshot contains duplicate paths"));
+        }
+        Ok(names)
+    }
+
+    #[cfg(target_os = "linux")]
+    fn capture_stable(metadata: &fs::Metadata) -> CaptureStableMetadata {
+        CaptureStableMetadata {
+            device: metadata.dev(),
+            inode: metadata.ino(),
+            mode: metadata.mode(),
+            links: metadata.nlink(),
+            size: metadata.len(),
+            modified_seconds: metadata.mtime(),
+            modified_nanoseconds: metadata.mtime_nsec(),
+            changed_seconds: metadata.ctime(),
+            changed_nanoseconds: metadata.ctime_nsec(),
+        }
+    }
+
+    fn captured_input_kind(
+        source_language: &str,
+        contracts: &BTreeSet<String>,
+        relative: &str,
+    ) -> Option<InputKind> {
+        let path = Path::new(relative);
+        let file_name = path.file_name().and_then(|name| name.to_str());
+        match source_language {
+            "go" => match file_name {
+                Some("go.mod" | "go.work") => Some(InputKind::BuildManifest),
+                Some("go.sum" | "go.work.sum") => Some(InputKind::Lockfile),
+                Some(name) if name.ends_with("_test.go") => None,
+                Some(name) if name.ends_with(".go") => Some(InputKind::Source),
+                Some(name)
+                    if GO_AUXILIARY_SUFFIXES
+                        .iter()
+                        .any(|suffix| name.ends_with(suffix)) =>
+                {
+                    Some(InputKind::Source)
+                }
+                Some(name) if go_contract_candidate(name) => Some(InputKind::Contract),
+                _ => None,
+            },
+            "rust" => {
+                if contracts.contains(relative) {
+                    Some(InputKind::Contract)
+                } else {
+                    match relative {
+                        "Cargo.toml" => Some(InputKind::BuildManifest),
+                        "Cargo.lock" => Some(InputKind::Lockfile),
+                        "rust-toolchain"
+                        | "rust-toolchain.toml"
+                        | ".cargo/config"
+                        | ".cargo/config.toml" => Some(InputKind::BuildManifest),
+                        _ => file_name.map(|_| InputKind::Source),
+                    }
+                }
+            }
+            _ => None,
+        }
+    }
+
+    fn go_contract_candidate(name: &str) -> bool {
+        let lower = name.to_ascii_lowercase();
+        lower == "contract.json"
+            || lower.ends_with(".contract.json")
+            || lower.ends_with("_contract.json")
+    }
+
+    #[cfg(not(target_os = "linux"))]
     fn capture_directory(
         root: &Path,
         directory: &Path,
+        source_language: &str,
         contracts: &BTreeSet<String>,
         output: &mut Vec<OwnedCapturedInput>,
+        staged_directories: &mut Vec<String>,
+        staged_placeholders: &mut Vec<String>,
     ) -> Result<(), PolicyScanV1Error> {
         let mut entries = fs::read_dir(directory)
             .map_err(|error| input_error(format!("source snapshot failed: {error}")))?
@@ -630,6 +1171,12 @@ pub mod v1 {
         entries.sort_by_key(|entry| entry.file_name());
         for entry in entries {
             let path = entry.path();
+            let relative = path
+                .strip_prefix(root)
+                .map_err(|_| input_error("source snapshot escaped its root"))?
+                .to_str()
+                .ok_or_else(|| input_error("source snapshot path is not UTF-8"))?
+                .replace(std::path::MAIN_SEPARATOR, "/");
             let file_type = entry
                 .file_type()
                 .map_err(|error| input_error(format!("source snapshot failed: {error}")))?;
@@ -637,38 +1184,26 @@ pub mod v1 {
                 return Err(input_error("source snapshot contains a symbolic link"));
             }
             if file_type.is_dir() {
+                staged_directories.push(relative);
                 let name = entry.file_name();
-                if matches!(name.to_str(), Some(".git" | "target")) {
+                if source_language == "go" && name.to_str() == Some(".git") {
                     continue;
                 }
-                capture_directory(root, &path, contracts, output)?;
+                capture_directory(
+                    root,
+                    &path,
+                    source_language,
+                    contracts,
+                    output,
+                    staged_directories,
+                    staged_placeholders,
+                )?;
                 continue;
             }
             if !file_type.is_file() {
                 return Err(input_error("source snapshot contains a non-regular file"));
             }
-            let relative = path
-                .strip_prefix(root)
-                .map_err(|_| input_error("source snapshot escaped its root"))?
-                .to_str()
-                .ok_or_else(|| input_error("source snapshot path is not UTF-8"))?
-                .replace(std::path::MAIN_SEPARATOR, "/");
-            let kind = if contracts.contains(&relative) {
-                Some(InputKind::Contract)
-            } else {
-                match path.file_name().and_then(|name| name.to_str()) {
-                    Some("go.mod" | "go.work" | "Cargo.toml") => Some(InputKind::BuildManifest),
-                    Some("go.sum" | "go.work.sum" | "Cargo.lock") => Some(InputKind::Lockfile),
-                    _ if matches!(
-                        path.extension().and_then(|value| value.to_str()),
-                        Some("go" | "rs")
-                    ) =>
-                    {
-                        Some(InputKind::Source)
-                    }
-                    _ => None,
-                }
-            };
+            let kind = captured_input_kind(source_language, contracts, &relative);
             if let Some(kind) = kind {
                 output.push(OwnedCapturedInput {
                     kind,
@@ -676,6 +1211,8 @@ pub mod v1 {
                     bytes: fs::read(&path)
                         .map_err(|error| input_error(format!("source snapshot failed: {error}")))?,
                 });
+            } else {
+                staged_placeholders.push(relative);
             }
         }
         Ok(())
@@ -685,12 +1222,13 @@ pub mod v1 {
         PolicyScanV1Error::new("POLICY_CLI_INPUT", detail)
     }
 
+    #[cfg(test)]
     pub(crate) fn run_policy_scan_v1_with<P, F, R>(
         argv: &[String],
         working_directory: &Path,
         captured_inputs: Vec<OwnedCapturedInput>,
         mut prepare: F,
-        mut runner: R,
+        runner: R,
     ) -> Result<Option<PolicyScanV1RunOutput>, PolicyScanV1Error>
     where
         F: FnMut(&ReleaseSelectionRequest) -> Result<P, PolicyScanV1Error>,
@@ -704,7 +1242,57 @@ pub mod v1 {
         };
         let prepared = prepare(&invocation.release_request())?;
         let output_target = preflight_scan_output(working_directory, &invocation.json_out)?;
-        validate_owned_captured_inputs(&captured_inputs)?;
+        let staging = OwnedFrontendStaging {
+            captured_inputs,
+            staged_directories: Vec::new(),
+            staged_placeholders: Vec::new(),
+        };
+        run_prepared_policy_scan_v1(invocation, output_target, staging, prepared, runner).map(Some)
+    }
+
+    #[cfg(test)]
+    #[allow(dead_code)]
+    pub(crate) fn run_policy_scan_v1_with_staging<P, F, R>(
+        argv: &[String],
+        working_directory: &Path,
+        staging: OwnedFrontendStaging,
+        mut prepare: F,
+        runner: R,
+    ) -> Result<Option<PolicyScanV1RunOutput>, PolicyScanV1Error>
+    where
+        F: FnMut(&ReleaseSelectionRequest) -> Result<P, PolicyScanV1Error>,
+        R: for<'a> FnMut(
+            P,
+            FrontendRunRequest<'a>,
+        ) -> Result<AcceptedFrontendRun, PolicyScanV1Error>,
+    {
+        let Some(invocation) = parse_policy_scan_v1_argv(argv)? else {
+            return Ok(None);
+        };
+        let prepared = prepare(&invocation.release_request())?;
+        let output_target = preflight_scan_output(working_directory, &invocation.json_out)?;
+        run_prepared_policy_scan_v1(invocation, output_target, staging, prepared, runner).map(Some)
+    }
+
+    fn run_prepared_policy_scan_v1<P, R>(
+        invocation: PolicyScanV1Invocation,
+        output_target: ScanOutputTarget,
+        staging: OwnedFrontendStaging,
+        prepared: P,
+        mut runner: R,
+    ) -> Result<PolicyScanV1RunOutput, PolicyScanV1Error>
+    where
+        R: for<'a> FnMut(
+            P,
+            FrontendRunRequest<'a>,
+        ) -> Result<AcceptedFrontendRun, PolicyScanV1Error>,
+    {
+        validate_owned_staging(&staging)?;
+        let OwnedFrontendStaging {
+            captured_inputs,
+            staged_directories,
+            staged_placeholders,
+        } = staging;
         let policy_parameters = invocation.semantic_parameters();
         let policy_selection = invocation.selection();
         let semantic_parameters = serde_json::to_value(&policy_parameters)
@@ -715,6 +1303,14 @@ pub mod v1 {
             .iter()
             .map(OwnedCapturedInput::as_ref)
             .collect::<Vec<_>>();
+        let staged_directory_refs = staged_directories
+            .iter()
+            .map(String::as_str)
+            .collect::<Vec<_>>();
+        let staged_placeholder_refs = staged_placeholders
+            .iter()
+            .map(String::as_str)
+            .collect::<Vec<_>>();
         let frontend = runner(
             prepared,
             FrontendRunRequest {
@@ -722,12 +1318,14 @@ pub mod v1 {
                 semantic_parameters: &semantic_parameters,
                 selection: &selection,
                 captured_inputs: &captured_refs,
+                staged_directories: &staged_directory_refs,
+                staged_placeholders: &staged_placeholder_refs,
                 contracts: &invocation.contracts,
             },
         )?;
         let output = build_policy_scan_v1_output(invocation, frontend, captured_inputs)?;
         safe_create_scan(&output_target, output.scan.canonical_bytes())?;
-        Ok(Some(output))
+        Ok(output)
     }
 
     /// Builds the exact validated scan projection from a retained frontend run
@@ -739,6 +1337,7 @@ pub mod v1 {
         captured_inputs: Vec<OwnedCapturedInput>,
     ) -> Result<PolicyScanV1RunOutput, PolicyScanV1Error> {
         validate_owned_captured_inputs(&captured_inputs)?;
+        let captured_inputs = retain_validated_frontend_inputs(&frontend, captured_inputs)?;
         validate_runner_selection(&invocation, &frontend.release)?;
         let policy_parameters = invocation.semantic_parameters();
         let policy_selection = invocation.selection();
@@ -762,6 +1361,34 @@ pub mod v1 {
         })
     }
 
+    fn retain_validated_frontend_inputs(
+        frontend: &AcceptedFrontendRun,
+        available_inputs: Vec<OwnedCapturedInput>,
+    ) -> Result<Vec<OwnedCapturedInput>, PolicyScanV1Error> {
+        let Some(artifacts) = frontend.envelope.artifacts.as_ref() else {
+            return Ok(available_inputs);
+        };
+        let mut available_by_path = available_inputs
+            .into_iter()
+            .map(|input| (input.normalized_path.clone(), input))
+            .collect::<BTreeMap<_, _>>();
+        let mut captured_inputs =
+            Vec::with_capacity(artifacts.source_manifest.manifest().inputs.len());
+        for manifest_input in &artifacts.source_manifest.manifest().inputs {
+            let input = available_by_path
+                .remove(manifest_input.normalized_path.as_str())
+                .ok_or_else(|| internal_linkage("validated manifest input is not retained"))?;
+            if input.kind != manifest_input.kind {
+                return Err(internal_linkage(
+                    "validated manifest input kind differs from retained input",
+                ));
+            }
+            captured_inputs.push(input);
+        }
+        validate_owned_captured_inputs(&captured_inputs)?;
+        Ok(captured_inputs)
+    }
+
     pub(crate) fn validate_owned_captured_inputs(
         inputs: &[OwnedCapturedInput],
     ) -> Result<(), PolicyScanV1Error> {
@@ -776,6 +1403,33 @@ pub mod v1 {
                     "POLICY_CLI_SCALAR",
                     "captured inputs are not portable and unique",
                 ));
+            }
+        }
+        Ok(())
+    }
+
+    fn validate_owned_staging(staging: &OwnedFrontendStaging) -> Result<(), PolicyScanV1Error> {
+        validate_owned_captured_inputs(&staging.captured_inputs)?;
+        let input_paths = staging
+            .captured_inputs
+            .iter()
+            .map(|input| input.normalized_path.as_str())
+            .collect::<BTreeSet<_>>();
+        let mut namespace_paths = BTreeSet::new();
+        for path in staging
+            .staged_directories
+            .iter()
+            .chain(&staging.staged_placeholders)
+        {
+            if path.is_empty()
+                || path.len() > STAGING_PATH_BYTES_MAX
+                || !Path::new(path)
+                    .components()
+                    .all(|component| matches!(component, Component::Normal(_)))
+                || input_paths.contains(path.as_str())
+                || !namespace_paths.insert(path.as_str())
+            {
+                return Err(input_error("private staging namespace is not exact"));
             }
         }
         Ok(())
@@ -918,8 +1572,10 @@ pub mod v1 {
                         && captured.normalized_path == input.normalized_path
                 })
                 .ok_or_else(|| internal_linkage("manifest contract bytes are not retained"))?;
-            let (schema, raw_function) = contract_identity(&captured.bytes)?;
-            let function = resolve_contract_function(&artifacts.vir, &raw_function)?;
+            let (schema, raw_function) =
+                contract_identity(&captured.bytes, manifest.source_language)?;
+            let function =
+                resolve_contract_function(&artifacts.vir, manifest.source_language, &raw_function)?;
             helpers.push(PolicyHelperArtifact::Contract {
                 id: format!("contract:{}", function.id),
                 normalized_path: input.normalized_path.clone(),
@@ -952,7 +1608,10 @@ pub mod v1 {
         }
     }
 
-    fn contract_identity(bytes: &[u8]) -> Result<(String, String), PolicyScanV1Error> {
+    fn contract_identity(
+        bytes: &[u8],
+        source_language: SourceLanguage,
+    ) -> Result<(String, String), PolicyScanV1Error> {
         let strict = parse_strict_json(
             bytes,
             StrictJsonLimits::new(268_435_456, 67_108_865, 256, 1_048_576),
@@ -969,17 +1628,40 @@ pub mod v1 {
             .get("schema")
             .and_then(Value::as_str)
             .ok_or_else(|| internal_linkage("validated contract schema is absent"))?;
-        let function = object
+        let expected_schema = match source_language {
+            SourceLanguage::Go => "mpk.go.contract.v0",
+            SourceLanguage::Rust => "mpk.rust.contract.v0",
+        };
+        if schema != expected_schema {
+            return Err(internal_linkage(
+                "validated contract schema differs from the source language",
+            ));
+        }
+        let raw_function = object
             .get("function")
             .and_then(Value::as_str)
-            .map(str::trim)
-            .filter(|function| !function.is_empty())
             .ok_or_else(|| internal_linkage("validated contract function is absent"))?;
+        let function = match source_language {
+            SourceLanguage::Go => raw_function.trim(),
+            SourceLanguage::Rust => raw_function,
+        };
+        if function.is_empty()
+            || (source_language == SourceLanguage::Rust
+                && !function
+                    .split("::")
+                    .next()
+                    .is_some_and(|crate_name| rust_function_id(function, crate_name)))
+        {
+            return Err(internal_linkage(
+                "validated contract function is not canonical",
+            ));
+        }
         Ok((schema.to_owned(), function.to_owned()))
     }
 
     fn resolve_contract_function<'a>(
         vir: &'a mpk_vc::VirModule,
+        source_language: SourceLanguage,
         raw: &str,
     ) -> Result<&'a mpk_vc::VirFunction, PolicyScanV1Error> {
         let mut matches = vir
@@ -988,11 +1670,12 @@ pub mod v1 {
             .flat_map(|unit| &unit.functions)
             .filter(|function| {
                 function.id == raw
-                    || function
-                        .id
-                        .rsplit_once('/')
-                        .is_some_and(|(_, suffix)| suffix == raw)
-                    || function.id.ends_with(&format!(".{raw}"))
+                    || (source_language == SourceLanguage::Go
+                        && (function
+                            .id
+                            .rsplit_once('/')
+                            .is_some_and(|(_, suffix)| suffix == raw)
+                            || function.id.ends_with(&format!(".{raw}"))))
             });
         let function = matches
             .next()
@@ -1236,6 +1919,108 @@ pub mod v1 {
         };
         use std::cell::Cell;
 
+        #[cfg(target_os = "linux")]
+        #[test]
+        fn noncandidate_inspection_uses_a_path_only_descriptor() {
+            let temporary = tempfile::tempdir().unwrap();
+            fs::write(temporary.path().join("ignored_test.go"), b"not opened\n").unwrap();
+            let root = fs::File::open(temporary.path()).unwrap();
+            let mut inspected = inspect_capture_entry(&root, "ignored_test.go").unwrap();
+            let flags = rustix::fs::fcntl_getfl(&inspected).unwrap();
+            assert!(flags.contains(OFlags::PATH));
+            assert!(!capture_inspection_resolve_flags().contains(ResolveFlags::NO_XDEV));
+            assert!(capture_content_resolve_flags().contains(ResolveFlags::NO_XDEV));
+            let mut byte = [0_u8; 1];
+            assert!(std::io::Read::read(&mut inspected, &mut byte).is_err());
+        }
+
+        #[cfg(target_os = "linux")]
+        #[test]
+        fn go_name_only_observations_ignore_excluded_bytes_but_retain_name_and_kind() {
+            let temporary = tempfile::tempdir().unwrap();
+            let contracts = BTreeSet::new();
+            let placeholder = temporary.path().join("ignored_test.go");
+            fs::write(&placeholder, b"one").unwrap();
+            let before = fs::symlink_metadata(&placeholder).unwrap();
+            let observed_before = capture_entry_observation(
+                "go",
+                &contracts,
+                "ignored_test.go",
+                "ignored_test.go",
+                &before,
+            )
+            .unwrap();
+            fs::write(&placeholder, b"excluded bytes are not captured").unwrap();
+            let after = fs::symlink_metadata(&placeholder).unwrap();
+            let observed_after = capture_entry_observation(
+                "go",
+                &contracts,
+                "ignored_test.go",
+                "ignored_test.go",
+                &after,
+            )
+            .unwrap();
+            assert_ne!(capture_stable(&before), capture_stable(&after));
+            assert_eq!(observed_before, observed_after);
+
+            let original = BTreeMap::from([("ignored_test.go", observed_after.clone())]);
+            let renamed = BTreeMap::from([("renamed_test.go", observed_after.clone())]);
+            assert_ne!(original, renamed);
+            fs::remove_file(&placeholder).unwrap();
+            fs::create_dir(&placeholder).unwrap();
+            let changed_kind = capture_entry_observation(
+                "go",
+                &contracts,
+                "ignored_test.go",
+                "ignored_test.go",
+                &fs::symlink_metadata(&placeholder).unwrap(),
+            )
+            .unwrap();
+            assert_ne!(observed_after, changed_kind);
+
+            let candidate = temporary.path().join("main.go");
+            fs::write(&candidate, b"a").unwrap();
+            let candidate_before = capture_entry_observation(
+                "go",
+                &contracts,
+                "main.go",
+                "main.go",
+                &fs::symlink_metadata(&candidate).unwrap(),
+            )
+            .unwrap();
+            fs::write(&candidate, b"package main\n").unwrap();
+            let candidate_after = capture_entry_observation(
+                "go",
+                &contracts,
+                "main.go",
+                "main.go",
+                &fs::symlink_metadata(&candidate).unwrap(),
+            )
+            .unwrap();
+            assert_ne!(candidate_before, candidate_after);
+
+            let skipped = temporary.path().join(".git");
+            fs::create_dir(&skipped).unwrap();
+            let git_before = capture_entry_observation(
+                "go",
+                &contracts,
+                ".git",
+                ".git",
+                &fs::symlink_metadata(&skipped).unwrap(),
+            )
+            .unwrap();
+            fs::write(skipped.join("index"), b"unobserved internals").unwrap();
+            let git_after = capture_entry_observation(
+                "go",
+                &contracts,
+                ".git",
+                ".git",
+                &fs::symlink_metadata(&skipped).unwrap(),
+            )
+            .unwrap();
+            assert_eq!(git_before, git_after);
+        }
+
         #[test]
         fn policy_scan_v1_parser_help_is_side_effect_free() {
             for help in ["help", "-h", "--help"] {
@@ -1288,6 +2073,84 @@ pub mod v1 {
             assert_eq!(
                 parse_policy_scan_v1_argv(&argv).unwrap_err().code(),
                 "POLICY_PROFILE_TUPLE"
+            );
+        }
+
+        #[test]
+        fn policy_scan_v1_parser_accepts_both_registered_rust_targets() {
+            for (target, pointer_width) in [
+                ("i686-unknown-linux-gnu", 32),
+                ("x86_64-unknown-linux-gnu", 64),
+            ] {
+                let parsed = parse_policy_scan_v1_argv(&rust_scan_argv(target))
+                    .unwrap()
+                    .unwrap();
+                assert_eq!(
+                    serde_json::to_value(parsed.semantic_parameters()).unwrap(),
+                    json!({
+                        "target_id":target,
+                        "pointer_width":pointer_width,
+                        "overflow_mode":"checked",
+                        "panic_mode":"abort"
+                    })
+                );
+                assert_eq!(
+                    serde_json::to_value(parsed.selection()).unwrap(),
+                    json!({
+                        "package":"vector-core",
+                        "crate":"vector_core",
+                        "kind":"lib",
+                        "function":"vector_core::identity"
+                    })
+                );
+            }
+
+            for package in ["2vector", "vector.core", "vector/core"] {
+                let mut argv = rust_scan_argv("x86_64-unknown-linux-gnu");
+                replace_option(&mut argv, "--package", package);
+                assert_eq!(
+                    parse_policy_scan_v1_argv(&argv).unwrap_err().code(),
+                    "POLICY_CLI_SCALAR",
+                    "{package}"
+                );
+            }
+            let mut overlong_package = rust_scan_argv("x86_64-unknown-linux-gnu");
+            replace_option(&mut overlong_package, "--package", &"a".repeat(1_025));
+            assert_eq!(
+                parse_policy_scan_v1_argv(&overlong_package)
+                    .unwrap_err()
+                    .code(),
+                "POLICY_CLI_SCALAR"
+            );
+
+            for function in [
+                "::identity".to_owned(),
+                format!("{}::identity", "a".repeat(256)),
+                format!("vector::{}", vec!["item"; 205].join("::")),
+            ] {
+                let mut argv = rust_scan_argv("x86_64-unknown-linux-gnu");
+                replace_option(&mut argv, "--function", &function);
+                assert_eq!(
+                    parse_policy_scan_v1_argv(&argv).unwrap_err().code(),
+                    "POLICY_CLI_SCALAR",
+                    "{function:?}"
+                );
+            }
+        }
+
+        #[test]
+        fn rust_contract_helper_identity_never_applies_go_whitespace_normalization() {
+            let rust = br#"{"function":" vector::identity ","schema":"mpk.rust.contract.v0"}"#;
+            assert_eq!(
+                contract_identity(rust, SourceLanguage::Rust)
+                    .unwrap_err()
+                    .code(),
+                "POLICY_SOURCE_LINKAGE"
+            );
+            let go = br#"{"function":" Identity ","schema":"mpk.go.contract.v0"}"#;
+            assert_eq!(
+                contract_identity(go, SourceLanguage::Go).unwrap(),
+                ("mpk.go.contract.v0".to_owned(), "Identity".to_owned())
             );
         }
 
@@ -1620,6 +2483,22 @@ pub mod v1 {
             .into_iter()
             .map(str::to_owned)
             .collect()
+        }
+
+        fn rust_scan_argv(target: &str) -> Vec<String> {
+            let mut argv = go_scan_argv();
+            replace_option(&mut argv, "--language", "rust");
+            replace_option(&mut argv, "--semantic-profile", "mpk.rust.checked.v0");
+            replace_option(&mut argv, "--frontend-bundle", "frontend.rust.synthetic.v0");
+            replace_option(
+                &mut argv,
+                "--toolchain-bundle",
+                "toolchain.rust.synthetic.v0",
+            );
+            replace_option(&mut argv, "--target", target);
+            replace_option(&mut argv, "--package", "vector-core");
+            replace_option(&mut argv, "--function", "vector_core::identity");
+            argv
         }
 
         fn replace_option(argv: &mut [String], name: &str, value: &str) {

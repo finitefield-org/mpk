@@ -57,35 +57,59 @@ pub(crate) enum SandboxError {
     Killed,
 }
 
+pub(crate) struct PreparedSandbox {
+    _private: (),
+}
+
+/// Runs the fixed capability probe before user source is exposed to the
+/// release frontend. The private token makes the launch path consume exactly
+/// one successful preparation.
+pub(crate) fn prepare_release_sandbox() -> Result<PreparedSandbox, SandboxError> {
+    #[cfg(not(target_os = "linux"))]
+    {
+        Err(SandboxError::Unavailable)
+    }
+    #[cfg(target_os = "linux")]
+    {
+        run_sandbox_probe()?;
+        Ok(PreparedSandbox { _private: () })
+    }
+}
+
 /// The release-facing sandbox stays fail-closed until entered through the
-/// Linux namespace bootstrap. The v1 CLI does not call this boundary before
-/// GO-VIR-02-T12.
+/// Linux namespace bootstrap.
 pub(crate) fn launch_release_frontend(
+    prepared: PreparedSandbox,
     frontend: &BundleSnapshot,
     toolchain: &BundleSnapshot,
     executable: &str,
     args: &[String],
     environment: &BTreeMap<String, String>,
     captured_inputs: &[CapturedInput<'_>],
+    staged_directories: &[&str],
+    staged_placeholders: &[&str],
 ) -> Result<SandboxOutput, SandboxError> {
     #[cfg(not(target_os = "linux"))]
     {
         let _ = (
+            prepared,
             frontend,
             toolchain,
             executable,
             args,
             environment,
             captured_inputs,
+            staged_directories,
+            staged_placeholders,
         );
         Err(SandboxError::Unavailable)
     }
     #[cfg(target_os = "linux")]
     {
+        let _ = prepared;
         if !matches!(executable, "bin/go2vir" | "bin/rust2vir") {
             return Err(SandboxError::Unavailable);
         }
-        run_sandbox_probe()?;
         let temporary = tempfile::Builder::new()
             .prefix("mpk-frontend-sandbox-")
             .tempdir_in("/tmp")
@@ -93,7 +117,12 @@ pub(crate) fn launch_release_frontend(
         let root = temporary.path();
         materialize_snapshot(frontend, &root.join("mpk/frontend"))?;
         materialize_snapshot(toolchain, &root.join("mpk/toolchain"))?;
-        materialize_sources(captured_inputs, &root.join("mpk/source"))?;
+        materialize_sources(
+            captured_inputs,
+            staged_directories,
+            staged_placeholders,
+            &root.join("mpk/source"),
+        )?;
         for relative in [
             "dev",
             "mpk/cache/go-build",
@@ -366,13 +395,43 @@ fn materialize_snapshot(snapshot: &BundleSnapshot, root: &Path) -> Result<(), Sa
 }
 
 #[cfg(target_os = "linux")]
-fn materialize_sources(inputs: &[CapturedInput<'_>], root: &Path) -> Result<(), SandboxError> {
+fn materialize_sources(
+    inputs: &[CapturedInput<'_>],
+    staged_directories: &[&str],
+    staged_placeholders: &[&str],
+    root: &Path,
+) -> Result<(), SandboxError> {
     fs::create_dir_all(root).map_err(|_| SandboxError::Unavailable)?;
+    let mut occupied_paths = BTreeSet::new();
+    for relative in staged_directories {
+        if !occupied_paths.insert(*relative) {
+            return Err(SandboxError::Unavailable);
+        }
+        let path = private_materialized_path(root, relative)?;
+        fs::create_dir_all(path).map_err(|_| SandboxError::Unavailable)?;
+    }
+    for relative in staged_placeholders {
+        if !occupied_paths.insert(*relative) {
+            return Err(SandboxError::Unavailable);
+        }
+        let path = private_materialized_path(root, relative)?;
+        let parent = path.parent().ok_or(SandboxError::Unavailable)?;
+        fs::create_dir_all(parent).map_err(|_| SandboxError::Unavailable)?;
+        fs::OpenOptions::new()
+            .write(true)
+            .create_new(true)
+            .open(&path)
+            .map_err(|_| SandboxError::Unavailable)?;
+        fs::set_permissions(&path, fs::Permissions::from_mode(0o444))
+            .map_err(|_| SandboxError::Unavailable)?;
+    }
     let mut folded_paths = BTreeSet::new();
     for input in inputs {
         mpk_vc::validate_manifest_normalized_path(input.normalized_path)
             .map_err(|_| SandboxError::Unavailable)?;
-        if !folded_paths.insert(input.normalized_path.to_ascii_lowercase()) {
+        if !folded_paths.insert(input.normalized_path.to_ascii_lowercase())
+            || !occupied_paths.insert(input.normalized_path)
+        {
             return Err(SandboxError::Unavailable);
         }
         let path = materialized_path(root, input.normalized_path)?;
@@ -386,53 +445,82 @@ fn materialize_sources(inputs: &[CapturedInput<'_>], root: &Path) -> Result<(), 
 }
 
 #[cfg(target_os = "linux")]
+fn private_materialized_path(root: &Path, relative: &str) -> Result<PathBuf, SandboxError> {
+    let path = Path::new(relative);
+    if relative.is_empty()
+        || !path
+            .components()
+            .all(|component| matches!(component, Component::Normal(_)))
+    {
+        return Err(SandboxError::Unavailable);
+    }
+    Ok(root.join(path))
+}
+
+#[cfg(target_os = "linux")]
 fn seal_read_only_tree(root: &Path) -> Result<(), SandboxError> {
-    let mut directories = fs::read_dir(root)
-        .map_err(|_| SandboxError::Unavailable)?
-        .map(|entry| entry.map(|entry| entry.path()))
-        .collect::<Result<Vec<_>, _>>()
-        .map_err(|_| SandboxError::Unavailable)?;
-    directories.sort();
-    for path in directories {
-        if fs::symlink_metadata(&path)
+    let mut pending = vec![(root.to_owned(), false)];
+    while let Some((path, visited)) = pending.pop() {
+        if visited {
+            fs::set_permissions(&path, fs::Permissions::from_mode(0o555))
+                .map_err(|_| SandboxError::Unavailable)?;
+            continue;
+        }
+        let mut entries = fs::read_dir(&path)
             .map_err(|_| SandboxError::Unavailable)?
-            .is_dir()
-        {
-            seal_read_only_tree(&path)?;
+            .map(|entry| entry.map(|entry| entry.path()))
+            .collect::<Result<Vec<_>, _>>()
+            .map_err(|_| SandboxError::Unavailable)?;
+        entries.sort();
+        pending.push((path, true));
+        for entry in entries.into_iter().rev() {
+            if fs::symlink_metadata(&entry)
+                .map_err(|_| SandboxError::Unavailable)?
+                .is_dir()
+            {
+                pending.push((entry, false));
+            }
         }
     }
-    fs::set_permissions(root, fs::Permissions::from_mode(0o555))
-        .map_err(|_| SandboxError::Unavailable)
+    Ok(())
 }
 
 #[cfg(target_os = "linux")]
 fn unseal_private_tree(root: &Path) -> Result<(), SandboxError> {
-    let metadata = fs::symlink_metadata(root).map_err(|_| SandboxError::Unavailable)?;
-    if !metadata.is_dir() || metadata.file_type().is_symlink() {
-        return Err(SandboxError::Unavailable);
-    }
-    let mut entries = fs::read_dir(root)
-        .map_err(|_| SandboxError::Unavailable)?
-        .map(|entry| entry.map(|entry| entry.path()))
-        .collect::<Result<Vec<_>, _>>()
-        .map_err(|_| SandboxError::Unavailable)?;
-    entries.sort();
-    for path in entries {
-        let metadata = fs::symlink_metadata(&path).map_err(|_| SandboxError::Unavailable)?;
-        if metadata.file_type().is_symlink() {
-            return Err(SandboxError::Unavailable);
-        }
-        if metadata.is_dir() {
-            unseal_private_tree(&path)?;
-        } else if metadata.is_file() {
-            fs::set_permissions(&path, fs::Permissions::from_mode(0o600))
+    let mut pending = vec![(root.to_owned(), false)];
+    while let Some((path, visited)) = pending.pop() {
+        if visited {
+            fs::set_permissions(&path, fs::Permissions::from_mode(0o700))
                 .map_err(|_| SandboxError::Unavailable)?;
-        } else {
+            continue;
+        }
+        let metadata = fs::symlink_metadata(&path).map_err(|_| SandboxError::Unavailable)?;
+        if !metadata.is_dir() || metadata.file_type().is_symlink() {
             return Err(SandboxError::Unavailable);
         }
+        let mut entries = fs::read_dir(&path)
+            .map_err(|_| SandboxError::Unavailable)?
+            .map(|entry| entry.map(|entry| entry.path()))
+            .collect::<Result<Vec<_>, _>>()
+            .map_err(|_| SandboxError::Unavailable)?;
+        entries.sort();
+        pending.push((path, true));
+        for entry in entries.into_iter().rev() {
+            let metadata = fs::symlink_metadata(&entry).map_err(|_| SandboxError::Unavailable)?;
+            if metadata.file_type().is_symlink() {
+                return Err(SandboxError::Unavailable);
+            }
+            if metadata.is_dir() {
+                pending.push((entry, false));
+            } else if metadata.is_file() {
+                fs::set_permissions(&entry, fs::Permissions::from_mode(0o600))
+                    .map_err(|_| SandboxError::Unavailable)?;
+            } else {
+                return Err(SandboxError::Unavailable);
+            }
+        }
     }
-    fs::set_permissions(root, fs::Permissions::from_mode(0o700))
-        .map_err(|_| SandboxError::Unavailable)
+    Ok(())
 }
 
 #[cfg(target_os = "linux")]
@@ -797,5 +885,68 @@ mod tests {
         assert_eq!(retained.len(), FRONTEND_STDERR_BYTES_MAX + 1);
         assert!(overflow.load(Ordering::Acquire));
         assert!(!read_failed.load(Ordering::Acquire));
+    }
+
+    #[cfg(target_os = "linux")]
+    #[test]
+    fn private_source_namespace_preserves_directories_and_noncandidate_names() {
+        let temporary = tempfile::tempdir().unwrap();
+        let root = temporary.path().join("source");
+        let inputs = [CapturedInput {
+            kind: mpk_vc::InputKind::Source,
+            normalized_path: "main.go",
+            bytes: b"package vector\n",
+        }];
+        materialize_sources(
+            &inputs,
+            &["native.c", "vendor"],
+            &["ignored_test.go", "notes.txt", "vendor/modules.txt"],
+            &root,
+        )
+        .unwrap();
+
+        assert!(root.join("native.c").is_dir());
+        assert!(root.join("vendor").is_dir());
+        assert_eq!(fs::read(root.join("vendor/modules.txt")).unwrap(), b"");
+        assert_eq!(fs::read(root.join("ignored_test.go")).unwrap(), b"");
+        assert_eq!(fs::read(root.join("notes.txt")).unwrap(), b"");
+        assert_eq!(fs::read(root.join("main.go")).unwrap(), b"package vector\n");
+    }
+
+    #[cfg(target_os = "linux")]
+    #[test]
+    fn private_source_namespace_seals_and_unseals_a_deep_legal_tree() {
+        let temporary = tempfile::tempdir().unwrap();
+        let root = temporary.path().join("source");
+        let mut relative = String::new();
+        let mut directories = Vec::new();
+        for _ in 0..510 {
+            if !relative.is_empty() {
+                relative.push('/');
+            }
+            relative.push('d');
+            directories.push(relative.clone());
+        }
+        let directory_refs = directories.iter().map(String::as_str).collect::<Vec<_>>();
+        materialize_sources(&[], &directory_refs, &[], &root).unwrap();
+
+        seal_read_only_tree(&root).unwrap();
+        assert_eq!(
+            fs::metadata(root.join(&relative))
+                .unwrap()
+                .permissions()
+                .mode()
+                & 0o777,
+            0o555
+        );
+        unseal_private_tree(&root).unwrap();
+        assert_eq!(
+            fs::metadata(root.join(relative))
+                .unwrap()
+                .permissions()
+                .mode()
+                & 0o777,
+            0o700
+        );
     }
 }

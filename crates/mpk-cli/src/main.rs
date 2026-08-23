@@ -561,7 +561,7 @@ fn policy_scan_route(args: &[String]) -> Result<RunOutcome, CliError> {
     run_policy_scan_cli(&argv, &cwd)
         .map_err(|error| {
             let message = format!("policy scan failed: {error}");
-            if error.code().starts_with("POLICY_CLI_") {
+            if policy_configuration_error(error.code()) {
                 CliError::Usage(format!("{message}\n{}", policy_scan_usage_text()))
             } else {
                 CliError::Input(message)
@@ -587,7 +587,7 @@ fn policy_verify_route(args: &[String]) -> Result<RunOutcome, CliError> {
     run_policy_verify_cli(&argv, &cwd)
         .map_err(|error| {
             let message = format!("policy verify failed: {error}");
-            if error.code().starts_with("POLICY_CLI_") {
+            if policy_configuration_error(error.code()) {
                 CliError::Usage(format!("{message}\n{}", policy_verify_usage_text()))
             } else {
                 CliError::Input(message)
@@ -595,6 +595,17 @@ fn policy_verify_route(args: &[String]) -> Result<RunOutcome, CliError> {
         })?
         .map(RunOutcome::PolicyVerify)
         .ok_or_else(|| CliError::Usage(policy_verify_usage_text().to_owned()))
+}
+
+fn policy_configuration_error(code: &str) -> bool {
+    code.starts_with("POLICY_CLI_")
+        || code.starts_with("POLICY_PROFILE_")
+        || matches!(
+            code,
+            "FRONTEND_REGISTRY_ASSERTION"
+                | "FRONTEND_BUNDLE_UNKNOWN"
+                | "FRONTEND_BUNDLE_INCOMPATIBLE"
+        )
 }
 
 fn is_help_args(args: &[String]) -> bool {

@@ -109,7 +109,8 @@ pub(crate) struct SelectedFrontendRelease {
 
 pub(crate) struct InstalledReleaseResolver {
     registry: ValidatedReleaseRegistry,
-    snapshots: BTreeMap<String, Arc<BundleSnapshot>>,
+    #[cfg(target_os = "linux")]
+    root: linux::InstalledReleaseRoot,
 }
 
 impl InstalledReleaseResolver {
@@ -125,11 +126,8 @@ impl InstalledReleaseResolver {
         }
         #[cfg(target_os = "linux")]
         {
-            let (registry, snapshots) = linux::load_installed_release()?;
-            Ok(Self {
-                registry,
-                snapshots,
-            })
+            let (root, registry) = linux::load_installed_registry()?;
+            Ok(Self { registry, root })
         }
     }
 
@@ -138,7 +136,62 @@ impl InstalledReleaseResolver {
         request: &ReleaseSelectionRequest,
     ) -> Result<SelectedFrontendRelease, FrontendReleaseError> {
         let resolved = self.registry.resolve(request).map_err(selection_error)?;
-        selected_from_snapshots(&self.registry, resolved, &self.snapshots)
+        #[cfg(not(target_os = "linux"))]
+        {
+            let _ = resolved;
+            Err(FrontendReleaseError::new(
+                FrontendReleaseCode::SandboxUnavailable,
+                "the v0 installed release root is Linux-only",
+            ))
+        }
+        #[cfg(target_os = "linux")]
+        {
+            let snapshots = linux::snapshot_selected_bundles(
+                &self.root,
+                &self.registry,
+                &resolved.frontend.bundle_id,
+                &resolved.toolchain.bundle_id,
+            )?;
+            selected_from_snapshots(&self.registry, resolved, &snapshots)
+        }
+    }
+}
+
+pub(crate) fn assert_embedded_registry(
+    request: &ReleaseSelectionRequest,
+) -> Result<(), FrontendReleaseError> {
+    if request.registry_id != EXPECTED_REGISTRY_ID
+        || !matches_embedded_registry_sha256(&request.registry_sha256)
+    {
+        return Err(FrontendReleaseError::new(
+            FrontendReleaseCode::RegistryAssertion,
+            "caller registry assertions differ from the build-pinned identity",
+        ));
+    }
+    Ok(())
+}
+
+fn matches_embedded_registry_sha256(value: &str) -> bool {
+    value.len() == EXPECTED_REGISTRY_SHA256.len() * 2
+        && value
+            .as_bytes()
+            .chunks_exact(2)
+            .zip(EXPECTED_REGISTRY_SHA256)
+            .all(|(pair, expected)| decode_hex_pair(pair) == Some(expected))
+}
+
+fn decode_hex_pair(pair: &[u8]) -> Option<u8> {
+    let [high, low] = pair else {
+        return None;
+    };
+    Some(hex_nibble(*high)? << 4 | hex_nibble(*low)?)
+}
+
+fn hex_nibble(byte: u8) -> Option<u8> {
+    match byte {
+        b'0'..=b'9' => Some(byte - b'0'),
+        b'a'..=b'f' => Some(byte - b'a' + 10),
+        _ => None,
     }
 }
 

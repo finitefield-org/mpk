@@ -238,6 +238,19 @@ The v0 profile responsibilities are:
 - Rust records the root "Cargo.toml", "Cargo.lock", every used contract, and
   the exact compiled module-closure source set required by RUST_SUBSET_V0.md.
 
+Rust source-kind paths are portable paths selected by that exact module
+closure, not a filename-suffix class. In particular, the selected `[lib].path`
+may have no `.rs` suffix. The root `Cargo.toml` and root `Cargo.lock` retain
+their distinct build-manifest and lockfile kinds; a different path whose
+basename is `Cargo.lock` remains source-kind when selected by the module
+closure. Nested `Cargo.toml` remains forbidden by RUST_SUBSET_V0.md.
+
+Rust contract-kind inputs likewise use the explicit portable paths accepted by
+RUST_SUBSET_V0.md and have no filename-suffix requirement. Go contract-kind
+inputs have a `.json` suffix matched case-insensitively; their original
+portable path spelling is retained. GO_VIR_PROFILE_V0.md owns its narrower
+exact discovered-sidecar basename set.
+
 A target repository toolchain file is not a source input. Toolchain and
 frontend build provenance is represented by the selected release identities.
 An external or compiler-synthetic source file rejects unless the language

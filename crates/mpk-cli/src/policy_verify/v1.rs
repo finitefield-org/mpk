@@ -9,10 +9,10 @@ use crate::policy_profile::{
 };
 use crate::policy_report::render_policy_evidence_v1_markdown;
 use crate::policy_scan::v1::{
-    build_policy_scan_v1_output, capture_invocation_inputs,
+    build_policy_scan_v1_output, capture_invocation_staging,
     parse_policy_scan_v1_argv_through_scalars, validate_owned_captured_inputs,
-    validate_policy_scan_v1_profile, OwnedCapturedInput, PolicyScanV1Error, PolicyScanV1Invocation,
-    PolicyScanV1RunOutput,
+    validate_policy_scan_v1_profile, OwnedCapturedInput, OwnedFrontendStaging, PolicyScanV1Error,
+    PolicyScanV1Invocation, PolicyScanV1RunOutput,
 };
 use crate::policy_schema::{
     canonical_policy_evidence_v1_json, expected_reproduction_recipes,
@@ -24,12 +24,13 @@ use crate::policy_schema::{
 };
 use mpk_cert::encode::SourceManifest as CertificateSourceManifest;
 use mpk_cert::{hash_hex, hash_with_domain, HashDomain};
+#[cfg(test)]
+use mpk_vc::ReleaseSelectionRequest;
 use mpk_vc::{
     attach_vc_hash, canonical_json_bytes, emit_validated_vc_skeleton_v1, generate_program_vcs,
     generate_vc_v1, parse_strict_json, CapturedInput, GroupedTheoremDeclaration,
-    ReleaseSelectionRequest, SourceManifestValidationContext, StrictJsonLimits,
-    ValidatedSourceManifest, ValidatedVcCertificateSkeleton, ValidatedVcDocument,
-    VC_SCHEMA_VERSION,
+    SourceManifestValidationContext, StrictJsonLimits, ValidatedSourceManifest,
+    ValidatedVcCertificateSkeleton, ValidatedVcDocument, VC_SCHEMA_VERSION,
 };
 use std::collections::{BTreeMap, BTreeSet};
 use std::error::Error;
@@ -69,10 +70,11 @@ const VERIFY_ONLY_OPTIONS: [&str; 5] = [
     "--evidence-md",
 ];
 const FLAGS: [&str; 2] = ["--strict", "--update-fixtures"];
-const FORBIDDEN_LOCATORS: [&str; 8] = [
+const FORBIDDEN_LOCATORS: [&str; 9] = [
     "--frontend",
     "--frontend-helper",
     "--driver",
+    "--removed-frontend",
     "--toolchain-root",
     "--toolchain-path",
     "--registry",
@@ -291,32 +293,6 @@ fn scan_error(error: PolicyScanV1Error) -> PolicyVerifyV1Error {
     PolicyVerifyV1Error::new(error.code(), error.to_string())
 }
 
-pub(crate) fn run_policy_verify_v1(
-    argv: &[String],
-    working_directory: &Path,
-    captured_inputs: Vec<OwnedCapturedInput>,
-) -> Result<Option<PolicyVerifyV1RunOutput>, PolicyVerifyV1Error> {
-    run_policy_verify_v1_with(
-        argv,
-        working_directory,
-        captured_inputs,
-        |release| {
-            prepare_installed_frontend(release).map_err(|error| {
-                PolicyVerifyV1Error::new(
-                    error.code().as_str(),
-                    "generic frontend release preflight failed",
-                )
-            })
-        },
-        |prepared, request| {
-            run_prepared_frontend(prepared, request).map_err(|error| {
-                PolicyVerifyV1Error::new(error.code().as_str(), "generic frontend runner failed")
-            })
-        },
-        |relative| git_tracked(working_directory, relative),
-    )
-}
-
 /// Runs the released policy-verification command over one immutable source
 /// snapshot and the registry-selected frontend/toolchain pair.
 pub fn run_cli(
@@ -326,22 +302,47 @@ pub fn run_cli(
     let Some(invocation) = parse_policy_verify_v1_argv(argv)? else {
         return Ok(None);
     };
-    let captured_inputs =
-        capture_invocation_inputs(&invocation.scan, working_directory).map_err(scan_error)?;
-    let output = run_policy_verify_v1(argv, working_directory, captured_inputs)?
-        .ok_or_else(|| cli_error("verify invocation unexpectedly selected help"))?;
+    let prepared =
+        prepare_installed_frontend(&invocation.scan.release_request()).map_err(|error| {
+            PolicyVerifyV1Error::new(
+                error.code().as_str(),
+                "generic frontend release preflight failed",
+            )
+        })?;
+    let mut tracked = |relative: &Path| git_tracked(working_directory, relative);
+    let outputs = preflight_outputs(
+        working_directory,
+        &invocation.evidence_json,
+        &invocation.evidence_md,
+        invocation.update_fixtures,
+        &mut tracked,
+    )?;
+    let staging =
+        capture_invocation_staging(&invocation.scan, working_directory).map_err(scan_error)?;
+    let output = run_prepared_policy_verify_v1(
+        invocation,
+        outputs,
+        staging,
+        prepared,
+        |prepared, request| {
+            run_prepared_frontend(prepared, request).map_err(|error| {
+                PolicyVerifyV1Error::new(error.code().as_str(), "generic frontend runner failed")
+            })
+        },
+    )?;
     Ok(Some(format!(
         "ok policy verify status=complete evidence_json={} evidence_md={}",
         output.invocation.evidence_json, output.invocation.evidence_md
     )))
 }
 
+#[cfg(test)]
 pub(crate) fn run_policy_verify_v1_with<P, F, R, T>(
     argv: &[String],
     working_directory: &Path,
     captured_inputs: Vec<OwnedCapturedInput>,
     mut prepare: F,
-    mut runner: R,
+    runner: R,
     mut tracked: T,
 ) -> Result<Option<PolicyVerifyV1RunOutput>, PolicyVerifyV1Error>
 where
@@ -360,7 +361,30 @@ where
         invocation.update_fixtures,
         &mut tracked,
     )?;
-    validate_owned_captured_inputs(&captured_inputs).map_err(scan_error)?;
+    let staging = OwnedFrontendStaging {
+        captured_inputs,
+        staged_directories: Vec::new(),
+        staged_placeholders: Vec::new(),
+    };
+    run_prepared_policy_verify_v1(invocation, outputs, staging, prepared, runner).map(Some)
+}
+
+fn run_prepared_policy_verify_v1<P, R>(
+    invocation: PolicyVerifyV1Invocation,
+    outputs: OutputPreflight,
+    staging: OwnedFrontendStaging,
+    prepared: P,
+    mut runner: R,
+) -> Result<PolicyVerifyV1RunOutput, PolicyVerifyV1Error>
+where
+    R: for<'a> FnMut(P, FrontendRunRequest<'a>) -> Result<AcceptedFrontendRun, PolicyVerifyV1Error>,
+{
+    validate_owned_captured_inputs(&staging.captured_inputs).map_err(scan_error)?;
+    let OwnedFrontendStaging {
+        captured_inputs,
+        staged_directories,
+        staged_placeholders,
+    } = staging;
     let policy_parameters = invocation.scan.semantic_parameters();
     let policy_selection = invocation.scan.selection();
     let semantic_parameters = serde_json::to_value(&policy_parameters)
@@ -371,6 +395,14 @@ where
         .iter()
         .map(OwnedCapturedInput::as_ref)
         .collect::<Vec<_>>();
+    let staged_directory_refs = staged_directories
+        .iter()
+        .map(String::as_str)
+        .collect::<Vec<_>>();
+    let staged_placeholder_refs = staged_placeholders
+        .iter()
+        .map(String::as_str)
+        .collect::<Vec<_>>();
     let frontend = runner(
         prepared,
         FrontendRunRequest {
@@ -378,6 +410,8 @@ where
             semantic_parameters: &semantic_parameters,
             selection: &selection,
             captured_inputs: &captured_refs,
+            staged_directories: &staged_directory_refs,
+            staged_placeholders: &staged_placeholder_refs,
             contracts: &invocation.scan.contracts,
         },
     )?;
@@ -405,7 +439,7 @@ where
             "strict verification retained one or more proof-pending members",
         ));
     }
-    Ok(Some(PolicyVerifyV1RunOutput {
+    Ok(PolicyVerifyV1RunOutput {
         invocation,
         scan: finalized.scan,
         vc: finalized.vc,
@@ -413,7 +447,7 @@ where
         certificate_manifest: finalized.certificate_manifest,
         certificate_source_manifest: finalized.certificate_source_manifest,
         evidence: finalized.evidence,
-    }))
+    })
 }
 
 struct FinalizedEvidence {
@@ -1384,6 +1418,7 @@ mod tests {
     use crate::policy_scan::v1::tests::{
         go_identity_inputs, go_scan_argv, non_success_frontend_run, successful_frontend_run,
     };
+    use mpk_vc::validate_release_registry;
     use std::cell::Cell;
 
     fn verify_argv(json: &str, markdown: &str) -> Vec<String> {
@@ -1460,15 +1495,15 @@ mod tests {
             "POLICY_CLI_REQUIRED"
         );
 
-        let mut forbidden = argv.clone();
-        forbidden.extend([
-            "--frontend".to_owned(),
-            "/tmp/unregistered-frontend".to_owned(),
-        ]);
-        assert_eq!(
-            parse_policy_verify_v1_argv(&forbidden).unwrap_err().code(),
-            "POLICY_CLI_FORBIDDEN_LOCATOR"
-        );
+        for option in FORBIDDEN_LOCATORS {
+            let mut forbidden = argv.clone();
+            forbidden.extend([option.to_owned(), "/tmp/unregistered-frontend".to_owned()]);
+            assert_eq!(
+                parse_policy_verify_v1_argv(&forbidden).unwrap_err().code(),
+                "POLICY_CLI_FORBIDDEN_LOCATOR",
+                "{option}"
+            );
+        }
 
         let mut malformed_output = argv;
         let position = malformed_output
@@ -1487,6 +1522,27 @@ mod tests {
                 .code(),
             "POLICY_CLI_SCALAR"
         );
+    }
+
+    #[test]
+    fn released_verify_release_preflight_precedes_source_capture() {
+        let directory = tempfile::tempdir().unwrap();
+        let mut argv = verify_argv("evidence.json", "evidence.md");
+        argv[3] = "missing-source".to_owned();
+        let registry = validate_release_registry(include_bytes!(
+            "../../../../release/bundles/bundle-registry.json"
+        ))
+        .unwrap();
+        let hash_position = argv
+            .iter()
+            .position(|argument| argument == "--require-release-registry-sha256")
+            .unwrap();
+        argv[hash_position + 1] = registry.registry_digest().to_hex();
+
+        let error = run_cli(&argv, directory.path()).unwrap_err();
+        assert_eq!(error.code(), "FRONTEND_SANDBOX_UNAVAILABLE");
+        assert!(!directory.path().join("evidence.json").exists());
+        assert!(!directory.path().join("evidence.md").exists());
     }
 
     #[test]

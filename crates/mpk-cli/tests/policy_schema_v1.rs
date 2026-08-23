@@ -248,6 +248,35 @@ fn policy_scan_v1_executes_every_normative_case() {
 }
 
 #[test]
+fn rust_package_grammar_is_enforced_at_the_shared_scan_boundary() {
+    let vector: ScanVector = load("develop/specs/vectors/policy-scan-v1.json");
+    let fixture = vector
+        .fixtures
+        .iter()
+        .find(|fixture| fixture.id == "scan.rust_source_error")
+        .unwrap();
+    let context = vector
+        .linkage_contexts
+        .iter()
+        .find(|context| context.id == fixture.linkage_context)
+        .unwrap();
+
+    for invalid_package in ["2vector", "vector.core"] {
+        let mut value = fixture.input.clone();
+        value["selection"]["package"] = Value::String(invalid_package.to_owned());
+        let mut linkage = context.linkage();
+        let PolicySelection::Rust(selection) = &mut linkage.selection else {
+            panic!("Rust fixture must use Rust selection");
+        };
+        selection.package = invalid_package.to_owned();
+        let error = import_policy_scan_v1_json(&canonical_transport(&value), &linkage)
+            .expect_err("invalid Rust package grammar must reject before linkage");
+        assert_eq!(error.phase().as_str(), "scalar", "{invalid_package}");
+        assert_eq!(error.code(), "POLICY_SCALAR", "{invalid_package}");
+    }
+}
+
+#[test]
 fn policy_evidence_v1_executes_every_normative_case() {
     let scan: ScanVector = load("develop/specs/vectors/policy-scan-v1.json");
     let vector: EvidenceVector = load("develop/specs/vectors/policy-evidence-v1.json");

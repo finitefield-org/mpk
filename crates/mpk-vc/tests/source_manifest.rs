@@ -85,6 +85,13 @@ fn source_manifest_vectors_are_exhaustive_and_match_normative_outcomes() {
     assert_non_vector_collection_limits(&base, context);
     assert_input_subphase_precedence(&base, context);
     assert_source_map_capture_swap_rejected(&base, &vir, &source_map, &registry, &capture_storage);
+    assert_case_insensitive_go_contract_suffix(
+        &base,
+        &vir,
+        &source_map,
+        &registry,
+        &capture_storage,
+    );
 
     let mut all_ids = BTreeSet::new();
     let mut visited = BTreeSet::new();
@@ -176,6 +183,47 @@ fn assert_source_map_capture_swap_rejected(
     .expect_err("manifest must not swap bytes after source-map validation");
     assert_eq!(error.phase.as_str(), "artifacts");
     assert_eq!(error.code.as_str(), "SOURCE_MANIFEST_SOURCE_MAP_LINKAGE");
+}
+
+fn assert_case_insensitive_go_contract_suffix(
+    base: &Value,
+    vir: &VirModule,
+    source_map: &ValidatedSourceMap,
+    registry: &ValidatedReleaseRegistry,
+    original_storage: &[(InputKind, String, Vec<u8>)],
+) {
+    let mut storage = original_storage.to_vec();
+    storage
+        .iter_mut()
+        .find(|(kind, _, _)| *kind == InputKind::Contract)
+        .unwrap()
+        .1 = "contracts/identity.JSON".to_owned();
+    let captured_inputs = captured_refs(&storage);
+
+    let mut manifest: SourceManifest = serde_json::from_value(base.clone()).unwrap();
+    manifest
+        .inputs
+        .iter_mut()
+        .find(|input| input.kind == InputKind::Contract)
+        .unwrap()
+        .normalized_path = "contracts/identity.JSON".to_owned();
+    manifest.input_set_hash = input_set_hash(&manifest.inputs)
+        .unwrap()
+        .as_str()
+        .to_owned();
+    manifest.source_manifest_hash = source_manifest_hash(&manifest).unwrap().as_str().to_owned();
+
+    import_frontend_source_manifest_json(
+        &serde_json::to_vec(&manifest).unwrap(),
+        SourceManifestValidationContext {
+            vir,
+            source_map,
+            captured_inputs: &captured_inputs,
+            release_registry: registry,
+            expected_language_configuration: None,
+        },
+    )
+    .expect("Go contract suffix matching must retain portable path case");
 }
 
 fn assert_non_vector_collection_limits(base: &Value, context: SourceManifestValidationContext<'_>) {

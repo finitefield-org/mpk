@@ -12,7 +12,7 @@ use std::os::unix::fs::{MetadataExt, PermissionsExt};
 use std::path::Path;
 use std::sync::Arc;
 
-struct InstalledReleaseRoot {
+pub(super) struct InstalledReleaseRoot {
     directory: File,
     device: u64,
 }
@@ -36,13 +36,8 @@ struct ObservedInventory {
     files: BTreeMap<String, StableMetadata>,
 }
 
-pub(super) fn load_installed_release() -> Result<
-    (
-        ValidatedReleaseRegistry,
-        BTreeMap<String, Arc<BundleSnapshot>>,
-    ),
-    FrontendReleaseError,
-> {
+pub(super) fn load_installed_registry(
+) -> Result<(InstalledReleaseRoot, ValidatedReleaseRegistry), FrontendReleaseError> {
     if !cfg!(all(target_arch = "x86_64", target_env = "gnu")) {
         return Err(release_error(
             FrontendReleaseCode::SandboxUnavailable,
@@ -51,15 +46,7 @@ pub(super) fn load_installed_release() -> Result<
     }
     let root = installed_release_root()?;
     let registry = open_installed_registry(&root)?;
-    let snapshots = snapshot_registered_bundles(&root, &registry)?;
-    require_exact_names(
-        &root,
-        ".",
-        &["bin", "libexec", "share"],
-        FrontendReleaseCode::BundleInvalid,
-        FrontendReleaseCode::BundleInvalid,
-    )?;
-    Ok((registry, snapshots))
+    Ok((root, registry))
 }
 
 fn installed_release_root() -> Result<InstalledReleaseRoot, FrontendReleaseError> {
@@ -237,9 +224,11 @@ fn open_installed_registry(
     Ok(registry)
 }
 
-fn snapshot_registered_bundles(
+pub(super) fn snapshot_selected_bundles(
     root: &InstalledReleaseRoot,
     registry: &ValidatedReleaseRegistry,
+    frontend_bundle_id: &str,
+    toolchain_bundle_id: &str,
 ) -> Result<BTreeMap<String, Arc<BundleSnapshot>>, FrontendReleaseError> {
     require_exact_names(
         root,
@@ -262,7 +251,7 @@ fn snapshot_registered_bundles(
     for toolchain in &registry.registry().toolchain_bundles {
         expected.insert(toolchain.bundle_id.clone(), &toolchain.inventory);
     }
-    let expected_ids: BTreeSet<_> = expected.keys().cloned().collect();
+    let expected_ids = expected.keys().cloned().collect::<BTreeSet<_>>();
     let observed = directory_names_beneath(
         root,
         "libexec/mpk/bundles",
@@ -273,19 +262,43 @@ fn snapshot_registered_bundles(
             "installed bundle directory set is not exact",
         ));
     }
-    let mut snapshots = BTreeMap::new();
     let mut directory_identities = BTreeSet::new();
     let mut file_identities = BTreeSet::new();
-    for (bundle_id, inventory) in expected {
+    let mut observed_inventories = BTreeMap::new();
+    for (bundle_id, inventory) in &expected {
         let bundle_root = format!("libexec/mpk/bundles/{bundle_id}");
-        let snapshot = snapshot_inventory(
-            root,
-            &bundle_root,
+        let observed = enumerate_bundle(root, &bundle_root)?;
+        validate_inventory_metadata(
+            &observed,
             inventory,
             &mut directory_identities,
             &mut file_identities,
         )?;
+        observed_inventories.insert(bundle_id.clone(), observed);
+    }
+    let selected_ids = BTreeSet::from([
+        frontend_bundle_id.to_owned(),
+        toolchain_bundle_id.to_owned(),
+    ]);
+    let mut snapshots = BTreeMap::new();
+    for bundle_id in selected_ids {
+        let inventory = expected
+            .get(&bundle_id)
+            .ok_or_else(|| bundle_invalid("selected bundle inventory is absent"))?;
+        let observed = observed_inventories
+            .get(&bundle_id)
+            .ok_or_else(|| bundle_invalid("selected bundle metadata is absent"))?;
+        let bundle_root = format!("libexec/mpk/bundles/{bundle_id}");
+        let snapshot = snapshot_inventory(root, &bundle_root, inventory, observed)?;
         snapshots.insert(bundle_id, Arc::new(snapshot));
+    }
+    for bundle_id in expected.keys() {
+        let bundle_root = format!("libexec/mpk/bundles/{bundle_id}");
+        if observed_inventories.get(bundle_id) != Some(&enumerate_bundle(root, &bundle_root)?) {
+            return Err(bundle_invalid(
+                "installed bundle namespace changed during snapshot",
+            ));
+        }
     }
     let observed_after = directory_names_beneath(
         root,
@@ -297,6 +310,13 @@ fn snapshot_registered_bundles(
             "installed bundle directory set changed during snapshot",
         ));
     }
+    require_exact_names(
+        root,
+        ".",
+        &["bin", "libexec", "share"],
+        FrontendReleaseCode::BundleInvalid,
+        FrontendReleaseCode::BundleInvalid,
+    )?;
     Ok(snapshots)
 }
 
@@ -304,8 +324,7 @@ fn snapshot_inventory(
     release_root: &InstalledReleaseRoot,
     bundle_root: &str,
     inventory: &BundleInventory,
-    directory_identities: &mut BTreeSet<(u64, u64)>,
-    file_identities: &mut BTreeSet<(u64, u64)>,
+    observed_metadata: &ObservedInventory,
 ) -> Result<BundleSnapshot, FrontendReleaseError> {
     let expected: BTreeMap<_, _> = inventory
         .files
@@ -313,27 +332,8 @@ fn snapshot_inventory(
         .map(|file| (file.path.clone(), file))
         .collect();
     let observed_before = enumerate_bundle(release_root, bundle_root)?;
-    if observed_before
-        .files
-        .keys()
-        .cloned()
-        .collect::<BTreeSet<_>>()
-        != expected.keys().cloned().collect()
-        || observed_before
-            .directories
-            .keys()
-            .cloned()
-            .collect::<BTreeSet<_>>()
-            != implied_directories(expected.keys().map(String::as_str))
-    {
-        return Err(bundle_invalid(
-            "installed bundle inventory is incomplete or contains extras",
-        ));
-    }
-    for identity in observed_before.directories.values() {
-        if !directory_identities.insert((identity.device, identity.inode)) {
-            return Err(bundle_invalid("bundle directory identity is aliased"));
-        }
+    if &observed_before != observed_metadata {
+        return Err(bundle_invalid("bundle metadata changed before snapshot"));
     }
     let mut files = BTreeMap::new();
     for (relative, descriptor) in expected {
@@ -350,7 +350,6 @@ fn snapshot_inventory(
             .map_err(|_| bundle_invalid("bundle file metadata is unavailable"))?;
         if before.len() != u64::try_from(descriptor.size_bytes).unwrap_or(u64::MAX)
             || observed_before.files.get(&relative) != Some(&stable_metadata(&before))
-            || !file_identities.insert((before.dev(), before.ino()))
         {
             return Err(bundle_invalid("bundle file size or identity is invalid"));
         }
@@ -383,6 +382,50 @@ fn snapshot_inventory(
         return Err(bundle_invalid("bundle namespace changed during snapshot"));
     }
     Ok(BundleSnapshot { files })
+}
+
+fn validate_inventory_metadata(
+    observed: &ObservedInventory,
+    inventory: &BundleInventory,
+    directory_identities: &mut BTreeSet<(u64, u64)>,
+    file_identities: &mut BTreeSet<(u64, u64)>,
+) -> Result<(), FrontendReleaseError> {
+    let expected: BTreeMap<_, _> = inventory
+        .files
+        .iter()
+        .map(|file| (file.path.clone(), file))
+        .collect();
+    if observed.files.keys().cloned().collect::<BTreeSet<_>>() != expected.keys().cloned().collect()
+        || observed
+            .directories
+            .keys()
+            .cloned()
+            .collect::<BTreeSet<_>>()
+            != implied_directories(expected.keys().map(String::as_str))
+    {
+        return Err(bundle_invalid(
+            "installed bundle inventory is incomplete or contains extras",
+        ));
+    }
+    for identity in observed.directories.values() {
+        if !directory_identities.insert((identity.device, identity.inode)) {
+            return Err(bundle_invalid("bundle directory identity is aliased"));
+        }
+    }
+    for (relative, descriptor) in expected {
+        let metadata = observed
+            .files
+            .get(&relative)
+            .ok_or_else(|| bundle_invalid("installed bundle file metadata is absent"))?;
+        let expected_mode = if descriptor.executable { 0o555 } else { 0o444 };
+        if metadata.mode != expected_mode
+            || metadata.size != u64::try_from(descriptor.size_bytes).unwrap_or(u64::MAX)
+            || !file_identities.insert((metadata.device, metadata.inode))
+        {
+            return Err(bundle_invalid("bundle file size or identity is invalid"));
+        }
+    }
+    Ok(())
 }
 
 fn implied_directories<'a>(paths: impl Iterator<Item = &'a str>) -> BTreeSet<String> {

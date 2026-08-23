@@ -7,6 +7,7 @@ use mpk_vc::{
 use serde::de::IgnoredAny;
 use serde_json::{Map, Value};
 use std::cmp::Ordering;
+use std::collections::{BTreeMap, BTreeSet};
 use std::error::Error;
 use std::fmt;
 
@@ -28,6 +29,19 @@ pub struct FrontendProtocolRequest<'a> {
     pub selection: &'a Value,
     pub release_registry: Option<&'a ValidatedReleaseRegistry>,
     pub captured_inputs: &'a [CapturedInput<'a>],
+}
+
+/// Runner-internal immutable staging set. A successful frontend manifest
+/// selects its exact captured closure before entering the public protocol
+/// validator, whose input inventory remains exact.
+#[derive(Clone, Copy, Debug)]
+pub(crate) struct FrontendStagingRequest<'a> {
+    pub(crate) source_language: &'a str,
+    pub(crate) semantic_profile: &'a str,
+    pub(crate) semantic_parameters: &'a Value,
+    pub(crate) selection: &'a Value,
+    pub(crate) release_registry: Option<&'a ValidatedReleaseRegistry>,
+    pub(crate) available_inputs: &'a [CapturedInput<'a>],
 }
 
 #[derive(Clone, Copy, Debug)]
@@ -114,6 +128,32 @@ pub fn validate_frontend_process(
     request: FrontendProtocolRequest<'_>,
     process: FrontendProcessFacts<'_>,
 ) -> Result<AcceptedFrontendEnvelope, FrontendProtocolError> {
+    validate_frontend_process_inner(request, process, false)
+}
+
+pub(crate) fn validate_frontend_process_from_staging(
+    request: FrontendStagingRequest<'_>,
+    process: FrontendProcessFacts<'_>,
+) -> Result<AcceptedFrontendEnvelope, FrontendProtocolError> {
+    validate_frontend_process_inner(
+        FrontendProtocolRequest {
+            source_language: request.source_language,
+            semantic_profile: request.semantic_profile,
+            semantic_parameters: request.semantic_parameters,
+            selection: request.selection,
+            release_registry: request.release_registry,
+            captured_inputs: request.available_inputs,
+        },
+        process,
+        true,
+    )
+}
+
+fn validate_frontend_process_inner(
+    request: FrontendProtocolRequest<'_>,
+    process: FrontendProcessFacts<'_>,
+    project_staging: bool,
+) -> Result<AcceptedFrontendEnvelope, FrontendProtocolError> {
     if process.stdout.len() > FRONTEND_STDOUT_BYTES_MAX
         || process.stderr_observed_bytes > FRONTEND_STDERR_BYTES_MAX
     {
@@ -158,8 +198,19 @@ pub fn validate_frontend_process(
         return Err(protocol(FrontendProtocolCode::ProtocolNoncanonical));
     }
     validate_identity(&value, request)?;
+    let projected_inputs = if status == "ir-lowered" && project_staging {
+        Some(project_manifest_inputs(&value, request.captured_inputs)?)
+    } else {
+        None
+    };
     let artifacts = if status == "ir-lowered" {
-        Some(validate_success_artifacts(&value, request)?)
+        Some(validate_success_artifacts(
+            &value,
+            request,
+            projected_inputs
+                .as_deref()
+                .unwrap_or(request.captured_inputs),
+        )?)
     } else {
         None
     };
@@ -498,6 +549,7 @@ fn validate_identity(
 fn validate_success_artifacts(
     envelope: &Value,
     request: FrontendProtocolRequest<'_>,
+    captured_inputs: &[CapturedInput<'_>],
 ) -> Result<AcceptedFrontendArtifacts, FrontendProtocolError> {
     let registry = request
         .release_registry
@@ -520,7 +572,7 @@ fn validate_success_artifacts(
         &map_bytes,
         SourceMapValidationContext {
             vir: &vir,
-            captured_inputs: request.captured_inputs,
+            captured_inputs,
             synthetic_permissions: &[],
         },
     )
@@ -542,7 +594,7 @@ fn validate_success_artifacts(
         SourceManifestValidationContext {
             vir: &vir,
             source_map: &source_map,
-            captured_inputs: request.captured_inputs,
+            captured_inputs,
             release_registry: registry,
             expected_language_configuration: expected_language_configuration.as_ref(),
         },
@@ -553,7 +605,7 @@ fn validate_success_artifacts(
     {
         return Err(protocol(FrontendProtocolCode::ProtocolArtifactMismatch));
     }
-    validate_success_issues(envelope, &vir, manifest.manifest(), request.captured_inputs)?;
+    validate_success_issues(envelope, &vir, manifest.manifest(), captured_inputs)?;
     let selected = request
         .selection
         .get("function")
@@ -573,6 +625,65 @@ fn validate_success_artifacts(
         source_map,
         source_manifest: manifest,
     })
+}
+
+fn project_manifest_inputs<'a>(
+    envelope: &Value,
+    available_inputs: &[CapturedInput<'a>],
+) -> Result<Vec<CapturedInput<'a>>, FrontendProtocolError> {
+    let available_inputs = index_available_inputs(available_inputs)?;
+    let manifest_inputs = envelope
+        .pointer("/source_manifest/inputs")
+        .and_then(Value::as_array)
+        .ok_or_else(|| protocol(FrontendProtocolCode::ProtocolArtifactMismatch))?;
+    let source_language = match envelope.get("source_language").and_then(Value::as_str) {
+        Some("go") => mpk_vc::SourceLanguage::Go,
+        Some("rust") => mpk_vc::SourceLanguage::Rust,
+        _ => return Err(protocol(FrontendProtocolCode::ProtocolArtifactMismatch)),
+    };
+    mpk_vc::validate_source_manifest_input_count(source_language, manifest_inputs.len() as u64)
+        .map_err(|_| protocol(FrontendProtocolCode::ProtocolArtifactMismatch))?;
+    let mut captured_inputs = Vec::with_capacity(manifest_inputs.len());
+    for manifest_input in manifest_inputs {
+        let object = manifest_input
+            .as_object()
+            .ok_or_else(|| protocol(FrontendProtocolCode::ProtocolArtifactMismatch))?;
+        let path = object
+            .get("normalized_path")
+            .and_then(Value::as_str)
+            .ok_or_else(|| protocol(FrontendProtocolCode::ProtocolArtifactMismatch))?;
+        let kind = match object.get("kind").and_then(Value::as_str) {
+            Some("source") => mpk_vc::InputKind::Source,
+            Some("contract") => mpk_vc::InputKind::Contract,
+            Some("build_manifest") => mpk_vc::InputKind::BuildManifest,
+            Some("lockfile") => mpk_vc::InputKind::Lockfile,
+            _ => return Err(protocol(FrontendProtocolCode::ProtocolArtifactMismatch)),
+        };
+        let input = available_inputs
+            .get(path)
+            .ok_or_else(|| protocol(FrontendProtocolCode::ProtocolArtifactMismatch))?;
+        if input.kind != kind {
+            return Err(protocol(FrontendProtocolCode::ProtocolArtifactMismatch));
+        }
+        captured_inputs.push(*input);
+    }
+    Ok(captured_inputs)
+}
+
+fn index_available_inputs<'a>(
+    available_inputs: &[CapturedInput<'a>],
+) -> Result<BTreeMap<&'a str, CapturedInput<'a>>, FrontendProtocolError> {
+    let mut inputs = BTreeMap::new();
+    let mut folded_paths = BTreeSet::new();
+    for input in available_inputs {
+        if mpk_vc::validate_manifest_normalized_path(input.normalized_path).is_err()
+            || inputs.insert(input.normalized_path, *input).is_some()
+            || !folded_paths.insert(input.normalized_path.to_ascii_lowercase())
+        {
+            return Err(protocol(FrontendProtocolCode::ProtocolArtifactMismatch));
+        }
+    }
+    Ok(inputs)
 }
 
 fn validate_success_issues(

@@ -1728,6 +1728,14 @@ fn validate_go_selection(selection: &PolicyGoSelection) -> Result<(), PolicyVali
 }
 
 fn validate_rust_selection(selection: &PolicyRustSelection) -> Result<(), PolicyValidationError> {
+    let mut package = selection.package.bytes();
+    if !package
+        .next()
+        .is_some_and(|byte| byte.is_ascii_alphabetic())
+        || !package.all(|byte| byte.is_ascii_alphanumeric() || matches!(byte, b'_' | b'-'))
+    {
+        return scalar("invalid canonical Rust package identity");
+    }
     require_ascii_identifier(&selection.crate_name, 255, "Rust crate name")?;
     let mut segments = selection.function.split("::");
     if segments.next() != Some(selection.crate_name.as_str())

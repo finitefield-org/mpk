@@ -1671,7 +1671,7 @@ fn profile_input_kind_matches(language: SourceLanguage, input: &InputEntry) -> b
     match language {
         SourceLanguage::Go => match input.kind {
             InputKind::Source => path.ends_with(".go"),
-            InputKind::Contract => path.ends_with(".json"),
+            InputKind::Contract => path.to_ascii_lowercase().ends_with(".json"),
             InputKind::BuildManifest => {
                 matches!(path, "go.mod" | "go.work")
                     || path.ends_with("/go.mod")
@@ -1684,8 +1684,12 @@ fn profile_input_kind_matches(language: SourceLanguage, input: &InputEntry) -> b
             }
         },
         SourceLanguage::Rust => match input.kind {
-            InputKind::Source => path.ends_with(".rs"),
-            InputKind::Contract => path.ends_with(".json"),
+            // RUST_SUBSET_V0 permits the selected `[lib].path` to use any
+            // portable filename. Module children use the frozen `.rs` rules,
+            // but the public manifest must not impose that suffix on the
+            // crate root returned by the validated frontend.
+            InputKind::Source => true,
+            InputKind::Contract => true,
             InputKind::BuildManifest => path == "Cargo.toml" || path.ends_with("/Cargo.toml"),
             InputKind::Lockfile => path == "Cargo.lock",
         },
