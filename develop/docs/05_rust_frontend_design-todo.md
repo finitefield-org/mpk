@@ -1646,10 +1646,11 @@ Tasks:
    and stable ID component.
 4. Encode every safety proposition through checked definitions and aliases.
    Go-profile fixtures must check under `zero-axiom`; Rust-profile fixtures may
-   use only the existing checked-theory-certificate path admitted by
-   `mvp-theory`. Record any temporarily proof-pending vector with VIR-01-T12
-   as its owner; VIR-01-T12 cannot close until every such vector has a checked
-   discharge path.
+   produce helper theory candidates admitted by the `mvp-theory` strategy. The
+   current program-certificate alpha profile does not promote those candidates
+   until both checkers support their bound theorem terms. Record any
+   temporarily proof-pending vector with VIR-01-T12 as its owner; VIR-01-T12
+   cannot close until every such vector has a checked discharge path.
 5. Test every operation/profile combination plus missing, extra, duplicate,
    reordered, wrong-width, and wrong-signedness checks.
 
@@ -4165,7 +4166,7 @@ git diff --check
 
 ### RUST-06-T01 Register the Rust Policy Strategy and Axiom Tuple
 
-Status: Pending
+Status: Complete (2026-08-24)
 
 Depends on: RUST-05-T05.
 
@@ -4219,7 +4220,7 @@ git diff --check
 
 ### RUST-06-T02 Route Rust `policy scan` Through the Generic Runner
 
-Status: Pending
+Status: Complete (2026-08-24)
 
 Depends on: RUST-03-T12, RUST-06-T01.
 
@@ -4272,14 +4273,19 @@ git diff --check
 
 ### RUST-06-T03 Assemble Checked Group Certificates and Rust Evidence v1
 
-Status: Pending
+Status: Complete (2026-08-24)
 
 Depends on: RUST-05-T04, RUST-06-T01, RUST-06-T02.
 
+Conflict resolution: this task implements the frozen
+`mpk.program_certificate.alpha.v0` compatibility profile; import and theory
+activation are not part of RUST-06-T03.
+
 Inputs:
 
-- grouped skeleton, existing checked theory certificates, certificate v0
-  encoder/checkers, and policy evidence v1.
+- grouped skeleton, registered zero-axiom foundation certificates, Certificate
+  v0 encoder/checkers, policy evidence v1, and
+  `specs/PROGRAM_CERTIFICATE_ALPHA_V0.md`.
 
 Likely touched files:
 
@@ -4292,12 +4298,15 @@ Likely touched files:
 Tasks:
 
 1. Reuse the exact internal Rust scan result, generate VC v1 and grouped
-   skeletons, and select only proof candidates/theory certificates whose
-   checked payload is bound to the exact member proposition.
+   skeletons, reconstruct the exact contextually lowered core propositions,
+   and select only complete structural proof terms checked against those
+   propositions. Classifier results, theory certificates, and solver results
+   remain helper-only in this alpha profile.
 2. Deterministically assemble each function's contract and panic-free theorem
    proof from member proofs in the specification-frozen balanced conjunction
-   shape, respecting parameter binders, implications, checked foundation
-   imports, and exact generated declaration dependencies.
+   shape, respecting parameter binders, checked proposition lowering, the
+   copied self-contained checked foundation closure, and exact generated
+   declaration dependencies.
 3. Encode one canonical certificate v0 artifact, attach the finalized generic
    source manifest bytes, and run the existing fast kernel and independent Go
    source-free checker over the same certificate bytes.
@@ -4308,8 +4317,9 @@ Tasks:
    refs, transitive callee refs, helper artifacts, both manifest lifecycle
    hashes, VC hash, registered bundles, exact profiles, and canonical recipes.
 6. Preserve non-strict proof-pending output and strict failure when any member
-   lacks checked proof evidence; no successful frontend/VC/classifier result is
-   promoted by itself.
+   lacks a supported checked structural proof term. Candidate generation is
+   all-or-nothing: no successful sibling, frontend/VC result, classifier result,
+   or theory result is promoted by itself.
 
 Deliverables:
 
@@ -4318,8 +4328,15 @@ Deliverables:
 Acceptance criteria:
 
 - one exact `.mpcert` byte sequence is accepted by both checkers;
+- its import, proof-node, and theory-certificate tables are empty, it contains
+  no `TheoryPrimitive` or `Theory` use, and its recomputed axiom count is zero;
+- every certificate declaration hash is computed from the exact contextually
+  lowered core type, not from skeleton JSON;
 - every verified property is covered by an accepted containing declaration and
   transitive dependencies;
+- any invalid/unregistered lowering fails closed before evidence, while any
+  missing structural member proof emits no candidate and leaves every member
+  proof-pending with its exact planned core-interface hash;
 - checker disagreement, axiom mismatch, package-policy mismatch, or manifest
   mutation blocks verification;
 - certificate v0 encoding and checker implementation remain unchanged.
@@ -4338,6 +4355,10 @@ git diff --check
 Status: Pending
 
 Depends on: RUST-06-T03.
+
+Profile constraint: the release example must be completely provable by the
+structural subset frozen for RUST-06-T03. A richer arithmetic payment example
+waits for the separately governed dual-checker theory path.
 
 Inputs:
 
@@ -4359,13 +4380,21 @@ Tasks:
 
 1. Add a self-contained dependency-free Rust library example under the closed
    subset, with contracts for the selected function and every same-crate helper
-   and sufficient preconditions for all property/call/safety obligations.
+   and sufficient preconditions for all property/call/safety obligations. The
+   positive route must stay inside the program-certificate alpha structural
+   proof subset—for example, equality reflexivity, exact hypotheses, and exact
+   callee declaration dependencies—and must not require arithmetic solving or
+   theory evidence. Use a payment-approval Boolean pass-through contract
+   whose WP reduces to those structural forms; do not disguise a deferred
+   bitvector theorem as the product gate.
 2. Generate and check in canonical envelope, VIR, source map, both manifests,
    VC v1, grouped skeleton, certificate, axiom report, policy scan/evidence,
    Markdown, and reproduction fixtures through explicit update mode.
 3. Verify the example under `payment-policy-rust-alpha`, `mvp-strict`, and
    `mvp-theory`; cross-check the package manifest and release gate and run both
-   source-free checkers.
+   source-free checkers. The resulting certificate and policy evidence must
+   have empty theory tables/evidence and a zero-axiom report; `mvp-theory` is
+   the selected allowlist, not an activated theory path.
 4. Document source/VIR/compiler traceability separately from trusted
    certificate/checker evidence and provide exact registered-bundle
    reproduction commands through structured recipes.

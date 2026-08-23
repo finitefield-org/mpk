@@ -38,6 +38,10 @@ The Go cutover completed in `GO-VIR-02-T12`. `VIR_V0.md`,
 subset, and API v0 specifications are historical records, not compatibility
 contracts.
 
+`PROGRAM_CERTIFICATE_ALPHA_V0.md` defines the active self-contained
+dual-checker assembly profile for program certificates without changing the
+Certificate v0 binary schema.
+
 The implementation sequence and cutover owner are
 `docs/05_rust_frontend_design.md` and
 `docs/05_rust_frontend_design-todo.md`. The older numbered roadmap records the
@@ -73,6 +77,7 @@ Checker and governance foundations:
 |---|---|
 | `specs/CORE_V0.md` | Core term, declaration, and checking semantics |
 | `specs/CERT_V0.md` | Unchanged canonical Certificate v0 encoding |
+| `specs/PROGRAM_CERTIFICATE_ALPHA_V0.md` | Active self-contained dual-checker program-certificate assembly profile |
 | `specs/TRUST_BOUNDARY_V0.md` | Sole proof-acceptance boundary |
 | `specs/AXIOM_POLICY_V0.md` | Exactly four Certificate v0 axiom categories |
 | `specs/UNSAFE_POLICY_V0.md` | Checker-facing unsafe-code policy |
@@ -139,6 +144,7 @@ complete VIR artifact set installed at the active paths.
 ├── specs/
 │   ├── CORE_V0.md
 │   ├── CERT_V0.md
+│   ├── PROGRAM_CERTIFICATE_ALPHA_V0.md
 │   ├── TRUST_BOUNDARY_V0.md
 │   ├── AXIOM_POLICY_V0.md
 │   ├── UNSAFE_POLICY_V0.md
@@ -199,11 +205,12 @@ Start with:
 4. `specs/UNSAFE_POLICY_V0.md`
 5. `specs/CORE_V0.md`
 6. `specs/CERT_V0.md`
-7. `docs/05_rust_frontend_design.md`
-8. `docs/05_rust_frontend_design-todo.md`
-9. `docs/06_multilanguage_frontend_design.md`
-10. `docs/06_multilanguage_frontend_design-todo.md`
-11. `roadmap/RELEASE_GATES.md`
+7. `specs/PROGRAM_CERTIFICATE_ALPHA_V0.md`
+8. `docs/05_rust_frontend_design.md`
+9. `docs/05_rust_frontend_design-todo.md`
+10. `docs/06_multilanguage_frontend_design.md`
+11. `docs/06_multilanguage_frontend_design-todo.md`
+12. `roadmap/RELEASE_GATES.md`
 
 Then seed project-management issues from `tasks/github_issues_seed.jsonl` or
 import `tasks/task_backlog.csv` into a tracker.

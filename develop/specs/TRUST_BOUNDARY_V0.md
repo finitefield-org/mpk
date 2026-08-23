@@ -33,6 +33,15 @@ The following artifacts may justify acceptance only after the checker recomputes
 | Recomputed axiom report | Trusted dependency disclosure | Derived from checked declarations and proof nodes, then evaluated by release policy. |
 | Hash-pinned imports | Import identity | Resolved by module name and export hash; high-trust mode also verifies certificate hash in the current session. |
 
+The table describes Certificate v0 trust capabilities, not an assertion that
+every release profile implements every capability. The current
+`mpk.program_certificate.alpha.v0` profile in
+`PROGRAM_CERTIFICATE_ALPHA_V0.md` uses their dual-checker intersection: one
+self-contained root certificate, no imports, no detached proof-node table, no
+theory-certificate table or theory features, and a zero-axiom report. Selected
+foundation source certificates are helper inputs until their required
+declaration closure has been copied into and rechecked as part of that root.
+
 Example: a package can claim that `Example.Identity.correct` is accepted only
 if the canonical certificate checks, hashes recompute, imports resolve by
 policy, the axiom report is permitted, and required checker verdicts agree.
@@ -76,7 +85,9 @@ A declaration is accepted only if all relevant conditions hold:
 
 1. certificate bytes decode under the canonical schema;
 2. re-encoding produces byte-identical canonical bytes;
-3. imports resolve by module name and required hashes;
+3. imports resolve by module name and required hashes when enabled by the
+   active profile; the current program-certificate alpha profile instead
+   requires an empty import table;
 4. every referenced level, term, proof node, declaration, theory certificate, and import is well-formed and in dependency order;
 5. the declared theorem type infers to a sort;
 6. the proof checks against the theorem type;

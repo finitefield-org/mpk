@@ -16,21 +16,32 @@ use crate::policy_scan::v1::{
 };
 use crate::policy_schema::{
     canonical_policy_evidence_v1_json, expected_reproduction_recipes,
-    import_policy_evidence_v1_json, PolicyAxiomReportV1, PolicyCheckedDeclaration,
-    PolicyCheckerVerdictV1, PolicyDeclarationDependency, PolicyEvidenceLinkageContext,
-    PolicyEvidenceReferenceV1, PolicyEvidenceV1, PolicyExpectedMemberV1, PolicyExpectedPropertyV1,
-    PolicyHelperArtifact, PolicyMemberRowV1, PolicyPropertyV1, PolicyTrustedEvidenceV1,
-    PolicyVerificationOptions, ValidatedPolicyEvidenceV1, POLICY_EVIDENCE_V1_SCHEMA,
+    import_policy_evidence_v1_json, PolicyAxiomCategoryCountsV1, PolicyAxiomReportV1,
+    PolicyCertificateEvidenceV1, PolicyCheckedDeclaration, PolicyCheckerVerdictV1,
+    PolicyDeclarationDependency, PolicyEvidenceLinkageContext, PolicyEvidenceReferenceV1,
+    PolicyEvidenceV1, PolicyExpectedCertificateV1, PolicyExpectedMemberV1,
+    PolicyExpectedPropertyV1, PolicyHelperArtifact, PolicyMemberRowV1, PolicyPropertyV1,
+    PolicyTrustedEvidenceV1, PolicyVerificationOptions, ValidatedPolicyEvidenceV1,
+    POLICY_EVIDENCE_V1_SCHEMA,
 };
-use mpk_cert::encode::SourceManifest as CertificateSourceManifest;
-use mpk_cert::{hash_hex, hash_with_domain, HashDomain};
+use crate::program_certificate::{
+    assemble_program_certificate_alpha, PlannedProgramDeclaration, ProgramCertificateError,
+    ProgramCertificateErrorKind, ProgramCertificateOutcome, ProgramCheckerVerdict,
+    ReferenceCheckerReport, UnacceptedProgramCertificate, PROGRAM_CERTIFICATE_MODULE,
+};
+use mpk_cert::encode::{Certificate, SourceManifest as CertificateSourceManifest, ZERO_HASH};
+use mpk_cert::{
+    axiom_report_hash_for_report, build_axiom_report, build_export_block, certificate_hash,
+    decode_canonical_certificate, export_block_hash, hash_hex, hash_with_domain, HashDomain,
+};
+use mpk_kernel::VerificationReport;
 #[cfg(test)]
 use mpk_vc::ReleaseSelectionRequest;
 use mpk_vc::{
     attach_vc_hash, canonical_json_bytes, emit_validated_vc_skeleton_v1, generate_program_vcs,
     generate_vc_v1, parse_strict_json, CapturedInput, GroupedTheoremDeclaration,
     SourceManifestValidationContext, StrictJsonLimits, ValidatedSourceManifest,
-    ValidatedVcCertificateSkeleton, ValidatedVcDocument, VC_SCHEMA_VERSION,
+    ValidatedVcCertificateSkeleton, ValidatedVcDocument, VcDocument, VC_SCHEMA_VERSION,
 };
 use std::collections::{BTreeMap, BTreeSet};
 use std::error::Error;
@@ -103,6 +114,7 @@ pub(crate) struct PolicyVerifyV1RunOutput {
     pub(crate) skeleton: ValidatedVcCertificateSkeleton,
     pub(crate) certificate_manifest: ValidatedSourceManifest,
     pub(crate) certificate_source_manifest: CertificateSourceManifest,
+    pub(crate) program_certificate: Option<ProgramCertificateOutcome>,
     pub(crate) evidence: ValidatedPolicyEvidenceV1,
 }
 
@@ -329,6 +341,7 @@ pub fn run_cli(
                 PolicyVerifyV1Error::new(error.code().as_str(), "generic frontend runner failed")
             })
         },
+        assemble_program_certificate_alpha,
     )?;
     Ok(Some(format!(
         "ok policy verify status=complete evidence_json={} evidence_md={}",
@@ -341,14 +354,45 @@ pub(crate) fn run_policy_verify_v1_with<P, F, R, T>(
     argv: &[String],
     working_directory: &Path,
     captured_inputs: Vec<OwnedCapturedInput>,
-    mut prepare: F,
+    prepare: F,
     runner: R,
-    mut tracked: T,
+    tracked: T,
 ) -> Result<Option<PolicyVerifyV1RunOutput>, PolicyVerifyV1Error>
 where
     F: FnMut(&ReleaseSelectionRequest) -> Result<P, PolicyVerifyV1Error>,
     R: for<'a> FnMut(P, FrontendRunRequest<'a>) -> Result<AcceptedFrontendRun, PolicyVerifyV1Error>,
     T: FnMut(&Path) -> bool,
+{
+    run_policy_verify_v1_with_assembler(
+        argv,
+        working_directory,
+        captured_inputs,
+        prepare,
+        runner,
+        tracked,
+        assemble_program_certificate_alpha,
+    )
+}
+
+#[cfg(test)]
+pub(crate) fn run_policy_verify_v1_with_assembler<P, F, R, T, A>(
+    argv: &[String],
+    working_directory: &Path,
+    captured_inputs: Vec<OwnedCapturedInput>,
+    mut prepare: F,
+    runner: R,
+    mut tracked: T,
+    assembler: A,
+) -> Result<Option<PolicyVerifyV1RunOutput>, PolicyVerifyV1Error>
+where
+    F: FnMut(&ReleaseSelectionRequest) -> Result<P, PolicyVerifyV1Error>,
+    R: for<'a> FnMut(P, FrontendRunRequest<'a>) -> Result<AcceptedFrontendRun, PolicyVerifyV1Error>,
+    T: FnMut(&Path) -> bool,
+    A: FnMut(
+        &VcDocument,
+        &[GroupedTheoremDeclaration],
+        CertificateSourceManifest,
+    ) -> Result<ProgramCertificateOutcome, ProgramCertificateError>,
 {
     let Some(invocation) = parse_policy_verify_v1_argv(argv)? else {
         return Ok(None);
@@ -366,18 +410,25 @@ where
         staged_directories: Vec::new(),
         staged_placeholders: Vec::new(),
     };
-    run_prepared_policy_verify_v1(invocation, outputs, staging, prepared, runner).map(Some)
+    run_prepared_policy_verify_v1(invocation, outputs, staging, prepared, runner, assembler)
+        .map(Some)
 }
 
-fn run_prepared_policy_verify_v1<P, R>(
+fn run_prepared_policy_verify_v1<P, R, A>(
     invocation: PolicyVerifyV1Invocation,
     outputs: OutputPreflight,
     staging: OwnedFrontendStaging,
     prepared: P,
     mut runner: R,
+    mut assembler: A,
 ) -> Result<PolicyVerifyV1RunOutput, PolicyVerifyV1Error>
 where
     R: for<'a> FnMut(P, FrontendRunRequest<'a>) -> Result<AcceptedFrontendRun, PolicyVerifyV1Error>,
+    A: FnMut(
+        &VcDocument,
+        &[GroupedTheoremDeclaration],
+        CertificateSourceManifest,
+    ) -> Result<ProgramCertificateOutcome, ProgramCertificateError>,
 {
     validate_owned_captured_inputs(&staging.captured_inputs).map_err(scan_error)?;
     let OwnedFrontendStaging {
@@ -417,7 +468,7 @@ where
     )?;
     let scan = build_policy_scan_v1_output(invocation.scan.clone(), frontend, captured_inputs)
         .map_err(scan_error)?;
-    let finalized = finalize_evidence(&invocation, scan)?;
+    let finalized = finalize_evidence(&invocation, scan, &mut assembler)?;
     let markdown = render_policy_evidence_v1_markdown(&finalized.evidence)
         .map_err(|error| linkage_error(error.to_string()))?;
     commit_outputs(
@@ -425,6 +476,23 @@ where
         finalized.evidence.canonical_bytes(),
         markdown.as_bytes(),
     )?;
+    if let Some(ProgramCertificateOutcome::Unaccepted(candidate)) =
+        finalized.program_certificate.as_ref()
+    {
+        let code = match candidate.failure_kind {
+            ProgramCertificateErrorKind::CheckerRejected => "POLICY_CHECKER_REJECTED",
+            ProgramCertificateErrorKind::CheckerDisagreement => "POLICY_CHECKER_DISAGREEMENT",
+            ProgramCertificateErrorKind::Foundation
+            | ProgramCertificateErrorKind::Skeleton
+            | ProgramCertificateErrorKind::Interface
+            | ProgramCertificateErrorKind::CheckerExecution
+            | ProgramCertificateErrorKind::Internal => "POLICY_CERTIFICATE_ASSEMBLY",
+        };
+        return Err(PolicyVerifyV1Error::new(
+            code,
+            candidate.failure_detail.clone(),
+        ));
+    }
     if invocation.strict
         && finalized
             .evidence
@@ -446,6 +514,7 @@ where
         skeleton: finalized.skeleton,
         certificate_manifest: finalized.certificate_manifest,
         certificate_source_manifest: finalized.certificate_source_manifest,
+        program_certificate: finalized.program_certificate,
         evidence: finalized.evidence,
     })
 }
@@ -456,13 +525,22 @@ struct FinalizedEvidence {
     skeleton: ValidatedVcCertificateSkeleton,
     certificate_manifest: ValidatedSourceManifest,
     certificate_source_manifest: CertificateSourceManifest,
+    program_certificate: Option<ProgramCertificateOutcome>,
     evidence: ValidatedPolicyEvidenceV1,
 }
 
-fn finalize_evidence(
+fn finalize_evidence<A>(
     invocation: &PolicyVerifyV1Invocation,
     scan: PolicyScanV1RunOutput,
-) -> Result<FinalizedEvidence, PolicyVerifyV1Error> {
+    assembler: &mut A,
+) -> Result<FinalizedEvidence, PolicyVerifyV1Error>
+where
+    A: FnMut(
+        &VcDocument,
+        &[GroupedTheoremDeclaration],
+        CertificateSourceManifest,
+    ) -> Result<ProgramCertificateOutcome, ProgramCertificateError>,
+{
     if scan.scan.document().readiness != "ready" {
         return Err(PolicyVerifyV1Error::new(
             "POLICY_SCAN_NOT_READY",
@@ -491,12 +569,19 @@ fn finalize_evidence(
         .iter()
         .map(OwnedCapturedInput::as_ref)
         .collect::<Vec<CapturedInput<'_>>>();
+    let expected_language_configuration = (invocation.scan.source_language == "rust").then_some(
+        &artifacts
+            .source_manifest
+            .manifest()
+            .target
+            .language_configuration,
+    );
     let source_context = SourceManifestValidationContext {
         vir: &artifacts.vir,
         source_map: &artifacts.source_map,
         captured_inputs: &captured,
         release_registry: &scan.frontend.registry,
-        expected_language_configuration: None,
+        expected_language_configuration,
     };
     let vc_identity = vc
         .validated_identity()
@@ -510,11 +595,41 @@ fn finalize_evidence(
     let certificate_source_manifest = CertificateSourceManifest {
         payload: certificate_manifest.canonical_bytes().to_vec(),
     };
+    let program_certificate = match invocation.scan.source_language.as_str() {
+        "rust" => Some(
+            assembler(
+                vc.document(),
+                skeleton.skeleton().theorem_declarations.as_slice(),
+                certificate_source_manifest.clone(),
+            )
+            .map_err(program_certificate_error)?,
+        ),
+        "go" => None,
+        _ => {
+            return Err(linkage_error(
+                "policy verification reached an unsupported source language",
+            ));
+        }
+    };
+    validate_program_certificate_outcome(
+        program_certificate.as_ref(),
+        &certificate_source_manifest,
+    )?;
+    let program_declaration_hashes = program_certificate
+        .as_ref()
+        .map(program_declaration_hashes)
+        .transpose()?;
+    let verified = matches!(
+        program_certificate.as_ref(),
+        Some(ProgramCertificateOutcome::Candidate(_))
+    );
 
     let projections = evidence_projections(
         &invocation.scan.function,
         vc.document(),
         skeleton.skeleton().theorem_declarations.as_slice(),
+        program_declaration_hashes.as_ref(),
+        verified,
     )?;
     let scan_document = scan.scan.document();
     let mut helper_artifacts = scan_document
@@ -526,20 +641,16 @@ fn finalize_evidence(
         schema: VC_SCHEMA_VERSION.to_owned(),
         sha256: vc.hash().as_str().to_owned(),
     });
-    let checker_verdicts = vec![
-        PolicyCheckerVerdictV1 {
-            checker: "rust_fast_kernel".to_owned(),
-            checker_profile: invocation.checker_profile.clone(),
-            verdict: "not_run".to_owned(),
-            certificate_ids: Vec::new(),
-        },
-        PolicyCheckerVerdictV1 {
-            checker: "reference_checker".to_owned(),
-            checker_profile: invocation.checker_profile.clone(),
-            verdict: "not_run".to_owned(),
-            certificate_ids: Vec::new(),
-        },
-    ];
+    let TrustedProgramEvidence {
+        certificates,
+        axiom_report,
+        checker_verdicts,
+        expected_certificate,
+    } = trusted_program_evidence(
+        program_certificate.as_ref(),
+        &projections.declarations,
+        &invocation.checker_profile,
+    )?;
     let mut document = PolicyEvidenceV1 {
         schema: POLICY_EVIDENCE_V1_SCHEMA.to_owned(),
         source_language: scan_document.source_language.clone(),
@@ -571,9 +682,9 @@ fn finalize_evidence(
         },
         helper_artifacts,
         trusted_evidence: PolicyTrustedEvidenceV1 {
-            certificates: Vec::new(),
+            certificates,
             theory_certificates: Vec::new(),
-            axiom_report: PolicyAxiomReportV1::NotGenerated,
+            axiom_report: axiom_report.clone(),
             checker_verdicts: checker_verdicts.clone(),
         },
         properties: projections.properties,
@@ -588,9 +699,9 @@ fn finalize_evidence(
         verification_limit_profile: vc.document().verification_limit_profile.clone(),
         expected_members: projections.members,
         expected_declarations: projections.declarations,
-        expected_certificate: None,
+        expected_certificate,
         expected_theory_certificates: Vec::new(),
-        expected_axiom_report: PolicyAxiomReportV1::NotGenerated,
+        expected_axiom_report: axiom_report,
         expected_checker_verdicts: checker_verdicts,
         expected_properties: projections.expected_properties,
         expected_unsupported_codes: Vec::new(),
@@ -606,6 +717,7 @@ fn finalize_evidence(
         skeleton,
         certificate_manifest,
         certificate_source_manifest,
+        program_certificate,
         evidence,
     })
 }
@@ -655,6 +767,417 @@ fn validate_program_projection(
     Ok(())
 }
 
+fn program_certificate_error(error: ProgramCertificateError) -> PolicyVerifyV1Error {
+    let code = match error.kind() {
+        ProgramCertificateErrorKind::CheckerExecution => "POLICY_CHECKER_EXECUTION",
+        ProgramCertificateErrorKind::CheckerRejected => "POLICY_CHECKER_REJECTED",
+        ProgramCertificateErrorKind::CheckerDisagreement => "POLICY_CHECKER_DISAGREEMENT",
+        ProgramCertificateErrorKind::Foundation
+        | ProgramCertificateErrorKind::Skeleton
+        | ProgramCertificateErrorKind::Interface
+        | ProgramCertificateErrorKind::Internal => "POLICY_CERTIFICATE_ASSEMBLY",
+    };
+    PolicyVerifyV1Error::new(code, error.to_string())
+}
+
+fn validate_program_certificate_outcome(
+    outcome: Option<&ProgramCertificateOutcome>,
+    expected_source_manifest: &CertificateSourceManifest,
+) -> Result<(), PolicyVerifyV1Error> {
+    match outcome {
+        None | Some(ProgramCertificateOutcome::Pending { .. }) => Ok(()),
+        Some(ProgramCertificateOutcome::Candidate(candidate)) => {
+            let decoded = validate_retained_candidate(
+                &candidate.bytes,
+                &candidate.certificate,
+                &candidate.generated_declarations,
+                expected_source_manifest,
+            )?;
+            validate_dual_accepted_reports(
+                &candidate.bytes,
+                &decoded,
+                &candidate.rust_report,
+                &candidate.reference_report,
+            )
+        }
+        Some(ProgramCertificateOutcome::Unaccepted(candidate)) => {
+            match candidate.failure_kind {
+                ProgramCertificateErrorKind::CheckerRejected
+                | ProgramCertificateErrorKind::CheckerDisagreement => {}
+                ProgramCertificateErrorKind::CheckerExecution => {
+                    return Err(PolicyVerifyV1Error::new(
+                        "POLICY_CHECKER_EXECUTION",
+                        candidate.failure_detail.clone(),
+                    ));
+                }
+                ProgramCertificateErrorKind::Foundation
+                | ProgramCertificateErrorKind::Skeleton
+                | ProgramCertificateErrorKind::Interface
+                | ProgramCertificateErrorKind::Internal => {
+                    return Err(PolicyVerifyV1Error::new(
+                        "POLICY_CERTIFICATE_ASSEMBLY",
+                        candidate.failure_detail.clone(),
+                    ));
+                }
+            }
+            let decoded = validate_retained_candidate(
+                &candidate.bytes,
+                &candidate.certificate,
+                &candidate.generated_declarations,
+                expected_source_manifest,
+            )?;
+            validate_unaccepted_reports(&candidate.bytes, &decoded, candidate)
+        }
+    }
+}
+
+fn validate_retained_candidate(
+    bytes: &[u8],
+    retained: &Certificate,
+    generated: &[PlannedProgramDeclaration],
+    expected_source_manifest: &CertificateSourceManifest,
+) -> Result<Certificate, PolicyVerifyV1Error> {
+    let decoded = decode_canonical_certificate(bytes).map_err(|error| {
+        PolicyVerifyV1Error::new(
+            "POLICY_CERTIFICATE_ASSEMBLY",
+            format!("retained program-certificate bytes are not canonical: {error:?}"),
+        )
+    })?;
+    if &decoded != retained {
+        return Err(PolicyVerifyV1Error::new(
+            "POLICY_CERTIFICATE_ASSEMBLY",
+            "retained program-certificate object differs from its canonical bytes",
+        ));
+    }
+    if decoded.module != PROGRAM_CERTIFICATE_MODULE
+        || decoded.source_manifest.as_ref() != Some(expected_source_manifest)
+    {
+        return Err(PolicyVerifyV1Error::new(
+            "POLICY_CERTIFICATE_ASSEMBLY",
+            "retained program certificate has the wrong module or certificate-stage manifest",
+        ));
+    }
+    let rebuilt_export = build_export_block(&decoded).map_err(|error| {
+        PolicyVerifyV1Error::new(
+            "POLICY_CERTIFICATE_ASSEMBLY",
+            format!("recompute retained export block: {}", error.detail()),
+        )
+    })?;
+    let rebuilt_axiom_report = build_axiom_report(&decoded).map_err(|error| {
+        PolicyVerifyV1Error::new(
+            "POLICY_CERTIFICATE_ASSEMBLY",
+            format!("recompute retained axiom report: {}", error.detail()),
+        )
+    })?;
+    if decoded.export_block != rebuilt_export
+        || decoded.axiom_report != rebuilt_axiom_report
+        || decoded.hashes.export_hash != export_block_hash(&rebuilt_export)
+        || decoded.hashes.axiom_report_hash != axiom_report_hash_for_report(&rebuilt_axiom_report)
+        || decoded.hashes.certificate_hash != ZERO_HASH
+    {
+        return Err(PolicyVerifyV1Error::new(
+            "POLICY_CERTIFICATE_ASSEMBLY",
+            "retained candidate sections, hashes, or certificate-hash placeholder are invalid",
+        ));
+    }
+    if rebuilt_axiom_report.summary.total_axiom_count != 0 {
+        return Err(PolicyVerifyV1Error::new(
+            "POLICY_CERTIFICATE_AXIOM_REPORT",
+            "the alpha program certificate did not produce a zero-axiom report",
+        ));
+    }
+    let generated_start = decoded
+        .export_block
+        .len()
+        .checked_sub(generated.len())
+        .ok_or_else(|| {
+            PolicyVerifyV1Error::new(
+                "POLICY_CERTIFICATE_ASSEMBLY",
+                "retained certificate has fewer exports than planned generated declarations",
+            )
+        })?;
+    let actual = decoded.export_block[generated_start..]
+        .iter()
+        .map(|entry| {
+            let name = decoded
+                .name_table
+                .get(entry.name as usize)
+                .ok_or_else(|| {
+                    PolicyVerifyV1Error::new(
+                        "POLICY_CERTIFICATE_ASSEMBLY",
+                        "retained generated export has a missing name",
+                    )
+                })?
+                .clone();
+            Ok(PlannedProgramDeclaration {
+                name,
+                declaration_hash: hash_hex(&entry.declaration_hash),
+            })
+        })
+        .collect::<Result<Vec<_>, PolicyVerifyV1Error>>()?;
+    if actual != generated {
+        return Err(PolicyVerifyV1Error::new(
+            "POLICY_CERTIFICATE_ASSEMBLY",
+            "planned generated declarations differ from the exact certificate export suffix",
+        ));
+    }
+    Ok(decoded)
+}
+
+fn validate_dual_accepted_reports(
+    bytes: &[u8],
+    certificate: &Certificate,
+    rust: &VerificationReport,
+    reference: &ReferenceCheckerReport,
+) -> Result<(), PolicyVerifyV1Error> {
+    let rust_matches = rust_report_matches(bytes, certificate, rust);
+    let reference_matches = reference_report_matches(bytes, certificate, reference);
+    if rust_matches && reference_matches {
+        return Ok(());
+    }
+    if !accepted_reports_agree(rust, reference) {
+        return Err(PolicyVerifyV1Error::new(
+            "POLICY_CHECKER_DISAGREEMENT",
+            "retained dual-accepted checker reports disagree",
+        ));
+    }
+    Err(PolicyVerifyV1Error::new(
+        "POLICY_CHECKER_EXECUTION",
+        "retained dual-accepted checker reports agree but are not bound to the candidate bytes",
+    ))
+}
+
+fn accepted_reports_agree(rust: &VerificationReport, reference: &ReferenceCheckerReport) -> bool {
+    rust.module == reference.module
+        && rust.declaration_count == reference.declaration_count
+        && rust.axiom_count == reference.axiom_count
+        && hash_hex(&rust.export_hash) == reference.export_hash
+        && hash_hex(&rust.axiom_report_hash) == reference.axiom_report_hash
+        && hash_hex(&rust.certificate_hash) == reference.certificate_hash
+}
+
+fn validate_unaccepted_reports(
+    bytes: &[u8],
+    certificate: &Certificate,
+    candidate: &UnacceptedProgramCertificate,
+) -> Result<(), PolicyVerifyV1Error> {
+    match (
+        candidate.failure_kind,
+        candidate.rust_verdict,
+        candidate.reference_verdict,
+        candidate.rust_report.as_ref(),
+        candidate.reference_report.as_ref(),
+    ) {
+        (
+            ProgramCertificateErrorKind::CheckerRejected,
+            ProgramCheckerVerdict::Rejected,
+            ProgramCheckerVerdict::Rejected,
+            None,
+            None,
+        ) => Ok(()),
+        (
+            ProgramCertificateErrorKind::CheckerDisagreement,
+            ProgramCheckerVerdict::Accepted,
+            ProgramCheckerVerdict::Rejected,
+            Some(rust),
+            None,
+        ) if rust_report_matches(bytes, certificate, rust) => Ok(()),
+        (
+            ProgramCertificateErrorKind::CheckerDisagreement,
+            ProgramCheckerVerdict::Rejected,
+            ProgramCheckerVerdict::Accepted,
+            None,
+            Some(reference),
+        ) if reference_report_matches(bytes, certificate, reference) => Ok(()),
+        _ => Err(PolicyVerifyV1Error::new(
+            "POLICY_CHECKER_EXECUTION",
+            "unaccepted candidate has a malformed, contradictory, or byte-unbound checker report",
+        )),
+    }
+}
+
+fn rust_report_matches(
+    bytes: &[u8],
+    certificate: &Certificate,
+    report: &VerificationReport,
+) -> bool {
+    report.module == certificate.module
+        && report.declaration_count == certificate.declarations.len()
+        && report.axiom_count == certificate.axiom_report.summary.total_axiom_count
+        && report.export_hash == certificate.hashes.export_hash
+        && report.axiom_report_hash == certificate.hashes.axiom_report_hash
+        && report.certificate_hash == certificate_hash(bytes)
+        && report.axiom_report == certificate.axiom_report
+}
+
+fn reference_report_matches(
+    bytes: &[u8],
+    certificate: &Certificate,
+    report: &ReferenceCheckerReport,
+) -> bool {
+    report.module == certificate.module
+        && report.declaration_count == certificate.declarations.len()
+        && report.axiom_count == certificate.axiom_report.summary.total_axiom_count
+        && report.export_hash == hash_hex(&certificate.hashes.export_hash)
+        && report.axiom_report_hash == hash_hex(&certificate.hashes.axiom_report_hash)
+        && report.certificate_hash == hash_hex(&certificate_hash(bytes))
+}
+
+fn program_declaration_hashes(
+    outcome: &ProgramCertificateOutcome,
+) -> Result<BTreeMap<String, String>, PolicyVerifyV1Error> {
+    let declarations = outcome.generated_declarations();
+    let hashes = declarations
+        .iter()
+        .map(|declaration| {
+            (
+                declaration.name.clone(),
+                declaration.declaration_hash.clone(),
+            )
+        })
+        .collect::<BTreeMap<_, _>>();
+    if hashes.len() != declarations.len() {
+        return Err(PolicyVerifyV1Error::new(
+            "POLICY_CERTIFICATE_ASSEMBLY",
+            "program-certificate plan contains duplicate generated declaration names",
+        ));
+    }
+    Ok(hashes)
+}
+
+struct TrustedProgramEvidence {
+    certificates: Vec<PolicyCertificateEvidenceV1>,
+    axiom_report: PolicyAxiomReportV1,
+    checker_verdicts: Vec<PolicyCheckerVerdictV1>,
+    expected_certificate: Option<PolicyExpectedCertificateV1>,
+}
+
+fn trusted_program_evidence(
+    outcome: Option<&ProgramCertificateOutcome>,
+    checked_declarations: &[PolicyCheckedDeclaration],
+    checker_profile: &str,
+) -> Result<TrustedProgramEvidence, PolicyVerifyV1Error> {
+    let (certificate, bytes, rust_verdict, reference_verdict) = match outcome {
+        Some(ProgramCertificateOutcome::Candidate(candidate)) => (
+            &candidate.certificate,
+            candidate.bytes.as_slice(),
+            ProgramCheckerVerdict::Accepted,
+            ProgramCheckerVerdict::Accepted,
+        ),
+        Some(ProgramCertificateOutcome::Unaccepted(candidate)) => (
+            &candidate.certificate,
+            candidate.bytes.as_slice(),
+            candidate.rust_verdict,
+            candidate.reference_verdict,
+        ),
+        None | Some(ProgramCertificateOutcome::Pending { .. }) => {
+            return Ok(TrustedProgramEvidence {
+                certificates: Vec::new(),
+                axiom_report: PolicyAxiomReportV1::NotGenerated,
+                checker_verdicts: not_run_checker_verdicts(checker_profile),
+                expected_certificate: None,
+            });
+        }
+    };
+    let summary = &certificate.axiom_report.summary;
+    if summary.total_axiom_count != 0 {
+        return Err(PolicyVerifyV1Error::new(
+            "POLICY_CERTIFICATE_AXIOM_REPORT",
+            "the alpha program certificate did not produce a zero-axiom report",
+        ));
+    }
+    let computed_export_hash = export_block_hash(&certificate.export_block);
+    let computed_axiom_report_hash = axiom_report_hash_for_report(&certificate.axiom_report);
+    if certificate.hashes.export_hash != computed_export_hash
+        || certificate.hashes.axiom_report_hash != computed_axiom_report_hash
+    {
+        return Err(PolicyVerifyV1Error::new(
+            "POLICY_CERTIFICATE_ASSEMBLY",
+            "retained program-certificate hashes differ from its canonical contents",
+        ));
+    }
+    let certificate_hash = hash_hex(&certificate_hash(bytes));
+    let export_hash = hash_hex(&computed_export_hash);
+    let axiom_report_hash = hash_hex(&computed_axiom_report_hash);
+    let expected_certificate = PolicyExpectedCertificateV1 {
+        module: certificate.module.clone(),
+        certificate_hash: certificate_hash.clone(),
+        export_hash: export_hash.clone(),
+        axiom_report_hash: axiom_report_hash.clone(),
+    };
+    let certificate = PolicyCertificateEvidenceV1 {
+        id: "program".to_owned(),
+        module: certificate.module.clone(),
+        certificate_hash,
+        export_hash,
+        axiom_report_hash: axiom_report_hash.clone(),
+        checked_declarations: checked_declarations.to_vec(),
+    };
+    let axiom_report = PolicyAxiomReportV1::Checked {
+        axiom_report_hash,
+        category_counts: axiom_category_counts(summary)?,
+    };
+    let certificate_ids = vec!["program".to_owned()];
+    let checker_verdicts = vec![
+        PolicyCheckerVerdictV1 {
+            checker: "rust_fast_kernel".to_owned(),
+            checker_profile: checker_profile.to_owned(),
+            verdict: rust_verdict.as_str().to_owned(),
+            certificate_ids: certificate_ids.clone(),
+        },
+        PolicyCheckerVerdictV1 {
+            checker: "reference_checker".to_owned(),
+            checker_profile: checker_profile.to_owned(),
+            verdict: reference_verdict.as_str().to_owned(),
+            certificate_ids,
+        },
+    ];
+    Ok(TrustedProgramEvidence {
+        certificates: vec![certificate],
+        axiom_report,
+        checker_verdicts,
+        expected_certificate: Some(expected_certificate),
+    })
+}
+
+fn not_run_checker_verdicts(checker_profile: &str) -> Vec<PolicyCheckerVerdictV1> {
+    vec![
+        PolicyCheckerVerdictV1 {
+            checker: "rust_fast_kernel".to_owned(),
+            checker_profile: checker_profile.to_owned(),
+            verdict: "not_run".to_owned(),
+            certificate_ids: Vec::new(),
+        },
+        PolicyCheckerVerdictV1 {
+            checker: "reference_checker".to_owned(),
+            checker_profile: checker_profile.to_owned(),
+            verdict: "not_run".to_owned(),
+            certificate_ids: Vec::new(),
+        },
+    ]
+}
+
+fn axiom_category_counts(
+    summary: &mpk_cert::encode::AxiomReportSummary,
+) -> Result<PolicyAxiomCategoryCountsV1, PolicyVerifyV1Error> {
+    Ok(PolicyAxiomCategoryCountsV1 {
+        total_axiom_count: checked_axiom_count(summary.total_axiom_count)?,
+        core_axiom_count: checked_axiom_count(summary.core_axiom_count)?,
+        builtin_theory_axiom_count: checked_axiom_count(summary.builtin_theory_axiom_count)?,
+        go_semantics_axiom_count: checked_axiom_count(summary.go_semantics_axiom_count)?,
+        external_axiom_count: checked_axiom_count(summary.external_axiom_count)?,
+    })
+}
+
+fn checked_axiom_count(value: u64) -> Result<i64, PolicyVerifyV1Error> {
+    i64::try_from(value).map_err(|_| {
+        PolicyVerifyV1Error::new(
+            "POLICY_CERTIFICATE_AXIOM_REPORT",
+            "checked axiom count exceeds the policy evidence integer range",
+        )
+    })
+}
+
 struct EvidenceProjections {
     properties: Vec<PolicyPropertyV1>,
     members: Vec<PolicyExpectedMemberV1>,
@@ -666,11 +1189,28 @@ fn evidence_projections(
     selected_function: &str,
     vc: &mpk_vc::VcDocument,
     skeleton: &[GroupedTheoremDeclaration],
+    planned_declaration_hashes: Option<&BTreeMap<String, String>>,
+    verified: bool,
 ) -> Result<EvidenceProjections, PolicyVerifyV1Error> {
-    let declaration_hashes = skeleton
-        .iter()
-        .map(|declaration| Ok((declaration.name.clone(), declaration_hash(declaration)?)))
-        .collect::<Result<BTreeMap<_, _>, PolicyVerifyV1Error>>()?;
+    let declaration_hashes = match planned_declaration_hashes {
+        Some(hashes) => {
+            if hashes.len() != skeleton.len()
+                || skeleton
+                    .iter()
+                    .any(|declaration| !hashes.contains_key(&declaration.name))
+            {
+                return Err(PolicyVerifyV1Error::new(
+                    "POLICY_CERTIFICATE_ASSEMBLY",
+                    "program-certificate hashes differ from the complete grouped skeleton",
+                ));
+            }
+            hashes.clone()
+        }
+        None => skeleton
+            .iter()
+            .map(|declaration| Ok((declaration.name.clone(), declaration_hash(declaration)?)))
+            .collect::<Result<BTreeMap<_, _>, PolicyVerifyV1Error>>()?,
+    };
     let declarations = skeleton
         .iter()
         .map(|declaration| {
@@ -742,10 +1282,20 @@ fn evidence_projections(
                 group_id: member.group_id.clone(),
                 declaration_name: group.declaration_name.clone(),
                 declaration_hash: hash,
-                status: "proof_pending".to_owned(),
-                evidence: vec![PolicyEvidenceReferenceV1::HelperArtifact {
-                    artifact_id: "vc".to_owned(),
-                }],
+                status: if verified {
+                    "mpk_verified".to_owned()
+                } else {
+                    "proof_pending".to_owned()
+                },
+                evidence: if verified {
+                    vec![PolicyEvidenceReferenceV1::CheckedDeclaration {
+                        certificate_id: "program".to_owned(),
+                    }]
+                } else {
+                    vec![PolicyEvidenceReferenceV1::HelperArtifact {
+                        artifact_id: "vc".to_owned(),
+                    }]
+                },
             });
     }
     members.sort_by(|left, right| left.member_id.as_bytes().cmp(right.member_id.as_bytes()));
@@ -763,7 +1313,11 @@ fn evidence_projections(
         properties.push(PolicyPropertyV1 {
             id,
             description,
-            status: "proof_pending".to_owned(),
+            status: if verified {
+                "mpk_verified".to_owned()
+            } else {
+                "proof_pending".to_owned()
+            },
             members: rows,
             notes: Vec::new(),
         });

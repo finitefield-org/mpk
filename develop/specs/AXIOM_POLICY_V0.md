@@ -128,6 +128,13 @@ MPK v0 reserves these profile names:
 
 `ExternalAxiom` is never allowed by `zero-axiom`, `core-mvp`, `mvp-theory`, or `go-artifact-alpha`.
 
+An axiom profile is only an allowlist. In particular, `mvp-theory` may accept a
+certificate whose recomputed axiom report is empty, and selecting it neither
+requires nor activates theory-certificate, `TheoryPrimitive`, or `Theory`
+support. The current `mpk.program_certificate.alpha.v0` profile requires an
+empty theory-evidence array and zero axioms; theory results that cannot be
+bound to an ordinary checker-accepted theorem term remain helper evidence.
+
 ## Release Gate
 
 Before release, the release evidence must show:

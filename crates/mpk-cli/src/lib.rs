@@ -5,6 +5,7 @@ pub mod policy_report;
 pub mod policy_scan;
 pub mod policy_schema;
 pub mod policy_verify;
+pub mod program_certificate;
 
 extern crate self as mpk_cli;
 

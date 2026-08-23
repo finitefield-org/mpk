@@ -1291,9 +1291,11 @@ reassociated. For ordered terms, `Conjoin([]) = True`, `Conjoin([x]) = x`, and
 for `n >= 2`, `Conjoin(xs) = And(Conjoin(xs[..floor(n/2)]),
 Conjoin(xs[floor(n/2)..]))`. This order-preserving balanced split avoids linear
 term depth. The outer and member implications are emitted even when their
-antecedent is `True`. VC v1 freezes the checked `And`/implication identities and
-both outer and member-local binder order, so logically equivalent syntax cannot
-change declaration hashes.
+antecedent is `True`. VC v1 freezes the exact `True`/`And`/`Imp` serialization
+markers and both outer and member-local binder order. Certificate assembly then
+applies the contextual checked-proposition lowering in
+`PROGRAM_CERTIFICATE_ALPHA_V0.md`, so logically equivalent alternate syntax
+cannot change declaration hashes.
 
 Within one function, the contract declaration is emitted first. Among generated
 function-group declarations, the dependency set is exact: the caller's
@@ -1308,10 +1310,10 @@ callee-contract edges permit use of postconditions for later values and
 safety; callee-panic-free edges discharge the call-safety members. The caller
 contract never references its own panic-free declaration, no callee declaration
 references a caller declaration, and no additional generated group edge is
-permitted. Dependencies on fixed checked foundations remain governed by the
-expression and theory encoders. Thus the fixed contract-then-panic-free order
-plus topological callee order cannot introduce a declaration cycle or duplicate
-an obligation.
+permitted. Dependencies on fixed checked foundations remain governed by
+contextual lowering and the active certificate-assembly profile. Thus the
+fixed contract-then-panic-free order plus topological callee order cannot
+introduce a declaration cycle or duplicate an obligation.
 
 Policy v1 may classify and display individual members, but every member record
 references its containing declaration name and hash. A property is checked only
@@ -2368,10 +2370,12 @@ cannot override them.
 
 Evidence v1's `trusted_evidence.certificates` is exactly empty or the singleton
 candidate program certificate with `id = program`; all generated declarations
-for the VC are assembled into that one canonical byte sequence and foundation
-modules remain hash-pinned imports. A candidate row is not itself an acceptance
-claim. Both source-free checker verdicts cover the same singleton ID, and only
-two accepted verdicts can support `mpk_verified`. A deterministic rejection is
+for the VC and their needed checked zero-axiom foundation closure are assembled
+into that one canonical byte sequence. Under
+`mpk.program_certificate.alpha.v0`, its import and theory-certificate tables are
+empty. A candidate row is not itself an acceptance claim. Both source-free
+checker verdicts cover the same singleton ID, and only two accepted verdicts
+can support `mpk_verified`. A deterministic rejection is
 written as valid untrusted evidence and makes `policy verify` fail regardless
 of strict mode; a checker crash or internal failure writes neither report.
 
@@ -2450,6 +2454,32 @@ the migrated Go alpha tuple retains `zero-axiom`. If a Rust-specific unchecked
 semantic assumption becomes necessary, implementation stops pending a new
 axiom-policy and certificate-format design; it must not be hidden as
 `ExternalAxiom`.
+
+For the current program-certificate alpha release, `mvp-theory` is only the
+selected axiom allowlist: it accepts the required zero-axiom result but does not
+activate theory-certificate or theory-proof support. Obligations that need
+those deferred hooks remain proof-pending.
+
+### 15.4 Program-certificate alpha compatibility resolution
+
+`PROGRAM_CERTIFICATE_ALPHA_V0.md` freezes the implementable intersection of
+Certificate v0 and the two unchanged source-free checkers for RUST-06-T03. The
+assembler emits one all-or-nothing, self-contained root with empty import and
+proof-node/theory tables and a zero-axiom report. It reconstructs the validated
+grouped skeleton, lowers stored Boolean values to propositions through typed
+equality, and lowers generated `True`, implication, and balanced conjunction
+markers to the checked `Std.Eq` and `Std.Logic` interfaces. It may use only
+complete structural proof terms stored directly in theorem declarations,
+including reflexivity, exact hypotheses, earlier generated dependencies, and
+the checked grouping constructors/eliminators.
+
+Foundation source certificates, theory classifiers, solver results, and VC
+status labels remain helper inputs until the complete root certificate checks.
+If any member has no such structural term, no partial candidate is emitted and
+all members remain proof-pending. Import resolution, theory-payload binding,
+theory primitive registration, and reference-checker theory support are
+deferred to a separately governed checker task; RUST-06-T03 does not change
+Certificate v0 encoding or either checker.
 
 ## 16. VC generation changes
 

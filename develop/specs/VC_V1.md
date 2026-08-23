@@ -116,9 +116,13 @@ manifest attachment recomputes this exact hash and copies it to the manifest's
 ## 3. Canonical type and expression terms
 
 VC v1 stores unresolved, name-based MPK terms. Certificate assembly resolves
-the names only against checked imports and declarations. A solver builtin,
-host integer, VIR-era `Std.Program.Base.*` name, or caller-supplied global numeric ID
-is not an alternate encoding.
+value and type names only against its checked declaration environment. Under
+the active dual-checker profile that environment is the self-contained
+foundation closure plus earlier generated declarations; it has no imports.
+Generated proposition markers are lowered contextually as specified by
+`PROGRAM_CERTIFICATE_ALPHA_V0.md`. A solver builtin, host integer, VIR-era
+`Std.Program.Base.*` name, or caller-supplied global numeric ID is not an
+alternate encoding.
 
 ### 3.1 `VcTypeTerm`
 
@@ -206,9 +210,14 @@ And(x, y)  = {"kind":"apply","function":"Std.Bool.and","args":[x,y]}
 Imp(x, y)  = {"kind":"apply","function":"Std.Logic.Imp","args":[x,y]}
 ```
 
-`Std.Bool.true`, `Std.Bool.and`, and `Std.Logic.Imp` resolve to checked
-declarations. No alternate identity, Boolean constant spelling, variadic
-`and`, or omitted implication is equivalent for serialization.
+These are the exact VC/skeleton serialization spellings and therefore remain
+part of JCS and `vc_hash`. They are not all direct core theorem-type names:
+certificate assembly reconstructs generated marker provenance and lowers
+generated `True`, `And`, and `Imp` to the checked proposition encodings in
+`PROGRAM_CERTIFICATE_ALPHA_V0.md`. Stored program Boolean operations remain
+value operations and are proposition-lowered contextually. No alternate
+identity, Boolean constant spelling, variadic `and`, or omitted implication is
+equivalent for serialization.
 
 For both type and expression terms, structural node count includes the root and
 every repeated child occurrence. The expression-node limit counts only
@@ -466,12 +475,13 @@ checked declaration; the assembler recomputes its `MPK-DECL-0.1` interface hash
 from the candidate certificate and binds the proof reference to that exact
 identity. This avoids accepting an asserted hash that was never checked.
 
-After checker acceptance, every policy member row binds at least its obligation
-ID, group ID, containing declaration name, and recomputed containing
-declaration hash; `POLICY_V1.md` owns the complete closed row shape. A row with
-the wrong name or hash, or a row whose complete declaration was not accepted,
-is not checked evidence. Individual conjuncts are never independently accepted
-declarations.
+After exact lowered interface planning, every policy member row binds at least
+its obligation ID, group ID, containing declaration name, and recomputed
+containing declaration hash; `POLICY_V1.md` owns the complete closed row shape.
+Pending rows use that planned Certificate v0 interface hash, while accepted
+rows must match the checked candidate. A row with the wrong name or hash, or an
+accepted row whose complete declaration was not accepted, is not checked
+evidence. Individual conjuncts are never independently accepted declarations.
 
 ## 7. Canonical grouped theorem type
 
@@ -519,6 +529,15 @@ antecedent is `True`. An empty panic-free group therefore has body
 type directly, including its member-local binders. A logically equivalent
 right fold or a proposition with common preconditions distributed into members
 is not the canonical theorem type.
+
+The construction above freezes the untrusted VC/skeleton tree. To form a
+Certificate v0 theorem type, the assembler MUST reconstruct that exact tree
+from validated membership and provenance and apply the contextual
+`LowerType`/`LowerProp` rules in `PROGRAM_CERTIFICATE_ALPHA_V0.md`. In
+particular, it must not place a raw Boolean value at a core theorem-type
+position, treat `Std.Bool.and` as a proposition connective, or hash the JSON
+skeleton as though it were a certificate declaration. The recomputed
+declaration interface hash covers the actual lowered core type.
 
 Finally, certificate assembly wraps `GroupBody` with one checked Pi binder per
 `theorem_type.binders`, in reverse construction order so the serialized binder

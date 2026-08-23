@@ -605,11 +605,21 @@ The two lifecycle hashes normally differ. Evidence never contains an ambiguous
 `certificates` is exactly `[]` or a singleton whose `id` is `program`. The
 singleton is the one canonical candidate program certificate containing every
 generated declaration for this VC and submitted as identical bytes to either
-configured source-free checker. Foundation modules remain hash-pinned imports
-and are not additional rows. An empty array means neither checker received a
-candidate. Merely appearing here is not an acceptance claim; the two verdict
-rows below are the only acceptance projection. A `CertificateEvidence` has
-exactly:
+configured source-free checker. Under `mpk.program_certificate.alpha.v0`, the
+registered zero-axiom foundation closure is copied into that self-contained
+candidate and the root import table is empty. Foundation source certificates
+are not additional evidence rows. An empty array means neither checker
+received a candidate. Merely appearing here is not an acceptance claim; the
+two verdict rows below are the only acceptance projection.
+
+Candidate emission is all-or-nothing in that active profile. If any member is
+proof-pending, `certificates` is `[]`, the axiom report is `not_generated`, both
+checker verdicts are `not_run`, and all member rows are `proof_pending`. Their
+declaration hashes are nevertheless the exact interface hashes from the valid
+lowered interface plan; theorem proof bodies are excluded from Certificate v0
+interface hashing. Skeleton JSON hashes are not declaration hashes.
+
+A `CertificateEvidence` has exactly:
 
 | Field | Rule |
 |---|---|
@@ -668,6 +678,13 @@ reaches that exact payload-bound theory certificate. Equal
 canonical theory-certificate bytes embedded more than once are represented by
 one row whose member array is the canonical union. A theory certificate over a
 different payload, member ID, or checker profile is not reusable.
+
+That row shape is reserved for a future profile with matching dual-checker
+theory support. The active `mpk.program_certificate.alpha.v0` profile requires
+`theory_certificates` to be exactly `[]`, matching the empty theory table and
+absence of a detached proof-node table, `TheoryPrimitive` declarations, and
+`Theory` proof nodes in its candidate certificate. Nonempty theory evidence
+cannot support a current dual-checker accepted verdict.
 
 `axiom_report` is exactly one of:
 
@@ -738,14 +755,15 @@ A `PolicyMemberRow` has exactly:
 | `kind` | exact VC member kind |
 | `group_id` | exact containing VC group |
 | `declaration_name` | exact group declaration name |
-| `declaration_hash` | recomputed candidate declaration interface hash |
+| `declaration_hash` | recomputed planned Certificate v0 declaration-interface hash; equals the candidate hash when present |
 | `status` | `mpk_verified`, `proof_pending`, `helper_only`, or `unsupported` |
 | `evidence` | canonical closed reference array |
 
 All first six values are reconstructed from the validated VC, skeleton, and
-candidate certificate interface; a policy classifier cannot choose another
+the exact lowered interface plan, and must match the candidate certificate
+interface when a candidate exists; a policy classifier cannot choose another
 group or declaration. The declaration hash is present even when a proof is
-pending because the canonical grouped theorem interface is already fixed.
+pending because the canonical lowered core theorem interface is already fixed.
 
 The evidence-reference union is:
 
@@ -791,9 +809,11 @@ earlier in the singleton certificate's declaration order. The complete
 transitive closure must be accepted by both checkers. A missing, extra,
 renamed, hash-mismatched,
 rejected, or `not_run` dependency makes the member and property invalid; it is
-not downgraded silently to helper evidence. Foundation imports are checked by
-certificate import hashes and are not duplicated in this generated-dependency
-graph.
+not downgraded silently to helper evidence. Under the active program-certificate
+alpha profile, checked foundation dependencies live inside the self-contained
+root certificate and are not duplicated in this generated-dependency graph.
+Any future profile that activates certificate imports must govern their hash
+resolution separately.
 
 ## 9. Structured reproduction recipes
 
@@ -911,7 +931,7 @@ JSON, a recipe argv, or any verification status.
 
 `policy verify` validates and records one checker, strategy, semantic, and
 axiom profile. It does not read, reproduce, or override package-manifest
-`checker_profile` or `retired_axiom_list` fields.
+`checker_profile` or `allowed_axiom_profiles` fields.
 
 The source-free package/release gate owns the later cross-check. Given
 validated evidence, canonical certificate bytes, the recomputed axiom report,
@@ -920,7 +940,7 @@ the active release selection, and a validated package manifest, it requires:
 1. active checker profile equals evidence `checker_profile` and package
    `checker_profile`;
 2. active axiom profile equals evidence `axiom_profile` and is a member of the
-   package manifest's `retired_axiom_list`;
+   package manifest's `allowed_axiom_profiles`;
 3. the recomputed complete axiom report is allowed by that exact active
    profile;
 4. release strategy/language/semantic/axiom selection equals the evidence
@@ -995,9 +1015,19 @@ valid proof-pending report is not a limit failure and follows section 6.
 | `POLICY_PROFILE_TUPLE` | known crossed language, semantic profile/parameters, strategy, or axiom tuple |
 | `POLICY_RELEASE_LINKAGE` | registry, frontend, toolchain, or limit projection mismatch |
 | `POLICY_SOURCE_LINKAGE` | envelope, selection, manifest, map, input-set, or VIR mismatch |
+| `POLICY_SCAN_NOT_READY` | verify's retained internal scan is valid but not ready; no evidence is committed |
 | `POLICY_MANIFEST_LIFECYCLE` | final manifest changed more than `vc_hash` and its self-hash |
 | `POLICY_VC_LINKAGE` | VC schema/hash/source/profile/input/limit mismatch |
 | `POLICY_HELPER_LINKAGE` | helper kind, raw/normalized contract, source, VIR, or VC mismatch |
+| `POLICY_CERTIFICATE_ASSEMBLY` | registered foundation, skeleton/interface lowering, canonical candidate assembly, or retained-candidate hash invariant failure; no evidence is committed |
+| `POLICY_CERTIFICATE_AXIOM_REPORT` | candidate report is not the required checked zero-axiom report or a count is outside the policy integer range; no evidence is committed |
+| `POLICY_CHECKER_EXECUTION` | a checker could not run, emit a valid result, or preserve an internal invariant; no evidence is committed |
+| `POLICY_CHECKER_REJECTED` | deterministic candidate rejection; valid untrusted evidence is committed before verify fails |
+| `POLICY_CHECKER_DISAGREEMENT` | acceptance disagreement commits valid untrusted evidence before failure; two accepted but unequal reports fail before commit because v1 cannot represent both reports faithfully |
+| `POLICY_PROOF_PENDING` | strict mode committed valid proof-pending evidence before verify failed |
+| `POLICY_PACKAGE_PROFILE` | evidence, active release, or package checker/axiom profile selection differs or is not permitted |
+| `POLICY_PACKAGE_LINKAGE` | package-gate VC or certificate-stage manifest identity differs from validated evidence |
+| `POLICY_PACKAGE_AXIOM_REPORT` | recomputed package-gate axiom report differs from evidence or is incompatible with the active axiom profile |
 | `POLICY_TRUSTED_EVIDENCE` | certificate identity/declaration-set, theory, axiom-report, or checker projection mismatch |
 | `POLICY_MEMBER_LINKAGE` | property member/group/declaration row mismatches VC/skeleton |
 | `POLICY_DEPENDENCY_CLOSURE` | required generated declaration dependency is not accepted exactly |
@@ -1051,8 +1081,9 @@ Construction has `base` and ordered RFC 6901/RFC 6902 `add`, `remove`, or
 `mpk.policy.evidence.conformance.v1` and exact top-level fields `schema`,
 `spec_schemas`, `dependencies`, `owner_test`, `linkage_contexts`, `fixtures`,
 `evidence_cases`, and `limit_cases`. Its contexts additionally freeze exact VC
-members/groups, candidate declaration hashes, direct generated dependencies,
-certificate/checker acceptance, and both manifest lifecycle hashes.
+members/groups, planned and candidate declaration-interface hashes, direct
+generated dependencies, certificate/checker acceptance, and both manifest
+lifecycle hashes.
 An evidence fixture has the same five exact fixture fields and digest meaning
 as a scan fixture. Construction and expectation shapes are the same as the
 scan vector. The

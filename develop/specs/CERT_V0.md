@@ -58,6 +58,14 @@ Import:
 
 Normal mode may resolve imports by module and export hash. High-trust mode requires certificate hash verification in the current session.
 
+Import encoding remains a Certificate v0 schema capability. The active
+`mpk.program_certificate.alpha.v0` dual-checker profile in
+`PROGRAM_CERTIFICATE_ALPHA_V0.md` requires the candidate program certificate
+to be self-contained with `imports: []`. Foundation declarations used by that
+profile are copied as a checked transitive closure and rechecked in the root;
+an assembler must not resolve ambient imports or strip imports from an
+otherwise assembled certificate.
+
 ## Canonical binary encoding rules
 
 - Fixed field order.
@@ -144,6 +152,15 @@ Implementation support is profile-gated:
 | `mvp-strict` | `mvp-structural` plus `Theory` | reject unknown future tags |
 
 The active checker profile is part of package/release policy. A certificate may decode under the binary schema but still reject if it uses a node not enabled by the active profile.
+
+The current program-certificate alpha profile additionally requires
+`proof_node_table: []` and `theory_certificates: []` and forbids
+`TheoryPrimitive` declarations and `Theory` proof nodes. Generated theorem
+declarations carry ordinary proof terms directly; a detached proof-node DAG is
+not a theorem proof body. Selecting an axiom profile named `mvp-theory` does
+not activate schema-reserved theory features. Their activation requires
+matching support in both configured source-free checkers as governed by
+`PROGRAM_CERTIFICATE_ALPHA_V0.md`.
 
 ## Source manifest
 
