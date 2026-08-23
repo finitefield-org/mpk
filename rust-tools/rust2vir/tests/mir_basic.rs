@@ -18,7 +18,6 @@ mod rustc_driver_adapter;
 mod rustc_harness;
 
 use rust2vir_internal::json::{self, JsonValue};
-use rustc_driver_adapter::RustcDriverError;
 
 const DRIVER_VECTOR: &[u8] = include_bytes!("../testdata/rust-driver-v0.json");
 const IDENTITY_CONTRACT: &[u8] = include_bytes!("../testdata/contracts/identity.json");
@@ -291,11 +290,11 @@ pub fn a_selected(x: u8) -> u8 {
 }
 
 #[test]
-fn reachable_call_rejects_as_the_later_call_family() {
+fn reachable_call_lowers_as_call_static() {
     let source = b"pub fn helper(x: u8) -> u8 { x }\npub fn selected(x: u8) -> u8 { helper(x) }\n";
     let helper_contract = tautology_contract("vector::helper");
     let selected_contract = tautology_contract("vector::selected");
-    let error = rustc_harness::lower(
+    let lowering = rustc_harness::lower(
         source,
         "vector::selected",
         &[
@@ -303,20 +302,20 @@ fn reachable_call_rejects_as_the_later_call_family() {
             ("contracts/selected.json", &selected_contract),
         ],
     )
-    .expect_err("reachable call must reject");
-    let RustcDriverError::Mir(error) = error else {
-        panic!("expected MIR rejection, got {error:?}");
-    };
-    assert_eq!(error.code.as_str(), "RUST_MIR_CALL");
+    .expect("reachable direct call must lower");
+    let encoded = json::canonical(&lowering.raw_lowering).expect("canonical lowering");
+    assert!(std::str::from_utf8(&encoded)
+        .expect("UTF-8 lowering")
+        .contains("CallStatic"));
 }
 
 #[test]
-fn lowering_failure_identifies_the_actual_closure_member() {
+fn nested_reachable_call_chain_is_callee_first() {
     let source = b"pub fn leaf(x: u8) -> u8 { x }\npub fn helper(x: u8) -> u8 { leaf(x) }\npub fn selected(x: u8) -> u8 { if false { helper(x) } else { x } }\n";
     let leaf_contract = tautology_contract("vector::leaf");
     let helper_contract = tautology_contract("vector::helper");
     let selected_contract = tautology_contract("vector::selected");
-    let error = rustc_harness::lower(
+    let lowering = rustc_harness::lower(
         source,
         "vector::selected",
         &[
@@ -325,12 +324,14 @@ fn lowering_failure_identifies_the_actual_closure_member() {
             ("contracts/selected.json", &selected_contract),
         ],
     )
-    .expect_err("unsupported dead callee body must reject");
-    let RustcDriverError::Mir(error) = error else {
-        panic!("expected MIR rejection, got {error:?}");
-    };
-    assert_eq!(error.function_id, "vector::helper");
-    assert_eq!(error.code.as_str(), "RUST_MIR_CALL");
+    .expect("lower reachable call chain in a source-dead closure member");
+    assert_eq!(
+        functions(vir(&lowering.raw_lowering))
+            .iter()
+            .map(|function| member(function, "id").as_str().unwrap())
+            .collect::<Vec<_>>(),
+        vec!["vector::leaf", "vector::helper", "vector::selected"]
+    );
 }
 
 fn tautology_contract(function: &str) -> Vec<u8> {

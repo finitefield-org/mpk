@@ -5,9 +5,14 @@ use super::mir_aggregate::{
     validate_struct_aggregate_pattern, ArrayAggregatePatternVector, StructAggregatePatternVector,
 };
 use super::mir_arithmetic::{ArithmeticOperation, ArithmeticPlan, DivRemOperation, ShiftOperation};
+use super::mir_call::{
+    validate_function_contract_context, validate_function_mir_signature, CallContext, CallPlan,
+    PlannedCall,
+};
 use super::mir_projection::{direct_field_projection, FieldProjection, ProjectionPlan};
 use super::type_lower::{contract_type, struct_declarations, vir_type, HirStructDecl};
-use rust2vir_internal::contract::ContractType;
+use rust2vir_internal::call_closure::canonical_callee_first_order;
+use rust2vir_internal::contract::{ContractSet, ContractType, NormalizedContract};
 use rust2vir_internal::driver_protocol::DriverRequest;
 use rust2vir_internal::file_loader::{SnapshotFileLoader, SourceRangeError};
 use rust2vir_internal::json::{self, JsonValue};
@@ -91,7 +96,7 @@ impl MirCode {
             Self::Assertion => {
                 "MIR assertion does not match a supported pinned checked-operation pattern"
             }
-            Self::Call => "MIR call is not implemented by the basic lowerer",
+            Self::Call => "MIR call does not match the contracted direct-call pattern",
             Self::Move => "projected or dropping MIR move is not permitted",
             Self::Cleanup => "MIR cleanup, drop, or unwind flow is not permitted",
             Self::BlockLimit => "reachable MIR block count exceeds the deterministic limit",
@@ -142,9 +147,36 @@ pub(super) struct LoweredFunction {
     instructions: usize,
 }
 
+pub(super) struct ModuleContext<'a> {
+    call_closure: &'a [HirFunction],
+    structs: &'a [HirStructDecl],
+    contracts: &'a ContractSet,
+    request: &'a DriverRequest,
+    loader: &'a SnapshotFileLoader,
+}
+
+impl<'a> ModuleContext<'a> {
+    pub(super) fn new(
+        call_closure: &'a [HirFunction],
+        structs: &'a [HirStructDecl],
+        contracts: &'a ContractSet,
+        request: &'a DriverRequest,
+        loader: &'a SnapshotFileLoader,
+    ) -> Self {
+        Self {
+            call_closure,
+            structs,
+            contracts,
+            request,
+            loader,
+        }
+    }
+}
+
 #[derive(Clone, Copy)]
 enum Flow {
     Goto(usize),
+    Call(usize),
     Branch {
         false_block: usize,
         true_block: usize,
@@ -152,17 +184,18 @@ enum Flow {
     Return,
 }
 
-type Reachability = (
+type Reachability<'tcx> = (
     Vec<usize>,
     Vec<Option<Flow>>,
     ArithmeticPlan,
     ProjectionPlan,
+    CallPlan<'tcx>,
 );
 
 impl Flow {
     fn successors(self) -> Vec<usize> {
         match self {
-            Self::Goto(target) => vec![target],
+            Self::Goto(target) | Self::Call(target) => vec![target],
             Self::Branch {
                 false_block,
                 true_block,
@@ -220,7 +253,35 @@ pub(super) fn finish_module(
             return Err(MirError::new(MirCode::IrLimit, &item.function_id));
         }
     }
-    lowered.sort_by(|left, right| left.function_id.cmp(&right.function_id));
+    let call_graph = lowered
+        .iter()
+        .map(|item| {
+            Ok((
+                item.function_id.clone(),
+                emitted_callees(&item.value, &item.function_id)?,
+            ))
+        })
+        .collect::<Result<Vec<_>, MirError>>()?;
+    let function_order = canonical_callee_first_order(call_graph)
+        .map_err(|_| MirError::new(MirCode::Call, request.selection().2))?;
+    let mut functions_by_id = BTreeMap::new();
+    for item in lowered {
+        let function_id = item.function_id.clone();
+        if functions_by_id.insert(function_id, item).is_some() {
+            return Err(MirError::new(MirCode::Call, request.selection().2));
+        }
+    }
+    lowered = function_order
+        .into_iter()
+        .map(|function_id| {
+            functions_by_id
+                .remove(&function_id)
+                .ok_or_else(|| MirError::new(MirCode::Call, request.selection().2))
+        })
+        .collect::<Result<Vec<_>, _>>()?;
+    if !functions_by_id.is_empty() {
+        return Err(MirError::new(MirCode::Call, request.selection().2));
+    }
 
     let unit_id = request.selection().1;
     let semantic_parameters = JsonValue::Object(BTreeMap::from([
@@ -302,13 +363,15 @@ pub(super) fn lower_function<'tcx>(
     def_id: LocalDefId,
     body: &Body<'tcx>,
     function: &HirFunction,
-    structs: &[HirStructDecl],
-    contract: &JsonValue,
-    loader: &SnapshotFileLoader,
+    contract: &NormalizedContract,
+    context: &ModuleContext<'_>,
 ) -> Result<LoweredFunction, MirError> {
     let function_id = function.function_id.as_str();
-    if body.arg_count != function.parameter_types.len()
-        || function.local_names.len() != function.local_types.len()
+    validate_function_contract_context(function, contract, context.contracts, context.request)
+        .map_err(|code| MirError::new(code, function_id))?;
+    validate_function_mir_signature(tcx, def_id, body, function)
+        .map_err(|code| MirError::new(code, function_id))?;
+    if function.local_names.len() != function.local_types.len()
         || function.local_names.len() != function.local_spans.len()
         || function.parameter_types.len() > VIR_PARAMETERS_MAX
         || function.local_types.len() > VIR_LOCALS_MAX
@@ -325,8 +388,14 @@ pub(super) fn lower_function<'tcx>(
         return Err(MirError::new(MirCode::Rvalue, function_id));
     }
     let local_kinds = map_locals(body, function)?;
-    let (order, flows, mut arithmetic, mut projection) =
-        reachable_order(tcx, def_id, body, function, function_id)?;
+    let call_context = CallContext {
+        caller: function,
+        closure: context.call_closure,
+        contracts: context.contracts,
+        request: context.request,
+    };
+    let (order, flows, mut arithmetic, mut projection, calls) =
+        reachable_order(tcx, def_id, body, function, &call_context, function_id)?;
     arithmetic
         .finish(body, &order)
         .map_err(|code| MirError::new(code, function_id))?;
@@ -345,7 +414,7 @@ pub(super) fn lower_function<'tcx>(
     if statement_count > MIR_STATEMENTS_FUNCTION_MAX {
         return Err(MirError::new(MirCode::StatementLimit, function_id));
     }
-    validate_storage(body, &order, &flows, &local_kinds, function_id)?;
+    validate_storage(body, &order, &flows, &local_kinds, &calls, function_id)?;
     let (live_in, uses, definitions) = live_compiler_locals(
         tcx,
         def_id,
@@ -355,6 +424,7 @@ pub(super) fn lower_function<'tcx>(
         &local_kinds,
         &arithmetic,
         &projection,
+        &calls,
         function_id,
     )?;
     let _ = (uses, definitions);
@@ -363,7 +433,8 @@ pub(super) fn lower_function<'tcx>(
     }
 
     let block_ids = block_names(&order);
-    let incoming_origins = compiler_local_origins(body, &order, &flows, &local_kinds, function_id)?;
+    let incoming_origins =
+        compiler_local_origins(body, &order, &flows, &local_kinds, &calls, function_id)?;
     let mut ids = DenseIds::default();
     let mut block_parameters = vec![BTreeMap::<usize, String>::new(); body.basic_blocks.len()];
     for block in order.iter().skip(1) {
@@ -384,7 +455,7 @@ pub(super) fn lower_function<'tcx>(
             unit_id: unit_id.to_owned(),
             function_id: function_id.to_owned(),
         },
-        origin: source_origin(tcx, loader, body.span, function_id)?,
+        origin: source_origin(tcx, context.loader, body.span, function_id)?,
     }];
     let mut blocks = Vec::with_capacity(order.len());
     let mut next_instruction = 0_usize;
@@ -435,7 +506,7 @@ pub(super) fn lower_function<'tcx>(
                         &arithmetic,
                         &projection,
                         function,
-                        structs,
+                        context.structs,
                         &local_kinds,
                         &function.local_spans,
                         &mut initialized_user_locals,
@@ -445,7 +516,7 @@ pub(super) fn lower_function<'tcx>(
                         block_index,
                         unit_id,
                         function_id,
-                        loader,
+                        context.loader,
                         &mut instructions,
                         &mut source_entries,
                     )?;
@@ -455,7 +526,12 @@ pub(super) fn lower_function<'tcx>(
                     if !span_contains(body.span, statement.source_info.span) {
                         return Err(MirError::new(MirCode::SourceMapExternal, function_id));
                     }
-                    let _ = source_origin(tcx, loader, statement.source_info.span, function_id)?;
+                    let _ = source_origin(
+                        tcx,
+                        context.loader,
+                        statement.source_info.span,
+                        function_id,
+                    )?;
                 }
                 _ => return Err(MirError::new(MirCode::Statement, function_id)),
             }
@@ -489,6 +565,43 @@ pub(super) fn lower_function<'tcx>(
                         )?,
                     ),
                     fallback,
+                )
+            }
+            Flow::Call(target) => {
+                let call = calls
+                    .get(*old_block)
+                    .ok_or_else(|| MirError::new(MirCode::Call, function_id))?;
+                lower_static_call(
+                    tcx,
+                    def_id,
+                    body,
+                    call,
+                    &arithmetic,
+                    function,
+                    &local_kinds,
+                    &mut initialized_user_locals,
+                    &mut environment,
+                    &mut ids,
+                    &mut next_instruction,
+                    block_index,
+                    unit_id,
+                    function_id,
+                    context.loader,
+                    &mut instructions,
+                    &mut source_entries,
+                )?;
+                (
+                    jump(
+                        &block_ids[&target],
+                        edge_arguments(
+                            target,
+                            &live_in,
+                            &environment,
+                            &block_parameters,
+                            function_id,
+                        )?,
+                    ),
+                    Some(call.span),
                 )
             }
             Flow::Branch {
@@ -570,7 +683,7 @@ pub(super) fn lower_function<'tcx>(
             }
         };
         let raw_terminator_span = match flow {
-            Flow::Return => fallback_terminator_span,
+            Flow::Return | Flow::Call(_) => fallback_terminator_span,
             _ if terminator.source_info.span.lo() < terminator.source_info.span.hi() => {
                 Some(terminator.source_info.span)
             }
@@ -584,6 +697,8 @@ pub(super) fn lower_function<'tcx>(
                 .and_then(|span| enclosing_control_flow_span(span, &function.control_flow_spans))
                 .or(raw_terminator_span)
                 .ok_or_else(|| MirError::new(MirCode::SourceMapRange, function_id))?,
+            Flow::Call(_) => raw_terminator_span
+                .ok_or_else(|| MirError::new(MirCode::SourceMapRange, function_id))?,
             Flow::Return => raw_terminator_span
                 .and_then(|span| enclosing_span(span, &function.return_value_spans))
                 .ok_or_else(|| MirError::new(MirCode::SourceMapRange, function_id))?,
@@ -594,7 +709,7 @@ pub(super) fn lower_function<'tcx>(
                 function_id: function_id.to_owned(),
                 block_index,
             },
-            origin: source_origin(tcx, loader, terminator_span, function_id)?,
+            origin: source_origin(tcx, context.loader, terminator_span, function_id)?,
         });
         blocks.push(JsonValue::Object(BTreeMap::from([
             ("label".to_owned(), string(&block_ids[old_block])),
@@ -630,6 +745,9 @@ pub(super) fn lower_function<'tcx>(
     if flows.iter().flatten().any(|flow| matches!(flow, Flow::Branch { false_block, true_block } if false_block != true_block)) {
         features.push(string("branch"));
     }
+    if blocks_contain_instruction_kind(&blocks, &["CallStatic"]) {
+        features.push(string("call_static"));
+    }
     if blocks_contain_constant_reference(&blocks) {
         features.push(string("constant_decl"));
     }
@@ -660,7 +778,7 @@ pub(super) fn lower_function<'tcx>(
             ),
             ("locals".to_owned(), JsonValue::Array(locals)),
             ("blocks".to_owned(), JsonValue::Array(blocks)),
-            ("contracts".to_owned(), contract.clone()),
+            ("contracts".to_owned(), contract.value.clone()),
             ("features_used".to_owned(), JsonValue::Array(features)),
         ])),
         source_map: source_entries,
@@ -720,14 +838,16 @@ fn reachable_order<'tcx>(
     def_id: LocalDefId,
     body: &Body<'tcx>,
     function: &HirFunction,
+    call_context: &CallContext<'_>,
     function_id: &str,
-) -> Result<Reachability, MirError> {
+) -> Result<Reachability<'tcx>, MirError> {
     if body.basic_blocks.is_empty() {
         return Err(MirError::new(MirCode::Terminator, function_id));
     }
     let mut flows = vec![None; body.basic_blocks.len()];
     let mut arithmetic = ArithmeticPlan::default();
     let mut projection = ProjectionPlan::default();
+    let mut calls = CallPlan::default();
     let mut failure = None;
     let order = breadth_first_order(0, body.basic_blocks.len(), |index| {
         if failure.is_some() {
@@ -746,6 +866,8 @@ fn reachable_order<'tcx>(
             function,
             &mut arithmetic,
             &mut projection,
+            &mut calls,
+            call_context,
             function_id,
         ) {
             Ok(flow) => {
@@ -769,7 +891,7 @@ fn reachable_order<'tcx>(
     if topological_order(&order, &flows).is_none() {
         return Err(MirError::new(MirCode::Terminator, function_id));
     }
-    Ok((order, flows, arithmetic, projection))
+    Ok((order, flows, arithmetic, projection, calls))
 }
 
 #[allow(clippy::too_many_arguments)]
@@ -781,6 +903,8 @@ fn classify_flow<'tcx>(
     function: &HirFunction,
     arithmetic: &mut ArithmeticPlan,
     projection: &mut ProjectionPlan,
+    calls: &mut CallPlan<'tcx>,
+    call_context: &CallContext<'_>,
     function_id: &str,
 ) -> Result<Flow, MirError> {
     let block = &body.basic_blocks[BasicBlock::new(block_index)];
@@ -817,12 +941,10 @@ fn classify_flow<'tcx>(
                 .map(Flow::Goto)
                 .map_err(|code| MirError::new(code, function_id))
         }
-        TerminatorKind::Call { unwind, .. }
-            if !matches!(unwind, rustc_middle::mir::UnwindAction::Unreachable) =>
-        {
-            Err(MirError::new(MirCode::Cleanup, function_id))
-        }
-        TerminatorKind::Call { .. } => Err(MirError::new(MirCode::Call, function_id)),
+        TerminatorKind::Call { .. } => calls
+            .recognize(tcx, def_id, body, block_index, call_context)
+            .map(Flow::Call)
+            .map_err(|code| MirError::new(code, function_id)),
         TerminatorKind::TailCall { .. } => Err(MirError::new(MirCode::Call, function_id)),
         TerminatorKind::Drop { .. }
         | TerminatorKind::UnwindResume
@@ -906,11 +1028,12 @@ fn topological_order(order: &[usize], flows: &[Option<Flow>]) -> Option<Vec<usiz
 
 type LocalSets = Vec<BTreeSet<usize>>;
 
-fn compiler_local_origins(
-    body: &Body<'_>,
+fn compiler_local_origins<'tcx>(
+    body: &Body<'tcx>,
     order: &[usize],
     flows: &[Option<Flow>],
     local_kinds: &[LocalKind],
+    calls: &CallPlan<'tcx>,
     function_id: &str,
 ) -> Result<Vec<BTreeMap<usize, Span>>, MirError> {
     let topological = topological_order(order, flows)
@@ -948,6 +1071,12 @@ fn compiler_local_origins(
                 if is_modeled_compiler_local(body, local_kinds, local) {
                     state.insert(local, statement.source_info.span);
                 }
+            }
+        }
+        if let Some(call) = calls.get(block_index) {
+            let local = call.destination.index();
+            if is_modeled_compiler_local(body, local_kinds, local) {
+                state.insert(local, call.span);
             }
         }
         outgoing[block_index] = state;
@@ -994,6 +1123,7 @@ fn live_compiler_locals<'tcx>(
     local_kinds: &[LocalKind],
     arithmetic: &ArithmeticPlan,
     projection: &ProjectionPlan,
+    calls: &CallPlan<'tcx>,
     function_id: &str,
 ) -> Result<(LocalSets, LocalSets, LocalSets), MirError> {
     let mut uses = vec![BTreeSet::new(); body.basic_blocks.len()];
@@ -1113,7 +1243,39 @@ fn live_compiler_locals<'tcx>(
                 _ => return Err(MirError::new(MirCode::Statement, function_id)),
             }
         }
-        if let TerminatorKind::SwitchInt { discr, .. } = &block.terminator().kind {
+        if let Some(call) = calls.get(*block_index) {
+            let destination = call.destination.index();
+            match local_kinds.get(destination) {
+                Some(LocalKind::Argument(_)) | None => {
+                    return Err(MirError::new(MirCode::Place, function_id));
+                }
+                Some(_) => {}
+            }
+            let mut reads = Vec::new();
+            for argument in &call.arguments {
+                validate_operand(
+                    tcx,
+                    def_id,
+                    body,
+                    argument,
+                    local_kinds,
+                    arithmetic,
+                    function_id,
+                    &mut reads,
+                )?;
+            }
+            for local in reads {
+                let index = local.index();
+                if is_modeled_compiler_local(body, local_kinds, index)
+                    && !definitions[*block_index].contains(&index)
+                {
+                    uses[*block_index].insert(index);
+                }
+            }
+            if is_modeled_compiler_local(body, local_kinds, destination) {
+                definitions[*block_index].insert(destination);
+            }
+        } else if let TerminatorKind::SwitchInt { discr, .. } = &block.terminator().kind {
             let mut reads = Vec::new();
             validate_operand(
                 tcx,
@@ -1158,11 +1320,12 @@ fn live_compiler_locals<'tcx>(
     Ok((live_in, uses, definitions))
 }
 
-fn validate_storage(
-    body: &Body<'_>,
+fn validate_storage<'tcx>(
+    body: &Body<'tcx>,
     order: &[usize],
     flows: &[Option<Flow>],
     local_kinds: &[LocalKind],
+    calls: &CallPlan<'tcx>,
     function_id: &str,
 ) -> Result<(), MirError> {
     let mut has_marker = vec![false; body.local_decls.len()];
@@ -1243,7 +1406,15 @@ fn validate_storage(
                 _ => return Err(MirError::new(MirCode::Statement, function_id)),
             }
         }
-        if let TerminatorKind::SwitchInt { discr, .. } = &block.terminator().kind {
+        if let Some(call) = calls.get(block_index) {
+            if !live.contains(&call.destination.index())
+                || call.arguments.iter().any(|argument| {
+                    operand_place(argument).is_some_and(|local| !live.contains(&local.index()))
+                })
+            {
+                return Err(MirError::new(MirCode::Statement, function_id));
+            }
+        } else if let TerminatorKind::SwitchInt { discr, .. } = &block.terminator().kind {
             if operand_place(discr).is_some_and(|local| !live.contains(&local.index())) {
                 return Err(MirError::new(MirCode::Statement, function_id));
             }
@@ -1766,7 +1937,7 @@ fn lower_assignment<'tcx>(
             .map_err(|code| MirError::new(code, function_id))?,
         _ => None,
     };
-    let mut value = if let Some(field) = direct_field {
+    let value = if let Some(field) = direct_field {
         let base = resolve_local(
             tcx,
             def_id,
@@ -2284,18 +2455,151 @@ fn lower_assignment<'tcx>(
     if destination_type != value.ty {
         return Err(MirError::new(MirCode::Rvalue, function_id));
     }
-    match local_kinds[destination.local.index()] {
-        LocalKind::Result | LocalKind::Temporary => {
-            value.span = statement_span;
-            environment.insert(destination.local.index(), value);
+    store_destination_value(
+        destination.local,
+        value,
+        statement_span,
+        local_kinds,
+        local_binding_spans,
+        initialized_user_locals,
+        environment,
+        tcx,
+        loader,
+        ids,
+        next_instruction,
+        block_index,
+        unit_id,
+        function_id,
+        instructions,
+        source_entries,
+    )
+}
+
+#[allow(clippy::too_many_arguments)]
+fn lower_static_call<'tcx>(
+    tcx: TyCtxt<'tcx>,
+    def_id: LocalDefId,
+    body: &Body<'tcx>,
+    call: &PlannedCall<'tcx>,
+    arithmetic: &ArithmeticPlan,
+    function: &HirFunction,
+    local_kinds: &[LocalKind],
+    initialized_user_locals: &mut BTreeSet<usize>,
+    environment: &mut BTreeMap<usize, Value>,
+    ids: &mut DenseIds,
+    next_instruction: &mut usize,
+    block_index: usize,
+    unit_id: &str,
+    function_id: &str,
+    loader: &SnapshotFileLoader,
+    instructions: &mut Vec<JsonValue>,
+    source_entries: &mut Vec<SourceMapEntry>,
+) -> Result<(), MirError> {
+    let mut arguments = Vec::with_capacity(call.arguments.len());
+    for (operand, expected_type) in call.arguments.iter().zip(&call.parameter_types) {
+        let value = lower_operand(
+            tcx,
+            def_id,
+            body,
+            operand,
+            local_kinds,
+            environment,
+            arithmetic,
+            function_id,
+        )?;
+        if &value.ty != expected_type {
+            return Err(MirError::new(MirCode::Call, function_id));
         }
-        LocalKind::User(local_index) => {
+        arguments.push(value.json);
+    }
+    if arguments.len() != call.arguments.len() || call.arguments.len() != call.parameter_types.len()
+    {
+        return Err(MirError::new(MirCode::Call, function_id));
+    }
+    let mut instruction = instruction_base(
+        ids,
+        next_instruction,
+        "CallStatic",
+        &call.result_type,
+        function_id,
+    )?;
+    instruction.insert("function".to_owned(), string(&call.callee));
+    instruction.insert("contract_hash".to_owned(), string(&call.contract_hash));
+    instruction.insert("args".to_owned(), JsonValue::Array(arguments));
+    let value = emitted_value(
+        instruction,
+        call.result_type.clone(),
+        call.span,
+        tcx,
+        loader,
+        block_index,
+        unit_id,
+        function_id,
+        instructions,
+        source_entries,
+        *next_instruction - 1,
+    )?;
+    let destination_type = mir_contract_type(
+        tcx,
+        def_id,
+        body.local_decls[call.destination].ty,
+        function_id,
+    )?;
+    if destination_type != call.result_type || value.ty != call.result_type {
+        return Err(MirError::new(MirCode::Call, function_id));
+    }
+    store_destination_value(
+        call.destination,
+        value,
+        call.span,
+        local_kinds,
+        &function.local_spans,
+        initialized_user_locals,
+        environment,
+        tcx,
+        loader,
+        ids,
+        next_instruction,
+        block_index,
+        unit_id,
+        function_id,
+        instructions,
+        source_entries,
+    )
+}
+
+#[allow(clippy::too_many_arguments)]
+fn store_destination_value(
+    destination: Local,
+    mut value: Value,
+    assignment_span: Span,
+    local_kinds: &[LocalKind],
+    local_binding_spans: &[Span],
+    initialized_user_locals: &mut BTreeSet<usize>,
+    environment: &mut BTreeMap<usize, Value>,
+    tcx: TyCtxt<'_>,
+    loader: &SnapshotFileLoader,
+    ids: &mut DenseIds,
+    next_instruction: &mut usize,
+    block_index: usize,
+    unit_id: &str,
+    function_id: &str,
+    instructions: &mut Vec<JsonValue>,
+    source_entries: &mut Vec<SourceMapEntry>,
+) -> Result<(), MirError> {
+    match local_kinds.get(destination.index()) {
+        Some(LocalKind::Result | LocalKind::Temporary) => {
+            value.span = assignment_span;
+            environment.insert(destination.index(), value);
+        }
+        Some(LocalKind::User(local_index)) => {
+            let local_index = *local_index;
             let copy_span = if initialized_user_locals.insert(local_index) {
                 *local_binding_spans
                     .get(local_index)
                     .ok_or_else(|| MirError::new(MirCode::SourceMapRange, function_id))?
             } else {
-                statement_span
+                assignment_span
             };
             let mut instruction =
                 instruction_base(ids, next_instruction, "Copy", &value.ty, function_id)?;
@@ -2315,7 +2619,9 @@ fn lower_assignment<'tcx>(
                 *next_instruction - 1,
             )?;
         }
-        LocalKind::Argument(_) => return Err(MirError::new(MirCode::Place, function_id)),
+        Some(LocalKind::Argument(_)) | None => {
+            return Err(MirError::new(MirCode::Place, function_id));
+        }
     }
     Ok(())
 }
@@ -3113,6 +3419,36 @@ fn blocks_contain_instruction_kind(blocks: &[JsonValue], kinds: &[&str]) -> bool
                 })
             })
     })
+}
+
+fn emitted_callees(value: &JsonValue, function_id: &str) -> Result<Vec<String>, MirError> {
+    let blocks = value
+        .as_object()
+        .and_then(|function| function.get("blocks"))
+        .and_then(JsonValue::as_array)
+        .ok_or_else(|| MirError::new(MirCode::Call, function_id))?;
+    let mut callees = BTreeSet::new();
+    for block in blocks {
+        let instructions = block
+            .as_object()
+            .and_then(|block| block.get("instructions"))
+            .and_then(JsonValue::as_array)
+            .ok_or_else(|| MirError::new(MirCode::Call, function_id))?;
+        for instruction in instructions {
+            let instruction = instruction
+                .as_object()
+                .ok_or_else(|| MirError::new(MirCode::Call, function_id))?;
+            if instruction.get("kind").and_then(JsonValue::as_str) != Some("CallStatic") {
+                continue;
+            }
+            let callee = instruction
+                .get("function")
+                .and_then(JsonValue::as_str)
+                .ok_or_else(|| MirError::new(MirCode::Call, function_id))?;
+            callees.insert(callee.to_owned());
+        }
+    }
+    Ok(callees.into_iter().collect())
 }
 
 fn blocks_contain_constant_reference(blocks: &[JsonValue]) -> bool {

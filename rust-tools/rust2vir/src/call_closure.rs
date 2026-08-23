@@ -63,6 +63,69 @@ where
     Ok(reachable.into_iter().collect())
 }
 
+/// Returns the canonical callee-first order for a complete emitted call graph.
+///
+/// Unlike [`resolve_call_closure`], this operates on every supplied function and is
+/// intended for the graph reconstructed from reachable `CallStatic` instructions.
+/// Functions without an emitted edge remain in the result and are ordered by their
+/// canonical function ID whenever more than one node is ready.
+pub fn canonical_callee_first_order<I, S>(functions: I) -> Result<Vec<String>, CallClosureError>
+where
+    I: IntoIterator<Item = (S, Vec<S>)>,
+    S: Into<String>,
+{
+    let mut graph = BTreeMap::<String, BTreeSet<String>>::new();
+    for (function, callees) in functions {
+        let function = function.into();
+        let callees = callees.into_iter().map(Into::into).collect();
+        if graph.insert(function, callees).is_some() {
+            return Err(CallClosureError::DuplicateFunction);
+        }
+    }
+    if graph
+        .values()
+        .flatten()
+        .any(|callee| !graph.contains_key(callee))
+    {
+        return Err(CallClosureError::UnknownCallee);
+    }
+
+    let mut callers_by_callee = BTreeMap::<String, BTreeSet<String>>::new();
+    let mut remaining_callees = BTreeMap::<String, usize>::new();
+    for (function, callees) in &graph {
+        remaining_callees.insert(function.clone(), callees.len());
+        for callee in callees {
+            callers_by_callee
+                .entry(callee.clone())
+                .or_default()
+                .insert(function.clone());
+        }
+    }
+    let mut ready = remaining_callees
+        .iter()
+        .filter_map(|(function, count)| (*count == 0).then_some(function.clone()))
+        .collect::<BTreeSet<_>>();
+    let mut ordered = Vec::with_capacity(graph.len());
+    while let Some(function) = ready.pop_first() {
+        ordered.push(function.clone());
+        for caller in callers_by_callee.get(&function).into_iter().flatten() {
+            let count = remaining_callees
+                .get_mut(caller)
+                .ok_or(CallClosureError::UnknownCallee)?;
+            *count = count
+                .checked_sub(1)
+                .ok_or(CallClosureError::UnknownCallee)?;
+            if *count == 0 {
+                ready.insert(caller.clone());
+            }
+        }
+    }
+    if ordered.len() != graph.len() {
+        return Err(CallClosureError::Cycle);
+    }
+    Ok(ordered)
+}
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 enum VisitState {
     Visiting,

@@ -33,6 +33,8 @@ mod hir_check;
 pub(crate) mod mir_aggregate;
 #[path = "mir_arithmetic.rs"]
 pub(crate) mod mir_arithmetic;
+#[path = "mir_call.rs"]
+pub(crate) mod mir_call;
 #[path = "mir_lower.rs"]
 mod mir_lower;
 #[path = "mir_projection.rs"]
@@ -293,6 +295,13 @@ impl Callbacks for PinnedCallbacks<'_> {
         };
         definitions.sort_by_key(|(function_id, _)| *function_id);
         let mut lowered = Vec::new();
+        let lowering_context = mir_lower::ModuleContext::new(
+            &analysis.call_closure,
+            &analysis.type_declarations,
+            &contracts,
+            self.request,
+            &self.loader,
+        );
         for (function_id, def_id) in definitions {
             if access.force(function_id, MIR_QUERY).is_err() {
                 return self.reject(RustcDriverError::MirAdapter);
@@ -323,9 +332,8 @@ impl Callbacks for PinnedCallbacks<'_> {
                     def_id.expect("checked definition"),
                     &body,
                     function,
-                    &analysis.type_declarations,
-                    &contract.value,
-                    &self.loader,
+                    contract,
+                    &lowering_context,
                 ) {
                     Ok(function) => lowered.push(function),
                     Err(error) => return self.reject(RustcDriverError::Mir(error)),

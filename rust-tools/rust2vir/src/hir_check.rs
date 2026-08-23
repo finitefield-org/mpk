@@ -89,7 +89,15 @@ impl HirCheckCode {
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
+pub struct HirCallSite {
+    pub callee_def_id: LocalDefId,
+    pub callee_id: String,
+    pub span: Span,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
 pub struct HirFunction {
+    pub def_id: LocalDefId,
     pub function_id: String,
     pub parameter_names: Vec<String>,
     pub parameter_types: Vec<ContractType>,
@@ -104,6 +112,7 @@ pub struct HirFunction {
     pub array_spans: Vec<Span>,
     pub struct_spans: Vec<Span>,
     pub field_spans: Vec<Span>,
+    pub call_sites: Vec<HirCallSite>,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -444,6 +453,7 @@ fn validate_function(
         array_spans: Vec::new(),
         struct_spans: Vec::new(),
         field_spans: Vec::new(),
+        call_sites: Vec::new(),
     };
     let mut parameter_names = Vec::with_capacity(body.params.len());
     let mut mutable_parameter = false;
@@ -484,6 +494,7 @@ fn validate_function(
         return Err(HirCheckCode::Pattern);
     }
     Ok(HirFunction {
+        def_id,
         function_id: function_id.to_owned(),
         parameter_names,
         parameter_types,
@@ -498,6 +509,7 @@ fn validate_function(
         array_spans: validator.array_spans,
         struct_spans: validator.struct_spans,
         field_spans: validator.field_spans,
+        call_sites: validator.call_sites,
     })
 }
 
@@ -562,6 +574,7 @@ struct BodyValidator<'a, 'tcx> {
     array_spans: Vec<Span>,
     struct_spans: Vec<Span>,
     field_spans: Vec<Span>,
+    call_sites: Vec<HirCallSite>,
 }
 
 impl BodyValidator<'_, '_> {
@@ -581,7 +594,12 @@ impl BodyValidator<'_, '_> {
                 Ok(())
             }
             hir::ExprKind::Call(callee, arguments) => {
-                self.validate_call_path(callee)?;
+                let callee_def_id = self.validate_call_path(callee)?;
+                self.call_sites.push(HirCallSite {
+                    callee_def_id,
+                    callee_id: canonical_item_id(self.tcx, callee_def_id),
+                    span: expression.span,
+                });
                 for argument in arguments {
                     self.validate_expr(argument)?;
                 }
@@ -800,13 +818,15 @@ impl BodyValidator<'_, '_> {
         Ok(())
     }
 
-    fn validate_call_path(&self, callee: &hir::Expr<'_>) -> Result<(), HirCheckCode> {
+    fn validate_call_path(&self, callee: &hir::Expr<'_>) -> Result<LocalDefId, HirCheckCode> {
         let hir::ExprKind::Path(path) = callee.kind else {
             return Err(HirCheckCode::Call);
         };
         validate_path_shape(&path)?;
         match self.typeck.qpath_res(&path, callee.hir_id) {
-            Res::Def(DefKind::Fn, def_id) if def_id.is_local() => Ok(()),
+            Res::Def(DefKind::Fn, def_id) if def_id.is_local() => {
+                def_id.as_local().ok_or(HirCheckCode::Call)
+            }
             _ => Err(HirCheckCode::Call),
         }
     }
