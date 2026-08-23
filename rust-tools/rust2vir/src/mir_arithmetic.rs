@@ -1,5 +1,6 @@
-use super::hir_check::{contract_type, HirFunction};
+use super::hir_check::HirFunction;
 use super::mir_lower::MirCode;
+use super::type_lower::contract_type;
 use rust2vir_internal::contract::ContractType;
 use rustc_index::Idx;
 use rustc_middle::mir::{

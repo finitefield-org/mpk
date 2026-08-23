@@ -1,3 +1,5 @@
+use super::const_lower::{lower_constant, HirConstant};
+use super::type_lower::{canonical_item_id, contract_type};
 use rust2vir_internal::call_closure::{
     resolve_call_closure, CallClosureError, MAX_CALL_CLOSURE_FUNCTIONS,
 };
@@ -8,7 +10,7 @@ use rustc_hir as hir;
 use rustc_hir::def::{DefKind, Res};
 use rustc_hir::intravisit::{self, Visitor};
 use rustc_middle::ty::{self, IntTy, Ty, TyCtxt, UintTy};
-use rustc_span::def_id::{DefId, LocalDefId, LOCAL_CRATE};
+use rustc_span::def_id::{DefId, LocalDefId};
 use rustc_span::Span;
 use std::collections::{BTreeSet, HashMap, HashSet};
 
@@ -96,17 +98,20 @@ pub struct HirFunction {
     pub return_value_spans: Vec<Span>,
     pub negative_literal_spans: Vec<Span>,
     pub checked_negation_spans: Vec<Span>,
+    pub array_spans: Vec<Span>,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct HirAnalysis {
     pub selected_function: String,
     pub call_closure: Vec<HirFunction>,
+    pub constant_declarations: Vec<HirConstant>,
 }
 
 pub fn analyze_hir(tcx: TyCtxt<'_>, selected_function: &str) -> Result<HirAnalysis, HirCheckCode> {
     let mut functions = HashMap::<LocalDefId, FunctionItem<'_>>::new();
     let mut names = HashMap::<LocalDefId, String>::new();
+    let mut constants = HashMap::<LocalDefId, HirConstant>::new();
 
     let item_ids = tcx.hir_free_items().collect::<Vec<_>>();
     for item_id in &item_ids {
@@ -122,6 +127,12 @@ pub fn analyze_hir(tcx: TyCtxt<'_>, selected_function: &str) -> Result<HirAnalys
     for item_id in item_ids {
         let item = tcx.hir_item(item_id);
         validate_item(tcx, item)?;
+        if let hir::ItemKind::Const(ident, _, _, body) = item.kind {
+            let constant = lower_constant(tcx, item.owner_id.def_id, ident.as_str(), body)?;
+            if constants.insert(item.owner_id.def_id, constant).is_some() {
+                return Err(HirCheckCode::Identifier);
+            }
+        }
         if let hir::ItemKind::Fn {
             sig,
             generics,
@@ -152,13 +163,22 @@ pub fn analyze_hir(tcx: TyCtxt<'_>, selected_function: &str) -> Result<HirAnalys
 
     let mut graph = Vec::with_capacity(functions.len());
     let mut scan_errors = HashMap::new();
+    let mut constant_refs = HashMap::<LocalDefId, HashSet<LocalDefId>>::new();
     for (def_id, function) in &functions {
         let typeck = tcx.typeck(*def_id);
         let mut scanner = CallScanner {
+            tcx,
             typeck,
             callees: HashSet::new(),
+            constants: HashSet::new(),
             error: None,
         };
+        for source_ty in function.sig.decl.inputs {
+            collect_type_constants(tcx, source_ty, &mut scanner.constants)?;
+        }
+        if let hir::FnRetTy::Return(source_ty) = function.sig.decl.output {
+            collect_type_constants(tcx, source_ty, &mut scanner.constants)?;
+        }
         scanner.visit_expr(tcx.hir_body(function.body).value);
         if let Some(error) = scanner.error {
             scan_errors.insert(*def_id, error);
@@ -172,6 +192,7 @@ pub fn analyze_hir(tcx: TyCtxt<'_>, selected_function: &str) -> Result<HirAnalys
                 .filter_map(|callee| names.get(&callee).cloned())
                 .collect::<Vec<_>>(),
         ));
+        constant_refs.insert(*def_id, scanner.constants);
     }
 
     let closure_names = resolve_call_closure(graph, selected_function, MAX_CALL_CLOSURE_FUNCTIONS)
@@ -196,6 +217,18 @@ pub fn analyze_hir(tcx: TyCtxt<'_>, selected_function: &str) -> Result<HirAnalys
     }
     closure.sort_by(|left, right| left.function_id.cmp(&right.function_id));
 
+    let mut referenced_constants = HashSet::new();
+    for (def_id, function_id) in &names {
+        if closure_set.contains(function_id.as_str()) {
+            referenced_constants.extend(constant_refs.get(def_id).into_iter().flatten().copied());
+        }
+    }
+    let mut constant_declarations = referenced_constants
+        .into_iter()
+        .map(|def_id| constants.get(&def_id).cloned().ok_or(HirCheckCode::Purity))
+        .collect::<Result<Vec<_>, _>>()?;
+    constant_declarations.sort_by(|left, right| left.id.cmp(&right.id));
+
     if !closure
         .iter()
         .any(|function| function.function_id == names[&selected])
@@ -205,7 +238,32 @@ pub fn analyze_hir(tcx: TyCtxt<'_>, selected_function: &str) -> Result<HirAnalys
     Ok(HirAnalysis {
         selected_function: selected_function.to_owned(),
         call_closure: closure,
+        constant_declarations,
     })
+}
+
+fn collect_type_constants<A>(
+    tcx: TyCtxt<'_>,
+    source_ty: &hir::Ty<'_, A>,
+    constants: &mut HashSet<LocalDefId>,
+) -> Result<(), HirCheckCode> {
+    let hir::TyKind::Array(element, length) = source_ty.kind else {
+        return Ok(());
+    };
+    collect_type_constants(tcx, element, constants)?;
+    let hir::ConstArgKind::Anon(anonymous) = length.kind else {
+        return Err(HirCheckCode::Type);
+    };
+    let mut expression = tcx.hir_body(anonymous.body).value;
+    while let hir::ExprKind::DropTemps(inner) = expression.kind {
+        expression = inner;
+    }
+    if let hir::ExprKind::Path(hir::QPath::Resolved(None, path)) = expression.kind {
+        if let Res::Def(DefKind::Const, def_id) = path.res {
+            constants.insert(def_id.as_local().ok_or(HirCheckCode::Purity)?);
+        }
+    }
+    Ok(())
 }
 
 #[derive(Clone, Copy)]
@@ -353,6 +411,7 @@ fn validate_function(
             .collect(),
         negative_literal_spans: Vec::new(),
         checked_negation_spans: Vec::new(),
+        array_spans: Vec::new(),
     };
     let mut parameter_names = Vec::with_capacity(body.params.len());
     let mut mutable_parameter = false;
@@ -404,12 +463,15 @@ fn validate_function(
         return_value_spans: validator.return_value_spans,
         negative_literal_spans: validator.negative_literal_spans,
         checked_negation_spans: validator.checked_negation_spans,
+        array_spans: validator.array_spans,
     })
 }
 
 struct CallScanner<'a, 'tcx> {
+    tcx: TyCtxt<'tcx>,
     typeck: &'a ty::TypeckResults<'tcx>,
     callees: HashSet<DefId>,
+    constants: HashSet<LocalDefId>,
     error: Option<HirCheckCode>,
 }
 
@@ -427,7 +489,24 @@ impl<'hir> Visitor<'hir> for CallScanner<'_, '_> {
                 _ => self.error = Some(HirCheckCode::Call),
             }
         }
+        if let hir::ExprKind::Path(path) = expression.kind {
+            if let Res::Def(DefKind::Const, def_id) =
+                self.typeck.qpath_res(&path, expression.hir_id)
+            {
+                if let Some(def_id) = def_id.as_local() {
+                    self.constants.insert(def_id);
+                } else {
+                    self.error = Some(HirCheckCode::Purity);
+                }
+            }
+        }
         intravisit::walk_expr(self, expression);
+    }
+
+    fn visit_ty(&mut self, source_ty: &'hir hir::Ty<'hir, hir::AmbigArg>) {
+        if let Err(error) = collect_type_constants(self.tcx, source_ty, &mut self.constants) {
+            self.error = Some(error);
+        }
     }
 }
 
@@ -444,6 +523,7 @@ struct BodyValidator<'a, 'tcx> {
     return_value_spans: Vec<Span>,
     negative_literal_spans: Vec<Span>,
     checked_negation_spans: Vec<Span>,
+    array_spans: Vec<Span>,
 }
 
 impl BodyValidator<'_, '_> {
@@ -451,6 +531,7 @@ impl BodyValidator<'_, '_> {
         self.validate_identity_adjustments(expression)?;
         match expression.kind {
             hir::ExprKind::Array(elements) => {
+                self.array_spans.push(expression.span);
                 let ty = self.typeck.expr_ty(expression);
                 validate_value_type(self.tcx, self.def_id, ty, 0)?;
                 if elements.len() > 256 {
@@ -990,63 +1071,6 @@ fn reject_drop<'tcx>(
     }
 }
 
-pub(super) fn contract_type<'tcx>(
-    tcx: TyCtxt<'tcx>,
-    owner: LocalDefId,
-    ty: Ty<'tcx>,
-) -> Result<ContractType, HirCheckCode> {
-    match ty.kind() {
-        ty::Bool => Ok(ContractType::Bool),
-        ty::Int(integer) => Ok(ContractType::BitVector {
-            width: match integer {
-                IntTy::I8 => 8,
-                IntTy::I16 => 16,
-                IntTy::I32 => 32,
-                IntTy::I64 => 64,
-                IntTy::Isize => u8::try_from(tcx.sess.target.pointer_width).unwrap_or(0),
-                _ => return Err(HirCheckCode::Type),
-            },
-            signed: true,
-        }),
-        ty::Uint(integer) => Ok(ContractType::BitVector {
-            width: match integer {
-                UintTy::U8 => 8,
-                UintTy::U16 => 16,
-                UintTy::U32 => 32,
-                UintTy::U64 => 64,
-                UintTy::Usize => u8::try_from(tcx.sess.target.pointer_width).unwrap_or(0),
-                _ => return Err(HirCheckCode::Type),
-            },
-            signed: false,
-        }),
-        ty::Array(element, length) => {
-            let typing_env = ty::TypingEnv::post_analysis(tcx, owner);
-            let length = length.try_to_target_usize(tcx).or_else(|| {
-                let ty::ConstKind::Unevaluated(unevaluated) = length.kind() else {
-                    return None;
-                };
-                rustc_middle::mir::Const::Unevaluated(
-                    rustc_middle::mir::UnevaluatedConst::new(unevaluated.def, unevaluated.args),
-                    tcx.types.usize,
-                )
-                .try_eval_target_usize(tcx, typing_env)
-            });
-            Ok(ContractType::Array {
-                element: Box::new(contract_type(tcx, owner, *element)?),
-                length: length.ok_or(HirCheckCode::Type)?,
-            })
-        }
-        ty::Adt(adt, arguments)
-            if adt.is_struct() && adt.did().is_local() && arguments.is_empty() =>
-        {
-            Ok(ContractType::Struct {
-                id: canonical_item_id(tcx, adt.did().as_local().ok_or(HirCheckCode::Type)?),
-            })
-        }
-        _ => Err(HirCheckCode::Type),
-    }
-}
-
 fn is_integer(ty: Ty<'_>) -> bool {
     matches!(
         ty.kind(),
@@ -1059,13 +1083,5 @@ fn is_signed_integer(ty: Ty<'_>) -> bool {
     matches!(
         ty.kind(),
         ty::Int(IntTy::I8 | IntTy::I16 | IntTy::I32 | IntTy::I64 | IntTy::Isize)
-    )
-}
-
-fn canonical_item_id(tcx: TyCtxt<'_>, def_id: LocalDefId) -> String {
-    format!(
-        "{}::{}",
-        tcx.crate_name(LOCAL_CRATE).as_str(),
-        tcx.def_path_str(def_id.to_def_id())
     )
 }

@@ -1,6 +1,11 @@
-use super::hir_check::{contract_type, HirFunction};
+use super::const_lower::{self, HirConstant};
+use super::hir_check::HirFunction;
+use super::mir_aggregate::{
+    array_operands, validate_array_aggregate_pattern, ArrayAggregatePatternVector,
+};
 use super::mir_arithmetic::{ArithmeticOperation, ArithmeticPlan, DivRemOperation, ShiftOperation};
 use super::mir_projection::ProjectionPlan;
+use super::type_lower::{contract_type, vir_type};
 use rust2vir_internal::contract::ContractType;
 use rust2vir_internal::driver_protocol::DriverRequest;
 use rust2vir_internal::file_loader::{SnapshotFileLoader, SourceRangeError};
@@ -188,6 +193,7 @@ enum LocalKind {
 pub(super) fn finish_module(
     request: &DriverRequest,
     mut lowered: Vec<LoweredFunction>,
+    constants: &[HirConstant],
 ) -> Result<MirLowering, MirError> {
     let mut block_total = 0_usize;
     let mut statement_total = 0_usize;
@@ -234,6 +240,8 @@ pub(super) fn finish_module(
         ),
     ]));
     let functions_json = lowered.iter().map(|item| item.value.clone()).collect();
+    let const_decls = const_lower::declarations(constants)
+        .map_err(|_| MirError::new(MirCode::Rvalue, request.selection().2))?;
     let mut vir = JsonValue::Object(BTreeMap::from([
         ("schema".to_owned(), string("mpk.vir.v0")),
         ("source_language".to_owned(), string("rust")),
@@ -245,7 +253,7 @@ pub(super) fn finish_module(
                 ("id".to_owned(), string(unit_id)),
                 ("name".to_owned(), string(request.selection().0)),
                 ("type_decls".to_owned(), JsonValue::Array(Vec::new())),
-                ("const_decls".to_owned(), JsonValue::Array(Vec::new())),
+                ("const_decls".to_owned(), JsonValue::Array(const_decls)),
                 ("functions".to_owned(), JsonValue::Array(functions_json)),
             ]))]),
         ),
@@ -616,6 +624,9 @@ pub(super) fn lower_function<'tcx>(
     }
     if flows.iter().flatten().any(|flow| matches!(flow, Flow::Branch { false_block, true_block } if false_block != true_block)) {
         features.push(string("branch"));
+    }
+    if blocks_contain_constant_reference(&blocks) {
+        features.push(string("constant_decl"));
     }
     if !function.local_types.is_empty() || instructions_contain_copy(&blocks) {
         features.push(string("mutable_local"));
@@ -1341,6 +1352,35 @@ fn validate_rvalue<'tcx>(
             }
             Ok(())
         }
+        Rvalue::Aggregate(..) => {
+            let operands = array_operands(rvalue)
+                .ok_or_else(|| MirError::new(MirCode::Rvalue, function_id))?;
+            if operands.len() > 256 {
+                return Err(MirError::new(MirCode::IrLimit, function_id));
+            }
+            let mut element_type = None;
+            for operand in operands {
+                validate_operand(
+                    tcx,
+                    def_id,
+                    body,
+                    operand,
+                    local_kinds,
+                    arithmetic,
+                    function_id,
+                    reads,
+                )?;
+                let ty = operand_type(tcx, def_id, body, operand, arithmetic, function_id)?;
+                if element_type
+                    .as_ref()
+                    .is_some_and(|expected| expected != &ty)
+                {
+                    return Err(MirError::new(MirCode::Rvalue, function_id));
+                }
+                element_type = Some(ty);
+            }
+            Ok(())
+        }
         _ => Err(MirError::new(MirCode::Rvalue, function_id)),
     }
 }
@@ -1531,9 +1571,10 @@ fn validate_operand<'tcx>(
             reads.push(place.local);
             Ok(())
         }
-        Operand::Constant(constant) => {
-            literal_value(tcx, def_id, &constant.const_, function_id).map(drop)
-        }
+        Operand::Constant(constant) => named_constant_value(tcx, &constant.const_)
+            .map(|_| ())
+            .map(Ok)
+            .unwrap_or_else(|| literal_value(tcx, def_id, &constant.const_, function_id).map(drop)),
     }
 }
 
@@ -1589,6 +1630,15 @@ fn collect_operand_locals(rvalue: &Rvalue<'_>, reads: &mut Vec<Local>) {
             }
             if let Some(local) = operand_place(&operands.1) {
                 reads.push(local);
+            }
+        }
+        Rvalue::Aggregate(..) => {
+            if let Some(operands) = array_operands(rvalue) {
+                for operand in operands {
+                    if let Some(local) = operand_place(operand) {
+                        reads.push(local);
+                    }
+                }
             }
         }
         _ => {}
@@ -1879,32 +1929,37 @@ fn lower_assignment<'tcx>(
     } else {
         match rvalue {
             Rvalue::Use(Operand::Constant(constant)) => {
-                let literal = literal_value(tcx, def_id, &constant.const_, function_id)?;
-                let literal_span = negative_literal_span(
-                    tcx,
-                    def_id,
-                    &constant.const_,
-                    constant.span,
-                    statement_span,
-                    function,
-                    function_id,
-                )?;
-                let mut instruction =
-                    instruction_base(ids, next_instruction, "Const", &literal.ty, function_id)?;
-                instruction.insert("value".to_owned(), literal.json);
-                emitted_value(
-                    instruction,
-                    literal.ty,
-                    literal_span,
-                    tcx,
-                    loader,
-                    block_index,
-                    unit_id,
-                    function_id,
-                    instructions,
-                    source_entries,
-                    *next_instruction - 1,
-                )?
+                if let Some(mut reference) = named_constant_value(tcx, &constant.const_) {
+                    reference.span = statement_span;
+                    reference
+                } else {
+                    let literal = literal_value(tcx, def_id, &constant.const_, function_id)?;
+                    let literal_span = negative_literal_span(
+                        tcx,
+                        def_id,
+                        &constant.const_,
+                        constant.span,
+                        statement_span,
+                        function,
+                        function_id,
+                    )?;
+                    let mut instruction =
+                        instruction_base(ids, next_instruction, "Const", &literal.ty, function_id)?;
+                    instruction.insert("value".to_owned(), literal.json);
+                    emitted_value(
+                        instruction,
+                        literal.ty,
+                        literal_span,
+                        tcx,
+                        loader,
+                        block_index,
+                        unit_id,
+                        function_id,
+                        instructions,
+                        source_entries,
+                        *next_instruction - 1,
+                    )?
+                }
             }
             Rvalue::Use(operand) => lower_operand(
                 tcx,
@@ -2043,6 +2098,64 @@ fn lower_assignment<'tcx>(
                     instruction,
                     ContractType::Bool,
                     statement_span,
+                    tcx,
+                    loader,
+                    block_index,
+                    unit_id,
+                    function_id,
+                    instructions,
+                    source_entries,
+                    *next_instruction - 1,
+                )?
+            }
+            Rvalue::Aggregate(..) => {
+                let operands = array_operands(rvalue)
+                    .ok_or_else(|| MirError::new(MirCode::Rvalue, function_id))?;
+                let destination_type = mir_contract_type(
+                    tcx,
+                    def_id,
+                    body.local_decls[destination.local].ty,
+                    function_id,
+                )?;
+                let ContractType::Array { element, length } = &destination_type else {
+                    return Err(MirError::new(MirCode::Rvalue, function_id));
+                };
+                let mut pattern = ArrayAggregatePatternVector::pinned();
+                pattern.within_limit = operands.len() <= 256;
+                pattern.arity_matches = u64::try_from(operands.len()).ok() == Some(*length);
+                let mut elements = Vec::with_capacity(operands.len());
+                for operand in operands {
+                    let value = lower_operand(
+                        tcx,
+                        def_id,
+                        body,
+                        operand,
+                        local_kinds,
+                        environment,
+                        arithmetic,
+                        function_id,
+                    )?;
+                    if &value.ty != element.as_ref() {
+                        pattern.element_types_match = false;
+                    }
+                    elements.push(value.json);
+                }
+                validate_array_aggregate_pattern(&pattern)
+                    .map_err(|code| MirError::new(code, function_id))?;
+                let mut instruction = instruction_base(
+                    ids,
+                    next_instruction,
+                    "MakeArray",
+                    &destination_type,
+                    function_id,
+                )?;
+                instruction.insert("elements".to_owned(), JsonValue::Array(elements));
+                let array_span = enclosing_span(statement_span, &function.array_spans)
+                    .ok_or_else(|| MirError::new(MirCode::SourceMapRange, function_id))?;
+                emitted_value(
+                    instruction,
+                    destination_type,
+                    array_span,
                     tcx,
                     loader,
                     block_index,
@@ -2460,7 +2573,9 @@ fn lower_operand<'tcx>(
                 function_id,
             )
         }
-        Operand::Constant(constant) => literal_value(tcx, def_id, &constant.const_, function_id),
+        Operand::Constant(constant) => named_constant_value(tcx, &constant.const_)
+            .map(Ok)
+            .unwrap_or_else(|| literal_value(tcx, def_id, &constant.const_, function_id)),
     }
 }
 
@@ -2568,6 +2683,18 @@ fn literal_value<'tcx>(
     })
 }
 
+fn named_constant_value<'tcx>(
+    tcx: TyCtxt<'tcx>,
+    constant: &rustc_middle::mir::Const<'tcx>,
+) -> Option<Value> {
+    let (id, ty) = const_lower::reference(tcx, constant)?;
+    Some(Value {
+        json: JsonValue::Object(BTreeMap::from([("const".to_owned(), string(&id))])),
+        ty,
+        span: rustc_span::DUMMY_SP,
+    })
+}
+
 fn comparison_operation(
     operation: BinOp,
     left: &ContractType,
@@ -2654,28 +2781,6 @@ fn binding(id: &str, ty: &ContractType) -> JsonValue {
         ("id".to_owned(), string(id)),
         ("type".to_owned(), vir_type(ty)),
     ]))
-}
-
-fn vir_type(ty: &ContractType) -> JsonValue {
-    match ty {
-        ContractType::Bool => {
-            JsonValue::Object(BTreeMap::from([("kind".to_owned(), string("bool"))]))
-        }
-        ContractType::BitVector { width, signed } => JsonValue::Object(BTreeMap::from([
-            ("kind".to_owned(), string("bv")),
-            ("width".to_owned(), JsonValue::Number(width.to_string())),
-            ("signed".to_owned(), JsonValue::Bool(*signed)),
-        ])),
-        ContractType::Array { element, length } => JsonValue::Object(BTreeMap::from([
-            ("kind".to_owned(), string("array")),
-            ("length".to_owned(), JsonValue::Number(length.to_string())),
-            ("element".to_owned(), vir_type(element)),
-        ])),
-        ContractType::Struct { id } => JsonValue::Object(BTreeMap::from([
-            ("kind".to_owned(), string("struct")),
-            ("id".to_owned(), string(id)),
-        ])),
-    }
 }
 
 fn variable(id: &str) -> JsonValue {
@@ -2767,6 +2872,24 @@ fn instructions_contain_copy(blocks: &[JsonValue]) -> bool {
                 })
             })
     })
+}
+
+fn blocks_contain_constant_reference(blocks: &[JsonValue]) -> bool {
+    blocks.iter().any(contains_constant_reference)
+}
+
+fn contains_constant_reference(value: &JsonValue) -> bool {
+    match value {
+        JsonValue::Object(object) => {
+            (object.len() == 1
+                && object
+                    .get("const")
+                    .is_some_and(|value| value.as_str().is_some()))
+                || object.values().any(contains_constant_reference)
+        }
+        JsonValue::Array(values) => values.iter().any(contains_constant_reference),
+        _ => false,
+    }
 }
 
 fn string(value: &str) -> JsonValue {

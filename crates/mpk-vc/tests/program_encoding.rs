@@ -28,10 +28,13 @@ use mpk_vc::vir::{
     VirType, VirValue, VirVariableRef,
 };
 use mpk_vc::{
-    validate_vir_safety_fragment, MpkExprTerm, VirSafetyOperation, STD_BITVEC_MODULE, STD_BOOL_AND,
-    STD_BOOL_IF, STD_BOOL_NOT, STD_EQ,
+    generate_program_vcs, import_vir_json, validate_vir_safety_fragment, MpkExprTerm,
+    VirSafetyOperation, STD_BITVEC_MODULE, STD_BOOL_AND, STD_BOOL_IF, STD_BOOL_NOT, STD_EQ,
 };
 use serde_json::Value;
+
+const RUST_ARRAYS_VIR: &[u8] =
+    include_bytes!("../../../rust-tools/rust2vir/testdata/arrays/expected-vir.json");
 
 fn go_parameters(pointer_width: PointerWidth) -> SemanticParameters {
     SemanticParameters::GoFixed(GoFixedParameters {
@@ -172,6 +175,22 @@ fn foundation_fixture_manifest_matches_canonical_certificates() {
         .map(|alias| alias.as_str().expect("alias string"))
         .collect::<std::collections::BTreeSet<_>>();
     assert_eq!(exports, expected_exports);
+}
+
+#[test]
+fn rust_constant_array_golden_imports_and_generates_stable_vcs() {
+    let fixtures: Value = serde_json::from_slice(RUST_ARRAYS_VIR).expect("array VIR JSON");
+    let fixtures = fixtures.as_array().expect("dual-target array VIR fixtures");
+    assert_eq!(fixtures.len(), 2);
+    for fixture in fixtures {
+        let module = import_vir_json(&serde_json::to_vec(fixture).unwrap())
+            .expect("constant/array VIR passes independent validation");
+        let first = generate_program_vcs(&module).expect("array construction generates VCs");
+        let second = generate_program_vcs(&module).expect("repeat array construction VCs");
+        assert_eq!(first, second);
+        assert_eq!(first.functions.len(), 1);
+        assert_eq!(first.functions[0].members.len(), 1);
+    }
 }
 
 #[test]

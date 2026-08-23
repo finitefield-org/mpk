@@ -3,12 +3,12 @@ use mpk_vc::vir::{
     VirTermination, VirVariableRef,
 };
 use mpk_vc::{
-    contract_hash, generate_program_vcs, validate_vir, vir_hash, BitVectorWidth, DecimalInteger,
-    GoFixedParameters, LowercaseSha256, MpkExprTerm, OverflowMode, PanicMode, PointerWidth,
-    ProgramVcMemberKind, RustCheckedParameters, SafetyEvidenceRoute, SemanticParameters,
-    SemanticProfile, SourceLanguage, VirBinaryOperator, VirBinding, VirBlock, VirContract,
-    VirContractExpr, VirFeature, VirFunction, VirInstruction, VirIntLiteral, VirModule,
-    VirSafetyCheck, VirTerminator, VirType, VirUnit, VirValue,
+    contract_hash, generate_program_vcs, validate_vir, vir_hash, ArrayLength, BitVectorWidth,
+    DecimalInteger, GoFixedParameters, LowercaseSha256, MpkExprTerm, OverflowMode, PanicMode,
+    PointerWidth, ProgramVcMemberKind, RustCheckedParameters, SafetyEvidenceRoute,
+    SemanticParameters, SemanticProfile, SourceLanguage, VirBinaryOperator, VirBinding, VirBlock,
+    VirContract, VirContractExpr, VirFeature, VirFunction, VirInstruction, VirIntLiteral,
+    VirModule, VirSafetyCheck, VirTerminator, VirType, VirUnit, VirValue,
     SAFETY_GROUPED_CERTIFICATE_FOUNDATION, VIR_SCHEMA_VERSION,
 };
 
@@ -202,6 +202,77 @@ fn safety_members(output: &mpk_vc::ProgramVcModule) -> Vec<&mpk_vc::ProgramVcMem
         .iter()
         .filter(|member| member.kind == ProgramVcMemberKind::OperationSafety)
         .collect()
+}
+
+#[test]
+fn constructed_array_read_produces_stable_bounds_and_tautology_vcs() {
+    let array_type = VirType::Array {
+        length: ArrayLength::try_from(3).unwrap(),
+        element: Box::new(u8_ty()),
+    };
+    let blocks = vec![VirBlock {
+        label: "bb0".to_owned(),
+        parameters: Vec::new(),
+        instructions: vec![
+            VirInstruction::MakeArray {
+                id: "t0".to_owned(),
+                r#type: array_type.clone(),
+                elements: vec![integer(7, false), variable("arg0"), integer(9, false)],
+                safety_checks: Vec::new(),
+            },
+            VirInstruction::Copy {
+                id: "t1".to_owned(),
+                r#type: array_type.clone(),
+                target: "local0".to_owned(),
+                value: variable("t0"),
+                safety_checks: Vec::new(),
+            },
+            VirInstruction::Index {
+                id: "t2".to_owned(),
+                r#type: u8_ty(),
+                base: variable("local0"),
+                index: variable("arg1"),
+                safety_checks: vec![VirSafetyCheck::IndexInBounds {}],
+            },
+        ],
+        terminator: VirTerminator::Return {
+            values: vec![variable("t2")],
+        },
+    }];
+    let input = module(
+        SemanticProfile::RustCheckedV0,
+        vec![
+            binding("arg0", u8_ty()),
+            binding(
+                "arg1",
+                VirType::Bv {
+                    width: BitVectorWidth::Bits64,
+                    signed: false,
+                },
+            ),
+        ],
+        u8_ty(),
+        vec![binding("local0", array_type)],
+        blocks,
+        vec![VirFeature::Array, VirFeature::MutableLocal],
+        Vec::new(),
+        vec![equal(result_expr(0), result_expr(0))],
+    );
+
+    let first = generate_program_vcs(&input).expect("constructed read generates VCs");
+    let second = generate_program_vcs(&input).expect("repeat constructed read VCs");
+    assert_eq!(first, second);
+    assert_eq!(safety_members(&first).len(), 1);
+    assert_eq!(post_members(&first).len(), 1);
+
+    let mut substantive = input;
+    let contract = &mut substantive.units[0].functions[0].contracts;
+    contract.ensures = vec![equal(result_expr(0), variable_expr("arg0"))];
+    contract.contract_hash = contract_hash(contract).expect("updated contract hash");
+    substantive.vir_hash = vir_hash(&substantive).expect("updated VIR hash");
+    let error = generate_program_vcs(&substantive)
+        .expect_err("substantive use of a deferred constructed read must fail closed");
+    assert_eq!(error.code(), "VC_PROGRAM_UNCLOSED_TERM");
 }
 
 #[test]

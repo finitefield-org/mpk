@@ -25,14 +25,20 @@ use std::panic::{catch_unwind, AssertUnwindSafe};
 use std::path::Path;
 use std::sync::Arc;
 
+#[path = "const_lower.rs"]
+mod const_lower;
 #[path = "hir_check.rs"]
 mod hir_check;
+#[path = "mir_aggregate.rs"]
+pub(crate) mod mir_aggregate;
 #[path = "mir_arithmetic.rs"]
 pub(crate) mod mir_arithmetic;
 #[path = "mir_lower.rs"]
 mod mir_lower;
 #[path = "mir_projection.rs"]
 pub(crate) mod mir_projection;
+#[path = "type_lower.rs"]
+mod type_lower;
 
 pub use hir_check::{HirAnalysis, HirCheckCode};
 pub use mir_lower::{MirError, MirLowering};
@@ -330,7 +336,11 @@ impl Callbacks for PinnedCallbacks<'_> {
             return self.reject(RustcDriverError::MirAdapter);
         }
         if self.mode == AnalysisMode::Lower {
-            self.lowering = match mir_lower::finish_module(self.request, lowered) {
+            self.lowering = match mir_lower::finish_module(
+                self.request,
+                lowered,
+                &analysis.constant_declarations,
+            ) {
                 Ok(lowering) => Some(lowering),
                 Err(error) => return self.reject(RustcDriverError::Mir(error)),
             };

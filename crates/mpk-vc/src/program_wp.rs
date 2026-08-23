@@ -167,12 +167,14 @@ impl ProgramWpGenerator {
             .chain(function.locals.iter())
             .map(|binding| binding.id.clone())
             .collect::<BTreeSet<_>>();
-        let deferred_index_values = function
+        let mut deferred_array_values = function
             .blocks
             .iter()
             .flat_map(|block| &block.instructions)
             .filter_map(|instruction| match instruction {
-                VirInstruction::Index { id, .. } => Some(id.clone()),
+                VirInstruction::Index { id, .. } | VirInstruction::MakeArray { id, .. } => {
+                    Some(id.clone())
+                }
                 _ => None,
             })
             .collect::<BTreeSet<_>>();
@@ -359,11 +361,29 @@ impl ProgramWpGenerator {
                         )?);
                     }
 
-                    // Array value projection is deliberately deferred until the
-                    // checked array-read foundation is integrated. Safety was
-                    // independently encoded above; any semantic use of this
-                    // omitted value still fails as an unclosed VIR value.
-                    if matches!(instruction, VirInstruction::Index { .. }) {
+                    // Array constructors and projections are deliberately
+                    // deferred until the checked array-value foundation is
+                    // integrated. Safety is independently encoded above; a
+                    // substantive semantic use of an omitted value still
+                    // fails as an unclosed VIR value. Copy only propagates the
+                    // deferred identity needed to reach an Index operation.
+                    if let VirInstruction::Copy {
+                        id,
+                        target,
+                        value: VirValue::Variable(reference),
+                        ..
+                    } = instruction
+                    {
+                        if deferred_array_values.contains(&reference.var) {
+                            deferred_array_values.insert(id.clone());
+                            deferred_array_values.insert(target.clone());
+                            continue;
+                        }
+                    }
+                    if matches!(
+                        instruction,
+                        VirInstruction::Index { .. } | VirInstruction::MakeArray { .. }
+                    ) {
                         continue;
                     }
 
@@ -423,7 +443,7 @@ impl ProgramWpGenerator {
                                     results.insert(result_index, value);
                                 }
                                 Err(ProgramWpError::UnclosedValue { name })
-                                    if deferred_index_values.contains(&name)
+                                    if deferred_array_values.contains(&name)
                                         && !function.contracts.ensures.iter().any(|ensure| {
                                             contract_result_is_required(ensure, result_index)
                                         }) => {}
