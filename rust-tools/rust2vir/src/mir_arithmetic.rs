@@ -19,6 +19,30 @@ pub(crate) enum ArithmeticOperation {
     Neg,
 }
 
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub(crate) enum DivRemOperation {
+    Div,
+    Rem,
+}
+
+impl DivRemOperation {
+    pub(super) fn safety_name(self) -> &'static str {
+        match self {
+            Self::Div => "div",
+            Self::Rem => "rem",
+        }
+    }
+
+    pub(super) fn vir_name(self, signed: bool) -> &'static str {
+        match (self, signed) {
+            (Self::Div, true) => "bv_sdiv",
+            (Self::Div, false) => "bv_udiv",
+            (Self::Rem, true) => "bv_srem",
+            (Self::Rem, false) => "bv_urem",
+        }
+    }
+}
+
 impl ArithmeticOperation {
     pub(super) fn vir_name(self) -> &'static str {
         match self {
@@ -111,6 +135,75 @@ pub(crate) fn validate_pattern_vector(vector: &PatternVector) -> Result<(), MirC
     }
 }
 
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub(crate) struct DivRemPatternVector {
+    pub operation: DivRemOperation,
+    pub value_operation: DivRemOperation,
+    pub signed: bool,
+    pub operands_match: bool,
+    pub operand_modes_match: bool,
+    pub type_matches: bool,
+    pub zero_guard_matches: bool,
+    pub zero_message_matches: bool,
+    pub representability_guard_matches: bool,
+    pub representability_message_matches: bool,
+    pub guard_order_matches: bool,
+    pub expected_false: bool,
+    pub conditions_moved: bool,
+    pub unwind_unreachable: bool,
+    pub continuation_matches: bool,
+    pub assertion_uses: usize,
+    pub guard_uses_match: bool,
+}
+
+impl DivRemPatternVector {
+    pub(crate) fn pinned(operation: DivRemOperation, signed: bool) -> Self {
+        Self {
+            operation,
+            value_operation: operation,
+            signed,
+            operands_match: true,
+            operand_modes_match: true,
+            type_matches: true,
+            zero_guard_matches: true,
+            zero_message_matches: true,
+            representability_guard_matches: signed,
+            representability_message_matches: signed,
+            guard_order_matches: true,
+            expected_false: true,
+            conditions_moved: true,
+            unwind_unreachable: true,
+            continuation_matches: true,
+            assertion_uses: if signed { 2 } else { 1 },
+            guard_uses_match: true,
+        }
+    }
+}
+
+pub(crate) fn validate_div_rem_pattern(vector: &DivRemPatternVector) -> Result<(), MirCode> {
+    let expected_assertions = if vector.signed { 2 } else { 1 };
+    if vector.operation != vector.value_operation
+        || !vector.operands_match
+        || !vector.operand_modes_match
+        || !vector.type_matches
+        || !vector.zero_guard_matches
+        || !vector.zero_message_matches
+        || vector.representability_guard_matches != vector.signed
+        || vector.representability_message_matches != vector.signed
+        || !vector.guard_order_matches
+        || !vector.expected_false
+        || !vector.conditions_moved
+        || !vector.unwind_unreachable
+        || !vector.continuation_matches
+        || vector.assertion_uses != expected_assertions
+        || !vector.guard_uses_match
+    {
+        Err(MirCode::Assertion)
+    } else {
+        Ok(())
+    }
+}
+
 #[derive(Clone)]
 struct PlannedBinary {
     operation: ArithmeticOperation,
@@ -126,11 +219,47 @@ struct PlannedNegation {
     vector: PatternVector,
 }
 
+#[derive(Clone)]
+struct PlannedDivRem {
+    operation: DivRemOperation,
+    ty: ContractType,
+    zero_block: usize,
+    overflow_block: Option<usize>,
+    guards: Vec<Local>,
+    vector: DivRemPatternVector,
+}
+
+struct DivRemOperationSite<'a, 'tcx> {
+    block: BasicBlock,
+    statement: usize,
+    destination: Place<'tcx>,
+    operation: DivRemOperation,
+    lhs: &'a Operand<'tcx>,
+    rhs: &'a Operand<'tcx>,
+}
+
+struct SignedDivRemSite<'a, 'tcx> {
+    block: BasicBlock,
+    target: BasicBlock,
+    statements: [usize; 3],
+    guards: [Local; 3],
+    rhs_minus_one: &'a Operand<'tcx>,
+    lhs_minimum: &'a Operand<'tcx>,
+    message_lhs: &'a Operand<'tcx>,
+    message_rhs: &'a Operand<'tcx>,
+    operation: DivRemOperation,
+    expected_false: bool,
+    conditions_moved: bool,
+    unwind_unreachable: bool,
+}
+
 #[derive(Clone, Default)]
 pub(super) struct ArithmeticPlan {
     binaries: BTreeMap<(usize, usize), PlannedBinary>,
     negation_guards: BTreeSet<(usize, usize)>,
     negations: BTreeMap<(usize, usize), PlannedNegation>,
+    div_rem_guards: BTreeSet<(usize, usize)>,
+    div_rems: BTreeMap<(usize, usize), PlannedDivRem>,
     assertions: BTreeMap<usize, usize>,
     scalar_locals: BTreeMap<usize, ContractType>,
 }
@@ -144,6 +273,9 @@ impl ArithmeticPlan {
         block_index: usize,
         function: &HirFunction,
     ) -> Result<usize, MirCode> {
+        if let Some(target) = self.assertions.get(&block_index) {
+            return Ok(*target);
+        }
         let block = &body.basic_blocks[BasicBlock::new(block_index)];
         let TerminatorKind::Assert {
             cond,
@@ -161,6 +293,26 @@ impl ArithmeticPlan {
         }
 
         match &**msg {
+            AssertKind::DivisionByZero(message_lhs) => {
+                return self.recognize_div_rem(
+                    tcx,
+                    def_id,
+                    body,
+                    block_index,
+                    DivRemOperation::Div,
+                    message_lhs,
+                );
+            }
+            AssertKind::RemainderByZero(message_lhs) => {
+                return self.recognize_div_rem(
+                    tcx,
+                    def_id,
+                    body,
+                    block_index,
+                    DivRemOperation::Rem,
+                    message_lhs,
+                );
+            }
             AssertKind::Overflow(message_op, message_lhs, message_rhs) => {
                 let operation = message_operation(*message_op).ok_or(MirCode::Assertion)?;
                 let (statement_index, destination, value_op, value_lhs, value_rhs) = block
@@ -318,6 +470,185 @@ impl ArithmeticPlan {
         Ok(target.index())
     }
 
+    fn recognize_div_rem<'tcx>(
+        &mut self,
+        tcx: TyCtxt<'tcx>,
+        def_id: LocalDefId,
+        body: &Body<'tcx>,
+        zero_block_index: usize,
+        operation: DivRemOperation,
+        zero_message_lhs: &Operand<'tcx>,
+    ) -> Result<usize, MirCode> {
+        let zero_block = &body.basic_blocks[BasicBlock::new(zero_block_index)];
+        let TerminatorKind::Assert {
+            cond,
+            expected,
+            target: zero_target,
+            unwind,
+            ..
+        } = &zero_block.terminator().kind
+        else {
+            return Err(MirCode::Assertion);
+        };
+        let (zero_guard, zero_condition_moved) =
+            plain_operand_local(cond).ok_or(MirCode::Assertion)?;
+        let (zero_statement, zero_rhs, zero_constant_operand) = zero_block
+            .statements
+            .iter()
+            .enumerate()
+            .filter_map(|(index, statement)| match &statement.kind {
+                StatementKind::Assign(assignment)
+                    if assignment.0.projection.is_empty() && assignment.0.local == zero_guard =>
+                {
+                    match &assignment.1 {
+                        Rvalue::BinaryOp(BinOp::Eq, operands) => {
+                            Some((index, &operands.0, &operands.1))
+                        }
+                        _ => None,
+                    }
+                }
+                _ => None,
+            })
+            .next()
+            .ok_or(MirCode::Assertion)?;
+        if zero_block
+            .statements
+            .iter()
+            .skip(zero_statement + 1)
+            .any(|statement| matches!(statement.kind, StatementKind::Assign(_)))
+        {
+            return Err(MirCode::Assertion);
+        }
+        let provisional_type = operand_contract_type(tcx, def_id, body, zero_rhs)?;
+        let signed = matches!(
+            provisional_type,
+            ContractType::BitVector { signed: true, .. }
+        );
+        let signed_site = if signed {
+            Some(signed_div_rem_site(body, *zero_target, operation)?)
+        } else {
+            None
+        };
+        let operation_target = signed_site
+            .as_ref()
+            .map_or(*zero_target, |site| site.target);
+        let operation_site = div_rem_operation_site(body, operation_target)?;
+        let ty = operand_contract_type(tcx, def_id, body, operation_site.lhs)?;
+        let rhs_ty = operand_contract_type(tcx, def_id, body, operation_site.rhs)?;
+        let mut vector = DivRemPatternVector::pinned(operation, signed);
+        vector.value_operation = operation_site.operation;
+        vector.operands_match = same_value_operand(zero_rhs, operation_site.rhs)
+            && same_value_operand(zero_message_lhs, operation_site.lhs);
+        vector.operand_modes_match = guard_operand_mode(zero_rhs)
+            && guard_operand_mode(zero_message_lhs)
+            && operation_operand_mode(operation_site.lhs)
+            && operation_operand_mode(operation_site.rhs);
+        vector.type_matches = ty == rhs_ty
+            && ty == provisional_type
+            && operand_contract_type(tcx, def_id, body, zero_message_lhs)? == ty
+            && supported_integer(&ty);
+        vector.zero_guard_matches = body.local_decls[zero_guard].ty.is_bool()
+            && integer_constant(
+                tcx,
+                def_id,
+                zero_constant_operand,
+                &ty,
+                IntegerBoundary::Zero,
+            );
+        vector.zero_message_matches = operation_site.operation == operation;
+        vector.expected_false = !*expected;
+        vector.conditions_moved = zero_condition_moved;
+        vector.unwind_unreachable = matches!(unwind, rustc_middle::mir::UnwindAction::Unreachable);
+        vector.continuation_matches = operation_site.destination.projection.is_empty();
+
+        let mut guards = vec![zero_guard];
+        let mut overflow_block = None;
+        if let Some(site) = &signed_site {
+            vector.operands_match &= same_value_operand(site.rhs_minus_one, operation_site.rhs)
+                && same_value_operand(site.lhs_minimum, operation_site.lhs)
+                && same_value_operand(site.message_lhs, operation_site.lhs)
+                && same_value_operand(site.message_rhs, operation_site.rhs);
+            vector.operand_modes_match &= guard_operand_mode(site.rhs_minus_one)
+                && guard_operand_mode(site.lhs_minimum)
+                && guard_operand_mode(site.message_lhs)
+                && guard_operand_mode(site.message_rhs);
+            vector.type_matches &= operand_contract_type(tcx, def_id, body, site.rhs_minus_one)?
+                == ty
+                && operand_contract_type(tcx, def_id, body, site.lhs_minimum)? == ty
+                && operand_contract_type(tcx, def_id, body, site.message_lhs)? == ty
+                && operand_contract_type(tcx, def_id, body, site.message_rhs)? == ty;
+            vector.representability_guard_matches = integer_constant(
+                tcx,
+                def_id,
+                signed_guard_constant(body, site.block, site.statements[0])?,
+                &ty,
+                IntegerBoundary::NegativeOne,
+            ) && integer_constant(
+                tcx,
+                def_id,
+                signed_guard_constant(body, site.block, site.statements[1])?,
+                &ty,
+                IntegerBoundary::Minimum,
+            );
+            vector.representability_message_matches = site.operation == operation;
+            vector.guard_order_matches = signed_guard_order(body, site);
+            vector.expected_false &= site.expected_false;
+            vector.conditions_moved &= site.conditions_moved;
+            vector.unwind_unreachable &= site.unwind_unreachable;
+            guards.extend(site.guards);
+            overflow_block = Some(site.block.index());
+        }
+        validate_div_rem_pattern(&vector)?;
+
+        if !self
+            .div_rem_guards
+            .insert((zero_block_index, zero_statement))
+        {
+            return Err(MirCode::Assertion);
+        }
+        if let Some(site) = &signed_site {
+            for statement in site.statements {
+                if !self.div_rem_guards.insert((site.block.index(), statement)) {
+                    return Err(MirCode::Assertion);
+                }
+            }
+        }
+        if self
+            .assertions
+            .insert(zero_block_index, zero_target.index())
+            .is_some()
+        {
+            return Err(MirCode::Assertion);
+        }
+        if let Some(site) = &signed_site {
+            if self
+                .assertions
+                .insert(site.block.index(), site.target.index())
+                .is_some()
+            {
+                return Err(MirCode::Assertion);
+            }
+        }
+        if self
+            .div_rems
+            .insert(
+                (operation_site.block.index(), operation_site.statement),
+                PlannedDivRem {
+                    operation,
+                    ty,
+                    zero_block: zero_block_index,
+                    overflow_block,
+                    guards,
+                    vector,
+                },
+            )
+            .is_some()
+        {
+            return Err(MirCode::Assertion);
+        }
+        Ok(zero_target.index())
+    }
+
     pub(super) fn finish<'tcx>(
         &mut self,
         body: &Body<'tcx>,
@@ -374,6 +705,31 @@ impl ArithmeticPlan {
                 );
             validate_pattern_vector(&negation.vector)?;
         }
+        for ((block_index, statement_index), div_rem) in &mut self.div_rems {
+            let mut assertion_blocks = vec![div_rem.zero_block];
+            if let Some(overflow_block) = div_rem.overflow_block {
+                assertion_blocks.push(overflow_block);
+            }
+            div_rem.vector.assertion_uses = assertion_blocks
+                .iter()
+                .filter(|block| self.assertions.contains_key(block))
+                .count();
+            let unique_guards = div_rem.guards.iter().copied().collect::<BTreeSet<_>>();
+            div_rem.vector.guard_uses_match = unique_guards.len() == div_rem.guards.len()
+                && div_rem.guards.iter().all(|guard| {
+                    plain_local_uses(body, order, *guard) == 1
+                        && statement_destination_count(body, order, *guard) == 1
+                });
+            let first_target = div_rem.overflow_block.unwrap_or(*block_index);
+            div_rem.vector.continuation_matches &= predecessors[first_target] == 1
+                && predecessors[*block_index] == 1
+                && matches!(
+                    body.basic_blocks[BasicBlock::new(*block_index)].statements[*statement_index]
+                        .kind,
+                    StatementKind::Assign(_)
+                );
+            validate_div_rem_pattern(&div_rem.vector)?;
+        }
         for block_index in order {
             for (statement_index, statement) in body.basic_blocks[BasicBlock::new(*block_index)]
                 .statements
@@ -389,13 +745,18 @@ impl ArithmeticPlan {
                         .contains(&(*block_index, statement_index))
                     || self
                         .negations
-                        .contains_key(&(*block_index, statement_index));
+                        .contains_key(&(*block_index, statement_index))
+                    || self
+                        .div_rem_guards
+                        .contains(&(*block_index, statement_index))
+                    || self.div_rems.contains_key(&(*block_index, statement_index));
                 if matches!(
                     assignment.1,
                     Rvalue::BinaryOp(
                         BinOp::AddWithOverflow | BinOp::SubWithOverflow | BinOp::MulWithOverflow,
                         _
-                    ) | Rvalue::UnaryOp(UnOp::Neg, _)
+                    ) | Rvalue::BinaryOp(BinOp::Div | BinOp::Rem, _)
+                        | Rvalue::UnaryOp(UnOp::Neg, _)
                 ) && !planned
                 {
                     return Err(MirCode::Assertion);
@@ -425,6 +786,20 @@ impl ArithmeticPlan {
             .map(|planned| &planned.ty)
     }
 
+    pub(super) fn is_div_rem_guard(&self, block: usize, statement: usize) -> bool {
+        self.div_rem_guards.contains(&(block, statement))
+    }
+
+    pub(super) fn div_rem(
+        &self,
+        block: usize,
+        statement: usize,
+    ) -> Option<(DivRemOperation, &ContractType)> {
+        self.div_rems
+            .get(&(block, statement))
+            .map(|planned| (planned.operation, &planned.ty))
+    }
+
     pub(super) fn projected_type(&self, place: &Place<'_>) -> Option<&ContractType> {
         let (local, field) = place_field(place)?;
         (field == 0)
@@ -435,6 +810,209 @@ impl ArithmeticPlan {
     pub(super) fn scalar_local_type(&self, local: Local) -> Option<&ContractType> {
         self.scalar_locals.get(&local.index())
     }
+}
+
+fn div_rem_operation_site<'a, 'tcx>(
+    body: &'a Body<'tcx>,
+    block: BasicBlock,
+) -> Result<DivRemOperationSite<'a, 'tcx>, MirCode> {
+    let (statement, first_assignment) = body.basic_blocks[block]
+        .statements
+        .iter()
+        .enumerate()
+        .find(|(_, statement)| matches!(statement.kind, StatementKind::Assign(_)))
+        .ok_or(MirCode::Assertion)?;
+    let StatementKind::Assign(assignment) = &first_assignment.kind else {
+        unreachable!("selected assignment")
+    };
+    let Rvalue::BinaryOp(operation, operands) = &assignment.1 else {
+        return Err(MirCode::Assertion);
+    };
+    let operation = primitive_div_rem(*operation).ok_or(MirCode::Assertion)?;
+    Ok(DivRemOperationSite {
+        block,
+        statement,
+        destination: assignment.0,
+        operation,
+        lhs: &operands.0,
+        rhs: &operands.1,
+    })
+}
+
+fn signed_div_rem_site<'a, 'tcx>(
+    body: &'a Body<'tcx>,
+    block: BasicBlock,
+    expected_operation: DivRemOperation,
+) -> Result<SignedDivRemSite<'a, 'tcx>, MirCode> {
+    let data = &body.basic_blocks[block];
+    let assignments = data
+        .statements
+        .iter()
+        .enumerate()
+        .filter_map(|(index, statement)| {
+            matches!(statement.kind, StatementKind::Assign(_)).then_some(index)
+        })
+        .collect::<Vec<_>>();
+    let [minus_one_statement, minimum_statement, and_statement] = assignments.as_slice() else {
+        return Err(MirCode::Assertion);
+    };
+    let StatementKind::Assign(minus_one_assignment) = &data.statements[*minus_one_statement].kind
+    else {
+        unreachable!("selected assignment")
+    };
+    let StatementKind::Assign(minimum_assignment) = &data.statements[*minimum_statement].kind
+    else {
+        unreachable!("selected assignment")
+    };
+    let StatementKind::Assign(and_assignment) = &data.statements[*and_statement].kind else {
+        unreachable!("selected assignment")
+    };
+    let Rvalue::BinaryOp(BinOp::Eq, minus_one_operands) = &minus_one_assignment.1 else {
+        return Err(MirCode::Assertion);
+    };
+    let Rvalue::BinaryOp(BinOp::Eq, minimum_operands) = &minimum_assignment.1 else {
+        return Err(MirCode::Assertion);
+    };
+    let Rvalue::BinaryOp(BinOp::BitAnd, and_operands) = &and_assignment.1 else {
+        return Err(MirCode::Assertion);
+    };
+    let TerminatorKind::Assert {
+        cond,
+        expected,
+        msg,
+        target,
+        unwind,
+    } = &data.terminator().kind
+    else {
+        return Err(MirCode::Assertion);
+    };
+    let AssertKind::Overflow(message_operation, message_lhs, message_rhs) = &**msg else {
+        return Err(MirCode::Assertion);
+    };
+    let operation = message_div_rem(*message_operation).ok_or(MirCode::Assertion)?;
+    let (condition_guard, condition_moved) = plain_operand_local(cond).ok_or(MirCode::Assertion)?;
+    let minus_one_guard = minus_one_assignment.0.local;
+    let minimum_guard = minimum_assignment.0.local;
+    let and_guard = and_assignment.0.local;
+    let and_lhs = plain_operand_local(&and_operands.0).ok_or(MirCode::Assertion)?;
+    let and_rhs = plain_operand_local(&and_operands.1).ok_or(MirCode::Assertion)?;
+    let destinations_plain = minus_one_assignment.0.projection.is_empty()
+        && minimum_assignment.0.projection.is_empty()
+        && and_assignment.0.projection.is_empty();
+    let guards_are_bool = [minus_one_guard, minimum_guard, and_guard]
+        .into_iter()
+        .all(|guard| body.local_decls[guard].ty.is_bool());
+    if operation != expected_operation
+        || !destinations_plain
+        || !guards_are_bool
+        || and_lhs.0 != minus_one_guard
+        || and_rhs.0 != minimum_guard
+        || condition_guard != and_guard
+    {
+        return Err(MirCode::Assertion);
+    }
+    Ok(SignedDivRemSite {
+        block,
+        target: *target,
+        statements: [*minus_one_statement, *minimum_statement, *and_statement],
+        guards: [minus_one_guard, minimum_guard, and_guard],
+        rhs_minus_one: &minus_one_operands.0,
+        lhs_minimum: &minimum_operands.0,
+        message_lhs,
+        message_rhs,
+        operation,
+        expected_false: !*expected,
+        conditions_moved: condition_moved && and_lhs.1 && and_rhs.1,
+        unwind_unreachable: matches!(unwind, rustc_middle::mir::UnwindAction::Unreachable),
+    })
+}
+
+fn signed_guard_constant<'a, 'tcx>(
+    body: &'a Body<'tcx>,
+    block: BasicBlock,
+    statement: usize,
+) -> Result<&'a Operand<'tcx>, MirCode> {
+    let StatementKind::Assign(assignment) = &body.basic_blocks[block].statements[statement].kind
+    else {
+        return Err(MirCode::Assertion);
+    };
+    let Rvalue::BinaryOp(BinOp::Eq, operands) = &assignment.1 else {
+        return Err(MirCode::Assertion);
+    };
+    Ok(&operands.1)
+}
+
+fn signed_guard_order(body: &Body<'_>, site: &SignedDivRemSite<'_, '_>) -> bool {
+    site.statements[0] < site.statements[1]
+        && site.statements[1] < site.statements[2]
+        && site
+            .guards
+            .into_iter()
+            .all(|guard| body.local_decls[guard].ty.is_bool())
+}
+
+#[derive(Clone, Copy)]
+enum IntegerBoundary {
+    Zero,
+    NegativeOne,
+    Minimum,
+}
+
+fn integer_constant<'tcx>(
+    tcx: TyCtxt<'tcx>,
+    def_id: LocalDefId,
+    operand: &Operand<'tcx>,
+    ty: &ContractType,
+    boundary: IntegerBoundary,
+) -> bool {
+    let Operand::Constant(constant) = operand else {
+        return false;
+    };
+    let ContractType::BitVector { width, signed } = ty else {
+        return false;
+    };
+    if !constant_type_matches(tcx, def_id, constant.const_.ty(), ty) {
+        return false;
+    }
+    let expected = match boundary {
+        IntegerBoundary::Zero => 0,
+        IntegerBoundary::NegativeOne if *signed => (1_u128 << *width) - 1,
+        IntegerBoundary::Minimum if *signed => 1_u128 << (*width - 1),
+        IntegerBoundary::NegativeOne | IntegerBoundary::Minimum => return false,
+    };
+    constant
+        .const_
+        .try_eval_bits(tcx, ty::TypingEnv::post_analysis(tcx, def_id))
+        == Some(expected)
+}
+
+fn constant_type_matches<'tcx>(
+    tcx: TyCtxt<'tcx>,
+    def_id: LocalDefId,
+    ty: ty::Ty<'tcx>,
+    expected: &ContractType,
+) -> bool {
+    contract_type(tcx, def_id, ty).ok().as_ref() == Some(expected)
+}
+
+fn guard_operand_mode(operand: &Operand<'_>) -> bool {
+    matches!(operand, Operand::Copy(_) | Operand::Constant(_))
+}
+
+fn operation_operand_mode(operand: &Operand<'_>) -> bool {
+    matches!(operand, Operand::Move(_) | Operand::Constant(_))
+}
+
+fn primitive_div_rem(operation: BinOp) -> Option<DivRemOperation> {
+    match operation {
+        BinOp::Div => Some(DivRemOperation::Div),
+        BinOp::Rem => Some(DivRemOperation::Rem),
+        _ => None,
+    }
+}
+
+fn message_div_rem(operation: BinOp) -> Option<DivRemOperation> {
+    primitive_div_rem(operation)
 }
 
 fn message_operation(operation: BinOp) -> Option<ArithmeticOperation> {

@@ -4,19 +4,22 @@ use std::path::{Path, PathBuf};
 use mpk_cert::decode_canonical_certificate;
 use mpk_vc::vir::{VirIntegerLiteral, VirVariableRef};
 use mpk_vc::{
-    encode_instruction_safety, evaluate_total_bitvector_operation, required_safety_checks,
-    validate_safety_check_sequence, ArrayLength, BitVectorWidth, DecimalInteger, DivRemOperation,
-    EncodedSafetyPredicate, GoFixedParameters, MpkExprTerm, OverflowMode, OverflowOperation,
-    PanicMode, PointerWidth, ProgramExprContext, RustCheckedParameters, SafetyEvidenceRoute,
-    SafetyObligationKind, SemanticParameters, SemanticProfile, TotalBitVectorResult,
-    VirBinaryOperator, VirInstruction, VirInstructionKind, VirIntLiteral, VirSafetyCheck,
-    VirSafetyOperation, VirType, VirUnaryOperator, VirValue, SAFETY_BITVEC_THEORY_FORMAT,
-    SAFETY_GROUPED_CERTIFICATE_FOUNDATION, SAFETY_OBLIGATION_KIND_COMPONENT,
+    encode_instruction_safety, evaluate_total_bitvector_operation, generate_program_vcs,
+    required_safety_checks, validate_safety_check_sequence, ArrayLength, BitVectorWidth,
+    DecimalInteger, DivRemOperation, EncodedSafetyPredicate, GoFixedParameters, MpkExprTerm,
+    OverflowMode, OverflowOperation, PanicMode, PointerWidth, ProgramExprContext,
+    ProgramVcMemberKind, RustCheckedParameters, SafetyEvidenceRoute, SafetyObligationKind,
+    SemanticParameters, SemanticProfile, TotalBitVectorResult, VirBinaryOperator, VirInstruction,
+    VirInstructionKind, VirIntLiteral, VirSafetyCheck, VirSafetyOperation, VirType,
+    VirUnaryOperator, VirValue, SAFETY_BITVEC_THEORY_FORMAT, SAFETY_GROUPED_CERTIFICATE_FOUNDATION,
+    SAFETY_OBLIGATION_KIND_COMPONENT,
 };
 use serde_json::Value;
 
 const RUST_FRONTEND_ARITHMETIC_VIR: &[u8] =
     include_bytes!("../../../rust-tools/rust2vir/testdata/arithmetic/expected-vir.json");
+const RUST_FRONTEND_DIV_REM_VIR: &[u8] =
+    include_bytes!("../../../rust-tools/rust2vir/testdata/div-rem/expected-vir.json");
 
 #[test]
 fn rust_frontend_checked_arithmetic_fixture_is_profile_complete() {
@@ -26,6 +29,59 @@ fn rust_frontend_checked_arithmetic_fixture_is_profile_complete() {
     for module in modules {
         let bytes = serde_json::to_vec(&module).expect("serialize fixture module");
         mpk_vc::import_vir_json(&bytes).expect("frontend VIR passes independent validation");
+    }
+}
+
+#[test]
+fn rust_frontend_div_rem_fixture_imports_and_emits_pending_safety_vcs() {
+    let module =
+        mpk_vc::import_vir_json(RUST_FRONTEND_DIV_REM_VIR).expect("division VIR fixture imports");
+    let generated = generate_program_vcs(&module).expect("division safety VCs generate");
+    let safety = generated.functions[0]
+        .members
+        .iter()
+        .filter(|member| member.kind == ProgramVcMemberKind::OperationSafety)
+        .collect::<Vec<_>>();
+
+    assert_eq!(safety.len(), 2);
+    assert!(safety.iter().all(|member| member.assumptions.is_empty()));
+    assert!(safety
+        .iter()
+        .all(|member| member.id.contains("#operation_safety#")));
+    assert!(safety.iter().all(|member| member.safety_evidence.is_some()));
+}
+
+#[test]
+fn handwritten_div_rem_vectors_follow_total_vir_equations() {
+    use BitVectorWidth::{Bits16, Bits32, Bits64, Bits8};
+    use VirBinaryOperator::{BvSdiv, BvSrem, BvUdiv, BvUrem};
+
+    for width in [Bits8, Bits16, Bits32, Bits64] {
+        let bits = width.bits();
+        let mask = if bits == 64 {
+            u64::MAX
+        } else {
+            (1_u64 << bits) - 1
+        };
+        let minimum = 1_u64 << (bits - 1);
+        let vectors = [
+            (BvUdiv, 7, 0, mask),
+            (BvUrem, 7, 0, 7),
+            (BvSdiv, 7, 0, mask),
+            (BvSdiv, minimum, 0, 1),
+            (BvSrem, minimum, 0, minimum),
+            (BvSdiv, minimum, mask, minimum),
+            (BvSrem, minimum, mask, 0),
+            (BvSdiv, mask - 6, 3, mask - 1),
+            (BvSrem, mask - 6, 3, mask),
+        ];
+        for (operation, lhs, rhs, expected) in vectors {
+            assert_eq!(
+                evaluate_total_bitvector_operation(operation, width, lhs, width, rhs)
+                    .expect("total division/remainder equation"),
+                TotalBitVectorResult::BitVector(expected)
+            );
+        }
     }
 }
 

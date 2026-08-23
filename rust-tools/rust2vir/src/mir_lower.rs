@@ -1,5 +1,5 @@
 use super::hir_check::{contract_type, HirFunction};
-use super::mir_arithmetic::{ArithmeticOperation, ArithmeticPlan};
+use super::mir_arithmetic::{ArithmeticOperation, ArithmeticPlan, DivRemOperation};
 use rust2vir_internal::contract::ContractType;
 use rust2vir_internal::driver_protocol::DriverRequest;
 use rust2vir_internal::file_loader::{SnapshotFileLoader, SourceRangeError};
@@ -946,7 +946,9 @@ fn live_compiler_locals<'tcx>(
                     let (place, rvalue) = &**assignment;
                     validate_destination(place, local_kinds, function_id)?;
                     let mut reads = Vec::new();
-                    if arithmetic.is_negation_guard(*block_index, statement_index) {
+                    if arithmetic.is_negation_guard(*block_index, statement_index)
+                        || arithmetic.is_div_rem_guard(*block_index, statement_index)
+                    {
                         // The guard is represented by the attached VIR safety check.
                     } else if let Some((_, ty)) = arithmetic.binary(*block_index, statement_index) {
                         validate_checked_binary_rvalue(
@@ -966,6 +968,21 @@ fn live_compiler_locals<'tcx>(
                             def_id,
                             body,
                             rvalue,
+                            ty,
+                            local_kinds,
+                            arithmetic,
+                            function_id,
+                            &mut reads,
+                        )?;
+                    } else if let Some((operation, ty)) =
+                        arithmetic.div_rem(*block_index, statement_index)
+                    {
+                        validate_div_rem_rvalue(
+                            tcx,
+                            def_id,
+                            body,
+                            rvalue,
+                            operation,
                             ty,
                             local_kinds,
                             arithmetic,
@@ -1309,6 +1326,48 @@ fn validate_checked_negation_rvalue<'tcx>(
 }
 
 #[allow(clippy::too_many_arguments)]
+fn validate_div_rem_rvalue<'tcx>(
+    tcx: TyCtxt<'tcx>,
+    def_id: LocalDefId,
+    body: &Body<'tcx>,
+    rvalue: &Rvalue<'tcx>,
+    expected_operation: DivRemOperation,
+    expected_type: &ContractType,
+    local_kinds: &[LocalKind],
+    arithmetic: &ArithmeticPlan,
+    function_id: &str,
+    reads: &mut Vec<Local>,
+) -> Result<(), MirError> {
+    let Rvalue::BinaryOp(operation @ (BinOp::Div | BinOp::Rem), operands) = rvalue else {
+        return Err(MirError::new(MirCode::Assertion, function_id));
+    };
+    let operation = match operation {
+        BinOp::Div => DivRemOperation::Div,
+        BinOp::Rem => DivRemOperation::Rem,
+        _ => unreachable!("matched division or remainder"),
+    };
+    if operation != expected_operation {
+        return Err(MirError::new(MirCode::Assertion, function_id));
+    }
+    for operand in [&operands.0, &operands.1] {
+        validate_operand(
+            tcx,
+            def_id,
+            body,
+            operand,
+            local_kinds,
+            arithmetic,
+            function_id,
+            reads,
+        )?;
+        if operand_type(tcx, def_id, body, operand, arithmetic, function_id)? != *expected_type {
+            return Err(MirError::new(MirCode::Assertion, function_id));
+        }
+    }
+    Ok(())
+}
+
+#[allow(clippy::too_many_arguments)]
 fn validate_operand<'tcx>(
     tcx: TyCtxt<'tcx>,
     def_id: LocalDefId,
@@ -1464,7 +1523,9 @@ fn lower_assignment<'tcx>(
     source_entries: &mut Vec<SourceMapEntry>,
 ) -> Result<(), MirError> {
     validate_destination(destination, local_kinds, function_id)?;
-    if arithmetic.is_negation_guard(mir_block, statement_index) {
+    if arithmetic.is_negation_guard(mir_block, statement_index)
+        || arithmetic.is_div_rem_guard(mir_block, statement_index)
+    {
         return Ok(());
     }
     if is_erasable_unit_assignment(body, destination, rvalue, local_kinds) {
@@ -1535,6 +1596,49 @@ fn lower_assignment<'tcx>(
             ty,
             None,
             operand,
+            statement_span,
+            tcx,
+            loader,
+            ids,
+            next_instruction,
+            block_index,
+            unit_id,
+            function_id,
+            instructions,
+            source_entries,
+        )?
+    } else if let Some((operation, ty)) = arithmetic.div_rem(mir_block, statement_index) {
+        let Rvalue::BinaryOp(_, operands) = rvalue else {
+            return Err(MirError::new(MirCode::Assertion, function_id));
+        };
+        let left = lower_operand(
+            tcx,
+            def_id,
+            body,
+            &operands.0,
+            local_kinds,
+            environment,
+            arithmetic,
+            function_id,
+        )?;
+        let right = lower_operand(
+            tcx,
+            def_id,
+            body,
+            &operands.1,
+            local_kinds,
+            environment,
+            arithmetic,
+            function_id,
+        )?;
+        if left.ty != *ty || right.ty != *ty {
+            return Err(MirError::new(MirCode::Assertion, function_id));
+        }
+        emit_div_rem(
+            operation,
+            ty,
+            left,
+            right,
             statement_span,
             tcx,
             loader,
@@ -1760,6 +1864,56 @@ fn emit_arithmetic(
         "safety_checks".to_owned(),
         JsonValue::Array(vec![integer_no_overflow(operation, ty, function_id)?]),
     );
+    emitted_value(
+        instruction,
+        ty.clone(),
+        span,
+        tcx,
+        loader,
+        block_index,
+        unit_id,
+        function_id,
+        instructions,
+        source_entries,
+        *next_instruction - 1,
+    )
+}
+
+#[allow(clippy::too_many_arguments)]
+fn emit_div_rem(
+    operation: DivRemOperation,
+    ty: &ContractType,
+    left: Value,
+    right: Value,
+    span: Span,
+    tcx: TyCtxt<'_>,
+    loader: &SnapshotFileLoader,
+    ids: &mut DenseIds,
+    next_instruction: &mut usize,
+    block_index: usize,
+    unit_id: &str,
+    function_id: &str,
+    instructions: &mut Vec<JsonValue>,
+    source_entries: &mut Vec<SourceMapEntry>,
+) -> Result<Value, MirError> {
+    let (_, signed) = ty
+        .as_bit_vector()
+        .ok_or_else(|| MirError::new(MirCode::Rvalue, function_id))?;
+    let mut instruction = instruction_base(ids, next_instruction, "BinOp", ty, function_id)?;
+    instruction.insert("op".to_owned(), string(operation.vir_name(signed)));
+    instruction.insert("lhs".to_owned(), left.json);
+    instruction.insert("rhs".to_owned(), right.json);
+    let mut safety_checks = vec![JsonValue::Object(BTreeMap::from([(
+        "kind".to_owned(),
+        string("divisor_nonzero"),
+    )]))];
+    if signed {
+        safety_checks.push(JsonValue::Object(BTreeMap::from([
+            ("kind".to_owned(), string("signed_divrem_representable")),
+            ("operation".to_owned(), string(operation.safety_name())),
+        ])));
+    }
+    instruction.insert("safety_checks".to_owned(), JsonValue::Array(safety_checks));
     emitted_value(
         instruction,
         ty.clone(),
