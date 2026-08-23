@@ -960,7 +960,7 @@ fn primary_argv() -> Vec<String> {
         "--check-cfg",
         "cfg(docsrs,test)",
         "--check-cfg",
-        "cfg(feature, values())",
+        "cfg(feature, values(\"default\"))",
         "-C",
         "metadata=0123456789abcdef",
         "-C",

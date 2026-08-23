@@ -10,6 +10,7 @@ pub mod contract;
 pub mod contract_typecheck;
 pub mod driver_process;
 pub mod driver_protocol;
+pub mod emit;
 pub mod environment;
 pub mod file_loader;
 pub mod json;

@@ -263,12 +263,17 @@ fn launcher_assertion_mismatch_rejects_before_sandbox_or_process_creation() {
 
 #[test]
 fn private_bootstrap_rejects_incomplete_state_without_running_a_child() {
-    let output = Command::new(env!("CARGO_BIN_EXE_rust2vir"))
-        .arg("__rust2vir_cargo_sandbox_v0")
-        .arg("/untrusted")
-        .output()
-        .unwrap();
-    assert_eq!(output.status.code(), Some(125));
-    assert!(output.stdout.is_empty());
-    assert!(output.stderr.is_empty());
+    for bootstrap in [
+        "__rust2vir_cargo_sandbox_v0",
+        "__rust2vir_cargo_outer_sandbox_v0",
+    ] {
+        let output = Command::new(env!("CARGO_BIN_EXE_rust2vir"))
+            .arg(bootstrap)
+            .arg("/untrusted")
+            .output()
+            .unwrap();
+        assert_eq!(output.status.code(), Some(125));
+        assert!(output.stdout.is_empty());
+        assert!(output.stderr.is_empty());
+    }
 }

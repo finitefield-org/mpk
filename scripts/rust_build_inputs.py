@@ -2007,7 +2007,7 @@ def select_execution_toolchain_files(cache: Path) -> dict[str, list[tuple[str, P
         if not path.is_file() or path.is_symlink():
             continue
         relative = path.relative_to(toolchain).as_posix()
-        executable = bool(path.stat().st_mode & 0o111)
+        executable = False
         if "/rustlib/i686-unknown-linux-gnu/" in f"/{relative}/":
             groups["rust-target-i686"].append((relative, path, executable))
         elif "/rustlib/x86_64-unknown-linux-gnu/" in f"/{relative}/":
@@ -2292,7 +2292,7 @@ def validate_candidate_model(candidate: object) -> None:
         raise RustBuildFailure("BUNDLE_CANDIDATE_STATE")
 
 
-def read_active_registry() -> bytes:
+def read_active_registry(*, require_go_only: bool = True) -> bytes:
     path = repository_root() / "release/bundles/bundle-registry.json"
     data = path.read_bytes()
     value = strict_json(data[:-1]) if data.endswith(b"\n") else None
@@ -2300,15 +2300,59 @@ def read_active_registry() -> bytes:
         not isinstance(value, dict)
         or canonical(value) + b"\n" != data
         or not value.get("tuples")
-        or any(item.get("source_language") != "go" for item in value["tuples"])
+        or any(item.get("source_language") not in ("go", "rust") for item in value["tuples"])
+        or (
+            require_go_only
+            and any(item.get("source_language") != "go" for item in value["tuples"])
+        )
     ):
         raise RustBuildFailure("BUNDLE_REGISTERED_STATE")
     return data
 
 
-def build_candidate_bytes() -> bytes:
+def materialize_candidate_tree(
+    candidate_data: bytes, cache: Path, target: Path, destination: Path
+) -> None:
+    candidate = strict_json(candidate_data[:-1])
+    validate_candidate_model(candidate)
+    release = target / "x86_64-unknown-linux-gnu/release"
+    sources = {
+        "frontend": {
+            "bin/rust2vir": release / "rust2vir",
+            "bin/rust2vir-driver": release / "rust2vir-driver",
+        },
+        "toolchain": {},
+    }
+    for item in candidate["toolchain_bundles"][0]["inventory"]["files"]:
+        relative = item["path"]
+        if relative.startswith("native-runtime/"):
+            source = cache / relative
+        else:
+            source = cache / "toolchain" / relative
+        sources["toolchain"][relative] = source
+    for kind in ("frontend", "toolchain"):
+        root = destination / kind
+        for relative, source in sources[kind].items():
+            expected = next(
+                item
+                for item in candidate[f"{kind}_bundles"][0]["inventory"]["files"]
+                if item["path"] == relative
+            )
+            path = root / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(source, path)
+            path.chmod(0o555 if expected["executable"] else 0o444)
+        for path in sorted(root.rglob("*"), reverse=True):
+            if path.is_dir() and not path.is_symlink():
+                path.chmod(0o555)
+        root.chmod(0o555)
+
+
+def build_candidate_bytes(
+    *, output: Path | None = None, require_go_only: bool = True
+) -> bytes:
     descriptor, cache = check_build_inputs()
-    registry_before = read_active_registry()
+    registry_before = read_active_registry(require_go_only=require_go_only)
     with tempfile.TemporaryDirectory(
         prefix=".mpk-rust-candidate-", dir=cache_parent()
     ) as temporary:
@@ -2334,6 +2378,8 @@ def build_candidate_bytes() -> bytes:
         second_result = run_hermetic(arguments, retained_target=second)
         if first_result.returncode != 0 or second_result.returncode != 0:
             raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+        normalize_portable_cpp_runtime(first_cache, first)
+        normalize_portable_cpp_runtime(None, second)
         for relative in (
             "x86_64-unknown-linux-gnu/release/rust2vir",
             "x86_64-unknown-linux-gnu/release/rust2vir-driver",
@@ -2342,9 +2388,48 @@ def build_candidate_bytes() -> bytes:
                 raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
         validate_cache(descriptor, root=cache)
         result = assemble_candidate(descriptor, first_cache, first)
-    if read_active_registry() != registry_before:
+        if output is not None:
+            materialize_candidate_tree(result, first_cache, first, output)
+    if read_active_registry(require_go_only=require_go_only) != registry_before:
         raise RustBuildFailure("BUNDLE_REGISTERED_STATE")
     return result
+
+
+def normalize_portable_cpp_runtime(cache: Path | None, target: Path) -> None:
+    old = b"libstdc++.so.6"
+    new = b"libstdcxx.so.6"
+    release = target / "x86_64-unknown-linux-gnu/release"
+    candidates = [release / "rust2vir", release / "rust2vir-driver"]
+    if cache is not None:
+        old_path = cache / "native-runtime/lib/x86_64-linux-gnu/libstdc++.so.6"
+        new_path = cache / "native-runtime/lib/x86_64-linux-gnu/libstdcxx.so.6"
+        if old_path.is_symlink() or not old_path.is_file() or new_path.exists() or new_path.is_symlink():
+            raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+        old_path.rename(new_path)
+        toolchain = cache / "toolchain"
+        candidates.extend([toolchain / "bin/cargo", toolchain / "bin/rustc"])
+        candidates.extend(
+            path
+            for path in (toolchain / "lib").rglob("*")
+            if path.is_file()
+            and not path.is_symlink()
+            and (path.name.endswith(".so") or ".so." in path.name)
+        )
+        candidates.extend(
+            path
+            for path in (cache / "native-runtime").rglob("*")
+            if path.is_file() and not path.is_symlink()
+        )
+    for path in sorted(candidates):
+        if path.is_symlink() or not path.is_file():
+            raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+        data = path.read_bytes()
+        if old not in data:
+            continue
+        mode = stat.S_IMODE(path.lstat().st_mode)
+        path.chmod(0o600)
+        path.write_bytes(data.replace(old, new))
+        path.chmod(mode)
 
 
 def publish_candidate(

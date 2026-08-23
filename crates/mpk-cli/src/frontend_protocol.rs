@@ -1,8 +1,8 @@
 use mpk_vc::{
     canonical_json_bytes, import_frontend_source_manifest_json, import_source_map_json,
-    import_vir_json, parse_strict_json, CapturedInput, SourceManifestValidationContext,
-    SourceMapValidationContext, StrictJsonLimits, ValidatedReleaseRegistry,
-    ValidatedSourceManifest, ValidatedSourceMap, VirModule,
+    import_vir_json, parse_strict_json, CapturedInput, LanguageConfiguration,
+    SourceManifestValidationContext, SourceMapValidationContext, StrictJsonLimits,
+    ValidatedReleaseRegistry, ValidatedSourceManifest, ValidatedSourceMap, VirModule,
 };
 use serde::de::IgnoredAny;
 use serde_json::{Map, Value};
@@ -245,7 +245,12 @@ fn validate_shape(value: &Value, exit: i32) -> Result<(&str, &str), FrontendProt
     }
     let rejected = array_field(object, "rejected_features")?;
     let diagnostics = array_field(object, "diagnostics")?;
-    validate_issues(rejected, diagnostics, phase)?;
+    validate_issues(
+        rejected,
+        diagnostics,
+        phase,
+        string_field(object, "source_language")?,
+    )?;
     let phase_valid = match status {
         "ir-lowered" => phase == "emission" && rejected.is_empty(),
         "rejected" => {
@@ -301,6 +306,7 @@ fn validate_issues(
     rejected: &[Value],
     diagnostics: &[Value],
     phase: &str,
+    source_language: &str,
 ) -> Result<(), FrontendProtocolError> {
     if rejected.len() + diagnostics.len() > ISSUES_MAX {
         return Err(protocol(FrontendProtocolCode::ProtocolLimit));
@@ -308,7 +314,7 @@ fn validate_issues(
     let mut message_bytes = 0usize;
     for issues in [rejected, diagnostics] {
         let mut previous: Option<IssueKey<'_>> = None;
-        for value in issues {
+        for (index, value) in issues.iter().enumerate() {
             let object = value
                 .as_object()
                 .ok_or_else(|| protocol(FrontendProtocolCode::ProtocolShape))?;
@@ -348,6 +354,19 @@ fn validate_issues(
                 code,
                 "GO_LIMIT_DIAGNOSTICS_TRUNCATED" | "RUST_LIMIT_DIAGNOSTICS_TRUNCATED"
             );
+            let expected_marker = match source_language {
+                "go" => "GO_LIMIT_DIAGNOSTICS_TRUNCATED",
+                "rust" => "RUST_LIMIT_DIAGNOSTICS_TRUNCATED",
+                _ => return Err(protocol(FrontendProtocolCode::ProtocolShape)),
+            };
+            if marker
+                && (code != expected_marker
+                    || !std::ptr::eq(issues, diagnostics)
+                    || index + 1 != issues.len()
+                    || !valid_truncation_message(message))
+            {
+                return Err(protocol(FrontendProtocolCode::ProtocolShape));
+            }
             if matches!(phase, "subset" | "lowering" | "emission") && function.is_none() && !marker
             {
                 return Err(protocol(FrontendProtocolCode::ProtocolShape));
@@ -368,13 +387,25 @@ fn validate_issues(
                 function: function.unwrap_or(""),
                 end,
             };
-            if previous.as_ref().is_some_and(|prior| prior > &key) {
+            if !marker && previous.as_ref().is_some_and(|prior| prior > &key) {
                 return Err(protocol(FrontendProtocolCode::ProtocolShape));
             }
-            previous = Some(key);
+            if !marker {
+                previous = Some(key);
+            }
         }
     }
     Ok(())
+}
+
+fn valid_truncation_message(message: &str) -> bool {
+    let Some(omitted) = message.strip_suffix(" normalized issues omitted") else {
+        return false;
+    };
+    !omitted.is_empty()
+        && omitted != "0"
+        && !omitted.starts_with('0')
+        && omitted.bytes().all(|byte| byte.is_ascii_digit())
 }
 
 #[derive(Clone, Eq, PartialEq)]
@@ -496,6 +527,16 @@ fn validate_success_artifacts(
     .map_err(|_| protocol(FrontendProtocolCode::ProtocolArtifactMismatch))?;
     let manifest_bytes = serde_json::to_vec(&envelope["source_manifest"])
         .map_err(|_| protocol(FrontendProtocolCode::ProtocolArtifactMismatch))?;
+    let expected_language_configuration = if request.source_language == "rust" {
+        Some(
+            serde_json::from_value::<LanguageConfiguration>(
+                envelope["source_manifest"]["target"]["language_configuration"].clone(),
+            )
+            .map_err(|_| protocol(FrontendProtocolCode::ProtocolArtifactMismatch))?,
+        )
+    } else {
+        None
+    };
     let manifest = import_frontend_source_manifest_json(
         &manifest_bytes,
         SourceManifestValidationContext {
@@ -503,7 +544,7 @@ fn validate_success_artifacts(
             source_map: &source_map,
             captured_inputs: request.captured_inputs,
             release_registry: registry,
-            expected_language_configuration: None,
+            expected_language_configuration: expected_language_configuration.as_ref(),
         },
     )
     .map_err(|_| protocol(FrontendProtocolCode::ProtocolArtifactMismatch))?;

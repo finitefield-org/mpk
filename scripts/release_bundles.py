@@ -413,6 +413,13 @@ def classify_registry(data: bytes) -> str:
     tuples = value.get("tuples")
     if isinstance(tuples, list) and tuples and all(item.get("source_language") == "go" for item in tuples):
         return "go_registered"
+    if (
+        isinstance(tuples, list)
+        and [item.get("source_language") for item in tuples] == ["go", "rust", "rust"]
+        and len(value.get("frontend_bundles", [])) == 2
+        and len(value.get("toolchain_bundles", [])) == 2
+    ):
+        return "all_registered"
     raise BundleFailure("BUNDLE_REGISTERED_STATE")
 
 
@@ -440,7 +447,7 @@ def current_rust_candidate(active: Path) -> bytes | None:
     return candidate.read_bytes()
 
 
-def atomic_publish_registry(registry: bytes) -> None:
+def atomic_publish_registry(registry: bytes, *, drop_rust_candidate: bool = False) -> None:
     root = repository_root()
     active = root / "release/bundles"
     parent = active.parent
@@ -449,7 +456,7 @@ def atomic_publish_registry(registry: bytes) -> None:
     try:
         shutil.copyfile(active / "README.md", staging / "README.md", follow_symlinks=False)
         (staging / "bundle-registry.json").write_bytes(registry)
-        if candidate is not None:
+        if candidate is not None and not drop_rust_candidate:
             directory = staging / "candidates/rust"
             directory.mkdir(parents=True)
             candidate_path = directory / "candidate.json"
@@ -491,6 +498,120 @@ def build_expected() -> tuple[bytes, Path, tempfile.TemporaryDirectory[str]]:
     output = Path(temporary.name) / "output"
     build_release_outputs(output)
     return assemble_registry(output), output, temporary
+
+
+def merge_rust_candidate(go_registry: bytes, candidate_data: bytes) -> bytes:
+    go = json.loads(go_registry)
+    candidate = json.loads(candidate_data)
+    if candidate.get("schema") != "mpk.release.bundle_candidate.v0":
+        raise BundleFailure("BUNDLE_CANDIDATE_STATE")
+    merged = dict(go)
+    merged.pop("registry_sha256", None)
+    keys = {
+        "execution_host_profiles": "id",
+        "native_runtime_layout_profiles": "id",
+        "frontend_bundles": "bundle_id",
+        "toolchain_bundles": "bundle_id",
+    }
+    for field, identity in keys.items():
+        values = list(go[field]) + list(candidate[field])
+        values.sort(key=lambda item: str(item[identity]).encode("utf-8"))
+        if len({item[identity] for item in values}) != len(values):
+            raise BundleFailure("BUNDLE_REGISTERED_STATE")
+        merged[field] = values
+    tuples = list(go["tuples"]) + list(candidate["tuples"])
+    tuples.sort(
+        key=lambda item: (
+            str(item["source_language"]).encode("utf-8"),
+            str(item["semantic_profile"]).encode("utf-8"),
+            str(item["target_id"]).encode("utf-8"),
+            int(item["pointer_width"]),
+        )
+    )
+    merged["tuples"] = tuples
+    merged["registry_sha256"] = typed_hash(REGISTRY_DOMAIN, merged)
+    result = canonical(merged) + b"\n"
+    if classify_registry(result) != "all_registered":
+        raise BundleFailure("BUNDLE_REGISTERED_STATE")
+    return result
+
+
+def require_preserved_go_registration(current_data: bytes, merged_data: bytes) -> None:
+    current = json.loads(current_data)
+    merged = json.loads(merged_data)
+    if current.get("schema") != merged.get("schema") or current.get("id") != merged.get("id"):
+        raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    for field, identity in (
+        ("execution_host_profiles", "id"),
+        ("native_runtime_layout_profiles", "id"),
+    ):
+        current_ids = {item[identity] for item in current[field]}
+        if [item for item in merged[field] if item[identity] in current_ids] != current[field]:
+            raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    for field in ("frontend_bundles", "toolchain_bundles", "tuples"):
+        if [item for item in merged[field] if item["source_language"] == "go"] != current[field]:
+            raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+
+
+def build_expected_all() -> tuple[bytes, Path, Path, tempfile.TemporaryDirectory[str]]:
+    import rust_build_inputs
+
+    temporary = tempfile.TemporaryDirectory(prefix="mpk-release-bundles-all-")
+    root = Path(temporary.name)
+    go_output = root / "go"
+    rust_output = root / "rust"
+    build_release_outputs(go_output)
+    go_registry = assemble_registry(go_output)
+    candidate = rust_build_inputs.build_candidate_bytes(
+        output=rust_output, require_go_only=False
+    )
+    return merge_rust_candidate(go_registry, candidate), go_output, rust_output, temporary
+
+
+def update_all() -> None:
+    active = repository_root() / "release/bundles"
+    registry_before = current_registry()
+    state = classify_registry(registry_before)
+    if state not in ("go_registered", "all_registered"):
+        raise BundleFailure("BUNDLE_REGISTERED_STATE")
+    candidate_before = current_rust_candidate(active)
+    if state == "go_registered" and candidate_before is None:
+        raise BundleFailure("BUNDLE_CANDIDATE_STATE")
+    registry, _, _, temporary = build_expected_all()
+    try:
+        if current_registry() != registry_before or current_rust_candidate(active) != candidate_before:
+            raise BundleFailure("BUNDLE_REGISTERED_STATE")
+        if state == "go_registered":
+            require_preserved_go_registration(registry_before, registry)
+            rebuilt = json.loads(registry)
+            expected_projection = {
+                "schema": "mpk.release.bundle_candidate.v0",
+                "source_language": "rust",
+                "execution_host_profiles": [
+                    item for item in rebuilt["execution_host_profiles"] if item["id"].endswith("glibc2_27.v0")
+                ],
+                "native_runtime_layout_profiles": rebuilt["native_runtime_layout_profiles"],
+                "frontend_bundles": [item for item in rebuilt["frontend_bundles"] if item["source_language"] == "rust"],
+                "toolchain_bundles": [item for item in rebuilt["toolchain_bundles"] if item["source_language"] == "rust"],
+                "tuples": [item for item in rebuilt["tuples"] if item["source_language"] == "rust"],
+            }
+            if candidate_before != canonical(expected_projection) + b"\n":
+                raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+        atomic_publish_registry(registry, drop_rust_candidate=True)
+    finally:
+        temporary.cleanup()
+
+
+def check_all() -> None:
+    active = repository_root() / "release/bundles"
+    if classify_registry(current_registry()) != "all_registered" or current_rust_candidate(active) is not None:
+        raise BundleFailure("BUNDLE_REGISTERED_STATE")
+    registry, _, _, temporary = build_expected_all()
+    try:
+        if registry != current_registry():
+            raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    finally:
+        temporary.cleanup()
 
 
 def update_go() -> None:
@@ -560,7 +681,11 @@ def validate_installed_fixture(
         "share/mpk": {"bundle-registry.json"},
         "libexec": {"mpk"},
         "libexec/mpk": {"bundles"},
-        "libexec/mpk/bundles": {FRONTEND_ID, TOOLCHAIN_ID},
+        "libexec/mpk/bundles": {
+            bundle["bundle_id"]
+            for key in ("frontend_bundles", "toolchain_bundles")
+            for bundle in registry[key]
+        },
     }
     for relative, expected in exact_directories.items():
         directory = root if relative == "." else root / relative
@@ -748,6 +873,189 @@ def fixture_go() -> None:
         temporary.cleanup()
 
 
+def fixture_all(mpk_binary: Path) -> None:
+    binary_metadata = mpk_binary.lstat()
+    if (
+        mpk_binary.is_symlink()
+        or not stat.S_ISREG(binary_metadata.st_mode)
+        or not os.access(mpk_binary, os.X_OK)
+    ):
+        raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    registry_data, go_output, rust_output, temporary = build_expected_all()
+    try:
+        if registry_data != current_registry():
+            raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+        registry = json.loads(registry_data)
+        destination = Path(temporary.name) / "installed"
+        (destination / "bin").mkdir(parents=True)
+        (destination / "share/mpk").mkdir(parents=True)
+        bundles = destination / "libexec/mpk/bundles"
+        bundles.mkdir(parents=True)
+        shutil.copyfile(mpk_binary, destination / "bin/mpk", follow_symlinks=False)
+        (destination / "share/mpk/bundle-registry.json").write_bytes(registry_data)
+        sources = {
+            FRONTEND_ID: go_output / "frontend",
+            TOOLCHAIN_ID: go_output / "toolchain",
+            "frontend.rust.rust2vir.candidate.v0": rust_output / "frontend",
+            "toolchain.rust.nightly-2025-06-01.candidate.v0": rust_output / "toolchain",
+        }
+        for bundle_id, source in sources.items():
+            shutil.copytree(source, bundles / bundle_id, copy_function=shutil.copy2)
+        (destination / "bin/mpk").chmod(0o555)
+        (destination / "share/mpk/bundle-registry.json").chmod(0o444)
+        for path in sorted(destination.rglob("*"), reverse=True):
+            if path.is_dir() and not path.is_symlink():
+                path.chmod(0o555)
+        destination.chmod(0o555)
+        validate_installed_fixture(registry, registry_data, destination)
+        rust_frontend = next(
+            item for item in registry["frontend_bundles"] if item["source_language"] == "rust"
+        )
+        rust_toolchain = next(
+            item for item in registry["toolchain_bundles"] if item["source_language"] == "rust"
+        )
+        if [item["name"] for item in rust_frontend["subordinate_binaries"]] != ["rust2vir-driver"]:
+            raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+        frontend_root = bundles / rust_frontend["bundle_id"]
+        toolchain_root = bundles / rust_toolchain["bundle_id"]
+        source_root = repository_root() / "fixtures/rust-basic"
+        command = [
+            str(toolchain_root / "native-runtime/lib64/ld-linux-x86-64.so.2"),
+            "--library-path",
+            str(toolchain_root / "native-runtime/lib/x86_64-linux-gnu"),
+            str(frontend_root / "bin/rust2vir"),
+            "lower",
+            str(source_root),
+            "--manifest-path",
+            "Cargo.toml",
+            "--package",
+            "vector",
+            "--semantic-profile",
+            "mpk.rust.checked.v0",
+            "--target",
+            "x86_64-unknown-linux-gnu",
+            "--function",
+            "vector::identity",
+            "--frontend-bundle-id",
+            rust_frontend["bundle_id"],
+            "--frontend-sha256",
+            rust_frontend["main"]["binary_sha256"],
+            "--release-registry-id",
+            registry["id"],
+            "--release-registry-sha256",
+            registry["registry_sha256"],
+            "--toolchain-bundle-id",
+            rust_toolchain["bundle_id"],
+            "--toolchain-root",
+            str(toolchain_root),
+            "--toolchain-distribution-sha256",
+            rust_toolchain["distribution_sha256"],
+            "--driver",
+            str(frontend_root / "bin/rust2vir-driver"),
+            "--driver-sha256",
+            rust_frontend["subordinate_binaries"][0]["binary_sha256"],
+            "--contract",
+            "contracts/vector.json",
+        ]
+        results = [
+            subprocess.run(
+                command,
+                stdin=subprocess.DEVNULL,
+                capture_output=True,
+                check=False,
+                env={
+                    "HOME": "/nonexistent",
+                    "LANG": "C",
+                    "LC_ALL": "C",
+                    "PATH": "/usr/bin:/bin",
+                    "TMPDIR": "/tmp",
+                    "TZ": "UTC",
+                },
+            )
+            for _ in range(2)
+        ]
+        result = results[0]
+        try:
+            envelope = json.loads(result.stdout)
+        except (UnicodeDecodeError, json.JSONDecodeError) as error:
+            raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH") from error
+        if (
+            result.returncode != 0
+            or result.stderr
+            or results[1].returncode != result.returncode
+            or results[1].stdout != result.stdout
+            or results[1].stderr != result.stderr
+            or canonical(envelope) + b"\n" != result.stdout
+            or envelope.get("status") != "ir-lowered"
+            or envelope.get("source_language") != "rust"
+            or envelope.get("source_manifest", {}).get("release_registry", {}).get("registry_sha256")
+            != registry["registry_sha256"]
+            or str(destination).encode() in result.stdout
+            or str(source_root).encode() in result.stdout
+        ):
+            raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+        scan_path = Path(temporary.name) / "rust-basic-scan.json"
+        scan = subprocess.run(
+            [
+                str(destination / "bin/mpk"),
+                "policy",
+                "scan",
+                str(source_root),
+                "--language",
+                "rust",
+                "--semantic-profile",
+                "mpk.rust.checked.v0",
+                "--require-release-registry-id",
+                registry["id"],
+                "--require-release-registry-sha256",
+                registry["registry_sha256"],
+                "--frontend-bundle",
+                rust_frontend["bundle_id"],
+                "--toolchain-bundle",
+                rust_toolchain["bundle_id"],
+                "--target",
+                "x86_64-unknown-linux-gnu",
+                "--package",
+                "vector",
+                "--function",
+                "vector::identity",
+                "--contract",
+                "contracts/vector.json",
+                "--json-out",
+                scan_path.name,
+            ],
+            stdin=subprocess.DEVNULL,
+            capture_output=True,
+            check=False,
+            cwd=scan_path.parent,
+            env={
+                "HOME": "/nonexistent",
+                "LANG": "C",
+                "LC_ALL": "C",
+                "PATH": "/usr/bin:/bin",
+                "TMPDIR": "/tmp",
+                "TZ": "UTC",
+            },
+        )
+        try:
+            scan_value = json.loads(scan_path.read_bytes())
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
+            raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH") from error
+        if (
+            scan.returncode != 0
+            or scan.stdout != b"ok policy scan status=ready json=rust-basic-scan.json\n"
+            or scan.stderr
+            or canonical(scan_value) + b"\n" != scan_path.read_bytes()
+            or scan_value.get("schema") != "mpk.policy.scan.v1"
+            or scan_value.get("readiness") != "ready"
+            or str(destination).encode() in scan_path.read_bytes()
+            or str(source_root).encode() in scan_path.read_bytes()
+        ):
+            raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    finally:
+        temporary.cleanup()
+
+
 def main(argv: list[str]) -> int:
     try:
         if argv == ["update-go"]:
@@ -756,6 +1064,12 @@ def main(argv: list[str]) -> int:
             check_go()
         elif argv == ["fixture-go"]:
             fixture_go()
+        elif argv == ["update-all"]:
+            update_all()
+        elif argv == ["check-all"]:
+            check_all()
+        elif len(argv) == 2 and argv[0] == "fixture-all":
+            fixture_all(Path(argv[1]))
         else:
             raise BundleFailure("BUNDLE_ASSEMBLER_USAGE", 64)
         return 0

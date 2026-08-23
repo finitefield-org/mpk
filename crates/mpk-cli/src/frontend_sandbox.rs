@@ -35,6 +35,8 @@ use std::time::Instant;
 #[cfg(any(test, target_os = "linux"))]
 use std::os::unix::fs::PermissionsExt;
 #[cfg(target_os = "linux")]
+use std::os::unix::fs::{FileTypeExt, MetadataExt};
+#[cfg(target_os = "linux")]
 use std::os::unix::process::CommandExt;
 #[cfg(any(test, target_os = "linux"))]
 use std::os::unix::process::ExitStatusExt;
@@ -80,7 +82,7 @@ pub(crate) fn launch_release_frontend(
     }
     #[cfg(target_os = "linux")]
     {
-        if executable != "bin/go2vir" {
+        if !matches!(executable, "bin/go2vir" | "bin/rust2vir") {
             return Err(SandboxError::Unavailable);
         }
         run_sandbox_probe()?;
@@ -93,6 +95,7 @@ pub(crate) fn launch_release_frontend(
         materialize_snapshot(toolchain, &root.join("mpk/toolchain"))?;
         materialize_sources(captured_inputs, &root.join("mpk/source"))?;
         for relative in [
+            "dev",
             "mpk/cache/go-build",
             "mpk/cache/go-mod",
             "mpk/gopath",
@@ -101,6 +104,14 @@ pub(crate) fn launch_release_frontend(
             "mpk/tmp",
         ] {
             fs::create_dir_all(root.join(relative)).map_err(|_| SandboxError::Unavailable)?;
+        }
+        fs::write(root.join("dev/null"), b"").map_err(|_| SandboxError::Unavailable)?;
+        if executable == "bin/rust2vir" {
+            for relative in ["proc", "lib64", "lib/x86_64-linux-gnu"] {
+                fs::create_dir_all(root.join(relative)).map_err(|_| SandboxError::Unavailable)?;
+            }
+            fs::write(root.join("lib64/ld-linux-x86-64.so.2"), b"")
+                .map_err(|_| SandboxError::Unavailable)?;
         }
         seal_read_only_tree(&root.join("mpk/frontend"))?;
         seal_read_only_tree(&root.join("mpk/toolchain"))?;
@@ -114,8 +125,9 @@ pub(crate) fn launch_release_frontend(
             seal_read_only_tree(&root.join(relative))?;
         }
         let current_executable = std::env::current_exe().map_err(|_| SandboxError::Unavailable)?;
-        let mut bootstrap_args = Vec::with_capacity(args.len() + 1);
+        let mut bootstrap_args = Vec::with_capacity(args.len() + 2);
         bootstrap_args.push("__mpk_frontend_sandbox_v0".to_owned());
+        bootstrap_args.push(executable.to_owned());
         bootstrap_args.extend_from_slice(args);
         let result =
             match run_closed_process(&current_executable, root, &bootstrap_args, environment) {
@@ -494,12 +506,14 @@ fn linux_probe() -> Result<u8, u8> {
     let root = std::env::current_dir().map_err(|_| 125)?;
     mount_bind(&root, &root).map_err(|_| 125)?;
 
-    let interfaces: BTreeSet<_> = fs::read_dir("/sys/class/net")
+    let interfaces = fs::read_to_string("/proc/net/dev")
         .map_err(|_| 125)?
-        .map(|entry| entry.map(|entry| entry.file_name()))
-        .collect::<Result<_, _>>()
-        .map_err(|_| 125)?;
-    if interfaces != BTreeSet::from(["lo".into()]) {
+        .lines()
+        .skip(2)
+        .map(|line| line.split_once(':').map(|(name, _)| name.trim().to_owned()))
+        .collect::<Option<BTreeSet<_>>>()
+        .ok_or(125)?;
+    if interfaces != BTreeSet::from(["lo".to_owned()]) {
         return Err(125);
     }
 
@@ -605,7 +619,10 @@ fn linux_bootstrap(arguments: &[String]) -> Result<u8, u8> {
     use rustix::process::{setrlimit, Resource, Rlimit};
     use rustix::thread::{set_no_new_privs, unshare, UnshareFlags};
 
-    if arguments.is_empty() {
+    let Some((executable, arguments)) = arguments.split_first() else {
+        return Err(125);
+    };
+    if !matches!(executable.as_str(), "bin/go2vir" | "bin/rust2vir") {
         return Err(125);
     }
     let uid = rustix::process::getuid().as_raw();
@@ -629,14 +646,22 @@ fn linux_bootstrap(arguments: &[String]) -> Result<u8, u8> {
     .map_err(|_| 125)?;
     let root = std::env::current_dir().map_err(|_| 125)?;
     mount_bind(&root, &root).map_err(|_| 125)?;
-    for relative in ["mpk/cache/go-build", "mpk/tmp"] {
+    let temporary_options = if executable == "bin/rust2vir" {
+        c"size=21474836480,mode=700"
+    } else {
+        c"size=536870912,mode=700"
+    };
+    for (relative, options) in [
+        ("mpk/cache/go-build", c"size=536870912,mode=700"),
+        ("mpk/tmp", temporary_options),
+    ] {
         let target = root.join(relative);
         mount(
             "tmpfs",
             &target,
             "tmpfs",
             MountFlags::NOSUID | MountFlags::NODEV | MountFlags::NOEXEC,
-            Some(c"size=536870912,mode=700"),
+            Some(options),
         )
         .map_err(|_| 125)?;
     }
@@ -652,6 +677,46 @@ fn linux_bootstrap(arguments: &[String]) -> Result<u8, u8> {
         "",
     )
     .map_err(|_| 125)?;
+    let null = fs::metadata("/dev/null").map_err(|_| 125)?;
+    if !null.file_type().is_char_device() || null.rdev() != 259 {
+        return Err(125);
+    }
+    let null_target = root.join("dev/null");
+    mount_bind("/dev/null", &null_target).map_err(|_| 125)?;
+    let mounted_null = fs::metadata(&null_target).map_err(|_| 125)?;
+    if mounted_null.dev() != null.dev()
+        || mounted_null.ino() != null.ino()
+        || mounted_null.rdev() != null.rdev()
+    {
+        return Err(125);
+    }
+    mount_remount(
+        &null_target,
+        MountFlags::BIND | MountFlags::NOSUID | MountFlags::NOEXEC,
+        "",
+    )
+    .map_err(|_| 125)?;
+    if executable == "bin/rust2vir" {
+        let runtime = root.join("mpk/toolchain/native-runtime");
+        let libraries = runtime.join("lib/x86_64-linux-gnu");
+        let library_target = root.join("lib/x86_64-linux-gnu");
+        mount_bind(&libraries, &library_target).map_err(|_| 125)?;
+        mount_remount(
+            &library_target,
+            MountFlags::BIND | MountFlags::RDONLY | MountFlags::NOSUID | MountFlags::NODEV,
+            "",
+        )
+        .map_err(|_| 125)?;
+        let loader = runtime.join("lib64/ld-linux-x86-64.so.2");
+        let loader_target = root.join("lib64/ld-linux-x86-64.so.2");
+        mount_bind(&loader, &loader_target).map_err(|_| 125)?;
+        mount_remount(
+            &loader_target,
+            MountFlags::BIND | MountFlags::RDONLY | MountFlags::NOSUID | MountFlags::NODEV,
+            "",
+        )
+        .map_err(|_| 125)?;
+    }
     mount_remount(
         &root,
         MountFlags::BIND | MountFlags::RDONLY | MountFlags::NOSUID | MountFlags::NODEV,
@@ -661,12 +726,17 @@ fn linux_bootstrap(arguments: &[String]) -> Result<u8, u8> {
     rustix::process::chroot(&root).map_err(|_| 125)?;
     std::env::set_current_dir("/").map_err(|_| 125)?;
     set_no_new_privs(true).map_err(|_| 125)?;
+    let (file_size_limit, open_file_limit, address_space_limit) = if executable == "bin/rust2vir" {
+        (17_179_869_184, 1_024, 17_179_869_184)
+    } else {
+        (536_870_912, 256, 4_294_967_296)
+    };
     for (resource, limit) in [
         (Resource::Core, 0),
-        (Resource::Fsize, 536_870_912),
-        (Resource::Nofile, 256),
+        (Resource::Fsize, file_size_limit),
+        (Resource::Nofile, open_file_limit),
         (Resource::Nproc, 256),
-        (Resource::As, 4_294_967_296),
+        (Resource::As, address_space_limit),
     ] {
         setrlimit(
             resource,
@@ -677,7 +747,19 @@ fn linux_bootstrap(arguments: &[String]) -> Result<u8, u8> {
         )
         .map_err(|_| 125)?;
     }
-    let status = Command::new("/mpk/frontend/bin/go2vir")
+    let mut command = if executable == "bin/rust2vir" {
+        let mut command = Command::new("/lib64/ld-linux-x86-64.so.2");
+        command.args([
+            "--library-path",
+            "/lib/x86_64-linux-gnu",
+            "/mpk/frontend/bin/rust2vir",
+            "__rust2vir_outer_sandbox_v0",
+        ]);
+        command
+    } else {
+        Command::new("/mpk/frontend/bin/go2vir")
+    };
+    let status = command
         .args(arguments)
         .stdin(Stdio::null())
         .status()

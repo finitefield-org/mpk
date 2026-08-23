@@ -1,5 +1,5 @@
 use crate::cli::{LowerRequest, RustTarget};
-use crate::driver_protocol::{self, DriverReleaseIdentity};
+use crate::driver_protocol::{self, DriverComponentIdentity, DriverReleaseIdentity};
 use crate::environment::{
     EvidenceEnvironment, ARGUMENT_PROFILE_ID, CARGO_PATH, DRIVER_OUTPUT_ROOT,
     ENVIRONMENT_PROFILE_ID, FRONTEND_ROOT, HOME_ROOT, INPUT_ROOT, NATIVE_RUNTIME_ROOT, TARGET_ROOT,
@@ -50,6 +50,8 @@ const CANDIDATE_AGGREGATE_LIMIT: u64 = 34_359_738_368;
 const CANDIDATE_PATH_LIMIT: usize = 1_024;
 
 static NEXT_INVOCATION: AtomicU64 = AtomicU64::new(0);
+#[cfg(target_os = "linux")]
+static OUTER_SANDBOX_ACTIVE: AtomicBool = AtomicBool::new(false);
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct InventoryFile {
@@ -155,7 +157,6 @@ impl TargetLibrary {
 #[derive(Clone, Debug)]
 pub struct InjectedCandidate {
     frontend_bundle_id: String,
-    frontend_bundle_sha256: String,
     frontend_root: PathBuf,
     frontend_inventory: Vec<InventoryFile>,
     toolchain_bundle_id: String,
@@ -192,6 +193,180 @@ pub struct CandidateDefinition {
 }
 
 impl InjectedCandidate {
+    pub fn from_installed(request: &LowerRequest) -> Result<Self, SandboxError> {
+        let driver_name = request
+            .release
+            .driver
+            .file_name()
+            .and_then(|name| name.to_str());
+        let bin = request
+            .release
+            .driver
+            .parent()
+            .filter(|path| path.file_name().and_then(|name| name.to_str()) == Some("bin"));
+        if driver_name != Some("rust2vir-driver") {
+            return Err(SandboxError::ToolchainComponent);
+        }
+        let frontend_root = bin
+            .and_then(Path::parent)
+            .ok_or(SandboxError::ToolchainComponent)?
+            .to_path_buf();
+        let toolchain_root = request.release.toolchain_root.clone();
+        let frontend_inventory = inventory_from_root(&frontend_root)?;
+        let toolchain_inventory = inventory_from_root(&toolchain_root)?;
+        let frontend_bundle_sha256 =
+            frontend_bundle_sha256(FRONTEND_BUNDLE_ID, &frontend_inventory);
+        let toolchain_distribution_sha256 =
+            toolchain_distribution_sha256(TOOLCHAIN_BUNDLE_ID, &toolchain_inventory);
+        if request.release.frontend_bundle_id != FRONTEND_BUNDLE_ID
+            || request.release.toolchain_bundle_id != TOOLCHAIN_BUNDLE_ID
+            || request.release.toolchain_distribution_sha256 != toolchain_distribution_sha256
+            || required_file(&frontend_inventory, "bin/rust2vir", true)?.sha256
+                != request.release.frontend_sha256
+            || required_file(&frontend_inventory, "bin/rust2vir-driver", true)?.sha256
+                != request.release.driver_sha256
+        {
+            return Err(SandboxError::ToolchainComponent);
+        }
+
+        let i686_content_sha256 = component_content_sha256(
+            TOOLCHAIN_BUNDLE_ID,
+            "rust-target-i686",
+            &toolchain_inventory,
+            "lib/rustlib/i686-unknown-linux-gnu/",
+        );
+        let x86_64_content_sha256 = component_content_sha256(
+            TOOLCHAIN_BUNDLE_ID,
+            "rust-target-x86_64",
+            &toolchain_inventory,
+            "lib/rustlib/x86_64-unknown-linux-gnu/",
+        );
+        let native_runtime_content_sha256 = component_content_sha256(
+            TOOLCHAIN_BUNDLE_ID,
+            "native-runtime",
+            &toolchain_inventory,
+            "native-runtime/",
+        );
+        let compiler_runtime = toolchain_inventory
+            .iter()
+            .filter(|file| {
+                file.path.starts_with("lib/")
+                    && !file.path.contains("/rustlib/i686-unknown-linux-gnu/")
+                    && !file.path.contains("/rustlib/x86_64-unknown-linux-gnu/")
+                    && (file.path.ends_with(".so") || file.path.contains(".so."))
+            })
+            .cloned()
+            .collect::<Vec<_>>();
+        if compiler_runtime.is_empty() {
+            return Err(SandboxError::ToolchainComponent);
+        }
+        let compiler_runtime_content_sha256 = inventory_content_sha256(
+            TOOLCHAIN_BUNDLE_ID,
+            "component",
+            Some("rust-compiler-runtime"),
+            &compiler_runtime,
+        );
+        let cargo_sha256 = required_file(&toolchain_inventory, "bin/cargo", true)?
+            .sha256
+            .clone();
+        let rustc_sha256 = required_file(&toolchain_inventory, "bin/rustc", true)?
+            .sha256
+            .clone();
+        let frontend_sha256 = required_file(&frontend_inventory, "bin/rust2vir", true)?
+            .sha256
+            .clone();
+        let driver_sha256 = required_file(&frontend_inventory, "bin/rust2vir-driver", true)?
+            .sha256
+            .clone();
+
+        Self::from_definition(CandidateDefinition {
+            frontend_bundle_id: FRONTEND_BUNDLE_ID.to_owned(),
+            frontend_bundle_sha256,
+            frontend_root,
+            frontend_inventory,
+            toolchain_bundle_id: TOOLCHAIN_BUNDLE_ID.to_owned(),
+            toolchain_distribution_sha256: toolchain_distribution_sha256.clone(),
+            toolchain_root,
+            toolchain_inventory,
+            target_libraries: vec![
+                TargetLibrary::new(
+                    RustTarget::I686UnknownLinuxGnu,
+                    32,
+                    "rust-target-i686",
+                    i686_content_sha256.clone(),
+                    "lib/rustlib/i686-unknown-linux-gnu/",
+                )?,
+                TargetLibrary::new(
+                    RustTarget::X86_64UnknownLinuxGnu,
+                    64,
+                    "rust-target-x86_64",
+                    x86_64_content_sha256.clone(),
+                    "lib/rustlib/x86_64-unknown-linux-gnu/",
+                )?,
+            ],
+            execution_host_profile_id: EXECUTION_HOST_PROFILE_ID.to_owned(),
+            runtime_layout_profile_id: RUNTIME_LAYOUT_PROFILE_ID.to_owned(),
+            environment_profile_id: ENVIRONMENT_PROFILE_ID.to_owned(),
+            argument_profile_id: ARGUMENT_PROFILE_ID.to_owned(),
+            limit_profile_id: LIMIT_PROFILE_ID.to_owned(),
+            compiler_release: crate::EXPECTED_RUSTC_RELEASE.to_owned(),
+            compiler_commit: crate::EXPECTED_RUSTC_COMMIT.to_owned(),
+            native_runtime_component_root: "native-runtime".to_owned(),
+            native_runtime_content_sha256: native_runtime_content_sha256.clone(),
+            driver_release_identity: DriverReleaseIdentity {
+                frontend_bundle_id: FRONTEND_BUNDLE_ID.to_owned(),
+                frontend_binary_sha256: frontend_sha256,
+                driver_binary_sha256: driver_sha256,
+                toolchain_bundle_id: TOOLCHAIN_BUNDLE_ID.to_owned(),
+                toolchain_distribution_sha256,
+                toolchain_components: vec![
+                    DriverComponentIdentity {
+                        kind: "executable".to_owned(),
+                        name: "cargo".to_owned(),
+                        release: crate::EXPECTED_RUSTC_RELEASE.to_owned(),
+                        sha256: cargo_sha256,
+                        commit_hash: None,
+                    },
+                    DriverComponentIdentity {
+                        kind: "content".to_owned(),
+                        name: "native-runtime".to_owned(),
+                        release: "nightly-2025-06-01".to_owned(),
+                        sha256: native_runtime_content_sha256,
+                        commit_hash: None,
+                    },
+                    DriverComponentIdentity {
+                        kind: "content".to_owned(),
+                        name: "rust-compiler-runtime".to_owned(),
+                        release: "nightly-2025-06-01".to_owned(),
+                        sha256: compiler_runtime_content_sha256,
+                        commit_hash: None,
+                    },
+                    DriverComponentIdentity {
+                        kind: "content".to_owned(),
+                        name: "rust-target-i686".to_owned(),
+                        release: "nightly-2025-06-01".to_owned(),
+                        sha256: i686_content_sha256,
+                        commit_hash: None,
+                    },
+                    DriverComponentIdentity {
+                        kind: "content".to_owned(),
+                        name: "rust-target-x86_64".to_owned(),
+                        release: "nightly-2025-06-01".to_owned(),
+                        sha256: x86_64_content_sha256,
+                        commit_hash: None,
+                    },
+                    DriverComponentIdentity {
+                        kind: "executable".to_owned(),
+                        name: "rustc".to_owned(),
+                        release: crate::EXPECTED_RUSTC_RELEASE.to_owned(),
+                        sha256: rustc_sha256,
+                        commit_hash: Some(crate::EXPECTED_RUSTC_COMMIT.to_owned()),
+                    },
+                ],
+            },
+        })
+    }
+
     pub fn from_definition(definition: CandidateDefinition) -> Result<Self, SandboxError> {
         validate_sha256(&definition.frontend_bundle_sha256)?;
         validate_sha256(&definition.toolchain_distribution_sha256)?;
@@ -255,7 +430,6 @@ impl InjectedCandidate {
         }
         Ok(Self {
             frontend_bundle_id: definition.frontend_bundle_id,
-            frontend_bundle_sha256: definition.frontend_bundle_sha256,
             frontend_root: definition.frontend_root,
             frontend_inventory: definition.frontend_inventory,
             toolchain_bundle_id: definition.toolchain_bundle_id,
@@ -287,7 +461,8 @@ impl InjectedCandidate {
 
     pub fn validate_for(&self, request: &LowerRequest) -> Result<ValidatedCandidate, SandboxError> {
         if request.release.frontend_bundle_id != self.frontend_bundle_id
-            || request.release.frontend_sha256 != self.frontend_bundle_sha256
+            || request.release.frontend_sha256
+                != self.driver_release_identity.frontend_binary_sha256
             || request.release.toolchain_bundle_id != self.toolchain_bundle_id
             || request.release.toolchain_distribution_sha256 != self.toolchain_distribution_sha256
             || request.release.toolchain_root != self.toolchain_root
@@ -329,7 +504,7 @@ impl InjectedCandidate {
             "native-runtime/lib/x86_64-linux-gnu/libm.so.6",
             "native-runtime/lib/x86_64-linux-gnu/libpthread.so.0",
             "native-runtime/lib/x86_64-linux-gnu/librt.so.1",
-            "native-runtime/lib/x86_64-linux-gnu/libstdc++.so.6",
+            "native-runtime/lib/x86_64-linux-gnu/libstdcxx.so.6",
             "native-runtime/lib/x86_64-linux-gnu/libtinfo.so.5",
             "native-runtime/lib/x86_64-linux-gnu/libz.so.1",
         ] {
@@ -376,6 +551,26 @@ impl InjectedCandidate {
 
 fn validate_driver_release_identity(definition: &CandidateDefinition) -> Result<(), SandboxError> {
     let identity = &definition.driver_release_identity;
+    let compiler_runtime = definition
+        .toolchain_inventory
+        .iter()
+        .filter(|file| {
+            file.path.starts_with("lib/")
+                && !file.path.contains("/rustlib/i686-unknown-linux-gnu/")
+                && !file.path.contains("/rustlib/x86_64-unknown-linux-gnu/")
+                && (file.path.ends_with(".so") || file.path.contains(".so."))
+        })
+        .cloned()
+        .collect::<Vec<_>>();
+    if compiler_runtime.is_empty() {
+        return Err(SandboxError::ToolchainComponent);
+    }
+    let compiler_runtime_sha256 = inventory_content_sha256(
+        &definition.toolchain_bundle_id,
+        "component",
+        Some("rust-compiler-runtime"),
+        &compiler_runtime,
+    );
     if identity.frontend_bundle_id != definition.frontend_bundle_id
         || identity.toolchain_bundle_id != definition.toolchain_bundle_id
         || identity.toolchain_distribution_sha256 != definition.toolchain_distribution_sha256
@@ -449,6 +644,7 @@ fn validate_driver_release_identity(definition: &CandidateDefinition) -> Result<
                 .component_content_sha256
                 .as_str(),
         ),
+        ("rust-compiler-runtime", compiler_runtime_sha256.as_str()),
         (
             "rust-target-x86_64",
             definition.target_libraries[1]
@@ -922,8 +1118,13 @@ fn execute_linux_namespace(
         return Err(SandboxError::SandboxUnavailable);
     }
 
+    let bootstrap = if OUTER_SANDBOX_ACTIVE.load(Ordering::Acquire) {
+        "__rust2vir_cargo_outer_sandbox_v0"
+    } else {
+        "__rust2vir_cargo_sandbox_v0"
+    };
     let mut arguments = vec![
-        "__rust2vir_cargo_sandbox_v0".to_owned(),
+        bootstrap.to_owned(),
         context
             .rootfs()
             .to_str()
@@ -1076,12 +1277,41 @@ pub fn run_bootstrap(arguments: &[String]) -> u8 {
     }
     #[cfg(target_os = "linux")]
     {
-        linux_bootstrap(arguments).unwrap_or_else(|code| code)
+        linux_bootstrap(arguments, false).unwrap_or_else(|code| code)
+    }
+}
+
+pub fn run_outer_bootstrap(arguments: &[String]) -> u8 {
+    #[cfg(not(target_os = "linux"))]
+    {
+        let _ = arguments;
+        125
+    }
+    #[cfg(target_os = "linux")]
+    {
+        linux_bootstrap(arguments, true).unwrap_or_else(|code| code)
+    }
+}
+
+pub fn mount_outer_proc() -> u8 {
+    #[cfg(not(target_os = "linux"))]
+    {
+        125
+    }
+    #[cfg(target_os = "linux")]
+    {
+        linux::mount_outer_proc(Path::new("/proc")).map_or_else(
+            |code| code,
+            |()| {
+                OUTER_SANDBOX_ACTIVE.store(true, Ordering::Release);
+                0
+            },
+        )
     }
 }
 
 #[cfg(target_os = "linux")]
-fn linux_bootstrap(arguments: &[String]) -> Result<u8, u8> {
+fn linux_bootstrap(arguments: &[String], inherited_user_namespace: bool) -> Result<u8, u8> {
     use std::os::unix::ffi::OsStrExt;
     use std::os::unix::process::ExitStatusExt;
 
@@ -1105,12 +1335,17 @@ fn linux_bootstrap(arguments: &[String]) -> Result<u8, u8> {
     let [rootfs, input, toolchain, frontend, native_runtime, work, home, cargo_home, temporary, target, driver_output, driver_request]: [&Path; 12] =
         paths.iter().map(PathBuf::as_path).collect::<Vec<_>>().try_into().map_err(|_| 125)?;
 
-    linux::enter_namespaces()?;
+    if inherited_user_namespace {
+        linux::enter_outer_namespaces()?;
+    } else {
+        linux::enter_namespaces()?;
+    }
     linux::bind_root(rootfs)?;
+    let frontend_bin = frontend.join("bin");
     for (source, destination, executable) in [
         (input, "mpk/input", false),
         (toolchain, "mpk/toolchain", true),
-        (frontend, "mpk/frontend", true),
+        (frontend_bin.as_path(), "mpk/frontend", true),
         (work, "mpk/work", false),
         (native_runtime, "mpk/native-runtime", true),
         (
@@ -1142,6 +1377,11 @@ fn linux_bootstrap(arguments: &[String]) -> Result<u8, u8> {
     ] {
         linux::bind_view(source, &rootfs.join(destination), false, false)?;
     }
+    linux::mount_null(&rootfs.join("dev/null"))?;
+    if let Some(status) = linux::fork_pid_namespace()? {
+        return Ok(status);
+    }
+    linux::mount_proc(&rootfs.join("proc"))?;
     linux::seal_root(rootfs)?;
     linux::enter_root(rootfs)?;
     linux::apply_process_controls()?;
@@ -1180,7 +1420,8 @@ mod linux {
     use std::ffi::{c_char, c_int, c_ulong, c_void, CString};
     use std::fs;
     use std::os::unix::ffi::OsStrExt;
-    use std::path::Path;
+    use std::os::unix::fs::{FileTypeExt, MetadataExt, OpenOptionsExt};
+    use std::path::{Component, Path, PathBuf};
 
     pub(super) const SIGKILL: c_int = 9;
     const CLONE_NEWNS: c_int = 0x0002_0000;
@@ -1215,7 +1456,10 @@ mod linux {
         fn chroot(path: *const c_char) -> c_int;
         fn close(descriptor: c_int) -> c_int;
         fn fcntl(fd: c_int, command: c_int, ...) -> c_int;
+        fn fork() -> c_int;
         fn getgid() -> u32;
+        fn getpid() -> c_int;
+        fn getppid() -> c_int;
         fn getuid() -> u32;
         pub(super) fn kill(pid: c_int, signal: c_int) -> c_int;
         fn mount(
@@ -1230,6 +1474,7 @@ mod linux {
         fn setrlimit(resource: c_int, limit: *const RLimit) -> c_int;
         fn umask(mask: u32) -> u32;
         fn unshare(flags: c_int) -> c_int;
+        fn waitpid(pid: c_int, status: *mut c_int, options: c_int) -> c_int;
     }
 
     pub(super) fn inherit_descriptor(descriptor: c_int) -> std::io::Result<()> {
@@ -1257,17 +1502,18 @@ mod linux {
     }
 
     pub(super) fn enter_namespaces() -> Result<(), u8> {
+        // SAFETY: getuid/getgid take no arguments and have no memory preconditions. Capture the
+        // host identities before entering the user namespace, where they are not yet mapped.
+        let uid = unsafe { getuid() };
+        let gid = unsafe { getgid() };
         // SAFETY: unshare receives a constant flag mask and changes only the calling process.
         if unsafe { unshare(CLONE_NEWUSER) } != 0 {
             return Err(125);
         }
-        // SAFETY: getuid/getgid take no arguments and have no memory preconditions.
-        let uid = unsafe { getuid() };
-        let gid = unsafe { getgid() };
         fs::write("/proc/self/setgroups", b"deny\n").map_err(|_| 125)?;
         fs::write("/proc/self/uid_map", format!("0 {uid} 1\n")).map_err(|_| 125)?;
         fs::write("/proc/self/gid_map", format!("0 {gid} 1\n")).map_err(|_| 125)?;
-        let flags = CLONE_NEWNS | CLONE_NEWNET | CLONE_NEWIPC | CLONE_NEWUTS | CLONE_NEWPID;
+        let flags = CLONE_NEWNS | CLONE_NEWNET | CLONE_NEWIPC | CLONE_NEWUTS;
         // SAFETY: unshare receives the closed namespace mask and changes only this process.
         if unsafe { unshare(flags) } != 0 {
             return Err(125);
@@ -1276,6 +1522,111 @@ mod linux {
         let hostname = b"mpk-rust";
         // SAFETY: the byte slice is valid for its supplied length.
         if unsafe { sethostname(hostname.as_ptr().cast(), hostname.len()) } != 0 {
+            return Err(125);
+        }
+        Ok(())
+    }
+
+    pub(super) fn enter_outer_namespaces() -> Result<(), u8> {
+        const PR_GET_NO_NEW_PRIVS: c_int = 39;
+        // The outer bootstrap executes the frontend as PID 1 after entering its user namespace.
+        // This child may reuse that user namespace only when the verified namespace-init parent
+        // and no-new-privileges state are both still present.
+        if unsafe { getuid() } != 0
+            || unsafe { getgid() } != 0
+            || unsafe { getppid() } != 1
+            || unsafe { prctl(PR_GET_NO_NEW_PRIVS, 0, 0, 0, 0) } != 1
+        {
+            return Err(125);
+        }
+        let flags = CLONE_NEWNS | CLONE_NEWNET | CLONE_NEWIPC | CLONE_NEWUTS;
+        // SAFETY: the outer bootstrap retained the capabilities of its private user namespace;
+        // unshare receives only the closed non-user namespace mask.
+        if unsafe { unshare(flags) } != 0 {
+            return Err(125);
+        }
+        mount_call(None, Path::new("/"), MS_REC | MS_PRIVATE)?;
+        let hostname = b"mpk-rust";
+        // SAFETY: the byte slice is valid for its supplied length.
+        if unsafe { sethostname(hostname.as_ptr().cast(), hostname.len()) } != 0 {
+            return Err(125);
+        }
+        Ok(())
+    }
+
+    pub(super) fn fork_pid_namespace() -> Result<Option<u8>, u8> {
+        // Delay PID isolation until retained /proc/self/fd paths have been mounted. The forked
+        // child becomes PID 1, mounts the namespace-local procfs, and supervises Cargo.
+        if unsafe { unshare(CLONE_NEWPID) } != 0 {
+            return Err(125);
+        }
+        // SAFETY: the bootstrap is single-threaded and immediately branches without accessing
+        // shared application state. Both processes retain the already-prepared mount namespace.
+        let child = unsafe { fork() };
+        if child < 0 {
+            return Err(125);
+        }
+        if child == 0 {
+            return Ok(None);
+        }
+        let mut status = 0;
+        // SAFETY: child is the exact positive PID returned by fork and status is writable.
+        if unsafe { waitpid(child, &mut status, 0) } != child || status & 0x7f != 0 {
+            return Err(125);
+        }
+        Ok(Some(((status >> 8) & 0xff) as u8))
+    }
+
+    pub(super) fn mount_proc(target: &Path) -> Result<(), u8> {
+        let source = c"proc";
+        let filesystem = c"proc";
+        let target = path_cstring(target)?;
+        // SAFETY: all strings are live NUL-terminated values and procfs accepts null data.
+        if unsafe {
+            mount(
+                source.as_ptr(),
+                target.as_ptr(),
+                filesystem.as_ptr(),
+                MS_NOSUID | MS_NODEV | MS_NOEXEC,
+                std::ptr::null(),
+            )
+        } != 0
+        {
+            return Err(125);
+        }
+        Ok(())
+    }
+
+    pub(super) fn mount_outer_proc(target: &Path) -> Result<(), u8> {
+        // The outer launcher creates the frontend as the first CLONE_NEWPID child. Refuse the
+        // internal bootstrap token anywhere except that namespace-init position.
+        // SAFETY: getpid takes no arguments and has no memory preconditions.
+        if unsafe { getpid() } != 1 {
+            return Err(125);
+        }
+        mount_proc(target)
+    }
+
+    pub(super) fn mount_null(target: &Path) -> Result<(), u8> {
+        let mut options = fs::OpenOptions::new();
+        let retained = options
+            .read(true)
+            .write(true)
+            .custom_flags(0o400_000 | 0o2_000_000)
+            .open("/dev/null")
+            .map_err(|_| 125)?;
+        let before = retained.metadata().map_err(|_| 125)?;
+        if !before.file_type().is_char_device() || before.rdev() != 259 {
+            return Err(125);
+        }
+        mount_call(Some(Path::new("/dev/null")), target, MS_BIND)?;
+        let mounted = fs::metadata(target).map_err(|_| 125)?;
+        let named = fs::metadata("/dev/null").map_err(|_| 125)?;
+        if !same_node(&before, &mounted) || !same_node(&before, &named) {
+            return Err(125);
+        }
+        mount_call(None, target, MS_BIND | MS_REMOUNT | MS_NOSUID | MS_NOEXEC)?;
+        if !same_node(&before, &fs::metadata(target).map_err(|_| 125)?) {
             return Err(125);
         }
         Ok(())
@@ -1291,7 +1642,14 @@ mod linux {
         read_only: bool,
         executable: bool,
     ) -> Result<(), u8> {
-        mount_call(Some(source), target, MS_BIND | MS_REC)?;
+        let before = fs::metadata(source).map_err(|_| 125)?;
+        let named_source = retained_named_path(source, &before)?;
+        mount_call(Some(&named_source), target, MS_BIND)?;
+        let mounted = fs::metadata(target).map_err(|_| 125)?;
+        let after = fs::metadata(source).map_err(|_| 125)?;
+        if !same_node(&before, &mounted) || !same_node(&before, &after) {
+            return Err(125);
+        }
         let mut flags = MS_BIND | MS_REMOUNT | MS_NOSUID | MS_NODEV;
         if read_only {
             flags |= MS_RDONLY;
@@ -1299,7 +1657,67 @@ mod linux {
         if !executable {
             flags |= MS_NOEXEC;
         }
-        mount_call(None, target, flags)
+        mount_call(None, target, flags)?;
+        if !same_node(&before, &fs::metadata(target).map_err(|_| 125)?) {
+            return Err(125);
+        }
+        Ok(())
+    }
+
+    fn retained_named_path(source: &Path, expected: &fs::Metadata) -> Result<PathBuf, u8> {
+        let relative = source.strip_prefix("/proc/self/fd").map_err(|_| 125)?;
+        let mut components = relative.components();
+        let descriptor = match components.next() {
+            Some(Component::Normal(value))
+                if value
+                    .to_str()
+                    .and_then(|value| value.parse::<c_int>().ok())
+                    .is_some() =>
+            {
+                value
+            }
+            _ => return Err(125),
+        };
+        let mut named =
+            fs::read_link(Path::new("/proc/self/fd").join(descriptor)).map_err(|_| 125)?;
+        if !named.is_absolute() {
+            return Err(125);
+        }
+        for component in components {
+            match component {
+                Component::Normal(value) => named.push(value),
+                _ => return Err(125),
+            }
+        }
+        let names = named
+            .components()
+            .filter_map(|component| match component {
+                Component::RootDir => None,
+                Component::Normal(value) => Some(Ok(value.to_owned())),
+                _ => Some(Err(125)),
+            })
+            .collect::<Result<Vec<_>, _>>()?;
+        for start in 0..names.len() {
+            let mut candidate = PathBuf::from("/");
+            candidate.extend(&names[start..]);
+            let Ok(metadata) = fs::symlink_metadata(&candidate) else {
+                continue;
+            };
+            if !metadata.file_type().is_symlink()
+                && (metadata.is_dir() || metadata.is_file())
+                && same_node(expected, &metadata)
+            {
+                return Ok(candidate);
+            }
+        }
+        Err(125)
+    }
+
+    fn same_node(left: &fs::Metadata, right: &fs::Metadata) -> bool {
+        const S_IFMT: u32 = 0o170_000;
+        left.dev() == right.dev()
+            && left.ino() == right.ino()
+            && left.mode() & S_IFMT == right.mode() & S_IFMT
     }
 
     pub(super) fn seal_root(root: &Path) -> Result<(), u8> {
@@ -1628,13 +2046,17 @@ fn create_rootfs_mountpoints(root: &Path) -> Result<(), SandboxError> {
     let request = root.join(ROOTFS_DRIVER_REQUEST);
     File::create(&request).map_err(|_| SandboxError::SandboxUnavailable)?;
     set_mode(&request, 0o444)?;
+    let null = root.join(ROOTFS_NULL);
+    File::create(&null).map_err(|_| SandboxError::SandboxUnavailable)?;
+    set_mode(&null, 0o444)?;
     for path in ROOTFS_DIRECTORIES {
         set_mode(&root.join(path), 0o555)?;
     }
     validate_rootfs_scaffold(root)
 }
 
-const ROOTFS_DIRECTORIES: [&str; 14] = [
+const ROOTFS_DIRECTORIES: [&str; 16] = [
+    "dev",
     "lib",
     "lib/x86_64-linux-gnu",
     "lib64",
@@ -1649,9 +2071,11 @@ const ROOTFS_DIRECTORIES: [&str; 14] = [
     "mpk/tmp",
     "mpk/toolchain",
     "mpk/work",
+    "proc",
 ];
 const ROOTFS_INTERPRETER: &str = "lib64/ld-linux-x86-64.so.2";
 const ROOTFS_DRIVER_REQUEST: &str = "mpk/driver-request.json";
+const ROOTFS_NULL: &str = "dev/null";
 
 fn validate_rootfs_scaffold(root: &Path) -> Result<(), SandboxError> {
     let mut directories = BTreeSet::new();
@@ -1692,6 +2116,7 @@ fn validate_rootfs_scaffold(root: &Path) -> Result<(), SandboxError> {
     }
     let expected_directories = ROOTFS_DIRECTORIES.into_iter().map(str::to_owned).collect();
     let expected_files = [
+        ROOTFS_NULL.to_owned(),
         ROOTFS_INTERPRETER.to_owned(),
         ROOTFS_DRIVER_REQUEST.to_owned(),
     ]
@@ -1818,6 +2243,90 @@ fn validate_inventory_shape(inventory: &[InventoryFile]) -> Result<(), SandboxEr
         previous = Some(&file.path);
     }
     Ok(())
+}
+
+fn inventory_from_root(root: &Path) -> Result<Vec<InventoryFile>, SandboxError> {
+    let metadata = fs::symlink_metadata(root).map_err(|_| SandboxError::ToolchainComponent)?;
+    if !metadata.is_dir()
+        || metadata.file_type().is_symlink()
+        || metadata_mode(&metadata)? & 0o7777 != 0o555
+    {
+        return Err(SandboxError::ToolchainComponent);
+    }
+    let handle = open_directory_nofollow(root)?;
+    let retained_metadata = handle
+        .metadata()
+        .map_err(|_| SandboxError::ToolchainComponent)?;
+    if directory_identity(&metadata)? != directory_identity(&retained_metadata)? {
+        return Err(SandboxError::ToolchainComponent);
+    }
+    #[cfg(target_os = "linux")]
+    let retained_root = PathBuf::from(format!("/proc/self/fd/{}", handle.as_raw_fd()));
+    #[cfg(not(target_os = "linux"))]
+    let retained_root = root.to_path_buf();
+
+    let mut paths = Vec::new();
+    collect_regular_files(
+        &retained_root,
+        &retained_root,
+        metadata_device(&retained_metadata)?,
+        &mut paths,
+    )?;
+    paths.sort_by(|left, right| left.as_bytes().cmp(right.as_bytes()));
+    if paths.len() > CANDIDATE_FILE_COUNT_LIMIT {
+        return Err(SandboxError::ToolchainComponent);
+    }
+    let mut aggregate = 0_u64;
+    let mut inventory = Vec::with_capacity(paths.len());
+    for path in paths {
+        let absolute = retained_root.join(&path);
+        let metadata =
+            fs::symlink_metadata(&absolute).map_err(|_| SandboxError::ToolchainComponent)?;
+        let mode = metadata_mode(&metadata)? & 0o7777;
+        if !metadata.is_file()
+            || metadata.file_type().is_symlink()
+            || metadata_link_count(&metadata)? != 1
+            || !matches!(mode, 0o444 | 0o555)
+            || metadata.len() > CANDIDATE_FILE_SIZE_LIMIT
+        {
+            return Err(SandboxError::ToolchainComponent);
+        }
+        aggregate = aggregate
+            .checked_add(metadata.len())
+            .filter(|size| *size <= CANDIDATE_AGGREGATE_LIMIT)
+            .ok_or(SandboxError::ToolchainComponent)?;
+        let identity = regular_file_identity(&metadata)?;
+        let file = open_regular_nofollow(&absolute)?;
+        if regular_file_identity(
+            &file
+                .metadata()
+                .map_err(|_| SandboxError::ToolchainComponent)?,
+        )? != identity
+        {
+            return Err(SandboxError::ToolchainComponent);
+        }
+        let mut bytes = Vec::with_capacity(
+            usize::try_from(metadata.len()).map_err(|_| SandboxError::ToolchainComponent)?,
+        );
+        file.take(metadata.len().saturating_add(1))
+            .read_to_end(&mut bytes)
+            .map_err(|_| SandboxError::ToolchainComponent)?;
+        if bytes.len() as u64 != metadata.len()
+            || regular_file_identity(
+                &fs::symlink_metadata(&absolute).map_err(|_| SandboxError::ToolchainComponent)?,
+            )? != identity
+        {
+            return Err(SandboxError::ToolchainComponent);
+        }
+        inventory.push(InventoryFile::new(
+            path,
+            mode == 0o555,
+            metadata.len(),
+            hex(&digest(&bytes)),
+        )?);
+    }
+    validate_inventory_shape(&inventory)?;
+    Ok(inventory)
 }
 
 fn validate_inventory_root(root: &Path, inventory: &[InventoryFile]) -> Result<File, SandboxError> {

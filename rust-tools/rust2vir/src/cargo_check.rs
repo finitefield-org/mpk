@@ -329,13 +329,7 @@ fn validate_artifact(
     let filenames = required(object, "filenames")?
         .as_array()
         .ok_or(CargoCheckCode::Protocol)?;
-    if filenames.is_empty()
-        || filenames.iter().any(|value| {
-            value
-                .as_str()
-                .is_none_or(|path| !is_normalized_target_output(path))
-        })
-    {
+    if !filenames.is_empty() {
         return Err(CargoCheckCode::Protocol.into());
     }
     let profile = required(object, "profile")?
@@ -425,17 +419,6 @@ fn normalize_message(
         }
     };
     Ok(NormalizedCompilerMessage { level, code })
-}
-
-fn is_normalized_target_output(path: &str) -> bool {
-    let Some(relative) = path.strip_prefix("/mpk/target/") else {
-        return false;
-    };
-    !relative.is_empty()
-        && !relative.contains(['\\', '\0', '\n', '\r'])
-        && relative
-            .split('/')
-            .all(|component| !component.is_empty() && !matches!(component, "." | ".."))
 }
 
 fn validate_common_identity(

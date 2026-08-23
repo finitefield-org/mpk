@@ -131,8 +131,8 @@ impl Fixture {
                 false,
             ),
             (
-                "native-runtime/lib/x86_64-linux-gnu/libstdc++.so.6",
-                b"libstdc++".as_slice(),
+                "native-runtime/lib/x86_64-linux-gnu/libstdcxx.so.6",
+                b"libstdcxx".as_slice(),
                 false,
             ),
             (
@@ -212,7 +212,7 @@ impl Fixture {
             &toolchain,
             &frontend.join("bin/rust2vir-driver"),
             &driver_sha256,
-            &frontend_sha256,
+            &frontend_binary_sha256,
             &distribution_sha256,
         ))
         .unwrap();
@@ -565,7 +565,7 @@ pub fn successful_check_stream() -> Vec<u8> {
     format!(
         concat!(
             "{{\"executable\":null,\"features\":[],",
-            "\"filenames\":[\"/mpk/target/x86_64-unknown-linux-gnu/debug/deps/libvector.rmeta\"],",
+            "\"filenames\":[],",
             "\"fresh\":false,\"manifest_path\":\"/mpk/input/Cargo.toml\",",
             "\"package_id\":\"path+file:///mpk/input#vector@0.1.0\",",
             "\"profile\":{{\"debug_assertions\":true,\"debuginfo\":2,",

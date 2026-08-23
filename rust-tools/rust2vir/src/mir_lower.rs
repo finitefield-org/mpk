@@ -232,7 +232,7 @@ pub(super) fn finish_module(
             "units".to_owned(),
             JsonValue::Array(vec![JsonValue::Object(BTreeMap::from([
                 ("id".to_owned(), string(unit_id)),
-                ("name".to_owned(), string(unit_id)),
+                ("name".to_owned(), string(request.selection().0)),
                 ("type_decls".to_owned(), JsonValue::Array(Vec::new())),
                 ("const_decls".to_owned(), JsonValue::Array(Vec::new())),
                 ("functions".to_owned(), JsonValue::Array(functions_json)),

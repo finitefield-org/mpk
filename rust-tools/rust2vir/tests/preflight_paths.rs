@@ -311,9 +311,9 @@ fn structural_rejection_uses_the_exact_path_free_envelope() {
     assert_eq!(output.status.code(), Some(3));
     assert!(output.stderr.is_empty());
     let expected = concat!(
-        "{\"diagnostics\":[{\"code\":\"RUST_PREFLIGHT_CONFIG\",",
+        "{\"diagnostics\":[],\"phase\":\"capture\",",
+        "\"rejected_features\":[{\"code\":\"RUST_PREFLIGHT_CONFIG\",",
         "\"message\":\"Cargo configuration is not permitted\"}],",
-        "\"phase\":\"capture\",\"rejected_features\":[],",
         "\"schema\":\"mpk.frontend.cli.v0\",",
         "\"selection\":{\"crate\":\"vector\",\"function\":\"vector::identity\",",
         "\"kind\":\"lib\",\"package\":\"vector\"},",

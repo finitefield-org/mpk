@@ -198,8 +198,8 @@ fn release_installation_selection_and_assembler_vectors_are_all_owned() {
 
     let tracked =
         fs::read(root.join("release/bundles/bundle-registry.json")).expect("read tracked registry");
-    let tracked = validate_release_registry(&tracked).expect("tracked Go registry validates");
-    assert_eq!(tracked.registry().tuples.len(), 1);
+    let tracked = validate_release_registry(&tracked).expect("tracked combined registry validates");
+    assert_eq!(tracked.registry().tuples.len(), 3);
     assert_eq!(tracked.registry().tuples[0].source_language, "go");
     assert_eq!(
         tracked.registry().tuples[0].semantic_profile,
@@ -209,6 +209,31 @@ fn release_installation_selection_and_assembler_vectors_are_all_owned() {
     assert!(tracked.registry().frontend_bundles[0]
         .subordinate_binaries
         .is_empty());
+    assert_eq!(
+        tracked.registry().tuples[1..]
+            .iter()
+            .map(|tuple| (
+                tuple.source_language.as_str(),
+                tuple.target_id.as_str(),
+                tuple.pointer_width
+            ))
+            .collect::<Vec<_>>(),
+        [
+            ("rust", "i686-unknown-linux-gnu", 32),
+            ("rust", "x86_64-unknown-linux-gnu", 64),
+        ]
+    );
+    let rust_frontend = tracked
+        .registry()
+        .frontend_bundles
+        .iter()
+        .find(|bundle| bundle.source_language == "rust")
+        .expect("registered Rust frontend");
+    assert_eq!(rust_frontend.subordinate_binaries.len(), 1);
+    assert_eq!(
+        rust_frontend.subordinate_binaries[0].name,
+        "rust2vir-driver"
+    );
 }
 
 #[test]

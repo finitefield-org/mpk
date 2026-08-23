@@ -1032,6 +1032,20 @@ fn validate_semantics(
         manifest.semantic_profile,
         &manifest.target.language_configuration,
     )?;
+    if let LanguageConfiguration::Rust { cfg, .. } = &manifest.target.language_configuration {
+        let expected = rust_target_cfg(&manifest.target.id).ok_or_else(|| {
+            invalid_profile(
+                SourceManifestValidationPhase::Semantic,
+                "Rust target has no frozen cfg projection",
+            )
+        })?;
+        if cfg.iter().map(String::as_str).ne(expected.iter().copied()) {
+            return Err(invalid_profile(
+                SourceManifestValidationPhase::Semantic,
+                "Rust cfg differs from the frozen target projection",
+            ));
+        }
+    }
     match (manifest.source_language, expected_language_configuration) {
         (SourceLanguage::Rust, Some(expected))
             if expected == &manifest.target.language_configuration => {}
@@ -1267,6 +1281,18 @@ fn validate_inputs(
             ));
         }
     }
+    if let LanguageConfiguration::Rust { prelude, .. } = &manifest.target.language_configuration {
+        let uses_core = captured_inputs.iter().any(|input| {
+            input.kind == InputKind::Source && contains_no_std_crate_attribute(input.bytes)
+        });
+        if matches!(prelude, RustPrelude::Core) != uses_core {
+            return Err(SourceManifestError::new(
+                SourceManifestValidationPhase::Inputs,
+                SourceManifestErrorCode::InputKind,
+                "Rust prelude does not match the captured crate attributes",
+            ));
+        }
+    }
     if manifest.inputs.len() != captured_inputs.len() {
         return Err(input_bytes_error(
             "captured input inventory length mismatch",
@@ -1299,6 +1325,143 @@ fn validate_inputs(
         ));
     }
     Ok(())
+}
+
+fn contains_no_std_crate_attribute(bytes: &[u8]) -> bool {
+    let mut normalized = Vec::with_capacity(bytes.len());
+    let mut index = 0_usize;
+    while index < bytes.len() {
+        if bytes[index].is_ascii_whitespace() {
+            index += 1;
+        } else if bytes[index..].starts_with(b"//") {
+            index = bytes[index..]
+                .iter()
+                .position(|byte| *byte == b'\n')
+                .map_or(bytes.len(), |offset| index + offset + 1);
+        } else if bytes[index..].starts_with(b"/*") {
+            let mut depth = 1_usize;
+            index += 2;
+            while index < bytes.len() && depth != 0 {
+                if bytes[index..].starts_with(b"/*") {
+                    depth += 1;
+                    index += 2;
+                } else if bytes[index..].starts_with(b"*/") {
+                    depth -= 1;
+                    index += 2;
+                } else {
+                    index += 1;
+                }
+            }
+        } else if matches!(bytes[index], b'"' | b'\'') {
+            let quote = bytes[index];
+            normalized.push(b'_');
+            index += 1;
+            let mut escaped = false;
+            while index < bytes.len() {
+                let byte = bytes[index];
+                index += 1;
+                if !escaped && byte == quote {
+                    break;
+                }
+                escaped = !escaped && byte == b'\\';
+                if byte != b'\\' {
+                    escaped = false;
+                }
+            }
+        } else {
+            normalized.push(bytes[index]);
+            index += 1;
+        }
+    }
+    normalized
+        .windows(b"#![no_std]".len())
+        .any(|window| window == b"#![no_std]")
+}
+
+fn rust_target_cfg(target: &str) -> Option<&'static [&'static str]> {
+    const I686: &[&str] = &[
+        "fmt_debug=\"full\"",
+        "overflow_checks",
+        "panic=\"abort\"",
+        "relocation_model=\"pic\"",
+        "target_abi=\"\"",
+        "target_arch=\"x86\"",
+        "target_endian=\"little\"",
+        "target_env=\"gnu\"",
+        "target_family=\"unix\"",
+        "target_feature=\"fxsr\"",
+        "target_feature=\"sse\"",
+        "target_feature=\"sse2\"",
+        "target_feature=\"x87\"",
+        "target_has_atomic",
+        "target_has_atomic=\"16\"",
+        "target_has_atomic=\"32\"",
+        "target_has_atomic=\"64\"",
+        "target_has_atomic=\"8\"",
+        "target_has_atomic=\"ptr\"",
+        "target_has_atomic_equal_alignment=\"16\"",
+        "target_has_atomic_equal_alignment=\"32\"",
+        "target_has_atomic_equal_alignment=\"8\"",
+        "target_has_atomic_equal_alignment=\"ptr\"",
+        "target_has_atomic_load_store",
+        "target_has_atomic_load_store=\"16\"",
+        "target_has_atomic_load_store=\"32\"",
+        "target_has_atomic_load_store=\"64\"",
+        "target_has_atomic_load_store=\"8\"",
+        "target_has_atomic_load_store=\"ptr\"",
+        "target_has_reliable_f16",
+        "target_has_reliable_f16_math",
+        "target_os=\"linux\"",
+        "target_pointer_width=\"32\"",
+        "target_thread_local",
+        "target_vendor=\"unknown\"",
+        "unix",
+    ];
+    const X86_64: &[&str] = &[
+        "fmt_debug=\"full\"",
+        "overflow_checks",
+        "panic=\"abort\"",
+        "relocation_model=\"pic\"",
+        "target_abi=\"\"",
+        "target_arch=\"x86_64\"",
+        "target_endian=\"little\"",
+        "target_env=\"gnu\"",
+        "target_family=\"unix\"",
+        "target_feature=\"fxsr\"",
+        "target_feature=\"sse\"",
+        "target_feature=\"sse2\"",
+        "target_feature=\"x87\"",
+        "target_has_atomic",
+        "target_has_atomic=\"16\"",
+        "target_has_atomic=\"32\"",
+        "target_has_atomic=\"64\"",
+        "target_has_atomic=\"8\"",
+        "target_has_atomic=\"ptr\"",
+        "target_has_atomic_equal_alignment=\"16\"",
+        "target_has_atomic_equal_alignment=\"32\"",
+        "target_has_atomic_equal_alignment=\"64\"",
+        "target_has_atomic_equal_alignment=\"8\"",
+        "target_has_atomic_equal_alignment=\"ptr\"",
+        "target_has_atomic_load_store",
+        "target_has_atomic_load_store=\"16\"",
+        "target_has_atomic_load_store=\"32\"",
+        "target_has_atomic_load_store=\"64\"",
+        "target_has_atomic_load_store=\"8\"",
+        "target_has_atomic_load_store=\"ptr\"",
+        "target_has_reliable_f128",
+        "target_has_reliable_f16",
+        "target_has_reliable_f16_math",
+        "target_os=\"linux\"",
+        "target_pointer_width=\"64\"",
+        "target_thread_local",
+        "target_vendor=\"unknown\"",
+        "unix",
+    ];
+    match target {
+        "i686-unknown-linux-gnu" => Some(I686),
+        "x86_64-unknown-linux-gnu" => Some(X86_64),
+        _ => None,
+    }
 }
 
 fn validate_artifacts(

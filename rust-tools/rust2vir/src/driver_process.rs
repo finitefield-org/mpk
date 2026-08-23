@@ -496,7 +496,7 @@ fn primary_matches(request: &DriverRequest, arguments: &[String]) -> bool {
         "--check-cfg",
         "cfg(docsrs,test)",
         "--check-cfg",
-        "cfg(feature, values())",
+        "cfg(feature, values(\"default\"))",
         "-C",
         "METADATA",
         "-C",

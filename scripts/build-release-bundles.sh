@@ -30,8 +30,12 @@ case "$#:${1-}:${2-}" in
       /usr/bin/python3 "$script_dir/rust_build_inputs.py" "$action"
     ;;
   2:--update:all|2:--check:all)
-    printf '%s\n' BUNDLE_REGISTERED_STATE >&2
-    exit 65
+    case "$1" in
+      --update) action=update-all ;;
+      --check) action=check-all ;;
+    esac
+    exec /usr/bin/env -i PATH=/usr/bin:/bin HOME=/nonexistent \
+      /usr/bin/python3 "$script_dir/release_bundles.py" "$action"
     ;;
   *)
     printf '%s\n' BUNDLE_ASSEMBLER_USAGE >&2

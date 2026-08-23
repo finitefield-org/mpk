@@ -358,7 +358,7 @@ fn implicit_build_rs_rejects_and_no_preflight_path_executes_cargo() {
     assert!(!marker.exists(), "structural preflight executed Cargo");
     assert!(String::from_utf8(output.stdout)
         .unwrap()
-        .contains("RUST_FRONTEND_DRIVER_PROTOCOL_PROCESS"));
+        .contains("RUST_TOOLCHAIN_COMPONENT"));
 }
 
 #[test]

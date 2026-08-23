@@ -715,13 +715,14 @@ pub fn encode_non_success(
     if status == DriverStatus::Lowered || diagnostics.is_empty() {
         return Err(DriverProtocolCode::Shape.into());
     }
+    let diagnostics = normalize_diagnostics(diagnostics)?;
     let mut root = common_output_root(request)?;
     root.insert(
         "status".to_owned(),
         JsonValue::String(status.as_str().to_owned()),
     );
     root.insert("phase".to_owned(), JsonValue::String(phase.to_owned()));
-    root.insert("diagnostics".to_owned(), diagnostics_json(diagnostics));
+    root.insert("diagnostics".to_owned(), diagnostics_json(&diagnostics));
     let mut bytes =
         json::canonical(&JsonValue::Object(root)).map_err(|_| DriverProtocolCode::Canonical)?;
     bytes.push(b'\n');
@@ -810,6 +811,79 @@ fn diagnostics_json(diagnostics: &[PrivateDiagnostic]) -> JsonValue {
             })
             .collect(),
     )
+}
+
+fn normalize_diagnostics(
+    diagnostics: &[PrivateDiagnostic],
+) -> Result<Vec<PrivateDiagnostic>, DriverProtocolError> {
+    let mut normalized = diagnostics
+        .iter()
+        .map(|diagnostic| {
+            if diagnostic.message.is_empty()
+                || diagnostic.message.chars().any(char::is_control)
+                || diagnostic.code == "RUST_LIMIT_DIAGNOSTICS_TRUNCATED"
+            {
+                return Err(DriverProtocolCode::Shape.into());
+            }
+            let mut diagnostic = diagnostic.clone();
+            if diagnostic.message.len() > DIAGNOSTIC_MESSAGE_MAX {
+                let mut end = DIAGNOSTIC_MESSAGE_MAX - " [truncated]".len();
+                while !diagnostic.message.is_char_boundary(end) {
+                    end -= 1;
+                }
+                diagnostic.message.truncate(end);
+                diagnostic.message.push_str(" [truncated]");
+            }
+            Ok(diagnostic)
+        })
+        .collect::<Result<Vec<_>, DriverProtocolError>>()?;
+    normalized.sort_by(|left, right| {
+        (
+            left.code.as_bytes(),
+            left.message.as_bytes(),
+            left.function_id.as_deref().unwrap_or("").as_bytes(),
+        )
+            .cmp(&(
+                right.code.as_bytes(),
+                right.message.as_bytes(),
+                right.function_id.as_deref().unwrap_or("").as_bytes(),
+            ))
+    });
+    let message_bytes = normalized.iter().try_fold(0_usize, |total, diagnostic| {
+        total.checked_add(diagnostic.message.len())
+    });
+    if normalized.len() <= DIAGNOSTIC_COUNT_MAX
+        && message_bytes.is_some_and(|bytes| bytes <= DIAGNOSTIC_MESSAGE_BYTES_MAX)
+    {
+        return Ok(normalized);
+    }
+
+    let mut retained = normalized.len().min(DIAGNOSTIC_COUNT_MAX - 1);
+    let mut retained_message_bytes = normalized[..retained]
+        .iter()
+        .map(|diagnostic| diagnostic.message.len())
+        .sum::<usize>();
+    loop {
+        let omitted = normalized.len() - retained;
+        let marker_message = format!("{omitted} normalized issues omitted");
+        if retained_message_bytes
+            .checked_add(marker_message.len())
+            .is_some_and(|bytes| bytes <= DIAGNOSTIC_MESSAGE_BYTES_MAX)
+        {
+            normalized.truncate(retained);
+            normalized.push(PrivateDiagnostic {
+                code: "RUST_LIMIT_DIAGNOSTICS_TRUNCATED".to_owned(),
+                message: marker_message,
+                function_id: None,
+            });
+            return Ok(normalized);
+        }
+        if retained == 0 {
+            return Err(DriverProtocolCode::Shape.into());
+        }
+        retained -= 1;
+        retained_message_bytes -= normalized[retained].message.len();
+    }
 }
 
 pub fn parse_output_transport(
@@ -1283,7 +1357,7 @@ fn validate_diagnostics(
     }
     let mut message_bytes = 0_usize;
     let mut previous: Option<(String, i64, String, String, String, i64)> = None;
-    for diagnostic in diagnostics {
+    for (index, diagnostic) in diagnostics.iter().enumerate() {
         let issue = diagnostic.as_object().ok_or(DriverProtocolCode::Shape)?;
         let allowed: &[&str] = match (
             issue.contains_key("function_id"),
@@ -1303,6 +1377,7 @@ fn validate_diagnostics(
             || !code
                 .bytes()
                 .all(|byte| byte.is_ascii_uppercase() || byte.is_ascii_digit() || byte == b'_')
+            || message.is_empty()
             || message.len() > DIAGNOSTIC_MESSAGE_MAX
             || message.chars().any(char::is_control)
         {
@@ -1312,6 +1387,15 @@ fn validate_diagnostics(
             .checked_add(message.len())
             .ok_or(DriverProtocolCode::Shape)?;
         if message_bytes > DIAGNOSTIC_MESSAGE_BYTES_MAX {
+            return Err(DriverProtocolCode::Shape.into());
+        }
+        let marker = code == "RUST_LIMIT_DIAGNOSTICS_TRUNCATED";
+        if marker
+            && (index + 1 != diagnostics.len()
+                || issue.contains_key("function_id")
+                || issue.contains_key("span")
+                || !valid_truncation_message(message))
+        {
             return Err(DriverProtocolCode::Shape.into());
         }
         if let Some(function) = issue.get("function_id") {
@@ -1346,12 +1430,24 @@ fn validate_diagnostics(
             function,
             span_end,
         );
-        if previous.as_ref().is_some_and(|previous| previous > &key) {
+        if !marker && previous.as_ref().is_some_and(|previous| previous > &key) {
             return Err(DriverProtocolCode::Shape.into());
         }
-        previous = Some(key);
+        if !marker {
+            previous = Some(key);
+        }
     }
     Ok(())
+}
+
+fn valid_truncation_message(message: &str) -> bool {
+    let Some(omitted) = message.strip_suffix(" normalized issues omitted") else {
+        return false;
+    };
+    !omitted.is_empty()
+        && omitted != "0"
+        && !omitted.starts_with('0')
+        && omitted.bytes().all(|byte| byte.is_ascii_digit())
 }
 
 fn validate_span(value: &JsonValue, request: &DriverRequest) -> Result<(), DriverProtocolError> {

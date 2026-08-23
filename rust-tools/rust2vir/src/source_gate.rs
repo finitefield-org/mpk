@@ -90,6 +90,28 @@ pub fn validate_source(bytes: &[u8], role: SourceRole) -> Result<(), SourceGateE
     validate_profile_tokens(&tokens, role)
 }
 
+pub fn crate_uses_core_prelude(bytes: &[u8]) -> Result<bool, SourceGateError> {
+    let source = std::str::from_utf8(bytes).map_err(|_| SourceGateCode::SourceParse)?;
+    let tokens = lex(source.as_bytes())?;
+    let mut index = 0_usize;
+    while tokens.get(index).is_some_and(|token| token.is_symbol(b'#')) {
+        let inner = tokens
+            .get(index + 1)
+            .is_some_and(|token| token.is_symbol(b'!'));
+        let bracket = index + if inner { 2 } else { 1 };
+        let close =
+            matching_delimiter(&tokens, bracket, b'[', b']').ok_or(SourceGateCode::SourceParse)?;
+        if inner
+            && tokens[bracket + 1..close].len() == 1
+            && tokens[bracket + 1].is_identifier("no_std")
+        {
+            return Ok(true);
+        }
+        index = close + 1;
+    }
+    Ok(false)
+}
+
 fn parses_as_rust_2021(source: &str) -> bool {
     let Ok(tokens) = lex(source.as_bytes()) else {
         return false;
