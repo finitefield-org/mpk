@@ -22,6 +22,8 @@ const RUST_FRONTEND_DIV_REM_VIR: &[u8] =
     include_bytes!("../../../rust-tools/rust2vir/testdata/div-rem/expected-vir.json");
 const RUST_FRONTEND_BITWISE_SHIFT_VIR: &[u8] =
     include_bytes!("../../../rust-tools/rust2vir/testdata/bitwise-shift/expected-vir.json");
+const RUST_FRONTEND_ARRAY_INDEX_VIR: &[u8] =
+    include_bytes!("../../../rust-tools/rust2vir/testdata/array-index/expected-vir.json");
 
 #[test]
 fn rust_frontend_checked_arithmetic_fixture_is_profile_complete() {
@@ -70,6 +72,31 @@ fn rust_frontend_cross_width_shift_fixture_imports_and_emits_pending_safety_vcs(
         .iter()
         .all(|member| member.id.contains("#operation_safety#")));
     assert!(safety.iter().all(|member| member.safety_evidence.is_some()));
+}
+
+#[test]
+fn rust_frontend_dual_target_array_fixture_imports_exact_bounds_checks() {
+    let modules: Vec<Value> =
+        serde_json::from_slice(RUST_FRONTEND_ARRAY_INDEX_VIR).expect("array-index VIR fixture");
+    assert_eq!(modules.len(), 2);
+    let mut hashes = Vec::new();
+    for value in modules {
+        let bytes = serde_json::to_vec(&value).expect("serialize array-index module");
+        let module = mpk_vc::import_vir_json(&bytes).expect("array-index VIR fixture imports");
+        hashes.push(module.vir_hash.as_str().to_owned());
+        let indexes = module.units[0].functions[0]
+            .blocks
+            .iter()
+            .flat_map(|block| &block.instructions)
+            .filter_map(|instruction| match instruction {
+                VirInstruction::Index { safety_checks, .. } => Some(safety_checks),
+                _ => None,
+            })
+            .collect::<Vec<_>>();
+        assert_eq!(indexes.len(), 1);
+        assert_eq!(indexes[0].as_slice(), &[VirSafetyCheck::IndexInBounds {}]);
+    }
+    assert_ne!(hashes[0], hashes[1]);
 }
 
 #[test]

@@ -31,6 +31,8 @@ mod hir_check;
 pub(crate) mod mir_arithmetic;
 #[path = "mir_lower.rs"]
 mod mir_lower;
+#[path = "mir_projection.rs"]
+pub(crate) mod mir_projection;
 
 pub use hir_check::{HirAnalysis, HirCheckCode};
 pub use mir_lower::{MirError, MirLowering};

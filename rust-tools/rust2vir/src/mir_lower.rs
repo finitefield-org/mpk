@@ -1,5 +1,6 @@
 use super::hir_check::{contract_type, HirFunction};
 use super::mir_arithmetic::{ArithmeticOperation, ArithmeticPlan, DivRemOperation, ShiftOperation};
+use super::mir_projection::ProjectionPlan;
 use rust2vir_internal::contract::ContractType;
 use rust2vir_internal::driver_protocol::DriverRequest;
 use rust2vir_internal::file_loader::{SnapshotFileLoader, SourceRangeError};
@@ -145,7 +146,12 @@ enum Flow {
     Return,
 }
 
-type Reachability = (Vec<usize>, Vec<Option<Flow>>, ArithmeticPlan);
+type Reachability = (
+    Vec<usize>,
+    Vec<Option<Flow>>,
+    ArithmeticPlan,
+    ProjectionPlan,
+);
 
 impl Flow {
     fn successors(self) -> Vec<usize> {
@@ -294,15 +300,25 @@ pub(super) fn lower_function<'tcx>(
         || function.local_names.len() != function.local_spans.len()
         || function.parameter_types.len() > VIR_PARAMETERS_MAX
         || function.local_types.len() > VIR_LOCALS_MAX
-        || !is_scalar(&function.result_type)
-        || function.parameter_types.iter().any(|ty| !is_scalar(ty))
-        || function.local_types.iter().any(|ty| !is_scalar(ty))
+        || !is_array_index_value_type(&function.result_type)
+        || function
+            .parameter_types
+            .iter()
+            .any(|ty| !is_array_index_value_type(ty))
+        || function
+            .local_types
+            .iter()
+            .any(|ty| !is_array_index_value_type(ty))
     {
         return Err(MirError::new(MirCode::Rvalue, function_id));
     }
     let local_kinds = map_locals(body, function)?;
-    let (order, flows, mut arithmetic) = reachable_order(tcx, def_id, body, function, function_id)?;
+    let (order, flows, mut arithmetic, mut projection) =
+        reachable_order(tcx, def_id, body, function, function_id)?;
     arithmetic
+        .finish(body, &order)
+        .map_err(|code| MirError::new(code, function_id))?;
+    projection
         .finish(body, &order)
         .map_err(|code| MirError::new(code, function_id))?;
     if order.len() > MIR_BLOCKS_FUNCTION_MAX {
@@ -326,6 +342,7 @@ pub(super) fn lower_function<'tcx>(
         &flows,
         &local_kinds,
         &arithmetic,
+        &projection,
         function_id,
     )?;
     let _ = (uses, definitions);
@@ -404,6 +421,7 @@ pub(super) fn lower_function<'tcx>(
                         *old_block,
                         statement_index,
                         &arithmetic,
+                        &projection,
                         function,
                         &local_kinds,
                         &function.local_spans,
@@ -589,6 +607,13 @@ pub(super) fn lower_function<'tcx>(
         .map(|(index, ty)| binding(&format!("local{index}"), ty))
         .collect();
     let mut features = Vec::new();
+    if projection.has_indexes()
+        || is_array_type(&function.result_type)
+        || function.parameter_types.iter().any(is_array_type)
+        || function.local_types.iter().any(is_array_type)
+    {
+        features.push(string("array"));
+    }
     if flows.iter().flatten().any(|flow| matches!(flow, Flow::Branch { false_block, true_block } if false_block != true_block)) {
         features.push(string("branch"));
     }
@@ -679,6 +704,7 @@ fn reachable_order<'tcx>(
     }
     let mut flows = vec![None; body.basic_blocks.len()];
     let mut arithmetic = ArithmeticPlan::default();
+    let mut projection = ProjectionPlan::default();
     let mut failure = None;
     let order = breadth_first_order(0, body.basic_blocks.len(), |index| {
         if failure.is_some() {
@@ -696,6 +722,7 @@ fn reachable_order<'tcx>(
             index,
             function,
             &mut arithmetic,
+            &mut projection,
             function_id,
         ) {
             Ok(flow) => {
@@ -719,9 +746,10 @@ fn reachable_order<'tcx>(
     if topological_order(&order, &flows).is_none() {
         return Err(MirError::new(MirCode::Terminator, function_id));
     }
-    Ok((order, flows, arithmetic))
+    Ok((order, flows, arithmetic, projection))
 }
 
+#[allow(clippy::too_many_arguments)]
 fn classify_flow<'tcx>(
     tcx: TyCtxt<'tcx>,
     def_id: LocalDefId,
@@ -729,6 +757,7 @@ fn classify_flow<'tcx>(
     block_index: usize,
     function: &HirFunction,
     arithmetic: &mut ArithmeticPlan,
+    projection: &mut ProjectionPlan,
     function_id: &str,
 ) -> Result<Flow, MirError> {
     let block = &body.basic_blocks[BasicBlock::new(block_index)];
@@ -754,10 +783,17 @@ fn classify_flow<'tcx>(
             })
         }
         TerminatorKind::Return => Ok(Flow::Return),
-        TerminatorKind::Assert { .. } => arithmetic
-            .recognize_assert(tcx, def_id, body, block_index, function)
-            .map(Flow::Goto)
-            .map_err(|code| MirError::new(code, function_id)),
+        TerminatorKind::Assert { msg, .. } => {
+            let recognized = if matches!(&**msg, rustc_middle::mir::AssertKind::BoundsCheck { .. })
+            {
+                projection.recognize_assert(tcx, def_id, body, block_index, function)
+            } else {
+                arithmetic.recognize_assert(tcx, def_id, body, block_index, function)
+            };
+            recognized
+                .map(Flow::Goto)
+                .map_err(|code| MirError::new(code, function_id))
+        }
         TerminatorKind::Call { unwind, .. }
             if !matches!(unwind, rustc_middle::mir::UnwindAction::Unreachable) =>
         {
@@ -934,6 +970,7 @@ fn live_compiler_locals<'tcx>(
     flows: &[Option<Flow>],
     local_kinds: &[LocalKind],
     arithmetic: &ArithmeticPlan,
+    projection: &ProjectionPlan,
     function_id: &str,
 ) -> Result<(LocalSets, LocalSets, LocalSets), MirError> {
     let mut uses = vec![BTreeSet::new(); body.basic_blocks.len()];
@@ -946,11 +983,26 @@ fn live_compiler_locals<'tcx>(
                     let (place, rvalue) = &**assignment;
                     validate_destination(place, local_kinds, function_id)?;
                     let mut reads = Vec::new();
-                    if arithmetic.is_negation_guard(*block_index, statement_index)
+                    if projection.is_guard(*block_index, statement_index)
+                        || arithmetic.is_negation_guard(*block_index, statement_index)
                         || arithmetic.is_div_rem_guard(*block_index, statement_index)
                         || arithmetic.is_shift_guard(*block_index, statement_index)
                     {
                         // The guard is represented by the attached VIR safety check.
+                    } else if let Some(index) = projection.index(*block_index, statement_index) {
+                        let Rvalue::Use(Operand::Copy(projected)) = rvalue else {
+                            return Err(MirError::new(MirCode::Assertion, function_id));
+                        };
+                        if projected.local != index.base
+                            || !matches!(
+                                &projected.projection[..],
+                                [rustc_middle::mir::ProjectionElem::Index(local)]
+                                    if *local == index.index
+                            )
+                        {
+                            return Err(MirError::new(MirCode::Assertion, function_id));
+                        }
+                        reads.extend([index.base, index.index]);
                     } else if let Some((_, ty)) = arithmetic.binary(*block_index, statement_index) {
                         validate_checked_binary_rvalue(
                             tcx,
@@ -1590,6 +1642,7 @@ fn lower_assignment<'tcx>(
     mir_block: usize,
     statement_index: usize,
     arithmetic: &ArithmeticPlan,
+    projection: &ProjectionPlan,
     function: &HirFunction,
     local_kinds: &[LocalKind],
     local_binding_spans: &[Span],
@@ -1605,7 +1658,8 @@ fn lower_assignment<'tcx>(
     source_entries: &mut Vec<SourceMapEntry>,
 ) -> Result<(), MirError> {
     validate_destination(destination, local_kinds, function_id)?;
-    if arithmetic.is_negation_guard(mir_block, statement_index)
+    if projection.is_guard(mir_block, statement_index)
+        || arithmetic.is_negation_guard(mir_block, statement_index)
         || arithmetic.is_div_rem_guard(mir_block, statement_index)
         || arithmetic.is_shift_guard(mir_block, statement_index)
     {
@@ -1614,7 +1668,52 @@ fn lower_assignment<'tcx>(
     if is_erasable_unit_assignment(body, destination, rvalue, local_kinds) {
         return Ok(());
     }
-    let mut value = if let Some((operation, ty)) = arithmetic.binary(mir_block, statement_index) {
+    let mut value = if let Some(index) = projection.index(mir_block, statement_index) {
+        let base = resolve_local(
+            tcx,
+            def_id,
+            body,
+            index.base,
+            local_kinds,
+            environment,
+            arithmetic,
+            function_id,
+        )?;
+        let index_value = resolve_local(
+            tcx,
+            def_id,
+            body,
+            index.index,
+            local_kinds,
+            environment,
+            arithmetic,
+            function_id,
+        )?;
+        if base.ty != *index.base_ty || index_value.ty != *index.index_ty {
+            return Err(MirError::new(MirCode::Assertion, function_id));
+        }
+        let ContractType::Array { element, length } = &base.ty else {
+            return Err(MirError::new(MirCode::Assertion, function_id));
+        };
+        if element.as_ref() != index.element_ty || *length != index.length {
+            return Err(MirError::new(MirCode::Assertion, function_id));
+        }
+        emit_index(
+            index.element_ty,
+            base,
+            index_value,
+            statement_span,
+            tcx,
+            loader,
+            ids,
+            next_instruction,
+            block_index,
+            unit_id,
+            function_id,
+            instructions,
+            source_entries,
+        )?
+    } else if let Some((operation, ty)) = arithmetic.binary(mir_block, statement_index) {
         let Rvalue::BinaryOp(_, operands) = rvalue else {
             return Err(MirError::new(MirCode::Assertion, function_id));
         };
@@ -2045,6 +2144,48 @@ fn emit_arithmetic(
     emitted_value(
         instruction,
         ty.clone(),
+        span,
+        tcx,
+        loader,
+        block_index,
+        unit_id,
+        function_id,
+        instructions,
+        source_entries,
+        *next_instruction - 1,
+    )
+}
+
+#[allow(clippy::too_many_arguments)]
+fn emit_index(
+    element_ty: &ContractType,
+    base: Value,
+    index: Value,
+    span: Span,
+    tcx: TyCtxt<'_>,
+    loader: &SnapshotFileLoader,
+    ids: &mut DenseIds,
+    next_instruction: &mut usize,
+    block_index: usize,
+    unit_id: &str,
+    function_id: &str,
+    instructions: &mut Vec<JsonValue>,
+    source_entries: &mut Vec<SourceMapEntry>,
+) -> Result<Value, MirError> {
+    let mut instruction =
+        instruction_base(ids, next_instruction, "Index", element_ty, function_id)?;
+    instruction.insert("base".to_owned(), base.json);
+    instruction.insert("index".to_owned(), index.json);
+    instruction.insert(
+        "safety_checks".to_owned(),
+        JsonValue::Array(vec![JsonValue::Object(BTreeMap::from([(
+            "kind".to_owned(),
+            string("index_in_bounds"),
+        )]))]),
+    );
+    emitted_value(
+        instruction,
+        element_ty.clone(),
         span,
         tcx,
         loader,
@@ -2552,6 +2693,18 @@ fn mir_contract_type<'tcx>(
 
 fn is_scalar(ty: &ContractType) -> bool {
     matches!(ty, ContractType::Bool | ContractType::BitVector { .. })
+}
+
+fn is_array_index_value_type(ty: &ContractType) -> bool {
+    is_scalar(ty)
+        || matches!(
+            ty,
+            ContractType::Array { element, .. } if is_array_index_value_type(element)
+        )
+}
+
+fn is_array_type(ty: &ContractType) -> bool {
+    matches!(ty, ContractType::Array { .. })
 }
 
 fn source_origin(

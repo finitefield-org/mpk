@@ -114,6 +114,29 @@ pub fn lower(
     function: &str,
     contracts: &[(&str, &[u8])],
 ) -> Result<MirLowering, RustcDriverError> {
+    lower_for_target(source, function, contracts, "x86_64-unknown-linux-gnu", 64)
+}
+
+#[allow(dead_code)]
+pub fn lower_for_target(
+    source: &[u8],
+    function: &str,
+    contracts: &[(&str, &[u8])],
+    target: &str,
+    pointer_width: u8,
+) -> Result<MirLowering, RustcDriverError> {
+    lower_with_session_target(source, function, contracts, target, target, pointer_width)
+}
+
+#[allow(dead_code)]
+pub fn lower_with_session_target(
+    source: &[u8],
+    function: &str,
+    contracts: &[(&str, &[u8])],
+    compiler_target: &str,
+    request_target: &str,
+    pointer_width: u8,
+) -> Result<MirLowering, RustcDriverError> {
     let root = std::env::temp_dir().join(format!(
         "rust2vir-mir-lower-{}-{}",
         std::process::id(),
@@ -157,8 +180,8 @@ pub fn lower(
         }
     };
     let result = rustc_driver_adapter::lower_primary(
-        &compiler_arguments(&source_path, &output_path),
-        &request(function),
+        &compiler_arguments_for_target(&source_path, &output_path, compiler_target),
+        &request_for_target(function, request_target, pointer_width),
         Arc::new(loader),
     );
     fs::remove_dir_all(root).expect("remove lowering fixture");
@@ -166,6 +189,14 @@ pub fn lower(
 }
 
 fn compiler_arguments(source: &std::path::Path, output: &std::path::Path) -> Vec<String> {
+    compiler_arguments_for_target(source, output, "x86_64-unknown-linux-gnu")
+}
+
+fn compiler_arguments_for_target(
+    source: &std::path::Path,
+    output: &std::path::Path,
+    target: &str,
+) -> Vec<String> {
     [
         "/mpk/toolchain/bin/rustc".to_owned(),
         "--crate-name".to_owned(),
@@ -178,7 +209,7 @@ fn compiler_arguments(source: &std::path::Path, output: &std::path::Path) -> Vec
         "--out-dir".to_owned(),
         output.to_str().expect("UTF-8 output path").to_owned(),
         "--target".to_owned(),
-        "x86_64-unknown-linux-gnu".to_owned(),
+        target.to_owned(),
         "-C".to_owned(),
         "overflow-checks=yes".to_owned(),
         "-C".to_owned(),
@@ -196,12 +227,31 @@ fn compiler_arguments(source: &std::path::Path, output: &std::path::Path) -> Vec
 }
 
 fn request(function: &str) -> DriverRequest {
+    request_for_target(function, "x86_64-unknown-linux-gnu", 64)
+}
+
+fn request_for_target(function: &str, target: &str, pointer_width: u8) -> DriverRequest {
     let vector = json::parse(VECTOR, VECTOR.len()).expect("parse driver vector");
     let fixture = vector.as_object().expect("vector object")["valid_request"]
         .as_object()
         .expect("valid request object");
     let mut value = fixture["value"].clone();
     let root = value.as_object_mut().expect("request object");
+    let parameters = root
+        .get_mut("semantic_parameters")
+        .expect("semantic parameters")
+        .as_object_mut()
+        .expect("semantic parameters object");
+    parameters.insert("target_id".to_owned(), JsonValue::String(target.to_owned()));
+    parameters.insert(
+        "pointer_width".to_owned(),
+        JsonValue::Number(pointer_width.to_string()),
+    );
+    root.get_mut("compiler")
+        .expect("compiler")
+        .as_object_mut()
+        .expect("compiler object")
+        .insert("target".to_owned(), JsonValue::String(target.to_owned()));
     root.get_mut("selection")
         .expect("selection")
         .as_object_mut()

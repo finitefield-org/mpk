@@ -538,7 +538,9 @@ impl BodyValidator<'_, '_> {
             hir::ExprKind::Index(base, index, _) => {
                 self.validate_expr(base)?;
                 self.validate_expr(index)?;
-                if !self.typeck.expr_ty(index).is_usize() {
+                if !matches!(self.typeck.expr_ty(base).kind(), ty::Array(..))
+                    || !self.typeck.expr_ty(index).is_usize()
+                {
                     return Err(HirCheckCode::Operation);
                 }
                 self.validate_copy_projection(expression)
