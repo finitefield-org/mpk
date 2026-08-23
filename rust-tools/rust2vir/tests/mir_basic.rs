@@ -312,7 +312,7 @@ fn reachable_call_rejects_as_the_later_call_family() {
 
 #[test]
 fn lowering_failure_identifies_the_actual_closure_member() {
-    let source = b"pub fn helper(x: i8, y: i8) -> i8 { x + y }\npub fn selected(x: i8, y: i8) -> i8 { if false { helper(x, y) } else { x } }\n";
+    let source = b"pub fn helper(x: i8, y: i8) -> i8 { x / y }\npub fn selected(x: i8, y: i8) -> i8 { if false { helper(x, y) } else { x } }\n";
     let helper_contract = tautology_contract("vector::helper");
     let selected_contract = tautology_contract("vector::selected");
     let error = rustc_harness::lower(
@@ -334,7 +334,7 @@ fn lowering_failure_identifies_the_actual_closure_member() {
 #[test]
 fn later_mir_families_reject_without_placeholder_ir() {
     let cases: &[(&[u8], &str)] = &[
-        (b"pub fn unsupported(x: i8, y: i8) -> i8 { x + y }\n", "RUST_MIR_ASSERTION"),
+        (b"pub fn unsupported(x: i8, y: i8) -> i8 { x / y }\n", "RUST_MIR_ASSERTION"),
         (
             b"pub struct Pair { pub left: u8, pub right: u8 }\npub fn unsupported(x: u8) -> u8 { let pair = Pair { left: x, right: x }; pair.left }\n",
             "RUST_MIR_RVALUE",

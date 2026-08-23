@@ -1,4 +1,5 @@
 use super::hir_check::{contract_type, HirFunction};
+use super::mir_arithmetic::{ArithmeticOperation, ArithmeticPlan};
 use rust2vir_internal::contract::ContractType;
 use rust2vir_internal::driver_protocol::DriverRequest;
 use rust2vir_internal::file_loader::{SnapshotFileLoader, SourceRangeError};
@@ -80,7 +81,9 @@ impl MirCode {
             Self::Place => "reachable MIR place is outside the basic lowering dialect",
             Self::Projection => "MIR place projection is not implemented by the basic lowerer",
             Self::Terminator => "reachable MIR terminator is outside the basic lowering dialect",
-            Self::Assertion => "MIR assertion is not implemented by the basic lowerer",
+            Self::Assertion => {
+                "MIR assertion does not match a supported pinned checked-operation pattern"
+            }
             Self::Call => "MIR call is not implemented by the basic lowerer",
             Self::Move => "projected or dropping MIR move is not permitted",
             Self::Cleanup => "MIR cleanup, drop, or unwind flow is not permitted",
@@ -141,6 +144,8 @@ enum Flow {
     },
     Return,
 }
+
+type Reachability = (Vec<usize>, Vec<Option<Flow>>, ArithmeticPlan);
 
 impl Flow {
     fn successors(self) -> Vec<usize> {
@@ -296,7 +301,10 @@ pub(super) fn lower_function<'tcx>(
         return Err(MirError::new(MirCode::Rvalue, function_id));
     }
     let local_kinds = map_locals(body, function)?;
-    let (order, flows) = reachable_order(tcx, def_id, body, function_id)?;
+    let (order, flows, mut arithmetic) = reachable_order(tcx, def_id, body, function, function_id)?;
+    arithmetic
+        .finish(body, &order)
+        .map_err(|code| MirError::new(code, function_id))?;
     if order.len() > MIR_BLOCKS_FUNCTION_MAX {
         return Err(MirError::new(MirCode::BlockLimit, function_id));
     }
@@ -310,8 +318,16 @@ pub(super) fn lower_function<'tcx>(
         return Err(MirError::new(MirCode::StatementLimit, function_id));
     }
     validate_storage(body, &order, &flows, &local_kinds, function_id)?;
-    let (live_in, uses, definitions) =
-        live_compiler_locals(tcx, def_id, body, &order, &flows, &local_kinds, function_id)?;
+    let (live_in, uses, definitions) = live_compiler_locals(
+        tcx,
+        def_id,
+        body,
+        &order,
+        &flows,
+        &local_kinds,
+        &arithmetic,
+        function_id,
+    )?;
     let _ = (uses, definitions);
     if !live_in[0].is_empty() {
         return Err(MirError::new(MirCode::Operand, function_id));
@@ -349,12 +365,18 @@ pub(super) fn lower_function<'tcx>(
         let mut environment = BTreeMap::<usize, Value>::new();
         let mut parameters = Vec::new();
         for (local, id) in &block_parameters[*old_block] {
-            let ty = mir_contract_type(
-                tcx,
-                def_id,
-                body.local_decls[Local::new(*local)].ty,
-                function_id,
-            )?;
+            let ty = arithmetic
+                .scalar_local_type(Local::new(*local))
+                .cloned()
+                .map(Ok)
+                .unwrap_or_else(|| {
+                    mir_contract_type(
+                        tcx,
+                        def_id,
+                        body.local_decls[Local::new(*local)].ty,
+                        function_id,
+                    )
+                })?;
             environment.insert(
                 *local,
                 Value {
@@ -368,7 +390,7 @@ pub(super) fn lower_function<'tcx>(
             parameters.push(binding(id, &ty));
         }
         let mut instructions = Vec::new();
-        for statement in &block.statements {
+        for (statement_index, statement) in block.statements.iter().enumerate() {
             match &statement.kind {
                 StatementKind::Assign(assignment) => {
                     let (destination, rvalue) = &**assignment;
@@ -379,6 +401,10 @@ pub(super) fn lower_function<'tcx>(
                         destination,
                         rvalue,
                         statement.source_info.span,
+                        *old_block,
+                        statement_index,
+                        &arithmetic,
+                        function,
                         &local_kinds,
                         &function.local_spans,
                         &mut initialized_user_locals,
@@ -448,6 +474,7 @@ pub(super) fn lower_function<'tcx>(
                     discr,
                     &local_kinds,
                     &environment,
+                    &arithmetic,
                     function_id,
                 )?;
                 let fallback = Some(condition.span);
@@ -496,6 +523,7 @@ pub(super) fn lower_function<'tcx>(
                     Local::new(0),
                     &local_kinds,
                     &environment,
+                    &arithmetic,
                     function_id,
                 )?;
                 if result.ty != function.result_type {
@@ -643,12 +671,14 @@ fn reachable_order<'tcx>(
     tcx: TyCtxt<'tcx>,
     def_id: LocalDefId,
     body: &Body<'tcx>,
+    function: &HirFunction,
     function_id: &str,
-) -> Result<(Vec<usize>, Vec<Option<Flow>>), MirError> {
+) -> Result<Reachability, MirError> {
     if body.basic_blocks.is_empty() {
         return Err(MirError::new(MirCode::Terminator, function_id));
     }
     let mut flows = vec![None; body.basic_blocks.len()];
+    let mut arithmetic = ArithmeticPlan::default();
     let mut failure = None;
     let order = breadth_first_order(0, body.basic_blocks.len(), |index| {
         if failure.is_some() {
@@ -659,7 +689,15 @@ fn reachable_order<'tcx>(
             failure = Some(MirError::new(MirCode::Cleanup, function_id));
             return Vec::new();
         }
-        match classify_flow(tcx, def_id, block, function_id) {
+        match classify_flow(
+            tcx,
+            def_id,
+            body,
+            index,
+            function,
+            &mut arithmetic,
+            function_id,
+        ) {
             Ok(flow) => {
                 flows[index] = Some(flow);
                 flow.successors()
@@ -681,15 +719,19 @@ fn reachable_order<'tcx>(
     if topological_order(&order, &flows).is_none() {
         return Err(MirError::new(MirCode::Terminator, function_id));
     }
-    Ok((order, flows))
+    Ok((order, flows, arithmetic))
 }
 
 fn classify_flow<'tcx>(
     tcx: TyCtxt<'tcx>,
     def_id: LocalDefId,
-    block: &rustc_middle::mir::BasicBlockData<'tcx>,
+    body: &Body<'tcx>,
+    block_index: usize,
+    function: &HirFunction,
+    arithmetic: &mut ArithmeticPlan,
     function_id: &str,
 ) -> Result<Flow, MirError> {
+    let block = &body.basic_blocks[BasicBlock::new(block_index)];
     match &block.terminator().kind {
         TerminatorKind::Goto { target } => Ok(Flow::Goto(target.index())),
         TerminatorKind::SwitchInt { discr, targets } => {
@@ -712,12 +754,10 @@ fn classify_flow<'tcx>(
             })
         }
         TerminatorKind::Return => Ok(Flow::Return),
-        TerminatorKind::Assert { unwind, .. }
-            if !matches!(unwind, rustc_middle::mir::UnwindAction::Unreachable) =>
-        {
-            Err(MirError::new(MirCode::Cleanup, function_id))
-        }
-        TerminatorKind::Assert { .. } => Err(MirError::new(MirCode::Assertion, function_id)),
+        TerminatorKind::Assert { .. } => arithmetic
+            .recognize_assert(tcx, def_id, body, block_index, function)
+            .map(Flow::Goto)
+            .map_err(|code| MirError::new(code, function_id)),
         TerminatorKind::Call { unwind, .. }
             if !matches!(unwind, rustc_middle::mir::UnwindAction::Unreachable) =>
         {
@@ -885,6 +925,7 @@ fn enclosing_span(span: Span, candidates: &[Span]) -> Option<Span> {
         })
 }
 
+#[allow(clippy::too_many_arguments)]
 fn live_compiler_locals<'tcx>(
     tcx: TyCtxt<'tcx>,
     def_id: LocalDefId,
@@ -892,19 +933,46 @@ fn live_compiler_locals<'tcx>(
     order: &[usize],
     flows: &[Option<Flow>],
     local_kinds: &[LocalKind],
+    arithmetic: &ArithmeticPlan,
     function_id: &str,
 ) -> Result<(LocalSets, LocalSets, LocalSets), MirError> {
     let mut uses = vec![BTreeSet::new(); body.basic_blocks.len()];
     let mut definitions = vec![BTreeSet::new(); body.basic_blocks.len()];
     for block_index in order {
         let block = &body.basic_blocks[BasicBlock::new(*block_index)];
-        for statement in &block.statements {
+        for (statement_index, statement) in block.statements.iter().enumerate() {
             match &statement.kind {
                 StatementKind::Assign(assignment) => {
                     let (place, rvalue) = &**assignment;
                     validate_destination(place, local_kinds, function_id)?;
                     let mut reads = Vec::new();
-                    if is_erasable_unit_assignment(body, place, rvalue, local_kinds) {
+                    if arithmetic.is_negation_guard(*block_index, statement_index) {
+                        // The guard is represented by the attached VIR safety check.
+                    } else if let Some((_, ty)) = arithmetic.binary(*block_index, statement_index) {
+                        validate_checked_binary_rvalue(
+                            tcx,
+                            def_id,
+                            body,
+                            rvalue,
+                            ty,
+                            local_kinds,
+                            arithmetic,
+                            function_id,
+                            &mut reads,
+                        )?;
+                    } else if let Some(ty) = arithmetic.negation(*block_index, statement_index) {
+                        validate_checked_negation_rvalue(
+                            tcx,
+                            def_id,
+                            body,
+                            rvalue,
+                            ty,
+                            local_kinds,
+                            arithmetic,
+                            function_id,
+                            &mut reads,
+                        )?;
+                    } else if is_erasable_unit_assignment(body, place, rvalue, local_kinds) {
                         collect_operand_locals(rvalue, &mut reads);
                     } else {
                         validate_rvalue(
@@ -913,6 +981,7 @@ fn live_compiler_locals<'tcx>(
                             body,
                             rvalue,
                             local_kinds,
+                            arithmetic,
                             function_id,
                             &mut reads,
                         )?;
@@ -943,6 +1012,7 @@ fn live_compiler_locals<'tcx>(
                 body,
                 discr,
                 local_kinds,
+                arithmetic,
                 function_id,
                 &mut reads,
             )?;
@@ -1090,22 +1160,42 @@ fn validate_destination(
     }
 }
 
+#[allow(clippy::too_many_arguments)]
 fn validate_rvalue<'tcx>(
     tcx: TyCtxt<'tcx>,
     def_id: LocalDefId,
     body: &Body<'tcx>,
     rvalue: &Rvalue<'tcx>,
     local_kinds: &[LocalKind],
+    arithmetic: &ArithmeticPlan,
     function_id: &str,
     reads: &mut Vec<Local>,
 ) -> Result<(), MirError> {
     match rvalue {
-        Rvalue::Use(operand) => {
-            validate_operand(tcx, def_id, body, operand, local_kinds, function_id, reads)
-        }
+        Rvalue::Use(operand) => validate_operand(
+            tcx,
+            def_id,
+            body,
+            operand,
+            local_kinds,
+            arithmetic,
+            function_id,
+            reads,
+        ),
         Rvalue::UnaryOp(UnOp::Not, operand) => {
-            validate_operand(tcx, def_id, body, operand, local_kinds, function_id, reads)?;
-            if operand_type(tcx, def_id, body, operand, function_id)? != ContractType::Bool {
+            validate_operand(
+                tcx,
+                def_id,
+                body,
+                operand,
+                local_kinds,
+                arithmetic,
+                function_id,
+                reads,
+            )?;
+            if operand_type(tcx, def_id, body, operand, arithmetic, function_id)?
+                != ContractType::Bool
+            {
                 return Err(MirError::new(MirCode::Rvalue, function_id));
             }
             Ok(())
@@ -1120,6 +1210,7 @@ fn validate_rvalue<'tcx>(
                 body,
                 &operands.0,
                 local_kinds,
+                arithmetic,
                 function_id,
                 reads,
             )?;
@@ -1129,11 +1220,12 @@ fn validate_rvalue<'tcx>(
                 body,
                 &operands.1,
                 local_kinds,
+                arithmetic,
                 function_id,
                 reads,
             )?;
-            let left = operand_type(tcx, def_id, body, &operands.0, function_id)?;
-            let right = operand_type(tcx, def_id, body, &operands.1, function_id)?;
+            let left = operand_type(tcx, def_id, body, &operands.0, arithmetic, function_id)?;
+            let right = operand_type(tcx, def_id, body, &operands.1, arithmetic, function_id)?;
             if left != right
                 || (!matches!(op, BinOp::Eq | BinOp::Ne) && left.as_bit_vector().is_none())
                 || (matches!(op, BinOp::Eq | BinOp::Ne)
@@ -1148,26 +1240,96 @@ fn validate_rvalue<'tcx>(
     }
 }
 
+#[allow(clippy::too_many_arguments)]
+fn validate_checked_binary_rvalue<'tcx>(
+    tcx: TyCtxt<'tcx>,
+    def_id: LocalDefId,
+    body: &Body<'tcx>,
+    rvalue: &Rvalue<'tcx>,
+    expected_type: &ContractType,
+    local_kinds: &[LocalKind],
+    arithmetic: &ArithmeticPlan,
+    function_id: &str,
+    reads: &mut Vec<Local>,
+) -> Result<(), MirError> {
+    let Rvalue::BinaryOp(
+        BinOp::AddWithOverflow | BinOp::SubWithOverflow | BinOp::MulWithOverflow,
+        operands,
+    ) = rvalue
+    else {
+        return Err(MirError::new(MirCode::Assertion, function_id));
+    };
+    for operand in [&operands.0, &operands.1] {
+        validate_operand(
+            tcx,
+            def_id,
+            body,
+            operand,
+            local_kinds,
+            arithmetic,
+            function_id,
+            reads,
+        )?;
+        if operand_type(tcx, def_id, body, operand, arithmetic, function_id)? != *expected_type {
+            return Err(MirError::new(MirCode::Assertion, function_id));
+        }
+    }
+    Ok(())
+}
+
+#[allow(clippy::too_many_arguments)]
+fn validate_checked_negation_rvalue<'tcx>(
+    tcx: TyCtxt<'tcx>,
+    def_id: LocalDefId,
+    body: &Body<'tcx>,
+    rvalue: &Rvalue<'tcx>,
+    expected_type: &ContractType,
+    local_kinds: &[LocalKind],
+    arithmetic: &ArithmeticPlan,
+    function_id: &str,
+    reads: &mut Vec<Local>,
+) -> Result<(), MirError> {
+    let Rvalue::UnaryOp(UnOp::Neg, operand) = rvalue else {
+        return Err(MirError::new(MirCode::Assertion, function_id));
+    };
+    validate_operand(
+        tcx,
+        def_id,
+        body,
+        operand,
+        local_kinds,
+        arithmetic,
+        function_id,
+        reads,
+    )?;
+    if operand_type(tcx, def_id, body, operand, arithmetic, function_id)? != *expected_type {
+        return Err(MirError::new(MirCode::Assertion, function_id));
+    }
+    Ok(())
+}
+
+#[allow(clippy::too_many_arguments)]
 fn validate_operand<'tcx>(
     tcx: TyCtxt<'tcx>,
     def_id: LocalDefId,
     body: &Body<'tcx>,
     operand: &Operand<'tcx>,
     local_kinds: &[LocalKind],
+    arithmetic: &ArithmeticPlan,
     function_id: &str,
     reads: &mut Vec<Local>,
 ) -> Result<(), MirError> {
     match operand {
         Operand::Copy(place) => {
-            validate_read_place(place, local_kinds, function_id)?;
+            validate_read_place(place, local_kinds, arithmetic, function_id)?;
             reads.push(place.local);
             Ok(())
         }
         Operand::Move(place) => {
-            if !place.projection.is_empty() {
+            if !place.projection.is_empty() && arithmetic.projected_type(place).is_none() {
                 return Err(MirError::new(MirCode::Move, function_id));
             }
-            validate_read_place(place, local_kinds, function_id)?;
+            validate_read_place(place, local_kinds, arithmetic, function_id)?;
             let ty = body.local_decls[place.local].ty;
             let typing_env = ty::TypingEnv::post_analysis(tcx, def_id);
             if ty.needs_drop(tcx, typing_env) {
@@ -1185,9 +1347,10 @@ fn validate_operand<'tcx>(
 fn validate_read_place(
     place: &Place<'_>,
     local_kinds: &[LocalKind],
+    arithmetic: &ArithmeticPlan,
     function_id: &str,
 ) -> Result<(), MirError> {
-    if !place.projection.is_empty() {
+    if !place.projection.is_empty() && arithmetic.projected_type(place).is_none() {
         return Err(MirError::new(MirCode::Projection, function_id));
     }
     if place.local.index() >= local_kinds.len() {
@@ -1201,10 +1364,14 @@ fn operand_type<'tcx>(
     def_id: LocalDefId,
     body: &Body<'tcx>,
     operand: &Operand<'tcx>,
+    arithmetic: &ArithmeticPlan,
     function_id: &str,
 ) -> Result<ContractType, MirError> {
     match operand {
         Operand::Copy(place) | Operand::Move(place) => {
+            if let Some(ty) = arithmetic.projected_type(place) {
+                return Ok(ty.clone());
+            }
             if !place.projection.is_empty() {
                 return Err(MirError::new(MirCode::Projection, function_id));
             }
@@ -1279,6 +1446,10 @@ fn lower_assignment<'tcx>(
     destination: &Place<'tcx>,
     rvalue: &Rvalue<'tcx>,
     statement_span: Span,
+    mir_block: usize,
+    statement_index: usize,
+    arithmetic: &ArithmeticPlan,
+    function: &HirFunction,
     local_kinds: &[LocalKind],
     local_binding_spans: &[Span],
     initialized_user_locals: &mut BTreeSet<usize>,
@@ -1293,129 +1464,229 @@ fn lower_assignment<'tcx>(
     source_entries: &mut Vec<SourceMapEntry>,
 ) -> Result<(), MirError> {
     validate_destination(destination, local_kinds, function_id)?;
+    if arithmetic.is_negation_guard(mir_block, statement_index) {
+        return Ok(());
+    }
     if is_erasable_unit_assignment(body, destination, rvalue, local_kinds) {
         return Ok(());
     }
-    let mut value = match rvalue {
-        Rvalue::Use(Operand::Constant(constant)) => {
-            let literal = literal_value(tcx, def_id, &constant.const_, function_id)?;
-            let mut instruction =
-                instruction_base(ids, next_instruction, "Const", &literal.ty, function_id)?;
-            instruction.insert("value".to_owned(), literal.json);
-            emitted_value(
-                instruction,
-                literal.ty,
-                constant.span,
-                tcx,
-                loader,
-                block_index,
-                unit_id,
-                function_id,
-                instructions,
-                source_entries,
-                *next_instruction - 1,
-            )?
+    let mut value = if let Some((operation, ty)) = arithmetic.binary(mir_block, statement_index) {
+        let Rvalue::BinaryOp(_, operands) = rvalue else {
+            return Err(MirError::new(MirCode::Assertion, function_id));
+        };
+        let left = lower_operand(
+            tcx,
+            def_id,
+            body,
+            &operands.0,
+            local_kinds,
+            environment,
+            arithmetic,
+            function_id,
+        )?;
+        let right = lower_operand(
+            tcx,
+            def_id,
+            body,
+            &operands.1,
+            local_kinds,
+            environment,
+            arithmetic,
+            function_id,
+        )?;
+        if left.ty != *ty || right.ty != *ty {
+            return Err(MirError::new(MirCode::Assertion, function_id));
         }
-        Rvalue::Use(operand) => lower_operand(
+        emit_arithmetic(
+            operation,
+            ty,
+            Some(left),
+            right,
+            statement_span,
+            tcx,
+            loader,
+            ids,
+            next_instruction,
+            block_index,
+            unit_id,
+            function_id,
+            instructions,
+            source_entries,
+        )?
+    } else if let Some(ty) = arithmetic.negation(mir_block, statement_index) {
+        let Rvalue::UnaryOp(UnOp::Neg, operand) = rvalue else {
+            return Err(MirError::new(MirCode::Assertion, function_id));
+        };
+        let operand = lower_operand(
             tcx,
             def_id,
             body,
             operand,
             local_kinds,
             environment,
+            arithmetic,
             function_id,
-        )?,
-        Rvalue::UnaryOp(UnOp::Not, operand) => {
-            let operand = lower_operand(
+        )?;
+        if operand.ty != *ty {
+            return Err(MirError::new(MirCode::Assertion, function_id));
+        }
+        emit_arithmetic(
+            ArithmeticOperation::Neg,
+            ty,
+            None,
+            operand,
+            statement_span,
+            tcx,
+            loader,
+            ids,
+            next_instruction,
+            block_index,
+            unit_id,
+            function_id,
+            instructions,
+            source_entries,
+        )?
+    } else {
+        match rvalue {
+            Rvalue::Use(Operand::Constant(constant)) => {
+                let literal = literal_value(tcx, def_id, &constant.const_, function_id)?;
+                let literal_span = negative_literal_span(
+                    tcx,
+                    def_id,
+                    &constant.const_,
+                    constant.span,
+                    statement_span,
+                    function,
+                    function_id,
+                )?;
+                let mut instruction =
+                    instruction_base(ids, next_instruction, "Const", &literal.ty, function_id)?;
+                instruction.insert("value".to_owned(), literal.json);
+                emitted_value(
+                    instruction,
+                    literal.ty,
+                    literal_span,
+                    tcx,
+                    loader,
+                    block_index,
+                    unit_id,
+                    function_id,
+                    instructions,
+                    source_entries,
+                    *next_instruction - 1,
+                )?
+            }
+            Rvalue::Use(operand) => lower_operand(
                 tcx,
                 def_id,
                 body,
                 operand,
                 local_kinds,
                 environment,
+                arithmetic,
                 function_id,
-            )?;
-            if operand.ty != ContractType::Bool {
-                return Err(MirError::new(MirCode::Rvalue, function_id));
+            )?,
+            Rvalue::UnaryOp(UnOp::Not, operand) => {
+                let operand = lower_operand(
+                    tcx,
+                    def_id,
+                    body,
+                    operand,
+                    local_kinds,
+                    environment,
+                    arithmetic,
+                    function_id,
+                )?;
+                if operand.ty != ContractType::Bool {
+                    return Err(MirError::new(MirCode::Rvalue, function_id));
+                }
+                let mut instruction = instruction_base(
+                    ids,
+                    next_instruction,
+                    "UnaryOp",
+                    &ContractType::Bool,
+                    function_id,
+                )?;
+                instruction.insert("op".to_owned(), string("not"));
+                instruction.insert("value".to_owned(), operand.json);
+                emitted_value(
+                    instruction,
+                    ContractType::Bool,
+                    statement_span,
+                    tcx,
+                    loader,
+                    block_index,
+                    unit_id,
+                    function_id,
+                    instructions,
+                    source_entries,
+                    *next_instruction - 1,
+                )?
             }
-            let mut instruction = instruction_base(
-                ids,
-                next_instruction,
-                "UnaryOp",
-                &ContractType::Bool,
-                function_id,
-            )?;
-            instruction.insert("op".to_owned(), string("not"));
-            instruction.insert("value".to_owned(), operand.json);
-            emitted_value(
-                instruction,
-                ContractType::Bool,
-                statement_span,
-                tcx,
-                loader,
-                block_index,
-                unit_id,
-                function_id,
-                instructions,
-                source_entries,
-                *next_instruction - 1,
-            )?
+            Rvalue::BinaryOp(
+                op @ (BinOp::Eq | BinOp::Ne | BinOp::Lt | BinOp::Le | BinOp::Gt | BinOp::Ge),
+                operands,
+            ) => {
+                let left = lower_operand(
+                    tcx,
+                    def_id,
+                    body,
+                    &operands.0,
+                    local_kinds,
+                    environment,
+                    arithmetic,
+                    function_id,
+                )?;
+                let right = lower_operand(
+                    tcx,
+                    def_id,
+                    body,
+                    &operands.1,
+                    local_kinds,
+                    environment,
+                    arithmetic,
+                    function_id,
+                )?;
+                let operation = comparison_operation(*op, &left.ty, &right.ty, function_id)?;
+                let mut instruction = instruction_base(
+                    ids,
+                    next_instruction,
+                    "BinOp",
+                    &ContractType::Bool,
+                    function_id,
+                )?;
+                instruction.insert("op".to_owned(), string(operation));
+                instruction.insert("lhs".to_owned(), left.json);
+                instruction.insert("rhs".to_owned(), right.json);
+                emitted_value(
+                    instruction,
+                    ContractType::Bool,
+                    statement_span,
+                    tcx,
+                    loader,
+                    block_index,
+                    unit_id,
+                    function_id,
+                    instructions,
+                    source_entries,
+                    *next_instruction - 1,
+                )?
+            }
+            _ => return Err(MirError::new(MirCode::Rvalue, function_id)),
         }
-        Rvalue::BinaryOp(
-            op @ (BinOp::Eq | BinOp::Ne | BinOp::Lt | BinOp::Le | BinOp::Gt | BinOp::Ge),
-            operands,
-        ) => {
-            let left = lower_operand(
-                tcx,
-                def_id,
-                body,
-                &operands.0,
-                local_kinds,
-                environment,
-                function_id,
-            )?;
-            let right = lower_operand(
-                tcx,
-                def_id,
-                body,
-                &operands.1,
-                local_kinds,
-                environment,
-                function_id,
-            )?;
-            let operation = comparison_operation(*op, &left.ty, &right.ty, function_id)?;
-            let mut instruction = instruction_base(
-                ids,
-                next_instruction,
-                "BinOp",
-                &ContractType::Bool,
-                function_id,
-            )?;
-            instruction.insert("op".to_owned(), string(operation));
-            instruction.insert("lhs".to_owned(), left.json);
-            instruction.insert("rhs".to_owned(), right.json);
-            emitted_value(
-                instruction,
-                ContractType::Bool,
-                statement_span,
-                tcx,
-                loader,
-                block_index,
-                unit_id,
-                function_id,
-                instructions,
-                source_entries,
-                *next_instruction - 1,
-            )?
-        }
-        _ => return Err(MirError::new(MirCode::Rvalue, function_id)),
     };
-    let destination_type = mir_contract_type(
-        tcx,
-        def_id,
-        body.local_decls[destination.local].ty,
-        function_id,
-    )?;
+    let destination_type = arithmetic
+        .scalar_local_type(destination.local)
+        .cloned()
+        .map(Ok)
+        .unwrap_or_else(|| {
+            mir_contract_type(
+                tcx,
+                def_id,
+                body.local_decls[destination.local].ty,
+                function_id,
+            )
+        })?;
     if destination_type != value.ty {
         return Err(MirError::new(MirCode::Rvalue, function_id));
     }
@@ -1453,6 +1724,109 @@ fn lower_assignment<'tcx>(
         LocalKind::Argument(_) => return Err(MirError::new(MirCode::Place, function_id)),
     }
     Ok(())
+}
+
+#[allow(clippy::too_many_arguments)]
+fn emit_arithmetic(
+    operation: ArithmeticOperation,
+    ty: &ContractType,
+    left: Option<Value>,
+    right: Value,
+    span: Span,
+    tcx: TyCtxt<'_>,
+    loader: &SnapshotFileLoader,
+    ids: &mut DenseIds,
+    next_instruction: &mut usize,
+    block_index: usize,
+    unit_id: &str,
+    function_id: &str,
+    instructions: &mut Vec<JsonValue>,
+    source_entries: &mut Vec<SourceMapEntry>,
+) -> Result<Value, MirError> {
+    let kind = if operation == ArithmeticOperation::Neg {
+        "UnaryOp"
+    } else {
+        "BinOp"
+    };
+    let mut instruction = instruction_base(ids, next_instruction, kind, ty, function_id)?;
+    instruction.insert("op".to_owned(), string(operation.vir_name()));
+    if let Some(left) = left {
+        instruction.insert("lhs".to_owned(), left.json);
+        instruction.insert("rhs".to_owned(), right.json);
+    } else {
+        instruction.insert("value".to_owned(), right.json);
+    }
+    instruction.insert(
+        "safety_checks".to_owned(),
+        JsonValue::Array(vec![integer_no_overflow(operation, ty, function_id)?]),
+    );
+    emitted_value(
+        instruction,
+        ty.clone(),
+        span,
+        tcx,
+        loader,
+        block_index,
+        unit_id,
+        function_id,
+        instructions,
+        source_entries,
+        *next_instruction - 1,
+    )
+}
+
+fn integer_no_overflow(
+    operation: ArithmeticOperation,
+    ty: &ContractType,
+    function_id: &str,
+) -> Result<JsonValue, MirError> {
+    let (_, signed) = ty
+        .as_bit_vector()
+        .ok_or_else(|| MirError::new(MirCode::Rvalue, function_id))?;
+    Ok(JsonValue::Object(BTreeMap::from([
+        ("kind".to_owned(), string("integer_no_overflow")),
+        ("operation".to_owned(), string(operation.safety_name())),
+        ("signed".to_owned(), JsonValue::Bool(signed)),
+    ])))
+}
+
+fn negative_literal_span<'tcx>(
+    tcx: TyCtxt<'tcx>,
+    def_id: LocalDefId,
+    constant: &rustc_middle::mir::Const<'tcx>,
+    constant_span: Span,
+    statement_span: Span,
+    function: &HirFunction,
+    function_id: &str,
+) -> Result<Span, MirError> {
+    let ContractType::BitVector {
+        width,
+        signed: true,
+    } = mir_contract_type(tcx, def_id, constant.ty(), function_id)?
+    else {
+        return Ok(constant_span);
+    };
+    let bits = constant
+        .try_eval_bits(tcx, ty::TypingEnv::post_analysis(tcx, def_id))
+        .ok_or_else(|| MirError::new(MirCode::Operand, function_id))?;
+    if bits & (1_u128 << (width - 1)) == 0 {
+        return Ok(constant_span);
+    }
+    function
+        .negative_literal_spans
+        .iter()
+        .copied()
+        .filter(|candidate| {
+            span_contains(*candidate, constant_span) || span_contains(*candidate, statement_span)
+        })
+        .min_by_key(|candidate| {
+            (
+                candidate.hi().0 - candidate.lo().0,
+                candidate.lo().0,
+                candidate.hi().0,
+            )
+        })
+        .ok_or_else(|| MirError::new(MirCode::Assertion, function_id))
 }
 
 #[allow(clippy::too_many_arguments)]
@@ -1512,6 +1886,7 @@ fn instruction_base(
     ]))
 }
 
+#[allow(clippy::too_many_arguments)]
 fn lower_operand<'tcx>(
     tcx: TyCtxt<'tcx>,
     def_id: LocalDefId,
@@ -1519,11 +1894,12 @@ fn lower_operand<'tcx>(
     operand: &Operand<'tcx>,
     local_kinds: &[LocalKind],
     environment: &BTreeMap<usize, Value>,
+    arithmetic: &ArithmeticPlan,
     function_id: &str,
 ) -> Result<Value, MirError> {
     match operand {
         Operand::Copy(place) => {
-            validate_read_place(place, local_kinds, function_id)?;
+            validate_read_place(place, local_kinds, arithmetic, function_id)?;
             resolve_local(
                 tcx,
                 def_id,
@@ -1531,14 +1907,15 @@ fn lower_operand<'tcx>(
                 place.local,
                 local_kinds,
                 environment,
+                arithmetic,
                 function_id,
             )
         }
         Operand::Move(place) => {
-            if !place.projection.is_empty() {
+            if !place.projection.is_empty() && arithmetic.projected_type(place).is_none() {
                 return Err(MirError::new(MirCode::Move, function_id));
             }
-            validate_read_place(place, local_kinds, function_id)?;
+            validate_read_place(place, local_kinds, arithmetic, function_id)?;
             let mir_ty = body.local_decls[place.local].ty;
             let typing_env = ty::TypingEnv::post_analysis(tcx, def_id);
             if mir_ty.needs_drop(tcx, typing_env) {
@@ -1551,6 +1928,7 @@ fn lower_operand<'tcx>(
                 place.local,
                 local_kinds,
                 environment,
+                arithmetic,
                 function_id,
             )
         }
@@ -1558,6 +1936,7 @@ fn lower_operand<'tcx>(
     }
 }
 
+#[allow(clippy::too_many_arguments)]
 fn resolve_local<'tcx>(
     tcx: TyCtxt<'tcx>,
     def_id: LocalDefId,
@@ -1565,6 +1944,7 @@ fn resolve_local<'tcx>(
     local: Local,
     local_kinds: &[LocalKind],
     environment: &BTreeMap<usize, Value>,
+    arithmetic: &ArithmeticPlan,
     function_id: &str,
 ) -> Result<Value, MirError> {
     match local_kinds
@@ -1574,12 +1954,24 @@ fn resolve_local<'tcx>(
     {
         LocalKind::Argument(index) => Ok(Value {
             json: variable(&format!("arg{index}")),
-            ty: mir_contract_type(tcx, def_id, body.local_decls[local].ty, function_id)?,
+            ty: arithmetic
+                .scalar_local_type(local)
+                .cloned()
+                .map(Ok)
+                .unwrap_or_else(|| {
+                    mir_contract_type(tcx, def_id, body.local_decls[local].ty, function_id)
+                })?,
             span: body.span,
         }),
         LocalKind::User(index) => Ok(Value {
             json: variable(&format!("local{index}")),
-            ty: mir_contract_type(tcx, def_id, body.local_decls[local].ty, function_id)?,
+            ty: arithmetic
+                .scalar_local_type(local)
+                .cloned()
+                .map(Ok)
+                .unwrap_or_else(|| {
+                    mir_contract_type(tcx, def_id, body.local_decls[local].ty, function_id)
+                })?,
             span: body.span,
         }),
         LocalKind::Result | LocalKind::Temporary => environment

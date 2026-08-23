@@ -15,6 +15,20 @@ use mpk_vc::{
 };
 use serde_json::Value;
 
+const RUST_FRONTEND_ARITHMETIC_VIR: &[u8] =
+    include_bytes!("../../../rust-tools/rust2vir/testdata/arithmetic/expected-vir.json");
+
+#[test]
+fn rust_frontend_checked_arithmetic_fixture_is_profile_complete() {
+    let modules: Vec<Value> =
+        serde_json::from_slice(RUST_FRONTEND_ARITHMETIC_VIR).expect("arithmetic VIR fixture");
+    assert!(!modules.is_empty());
+    for module in modules {
+        let bytes = serde_json::to_vec(&module).expect("serialize fixture module");
+        mpk_vc::import_vir_json(&bytes).expect("frontend VIR passes independent validation");
+    }
+}
+
 fn go_parameters() -> SemanticParameters {
     SemanticParameters::GoFixed(GoFixedParameters {
         target_id: "linux/amd64".to_owned(),

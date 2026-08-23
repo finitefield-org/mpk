@@ -27,6 +27,8 @@ use std::sync::Arc;
 
 #[path = "hir_check.rs"]
 mod hir_check;
+#[path = "mir_arithmetic.rs"]
+pub(crate) mod mir_arithmetic;
 #[path = "mir_lower.rs"]
 mod mir_lower;
 

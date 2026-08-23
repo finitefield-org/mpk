@@ -94,6 +94,8 @@ pub struct HirFunction {
     pub local_spans: Vec<Span>,
     pub control_flow_spans: Vec<Span>,
     pub return_value_spans: Vec<Span>,
+    pub negative_literal_spans: Vec<Span>,
+    pub checked_negation_spans: Vec<Span>,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -349,6 +351,8 @@ fn validate_function(
         return_value_spans: top_level_return_value_span(body.value)
             .into_iter()
             .collect(),
+        negative_literal_spans: Vec::new(),
+        checked_negation_spans: Vec::new(),
     };
     let mut parameter_names = Vec::with_capacity(body.params.len());
     let mut mutable_parameter = false;
@@ -398,6 +402,8 @@ fn validate_function(
         local_spans: validator.local_spans,
         control_flow_spans: validator.control_flow_spans,
         return_value_spans: validator.return_value_spans,
+        negative_literal_spans: validator.negative_literal_spans,
+        checked_negation_spans: validator.checked_negation_spans,
     })
 }
 
@@ -436,6 +442,8 @@ struct BodyValidator<'a, 'tcx> {
     local_spans: Vec<Span>,
     control_flow_spans: Vec<Span>,
     return_value_spans: Vec<Span>,
+    negative_literal_spans: Vec<Span>,
+    checked_negation_spans: Vec<Span>,
 }
 
 impl BodyValidator<'_, '_> {
@@ -474,7 +482,15 @@ impl BodyValidator<'_, '_> {
                 let ty = self.typeck.expr_ty(operand);
                 match operator {
                     UnOp::Not if ty.is_bool() || is_integer(ty) => Ok(()),
-                    UnOp::Neg if is_signed_integer(ty) => Ok(()),
+                    UnOp::Neg if is_signed_integer(ty) => {
+                        if matches!(operand.kind, hir::ExprKind::Lit(literal) if matches!(literal.node, LitKind::Int(..)))
+                        {
+                            self.negative_literal_spans.push(expression.span);
+                        } else {
+                            self.checked_negation_spans.push(expression.span);
+                        }
+                        Ok(())
+                    }
                     _ => Err(HirCheckCode::Operation),
                 }
             }
