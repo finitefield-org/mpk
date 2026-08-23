@@ -8,6 +8,10 @@ use mpk_vc::{
 };
 use serde::{Deserialize, Serialize};
 
+use crate::policy_profile::{
+    validate_policy_profile_selection, PolicyProfileErrorKind, PolicyProfileSelection,
+};
+
 pub const POLICY_SCAN_V1_SCHEMA: &str = "mpk.policy.scan.v1";
 pub const POLICY_EVIDENCE_V1_SCHEMA: &str = "mpk.policy.evidence.v1";
 pub const POLICY_JSON_TRANSPORT_BYTES_MAX: u64 = 268_435_456;
@@ -2371,48 +2375,23 @@ fn validate_evidence_profiles(document: &PolicyEvidenceV1) -> Result<(), PolicyV
         &document.semantic_parameters,
         &document.selection,
     )?;
-    let known_strategy = matches!(
-        document.strategy_profile.as_str(),
-        "payment-policy-alpha" | "payment-policy-rust-alpha"
-    );
-    if !known_strategy {
-        return profile_unknown("strategy profile is not registered");
-    }
-    if !matches!(document.axiom_profile.as_str(), "zero-axiom" | "mvp-theory") {
-        return profile_unknown("axiom profile is not registered");
-    }
-    if !matches!(
-        document.checker_profile.as_str(),
-        "core-bootstrap" | "mvp-structural" | "mvp-strict"
-    ) {
-        return profile_unknown("checker profile is not registered");
-    }
-    let tuple = match document.strategy_profile.as_str() {
-        "payment-policy-alpha" => ("go", "mpk.go.fixed.v0", "zero-axiom"),
-        "payment-policy-rust-alpha" => ("rust", "mpk.rust.checked.v0", "mvp-theory"),
-        _ => return profile_unknown("strategy profile is not registered"),
-    };
-    if (
-        document.source_language.as_str(),
-        document.semantic_profile.as_str(),
-        document.axiom_profile.as_str(),
-    ) != tuple
-    {
-        return Err(PolicyValidationError::new(
-            PolicyValidationPhase::Profile,
-            "POLICY_PROFILE_TUPLE",
-            "strategy, language, semantic profile, and axiom profile form a crossed tuple",
-        ));
-    }
-    Ok(())
-}
-
-fn profile_unknown<T>(detail: impl Into<String>) -> Result<T, PolicyValidationError> {
-    Err(PolicyValidationError::new(
-        PolicyValidationPhase::Profile,
-        "POLICY_PROFILE_UNKNOWN",
-        detail,
-    ))
+    validate_policy_profile_selection(PolicyProfileSelection {
+        strategy_profile: &document.strategy_profile,
+        checker_profile: &document.checker_profile,
+        source_language: &document.source_language,
+        semantic_profile: &document.semantic_profile,
+        axiom_profile: &document.axiom_profile,
+    })
+    .map(|_| ())
+    .map_err(|error| {
+        let code = match error.kind() {
+            PolicyProfileErrorKind::CrossedTuple => "POLICY_PROFILE_TUPLE",
+            PolicyProfileErrorKind::Unknown | PolicyProfileErrorKind::PackageMismatch => {
+                "POLICY_PROFILE_UNKNOWN"
+            }
+        };
+        PolicyValidationError::new(PolicyValidationPhase::Profile, code, error.to_string())
+    })
 }
 
 fn validate_scan_release(

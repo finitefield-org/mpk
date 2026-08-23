@@ -1,3 +1,4 @@
+# Rust policy package template for payment-policy-rust-alpha.
 schema: mpk.package.v0
 module: Example.Identity
 imports:
@@ -19,6 +20,6 @@ certificates:
 policy:
   checker_profile: mvp-strict
   allowed_axiom_profiles:
-    - zero-axiom
+    - mvp-theory
   require_reference_checker: true
   require_source_free_check: true

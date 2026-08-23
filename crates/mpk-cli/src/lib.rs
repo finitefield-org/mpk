@@ -1,5 +1,6 @@
 #![forbid(unsafe_code)]
 
+pub mod policy_profile;
 pub mod policy_report;
 pub mod policy_scan;
 pub mod policy_schema;

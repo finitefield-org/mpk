@@ -16,6 +16,13 @@ SCHEMA = "mpk.package.v0"
 HASH_RE = re.compile(r"^[0-9a-f]{64}$")
 NAME_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_']*(\.[A-Za-z_][A-Za-z0-9_']*)*$")
 CHECKER_PROFILES = {"core-bootstrap", "mvp-structural", "mvp-strict"}
+AXIOM_PROFILES = {
+    "zero-axiom",
+    "core-mvp",
+    "mvp-theory",
+    "go-artifact-alpha",
+    "experimental-external",
+}
 TOP_LEVEL_FIELDS = {"schema", "module", "imports", "certificates", "policy"}
 IMPORT_FIELDS = {"module", "export_hash", "certificate_hash"}
 CERTIFICATE_FIELDS = {
@@ -182,11 +189,17 @@ def validate_policy(policy: Any) -> None:
     axiom_profiles = policy["allowed_axiom_profiles"]
     if not isinstance(axiom_profiles, list) or not axiom_profiles:
         raise ManifestError("policy.allowed_axiom_profiles must be a nonempty list")
+    seen_axiom_profiles: set[str] = set()
     for index, value in enumerate(axiom_profiles):
-        if not isinstance(value, str) or not value:
+        if not isinstance(value, str) or value not in AXIOM_PROFILES:
             raise ManifestError(
-                f"policy.allowed_axiom_profiles[{index}] must be a nonempty string"
+                f"policy.allowed_axiom_profiles[{index}] is not registered"
             )
+        if value in seen_axiom_profiles:
+            raise ManifestError(
+                f"policy.allowed_axiom_profiles[{index}] duplicates {value!r}"
+            )
+        seen_axiom_profiles.add(value)
 
     if not isinstance(policy["require_reference_checker"], bool):
         raise ManifestError("policy.require_reference_checker must be boolean")

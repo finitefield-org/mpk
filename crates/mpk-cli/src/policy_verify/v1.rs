@@ -3,6 +3,10 @@
 use crate::frontend_runner::{
     prepare_installed_frontend, run_prepared_frontend, AcceptedFrontendRun, FrontendRunRequest,
 };
+use crate::policy_profile::{
+    summary_only_axiom_report_is_permitted, validate_package_release_profiles,
+    validate_policy_profile_selection, PolicyProfileErrorKind, PolicyProfileSelection,
+};
 use crate::policy_report::render_policy_evidence_v1_markdown;
 use crate::policy_scan::v1::{
     build_policy_scan_v1_output, capture_invocation_inputs,
@@ -254,35 +258,23 @@ fn validate_verify_profiles(
     checker: &str,
     axiom: &str,
 ) -> Result<(), PolicyVerifyV1Error> {
-    if !matches!(checker, "core-bootstrap" | "mvp-structural" | "mvp-strict")
-        || !matches!(
-            strategy,
-            "payment-policy-alpha" | "payment-policy-rust-alpha"
-        )
-        || !matches!(axiom, "zero-axiom" | "mvp-theory")
-    {
-        return Err(PolicyVerifyV1Error::new(
-            "POLICY_PROFILE_UNKNOWN",
-            "strategy, checker, or axiom profile is not registered",
-        ));
-    }
-    let expected = match strategy {
-        "payment-policy-alpha" => ("go", "mpk.go.fixed.v0", "zero-axiom"),
-        "payment-policy-rust-alpha" => ("rust", "mpk.rust.checked.v0", "mvp-theory"),
-        _ => unreachable!("known strategy was checked"),
-    };
-    if (
-        scan.source_language.as_str(),
-        scan.semantic_profile.as_str(),
-        axiom,
-    ) != expected
-    {
-        return Err(PolicyVerifyV1Error::new(
-            "POLICY_PROFILE_TUPLE",
-            "strategy, language, semantic profile, and axiom profile form a crossed tuple",
-        ));
-    }
-    Ok(())
+    validate_policy_profile_selection(PolicyProfileSelection {
+        strategy_profile: strategy,
+        checker_profile: checker,
+        source_language: &scan.source_language,
+        semantic_profile: &scan.semantic_profile,
+        axiom_profile: axiom,
+    })
+    .map(|_| ())
+    .map_err(|error| {
+        let code = match error.kind() {
+            PolicyProfileErrorKind::CrossedTuple => "POLICY_PROFILE_TUPLE",
+            PolicyProfileErrorKind::Unknown | PolicyProfileErrorKind::PackageMismatch => {
+                "POLICY_PROFILE_UNKNOWN"
+            }
+        };
+        PolicyVerifyV1Error::new(code, error.to_string())
+    })
 }
 
 fn take(values: &mut BTreeMap<&str, String>, name: &str) -> String {
@@ -836,22 +828,25 @@ pub(crate) fn validate_package_release_policy_v1(
     recomputed_axiom_report: &PolicyAxiomReportV1,
 ) -> Result<(), PolicyVerifyV1Error> {
     let document = evidence.document();
-    if active.source_language != document.source_language
-        || active.semantic_profile != document.semantic_profile
-        || active.strategy_profile != document.strategy_profile
-        || active.checker_profile != document.checker_profile
-        || active.axiom_profile != document.axiom_profile
-        || package.checker_profile != document.checker_profile
-        || !package
-            .allowed_axiom_profiles
-            .iter()
-            .any(|profile| profile == &document.axiom_profile)
-    {
-        return Err(PolicyVerifyV1Error::new(
-            "POLICY_PACKAGE_PROFILE",
-            "active release, package, and evidence profiles differ or are not permitted",
-        ));
-    }
+    let validated_profiles = validate_package_release_profiles(
+        PolicyProfileSelection {
+            strategy_profile: &document.strategy_profile,
+            checker_profile: &document.checker_profile,
+            source_language: &document.source_language,
+            semantic_profile: &document.semantic_profile,
+            axiom_profile: &document.axiom_profile,
+        },
+        &package.checker_profile,
+        &package.allowed_axiom_profiles,
+        PolicyProfileSelection {
+            strategy_profile: &active.strategy_profile,
+            checker_profile: &active.checker_profile,
+            source_language: &active.source_language,
+            semantic_profile: &active.semantic_profile,
+            axiom_profile: &active.axiom_profile,
+        },
+    )
+    .map_err(|error| PolicyVerifyV1Error::new("POLICY_PACKAGE_PROFILE", error.to_string()))?;
     if vc.hash().as_str() != document.vc_hash
         || certificate_manifest.hash().as_str() != document.certificate_source_manifest_hash
         || certificate_manifest.manifest().vc_hash.as_deref() != Some(document.vc_hash.as_str())
@@ -867,24 +862,26 @@ pub(crate) fn validate_package_release_policy_v1(
             "evidence axiom report differs from the recomputed package input",
         ));
     }
-    match (&document.axiom_profile[..], recomputed_axiom_report) {
-        ("zero-axiom", PolicyAxiomReportV1::NotGenerated)
+    match (validated_profiles.axiom_profile, recomputed_axiom_report) {
+        (mpk_api::PolicyAxiomProfile::ZeroAxiom, PolicyAxiomReportV1::NotGenerated)
             if document.trusted_evidence.certificates.is_empty() => {}
         (
-            "zero-axiom",
+            mpk_api::PolicyAxiomProfile::ZeroAxiom,
             PolicyAxiomReportV1::Checked {
                 category_counts, ..
             },
         ) if category_counts.total_axiom_count == 0 => {}
-        ("mvp-theory", PolicyAxiomReportV1::NotGenerated)
+        (mpk_api::PolicyAxiomProfile::MvpTheory, PolicyAxiomReportV1::NotGenerated)
             if document.trusted_evidence.certificates.is_empty() => {}
         (
-            "mvp-theory",
+            mpk_api::PolicyAxiomProfile::MvpTheory,
             PolicyAxiomReportV1::Checked {
                 category_counts, ..
             },
-        ) if category_counts.external_axiom_count == 0
-            && category_counts.go_semantics_axiom_count == 0 => {}
+        ) if summary_only_axiom_report_is_permitted(
+            validated_profiles.axiom_profile,
+            category_counts.total_axiom_count,
+        ) => {}
         _ => {
             return Err(PolicyVerifyV1Error::new(
                 "POLICY_PACKAGE_AXIOM_REPORT",

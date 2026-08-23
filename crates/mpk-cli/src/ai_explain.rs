@@ -17,6 +17,10 @@ use std::sync::atomic::{AtomicU64, Ordering};
 #[cfg(feature = "vertex-ai")]
 use std::time::Duration;
 
+use mpk_cli::policy_profile::{
+    lookup_strategy_registration, validate_explainer_profile_selection, PolicyProfileErrorKind,
+    PolicyProfileRecognition, PolicyProfileSelection,
+};
 use mpk_cli::policy_schema::{
     import_policy_evidence_v1_for_consumer, PolicyAxiomReportV1, PolicyEvidenceReferenceV1,
     PolicyEvidenceV1, PolicyHelperArtifact, PolicySemanticParameters, ValidatedPolicyEvidenceV1,
@@ -80,7 +84,6 @@ const MAX_RETRY_AFTER_SECONDS: u64 = 10;
 #[cfg(feature = "vertex-ai")]
 static OUTPUT_COUNTER: AtomicU64 = AtomicU64::new(0);
 
-const RECOGNIZED_CHECKERS: &[&str] = &["core-bootstrap", "mvp-structural", "mvp-strict"];
 const RECOGNIZED_CATEGORIES: &[&str] = &[
     "non_negative_result",
     "result_bounded_by_input",
@@ -678,35 +681,32 @@ pub(crate) fn validate_profile_v1(
         _ => false,
     };
 
-    let known_expected = match profile.strategy_profile.as_str() {
-        "payment-policy-alpha" => Some(("go", "mpk.go.fixed.v0", "zero-axiom")),
-        "payment-policy-rust-alpha" => Some(("rust", "mpk.rust.checked.v0", "mvp-theory")),
-        _ => None,
-    };
-    if let Some(expected) = known_expected {
-        if !semantic_is_valid
-            || (
-                profile.source_language.as_str(),
-                profile.semantic_profile.as_str(),
-                profile.axiom_profile.as_str(),
-            ) != expected
-        {
-            return Err(invalid(AiExplainV1ErrorCode::ProfileTuple));
-        }
-        if !RECOGNIZED_CHECKERS.contains(&profile.checker_profile.as_str()) {
-            return Err(invalid(AiExplainV1ErrorCode::InvalidEvidence));
-        }
-        return Ok(profile.strategy_profile.clone());
+    let strategy_is_known = lookup_strategy_registration(&profile.strategy_profile).is_some();
+    if !semantic_is_valid {
+        return Err(invalid(if strategy_is_known {
+            AiExplainV1ErrorCode::ProfileTuple
+        } else {
+            AiExplainV1ErrorCode::InvalidEvidence
+        }));
     }
 
-    if !semantic_is_valid
-        || !RECOGNIZED_CHECKERS.contains(&profile.checker_profile.as_str())
-        || !matches!(profile.axiom_profile.as_str(), "zero-axiom" | "mvp-theory")
-        || !profile.upstream_registry_authorized
-    {
-        return Err(invalid(AiExplainV1ErrorCode::InvalidEvidence));
+    match validate_explainer_profile_selection(
+        PolicyProfileSelection {
+            strategy_profile: &profile.strategy_profile,
+            checker_profile: &profile.checker_profile,
+            source_language: &profile.source_language,
+            semantic_profile: &profile.semantic_profile,
+            axiom_profile: &profile.axiom_profile,
+        },
+        profile.upstream_registry_authorized,
+    ) {
+        Ok(PolicyProfileRecognition::Recognized(_)) => Ok(profile.strategy_profile.clone()),
+        Ok(PolicyProfileRecognition::UnrecognizedStrategy) => Ok("unrecognized".to_owned()),
+        Err(error) if error.kind() == PolicyProfileErrorKind::CrossedTuple => {
+            Err(invalid(AiExplainV1ErrorCode::ProfileTuple))
+        }
+        Err(_) => Err(invalid(AiExplainV1ErrorCode::InvalidEvidence)),
     }
-    Ok("unrecognized".to_owned())
 }
 
 fn validate_explain_limits(document: &PolicyEvidenceV1) -> Result<(), AiExplainV1Error> {

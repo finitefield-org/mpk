@@ -1,11 +1,13 @@
 use mpk_api::{
     theory_strategy_certificate, theory_strategy_certificate_evidence, ApiErrorCode, ApiProofId,
-    ApiService, ApiTermId, ConstTermRequest, PolicyObligationDescriptor, PolicyObligationPattern,
-    PolicyStrategyErrorCode, PolicyStrategyMetadata, PolicyStrategyProfile, ProofProfile,
-    SortTermRequest, StartSessionRequest, StrategyKind, StrategyProveRequest, TheoryStrategyKind,
-    PAYMENT_POLICY_ALPHA_PROFILE,
+    ApiService, ApiTermId, ConstTermRequest, PolicyAxiomProfile, PolicyObligationDescriptor,
+    PolicyObligationPattern, PolicyReadiness, PolicyStrategyErrorCode, PolicyStrategyMetadata,
+    PolicyStrategyProfile, ProofProfile, SortTermRequest, StartSessionRequest, StrategyKind,
+    StrategyProveRequest, TheoryStrategyKind, PAYMENT_POLICY_ALPHA_PROFILE,
+    PAYMENT_POLICY_RUST_ALPHA_PROFILE, POLICY_STRATEGY_REGISTRY,
 };
 use mpk_cert::encode::ProofNode;
+use mpk_vc::{SemanticProfile, SourceLanguage};
 
 const RESERVE_FIRST_OBLIGATION: &str =
     "example.com/payment/reserve.ApprovedReserveCents.then.post0";
@@ -133,6 +135,83 @@ fn payment_policy_alpha_profile_metadata_is_stable() {
 }
 
 #[test]
+fn strategy_registry_binds_exact_go_and_rust_tuples_in_stable_order() {
+    assert_eq!(POLICY_STRATEGY_REGISTRY.len(), 2);
+    let go = POLICY_STRATEGY_REGISTRY[0];
+    assert_eq!(
+        go.strategy_profile,
+        PolicyStrategyProfile::PaymentPolicyAlpha
+    );
+    assert_eq!(go.source_language, SourceLanguage::Go);
+    assert_eq!(go.semantic_profile, SemanticProfile::GoFixedV0);
+    assert_eq!(go.axiom_profile, PolicyAxiomProfile::ZeroAxiom);
+
+    let rust = POLICY_STRATEGY_REGISTRY[1];
+    assert_eq!(
+        rust.strategy_profile,
+        PolicyStrategyProfile::PaymentPolicyRustAlpha
+    );
+    assert_eq!(rust.source_language, SourceLanguage::Rust);
+    assert_eq!(rust.semantic_profile, SemanticProfile::RustCheckedV0);
+    assert_eq!(rust.axiom_profile, PolicyAxiomProfile::MvpTheory);
+    assert_eq!(rust.source_language_name(), "rust");
+    assert_eq!(rust.semantic_profile_name(), "mpk.rust.checked.v0");
+    assert_eq!(
+        serde_json::to_string(&POLICY_STRATEGY_REGISTRY).unwrap(),
+        r#"[{"strategy_profile":"payment-policy-alpha","source_language":"go","semantic_profile":"mpk.go.fixed.v0","axiom_profile":"zero-axiom"},{"strategy_profile":"payment-policy-rust-alpha","source_language":"rust","semantic_profile":"mpk.rust.checked.v0","axiom_profile":"mvp-theory"}]"#
+    );
+}
+
+#[test]
+fn rust_strategy_reuses_neutral_patterns_with_rust_specific_readiness() {
+    let rust_profile = PAYMENT_POLICY_RUST_ALPHA_PROFILE
+        .parse::<PolicyStrategyProfile>()
+        .expect("Rust policy strategy parses");
+    assert_eq!(rust_profile, PolicyStrategyProfile::PaymentPolicyRustAlpha);
+    assert_eq!(
+        rust_profile.canonical_name(),
+        PAYMENT_POLICY_RUST_ALPHA_PROFILE
+    );
+
+    let go = PolicyStrategyMetadata::parse_profile(PAYMENT_POLICY_ALPHA_PROFILE).unwrap();
+    let rust = PolicyStrategyMetadata::parse_profile(PAYMENT_POLICY_RUST_ALPHA_PROFILE).unwrap();
+    assert_eq!(
+        rust.allowed_obligation_patterns, go.allowed_obligation_patterns,
+        "the supported business and safety patterns are language-neutral"
+    );
+    assert_eq!(
+        rust.candidate_theory_strategies,
+        go.candidate_theory_strategies
+    );
+    assert!(rust_profile
+        .readiness_description(PolicyReadiness::Ready)
+        .contains("Rust function"));
+    assert!(rust_profile
+        .readiness_description(PolicyReadiness::Ready)
+        .contains("checked arithmetic"));
+    for readiness in [
+        PolicyReadiness::Ready,
+        PolicyReadiness::Unsupported,
+        PolicyReadiness::SourceError,
+        PolicyReadiness::FrontendError,
+    ] {
+        let description = rust_profile.readiness_description(readiness);
+        assert!(description.contains("Rust"));
+        assert!(!description.contains("Go"));
+    }
+    assert_eq!(
+        serde_json::to_string(&[
+            PolicyReadiness::Ready,
+            PolicyReadiness::Unsupported,
+            PolicyReadiness::SourceError,
+            PolicyReadiness::FrontendError,
+        ])
+        .unwrap(),
+        r#"["ready","unsupported","source_error","frontend_error"]"#
+    );
+}
+
+#[test]
 fn payment_policy_alpha_closes_first_reserve_nonnegative_with_checked_linarith() {
     let metadata =
         PolicyStrategyMetadata::parse_profile(PAYMENT_POLICY_ALPHA_PROFILE).expect("metadata");
@@ -255,14 +334,14 @@ fn unknown_strategy_profile_rejects_deterministically() {
     assert_eq!(error.code, PolicyStrategyErrorCode::UnknownStrategyProfile);
     assert_eq!(
         error.to_string(),
-        "UNKNOWN_STRATEGY_PROFILE: unknown policy strategy profile \"payment-policy-basic\"; expected one of: payment-policy-alpha"
+        "UNKNOWN_STRATEGY_PROFILE: unknown policy strategy profile \"payment-policy-basic\"; expected one of: payment-policy-alpha, payment-policy-rust-alpha"
     );
     let encoded = serde_json::to_string_pretty(&error).expect("error serializes");
     assert_eq!(
         encoded,
         r#"{
   "code": "UNKNOWN_STRATEGY_PROFILE",
-  "message": "unknown policy strategy profile \"payment-policy-basic\"; expected one of: payment-policy-alpha",
+  "message": "unknown policy strategy profile \"payment-policy-basic\"; expected one of: payment-policy-alpha, payment-policy-rust-alpha",
   "field": "strategy_profile",
   "detail": "payment-policy-basic"
 }"#

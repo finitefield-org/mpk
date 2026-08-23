@@ -34,9 +34,10 @@ pub use jsonl::{
     JsonlExportResponse, JsonlImportRequest, JsonlImportResponse,
 };
 pub use policy_strategy::{
-    PolicyObligationDescriptor, PolicyObligationPattern, PolicyStrategyError,
-    PolicyStrategyErrorCode, PolicyStrategyMetadata, PolicyStrategyProfile,
-    PAYMENT_POLICY_ALPHA_PROFILE,
+    PolicyAxiomProfile, PolicyObligationDescriptor, PolicyObligationPattern, PolicyReadiness,
+    PolicyStrategyError, PolicyStrategyErrorCode, PolicyStrategyMetadata, PolicyStrategyProfile,
+    PolicyStrategyRegistration, PAYMENT_POLICY_ALPHA_PROFILE, PAYMENT_POLICY_RUST_ALPHA_PROFILE,
+    POLICY_STRATEGY_REGISTRY,
 };
 pub use proof_api::{
     ApiProofId, ApplyProofRequest, ConvProofRequest, ExactProofRequest, IntroProofRequest,

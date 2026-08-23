@@ -12,6 +12,7 @@ use std::process::{Command, ExitCode};
 use mpk_cli::ai_explain::{
     execute_dry_run_file_v1, execute_vertex_file_v1, ExplainLanguageV1, DEFAULT_GEMINI_MODEL,
 };
+use mpk_cli::policy_profile::{validate_package_axiom_profiles, POLICY_CHECKER_REGISTRY};
 use mpk_cli::policy_scan::v1::run_cli as run_policy_scan_cli;
 use mpk_cli::policy_verify::v1::run_cli as run_policy_verify_cli;
 use mpk_core::Name;
@@ -38,7 +39,6 @@ const POLICY_FIELDS: &[&str] = &[
     "require_reference_checker",
     "require_source_free_check",
 ];
-const CHECKER_PROFILES: &[&str] = &["core-bootstrap", "mvp-structural", "mvp-strict"];
 #[cfg(feature = "vertex-ai")]
 const VERTEX_AI_PROVIDER: &str = "vertex-ai";
 #[cfg(not(feature = "vertex-ai"))]
@@ -811,7 +811,10 @@ fn validate_policy(value: Option<&Value>) -> Result<PackagePolicy, PackageError>
     require_exact_fields(policy, POLICY_FIELDS, "policy")?;
 
     let checker_profile = require_string(policy.get("checker_profile"), "policy.checker_profile")?;
-    if !CHECKER_PROFILES.contains(&checker_profile) {
+    if !POLICY_CHECKER_REGISTRY
+        .iter()
+        .any(|profile| profile.canonical_name() == checker_profile)
+    {
         return Err(PackageError(format!(
             "policy.checker_profile is unknown: {checker_profile:?}"
         )));
@@ -826,13 +829,17 @@ fn validate_policy(value: Option<&Value>) -> Result<PackagePolicy, PackageError>
             "policy.allowed_axiom_profiles must be a nonempty list".to_owned(),
         ));
     }
+    let mut registered_axiom_profiles = Vec::with_capacity(axiom_profiles.len());
     for (index, value) in axiom_profiles.iter().enumerate() {
         let field = format!("policy.allowed_axiom_profiles[{index}]");
         let profile = require_string(Some(value), &field)?;
         if profile.is_empty() {
             return Err(PackageError(format!("{field} must be a nonempty string")));
         }
+        registered_axiom_profiles.push(profile.to_owned());
     }
+    validate_package_axiom_profiles(&registered_axiom_profiles)
+        .map_err(|error| PackageError(format!("policy.allowed_axiom_profiles: {error}")))?;
 
     let require_reference_checker = require_bool(
         policy.get("require_reference_checker"),
