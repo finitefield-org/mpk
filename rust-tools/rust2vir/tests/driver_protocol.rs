@@ -469,6 +469,7 @@ fn private_diagnostics_use_only_registered_code_status_phase_combinations() {
             "subset",
             "RUST_SUBSET_NOT_REGISTERED",
         ),
+        (DriverStatus::Rejected, "subset", "RUST_CONTRACT_LIMIT"),
         (DriverStatus::Rejected, "subset", "RUST_SOURCE_NAME"),
         (DriverStatus::SourceError, "source", "RUST_SOURCE_NAME"),
         (DriverStatus::FrontendError, "typecheck", "RUST_SOURCE_NAME"),

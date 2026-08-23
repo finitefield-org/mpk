@@ -53,6 +53,12 @@ The ProofOps-facing policy path currently distinguishes:
 
 These fields must remain separate in product reports and integrations.
 
+## Continuous Integration
+
+This repository does not use GitHub Actions and will not add GitHub Actions
+workflows. Project checks are run explicitly with the repository's local
+commands and scripts.
+
 ## Build From Source
 
 Install Rust and Go, then build the CLI:

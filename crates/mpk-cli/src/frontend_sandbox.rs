@@ -29,7 +29,7 @@ use std::sync::Arc;
 use std::thread;
 #[cfg(any(test, target_os = "linux"))]
 use std::time::Duration;
-#[cfg(target_os = "linux")]
+#[cfg(any(test, target_os = "linux"))]
 use std::time::Instant;
 
 #[cfg(any(test, target_os = "linux"))]
@@ -60,6 +60,9 @@ pub(crate) enum SandboxError {
 pub(crate) struct PreparedSandbox {
     _private: (),
 }
+
+#[cfg(any(test, target_os = "linux"))]
+const FRONTEND_WALL_CLOCK_TIMEOUT: Duration = Duration::from_secs(300);
 
 /// Runs the fixed capability probe before user source is exposed to the
 /// release frontend. The private token makes the launch path consume exactly
@@ -237,6 +240,23 @@ fn run_closed_process(
     args: &[String],
     environment: &BTreeMap<String, String>,
 ) -> Result<SandboxOutput, SandboxError> {
+    run_closed_process_with_timeout(
+        executable,
+        current_directory,
+        args,
+        environment,
+        FRONTEND_WALL_CLOCK_TIMEOUT,
+    )
+}
+
+#[cfg(any(test, target_os = "linux"))]
+fn run_closed_process_with_timeout(
+    executable: &Path,
+    current_directory: &Path,
+    args: &[String],
+    environment: &BTreeMap<String, String>,
+    timeout: Duration,
+) -> Result<SandboxOutput, SandboxError> {
     let mut command = Command::new(executable);
     command
         .args(args)
@@ -268,8 +288,15 @@ fn run_closed_process(
         Arc::clone(&overflow),
         Arc::clone(&read_failed),
     );
+    let deadline = Instant::now()
+        .checked_add(timeout)
+        .ok_or(SandboxError::Killed)?;
+    let mut timed_out = false;
     let status = loop {
         if overflow.load(Ordering::Acquire) {
+            kill_child_tree(&mut child);
+        } else if Instant::now() >= deadline {
+            timed_out = true;
             kill_child_tree(&mut child);
         }
         match child.try_wait() {
@@ -285,6 +312,9 @@ fn run_closed_process(
     let (stdout, _) = stdout_reader.join().map_err(|_| SandboxError::Killed)?;
     let (_, stderr_observed_bytes) = stderr_reader.join().map_err(|_| SandboxError::Killed)?;
     if read_failed.load(Ordering::Acquire) {
+        return Err(SandboxError::Killed);
+    }
+    if timed_out && !overflow.load(Ordering::Acquire) {
         return Err(SandboxError::Killed);
     }
     Ok(SandboxOutput {
@@ -885,6 +915,28 @@ mod tests {
         assert_eq!(retained.len(), FRONTEND_STDERR_BYTES_MAX + 1);
         assert!(overflow.load(Ordering::Acquire));
         assert!(!read_failed.load(Ordering::Acquire));
+    }
+
+    #[cfg(target_os = "linux")]
+    #[test]
+    fn frontend_runner_deadline_is_an_operational_kill() {
+        let temporary = tempfile::tempdir().unwrap();
+        let arguments = vec![
+            "-c".to_owned(),
+            "trap '' TERM; while :; do :; done".to_owned(),
+        ];
+        let started = Instant::now();
+        let error = run_closed_process_with_timeout(
+            Path::new("/bin/sh"),
+            temporary.path(),
+            &arguments,
+            &BTreeMap::new(),
+            Duration::from_millis(10),
+        )
+        .expect_err("the wall-clock deadline must kill a live frontend");
+
+        assert_eq!(error, SandboxError::Killed);
+        assert!(started.elapsed() < Duration::from_secs(5));
     }
 
     #[cfg(target_os = "linux")]

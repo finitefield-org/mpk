@@ -5,8 +5,9 @@
 //! returns immutable validated descriptors.
 
 use crate::{
-    canonical_json_bytes, hash_canonical_inventory, hash_canonical_json, parse_strict_json,
-    HashDomain, Sha256Digest, StrictJsonError, StrictJsonLimits, StrictJsonValue,
+    canonical_json_bytes_bounded, hash_canonical_inventory, hash_canonical_json, parse_strict_json,
+    scan_strict_json, CanonicalJsonError, HashDomain, Sha256Digest, StrictJsonError,
+    StrictJsonEvent, StrictJsonLimits, StrictJsonPathSegment, StrictJsonValue, StrictJsonValueKind,
 };
 use serde::{Deserialize, Serialize};
 use std::cmp::Ordering;
@@ -506,21 +507,24 @@ pub fn validate_release_registry(
     input: &[u8],
 ) -> Result<ValidatedReleaseRegistry, ReleaseRegistryError> {
     let value = parse_registry_transport(input)?;
-    let canonical = canonical_json_bytes(&value)
-        .map_err(|error| invalid(ReleaseValidationPhase::Transport, error.to_string()))?;
-    let registry: BundleRegistry = serde_json::from_slice(&canonical)
+    let registry: BundleRegistry = serde_json::from_slice(input)
         .map_err(|error| invalid(ReleaseValidationPhase::Shape, error.to_string()))?;
     validate_shape(&registry)?;
     validate_scalar(&registry)?;
     validate_order_and_references(&registry)?;
     validate_invariants(&registry)?;
     validate_content_hashes(&registry, &value)?;
-    if u64::try_from(canonical.len()).unwrap_or(u64::MAX) > REGISTRY_CANONICAL_BYTES_MAX {
-        return Err(limit(
+    let canonical = canonical_json_bytes_bounded(
+        &value,
+        usize::try_from(REGISTRY_CANONICAL_BYTES_MAX).unwrap_or(usize::MAX),
+    )
+    .map_err(|error| match error {
+        CanonicalJsonError::OutputBytesExceeded { .. } => limit(
             ReleaseValidationPhase::RegistryHash,
             "registry canonical byte limit exceeded",
-        ));
-    }
+        ),
+        _ => invalid(ReleaseValidationPhase::RegistryHash, error.to_string()),
+    })?;
     let registry_digest = validate_registry_hash(&registry, &value)?;
 
     let mut expected_transport = canonical;
@@ -539,6 +543,7 @@ pub fn validate_release_registry(
 }
 
 fn parse_registry_transport(input: &[u8]) -> Result<StrictJsonValue, ReleaseRegistryError> {
+    scan_registry_limits(input)?;
     parse_strict_json(input, REGISTRY_LIMITS).map_err(|error| {
         let code = match error {
             StrictJsonError::InputBytesExceeded { .. }
@@ -554,6 +559,243 @@ fn parse_registry_transport(input: &[u8]) -> Result<StrictJsonValue, ReleaseRegi
             detail: error.to_string(),
         }
     })
+}
+
+fn scan_registry_limits(input: &[u8]) -> Result<(), ReleaseRegistryError> {
+    let mut descriptors = 0_u64;
+    let mut components = 0_u64;
+    let mut serialized_files = 0_u64;
+    let mut unique_files = 0_u64;
+    let mut declared_bytes: Option<u64> = None;
+    let mut first_error: Option<StrictJsonError> = None;
+    let mut observer = |event: StrictJsonEvent<'_>| -> Result<(), StrictJsonError> {
+        let result = (|| {
+            match event {
+                StrictJsonEvent::Value {
+                    path,
+                    kind: StrictJsonValueKind::Array,
+                } if inventory_files_path(path) => declared_bytes = Some(0),
+                StrictJsonEvent::ArrayElement { path, count } => {
+                    if root_array(path, "frontend_bundles") || root_array(path, "toolchain_bundles")
+                    {
+                        descriptors = checked_observed_add("bundle_descriptors", descriptors, 1)?;
+                        observed_release_max(
+                            "bundle_descriptors",
+                            descriptors,
+                            BUNDLE_DESCRIPTORS_MAX,
+                        )?;
+                    } else if root_array(path, "tuples") {
+                        observed_release_max("tuples", count, RELEASE_TUPLES_MAX)?;
+                    } else if root_array(path, "execution_host_profiles") {
+                        observed_release_max(
+                            "execution_host_profiles",
+                            count,
+                            EXECUTION_HOST_PROFILES_MAX,
+                        )?;
+                    } else if root_array(path, "native_runtime_layout_profiles") {
+                        observed_release_max(
+                            "native_runtime_layout_profiles",
+                            count,
+                            NATIVE_RUNTIME_LAYOUT_PROFILES_MAX,
+                        )?;
+                    } else if toolchain_components_path(path) {
+                        components = checked_observed_add("components", components, 1)?;
+                        observed_release_max("components", components, TOOLCHAIN_COMPONENTS_MAX)?;
+                    }
+                    if inventory_files_path(path) {
+                        serialized_files = checked_observed_add(
+                            "serialized_inventory_entries",
+                            serialized_files,
+                            1,
+                        )?;
+                        observed_release_max(
+                            "serialized_inventory_entries",
+                            serialized_files,
+                            SERIALIZED_INVENTORY_ENTRIES_MAX,
+                        )?;
+                        if root_inventory_files_path(path) {
+                            unique_files =
+                                checked_observed_add("unique_bundle_files", unique_files, 1)?;
+                            observed_release_max(
+                                "unique_bundle_files",
+                                unique_files,
+                                UNIQUE_BUNDLE_FILES_MAX,
+                            )?;
+                        }
+                    }
+                }
+                StrictJsonEvent::String {
+                    path,
+                    decoded_bytes,
+                } if release_path_string(path) => observed_release_max(
+                    "portable_path_bytes",
+                    decoded_bytes,
+                    PORTABLE_PATH_BYTES_MAX,
+                )?,
+                StrictJsonEvent::Integer { path, value } if inventory_size_path(path) => {
+                    if let Ok(value) = u64::try_from(value) {
+                        observed_release_max("bundle_file_bytes", value, BUNDLE_FILE_BYTES_MAX)?;
+                        let total =
+                            declared_bytes.ok_or(StrictJsonError::ObservedCounterOverflow {
+                                limit: "bundle_declared_bytes",
+                            })?;
+                        let total = checked_observed_add("bundle_declared_bytes", total, value)?;
+                        observed_release_max(
+                            "bundle_declared_bytes",
+                            total,
+                            BUNDLE_DECLARED_BYTES_MAX,
+                        )?;
+                        declared_bytes = Some(total);
+                    }
+                }
+                StrictJsonEvent::ContainerEnd {
+                    path,
+                    kind: StrictJsonValueKind::Array,
+                    ..
+                } if inventory_files_path(path) => declared_bytes = None,
+                _ => {}
+            }
+            Ok(())
+        })();
+        if first_error.is_none() {
+            first_error = result.err();
+        }
+        Ok(())
+    };
+    scan_strict_json(input, REGISTRY_LIMITS, &mut observer).map_err(map_registry_scan_error)?;
+    drop(observer);
+    if let Some(error) = first_error {
+        return Err(map_registry_scan_error(error));
+    }
+    Ok(())
+}
+
+fn map_registry_scan_error(error: StrictJsonError) -> ReleaseRegistryError {
+    let phase = if matches!(
+        error,
+        StrictJsonError::ObservedLimitExceeded { .. }
+            | StrictJsonError::ObservedCounterOverflow { .. }
+    ) {
+        ReleaseValidationPhase::Scalar
+    } else {
+        ReleaseValidationPhase::Transport
+    };
+    let code = if matches!(
+        error,
+        StrictJsonError::InputBytesExceeded { .. }
+            | StrictJsonError::NodeLimitExceeded { .. }
+            | StrictJsonError::UnsupportedDepthLimit { .. }
+            | StrictJsonError::DepthLimitExceeded { .. }
+            | StrictJsonError::StringBytesExceeded { .. }
+            | StrictJsonError::ObservedLimitExceeded { .. }
+            | StrictJsonError::ObservedCounterOverflow { .. }
+    ) {
+        ReleaseRegistryErrorCode::Limit
+    } else {
+        ReleaseRegistryErrorCode::Invalid
+    };
+    ReleaseRegistryError {
+        phase,
+        code,
+        detail: error.to_string(),
+    }
+}
+
+fn checked_observed_add(
+    limit: &'static str,
+    current: u64,
+    increment: u64,
+) -> Result<u64, StrictJsonError> {
+    current
+        .checked_add(increment)
+        .ok_or(StrictJsonError::ObservedCounterOverflow { limit })
+}
+
+fn observed_release_max(
+    limit: &'static str,
+    actual: u64,
+    maximum: u64,
+) -> Result<(), StrictJsonError> {
+    if actual > maximum {
+        Err(StrictJsonError::ObservedLimitExceeded {
+            limit,
+            maximum,
+            actual,
+        })
+    } else {
+        Ok(())
+    }
+}
+
+fn root_array(path: &[StrictJsonPathSegment], expected: &str) -> bool {
+    matches!(path, [StrictJsonPathSegment::Key(name)] if name == expected)
+}
+
+fn toolchain_components_path(path: &[StrictJsonPathSegment]) -> bool {
+    matches!(
+        path,
+        [
+            StrictJsonPathSegment::Key(toolchains),
+            StrictJsonPathSegment::Index(_),
+            StrictJsonPathSegment::Key(components),
+        ] if toolchains == "toolchain_bundles" && components == "components"
+    )
+}
+
+fn inventory_files_path(path: &[StrictJsonPathSegment]) -> bool {
+    matches!(
+        path,
+        [.., StrictJsonPathSegment::Key(inventory), StrictJsonPathSegment::Key(files)]
+            if inventory == "inventory" && files == "files"
+    )
+}
+
+fn root_inventory_files_path(path: &[StrictJsonPathSegment]) -> bool {
+    matches!(
+        path,
+        [
+            StrictJsonPathSegment::Key(bundles),
+            StrictJsonPathSegment::Index(_),
+            StrictJsonPathSegment::Key(inventory),
+            StrictJsonPathSegment::Key(files),
+        ] if matches!(bundles.as_str(), "frontend_bundles" | "toolchain_bundles")
+            && inventory == "inventory" && files == "files"
+    )
+}
+
+fn inventory_size_path(path: &[StrictJsonPathSegment]) -> bool {
+    matches!(
+        path,
+        [
+            ..,
+            StrictJsonPathSegment::Key(inventory),
+            StrictJsonPathSegment::Key(files),
+            StrictJsonPathSegment::Index(_),
+            StrictJsonPathSegment::Key(size),
+        ] if inventory == "inventory" && files == "files" && size == "size_bytes"
+    )
+}
+
+fn release_path_string(path: &[StrictJsonPathSegment]) -> bool {
+    match path.last() {
+        Some(StrictJsonPathSegment::Key(name)) => matches!(
+            name.as_str(),
+            "path"
+                | "component_path"
+                | "sandbox_path"
+                | "runtime_root"
+                | "component_root"
+                | "interpreter_mount"
+        ),
+        Some(StrictJsonPathSegment::Index(_)) => path.iter().rev().nth(1).is_some_and(|segment| {
+            matches!(
+                segment,
+                StrictJsonPathSegment::Key(name)
+                    if matches!(name.as_str(), "loader_search_paths" | "forbidden_host_roots")
+            )
+        }),
+        None => false,
+    }
 }
 
 fn validate_shape(registry: &BundleRegistry) -> Result<(), ReleaseRegistryError> {
@@ -1810,7 +2052,7 @@ pub fn validate_release_limit(kind: &str, value: u64) -> Result<(), ReleaseRegis
     let (maximum, phase) = match kind {
         "registry_canonical_bytes" => (
             REGISTRY_CANONICAL_BYTES_MAX,
-            ReleaseValidationPhase::Transport,
+            ReleaseValidationPhase::RegistryHash,
         ),
         "registry_transport_bytes" => (
             REGISTRY_TRANSPORT_BYTES_MAX,

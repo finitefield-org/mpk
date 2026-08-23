@@ -1,14 +1,18 @@
 use crate::json::{self, JsonValue};
+use crate::limits::RustLimitId;
 use crate::sha256::{digest, hex};
 use std::collections::BTreeMap;
 use std::sync::Arc;
 
 pub const CONTRACT_SCHEMA: &str = "mpk.rust.contract.v0";
 pub const RUST_SEMANTIC_PROFILE: &str = "mpk.rust.checked.v0";
-pub const CONTRACT_CLAUSES_MAX: usize = 64;
-pub const CONTRACT_NODES_FUNCTION_MAX: usize = 1_024;
-pub const CONTRACT_NODES_CLOSURE_MAX: usize = 8_192;
-pub const CONTRACT_EXPRESSION_DEPTH_MAX: usize = 32;
+pub const CONTRACT_FILE_BYTES_MAX: usize = RustLimitId::ContractFileBytes.maximum() as usize;
+pub const CONTRACT_CLAUSES_MAX: usize = RustLimitId::ContractClausesFunction.maximum() as usize;
+pub const CONTRACT_NODES_FUNCTION_MAX: usize =
+    RustLimitId::ContractNodesFunction.maximum() as usize;
+pub const CONTRACT_NODES_CLOSURE_MAX: usize = RustLimitId::ContractNodesClosure.maximum() as usize;
+pub const CONTRACT_EXPRESSION_DEPTH_MAX: usize =
+    RustLimitId::ContractExpressionDepth.maximum() as usize;
 
 #[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
 pub enum ContractCode {
@@ -28,6 +32,26 @@ pub enum ContractCode {
 }
 
 impl ContractCode {
+    pub(crate) const fn precedence(self) -> u8 {
+        match self {
+            // The registered deterministic resource boundary precedes all
+            // contract-specific refusal codes in the frozen diagnostic table.
+            Self::Limit => 0,
+            Self::Json => 1,
+            Self::Schema => 2,
+            Self::Shape => 3,
+            Self::Identity => 4,
+            Self::Duplicate => 5,
+            Self::Unused => 6,
+            Self::Missing => 7,
+            Self::Resolution => 8,
+            Self::Profile => 9,
+            Self::Type => 10,
+            Self::Operator => 11,
+            Self::Hash => 12,
+        }
+    }
+
     pub fn as_str(self) -> &'static str {
         match self {
             Self::Json => "RUST_CONTRACT_JSON",
@@ -41,7 +65,7 @@ impl ContractCode {
             Self::Profile => "RUST_CONTRACT_PROFILE",
             Self::Type => "RUST_CONTRACT_TYPE",
             Self::Operator => "RUST_CONTRACT_OPERATOR",
-            Self::Limit => "RUST_CONTRACT_LIMIT",
+            Self::Limit => "RUST_LIMIT_CONTRACT",
             Self::Hash => "RUST_CONTRACT_HASH",
         }
     }
@@ -201,8 +225,77 @@ pub(crate) struct ParsedContract {
     pub ensures: Vec<JsonValue>,
 }
 
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub(crate) struct ContractMetrics {
+    pub nodes: usize,
+}
+
+pub(crate) fn prescan_contract(input: &ContractInput) -> Result<ContractMetrics, ContractError> {
+    let mut clauses = 0_usize;
+    let mut nodes = 0_usize;
+    let scan = json::scan_with_depth(&input.bytes, CONTRACT_FILE_BYTES_MAX, 128, |path| {
+        if is_clause_path(path) {
+            clauses = clauses.checked_add(1).ok_or(json::JsonScanError::Limit)?;
+            if clauses > CONTRACT_CLAUSES_MAX {
+                return Err(json::JsonScanError::Limit);
+            }
+        }
+        if let Some(depth) = expression_depth(path) {
+            nodes = nodes.checked_add(1).ok_or(json::JsonScanError::Limit)?;
+            if nodes > CONTRACT_NODES_FUNCTION_MAX || depth > CONTRACT_EXPRESSION_DEPTH_MAX {
+                return Err(json::JsonScanError::Limit);
+            }
+        }
+        Ok(())
+    });
+    match scan {
+        Ok(()) => Ok(ContractMetrics { nodes }),
+        Err(json::JsonScanError::Limit) => {
+            Err(ContractError::new(ContractCode::Limit, Some(input)))
+        }
+        Err(json::JsonScanError::Syntax | json::JsonScanError::Depth) => {
+            Err(ContractError::new(ContractCode::Json, Some(input)))
+        }
+    }
+}
+
+fn is_clause_path(path: &[json::JsonPathComponent]) -> bool {
+    path.len() == 2
+        && matches!(
+            path.first(),
+            Some(json::JsonPathComponent::Key(key)) if key == "requires" || key == "ensures"
+        )
+        && matches!(path.get(1), Some(json::JsonPathComponent::Index(_)))
+}
+
+fn expression_depth(path: &[json::JsonPathComponent]) -> Option<usize> {
+    if !is_clause_path(path.get(..2)?) {
+        return None;
+    }
+    let mut cursor = 2_usize;
+    let mut depth = 1_usize;
+    while cursor < path.len() {
+        if cursor + 1 >= path.len()
+            || !matches!(
+                path.get(cursor),
+                Some(json::JsonPathComponent::Key(key)) if key == "args"
+            )
+            || !matches!(
+                path.get(cursor + 1),
+                Some(json::JsonPathComponent::Index(_))
+            )
+        {
+            return None;
+        }
+        depth = depth.checked_add(1)?;
+        cursor += 2;
+    }
+    Some(depth)
+}
+
 pub(crate) fn parse_contract(input: ContractInput) -> Result<ParsedContract, ContractError> {
-    let value = json::parse_with_depth(&input.bytes, input.bytes.len(), 128)
+    prescan_contract(&input)?;
+    let value = json::parse_with_depth(&input.bytes, CONTRACT_FILE_BYTES_MAX, 128)
         .map_err(|_| ContractError::new(ContractCode::Json, Some(&input)))?;
     let root = value
         .as_object()

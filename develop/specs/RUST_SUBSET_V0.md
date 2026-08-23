@@ -1053,9 +1053,12 @@ The exact nested fields and valid synthetic instance are normative in
   linker/fuzz-engine argv;
 - component provenance and license/notice references; and
 - each component's sorted regular files with an ASCII relative `path` satisfying
-  the section 2.1 component syntax and reserved-name exclusions but using the
-  production projection's byte-exact equality, Boolean `executable`, integer
-  `size_bytes`, and raw `sha256`.
+  the section 2.1 length, component, and reserved-name rules, with `+` added to
+  the component character class solely for build-input native/toolchain names.
+  Build-input paths use the production projection's byte-exact equality rather
+  than source-input ASCII case folding because the frozen Linux sysroot
+  contains case-distinct headers. Each entry also has Boolean `executable`,
+  integer `size_bytes`, and raw `sha256`.
 
 The vector's sibling `production_projection` object is frozen recipe input,
 not a field of `mpk.rust.build_inputs.v0`. Its roots and ELF entrypoints MUST be
@@ -1323,7 +1326,7 @@ single first error is required.
 | `RUST_PREFLIGHT_METADATA_MISMATCH` | rejected / metadata | metadata contradicts captured manifest selection |
 | `RUST_SOURCE_NAME`, `RUST_SOURCE_TYPE`, `RUST_SOURCE_BORROW`, `RUST_SOURCE_LITERAL_RANGE` | source-error / typecheck | compiler language error |
 | `RUST_SUBSET_IDENTIFIER`, `RUST_SUBSET_ITEM`, `RUST_SUBSET_FUNCTION_KIND`, `RUST_SUBSET_GENERIC`, `RUST_SUBSET_TRAIT`, `RUST_SUBSET_IMPL`, `RUST_SUBSET_STATIC`, `RUST_SUBSET_TYPE`, `RUST_SUBSET_DROP`, `RUST_SUBSET_PATTERN`, `RUST_SUBSET_BINDING`, `RUST_SUBSET_CONTROL_FLOW`, `RUST_SUBSET_MUTATION`, `RUST_SUBSET_OPERATION`, `RUST_SUBSET_CALL`, `RUST_SUBSET_PURITY` | rejected / subset | closed HIR/profile refusal |
-| `RUST_CONTRACT_JSON`, `RUST_CONTRACT_SCHEMA`, `RUST_CONTRACT_SHAPE`, `RUST_CONTRACT_IDENTITY`, `RUST_CONTRACT_DUPLICATE`, `RUST_CONTRACT_UNUSED`, `RUST_CONTRACT_MISSING`, `RUST_CONTRACT_RESOLUTION`, `RUST_CONTRACT_PROFILE`, `RUST_CONTRACT_TYPE`, `RUST_CONTRACT_OPERATOR`, `RUST_CONTRACT_LIMIT`, `RUST_CONTRACT_HASH` | rejected / subset | contract parse, closure, or typing refusal |
+| `RUST_CONTRACT_JSON`, `RUST_CONTRACT_SCHEMA`, `RUST_CONTRACT_SHAPE`, `RUST_CONTRACT_IDENTITY`, `RUST_CONTRACT_DUPLICATE`, `RUST_CONTRACT_UNUSED`, `RUST_CONTRACT_MISSING`, `RUST_CONTRACT_RESOLUTION`, `RUST_CONTRACT_PROFILE`, `RUST_CONTRACT_TYPE`, `RUST_CONTRACT_OPERATOR`, `RUST_CONTRACT_HASH` | rejected / subset | contract parse, closure, or typing refusal |
 | `RUST_TOOLCHAIN_COMPONENT`, `RUST_TOOLCHAIN_COMMIT`, `RUST_TOOLCHAIN_TARGET`, `RUST_TOOLCHAIN_OPTIONS`, `RUST_TOOLCHAIN_ARGUMENT`, `RUST_TOOLCHAIN_LOADER_PATH`, `RUST_TOOLCHAIN_MIR_ADAPTER` | frontend-error / release, typecheck, or lowering | pinned identity/session mismatch |
 | `RUST_MIR_STATEMENT`, `RUST_MIR_RVALUE`, `RUST_MIR_OPERAND`, `RUST_MIR_PLACE`, `RUST_MIR_PROJECTION`, `RUST_MIR_TERMINATOR`, `RUST_MIR_ASSERTION`, `RUST_MIR_CHECKED_PATTERN`, `RUST_MIR_CALL`, `RUST_MIR_MOVE`, `RUST_MIR_CLEANUP` | rejected / lowering | unsupported source-generated MIR form |
 | `RUST_SEMANTICS_TYPE`, `RUST_SEMANTICS_TARGET`, `RUST_SEMANTICS_CHECK_MISSING`, `RUST_SEMANTICS_CHECK_EXTRA`, `RUST_SEMANTICS_PANIC` | rejected / lowering | lowering/profile semantic mismatch |
@@ -1381,7 +1384,8 @@ hash preimage, publication state cases, and invalid mutations. Synthetic
 digests are fixtures; production descriptor values are emitted only by the
 frozen update recipe and first reviewed in RUST-03-T01.
 Its required root `owner_test` field is exactly
-`rust-tools/rust2vir/tests/build_inputs_conformance.rs`.
+`crates/mpk-cli/tests/frontend_runner.rs`, whose stable-workspace test invokes
+the build-input self-test outside the hermetic frontend mount.
 
 An implementation MUST exercise every vector case and compare exact outcome,
 phase, code, repeated identity, and hash. A compiler or Cargo update requires a

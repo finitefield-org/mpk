@@ -4,11 +4,14 @@ use std::collections::{BTreeMap, BTreeSet};
 use std::error::Error;
 use std::fmt;
 
+use serde::de::IgnoredAny;
 use serde::{Deserialize, Serialize};
 
 use crate::call_wp::{program_declaration_name, ProgramDeclarationKind};
 use crate::canonical_json::{
-    canonical_json_bytes, parse_strict_json, StrictJsonError, StrictJsonLimits, StrictJsonValue,
+    canonical_json_bytes_bounded, parse_strict_json, scan_strict_json, serialize_json_bounded,
+    BoundedJsonSerializeError, CanonicalJsonError, StrictJsonError, StrictJsonEvent,
+    StrictJsonLimits, StrictJsonPathSegment, StrictJsonValue, StrictJsonValueKind,
     MAX_SAFE_JSON_INTEGER,
 };
 use crate::hash::{hash_canonical_json, HashDomain};
@@ -22,6 +25,7 @@ use crate::vc::{
 };
 use crate::verification_limits::{
     validate_grouped_theorem_limits, validate_vc_stream_limits, validate_verification_limit,
+    VerificationLimitId,
 };
 use crate::vir::{DecimalInteger, LowercaseSha256, VirModule, VIR_SCHEMA_VERSION};
 use crate::vir_canonical::{contract_hash, vir_hash};
@@ -154,6 +158,7 @@ pub fn import_vc_v1_json(
     input: &[u8],
     source: &VcSourceContext,
 ) -> Result<ValidatedVcDocument, VcValidationError> {
+    scan_vc_stream_limits(input)?;
     let strict = parse_strict_json(input, VC_JSON_LIMITS).map_err(map_transport_error)?;
     validate_root_shape(&strict)?;
 
@@ -182,20 +187,8 @@ pub fn import_vc_v1_json(
             error.to_string(),
         )
     })?;
-    let canonical = canonical_json_bytes(&strict).map_err(|error| {
-        VcValidationError::new(VcValidationPhase::Shape, "VC_SHAPE", error.to_string())
-    })?;
-    validate_verification_limit(
-        "canonical_vc_json_bytes",
-        u64::try_from(canonical.len()).unwrap_or(u64::MAX),
-    )
-    .map_err(|error| {
-        VcValidationError::new(
-            VcValidationPhase::CanonicalSize,
-            error.code(),
-            error.to_string(),
-        )
-    })?;
+    let canonical = canonical_json_bytes_bounded(&strict, canonical_vc_maximum())
+        .map_err(map_vc_canonical_error)?;
 
     if input != canonical {
         return Err(VcValidationError::new(
@@ -219,6 +212,252 @@ pub fn import_vc_v1_json(
         canonical_bytes: canonical,
         hash: recomputed,
     })
+}
+
+fn scan_vc_stream_limits(input: &[u8]) -> Result<(), VcValidationError> {
+    let mut document_members = 0_u64;
+    let mut document_nodes = 0_u64;
+    let mut member_nodes = BTreeMap::<(u64, u64), u64>::new();
+    let mut first_error: Option<StrictJsonError> = None;
+    let mut observer = |event: StrictJsonEvent<'_>| -> Result<(), StrictJsonError> {
+        let result = (|| {
+            match event {
+                StrictJsonEvent::ArrayElement { path, count }
+                    if vc_members_path(path).is_some() =>
+                {
+                    observed_verification_max(VerificationLimitId::MembersPerFunction, count)?;
+                    document_members = observed_verification_add(
+                        VerificationLimitId::MembersPerDocument,
+                        document_members,
+                        1,
+                    )?;
+                    observed_verification_max(
+                        VerificationLimitId::MembersPerDocument,
+                        document_members,
+                    )?;
+                }
+                StrictJsonEvent::ArrayElement { path, count }
+                    if vc_assumptions_path(path).is_some() =>
+                {
+                    observed_verification_max(VerificationLimitId::AssumptionsPerMember, count)?;
+                }
+                StrictJsonEvent::Value {
+                    path,
+                    kind: StrictJsonValueKind::Object,
+                } => {
+                    if let Some((owner, depth, expression_node)) = vc_term_location(path) {
+                        if expression_node {
+                            if let Some(member) = owner {
+                                let count = member_nodes.entry(member).or_insert(0);
+                                *count = observed_verification_add(
+                                    VerificationLimitId::ExpressionNodesPerMember,
+                                    *count,
+                                    1,
+                                )?;
+                                observed_verification_max(
+                                    VerificationLimitId::ExpressionNodesPerMember,
+                                    *count,
+                                )?;
+                            }
+                            document_nodes = observed_verification_add(
+                                VerificationLimitId::ExpressionNodesPerDocument,
+                                document_nodes,
+                                1,
+                            )?;
+                            observed_verification_max(
+                                VerificationLimitId::ExpressionNodesPerDocument,
+                                document_nodes,
+                            )?;
+                        }
+                        if owner.is_some() {
+                            observed_verification_max(
+                                VerificationLimitId::MemberExpressionDepth,
+                                depth,
+                            )?;
+                        }
+                    }
+                }
+                _ => {}
+            }
+            Ok(())
+        })();
+        if first_error.is_none() {
+            first_error = result.err();
+        }
+        Ok(())
+    };
+    scan_strict_json(input, VC_JSON_LIMITS, &mut observer).map_err(map_transport_error)?;
+    drop(observer);
+    if let Some(error) = first_error {
+        validate_vc_root_before_stream_limit(input)?;
+        let limit = match &error {
+            StrictJsonError::ObservedLimitExceeded { limit, .. }
+            | StrictJsonError::ObservedCounterOverflow { limit } => {
+                VerificationLimitId::try_from(*limit)
+                    .map_err(|_| map_transport_error(error.clone()))?
+            }
+            _ => return Err(map_transport_error(error)),
+        };
+        return Err(VcValidationError::new(
+            VcValidationPhase::StreamLimits,
+            limit.code(),
+            error.to_string(),
+        ));
+    }
+    Ok(())
+}
+
+#[allow(dead_code)]
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct VcLimitRootProbe {
+    schema: String,
+    source_ir_schema: String,
+    source_ir_hash: String,
+    input_set_hash: String,
+    semantic_profile: crate::SemanticProfile,
+    semantic_parameters: crate::SemanticParameters,
+    verification_limit_profile: String,
+    functions: Vec<IgnoredAny>,
+    vc_hash: String,
+}
+
+#[derive(Deserialize)]
+struct VcSchemaLimitProbe {
+    schema: Option<String>,
+}
+
+fn validate_vc_root_before_stream_limit(input: &[u8]) -> Result<(), VcValidationError> {
+    let mut schema_deserializer = serde_json::Deserializer::from_slice(input);
+    schema_deserializer.disable_recursion_limit();
+    let schema_probe =
+        VcSchemaLimitProbe::deserialize(&mut schema_deserializer).map_err(|error| {
+            VcValidationError::new(VcValidationPhase::Shape, "VC_SHAPE", error.to_string())
+        })?;
+    if schema_probe.schema.as_deref() != Some(VC_SCHEMA_VERSION) {
+        return Err(VcValidationError::new(
+            VcValidationPhase::Shape,
+            "VC_SCHEMA",
+            "wrong VC schema discriminator",
+        ));
+    }
+    let mut deserializer = serde_json::Deserializer::from_slice(input);
+    deserializer.disable_recursion_limit();
+    let probe = VcLimitRootProbe::deserialize(&mut deserializer).map_err(|error| {
+        VcValidationError::new(VcValidationPhase::Shape, "VC_SHAPE", error.to_string())
+    })?;
+    debug_assert_eq!(probe.schema, VC_SCHEMA_VERSION);
+    for (name, value) in [
+        ("source_ir_hash", probe.source_ir_hash),
+        ("input_set_hash", probe.input_set_hash),
+        ("vc_hash", probe.vc_hash),
+    ] {
+        LowercaseSha256::new(value).map_err(|error| scalar(name, error.to_string()))?;
+    }
+    if probe.functions.is_empty() {
+        return Err(scalar("functions", "VC document has no functions"));
+    }
+    Ok(())
+}
+
+fn observed_verification_add(
+    limit: VerificationLimitId,
+    current: u64,
+    increment: u64,
+) -> Result<u64, StrictJsonError> {
+    current
+        .checked_add(increment)
+        .ok_or(StrictJsonError::ObservedCounterOverflow {
+            limit: limit.as_str(),
+        })
+}
+
+fn observed_verification_max(
+    limit: VerificationLimitId,
+    actual: u64,
+) -> Result<(), StrictJsonError> {
+    if actual > limit.maximum() {
+        Err(StrictJsonError::ObservedLimitExceeded {
+            limit: limit.as_str(),
+            maximum: limit.maximum(),
+            actual,
+        })
+    } else {
+        Ok(())
+    }
+}
+
+fn vc_members_path(path: &[StrictJsonPathSegment]) -> Option<u64> {
+    match path {
+        [StrictJsonPathSegment::Key(functions), StrictJsonPathSegment::Index(function), StrictJsonPathSegment::Key(members)]
+            if functions == "functions" && members == "members" =>
+        {
+            Some(*function)
+        }
+        _ => None,
+    }
+}
+
+fn vc_assumptions_path(path: &[StrictJsonPathSegment]) -> Option<(u64, u64)> {
+    match path {
+        [StrictJsonPathSegment::Key(functions), StrictJsonPathSegment::Index(function), StrictJsonPathSegment::Key(members), StrictJsonPathSegment::Index(member), StrictJsonPathSegment::Key(assumptions)]
+            if functions == "functions" && members == "members" && assumptions == "assumptions" =>
+        {
+            Some((*function, *member))
+        }
+        _ => None,
+    }
+}
+
+/// Returns the member owner (or document-only ownership for a requirement),
+/// the exact branch depth, and whether the current object is an expression
+/// rather than an embedded type node.
+fn vc_term_location(path: &[StrictJsonPathSegment]) -> Option<(Option<(u64, u64)>, u64, bool)> {
+    let (owner, suffix) = match path {
+        [StrictJsonPathSegment::Key(functions), StrictJsonPathSegment::Index(_), StrictJsonPathSegment::Key(requires), StrictJsonPathSegment::Index(_), suffix @ ..]
+            if functions == "functions" && requires == "requires" =>
+        {
+            (None, suffix)
+        }
+        [StrictJsonPathSegment::Key(functions), StrictJsonPathSegment::Index(function), StrictJsonPathSegment::Key(members), StrictJsonPathSegment::Index(member), StrictJsonPathSegment::Key(assumptions), StrictJsonPathSegment::Index(_), suffix @ ..]
+            if functions == "functions" && members == "members" && assumptions == "assumptions" =>
+        {
+            (Some((*function, *member)), suffix)
+        }
+        [StrictJsonPathSegment::Key(functions), StrictJsonPathSegment::Index(function), StrictJsonPathSegment::Key(members), StrictJsonPathSegment::Index(member), StrictJsonPathSegment::Key(conclusion), suffix @ ..]
+            if functions == "functions" && members == "members" && conclusion == "conclusion" =>
+        {
+            (Some((*function, *member)), suffix)
+        }
+        _ => return None,
+    };
+
+    let mut expression = true;
+    let mut depth = 1_u64;
+    let mut offset = 0;
+    while offset < suffix.len() {
+        match (&suffix[offset..], expression) {
+            ([StrictJsonPathSegment::Key(field), StrictJsonPathSegment::Index(_), ..], _)
+                if field == "args" =>
+            {
+                offset += 2
+            }
+            ([StrictJsonPathSegment::Key(field), ..], true)
+                if matches!(field.as_str(), "value" | "body") =>
+            {
+                offset += 1;
+            }
+            ([StrictJsonPathSegment::Key(field), ..], true)
+                if matches!(field.as_str(), "target" | "binder_type") =>
+            {
+                expression = false;
+                offset += 1;
+            }
+            _ => return None,
+        }
+        depth = depth.checked_add(1)?;
+    }
+    Some((owner, depth, expression))
 }
 
 /// Deterministically generates VC v1 from a linked source projection. This is
@@ -384,26 +623,17 @@ pub fn generate_vc_v1(
 }
 
 pub fn canonical_vc_json(document: &VcDocument) -> Result<Vec<u8>, VcValidationError> {
-    let serialized = serde_json::to_vec(document).map_err(|error| {
-        VcValidationError::new(VcValidationPhase::Shape, "VC_SHAPE", error.to_string())
-    })?;
-    validate_verification_limit(
-        "canonical_vc_json_bytes",
-        u64::try_from(serialized.len()).unwrap_or(u64::MAX),
-    )
-    .map_err(|error| {
-        VcValidationError::new(
-            VcValidationPhase::CanonicalSize,
-            error.code(),
-            error.to_string(),
-        )
-    })?;
+    let serialized =
+        serialize_json_bounded(document, canonical_vc_maximum()).map_err(|error| match error {
+            BoundedJsonSerializeError::OutputBytesExceeded { .. } => vc_canonical_size_error(),
+            BoundedJsonSerializeError::Serialize(detail) => {
+                VcValidationError::new(VcValidationPhase::Shape, "VC_SHAPE", detail)
+            }
+        })?;
     let strict = parse_strict_json(&serialized, VC_JSON_LIMITS).map_err(|error| {
         VcValidationError::new(VcValidationPhase::Shape, "VC_SHAPE", error.to_string())
     })?;
-    canonical_json_bytes(&strict).map_err(|error| {
-        VcValidationError::new(VcValidationPhase::Shape, "VC_SHAPE", error.to_string())
-    })
+    canonical_json_bytes_bounded(&strict, canonical_vc_maximum()).map_err(map_vc_canonical_error)
 }
 
 pub fn canonical_vc_hash_payload(document: &VcDocument) -> Result<Vec<u8>, VcValidationError> {
@@ -412,9 +642,7 @@ pub fn canonical_vc_hash_payload(document: &VcDocument) -> Result<Vec<u8>, VcVal
         .map_err(|error| {
             VcValidationError::new(VcValidationPhase::Shape, "VC_SHAPE", error.to_string())
         })?;
-    canonical_json_bytes(&payload).map_err(|error| {
-        VcValidationError::new(VcValidationPhase::Hash, "VC_HASH", error.to_string())
-    })
+    canonical_json_bytes_bounded(&payload, canonical_vc_maximum()).map_err(map_vc_canonical_error)
 }
 
 pub fn vc_hash(document: &VcDocument) -> Result<LowercaseSha256, VcValidationError> {
@@ -436,10 +664,40 @@ fn serialized_strict_value<T: Serialize>(
     phase: VcValidationPhase,
     code: &'static str,
 ) -> Result<StrictJsonValue, VcValidationError> {
-    let bytes = serde_json::to_vec(value)
-        .map_err(|error| VcValidationError::new(phase, code, error.to_string()))?;
+    let bytes =
+        serialize_json_bounded(value, canonical_vc_maximum()).map_err(|error| match error {
+            BoundedJsonSerializeError::OutputBytesExceeded { .. } => vc_canonical_size_error(),
+            BoundedJsonSerializeError::Serialize(detail) => {
+                VcValidationError::new(phase, code, detail)
+            }
+        })?;
     parse_strict_json(&bytes, VC_JSON_LIMITS)
         .map_err(|error| VcValidationError::new(phase, code, error.to_string()))
+}
+
+fn canonical_vc_maximum() -> usize {
+    usize::try_from(VerificationLimitId::CanonicalVcJsonBytes.maximum()).unwrap_or(usize::MAX)
+}
+
+fn vc_canonical_size_error() -> VcValidationError {
+    let limit = VerificationLimitId::CanonicalVcJsonBytes;
+    VcValidationError::new(
+        VcValidationPhase::CanonicalSize,
+        limit.code(),
+        format!(
+            "{} exceeds inclusive maximum {}",
+            limit.as_str(),
+            limit.maximum()
+        ),
+    )
+}
+
+fn map_vc_canonical_error(error: CanonicalJsonError) -> VcValidationError {
+    if matches!(error, CanonicalJsonError::OutputBytesExceeded { .. }) {
+        vc_canonical_size_error()
+    } else {
+        VcValidationError::new(VcValidationPhase::Shape, "VC_SHAPE", error.to_string())
+    }
 }
 
 fn map_transport_error(error: StrictJsonError) -> VcValidationError {

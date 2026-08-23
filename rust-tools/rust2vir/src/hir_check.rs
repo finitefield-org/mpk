@@ -7,6 +7,7 @@ use rust2vir_internal::call_closure::{
     resolve_call_closure, CallClosureError, MAX_CALL_CLOSURE_FUNCTIONS,
 };
 use rust2vir_internal::contract::ContractType;
+use rust2vir_internal::limits::RustLimitId;
 use rustc_abi::ExternAbi;
 use rustc_ast::ast::{BinOpKind, ByRef, LitKind, Mutability, UnOp};
 use rustc_hir as hir;
@@ -16,6 +17,10 @@ use rustc_middle::ty::{self, IntTy, Ty, TyCtxt, UintTy};
 use rustc_span::def_id::{DefId, LocalDefId};
 use rustc_span::Span;
 use std::collections::{BTreeSet, HashMap, HashSet};
+
+const ARRAY_ELEMENTS_MAX: usize = RustLimitId::ArrayElements.maximum() as usize;
+const STRUCT_FIELDS_MAX: usize = RustLimitId::StructFields.maximum() as usize;
+const AGGREGATE_DEPTH_MAX: usize = RustLimitId::AggregateDepth.maximum() as usize;
 
 #[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
 pub enum HirCheckCode {
@@ -402,7 +407,7 @@ fn validate_struct(
     let hir::VariantData::Struct { fields, .. } = data else {
         return Err(HirCheckCode::Item);
     };
-    if fields.len() > 64 {
+    if fields.len() > STRUCT_FIELDS_MAX {
         return Err(HirCheckCode::AggregateLimit);
     }
     for field in fields {
@@ -585,7 +590,7 @@ impl BodyValidator<'_, '_> {
                 self.array_spans.push(expression.span);
                 let ty = self.typeck.expr_ty(expression);
                 validate_value_type(self.tcx, self.def_id, ty, 0)?;
-                if elements.len() > 256 {
+                if elements.len() > ARRAY_ELEMENTS_MAX {
                     return Err(HirCheckCode::AggregateLimit);
                 }
                 for element in elements {
@@ -1082,7 +1087,7 @@ fn validate_value_type<'tcx>(
     }
     match ty.kind() {
         ty::Array(element, length) => {
-            if depth >= 16 {
+            if depth >= AGGREGATE_DEPTH_MAX {
                 return Err(HirCheckCode::AggregateLimit);
             }
             let typing_env = ty::TypingEnv::post_analysis(tcx, owner);
@@ -1097,7 +1102,7 @@ fn validate_value_type<'tcx>(
                 .try_eval_target_usize(tcx, typing_env)
             });
             match evaluated_length {
-                Some(length) if length <= 256 => {}
+                Some(length) if length <= ARRAY_ELEMENTS_MAX as u64 => {}
                 Some(_) => return Err(HirCheckCode::AggregateLimit),
                 None => return Err(HirCheckCode::Type),
             }
@@ -1106,7 +1111,9 @@ fn validate_value_type<'tcx>(
         ty::Adt(adt, arguments)
             if adt.is_struct() && adt.did().is_local() && arguments.is_empty() =>
         {
-            if depth >= 16 || adt.non_enum_variant().fields.len() > 64 {
+            if depth >= AGGREGATE_DEPTH_MAX
+                || adt.non_enum_variant().fields.len() > STRUCT_FIELDS_MAX
+            {
                 return Err(HirCheckCode::AggregateLimit);
             }
             for field in &adt.non_enum_variant().fields {

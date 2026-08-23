@@ -1,14 +1,15 @@
 use crate::cli::LowerRequest;
+use crate::limits::RustLimitId;
 use crate::path::{PortablePath, PortablePathError, PortablePathSet};
 use crate::source_capture::{CaptureFailure, CaptureState};
 
 pub use crate::source_capture::{CapturedInput as StructuralInput, InputKind};
 
-const MANIFEST_BYTES_MAX: u64 = 1_048_576;
-const LOCKFILE_BYTES_MAX: u64 = 4_194_304;
-const CONTRACT_FILES_MAX: usize = 128;
-const CONTRACT_FILE_BYTES_MAX: u64 = 1_048_576;
-const CONTRACT_TOTAL_BYTES_MAX: u64 = 8_388_608;
+const MANIFEST_BYTES_MAX: u64 = RustLimitId::ManifestBytes.maximum();
+const LOCKFILE_BYTES_MAX: u64 = RustLimitId::LockBytes.maximum();
+const CONTRACT_FILES_MAX: usize = RustLimitId::ContractFiles.maximum() as usize;
+const CONTRACT_FILE_BYTES_MAX: u64 = RustLimitId::ContractFileBytes.maximum();
+const CONTRACT_TOTAL_BYTES_MAX: u64 = RustLimitId::ContractTotalBytes.maximum();
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum PreflightCode {
@@ -122,8 +123,16 @@ pub fn run(request: &LowerRequest) -> Result<StructuralPreflight, PreflightError
     let mut contract_total = 0_u64;
     let mut contracts = Vec::with_capacity(contract_paths.len());
     for path in contract_paths {
+        let remaining = CONTRACT_TOTAL_BYTES_MAX
+            .checked_sub(contract_total)
+            .ok_or(PreflightCode::LimitContract)?;
         let input = capture
-            .capture_registered(path, InputKind::Contract, CONTRACT_FILE_BYTES_MAX)
+            .capture_registered_with_aggregate(
+                path,
+                InputKind::Contract,
+                CONTRACT_FILE_BYTES_MAX,
+                remaining,
+            )
             .map_err(|failure| map_capture_limit(failure, PreflightCode::LimitContract))?;
         contract_total = contract_total
             .checked_add(input.bytes.len() as u64)

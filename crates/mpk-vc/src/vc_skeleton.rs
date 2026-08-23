@@ -4,10 +4,13 @@ use std::collections::BTreeSet;
 use std::error::Error;
 use std::fmt;
 
+use serde::de::IgnoredAny;
 use serde::{Deserialize, Serialize};
 
 use crate::canonical_json::{
-    canonical_json_bytes, parse_strict_json, StrictJsonError, StrictJsonLimits, StrictJsonValue,
+    canonical_json_bytes_bounded, parse_strict_json, scan_strict_json, serialize_json_bounded,
+    BoundedJsonSerializeError, CanonicalJsonError, StrictJsonError, StrictJsonEvent,
+    StrictJsonLimits, StrictJsonPathSegment, StrictJsonValue,
 };
 use crate::grouping::{group_body, GroupingError};
 use crate::semantic_profile::{SemanticParameters, SemanticProfile};
@@ -15,7 +18,9 @@ use crate::vc::{VcBinder, VcGroupKind, VcSourceContext, VcTerm, VC_SCHEMA_VERSIO
 use crate::vc_canonical::{
     import_vc_v1_json, is_mpk_name, validate_term, validate_type_term, ValidatedVcDocument,
 };
-use crate::verification_limits::{validate_grouped_theorem_limits, validate_verification_limit};
+use crate::verification_limits::{
+    validate_grouped_theorem_limits, validate_verification_limit, VerificationLimitId,
+};
 use crate::vir::LowercaseSha256;
 
 pub const VC_CERT_SKELETON_V1_SCHEMA_VERSION: &str = "mpk.vc.cert_skeleton.v1";
@@ -204,6 +209,7 @@ pub fn import_vc_skeleton_v1_json(
     source_vc_bytes: &[u8],
     source: &VcSourceContext,
 ) -> Result<ValidatedVcCertificateSkeleton, VcSkeletonValidationError> {
+    scan_skeleton_stream_limits(input)?;
     let strict = parse_strict_json(input, SKELETON_JSON_LIMITS).map_err(map_transport_error)?;
     validate_root_shape(&strict)?;
 
@@ -232,24 +238,8 @@ pub fn import_vc_skeleton_v1_json(
         )
     })?;
 
-    let canonical = canonical_json_bytes(&strict).map_err(|error| {
-        VcSkeletonValidationError::new(
-            VcSkeletonValidationPhase::Shape,
-            "VC_SKELETON_SHAPE",
-            error.to_string(),
-        )
-    })?;
-    validate_verification_limit(
-        "canonical_skeleton_json_bytes",
-        u64::try_from(canonical.len()).unwrap_or(u64::MAX),
-    )
-    .map_err(|error| {
-        VcSkeletonValidationError::new(
-            VcSkeletonValidationPhase::CanonicalSize,
-            error.code(),
-            error.to_string(),
-        )
-    })?;
+    let canonical = canonical_json_bytes_bounded(&strict, canonical_skeleton_maximum())
+        .map_err(map_skeleton_canonical_error)?;
     if input != canonical {
         return Err(VcSkeletonValidationError::new(
             VcSkeletonValidationPhase::CanonicalTransport,
@@ -264,24 +254,186 @@ pub fn import_vc_skeleton_v1_json(
     })
 }
 
-pub fn canonical_skeleton_json(
-    skeleton: &VcCertificateSkeletonV1,
-) -> Result<Vec<u8>, VcSkeletonValidationError> {
-    let bytes = serde_json::to_vec(skeleton).map_err(|error| {
+fn scan_skeleton_stream_limits(input: &[u8]) -> Result<(), VcSkeletonValidationError> {
+    let mut members = 0_u64;
+    let mut first_error: Option<StrictJsonError> = None;
+    let mut observer = |event: StrictJsonEvent<'_>| -> Result<(), StrictJsonError> {
+        let result = (|| {
+            if let StrictJsonEvent::ArrayElement { path, count } = event {
+                if skeleton_declarations_path(path) {
+                    observed_skeleton_max("theorem_declarations", count, 524_288)?;
+                } else if skeleton_member_ids_path(path) {
+                    members =
+                        members
+                            .checked_add(1)
+                            .ok_or(StrictJsonError::ObservedCounterOverflow {
+                                limit: "skeleton_members",
+                            })?;
+                    observed_skeleton_max("skeleton_members", members, 262_144)?;
+                }
+            }
+            Ok(())
+        })();
+        if first_error.is_none() {
+            first_error = result.err();
+        }
+        Ok(())
+    };
+    scan_strict_json(input, SKELETON_JSON_LIMITS, &mut observer).map_err(map_transport_error)?;
+    drop(observer);
+    if let Some(error) = first_error {
+        validate_skeleton_root_before_stream_limit(input)?;
+        return Err(VcSkeletonValidationError::new(
+            VcSkeletonValidationPhase::StreamLimits,
+            "VC_SKELETON_SHAPE",
+            error.to_string(),
+        ));
+    }
+    Ok(())
+}
+
+#[allow(dead_code)]
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct SkeletonLimitRootProbe {
+    schema: String,
+    source_vc_schema: String,
+    source_vc_hash: String,
+    source_ir_schema: String,
+    source_ir_hash: String,
+    input_set_hash: String,
+    semantic_profile: crate::SemanticProfile,
+    semantic_parameters: crate::SemanticParameters,
+    verification_limit_profile: String,
+    theorem_declarations: Vec<IgnoredAny>,
+}
+
+#[derive(Deserialize)]
+struct SkeletonSchemaLimitProbe {
+    schema: Option<String>,
+}
+
+fn validate_skeleton_root_before_stream_limit(
+    input: &[u8],
+) -> Result<(), VcSkeletonValidationError> {
+    let mut schema_deserializer = serde_json::Deserializer::from_slice(input);
+    schema_deserializer.disable_recursion_limit();
+    let schema_probe =
+        SkeletonSchemaLimitProbe::deserialize(&mut schema_deserializer).map_err(|error| {
+            VcSkeletonValidationError::new(
+                VcSkeletonValidationPhase::Shape,
+                "VC_SKELETON_SHAPE",
+                error.to_string(),
+            )
+        })?;
+    if schema_probe.schema.as_deref() != Some(VC_CERT_SKELETON_V1_SCHEMA_VERSION) {
+        return Err(VcSkeletonValidationError::new(
+            VcSkeletonValidationPhase::Shape,
+            "VC_SKELETON_SCHEMA",
+            "wrong skeleton schema discriminator",
+        ));
+    }
+    let mut deserializer = serde_json::Deserializer::from_slice(input);
+    deserializer.disable_recursion_limit();
+    let probe = SkeletonLimitRootProbe::deserialize(&mut deserializer).map_err(|error| {
         VcSkeletonValidationError::new(
             VcSkeletonValidationPhase::Shape,
             "VC_SKELETON_SHAPE",
             error.to_string(),
         )
     })?;
+    debug_assert_eq!(probe.schema, VC_CERT_SKELETON_V1_SCHEMA_VERSION);
+    for (field, hash) in [
+        ("source_vc_hash", probe.source_vc_hash),
+        ("source_ir_hash", probe.source_ir_hash),
+        ("input_set_hash", probe.input_set_hash),
+    ] {
+        LowercaseSha256::new(hash).map_err(|error| scalar(field, error.to_string()))?;
+    }
+    Ok(())
+}
+
+fn observed_skeleton_max(
+    limit: &'static str,
+    actual: u64,
+    maximum: u64,
+) -> Result<(), StrictJsonError> {
+    if actual > maximum {
+        Err(StrictJsonError::ObservedLimitExceeded {
+            limit,
+            maximum,
+            actual,
+        })
+    } else {
+        Ok(())
+    }
+}
+
+fn skeleton_declarations_path(path: &[StrictJsonPathSegment]) -> bool {
+    matches!(
+        path,
+        [StrictJsonPathSegment::Key(name)] if name == "theorem_declarations"
+    )
+}
+
+fn skeleton_member_ids_path(path: &[StrictJsonPathSegment]) -> bool {
+    matches!(
+        path,
+        [
+            StrictJsonPathSegment::Key(declarations),
+            StrictJsonPathSegment::Index(_),
+            StrictJsonPathSegment::Key(member_ids),
+        ] if declarations == "theorem_declarations" && member_ids == "member_ids"
+    )
+}
+
+pub fn canonical_skeleton_json(
+    skeleton: &VcCertificateSkeletonV1,
+) -> Result<Vec<u8>, VcSkeletonValidationError> {
+    let bytes = serialize_json_bounded(skeleton, canonical_skeleton_maximum()).map_err(
+        |error| match error {
+            BoundedJsonSerializeError::OutputBytesExceeded { .. } => {
+                skeleton_canonical_size_error()
+            }
+            BoundedJsonSerializeError::Serialize(detail) => VcSkeletonValidationError::new(
+                VcSkeletonValidationPhase::Shape,
+                "VC_SKELETON_SHAPE",
+                detail,
+            ),
+        },
+    )?;
     let strict = parse_strict_json(&bytes, SKELETON_JSON_LIMITS).map_err(map_transport_error)?;
-    canonical_json_bytes(&strict).map_err(|error| {
+    canonical_json_bytes_bounded(&strict, canonical_skeleton_maximum())
+        .map_err(map_skeleton_canonical_error)
+}
+
+fn canonical_skeleton_maximum() -> usize {
+    usize::try_from(VerificationLimitId::CanonicalSkeletonJsonBytes.maximum()).unwrap_or(usize::MAX)
+}
+
+fn skeleton_canonical_size_error() -> VcSkeletonValidationError {
+    let limit = VerificationLimitId::CanonicalSkeletonJsonBytes;
+    VcSkeletonValidationError::new(
+        VcSkeletonValidationPhase::CanonicalSize,
+        limit.code(),
+        format!(
+            "{} exceeds inclusive maximum {}",
+            limit.as_str(),
+            limit.maximum()
+        ),
+    )
+}
+
+fn map_skeleton_canonical_error(error: CanonicalJsonError) -> VcSkeletonValidationError {
+    if matches!(error, CanonicalJsonError::OutputBytesExceeded { .. }) {
+        skeleton_canonical_size_error()
+    } else {
         VcSkeletonValidationError::new(
             VcSkeletonValidationPhase::Shape,
             "VC_SKELETON_SHAPE",
             error.to_string(),
         )
-    })
+    }
 }
 
 fn import_source_vc(

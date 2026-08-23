@@ -14,7 +14,7 @@ use rust2vir_internal::driver_protocol::{
 use rust2vir_internal::environment::DRIVER_OUTPUT_ROOT;
 use rust2vir_internal::sandbox::{
     CargoInvocation, CargoInvocationKind, ProcessOutput, SandboxContext, SandboxError,
-    SandboxExecutor,
+    SandboxExecutor, STDERR_BYTES_LIMIT, STDOUT_BYTES_LIMIT,
 };
 
 #[derive(Default)]
@@ -151,7 +151,11 @@ fn check_uses_the_exact_package_target_command_and_same_sandbox_state() {
         executor.calls[1].snapshot_root
     );
     assert_eq!(executor.calls[0].writable, executor.calls[1].writable);
-    assert_eq!(executor.calls[0].limits, executor.calls[1].limits);
+    assert_eq!(executor.calls[0].limits.stdout_bytes, STDOUT_BYTES_LIMIT);
+    assert_eq!(executor.calls[0].limits.stderr_bytes, STDERR_BYTES_LIMIT);
+    let mut remaining = executor.calls[0].limits;
+    remaining.stdout_bytes -= metadata_json().len();
+    assert_eq!(executor.calls[1].limits, remaining);
 }
 
 #[test]
@@ -428,7 +432,7 @@ fn sandbox_unavailable_maps_to_the_shared_typecheck_frontend_code() {
 }
 
 #[test]
-fn compiler_message_count_is_bounded_before_public_normalization() {
+fn raw_compiler_message_count_does_not_reclassify_the_source_result() {
     let failed = String::from_utf8(common::failed_check_stream()).unwrap();
     let diagnostic = failed.lines().next().unwrap();
     let mut oversized = String::new();
@@ -462,12 +466,8 @@ fn compiler_message_count_is_bounded_before_public_normalization() {
     .unwrap()
     .run()
     .unwrap();
-    assert_eq!(
-        check
-            .run()
-            .err()
-            .expect("message count above the frozen budget must fail")
-            .code,
-        CargoCheckCode::DiagnosticBudget
-    );
+    let (result, _) = check.run().expect("raw messages remain a source result");
+    assert!(!result.succeeded());
+    assert_eq!(result.messages().len(), 1_024);
+    assert_eq!(result.source_error_code(), Some(RustSourceCode::Type));
 }

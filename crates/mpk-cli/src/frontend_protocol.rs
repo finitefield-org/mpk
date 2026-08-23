@@ -1,10 +1,12 @@
 use mpk_vc::{
     canonical_json_bytes, import_frontend_source_manifest_json, import_source_map_json,
-    import_vir_json, parse_strict_json, CapturedInput, LanguageConfiguration,
-    SourceManifestValidationContext, SourceMapValidationContext, StrictJsonLimits,
-    ValidatedReleaseRegistry, ValidatedSourceManifest, ValidatedSourceMap, VirModule,
+    import_vir_json, parse_strict_json, scan_strict_json, CapturedInput, LanguageConfiguration,
+    SourceManifestValidationContext, SourceMapValidationContext, StrictJsonError, StrictJsonEvent,
+    StrictJsonLimits, StrictJsonObserver, StrictJsonPathSegment, ValidatedReleaseRegistry,
+    ValidatedSourceManifest, ValidatedSourceMap, VirModule,
 };
 use serde::de::IgnoredAny;
+use serde::Deserialize;
 use serde_json::{Map, Value};
 use std::cmp::Ordering;
 use std::collections::{BTreeMap, BTreeSet};
@@ -124,6 +126,44 @@ impl fmt::Display for FrontendProtocolError {
 
 impl Error for FrontendProtocolError {}
 
+/// Checks one named public-frontend limit without constructing a potentially
+/// huge transport. The returned code preserves the consumer classification:
+/// producers normalize issue messages before transport, while stream and
+/// combined-list breaches are protocol limits.
+#[doc(hidden)]
+pub fn validate_frontend_protocol_limit(
+    family: &str,
+    count: u64,
+) -> Result<(), FrontendProtocolError> {
+    let (maximum, code) = match family {
+        "stdout_transport_bytes" => (
+            FRONTEND_STDOUT_BYTES_MAX as u64,
+            FrontendProtocolCode::ProtocolLimit,
+        ),
+        "stderr_observed_bytes" => (
+            FRONTEND_STDERR_BYTES_MAX as u64,
+            FrontendProtocolCode::ProtocolLimit,
+        ),
+        "json_nesting" => (JSON_NESTING_MAX, FrontendProtocolCode::ProtocolMalformed),
+        "string_bytes" => (STRING_BYTES_MAX, FrontendProtocolCode::ProtocolMalformed),
+        "issues" => (ISSUES_MAX as u64, FrontendProtocolCode::ProtocolLimit),
+        "issue_message_bytes" => (
+            ISSUE_MESSAGE_BYTES_MAX as u64,
+            FrontendProtocolCode::ProtocolShape,
+        ),
+        "combined_issue_message_bytes" => (
+            ISSUE_MESSAGE_TOTAL_MAX as u64,
+            FrontendProtocolCode::ProtocolLimit,
+        ),
+        _ => return Err(protocol(FrontendProtocolCode::ProtocolShape)),
+    };
+    if count > maximum {
+        Err(protocol(code))
+    } else {
+        Ok(())
+    }
+}
+
 pub fn validate_frontend_process(
     request: FrontendProtocolRequest<'_>,
     process: FrontendProcessFacts<'_>,
@@ -154,11 +194,14 @@ fn validate_frontend_process_inner(
     process: FrontendProcessFacts<'_>,
     project_staging: bool,
 ) -> Result<AcceptedFrontendEnvelope, FrontendProtocolError> {
-    if process.stdout.len() > FRONTEND_STDOUT_BYTES_MAX
-        || process.stderr_observed_bytes > FRONTEND_STDERR_BYTES_MAX
-    {
-        return Err(protocol(FrontendProtocolCode::ProtocolLimit));
-    }
+    validate_frontend_protocol_limit(
+        "stdout_transport_bytes",
+        u64::try_from(process.stdout.len()).unwrap_or(u64::MAX),
+    )?;
+    validate_frontend_protocol_limit(
+        "stderr_observed_bytes",
+        u64::try_from(process.stderr_observed_bytes).unwrap_or(u64::MAX),
+    )?;
     if process.signaled || process.exit_code.is_none() {
         return Err(protocol(FrontendProtocolCode::ProcessKilled));
     }
@@ -178,6 +221,10 @@ fn validate_frontend_process_inner(
     if first != json.len() || json.starts_with(&[0xef, 0xbb, 0xbf]) {
         return Err(protocol(FrontendProtocolCode::ProtocolNoncanonical));
     }
+    if let Some(error) = scan_frontend_protocol_limits(json)? {
+        validate_frontend_root_before_issue_limit(json)?;
+        return Err(error);
+    }
     let strict = parse_strict_json(
         json,
         StrictJsonLimits::new(
@@ -188,9 +235,10 @@ fn validate_frontend_process_inner(
         ),
     )
     .map_err(|_| protocol(FrontendProtocolCode::ProtocolMalformed))?;
-    let canonical = canonical_json_bytes(&strict)
+    let mut canonical = canonical_json_bytes(&strict)
         .map_err(|_| protocol(FrontendProtocolCode::ProtocolMalformed))?;
-    let value: Value = serde_json::from_slice(&canonical)
+    drop(strict);
+    let value: Value = serde_json::from_slice(json)
         .map_err(|_| protocol(FrontendProtocolCode::ProtocolMalformed))?;
     let (status, phase) = validate_shape(&value, exit)?;
     validate_public_paths(&value)?;
@@ -214,15 +262,265 @@ fn validate_frontend_process_inner(
     } else {
         None
     };
-    let mut transport = canonical.clone();
-    transport.push(b'\n');
+    canonical.push(b'\n');
     Ok(AcceptedFrontendEnvelope {
         status: status.to_owned(),
         phase: phase.to_owned(),
         value,
-        canonical_bytes: transport,
+        canonical_bytes: canonical,
         artifacts,
     })
+}
+
+#[allow(dead_code)]
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct FrontendLimitRootProbe {
+    schema: String,
+    status: String,
+    phase: String,
+    source_language: String,
+    semantic_profile: String,
+    semantic_parameters: IgnoredAny,
+    selection: IgnoredAny,
+    rejected_features: Vec<IgnoredAny>,
+    diagnostics: Vec<IgnoredAny>,
+    #[serde(default)]
+    ir: FrontendIrPresence,
+    #[serde(default)]
+    source_manifest: FrontendFieldPresence,
+    #[serde(default)]
+    source_map: FrontendFieldPresence,
+}
+
+#[derive(Default)]
+struct FrontendFieldPresence(bool);
+
+impl<'de> Deserialize<'de> for FrontendFieldPresence {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        IgnoredAny::deserialize(deserializer)?;
+        Ok(Self(true))
+    }
+}
+
+#[derive(Default)]
+struct FrontendIrPresence(bool);
+
+impl<'de> Deserialize<'de> for FrontendIrPresence {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let probe = FrontendIrLimitProbe::deserialize(deserializer)?;
+        if probe.schema != "mpk.vir.v0" || !is_lower_sha256(&probe.sha256) {
+            return Err(serde::de::Error::custom("invalid frontend IR wrapper"));
+        }
+        Ok(Self(true))
+    }
+}
+
+#[allow(dead_code)]
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct FrontendIrLimitProbe {
+    schema: String,
+    sha256: String,
+    value: FrontendObjectOnly,
+}
+
+struct FrontendObjectOnly;
+
+impl<'de> Deserialize<'de> for FrontendObjectOnly {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = FrontendObjectOnly;
+
+            fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                formatter.write_str("a JSON object")
+            }
+
+            fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                while map.next_entry::<IgnoredAny, IgnoredAny>()?.is_some() {}
+                Ok(FrontendObjectOnly)
+            }
+        }
+
+        deserializer.deserialize_map(Visitor)
+    }
+}
+
+fn validate_frontend_root_before_issue_limit(input: &[u8]) -> Result<(), FrontendProtocolError> {
+    let probe: FrontendLimitRootProbe =
+        serde_json::from_slice(input).map_err(|_| protocol(FrontendProtocolCode::ProtocolShape))?;
+    if probe.schema != "mpk.frontend.cli.v0" {
+        return Err(protocol(FrontendProtocolCode::ProtocolShape));
+    }
+    let success_fields = [probe.ir.0, probe.source_manifest.0, probe.source_map.0];
+    let expected = match probe.status.as_str() {
+        "ir-lowered" => true,
+        "frontend-error" | "rejected" | "source-error" => false,
+        _ => return Err(protocol(FrontendProtocolCode::ProtocolShape)),
+    };
+    if success_fields.iter().any(|present| *present != expected) {
+        return Err(protocol(FrontendProtocolCode::ProtocolShape));
+    }
+    Ok(())
+}
+
+fn scan_frontend_protocol_limits(
+    input: &[u8],
+) -> Result<Option<FrontendProtocolError>, FrontendProtocolError> {
+    let mut observer = FrontendProtocolLimitObserver {
+        issue_count: 0,
+        message_bytes: 0,
+        first_error: None,
+    };
+    scan_strict_json(
+        input,
+        StrictJsonLimits::new(
+            JSON_BYTES_MAX,
+            JSON_NODES_MAX,
+            JSON_NESTING_MAX,
+            STRING_BYTES_MAX,
+        ),
+        &mut observer,
+    )
+    .map_err(|error| match error {
+        StrictJsonError::ObservedLimitExceeded { limit, .. }
+        | StrictJsonError::ObservedCounterOverflow { limit } => {
+            let code = match limit {
+                "issue_message_bytes" => FrontendProtocolCode::ProtocolShape,
+                "issues" | "combined_issue_message_bytes" => FrontendProtocolCode::ProtocolLimit,
+                _ => FrontendProtocolCode::ProtocolMalformed,
+            };
+            protocol(code)
+        }
+        _ => protocol(FrontendProtocolCode::ProtocolMalformed),
+    })?;
+    Ok(observer.first_error.map(map_frontend_observed_error))
+}
+
+struct FrontendProtocolLimitObserver {
+    issue_count: u64,
+    message_bytes: u64,
+    first_error: Option<StrictJsonError>,
+}
+
+impl StrictJsonObserver for FrontendProtocolLimitObserver {
+    fn observe(&mut self, event: StrictJsonEvent<'_>) -> Result<(), StrictJsonError> {
+        match event {
+            StrictJsonEvent::ArrayElement { path, .. } if root_issue_array(path) => {
+                match self.issue_count.checked_add(1) {
+                    Some(count) => {
+                        self.issue_count = count;
+                        self.record_max("issues", count, ISSUES_MAX as u64);
+                    }
+                    None => {
+                        self.record(StrictJsonError::ObservedCounterOverflow { limit: "issues" })
+                    }
+                }
+            }
+            StrictJsonEvent::String {
+                path,
+                decoded_bytes,
+            } if issue_message_path(path) => match self.message_bytes.checked_add(decoded_bytes) {
+                Some(count) => {
+                    self.message_bytes = count;
+                    self.record_max(
+                        "combined_issue_message_bytes",
+                        count,
+                        ISSUE_MESSAGE_TOTAL_MAX as u64,
+                    );
+                }
+                None => self.record(StrictJsonError::ObservedCounterOverflow {
+                    limit: "combined_issue_message_bytes",
+                }),
+            },
+            _ => {}
+        }
+        Ok(())
+    }
+
+    fn string_byte_limit(&mut self, path: &[StrictJsonPathSegment]) -> Option<(&'static str, u64)> {
+        issue_message_path(path).then_some(("issue_message_bytes", ISSUE_MESSAGE_BYTES_MAX as u64))
+    }
+
+    fn string_byte_limit_exceeded(
+        &mut self,
+        limit: &'static str,
+        maximum: u64,
+        actual: u64,
+    ) -> Result<(), StrictJsonError> {
+        self.record(StrictJsonError::ObservedLimitExceeded {
+            limit,
+            maximum,
+            actual,
+        });
+        Ok(())
+    }
+}
+
+impl FrontendProtocolLimitObserver {
+    fn record(&mut self, error: StrictJsonError) {
+        if self.first_error.is_none() {
+            self.first_error = Some(error);
+        }
+    }
+
+    fn record_max(&mut self, limit: &'static str, actual: u64, maximum: u64) {
+        if actual > maximum {
+            self.record(StrictJsonError::ObservedLimitExceeded {
+                limit,
+                maximum,
+                actual,
+            });
+        }
+    }
+}
+
+fn map_frontend_observed_error(error: StrictJsonError) -> FrontendProtocolError {
+    let limit = match error {
+        StrictJsonError::ObservedLimitExceeded { limit, .. }
+        | StrictJsonError::ObservedCounterOverflow { limit } => limit,
+        _ => return protocol(FrontendProtocolCode::ProtocolMalformed),
+    };
+    let code = match limit {
+        "issue_message_bytes" => FrontendProtocolCode::ProtocolShape,
+        "issues" | "combined_issue_message_bytes" => FrontendProtocolCode::ProtocolLimit,
+        _ => FrontendProtocolCode::ProtocolMalformed,
+    };
+    protocol(code)
+}
+
+fn root_issue_array(path: &[StrictJsonPathSegment]) -> bool {
+    matches!(
+        path,
+        [StrictJsonPathSegment::Key(name)]
+            if matches!(name.as_str(), "rejected_features" | "diagnostics")
+    )
+}
+
+fn issue_message_path(path: &[StrictJsonPathSegment]) -> bool {
+    matches!(
+        path,
+        [
+            StrictJsonPathSegment::Key(channel),
+            StrictJsonPathSegment::Index(_),
+            StrictJsonPathSegment::Key(field),
+        ] if matches!(channel.as_str(), "rejected_features" | "diagnostics")
+            && field == "message"
+    )
 }
 
 fn first_json_value(bytes: &[u8]) -> Result<usize, FrontendProtocolError> {
@@ -363,10 +661,13 @@ fn validate_issues(
     source_language: &str,
     selection: &Value,
 ) -> Result<(), FrontendProtocolError> {
-    if rejected.len() + diagnostics.len() > ISSUES_MAX {
-        return Err(protocol(FrontendProtocolCode::ProtocolLimit));
-    }
-    let mut message_bytes = 0usize;
+    let issue_count = rejected
+        .len()
+        .checked_add(diagnostics.len())
+        .and_then(|count| u64::try_from(count).ok())
+        .unwrap_or(u64::MAX);
+    validate_frontend_protocol_limit("issues", issue_count)?;
+    let mut message_bytes = 0_u64;
     for (issues, rejected_channel) in [(rejected, true), (diagnostics, false)] {
         let mut previous: Option<IssueKey<'_>> = None;
         for (index, value) in issues.iter().enumerate() {
@@ -394,16 +695,13 @@ fn validate_issues(
                 return Err(protocol(FrontendProtocolCode::ProtocolShape));
             }
             let message = string_field(object, "message")?;
-            if message.is_empty()
-                || message.len() > ISSUE_MESSAGE_BYTES_MAX
-                || message.chars().any(char::is_control)
-            {
+            if message.is_empty() || message.chars().any(char::is_control) {
                 return Err(protocol(FrontendProtocolCode::ProtocolShape));
             }
-            message_bytes = message_bytes.saturating_add(message.len());
-            if message_bytes > ISSUE_MESSAGE_TOTAL_MAX {
-                return Err(protocol(FrontendProtocolCode::ProtocolLimit));
-            }
+            let message_len = u64::try_from(message.len()).unwrap_or(u64::MAX);
+            validate_frontend_protocol_limit("issue_message_bytes", message_len)?;
+            message_bytes = message_bytes.checked_add(message_len).unwrap_or(u64::MAX);
+            validate_frontend_protocol_limit("combined_issue_message_bytes", message_bytes)?;
             let function = object.get("function_id").map(value_string).transpose()?;
             let marker = matches!(
                 code,
@@ -533,7 +831,6 @@ fn valid_rust_issue_policy(code: &str, status: &str, phase: &str, rejected_chann
         | "RUST_CONTRACT_PROFILE"
         | "RUST_CONTRACT_TYPE"
         | "RUST_CONTRACT_OPERATOR"
-        | "RUST_CONTRACT_LIMIT"
         | "RUST_CONTRACT_HASH" => ("rejected", true, phase == "subset"),
         "RUST_TOOLCHAIN_COMPONENT"
         | "RUST_TOOLCHAIN_TARGET"

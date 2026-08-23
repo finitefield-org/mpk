@@ -21,8 +21,8 @@ use crate::policy_schema::{
     PolicyDeclarationDependency, PolicyEvidenceLinkageContext, PolicyEvidenceReferenceV1,
     PolicyEvidenceV1, PolicyExpectedCertificateV1, PolicyExpectedMemberV1,
     PolicyExpectedPropertyV1, PolicyHelperArtifact, PolicyMemberRowV1, PolicyPropertyV1,
-    PolicyTrustedEvidenceV1, PolicyVerificationOptions, ValidatedPolicyEvidenceV1,
-    POLICY_EVIDENCE_V1_SCHEMA,
+    PolicyTrustedEvidenceV1, PolicyValidationError, PolicyVerificationOptions,
+    ValidatedPolicyEvidenceV1, POLICY_EVIDENCE_V1_SCHEMA,
 };
 use crate::program_certificate::{
     assemble_program_certificate_alpha, PlannedProgramDeclaration, ProgramCertificateError,
@@ -469,8 +469,8 @@ where
     let scan = build_policy_scan_v1_output(invocation.scan.clone(), frontend, captured_inputs)
         .map_err(scan_error)?;
     let finalized = finalize_evidence(&invocation, scan, &mut assembler)?;
-    let markdown = render_policy_evidence_v1_markdown(&finalized.evidence)
-        .map_err(|error| linkage_error(error.to_string()))?;
+    let markdown =
+        render_policy_evidence_v1_markdown(&finalized.evidence).map_err(policy_validation_error)?;
     commit_outputs(
         &outputs,
         finalized.evidence.canonical_bytes(),
@@ -482,6 +482,7 @@ where
         let code = match candidate.failure_kind {
             ProgramCertificateErrorKind::CheckerRejected => "POLICY_CHECKER_REJECTED",
             ProgramCertificateErrorKind::CheckerDisagreement => "POLICY_CHECKER_DISAGREEMENT",
+            ProgramCertificateErrorKind::Limit(limit) => limit.code(),
             ProgramCertificateErrorKind::Foundation
             | ProgramCertificateErrorKind::Skeleton
             | ProgramCertificateErrorKind::Interface
@@ -707,10 +708,10 @@ where
         expected_unsupported_codes: Vec::new(),
         expected_optional_helpers: Vec::new(),
     };
-    let canonical = canonical_policy_evidence_v1_json(&document)
-        .map_err(|error| linkage_error(error.to_string()))?;
-    let evidence = import_policy_evidence_v1_json(&canonical, &context)
-        .map_err(|error| linkage_error(error.to_string()))?;
+    let canonical =
+        canonical_policy_evidence_v1_json(&document).map_err(policy_validation_error)?;
+    let evidence =
+        import_policy_evidence_v1_json(&canonical, &context).map_err(policy_validation_error)?;
     Ok(FinalizedEvidence {
         scan,
         vc,
@@ -772,6 +773,7 @@ fn program_certificate_error(error: ProgramCertificateError) -> PolicyVerifyV1Er
         ProgramCertificateErrorKind::CheckerExecution => "POLICY_CHECKER_EXECUTION",
         ProgramCertificateErrorKind::CheckerRejected => "POLICY_CHECKER_REJECTED",
         ProgramCertificateErrorKind::CheckerDisagreement => "POLICY_CHECKER_DISAGREEMENT",
+        ProgramCertificateErrorKind::Limit(limit) => limit.code(),
         ProgramCertificateErrorKind::Foundation
         | ProgramCertificateErrorKind::Skeleton
         | ProgramCertificateErrorKind::Interface
@@ -810,6 +812,12 @@ fn validate_program_certificate_outcome(
                         candidate.failure_detail.clone(),
                     ));
                 }
+                ProgramCertificateErrorKind::Limit(limit) => {
+                    return Err(PolicyVerifyV1Error::new(
+                        limit.code(),
+                        candidate.failure_detail.clone(),
+                    ));
+                }
                 ProgramCertificateErrorKind::Foundation
                 | ProgramCertificateErrorKind::Skeleton
                 | ProgramCertificateErrorKind::Interface
@@ -829,6 +837,10 @@ fn validate_program_certificate_outcome(
             validate_unaccepted_reports(&candidate.bytes, &decoded, candidate)
         }
     }
+}
+
+fn policy_validation_error(error: PolicyValidationError) -> PolicyVerifyV1Error {
+    PolicyVerifyV1Error::new(error.code(), error.to_string())
 }
 
 fn validate_retained_candidate(

@@ -182,7 +182,7 @@ fn lower(request: &LowerRequest) -> ExitCode {
             return emit_local(
                 request,
                 status,
-                "metadata",
+                error.code.phase(),
                 error.code.as_str(),
                 "Cargo metadata did not match the captured package",
                 exit,
@@ -199,7 +199,7 @@ fn lower(request: &LowerRequest) -> ExitCode {
             return emit_local(
                 request,
                 status,
-                "metadata",
+                error.code.phase(),
                 error.code.as_str(),
                 "Cargo metadata execution did not produce the pinned result",
                 exit,
@@ -300,7 +300,15 @@ fn lower(request: &LowerRequest) -> ExitCode {
         };
     match transport {
         Ok(transport) => write_transport(&transport, exit),
-        Err(_) => emit_local(
+        Err(emit::EmissionError::IrLimit) => emit_local(
+            request,
+            NonSuccessStatus::Rejected,
+            "emission",
+            "RUST_LIMIT_IR",
+            "canonical Rust artifact limit was exceeded",
+            3,
+        ),
+        Err(emit::EmissionError::Integrity) => emit_local(
             request,
             NonSuccessStatus::FrontendError,
             "lowering",

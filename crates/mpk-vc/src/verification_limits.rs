@@ -80,6 +80,16 @@ impl VerificationLimitId {
             Self::CanonicalCertificateBytes => "VC_LIMIT_CANONICAL_CERTIFICATE_BYTES",
         }
     }
+
+    /// Adds to a verification counter using the profile's checked arithmetic.
+    #[doc(hidden)]
+    pub fn checked_add_count(
+        self,
+        current: u64,
+        increment: u64,
+    ) -> Result<u64, VerificationLimitError> {
+        checked_add(current, increment, self)
+    }
 }
 
 impl TryFrom<&str> for VerificationLimitId {
@@ -177,12 +187,17 @@ pub(crate) fn validate_vc_stream_limits(
             )?,
             VerificationLimitId::MembersPerDocument,
         )?;
+        validate_limit(VerificationLimitId::MembersPerDocument, document_members)?;
 
         for requirement in &function.requires {
             document_nodes = checked_add(
                 document_nodes,
-                term_nodes(requirement)?,
+                term_nodes(requirement, VerificationLimitId::ExpressionNodesPerDocument)?,
                 VerificationLimitId::ExpressionNodesPerDocument,
+            )?;
+            validate_limit(
+                VerificationLimitId::ExpressionNodesPerDocument,
+                document_nodes,
             )?;
         }
 
@@ -201,31 +216,31 @@ pub(crate) fn validate_vc_stream_limits(
                 .iter()
                 .chain(std::iter::once(&member.conclusion))
             {
-                let nodes = term_nodes(term)?;
+                let nodes = term_nodes(term, VerificationLimitId::ExpressionNodesPerMember)?;
                 member_nodes = checked_add(
                     member_nodes,
                     nodes,
                     VerificationLimitId::ExpressionNodesPerMember,
                 )?;
+                validate_limit(VerificationLimitId::ExpressionNodesPerMember, member_nodes)?;
                 validate_limit(
                     VerificationLimitId::MemberExpressionDepth,
-                    term_depth(term)?,
+                    term_depth(term, VerificationLimitId::MemberExpressionDepth)?,
                 )?;
             }
-            validate_limit(VerificationLimitId::ExpressionNodesPerMember, member_nodes)?;
             document_nodes = checked_add(
                 document_nodes,
                 member_nodes,
                 VerificationLimitId::ExpressionNodesPerDocument,
             )?;
+            validate_limit(
+                VerificationLimitId::ExpressionNodesPerDocument,
+                document_nodes,
+            )?;
         }
     }
 
-    validate_limit(VerificationLimitId::MembersPerDocument, document_members)?;
-    validate_limit(
-        VerificationLimitId::ExpressionNodesPerDocument,
-        document_nodes,
-    )
+    Ok(())
 }
 
 pub(crate) fn validate_grouped_theorem_limits(
@@ -247,12 +262,21 @@ pub(crate) fn validate_grouped_theorem_limits(
                     &member
                         .assumptions
                         .iter()
-                        .map(term_depth)
+                        .map(|term| term_depth(term, VerificationLimitId::GroupedTheoremDepth))
                         .collect::<Result<Vec<_>, _>>()?,
-                );
-                let mut depth = one_plus_max(assumptions, term_depth(&member.conclusion)?)?;
+                    VerificationLimitId::GroupedTheoremDepth,
+                )?;
+                let mut depth = one_plus_max(
+                    assumptions,
+                    term_depth(&member.conclusion, VerificationLimitId::GroupedTheoremDepth)?,
+                    VerificationLimitId::GroupedTheoremDepth,
+                )?;
                 for binder in member.local_binders.iter().rev() {
-                    depth = one_plus_max(type_depth(binder)?, depth)?;
+                    depth = one_plus_max(
+                        type_depth(binder, VerificationLimitId::GroupedTheoremDepth)?,
+                        depth,
+                        VerificationLimitId::GroupedTheoremDepth,
+                    )?;
                 }
                 member_depths.push(depth);
             }
@@ -261,13 +285,23 @@ pub(crate) fn validate_grouped_theorem_limits(
                 &function
                     .requires
                     .iter()
-                    .map(term_depth)
+                    .map(|term| term_depth(term, VerificationLimitId::GroupedTheoremDepth))
                     .collect::<Result<Vec<_>, _>>()?,
-            );
-            let grouped_members = conjoin_depth(&member_depths);
-            let mut depth = one_plus_max(requires, grouped_members)?;
+                VerificationLimitId::GroupedTheoremDepth,
+            )?;
+            let grouped_members =
+                conjoin_depth(&member_depths, VerificationLimitId::GroupedTheoremDepth)?;
+            let mut depth = one_plus_max(
+                requires,
+                grouped_members,
+                VerificationLimitId::GroupedTheoremDepth,
+            )?;
             for parameter in function.parameters.iter().rev() {
-                depth = one_plus_max(type_depth(&parameter.r#type)?, depth)?;
+                depth = one_plus_max(
+                    type_depth(&parameter.r#type, VerificationLimitId::GroupedTheoremDepth)?,
+                    depth,
+                    VerificationLimitId::GroupedTheoremDepth,
+                )?;
             }
             validate_limit(VerificationLimitId::GroupedTheoremDepth, depth)?;
         }
@@ -296,17 +330,18 @@ fn checked_add(
         .ok_or(VerificationLimitError::CounterOverflow { limit })
 }
 
-fn term_nodes(term: &VcTerm) -> Result<u64, VerificationLimitError> {
-    let limit = VerificationLimitId::ExpressionNodesPerDocument;
+fn term_nodes(term: &VcTerm, limit: VerificationLimitId) -> Result<u64, VerificationLimitError> {
     let mut total = 1_u64;
     match term {
         VcTerm::Apply { args, .. } => {
             for child in args {
-                total = checked_add(total, term_nodes(child)?, limit)?;
+                total = checked_add(total, term_nodes(child, limit)?, limit)?;
             }
         }
-        VcTerm::Convert { value, .. } => total = checked_add(total, term_nodes(value)?, limit)?,
-        VcTerm::Forall { body, .. } => total = checked_add(total, term_nodes(body)?, limit)?,
+        VcTerm::Convert { value, .. } => {
+            total = checked_add(total, term_nodes(value, limit)?, limit)?
+        }
+        VcTerm::Forall { body, .. } => total = checked_add(total, term_nodes(body, limit)?, limit)?,
         VcTerm::Var { .. }
         | VcTerm::Bound { .. }
         | VcTerm::Constant { .. }
@@ -315,22 +350,26 @@ fn term_nodes(term: &VcTerm) -> Result<u64, VerificationLimitError> {
     Ok(total)
 }
 
-fn term_depth(term: &VcTerm) -> Result<u64, VerificationLimitError> {
+fn term_depth(term: &VcTerm, limit: VerificationLimitId) -> Result<u64, VerificationLimitError> {
     match term {
         VcTerm::Apply { args, .. } => {
             let child = args
                 .iter()
-                .map(term_depth)
+                .map(|term| term_depth(term, limit))
                 .collect::<Result<Vec<_>, _>>()?
                 .into_iter()
                 .max()
                 .unwrap_or(0);
-            add_depth(child)
+            add_depth(child, limit)
         }
-        VcTerm::Convert { value, target } => one_plus_max(term_depth(value)?, type_depth(target)?),
-        VcTerm::Forall { binder_type, body } => {
-            one_plus_max(type_depth(binder_type)?, term_depth(body)?)
+        VcTerm::Convert { value, target } => {
+            one_plus_max(term_depth(value, limit)?, type_depth(target, limit)?, limit)
         }
+        VcTerm::Forall { binder_type, body } => one_plus_max(
+            type_depth(binder_type, limit)?,
+            term_depth(body, limit)?,
+            limit,
+        ),
         VcTerm::Var { .. }
         | VcTerm::Bound { .. }
         | VcTerm::Constant { .. }
@@ -338,17 +377,20 @@ fn term_depth(term: &VcTerm) -> Result<u64, VerificationLimitError> {
     }
 }
 
-fn type_depth(term: &VcTypeTerm) -> Result<u64, VerificationLimitError> {
+fn type_depth(
+    term: &VcTypeTerm,
+    limit: VerificationLimitId,
+) -> Result<u64, VerificationLimitError> {
     match term {
         VcTypeTerm::Apply { args, .. } => {
             let child = args
                 .iter()
-                .map(type_depth)
+                .map(|term| type_depth(term, limit))
                 .collect::<Result<Vec<_>, _>>()?
                 .into_iter()
                 .max()
                 .unwrap_or(0);
-            add_depth(child)
+            add_depth(child, limit)
         }
         VcTypeTerm::Constant { .. }
         | VcTypeTerm::NatLiteral { .. }
@@ -356,27 +398,34 @@ fn type_depth(term: &VcTypeTerm) -> Result<u64, VerificationLimitError> {
     }
 }
 
-fn conjoin_depth(depths: &[u64]) -> u64 {
+fn conjoin_depth(
+    depths: &[u64],
+    limit: VerificationLimitId,
+) -> Result<u64, VerificationLimitError> {
     match depths {
-        [] => 1,
-        [only] => *only,
+        [] => Ok(1),
+        [only] => Ok(*only),
         many => {
             let split = many.len() / 2;
-            1 + conjoin_depth(&many[..split]).max(conjoin_depth(&many[split..]))
+            let left = conjoin_depth(&many[..split], limit)?;
+            let right = conjoin_depth(&many[split..], limit)?;
+            add_depth(left.max(right), limit)
         }
     }
 }
 
-fn one_plus_max(left: u64, right: u64) -> Result<u64, VerificationLimitError> {
-    add_depth(left.max(right))
+fn one_plus_max(
+    left: u64,
+    right: u64,
+    limit: VerificationLimitId,
+) -> Result<u64, VerificationLimitError> {
+    add_depth(left.max(right), limit)
 }
 
-fn add_depth(value: u64) -> Result<u64, VerificationLimitError> {
+fn add_depth(value: u64, limit: VerificationLimitId) -> Result<u64, VerificationLimitError> {
     value
         .checked_add(1)
-        .ok_or(VerificationLimitError::CounterOverflow {
-            limit: VerificationLimitId::GroupedTheoremDepth,
-        })
+        .ok_or(VerificationLimitError::CounterOverflow { limit })
 }
 
 #[cfg(test)]

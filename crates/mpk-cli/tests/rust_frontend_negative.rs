@@ -270,6 +270,9 @@ fn rust_issue_policy_rejects_unknown_caller_owned_and_misclassified_codes() {
     unknown["rejected_features"][0]["code"] = json!("RUST_UNKNOWN_CASE");
     mutations.push(("unknown Rust code", unknown, 3));
 
+    let obsolete = rust_non_success_value("rejected", "subset", "RUST_CONTRACT_LIMIT");
+    mutations.push(("obsolete Rust contract limit code", obsolete, 3));
+
     let mut caller_owned = rust_non_success_value("rejected", "subset", "RUST_SUBSET_MACRO");
     caller_owned["rejected_features"][0]["code"] = json!("FRONTEND_PROTOCOL_SHAPE");
     mutations.push(("caller-owned code", caller_owned, 3));

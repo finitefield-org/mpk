@@ -264,8 +264,27 @@ pub struct SourceManifest {
     pub payload: Vec<u8>,
 }
 
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct EncodeLimitError;
+
 pub fn encode_certificate(certificate: &Certificate) -> Vec<u8> {
     let mut encoder = Encoder::new();
+    write_certificate(&mut encoder, certificate);
+    encoder.finish()
+}
+
+/// Encodes without ever retaining more than `maximum` bytes.  This is the
+/// certificate-output enforcement seam used before checker execution.
+pub fn encode_certificate_bounded(
+    certificate: &Certificate,
+    maximum: usize,
+) -> Result<Vec<u8>, EncodeLimitError> {
+    let mut encoder = Encoder::new_bounded(maximum);
+    write_certificate(&mut encoder, certificate);
+    encoder.finish_bounded()
+}
+
+fn write_certificate(encoder: &mut Encoder, certificate: &Certificate) {
     encoder.write_bytes(CERT_MAGIC);
     encoder.write_str_slice(CERT_FORMAT);
     encoder.write_str_slice(CORE_SPEC);
@@ -286,7 +305,6 @@ pub fn encode_certificate(certificate: &Certificate) -> Vec<u8> {
     encoder.write_axiom_report(&certificate.axiom_report);
     encoder.write_source_manifest(&certificate.source_manifest);
     encoder.write_hashes(&certificate.hashes);
-    encoder.finish()
 }
 
 pub fn encode_theory_certificate(certificate: &TheoryCertificate) -> Vec<u8> {
@@ -301,19 +319,58 @@ pub fn encode_unsigned_varint(value: u64, out: &mut Vec<u8>) {
 
 struct Encoder {
     bytes: Vec<u8>,
+    maximum: Option<usize>,
+    exceeded: bool,
 }
 
 impl Encoder {
     fn new() -> Self {
-        Self { bytes: Vec::new() }
+        Self {
+            bytes: Vec::new(),
+            maximum: None,
+            exceeded: false,
+        }
+    }
+
+    fn new_bounded(maximum: usize) -> Self {
+        Self {
+            bytes: Vec::new(),
+            maximum: Some(maximum),
+            exceeded: false,
+        }
     }
 
     fn finish(self) -> Vec<u8> {
         self.bytes
     }
 
+    fn finish_bounded(self) -> Result<Vec<u8>, EncodeLimitError> {
+        if self.exceeded {
+            Err(EncodeLimitError)
+        } else {
+            Ok(self.bytes)
+        }
+    }
+
+    fn accepts(&mut self, additional: usize) -> bool {
+        if self.exceeded {
+            return false;
+        }
+        let Some(size) = self.bytes.len().checked_add(additional) else {
+            self.exceeded = true;
+            return false;
+        };
+        if self.maximum.is_some_and(|maximum| size > maximum) {
+            self.exceeded = true;
+            return false;
+        }
+        true
+    }
+
     fn write_u8(&mut self, value: u8) {
-        self.bytes.push(value);
+        if self.accepts(1) {
+            self.bytes.push(value);
+        }
     }
 
     fn write_bool(&mut self, value: bool) {
@@ -325,7 +382,18 @@ impl Encoder {
     }
 
     fn write_u64(&mut self, value: u64) {
-        Self::write_unsigned_varint_to(value, &mut self.bytes);
+        let mut value = value;
+        loop {
+            let mut byte = (value & 0x7f) as u8;
+            value >>= 7;
+            if value != 0 {
+                byte |= 0x80;
+            }
+            self.write_u8(byte);
+            if value == 0 {
+                break;
+            }
+        }
     }
 
     fn write_len(&mut self, len: usize) {
@@ -348,7 +416,9 @@ impl Encoder {
     }
 
     fn write_bytes(&mut self, bytes: &[u8]) {
-        self.bytes.extend_from_slice(bytes);
+        if self.accepts(bytes.len()) {
+            self.bytes.extend_from_slice(bytes);
+        }
     }
 
     fn write_bytes_with_len(&mut self, bytes: &[u8]) {
@@ -720,9 +790,9 @@ mod tests {
     use std::fs;
 
     use super::{
-        encode_certificate, encode_unsigned_varint, AxiomReport, Certificate, CertificateHashes,
-        Declaration, DeclarationKind, DefinitionReducibility, LevelNode, ProofNode, TermNode,
-        ZERO_HASH,
+        encode_certificate, encode_certificate_bounded, encode_unsigned_varint, AxiomReport,
+        Certificate, CertificateHashes, Declaration, DeclarationKind, DefinitionReducibility,
+        LevelNode, ProofNode, TermNode, ZERO_HASH,
     };
 
     const CERT_ENCODING_FIXTURE_DIR: &str =
@@ -782,6 +852,18 @@ mod tests {
         let fixture = decode_hex_fixture("minimal-empty.hex");
 
         assert_eq!(encoded, fixture);
+    }
+
+    #[test]
+    fn bounded_certificate_encoder_accepts_at_and_refuses_before_excess_allocation() {
+        let certificate = minimal_certificate();
+        let expected = encode_certificate(&certificate);
+
+        assert_eq!(
+            encode_certificate_bounded(&certificate, expected.len()).unwrap(),
+            expected
+        );
+        assert!(encode_certificate_bounded(&certificate, expected.len() - 1).is_err());
     }
 
     #[test]

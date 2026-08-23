@@ -3,7 +3,7 @@ mod common;
 use common::{frozen_environment, metadata_json, Fixture};
 use rust2vir_internal::cargo_metadata::{MetadataCode, MetadataPhase};
 use rust2vir_internal::driver_process::read_request;
-use rust2vir_internal::driver_protocol::parse_request_transport;
+use rust2vir_internal::driver_protocol::{parse_request_transport, DriverProtocolCode};
 use rust2vir_internal::environment::{EvidenceEnvironment, ENCODED_RUSTFLAGS_ELEMENTS};
 use rust2vir_internal::sandbox::{
     fixed_read_only_views, fixed_writable_views, CargoInvocation, ProcessOutput, SandboxContext,
@@ -110,6 +110,21 @@ fn environment_views_and_limits_are_the_exact_closed_profiles() {
     assert_eq!(OUTPUT_FILES_LIMIT, 262_144);
     assert_eq!(STDOUT_BYTES_LIMIT, 67_108_864);
     assert_eq!(STDERR_BYTES_LIMIT, 2_097_152);
+}
+
+#[test]
+fn operational_filesystem_and_private_request_failures_keep_exact_ownership() {
+    assert_eq!(
+        SandboxError::FilesystemLimit.code(),
+        "RUST_FRONTEND_COMPILER_CRASH"
+    );
+    let request_limit =
+        MetadataCode::Sandbox(SandboxError::DriverProtocol(DriverProtocolCode::Transport));
+    assert_eq!(
+        request_limit.as_str(),
+        "RUST_FRONTEND_DRIVER_PROTOCOL_TRANSPORT"
+    );
+    assert_eq!(request_limit.phase(), "typecheck");
 }
 
 #[test]

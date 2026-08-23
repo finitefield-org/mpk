@@ -1,4 +1,4 @@
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, BTreeSet};
 
 const JSON_DEPTH_MAX: usize = 64;
 
@@ -92,10 +92,136 @@ pub fn parse_with_depth(
     Ok(value)
 }
 
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub(crate) enum JsonPathComponent {
+    Key(String),
+    Index(usize),
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub(crate) enum JsonScanError {
+    Syntax,
+    Depth,
+    Limit,
+}
+
+/// Validates strict JSON without retaining its value tree and reports each
+/// value's path before parsing that value. Callers can therefore stop on a
+/// structural limit before allocating the rejected subtree.
+pub(crate) fn scan_with_depth<F>(
+    bytes: &[u8],
+    maximum: usize,
+    maximum_depth: usize,
+    mut observe: F,
+) -> Result<(), JsonScanError>
+where
+    F: FnMut(&[JsonPathComponent]) -> Result<(), JsonScanError>,
+{
+    if bytes.len() > maximum {
+        return Err(JsonScanError::Limit);
+    }
+    let source = std::str::from_utf8(bytes).map_err(|_| JsonScanError::Syntax)?;
+    let mut scanner = Scanner {
+        source,
+        cursor: 0,
+        maximum_depth,
+        path: Vec::new(),
+        observe: &mut observe,
+    };
+    scanner.skip_whitespace();
+    scanner.value(0)?;
+    scanner.skip_whitespace();
+    if scanner.cursor != source.len() {
+        return Err(JsonScanError::Syntax);
+    }
+    Ok(())
+}
+
 pub fn canonical(value: &JsonValue) -> Result<Vec<u8>, JsonError> {
     let mut output = Vec::new();
     encode(value, &mut output)?;
     Ok(output)
+}
+
+/// Counts canonical bytes with checked arithmetic before allocating the
+/// serialized artifact, then emits only when the complete value fits.
+pub fn canonical_bounded(value: &JsonValue, maximum: usize) -> Result<Vec<u8>, JsonError> {
+    let size = canonical_size(value, maximum)?;
+    let mut output = Vec::with_capacity(size);
+    encode(value, &mut output)?;
+    if output.len() != size {
+        return Err(JsonError);
+    }
+    Ok(output)
+}
+
+pub fn canonical_size(value: &JsonValue, maximum: usize) -> Result<usize, JsonError> {
+    encoded_size(value, 0, maximum)
+}
+
+fn encoded_size(value: &JsonValue, current: usize, maximum: usize) -> Result<usize, JsonError> {
+    match value {
+        JsonValue::Null => bounded_add(current, 4, maximum),
+        JsonValue::Bool(true) => bounded_add(current, 4, maximum),
+        JsonValue::Bool(false) => bounded_add(current, 5, maximum),
+        JsonValue::Number(number) => {
+            let integer = number.parse::<i64>().map_err(|_| JsonError)?;
+            if number == "-0"
+                || integer.unsigned_abs() > 9_007_199_254_740_991_u64
+                || integer.to_string() != *number
+            {
+                return Err(JsonError);
+            }
+            bounded_add(current, number.len(), maximum)
+        }
+        JsonValue::String(string) => encoded_string_size(string, current, maximum),
+        JsonValue::Array(values) => {
+            let mut size = bounded_add(current, 1, maximum)?;
+            for (index, value) in values.iter().enumerate() {
+                if index != 0 {
+                    size = bounded_add(size, 1, maximum)?;
+                }
+                size = encoded_size(value, size, maximum)?;
+            }
+            bounded_add(size, 1, maximum)
+        }
+        JsonValue::Object(values) => {
+            let mut size = bounded_add(current, 1, maximum)?;
+            let mut entries = values.iter().collect::<Vec<_>>();
+            entries.sort_by(|(left, _), (right, _)| left.encode_utf16().cmp(right.encode_utf16()));
+            for (index, (key, value)) in entries.into_iter().enumerate() {
+                if index != 0 {
+                    size = bounded_add(size, 1, maximum)?;
+                }
+                size = encoded_string_size(key, size, maximum)?;
+                size = bounded_add(size, 1, maximum)?;
+                size = encoded_size(value, size, maximum)?;
+            }
+            bounded_add(size, 1, maximum)
+        }
+    }
+}
+
+fn encoded_string_size(value: &str, current: usize, maximum: usize) -> Result<usize, JsonError> {
+    let mut size = bounded_add(current, 2, maximum)?;
+    for character in value.chars() {
+        let additional = match character {
+            '"' | '\\' | '\u{8}' | '\u{9}' | '\u{a}' | '\u{c}' | '\u{d}' => 2,
+            '\u{0}'..='\u{1f}' => 6,
+            _ => character.len_utf8(),
+        };
+        size = bounded_add(size, additional, maximum)?;
+    }
+    Ok(size)
+}
+
+fn bounded_add(current: usize, additional: usize, maximum: usize) -> Result<usize, JsonError> {
+    let size = current.checked_add(additional).ok_or(JsonError)?;
+    if size > maximum {
+        Err(JsonError)
+    } else {
+        Ok(size)
+    }
 }
 
 fn encode(value: &JsonValue, output: &mut Vec<u8>) -> Result<(), JsonError> {
@@ -167,6 +293,257 @@ fn encode_string(value: &str, output: &mut Vec<u8>) {
         }
     }
     output.push(b'"');
+}
+
+struct Scanner<'a, 'b, F> {
+    source: &'a str,
+    cursor: usize,
+    maximum_depth: usize,
+    path: Vec<JsonPathComponent>,
+    observe: &'b mut F,
+}
+
+impl<F> Scanner<'_, '_, F>
+where
+    F: FnMut(&[JsonPathComponent]) -> Result<(), JsonScanError>,
+{
+    fn value(&mut self, depth: usize) -> Result<(), JsonScanError> {
+        if depth > self.maximum_depth {
+            return Err(JsonScanError::Depth);
+        }
+        (self.observe)(&self.path)?;
+        match self.peek() {
+            Some(b'n') => self.literal("null"),
+            Some(b't') => self.literal("true"),
+            Some(b'f') => self.literal("false"),
+            Some(b'"') => self.string(false).map(|_| ()),
+            Some(b'[') => self.array(depth + 1),
+            Some(b'{') => self.object(depth + 1),
+            Some(b'-' | b'0'..=b'9') => self.number(),
+            _ => Err(JsonScanError::Syntax),
+        }
+    }
+
+    fn array(&mut self, depth: usize) -> Result<(), JsonScanError> {
+        self.consume(b'[')?;
+        self.skip_whitespace();
+        if self.take_if(b']') {
+            return Ok(());
+        }
+        let mut index = 0_usize;
+        loop {
+            self.path.push(JsonPathComponent::Index(index));
+            let result = self.value(depth);
+            self.path.pop();
+            result?;
+            index = index.checked_add(1).ok_or(JsonScanError::Limit)?;
+            self.skip_whitespace();
+            if self.take_if(b']') {
+                break;
+            }
+            self.consume(b',')?;
+            self.skip_whitespace();
+        }
+        Ok(())
+    }
+
+    fn object(&mut self, depth: usize) -> Result<(), JsonScanError> {
+        self.consume(b'{')?;
+        self.skip_whitespace();
+        let mut keys = BTreeSet::new();
+        if self.take_if(b'}') {
+            return Ok(());
+        }
+        loop {
+            if self.peek() != Some(b'"') {
+                return Err(JsonScanError::Syntax);
+            }
+            let key = self
+                .string(true)?
+                .expect("captured JSON object key must be present");
+            if !keys.insert(key.clone()) {
+                return Err(JsonScanError::Syntax);
+            }
+            self.skip_whitespace();
+            self.consume(b':')?;
+            self.skip_whitespace();
+            self.path.push(JsonPathComponent::Key(key));
+            let result = self.value(depth);
+            self.path.pop();
+            result?;
+            self.skip_whitespace();
+            if self.take_if(b'}') {
+                break;
+            }
+            self.consume(b',')?;
+            self.skip_whitespace();
+        }
+        Ok(())
+    }
+
+    fn string(&mut self, capture: bool) -> Result<Option<String>, JsonScanError> {
+        self.consume(b'"')?;
+        let mut output = capture.then(String::new);
+        loop {
+            let rest = self
+                .source
+                .get(self.cursor..)
+                .ok_or(JsonScanError::Syntax)?;
+            let character = rest.chars().next().ok_or(JsonScanError::Syntax)?;
+            self.cursor += character.len_utf8();
+            match character {
+                '"' => return Ok(output),
+                '\\' => self.escape(&mut output)?,
+                '\u{0}'..='\u{1f}' => return Err(JsonScanError::Syntax),
+                character => {
+                    if let Some(output) = &mut output {
+                        output.push(character);
+                    }
+                }
+            }
+        }
+    }
+
+    fn escape(&mut self, output: &mut Option<String>) -> Result<(), JsonScanError> {
+        let character = match self.next_byte().ok_or(JsonScanError::Syntax)? {
+            b'"' => '"',
+            b'\\' => '\\',
+            b'/' => '/',
+            b'b' => '\u{8}',
+            b'f' => '\u{c}',
+            b'n' => '\n',
+            b'r' => '\r',
+            b't' => '\t',
+            b'u' => {
+                let first = self.hex_quad()?;
+                let scalar = if (0xd800..=0xdbff).contains(&first) {
+                    if self.next_byte() != Some(b'\\') || self.next_byte() != Some(b'u') {
+                        return Err(JsonScanError::Syntax);
+                    }
+                    let second = self.hex_quad()?;
+                    if !(0xdc00..=0xdfff).contains(&second) {
+                        return Err(JsonScanError::Syntax);
+                    }
+                    0x1_0000 + ((u32::from(first) - 0xd800) << 10) + (u32::from(second) - 0xdc00)
+                } else if (0xdc00..=0xdfff).contains(&first) {
+                    return Err(JsonScanError::Syntax);
+                } else {
+                    u32::from(first)
+                };
+                char::from_u32(scalar).ok_or(JsonScanError::Syntax)?
+            }
+            _ => return Err(JsonScanError::Syntax),
+        };
+        if let Some(output) = output {
+            output.push(character);
+        }
+        Ok(())
+    }
+
+    fn hex_quad(&mut self) -> Result<u16, JsonScanError> {
+        let bytes = self
+            .source
+            .as_bytes()
+            .get(self.cursor..self.cursor.saturating_add(4))
+            .ok_or(JsonScanError::Syntax)?;
+        if bytes.len() != 4 {
+            return Err(JsonScanError::Syntax);
+        }
+        let mut value = 0_u16;
+        for byte in bytes {
+            let digit = match byte {
+                b'0'..=b'9' => u16::from(byte - b'0'),
+                b'a'..=b'f' => u16::from(byte - b'a' + 10),
+                b'A'..=b'F' => u16::from(byte - b'A' + 10),
+                _ => return Err(JsonScanError::Syntax),
+            };
+            value = (value << 4) | digit;
+        }
+        self.cursor += 4;
+        Ok(value)
+    }
+
+    fn number(&mut self) -> Result<(), JsonScanError> {
+        self.take_if(b'-');
+        match self.peek() {
+            Some(b'0') => {
+                self.cursor += 1;
+                if matches!(self.peek(), Some(b'0'..=b'9')) {
+                    return Err(JsonScanError::Syntax);
+                }
+            }
+            Some(b'1'..=b'9') => {
+                self.cursor += 1;
+                while matches!(self.peek(), Some(b'0'..=b'9')) {
+                    self.cursor += 1;
+                }
+            }
+            _ => return Err(JsonScanError::Syntax),
+        }
+        if self.take_if(b'.') {
+            if !matches!(self.peek(), Some(b'0'..=b'9')) {
+                return Err(JsonScanError::Syntax);
+            }
+            while matches!(self.peek(), Some(b'0'..=b'9')) {
+                self.cursor += 1;
+            }
+        }
+        if matches!(self.peek(), Some(b'e' | b'E')) {
+            self.cursor += 1;
+            if matches!(self.peek(), Some(b'+' | b'-')) {
+                self.cursor += 1;
+            }
+            if !matches!(self.peek(), Some(b'0'..=b'9')) {
+                return Err(JsonScanError::Syntax);
+            }
+            while matches!(self.peek(), Some(b'0'..=b'9')) {
+                self.cursor += 1;
+            }
+        }
+        Ok(())
+    }
+
+    fn literal(&mut self, value: &str) -> Result<(), JsonScanError> {
+        if self.source[self.cursor..].starts_with(value) {
+            self.cursor += value.len();
+            Ok(())
+        } else {
+            Err(JsonScanError::Syntax)
+        }
+    }
+
+    fn consume(&mut self, expected: u8) -> Result<(), JsonScanError> {
+        if self.take_if(expected) {
+            Ok(())
+        } else {
+            Err(JsonScanError::Syntax)
+        }
+    }
+
+    fn take_if(&mut self, expected: u8) -> bool {
+        if self.peek() == Some(expected) {
+            self.cursor += 1;
+            true
+        } else {
+            false
+        }
+    }
+
+    fn skip_whitespace(&mut self) {
+        while matches!(self.peek(), Some(b' ' | b'\n' | b'\r' | b'\t')) {
+            self.cursor += 1;
+        }
+    }
+
+    fn peek(&self) -> Option<u8> {
+        self.source.as_bytes().get(self.cursor).copied()
+    }
+
+    fn next_byte(&mut self) -> Option<u8> {
+        let value = self.peek()?;
+        self.cursor += 1;
+        Some(value)
+    }
 }
 
 struct Parser<'a> {

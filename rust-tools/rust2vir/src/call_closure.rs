@@ -1,6 +1,8 @@
 use std::collections::{BTreeMap, BTreeSet};
 
-pub const MAX_CALL_CLOSURE_FUNCTIONS: usize = 128;
+use crate::limits::RustLimitId;
+
+pub const MAX_CALL_CLOSURE_FUNCTIONS: usize = RustLimitId::ClosureFunctions.maximum() as usize;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum CallClosureError {

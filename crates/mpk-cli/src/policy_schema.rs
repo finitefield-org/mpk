@@ -3,8 +3,10 @@ use std::error::Error;
 use std::fmt;
 
 use mpk_vc::{
-    canonical_json_bytes, parse_strict_json, ComponentIdentity, FrontendIdentity,
-    ReleaseRegistryIdentity, StrictJsonError, StrictJsonLimits, StrictJsonValue, ToolchainIdentity,
+    canonical_json_bytes_bounded, parse_strict_json, scan_strict_json, serialize_json_bounded,
+    BoundedJsonSerializeError, CanonicalJsonError, ComponentIdentity, FrontendIdentity,
+    ReleaseRegistryIdentity, StrictJsonError, StrictJsonEvent, StrictJsonLimits,
+    StrictJsonPathSegment, StrictJsonValue, StrictJsonValueKind, ToolchainIdentity,
 };
 use serde::{Deserialize, Serialize};
 
@@ -592,7 +594,7 @@ pub fn import_policy_scan_v1_json(
     input: &[u8],
     context: &PolicyScanLinkageContext,
 ) -> Result<ValidatedPolicyScanV1, PolicyValidationError> {
-    let (strict, canonical_without_lf) = parse_policy_transport(input)?;
+    let (strict, canonical_without_lf) = parse_policy_transport(input, PolicyRootKind::Scan)?;
     require_schema(&strict, POLICY_SCAN_V1_SCHEMA, "POLICY_SCAN_SCHEMA")?;
     reject_null(&strict)?;
     let document: PolicyScanV1 =
@@ -629,7 +631,7 @@ pub fn import_policy_evidence_v1_json(
     input: &[u8],
     context: &PolicyEvidenceLinkageContext<'_>,
 ) -> Result<ValidatedPolicyEvidenceV1, PolicyValidationError> {
-    let (strict, canonical_without_lf) = parse_policy_transport(input)?;
+    let (strict, canonical_without_lf) = parse_policy_transport(input, PolicyRootKind::Evidence)?;
     require_schema(&strict, POLICY_EVIDENCE_V1_SCHEMA, "POLICY_EVIDENCE_SCHEMA")?;
     reject_null(&strict)?;
     let document: PolicyEvidenceV1 =
@@ -680,7 +682,7 @@ pub fn import_policy_evidence_v1_json(
 pub fn import_policy_evidence_v1_for_consumer(
     input: &[u8],
 ) -> Result<ValidatedPolicyEvidenceV1, PolicyValidationError> {
-    let (strict, canonical_without_lf) = parse_policy_transport(input)?;
+    let (strict, canonical_without_lf) = parse_policy_transport(input, PolicyRootKind::Evidence)?;
     require_schema(&strict, POLICY_EVIDENCE_V1_SCHEMA, "POLICY_EVIDENCE_SCHEMA")?;
     reject_null(&strict)?;
     let document: PolicyEvidenceV1 =
@@ -1040,18 +1042,395 @@ pub fn validate_policy_limit(counter: &str, count: u64) -> Result<(), PolicyVali
 
 fn parse_policy_transport(
     input: &[u8],
+    root_kind: PolicyRootKind,
 ) -> Result<(StrictJsonValue, Vec<u8>), PolicyValidationError> {
+    scan_policy_transport_limits(input, root_kind)?;
     let strict = parse_strict_json(input, STRICT_POLICY_LIMITS).map_err(map_strict_json_error)?;
     validate_collection_limits(&strict)?;
     validate_policy_field_limits(&strict)?;
-    let canonical = canonical_json_bytes(&strict).map_err(|error| {
+    let canonical = canonical_json_bytes_bounded(&strict, policy_json_without_lf_maximum())
+        .map_err(|error| map_policy_canonical_error(error, PolicyValidationPhase::Transport))?;
+    Ok((strict, canonical))
+}
+
+fn scan_policy_transport_limits(
+    input: &[u8],
+    root_kind: PolicyRootKind,
+) -> Result<(), PolicyValidationError> {
+    let mut member_rows = 0_u64;
+    let mut recipe_arguments = 0_u64;
+    let mut first_error: Option<StrictJsonError> = None;
+    let mut saw_null = false;
+    let mut observer = |event: StrictJsonEvent<'_>| -> Result<(), StrictJsonError> {
+        let result = (|| {
+            match event {
+                StrictJsonEvent::Value {
+                    kind: StrictJsonValueKind::Null,
+                    ..
+                } => saw_null = true,
+                StrictJsonEvent::ArrayElement { path, count } => {
+                    observed_policy_max(
+                        "array_elements_default",
+                        count,
+                        POLICY_COLLECTION_ELEMENTS_MAX,
+                    )?;
+                    if path_is(path, &["helper_artifacts"]) {
+                        observed_policy_max(
+                            "helper_artifacts",
+                            count,
+                            POLICY_HELPER_ARTIFACTS_MAX,
+                        )?;
+                    } else if path_is(path, &["trusted_evidence", "certificates"]) {
+                        observed_policy_max("certificates", count, POLICY_CERTIFICATES_MAX)?;
+                    } else if policy_member_rows_path(path) {
+                        member_rows = member_rows.checked_add(1).ok_or(
+                            StrictJsonError::ObservedCounterOverflow {
+                                limit: "member_rows",
+                            },
+                        )?;
+                        observed_policy_max(
+                            "member_rows",
+                            member_rows,
+                            POLICY_COLLECTION_ELEMENTS_MAX,
+                        )?;
+                    } else if policy_member_references_path(path) {
+                        observed_policy_max(
+                            "references_per_member",
+                            count,
+                            POLICY_REFERENCES_PER_MEMBER_MAX,
+                        )?;
+                    } else if policy_recipe_argv_path(path) {
+                        recipe_arguments = recipe_arguments.checked_add(1).ok_or(
+                            StrictJsonError::ObservedCounterOverflow {
+                                limit: "recipe_argv_elements",
+                            },
+                        )?;
+                        observed_policy_max(
+                            "recipe_argv_elements",
+                            recipe_arguments,
+                            POLICY_RECIPE_ARGV_ELEMENTS_MAX,
+                        )?;
+                    }
+                }
+                StrictJsonEvent::ObjectMember { count, .. } => {
+                    observed_policy_max(
+                        "object_members_default",
+                        count,
+                        POLICY_COLLECTION_ELEMENTS_MAX,
+                    )?;
+                }
+                _ => {}
+            }
+            Ok(())
+        })();
+        if first_error.is_none() {
+            first_error = result.err();
+        }
+        Ok(())
+    };
+    scan_strict_json(input, STRICT_POLICY_LIMITS, &mut observer).map_err(map_strict_json_error)?;
+    drop(observer);
+    if let Some(error) = first_error {
+        validate_policy_root_before_collection_limit(input, root_kind)?;
+        if saw_null {
+            return Err(PolicyValidationError::new(
+                PolicyValidationPhase::Shape,
+                "POLICY_SHAPE",
+                "null is forbidden in policy documents",
+            ));
+        }
+        return Err(map_strict_json_error(error));
+    }
+    Ok(())
+}
+
+#[derive(Clone, Copy)]
+enum PolicyRootKind {
+    Scan,
+    Evidence,
+}
+
+#[allow(dead_code)]
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct PolicyScanLimitRootProbe {
+    schema: String,
+    frontend_status: String,
+    frontend_phase: String,
+    source_language: String,
+    semantic_profile: String,
+    semantic_parameters: serde::de::IgnoredAny,
+    selection: serde::de::IgnoredAny,
+    release_registry: serde::de::IgnoredAny,
+    frontend: serde::de::IgnoredAny,
+    toolchain: serde::de::IgnoredAny,
+    readiness: String,
+    rejected_features: Vec<serde::de::IgnoredAny>,
+    diagnostics: Vec<serde::de::IgnoredAny>,
+    limit_profile: Option<String>,
+    frontend_source_manifest_hash: Option<String>,
+    input_set_hash: Option<String>,
+    source_map_hash: Option<String>,
+    source_ir_schema: Option<String>,
+    source_ir_hash: Option<String>,
+    helper_artifacts: Option<Vec<serde::de::IgnoredAny>>,
+}
+
+#[allow(dead_code)]
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct PolicyEvidenceLimitRootProbe {
+    schema: String,
+    source_language: String,
+    semantic_profile: String,
+    semantic_parameters: serde::de::IgnoredAny,
+    selection: serde::de::IgnoredAny,
+    limit_profile: String,
+    release_registry: serde::de::IgnoredAny,
+    frontend: serde::de::IgnoredAny,
+    toolchain: serde::de::IgnoredAny,
+    frontend_source_manifest_hash: String,
+    input_set_hash: String,
+    source_map_hash: String,
+    source_ir_schema: String,
+    source_ir_hash: String,
+    certificate_source_manifest_hash: String,
+    source_vc_schema: String,
+    vc_hash: String,
+    verification_limit_profile: String,
+    strategy_profile: String,
+    checker_profile: String,
+    axiom_profile: String,
+    verification_options: serde::de::IgnoredAny,
+    helper_artifacts: Vec<serde::de::IgnoredAny>,
+    trusted_evidence: serde::de::IgnoredAny,
+    properties: Vec<serde::de::IgnoredAny>,
+    reproduction_recipes: Vec<serde::de::IgnoredAny>,
+}
+
+#[derive(Deserialize)]
+struct PolicySchemaLimitProbe {
+    schema: Option<String>,
+}
+
+fn validate_policy_root_before_collection_limit(
+    input: &[u8],
+    root_kind: PolicyRootKind,
+) -> Result<(), PolicyValidationError> {
+    let schema_probe: PolicySchemaLimitProbe = serde_json::from_slice(input).map_err(|error| {
         PolicyValidationError::new(
-            PolicyValidationPhase::Transport,
-            "POLICY_JSON_INVALID",
+            PolicyValidationPhase::Shape,
+            "POLICY_SHAPE",
             error.to_string(),
         )
     })?;
-    Ok((strict, canonical))
+    let (expected_schema, schema_code) = match root_kind {
+        PolicyRootKind::Scan => (POLICY_SCAN_V1_SCHEMA, "POLICY_SCAN_SCHEMA"),
+        PolicyRootKind::Evidence => (POLICY_EVIDENCE_V1_SCHEMA, "POLICY_EVIDENCE_SCHEMA"),
+    };
+    if schema_probe.schema.as_deref() != Some(expected_schema) {
+        return Err(PolicyValidationError::new(
+            PolicyValidationPhase::Shape,
+            schema_code,
+            "wrong policy schema discriminator",
+        ));
+    }
+    match root_kind {
+        PolicyRootKind::Scan => {
+            let probe: PolicyScanLimitRootProbe =
+                serde_json::from_slice(input).map_err(|error| {
+                    PolicyValidationError::new(
+                        PolicyValidationPhase::Shape,
+                        "POLICY_SHAPE",
+                        error.to_string(),
+                    )
+                })?;
+            debug_assert_eq!(probe.schema, POLICY_SCAN_V1_SCHEMA);
+            validate_policy_scan_probe_shape(&probe)
+        }
+        PolicyRootKind::Evidence => {
+            let probe: PolicyEvidenceLimitRootProbe =
+                serde_json::from_slice(input).map_err(|error| {
+                    PolicyValidationError::new(
+                        PolicyValidationPhase::Shape,
+                        "POLICY_SHAPE",
+                        error.to_string(),
+                    )
+                })?;
+            debug_assert_eq!(probe.schema, POLICY_EVIDENCE_V1_SCHEMA);
+            if probe.properties.is_empty() {
+                return shape("properties must be nonempty");
+            }
+            if probe.reproduction_recipes.len() != 2 {
+                return shape("evidence has exactly two reproduction recipes");
+            }
+            validate_policy_evidence_probe_scalars(&probe)
+        }
+    }
+}
+
+fn validate_policy_evidence_probe_scalars(
+    probe: &PolicyEvidenceLimitRootProbe,
+) -> Result<(), PolicyValidationError> {
+    if !matches!(probe.source_language.as_str(), "go" | "rust") {
+        return scalar("source_language must be go or rust");
+    }
+    require_profile_id(&probe.semantic_profile)?;
+    for hash in [
+        &probe.frontend_source_manifest_hash,
+        &probe.input_set_hash,
+        &probe.source_map_hash,
+        &probe.source_ir_hash,
+        &probe.certificate_source_manifest_hash,
+        &probe.vc_hash,
+    ] {
+        require_sha256(hash)?;
+    }
+    for profile in [
+        &probe.strategy_profile,
+        &probe.checker_profile,
+        &probe.axiom_profile,
+        &probe.limit_profile,
+        &probe.source_ir_schema,
+        &probe.source_vc_schema,
+        &probe.verification_limit_profile,
+    ] {
+        require_profile_id(profile)?;
+    }
+    Ok(())
+}
+
+fn validate_policy_scan_probe_shape(
+    probe: &PolicyScanLimitRootProbe,
+) -> Result<(), PolicyValidationError> {
+    let (expected_readiness, success, phases, rejected_required, diagnostics_required) =
+        match probe.frontend_status.as_str() {
+            "ir-lowered" => ("ready", true, &["emission"][..], false, false),
+            "rejected" => (
+                "unsupported",
+                false,
+                &[
+                    "capture", "source", "metadata", "subset", "lowering", "emission",
+                ][..],
+                true,
+                false,
+            ),
+            "source-error" => (
+                "source_error",
+                false,
+                &["capture", "source", "metadata", "typecheck"][..],
+                false,
+                true,
+            ),
+            "frontend-error" => (
+                "frontend_error",
+                false,
+                &[
+                    "capture",
+                    "source",
+                    "metadata",
+                    "typecheck",
+                    "subset",
+                    "lowering",
+                    "emission",
+                ][..],
+                false,
+                true,
+            ),
+            _ => return shape("unknown frontend_status"),
+        };
+    if probe.readiness != expected_readiness || !phases.contains(&probe.frontend_phase.as_str()) {
+        return shape("frontend status, phase, and readiness are incompatible");
+    }
+    if probe.frontend_status == "ir-lowered" && !probe.rejected_features.is_empty() {
+        return shape("ir-lowered cannot contain rejected features");
+    }
+    if rejected_required && probe.rejected_features.is_empty() && probe.diagnostics.is_empty() {
+        return shape("rejected status requires an issue");
+    }
+    if matches!(
+        probe.frontend_status.as_str(),
+        "source-error" | "frontend-error"
+    ) && !probe.rejected_features.is_empty()
+    {
+        return shape("error status cannot contain rejected features");
+    }
+    if diagnostics_required && probe.diagnostics.is_empty() {
+        return shape("status requires a diagnostic");
+    }
+    let success_presence = [
+        probe.limit_profile.is_some(),
+        probe.frontend_source_manifest_hash.is_some(),
+        probe.input_set_hash.is_some(),
+        probe.source_map_hash.is_some(),
+        probe.source_ir_schema.is_some(),
+        probe.source_ir_hash.is_some(),
+        probe.helper_artifacts.is_some(),
+    ];
+    if success_presence.iter().any(|present| *present != success) {
+        return shape("success-only scan fields have the wrong presence");
+    }
+    Ok(())
+}
+
+fn observed_policy_max(
+    limit: &'static str,
+    actual: u64,
+    maximum: u64,
+) -> Result<(), StrictJsonError> {
+    if actual > maximum {
+        Err(StrictJsonError::ObservedLimitExceeded {
+            limit,
+            maximum,
+            actual,
+        })
+    } else {
+        Ok(())
+    }
+}
+
+fn path_is(path: &[StrictJsonPathSegment], keys: &[&str]) -> bool {
+    if path.len() != keys.len() {
+        return false;
+    }
+    path.iter().zip(keys).all(
+        |(segment, key)| matches!(segment, StrictJsonPathSegment::Key(actual) if actual == key),
+    )
+}
+
+fn policy_member_rows_path(path: &[StrictJsonPathSegment]) -> bool {
+    matches!(
+        path,
+        [
+            StrictJsonPathSegment::Key(properties),
+            StrictJsonPathSegment::Index(_),
+            StrictJsonPathSegment::Key(members),
+        ] if properties == "properties" && members == "members"
+    )
+}
+
+fn policy_member_references_path(path: &[StrictJsonPathSegment]) -> bool {
+    matches!(
+        path,
+        [
+            StrictJsonPathSegment::Key(properties),
+            StrictJsonPathSegment::Index(_),
+            StrictJsonPathSegment::Key(members),
+            StrictJsonPathSegment::Index(_),
+            StrictJsonPathSegment::Key(evidence),
+        ] if properties == "properties" && members == "members" && evidence == "evidence"
+    )
+}
+
+fn policy_recipe_argv_path(path: &[StrictJsonPathSegment]) -> bool {
+    matches!(
+        path,
+        [
+            StrictJsonPathSegment::Key(recipes),
+            StrictJsonPathSegment::Index(_),
+            StrictJsonPathSegment::Key(argv),
+        ] if recipes == "reproduction_recipes" && argv == "argv"
+    )
 }
 
 fn validate_policy_field_limits(value: &StrictJsonValue) -> Result<(), PolicyValidationError> {
@@ -1178,6 +1557,8 @@ fn map_strict_json_error(error: StrictJsonError) -> PolicyValidationError {
     let code = match error {
         StrictJsonError::InputBytesExceeded { .. } => "POLICY_LIMIT_JSON_BYTES",
         StrictJsonError::DuplicateObjectName { .. } => "POLICY_JSON_DUPLICATE_KEY",
+        StrictJsonError::ObservedLimitExceeded { .. }
+        | StrictJsonError::ObservedCounterOverflow { .. } => "POLICY_LIMIT_COLLECTION",
         _ => "POLICY_JSON_INVALID",
     };
     PolicyValidationError::new(PolicyValidationPhase::Transport, code, error.to_string())
@@ -1266,13 +1647,17 @@ fn validate_canonical_transport(
 }
 
 fn canonical_policy_document<T: Serialize>(document: &T) -> Result<Vec<u8>, PolicyValidationError> {
-    let encoded = serde_json::to_vec(document).map_err(|error| {
-        PolicyValidationError::new(
-            PolicyValidationPhase::Shape,
-            "POLICY_SHAPE",
-            error.to_string(),
-        )
-    })?;
+    let encoded =
+        serialize_json_bounded(document, policy_json_without_lf_maximum()).map_err(|error| {
+            match error {
+                BoundedJsonSerializeError::OutputBytesExceeded { .. } => {
+                    policy_canonical_size_error()
+                }
+                BoundedJsonSerializeError::Serialize(detail) => {
+                    PolicyValidationError::new(PolicyValidationPhase::Shape, "POLICY_SHAPE", detail)
+                }
+            }
+        })?;
     let strict = parse_strict_json(&encoded, STRICT_POLICY_LIMITS).map_err(|error| {
         let code = if matches!(error, StrictJsonError::InputBytesExceeded { .. }) {
             "POLICY_LIMIT_JSON_BYTES"
@@ -1285,16 +1670,38 @@ fn canonical_policy_document<T: Serialize>(document: &T) -> Result<Vec<u8>, Poli
             error.to_string(),
         )
     })?;
-    let mut canonical = canonical_json_bytes(&strict).map_err(|error| {
-        PolicyValidationError::new(
-            PolicyValidationPhase::CanonicalSize,
-            "POLICY_JSON_INVALID",
-            error.to_string(),
-        )
-    })?;
+    let mut canonical = canonical_json_bytes_bounded(&strict, policy_json_without_lf_maximum())
+        .map_err(|error| map_policy_canonical_error(error, PolicyValidationPhase::CanonicalSize))?;
     canonical.push(b'\n');
     validate_canonical_size(canonical.len())?;
     Ok(canonical)
+}
+
+fn policy_json_without_lf_maximum() -> usize {
+    usize::try_from(POLICY_JSON_TRANSPORT_BYTES_MAX.saturating_sub(1)).unwrap_or(usize::MAX)
+}
+
+fn policy_canonical_size_error() -> PolicyValidationError {
+    PolicyValidationError::new(
+        PolicyValidationPhase::CanonicalSize,
+        "POLICY_LIMIT_JSON_BYTES",
+        "canonical policy JSON exceeds the 256 MiB limit",
+    )
+}
+
+fn map_policy_canonical_error(
+    error: CanonicalJsonError,
+    phase: PolicyValidationPhase,
+) -> PolicyValidationError {
+    if matches!(error, CanonicalJsonError::OutputBytesExceeded { .. }) {
+        PolicyValidationError::new(
+            phase,
+            "POLICY_LIMIT_JSON_BYTES",
+            "canonical policy JSON exceeds the 256 MiB limit",
+        )
+    } else {
+        PolicyValidationError::new(phase, "POLICY_JSON_INVALID", error.to_string())
+    }
 }
 
 fn validate_canonical_size(bytes: usize) -> Result<(), PolicyValidationError> {

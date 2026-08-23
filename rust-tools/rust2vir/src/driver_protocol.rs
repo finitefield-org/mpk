@@ -1,4 +1,7 @@
-use crate::diagnostics::{valid_private_diagnostic, PrivateDiagnosticStatus};
+use crate::diagnostics::{
+    normalize_private_diagnostics, valid_private_diagnostic, PrivateDiagnosticStatus,
+    DIAGNOSTIC_TRUNCATION_CODE,
+};
 use crate::json::{self, JsonValue};
 use crate::sha256::{hex, Sha256};
 use crate::source_capture::{CapturedInput, InputKind};
@@ -8,8 +11,10 @@ pub const REQUEST_PATH: &str = "/mpk/driver-request.json";
 pub const OUTPUT_DIRECTORY: &str = "/mpk/driver-output";
 pub const OUTPUT_PARTIAL_PATH: &str = "/mpk/driver-output/result.json.partial";
 pub const OUTPUT_FINAL_PATH: &str = "/mpk/driver-output/result.json";
-pub const REQUEST_TRANSPORT_MAX: usize = 4_194_304;
-pub const OUTPUT_TRANSPORT_MAX: usize = 268_435_456;
+pub const REQUEST_TRANSPORT_MAX: usize =
+    crate::limits::RustLimitId::PrivateRequestTransport.maximum() as usize;
+pub const OUTPUT_TRANSPORT_MAX: usize =
+    crate::limits::RustLimitId::PrivateOutputTransport.maximum() as usize;
 
 const REQUEST_DOMAIN: &[u8] = b"MPK-RUST-DRIVER-REQUEST-0.1";
 const INVENTORY_DOMAIN: &[u8] = b"MPK-RUST-SOURCE-INVENTORY-0.1";
@@ -17,9 +22,12 @@ const INPUT_SET_DOMAIN: &[u8] = b"MPK-INPUT-SET-0.1";
 const PAYLOAD_DOMAIN: &[u8] = b"MPK-RUST-DRIVER-PAYLOAD-0.1";
 const VIR_DOMAIN: &[u8] = b"MPK-VIR-0.1";
 const SAFE_INTEGER_MAX: i64 = 9_007_199_254_740_991;
-const DIAGNOSTIC_COUNT_MAX: usize = 1_024;
-const DIAGNOSTIC_MESSAGE_MAX: usize = 4_096;
-const DIAGNOSTIC_MESSAGE_BYTES_MAX: usize = 2_097_152;
+const DIAGNOSTIC_COUNT_MAX: usize =
+    crate::limits::RustLimitId::NormalizedIssueEntries.maximum() as usize;
+const DIAGNOSTIC_MESSAGE_MAX: usize =
+    crate::limits::RustLimitId::NormalizedIssueMessage.maximum() as usize;
+const DIAGNOSTIC_MESSAGE_BYTES_MAX: usize =
+    crate::limits::RustLimitId::NormalizedIssueMessageTotal.maximum() as usize;
 const REQUEST_FIELDS: &[&str] = &[
     "argument_profile_id",
     "compiler",
@@ -141,12 +149,7 @@ impl DriverStatus {
     }
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
-pub struct PrivateDiagnostic {
-    pub code: String,
-    pub message: String,
-    pub function_id: Option<String>,
-}
+pub use crate::diagnostics::PrivateDiagnostic;
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct DriverInputIdentity {
@@ -697,12 +700,14 @@ pub fn seal_request_value(mut value: JsonValue) -> Result<DriverRequest, DriverP
             JsonValue::String(inventory_hash),
         );
     }
-    let preimage = json::canonical(&value).map_err(|_| DriverProtocolCode::Canonical)?;
+    let preimage = json::canonical_bounded(&value, REQUEST_TRANSPORT_MAX - 1)
+        .map_err(|_| DriverProtocolCode::Transport)?;
     value.as_object_mut().expect("request object").insert(
         "request_fingerprint".to_owned(),
         JsonValue::String(domain_hash(REQUEST_DOMAIN, &preimage)),
     );
-    let mut transport = json::canonical(&value).map_err(|_| DriverProtocolCode::Canonical)?;
+    let mut transport = json::canonical_bounded(&value, REQUEST_TRANSPORT_MAX - 1)
+        .map_err(|_| DriverProtocolCode::Transport)?;
     transport.push(b'\n');
     parse_request_transport(&transport)
 }
@@ -717,7 +722,7 @@ pub fn encode_non_success(
         return Err(DriverProtocolCode::Shape.into());
     }
     let diagnostic_status = private_diagnostic_status(status).ok_or(DriverProtocolCode::Shape)?;
-    let diagnostics = normalize_diagnostics(diagnostics, diagnostic_status, phase)?;
+    let diagnostics = normalize_private_diagnostics(diagnostics, diagnostic_status, phase)?;
     let mut root = common_output_root(request)?;
     root.insert(
         "status".to_owned(),
@@ -725,8 +730,8 @@ pub fn encode_non_success(
     );
     root.insert("phase".to_owned(), JsonValue::String(phase.to_owned()));
     root.insert("diagnostics".to_owned(), diagnostics_json(&diagnostics));
-    let mut bytes =
-        json::canonical(&JsonValue::Object(root)).map_err(|_| DriverProtocolCode::Canonical)?;
+    let mut bytes = json::canonical_bounded(&JsonValue::Object(root), OUTPUT_TRANSPORT_MAX - 1)
+        .map_err(|_| DriverProtocolCode::OutputLimit)?;
     bytes.push(b'\n');
     parse_output_transport(&bytes, request, status.exit_code(), false)?;
     Ok(bytes)
@@ -751,14 +756,18 @@ pub fn encode_lowered(
     );
     root.insert("raw_lowering".to_owned(), raw_lowering);
     root.insert("raw_source_map".to_owned(), raw_source_map);
-    let preimage = json::canonical(&JsonValue::Object(root.clone()))
-        .map_err(|_| DriverProtocolCode::Canonical)?;
-    root.insert(
-        "payload_hash".to_owned(),
-        JsonValue::String(domain_hash(PAYLOAD_DOMAIN, &preimage)),
-    );
-    let mut bytes =
-        json::canonical(&JsonValue::Object(root)).map_err(|_| DriverProtocolCode::Canonical)?;
+    let mut output = JsonValue::Object(root);
+    let preimage = json::canonical_bounded(&output, OUTPUT_TRANSPORT_MAX - 1)
+        .map_err(|_| DriverProtocolCode::OutputLimit)?;
+    output
+        .as_object_mut()
+        .expect("constructed driver output object")
+        .insert(
+            "payload_hash".to_owned(),
+            JsonValue::String(domain_hash(PAYLOAD_DOMAIN, &preimage)),
+        );
+    let mut bytes = json::canonical_bounded(&output, OUTPUT_TRANSPORT_MAX - 1)
+        .map_err(|_| DriverProtocolCode::OutputLimit)?;
     bytes.push(b'\n');
     parse_output_transport(&bytes, request, DriverStatus::Lowered.exit_code(), false)?;
     Ok(bytes)
@@ -813,82 +822,6 @@ fn diagnostics_json(diagnostics: &[PrivateDiagnostic]) -> JsonValue {
             })
             .collect(),
     )
-}
-
-fn normalize_diagnostics(
-    diagnostics: &[PrivateDiagnostic],
-    status: PrivateDiagnosticStatus,
-    phase: &str,
-) -> Result<Vec<PrivateDiagnostic>, DriverProtocolError> {
-    let mut normalized = diagnostics
-        .iter()
-        .map(|diagnostic| {
-            if diagnostic.message.is_empty()
-                || diagnostic.message.chars().any(char::is_control)
-                || diagnostic.code == "RUST_LIMIT_DIAGNOSTICS_TRUNCATED"
-                || !valid_private_diagnostic(&diagnostic.code, status, phase)
-            {
-                return Err(DriverProtocolCode::Shape.into());
-            }
-            let mut diagnostic = diagnostic.clone();
-            if diagnostic.message.len() > DIAGNOSTIC_MESSAGE_MAX {
-                let mut end = DIAGNOSTIC_MESSAGE_MAX - " [truncated]".len();
-                while !diagnostic.message.is_char_boundary(end) {
-                    end -= 1;
-                }
-                diagnostic.message.truncate(end);
-                diagnostic.message.push_str(" [truncated]");
-            }
-            Ok(diagnostic)
-        })
-        .collect::<Result<Vec<_>, DriverProtocolError>>()?;
-    normalized.sort_by(|left, right| {
-        (
-            left.code.as_bytes(),
-            left.message.as_bytes(),
-            left.function_id.as_deref().unwrap_or("").as_bytes(),
-        )
-            .cmp(&(
-                right.code.as_bytes(),
-                right.message.as_bytes(),
-                right.function_id.as_deref().unwrap_or("").as_bytes(),
-            ))
-    });
-    let message_bytes = normalized.iter().try_fold(0_usize, |total, diagnostic| {
-        total.checked_add(diagnostic.message.len())
-    });
-    if normalized.len() <= DIAGNOSTIC_COUNT_MAX
-        && message_bytes.is_some_and(|bytes| bytes <= DIAGNOSTIC_MESSAGE_BYTES_MAX)
-    {
-        return Ok(normalized);
-    }
-
-    let mut retained = normalized.len().min(DIAGNOSTIC_COUNT_MAX - 1);
-    let mut retained_message_bytes = normalized[..retained]
-        .iter()
-        .map(|diagnostic| diagnostic.message.len())
-        .sum::<usize>();
-    loop {
-        let omitted = normalized.len() - retained;
-        let marker_message = format!("{omitted} normalized issues omitted");
-        if retained_message_bytes
-            .checked_add(marker_message.len())
-            .is_some_and(|bytes| bytes <= DIAGNOSTIC_MESSAGE_BYTES_MAX)
-        {
-            normalized.truncate(retained);
-            normalized.push(PrivateDiagnostic {
-                code: "RUST_LIMIT_DIAGNOSTICS_TRUNCATED".to_owned(),
-                message: marker_message,
-                function_id: None,
-            });
-            return Ok(normalized);
-        }
-        if retained == 0 {
-            return Err(DriverProtocolCode::Shape.into());
-        }
-        retained -= 1;
-        retained_message_bytes -= normalized[retained].message.len();
-    }
 }
 
 pub fn parse_output_transport(
@@ -1391,7 +1324,7 @@ fn validate_diagnostics(
         if message_bytes > DIAGNOSTIC_MESSAGE_BYTES_MAX {
             return Err(DriverProtocolCode::Shape.into());
         }
-        let marker = code == "RUST_LIMIT_DIAGNOSTICS_TRUNCATED";
+        let marker = code == DIAGNOSTIC_TRUNCATION_CODE;
         if diagnostic_status.is_none_or(|status| !valid_private_diagnostic(code, status, phase)) {
             return Err(DriverProtocolCode::Shape.into());
         }

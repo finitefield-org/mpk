@@ -8,6 +8,9 @@ use std::cmp::Ordering;
 use std::collections::BTreeSet;
 use std::error::Error;
 use std::fmt;
+use std::io::{self, Write};
+
+use serde::Serialize;
 
 /// Largest interoperable integral JSON value admitted by VIR-era schemas.
 pub const MAX_SAFE_JSON_INTEGER: i64 = 9_007_199_254_740_991;
@@ -203,18 +206,50 @@ impl Error for ObjectFieldsError {}
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum StrictJsonError {
-    InputBytesExceeded { maximum: u64, actual: u64 },
-    NodeLimitExceeded { maximum: u64 },
-    UnsupportedDepthLimit { requested: u64, maximum: u64 },
-    DepthLimitExceeded { maximum: u64 },
-    StringBytesExceeded { maximum: u64 },
+    InputBytesExceeded {
+        maximum: u64,
+        actual: u64,
+    },
+    NodeLimitExceeded {
+        maximum: u64,
+    },
+    UnsupportedDepthLimit {
+        requested: u64,
+        maximum: u64,
+    },
+    DepthLimitExceeded {
+        maximum: u64,
+    },
+    StringBytesExceeded {
+        maximum: u64,
+    },
     Bom,
-    InvalidUtf8 { valid_up_to: usize },
-    DuplicateObjectName { name: String },
-    FloatingPointNumber { offset: usize },
-    IntegerOutOfRange { offset: usize },
-    InvalidJson { offset: usize },
-    TrailingBytes { offset: usize },
+    InvalidUtf8 {
+        valid_up_to: usize,
+    },
+    DuplicateObjectName {
+        name: String,
+    },
+    FloatingPointNumber {
+        offset: usize,
+    },
+    IntegerOutOfRange {
+        offset: usize,
+    },
+    InvalidJson {
+        offset: usize,
+    },
+    TrailingBytes {
+        offset: usize,
+    },
+    ObservedLimitExceeded {
+        limit: &'static str,
+        maximum: u64,
+        actual: u64,
+    },
+    ObservedCounterOverflow {
+        limit: &'static str,
+    },
 }
 
 impl fmt::Display for StrictJsonError {
@@ -268,11 +303,109 @@ impl fmt::Display for StrictJsonError {
                     "bytes after the first JSON value at byte {offset}"
                 )
             }
+            Self::ObservedLimitExceeded {
+                limit,
+                maximum,
+                actual,
+            } => write!(
+                formatter,
+                "observed JSON limit {limit} exceeded: {actual} > {maximum}"
+            ),
+            Self::ObservedCounterOverflow { limit } => {
+                write!(formatter, "observed JSON counter {limit} overflow")
+            }
         }
     }
 }
 
 impl Error for StrictJsonError {}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum StrictJsonValueKind {
+    Null,
+    Bool,
+    Integer,
+    String,
+    Array,
+    Object,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub enum StrictJsonPathSegment {
+    Key(String),
+    Index(u64),
+}
+
+#[derive(Clone, Copy, Debug)]
+pub enum StrictJsonEvent<'a> {
+    Value {
+        path: &'a [StrictJsonPathSegment],
+        kind: StrictJsonValueKind,
+    },
+    ArrayElement {
+        path: &'a [StrictJsonPathSegment],
+        count: u64,
+    },
+    ObjectMember {
+        path: &'a [StrictJsonPathSegment],
+        count: u64,
+        name: &'a str,
+    },
+    String {
+        path: &'a [StrictJsonPathSegment],
+        decoded_bytes: u64,
+    },
+    Integer {
+        path: &'a [StrictJsonPathSegment],
+        value: i64,
+    },
+    ContainerEnd {
+        path: &'a [StrictJsonPathSegment],
+        kind: StrictJsonValueKind,
+        count: u64,
+    },
+}
+
+pub trait StrictJsonObserver {
+    fn observe(&mut self, event: StrictJsonEvent<'_>) -> Result<(), StrictJsonError>;
+
+    /// Returns a schema-owned decoded-byte ceiling for the string at `path`.
+    /// The parser checks this while decoding and never retains bytes beyond the
+    /// returned ceiling. Observers should only return ceilings tighter than the
+    /// transport-wide `StrictJsonLimits::max_string_bytes` value.
+    fn string_byte_limit(
+        &mut self,
+        _path: &[StrictJsonPathSegment],
+    ) -> Option<(&'static str, u64)> {
+        None
+    }
+
+    /// Handles the first decoded byte count above a path-specific ceiling.
+    /// The default stops scanning. Observers that need lexical errors to own
+    /// precedence may record the error and return `Ok(())`; decoding continues
+    /// without retaining the oversized string value.
+    fn string_byte_limit_exceeded(
+        &mut self,
+        limit: &'static str,
+        maximum: u64,
+        actual: u64,
+    ) -> Result<(), StrictJsonError> {
+        Err(StrictJsonError::ObservedLimitExceeded {
+            limit,
+            maximum,
+            actual,
+        })
+    }
+}
+
+impl<F> StrictJsonObserver for F
+where
+    F: for<'event> FnMut(StrictJsonEvent<'event>) -> Result<(), StrictJsonError>,
+{
+    fn observe(&mut self, event: StrictJsonEvent<'_>) -> Result<(), StrictJsonError> {
+        self(event)
+    }
+}
 
 /// Parses exactly one UTF-8 JSON value under the narrowed VIR-era number and
 /// Unicode rules.
@@ -284,6 +417,27 @@ pub fn parse_strict_json(
     input: &[u8],
     limits: StrictJsonLimits,
 ) -> Result<StrictJsonValue, StrictJsonError> {
+    parse_strict_json_inner(input, limits, true, None)?
+        .ok_or(StrictJsonError::InvalidJson { offset: 0 })
+}
+
+/// Validates strict JSON and reports schema-owned structural events without
+/// retaining the parsed value. This lets consumers enforce field-specific
+/// limits before allocating a complete generic or typed tree.
+pub fn scan_strict_json(
+    input: &[u8],
+    limits: StrictJsonLimits,
+    observer: &mut dyn StrictJsonObserver,
+) -> Result<(), StrictJsonError> {
+    parse_strict_json_inner(input, limits, false, Some(observer)).map(|_| ())
+}
+
+fn parse_strict_json_inner(
+    input: &[u8],
+    limits: StrictJsonLimits,
+    retain: bool,
+    observer: Option<&mut dyn StrictJsonObserver>,
+) -> Result<Option<StrictJsonValue>, StrictJsonError> {
     if limits.max_depth > MAX_SUPPORTED_JSON_DEPTH {
         return Err(StrictJsonError::UnsupportedDepthLimit {
             requested: limits.max_depth,
@@ -308,9 +462,12 @@ pub fn parse_strict_json(
         offset: 0,
         limits,
         nodes: 0,
+        retain,
+        observer,
+        path: Vec::new(),
     };
     parser.skip_whitespace();
-    let value = parser.parse_value(0)?;
+    let value = parser.parse_document()?;
     parser.skip_whitespace();
     if parser.offset != parser.text.len() {
         return Err(StrictJsonError::TrailingBytes {
@@ -320,116 +477,308 @@ pub fn parse_strict_json(
     Ok(value)
 }
 
-struct Parser<'a> {
-    text: &'a str,
+struct Parser<'input, 'observer> {
+    text: &'input str,
     offset: usize,
     limits: StrictJsonLimits,
     nodes: u64,
+    retain: bool,
+    observer: Option<&'observer mut dyn StrictJsonObserver>,
+    path: Vec<StrictJsonPathSegment>,
 }
 
-impl Parser<'_> {
-    fn parse_value(&mut self, parent_depth: u64) -> Result<StrictJsonValue, StrictJsonError> {
-        self.nodes = self
-            .nodes
-            .checked_add(1)
-            .ok_or(StrictJsonError::NodeLimitExceeded {
-                maximum: self.limits.max_nodes,
-            })?;
-        if self.nodes > self.limits.max_nodes {
-            return Err(StrictJsonError::NodeLimitExceeded {
-                maximum: self.limits.max_nodes,
-            });
-        }
+enum ContainerFrame {
+    Array {
+        depth: u64,
+        values: Vec<StrictJsonValue>,
+        count: u64,
+    },
+    Object {
+        depth: u64,
+        entries: Vec<(String, StrictJsonValue)>,
+        names: BTreeSet<String>,
+        count: u64,
+        pending_name: String,
+    },
+}
 
+impl Parser<'_, '_> {
+    fn parse_document(&mut self) -> Result<Option<StrictJsonValue>, StrictJsonError> {
+        let mut frames = Vec::<ContainerFrame>::new();
+        let mut parent_depth = 0_u64;
+        let mut completed: Option<Option<StrictJsonValue>> = None;
+
+        loop {
+            if completed.is_none() {
+                self.nodes =
+                    self.nodes
+                        .checked_add(1)
+                        .ok_or(StrictJsonError::NodeLimitExceeded {
+                            maximum: self.limits.max_nodes,
+                        })?;
+                if self.nodes > self.limits.max_nodes {
+                    return Err(StrictJsonError::NodeLimitExceeded {
+                        maximum: self.limits.max_nodes,
+                    });
+                }
+
+                let kind = self.peek_value_kind()?;
+                if let Some(observer) = self.observer.as_mut() {
+                    observer.observe(StrictJsonEvent::Value {
+                        path: &self.path,
+                        kind,
+                    })?;
+                }
+
+                match kind {
+                    StrictJsonValueKind::Null => {
+                        self.consume_literal(b"null")?;
+                        completed = Some(self.retain.then_some(StrictJsonValue::Null));
+                    }
+                    StrictJsonValueKind::Bool => match self.peek_byte() {
+                        Some(b't') => {
+                            self.consume_literal(b"true")?;
+                            completed = Some(self.retain.then_some(StrictJsonValue::Bool(true)));
+                        }
+                        Some(b'f') => {
+                            self.consume_literal(b"false")?;
+                            completed = Some(self.retain.then_some(StrictJsonValue::Bool(false)));
+                        }
+                        _ => unreachable!("peek_value_kind admitted only a boolean literal"),
+                    },
+                    StrictJsonValueKind::Integer => {
+                        let value = self.parse_integer()?;
+                        if let Some(observer) = self.observer.as_mut() {
+                            observer.observe(StrictJsonEvent::Integer {
+                                path: &self.path,
+                                value,
+                            })?;
+                        }
+                        completed = Some(self.retain.then_some(StrictJsonValue::Integer(value)));
+                    }
+                    StrictJsonValueKind::String => {
+                        let observed_limit = self
+                            .observer
+                            .as_mut()
+                            .and_then(|observer| observer.string_byte_limit(&self.path));
+                        let (value, decoded_bytes) =
+                            self.parse_string(self.retain, observed_limit)?;
+                        if let Some(observer) = self.observer.as_mut() {
+                            observer.observe(StrictJsonEvent::String {
+                                path: &self.path,
+                                decoded_bytes,
+                            })?;
+                        }
+                        completed = Some(self.retain.then_some(StrictJsonValue::String(value)));
+                    }
+                    StrictJsonValueKind::Array => {
+                        let depth = self.enter_container(parent_depth)?;
+                        self.offset += 1;
+                        self.skip_whitespace();
+                        if self.consume_if(b']') {
+                            if let Some(observer) = self.observer.as_mut() {
+                                observer.observe(StrictJsonEvent::ContainerEnd {
+                                    path: &self.path,
+                                    kind: StrictJsonValueKind::Array,
+                                    count: 0,
+                                })?;
+                            }
+                            completed =
+                                Some(self.retain.then_some(StrictJsonValue::Array(Vec::new())));
+                        } else {
+                            let count = 1;
+                            if let Some(observer) = self.observer.as_mut() {
+                                observer.observe(StrictJsonEvent::ArrayElement {
+                                    path: &self.path,
+                                    count,
+                                })?;
+                            }
+                            self.path.push(StrictJsonPathSegment::Index(0));
+                            frames.push(ContainerFrame::Array {
+                                depth,
+                                values: Vec::new(),
+                                count,
+                            });
+                            parent_depth = depth;
+                            continue;
+                        }
+                    }
+                    StrictJsonValueKind::Object => {
+                        let depth = self.enter_container(parent_depth)?;
+                        self.offset += 1;
+                        self.skip_whitespace();
+                        if self.consume_if(b'}') {
+                            if let Some(observer) = self.observer.as_mut() {
+                                observer.observe(StrictJsonEvent::ContainerEnd {
+                                    path: &self.path,
+                                    kind: StrictJsonValueKind::Object,
+                                    count: 0,
+                                })?;
+                            }
+                            completed =
+                                Some(self.retain.then_some(StrictJsonValue::Object(Vec::new())));
+                        } else {
+                            let mut names = BTreeSet::new();
+                            let name = self.parse_object_name(&mut names, 1)?;
+                            self.path.push(StrictJsonPathSegment::Key(name.clone()));
+                            frames.push(ContainerFrame::Object {
+                                depth,
+                                entries: Vec::new(),
+                                names,
+                                count: 1,
+                                pending_name: name,
+                            });
+                            parent_depth = depth;
+                            continue;
+                        }
+                    }
+                }
+            }
+
+            let value = completed
+                .take()
+                .expect("a scalar or completed container produced a value");
+            let Some(frame) = frames.pop() else {
+                return Ok(value);
+            };
+            self.path.pop();
+            match frame {
+                ContainerFrame::Array {
+                    depth,
+                    mut values,
+                    mut count,
+                } => {
+                    if let Some(value) = value {
+                        values.push(value);
+                    }
+                    self.skip_whitespace();
+                    if self.consume_if(b']') {
+                        if let Some(observer) = self.observer.as_mut() {
+                            observer.observe(StrictJsonEvent::ContainerEnd {
+                                path: &self.path,
+                                kind: StrictJsonValueKind::Array,
+                                count,
+                            })?;
+                        }
+                        completed = Some(self.retain.then_some(StrictJsonValue::Array(values)));
+                    } else {
+                        if !self.consume_if(b',') {
+                            return Err(StrictJsonError::InvalidJson {
+                                offset: self.offset,
+                            });
+                        }
+                        self.skip_whitespace();
+                        count = count.checked_add(1).ok_or(
+                            StrictJsonError::ObservedCounterOverflow {
+                                limit: "array_elements",
+                            },
+                        )?;
+                        if let Some(observer) = self.observer.as_mut() {
+                            observer.observe(StrictJsonEvent::ArrayElement {
+                                path: &self.path,
+                                count,
+                            })?;
+                        }
+                        self.path.push(StrictJsonPathSegment::Index(count - 1));
+                        frames.push(ContainerFrame::Array {
+                            depth,
+                            values,
+                            count,
+                        });
+                        parent_depth = depth;
+                    }
+                }
+                ContainerFrame::Object {
+                    depth,
+                    mut entries,
+                    mut names,
+                    mut count,
+                    pending_name,
+                } => {
+                    if let Some(value) = value {
+                        entries.push((pending_name, value));
+                    }
+                    self.skip_whitespace();
+                    if self.consume_if(b'}') {
+                        if let Some(observer) = self.observer.as_mut() {
+                            observer.observe(StrictJsonEvent::ContainerEnd {
+                                path: &self.path,
+                                kind: StrictJsonValueKind::Object,
+                                count,
+                            })?;
+                        }
+                        completed = Some(self.retain.then_some(StrictJsonValue::Object(entries)));
+                    } else {
+                        if !self.consume_if(b',') {
+                            return Err(StrictJsonError::InvalidJson {
+                                offset: self.offset,
+                            });
+                        }
+                        self.skip_whitespace();
+                        count = count.checked_add(1).ok_or(
+                            StrictJsonError::ObservedCounterOverflow {
+                                limit: "object_members",
+                            },
+                        )?;
+                        let name = self.parse_object_name(&mut names, count)?;
+                        self.path.push(StrictJsonPathSegment::Key(name.clone()));
+                        frames.push(ContainerFrame::Object {
+                            depth,
+                            entries,
+                            names,
+                            count,
+                            pending_name: name,
+                        });
+                        parent_depth = depth;
+                    }
+                }
+            }
+        }
+    }
+
+    fn peek_value_kind(&self) -> Result<StrictJsonValueKind, StrictJsonError> {
         match self.peek_byte() {
-            Some(b'n') => {
-                self.consume_literal(b"null")?;
-                Ok(StrictJsonValue::Null)
-            }
-            Some(b't') => {
-                self.consume_literal(b"true")?;
-                Ok(StrictJsonValue::Bool(true))
-            }
-            Some(b'f') => {
-                self.consume_literal(b"false")?;
-                Ok(StrictJsonValue::Bool(false))
-            }
-            Some(b'"') => self.parse_string().map(StrictJsonValue::String),
-            Some(b'[') => self.parse_array(parent_depth),
-            Some(b'{') => self.parse_object(parent_depth),
-            Some(b'-' | b'0'..=b'9') => self.parse_integer().map(StrictJsonValue::Integer),
+            Some(b'n') => Ok(StrictJsonValueKind::Null),
+            Some(b't' | b'f') => Ok(StrictJsonValueKind::Bool),
+            Some(b'"') => Ok(StrictJsonValueKind::String),
+            Some(b'[') => Ok(StrictJsonValueKind::Array),
+            Some(b'{') => Ok(StrictJsonValueKind::Object),
+            Some(b'-' | b'0'..=b'9') => Ok(StrictJsonValueKind::Integer),
             _ => Err(StrictJsonError::InvalidJson {
                 offset: self.offset,
             }),
         }
     }
 
-    fn parse_array(&mut self, parent_depth: u64) -> Result<StrictJsonValue, StrictJsonError> {
-        let depth = self.enter_container(parent_depth)?;
-        self.offset += 1;
+    fn parse_object_name(
+        &mut self,
+        names: &mut BTreeSet<String>,
+        count: u64,
+    ) -> Result<String, StrictJsonError> {
+        if self.peek_byte() != Some(b'"') {
+            return Err(StrictJsonError::InvalidJson {
+                offset: self.offset,
+            });
+        }
+        let (name, _) = self.parse_string(true, None)?;
+        if !names.insert(name.clone()) {
+            return Err(StrictJsonError::DuplicateObjectName { name });
+        }
+        if let Some(observer) = self.observer.as_mut() {
+            observer.observe(StrictJsonEvent::ObjectMember {
+                path: &self.path,
+                count,
+                name: &name,
+            })?;
+        }
         self.skip_whitespace();
-        let mut values = Vec::new();
-        if self.consume_if(b']') {
-            return Ok(StrictJsonValue::Array(values));
+        if !self.consume_if(b':') {
+            return Err(StrictJsonError::InvalidJson {
+                offset: self.offset,
+            });
         }
-
-        loop {
-            values.push(self.parse_value(depth)?);
-            self.skip_whitespace();
-            if self.consume_if(b']') {
-                break;
-            }
-            if !self.consume_if(b',') {
-                return Err(StrictJsonError::InvalidJson {
-                    offset: self.offset,
-                });
-            }
-            self.skip_whitespace();
-        }
-        Ok(StrictJsonValue::Array(values))
-    }
-
-    fn parse_object(&mut self, parent_depth: u64) -> Result<StrictJsonValue, StrictJsonError> {
-        let depth = self.enter_container(parent_depth)?;
-        self.offset += 1;
         self.skip_whitespace();
-        let mut entries = Vec::new();
-        let mut names = BTreeSet::new();
-        if self.consume_if(b'}') {
-            return Ok(StrictJsonValue::Object(entries));
-        }
-
-        loop {
-            if self.peek_byte() != Some(b'"') {
-                return Err(StrictJsonError::InvalidJson {
-                    offset: self.offset,
-                });
-            }
-            let name = self.parse_string()?;
-            if !names.insert(name.clone()) {
-                return Err(StrictJsonError::DuplicateObjectName { name });
-            }
-            self.skip_whitespace();
-            if !self.consume_if(b':') {
-                return Err(StrictJsonError::InvalidJson {
-                    offset: self.offset,
-                });
-            }
-            self.skip_whitespace();
-            let value = self.parse_value(depth)?;
-            entries.push((name, value));
-            self.skip_whitespace();
-            if self.consume_if(b'}') {
-                break;
-            }
-            if !self.consume_if(b',') {
-                return Err(StrictJsonError::InvalidJson {
-                    offset: self.offset,
-                });
-            }
-            self.skip_whitespace();
-        }
-        Ok(StrictJsonValue::Object(entries))
+        Ok(name)
     }
 
     fn parse_integer(&mut self) -> Result<i64, StrictJsonError> {
@@ -469,13 +818,18 @@ impl Parser<'_> {
         Ok(value)
     }
 
-    fn parse_string(&mut self) -> Result<String, StrictJsonError> {
+    fn parse_string(
+        &mut self,
+        retain: bool,
+        observed_limit: Option<(&'static str, u64)>,
+    ) -> Result<(String, u64), StrictJsonError> {
         let opening = self.offset;
         if !self.consume_if(b'"') {
             return Err(StrictJsonError::InvalidJson { offset: opening });
         }
         let mut output = String::new();
         let mut output_bytes = 0_u64;
+        let mut observed_exceeded = false;
 
         loop {
             let Some(byte) = self.peek_byte() else {
@@ -486,7 +840,7 @@ impl Parser<'_> {
             match byte {
                 b'"' => {
                     self.offset += 1;
-                    return Ok(output);
+                    return Ok((output, output_bytes));
                 }
                 b'\\' => {
                     self.offset += 1;
@@ -513,7 +867,12 @@ impl Parser<'_> {
                             });
                         }
                     };
-                    self.push_string_character(&mut output, &mut output_bytes, character)?;
+                    self.push_string_character(&mut output, &mut output_bytes, character, retain)?;
+                    self.handle_observed_string_limit(
+                        observed_limit,
+                        output_bytes,
+                        &mut observed_exceeded,
+                    )?;
                 }
                 0x00..=0x1f => {
                     return Err(StrictJsonError::InvalidJson {
@@ -527,7 +886,12 @@ impl Parser<'_> {
                         },
                     )?;
                     self.offset += character.len_utf8();
-                    self.push_string_character(&mut output, &mut output_bytes, character)?;
+                    self.push_string_character(&mut output, &mut output_bytes, character, retain)?;
+                    self.handle_observed_string_limit(
+                        observed_limit,
+                        output_bytes,
+                        &mut observed_exceeded,
+                    )?;
                 }
             }
         }
@@ -600,6 +964,7 @@ impl Parser<'_> {
         output: &mut String,
         output_bytes: &mut u64,
         character: char,
+        retain: bool,
     ) -> Result<(), StrictJsonError> {
         *output_bytes = output_bytes
             .checked_add(character.len_utf8() as u64)
@@ -611,7 +976,33 @@ impl Parser<'_> {
                 maximum: self.limits.max_string_bytes,
             });
         }
-        output.push(character);
+        if retain {
+            output.push(character);
+        }
+        Ok(())
+    }
+
+    fn handle_observed_string_limit(
+        &mut self,
+        observed_limit: Option<(&'static str, u64)>,
+        actual: u64,
+        observed_exceeded: &mut bool,
+    ) -> Result<(), StrictJsonError> {
+        let Some((limit, maximum)) = observed_limit else {
+            return Ok(());
+        };
+        if !*observed_exceeded && actual > maximum {
+            *observed_exceeded = true;
+            if let Some(observer) = self.observer.as_mut() {
+                observer.string_byte_limit_exceeded(limit, maximum, actual)?;
+            } else {
+                return Err(StrictJsonError::ObservedLimitExceeded {
+                    limit,
+                    maximum,
+                    actual,
+                });
+            }
+        }
         Ok(())
     }
 
@@ -669,6 +1060,7 @@ impl Parser<'_> {
 pub enum CanonicalJsonError {
     IntegerOutOfRange { value: i64 },
     DuplicateObjectName { name: String },
+    OutputBytesExceeded { maximum: usize },
 }
 
 impl fmt::Display for CanonicalJsonError {
@@ -679,6 +1071,9 @@ impl fmt::Display for CanonicalJsonError {
             }
             Self::DuplicateObjectName { name } => {
                 write!(formatter, "duplicate JSON object name {name:?}")
+            }
+            Self::OutputBytesExceeded { maximum } => {
+                write!(formatter, "canonical JSON byte limit {maximum} exceeded")
             }
         }
     }
@@ -691,35 +1086,158 @@ impl Error for CanonicalJsonError {}
 /// Arrays are emitted exactly as supplied. Schema-owned unordered collections
 /// must be normalized explicitly before calling this function.
 pub fn canonical_json_bytes(value: &StrictJsonValue) -> Result<Vec<u8>, CanonicalJsonError> {
-    let mut output = Vec::new();
+    let mut output = CanonicalOutput::unbounded();
     write_canonical_value(value, &mut output)?;
-    Ok(output)
+    Ok(output.bytes)
+}
+
+/// Encodes JCS while retaining at most `maximum` bytes.
+pub fn canonical_json_bytes_bounded(
+    value: &StrictJsonValue,
+    maximum: usize,
+) -> Result<Vec<u8>, CanonicalJsonError> {
+    let mut output = CanonicalOutput::bounded(maximum);
+    write_canonical_value(value, &mut output)?;
+    Ok(output.bytes)
+}
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub enum BoundedJsonSerializeError {
+    OutputBytesExceeded { maximum: usize },
+    Serialize(String),
+}
+
+impl fmt::Display for BoundedJsonSerializeError {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::OutputBytesExceeded { maximum } => {
+                write!(formatter, "serialized JSON byte limit {maximum} exceeded")
+            }
+            Self::Serialize(detail) => formatter.write_str(detail),
+        }
+    }
+}
+
+impl Error for BoundedJsonSerializeError {}
+
+/// Serializes compact JSON into a writer that refuses the first byte beyond
+/// `maximum`; no oversized intermediate `Vec` is constructed.
+pub fn serialize_json_bounded<T: Serialize>(
+    value: &T,
+    maximum: usize,
+) -> Result<Vec<u8>, BoundedJsonSerializeError> {
+    let mut output = RetainedBytes::new(maximum);
+    let result = serde_json::to_writer(&mut output, value);
+    if output.exceeded {
+        return Err(BoundedJsonSerializeError::OutputBytesExceeded { maximum });
+    }
+    result.map_err(|error| BoundedJsonSerializeError::Serialize(error.to_string()))?;
+    Ok(output.bytes)
+}
+
+struct RetainedBytes {
+    bytes: Vec<u8>,
+    maximum: usize,
+    exceeded: bool,
+}
+
+impl RetainedBytes {
+    fn new(maximum: usize) -> Self {
+        Self {
+            bytes: Vec::new(),
+            maximum,
+            exceeded: false,
+        }
+    }
+}
+
+impl Write for RetainedBytes {
+    fn write(&mut self, bytes: &[u8]) -> io::Result<usize> {
+        let accepted = self
+            .bytes
+            .len()
+            .checked_add(bytes.len())
+            .is_some_and(|next| next <= self.maximum);
+        if !accepted {
+            self.exceeded = true;
+            return Err(io::Error::new(
+                io::ErrorKind::FileTooLarge,
+                "bounded JSON output exceeded",
+            ));
+        }
+        self.bytes.extend_from_slice(bytes);
+        Ok(bytes.len())
+    }
+
+    fn flush(&mut self) -> io::Result<()> {
+        Ok(())
+    }
+}
+
+struct CanonicalOutput {
+    bytes: Vec<u8>,
+    maximum: Option<usize>,
+}
+
+impl CanonicalOutput {
+    fn unbounded() -> Self {
+        Self {
+            bytes: Vec::new(),
+            maximum: None,
+        }
+    }
+
+    fn bounded(maximum: usize) -> Self {
+        Self {
+            bytes: Vec::new(),
+            maximum: Some(maximum),
+        }
+    }
+
+    fn extend(&mut self, bytes: &[u8]) -> Result<(), CanonicalJsonError> {
+        let Some(next) = self.bytes.len().checked_add(bytes.len()) else {
+            return Err(CanonicalJsonError::OutputBytesExceeded {
+                maximum: self.maximum.unwrap_or(usize::MAX),
+            });
+        };
+        if self.maximum.is_some_and(|maximum| next > maximum) {
+            return Err(CanonicalJsonError::OutputBytesExceeded {
+                maximum: self.maximum.unwrap_or(usize::MAX),
+            });
+        }
+        self.bytes.extend_from_slice(bytes);
+        Ok(())
+    }
+
+    fn push(&mut self, byte: u8) -> Result<(), CanonicalJsonError> {
+        self.extend(&[byte])
+    }
 }
 
 fn write_canonical_value(
     value: &StrictJsonValue,
-    output: &mut Vec<u8>,
+    output: &mut CanonicalOutput,
 ) -> Result<(), CanonicalJsonError> {
     match value {
-        StrictJsonValue::Null => output.extend_from_slice(b"null"),
-        StrictJsonValue::Bool(false) => output.extend_from_slice(b"false"),
-        StrictJsonValue::Bool(true) => output.extend_from_slice(b"true"),
+        StrictJsonValue::Null => output.extend(b"null")?,
+        StrictJsonValue::Bool(false) => output.extend(b"false")?,
+        StrictJsonValue::Bool(true) => output.extend(b"true")?,
         StrictJsonValue::Integer(integer) => {
             if !(MIN_SAFE_JSON_INTEGER..=MAX_SAFE_JSON_INTEGER).contains(integer) {
                 return Err(CanonicalJsonError::IntegerOutOfRange { value: *integer });
             }
-            output.extend_from_slice(integer.to_string().as_bytes());
+            output.extend(integer.to_string().as_bytes())?;
         }
-        StrictJsonValue::String(string) => write_canonical_string(string, output),
+        StrictJsonValue::String(string) => write_canonical_string(string, output)?,
         StrictJsonValue::Array(values) => {
-            output.push(b'[');
+            output.push(b'[')?;
             for (index, item) in values.iter().enumerate() {
                 if index != 0 {
-                    output.push(b',');
+                    output.push(b',')?;
                 }
                 write_canonical_value(item, output)?;
             }
-            output.push(b']');
+            output.push(b']')?;
         }
         StrictJsonValue::Object(entries) => {
             let mut ordered: Vec<_> = entries.iter().collect();
@@ -732,47 +1250,51 @@ fn write_canonical_value(
                 }
             }
 
-            output.push(b'{');
+            output.push(b'{')?;
             for (index, (name, item)) in ordered.into_iter().enumerate() {
                 if index != 0 {
-                    output.push(b',');
+                    output.push(b',')?;
                 }
-                write_canonical_string(name, output);
-                output.push(b':');
+                write_canonical_string(name, output)?;
+                output.push(b':')?;
                 write_canonical_value(item, output)?;
             }
-            output.push(b'}');
+            output.push(b'}')?;
         }
     }
     Ok(())
 }
 
-fn write_canonical_string(value: &str, output: &mut Vec<u8>) {
+fn write_canonical_string(
+    value: &str,
+    output: &mut CanonicalOutput,
+) -> Result<(), CanonicalJsonError> {
     const LOWER_HEX: &[u8; 16] = b"0123456789abcdef";
 
-    output.push(b'"');
+    output.push(b'"')?;
     for character in value.chars() {
         match character {
-            '"' => output.extend_from_slice(b"\\\""),
-            '\\' => output.extend_from_slice(b"\\\\"),
-            '\u{0008}' => output.extend_from_slice(b"\\b"),
-            '\t' => output.extend_from_slice(b"\\t"),
-            '\n' => output.extend_from_slice(b"\\n"),
-            '\u{000c}' => output.extend_from_slice(b"\\f"),
-            '\r' => output.extend_from_slice(b"\\r"),
+            '"' => output.extend(b"\\\"")?,
+            '\\' => output.extend(b"\\\\")?,
+            '\u{0008}' => output.extend(b"\\b")?,
+            '\t' => output.extend(b"\\t")?,
+            '\n' => output.extend(b"\\n")?,
+            '\u{000c}' => output.extend(b"\\f")?,
+            '\r' => output.extend(b"\\r")?,
             '\u{0000}'..='\u{001f}' => {
                 let code = character as u8;
-                output.extend_from_slice(b"\\u00");
-                output.push(LOWER_HEX[usize::from(code >> 4)]);
-                output.push(LOWER_HEX[usize::from(code & 0x0f)]);
+                output.extend(b"\\u00")?;
+                output.push(LOWER_HEX[usize::from(code >> 4)])?;
+                output.push(LOWER_HEX[usize::from(code & 0x0f)])?;
             }
             _ => {
                 let mut buffer = [0_u8; 4];
-                output.extend_from_slice(character.encode_utf8(&mut buffer).as_bytes());
+                output.extend(character.encode_utf8(&mut buffer).as_bytes())?;
             }
         }
     }
-    output.push(b'"');
+    output.push(b'"')?;
+    Ok(())
 }
 
 /// RFC 8785 object-name ordering over UTF-16 code units.

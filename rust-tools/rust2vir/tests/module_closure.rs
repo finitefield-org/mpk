@@ -329,6 +329,22 @@ fn source_file_count_and_byte_limits_are_enforced_deterministically() {
     }
     assert_error(&count, ModuleClosureCode::LimitInputCount);
 
+    // Reaching the inclusive file maximum does not imply that the next module
+    // exists. Resolve the candidate first so a missing 257th source retains
+    // its normative source-error ownership rather than becoming a count limit.
+    let missing_at_count = TestRoot::default_package(b"mod m;\n");
+    let mut path = "src/m.rs".to_owned();
+    for index in 0..255 {
+        let bytes: &[u8] = if index == 254 {
+            b"mod absent;\n"
+        } else {
+            b"mod m;\n"
+        };
+        missing_at_count.write(&path, bytes);
+        path = child_path(&path);
+    }
+    assert_error(&missing_at_count, ModuleClosureCode::SourceModuleMissing);
+
     let aggregate = TestRoot::default_package(&padded_module(1_048_576, true));
     let mut path = "src/m.rs".to_owned();
     for index in 0..16 {

@@ -1,3 +1,4 @@
+use crate::limits::RustLimitId;
 use crate::path::{PortablePath, PortablePathError, PortablePathSet};
 use crate::preflight::platform;
 use crate::sha256::Sha256;
@@ -8,8 +9,8 @@ use std::io::{self, Read};
 use std::path::Path;
 use std::sync::Arc;
 
-pub const SNAPSHOT_ENTRIES_MAX: usize = 512;
-pub const SNAPSHOT_TOTAL_BYTES_MAX: u64 = 33_554_432;
+pub const SNAPSHOT_ENTRIES_MAX: usize = RustLimitId::SnapshotEntries.maximum() as usize;
+pub const SNAPSHOT_TOTAL_BYTES_MAX: u64 = RustLimitId::SnapshotBytes.maximum();
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum InputKind {
@@ -131,18 +132,30 @@ impl CaptureState {
         maximum_bytes: u64,
     ) -> Result<CapturedInput, CaptureFailure> {
         let opened = self.open_candidate(&path)?.ok_or(CaptureFailure::Missing)?;
-        self.capture_opened(path, kind, maximum_bytes, opened)
+        self.capture_opened(path, kind, maximum_bytes, u64::MAX, opened)
     }
 
-    pub(crate) fn capture_new(
+    pub(crate) fn capture_registered_with_aggregate(
         &mut self,
         path: PortablePath,
         kind: InputKind,
         maximum_bytes: u64,
+        aggregate_remaining: u64,
+    ) -> Result<CapturedInput, CaptureFailure> {
+        let opened = self.open_candidate(&path)?.ok_or(CaptureFailure::Missing)?;
+        self.capture_opened(path, kind, maximum_bytes, aggregate_remaining, opened)
+    }
+
+    pub(crate) fn capture_new_with_aggregate(
+        &mut self,
+        path: PortablePath,
+        kind: InputKind,
+        maximum_bytes: u64,
+        aggregate_remaining: u64,
         opened: OpenedInput,
     ) -> Result<CapturedInput, CaptureFailure> {
         self.register_path(path.clone())?;
-        self.capture_opened(path, kind, maximum_bytes, opened)
+        self.capture_opened(path, kind, maximum_bytes, aggregate_remaining, opened)
     }
 
     fn capture_opened(
@@ -150,12 +163,19 @@ impl CaptureState {
         path: PortablePath,
         kind: InputKind,
         maximum_bytes: u64,
+        aggregate_remaining: u64,
         mut opened: OpenedInput,
     ) -> Result<CapturedInput, CaptureFailure> {
         if self.input_count >= SNAPSHOT_ENTRIES_MAX {
             return Err(CaptureFailure::CountLimit);
         }
-        if opened.identity.size > maximum_bytes {
+        let snapshot_remaining = SNAPSHOT_TOTAL_BYTES_MAX
+            .checked_sub(self.total_bytes)
+            .ok_or(CaptureFailure::ByteLimit)?;
+        let read_maximum = maximum_bytes
+            .min(aggregate_remaining)
+            .min(snapshot_remaining);
+        if opened.identity.size > read_maximum {
             return Err(CaptureFailure::ByteLimit);
         }
         if !self.identities.insert(opened.identity.without_size()) {
@@ -171,7 +191,7 @@ impl CaptureState {
             let read = opened
                 .file
                 .by_ref()
-                .take(maximum_bytes.saturating_add(1) - bytes.len() as u64)
+                .take(read_maximum.saturating_add(1) - bytes.len() as u64)
                 .read(&mut buffer)
                 .map_err(|_| CaptureFailure::FileType)?;
             if read == 0 {
@@ -179,7 +199,7 @@ impl CaptureState {
             }
             bytes.extend_from_slice(&buffer[..read]);
             hasher.update(&buffer[..read]);
-            if bytes.len() as u64 > maximum_bytes {
+            if bytes.len() as u64 > read_maximum {
                 return Err(CaptureFailure::ByteLimit);
             }
         }

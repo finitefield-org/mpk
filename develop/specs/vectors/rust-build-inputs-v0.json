@@ -1,6 +1,6 @@
 {
   "schema": "mpk.rust.build_inputs.conformance.v0",
-  "owner_test": "rust-tools/rust2vir/tests/build_inputs_conformance.rs",
+  "owner_test": "crates/mpk-cli/tests/frontend_runner.rs",
   "spec_schema": "mpk.rust.build_inputs.v0",
   "descriptor_domain": "MPK-RUST-BUILD-INPUTS-0.1",
   "raw_templates": [
@@ -6551,51 +6551,257 @@
   "limit_cases": [
     {
       "id": "descriptor_transport",
+      "limit_id": "descriptor_transport",
       "maximum": 268435456,
       "unit": "bytes_including_lf",
-      "at": "accept",
-      "above": "RUST_BUILD_INPUTS_TRANSPORT"
+      "below": {
+        "construction": {
+          "fixture": "checked_counter",
+          "counter": "descriptor_transport",
+          "count": 268435455
+        },
+        "expect": {
+          "outcome": "accept"
+        }
+      },
+      "at": {
+        "construction": {
+          "fixture": "checked_counter",
+          "counter": "descriptor_transport",
+          "count": 268435456
+        },
+        "expect": {
+          "outcome": "accept"
+        }
+      },
+      "above": {
+        "construction": {
+          "fixture": "checked_counter",
+          "counter": "descriptor_transport",
+          "count": 268435457
+        },
+        "expect": {
+          "outcome": "reject",
+          "code": "RUST_BUILD_INPUTS_TRANSPORT"
+        }
+      }
     },
     {
       "id": "regular_files",
+      "limit_id": "regular_files",
       "maximum": 1048576,
       "unit": "entries",
-      "at": "accept",
-      "above": "RUST_BUILD_INPUTS_FILE"
+      "below": {
+        "construction": {
+          "fixture": "checked_counter",
+          "counter": "regular_files",
+          "count": 1048575
+        },
+        "expect": {
+          "outcome": "accept"
+        }
+      },
+      "at": {
+        "construction": {
+          "fixture": "checked_counter",
+          "counter": "regular_files",
+          "count": 1048576
+        },
+        "expect": {
+          "outcome": "accept"
+        }
+      },
+      "above": {
+        "construction": {
+          "fixture": "checked_counter",
+          "counter": "regular_files",
+          "count": 1048577
+        },
+        "expect": {
+          "outcome": "reject",
+          "code": "RUST_BUILD_INPUTS_FILE"
+        }
+      }
     },
     {
       "id": "package_records",
+      "limit_id": "package_records",
       "maximum": 8192,
       "unit": "records",
-      "at": "accept",
-      "above": "RUST_BUILD_INPUTS_GRAPH"
+      "below": {
+        "construction": {
+          "fixture": "checked_counter",
+          "counter": "package_records",
+          "count": 8191
+        },
+        "expect": {
+          "outcome": "accept"
+        }
+      },
+      "at": {
+        "construction": {
+          "fixture": "checked_counter",
+          "counter": "package_records",
+          "count": 8192
+        },
+        "expect": {
+          "outcome": "accept"
+        }
+      },
+      "above": {
+        "construction": {
+          "fixture": "checked_counter",
+          "counter": "package_records",
+          "count": 8193
+        },
+        "expect": {
+          "outcome": "reject",
+          "code": "RUST_BUILD_INPUTS_GRAPH"
+        }
+      }
     },
     {
       "id": "inventory_path",
+      "limit_id": "inventory_path",
       "maximum": 1024,
       "unit": "bytes",
-      "at": "accept",
-      "above": "RUST_BUILD_INPUTS_PATH"
+      "below": {
+        "construction": {
+          "fixture": "portable_path_bytes",
+          "counter": "inventory_path",
+          "component_bytes": [
+            204,
+            204,
+            204,
+            204,
+            203
+          ]
+        },
+        "expect": {
+          "outcome": "accept"
+        }
+      },
+      "at": {
+        "construction": {
+          "fixture": "portable_path_bytes",
+          "counter": "inventory_path",
+          "component_bytes": [
+            204,
+            204,
+            204,
+            204,
+            204
+          ]
+        },
+        "expect": {
+          "outcome": "accept"
+        }
+      },
+      "above": {
+        "construction": {
+          "fixture": "portable_path_bytes",
+          "counter": "inventory_path",
+          "component_bytes": [
+            204,
+            204,
+            204,
+            204,
+            205
+          ]
+        },
+        "expect": {
+          "outcome": "reject",
+          "code": "RUST_BUILD_INPUTS_PATH"
+        }
+      }
     },
     {
       "id": "regular_file",
+      "limit_id": "regular_file",
       "maximum": 4294967296,
       "unit": "bytes",
-      "at": "accept",
-      "above": "RUST_BUILD_INPUTS_FILE"
+      "below": {
+        "construction": {
+          "fixture": "checked_counter",
+          "counter": "regular_file",
+          "count": 4294967295
+        },
+        "expect": {
+          "outcome": "accept"
+        }
+      },
+      "at": {
+        "construction": {
+          "fixture": "checked_counter",
+          "counter": "regular_file",
+          "count": 4294967296
+        },
+        "expect": {
+          "outcome": "accept"
+        }
+      },
+      "above": {
+        "construction": {
+          "fixture": "checked_counter",
+          "counter": "regular_file",
+          "count": 4294967297
+        },
+        "expect": {
+          "outcome": "reject",
+          "code": "RUST_BUILD_INPUTS_FILE"
+        }
+      }
     },
     {
       "id": "aggregate_cache",
+      "limit_id": "aggregate_cache",
       "maximum": 34359738368,
       "unit": "bytes",
-      "at": "accept",
-      "above": "RUST_BUILD_INPUTS_GRAPH"
+      "below": {
+        "construction": {
+          "fixture": "checked_counter",
+          "counter": "aggregate_cache",
+          "count": 34359738367
+        },
+        "expect": {
+          "outcome": "accept"
+        }
+      },
+      "at": {
+        "construction": {
+          "fixture": "checked_counter",
+          "counter": "aggregate_cache",
+          "count": 34359738368
+        },
+        "expect": {
+          "outcome": "accept"
+        }
+      },
+      "above": {
+        "construction": {
+          "fixture": "checked_counter",
+          "counter": "aggregate_cache",
+          "count": 34359738369
+        },
+        "expect": {
+          "outcome": "reject",
+          "code": "RUST_BUILD_INPUTS_GRAPH"
+        }
+      }
     },
     {
       "id": "aggregate_checked_overflow",
-      "mutation": "counter max plus one",
-      "expect": "reject-before-mount",
-      "code": "RUST_BUILD_INPUTS_GRAPH"
+      "limit_id": "aggregate_cache",
+      "construction": {
+        "fixture": "checked_counter_add",
+        "counter": "aggregate_cache",
+        "initial": "u64_max",
+        "increment": 1
+      },
+      "expect": {
+        "outcome": "reject-before-mount",
+        "code": "RUST_BUILD_INPUTS_GRAPH"
+      }
     }
   ]
 }

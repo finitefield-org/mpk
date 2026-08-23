@@ -1,3 +1,4 @@
+use crate::limits::RustLimitId;
 use crate::manifest::{ExpectedManifestSelection, ValidatedManifest};
 use crate::path::{PortablePath, PortablePathError};
 use crate::preflight::StructuralPreflight;
@@ -5,9 +6,9 @@ use crate::source_capture::{CaptureFailure, CaptureState, CapturedInput, InputKi
 use crate::source_gate::{validate_source, SourceGateCode, SourceRole};
 use std::collections::BTreeSet;
 
-const SOURCE_FILES_MAX: usize = 256;
-const SOURCE_FILE_BYTES_MAX: u64 = 1_048_576;
-const SOURCE_TOTAL_BYTES_MAX: u64 = 16_777_216;
+const SOURCE_FILES_MAX: usize = RustLimitId::SourceFiles.maximum() as usize;
+const SOURCE_FILE_BYTES_MAX: u64 = RustLimitId::SourceFileBytes.maximum();
+const SOURCE_TOTAL_BYTES_MAX: u64 = RustLimitId::SourceTotalBytes.maximum();
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum ClosureStatus {
@@ -162,7 +163,12 @@ fn discover_at(
         .map_err(map_capture_failure)?
         .ok_or(ModuleClosureCode::SourceModuleMissing)?;
     let root_identity = opened.identity;
-    let root = capture_source(&mut capture, library_root.clone(), opened)?;
+    let root = capture_source(
+        &mut capture,
+        library_root.clone(),
+        opened,
+        SOURCE_TOTAL_BYTES_MAX,
+    )?;
     let root_bytes = root.bytes.clone();
     inputs.push(root);
 
@@ -291,8 +297,10 @@ impl Walker<'_> {
         if self.source_count >= SOURCE_FILES_MAX {
             return Err(ModuleClosureCode::LimitInputCount.into());
         }
-
-        let captured = capture_source(self.capture, path.clone(), opened)?;
+        let remaining = SOURCE_TOTAL_BYTES_MAX
+            .checked_sub(self.source_bytes)
+            .ok_or(ModuleClosureCode::LimitInputBytes)?;
+        let captured = capture_source(self.capture, path.clone(), opened, remaining)?;
         let source_bytes = self
             .source_bytes
             .checked_add(captured.bytes.len() as u64)
@@ -318,9 +326,16 @@ fn capture_source(
     capture: &mut CaptureState,
     path: PortablePath,
     opened: OpenedInput,
+    aggregate_remaining: u64,
 ) -> Result<CapturedInput, ModuleClosureError> {
     capture
-        .capture_new(path, InputKind::Source, SOURCE_FILE_BYTES_MAX, opened)
+        .capture_new_with_aggregate(
+            path,
+            InputKind::Source,
+            SOURCE_FILE_BYTES_MAX,
+            aggregate_remaining,
+            opened,
+        )
         .map_err(map_capture_failure)
 }
 

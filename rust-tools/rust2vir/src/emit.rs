@@ -1,6 +1,7 @@
 use crate::cli::{LowerRequest, NonSuccessStatus};
-use crate::driver_protocol::{DriverOutput, DriverRequest, DriverStatus, OUTPUT_TRANSPORT_MAX};
+use crate::driver_protocol::{DriverOutput, DriverRequest, DriverStatus};
 use crate::json::{self, JsonValue};
+use crate::limits::RustLimitId;
 use crate::session;
 use crate::sha256::{hex, Sha256};
 use std::collections::BTreeMap;
@@ -11,7 +12,10 @@ const SOURCE_MAP_DOMAIN: &[u8] = b"MPK-SOURCE-MAP-0.1";
 const SOURCE_MANIFEST_DOMAIN: &[u8] = b"MPK-SOURCE-MANIFEST-0.1";
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub struct EmissionError;
+pub enum EmissionError {
+    Integrity,
+    IrLimit,
+}
 
 pub fn success_envelope(
     request: &LowerRequest,
@@ -20,32 +24,58 @@ pub fn success_envelope(
     core_prelude: bool,
 ) -> Result<Vec<u8>, EmissionError> {
     if output.status() != DriverStatus::Lowered {
-        return Err(EmissionError);
+        return Err(EmissionError::Integrity);
     }
     let output_root = object(output.value())?;
     let lowering = object(required(output_root, "raw_lowering")?)?;
-    let vir = required(lowering, "vir")?.clone();
+    let vir_source = required(lowering, "vir")?;
+    json::canonical_size(vir_source, RustLimitId::VirJcs.maximum() as usize)
+        .map_err(|_| EmissionError::IrLimit)?;
+    let vir = vir_source.clone();
     let vir_root = object(&vir)?;
     let vir_hash = string(vir_root, "vir_hash")?.to_owned();
     let mut vir_preimage = vir.clone();
     object_mut(&mut vir_preimage)?.remove("vir_hash");
-    if domain_hash(VIR_DOMAIN, &canonical(&vir_preimage)?) != vir_hash {
-        return Err(EmissionError);
+    let vir_preimage =
+        json::canonical_bounded(&vir_preimage, RustLimitId::VirJcs.maximum() as usize)
+            .map_err(|_| EmissionError::IrLimit)?;
+    if domain_hash(VIR_DOMAIN, &vir_preimage) != vir_hash {
+        return Err(EmissionError::Integrity);
     }
+    json::canonical_size(&vir, RustLimitId::VirJcs.maximum() as usize)
+        .map_err(|_| EmissionError::IrLimit)?;
 
-    let mut source_map = required(output_root, "raw_source_map")?.clone();
+    let source_map_source = required(output_root, "raw_source_map")?;
+    json::canonical_size(
+        source_map_source,
+        RustLimitId::SourceMapJcs.maximum() as usize,
+    )
+    .map_err(|_| EmissionError::IrLimit)?;
+    let mut source_map = source_map_source.clone();
     let source_map_root = object_mut(&mut source_map)?;
     source_map_root.insert("schema".to_owned(), string_value("mpk.source_map.v0"));
-    let source_map_hash = domain_hash(SOURCE_MAP_DOMAIN, &canonical(&source_map)?);
+    let source_map_hash = domain_hash(
+        SOURCE_MAP_DOMAIN,
+        &json::canonical_bounded(&source_map, RustLimitId::SourceMapJcs.maximum() as usize)
+            .map_err(|_| EmissionError::IrLimit)?,
+    );
     object_mut(&mut source_map)?
         .insert("source_map_hash".to_owned(), string_value(&source_map_hash));
+    json::canonical_size(&source_map, RustLimitId::SourceMapJcs.maximum() as usize)
+        .map_err(|_| EmissionError::IrLimit)?;
 
     let request_root = object(private_request.value())?;
-    let inputs = required(request_root, "inputs")?.clone();
-    let input_set_hash = domain_hash(INPUT_SET_DOMAIN, &canonical(&inputs)?);
+    let manifest_max = RustLimitId::SourceManifestJcs.maximum() as usize;
+    let inputs_source = required(request_root, "inputs")?;
+    let input_set_hash = domain_hash(
+        INPUT_SET_DOMAIN,
+        &json::canonical_bounded(inputs_source, manifest_max)
+            .map_err(|_| EmissionError::IrLimit)?,
+    );
     if string(request_root, "input_set_hash")? != input_set_hash {
-        return Err(EmissionError);
+        return Err(EmissionError::Integrity);
     }
+    let inputs = inputs_source.clone();
     let units = public_units(vir_root, request)?;
     let language_configuration = rust_language_configuration(request, core_prelude)?;
     let mut manifest = JsonValue::Object(BTreeMap::from([
@@ -96,11 +126,15 @@ pub fn success_envelope(
         ("vir_hash".to_owned(), string_value(&vir_hash)),
         ("source_map_hash".to_owned(), string_value(&source_map_hash)),
     ]));
-    let source_manifest_hash = domain_hash(SOURCE_MANIFEST_DOMAIN, &canonical(&manifest)?);
+    let source_manifest_hash = domain_hash(
+        SOURCE_MANIFEST_DOMAIN,
+        &json::canonical_bounded(&manifest, manifest_max).map_err(|_| EmissionError::IrLimit)?,
+    );
     object_mut(&mut manifest)?.insert(
         "source_manifest_hash".to_owned(),
         string_value(&source_manifest_hash),
     );
+    json::canonical_size(&manifest, manifest_max).map_err(|_| EmissionError::IrLimit)?;
 
     let envelope = JsonValue::Object(BTreeMap::from([
         ("diagnostics".to_owned(), JsonValue::Array(Vec::new())),
@@ -140,12 +174,12 @@ pub fn driver_non_success_envelope(
     output: &DriverOutput,
 ) -> Result<Vec<u8>, EmissionError> {
     if output.status() == DriverStatus::Lowered {
-        return Err(EmissionError);
+        return Err(EmissionError::Integrity);
     }
     let root = object(output.value())?;
     let mut issues = required(root, "diagnostics")?
         .as_array()
-        .ok_or(EmissionError)?
+        .ok_or(EmissionError::Integrity)?
         .to_vec();
     let has_marker = issues
         .last()
@@ -169,7 +203,7 @@ pub fn driver_non_success_envelope(
         DriverStatus::Rejected => "rejected",
         DriverStatus::SourceError => "source-error",
         DriverStatus::FrontendError => "frontend-error",
-        DriverStatus::Lowered => return Err(EmissionError),
+        DriverStatus::Lowered => return Err(EmissionError::Integrity),
     };
     public_non_success(request, status, output.phase(), rejected, diagnostics)
 }
@@ -186,7 +220,7 @@ pub fn local_non_success_envelope(
         || message.len() > 4_096
         || message.chars().any(char::is_control)
     {
-        return Err(EmissionError);
+        return Err(EmissionError::Integrity);
     }
     let mut issue = BTreeMap::from([
         ("code".to_owned(), string_value(code)),
@@ -267,7 +301,7 @@ fn rust_language_configuration(
     request: &LowerRequest,
     core_prelude: bool,
 ) -> Result<JsonValue, EmissionError> {
-    let cfg = session::target_cfg(request.target.id()).ok_or(EmissionError)?;
+    let cfg = session::target_cfg(request.target.id()).ok_or(EmissionError::Integrity)?;
     Ok(JsonValue::Object(BTreeMap::from([
         ("kind".to_owned(), string_value("rust")),
         ("edition".to_owned(), string_value("2021")),
@@ -310,16 +344,18 @@ fn public_units(
     vir: &BTreeMap<String, JsonValue>,
     request: &LowerRequest,
 ) -> Result<JsonValue, EmissionError> {
-    let units = required(vir, "units")?.as_array().ok_or(EmissionError)?;
+    let units = required(vir, "units")?
+        .as_array()
+        .ok_or(EmissionError::Integrity)?;
     if units.len() != 1 {
-        return Err(EmissionError);
+        return Err(EmissionError::Integrity);
     }
     let selected_unit = object(&units[0])?;
     if string(selected_unit, "id")? != request.selection.crate_name
         || string(selected_unit, "name")? != request.selection.package
         || required(selected_unit, "functions")?
             .as_array()
-            .ok_or(EmissionError)?
+            .ok_or(EmissionError::Integrity)?
             .iter()
             .filter(|function| {
                 function
@@ -331,7 +367,7 @@ fn public_units(
             .count()
             != 1
     {
-        return Err(EmissionError);
+        return Err(EmissionError::Integrity);
     }
     Ok(JsonValue::Array(
         units
@@ -349,14 +385,11 @@ fn public_units(
 }
 
 fn transport(value: &JsonValue) -> Result<Vec<u8>, EmissionError> {
-    let mut bytes = canonical(value)?;
-    if bytes
-        .len()
-        .checked_add(1)
-        .is_none_or(|size| size > OUTPUT_TRANSPORT_MAX)
-    {
-        return Err(EmissionError);
-    }
+    // The outer frontend runner owns this stream boundary and classifies an
+    // excess as FRONTEND_PROTOCOL_LIMIT. The component limits above keep a
+    // successful Rust envelope below that ceiling without reclassifying it in
+    // the producer.
+    let mut bytes = json::canonical(value).map_err(|_| EmissionError::Integrity)?;
     bytes.push(b'\n');
     Ok(bytes)
 }
@@ -378,30 +411,28 @@ fn stable_code(code: &str) -> bool {
             .all(|byte| byte.is_ascii_uppercase() || byte.is_ascii_digit() || byte == b'_')
 }
 
-fn canonical(value: &JsonValue) -> Result<Vec<u8>, EmissionError> {
-    json::canonical(value).map_err(|_| EmissionError)
-}
-
 fn object(value: &JsonValue) -> Result<&BTreeMap<String, JsonValue>, EmissionError> {
-    value.as_object().ok_or(EmissionError)
+    value.as_object().ok_or(EmissionError::Integrity)
 }
 
 fn object_mut(value: &mut JsonValue) -> Result<&mut BTreeMap<String, JsonValue>, EmissionError> {
-    value.as_object_mut().ok_or(EmissionError)
+    value.as_object_mut().ok_or(EmissionError::Integrity)
 }
 
 fn required<'a>(
     object: &'a BTreeMap<String, JsonValue>,
     name: &str,
 ) -> Result<&'a JsonValue, EmissionError> {
-    object.get(name).ok_or(EmissionError)
+    object.get(name).ok_or(EmissionError::Integrity)
 }
 
 fn string<'a>(
     object: &'a BTreeMap<String, JsonValue>,
     name: &str,
 ) -> Result<&'a str, EmissionError> {
-    required(object, name)?.as_str().ok_or(EmissionError)
+    required(object, name)?
+        .as_str()
+        .ok_or(EmissionError::Integrity)
 }
 
 fn string_value(value: &str) -> JsonValue {

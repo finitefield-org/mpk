@@ -31,10 +31,12 @@ pub use call_wp::{
     VC_FUNCTION_DECLARATION_PREFIX,
 };
 pub use canonical_json::{
-    canonical_json_bytes, compare_utf16_code_units, normalize_unordered_set_by,
-    normalize_unordered_utf8_strings, parse_strict_json, CanonicalJsonError, ObjectFieldsError,
-    StrictJsonError, StrictJsonLimits, StrictJsonValue, UnorderedSetError, MAX_SAFE_JSON_INTEGER,
-    MAX_SUPPORTED_JSON_DEPTH, MIN_SAFE_JSON_INTEGER,
+    canonical_json_bytes, canonical_json_bytes_bounded, compare_utf16_code_units,
+    normalize_unordered_set_by, normalize_unordered_utf8_strings, parse_strict_json,
+    scan_strict_json, serialize_json_bounded, BoundedJsonSerializeError, CanonicalJsonError,
+    ObjectFieldsError, StrictJsonError, StrictJsonEvent, StrictJsonLimits, StrictJsonObserver,
+    StrictJsonPathSegment, StrictJsonValue, StrictJsonValueKind, UnorderedSetError,
+    MAX_SAFE_JSON_INTEGER, MAX_SUPPORTED_JSON_DEPTH, MIN_SAFE_JSON_INTEGER,
 };
 
 pub use expr_encode::{

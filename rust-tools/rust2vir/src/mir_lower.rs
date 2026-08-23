@@ -16,10 +16,11 @@ use rust2vir_internal::contract::{ContractSet, ContractType, NormalizedContract}
 use rust2vir_internal::driver_protocol::DriverRequest;
 use rust2vir_internal::file_loader::{SnapshotFileLoader, SourceRangeError};
 use rust2vir_internal::json::{self, JsonValue};
+use rust2vir_internal::limits::RustLimitId;
 use rust2vir_internal::mir_access::MIR_PROFILE_ID;
 use rust2vir_internal::sha256::{hex, Sha256};
 use rust2vir_internal::source_map::{raw_source_map, SourceMapEntry, SourceOrigin, VirReference};
-use rust2vir_internal::stable_id::{block_names, breadth_first_order, DenseIds, StableIdError};
+use rust2vir_internal::stable_id::{block_names, DenseIds};
 use rustc_index::Idx;
 use rustc_middle::mir::{
     BasicBlock, BinOp, Body, Local, Operand, Place, Rvalue, StatementKind, TerminatorKind, UnOp,
@@ -28,21 +29,21 @@ use rustc_middle::mir::{
 use rustc_middle::ty::{self, TyCtxt};
 use rustc_span::def_id::LocalDefId;
 use rustc_span::{FileName, Span};
-use std::collections::{BTreeMap, BTreeSet};
+use std::collections::{BTreeMap, BTreeSet, VecDeque};
 use std::path::Path;
 
 const VIR_HASH_DOMAIN: &[u8] = b"MPK-VIR-0.1";
-const MIR_BLOCKS_FUNCTION_MAX: usize = 1_024;
-const MIR_BLOCKS_CLOSURE_MAX: usize = 8_192;
-const MIR_STATEMENTS_FUNCTION_MAX: usize = 100_000;
-const MIR_STATEMENTS_CLOSURE_MAX: usize = 250_000;
+const MIR_BLOCKS_FUNCTION_MAX: usize = RustLimitId::MirBlocksFunction.maximum() as usize;
+const MIR_BLOCKS_CLOSURE_MAX: usize = RustLimitId::MirBlocksClosure.maximum() as usize;
+const MIR_STATEMENTS_FUNCTION_MAX: usize = RustLimitId::MirStatementsFunction.maximum() as usize;
+const MIR_STATEMENTS_CLOSURE_MAX: usize = RustLimitId::MirStatementsClosure.maximum() as usize;
 const VIR_PARAMETERS_MAX: usize = 256;
 const VIR_LOCALS_MAX: usize = 65_536;
 const VIR_BLOCK_PARAMETERS_MAX: usize = 4_096;
 const VIR_INSTRUCTIONS_FUNCTION_MAX: usize = 100_000;
 const VIR_INSTRUCTIONS_CLOSURE_MAX: usize = 250_000;
-const VIR_CANONICAL_BYTES_MAX: usize = 192 * 1_024 * 1_024;
-const SOURCE_MAP_CANONICAL_BYTES_MAX: usize = 32 * 1_024 * 1_024;
+const VIR_CANONICAL_BYTES_MAX: usize = RustLimitId::VirJcs.maximum() as usize;
+const SOURCE_MAP_CANONICAL_BYTES_MAX: usize = RustLimitId::SourceMapJcs.maximum() as usize;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum MirCode {
@@ -157,6 +158,127 @@ pub(super) struct LoweredFunction {
     instructions: usize,
 }
 
+#[derive(Default)]
+pub(super) struct MirClosureBudget {
+    blocks: usize,
+    statements: usize,
+    instructions: usize,
+}
+
+struct MirFunctionBudget {
+    blocks: usize,
+    statements: usize,
+    maximum_blocks: usize,
+    maximum_statements: usize,
+}
+
+struct InstructionBudget {
+    next: usize,
+    maximum: usize,
+}
+
+impl InstructionBudget {
+    fn new(closure_remaining: usize) -> Self {
+        Self {
+            next: 0,
+            maximum: VIR_INSTRUCTIONS_FUNCTION_MAX.min(closure_remaining),
+        }
+    }
+
+    fn reserve(&mut self, function_id: &str) -> Result<usize, MirError> {
+        if self.next >= self.maximum {
+            return Err(MirError::new(MirCode::IrLimit, function_id));
+        }
+        let index = self.next;
+        self.next += 1;
+        Ok(index)
+    }
+
+    fn last_index(&self) -> usize {
+        self.next
+            .checked_sub(1)
+            .expect("an instruction was reserved before it was emitted")
+    }
+
+    fn count(&self) -> usize {
+        self.next
+    }
+}
+
+impl MirFunctionBudget {
+    fn new(closure_blocks_remaining: usize, closure_statements_remaining: usize) -> Self {
+        Self {
+            blocks: 0,
+            statements: 0,
+            maximum_blocks: MIR_BLOCKS_FUNCTION_MAX.min(closure_blocks_remaining),
+            maximum_statements: MIR_STATEMENTS_FUNCTION_MAX.min(closure_statements_remaining),
+        }
+    }
+
+    fn observe_block(&mut self, statements: usize, function_id: &str) -> Result<(), MirError> {
+        let blocks = self
+            .blocks
+            .checked_add(1)
+            .ok_or_else(|| MirError::new(MirCode::BlockLimit, function_id))?;
+        if blocks > self.maximum_blocks {
+            return Err(MirError::new(MirCode::BlockLimit, function_id));
+        }
+        let statements = self
+            .statements
+            .checked_add(statements)
+            .ok_or_else(|| MirError::new(MirCode::StatementLimit, function_id))?;
+        if statements > self.maximum_statements {
+            return Err(MirError::new(MirCode::StatementLimit, function_id));
+        }
+        self.blocks = blocks;
+        self.statements = statements;
+        Ok(())
+    }
+}
+
+impl MirClosureBudget {
+    fn mir_remaining(&self, function_id: &str) -> Result<(usize, usize, usize), MirError> {
+        let blocks = MIR_BLOCKS_CLOSURE_MAX
+            .checked_sub(self.blocks)
+            .ok_or_else(|| MirError::new(MirCode::BlockLimit, function_id))?;
+        let statements = MIR_STATEMENTS_CLOSURE_MAX
+            .checked_sub(self.statements)
+            .ok_or_else(|| MirError::new(MirCode::StatementLimit, function_id))?;
+        let instructions = VIR_INSTRUCTIONS_CLOSURE_MAX
+            .checked_sub(self.instructions)
+            .ok_or_else(|| MirError::new(MirCode::IrLimit, function_id))?;
+        Ok((blocks, statements, instructions))
+    }
+
+    pub(super) fn observe(&mut self, item: &LoweredFunction) -> Result<(), MirError> {
+        let blocks = self
+            .blocks
+            .checked_add(item.reachable_blocks)
+            .ok_or_else(|| MirError::new(MirCode::BlockLimit, &item.function_id))?;
+        let statements = self
+            .statements
+            .checked_add(item.reachable_statements)
+            .ok_or_else(|| MirError::new(MirCode::StatementLimit, &item.function_id))?;
+        let instructions = self
+            .instructions
+            .checked_add(item.instructions)
+            .ok_or_else(|| MirError::new(MirCode::IrLimit, &item.function_id))?;
+        if blocks > MIR_BLOCKS_CLOSURE_MAX {
+            return Err(MirError::new(MirCode::BlockLimit, &item.function_id));
+        }
+        if statements > MIR_STATEMENTS_CLOSURE_MAX {
+            return Err(MirError::new(MirCode::StatementLimit, &item.function_id));
+        }
+        if instructions > VIR_INSTRUCTIONS_CLOSURE_MAX {
+            return Err(MirError::new(MirCode::IrLimit, &item.function_id));
+        }
+        self.blocks = blocks;
+        self.statements = statements;
+        self.instructions = instructions;
+        Ok(())
+    }
+}
+
 pub(super) struct ModuleContext<'a> {
     call_closure: &'a [HirFunction],
     structs: &'a [HirStructDecl],
@@ -200,6 +322,7 @@ type Reachability<'tcx> = (
     ArithmeticPlan,
     ProjectionPlan,
     CallPlan<'tcx>,
+    usize,
 );
 
 impl Flow {
@@ -240,28 +363,9 @@ pub(super) fn finish_module(
     structs: &[HirStructDecl],
     constants: &[HirConstant],
 ) -> Result<MirLowering, MirError> {
-    let mut block_total = 0_usize;
-    let mut statement_total = 0_usize;
-    let mut instruction_total = 0_usize;
+    let mut budget = MirClosureBudget::default();
     for item in &lowered {
-        block_total = block_total
-            .checked_add(item.reachable_blocks)
-            .ok_or_else(|| MirError::new(MirCode::BlockLimit, &item.function_id))?;
-        statement_total = statement_total
-            .checked_add(item.reachable_statements)
-            .ok_or_else(|| MirError::new(MirCode::StatementLimit, &item.function_id))?;
-        instruction_total = instruction_total
-            .checked_add(item.instructions)
-            .ok_or_else(|| MirError::new(MirCode::IrLimit, &item.function_id))?;
-        if block_total > MIR_BLOCKS_CLOSURE_MAX {
-            return Err(MirError::new(MirCode::BlockLimit, &item.function_id));
-        }
-        if statement_total > MIR_STATEMENTS_CLOSURE_MAX {
-            return Err(MirError::new(MirCode::StatementLimit, &item.function_id));
-        }
-        if instruction_total > VIR_INSTRUCTIONS_CLOSURE_MAX {
-            return Err(MirError::new(MirCode::IrLimit, &item.function_id));
-        }
+        budget.observe(item)?;
     }
     let call_graph = lowered
         .iter()
@@ -312,7 +416,12 @@ pub(super) fn finish_module(
             JsonValue::String("abort".to_owned()),
         ),
     ]));
-    let functions_json = lowered.iter().map(|item| item.value.clone()).collect();
+    let mut functions_json = Vec::with_capacity(lowered.len());
+    let mut entries = Vec::new();
+    for item in lowered {
+        functions_json.push(item.value);
+        entries.extend(item.source_map);
+    }
     let const_decls = const_lower::declarations(constants)
         .map_err(|_| MirError::new(MirCode::Rvalue, request.selection().2))?;
     let type_decls = struct_declarations(structs);
@@ -332,32 +441,18 @@ pub(super) fn finish_module(
             ]))]),
         ),
     ]));
-    let vir_preimage =
-        json::canonical(&vir).map_err(|_| MirError::new(MirCode::Rvalue, request.selection().2))?;
+    let vir_preimage = json::canonical_bounded(&vir, VIR_CANONICAL_BYTES_MAX)
+        .map_err(|_| MirError::new(MirCode::IrLimit, request.selection().2))?;
     let vir_hash = domain_hash(VIR_HASH_DOMAIN, &vir_preimage);
     vir.as_object_mut()
         .expect("constructed VIR object")
         .insert("vir_hash".to_owned(), string(&vir_hash));
-    if json::canonical(&vir)
-        .map_err(|_| MirError::new(MirCode::IrLimit, request.selection().2))?
-        .len()
-        > VIR_CANONICAL_BYTES_MAX
-    {
-        return Err(MirError::new(MirCode::IrLimit, request.selection().2));
-    }
+    json::canonical_size(&vir, VIR_CANONICAL_BYTES_MAX)
+        .map_err(|_| MirError::new(MirCode::IrLimit, request.selection().2))?;
 
-    let mut entries = Vec::new();
-    for item in lowered {
-        entries.extend(item.source_map);
-    }
     let source_map = raw_source_map(&vir_hash, entries);
-    if json::canonical(&source_map)
-        .map_err(|_| MirError::new(MirCode::IrLimit, request.selection().2))?
-        .len()
-        > SOURCE_MAP_CANONICAL_BYTES_MAX
-    {
-        return Err(MirError::new(MirCode::IrLimit, request.selection().2));
-    }
+    json::canonical_size(&source_map, SOURCE_MAP_CANONICAL_BYTES_MAX)
+        .map_err(|_| MirError::new(MirCode::IrLimit, request.selection().2))?;
     Ok(MirLowering {
         raw_lowering: JsonValue::Object(BTreeMap::from([
             ("schema".to_owned(), string("mpk.rust.driver.lowering.v0")),
@@ -375,8 +470,11 @@ pub(super) fn lower_function<'tcx>(
     function: &HirFunction,
     contract: &NormalizedContract,
     context: &ModuleContext<'_>,
+    closure_budget: &MirClosureBudget,
 ) -> Result<LoweredFunction, MirError> {
     let function_id = function.function_id.as_str();
+    let (closure_blocks_remaining, closure_statements_remaining, closure_instructions_remaining) =
+        closure_budget.mir_remaining(function_id)?;
     validate_function_contract_context(function, contract, context.contracts, context.request)
         .map_err(|code| MirError::new(code, function_id))?;
     validate_function_mir_signature(tcx, def_id, body, function)
@@ -404,26 +502,22 @@ pub(super) fn lower_function<'tcx>(
         contracts: context.contracts,
         request: context.request,
     };
-    let (order, flows, mut arithmetic, mut projection, calls) =
-        reachable_order(tcx, def_id, body, function, &call_context, function_id)?;
+    let (order, flows, mut arithmetic, mut projection, calls, statement_count) = reachable_order(
+        tcx,
+        def_id,
+        body,
+        function,
+        &call_context,
+        function_id,
+        closure_blocks_remaining,
+        closure_statements_remaining,
+    )?;
     arithmetic
         .finish(body, &order)
         .map_err(|code| MirError::new(code, function_id))?;
     projection
         .finish(body, &order)
         .map_err(|code| MirError::new(code, function_id))?;
-    if order.len() > MIR_BLOCKS_FUNCTION_MAX {
-        return Err(MirError::new(MirCode::BlockLimit, function_id));
-    }
-    let statement_count = order
-        .iter()
-        .try_fold(0_usize, |count, block| {
-            count.checked_add(body.basic_blocks[BasicBlock::new(*block)].statements.len())
-        })
-        .ok_or_else(|| MirError::new(MirCode::StatementLimit, function_id))?;
-    if statement_count > MIR_STATEMENTS_FUNCTION_MAX {
-        return Err(MirError::new(MirCode::StatementLimit, function_id));
-    }
     validate_storage(body, &order, &flows, &local_kinds, &calls, function_id)?;
     let (live_in, uses, definitions) = live_compiler_locals(
         tcx,
@@ -468,7 +562,7 @@ pub(super) fn lower_function<'tcx>(
         origin: source_origin(tcx, context.loader, body.span, function_id)?,
     }];
     let mut blocks = Vec::with_capacity(order.len());
-    let mut next_instruction = 0_usize;
+    let mut next_instruction = InstructionBudget::new(closure_instructions_remaining);
     let mut initialized_user_locals = BTreeSet::new();
     for (block_index, old_block) in order.iter().enumerate() {
         let block = &body.basic_blocks[BasicBlock::new(*old_block)];
@@ -727,9 +821,6 @@ pub(super) fn lower_function<'tcx>(
             ("instructions".to_owned(), JsonValue::Array(instructions)),
             ("terminator".to_owned(), terminator_json),
         ])));
-        if next_instruction > VIR_INSTRUCTIONS_FUNCTION_MAX {
-            return Err(MirError::new(MirCode::IrLimit, function_id));
-        }
     }
 
     let params = function
@@ -794,7 +885,7 @@ pub(super) fn lower_function<'tcx>(
         source_map: source_entries,
         reachable_blocks: order.len(),
         reachable_statements: statement_count,
-        instructions: next_instruction,
+        instructions: next_instruction.count(),
     })
 }
 
@@ -850,25 +941,30 @@ fn reachable_order<'tcx>(
     function: &HirFunction,
     call_context: &CallContext<'_>,
     function_id: &str,
+    closure_blocks_remaining: usize,
+    closure_statements_remaining: usize,
 ) -> Result<Reachability<'tcx>, MirError> {
     if body.basic_blocks.is_empty() {
         return Err(MirError::new(MirCode::Terminator, function_id));
     }
-    let mut flows = vec![None; body.basic_blocks.len()];
+    let mut flows_by_block = BTreeMap::new();
     let mut arithmetic = ArithmeticPlan::default();
     let mut projection = ProjectionPlan::default();
     let mut calls = CallPlan::default();
-    let mut failure = None;
-    let order = breadth_first_order(0, body.basic_blocks.len(), |index| {
-        if failure.is_some() {
-            return Vec::new();
-        }
+    let mut budget = MirFunctionBudget::new(closure_blocks_remaining, closure_statements_remaining);
+    budget.observe_block(
+        body.basic_blocks[BasicBlock::new(0)].statements.len(),
+        function_id,
+    )?;
+    let mut discovered = BTreeSet::from([0_usize]);
+    let mut pending = VecDeque::from([0_usize]);
+    let mut order = Vec::new();
+    while let Some(index) = pending.pop_front() {
         let block = &body.basic_blocks[BasicBlock::new(index)];
         if block.is_cleanup {
-            failure = Some(MirError::new(MirCode::Cleanup, function_id));
-            return Vec::new();
+            return Err(MirError::new(MirCode::Cleanup, function_id));
         }
-        match classify_flow(
+        let flow = classify_flow(
             tcx,
             def_id,
             body,
@@ -879,29 +975,117 @@ fn reachable_order<'tcx>(
             &mut calls,
             call_context,
             function_id,
-        ) {
-            Ok(flow) => {
-                flows[index] = Some(flow);
-                flow.successors()
+        )?;
+        flows_by_block.insert(index, flow);
+        order.push(index);
+        for successor in flow.successors() {
+            if successor >= body.basic_blocks.len() {
+                return Err(MirError::new(MirCode::Terminator, function_id));
             }
-            Err(error) => {
-                failure = Some(error);
-                Vec::new()
+            if !discovered.contains(&successor) {
+                budget.observe_block(
+                    body.basic_blocks[BasicBlock::new(successor)]
+                        .statements
+                        .len(),
+                    function_id,
+                )?;
+                discovered.insert(successor);
+                pending.push_back(successor);
             }
         }
-    })
-    .map_err(|error| match error {
-        StableIdError::EmptyGraph | StableIdError::UnknownSuccessor => {
-            MirError::new(MirCode::Terminator, function_id)
-        }
-    })?;
-    if let Some(error) = failure {
-        return Err(error);
+    }
+    let mut flows = vec![None; body.basic_blocks.len()];
+    for (index, flow) in flows_by_block {
+        flows[index] = Some(flow);
     }
     if topological_order(&order, &flows).is_none() {
         return Err(MirError::new(MirCode::Terminator, function_id));
     }
-    Ok((order, flows, arithmetic, projection, calls))
+    Ok((
+        order,
+        flows,
+        arithmetic,
+        projection,
+        calls,
+        budget.statements,
+    ))
+}
+
+#[cfg(test)]
+mod limit_tests {
+    use super::*;
+
+    #[test]
+    fn function_budget_accepts_exact_boundaries_without_retaining_excess() {
+        let mut blocks = MirFunctionBudget::new(MIR_BLOCKS_FUNCTION_MAX, usize::MAX);
+        blocks.blocks = MIR_BLOCKS_FUNCTION_MAX - 1;
+        blocks.observe_block(0, "vector::f").unwrap();
+        assert_eq!(blocks.blocks, MIR_BLOCKS_FUNCTION_MAX);
+        assert_eq!(
+            blocks.observe_block(0, "vector::f").unwrap_err().code,
+            MirCode::BlockLimit
+        );
+        assert_eq!(blocks.blocks, MIR_BLOCKS_FUNCTION_MAX);
+
+        let mut statements = MirFunctionBudget::new(usize::MAX, MIR_STATEMENTS_FUNCTION_MAX);
+        statements.statements = MIR_STATEMENTS_FUNCTION_MAX;
+        assert_eq!(
+            statements.observe_block(1, "vector::f").unwrap_err().code,
+            MirCode::StatementLimit
+        );
+        assert_eq!(statements.blocks, 0);
+        assert_eq!(statements.statements, MIR_STATEMENTS_FUNCTION_MAX);
+    }
+
+    #[test]
+    fn closure_remaining_budget_rejects_before_retaining_the_next_block() {
+        let closure = MirClosureBudget {
+            blocks: MIR_BLOCKS_CLOSURE_MAX,
+            statements: MIR_STATEMENTS_CLOSURE_MAX,
+            instructions: 0,
+        };
+        assert_eq!(
+            closure.mir_remaining("vector::next"),
+            Ok((0, 0, VIR_INSTRUCTIONS_CLOSURE_MAX))
+        );
+
+        let mut blocks = MirFunctionBudget::new(0, usize::MAX);
+        assert_eq!(
+            blocks.observe_block(0, "vector::next").unwrap_err().code,
+            MirCode::BlockLimit
+        );
+        assert_eq!((blocks.blocks, blocks.statements), (0, 0));
+
+        let mut statements = MirFunctionBudget::new(1, 0);
+        assert_eq!(
+            statements
+                .observe_block(1, "vector::next")
+                .unwrap_err()
+                .code,
+            MirCode::StatementLimit
+        );
+        assert_eq!((statements.blocks, statements.statements), (0, 0));
+    }
+
+    #[test]
+    fn instruction_budget_rejects_before_allocating_the_next_instruction() {
+        let mut budget = InstructionBudget::new(2);
+        assert_eq!(budget.reserve("vector::f"), Ok(0));
+        assert_eq!(budget.reserve("vector::f"), Ok(1));
+        assert_eq!(budget.count(), 2);
+        assert_eq!(
+            budget.reserve("vector::f").unwrap_err().code,
+            MirCode::IrLimit
+        );
+        assert_eq!(budget.count(), 2);
+
+        let mut exhausted = InstructionBudget::new(0);
+        assert_eq!(
+            exhausted.reserve("vector::next").unwrap_err().code,
+            MirCode::IrLimit
+        );
+        assert_eq!(exhausted.count(), 0);
+    }
 }
 
 #[allow(clippy::too_many_arguments)]
@@ -1923,7 +2107,7 @@ fn lower_assignment<'tcx>(
     initialized_user_locals: &mut BTreeSet<usize>,
     environment: &mut BTreeMap<usize, Value>,
     ids: &mut DenseIds,
-    next_instruction: &mut usize,
+    next_instruction: &mut InstructionBudget,
     block_index: usize,
     unit_id: &str,
     function_id: &str,
@@ -2216,7 +2400,7 @@ fn lower_assignment<'tcx>(
                         function_id,
                         instructions,
                         source_entries,
-                        *next_instruction - 1,
+                        next_instruction.last_index(),
                     )?
                 }
             }
@@ -2263,7 +2447,7 @@ fn lower_assignment<'tcx>(
                     function_id,
                     instructions,
                     source_entries,
-                    *next_instruction - 1,
+                    next_instruction.last_index(),
                 )?
             }
             Rvalue::BinaryOp(
@@ -2315,7 +2499,7 @@ fn lower_assignment<'tcx>(
                     function_id,
                     instructions,
                     source_entries,
-                    *next_instruction - 1,
+                    next_instruction.last_index(),
                 )?
             }
             Rvalue::BinaryOp(
@@ -2364,7 +2548,7 @@ fn lower_assignment<'tcx>(
                     function_id,
                     instructions,
                     source_entries,
-                    *next_instruction - 1,
+                    next_instruction.last_index(),
                 )?
             }
             Rvalue::Aggregate(..) => {
@@ -2421,7 +2605,7 @@ fn lower_assignment<'tcx>(
                         function_id,
                         instructions,
                         source_entries,
-                        *next_instruction - 1,
+                        next_instruction.last_index(),
                     )?
                 } else {
                     lower_struct_aggregate(
@@ -2497,7 +2681,7 @@ fn lower_static_call<'tcx>(
     initialized_user_locals: &mut BTreeSet<usize>,
     environment: &mut BTreeMap<usize, Value>,
     ids: &mut DenseIds,
-    next_instruction: &mut usize,
+    next_instruction: &mut InstructionBudget,
     block_index: usize,
     unit_id: &str,
     function_id: &str,
@@ -2547,7 +2731,7 @@ fn lower_static_call<'tcx>(
         function_id,
         instructions,
         source_entries,
-        *next_instruction - 1,
+        next_instruction.last_index(),
     )?;
     let destination_type = mir_contract_type(
         tcx,
@@ -2590,7 +2774,7 @@ fn store_destination_value(
     tcx: TyCtxt<'_>,
     loader: &SnapshotFileLoader,
     ids: &mut DenseIds,
-    next_instruction: &mut usize,
+    next_instruction: &mut InstructionBudget,
     block_index: usize,
     unit_id: &str,
     function_id: &str,
@@ -2626,7 +2810,7 @@ fn store_destination_value(
                 function_id,
                 instructions,
                 source_entries,
-                *next_instruction - 1,
+                next_instruction.last_index(),
             )?;
         }
         Some(LocalKind::Argument(_)) | None => {
@@ -2651,7 +2835,7 @@ fn lower_struct_aggregate<'tcx>(
     arithmetic: &ArithmeticPlan,
     loader: &SnapshotFileLoader,
     ids: &mut DenseIds,
-    next_instruction: &mut usize,
+    next_instruction: &mut InstructionBudget,
     block_index: usize,
     unit_id: &str,
     function_id: &str,
@@ -2726,7 +2910,7 @@ fn lower_struct_aggregate<'tcx>(
         function_id,
         instructions,
         source_entries,
-        *next_instruction - 1,
+        next_instruction.last_index(),
     )
 }
 
@@ -2738,7 +2922,7 @@ fn emit_field(
     tcx: TyCtxt<'_>,
     loader: &SnapshotFileLoader,
     ids: &mut DenseIds,
-    next_instruction: &mut usize,
+    next_instruction: &mut InstructionBudget,
     block_index: usize,
     unit_id: &str,
     function_id: &str,
@@ -2760,7 +2944,7 @@ fn emit_field(
         function_id,
         instructions,
         source_entries,
-        *next_instruction - 1,
+        next_instruction.last_index(),
     )
 }
 
@@ -2774,7 +2958,7 @@ fn emit_arithmetic(
     tcx: TyCtxt<'_>,
     loader: &SnapshotFileLoader,
     ids: &mut DenseIds,
-    next_instruction: &mut usize,
+    next_instruction: &mut InstructionBudget,
     block_index: usize,
     unit_id: &str,
     function_id: &str,
@@ -2809,7 +2993,7 @@ fn emit_arithmetic(
         function_id,
         instructions,
         source_entries,
-        *next_instruction - 1,
+        next_instruction.last_index(),
     )
 }
 
@@ -2822,7 +3006,7 @@ fn emit_index(
     tcx: TyCtxt<'_>,
     loader: &SnapshotFileLoader,
     ids: &mut DenseIds,
-    next_instruction: &mut usize,
+    next_instruction: &mut InstructionBudget,
     block_index: usize,
     unit_id: &str,
     function_id: &str,
@@ -2851,7 +3035,7 @@ fn emit_index(
         function_id,
         instructions,
         source_entries,
-        *next_instruction - 1,
+        next_instruction.last_index(),
     )
 }
 
@@ -2865,7 +3049,7 @@ fn emit_div_rem(
     tcx: TyCtxt<'_>,
     loader: &SnapshotFileLoader,
     ids: &mut DenseIds,
-    next_instruction: &mut usize,
+    next_instruction: &mut InstructionBudget,
     block_index: usize,
     unit_id: &str,
     function_id: &str,
@@ -2901,7 +3085,7 @@ fn emit_div_rem(
         function_id,
         instructions,
         source_entries,
-        *next_instruction - 1,
+        next_instruction.last_index(),
     )
 }
 
@@ -2916,7 +3100,7 @@ fn emit_shift(
     tcx: TyCtxt<'_>,
     loader: &SnapshotFileLoader,
     ids: &mut DenseIds,
-    next_instruction: &mut usize,
+    next_instruction: &mut InstructionBudget,
     block_index: usize,
     unit_id: &str,
     function_id: &str,
@@ -2956,7 +3140,7 @@ fn emit_shift(
         function_id,
         instructions,
         source_entries,
-        *next_instruction - 1,
+        next_instruction.last_index(),
     )
 }
 
@@ -3052,17 +3236,14 @@ fn emitted_value(
 
 fn instruction_base(
     ids: &mut DenseIds,
-    next_instruction: &mut usize,
+    next_instruction: &mut InstructionBudget,
     kind: &str,
     ty: &ContractType,
     function_id: &str,
 ) -> Result<BTreeMap<String, JsonValue>, MirError> {
-    if *next_instruction >= VIR_INSTRUCTIONS_FUNCTION_MAX {
-        return Err(MirError::new(MirCode::IrLimit, function_id));
-    }
+    let instruction_index = next_instruction.reserve(function_id)?;
     let id = ids.temporary();
-    debug_assert_eq!(id, format!("t{}", *next_instruction));
-    *next_instruction += 1;
+    debug_assert_eq!(id, format!("t{instruction_index}"));
     Ok(BTreeMap::from([
         ("id".to_owned(), string(&id)),
         ("kind".to_owned(), string(kind)),

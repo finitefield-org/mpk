@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import base64
+from collections.abc import Iterator
 import copy
 import ctypes
 import errno
@@ -13,6 +14,7 @@ import os
 from pathlib import Path, PurePosixPath
 import posixpath
 import re
+import secrets
 import selectors
 import shutil
 import stat
@@ -34,6 +36,7 @@ PACKAGE_COUNT_LIMIT = 8_192
 PATH_LIMIT = 1_024
 FILE_SIZE_LIMIT = 4_294_967_296
 AGGREGATE_LIMIT = 34_359_738_368
+U64_MAX = (1 << 64) - 1
 RUST_FRONTEND_ID = "frontend.rust.rust2vir.candidate.v0"
 RUST_TOOLCHAIN_ID = "toolchain.rust.nightly-2025-06-01.candidate.v0"
 RUST_HOST_ID = "mpk.host.linux-x86_64-gnu.glibc2_27.v0"
@@ -61,6 +64,125 @@ class RustBuildFailure(Exception):
         super().__init__(code)
         self.code = code
         self.exit_code = exit_code
+
+
+BUILD_INPUT_LIMITS = {
+    "descriptor_transport": (DESCRIPTOR_LIMIT, "RUST_BUILD_INPUTS_TRANSPORT"),
+    "regular_files": (FILE_COUNT_LIMIT, "RUST_BUILD_INPUTS_FILE"),
+    "package_records": (PACKAGE_COUNT_LIMIT, "RUST_BUILD_INPUTS_GRAPH"),
+    "inventory_path": (PATH_LIMIT, "RUST_BUILD_INPUTS_PATH"),
+    "regular_file": (FILE_SIZE_LIMIT, "RUST_BUILD_INPUTS_FILE"),
+    "aggregate_cache": (AGGREGATE_LIMIT, "RUST_BUILD_INPUTS_GRAPH"),
+}
+FROZEN_PROCESS_LIMITS = {
+    "processes": 256,
+    "open_files_per_process": 1_024,
+    "virtual_memory_bytes": 17_179_869_184,
+    "resident_memory_bytes": 8_589_934_592,
+    "temp_bytes": 4_294_967_296,
+    "target_bytes": 17_179_869_184,
+    "output_files": 262_144,
+    "stdout_bytes": 67_108_864,
+    "stderr_bytes": 2_097_152,
+}
+TARGET_DIRECTORY_LIMIT = FROZEN_PROCESS_LIMITS["output_files"]
+DESCRIPTOR_JSON_DEPTH_LIMIT = 128
+
+
+def checked_boundary(value: int, maximum: int, code: str) -> int:
+    if (
+        not isinstance(value, int)
+        or isinstance(value, bool)
+        or not isinstance(maximum, int)
+        or isinstance(maximum, bool)
+        or value < 0
+        or maximum < 0
+        or value > U64_MAX
+        or maximum > U64_MAX
+        or value > maximum
+    ):
+        raise RustBuildFailure(code)
+    return value
+
+
+def checked_boundary_add(total: int, increment: int, maximum: int, code: str) -> int:
+    if (
+        not isinstance(total, int)
+        or isinstance(total, bool)
+        or not isinstance(increment, int)
+        or isinstance(increment, bool)
+        or total < 0
+        or increment < 0
+        or total > U64_MAX
+        or increment > U64_MAX
+        or total > U64_MAX - increment
+    ):
+        raise RustBuildFailure(code)
+    return checked_boundary(total + increment, maximum, code)
+
+
+def validate_build_input_limit(identifier: str, value: int) -> int:
+    profile = BUILD_INPUT_LIMITS.get(identifier)
+    if profile is None:
+        raise RustBuildFailure()
+    maximum, code = profile
+    return checked_boundary(value, maximum, code)
+
+
+def add_build_input_counter(identifier: str, total: int, increment: int) -> int:
+    profile = BUILD_INPUT_LIMITS.get(identifier)
+    if profile is None:
+        raise RustBuildFailure()
+    maximum, code = profile
+    return checked_boundary_add(total, increment, maximum, code)
+
+
+def dispatch_build_input_boundary(construction: object) -> int:
+    if not isinstance(construction, dict):
+        raise RustBuildFailure()
+    fixture = construction.get("fixture")
+    counter = construction.get("counter")
+    if not isinstance(counter, str):
+        raise RustBuildFailure()
+    if fixture == "checked_counter" and set(construction) == {
+        "fixture",
+        "counter",
+        "count",
+    }:
+        return validate_build_input_limit(counter, construction["count"])
+    if fixture == "portable_path_bytes" and set(construction) == {
+        "fixture",
+        "counter",
+        "component_bytes",
+    }:
+        component_bytes = construction["component_bytes"]
+        if counter != "inventory_path" or not isinstance(component_bytes, list):
+            raise RustBuildFailure()
+        if any(
+            not isinstance(length, int)
+            or isinstance(length, bool)
+            or not 1 <= length <= 255
+            for length in component_bytes
+        ):
+            raise RustBuildFailure()
+        path = "/".join("a" * length for length in component_bytes)
+        count = validate_build_input_limit(counter, len(path.encode("ascii")))
+        if not portable_path(path, build_input=True):
+            raise RustBuildFailure("RUST_BUILD_INPUTS_PATH")
+        return count
+    if fixture == "checked_counter_add" and set(construction) == {
+        "fixture",
+        "counter",
+        "initial",
+        "increment",
+    }:
+        initial = construction["initial"]
+        if initial == "u64_max":
+            initial = U64_MAX
+        return add_build_input_counter(
+            counter, initial, construction["increment"]
+        )
+    raise RustBuildFailure()
 
 
 def repository_root() -> Path:
@@ -97,32 +219,98 @@ def typed_hash(domain: bytes, value: object) -> str:
     return hashlib.sha256(domain + canonical(value)).hexdigest()
 
 
-def raw_hash(path: Path) -> str:
+def raw_hash(
+    path: Path,
+    *,
+    maximum: int = FILE_SIZE_LIMIT,
+    code: str = "BUNDLE_BUILD_INPUTS_INVALID",
+) -> str:
+    checked_boundary(maximum, U64_MAX, code)
     digest = hashlib.sha256()
     observed = 0
-    with path.open("rb") as stream:
+    descriptor = -1
+    try:
+        descriptor = os.open(path, os.O_RDONLY | os.O_CLOEXEC | os.O_NOFOLLOW)
+        initial = os.fstat(descriptor)
+        if not stat.S_ISREG(initial.st_mode):
+            raise RustBuildFailure(code)
+        checked_boundary(initial.st_size, maximum, code)
         while True:
-            block = stream.read(1024 * 1024)
+            block = os.read(descriptor, 1024 * 1024)
             if not block:
                 break
-            observed += len(block)
-            if observed > FILE_SIZE_LIMIT:
-                raise RustBuildFailure()
+            observed = checked_boundary_add(observed, len(block), maximum, code)
             digest.update(block)
+        retained = os.fstat(descriptor)
+        path_metadata = path.lstat()
+        if (
+            not stat.S_ISREG(retained.st_mode)
+            or not stat.S_ISREG(path_metadata.st_mode)
+            or stat.S_ISLNK(path_metadata.st_mode)
+            or (retained.st_dev, retained.st_ino, retained.st_size)
+            != (initial.st_dev, initial.st_ino, initial.st_size)
+            or (path_metadata.st_dev, path_metadata.st_ino, path_metadata.st_size)
+            != (initial.st_dev, initial.st_ino, initial.st_size)
+            or retained.st_mtime_ns != initial.st_mtime_ns
+            or retained.st_ctime_ns != initial.st_ctime_ns
+            or observed != initial.st_size
+        ):
+            raise RustBuildFailure(code)
+    except OSError as error:
+        raise RustBuildFailure(code) from error
+    finally:
+        if descriptor >= 0:
+            os.close(descriptor)
     return digest.hexdigest()
 
 
 def same_file_bytes(left: Path, right: Path) -> bool:
-    if left.stat().st_size != right.stat().st_size:
-        return False
-    with left.open("rb") as left_stream, right.open("rb") as right_stream:
+    left_descriptor = -1
+    right_descriptor = -1
+    try:
+        left_descriptor = os.open(
+            left, os.O_RDONLY | os.O_CLOEXEC | os.O_NOFOLLOW
+        )
+        right_descriptor = os.open(
+            right, os.O_RDONLY | os.O_CLOEXEC | os.O_NOFOLLOW
+        )
+        left_initial = os.fstat(left_descriptor)
+        right_initial = os.fstat(right_descriptor)
+        if (
+            not stat.S_ISREG(left_initial.st_mode)
+            or not stat.S_ISREG(right_initial.st_mode)
+            or left_initial.st_size != right_initial.st_size
+            or left_initial.st_size > FILE_SIZE_LIMIT
+        ):
+            return False
         while True:
-            left_block = left_stream.read(1024 * 1024)
-            right_block = right_stream.read(1024 * 1024)
+            left_block = os.read(left_descriptor, 1024 * 1024)
+            right_block = os.read(right_descriptor, 1024 * 1024)
             if left_block != right_block:
                 return False
             if not left_block:
-                return True
+                break
+        left_retained = os.fstat(left_descriptor)
+        right_retained = os.fstat(right_descriptor)
+        left_path = left.lstat()
+        right_path = right.lstat()
+        return (
+            (left_retained.st_dev, left_retained.st_ino, left_retained.st_size)
+            == (left_initial.st_dev, left_initial.st_ino, left_initial.st_size)
+            and (left_path.st_dev, left_path.st_ino, left_path.st_size)
+            == (left_initial.st_dev, left_initial.st_ino, left_initial.st_size)
+            and (right_retained.st_dev, right_retained.st_ino, right_retained.st_size)
+            == (right_initial.st_dev, right_initial.st_ino, right_initial.st_size)
+            and (right_path.st_dev, right_path.st_ino, right_path.st_size)
+            == (right_initial.st_dev, right_initial.st_ino, right_initial.st_size)
+        )
+    except OSError:
+        return False
+    finally:
+        if left_descriptor >= 0:
+            os.close(left_descriptor)
+        if right_descriptor >= 0:
+            os.close(right_descriptor)
 
 
 def strict_object(pairs: list[tuple[str, object]]) -> dict[str, object]:
@@ -144,6 +332,226 @@ def strict_integer(value: str) -> int:
     return int(value)
 
 
+class DescriptorPrescanner:
+    """Scan descriptor JSON without retaining its value tree.
+
+    The transport cap bounds the input buffer itself.  This pass additionally
+    enforces the declared inventory counters and a conservative nesting bound
+    before ``json.loads`` can allocate a value graph or recurse over hostile
+    input.
+    """
+
+    def __init__(self, data: bytes) -> None:
+        self.data = data
+        self.offset = 0
+        self.file_count = 0
+        self.package_count = 0
+        self.aggregate_size = 0
+
+    def scan(self) -> tuple[int, int, int]:
+        self._skip_space()
+        self._value((), 0)
+        self._skip_space()
+        if self.offset != len(self.data):
+            self._transport_failure()
+        return self.file_count, self.package_count, self.aggregate_size
+
+    @staticmethod
+    def _transport_failure() -> None:
+        raise RustBuildFailure("RUST_BUILD_INPUTS_TRANSPORT")
+
+    def _skip_space(self) -> None:
+        while self.offset < len(self.data) and self.data[self.offset] in b" \t\r\n":
+            self.offset += 1
+
+    def _take(self, expected: int) -> None:
+        if self.offset >= len(self.data) or self.data[self.offset] != expected:
+            self._transport_failure()
+        self.offset += 1
+
+    def _value(self, path: tuple[str, ...], depth: int) -> None:
+        if depth > DESCRIPTOR_JSON_DEPTH_LIMIT or self.offset >= len(self.data):
+            self._transport_failure()
+        marker = self.data[self.offset]
+        if marker == ord("{"):
+            self._object(path, depth + 1)
+        elif marker == ord("["):
+            self._array(path, depth + 1)
+        elif marker == ord('"'):
+            start, end = self._string_bounds()
+            if path == ("components", "*", "files", "*", "path"):
+                self._validate_path_string(start, end)
+        elif marker == ord("-") or ord("0") <= marker <= ord("9"):
+            start, end, integer = self._number_bounds()
+            if path == ("components", "*", "files", "*", "size_bytes"):
+                if not integer:
+                    raise RustBuildFailure("RUST_BUILD_INPUTS_FILE")
+                raw = self.data[start:end]
+                if raw.startswith(b"-") or len(raw) > 20:
+                    raise RustBuildFailure("RUST_BUILD_INPUTS_FILE")
+                try:
+                    size = int(raw)
+                except ValueError as error:
+                    raise RustBuildFailure("RUST_BUILD_INPUTS_FILE") from error
+                validate_build_input_limit("regular_file", size)
+                self.aggregate_size = add_build_input_counter(
+                    "aggregate_cache", self.aggregate_size, size
+                )
+        elif self.data.startswith(b"true", self.offset):
+            self.offset += 4
+        elif self.data.startswith(b"false", self.offset):
+            self.offset += 5
+        elif self.data.startswith(b"null", self.offset):
+            self.offset += 4
+        else:
+            self._transport_failure()
+
+    def _object(self, path: tuple[str, ...], depth: int) -> None:
+        self._take(ord("{"))
+        self._skip_space()
+        if self.offset < len(self.data) and self.data[self.offset] == ord("}"):
+            self.offset += 1
+            return
+        while True:
+            if self.offset >= len(self.data) or self.data[self.offset] != ord('"'):
+                self._transport_failure()
+            start, end = self._string_bounds()
+            key = self._short_string(start, end)
+            self._skip_space()
+            self._take(ord(":"))
+            self._skip_space()
+            self._value(path + ((key if key is not None else "<unknown>"),), depth)
+            self._skip_space()
+            if self.offset >= len(self.data):
+                self._transport_failure()
+            marker = self.data[self.offset]
+            self.offset += 1
+            if marker == ord("}"):
+                return
+            if marker != ord(","):
+                self._transport_failure()
+            self._skip_space()
+
+    def _array(self, path: tuple[str, ...], depth: int) -> None:
+        self._take(ord("["))
+        self._skip_space()
+        if self.offset < len(self.data) and self.data[self.offset] == ord("]"):
+            self.offset += 1
+            return
+        while True:
+            if path == ("components", "*", "files"):
+                self.file_count = add_build_input_counter(
+                    "regular_files", self.file_count, 1
+                )
+            elif path == ("graphs", "*", "packages"):
+                self.package_count = add_build_input_counter(
+                    "package_records", self.package_count, 1
+                )
+            self._value(path + ("*",), depth)
+            self._skip_space()
+            if self.offset >= len(self.data):
+                self._transport_failure()
+            marker = self.data[self.offset]
+            self.offset += 1
+            if marker == ord("]"):
+                return
+            if marker != ord(","):
+                self._transport_failure()
+            self._skip_space()
+
+    def _string_bounds(self) -> tuple[int, int]:
+        start = self.offset
+        self._take(ord('"'))
+        while self.offset < len(self.data):
+            marker = self.data[self.offset]
+            if marker == ord('"'):
+                self.offset += 1
+                return start, self.offset
+            if marker < 0x20:
+                self._transport_failure()
+            if marker == ord("\\"):
+                self.offset += 1
+                if self.offset >= len(self.data):
+                    self._transport_failure()
+                escape = self.data[self.offset]
+                if escape == ord("u"):
+                    if self.offset + 4 >= len(self.data) or any(
+                        digit not in b"0123456789abcdefABCDEF"
+                        for digit in self.data[self.offset + 1 : self.offset + 5]
+                    ):
+                        self._transport_failure()
+                    self.offset += 5
+                    continue
+                if escape not in b'"\\/bfnrt':
+                    self._transport_failure()
+            self.offset += 1
+        self._transport_failure()
+
+    def _short_string(self, start: int, end: int) -> str | None:
+        raw = self.data[start:end]
+        if len(raw) > 256:
+            return None
+        try:
+            value = json.loads(raw.decode("utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError) as error:
+            raise RustBuildFailure("RUST_BUILD_INPUTS_TRANSPORT") from error
+        return value if isinstance(value, str) else None
+
+    def _validate_path_string(self, start: int, end: int) -> None:
+        raw = self.data[start:end]
+        # A JSON escape needs at most six source bytes per decoded scalar.  If
+        # this bound is exceeded the decoded UTF-8 path cannot fit, so reject
+        # without allocating a descriptor-sized Python string.
+        if len(raw) - 2 > PATH_LIMIT * 6:
+            raise RustBuildFailure("RUST_BUILD_INPUTS_PATH")
+        try:
+            value = json.loads(raw.decode("utf-8"))
+            encoded = value.encode("utf-8")
+        except (UnicodeDecodeError, UnicodeEncodeError, json.JSONDecodeError) as error:
+            raise RustBuildFailure("RUST_BUILD_INPUTS_TRANSPORT") from error
+        validate_build_input_limit("inventory_path", len(encoded))
+
+    def _number_bounds(self) -> tuple[int, int, bool]:
+        start = self.offset
+        if self.data[self.offset] == ord("-"):
+            self.offset += 1
+        if self.offset >= len(self.data):
+            self._transport_failure()
+        if self.data[self.offset] == ord("0"):
+            self.offset += 1
+            if self.offset < len(self.data) and ord("0") <= self.data[self.offset] <= ord("9"):
+                self._transport_failure()
+        elif ord("1") <= self.data[self.offset] <= ord("9"):
+            while self.offset < len(self.data) and ord("0") <= self.data[self.offset] <= ord("9"):
+                self.offset += 1
+        else:
+            self._transport_failure()
+        integer = True
+        if self.offset < len(self.data) and self.data[self.offset] == ord("."):
+            integer = False
+            self.offset += 1
+            fraction_start = self.offset
+            while self.offset < len(self.data) and ord("0") <= self.data[self.offset] <= ord("9"):
+                self.offset += 1
+            if self.offset == fraction_start:
+                self._transport_failure()
+        if self.offset < len(self.data) and self.data[self.offset] in b"eE":
+            integer = False
+            self.offset += 1
+            if self.offset < len(self.data) and self.data[self.offset] in b"+-":
+                self.offset += 1
+            exponent_start = self.offset
+            while self.offset < len(self.data) and ord("0") <= self.data[self.offset] <= ord("9"):
+                self.offset += 1
+            if self.offset == exponent_start:
+                self._transport_failure()
+        return start, self.offset, integer
+
+
+def prescan_descriptor(data: bytes) -> tuple[int, int, int]:
+    return DescriptorPrescanner(data).scan()
+
+
 def strict_json(bytes_value: bytes) -> object:
     try:
         text = bytes_value.decode("utf-8")
@@ -159,7 +567,13 @@ def strict_json(bytes_value: bytes) -> object:
 
 
 def load_vector() -> dict[str, object]:
-    value = strict_json(vector_path().read_bytes())
+    value = strict_json(
+        read_bounded_regular_file(
+            vector_path(),
+            maximum=DESCRIPTOR_LIMIT,
+            code="BUNDLE_BUILD_INPUTS_INVALID",
+        )
+    )
     if not isinstance(value, dict) or value.get("schema") != "mpk.rust.build_inputs.conformance.v0":
         raise RustBuildFailure()
     return value
@@ -200,7 +614,12 @@ def validate_project_templates(vector: dict[str, object]) -> None:
         ("rust-toolchain.toml", "rust_toolchain"),
     ):
         path = project / relative
-        if path.is_symlink() or not path.is_file() or path.read_bytes() != templates[identifier]:
+        expected = templates[identifier]
+        if read_bounded_regular_file(
+            path,
+            maximum=len(expected),
+            code="BUNDLE_BUILD_INPUTS_INVALID",
+        ) != expected:
             raise RustBuildFailure()
 
 
@@ -214,21 +633,38 @@ def build_inputs_hash(value: dict[str, object]) -> str:
     return typed_hash(BUILD_INPUT_DOMAIN, payload)
 
 
-def portable_path(value: str) -> bool:
-    if not isinstance(value, str) or not 1 <= len(value.encode("ascii", "ignore")) <= PATH_LIMIT:
+def portable_path(value: str, *, build_input: bool = False) -> bool:
+    if not isinstance(value, str):
         return False
     try:
         encoded = value.encode("ascii")
     except UnicodeEncodeError:
         return False
-    if len(encoded) != len(value) or value.startswith("/") or value.endswith("/") or "\\" in value:
+    try:
+        validate_build_input_limit("inventory_path", len(encoded))
+    except RustBuildFailure:
+        return False
+    if (
+        not encoded
+        or len(encoded) != len(value)
+        or value.startswith("/")
+        or value.endswith("/")
+        or "\\" in value
+    ):
         return False
     for component in value.split("/"):
         if (
             not component
+            or len(component.encode("ascii")) > 255
             or component in (".", "..")
             or component.endswith(".")
-            or re.fullmatch(r"[A-Za-z0-9._+-]+", component) is None
+            or (
+                re.fullmatch(
+                    r"[A-Za-z0-9._+-]+" if build_input else r"[A-Za-z0-9._-]+",
+                    component,
+                )
+                is None
+            )
         ):
             return False
         stem = component.split(".", 1)[0].upper()
@@ -248,7 +684,7 @@ def validate_descriptor_model(value: object, vector: dict[str, object]) -> dict[
     if set(value.keys()) != expected_keys or value.get("schema") != "mpk.rust.build_inputs.v0":
         raise RustBuildFailure("RUST_BUILD_INPUTS_SHAPE")
     claimed = value.get("build_inputs_sha256")
-    if not isinstance(claimed, str) or claimed != build_inputs_hash(value):
+    if not isinstance(claimed, str):
         raise RustBuildFailure("RUST_BUILD_INPUTS_HASH")
     frozen = vector["valid_descriptor"]
     for key in (
@@ -316,7 +752,7 @@ def validate_descriptor_model(value: object, vector: dict[str, object]) -> dict[
                 raise RustBuildFailure("RUST_BUILD_INPUTS_SHAPE")
             path = item["path"]
             size = item["size_bytes"]
-            if not portable_path(path):
+            if not portable_path(path, build_input=True):
                 raise RustBuildFailure("RUST_BUILD_INPUTS_PATH")
             if path.startswith("rust-tools/rust2vir/") or "/rust-tools/rust2vir/" in path:
                 raise RustBuildFailure("RUST_BUILD_INPUTS_SOURCE_EXCLUSION")
@@ -328,58 +764,218 @@ def validate_descriptor_model(value: object, vector: dict[str, object]) -> dict[
                 not isinstance(item["executable"], bool)
                 or not isinstance(size, int)
                 or isinstance(size, bool)
-                or not 0 <= size <= FILE_SIZE_LIMIT
+                or size < 0
                 or re.fullmatch(r"[0-9a-f]{64}", item["sha256"]) is None
             ):
                 raise RustBuildFailure("RUST_BUILD_INPUTS_FILE")
+            validate_build_input_limit("regular_file", size)
             if path in all_paths:
                 raise RustBuildFailure("RUST_BUILD_INPUTS_INVENTORY")
             all_paths.add(path)
-            total_files += 1
-            total_bytes += size
-            if total_files > FILE_COUNT_LIMIT:
-                raise RustBuildFailure("RUST_BUILD_INPUTS_FILE")
-            if total_bytes > AGGREGATE_LIMIT:
-                raise RustBuildFailure("RUST_BUILD_INPUTS_GRAPH")
+            total_files = add_build_input_counter("regular_files", total_files, 1)
+            total_bytes = add_build_input_counter("aggregate_cache", total_bytes, size)
     expected_top = set(vector["production_projection"]["cache_top_level"])
     if {path.split("/", 1)[0] for path in all_paths} != expected_top:
         raise RustBuildFailure("RUST_BUILD_INPUTS_INVENTORY")
-    graph_packages = sum(len(graph["packages"]) for graph in value["graphs"])
-    if graph_packages > PACKAGE_COUNT_LIMIT:
-        raise RustBuildFailure("RUST_BUILD_INPUTS_GRAPH")
+    graph_packages = 0
+    for graph in value["graphs"]:
+        for _package in graph["packages"]:
+            graph_packages = add_build_input_counter(
+                "package_records", graph_packages, 1
+            )
+    if claimed != build_inputs_hash(value):
+        raise RustBuildFailure("RUST_BUILD_INPUTS_HASH")
     return value
 
 
 def validate_descriptor_transport(
     transport: bytes, vector: dict[str, object]
 ) -> dict[str, object]:
+    validate_build_input_limit("descriptor_transport", len(transport))
     if (
-        len(transport) > DESCRIPTOR_LIMIT
-        or not transport.endswith(b"\n")
+        not transport.endswith(b"\n")
         or transport.endswith(b"\n\n")
     ):
         raise RustBuildFailure("RUST_BUILD_INPUTS_TRANSPORT")
+    prescan_descriptor(transport[:-1])
     try:
         value = strict_json(transport[:-1])
     except RustBuildFailure as error:
         raise RustBuildFailure("RUST_BUILD_INPUTS_TRANSPORT") from error
-    if canonical(value) + b"\n" != transport:
+    try:
+        canonical_transport = canonical(value) + b"\n"
+    except (UnicodeEncodeError, ValueError, RecursionError) as error:
+        raise RustBuildFailure("RUST_BUILD_INPUTS_TRANSPORT") from error
+    if canonical_transport != transport:
         raise RustBuildFailure("RUST_BUILD_INPUTS_TRANSPORT")
     return validate_descriptor_model(value, vector)
 
 
-def read_descriptor(vector: dict[str, object]) -> tuple[dict[str, object], bytes]:
-    path = descriptor_path()
+def read_bounded_regular_file(path: Path, *, maximum: int, code: str) -> bytes:
+    checked_boundary(maximum, U64_MAX, code)
+    flags = os.O_RDONLY | os.O_CLOEXEC | os.O_NOFOLLOW | os.O_NONBLOCK
+    descriptor = -1
     try:
-        metadata = path.lstat()
-        if not stat.S_ISREG(metadata.st_mode) or stat.S_ISLNK(metadata.st_mode):
-            raise RustBuildFailure("RUST_BUILD_INPUTS_TRANSPORT")
-        if metadata.st_size > DESCRIPTOR_LIMIT:
-            raise RustBuildFailure("RUST_BUILD_INPUTS_TRANSPORT")
-        transport = path.read_bytes()
+        descriptor = os.open(path, flags)
+        initial = os.fstat(descriptor)
+        if not stat.S_ISREG(initial.st_mode):
+            raise RustBuildFailure(code)
+        checked_boundary(initial.st_size, maximum, code)
+        transport = bytearray()
+        while len(transport) <= maximum:
+            block = os.read(descriptor, min(65_536, maximum + 1 - len(transport)))
+            if not block:
+                break
+            transport.extend(block)
+        checked_boundary(len(transport), maximum, code)
+        retained = os.fstat(descriptor)
+        path_metadata = path.lstat()
+        initial_identity = (initial.st_dev, initial.st_ino)
+        if (
+            not stat.S_ISREG(retained.st_mode)
+            or not stat.S_ISREG(path_metadata.st_mode)
+            or stat.S_ISLNK(path_metadata.st_mode)
+            or (retained.st_dev, retained.st_ino) != initial_identity
+            or (path_metadata.st_dev, path_metadata.st_ino) != initial_identity
+            or retained.st_size != initial.st_size
+            or path_metadata.st_size != initial.st_size
+            or len(transport) != initial.st_size
+            or retained.st_mtime_ns != initial.st_mtime_ns
+            or retained.st_ctime_ns != initial.st_ctime_ns
+        ):
+            raise RustBuildFailure(code)
     except OSError as error:
-        raise RustBuildFailure("RUST_BUILD_INPUTS_TRANSPORT") from error
+        raise RustBuildFailure(code) from error
+    finally:
+        if descriptor >= 0:
+            os.close(descriptor)
+    return bytes(transport)
+
+
+def bounded_directory_entries(
+    directory: Path, *, maximum: int, code: str
+) -> list[tuple[str, os.stat_result]]:
+    checked_boundary(maximum, U64_MAX, code)
+    descriptor = -1
+    try:
+        expected = directory.lstat()
+        if not stat.S_ISDIR(expected.st_mode) or stat.S_ISLNK(expected.st_mode):
+            raise RustBuildFailure(code)
+        descriptor = os.open(
+            directory,
+            os.O_RDONLY | os.O_CLOEXEC | os.O_DIRECTORY | os.O_NOFOLLOW,
+        )
+        opened = os.fstat(descriptor)
+        if (opened.st_dev, opened.st_ino) != (expected.st_dev, expected.st_ino):
+            raise RustBuildFailure(code)
+        result: list[tuple[str, os.stat_result]] = []
+        with os.scandir(descriptor) as scanned:
+            for entry in scanned:
+                checked_boundary_add(len(result), 1, maximum, code)
+                result.append((entry.name, entry.stat(follow_symlinks=False)))
+        retained = os.fstat(descriptor)
+        current = directory.lstat()
+        if (
+            (retained.st_dev, retained.st_ino) != (expected.st_dev, expected.st_ino)
+            or (current.st_dev, current.st_ino) != (expected.st_dev, expected.st_ino)
+            or not stat.S_ISDIR(current.st_mode)
+            or stat.S_ISLNK(current.st_mode)
+            or retained.st_mtime_ns != expected.st_mtime_ns
+            or retained.st_ctime_ns != expected.st_ctime_ns
+            or current.st_mtime_ns != expected.st_mtime_ns
+            or current.st_ctime_ns != expected.st_ctime_ns
+        ):
+            raise RustBuildFailure(code)
+    except OSError as error:
+        raise RustBuildFailure(code) from error
+    finally:
+        if descriptor >= 0:
+            os.close(descriptor)
+    result.sort(key=lambda item: os.fsencode(item[0]))
+    return result
+
+
+def walk_regular_files_bounded(
+    root: Path,
+    *,
+    file_limit: int,
+    byte_limit: int,
+    directory_limit: int,
+    code: str,
+) -> Iterator[tuple[str, Path, os.stat_result]]:
+    """Yield a deterministic, no-follow tree walk under explicit counters."""
+
+    checked_boundary(file_limit, U64_MAX, code)
+    checked_boundary(byte_limit, U64_MAX, code)
+    checked_boundary(directory_limit, U64_MAX, code)
+    files = 0
+    total = 0
+    directories = checked_boundary(1, directory_limit, code)
+    node_limit = checked_boundary_add(directory_limit, file_limit, U64_MAX, code)
+    nodes = checked_boundary(1, node_limit, code)
+    pending: list[tuple[Path, str]] = [(root, "")]
+    while pending:
+        directory, prefix = pending.pop()
+        entries = bounded_directory_entries(
+            directory, maximum=node_limit - nodes, code=code
+        )
+        child_directories: list[tuple[Path, str]] = []
+        for name, metadata in entries:
+            nodes = checked_boundary_add(nodes, 1, node_limit, code)
+            relative = f"{prefix}/{name}" if prefix else name
+            path = directory / name
+            if stat.S_ISDIR(metadata.st_mode):
+                directories = checked_boundary_add(
+                    directories, 1, directory_limit, code
+                )
+                child_directories.append((path, relative))
+            elif stat.S_ISREG(metadata.st_mode):
+                files = checked_boundary_add(files, 1, file_limit, code)
+                total = checked_boundary_add(total, metadata.st_size, byte_limit, code)
+                yield relative, path, metadata
+            else:
+                raise RustBuildFailure(code)
+        # Stack order is reversed so yielded paths remain bytewise sorted.
+        pending.extend(reversed(child_directories))
+
+
+def read_descriptor(vector: dict[str, object]) -> tuple[dict[str, object], bytes]:
+    transport = read_bounded_regular_file(
+        descriptor_path(),
+        maximum=BUILD_INPUT_LIMITS["descriptor_transport"][0],
+        code="RUST_BUILD_INPUTS_TRANSPORT",
+    )
     return validate_descriptor_transport(transport, vector), transport
+
+
+def expected_cache_tree(descriptor: dict[str, object]) -> dict[str, object]:
+    tree: dict[str, object] = {}
+    for component in descriptor["components"]:
+        for item in component["files"]:
+            parts = item["path"].split("/")
+            node = tree
+            for part in parts[:-1]:
+                child = node.get(part)
+                if child is None:
+                    child = {}
+                    node[part] = child
+                if not isinstance(child, dict):
+                    raise RustBuildFailure("RUST_BUILD_INPUTS_INVENTORY")
+                node = child
+            leaf = parts[-1]
+            if leaf in node:
+                raise RustBuildFailure("RUST_BUILD_INPUTS_INVENTORY")
+            node[leaf] = (item,)
+    return tree
+
+
+def missing_cache_code(relative: str) -> str:
+    if relative == "notices" or relative.startswith("notices/"):
+        return "RUST_BUILD_INPUTS_LICENSE"
+    clang_config = "toolchain/bin/clang.cfg"
+    if relative == clang_config or clang_config.startswith(relative + "/"):
+        return "RUST_BUILD_INPUTS_PROVENANCE"
+    return "RUST_BUILD_INPUTS_INVENTORY"
 
 
 def validate_cache(descriptor: dict[str, object], *, root: Path | None = None) -> Path:
@@ -392,56 +988,85 @@ def validate_cache(descriptor: dict[str, object], *, root: Path | None = None) -
     ):
         code = "RUST_BUILD_INPUTS_CACHE_KEY" if root is None else "RUST_BUILD_INPUTS_INVENTORY"
         raise RustBuildFailure(code)
-    expected: dict[str, dict[str, object]] = {}
-    for component in descriptor["components"]:
-        for item in component["files"]:
-            expected[item["path"]] = item
-    observed: set[str] = set()
+    expected_tree = expected_cache_tree(descriptor)
     identities: set[tuple[int, int]] = set()
+    file_count = 0
     total = 0
-    for path in sorted(selected.rglob("*"), key=lambda item: item.relative_to(selected).as_posix().encode("utf-8")):
-        metadata = path.lstat()
-        relative = path.relative_to(selected).as_posix()
-        if stat.S_ISLNK(metadata.st_mode) or not (stat.S_ISDIR(metadata.st_mode) or stat.S_ISREG(metadata.st_mode)):
-            raise RustBuildFailure("RUST_BUILD_INPUTS_FILE")
-        if stat.S_ISDIR(metadata.st_mode):
-            continue
-        if metadata.st_nlink != 1:
-            raise RustBuildFailure("RUST_BUILD_INPUTS_FILE")
-        if relative not in expected:
+    failure_code = "RUST_BUILD_INPUTS_FILE"
+
+    def walk(directory: Path, node: dict[str, object], prefix: str) -> None:
+        nonlocal file_count, total, failure_code
+        failure_code = "RUST_BUILD_INPUTS_INVENTORY"
+        entries = bounded_directory_entries(
+            directory,
+            maximum=len(node),
+            code="RUST_BUILD_INPUTS_INVENTORY",
+        )
+        expected_names = sorted(node, key=os.fsencode)
+        actual_names: list[str] = []
+        for name, _metadata in entries:
+            relative = f"{prefix}/{name}" if prefix else name
+            if not portable_path(relative, build_input=True):
+                raise RustBuildFailure("RUST_BUILD_INPUTS_PATH")
+            actual_names.append(name)
+        if any(name not in node for name in actual_names):
             raise RustBuildFailure("RUST_BUILD_INPUTS_INVENTORY")
-        identity = (metadata.st_dev, metadata.st_ino)
-        if identity in identities:
-            raise RustBuildFailure("RUST_BUILD_INPUTS_FILE")
-        identities.add(identity)
-        item = expected[relative]
-        mode = stat.S_IMODE(metadata.st_mode)
-        if mode != (0o555 if item["executable"] else 0o444):
-            raise RustBuildFailure("RUST_BUILD_INPUTS_FILE")
-        if metadata.st_size != item["size_bytes"] or raw_hash(path) != item["sha256"]:
-            if relative.endswith("/.cargo-checksum.json"):
-                raise RustBuildFailure("RUST_BUILD_INPUTS_VENDOR")
-            if relative == "cargo-home-seed/config.toml":
-                raise RustBuildFailure("RUST_BUILD_INPUTS_CARGO_HOME")
-            if relative == "toolchain/bin/clang.cfg":
-                raise RustBuildFailure("RUST_BUILD_INPUTS_PROVENANCE")
-            if relative.startswith("notices/"):
-                raise RustBuildFailure("RUST_BUILD_INPUTS_LICENSE")
-            raise RustBuildFailure("RUST_BUILD_INPUTS_FILE")
-        observed.add(relative)
-        total += metadata.st_size
-        if total > AGGREGATE_LIMIT:
-            raise RustBuildFailure("RUST_BUILD_INPUTS_GRAPH")
-    if observed != set(expected):
-        missing = set(expected) - observed
-        if any(path.startswith("notices/") for path in missing):
-            raise RustBuildFailure("RUST_BUILD_INPUTS_LICENSE")
-        if "toolchain/bin/clang.cfg" in missing:
-            raise RustBuildFailure("RUST_BUILD_INPUTS_PROVENANCE")
-        raise RustBuildFailure("RUST_BUILD_INPUTS_INVENTORY")
-    top = {path.name for path in selected.iterdir()}
-    if top != {"cargo-home-seed", "native-runtime", "native-sysroot", "notices", "tool-sources", "toolchain", "vendor"}:
-        raise RustBuildFailure("RUST_BUILD_INPUTS_INVENTORY")
+        actual_set = frozenset(actual_names)
+        missing = [name for name in expected_names if name not in actual_set]
+        if missing:
+            first = missing[0]
+            relative = f"{prefix}/{first}" if prefix else first
+            raise RustBuildFailure(missing_cache_code(relative))
+
+        for name, metadata in entries:
+            relative = f"{prefix}/{name}" if prefix else name
+            path = directory / name
+            failure_code = "RUST_BUILD_INPUTS_FILE"
+            child = node[name]
+            if stat.S_ISLNK(metadata.st_mode):
+                raise RustBuildFailure("RUST_BUILD_INPUTS_FILE")
+            if isinstance(child, dict):
+                if not stat.S_ISDIR(metadata.st_mode):
+                    raise RustBuildFailure("RUST_BUILD_INPUTS_FILE")
+                walk(path, child, relative)
+                continue
+            if not stat.S_ISREG(metadata.st_mode):
+                raise RustBuildFailure("RUST_BUILD_INPUTS_FILE")
+
+            file_count = add_build_input_counter("regular_files", file_count, 1)
+            validate_build_input_limit("regular_file", metadata.st_size)
+            total = add_build_input_counter(
+                "aggregate_cache", total, metadata.st_size
+            )
+            if metadata.st_nlink != 1:
+                raise RustBuildFailure("RUST_BUILD_INPUTS_FILE")
+            identity = (metadata.st_dev, metadata.st_ino)
+            if identity in identities:
+                raise RustBuildFailure("RUST_BUILD_INPUTS_FILE")
+            identities.add(identity)
+            item = child[0]
+            mode = stat.S_IMODE(metadata.st_mode)
+            if mode != (0o555 if item["executable"] else 0o444):
+                raise RustBuildFailure("RUST_BUILD_INPUTS_FILE")
+            if (
+                metadata.st_size != item["size_bytes"]
+                or raw_hash(path, code="RUST_BUILD_INPUTS_FILE")
+                != item["sha256"]
+            ):
+                if relative.endswith("/.cargo-checksum.json"):
+                    raise RustBuildFailure("RUST_BUILD_INPUTS_VENDOR")
+                if relative == "cargo-home-seed/config.toml":
+                    raise RustBuildFailure("RUST_BUILD_INPUTS_CARGO_HOME")
+                if relative == "toolchain/bin/clang.cfg":
+                    raise RustBuildFailure("RUST_BUILD_INPUTS_PROVENANCE")
+                if relative.startswith("notices/"):
+                    raise RustBuildFailure("RUST_BUILD_INPUTS_LICENSE")
+                raise RustBuildFailure("RUST_BUILD_INPUTS_FILE")
+
+    try:
+        walk(selected, expected_tree, "")
+    except OSError as error:
+        raise RustBuildFailure(failure_code) from error
     validate_cargo_home(selected)
     validate_vendor(descriptor, selected)
     return selected
@@ -451,16 +1076,27 @@ def validate_cargo_home(root: Path) -> None:
     vector = load_vector()
     expected = raw_templates(vector)["cargo_home_config"]
     seed = root / "cargo-home-seed"
-    if {item.name for item in seed.iterdir()} != {"config.toml"}:
+    entries = bounded_directory_entries(
+        seed, maximum=1, code="RUST_BUILD_INPUTS_CARGO_HOME"
+    )
+    if [name for name, _metadata in entries] != ["config.toml"]:
         raise RustBuildFailure("RUST_BUILD_INPUTS_CARGO_HOME")
-    if (seed / "config.toml").read_bytes() != expected:
+    if read_bounded_regular_file(
+        seed / "config.toml",
+        maximum=len(expected),
+        code="RUST_BUILD_INPUTS_CARGO_HOME",
+    ) != expected:
         raise RustBuildFailure("RUST_BUILD_INPUTS_CARGO_HOME")
 
 
 def validate_vendor(descriptor: dict[str, object], root: Path) -> None:
     packages: dict[tuple[str, str], str] = {}
+    package_count = 0
     for graph in descriptor["graphs"]:
         for package in graph["packages"]:
+            package_count = add_build_input_counter(
+                "package_records", package_count, 1
+            )
             checksum = package["checksum"]
             if checksum is None:
                 continue
@@ -469,26 +1105,61 @@ def validate_vendor(descriptor: dict[str, object], root: Path) -> None:
                 raise RustBuildFailure("RUST_BUILD_INPUTS_GRAPH")
             packages[key] = checksum
     vendor = root / "vendor"
-    observed = {item.name for item in vendor.iterdir() if item.is_dir() and not item.is_symlink()}
-    expected = {f"{name}-{version}" for name, version in packages}
-    if observed != expected:
+    expected = sorted(
+        (f"{name}-{version}" for name, version in packages), key=os.fsencode
+    )
+    entries = bounded_directory_entries(
+        vendor, maximum=len(expected), code="RUST_BUILD_INPUTS_VENDOR"
+    )
+    if (
+        [name for name, _metadata in entries] != expected
+        or any(not stat.S_ISDIR(metadata.st_mode) for _name, metadata in entries)
+    ):
         raise RustBuildFailure("RUST_BUILD_INPUTS_VENDOR")
+    declared_checksum_sizes = {
+        item["path"]: item["size_bytes"]
+        for component in descriptor["components"]
+        for item in component["files"]
+        if item["path"].endswith("/.cargo-checksum.json")
+    }
     for (name, version), checksum in packages.items():
         package_root = vendor / f"{name}-{version}"
         checksum_path = package_root / ".cargo-checksum.json"
-        checksum_bytes = checksum_path.read_bytes()
-        data = strict_json(checksum_bytes)
-        if set(data) != {"files", "package"} or data["package"] != checksum:
+        declared_path = f"vendor/{name}-{version}/.cargo-checksum.json"
+        maximum = declared_checksum_sizes.get(declared_path)
+        if not isinstance(maximum, int) or isinstance(maximum, bool):
+            raise RustBuildFailure("RUST_BUILD_INPUTS_VENDOR")
+        checksum_bytes = read_bounded_regular_file(
+            checksum_path,
+            maximum=maximum,
+            code="RUST_BUILD_INPUTS_VENDOR",
+        )
+        try:
+            data = strict_json(checksum_bytes)
+        except RustBuildFailure as error:
+            raise RustBuildFailure("RUST_BUILD_INPUTS_VENDOR") from error
+        if (
+            not isinstance(data, dict)
+            or set(data) != {"files", "package"}
+            or not isinstance(data["files"], dict)
+            or data["package"] != checksum
+        ):
             raise RustBuildFailure("RUST_BUILD_INPUTS_VENDOR")
         if canonical(data) != checksum_bytes:
             raise RustBuildFailure("RUST_BUILD_INPUTS_VENDOR")
         actual: dict[str, str] = {}
-        for path in sorted(package_root.rglob("*")):
-            if path == checksum_path or path.is_dir():
+        for relative, path, metadata in walk_regular_files_bounded(
+            package_root,
+            file_limit=FILE_COUNT_LIMIT,
+            byte_limit=AGGREGATE_LIMIT,
+            directory_limit=FILE_COUNT_LIMIT,
+            code="RUST_BUILD_INPUTS_VENDOR",
+        ):
+            if relative == ".cargo-checksum.json":
                 continue
-            if path.is_symlink() or not path.is_file():
+            if metadata.st_nlink != 1:
                 raise RustBuildFailure("RUST_BUILD_INPUTS_VENDOR")
-            actual[path.relative_to(package_root).as_posix()] = raw_hash(path)
+            actual[relative] = raw_hash(path, code="RUST_BUILD_INPUTS_VENDOR")
         if data["files"] != actual:
             raise RustBuildFailure("RUST_BUILD_INPUTS_VENDOR")
 
@@ -736,19 +1407,53 @@ def docker_path() -> str:
     raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
 
 
-def run_checked(argv: list[str], *, environment: dict[str, str] | None = None) -> subprocess.CompletedProcess[bytes]:
+def fresh_container_name(label: str) -> str:
+    if re.fullmatch(r"[a-z0-9][a-z0-9_.-]{0,31}", label) is None:
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    return f"mpk-{label}-{os.getpid()}-{secrets.token_hex(8)}"
+
+
+def remove_docker_container(executable: str, name: str) -> None:
+    """Best-effort daemon-side cleanup, including after the Docker CLI is killed."""
+
     try:
-        result = subprocess.run(
-            argv,
+        subprocess.run(
+            [executable, "rm", "--force", name],
             stdin=subprocess.DEVNULL,
-            capture_output=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
             check=False,
-            env=environment,
+            timeout=30,
         )
-    except OSError as error:
-        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    except (OSError, subprocess.TimeoutExpired):
+        # The primary operation still reports its original deterministic error.
+        # The unique name avoids ever broadening cleanup to unrelated state.
+        pass
+
+
+def run_checked(
+    argv: list[str],
+    *,
+    environment: dict[str, str] | None = None,
+    target_root: Path | None = None,
+    target_file_limit: int | None = None,
+    target_byte_limit: int | None = None,
+    docker_cleanup: tuple[str, str] | None = None,
+) -> subprocess.CompletedProcess[bytes]:
+    result = run_bounded(
+        argv,
+        stdout_limit=FROZEN_PROCESS_LIMITS["stdout_bytes"],
+        stderr_limit=FROZEN_PROCESS_LIMITS["stderr_bytes"],
+        target_root=target_root,
+        target_file_limit=target_file_limit,
+        target_byte_limit=target_byte_limit,
+        environment=environment,
+        docker_cleanup=docker_cleanup,
+    )
     if result.returncode != 0:
-        detail = (result.stdout + result.stderr)[-16_384:].decode("utf-8", "replace")
+        detail = (result.stdout[-8_192:] + result.stderr[-8_192:]).decode(
+            "utf-8", "replace"
+        )
         raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH") from RuntimeError(
             f"command exited {result.returncode}: {argv!r}\n{detail}"
         )
@@ -784,28 +1489,73 @@ def require_image(reference: str) -> None:
 
 
 def run_bounded(
-    argv: list[str], *, stdout_limit: int, stderr_limit: int
+    argv: list[str],
+    *,
+    stdout_limit: int,
+    stderr_limit: int,
+    target_root: Path | None = None,
+    target_file_limit: int | None = None,
+    target_byte_limit: int | None = None,
+    environment: dict[str, str] | None = None,
+    docker_cleanup: tuple[str, str] | None = None,
 ) -> subprocess.CompletedProcess[bytes]:
+    target_values = (target_root, target_file_limit, target_byte_limit)
+    if any(value is not None for value in target_values) and any(
+        value is None for value in target_values
+    ):
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    checked_boundary(0, stdout_limit, "BUNDLE_REPRODUCIBILITY_MISMATCH")
+    checked_boundary(0, stderr_limit, "BUNDLE_REPRODUCIBILITY_MISMATCH")
+    if target_file_limit is not None and target_byte_limit is not None:
+        checked_boundary(0, target_file_limit, "BUNDLE_REPRODUCIBILITY_MISMATCH")
+        checked_boundary(0, target_byte_limit, "BUNDLE_REPRODUCIBILITY_MISMATCH")
+
+    def check_target() -> None:
+        if (
+            target_root is not None
+            and target_file_limit is not None
+            and target_byte_limit is not None
+        ):
+            checked_directory_usage(
+                target_root,
+                file_limit=target_file_limit,
+                byte_limit=target_byte_limit,
+                allow_churn=True,
+            )
+
+    if docker_cleanup is not None:
+        executable, name = docker_cleanup
+        if not executable or re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]+", name) is None:
+            raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    process: subprocess.Popen[bytes] | None = None
+    streams: selectors.BaseSelector | None = None
     try:
-        process = subprocess.Popen(
-            argv,
-            stdin=subprocess.DEVNULL,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+        try:
+            process = subprocess.Popen(
+                argv,
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                env=environment,
+            )
+        except OSError as error:
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+        if process.stdout is None or process.stderr is None:
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+        streams = selectors.DefaultSelector()
+        streams.register(
+            process.stdout, selectors.EVENT_READ, (bytearray(), stdout_limit)
         )
-    except OSError as error:
-        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
-    if process.stdout is None or process.stderr is None:
-        process.kill()
-        process.wait()
-        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
-    streams = selectors.DefaultSelector()
-    streams.register(process.stdout, selectors.EVENT_READ, (bytearray(), stdout_limit))
-    streams.register(process.stderr, selectors.EVENT_READ, (bytearray(), stderr_limit))
-    buffers = [streams.get_key(process.stdout).data[0], streams.get_key(process.stderr).data[0]]
-    try:
-        while streams.get_map():
-            for key, _events in streams.select():
+        streams.register(
+            process.stderr, selectors.EVENT_READ, (bytearray(), stderr_limit)
+        )
+        buffers = [
+            streams.get_key(process.stdout).data[0],
+            streams.get_key(process.stderr).data[0],
+        ]
+        while streams.get_map() or process.poll() is None:
+            events = streams.select(timeout=0.1) if streams.get_map() else ()
+            for key, _events in events:
                 buffer, limit = key.data
                 block = os.read(key.fileobj.fileno(), min(65_536, limit - len(buffer) + 1))
                 if not block:
@@ -816,12 +1566,23 @@ def run_bounded(
                     process.kill()
                     process.wait()
                     raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
-        return subprocess.CompletedProcess(argv, process.wait(), bytes(buffers[0]), bytes(buffers[1]))
+            check_target()
+            if not streams.get_map() and process.poll() is None:
+                try:
+                    process.wait(timeout=0.1)
+                except subprocess.TimeoutExpired:
+                    pass
+        return_code = process.wait()
+        check_target()
+        return subprocess.CompletedProcess(argv, return_code, bytes(buffers[0]), bytes(buffers[1]))
     finally:
-        streams.close()
-        if process.poll() is None:
+        if streams is not None:
+            streams.close()
+        if process is not None and process.poll() is None:
             process.kill()
             process.wait()
+        if docker_cleanup is not None:
+            remove_docker_container(*docker_cleanup)
 
 
 def docker_image_view(reference: str, storage: Path) -> ArchiveView:
@@ -1226,24 +1987,44 @@ def docker_build_environment(vector: dict[str, object]) -> list[str]:
     return [f"{name}={values[name]}" for name in sorted(values)]
 
 
-def common_build_docker(staging: Path, cargo_home: Path, target: Path) -> list[str]:
+def common_build_docker(
+    staging: Path,
+    cargo_home: Path,
+    target: Path,
+    container_name: str,
+) -> tuple[list[str], int]:
+    resource_arguments, virtual_memory_kib = launcher_resource_controls(
+        FROZEN_PROCESS_LIMITS
+    )
     return [
         docker_path(),
         "run",
+        f"--name={container_name}",
         "--rm",
         "--pull=never",
         "--network=none",
         "--platform=linux/amd64",
         "--read-only",
         "--hostname=mpk-build",
-        "--tmpfs=/mpk/home:rw,nosuid,nodev,noexec,mode=700",
-        "--tmpfs=/mpk/tmp:rw,nosuid,nodev,noexec,mode=700",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges",
+        *resource_arguments,
         f"--mount=type=bind,src={staging / 'toolchain'},dst=/mpk/toolchain,readonly",
         f"--mount=type=bind,src={staging / 'native-sysroot'},dst=/mpk/native-sysroot,readonly",
         f"--mount=type=bind,src={staging / 'vendor'},dst=/mpk/vendor,readonly",
         f"--mount=type=bind,src={cargo_home},dst=/mpk/cargo-home",
         f"--mount=type=bind,src={target},dst=/mpk/target",
         RUNTIME_IMAGE,
+    ], virtual_memory_kib
+
+
+def frozen_shell_command(command: list[str], virtual_memory_kib: int) -> list[str]:
+    return [
+        "/bin/sh",
+        "-ceu",
+        f'ulimit -v {virtual_memory_kib}; umask 022; exec "$@"',
+        "mpk-build",
+        *command,
     ]
 
 
@@ -1263,20 +2044,38 @@ def build_cargo_fuzz_twice(
         target = work / f"cargo-fuzz-target-{index}"
         target.mkdir()
         cargo_home = fresh_cargo_home(vector, work, f"cargo-fuzz-home-{index}")
-        argv = common_build_docker(staging, cargo_home, target)
-        argv[12:12] = [
+        container_name = fresh_container_name("cargo-fuzz-build")
+        argv, virtual_memory_kib = common_build_docker(
+            staging, cargo_home, target, container_name
+        )
+        argv[-1:-1] = [
             f"--mount=type=bind,src={staging / 'tool-sources/cargo-fuzz'},dst=/mpk/frontend,readonly",
             "--workdir=/mpk/frontend",
         ]
         argv.extend(
-            [
+            frozen_shell_command(
+                [
                 "/usr/bin/env",
                 "-i",
                 *docker_build_environment(vector),
                 *vector["valid_descriptor"]["cargo_fuzz"]["build_argv"],
-            ]
+                ],
+                virtual_memory_kib,
+            )
         )
-        run_checked(argv)
+        run_checked(
+            argv,
+            target_root=target,
+            target_file_limit=FROZEN_PROCESS_LIMITS["output_files"],
+            target_byte_limit=FROZEN_PROCESS_LIMITS["target_bytes"],
+            docker_cleanup=(docker_path(), container_name),
+        )
+        validate_post_run_cargo_home(cargo_home, vector)
+        checked_directory_usage(
+            target,
+            file_limit=FROZEN_PROCESS_LIMITS["output_files"],
+            byte_limit=FROZEN_PROCESS_LIMITS["target_bytes"],
+        )
         executable = target / "x86_64-unknown-linux-gnu/release/cargo-fuzz"
         if not executable.is_file() or executable.is_symlink():
             raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
@@ -1292,32 +2091,65 @@ def build_libfuzzer_twice(vector: dict[str, object], staging: Path, work: Path) 
     recipe = vector["fuzz_smoke"]["bounded_child_process_graph"]["prebuilt_libfuzzer"]
     archives: list[Path] = []
     for build_index in range(2):
-        output = work / f"libfuzzer-{build_index}"
+        scratch = work / f"libfuzzer-{build_index}"
+        output = scratch / "libfuzzer-build"
         objects = output / "objects"
         objects.mkdir(parents=True)
-        mounts = [
-            docker_path(),
-            "run",
-            "--rm",
-            "--pull=never",
-            "--network=none",
-            "--platform=linux/amd64",
-            "--read-only",
-            f"--mount=type=bind,src={staging / 'toolchain'},dst=/mpk/toolchain,readonly",
-            f"--mount=type=bind,src={staging / 'native-sysroot'},dst=/mpk/native-sysroot,readonly",
-            f"--mount=type=bind,src={staging / 'vendor'},dst=/mpk/vendor,readonly",
-            f"--mount=type=bind,src={output},dst=/mpk/tmp/libfuzzer-build",
-            RUNTIME_IMAGE,
-        ]
+
+        def run_recipe(command: list[str], label: str) -> None:
+            container_name = fresh_container_name(label)
+            resource_arguments, virtual_memory_kib = launcher_resource_controls(
+                FROZEN_PROCESS_LIMITS
+            )
+            # /mpk/tmp is a monitored bind for this recipe, rather than a
+            # second unobservable tmpfs mounted over the build output.
+            resource_arguments = [
+                argument
+                for argument in resource_arguments
+                if not argument.startswith("--tmpfs=/mpk/tmp:")
+            ]
+            argv = [
+                docker_path(),
+                "run",
+                f"--name={container_name}",
+                "--rm",
+                "--pull=never",
+                "--network=none",
+                "--platform=linux/amd64",
+                "--read-only",
+                "--hostname=mpk-build",
+                "--cap-drop=ALL",
+                "--security-opt=no-new-privileges",
+                *resource_arguments,
+                f"--mount=type=bind,src={staging / 'toolchain'},dst=/mpk/toolchain,readonly",
+                f"--mount=type=bind,src={staging / 'native-sysroot'},dst=/mpk/native-sysroot,readonly",
+                f"--mount=type=bind,src={staging / 'vendor'},dst=/mpk/vendor,readonly",
+                f"--mount=type=bind,src={scratch},dst=/mpk/tmp",
+                RUNTIME_IMAGE,
+                *frozen_shell_command(command, virtual_memory_kib),
+            ]
+            run_checked(
+                argv,
+                target_root=scratch,
+                target_file_limit=FROZEN_PROCESS_LIMITS["output_files"],
+                target_byte_limit=FROZEN_PROCESS_LIMITS["temp_bytes"],
+                docker_cleanup=(docker_path(), container_name),
+            )
+
         for source in recipe["sources"]:
             object_name = source[:-4] + ".o"
             compile_argv = [
                 item.replace("SOURCE", source).replace("OBJECT", object_name)
                 for item in recipe["compile_argv_template"]
             ]
-            run_checked(mounts + compile_argv)
-        run_checked(mounts + recipe["archive_argv"])
-        run_checked(mounts + recipe["ranlib_argv"])
+            run_recipe(compile_argv, "libfuzzer-compile")
+        run_recipe(recipe["archive_argv"], "libfuzzer-archive")
+        run_recipe(recipe["ranlib_argv"], "libfuzzer-ranlib")
+        checked_directory_usage(
+            scratch,
+            file_limit=FROZEN_PROCESS_LIMITS["output_files"],
+            byte_limit=FROZEN_PROCESS_LIMITS["temp_bytes"],
+        )
         archive = output / "libfuzzer.a"
         if not archive.is_file():
             raise RustBuildFailure()
@@ -1754,83 +2586,173 @@ def accepted_launcher_arguments(vector: dict[str, object], arguments: list[str])
     return False
 
 
-def directory_usage(root: Path) -> tuple[int, int]:
+def checked_directory_usage(
+    root: Path,
+    *,
+    file_limit: int,
+    byte_limit: int,
+    directory_limit: int = TARGET_DIRECTORY_LIMIT,
+    allow_churn: bool = False,
+) -> tuple[int, int]:
     files = 0
     size = 0
-    for path in root.rglob("*"):
-        if path.is_file() and not path.is_symlink():
-            files += 1
-            size += path.stat().st_size
+    code = "BUNDLE_REPRODUCIBILITY_MISMATCH"
+    checked_boundary(file_limit, U64_MAX, code)
+    checked_boundary(byte_limit, U64_MAX, code)
+    checked_boundary(directory_limit, U64_MAX, code)
+    node_limit = checked_boundary_add(directory_limit, file_limit, U64_MAX, code)
+    try:
+        root_metadata = root.lstat()
+        if (
+            not stat.S_ISDIR(root_metadata.st_mode)
+            or stat.S_ISLNK(root_metadata.st_mode)
+        ):
+            raise RustBuildFailure(code)
+        directories = checked_boundary(1, directory_limit, code)
+        nodes = checked_boundary(1, node_limit, code)
+        pending = [(root, root_metadata.st_dev, root_metadata.st_ino)]
+        while pending:
+            directory, expected_device, expected_inode = pending.pop()
+            descriptor = -1
+            try:
+                descriptor = os.open(
+                    directory,
+                    os.O_RDONLY | os.O_CLOEXEC | os.O_DIRECTORY | os.O_NOFOLLOW,
+                )
+                directory_metadata = os.fstat(descriptor)
+                if (
+                    directory_metadata.st_dev != expected_device
+                    or directory_metadata.st_ino != expected_inode
+                ):
+                    if allow_churn:
+                        continue
+                    raise RustBuildFailure(code)
+                with os.scandir(descriptor) as entries:
+                    for entry in entries:
+                        try:
+                            metadata = entry.stat(follow_symlinks=False)
+                        except FileNotFoundError:
+                            if allow_churn:
+                                continue
+                            raise
+                        nodes = checked_boundary_add(nodes, 1, node_limit, code)
+                        if stat.S_ISDIR(metadata.st_mode):
+                            directories = checked_boundary_add(
+                                directories, 1, directory_limit, code
+                            )
+                            pending.append(
+                                (
+                                    directory / entry.name,
+                                    metadata.st_dev,
+                                    metadata.st_ino,
+                                )
+                            )
+                        elif stat.S_ISREG(metadata.st_mode):
+                            files = checked_boundary_add(files, 1, file_limit, code)
+                            size = checked_boundary_add(
+                                size, metadata.st_size, byte_limit, code
+                            )
+                        else:
+                            raise RustBuildFailure(code)
+            except (FileNotFoundError, NotADirectoryError):
+                if not allow_churn:
+                    raise
+            finally:
+                if descriptor >= 0:
+                    os.close(descriptor)
+    except OSError as error:
+        raise RustBuildFailure(code) from error
     return files, size
 
 
 def validate_post_run_cargo_home(root: Path, vector: dict[str, object]) -> None:
-    entries = {path.name for path in root.iterdir()}
-    allowed = set(vector["cargo_home_post_run_allowlist"])
-    if not entries <= allowed or "config.toml" not in entries:
+    allowed = frozenset(vector["cargo_home_post_run_allowlist"])
+    scanned = bounded_directory_entries(
+        root,
+        maximum=len(allowed),
+        code="BUNDLE_REPRODUCIBILITY_MISMATCH",
+    )
+    entries = {name: metadata for name, metadata in scanned}
+    if not entries.keys() <= allowed or "config.toml" not in entries:
         raise RustBuildFailure() from ValueError(
             "post-run Cargo home entries rejected: "
             + repr(
                 [
-                    (path.name, path.lstat().st_size, stat.S_IMODE(path.lstat().st_mode))
-                    for path in sorted(root.iterdir(), key=lambda item: item.name)
+                    (name, metadata.st_size, stat.S_IMODE(metadata.st_mode))
+                    for name, metadata in scanned
                 ]
             )
         )
-    if (root / "config.toml").read_bytes() != raw_templates(vector)["cargo_home_config"]:
+    expected_config = raw_templates(vector)["cargo_home_config"]
+    if read_bounded_regular_file(
+        root / "config.toml",
+        maximum=len(expected_config),
+        code="BUNDLE_REPRODUCIBILITY_MISMATCH",
+    ) != expected_config:
         raise RustBuildFailure()
     for name in (".package-cache", ".package-cache-mutate"):
-        lock = root / name
-        if lock.exists() and (
-            lock.is_symlink()
-            or not lock.is_file()
-            or lock.stat().st_nlink != 1
-            or stat.S_IMODE(lock.stat().st_mode) != 0o644
-            or lock.stat().st_size != 0
+        metadata = entries.get(name)
+        if metadata is not None and (
+            not stat.S_ISREG(metadata.st_mode)
+            or metadata.st_nlink != 1
+            or stat.S_IMODE(metadata.st_mode) != 0o644
+            or metadata.st_size != 0
         ):
             raise RustBuildFailure()
-    global_cache = root / ".global-cache"
-    if global_cache.exists():
+    metadata = entries.get(".global-cache")
+    if metadata is not None:
         profile = vector["cargo_home_post_run_global_cache"]
-        metadata = global_cache.lstat()
         magic = bytes.fromhex(profile["magic_hex"])
         if (
-            global_cache.is_symlink()
-            or not stat.S_ISREG(metadata.st_mode)
+            not stat.S_ISREG(metadata.st_mode)
             or metadata.st_nlink != 1
             or stat.S_IMODE(metadata.st_mode) != 0o644
             or not len(magic) <= metadata.st_size <= profile["maximum_size_bytes"]
-            or global_cache.read_bytes()[: len(magic)] != magic
         ):
+            raise RustBuildFailure()
+        global_bytes = read_bounded_regular_file(
+            root / ".global-cache",
+            maximum=profile["maximum_size_bytes"],
+            code="BUNDLE_REPRODUCIBILITY_MISMATCH",
+        )
+        if global_bytes[: len(magic)] != magic:
             raise RustBuildFailure()
 
 
+def launcher_resource_controls(limits: object) -> tuple[list[str], int]:
+    if not isinstance(limits, dict) or limits != FROZEN_PROCESS_LIMITS:
+        raise RustBuildFailure()
+    for value in limits.values():
+        checked_boundary(value, U64_MAX, "BUNDLE_REPRODUCIBILITY_MISMATCH")
+    if limits["virtual_memory_bytes"] % 1024 != 0:
+        raise RustBuildFailure()
+    return (
+        [
+            f"--pids-limit={limits['processes']}",
+            f"--ulimit=nofile={limits['open_files_per_process']}:{limits['open_files_per_process']}",
+            f"--memory={limits['resident_memory_bytes']}",
+            f"--memory-swap={limits['resident_memory_bytes']}",
+            "--tmpfs=/mpk/home:rw,nosuid,nodev,noexec,mode=700",
+            f"--tmpfs=/mpk/tmp:rw,nosuid,nodev,noexec,mode=700,size={limits['temp_bytes']}",
+        ],
+        limits["virtual_memory_bytes"] // 1024,
+    )
+
+
 def hermetic_docker_argv(
-    vector: dict[str, object], snapshot: Path, arguments: list[str]
+    vector: dict[str, object],
+    snapshot: Path,
+    arguments: list[str],
+    container_name: str,
 ) -> list[str]:
     runtime = snapshot / "cache/native-runtime"
     limits = vector["launcher"]["process_limits"]
-    if set(limits) != {
-        "processes",
-        "open_files_per_process",
-        "virtual_memory_bytes",
-        "resident_memory_bytes",
-        "temp_bytes",
-        "target_bytes",
-        "output_files",
-        "stdout_bytes",
-        "stderr_bytes",
-    } or any(
-        not isinstance(value, int) or isinstance(value, bool) or value <= 0
-        for value in limits.values()
-    ):
-        raise RustBuildFailure()
-    if limits["virtual_memory_bytes"] % 1024 != 0:
-        raise RustBuildFailure()
+    resource_arguments, virtual_memory_kib = launcher_resource_controls(limits)
     command = ["/mpk/toolchain/bin/cargo", *arguments[1:]]
     return [
         docker_path(),
         "run",
+        f"--name={container_name}",
         "--rm",
         "--pull=never",
         "--network=none",
@@ -1839,12 +2761,7 @@ def hermetic_docker_argv(
         "--hostname=mpk-build",
         "--cap-drop=ALL",
         "--security-opt=no-new-privileges",
-        f"--pids-limit={limits['processes']}",
-        f"--ulimit=nofile={limits['open_files_per_process']}:{limits['open_files_per_process']}",
-        f"--memory={limits['resident_memory_bytes']}",
-        f"--memory-swap={limits['resident_memory_bytes']}",
-        "--tmpfs=/mpk/home:rw,nosuid,nodev,noexec,mode=700",
-        f"--tmpfs=/mpk/tmp:rw,nosuid,nodev,noexec,mode=700,size={limits['temp_bytes']}",
+        *resource_arguments,
         f"--mount=type=bind,src={snapshot / 'frontend'},dst=/mpk/frontend,readonly",
         f"--mount=type=bind,src={snapshot / 'cache/toolchain'},dst=/mpk/toolchain,readonly",
         f"--mount=type=bind,src={snapshot / 'cache/vendor'},dst=/mpk/vendor,readonly",
@@ -1859,7 +2776,7 @@ def hermetic_docker_argv(
         RUNTIME_IMAGE,
         "/bin/sh",
         "-ceu",
-        f"ulimit -v {limits['virtual_memory_bytes'] // 1024}; umask 022; exec /usr/bin/env \"$@\"",
+        f"ulimit -v {virtual_memory_kib}; umask 022; exec /usr/bin/env \"$@\"",
         "mpk-launch",
         "-i",
         *docker_build_environment(vector),
@@ -1890,17 +2807,24 @@ def run_hermetic(
         (cargo_home / "config.toml").chmod(0o444)
         target = snapshot / "target"
         target.mkdir()
-        argv = hermetic_docker_argv(vector, snapshot, arguments)
+        container_name = fresh_container_name("rust2vir")
+        argv = hermetic_docker_argv(vector, snapshot, arguments, container_name)
         limits = vector["launcher"]["process_limits"]
         result = run_bounded(
             argv,
             stdout_limit=limits["stdout_bytes"],
             stderr_limit=limits["stderr_bytes"],
+            target_root=target,
+            target_file_limit=limits["output_files"],
+            target_byte_limit=limits["target_bytes"],
+            docker_cleanup=(docker_path(), container_name),
         )
         validate_post_run_cargo_home(cargo_home, vector)
-        file_count, target_bytes = directory_usage(target)
-        if file_count > limits["output_files"] or target_bytes > limits["target_bytes"]:
-            raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+        checked_directory_usage(
+            target,
+            file_limit=limits["output_files"],
+            byte_limit=limits["target_bytes"],
+        )
         if current_frontend_inventory() != source_inventory:
             raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
         validate_cache(descriptor, root=cache)
@@ -2787,6 +3711,10 @@ def run_self_test() -> None:
             "path", "/Users/name"
         ),
     )
+    case_distinct_descriptor = copy.deepcopy(descriptor)
+    append_file(case_distinct_descriptor, f"{first_component}/Config.toml")
+    self_test_rehash(case_distinct_descriptor)
+    validate_descriptor_model(case_distinct_descriptor, vector)
     self_test_descriptor_mutation(
         vector,
         "RUST_BUILD_INPUTS_FILE",
@@ -2804,21 +3732,391 @@ def run_self_test() -> None:
     )
 
     limits = {case["id"]: case for case in vector["limit_cases"]}
-    constants = {
-        "descriptor_transport": DESCRIPTOR_LIMIT,
-        "regular_files": FILE_COUNT_LIMIT,
-        "package_records": PACKAGE_COUNT_LIMIT,
-        "inventory_path": PATH_LIMIT,
-        "regular_file": FILE_SIZE_LIMIT,
-        "aggregate_cache": AGGREGATE_LIMIT,
+    limit_units = {
+        "descriptor_transport": "bytes_including_lf",
+        "regular_files": "entries",
+        "package_records": "records",
+        "inventory_path": "bytes",
+        "regular_file": "bytes",
+        "aggregate_cache": "bytes",
     }
-    if any(limits[name]["maximum"] != maximum for name, maximum in constants.items()):
+    for identifier, (maximum, code) in BUILD_INPUT_LIMITS.items():
+        case = limits[identifier]
+        if set(case) != {
+            "id",
+            "limit_id",
+            "maximum",
+            "unit",
+            "below",
+            "at",
+            "above",
+        } or (
+            case["limit_id"] != identifier
+            or case["maximum"] != maximum
+            or case["unit"] != limit_units[identifier]
+        ):
+            raise RustBuildFailure()
+        for point, count, outcome in (
+            ("below", maximum - 1, "accept"),
+            ("at", maximum, "accept"),
+            ("above", maximum + 1, "reject"),
+        ):
+            boundary = case[point]
+            expected_outcome = {"outcome": outcome}
+            if outcome == "reject":
+                expected_outcome["code"] = code
+            if identifier == "inventory_path":
+                component_bytes = {
+                    "below": [204, 204, 204, 204, 203],
+                    "at": [204, 204, 204, 204, 204],
+                    "above": [204, 204, 204, 204, 205],
+                }[point]
+                expected_construction = {
+                    "fixture": "portable_path_bytes",
+                    "counter": identifier,
+                    "component_bytes": component_bytes,
+                }
+            else:
+                expected_construction = {
+                    "fixture": "checked_counter",
+                    "counter": identifier,
+                    "count": count,
+                }
+            if (
+                not isinstance(boundary, dict)
+                or set(boundary) != {"construction", "expect"}
+                or boundary["construction"] != expected_construction
+                or boundary["expect"] != expected_outcome
+            ):
+                raise RustBuildFailure()
+            if outcome == "accept":
+                if dispatch_build_input_boundary(boundary["construction"]) != count:
+                    raise RustBuildFailure()
+            else:
+                self_test_expect(
+                    code,
+                    lambda construction=boundary["construction"]: (
+                        dispatch_build_input_boundary(construction)
+                    ),
+                )
+
+    overflow = limits["aggregate_checked_overflow"]
+    overflow_construction = {
+        "fixture": "checked_counter_add",
+        "counter": "aggregate_cache",
+        "initial": "u64_max",
+        "increment": 1,
+    }
+    if (
+        set(overflow) != {"id", "limit_id", "construction", "expect"}
+        or overflow["limit_id"] != "aggregate_cache"
+        or overflow["construction"] != overflow_construction
+        or overflow["expect"]
+        != {
+            "outcome": "reject-before-mount",
+            "code": "RUST_BUILD_INPUTS_GRAPH",
+        }
+    ):
         raise RustBuildFailure()
-    if not portable_path("a" * PATH_LIMIT) or portable_path("a" * (PATH_LIMIT + 1)):
+    self_test_expect(
+        "RUST_BUILD_INPUTS_GRAPH",
+        lambda: dispatch_build_input_boundary(overflow_construction),
+    )
+
+    below_path = "/".join("a" * length for length in [204, 204, 204, 204, 203])
+    at_path = "/".join("a" * 204 for _ in range(5))
+    above_path = "/".join("a" * length for length in [204, 204, 204, 204, 205])
+    if (
+        len(below_path.encode("ascii")) != PATH_LIMIT - 1
+        or len(at_path.encode("ascii")) != PATH_LIMIT
+        or len(above_path.encode("ascii")) != PATH_LIMIT + 1
+        or not portable_path(below_path)
+        or not portable_path(at_path)
+        or portable_path(above_path)
+        or not portable_path("a" * 255)
+        or portable_path("a" * 256)
+        or portable_path("a+b")
+        or not portable_path("a+b", build_input=True)
+    ):
         raise RustBuildFailure()
     self_test_expect(
         "BUNDLE_BUILD_INPUTS_INVALID", lambda: strict_json(b"1" * 17)
     )
+
+    prescan_fixture = (
+        b'{"components":[{"files":[{"path":"toolchain/bin/rustc",'
+        b'"size_bytes":7}]}],"graphs":[{"packages":[{}]}]}'
+    )
+    if prescan_descriptor(prescan_fixture) != (1, 1, 7):
+        raise RustBuildFailure()
+    self_test_expect(
+        "RUST_BUILD_INPUTS_PATH",
+        lambda: prescan_descriptor(
+            b'{"components":[{"files":[{"path":"'
+            + b"a" * (PATH_LIMIT + 1)
+            + b'","size_bytes":0}]}]}'
+        ),
+    )
+    self_test_expect(
+        "RUST_BUILD_INPUTS_FILE",
+        lambda: prescan_descriptor(
+            b'{"components":[{"files":[{"path":"x","size_bytes":'
+            + str(FILE_SIZE_LIMIT + 1).encode("ascii")
+            + b"}]}]}"
+        ),
+    )
+    self_test_expect(
+        "RUST_BUILD_INPUTS_GRAPH",
+        lambda: prescan_descriptor(
+            b'{"components":[{"files":['
+            + b",".join(
+                b'{"path":"x","size_bytes":'
+                + str(FILE_SIZE_LIMIT).encode("ascii")
+                + b"}"
+                for _index in range(9)
+            )
+            + b"]}]}"
+        ),
+    )
+    self_test_expect(
+        "RUST_BUILD_INPUTS_GRAPH",
+        lambda: prescan_descriptor(
+            b'{"graphs":[{"packages":['
+            + b",".join(b"{}" for _index in range(PACKAGE_COUNT_LIMIT + 1))
+            + b"]}]}"
+        ),
+    )
+    self_test_expect(
+        "RUST_BUILD_INPUTS_TRANSPORT",
+        lambda: prescan_descriptor(
+            b"[" * (DESCRIPTOR_JSON_DEPTH_LIMIT + 1)
+            + b"0"
+            + b"]" * (DESCRIPTOR_JSON_DEPTH_LIMIT + 1)
+        ),
+    )
+
+    process_limits = vector["launcher"]["process_limits"]
+    if process_limits != FROZEN_PROCESS_LIMITS:
+        raise RustBuildFailure()
+    resource_arguments, virtual_memory_kib = launcher_resource_controls(process_limits)
+    if resource_arguments != [
+        "--pids-limit=256",
+        "--ulimit=nofile=1024:1024",
+        "--memory=8589934592",
+        "--memory-swap=8589934592",
+        "--tmpfs=/mpk/home:rw,nosuid,nodev,noexec,mode=700",
+        "--tmpfs=/mpk/tmp:rw,nosuid,nodev,noexec,mode=700,size=4294967296",
+    ] or virtual_memory_kib != 16_777_216:
+        raise RustBuildFailure()
+    for maximum in FROZEN_PROCESS_LIMITS.values():
+        if (
+            checked_boundary(
+                maximum - 1, maximum, "BUNDLE_REPRODUCIBILITY_MISMATCH"
+            )
+            != maximum - 1
+            or checked_boundary(
+                maximum, maximum, "BUNDLE_REPRODUCIBILITY_MISMATCH"
+            )
+            != maximum
+        ):
+            raise RustBuildFailure()
+        self_test_expect(
+            "BUNDLE_REPRODUCIBILITY_MISMATCH",
+            lambda maximum=maximum: checked_boundary(
+                maximum + 1, maximum, "BUNDLE_REPRODUCIBILITY_MISMATCH"
+            ),
+        )
+
+    for stream_name in ("stdout", "stderr"):
+        for count, accepted in ((15, True), (16, True), (17, False)):
+            command = [
+                "/usr/bin/python3",
+                "-c",
+                f"import sys; sys.{stream_name}.buffer.write(b'x' * {count})",
+            ]
+            operation = lambda command=command: run_bounded(
+                command, stdout_limit=16, stderr_limit=16
+            )
+            if accepted:
+                output = operation()
+                observed = output.stdout if stream_name == "stdout" else output.stderr
+                other = output.stderr if stream_name == "stdout" else output.stdout
+                if output.returncode != 0 or observed != b"x" * count or other:
+                    raise RustBuildFailure()
+            else:
+                self_test_expect("BUNDLE_REPRODUCIBILITY_MISMATCH", operation)
+
+    with tempfile.TemporaryDirectory(
+        prefix="mpk-rust-process-limit-self-test-"
+    ) as process_temporary:
+        process_root = Path(process_temporary)
+
+        cleanup_log = process_root / "docker-cleanup.log"
+        cleanup_program = process_root / "fake-docker"
+        cleanup_program.write_text(
+            "#!/usr/bin/python3\n"
+            "import pathlib, sys\n"
+            f"pathlib.Path({str(cleanup_log)!r}).write_text('|'.join(sys.argv[1:]))\n",
+            encoding="utf-8",
+        )
+        cleanup_program.chmod(0o755)
+        self_test_expect(
+            "BUNDLE_REPRODUCIBILITY_MISMATCH",
+            lambda: run_bounded(
+                [
+                    "/usr/bin/python3",
+                    "-c",
+                    "import sys; sys.stdout.buffer.write(b'x' * 17)",
+                ],
+                stdout_limit=16,
+                stderr_limit=0,
+                docker_cleanup=(str(cleanup_program), "mpk-cleanup-self-test"),
+            ),
+        )
+        if read_bounded_regular_file(
+            cleanup_log,
+            maximum=256,
+            code="BUNDLE_REPRODUCIBILITY_MISMATCH",
+        ) != b"rm|--force|mpk-cleanup-self-test":
+            raise RustBuildFailure()
+
+        bounded_file = process_root / "bounded-file"
+        bounded_file.write_bytes(b"1234")
+        if read_bounded_regular_file(
+            bounded_file,
+            maximum=4,
+            code="RUST_BUILD_INPUTS_TRANSPORT",
+        ) != b"1234":
+            raise RustBuildFailure()
+        bounded_file.write_bytes(b"12345")
+        self_test_expect(
+            "RUST_BUILD_INPUTS_TRANSPORT",
+            lambda: read_bounded_regular_file(
+                bounded_file,
+                maximum=4,
+                code="RUST_BUILD_INPUTS_TRANSPORT",
+            ),
+        )
+        bounded_symlink = process_root / "bounded-symlink"
+        bounded_symlink.symlink_to(bounded_file.name)
+        self_test_expect(
+            "RUST_BUILD_INPUTS_TRANSPORT",
+            lambda: read_bounded_regular_file(
+                bounded_symlink,
+                maximum=4,
+                code="RUST_BUILD_INPUTS_TRANSPORT",
+            ),
+        )
+        bounded_fifo = process_root / "bounded-fifo"
+        os.mkfifo(bounded_fifo)
+        self_test_expect(
+            "RUST_BUILD_INPUTS_TRANSPORT",
+            lambda: read_bounded_regular_file(
+                bounded_fifo,
+                maximum=4,
+                code="RUST_BUILD_INPUTS_TRANSPORT",
+            ),
+        )
+
+        def usage_fixture(name: str, sizes: list[int]) -> Path:
+            root = process_root / name
+            root.mkdir()
+            for index, size in enumerate(sizes):
+                (root / f"file-{index}").write_bytes(b"x" * size)
+            return root
+
+        if checked_directory_usage(
+            usage_fixture("bytes-below", [3]), file_limit=1, byte_limit=4
+        ) != (1, 3) or checked_directory_usage(
+            usage_fixture("bytes-at", [4]), file_limit=1, byte_limit=4
+        ) != (1, 4):
+            raise RustBuildFailure()
+        self_test_expect(
+            "BUNDLE_REPRODUCIBILITY_MISMATCH",
+            lambda: checked_directory_usage(
+                usage_fixture("bytes-above", [5]), file_limit=1, byte_limit=4
+            ),
+        )
+        if checked_directory_usage(
+            usage_fixture("files-below", [0]), file_limit=2, byte_limit=0
+        ) != (1, 0) or checked_directory_usage(
+            usage_fixture("files-at", [0, 0]), file_limit=2, byte_limit=0
+        ) != (2, 0):
+            raise RustBuildFailure()
+        self_test_expect(
+            "BUNDLE_REPRODUCIBILITY_MISMATCH",
+            lambda: checked_directory_usage(
+                usage_fixture("files-above", [0, 0, 0]),
+                file_limit=2,
+                byte_limit=0,
+            ),
+        )
+
+        directories_at = process_root / "directories-at"
+        directories_at.mkdir()
+        (directories_at / "child").mkdir()
+        if checked_directory_usage(
+            directories_at, file_limit=0, byte_limit=0, directory_limit=2
+        ) != (0, 0):
+            raise RustBuildFailure()
+        directories_above = process_root / "directories-above"
+        directories_above.mkdir()
+        (directories_above / "first").mkdir()
+        (directories_above / "second").mkdir()
+        self_test_expect(
+            "BUNDLE_REPRODUCIBILITY_MISMATCH",
+            lambda: checked_directory_usage(
+                directories_above,
+                file_limit=0,
+                byte_limit=0,
+                directory_limit=2,
+            ),
+        )
+
+        special_root = process_root / "special-node"
+        special_root.mkdir()
+        os.mkfifo(special_root / "fifo")
+        self_test_expect(
+            "BUNDLE_REPRODUCIBILITY_MISMATCH",
+            lambda: checked_directory_usage(
+                special_root, file_limit=1, byte_limit=0
+            ),
+        )
+        (special_root / "fifo").unlink()
+        (special_root / "symlink").symlink_to(process_root)
+        self_test_expect(
+            "BUNDLE_REPRODUCIBILITY_MISMATCH",
+            lambda: checked_directory_usage(
+                special_root, file_limit=1, byte_limit=0
+            ),
+        )
+
+        monitored = process_root / "monitored"
+        monitored.mkdir()
+        finished = process_root / "finished"
+        self_test_expect(
+            "BUNDLE_REPRODUCIBILITY_MISMATCH",
+            lambda: run_bounded(
+                [
+                    "/usr/bin/python3",
+                    "-c",
+                    (
+                        "import os,pathlib,sys,time; os.close(1); os.close(2); "
+                        "pathlib.Path(sys.argv[1]).joinpath('output').write_bytes(b'x'*5); "
+                        "time.sleep(1); pathlib.Path(sys.argv[2]).write_text('finished')"
+                    ),
+                    str(monitored),
+                    str(finished),
+                ],
+                stdout_limit=0,
+                stderr_limit=0,
+                target_root=monitored,
+                target_file_limit=1,
+                target_byte_limit=4,
+            ),
+        )
+        if finished.exists():
+            raise RustBuildFailure()
 
     launcher_modes = vector["launcher"]["modes"]
     if not launcher_modes or any(
@@ -2891,6 +4189,27 @@ def run_self_test() -> None:
             lambda root: (root / notice).unlink(),
             "RUST_BUILD_INPUTS_LICENSE",
         )
+
+        def mixed_cache(name: str, order: tuple[str, str]) -> None:
+            root = work / name
+            holding = work / f"{name}-holding"
+            holding.mkdir()
+            materialize_synthetic_cache(vector, descriptor, root)
+            make_cache_writable(root)
+            (root / "cargo-home-seed/config.toml").write_bytes(b"changed")
+            (root / notice).write_bytes(b"changed")
+            for directory in order:
+                (root / directory).rename(holding / directory)
+            for directory in order:
+                (holding / directory).rename(root / directory)
+            normalize_cache_modes(root, descriptor)
+            self_test_expect(
+                "RUST_BUILD_INPUTS_CARGO_HOME",
+                lambda: validate_cache(descriptor, root=root),
+            )
+
+        mixed_cache("mixed-order-a", ("cargo-home-seed", "notices"))
+        mixed_cache("mixed-order-b", ("notices", "cargo-home-seed"))
         self_test_expect(
             "RUST_BUILD_INPUTS_CACHE_KEY",
             lambda: publish_cache(valid, work / ("0" * 64), descriptor),

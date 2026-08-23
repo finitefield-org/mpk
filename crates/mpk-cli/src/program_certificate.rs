@@ -12,13 +12,13 @@ use mpk_cert::encode::{
 };
 use mpk_cert::{
     axiom_report_hash_for_report, build_axiom_report, build_export_block, certificate_hash,
-    declaration_interface_hash, decode_canonical_certificate, encode_certificate,
+    declaration_interface_hash, decode_canonical_certificate, encode_certificate_bounded,
     export_block_hash, hash_hex,
 };
 use mpk_kernel::{verify_certificate_bytes, VerificationErrorKind, VerificationReport};
 use mpk_vc::{
-    group_body, GroupedTheoremDeclaration, VcDocument, VcFunction, VcGroup, VcMember, VcTerm,
-    VcTypeTerm,
+    group_body, validate_verification_limit, GroupedTheoremDeclaration, VcDocument, VcFunction,
+    VcGroup, VcMember, VcTerm, VcTypeTerm, VerificationLimitId,
 };
 use serde::Deserialize;
 
@@ -95,6 +95,7 @@ pub enum ProgramCertificateErrorKind {
     CheckerExecution,
     CheckerRejected,
     CheckerDisagreement,
+    Limit(VerificationLimitId),
     Internal,
 }
 
@@ -278,6 +279,7 @@ pub fn assemble_program_certificate_alpha(
         .collect::<Result<Vec<_>, ProgramCertificateError>>()?;
 
     let interface_term_count = builder.term_table.len();
+    builder.enforce_generated_proof_depth = true;
     let mut proofs = Vec::with_capacity(skeleton.len());
     let mut missing = BTreeSet::new();
     for declaration in skeleton {
@@ -293,12 +295,19 @@ pub fn assemble_program_certificate_alpha(
             0,
             &mut missing,
         )? {
-            Some(proof) => proofs.push(proof),
+            Some(proof) => {
+                enforce_verification_limit(
+                    VerificationLimitId::GeneratedProofDepth,
+                    builder.term_depth(proof)?,
+                )?;
+                proofs.push(proof);
+            }
             None => proofs.push(0),
         }
     }
     if !missing.is_empty() {
         builder.term_table.truncate(interface_term_count);
+        builder.term_depths.truncate(interface_term_count);
         return Ok(ProgramCertificateOutcome::Pending {
             generated_declarations,
             missing_member_ids: missing.into_iter().collect(),
@@ -353,7 +362,21 @@ pub fn assemble_program_certificate_alpha(
     certificate.hashes.export_hash = export_block_hash(&certificate.export_block);
     certificate.hashes.axiom_report_hash = axiom_report_hash_for_report(&certificate.axiom_report);
     certificate.hashes.certificate_hash = ZERO_HASH;
-    let bytes = encode_certificate(&certificate);
+    let certificate_maximum = usize::try_from(
+        VerificationLimitId::CanonicalCertificateBytes.maximum(),
+    )
+    .map_err(|_| {
+        limit_error(
+            VerificationLimitId::CanonicalCertificateBytes,
+            "maximum exceeds usize",
+        )
+    })?;
+    let bytes = encode_certificate_bounded(&certificate, certificate_maximum).map_err(|_| {
+        limit_error(
+            VerificationLimitId::CanonicalCertificateBytes,
+            "canonical certificate exceeds the registered byte maximum",
+        )
+    })?;
     // Always submit the identical candidate bytes to both implementations
     // before classifying their acceptance pair.
     let rust_result = verify_certificate_bytes(&bytes).map_err(|error| {
@@ -1081,9 +1104,53 @@ struct CertificateBuilder {
     name_ids: BTreeMap<String, u32>,
     level_table: Vec<LevelNode>,
     term_table: Vec<TermNode>,
+    term_depths: Vec<u64>,
     declarations: Vec<Declaration>,
     globals: BTreeMap<String, u32>,
     shift_cache: BTreeMap<(u32, u32, u32), u32>,
+    enforce_generated_proof_depth: bool,
+}
+
+fn enforce_verification_limit(
+    limit: VerificationLimitId,
+    observed: u64,
+) -> Result<(), ProgramCertificateError> {
+    validate_verification_limit(limit.as_str(), observed)
+        .map_err(|error| limit_error(limit, error.to_string()))
+}
+
+fn limit_error(limit: VerificationLimitId, detail: impl Into<String>) -> ProgramCertificateError {
+    ProgramCertificateError::new(ProgramCertificateErrorKind::Limit(limit), detail)
+}
+
+fn term_node_depth(node: &TermNode, depths: &[u64]) -> Result<u64, ProgramCertificateError> {
+    let child = |id: u32| {
+        depths
+            .get(id as usize)
+            .copied()
+            .ok_or_else(|| interface_error("term references a missing earlier depth"))
+    };
+    let maximum_child = match node {
+        TermNode::Sort(_) | TermNode::Var(_) | TermNode::Const { .. } => return Ok(1),
+        TermNode::App {
+            function,
+            arguments,
+        } => {
+            let mut maximum = child(*function)?;
+            for argument in arguments {
+                maximum = maximum.max(child(*argument)?);
+            }
+            maximum
+        }
+        TermNode::Lam { ty, body } | TermNode::Pi { ty, body } => child(*ty)?.max(child(*body)?),
+        TermNode::Let { ty, value, body } => child(*ty)?.max(child(*value)?).max(child(*body)?),
+    };
+    maximum_child.checked_add(1).ok_or_else(|| {
+        limit_error(
+            VerificationLimitId::GeneratedProofDepth,
+            "generated proof depth counter overflow",
+        )
+    })
 }
 
 impl CertificateBuilder {
@@ -1124,9 +1191,11 @@ impl CertificateBuilder {
             name_ids,
             level_table: Vec::new(),
             term_table: Vec::new(),
+            term_depths: Vec::new(),
             declarations: Vec::new(),
             globals: BTreeMap::new(),
             shift_cache: BTreeMap::new(),
+            enforce_generated_proof_depth: false,
         };
 
         let mut global_maps = BTreeMap::<(usize, u32), u32>::new();
@@ -1205,12 +1274,33 @@ impl CertificateBuilder {
             .iter()
             .position(|existing| existing == &node)
         {
+            if self.enforce_generated_proof_depth {
+                enforce_verification_limit(
+                    VerificationLimitId::GeneratedProofDepth,
+                    *self
+                        .term_depths
+                        .get(index)
+                        .ok_or_else(|| interface_error("term depth table is incomplete"))?,
+                )?;
+            }
             return u32::try_from(index).map_err(|_| interface_error("term ID exceeds u32"));
+        }
+        let depth = term_node_depth(&node, &self.term_depths)?;
+        if self.enforce_generated_proof_depth {
+            enforce_verification_limit(VerificationLimitId::GeneratedProofDepth, depth)?;
         }
         let id = u32::try_from(self.term_table.len())
             .map_err(|_| interface_error("term table exceeds u32 IDs"))?;
         self.term_table.push(node);
+        self.term_depths.push(depth);
         Ok(id)
+    }
+
+    fn term_depth(&self, term: u32) -> Result<u64, ProgramCertificateError> {
+        self.term_depths
+            .get(term as usize)
+            .copied()
+            .ok_or_else(|| interface_error("generated proof term depth is missing"))
     }
 
     fn constant(&mut self, name: &str) -> Result<u32, ProgramCertificateError> {

@@ -15,6 +15,7 @@ pub mod emit;
 pub mod environment;
 pub mod file_loader;
 pub mod json;
+pub mod limits;
 pub mod manifest;
 pub mod metadata_request;
 pub mod mir_access;

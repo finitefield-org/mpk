@@ -5,6 +5,7 @@ use crate::contract::{
     CONTRACT_NODES_FUNCTION_MAX, RUST_SEMANTIC_PROFILE,
 };
 use crate::json::{self, JsonValue};
+use crate::limits::RustLimitId;
 use crate::sha256::{hex, Sha256};
 use std::collections::BTreeMap;
 
@@ -18,6 +19,40 @@ pub fn attach_contracts(
 ) -> Result<ContractSet, ContractError> {
     let mut inputs = inputs;
     inputs.sort_by(|left, right| left.normalized_path.cmp(&right.normalized_path));
+
+    let contract_files_max = RustLimitId::ContractFiles.maximum() as usize;
+    if inputs.len() > contract_files_max {
+        return Err(ContractError::new(
+            ContractCode::Limit,
+            inputs.get(contract_files_max),
+        ));
+    }
+    let mut total_bytes = 0_u64;
+    let mut prescan_nodes = 0_usize;
+    let mut prescan_errors = Vec::new();
+    for input in &inputs {
+        total_bytes = total_bytes
+            .checked_add(input.bytes.len() as u64)
+            .ok_or_else(|| ContractError::new(ContractCode::Limit, Some(input)))?;
+        if total_bytes > RustLimitId::ContractTotalBytes.maximum() {
+            return Err(ContractError::new(ContractCode::Limit, Some(input)));
+        }
+        match crate::contract::prescan_contract(input) {
+            Ok(metrics) => {
+                prescan_nodes = prescan_nodes
+                    .checked_add(metrics.nodes)
+                    .ok_or_else(|| ContractError::new(ContractCode::Limit, Some(input)))?;
+                if prescan_nodes > CONTRACT_NODES_CLOSURE_MAX {
+                    prescan_errors.push(ContractError::new(ContractCode::Limit, Some(input)));
+                    break;
+                }
+            }
+            Err(error) => prescan_errors.push(error),
+        }
+    }
+    if let Some(error) = first_error(prescan_errors) {
+        return Err(error);
+    }
 
     let mut parsed = Vec::with_capacity(inputs.len());
     let mut errors = Vec::new();
@@ -94,7 +129,16 @@ pub fn attach_contracts(
             .next()
             .expect("validated one contract per function");
         let function = function_map[function_id.as_str()];
-        match normalize_contract(contract, function, target_id, pointer_width) {
+        let remaining_nodes = CONTRACT_NODES_CLOSURE_MAX
+            .checked_sub(closure_nodes)
+            .expect("checked closure-node counter cannot exceed its maximum");
+        match normalize_contract(
+            contract,
+            function,
+            target_id,
+            pointer_width,
+            remaining_nodes,
+        ) {
             Ok((contract, nodes)) => {
                 closure_nodes = match closure_nodes.checked_add(nodes) {
                     Some(nodes) => nodes,
@@ -109,11 +153,14 @@ pub fn attach_contracts(
                 };
                 normalized.push(contract);
             }
-            Err(error) => type_errors.push(error),
+            Err(error) => {
+                let limit = error.code == ContractCode::Limit;
+                type_errors.push(error);
+                if limit {
+                    break;
+                }
+            }
         }
-    }
-    if closure_nodes > CONTRACT_NODES_CLOSURE_MAX {
-        type_errors.push(ContractError::new(ContractCode::Limit, None));
     }
     if let Some(error) = first_error(type_errors) {
         return Err(error);
@@ -127,6 +174,7 @@ fn normalize_contract(
     function: &ContractFunction,
     target_id: &str,
     pointer_width: u8,
+    closure_nodes_remaining: usize,
 ) -> Result<(NormalizedContract, usize), ContractError> {
     if contract.semantic_profile != RUST_SEMANTIC_PROFILE
         || contract.target_pointer_width != i64::from(pointer_width)
@@ -184,7 +232,10 @@ fn normalize_contract(
         parameters,
         result_type: &function.result_type,
     };
-    let mut metrics = ExpressionMetrics::default();
+    let mut metrics = ExpressionMetrics {
+        nodes: 0,
+        maximum_nodes: CONTRACT_NODES_FUNCTION_MAX.min(closure_nodes_remaining),
+    };
     let mut requires = Vec::with_capacity(contract.requires.len());
     for expression in &contract.requires {
         let (normalized, expression_type) = normalize_expression(
@@ -292,9 +343,9 @@ struct ExpressionContext<'a> {
     result_type: &'a ContractType,
 }
 
-#[derive(Default)]
 struct ExpressionMetrics {
     nodes: usize,
+    maximum_nodes: usize,
 }
 
 #[allow(clippy::too_many_arguments)]
@@ -311,7 +362,7 @@ fn normalize_expression(
         .nodes
         .checked_add(1)
         .ok_or_else(|| error_for(ContractCode::Limit, contract, function_id))?;
-    if metrics.nodes > CONTRACT_NODES_FUNCTION_MAX || depth > CONTRACT_EXPRESSION_DEPTH_MAX {
+    if metrics.nodes > metrics.maximum_nodes || depth > CONTRACT_EXPRESSION_DEPTH_MAX {
         return Err(error_for(ContractCode::Limit, contract, function_id));
     }
     let expression = value
@@ -633,12 +684,12 @@ fn error_for(code: ContractCode, contract: &ParsedContract, function_id: &str) -
 fn first_error(errors: Vec<ContractError>) -> Option<ContractError> {
     errors.into_iter().min_by(|left, right| {
         (
-            left.code,
+            left.code.precedence(),
             left.normalized_path.as_deref().unwrap_or(""),
             left.function_id.as_deref().unwrap_or(""),
         )
             .cmp(&(
-                right.code,
+                right.code.precedence(),
                 right.normalized_path.as_deref().unwrap_or(""),
                 right.function_id.as_deref().unwrap_or(""),
             ))

@@ -173,8 +173,23 @@ fn publish_lowered(
     request: &rust2vir_internal::driver_protocol::DriverRequest,
     lowering: rustc_driver_adapter::MirLowering,
 ) -> ExitCode {
-    let result = encode_lowered(request, lowering.raw_lowering, lowering.raw_source_map)
-        .and_then(|bytes| publish_primary_result(Path::new(OUTPUT_DIRECTORY), &bytes));
+    let bytes = match encode_lowered(request, lowering.raw_lowering, lowering.raw_source_map) {
+        Ok(bytes) => bytes,
+        Err(error)
+            if error.code
+                == rust2vir_internal::driver_protocol::DriverProtocolCode::OutputLimit =>
+        {
+            return publish_primary_diagnostic(
+                request,
+                DriverStatus::FrontendError,
+                "lowering",
+                error.code.as_str(),
+                "private Rust driver output exceeded its transport limit",
+            );
+        }
+        Err(error) => return fail(error.code.as_str()),
+    };
+    let result = publish_primary_result(Path::new(OUTPUT_DIRECTORY), &bytes);
     match result {
         Ok(()) => ExitCode::SUCCESS,
         Err(error) => fail(error.code.as_str()),

@@ -474,6 +474,16 @@ fn contract_limits_accept_the_boundary_and_reject_boundary_plus_one() {
         ),
         ContractCode::Limit,
     );
+    let far_above_depth_limit = sidecar("vector::f", 64, "", &nested_not(80));
+    assert_error(
+        attach_contracts(
+            vec![input("contracts/f.json", &far_above_depth_limit)],
+            std::slice::from_ref(&function),
+            "x86_64-unknown-linux-gnu",
+            64,
+        ),
+        ContractCode::Limit,
+    );
 
     let nodes_1024 = node_boundary_contract("vector::f", 62);
     attach_contracts(
@@ -525,6 +535,57 @@ fn closure_node_limit_is_exact() {
         "contracts/extra.json",
         &sidecar(extra_id, 64, "", r#"{"bool":true}"#),
     ));
+    assert_error(
+        attach_contracts(contracts, &functions, "x86_64-unknown-linux-gnu", 64),
+        ContractCode::Limit,
+    );
+}
+
+#[test]
+fn exhausted_closure_node_budget_precedes_processing_the_next_contract() {
+    let mut functions = Vec::new();
+    let mut contracts = Vec::new();
+    for index in 0..8 {
+        let function_id = format!("vector::f{index}");
+        functions.push(scalar_function(&function_id, "x", unsigned(8)));
+        contracts.push(input(
+            &format!("contracts/f{index}.json"),
+            &node_boundary_contract(&function_id, 62),
+        ));
+    }
+    functions.push(scalar_function("vector::z", "x", unsigned(8)));
+    contracts.push(input(
+        "contracts/z.json",
+        &sidecar("vector::z", 64, "", r#"{"parameter":"missing"}"#),
+    ));
+
+    assert_error(
+        attach_contracts(contracts, &functions, "x86_64-unknown-linux-gnu", 64),
+        ContractCode::Limit,
+    );
+}
+
+#[test]
+fn closure_limit_precedes_an_already_observed_contract_specific_error() {
+    let mut functions = vec![scalar_function("vector::a", "x", unsigned(8))];
+    let mut contracts = vec![input(
+        "contracts/a.json",
+        &sidecar("vector::a", 64, "", r#"{"parameter":"missing"}"#),
+    )];
+    for index in 0..8 {
+        let function_id = format!("vector::f{index}");
+        functions.push(scalar_function(&function_id, "x", unsigned(8)));
+        contracts.push(input(
+            &format!("contracts/f{index}.json"),
+            &node_boundary_contract(&function_id, 62),
+        ));
+    }
+    functions.push(scalar_function("vector::z", "x", unsigned(8)));
+    contracts.push(input(
+        "contracts/z.json",
+        &sidecar("vector::z", 64, "", r#"{"bool":true}"#),
+    ));
+
     assert_error(
         attach_contracts(contracts, &functions, "x86_64-unknown-linux-gnu", 64),
         ContractCode::Limit,

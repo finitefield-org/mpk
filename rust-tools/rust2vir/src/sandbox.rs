@@ -21,6 +21,8 @@ use std::sync::atomic::AtomicBool;
 use std::sync::Arc;
 #[cfg(target_os = "linux")]
 use std::thread;
+#[cfg(target_os = "linux")]
+use std::time::{Duration, Instant};
 
 #[cfg(target_os = "linux")]
 use std::os::fd::AsRawFd;
@@ -42,8 +44,12 @@ pub const RESIDENT_MEMORY_LIMIT: u64 = 8_589_934_592;
 pub const TEMP_BYTES_LIMIT: u64 = 4_294_967_296;
 pub const TARGET_BYTES_LIMIT: u64 = 17_179_869_184;
 pub const OUTPUT_FILES_LIMIT: u64 = 262_144;
-pub const STDOUT_BYTES_LIMIT: usize = 67_108_864;
-pub const STDERR_BYTES_LIMIT: usize = 2_097_152;
+pub const STDOUT_BYTES_LIMIT: usize =
+    crate::limits::RustLimitId::CargoRustcStdout.maximum() as usize;
+pub const STDERR_BYTES_LIMIT: usize =
+    crate::limits::RustLimitId::CargoRustcStderr.maximum() as usize;
+#[cfg(target_os = "linux")]
+const CHILD_WALL_CLOCK_TIMEOUT: Duration = Duration::from_secs(300);
 const CANDIDATE_FILE_COUNT_LIMIT: usize = 1_048_576;
 const CANDIDATE_FILE_SIZE_LIMIT: u64 = 4_294_967_296;
 const CANDIDATE_AGGREGATE_LIMIT: u64 = 34_359_738_368;
@@ -899,6 +905,7 @@ pub enum SandboxError {
     Spawn,
     Killed,
     FilesystemLimit,
+    DriverProtocol(driver_protocol::DriverProtocolCode),
 }
 
 impl SandboxError {
@@ -908,8 +915,9 @@ impl SandboxError {
             Self::ToolchainComponent => "RUST_TOOLCHAIN_COMPONENT",
             Self::ToolchainTarget => "RUST_TOOLCHAIN_TARGET",
             Self::ToolchainArgument => "RUST_TOOLCHAIN_ARGUMENT",
-            Self::ChildOutputLimit | Self::FilesystemLimit => "RUST_FRONTEND_CHILD_OUTPUT_LIMIT",
-            Self::Spawn | Self::Killed => "RUST_FRONTEND_COMPILER_CRASH",
+            Self::ChildOutputLimit => "RUST_FRONTEND_CHILD_OUTPUT_LIMIT",
+            Self::Spawn | Self::Killed | Self::FilesystemLimit => "RUST_FRONTEND_COMPILER_CRASH",
+            Self::DriverProtocol(code) => code.as_str(),
         }
     }
 }
@@ -952,7 +960,7 @@ impl<'a, E: SandboxExecutor> PreparedSandbox<'a, E> {
             snapshot.inputs(),
             candidate.driver_release_identity(),
         )
-        .map_err(|_| SandboxError::ToolchainComponent)?;
+        .map_err(|error| SandboxError::DriverProtocol(error.code))?;
         let workspace = InvocationWorkspace::create(
             private_parent,
             snapshot.path(),
@@ -992,13 +1000,22 @@ impl<'a, E: SandboxExecutor> PreparedSandbox<'a, E> {
         self.environment
             .validate()
             .map_err(|_| SandboxError::ToolchainArgument)?;
+        let stdout_remaining = STDOUT_BYTES_LIMIT
+            .checked_sub(self.observed_stdout_bytes)
+            .ok_or(SandboxError::ChildOutputLimit)?;
+        let stderr_remaining = STDERR_BYTES_LIMIT
+            .checked_sub(self.observed_stderr_bytes)
+            .ok_or(SandboxError::ChildOutputLimit)?;
+        let mut limits = SandboxLimits::FROZEN;
+        limits.stdout_bytes = stdout_remaining;
+        limits.stderr_bytes = stderr_remaining;
         let context = SandboxContext {
             invocation_id: self.workspace.invocation_id,
             snapshot_root: self.snapshot.path(),
             candidate: &self.candidate,
             workspace: &self.workspace,
             environment: &self.environment,
-            limits: SandboxLimits::FROZEN,
+            limits,
             snapshot_handle: &self.snapshot_handle,
         };
         let output = self.executor.execute(&context, invocation)?;
@@ -1183,8 +1200,23 @@ fn execute_linux_namespace(
         Arc::clone(&overflow),
         Arc::clone(&read_failed),
     );
+    let deadline = Instant::now()
+        .checked_add(CHILD_WALL_CLOCK_TIMEOUT)
+        .ok_or(SandboxError::Killed)?;
+    let mut timed_out = false;
+    let mut filesystem_limit = false;
     let status = loop {
+        if !filesystem_limit && context.workspace.validate_usage(context.limits()).is_err() {
+            filesystem_limit = true;
+        }
         if overflow.load(Ordering::Acquire) {
+            kill_process_group(child_id);
+            let _ = child.kill();
+        } else if filesystem_limit {
+            kill_process_group(child_id);
+            let _ = child.kill();
+        } else if Instant::now() >= deadline {
+            timed_out = true;
             kill_process_group(child_id);
             let _ = child.kill();
         }
@@ -1202,7 +1234,14 @@ fn execute_linux_namespace(
     kill_process_group(child_id);
     let (stdout, stdout_observed) = stdout_reader.join().map_err(|_| SandboxError::Killed)?;
     let (_, stderr_observed) = stderr_reader.join().map_err(|_| SandboxError::Killed)?;
-    if read_failed.load(Ordering::Acquire) {
+    let stream_limit = overflow.load(Ordering::Acquire);
+    if !stream_limit && filesystem_limit {
+        return Err(SandboxError::FilesystemLimit);
+    }
+    if !stream_limit && timed_out {
+        return Err(SandboxError::Killed);
+    }
+    if !stream_limit && read_failed.load(Ordering::Acquire) {
         return Err(SandboxError::Killed);
     }
     if status.code() == Some(125) {
@@ -1807,6 +1846,28 @@ struct InvocationWorkspace {
     driver_request_bytes: Vec<u8>,
 }
 
+#[derive(Clone, Copy)]
+struct WritableUsageLimits {
+    temp_bytes: u64,
+    target_bytes: u64,
+    regular_files: u64,
+    directories: u64,
+}
+
+impl WritableUsageLimits {
+    fn from_sandbox_limits(limits: SandboxLimits) -> Self {
+        Self {
+            temp_bytes: limits.temp_bytes,
+            target_bytes: limits.target_bytes,
+            regular_files: limits.output_files,
+            // Empty-directory floods are not accepted output, but they also must
+            // not make the live usage monitor itself unbounded. Reuse the supplied
+            // output-count allowance as the operational traversal ceiling.
+            directories: limits.output_files,
+        }
+    }
+}
+
 impl InvocationWorkspace {
     fn create(
         parent: &Path,
@@ -1987,25 +2048,11 @@ impl InvocationWorkspace {
         Ok(())
     }
 
-    fn validate_usage(&self) -> Result<(), SandboxError> {
-        let (home_files, _) = tree_usage(&self.writable[HOME_ROOT])?;
-        let (cargo_home_files, _) =
-            tree_usage(&self.writable[crate::environment::CARGO_HOME_ROOT])?;
-        let (temp_files, temp_bytes) = tree_usage(&self.writable[TEMP_ROOT])?;
-        let (target_files, target_bytes) = tree_usage(&self.writable[TARGET_ROOT])?;
-        let (driver_files, _) = tree_usage(&self.writable[DRIVER_OUTPUT_ROOT])?;
-        if temp_bytes > TEMP_BYTES_LIMIT
-            || target_bytes > TARGET_BYTES_LIMIT
-            || home_files
-                .checked_add(cargo_home_files)
-                .and_then(|count| count.checked_add(temp_files))
-                .and_then(|count| count.checked_add(target_files))
-                .and_then(|count| count.checked_add(driver_files))
-                .is_none_or(|count| count > OUTPUT_FILES_LIMIT)
-        {
-            return Err(SandboxError::FilesystemLimit);
-        }
-        Ok(())
+    fn validate_usage(&self, limits: SandboxLimits) -> Result<(), SandboxError> {
+        validate_writable_usage(
+            &self.writable,
+            WritableUsageLimits::from_sandbox_limits(limits),
+        )
     }
 
     fn validate_before(&self, _kind: CargoInvocationKind) -> Result<(), SandboxError> {
@@ -2018,7 +2065,7 @@ impl InvocationWorkspace {
     }
 
     fn validate_after(&self, kind: CargoInvocationKind) -> Result<(), SandboxError> {
-        self.validate_usage()?;
+        self.validate_usage(SandboxLimits::FROZEN)?;
         if kind == CargoInvocationKind::Metadata
             && (tree_usage(&self.writable[TARGET_ROOT])? != (0, 0)
                 || tree_usage(&self.writable[DRIVER_OUTPUT_ROOT])? != (0, 0))
@@ -2641,6 +2688,182 @@ fn tree_usage(root: &Path) -> Result<(u64, u64), SandboxError> {
         }
     }
     Ok((files, bytes))
+}
+
+fn validate_writable_usage(
+    writable: &BTreeMap<&'static str, PathBuf>,
+    limits: WritableUsageLimits,
+) -> Result<(), SandboxError> {
+    let mut regular_files = 0_u64;
+    let mut directories = 0_u64;
+    for (root, byte_limit) in [
+        (&writable[HOME_ROOT], u64::MAX),
+        (&writable[crate::environment::CARGO_HOME_ROOT], u64::MAX),
+        (&writable[TEMP_ROOT], limits.temp_bytes),
+        (&writable[TARGET_ROOT], limits.target_bytes),
+        (&writable[DRIVER_OUTPUT_ROOT], u64::MAX),
+    ] {
+        validate_tree_usage(
+            root,
+            byte_limit,
+            &mut regular_files,
+            limits.regular_files,
+            &mut directories,
+            limits.directories,
+        )?;
+    }
+    Ok(())
+}
+
+fn validate_tree_usage(
+    root: &Path,
+    byte_limit: u64,
+    regular_files: &mut u64,
+    regular_file_limit: u64,
+    directories: &mut u64,
+    directory_limit: u64,
+) -> Result<(), SandboxError> {
+    let mut bytes = 0_u64;
+    let mut pending = vec![root.to_path_buf()];
+    while let Some(directory) = pending.pop() {
+        // Cargo may remove a directory or file between enumeration and metadata
+        // while this live scan runs. A later scan still observes every retained
+        // entry, so only that normal NotFound race is ignored.
+        let entries = match fs::read_dir(directory) {
+            Ok(entries) => entries,
+            Err(error) if error.kind() == io::ErrorKind::NotFound => continue,
+            Err(_) => return Err(SandboxError::FilesystemLimit),
+        };
+        for entry in entries {
+            let entry = entry.map_err(|_| SandboxError::FilesystemLimit)?;
+            let metadata = match fs::symlink_metadata(entry.path()) {
+                Ok(metadata) => metadata,
+                Err(error) if error.kind() == io::ErrorKind::NotFound => continue,
+                Err(_) => return Err(SandboxError::FilesystemLimit),
+            };
+            if metadata.file_type().is_symlink() {
+                return Err(SandboxError::FilesystemLimit);
+            }
+            if metadata.is_dir() {
+                *directories = directories
+                    .checked_add(1)
+                    .ok_or(SandboxError::FilesystemLimit)?;
+                if *directories > directory_limit {
+                    return Err(SandboxError::FilesystemLimit);
+                }
+                pending.push(entry.path());
+            } else if metadata.is_file() {
+                *regular_files = regular_files
+                    .checked_add(1)
+                    .ok_or(SandboxError::FilesystemLimit)?;
+                bytes = bytes
+                    .checked_add(metadata.len())
+                    .ok_or(SandboxError::FilesystemLimit)?;
+                if *regular_files > regular_file_limit || bytes > byte_limit {
+                    return Err(SandboxError::FilesystemLimit);
+                }
+            } else {
+                return Err(SandboxError::FilesystemLimit);
+            }
+        }
+    }
+    Ok(())
+}
+
+#[cfg(test)]
+mod usage_tests {
+    use super::*;
+
+    struct TestDirectory(PathBuf);
+
+    impl TestDirectory {
+        fn create() -> Self {
+            let serial = NEXT_INVOCATION.fetch_add(1, Ordering::Relaxed);
+            let path = std::env::temp_dir().join(format!(
+                "rust2vir-usage-test-{}-{serial}",
+                std::process::id()
+            ));
+            fs::create_dir(&path).unwrap();
+            Self(path)
+        }
+    }
+
+    impl Drop for TestDirectory {
+        fn drop(&mut self) {
+            let _ = fs::remove_dir_all(&self.0);
+        }
+    }
+
+    #[test]
+    fn writable_usage_accepts_exact_bytes_and_files_then_rejects_plus_one() {
+        let root = TestDirectory::create();
+        let mut writable = BTreeMap::new();
+        for (sandbox_path, name) in [
+            (HOME_ROOT, "home"),
+            (crate::environment::CARGO_HOME_ROOT, "cargo-home"),
+            (TEMP_ROOT, "tmp"),
+            (TARGET_ROOT, "target"),
+            (DRIVER_OUTPUT_ROOT, "driver-output"),
+        ] {
+            let path = root.0.join(name);
+            fs::create_dir(&path).unwrap();
+            writable.insert(sandbox_path, path);
+        }
+        let mut sandbox_limits = SandboxLimits::FROZEN;
+        sandbox_limits.temp_bytes = 4;
+        sandbox_limits.target_bytes = 4;
+        sandbox_limits.output_files = 2;
+        let limits = WritableUsageLimits::from_sandbox_limits(sandbox_limits);
+        assert_eq!(
+            (
+                limits.temp_bytes,
+                limits.target_bytes,
+                limits.regular_files,
+                limits.directories,
+            ),
+            (4, 4, 2, 2)
+        );
+        fs::write(writable[TEMP_ROOT].join("a"), b"1234").unwrap();
+        fs::write(writable[TARGET_ROOT].join("b"), b"1234").unwrap();
+        assert_eq!(validate_writable_usage(&writable, limits), Ok(()));
+
+        fs::write(writable[TARGET_ROOT].join("b"), b"12345").unwrap();
+        assert_eq!(
+            validate_writable_usage(&writable, limits),
+            Err(SandboxError::FilesystemLimit)
+        );
+        fs::write(writable[TARGET_ROOT].join("b"), b"1234").unwrap();
+        fs::write(writable[DRIVER_OUTPUT_ROOT].join("c"), b"").unwrap();
+        assert_eq!(
+            validate_writable_usage(&writable, limits),
+            Err(SandboxError::FilesystemLimit)
+        );
+    }
+
+    #[cfg(target_os = "linux")]
+    #[test]
+    fn second_process_reader_enforces_aggregate_remaining_allowance() {
+        let aggregate_maximum = 7_usize;
+        let first_process_observed = 5_usize;
+        let second_process_allowance = aggregate_maximum
+            .checked_sub(first_process_observed)
+            .unwrap();
+        let overflow = Arc::new(AtomicBool::new(false));
+        let read_failed = Arc::new(AtomicBool::new(false));
+        let reader = bounded_reader(
+            std::io::Cursor::new(vec![0_u8; second_process_allowance + 1]),
+            second_process_allowance,
+            true,
+            Arc::clone(&overflow),
+            Arc::clone(&read_failed),
+        );
+        let (retained, observed) = reader.join().unwrap();
+
+        assert_eq!(observed, second_process_allowance + 1);
+        assert_eq!(retained.len(), second_process_allowance + 1);
+        assert!(overflow.load(Ordering::Acquire));
+        assert!(!read_failed.load(Ordering::Acquire));
+    }
 }
 
 fn make_tree_private(root: &Path) -> io::Result<()> {

@@ -76,6 +76,13 @@ impl MetadataCode {
             Self::Sandbox(_) | Self::Process | Self::Protocol => MetadataStatus::FrontendError,
         }
     }
+
+    pub fn phase(self) -> &'static str {
+        match self {
+            Self::Sandbox(SandboxError::DriverProtocol(_)) => "typecheck",
+            Self::Sandbox(_) | Self::Process | Self::Protocol | Self::Mismatch => "metadata",
+        }
+    }
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]

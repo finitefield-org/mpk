@@ -295,6 +295,7 @@ impl Callbacks for PinnedCallbacks<'_> {
         };
         definitions.sort_by_key(|(function_id, _)| *function_id);
         let mut lowered = Vec::new();
+        let mut lowering_budget = mir_lower::MirClosureBudget::default();
         let lowering_context = mir_lower::ModuleContext::new(
             &analysis.call_closure,
             &analysis.type_declarations,
@@ -334,8 +335,14 @@ impl Callbacks for PinnedCallbacks<'_> {
                     function,
                     contract,
                     &lowering_context,
+                    &lowering_budget,
                 ) {
-                    Ok(function) => lowered.push(function),
+                    Ok(function) => {
+                        if let Err(error) = lowering_budget.observe(&function) {
+                            return self.reject(RustcDriverError::Mir(error));
+                        }
+                        lowered.push(function);
+                    }
                     Err(error) => return self.reject(RustcDriverError::Mir(error)),
                 }
             }

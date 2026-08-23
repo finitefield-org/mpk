@@ -1,7 +1,9 @@
 use std::collections::BTreeSet;
 use std::fmt;
 
-pub const MAX_NORMALIZED_PATH_BYTES: usize = 1_024;
+use crate::limits::RustLimitId;
+
+pub const MAX_NORMALIZED_PATH_BYTES: usize = RustLimitId::PathBytes.maximum() as usize;
 pub const MAX_COMPONENT_BYTES: usize = 255;
 
 #[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd)]

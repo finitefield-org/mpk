@@ -41,6 +41,7 @@ pub struct CargoCheckOutput {
     succeeded: bool,
     artifact_count: usize,
     messages: Vec<NormalizedCompilerMessage>,
+    source_error_code: Option<RustSourceCode>,
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -88,14 +89,7 @@ impl CargoCheckOutput {
         if self.succeeded {
             return None;
         }
-        Some(
-            self.messages
-                .iter()
-                .filter(|message| message.level == CompilerMessageLevel::Error)
-                .filter_map(|message| message.code.as_deref().and_then(classify_source_code))
-                .min_by_key(|code| code.precedence())
-                .unwrap_or(RustSourceCode::Type),
-        )
+        Some(self.source_error_code.unwrap_or(RustSourceCode::Type))
     }
 }
 
@@ -296,6 +290,8 @@ fn parse_message_stream(
     }
     let mut artifact_count = 0_usize;
     let mut messages = Vec::new();
+    let mut source_error_code: Option<RustSourceCode> = None;
+    let mut has_error = false;
     let mut build_finished = None;
     for (index, line) in bytes[..bytes.len() - 1]
         .split(|byte| *byte == b'\n')
@@ -315,10 +311,29 @@ fn parse_message_stream(
                     .ok_or(CargoCheckCode::Protocol)?;
             }
             "compiler-message" => {
-                if messages.len() == COMPILER_MESSAGES_MAX {
-                    return Err(CargoCheckCode::DiagnosticBudget.into());
+                let message = normalize_message(object, metadata, expected)?;
+                if message.level == CompilerMessageLevel::Error {
+                    has_error = true;
+                    if let Some(code) = message.code.as_deref().and_then(classify_source_code) {
+                        source_error_code = Some(
+                            source_error_code
+                                .map(|current| {
+                                    if code.precedence() < current.precedence() {
+                                        code
+                                    } else {
+                                        current
+                                    }
+                                })
+                                .unwrap_or(code),
+                        );
+                    }
                 }
-                messages.push(normalize_message(object, metadata, expected)?);
+                // Raw compiler events are not public normalized Issues. Keep a
+                // bounded diagnostic summary for tests/telemetry while still
+                // visiting every event needed for stable source classification.
+                if messages.len() < COMPILER_MESSAGES_MAX {
+                    messages.push(message);
+                }
             }
             "build-finished" => {
                 if index == 0 && !allow_private_failure {
@@ -338,9 +353,6 @@ fn parse_message_stream(
     if (succeeded && artifact_count != 1) || (!succeeded && artifact_count > 1) {
         return Err(CargoCheckCode::Protocol.into());
     }
-    let has_error = messages
-        .iter()
-        .any(|message| message.level == CompilerMessageLevel::Error);
     if succeeded == has_error && !(allow_private_failure && !succeeded && !has_error) {
         return Err(CargoCheckCode::Protocol.into());
     }
@@ -348,6 +360,7 @@ fn parse_message_stream(
         succeeded,
         artifact_count,
         messages,
+        source_error_code,
     })
 }
 
