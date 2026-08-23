@@ -1,5 +1,8 @@
 use super::const_lower::{lower_constant, HirConstant};
-use super::type_lower::{canonical_item_id, contract_type};
+use super::type_lower::{
+    canonical_item_id, collect_struct_def_ids, contract_type, selected_struct_declarations,
+    struct_declaration, HirStructDecl,
+};
 use rust2vir_internal::call_closure::{
     resolve_call_closure, CallClosureError, MAX_CALL_CLOSURE_FUNCTIONS,
 };
@@ -99,12 +102,15 @@ pub struct HirFunction {
     pub negative_literal_spans: Vec<Span>,
     pub checked_negation_spans: Vec<Span>,
     pub array_spans: Vec<Span>,
+    pub struct_spans: Vec<Span>,
+    pub field_spans: Vec<Span>,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct HirAnalysis {
     pub selected_function: String,
     pub call_closure: Vec<HirFunction>,
+    pub type_declarations: Vec<HirStructDecl>,
     pub constant_declarations: Vec<HirConstant>,
 }
 
@@ -112,6 +118,7 @@ pub fn analyze_hir(tcx: TyCtxt<'_>, selected_function: &str) -> Result<HirAnalys
     let mut functions = HashMap::<LocalDefId, FunctionItem<'_>>::new();
     let mut names = HashMap::<LocalDefId, String>::new();
     let mut constants = HashMap::<LocalDefId, HirConstant>::new();
+    let mut structs = HashMap::<LocalDefId, HirStructDecl>::new();
 
     let item_ids = tcx.hir_free_items().collect::<Vec<_>>();
     for item_id in &item_ids {
@@ -130,6 +137,12 @@ pub fn analyze_hir(tcx: TyCtxt<'_>, selected_function: &str) -> Result<HirAnalys
         if let hir::ItemKind::Const(ident, _, _, body) = item.kind {
             let constant = lower_constant(tcx, item.owner_id.def_id, ident.as_str(), body)?;
             if constants.insert(item.owner_id.def_id, constant).is_some() {
+                return Err(HirCheckCode::Identifier);
+            }
+        }
+        if let hir::ItemKind::Struct(ident, _, _) = item.kind {
+            let declaration = struct_declaration(tcx, item.owner_id.def_id, ident.as_str())?;
+            if structs.insert(item.owner_id.def_id, declaration).is_some() {
                 return Err(HirCheckCode::Identifier);
             }
         }
@@ -164,6 +177,7 @@ pub fn analyze_hir(tcx: TyCtxt<'_>, selected_function: &str) -> Result<HirAnalys
     let mut graph = Vec::with_capacity(functions.len());
     let mut scan_errors = HashMap::new();
     let mut constant_refs = HashMap::<LocalDefId, HashSet<LocalDefId>>::new();
+    let mut struct_refs = HashMap::<LocalDefId, HashSet<LocalDefId>>::new();
     for (def_id, function) in &functions {
         let typeck = tcx.typeck(*def_id);
         let mut scanner = CallScanner {
@@ -171,8 +185,14 @@ pub fn analyze_hir(tcx: TyCtxt<'_>, selected_function: &str) -> Result<HirAnalys
             typeck,
             callees: HashSet::new(),
             constants: HashSet::new(),
+            structs: HashSet::new(),
             error: None,
         };
+        let signature = tcx.fn_sig(*def_id).instantiate_identity().skip_binder();
+        for ty in signature.inputs() {
+            collect_struct_def_ids(tcx, *ty, &mut scanner.structs);
+        }
+        collect_struct_def_ids(tcx, signature.output(), &mut scanner.structs);
         for source_ty in function.sig.decl.inputs {
             collect_type_constants(tcx, source_ty, &mut scanner.constants)?;
         }
@@ -193,6 +213,7 @@ pub fn analyze_hir(tcx: TyCtxt<'_>, selected_function: &str) -> Result<HirAnalys
                 .collect::<Vec<_>>(),
         ));
         constant_refs.insert(*def_id, scanner.constants);
+        struct_refs.insert(*def_id, scanner.structs);
     }
 
     let closure_names = resolve_call_closure(graph, selected_function, MAX_CALL_CLOSURE_FUNCTIONS)
@@ -229,6 +250,14 @@ pub fn analyze_hir(tcx: TyCtxt<'_>, selected_function: &str) -> Result<HirAnalys
         .collect::<Result<Vec<_>, _>>()?;
     constant_declarations.sort_by(|left, right| left.id.cmp(&right.id));
 
+    let mut referenced_structs = HashSet::new();
+    for (def_id, function_id) in &names {
+        if closure_set.contains(function_id.as_str()) {
+            referenced_structs.extend(struct_refs.get(def_id).into_iter().flatten().copied());
+        }
+    }
+    let type_declarations = selected_struct_declarations(&structs, &referenced_structs)?;
+
     if !closure
         .iter()
         .any(|function| function.function_id == names[&selected])
@@ -238,6 +267,7 @@ pub fn analyze_hir(tcx: TyCtxt<'_>, selected_function: &str) -> Result<HirAnalys
     Ok(HirAnalysis {
         selected_function: selected_function.to_owned(),
         call_closure: closure,
+        type_declarations,
         constant_declarations,
     })
 }
@@ -412,6 +442,8 @@ fn validate_function(
         negative_literal_spans: Vec::new(),
         checked_negation_spans: Vec::new(),
         array_spans: Vec::new(),
+        struct_spans: Vec::new(),
+        field_spans: Vec::new(),
     };
     let mut parameter_names = Vec::with_capacity(body.params.len());
     let mut mutable_parameter = false;
@@ -464,6 +496,8 @@ fn validate_function(
         negative_literal_spans: validator.negative_literal_spans,
         checked_negation_spans: validator.checked_negation_spans,
         array_spans: validator.array_spans,
+        struct_spans: validator.struct_spans,
+        field_spans: validator.field_spans,
     })
 }
 
@@ -472,11 +506,13 @@ struct CallScanner<'a, 'tcx> {
     typeck: &'a ty::TypeckResults<'tcx>,
     callees: HashSet<DefId>,
     constants: HashSet<LocalDefId>,
+    structs: HashSet<LocalDefId>,
     error: Option<HirCheckCode>,
 }
 
 impl<'hir> Visitor<'hir> for CallScanner<'_, '_> {
     fn visit_expr(&mut self, expression: &'hir hir::Expr<'hir>) {
+        collect_struct_def_ids(self.tcx, self.typeck.expr_ty(expression), &mut self.structs);
         if let hir::ExprKind::Call(callee, _) = expression.kind {
             let resolution = match callee.kind {
                 hir::ExprKind::Path(path) => self.typeck.qpath_res(&path, callee.hir_id),
@@ -524,6 +560,8 @@ struct BodyValidator<'a, 'tcx> {
     negative_literal_spans: Vec<Span>,
     checked_negation_spans: Vec<Span>,
     array_spans: Vec<Span>,
+    struct_spans: Vec<Span>,
+    field_spans: Vec<Span>,
 }
 
 impl BodyValidator<'_, '_> {
@@ -612,6 +650,7 @@ impl BodyValidator<'_, '_> {
                 self.validate_expr(right)
             }
             hir::ExprKind::Field(base, ident) => {
+                self.field_spans.push(expression.span);
                 validate_ident(ident.as_str())?;
                 self.validate_expr(base)?;
                 self.validate_copy_projection(expression)
@@ -633,6 +672,7 @@ impl BodyValidator<'_, '_> {
             }
             hir::ExprKind::Ret(None) => Err(HirCheckCode::Type),
             hir::ExprKind::Struct(path, fields, hir::StructTailExpr::None) => {
+                self.struct_spans.push(expression.span);
                 self.validate_struct_path(expression, path, fields.len())?;
                 let mut names = BTreeSet::new();
                 for field in fields {

@@ -12,6 +12,87 @@ use rustc_span::def_id::LocalDefId;
 use std::collections::{BTreeMap, BTreeSet};
 
 #[derive(Clone, Debug, Eq, PartialEq)]
+pub(crate) struct FieldProjectionPatternVector {
+    pub projection_is_direct_field: bool,
+    pub base_is_local_named_struct: bool,
+    pub field_is_declared: bool,
+    pub projected_type_matches: bool,
+    pub projected_value_is_copy: bool,
+}
+
+impl FieldProjectionPatternVector {
+    pub(crate) fn pinned() -> Self {
+        Self {
+            projection_is_direct_field: true,
+            base_is_local_named_struct: true,
+            field_is_declared: true,
+            projected_type_matches: true,
+            projected_value_is_copy: true,
+        }
+    }
+}
+
+pub(crate) fn validate_field_projection_pattern(
+    vector: &FieldProjectionPatternVector,
+) -> Result<(), MirCode> {
+    if vector == &FieldProjectionPatternVector::pinned() {
+        Ok(())
+    } else {
+        Err(MirCode::Projection)
+    }
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub(super) struct FieldProjection {
+    pub(super) base: Local,
+    pub(super) base_ty: ContractType,
+    pub(super) field: String,
+    pub(super) field_ty: ContractType,
+}
+
+pub(super) fn direct_field_projection<'tcx>(
+    tcx: TyCtxt<'tcx>,
+    def_id: LocalDefId,
+    body: &Body<'tcx>,
+    place: &Place<'tcx>,
+) -> Result<Option<FieldProjection>, MirCode> {
+    let [ProjectionElem::Field(field_index, projected_mir_ty)] = &place.projection[..] else {
+        return Ok(None);
+    };
+    if place.local.index() >= body.local_decls.len() {
+        return Err(MirCode::Place);
+    }
+    let base_mir_ty = body.local_decls[place.local].ty;
+    let ty::Adt(adt, arguments) = base_mir_ty.kind() else {
+        return Err(MirCode::Projection);
+    };
+    let mut vector = FieldProjectionPatternVector::pinned();
+    vector.base_is_local_named_struct =
+        adt.is_struct() && adt.did().is_local() && arguments.is_empty();
+    if !vector.base_is_local_named_struct {
+        validate_field_projection_pattern(&vector)?;
+        unreachable!("non-struct field projection rejected")
+    }
+    let field = adt.non_enum_variant().fields.get(*field_index);
+    vector.field_is_declared = field.is_some();
+    let Some(field) = field else {
+        validate_field_projection_pattern(&vector)?;
+        unreachable!("missing field projection rejected")
+    };
+    let expected_mir_ty = field.ty(tcx, arguments);
+    vector.projected_type_matches = expected_mir_ty == *projected_mir_ty;
+    let typing_env = ty::TypingEnv::post_analysis(tcx, def_id);
+    vector.projected_value_is_copy = tcx.type_is_copy_modulo_regions(typing_env, expected_mir_ty);
+    validate_field_projection_pattern(&vector)?;
+    Ok(Some(FieldProjection {
+        base: place.local,
+        base_ty: contract_type(tcx, def_id, base_mir_ty).map_err(|_| MirCode::Projection)?,
+        field: field.name.as_str().to_owned(),
+        field_ty: contract_type(tcx, def_id, expected_mir_ty).map_err(|_| MirCode::Projection)?,
+    }))
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
 pub(crate) struct IndexPatternVector {
     pub base_is_fixed_array: bool,
     pub index_is_target_usize: bool,

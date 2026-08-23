@@ -8,8 +8,8 @@ use mpk_vc::{
     PointerWidth, ProgramVcMemberKind, RustCheckedParameters, SafetyEvidenceRoute,
     SemanticParameters, SemanticProfile, SourceLanguage, VirBinaryOperator, VirBinding, VirBlock,
     VirContract, VirContractExpr, VirFeature, VirFunction, VirInstruction, VirIntLiteral,
-    VirModule, VirSafetyCheck, VirTerminator, VirType, VirUnit, VirValue,
-    SAFETY_GROUPED_CERTIFICATE_FOUNDATION, VIR_SCHEMA_VERSION,
+    VirModule, VirSafetyCheck, VirStructDecl, VirStructField, VirTerminator, VirType, VirUnit,
+    VirValue, SAFETY_GROUPED_CERTIFICATE_FOUNDATION, VIR_SCHEMA_VERSION,
 };
 
 fn bool_ty() -> VirType {
@@ -272,6 +272,68 @@ fn constructed_array_read_produces_stable_bounds_and_tautology_vcs() {
     substantive.vir_hash = vir_hash(&substantive).expect("updated VIR hash");
     let error = generate_program_vcs(&substantive)
         .expect_err("substantive use of a deferred constructed read must fail closed");
+    assert_eq!(error.code(), "VC_PROGRAM_UNCLOSED_TERM");
+}
+
+#[test]
+fn direct_struct_field_read_defers_only_unavailable_value_semantics() {
+    let mut input = module(
+        SemanticProfile::RustCheckedV0,
+        vec![binding("arg0", u8_ty())],
+        u8_ty(),
+        Vec::new(),
+        vec![VirBlock {
+            label: "bb0".to_owned(),
+            parameters: Vec::new(),
+            instructions: Vec::new(),
+            terminator: VirTerminator::Return {
+                values: vec![variable("arg0")],
+            },
+        }],
+        Vec::new(),
+        Vec::new(),
+        vec![equal(result_expr(0), result_expr(0))],
+    );
+    let point_type = VirType::Struct {
+        id: "demo::Point".to_owned(),
+    };
+    input.units[0].type_decls = vec![VirStructDecl {
+        id: "demo::Point".to_owned(),
+        name: "Point".to_owned(),
+        fields: vec![VirStructField {
+            name: "x".to_owned(),
+            r#type: u8_ty(),
+        }],
+    }];
+    let function = &mut input.units[0].functions[0];
+    function.params[0].r#type = point_type;
+    function.blocks[0].instructions = vec![VirInstruction::Field {
+        id: "t0".to_owned(),
+        r#type: u8_ty(),
+        base: variable("arg0"),
+        field: "x".to_owned(),
+        safety_checks: Vec::new(),
+    }];
+    function.blocks[0].terminator = VirTerminator::Return {
+        values: vec![variable("t0")],
+    };
+    function.features_used = vec![VirFeature::Struct];
+    input.vir_hash = vir_hash(&input).expect("updated VIR hash");
+    validate_vir(&input).expect("field fixture validates");
+
+    let first = generate_program_vcs(&input).expect("tautological field result generates VCs");
+    let second = generate_program_vcs(&input).expect("repeat field result VCs");
+    assert_eq!(first, second);
+    assert_eq!(post_members(&first).len(), 1);
+    assert!(safety_members(&first).is_empty());
+
+    let mut substantive = input;
+    let contract = &mut substantive.units[0].functions[0].contracts;
+    contract.ensures = vec![equal(result_expr(0), integer_expr(7, false))];
+    contract.contract_hash = contract_hash(contract).expect("updated contract hash");
+    substantive.vir_hash = vir_hash(&substantive).expect("updated VIR hash");
+    let error = generate_program_vcs(&substantive)
+        .expect_err("substantive use of a deferred field result must fail closed");
     assert_eq!(error.code(), "VC_PROGRAM_UNCLOSED_TERM");
 }
 

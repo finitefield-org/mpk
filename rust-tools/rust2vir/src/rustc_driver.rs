@@ -323,6 +323,7 @@ impl Callbacks for PinnedCallbacks<'_> {
                     def_id.expect("checked definition"),
                     &body,
                     function,
+                    &analysis.type_declarations,
                     &contract.value,
                     &self.loader,
                 ) {
@@ -339,6 +340,7 @@ impl Callbacks for PinnedCallbacks<'_> {
             self.lowering = match mir_lower::finish_module(
                 self.request,
                 lowered,
+                &analysis.type_declarations,
                 &analysis.constant_declarations,
             ) {
                 Ok(lowering) => Some(lowering),

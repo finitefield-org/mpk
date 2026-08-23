@@ -1,11 +1,12 @@
 use super::const_lower::{self, HirConstant};
 use super::hir_check::HirFunction;
 use super::mir_aggregate::{
-    array_operands, validate_array_aggregate_pattern, ArrayAggregatePatternVector,
+    array_operands, struct_aggregate, validate_array_aggregate_pattern,
+    validate_struct_aggregate_pattern, ArrayAggregatePatternVector, StructAggregatePatternVector,
 };
 use super::mir_arithmetic::{ArithmeticOperation, ArithmeticPlan, DivRemOperation, ShiftOperation};
-use super::mir_projection::ProjectionPlan;
-use super::type_lower::{contract_type, vir_type};
+use super::mir_projection::{direct_field_projection, FieldProjection, ProjectionPlan};
+use super::type_lower::{contract_type, struct_declarations, vir_type, HirStructDecl};
 use rust2vir_internal::contract::ContractType;
 use rust2vir_internal::driver_protocol::DriverRequest;
 use rust2vir_internal::file_loader::{SnapshotFileLoader, SourceRangeError};
@@ -193,6 +194,7 @@ enum LocalKind {
 pub(super) fn finish_module(
     request: &DriverRequest,
     mut lowered: Vec<LoweredFunction>,
+    structs: &[HirStructDecl],
     constants: &[HirConstant],
 ) -> Result<MirLowering, MirError> {
     let mut block_total = 0_usize;
@@ -242,6 +244,7 @@ pub(super) fn finish_module(
     let functions_json = lowered.iter().map(|item| item.value.clone()).collect();
     let const_decls = const_lower::declarations(constants)
         .map_err(|_| MirError::new(MirCode::Rvalue, request.selection().2))?;
+    let type_decls = struct_declarations(structs);
     let mut vir = JsonValue::Object(BTreeMap::from([
         ("schema".to_owned(), string("mpk.vir.v0")),
         ("source_language".to_owned(), string("rust")),
@@ -252,7 +255,7 @@ pub(super) fn finish_module(
             JsonValue::Array(vec![JsonValue::Object(BTreeMap::from([
                 ("id".to_owned(), string(unit_id)),
                 ("name".to_owned(), string(request.selection().0)),
-                ("type_decls".to_owned(), JsonValue::Array(Vec::new())),
+                ("type_decls".to_owned(), JsonValue::Array(type_decls)),
                 ("const_decls".to_owned(), JsonValue::Array(const_decls)),
                 ("functions".to_owned(), JsonValue::Array(functions_json)),
             ]))]),
@@ -299,6 +302,7 @@ pub(super) fn lower_function<'tcx>(
     def_id: LocalDefId,
     body: &Body<'tcx>,
     function: &HirFunction,
+    structs: &[HirStructDecl],
     contract: &JsonValue,
     loader: &SnapshotFileLoader,
 ) -> Result<LoweredFunction, MirError> {
@@ -308,15 +312,15 @@ pub(super) fn lower_function<'tcx>(
         || function.local_names.len() != function.local_spans.len()
         || function.parameter_types.len() > VIR_PARAMETERS_MAX
         || function.local_types.len() > VIR_LOCALS_MAX
-        || !is_array_index_value_type(&function.result_type)
+        || !is_struct_value_type(&function.result_type)
         || function
             .parameter_types
             .iter()
-            .any(|ty| !is_array_index_value_type(ty))
+            .any(|ty| !is_struct_value_type(ty))
         || function
             .local_types
             .iter()
-            .any(|ty| !is_array_index_value_type(ty))
+            .any(|ty| !is_struct_value_type(ty))
     {
         return Err(MirError::new(MirCode::Rvalue, function_id));
     }
@@ -431,6 +435,7 @@ pub(super) fn lower_function<'tcx>(
                         &arithmetic,
                         &projection,
                         function,
+                        structs,
                         &local_kinds,
                         &function.local_spans,
                         &mut initialized_user_locals,
@@ -630,6 +635,13 @@ pub(super) fn lower_function<'tcx>(
     }
     if !function.local_types.is_empty() || instructions_contain_copy(&blocks) {
         features.push(string("mutable_local"));
+    }
+    if is_struct_type(&function.result_type)
+        || function.parameter_types.iter().any(is_struct_type)
+        || function.local_types.iter().any(is_struct_type)
+        || blocks_contain_instruction_kind(&blocks, &["Field", "MakeStruct"])
+    {
+        features.push(string("struct"));
     }
     let name = function_id
         .rsplit("::")
@@ -1269,6 +1281,16 @@ fn validate_rvalue<'tcx>(
     reads: &mut Vec<Local>,
 ) -> Result<(), MirError> {
     match rvalue {
+        Rvalue::Use(Operand::Copy(place)) if !place.projection.is_empty() => {
+            let field = direct_field_projection(tcx, def_id, body, place)
+                .map_err(|code| MirError::new(code, function_id))?
+                .ok_or_else(|| MirError::new(MirCode::Projection, function_id))?;
+            if field.base.index() >= local_kinds.len() {
+                return Err(MirError::new(MirCode::Place, function_id));
+            }
+            reads.push(field.base);
+            Ok(())
+        }
         Rvalue::Use(operand) => validate_operand(
             tcx,
             def_id,
@@ -1353,11 +1375,29 @@ fn validate_rvalue<'tcx>(
             Ok(())
         }
         Rvalue::Aggregate(..) => {
-            let operands = array_operands(rvalue)
-                .ok_or_else(|| MirError::new(MirCode::Rvalue, function_id))?;
-            if operands.len() > 256 {
+            let (operands, maximum) = if let Some(operands) = array_operands(rvalue) {
+                (operands, 256)
+            } else if let Some(aggregate) = struct_aggregate(rvalue) {
+                let adt = tcx.adt_def(aggregate.def_id);
+                let mut pattern = StructAggregatePatternVector::pinned();
+                pattern.definition_is_local_named_struct =
+                    aggregate.def_id.is_local() && adt.is_struct();
+                pattern.variant_is_only_variant = adt.is_struct() && aggregate.variant.index() == 0;
+                pattern.arguments_are_empty = aggregate.arguments.is_empty();
+                pattern.active_union_field_absent = aggregate.active_field.is_none();
+                pattern.arity_matches = adt.is_struct()
+                    && aggregate.operands.len() == adt.non_enum_variant().fields.len();
+                pattern.within_limit = aggregate.operands.len() <= 64;
+                validate_struct_aggregate_pattern(&pattern)
+                    .map_err(|code| MirError::new(code, function_id))?;
+                (aggregate.operands, 64)
+            } else {
+                return Err(MirError::new(MirCode::Rvalue, function_id));
+            };
+            if operands.len() > maximum {
                 return Err(MirError::new(MirCode::IrLimit, function_id));
             }
+            let array = array_operands(rvalue).is_some();
             let mut element_type = None;
             for operand in operands {
                 validate_operand(
@@ -1371,9 +1411,10 @@ fn validate_rvalue<'tcx>(
                     reads,
                 )?;
                 let ty = operand_type(tcx, def_id, body, operand, arithmetic, function_id)?;
-                if element_type
-                    .as_ref()
-                    .is_some_and(|expected| expected != &ty)
+                if array
+                    && element_type
+                        .as_ref()
+                        .is_some_and(|expected| expected != &ty)
                 {
                     return Err(MirError::new(MirCode::Rvalue, function_id));
                 }
@@ -1633,11 +1674,12 @@ fn collect_operand_locals(rvalue: &Rvalue<'_>, reads: &mut Vec<Local>) {
             }
         }
         Rvalue::Aggregate(..) => {
-            if let Some(operands) = array_operands(rvalue) {
-                for operand in operands {
-                    if let Some(local) = operand_place(operand) {
-                        reads.push(local);
-                    }
+            let Rvalue::Aggregate(_, operands) = rvalue else {
+                unreachable!("matched aggregate")
+            };
+            for operand in operands {
+                if let Some(local) = operand_place(operand) {
+                    reads.push(local);
                 }
             }
         }
@@ -1694,6 +1736,7 @@ fn lower_assignment<'tcx>(
     arithmetic: &ArithmeticPlan,
     projection: &ProjectionPlan,
     function: &HirFunction,
+    structs: &[HirStructDecl],
     local_kinds: &[LocalKind],
     local_binding_spans: &[Span],
     initialized_user_locals: &mut BTreeSet<usize>,
@@ -1718,7 +1761,42 @@ fn lower_assignment<'tcx>(
     if is_erasable_unit_assignment(body, destination, rvalue, local_kinds) {
         return Ok(());
     }
-    let mut value = if let Some(index) = projection.index(mir_block, statement_index) {
+    let direct_field = match rvalue {
+        Rvalue::Use(Operand::Copy(place)) => direct_field_projection(tcx, def_id, body, place)
+            .map_err(|code| MirError::new(code, function_id))?,
+        _ => None,
+    };
+    let mut value = if let Some(field) = direct_field {
+        let base = resolve_local(
+            tcx,
+            def_id,
+            body,
+            field.base,
+            local_kinds,
+            environment,
+            arithmetic,
+            function_id,
+        )?;
+        if base.ty != field.base_ty {
+            return Err(MirError::new(MirCode::Projection, function_id));
+        }
+        let field_span = enclosing_span(statement_span, &function.field_spans)
+            .ok_or_else(|| MirError::new(MirCode::SourceMapRange, function_id))?;
+        emit_field(
+            &field,
+            base,
+            field_span,
+            tcx,
+            loader,
+            ids,
+            next_instruction,
+            block_index,
+            unit_id,
+            function_id,
+            instructions,
+            source_entries,
+        )?
+    } else if let Some(index) = projection.index(mir_block, statement_index) {
         let base = resolve_local(
             tcx,
             def_id,
@@ -2109,62 +2187,84 @@ fn lower_assignment<'tcx>(
                 )?
             }
             Rvalue::Aggregate(..) => {
-                let operands = array_operands(rvalue)
-                    .ok_or_else(|| MirError::new(MirCode::Rvalue, function_id))?;
                 let destination_type = mir_contract_type(
                     tcx,
                     def_id,
                     body.local_decls[destination.local].ty,
                     function_id,
                 )?;
-                let ContractType::Array { element, length } = &destination_type else {
-                    return Err(MirError::new(MirCode::Rvalue, function_id));
-                };
-                let mut pattern = ArrayAggregatePatternVector::pinned();
-                pattern.within_limit = operands.len() <= 256;
-                pattern.arity_matches = u64::try_from(operands.len()).ok() == Some(*length);
-                let mut elements = Vec::with_capacity(operands.len());
-                for operand in operands {
-                    let value = lower_operand(
+                if let Some(operands) = array_operands(rvalue) {
+                    let ContractType::Array { element, length } = &destination_type else {
+                        return Err(MirError::new(MirCode::Rvalue, function_id));
+                    };
+                    let mut pattern = ArrayAggregatePatternVector::pinned();
+                    pattern.within_limit = operands.len() <= 256;
+                    pattern.arity_matches = u64::try_from(operands.len()).ok() == Some(*length);
+                    let mut elements = Vec::with_capacity(operands.len());
+                    for operand in operands {
+                        let value = lower_operand(
+                            tcx,
+                            def_id,
+                            body,
+                            operand,
+                            local_kinds,
+                            environment,
+                            arithmetic,
+                            function_id,
+                        )?;
+                        if &value.ty != element.as_ref() {
+                            pattern.element_types_match = false;
+                        }
+                        elements.push(value.json);
+                    }
+                    validate_array_aggregate_pattern(&pattern)
+                        .map_err(|code| MirError::new(code, function_id))?;
+                    let mut instruction = instruction_base(
+                        ids,
+                        next_instruction,
+                        "MakeArray",
+                        &destination_type,
+                        function_id,
+                    )?;
+                    instruction.insert("elements".to_owned(), JsonValue::Array(elements));
+                    let array_span = enclosing_span(statement_span, &function.array_spans)
+                        .ok_or_else(|| MirError::new(MirCode::SourceMapRange, function_id))?;
+                    emitted_value(
+                        instruction,
+                        destination_type,
+                        array_span,
+                        tcx,
+                        loader,
+                        block_index,
+                        unit_id,
+                        function_id,
+                        instructions,
+                        source_entries,
+                        *next_instruction - 1,
+                    )?
+                } else {
+                    lower_struct_aggregate(
                         tcx,
                         def_id,
                         body,
-                        operand,
+                        rvalue,
+                        destination_type,
+                        statement_span,
+                        function,
+                        structs,
                         local_kinds,
                         environment,
                         arithmetic,
+                        loader,
+                        ids,
+                        next_instruction,
+                        block_index,
+                        unit_id,
                         function_id,
-                    )?;
-                    if &value.ty != element.as_ref() {
-                        pattern.element_types_match = false;
-                    }
-                    elements.push(value.json);
+                        instructions,
+                        source_entries,
+                    )?
                 }
-                validate_array_aggregate_pattern(&pattern)
-                    .map_err(|code| MirError::new(code, function_id))?;
-                let mut instruction = instruction_base(
-                    ids,
-                    next_instruction,
-                    "MakeArray",
-                    &destination_type,
-                    function_id,
-                )?;
-                instruction.insert("elements".to_owned(), JsonValue::Array(elements));
-                let array_span = enclosing_span(statement_span, &function.array_spans)
-                    .ok_or_else(|| MirError::new(MirCode::SourceMapRange, function_id))?;
-                emitted_value(
-                    instruction,
-                    destination_type,
-                    array_span,
-                    tcx,
-                    loader,
-                    block_index,
-                    unit_id,
-                    function_id,
-                    instructions,
-                    source_entries,
-                    *next_instruction - 1,
-                )?
             }
             _ => return Err(MirError::new(MirCode::Rvalue, function_id)),
         }
@@ -2218,6 +2318,134 @@ fn lower_assignment<'tcx>(
         LocalKind::Argument(_) => return Err(MirError::new(MirCode::Place, function_id)),
     }
     Ok(())
+}
+
+#[allow(clippy::too_many_arguments)]
+fn lower_struct_aggregate<'tcx>(
+    tcx: TyCtxt<'tcx>,
+    def_id: LocalDefId,
+    body: &Body<'tcx>,
+    rvalue: &Rvalue<'tcx>,
+    destination_type: ContractType,
+    statement_span: Span,
+    function: &HirFunction,
+    structs: &[HirStructDecl],
+    local_kinds: &[LocalKind],
+    environment: &BTreeMap<usize, Value>,
+    arithmetic: &ArithmeticPlan,
+    loader: &SnapshotFileLoader,
+    ids: &mut DenseIds,
+    next_instruction: &mut usize,
+    block_index: usize,
+    unit_id: &str,
+    function_id: &str,
+    instructions: &mut Vec<JsonValue>,
+    source_entries: &mut Vec<SourceMapEntry>,
+) -> Result<Value, MirError> {
+    let aggregate =
+        struct_aggregate(rvalue).ok_or_else(|| MirError::new(MirCode::Rvalue, function_id))?;
+    let adt = tcx.adt_def(aggregate.def_id);
+    let declaration = aggregate.def_id.as_local().and_then(|aggregate_id| {
+        structs
+            .iter()
+            .find(|declaration| declaration.def_id == aggregate_id)
+    });
+    let mut pattern = StructAggregatePatternVector::pinned();
+    pattern.definition_is_local_named_struct =
+        aggregate.def_id.is_local() && adt.is_struct() && declaration.is_some();
+    pattern.variant_is_only_variant = adt.is_struct() && aggregate.variant.index() == 0;
+    pattern.arguments_are_empty = aggregate.arguments.is_empty();
+    pattern.active_union_field_absent = aggregate.active_field.is_none();
+    let Some(declaration) = declaration else {
+        validate_struct_aggregate_pattern(&pattern)
+            .map_err(|code| MirError::new(code, function_id))?;
+        unreachable!("missing struct declaration rejected")
+    };
+    pattern.destination_matches = matches!(
+        &destination_type,
+        ContractType::Struct { id } if id == &declaration.id
+    );
+    pattern.arity_matches = aggregate.operands.len() == declaration.fields.len();
+    pattern.within_limit = aggregate.operands.len() <= 64;
+
+    let mut fields = Vec::with_capacity(aggregate.operands.len());
+    for (operand, field) in aggregate.operands.iter().zip(&declaration.fields) {
+        let value = lower_operand(
+            tcx,
+            def_id,
+            body,
+            operand,
+            local_kinds,
+            environment,
+            arithmetic,
+            function_id,
+        )?;
+        if value.ty != field.ty {
+            pattern.field_types_match = false;
+        }
+        fields.push(JsonValue::Object(BTreeMap::from([
+            ("name".to_owned(), string(&field.name)),
+            ("value".to_owned(), value.json),
+        ])));
+    }
+    validate_struct_aggregate_pattern(&pattern).map_err(|code| MirError::new(code, function_id))?;
+    let mut instruction = instruction_base(
+        ids,
+        next_instruction,
+        "MakeStruct",
+        &destination_type,
+        function_id,
+    )?;
+    instruction.insert("fields".to_owned(), JsonValue::Array(fields));
+    let struct_span = enclosing_span(statement_span, &function.struct_spans)
+        .ok_or_else(|| MirError::new(MirCode::SourceMapRange, function_id))?;
+    emitted_value(
+        instruction,
+        destination_type,
+        struct_span,
+        tcx,
+        loader,
+        block_index,
+        unit_id,
+        function_id,
+        instructions,
+        source_entries,
+        *next_instruction - 1,
+    )
+}
+
+#[allow(clippy::too_many_arguments)]
+fn emit_field(
+    field: &FieldProjection,
+    base: Value,
+    span: Span,
+    tcx: TyCtxt<'_>,
+    loader: &SnapshotFileLoader,
+    ids: &mut DenseIds,
+    next_instruction: &mut usize,
+    block_index: usize,
+    unit_id: &str,
+    function_id: &str,
+    instructions: &mut Vec<JsonValue>,
+    source_entries: &mut Vec<SourceMapEntry>,
+) -> Result<Value, MirError> {
+    let mut instruction =
+        instruction_base(ids, next_instruction, "Field", &field.field_ty, function_id)?;
+    instruction.insert("base".to_owned(), base.json);
+    instruction.insert("field".to_owned(), string(&field.field));
+    emitted_value(
+        instruction,
+        field.field_ty.clone(),
+        span,
+        tcx,
+        loader,
+        block_index,
+        unit_id,
+        function_id,
+        instructions,
+        source_entries,
+        *next_instruction - 1,
+    )
 }
 
 #[allow(clippy::too_many_arguments)]
@@ -2800,16 +3028,25 @@ fn is_scalar(ty: &ContractType) -> bool {
     matches!(ty, ContractType::Bool | ContractType::BitVector { .. })
 }
 
-fn is_array_index_value_type(ty: &ContractType) -> bool {
+fn is_struct_value_type(ty: &ContractType) -> bool {
     is_scalar(ty)
         || matches!(
             ty,
-            ContractType::Array { element, .. } if is_array_index_value_type(element)
+            ContractType::Array { element, .. } if is_struct_value_type(element)
         )
+        || matches!(ty, ContractType::Struct { .. })
 }
 
 fn is_array_type(ty: &ContractType) -> bool {
     matches!(ty, ContractType::Array { .. })
+}
+
+fn is_struct_type(ty: &ContractType) -> bool {
+    match ty {
+        ContractType::Array { element, .. } => is_struct_type(element),
+        ContractType::Struct { .. } => true,
+        ContractType::Bool | ContractType::BitVector { .. } => false,
+    }
 }
 
 fn source_origin(
@@ -2857,6 +3094,10 @@ fn source_origin(
 }
 
 fn instructions_contain_copy(blocks: &[JsonValue]) -> bool {
+    blocks_contain_instruction_kind(blocks, &["Copy"])
+}
+
+fn blocks_contain_instruction_kind(blocks: &[JsonValue], kinds: &[&str]) -> bool {
     blocks.iter().any(|block| {
         block
             .as_object()
@@ -2868,7 +3109,7 @@ fn instructions_contain_copy(blocks: &[JsonValue]) -> bool {
                         .as_object()
                         .and_then(|instruction| instruction.get("kind"))
                         .and_then(JsonValue::as_str)
-                        == Some("Copy")
+                        .is_some_and(|kind| kinds.contains(&kind))
                 })
             })
     })

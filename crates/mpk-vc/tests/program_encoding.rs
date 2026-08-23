@@ -35,6 +35,8 @@ use serde_json::Value;
 
 const RUST_ARRAYS_VIR: &[u8] =
     include_bytes!("../../../rust-tools/rust2vir/testdata/arrays/expected-vir.json");
+const RUST_STRUCTS_VIR: &[u8] =
+    include_bytes!("../../../rust-tools/rust2vir/testdata/structs/expected-vir.json");
 
 fn go_parameters(pointer_width: PointerWidth) -> SemanticParameters {
     SemanticParameters::GoFixed(GoFixedParameters {
@@ -190,6 +192,49 @@ fn rust_constant_array_golden_imports_and_generates_stable_vcs() {
         assert_eq!(first, second);
         assert_eq!(first.functions.len(), 1);
         assert_eq!(first.functions[0].members.len(), 1);
+    }
+}
+
+#[test]
+fn rust_nominal_struct_golden_imports_and_generates_stable_contract_groups() {
+    let fixtures: Value = serde_json::from_slice(RUST_STRUCTS_VIR).expect("struct VIR JSON");
+    let fixtures = fixtures
+        .as_array()
+        .expect("dual-target struct VIR fixtures");
+    assert_eq!(fixtures.len(), 2);
+    for fixture in fixtures {
+        let module = import_vir_json(&serde_json::to_vec(fixture).unwrap())
+            .expect("nominal struct VIR passes independent validation");
+        assert_eq!(
+            module.units[0].type_decls,
+            vec![pair_like_point_declaration()]
+        );
+        let first = generate_program_vcs(&module).expect("struct construction generates VCs");
+        let second = generate_program_vcs(&module).expect("repeat struct construction VCs");
+        assert_eq!(first, second);
+        assert_eq!(first.functions.len(), 1);
+        assert_eq!(first.functions[0].members.len(), 1);
+        assert_eq!(
+            first.functions[0].members[0].kind,
+            mpk_vc::ProgramVcMemberKind::Postcondition
+        );
+        assert!(first.functions[0].members[0]
+            .group_id
+            .ends_with(".contract"));
+    }
+}
+
+fn pair_like_point_declaration() -> VirStructDecl {
+    VirStructDecl {
+        id: "vector::Point".to_owned(),
+        name: "Point".to_owned(),
+        fields: ["x", "y"]
+            .into_iter()
+            .map(|name| VirStructField {
+                name: name.to_owned(),
+                r#type: bv(BitVectorWidth::Bits8, false),
+            })
+            .collect(),
     }
 }
 

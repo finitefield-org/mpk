@@ -167,14 +167,15 @@ impl ProgramWpGenerator {
             .chain(function.locals.iter())
             .map(|binding| binding.id.clone())
             .collect::<BTreeSet<_>>();
-        let mut deferred_array_values = function
+        let mut deferred_aggregate_values = function
             .blocks
             .iter()
             .flat_map(|block| &block.instructions)
             .filter_map(|instruction| match instruction {
-                VirInstruction::Index { id, .. } | VirInstruction::MakeArray { id, .. } => {
-                    Some(id.clone())
-                }
+                VirInstruction::Field { id, .. }
+                | VirInstruction::Index { id, .. }
+                | VirInstruction::MakeArray { id, .. }
+                | VirInstruction::MakeStruct { id, .. } => Some(id.clone()),
                 _ => None,
             })
             .collect::<BTreeSet<_>>();
@@ -361,12 +362,12 @@ impl ProgramWpGenerator {
                         )?);
                     }
 
-                    // Array constructors and projections are deliberately
-                    // deferred until the checked array-value foundation is
-                    // integrated. Safety is independently encoded above; a
+                    // Aggregate constructors and projections are deliberately
+                    // deferred until the checked aggregate-value foundation
+                    // is integrated. Safety is independently encoded above; a
                     // substantive semantic use of an omitted value still
                     // fails as an unclosed VIR value. Copy only propagates the
-                    // deferred identity needed to reach an Index operation.
+                    // deferred identity needed to reach a later projection.
                     if let VirInstruction::Copy {
                         id,
                         target,
@@ -374,15 +375,18 @@ impl ProgramWpGenerator {
                         ..
                     } = instruction
                     {
-                        if deferred_array_values.contains(&reference.var) {
-                            deferred_array_values.insert(id.clone());
-                            deferred_array_values.insert(target.clone());
+                        if deferred_aggregate_values.contains(&reference.var) {
+                            deferred_aggregate_values.insert(id.clone());
+                            deferred_aggregate_values.insert(target.clone());
                             continue;
                         }
                     }
                     if matches!(
                         instruction,
-                        VirInstruction::Index { .. } | VirInstruction::MakeArray { .. }
+                        VirInstruction::Field { .. }
+                            | VirInstruction::Index { .. }
+                            | VirInstruction::MakeArray { .. }
+                            | VirInstruction::MakeStruct { .. }
                     ) {
                         continue;
                     }
@@ -443,7 +447,7 @@ impl ProgramWpGenerator {
                                     results.insert(result_index, value);
                                 }
                                 Err(ProgramWpError::UnclosedValue { name })
-                                    if deferred_array_values.contains(&name)
+                                    if deferred_aggregate_values.contains(&name)
                                         && !function.contracts.ensures.iter().any(|ensure| {
                                             contract_result_is_required(ensure, result_index)
                                         }) => {}

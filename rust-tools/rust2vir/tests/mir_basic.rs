@@ -312,13 +312,15 @@ fn reachable_call_rejects_as_the_later_call_family() {
 
 #[test]
 fn lowering_failure_identifies_the_actual_closure_member() {
-    let source = b"pub fn helper(x: i8, y: i8) -> i8 { x / y }\npub fn selected(x: i8, y: i8) -> i8 { if false { helper(x, y) } else { x } }\n";
+    let source = b"pub fn leaf(x: u8) -> u8 { x }\npub fn helper(x: u8) -> u8 { leaf(x) }\npub fn selected(x: u8) -> u8 { if false { helper(x) } else { x } }\n";
+    let leaf_contract = tautology_contract("vector::leaf");
     let helper_contract = tautology_contract("vector::helper");
     let selected_contract = tautology_contract("vector::selected");
     let error = rustc_harness::lower(
         source,
         "vector::selected",
         &[
+            ("contracts/leaf.json", &leaf_contract),
             ("contracts/helper.json", &helper_contract),
             ("contracts/selected.json", &selected_contract),
         ],
@@ -328,35 +330,7 @@ fn lowering_failure_identifies_the_actual_closure_member() {
         panic!("expected MIR rejection, got {error:?}");
     };
     assert_eq!(error.function_id, "vector::helper");
-    assert_eq!(error.code.as_str(), "RUST_MIR_ASSERTION");
-}
-
-#[test]
-fn later_mir_families_reject_without_placeholder_ir() {
-    let cases: &[(&[u8], &str)] = &[
-        (b"pub fn unsupported(x: i8, y: i8) -> i8 { x / y }\n", "RUST_MIR_ASSERTION"),
-        (
-            b"pub struct Pair { pub left: u8, pub right: u8 }\npub fn unsupported(x: u8) -> u8 { let pair = Pair { left: x, right: x }; pair.left }\n",
-            "RUST_MIR_RVALUE",
-        ),
-        (
-            b"pub const SEVEN: u8 = 7;\npub fn unsupported() -> u8 { SEVEN }\n",
-            "RUST_MIR_OPERAND",
-        ),
-    ];
-    for (source, expected) in cases {
-        let contract = tautology_contract("vector::unsupported");
-        let error = rustc_harness::lower(
-            source,
-            "vector::unsupported",
-            &[("contracts/unsupported.json", &contract)],
-        )
-        .expect_err("unsupported MIR must reject");
-        let RustcDriverError::Mir(error) = error else {
-            panic!("expected MIR rejection, got {error:?}");
-        };
-        assert_eq!(error.code.as_str(), *expected);
-    }
+    assert_eq!(error.code.as_str(), "RUST_MIR_CALL");
 }
 
 fn tautology_contract(function: &str) -> Vec<u8> {
