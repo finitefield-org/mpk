@@ -8,6 +8,7 @@ pub mod cargo_metadata;
 pub mod cli;
 pub mod contract;
 pub mod contract_typecheck;
+mod diagnostics;
 pub mod driver_process;
 pub mod driver_protocol;
 pub mod emit;

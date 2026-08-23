@@ -74,9 +74,22 @@ fn main() -> ExitCode {
             }
             delegate(&arguments)
         }
+        WrapperInvocation::PrimaryArgumentMismatch => publish_primary_diagnostic(
+            &request,
+            DriverStatus::FrontendError,
+            "typecheck",
+            "RUST_TOOLCHAIN_ARGUMENT",
+            "selected rustc invocation differs from the pinned argument profile",
+        ),
         WrapperInvocation::Primary => {
             if compiler_identity(&arguments[0]).is_err() {
-                return fail("RUST_TOOLCHAIN_COMMIT");
+                return publish_primary_diagnostic(
+                    &request,
+                    DriverStatus::FrontendError,
+                    "lowering",
+                    "RUST_TOOLCHAIN_COMMIT",
+                    "selected rustc commit differs from the pinned toolchain",
+                );
             }
             let crate_root = arguments
                 .get(4)
@@ -125,15 +138,15 @@ fn publish_rustc_failure(
             error.code.message(),
         ),
         RustcDriverError::Mir(error) => {
-            let status = if error.is_frontend_error() {
-                DriverStatus::FrontendError
+            let (status, phase) = if error.is_frontend_error() {
+                (DriverStatus::FrontendError, "emission")
             } else {
-                DriverStatus::Rejected
+                (DriverStatus::Rejected, "lowering")
             };
             publish_primary_diagnostic_for_function(
                 request,
                 status,
-                "lowering",
+                phase,
                 error.code.as_str(),
                 error.code.message(),
                 &error.function_id,

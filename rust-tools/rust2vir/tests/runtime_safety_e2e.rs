@@ -159,28 +159,28 @@ fn each_compiler_assertion_family_rejects_a_consumption_mutation() {
     arithmetic.assertion_uses = 0;
     assert_eq!(
         validate_pattern_vector(&arithmetic).unwrap_err().as_str(),
-        "RUST_MIR_ASSERTION"
+        "RUST_MIR_CHECKED_PATTERN"
     );
 
     let mut div_rem = DivRemPatternVector::pinned(DivRemOperation::Div, true);
     div_rem.assertion_uses = 0;
     assert_eq!(
         validate_div_rem_pattern(&div_rem).unwrap_err().as_str(),
-        "RUST_MIR_ASSERTION"
+        "RUST_MIR_CHECKED_PATTERN"
     );
 
     let mut shift = ShiftPatternVector::pinned(ShiftOperation::Shl, true);
     shift.assertion_uses = 0;
     assert_eq!(
         validate_shift_pattern(&shift).unwrap_err().as_str(),
-        "RUST_MIR_ASSERTION"
+        "RUST_MIR_CHECKED_PATTERN"
     );
 
     let mut index = IndexPatternVector::pinned();
     index.assertion_uses = 0;
     assert_eq!(
         validate_index_pattern(&index).unwrap_err().as_str(),
-        "RUST_MIR_ASSERTION"
+        "RUST_MIR_CHECKED_PATTERN"
     );
 }
 

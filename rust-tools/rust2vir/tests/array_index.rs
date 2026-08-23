@@ -150,7 +150,7 @@ fn every_pinned_index_pattern_component_is_fail_closed() {
             validate_index_pattern(&changed)
                 .expect_err("mutated bounds/index pattern must reject")
                 .as_str(),
-            "RUST_MIR_ASSERTION"
+            "RUST_MIR_CHECKED_PATTERN"
         );
     }
 }

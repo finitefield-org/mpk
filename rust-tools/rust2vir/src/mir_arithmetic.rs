@@ -146,7 +146,7 @@ pub(crate) fn validate_pattern_vector(vector: &PatternVector) -> Result<(), MirC
         || vector.flag_uses != 1
         || vector.result_uses != 1
     {
-        Err(MirCode::Assertion)
+        Err(MirCode::CheckedPattern)
     } else {
         Ok(())
     }
@@ -215,7 +215,7 @@ pub(crate) fn validate_div_rem_pattern(vector: &DivRemPatternVector) -> Result<(
         || vector.assertion_uses != expected_assertions
         || !vector.guard_uses_match
     {
-        Err(MirCode::Assertion)
+        Err(MirCode::CheckedPattern)
     } else {
         Ok(())
     }
@@ -283,7 +283,7 @@ pub(crate) fn validate_shift_pattern(vector: &ShiftPatternVector) -> Result<(), 
         || vector.assertion_uses != 1
         || !vector.guard_uses_match
     {
-        Err(MirCode::Assertion)
+        Err(MirCode::CheckedPattern)
     } else {
         Ok(())
     }

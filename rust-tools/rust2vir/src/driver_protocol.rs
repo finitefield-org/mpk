@@ -1,3 +1,4 @@
+use crate::diagnostics::{valid_private_diagnostic, PrivateDiagnosticStatus};
 use crate::json::{self, JsonValue};
 use crate::sha256::{hex, Sha256};
 use crate::source_capture::{CapturedInput, InputKind};
@@ -715,7 +716,8 @@ pub fn encode_non_success(
     if status == DriverStatus::Lowered || diagnostics.is_empty() {
         return Err(DriverProtocolCode::Shape.into());
     }
-    let diagnostics = normalize_diagnostics(diagnostics)?;
+    let diagnostic_status = private_diagnostic_status(status).ok_or(DriverProtocolCode::Shape)?;
+    let diagnostics = normalize_diagnostics(diagnostics, diagnostic_status, phase)?;
     let mut root = common_output_root(request)?;
     root.insert(
         "status".to_owned(),
@@ -815,6 +817,8 @@ fn diagnostics_json(diagnostics: &[PrivateDiagnostic]) -> JsonValue {
 
 fn normalize_diagnostics(
     diagnostics: &[PrivateDiagnostic],
+    status: PrivateDiagnosticStatus,
+    phase: &str,
 ) -> Result<Vec<PrivateDiagnostic>, DriverProtocolError> {
     let mut normalized = diagnostics
         .iter()
@@ -822,6 +826,7 @@ fn normalize_diagnostics(
             if diagnostic.message.is_empty()
                 || diagnostic.message.chars().any(char::is_control)
                 || diagnostic.code == "RUST_LIMIT_DIAGNOSTICS_TRUNCATED"
+                || !valid_private_diagnostic(&diagnostic.code, status, phase)
             {
                 return Err(DriverProtocolCode::Shape.into());
             }
@@ -942,7 +947,7 @@ fn parse_output_transport_inner(
         .get("diagnostics")
         .and_then(JsonValue::as_array)
         .ok_or(DriverProtocolCode::Shape)?;
-    validate_diagnostics(diagnostics, request)?;
+    validate_diagnostics(diagnostics, request, status, &phase)?;
     if status != DriverStatus::Lowered && diagnostics.is_empty() {
         return Err(DriverProtocolCode::Shape.into());
     }
@@ -1329,17 +1334,11 @@ fn validate_output_common(
 fn validate_status_phase(status: DriverStatus, phase: &str) -> Result<(), DriverProtocolError> {
     let valid = match status {
         DriverStatus::Lowered => phase == "lowering",
-        DriverStatus::Rejected => matches!(
-            phase,
-            "capture" | "source" | "metadata" | "subset" | "lowering"
-        ),
-        DriverStatus::SourceError => {
-            matches!(phase, "capture" | "source" | "metadata" | "typecheck")
+        DriverStatus::Rejected => matches!(phase, "source" | "subset" | "lowering"),
+        DriverStatus::SourceError => matches!(phase, "source" | "typecheck"),
+        DriverStatus::FrontendError => {
+            matches!(phase, "source" | "typecheck" | "lowering" | "emission")
         }
-        DriverStatus::FrontendError => matches!(
-            phase,
-            "capture" | "source" | "metadata" | "typecheck" | "subset" | "lowering"
-        ),
     };
     if valid {
         Ok(())
@@ -1351,7 +1350,10 @@ fn validate_status_phase(status: DriverStatus, phase: &str) -> Result<(), Driver
 fn validate_diagnostics(
     diagnostics: &[JsonValue],
     request: &DriverRequest,
+    status: DriverStatus,
+    phase: &str,
 ) -> Result<(), DriverProtocolError> {
+    let diagnostic_status = private_diagnostic_status(status);
     if diagnostics.len() > DIAGNOSTIC_COUNT_MAX {
         return Err(DriverProtocolCode::Shape.into());
     }
@@ -1390,6 +1392,9 @@ fn validate_diagnostics(
             return Err(DriverProtocolCode::Shape.into());
         }
         let marker = code == "RUST_LIMIT_DIAGNOSTICS_TRUNCATED";
+        if diagnostic_status.is_none_or(|status| !valid_private_diagnostic(code, status, phase)) {
+            return Err(DriverProtocolCode::Shape.into());
+        }
         if marker
             && (index + 1 != diagnostics.len()
                 || issue.contains_key("function_id")
@@ -1401,7 +1406,7 @@ fn validate_diagnostics(
         if let Some(function) = issue.get("function_id") {
             if function
                 .as_str()
-                .is_none_or(|function| !function.split("::").all(identifier))
+                .is_none_or(|function| !same_crate_function_id(function, request.selection().1))
             {
                 return Err(DriverProtocolCode::Shape.into());
             }
@@ -1438,6 +1443,26 @@ fn validate_diagnostics(
         }
     }
     Ok(())
+}
+
+fn private_diagnostic_status(status: DriverStatus) -> Option<PrivateDiagnosticStatus> {
+    match status {
+        DriverStatus::Lowered => None,
+        DriverStatus::Rejected => Some(PrivateDiagnosticStatus::Rejected),
+        DriverStatus::SourceError => Some(PrivateDiagnosticStatus::SourceError),
+        DriverStatus::FrontendError => Some(PrivateDiagnosticStatus::FrontendError),
+    }
+}
+
+fn same_crate_function_id(function: &str, crate_name: &str) -> bool {
+    let mut segments = function.split("::");
+    if segments.next() != Some(crate_name) {
+        return false;
+    }
+    let Some(member) = segments.next() else {
+        return false;
+    };
+    identifier(member) && segments.all(identifier)
 }
 
 fn valid_truncation_message(message: &str) -> bool {

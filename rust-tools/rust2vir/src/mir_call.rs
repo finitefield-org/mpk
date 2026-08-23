@@ -71,11 +71,15 @@ pub(crate) fn validate_direct_call_pattern(
     if !vector.unwind_is_unreachable {
         return Err(MirCode::Cleanup);
     }
-    if vector == &DirectCallPatternVector::pinned() {
-        Ok(())
-    } else {
-        Err(MirCode::Call)
+    let mut structural = vector.clone();
+    structural.contract_hash_matches = true;
+    if structural != DirectCallPatternVector::pinned() {
+        return Err(MirCode::Call);
     }
+    vector
+        .contract_hash_matches
+        .then_some(())
+        .ok_or(MirCode::SemanticsType)
 }
 
 #[derive(Clone)]

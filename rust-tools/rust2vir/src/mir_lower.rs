@@ -53,9 +53,11 @@ pub enum MirCode {
     Projection,
     Terminator,
     Assertion,
+    CheckedPattern,
     Call,
     Move,
     Cleanup,
+    SemanticsType,
     BlockLimit,
     StatementLimit,
     IrLimit,
@@ -74,9 +76,11 @@ impl MirCode {
             Self::Projection => "RUST_MIR_PROJECTION",
             Self::Terminator => "RUST_MIR_TERMINATOR",
             Self::Assertion => "RUST_MIR_ASSERTION",
+            Self::CheckedPattern => "RUST_MIR_CHECKED_PATTERN",
             Self::Call => "RUST_MIR_CALL",
             Self::Move => "RUST_MIR_MOVE",
             Self::Cleanup => "RUST_MIR_CLEANUP",
+            Self::SemanticsType => "RUST_SEMANTICS_TYPE",
             Self::BlockLimit => "RUST_LIMIT_MIR_BLOCKS",
             Self::StatementLimit => "RUST_LIMIT_MIR_STATEMENTS",
             Self::IrLimit => "RUST_LIMIT_IR",
@@ -96,9 +100,15 @@ impl MirCode {
             Self::Assertion => {
                 "MIR assertion does not match a supported pinned checked-operation pattern"
             }
+            Self::CheckedPattern => {
+                "MIR checked operation does not match the pinned consumption pattern"
+            }
             Self::Call => "MIR call does not match the contracted direct-call pattern",
             Self::Move => "projected or dropping MIR move is not permitted",
             Self::Cleanup => "MIR cleanup, drop, or unwind flow is not permitted",
+            Self::SemanticsType => {
+                "lowered semantic type or contract binding does not match recomputation"
+            }
             Self::BlockLimit => "reachable MIR block count exceeds the deterministic limit",
             Self::StatementLimit => "reachable MIR statement count exceeds the deterministic limit",
             Self::IrLimit => "lowered VIR exceeds the deterministic structural limit",

@@ -153,7 +153,7 @@ pub(crate) fn validate_index_pattern(vector: &IndexPatternVector) -> Result<(), 
         || vector.index_uses != 3
         || vector.projection_uses != 1
     {
-        Err(MirCode::Assertion)
+        Err(MirCode::CheckedPattern)
     } else {
         Ok(())
     }

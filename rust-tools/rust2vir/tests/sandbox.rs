@@ -157,6 +157,7 @@ fn sandbox_unavailable_is_not_retried_with_a_second_response() {
         error.code,
         MetadataCode::Sandbox(SandboxError::SandboxUnavailable)
     );
+    assert_eq!(error.code.as_str(), "FRONTEND_SANDBOX_UNAVAILABLE");
     assert_eq!(*calls.lock().unwrap(), 1);
 }
 

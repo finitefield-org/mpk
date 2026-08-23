@@ -141,7 +141,7 @@ fn every_pinned_div_rem_pattern_component_is_fail_closed() {
                     validate_div_rem_pattern(&vector)
                         .expect_err("mutated pattern must reject")
                         .as_str(),
-                    "RUST_MIR_ASSERTION"
+                    "RUST_MIR_CHECKED_PATTERN"
                 );
             }
         }

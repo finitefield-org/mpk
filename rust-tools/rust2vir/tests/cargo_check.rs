@@ -1,9 +1,10 @@
 mod common;
 
 use common::{
-    failed_process_output, metadata_json, successful_check_stream, Fixture, RecordingExecutor,
+    failed_check_stream_with_codes, failed_process_output, metadata_json, successful_check_stream,
+    Fixture, RecordingExecutor,
 };
-use rust2vir_internal::cargo_check::{CargoCheckCode, CompilerMessageLevel};
+use rust2vir_internal::cargo_check::{CargoCheckCode, CompilerMessageLevel, RustSourceCode};
 use rust2vir_internal::cargo_metadata::MetadataPhase;
 use rust2vir_internal::driver_process::{publish_result, read_request};
 use rust2vir_internal::driver_protocol::{
@@ -51,6 +52,48 @@ impl SandboxExecutor for HandshakeExecutor {
     }
 }
 
+#[derive(Default)]
+struct PrimaryArgumentFailureExecutor;
+
+impl SandboxExecutor for PrimaryArgumentFailureExecutor {
+    fn execute(
+        &mut self,
+        context: &SandboxContext<'_>,
+        invocation: &CargoInvocation,
+    ) -> Result<ProcessOutput, SandboxError> {
+        if invocation.kind() == CargoInvocationKind::Metadata {
+            return Ok(ProcessOutput::success(metadata_json()));
+        }
+        let request =
+            parse_request_transport(&read_request(context.driver_request_host_path()).unwrap())
+                .unwrap();
+        let bytes = encode_non_success(
+            &request,
+            DriverStatus::FrontendError,
+            "typecheck",
+            &[PrivateDiagnostic {
+                code: "RUST_TOOLCHAIN_ARGUMENT".to_owned(),
+                message: "selected rustc arguments differ from the pinned profile".to_owned(),
+                function_id: Some("vector::identity".to_owned()),
+            }],
+        )
+        .unwrap();
+        publish_result(
+            context.writable_host_path(DRIVER_OUTPUT_ROOT).unwrap(),
+            &bytes,
+        )
+        .unwrap();
+        Ok(ProcessOutput {
+            exit_code: Some(101),
+            signaled: false,
+            stdout: b"{\"reason\":\"build-finished\",\"success\":false}\n".to_vec(),
+            stderr_observed_bytes: 0,
+            stdout_limit_exceeded: false,
+            stderr_limit_exceeded: false,
+        })
+    }
+}
+
 #[test]
 fn check_uses_the_exact_package_target_command_and_same_sandbox_state() {
     let mut fixture = Fixture::new();
@@ -94,6 +137,7 @@ fn check_uses_the_exact_package_target_command_and_same_sandbox_state() {
     );
     let (result, executor) = check.run().unwrap();
     assert!(result.succeeded());
+    assert_eq!(result.source_error_code(), None);
     assert_eq!(result.artifact_count(), 1);
     assert!(result.messages().is_empty());
     assert_eq!(executor.calls[1].kind, CargoInvocationKind::Check);
@@ -135,6 +179,66 @@ fn failed_compilation_retains_only_bounded_structured_classification() {
     assert_eq!(result.messages().len(), 1);
     assert_eq!(result.messages()[0].level(), CompilerMessageLevel::Error);
     assert_eq!(result.messages()[0].code(), Some("E0308"));
+}
+
+#[test]
+fn compiler_diagnostics_map_normative_source_error_codes() {
+    let cases: &[(&[&str], RustSourceCode, &str)] = &[
+        (&["E0412"], RustSourceCode::Name, "RUST_SOURCE_NAME"),
+        (&["E0308"], RustSourceCode::Type, "RUST_SOURCE_TYPE"),
+        (&["E0277"], RustSourceCode::Type, "RUST_SOURCE_TYPE"),
+        (&["E0499"], RustSourceCode::Borrow, "RUST_SOURCE_BORROW"),
+        (&["E9999"], RustSourceCode::Type, "RUST_SOURCE_TYPE"),
+        (
+            &["overflowing_literals"],
+            RustSourceCode::LiteralRange,
+            "RUST_SOURCE_LITERAL_RANGE",
+        ),
+        (
+            &["overflowing_literals", "E0499", "E0308", "E0412"],
+            RustSourceCode::Name,
+            "RUST_SOURCE_NAME",
+        ),
+        (
+            &["overflowing_literals", "E0499", "E0308"],
+            RustSourceCode::Type,
+            "RUST_SOURCE_TYPE",
+        ),
+        (
+            &["overflowing_literals", "E0499"],
+            RustSourceCode::Borrow,
+            "RUST_SOURCE_BORROW",
+        ),
+    ];
+    for (codes, expected, expected_code) in cases {
+        let mut fixture = Fixture::new();
+        let metadata_request = fixture.metadata_request();
+        let executor = RecordingExecutor::with_responses([
+            Ok(ProcessOutput::success(metadata_json())),
+            Ok(ProcessOutput {
+                exit_code: Some(101),
+                signaled: false,
+                stdout: failed_check_stream_with_codes(codes),
+                stderr_observed_bytes: 0,
+                stdout_limit_exceeded: false,
+                stderr_limit_exceeded: false,
+            }),
+        ]);
+        let (_, check) = MetadataPhase::prepare(
+            fixture.request(),
+            fixture.snapshot(),
+            metadata_request,
+            fixture.candidate(),
+            fixture.private_parent(),
+            executor,
+        )
+        .unwrap()
+        .run()
+        .unwrap();
+        let (result, _) = check.run().unwrap();
+        assert_eq!(result.source_error_code(), Some(*expected), "{codes:?}");
+        assert_eq!(result.source_error_code().unwrap().as_str(), *expected_code);
+    }
 }
 
 #[test]
@@ -210,6 +314,31 @@ fn check_handshake_consumes_one_status_artifact_or_classifies_missing_locally() 
 }
 
 #[test]
+fn handshake_accepts_published_primary_argument_failure_without_compiler_prose() {
+    let mut fixture = Fixture::new();
+    let metadata_request = fixture.metadata_request();
+    let (_, check) = MetadataPhase::prepare(
+        fixture.request(),
+        fixture.snapshot(),
+        metadata_request,
+        fixture.candidate(),
+        fixture.private_parent(),
+        PrimaryArgumentFailureExecutor,
+    )
+    .unwrap()
+    .run()
+    .unwrap();
+    let (handshake, _) = check.run_driver_handshake().unwrap();
+    let output = handshake.driver().expect("published private failure");
+    assert_eq!(output.status(), DriverStatus::FrontendError);
+    assert_eq!(output.phase(), "typecheck");
+    assert!(handshake
+        .cargo()
+        .is_some_and(|cargo| !cargo.succeeded() && cargo.messages().is_empty()));
+    assert_eq!(handshake.local_frontend_error(), None);
+}
+
+#[test]
 fn malformed_stream_process_signal_and_output_limit_are_frontend_errors() {
     let cases = [
         (
@@ -266,6 +395,36 @@ fn malformed_stream_process_signal_and_output_limit_are_frontend_errors() {
             expected
         );
     }
+}
+
+#[test]
+fn sandbox_unavailable_maps_to_the_shared_typecheck_frontend_code() {
+    let mut fixture = Fixture::new();
+    let metadata_request = fixture.metadata_request();
+    let executor = RecordingExecutor::with_responses([
+        Ok(ProcessOutput::success(metadata_json())),
+        Err(SandboxError::SandboxUnavailable),
+    ]);
+    let (_, check) = MetadataPhase::prepare(
+        fixture.request(),
+        fixture.snapshot(),
+        metadata_request,
+        fixture.candidate(),
+        fixture.private_parent(),
+        executor,
+    )
+    .unwrap()
+    .run()
+    .unwrap();
+    let error = check
+        .run()
+        .err()
+        .expect("unavailable isolation must terminate typecheck");
+    assert_eq!(
+        error.code,
+        CargoCheckCode::Sandbox(SandboxError::SandboxUnavailable)
+    );
+    assert_eq!(error.code.as_str(), "FRONTEND_SANDBOX_UNAVAILABLE");
 }
 
 #[test]

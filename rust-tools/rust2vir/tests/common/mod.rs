@@ -579,20 +579,28 @@ pub fn successful_check_stream() -> Vec<u8> {
 }
 
 pub fn failed_check_stream() -> Vec<u8> {
-    format!(
-        concat!(
-            "{{\"manifest_path\":\"/mpk/input/Cargo.toml\",",
-            "\"message\":{{\"$message_type\":\"diagnostic\",",
-            "\"code\":{{\"code\":\"E0308\",\"explanation\":null}},\"level\":\"error\",",
-            "\"message\":\"mismatched types\",\"rendered\":\"host path omitted\",",
-            "\"spans\":[],\"children\":[]}},",
-            "\"package_id\":\"path+file:///mpk/input#vector@0.1.0\",",
-            "\"reason\":\"compiler-message\",\"target\":{}}}\n",
-            "{{\"reason\":\"build-finished\",\"success\":false}}\n"
-        ),
-        target_json()
-    )
-    .into_bytes()
+    failed_check_stream_with_codes(&["E0308"])
+}
+
+pub fn failed_check_stream_with_codes(codes: &[&str]) -> Vec<u8> {
+    let mut stream = String::new();
+    for code in codes {
+        stream.push_str(&format!(
+            concat!(
+                "{{\"manifest_path\":\"/mpk/input/Cargo.toml\",",
+                "\"message\":{{\"$message_type\":\"diagnostic\",",
+                "\"code\":{{\"code\":\"{}\",\"explanation\":null}},\"level\":\"error\",",
+                "\"message\":\"classified compiler error\",\"rendered\":null,",
+                "\"spans\":[],\"children\":[]}},",
+                "\"package_id\":\"path+file:///mpk/input#vector@0.1.0\",",
+                "\"reason\":\"compiler-message\",\"target\":{}}}\n"
+            ),
+            code,
+            target_json()
+        ));
+    }
+    stream.push_str("{\"reason\":\"build-finished\",\"success\":false}\n");
+    stream.into_bytes()
 }
 
 pub fn failed_process_output() -> ProcessOutput {

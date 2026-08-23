@@ -331,7 +331,6 @@ fn direct_call_pattern_and_contract_hash_binding_are_fail_closed() {
         Box::new(|vector| vector.normal_target_is_present = false),
         Box::new(|vector| vector.caller_contract_matches = false),
         Box::new(|vector| vector.callee_contract_matches = false),
-        Box::new(|vector| vector.contract_hash_matches = false),
         Box::new(|vector| vector.semantic_context_matches = false),
         Box::new(|vector| vector.unit_identity_matches = false),
     ];
@@ -345,6 +344,14 @@ fn direct_call_pattern_and_contract_hash_binding_are_fail_closed() {
             "RUST_MIR_CALL"
         );
     }
+    let mut contract_hash = valid.clone();
+    contract_hash.contract_hash_matches = false;
+    assert_eq!(
+        validate_direct_call_pattern(&contract_hash)
+            .expect_err("mismatched repeated contract hash must reject")
+            .as_str(),
+        "RUST_SEMANTICS_TYPE"
+    );
     let mut unwind = valid;
     unwind.unwind_is_unreachable = false;
     assert_eq!(

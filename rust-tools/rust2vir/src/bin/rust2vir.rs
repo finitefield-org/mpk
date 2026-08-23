@@ -1,4 +1,4 @@
-use rust2vir_internal::cargo_check::CargoCheckCode;
+use rust2vir_internal::cargo_check::{CargoCheckCode, RustSourceCode};
 use rust2vir_internal::cargo_metadata::{MetadataPhase, MetadataStatus};
 use rust2vir_internal::cli::{self, LowerRequest, NonSuccessStatus};
 use rust2vir_internal::emit;
@@ -132,7 +132,7 @@ fn lower(request: &LowerRequest) -> ExitCode {
             return emit_local(
                 request,
                 NonSuccessStatus::FrontendError,
-                "capture",
+                "source",
                 "RUST_FRONTEND_SOURCE_INVENTORY",
                 "immutable source snapshot could not be created",
                 1,
@@ -145,7 +145,7 @@ fn lower(request: &LowerRequest) -> ExitCode {
             return emit_local(
                 request,
                 NonSuccessStatus::FrontendError,
-                "capture",
+                "source",
                 "RUST_FRONTEND_SOURCE_INVENTORY",
                 "immutable source snapshot could not be validated",
                 1,
@@ -224,10 +224,20 @@ fn lower(request: &LowerRequest) -> ExitCode {
         }
     };
     if let Some(code) = handshake.local_frontend_error() {
+        let phase = if matches!(
+            code,
+            rust2vir_internal::driver_protocol::DriverProtocolCode::SourceMapExternal
+                | rust2vir_internal::driver_protocol::DriverProtocolCode::SourceMapRange
+                | rust2vir_internal::driver_protocol::DriverProtocolCode::SourceMapReference
+        ) {
+            "emission"
+        } else {
+            "lowering"
+        };
         return emit_local(
             request,
             NonSuccessStatus::FrontendError,
-            "lowering",
+            phase,
             code.as_str(),
             "private Rust driver output could not be validated",
             1,
@@ -243,6 +253,22 @@ fn lower(request: &LowerRequest) -> ExitCode {
             1,
         );
     };
+    if output.status() == rust2vir_internal::driver_protocol::DriverStatus::SourceError
+        && output.phase() == "typecheck"
+    {
+        let code = handshake
+            .cargo()
+            .and_then(|cargo| cargo.source_error_code())
+            .unwrap_or(RustSourceCode::Type);
+        return emit_local(
+            request,
+            NonSuccessStatus::SourceError,
+            "typecheck",
+            code.as_str(),
+            "rustc rejected the captured source before MIR access",
+            4,
+        );
+    }
     let private_request = match rust2vir_internal::driver_protocol::construct_request(
         request,
         snapshot.inputs(),
@@ -253,7 +279,7 @@ fn lower(request: &LowerRequest) -> ExitCode {
             return emit_local(
                 request,
                 NonSuccessStatus::FrontendError,
-                "emission",
+                "lowering",
                 error.code.as_str(),
                 "validated private identities could not be reconstructed",
                 1,
@@ -277,7 +303,7 @@ fn lower(request: &LowerRequest) -> ExitCode {
         Err(_) => emit_local(
             request,
             NonSuccessStatus::FrontendError,
-            "emission",
+            "lowering",
             "RUST_FRONTEND_DRIVER_PROTOCOL_HASH",
             "public Rust artifacts could not be deterministically assembled",
             1,

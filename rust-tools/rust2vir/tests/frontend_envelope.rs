@@ -104,7 +104,7 @@ fn non_success_statuses_route_normalized_issues_without_artifacts() {
     let local = local_non_success_envelope(
         &lower,
         NonSuccessStatus::FrontendError,
-        "emission",
+        "lowering",
         "RUST_FRONTEND_DRIVER_PROTOCOL_HASH",
         "public artifact hash validation failed",
     )
@@ -119,6 +119,36 @@ fn non_success_statuses_route_normalized_issues_without_artifacts() {
             .as_str(),
         Some("vector::identity")
     );
+}
+
+#[test]
+fn sandbox_unavailable_remains_shared_frontend_error_at_metadata_and_typecheck() {
+    let (_, _, lower) = lowered_fixture();
+    for phase in ["metadata", "typecheck"] {
+        let transport = local_non_success_envelope(
+            &lower,
+            NonSuccessStatus::FrontendError,
+            phase,
+            "FRONTEND_SANDBOX_UNAVAILABLE",
+            "required isolated execution is unavailable",
+        )
+        .unwrap();
+        let envelope = json::parse(&transport[..transport.len() - 1], transport.len()).unwrap();
+        let envelope = envelope.as_object().unwrap();
+        assert_eq!(envelope["status"].as_str(), Some("frontend-error"));
+        assert_eq!(envelope["phase"].as_str(), Some(phase));
+        assert_eq!(
+            envelope["diagnostics"].as_array().unwrap()[0]
+                .as_object()
+                .unwrap()["code"]
+                .as_str(),
+            Some("FRONTEND_SANDBOX_UNAVAILABLE")
+        );
+        assert!(envelope["rejected_features"].as_array().unwrap().is_empty());
+        for artifact in ["ir", "source_map", "source_manifest"] {
+            assert!(!envelope.contains_key(artifact));
+        }
+    }
 }
 
 #[test]
@@ -155,7 +185,7 @@ fn diagnostics_truncate_messages_and_append_the_exact_final_marker() {
 
     let diagnostics = (0..1_025)
         .map(|_| PrivateDiagnostic {
-            code: "RUST_UNSUPPORTED_ITEM".to_owned(),
+            code: "RUST_SUBSET_ITEM".to_owned(),
             message: "unsupported item".to_owned(),
             function_id: Some("vector::identity".to_owned()),
         })

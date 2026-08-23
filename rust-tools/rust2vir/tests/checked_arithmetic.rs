@@ -219,7 +219,7 @@ fn every_pinned_pattern_component_is_fail_closed() {
             validate_pattern_vector(&vector)
                 .expect_err("mutated pattern must reject")
                 .as_str(),
-            "RUST_MIR_ASSERTION"
+            "RUST_MIR_CHECKED_PATTERN"
         );
     }
 }

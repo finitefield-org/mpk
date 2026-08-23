@@ -299,8 +299,10 @@ fn validate_shape(value: &Value, exit: i32) -> Result<(&str, &str), FrontendProt
     validate_issues(
         rejected,
         diagnostics,
+        status,
         phase,
         string_field(object, "source_language")?,
+        field(object, "selection")?,
     )?;
     let phase_valid = match status {
         "ir-lowered" => phase == "emission" && rejected.is_empty(),
@@ -356,14 +358,16 @@ fn validate_ir_wrapper(value: &Value) -> Result<(), FrontendProtocolError> {
 fn validate_issues(
     rejected: &[Value],
     diagnostics: &[Value],
+    status: &str,
     phase: &str,
     source_language: &str,
+    selection: &Value,
 ) -> Result<(), FrontendProtocolError> {
     if rejected.len() + diagnostics.len() > ISSUES_MAX {
         return Err(protocol(FrontendProtocolCode::ProtocolLimit));
     }
     let mut message_bytes = 0usize;
-    for issues in [rejected, diagnostics] {
+    for (issues, rejected_channel) in [(rejected, true), (diagnostics, false)] {
         let mut previous: Option<IssueKey<'_>> = None;
         for (index, value) in issues.iter().enumerate() {
             let object = value
@@ -418,6 +422,14 @@ fn validate_issues(
             {
                 return Err(protocol(FrontendProtocolCode::ProtocolShape));
             }
+            if source_language == "rust"
+                && !marker
+                && (!valid_rust_issue_policy(code, status, phase, rejected_channel)
+                    || function
+                        .is_some_and(|function| !valid_rust_function_id(function, selection)))
+            {
+                return Err(protocol(FrontendProtocolCode::ProtocolShape));
+            }
             if matches!(phase, "subset" | "lowering" | "emission") && function.is_none() && !marker
             {
                 return Err(protocol(FrontendProtocolCode::ProtocolShape));
@@ -447,6 +459,176 @@ fn validate_issues(
         }
     }
     Ok(())
+}
+
+fn valid_rust_issue_policy(code: &str, status: &str, phase: &str, rejected_channel: bool) -> bool {
+    let (expected_status, expected_channel, valid_phase) = match code {
+        "FRONTEND_SANDBOX_UNAVAILABLE" => (
+            "frontend-error",
+            false,
+            matches!(phase, "metadata" | "typecheck"),
+        ),
+        "RUST_LIMIT_INPUT_BYTES"
+        | "RUST_LIMIT_INPUT_COUNT"
+        | "RUST_LIMIT_PATH"
+        | "RUST_PREFLIGHT_FILE_TYPE"
+        | "RUST_PREFLIGHT_PATH"
+        | "RUST_PREFLIGHT_MANIFEST_FIELD"
+        | "RUST_PREFLIGHT_WORKSPACE"
+        | "RUST_PREFLIGHT_CONFIG"
+        | "RUST_PREFLIGHT_TOOLCHAIN_FILE"
+        | "RUST_PREFLIGHT_DEPENDENCY"
+        | "RUST_PREFLIGHT_BUILD_SCRIPT"
+        | "RUST_PREFLIGHT_FEATURE"
+        | "RUST_PREFLIGHT_TARGET"
+        | "RUST_PREFLIGHT_LOCKFILE" => ("rejected", true, phase == "capture"),
+        "RUST_LIMIT_CONTRACT" => ("rejected", true, matches!(phase, "capture" | "subset")),
+        "RUST_SOURCE_MANIFEST_PARSE"
+        | "RUST_SOURCE_MODULE_MISSING"
+        | "RUST_SOURCE_MODULE_AMBIGUOUS"
+        | "RUST_SOURCE_MODULE_DUPLICATE"
+        | "RUST_SOURCE_MODULE_CYCLE" => ("source-error", false, phase == "capture"),
+        "RUST_SOURCE_PARSE" => ("source-error", false, phase == "source"),
+        "RUST_SUBSET_CFG"
+        | "RUST_SUBSET_MACRO"
+        | "RUST_SUBSET_ATTRIBUTE"
+        | "RUST_SUBSET_IMPORT"
+        | "RUST_SUBSET_VISIBILITY"
+        | "RUST_SUBSET_PATH"
+        | "RUST_SUBSET_EXPANSION" => ("rejected", true, matches!(phase, "source" | "subset")),
+        "RUST_FRONTEND_METADATA_PROCESS" | "RUST_FRONTEND_METADATA_PROTOCOL" => {
+            ("frontend-error", false, phase == "metadata")
+        }
+        "RUST_PREFLIGHT_METADATA_MISMATCH" => ("rejected", true, phase == "metadata"),
+        "RUST_SOURCE_NAME"
+        | "RUST_SOURCE_TYPE"
+        | "RUST_SOURCE_BORROW"
+        | "RUST_SOURCE_LITERAL_RANGE" => ("source-error", false, phase == "typecheck"),
+        "RUST_SUBSET_IDENTIFIER"
+        | "RUST_SUBSET_ITEM"
+        | "RUST_SUBSET_FUNCTION_KIND"
+        | "RUST_SUBSET_GENERIC"
+        | "RUST_SUBSET_TRAIT"
+        | "RUST_SUBSET_IMPL"
+        | "RUST_SUBSET_STATIC"
+        | "RUST_SUBSET_TYPE"
+        | "RUST_SUBSET_DROP"
+        | "RUST_SUBSET_PATTERN"
+        | "RUST_SUBSET_BINDING"
+        | "RUST_SUBSET_CONTROL_FLOW"
+        | "RUST_SUBSET_MUTATION"
+        | "RUST_SUBSET_OPERATION"
+        | "RUST_SUBSET_CALL"
+        | "RUST_SUBSET_PURITY"
+        | "RUST_LIMIT_CALL_CLOSURE"
+        | "RUST_LIMIT_AGGREGATE"
+        | "RUST_CONTRACT_JSON"
+        | "RUST_CONTRACT_SCHEMA"
+        | "RUST_CONTRACT_SHAPE"
+        | "RUST_CONTRACT_IDENTITY"
+        | "RUST_CONTRACT_DUPLICATE"
+        | "RUST_CONTRACT_UNUSED"
+        | "RUST_CONTRACT_MISSING"
+        | "RUST_CONTRACT_RESOLUTION"
+        | "RUST_CONTRACT_PROFILE"
+        | "RUST_CONTRACT_TYPE"
+        | "RUST_CONTRACT_OPERATOR"
+        | "RUST_CONTRACT_LIMIT"
+        | "RUST_CONTRACT_HASH" => ("rejected", true, phase == "subset"),
+        "RUST_TOOLCHAIN_COMPONENT"
+        | "RUST_TOOLCHAIN_TARGET"
+        | "RUST_TOOLCHAIN_ARGUMENT"
+        | "RUST_TOOLCHAIN_LOADER_PATH" => (
+            "frontend-error",
+            false,
+            matches!(phase, "metadata" | "typecheck" | "lowering"),
+        ),
+        "RUST_TOOLCHAIN_COMMIT" => (
+            "frontend-error",
+            false,
+            matches!(phase, "metadata" | "typecheck" | "lowering"),
+        ),
+        "RUST_TOOLCHAIN_OPTIONS" => ("frontend-error", false, phase == "typecheck"),
+        "RUST_TOOLCHAIN_MIR_ADAPTER" => ("frontend-error", false, phase == "lowering"),
+        "RUST_MIR_STATEMENT"
+        | "RUST_MIR_RVALUE"
+        | "RUST_MIR_OPERAND"
+        | "RUST_MIR_PLACE"
+        | "RUST_MIR_PROJECTION"
+        | "RUST_MIR_TERMINATOR"
+        | "RUST_MIR_ASSERTION"
+        | "RUST_MIR_CHECKED_PATTERN"
+        | "RUST_MIR_CALL"
+        | "RUST_MIR_MOVE"
+        | "RUST_MIR_CLEANUP"
+        | "RUST_LIMIT_MIR_BLOCKS"
+        | "RUST_LIMIT_MIR_STATEMENTS"
+        | "RUST_SEMANTICS_TYPE"
+        | "RUST_SEMANTICS_TARGET"
+        | "RUST_SEMANTICS_CHECK_MISSING"
+        | "RUST_SEMANTICS_CHECK_EXTRA"
+        | "RUST_SEMANTICS_PANIC" => ("rejected", true, phase == "lowering"),
+        "RUST_LIMIT_IR" => ("rejected", true, matches!(phase, "lowering" | "emission")),
+        "RUST_FRONTEND_SOURCE_INVENTORY" => ("frontend-error", false, phase == "source"),
+        "RUST_FRONTEND_SOURCE_MAP_EXTERNAL"
+        | "RUST_FRONTEND_SOURCE_MAP_RANGE"
+        | "RUST_FRONTEND_SOURCE_MAP_REFERENCE" => ("frontend-error", false, phase == "emission"),
+        "RUST_FRONTEND_CHILD_OUTPUT_LIMIT"
+        | "RUST_FRONTEND_COMPILER_CRASH"
+        | "RUST_FRONTEND_DIAGNOSTIC_BUDGET" => (
+            "frontend-error",
+            false,
+            matches!(
+                phase,
+                "capture"
+                    | "source"
+                    | "metadata"
+                    | "typecheck"
+                    | "subset"
+                    | "lowering"
+                    | "emission"
+            ),
+        ),
+        "RUST_FRONTEND_DRIVER_PROTOCOL_TRANSPORT"
+        | "RUST_FRONTEND_DRIVER_PROTOCOL_SHAPE"
+        | "RUST_FRONTEND_DRIVER_PROTOCOL_CANONICAL"
+        | "RUST_FRONTEND_DRIVER_PROTOCOL_HASH"
+        | "RUST_FRONTEND_DRIVER_PROTOCOL_IDENTITY"
+        | "RUST_FRONTEND_DRIVER_PROTOCOL_FILESYSTEM"
+        | "RUST_FRONTEND_DRIVER_PROTOCOL_PROCESS"
+        | "RUST_FRONTEND_DRIVER_PROTOCOL_COUNT"
+        | "RUST_FRONTEND_DRIVER_PROTOCOL_OUTPUT_LIMIT" => (
+            "frontend-error",
+            false,
+            matches!(phase, "typecheck" | "lowering"),
+        ),
+        _ => return false,
+    };
+    status == expected_status && rejected_channel == expected_channel && valid_phase
+}
+
+fn valid_rust_function_id(function: &str, selection: &Value) -> bool {
+    let Some(crate_name) = selection.get("crate").and_then(Value::as_str) else {
+        return false;
+    };
+    if function.len() > 1_024 || !rust_identifier(crate_name) {
+        return false;
+    }
+    let mut segments = function.split("::");
+    segments.next() == Some(crate_name)
+        && segments.next().is_some_and(rust_identifier)
+        && segments.all(rust_identifier)
+}
+
+fn rust_identifier(value: &str) -> bool {
+    if value == "_" || value.len() > 255 || !value.is_ascii() {
+        return false;
+    }
+    let mut bytes = value.bytes();
+    bytes
+        .next()
+        .is_some_and(|byte| byte.is_ascii_alphabetic() || byte == b'_')
+        && bytes.all(|byte| byte.is_ascii_alphanumeric() || byte == b'_')
 }
 
 fn valid_truncation_message(message: &str) -> bool {

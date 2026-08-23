@@ -43,6 +43,34 @@ pub struct CargoCheckOutput {
     messages: Vec<NormalizedCompilerMessage>,
 }
 
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum RustSourceCode {
+    Name,
+    Type,
+    Borrow,
+    LiteralRange,
+}
+
+impl RustSourceCode {
+    pub fn as_str(self) -> &'static str {
+        match self {
+            Self::Name => "RUST_SOURCE_NAME",
+            Self::Type => "RUST_SOURCE_TYPE",
+            Self::Borrow => "RUST_SOURCE_BORROW",
+            Self::LiteralRange => "RUST_SOURCE_LITERAL_RANGE",
+        }
+    }
+
+    fn precedence(self) -> u8 {
+        match self {
+            Self::Name => 0,
+            Self::Type => 1,
+            Self::Borrow => 2,
+            Self::LiteralRange => 3,
+        }
+    }
+}
+
 impl CargoCheckOutput {
     pub fn succeeded(&self) -> bool {
         self.succeeded
@@ -54,6 +82,30 @@ impl CargoCheckOutput {
 
     pub fn messages(&self) -> &[NormalizedCompilerMessage] {
         &self.messages
+    }
+
+    pub fn source_error_code(&self) -> Option<RustSourceCode> {
+        if self.succeeded {
+            return None;
+        }
+        Some(
+            self.messages
+                .iter()
+                .filter(|message| message.level == CompilerMessageLevel::Error)
+                .filter_map(|message| message.code.as_deref().and_then(classify_source_code))
+                .min_by_key(|code| code.precedence())
+                .unwrap_or(RustSourceCode::Type),
+        )
+    }
+}
+
+fn classify_source_code(code: &str) -> Option<RustSourceCode> {
+    match code {
+        "E0412" => Some(RustSourceCode::Name),
+        "E0308" | "E0277" => Some(RustSourceCode::Type),
+        "E0499" => Some(RustSourceCode::Borrow),
+        "overflowing_literals" => Some(RustSourceCode::LiteralRange),
+        _ => None,
     }
 }
 
@@ -166,7 +218,7 @@ impl<'a, E: SandboxExecutor> CheckPhase<'a, E> {
         if process.signaled || process.exit_code.is_none() {
             return Err(CargoCheckCode::Process.into());
         }
-        let parsed = parse_message_stream(&process.stdout, &self.metadata, &self.expected)?;
+        let parsed = parse_message_stream(&process.stdout, &self.metadata, &self.expected, false)?;
         if (process.exit_code == Some(0)) != parsed.succeeded {
             return Err(CargoCheckCode::Protocol.into());
         }
@@ -190,7 +242,7 @@ impl<'a, E: SandboxExecutor> CheckPhase<'a, E> {
                 executor,
             ));
         }
-        let parsed = parse_message_stream(&process.stdout, &self.metadata, &self.expected)?;
+        let parsed = parse_message_stream(&process.stdout, &self.metadata, &self.expected, true)?;
         if (process.exit_code == Some(0)) != parsed.succeeded {
             return Err(CargoCheckCode::Protocol.into());
         }
@@ -237,6 +289,7 @@ fn parse_message_stream(
     bytes: &[u8],
     metadata: &ValidatedCargoMetadata,
     expected: &ExpectedManifestSelection,
+    allow_private_failure: bool,
 ) -> Result<CargoCheckOutput, CargoCheckError> {
     if bytes.is_empty() || bytes.last() != Some(&b'\n') || bytes.contains(&b'\r') {
         return Err(CargoCheckCode::Protocol.into());
@@ -268,7 +321,7 @@ fn parse_message_stream(
                 messages.push(normalize_message(object, metadata, expected)?);
             }
             "build-finished" => {
-                if index == 0 {
+                if index == 0 && !allow_private_failure {
                     return Err(CargoCheckCode::Protocol.into());
                 }
                 closed(object, &["reason", "success"])?;
@@ -288,7 +341,7 @@ fn parse_message_stream(
     let has_error = messages
         .iter()
         .any(|message| message.level == CompilerMessageLevel::Error);
-    if succeeded == has_error {
+    if succeeded == has_error && !(allow_private_failure && !succeeded && !has_error) {
         return Err(CargoCheckCode::Protocol.into());
     }
     Ok(CargoCheckOutput {

@@ -35,6 +35,7 @@ pub enum WrapperInvocation {
     CrateInformationHost,
     CrateInformationTarget,
     Primary,
+    PrimaryArgumentMismatch,
 }
 
 pub fn classify_invocation(
@@ -63,6 +64,9 @@ pub fn classify_invocation(
     }
     if primary_matches(request, arguments) {
         return Ok(WrapperInvocation::Primary);
+    }
+    if primary_with_extra_arguments(request, arguments) {
+        return Ok(WrapperInvocation::PrimaryArgumentMismatch);
     }
     Err(DriverProtocolCode::Identity.into())
 }
@@ -539,6 +543,20 @@ fn primary_matches(request: &DriverRequest, arguments: &[String]) -> bool {
         }
     }
     true
+}
+
+fn primary_with_extra_arguments(request: &DriverRequest, arguments: &[String]) -> bool {
+    if arguments.len() > 64 {
+        return false;
+    }
+    [1_usize, 2].into_iter().any(|extra| {
+        arguments.len() > extra
+            && (0..=arguments.len() - extra).any(|start| {
+                let mut candidate = arguments.to_vec();
+                candidate.drain(start..start + extra);
+                primary_matches(request, &candidate)
+            })
+    })
 }
 
 fn hex16(value: &str) -> bool {

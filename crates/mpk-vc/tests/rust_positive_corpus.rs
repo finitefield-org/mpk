@@ -124,8 +124,15 @@ struct CorpusManifest {
     accepted_mir: AcceptedMir,
     certificate_bytes: &'static str,
     generation: GenerationAudit,
+    negative_coverage: NegativeCoverageIndex,
     cases: Vec<CorpusCase>,
     findings: Vec<Value>,
+}
+
+#[derive(Debug, Serialize)]
+struct NegativeCoverageIndex {
+    schema: &'static str,
+    manifests: [&'static str; 2],
 }
 
 #[derive(Debug, Serialize)]
@@ -256,6 +263,10 @@ fn positive_rust_sources_generate_linked_deterministic_vcs() {
             downstream_clean_runs: 2,
             byte_identical: true,
             leakage_scan: "source_root,toolchain,temp,host,timestamp,unrelated_source",
+        },
+        negative_coverage: NegativeCoverageIndex {
+            schema: "mpk.rust.negative_coverage.index.v0",
+            manifests: ["negative/manifest.json", "adversarial/manifest.json"],
         },
         cases: corpus_cases,
         findings: Vec::new(),

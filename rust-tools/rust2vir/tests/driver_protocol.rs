@@ -424,6 +424,162 @@ fn output_transport_branches_and_cross_process_identity_fail_closed() {
 }
 
 #[test]
+fn private_diagnostics_use_only_registered_code_status_phase_combinations() {
+    let request = parse_request_transport(&valid_request_bytes()).unwrap();
+    for (status, phase, code) in [
+        (DriverStatus::SourceError, "typecheck", "RUST_SOURCE_NAME"),
+        (
+            DriverStatus::Rejected,
+            "lowering",
+            "RUST_MIR_CHECKED_PATTERN",
+        ),
+        (DriverStatus::Rejected, "lowering", "RUST_SEMANTICS_TYPE"),
+        (
+            DriverStatus::FrontendError,
+            "emission",
+            "RUST_FRONTEND_SOURCE_MAP_RANGE",
+        ),
+        (
+            DriverStatus::FrontendError,
+            "typecheck",
+            "RUST_TOOLCHAIN_ARGUMENT",
+        ),
+        (
+            DriverStatus::FrontendError,
+            "lowering",
+            "RUST_TOOLCHAIN_COMMIT",
+        ),
+    ] {
+        encode_non_success(
+            &request,
+            status,
+            phase,
+            &[PrivateDiagnostic {
+                code: code.to_owned(),
+                message: "registered private diagnostic".to_owned(),
+                function_id: Some("vector::identity".to_owned()),
+            }],
+        )
+        .unwrap();
+    }
+
+    for (status, phase, code) in [
+        (
+            DriverStatus::Rejected,
+            "subset",
+            "RUST_SUBSET_NOT_REGISTERED",
+        ),
+        (DriverStatus::Rejected, "subset", "RUST_SOURCE_NAME"),
+        (DriverStatus::SourceError, "source", "RUST_SOURCE_NAME"),
+        (DriverStatus::FrontendError, "typecheck", "RUST_SOURCE_NAME"),
+        (
+            DriverStatus::FrontendError,
+            "lowering",
+            "RUST_FRONTEND_SOURCE_MAP_RANGE",
+        ),
+    ] {
+        assert_code(
+            encode_non_success(
+                &request,
+                status,
+                phase,
+                &[PrivateDiagnostic {
+                    code: code.to_owned(),
+                    message: "invalid private diagnostic".to_owned(),
+                    function_id: Some("vector::identity".to_owned()),
+                }],
+            )
+            .unwrap_err()
+            .code,
+            DriverProtocolCode::Shape,
+        );
+    }
+
+    for (status, phase, code, exit) in [
+        ("rejected", "subset", "RUST_SUBSET_NOT_REGISTERED", 3),
+        ("source-error", "typecheck", "RUST_SUBSET_ITEM", 4),
+        ("source-error", "source", "RUST_SOURCE_NAME", 4),
+        ("frontend-error", "typecheck", "RUST_SOURCE_NAME", 1),
+        (
+            "frontend-error",
+            "lowering",
+            "RUST_FRONTEND_SOURCE_MAP_RANGE",
+            1,
+        ),
+    ] {
+        let mut value = non_success_value(0);
+        let root = value.as_object_mut().unwrap();
+        root.insert("status".to_owned(), JsonValue::String(status.to_owned()));
+        root.insert("phase".to_owned(), JsonValue::String(phase.to_owned()));
+        root.get_mut("diagnostics").unwrap().as_array_mut().unwrap()[0]
+            .as_object_mut()
+            .unwrap()
+            .insert("code".to_owned(), JsonValue::String(code.to_owned()));
+        assert_code(
+            parse_output_transport(&canonical_transport(&value), &request, exit, false)
+                .unwrap_err()
+                .code,
+            DriverProtocolCode::Shape,
+        );
+    }
+
+    let mut invalid_marker_phase = non_success_value(0);
+    let root = invalid_marker_phase.as_object_mut().unwrap();
+    root.insert(
+        "status".to_owned(),
+        JsonValue::String("frontend-error".to_owned()),
+    );
+    root.insert("phase".to_owned(), JsonValue::String("metadata".to_owned()));
+    root.insert(
+        "diagnostics".to_owned(),
+        JsonValue::Array(vec![JsonValue::Object(BTreeMap::from([
+            (
+                "code".to_owned(),
+                JsonValue::String("RUST_LIMIT_DIAGNOSTICS_TRUNCATED".to_owned()),
+            ),
+            (
+                "message".to_owned(),
+                JsonValue::String("1 normalized issues omitted".to_owned()),
+            ),
+        ]))]),
+    );
+    assert_code(
+        parse_output_transport(
+            &canonical_transport(&invalid_marker_phase),
+            &request,
+            1,
+            false,
+        )
+        .unwrap_err()
+        .code,
+        DriverProtocolCode::Shape,
+    );
+
+    for function in ["other::identity", "identity"] {
+        let mut value = non_success_value(0);
+        value
+            .as_object_mut()
+            .unwrap()
+            .get_mut("diagnostics")
+            .unwrap()
+            .as_array_mut()
+            .unwrap()[0]
+            .as_object_mut()
+            .unwrap()
+            .insert(
+                "function_id".to_owned(),
+                JsonValue::String(function.to_owned()),
+            );
+        assert_code(
+            parse_output_transport(&canonical_transport(&value), &request, 3, false)
+                .unwrap_err()
+                .code,
+            DriverProtocolCode::Shape,
+        );
+    }
+}
+
+#[test]
 fn fixed_files_use_exclusive_atomic_publication_and_exact_directory_state() {
     assert_eq!(
         case_ids("filesystem_cases"),
@@ -590,10 +746,37 @@ fn wrapper_accepts_only_frozen_probes_and_selected_primary() {
         classify_invocation(&request, &primary),
         Ok(WrapperInvocation::Primary)
     );
-    let mut injected = primary;
+    let mut injected = primary.clone();
     injected.push("-Ctarget-cpu=native".to_owned());
+    assert_eq!(
+        classify_invocation(&request, &injected),
+        Ok(WrapperInvocation::PrimaryArgumentMismatch)
+    );
+    let mut injected_pair = primary.clone();
+    injected_pair.extend(["-C".to_owned(), "target-cpu=native".to_owned()]);
+    assert_eq!(
+        classify_invocation(&request, &injected_pair),
+        Ok(WrapperInvocation::PrimaryArgumentMismatch)
+    );
+    let mut wrong_crate = primary;
+    wrong_crate[2] = "unselected".to_owned();
     assert_code(
-        classify_invocation(&request, &injected).unwrap_err().code,
+        classify_invocation(&request, &wrong_crate)
+            .unwrap_err()
+            .code,
+        DriverProtocolCode::Identity,
+    );
+    assert_code(
+        classify_invocation(
+            &request,
+            &[
+                "/mpk/toolchain/bin/rustc".to_owned(),
+                "-vV".to_owned(),
+                "-Ctarget-cpu=native".to_owned(),
+            ],
+        )
+        .unwrap_err()
+        .code,
         DriverProtocolCode::Identity,
     );
 }

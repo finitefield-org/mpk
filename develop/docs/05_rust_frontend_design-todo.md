@@ -4423,7 +4423,7 @@ scripts/regenerate-rust-payment-policy.sh --check
 
 ### RUST-07-T01 Complete the Negative and Adversarial Rust Corpus
 
-Status: Pending
+Status: Complete (2026-08-24)
 
 Depends on: RUST-06-T04.
 
