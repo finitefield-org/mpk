@@ -255,12 +255,12 @@ fn assembler_rejects_unknown_argv_without_writes() {
 }
 
 #[test]
-fn stable_root_workspace_explicitly_excludes_the_pinned_nightly_frontend() {
+fn stable_root_workspace_explicitly_excludes_standalone_rust_packages() {
     let root = repository_root();
     let manifest = fs::read_to_string(root.join("Cargo.toml")).expect("read root manifest");
     assert!(
-        manifest.contains("exclude = [\"rust-tools/rust2vir\"]"),
-        "root workspace must explicitly exclude the pinned nightly package"
+        manifest.contains("exclude = [\"rust-tools/rust2vir\", \"examples/rust-payment-policy\"]"),
+        "root workspace must explicitly exclude the pinned nightly frontend and standalone example"
     );
 
     let metadata = Command::new("cargo")
@@ -271,15 +271,25 @@ fn stable_root_workspace_explicitly_excludes_the_pinned_nightly_frontend() {
     assert!(metadata.status.success());
     assert!(metadata.stderr.is_empty());
     let value: Value = serde_json::from_slice(&metadata.stdout).expect("parse workspace metadata");
-    let nightly_manifest = root.join("rust-tools/rust2vir/Cargo.toml");
-    assert!(
-        value["packages"]
-            .as_array()
-            .expect("metadata packages")
-            .iter()
-            .all(|package| package["manifest_path"].as_str() != nightly_manifest.to_str()),
-        "stable workspace metadata selected the pinned nightly package"
-    );
+    let package_manifests = value["packages"]
+        .as_array()
+        .expect("metadata packages")
+        .iter()
+        .filter_map(|package| package["manifest_path"].as_str())
+        .collect::<BTreeSet<_>>();
+    for (relative_path, description) in [
+        ("rust-tools/rust2vir/Cargo.toml", "pinned nightly frontend"),
+        (
+            "examples/rust-payment-policy/Cargo.toml",
+            "standalone payment-policy example",
+        ),
+    ] {
+        let excluded_manifest = root.join(relative_path);
+        assert!(
+            !package_manifests.contains(excluded_manifest.to_str().expect("UTF-8 manifest path")),
+            "stable workspace metadata selected the {description}"
+        );
+    }
 }
 
 #[test]

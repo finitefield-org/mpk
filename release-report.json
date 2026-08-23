@@ -53,24 +53,23 @@
       "source_free_checker": {
         "verdict": "accepted",
         "module": "Example.Basic.OneTheorem",
-        "declaration_count": 1,
-        "axiom_count": 0,
         "hashes": {
           "export": "5e3396fad9702c2578204b2cb90c112e9653fdb57908ab455e3f77dd58b2e91e",
           "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
           "certificate": "37744c27174b7637485f6c005902dbf72604641ba66e2ebec90795eaddde1e94"
-        }
+        },
+        "declaration_count": 1,
+        "axiom_count": 0
       },
       "reference_checker": {
         "verdict": "accepted",
         "module": "Example.Basic.OneTheorem",
-        "declaration_count": 1,
-        "axiom_count": 0,
         "hashes": {
           "export": "5e3396fad9702c2578204b2cb90c112e9653fdb57908ab455e3f77dd58b2e91e",
           "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
           "certificate": "37744c27174b7637485f6c005902dbf72604641ba66e2ebec90795eaddde1e94"
-        }
+        },
+        "declaration_count": 1
       },
       "axiom_report": {
         "certificate_hash": "37744c27174b7637485f6c005902dbf72604641ba66e2ebec90795eaddde1e94",
@@ -101,5 +100,320 @@
     "no_external_axioms": true,
     "axiom_category_counts_match": true,
     "passed": true
+  },
+  "rust_payment_policy": {
+    "artifacts": {
+      "package_manifest": {
+        "path": "examples/rust-payment-policy/artifacts/package-manifest.json",
+        "sha256": "c32214fd458cc8333de337f0e9d1cf4ca19cd90b2754b5781541bd19e6d59f3d"
+      },
+      "policy_evidence": {
+        "path": "examples/rust-payment-policy/artifacts/evidence.json",
+        "sha256": "4e82d53160ac19163c24900943c6c80d593d4d62d61f8fda7a57b2fddbe60f50"
+      },
+      "certificate": {
+        "path": "examples/rust-payment-policy/artifacts/program.mpcert",
+        "sha256": "7c316cdde988737bdf3413cbb2f9b1b99c990abca7d11d192c7ae51994ad07ea"
+      },
+      "active_release_policy": {
+        "path": "fixtures/policy-profiles/rust-release-policy.json",
+        "sha256": "15fde218d7d8bb8df9079454fcf29420e9c9002dceee6c3f7e3e8e8028c713d3"
+      },
+      "bundle_registry": {
+        "path": "release/bundles/bundle-registry.json",
+        "sha256": "bf1bc70ae1d71e693a2df22dd8fb77d1d3f68084603e7a7823ea2d6b5538209e"
+      }
+    },
+    "package": {
+      "module": "Example.Rust.PaymentPolicy",
+      "imports": [],
+      "policy": {
+        "allowed_axiom_profiles": [
+          "mvp-theory"
+        ],
+        "checker_profile": "mvp-strict",
+        "require_reference_checker": true,
+        "require_source_free_check": true
+      },
+      "certificate_count": 1
+    },
+    "active_release": {
+      "source_language": "rust",
+      "semantic_profile": "mpk.rust.checked.v0",
+      "strategy_profile": "payment-policy-rust-alpha",
+      "checker_profile": "mvp-strict",
+      "axiom_profile": "mvp-theory"
+    },
+    "evidence": {
+      "schema": "mpk.policy.evidence.v1",
+      "selection": {
+        "crate": "payment_policy",
+        "function": "payment_policy::approved_reserve_cents",
+        "kind": "lib",
+        "package": "payment-policy"
+      },
+      "profiles": {
+        "source_language": "rust",
+        "semantic_profile": "mpk.rust.checked.v0",
+        "strategy_profile": "payment-policy-rust-alpha",
+        "checker_profile": "mvp-strict",
+        "axiom_profile": "mvp-theory"
+      },
+      "release_registry": {
+        "id": "mpk.release.registry.v0",
+        "registry_sha256": "226baa5e744f2966615a5fe03d6bfa0395db4b191e92bc099e63436fa9936aba",
+        "schema": "mpk.release.bundle_registry.v0"
+      },
+      "frontend": {
+        "binary_sha256": "e25a3f125432b56e00d8c0474f1dc9ddfdb6ed1a48eadc9febea681a74d9444f",
+        "bundle_id": "frontend.rust.rust2vir.candidate.v0",
+        "name": "rust2vir",
+        "subordinate_binaries": [
+          {
+            "binary_sha256": "54c026dfc75a82f8aa602857c8acd83e9499b908b42b179c67653fd1b92f6bb8",
+            "name": "rust2vir-driver",
+            "version": "0.1.0"
+          }
+        ],
+        "version": "0.1.0"
+      },
+      "toolchain": {
+        "bundle_id": "toolchain.rust.nightly-2025-06-01.candidate.v0",
+        "components": [
+          {
+            "binary_sha256": "4ab49080934031ce3b87b1a8792e685f99819e8a3f537f110a339d7331f1dcea",
+            "kind": "executable",
+            "name": "cargo",
+            "release": "1.89.0-nightly"
+          },
+          {
+            "content_sha256": "0f448df12a3bb58ca6ab51fcee4c470b117ce7072a02b489ab214454f302a479",
+            "kind": "content",
+            "name": "native-runtime",
+            "release": "nightly-2025-06-01"
+          },
+          {
+            "content_sha256": "3f61be824744b3ad52281dbebaba6718c10ed6af9a82b936a02419b7f43f5693",
+            "kind": "content",
+            "name": "rust-compiler-runtime",
+            "release": "nightly-2025-06-01"
+          },
+          {
+            "content_sha256": "a1c72b8bdb5dd4d589f386fc0142adee3274ebcb104d69203ad1f4ce5600c5c9",
+            "kind": "content",
+            "name": "rust-target-i686",
+            "release": "nightly-2025-06-01"
+          },
+          {
+            "content_sha256": "73019eb46832161dad2e55a17cc044ff4523441643e5bc1b1ab1c68408961956",
+            "kind": "content",
+            "name": "rust-target-x86_64",
+            "release": "nightly-2025-06-01"
+          },
+          {
+            "binary_sha256": "a7c2179d845e8f40305bace1657b903f10d149cc6d72b0c08ecef75487418922",
+            "commit_hash": "4d08223c054cf5a56d9761ca925fd46ffebe7115",
+            "kind": "executable",
+            "name": "rustc",
+            "release": "1.89.0-nightly"
+          }
+        ],
+        "distribution_sha256": "cdaa0ae4d4f56da86f403d58799fd2298f078b043d8392311487315cbcc2c63f"
+      },
+      "trusted_evidence": {
+        "axiom_report": {
+          "axiom_report_hash": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "category_counts": {
+            "builtin_theory_axiom_count": 0,
+            "core_axiom_count": 0,
+            "external_axiom_count": 0,
+            "go_semantics_axiom_count": 0,
+            "total_axiom_count": 0
+          },
+          "status": "checked"
+        },
+        "certificates": [
+          {
+            "axiom_report_hash": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+            "certificate_hash": "c6274c909825da5a2eacac01f983fa740d2911c3109fbf46673d59e572fe7300",
+            "checked_declarations": [
+              {
+                "declaration_hash": "9cef78e5197ed3542ab31ebf3dbb9777bc97918be747cb03bf288adf5350cf2b",
+                "dependencies": [],
+                "function_id": "payment_policy::retain_approval",
+                "group_id": "payment_policy::retain_approval.contract",
+                "group_kind": "contract",
+                "member_ids": [
+                  "payment_policy::retain_approval#postcondition#000000"
+                ],
+                "name": "VC.Function.f7061796d656e745f706f6c6963793a3a72657461696e5f617070726f76616c.contract"
+              },
+              {
+                "declaration_hash": "a90d69a01d2ad91fac87ff686ef02f04798aa33083064ee079fd2a5037285064",
+                "dependencies": [
+                  {
+                    "declaration_hash": "9cef78e5197ed3542ab31ebf3dbb9777bc97918be747cb03bf288adf5350cf2b",
+                    "name": "VC.Function.f7061796d656e745f706f6c6963793a3a72657461696e5f617070726f76616c.contract"
+                  }
+                ],
+                "function_id": "payment_policy::retain_approval",
+                "group_id": "payment_policy::retain_approval.panic_free",
+                "group_kind": "panic_free",
+                "member_ids": [],
+                "name": "VC.Function.f7061796d656e745f706f6c6963793a3a72657461696e5f617070726f76616c.panic_free"
+              },
+              {
+                "declaration_hash": "bf1915da589bb7f3a87a7ac90067c90825d59def71358873ed719640e6db00d8",
+                "dependencies": [
+                  {
+                    "declaration_hash": "9cef78e5197ed3542ab31ebf3dbb9777bc97918be747cb03bf288adf5350cf2b",
+                    "name": "VC.Function.f7061796d656e745f706f6c6963793a3a72657461696e5f617070726f76616c.contract"
+                  }
+                ],
+                "function_id": "payment_policy::approved_reserve_cents",
+                "group_id": "payment_policy::approved_reserve_cents.contract",
+                "group_kind": "contract",
+                "member_ids": [
+                  "payment_policy::approved_reserve_cents#callee_precondition#000000",
+                  "payment_policy::approved_reserve_cents#postcondition#000000"
+                ],
+                "name": "VC.Function.f7061796d656e745f706f6c6963793a3a617070726f7665645f726573657276655f63656e7473.contract"
+              },
+              {
+                "declaration_hash": "874cf092185dd22d438599dcba15fba924725b72ac250e888b2a48414ea88d0e",
+                "dependencies": [
+                  {
+                    "declaration_hash": "bf1915da589bb7f3a87a7ac90067c90825d59def71358873ed719640e6db00d8",
+                    "name": "VC.Function.f7061796d656e745f706f6c6963793a3a617070726f7665645f726573657276655f63656e7473.contract"
+                  },
+                  {
+                    "declaration_hash": "9cef78e5197ed3542ab31ebf3dbb9777bc97918be747cb03bf288adf5350cf2b",
+                    "name": "VC.Function.f7061796d656e745f706f6c6963793a3a72657461696e5f617070726f76616c.contract"
+                  },
+                  {
+                    "declaration_hash": "a90d69a01d2ad91fac87ff686ef02f04798aa33083064ee079fd2a5037285064",
+                    "name": "VC.Function.f7061796d656e745f706f6c6963793a3a72657461696e5f617070726f76616c.panic_free"
+                  }
+                ],
+                "function_id": "payment_policy::approved_reserve_cents",
+                "group_id": "payment_policy::approved_reserve_cents.panic_free",
+                "group_kind": "panic_free",
+                "member_ids": [
+                  "payment_policy::approved_reserve_cents#callee_panic_free#000000"
+                ],
+                "name": "VC.Function.f7061796d656e745f706f6c6963793a3a617070726f7665645f726573657276655f63656e7473.panic_free"
+              }
+            ],
+            "export_hash": "996daea421a83b2137a35413c0af0d296cd86608ec10557f2168dc509fc37406",
+            "id": "program",
+            "module": "Policy.Generated"
+          }
+        ],
+        "checker_verdicts": [
+          {
+            "certificate_ids": [
+              "program"
+            ],
+            "checker": "rust_fast_kernel",
+            "checker_profile": "mvp-strict",
+            "verdict": "accepted"
+          },
+          {
+            "certificate_ids": [
+              "program"
+            ],
+            "checker": "reference_checker",
+            "checker_profile": "mvp-strict",
+            "verdict": "accepted"
+          }
+        ],
+        "theory_certificates": []
+      }
+    },
+    "package_verification": {
+      "command": "cargo run --quiet -p mpk-cli -- package verify-certs examples/rust-payment-policy/artifacts/package-manifest.json",
+      "verdict": "accepted",
+      "stdout": "ok package=Example.Rust.PaymentPolicy source_free=1 reference=1"
+    },
+    "fixture_verification": {
+      "command": "cargo test --quiet -p mpk-cli --test rust_payment_policy rust_payment_policy_freezes_dual_checked_and_pending_structural_results -- --exact",
+      "validated": [
+        "canonical_policy_evidence",
+        "frontend_vc_manifest_linkage",
+        "checked_declaration_member_coverage",
+        "certificate_empty_import_table",
+        "certificate_empty_proof_node_table",
+        "certificate_empty_theory_table",
+        "dual_checker_agreement",
+        "zero_axioms"
+      ],
+      "verdict": "accepted"
+    },
+    "certificates": [
+      {
+        "path": "examples/rust-payment-policy/artifacts/program.mpcert",
+        "module": "Policy.Generated",
+        "expected_hashes": {
+          "export": "996daea421a83b2137a35413c0af0d296cd86608ec10557f2168dc509fc37406",
+          "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "certificate": "c6274c909825da5a2eacac01f983fa740d2911c3109fbf46673d59e572fe7300"
+        },
+        "source_free_checker": {
+          "verdict": "accepted",
+          "module": "Policy.Generated",
+          "hashes": {
+            "export": "996daea421a83b2137a35413c0af0d296cd86608ec10557f2168dc509fc37406",
+            "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+            "certificate": "c6274c909825da5a2eacac01f983fa740d2911c3109fbf46673d59e572fe7300"
+          },
+          "declaration_count": 15,
+          "axiom_count": 0
+        },
+        "reference_checker": {
+          "verdict": "accepted",
+          "module": "Policy.Generated",
+          "hashes": {
+            "export": "996daea421a83b2137a35413c0af0d296cd86608ec10557f2168dc509fc37406",
+            "axiom_report": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+            "certificate": "c6274c909825da5a2eacac01f983fa740d2911c3109fbf46673d59e572fe7300"
+          },
+          "declaration_count": 15
+        },
+        "axiom_report": {
+          "certificate_hash": "c6274c909825da5a2eacac01f983fa740d2911c3109fbf46673d59e572fe7300",
+          "axiom_report_hash": "0ebc281c3a8d37e2d1a9ce033773e2865f96a13186a6364cb3446204c6a990d5",
+          "report": {
+            "summary": {
+              "core_axiom_count": 0,
+              "builtin_theory_axiom_count": 0,
+              "go_semantics_axiom_count": 0,
+              "external_axiom_count": 0,
+              "total_axiom_count": 0
+            },
+            "entries": [],
+            "declaration_dependencies": []
+          }
+        },
+        "hash_agreement": {
+          "manifest_matches_source_free": true,
+          "source_free_matches_axiom_report": true,
+          "source_free_matches_reference": true
+        }
+      }
+    ],
+    "release_gates": {
+      "source_free_checker_accepted": true,
+      "reference_checker_accepted": true,
+      "hash_agreement": true,
+      "no_external_axioms": true,
+      "axiom_category_counts_match": true,
+      "passed": true,
+      "active_release_profiles_match_evidence": true,
+      "package_and_evidence_certificate_match": true,
+      "all_policy_properties_verified": true,
+      "evidence_theory_certificate_table_empty": true,
+      "certificate_alpha_shape_validated": true,
+      "no_axioms": true
+    }
   }
 }

@@ -4352,7 +4352,7 @@ git diff --check
 
 ### RUST-06-T04 Add the Rust Payment-Policy Example and Close the Product Gate
 
-Status: Pending
+Status: Complete (2026-08-24)
 
 Depends on: RUST-06-T03.
 
@@ -4374,6 +4374,8 @@ Likely touched files:
 - `examples/rust-payment-policy/README.md`
 - `examples/rust-payment-policy/artifacts`
 - `crates/mpk-cli/tests/rust_payment_policy.rs`
+- `rust-tools/rust2vir/tests/payment_policy_example.rs`
+- `scripts/regenerate-rust-payment-policy.sh`
 - `release-report.json`
 
 Tasks:
@@ -4416,11 +4418,7 @@ Acceptance criteria:
 Verification:
 
 ```sh
-(cd examples/rust-payment-policy && cargo test --locked)
-cargo test -p mpk-cli --test rust_payment_policy
-cargo test -p mpk-cli --test rust_policy_verify
-python3 scripts/generate-release-report.py --check
-git diff --check
+scripts/regenerate-rust-payment-policy.sh --check
 ```
 
 ### RUST-07-T01 Complete the Negative and Adversarial Rust Corpus
