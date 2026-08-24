@@ -356,6 +356,11 @@ fn compiler_arguments(
 }
 
 fn example_root() -> PathBuf {
+    let hermetic_fixture = PathBuf::from("/mpk/test-fixtures/payment-policy-example");
+    if hermetic_fixture.is_dir() {
+        return fs::canonicalize(hermetic_fixture)
+            .expect("canonical hermetic payment-policy example root");
+    }
     fs::canonicalize(
         PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../examples/rust-payment-policy"),
     )

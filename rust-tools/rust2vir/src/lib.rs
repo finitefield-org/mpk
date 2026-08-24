@@ -14,6 +14,8 @@ pub mod driver_protocol;
 pub mod emit;
 pub mod environment;
 pub mod file_loader;
+#[doc(hidden)]
+pub mod fuzz_entrypoints;
 pub mod json;
 pub mod limits;
 pub mod manifest;

@@ -79,7 +79,10 @@ fn exact_primary_arguments_reject_every_unapproved_lint_control() {
     ] {
         let mut changed = primary.clone();
         changed.extend(arguments.into_iter().map(str::to_owned));
-        assert!(classify_invocation(&request, &changed).is_err());
+        assert_eq!(
+            classify_invocation(&request, &changed),
+            Ok(WrapperInvocation::PrimaryArgumentMismatch)
+        );
     }
 }
 

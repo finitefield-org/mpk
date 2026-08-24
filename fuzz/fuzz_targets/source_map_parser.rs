@@ -30,10 +30,9 @@ fuzz_target!(|data: &[u8]| {
 fn source_vir() -> &'static VirModule {
     static VIR: OnceLock<VirModule> = OnceLock::new();
     VIR.get_or_init(|| {
-        let vector: serde_json::Value = serde_json::from_slice(include_bytes!(
-            "../../develop/specs/vectors/vir-v0.json"
-        ))
-        .expect("tracked VIR vector parses");
+        let vector: serde_json::Value =
+            serde_json::from_slice(include_bytes!("../../develop/specs/vectors/vir-v0.json"))
+                .expect("tracked VIR vector parses");
         let input = &vector["module_cases"][0]["input"];
         import_vir_json(&serde_json::to_vec(input).expect("VIR fixture serializes"))
             .expect("tracked Go identity VIR imports")

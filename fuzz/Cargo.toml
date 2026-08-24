@@ -10,6 +10,7 @@ cargo-fuzz = true
 [dependencies]
 libfuzzer-sys = "0.4"
 mpk-cert = { path = "../crates/mpk-cert" }
+mpk-cli = { path = "../crates/mpk-cli" }
 mpk-kernel = { path = "../crates/mpk-kernel" }
 mpk-theory = { path = "../crates/mpk-theory" }
 mpk-vc = { path = "../crates/mpk-vc" }
@@ -39,6 +40,34 @@ bench = false
 [[bin]]
 name = "source_map_parser"
 path = "fuzz_targets/source_map_parser.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "frontend_protocol"
+path = "fuzz_targets/frontend_protocol.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "source_manifest_parser"
+path = "fuzz_targets/source_manifest_parser.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "vc_parser"
+path = "fuzz_targets/vc_parser.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "policy_v1"
+path = "fuzz_targets/policy_v1.rs"
 test = false
 doc = false
 bench = false

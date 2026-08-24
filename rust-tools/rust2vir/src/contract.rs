@@ -365,6 +365,27 @@ pub(crate) fn parse_contract(input: ContractInput) -> Result<ParsedContract, Con
     })
 }
 
+/// Parser-only entry point for the isolated cargo-fuzz package.
+///
+/// The returned projection deliberately contains no expression trees, which
+/// keeps the public surface limited to a deterministic comparison signature.
+#[doc(hidden)]
+pub fn parse_contract_for_fuzz(
+    bytes: &[u8],
+) -> Result<(String, i64, String, usize, usize), ContractError> {
+    let parsed = parse_contract(ContractInput::new(
+        "fuzz/contract.json",
+        Arc::<[u8]>::from(bytes),
+    ))?;
+    Ok((
+        parsed.semantic_profile,
+        parsed.target_pointer_width,
+        parsed.function,
+        parsed.requires.len(),
+        parsed.ensures.len(),
+    ))
+}
+
 pub(crate) fn exact_fields(root: &BTreeMap<String, JsonValue>, fields: &[&str]) -> bool {
     root.len() == fields.len() && fields.iter().all(|field| root.contains_key(*field))
 }

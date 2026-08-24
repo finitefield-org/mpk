@@ -656,6 +656,8 @@ def validate_project_templates(vector: dict[str, object]) -> None:
         ("Cargo.toml", "frontend_manifest"),
         ("Cargo.lock", "frontend_lock"),
         ("rust-toolchain.toml", "rust_toolchain"),
+        ("fuzz/Cargo.toml", "fuzz_manifest"),
+        ("fuzz/Cargo.lock", "fuzz_lock"),
     ):
         path = project / relative
         expected = templates[identifier]
@@ -1905,12 +1907,15 @@ def _mounted_writable_workspace(
             allocated_bytes=allocated_bytes,
             inodes=inodes,
         )
-        paths = {name: root / name for name in ("home", "cargo-home", "tmp", "target")}
+        paths = {
+            name: root / name
+            for name in ("home", "cargo-home", "tmp", "target", "work")
+        }
         for path in paths.values():
             path.mkdir(mode=0o700)
             os.chown(path, OUTER_SANDBOX_ID, OUTER_SANDBOX_ID, follow_symlinks=False)
             validate_writable_directory(path)
-        for name in ("home", "cargo-home", "tmp"):
+        for name in ("home", "cargo-home", "tmp", "work"):
             linux_bind_mount(paths[name], paths[name], noexec=True)
             validate_host_tmpfs_view(paths[name], source=source, noexec=True)
         validate_host_tmpfs(
@@ -1925,7 +1930,7 @@ def _mounted_writable_workspace(
         raise
     finally:
         cleanup_failed = False
-        for name in reversed(("home", "cargo-home", "tmp")):
+        for name in reversed(("home", "cargo-home", "tmp", "work")):
             path = paths.get(name)
             if path is None:
                 continue
@@ -1981,7 +1986,7 @@ def mounted_writable_workspace(
 def validate_writable_workspace(
     paths: dict[str, Path], limits: dict[str, int]
 ) -> None:
-    names = ("home", "cargo-home", "tmp", "target")
+    names = ("home", "cargo-home", "tmp", "target", "work")
     if (
         limits != FROZEN_RESOURCE_LIMITS
         or set(paths) != set(names)
@@ -2005,7 +2010,7 @@ def validate_writable_workspace(
         allocated_bytes=limits["writable_allocated_bytes"],
         inodes=limits["writable_inodes"],
     )
-    for name in ("home", "cargo-home", "tmp"):
+    for name in ("home", "cargo-home", "tmp", "work"):
         validate_host_tmpfs_view(paths[name], source=record[1], noexec=True)
     validate_writable_directory(paths["target"])
     if host_mount_record(paths["target"]) is not None:
@@ -2353,11 +2358,17 @@ def inspect_docker_container(executable: str, identifier: str) -> dict[str, obje
     return values[0]
 
 
-def shell_resource_limit_checks(limits: dict[str, int]) -> str:
-    virtual_memory_kib = limits["virtual_memory_bytes_per_process"] // 1024
+def shell_resource_limit_checks(
+    limits: dict[str, int], *, unlimited_address_space: bool = False
+) -> str:
+    virtual_memory = (
+        "unlimited"
+        if unlimited_address_space
+        else str(limits["virtual_memory_bytes_per_process"] // 1024)
+    )
     return (
         f'test "$(ulimit -n)" = {limits["open_files_per_process"]}; '
-        f'test "$(ulimit -v)" = {virtual_memory_kib}; '
+        f'test "$(ulimit -v)" = {virtual_memory}; '
         'test "$(ulimit -f)" = unlimited; '
         "limit_lines=0; while read -r first second third fourth fifth sixth seventh; do "
         'case "$first:$second:$third" in '
@@ -2386,7 +2397,10 @@ def shell_process_status_checks() -> str:
 
 
 def sandboxed_initial_command(
-    command: list[str], limits: dict[str, int]
+    command: list[str],
+    limits: dict[str, int],
+    *,
+    unlimited_address_space: bool = False,
 ) -> list[str]:
     # Docker's built-in seccomp profile rejects unshare(2) on the frozen host.
     # The container therefore uses seccomp=unconfined, while AppArmor, an empty
@@ -2397,10 +2411,17 @@ def sandboxed_initial_command(
         or any(not isinstance(value, str) or "\0" in value for value in command)
         or not command[0].startswith("/")
         or limits != FROZEN_RESOURCE_LIMITS
+        or not isinstance(unlimited_address_space, bool)
     ):
         raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
-    virtual_memory_kib = limits["virtual_memory_bytes_per_process"] // 1024
-    resource_limit_checks = shell_resource_limit_checks(limits)
+    virtual_memory = (
+        "unlimited"
+        if unlimited_address_space
+        else str(limits["virtual_memory_bytes_per_process"] // 1024)
+    )
+    resource_limit_checks = shell_resource_limit_checks(
+        limits, unlimited_address_space=unlimited_address_space
+    )
     process_status_checks = shell_process_status_checks()
     bootstrap_library_path = "/mpk/native-sysroot/lib/x86_64-linux-gnu"
     bootstrap_perl_path = "/mpk/native-sysroot/usr/lib/x86_64-linux-gnu/perl-base"
@@ -2445,7 +2466,7 @@ def sandboxed_initial_command(
         "q{mpk-capability-free}, @ARGV; die qq{exec: $!};"
     )
     outer_script = (
-        f"ulimit -v {virtual_memory_kib}; "
+        f"ulimit -v {virtual_memory}; "
         f"{resource_limit_checks}"
         f"LD_LIBRARY_PATH={bootstrap_library_path}; "
         f"PERL5LIB={bootstrap_perl_path}; export LD_LIBRARY_PATH PERL5LIB; "
@@ -2522,7 +2543,7 @@ def sandboxed_initial_command(
 def container_launch_gate(
     writable_paths: dict[str, Path],
 ) -> Iterator[tuple[Path, Path]]:
-    if set(writable_paths) != {"home", "cargo-home", "tmp", "target"}:
+    if set(writable_paths) != {"home", "cargo-home", "tmp", "target", "work"}:
         raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
     temporary = writable_paths["tmp"]
     validate_writable_directory(temporary)
@@ -2670,6 +2691,7 @@ def validate_container_writable_mounts(state_pid: int) -> None:
         "/mpk/cargo-home",
         "/mpk/tmp",
         "/mpk/target",
+        "/mpk/work",
     }:
         raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
     root = mount_record("/", mountinfo)
@@ -2703,7 +2725,7 @@ def validate_container_writable_mounts(state_pid: int) -> None:
             raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
         if observed != target:
             raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
-    for name in ("home", "cargo-home", "tmp", "target"):
+    for name in ("home", "cargo-home", "tmp", "target", "work"):
         record = mount_record(f"/mpk/{name}", mountinfo)
         required = {"rw", "nosuid", "nodev", "noswap"}
         if name != "target":
@@ -3061,6 +3083,7 @@ def validate_created_container_resources(
     initial_command: list[str],
     limits: dict[str, int],
     writable_paths: dict[str, Path],
+    test_fixture: Path | None = None,
 ) -> None:
     state = inspection.get("State")
     host = inspection.get("HostConfig")
@@ -3073,6 +3096,7 @@ def validate_created_container_resources(
         or not isinstance(mounts, list)
         or not isinstance(config, dict)
         or not isinstance(ulimits, list)
+        or not isinstance(test_fixture, (Path, type(None)))
     ):
         raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
     expected_ulimits = {
@@ -3098,8 +3122,22 @@ def validate_created_container_resources(
         "/mpk/cargo-home": writable_paths["cargo-home"].resolve(),
         "/mpk/tmp": writable_paths["tmp"].resolve(),
         "/mpk/target": writable_paths["target"].resolve(),
+        "/mpk/work": writable_paths["work"].resolve(),
     }
     observed_mounts: dict[str, Path] = {}
+    if test_fixture is not None:
+        try:
+            fixture_metadata = test_fixture.lstat()
+        except OSError as error:
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+        if not stat.S_ISDIR(fixture_metadata.st_mode) or test_fixture.is_symlink():
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    expected_readonly_mounts = (
+        {"/mpk/test-fixtures/payment-policy-example": test_fixture.resolve()}
+        if test_fixture is not None
+        else {}
+    )
+    observed_readonly_mounts: dict[str, Path] = {}
     expected_device_mounts = {
         "/dev": device_root.resolve(),
         **{
@@ -3125,6 +3163,16 @@ def validate_created_container_resources(
             ):
                 raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
             observed_device_mounts[destination] = Path(source).resolve()
+            continue
+        if destination in expected_readonly_mounts:
+            source = item.get("Source")
+            if (
+                item.get("Type") != "bind"
+                or item.get("RW") is not False
+                or not isinstance(source, str)
+            ):
+                raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+            observed_readonly_mounts[destination] = Path(source).resolve()
             continue
         if destination not in expected_mounts:
             if item.get("RW") is True:
@@ -3200,6 +3248,7 @@ def validate_created_container_resources(
         or inspection.get("Platform") != "linux"
         or observed_ulimits != expected_ulimits
         or observed_mounts != expected_mounts
+        or observed_readonly_mounts != expected_readonly_mounts
         or observed_device_mounts != expected_device_mounts
         or len(seed_mounts) != 1
         or seed_mounts[0].get("Type") != "bind"
@@ -3290,6 +3339,8 @@ def run_created_docker(
     limits: dict[str, int],
     writable_paths: dict[str, Path],
     cgroup_boundary: tuple[str, Path],
+    unlimited_address_space: bool = False,
+    test_fixture: Path | None = None,
 ) -> subprocess.CompletedProcess[bytes]:
     if not create_argv or any(not isinstance(value, str) for value in create_argv):
         raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
@@ -3341,8 +3392,10 @@ def run_created_docker(
         or (workdir_arguments and workdir_arguments[0] != "/mpk/frontend")
         or len(seed_arguments) != 1
         or limits != FROZEN_RESOURCE_LIMITS
-        or set(writable_paths) != {"home", "cargo-home", "tmp", "target"}
+        or set(writable_paths) != {"home", "cargo-home", "tmp", "target", "work"}
         or any(not isinstance(path, Path) for path in writable_paths.values())
+        or not isinstance(unlimited_address_space, bool)
+        or not isinstance(test_fixture, (Path, type(None)))
     ):
         raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
     validate_writable_workspace(writable_paths, limits)
@@ -3352,7 +3405,9 @@ def run_created_docker(
     cargo_config_seed = Path(
         seed_arguments[0][len(seed_mount_prefix) : -len(seed_mount_suffix)]
     )
-    initial_command = sandboxed_initial_command(command, limits)
+    initial_command = sandboxed_initial_command(
+        command, limits, unlimited_address_space=unlimited_address_space
+    )
     with supplied_cgroup_parent(cgroup_boundary, limits) as (
         cgroup_parent,
         cgroup_path,
@@ -3399,6 +3454,7 @@ def run_created_docker(
                 initial_command=initial_command,
                 limits=limits,
                 writable_paths=writable_paths,
+                test_fixture=test_fixture,
             )
             result = run_bounded(
                 [executable, "start", "--attach", identifier],
@@ -3879,6 +3935,32 @@ def docker_build_environment(vector: dict[str, object]) -> list[str]:
     return [f"{name}={values[name]}" for name in sorted(values)]
 
 
+def docker_fuzz_environment(vector: dict[str, object]) -> list[str]:
+    launcher = vector["launcher"]
+    transform = vector["fuzz_smoke"]["environment_transform"]
+    values = dict(launcher["evidence_environment"])
+    for name in launcher["build_environment_remove"]:
+        values.pop(name, None)
+    values.update(launcher["build_environment_add"])
+    for name in transform["outer_required_absent"]:
+        values.pop(name, None)
+    values.update(transform["outer_set"])
+    # The profile forbids inheriting all of these variables, but intentionally
+    # reintroduces the two CUSTOM_LIBFUZZER settings with pinned values.
+    # Check only names that the profile did not explicitly set after the
+    # sanitizing transform.
+    unexpected_outer = set(transform["outer_required_absent"]) - set(
+        transform["outer_set"]
+    )
+    if (
+        any(name in values for name in unexpected_outer)
+        or values.get("RUSTFLAGS") != transform["outer_set"].get("RUSTFLAGS")
+        or "CARGO_ENCODED_RUSTFLAGS" in values
+    ):
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    return [f"{name}={values[name]}" for name in sorted(values)]
+
+
 def common_build_docker(
     staging: Path,
     writable_paths: dict[str, Path],
@@ -3911,6 +3993,7 @@ def common_build_docker(
         f"--mount=type=bind,src={writable_paths['cargo-home']},dst=/mpk/cargo-home",
         f"--mount=type=bind,src={writable_paths['tmp']},dst=/mpk/tmp",
         f"--mount=type=bind,src={writable_paths['target']},dst=/mpk/target",
+        f"--mount=type=bind,src={writable_paths['work']},dst=/mpk/work",
         RUNTIME_IMAGE,
     ], virtual_memory_kib
 
@@ -4334,8 +4417,13 @@ def tree_inventory(root: Path) -> list[tuple[str, int, str, bool]]:
     return [item[:4] for item in tree_source_inventory(root)]
 
 
-def copy_tree_snapshot(source: Path, destination: Path) -> list[tuple[str, int, str, bool]]:
-    before = tree_source_inventory(source)
+def copy_tree_snapshot(
+    source: Path,
+    destination: Path,
+    *,
+    excluded_top_levels: frozenset[str] = frozenset(),
+) -> list[tuple[str, int, str, bool]]:
+    before = tree_source_inventory(source, excluded_top_levels=excluded_top_levels)
     destination.mkdir(parents=True)
     for relative, size, digest, executable, device, inode in before:
         source_file = source / relative
@@ -4352,13 +4440,271 @@ def copy_tree_snapshot(source: Path, destination: Path) -> list[tuple[str, int, 
         if destination_file.stat().st_size != size or raw_hash(destination_file) != digest:
             raise RustBuildFailure()
         destination_file.chmod(0o555 if executable else 0o444)
-    if tree_source_inventory(source) != before:
+    if tree_source_inventory(source, excluded_top_levels=excluded_top_levels) != before:
         raise RustBuildFailure()
     for path in sorted(destination.rglob("*"), reverse=True):
         if path.is_dir():
             path.chmod(0o555)
     destination.chmod(0o555)
     return [item[:4] for item in before]
+
+
+PAYMENT_POLICY_FIXTURE_EXCLUSIONS = frozenset({"target"})
+
+
+def payment_policy_example_source_state() -> list[tuple[str, int, str, bool, int, int]]:
+    return tree_source_inventory(
+        repository_root() / "examples/rust-payment-policy",
+        excluded_top_levels=PAYMENT_POLICY_FIXTURE_EXCLUSIONS,
+    )
+
+
+def current_payment_policy_example_inventory() -> list[tuple[str, int, str, bool]]:
+    return [item[:4] for item in payment_policy_example_source_state()]
+
+
+def capture_payment_policy_example(destination: Path) -> list[tuple[str, int, str, bool]]:
+    return copy_tree_snapshot(
+        repository_root() / "examples/rust-payment-policy",
+        destination,
+        excluded_top_levels=PAYMENT_POLICY_FIXTURE_EXCLUSIONS,
+    )
+
+
+def copy_fuzz_regular_file(
+    source: Path,
+    destination: Path,
+    *,
+    expected_size: int | None = None,
+    expected_sha256: str | None = None,
+) -> None:
+    try:
+        metadata = source.lstat()
+    except OSError as error:
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH") from error
+    if (
+        stat.S_ISLNK(metadata.st_mode)
+        or not stat.S_ISREG(metadata.st_mode)
+        or metadata.st_nlink != 1
+        or (expected_size is not None and metadata.st_size != expected_size)
+        or (
+            expected_sha256 is not None
+            and re.fullmatch(r"[0-9a-f]{64}", expected_sha256) is None
+        )
+    ):
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    try:
+        source_descriptor = os.open(
+            source,
+            os.O_RDONLY | os.O_CLOEXEC | getattr(os, "O_NOFOLLOW", 0),
+        )
+        try:
+            opened = os.fstat(source_descriptor)
+            if (
+                (opened.st_dev, opened.st_ino, opened.st_size)
+                != (metadata.st_dev, metadata.st_ino, metadata.st_size)
+                or not stat.S_ISREG(opened.st_mode)
+            ):
+                raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+            destination_descriptor = os.open(
+                destination,
+                os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_CLOEXEC,
+                0o400,
+            )
+            digest = hashlib.sha256()
+            copied = 0
+            try:
+                while True:
+                    block = os.read(source_descriptor, min(65_536, metadata.st_size - copied + 1))
+                    if not block:
+                        break
+                    copied = checked_boundary_add(
+                        copied,
+                        len(block),
+                        FILE_SIZE_LIMIT,
+                        "BUNDLE_REPRODUCIBILITY_MISMATCH",
+                    )
+                    digest.update(block)
+                    view = memoryview(block)
+                    while view:
+                        written = os.write(destination_descriptor, view)
+                        if written <= 0:
+                            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+                        view = view[written:]
+            finally:
+                os.close(destination_descriptor)
+            closed = os.fstat(source_descriptor)
+        finally:
+            os.close(source_descriptor)
+    except OSError as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    observed_digest = digest.hexdigest()
+    if (
+        copied != metadata.st_size
+        or (closed.st_dev, closed.st_ino, closed.st_size)
+        != (metadata.st_dev, metadata.st_ino, metadata.st_size)
+        or (expected_sha256 is not None and observed_digest != expected_sha256)
+    ):
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    os.chown(destination, OUTER_SANDBOX_ID, OUTER_SANDBOX_ID, follow_symlinks=False)
+    destination.chmod(0o444)
+    copied_metadata = destination.lstat()
+    if (
+        not stat.S_ISREG(copied_metadata.st_mode)
+        or copied_metadata.st_nlink != 1
+        or copied_metadata.st_size != copied
+        or stat.S_IMODE(copied_metadata.st_mode) != 0o444
+        or copied_metadata.st_uid != OUTER_SANDBOX_ID
+        or copied_metadata.st_gid != OUTER_SANDBOX_ID
+        or raw_hash(destination) != observed_digest
+    ):
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+
+
+def fuzz_seed_records(project: Path, targets: list[str]) -> dict[str, list[dict[str, object]]]:
+    manifest_path = project / "fuzz/seed-manifest.json"
+    transport = read_bounded_regular_file(
+        manifest_path,
+        maximum=1_048_576,
+        code="BUNDLE_REPRODUCIBILITY_MISMATCH",
+    )
+    try:
+        value = json.loads(transport)
+    except (UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH") from error
+    if (
+        not isinstance(value, dict)
+        or set(value) != {"schema", "targets"}
+        or value.get("schema") != "mpk.rust.fuzz_seeds.v0"
+        or not isinstance(value.get("targets"), dict)
+        or list(value["targets"]) != targets
+        or transport != canonical(value) + b"\n"
+    ):
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    observed_paths: set[str] = set()
+    result: dict[str, list[dict[str, object]]] = {}
+    for target in targets:
+        records = value["targets"].get(target)
+        if not isinstance(records, list) or not records:
+            raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+        previous = b""
+        validated: list[dict[str, object]] = []
+        for record in records:
+            if not isinstance(record, dict) or set(record) != {
+                "path",
+                "size_bytes",
+                "sha256",
+            }:
+                raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+            relative = record.get("path")
+            size = record.get("size_bytes")
+            digest = record.get("sha256")
+            if (
+                not isinstance(relative, str)
+                or not portable_path(relative)
+                or "/" in relative
+                or relative.encode("utf-8") <= previous
+                or not isinstance(size, int)
+                or isinstance(size, bool)
+                or size < 1
+                or size > 1_048_576
+                or not isinstance(digest, str)
+                or re.fullmatch(r"[0-9a-f]{64}", digest) is None
+            ):
+                raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+            previous = relative.encode("utf-8")
+            source_relative = f"{target}/{relative}"
+            if source_relative in observed_paths:
+                raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+            observed_paths.add(source_relative)
+            source = project / "fuzz/seeds" / source_relative
+            metadata = source.lstat()
+            if (
+                stat.S_ISLNK(metadata.st_mode)
+                or not stat.S_ISREG(metadata.st_mode)
+                or metadata.st_nlink != 1
+                or metadata.st_size != size
+                or raw_hash(source) != digest
+            ):
+                raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+            validated.append(record)
+        result[target] = validated
+    seed_root = project / "fuzz/seeds"
+    actual = {record[0] for record in tree_source_inventory(seed_root)}
+    if actual != observed_paths:
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    return result
+
+
+def materialize_fuzz_project(
+    vector: dict[str, object], frontend: Path, writable_work: Path
+) -> Path:
+    templates = raw_templates(vector)
+    targets = vector["fuzz_smoke"]["targets"]
+    if targets != ["driver_protocol", "rust_contract"]:
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    seed_records = fuzz_seed_records(frontend, targets)
+    source = frontend / "fuzz"
+    target_files = bounded_directory_entries(
+        source / "fuzz_targets",
+        maximum=len(targets),
+        code="BUNDLE_REPRODUCIBILITY_MISMATCH",
+    )
+    if [name for name, _metadata in target_files] != [f"{target}.rs" for target in targets]:
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    destination = writable_work / "fuzz-project"
+    destination.mkdir(mode=0o700)
+    os.chown(destination, OUTER_SANDBOX_ID, OUTER_SANDBOX_ID, follow_symlinks=False)
+    target_directory = destination / "fuzz_targets"
+    target_directory.mkdir(mode=0o700)
+    os.chown(target_directory, OUTER_SANDBOX_ID, OUTER_SANDBOX_ID, follow_symlinks=False)
+    for name, template_id in (("Cargo.toml", "fuzz_manifest"), ("Cargo.lock", "fuzz_lock")):
+        expected = templates[template_id]
+        copy_fuzz_regular_file(
+            source / name,
+            destination / name,
+            expected_size=len(expected),
+            expected_sha256=hashlib.sha256(expected).hexdigest(),
+        )
+        if (destination / name).read_bytes() != expected:
+            raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    for target in targets:
+        copy_fuzz_regular_file(
+            source / f"fuzz_targets/{target}.rs",
+            target_directory / f"{target}.rs",
+        )
+    target_directory.chmod(0o555)
+    for collection in ("corpus", "artifacts"):
+        collection_root = destination / collection
+        collection_root.mkdir(mode=0o700)
+        os.chown(collection_root, OUTER_SANDBOX_ID, OUTER_SANDBOX_ID, follow_symlinks=False)
+        for target in targets:
+            target_root = collection_root / target
+            target_root.mkdir(mode=0o700)
+            os.chown(target_root, OUTER_SANDBOX_ID, OUTER_SANDBOX_ID, follow_symlinks=False)
+        collection_root.chmod(0o555)
+    for target in targets:
+        corpus = destination / "corpus" / target
+        for record in seed_records[target]:
+            copy_fuzz_regular_file(
+                source / "seeds" / target / record["path"],
+                corpus / record["path"],
+                expected_size=record["size_bytes"],
+                expected_sha256=record["sha256"],
+            )
+    destination.chmod(0o555)
+    # `writable_work` is verified as an isolated tmpfs mount by
+    # `mounted_writable_workspace`. Its backing pathname may sit beneath the
+    # ignored build-input cache, so a lexical repository-root check would
+    # incorrectly reject the private mount. Keep the destination rooted in
+    # that verified mount and retain the distinct corpus/artifact check.
+    if (
+        destination.parent != writable_work
+        or destination.resolve().is_relative_to((frontend.parent / "cache").resolve())
+        or os.path.samefile(destination / "corpus", destination / "artifacts")
+    ):
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    return destination
 
 
 def frontend_source_state() -> list[tuple[str, int, str, bool, int, int]]:
@@ -4464,22 +4810,60 @@ def capture_candidate_outputs(source: Path, destination: Path) -> None:
     destination.chmod(0o555)
 
 
+def validated_fuzz_target(
+    vector: dict[str, object], arguments: list[str]
+) -> str | None:
+    smoke = vector.get("fuzz_smoke")
+    if not isinstance(smoke, dict):
+        return None
+    targets = smoke.get("targets")
+    template = smoke.get("outer_argv")
+    if (
+        targets != ["driver_protocol", "rust_contract"]
+        or not isinstance(template, list)
+        or template.count("TARGET") != 1
+        or any(not isinstance(value, str) for value in template)
+        or len(arguments) != len(template)
+    ):
+        return None
+    target_index = template.index("TARGET")
+    target = arguments[target_index]
+    if target not in targets:
+        return None
+    expected = [value.replace("TARGET", target) for value in template]
+    return target if arguments == expected else None
+
+
+def selected_integration_test(vector: dict[str, object], arguments: list[str]) -> str | None:
+    integration = vector["launcher"]["integration_test_mode"]["argv"]
+    if len(arguments) != len(integration):
+        return None
+    variable_index = integration.index("TEST")
+    if not all(
+        actual == expected
+        for index, (actual, expected) in enumerate(zip(arguments, integration))
+        if index != variable_index
+    ):
+        return None
+    test_name = arguments[variable_index]
+    if re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", test_name) is None:
+        return None
+    test_file = repository_root() / f"rust-tools/rust2vir/tests/{test_name}.rs"
+    return test_name if test_file.is_file() and not test_file.is_symlink() else None
+
+
+def requires_payment_policy_fixture(vector: dict[str, object], arguments: list[str]) -> bool:
+    return arguments == ["cargo", "test", "--locked"] or (
+        selected_integration_test(vector, arguments) == "payment_policy_example"
+    )
+
+
 def accepted_launcher_arguments(vector: dict[str, object], arguments: list[str]) -> bool:
     if arguments in vector["launcher"]["modes"]:
         return True
-    integration = vector["launcher"]["integration_test_mode"]["argv"]
-    if len(arguments) == len(integration):
-        variable_index = integration.index("TEST")
-        if all(
-            actual == expected
-            for index, (actual, expected) in enumerate(zip(arguments, integration))
-            if index != variable_index
-        ):
-            test_name = arguments[variable_index]
-            if re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", test_name):
-                test_file = repository_root() / f"rust-tools/rust2vir/tests/{test_name}.rs"
-                return test_file.is_file() and not test_file.is_symlink()
-    return False
+    if validated_fuzz_target(vector, arguments) is not None:
+        return True
+    return selected_integration_test(vector, arguments) is not None
 
 
 def validate_post_run_cargo_home(root: Path, vector: dict[str, object]) -> None:
@@ -4574,11 +4958,26 @@ def hermetic_docker_argv(
     writable_paths: dict[str, Path],
     arguments: list[str],
     container_name: str,
+    *,
+    test_fixture: Path | None = None,
 ) -> list[str]:
     runtime = snapshot / "cache/native-runtime"
     limits = frozen_launcher_resources(vector)
-    resource_arguments, virtual_memory_kib = launcher_resource_controls(limits)
+    resource_arguments, _virtual_memory_kib = launcher_resource_controls(limits)
     command = ["/mpk/toolchain/bin/cargo", *arguments[1:]]
+    fuzz_target = validated_fuzz_target(vector, arguments)
+    environment = (
+        docker_fuzz_environment(vector)
+        if fuzz_target is not None
+        else docker_build_environment(vector)
+    )
+    fixture_mount = (
+        [
+            f"--mount=type=bind,src={test_fixture},dst=/mpk/test-fixtures/payment-policy-example,readonly"
+        ]
+        if test_fixture is not None
+        else []
+    )
     return [
         docker_path(),
         "create",
@@ -4596,6 +4995,7 @@ def hermetic_docker_argv(
         "--security-opt=seccomp=unconfined",
         *resource_arguments,
         f"--mount=type=bind,src={snapshot / 'frontend'},dst=/mpk/frontend,readonly",
+        *fixture_mount,
         f"--mount=type=bind,src={snapshot / 'cache/toolchain'},dst=/mpk/toolchain,readonly",
         f"--mount=type=bind,src={snapshot / 'cache/vendor'},dst=/mpk/vendor,readonly",
         f"--mount=type=bind,src={snapshot / 'cache/cargo-home-seed/config.toml'},dst=/mpk/cargo-home-seed.toml,readonly",
@@ -4608,14 +5008,15 @@ def hermetic_docker_argv(
         f"--mount=type=bind,src={writable_paths['cargo-home']},dst=/mpk/cargo-home",
         f"--mount=type=bind,src={writable_paths['tmp']},dst=/mpk/tmp",
         f"--mount=type=bind,src={writable_paths['target']},dst=/mpk/target",
+        f"--mount=type=bind,src={writable_paths['work']},dst=/mpk/work",
         "--workdir=/mpk/frontend",
         RUNTIME_IMAGE,
         "/bin/sh",
         "-ceu",
-        f"ulimit -v {virtual_memory_kib}; umask 022; exec /usr/bin/env \"$@\"",
+        "umask 022; exec /usr/bin/env \"$@\"",
         "mpk-launch",
         "-i",
-        *docker_build_environment(vector),
+        *environment,
         *command,
     ]
 
@@ -4634,6 +5035,11 @@ def run_hermetic(
         snapshot = Path(temporary) / "snapshot"
         snapshot.mkdir()
         source_inventory = capture_frontend_project(snapshot / "frontend")
+        payment_policy_fixture: Path | None = None
+        payment_policy_inventory: list[tuple[str, int, str, bool]] | None = None
+        if requires_payment_policy_fixture(vector, arguments):
+            payment_policy_fixture = snapshot / "payment-policy-example"
+            payment_policy_inventory = capture_payment_policy_example(payment_policy_fixture)
         copy_cache_snapshot(cache, snapshot / "cache")
         validate_cache(descriptor, root=snapshot / "cache")
         writable = snapshot / "writable"
@@ -4642,9 +5048,17 @@ def run_hermetic(
         with mounted_writable_workspace(
             writable, limits
         ) as paths, delegated_cgroup_parent(limits) as cgroup_boundary:
+            fuzz_target = validated_fuzz_target(vector, arguments)
+            if fuzz_target is not None:
+                materialize_fuzz_project(vector, snapshot / "frontend", paths["work"])
             container_name = fresh_container_name("rust2vir")
             argv = hermetic_docker_argv(
-                vector, snapshot, paths, arguments, container_name
+                vector,
+                snapshot,
+                paths,
+                arguments,
+                container_name,
+                test_fixture=payment_policy_fixture,
             )
             result = run_created_docker(
                 argv,
@@ -4652,9 +5066,16 @@ def run_hermetic(
                 limits=limits,
                 writable_paths=paths,
                 cgroup_boundary=cgroup_boundary,
+                unlimited_address_space=fuzz_target is not None,
+                test_fixture=payment_policy_fixture,
             )
             validate_post_run_cargo_home(paths["cargo-home"], vector)
             if current_frontend_inventory() != source_inventory:
+                raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+            if (
+                payment_policy_inventory is not None
+                and current_payment_policy_example_inventory() != payment_policy_inventory
+            ):
                 raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
             validate_cache(descriptor, root=cache)
             if retained_target is not None and result.returncode == 0:
@@ -5814,7 +6235,7 @@ def run_self_test() -> None:
         with mounted_writable_workspace(
             frozen_root, FROZEN_RESOURCE_LIMITS
         ) as frozen_paths:
-            if set(frozen_paths) != {"home", "cargo-home", "tmp", "target"}:
+            if set(frozen_paths) != {"home", "cargo-home", "tmp", "target", "work"}:
                 raise RustBuildFailure()
         if any(frozen_root.iterdir()):
             raise RustBuildFailure()
@@ -5840,7 +6261,7 @@ def run_self_test() -> None:
         inode_root = process_root / "inode-tmpfs"
         inode_root.mkdir()
         with _mounted_writable_workspace(
-            inode_root, allocated_bytes=1_048_576, inodes=6
+            inode_root, allocated_bytes=1_048_576, inodes=7
         ) as paths:
             (paths["target"] / "at").touch()
             try:
@@ -5911,7 +6332,7 @@ def run_self_test() -> None:
                     f"--mount=type=bind,src={lifecycle_seed},dst=/mpk/cargo-home-seed.toml,readonly",
                     *(
                         f"--mount=type=bind,src={lifecycle_paths[path_name]},dst=/mpk/{path_name}"
-                        for path_name in ("home", "cargo-home", "tmp", "target")
+                        for path_name in ("home", "cargo-home", "tmp", "target", "work")
                     ),
                     RUNTIME_IMAGE,
                     *frozen_shell_command(

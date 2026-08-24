@@ -1198,6 +1198,14 @@ writable `/mpk/work/fuzz-project/corpus/TARGET` and
 with normalized metadata, then seals all other fuzz-project files read-only.
 Neither writable path may alias or reside in the checkout/cache.
 
+The all-tests mode and the exact `payment_policy_example` integration-test mode
+add one test-only input: a no-follow snapshot of
+`examples/rust-payment-policy`, excluding its generated `target/` directory,
+mounted read-only at `/mpk/test-fixtures/payment-policy-example`. Its source
+inventory is checked before and after the invocation. It is not present in any
+format, lint, version, release-build, evidence, or bounded-fuzz route and is
+never a frontend or release-bundle input.
+
 The outer command is exactly:
 
 ~~~text
@@ -1351,7 +1359,11 @@ Before any writable initialization or other untrusted instruction, the trusted
 bootstrap establishes and verifies inclusive per-process rlimits of 1,024 open
 file descriptors and 17,179,869,184 virtual address-space bytes; file-size and
 per-UID process rlimits are unlimited so they cannot become competing hidden
-boundaries. All build descendants inherit those controls. All writable home,
+boundaries. All non-fuzz build descendants inherit those controls. The exact
+address-sanitized bounded-fuzz mode lifts only its virtual address-space rlimit:
+ASan reserves a sparse shadow mapping larger than this profile's ordinary
+address-space limit. Its physical memory remains bounded by the same dedicated
+cgroup and by libFuzzer's exact `-rss_limit_mb=1024` argument. All writable home,
 Cargo-home, temp, target, and driver-output paths for one invocation are
 subdirectories of one fresh, private, `nosuid,nodev,noswap` tmpfs. The build
 launcher mounts that backing tmpfs execution-capable and freezes each bind
