@@ -1318,10 +1318,14 @@ probe leaf followed by one fresh finite frontend leaf. Each child is created
 in its leaf with `clone3(CLONE_INTO_CGROUP | CLONE_PIDFD)`, so no child setup or
 kernel charge precedes accounting. Before the frontend leaf is created, the
 probe's pipes, namespace descriptors, and complete backing tree are released;
-the probe leaf must then reach zero tasks and memory, have clean events and an
-in-range peak, disappear, and leave zero dying descendants. The frontend leaf
-uses the same discharge and removal gate only after all accepted output has
-been copied and its complete backing tree has been released.
+the probe leaf must then reach zero tasks, zero `memory.swap.current`, and zero
+`anon`, `file`, `sock`, and `shmem` gauges plus any present `zswap` or
+`zswapped` gauge in `memory.stat`; residual `memory.current` and `kernel`
+accounting alone is permitted after those task-owned gauges discharge. It must
+also have clean events and an in-range peak, disappear, and leave zero dying
+descendants. The frontend leaf uses the same discharge and removal gate only
+after all accepted output has been copied and its complete backing tree has
+been released.
 
 After the frontend leaf disappears with no dying residue, cleanup disables
 both subtree controllers, moves the launcher's complete thread group back to

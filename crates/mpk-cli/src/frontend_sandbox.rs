@@ -505,7 +505,7 @@ impl CgroupLeaf {
             && control_numbers(&self.path, "cgroup.procs")?.is_empty()
             && control_numbers(&self.path, "cgroup.threads")?.is_empty()
             && read_control(&self.path, "pids.current")? == "0"
-            && read_control(&self.path, "memory.current")? == "0"
+            && resource_memory_is_discharged(&self.path)?
             && events.get("populated") == Some(&0)
             && events.get("frozen") == Some(&0)
             && !has_child_cgroups(&self.path)?
@@ -545,7 +545,7 @@ impl CgroupLeaf {
             fs::write(self.path.join("cgroup.kill"), b"1\n")
                 .map_err(|_| SandboxError::Unavailable)?;
             wait_for_cgroup_value(&self.path, "cgroup.events", "populated", 0)?;
-            wait_for_control_value(&self.path, "memory.current", "0")?;
+            wait_for_resource_memory_discharge(&self.path)?;
             if !control_numbers(&self.path, "cgroup.procs")?.is_empty()
                 || has_child_cgroups(&self.path)?
             {
@@ -908,16 +908,17 @@ fn wait_for_cgroup_value(
 }
 
 #[cfg(target_os = "linux")]
-fn wait_for_control_value(
-    directory: &Path,
-    control: &str,
-    expected: &str,
-) -> Result<(), SandboxError> {
+fn wait_for_resource_memory_discharge(directory: &Path) -> Result<(), SandboxError> {
     // Large tmpfs page sets may be released asynchronously after the final
-    // mount-namespace descriptor closes.
+    // mount-namespace descriptor closes. Reclaim file cache charged while the
+    // resource task read its executable and immutable inputs. Newer kernels
+    // can retain kernel-object charges and a nonzero per-CPU stock in
+    // memory.current after every task-owned gauge has reached zero, so those
+    // gauges and swap.current are the discharge authority before removal.
     let deadline = Instant::now() + Duration::from_secs(30);
     loop {
-        if read_control(directory, control)? == expected {
+        request_resource_memory_reclaim(directory)?;
+        if resource_memory_is_discharged(directory)? {
             return Ok(());
         }
         if Instant::now() >= deadline {
@@ -1159,6 +1160,43 @@ fn resource_counters_are_clean(directory: &Path) -> Result<bool, SandboxError> {
         .parse::<u64>()
         .map_err(|_| SandboxError::Unavailable)?;
     Ok(resource_counter_values_are_clean(&pids, &memory, peak))
+}
+
+#[cfg(target_os = "linux")]
+fn resource_memory_is_discharged(directory: &Path) -> Result<bool, SandboxError> {
+    let _current = read_control(directory, "memory.current")?
+        .parse::<u64>()
+        .map_err(|_| SandboxError::Unavailable)?;
+    let swap_current = read_control(directory, "memory.swap.current")?
+        .parse::<u64>()
+        .map_err(|_| SandboxError::Unavailable)?;
+    let memory = read_flat_counters(&directory.join("memory.stat"))?;
+    Ok(swap_current == 0 && resource_memory_values_are_discharged(&memory))
+}
+
+#[cfg(target_os = "linux")]
+fn request_resource_memory_reclaim(directory: &Path) -> Result<(), SandboxError> {
+    let current = read_control(directory, "memory.current")?
+        .parse::<u64>()
+        .map_err(|_| SandboxError::Unavailable)?;
+    if current == 0 {
+        return Ok(());
+    }
+    match fs::write(directory.join("memory.reclaim"), format!("{current}\n")) {
+        Ok(()) => Ok(()),
+        Err(error) if error.kind() == io::ErrorKind::WouldBlock => Ok(()),
+        Err(_) => Err(SandboxError::Unavailable),
+    }
+}
+
+#[cfg(any(test, target_os = "linux"))]
+fn resource_memory_values_are_discharged(memory: &BTreeMap<String, u64>) -> bool {
+    ["anon", "file", "sock", "shmem"]
+        .into_iter()
+        .all(|name| memory.get(name) == Some(&0))
+        && ["zswap", "zswapped"]
+            .into_iter()
+            .all(|name| memory.get(name).is_none_or(|value| *value == 0))
 }
 
 #[cfg(any(test, target_os = "linux"))]
@@ -2295,6 +2333,14 @@ fn linux_probe() -> Result<u8, u8> {
         verify_only_standard_descriptors()?;
         verify_self_in_resource_cgroup(cgroup)?;
         verify_resource_process_controls()?;
+        unshare(UnshareFlags::NEWNS).map_err(|_| 125)?;
+        mount_change(
+            "/",
+            MountPropagationFlags::PRIVATE | MountPropagationFlags::REC,
+        )
+        .map_err(|_| 125)?;
+        let root = std::env::current_dir().map_err(|_| 125)?;
+        probe_resource_tmpfs(&root)?;
     } else {
         validate_minimum_kernel_version([5, 10, 0])?;
     }
@@ -2316,9 +2362,6 @@ fn linux_probe() -> Result<u8, u8> {
     .map_err(|_| 125)?;
     let root = std::env::current_dir().map_err(|_| 125)?;
     mount_bind(&root, &root).map_err(|_| 125)?;
-    if resource_cgroup.is_some() {
-        probe_resource_tmpfs(&root)?;
-    }
 
     let interfaces = fs::read_to_string("/proc/net/dev")
         .map_err(|_| 125)?
@@ -2447,7 +2490,7 @@ fn probe_resource_tmpfs(root: &Path) -> Result<(), u8> {
         Some(c"size=4096,nr_inodes=4,noswap,mode=700"),
     )
     .map_err(|_| 125)?;
-    validate_resource_tmpfs_mount(&target, 4_096, 4)?;
+    validate_resource_tmpfs_mount(&target, 4_096, 4, true)?;
     let mut created = Vec::new();
     for index in 0..3 {
         let path = target.join(format!("inode-{index}"));
@@ -2476,6 +2519,7 @@ fn validate_resource_tmpfs_mount(
     target: &Path,
     allocated_bytes: u64,
     inodes: u64,
+    require_noexec: bool,
 ) -> Result<(), u8> {
     use rustix::fs::{statvfs, StatVfsMountFlags};
 
@@ -2483,9 +2527,10 @@ fn validate_resource_tmpfs_mount(
     let allocated_capacity = state.f_blocks.checked_mul(state.f_frsize).ok_or(125)?;
     if allocated_capacity != allocated_bytes
         || state.f_files != inodes
-        || !state.f_flag.contains(
-            StatVfsMountFlags::NOSUID | StatVfsMountFlags::NODEV | StatVfsMountFlags::NOEXEC,
-        )
+        || !state
+            .f_flag
+            .contains(StatVfsMountFlags::NOSUID | StatVfsMountFlags::NODEV)
+        || (require_noexec && !state.f_flag.contains(StatVfsMountFlags::NOEXEC))
         || !mountinfo_has_noswap(target)?
     {
         return Err(125);
@@ -2590,6 +2635,36 @@ fn linux_bootstrap(arguments: &[String]) -> Result<u8, u8> {
             .map_err(|_| 125)?;
         }
     }
+    if executable == "bin/rust2vir" {
+        unshare(UnshareFlags::NEWNS).map_err(|_| 125)?;
+        mount_change(
+            "/",
+            MountPropagationFlags::PRIVATE | MountPropagationFlags::REC,
+        )
+        .map_err(|_| 125)?;
+        let root = std::env::current_dir().map_err(|_| 125)?;
+        mount_bind(&root, &root).map_err(|_| 125)?;
+        let target = root.join("mpk/tmp");
+        let privileged_mount = target.join(".mpk-resource-tmpfs");
+        fs::create_dir(&privileged_mount).map_err(|_| 125)?;
+        mount(
+            "tmpfs",
+            &privileged_mount,
+            "tmpfs",
+            MountFlags::NOSUID | MountFlags::NODEV,
+            Some(c"size=21474836480,nr_inodes=262144,noswap,mode=700"),
+        )
+        .map_err(|_| 125)?;
+        validate_resource_tmpfs_mount(
+            &privileged_mount,
+            WRITABLE_ALLOCATED_BYTES_LIMIT,
+            WRITABLE_INODE_LIMIT,
+            false,
+        )?;
+        let writable_root = privileged_mount.join("root");
+        fs::create_dir(&writable_root).map_err(|_| 125)?;
+        fs::set_permissions(&writable_root, fs::Permissions::from_mode(0o700)).map_err(|_| 125)?;
+    }
     let uid = rustix::process::getuid().as_raw();
     let gid = rustix::process::getgid().as_raw();
     unshare(UnshareFlags::NEWUSER).map_err(|_| 125)?;
@@ -2610,36 +2685,39 @@ fn linux_bootstrap(arguments: &[String]) -> Result<u8, u8> {
     )
     .map_err(|_| 125)?;
     let root = std::env::current_dir().map_err(|_| 125)?;
-    mount_bind(&root, &root).map_err(|_| 125)?;
-    let writable_mounts = if executable == "bin/rust2vir" {
-        [(
-            "mpk/tmp",
-            c"size=21474836480,nr_inodes=262144,noswap,mode=700",
-        )]
-        .as_slice()
-    } else {
-        [
-            ("mpk/cache/go-build", c"size=536870912,mode=700"),
-            ("mpk/tmp", c"size=536870912,mode=700"),
-        ]
-        .as_slice()
-    };
-    for &(relative, options) in writable_mounts {
-        let target = root.join(relative);
-        mount(
-            "tmpfs",
+    if executable != "bin/rust2vir" {
+        mount_bind(&root, &root).map_err(|_| 125)?;
+    }
+    if executable == "bin/rust2vir" {
+        let target = root.join("mpk/tmp");
+        let writable_root = target.join(".mpk-resource-tmpfs/root");
+        mount_bind(&writable_root, &target).map_err(|_| 125)?;
+        mount_remount(
             &target,
-            "tmpfs",
-            MountFlags::NOSUID | MountFlags::NODEV | MountFlags::NOEXEC,
-            Some(options),
+            MountFlags::BIND | MountFlags::NOSUID | MountFlags::NODEV | MountFlags::NOEXEC,
+            "",
         )
         .map_err(|_| 125)?;
-        if executable == "bin/rust2vir" {
-            validate_resource_tmpfs_mount(
+        validate_resource_tmpfs_mount(
+            &target,
+            WRITABLE_ALLOCATED_BYTES_LIMIT,
+            WRITABLE_INODE_LIMIT,
+            true,
+        )?;
+    } else {
+        for (relative, options) in [
+            ("mpk/cache/go-build", c"size=536870912,mode=700"),
+            ("mpk/tmp", c"size=536870912,mode=700"),
+        ] {
+            let target = root.join(relative);
+            mount(
+                "tmpfs",
                 &target,
-                WRITABLE_ALLOCATED_BYTES_LIMIT,
-                WRITABLE_INODE_LIMIT,
-            )?;
+                "tmpfs",
+                MountFlags::NOSUID | MountFlags::NODEV | MountFlags::NOEXEC,
+                Some(options),
+            )
+            .map_err(|_| 125)?;
         }
     }
     let source = root.join("mpk/source");
@@ -2803,6 +2881,33 @@ mod tests {
             "max -1\n",
         ] {
             assert!(parse_flat_counters(malformed).is_none());
+        }
+    }
+
+    #[test]
+    fn memory_discharge_uses_byte_gauges_instead_of_per_cpu_stock() {
+        let discharged = parse_flat_counters(
+            "anon 0\nfile 0\nkernel 32768\nsock 0\nshmem 0\nzswap 0\nzswapped 0\npgfault 42\n",
+        )
+        .expect("memory.stat parses");
+        assert!(resource_memory_values_are_discharged(&discharged));
+
+        for gauge in ["anon", "file", "sock", "shmem", "zswap", "zswapped"] {
+            let mut observed = discharged.clone();
+            observed.insert(gauge.to_owned(), 1);
+            assert!(!resource_memory_values_are_discharged(&observed));
+        }
+
+        let mut without_optional_zswap = discharged.clone();
+        without_optional_zswap.remove("zswap");
+        without_optional_zswap.remove("zswapped");
+        assert!(resource_memory_values_are_discharged(
+            &without_optional_zswap
+        ));
+        for required in ["anon", "file", "sock", "shmem"] {
+            let mut missing = discharged.clone();
+            missing.remove(required);
+            assert!(!resource_memory_values_are_discharged(&missing));
         }
     }
 

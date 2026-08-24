@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Deterministic Go release-bundle assembler and installed-tree checker."""
+"""Deterministic Go/Rust release-bundle assembler and installed-tree checker."""
 
 from __future__ import annotations
 
@@ -8,11 +8,14 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import selectors
 import shutil
+import signal
 import stat
 import subprocess
 import sys
 import tempfile
+import time
 
 
 REGISTRY_DOMAIN = b"MPK-BUNDLE-REGISTRY-0.1\0"
@@ -39,6 +42,9 @@ REQUIRED_PRIMITIVES = [
     "process.closed_environment",
     "process.no_new_privileges",
 ]
+RUST_FIXTURE_COMMAND_TIMEOUT_SECONDS = 300
+RUST_FIXTURE_SUPERVISOR_TIMEOUT_SECONDS = 345
+RUST_FIXTURE_OUTPUT_LIMIT_BYTES = 1024 * 1024
 
 
 class BundleFailure(Exception):
@@ -879,6 +885,305 @@ def fixture_go() -> None:
         temporary.cleanup()
 
 
+def rust_fixture_cgroup_command(
+    command: list[str], *, timeout_seconds: int = RUST_FIXTURE_COMMAND_TIMEOUT_SECONDS
+) -> list[str]:
+    if (
+        not command
+        or any(not isinstance(argument, str) or not argument for argument in command)
+        or not isinstance(timeout_seconds, int)
+        or isinstance(timeout_seconds, bool)
+        or not 1 <= timeout_seconds <= RUST_FIXTURE_COMMAND_TIMEOUT_SECONDS
+    ):
+        raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    script = r"""
+set -eu
+parent=/sys/fs/cgroup/mpk-rust-fixture-$$
+domain="$parent/domain"
+parent_created=0
+domain_created=0
+root_baseline_descendants=
+root_baseline_dying=
+domain_attributable_dying=0
+parent_attributable_dying=0
+read_cgroup_counts() {
+    settle_descendants=
+    settle_dying=
+    while IFS=' ' read -r settle_key settle_value settle_extra; do
+        case "$settle_key" in
+            nr_descendants) settle_descendants=$settle_value ;;
+            nr_dying_descendants) settle_dying=$settle_value ;;
+        esac
+    done < "$1/cgroup.stat" || return 1
+    [ -n "$settle_descendants" ] && [ -n "$settle_dying" ]
+}
+cgroup_settled() {
+    read_cgroup_counts "$1" || return 1
+    [ "$settle_descendants" = 0 ] && [ "$settle_dying" = 0 ]
+}
+cgroup_has_at_most_dying() {
+    read_cgroup_counts "$1" || return 1
+    [ "$settle_descendants" = 0 ] && [ "$settle_dying" -le "$2" ]
+}
+cleanup() {
+    status=$?
+    trap - EXIT HUP INT TERM
+    set +e
+    cleanup_status=0
+    if [ "$domain_created" -eq 1 ]; then
+        if ! printf "1\n" > "$domain/cgroup.kill" 2>/dev/null; then
+            cleanup_status=1
+        fi
+        attempt=0
+        while [ "$attempt" -lt 1000 ]; do
+            remaining=0
+            for child in "$domain"/*; do
+                if [ -d "$child" ]; then
+                    if ! printf "1\n" > "$child/cgroup.kill" 2>/dev/null; then
+                        cleanup_status=1
+                    fi
+                    if cgroup_settled "$child"; then
+                        /usr/bin/rmdir "$child" 2>/dev/null || remaining=1
+                    else
+                        remaining=1
+                    fi
+                fi
+            done
+            [ "$remaining" -eq 0 ] && break
+            attempt=$((attempt + 1))
+            /usr/bin/sleep 0.01
+        done
+        attempt=0
+        while [ "$attempt" -lt 100 ] && ! cgroup_settled "$domain"; do
+            attempt=$((attempt + 1))
+            /usr/bin/sleep 0.01
+        done
+        # The installed frontend may leave only its one removed manager as an
+        # attributable invisible dying descendant. More than one is residue.
+        if ! cgroup_has_at_most_dying "$domain" 1; then
+            cleanup_status=1
+        else
+            domain_attributable_dying=$settle_dying
+        fi
+        if ! printf '%s\n' '-memory -pids' \
+                > "$domain/cgroup.subtree_control" 2>/dev/null; then
+            cleanup_status=1
+        fi
+        /usr/bin/rmdir "$domain" 2>/dev/null || cleanup_status=1
+    fi
+    if [ "$parent_created" -eq 1 ]; then
+        attempt=0
+        parent_dying_limit=$((domain_attributable_dying + 1))
+        while [ "$attempt" -lt 100 ] \
+                && ! cgroup_has_at_most_dying "$parent" "$parent_dying_limit"; do
+            attempt=$((attempt + 1))
+            /usr/bin/sleep 0.01
+        done
+        # Removing domain can add exactly that private cgroup to its already
+        # attributable manager count; no other dying descendant is accepted.
+        if ! cgroup_has_at_most_dying "$parent" "$parent_dying_limit"; then
+            cleanup_status=1
+        else
+            parent_attributable_dying=$settle_dying
+        fi
+        if ! printf '%s\n' '-memory -pids' \
+                > "$parent/cgroup.subtree_control" 2>/dev/null; then
+            cleanup_status=1
+        fi
+        /usr/bin/rmdir "$parent" 2>/dev/null || cleanup_status=1
+    fi
+    if [ -n "$root_baseline_descendants" ] && [ -n "$root_baseline_dying" ]; then
+        root_dying_limit=$((root_baseline_dying + parent_attributable_dying + 1))
+        attempt=0
+        while [ "$attempt" -lt 100 ]; do
+            read_cgroup_counts /sys/fs/cgroup || break
+            [ "$settle_descendants" -eq "$root_baseline_descendants" ] \
+                && [ "$settle_dying" -le "$root_dying_limit" ] && break
+            attempt=$((attempt + 1))
+            /usr/bin/sleep 0.01
+        done
+        # The removed outer hierarchy accounts for at most its parent plus the
+        # already measured domain/manager entries. Reject any larger ancestor
+        # delta.
+        if ! read_cgroup_counts /sys/fs/cgroup \
+                || [ "$settle_descendants" -ne "$root_baseline_descendants" ] \
+                || [ "$settle_dying" -gt "$root_dying_limit" ]; then
+            cleanup_status=1
+        fi
+    fi
+    [ "$cleanup_status" -eq 0 ] || exit 125
+    exit "$status"
+}
+trap cleanup EXIT
+trap 'exit 124' HUP INT TERM
+read_cgroup_counts /sys/fs/cgroup
+root_baseline_descendants=$settle_descendants
+root_baseline_dying=$settle_dying
+/usr/bin/mkdir "$parent"
+parent_created=1
+printf '+memory +pids\n' > "$parent/cgroup.subtree_control"
+/usr/bin/mkdir "$domain"
+domain_created=1
+timeout=$1
+shift
+/usr/bin/timeout --signal=TERM --kill-after=5s "$timeout" /bin/sh -c 'set -eu
+domain=$1
+shift
+printf "0\n" > "$domain/cgroup.procs"
+exec "$@"' mpk-rust-cgroup "$domain" "$@"
+"""
+    return [
+        "/bin/sh",
+        "-c",
+        script,
+        "mpk-rust-fixture",
+        f"{timeout_seconds}s",
+        *command,
+    ]
+
+
+def run_bounded_rust_fixture(
+    command: list[str], *, cwd: Path, env: dict[str, str]
+) -> subprocess.CompletedProcess[bytes]:
+    try:
+        process = subprocess.Popen(
+            command,
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            cwd=cwd,
+            env=env,
+            start_new_session=True,
+        )
+    except (OSError, subprocess.SubprocessError) as error:
+        raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH") from error
+
+    if process.stdout is None or process.stderr is None:
+        raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    streams = selectors.DefaultSelector()
+    buffers = {"stdout": bytearray(), "stderr": bytearray()}
+    streams.register(process.stdout, selectors.EVENT_READ, "stdout")
+    streams.register(process.stderr, selectors.EVENT_READ, "stderr")
+    deadline = time.monotonic() + RUST_FIXTURE_SUPERVISOR_TIMEOUT_SECONDS
+    failure: str | None = None
+
+    try:
+        while streams.get_map():
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                failure = "timeout"
+                break
+            for key, _ in streams.select(min(remaining, 0.25)):
+                try:
+                    chunk = os.read(key.fd, 64 * 1024)
+                except BlockingIOError:
+                    continue
+                if not chunk:
+                    streams.unregister(key.fileobj)
+                    key.fileobj.close()
+                    continue
+                output = buffers[key.data]
+                available = RUST_FIXTURE_OUTPUT_LIMIT_BYTES - len(output)
+                output.extend(chunk[:available])
+                if len(chunk) > available:
+                    failure = f"{key.data}_limit"
+                    break
+            if failure is not None:
+                break
+
+        if failure is None:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                failure = "timeout"
+            else:
+                try:
+                    returncode = process.wait(timeout=remaining)
+                except subprocess.TimeoutExpired:
+                    failure = "timeout"
+
+        if failure is not None:
+            try:
+                os.killpg(process.pid, signal.SIGTERM)
+            except ProcessLookupError:
+                pass
+            termination_deadline = min(deadline, time.monotonic() + 35)
+            while (
+                process.poll() is None or streams.get_map()
+            ) and time.monotonic() < termination_deadline:
+                if not streams.get_map():
+                    time.sleep(0.05)
+                    continue
+                for key, _ in streams.select(0.1):
+                    try:
+                        chunk = os.read(key.fd, 64 * 1024)
+                    except BlockingIOError:
+                        continue
+                    if not chunk:
+                        streams.unregister(key.fileobj)
+                        key.fileobj.close()
+            try:
+                os.killpg(process.pid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+            if process.poll() is None:
+                reap_remaining = deadline - time.monotonic()
+                if reap_remaining > 0:
+                    try:
+                        process.wait(timeout=reap_remaining)
+                    except subprocess.TimeoutExpired:
+                        pass
+            raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+
+        return subprocess.CompletedProcess(
+            command,
+            returncode,
+            stdout=bytes(buffers["stdout"]),
+            stderr=bytes(buffers["stderr"]),
+        )
+    finally:
+        for key in list(streams.get_map().values()):
+            streams.unregister(key.fileobj)
+            key.fileobj.close()
+        streams.close()
+
+
+def validate_rust_fixture_supervision(*, cwd: Path, env: dict[str, str]) -> None:
+    accepted = run_bounded_rust_fixture(
+        rust_fixture_cgroup_command(["/bin/true"]), cwd=cwd, env=env
+    )
+    timed_out = run_bounded_rust_fixture(
+        rust_fixture_cgroup_command(["/usr/bin/sleep", "5"], timeout_seconds=1),
+        cwd=cwd,
+        env=env,
+    )
+    excessive_output_rejected = False
+    try:
+        run_bounded_rust_fixture(
+            rust_fixture_cgroup_command(
+                [
+                    "/usr/bin/head",
+                    "-c",
+                    str(RUST_FIXTURE_OUTPUT_LIMIT_BYTES + 1),
+                    "/dev/zero",
+                ]
+            ),
+            cwd=cwd,
+            env=env,
+        )
+    except BundleFailure:
+        excessive_output_rejected = True
+    if (
+        accepted.returncode != 0
+        or accepted.stdout
+        or accepted.stderr
+        or timed_out.returncode != 124
+        or timed_out.stdout
+        or timed_out.stderr
+        or not excessive_output_rejected
+    ):
+        raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+
+
 def fixture_all(mpk_binary: Path) -> None:
     binary_metadata = mpk_binary.lstat()
     if (
@@ -922,140 +1227,81 @@ def fixture_all(mpk_binary: Path) -> None:
         )
         if [item["name"] for item in rust_frontend["subordinate_binaries"]] != ["rust2vir-driver"]:
             raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
-        frontend_root = bundles / rust_frontend["bundle_id"]
-        toolchain_root = bundles / rust_toolchain["bundle_id"]
         source_root = repository_root() / "fixtures/rust-basic"
-        command = [
-            str(toolchain_root / "native-runtime/lib64/ld-linux-x86-64.so.2"),
-            "--library-path",
-            str(toolchain_root / "native-runtime/lib/x86_64-linux-gnu"),
-            str(frontend_root / "bin/rust2vir"),
-            "lower",
-            str(source_root),
-            "--manifest-path",
-            "Cargo.toml",
-            "--package",
-            "vector",
-            "--semantic-profile",
-            "mpk.rust.checked.v0",
-            "--target",
-            "x86_64-unknown-linux-gnu",
-            "--function",
-            "vector::identity",
-            "--frontend-bundle-id",
-            rust_frontend["bundle_id"],
-            "--frontend-sha256",
-            rust_frontend["main"]["binary_sha256"],
-            "--release-registry-id",
-            registry["id"],
-            "--release-registry-sha256",
-            registry["registry_sha256"],
-            "--toolchain-bundle-id",
-            rust_toolchain["bundle_id"],
-            "--toolchain-root",
-            str(toolchain_root),
-            "--toolchain-distribution-sha256",
-            rust_toolchain["distribution_sha256"],
-            "--driver",
-            str(frontend_root / "bin/rust2vir-driver"),
-            "--driver-sha256",
-            rust_frontend["subordinate_binaries"][0]["binary_sha256"],
-            "--contract",
-            "contracts/vector.json",
-        ]
-        results = [
-            subprocess.run(
-                command,
-                stdin=subprocess.DEVNULL,
-                capture_output=True,
-                check=False,
-                env={
-                    "HOME": "/nonexistent",
-                    "LANG": "C",
-                    "LC_ALL": "C",
-                    "PATH": "/usr/bin:/bin",
-                    "TMPDIR": "/tmp",
-                    "TZ": "UTC",
-                },
-            )
-            for _ in range(2)
-        ]
-        result = results[0]
-        try:
-            envelope = json.loads(result.stdout)
-        except (UnicodeDecodeError, json.JSONDecodeError) as error:
-            raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH") from error
-        if (
-            result.returncode != 0
-            or result.stderr
-            or results[1].returncode != result.returncode
-            or results[1].stdout != result.stdout
-            or results[1].stderr != result.stderr
-            or canonical(envelope) + b"\n" != result.stdout
-            or envelope.get("status") != "ir-lowered"
-            or envelope.get("source_language") != "rust"
-            or envelope.get("source_manifest", {}).get("release_registry", {}).get("registry_sha256")
-            != registry["registry_sha256"]
-            or str(destination).encode() in result.stdout
-            or str(source_root).encode() in result.stdout
-        ):
-            raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
-        scan_path = Path(temporary.name) / "rust-basic-scan.json"
-        scan = subprocess.run(
-            [
-                str(destination / "bin/mpk"),
-                "policy",
-                "scan",
-                str(source_root),
-                "--language",
-                "rust",
-                "--semantic-profile",
-                "mpk.rust.checked.v0",
-                "--require-release-registry-id",
-                registry["id"],
-                "--require-release-registry-sha256",
-                registry["registry_sha256"],
-                "--frontend-bundle",
-                rust_frontend["bundle_id"],
-                "--toolchain-bundle",
-                rust_toolchain["bundle_id"],
-                "--target",
-                "x86_64-unknown-linux-gnu",
-                "--package",
-                "vector",
-                "--function",
-                "vector::identity",
-                "--contract",
-                "contracts/vector.json",
-                "--json-out",
-                scan_path.name,
-            ],
-            stdin=subprocess.DEVNULL,
-            capture_output=True,
-            check=False,
-            cwd=scan_path.parent,
-            env={
-                "HOME": "/nonexistent",
-                "LANG": "C",
-                "LC_ALL": "C",
-                "PATH": "/usr/bin:/bin",
-                "TMPDIR": "/tmp",
-                "TZ": "UTC",
-            },
+        fixture_environment = {
+            "HOME": "/nonexistent",
+            "LANG": "C",
+            "LC_ALL": "C",
+            "PATH": "/usr/bin:/bin",
+            "TMPDIR": "/tmp",
+            "TZ": "UTC",
+        }
+        supervision_directory = Path(temporary.name) / "rust-supervision"
+        supervision_directory.mkdir()
+        validate_rust_fixture_supervision(
+            cwd=supervision_directory, env=fixture_environment
         )
+        scan_paths = []
+        scans = []
+        for index in range(2):
+            scan_directory = Path(temporary.name) / f"rust-scan-{index}"
+            scan_directory.mkdir()
+            scan_path = scan_directory / "rust-basic-scan.json"
+            scan_paths.append(scan_path)
+            scans.append(
+                run_bounded_rust_fixture(
+                    rust_fixture_cgroup_command([
+                        str(destination / "bin/mpk"),
+                        "policy",
+                        "scan",
+                        str(source_root),
+                        "--language",
+                        "rust",
+                        "--semantic-profile",
+                        "mpk.rust.checked.v0",
+                        "--require-release-registry-id",
+                        registry["id"],
+                        "--require-release-registry-sha256",
+                        registry["registry_sha256"],
+                        "--frontend-bundle",
+                        rust_frontend["bundle_id"],
+                        "--toolchain-bundle",
+                        rust_toolchain["bundle_id"],
+                        "--target",
+                        "x86_64-unknown-linux-gnu",
+                        "--package",
+                        "vector",
+                        "--function",
+                        "vector::identity",
+                        "--contract",
+                        "contracts/vector.json",
+                        "--json-out",
+                        scan_path.name,
+                    ]),
+                    cwd=scan_directory,
+                    env=fixture_environment,
+                )
+            )
         try:
-            scan_value = json.loads(scan_path.read_bytes())
+            scan_bytes = [path.read_bytes() for path in scan_paths]
+            scan_values = [json.loads(value) for value in scan_bytes]
         except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
             raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH") from error
+        scan = scans[0]
+        scan_value = scan_values[0]
         if (
             scan.returncode != 0
             or scan.stdout != b"ok policy scan status=ready json=rust-basic-scan.json\n"
             or scan.stderr
-            or canonical(scan_value) + b"\n" != scan_path.read_bytes()
+            or scans[1].returncode != scan.returncode
+            or scans[1].stdout != scan.stdout
+            or scans[1].stderr != scan.stderr
+            or scan_bytes[1] != scan_bytes[0]
+            or canonical(scan_value) + b"\n" != scan_bytes[0]
             or scan_value.get("schema") != "mpk.policy.scan.v1"
             or scan_value.get("readiness") != "ready"
-            or str(destination).encode() in scan_path.read_bytes()
-            or str(source_root).encode() in scan_path.read_bytes()
+            or str(destination).encode() in scan_bytes[0]
+            or str(source_root).encode() in scan_bytes[0]
         ):
             raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
     finally:

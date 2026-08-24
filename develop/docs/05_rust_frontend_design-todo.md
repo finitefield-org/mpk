@@ -2,9 +2,9 @@
 
 Source design: `develop/docs/05_rust_frontend_design.md`
 
-Status: active Rust migration task breakdown; the Go cutover is complete.
+Status: completed Go/VIR/Rust migration task record (2026-08-24).
 
-GIR_CUTOVER_STATUS: complete; RUST_PHASES: active; RETAINED_GIR_TERMINOLOGY: historical
+GIR_CUTOVER_STATUS: complete; RUST_PHASES: complete; RETAINED_GIR_TERMINOLOGY: historical
 
 This document turns the breaking GIR-to-VIR migration and Rust frontend design
 into independently implementable milestones. Source-design phase IDs remain
@@ -4691,7 +4691,7 @@ git diff --check
 
 ### RUST-07-T05 Add Clean CI, Compiler Upgrade Procedure, and Final Release Gate
 
-Status: Pending
+Status: Complete (2026-08-24)
 
 Depends on: RUST-07-T01 through RUST-07-T04.
 
@@ -4727,6 +4727,10 @@ Tasks:
    unregistered candidate, and executes frontend, Go migration, policy,
    both-checker, path,
    clean-build determinism, limit, fuzz-smoke, and obsolete-interface gates.
+   Because this ordered gate needs the initial cgroup namespace and root mount
+   privileges, the repository workflow runs only reviewed `main` bytes or a
+   write-access-controlled manual ref, never a pull-request ref. Its in-job
+   network namespace is a no-fetch control, not a hostile-root sandbox.
 2. Add a local aggregate gate with the same command ordering and no implicit
    rustup/toolchain download during verification.
 3. Document the compiler/build-closure upgrade as an ordered, reviewed
@@ -4776,10 +4780,10 @@ Acceptance criteria:
 Verification:
 
 ```sh
-./scripts/check-rust-frontend.sh
+sudo ./scripts/check-rust-frontend.sh
 ./scripts/build-release-bundles.sh --check-build-inputs rust
 ./scripts/check-no-active-gir.sh --strict
-./scripts/check-all.sh
+sudo ./scripts/check-all.sh
 cargo test --workspace
 (cd go-tools/go2vir && go test -count=1 ./...)
 ./scripts/run-rust2vir-toolchain.sh cargo test --locked

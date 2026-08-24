@@ -8,6 +8,7 @@ import copy
 import hashlib
 import json
 import os
+import stat
 import subprocess
 import sys
 import tomllib
@@ -16,6 +17,8 @@ from typing import Any
 
 
 REPORT_SCHEMA = "mpk.release.evidence.v0"
+RUST_BUILD_INPUT_DOMAIN = b"MPK-RUST-BUILD-INPUTS-0.1\0"
+RELEASE_REGISTRY_DOMAIN = b"MPK-BUNDLE-REGISTRY-0.1\0"
 MANIFEST_PATH = Path("fixtures/package-manifest/valid/basic-package.json")
 LOCK_PATH = Path("fixtures/package-lock/valid/basic-package-lock.json")
 RUST_PAYMENT_POLICY_MANIFEST_PATH = Path(
@@ -29,6 +32,32 @@ RUST_PAYMENT_POLICY_CERTIFICATE_PATH = Path(
 )
 RUST_RELEASE_POLICY_PATH = Path("fixtures/policy-profiles/rust-release-policy.json")
 RUST_BUNDLE_REGISTRY_PATH = Path("release/bundles/bundle-registry.json")
+RUST_BUILD_INPUTS_PATH = Path("release/build-inputs/rust/build-inputs.json")
+RUST_POSITIVE_CORPUS_MANIFEST_PATH = Path("fixtures/rust-basic/manifest.json")
+RUST_FINAL_REVIEW_PATH = Path("develop/migrations/rust-frontend-final-review.json")
+RUST_PAYMENT_POLICY_ARTIFACT_MANIFEST_PATH = Path(
+    "examples/rust-payment-policy/artifacts/manifest.json"
+)
+RUST_PAYMENT_POLICY_VIR_PATH = Path("examples/rust-payment-policy/artifacts/vir.json")
+RUST_PAYMENT_POLICY_SOURCE_MAP_PATH = Path(
+    "examples/rust-payment-policy/artifacts/source-map.json"
+)
+RUST_PAYMENT_POLICY_FRONTEND_MANIFEST_PATH = Path(
+    "examples/rust-payment-policy/artifacts/source-manifest.frontend.json"
+)
+RUST_PAYMENT_POLICY_CERTIFICATE_MANIFEST_PATH = Path(
+    "examples/rust-payment-policy/artifacts/source-manifest.certificate.json"
+)
+RUST_PAYMENT_POLICY_VC_PATH = Path("examples/rust-payment-policy/artifacts/vc.json")
+RUST_PAYMENT_POLICY_AXIOM_REPORT_PATH = Path(
+    "examples/rust-payment-policy/artifacts/axiom-report.json"
+)
+RUST_PAYMENT_POLICY_CHECKER_REPORTS_PATH = Path(
+    "examples/rust-payment-policy/artifacts/checker-reports.json"
+)
+RUST_PAYMENT_POLICY_FINDINGS_PATH = Path(
+    "examples/rust-payment-policy/artifacts/findings.json"
+)
 DEFAULT_REPORT_PATH = Path("release-report.json")
 RUST_PAYMENT_POLICY_SELECTION = {
     "package": "payment-policy",
@@ -358,6 +387,16 @@ def build_rust_payment_policy_report(repo_root: Path) -> dict[str, Any]:
     if not passed:
         raise ReleaseReportError("Rust payment-policy release gate rejected")
 
+    release_provenance = build_rust_release_provenance(
+        repo_root,
+        evidence,
+        active_release,
+        registry,
+        certificates,
+        certificate_gates,
+        fixture_verification,
+    )
+
     return {
         "artifacts": {
             "package_manifest": {
@@ -400,6 +439,7 @@ def build_rust_payment_policy_report(repo_root: Path) -> dict[str, Any]:
         "package_verification": package_verification,
         "fixture_verification": fixture_verification,
         "certificates": certificates,
+        "release_provenance": release_provenance,
         "release_gates": {
             **certificate_gates,
             "active_release_profiles_match_evidence": profile_agreement,
@@ -411,6 +451,549 @@ def build_rust_payment_policy_report(repo_root: Path) -> dict[str, Any]:
             "passed": passed,
         },
     }
+
+
+def build_rust_release_provenance(
+    repo_root: Path,
+    evidence: dict[str, Any],
+    active_release: dict[str, Any],
+    registry: dict[str, Any],
+    certificates: list[dict[str, Any]],
+    certificate_gates: dict[str, Any],
+    fixture_verification: dict[str, Any],
+) -> dict[str, Any]:
+    build_inputs_path = repo_root / RUST_BUILD_INPUTS_PATH
+    corpus_manifest_path = repo_root / RUST_POSITIVE_CORPUS_MANIFEST_PATH
+    artifact_manifest_path = repo_root / RUST_PAYMENT_POLICY_ARTIFACT_MANIFEST_PATH
+    review_path = repo_root / RUST_FINAL_REVIEW_PATH
+    build_inputs = read_json_object(build_inputs_path)
+    corpus_manifest = read_json_object(corpus_manifest_path)
+    artifact_manifest = read_json_object(artifact_manifest_path)
+    review = read_json_object(review_path)
+
+    if build_inputs.get("schema") != "mpk.rust.build_inputs.v0":
+        raise ReleaseReportError(f"{RUST_BUILD_INPUTS_PATH}: unexpected schema")
+    build_inputs_sha256 = require_sha256(
+        build_inputs.get("build_inputs_sha256"),
+        f"{RUST_BUILD_INPUTS_PATH}: build_inputs_sha256",
+    )
+    if build_inputs_sha256 != domain_hash_without_field(
+        RUST_BUILD_INPUT_DOMAIN, build_inputs, "build_inputs_sha256"
+    ):
+        raise ReleaseReportError("Rust build-input descriptor self-hash mismatch")
+    registry_sha256 = require_sha256(
+        registry.get("registry_sha256"),
+        f"{RUST_BUNDLE_REGISTRY_PATH}: registry_sha256",
+    )
+    if registry_sha256 != domain_hash_without_field(
+        RELEASE_REGISTRY_DOMAIN, registry, "registry_sha256"
+    ):
+        raise ReleaseReportError("release bundle registry self-hash mismatch")
+    if build_inputs.get("profile_id") != active_release["semantic_profile"]:
+        raise ReleaseReportError("Rust build-input semantic profile mismatch")
+
+    rust_frontends = [
+        item
+        for item in registry.get("frontend_bundles", [])
+        if item.get("source_language") == "rust"
+    ]
+    rust_toolchains = [
+        item
+        for item in registry.get("toolchain_bundles", [])
+        if item.get("source_language") == "rust"
+    ]
+    rust_tuples = [
+        item
+        for item in registry.get("tuples", [])
+        if item.get("source_language") == "rust"
+    ]
+    if len(rust_frontends) != 1 or len(rust_toolchains) != 1 or len(rust_tuples) != 2:
+        raise ReleaseReportError("Rust release registration must contain one bundle pair and two targets")
+    frontend = rust_frontends[0]
+    toolchain = rust_toolchains[0]
+    if (
+        frontend.get("bundle_id") != evidence["frontend"]["bundle_id"]
+        or toolchain.get("bundle_id") != evidence["toolchain"]["bundle_id"]
+    ):
+        raise ReleaseReportError("Rust evidence does not select the registered bundle pair")
+    if os.path.lexists(repo_root / "release/bundles/candidates/rust"):
+        raise ReleaseReportError("registered Rust release still contains a candidate publication")
+
+    target_libraries = toolchain.get("target_libraries")
+    distribution = build_inputs.get("rust_distribution")
+    if not isinstance(target_libraries, list) or not isinstance(distribution, dict):
+        raise ReleaseReportError("Rust target-library or distribution metadata is malformed")
+    target_rows = sorted(
+        (
+            item.get("target_id"),
+            item.get("pointer_width"),
+            item.get("component_name"),
+            item.get("content_sha256"),
+        )
+        for item in target_libraries
+    )
+    tuple_rows = sorted(
+        (item.get("target_id"), item.get("pointer_width")) for item in rust_tuples
+    )
+    expected_targets = [
+        ("i686-unknown-linux-gnu", 32),
+        ("x86_64-unknown-linux-gnu", 64),
+    ]
+    if (
+        tuple_rows != expected_targets
+        or [(row[0], row[1]) for row in target_rows] != expected_targets
+        or sorted(distribution.get("targets", []))
+        != [row[0] for row in expected_targets]
+    ):
+        raise ReleaseReportError("Rust registered target closure mismatch")
+    for row in rust_tuples:
+        if (
+            row.get("frontend_bundle_id") != frontend["bundle_id"]
+            or row.get("toolchain_bundle_id") != toolchain["bundle_id"]
+            or row.get("semantic_profile") != active_release["semantic_profile"]
+            or row.get("limit_profile_id") != evidence["limit_profile"]
+        ):
+            raise ReleaseReportError("Rust registered tuple identity mismatch")
+
+    graphs = build_inputs.get("graphs")
+    if not isinstance(graphs, list) or [item.get("id") for item in graphs] != [
+        "cargo-fuzz-tool",
+        "frontend",
+        "fuzz",
+    ]:
+        raise ReleaseReportError("Rust dependency graph identities are not frozen")
+    dependency_graphs = []
+    for graph in graphs:
+        manifest_identity = graph.get("manifest")
+        lock_identity = graph.get("lock")
+        packages = graph.get("packages")
+        if (
+            not isinstance(manifest_identity, dict)
+            or not isinstance(lock_identity, dict)
+            or not isinstance(packages, list)
+            or not isinstance(graph.get("roots"), list)
+        ):
+            raise ReleaseReportError("Rust dependency graph identity is malformed")
+        dependency_graphs.append(
+            {
+                "id": graph["id"],
+                "roots": graph["roots"],
+                "manifest_sha256": require_sha256(
+                    manifest_identity.get("sha256"), f"Rust graph {graph['id']} manifest"
+                ),
+                "lock_sha256": require_sha256(
+                    lock_identity.get("sha256"), f"Rust graph {graph['id']} lock"
+                ),
+                "package_count": len(packages),
+            }
+        )
+
+    cargo_fuzz = build_inputs.get("cargo_fuzz")
+    tool_sources = distribution.get("tool_source_digests")
+    if (
+        not isinstance(cargo_fuzz, dict)
+        or cargo_fuzz.get("clean_builds_equal") is not True
+        or not isinstance(tool_sources, list)
+        or len(tool_sources) != 1
+        or tool_sources[0].get("name") != "cargo-fuzz"
+        or tool_sources[0].get("version") != cargo_fuzz.get("version")
+        or tool_sources[0].get("sha256") != cargo_fuzz.get("archive_sha256")
+        or dependency_graphs[0]["roots"] != [f"cargo-fuzz@{cargo_fuzz.get('version')}"]
+    ):
+        raise ReleaseReportError("cargo-fuzz identity does not match the frozen dependency closure")
+
+    components = build_inputs.get("components")
+    licenses = build_inputs.get("licenses")
+    if (
+        not isinstance(components, list)
+        or any(not isinstance(item, dict) for item in components)
+        or len(components) != 7
+        or not isinstance(licenses, list)
+    ):
+        raise ReleaseReportError("Rust build-input components or licenses are malformed")
+    component_by_name = {
+        item.get("name"): item for item in components if isinstance(item, dict)
+    }
+    if set(component_by_name) != {
+        "cargo-home-seed",
+        "native-runtime",
+        "native-sysroot",
+        "notices",
+        "tool-sources",
+        "toolchain",
+        "vendor",
+    }:
+        raise ReleaseReportError("Rust build-input component closure is incomplete")
+    inventoried_paths = {
+        row.get("path")
+        for component in components
+        for row in component.get("files", [])
+        if isinstance(component, dict) and isinstance(row, dict)
+    }
+    license_ids = {
+        item.get("id") for item in licenses if isinstance(item, dict)
+    }
+    if None in license_ids or len(license_ids) != len(licenses):
+        raise ReleaseReportError("Rust build-input license identities are malformed")
+    for license_row in licenses:
+        files = license_row.get("files")
+        if not isinstance(files, list) or any(path not in inventoried_paths for path in files):
+            raise ReleaseReportError("Rust license/notice file is outside the frozen inventory")
+    for component in components:
+        if any(ref not in license_ids for ref in component.get("license_refs", [])):
+            raise ReleaseReportError("Rust component references an unknown license identity")
+        if any(path not in inventoried_paths for path in component.get("notice_refs", [])):
+            raise ReleaseReportError("Rust component references an unknown notice file")
+
+    native_component = component_by_name["native-runtime"]
+    descriptor_native_files = native_component.get("files")
+    registry_native_files = [
+        row
+        for row in toolchain.get("inventory", {}).get("files", [])
+        if row.get("path", "").startswith("native-runtime/")
+    ]
+    if not isinstance(descriptor_native_files, list):
+        raise ReleaseReportError("frozen native-runtime inventory is malformed")
+    descriptor_native_by_path = {row.get("path"): row for row in descriptor_native_files}
+    registry_native_by_path = {row.get("path"): row for row in registry_native_files}
+    descriptor_cpp = descriptor_native_by_path.pop(
+        "native-runtime/lib/x86_64-linux-gnu/libstdc++.so.6", None
+    )
+    registry_cpp = registry_native_by_path.pop(
+        "native-runtime/lib/x86_64-linux-gnu/libstdcxx.so.6", None
+    )
+    if (
+        descriptor_native_by_path != registry_native_by_path
+        or not isinstance(descriptor_cpp, dict)
+        or not isinstance(registry_cpp, dict)
+        or descriptor_cpp.get("size_bytes") != registry_cpp.get("size_bytes")
+        or descriptor_cpp.get("sha256") == registry_cpp.get("sha256")
+        or native_component.get("notice_refs") != ["notices/Ubuntu-Bionic-NOTICE.txt"]
+        or toolchain.get("native_runtime", {}).get("layout_profile_id")
+        != build_inputs.get("runtime_layout_profile_id")
+    ):
+        raise ReleaseReportError("registered native runtime differs from frozen build inputs")
+    native_runtime_bundle_component = next(
+        (item for item in toolchain.get("components", []) if item.get("name") == "native-runtime"),
+        None,
+    )
+    if not isinstance(native_runtime_bundle_component, dict):
+        raise ReleaseReportError("registered Rust toolchain omits native-runtime content identity")
+
+    artifact_objects = {
+        "vir": read_json_object(repo_root / RUST_PAYMENT_POLICY_VIR_PATH),
+        "source_map": read_json_object(repo_root / RUST_PAYMENT_POLICY_SOURCE_MAP_PATH),
+        "frontend_manifest": read_json_object(
+            repo_root / RUST_PAYMENT_POLICY_FRONTEND_MANIFEST_PATH
+        ),
+        "certificate_manifest": read_json_object(
+            repo_root / RUST_PAYMENT_POLICY_CERTIFICATE_MANIFEST_PATH
+        ),
+        "vc": read_json_object(repo_root / RUST_PAYMENT_POLICY_VC_PATH),
+        "axiom_report": read_json_object(repo_root / RUST_PAYMENT_POLICY_AXIOM_REPORT_PATH),
+        "checker_reports": read_json_object(
+            repo_root / RUST_PAYMENT_POLICY_CHECKER_REPORTS_PATH
+        ),
+        "findings": read_json_object(repo_root / RUST_PAYMENT_POLICY_FINDINGS_PATH),
+    }
+    validate_rust_artifact_inventory(repo_root, artifact_manifest)
+    run_rust_artifact_inventory_regression(repo_root, artifact_manifest)
+    certificate = certificates[0]
+    expected_hashes = certificate["expected_hashes"]
+    if (
+        artifact_objects["vir"].get("vir_hash") != evidence["source_ir_hash"]
+        or artifact_objects["source_map"].get("source_ir_hash") != evidence["source_ir_hash"]
+        or artifact_objects["source_map"].get("source_map_hash") != evidence["source_map_hash"]
+        or artifact_objects["frontend_manifest"].get("source_manifest_hash")
+        != evidence["frontend_source_manifest_hash"]
+        or artifact_objects["certificate_manifest"].get("source_manifest_hash")
+        != evidence["certificate_source_manifest_hash"]
+        or artifact_objects["certificate_manifest"].get("vc_hash") != evidence["vc_hash"]
+        or artifact_objects["vc"].get("source_ir_hash") != evidence["source_ir_hash"]
+        or artifact_objects["vc"].get("vc_hash") != evidence["vc_hash"]
+        or artifact_objects["axiom_report"].get("certificate_hash")
+        != expected_hashes["certificate"]
+        or artifact_objects["axiom_report"].get("axiom_report_hash")
+        != expected_hashes["axiom_report"]
+        or artifact_objects["findings"].get("findings") != []
+    ):
+        raise ReleaseReportError("Rust payment-policy pipeline artifact hash mismatch")
+    checker_reports = artifact_objects["checker_reports"]
+    fast_report = checker_reports.get("rust_fast_kernel")
+    reference_report = checker_reports.get("reference_checker")
+    if (
+        not isinstance(fast_report, dict)
+        or not isinstance(reference_report, dict)
+        or fast_report.get("verdict") != "accepted"
+        or reference_report.get("verdict") != "accepted"
+        or fast_report.get("hashes", {}).get("certificate")
+        != expected_hashes["certificate"]
+        or reference_report.get("certificate_hash") != expected_hashes["certificate"]
+        or fast_report.get("hashes", {}).get("axiom_report")
+        != expected_hashes["axiom_report"]
+        or reference_report.get("axiom_report_hash") != expected_hashes["axiom_report"]
+    ):
+        raise ReleaseReportError("Rust payment-policy checker reports disagree")
+
+    generation = corpus_manifest.get("generation")
+    corpus_targets = sorted(
+        {item.get("target_id") for item in corpus_manifest.get("cases", [])}
+    )
+    if (
+        corpus_manifest.get("schema") != "mpk.rust.positive_corpus.v0"
+        or corpus_manifest.get("status") != "reviewed_zero_findings"
+        or corpus_manifest.get("findings") != []
+        or corpus_manifest.get("deterministic_runs") != 2
+        or not isinstance(generation, dict)
+        or generation.get("snapshot_compiler_clean_runs") != 2
+        or generation.get("downstream_clean_runs") != 2
+        or generation.get("byte_identical") is not True
+        or corpus_targets != [row[0] for row in expected_targets]
+    ):
+        raise ReleaseReportError("Rust two-clean-build corpus record is incomplete")
+
+    if (
+        set(review) != {"findings", "reviewed_surfaces", "schema", "status", "task", "trust"}
+        or review.get("schema") != "mpk.rust_frontend.final_review.v0"
+        or review.get("task") != "RUST-07-T05"
+        or review.get("status") != "reviewed_zero_findings"
+        or review.get("trust") != "untrusted_review_record"
+        or review.get("findings") != []
+        or not isinstance(review.get("reviewed_surfaces"), list)
+        or not review["reviewed_surfaces"]
+    ):
+        raise ReleaseReportError("Rust final review ledger is not closed")
+
+    path_result = run(
+        repo_root,
+        ["python3", path_str(Path("scripts/check-artifact-paths.py"))],
+    )
+    if "artifact path check passed:" not in path_result.stdout:
+        raise ReleaseReportError("Rust artifact path gate did not report success")
+
+    pipeline_artifacts = {
+        "vir": release_artifact_record(
+            repo_root, RUST_PAYMENT_POLICY_VIR_PATH, "vir_hash", evidence["source_ir_hash"]
+        ),
+        "source_map": release_artifact_record(
+            repo_root,
+            RUST_PAYMENT_POLICY_SOURCE_MAP_PATH,
+            "source_map_hash",
+            evidence["source_map_hash"],
+        ),
+        "frontend_source_manifest": release_artifact_record(
+            repo_root,
+            RUST_PAYMENT_POLICY_FRONTEND_MANIFEST_PATH,
+            "source_manifest_hash",
+            evidence["frontend_source_manifest_hash"],
+        ),
+        "certificate_source_manifest": release_artifact_record(
+            repo_root,
+            RUST_PAYMENT_POLICY_CERTIFICATE_MANIFEST_PATH,
+            "source_manifest_hash",
+            evidence["certificate_source_manifest_hash"],
+        ),
+        "vc": release_artifact_record(
+            repo_root, RUST_PAYMENT_POLICY_VC_PATH, "vc_hash", evidence["vc_hash"]
+        ),
+        "certificate": {
+            "path": path_str(RUST_PAYMENT_POLICY_CERTIFICATE_PATH),
+            "sha256": sha256_file(repo_root / RUST_PAYMENT_POLICY_CERTIFICATE_PATH),
+            "certificate_hash": expected_hashes["certificate"],
+        },
+        "axiom_report": release_artifact_record(
+            repo_root,
+            RUST_PAYMENT_POLICY_AXIOM_REPORT_PATH,
+            "axiom_report_hash",
+            expected_hashes["axiom_report"],
+        ),
+    }
+
+    return {
+        "trust": "untrusted_helper_provenance",
+        "build_inputs": {
+            "path": path_str(RUST_BUILD_INPUTS_PATH),
+            "sha256": sha256_file(build_inputs_path),
+            "build_inputs_sha256": build_inputs_sha256,
+            "profile_id": build_inputs["profile_id"],
+            "recipe_id": build_inputs["recipe_id"],
+            "execution_host_profile_id": build_inputs["execution_host_profile_id"],
+            "runtime_layout_profile_id": build_inputs["runtime_layout_profile_id"],
+            "dependency_graphs": dependency_graphs,
+            "cargo_fuzz": {
+                key: cargo_fuzz[key]
+                for key in (
+                    "version",
+                    "tag",
+                    "commit",
+                    "tree",
+                    "archive_sha256",
+                    "executable_sha256",
+                    "clean_builds_equal",
+                )
+            },
+        },
+        "registered_release": {
+            "registry": evidence["release_registry"],
+            "registry_transport_sha256": sha256_file(repo_root / RUST_BUNDLE_REGISTRY_PATH),
+            "frontend_bundle_id": frontend["bundle_id"],
+            "frontend_bundle_sha256": frontend["bundle_sha256"],
+            "toolchain_bundle_id": toolchain["bundle_id"],
+            "toolchain_distribution_sha256": toolchain["distribution_sha256"],
+            "targets": [
+                {
+                    "target_id": row[0],
+                    "pointer_width": row[1],
+                    "component_name": row[2],
+                    "content_sha256": row[3],
+                }
+                for row in target_rows
+            ],
+            "candidate_publication_path_absent": True,
+        },
+        "native_runtime_and_notices": {
+            "layout_profile_id": toolchain["native_runtime"]["layout_profile_id"],
+            "content_sha256": native_runtime_bundle_component["content_sha256"],
+            "inventory_file_count": len(descriptor_native_files),
+            "license_identity_count": len(licenses),
+            "notice_inventory_file_count": len(component_by_name["notices"]["files"]),
+            "descriptor_registry_projection_valid": True,
+            "portable_cpp_runtime_soname": "libstdcxx.so.6",
+            "license_and_notice_references_valid": True,
+        },
+        "pipeline_artifacts": pipeline_artifacts,
+        "gate_results": {
+            "registered_bundle_and_target_validation": "accepted",
+            "build_input_dependency_and_notice_validation": "accepted",
+            "two_clean_build_comparison": {
+                "snapshot_compiler_runs": generation["snapshot_compiler_clean_runs"],
+                "downstream_runs": generation["downstream_clean_runs"],
+                "cargo_fuzz_clean_builds_equal": cargo_fuzz["clean_builds_equal"],
+                "byte_identical": generation["byte_identical"],
+            },
+            "manifest_vir_vc_certificate_hashes_equal": True,
+            "checker_agreement": certificate_gates["hash_agreement"]
+            and certificate_gates["source_free_checker_accepted"]
+            and certificate_gates["reference_checker_accepted"],
+            "axiom_report_and_profile_equal": rust_evidence_profiles(evidence)
+            == active_release
+            and artifact_objects["axiom_report"]["axiom_report_hash"]
+            == expected_hashes["axiom_report"],
+            "determinism_gate": fixture_verification["verdict"],
+            "path_sanitation_gate": "accepted",
+            "rust_example_result": "accepted",
+            "review_findings": review["findings"],
+        },
+    }
+
+
+def validate_rust_artifact_inventory(
+    repo_root: Path, artifact_manifest: dict[str, Any]
+) -> None:
+    if (
+        artifact_manifest.get("schema") != "mpk.rust_payment_policy.artifacts.v0"
+        or artifact_manifest.get("findings") != []
+        or not isinstance(artifact_manifest.get("artifacts"), list)
+    ):
+        raise ReleaseReportError("Rust payment-policy artifact manifest is not clean")
+    artifact_root = RUST_PAYMENT_POLICY_ARTIFACT_MANIFEST_PATH.parent
+    artifact_directory = repo_root / artifact_root
+    paths: set[str] = set()
+    for row in artifact_manifest["artifacts"]:
+        if (
+            not isinstance(row, dict)
+            or set(row) != {"bytes", "path", "sha256"}
+            or not isinstance(row.get("path"), str)
+            or row["path"] in paths
+        ):
+            raise ReleaseReportError("Rust payment-policy artifact inventory is malformed")
+        paths.add(row["path"])
+        relative = Path(row["path"])
+        if relative.is_absolute() or ".." in relative.parts:
+            raise ReleaseReportError("Rust payment-policy artifact path is not relative")
+        path = repo_root / artifact_root / relative
+        if (
+            not path.is_file()
+            or path.is_symlink()
+            or path.stat().st_size != row["bytes"]
+            or sha256_file(path) != row["sha256"]
+        ):
+            raise ReleaseReportError(f"Rust payment-policy artifact inventory drift: {row['path']}")
+
+    actual_paths: set[str] = set()
+    for path in artifact_directory.rglob("*"):
+        relative = path.relative_to(artifact_directory).as_posix()
+        metadata = path.lstat()
+        if relative == RUST_PAYMENT_POLICY_ARTIFACT_MANIFEST_PATH.name:
+            if path.is_symlink() or not stat.S_ISREG(metadata.st_mode):
+                raise ReleaseReportError("Rust payment-policy artifact manifest is not regular")
+            continue
+        if path.is_symlink() or not stat.S_ISREG(metadata.st_mode):
+            raise ReleaseReportError(
+                f"Rust payment-policy artifact tree has a non-regular entry: {relative}"
+            )
+        actual_paths.add(relative)
+    if actual_paths != paths:
+        missing = sorted(paths - actual_paths)
+        unlisted = sorted(actual_paths - paths)
+        raise ReleaseReportError(
+            "Rust payment-policy artifact inventory is not exhaustive: "
+            f"missing={missing}, unlisted={unlisted}"
+        )
+
+
+def run_rust_artifact_inventory_regression(
+    repo_root: Path, artifact_manifest: dict[str, Any]
+) -> None:
+    mutated = copy.deepcopy(artifact_manifest)
+    artifacts = mutated.get("artifacts")
+    if not isinstance(artifacts, list) or not artifacts:
+        raise ReleaseReportError("Rust payment-policy artifact regression has no fixture")
+    artifacts.pop()
+    try:
+        validate_rust_artifact_inventory(repo_root, mutated)
+    except ReleaseReportError:
+        return
+    raise ReleaseReportError(
+        "Rust payment-policy artifact regression accepted an unlisted tree entry"
+    )
+
+
+def release_artifact_record(
+    repo_root: Path, path: Path, hash_name: str, hash_value: str
+) -> dict[str, Any]:
+    return {
+        "path": path_str(path),
+        "sha256": sha256_file(repo_root / path),
+        hash_name: hash_value,
+    }
+
+
+def require_sha256(value: Any, context: str) -> str:
+    if not isinstance(value, str) or len(value) != 64:
+        raise ReleaseReportError(f"{context}: expected lowercase SHA-256")
+    try:
+        decoded = bytes.fromhex(value)
+    except ValueError as error:
+        raise ReleaseReportError(f"{context}: expected lowercase SHA-256") from error
+    if len(decoded) != 32 or value != value.lower():
+        raise ReleaseReportError(f"{context}: expected lowercase SHA-256")
+    return value
+
+
+def domain_hash_without_field(
+    domain: bytes, value: dict[str, Any], field: str
+) -> str:
+    payload = dict(value)
+    payload.pop(field, None)
+    canonical = json.dumps(
+        payload,
+        ensure_ascii=False,
+        allow_nan=False,
+        separators=(",", ":"),
+        sort_keys=True,
+    ).encode("utf-8")
+    return hashlib.sha256(domain + canonical).hexdigest()
 
 
 def validate_rust_payment_policy_inputs(

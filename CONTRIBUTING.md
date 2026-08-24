@@ -39,8 +39,24 @@ For ordinary changes, run:
 For release-facing or cross-boundary changes, run:
 
 ```sh
-./scripts/check-all.sh
+sudo ./scripts/check-all.sh
 ```
+
+For a targeted Rust frontend, compiler, release-bundle, or policy change, the
+embedded Rust gate can also be run directly:
+
+```sh
+sudo ./scripts/check-rust-frontend.sh
+```
+
+The ignored frozen-build cache must already exist; neither gate provisions or
+upgrades a toolchain. Run the gates only from reviewed repository bytes and
+use sudo's root-owned secure path rather than forwarding a user-writable
+`HOME` or `PATH`. Root is required only to provision the release
+sandbox's empty delegated cgroup and fixed `noswap` tmpfs; frontend and
+compiler execution occurs after host privileges are removed.
+Compiler/build-closure changes follow the ordered
+[Rust frontend toolchain upgrade procedure](develop/docs/rust-frontend-toolchain-upgrade.md).
 
 Targeted checks are acceptable while iterating:
 

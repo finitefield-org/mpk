@@ -113,7 +113,16 @@ func computeCurrentToolchainCandidate(t *testing.T) testToolchainCandidate {
 		"src/builtin/builtin.go",
 		"src/unsafe/unsafe.go",
 	} {
-		source := filepath.Join(installedRoot, filepath.FromSlash(relative))
+		// Distribution packages may expose one of these closed, selected
+		// GOROOT paths as an alias into a read-only content tree. Resolve only
+		// that selected path; copyToolchainFixturePath still rejects every
+		// symlink encountered beneath a selected directory.
+		source, err := filepath.EvalSymlinks(
+			filepath.Join(installedRoot, filepath.FromSlash(relative)),
+		)
+		if err != nil {
+			return testToolchainCandidate{err: err}
+		}
 		destination := filepath.Join(root, filepath.FromSlash(relative))
 		if err := copyToolchainFixturePath(source, destination); err != nil {
 			return testToolchainCandidate{err: err}
@@ -243,6 +252,42 @@ func copyToolchainFixturePath(source, destination string) error {
 		})
 	}
 	return copyToolchainFixtureFile(source, destination, info)
+}
+
+func TestToolchainFixtureResolvesSelectedAliasButRejectsNestedSymlink(t *testing.T) {
+	realRoot := filepath.Join(t.TempDir(), "real")
+	realInclude := filepath.Join(realRoot, "include")
+	if err := os.MkdirAll(realInclude, 0o700); err != nil {
+		t.Fatalf("create selected content tree: %v", err)
+	}
+	writeTestFile(t, filepath.Join(realInclude, "fixed.h"), []byte("fixed\n"), 0o600)
+	alias := filepath.Join(t.TempDir(), "selected")
+	if err := os.Symlink(filepath.Join(realRoot, "include"), alias); err != nil {
+		t.Fatalf("create selected packaging alias: %v", err)
+	}
+	resolved, err := filepath.EvalSymlinks(alias)
+	if err != nil {
+		t.Fatalf("resolve selected packaging alias: %v", err)
+	}
+	destination := filepath.Join(t.TempDir(), "copied")
+	if err := copyToolchainFixturePath(resolved, destination); err != nil {
+		t.Fatalf("materialize selected packaging alias: %v", err)
+	}
+	if content, err := os.ReadFile(filepath.Join(destination, "fixed.h")); err != nil || string(content) != "fixed\n" {
+		t.Fatalf("materialized packaging alias = %q, %v", content, err)
+	}
+
+	nestedRoot := filepath.Join(t.TempDir(), "nested")
+	if err := os.MkdirAll(nestedRoot, 0o700); err != nil {
+		t.Fatalf("create nested content tree: %v", err)
+	}
+	writeTestFile(t, filepath.Join(nestedRoot, "fixed.h"), []byte("fixed\n"), 0o600)
+	if err := os.Symlink("fixed.h", filepath.Join(nestedRoot, "alias.h")); err != nil {
+		t.Fatalf("create nested alias: %v", err)
+	}
+	if err := copyToolchainFixturePath(nestedRoot, filepath.Join(t.TempDir(), "rejected")); err == nil {
+		t.Fatal("nested toolchain fixture symlink was accepted")
+	}
 }
 
 func copyToolchainFixtureFile(source, destination string, info os.FileInfo) error {

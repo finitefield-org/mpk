@@ -5473,6 +5473,37 @@ def read_active_registry(*, require_go_only: bool = True) -> bytes:
     return data
 
 
+def require_candidate_mode_registry(*, check: bool) -> bytes:
+    import release_bundles
+
+    active = repository_root() / "release/bundles"
+    try:
+        data = release_bundles.current_registry()
+        state = release_bundles.classify_registry(data)
+        candidate_data = release_bundles.current_rust_candidate(active)
+    except release_bundles.BundleFailure as error:
+        raise RustBuildFailure("BUNDLE_REGISTERED_STATE") from error
+    if state == "all_registered":
+        if candidate_data is not None:
+            raise RustBuildFailure("BUNDLE_REGISTERED_STATE")
+        raise RustBuildFailure("BUNDLE_CANDIDATE_STATE")
+    if state != "go_registered":
+        raise RustBuildFailure("BUNDLE_REGISTERED_STATE")
+    if candidate_data is not None:
+        try:
+            if not candidate_data.endswith(b"\n"):
+                raise RustBuildFailure("BUNDLE_REGISTERED_STATE")
+            candidate = strict_json(candidate_data[:-1])
+            if canonical(candidate) + b"\n" != candidate_data:
+                raise RustBuildFailure("BUNDLE_REGISTERED_STATE")
+            validate_candidate_model(candidate)
+        except RustBuildFailure as error:
+            raise RustBuildFailure("BUNDLE_REGISTERED_STATE") from error
+    elif check:
+        raise RustBuildFailure("BUNDLE_CANDIDATE_STATE")
+    return data
+
+
 def materialize_candidate_tree(
     candidate_data: bytes, cache: Path, target: Path, destination: Path
 ) -> None:
@@ -5652,7 +5683,10 @@ def publish_candidate(
 
 
 def update_candidate(*, check: bool) -> None:
-    read_active_registry()
+    # Candidate commands reject an already registered Rust release before
+    # creating a private build directory, as required by the assembler state
+    # machine. Invalid registry state retains the registered-state diagnostic.
+    require_candidate_mode_registry(check=check)
     source_inventory = current_frontend_inventory()
     expected = build_candidate_bytes()
     if current_frontend_inventory() != source_inventory:

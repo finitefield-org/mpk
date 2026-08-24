@@ -1,9 +1,9 @@
 # ProofOps Policy CI
 
 This guide shows a CI shape for a repository that uses MPK to review one
-payment-policy package. It is written as a command block first, not as a
-repository workflow file, because this repository does not currently maintain a
-GitHub Actions workflow convention.
+payment-policy package. MPK now maintains a repository release workflow at
+`.github/workflows/rust-frontend.yml`; the command blocks here remain the
+portable customer-repository integration surface.
 
 CI has two separate jobs:
 
@@ -26,7 +26,7 @@ set -euo pipefail
 
 mkdir -p target/proof-ops
 registry_id=mpk.release.registry.v0
-registry_sha256=29e4d26c223b90a94684c02246779ab03da6807a78608ef34be628b7c989cf20
+registry_sha256=bdc7864663877b26345f4edc77e24c2c5a14b1582e19f15e2674ab22024ced98
 frontend_bundle=frontend.go.go2vir.v0
 toolchain_bundle=toolchain.go.go1.25.0.linux-amd64.v0
 
@@ -141,7 +141,7 @@ mkdir -p build/proof-ops
 go test -count=1 ./internal/paymentpolicy/...
 
 registry_id=mpk.release.registry.v0
-registry_sha256=29e4d26c223b90a94684c02246779ab03da6807a78608ef34be628b7c989cf20
+registry_sha256=bdc7864663877b26345f4edc77e24c2c5a14b1582e19f15e2674ab22024ced98
 frontend_bundle=frontend.go.go2vir.v0
 toolchain_bundle=toolchain.go.go1.25.0.linux-amd64.v0
 

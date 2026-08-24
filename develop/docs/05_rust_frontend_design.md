@@ -1,8 +1,8 @@
 # Rust Verification Frontend and Unified VIR Migration Design
 
-Status: active Rust migration reference; the Go cutover is complete.
+Status: completed Go/VIR/Rust migration record (2026-08-24).
 
-GIR_CUTOVER_STATUS: complete; RUST_PHASES: active; RETAINED_GIR_TERMINOLOGY: historical
+GIR_CUTOVER_STATUS: complete; RUST_PHASES: complete; RETAINED_GIR_TERMINOLOGY: historical
 
 This design never reinterprets the `mpk.gir.v0` schema identifier. It introduces
 `mpk.vir.v0` as the only post-cutover source-program IR, migrates the Go path to

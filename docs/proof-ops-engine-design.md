@@ -12,8 +12,10 @@ XPRIZE submission operations.
 
 ## Product Context
 
-ProofOps sells payment-policy verification workflows for small Go services.
-The initial use cases are pure deterministic functions that decide reserve,
+ProofOps sells payment-policy verification workflows for small services. The
+initial customer corpus remains Go; MPK also ships a frozen Rust product-gate
+example that exercises the same VIR/policy/checker boundary. The initial use
+cases are pure deterministic functions that decide reserve,
 refund, discount, fee, points-redemption, and quota amounts. The product promise
 must stay narrow:
 
@@ -27,6 +29,13 @@ must stay narrow:
 The MPK trust boundary remains unchanged. A payment policy is accepted only when
 the relevant theorem is represented by canonical `.mpcert` bytes or checked
 theory certificates and passes the configured checker policy.
+
+The Rust example uses `payment-policy-rust-alpha`,
+`mpk.rust.checked.v0`, `mvp-strict`, and `mvp-theory`. Its rustc, frontend, VIR,
+VC, manifests, and release provenance remain helper traceability. Only its
+canonical program certificate and recomputed zero-axiom, dual-checker result
+support acceptance. Frozen compiler/build-input identity is recorded only in
+`release-report.json`, never in policy evidence or checker input.
 
 ## Ownership Boundary
 

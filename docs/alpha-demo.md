@@ -1,12 +1,13 @@
 # Alpha Demo Guide
 
-This guide reproduces the active Go/VIR path and the source-free proof checks.
+This guide reproduces the active Go/Rust VIR paths and the source-free proof checks.
 Run commands from the repository root unless noted otherwise.
 
 ## Trust boundary
 
-Go source, contracts, frontend envelopes, VIR, source maps, manifests, VC JSON,
-skeletons, policy reports, and AI output are untrusted helper artifacts. Proof
+Go/Rust source, contracts, rustc, frontend envelopes, VIR, source maps,
+manifests, VC JSON, skeletons, policy reports, CI results, and AI output are
+untrusted helper artifacts. Proof
 acceptance comes only from canonical certificate bytes or checked theory
 certificates accepted by the configured source-free checkers.
 
@@ -69,8 +70,23 @@ these checks.
 
 ```sh
 ./scripts/check-fast.sh
-./scripts/check-all.sh
+sudo ./scripts/check-rust-frontend.sh
+sudo ./scripts/check-all.sh
 ```
 
-The complete gate includes the strict removed-interface scan, release-bundle
-checks, Go frontend tests, policy/AI/API v1 owners, and the full Rust workspace.
+The Rust gate validates frozen build inputs and registered bundles, both target
+libraries, the Rust product example, two-clean-build and differential results,
+limits, fuzz smoke, path sanitation, checker agreement, axiom/profile equality,
+and the strict removed-interface scan. Its release report is untrusted
+provenance; it cannot replace the certificate checks in section 4.
+The root boundary is used only to create the release sandbox's fresh delegated
+cgroup and fixed `noswap` backing; Rust source processing runs after the
+sandbox removes host privileges.
+
+The checked Rust example and its exact reproduction recipes live under
+`examples/rust-payment-policy`. Verify the frozen bytes with:
+
+```sh
+./scripts/regenerate-rust-payment-policy.sh --check
+python3 scripts/generate-release-report.py --check
+```

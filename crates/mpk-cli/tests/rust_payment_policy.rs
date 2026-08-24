@@ -153,7 +153,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 const REGISTRY_ID: &str = "mpk.release.registry.v0";
-const REGISTRY_SHA256: &str = "5f25417656b9acb3d5272c7e8d3fcc7fd5873d18f7985bbc301579b64a462279";
+const REGISTRY_SHA256: &str = "bdc7864663877b26345f4edc77e24c2c5a14b1582e19f15e2674ab22024ced98";
 const RUST_FRONTEND: &str = "frontend.rust.rust2vir.candidate.v0";
 const RUST_TOOLCHAIN: &str = "toolchain.rust.nightly-2025-06-01.candidate.v0";
 const UPDATE_ENV: &str = "MPK_UPDATE_RUST_PAYMENT_POLICY";

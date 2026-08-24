@@ -24,14 +24,14 @@
 
 - Registry schema: `mpk.release.bundle_registry.v0`
 - Registry ID: `mpk.release.registry.v0`
-- Registry SHA-256: `5f25417656b9acb3d5272c7e8d3fcc7fd5873d18f7985bbc301579b64a462279`
+- Registry SHA-256: `bdc7864663877b26345f4edc77e24c2c5a14b1582e19f15e2674ab22024ced98`
 - Frontend bundle: `frontend.rust.rust2vir.candidate.v0`
 - Frontend name: `rust2vir`
 - Frontend version: `0.1.0`
-- Frontend binary SHA-256: `e379492235349deb1edb2f8c40cf12e8b1f602b8919ce38fb2635036dd806e76`
+- Frontend binary SHA-256: `60b148614f2a22734b45c8ba0366c94505ea735e82e05f3df7c2b03b3ba2b2c4`
 - Subordinate frontend `rust2vir-driver`
   - Version: `0.1.0`
-  - Binary SHA-256: `e2a11346aa40ed6f88c3a212625076bea4bc5c8317202f36a7ba74033514a200`
+  - Binary SHA-256: `e18ada1ff29d0a9dce87230698cd89d77274633de716559ada1dc34f40e0f3ee`
 - Toolchain bundle: `toolchain.rust.nightly-2025-06-01.candidate.v0`
 - Toolchain distribution SHA-256: `cdaa0ae4d4f56da86f403d58799fd2298f078b043d8392311487315cbcc2c63f`
 - Toolchain executable `cargo`
@@ -53,8 +53,8 @@
   - Release: `1.89.0-nightly`
   - Commit hash: `4d08223c054cf5a56d9761ca925fd46ffebe7115`
   - Binary SHA-256: `a7c2179d845e8f40305bace1657b903f10d149cc6d72b0c08ecef75487418922`
-- Frontend source manifest SHA-256: `ccaf7a2f38d7b39da1299f3d2378f9f72cc9c15088cfeffc0ce98bca7e300b23`
-- Certificate source manifest SHA-256: `fea923595ac3200b9d65a55862086f561bab6fc51feaad3556a7540653713230`
+- Frontend source manifest SHA-256: `fedfe395014dca9f469e0ac72d2efedf32303f1f6d8bb0bda17a7be12253ebd3`
+- Certificate source manifest SHA-256: `3d8631bb654da17e10d6f931cbd2fdac0b4f7af1a9c73583ba48fe5af0a91ee2`
 - Input set SHA-256: `f7ebda2f084dc81c781bb3e15cf896ad48c02b9df98877292997cf7be2240db6`
 - Source map SHA-256: `3eced9e3b9e453dcdc360ca3d2120f492b75f4a27f81f6a9f40f49a4cf04b226`
 - Source IR schema: `mpk.vir.v0`
@@ -149,13 +149,13 @@
 - Recipe `scan`; working directory role: `source_root` (the source root)
 
 ```sh
-mpk policy scan . --language rust --semantic-profile mpk.rust.checked.v0 --require-release-registry-id mpk.release.registry.v0 --require-release-registry-sha256 5f25417656b9acb3d5272c7e8d3fcc7fd5873d18f7985bbc301579b64a462279 --frontend-bundle frontend.rust.rust2vir.candidate.v0 --toolchain-bundle toolchain.rust.nightly-2025-06-01.candidate.v0 --target x86_64-unknown-linux-gnu --package payment-policy --function payment_policy::approved_reserve_cents --contract contracts/helper.json --contract contracts/insufficient-precondition.json --json-out mpk-reproduction-scan.json
+mpk policy scan . --language rust --semantic-profile mpk.rust.checked.v0 --require-release-registry-id mpk.release.registry.v0 --require-release-registry-sha256 bdc7864663877b26345f4edc77e24c2c5a14b1582e19f15e2674ab22024ced98 --frontend-bundle frontend.rust.rust2vir.candidate.v0 --toolchain-bundle toolchain.rust.nightly-2025-06-01.candidate.v0 --target x86_64-unknown-linux-gnu --package payment-policy --function payment_policy::approved_reserve_cents --contract contracts/helper.json --contract contracts/insufficient-precondition.json --json-out mpk-reproduction-scan.json
 ```
 
 - Recipe `verify`; working directory role: `source_root` (the source root)
 
 ```sh
-mpk policy verify . --language rust --semantic-profile mpk.rust.checked.v0 --require-release-registry-id mpk.release.registry.v0 --require-release-registry-sha256 5f25417656b9acb3d5272c7e8d3fcc7fd5873d18f7985bbc301579b64a462279 --frontend-bundle frontend.rust.rust2vir.candidate.v0 --toolchain-bundle toolchain.rust.nightly-2025-06-01.candidate.v0 --target x86_64-unknown-linux-gnu --package payment-policy --function payment_policy::approved_reserve_cents --contract contracts/helper.json --contract contracts/insufficient-precondition.json --strategy-profile payment-policy-rust-alpha --checker-profile mvp-strict --axiom-profile mvp-theory --evidence-json mpk-reproduction-evidence.json --evidence-md mpk-reproduction-evidence.md
+mpk policy verify . --language rust --semantic-profile mpk.rust.checked.v0 --require-release-registry-id mpk.release.registry.v0 --require-release-registry-sha256 bdc7864663877b26345f4edc77e24c2c5a14b1582e19f15e2674ab22024ced98 --frontend-bundle frontend.rust.rust2vir.candidate.v0 --toolchain-bundle toolchain.rust.nightly-2025-06-01.candidate.v0 --target x86_64-unknown-linux-gnu --package payment-policy --function payment_policy::approved_reserve_cents --contract contracts/helper.json --contract contracts/insufficient-precondition.json --strategy-profile payment-policy-rust-alpha --checker-profile mvp-strict --axiom-profile mvp-theory --evidence-json mpk-reproduction-evidence.json --evidence-md mpk-reproduction-evidence.md
 ```
 
 ## Trust-Boundary Notes

@@ -42,21 +42,20 @@ contracts.
 dual-checker assembly profile for program certificates without changing the
 Certificate v0 binary schema.
 
-The implementation sequence and cutover owner are
+The completed implementation sequence and migration record are
 `docs/05_rust_frontend_design.md` and
 `docs/05_rust_frontend_design-todo.md`. The older numbered roadmap records the
 completed baseline; it does not override that migration dependency graph.
 
 ## Future source-language expansion
 
-MPK plans to add C#, Java, Dart, TypeScript, and Python after the scoped Rust
-v0 program proves and hardens the shared frontend path. This document records
-the queue now, but project execution is one strictly serial flow:
+The scoped Rust v0 program completed at `RUST-07-T05`. MPK plans to add C#,
+Java, Dart, TypeScript, and Python only through the queued, strictly serial
+follow-on flow:
 
-1. complete the Go/VIR/Rust program through `RUST-07-T05`;
-2. run `MLANG-00` semantic comparison and compiler-API feasibility work;
-3. run `MLANG-01` successor-contract and C# specification freeze; and
-4. implement and release C#, Java, Dart, TypeScript, and Python, one language
+1. run `MLANG-00` semantic comparison and compiler-API feasibility work;
+2. run `MLANG-01` successor-contract and C# specification freeze; and
+3. implement and release C#, Java, Dart, TypeScript, and Python, one language
    at a time in that order.
 
 No multi-language design, feasibility, specification, or implementation phase
@@ -139,6 +138,7 @@ complete VIR artifact set installed at the active paths.
 │   ├── 04_references.md
 │   ├── 05_rust_frontend_design.md
 │   ├── 05_rust_frontend_design-todo.md
+│   ├── rust-frontend-toolchain-upgrade.md
 │   ├── 06_multilanguage_frontend_design.md
 │   └── 06_multilanguage_frontend_design-todo.md
 ├── specs/
@@ -184,6 +184,10 @@ complete VIR artifact set installed at the active paths.
     ├── certificate_manifest.json
     └── module_manifest.yaml
 ```
+
+`GIR_V0.md`, `GO_SUBSET_V0.md`, and `AI_API_V0.md` in that inventory are
+labeled historical records only; the active interfaces are VIR/profile/policy
+v1 documents listed below them.
 
 ## Primary implementation language choices
 

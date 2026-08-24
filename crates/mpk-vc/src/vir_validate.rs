@@ -2559,7 +2559,7 @@ fn validate_go_loops(
         if loop_contract.invariants.is_empty() {
             return Err(invalid("VIR_LOOP_CONTRACT", "loop invariant list is empty"));
         }
-        if total != !loop_contract.decreases.is_empty() {
+        if total == loop_contract.decreases.is_empty() {
             return Err(invalid(
                 "VIR_LOOP_TERMINATION",
                 "loop decreases do not match termination mode",

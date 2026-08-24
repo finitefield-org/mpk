@@ -2,16 +2,17 @@
 
 Schema: `mpk.alpha_release_report.v0`
 
-Status: post-Go/VIR-cutover
+Status: completed Go/Rust VIR release gate
 
-Milestone: `GO-VIR-02-T12`
+Milestone: `RUST-07-T05`
 
 ## Result
 
-The active Go source path uses the registered `go2vir` frontend, canonical VIR,
-source-map and source-manifest validation, VC v1, policy v1, AI explanation v1,
-and AI API v1. Removed predecessor interfaces have no runtime adapter, route,
-flag, fixture, or production parser.
+The active Go and Rust source paths use registered frontends, canonical VIR,
+source-map and source-manifest validation, VC v1, and policy v1. Rust uses the
+frozen registered compiler/build closure and both target libraries. Removed
+predecessor interfaces and the unregistered Rust candidate path have no runtime
+adapter, route, flag, fixture, or production selector.
 
 Certificate v0 and proof acceptance are unchanged. Go source, contracts,
 release registries, compilers, frontend results, VIR, source maps, manifests,
@@ -21,10 +22,12 @@ configured source-free checkers support proof acceptance.
 
 ## Active release evidence
 
-`release-report.json` remains the canonical generated package/checker evidence
-report. It records source-free and independent reference-checker results,
-certificate/export/axiom hashes, axiom counts, and release-gate status. Verify
-it without rewriting:
+`release-report.json` remains the canonical generated, untrusted package,
+checker, and release-provenance report. It records registered Rust targets,
+build-input/dependency/cargo-fuzz/native-runtime/notice identities, both
+manifest hashes, VIR/VC/certificate hashes, clean-build/path results,
+source-free and independent reference-checker results, and axiom/profile
+agreement. Verify it without rewriting:
 
 ```sh
 python3 scripts/generate-release-report.py --check
@@ -40,12 +43,15 @@ semantic dispositions. The reviewed migration report is archived at
 
 ```sh
 ./scripts/check-no-active-gir.sh --strict
-./scripts/build-release-bundles.sh --check go
-./scripts/check-release-bundles.sh --fixture go
+./scripts/build-release-bundles.sh --check-build-inputs rust
+./scripts/build-release-bundles.sh --check all
+./scripts/check-release-bundles.sh --fixture all
 ./scripts/regenerate-go-vir-corpus.sh --check
+./scripts/regenerate-rust-payment-policy.sh --check
+sudo ./scripts/check-rust-frontend.sh
 cargo test -p mpk-cli --test frontend_runner
 ./scripts/check-fast.sh
-./scripts/check-all.sh
+sudo ./scripts/check-all.sh
 (cd go-tools/go2vir && go test -count=1 ./...)
 cargo test --workspace
 python3 scripts/generate-release-report.py --check
@@ -67,6 +73,18 @@ The canonical registry digest is stored in
 commands. Raw frontend, toolchain, registry, helper, or sandbox paths are not
 accepted.
 
+## Registered Rust tuples
+
+- registry: `mpk.release.registry.v0`;
+- frontend: `frontend.rust.rust2vir.candidate.v0` (a registered historical ID);
+- toolchain: `toolchain.rust.nightly-2025-06-01.candidate.v0` (registered);
+- semantic profile: `mpk.rust.checked.v0`;
+- targets: `i686-unknown-linux-gnu` and `x86_64-unknown-linux-gnu`;
+- limit profile: `mpk.vir.limits.v0`.
+
+The candidate publication subtree is absent and candidate modes reject. The
+compiler, build closure, reports, and CI status remain untrusted.
+
 ## Review conclusions
 
 - The strict removed-interface scanner reports no active occurrence.
@@ -75,4 +93,5 @@ accepted.
 - The one-off migration comparator and staging tree are removed after verified
   byte-for-byte installation.
 - The semantic migration report has no unresolved disposition.
-- Rust frontend work is the next active phase and must reuse this shared path.
+- The Go/Rust migration review ledger is empty; future-language work starts
+  only through the separate `MLANG-00` handoff.

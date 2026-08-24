@@ -497,18 +497,41 @@ local events.
 
 Inside the accounting leaf, the child verifies its exact cgroup membership,
 controls, rlimits, closed descriptors, and every v0 namespace primitive above.
-In its private mount namespace it mounts a one-page
-`nosuid,nodev,noexec,noswap` tmpfs with a four-inode ceiling, verifies the exact
-block and inode totals, consumes the last three non-root inodes, observes
-`ENOSPC` on the next creation, and cleans up the mount. The parent kills and
-reaps the task, verifies `cgroup.kill`, `memory.peak`, `pids.events`, and
-`memory.events.local`, releases every pipe, namespace descriptor, and backing
-object, requires full memory discharge, removes the probe leaf, and requires
-zero dying descendants. It retains the same unlimited manager and processless
-domain for exactly one fresh finite production leaf. Final teardown permits
-only the removed manager's attributable invisible dying state and permanently
-consumes the process-wide Rust session. The probe is capability evidence, not
-a substitute for the production leaf's independent controls and audit.
+Before entering its user namespace, it creates a first private mount namespace
+and mounts a one-page `nosuid,nodev,noexec,noswap` tmpfs with a four-inode
+ceiling. It verifies the exact block and inode totals, consumes the last three
+non-root inodes, observes `ENOSPC` on the next creation, and cleans up the
+mount. It then enters the user namespace and a second private mount namespace
+for the remaining v0 checks. Mounting the fixed `noswap` backing before
+`NEWUSER` is required because Linux may reject that superblock option from an
+unprivileged user namespace; no source byte or ambient mount option participates.
+
+The production bootstrap uses the same two-stage ordering. Before `NEWUSER`,
+it creates a private mount namespace, bind-pins the fresh sandbox root, and
+mounts the fixed 20-GiB, 262144-inode `nosuid,nodev,noswap` aggregate tmpfs at
+a hidden child of the future `/mpk/tmp` mountpoint. After `NEWUSER` and the
+second mount-namespace creation, it bind-mounts only a fresh directory from
+that backing over `/mpk/tmp`, remounts the visible view
+`nosuid,nodev,noexec`, and revalidates the exact capacity, inode ceiling, and
+`noswap` state. The overmount makes the privileged backing path unreachable to
+the frontend, and `no_new_privileges` is set before the frontend executable is
+started.
+
+The parent kills and reaps the task, verifies `cgroup.kill`, `memory.peak`,
+`pids.events`, and `memory.events.local`, releases every pipe, namespace
+descriptor, and backing object, requests cgroup-local memory reclaim, and
+requires `memory.swap.current` plus the `anon`, `file`, `sock`, and `shmem`
+byte gauges in `memory.stat` and any present `zswap` and `zswapped` gauges to
+reach zero. It then removes the probe leaf and requires zero dying descendants.
+Parsed residual
+`memory.current` and `kernel` accounting are not by themselves live-resource
+evidence after those task-owned gauges discharge because newer kernels retain
+per-CPU stock and cgroup kernel-object charges until removal. It retains the
+same unlimited manager and processless domain for exactly one fresh finite
+production leaf. Final teardown permits only the removed manager's
+attributable invisible dying state and permanently consumes the process-wide
+Rust session. The probe is capability evidence, not a substitute for the
+production leaf's independent controls and audit.
 
 ### 6.3 `NativeRuntimeLayoutProfile`
 

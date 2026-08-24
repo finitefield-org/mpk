@@ -2,18 +2,19 @@
 
 MPK is a certificate-first proof kernel and program-verification toolchain for
 AI-assisted proof workflows. The current implementation focuses on canonical
-proof certificates, source-free checking, a restricted Go frontend, VC
+proof certificates, source-free checking, restricted Go and Rust frontends, VC
 generation, and product-facing payment-policy evidence for ProofOps.
 
-The project is designed around a small trusted base. Go source, contracts, VIR,
-VC JSON, AI output, solver answers, Markdown reports, and CI status are useful
-engineering artifacts, but they are not proof evidence. The objects that matter
+The project is designed around a small trusted base. Go/Rust source, contracts,
+compilers, frontends, VIR, VC JSON, AI output, solver answers, Markdown reports,
+and CI status are useful engineering artifacts, but they are not proof
+evidence. The objects that matter
 are canonical `.mpcert` bytes, checked theory certificates, deterministic
 hashes, axiom reports, and checker verdicts.
 
 ```text
 untrusted / helper analysis:
-  Go source / contract JSON / go2vir / VIR / VC JSON
+  Go or Rust source / contract JSON / go2vir / rustc / rust2vir / VIR / VC JSON
   AI traces / solver answers / report prose / CI status / web logs
 
 trusted proof evidence:
@@ -26,7 +27,7 @@ trusted proof evidence:
 
 MPK is not a production replacement for Lean or Rocq. It is a research and
 implementation repository for a proof-certificate-centered verification
-toolchain and its first Go-policy product path.
+toolchain and its first Go/Rust policy paths.
 
 ## Current Status
 
@@ -39,15 +40,19 @@ Implemented paths include:
 - checked theory-certificate support for selected theory proofs;
 - package manifest validation and certificate verification;
 - an untrusted `go2vir` frontend for a restricted Go subset;
+- an untrusted, registered `rust2vir` frontend over a frozen nightly compiler
+  and two registered target libraries;
 - VC generation for supported VIR functions;
 - `mpk policy scan` with schema `mpk.policy.scan.v1`;
 - `mpk policy verify` with schema `mpk.policy.evidence.v1`;
-- payment-policy examples for reserve, refund, discount, fee, and points.
+- payment-policy examples for reserve, refund, discount, fee, and points;
+- a structurally checked Rust payment-policy release example accepted by both
+  source-free checkers.
 
 The ProofOps-facing policy path currently distinguishes:
 
 - `strategy_profile`: product workflow selection such as
-  `payment-policy-alpha`;
+  `payment-policy-alpha` for Go or `payment-policy-rust-alpha` for Rust;
 - `checker_profile`: MPK checker mode such as `mvp-strict`;
 - `axiom_profile`: axiom policy allowlist such as `zero-axiom`.
 
@@ -55,9 +60,16 @@ These fields must remain separate in product reports and integrations.
 
 ## Continuous Integration
 
-This repository does not use GitHub Actions and will not add GitHub Actions
-workflows. Project checks are run explicitly with the repository's local
-commands and scripts.
+The `rust-frontend.yml` workflow runs only after bytes reach `main` or through
+a write-access-controlled manual dispatch; pull-request refs never enter its
+root release job. It provisions frozen Rust build inputs only on a cache miss,
+materializes only digest-pinned verification images, validates restored or
+provisioned bytes before use, then runs the same local release gate in a
+network namespace with Docker pulls forbidden. That namespace prevents
+accidental fetches by the reviewed gate; it is not a hostile-root sandbox. Use
+an externally egress-denied disposable runner before executing an untrusted
+ref. CI, caches, compiler output, and the generated release report remain
+untrusted helper evidence.
 
 ## Build From Source
 
@@ -116,7 +128,7 @@ Select the installed Go release tuple:
 ```sh
 mkdir -p target/proof-ops
 export MPK_RELEASE_REGISTRY_ID=mpk.release.registry.v0
-export MPK_RELEASE_REGISTRY_SHA256=29e4d26c223b90a94684c02246779ab03da6807a78608ef34be628b7c989cf20
+export MPK_RELEASE_REGISTRY_SHA256=bdc7864663877b26345f4edc77e24c2c5a14b1582e19f15e2674ab22024ced98
 export MPK_GO_FRONTEND_BUNDLE=frontend.go.go2vir.v0
 export MPK_GO_TOOLCHAIN_BUNDLE=toolchain.go.go1.25.0.linux-amd64.v0
 ```
@@ -252,6 +264,7 @@ Start with the current user-facing guides:
 
 - [Alpha Demo Guide](docs/alpha-demo.md)
 - [ProofOps Engine Support Design](docs/proof-ops-engine-design.md)
+- [Rust Toolchain Upgrade Procedure](develop/docs/rust-frontend-toolchain-upgrade.md)
 - [ProofOps Policy CI](docs/proof-ops-policy-ci.md)
 - [Vertex AI Gemini Assistant Design](docs/vertex-ai-gemini-assistant-design.md)
 - [Web System Integration Guide](docs/web-system-integration.md)
@@ -279,8 +292,25 @@ For ordinary development, start with the fast gate:
 For a fuller local release-style check:
 
 ```sh
-./scripts/check-all.sh
+sudo ./scripts/check-all.sh
 ```
+
+For the frozen Go/Rust frontend release gate, first provision the ignored Rust
+build-input cache explicitly if it is absent, then run:
+
+```sh
+./scripts/build-release-bundles.sh --provision-build-inputs rust
+sudo ./scripts/check-rust-frontend.sh
+```
+
+Both release gates are offline and never download or upgrade a toolchain. Run
+them only from reviewed repository bytes with Rust and Go available through
+sudo's root-owned secure path; do not forward a user-writable `HOME` or `PATH`.
+Their
+installed Rust scan requires root in the initial cgroup namespace so it can
+create one empty delegated cgroup and fixed `noswap` tmpfs backing; the
+frontend and compiler execute only after the sandbox drops those host
+privileges.
 
 Useful targeted gates:
 

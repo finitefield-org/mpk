@@ -3,6 +3,15 @@ set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
+# The aggregate is a verification-only path. Missing host or frozen tools must
+# fail closed instead of letting Cargo, Go, or rustup fetch replacements.
+export CARGO_NET_OFFLINE=true
+export GOPROXY=off
+export GOSUMDB=off
+export GOTOOLCHAIN=local
+export RUSTUP_DIST_SERVER=http://127.0.0.1:9
+export RUSTUP_UPDATE_ROOT=http://127.0.0.1:9/rustup
+
 run() {
   printf '\n==> %s\n' "$*"
   "$@"
@@ -11,10 +20,10 @@ run() {
 cd "$repo_root"
 
 run "$repo_root/scripts/check-fast.sh"
-run "$repo_root/scripts/check-no-active-gir.sh" --strict
-run "$repo_root/scripts/check-reference.sh"
-run "$repo_root/scripts/build-release-bundles.sh" --check go
-run "$repo_root/scripts/check-release-bundles.sh" --fixture go
+# This gate owns the ordered strict migration scan, checker-agreement,
+# registered-bundle, and installed-fixture checks. Do not repeat those
+# I/O-heavy phases below.
+run "$repo_root/scripts/check-rust-frontend.sh"
 run python3 "$repo_root/scripts/check-spec-vectors.py" --check
 run python3 "$repo_root/scripts/check-package-manifest-fixtures.py"
 run python3 "$repo_root/scripts/check-package-lock-fixtures.py"

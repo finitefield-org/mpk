@@ -52,5 +52,5 @@ Checker agreement was validated with:
 The full release-style validation remains:
 
 ```sh
-./scripts/check-all.sh
+sudo ./scripts/check-all.sh
 ```

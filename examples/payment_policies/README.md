@@ -26,7 +26,7 @@ root as the current strict end-to-end path for checked theory evidence:
 ```sh
 mkdir -p target/proof-ops
 registry_id=mpk.release.registry.v0
-registry_sha256=29e4d26c223b90a94684c02246779ab03da6807a78608ef34be628b7c989cf20
+registry_sha256=bdc7864663877b26345f4edc77e24c2c5a14b1582e19f15e2674ab22024ced98
 frontend_bundle=frontend.go.go2vir.v0
 toolchain_bundle=toolchain.go.go1.25.0.linux-amd64.v0
 

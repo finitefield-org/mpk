@@ -70,7 +70,51 @@ The unsafe-code portion of this gate is defined by `specs/UNSAFE_POLICY_V0.md`.
 - Malformed certificates never panic.
 - Public API cannot bypass certificate verification.
 
-## Gate I: New source-language admission gate
+## Gate I: Rust frontend final release gate
+
+The Go/Rust release closes only through `scripts/check-rust-frontend.sh` in the
+same order locally and in clean Linux CI:
+
+- validate the tracked Rust build-input descriptor and unchanged
+  content-addressed cache before any byte is mounted or executed;
+- rebuild and validate the registered Go/Rust release, install only registered
+  bundle inventories, exercise both Rust target libraries, and reject the
+  removed candidate publication path and candidate commands;
+- run the Rust frontend, migrated Go corpus, Rust policy example, both
+  source-free checkers, artifact-path scan, two-clean-build differential suite,
+  exact limits, bounded fuzz smoke, and strict obsolete-interface scan; and
+- regenerate the untrusted release provenance from registry, bundle, build
+  closure, manifest, VIR, VC, certificate, checker, axiom, determinism, path,
+  and zero-finding review records.
+
+A CI cache hit is not evidence: restored and newly provisioned closures run the
+same `--check-build-inputs rust` gate before use. Verification is networkless
+and cannot invoke an implicit rustup, Cargo, Go, container-image, or dependency
+download. The digest-pinned Go bundle-build and Rust runtime images are
+materialized before network isolation and every verification container uses
+`--pull=never` plus `--network=none`.
+The privileged workflow has no pull-request trigger: it runs reviewed `main`
+bytes or a write-access-controlled manual ref, makes host tool/cache roots
+root-owned, and starts with an empty environment and a fixed tool path. Its
+network namespace is an operational no-fetch control for that reviewed code,
+not containment against hostile root code. Testing an untrusted ref requires a
+separate disposable runner whose egress is denied outside the guest and which
+exposes no host control socket.
+The installed Rust scan requires the initial cgroup namespace, a writable
+global cgroup-v2 hierarchy, and mount privileges for fixed `noswap` tmpfs
+backing. CI therefore runs the aggregate gate as root inside a networkless
+namespace and gives `mpk` one fresh, otherwise empty delegated cgroup domain.
+The untrusted frontend, rustc, Cargo, and generated program receive none of
+those host privileges: the release bootstrap enters user and execution
+namespaces, exposes only fixed bind views, and sets `no_new_privileges` before
+starting them. Local runs require the same root/cgroup capability boundary.
+Compiler and build-closure changes follow
+`../docs/rust-frontend-toolchain-upgrade.md` as one manually reviewed
+transaction. CI success and every reported provenance field remain untrusted;
+proof acceptance still requires canonical certificate or checked-theory bytes
+accepted by the configured source-free checkers.
+
+## Gate J: New source-language admission gate
 
 This gate is not part of the current Go/Rust release and does not add a Rust
 v0 prerequisite. It activates only after the serial handoff in
