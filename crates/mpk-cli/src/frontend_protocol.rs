@@ -12,6 +12,7 @@ use std::cmp::Ordering;
 use std::collections::{BTreeMap, BTreeSet};
 use std::error::Error;
 use std::fmt;
+use std::marker::PhantomData;
 
 pub const FRONTEND_STDOUT_BYTES_MAX: usize = 268_435_456;
 pub const FRONTEND_STDERR_BYTES_MAX: usize = 2_097_152;
@@ -238,7 +239,9 @@ fn validate_frontend_process_inner(
     let mut canonical = canonical_json_bytes(&strict)
         .map_err(|_| protocol(FrontendProtocolCode::ProtocolMalformed))?;
     drop(strict);
-    let value: Value = serde_json::from_slice(json)
+    let mut value_deserializer = serde_json::Deserializer::from_slice(json);
+    value_deserializer.disable_recursion_limit();
+    let value = Value::deserialize(&mut value_deserializer)
         .map_err(|_| protocol(FrontendProtocolCode::ProtocolMalformed))?;
     let (status, phase) = validate_shape(&value, exit)?;
     validate_public_paths(&value)?;
@@ -283,14 +286,49 @@ struct FrontendLimitRootProbe {
     semantic_profile: String,
     semantic_parameters: IgnoredAny,
     selection: IgnoredAny,
-    rejected_features: Vec<IgnoredAny>,
-    diagnostics: Vec<IgnoredAny>,
+    rejected_features: DiscardingSequence<IgnoredAny>,
+    diagnostics: DiscardingSequence<IgnoredAny>,
     #[serde(default)]
     ir: FrontendIrPresence,
     #[serde(default)]
     source_manifest: FrontendFieldPresence,
     #[serde(default)]
     source_map: FrontendFieldPresence,
+}
+
+struct DiscardingSequence<T>(PhantomData<fn() -> T>);
+
+impl<'de, T> Deserialize<'de> for DiscardingSequence<T>
+where
+    T: Deserialize<'de>,
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor<T>(PhantomData<fn() -> T>);
+
+        impl<'de, T> serde::de::Visitor<'de> for Visitor<T>
+        where
+            T: Deserialize<'de>,
+        {
+            type Value = DiscardingSequence<T>;
+
+            fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                formatter.write_str("a JSON array")
+            }
+
+            fn visit_seq<A>(self, mut sequence: A) -> Result<Self::Value, A::Error>
+            where
+                A: serde::de::SeqAccess<'de>,
+            {
+                while sequence.next_element::<T>()?.is_some() {}
+                Ok(DiscardingSequence(PhantomData))
+            }
+        }
+
+        deserializer.deserialize_seq(Visitor(PhantomData))
+    }
 }
 
 #[derive(Default)]
@@ -361,14 +399,17 @@ impl<'de> Deserialize<'de> for FrontendObjectOnly {
 }
 
 fn validate_frontend_root_before_issue_limit(input: &[u8]) -> Result<(), FrontendProtocolError> {
-    let probe: FrontendLimitRootProbe =
-        serde_json::from_slice(input).map_err(|_| protocol(FrontendProtocolCode::ProtocolShape))?;
+    let mut deserializer = serde_json::Deserializer::from_slice(input);
+    deserializer.disable_recursion_limit();
+    let probe = FrontendLimitRootProbe::deserialize(&mut deserializer)
+        .map_err(|_| protocol(FrontendProtocolCode::ProtocolShape))?;
     if probe.schema != "mpk.frontend.cli.v0" {
         return Err(protocol(FrontendProtocolCode::ProtocolShape));
     }
     let success_fields = [probe.ir.0, probe.source_manifest.0, probe.source_map.0];
     let expected = match probe.status.as_str() {
-        "ir-lowered" => true,
+        "ir-lowered" if probe.phase == "emission" => true,
+        "ir-lowered" => return Err(protocol(FrontendProtocolCode::ProtocolShape)),
         "frontend-error" | "rejected" | "source-error" => false,
         _ => return Err(protocol(FrontendProtocolCode::ProtocolShape)),
     };
@@ -384,7 +425,8 @@ fn scan_frontend_protocol_limits(
     let mut observer = FrontendProtocolLimitObserver {
         issue_count: 0,
         message_bytes: 0,
-        first_error: None,
+        aggregate_error: None,
+        message_error: None,
     };
     scan_strict_json(
         input,
@@ -408,13 +450,17 @@ fn scan_frontend_protocol_limits(
         }
         _ => protocol(FrontendProtocolCode::ProtocolMalformed),
     })?;
-    Ok(observer.first_error.map(map_frontend_observed_error))
+    Ok(observer
+        .aggregate_error
+        .or(observer.message_error)
+        .map(map_frontend_observed_error))
 }
 
 struct FrontendProtocolLimitObserver {
     issue_count: u64,
     message_bytes: u64,
-    first_error: Option<StrictJsonError>,
+    aggregate_error: Option<StrictJsonError>,
+    message_error: Option<StrictJsonError>,
 }
 
 impl StrictJsonObserver for FrontendProtocolLimitObserver {
@@ -473,8 +519,19 @@ impl StrictJsonObserver for FrontendProtocolLimitObserver {
 
 impl FrontendProtocolLimitObserver {
     fn record(&mut self, error: StrictJsonError) {
-        if self.first_error.is_none() {
-            self.first_error = Some(error);
+        let aggregate = matches!(
+            &error,
+            StrictJsonError::ObservedLimitExceeded { limit, .. }
+                | StrictJsonError::ObservedCounterOverflow { limit }
+                if matches!(*limit, "issues" | "combined_issue_message_bytes")
+        );
+        let slot = if aggregate {
+            &mut self.aggregate_error
+        } else {
+            &mut self.message_error
+        };
+        if slot.is_none() {
+            *slot = Some(error);
         }
     }
 
@@ -525,9 +582,27 @@ fn issue_message_path(path: &[StrictJsonPathSegment]) -> bool {
 
 fn first_json_value(bytes: &[u8]) -> Result<usize, FrontendProtocolError> {
     let candidate = bytes.strip_prefix(&[0xef, 0xbb, 0xbf]).unwrap_or(bytes);
+    // serde_json's ignored-value reader is iterative. Once it identifies the
+    // exact first-value prefix, run that prefix through MPK's iterative strict
+    // scanner so framing never disables or bypasses the normative depth cap.
     let mut stream = serde_json::Deserializer::from_slice(candidate).into_iter::<IgnoredAny>();
     match stream.next() {
-        Some(Ok(_)) => Ok(stream.byte_offset() + (bytes.len() - candidate.len())),
+        Some(Ok(_)) => {
+            let end = stream.byte_offset();
+            let mut observer = |_event: StrictJsonEvent<'_>| Ok(());
+            scan_strict_json(
+                &candidate[..end],
+                StrictJsonLimits::new(
+                    FRONTEND_STDOUT_BYTES_MAX as u64,
+                    JSON_NODES_MAX,
+                    JSON_NESTING_MAX,
+                    STRING_BYTES_MAX,
+                ),
+                &mut observer,
+            )
+            .map_err(|_| protocol(FrontendProtocolCode::ProtocolMalformed))?;
+            Ok(end + (bytes.len() - candidate.len()))
+        }
         Some(Err(error)) if error.is_eof() => {
             Err(protocol(FrontendProtocolCode::ProtocolTruncated))
         }
@@ -700,7 +775,9 @@ fn validate_issues(
             }
             let message_len = u64::try_from(message.len()).unwrap_or(u64::MAX);
             validate_frontend_protocol_limit("issue_message_bytes", message_len)?;
-            message_bytes = message_bytes.checked_add(message_len).unwrap_or(u64::MAX);
+            message_bytes = message_bytes
+                .checked_add(message_len)
+                .ok_or_else(|| protocol(FrontendProtocolCode::ProtocolLimit))?;
             validate_frontend_protocol_limit("combined_issue_message_bytes", message_bytes)?;
             let function = object.get("function_id").map(value_string).transpose()?;
             let marker = matches!(

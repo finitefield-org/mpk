@@ -46,7 +46,7 @@ const REGISTRY_LIMITS: StrictJsonLimits = StrictJsonLimits::new(
     RELEASE_STRING_BYTES_MAX,
 );
 
-const REQUIRED_PRIMITIVES: [&str; 10] = [
+const NAMESPACE_REQUIRED_PRIMITIVES: [&str; 10] = [
     "filesystem.atomic_no_replace",
     "filesystem.immutable_handle",
     "filesystem.no_follow_open",
@@ -57,6 +57,28 @@ const REQUIRED_PRIMITIVES: [&str; 10] = [
     "mount.read_only",
     "process.closed_environment",
     "process.no_new_privileges",
+];
+
+const CGROUP2_TMPFS_REQUIRED_PRIMITIVES: [&str; 19] = [
+    "filesystem.atomic_no_replace",
+    "filesystem.immutable_handle",
+    "filesystem.no_follow_open",
+    "filesystem.tmpfs_allocated_blocks",
+    "filesystem.tmpfs_inode_limit",
+    "isolation.cgroup_v2",
+    "isolation.mount_namespace",
+    "isolation.network_namespace",
+    "isolation.user_namespace",
+    "memory.cgroup_accounting",
+    "mount.no_exec",
+    "mount.read_only",
+    "mount.tmpfs_noswap",
+    "process.cgroup_tasks",
+    "process.closed_environment",
+    "process.no_new_privileges",
+    "process.rlimit_address_space",
+    "process.rlimit_open_files",
+    "process.task_tree_kill",
 ];
 
 const FORBIDDEN_HOST_ROOTS: [&str; 3] = ["/lib", "/lib64", "/usr/lib"];
@@ -520,7 +542,7 @@ pub fn validate_release_registry(
     )
     .map_err(|error| match error {
         CanonicalJsonError::OutputBytesExceeded { .. } => limit(
-            ReleaseValidationPhase::RegistryHash,
+            ReleaseValidationPhase::Transport,
             "registry canonical byte limit exceeded",
         ),
         _ => invalid(ReleaseValidationPhase::RegistryHash, error.to_string()),
@@ -663,11 +685,228 @@ fn scan_registry_limits(input: &[u8]) -> Result<(), ReleaseRegistryError> {
         Ok(())
     };
     scan_strict_json(input, REGISTRY_LIMITS, &mut observer).map_err(map_registry_scan_error)?;
-    drop(observer);
     if let Some(error) = first_error {
+        registry_limit_precedence::validate_registry_shape_before_limit(input)?;
         return Err(map_registry_scan_error(error));
     }
     Ok(())
+}
+
+#[allow(dead_code)]
+mod registry_limit_precedence {
+    use super::*;
+    use std::marker::PhantomData;
+
+    struct DiscardingSequence<T>(PhantomData<fn() -> T>);
+
+    impl<'de, T> Deserialize<'de> for DiscardingSequence<T>
+    where
+        T: Deserialize<'de>,
+    {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            struct Visitor<T>(PhantomData<fn() -> T>);
+
+            impl<'de, T> serde::de::Visitor<'de> for Visitor<T>
+            where
+                T: Deserialize<'de>,
+            {
+                type Value = DiscardingSequence<T>;
+
+                fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                    formatter.write_str("a JSON array")
+                }
+
+                fn visit_seq<A>(self, mut sequence: A) -> Result<Self::Value, A::Error>
+                where
+                    A: serde::de::SeqAccess<'de>,
+                {
+                    while sequence.next_element::<T>()?.is_some() {}
+                    Ok(DiscardingSequence(PhantomData))
+                }
+            }
+
+            deserializer.deserialize_seq(Visitor(PhantomData))
+        }
+    }
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct ShapeRegistry {
+        schema: String,
+        id: String,
+        execution_host_profiles: DiscardingSequence<ShapeExecutionHostProfile>,
+        native_runtime_layout_profiles: DiscardingSequence<ShapeRuntimeLayoutProfile>,
+        frontend_bundles: DiscardingSequence<ShapeFrontendBundle>,
+        toolchain_bundles: DiscardingSequence<ShapeToolchainBundle>,
+        tuples: DiscardingSequence<ReleaseTuple>,
+        registry_sha256: String,
+    }
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct ShapeExecutionHostProfile {
+        id: String,
+        os: String,
+        architecture: String,
+        abi: String,
+        minimum_kernel_abi: String,
+        probe_profile_id: String,
+        required_primitives: DiscardingSequence<String>,
+    }
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct ShapeRuntimeLayoutProfile {
+        id: String,
+        execution_host_profile_id: String,
+        runtime_root: String,
+        interpreter_mounts: DiscardingSequence<InterpreterMount>,
+        library_mounts: DiscardingSequence<LibraryMount>,
+        loader_search_paths: DiscardingSequence<String>,
+        forbidden_host_roots: DiscardingSequence<String>,
+    }
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct ShapeInventoryValue {
+        schema: String,
+        scope: InventoryScope,
+        files: DiscardingSequence<InventoryFile>,
+    }
+
+    struct ShapeInventory;
+
+    impl<'de> Deserialize<'de> for ShapeInventory {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            let inventory = ShapeInventoryValue::deserialize(deserializer)?;
+            if inventory.schema != BUNDLE_INVENTORY_SCHEMA {
+                return Err(serde::de::Error::custom("wrong inventory schema"));
+            }
+            Ok(Self)
+        }
+    }
+
+    #[derive(Deserialize)]
+    #[serde(tag = "kind", rename_all = "snake_case", deny_unknown_fields)]
+    enum ShapeExecutableRuntime {
+        Static,
+        Dynamic {
+            interpreter_mount: String,
+            libraries: DiscardingSequence<RuntimeLibrary>,
+        },
+    }
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct ShapeExecutableRecord {
+        name: String,
+        version: String,
+        path: String,
+        binary_sha256: String,
+        runtime: ShapeExecutableRuntime,
+    }
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct ShapeFrontendBundleValue {
+        schema: String,
+        bundle_id: String,
+        source_language: String,
+        name: String,
+        version: String,
+        limit_profile_id: String,
+        environment_profile_id: String,
+        argument_profile_id: String,
+        main: ShapeExecutableRecord,
+        subordinate_binaries: DiscardingSequence<ShapeExecutableRecord>,
+        inventory: ShapeInventory,
+        bundle_sha256: String,
+    }
+
+    struct ShapeFrontendBundle;
+
+    impl<'de> Deserialize<'de> for ShapeFrontendBundle {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            let bundle = ShapeFrontendBundleValue::deserialize(deserializer)?;
+            if bundle.schema != FRONTEND_BUNDLE_SCHEMA {
+                return Err(serde::de::Error::custom("wrong frontend bundle schema"));
+            }
+            Ok(Self)
+        }
+    }
+
+    #[derive(Deserialize)]
+    #[serde(tag = "kind", rename_all = "snake_case", deny_unknown_fields)]
+    enum ShapeToolchainComponent {
+        Executable {
+            name: String,
+            release: String,
+            path: String,
+            binary_sha256: String,
+            runtime: ShapeExecutableRuntime,
+        },
+        Content {
+            name: String,
+            release: String,
+            inventory: ShapeInventory,
+            content_sha256: String,
+        },
+    }
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct ShapeToolchainBundleValue {
+        schema: String,
+        bundle_id: String,
+        source_language: String,
+        compiler: CompilerIdentity,
+        execution_host_profile_id: String,
+        native_runtime: NativeRuntimeSelection,
+        components: DiscardingSequence<ShapeToolchainComponent>,
+        target_libraries: DiscardingSequence<TargetLibrary>,
+        inventory: ShapeInventory,
+        distribution_sha256: String,
+    }
+
+    struct ShapeToolchainBundle;
+
+    impl<'de> Deserialize<'de> for ShapeToolchainBundle {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            let bundle = ShapeToolchainBundleValue::deserialize(deserializer)?;
+            if bundle.schema != TOOLCHAIN_BUNDLE_SCHEMA {
+                return Err(serde::de::Error::custom("wrong toolchain bundle schema"));
+            }
+            Ok(Self)
+        }
+    }
+
+    pub(super) fn validate_registry_shape_before_limit(
+        input: &[u8],
+    ) -> Result<(), ReleaseRegistryError> {
+        let mut deserializer = serde_json::Deserializer::from_slice(input);
+        deserializer.disable_recursion_limit();
+        let registry = ShapeRegistry::deserialize(&mut deserializer)
+            .map_err(|error| invalid(ReleaseValidationPhase::Shape, error.to_string()))?;
+        if registry.schema != RELEASE_REGISTRY_SCHEMA {
+            return Err(invalid(
+                ReleaseValidationPhase::Shape,
+                "wrong registry schema",
+            ));
+        }
+        Ok(())
+    }
 }
 
 fn map_registry_scan_error(error: StrictJsonError) -> ReleaseRegistryError {
@@ -875,10 +1114,19 @@ fn validate_scalar(registry: &BundleRegistry) -> Result<(), ReleaseRegistryError
         )?;
         scalar_require(profile.abi == "gnu", "host ABI must be gnu")?;
         validate_kernel_abi(&profile.minimum_kernel_abi)?;
-        scalar_require(
-            profile.probe_profile_id == "mpk.release.probe.linux_namespaces.v0",
-            "invalid host probe profile",
-        )?;
+        match profile.probe_profile_id.as_str() {
+            "mpk.release.probe.linux_namespaces.v0" => {}
+            "mpk.release.probe.linux_namespaces_cgroup2_tmpfs.v0" => scalar_require(
+                profile.minimum_kernel_abi == "6.4.0",
+                "cgroup2/tmpfs host minimum kernel must be 6.4.0",
+            )?,
+            _ => {
+                return Err(invalid(
+                    ReleaseValidationPhase::Scalar,
+                    "invalid host probe profile",
+                ))
+            }
+        }
     }
     for profile in &registry.native_runtime_layout_profiles {
         validate_profile_id(&profile.id, "runtime layout profile ID")?;
@@ -1399,12 +1647,19 @@ fn validate_invariants(registry: &BundleRegistry) -> Result<(), ReleaseRegistryE
     }
 
     for profile in &registry.execution_host_profiles {
+        let required_primitives = match profile.probe_profile_id.as_str() {
+            "mpk.release.probe.linux_namespaces.v0" => NAMESPACE_REQUIRED_PRIMITIVES.as_slice(),
+            "mpk.release.probe.linux_namespaces_cgroup2_tmpfs.v0" => {
+                CGROUP2_TMPFS_REQUIRED_PRIMITIVES.as_slice()
+            }
+            _ => return Err(invariant("unknown host probe profile")),
+        };
         invariant_require(
             profile
                 .required_primitives
                 .iter()
                 .map(String::as_str)
-                .eq(REQUIRED_PRIMITIVES),
+                .eq(required_primitives.iter().copied()),
             "host required_primitives do not match the closed profile",
         )?;
     }
@@ -2052,7 +2307,7 @@ pub fn validate_release_limit(kind: &str, value: u64) -> Result<(), ReleaseRegis
     let (maximum, phase) = match kind {
         "registry_canonical_bytes" => (
             REGISTRY_CANONICAL_BYTES_MAX,
-            ReleaseValidationPhase::RegistryHash,
+            ReleaseValidationPhase::Transport,
         ),
         "registry_transport_bytes" => (
             REGISTRY_TRANSPORT_BYTES_MAX,

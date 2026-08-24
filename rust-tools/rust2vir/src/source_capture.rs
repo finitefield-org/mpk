@@ -188,10 +188,14 @@ impl CaptureState {
         let mut hasher = Sha256::new();
         let mut buffer = [0_u8; 16 * 1024];
         loop {
+            let read_limit = read_maximum
+                .checked_add(1)
+                .and_then(|limit| limit.checked_sub(bytes.len() as u64))
+                .ok_or(CaptureFailure::ByteLimit)?;
             let read = opened
                 .file
                 .by_ref()
-                .take(read_maximum.saturating_add(1) - bytes.len() as u64)
+                .take(read_limit)
                 .read(&mut buffer)
                 .map_err(|_| CaptureFailure::FileType)?;
             if read == 0 {

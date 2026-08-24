@@ -6,10 +6,10 @@ use rust2vir_internal::driver_process::read_request;
 use rust2vir_internal::driver_protocol::{parse_request_transport, DriverProtocolCode};
 use rust2vir_internal::environment::{EvidenceEnvironment, ENCODED_RUSTFLAGS_ELEMENTS};
 use rust2vir_internal::sandbox::{
-    fixed_read_only_views, fixed_writable_views, CargoInvocation, ProcessOutput, SandboxContext,
-    SandboxError, SandboxExecutor, OPEN_FILE_LIMIT, OUTPUT_FILES_LIMIT, PROCESS_LIMIT,
-    RESIDENT_MEMORY_LIMIT, STDERR_BYTES_LIMIT, STDOUT_BYTES_LIMIT, TARGET_BYTES_LIMIT,
-    TEMP_BYTES_LIMIT, VIRTUAL_MEMORY_LIMIT,
+    fixed_read_only_views, fixed_writable_mount_views, fixed_writable_views, CargoInvocation,
+    ProcessOutput, SandboxContext, SandboxError, SandboxExecutor, CGROUP_MEMORY_LIMIT,
+    CGROUP_SWAP_LIMIT, CGROUP_TASK_LIMIT, OPEN_FILE_LIMIT, RESOURCE_PROFILE_ID, STDERR_BYTES_LIMIT,
+    STDOUT_BYTES_LIMIT, VIRTUAL_MEMORY_LIMIT, WRITABLE_ALLOCATED_BYTES_LIMIT, WRITABLE_INODE_LIMIT,
 };
 use std::fs;
 use std::os::unix::fs::PermissionsExt;
@@ -101,13 +101,27 @@ fn environment_views_and_limits_are_the_exact_closed_profiles() {
             "/mpk/driver-output",
         ]
     );
-    assert_eq!(PROCESS_LIMIT, 256);
+    assert_eq!(
+        fixed_writable_mount_views(),
+        [
+            ("/mpk/home", false),
+            ("/mpk/cargo-home", false),
+            ("/mpk/tmp", false),
+            ("/mpk/target", true),
+            ("/mpk/driver-output", false),
+        ]
+    );
+    assert_eq!(
+        RESOURCE_PROFILE_ID,
+        "mpk.rust.build_resources.cgroup2_tmpfs.v0"
+    );
+    assert_eq!(CGROUP_TASK_LIMIT, 256);
     assert_eq!(OPEN_FILE_LIMIT, 1_024);
     assert_eq!(VIRTUAL_MEMORY_LIMIT, 17_179_869_184);
-    assert_eq!(RESIDENT_MEMORY_LIMIT, 8_589_934_592);
-    assert_eq!(TEMP_BYTES_LIMIT, 4_294_967_296);
-    assert_eq!(TARGET_BYTES_LIMIT, 17_179_869_184);
-    assert_eq!(OUTPUT_FILES_LIMIT, 262_144);
+    assert_eq!(CGROUP_MEMORY_LIMIT, 34_359_738_368);
+    assert_eq!(CGROUP_SWAP_LIMIT, 0);
+    assert_eq!(WRITABLE_ALLOCATED_BYTES_LIMIT, 21_474_836_480);
+    assert_eq!(WRITABLE_INODE_LIMIT, 262_144);
     assert_eq!(STDOUT_BYTES_LIMIT, 67_108_864);
     assert_eq!(STDERR_BYTES_LIMIT, 2_097_152);
 }

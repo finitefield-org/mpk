@@ -247,8 +247,9 @@ fn read_stable_regular(
     }
     let capacity = usize::try_from(named_before.len()).map_err(|_| limit_code(mode))?;
     let mut bytes = Vec::with_capacity(capacity);
+    let read_limit = maximum_u64.checked_add(1).ok_or_else(|| limit_code(mode))?;
     Read::by_ref(&mut file)
-        .take(maximum_u64.saturating_add(1))
+        .take(read_limit)
         .read_to_end(&mut bytes)
         .map_err(|_| DriverProtocolCode::Filesystem)?;
     if bytes.len() > maximum {

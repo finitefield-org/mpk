@@ -475,6 +475,7 @@ pub(super) fn lower_function<'tcx>(
     let function_id = function.function_id.as_str();
     let (closure_blocks_remaining, closure_statements_remaining, closure_instructions_remaining) =
         closure_budget.mir_remaining(function_id)?;
+    let mir_budget = MirFunctionBudget::new(closure_blocks_remaining, closure_statements_remaining);
     validate_function_contract_context(function, contract, context.contracts, context.request)
         .map_err(|code| MirError::new(code, function_id))?;
     validate_function_mir_signature(tcx, def_id, body, function)
@@ -509,8 +510,7 @@ pub(super) fn lower_function<'tcx>(
         function,
         &call_context,
         function_id,
-        closure_blocks_remaining,
-        closure_statements_remaining,
+        mir_budget,
     )?;
     arithmetic
         .finish(body, &order)
@@ -941,8 +941,7 @@ fn reachable_order<'tcx>(
     function: &HirFunction,
     call_context: &CallContext<'_>,
     function_id: &str,
-    closure_blocks_remaining: usize,
-    closure_statements_remaining: usize,
+    mut budget: MirFunctionBudget,
 ) -> Result<Reachability<'tcx>, MirError> {
     if body.basic_blocks.is_empty() {
         return Err(MirError::new(MirCode::Terminator, function_id));
@@ -951,7 +950,6 @@ fn reachable_order<'tcx>(
     let mut arithmetic = ArithmeticPlan::default();
     let mut projection = ProjectionPlan::default();
     let mut calls = CallPlan::default();
-    let mut budget = MirFunctionBudget::new(closure_blocks_remaining, closure_statements_remaining);
     budget.observe_block(
         body.basic_blocks[BasicBlock::new(0)].statements.len(),
         function_id,
@@ -1009,83 +1007,6 @@ fn reachable_order<'tcx>(
         calls,
         budget.statements,
     ))
-}
-
-#[cfg(test)]
-mod limit_tests {
-    use super::*;
-
-    #[test]
-    fn function_budget_accepts_exact_boundaries_without_retaining_excess() {
-        let mut blocks = MirFunctionBudget::new(MIR_BLOCKS_FUNCTION_MAX, usize::MAX);
-        blocks.blocks = MIR_BLOCKS_FUNCTION_MAX - 1;
-        blocks.observe_block(0, "vector::f").unwrap();
-        assert_eq!(blocks.blocks, MIR_BLOCKS_FUNCTION_MAX);
-        assert_eq!(
-            blocks.observe_block(0, "vector::f").unwrap_err().code,
-            MirCode::BlockLimit
-        );
-        assert_eq!(blocks.blocks, MIR_BLOCKS_FUNCTION_MAX);
-
-        let mut statements = MirFunctionBudget::new(usize::MAX, MIR_STATEMENTS_FUNCTION_MAX);
-        statements.statements = MIR_STATEMENTS_FUNCTION_MAX;
-        assert_eq!(
-            statements.observe_block(1, "vector::f").unwrap_err().code,
-            MirCode::StatementLimit
-        );
-        assert_eq!(statements.blocks, 0);
-        assert_eq!(statements.statements, MIR_STATEMENTS_FUNCTION_MAX);
-    }
-
-    #[test]
-    fn closure_remaining_budget_rejects_before_retaining_the_next_block() {
-        let closure = MirClosureBudget {
-            blocks: MIR_BLOCKS_CLOSURE_MAX,
-            statements: MIR_STATEMENTS_CLOSURE_MAX,
-            instructions: 0,
-        };
-        assert_eq!(
-            closure.mir_remaining("vector::next"),
-            Ok((0, 0, VIR_INSTRUCTIONS_CLOSURE_MAX))
-        );
-
-        let mut blocks = MirFunctionBudget::new(0, usize::MAX);
-        assert_eq!(
-            blocks.observe_block(0, "vector::next").unwrap_err().code,
-            MirCode::BlockLimit
-        );
-        assert_eq!((blocks.blocks, blocks.statements), (0, 0));
-
-        let mut statements = MirFunctionBudget::new(1, 0);
-        assert_eq!(
-            statements
-                .observe_block(1, "vector::next")
-                .unwrap_err()
-                .code,
-            MirCode::StatementLimit
-        );
-        assert_eq!((statements.blocks, statements.statements), (0, 0));
-    }
-
-    #[test]
-    fn instruction_budget_rejects_before_allocating_the_next_instruction() {
-        let mut budget = InstructionBudget::new(2);
-        assert_eq!(budget.reserve("vector::f"), Ok(0));
-        assert_eq!(budget.reserve("vector::f"), Ok(1));
-        assert_eq!(budget.count(), 2);
-        assert_eq!(
-            budget.reserve("vector::f").unwrap_err().code,
-            MirCode::IrLimit
-        );
-        assert_eq!(budget.count(), 2);
-
-        let mut exhausted = InstructionBudget::new(0);
-        assert_eq!(
-            exhausted.reserve("vector::next").unwrap_err().code,
-            MirCode::IrLimit
-        );
-        assert_eq!(exhausted.count(), 0);
-    }
 }
 
 #[allow(clippy::too_many_arguments)]
@@ -3670,4 +3591,81 @@ fn domain_hash(domain: &[u8], payload: &[u8]) -> String {
     hasher.update(&[0]);
     hasher.update(payload);
     hex(&hasher.finish())
+}
+
+#[cfg(test)]
+mod limit_tests {
+    use super::*;
+
+    #[test]
+    fn function_budget_accepts_exact_boundaries_without_retaining_excess() {
+        let mut blocks = MirFunctionBudget::new(MIR_BLOCKS_FUNCTION_MAX, usize::MAX);
+        blocks.blocks = MIR_BLOCKS_FUNCTION_MAX - 1;
+        blocks.observe_block(0, "vector::f").unwrap();
+        assert_eq!(blocks.blocks, MIR_BLOCKS_FUNCTION_MAX);
+        assert_eq!(
+            blocks.observe_block(0, "vector::f").unwrap_err().code,
+            MirCode::BlockLimit
+        );
+        assert_eq!(blocks.blocks, MIR_BLOCKS_FUNCTION_MAX);
+
+        let mut statements = MirFunctionBudget::new(usize::MAX, MIR_STATEMENTS_FUNCTION_MAX);
+        statements.statements = MIR_STATEMENTS_FUNCTION_MAX;
+        assert_eq!(
+            statements.observe_block(1, "vector::f").unwrap_err().code,
+            MirCode::StatementLimit
+        );
+        assert_eq!(statements.blocks, 0);
+        assert_eq!(statements.statements, MIR_STATEMENTS_FUNCTION_MAX);
+    }
+
+    #[test]
+    fn closure_remaining_budget_rejects_before_retaining_the_next_block() {
+        let closure = MirClosureBudget {
+            blocks: MIR_BLOCKS_CLOSURE_MAX,
+            statements: MIR_STATEMENTS_CLOSURE_MAX,
+            instructions: 0,
+        };
+        assert_eq!(
+            closure.mir_remaining("vector::next"),
+            Ok((0, 0, VIR_INSTRUCTIONS_CLOSURE_MAX))
+        );
+
+        let mut blocks = MirFunctionBudget::new(0, usize::MAX);
+        assert_eq!(
+            blocks.observe_block(0, "vector::next").unwrap_err().code,
+            MirCode::BlockLimit
+        );
+        assert_eq!((blocks.blocks, blocks.statements), (0, 0));
+
+        let mut statements = MirFunctionBudget::new(1, 0);
+        assert_eq!(
+            statements
+                .observe_block(1, "vector::next")
+                .unwrap_err()
+                .code,
+            MirCode::StatementLimit
+        );
+        assert_eq!((statements.blocks, statements.statements), (0, 0));
+    }
+
+    #[test]
+    fn instruction_budget_rejects_before_allocating_the_next_instruction() {
+        let mut budget = InstructionBudget::new(2);
+        assert_eq!(budget.reserve("vector::f"), Ok(0));
+        assert_eq!(budget.reserve("vector::f"), Ok(1));
+        assert_eq!(budget.count(), 2);
+        assert_eq!(
+            budget.reserve("vector::f").unwrap_err().code,
+            MirCode::IrLimit
+        );
+        assert_eq!(budget.count(), 2);
+
+        let mut exhausted = InstructionBudget::new(0);
+        assert_eq!(
+            exhausted.reserve("vector::next").unwrap_err().code,
+            MirCode::IrLimit
+        );
+        assert_eq!(exhausted.count(), 0);
+    }
 }

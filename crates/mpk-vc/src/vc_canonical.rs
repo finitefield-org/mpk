@@ -1,11 +1,9 @@
 //! Canonical generation, import, linked validation, and hashing for VC v1.
 
+use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
 use std::error::Error;
 use std::fmt;
-
-use serde::de::IgnoredAny;
-use serde::{Deserialize, Serialize};
 
 use crate::call_wp::{program_declaration_name, ProgramDeclarationKind};
 use crate::canonical_json::{
@@ -161,6 +159,7 @@ pub fn import_vc_v1_json(
     scan_vc_stream_limits(input)?;
     let strict = parse_strict_json(input, VC_JSON_LIMITS).map_err(map_transport_error)?;
     validate_root_shape(&strict)?;
+    limit_precedence::validate_vc_pre_stream_phases(input)?;
 
     let mut deserializer = serde_json::Deserializer::from_slice(input);
     deserializer.disable_recursion_limit();
@@ -220,6 +219,9 @@ fn scan_vc_stream_limits(input: &[u8]) -> Result<(), VcValidationError> {
     let mut member_nodes = BTreeMap::<(u64, u64), u64>::new();
     let mut first_error: Option<StrictJsonError> = None;
     let mut observer = |event: StrictJsonEvent<'_>| -> Result<(), StrictJsonError> {
+        if first_error.is_some() {
+            return Ok(());
+        }
         let result = (|| {
             match event {
                 StrictJsonEvent::ArrayElement { path, count }
@@ -287,9 +289,8 @@ fn scan_vc_stream_limits(input: &[u8]) -> Result<(), VcValidationError> {
         Ok(())
     };
     scan_strict_json(input, VC_JSON_LIMITS, &mut observer).map_err(map_transport_error)?;
-    drop(observer);
     if let Some(error) = first_error {
-        validate_vc_root_before_stream_limit(input)?;
+        limit_precedence::validate_vc_pre_stream_phases(input)?;
         let limit = match &error {
             StrictJsonError::ObservedLimitExceeded { limit, .. }
             | StrictJsonError::ObservedCounterOverflow { limit } => {
@@ -308,56 +309,1254 @@ fn scan_vc_stream_limits(input: &[u8]) -> Result<(), VcValidationError> {
 }
 
 #[allow(dead_code)]
-#[derive(Deserialize)]
-#[serde(deny_unknown_fields)]
-struct VcLimitRootProbe {
-    schema: String,
-    source_ir_schema: String,
-    source_ir_hash: String,
-    input_set_hash: String,
-    semantic_profile: crate::SemanticProfile,
-    semantic_parameters: crate::SemanticParameters,
-    verification_limit_profile: String,
-    functions: Vec<IgnoredAny>,
-    vc_hash: String,
-}
+mod limit_precedence {
+    use super::*;
+    use serde::de::{DeserializeSeed, IgnoredAny};
+    use serde_json::value::RawValue;
+    use std::marker::PhantomData;
 
-#[derive(Deserialize)]
-struct VcSchemaLimitProbe {
-    schema: Option<String>,
-}
+    enum SchemaField {
+        String(String),
+        Other,
+    }
 
-fn validate_vc_root_before_stream_limit(input: &[u8]) -> Result<(), VcValidationError> {
-    let mut schema_deserializer = serde_json::Deserializer::from_slice(input);
-    schema_deserializer.disable_recursion_limit();
-    let schema_probe =
-        VcSchemaLimitProbe::deserialize(&mut schema_deserializer).map_err(|error| {
-            VcValidationError::new(VcValidationPhase::Shape, "VC_SHAPE", error.to_string())
-        })?;
-    if schema_probe.schema.as_deref() != Some(VC_SCHEMA_VERSION) {
-        return Err(VcValidationError::new(
-            VcValidationPhase::Shape,
-            "VC_SCHEMA",
-            "wrong VC schema discriminator",
-        ));
+    impl<'de> Deserialize<'de> for SchemaField {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            struct Visitor;
+
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = SchemaField;
+
+                fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                    formatter.write_str("any JSON value")
+                }
+
+                fn visit_borrowed_str<E>(self, value: &'de str) -> Result<Self::Value, E> {
+                    Ok(SchemaField::String(value.to_owned()))
+                }
+
+                fn visit_str<E>(self, value: &str) -> Result<Self::Value, E> {
+                    Ok(SchemaField::String(value.to_owned()))
+                }
+
+                fn visit_string<E>(self, value: String) -> Result<Self::Value, E> {
+                    Ok(SchemaField::String(value))
+                }
+
+                fn visit_bool<E>(self, _value: bool) -> Result<Self::Value, E> {
+                    Ok(SchemaField::Other)
+                }
+
+                fn visit_i64<E>(self, _value: i64) -> Result<Self::Value, E> {
+                    Ok(SchemaField::Other)
+                }
+
+                fn visit_u64<E>(self, _value: u64) -> Result<Self::Value, E> {
+                    Ok(SchemaField::Other)
+                }
+
+                fn visit_f64<E>(self, _value: f64) -> Result<Self::Value, E> {
+                    Ok(SchemaField::Other)
+                }
+
+                fn visit_unit<E>(self) -> Result<Self::Value, E> {
+                    Ok(SchemaField::Other)
+                }
+
+                fn visit_none<E>(self) -> Result<Self::Value, E> {
+                    Ok(SchemaField::Other)
+                }
+
+                fn visit_some<D>(self, deserializer: D) -> Result<Self::Value, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    SchemaField::deserialize(deserializer)
+                }
+
+                fn visit_seq<A>(self, mut sequence: A) -> Result<Self::Value, A::Error>
+                where
+                    A: serde::de::SeqAccess<'de>,
+                {
+                    while sequence.next_element::<IgnoredAny>()?.is_some() {}
+                    Ok(SchemaField::Other)
+                }
+
+                fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    while map.next_entry::<IgnoredAny, IgnoredAny>()?.is_some() {}
+                    Ok(SchemaField::Other)
+                }
+            }
+
+            deserializer.deserialize_any(Visitor)
+        }
     }
-    let mut deserializer = serde_json::Deserializer::from_slice(input);
-    deserializer.disable_recursion_limit();
-    let probe = VcLimitRootProbe::deserialize(&mut deserializer).map_err(|error| {
-        VcValidationError::new(VcValidationPhase::Shape, "VC_SHAPE", error.to_string())
-    })?;
-    debug_assert_eq!(probe.schema, VC_SCHEMA_VERSION);
-    for (name, value) in [
-        ("source_ir_hash", probe.source_ir_hash),
-        ("input_set_hash", probe.input_set_hash),
-        ("vc_hash", probe.vc_hash),
-    ] {
-        LowercaseSha256::new(value).map_err(|error| scalar(name, error.to_string()))?;
+
+    struct VcSchemaLimitProbe(Option<SchemaField>);
+
+    impl<'de> Deserialize<'de> for VcSchemaLimitProbe {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            struct Visitor;
+
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = VcSchemaLimitProbe;
+
+                fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                    formatter.write_str("a VC root object")
+                }
+
+                fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    let mut schema = None;
+                    while let Some(name) = map.next_key::<String>()? {
+                        if name == "schema" {
+                            if schema.is_some() {
+                                return Err(serde::de::Error::custom("duplicate schema field"));
+                            }
+                            schema = Some(map.next_value::<SchemaField>()?);
+                        } else {
+                            map.next_value::<IgnoredAny>()?;
+                        }
+                    }
+                    Ok(VcSchemaLimitProbe(schema))
+                }
+            }
+
+            deserializer.deserialize_map(Visitor)
+        }
     }
-    if probe.functions.is_empty() {
-        return Err(scalar("functions", "VC document has no functions"));
+
+    struct SemanticParametersShapeProbe;
+
+    impl<'de> Deserialize<'de> for SemanticParametersShapeProbe {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            struct Visitor;
+
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = SemanticParametersShapeProbe;
+
+                fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                    formatter.write_str("a closed semantic-parameters object")
+                }
+
+                fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    let mut target_id = false;
+                    let mut pointer_width = false;
+                    let mut overflow_mode = false;
+                    let mut panic_mode = false;
+                    while let Some(name) = map.next_key::<String>()? {
+                        let seen = match name.as_str() {
+                            "target_id" => {
+                                map.next_value::<String>()?;
+                                &mut target_id
+                            }
+                            "pointer_width" => {
+                                map.next_value::<i64>()?;
+                                &mut pointer_width
+                            }
+                            "overflow_mode" => {
+                                map.next_value::<String>()?;
+                                &mut overflow_mode
+                            }
+                            "panic_mode" => {
+                                map.next_value::<String>()?;
+                                &mut panic_mode
+                            }
+                            _ => {
+                                return Err(serde::de::Error::custom(
+                                    "unknown semantic-parameters field",
+                                ));
+                            }
+                        };
+                        if *seen {
+                            return Err(serde::de::Error::custom(
+                                "duplicate semantic-parameters field",
+                            ));
+                        }
+                        *seen = true;
+                    }
+                    if !target_id || !pointer_width || (overflow_mode != panic_mode) {
+                        return Err(serde::de::Error::custom(
+                            "incomplete semantic-parameters branch",
+                        ));
+                    }
+                    Ok(SemanticParametersShapeProbe)
+                }
+            }
+
+            deserializer.deserialize_map(Visitor)
+        }
     }
-    Ok(())
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct VcLimitShapeRootProbe {
+        schema: String,
+        source_ir_schema: String,
+        source_ir_hash: String,
+        input_set_hash: String,
+        semantic_profile: String,
+        semantic_parameters: SemanticParametersShapeProbe,
+        verification_limit_profile: String,
+        functions: DiscardingSequence<VcLimitShapeFunctionProbe>,
+        vc_hash: String,
+    }
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct VcLimitShapeFunctionProbe {
+        function_id: String,
+        contract_hash: String,
+        parameters: DiscardingSequence<VcLimitShapeBinderProbe>,
+        requires: DiscardingSequence<VcLimitShapeTermProbe>,
+        members: DiscardingSequence<VcLimitShapeMemberProbe>,
+        groups: DiscardingSequence<VcLimitShapeGroupProbe>,
+    }
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct VcLimitShapeBinderProbe {
+        id: String,
+        #[serde(rename = "type")]
+        r#type: VcLimitShapeTypeTermProbe,
+    }
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct VcLimitShapeMemberProbe {
+        id: String,
+        function_id: String,
+        kind: crate::vc::VcMemberKind,
+        local_binders: DiscardingSequence<VcLimitShapeTypeTermProbe>,
+        assumptions: DiscardingSequence<VcLimitShapeTermProbe>,
+        conclusion: VcLimitShapeTermProbe,
+        group_id: String,
+    }
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct VcLimitShapeGroupProbe {
+        id: String,
+        kind: crate::vc::VcGroupKind,
+        declaration_name: String,
+        member_ids: DiscardingSequence<String>,
+        dependencies: DiscardingSequence<String>,
+    }
+
+    #[derive(Deserialize)]
+    #[serde(tag = "kind", rename_all = "snake_case", deny_unknown_fields)]
+    enum VcLimitShapeTypeTermProbe {
+        Constant {
+            name: String,
+        },
+        Apply {
+            function: String,
+            args: DiscardingSequence<VcLimitShapeTypeTermProbe>,
+        },
+        NatLiteral {
+            value: i64,
+        },
+        StringLiteral {
+            value: String,
+        },
+    }
+
+    #[derive(Deserialize)]
+    #[serde(tag = "kind", rename_all = "snake_case", deny_unknown_fields)]
+    enum VcLimitShapeTermProbe {
+        Var {
+            name: String,
+        },
+        Bound {
+            index: i64,
+        },
+        Constant {
+            name: String,
+        },
+        BitVecLiteral {
+            value: String,
+            width: i64,
+            signed: bool,
+        },
+        Apply {
+            function: String,
+            args: DiscardingSequence<VcLimitShapeTermProbe>,
+        },
+        Convert {
+            value: Box<VcLimitShapeTermProbe>,
+            target: VcLimitShapeTypeTermProbe,
+        },
+        Forall {
+            binder_type: VcLimitShapeTypeTermProbe,
+            body: Box<VcLimitShapeTermProbe>,
+        },
+    }
+
+    struct DiscardingSequence<T> {
+        count: u64,
+        element: PhantomData<fn() -> T>,
+    }
+
+    impl<'de, T> Deserialize<'de> for DiscardingSequence<T>
+    where
+        T: Deserialize<'de>,
+    {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            struct SequenceVisitor<T>(PhantomData<fn() -> T>);
+
+            impl<'de, T> serde::de::Visitor<'de> for SequenceVisitor<T>
+            where
+                T: Deserialize<'de>,
+            {
+                type Value = DiscardingSequence<T>;
+
+                fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                    formatter.write_str("a JSON array")
+                }
+
+                fn visit_seq<A>(self, mut sequence: A) -> Result<Self::Value, A::Error>
+                where
+                    A: serde::de::SeqAccess<'de>,
+                {
+                    let mut count = 0_u64;
+                    while sequence.next_element::<T>()?.is_some() {
+                        count = count
+                            .checked_add(1)
+                            .ok_or_else(|| serde::de::Error::custom("array length overflow"))?;
+                    }
+                    Ok(DiscardingSequence {
+                        count,
+                        element: PhantomData,
+                    })
+                }
+            }
+
+            deserializer.deserialize_seq(SequenceVisitor(PhantomData))
+        }
+    }
+
+    struct ValidVcSha256;
+
+    impl<'de> Deserialize<'de> for ValidVcSha256 {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            let value = String::deserialize(deserializer)?;
+            LowercaseSha256::new(value).map_err(serde::de::Error::custom)?;
+            Ok(Self)
+        }
+    }
+
+    struct ValidMpkName;
+
+    impl<'de> Deserialize<'de> for ValidMpkName {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            let value = String::deserialize(deserializer)?;
+            if !is_mpk_name(&value) {
+                return Err(serde::de::Error::custom(format!(
+                    "invalid MPK name {value:?}"
+                )));
+            }
+            Ok(Self)
+        }
+    }
+
+    struct NonnegativeU32(u32);
+
+    impl<'de> Deserialize<'de> for NonnegativeU32 {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            let value = i64::deserialize(deserializer)?;
+            u32::try_from(value)
+                .map(Self)
+                .map_err(|_| serde::de::Error::custom("integer is outside the u32 range"))
+        }
+    }
+
+    struct NonnegativeU64(u64);
+
+    impl<'de> Deserialize<'de> for NonnegativeU64 {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            let value = i64::deserialize(deserializer)?;
+            u64::try_from(value)
+                .map(Self)
+                .map_err(|_| serde::de::Error::custom("integer is negative"))
+        }
+    }
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct VcLimitScalarRootProbe {
+        schema: IgnoredAny,
+        source_ir_schema: IgnoredAny,
+        source_ir_hash: ValidVcSha256,
+        input_set_hash: ValidVcSha256,
+        semantic_profile: crate::SemanticProfile,
+        semantic_parameters: crate::SemanticParameters,
+        verification_limit_profile: IgnoredAny,
+        functions: DiscardingSequence<VcLimitScalarFunctionProbe>,
+        vc_hash: ValidVcSha256,
+    }
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct VcLimitScalarFunctionProbe {
+        function_id: IgnoredAny,
+        contract_hash: ValidVcSha256,
+        parameters: DiscardingSequence<VcLimitScalarBinderProbe>,
+        requires: DiscardingSequence<VcLimitScalarTermProbe>,
+        members: DiscardingSequence<VcLimitScalarMemberProbe>,
+        groups: DiscardingSequence<VcLimitScalarGroupProbe>,
+    }
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct VcLimitScalarBinderProbe {
+        id: IgnoredAny,
+        #[serde(rename = "type")]
+        r#type: VcLimitScalarTypeTermProbe,
+    }
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct VcLimitScalarMemberProbe {
+        id: IgnoredAny,
+        function_id: IgnoredAny,
+        kind: IgnoredAny,
+        local_binders: DiscardingSequence<VcLimitScalarTypeTermProbe>,
+        assumptions: DiscardingSequence<VcLimitScalarTermProbe>,
+        conclusion: VcLimitScalarTermProbe,
+        group_id: IgnoredAny,
+    }
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct VcLimitScalarGroupProbe {
+        id: IgnoredAny,
+        kind: IgnoredAny,
+        declaration_name: ValidMpkName,
+        member_ids: DiscardingSequence<IgnoredAny>,
+        dependencies: DiscardingSequence<ValidMpkName>,
+    }
+
+    struct VcLimitScalarTypeTermProbe;
+
+    #[derive(Deserialize)]
+    #[serde(tag = "kind", rename_all = "snake_case", deny_unknown_fields)]
+    enum VcLimitScalarTypeTermValue {
+        Constant {
+            name: ValidMpkName,
+        },
+        Apply {
+            function: ValidMpkName,
+            args: DiscardingSequence<VcLimitScalarTypeTermProbe>,
+        },
+        NatLiteral {
+            value: NonnegativeU64,
+        },
+        StringLiteral {
+            value: String,
+        },
+    }
+
+    impl<'de> Deserialize<'de> for VcLimitScalarTypeTermProbe {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            let value = VcLimitScalarTypeTermValue::deserialize(deserializer)?;
+            if let VcLimitScalarTypeTermValue::NatLiteral { value } = value {
+                if value.0 > MAX_SAFE_JSON_INTEGER as u64 {
+                    return Err(serde::de::Error::custom(
+                        "type nat_literal is outside the safe JSON range",
+                    ));
+                }
+            }
+            Ok(Self)
+        }
+    }
+
+    struct VcLimitScalarTermProbe;
+
+    #[derive(Deserialize)]
+    #[serde(tag = "kind", rename_all = "snake_case", deny_unknown_fields)]
+    enum VcLimitScalarTermValue {
+        Var {
+            name: String,
+        },
+        Bound {
+            index: NonnegativeU32,
+        },
+        Constant {
+            name: ValidMpkName,
+        },
+        BitVecLiteral {
+            value: String,
+            width: NonnegativeU32,
+            signed: bool,
+        },
+        Apply {
+            function: ValidMpkName,
+            args: DiscardingSequence<VcLimitScalarTermProbe>,
+        },
+        Convert {
+            value: Box<VcLimitScalarTermProbe>,
+            target: VcLimitScalarTypeTermProbe,
+        },
+        Forall {
+            binder_type: VcLimitScalarTypeTermProbe,
+            body: Box<VcLimitScalarTermProbe>,
+        },
+    }
+
+    impl<'de> Deserialize<'de> for VcLimitScalarTermProbe {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            let value = VcLimitScalarTermValue::deserialize(deserializer)?;
+            if let VcLimitScalarTermValue::BitVecLiteral {
+                value,
+                width,
+                signed,
+            } = value
+            {
+                validate_bit_vec_literal(&value, width.0, signed)
+                    .map_err(serde::de::Error::custom)?;
+            }
+            Ok(Self)
+        }
+    }
+
+    #[derive(Default)]
+    struct BoundedNameSet {
+        names: BTreeSet<String>,
+        overflowed: bool,
+    }
+
+    impl BoundedNameSet {
+        fn insert(&mut self, name: String) {
+            if self.overflowed || self.names.contains(&name) {
+                return;
+            }
+            if self.names.len() == crate::vir_validate::VIR_PARAMS_MAX {
+                self.overflowed = true;
+                return;
+            }
+            self.names.insert(name);
+        }
+
+        fn merge(&mut self, other: Self) {
+            if self.overflowed {
+                return;
+            }
+            if other.overflowed {
+                self.overflowed = true;
+                return;
+            }
+            for name in other.names {
+                self.insert(name);
+                if self.overflowed {
+                    break;
+                }
+            }
+        }
+
+        fn contains(&self, name: &str) -> bool {
+            self.names.contains(name)
+        }
+    }
+
+    #[derive(Default)]
+    struct VcLimitTermContext {
+        variables: BoundedNameSet,
+        required_binder_depth: u64,
+    }
+
+    impl VcLimitTermContext {
+        fn merge(&mut self, other: Self) {
+            self.variables.merge(other.variables);
+            self.required_binder_depth =
+                self.required_binder_depth.max(other.required_binder_depth);
+        }
+    }
+
+    struct VcLimitContextTermProbe(VcLimitTermContext);
+
+    #[derive(Deserialize)]
+    #[serde(tag = "kind", rename_all = "snake_case", deny_unknown_fields)]
+    enum VcLimitContextTermValue {
+        Var {
+            name: String,
+        },
+        Bound {
+            index: u32,
+        },
+        Constant {
+            name: IgnoredAny,
+        },
+        BitVecLiteral {
+            value: IgnoredAny,
+            width: IgnoredAny,
+            signed: IgnoredAny,
+        },
+        Apply {
+            function: IgnoredAny,
+            args: VcLimitContextTermSequence,
+        },
+        Convert {
+            value: Box<VcLimitContextTermProbe>,
+            target: IgnoredAny,
+        },
+        Forall {
+            binder_type: IgnoredAny,
+            body: Box<VcLimitContextTermProbe>,
+        },
+    }
+
+    impl<'de> Deserialize<'de> for VcLimitContextTermProbe {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            let value = VcLimitContextTermValue::deserialize(deserializer)?;
+            let context = match value {
+                VcLimitContextTermValue::Var { name } => {
+                    let mut variables = BoundedNameSet::default();
+                    variables.insert(name);
+                    VcLimitTermContext {
+                        variables,
+                        required_binder_depth: 0,
+                    }
+                }
+                VcLimitContextTermValue::Bound { index } => VcLimitTermContext {
+                    variables: BoundedNameSet::default(),
+                    required_binder_depth: u64::from(index) + 1,
+                },
+                VcLimitContextTermValue::Apply { args, .. } => args.context,
+                VcLimitContextTermValue::Convert { value, .. } => value.0,
+                VcLimitContextTermValue::Forall { body, .. } => VcLimitTermContext {
+                    variables: body.0.variables,
+                    required_binder_depth: body.0.required_binder_depth.saturating_sub(1),
+                },
+                VcLimitContextTermValue::Constant { .. }
+                | VcLimitContextTermValue::BitVecLiteral { .. } => VcLimitTermContext::default(),
+            };
+            Ok(Self(context))
+        }
+    }
+
+    struct VcLimitContextTermSequence {
+        context: VcLimitTermContext,
+    }
+
+    impl<'de> Deserialize<'de> for VcLimitContextTermSequence {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            struct Visitor;
+
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = VcLimitContextTermSequence;
+
+                fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                    formatter.write_str("a VC term array")
+                }
+
+                fn visit_seq<A>(self, mut sequence: A) -> Result<Self::Value, A::Error>
+                where
+                    A: serde::de::SeqAccess<'de>,
+                {
+                    let mut context = VcLimitTermContext::default();
+                    while let Some(term) = sequence.next_element::<VcLimitContextTermProbe>()? {
+                        context.merge(term.0);
+                    }
+                    Ok(VcLimitContextTermSequence { context })
+                }
+            }
+
+            deserializer.deserialize_seq(Visitor)
+        }
+    }
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct VcLimitContextParameterValue {
+        id: String,
+        #[serde(rename = "type")]
+        r#type: IgnoredAny,
+    }
+
+    struct VcLimitContextParameterSequence(BoundedNameSet);
+
+    impl<'de> Deserialize<'de> for VcLimitContextParameterSequence {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            struct Visitor;
+
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = VcLimitContextParameterSequence;
+
+                fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                    formatter.write_str("a VC parameter array")
+                }
+
+                fn visit_seq<A>(self, mut sequence: A) -> Result<Self::Value, A::Error>
+                where
+                    A: serde::de::SeqAccess<'de>,
+                {
+                    let mut names = BoundedNameSet::default();
+                    while let Some(parameter) =
+                        sequence.next_element::<VcLimitContextParameterValue>()?
+                    {
+                        names.insert(parameter.id);
+                    }
+                    Ok(VcLimitContextParameterSequence(names))
+                }
+            }
+
+            deserializer.deserialize_seq(Visitor)
+        }
+    }
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct VcLimitContextMemberValue {
+        id: IgnoredAny,
+        function_id: IgnoredAny,
+        kind: IgnoredAny,
+        local_binders: DiscardingSequence<IgnoredAny>,
+        assumptions: VcLimitContextTermSequence,
+        conclusion: VcLimitContextTermProbe,
+        group_id: IgnoredAny,
+    }
+
+    struct VcLimitContextMemberProbe(VcLimitTermContext);
+
+    impl<'de> Deserialize<'de> for VcLimitContextMemberProbe {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            let member = VcLimitContextMemberValue::deserialize(deserializer)?;
+            let mut context = member.assumptions.context;
+            context.merge(member.conclusion.0);
+            if context.required_binder_depth > member.local_binders.count {
+                return Err(serde::de::Error::custom("open de Bruijn index"));
+            }
+            context.required_binder_depth = 0;
+            Ok(Self(context))
+        }
+    }
+
+    struct VcLimitContextMemberSequence(VcLimitTermContext);
+
+    impl<'de> Deserialize<'de> for VcLimitContextMemberSequence {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            struct Visitor;
+
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = VcLimitContextMemberSequence;
+
+                fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                    formatter.write_str("a VC member array")
+                }
+
+                fn visit_seq<A>(self, mut sequence: A) -> Result<Self::Value, A::Error>
+                where
+                    A: serde::de::SeqAccess<'de>,
+                {
+                    let mut context = VcLimitTermContext::default();
+                    while let Some(member) = sequence.next_element::<VcLimitContextMemberProbe>()? {
+                        context.merge(member.0);
+                    }
+                    Ok(VcLimitContextMemberSequence(context))
+                }
+            }
+
+            deserializer.deserialize_seq(Visitor)
+        }
+    }
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct VcLimitContextFunctionValue {
+        function_id: IgnoredAny,
+        contract_hash: IgnoredAny,
+        parameters: VcLimitContextParameterSequence,
+        requires: VcLimitContextTermSequence,
+        members: VcLimitContextMemberSequence,
+        groups: IgnoredAny,
+    }
+
+    struct VcLimitContextFunctionProbe;
+
+    impl<'de> Deserialize<'de> for VcLimitContextFunctionProbe {
+        fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            let raw = <&RawValue>::deserialize(deserializer)?;
+            let function = deserialize_context_raw::<VcLimitContextFunctionValue>(raw)
+                .map_err(serde::de::Error::custom)?;
+            let mut context = function.requires.context;
+            context.merge(function.members.0);
+            let invalid_variables = if function.parameters.0.overflowed {
+                validate_overflowed_parameter_context(raw, &context.variables)
+                    .map_err(serde::de::Error::custom)?
+            } else {
+                context.variables.overflowed
+                    || context
+                        .variables
+                        .names
+                        .iter()
+                        .any(|name| !function.parameters.0.contains(name))
+            };
+            if context.required_binder_depth != 0 || invalid_variables {
+                return Err(serde::de::Error::custom(
+                    "unbound VC variable or open de Bruijn index",
+                ));
+            }
+            Ok(Self)
+        }
+    }
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct VcLimitContextRawFunction<'a> {
+        function_id: IgnoredAny,
+        contract_hash: IgnoredAny,
+        #[serde(borrow)]
+        parameters: &'a RawValue,
+        #[serde(borrow)]
+        requires: &'a RawValue,
+        #[serde(borrow)]
+        members: &'a RawValue,
+        groups: IgnoredAny,
+    }
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct VcLimitContextRawMember<'a> {
+        id: IgnoredAny,
+        function_id: IgnoredAny,
+        kind: IgnoredAny,
+        local_binders: IgnoredAny,
+        #[serde(borrow)]
+        assumptions: &'a RawValue,
+        #[serde(borrow)]
+        conclusion: &'a RawValue,
+        group_id: IgnoredAny,
+    }
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct VcLimitContextRawTerm<'a> {
+        kind: String,
+        #[serde(default, borrow)]
+        name: Option<&'a RawValue>,
+        #[serde(default, borrow)]
+        index: Option<&'a RawValue>,
+        #[serde(default, borrow)]
+        function: Option<&'a RawValue>,
+        #[serde(default, borrow)]
+        args: Option<&'a RawValue>,
+        #[serde(default, borrow)]
+        value: Option<&'a RawValue>,
+        #[serde(default, borrow)]
+        width: Option<&'a RawValue>,
+        #[serde(default, borrow)]
+        signed: Option<&'a RawValue>,
+        #[serde(default, borrow)]
+        target: Option<&'a RawValue>,
+        #[serde(default, borrow)]
+        binder_type: Option<&'a RawValue>,
+        #[serde(default, borrow)]
+        body: Option<&'a RawValue>,
+    }
+
+    struct VcLimitVariableBatch<'a> {
+        after: Option<&'a str>,
+        names: BTreeSet<String>,
+    }
+
+    impl<'a> VcLimitVariableBatch<'a> {
+        fn new(after: Option<&'a str>) -> Self {
+            Self {
+                after,
+                names: BTreeSet::new(),
+            }
+        }
+
+        fn insert(&mut self, name: String) {
+            if self.after.is_some_and(|after| name.as_str() <= after) || self.names.contains(&name)
+            {
+                return;
+            }
+            if self.names.len() < crate::vir_validate::VIR_PARAMS_MAX {
+                self.names.insert(name);
+                return;
+            }
+            let replace_largest = self
+                .names
+                .iter()
+                .next_back()
+                .is_some_and(|largest| name.as_str() < largest.as_str());
+            if replace_largest {
+                self.names.pop_last();
+                self.names.insert(name);
+            }
+        }
+    }
+
+    // An oversized repeated parameter set is a later linkage failure, so it
+    // cannot make an earlier unbound-variable scalar failure disappear. Raw
+    // slices avoid retaining the malformed collection. When both sides have
+    // more than VIR_PARAMS_MAX distinct names, lexicographic batches make the
+    // subset check exact while retaining at most VIR_PARAMS_MAX names.
+    fn validate_overflowed_parameter_context(
+        raw: &RawValue,
+        observed_variables: &BoundedNameSet,
+    ) -> Result<bool, String> {
+        let function = deserialize_context_raw::<VcLimitContextRawFunction<'_>>(raw)?;
+        if !observed_variables.overflowed {
+            let mut unresolved = observed_variables.names.clone();
+            resolve_parameter_names(function.parameters, &mut unresolved)?;
+            return Ok(!unresolved.is_empty());
+        }
+
+        let mut after = None::<String>;
+        loop {
+            let mut batch = VcLimitVariableBatch::new(after.as_deref());
+            collect_context_term_sequence(function.requires, &mut batch)?;
+            collect_context_member_sequence(function.members, &mut batch)?;
+            let Some(next_after) = batch.names.iter().next_back().cloned() else {
+                return Ok(false);
+            };
+            let mut unresolved = batch.names;
+            resolve_parameter_names(function.parameters, &mut unresolved)?;
+            if !unresolved.is_empty() {
+                return Ok(true);
+            }
+            after = Some(next_after);
+        }
+    }
+
+    fn resolve_parameter_names(
+        raw: &RawValue,
+        unresolved: &mut BTreeSet<String>,
+    ) -> Result<(), String> {
+        let mut deserializer = serde_json::Deserializer::from_str(raw.get());
+        deserializer.disable_recursion_limit();
+        ParameterMembershipSeed { unresolved }
+            .deserialize(&mut deserializer)
+            .map_err(|error| error.to_string())?;
+        deserializer.end().map_err(|error| error.to_string())
+    }
+
+    struct ParameterMembershipSeed<'a> {
+        unresolved: &'a mut BTreeSet<String>,
+    }
+
+    impl<'de> DeserializeSeed<'de> for ParameterMembershipSeed<'_> {
+        type Value = ();
+
+        fn deserialize<D>(self, deserializer: D) -> Result<Self::Value, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            struct Visitor<'a> {
+                unresolved: &'a mut BTreeSet<String>,
+            }
+
+            impl<'de> serde::de::Visitor<'de> for Visitor<'_> {
+                type Value = ();
+
+                fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                    formatter.write_str("a VC parameter array")
+                }
+
+                fn visit_seq<A>(self, mut sequence: A) -> Result<Self::Value, A::Error>
+                where
+                    A: serde::de::SeqAccess<'de>,
+                {
+                    while let Some(parameter) =
+                        sequence.next_element::<VcLimitContextParameterValue>()?
+                    {
+                        self.unresolved.remove(&parameter.id);
+                    }
+                    Ok(())
+                }
+            }
+
+            deserializer.deserialize_seq(Visitor {
+                unresolved: self.unresolved,
+            })
+        }
+    }
+
+    fn collect_context_member_sequence(
+        raw: &RawValue,
+        batch: &mut VcLimitVariableBatch<'_>,
+    ) -> Result<(), String> {
+        let mut deserializer = serde_json::Deserializer::from_str(raw.get());
+        deserializer.disable_recursion_limit();
+        ContextMemberSequenceSeed { batch }
+            .deserialize(&mut deserializer)
+            .map_err(|error| error.to_string())?;
+        deserializer.end().map_err(|error| error.to_string())
+    }
+
+    struct ContextMemberSequenceSeed<'a, 'cursor> {
+        batch: &'a mut VcLimitVariableBatch<'cursor>,
+    }
+
+    impl<'de> DeserializeSeed<'de> for ContextMemberSequenceSeed<'_, '_> {
+        type Value = ();
+
+        fn deserialize<D>(self, deserializer: D) -> Result<Self::Value, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            struct Visitor<'a, 'cursor> {
+                batch: &'a mut VcLimitVariableBatch<'cursor>,
+            }
+
+            impl<'de> serde::de::Visitor<'de> for Visitor<'_, '_> {
+                type Value = ();
+
+                fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                    formatter.write_str("a VC member array")
+                }
+
+                fn visit_seq<A>(self, mut sequence: A) -> Result<Self::Value, A::Error>
+                where
+                    A: serde::de::SeqAccess<'de>,
+                {
+                    let batch = self.batch;
+                    while sequence
+                        .next_element_seed(ContextMemberSeed { batch: &mut *batch })?
+                        .is_some()
+                    {}
+                    Ok(())
+                }
+            }
+
+            deserializer.deserialize_seq(Visitor { batch: self.batch })
+        }
+    }
+
+    struct ContextMemberSeed<'a, 'cursor> {
+        batch: &'a mut VcLimitVariableBatch<'cursor>,
+    }
+
+    impl<'de> DeserializeSeed<'de> for ContextMemberSeed<'_, '_> {
+        type Value = ();
+
+        fn deserialize<D>(self, deserializer: D) -> Result<Self::Value, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            let raw = <&RawValue>::deserialize(deserializer)?;
+            let member = deserialize_context_raw::<VcLimitContextRawMember<'_>>(raw)
+                .map_err(serde::de::Error::custom)?;
+            collect_context_term_sequence(member.assumptions, self.batch)
+                .map_err(serde::de::Error::custom)?;
+            collect_context_term(member.conclusion, self.batch).map_err(serde::de::Error::custom)
+        }
+    }
+
+    fn collect_context_term_sequence(
+        raw: &RawValue,
+        batch: &mut VcLimitVariableBatch<'_>,
+    ) -> Result<(), String> {
+        let mut deserializer = serde_json::Deserializer::from_str(raw.get());
+        deserializer.disable_recursion_limit();
+        ContextTermSequenceSeed { batch }
+            .deserialize(&mut deserializer)
+            .map_err(|error| error.to_string())?;
+        deserializer.end().map_err(|error| error.to_string())
+    }
+
+    struct ContextTermSequenceSeed<'a, 'cursor> {
+        batch: &'a mut VcLimitVariableBatch<'cursor>,
+    }
+
+    impl<'de> DeserializeSeed<'de> for ContextTermSequenceSeed<'_, '_> {
+        type Value = ();
+
+        fn deserialize<D>(self, deserializer: D) -> Result<Self::Value, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            struct Visitor<'a, 'cursor> {
+                batch: &'a mut VcLimitVariableBatch<'cursor>,
+            }
+
+            impl<'de> serde::de::Visitor<'de> for Visitor<'_, '_> {
+                type Value = ();
+
+                fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                    formatter.write_str("a VC term array")
+                }
+
+                fn visit_seq<A>(self, mut sequence: A) -> Result<Self::Value, A::Error>
+                where
+                    A: serde::de::SeqAccess<'de>,
+                {
+                    let batch = self.batch;
+                    while sequence
+                        .next_element_seed(ContextTermSeed { batch: &mut *batch })?
+                        .is_some()
+                    {}
+                    Ok(())
+                }
+            }
+
+            deserializer.deserialize_seq(Visitor { batch: self.batch })
+        }
+    }
+
+    struct ContextTermSeed<'a, 'cursor> {
+        batch: &'a mut VcLimitVariableBatch<'cursor>,
+    }
+
+    impl<'de> DeserializeSeed<'de> for ContextTermSeed<'_, '_> {
+        type Value = ();
+
+        fn deserialize<D>(self, deserializer: D) -> Result<Self::Value, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            let raw = <&RawValue>::deserialize(deserializer)?;
+            collect_context_term(raw, self.batch).map_err(serde::de::Error::custom)
+        }
+    }
+
+    fn collect_context_term(
+        raw: &RawValue,
+        batch: &mut VcLimitVariableBatch<'_>,
+    ) -> Result<(), String> {
+        let term = deserialize_context_raw::<VcLimitContextRawTerm<'_>>(raw)?;
+        match term.kind.as_str() {
+            "var" => batch.insert(deserialize_context_raw(required_raw(term.name, "name")?)?),
+            "apply" => collect_context_term_sequence(required_raw(term.args, "args")?, batch)?,
+            "convert" => collect_context_term(required_raw(term.value, "value")?, batch)?,
+            "forall" => collect_context_term(required_raw(term.body, "body")?, batch)?,
+            "bound" | "constant" | "bit_vec_literal" => {}
+            _ => return Err("unknown VC term kind".to_owned()),
+        }
+        Ok(())
+    }
+
+    fn required_raw<'a>(value: Option<&'a RawValue>, field: &str) -> Result<&'a RawValue, String> {
+        value.ok_or_else(|| format!("VC term is missing {field}"))
+    }
+
+    fn deserialize_context_raw<'de, T>(raw: &'de RawValue) -> Result<T, String>
+    where
+        T: Deserialize<'de>,
+    {
+        let mut deserializer = serde_json::Deserializer::from_str(raw.get());
+        deserializer.disable_recursion_limit();
+        let value = T::deserialize(&mut deserializer).map_err(|error| error.to_string())?;
+        deserializer.end().map_err(|error| error.to_string())?;
+        Ok(value)
+    }
+
+    #[derive(Deserialize)]
+    #[serde(deny_unknown_fields)]
+    struct VcLimitContextRootProbe {
+        schema: IgnoredAny,
+        source_ir_schema: IgnoredAny,
+        source_ir_hash: IgnoredAny,
+        input_set_hash: IgnoredAny,
+        semantic_profile: IgnoredAny,
+        semantic_parameters: IgnoredAny,
+        verification_limit_profile: IgnoredAny,
+        functions: DiscardingSequence<VcLimitContextFunctionProbe>,
+        vc_hash: IgnoredAny,
+    }
+
+    pub(super) fn validate_vc_pre_stream_phases(input: &[u8]) -> Result<(), VcValidationError> {
+        let mut schema_deserializer = serde_json::Deserializer::from_slice(input);
+        schema_deserializer.disable_recursion_limit();
+        let schema =
+            VcSchemaLimitProbe::deserialize(&mut schema_deserializer).map_err(|error| {
+                VcValidationError::new(VcValidationPhase::Shape, "VC_SHAPE", error.to_string())
+            })?;
+        match schema.0 {
+            None => {
+                return Err(VcValidationError::new(
+                    VcValidationPhase::Shape,
+                    "VC_SHAPE",
+                    "VC root is missing its schema field",
+                ));
+            }
+            Some(SchemaField::String(value)) if value == VC_SCHEMA_VERSION => {}
+            Some(SchemaField::String(_) | SchemaField::Other) => {
+                return Err(VcValidationError::new(
+                    VcValidationPhase::Shape,
+                    "VC_SCHEMA",
+                    "wrong VC schema discriminator",
+                ));
+            }
+        }
+        let mut shape_deserializer = serde_json::Deserializer::from_slice(input);
+        shape_deserializer.disable_recursion_limit();
+        let shape =
+            VcLimitShapeRootProbe::deserialize(&mut shape_deserializer).map_err(|error| {
+                VcValidationError::new(VcValidationPhase::Shape, "VC_SHAPE", error.to_string())
+            })?;
+        debug_assert_eq!(shape.schema, VC_SCHEMA_VERSION);
+        let mut scalar_deserializer = serde_json::Deserializer::from_slice(input);
+        scalar_deserializer.disable_recursion_limit();
+        let scalar_probe = VcLimitScalarRootProbe::deserialize(&mut scalar_deserializer)
+            .map_err(|error| scalar("stream limit scalar validation", error.to_string()))?;
+        if scalar_probe.functions.count == 0 {
+            return Err(scalar("functions", "VC document has no functions"));
+        }
+        let mut context_deserializer = serde_json::Deserializer::from_slice(input);
+        context_deserializer.disable_recursion_limit();
+        VcLimitContextRootProbe::deserialize(&mut context_deserializer)
+            .map_err(|error| scalar("stream limit scalar context", error.to_string()))?;
+        Ok(())
+    }
 }
 
 fn observed_verification_add(
@@ -412,7 +1611,9 @@ fn vc_assumptions_path(path: &[StrictJsonPathSegment]) -> Option<(u64, u64)> {
 /// Returns the member owner (or document-only ownership for a requirement),
 /// the exact branch depth, and whether the current object is an expression
 /// rather than an embedded type node.
-fn vc_term_location(path: &[StrictJsonPathSegment]) -> Option<(Option<(u64, u64)>, u64, bool)> {
+type VcTermLocation = (Option<(u64, u64)>, u64, bool);
+
+fn vc_term_location(path: &[StrictJsonPathSegment]) -> Option<VcTermLocation> {
     let (owner, suffix) = match path {
         [StrictJsonPathSegment::Key(functions), StrictJsonPathSegment::Index(_), StrictJsonPathSegment::Key(requires), StrictJsonPathSegment::Index(_), suffix @ ..]
             if functions == "functions" && requires == "requires" =>
@@ -895,7 +2096,7 @@ pub(crate) fn validate_term(
     }
 }
 
-fn validate_bit_vec_literal(
+pub(crate) fn validate_bit_vec_literal(
     value: &str,
     width: u32,
     signed: bool,

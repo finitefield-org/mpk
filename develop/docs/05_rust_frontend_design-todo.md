@@ -4481,7 +4481,7 @@ git diff --check
 
 ### RUST-07-T02 Enforce Every Diagnostic and Resource Boundary
 
-Status: Pending
+Status: Complete
 
 Depends on: RUST-07-T01.
 

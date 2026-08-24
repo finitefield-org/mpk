@@ -681,6 +681,7 @@ dependencies = [
  "mpk-cert",
  "mpk-core",
  "mpk-kernel",
+ "mpk-linux-sandbox",
  "mpk-theory",
  "mpk-vc",
  "pulldown-cmark",
@@ -705,6 +706,15 @@ dependencies = [
  "mpk-core",
  "mpk-theory",
  "serde_json",
+]
+
+[[package]]
+name = "mpk-linux-sandbox"
+version = "0.1.0"
+dependencies = [
+ "libc",
+ "rustix",
+ "tempfile",
 ]
 
 [[package]]

@@ -8,11 +8,58 @@ use rust2vir_internal::json::{self, JsonValue};
 use rust2vir_internal::limits::{
     checked_add, validate_limit, validate_rust_limit, RustLimitError, RustLimitId,
 };
+use rust2vir_internal::sandbox::{
+    validate_resource_filesystem_observation, ResourceFilesystemObservation, SandboxError,
+    SandboxLimits,
+};
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::PathBuf;
 
 const DRIVER_VECTOR: &[u8] = include_bytes!("../testdata/rust-driver-v0.json");
 const FUNCTION_ID: &str = "vector::identity";
+
+#[test]
+fn resource_filesystem_configuration_is_exact_below_at_above() {
+    let limits = SandboxLimits::FROZEN;
+    let at = ResourceFilesystemObservation {
+        filesystem_type: 0x0102_1994,
+        allocated_capacity_bytes: limits.writable_allocated_bytes,
+        inode_capacity: limits.writable_inodes,
+        same_device: true,
+        nosuid: true,
+        nodev: true,
+        noswap: true,
+    };
+    assert_eq!(validate_resource_filesystem_observation(at, limits), Ok(()));
+
+    for allocated_capacity_bytes in [
+        limits.writable_allocated_bytes - 1,
+        limits.writable_allocated_bytes + 1,
+    ] {
+        assert_eq!(
+            validate_resource_filesystem_observation(
+                ResourceFilesystemObservation {
+                    allocated_capacity_bytes,
+                    ..at
+                },
+                limits,
+            ),
+            Err(SandboxError::SandboxUnavailable)
+        );
+    }
+    for inode_capacity in [limits.writable_inodes - 1, limits.writable_inodes + 1] {
+        assert_eq!(
+            validate_resource_filesystem_observation(
+                ResourceFilesystemObservation {
+                    inode_capacity,
+                    ..at
+                },
+                limits,
+            ),
+            Err(SandboxError::SandboxUnavailable)
+        );
+    }
+}
 
 #[test]
 fn every_frozen_counter_accepts_below_and_at_and_rejects_above_and_overflow() {
@@ -90,7 +137,10 @@ fn diagnostic_message_boundary_is_scalar_exact_and_preserves_source_status() {
         vec![diagnostic("RUST_SOURCE_TYPE", above)],
     );
     assert_eq!(above_output.status(), DriverStatus::SourceError);
-    assert_eq!(private_messages(&above_output), [expected.clone()]);
+    assert_eq!(
+        private_messages(&above_output),
+        std::slice::from_ref(&expected)
+    );
 
     let public = public_result(&lower, &above_output);
     assert_eq!(text(&public, "status"), "source-error");

@@ -179,10 +179,10 @@ fn helper_limit_is_enforced_by_the_production_transport_scanner() {
     let mut mixed_shape =
         serde_json::to_vec(&document).expect("mixed shape/limit evidence serializes");
     mixed_shape.push(b'\n');
-    let shape = import_policy_evidence_v1_for_consumer(&mixed_shape)
-        .expect_err("shape validation owns precedence over the recorded helper limit");
-    assert_eq!(shape.phase(), PolicyValidationPhase::Shape);
-    assert_eq!(shape.code(), "POLICY_SHAPE");
+    let error = import_policy_evidence_v1_for_consumer(&mixed_shape)
+        .expect_err("the transport limit precedes a later root-shape failure");
+    assert_eq!(error.phase(), PolicyValidationPhase::Transport);
+    assert_eq!(error.code(), "POLICY_LIMIT_COLLECTION");
 
     document["properties"] = serde_json::from_slice::<serde_json::Value>(include_bytes!(
         "../../../fixtures/vir-go/policy/evidence.json"
@@ -193,37 +193,77 @@ fn helper_limit_is_enforced_by_the_production_transport_scanner() {
     let mut mixed_scalar =
         serde_json::to_vec(&document).expect("mixed scalar/limit evidence serializes");
     mixed_scalar.push(b'\n');
-    let scalar = import_policy_evidence_v1_for_consumer(&mixed_scalar)
-        .expect_err("scalar validation owns precedence over the recorded helper limit");
-    assert_eq!(scalar.phase(), PolicyValidationPhase::Scalar);
-    assert_eq!(scalar.code(), "POLICY_SCALAR");
+    let error = import_policy_evidence_v1_for_consumer(&mixed_scalar)
+        .expect_err("the transport limit precedes a later root-scalar failure");
+    assert_eq!(error.phase(), PolicyValidationPhase::Transport);
+    assert_eq!(error.code(), "POLICY_LIMIT_COLLECTION");
 
     document["vc_hash"] = serde_json::from_slice::<serde_json::Value>(include_bytes!(
         "../../../fixtures/vir-go/policy/evidence.json"
     ))
     .expect("committed evidence fixture parses")["vc_hash"]
         .clone();
+    document["properties"][0]["members"][0]["unexpected"] = serde_json::Value::Bool(true);
+    let mut mixed_nested_shape =
+        serde_json::to_vec(&document).expect("mixed nested shape/limit evidence serializes");
+    mixed_nested_shape.push(b'\n');
+    let error = import_policy_evidence_v1_for_consumer(&mixed_nested_shape)
+        .expect_err("the transport limit precedes a later nested-shape failure");
+    assert_eq!(error.phase(), PolicyValidationPhase::Transport);
+    assert_eq!(error.code(), "POLICY_LIMIT_COLLECTION");
+
     document["properties"][0]["members"][0]
         .as_object_mut()
         .expect("fixture member is an object")
-        .remove("status");
-    let mut mixed_nested_shape =
-        serde_json::to_vec(&document).expect("mixed nested-shape evidence serializes");
-    mixed_nested_shape.push(b'\n');
-    let shape = import_policy_evidence_v1_for_consumer(&mixed_nested_shape)
-        .expect_err("complete nested shape validation owns precedence over helper limits");
-    assert_eq!(shape.phase(), PolicyValidationPhase::Shape);
-    assert_eq!(shape.code(), "POLICY_SHAPE");
-
-    document["properties"][0]["members"][0]["status"] =
-        serde_json::Value::String("not-a-status".to_owned());
+        .remove("unexpected");
+    document["properties"][0]["members"][0]["declaration_hash"] =
+        serde_json::Value::String("not-a-sha256".to_owned());
     let mut mixed_nested_scalar =
-        serde_json::to_vec(&document).expect("mixed nested-scalar evidence serializes");
+        serde_json::to_vec(&document).expect("mixed nested scalar/limit evidence serializes");
     mixed_nested_scalar.push(b'\n');
-    let scalar = import_policy_evidence_v1_for_consumer(&mixed_nested_scalar)
-        .expect_err("complete nested scalar validation owns precedence over helper limits");
-    assert_eq!(scalar.phase(), PolicyValidationPhase::Scalar);
-    assert_eq!(scalar.code(), "POLICY_SCALAR");
+    let error = import_policy_evidence_v1_for_consumer(&mixed_nested_scalar)
+        .expect_err("the transport limit precedes a later nested-scalar failure");
+    assert_eq!(error.phase(), PolicyValidationPhase::Transport);
+    assert_eq!(error.code(), "POLICY_LIMIT_COLLECTION");
+
+    document["properties"][0]["members"][0]["declaration_hash"] = serde_json::from_slice::<
+        serde_json::Value,
+    >(include_bytes!(
+        "../../../fixtures/vir-go/policy/evidence.json"
+    ))
+    .expect("committed evidence fixture parses")["properties"][0]["members"][0]["declaration_hash"]
+        .clone();
+    let final_helper = document["helper_artifacts"]
+        .as_array_mut()
+        .expect("helper_artifacts remains an array")
+        .last_mut()
+        .expect("above-limit helper exists");
+    final_helper["unexpected"] = serde_json::Value::Bool(true);
+    let mut mixed_helper_shape =
+        serde_json::to_vec(&document).expect("mixed helper shape/limit evidence serializes");
+    mixed_helper_shape.push(b'\n');
+    let error = import_policy_evidence_v1_for_consumer(&mixed_helper_shape)
+        .expect_err("the transport limit precedes a later helper-shape failure");
+    assert_eq!(error.phase(), PolicyValidationPhase::Transport);
+    assert_eq!(error.code(), "POLICY_LIMIT_COLLECTION");
+
+    let final_helper = document["helper_artifacts"]
+        .as_array_mut()
+        .expect("helper_artifacts remains an array")
+        .last_mut()
+        .expect("above-limit helper exists");
+    final_helper
+        .as_object_mut()
+        .expect("fixture helper is an object")
+        .remove("unexpected");
+    final_helper["sha256"] = serde_json::Value::String("not-a-sha256".to_owned());
+    let mut mixed_helper_scalar =
+        serde_json::to_vec(&document).expect("mixed helper scalar/limit evidence serializes");
+    mixed_helper_scalar.push(b'\n');
+    let error = import_policy_evidence_v1_for_consumer(&mixed_helper_scalar)
+        .expect_err("the transport limit precedes a later helper-scalar failure");
+    assert_eq!(error.phase(), PolicyValidationPhase::Transport);
+    assert_eq!(error.code(), "POLICY_LIMIT_COLLECTION");
 }
 
 #[test]

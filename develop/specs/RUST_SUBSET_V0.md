@@ -28,8 +28,9 @@ registered IDs are:
 | rustc arguments | `mpk.rust.frontend_arguments.v0` |
 | MIR adapter | `mpk.rust.mir.4d08223c.v0` |
 | build recipe | `mpk.rust.build_recipe.nightly-2025-06-01.v0` |
-| execution host | `mpk.host.linux-x86_64-gnu.glibc2_27.v0` |
-| runtime layout | `mpk.runtime.linux-x86_64-gnu.glibc2_27.v0` |
+| build resource limits | `mpk.rust.build_resources.cgroup2_tmpfs.v0` |
+| execution host | `mpk.host.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0` |
+| runtime layout | `mpk.runtime.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0` |
 
 Validation uses the public phase order in `FRONTEND_PROTOCOL_V0.md`. Within a
 phase, validation uses this order and stops before any later row:
@@ -788,8 +789,9 @@ Ambient `cc`, `c++`, `ld`, `ar`, SDK, GCC installation, and host
 include/library directory are forbidden.
 
 The initial execution ABI is Linux/x86_64/GNU glibc 2.27, minimum kernel ABI
-`5.10.0`. The required host probes are exactly
-`mpk.release.probe.linux_namespaces.v0` from `RELEASE_BUNDLES_V0.md`. The
+`6.4.0`. The required host probes are exactly
+`mpk.release.probe.linux_namespaces_cgroup2_tmpfs.v0` from
+`RELEASE_BUNDLES_V0.md`. The
 interpreter mount is `/lib64/ld-linux-x86-64.so.2`; native libraries mount at
 `/lib/x86_64-linux-gnu`. That is the sole native-runtime SONAME directory; the
 immutable-image search order used to construct it is the exact two-entry vector
@@ -1290,10 +1292,89 @@ and private corpus above. Unknown process, nested Cargo shape, argument, target,
 engine, sanitizer, profile variable, environment mutation, or output locator
 rejects and terminates the gate.
 
-Build/fuzz process trees are bounded to 256 processes, 1,024 open files per
-process, 16 GiB virtual and 8 GiB resident memory, 4 GiB temp bytes, 16 GiB
-target bytes, 262,144 output regular files, 64 MiB aggregate child stdout, and
-2 MiB aggregate child stderr, all with checked counters. Fuzz completion is
+Build and fuzz execution uses exactly resource profile
+`mpk.rust.build_resources.cgroup2_tmpfs.v0`. One fresh exclusive finite
+accounting cgroup owns the launched bootstrap and every descendant task/TID
+from before the bootstrap's first `exec`, either as direct members or through
+runtime-created descendants. Its inclusive `pids.max` is 256 tasks/TIDs,
+`memory.max` is 34,359,738,368 cgroup-accounted bytes, and
+`memory.swap.max` is zero. Trusted bootstrap and container-runtime tasks inside
+that hierarchy count toward the task maximum.
+
+The direct release frontend is a process-wide one-shot session. Its launcher
+begins as the only process in an otherwise empty delegated domain, atomically
+claims that process lifetime, moves itself to a fresh unlimited manager child,
+and enables exactly the `memory` and `pids` subtree controllers on the now-
+processless domain. The same domain/manager topology owns exactly one finite
+probe leaf followed by one fresh finite frontend leaf. Each child is created
+in its leaf with `clone3(CLONE_INTO_CGROUP | CLONE_PIDFD)`, so no child setup or
+kernel charge precedes accounting. Before the frontend leaf is created, the
+probe's pipes, namespace descriptors, and complete backing tree are released;
+the probe leaf must then reach zero tasks and memory, have clean events and an
+in-range peak, disappear, and leave zero dying descendants. The frontend leaf
+uses the same discharge and removal gate only after all accepted output has
+been copied and its complete backing tree has been released.
+
+After the frontend leaf disappears with no dying residue, cleanup disables
+both subtree controllers, moves the launcher's complete thread group back to
+the delegated domain, and removes the manager. The final domain has no visible
+descendant or enabled subtree controller and may report only zero dying
+descendants or the one invisible dying manager attributable to launcher
+charges made during this session. The process-global state is then permanently
+consumed (and any failed or uncertain path is poisoned), so that process can
+never prepare or accept another Rust frontend result.
+
+The Docker build launcher instead uses the finite accounting cgroup as a
+processless parent. Each one-shot container command may create exactly one live
+runtime scope below it, but that scope has `pids.max=max`, `memory.max=max`, and
+`memory.swap.max=max`; the parent is the only finite controller. The parent
+persists across all commands and for the complete writable-tmpfs lifetime.
+After a removed scope, nonzero `nr_dying_descendants` is tolerated only when
+`nr_descendants=0`, no child cgroup directory or live task/thread remains, and
+the parent's hierarchical charges, events, and peak remain observable. The
+final parent path and every runtime object disappear before the tmpfs is
+released.
+
+Acceptance requires zero `pids.events:max` and zero `memory.events` `high`,
+`max`, `oom`, and `oom_kill` events at the finite accounting cgroup, plus a final
+`memory.peak` no greater than `memory.max`; the task-bearing leaf reads local
+memory events, while the processless parent reads hierarchical memory events.
+A controller event rejects even if the kernel later reclaimed below the
+ceiling. The process is in Linux's initial cgroup namespace (the reserved UAPI
+namespace inode `0xeffffffb`) and the sole visible cgroup2 mount is the global
+hierarchy root. Every non-root ancestor has `pids.max=max`, `memory.max=max`,
+`memory.high=max`, and
+`memory.swap.max=max`; a hidden mount root, finite shared ancestor, or competing
+hierarchical budget makes the profile unavailable.
+
+Before any writable initialization or other untrusted instruction, the trusted
+bootstrap establishes and verifies inclusive per-process rlimits of 1,024 open
+file descriptors and 17,179,869,184 virtual address-space bytes; file-size and
+per-UID process rlimits are unlimited so they cannot become competing hidden
+boundaries. All build descendants inherit those controls. All writable home,
+Cargo-home, temp, target, and driver-output paths for one invocation are
+subdirectories of one fresh, private, `nosuid,nodev,noswap` tmpfs. The build
+launcher mounts that backing tmpfs execution-capable and freezes each bind
+view separately: build/test target views are executable and home, Cargo-home,
+and temporary views are not. The direct frontend's outer writable tmpfs is
+`noexec`; its inner bind views remain separately frozen. The tmpfs's inclusive
+maximum is 21,474,836,480 allocated bytes and 262,144 inodes; the inode count
+includes the tmpfs root, directories, regular files, and every other inode
+kind. Sparse
+logical length consumes no bytes until blocks are allocated and is therefore
+not this profile's byte unit. Successful transported artifacts remain subject
+to their independent canonical logical-byte and structural limits above.
+After the trusted namespace and mount setup is complete, and before the launch
+gate releases Cargo or rustc, the bootstrap locks securebits against root,
+set-ID, keep-capability, or ambient-capability recovery; clears the ambient,
+bounding, inheritable, permitted, and effective capability sets; and verifies
+all five sets as zero together with `NoNewPrivs=1`. Untrusted build code cannot
+remount, resize, or hide a frozen filesystem view.
+Child streams are bounded to 67,108,864 aggregate stdout bytes and 2,097,152
+aggregate stderr bytes with checked counters. The finite accounting cgroup and
+tmpfs exist before the first untrusted instruction and are destroyed only
+after every task is dead and all accepted outputs have been copied through
+their separately bounded readers. Fuzz completion is
 exactly 256 libFuzzer runs and seed 1; wall-clock elapsed time is not an
 artifact acceptance input. A limit or unavailable isolation primitive is a
 gate failure, never permission for an ambient fallback.

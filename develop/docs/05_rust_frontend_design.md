@@ -2625,6 +2625,42 @@ input and IR limits, initially:
 - at most 256 MiB of frontend stdout containing the one protocol JSON value
   plus its LF, and 2 MiB of captured frontend stderr.
 
+Build and fuzz resources use the registered
+`mpk.rust.build_resources.cgroup2_tmpfs.v0` profile. It counts at most 256
+cgroup-v2 tasks/TIDs including the bootstrap, 32 GiB of cgroup-accounted
+memory with zero swap, 1,024 open descriptors and 16 GiB of virtual address
+space per process, and one aggregate private writable tmpfs with at most 20
+GiB of allocated blocks and 262,144 inodes of every kind including its root.
+The direct frontend uses one process-wide, one-shot processless domain with an
+unlimited launcher-manager child. That topology owns a finite probe leaf and
+then one fresh finite frontend leaf; `clone3(CLONE_INTO_CGROUP | CLONE_PIDFD)`
+accounts each child from task birth. Each finite leaf fully discharges and has
+no dying residue before removal. Final manager removal may leave only its one
+attributable invisible dying state, after which the process is permanently
+Rust-consumed and cannot accept another frontend run. Docker builds use one
+persistent finite processless parent whose transient runtime child scopes are
+unlimited, so hierarchical accounting remains owned only by the parent across
+every command and the full tmpfs lifetime. Invisible dying descendants are
+acceptable between Docker commands only after all live child directories and
+tasks have disappeared.
+
+The backing build tmpfs is `nosuid,nodev,noswap` and execution-capable; each
+sandbox bind view separately freezes whether execution is permitted so
+build/test target binaries remain executable without making home, Cargo-home,
+or temporary views executable. The direct frontend's outer tmpfs is `noexec`.
+The profile rejects any `pids.events:max` or `memory.events` `high`, `max`,
+`oom`, or `oom_kill` event and requires `memory.peak` at or below the inclusive
+memory maximum. Sparse logical
+length is deliberately not the filesystem byte unit; serialized artifacts
+remain bounded by their independent canonical logical-byte limits. The cgroup2
+mount must expose the global root, and every non-root ancestor has unlimited
+pids, memory, memory-high, and swap ceilings. Exact NOFILE and address-space
+rlimits are established before untrusted work; file-size and per-UID process
+rlimits are unlimited so they cannot become hidden competing boundaries. Once
+trusted mount setup finishes, the bootstrap locks capability-recovery
+securebits, clears all five capability sets including the bounding set, and
+verifies zero capabilities plus `NoNewPrivs=1` before Cargo or rustc runs.
+
 Each serialized request, private output, and public frontend size limit counts
 the entire transported JCS+LF byte sequence; the JSON portion therefore has at
 most one byte less than the stated limit. Stream limits count every observed

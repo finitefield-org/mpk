@@ -8,6 +8,7 @@ use crate::frontend_registry::{
 };
 use crate::frontend_sandbox::{
     launch_release_frontend, prepare_release_sandbox, PreparedSandbox, SandboxError,
+    LEGACY_EXECUTION_HOST_PROFILE_ID, RUST_EXECUTION_HOST_PROFILE_ID,
 };
 use mpk_vc::{
     CapturedInput, CompilerIdentity, ComponentIdentity, FrontendIdentity, ReleaseRegistryIdentity,
@@ -107,9 +108,12 @@ pub(crate) fn prepare_installed_frontend(
         .map_err(|error| FrontendRunError {
             code: FrontendRunCode::Release(error.code()),
         })?;
-    let sandbox = prepare_release_sandbox().map_err(|_| FrontendRunError {
-        code: FrontendRunCode::Release(FrontendReleaseCode::SandboxUnavailable),
-    })?;
+    let sandbox =
+        prepare_release_sandbox(&selected.toolchain.execution_host_profile_id).map_err(|_| {
+            FrontendRunError {
+                code: FrontendRunCode::Release(FrontendReleaseCode::SandboxUnavailable),
+            }
+        })?;
     Ok(PreparedFrontendRun {
         selected,
         release: release.clone(),
@@ -204,6 +208,7 @@ fn registered_go_arguments(
         || selected.limit_profile_id != "mpk.vir.limits.v0"
         || selected.frontend.limit_profile_id != "mpk.vir.limits.v0"
         || selected.frontend.argument_profile_id != "mpk.go.frontend_arguments.v0"
+        || selected.toolchain.execution_host_profile_id != LEGACY_EXECUTION_HOST_PROFILE_ID
         || !selected.frontend.subordinate_binaries.is_empty()
         || request.release.source_language != "go"
         || request.release.semantic_profile != "mpk.go.fixed.v0"
@@ -282,6 +287,7 @@ fn registered_rust_arguments(
         || selected.limit_profile_id != "mpk.vir.limits.v0"
         || selected.frontend.limit_profile_id != "mpk.vir.limits.v0"
         || selected.frontend.argument_profile_id != "mpk.rust.frontend_arguments.v0"
+        || selected.toolchain.execution_host_profile_id != RUST_EXECUTION_HOST_PROFILE_ID
         || selected.frontend.subordinate_binaries.len() != 1
         || selected.frontend.subordinate_binaries[0].name != "rust2vir-driver"
         || selected.frontend.subordinate_binaries[0].path != "bin/rust2vir-driver"

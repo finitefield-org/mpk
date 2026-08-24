@@ -2,7 +2,7 @@ use mpk_cli::policy_scan::v1::USAGE;
 use std::path::PathBuf;
 use std::process::{Command, Output};
 
-const REGISTRY_SHA256: &str = "226baa5e744f2966615a5fe03d6bfa0395db4b191e92bc099e63436fa9936aba";
+const REGISTRY_SHA256: &str = "5f25417656b9acb3d5272c7e8d3fcc7fd5873d18f7985bbc301579b64a462279";
 
 #[test]
 fn released_scan_help_is_generic_and_locator_free() {

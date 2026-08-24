@@ -265,10 +265,19 @@ fn vc_import_stream_rejects_assumption_limit_before_typed_allocation() {
         "../../../fixtures/vir-go/derived/payment-points/vc.json"
     ))
     .expect("committed VC fixture parses");
-    document["functions"][0]["members"][0]["assumptions"] = serde_json::Value::Array(vec![
-        serde_json::json!({"kind":"constant","name":"Std.Bool.true"});
-        maximum + 1
-    ]);
+    let mut scalar_only = document.clone();
+    scalar_only["functions"][0]["members"][0]["conclusion"] =
+        serde_json::json!({"kind":"bound","index":-1});
+    let input = serde_json::to_vec(&scalar_only).expect("negative ordinal VC serializes");
+    let scalar = import_vc_v1_json(&input, &empty_source_context())
+        .expect_err("a negative bound ordinal is a scalar failure without another limit");
+    assert_eq!(scalar.phase(), VcValidationPhase::Scalar);
+    assert_eq!(scalar.code(), "VC_SCALAR");
+
+    let assumptions = document["functions"][0]["members"][0]["assumptions"]
+        .as_array_mut()
+        .expect("fixture member assumptions are an array");
+    *assumptions = vec![serde_json::json!({"kind":"constant","name":"Std.Bool.true"}); maximum + 1];
     let input = serde_json::to_vec(&document).expect("oversized VC serializes");
 
     let error = import_vc_v1_json(&input, &empty_source_context())
@@ -279,38 +288,150 @@ fn vc_import_stream_rejects_assumption_limit_before_typed_allocation() {
         VerificationLimitId::AssumptionsPerMember.code()
     );
 
-    document["functions"][0]["members"][0]["assumptions"]
-        .as_array_mut()
-        .expect("fixture member assumptions are an array")
-        .last_mut()
-        .expect("above-limit assumption exists")
+    document["schema"] = serde_json::Value::String("mpk.vc.wrong".to_owned());
+    let mixed = serde_json::to_vec(&document).expect("mixed schema/limit VC serializes");
+    let schema = import_vc_v1_json(&mixed, &empty_source_context())
+        .expect_err("the schema discriminator precedes the recorded stream limit");
+    assert_eq!(schema.phase(), VcValidationPhase::Shape);
+    assert_eq!(schema.code(), "VC_SCHEMA");
+
+    document
         .as_object_mut()
-        .expect("assumption is an object")
-        .remove("name");
-    let mixed_nested_shape =
-        serde_json::to_vec(&document).expect("mixed nested-shape VC serializes");
-    let shape = import_vc_v1_json(&mixed_nested_shape, &empty_source_context())
-        .expect_err("complete nested shape validation owns precedence over stream limits");
+        .expect("VC root is an object")
+        .remove("schema");
+    document["schema_version"] = serde_json::Value::String("mpk.vc.v1".to_owned());
+    let mixed = serde_json::to_vec(&document).expect("mixed legacy-schema/limit VC serializes");
+    let shape = import_vc_v1_json(&mixed, &empty_source_context())
+        .expect_err("a missing schema plus retired spelling remains a shape failure");
     assert_eq!(shape.phase(), VcValidationPhase::Shape);
     assert_eq!(shape.code(), "VC_SHAPE");
 
-    document["functions"][0]["members"][0]["assumptions"]
-        .as_array_mut()
-        .expect("fixture member assumptions are an array")
-        .last_mut()
-        .expect("above-limit assumption exists")["name"] =
-        serde_json::Value::String("not-an-mpk-name".to_owned());
-    let mixed_nested_scalar =
-        serde_json::to_vec(&document).expect("mixed nested-scalar VC serializes");
-    let scalar = import_vc_v1_json(&mixed_nested_scalar, &empty_source_context())
-        .expect_err("complete nested scalar validation owns precedence over stream limits");
-    assert_eq!(scalar.phase(), VcValidationPhase::Scalar);
-    assert_eq!(scalar.code(), "VC_SCALAR");
+    document
+        .as_object_mut()
+        .expect("VC root is an object")
+        .remove("schema_version");
+    document["schema"] = serde_json::Value::Bool(true);
+    let mixed = serde_json::to_vec(&document).expect("mixed non-string-schema VC serializes");
+    let schema = import_vc_v1_json(&mixed, &empty_source_context())
+        .expect_err("a present non-string schema remains a discriminator failure");
+    assert_eq!(schema.phase(), VcValidationPhase::Shape);
+    assert_eq!(schema.code(), "VC_SCHEMA");
 
+    document["schema"] = serde_json::Value::String("mpk.vc.v1".to_owned());
     document["vc_hash"] = serde_json::Value::String("not-a-sha256".to_owned());
     let mixed = serde_json::to_vec(&document).expect("mixed-failure VC serializes");
     let scalar = import_vc_v1_json(&mixed, &empty_source_context())
         .expect_err("root scalar validation owns precedence over the recorded stream limit");
+    assert_eq!(scalar.phase(), VcValidationPhase::Scalar);
+    assert_eq!(scalar.code(), "VC_SCALAR");
+
+    document["vc_hash"] = serde_json::Value::String("0".repeat(64));
+    let final_assumption = document["functions"][0]["members"][0]["assumptions"]
+        .as_array_mut()
+        .expect("assumptions remain an array")
+        .last_mut()
+        .expect("above-limit assumption exists");
+    *final_assumption = serde_json::json!({"kind":"bound","index":-1});
+    let mixed = serde_json::to_vec(&document).expect("mixed ordinal/limit VC serializes");
+    let scalar = import_vc_v1_json(&mixed, &empty_source_context())
+        .expect_err("a negative bound ordinal owns scalar precedence over the stream limit");
+    assert_eq!(scalar.phase(), VcValidationPhase::Scalar);
+    assert_eq!(scalar.code(), "VC_SCALAR");
+
+    let final_assumption = document["functions"][0]["members"][0]["assumptions"]
+        .as_array_mut()
+        .expect("assumptions remain an array")
+        .last_mut()
+        .expect("above-limit assumption exists");
+    final_assumption["unexpected"] = serde_json::Value::Bool(true);
+    let mixed = serde_json::to_vec(&document).expect("mixed shape/limit VC serializes");
+    let shape = import_vc_v1_json(&mixed, &empty_source_context())
+        .expect_err("final assumption shape owns precedence over the recorded stream limit");
+    assert_eq!(shape.phase(), VcValidationPhase::Shape);
+    assert_eq!(shape.code(), "VC_SHAPE");
+
+    let final_assumption = document["functions"][0]["members"][0]["assumptions"]
+        .as_array_mut()
+        .expect("assumptions remain an array")
+        .last_mut()
+        .expect("above-limit assumption exists");
+    *final_assumption = serde_json::json!({"kind":"constant","name":"not an MPK name"});
+    let mixed = serde_json::to_vec(&document).expect("mixed scalar/limit VC serializes");
+    let scalar = import_vc_v1_json(&mixed, &empty_source_context())
+        .expect_err("final assumption scalar owns precedence over the recorded stream limit");
+    assert_eq!(scalar.phase(), VcValidationPhase::Scalar);
+    assert_eq!(scalar.code(), "VC_SCALAR");
+
+    let final_assumption = document["functions"][0]["members"][0]["assumptions"]
+        .as_array_mut()
+        .expect("assumptions remain an array")
+        .last_mut()
+        .expect("above-limit assumption exists");
+    *final_assumption = serde_json::json!({"kind":"var","name":"not_a_parameter"});
+    let mixed = serde_json::to_vec(&document).expect("mixed context/limit VC serializes");
+    let scalar = import_vc_v1_json(&mixed, &empty_source_context())
+        .expect_err("unbound final assumption owns precedence over the recorded stream limit");
+    assert_eq!(scalar.phase(), VcValidationPhase::Scalar);
+    assert_eq!(scalar.code(), "VC_SCALAR");
+}
+
+#[test]
+fn vc_parameter_overflow_keeps_exact_scalar_context_precedence() {
+    let maximum = VerificationLimitId::AssumptionsPerMember.maximum() as usize;
+    let mut document: serde_json::Value = serde_json::from_slice(include_bytes!(
+        "../../../fixtures/vir-go/derived/payment-points/vc.json"
+    ))
+    .expect("committed VC fixture parses");
+    let parameters = document["functions"][0]["parameters"]
+        .as_array_mut()
+        .expect("fixture parameters are an array");
+    while parameters.len() <= 256 {
+        let id = format!("overflow_param_{}", parameters.len());
+        parameters.push(serde_json::json!({
+            "id": id,
+            "type": {"kind": "constant", "name": "Std.Program.Base.Int64"}
+        }));
+    }
+    assert_eq!(parameters.len(), 257);
+    let parameter_ids = parameters
+        .iter()
+        .map(|parameter| {
+            parameter["id"]
+                .as_str()
+                .expect("parameter ID is a string")
+                .to_owned()
+        })
+        .collect::<Vec<_>>();
+
+    let assumptions = document["functions"][0]["members"][0]["assumptions"]
+        .as_array_mut()
+        .expect("fixture member assumptions are an array");
+    *assumptions = vec![serde_json::json!({"kind":"constant","name":"Std.Bool.true"}); maximum + 1];
+    for (assumption, parameter_id) in assumptions.iter_mut().zip(&parameter_ids) {
+        *assumption = serde_json::json!({"kind":"var","name":parameter_id});
+    }
+    *assumptions
+        .last_mut()
+        .expect("above-limit assumption exists") =
+        serde_json::json!({"kind":"var","name":"overflow_param_256"});
+
+    let input = serde_json::to_vec(&document).expect("oversized VC serializes");
+    let stream = import_vc_v1_json(&input, &empty_source_context())
+        .expect_err("a variable named by an excess repeated parameter remains bound");
+    assert_eq!(stream.phase(), VcValidationPhase::StreamLimits);
+    assert_eq!(
+        stream.code(),
+        VerificationLimitId::AssumptionsPerMember.code()
+    );
+
+    *document["functions"][0]["members"][0]["assumptions"]
+        .as_array_mut()
+        .and_then(|values| values.last_mut())
+        .expect("above-limit assumption remains present") =
+        serde_json::json!({"kind":"var","name":"definitely_unbound"});
+    let input = serde_json::to_vec(&document).expect("mixed context/limit VC serializes");
+    let scalar = import_vc_v1_json(&input, &empty_source_context())
+        .expect_err("an unbound variable precedes the recorded stream limit");
     assert_eq!(scalar.phase(), VcValidationPhase::Scalar);
     assert_eq!(scalar.code(), "VC_SCALAR");
 }
@@ -338,6 +459,16 @@ fn skeleton_import_stream_limit_preserves_shape_and_scalar_precedence() {
         "../../../fixtures/vir-go/derived/payment-points/vc-skeleton.json"
     ))
     .expect("committed skeleton fixture parses");
+    let original = skeleton.clone();
+    let mut scalar_only = skeleton.clone();
+    scalar_only["theorem_declarations"][0]["theorem_type"]["body"] =
+        serde_json::json!({"kind":"bound","index":-1});
+    let input = serde_json::to_vec(&scalar_only).expect("negative ordinal skeleton serializes");
+    let scalar = import_vc_skeleton_v1_json(&input, b"", &empty_source_context())
+        .expect_err("a negative skeleton ordinal is a scalar failure without another limit");
+    assert_eq!(scalar.phase(), VcSkeletonValidationPhase::Scalar);
+    assert_eq!(scalar.code(), "VC_SKELETON_SHAPE");
+
     skeleton["theorem_declarations"][0]["member_ids"] = serde_json::Value::Array(vec![
         serde_json::Value::String("member".to_owned());
         maximum + 1
@@ -348,10 +479,82 @@ fn skeleton_import_stream_limit_preserves_shape_and_scalar_precedence() {
     assert_eq!(error.phase(), VcSkeletonValidationPhase::StreamLimits);
     assert_eq!(error.code(), "VC_SKELETON_SHAPE");
 
+    skeleton
+        .as_object_mut()
+        .expect("skeleton root is an object")
+        .remove("schema");
+    skeleton["schema_version"] = serde_json::Value::String("mpk.vc.cert_skeleton.v1".to_owned());
+    let mixed = serde_json::to_vec(&skeleton).expect("mixed legacy-schema skeleton serializes");
+    let shape = import_vc_skeleton_v1_json(&mixed, b"", &empty_source_context())
+        .expect_err("a missing skeleton schema plus retired spelling remains shape");
+    assert_eq!(shape.phase(), VcSkeletonValidationPhase::Shape);
+    assert_eq!(shape.code(), "VC_SKELETON_SHAPE");
+
+    skeleton
+        .as_object_mut()
+        .expect("skeleton root is an object")
+        .remove("schema_version");
+    skeleton["schema"] = serde_json::Value::Bool(true);
+    let mixed = serde_json::to_vec(&skeleton).expect("mixed non-string schema serializes");
+    let schema = import_vc_skeleton_v1_json(&mixed, b"", &empty_source_context())
+        .expect_err("a present non-string skeleton schema remains a discriminator failure");
+    assert_eq!(schema.phase(), VcSkeletonValidationPhase::Shape);
+    assert_eq!(schema.code(), "VC_SKELETON_SCHEMA");
+
+    skeleton["schema"] = serde_json::Value::String("mpk.vc.cert_skeleton.v1".to_owned());
+
     skeleton["source_vc_hash"] = serde_json::Value::String("not-a-sha256".to_owned());
     let mixed = serde_json::to_vec(&skeleton).expect("mixed-failure skeleton serializes");
     let scalar = import_vc_skeleton_v1_json(&mixed, b"", &empty_source_context())
         .expect_err("skeleton scalar validation owns precedence over its stream limit");
+    assert_eq!(scalar.phase(), VcSkeletonValidationPhase::Scalar);
+    assert_eq!(scalar.code(), "VC_SKELETON_SHAPE");
+
+    skeleton["source_vc_hash"] = serde_json::Value::String("0".repeat(64));
+    skeleton["theorem_declarations"][0]["theorem_type"]["body"] =
+        serde_json::json!({"kind":"bound","index":-1});
+    let mixed = serde_json::to_vec(&skeleton).expect("mixed ordinal/limit skeleton serializes");
+    let scalar = import_vc_skeleton_v1_json(&mixed, b"", &empty_source_context())
+        .expect_err("a negative skeleton ordinal owns scalar precedence over the stream limit");
+    assert_eq!(scalar.phase(), VcSkeletonValidationPhase::Scalar);
+    assert_eq!(scalar.code(), "VC_SKELETON_SHAPE");
+
+    skeleton["theorem_declarations"][0]["theorem_type"]["body"] =
+        original["theorem_declarations"][0]["theorem_type"]["body"].clone();
+    skeleton["theorem_declarations"][0]["theorem_type"]["binders"] = serde_json::Value::Array(
+        (0..=256)
+            .map(|index| {
+                serde_json::json!({
+                    "id": format!("arg{index}"),
+                    "type": {"kind":"constant","name":"Std.Int.Int"}
+                })
+            })
+            .collect(),
+    );
+    let mixed = serde_json::to_vec(&skeleton).expect("mixed binder/stream limit serializes");
+    let scalar = import_vc_skeleton_v1_json(&mixed, b"", &empty_source_context())
+        .expect_err("the inherited binder limit is enforced before retaining all IDs");
+    assert_eq!(scalar.phase(), VcSkeletonValidationPhase::Scalar);
+    assert_eq!(scalar.code(), "VC_SKELETON_SHAPE");
+
+    skeleton["theorem_declarations"][0]["theorem_type"]["binders"] =
+        original["theorem_declarations"][0]["theorem_type"]["binders"].clone();
+    skeleton["theorem_declarations"][0]["unexpected"] = serde_json::Value::Bool(true);
+    let mixed = serde_json::to_vec(&skeleton).expect("mixed nested-shape skeleton serializes");
+    let shape = import_vc_skeleton_v1_json(&mixed, b"", &empty_source_context())
+        .expect_err("nested theorem shape owns precedence over its stream limit");
+    assert_eq!(shape.phase(), VcSkeletonValidationPhase::Shape);
+    assert_eq!(shape.code(), "VC_SKELETON_SHAPE");
+
+    skeleton["theorem_declarations"][0]
+        .as_object_mut()
+        .expect("theorem declaration is an object")
+        .remove("unexpected");
+    skeleton["theorem_declarations"][0]["name"] =
+        serde_json::Value::String("not an MPK name".to_owned());
+    let mixed = serde_json::to_vec(&skeleton).expect("mixed nested-scalar skeleton serializes");
+    let scalar = import_vc_skeleton_v1_json(&mixed, b"", &empty_source_context())
+        .expect_err("nested theorem scalar owns precedence over its stream limit");
     assert_eq!(scalar.phase(), VcSkeletonValidationPhase::Scalar);
     assert_eq!(scalar.code(), "VC_SKELETON_SHAPE");
 }

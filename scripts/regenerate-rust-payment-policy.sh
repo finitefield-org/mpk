@@ -5,9 +5,6 @@ repo_root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 cd "$repo_root"
 
 mode=${1:---check}
-rust_cache="$repo_root/release/build-input-cache/rust/53b8f3b532a1e4f35b18017e23e7eac721909a84d545c2f44777bc9f98d382a5"
-rust_cargo="$rust_cache/toolchain/bin/cargo"
-rustc="$rust_cache/toolchain/bin/rustc"
 unset MPK_UPDATE_RUST_PAYMENT_POLICY
 
 case "$mode" in
@@ -23,13 +20,23 @@ case "$mode" in
     ;;
 esac
 
+python3 scripts/rust_build_inputs.py check-build-inputs
+build_inputs_sha256=$(python3 -c '
+import json
+from pathlib import Path
+
+descriptor = Path("release/build-inputs/rust/build-inputs.json")
+print(json.loads(descriptor.read_bytes())["build_inputs_sha256"])
+')
+rust_cache="$repo_root/release/build-input-cache/rust/$build_inputs_sha256"
+rust_cargo="$rust_cache/toolchain/bin/cargo"
+rustc="$rust_cache/toolchain/bin/rustc"
+
 if [ ! -x "$rust_cargo" ] || [ ! -x "$rustc" ]; then
   echo "missing validated Rust build-input cache: $rust_cache" >&2
   echo "run: python3 scripts/rust_build_inputs.py provision-build-inputs" >&2
   exit 1
 fi
-
-python3 scripts/rust_build_inputs.py check-build-inputs
 
 if [ -n "$update" ]; then
   export MPK_UPDATE_RUST_PAYMENT_POLICY=1

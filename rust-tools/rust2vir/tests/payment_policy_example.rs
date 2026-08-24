@@ -37,10 +37,10 @@ use rust2vir_internal::snapshot::Snapshot;
 use rust2vir_internal::{EXPECTED_RUSTC_COMMIT, EXPECTED_RUSTC_RELEASE};
 
 const UPDATE_ENV: &str = "MPK_UPDATE_RUST_PAYMENT_POLICY";
-const SHA_FRONTEND: &str = "e25a3f125432b56e00d8c0474f1dc9ddfdb6ed1a48eadc9febea681a74d9444f";
-const SHA_DRIVER: &str = "54c026dfc75a82f8aa602857c8acd83e9499b908b42b179c67653fd1b92f6bb8";
+const SHA_FRONTEND: &str = "e379492235349deb1edb2f8c40cf12e8b1f602b8919ce38fb2635036dd806e76";
+const SHA_DRIVER: &str = "e2a11346aa40ed6f88c3a212625076bea4bc5c8317202f36a7ba74033514a200";
 const SHA_TOOLCHAIN: &str = "cdaa0ae4d4f56da86f403d58799fd2298f078b043d8392311487315cbcc2c63f";
-const REGISTRY_SHA256: &str = "226baa5e744f2966615a5fe03d6bfa0395db4b191e92bc099e63436fa9936aba";
+const REGISTRY_SHA256: &str = "5f25417656b9acb3d5272c7e8d3fcc7fd5873d18f7985bbc301579b64a462279";
 const TARGET: RustTarget = RustTarget::X86_64UnknownLinuxGnu;
 
 static NEXT_TEMP: AtomicU64 = AtomicU64::new(0);

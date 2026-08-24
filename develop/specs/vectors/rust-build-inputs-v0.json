@@ -1709,7 +1709,7 @@
   "archiver": "/mpk/toolchain/bin/llvm-ar",
     "ranlib": "/mpk/toolchain/bin/llvm-ranlib",
     "strip": "/mpk/toolchain/bin/llvm-strip",
-    "minimum_kernel": "5.10.0"
+    "minimum_kernel": "6.4.0"
   },
   "production_projection": {
     "inventory_path_equality": "byte-exact",
@@ -1959,14 +1959,15 @@
       "source": "captured-top-level-tests-rs-cargo-target",
       "grammar": "[A-Za-z_][A-Za-z0-9_]*"
     },
-    "process_limits": {
-      "processes": 256,
+    "resource_profile_id": "mpk.rust.build_resources.cgroup2_tmpfs.v0",
+    "resource_limits": {
+      "cgroup_tasks": 256,
       "open_files_per_process": 1024,
-      "virtual_memory_bytes": 17179869184,
-      "resident_memory_bytes": 8589934592,
-      "temp_bytes": 4294967296,
-      "target_bytes": 17179869184,
-      "output_files": 262144,
+      "virtual_memory_bytes_per_process": 17179869184,
+      "cgroup_memory_bytes": 34359738368,
+      "cgroup_swap_bytes": 0,
+      "writable_allocated_bytes": 21474836480,
+      "writable_inodes": 262144,
       "stdout_bytes": 67108864,
       "stderr_bytes": 2097152
     }
@@ -3681,8 +3682,8 @@
     "schema": "mpk.rust.build_inputs.v0",
     "profile_id": "mpk.rust.checked.v0",
     "recipe_id": "mpk.rust.build_recipe.nightly-2025-06-01.v0",
-    "execution_host_profile_id": "mpk.host.linux-x86_64-gnu.glibc2_27.v0",
-    "runtime_layout_profile_id": "mpk.runtime.linux-x86_64-gnu.glibc2_27.v0",
+    "execution_host_profile_id": "mpk.host.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0",
+    "runtime_layout_profile_id": "mpk.runtime.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0",
     "registry": {
       "name": "crates-io",
       "lock_source": "registry+https://github.com/rust-lang/crates.io-index",
@@ -3802,7 +3803,7 @@
       "archiver": "/mpk/toolchain/bin/llvm-ar",
       "ranlib": "/mpk/toolchain/bin/llvm-ranlib",
       "strip": "/mpk/toolchain/bin/llvm-strip",
-      "minimum_kernel": "5.10.0"
+      "minimum_kernel": "6.4.0"
     },
     "graphs": [
       {
@@ -6305,13 +6306,13 @@
         ]
       }
     ],
-    "build_inputs_sha256": "aaf13b73658effc58bc60e3d81073402bb07ea7603fea70b34ce373282f9c8a8"
+    "build_inputs_sha256": "624a32a992e894eedad365ab0755c87caf82097cfdc8940080de1e6fd56e9f76"
   },
   "valid_descriptor_expect": {
-    "preimage_jcs_utf8_length": 62306,
-    "transport_utf8_length": 62396,
-    "build_inputs_sha256": "aaf13b73658effc58bc60e3d81073402bb07ea7603fea70b34ce373282f9c8a8",
-    "cache_key": "release/build-input-cache/rust/aaf13b73658effc58bc60e3d81073402bb07ea7603fea70b34ce373282f9c8a8"
+    "preimage_jcs_utf8_length": 62333,
+    "transport_utf8_length": 62423,
+    "build_inputs_sha256": "624a32a992e894eedad365ab0755c87caf82097cfdc8940080de1e6fd56e9f76",
+    "cache_key": "release/build-input-cache/rust/624a32a992e894eedad365ab0755c87caf82097cfdc8940080de1e6fd56e9f76"
   },
   "invalid_cases": [
     {

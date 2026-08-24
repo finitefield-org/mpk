@@ -398,10 +398,11 @@ An execution-host profile has exactly:
 | `architecture` | string | exactly `x86_64` |
 | `abi` | string | exactly `gnu` |
 | `minimum_kernel_abi` | string | exact `MAJOR.MINOR.PATCH`, no leading zero |
-| `probe_profile_id` | string | exactly `mpk.release.probe.linux_namespaces.v0` |
-| `required_primitives` | array of strings | exact array below |
+| `probe_profile_id` | string | one of the two closed probe IDs below |
+| `required_primitives` | array of strings | exact array selected by `probe_profile_id` |
 
-The exact `required_primitives` array, already in UTF-8 byte order, is:
+For `mpk.release.probe.linux_namespaces.v0`, the exact
+`required_primitives` array, already in UTF-8 byte order, is:
 
 ```json
 [
@@ -417,6 +418,35 @@ The exact `required_primitives` array, already in UTF-8 byte order, is:
   "process.no_new_privileges"
 ]
 ```
+
+For `mpk.release.probe.linux_namespaces_cgroup2_tmpfs.v0`, the exact array is:
+
+```json
+[
+  "filesystem.atomic_no_replace",
+  "filesystem.immutable_handle",
+  "filesystem.no_follow_open",
+  "filesystem.tmpfs_allocated_blocks",
+  "filesystem.tmpfs_inode_limit",
+  "isolation.cgroup_v2",
+  "isolation.mount_namespace",
+  "isolation.network_namespace",
+  "isolation.user_namespace",
+  "memory.cgroup_accounting",
+  "mount.no_exec",
+  "mount.read_only",
+  "mount.tmpfs_noswap",
+  "process.cgroup_tasks",
+  "process.closed_environment",
+  "process.no_new_privileges",
+  "process.rlimit_address_space",
+  "process.rlimit_open_files",
+  "process.task_tree_kill"
+]
+```
+
+The cgroup2/tmpfs probe requires `minimum_kernel_abi` exactly `6.4.0`; that
+kernel owns tmpfs `noswap` and every cgroup file used by the profile.
 
 Each `minimum_kernel_abi` component is either `0` or `[1-9][0-9]*`, fits an
 unsigned 32-bit integer, and the complete string contains exactly two dots.
@@ -452,6 +482,33 @@ malformed probe result, limit breach, timeout, or cleanup uncertainty maps to
 artifact-free `frontend-error` code `FRONTEND_SANDBOX_UNAVAILABLE`. The runner
 does not retry outside a namespace, weaken a mount, inherit networking, switch
 to a path-based open, or use replace-on-collision publication.
+
+`mpk.release.probe.linux_namespaces_cgroup2_tmpfs.v0` first validates Linux's
+reserved initial-cgroup-namespace inode `0xeffffffb` and that the sole visible
+cgroup2 mount is the writable global hierarchy root. The runner must be the
+only process in an otherwise empty delegated domain. It creates an
+unlimited manager child, moves itself there, enables exactly `memory` and
+`pids` on the processless domain, and creates a finite sibling accounting leaf.
+It writes and reads back the registered `pids.max`, `memory.max`, and
+`memory.swap.max` values and creates the probe task in that leaf atomically with
+`clone3(CLONE_INTO_CGROUP | CLONE_PIDFD)`. Every non-root ancestor must have
+unlimited pids, memory, memory-high, and swap controls with unchanged relevant
+local events.
+
+Inside the accounting leaf, the child verifies its exact cgroup membership,
+controls, rlimits, closed descriptors, and every v0 namespace primitive above.
+In its private mount namespace it mounts a one-page
+`nosuid,nodev,noexec,noswap` tmpfs with a four-inode ceiling, verifies the exact
+block and inode totals, consumes the last three non-root inodes, observes
+`ENOSPC` on the next creation, and cleans up the mount. The parent kills and
+reaps the task, verifies `cgroup.kill`, `memory.peak`, `pids.events`, and
+`memory.events.local`, releases every pipe, namespace descriptor, and backing
+object, requires full memory discharge, removes the probe leaf, and requires
+zero dying descendants. It retains the same unlimited manager and processless
+domain for exactly one fresh finite production leaf. Final teardown permits
+only the removed manager's attributable invisible dying state and permanently
+consumes the process-wide Rust session. The probe is capability evidence, not
+a substitute for the production leaf's independent controls and audit.
 
 ### 6.3 `NativeRuntimeLayoutProfile`
 

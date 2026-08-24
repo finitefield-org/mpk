@@ -18,7 +18,7 @@ const RELEASE_LIMITS: [ReleaseLimitCase; 14] = [
     ReleaseLimitCase {
         id: "registry_canonical_bytes",
         maximum: 67_108_864,
-        phase: ReleaseValidationPhase::RegistryHash,
+        phase: ReleaseValidationPhase::Transport,
     },
     ReleaseLimitCase {
         id: "registry_transport_bytes",
@@ -307,6 +307,16 @@ fn normalized_combined_message_boundary_preserves_status() {
 
 #[test]
 fn strict_json_limit_failures_remain_malformed() {
+    let depth = 256;
+    let mut nested = Vec::with_capacity(depth * 2 + 2);
+    nested.extend(vec![b'['; depth]);
+    nested.push(b'0');
+    nested.extend(vec![b']'; depth]);
+    nested.push(b'\n');
+    let at = validate_raw_transport(&nested, Some(1), false, 0)
+        .expect_err("JSON nesting at the limit reaches envelope shape validation");
+    assert_eq!(at.code(), FrontendProtocolCode::ProtocolShape);
+
     let depth = 257;
     let mut nested = Vec::with_capacity(depth * 2 + 2);
     nested.extend(vec![b'['; depth]);
@@ -316,6 +326,16 @@ fn strict_json_limit_failures_remain_malformed() {
     let nesting = validate_raw_transport(&nested, Some(1), false, 0)
         .expect_err("JSON nesting above the limit rejects");
     assert_eq!(nesting.code(), FrontendProtocolCode::ProtocolMalformed);
+
+    let depth = 100_000;
+    let mut deeply_nested = Vec::with_capacity(depth * 2 + 2);
+    deeply_nested.extend(vec![b'['; depth]);
+    deeply_nested.push(b'0');
+    deeply_nested.extend(vec![b']'; depth]);
+    deeply_nested.push(b'\n');
+    let deep = validate_raw_transport(&deeply_nested, Some(1), false, 0)
+        .expect_err("attacker-deep complete JSON rejects without recursive framing");
+    assert_eq!(deep.code(), FrontendProtocolCode::ProtocolMalformed);
 
     let mut string = Vec::with_capacity(1_048_580);
     string.push(b'"');
@@ -378,6 +398,64 @@ fn shape_precedes_noncanonical_transport_and_lexical_errors_precede_issue_limits
     )
     .expect_err("malformed JSON owns precedence over the recorded issue limit");
     assert_eq!(lexical.code(), FrontendProtocolCode::ProtocolMalformed);
+
+    let mut invalid_tail = oversized.clone();
+    invalid_tail["rejected_features"]
+        .as_array_mut()
+        .expect("rejected_features is an array")
+        .last_mut()
+        .expect("above-limit final issue exists")["unexpected"] = Value::Bool(true);
+    let mut invalid_tail_transport =
+        serde_json::to_vec(&invalid_tail).expect("mixed issue shape/limit serializes");
+    invalid_tail_transport.push(b'\n');
+    let limit = validate_raw_transport_with_identity(
+        &invalid_tail_transport,
+        Some(3),
+        false,
+        0,
+        &parameters,
+        &selection,
+    )
+    .expect_err("the issue counter precedes element validation once root shape is valid");
+    assert_eq!(limit.code(), FrontendProtocolCode::ProtocolLimit);
+
+    let mut early_message_limit = oversized.clone();
+    early_message_limit["rejected_features"]
+        .as_array_mut()
+        .expect("rejected_features is an array")[0]["message"] = Value::String("x".repeat(4_097));
+    let mut transport =
+        serde_json::to_vec(&early_message_limit).expect("mixed count/message limit serializes");
+    transport.push(b'\n');
+    let limit = validate_raw_transport_with_identity(
+        &transport,
+        Some(3),
+        false,
+        0,
+        &parameters,
+        &selection,
+    )
+    .expect_err("aggregate issue count precedes an earlier per-message shape failure");
+    assert_eq!(limit.code(), FrontendProtocolCode::ProtocolLimit);
+
+    let long_message = "x".repeat(4_096);
+    let mut total_precedes_message = oversized;
+    total_precedes_message["rejected_features"] = Value::Array(repeated_issues(513, &long_message));
+    total_precedes_message["rejected_features"]
+        .as_array_mut()
+        .expect("rejected_features is an array")[0]["message"] = Value::String("x".repeat(4_097));
+    let mut transport =
+        serde_json::to_vec(&total_precedes_message).expect("mixed total/message limit serializes");
+    transport.push(b'\n');
+    let limit = validate_raw_transport_with_identity(
+        &transport,
+        Some(3),
+        false,
+        0,
+        &parameters,
+        &selection,
+    )
+    .expect_err("combined message bytes precede an earlier per-message shape failure");
+    assert_eq!(limit.code(), FrontendProtocolCode::ProtocolLimit);
 }
 
 fn validate_rejected(

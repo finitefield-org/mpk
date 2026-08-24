@@ -443,7 +443,7 @@ fn policy_evidence_v1_consumer_recomputes_all_internal_links() {
 }
 
 #[test]
-fn policy_schema_shape_precedes_recorded_field_limits() {
+fn policy_schema_recorded_field_limits_precede_shape() {
     let vector: ScanVector = load("develop/specs/vectors/policy-scan-v1.json");
     let context = vector.linkage_contexts.first().expect("scan context");
     let value = serde_json::json!({
@@ -451,10 +451,10 @@ fn policy_schema_shape_precedes_recorded_field_limits() {
         "helper_artifacts": vec![Value::Null; 65_537],
     });
     let error = import_policy_scan_v1_json(&canonical_transport(&value), &context.linkage())
-        .expect_err("schema shape rejects before the recorded field-specific limit");
+        .expect_err("the recorded field-specific limit rejects before schema shape");
 
-    assert_eq!(error.phase().as_str(), "shape");
-    assert_eq!(error.code(), "POLICY_SCAN_SCHEMA");
+    assert_eq!(error.phase().as_str(), "transport");
+    assert_eq!(error.code(), "POLICY_LIMIT_COLLECTION");
 }
 
 #[test]

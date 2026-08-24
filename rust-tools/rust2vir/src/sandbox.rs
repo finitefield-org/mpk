@@ -31,19 +31,21 @@ use std::os::unix::fs::OpenOptionsExt;
 #[cfg(unix)]
 use std::os::unix::fs::{MetadataExt, PermissionsExt};
 
-pub const EXECUTION_HOST_PROFILE_ID: &str = "mpk.host.linux-x86_64-gnu.glibc2_27.v0";
-pub const RUNTIME_LAYOUT_PROFILE_ID: &str = "mpk.runtime.linux-x86_64-gnu.glibc2_27.v0";
+pub const EXECUTION_HOST_PROFILE_ID: &str = "mpk.host.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0";
+pub const RUNTIME_LAYOUT_PROFILE_ID: &str =
+    "mpk.runtime.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0";
 pub const FRONTEND_BUNDLE_ID: &str = "frontend.rust.rust2vir.candidate.v0";
 pub const TOOLCHAIN_BUNDLE_ID: &str = "toolchain.rust.nightly-2025-06-01.candidate.v0";
 pub const LIMIT_PROFILE_ID: &str = "mpk.vir.limits.v0";
 
-pub const PROCESS_LIMIT: u64 = 256;
+pub const RESOURCE_PROFILE_ID: &str = "mpk.rust.build_resources.cgroup2_tmpfs.v0";
+pub const CGROUP_TASK_LIMIT: u64 = 256;
 pub const OPEN_FILE_LIMIT: u64 = 1_024;
 pub const VIRTUAL_MEMORY_LIMIT: u64 = 17_179_869_184;
-pub const RESIDENT_MEMORY_LIMIT: u64 = 8_589_934_592;
-pub const TEMP_BYTES_LIMIT: u64 = 4_294_967_296;
-pub const TARGET_BYTES_LIMIT: u64 = 17_179_869_184;
-pub const OUTPUT_FILES_LIMIT: u64 = 262_144;
+pub const CGROUP_MEMORY_LIMIT: u64 = 34_359_738_368;
+pub const CGROUP_SWAP_LIMIT: u64 = 0;
+pub const WRITABLE_ALLOCATED_BYTES_LIMIT: u64 = 21_474_836_480;
+pub const WRITABLE_INODE_LIMIT: u64 = 262_144;
 pub const STDOUT_BYTES_LIMIT: usize =
     crate::limits::RustLimitId::CargoRustcStdout.maximum() as usize;
 pub const STDERR_BYTES_LIMIT: usize =
@@ -804,29 +806,58 @@ impl ProcessOutput {
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct SandboxLimits {
-    pub processes: u64,
+    pub cgroup_tasks: u64,
     pub open_files_per_process: u64,
-    pub virtual_memory_bytes: u64,
-    pub resident_memory_bytes: u64,
-    pub temp_bytes: u64,
-    pub target_bytes: u64,
-    pub output_files: u64,
+    pub virtual_memory_bytes_per_process: u64,
+    pub cgroup_memory_bytes: u64,
+    pub cgroup_swap_bytes: u64,
+    pub writable_allocated_bytes: u64,
+    pub writable_inodes: u64,
     pub stdout_bytes: usize,
     pub stderr_bytes: usize,
 }
 
 impl SandboxLimits {
     pub const FROZEN: Self = Self {
-        processes: PROCESS_LIMIT,
+        cgroup_tasks: CGROUP_TASK_LIMIT,
         open_files_per_process: OPEN_FILE_LIMIT,
-        virtual_memory_bytes: VIRTUAL_MEMORY_LIMIT,
-        resident_memory_bytes: RESIDENT_MEMORY_LIMIT,
-        temp_bytes: TEMP_BYTES_LIMIT,
-        target_bytes: TARGET_BYTES_LIMIT,
-        output_files: OUTPUT_FILES_LIMIT,
+        virtual_memory_bytes_per_process: VIRTUAL_MEMORY_LIMIT,
+        cgroup_memory_bytes: CGROUP_MEMORY_LIMIT,
+        cgroup_swap_bytes: CGROUP_SWAP_LIMIT,
+        writable_allocated_bytes: WRITABLE_ALLOCATED_BYTES_LIMIT,
+        writable_inodes: WRITABLE_INODE_LIMIT,
         stdout_bytes: STDOUT_BYTES_LIMIT,
         stderr_bytes: STDERR_BYTES_LIMIT,
     };
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct ResourceFilesystemObservation {
+    pub filesystem_type: u64,
+    pub allocated_capacity_bytes: u64,
+    pub inode_capacity: u64,
+    pub same_device: bool,
+    pub nosuid: bool,
+    pub nodev: bool,
+    pub noswap: bool,
+}
+
+pub fn validate_resource_filesystem_observation(
+    observation: ResourceFilesystemObservation,
+    limits: SandboxLimits,
+) -> Result<(), SandboxError> {
+    const TMPFS_MAGIC: u64 = 0x0102_1994;
+    if observation.filesystem_type != TMPFS_MAGIC
+        || observation.allocated_capacity_bytes != limits.writable_allocated_bytes
+        || observation.inode_capacity != limits.writable_inodes
+        || !observation.same_device
+        || !observation.nosuid
+        || !observation.nodev
+        || !observation.noswap
+    {
+        return Err(SandboxError::SandboxUnavailable);
+    }
+    Ok(())
 }
 
 #[derive(Debug)]
@@ -1117,6 +1148,9 @@ fn execute_linux_namespace(
 ) -> Result<ProcessOutput, SandboxError> {
     use std::os::unix::process::{CommandExt, ExitStatusExt};
 
+    context
+        .workspace
+        .validate_resource_filesystem(context.limits())?;
     let retained_descriptors = context.retained_descriptors();
     let retained_sources = [
         retained_fd_path(retained_descriptors[0]),
@@ -1204,15 +1238,8 @@ fn execute_linux_namespace(
         .checked_add(CHILD_WALL_CLOCK_TIMEOUT)
         .ok_or(SandboxError::Killed)?;
     let mut timed_out = false;
-    let mut filesystem_limit = false;
     let status = loop {
-        if !filesystem_limit && context.workspace.validate_usage(context.limits()).is_err() {
-            filesystem_limit = true;
-        }
         if overflow.load(Ordering::Acquire) {
-            kill_process_group(child_id);
-            let _ = child.kill();
-        } else if filesystem_limit {
             kill_process_group(child_id);
             let _ = child.kill();
         } else if Instant::now() >= deadline {
@@ -1235,9 +1262,6 @@ fn execute_linux_namespace(
     let (stdout, stdout_observed) = stdout_reader.join().map_err(|_| SandboxError::Killed)?;
     let (_, stderr_observed) = stderr_reader.join().map_err(|_| SandboxError::Killed)?;
     let stream_limit = overflow.load(Ordering::Acquire);
-    if !stream_limit && filesystem_limit {
-        return Err(SandboxError::FilesystemLimit);
-    }
     if !stream_limit && timed_out {
         return Err(SandboxError::Killed);
     }
@@ -1276,6 +1300,10 @@ fn bounded_reader<R: Read + Send + 'static>(
     thread::spawn(move || {
         let mut retained = Vec::new();
         let mut observed = 0_usize;
+        let retention_limit = maximum.checked_add(1).unwrap_or_else(|| {
+            overflow.store(true, Ordering::Release);
+            maximum
+        });
         let mut buffer = [0_u8; 16 * 1024];
         loop {
             match reader.read(&mut buffer) {
@@ -1285,12 +1313,18 @@ fn bounded_reader<R: Read + Send + 'static>(
                     break;
                 }
                 Ok(count) => {
-                    observed = observed.saturating_add(count);
+                    observed = match observed.checked_add(count) {
+                        Some(observed) => observed,
+                        None => {
+                            overflow.store(true, Ordering::Release);
+                            usize::MAX
+                        }
+                    };
                     if observed > maximum {
                         overflow.store(true, Ordering::Release);
                     }
                     if retain && retained.len() <= maximum {
-                        let remaining = maximum.saturating_add(1).saturating_sub(retained.len());
+                        let remaining = retention_limit.saturating_sub(retained.len());
                         retained.extend_from_slice(&buffer[..count.min(remaining)]);
                     }
                 }
@@ -1407,14 +1441,12 @@ fn linux_bootstrap(arguments: &[String], inherited_user_namespace: bool) -> Resu
         true,
         false,
     )?;
-    for (source, destination) in [
-        (home, "mpk/home"),
-        (cargo_home, "mpk/cargo-home"),
-        (temporary, "mpk/tmp"),
-        (target, "mpk/target"),
-        (driver_output, "mpk/driver-output"),
-    ] {
-        linux::bind_view(source, &rootfs.join(destination), false, false)?;
+    for (source, (destination, executable)) in [home, cargo_home, temporary, target, driver_output]
+        .into_iter()
+        .zip(fixed_writable_mount_views())
+    {
+        let destination = destination.strip_prefix('/').ok_or(125)?;
+        linux::bind_view(source, &rootfs.join(destination), false, executable)?;
     }
     linux::mount_null(&rootfs.join("dev/null"))?;
     if let Some(status) = linux::fork_pid_namespace()? {
@@ -1429,6 +1461,7 @@ fn linux_bootstrap(arguments: &[String], inherited_user_namespace: bool) -> Resu
     }
 
     let environment = EvidenceEnvironment::frozen();
+    linux::drop_and_lock_capabilities()?;
     let status = Command::new(CARGO_PATH)
         .args(&arguments[13..])
         .env_clear()
@@ -1455,9 +1488,14 @@ fn current_environment() -> BTreeMap<String, String> {
 
 #[cfg(target_os = "linux")]
 mod linux {
-    use super::{OPEN_FILE_LIMIT, PROCESS_LIMIT, RESIDENT_MEMORY_LIMIT, VIRTUAL_MEMORY_LIMIT};
-    use std::ffi::{c_char, c_int, c_ulong, c_void, CString};
+    use super::{
+        validate_resource_filesystem_observation, ResourceFilesystemObservation, SandboxLimits,
+        OPEN_FILE_LIMIT, VIRTUAL_MEMORY_LIMIT,
+    };
+    use std::ffi::{c_char, c_int, c_long, c_ulong, c_void, CString};
     use std::fs;
+    use std::io::Read;
+    use std::os::fd::AsRawFd;
     use std::os::unix::ffi::OsStrExt;
     use std::os::unix::fs::{FileTypeExt, MetadataExt, OpenOptionsExt};
     use std::path::{Component, Path, PathBuf};
@@ -1477,13 +1515,38 @@ mod linux {
     const MS_BIND: c_ulong = 4_096;
     const MS_REC: c_ulong = 16_384;
     const MS_PRIVATE: c_ulong = 1 << 18;
+    const PR_CAPBSET_DROP: c_int = 24;
+    const PR_GET_SECUREBITS: c_int = 27;
+    const PR_SET_SECUREBITS: c_int = 28;
     const PR_SET_NO_NEW_PRIVS: c_int = 38;
+    const PR_GET_NO_NEW_PRIVS: c_int = 39;
+    const PR_CAP_AMBIENT: c_int = 47;
+    const PR_CAP_AMBIENT_CLEAR_ALL: c_ulong = 4;
+    const PRCTL_ZERO: c_ulong = 0;
+    const PRCTL_ONE: c_ulong = 1;
+    const SECBIT_NOROOT: c_ulong = 1 << 0;
+    const SECBIT_NOROOT_LOCKED: c_ulong = 1 << 1;
+    const SECBIT_NO_SETUID_FIXUP: c_ulong = 1 << 2;
+    const SECBIT_NO_SETUID_FIXUP_LOCKED: c_ulong = 1 << 3;
+    const SECBIT_KEEP_CAPS_LOCKED: c_ulong = 1 << 5;
+    const SECBIT_NO_CAP_AMBIENT_RAISE: c_ulong = 1 << 6;
+    const SECBIT_NO_CAP_AMBIENT_RAISE_LOCKED: c_ulong = 1 << 7;
+    const LOCKED_NO_CAPABILITIES_SECUREBITS: c_ulong = SECBIT_NOROOT
+        | SECBIT_NOROOT_LOCKED
+        | SECBIT_NO_SETUID_FIXUP
+        | SECBIT_NO_SETUID_FIXUP_LOCKED
+        | SECBIT_KEEP_CAPS_LOCKED
+        | SECBIT_NO_CAP_AMBIENT_RAISE
+        | SECBIT_NO_CAP_AMBIENT_RAISE_LOCKED;
+    const LINUX_CAPABILITY_VERSION_3: u32 = 0x2008_0522;
+    const ST_NOSUID: c_long = 2;
+    const ST_NODEV: c_long = 4;
     const RLIMIT_FSIZE: c_int = 1;
     const RLIMIT_CORE: c_int = 4;
-    const RLIMIT_RSS: c_int = 5;
     const RLIMIT_NPROC: c_int = 6;
     const RLIMIT_NOFILE: c_int = 7;
     const RLIMIT_AS: c_int = 9;
+    const RLIM_INFINITY: u64 = u64::MAX;
 
     #[repr(C)]
     struct RLimit {
@@ -1491,10 +1554,42 @@ mod linux {
         maximum: u64,
     }
 
+    #[repr(C)]
+    struct CapabilityHeader {
+        version: u32,
+        pid: c_int,
+    }
+
+    #[derive(Clone, Copy)]
+    #[repr(C)]
+    struct CapabilityData {
+        effective: u32,
+        permitted: u32,
+        inheritable: u32,
+    }
+
+    #[repr(C)]
+    struct StatFs {
+        filesystem_type: c_long,
+        block_size: c_long,
+        blocks: u64,
+        blocks_free: u64,
+        blocks_available: u64,
+        files: u64,
+        files_free: u64,
+        filesystem_id: [c_int; 2],
+        name_length: c_long,
+        fragment_size: c_long,
+        flags: c_long,
+        spare: [c_long; 4],
+    }
+
     unsafe extern "C" {
+        fn capset(header: *mut CapabilityHeader, data: *const CapabilityData) -> c_int;
         fn chroot(path: *const c_char) -> c_int;
         fn close(descriptor: c_int) -> c_int;
         fn fcntl(fd: c_int, command: c_int, ...) -> c_int;
+        fn fstatfs(fd: c_int, buffer: *mut StatFs) -> c_int;
         fn fork() -> c_int;
         fn getgid() -> u32;
         fn getpid() -> c_int;
@@ -1510,6 +1605,7 @@ mod linux {
         ) -> c_int;
         fn prctl(option: c_int, ...) -> c_int;
         fn sethostname(name: *const c_char, length: usize) -> c_int;
+        fn getrlimit(resource: c_int, limit: *mut RLimit) -> c_int;
         fn setrlimit(resource: c_int, limit: *const RLimit) -> c_int;
         fn umask(mask: u32) -> u32;
         fn unshare(flags: c_int) -> c_int;
@@ -1777,14 +1873,7 @@ mod linux {
     }
 
     pub(super) fn apply_process_controls() -> Result<(), u8> {
-        for (resource, value) in [
-            (RLIMIT_CORE, 0),
-            (RLIMIT_FSIZE, VIRTUAL_MEMORY_LIMIT),
-            (RLIMIT_RSS, RESIDENT_MEMORY_LIMIT),
-            (RLIMIT_NPROC, PROCESS_LIMIT),
-            (RLIMIT_NOFILE, OPEN_FILE_LIMIT),
-            (RLIMIT_AS, VIRTUAL_MEMORY_LIMIT),
-        ] {
+        for (resource, value) in process_limit_settings() {
             let limit = RLimit {
                 current: value,
                 maximum: value,
@@ -1794,13 +1883,306 @@ mod linux {
                 return Err(125);
             }
         }
+        for (resource, expected) in process_limit_settings() {
+            let mut observed = RLimit {
+                current: 0,
+                maximum: 0,
+            };
+            // SAFETY: observed points to writable storage for one Linux rlimit structure.
+            if unsafe { getrlimit(resource, &mut observed) } != 0
+                || observed.current != expected
+                || observed.maximum != expected
+            {
+                return Err(125);
+            }
+        }
         // SAFETY: PR_SET_NO_NEW_PRIVS has the fixed integer arguments required by Linux.
-        if unsafe { prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0) } != 0 {
+        if unsafe {
+            prctl(
+                PR_SET_NO_NEW_PRIVS,
+                PRCTL_ONE,
+                PRCTL_ZERO,
+                PRCTL_ZERO,
+                PRCTL_ZERO,
+            )
+        } != 0
+        {
             return Err(125);
         }
         // SAFETY: umask accepts only permission bits and has no pointer arguments.
         unsafe { umask(0o077) };
         Ok(())
+    }
+
+    fn process_limit_settings() -> [(c_int, u64); 5] {
+        [
+            (RLIMIT_FSIZE, RLIM_INFINITY),
+            (RLIMIT_NPROC, RLIM_INFINITY),
+            (RLIMIT_CORE, 0),
+            (RLIMIT_NOFILE, OPEN_FILE_LIMIT),
+            (RLIMIT_AS, VIRTUAL_MEMORY_LIMIT),
+        ]
+    }
+
+    pub(super) fn drop_and_lock_capabilities() -> Result<(), u8> {
+        let capability_last = parse_capability_last(&read_bounded_text(
+            Path::new("/proc/sys/kernel/cap_last_cap"),
+            32,
+        )?)
+        .ok_or(125)?;
+
+        // Securebits and the bounding set can be changed only while CAP_SETPCAP is effective.
+        // Disable root and set-ID capability recovery, lock keep-caps off, and forbid ambient
+        // raises before clearing the final effective and permitted capability sets.
+        // SAFETY: every prctl operation uses its documented fixed scalar argument layout.
+        if unsafe {
+            prctl(
+                PR_SET_SECUREBITS,
+                LOCKED_NO_CAPABILITIES_SECUREBITS,
+                PRCTL_ZERO,
+                PRCTL_ZERO,
+                PRCTL_ZERO,
+            )
+        } != 0
+            || unsafe {
+                prctl(
+                    PR_CAP_AMBIENT,
+                    PR_CAP_AMBIENT_CLEAR_ALL,
+                    PRCTL_ZERO,
+                    PRCTL_ZERO,
+                    PRCTL_ZERO,
+                )
+            } != 0
+        {
+            return Err(125);
+        }
+        for capability in 0..=capability_last {
+            // SAFETY: capability_last was read from the namespace-local kernel capability ABI.
+            if unsafe {
+                prctl(
+                    PR_CAPBSET_DROP,
+                    c_ulong::from(capability),
+                    PRCTL_ZERO,
+                    PRCTL_ZERO,
+                    PRCTL_ZERO,
+                )
+            } != 0
+            {
+                return Err(125);
+            }
+        }
+
+        let mut header = CapabilityHeader {
+            version: LINUX_CAPABILITY_VERSION_3,
+            pid: 0,
+        };
+        let empty = [CapabilityData {
+            effective: 0,
+            permitted: 0,
+            inheritable: 0,
+        }; 2];
+        // SAFETY: version 3 consumes exactly two initialized capability data records for the
+        // calling thread (pid zero). The pointers remain valid for the duration of the call.
+        if unsafe { capset(&mut header, empty.as_ptr()) } != 0 {
+            return Err(125);
+        }
+
+        // Verify both the irreversible locks and the procfs representation inherited by Cargo.
+        // SAFETY: these prctl getters use zero scalar arguments and do not dereference pointers.
+        if unsafe {
+            prctl(
+                PR_GET_SECUREBITS,
+                PRCTL_ZERO,
+                PRCTL_ZERO,
+                PRCTL_ZERO,
+                PRCTL_ZERO,
+            )
+        } != LOCKED_NO_CAPABILITIES_SECUREBITS as c_int
+            || unsafe {
+                prctl(
+                    PR_GET_NO_NEW_PRIVS,
+                    PRCTL_ZERO,
+                    PRCTL_ZERO,
+                    PRCTL_ZERO,
+                    PRCTL_ZERO,
+                )
+            } != 1
+        {
+            return Err(125);
+        }
+        let status = read_bounded_text(Path::new("/proc/self/status"), 1 << 20)?;
+        if !capability_status_is_locked(&status) {
+            return Err(125);
+        }
+        Ok(())
+    }
+
+    fn read_bounded_text(path: &Path, maximum: usize) -> Result<String, u8> {
+        let maximum_plus_one = maximum.checked_add(1).ok_or(125)?;
+        let mut bytes = Vec::with_capacity(maximum_plus_one);
+        fs::File::open(path)
+            .map_err(|_| 125)?
+            .take(maximum_plus_one as u64)
+            .read_to_end(&mut bytes)
+            .map_err(|_| 125)?;
+        if bytes.len() > maximum {
+            return Err(125);
+        }
+        String::from_utf8(bytes).map_err(|_| 125)
+    }
+
+    fn parse_capability_last(value: &str) -> Option<u32> {
+        let digits = value.strip_suffix('\n')?;
+        if digits.is_empty() || !digits.bytes().all(|byte| byte.is_ascii_digit()) {
+            return None;
+        }
+        let capability = digits.parse::<u32>().ok()?;
+        (capability < 64).then_some(capability)
+    }
+
+    fn capability_status_is_locked(status: &str) -> bool {
+        const REQUIRED_CAPABILITIES: [(&str, u8); 5] = [
+            ("CapInh", 1 << 0),
+            ("CapPrm", 1 << 1),
+            ("CapEff", 1 << 2),
+            ("CapBnd", 1 << 3),
+            ("CapAmb", 1 << 4),
+        ];
+
+        let mut capability_names = Vec::new();
+        let mut required_seen = 0_u8;
+        let mut no_new_privileges_seen = false;
+        for line in status.lines() {
+            if line.starts_with("Cap") {
+                let Some((name, value)) = line.split_once(':') else {
+                    return false;
+                };
+                if capability_names.contains(&name) {
+                    return false;
+                }
+                capability_names.push(name);
+                let value = value.trim();
+                if value.is_empty()
+                    || !value.bytes().all(|byte| byte.is_ascii_hexdigit())
+                    || !value.bytes().all(|byte| byte == b'0')
+                {
+                    return false;
+                }
+                if let Some((_, bit)) = REQUIRED_CAPABILITIES
+                    .iter()
+                    .find(|(required, _)| name == *required)
+                {
+                    required_seen |= bit;
+                }
+            } else if line.starts_with("NoNewPrivs") {
+                let Some((name, value)) = line.split_once(':') else {
+                    return false;
+                };
+                if name != "NoNewPrivs" || no_new_privileges_seen || value.trim() != "1" {
+                    return false;
+                }
+                no_new_privileges_seen = true;
+            }
+        }
+        required_seen == (1 << REQUIRED_CAPABILITIES.len()) - 1 && no_new_privileges_seen
+    }
+
+    pub(super) fn validate_resource_filesystem(
+        root: &Path,
+        writable: &[&Path],
+        limits: SandboxLimits,
+    ) -> Result<(), u8> {
+        let root_metadata = fs::symlink_metadata(root).map_err(|_| 125)?;
+        if !root_metadata.is_dir() || root_metadata.file_type().is_symlink() {
+            return Err(125);
+        }
+        let mut same_device = true;
+        for path in writable {
+            let metadata = fs::symlink_metadata(path).map_err(|_| 125)?;
+            if !metadata.is_dir() || metadata.file_type().is_symlink() {
+                return Err(125);
+            }
+            same_device &= metadata.dev() == root_metadata.dev();
+        }
+        let directory = fs::File::open(root).map_err(|_| 125)?;
+        let mut information = StatFs {
+            filesystem_type: 0,
+            block_size: 0,
+            blocks: 0,
+            blocks_free: 0,
+            blocks_available: 0,
+            files: 0,
+            files_free: 0,
+            filesystem_id: [0; 2],
+            name_length: 0,
+            fragment_size: 0,
+            flags: 0,
+            spare: [0; 4],
+        };
+        // SAFETY: information is a writable Linux statfs structure and directory remains open.
+        if unsafe { fstatfs(directory.as_raw_fd(), &mut information) } != 0 {
+            return Err(125);
+        }
+        let fragment_size = u64::try_from(information.fragment_size).map_err(|_| 125)?;
+        let allocated_bytes = information.blocks.checked_mul(fragment_size).ok_or(125)?;
+        validate_resource_filesystem_observation(
+            ResourceFilesystemObservation {
+                filesystem_type: information.filesystem_type as u64,
+                allocated_capacity_bytes: allocated_bytes,
+                inode_capacity: information.files,
+                same_device,
+                nosuid: information.flags & ST_NOSUID != 0,
+                nodev: information.flags & ST_NODEV != 0,
+                noswap: mountinfo_has_noswap(root)?,
+            },
+            limits,
+        )
+        .map_err(|_| 125)
+    }
+
+    fn mountinfo_has_noswap(root: &Path) -> Result<bool, u8> {
+        let root = root.to_str().ok_or(125)?;
+        if root.contains([' ', '\\']) {
+            return Err(125);
+        }
+        let mountinfo = read_bounded_text(Path::new("/proc/self/mountinfo"), 16 * 1024 * 1024)?;
+        let mut selected: Option<(&str, &str, &str)> = None;
+        for line in mountinfo.lines() {
+            let (mount_fields, filesystem_fields) = line.split_once(" - ").ok_or(125)?;
+            let mount_fields = mount_fields.split_ascii_whitespace().collect::<Vec<_>>();
+            let filesystem_fields = filesystem_fields
+                .split_ascii_whitespace()
+                .collect::<Vec<_>>();
+            if mount_fields.len() < 6 || filesystem_fields.len() < 3 {
+                return Err(125);
+            }
+            let mountpoint = mount_fields[4];
+            let contains_root = root == mountpoint
+                || root
+                    .strip_prefix(mountpoint)
+                    .is_some_and(|suffix| suffix.starts_with('/'));
+            if contains_root
+                && selected.is_none_or(|(current, _, _)| mountpoint.len() > current.len())
+            {
+                selected = Some((mountpoint, mount_fields[5], filesystem_fields[2]));
+                if filesystem_fields[0] != "tmpfs" {
+                    selected = Some((mountpoint, "", ""));
+                }
+            }
+        }
+        let Some((_, mount_options, super_options)) = selected else {
+            return Err(125);
+        };
+        let mount_options = mount_options
+            .split(',')
+            .collect::<std::collections::BTreeSet<_>>();
+        let super_options = super_options
+            .split(',')
+            .collect::<std::collections::BTreeSet<_>>();
+        Ok(["rw", "nosuid", "nodev"]
+            .into_iter()
+            .all(|option| mount_options.contains(option))
+            && super_options.contains("noswap"))
     }
 
     fn mount_call(source: Option<&Path>, target: &Path, flags: c_ulong) -> Result<(), u8> {
@@ -1829,6 +2211,74 @@ mod linux {
     fn path_cstring(path: &Path) -> Result<CString, u8> {
         CString::new(path.as_os_str().as_bytes()).map_err(|_| 125)
     }
+
+    #[cfg(test)]
+    mod tests {
+        use super::*;
+
+        const LOCKED_STATUS: &str = concat!(
+            "Name:\trust2vir\n",
+            "CapInh:\t0000000000000000\n",
+            "CapPrm:\t0000000000000000\n",
+            "CapEff:\t0000000000000000\n",
+            "CapBnd:\t0000000000000000\n",
+            "CapAmb:\t0000000000000000\n",
+            "NoNewPrivs:\t1\n",
+        );
+
+        #[test]
+        fn process_limit_profile_removes_competing_limits_and_keeps_exact_limits() {
+            assert_eq!(
+                process_limit_settings(),
+                [
+                    (RLIMIT_FSIZE, u64::MAX),
+                    (RLIMIT_NPROC, u64::MAX),
+                    (RLIMIT_CORE, 0),
+                    (RLIMIT_NOFILE, OPEN_FILE_LIMIT),
+                    (RLIMIT_AS, VIRTUAL_MEMORY_LIMIT),
+                ]
+            );
+        }
+
+        #[test]
+        fn capability_last_parser_accepts_only_the_supported_kernel_range() {
+            assert_eq!(parse_capability_last("0\n"), Some(0));
+            assert_eq!(parse_capability_last("40\n"), Some(40));
+            assert_eq!(parse_capability_last("63\n"), Some(63));
+            for rejected in ["", "40", "64\n", "-1\n", "40\n\n", "4294967296\n"] {
+                assert_eq!(parse_capability_last(rejected), None, "{rejected:?}");
+            }
+        }
+
+        #[test]
+        fn capability_status_requires_every_zero_set_and_no_new_privileges() {
+            assert!(capability_status_is_locked(LOCKED_STATUS));
+            assert!(capability_status_is_locked(&format!(
+                "{LOCKED_STATUS}CapFuture:\t0000000000000000\n"
+            )));
+
+            for nonzero in ["CapInh", "CapPrm", "CapEff", "CapBnd", "CapAmb"] {
+                let status = LOCKED_STATUS.replacen(
+                    &format!("{nonzero}:\t0000000000000000"),
+                    &format!("{nonzero}:\t0000000000000001"),
+                    1,
+                );
+                assert!(!capability_status_is_locked(&status), "{nonzero}");
+            }
+            assert!(!capability_status_is_locked(
+                &LOCKED_STATUS.replace("NoNewPrivs:\t1", "NoNewPrivs:\t0")
+            ));
+            assert!(!capability_status_is_locked(
+                &LOCKED_STATUS.replace("CapAmb:\t0000000000000000\n", "")
+            ));
+            assert!(!capability_status_is_locked(&format!(
+                "{LOCKED_STATUS}CapEff:\t0000000000000000\n"
+            )));
+            assert!(!capability_status_is_locked(&format!(
+                "{LOCKED_STATUS}CapFuture:\t0000000000000001\n"
+            )));
+        }
+    }
 }
 
 #[derive(Debug)]
@@ -1844,28 +2294,6 @@ struct InvocationWorkspace {
     driver_request: PathBuf,
     driver_request_handle: File,
     driver_request_bytes: Vec<u8>,
-}
-
-#[derive(Clone, Copy)]
-struct WritableUsageLimits {
-    temp_bytes: u64,
-    target_bytes: u64,
-    regular_files: u64,
-    directories: u64,
-}
-
-impl WritableUsageLimits {
-    fn from_sandbox_limits(limits: SandboxLimits) -> Self {
-        Self {
-            temp_bytes: limits.temp_bytes,
-            target_bytes: limits.target_bytes,
-            regular_files: limits.output_files,
-            // Empty-directory floods are not accepted output, but they also must
-            // not make the live usage monitor itself unbounded. Reuse the supplied
-            // output-count allowance as the operational traversal ceiling.
-            directories: limits.output_files,
-        }
-    }
 }
 
 impl InvocationWorkspace {
@@ -2048,11 +2476,17 @@ impl InvocationWorkspace {
         Ok(())
     }
 
-    fn validate_usage(&self, limits: SandboxLimits) -> Result<(), SandboxError> {
-        validate_writable_usage(
-            &self.writable,
-            WritableUsageLimits::from_sandbox_limits(limits),
-        )
+    #[cfg(target_os = "linux")]
+    fn validate_resource_filesystem(&self, limits: SandboxLimits) -> Result<(), SandboxError> {
+        let writable = [
+            self.writable[HOME_ROOT].as_path(),
+            self.writable[crate::environment::CARGO_HOME_ROOT].as_path(),
+            self.writable[TEMP_ROOT].as_path(),
+            self.writable[TARGET_ROOT].as_path(),
+            self.writable[DRIVER_OUTPUT_ROOT].as_path(),
+        ];
+        linux::validate_resource_filesystem(&self.root, &writable, limits)
+            .map_err(|_| SandboxError::SandboxUnavailable)
     }
 
     fn validate_before(&self, _kind: CargoInvocationKind) -> Result<(), SandboxError> {
@@ -2065,7 +2499,6 @@ impl InvocationWorkspace {
     }
 
     fn validate_after(&self, kind: CargoInvocationKind) -> Result<(), SandboxError> {
-        self.validate_usage(SandboxLimits::FROZEN)?;
         if kind == CargoInvocationKind::Metadata
             && (tree_usage(&self.writable[TARGET_ROOT])? != (0, 0)
                 || tree_usage(&self.writable[DRIVER_OUTPUT_ROOT])? != (0, 0))
@@ -2234,8 +2667,13 @@ fn validate_driver_request(
         .seek(SeekFrom::Start(0))
         .map_err(|_| SandboxError::SandboxUnavailable)?;
     let mut bytes = Vec::with_capacity(expected.len());
+    let read_limit = expected
+        .len()
+        .checked_add(1)
+        .and_then(|limit| u64::try_from(limit).ok())
+        .ok_or(SandboxError::SandboxUnavailable)?;
     reader
-        .take(expected.len().saturating_add(1) as u64)
+        .take(read_limit)
         .read_to_end(&mut bytes)
         .map_err(|_| SandboxError::SandboxUnavailable)?;
     if bytes != expected
@@ -2355,9 +2793,14 @@ fn inventory_from_root(root: &Path) -> Result<Vec<InventoryFile>, SandboxError> 
         let mut bytes = Vec::with_capacity(
             usize::try_from(metadata.len()).map_err(|_| SandboxError::ToolchainComponent)?,
         );
-        file.take(metadata.len().saturating_add(1))
-            .read_to_end(&mut bytes)
-            .map_err(|_| SandboxError::ToolchainComponent)?;
+        file.take(
+            metadata
+                .len()
+                .checked_add(1)
+                .ok_or(SandboxError::ToolchainComponent)?,
+        )
+        .read_to_end(&mut bytes)
+        .map_err(|_| SandboxError::ToolchainComponent)?;
         if bytes.len() as u64 != metadata.len()
             || regular_file_identity(
                 &fs::symlink_metadata(&absolute).map_err(|_| SandboxError::ToolchainComponent)?,
@@ -2440,9 +2883,14 @@ fn validate_inventory_root(root: &Path, inventory: &[InventoryFile]) -> Result<F
         let mut bytes = Vec::with_capacity(
             usize::try_from(expected.size_bytes).map_err(|_| SandboxError::ToolchainComponent)?,
         );
-        file.take(expected.size_bytes.saturating_add(1))
-            .read_to_end(&mut bytes)
-            .map_err(|_| SandboxError::ToolchainComponent)?;
+        file.take(
+            expected
+                .size_bytes
+                .checked_add(1)
+                .ok_or(SandboxError::ToolchainComponent)?,
+        )
+        .read_to_end(&mut bytes)
+        .map_err(|_| SandboxError::ToolchainComponent)?;
         if bytes.len() as u64 != expected.size_bytes || hex(&digest(&bytes)) != expected.sha256 {
             return Err(SandboxError::ToolchainComponent);
         }
@@ -2690,155 +3138,9 @@ fn tree_usage(root: &Path) -> Result<(u64, u64), SandboxError> {
     Ok((files, bytes))
 }
 
-fn validate_writable_usage(
-    writable: &BTreeMap<&'static str, PathBuf>,
-    limits: WritableUsageLimits,
-) -> Result<(), SandboxError> {
-    let mut regular_files = 0_u64;
-    let mut directories = 0_u64;
-    for (root, byte_limit) in [
-        (&writable[HOME_ROOT], u64::MAX),
-        (&writable[crate::environment::CARGO_HOME_ROOT], u64::MAX),
-        (&writable[TEMP_ROOT], limits.temp_bytes),
-        (&writable[TARGET_ROOT], limits.target_bytes),
-        (&writable[DRIVER_OUTPUT_ROOT], u64::MAX),
-    ] {
-        validate_tree_usage(
-            root,
-            byte_limit,
-            &mut regular_files,
-            limits.regular_files,
-            &mut directories,
-            limits.directories,
-        )?;
-    }
-    Ok(())
-}
-
-fn validate_tree_usage(
-    root: &Path,
-    byte_limit: u64,
-    regular_files: &mut u64,
-    regular_file_limit: u64,
-    directories: &mut u64,
-    directory_limit: u64,
-) -> Result<(), SandboxError> {
-    let mut bytes = 0_u64;
-    let mut pending = vec![root.to_path_buf()];
-    while let Some(directory) = pending.pop() {
-        // Cargo may remove a directory or file between enumeration and metadata
-        // while this live scan runs. A later scan still observes every retained
-        // entry, so only that normal NotFound race is ignored.
-        let entries = match fs::read_dir(directory) {
-            Ok(entries) => entries,
-            Err(error) if error.kind() == io::ErrorKind::NotFound => continue,
-            Err(_) => return Err(SandboxError::FilesystemLimit),
-        };
-        for entry in entries {
-            let entry = entry.map_err(|_| SandboxError::FilesystemLimit)?;
-            let metadata = match fs::symlink_metadata(entry.path()) {
-                Ok(metadata) => metadata,
-                Err(error) if error.kind() == io::ErrorKind::NotFound => continue,
-                Err(_) => return Err(SandboxError::FilesystemLimit),
-            };
-            if metadata.file_type().is_symlink() {
-                return Err(SandboxError::FilesystemLimit);
-            }
-            if metadata.is_dir() {
-                *directories = directories
-                    .checked_add(1)
-                    .ok_or(SandboxError::FilesystemLimit)?;
-                if *directories > directory_limit {
-                    return Err(SandboxError::FilesystemLimit);
-                }
-                pending.push(entry.path());
-            } else if metadata.is_file() {
-                *regular_files = regular_files
-                    .checked_add(1)
-                    .ok_or(SandboxError::FilesystemLimit)?;
-                bytes = bytes
-                    .checked_add(metadata.len())
-                    .ok_or(SandboxError::FilesystemLimit)?;
-                if *regular_files > regular_file_limit || bytes > byte_limit {
-                    return Err(SandboxError::FilesystemLimit);
-                }
-            } else {
-                return Err(SandboxError::FilesystemLimit);
-            }
-        }
-    }
-    Ok(())
-}
-
 #[cfg(test)]
 mod usage_tests {
     use super::*;
-
-    struct TestDirectory(PathBuf);
-
-    impl TestDirectory {
-        fn create() -> Self {
-            let serial = NEXT_INVOCATION.fetch_add(1, Ordering::Relaxed);
-            let path = std::env::temp_dir().join(format!(
-                "rust2vir-usage-test-{}-{serial}",
-                std::process::id()
-            ));
-            fs::create_dir(&path).unwrap();
-            Self(path)
-        }
-    }
-
-    impl Drop for TestDirectory {
-        fn drop(&mut self) {
-            let _ = fs::remove_dir_all(&self.0);
-        }
-    }
-
-    #[test]
-    fn writable_usage_accepts_exact_bytes_and_files_then_rejects_plus_one() {
-        let root = TestDirectory::create();
-        let mut writable = BTreeMap::new();
-        for (sandbox_path, name) in [
-            (HOME_ROOT, "home"),
-            (crate::environment::CARGO_HOME_ROOT, "cargo-home"),
-            (TEMP_ROOT, "tmp"),
-            (TARGET_ROOT, "target"),
-            (DRIVER_OUTPUT_ROOT, "driver-output"),
-        ] {
-            let path = root.0.join(name);
-            fs::create_dir(&path).unwrap();
-            writable.insert(sandbox_path, path);
-        }
-        let mut sandbox_limits = SandboxLimits::FROZEN;
-        sandbox_limits.temp_bytes = 4;
-        sandbox_limits.target_bytes = 4;
-        sandbox_limits.output_files = 2;
-        let limits = WritableUsageLimits::from_sandbox_limits(sandbox_limits);
-        assert_eq!(
-            (
-                limits.temp_bytes,
-                limits.target_bytes,
-                limits.regular_files,
-                limits.directories,
-            ),
-            (4, 4, 2, 2)
-        );
-        fs::write(writable[TEMP_ROOT].join("a"), b"1234").unwrap();
-        fs::write(writable[TARGET_ROOT].join("b"), b"1234").unwrap();
-        assert_eq!(validate_writable_usage(&writable, limits), Ok(()));
-
-        fs::write(writable[TARGET_ROOT].join("b"), b"12345").unwrap();
-        assert_eq!(
-            validate_writable_usage(&writable, limits),
-            Err(SandboxError::FilesystemLimit)
-        );
-        fs::write(writable[TARGET_ROOT].join("b"), b"1234").unwrap();
-        fs::write(writable[DRIVER_OUTPUT_ROOT].join("c"), b"").unwrap();
-        assert_eq!(
-            validate_writable_usage(&writable, limits),
-            Err(SandboxError::FilesystemLimit)
-        );
-    }
 
     #[cfg(target_os = "linux")]
     #[test]
@@ -2980,11 +3282,15 @@ pub fn fixed_read_only_views() -> [&'static str; 6] {
 }
 
 pub fn fixed_writable_views() -> [&'static str; 5] {
+    fixed_writable_mount_views().map(|(path, _)| path)
+}
+
+pub fn fixed_writable_mount_views() -> [(&'static str, bool); 5] {
     [
-        HOME_ROOT,
-        crate::environment::CARGO_HOME_ROOT,
-        TEMP_ROOT,
-        TARGET_ROOT,
-        DRIVER_OUTPUT_ROOT,
+        (HOME_ROOT, false),
+        (crate::environment::CARGO_HOME_ROOT, false),
+        (TEMP_ROOT, false),
+        (TARGET_ROOT, true),
+        (DRIVER_OUTPUT_ROOT, false),
     ]
 }

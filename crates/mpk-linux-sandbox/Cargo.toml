@@ -1,0 +1,21 @@
+[package]
+name = "mpk-linux-sandbox"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+publish = false
+
+[dependencies]
+libc = "0.2"
+rustix = { version = "1", features = ["pipe", "process"] }
+
+[dev-dependencies]
+tempfile = "3"
+
+[lints.clippy]
+undocumented_unsafe_blocks = "deny"
+
+[lints.rust]
+unsafe_op_in_unsafe_fn = "deny"

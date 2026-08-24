@@ -64,7 +64,35 @@ Dependencies used by checker-facing code must be treated as part of the security
 - the exception must name an owner, audit notes, and a removal or containment plan;
 - dependency unsafe use must not bypass canonical decoding, source-free checking, deterministic fuel, or axiom reporting.
 
-No dependency exception is approved by default in this specification.
+No dependency exception is approved except those listed below.
+
+### Approved dependency exceptions
+
+- Dependency: `mpk-linux-sandbox`, on the Linux-only path from `mpk-cli`.
+  Owner: MPK Rust sandbox boundary maintainers (RUST-07). Scope: only the
+  reviewed `clone3(CLONE_INTO_CGROUP | CLONE_PIDFD | CLONE_CLEAR_SIGHAND)`,
+  pidfd signal/wait,
+  signal-state, pipe/descriptor, working-directory/process-group, exact-rlimit,
+  `close_range`, and `execveat` adapter. Stable safe Rust process APIs cannot
+  create a task atomically in a delegated cgroup; attaching after `fork`
+  permits pre-attachment kernel and memory charges. This adapter is outside
+  certificate decoding, canonicalization, kernel checking, deterministic
+  fuel, axiom reporting, and proof acceptance. It may only launch or terminate
+  the release frontend and return owned process streams to caller-enforced
+  bounded capture or a closed failure.
+  `mpk-cli` continues to forbid unsafe code; the helper exposes only typed
+  owned descriptors and process handles, denies `unsafe_op_in_unsafe_fn`,
+  documents every unsafe precondition, and has no checker/proof-crate
+  dependency. Syscall-result, malformed-input, descriptor-closure, rlimit,
+  full clone-ABI/flag, invalid-cgroup rejection, pidfd kill/reap, and cleanup
+  tests cover the helper boundary. The crate is Linux-only and `publish=false`;
+  only `mpk-cli` may depend on its typed executable/cgroup/cwd/argv/environment
+  launcher surface, solely for the frozen release-frontend contract.
+  Maintainers must enforce that containment in workspace dependency review,
+  minimize the crate to the required syscalls, and replace it when a safe
+  standard or library API provides atomic cgroup placement and pidfd process
+  control. Any API, dependency, or scope expansion, or any failed
+  sandbox/unsafe audit, blocks release.
 
 ## Build Script And Code Generation Requirements
 

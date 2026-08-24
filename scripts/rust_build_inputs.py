@@ -4,7 +4,8 @@
 from __future__ import annotations
 
 import base64
-from collections.abc import Iterator
+from collections.abc import Callable, Iterator
+from contextlib import contextmanager
 import copy
 import ctypes
 import errno
@@ -23,6 +24,7 @@ import subprocess
 import sys
 import tarfile
 import tempfile
+import time
 import urllib.error
 import urllib.request
 
@@ -39,8 +41,31 @@ AGGREGATE_LIMIT = 34_359_738_368
 U64_MAX = (1 << 64) - 1
 RUST_FRONTEND_ID = "frontend.rust.rust2vir.candidate.v0"
 RUST_TOOLCHAIN_ID = "toolchain.rust.nightly-2025-06-01.candidate.v0"
-RUST_HOST_ID = "mpk.host.linux-x86_64-gnu.glibc2_27.v0"
-RUST_RUNTIME_ID = "mpk.runtime.linux-x86_64-gnu.glibc2_27.v0"
+RUST_HOST_ID = "mpk.host.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0"
+RUST_RUNTIME_ID = "mpk.runtime.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0"
+RUST_MINIMUM_KERNEL_ABI = "6.4.0"
+RUST_PROBE_PROFILE_ID = "mpk.release.probe.linux_namespaces_cgroup2_tmpfs.v0"
+RUST_REQUIRED_PRIMITIVES = (
+    "filesystem.atomic_no_replace",
+    "filesystem.immutable_handle",
+    "filesystem.no_follow_open",
+    "filesystem.tmpfs_allocated_blocks",
+    "filesystem.tmpfs_inode_limit",
+    "isolation.cgroup_v2",
+    "isolation.mount_namespace",
+    "isolation.network_namespace",
+    "isolation.user_namespace",
+    "memory.cgroup_accounting",
+    "mount.no_exec",
+    "mount.read_only",
+    "mount.tmpfs_noswap",
+    "process.cgroup_tasks",
+    "process.closed_environment",
+    "process.no_new_privileges",
+    "process.rlimit_address_space",
+    "process.rlimit_open_files",
+    "process.task_tree_kill",
+)
 BUILD_IMAGE = (
     "docker.io/library/buildpack-deps@"
     "sha256:816cb0d4a26fd8584b27d190bdd57ba7048be4fc20c259e60a985bec812887dc"
@@ -74,19 +99,38 @@ BUILD_INPUT_LIMITS = {
     "regular_file": (FILE_SIZE_LIMIT, "RUST_BUILD_INPUTS_FILE"),
     "aggregate_cache": (AGGREGATE_LIMIT, "RUST_BUILD_INPUTS_GRAPH"),
 }
-FROZEN_PROCESS_LIMITS = {
-    "processes": 256,
+FROZEN_RESOURCE_PROFILE_ID = "mpk.rust.build_resources.cgroup2_tmpfs.v0"
+FROZEN_RESOURCE_LIMITS = {
+    "cgroup_tasks": 256,
     "open_files_per_process": 1_024,
-    "virtual_memory_bytes": 17_179_869_184,
-    "resident_memory_bytes": 8_589_934_592,
-    "temp_bytes": 4_294_967_296,
-    "target_bytes": 17_179_869_184,
-    "output_files": 262_144,
+    "virtual_memory_bytes_per_process": 17_179_869_184,
+    "cgroup_memory_bytes": 34_359_738_368,
+    "cgroup_swap_bytes": 0,
+    "writable_allocated_bytes": 21_474_836_480,
+    "writable_inodes": 262_144,
     "stdout_bytes": 67_108_864,
     "stderr_bytes": 2_097_152,
 }
-TARGET_DIRECTORY_LIMIT = FROZEN_PROCESS_LIMITS["output_files"]
 DESCRIPTOR_JSON_DEPTH_LIMIT = 128
+CGROUP2_ROOT = Path("/sys/fs/cgroup")
+INITIAL_CGROUP_NAMESPACE_INODE = 0xEFFF_FFFB
+OUTER_SANDBOX_ID = 65_534
+CONTAINER_READY_NAME = ".mpk-launch-ready"
+CONTAINER_GO_NAME = ".mpk-launch-go"
+CONTAINER_DEVICE_DIRECTORY = ".mpk-dev"
+CONTAINER_DEVICES = {
+    "null": (1, 3),
+    "zero": (1, 5),
+    "full": (1, 7),
+    "random": (1, 8),
+    "urandom": (1, 9),
+}
+CONTAINER_DEVICE_LINKS = {
+    "fd": "/proc/self/fd",
+    "stdin": "/proc/self/fd/0",
+    "stdout": "/proc/self/fd/1",
+    "stderr": "/proc/self/fd/2",
+}
 
 
 def checked_boundary(value: int, maximum: int, code: str) -> int:
@@ -1435,18 +1479,12 @@ def run_checked(
     argv: list[str],
     *,
     environment: dict[str, str] | None = None,
-    target_root: Path | None = None,
-    target_file_limit: int | None = None,
-    target_byte_limit: int | None = None,
     docker_cleanup: tuple[str, str] | None = None,
 ) -> subprocess.CompletedProcess[bytes]:
     result = run_bounded(
         argv,
-        stdout_limit=FROZEN_PROCESS_LIMITS["stdout_bytes"],
-        stderr_limit=FROZEN_PROCESS_LIMITS["stderr_bytes"],
-        target_root=target_root,
-        target_file_limit=target_file_limit,
-        target_byte_limit=target_byte_limit,
+        stdout_limit=FROZEN_RESOURCE_LIMITS["stdout_bytes"],
+        stderr_limit=FROZEN_RESOURCE_LIMITS["stderr_bytes"],
         environment=environment,
         docker_cleanup=docker_cleanup,
     )
@@ -1493,35 +1531,12 @@ def run_bounded(
     *,
     stdout_limit: int,
     stderr_limit: int,
-    target_root: Path | None = None,
-    target_file_limit: int | None = None,
-    target_byte_limit: int | None = None,
     environment: dict[str, str] | None = None,
     docker_cleanup: tuple[str, str] | None = None,
+    ready_check: Callable[[subprocess.Popen[bytes]], None] | None = None,
 ) -> subprocess.CompletedProcess[bytes]:
-    target_values = (target_root, target_file_limit, target_byte_limit)
-    if any(value is not None for value in target_values) and any(
-        value is None for value in target_values
-    ):
-        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
     checked_boundary(0, stdout_limit, "BUNDLE_REPRODUCIBILITY_MISMATCH")
     checked_boundary(0, stderr_limit, "BUNDLE_REPRODUCIBILITY_MISMATCH")
-    if target_file_limit is not None and target_byte_limit is not None:
-        checked_boundary(0, target_file_limit, "BUNDLE_REPRODUCIBILITY_MISMATCH")
-        checked_boundary(0, target_byte_limit, "BUNDLE_REPRODUCIBILITY_MISMATCH")
-
-    def check_target() -> None:
-        if (
-            target_root is not None
-            and target_file_limit is not None
-            and target_byte_limit is not None
-        ):
-            checked_directory_usage(
-                target_root,
-                file_limit=target_file_limit,
-                byte_limit=target_byte_limit,
-                allow_churn=True,
-            )
 
     if docker_cleanup is not None:
         executable, name = docker_cleanup
@@ -1529,6 +1544,7 @@ def run_bounded(
             raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
     process: subprocess.Popen[bytes] | None = None
     streams: selectors.BaseSelector | None = None
+    cleanup_cause: OSError | None = None
     try:
         try:
             process = subprocess.Popen(
@@ -1553,6 +1569,8 @@ def run_bounded(
             streams.get_key(process.stdout).data[0],
             streams.get_key(process.stderr).data[0],
         ]
+        if ready_check is not None:
+            ready_check(process)
         while streams.get_map() or process.poll() is None:
             events = streams.select(timeout=0.1) if streams.get_map() else ()
             for key, _events in events:
@@ -1566,23 +1584,1897 @@ def run_bounded(
                     process.kill()
                     process.wait()
                     raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
-            check_target()
             if not streams.get_map() and process.poll() is None:
                 try:
                     process.wait(timeout=0.1)
                 except subprocess.TimeoutExpired:
                     pass
         return_code = process.wait()
-        check_target()
         return subprocess.CompletedProcess(argv, return_code, bytes(buffers[0]), bytes(buffers[1]))
+    except OSError as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
     finally:
         if streams is not None:
             streams.close()
         if process is not None and process.poll() is None:
-            process.kill()
-            process.wait()
+            try:
+                process.kill()
+                process.wait()
+            except OSError as error:
+                cleanup_cause = error
         if docker_cleanup is not None:
             remove_docker_container(*docker_cleanup)
+        if cleanup_cause is not None:
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from cleanup_cause
+
+
+def read_bounded_proc_file(path: Path, maximum: int) -> bytes:
+    result = bytearray()
+    try:
+        with path.open("rb", buffering=0) as stream:
+            while True:
+                block = stream.read(min(65_536, maximum - len(result) + 1))
+                if not block:
+                    return bytes(result)
+                result.extend(block)
+                if len(result) > maximum:
+                    raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    except OSError as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+
+
+def mountinfo_unescape(value: str) -> str:
+    try:
+        return re.sub(
+            r"\\([0-7]{3})",
+            lambda match: chr(int(match.group(1), 8)),
+            value,
+        )
+    except (ValueError, OverflowError) as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+
+
+def mount_record(
+    expected: str, mountinfo_path: Path
+) -> tuple[str, str, frozenset[str]] | None:
+    transport = read_bounded_proc_file(mountinfo_path, 16_777_216)
+    try:
+        lines = transport.decode("utf-8").splitlines()
+    except UnicodeDecodeError as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    for line in lines:
+        fields = line.split()
+        if len(fields) < 10 or "-" not in fields:
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+        separator = fields.index("-")
+        if separator + 3 >= len(fields):
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+        if mountinfo_unescape(fields[4]) != expected:
+            continue
+        options = frozenset(
+            fields[5].split(",") + fields[separator + 3].split(",")
+        )
+        return (
+            fields[separator + 1],
+            mountinfo_unescape(fields[separator + 2]),
+            options,
+        )
+    return None
+
+
+def host_mount_record(path: Path) -> tuple[str, str, frozenset[str]] | None:
+    return mount_record(str(path.resolve()), Path("/proc/self/mountinfo"))
+
+
+def filesystem_mount_records(
+    filesystem: str, mountinfo_path: Path
+) -> tuple[tuple[str, str, str, frozenset[str]], ...]:
+    if re.fullmatch(r"[a-z0-9]+", filesystem) is None:
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    transport = read_bounded_proc_file(mountinfo_path, 16_777_216)
+    try:
+        lines = transport.decode("utf-8").splitlines()
+    except UnicodeDecodeError as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    result: list[tuple[str, str, str, frozenset[str]]] = []
+    for line in lines:
+        fields = line.split()
+        if len(fields) < 10 or "-" not in fields:
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+        separator = fields.index("-")
+        if separator + 3 >= len(fields):
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+        if fields[separator + 1] != filesystem:
+            continue
+        result.append(
+            (
+                mountinfo_unescape(fields[3]),
+                mountinfo_unescape(fields[4]),
+                mountinfo_unescape(fields[separator + 2]),
+                frozenset(
+                    fields[5].split(",") + fields[separator + 3].split(",")
+                ),
+            )
+        )
+    return tuple(result)
+
+
+def validate_host_tmpfs(
+    path: Path, *, source: str, allocated_bytes: int, inodes: int
+) -> None:
+    record = host_mount_record(path)
+    if record is None:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    filesystem, observed_source, options = record
+    try:
+        usage = os.statvfs(path)
+        metadata = path.lstat()
+    except OSError as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    capacity = usage.f_frsize * usage.f_blocks
+    required_flags = (
+        getattr(os, "ST_NOSUID", 0),
+        getattr(os, "ST_NODEV", 0),
+    )
+    if (
+        filesystem != "tmpfs"
+        or observed_source != source
+        or not {"rw", "nosuid", "nodev", "noswap"} <= options
+        or "noexec" in options
+        or capacity != allocated_bytes
+        or capacity < 0
+        or capacity > U64_MAX
+        or usage.f_files != inodes
+        or any(flag == 0 or not usage.f_flag & flag for flag in required_flags)
+        or not stat.S_ISDIR(metadata.st_mode)
+        or stat.S_IMODE(metadata.st_mode) != 0o700
+    ):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+
+
+def require_host_kernel_abi(minimum: str) -> None:
+    expected = re.fullmatch(r"(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)", minimum)
+    try:
+        observed_value = os.uname()
+    except OSError as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    observed = re.match(
+        r"(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)",
+        observed_value.release,
+    )
+    if expected is None or observed_value.sysname != "Linux" or observed is None:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    expected_parts = tuple(int(value) for value in expected.groups())
+    observed_parts = tuple(int(value) for value in observed.groups())
+    if observed_parts < expected_parts:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+
+
+def linux_mount_tmpfs(
+    source: str, target: Path, *, allocated_bytes: int, inodes: int
+) -> None:
+    try:
+        library = ctypes.CDLL(None, use_errno=True)
+        mount = library.mount
+        mount.argtypes = [
+            ctypes.c_char_p,
+            ctypes.c_char_p,
+            ctypes.c_char_p,
+            ctypes.c_ulong,
+            ctypes.c_char_p,
+        ]
+        mount.restype = ctypes.c_int
+    except (AttributeError, OSError) as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    data = (
+        f"size={allocated_bytes},nr_inodes={inodes},mode=0700,noswap"
+    ).encode("ascii")
+    ctypes.set_errno(0)
+    result = mount(
+        source.encode("ascii"),
+        os.fsencode(target),
+        b"tmpfs",
+        0x00000002 | 0x00000004,
+        data,
+    )
+    if result != 0:
+        error = ctypes.get_errno()
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from OSError(
+            error, os.strerror(error), target
+        )
+
+
+def linux_unmount(target: Path) -> None:
+    try:
+        library = ctypes.CDLL(None, use_errno=True)
+        unmount = library.umount2
+        unmount.argtypes = [ctypes.c_char_p, ctypes.c_int]
+        unmount.restype = ctypes.c_int
+    except (AttributeError, OSError) as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    ctypes.set_errno(0)
+    result = unmount(os.fsencode(target), 0)
+    if result != 0:
+        error = ctypes.get_errno()
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from OSError(
+            error, os.strerror(error), target
+        )
+
+
+def linux_bind_mount(source: Path, target: Path, *, noexec: bool) -> None:
+    try:
+        library = ctypes.CDLL(None, use_errno=True)
+        mount = library.mount
+        mount.argtypes = [
+            ctypes.c_char_p,
+            ctypes.c_char_p,
+            ctypes.c_char_p,
+            ctypes.c_ulong,
+            ctypes.c_char_p,
+        ]
+        mount.restype = ctypes.c_int
+    except (AttributeError, OSError) as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    bind = 0x00001000
+    remount = 0x00000020
+    flags = bind | remount | 0x00000002 | 0x00000004
+    if noexec:
+        flags |= 0x00000008
+    ctypes.set_errno(0)
+    if mount(os.fsencode(source), os.fsencode(target), None, bind, None) != 0:
+        error = ctypes.get_errno()
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from OSError(
+            error, os.strerror(error), target
+        )
+    ctypes.set_errno(0)
+    if mount(None, os.fsencode(target), None, flags, None) != 0:
+        error = ctypes.get_errno()
+        try:
+            linux_unmount(target)
+        except RustBuildFailure as cleanup_error:
+            raise cleanup_error from OSError(error, os.strerror(error), target)
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from OSError(
+            error, os.strerror(error), target
+        )
+
+
+def validate_writable_directory(path: Path) -> None:
+    try:
+        metadata = path.lstat()
+    except OSError as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    if (
+        not stat.S_ISDIR(metadata.st_mode)
+        or stat.S_ISLNK(metadata.st_mode)
+        or stat.S_IMODE(metadata.st_mode) != 0o700
+        or metadata.st_uid != OUTER_SANDBOX_ID
+        or metadata.st_gid != OUTER_SANDBOX_ID
+    ):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+
+
+def validate_host_tmpfs_view(path: Path, *, source: str, noexec: bool) -> None:
+    validate_writable_directory(path)
+    record = host_mount_record(path)
+    expected_options = {"rw", "nosuid", "nodev"}
+    if noexec:
+        expected_options.add("noexec")
+    if (
+        record is None
+        or record[0] != "tmpfs"
+        or record[1] != source
+        or not expected_options <= record[2]
+        or (not noexec and "noexec" in record[2])
+    ):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+
+
+@contextmanager
+def _mounted_writable_workspace(
+    root: Path, *, allocated_bytes: int, inodes: int
+) -> Iterator[dict[str, Path]]:
+    checked_boundary(allocated_bytes, U64_MAX, "BUNDLE_REPRODUCIBILITY_MISMATCH")
+    checked_boundary(inodes, U64_MAX, "BUNDLE_REPRODUCIBILITY_MISMATCH")
+    try:
+        metadata = root.lstat()
+        if (
+            not stat.S_ISDIR(metadata.st_mode)
+            or stat.S_ISLNK(metadata.st_mode)
+            or any(root.iterdir())
+            or host_mount_record(root) is not None
+        ):
+            raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    except OSError as error:
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH") from error
+
+    source = f"mpk-writable-{os.getpid()}-{secrets.token_hex(8)}"
+    mounted = False
+    paths: dict[str, Path] = {}
+    operation_error: BaseException | None = None
+    try:
+        linux_mount_tmpfs(
+            source,
+            root,
+            allocated_bytes=allocated_bytes,
+            inodes=inodes,
+        )
+        mounted = True
+        validate_host_tmpfs(
+            root,
+            source=source,
+            allocated_bytes=allocated_bytes,
+            inodes=inodes,
+        )
+        paths = {name: root / name for name in ("home", "cargo-home", "tmp", "target")}
+        for path in paths.values():
+            path.mkdir(mode=0o700)
+            os.chown(path, OUTER_SANDBOX_ID, OUTER_SANDBOX_ID, follow_symlinks=False)
+            validate_writable_directory(path)
+        for name in ("home", "cargo-home", "tmp"):
+            linux_bind_mount(paths[name], paths[name], noexec=True)
+            validate_host_tmpfs_view(paths[name], source=source, noexec=True)
+        validate_host_tmpfs(
+            root,
+            source=source,
+            allocated_bytes=allocated_bytes,
+            inodes=inodes,
+        )
+        yield paths
+    except BaseException as error:
+        operation_error = error
+        raise
+    finally:
+        cleanup_failed = False
+        for name in reversed(("home", "cargo-home", "tmp")):
+            path = paths.get(name)
+            if path is None:
+                continue
+            record = host_mount_record(path)
+            if record is None:
+                continue
+            if record[0] != "tmpfs" or record[1] != source:
+                cleanup_failed = True
+                continue
+            try:
+                linux_unmount(path)
+            except RustBuildFailure:
+                cleanup_failed = True
+        record = host_mount_record(root)
+        owned_mount = (
+            record is not None
+            and record[0] == "tmpfs"
+            and record[1] == source
+        )
+        cleanup_failed = cleanup_failed or (record is not None and not owned_mount)
+        if owned_mount:
+            try:
+                linux_unmount(root)
+                cleanup_failed = (
+                    host_mount_record(root) is not None or any(root.iterdir())
+                )
+            except (OSError, RustBuildFailure):
+                cleanup_failed = True
+        elif mounted:
+            cleanup_failed = True
+        if cleanup_failed:
+            cleanup_error = RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+            if operation_error is None:
+                raise cleanup_error
+            raise cleanup_error from operation_error
+
+
+@contextmanager
+def mounted_writable_workspace(
+    root: Path, limits: dict[str, int]
+) -> Iterator[dict[str, Path]]:
+    if limits != FROZEN_RESOURCE_LIMITS:
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    require_host_kernel_abi(RUST_MINIMUM_KERNEL_ABI)
+    with _mounted_writable_workspace(
+        root,
+        allocated_bytes=limits["writable_allocated_bytes"],
+        inodes=limits["writable_inodes"],
+    ) as paths:
+        yield paths
+
+
+def validate_writable_workspace(
+    paths: dict[str, Path], limits: dict[str, int]
+) -> None:
+    names = ("home", "cargo-home", "tmp", "target")
+    if (
+        limits != FROZEN_RESOURCE_LIMITS
+        or set(paths) != set(names)
+        or any(not isinstance(path, Path) for path in paths.values())
+    ):
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    root = paths["target"].parent
+    if any(paths[name] != root / name for name in names):
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    record = host_mount_record(root)
+    if (
+        root.resolve() != root
+        or record is None
+        or re.fullmatch(r"mpk-writable-[1-9][0-9]*-[0-9a-f]{16}", record[1])
+        is None
+    ):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    validate_host_tmpfs(
+        root,
+        source=record[1],
+        allocated_bytes=limits["writable_allocated_bytes"],
+        inodes=limits["writable_inodes"],
+    )
+    for name in ("home", "cargo-home", "tmp"):
+        validate_host_tmpfs_view(paths[name], source=record[1], noexec=True)
+    validate_writable_directory(paths["target"])
+    if host_mount_record(paths["target"]) is not None:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+
+
+def read_cgroup_file(path: Path, maximum: int = 65_536) -> bytes:
+    descriptor = -1
+    try:
+        descriptor = os.open(
+            path,
+            os.O_RDONLY | os.O_CLOEXEC | getattr(os, "O_NOFOLLOW", 0),
+        )
+        metadata = os.fstat(descriptor)
+        if not stat.S_ISREG(metadata.st_mode):
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+        result = bytearray()
+        while True:
+            block = os.read(descriptor, min(4_096, maximum - len(result) + 1))
+            if not block:
+                return bytes(result)
+            result.extend(block)
+            if len(result) > maximum:
+                raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    except OSError as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    finally:
+        if descriptor >= 0:
+            os.close(descriptor)
+
+
+def write_cgroup_file(path: Path, value: str) -> None:
+    if "\0" in value or not value:
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    descriptor = -1
+    try:
+        descriptor = os.open(
+            path,
+            os.O_WRONLY | os.O_CLOEXEC | getattr(os, "O_NOFOLLOW", 0),
+        )
+        metadata = os.fstat(descriptor)
+        transport = value.encode("ascii")
+        if not stat.S_ISREG(metadata.st_mode) or os.write(descriptor, transport) != len(
+            transport
+        ):
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    except (OSError, UnicodeEncodeError) as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    finally:
+        if descriptor >= 0:
+            os.close(descriptor)
+
+
+def cgroup_words(path: Path) -> frozenset[str]:
+    try:
+        value = read_cgroup_file(path).decode("ascii")
+    except UnicodeDecodeError as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    words = value.split()
+    if any(re.fullmatch(r"[a-z][a-z0-9_]*", word) is None for word in words):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    return frozenset(words)
+
+
+def cgroup_scalar(path: Path) -> int | str:
+    try:
+        value = read_cgroup_file(path).decode("ascii")
+    except UnicodeDecodeError as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    if value == "max\n":
+        return "max"
+    if re.fullmatch(r"(?:0|[1-9][0-9]*)\n", value) is None:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    observed = int(value)
+    if observed > U64_MAX:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    return observed
+
+
+def cgroup_counters(path: Path) -> dict[str, int]:
+    try:
+        transport = read_cgroup_file(path).decode("ascii")
+    except UnicodeDecodeError as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    if not transport.endswith("\n"):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    result: dict[str, int] = {}
+    for line in transport.splitlines():
+        fields = line.split(" ")
+        if (
+            len(fields) != 2
+            or re.fullmatch(r"[a-z][a-z0-9_]*", fields[0]) is None
+            or re.fullmatch(r"0|[1-9][0-9]*", fields[1]) is None
+            or fields[0] in result
+        ):
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+        value = int(fields[1])
+        if value > U64_MAX:
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+        result[fields[0]] = value
+    return result
+
+
+def cgroup_processes(path: Path) -> frozenset[int]:
+    try:
+        transport = read_cgroup_file(path).decode("ascii")
+    except UnicodeDecodeError as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    result: set[int] = set()
+    for line in transport.splitlines():
+        if re.fullmatch(r"[1-9][0-9]*", line) is None:
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+        result.add(int(line))
+    return frozenset(result)
+
+
+def cgroup_children(path: Path) -> tuple[Path, ...]:
+    try:
+        children = []
+        with os.scandir(path) as entries:
+            for entry in entries:
+                if entry.is_symlink():
+                    raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+                if entry.is_dir(follow_symlinks=False):
+                    children.append(path / entry.name)
+        return tuple(sorted(children, key=lambda child: os.fsencode(child.name)))
+    except OSError as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+
+
+def validate_cgroup2_root() -> None:
+    record = host_mount_record(CGROUP2_ROOT)
+    cgroup2_mounts = filesystem_mount_records(
+        "cgroup2", Path("/proc/self/mountinfo")
+    )
+    try:
+        metadata = CGROUP2_ROOT.lstat()
+        cgroup_namespace = Path("/proc/self/ns/cgroup").stat()
+    except OSError as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    if (
+        record is None
+        or record[0] != "cgroup2"
+        or record[1] != "cgroup2"
+        or not {"rw", "nosuid", "nodev", "noexec"} <= record[2]
+        or len(cgroup2_mounts) != 1
+        or cgroup2_mounts[0][0] != "/"
+        or cgroup2_mounts[0][1] != str(CGROUP2_ROOT)
+        or cgroup2_mounts[0][2] != "cgroup2"
+        or cgroup2_mounts[0][3] != record[2]
+        or not stat.S_ISDIR(metadata.st_mode)
+        or stat.S_ISLNK(metadata.st_mode)
+        or cgroup_namespace.st_ino != INITIAL_CGROUP_NAMESPACE_INODE
+        or CGROUP2_ROOT.resolve() != CGROUP2_ROOT
+        or any(
+            os.path.lexists(CGROUP2_ROOT / name)
+            for name in (
+                "pids.max",
+                "memory.max",
+                "memory.high",
+                "memory.swap.max",
+            )
+        )
+        or not {"memory", "pids"}
+        <= cgroup_words(CGROUP2_ROOT / "cgroup.controllers")
+        or not {"memory", "pids"}
+        <= cgroup_words(CGROUP2_ROOT / "cgroup.subtree_control")
+    ):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+
+
+def configure_cgroup_parent(path: Path, limits: dict[str, int]) -> None:
+    if limits != FROZEN_RESOURCE_LIMITS:
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    if cgroup_processes(path / "cgroup.procs") or cgroup_processes(
+        path / "cgroup.threads"
+    ):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    subtree_control = path / "cgroup.subtree_control"
+    enabled_controllers = cgroup_words(subtree_control)
+    extra_controllers = enabled_controllers - {"memory", "pids"}
+    if extra_controllers:
+        write_cgroup_file(
+            subtree_control,
+            " ".join(f"-{name}" for name in sorted(extra_controllers)),
+        )
+    write_cgroup_file(subtree_control, "+memory +pids")
+    write_cgroup_file(path / "pids.max", str(limits["cgroup_tasks"]))
+    write_cgroup_file(path / "memory.max", str(limits["cgroup_memory_bytes"]))
+    write_cgroup_file(path / "memory.high", "max")
+    write_cgroup_file(path / "memory.swap.max", str(limits["cgroup_swap_bytes"]))
+    if (
+        cgroup_words(subtree_control) != {"memory", "pids"}
+        or cgroup_scalar(path / "pids.max") != limits["cgroup_tasks"]
+        or cgroup_scalar(path / "memory.max") != limits["cgroup_memory_bytes"]
+        or cgroup_scalar(path / "memory.high") != "max"
+        or cgroup_scalar(path / "memory.swap.max") != limits["cgroup_swap_bytes"]
+    ):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+
+
+def require_zero_resource_events(path: Path, memory_file: str, memory_max: int) -> None:
+    pids = cgroup_counters(path / "pids.events")
+    memory = cgroup_counters(path / memory_file)
+    peak = cgroup_scalar(path / "memory.peak")
+    required_memory = ("high", "max", "oom", "oom_kill")
+    if "max" not in pids or any(name not in memory for name in required_memory):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    if (
+        pids["max"] != 0
+        or any(memory[name] != 0 for name in required_memory)
+        or memory.get("oom_group_kill", 0) != 0
+        or not isinstance(peak, int)
+        or peak > memory_max
+    ):
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+
+
+def validate_empty_cgroup_parent(path: Path, *, initial: bool) -> None:
+    events = cgroup_counters(path / "cgroup.events")
+    group_stat = cgroup_counters(path / "cgroup.stat")
+    if (
+        cgroup_processes(path / "cgroup.procs")
+        or cgroup_processes(path / "cgroup.threads")
+        or cgroup_children(path)
+        or events.get("populated") != 0
+        or events.get("frozen") != 0
+        or group_stat.get("nr_descendants") != 0
+        or group_stat.get("nr_dying_descendants") is None
+        or (initial and group_stat.get("nr_dying_descendants") != 0)
+    ):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    require_zero_resource_events(
+        path, "memory.events", FROZEN_RESOURCE_LIMITS["cgroup_memory_bytes"]
+    )
+    if initial and cgroup_scalar(path / "memory.peak") != 0:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+
+
+@contextmanager
+def delegated_cgroup_parent(
+    limits: dict[str, int],
+) -> Iterator[tuple[str, Path]]:
+    if limits != FROZEN_RESOURCE_LIMITS:
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    validate_cgroup2_root()
+    unit = f"mpkcg{os.getpid():x}{secrets.token_hex(8)}.slice"
+    if re.fullmatch(r"mpkcg[0-9a-f]+\.slice", unit) is None:
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    path = CGROUP2_ROOT / unit
+    created = False
+    operation_error: BaseException | None = None
+    try:
+        os.mkdir(path, 0o755)
+        created = True
+        configure_cgroup_parent(path, limits)
+        validate_empty_cgroup_parent(path, initial=True)
+        yield unit, path
+    except OSError as error:
+        operation_error = error
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    except BaseException as error:
+        operation_error = error
+        raise
+    finally:
+        cleanup_failed = False
+        validation_error: RustBuildFailure | None = None
+        if created:
+            deadline = time.monotonic() + 5.0
+            while cgroup_children(path) and time.monotonic() < deadline:
+                time.sleep(0.01)
+            try:
+                if (
+                    cgroup_processes(path / "cgroup.procs")
+                    or cgroup_processes(path / "cgroup.threads")
+                    or cgroup_children(path)
+                ):
+                    cleanup_failed = True
+                else:
+                    try:
+                        validate_empty_cgroup_parent(path, initial=False)
+                    except RustBuildFailure as error:
+                        validation_error = error
+                    os.rmdir(path)
+                    if os.path.lexists(path):
+                        cleanup_failed = True
+            except OSError:
+                cleanup_failed = True
+        if cleanup_failed:
+            cleanup_error = RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+            if operation_error is None:
+                raise cleanup_error
+            raise cleanup_error from operation_error
+        if validation_error is not None:
+            if operation_error is None:
+                raise validation_error
+            raise validation_error from operation_error
+
+
+def docker_info(executable: str) -> dict[str, object]:
+    result = run_bounded(
+        [executable, "info", "--format", "{{json .}}"],
+        stdout_limit=1_048_576,
+        stderr_limit=65_536,
+    )
+    if result.returncode != 0 or result.stderr:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    try:
+        value = json.loads(result.stdout)
+    except (UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    if (
+        not isinstance(value, dict)
+        or value.get("CgroupVersion") != "2"
+        or value.get("CgroupDriver") != "systemd"
+        or value.get("OSType") != "linux"
+        or value.get("MemoryLimit") is not True
+        or value.get("PidsLimit") is not True
+        or value.get("SwapLimit") is not True
+        or value.get("SecurityOptions")
+        != [
+            "name=apparmor",
+            "name=seccomp,profile=builtin",
+            "name=cgroupns",
+        ]
+    ):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    return value
+
+
+def inspect_docker_container(executable: str, identifier: str) -> dict[str, object]:
+    result = run_bounded(
+        [executable, "inspect", identifier],
+        stdout_limit=1_048_576,
+        stderr_limit=65_536,
+    )
+    if result.returncode != 0 or result.stderr:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    try:
+        values = json.loads(result.stdout)
+    except (UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    if not isinstance(values, list) or len(values) != 1 or not isinstance(values[0], dict):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    return values[0]
+
+
+def shell_resource_limit_checks(limits: dict[str, int]) -> str:
+    virtual_memory_kib = limits["virtual_memory_bytes_per_process"] // 1024
+    return (
+        f'test "$(ulimit -n)" = {limits["open_files_per_process"]}; '
+        f'test "$(ulimit -v)" = {virtual_memory_kib}; '
+        'test "$(ulimit -f)" = unlimited; '
+        "limit_lines=0; while read -r first second third fourth fifth sixth seventh; do "
+        'case "$first:$second:$third" in '
+        'Max:file:size) test "$fourth:$fifth:$sixth:$seventh" = '
+        '"unlimited:unlimited:bytes:"; limit_lines=$((limit_lines + 1));; '
+        'Max:processes:unlimited) test "$fourth:$fifth:$sixth:$seventh" = '
+        '"unlimited:processes::"; limit_lines=$((limit_lines + 1));; '
+        "esac; done </proc/self/limits; test \"$limit_lines\" = 2; "
+    )
+
+
+def shell_process_status_checks() -> str:
+    return (
+        "status_capabilities=0; status_no_new_privs=0; status_seccomp=0; "
+        "while read -r name value extra; do case \"$name\" in "
+        "CapInh:|CapPrm:|CapEff:|CapBnd:|CapAmb:) "
+        'test "$value" = 0000000000000000; test -z "$extra"; '
+        "status_capabilities=$((status_capabilities + 1));; "
+        'NoNewPrivs:) test "$value" = 1; test -z "$extra"; '
+        "status_no_new_privs=$((status_no_new_privs + 1));; "
+        'Seccomp:) test "$value" = 0; test -z "$extra"; '
+        "status_seccomp=$((status_seccomp + 1));; "
+        "esac; done </proc/self/status; "
+        'test "$status_capabilities:$status_no_new_privs:$status_seccomp" = "5:1:1"; '
+    )
+
+
+def sandboxed_initial_command(
+    command: list[str], limits: dict[str, int]
+) -> list[str]:
+    # Docker's built-in seccomp profile rejects unshare(2) on the frozen host.
+    # The container therefore uses seccomp=unconfined, while AppArmor, an empty
+    # capability set, no-new-privileges, read-only root, and network=none are
+    # all inspected before this bootstrap is allowed to release the payload.
+    if (
+        not command
+        or any(not isinstance(value, str) or "\0" in value for value in command)
+        or not command[0].startswith("/")
+        or limits != FROZEN_RESOURCE_LIMITS
+    ):
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    virtual_memory_kib = limits["virtual_memory_bytes_per_process"] // 1024
+    resource_limit_checks = shell_resource_limit_checks(limits)
+    process_status_checks = shell_process_status_checks()
+    bootstrap_library_path = "/mpk/native-sysroot/lib/x86_64-linux-gnu"
+    bootstrap_perl_path = "/mpk/native-sysroot/usr/lib/x86_64-linux-gnu/perl-base"
+    # The frozen x86-64 runtime has no setpriv/capsh. This fixed Perl helper
+    # invokes x86-64 prctl(2)/capset(2) directly, locks every securebit that
+    # can prevent later privilege regain, empties the capability bounding set,
+    # and verifies the resulting process state before it execs the gated shell.
+    capability_drop_script = (
+        "use strict; use warnings; "
+        "sub checked_prctl { my ($operation, @arguments) = @_; "
+        "push @arguments, (0) x (4 - scalar @arguments); "
+        "my $result = syscall(157, $operation, @arguments); "
+        "die qq{prctl $operation: $!} if $result < 0; return $result; } "
+        "my $post_capability_script = shift @ARGV; "
+        "defined($post_capability_script) or die q{missing post script}; "
+        # NOROOT+lock, NO_SETUID_FIXUP+lock, KEEP_CAPS locked off, and
+        # NO_CAP_AMBIENT_RAISE+lock.
+        "checked_prctl(28, 239); "
+        "open(my $last_capability_file, q{<}, "
+        "q{/proc/sys/kernel/cap_last_cap}) or die $!; "
+        "my $last_capability = <$last_capability_file>; "
+        "close($last_capability_file) or die $!; "
+        "$last_capability =~ /\\A(?:0|[1-9][0-9]?)\\n\\z/ "
+        "&& $last_capability <= 63 or die q{invalid cap_last_cap}; "
+        "for my $capability (0 .. $last_capability) { "
+        "checked_prctl(24, $capability); } "
+        # PR_CAP_AMBIENT_CLEAR_ALL, followed by a version-3 capset with both
+        # 32-bit data words empty.
+        "checked_prctl(47, 4); "
+        "my $header = pack(q{L2}, 0x20080522, 0); "
+        "my $data = pack(q{L6}, (0) x 6); "
+        "syscall(126, $header, $data) == 0 or die qq{capset: $!}; "
+        "checked_prctl(27) == 239 or die q{securebits changed}; "
+        "open(my $status_file, q{<}, q{/proc/self/status}) or die $!; "
+        "local $/; my $status = <$status_file>; "
+        "close($status_file) or die $!; "
+        "my $zero_capabilities = () = $status =~ "
+        "m{^Cap(?:Inh|Prm|Eff|Bnd|Amb):\\s+0000000000000000$}mg; "
+        "$zero_capabilities == 5 or die q{capabilities remain}; "
+        "$status =~ m{^NoNewPrivs:\\s+1$}m or die q{no_new_privs cleared}; "
+        "exec {q{/bin/sh}} q{/bin/sh}, q{-ceu}, $post_capability_script, "
+        "q{mpk-capability-free}, @ARGV; die qq{exec: $!};"
+    )
+    outer_script = (
+        f"ulimit -v {virtual_memory_kib}; "
+        f"{resource_limit_checks}"
+        f"LD_LIBRARY_PATH={bootstrap_library_path}; "
+        f"PERL5LIB={bootstrap_perl_path}; export LD_LIBRARY_PATH PERL5LIB; "
+        f"test \"$(/usr/bin/id -u):$(/usr/bin/id -g)\" = "
+        f"{OUTER_SANDBOX_ID}:{OUTER_SANDBOX_ID}; "
+        f"test \"$(/usr/bin/id -G)\" = {OUTER_SANDBOX_ID}; "
+        f"{process_status_checks}"
+        "outer_user=$(/bin/readlink /proc/self/ns/user); "
+        "outer_mnt=$(/bin/readlink /proc/self/ns/mnt); "
+        "inner_script=$1; capability_drop=$2; post_capability=$3; shift 3; "
+        "exec /usr/bin/env -i LD_LIBRARY_PATH=\"$LD_LIBRARY_PATH\" "
+        "PERL5LIB=\"$PERL5LIB\" "
+        "/usr/bin/unshare --user --map-root-user "
+        "--mount --propagation unchanged /bin/sh -ceu \"$inner_script\" "
+        "mpk-inner \"$outer_user\" \"$outer_mnt\" \"$capability_drop\" "
+        "\"$post_capability\" \"$@\""
+    )
+    inner_script = (
+        "uid_lines=0; while IFS=' ' read -r inside outside length extra; do "
+        "uid_lines=$((uid_lines + 1)); "
+        f"test \"$inside:$outside:$length:$extra\" = \"0:{OUTER_SANDBOX_ID}:1:\"; "
+        "done </proc/self/uid_map; test \"$uid_lines\" = 1; "
+        "gid_lines=0; while IFS=' ' read -r inside outside length extra; do "
+        "gid_lines=$((gid_lines + 1)); "
+        f"test \"$inside:$outside:$length:$extra\" = \"0:{OUTER_SANDBOX_ID}:1:\"; "
+        "done </proc/self/gid_map; test \"$gid_lines\" = 1; "
+        "setgroups_lines=0; while IFS= read -r value; do "
+        "setgroups_lines=$((setgroups_lines + 1)); test \"$value\" = deny; "
+        "done </proc/self/setgroups; test \"$setgroups_lines\" = 1; "
+        "test \"$(/usr/bin/id -u):$(/usr/bin/id -g)\" = 0:0; "
+        "test \"$(/usr/bin/id -G)\" = 0; "
+        "outer_user=$1; outer_mnt=$2; capability_drop=$3; "
+        "post_capability=$4; shift 4; "
+        "inner_user=$(/bin/readlink /proc/self/ns/user); "
+        "inner_mnt=$(/bin/readlink /proc/self/ns/mnt); "
+        "test \"$inner_user\" != \"$outer_user\"; "
+        "test \"$inner_mnt\" != \"$outer_mnt\"; "
+        "exec /usr/bin/perl -e \"$capability_drop\" -- "
+        "\"$post_capability\" \"$outer_user\" \"$outer_mnt\" \"$@\""
+    )
+    post_capability_script = (
+        f"{resource_limit_checks}"
+        "test \"$(/usr/bin/id -u):$(/usr/bin/id -g)\" = 0:0; "
+        "test \"$(/usr/bin/id -G)\" = 0; "
+        f"{process_status_checks}"
+        "outer_user=$1; outer_mnt=$2; shift 2; "
+        "inner_user=$(/bin/readlink /proc/self/ns/user); "
+        "inner_mnt=$(/bin/readlink /proc/self/ns/mnt); "
+        "umask 077; set -C; "
+        f"printf '%s\\n%s\\n%s\\n%s\\n' \"$outer_user\" \"$inner_user\" "
+        f"\"$outer_mnt\" \"$inner_mnt\" > /mpk/tmp/{CONTAINER_READY_NAME}; "
+        f"IFS= read -r gate </mpk/tmp/{CONTAINER_GO_NAME}; test \"$gate\" = go; "
+        f"/bin/rm -- /mpk/tmp/{CONTAINER_READY_NAME} /mpk/tmp/{CONTAINER_GO_NAME}; "
+        "if test -e /mpk/cargo-home/config.toml; then "
+        "/usr/bin/cmp --silent /mpk/cargo-home-seed.toml "
+        "/mpk/cargo-home/config.toml; else "
+        "/bin/cp -- /mpk/cargo-home-seed.toml /mpk/cargo-home/config.toml; "
+        "/bin/chmod 0444 /mpk/cargo-home/config.toml; fi; "
+        'exec /usr/bin/env -i "$@"'
+    )
+    return [
+        "/bin/sh",
+        "-ceu",
+        outer_script,
+        "mpk-outer",
+        inner_script,
+        capability_drop_script,
+        post_capability_script,
+        *command,
+    ]
+
+
+@contextmanager
+def container_launch_gate(
+    writable_paths: dict[str, Path],
+) -> Iterator[tuple[Path, Path]]:
+    if set(writable_paths) != {"home", "cargo-home", "tmp", "target"}:
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    temporary = writable_paths["tmp"]
+    validate_writable_directory(temporary)
+    ready = temporary / CONTAINER_READY_NAME
+    go = temporary / CONTAINER_GO_NAME
+    if os.path.lexists(ready) or os.path.lexists(go):
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    operation_error: BaseException | None = None
+    try:
+        os.mkfifo(go, 0o600)
+        os.chown(go, OUTER_SANDBOX_ID, OUTER_SANDBOX_ID, follow_symlinks=False)
+        metadata = go.lstat()
+        if (
+            not stat.S_ISFIFO(metadata.st_mode)
+            or stat.S_IMODE(metadata.st_mode) != 0o600
+            or metadata.st_uid != OUTER_SANDBOX_ID
+            or metadata.st_gid != OUTER_SANDBOX_ID
+        ):
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+        yield ready, go
+    except OSError as error:
+        operation_error = error
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    except BaseException as error:
+        operation_error = error
+        raise
+    finally:
+        cleanup_failed = False
+        for path in (ready, go):
+            if not os.path.lexists(path):
+                continue
+            try:
+                path.unlink()
+            except OSError:
+                cleanup_failed = True
+        if cleanup_failed:
+            cleanup_error = RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+            if operation_error is None:
+                raise cleanup_error
+            raise cleanup_error from operation_error
+
+
+def validate_host_device(path: Path, major: int, minor: int) -> None:
+    try:
+        metadata = path.lstat()
+    except OSError as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    if (
+        not stat.S_ISCHR(metadata.st_mode)
+        or stat.S_ISLNK(metadata.st_mode)
+        or os.major(metadata.st_rdev) != major
+        or os.minor(metadata.st_rdev) != minor
+    ):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+
+
+@contextmanager
+def container_device_view(writable_paths: dict[str, Path]) -> Iterator[Path]:
+    temporary = writable_paths.get("tmp")
+    if not isinstance(temporary, Path):
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    validate_writable_directory(temporary)
+    root = temporary / CONTAINER_DEVICE_DIRECTORY
+    if os.path.lexists(root):
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    operation_error: BaseException | None = None
+    try:
+        root.mkdir(mode=0o555)
+        root.chmod(0o555, follow_symlinks=False)
+        for name, (major, minor) in CONTAINER_DEVICES.items():
+            validate_host_device(Path("/dev") / name, major, minor)
+            placeholder = root / name
+            placeholder.touch(mode=0o000)
+            placeholder.chmod(0o000, follow_symlinks=False)
+        for name, target in CONTAINER_DEVICE_LINKS.items():
+            (root / name).symlink_to(target)
+        metadata = root.lstat()
+        if (
+            not stat.S_ISDIR(metadata.st_mode)
+            or stat.S_ISLNK(metadata.st_mode)
+            or stat.S_IMODE(metadata.st_mode) != 0o555
+            or metadata.st_uid != 0
+            or metadata.st_gid != 0
+            or {entry.name for entry in root.iterdir()}
+            != set(CONTAINER_DEVICES) | set(CONTAINER_DEVICE_LINKS)
+        ):
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+        yield root
+    except OSError as error:
+        operation_error = error
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    except BaseException as error:
+        operation_error = error
+        raise
+    finally:
+        cleanup_failed = False
+        for name in (*CONTAINER_DEVICE_LINKS, *CONTAINER_DEVICES):
+            path = root / name
+            if not os.path.lexists(path):
+                continue
+            try:
+                path.unlink()
+            except OSError:
+                cleanup_failed = True
+        if os.path.lexists(root):
+            try:
+                root.rmdir()
+            except OSError:
+                cleanup_failed = True
+        if cleanup_failed:
+            cleanup_error = RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+            if operation_error is None:
+                raise cleanup_error
+            raise cleanup_error from operation_error
+
+
+def container_device_mount_arguments(root: Path) -> list[str]:
+    return [
+        f"--mount=type=bind,src={root},dst=/dev,readonly",
+        *(
+            f"--mount=type=bind,src=/dev/{name},dst=/dev/{name},readonly"
+            for name in CONTAINER_DEVICES
+        ),
+    ]
+
+
+def validate_container_writable_mounts(state_pid: int) -> None:
+    mountinfo = Path(f"/proc/{state_pid}/mountinfo")
+    try:
+        mount_lines = read_bounded_proc_file(mountinfo, 16_777_216).decode(
+            "utf-8"
+        ).splitlines()
+    except UnicodeDecodeError as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    writable_mounts: set[str] = set()
+    for line in mount_lines:
+        fields = line.split()
+        if len(fields) < 10 or "-" not in fields:
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+        if "rw" in fields[5].split(","):
+            writable_mounts.add(mountinfo_unescape(fields[4]))
+    if writable_mounts != {
+        "/proc",
+        "/mpk/home",
+        "/mpk/cargo-home",
+        "/mpk/tmp",
+        "/mpk/target",
+    }:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    root = mount_record("/", mountinfo)
+    device_root = mount_record("/dev", mountinfo)
+    if (
+        root is None
+        or "ro" not in root[2]
+        or device_root is None
+        or device_root[0] != "tmpfs"
+        or not {"ro", "nosuid", "nodev", "noexec", "noswap"}
+        <= device_root[2]
+        or re.fullmatch(
+            r"mpk-writable-[1-9][0-9]*-[0-9a-f]{16}", device_root[1]
+        )
+        is None
+        or mount_record("/dev/shm", mountinfo) is not None
+        or mount_record("/dev/pts", mountinfo) is not None
+        or mount_record("/dev/mqueue", mountinfo) is not None
+    ):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    process_root = Path(f"/proc/{state_pid}/root")
+    for name, (major, minor) in CONTAINER_DEVICES.items():
+        record = mount_record(f"/dev/{name}", mountinfo)
+        if record is None or "ro" not in record[2]:
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+        validate_host_device(process_root / "dev" / name, major, minor)
+    for name, target in CONTAINER_DEVICE_LINKS.items():
+        try:
+            observed = os.readlink(process_root / "dev" / name)
+        except OSError as error:
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+        if observed != target:
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    for name in ("home", "cargo-home", "tmp", "target"):
+        record = mount_record(f"/mpk/{name}", mountinfo)
+        required = {"rw", "nosuid", "nodev", "noswap"}
+        if name != "target":
+            required.add("noexec")
+        if (
+            record is None
+            or record[0] != "tmpfs"
+            or not required <= record[2]
+            or (name == "target" and "noexec" in record[2])
+        ):
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+
+
+def validate_nested_process_sandbox(state_pid: int) -> None:
+    try:
+        transport = read_bounded_proc_file(
+            Path(f"/proc/{state_pid}/status"), 1_048_576
+        ).decode("ascii")
+    except UnicodeDecodeError as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    fields: dict[str, str] = {}
+    for line in transport.splitlines():
+        if ":" not in line:
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+        name, value = line.split(":", 1)
+        if name in fields:
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+        fields[name] = value.strip()
+    sandbox_id = str(OUTER_SANDBOX_ID)
+    if (
+        fields.get("Uid", "").split() != [sandbox_id] * 4
+        or fields.get("Gid", "").split() != [sandbox_id] * 4
+        or fields.get("Groups", "").split() != [sandbox_id]
+        or fields.get("CapInh") != "0000000000000000"
+        or fields.get("CapPrm") != "0000000000000000"
+        or fields.get("CapEff") != "0000000000000000"
+        or fields.get("CapBnd") != "0000000000000000"
+        or fields.get("CapAmb") != "0000000000000000"
+        or fields.get("NoNewPrivs") != "1"
+        or fields.get("Seccomp") != "0"
+        or fields.get("Seccomp_filters") != "0"
+    ):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    for name in ("uid_map", "gid_map"):
+        try:
+            mapping = read_bounded_proc_file(
+                Path(f"/proc/{state_pid}/{name}"), 4_096
+            ).decode("ascii")
+        except UnicodeDecodeError as error:
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+        if len(mapping.splitlines()) != 1 or mapping.split() != [
+            "0",
+            sandbox_id,
+            "1",
+        ]:
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    if read_bounded_proc_file(Path(f"/proc/{state_pid}/setgroups"), 128) != b"deny\n":
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    try:
+        network_namespace = os.readlink(f"/proc/{state_pid}/ns/net")
+        launcher_network_namespace = os.readlink("/proc/self/ns/net")
+        network_devices = read_bounded_proc_file(
+            Path(f"/proc/{state_pid}/net/dev"), 65_536
+        ).decode("ascii")
+    except (OSError, UnicodeDecodeError) as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    device_lines = network_devices.splitlines()
+    if (
+        re.fullmatch(r"net:\[[1-9][0-9]*\]", network_namespace) is None
+        or network_namespace == launcher_network_namespace
+        or len(device_lines) != 3
+        or device_lines[2].split(":", 1)[0].strip() != "lo"
+    ):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+
+
+def validate_running_cgroup_parent(
+    path: Path,
+    *,
+    unit: str,
+    identifier: str,
+    state_pid: object,
+    limits: dict[str, int],
+) -> None:
+    if (
+        not isinstance(state_pid, int)
+        or isinstance(state_pid, bool)
+        or state_pid <= 0
+        or limits != FROZEN_RESOURCE_LIMITS
+    ):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    expected_scope = path / f"docker-{identifier}.scope"
+    expected_proc_cgroup = f"0::/{unit}/{expected_scope.name}\n".encode("ascii")
+    if read_bounded_proc_file(
+        Path(f"/proc/{state_pid}/cgroup"), 4_096
+    ) != expected_proc_cgroup:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    validate_nested_process_sandbox(state_pid)
+    validate_container_writable_mounts(state_pid)
+    parent_events = cgroup_counters(path / "cgroup.events")
+    parent_stat = cgroup_counters(path / "cgroup.stat")
+    scope_events = cgroup_counters(expected_scope / "cgroup.events")
+    scope_stat = cgroup_counters(expected_scope / "cgroup.stat")
+    if (
+        cgroup_processes(path / "cgroup.procs")
+        or cgroup_processes(path / "cgroup.threads")
+        or cgroup_children(path) != (expected_scope,)
+        or cgroup_children(expected_scope)
+        or cgroup_processes(expected_scope / "cgroup.procs") != {state_pid}
+        or cgroup_processes(expected_scope / "cgroup.threads") != {state_pid}
+        or parent_events.get("populated") != 1
+        or parent_events.get("frozen") != 0
+        or scope_events.get("populated") != 1
+        or scope_events.get("frozen") != 0
+        or parent_stat.get("nr_descendants") != 1
+        or parent_stat.get("nr_dying_descendants") is None
+        or scope_stat.get("nr_descendants") != 0
+        or scope_stat.get("nr_dying_descendants") != 0
+        or cgroup_words(path / "cgroup.subtree_control") != {"memory", "pids"}
+        or cgroup_scalar(path / "pids.max") != limits["cgroup_tasks"]
+        or cgroup_scalar(path / "memory.max") != limits["cgroup_memory_bytes"]
+        or cgroup_scalar(path / "memory.high") != "max"
+        or cgroup_scalar(path / "memory.swap.max") != limits["cgroup_swap_bytes"]
+        or cgroup_scalar(expected_scope / "pids.max") != "max"
+        or cgroup_scalar(expected_scope / "memory.max") != "max"
+        or cgroup_scalar(expected_scope / "memory.high") != "max"
+        or cgroup_scalar(expected_scope / "memory.swap.max") != "max"
+    ):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    require_zero_resource_events(
+        path, "memory.events", limits["cgroup_memory_bytes"]
+    )
+
+
+def configure_container_scope_unlimited(path: Path) -> None:
+    if cgroup_processes(path / "cgroup.procs") == frozenset():
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    for name in ("pids.max", "memory.max", "memory.high", "memory.swap.max"):
+        write_cgroup_file(path / name, "max")
+        if cgroup_scalar(path / name) != "max":
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+
+
+def validate_namespace_ready_record(
+    ready: Path, state_pid: int
+) -> None:
+    try:
+        metadata = ready.lstat()
+    except OSError as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    if (
+        not stat.S_ISREG(metadata.st_mode)
+        or stat.S_ISLNK(metadata.st_mode)
+        or stat.S_IMODE(metadata.st_mode) != 0o600
+        or metadata.st_nlink != 1
+        or metadata.st_uid != OUTER_SANDBOX_ID
+        or metadata.st_gid != OUTER_SANDBOX_ID
+    ):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    try:
+        transport = read_bounded_regular_file(
+            ready,
+            maximum=256,
+            code="BUNDLE_PUBLICATION_UNAVAILABLE",
+        )
+    except RustBuildFailure as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    try:
+        fields = transport.decode("ascii").splitlines()
+    except UnicodeDecodeError as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    if (
+        len(fields) != 4
+        or transport.count(b"\n") != 4
+        or re.fullmatch(r"user:\[[1-9][0-9]*\]", fields[0]) is None
+        or re.fullmatch(r"user:\[[1-9][0-9]*\]", fields[1]) is None
+        or re.fullmatch(r"mnt:\[[1-9][0-9]*\]", fields[2]) is None
+        or re.fullmatch(r"mnt:\[[1-9][0-9]*\]", fields[3]) is None
+        or fields[0] == fields[1]
+        or fields[2] == fields[3]
+    ):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    try:
+        observed_user = os.readlink(f"/proc/{state_pid}/ns/user")
+        observed_mount = os.readlink(f"/proc/{state_pid}/ns/mnt")
+    except OSError as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    if observed_user != fields[1] or observed_mount != fields[3]:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+
+
+def release_container_launch_gate(
+    process: subprocess.Popen[bytes],
+    *,
+    executable: str,
+    identifier: str,
+    cgroup_path: Path,
+    cgroup_parent: str,
+    ready: Path,
+    go: Path,
+    limits: dict[str, int],
+) -> None:
+    deadline = time.monotonic() + 10.0
+    while time.monotonic() < deadline:
+        if process.poll() is not None:
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+        inspection = inspect_docker_container(executable, identifier)
+        state = inspection.get("State")
+        if not isinstance(state, dict):
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+        if state.get("Status") == "created" and state.get("Running") is False:
+            time.sleep(0.01)
+            continue
+        if (
+            state.get("Status") != "running"
+            or state.get("Running") is not True
+            or state.get("Paused") is not False
+            or state.get("Restarting") is not False
+            or state.get("OOMKilled") is not False
+            or state.get("Dead") is not False
+            or state.get("ExitCode") != 0
+            or state.get("Error") != ""
+            or inspection.get("AppArmorProfile") != "docker-default"
+        ):
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+        if not os.path.lexists(ready):
+            time.sleep(0.01)
+            continue
+        state_pid = state.get("Pid")
+        configure_cgroup_parent(cgroup_path, limits)
+        configure_container_scope_unlimited(
+            cgroup_path / f"docker-{identifier}.scope"
+        )
+        validate_running_cgroup_parent(
+            cgroup_path,
+            unit=cgroup_parent,
+            identifier=identifier,
+            state_pid=state_pid,
+            limits=limits,
+        )
+        if not isinstance(state_pid, int) or isinstance(state_pid, bool):
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+        validate_namespace_ready_record(ready, state_pid)
+        try:
+            gate_metadata = go.lstat()
+        except OSError as error:
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+        if (
+            not stat.S_ISFIFO(gate_metadata.st_mode)
+            or stat.S_IMODE(gate_metadata.st_mode) != 0o600
+            or gate_metadata.st_uid != OUTER_SANDBOX_ID
+            or gate_metadata.st_gid != OUTER_SANDBOX_ID
+        ):
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+        descriptor = -1
+        try:
+            descriptor = os.open(
+                go,
+                os.O_WRONLY
+                | os.O_CLOEXEC
+                | os.O_NONBLOCK
+                | getattr(os, "O_NOFOLLOW", 0),
+            )
+            if os.write(descriptor, b"go\n") != 3:
+                raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+            return
+        except OSError as error:
+            if error.errno not in (errno.ENXIO, errno.EAGAIN):
+                raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+        finally:
+            if descriptor >= 0:
+                os.close(descriptor)
+        time.sleep(0.01)
+    raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+
+
+def wait_for_empty_cgroup_parent(path: Path) -> None:
+    deadline = time.monotonic() + 5.0
+    while time.monotonic() < deadline:
+        group_stat = cgroup_counters(path / "cgroup.stat")
+        if (
+            not cgroup_children(path)
+            and not cgroup_processes(path / "cgroup.procs")
+            and not cgroup_processes(path / "cgroup.threads")
+            and group_stat.get("nr_descendants") == 0
+        ):
+            validate_empty_cgroup_parent(path, initial=False)
+            return
+        time.sleep(0.01)
+    raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+
+
+def wait_for_quiescent_cgroup_parent(path: Path) -> None:
+    deadline = time.monotonic() + 5.0
+    while time.monotonic() < deadline:
+        group_stat = cgroup_counters(path / "cgroup.stat")
+        if (
+            not cgroup_children(path)
+            and not cgroup_processes(path / "cgroup.procs")
+            and not cgroup_processes(path / "cgroup.threads")
+            and group_stat.get("nr_descendants") == 0
+        ):
+            events = cgroup_counters(path / "cgroup.events")
+            if events.get("populated") != 0 or events.get("frozen") != 0:
+                raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+            return
+        time.sleep(0.01)
+    raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+
+
+@contextmanager
+def supplied_cgroup_parent(
+    boundary: tuple[str, Path], limits: dict[str, int]
+) -> Iterator[tuple[str, Path]]:
+    if (
+        not isinstance(boundary, tuple)
+        or len(boundary) != 2
+        or not isinstance(boundary[0], str)
+        or not isinstance(boundary[1], Path)
+        or re.fullmatch(r"mpkcg[0-9a-f]+\.slice", boundary[0]) is None
+        or boundary[1] != CGROUP2_ROOT / boundary[0]
+        or limits != FROZEN_RESOURCE_LIMITS
+    ):
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    try:
+        metadata = boundary[1].lstat()
+    except OSError as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    if not stat.S_ISDIR(metadata.st_mode) or stat.S_ISLNK(metadata.st_mode):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    validate_empty_cgroup_parent(boundary[1], initial=False)
+    if (
+        cgroup_words(boundary[1] / "cgroup.subtree_control")
+        != {"memory", "pids"}
+        or cgroup_scalar(boundary[1] / "pids.max") != limits["cgroup_tasks"]
+        or cgroup_scalar(boundary[1] / "memory.max")
+        != limits["cgroup_memory_bytes"]
+        or cgroup_scalar(boundary[1] / "memory.high") != "max"
+        or cgroup_scalar(boundary[1] / "memory.swap.max")
+        != limits["cgroup_swap_bytes"]
+    ):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    yield boundary
+
+
+def validate_created_container_resources(
+    inspection: dict[str, object],
+    *,
+    identifier: str,
+    name: str,
+    cgroup_parent: str,
+    working_directory: str,
+    cargo_config_seed: Path,
+    device_root: Path,
+    initial_command: list[str],
+    limits: dict[str, int],
+    writable_paths: dict[str, Path],
+) -> None:
+    state = inspection.get("State")
+    host = inspection.get("HostConfig")
+    mounts = inspection.get("Mounts")
+    config = inspection.get("Config")
+    ulimits = host.get("Ulimits") if isinstance(host, dict) else None
+    if (
+        not isinstance(state, dict)
+        or not isinstance(host, dict)
+        or not isinstance(mounts, list)
+        or not isinstance(config, dict)
+        or not isinstance(ulimits, list)
+    ):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    expected_ulimits = {
+        "nofile": (
+            limits["open_files_per_process"],
+            limits["open_files_per_process"],
+        ),
+        "fsize": (-1, -1),
+        "nproc": (-1, -1),
+    }
+    observed_ulimits: dict[str, tuple[object, object]] = {}
+    for item in ulimits:
+        if (
+            not isinstance(item, dict)
+            or set(item) != {"Name", "Soft", "Hard"}
+            or not isinstance(item.get("Name"), str)
+            or item["Name"] in observed_ulimits
+        ):
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+        observed_ulimits[item["Name"]] = (item.get("Soft"), item.get("Hard"))
+    expected_mounts = {
+        "/mpk/home": writable_paths["home"].resolve(),
+        "/mpk/cargo-home": writable_paths["cargo-home"].resolve(),
+        "/mpk/tmp": writable_paths["tmp"].resolve(),
+        "/mpk/target": writable_paths["target"].resolve(),
+    }
+    observed_mounts: dict[str, Path] = {}
+    expected_device_mounts = {
+        "/dev": device_root.resolve(),
+        **{
+            f"/dev/{name}": (Path("/dev") / name).resolve()
+            for name in CONTAINER_DEVICES
+        },
+    }
+    observed_device_mounts: dict[str, Path] = {}
+    seed_mounts: list[dict[str, object]] = []
+    for item in mounts:
+        if not isinstance(item, dict):
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+        destination = item.get("Destination")
+        if destination == "/mpk/cargo-home-seed.toml":
+            seed_mounts.append(item)
+            continue
+        if destination in expected_device_mounts:
+            source = item.get("Source")
+            if (
+                item.get("Type") != "bind"
+                or item.get("RW") is not False
+                or not isinstance(source, str)
+            ):
+                raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+            observed_device_mounts[destination] = Path(source).resolve()
+            continue
+        if destination not in expected_mounts:
+            if item.get("RW") is True:
+                raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+            continue
+        source = item.get("Source")
+        if (
+            item.get("Type") != "bind"
+            or item.get("RW") is not True
+            or not isinstance(source, str)
+        ):
+            raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+        observed_mounts[destination] = Path(source).resolve()
+    seed_source = seed_mounts[0].get("Source") if len(seed_mounts) == 1 else None
+    try:
+        seed_metadata = Path(seed_source).lstat() if isinstance(seed_source, str) else None
+    except OSError as error:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+    if (
+        inspection.get("Id") != identifier
+        or inspection.get("Name") != f"/{name}"
+        or state.get("Status") != "created"
+        or state.get("Running") is not False
+        or state.get("Pid") != 0
+        or host.get("AutoRemove") is not False
+        or host.get("ReadonlyRootfs") is not True
+        or host.get("Privileged") is not False
+        or host.get("LogConfig") != {"Type": "none", "Config": {}}
+        or host.get("NetworkMode") != "none"
+        or host.get("IpcMode") != "none"
+        or host.get("PidMode") != ""
+        or host.get("UTSMode") != ""
+        or host.get("RestartPolicy") != {"Name": "no", "MaximumRetryCount": 0}
+        or host.get("Runtime") != "runc"
+        or host.get("Isolation") != ""
+        or host.get("GroupAdd") is not None
+        or host.get("CapAdd") is not None
+        or host.get("CapDrop") != ["ALL"]
+        or host.get("SecurityOpt")
+        != ["no-new-privileges", "seccomp=unconfined"]
+        or host.get("CgroupnsMode") != "private"
+        or host.get("UsernsMode") != ""
+        or host.get("CgroupParent") != cgroup_parent
+        or host.get("PidsLimit") is not None
+        or host.get("Memory") != 0
+        or host.get("MemorySwap") != 0
+        or host.get("MemoryReservation") != 0
+        or host.get("MemorySwappiness") is not None
+        or host.get("OomKillDisable") is not False
+        or host.get("CpuShares") != 0
+        or host.get("NanoCpus") != 0
+        or host.get("CpuPeriod") != 0
+        or host.get("CpuQuota") != 0
+        or host.get("CpusetCpus") != ""
+        or host.get("CpusetMems") != ""
+        or host.get("Devices") != []
+        or host.get("DeviceCgroupRules") is not None
+        or host.get("DeviceRequests") is not None
+        or config.get("User") != f"{OUTER_SANDBOX_ID}:{OUTER_SANDBOX_ID}"
+        or config.get("Hostname") != "mpk-build"
+        or config.get("AttachStdin") is not False
+        or config.get("AttachStdout") is not True
+        or config.get("AttachStderr") is not True
+        or config.get("Tty") is not False
+        or config.get("OpenStdin") is not False
+        or config.get("StdinOnce") is not False
+        or config.get("Env")
+        != ["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"]
+        or config.get("Entrypoint") is not None
+        or config.get("Cmd") != initial_command
+        or config.get("WorkingDir") != working_directory
+        or config.get("Image") != RUNTIME_IMAGE
+        or inspection.get("Platform") != "linux"
+        or observed_ulimits != expected_ulimits
+        or observed_mounts != expected_mounts
+        or observed_device_mounts != expected_device_mounts
+        or len(seed_mounts) != 1
+        or seed_mounts[0].get("Type") != "bind"
+        or seed_mounts[0].get("RW") is not False
+        or not isinstance(seed_source, str)
+        or Path(seed_source).resolve() != cargo_config_seed.resolve()
+        or seed_metadata is None
+        or not stat.S_ISREG(seed_metadata.st_mode)
+        or stat.S_ISLNK(seed_metadata.st_mode)
+    ):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+
+
+def remove_created_container(
+    executable: str,
+    target: str,
+    *,
+    container_name: str,
+    expected_identity: str | None = None,
+) -> None:
+    result = run_bounded(
+        [executable, "rm", "--force", target],
+        stdout_limit=4_096,
+        stderr_limit=65_536,
+    )
+    accepted = {target.encode("ascii")}
+    if expected_identity is not None:
+        accepted.update(
+            {
+                expected_identity.encode("ascii"),
+                expected_identity[:12].encode("ascii"),
+            }
+        )
+    if (
+        result.returncode != 0
+        or result.stderr
+        or result.stdout not in {value + b"\n" for value in accepted}
+    ):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    if container_identity_by_name(executable, container_name) is not None:
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+
+
+def container_identity_by_name(executable: str, name: str) -> str | None:
+    if re.fullmatch(r"mpk-[a-z0-9][a-z0-9_.-]{0,31}-[1-9][0-9]*-[0-9a-f]{16}", name) is None:
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    result = run_bounded(
+        [
+            executable,
+            "container",
+            "ls",
+            "--all",
+            "--quiet",
+            "--no-trunc",
+            f"--filter=name=^/{re.escape(name)}$",
+        ],
+        stdout_limit=4_096,
+        stderr_limit=65_536,
+    )
+    identifiers = result.stdout.splitlines()
+    if (
+        result.returncode != 0
+        or result.stderr
+        or len(identifiers) > 1
+        or any(re.fullmatch(rb"[0-9a-f]{64}", value) is None for value in identifiers)
+        or (identifiers and result.stdout != identifiers[0] + b"\n")
+        or (not identifiers and result.stdout != b"")
+    ):
+        raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+    return identifiers[0].decode("ascii") if identifiers else None
+
+
+def cleanup_container_create_attempt(executable: str, name: str) -> None:
+    identifier = container_identity_by_name(executable, name)
+    if identifier is not None:
+        remove_created_container(
+            executable,
+            identifier,
+            container_name=name,
+            expected_identity=identifier,
+        )
+
+
+def run_created_docker(
+    create_argv: list[str],
+    *,
+    container_name: str,
+    limits: dict[str, int],
+    writable_paths: dict[str, Path],
+    cgroup_boundary: tuple[str, Path],
+) -> subprocess.CompletedProcess[bytes]:
+    if not create_argv or any(not isinstance(value, str) for value in create_argv):
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    executable = create_argv[0] if create_argv else ""
+    image_positions = [
+        index for index, value in enumerate(create_argv) if value == RUNTIME_IMAGE
+    ]
+    image_index = image_positions[0] if len(image_positions) == 1 else len(create_argv)
+    create_options = create_argv[:image_index]
+    workdir_arguments = [
+        value.removeprefix("--workdir=")
+        for value in create_options
+        if value.startswith("--workdir=")
+    ]
+    name_arguments = [
+        value for value in create_options if value.startswith("--name=")
+    ]
+    seed_mount_prefix = "--mount=type=bind,src="
+    seed_mount_suffix = ",dst=/mpk/cargo-home-seed.toml,readonly"
+    seed_arguments = [
+        value
+        for value in create_options
+        if value.startswith(seed_mount_prefix) and value.endswith(seed_mount_suffix)
+    ]
+    if (
+        not executable.startswith("/")
+        or executable != docker_path()
+        or not Path(executable).is_file()
+        or Path(executable).is_symlink()
+        or not os.access(executable, os.X_OK)
+        or create_argv[:2] != [executable, "create"]
+        or name_arguments != [f"--name={container_name}"]
+        or re.fullmatch(
+            r"mpk-[a-z0-9][a-z0-9_.-]{0,31}-[1-9][0-9]*-[0-9a-f]{16}",
+            container_name,
+        )
+        is None
+        or "--rm" in create_options
+        or any(value.startswith("--cgroup-parent") for value in create_options)
+        or any(value.startswith("--entrypoint") for value in create_options)
+        or create_options.count(
+            f"--user={OUTER_SANDBOX_ID}:{OUTER_SANDBOX_ID}"
+        )
+        != 1
+        or len(image_positions) != 1
+        or not create_argv[image_positions[0] + 1 :]
+        or not create_argv[image_positions[0] + 1].startswith("/")
+        or len(workdir_arguments) > 1
+        or (workdir_arguments and workdir_arguments[0] != "/mpk/frontend")
+        or len(seed_arguments) != 1
+        or limits != FROZEN_RESOURCE_LIMITS
+        or set(writable_paths) != {"home", "cargo-home", "tmp", "target"}
+        or any(not isinstance(path, Path) for path in writable_paths.values())
+    ):
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    validate_writable_workspace(writable_paths, limits)
+    docker_info(executable)
+    command = create_argv[image_index + 1 :]
+    working_directory = workdir_arguments[0] if workdir_arguments else ""
+    cargo_config_seed = Path(
+        seed_arguments[0][len(seed_mount_prefix) : -len(seed_mount_suffix)]
+    )
+    initial_command = sandboxed_initial_command(command, limits)
+    with supplied_cgroup_parent(cgroup_boundary, limits) as (
+        cgroup_parent,
+        cgroup_path,
+    ), container_launch_gate(writable_paths) as (ready, go), container_device_view(
+        writable_paths
+    ) as device_root:
+        if container_identity_by_name(executable, container_name) is not None:
+            raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+        actual_create_argv = [
+            *create_argv[:image_index],
+            f"--cgroup-parent={cgroup_parent}",
+            *container_device_mount_arguments(device_root),
+            RUNTIME_IMAGE,
+            *initial_command,
+        ]
+        identifier: str | None = None
+        try:
+            created = run_bounded(
+                actual_create_argv,
+                stdout_limit=4_096,
+                stderr_limit=65_536,
+            )
+            if created.returncode != 0 or created.stderr:
+                raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+            try:
+                candidate_identifier = created.stdout.decode("ascii").strip()
+            except UnicodeDecodeError as error:
+                raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69) from error
+            if (
+                re.fullmatch(r"[0-9a-f]{64}", candidate_identifier) is None
+                or created.stdout != candidate_identifier.encode("ascii") + b"\n"
+            ):
+                raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+            identifier = candidate_identifier
+            inspection = inspect_docker_container(executable, identifier)
+            validate_created_container_resources(
+                inspection,
+                identifier=identifier,
+                name=container_name,
+                cgroup_parent=cgroup_parent,
+                working_directory=working_directory,
+                cargo_config_seed=cargo_config_seed,
+                device_root=device_root,
+                initial_command=initial_command,
+                limits=limits,
+                writable_paths=writable_paths,
+            )
+            result = run_bounded(
+                [executable, "start", "--attach", identifier],
+                stdout_limit=limits["stdout_bytes"],
+                stderr_limit=limits["stderr_bytes"],
+                ready_check=lambda process: release_container_launch_gate(
+                    process,
+                    executable=executable,
+                    identifier=identifier,
+                    cgroup_path=cgroup_path,
+                    cgroup_parent=cgroup_parent,
+                    ready=ready,
+                    go=go,
+                    limits=limits,
+                ),
+            )
+            completed = inspect_docker_container(executable, identifier)
+            completed_state = completed.get("State")
+            if (
+                not isinstance(completed_state, dict)
+                or completed_state.get("Status") != "exited"
+                or completed_state.get("Running") is not False
+                or completed_state.get("Paused") is not False
+                or completed_state.get("Restarting") is not False
+                or completed_state.get("OOMKilled") is not False
+                or completed_state.get("Dead") is not False
+                or completed_state.get("Pid") != 0
+                or completed_state.get("ExitCode") != result.returncode
+                or completed_state.get("Error") != ""
+                or completed.get("AppArmorProfile") != "docker-default"
+            ):
+                raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+            wait_for_empty_cgroup_parent(cgroup_path)
+            return subprocess.CompletedProcess(
+                create_argv,
+                result.returncode,
+                result.stdout,
+                result.stderr,
+            )
+        finally:
+            if identifier is None:
+                cleanup_container_create_attempt(executable, container_name)
+            else:
+                remove_created_container(
+                    executable,
+                    identifier,
+                    container_name=container_name,
+                    expected_identity=identifier,
+                )
+            wait_for_quiescent_cgroup_parent(cgroup_path)
+            configure_cgroup_parent(cgroup_path, limits)
+
+
+def run_checked_created_docker(
+    create_argv: list[str],
+    *,
+    container_name: str,
+    limits: dict[str, int],
+    writable_paths: dict[str, Path],
+    cgroup_boundary: tuple[str, Path],
+) -> subprocess.CompletedProcess[bytes]:
+    result = run_created_docker(
+        create_argv,
+        container_name=container_name,
+        limits=limits,
+        writable_paths=writable_paths,
+        cgroup_boundary=cgroup_boundary,
+    )
+    if result.returncode != 0:
+        detail = (result.stdout[-8_192:] + result.stderr[-8_192:]).decode(
+            "utf-8", "replace"
+        )
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH") from RuntimeError(
+            f"container exited {result.returncode}: {create_argv!r}\n{detail}"
+        )
+    return result
 
 
 def docker_image_view(reference: str, storage: Path) -> ArchiveView:
@@ -1989,31 +3881,36 @@ def docker_build_environment(vector: dict[str, object]) -> list[str]:
 
 def common_build_docker(
     staging: Path,
-    cargo_home: Path,
-    target: Path,
+    writable_paths: dict[str, Path],
     container_name: str,
 ) -> tuple[list[str], int]:
     resource_arguments, virtual_memory_kib = launcher_resource_controls(
-        FROZEN_PROCESS_LIMITS
+        FROZEN_RESOURCE_LIMITS
     )
     return [
         docker_path(),
-        "run",
+        "create",
         f"--name={container_name}",
-        "--rm",
         "--pull=never",
+        "--log-driver=none",
         "--network=none",
+        "--ipc=none",
         "--platform=linux/amd64",
         "--read-only",
+        f"--user={OUTER_SANDBOX_ID}:{OUTER_SANDBOX_ID}",
         "--hostname=mpk-build",
         "--cap-drop=ALL",
         "--security-opt=no-new-privileges",
+        "--security-opt=seccomp=unconfined",
         *resource_arguments,
         f"--mount=type=bind,src={staging / 'toolchain'},dst=/mpk/toolchain,readonly",
         f"--mount=type=bind,src={staging / 'native-sysroot'},dst=/mpk/native-sysroot,readonly",
         f"--mount=type=bind,src={staging / 'vendor'},dst=/mpk/vendor,readonly",
-        f"--mount=type=bind,src={cargo_home},dst=/mpk/cargo-home",
-        f"--mount=type=bind,src={target},dst=/mpk/target",
+        f"--mount=type=bind,src={staging / 'cargo-home-seed/config.toml'},dst=/mpk/cargo-home-seed.toml,readonly",
+        f"--mount=type=bind,src={writable_paths['home']},dst=/mpk/home",
+        f"--mount=type=bind,src={writable_paths['cargo-home']},dst=/mpk/cargo-home",
+        f"--mount=type=bind,src={writable_paths['tmp']},dst=/mpk/tmp",
+        f"--mount=type=bind,src={writable_paths['target']},dst=/mpk/target",
         RUNTIME_IMAGE,
     ], virtual_memory_kib
 
@@ -2028,58 +3925,52 @@ def frozen_shell_command(command: list[str], virtual_memory_kib: int) -> list[st
     ]
 
 
-def fresh_cargo_home(vector: dict[str, object], parent: Path, name: str) -> Path:
-    result = parent / name
-    result.mkdir()
-    (result / "config.toml").write_bytes(raw_templates(vector)["cargo_home_config"])
-    (result / "config.toml").chmod(0o444)
-    return result
-
-
 def build_cargo_fuzz_twice(
     vector: dict[str, object], staging: Path, work: Path
 ) -> None:
     observed: list[Path] = []
     for index in range(2):
-        target = work / f"cargo-fuzz-target-{index}"
-        target.mkdir()
-        cargo_home = fresh_cargo_home(vector, work, f"cargo-fuzz-home-{index}")
-        container_name = fresh_container_name("cargo-fuzz-build")
-        argv, virtual_memory_kib = common_build_docker(
-            staging, cargo_home, target, container_name
-        )
-        argv[-1:-1] = [
-            f"--mount=type=bind,src={staging / 'tool-sources/cargo-fuzz'},dst=/mpk/frontend,readonly",
-            "--workdir=/mpk/frontend",
-        ]
-        argv.extend(
-            frozen_shell_command(
-                [
-                "/usr/bin/env",
-                "-i",
-                *docker_build_environment(vector),
-                *vector["valid_descriptor"]["cargo_fuzz"]["build_argv"],
-                ],
-                virtual_memory_kib,
+        writable = work / f"cargo-fuzz-writable-{index}"
+        writable.mkdir()
+        durable_executable = work / f"cargo-fuzz-result-{index}"
+        with mounted_writable_workspace(
+            writable, FROZEN_RESOURCE_LIMITS
+        ) as paths, delegated_cgroup_parent(
+            FROZEN_RESOURCE_LIMITS
+        ) as cgroup_boundary:
+            container_name = fresh_container_name("cargo-fuzz-build")
+            argv, virtual_memory_kib = common_build_docker(
+                staging, paths, container_name
             )
-        )
-        run_checked(
-            argv,
-            target_root=target,
-            target_file_limit=FROZEN_PROCESS_LIMITS["output_files"],
-            target_byte_limit=FROZEN_PROCESS_LIMITS["target_bytes"],
-            docker_cleanup=(docker_path(), container_name),
-        )
-        validate_post_run_cargo_home(cargo_home, vector)
-        checked_directory_usage(
-            target,
-            file_limit=FROZEN_PROCESS_LIMITS["output_files"],
-            byte_limit=FROZEN_PROCESS_LIMITS["target_bytes"],
-        )
-        executable = target / "x86_64-unknown-linux-gnu/release/cargo-fuzz"
-        if not executable.is_file() or executable.is_symlink():
-            raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
-        observed.append(executable)
+            argv[-1:-1] = [
+                f"--mount=type=bind,src={staging / 'tool-sources/cargo-fuzz'},dst=/mpk/frontend,readonly",
+                "--workdir=/mpk/frontend",
+            ]
+            argv.extend(
+                frozen_shell_command(
+                    [
+                        "/usr/bin/env",
+                        "-i",
+                        *docker_build_environment(vector),
+                        *vector["valid_descriptor"]["cargo_fuzz"]["build_argv"],
+                    ],
+                    virtual_memory_kib,
+                )
+            )
+            run_checked_created_docker(
+                argv,
+                container_name=container_name,
+                limits=FROZEN_RESOURCE_LIMITS,
+                writable_paths=paths,
+                cgroup_boundary=cgroup_boundary,
+            )
+            validate_post_run_cargo_home(paths["cargo-home"], vector)
+            executable = paths["target"] / "x86_64-unknown-linux-gnu/release/cargo-fuzz"
+            if not executable.is_file() or executable.is_symlink():
+                raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+            copy_no_replace(executable, durable_executable)
+            durable_executable.chmod(0o755)
+        observed.append(durable_executable)
     if not same_file_bytes(observed[0], observed[1]):
         raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
     destination = staging / "toolchain/bin/cargo-fuzz"
@@ -2091,69 +3982,74 @@ def build_libfuzzer_twice(vector: dict[str, object], staging: Path, work: Path) 
     recipe = vector["fuzz_smoke"]["bounded_child_process_graph"]["prebuilt_libfuzzer"]
     archives: list[Path] = []
     for build_index in range(2):
-        scratch = work / f"libfuzzer-{build_index}"
-        output = scratch / "libfuzzer-build"
-        objects = output / "objects"
-        objects.mkdir(parents=True)
+        writable = work / f"libfuzzer-writable-{build_index}"
+        writable.mkdir()
+        durable_archive = work / f"libfuzzer-result-{build_index}.a"
+        with mounted_writable_workspace(
+            writable, FROZEN_RESOURCE_LIMITS
+        ) as paths, delegated_cgroup_parent(
+            FROZEN_RESOURCE_LIMITS
+        ) as cgroup_boundary:
+            scratch = paths["tmp"]
+            output = scratch / "libfuzzer-build"
+            objects = output / "objects"
+            objects.mkdir(parents=True)
 
-        def run_recipe(command: list[str], label: str) -> None:
-            container_name = fresh_container_name(label)
-            resource_arguments, virtual_memory_kib = launcher_resource_controls(
-                FROZEN_PROCESS_LIMITS
-            )
-            # /mpk/tmp is a monitored bind for this recipe, rather than a
-            # second unobservable tmpfs mounted over the build output.
-            resource_arguments = [
-                argument
-                for argument in resource_arguments
-                if not argument.startswith("--tmpfs=/mpk/tmp:")
-            ]
-            argv = [
-                docker_path(),
-                "run",
-                f"--name={container_name}",
-                "--rm",
-                "--pull=never",
-                "--network=none",
-                "--platform=linux/amd64",
-                "--read-only",
-                "--hostname=mpk-build",
-                "--cap-drop=ALL",
-                "--security-opt=no-new-privileges",
-                *resource_arguments,
-                f"--mount=type=bind,src={staging / 'toolchain'},dst=/mpk/toolchain,readonly",
-                f"--mount=type=bind,src={staging / 'native-sysroot'},dst=/mpk/native-sysroot,readonly",
-                f"--mount=type=bind,src={staging / 'vendor'},dst=/mpk/vendor,readonly",
-                f"--mount=type=bind,src={scratch},dst=/mpk/tmp",
-                RUNTIME_IMAGE,
-                *frozen_shell_command(command, virtual_memory_kib),
-            ]
-            run_checked(
-                argv,
-                target_root=scratch,
-                target_file_limit=FROZEN_PROCESS_LIMITS["output_files"],
-                target_byte_limit=FROZEN_PROCESS_LIMITS["temp_bytes"],
-                docker_cleanup=(docker_path(), container_name),
-            )
+            def run_recipe(command: list[str], label: str) -> None:
+                container_name = fresh_container_name(label)
+                resource_arguments, virtual_memory_kib = launcher_resource_controls(
+                    FROZEN_RESOURCE_LIMITS
+                )
+                argv = [
+                    docker_path(),
+                    "create",
+                    f"--name={container_name}",
+                    "--pull=never",
+                    "--log-driver=none",
+                    "--network=none",
+                    "--ipc=none",
+                    "--platform=linux/amd64",
+                    "--read-only",
+                    f"--user={OUTER_SANDBOX_ID}:{OUTER_SANDBOX_ID}",
+                    "--hostname=mpk-build",
+                    "--cap-drop=ALL",
+                    "--security-opt=no-new-privileges",
+                    "--security-opt=seccomp=unconfined",
+                    *resource_arguments,
+                    f"--mount=type=bind,src={staging / 'toolchain'},dst=/mpk/toolchain,readonly",
+                    f"--mount=type=bind,src={staging / 'native-sysroot'},dst=/mpk/native-sysroot,readonly",
+                    f"--mount=type=bind,src={staging / 'vendor'},dst=/mpk/vendor,readonly",
+                    f"--mount=type=bind,src={staging / 'cargo-home-seed/config.toml'},dst=/mpk/cargo-home-seed.toml,readonly",
+                    f"--mount=type=bind,src={paths['home']},dst=/mpk/home",
+                    f"--mount=type=bind,src={paths['cargo-home']},dst=/mpk/cargo-home",
+                    f"--mount=type=bind,src={paths['tmp']},dst=/mpk/tmp",
+                    f"--mount=type=bind,src={paths['target']},dst=/mpk/target",
+                    RUNTIME_IMAGE,
+                    *frozen_shell_command(command, virtual_memory_kib),
+                ]
+                run_checked_created_docker(
+                    argv,
+                    container_name=container_name,
+                    limits=FROZEN_RESOURCE_LIMITS,
+                    writable_paths=paths,
+                    cgroup_boundary=cgroup_boundary,
+                )
+                validate_post_run_cargo_home(paths["cargo-home"], vector)
 
-        for source in recipe["sources"]:
-            object_name = source[:-4] + ".o"
-            compile_argv = [
-                item.replace("SOURCE", source).replace("OBJECT", object_name)
-                for item in recipe["compile_argv_template"]
-            ]
-            run_recipe(compile_argv, "libfuzzer-compile")
-        run_recipe(recipe["archive_argv"], "libfuzzer-archive")
-        run_recipe(recipe["ranlib_argv"], "libfuzzer-ranlib")
-        checked_directory_usage(
-            scratch,
-            file_limit=FROZEN_PROCESS_LIMITS["output_files"],
-            byte_limit=FROZEN_PROCESS_LIMITS["temp_bytes"],
-        )
-        archive = output / "libfuzzer.a"
-        if not archive.is_file():
-            raise RustBuildFailure()
-        archives.append(archive)
+            for source in recipe["sources"]:
+                object_name = source[:-4] + ".o"
+                compile_argv = [
+                    item.replace("SOURCE", source).replace("OBJECT", object_name)
+                    for item in recipe["compile_argv_template"]
+                ]
+                run_recipe(compile_argv, "libfuzzer-compile")
+            run_recipe(recipe["archive_argv"], "libfuzzer-archive")
+            run_recipe(recipe["ranlib_argv"], "libfuzzer-ranlib")
+            archive = output / "libfuzzer.a"
+            if not archive.is_file() or archive.is_symlink():
+                raise RustBuildFailure()
+            copy_no_replace(archive, durable_archive)
+        archives.append(durable_archive)
     if not same_file_bytes(archives[0], archives[1]):
         raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
     destination = staging / recipe["installed_component_path"]
@@ -2586,85 +4482,6 @@ def accepted_launcher_arguments(vector: dict[str, object], arguments: list[str])
     return False
 
 
-def checked_directory_usage(
-    root: Path,
-    *,
-    file_limit: int,
-    byte_limit: int,
-    directory_limit: int = TARGET_DIRECTORY_LIMIT,
-    allow_churn: bool = False,
-) -> tuple[int, int]:
-    files = 0
-    size = 0
-    code = "BUNDLE_REPRODUCIBILITY_MISMATCH"
-    checked_boundary(file_limit, U64_MAX, code)
-    checked_boundary(byte_limit, U64_MAX, code)
-    checked_boundary(directory_limit, U64_MAX, code)
-    node_limit = checked_boundary_add(directory_limit, file_limit, U64_MAX, code)
-    try:
-        root_metadata = root.lstat()
-        if (
-            not stat.S_ISDIR(root_metadata.st_mode)
-            or stat.S_ISLNK(root_metadata.st_mode)
-        ):
-            raise RustBuildFailure(code)
-        directories = checked_boundary(1, directory_limit, code)
-        nodes = checked_boundary(1, node_limit, code)
-        pending = [(root, root_metadata.st_dev, root_metadata.st_ino)]
-        while pending:
-            directory, expected_device, expected_inode = pending.pop()
-            descriptor = -1
-            try:
-                descriptor = os.open(
-                    directory,
-                    os.O_RDONLY | os.O_CLOEXEC | os.O_DIRECTORY | os.O_NOFOLLOW,
-                )
-                directory_metadata = os.fstat(descriptor)
-                if (
-                    directory_metadata.st_dev != expected_device
-                    or directory_metadata.st_ino != expected_inode
-                ):
-                    if allow_churn:
-                        continue
-                    raise RustBuildFailure(code)
-                with os.scandir(descriptor) as entries:
-                    for entry in entries:
-                        try:
-                            metadata = entry.stat(follow_symlinks=False)
-                        except FileNotFoundError:
-                            if allow_churn:
-                                continue
-                            raise
-                        nodes = checked_boundary_add(nodes, 1, node_limit, code)
-                        if stat.S_ISDIR(metadata.st_mode):
-                            directories = checked_boundary_add(
-                                directories, 1, directory_limit, code
-                            )
-                            pending.append(
-                                (
-                                    directory / entry.name,
-                                    metadata.st_dev,
-                                    metadata.st_ino,
-                                )
-                            )
-                        elif stat.S_ISREG(metadata.st_mode):
-                            files = checked_boundary_add(files, 1, file_limit, code)
-                            size = checked_boundary_add(
-                                size, metadata.st_size, byte_limit, code
-                            )
-                        else:
-                            raise RustBuildFailure(code)
-            except (FileNotFoundError, NotADirectoryError):
-                if not allow_churn:
-                    raise
-            finally:
-                if descriptor >= 0:
-                    os.close(descriptor)
-    except OSError as error:
-        raise RustBuildFailure(code) from error
-    return files, size
-
-
 def validate_post_run_cargo_home(root: Path, vector: dict[str, object]) -> None:
     allowed = frozenset(vector["cargo_home_post_run_allowlist"])
     scanned = bounded_directory_entries(
@@ -2719,59 +4536,78 @@ def validate_post_run_cargo_home(root: Path, vector: dict[str, object]) -> None:
             raise RustBuildFailure()
 
 
+def frozen_launcher_resources(vector: dict[str, object]) -> dict[str, int]:
+    launcher = vector.get("launcher")
+    if (
+        not isinstance(launcher, dict)
+        or launcher.get("resource_profile_id") != FROZEN_RESOURCE_PROFILE_ID
+        or launcher.get("resource_limits") != FROZEN_RESOURCE_LIMITS
+        or "process_limits" in launcher
+    ):
+        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    return FROZEN_RESOURCE_LIMITS
+
+
 def launcher_resource_controls(limits: object) -> tuple[list[str], int]:
-    if not isinstance(limits, dict) or limits != FROZEN_PROCESS_LIMITS:
+    if not isinstance(limits, dict) or limits != FROZEN_RESOURCE_LIMITS:
         raise RustBuildFailure()
     for value in limits.values():
         checked_boundary(value, U64_MAX, "BUNDLE_REPRODUCIBILITY_MISMATCH")
-    if limits["virtual_memory_bytes"] % 1024 != 0:
+    if limits["virtual_memory_bytes_per_process"] % 1024 != 0:
         raise RustBuildFailure()
     return (
         [
-            f"--pids-limit={limits['processes']}",
+            "--pids-limit=-1",
             f"--ulimit=nofile={limits['open_files_per_process']}:{limits['open_files_per_process']}",
-            f"--memory={limits['resident_memory_bytes']}",
-            f"--memory-swap={limits['resident_memory_bytes']}",
-            "--tmpfs=/mpk/home:rw,nosuid,nodev,noexec,mode=700",
-            f"--tmpfs=/mpk/tmp:rw,nosuid,nodev,noexec,mode=700,size={limits['temp_bytes']}",
+            "--ulimit=fsize=-1:-1",
+            "--ulimit=nproc=-1:-1",
+            "--memory=0",
+            "--memory-swap=0",
         ],
-        limits["virtual_memory_bytes"] // 1024,
+        limits["virtual_memory_bytes_per_process"] // 1024,
     )
 
 
 def hermetic_docker_argv(
     vector: dict[str, object],
     snapshot: Path,
+    writable_paths: dict[str, Path],
     arguments: list[str],
     container_name: str,
 ) -> list[str]:
     runtime = snapshot / "cache/native-runtime"
-    limits = vector["launcher"]["process_limits"]
+    limits = frozen_launcher_resources(vector)
     resource_arguments, virtual_memory_kib = launcher_resource_controls(limits)
     command = ["/mpk/toolchain/bin/cargo", *arguments[1:]]
     return [
         docker_path(),
-        "run",
+        "create",
         f"--name={container_name}",
-        "--rm",
         "--pull=never",
+        "--log-driver=none",
         "--network=none",
+        "--ipc=none",
         "--platform=linux/amd64",
         "--read-only",
+        f"--user={OUTER_SANDBOX_ID}:{OUTER_SANDBOX_ID}",
         "--hostname=mpk-build",
         "--cap-drop=ALL",
         "--security-opt=no-new-privileges",
+        "--security-opt=seccomp=unconfined",
         *resource_arguments,
         f"--mount=type=bind,src={snapshot / 'frontend'},dst=/mpk/frontend,readonly",
         f"--mount=type=bind,src={snapshot / 'cache/toolchain'},dst=/mpk/toolchain,readonly",
         f"--mount=type=bind,src={snapshot / 'cache/vendor'},dst=/mpk/vendor,readonly",
+        f"--mount=type=bind,src={snapshot / 'cache/cargo-home-seed/config.toml'},dst=/mpk/cargo-home-seed.toml,readonly",
         f"--mount=type=bind,src={snapshot / 'cache/native-sysroot'},dst=/mpk/native-sysroot,readonly",
         f"--mount=type=bind,src={snapshot / 'cache/native-runtime'},dst=/mpk/native-runtime,readonly",
         f"--mount=type=bind,src={runtime / 'lib64'},dst=/lib64,readonly",
         f"--mount=type=bind,src={runtime / 'lib/x86_64-linux-gnu'},dst=/lib/x86_64-linux-gnu,readonly",
         f"--mount=type=bind,src={runtime / 'lib/x86_64-linux-gnu'},dst=/usr/lib/x86_64-linux-gnu,readonly",
-        f"--mount=type=bind,src={snapshot / 'cargo-home'},dst=/mpk/cargo-home",
-        f"--mount=type=bind,src={snapshot / 'target'},dst=/mpk/target",
+        f"--mount=type=bind,src={writable_paths['home']},dst=/mpk/home",
+        f"--mount=type=bind,src={writable_paths['cargo-home']},dst=/mpk/cargo-home",
+        f"--mount=type=bind,src={writable_paths['tmp']},dst=/mpk/tmp",
+        f"--mount=type=bind,src={writable_paths['target']},dst=/mpk/target",
         "--workdir=/mpk/frontend",
         RUNTIME_IMAGE,
         "/bin/sh",
@@ -2800,44 +4636,37 @@ def run_hermetic(
         source_inventory = capture_frontend_project(snapshot / "frontend")
         copy_cache_snapshot(cache, snapshot / "cache")
         validate_cache(descriptor, root=snapshot / "cache")
-        cargo_home = snapshot / "cargo-home"
-        cargo_home.mkdir()
-        seed = snapshot / "cache/cargo-home-seed/config.toml"
-        copy_no_replace(seed, cargo_home / "config.toml")
-        (cargo_home / "config.toml").chmod(0o444)
-        target = snapshot / "target"
-        target.mkdir()
-        container_name = fresh_container_name("rust2vir")
-        argv = hermetic_docker_argv(vector, snapshot, arguments, container_name)
-        limits = vector["launcher"]["process_limits"]
-        result = run_bounded(
-            argv,
-            stdout_limit=limits["stdout_bytes"],
-            stderr_limit=limits["stderr_bytes"],
-            target_root=target,
-            target_file_limit=limits["output_files"],
-            target_byte_limit=limits["target_bytes"],
-            docker_cleanup=(docker_path(), container_name),
-        )
-        validate_post_run_cargo_home(cargo_home, vector)
-        checked_directory_usage(
-            target,
-            file_limit=limits["output_files"],
-            byte_limit=limits["target_bytes"],
-        )
-        if current_frontend_inventory() != source_inventory:
-            raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
-        validate_cache(descriptor, root=cache)
-        if retained_target is not None and result.returncode == 0:
-            if retained_target.exists() or retained_target.is_symlink():
-                raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
-            capture_candidate_outputs(target, retained_target)
-        if retained_cache is not None and result.returncode == 0:
-            if retained_cache.exists() or retained_cache.is_symlink():
-                raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
-            copy_tree_snapshot(snapshot / "cache", retained_cache)
-            validate_cache(descriptor, root=retained_cache)
-        return result
+        writable = snapshot / "writable"
+        writable.mkdir()
+        limits = frozen_launcher_resources(vector)
+        with mounted_writable_workspace(
+            writable, limits
+        ) as paths, delegated_cgroup_parent(limits) as cgroup_boundary:
+            container_name = fresh_container_name("rust2vir")
+            argv = hermetic_docker_argv(
+                vector, snapshot, paths, arguments, container_name
+            )
+            result = run_created_docker(
+                argv,
+                container_name=container_name,
+                limits=limits,
+                writable_paths=paths,
+                cgroup_boundary=cgroup_boundary,
+            )
+            validate_post_run_cargo_home(paths["cargo-home"], vector)
+            if current_frontend_inventory() != source_inventory:
+                raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+            validate_cache(descriptor, root=cache)
+            if retained_target is not None and result.returncode == 0:
+                if retained_target.exists() or retained_target.is_symlink():
+                    raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+                capture_candidate_outputs(paths["target"], retained_target)
+            if retained_cache is not None and result.returncode == 0:
+                if retained_cache.exists() or retained_cache.is_symlink():
+                    raise RustBuildFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
+                copy_tree_snapshot(snapshot / "cache", retained_cache)
+                validate_cache(descriptor, root=retained_cache)
+            return result
 
 
 def launch(arguments: list[str]) -> int:
@@ -3021,20 +4850,9 @@ def assemble_candidate(
         "os": "linux",
         "architecture": "x86_64",
         "abi": "gnu",
-        "minimum_kernel_abi": "5.10.0",
-        "probe_profile_id": "mpk.release.probe.linux_namespaces.v0",
-        "required_primitives": [
-            "filesystem.atomic_no_replace",
-            "filesystem.immutable_handle",
-            "filesystem.no_follow_open",
-            "isolation.mount_namespace",
-            "isolation.network_namespace",
-            "isolation.user_namespace",
-            "mount.no_exec",
-            "mount.read_only",
-            "process.closed_environment",
-            "process.no_new_privileges",
-        ],
+        "minimum_kernel_abi": RUST_MINIMUM_KERNEL_ABI,
+        "probe_profile_id": RUST_PROBE_PROFILE_ID,
+        "required_primitives": list(RUST_REQUIRED_PRIMITIVES),
     }
     layout = {
         "id": RUST_RUNTIME_ID,
@@ -3895,30 +5713,41 @@ def run_self_test() -> None:
         ),
     )
 
-    process_limits = vector["launcher"]["process_limits"]
-    if process_limits != FROZEN_PROCESS_LIMITS:
+    resource_limits = frozen_launcher_resources(vector)
+    if (
+        vector["valid_descriptor"].get("execution_host_profile_id") != RUST_HOST_ID
+        or vector["valid_descriptor"].get("runtime_layout_profile_id") != RUST_RUNTIME_ID
+        or RUST_MINIMUM_KERNEL_ABI != "6.4.0"
+        or RUST_PROBE_PROFILE_ID
+        != "mpk.release.probe.linux_namespaces_cgroup2_tmpfs.v0"
+        or len(RUST_REQUIRED_PRIMITIVES) != 19
+        or list(RUST_REQUIRED_PRIMITIVES)
+        != sorted(RUST_REQUIRED_PRIMITIVES, key=lambda value: value.encode("utf-8"))
+    ):
         raise RustBuildFailure()
-    resource_arguments, virtual_memory_kib = launcher_resource_controls(process_limits)
+    resource_arguments, virtual_memory_kib = launcher_resource_controls(resource_limits)
+    require_host_kernel_abi(RUST_MINIMUM_KERNEL_ABI)
+    self_test_expect(
+        "BUNDLE_PUBLICATION_UNAVAILABLE",
+        lambda: require_host_kernel_abi("06.4.0"),
+    )
     if resource_arguments != [
-        "--pids-limit=256",
+        "--pids-limit=-1",
         "--ulimit=nofile=1024:1024",
-        "--memory=8589934592",
-        "--memory-swap=8589934592",
-        "--tmpfs=/mpk/home:rw,nosuid,nodev,noexec,mode=700",
-        "--tmpfs=/mpk/tmp:rw,nosuid,nodev,noexec,mode=700,size=4294967296",
+        "--ulimit=fsize=-1:-1",
+        "--ulimit=nproc=-1:-1",
+        "--memory=0",
+        "--memory-swap=0",
     ] or virtual_memory_kib != 16_777_216:
         raise RustBuildFailure()
-    for maximum in FROZEN_PROCESS_LIMITS.values():
-        if (
-            checked_boundary(
-                maximum - 1, maximum, "BUNDLE_REPRODUCIBILITY_MISMATCH"
-            )
-            != maximum - 1
-            or checked_boundary(
-                maximum, maximum, "BUNDLE_REPRODUCIBILITY_MISMATCH"
-            )
-            != maximum
-        ):
+    for maximum in FROZEN_RESOURCE_LIMITS.values():
+        if checked_boundary(
+            maximum, maximum, "BUNDLE_REPRODUCIBILITY_MISMATCH"
+        ) != maximum:
+            raise RustBuildFailure()
+        if maximum > 0 and checked_boundary(
+            maximum - 1, maximum, "BUNDLE_REPRODUCIBILITY_MISMATCH"
+        ) != maximum - 1:
             raise RustBuildFailure()
         self_test_expect(
             "BUNDLE_REPRODUCIBILITY_MISMATCH",
@@ -3980,6 +5809,263 @@ def run_self_test() -> None:
         ) != b"rm|--force|mpk-cleanup-self-test":
             raise RustBuildFailure()
 
+        frozen_root = process_root / "frozen-resource-tmpfs"
+        frozen_root.mkdir()
+        with mounted_writable_workspace(
+            frozen_root, FROZEN_RESOURCE_LIMITS
+        ) as frozen_paths:
+            if set(frozen_paths) != {"home", "cargo-home", "tmp", "target"}:
+                raise RustBuildFailure()
+        if any(frozen_root.iterdir()):
+            raise RustBuildFailure()
+
+        allocated_root = process_root / "allocated-tmpfs"
+        allocated_root.mkdir()
+        with _mounted_writable_workspace(
+            allocated_root, allocated_bytes=4_096, inodes=16
+        ) as paths:
+            allocation = paths["target"] / "allocation"
+            allocation.write_bytes(b"x" * 4_096)
+            try:
+                with allocation.open("ab") as stream:
+                    stream.write(b"y")
+            except OSError as error:
+                if error.errno != errno.ENOSPC:
+                    raise RustBuildFailure() from error
+            else:
+                raise RustBuildFailure()
+        if any(allocated_root.iterdir()):
+            raise RustBuildFailure()
+
+        inode_root = process_root / "inode-tmpfs"
+        inode_root.mkdir()
+        with _mounted_writable_workspace(
+            inode_root, allocated_bytes=1_048_576, inodes=6
+        ) as paths:
+            (paths["target"] / "at").touch()
+            try:
+                (paths["target"] / "above").touch()
+            except OSError as error:
+                if error.errno != errno.ENOSPC:
+                    raise RustBuildFailure() from error
+            else:
+                raise RustBuildFailure()
+        if any(inode_root.iterdir()):
+            raise RustBuildFailure()
+
+        lifecycle_root = process_root / "lifecycle-tmpfs"
+        lifecycle_root.mkdir()
+        lifecycle_seed = process_root / "lifecycle-cargo-config.toml"
+        lifecycle_seed.write_bytes(b"[net]\noffline = true\n")
+        with mounted_writable_workspace(
+            lifecycle_root, FROZEN_RESOURCE_LIMITS
+        ) as lifecycle_paths, delegated_cgroup_parent(
+            FROZEN_RESOURCE_LIMITS
+        ) as lifecycle_cgroup:
+            lifecycle_executable = lifecycle_paths["target"] / "self-test-exec"
+            lifecycle_executable.write_bytes(b"#!/bin/sh\nexit 0\n")
+            lifecycle_executable.chmod(0o755)
+            lifecycle_controls, lifecycle_virtual_memory = (
+                launcher_resource_controls(FROZEN_RESOURCE_LIMITS)
+            )
+
+            def lifecycle_argv(
+                name: str,
+                controls: list[str],
+                child_command: str | None = None,
+            ) -> list[str]:
+                if child_command is None:
+                    child_command = (
+                        shell_resource_limit_checks(FROZEN_RESOURCE_LIMITS)
+                        + shell_process_status_checks()
+                        + "test \"$(id -u):$(id -g)\" = 0:0; "
+                        + "test \"$(pwd)\" = /; test -z \"${HOME+x}\"; "
+                        + "test -z \"$(/usr/bin/env)\"; "
+                        + "if /bin/mount -o remount,rw / >/dev/null 2>&1; "
+                        + "then exit 92; fi; "
+                        + "if /bin/mount -o remount,size=4096 /mpk/target "
+                        + ">/dev/null 2>&1; then exit 93; fi; "
+                        + "/bin/cp /mpk/target/self-test-exec /mpk/home/noexec; "
+                        + "/bin/chmod 0755 /mpk/home/noexec; "
+                        + "if /mpk/home/noexec >/dev/null 2>&1; then exit 91; fi; "
+                        + "/mpk/target/self-test-exec; "
+                        + "printf container-output; "
+                        + "printf container-error >&2; exit 7"
+                    )
+                return [
+                    docker_path(),
+                    "create",
+                    f"--name={name}",
+                    "--pull=never",
+                    "--log-driver=none",
+                    "--network=none",
+                    "--ipc=none",
+                    "--platform=linux/amd64",
+                    "--read-only",
+                    f"--user={OUTER_SANDBOX_ID}:{OUTER_SANDBOX_ID}",
+                    "--hostname=mpk-build",
+                    "--cap-drop=ALL",
+                    "--security-opt=no-new-privileges",
+                    "--security-opt=seccomp=unconfined",
+                    *controls,
+                    f"--mount=type=bind,src={lifecycle_seed},dst=/mpk/cargo-home-seed.toml,readonly",
+                    *(
+                        f"--mount=type=bind,src={lifecycle_paths[path_name]},dst=/mpk/{path_name}"
+                        for path_name in ("home", "cargo-home", "tmp", "target")
+                    ),
+                    RUNTIME_IMAGE,
+                    *frozen_shell_command(
+                        [
+                            "/bin/sh",
+                            "-c",
+                            child_command,
+                        ],
+                        lifecycle_virtual_memory,
+                    ),
+                ]
+
+            lifecycle_name = fresh_container_name("resource-self-test")
+            lifecycle_result = run_created_docker(
+                lifecycle_argv(lifecycle_name, lifecycle_controls),
+                container_name=lifecycle_name,
+                limits=FROZEN_RESOURCE_LIMITS,
+                writable_paths=lifecycle_paths,
+                cgroup_boundary=lifecycle_cgroup,
+            )
+            if (
+                lifecycle_result.returncode != 7
+                or lifecycle_result.stdout != b"container-output"
+                or lifecycle_result.stderr != b"container-error"
+            ):
+                raise RustBuildFailure()
+            lifecycle_cgroup_path = lifecycle_cgroup[1]
+            first_stat = cgroup_counters(lifecycle_cgroup_path / "cgroup.stat")
+            first_current = cgroup_scalar(lifecycle_cgroup_path / "memory.current")
+            first_peak = cgroup_scalar(lifecycle_cgroup_path / "memory.peak")
+            first_memory_stat = cgroup_counters(
+                lifecycle_cgroup_path / "memory.stat"
+            )
+            if (
+                cgroup_children(lifecycle_cgroup_path)
+                or cgroup_processes(lifecycle_cgroup_path / "cgroup.procs")
+                or cgroup_processes(lifecycle_cgroup_path / "cgroup.threads")
+                or first_stat.get("nr_descendants") != 0
+                or not isinstance(first_stat.get("nr_dying_descendants"), int)
+                or first_stat["nr_dying_descendants"] < 1
+                or not isinstance(first_current, int)
+                or not isinstance(first_peak, int)
+                or "shmem" not in first_memory_stat
+                or first_current <= 0
+                or first_peak < first_current
+            ):
+                raise RustBuildFailure()
+            aggregate_name = fresh_container_name("resource-aggregate")
+            aggregate_result = run_created_docker(
+                lifecycle_argv(
+                    aggregate_name,
+                    lifecycle_controls,
+                    (
+                        "/bin/dd if=/dev/zero of=/mpk/target/accounted "
+                        "bs=4096 count=4096 status=none"
+                    ),
+                ),
+                container_name=aggregate_name,
+                limits=FROZEN_RESOURCE_LIMITS,
+                writable_paths=lifecycle_paths,
+                cgroup_boundary=lifecycle_cgroup,
+            )
+            second_stat = cgroup_counters(lifecycle_cgroup_path / "cgroup.stat")
+            second_current = cgroup_scalar(lifecycle_cgroup_path / "memory.current")
+            second_peak = cgroup_scalar(lifecycle_cgroup_path / "memory.peak")
+            second_memory_stat = cgroup_counters(
+                lifecycle_cgroup_path / "memory.stat"
+            )
+            if (
+                aggregate_result.returncode != 0
+                or aggregate_result.stdout
+                or aggregate_result.stderr
+                or cgroup_children(lifecycle_cgroup_path)
+                or cgroup_processes(lifecycle_cgroup_path / "cgroup.procs")
+                or cgroup_processes(lifecycle_cgroup_path / "cgroup.threads")
+                or second_stat.get("nr_descendants") != 0
+                or second_stat.get("nr_dying_descendants", 0)
+                <= first_stat["nr_dying_descendants"]
+                or not isinstance(second_current, int)
+                or not isinstance(second_peak, int)
+                or second_memory_stat.get("shmem", 0)
+                < first_memory_stat["shmem"] + 16_777_216
+                or second_peak < first_peak
+            ):
+                raise RustBuildFailure()
+            mismatched_controls = [
+                (
+                    f"--pids-limit={FROZEN_RESOURCE_LIMITS['cgroup_tasks'] + 1}"
+                    if value.startswith("--pids-limit=")
+                    else value
+                )
+                for value in lifecycle_controls
+            ]
+            mismatch_name = fresh_container_name("resource-mismatch")
+            self_test_expect(
+                "BUNDLE_PUBLICATION_UNAVAILABLE",
+                lambda: run_created_docker(
+                    lifecycle_argv(mismatch_name, mismatched_controls),
+                    container_name=mismatch_name,
+                    limits=FROZEN_RESOURCE_LIMITS,
+                    writable_paths=lifecycle_paths,
+                    cgroup_boundary=lifecycle_cgroup,
+                ),
+            )
+            def exercise_resource_event() -> None:
+                with delegated_cgroup_parent(
+                    FROZEN_RESOURCE_LIMITS
+                ) as event_cgroup:
+                    event_name = fresh_container_name("resource-event")
+                    self_test_expect(
+                        "BUNDLE_REPRODUCIBILITY_MISMATCH",
+                        lambda: run_created_docker(
+                            lifecycle_argv(
+                                event_name,
+                                lifecycle_controls,
+                                (
+                                    "index=0; while test $index -lt 300; do "
+                                    "/bin/sleep 1 & index=$((index + 1)); done; wait"
+                                ),
+                            ),
+                            container_name=event_name,
+                            limits=FROZEN_RESOURCE_LIMITS,
+                            writable_paths=lifecycle_paths,
+                            cgroup_boundary=event_cgroup,
+                        ),
+                    )
+                    event_cgroup_path = event_cgroup[1]
+                    aggregate_pids_events = cgroup_counters(
+                        event_cgroup_path / "pids.events"
+                    )
+                    aggregate_memory_events = cgroup_counters(
+                        event_cgroup_path / "memory.events"
+                    )
+                    if (
+                        aggregate_pids_events.get("max", 0) < 1
+                        or any(
+                            aggregate_memory_events.get(name, 0) != 0
+                            for name in (
+                                "max",
+                                "oom",
+                                "oom_kill",
+                                "oom_group_kill",
+                            )
+                        )
+                        or cgroup_children(event_cgroup_path)
+                        or cgroup_processes(event_cgroup_path / "cgroup.procs")
+                        or cgroup_processes(event_cgroup_path / "cgroup.threads")
+                    ):
+                        raise RustBuildFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+
+            self_test_expect(
+                "BUNDLE_REPRODUCIBILITY_MISMATCH", exercise_resource_event
+            )
+
         bounded_file = process_root / "bounded-file"
         bounded_file.write_bytes(b"1234")
         if read_bounded_regular_file(
@@ -4017,106 +6103,6 @@ def run_self_test() -> None:
                 code="RUST_BUILD_INPUTS_TRANSPORT",
             ),
         )
-
-        def usage_fixture(name: str, sizes: list[int]) -> Path:
-            root = process_root / name
-            root.mkdir()
-            for index, size in enumerate(sizes):
-                (root / f"file-{index}").write_bytes(b"x" * size)
-            return root
-
-        if checked_directory_usage(
-            usage_fixture("bytes-below", [3]), file_limit=1, byte_limit=4
-        ) != (1, 3) or checked_directory_usage(
-            usage_fixture("bytes-at", [4]), file_limit=1, byte_limit=4
-        ) != (1, 4):
-            raise RustBuildFailure()
-        self_test_expect(
-            "BUNDLE_REPRODUCIBILITY_MISMATCH",
-            lambda: checked_directory_usage(
-                usage_fixture("bytes-above", [5]), file_limit=1, byte_limit=4
-            ),
-        )
-        if checked_directory_usage(
-            usage_fixture("files-below", [0]), file_limit=2, byte_limit=0
-        ) != (1, 0) or checked_directory_usage(
-            usage_fixture("files-at", [0, 0]), file_limit=2, byte_limit=0
-        ) != (2, 0):
-            raise RustBuildFailure()
-        self_test_expect(
-            "BUNDLE_REPRODUCIBILITY_MISMATCH",
-            lambda: checked_directory_usage(
-                usage_fixture("files-above", [0, 0, 0]),
-                file_limit=2,
-                byte_limit=0,
-            ),
-        )
-
-        directories_at = process_root / "directories-at"
-        directories_at.mkdir()
-        (directories_at / "child").mkdir()
-        if checked_directory_usage(
-            directories_at, file_limit=0, byte_limit=0, directory_limit=2
-        ) != (0, 0):
-            raise RustBuildFailure()
-        directories_above = process_root / "directories-above"
-        directories_above.mkdir()
-        (directories_above / "first").mkdir()
-        (directories_above / "second").mkdir()
-        self_test_expect(
-            "BUNDLE_REPRODUCIBILITY_MISMATCH",
-            lambda: checked_directory_usage(
-                directories_above,
-                file_limit=0,
-                byte_limit=0,
-                directory_limit=2,
-            ),
-        )
-
-        special_root = process_root / "special-node"
-        special_root.mkdir()
-        os.mkfifo(special_root / "fifo")
-        self_test_expect(
-            "BUNDLE_REPRODUCIBILITY_MISMATCH",
-            lambda: checked_directory_usage(
-                special_root, file_limit=1, byte_limit=0
-            ),
-        )
-        (special_root / "fifo").unlink()
-        (special_root / "symlink").symlink_to(process_root)
-        self_test_expect(
-            "BUNDLE_REPRODUCIBILITY_MISMATCH",
-            lambda: checked_directory_usage(
-                special_root, file_limit=1, byte_limit=0
-            ),
-        )
-
-        monitored = process_root / "monitored"
-        monitored.mkdir()
-        finished = process_root / "finished"
-        self_test_expect(
-            "BUNDLE_REPRODUCIBILITY_MISMATCH",
-            lambda: run_bounded(
-                [
-                    "/usr/bin/python3",
-                    "-c",
-                    (
-                        "import os,pathlib,sys,time; os.close(1); os.close(2); "
-                        "pathlib.Path(sys.argv[1]).joinpath('output').write_bytes(b'x'*5); "
-                        "time.sleep(1); pathlib.Path(sys.argv[2]).write_text('finished')"
-                    ),
-                    str(monitored),
-                    str(finished),
-                ],
-                stdout_limit=0,
-                stderr_limit=0,
-                target_root=monitored,
-                target_file_limit=1,
-                target_byte_limit=4,
-            ),
-        )
-        if finished.exists():
-            raise RustBuildFailure()
 
     launcher_modes = vector["launcher"]["modes"]
     if not launcher_modes or any(

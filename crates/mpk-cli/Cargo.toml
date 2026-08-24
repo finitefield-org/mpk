@@ -25,6 +25,7 @@ sha2 = "0.10"
 tempfile = "3"
 
 [target.'cfg(target_os = "linux")'.dependencies]
+mpk-linux-sandbox = { path = "../mpk-linux-sandbox" }
 rustix = { version = "1", features = ["fs", "mount", "process", "thread"] }
 
 [build-dependencies]

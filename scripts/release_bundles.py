@@ -494,7 +494,9 @@ def exchange_directories(left: Path, right: Path) -> None:
 
 
 def build_expected() -> tuple[bytes, Path, tempfile.TemporaryDirectory[str]]:
-    temporary = tempfile.TemporaryDirectory(prefix="mpk-release-bundles-")
+    temporary = tempfile.TemporaryDirectory(
+        prefix=".release-bundles-", dir=repository_root() / "release"
+    )
     output = Path(temporary.name) / "output"
     build_release_outputs(output)
     return assemble_registry(output), output, temporary
@@ -556,7 +558,9 @@ def require_preserved_go_registration(current_data: bytes, merged_data: bytes) -
 def build_expected_all() -> tuple[bytes, Path, Path, tempfile.TemporaryDirectory[str]]:
     import rust_build_inputs
 
-    temporary = tempfile.TemporaryDirectory(prefix="mpk-release-bundles-all-")
+    temporary = tempfile.TemporaryDirectory(
+        prefix=".release-bundles-all-", dir=repository_root() / "release"
+    )
     root = Path(temporary.name)
     go_output = root / "go"
     rust_output = root / "rust"
@@ -588,7 +592,9 @@ def update_all() -> None:
                 "schema": "mpk.release.bundle_candidate.v0",
                 "source_language": "rust",
                 "execution_host_profiles": [
-                    item for item in rebuilt["execution_host_profiles"] if item["id"].endswith("glibc2_27.v0")
+                    item
+                    for item in rebuilt["execution_host_profiles"]
+                    if item["id"] == rust_build_inputs.RUST_HOST_ID
                 ],
                 "native_runtime_layout_profiles": rebuilt["native_runtime_layout_profiles"],
                 "frontend_bundles": [item for item in rebuilt["frontend_bundles"] if item["source_language"] == "rust"],

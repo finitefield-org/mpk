@@ -1,9 +1,9 @@
 use mpk_vc::{
     canonical_json_bytes, hash_canonical_inventory, hash_canonical_json, parse_strict_json,
     registry_build_constants, sha256_raw_file_bytes, validate_release_limit,
-    validate_release_registry, ExecutableRuntime, HashDomain, ReleaseSelectionError,
-    ReleaseSelectionRequest, ReleaseValidationPhase, StrictJsonLimits, StrictJsonValue,
-    BUNDLE_CONTENT_HASH_DOMAIN, BUNDLE_REGISTRY_HASH_DOMAIN,
+    validate_release_registry, ExecutableRuntime, HashDomain, ReleaseRegistryErrorCode,
+    ReleaseSelectionError, ReleaseSelectionRequest, ReleaseValidationPhase, StrictJsonLimits,
+    StrictJsonValue, BUNDLE_CONTENT_HASH_DOMAIN, BUNDLE_REGISTRY_HASH_DOMAIN,
 };
 use serde::Deserialize;
 use serde_json::{Map, Value};
@@ -197,6 +197,81 @@ fn release_bundle_registry_and_inventory_vectors_match_all_model_outcomes() {
 }
 
 #[test]
+fn cgroup2_tmpfs_execution_host_profile_is_closed_and_versioned() {
+    let vectors = load_vectors();
+    let mut registry = field(field(&vectors, "fixtures"), "valid_registry").clone();
+    let profile = &mut registry["execution_host_profiles"][0];
+    profile["minimum_kernel_abi"] = Value::String("6.4.0".to_owned());
+    profile["probe_profile_id"] =
+        Value::String("mpk.release.probe.linux_namespaces_cgroup2_tmpfs.v0".to_owned());
+    profile["required_primitives"] = serde_json::json!([
+        "filesystem.atomic_no_replace",
+        "filesystem.immutable_handle",
+        "filesystem.no_follow_open",
+        "filesystem.tmpfs_allocated_blocks",
+        "filesystem.tmpfs_inode_limit",
+        "isolation.cgroup_v2",
+        "isolation.mount_namespace",
+        "isolation.network_namespace",
+        "isolation.user_namespace",
+        "memory.cgroup_accounting",
+        "mount.no_exec",
+        "mount.read_only",
+        "mount.tmpfs_noswap",
+        "process.cgroup_tasks",
+        "process.closed_environment",
+        "process.no_new_privileges",
+        "process.rlimit_address_space",
+        "process.rlimit_open_files",
+        "process.task_tree_kill"
+    ]);
+    rehash_registry(&mut registry);
+    validate_release_registry(&canonical_transport(&registry))
+        .expect("the new closed execution-host profile validates");
+
+    let profile = &mut registry["execution_host_profiles"][0];
+    profile["minimum_kernel_abi"] = Value::String("6.3.0".to_owned());
+    rehash_registry(&mut registry);
+    let error = validate_release_registry(&canonical_transport(&registry))
+        .expect_err("the profile must reject a different minimum kernel");
+    assert_eq!(error.phase(), ReleaseValidationPhase::Scalar);
+}
+
+#[test]
+fn registry_shape_precedes_streamed_scalar_count_limits_without_full_vectors() {
+    let mut registry: Value = serde_json::from_slice(
+        &fs::read(repository_root().join("release/bundles/bundle-registry.json"))
+            .expect("tracked registry reads"),
+    )
+    .expect("tracked registry parses");
+    let exemplar = registry["frontend_bundles"]
+        .as_array()
+        .and_then(|bundles| bundles.first())
+        .cloned()
+        .expect("tracked registry has a frontend bundle");
+    registry["frontend_bundles"] = Value::Array(vec![exemplar; 1_025]);
+
+    let mut transport = serde_json::to_vec(&registry).expect("oversized registry serializes");
+    transport.push(b'\n');
+    let limit = validate_release_registry(&transport)
+        .expect_err("descriptor count above the scalar limit rejects");
+    assert_eq!(limit.phase(), ReleaseValidationPhase::Scalar);
+    assert_eq!(limit.code(), ReleaseRegistryErrorCode::Limit);
+
+    registry["frontend_bundles"]
+        .as_array_mut()
+        .and_then(|bundles| bundles.last_mut())
+        .expect("above-limit final bundle exists")["unexpected"] = Value::Bool(true);
+    let mut transport =
+        serde_json::to_vec(&registry).expect("mixed shape/count registry serializes");
+    transport.push(b'\n');
+    let shape = validate_release_registry(&transport)
+        .expect_err("a later bundle shape failure precedes the scalar count limit");
+    assert_eq!(shape.phase(), ReleaseValidationPhase::Shape);
+    assert_eq!(shape.code(), ReleaseRegistryErrorCode::Invalid);
+}
+
+#[test]
 fn release_bundle_selection_vectors_are_exact_and_have_no_default() {
     let vectors = load_vectors();
     let valid = field(field(&vectors, "fixtures"), "valid_registry");
@@ -369,7 +444,7 @@ fn release_bundle_hash_vectors_match_every_payload_and_domain() {
 }
 
 #[test]
-fn release_bundle_tracked_go_registry_is_valid_and_build_constants_are_derived() {
+fn tracked_release_registry_is_valid_and_build_constants_are_derived() {
     let path = repository_root().join("release/bundles/bundle-registry.json");
     let bytes = fs::read(path).expect("read tracked bundle registry");
     let validated = validate_release_registry(&bytes).expect("tracked registry validates");
@@ -379,13 +454,10 @@ fn release_bundle_tracked_go_registry_is_valid_and_build_constants_are_derived()
         constants.registry_sha256,
         *validated.registry_digest().as_bytes()
     );
-    assert_eq!(validated.registry().frontend_bundles.len(), 1);
-    assert_eq!(validated.registry().toolchain_bundles.len(), 1);
-    assert_eq!(validated.registry().tuples.len(), 1);
-    assert!(validated
-        .registry()
-        .native_runtime_layout_profiles
-        .is_empty());
+    assert_eq!(validated.registry().frontend_bundles.len(), 2);
+    assert_eq!(validated.registry().toolchain_bundles.len(), 2);
+    assert_eq!(validated.registry().tuples.len(), 3);
+    assert_eq!(validated.registry().native_runtime_layout_profiles.len(), 1);
     let frontend = validated
         .frontend_bundle("frontend.go.go2vir.v0")
         .expect("registered Go frontend");
