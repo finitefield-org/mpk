@@ -1,13 +1,12 @@
 # Post-Rust Multi-Language Frontend Expansion Design
 
-Status: Gate B is active after the completed `RUST-07-T05` entry gate.
-`MLANG-00-T01` and `MLANG-00-T02` are complete, and `MLANG-00-T03` is next.
-This document does not activate a new source language or amend a frozen
-serialized schema.
+Status: Gate B and `MLANG-00` are complete after the completed `RUST-07-T05`
+entry gate. Gate C begins with `MLANG-01-T01`, which is next. This document
+does not activate a new source language or amend a frozen serialized schema.
 
 Prepared: 2026-08-21
 
-Updated: 2026-08-25 (`MLANG-00-T02` completion)
+Updated: 2026-08-25 (`MLANG-00-T03` and Gate B completion)
 
 ## 1. Decision summary
 
@@ -46,6 +45,15 @@ The second deliverable is
 supported public analysis boundaries and deterministic input closures, then
 gives every matrix row an integration `GO` or `NO-GO` verdict without choosing
 a production pin or activating a profile.
+
+The third deliverable is
+`mlang-00-go-rust-shared-boundary-audit.md`. It audits the implemented Go/Rust
+language/profile branches, process launches, release executable closure, and
+compiler callback surfaces. Its one blocking finding—ambient source/PATH
+execution of the required Go reference checker—was remediated serially with a
+deterministically rebuilt embedded executable and same-byte checker input. The
+repeated audit has no open finding and added no future-language production or
+accepted schema value.
 
 The order may change only through a reviewed governance amendment that records
 the user value, semantic risk, compiler integration quality, and effect on the
@@ -378,6 +386,10 @@ does not authorize further semantic research, feasibility experiments,
 successor-contract work, or production frontend work during the Rust program.
 
 ### Gate B: post-Rust design and feasibility
+
+Completion: `MLANG-00-T01` through `MLANG-00-T03` are complete. The semantic
+matrix, compiler-boundary feasibility record, and repeated zero-finding
+Go/Rust shared-boundary audit are the closed Gate B outputs.
 
 Allowed work:
 

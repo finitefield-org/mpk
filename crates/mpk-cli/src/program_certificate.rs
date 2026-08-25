@@ -2,10 +2,8 @@
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::fmt;
-use std::io::Write;
-use std::path::{Path, PathBuf};
-use std::process::Command;
 
+use crate::reference_checker::execute_reference_checker;
 use mpk_cert::encode::{
     AxiomReport, Certificate, CertificateHashes, Declaration, DeclarationKind, HashBytes,
     LevelNode, SourceManifest, TermNode, ZERO_HASH,
@@ -2410,31 +2408,9 @@ fn project_and(
 }
 
 fn run_reference_checker(bytes: &[u8]) -> Result<ReferenceCheckerReport, ProgramCertificateError> {
-    let checker_dir = reference_checker_dir();
-    if !checker_dir.join("go.mod").is_file() {
-        return Err(ProgramCertificateError::new(
-            ProgramCertificateErrorKind::CheckerExecution,
-            format!(
-                "reference checker source is missing at {}",
-                checker_dir.display()
-            ),
-        ));
-    }
-    let mut file = tempfile::Builder::new()
-        .prefix("mpk-program-certificate-")
-        .suffix(".mpcert")
-        .tempfile()
-        .map_err(|error| checker_execution(format!("create candidate tempfile: {error}")))?;
-    file.write_all(bytes)
-        .and_then(|()| file.flush())
-        .map_err(|error| checker_execution(format!("write candidate tempfile: {error}")))?;
-    let output = Command::new("go")
-        .current_dir(&checker_dir)
-        .args(["run", "./cmd/mpk-checker-ref", "verify"])
-        .arg(file.path())
-        .output()
+    let output = execute_reference_checker(bytes)
         .map_err(|error| checker_execution(format!("launch reference checker: {error}")))?;
-    parse_reference_checker_output(output.status.code(), &output.stdout, &output.stderr)
+    parse_reference_checker_output(output.status_code(), output.stdout(), output.stderr())
 }
 
 fn parse_reference_checker_output(
@@ -2704,12 +2680,6 @@ struct ReferenceHashes {
     export: String,
     axiom_report: String,
     certificate: String,
-}
-
-fn reference_checker_dir() -> PathBuf {
-    Path::new(env!("CARGO_MANIFEST_DIR"))
-        .join("../..")
-        .join("go-tools/mpk-checker-ref")
 }
 
 fn compact_output(bytes: &[u8]) -> String {

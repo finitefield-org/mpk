@@ -2,9 +2,9 @@
 
 Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
-Status: `MLANG-00` active after the completed Rust gate;
-`MLANG-00-T01` and `MLANG-00-T02` complete, and `MLANG-00-T03` is next. No
-later task or language phase is active.
+Status: `MLANG-00` complete after the completed Rust gate;
+`MLANG-00-T01` through `MLANG-00-T03` are complete, and `MLANG-01-T01` is
+next. No later task or language phase is active.
 
 ## Scope and sequencing
 
@@ -148,7 +148,16 @@ release bundle, registry, or production VIR path.
 
 ### MLANG-00-T03 Audit the completed Go/Rust path for speculative hooks
 
+Status: Complete (2026-08-25).
+
 Depends on: `MLANG-00-T02`.
+
+Deliverable:
+
+- `mlang-00-go-rust-shared-boundary-audit.md`, the completed code, schema,
+  release, executable, callback, and profile-default audit; its closed blocker
+  ledger includes the bounded `MLANG-00-T03-R01` remediation and repeated
+  zero-finding audit.
 
 Tasks:
 
@@ -163,6 +172,39 @@ Tasks:
 
 Exit gate: Go and Rust demonstrate the shared boundary without production code
 or accepted schema values for C#, Java, Dart, TypeScript, or Python.
+
+#### MLANG-00-T03-R01 Close the ambient reference-checker launch
+
+Status: Complete (2026-08-25).
+
+Depends on: the blocking first-pass finding in `MLANG-00-T03`.
+
+Tasks:
+
+1. Replace both production `go run` reference-checker launches with one fixed,
+   deterministic executable payload embedded in `bin/mpk` and executed from a
+   sealed anonymous descriptor under a closed environment and bounded I/O/time.
+2. Build that payload with the digest-pinned Go image and require byte equality
+   in release check and fixture modes without adding it to a registry or
+   installed bundle inventory.
+3. Retain each package certificate's Rust-checked bytes and submit that exact
+   slice to the Go checker rather than reopening its pathname.
+4. Prove package and installed Rust policy verification work with
+   `PATH=/nonexistent`, then repeat the T03 audit.
+
+Exit gate: required dual-checker verification has no ambient Go, source-tree,
+checker-path, registry-executable, callback, or plugin dependency, and the
+repeated T03 blocker ledger is empty.
+
+T03 completion evidence: language/profile parsers, release tuples, frontend
+paths, compiler callbacks, production process launches, and future-language
+literals were re-audited. The only future-language values in active
+non-documentation artifacts are three unknown-language rejection mutations for
+`typescript`.
+The reference-checker asset rebuilds byte-identically, both checkers receive
+the same candidate bytes, and the installed `policy verify` fixture succeeds
+with no usable host `PATH`. Existing VIR, VC, map/manifest, release, policy,
+evidence, certificate, and AI boundaries required no speculative extension.
 
 ## MLANG-01: Rust feedback and successor contract freeze
 

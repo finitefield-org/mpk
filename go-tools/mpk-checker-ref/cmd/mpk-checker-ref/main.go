@@ -4,6 +4,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 	"strings"
@@ -14,7 +15,7 @@ import (
 
 func main() {
 	if len(os.Args) != 3 || os.Args[1] != "verify" {
-		fmt.Fprintln(os.Stderr, "usage: mpk-checker-ref verify <certificate.mpcert|fixture.hex>")
+		fmt.Fprintln(os.Stderr, "usage: mpk-checker-ref verify <certificate.mpcert|fixture.hex|->")
 		os.Exit(2)
 	}
 
@@ -48,6 +49,17 @@ func main() {
 }
 
 func readCertificateInput(path string) ([]byte, error) {
+	return readCertificateInputFrom(path, os.Stdin)
+}
+
+func readCertificateInputFrom(path string, stdin io.Reader) ([]byte, error) {
+	if path == "-" {
+		bytes, err := io.ReadAll(stdin)
+		if err != nil {
+			return nil, fmt.Errorf("read stdin: %w", err)
+		}
+		return bytes, nil
+	}
 	bytes, err := os.ReadFile(path)
 	if err != nil {
 		return nil, fmt.Errorf("read %s: %w", path, err)

@@ -778,11 +778,26 @@ same bounded strict validation, recomputes the content hashes and registry
 hash, and requires canonical JCS-plus-LF bytes. Compilation fails on any
 disagreement.
 
-Only the validated `id` and decoded 32-byte `registry_sha256` are generated
-into the build output and embedded. Registry bytes, descriptor paths, source
-paths, bundle roots, and a hand-maintained duplicate hash are not embedded.
-Runtime always validates the separately installed registry; successful build
-validation cannot make a missing or changed installation valid.
+For registry selection, only the validated `id` and decoded 32-byte
+`registry_sha256` are generated into the build output and embedded. Registry
+bytes, descriptor paths, source paths, bundle roots, and a hand-maintained
+duplicate hash are not embedded. Runtime always validates the separately
+installed registry; successful build validation cannot make a missing or
+changed installation valid.
+
+The independent Go reference checker is a separate build-owned executable
+payload embedded in `bin/mpk`, not a registry selection value. The release
+assembler builds it as a static Linux AMD64 executable with the same
+digest-pinned Go image and closed, network-free environment used for the Go
+release build, with cgo disabled, paths trimmed, and the build ID removed.
+`check-go`, `check-all`, and installed fixture modes rebuild the payload and
+require exact byte equality with the repository asset before acceptance.
+
+The checker payload is not installed beside `mpk`, listed in a frontend or
+toolchain inventory, or supplied by a registry descriptor. Runtime may execute
+only the embedded bytes through the sealed anonymous boundary in
+`PROGRAM_CERTIFICATE_ALPHA_V0.md`; no caller, environment variable, feature,
+adjacent file, or registry entry chooses checker code or a checker path.
 
 ## 9. Installed bundle snapshot validation
 
@@ -1264,6 +1279,9 @@ its input.
   runtime-layout profile whose complete native closure has been snapshotted.
 - Registry build constants bind ID/hash only; installed bytes remain required
   and independently validated.
+- The reference checker is the byte-rebuilt executable payload embedded in
+  `bin/mpk`; it is never selected from `PATH`, an adjacent file, or a registry
+  executable field.
 - Open-before-hash and sealed identities prevent a mutable path from changing
   what is executed after validation.
 - Build-only descriptors/caches and source-only candidates never become

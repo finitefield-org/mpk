@@ -6,7 +6,7 @@ use std::fs;
 #[cfg(feature = "vertex-ai")]
 use std::path::Component;
 use std::path::{Path, PathBuf};
-use std::process::{Command, ExitCode};
+use std::process::ExitCode;
 
 #[cfg(feature = "vertex-ai")]
 use mpk_cli::ai_explain::{
@@ -15,6 +15,7 @@ use mpk_cli::ai_explain::{
 use mpk_cli::policy_profile::{validate_package_axiom_profiles, POLICY_CHECKER_REGISTRY};
 use mpk_cli::policy_scan::v1::run_cli as run_policy_scan_cli;
 use mpk_cli::policy_verify::v1::run_cli as run_policy_verify_cli;
+use mpk_cli::reference_checker::execute_reference_checker;
 use mpk_core::Name;
 use mpk_kernel::{
     verify_certificate_bytes, verify_certificate_bytes_axiom_report_json_output,
@@ -516,32 +517,22 @@ fn verify_path(path: &Path) -> Result<RunOutcome, CliError> {
 }
 
 fn package_check_path(path: &Path) -> Result<RunOutcome, CliError> {
-    let package = validate_package_manifest(path)
+    let package = validate_package_manifest(path, false)
         .map_err(|error| CliError::Input(format!("package check failed: {error}")))?;
 
     Ok(RunOutcome::PackageCheck(format!(
         "ok package={} imports={} certificates={}",
-        package.module,
-        package.import_count,
-        package.certificates.len()
+        package.module, package.import_count, package.certificate_count
     )))
 }
 
 fn package_verify_certs_path(path: &Path) -> Result<RunOutcome, CliError> {
-    let package = validate_package_manifest(path)
+    let package = validate_package_manifest(path, true)
         .map_err(|error| CliError::Input(format!("package verify-certs failed: {error}")))?;
-    let reference_count = if package.policy.require_reference_checker {
-        verify_reference_certificates(&package)
-            .map_err(|error| CliError::Input(format!("package verify-certs failed: {error}")))?
-    } else {
-        0
-    };
 
     Ok(RunOutcome::PackageVerifyCerts(format!(
         "ok package={} source_free={} reference={}",
-        package.module,
-        package.certificates.len(),
-        reference_count
+        package.module, package.certificate_count, package.reference_count
     )))
 }
 
@@ -671,7 +662,10 @@ fn decode_hex(bytes: &[u8]) -> Result<Vec<u8>, CliError> {
         .collect()
 }
 
-fn validate_package_manifest(path: &Path) -> Result<PackageValidation, PackageError> {
+fn validate_package_manifest(
+    path: &Path,
+    verify_reference: bool,
+) -> Result<PackageValidation, PackageError> {
     let text = fs::read_to_string(path)
         .map_err(|error| PackageError(format!("failed to read {}: {error}", path.display())))?;
     let value = parse_strict_json(&text)
@@ -687,14 +681,17 @@ fn validate_package_manifest(path: &Path) -> Result<PackageValidation, PackageEr
     require_equal(manifest.get("schema"), PACKAGE_SCHEMA, "schema")?;
     let module = require_name(manifest.get("module"), "module")?.to_owned();
     let import_count = validate_imports(manifest.get("imports"))?;
-    let certificates = validate_certificates(manifest.get("certificates"))?;
     let policy = validate_policy(manifest.get("policy"))?;
+    let (certificate_count, reference_count) = validate_certificates(
+        manifest.get("certificates"),
+        verify_reference && policy.require_reference_checker,
+    )?;
 
     Ok(PackageValidation {
         module,
         import_count,
-        certificates,
-        policy,
+        certificate_count,
+        reference_count,
     })
 }
 
@@ -746,7 +743,10 @@ fn validate_imports(value: Option<&Value>) -> Result<usize, PackageError> {
     Ok(imports.len())
 }
 
-fn validate_certificates(value: Option<&Value>) -> Result<Vec<VerifiedCertificate>, PackageError> {
+fn validate_certificates(
+    value: Option<&Value>,
+    verify_reference: bool,
+) -> Result<(usize, usize), PackageError> {
     let certificates = require_array(value, "certificates")?;
     if certificates.is_empty() {
         return Err(PackageError(
@@ -757,7 +757,7 @@ fn validate_certificates(value: Option<&Value>) -> Result<Vec<VerifiedCertificat
     let package_root = std::env::current_dir()
         .map_err(|error| PackageError(format!("failed to resolve package root: {error}")))?;
     let mut seen_paths = HashSet::new();
-    let mut verified = Vec::with_capacity(certificates.len());
+    let mut reference_count = 0;
 
     for (index, entry) in certificates.iter().enumerate() {
         let field = format!("certificates[{index}]");
@@ -786,7 +786,7 @@ fn validate_certificates(value: Option<&Value>) -> Result<Vec<VerifiedCertificat
         )?;
 
         let certificate_path = resolve_package_path(&package_root, manifest_path, &field)?;
-        let report = verify_manifest_certificate(&certificate_path, &field)?;
+        let (bytes, report) = verify_manifest_certificate(&certificate_path, &field)?;
         require_report_field(&report.module, module, &format!("{field}.module"))?;
         require_report_field(
             &hash_hex(&report.export_hash),
@@ -804,17 +804,20 @@ fn validate_certificates(value: Option<&Value>) -> Result<Vec<VerifiedCertificat
             &format!("{field}.expected_certificate_hash"),
         )?;
 
-        verified.push(VerifiedCertificate {
+        let certificate = VerifiedCertificate {
             manifest_path: manifest_path.to_owned(),
-            resolved_path: certificate_path,
             module: report.module,
             export_hash: hash_hex(&report.export_hash),
             axiom_report_hash: hash_hex(&report.axiom_report_hash),
             certificate_hash: hash_hex(&report.certificate_hash),
-        });
+        };
+        if verify_reference {
+            verify_reference_certificate(&certificate, &bytes)?;
+            reference_count += 1;
+        }
     }
 
-    Ok(verified)
+    Ok((certificates.len(), reference_count))
 }
 
 fn validate_policy(value: Option<&Value>) -> Result<PackagePolicy, PackageError> {
@@ -867,51 +870,28 @@ fn validate_policy(value: Option<&Value>) -> Result<PackagePolicy, PackageError>
     })
 }
 
-fn verify_reference_certificates(package: &PackageValidation) -> Result<usize, PackageError> {
-    let package_root = std::env::current_dir()
-        .map_err(|error| PackageError(format!("failed to resolve package root: {error}")))?;
-    let checker_dir = package_root.join("go-tools/mpk-checker-ref");
-    if !checker_dir.join("go.mod").is_file() {
-        return Err(PackageError(format!(
-            "reference checker is required, but {} is missing",
-            checker_dir.display()
-        )));
-    }
-
-    for certificate in &package.certificates {
-        verify_reference_certificate(&checker_dir, certificate)?;
-    }
-
-    Ok(package.certificates.len())
-}
-
 fn verify_reference_certificate(
-    checker_dir: &Path,
     certificate: &VerifiedCertificate,
+    bytes: &[u8],
 ) -> Result<(), PackageError> {
-    let output = Command::new("go")
-        .current_dir(checker_dir)
-        .args(["run", "./cmd/mpk-checker-ref", "verify"])
-        .arg(&certificate.resolved_path)
-        .output()
-        .map_err(|error| {
-            PackageError(format!(
-                "failed to run reference checker for {}: {error}",
-                certificate.manifest_path
-            ))
-        })?;
+    let output = execute_reference_checker(bytes).map_err(|error| {
+        PackageError(format!(
+            "failed to run reference checker for {}: {error}",
+            certificate.manifest_path
+        ))
+    })?;
 
-    if !output.status.success() {
+    if output.status_code() != Some(0) {
         return Err(PackageError(format!(
-            "reference checker rejected {}: status={} stdout={} stderr={}",
+            "reference checker rejected {}: status={:?} stdout={} stderr={}",
             certificate.manifest_path,
-            output.status,
-            compact_output(&output.stdout),
-            compact_output(&output.stderr)
+            output.status_code(),
+            compact_output(output.stdout()),
+            compact_output(output.stderr())
         )));
     }
 
-    let value = serde_json::from_slice::<Value>(&output.stdout).map_err(|error| {
+    let value = serde_json::from_slice::<Value>(output.stdout()).map_err(|error| {
         PackageError(format!(
             "reference checker output for {} is not valid JSON: {error}",
             certificate.manifest_path
@@ -966,16 +946,17 @@ fn compact_output(bytes: &[u8]) -> String {
 fn verify_manifest_certificate(
     path: &Path,
     field: &str,
-) -> Result<VerificationReport, PackageError> {
+) -> Result<(Vec<u8>, VerificationReport), PackageError> {
     let bytes = read_certificate_input(path)
         .map_err(|error| PackageError(format!("{field}.path: {error}")))?;
-    verify_certificate_bytes(&bytes).map_err(|error| {
+    let report = verify_certificate_bytes(&bytes).map_err(|error| {
         PackageError(format!(
             "{field}.path rejected by source-free checker: {:?}: {}",
             error.kind(),
             error.detail()
         ))
-    })
+    })?;
+    Ok((bytes, report))
 }
 
 fn resolve_package_path(
@@ -1270,13 +1251,12 @@ impl fmt::Display for CliError {
 struct PackageValidation {
     module: String,
     import_count: usize,
-    certificates: Vec<VerifiedCertificate>,
-    policy: PackagePolicy,
+    certificate_count: usize,
+    reference_count: usize,
 }
 
 struct VerifiedCertificate {
     manifest_path: String,
-    resolved_path: PathBuf,
     module: String,
     export_hash: String,
     axiom_report_hash: String,

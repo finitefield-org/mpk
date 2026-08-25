@@ -141,6 +141,31 @@ fn package_check_accepts_valid_manifest_fixture() {
 }
 
 #[test]
+fn package_verify_certs_uses_the_embedded_reference_checker() {
+    let output = Command::new(env!("CARGO_BIN_EXE_mpk"))
+        .current_dir(repo_root())
+        .env("PATH", "/nonexistent")
+        .args([
+            "package",
+            "verify-certs",
+            "fixtures/package-manifest/valid/basic-package.json",
+        ])
+        .output()
+        .expect("mpk command runs");
+
+    assert!(
+        output.status.success(),
+        "stderr: {}",
+        String::from_utf8_lossy(&output.stderr)
+    );
+    assert!(output.stderr.is_empty());
+    assert_eq!(
+        String::from_utf8(output.stdout).expect("stdout is UTF-8"),
+        "ok package=Example.Basic.Package source_free=1 reference=1\n"
+    );
+}
+
+#[test]
 fn package_check_rejects_invalid_manifest_fixture() {
     let output = Command::new(env!("CARGO_BIN_EXE_mpk"))
         .current_dir(repo_root())

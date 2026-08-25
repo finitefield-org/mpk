@@ -2379,6 +2379,14 @@ can support `mpk_verified`. A deterministic rejection is
 written as valid untrusted evidence and makes `policy verify` fail regardless
 of strict mode; a checker crash or internal failure writes neither report.
 
+The independent Go checker is the deterministic static executable payload
+embedded in `bin/mpk`, rebuilt byte-for-byte by the release gate and executed
+from a sealed anonymous descriptor with a closed environment and bounded
+standard streams/time. It is not resolved through Go, `PATH`, checker source,
+an installed sibling, or a registry executable. Both program-certificate and
+package verification submit the exact retained Rust-checked certificate bytes
+to that process over standard input.
+
 Both policy v1 payloads' `release_registry` object repeats the validated
 registry schema, ID, and hash from the source manifest and runner. The policy
 CLI cannot select or override it; its mandatory registry flags only assert

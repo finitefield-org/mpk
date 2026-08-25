@@ -269,6 +269,20 @@ hash, axiom-report hash, total axiom count, and complete axiom report. A
 rejection or disagreement cannot emit `mpk_verified`; an execution/internal
 failure publishes no evidence pair.
 
+The Go checker executable is the deterministic static asset embedded in the
+executing `bin/mpk` and byte-checked by the release build gate. It is not
+resolved from `PATH`, a source checkout, an installed sibling path, a release
+registry executable, or a callback. `mpk` copies only those embedded bytes to
+a sealed anonymous executable, clears the child environment, supplies the
+candidate on standard input, and bounds wall time plus stdout/stderr. The Go
+process remains an implementation independent from the Rust fast kernel; its
+embedding changes executable provenance, not checker semantics or proof
+inputs.
+
+Package verification also retains the byte slice accepted by the Rust checker
+and submits that exact slice to the Go checker. It MUST NOT reopen the
+certificate pathname between checker invocations.
+
 The checker-result lifecycle is exact:
 
 1. Two accepted, byte-bound, equal reports produce `Candidate`.

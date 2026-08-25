@@ -30,6 +30,8 @@ GO_IMAGE = (
     "sha256:ebd54034f076819b3054f155db53660ded951612bb4dfd277f933e62059e5d5a"
 )
 FRONTEND_VERSION = "go1.25.0-profile-v0"
+REFERENCE_CHECKER_ASSET = Path("release/checkers/mpk-checker-ref-linux-amd64")
+REFERENCE_CHECKER_OUTPUT = Path("reference-checker/mpk-checker-ref")
 REQUIRED_PRIMITIVES = [
     "filesystem.atomic_no_replace",
     "filesystem.immutable_handle",
@@ -103,7 +105,7 @@ def build_release_outputs(output: Path) -> None:
     build_script = r'''
 umask 077
 test "$(sed -n '1p' /usr/local/go/VERSION)" = "go1.25.0"
-mkdir -p /out/frontend/bin /out/toolchain/go /tmp/mpk-home /tmp/mpk-cache
+mkdir -p /out/frontend/bin /out/reference-checker /out/toolchain/go /tmp/mpk-home /tmp/mpk-cache
 cd /src/go-tools/go2vir
 env -i \
   PATH=/usr/local/go/bin:/usr/bin:/bin \
@@ -114,6 +116,17 @@ env -i \
   TZ=UTC LANG=C LC_ALL=C SOURCE_DATE_EPOCH=0 \
   /usr/local/go/bin/go build -mod=vendor -trimpath -buildvcs=false \
     -ldflags=-buildid= -o /out/frontend/bin/go2vir .
+cd /src/go-tools/mpk-checker-ref
+env -i \
+  PATH=/usr/local/go/bin:/usr/bin:/bin \
+  HOME=/tmp/mpk-home \
+  GOCACHE=/tmp/mpk-cache \
+  CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GOAMD64=v1 \
+  GOENV=off GOFLAGS= GOWORK=off GOPROXY=off GOSUMDB=off GOTOOLCHAIN=local \
+  TZ=UTC LANG=C LC_ALL=C SOURCE_DATE_EPOCH=0 \
+  /usr/local/go/bin/go build -trimpath -buildvcs=false \
+    -ldflags='-s -w -buildid=' \
+    -o /out/reference-checker/mpk-checker-ref ./cmd/mpk-checker-ref
 cp -a /usr/local/go/. /out/toolchain/go/
 '''
     run_checked(
@@ -138,6 +151,9 @@ cp -a /usr/local/go/. /out/toolchain/go/
     prune_empty_directories(output / "toolchain")
     normalize_tree(output / "frontend", frontend=True)
     normalize_tree(output / "toolchain", frontend=False)
+    checker = output / REFERENCE_CHECKER_OUTPUT
+    checker.chmod(0o555)
+    require_static_x86_64_elf(checker)
 
 
 def prune_go_distribution(go_root: Path) -> None:
@@ -499,6 +515,88 @@ def exchange_directories(left: Path, right: Path) -> None:
         raise BundleFailure("BUNDLE_PUBLICATION_UNAVAILABLE", 69)
 
 
+def reference_checker_output(output: Path) -> Path:
+    checker = output / REFERENCE_CHECKER_OUTPUT
+    metadata = checker.lstat()
+    if (
+        checker.is_symlink()
+        or not stat.S_ISREG(metadata.st_mode)
+        or metadata.st_nlink != 1
+        or stat.S_IMODE(metadata.st_mode) != 0o555
+        or not os.access(checker, os.X_OK)
+    ):
+        raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+    require_static_x86_64_elf(checker)
+    return checker
+
+
+def check_reference_checker_asset(output: Path) -> None:
+    built = reference_checker_output(output)
+    asset = repository_root() / REFERENCE_CHECKER_ASSET
+    metadata = asset.lstat()
+    if (
+        asset.is_symlink()
+        or not stat.S_ISREG(metadata.st_mode)
+        or metadata.st_nlink != 1
+        or not os.access(asset, os.X_OK)
+        or built.read_bytes() != asset.read_bytes()
+    ):
+        raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+
+
+def build_reference_checker_asset() -> tuple[Path, tempfile.TemporaryDirectory[str]]:
+    temporary = tempfile.TemporaryDirectory(
+        prefix=".reference-checker-", dir=repository_root() / "release"
+    )
+    output = Path(temporary.name) / "output"
+    build_release_outputs(output)
+    return reference_checker_output(output), temporary
+
+
+def update_reference_checker() -> None:
+    built, temporary = build_reference_checker_asset()
+    destination = repository_root() / REFERENCE_CHECKER_ASSET
+    descriptor = None
+    staging = None
+    try:
+        descriptor, staging_name = tempfile.mkstemp(
+            prefix=".mpk-checker-ref-", dir=destination.parent
+        )
+        staging = Path(staging_name)
+        with os.fdopen(descriptor, "wb") as stream:
+            descriptor = None
+            stream.write(built.read_bytes())
+            stream.flush()
+            os.fsync(stream.fileno())
+        staging.chmod(0o755)
+        os.replace(staging, destination)
+        staging = None
+        directory = os.open(destination.parent, os.O_RDONLY | os.O_DIRECTORY)
+        try:
+            os.fsync(directory)
+        finally:
+            os.close(directory)
+        check_reference_checker_asset(Path(temporary.name) / "output")
+    except BundleFailure:
+        raise
+    except OSError as error:
+        raise BundleFailure("BUNDLE_ASSEMBLER_IO", 74) from error
+    finally:
+        if descriptor is not None:
+            os.close(descriptor)
+        if staging is not None:
+            staging.unlink(missing_ok=True)
+        temporary.cleanup()
+
+
+def check_reference_checker() -> None:
+    built, temporary = build_reference_checker_asset()
+    try:
+        check_reference_checker_asset(built.parent.parent)
+    finally:
+        temporary.cleanup()
+
+
 def build_expected() -> tuple[bytes, Path, tempfile.TemporaryDirectory[str]]:
     temporary = tempfile.TemporaryDirectory(
         prefix=".release-bundles-", dir=repository_root() / "release"
@@ -618,10 +716,11 @@ def check_all() -> None:
     active = repository_root() / "release/bundles"
     if classify_registry(current_registry()) != "all_registered" or current_rust_candidate(active) is not None:
         raise BundleFailure("BUNDLE_REGISTERED_STATE")
-    registry, _, _, temporary = build_expected_all()
+    registry, go_output, _, temporary = build_expected_all()
     try:
         if registry != current_registry():
             raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+        check_reference_checker_asset(go_output)
     finally:
         temporary.cleanup()
 
@@ -640,10 +739,11 @@ def update_go() -> None:
 def check_go() -> None:
     if classify_registry(current_registry()) != "go_registered":
         raise BundleFailure("BUNDLE_REGISTERED_STATE")
-    registry, _, temporary = build_expected()
+    registry, output, temporary = build_expected()
     try:
         if registry != current_registry():
             raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+        check_reference_checker_asset(output)
     finally:
         temporary.cleanup()
 
@@ -784,6 +884,7 @@ def fixture_go() -> None:
     try:
         if registry != current_registry():
             raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+        check_reference_checker_asset(output)
         validate_generated_tree(registry, output)
         snapshot = Path(temporary.name) / "installed"
         assemble_installed_fixture(registry, output, snapshot)
@@ -1184,6 +1285,39 @@ def validate_rust_fixture_supervision(*, cwd: Path, env: dict[str, str]) -> None
         raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
 
 
+def prepare_rust_policy_verify_source(temporary: Path) -> Path:
+    fixture = repository_root() / "examples/rust-payment-policy"
+    source = temporary / "rust-payment-policy-source"
+    source.mkdir()
+    for relative in (
+        Path("Cargo.lock"),
+        Path("Cargo.toml"),
+        Path("contracts/helper.json"),
+        Path("contracts/selected.json"),
+        Path("src/lib.rs"),
+    ):
+        candidate = fixture / relative
+        metadata = candidate.lstat()
+        if (
+            not stat.S_ISREG(metadata.st_mode)
+            or stat.S_ISLNK(metadata.st_mode)
+            or metadata.st_nlink != 1
+        ):
+            raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+        destination = source / relative
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(candidate, destination, follow_symlinks=False)
+        destination.chmod(0o444)
+    for directory in sorted(
+        (path for path in source.rglob("*") if path.is_dir()),
+        key=lambda path: len(path.parts),
+        reverse=True,
+    ):
+        directory.chmod(0o555)
+    source.chmod(0o555)
+    return source
+
+
 def fixture_all(mpk_binary: Path) -> None:
     binary_metadata = mpk_binary.lstat()
     if (
@@ -1196,6 +1330,7 @@ def fixture_all(mpk_binary: Path) -> None:
     try:
         if registry_data != current_registry():
             raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+        check_reference_checker_asset(go_output)
         registry = json.loads(registry_data)
         destination = Path(temporary.name) / "installed"
         (destination / "bin").mkdir(parents=True)
@@ -1304,6 +1439,78 @@ def fixture_all(mpk_binary: Path) -> None:
             or str(source_root).encode() in scan_bytes[0]
         ):
             raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
+
+        verify_source_root = prepare_rust_policy_verify_source(Path(temporary.name))
+        verify_directory = Path(temporary.name) / "rust-verify"
+        verify_directory.mkdir()
+        evidence_json = verify_directory / "evidence.json"
+        evidence_markdown = verify_directory / "evidence.md"
+        verify_environment = dict(fixture_environment)
+        verify_environment["PATH"] = "/nonexistent"
+        verify = run_bounded_rust_fixture(
+            rust_fixture_cgroup_command([
+                str(destination / "bin/mpk"),
+                "policy",
+                "verify",
+                str(verify_source_root),
+                "--language",
+                "rust",
+                "--semantic-profile",
+                "mpk.rust.checked.v0",
+                "--require-release-registry-id",
+                registry["id"],
+                "--require-release-registry-sha256",
+                registry["registry_sha256"],
+                "--frontend-bundle",
+                rust_frontend["bundle_id"],
+                "--toolchain-bundle",
+                rust_toolchain["bundle_id"],
+                "--target",
+                "x86_64-unknown-linux-gnu",
+                "--package",
+                "payment-policy",
+                "--function",
+                "payment_policy::approved_reserve_cents",
+                "--contract",
+                "contracts/helper.json",
+                "--contract",
+                "contracts/selected.json",
+                "--strategy-profile",
+                "payment-policy-rust-alpha",
+                "--checker-profile",
+                "mvp-strict",
+                "--axiom-profile",
+                "mvp-theory",
+                "--evidence-json",
+                evidence_json.name,
+                "--evidence-md",
+                evidence_markdown.name,
+                "--strict",
+            ]),
+            cwd=verify_directory,
+            env=verify_environment,
+        )
+        try:
+            evidence_bytes = evidence_json.read_bytes()
+            evidence_value = json.loads(evidence_bytes)
+            markdown_bytes = evidence_markdown.read_bytes()
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
+            raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH") from error
+        if (
+            verify.returncode != 0
+            or verify.stdout
+            != b"ok policy verify status=complete evidence_json=evidence.json evidence_md=evidence.md\n"
+            or verify.stderr
+            or canonical(evidence_value) + b"\n" != evidence_bytes
+            or evidence_value.get("schema") != "mpk.policy.evidence.v1"
+            or evidence_value.get("source_language") != "rust"
+            or not markdown_bytes
+            or str(destination).encode() in evidence_bytes
+            or str(destination).encode() in markdown_bytes
+            or str(verify_source_root).encode() in evidence_bytes
+            or str(verify_source_root).encode() in markdown_bytes
+        ):
+            raise BundleFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
     finally:
         temporary.cleanup()
 
@@ -1320,6 +1527,10 @@ def main(argv: list[str]) -> int:
             update_all()
         elif argv == ["check-all"]:
             check_all()
+        elif argv == ["update-reference-checker"]:
+            update_reference_checker()
+        elif argv == ["check-reference-checker"]:
+            check_reference_checker()
         elif len(argv) == 2 and argv[0] == "fixture-all":
             fixture_all(Path(argv[1]))
         else:
