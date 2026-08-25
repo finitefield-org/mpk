@@ -3,8 +3,8 @@
 Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
 Status: `MLANG-00` active after the completed Rust gate;
-`MLANG-00-T01` complete and `MLANG-00-T02` is next. No later task or language
-phase is active.
+`MLANG-00-T01` and `MLANG-00-T02` complete, and `MLANG-00-T03` is next. No
+later task or language phase is active.
 
 ## Scope and sequencing
 
@@ -113,7 +113,16 @@ production path, release entry, or axiom category was added.
 
 ### MLANG-00-T02 Validate official compiler integration boundaries
 
+Status: Complete (2026-08-25).
+
 Depends on: `MLANG-00-T01`.
+
+Deliverable:
+
+- `mlang-00-compiler-integration-feasibility.md`, the non-normative reviewed
+  feasibility records for all five official compiler/analyzer boundaries,
+  including deterministic input closures and 170 explicit integration
+  go/no-go verdicts.
 
 Tasks:
 
@@ -128,6 +137,14 @@ Tasks:
 
 Exit gate: each language has a reviewed feasibility record and an explicit
 go/no-go list for its candidate initial subset.
+
+Completion evidence: every language record names supported public APIs for all
+seven required fact categories, inventories compiler/analyzer, host, SDK,
+reference/standard-library, package, source, option, and isolation inputs, and
+identifies forbidden internal or ambient surfaces. The 55 `GO` and 115
+`NO-GO` results cover every `M01`-`M34` row exactly once per language; no T01
+foundation/rejection was upgraded, and no experiment was connected to a CLI,
+release bundle, registry, or production VIR path.
 
 ### MLANG-00-T03 Audit the completed Go/Rust path for speculative hooks
 

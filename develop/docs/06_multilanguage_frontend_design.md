@@ -1,12 +1,13 @@
 # Post-Rust Multi-Language Frontend Expansion Design
 
 Status: Gate B is active after the completed `RUST-07-T05` entry gate.
-`MLANG-00-T01` is complete and `MLANG-00-T02` is next. This document does not
-activate a new source language or amend a frozen serialized schema.
+`MLANG-00-T01` and `MLANG-00-T02` are complete, and `MLANG-00-T03` is next.
+This document does not activate a new source language or amend a frozen
+serialized schema.
 
 Prepared: 2026-08-21
 
-Updated: 2026-08-25 (`MLANG-00-T01` completion)
+Updated: 2026-08-25 (`MLANG-00-T02` completion)
 
 ## 1. Decision summary
 
@@ -39,6 +40,12 @@ That revalidation's first deliverable is
 `mlang-00-semantic-comparison-matrix.md`. It closes the T01 candidate-operation
 inventory and dispositions while leaving every compiler, target, profile, and
 foundation choice that belongs to later work explicitly blocked.
+
+The second deliverable is
+`mlang-00-compiler-integration-feasibility.md`. It validates the minimum
+supported public analysis boundaries and deterministic input closures, then
+gives every matrix row an integration `GO` or `NO-GO` verdict without choosing
+a production pin or activating a profile.
 
 The order may change only through a reviewed governance amendment that records
 the user value, semantic risk, compiler integration quality, and effect on the
