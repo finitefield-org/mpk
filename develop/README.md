@@ -58,13 +58,15 @@ follow-on flow:
 3. implement and release C#, Java, Dart, TypeScript, and Python, one language
    at a time in that order.
 
-`MLANG-00-T01` through `MLANG-00-T03` are complete. Their non-normative closed
-semantic inventory, reviewed compiler-boundary feasibility record, and
-completed Go/Rust shared-boundary audit are
+`MLANG-00-T01` through `MLANG-00-T03` and `MLANG-01-T01` are complete. Their
+non-normative closed semantic inventory, reviewed compiler-boundary
+feasibility record, completed Go/Rust shared-boundary audit, and
+implementation-backed C# gap ledger are
 `docs/mlang-00-semantic-comparison-matrix.md`,
-`docs/mlang-00-compiler-integration-feasibility.md`, and
-`docs/mlang-00-go-rust-shared-boundary-audit.md`. `MLANG-01-T01` is the next
-task. No future-language profile or production frontend is active.
+`docs/mlang-00-compiler-integration-feasibility.md`,
+`docs/mlang-00-go-rust-shared-boundary-audit.md`, and
+`docs/mlang-01-go-rust-csharp-gap-audit.md`. `MLANG-01-T02` is the next task.
+No future-language profile or production frontend is active.
 
 No multi-language design, feasibility, specification, or implementation phase
 runs in parallel with the Rust program or with another language phase.
@@ -151,7 +153,8 @@ complete VIR artifact set installed at the active paths.
 │   ├── 06_multilanguage_frontend_design-todo.md
 │   ├── mlang-00-semantic-comparison-matrix.md
 │   ├── mlang-00-compiler-integration-feasibility.md
-│   └── mlang-00-go-rust-shared-boundary-audit.md
+│   ├── mlang-00-go-rust-shared-boundary-audit.md
+│   └── mlang-01-go-rust-csharp-gap-audit.md
 ├── specs/
 │   ├── CORE_V0.md
 │   ├── CERT_V0.md
@@ -228,7 +231,8 @@ Start with:
 12. `docs/mlang-00-semantic-comparison-matrix.md`
 13. `docs/mlang-00-compiler-integration-feasibility.md`
 14. `docs/mlang-00-go-rust-shared-boundary-audit.md`
-15. `roadmap/RELEASE_GATES.md`
+15. `docs/mlang-01-go-rust-csharp-gap-audit.md`
+16. `roadmap/RELEASE_GATES.md`
 
 Then seed project-management issues from `tasks/github_issues_seed.jsonl` or
 import `tasks/task_backlog.csv` into a tracker.

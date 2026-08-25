@@ -1,12 +1,13 @@
 # Post-Rust Multi-Language Frontend Expansion Design
 
 Status: Gate B and `MLANG-00` are complete after the completed `RUST-07-T05`
-entry gate. Gate C begins with `MLANG-01-T01`, which is next. This document
-does not activate a new source language or amend a frozen serialized schema.
+entry gate. Gate C is active; `MLANG-01-T01` is complete and `MLANG-01-T02` is
+next. This document does not activate a new source language or amend a frozen
+serialized schema.
 
 Prepared: 2026-08-21
 
-Updated: 2026-08-25 (`MLANG-00-T03` and Gate B completion)
+Updated: 2026-08-25 (`MLANG-01-T01` completion)
 
 ## 1. Decision summary
 
@@ -54,6 +55,15 @@ execution of the required Go reference checker—was remediated serially with a
 deterministically rebuilt embedded executable and same-byte checker input. The
 repeated audit has no open finding and added no future-language production or
 accepted schema value.
+
+The fourth deliverable is
+`mlang-01-go-rust-csharp-gap-audit.md`. It uses the completed implementation to
+classify every C# semantic and cross-contract gap. All 18 feasible candidate
+rows reuse the implemented VIR/VC core as profile-only work; the remaining
+rows are one excluded VIR-operation gap, two excluded checked-foundation gaps,
+and 13 unsupported behaviors. Four disjoint successor-shape gaps are assigned
+to `MLANG-01-T02`; exact C# profile records remain assigned to
+`MLANG-01-T03`. No C# production or accepted schema value was added.
 
 The order may change only through a reviewed governance amendment that records
 the user value, semantic risk, compiler integration quality, and effect on the
@@ -413,6 +423,10 @@ The completed Rust path and `MLANG-00` feasibility records must show which VIR,
 VC, contract, source-map, manifest, runner, policy, and evidence abstractions
 are genuinely shared. `MLANG-01` then freezes the successor versioning
 strategy and C# specification package.
+
+Progress: `MLANG-01-T01` is complete with a closed implementation-backed gap
+ledger. `MLANG-01-T02` is the next task; no T03 or C# production work is
+active.
 
 ### Gate D: C# production work after `MLANG-01`
 

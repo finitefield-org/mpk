@@ -2,9 +2,9 @@
 
 Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
-Status: `MLANG-00` complete after the completed Rust gate;
-`MLANG-00-T01` through `MLANG-00-T03` are complete, and `MLANG-01-T01` is
-next. No later task or language phase is active.
+Status: Gate C and `MLANG-01` are active after the completed Rust and
+`MLANG-00` gates. `MLANG-01-T01` is complete, and `MLANG-01-T02` is next. No
+later task or language phase is active.
 
 ## Scope and sequencing
 
@@ -212,7 +212,14 @@ Entry gate: `MLANG-00` complete.
 
 ### MLANG-01-T01 Audit the implemented Go/Rust abstractions
 
+Status: Complete (2026-08-25).
+
 Depends on: `MLANG-00-T03`.
+
+Deliverable:
+
+- `mlang-01-go-rust-csharp-gap-audit.md`, the implementation-backed complete
+  C# semantic and cross-contract gap ledger with one class and owner per gap.
 
 Tasks:
 
@@ -224,6 +231,16 @@ Tasks:
    design to decide what is genuinely reusable.
 
 Exit gate: the gap ledger is complete and has no ambiguous owner.
+
+T01 completion evidence: all 34 C# semantic rows occur exactly once: the 18
+compiler-API-feasible candidate rows are profile-only against the implemented
+VIR/VC core, while the blocked rows are one VIR-operation gap, two checked-
+foundation/theory gaps, and 13 unsupported rows. Four disjoint successor
+registry/selection-shape gaps cover semantic identity, source selection,
+release/execution descriptors, and policy/evidence/AI registration. All ten
+required contract surfaces have an explicit reuse decision and next normative
+owner. No production code, schema, vector, bundle, or accepted C# value was
+added.
 
 ### MLANG-01-T02 Freeze the successor extension mechanism
 
