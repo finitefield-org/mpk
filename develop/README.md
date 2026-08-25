@@ -67,8 +67,10 @@ implementation-audit records are
 `docs/mlang-01-go-rust-csharp-gap-audit.md`. The normative but inactive
 successor mechanism is `specs/SEMANTIC_PROFILE_REGISTRY_V1.md`. The frozen,
 normative, but inactive C# package is `specs/CSHARP_PROFILE_V0.md` with its two
-owned vector sets. `CSHARP-02` is the next task. No successor parser, C#
-production frontend, release tuple, or future-language frontend is active.
+owned vector sets. `docs/csharp-02-implementation-traceability-ledger.md`
+decomposes the implementation into 20 strictly serial tasks.
+`CSHARP-02-T01` is complete and `CSHARP-02-T02` is next. No successor parser,
+C# production frontend, release tuple, or future-language frontend is active.
 
 No multi-language design, feasibility, specification, or implementation phase
 runs in parallel with the Rust program or with another language phase.
@@ -79,6 +81,10 @@ currently frozen Go/Rust schemas. In particular, `mpk.vir.v0` receives no
 placeholder language IDs, every future language gets a distinct semantic
 profile, mixed-language VIR remains forbidden, and cross-language composition
 uses checked hash-pinned certificate imports.
+
+The files under `tasks/` remain the original baseline tracker seed. Post-Rust
+task IDs are dependency-ordered by the `05_*_todo.md` and `06_*_todo.md`
+programs and are not duplicated into that legacy seed.
 
 ## Normative specification routes
 
@@ -164,7 +170,8 @@ complete VIR artifact set installed at the active paths.
 │   ├── mlang-00-semantic-comparison-matrix.md
 │   ├── mlang-00-compiler-integration-feasibility.md
 │   ├── mlang-00-go-rust-shared-boundary-audit.md
-│   └── mlang-01-go-rust-csharp-gap-audit.md
+│   ├── mlang-01-go-rust-csharp-gap-audit.md
+│   └── csharp-02-implementation-traceability-ledger.md
 ├── specs/
 │   ├── CORE_V0.md
 │   ├── CERT_V0.md
@@ -246,10 +253,12 @@ Start with:
 15. `docs/mlang-01-go-rust-csharp-gap-audit.md`
 16. `specs/SEMANTIC_PROFILE_REGISTRY_V1.md`
 17. `specs/CSHARP_PROFILE_V0.md`
-18. `roadmap/RELEASE_GATES.md`
+18. `docs/csharp-02-implementation-traceability-ledger.md`
+19. `roadmap/RELEASE_GATES.md`
 
-Then seed project-management issues from `tasks/github_issues_seed.jsonl` or
-import `tasks/task_backlog.csv` into a tracker.
+The original baseline can be seeded from `tasks/github_issues_seed.jsonl` or
+imported from `tasks/task_backlog.csv`. Use the two design todo documents and
+the C# ledger for post-Rust tracker tasks.
 
 ## Reference posture
 
@@ -259,4 +268,5 @@ verification and AI-generated proof-candidate checking.
 
 Prepared: 2026-06-26. VIR governance and multi-language planning amendments:
 2026-08-21; semantic-matrix and compiler-boundary feasibility updates:
-2026-08-25; successor semantic-profile registry freeze: 2026-08-25.
+2026-08-25; successor semantic-profile registry and C# package freeze:
+2026-08-25; C# implementation decomposition: 2026-08-25.

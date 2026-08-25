@@ -3,8 +3,9 @@
 Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
 Status: Gate C and `MLANG-01` are complete after the completed Rust and
-`MLANG-00` gates. `CSHARP-02` is next. No C# production or later-language
-phase is active.
+`MLANG-00` gates. Gate D is active at its non-production planning boundary:
+`CSHARP-02-T01` is complete and `CSHARP-02-T02` is next. No C# production
+route or later-language phase is active.
 
 ## Scope and sequencing
 
@@ -55,6 +56,9 @@ and start only after the preceding language's final release gate.
     overlap tasks within `MLANG-00` or `MLANG-01`, and do not begin feasibility
     refresh or specification work for a later language while its predecessor
     is still active.
+12. Execute `CSHARP-02-T01` through `CSHARP-02-T20` serially under
+    `csharp-02-implementation-traceability-ledger.md`. T02 through T19 remain
+    inactive staging; T20 alone may activate the successor release.
 
 ## Common definition of done for a language
 
@@ -324,6 +328,12 @@ was added.
 
 Entry gate: `MLANG-01` complete.
 
+Status: Active at the inactive implementation boundary. `CSHARP-02-T01` is
+complete; `CSHARP-02-T02` is next.
+
+Authoritative execution plan:
+`csharp-02-implementation-traceability-ledger.md`.
+
 Deliverables:
 
 - isolated pinned `csharp2vir` frontend over the frozen Roslyn boundary;
@@ -335,6 +345,218 @@ Deliverables:
 
 Exit gate: all common definition-of-done items pass, C# is active through the
 sole shared path, and the review ledger is empty.
+
+The phase is strictly serial:
+
+```text
+T01 -> T02 -> T03 -> T04 -> T05 -> T06 -> T07 -> T08 -> T09
+  -> T10 -> T11 -> T12 -> T13 -> T14 -> T15 -> T16 -> T17
+  -> T18 -> T19 -> T20
+```
+
+T02 through T19 may add candidate code and private staging only. The current
+Go/Rust schemas remain the sole production inputs until T20 switches the whole
+release atomically.
+
+### CSHARP-02-T01 Create the C# implementation decomposition and traceability ledger
+
+Status: Complete (2026-08-25).
+
+Depends on: `MLANG-01-T03`.
+
+Deliverable:
+
+- `csharp-02-implementation-traceability-ledger.md`, assigning every frozen
+  C# and successor requirement to one of 20 ordered tasks, an implementation
+  test owner, and an inactive or activation boundary.
+
+Exit gate: all specification sections, vector fields, semantic rows, compiled
+profile contracts, successor identities, and common definition-of-done items
+have unambiguous ownership; no production or normative artifact changes.
+
+Completion evidence: all 31 C# profile-vector fields, 12 registry-v1 fields,
+10 registry-v2 fields, 34 semantic rows, nine compiled-profile contracts, and
+22 successor identities are covered exactly once by the primary-owner
+ledgers. T02 is the sole ready successor and the T01 review ledger is empty.
+
+### CSHARP-02-T02 Create the isolated pinned C# frontend project
+
+Status: Next.
+
+Depends on: `CSHARP-02-T01`.
+
+Exit gate: an unregistered `csharp2vir` candidate builds twice to identical
+bytes from the exact offline input closure; no parser, bundle registration, or
+active route exists.
+
+### CSHARP-02-T03 Implement the inactive semantic-profile registry core
+
+Status: Pending.
+
+Depends on: `CSHARP-02-T02`.
+
+Exit gate: registry/context/profile-envelope vectors execute against private
+production validation code while released inputs remain unchanged.
+
+### CSHARP-02-T04 Stage successor source-artifact models and hash domains
+
+Status: Pending.
+
+Depends on: `CSHARP-02-T03`.
+
+Exit gate: successor VIR/frontend/map/manifest artifacts validate and hash in
+staging with bidirectional old/new rejection and no active producer.
+
+### CSHARP-02-T05 Implement C# selection, path preflight, and immutable capture
+
+Status: Pending.
+
+Depends on: `CSHARP-02-T04`.
+
+Exit gate: exact selection and source-transport mutations fail at their owned
+phase, and successful capture never rereads an original input.
+
+### CSHARP-02-T06 Build and validate the exact Roslyn compilation session
+
+Status: Pending.
+
+Depends on: `CSHARP-02-T05`.
+
+Exit gate: the frozen public Roslyn session and reference closure match at
+getter/API level, with every drift case rejected before lowering.
+
+### CSHARP-02-T07 Enforce the C# subset, closure, purity, and initialization
+
+Status: Pending.
+
+Depends on: `CSHARP-02-T06`.
+
+Exit gate: every omitted construct rejects before VIR and every accepted
+method belongs to one deterministic pure acyclic closure.
+
+### CSHARP-02-T08 Implement typed C# contracts and attachment
+
+Status: Pending.
+
+Depends on: `CSHARP-02-T07`.
+
+Exit gate: every closure method has one exact normalized/hash-bound contract,
+and all malformed, missing, duplicate, or unused sidecars reject.
+
+### CSHARP-02-T09 Lower scalar C# operations and required checks
+
+Status: Pending.
+
+Depends on: `CSHARP-02-T08`.
+
+Exit gate: scalar/control/conversion lowering is deterministic and every
+required check is complete, unique, and canonically ordered.
+
+### CSHARP-02-T10 Lower static calls and emit stable VIR, maps, and manifests
+
+Status: Pending.
+
+Depends on: `CSHARP-02-T09`.
+
+Exit gate: every accepted source emits complete staged successor artifacts
+with faithful origins, stable IDs, call dependencies, and exact hashes.
+
+### CSHARP-02-T11 Close C# frontend diagnostics, limits, and source-case vectors
+
+Status: Pending.
+
+Depends on: `CSHARP-02-T10`.
+
+Exit gate: all frontend-owned accepted/rejected, diagnostic, precedence,
+limit, and hash vectors execute against candidate code with exact artifact-
+free non-success behavior and no active C# route.
+
+### CSHARP-02-T12 Assemble C# candidate bundles and the staged sandbox runner
+
+Status: Pending.
+
+Depends on: `CSHARP-02-T11`.
+
+Exit gate: a staged installed tree launches only exact registered-candidate C#
+bytes under the frozen isolation contract; the active registry is unchanged.
+
+### CSHARP-02-T13 Migrate the Go producer to successor artifacts in staging
+
+Status: Pending.
+
+Depends on: `CSHARP-02-T12`.
+
+Exit gate: a staged `go2vir` emits only successor source artifacts with
+unchanged Go semantics, while the active Go binary and fixtures remain
+unchanged.
+
+### CSHARP-02-T14 Migrate the Rust producer and private driver in staging
+
+Status: Pending.
+
+Depends on: `CSHARP-02-T13`.
+
+Exit gate: staged `rust2vir` and its private driver emit only successor
+artifacts with unchanged Rust semantics, while active Rust bytes remain
+unchanged and no binary accepts both public VIR schemas.
+
+### CSHARP-02-T15 Stage successor VC and skeleton integration
+
+Status: Pending.
+
+Depends on: `CSHARP-02-T14`.
+
+Exit gate: all three staged profiles generate exact successor VC/skeleton
+bytes and required checks with unchanged Go/Rust obligation semantics.
+
+### CSHARP-02-T16 Stage policy, evidence, and certificate integration
+
+Status: Pending.
+
+Depends on: `CSHARP-02-T15`.
+
+Exit gate: all three staged profiles reach policy/evidence and unchanged
+Certificate v0, including a representative C# certificate accepted by both
+checkers from identical bytes.
+
+### CSHARP-02-T17 Stage successor AI explanation integration
+
+Status: Pending.
+
+Depends on: `CSHARP-02-T16`.
+
+Exit gate: closed profile-aware AI explanation staging accepts only validated
+successor evidence/context, applies the C# redaction contract, and cannot
+affect proof acceptance.
+
+### CSHARP-02-T18 Stage successor AI API integration
+
+Status: Pending.
+
+Depends on: `CSHARP-02-T17`.
+
+Exit gate: successor API staging binds sessions to exact semantic contexts and
+accepts no old, crossed, or proof-bypassing helper input.
+
+### CSHARP-02-T19 Complete cross-profile hardening and release rehearsal
+
+Status: Pending.
+
+Depends on: `CSHARP-02-T18`.
+
+Exit gate: all corpus, differential, fuzz, isolation, determinism, upgrade,
+checker, axiom, and staged installed-release gates pass with an empty findings
+ledger.
+
+### CSHARP-02-T20 Perform the atomic successor cutover and C# release
+
+Status: Pending.
+
+Depends on: `CSHARP-02-T19` and transitively every earlier CSHARP-02 task.
+
+Exit gate: one release activates revision 2 and successor schemas for
+Go/Rust/C#, removes every old public helper path, passes both checkers and the
+installed release gates, and makes `JAVA-03` eligible.
 
 ## JAVA-03: Implement and release Java
 

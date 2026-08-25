@@ -1,13 +1,14 @@
 # Post-Rust Multi-Language Frontend Expansion Design
 
 Status: Gate B, `MLANG-00`, Gate C, and `MLANG-01` are complete after the
-completed `RUST-07-T05` entry gate. Gate D is next at `CSHARP-02`. This
-document does not activate a new source language or amend an active serialized
-schema.
+completed `RUST-07-T05` entry gate. Gate D is active at its non-production
+planning boundary: `CSHARP-02-T01` is complete and `CSHARP-02-T02` is next.
+This document does not activate a new source language or amend an active
+serialized schema.
 
 Prepared: 2026-08-21
 
-Updated: 2026-08-25 (`MLANG-01-T03` completion)
+Updated: 2026-08-25 (`CSHARP-02-T01` completion)
 
 ## 1. Decision summary
 
@@ -73,6 +74,20 @@ finite validators compiled into the pinned release. Its revision-1 baseline
 contains only the existing Go/Rust profiles; it freezes the atomic successor
 schema migration but remains inactive. Exact C# content and the revision-2
 root remain assigned to `MLANG-01-T03`.
+
+The sixth deliverable is `../specs/CSHARP_PROFILE_V0.md` with
+`../specs/vectors/csharp-profile-v0.json` and
+`../specs/vectors/semantic-profile-registry-v2.json`. It freezes the complete
+C# scalar subset, toolchain/reference closure, operation/check mapping,
+contracts, diagnostics, limits, nine compiled-profile payloads, and immutable
+revision-2 root without activating any production path.
+
+The seventh deliverable is
+`csharp-02-implementation-traceability-ledger.md`. It decomposes CSHARP-02 into
+20 strictly serial tasks, assigns every frozen requirement and vector field to
+one primary implementation owner, and reserves production activation for the
+final atomic cutover in T20. It is an execution plan and does not amend either
+normative specification.
 
 The order may change only through a reviewed governance amendment that records
 the user value, semantic risk, compiler integration quality, and effect on the
@@ -444,8 +459,10 @@ Only after `MLANG-01` completes may C# production code and release bundles
 merge. The earlier `RUST-07-T05 -> MLANG-00 -> MLANG-01` dependencies are
 transitive and may not be bypassed.
 
-Entry status: open. `CSHARP-02` is next and has not begun; the frozen C# entry
-and revision-2 registry remain design inputs rather than installed identities.
+Entry status: open and planning begun. `CSHARP-02-T01` completed the bounded
+implementation and traceability plan; `CSHARP-02-T02` is the first code task.
+The frozen C# entry and revision-2 registry remain design inputs rather than
+installed identities, and T20 remains the sole activation owner.
 
 ### Gate E: serial language admission
 
