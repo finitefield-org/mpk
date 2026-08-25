@@ -3,8 +3,8 @@
 Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
 Status: Gate C and `MLANG-01` are active after the completed Rust and
-`MLANG-00` gates. `MLANG-01-T01` is complete, and `MLANG-01-T02` is next. No
-later task or language phase is active.
+`MLANG-00` gates. `MLANG-01-T02` is complete, and `MLANG-01-T03` is next. No
+C# production or later-language phase is active.
 
 ## Scope and sequencing
 
@@ -244,7 +244,16 @@ added.
 
 ### MLANG-01-T02 Freeze the successor extension mechanism
 
+Status: Complete (2026-08-25).
+
 Depends on: `MLANG-01-T01`.
+
+Deliverable:
+
+- `../specs/SEMANTIC_PROFILE_REGISTRY_V1.md` and
+  `../specs/vectors/semantic-profile-registry-v1.json`, the normative but
+  inactive closed hash-pinned successor mechanism and its owned conformance
+  baseline.
 
 Tasks:
 
@@ -259,6 +268,17 @@ Tasks:
 
 Exit gate: one normative successor design exists; no production parser/emitter
 precedes it and no released dual IR input is planned.
+
+T02 completion evidence: the chosen registry freezes exact closed root, entry,
+identity, parameter, selection, and compiled-profile envelope shapes;
+revision-1 Go/Rust hashes; limits; validation/status precedence;
+compiled-contract closure; all affected successor identities and hash domains;
+and whole-release atomic migration with bidirectional old/new rejection. The
+owner test executes all transport, registry, context, profile-envelope, hash,
+limit, no-plugin, and migration vectors. Registry revision 1 contains no C#
+entry, no production parser/emitter accepts a successor schema, Certificate v0
+and both checkers are unchanged, and `MLANG-01-T03` retains sole ownership of
+exact C# content and revision 2.
 
 ### MLANG-01-T03 Freeze the C# specification package
 

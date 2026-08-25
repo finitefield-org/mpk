@@ -1,13 +1,13 @@
 # Post-Rust Multi-Language Frontend Expansion Design
 
 Status: Gate B and `MLANG-00` are complete after the completed `RUST-07-T05`
-entry gate. Gate C is active; `MLANG-01-T01` is complete and `MLANG-01-T02` is
-next. This document does not activate a new source language or amend a frozen
+entry gate. Gate C is active; `MLANG-01-T02` is complete and `MLANG-01-T03` is
+next. This document does not activate a new source language or amend an active
 serialized schema.
 
 Prepared: 2026-08-21
 
-Updated: 2026-08-25 (`MLANG-01-T01` completion)
+Updated: 2026-08-25 (`MLANG-01-T02` completion)
 
 ## 1. Decision summary
 
@@ -64,6 +64,15 @@ rows are one excluded VIR-operation gap, two excluded checked-foundation gaps,
 and 13 unsupported behaviors. Four disjoint successor-shape gaps are assigned
 to `MLANG-01-T02`; exact C# profile records remain assigned to
 `MLANG-01-T03`. No C# production or accepted schema value was added.
+
+The fifth deliverable is
+`../specs/SEMANTIC_PROFILE_REGISTRY_V1.md` with
+`../specs/vectors/semantic-profile-registry-v1.json`. It chooses and freezes a
+closed, hash-pinned semantic-profile registry whose entries can select only
+finite validators compiled into the pinned release. Its revision-1 baseline
+contains only the existing Go/Rust profiles; it freezes the atomic successor
+schema migration but remains inactive. Exact C# content and the revision-2
+root remain assigned to `MLANG-01-T03`.
 
 The order may change only through a reviewed governance amendment that records
 the user value, semantic risk, compiler integration quality, and effect on the
@@ -207,15 +216,14 @@ a string such as `"csharp"` would change their accepted language/selection
 sets without defining corresponding semantics, so placeholder additions are
 forbidden.
 
-After `RUST-07-T05` and `MLANG-00`, `MLANG-01` performs a gap audit over the
-completed Go/Rust system and chooses one reviewed successor strategy:
+After `RUST-07-T05` and `MLANG-00`, `MLANG-01` audited the completed Go/Rust
+system and chose the second reviewed strategy: a new schema revision with a
+closed, hash-pinned semantic-profile registry that owns each allowed
+language/profile/parameter/selection tuple. The exact normative design is
+`../specs/SEMANTIC_PROFILE_REGISTRY_V1.md`; its current revision-1 vector is a
+frozen, inactive design baseline rather than an accepted production input.
 
-1. a new closed schema revision whose tagged unions explicitly include the
-   first added language; or
-2. a new schema revision with a closed, hash-pinned semantic-profile registry
-   that owns the allowed language/profile/parameter/selection tuple.
-
-The second strategy is acceptable only if:
+That strategy requires:
 
 - unknown registry IDs fail closed;
 - the exact registry root is embedded in the release and repeated in evidence;
@@ -227,7 +235,7 @@ The second strategy is acceptable only if:
 - registry updates are reviewed release changes rather than runtime plugin
   installation.
 
-The gap audit also determines whether VIR value/control-flow operations are
+The gap audit also determined whether VIR value/control-flow operations are
 sufficient. If a new source language needs a new numeric carrier, abrupt-
 completion model, heap model, or call semantics, the schema and hash-domain
 revision must include those semantics explicitly. Reusing an existing VIR
@@ -425,7 +433,8 @@ are genuinely shared. `MLANG-01` then freezes the successor versioning
 strategy and C# specification package.
 
 Progress: `MLANG-01-T01` is complete with a closed implementation-backed gap
-ledger. `MLANG-01-T02` is the next task; no T03 or C# production work is
+ledger, and `MLANG-01-T02` is complete with the normative inactive successor
+registry design and vectors. `MLANG-01-T03` is next; no C# production work is
 active.
 
 ### Gate D: C# production work after `MLANG-01`

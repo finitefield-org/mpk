@@ -58,15 +58,16 @@ follow-on flow:
 3. implement and release C#, Java, Dart, TypeScript, and Python, one language
    at a time in that order.
 
-`MLANG-00-T01` through `MLANG-00-T03` and `MLANG-01-T01` are complete. Their
-non-normative closed semantic inventory, reviewed compiler-boundary
-feasibility record, completed Go/Rust shared-boundary audit, and
-implementation-backed C# gap ledger are
+`MLANG-00-T01` through `MLANG-00-T03` and `MLANG-01-T01` through
+`MLANG-01-T02` are complete. The four non-normative semantic, feasibility, and
+implementation-audit records are
 `docs/mlang-00-semantic-comparison-matrix.md`,
 `docs/mlang-00-compiler-integration-feasibility.md`,
 `docs/mlang-00-go-rust-shared-boundary-audit.md`, and
-`docs/mlang-01-go-rust-csharp-gap-audit.md`. `MLANG-01-T02` is the next task.
-No future-language profile or production frontend is active.
+`docs/mlang-01-go-rust-csharp-gap-audit.md`. The normative but inactive
+successor mechanism is `specs/SEMANTIC_PROFILE_REGISTRY_V1.md` with its owned
+vector set. `MLANG-01-T03` is the next task. No C# profile, successor parser,
+or future-language production frontend is active.
 
 No multi-language design, feasibility, specification, or implementation phase
 runs in parallel with the Rust program or with another language phase.
@@ -108,6 +109,13 @@ ownership are:
 | `specs/POLICY_V1.md` | `specs/vectors/policy-scan-v1.json`, `specs/vectors/policy-evidence-v1.json`, `specs/vectors/policy-recipes-v1.json` |
 | `specs/AI_EXPLAIN_V1.md` | `specs/vectors/ai-explain-v1.json` |
 | `specs/AI_API_V1.md` | `specs/vectors/ai-api-v1.json` |
+
+The frozen successor design below is normative for later implementation but
+is not an active or accepted production schema:
+
+| Specification | Conformance vector set(s) |
+|---|---|
+| `specs/SEMANTIC_PROFILE_REGISTRY_V1.md` | `specs/vectors/semantic-profile-registry-v1.json` |
 
 `specs/vectors/manifest.json` is the closed repository index for every vector
 set. Its repository-governance schema is
@@ -177,9 +185,10 @@ complete VIR artifact set installed at the active paths.
 │   ├── POLICY_V1.md
 │   ├── AI_EXPLAIN_V1.md
 │   ├── AI_API_V1.md
+│   ├── SEMANTIC_PROFILE_REGISTRY_V1.md
 │   └── vectors/
 │       ├── manifest.json
-│       └── 18 owned vector sets listed above
+│       └── 19 owned vector sets listed above
 ├── roadmap/
 │   ├── ROADMAP.md
 │   ├── MILESTONES.md
@@ -232,7 +241,8 @@ Start with:
 13. `docs/mlang-00-compiler-integration-feasibility.md`
 14. `docs/mlang-00-go-rust-shared-boundary-audit.md`
 15. `docs/mlang-01-go-rust-csharp-gap-audit.md`
-16. `roadmap/RELEASE_GATES.md`
+16. `specs/SEMANTIC_PROFILE_REGISTRY_V1.md`
+17. `roadmap/RELEASE_GATES.md`
 
 Then seed project-management issues from `tasks/github_issues_seed.jsonl` or
 import `tasks/task_backlog.csv` into a tracker.
@@ -245,4 +255,4 @@ verification and AI-generated proof-candidate checking.
 
 Prepared: 2026-06-26. VIR governance and multi-language planning amendments:
 2026-08-21; semantic-matrix and compiler-boundary feasibility updates:
-2026-08-25.
+2026-08-25; successor semantic-profile registry freeze: 2026-08-25.

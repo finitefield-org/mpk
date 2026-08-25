@@ -1,0 +1,293 @@
+{
+  "schema": "mpk.semantic_profile.registry.conformance.v1",
+  "spec_schemas": [
+    "mpk.semantic_profile.entry.v1",
+    "mpk.semantic_profile.registry.v1"
+  ],
+  "owner_test": "crates/mpk-vc/tests/semantic_profile_registry.rs",
+  "fixtures": {
+    "base_registry": {
+      "schema": "mpk.semantic_profile.registry.v1",
+      "id": "mpk.semantic_profile.registry.v1",
+      "revision": 1,
+      "profiles": [
+        {
+          "schema": "mpk.semantic_profile.entry.v1",
+          "source_language": "go",
+          "semantic_profile": "mpk.go.fixed.v0",
+          "semantic_parameters_schema": "mpk.semantic_parameters.go_fixed.v0",
+          "selection_schema": "mpk.selection.go_function.v0",
+          "contracts": {
+            "ai": "mpk.profile.ai.go_fixed.v0",
+            "evidence": "mpk.profile.evidence.go_fixed.v0",
+            "frontend": "mpk.profile.frontend.go_fixed.v0",
+            "manifest": "mpk.profile.manifest.go_fixed.v0",
+            "policy": "mpk.profile.policy.go_fixed.v0",
+            "release": "mpk.profile.release.go_fixed.v0",
+            "source_map": "mpk.profile.source_map.go_fixed.v0",
+            "vc": "mpk.profile.vc.go_fixed.v0",
+            "vir": "mpk.profile.vir.go_fixed.v0"
+          },
+          "entry_sha256": "b10ec338d1f2b3fefc015e4d46c27def43e92ff3d87341624b48c93db951ca96"
+        },
+        {
+          "schema": "mpk.semantic_profile.entry.v1",
+          "source_language": "rust",
+          "semantic_profile": "mpk.rust.checked.v0",
+          "semantic_parameters_schema": "mpk.semantic_parameters.rust_checked.v0",
+          "selection_schema": "mpk.selection.rust_function.v0",
+          "contracts": {
+            "ai": "mpk.profile.ai.rust_checked.v0",
+            "evidence": "mpk.profile.evidence.rust_checked.v0",
+            "frontend": "mpk.profile.frontend.rust_checked.v0",
+            "manifest": "mpk.profile.manifest.rust_checked.v0",
+            "policy": "mpk.profile.policy.rust_checked.v0",
+            "release": "mpk.profile.release.rust_checked.v0",
+            "source_map": "mpk.profile.source_map.rust_checked.v0",
+            "vc": "mpk.profile.vc.rust_checked.v0",
+            "vir": "mpk.profile.vir.rust_checked.v0"
+          },
+          "entry_sha256": "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057"
+        }
+      ],
+      "registry_sha256": "7c9163571cda32aa47984e3e6d949c8857bf62f00110dd1b2c3958eed5e537cc"
+    },
+    "go_request": {
+      "semantic_context": {
+        "profile_registry": {
+          "schema": "mpk.semantic_profile.registry.v1",
+          "id": "mpk.semantic_profile.registry.v1",
+          "revision": 1,
+          "registry_sha256": "7c9163571cda32aa47984e3e6d949c8857bf62f00110dd1b2c3958eed5e537cc"
+        },
+        "profile_entry_sha256": "b10ec338d1f2b3fefc015e4d46c27def43e92ff3d87341624b48c93db951ca96",
+        "source_language": "go",
+        "semantic_profile": "mpk.go.fixed.v0",
+        "semantic_parameters": {
+          "schema": "mpk.semantic_parameters.go_fixed.v0",
+          "value": {
+            "target_id": "linux/amd64",
+            "pointer_width": 64
+          }
+        }
+      },
+      "selection": {
+        "schema": "mpk.selection.go_function.v0",
+        "value": {
+          "package": "example.com/mpk/vector",
+          "function": "example.com/mpk/vector.Identity"
+        }
+      }
+    },
+    "rust_request": {
+      "semantic_context": {
+        "profile_registry": {
+          "schema": "mpk.semantic_profile.registry.v1",
+          "id": "mpk.semantic_profile.registry.v1",
+          "revision": 1,
+          "registry_sha256": "7c9163571cda32aa47984e3e6d949c8857bf62f00110dd1b2c3958eed5e537cc"
+        },
+        "profile_entry_sha256": "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057",
+        "source_language": "rust",
+        "semantic_profile": "mpk.rust.checked.v0",
+        "semantic_parameters": {
+          "schema": "mpk.semantic_parameters.rust_checked.v0",
+          "value": {
+            "target_id": "x86_64-unknown-linux-gnu",
+            "pointer_width": 64,
+            "overflow_mode": "checked",
+            "panic_mode": "abort"
+          }
+        }
+      },
+      "selection": {
+        "schema": "mpk.selection.rust_function.v0",
+        "value": {
+          "package": "payment-policy",
+          "crate": "payment_policy",
+          "kind": "lib",
+          "function": "payment_policy::approved_reserve_cents"
+        }
+      }
+    },
+    "go_frontend_profile": {
+      "profile_entry_sha256": "b10ec338d1f2b3fefc015e4d46c27def43e92ff3d87341624b48c93db951ca96",
+      "contract_id": "mpk.profile.frontend.go_fixed.v0",
+      "value": {
+        "limit_profile_id": "mpk.vir.limits.v0",
+        "environment_profile_id": "mpk.go.frontend_environment.v0",
+        "argument_profile_id": "mpk.go.frontend_arguments.v0"
+      }
+    },
+    "rust_frontend_profile": {
+      "profile_entry_sha256": "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057",
+      "contract_id": "mpk.profile.frontend.rust_checked.v0",
+      "value": {
+        "limit_profile_id": "mpk.vir.limits.v0",
+        "environment_profile_id": "mpk.rust.frontend_environment.v0",
+        "argument_profile_id": "mpk.rust.frontend_arguments.v0"
+      }
+    }
+  },
+  "transport_cases": [
+    {"id":"transport.accept_canonical_lf","construction":"canonical_lf","expect":{"outcome":"accept","phase":"complete","code":""}},
+    {"id":"transport.reject_missing_lf","construction":"missing_lf","expect":{"outcome":"reject","phase":"canonical_transport","code":"SEMANTIC_REGISTRY_CANONICAL"}},
+    {"id":"transport.reject_extra_lf","construction":"extra_lf","expect":{"outcome":"reject","phase":"canonical_transport","code":"SEMANTIC_REGISTRY_CANONICAL"}},
+    {"id":"transport.reject_crlf","construction":"crlf","expect":{"outcome":"reject","phase":"canonical_transport","code":"SEMANTIC_REGISTRY_CANONICAL"}},
+    {"id":"transport.reject_pretty","construction":"pretty","expect":{"outcome":"reject","phase":"canonical_transport","code":"SEMANTIC_REGISTRY_CANONICAL"}},
+    {"id":"transport.reject_alternate_escape","construction":"escaped_ascii","expect":{"outcome":"reject","phase":"canonical_transport","code":"SEMANTIC_REGISTRY_CANONICAL"}},
+    {"id":"transport.reject_bom","construction":"bom","expect":{"outcome":"reject","phase":"transport","code":"SEMANTIC_REGISTRY_TRANSPORT"}},
+    {"id":"transport.reject_invalid_utf8","construction":"invalid_utf8","expect":{"outcome":"reject","phase":"transport","code":"SEMANTIC_REGISTRY_TRANSPORT"}},
+    {"id":"transport.reject_duplicate_name","construction":"duplicate_name","expect":{"outcome":"reject","phase":"transport","code":"SEMANTIC_REGISTRY_TRANSPORT"}},
+    {"id":"transport.reject_float","construction":"float","expect":{"outcome":"reject","phase":"transport","code":"SEMANTIC_REGISTRY_TRANSPORT"}},
+    {"id":"transport.reject_unsafe_integer","construction":"unsafe_integer","expect":{"outcome":"reject","phase":"transport","code":"SEMANTIC_REGISTRY_TRANSPORT"}},
+    {"id":"transport.reject_depth_33","construction":"depth_33","expect":{"outcome":"reject","phase":"transport","code":"SEMANTIC_REGISTRY_TRANSPORT"}},
+    {"id":"transport.reject_above_byte_limit","construction":"above_byte_limit","expect":{"outcome":"reject","phase":"transport","code":"SEMANTIC_REGISTRY_TRANSPORT"}}
+  ],
+  "hash_cases": [
+    {
+      "id": "hash.go_entry",
+      "source_pointer": "/profiles/0",
+      "domain": "MPK-SEMANTIC-PROFILE-ENTRY-1.0",
+      "excluded_field": "entry_sha256",
+      "expected_payload_utf8_length": 611,
+      "expected_preimage_length": 642,
+      "expected_complete_jcs_utf8_length": 693,
+      "expected_sha256": "b10ec338d1f2b3fefc015e4d46c27def43e92ff3d87341624b48c93db951ca96"
+    },
+    {
+      "id": "hash.rust_entry",
+      "source_pointer": "/profiles/1",
+      "domain": "MPK-SEMANTIC-PROFILE-ENTRY-1.0",
+      "excluded_field": "entry_sha256",
+      "expected_payload_utf8_length": 659,
+      "expected_preimage_length": 690,
+      "expected_complete_jcs_utf8_length": 741,
+      "expected_sha256": "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057"
+    },
+    {
+      "id": "hash.registry_root",
+      "source_pointer": "",
+      "domain": "MPK-SEMANTIC-PROFILE-REGISTRY-1.0",
+      "excluded_field": "registry_sha256",
+      "expected_payload_utf8_length": 1547,
+      "expected_preimage_length": 1581,
+      "expected_complete_jcs_utf8_length": 1632,
+      "expected_transport_utf8_length": 1633,
+      "expected_transport_sha256": "e9466a1baf1936dc82289b35eaf993856cc06e4df6bd6e6d43c943e7da5d1d03",
+      "expected_sha256": "7c9163571cda32aa47984e3e6d949c8857bf62f00110dd1b2c3958eed5e537cc"
+    }
+  ],
+  "registry_cases": [
+    {"id":"registry.accept_base","mutation":"none","rehash_entry":false,"rehash_registry":false,"expect":{"outcome":"accept","phase":"complete","code":""}},
+    {"id":"registry.reject_wrong_schema","mutation":"wrong_schema","rehash_entry":false,"rehash_registry":false,"expect":{"outcome":"reject","phase":"shape","code":"SEMANTIC_REGISTRY_SHAPE"}},
+    {"id":"registry.reject_missing_profiles","mutation":"missing_profiles","rehash_entry":false,"rehash_registry":false,"expect":{"outcome":"reject","phase":"shape","code":"SEMANTIC_REGISTRY_SHAPE"}},
+    {"id":"registry.reject_unknown_root_field","mutation":"unknown_root_field","rehash_entry":false,"rehash_registry":false,"expect":{"outcome":"reject","phase":"shape","code":"SEMANTIC_REGISTRY_SHAPE"}},
+    {"id":"registry.reject_entry_callback_field","mutation":"entry_callback_field","rehash_entry":false,"rehash_registry":false,"expect":{"outcome":"reject","phase":"shape","code":"SEMANTIC_REGISTRY_SHAPE"}},
+    {"id":"registry.reject_contract_checker_field","mutation":"contract_checker_field","rehash_entry":false,"rehash_registry":false,"expect":{"outcome":"reject","phase":"shape","code":"SEMANTIC_REGISTRY_SHAPE"}},
+    {"id":"registry.reject_contract_executable_field","mutation":"contract_executable_field","rehash_entry":false,"rehash_registry":false,"expect":{"outcome":"reject","phase":"shape","code":"SEMANTIC_REGISTRY_SHAPE"}},
+    {"id":"registry.reject_contract_plugin_uri_field","mutation":"contract_plugin_uri_field","rehash_entry":false,"rehash_registry":false,"expect":{"outcome":"reject","phase":"shape","code":"SEMANTIC_REGISTRY_SHAPE"}},
+    {"id":"registry.reject_malformed_id","mutation":"malformed_id","rehash_entry":false,"rehash_registry":false,"expect":{"outcome":"reject","phase":"scalar","code":"SEMANTIC_REGISTRY_SCALAR"}},
+    {"id":"registry.reject_zero_revision","mutation":"zero_revision","rehash_entry":false,"rehash_registry":false,"expect":{"outcome":"reject","phase":"scalar","code":"SEMANTIC_REGISTRY_SCALAR"}},
+    {"id":"registry.reject_profile_count","mutation":"too_many_profiles","rehash_entry":false,"rehash_registry":false,"expect":{"outcome":"reject","phase":"limits","code":"SEMANTIC_REGISTRY_LIMIT"}},
+    {"id":"registry.reject_reversed_profiles","mutation":"reverse_profiles","rehash_entry":false,"rehash_registry":false,"expect":{"outcome":"reject","phase":"order","code":"SEMANTIC_REGISTRY_ORDER"}},
+    {"id":"registry.reject_duplicate_profile","mutation":"duplicate_profile","rehash_entry":false,"rehash_registry":false,"expect":{"outcome":"reject","phase":"order","code":"SEMANTIC_REGISTRY_ORDER"}},
+    {"id":"registry.reject_entry_hash","mutation":"bad_entry_hash","rehash_entry":false,"rehash_registry":false,"expect":{"outcome":"reject","phase":"entry_hash","code":"SEMANTIC_REGISTRY_ENTRY_HASH"}},
+    {"id":"registry.reject_unknown_compiled_contract","mutation":"unknown_contract","rehash_entry":true,"rehash_registry":true,"expect":{"outcome":"reject","phase":"contract_binding","code":"SEMANTIC_REGISTRY_CONTRACT"}},
+    {"id":"registry.reject_crossed_language_profile","mutation":"crossed_pair","rehash_entry":true,"rehash_registry":true,"expect":{"outcome":"reject","phase":"invariant","code":"SEMANTIC_REGISTRY_INVARIANT"}},
+    {"id":"registry.reject_root_hash","mutation":"bad_root_hash","rehash_entry":false,"rehash_registry":false,"expect":{"outcome":"reject","phase":"registry_hash","code":"SEMANTIC_REGISTRY_HASH"}},
+    {"id":"registry.reject_rehashed_missing_profile","mutation":"missing_rust_profile","rehash_entry":false,"rehash_registry":true,"expect":{"outcome":"reject","phase":"embedded_identity","code":"SEMANTIC_REGISTRY_ASSERTION"}},
+    {"id":"registry.reject_rehashed_revision","mutation":"revision_two","rehash_entry":false,"rehash_registry":true,"expect":{"outcome":"reject","phase":"embedded_identity","code":"SEMANTIC_REGISTRY_ASSERTION"}},
+    {"id":"registry.reject_pretty_transport","mutation":"pretty_transport","rehash_entry":false,"rehash_registry":false,"expect":{"outcome":"reject","phase":"canonical_transport","code":"SEMANTIC_REGISTRY_CANONICAL"}}
+  ],
+  "context_cases": [
+    {"id":"context.accept_go","fixture":"go_request","mutation":"none","expect":{"outcome":"accept","phase":"complete","code":""}},
+    {"id":"context.accept_rust","fixture":"rust_request","mutation":"none","expect":{"outcome":"accept","phase":"complete","code":""}},
+    {"id":"context.reject_registry_identity_before_unknown_profile","fixture":"go_request","mutation":"registry_and_profile","expect":{"outcome":"reject","phase":"registry_identity","code":"SEMANTIC_REGISTRY_ASSERTION"}},
+    {"id":"context.reject_registry_identity","fixture":"go_request","mutation":"registry_hash","expect":{"outcome":"reject","phase":"registry_identity","code":"SEMANTIC_REGISTRY_ASSERTION"}},
+    {"id":"context.reject_unknown_profile_before_parameters","fixture":"go_request","mutation":"profile_and_parameters","expect":{"outcome":"reject","phase":"profile_lookup","code":"SEMANTIC_PROFILE_UNKNOWN"}},
+    {"id":"context.reject_unknown_profile","fixture":"go_request","mutation":"unknown_profile","expect":{"outcome":"reject","phase":"profile_lookup","code":"SEMANTIC_PROFILE_UNKNOWN"}},
+    {"id":"context.reject_crossed_pair","fixture":"go_request","mutation":"crossed_pair","expect":{"outcome":"reject","phase":"profile_lookup","code":"SEMANTIC_PROFILE_UNKNOWN"}},
+    {"id":"context.reject_entry_hash","fixture":"go_request","mutation":"entry_hash","expect":{"outcome":"reject","phase":"profile_entry","code":"SEMANTIC_PROFILE_ENTRY"}},
+    {"id":"context.reject_parameters_schema","fixture":"go_request","mutation":"parameters_schema","expect":{"outcome":"reject","phase":"parameters_schema","code":"SEMANTIC_PARAMETERS_SCHEMA"}},
+    {"id":"context.reject_parameters_value","fixture":"go_request","mutation":"parameters_unknown_field","expect":{"outcome":"reject","phase":"parameters_value","code":"SEMANTIC_PARAMETERS_INVALID"}},
+    {"id":"context.reject_selection_schema","fixture":"go_request","mutation":"selection_schema","expect":{"outcome":"reject","phase":"selection_schema","code":"SEMANTIC_SELECTION_SCHEMA"}},
+    {"id":"context.reject_selection_value","fixture":"go_request","mutation":"selection_unknown_field","expect":{"outcome":"reject","phase":"selection_value","code":"SEMANTIC_SELECTION_INVALID"}}
+  ],
+  "profile_envelope_cases": [
+    {"id":"profile_envelope.accept_go_frontend","fixture":"go_frontend_profile","contract_field":"frontend","mutation":"none","expect":{"outcome":"accept","phase":"complete","code":""}},
+    {"id":"profile_envelope.accept_rust_frontend","fixture":"rust_frontend_profile","contract_field":"frontend","mutation":"none","expect":{"outcome":"accept","phase":"complete","code":""}},
+    {"id":"profile_envelope.reject_unknown_field","fixture":"go_frontend_profile","contract_field":"frontend","mutation":"unknown_envelope_field","expect":{"outcome":"reject","phase":"profile_envelope","code":"SEMANTIC_PROFILE_ENVELOPE"}},
+    {"id":"profile_envelope.reject_nonobject_value","fixture":"go_frontend_profile","contract_field":"frontend","mutation":"nonobject_value","expect":{"outcome":"reject","phase":"profile_envelope","code":"SEMANTIC_PROFILE_ENVELOPE"}},
+    {"id":"profile_envelope.reject_entry","fixture":"go_frontend_profile","contract_field":"frontend","mutation":"unknown_entry","expect":{"outcome":"reject","phase":"profile_entry","code":"SEMANTIC_PROFILE_ENTRY"}},
+    {"id":"profile_envelope.reject_crossed_contract","fixture":"go_frontend_profile","contract_field":"frontend","mutation":"release_contract","expect":{"outcome":"reject","phase":"profile_contract","code":"SEMANTIC_PROFILE_CONTRACT"}},
+    {"id":"profile_envelope.reject_unknown_contract","fixture":"go_frontend_profile","contract_field":"frontend","mutation":"unknown_contract","expect":{"outcome":"reject","phase":"profile_contract","code":"SEMANTIC_PROFILE_CONTRACT"}},
+    {"id":"profile_envelope.reject_unknown_value_field","fixture":"go_frontend_profile","contract_field":"frontend","mutation":"unknown_value_field","expect":{"outcome":"reject","phase":"profile_payload","code":"SEMANTIC_PROFILE_PAYLOAD"}},
+    {"id":"profile_envelope.reject_callback_value","fixture":"go_frontend_profile","contract_field":"frontend","mutation":"callback_value_field","expect":{"outcome":"reject","phase":"profile_payload","code":"SEMANTIC_PROFILE_PAYLOAD"}}
+  ],
+  "limit_cases": [
+    {"id":"limit.registry_canonical_bytes.below","limit":"registry_canonical_bytes","value":524287,"expect":"accept"},
+    {"id":"limit.registry_canonical_bytes.at","limit":"registry_canonical_bytes","value":524288,"expect":"accept"},
+    {"id":"limit.registry_canonical_bytes.above","limit":"registry_canonical_bytes","value":524289,"expect":"reject"},
+    {"id":"limit.registry_transport_bytes.below","limit":"registry_transport_bytes","value":524288,"expect":"accept"},
+    {"id":"limit.registry_transport_bytes.at","limit":"registry_transport_bytes","value":524289,"expect":"accept"},
+    {"id":"limit.registry_transport_bytes.above","limit":"registry_transport_bytes","value":524290,"expect":"reject"},
+    {"id":"limit.json_nesting.below","limit":"json_nesting","value":31,"expect":"accept"},
+    {"id":"limit.json_nesting.at","limit":"json_nesting","value":32,"expect":"accept"},
+    {"id":"limit.json_nesting.above","limit":"json_nesting","value":33,"expect":"reject"},
+    {"id":"limit.identifier_bytes.below","limit":"identifier_bytes","value":127,"expect":"accept"},
+    {"id":"limit.identifier_bytes.at","limit":"identifier_bytes","value":128,"expect":"accept"},
+    {"id":"limit.identifier_bytes.above","limit":"identifier_bytes","value":129,"expect":"reject"},
+    {"id":"limit.source_language_bytes.below","limit":"source_language_bytes","value":63,"expect":"accept"},
+    {"id":"limit.source_language_bytes.at","limit":"source_language_bytes","value":64,"expect":"accept"},
+    {"id":"limit.source_language_bytes.above","limit":"source_language_bytes","value":65,"expect":"reject"},
+    {"id":"limit.profiles.below","limit":"profiles","value":255,"expect":"accept"},
+    {"id":"limit.profiles.at","limit":"profiles","value":256,"expect":"accept"},
+    {"id":"limit.profiles.above","limit":"profiles","value":257,"expect":"reject"},
+    {"id":"limit.semantic_parameters_canonical_bytes.below","limit":"semantic_parameters_canonical_bytes","value":65535,"expect":"accept"},
+    {"id":"limit.semantic_parameters_canonical_bytes.at","limit":"semantic_parameters_canonical_bytes","value":65536,"expect":"accept"},
+    {"id":"limit.semantic_parameters_canonical_bytes.above","limit":"semantic_parameters_canonical_bytes","value":65537,"expect":"reject"},
+    {"id":"limit.selection_canonical_bytes.below","limit":"selection_canonical_bytes","value":65535,"expect":"accept"},
+    {"id":"limit.selection_canonical_bytes.at","limit":"selection_canonical_bytes","value":65536,"expect":"accept"},
+    {"id":"limit.selection_canonical_bytes.above","limit":"selection_canonical_bytes","value":65537,"expect":"reject"},
+    {"id":"limit.compiled_profile_payload_canonical_bytes.below","limit":"compiled_profile_payload_canonical_bytes","value":1048575,"expect":"accept"},
+    {"id":"limit.compiled_profile_payload_canonical_bytes.at","limit":"compiled_profile_payload_canonical_bytes","value":1048576,"expect":"accept"},
+    {"id":"limit.compiled_profile_payload_canonical_bytes.above","limit":"compiled_profile_payload_canonical_bytes","value":1048577,"expect":"reject"},
+    {"id":"limit.revision.below","limit":"revision","value":9007199254740990,"expect":"accept"},
+    {"id":"limit.revision.at","limit":"revision","value":9007199254740991,"expect":"accept"},
+    {"id":"limit.revision.above","limit":"revision","value":"9007199254740992","expect":"reject"}
+  ],
+  "hash_domain_migration_cases": [
+    {"surface":"contract","current":"MPK-CONTRACT-0.1","successor":"MPK-CONTRACT-1.0"},
+    {"surface":"vir","current":"MPK-VIR-0.1","successor":"MPK-VIR-1.0"},
+    {"surface":"source_map","current":"MPK-SOURCE-MAP-0.1","successor":"MPK-SOURCE-MAP-1.0"},
+    {"surface":"source_manifest","current":"MPK-SOURCE-MANIFEST-0.1","successor":"MPK-SOURCE-MANIFEST-1.0"},
+    {"surface":"release_registry","current":"MPK-BUNDLE-REGISTRY-0.1","successor":"MPK-BUNDLE-REGISTRY-1.0"},
+    {"surface":"rust_driver_request","current":"MPK-RUST-DRIVER-REQUEST-0.1","successor":"MPK-RUST-DRIVER-REQUEST-1.0"},
+    {"surface":"rust_driver_payload","current":"MPK-RUST-DRIVER-PAYLOAD-0.1","successor":"MPK-RUST-DRIVER-PAYLOAD-1.0"},
+    {"surface":"vc","current":"MPK-VC-1.0","successor":"MPK-VC-2.0"}
+  ],
+  "migration_cases": [
+    {"surface":"vir","current":"mpk.vir.v0","successor":"mpk.vir.v1","successor_accepts_current":false,"current_accepts_successor":false},
+    {"surface":"frontend","current":"mpk.frontend.cli.v0","successor":"mpk.frontend.cli.v1","successor_accepts_current":false,"current_accepts_successor":false},
+    {"surface":"rust_driver_request","current":"mpk.rust.driver.request.v0","successor":"mpk.rust.driver.request.v1","successor_accepts_current":false,"current_accepts_successor":false},
+    {"surface":"rust_driver_result","current":"mpk.rust.driver.v0","successor":"mpk.rust.driver.v1","successor_accepts_current":false,"current_accepts_successor":false},
+    {"surface":"rust_driver_lowering","current":"mpk.rust.driver.lowering.v0","successor":"mpk.rust.driver.lowering.v1","successor_accepts_current":false,"current_accepts_successor":false},
+    {"surface":"rust_driver_raw_source_map","current":"mpk.rust.driver.raw_source_map.v0","successor":"mpk.rust.driver.raw_source_map.v1","successor_accepts_current":false,"current_accepts_successor":false},
+    {"surface":"source_map","current":"mpk.source_map.v0","successor":"mpk.source_map.v1","successor_accepts_current":false,"current_accepts_successor":false},
+    {"surface":"source_manifest","current":"mpk.source_manifest.v0","successor":"mpk.source_manifest.v1","successor_accepts_current":false,"current_accepts_successor":false},
+    {"surface":"release_registry","current":"mpk.release.bundle_registry.v0","successor":"mpk.release.bundle_registry.v1","successor_accepts_current":false,"current_accepts_successor":false},
+    {"surface":"release_registry_id","current":"mpk.release.registry.v0","successor":"mpk.release.registry.v1","successor_accepts_current":false,"current_accepts_successor":false},
+    {"surface":"frontend_descriptor","current":"mpk.release.frontend_bundle.v0","successor":"mpk.release.frontend_bundle.v1","successor_accepts_current":false,"current_accepts_successor":false},
+    {"surface":"toolchain_descriptor","current":"mpk.release.toolchain_bundle.v0","successor":"mpk.release.toolchain_bundle.v1","successor_accepts_current":false,"current_accepts_successor":false},
+    {"surface":"bundle_candidate","current":"mpk.release.bundle_candidate.v0","successor":"mpk.release.bundle_candidate.v1","successor_accepts_current":false,"current_accepts_successor":false},
+    {"surface":"vc","current":"mpk.vc.v1","successor":"mpk.vc.v2","successor_accepts_current":false,"current_accepts_successor":false},
+    {"surface":"vc_skeleton","current":"mpk.vc.cert_skeleton.v1","successor":"mpk.vc.cert_skeleton.v2","successor_accepts_current":false,"current_accepts_successor":false},
+    {"surface":"policy_scan","current":"mpk.policy.scan.v1","successor":"mpk.policy.scan.v2","successor_accepts_current":false,"current_accepts_successor":false},
+    {"surface":"policy_evidence","current":"mpk.policy.evidence.v1","successor":"mpk.policy.evidence.v2","successor_accepts_current":false,"current_accepts_successor":false},
+    {"surface":"program_certificate_profile","current":"mpk.program_certificate.alpha.v0","successor":"mpk.program_certificate.alpha.v1","successor_accepts_current":false,"current_accepts_successor":false},
+    {"surface":"ai_api","current":"mpk.ai.api.v1","successor":"mpk.ai.api.v2","successor_accepts_current":false,"current_accepts_successor":false},
+    {"surface":"ai_explain_request","current":"mpk.ai.explain.request.v1","successor":"mpk.ai.explain.request.v2","successor_accepts_current":false,"current_accepts_successor":false},
+    {"surface":"ai_explanation","current":"mpk.ai.explanation.v1","successor":"mpk.ai.explanation.v2","successor_accepts_current":false,"current_accepts_successor":false}
+  ]
+}

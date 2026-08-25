@@ -295,8 +295,8 @@ fn canonical_json_every_frozen_vector_container_is_loaded_and_digest_matched() {
     let vectors = array(field(&manifest, "vectors"));
     assert_eq!(
         vectors.len(),
-        18,
-        "closed VIR-00 vector manifest size changed"
+        19,
+        "closed specification-vector manifest size changed"
     );
     let mut seen_paths = BTreeSet::new();
     for entry in vectors {
