@@ -1,0 +1,244 @@
+{
+  "schema": "mpk.semantic_profile.registry.conformance.v2",
+  "owner_test": "crates/mpk-vc/tests/csharp_profile_spec.rs",
+  "mechanism_spec": "develop/specs/SEMANTIC_PROFILE_REGISTRY_V1.md",
+  "profile_spec": "develop/specs/CSHARP_PROFILE_V0.md",
+  "predecessor": {
+    "schema": "mpk.semantic_profile.registry.v1",
+    "id": "mpk.semantic_profile.registry.v1",
+    "revision": 1,
+    "profiles": [
+      {
+        "schema": "mpk.semantic_profile.entry.v1",
+        "source_language": "go",
+        "semantic_profile": "mpk.go.fixed.v0",
+        "semantic_parameters_schema": "mpk.semantic_parameters.go_fixed.v0",
+        "selection_schema": "mpk.selection.go_function.v0",
+        "contracts": {
+          "ai": "mpk.profile.ai.go_fixed.v0",
+          "evidence": "mpk.profile.evidence.go_fixed.v0",
+          "frontend": "mpk.profile.frontend.go_fixed.v0",
+          "manifest": "mpk.profile.manifest.go_fixed.v0",
+          "policy": "mpk.profile.policy.go_fixed.v0",
+          "release": "mpk.profile.release.go_fixed.v0",
+          "source_map": "mpk.profile.source_map.go_fixed.v0",
+          "vc": "mpk.profile.vc.go_fixed.v0",
+          "vir": "mpk.profile.vir.go_fixed.v0"
+        },
+        "entry_sha256": "b10ec338d1f2b3fefc015e4d46c27def43e92ff3d87341624b48c93db951ca96"
+      },
+      {
+        "schema": "mpk.semantic_profile.entry.v1",
+        "source_language": "rust",
+        "semantic_profile": "mpk.rust.checked.v0",
+        "semantic_parameters_schema": "mpk.semantic_parameters.rust_checked.v0",
+        "selection_schema": "mpk.selection.rust_function.v0",
+        "contracts": {
+          "ai": "mpk.profile.ai.rust_checked.v0",
+          "evidence": "mpk.profile.evidence.rust_checked.v0",
+          "frontend": "mpk.profile.frontend.rust_checked.v0",
+          "manifest": "mpk.profile.manifest.rust_checked.v0",
+          "policy": "mpk.profile.policy.rust_checked.v0",
+          "release": "mpk.profile.release.rust_checked.v0",
+          "source_map": "mpk.profile.source_map.rust_checked.v0",
+          "vc": "mpk.profile.vc.rust_checked.v0",
+          "vir": "mpk.profile.vir.rust_checked.v0"
+        },
+        "entry_sha256": "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057"
+      }
+    ],
+    "registry_sha256": "7c9163571cda32aa47984e3e6d949c8857bf62f00110dd1b2c3958eed5e537cc"
+  },
+  "csharp_entry": {
+    "schema": "mpk.semantic_profile.entry.v1",
+    "source_language": "csharp",
+    "semantic_profile": "mpk.csharp.scalar.v0",
+    "semantic_parameters_schema": "mpk.semantic_parameters.csharp_scalar.v0",
+    "selection_schema": "mpk.selection.csharp_methods.v0",
+    "contracts": {
+      "ai": "mpk.profile.ai.csharp_scalar.v0",
+      "evidence": "mpk.profile.evidence.csharp_scalar.v0",
+      "frontend": "mpk.profile.frontend.csharp_scalar.v0",
+      "manifest": "mpk.profile.manifest.csharp_scalar.v0",
+      "policy": "mpk.profile.policy.csharp_scalar.v0",
+      "release": "mpk.profile.release.csharp_scalar.v0",
+      "source_map": "mpk.profile.source_map.csharp_scalar.v0",
+      "vc": "mpk.profile.vc.csharp_scalar.v0",
+      "vir": "mpk.profile.vir.csharp_scalar.v0"
+    },
+    "entry_sha256": "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac"
+  },
+  "registry": {
+    "schema": "mpk.semantic_profile.registry.v1",
+    "id": "mpk.semantic_profile.registry.v1",
+    "revision": 2,
+    "profiles": [
+      {
+        "schema": "mpk.semantic_profile.entry.v1",
+        "source_language": "csharp",
+        "semantic_profile": "mpk.csharp.scalar.v0",
+        "semantic_parameters_schema": "mpk.semantic_parameters.csharp_scalar.v0",
+        "selection_schema": "mpk.selection.csharp_methods.v0",
+        "contracts": {
+          "ai": "mpk.profile.ai.csharp_scalar.v0",
+          "evidence": "mpk.profile.evidence.csharp_scalar.v0",
+          "frontend": "mpk.profile.frontend.csharp_scalar.v0",
+          "manifest": "mpk.profile.manifest.csharp_scalar.v0",
+          "policy": "mpk.profile.policy.csharp_scalar.v0",
+          "release": "mpk.profile.release.csharp_scalar.v0",
+          "source_map": "mpk.profile.source_map.csharp_scalar.v0",
+          "vc": "mpk.profile.vc.csharp_scalar.v0",
+          "vir": "mpk.profile.vir.csharp_scalar.v0"
+        },
+        "entry_sha256": "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac"
+      },
+      {
+        "schema": "mpk.semantic_profile.entry.v1",
+        "source_language": "go",
+        "semantic_profile": "mpk.go.fixed.v0",
+        "semantic_parameters_schema": "mpk.semantic_parameters.go_fixed.v0",
+        "selection_schema": "mpk.selection.go_function.v0",
+        "contracts": {
+          "ai": "mpk.profile.ai.go_fixed.v0",
+          "evidence": "mpk.profile.evidence.go_fixed.v0",
+          "frontend": "mpk.profile.frontend.go_fixed.v0",
+          "manifest": "mpk.profile.manifest.go_fixed.v0",
+          "policy": "mpk.profile.policy.go_fixed.v0",
+          "release": "mpk.profile.release.go_fixed.v0",
+          "source_map": "mpk.profile.source_map.go_fixed.v0",
+          "vc": "mpk.profile.vc.go_fixed.v0",
+          "vir": "mpk.profile.vir.go_fixed.v0"
+        },
+        "entry_sha256": "b10ec338d1f2b3fefc015e4d46c27def43e92ff3d87341624b48c93db951ca96"
+      },
+      {
+        "schema": "mpk.semantic_profile.entry.v1",
+        "source_language": "rust",
+        "semantic_profile": "mpk.rust.checked.v0",
+        "semantic_parameters_schema": "mpk.semantic_parameters.rust_checked.v0",
+        "selection_schema": "mpk.selection.rust_function.v0",
+        "contracts": {
+          "ai": "mpk.profile.ai.rust_checked.v0",
+          "evidence": "mpk.profile.evidence.rust_checked.v0",
+          "frontend": "mpk.profile.frontend.rust_checked.v0",
+          "manifest": "mpk.profile.manifest.rust_checked.v0",
+          "policy": "mpk.profile.policy.rust_checked.v0",
+          "release": "mpk.profile.release.rust_checked.v0",
+          "source_map": "mpk.profile.source_map.rust_checked.v0",
+          "vc": "mpk.profile.vc.rust_checked.v0",
+          "vir": "mpk.profile.vir.rust_checked.v0"
+        },
+        "entry_sha256": "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057"
+      }
+    ],
+    "registry_sha256": "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75"
+  },
+  "hash_cases": [
+    {
+      "id": "hash.csharp_entry",
+      "source_pointer": "/profiles/0",
+      "domain": "MPK-SEMANTIC-PROFILE-ENTRY-1.0",
+      "excluded_field": "entry_sha256",
+      "expected_payload_utf8_length": 673,
+      "expected_preimage_length": 704,
+      "expected_complete_jcs_utf8_length": 755,
+      "expected_sha256": "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac"
+    },
+    {
+      "id": "hash.registry_root",
+      "source_pointer": "",
+      "domain": "MPK-SEMANTIC-PROFILE-REGISTRY-1.0",
+      "excluded_field": "registry_sha256",
+      "expected_payload_utf8_length": 2303,
+      "expected_preimage_length": 2337,
+      "expected_complete_jcs_utf8_length": 2388,
+      "expected_transport_utf8_length": 2389,
+      "expected_transport_sha256": "d3ccae252f388c21fbb3c400b58454c45d28943ae7d681d385a1dd4c017c0952",
+      "expected_sha256": "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75"
+    }
+  ],
+  "append_only_cases": [
+    {
+      "id": "append.csharp_first",
+      "assertion": "profiles[0] is exact C# entry because csharp sorts before go and rust",
+      "expect": "pass"
+    },
+    {
+      "id": "append.go_bytes_unchanged",
+      "assertion": "JCS profiles[1] equals revision-1 profiles[0] byte-for-byte",
+      "expect": "pass"
+    },
+    {
+      "id": "append.rust_bytes_unchanged",
+      "assertion": "JCS profiles[2] equals revision-1 profiles[1] byte-for-byte",
+      "expect": "pass"
+    },
+    {
+      "id": "append.exact_count",
+      "assertion": "revision 2 has exactly three entries",
+      "expect": "pass"
+    },
+    {
+      "id": "append.no_later_language",
+      "assertion": "java, dart, typescript, and python entries are absent",
+      "expect": "pass"
+    },
+    {
+      "id": "append.no_contract_mutation",
+      "assertion": "all predecessor contract IDs and entry hashes are unchanged",
+      "expect": "pass"
+    },
+    {
+      "id": "append.old_root_rejects_csharp",
+      "assertion": "revision-1 root lookup of csharp fails closed",
+      "expect": "pass"
+    },
+    {
+      "id": "append.new_root_rejects_old_context",
+      "assertion": "revision-2 consumer rejects revision-1 context identity",
+      "expect": "pass"
+    }
+  ],
+  "activation_cases": [
+    {
+      "id": "activation.membership_is_inactive",
+      "condition": "entry appears in frozen design root only",
+      "active": false
+    },
+    {
+      "id": "activation.no_current_parser",
+      "condition": "current production parser sees successor schema",
+      "result": "reject"
+    },
+    {
+      "id": "activation.no_csharp_tuple",
+      "condition": "current release tuple lookup requests C# entry",
+      "result": "reject"
+    },
+    {
+      "id": "activation.no_partial_migration",
+      "condition": "only some Go/Rust/C# producers or consumers migrate",
+      "result": "reject"
+    },
+    {
+      "id": "activation.atomic_release",
+      "condition": "all successor consumers, exact three entries, tuples, bundles, vectors, and release gates pass together",
+      "result": "eligible"
+    },
+    {
+      "id": "activation.no_dual_ir",
+      "condition": "release accepts both current and successor public VIR inputs",
+      "result": "reject"
+    },
+    {
+      "id": "activation.certificate_unchanged",
+      "condition": "activation changes Certificate v0 or checker acceptance",
+      "result": "reject"
+    },
+    {
+      "id": "activation.no_plugins",
+      "condition": "compiled contract is absent or resolved dynamically",
+      "result": "reject"
+    }
+  ]
+}

@@ -2,9 +2,9 @@
 
 Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
-Status: Gate C and `MLANG-01` are active after the completed Rust and
-`MLANG-00` gates. `MLANG-01-T02` is complete, and `MLANG-01-T03` is next. No
-C# production or later-language phase is active.
+Status: Gate C and `MLANG-01` are complete after the completed Rust and
+`MLANG-00` gates. `CSHARP-02` is next. No C# production or later-language
+phase is active.
 
 ## Scope and sequencing
 
@@ -282,7 +282,19 @@ exact C# content and revision 2.
 
 ### MLANG-01-T03 Freeze the C# specification package
 
+Status: Complete (2026-08-25).
+
 Depends on: `MLANG-01-T02`.
+
+Deliverables:
+
+- `../specs/CSHARP_PROFILE_V0.md`, the normative but inactive exact C# scalar
+  profile and implementation handoff;
+- `../specs/vectors/csharp-profile-v0.json`, the complete semantic,
+  toolchain, reference, contract, diagnostic, limit, isolation, and upgrade
+  vector package; and
+- `../specs/vectors/semantic-profile-registry-v2.json`, the immutable C#
+  entry and append-only revision-2 root.
 
 Tasks:
 
@@ -294,6 +306,19 @@ Tasks:
 
 Exit gate: every accepted C# form has exact semantics and every other form
 rejects before VIR publication.
+
+T03 completion evidence: the profile fixes C# 14, Roslyn 5.6.0, .NET SDK
+10.0.400, runtime/reference pack 10.0.11, Linux x64, every archive and selected
+assembly hash, and the complete 167-assembly reference inventory. It closes
+the five admitted scalar types, explicit checked/unchecked overflow contexts,
+all identity/implicit/explicit conversion forms, evaluation and abrupt-
+completion behavior, contracts, public Roslyn operation/CFG boundary, source
+mapping, diagnostics, limits, and required checks. The owner test recomputes
+all profile, selection, sidecar, contract, toolchain, entry, reference, and
+registry hashes; covers all 34 semantic rows and every vector category; and
+proves revision 2 preserves the revision-1 Go/Rust entries. No production
+parser, bundle, release tuple, policy route, checker rule, or active C# value
+was added.
 
 ## CSHARP-02: Implement and release C#
 

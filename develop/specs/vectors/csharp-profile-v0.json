@@ -1,0 +1,4909 @@
+{
+  "schema": "mpk.csharp.profile.conformance.v0",
+  "owner_test": "crates/mpk-vc/tests/csharp_profile_spec.rs",
+  "spec_schema": "mpk.csharp.scalar.v0",
+  "mechanism_schema": "mpk.semantic_profile.registry.v1",
+  "profile_identity": {
+    "source_language": "csharp",
+    "semantic_profile": "mpk.csharp.scalar.v0",
+    "semantic_parameters_schema": "mpk.semantic_parameters.csharp_scalar.v0",
+    "selection_schema": "mpk.selection.csharp_methods.v0",
+    "contract_schema": "mpk.csharp.contract.v0",
+    "profile_entry_sha256": "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac",
+    "registry_revision": 2,
+    "registry_sha256": "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75"
+  },
+  "semantic_parameters": {
+    "schema": "mpk.semantic_parameters.csharp_scalar.v0",
+    "value": {
+      "check_overflow_default": false,
+      "documentation_mode": "none",
+      "language_version": "14.0",
+      "nullable_context": "disable",
+      "optimization": "release",
+      "platform": "x64",
+      "pointer_width": 64,
+      "preprocessor_symbols": [],
+      "source_kind": "regular",
+      "target_framework": "net10.0",
+      "target_id": "linux-x64",
+      "unsafe": false
+    }
+  },
+  "selection_fixture": {
+    "schema": "mpk.selection.csharp_methods.v0",
+    "value": {
+      "compilation": "payment-policy",
+      "contracts": [
+        "contracts/approved.json"
+      ],
+      "methods": [
+        "Example.Payment.Policy::Approved(i64,i64)->bool"
+      ],
+      "sources": [
+        "src/Policy.cs"
+      ]
+    }
+  },
+  "selection_sha256": "d5033138bd8c53eee3901d0d1852ed4c1b1a85686cf2a68f01effb0b8c70dfcd",
+  "contract_fixture": {
+    "schema": "mpk.csharp.contract.v0",
+    "semantic_profile": "mpk.csharp.scalar.v0",
+    "method": "Example.Payment.Policy::Approved(i64,i64)->bool",
+    "requires": [
+      {
+        "op": "signed_ge",
+        "args": [
+          {
+            "parameter": "reserve"
+          },
+          {
+            "parameter": "debit"
+          }
+        ]
+      },
+      {
+        "op": "signed_ge",
+        "args": [
+          {
+            "parameter": "reserve"
+          },
+          {
+            "int": {
+              "decimal": "0",
+              "type": "i64"
+            }
+          }
+        ]
+      }
+    ],
+    "ensures": [
+      {
+        "op": "eq",
+        "args": [
+          {
+            "result": 0
+          },
+          {
+            "bool": true
+          }
+        ]
+      }
+    ],
+    "modifies": [],
+    "abrupt_completion": "forbidden",
+    "termination": "total"
+  },
+  "contract_sidecar_sha256": "6684361a15dc454a8172d7e515dd6a3a49ec1ff8faae00bc12d958eae8982228",
+  "normalized_contract_fixture": {
+    "semantic_context": {
+      "profile_registry": {
+        "schema": "mpk.semantic_profile.registry.v1",
+        "id": "mpk.semantic_profile.registry.v1",
+        "revision": 2,
+        "registry_sha256": "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75"
+      },
+      "profile_entry_sha256": "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac",
+      "source_language": "csharp",
+      "semantic_profile": "mpk.csharp.scalar.v0",
+      "semantic_parameters": {
+        "schema": "mpk.semantic_parameters.csharp_scalar.v0",
+        "value": {
+          "check_overflow_default": false,
+          "documentation_mode": "none",
+          "language_version": "14.0",
+          "nullable_context": "disable",
+          "optimization": "release",
+          "platform": "x64",
+          "pointer_width": 64,
+          "preprocessor_symbols": [],
+          "source_kind": "regular",
+          "target_framework": "net10.0",
+          "target_id": "linux-x64",
+          "unsafe": false
+        }
+      }
+    },
+    "unit_id": "payment-policy",
+    "function_id": "Example.Payment.Policy::Approved(i64,i64)->bool",
+    "requires": [
+      {
+        "op": "signed_ge",
+        "lhs": {
+          "var": "arg0"
+        },
+        "rhs": {
+          "var": "arg1"
+        }
+      },
+      {
+        "op": "signed_ge",
+        "lhs": {
+          "var": "arg0"
+        },
+        "rhs": {
+          "int": {
+            "value": "0",
+            "width": 64,
+            "signed": true
+          }
+        }
+      }
+    ],
+    "ensures": [
+      {
+        "op": "eq",
+        "lhs": {
+          "result": 0
+        },
+        "rhs": {
+          "bool": true
+        }
+      }
+    ],
+    "modifies": [],
+    "panic": "forbidden",
+    "termination": "total",
+    "loops": [],
+    "contract_hash": "4130c5289e3590c43ac91bb15d71344172018aa6e0b2dd4e45725de71aabec9e"
+  },
+  "toolchain_inputs": {
+    "schema": "mpk.csharp.toolchain_inputs.v0",
+    "id": "mpk.csharp.toolchain_inputs.roslyn_5_6_0.dotnet_10_0_11.linux_x64.v0",
+    "host": {
+      "architecture": "x86_64",
+      "os": "linux",
+      "rid": "linux-x64",
+      "execution_host_profile_id": "mpk.host.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0",
+      "runtime_layout_profile_id": "mpk.runtime.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0",
+      "minimum_kernel_abi": "6.4.0",
+      "interpreter": "/lib64/ld-linux-x86-64.so.2",
+      "native_library_roots": [
+        "/mpk/toolchain/dotnet",
+        "/lib/x86_64-linux-gnu"
+      ]
+    },
+    "roslyn_source": {
+      "commit": "c0573ed0a7dc3e3b4d2e70da47f97cc51a35524f",
+      "repository": "https://github.com/dotnet/roslyn",
+      "release_kind": "stable"
+    },
+    "archives": [
+      {
+        "id": "dotnet-runtime-linux-x64",
+        "kind": "tar.gz",
+        "version": "10.0.11",
+        "url": "https://builds.dotnet.microsoft.com/dotnet/Runtime/10.0.11/dotnet-runtime-10.0.11-linux-x64.tar.gz",
+        "size_bytes": 36639275,
+        "sha256": "7d847ecaa123efae40b114c5d45641e456b4cd65e5114b4612095d45d7c71a63",
+        "sha512": "64c77a5f98d6dfc63393ed5d2fed47c2855c7cdd4322008b3b13e1d0b710aefc1fba7e56612f25f7e8a2b1b6cef5cf77cb3a834ff3685e723ad286703c3396d8"
+      },
+      {
+        "id": "dotnet-sdk-linux-x64",
+        "kind": "tar.gz",
+        "version": "10.0.400",
+        "url": "https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.400/dotnet-sdk-10.0.400-linux-x64.tar.gz",
+        "size_bytes": 240133692,
+        "sha256": "7ad9d2db01512e41fd580a0630321bb70cd062d7fe4c5badfb4ce81ec1eddbb8",
+        "sha512": "1033977dd837150e0814cf0c5d5b17ceb63925fda7ba2158b47258a4bd7c048cf82eac3bc1166f3146f53124a3f5fba09db1de1260d2ce96399860303b404b48"
+      },
+      {
+        "id": "microsoft-codeanalysis-analyzers",
+        "kind": "nupkg",
+        "version": "5.3.0",
+        "url": "https://api.nuget.org/v3-flatcontainer/microsoft.codeanalysis.analyzers/5.3.0/microsoft.codeanalysis.analyzers.5.3.0.nupkg",
+        "size_bytes": 2555904,
+        "sha256": "7948d4ecc0de91c6c3431501bad7162bbb221f1e879ab81d0cc2e7a4661154b3"
+      },
+      {
+        "id": "microsoft-codeanalysis-common",
+        "kind": "nupkg",
+        "version": "5.6.0",
+        "url": "https://api.nuget.org/v3-flatcontainer/microsoft.codeanalysis.common/5.6.0/microsoft.codeanalysis.common.5.6.0.nupkg",
+        "size_bytes": 6654563,
+        "sha256": "43edf870a0941cb31476280b4ae0ae9ea7290336a0ca7abb3ba2c9d3d10fbba8"
+      },
+      {
+        "id": "microsoft-codeanalysis-csharp",
+        "kind": "nupkg",
+        "version": "5.6.0",
+        "url": "https://api.nuget.org/v3-flatcontainer/microsoft.codeanalysis.csharp/5.6.0/microsoft.codeanalysis.csharp.5.6.0.nupkg",
+        "size_bytes": 18005025,
+        "sha256": "9ebcc6664f682ee084be10d3f884be5c154eb8756bc0bf111a3d2b6453f8491a"
+      },
+      {
+        "id": "microsoft-netcore-app-ref",
+        "kind": "nupkg",
+        "version": "10.0.11",
+        "url": "https://api.nuget.org/v3-flatcontainer/microsoft.netcore.app.ref/10.0.11/microsoft.netcore.app.ref.10.0.11.nupkg",
+        "size_bytes": 7188368,
+        "sha256": "e363ceebe508456156679650ccb88a6b6bc38e89264511c655137fc5c2a1d7a7"
+      }
+    ],
+    "package_graph": [
+      {
+        "package_id": "Microsoft.CodeAnalysis.Analyzers",
+        "version": "5.3.0",
+        "use": "build-metadata-only",
+        "dependencies": []
+      },
+      {
+        "package_id": "Microsoft.CodeAnalysis.Common",
+        "version": "5.6.0",
+        "use": "runtime",
+        "dependencies": [
+          {
+            "package_id": "Microsoft.CodeAnalysis.Analyzers",
+            "version": "5.3.0"
+          }
+        ]
+      },
+      {
+        "package_id": "Microsoft.CodeAnalysis.CSharp",
+        "version": "5.6.0",
+        "use": "runtime",
+        "dependencies": [
+          {
+            "package_id": "Microsoft.CodeAnalysis.Analyzers",
+            "version": "5.3.0"
+          },
+          {
+            "package_id": "Microsoft.CodeAnalysis.Common",
+            "version": "5.6.0"
+          }
+        ]
+      },
+      {
+        "package_id": "Microsoft.NETCore.App.Ref",
+        "version": "10.0.11",
+        "use": "metadata-reference",
+        "dependencies": []
+      }
+    ],
+    "managed_projection": [
+      {
+        "package_id": "Microsoft.CodeAnalysis.Common",
+        "archive_path": "lib/net10.0/Microsoft.CodeAnalysis.dll",
+        "runtime_path": "frontend/Microsoft.CodeAnalysis.dll",
+        "size_bytes": 3085096,
+        "sha256": "42c9ce7891470f430267e2dc02d03571f9d046a7e7e121107754bee58d344613"
+      },
+      {
+        "package_id": "Microsoft.CodeAnalysis.CSharp",
+        "archive_path": "lib/net10.0/Microsoft.CodeAnalysis.CSharp.dll",
+        "runtime_path": "frontend/Microsoft.CodeAnalysis.CSharp.dll",
+        "size_bytes": 7013712,
+        "sha256": "1af1de8a162d2312eb2f6b781f5edbe8cec7d5cd268c7e4de24396225e54260f"
+      }
+    ],
+    "reference_projection": {
+      "package_id": "Microsoft.NETCore.App.Ref",
+      "version": "10.0.11",
+      "selector": "all regular ref/net10.0/*.dll with no additional path segment",
+      "install_root": "/mpk/toolchain/reference-pack",
+      "count": 167,
+      "total_bytes": 6046008,
+      "canonical_payload_bytes": 24670,
+      "hash_domain": "MPK-CSHARP-REFERENCE-INVENTORY-0.1",
+      "inventory_sha256": "30623f64b7d85564260e62464e652bfaa89eb56e0e55193989bfb99538ba6cad",
+      "metadata": [
+        {
+          "path": "data/FrameworkList.xml",
+          "size_bytes": 36320,
+          "sha256": "0527031269ff47fceb1518eccd9992e75f924881a362754957676c18988263b4"
+        },
+        {
+          "path": "data/PackageOverrides.txt",
+          "size_bytes": 12513,
+          "sha256": "3a68b05b919439d173763b5b286ce0138f35dd38b2ae1287fd41caa52bdbed7e"
+        },
+        {
+          "path": "data/PlatformManifest.txt",
+          "size_bytes": 29320,
+          "sha256": "8d13a33fb36d0ebf5bc7c36ca1c3b4fc16dc271dd32db6565afdf88371d6414c"
+        }
+      ],
+      "inventory": [
+        {
+          "path": "ref/net10.0/Microsoft.CSharp.dll",
+          "size_bytes": 18216,
+          "sha256": "50ac73d1df3bd9c1ab431587efd4089c03b3cc373c5da382f97a565575966109"
+        },
+        {
+          "path": "ref/net10.0/Microsoft.VisualBasic.Core.dll",
+          "size_bytes": 59176,
+          "sha256": "543e89a131f804ba89dd09eb82331bea22ef0bc4bcc9f9228399c7916d468988"
+        },
+        {
+          "path": "ref/net10.0/Microsoft.VisualBasic.dll",
+          "size_bytes": 17232,
+          "sha256": "6adcdd16418823c4d27bc65c9ef07df2eac26215fafc3d27eda58ae44a4787b3"
+        },
+        {
+          "path": "ref/net10.0/Microsoft.Win32.Primitives.dll",
+          "size_bytes": 16168,
+          "sha256": "48d7b58bbfc4d449d96d14a163d1650974743c23da36c31a954c71845bb351ba"
+        },
+        {
+          "path": "ref/net10.0/Microsoft.Win32.Registry.dll",
+          "size_bytes": 21328,
+          "sha256": "aada3b0bd87218ce548807e45b47d480ba122be3c10d589c3cfe4f8152653ef6"
+        },
+        {
+          "path": "ref/net10.0/System.AppContext.dll",
+          "size_bytes": 15184,
+          "sha256": "36447d0e4c9c86352905726eaf37292c55caed5b87c74c22836ae8b0334395c3"
+        },
+        {
+          "path": "ref/net10.0/System.Buffers.dll",
+          "size_bytes": 15144,
+          "sha256": "7efc8dfef9548771ec328610de7b8e5c4308a8ea6b1ca73021f336fc00653176"
+        },
+        {
+          "path": "ref/net10.0/System.Collections.Concurrent.dll",
+          "size_bytes": 27472,
+          "sha256": "f48ff883b0d905d9cd957b3a0d962b17e422f40b4ac6cf49be7bec3505fe0845"
+        },
+        {
+          "path": "ref/net10.0/System.Collections.Immutable.dll",
+          "size_bytes": 75088,
+          "sha256": "f4c67f68538e2e20b313a3699ab65947ff872b51a1561a8bff7d57ec6c2f346e"
+        },
+        {
+          "path": "ref/net10.0/System.Collections.NonGeneric.dll",
+          "size_bytes": 22824,
+          "sha256": "00cae90d190ee35400e1e3a15627fb2ded27c4b0e0b9a75aeaa442aa2e11b4ad"
+        },
+        {
+          "path": "ref/net10.0/System.Collections.Specialized.dll",
+          "size_bytes": 25936,
+          "sha256": "adca02f501647b874cb24741ca77b51405def7afc8330536f1fca3e671df2e70"
+        },
+        {
+          "path": "ref/net10.0/System.Collections.dll",
+          "size_bytes": 55120,
+          "sha256": "fbdc13964314b14c60a2705a8e8f3b3c2b0955dd9ea28c1a13d0883b758b6dda"
+        },
+        {
+          "path": "ref/net10.0/System.ComponentModel.Annotations.dll",
+          "size_bytes": 31568,
+          "sha256": "738be8f09cd126fa6eedf8c36f9a24094a69e5955e62341384c9f8e9dd86928e"
+        },
+        {
+          "path": "ref/net10.0/System.ComponentModel.DataAnnotations.dll",
+          "size_bytes": 16720,
+          "sha256": "c4ad5b72e9461f82b6f5346af3b2f4f46d76763daaf51586943f99f1cc7d5afb"
+        },
+        {
+          "path": "ref/net10.0/System.ComponentModel.EventBasedAsync.dll",
+          "size_bytes": 19240,
+          "sha256": "e8088de5916e318a4121a59d78e5d6d6cfa69a7b77b0eb7e5bf980ade3253193"
+        },
+        {
+          "path": "ref/net10.0/System.ComponentModel.Primitives.dll",
+          "size_bytes": 25896,
+          "sha256": "1e871ad054ab7d975fdcda99de044a751c6eb43520d21d26cd4cff86e5b3a5ed"
+        },
+        {
+          "path": "ref/net10.0/System.ComponentModel.TypeConverter.dll",
+          "size_bytes": 104784,
+          "sha256": "66705b0c1a9be4b310b844e048e04f5d87bf70a3ea5549d087f045d549c09e1d"
+        },
+        {
+          "path": "ref/net10.0/System.ComponentModel.dll",
+          "size_bytes": 15656,
+          "sha256": "9ab343e98b9c40add20aa395d9c0f8989bcecba6b3a2c4e1c95bed1a0813bb0a"
+        },
+        {
+          "path": "ref/net10.0/System.Configuration.dll",
+          "size_bytes": 19240,
+          "sha256": "495b65cd3c8488fa39a4905f072d14b336a5851c87f1b70d3b57afc565025a9f"
+        },
+        {
+          "path": "ref/net10.0/System.Console.dll",
+          "size_bytes": 26408,
+          "sha256": "9b47efbe55f5caebb5c3e648673915e5ac26ca4b7f6fbd25db3bed23053115c5"
+        },
+        {
+          "path": "ref/net10.0/System.Core.dll",
+          "size_bytes": 23336,
+          "sha256": "c4908dd3c89942880310cd1c19cc2dca2c8ce3d564be04be80897cb7f5b9d351"
+        },
+        {
+          "path": "ref/net10.0/System.Data.Common.dll",
+          "size_bytes": 154448,
+          "sha256": "cb09594d635c6dd0496e6e16c7b2a6867a135208fec8df4022642fb52d229fed"
+        },
+        {
+          "path": "ref/net10.0/System.Data.DataSetExtensions.dll",
+          "size_bytes": 15656,
+          "sha256": "abd30bf053ce162967b8ee2b95e4a4a60ddf288bb959cd64dfc107bc6c7d762e"
+        },
+        {
+          "path": "ref/net10.0/System.Data.dll",
+          "size_bytes": 23848,
+          "sha256": "6ba1c840bed995ba4abd9cbdc3c2713ed977c79110d8fd472864bb468f3b517c"
+        },
+        {
+          "path": "ref/net10.0/System.Diagnostics.Contracts.dll",
+          "size_bytes": 19752,
+          "sha256": "b279acb89b56b62007cf5781f524562386e0c3bedd4e1ad4e2189e546d9de767"
+        },
+        {
+          "path": "ref/net10.0/System.Diagnostics.Debug.dll",
+          "size_bytes": 15656,
+          "sha256": "44b71cb2bc82e2e93c99c095a0e493f3c4afc0e50aafe8e91849629da295e6dc"
+        },
+        {
+          "path": "ref/net10.0/System.Diagnostics.DiagnosticSource.dll",
+          "size_bytes": 43304,
+          "sha256": "34cb601b566e63381e571c026d023e343fddfdbcff3d2869cd8872278d4bcf09"
+        },
+        {
+          "path": "ref/net10.0/System.Diagnostics.FileVersionInfo.dll",
+          "size_bytes": 16680,
+          "sha256": "e150430a64a60533b024d5ae986544f6becea708c964bca69261a3a732bcb3bd"
+        },
+        {
+          "path": "ref/net10.0/System.Diagnostics.Process.dll",
+          "size_bytes": 31568,
+          "sha256": "30b13d76f9d3a456afa63734f01694a96e923a3f53cd6a14fae3ff31d4438839"
+        },
+        {
+          "path": "ref/net10.0/System.Diagnostics.StackTrace.dll",
+          "size_bytes": 22824,
+          "sha256": "26060b06c96e387abdeb8b644b4aa061867440f6f27ed98a18d90476c5695a50"
+        },
+        {
+          "path": "ref/net10.0/System.Diagnostics.TextWriterTraceListener.dll",
+          "size_bytes": 17704,
+          "sha256": "e11614e0d7cf3d96bd4abb2535e810e7c5d24fb5ab158a797334a1cdf98ab699"
+        },
+        {
+          "path": "ref/net10.0/System.Diagnostics.Tools.dll",
+          "size_bytes": 15144,
+          "sha256": "4bfc11bebae21c6a604f090f8ec94ce2d76d57fcfeafd8ffc9beb139af2a086e"
+        },
+        {
+          "path": "ref/net10.0/System.Diagnostics.TraceSource.dll",
+          "size_bytes": 27944,
+          "sha256": "9fe0a114cc5e1b6df694f32d55c68f976414d8a8c2c185ff306ba38518c51204"
+        },
+        {
+          "path": "ref/net10.0/System.Diagnostics.Tracing.dll",
+          "size_bytes": 28968,
+          "sha256": "9022274045a78ae9a1925d3b7ef0774b309434496b8b5ca228f003d6f97e0636"
+        },
+        {
+          "path": "ref/net10.0/System.Drawing.Primitives.dll",
+          "size_bytes": 35624,
+          "sha256": "7ae54b475e98bb00b4f3a4c09ad52d210c4d1c6bbc4f11d03c3f8d7faddd6684"
+        },
+        {
+          "path": "ref/net10.0/System.Drawing.dll",
+          "size_bytes": 20264,
+          "sha256": "9f68761f68125e3596c7af69d56799cf3e08dc2947661069b433d3043feed7da"
+        },
+        {
+          "path": "ref/net10.0/System.Dynamic.Runtime.dll",
+          "size_bytes": 16168,
+          "sha256": "00b37b775253d8011e0220bacadda3566224272ea787cb0c4cc24fa6b70643ff"
+        },
+        {
+          "path": "ref/net10.0/System.Formats.Asn1.dll",
+          "size_bytes": 26408,
+          "sha256": "9f107447f23d0591bff2d4fe46545fe70e9a8d70c5fa946d5b354ddcbabbf0f9"
+        },
+        {
+          "path": "ref/net10.0/System.Formats.Tar.dll",
+          "size_bytes": 20264,
+          "sha256": "45990e2000aa241f7216596947de5af192d38d4a4f4c3feed447b39acd49bef8"
+        },
+        {
+          "path": "ref/net10.0/System.Globalization.Calendars.dll",
+          "size_bytes": 15656,
+          "sha256": "885967adb01ef10e764ef54a0f6d646fd41deab81bd80908407d0ba8f834dcac"
+        },
+        {
+          "path": "ref/net10.0/System.Globalization.Extensions.dll",
+          "size_bytes": 15184,
+          "sha256": "5dc6a7838a0b2f472fdc093fd1206c61df3494c66d1e5bfb1081ee00a372f50b"
+        },
+        {
+          "path": "ref/net10.0/System.Globalization.dll",
+          "size_bytes": 15696,
+          "sha256": "28db274e2cbb417c61c346d437a0c8265fc0b3bb93cba7330e5ef75cb4d16226"
+        },
+        {
+          "path": "ref/net10.0/System.IO.Compression.Brotli.dll",
+          "size_bytes": 18216,
+          "sha256": "3aa69afd6eaff90c984fdb8565eb4a212bfcb6dc2c4f88f6cf1ca28b41a11c74"
+        },
+        {
+          "path": "ref/net10.0/System.IO.Compression.FileSystem.dll",
+          "size_bytes": 15184,
+          "sha256": "aa87020c837176940637a4c672b2f2b33fd2517506fa12cae1f655ff1e515cc6"
+        },
+        {
+          "path": "ref/net10.0/System.IO.Compression.ZipFile.dll",
+          "size_bytes": 18728,
+          "sha256": "e77196cd5820847c57be4678d6274dc604e03dd62c4d6c6b24027ea96346f032"
+        },
+        {
+          "path": "ref/net10.0/System.IO.Compression.dll",
+          "size_bytes": 21840,
+          "sha256": "e7ebeeb09411d782d9d6071c143bfedabcac7333bca6e3826b20932974d7e97e"
+        },
+        {
+          "path": "ref/net10.0/System.IO.FileSystem.AccessControl.dll",
+          "size_bytes": 20264,
+          "sha256": "c75708906ce41504ff283a5cbab39176166b1a1bc764665edad594db614f60a4"
+        },
+        {
+          "path": "ref/net10.0/System.IO.FileSystem.DriveInfo.dll",
+          "size_bytes": 17192,
+          "sha256": "a12ca1dbc9332b2d6236cb53a7faf40446cea0293e8c31e3f98a1b092d9ea972"
+        },
+        {
+          "path": "ref/net10.0/System.IO.FileSystem.Primitives.dll",
+          "size_bytes": 15184,
+          "sha256": "6bf2b62e83f43b9e2a679abdcab875f37280a36e4c6e9feab99a410ab43f846c"
+        },
+        {
+          "path": "ref/net10.0/System.IO.FileSystem.Watcher.dll",
+          "size_bytes": 20776,
+          "sha256": "40e22e53cc16a760fd5ce6bc8722212bcd36aec67c5fce7801c3920511501b0e"
+        },
+        {
+          "path": "ref/net10.0/System.IO.FileSystem.dll",
+          "size_bytes": 15656,
+          "sha256": "1d619955d7495e7e040c446fb1a24fa4ff4b9145f9a7d39dd90e92c59666930c"
+        },
+        {
+          "path": "ref/net10.0/System.IO.IsolatedStorage.dll",
+          "size_bytes": 22312,
+          "sha256": "20babbd2e456d7dbdf5f25895bd1955862d0d87b7f67214f4ef47ba9adc2cc01"
+        },
+        {
+          "path": "ref/net10.0/System.IO.MemoryMappedFiles.dll",
+          "size_bytes": 18216,
+          "sha256": "4d03afc1522666be753ddde9d9d16a12303c3154ec811f4f24a184069105591e"
+        },
+        {
+          "path": "ref/net10.0/System.IO.Pipelines.dll",
+          "size_bytes": 20264,
+          "sha256": "49e9094ab22557b3511cf3d8ad046682a0e348ee7dd544812924708e2d51022d"
+        },
+        {
+          "path": "ref/net10.0/System.IO.Pipes.AccessControl.dll",
+          "size_bytes": 18216,
+          "sha256": "a04d1aa2c554f9ca241262377695c7a674efe3d995f8b2fd498acdc35cb44add"
+        },
+        {
+          "path": "ref/net10.0/System.IO.Pipes.dll",
+          "size_bytes": 22312,
+          "sha256": "8c0a9e9a3c0a7d92d40ab2f9d35e751c714b61fbfb15887510deb3a6a497d18f"
+        },
+        {
+          "path": "ref/net10.0/System.IO.UnmanagedMemoryStream.dll",
+          "size_bytes": 15656,
+          "sha256": "a988846408abf1513ac7ab81a9f72218ffcab410b2a06caf3844677604032075"
+        },
+        {
+          "path": "ref/net10.0/System.IO.dll",
+          "size_bytes": 15656,
+          "sha256": "7a820716ee9ab010ea624b9448ea1acb4c78b0f79dfc9d98db01b7f99c610b6a"
+        },
+        {
+          "path": "ref/net10.0/System.Linq.AsyncEnumerable.dll",
+          "size_bytes": 36136,
+          "sha256": "4960c241da863f11f48573a08dfd83a19600965f62765ff47263a70408421059"
+        },
+        {
+          "path": "ref/net10.0/System.Linq.Expressions.dll",
+          "size_bytes": 63272,
+          "sha256": "b6feb7ce5c10c82dadbab8840f2274ac68ea5ca17402a57156d7c3f6bda8ad3f"
+        },
+        {
+          "path": "ref/net10.0/System.Linq.Parallel.dll",
+          "size_bytes": 31016,
+          "sha256": "158d9118e2fcafe0d8e1a26da7bb85977cf982ac190325fe96dab9dc9e8c66fb"
+        },
+        {
+          "path": "ref/net10.0/System.Linq.Queryable.dll",
+          "size_bytes": 32040,
+          "sha256": "d7c0ef662e52ff8100ede337b03eceda37e23a3c70c0618cccf957c0eddd4791"
+        },
+        {
+          "path": "ref/net10.0/System.Linq.dll",
+          "size_bytes": 33576,
+          "sha256": "dda13024bc5786a08fbfc135df363a5df9be6cf9336cf6bdd9c31100030f333a"
+        },
+        {
+          "path": "ref/net10.0/System.Memory.dll",
+          "size_bytes": 57128,
+          "sha256": "bb4113df11941cb83612c2611df5135d6a6287af9a4b254b3a50a5ffc7b3f735"
+        },
+        {
+          "path": "ref/net10.0/System.Net.Http.Json.dll",
+          "size_bytes": 23336,
+          "sha256": "061d4f9593e095fa0739c185daf8154cfe504c3cdafb19ee1b2e479a6a7551dc"
+        },
+        {
+          "path": "ref/net10.0/System.Net.Http.dll",
+          "size_bytes": 60200,
+          "sha256": "39f955e0e8bfba21cf52c23ac11a22a52bee37ca5ca38cd1cd640d0e8490eb9e"
+        },
+        {
+          "path": "ref/net10.0/System.Net.HttpListener.dll",
+          "size_bytes": 25424,
+          "sha256": "1c9a1f3d9d2591c531aa09901d36d7fc985a6e7a643e29f64d9c15320398442c"
+        },
+        {
+          "path": "ref/net10.0/System.Net.Mail.dll",
+          "size_bytes": 32040,
+          "sha256": "b0339da06d0867065bc6d617c78a04d1e1a61fa88c19460a808870693e228289"
+        },
+        {
+          "path": "ref/net10.0/System.Net.NameResolution.dll",
+          "size_bytes": 17744,
+          "sha256": "3f05750f1cfd044363546a98472ec91dcb2e5a08e3ad9cbeae1d5a10a97bcee3"
+        },
+        {
+          "path": "ref/net10.0/System.Net.NetworkInformation.dll",
+          "size_bytes": 33576,
+          "sha256": "7b8d52fd01949b1d3d47a2b678bff023415a25ac82f84c4aaf110b542df65b84"
+        },
+        {
+          "path": "ref/net10.0/System.Net.Ping.dll",
+          "size_bytes": 20264,
+          "sha256": "44ad2db7fae09862879a9b03e37076d311f7bda0ea94877dfd6a2601d7608b10"
+        },
+        {
+          "path": "ref/net10.0/System.Net.Primitives.dll",
+          "size_bytes": 37160,
+          "sha256": "db18b5c7d781b2d24b66fa0e3ff9659817468279bb3334d88f4e0974281c5077"
+        },
+        {
+          "path": "ref/net10.0/System.Net.Quic.dll",
+          "size_bytes": 23848,
+          "sha256": "39a5dbf80d930712c14f01f99b614c958592579b631e474c87d878dde81917a4"
+        },
+        {
+          "path": "ref/net10.0/System.Net.Requests.dll",
+          "size_bytes": 41256,
+          "sha256": "280bc9ca79b6c10a40ff5cebdd9a331d9a7ebfaeb541f0bf81ff449d92b6e803"
+        },
+        {
+          "path": "ref/net10.0/System.Net.Security.dll",
+          "size_bytes": 53544,
+          "sha256": "a0eae480fe662581bc27d8b96bc9cd91390ea2110463377b169c0873ef327842"
+        },
+        {
+          "path": "ref/net10.0/System.Net.ServerSentEvents.dll",
+          "size_bytes": 17192,
+          "sha256": "1779d074f4124b0f82c1e6fe2a7d6bab154ed75595aba98aa083f4f3a6f7738a"
+        },
+        {
+          "path": "ref/net10.0/System.Net.ServicePoint.dll",
+          "size_bytes": 15144,
+          "sha256": "9645242a547b02bc0cbfa78c365fe8cbf02869c182debe4ce37bac32be1ca42b"
+        },
+        {
+          "path": "ref/net10.0/System.Net.Sockets.dll",
+          "size_bytes": 47440,
+          "sha256": "004d2f3b1d02dedbd69225a76a83ca81f17ba8212f3830f700f183acf7819a19"
+        },
+        {
+          "path": "ref/net10.0/System.Net.WebClient.dll",
+          "size_bytes": 27944,
+          "sha256": "022810dc9f600a74e8b24c542a94f56e249d4149639e4e678800f7c3953e1704"
+        },
+        {
+          "path": "ref/net10.0/System.Net.WebHeaderCollection.dll",
+          "size_bytes": 19240,
+          "sha256": "5d57e1af0d87c4dfd2e5e72330238d8fd5bbb8d33f9f84dde86b77c8862ca672"
+        },
+        {
+          "path": "ref/net10.0/System.Net.WebProxy.dll",
+          "size_bytes": 18256,
+          "sha256": "9018109c5124ad36f450c6442825c9a1f5079cbff3d3016dff426b72d3014d27"
+        },
+        {
+          "path": "ref/net10.0/System.Net.WebSockets.Client.dll",
+          "size_bytes": 19240,
+          "sha256": "797e3a6610ca8a64eb64567286b98e23617858c105f00614820f424ad8a3caaa"
+        },
+        {
+          "path": "ref/net10.0/System.Net.WebSockets.dll",
+          "size_bytes": 23848,
+          "sha256": "c47f7777a22df329783179789f44d598376dbb4684cf9c1d461aca03eb1430aa"
+        },
+        {
+          "path": "ref/net10.0/System.Net.dll",
+          "size_bytes": 17232,
+          "sha256": "d7a4c693b1922e0e69aee3597ac72c25e0a5e1d3ac2d1072d7d8dc854d27e488"
+        },
+        {
+          "path": "ref/net10.0/System.Numerics.Vectors.dll",
+          "size_bytes": 58192,
+          "sha256": "81b031c64b47cf3adaa2e40b7f340d13a59453696dac04964e8073accd43c443"
+        },
+        {
+          "path": "ref/net10.0/System.Numerics.dll",
+          "size_bytes": 15144,
+          "sha256": "fd4f0bc0541231fc01c21cab517a948019d4c9adbf66f81b65b276298e6ab922"
+        },
+        {
+          "path": "ref/net10.0/System.ObjectModel.dll",
+          "size_bytes": 23376,
+          "sha256": "00fc9909f5392d9cc678d51a58bba0d44facd84eb87b5e2e0148465f90ff821f"
+        },
+        {
+          "path": "ref/net10.0/System.Reflection.DispatchProxy.dll",
+          "size_bytes": 15656,
+          "sha256": "509a9595a077fe299e15832da91557f5bef34b5955b72cf071d2799264f5a96e"
+        },
+        {
+          "path": "ref/net10.0/System.Reflection.Emit.ILGeneration.dll",
+          "size_bytes": 20776,
+          "sha256": "51109c277b97d20296b41d3f382677b18fb0b3d4c5c06d76f4a73b7d3763be7e"
+        },
+        {
+          "path": "ref/net10.0/System.Reflection.Emit.Lightweight.dll",
+          "size_bytes": 19240,
+          "sha256": "51ac7d868003e0bc6ed23b1e547af03207cce94046b0c71080749bff55389b53"
+        },
+        {
+          "path": "ref/net10.0/System.Reflection.Emit.dll",
+          "size_bytes": 44328,
+          "sha256": "056c85453c402b2c8bb0066578dc8e95d27a9a1e99aa464f2a6ecb159d434257"
+        },
+        {
+          "path": "ref/net10.0/System.Reflection.Extensions.dll",
+          "size_bytes": 15144,
+          "sha256": "4e6967d52cbc95ae9eda01b8d8705f59c2c56f8b69471efaa6eca8f0e22a9a6a"
+        },
+        {
+          "path": "ref/net10.0/System.Reflection.Metadata.dll",
+          "size_bytes": 122152,
+          "sha256": "406476a6d4ea636fa9062c346eab006a9b4219997b4808c32e6fcec29a3df137"
+        },
+        {
+          "path": "ref/net10.0/System.Reflection.Primitives.dll",
+          "size_bytes": 21800,
+          "sha256": "260613532db76defa83db55f3c3bd856e1308088af459a0b36cd2b251d678bc5"
+        },
+        {
+          "path": "ref/net10.0/System.Reflection.TypeExtensions.dll",
+          "size_bytes": 19792,
+          "sha256": "347a27707eb449c1b744d8ce1d1e222a64bf00768c676397c523c88a64be873e"
+        },
+        {
+          "path": "ref/net10.0/System.Reflection.dll",
+          "size_bytes": 16168,
+          "sha256": "80fb9e206044c6f1c02bcc6895e2ce432119c670ea12248a6cba112afa78a9b6"
+        },
+        {
+          "path": "ref/net10.0/System.Resources.Reader.dll",
+          "size_bytes": 15184,
+          "sha256": "ae5e53448adf49f3bb0e6fcc4df836bcd413ce0eeeaad0b94f7363ad238d71dd"
+        },
+        {
+          "path": "ref/net10.0/System.Resources.ResourceManager.dll",
+          "size_bytes": 15656,
+          "sha256": "c3456835cfbd88d081a3ee4030ce533cb6fbb27ad0f60f954a5ae7d45b1422cd"
+        },
+        {
+          "path": "ref/net10.0/System.Resources.Writer.dll",
+          "size_bytes": 16208,
+          "sha256": "597f21fabf0ee72903ec0e1a450cfe8b5549e1e81c8a98a5e796c15293aaa843"
+        },
+        {
+          "path": "ref/net10.0/System.Runtime.CompilerServices.Unsafe.dll",
+          "size_bytes": 15144,
+          "sha256": "6f396205abe594c9c72e618f4278657b4ff9da9cd2bc17d8083481b287838ecc"
+        },
+        {
+          "path": "ref/net10.0/System.Runtime.CompilerServices.VisualC.dll",
+          "size_bytes": 17192,
+          "sha256": "324f2129d5d4d172561b8a042e17cd7dae73f9d290728f9da8396642d4d43a5d"
+        },
+        {
+          "path": "ref/net10.0/System.Runtime.Extensions.dll",
+          "size_bytes": 17744,
+          "sha256": "633f210388e326f0a2fba3148312fb2900a9e0ba32f08015bb606abc44a3d634"
+        },
+        {
+          "path": "ref/net10.0/System.Runtime.Handles.dll",
+          "size_bytes": 15656,
+          "sha256": "834ed37905ecafb69c3d33d1b659e5f8216cef9995cbfcc7b2cf858752add880"
+        },
+        {
+          "path": "ref/net10.0/System.Runtime.InteropServices.JavaScript.dll",
+          "size_bytes": 25936,
+          "sha256": "44ab7f7d93ab668e80a7eb72da88946c989b5fef0299c5bc65c1dbea2f18c255"
+        },
+        {
+          "path": "ref/net10.0/System.Runtime.InteropServices.RuntimeInformation.dll",
+          "size_bytes": 15656,
+          "sha256": "506dc257f2f039746172057cf574992d4db07e31f9338b0ab2d90e88d385c472"
+        },
+        {
+          "path": "ref/net10.0/System.Runtime.InteropServices.dll",
+          "size_bytes": 101160,
+          "sha256": "bc47de3940da9a9bb9d4bbe9608966067a8fc6341d6674e8864f07cb2addd814"
+        },
+        {
+          "path": "ref/net10.0/System.Runtime.Intrinsics.dll",
+          "size_bytes": 466216,
+          "sha256": "93dfd2338a21a7289c8c5527cb7dcfdd3c0511faaf1f4e28e7a100b1e9e6476c"
+        },
+        {
+          "path": "ref/net10.0/System.Runtime.Loader.dll",
+          "size_bytes": 19792,
+          "sha256": "2a6852bd1b133e7e5d6cfb85e63b465e234e4eaad79af74984bb574d8e4616b7"
+        },
+        {
+          "path": "ref/net10.0/System.Runtime.Numerics.dll",
+          "size_bytes": 36176,
+          "sha256": "9eca27389110dfb8f0cbc161945260bc1840951d25944fd17c1d780d9bbfdf47"
+        },
+        {
+          "path": "ref/net10.0/System.Runtime.Serialization.Formatters.dll",
+          "size_bytes": 23888,
+          "sha256": "e6191864f3f75f92c0d9b057447bb09e8320f33b57f7c73e8bcade16733c4d15"
+        },
+        {
+          "path": "ref/net10.0/System.Runtime.Serialization.Json.dll",
+          "size_bytes": 20816,
+          "sha256": "31c4378c888f786bfa7b907f593463add5424d1e464f6901a179204e9fff9ea1"
+        },
+        {
+          "path": "ref/net10.0/System.Runtime.Serialization.Primitives.dll",
+          "size_bytes": 19752,
+          "sha256": "79e2656f417064375ddf2ecbc37d9087320d540992fc1a2f2a45a3350d5125f1"
+        },
+        {
+          "path": "ref/net10.0/System.Runtime.Serialization.Xml.dll",
+          "size_bytes": 39760,
+          "sha256": "40a9dde0889aa7e87cee18e13a2499667cd3c98b94f4894cf6d9b5e414990571"
+        },
+        {
+          "path": "ref/net10.0/System.Runtime.Serialization.dll",
+          "size_bytes": 17192,
+          "sha256": "2092ad8e233c2a01a8dcc640ab218c1eabc059f6bebaaa8f81d1ce8225a939a0"
+        },
+        {
+          "path": "ref/net10.0/System.Runtime.dll",
+          "size_bytes": 862504,
+          "sha256": "8e4d60785c1dea2b6aa566bd58fa0cdaee5b211a42c8af9951a7d17aea72b2b0"
+        },
+        {
+          "path": "ref/net10.0/System.Security.AccessControl.dll",
+          "size_bytes": 37200,
+          "sha256": "f586cb1c198fe3708fa0dd333d1025df9b80a8cbf6c6bf2069a464f5dcf9eb93"
+        },
+        {
+          "path": "ref/net10.0/System.Security.Claims.dll",
+          "size_bytes": 32552,
+          "sha256": "18d0b67b38e4d2eeead2ec427a9feefc92476b24dc5c30cd9e88b1c41b7f1dfc"
+        },
+        {
+          "path": "ref/net10.0/System.Security.Cryptography.Algorithms.dll",
+          "size_bytes": 17192,
+          "sha256": "35677214a8b8388d82ff5bf45789790fa048612f6aca8b8f71efb3aa93ef70b1"
+        },
+        {
+          "path": "ref/net10.0/System.Security.Cryptography.Cng.dll",
+          "size_bytes": 16168,
+          "sha256": "328a4ea1c05177e97f65a24d68268c96674bbfbcfb5bc3906229eea2c46ac6d2"
+        },
+        {
+          "path": "ref/net10.0/System.Security.Cryptography.Csp.dll",
+          "size_bytes": 16168,
+          "sha256": "0be1ded6ac6b8bdc53d0d49bb01292770f9a022fe7d2d2f1a480223eca5ca6ba"
+        },
+        {
+          "path": "ref/net10.0/System.Security.Cryptography.Encoding.dll",
+          "size_bytes": 15696,
+          "sha256": "09fbbd2934040ba1260775f34a8b901f5f9edec9bd1a2203b3726686006b7829"
+        },
+        {
+          "path": "ref/net10.0/System.Security.Cryptography.OpenSsl.dll",
+          "size_bytes": 15656,
+          "sha256": "695ebdf0901afd27b7504dd4fdbc504a5aae8ea87d3b342da800789a6a94a732"
+        },
+        {
+          "path": "ref/net10.0/System.Security.Cryptography.Primitives.dll",
+          "size_bytes": 15656,
+          "sha256": "c4d76a73f7147df7999b371adbc091850984a40cd45f4d0464e85424de412e30"
+        },
+        {
+          "path": "ref/net10.0/System.Security.Cryptography.X509Certificates.dll",
+          "size_bytes": 16720,
+          "sha256": "bcbcd0c436bfd24052ae4f7a3785b434436cbc18e6465f0be19437a453872cf3"
+        },
+        {
+          "path": "ref/net10.0/System.Security.Cryptography.dll",
+          "size_bytes": 163152,
+          "sha256": "c9ddfb3f7dfea06538e1ec2062178e53182280a440e3fa82b5d3c95289d9dbdc"
+        },
+        {
+          "path": "ref/net10.0/System.Security.Principal.Windows.dll",
+          "size_bytes": 26920,
+          "sha256": "69f2a5a5acd6271f5e8b79d18cfd4f3c0d18e7291f3978332b350a373c67540d"
+        },
+        {
+          "path": "ref/net10.0/System.Security.Principal.dll",
+          "size_bytes": 15144,
+          "sha256": "f4e101d9d1b328868cd91199ca441e4ee273047fe96dd6ec34a1e889e523da21"
+        },
+        {
+          "path": "ref/net10.0/System.Security.SecureString.dll",
+          "size_bytes": 15656,
+          "sha256": "f371fb101973637a772e44f75b48d66540466a914f61e4b1f4ae7eb01dad1b62"
+        },
+        {
+          "path": "ref/net10.0/System.Security.dll",
+          "size_bytes": 18256,
+          "sha256": "2a0ee1358a507f20bb9099afb2c79745212bca44c1102e580c20742ecca560d5"
+        },
+        {
+          "path": "ref/net10.0/System.ServiceModel.Web.dll",
+          "size_bytes": 16720,
+          "sha256": "948e182337526b0decaab7a9274c1bde5be3e419b076cfe0161a335e22643ac3"
+        },
+        {
+          "path": "ref/net10.0/System.ServiceProcess.dll",
+          "size_bytes": 15656,
+          "sha256": "04e5ca5a4df4d31e8e6b527ce5a16b6f150a256384b2cbdabeeba1f6974cfa99"
+        },
+        {
+          "path": "ref/net10.0/System.Text.Encoding.CodePages.dll",
+          "size_bytes": 15696,
+          "sha256": "a0163c8a0e2129821433eae93009f4fb44ac996ca471f3771a20f8cac11a03e8"
+        },
+        {
+          "path": "ref/net10.0/System.Text.Encoding.Extensions.dll",
+          "size_bytes": 20776,
+          "sha256": "19aafe3d2a0ba11a44f8550599a90ff3eeae2e181ba32c429db40c48f64fea74"
+        },
+        {
+          "path": "ref/net10.0/System.Text.Encoding.dll",
+          "size_bytes": 15696,
+          "sha256": "4c140de2fdd2c673ece196892e28786b85200b8f315fc9bb2de7aeb862372d9d"
+        },
+        {
+          "path": "ref/net10.0/System.Text.Encodings.Web.dll",
+          "size_bytes": 26408,
+          "sha256": "260172d2e7882477fbf36ebfe354c22044b4f65f729cd85d8f732ef66dc11f47"
+        },
+        {
+          "path": "ref/net10.0/System.Text.Json.dll",
+          "size_bytes": 82256,
+          "sha256": "8342b27367a617f32a0adec3fdccbcddc608d7f9d8b5b1a51da6d57e0faa6bd8"
+        },
+        {
+          "path": "ref/net10.0/System.Text.RegularExpressions.dll",
+          "size_bytes": 36688,
+          "sha256": "84dc0247302c20fa03eacd987229e30084c9dd55c2267691f6df37f2a0363082"
+        },
+        {
+          "path": "ref/net10.0/System.Threading.AccessControl.dll",
+          "size_bytes": 20776,
+          "sha256": "8d16b916d9ffe200106db8e7f3fa899b6d9414989322506ca196f1ed66ca7ede"
+        },
+        {
+          "path": "ref/net10.0/System.Threading.Channels.dll",
+          "size_bytes": 19280,
+          "sha256": "beb25547be9b5fd5ec534108c9a745b86d65b3be544c7a15c84cb2e49b2bdc11"
+        },
+        {
+          "path": "ref/net10.0/System.Threading.Overlapped.dll",
+          "size_bytes": 18768,
+          "sha256": "2bd70e37089d1cc0ad587993d1625ba1c624b4f69175d12f09a4313b61c121c1"
+        },
+        {
+          "path": "ref/net10.0/System.Threading.Tasks.Dataflow.dll",
+          "size_bytes": 32040,
+          "sha256": "141875ed90a547b3bc3266013f4ce99781d02e45bb74c10d31db23a6bc5b7c81"
+        },
+        {
+          "path": "ref/net10.0/System.Threading.Tasks.Extensions.dll",
+          "size_bytes": 15656,
+          "sha256": "6ec70446f8faefaa167a0e3360468203cb03ffab90369644e92c22dc650a9cd5"
+        },
+        {
+          "path": "ref/net10.0/System.Threading.Tasks.Parallel.dll",
+          "size_bytes": 20264,
+          "sha256": "7bcac25197e78cab18ab9803e2bc5053037a2d4ebe86c305879bfec7773c443b"
+        },
+        {
+          "path": "ref/net10.0/System.Threading.Tasks.dll",
+          "size_bytes": 16680,
+          "sha256": "d95cee14d0dbb97d8f8a8f4dcc5eefa35f394f9d94b0fa0bf29068786aee6a06"
+        },
+        {
+          "path": "ref/net10.0/System.Threading.Thread.dll",
+          "size_bytes": 23888,
+          "sha256": "4125927a00fe7b5a342511b07bbdc03db5684007cfca771a02fae42440675cf8"
+        },
+        {
+          "path": "ref/net10.0/System.Threading.ThreadPool.dll",
+          "size_bytes": 18216,
+          "sha256": "df8e152b26dd1a541437d861c8ab3f431ee4f6e45b9f67737f700dd79c93dc06"
+        },
+        {
+          "path": "ref/net10.0/System.Threading.Timer.dll",
+          "size_bytes": 15144,
+          "sha256": "5b21f38133328e8017bb7a4651007738ce76fcfa673af267b4c8b5e857d572d7"
+        },
+        {
+          "path": "ref/net10.0/System.Threading.dll",
+          "size_bytes": 33576,
+          "sha256": "c3d631cf421c1983f432d695f31fc42e8ab750609716b5f700142681a7e19bf3"
+        },
+        {
+          "path": "ref/net10.0/System.Transactions.Local.dll",
+          "size_bytes": 25896,
+          "sha256": "5aea91769e038f5cbc5011cb9820673c2cfe0be5279c90da0a5bc72536dcab29"
+        },
+        {
+          "path": "ref/net10.0/System.Transactions.dll",
+          "size_bytes": 16680,
+          "sha256": "9ba6785faf04de3b018a7e6bdb349c538ca861add4a3558c693fe4c9ef905335"
+        },
+        {
+          "path": "ref/net10.0/System.ValueTuple.dll",
+          "size_bytes": 15656,
+          "sha256": "63e0eac320a2eac02f418e186232405427e036d9ce9dd80951923280308cfe59"
+        },
+        {
+          "path": "ref/net10.0/System.Web.HttpUtility.dll",
+          "size_bytes": 17192,
+          "sha256": "91638c85774765fe78c429972c49707783eeff6b0f2693f71de309cd2e590c08"
+        },
+        {
+          "path": "ref/net10.0/System.Web.dll",
+          "size_bytes": 15184,
+          "sha256": "45b1d8e331aeb3d4006afe64cde59eddac958968d6c432df3f869982d94996f0"
+        },
+        {
+          "path": "ref/net10.0/System.Windows.dll",
+          "size_bytes": 15696,
+          "sha256": "5898d03d2707c44b55883bc475f8c3aa779738a439db6ec2abbf9e0fac82e6d5"
+        },
+        {
+          "path": "ref/net10.0/System.Xml.Linq.dll",
+          "size_bytes": 15656,
+          "sha256": "06be8d12ab41b70960703ec77899da99e0a93a6d125e77e7f8154ab071220d54"
+        },
+        {
+          "path": "ref/net10.0/System.Xml.ReaderWriter.dll",
+          "size_bytes": 116008,
+          "sha256": "77dc198362de48c4a92f05eeef4a8208d902a58468b46925b62ab14960f1bb7f"
+        },
+        {
+          "path": "ref/net10.0/System.Xml.Serialization.dll",
+          "size_bytes": 16168,
+          "sha256": "868e566390c0a0800253511b757644433c512989a213f32153464a4611667d8b"
+        },
+        {
+          "path": "ref/net10.0/System.Xml.XDocument.dll",
+          "size_bytes": 34088,
+          "sha256": "17abf9d1e542a16af97b5bb401056c77f756b9bfb935e4a61aa7ad2bdadaa3e5"
+        },
+        {
+          "path": "ref/net10.0/System.Xml.XPath.XDocument.dll",
+          "size_bytes": 16168,
+          "sha256": "1b20537a1bcd62f21b8c7afa59eefe2a7ec2660b5a04ea5d306784ce404a5c04"
+        },
+        {
+          "path": "ref/net10.0/System.Xml.XPath.dll",
+          "size_bytes": 16680,
+          "sha256": "560ebf5eb16d6e97ce1831e6a9651d95c05078af8c705b3dde25abcf8318824d"
+        },
+        {
+          "path": "ref/net10.0/System.Xml.XmlDocument.dll",
+          "size_bytes": 15656,
+          "sha256": "e6d348ce2e40d5f8e767f3863f3217f6075f3e4e331270be1d13e45430f87811"
+        },
+        {
+          "path": "ref/net10.0/System.Xml.XmlSerializer.dll",
+          "size_bytes": 51024,
+          "sha256": "c3416afcf97c3c9059042335819663cb7baab7c1125feb326bec129ad0accc5d"
+        },
+        {
+          "path": "ref/net10.0/System.Xml.dll",
+          "size_bytes": 23376,
+          "sha256": "3bf8cf7c17a8ec51ef64a48707dbcbb0359e466a7903bb564a4c74228d895e32"
+        },
+        {
+          "path": "ref/net10.0/System.dll",
+          "size_bytes": 49448,
+          "sha256": "d3f42be0bc2a26f7573405136eb446cc76c033e3b54c9cd7845d495117b1e257"
+        },
+        {
+          "path": "ref/net10.0/WindowsBase.dll",
+          "size_bytes": 16208,
+          "sha256": "2586159b2c347d39a93bebcbd8811a6dc05d0252202b24cebf2e28188f8ce7ab"
+        },
+        {
+          "path": "ref/net10.0/mscorlib.dll",
+          "size_bytes": 55592,
+          "sha256": "ab604fa323bdea3a67d0174592ee98afa5220f1090d586b725d538d51c4594ef"
+        },
+        {
+          "path": "ref/net10.0/netstandard.dll",
+          "size_bytes": 100648,
+          "sha256": "ce09cef0d758196f2467f320d840c03202453efe9fb1920dddd24ea8277bbbb3"
+        }
+      ]
+    },
+    "toolchain_inputs_sha256": "d4af1170b2813a5581bb0f60b65fd4e7509576093045557b88689bf7e0876b4f"
+  },
+  "compiler_session": {
+    "source_text": {
+      "decode": "strict UTF-8 without BOM from exact captured bytes",
+      "encoding": "new UTF8Encoding(false,true)",
+      "checksum_algorithm": "Sha256",
+      "source_text_overload": "SourceText.From(string,Encoding,SourceHashAlgorithm)",
+      "parse_text_overload": "CSharpSyntaxTree.ParseText(SourceText,CSharpParseOptions,string,CancellationToken)"
+    },
+    "parse_options": {
+      "language_version_enum": "CSharp14",
+      "language_version_text": "14.0",
+      "source_kind": "Regular",
+      "documentation_mode": "None",
+      "preprocessor_symbols": [],
+      "features": []
+    },
+    "syntax_tree_order": "selection.value.sources stored order",
+    "cfg_creation": {
+      "operation_root": "IMethodBodyOperation from exact MethodDeclarationSyntax",
+      "overload": "ControlFlowGraph.Create(IMethodBodyOperation,CancellationToken)",
+      "cancellation_token": "None"
+    },
+    "semantic_api_options": {
+      "cancellation_token": "None",
+      "ignore_accessibility": false,
+      "speculative_models": false
+    },
+    "compilation_options": {
+      "output_kind": "DynamicallyLinkedLibrary",
+      "platform": "X64",
+      "optimization_level": "Release",
+      "check_overflow": false,
+      "nullable_context_options": "Disable",
+      "allow_unsafe": false,
+      "deterministic": true,
+      "concurrent_build": false,
+      "metadata_import_options": "Public",
+      "general_diagnostic_option": "Error",
+      "specific_diagnostic_options": {},
+      "global_usings": [],
+      "metadata_reference_kind": "complete_sorted_reference_projection",
+      "assembly_name_source": "selection.compilation",
+      "resolvers": {
+        "source_reference_resolver": null,
+        "metadata_reference_resolver": null,
+        "xml_reference_resolver": null,
+        "strong_name_provider": null,
+        "syntax_tree_options_provider": null
+      },
+      "warning_level": 4,
+      "report_suppressed_diagnostics": false,
+      "references_supersede_lower_versions": false,
+      "module_name": null,
+      "main_type_name": null,
+      "script_class_name": "Script",
+      "crypto_key_container": null,
+      "crypto_key_file": null,
+      "crypto_public_key": [],
+      "delay_sign": null,
+      "public_sign": false,
+      "assembly_identity_comparer": "Default",
+      "metadata_reference_properties": {
+        "kind": "Assembly",
+        "aliases": [],
+        "embed_interop_types": false,
+        "documentation_provider": null
+      }
+    },
+    "public_api_families": [
+      "SourceText.From",
+      "CSharpSyntaxTree.ParseText",
+      "SyntaxTree.GetDiagnostics",
+      "CSharpCompilation.Create",
+      "MetadataReference.CreateFromFile",
+      "Compilation.GetDiagnostics",
+      "Compilation.GetSemanticModel",
+      "SemanticModel.GetDeclaredSymbol",
+      "SemanticModel.GetSymbolInfo",
+      "SemanticModel.GetTypeInfo",
+      "SemanticModel.ClassifyConversion",
+      "SemanticModel.GetOperation",
+      "ControlFlowGraph.Create"
+    ],
+    "diagnostics": {
+      "warnings": "error",
+      "errors": "source-error",
+      "syntax_tree_active_owner": "source/CSHARP_SOURCE_PARSE",
+      "compilation_active_owner": "metadata/CSHARP_SOURCE_DIAGNOSTIC",
+      "compilation_diagnostics_after_clean_syntax_only": true,
+      "informational_and_hidden": "ignored_after_exact_id_and_span_accounting"
+    }
+  },
+  "launcher_contract": {
+    "profile_id": "mpk.csharp.dotnet_launcher.v0",
+    "program": "/mpk/toolchain/dotnet/dotnet",
+    "working_directory": "/mpk/source",
+    "stdin": "null",
+    "stdout": "bounded_frontend_protocol",
+    "stderr": "bounded_diagnostic_only",
+    "runtime_config": {
+      "tfm": "net10.0",
+      "framework_name": "Microsoft.NETCore.App",
+      "framework_version": "10.0.11",
+      "roll_forward": "Disable"
+    },
+    "argv_prefix": [
+      "/mpk/toolchain/dotnet/dotnet",
+      "exec",
+      "--depsfile",
+      "/mpk/frontend/csharp2vir.deps.json",
+      "--runtimeconfig",
+      "/mpk/frontend/csharp2vir.runtimeconfig.json",
+      "--fx-version",
+      "10.0.11",
+      "/mpk/frontend/csharp2vir.dll"
+    ],
+    "frontend_argv_template": [
+      "lower",
+      "/mpk/source",
+      "--semantic-profile",
+      "mpk.csharp.scalar.v0",
+      "--target",
+      "linux-x64",
+      "--compilation",
+      "{selection.compilation}",
+      "--source",
+      "{each selection.sources in stored order}",
+      "--contract",
+      "{each selection.contracts in stored order}",
+      "--method",
+      "{each selection.methods in stored order}",
+      "--profile-registry-id",
+      "mpk.semantic_profile.registry.v1",
+      "--profile-registry-revision",
+      "2",
+      "--profile-registry-sha256",
+      "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75",
+      "--profile-entry-sha256",
+      "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac",
+      "--frontend-bundle-id",
+      "{release.frontend_bundle_id}",
+      "--frontend-sha256",
+      "{release.frontend_sha256}",
+      "--release-registry-id",
+      "mpk.release.registry.v1",
+      "--release-registry-sha256",
+      "{release.registry_sha256}",
+      "--toolchain-bundle-id",
+      "{release.toolchain_bundle_id}",
+      "--toolchain-root",
+      "/mpk/toolchain",
+      "--toolchain-distribution-sha256",
+      "{release.toolchain_distribution_sha256}"
+    ],
+    "repeated_argument_expansion": [
+      "emit one --source,path pair per sources item",
+      "then one --contract,path pair per contracts item",
+      "then one --method,id pair per methods item"
+    ],
+    "environment": {
+      "DOTNET_ROOT": "/mpk/toolchain/dotnet",
+      "DOTNET_MULTILEVEL_LOOKUP": "0",
+      "DOTNET_NOLOGO": "1",
+      "DOTNET_CLI_TELEMETRY_OPTOUT": "1",
+      "DOTNET_SKIP_FIRST_TIME_EXPERIENCE": "1",
+      "DOTNET_SYSTEM_GLOBALIZATION_INVARIANT": "1",
+      "COMPlus_ReadyToRun": "0",
+      "DOTNET_TieredCompilation": "0",
+      "DOTNET_TieredPGO": "0",
+      "HOME": "/mpk/empty-home",
+      "NUGET_PACKAGES": "/mpk/empty-nuget",
+      "NUGET_HTTP_CACHE_PATH": "/mpk/empty-nuget-http",
+      "NUGET_PLUGINS_CACHE_PATH": "/mpk/empty-nuget-plugins",
+      "TMPDIR": "/mpk/tmp",
+      "LANG": "C.UTF-8",
+      "LC_ALL": "C.UTF-8",
+      "TZ": "UTC",
+      "PATH": "/nonexistent"
+    },
+    "inherited_environment": []
+  },
+  "case_harness": {
+    "baseline_files": {
+      "src/Policy.cs": "namespace Example.Payment;\npublic static class Policy\n{\n    public static bool Approved(long reserve, long debit)\n    {\n        return reserve >= debit;\n    }\n}\n",
+      "contracts/approved.json": {
+        "schema": "mpk.csharp.contract.v0",
+        "semantic_profile": "mpk.csharp.scalar.v0",
+        "method": "Example.Payment.Policy::Approved(i64,i64)->bool",
+        "requires": [
+          {
+            "op": "signed_ge",
+            "args": [
+              {
+                "parameter": "reserve"
+              },
+              {
+                "parameter": "debit"
+              }
+            ]
+          },
+          {
+            "op": "signed_ge",
+            "args": [
+              {
+                "parameter": "reserve"
+              },
+              {
+                "int": {
+                  "decimal": "0",
+                  "type": "i64"
+                }
+              }
+            ]
+          }
+        ],
+        "ensures": [
+          {
+            "op": "eq",
+            "args": [
+              {
+                "result": 0
+              },
+              {
+                "bool": true
+              }
+            ]
+          }
+        ],
+        "modifies": [],
+        "abrupt_completion": "forbidden",
+        "termination": "total"
+      }
+    },
+    "baseline_selection": {
+      "schema": "mpk.selection.csharp_methods.v0",
+      "value": {
+        "compilation": "payment-policy",
+        "contracts": [
+          "contracts/approved.json"
+        ],
+        "methods": [
+          "Example.Payment.Policy::Approved(i64,i64)->bool"
+        ],
+        "sources": [
+          "src/Policy.cs"
+        ]
+      }
+    },
+    "default_contract_template": {
+      "schema": "mpk.csharp.contract.v0",
+      "semantic_profile": "mpk.csharp.scalar.v0",
+      "method": "{canonical closure method ID}",
+      "requires": [],
+      "ensures": [
+        {
+          "bool": true
+        }
+      ],
+      "modifies": [],
+      "abrupt_completion": "forbidden",
+      "termination": "total"
+    },
+    "operation_projection": "expected_profile_operations is an ordered required subsequence, while expected_required_checks is exhaustive and canonically ordered",
+    "accepted_case_materialization": [
+      "write case.source as src/Case.cs and set compilation to vector",
+      "set selection.methods to the one case.method root",
+      "discover the conservative static-call closure and sort canonical method IDs",
+      "materialize default_contract_template for closure index N as contracts/contractNNN.json",
+      "set selection.contracts to those strictly increasing paths and sources to [src/Case.cs]",
+      "for contract.normalization use the exact baseline selection and contract fixture instead"
+    ],
+    "application_order": [
+      "start from baseline files and selection",
+      "apply the case construction or mutation",
+      "capture exact selected bytes",
+      "run the named stage and all earlier phases",
+      "compare the complete status, phase, and code",
+      "on success compare canonical VIR, map, manifest, checks, and hashes"
+    ]
+  },
+  "source_map_cases": [
+    {
+      "id": "map.ascii",
+      "source": "a\nx\n",
+      "utf16_start": 2,
+      "utf16_end": 3,
+      "expect": {
+        "outcome": "accept",
+        "utf8_start": 2,
+        "utf8_end": 3,
+        "line_start": 1,
+        "column_start_utf16": 0,
+        "line_end": 1,
+        "column_end_utf16": 1
+      }
+    },
+    {
+      "id": "map.bmp",
+      "source": "// é\n",
+      "utf16_start": 3,
+      "utf16_end": 4,
+      "expect": {
+        "outcome": "accept",
+        "utf8_start": 3,
+        "utf8_end": 5,
+        "line_start": 0,
+        "column_start_utf16": 3,
+        "line_end": 0,
+        "column_end_utf16": 4
+      }
+    },
+    {
+      "id": "map.surrogate_pair",
+      "source": "// 😀\n",
+      "utf16_start": 3,
+      "utf16_end": 5,
+      "expect": {
+        "outcome": "accept",
+        "utf8_start": 3,
+        "utf8_end": 7,
+        "line_start": 0,
+        "column_start_utf16": 3,
+        "line_end": 0,
+        "column_end_utf16": 5
+      }
+    },
+    {
+      "id": "map.reject_surrogate_split",
+      "source": "// 😀\n",
+      "utf16_start": 4,
+      "utf16_end": 5,
+      "expect": {
+        "outcome": "reject",
+        "code": "CSHARP_SOURCE_MAP_UTF16"
+      }
+    },
+    {
+      "id": "map.reject_zero_length",
+      "source": "x\n",
+      "utf16_start": 0,
+      "utf16_end": 0,
+      "expect": {
+        "outcome": "reject",
+        "code": "CSHARP_SOURCE_MAP_RANGE"
+      }
+    },
+    {
+      "id": "map.reject_out_of_range",
+      "source": "x\n",
+      "utf16_start": 0,
+      "utf16_end": 3,
+      "expect": {
+        "outcome": "reject",
+        "code": "CSHARP_SOURCE_MAP_RANGE"
+      }
+    }
+  ],
+  "profile_contracts": [
+    {
+      "field": "ai",
+      "envelope": {
+        "profile_entry_sha256": "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac",
+        "contract_id": "mpk.profile.ai.csharp_scalar.v0",
+        "value": {
+          "display_language": "C#",
+          "projection_profile_id": "mpk.csharp.ai_projection.v0",
+          "proof_authority": false,
+          "redaction_profile_id": "minimal-v1",
+          "source_access": false
+        }
+      }
+    },
+    {
+      "field": "evidence",
+      "envelope": {
+        "profile_entry_sha256": "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac",
+        "contract_id": "mpk.profile.evidence.csharp_scalar.v0",
+        "value": {
+          "proof_authority": "certificate_only",
+          "recipe_profile_id": "mpk.csharp.evidence_recipe.v0",
+          "require_reference_checker": true,
+          "require_source_free_check": true
+        }
+      }
+    },
+    {
+      "field": "frontend",
+      "envelope": {
+        "profile_entry_sha256": "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac",
+        "contract_id": "mpk.profile.frontend.csharp_scalar.v0",
+        "value": {
+          "argument_profile_id": "mpk.csharp.frontend_arguments.v0",
+          "environment_profile_id": "mpk.csharp.frontend_environment.v0",
+          "launcher_profile_id": "mpk.csharp.dotnet_launcher.v0",
+          "limit_profile_id": "mpk.csharp.limits.v0",
+          "private_driver": "none"
+        }
+      }
+    },
+    {
+      "field": "manifest",
+      "envelope": {
+        "profile_entry_sha256": "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac",
+        "contract_id": "mpk.profile.manifest.csharp_scalar.v0",
+        "value": {
+          "input_kinds": [
+            "contract",
+            "source"
+          ],
+          "source_extension": ".cs",
+          "unit_kind": "compilation"
+        }
+      }
+    },
+    {
+      "field": "policy",
+      "envelope": {
+        "profile_entry_sha256": "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac",
+        "contract_id": "mpk.profile.policy.csharp_scalar.v0",
+        "value": {
+          "axiom_profile": "mvp-theory",
+          "checker_profile": "mvp-strict",
+          "strategy_profile": "payment-policy-csharp-alpha"
+        }
+      }
+    },
+    {
+      "field": "release",
+      "envelope": {
+        "profile_entry_sha256": "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac",
+        "contract_id": "mpk.profile.release.csharp_scalar.v0",
+        "value": {
+        "compiler_profile_id": "mpk.csharp.roslyn_5_6_0.v0",
+        "execution_host_profile_id": "mpk.host.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0",
+        "reference_profile_id": "mpk.dotnet.netcore_ref_10_0_11.v0",
+        "runtime_layout_profile_id": "mpk.runtime.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0",
+        "runtime_profile_id": "mpk.dotnet.runtime_10_0_11.linux_x64.v0",
+          "toolchain_inputs_sha256": "d4af1170b2813a5581bb0f60b65fd4e7509576093045557b88689bf7e0876b4f"
+        }
+      }
+    },
+    {
+      "field": "source_map",
+      "envelope": {
+        "profile_entry_sha256": "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac",
+        "contract_id": "mpk.profile.source_map.csharp_scalar.v0",
+        "value": {
+          "encoding": "utf-8",
+          "offset_unit": "utf8-byte",
+          "synthetic_reasons": []
+        }
+      }
+    },
+    {
+      "field": "vc",
+      "envelope": {
+        "profile_entry_sha256": "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac",
+        "contract_id": "mpk.profile.vc.csharp_scalar.v0",
+        "value": {
+          "contract_profile_id": "mpk.csharp.contract.v0",
+          "required_check_profile_id": "mpk.csharp.required_checks.v0",
+          "verification_limit_profile_id": "mpk.verify.limits.v0"
+        }
+      }
+    },
+    {
+      "field": "vir",
+      "envelope": {
+        "profile_entry_sha256": "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac",
+        "contract_id": "mpk.profile.vir.csharp_scalar.v0",
+        "value": {
+          "operation_profile_id": "mpk.csharp.vir_operations.v0",
+          "source_map_profile_id": "mpk.csharp.source_map.v0",
+          "vir_limit_profile_id": "mpk.vir.limits.v0"
+        }
+      }
+    }
+  ],
+  "type_mappings": [
+    {
+      "source_type": "bool",
+      "method_id_token": "bool",
+      "vir_type": {
+        "kind": "bool"
+      }
+    },
+    {
+      "source_type": "int",
+      "method_id_token": "i32",
+      "vir_type": {
+        "kind": "bv",
+        "width": 32,
+        "signed": true
+      }
+    },
+    {
+      "source_type": "uint",
+      "method_id_token": "u32",
+      "vir_type": {
+        "kind": "bv",
+        "width": 32,
+        "signed": false
+      }
+    },
+    {
+      "source_type": "long",
+      "method_id_token": "i64",
+      "vir_type": {
+        "kind": "bv",
+        "width": 64,
+        "signed": true
+      }
+    },
+    {
+      "source_type": "ulong",
+      "method_id_token": "u64",
+      "vir_type": {
+        "kind": "bv",
+        "width": 64,
+        "signed": false
+      }
+    }
+  ],
+  "operation_mappings": [
+    {
+      "source": "!",
+      "operand_types": [
+        "bool"
+      ],
+      "context": "any",
+      "vir": [
+        "bool_not"
+      ],
+      "checks": []
+    },
+    {
+      "source": "==",
+      "operand_types": [
+        "bool",
+        "int",
+        "uint",
+        "long",
+        "ulong"
+      ],
+      "context": "any",
+      "vir": [
+        "eq"
+      ],
+      "checks": []
+    },
+    {
+      "source": "!=",
+      "operand_types": [
+        "bool",
+        "int",
+        "uint",
+        "long",
+        "ulong"
+      ],
+      "context": "any",
+      "vir": [
+        "not_eq"
+      ],
+      "checks": []
+    },
+    {
+      "source": "<",
+      "operand_types": [
+        "int",
+        "long"
+      ],
+      "context": "any",
+      "vir": [
+        "signed_lt"
+      ],
+      "checks": []
+    },
+    {
+      "source": "<=",
+      "operand_types": [
+        "int",
+        "long"
+      ],
+      "context": "any",
+      "vir": [
+        "signed_le"
+      ],
+      "checks": []
+    },
+    {
+      "source": ">",
+      "operand_types": [
+        "int",
+        "long"
+      ],
+      "context": "any",
+      "vir": [
+        "signed_gt"
+      ],
+      "checks": []
+    },
+    {
+      "source": ">=",
+      "operand_types": [
+        "int",
+        "long"
+      ],
+      "context": "any",
+      "vir": [
+        "signed_ge"
+      ],
+      "checks": []
+    },
+    {
+      "source": "<",
+      "operand_types": [
+        "uint",
+        "ulong"
+      ],
+      "context": "any",
+      "vir": [
+        "unsigned_lt"
+      ],
+      "checks": []
+    },
+    {
+      "source": "<=",
+      "operand_types": [
+        "uint",
+        "ulong"
+      ],
+      "context": "any",
+      "vir": [
+        "unsigned_le"
+      ],
+      "checks": []
+    },
+    {
+      "source": ">",
+      "operand_types": [
+        "uint",
+        "ulong"
+      ],
+      "context": "any",
+      "vir": [
+        "unsigned_gt"
+      ],
+      "checks": []
+    },
+    {
+      "source": ">=",
+      "operand_types": [
+        "uint",
+        "ulong"
+      ],
+      "context": "any",
+      "vir": [
+        "unsigned_ge"
+      ],
+      "checks": []
+    },
+    {
+      "source": "+",
+      "operand_types": [
+        "int",
+        "uint",
+        "long",
+        "ulong"
+      ],
+      "context": "checked",
+      "vir": [
+        "bv_add"
+      ],
+      "checks": [
+        "integer_no_overflow"
+      ]
+    },
+    {
+      "source": "-",
+      "operand_types": [
+        "int",
+        "uint",
+        "long",
+        "ulong"
+      ],
+      "context": "checked",
+      "vir": [
+        "bv_sub"
+      ],
+      "checks": [
+        "integer_no_overflow"
+      ]
+    },
+    {
+      "source": "*",
+      "operand_types": [
+        "int",
+        "uint",
+        "long",
+        "ulong"
+      ],
+      "context": "checked",
+      "vir": [
+        "bv_mul"
+      ],
+      "checks": [
+        "integer_no_overflow"
+      ]
+    },
+    {
+      "source": "+",
+      "operand_types": [
+        "int",
+        "uint",
+        "long",
+        "ulong"
+      ],
+      "context": "unchecked",
+      "vir": [
+        "bv_add"
+      ],
+      "checks": []
+    },
+    {
+      "source": "-",
+      "operand_types": [
+        "int",
+        "uint",
+        "long",
+        "ulong"
+      ],
+      "context": "unchecked",
+      "vir": [
+        "bv_sub"
+      ],
+      "checks": []
+    },
+    {
+      "source": "*",
+      "operand_types": [
+        "int",
+        "uint",
+        "long",
+        "ulong"
+      ],
+      "context": "unchecked",
+      "vir": [
+        "bv_mul"
+      ],
+      "checks": []
+    },
+    {
+      "source": "unary-",
+      "operand_types": [
+        "int",
+        "long"
+      ],
+      "context": "checked",
+      "vir": [
+        "bv_neg"
+      ],
+      "checks": [
+        "integer_no_overflow"
+      ]
+    },
+    {
+      "source": "unary-",
+      "operand_types": [
+        "int",
+        "long"
+      ],
+      "context": "unchecked",
+      "vir": [
+        "bv_neg"
+      ],
+      "checks": []
+    },
+    {
+      "source": "/",
+      "operand_types": [
+        "int",
+        "long"
+      ],
+      "context": "explicit_checked_or_unchecked",
+      "vir": [
+        "bv_sdiv"
+      ],
+      "checks": [
+        "divisor_nonzero",
+        "signed_divrem_representable"
+      ]
+    },
+    {
+      "source": "%",
+      "operand_types": [
+        "int",
+        "long"
+      ],
+      "context": "explicit_checked_or_unchecked",
+      "vir": [
+        "bv_srem"
+      ],
+      "checks": [
+        "divisor_nonzero",
+        "signed_divrem_representable"
+      ]
+    },
+    {
+      "source": "/",
+      "operand_types": [
+        "uint",
+        "ulong"
+      ],
+      "context": "explicit_checked_or_unchecked",
+      "vir": [
+        "bv_udiv"
+      ],
+      "checks": [
+        "divisor_nonzero"
+      ]
+    },
+    {
+      "source": "%",
+      "operand_types": [
+        "uint",
+        "ulong"
+      ],
+      "context": "explicit_checked_or_unchecked",
+      "vir": [
+        "bv_urem"
+      ],
+      "checks": [
+        "divisor_nonzero"
+      ]
+    },
+    {
+      "source": "~",
+      "operand_types": [
+        "int",
+        "uint",
+        "long",
+        "ulong"
+      ],
+      "context": "any",
+      "vir": [
+        "bv_not"
+      ],
+      "checks": []
+    },
+    {
+      "source": "&",
+      "operand_types": [
+        "int",
+        "uint",
+        "long",
+        "ulong"
+      ],
+      "context": "any",
+      "vir": [
+        "bv_and"
+      ],
+      "checks": []
+    },
+    {
+      "source": "|",
+      "operand_types": [
+        "int",
+        "uint",
+        "long",
+        "ulong"
+      ],
+      "context": "any",
+      "vir": [
+        "bv_or"
+      ],
+      "checks": []
+    },
+    {
+      "source": "^",
+      "operand_types": [
+        "int",
+        "uint",
+        "long",
+        "ulong"
+      ],
+      "context": "any",
+      "vir": [
+        "bv_xor"
+      ],
+      "checks": []
+    },
+    {
+      "source": "<<",
+      "operand_types": [
+        "int",
+        "uint"
+      ],
+      "count_type": "int",
+      "context": "any",
+      "vir": [
+        "bv_and(count,31)",
+        "bv_shl"
+      ],
+      "checks": []
+    },
+    {
+      "source": "<<",
+      "operand_types": [
+        "long",
+        "ulong"
+      ],
+      "count_type": "int",
+      "context": "any",
+      "vir": [
+        "bv_and(count,63)",
+        "bv_shl"
+      ],
+      "checks": []
+    },
+    {
+      "source": ">>",
+      "operand_types": [
+        "int",
+        "long"
+      ],
+      "count_type": "int",
+      "context": "any",
+      "vir": [
+        "bv_and(count,width-1)",
+        "bv_ashr"
+      ],
+      "checks": []
+    },
+    {
+      "source": ">>",
+      "operand_types": [
+        "uint",
+        "ulong"
+      ],
+      "count_type": "int",
+      "context": "any",
+      "vir": [
+        "bv_and(count,width-1)",
+        "bv_lshr"
+      ],
+      "checks": []
+    },
+    {
+      "source": "&&",
+      "operand_types": [
+        "bool"
+      ],
+      "context": "any",
+      "vir": [
+        "Branch",
+        "block_parameter"
+      ],
+      "checks": []
+    },
+    {
+      "source": "||",
+      "operand_types": [
+        "bool"
+      ],
+      "context": "any",
+      "vir": [
+        "Branch",
+        "block_parameter"
+      ],
+      "checks": []
+    },
+    {
+      "source": "?:",
+      "operand_types": [
+        "bool_condition",
+        "identical_accepted_branch_type"
+      ],
+      "context": "any",
+      "vir": [
+        "Branch",
+        "Jump",
+        "block_parameter"
+      ],
+      "checks": []
+    },
+    {
+      "source": "direct_static_call",
+      "operand_types": [
+        "exact_signature"
+      ],
+      "context": "any",
+      "vir": [
+        "CallStatic"
+      ],
+      "checks": [
+        "callee_contract_hash"
+      ]
+    }
+  ],
+  "roslyn_checked_state_cases": [
+    {
+      "id": "checked.add",
+      "source": "+",
+      "operator_kind": "Add",
+      "operand_types": ["int", "uint", "long", "ulong"],
+      "context": "checked",
+      "expected_is_checked": true
+    },
+    {
+      "id": "checked.subtract",
+      "source": "-",
+      "operator_kind": "Subtract",
+      "operand_types": ["int", "uint", "long", "ulong"],
+      "context": "checked",
+      "expected_is_checked": true
+    },
+    {
+      "id": "checked.multiply",
+      "source": "*",
+      "operator_kind": "Multiply",
+      "operand_types": ["int", "uint", "long", "ulong"],
+      "context": "checked",
+      "expected_is_checked": true
+    },
+    {
+      "id": "checked.negate",
+      "source": "unary-",
+      "operator_kind": "Minus",
+      "operand_types": ["int", "long"],
+      "context": "checked",
+      "expected_is_checked": true
+    },
+    {
+      "id": "checked.divide",
+      "source": "/",
+      "operator_kind": "Divide",
+      "operand_types": ["int", "uint", "long", "ulong"],
+      "context": "checked",
+      "expected_is_checked": true
+    },
+    {
+      "id": "checked.remainder",
+      "source": "%",
+      "operator_kind": "Remainder",
+      "operand_types": ["int", "uint", "long", "ulong"],
+      "context": "checked",
+      "expected_is_checked": false
+    },
+    {
+      "id": "unchecked.add",
+      "source": "+",
+      "operator_kind": "Add",
+      "operand_types": ["int", "uint", "long", "ulong"],
+      "context": "unchecked",
+      "expected_is_checked": false
+    },
+    {
+      "id": "unchecked.subtract",
+      "source": "-",
+      "operator_kind": "Subtract",
+      "operand_types": ["int", "uint", "long", "ulong"],
+      "context": "unchecked",
+      "expected_is_checked": false
+    },
+    {
+      "id": "unchecked.multiply",
+      "source": "*",
+      "operator_kind": "Multiply",
+      "operand_types": ["int", "uint", "long", "ulong"],
+      "context": "unchecked",
+      "expected_is_checked": false
+    },
+    {
+      "id": "unchecked.negate",
+      "source": "unary-",
+      "operator_kind": "Minus",
+      "operand_types": ["int", "long"],
+      "context": "unchecked",
+      "expected_is_checked": false
+    },
+    {
+      "id": "unchecked.divide",
+      "source": "/",
+      "operator_kind": "Divide",
+      "operand_types": ["int", "uint", "long", "ulong"],
+      "context": "unchecked",
+      "expected_is_checked": false
+    },
+    {
+      "id": "unchecked.remainder",
+      "source": "%",
+      "operator_kind": "Remainder",
+      "operand_types": ["int", "uint", "long", "ulong"],
+      "context": "unchecked",
+      "expected_is_checked": false
+    }
+  ],
+  "conversion_rules": [
+    {
+      "source_type": "bool",
+      "destination_type": "bool",
+      "source_form": "identity",
+      "context": "any",
+      "vir": [],
+      "checks": []
+    },
+    {
+      "source_type": "int",
+      "destination_type": "int",
+      "source_form": "identity",
+      "context": "any",
+      "vir": [],
+      "checks": []
+    },
+    {
+      "source_type": "int",
+      "destination_type": "uint",
+      "source_form": "explicit",
+      "context": "unchecked",
+      "vir": [
+        "Convert"
+      ],
+      "checks": []
+    },
+    {
+      "source_type": "int",
+      "destination_type": "long",
+      "source_form": "implicit",
+      "context": "any",
+      "vir": [
+        "Convert"
+      ],
+      "checks": []
+    },
+    {
+      "source_type": "int",
+      "destination_type": "long",
+      "source_form": "explicit",
+      "context": "unchecked",
+      "vir": [
+        "Convert"
+      ],
+      "checks": []
+    },
+    {
+      "source_type": "int",
+      "destination_type": "ulong",
+      "source_form": "explicit",
+      "context": "unchecked",
+      "vir": [
+        "Convert"
+      ],
+      "checks": []
+    },
+    {
+      "source_type": "uint",
+      "destination_type": "int",
+      "source_form": "explicit",
+      "context": "unchecked",
+      "vir": [
+        "Convert"
+      ],
+      "checks": []
+    },
+    {
+      "source_type": "uint",
+      "destination_type": "uint",
+      "source_form": "identity",
+      "context": "any",
+      "vir": [],
+      "checks": []
+    },
+    {
+      "source_type": "uint",
+      "destination_type": "long",
+      "source_form": "implicit",
+      "context": "any",
+      "vir": [
+        "Convert"
+      ],
+      "checks": []
+    },
+    {
+      "source_type": "uint",
+      "destination_type": "long",
+      "source_form": "explicit",
+      "context": "unchecked",
+      "vir": [
+        "Convert"
+      ],
+      "checks": []
+    },
+    {
+      "source_type": "uint",
+      "destination_type": "ulong",
+      "source_form": "implicit",
+      "context": "any",
+      "vir": [
+        "Convert"
+      ],
+      "checks": []
+    },
+    {
+      "source_type": "uint",
+      "destination_type": "ulong",
+      "source_form": "explicit",
+      "context": "unchecked",
+      "vir": [
+        "Convert"
+      ],
+      "checks": []
+    },
+    {
+      "source_type": "long",
+      "destination_type": "int",
+      "source_form": "explicit",
+      "context": "unchecked",
+      "vir": [
+        "Convert"
+      ],
+      "checks": []
+    },
+    {
+      "source_type": "long",
+      "destination_type": "uint",
+      "source_form": "explicit",
+      "context": "unchecked",
+      "vir": [
+        "Convert"
+      ],
+      "checks": []
+    },
+    {
+      "source_type": "long",
+      "destination_type": "long",
+      "source_form": "identity",
+      "context": "any",
+      "vir": [],
+      "checks": []
+    },
+    {
+      "source_type": "long",
+      "destination_type": "ulong",
+      "source_form": "explicit",
+      "context": "unchecked",
+      "vir": [
+        "Convert"
+      ],
+      "checks": []
+    },
+    {
+      "source_type": "ulong",
+      "destination_type": "int",
+      "source_form": "explicit",
+      "context": "unchecked",
+      "vir": [
+        "Convert"
+      ],
+      "checks": []
+    },
+    {
+      "source_type": "ulong",
+      "destination_type": "uint",
+      "source_form": "explicit",
+      "context": "unchecked",
+      "vir": [
+        "Convert"
+      ],
+      "checks": []
+    },
+    {
+      "source_type": "ulong",
+      "destination_type": "long",
+      "source_form": "explicit",
+      "context": "unchecked",
+      "vir": [
+        "Convert"
+      ],
+      "checks": []
+    },
+    {
+      "source_type": "ulong",
+      "destination_type": "ulong",
+      "source_form": "identity",
+      "context": "any",
+      "vir": [],
+      "checks": []
+    }
+  ],
+  "semantic_rows": [
+    {
+      "row": "M01",
+      "disposition": "accept_under_profile_restrictions",
+      "basis": "P02"
+    },
+    {
+      "row": "M02",
+      "disposition": "accept_under_profile_restrictions",
+      "basis": "P02"
+    },
+    {
+      "row": "M03",
+      "disposition": "reject_before_vir",
+      "basis": "unsupported"
+    },
+    {
+      "row": "M04",
+      "disposition": "reject_before_vir",
+      "basis": "foundation-binary-float"
+    },
+    {
+      "row": "M05",
+      "disposition": "reject_before_vir",
+      "basis": "foundation-csharp-decimal"
+    },
+    {
+      "row": "M06",
+      "disposition": "reject_before_vir",
+      "basis": "unsupported"
+    },
+    {
+      "row": "M07",
+      "disposition": "accept_under_profile_restrictions",
+      "basis": "P04"
+    },
+    {
+      "row": "M08",
+      "disposition": "accept_under_profile_restrictions",
+      "basis": "P02"
+    },
+    {
+      "row": "M09",
+      "disposition": "accept_under_profile_restrictions",
+      "basis": "P02"
+    },
+    {
+      "row": "M10",
+      "disposition": "accept_under_profile_restrictions",
+      "basis": "P04"
+    },
+    {
+      "row": "M11",
+      "disposition": "accept_under_profile_restrictions",
+      "basis": "P04"
+    },
+    {
+      "row": "M12",
+      "disposition": "accept_under_profile_restrictions",
+      "basis": "P04"
+    },
+    {
+      "row": "M13",
+      "disposition": "accept_under_profile_restrictions",
+      "basis": "P02"
+    },
+    {
+      "row": "M14",
+      "disposition": "accept_under_profile_restrictions",
+      "basis": "P02"
+    },
+    {
+      "row": "M15",
+      "disposition": "reject_before_vir",
+      "basis": "unsupported"
+    },
+    {
+      "row": "M16",
+      "disposition": "accept_under_profile_restrictions",
+      "basis": "P02"
+    },
+    {
+      "row": "M17",
+      "disposition": "reject_before_vir",
+      "basis": "unsupported"
+    },
+    {
+      "row": "M18",
+      "disposition": "accept_under_profile_restrictions",
+      "basis": "P02"
+    },
+    {
+      "row": "M19",
+      "disposition": "accept_under_profile_restrictions",
+      "basis": "P02"
+    },
+    {
+      "row": "M20",
+      "disposition": "reject_before_vir",
+      "basis": "unsupported"
+    },
+    {
+      "row": "M21",
+      "disposition": "accept_under_profile_restrictions",
+      "basis": "P02"
+    },
+    {
+      "row": "M22",
+      "disposition": "reject_before_vir",
+      "basis": "successor-operation-gap"
+    },
+    {
+      "row": "M23",
+      "disposition": "reject_before_vir",
+      "basis": "unsupported"
+    },
+    {
+      "row": "M24",
+      "disposition": "reject_before_vir",
+      "basis": "unsupported"
+    },
+    {
+      "row": "M25",
+      "disposition": "reject_before_vir",
+      "basis": "unsupported"
+    },
+    {
+      "row": "M26",
+      "disposition": "reject_before_vir",
+      "basis": "unsupported"
+    },
+    {
+      "row": "M27",
+      "disposition": "accept_under_profile_restrictions",
+      "basis": "P04"
+    },
+    {
+      "row": "M28",
+      "disposition": "reject_before_vir",
+      "basis": "unsupported"
+    },
+    {
+      "row": "M29",
+      "disposition": "accept_under_profile_restrictions",
+      "basis": "P04"
+    },
+    {
+      "row": "M30",
+      "disposition": "reject_before_vir",
+      "basis": "unsupported"
+    },
+    {
+      "row": "M31",
+      "disposition": "reject_before_vir",
+      "basis": "unsupported"
+    },
+    {
+      "row": "M32",
+      "disposition": "reject_before_vir",
+      "basis": "unsupported"
+    },
+    {
+      "row": "M33",
+      "disposition": "accept_under_profile_restrictions",
+      "basis": "P01"
+    },
+    {
+      "row": "M34",
+      "disposition": "accept_under_profile_restrictions",
+      "basis": "P05"
+    }
+  ],
+  "accepted_cases": [
+    {
+      "id": "source.baseline",
+      "stage": "source",
+      "construction": "baseline static namespace/class/method",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Example.Payment;\npublic static class Policy\n{\n    public static bool Approved(long reserve, long debit)\n    {\n        return reserve >= debit;\n    }\n}\n",
+      "method": "Example.Payment.Policy::Approved(i64,i64)->bool",
+      "expected_profile_operations": [
+        "signed_ge"
+      ],
+      "expected_required_checks": []
+    },
+    {
+      "id": "source.file_scoped_namespace",
+      "stage": "source",
+      "construction": "file-scoped namespace",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\npublic static class Case\n{\n    public static bool F(long x, long y) { return x >= y; }\n}\n",
+      "method": "Vector.Case::F(i64,i64)->bool",
+      "expected_profile_operations": [
+        "signed_ge"
+      ],
+      "expected_required_checks": []
+    },
+    {
+      "id": "source.block_namespace",
+      "stage": "source",
+      "construction": "block-scoped namespace",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector\n{\n    public static class Case\n    {\n        public static bool F(long x, long y) { return x >= y; }\n    }\n}\n",
+      "method": "Vector.Case::F(i64,i64)->bool",
+      "expected_profile_operations": [
+        "signed_ge"
+      ],
+      "expected_required_checks": []
+    },
+    {
+      "id": "type.bool",
+      "stage": "typecheck",
+      "construction": "bool parameter/local/result",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\npublic static class Case\n{\n    public static bool F(bool x) { bool y = x; return y; }\n}\n",
+      "method": "Vector.Case::F(bool)->bool",
+      "expected_profile_operations": [
+        "Copy"
+      ],
+      "expected_required_checks": []
+    },
+    {
+      "id": "type.int",
+      "stage": "typecheck",
+      "construction": "int carrier and canonical literal",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\npublic static class Case\n{\n    public static int F(int x) { int y = x; return y; }\n}\n",
+      "method": "Vector.Case::F(i32)->i32",
+      "expected_profile_operations": [
+        "Copy"
+      ],
+      "expected_required_checks": []
+    },
+    {
+      "id": "type.uint",
+      "stage": "typecheck",
+      "construction": "uint carrier and uppercase U literal",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\npublic static class Case\n{\n    public static uint F(uint x) { uint y = x; return y; }\n}\n",
+      "method": "Vector.Case::F(u32)->u32",
+      "expected_profile_operations": [
+        "Copy"
+      ],
+      "expected_required_checks": []
+    },
+    {
+      "id": "type.long",
+      "stage": "typecheck",
+      "construction": "long carrier and uppercase L literal",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\npublic static class Case\n{\n    public static long F(long x) { long y = x; return y; }\n}\n",
+      "method": "Vector.Case::F(i64)->i64",
+      "expected_profile_operations": [
+        "Copy"
+      ],
+      "expected_required_checks": []
+    },
+    {
+      "id": "type.ulong",
+      "stage": "typecheck",
+      "construction": "ulong carrier and uppercase UL literal",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\npublic static class Case\n{\n    public static ulong F(ulong x) { ulong y = x; return y; }\n}\n",
+      "method": "Vector.Case::F(u64)->u64",
+      "expected_profile_operations": [
+        "Copy"
+      ],
+      "expected_required_checks": []
+    },
+    {
+      "id": "literal.negative_min",
+      "stage": "typecheck",
+      "construction": "in-range negative int and long minimum literals",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\npublic static class Case\n{\n    public static long F()\n    {\n        int x = -2147483648;\n        return x == -2147483648 ? -9223372036854775808L : 0L;\n    }\n}\n",
+      "method": "Vector.Case::F()->i64",
+      "expected_profile_operations": [
+        "Const",
+        "eq",
+        "Branch",
+        "Const"
+      ],
+      "expected_required_checks": []
+    },
+    {
+      "id": "control.local_copy",
+      "stage": "lowering",
+      "construction": "explicit local declaration then simple assignment/read",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\npublic static class Case\n{\n    public static int F(int x)\n    {\n        int y = x;\n        y = unchecked(y + 1);\n        return y;\n    }\n}\n",
+      "method": "Vector.Case::F(i32)->i32",
+      "expected_profile_operations": [
+        "Copy",
+        "bv_add",
+        "Copy"
+      ],
+      "expected_required_checks": []
+    },
+    {
+      "id": "control.if_else_join",
+      "stage": "lowering",
+      "construction": "if/else with explicit block-parameter join",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\npublic static class Case\n{\n    public static int F(bool c, int a, int b)\n    {\n        int y = a;\n        if (c) { y = a; } else { y = b; }\n        return y;\n    }\n}\n",
+      "method": "Vector.Case::F(bool,i32,i32)->i32",
+      "expected_profile_operations": [
+        "Copy",
+        "Branch",
+        "Copy",
+        "Copy",
+        "block_parameter"
+      ],
+      "expected_required_checks": []
+    },
+    {
+      "id": "control.early_return",
+      "stage": "lowering",
+      "construction": "conditional early return plus final return",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\npublic static class Case\n{\n    public static int F(bool c, int a, int b)\n    {\n        if (c) { return a; }\n        return b;\n    }\n}\n",
+      "method": "Vector.Case::F(bool,i32,i32)->i32",
+      "expected_profile_operations": [
+        "Branch",
+        "Return",
+        "Return"
+      ],
+      "expected_required_checks": []
+    },
+    {
+      "id": "control.conditional",
+      "stage": "lowering",
+      "construction": "same-type conditional expression",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\npublic static class Case\n{\n    public static int F(bool c, int a, int b) { return c ? a : b; }\n}\n",
+      "method": "Vector.Case::F(bool,i32,i32)->i32",
+      "expected_profile_operations": [
+        "Branch",
+        "block_parameter"
+      ],
+      "expected_required_checks": []
+    },
+    {
+      "id": "control.short_circuit_and",
+      "stage": "lowering",
+      "construction": "left-to-right Boolean &&",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\npublic static class Case\n{\n    public static bool F(bool a, bool b) { return a && b; }\n}\n",
+      "method": "Vector.Case::F(bool,bool)->bool",
+      "expected_profile_operations": [
+        "Branch",
+        "block_parameter"
+      ],
+      "expected_required_checks": []
+    },
+    {
+      "id": "control.short_circuit_or",
+      "stage": "lowering",
+      "construction": "left-to-right Boolean ||",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\npublic static class Case\n{\n    public static bool F(bool a, bool b) { return a || b; }\n}\n",
+      "method": "Vector.Case::F(bool,bool)->bool",
+      "expected_profile_operations": [
+        "Branch",
+        "block_parameter"
+      ],
+      "expected_required_checks": []
+    },
+    {
+      "id": "arithmetic.checked",
+      "stage": "lowering",
+      "construction": "checked add/sub/mul with exact overflow checks",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\npublic static class Case\n{\n    public static int F(int a, int b, int c)\n    {\n        checked\n        {\n            int y = a + b;\n            y = y * c;\n            return y - a;\n        }\n    }\n}\n",
+      "method": "Vector.Case::F(i32,i32,i32)->i32",
+      "expected_profile_operations": [
+        "bv_add",
+        "bv_mul",
+        "bv_sub"
+      ],
+      "expected_required_checks": [
+        {
+          "kind": "integer_no_overflow",
+          "operation": "add",
+          "width": 32,
+          "signed": true
+        },
+        {
+          "kind": "integer_no_overflow",
+          "operation": "sub",
+          "width": 32,
+          "signed": true
+        },
+        {
+          "kind": "integer_no_overflow",
+          "operation": "mul",
+          "width": 32,
+          "signed": true
+        }
+      ]
+    },
+    {
+      "id": "arithmetic.unchecked",
+      "stage": "lowering",
+      "construction": "unchecked add/sub/mul wrapping",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\npublic static class Case\n{\n    public static int F(int a, int b, int c)\n    {\n        unchecked\n        {\n            int y = a + b;\n            y = y * c;\n            return y - a;\n        }\n    }\n}\n",
+      "method": "Vector.Case::F(i32,i32,i32)->i32",
+      "expected_profile_operations": [
+        "bv_add",
+        "bv_mul",
+        "bv_sub"
+      ],
+      "expected_required_checks": []
+    },
+    {
+      "id": "division.signed_checked",
+      "stage": "lowering",
+      "construction": "signed checked div/rem with two checks",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\npublic static class Case\n{\n    public static int F(int a, int b)\n    {\n        checked\n        {\n            int q = a / b;\n            int r = a % b;\n            return q + r;\n        }\n    }\n}\n",
+      "method": "Vector.Case::F(i32,i32)->i32",
+      "expected_profile_operations": [
+        "bv_sdiv",
+        "bv_srem",
+        "bv_add"
+      ],
+      "expected_required_checks": [
+        {
+          "kind": "integer_no_overflow",
+          "operation": "add",
+          "width": 32,
+          "signed": true
+        },
+        {
+          "kind": "divisor_nonzero",
+          "operation": "div",
+          "width": 32,
+          "signed": true
+        },
+        {
+          "kind": "divisor_nonzero",
+          "operation": "rem",
+          "width": 32,
+          "signed": true
+        },
+        {
+          "kind": "signed_divrem_representable",
+          "operation": "div",
+          "width": 32,
+          "signed": true
+        },
+        {
+          "kind": "signed_divrem_representable",
+          "operation": "rem",
+          "width": 32,
+          "signed": true
+        }
+      ]
+    },
+    {
+      "id": "division.signed_unchecked",
+      "stage": "lowering",
+      "construction": "signed unchecked div/rem still with two checks",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\npublic static class Case\n{\n    public static int F(int a, int b)\n    {\n        unchecked\n        {\n            int q = a / b;\n            int r = a % b;\n            return q + r;\n        }\n    }\n}\n",
+      "method": "Vector.Case::F(i32,i32)->i32",
+      "expected_profile_operations": [
+        "bv_sdiv",
+        "bv_srem",
+        "bv_add"
+      ],
+      "expected_required_checks": [
+        {
+          "kind": "divisor_nonzero",
+          "operation": "div",
+          "width": 32,
+          "signed": true
+        },
+        {
+          "kind": "divisor_nonzero",
+          "operation": "rem",
+          "width": 32,
+          "signed": true
+        },
+        {
+          "kind": "signed_divrem_representable",
+          "operation": "div",
+          "width": 32,
+          "signed": true
+        },
+        {
+          "kind": "signed_divrem_representable",
+          "operation": "rem",
+          "width": 32,
+          "signed": true
+        }
+      ]
+    },
+    {
+      "id": "division.unsigned",
+      "stage": "lowering",
+      "construction": "unsigned div/rem with nonzero check",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\npublic static class Case\n{\n    public static uint F(uint a, uint b)\n    {\n        unchecked\n        {\n            uint q = a / b;\n            uint r = a % b;\n            return q + r;\n        }\n    }\n}\n",
+      "method": "Vector.Case::F(u32,u32)->u32",
+      "expected_profile_operations": [
+        "bv_udiv",
+        "bv_urem",
+        "bv_add"
+      ],
+      "expected_required_checks": [
+        {
+          "kind": "divisor_nonzero",
+          "operation": "div",
+          "width": 32,
+          "signed": false
+        },
+        {
+          "kind": "divisor_nonzero",
+          "operation": "rem",
+          "width": 32,
+          "signed": false
+        }
+      ]
+    },
+    {
+      "id": "bitwise.all",
+      "stage": "lowering",
+      "construction": "integer not/and/or/xor",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\npublic static class Case\n{\n    public static int F(int a, int b) { return (~a & b) | (a ^ b); }\n}\n",
+      "method": "Vector.Case::F(i32,i32)->i32",
+      "expected_profile_operations": [
+        "bv_not",
+        "bv_and",
+        "bv_xor",
+        "bv_or"
+      ],
+      "expected_required_checks": []
+    },
+    {
+      "id": "shift.i32_mask",
+      "stage": "lowering",
+      "construction": "32-bit count masked with 31",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\npublic static class Case\n{\n    public static int F(int x, int n) { return x << n; }\n}\n",
+      "method": "Vector.Case::F(i32,i32)->i32",
+      "expected_profile_operations": [
+        "bv_and(count,31)",
+        "bv_shl"
+      ],
+      "expected_required_checks": []
+    },
+    {
+      "id": "shift.i64_mask",
+      "stage": "lowering",
+      "construction": "64-bit count masked with 63",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\npublic static class Case\n{\n    public static long F(long x, int n) { return x >> n; }\n}\n",
+      "method": "Vector.Case::F(i64,i32)->i64",
+      "expected_profile_operations": [
+        "bv_and(count,63)",
+        "bv_ashr"
+      ],
+      "expected_required_checks": []
+    },
+    {
+      "id": "conversion.identity",
+      "stage": "lowering",
+      "construction": "identity emits no instruction",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\npublic static class Case\n{\n    public static long F(long x) { return (long)x; }\n}\n",
+      "method": "Vector.Case::F(i64)->i64",
+      "expected_profile_operations": [],
+      "expected_required_checks": []
+    },
+    {
+      "id": "conversion.implicit_exact",
+      "stage": "lowering",
+      "construction": "representative admitted implicit conversion",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\npublic static class Case\n{\n    public static long F(uint x) { long y = x; return y; }\n}\n",
+      "method": "Vector.Case::F(u32)->i64",
+      "expected_profile_operations": [
+        "Convert"
+      ],
+      "expected_required_checks": []
+    },
+    {
+      "id": "conversion.explicit_unchecked",
+      "stage": "lowering",
+      "construction": "representative admitted unchecked explicit numeric conversion",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\npublic static class Case\n{\n    public static ulong F(int x) { return unchecked((ulong)x); }\n}\n",
+      "method": "Vector.Case::F(i32)->u64",
+      "expected_profile_operations": [
+        "Convert"
+      ],
+      "expected_required_checks": []
+    },
+    {
+      "id": "call.pure_static",
+      "stage": "lowering",
+      "construction": "acyclic pure direct static closure with repeated contract hash",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\npublic static class Case\n{\n    public static int F(int x) { return G(x); }\n    private static int G(int x) { return x; }\n}\n",
+      "method": "Vector.Case::F(i32)->i32",
+      "expected_profile_operations": [
+        "CallStatic"
+      ],
+      "expected_required_checks": [
+        {
+          "kind": "callee_contract_hash",
+          "callee": "Vector.Case::G(i32)->i32"
+        }
+      ]
+    },
+    {
+      "id": "contract.normalization",
+      "stage": "subset",
+      "construction": "sidecar parameter/result/operator normalization",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Example.Payment;\npublic static class Policy\n{\n    public static bool Approved(long reserve, long debit) { return reserve >= debit; }\n}\n",
+      "method": "Example.Payment.Policy::Approved(i64,i64)->bool",
+      "expected_profile_operations": [
+        "signed_ge"
+      ],
+      "expected_required_checks": []
+    },
+    {
+      "id": "source_map.surrogate_comment",
+      "stage": "emission",
+      "construction": "non-ASCII comment maps UTF-16 span boundaries to UTF-8 bytes",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Vector;\n// 😀\npublic static class Case\n{\n    public static bool F(bool x) { return x; }\n}\n",
+      "method": "Vector.Case::F(bool)->bool",
+      "expected_profile_operations": [],
+      "expected_required_checks": []
+    },
+    {
+      "id": "determinism.two_runs",
+      "stage": "emission",
+      "construction": "two clean runs emit identical canonical bytes",
+      "expect": {
+        "status": "ir-lowered",
+        "phase": "complete",
+        "code": ""
+      },
+      "source": "namespace Example.Payment;\npublic static class Policy\n{\n    public static bool Approved(long reserve, long debit) { return reserve >= debit; }\n}\n",
+      "method": "Example.Payment.Policy::Approved(i64,i64)->bool",
+      "expected_profile_operations": [
+        "signed_ge"
+      ],
+      "expected_required_checks": []
+    }
+  ],
+  "rejected_cases": [
+    {
+      "id": "capture.absolute_path",
+      "stage": "capture",
+      "mutation": "absolute selected path",
+      "expect": {
+        "status": "rejected",
+        "phase": "capture",
+        "code": "CSHARP_CAPTURE_PATH"
+      }
+    },
+    {
+      "id": "capture.parent_path",
+      "stage": "capture",
+      "mutation": "parent component in selected path",
+      "expect": {
+        "status": "rejected",
+        "phase": "capture",
+        "code": "CSHARP_CAPTURE_PATH"
+      }
+    },
+    {
+      "id": "capture.unlisted_file",
+      "stage": "capture",
+      "mutation": "unlisted snapshot entry",
+      "expect": {
+        "status": "rejected",
+        "phase": "capture",
+        "code": "CSHARP_CAPTURE_INVENTORY"
+      }
+    },
+    {
+      "id": "capture.symlink",
+      "stage": "capture",
+      "mutation": "selected source is a symbolic link",
+      "expect": {
+        "status": "rejected",
+        "phase": "capture",
+        "code": "CSHARP_CAPTURE_FILE_TYPE"
+      }
+    },
+    {
+      "id": "capture.case_collision",
+      "stage": "capture",
+      "mutation": "case-fold-colliding selected paths",
+      "expect": {
+        "status": "rejected",
+        "phase": "capture",
+        "code": "CSHARP_CAPTURE_PATH"
+      }
+    },
+    {
+      "id": "source.bom",
+      "stage": "source",
+      "mutation": "UTF-8 BOM",
+      "expect": {
+        "status": "source-error",
+        "phase": "source",
+        "code": "CSHARP_SOURCE_ENCODING"
+      }
+    },
+    {
+      "id": "source.crlf",
+      "stage": "source",
+      "mutation": "CRLF source",
+      "expect": {
+        "status": "source-error",
+        "phase": "source",
+        "code": "CSHARP_SOURCE_ENCODING"
+      }
+    },
+    {
+      "id": "source.no_final_lf",
+      "stage": "source",
+      "mutation": "source lacks final LF",
+      "expect": {
+        "status": "source-error",
+        "phase": "source",
+        "code": "CSHARP_SOURCE_ENCODING"
+      }
+    },
+    {
+      "id": "source.invalid_utf8",
+      "stage": "source",
+      "mutation": "invalid UTF-8",
+      "expect": {
+        "status": "source-error",
+        "phase": "source",
+        "code": "CSHARP_SOURCE_ENCODING"
+      }
+    },
+    {
+      "id": "source.parse",
+      "stage": "source",
+      "mutation": "malformed C# syntax",
+      "expect": {
+        "status": "source-error",
+        "phase": "source",
+        "code": "CSHARP_SOURCE_PARSE"
+      }
+    },
+    {
+      "id": "source.compiler_diagnostic",
+      "stage": "metadata",
+      "mutation": "unresolved symbol or warning promoted to error",
+      "expect": {
+        "status": "source-error",
+        "phase": "metadata",
+        "code": "CSHARP_SOURCE_DIAGNOSTIC"
+      }
+    },
+    {
+      "id": "source.project_file",
+      "stage": "capture",
+      "mutation": "add .csproj",
+      "expect": {
+        "status": "rejected",
+        "phase": "capture",
+        "code": "CSHARP_CAPTURE_INVENTORY"
+      }
+    },
+    {
+      "id": "source.preprocessor",
+      "stage": "subset",
+      "mutation": "#if directive",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_DECLARATION"
+      }
+    },
+    {
+      "id": "source.using",
+      "stage": "subset",
+      "mutation": "using directive",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_DECLARATION"
+      }
+    },
+    {
+      "id": "declaration.instance_class",
+      "stage": "subset",
+      "mutation": "non-static class",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_DECLARATION"
+      }
+    },
+    {
+      "id": "declaration.nested_type",
+      "stage": "subset",
+      "mutation": "nested type",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_DECLARATION"
+      }
+    },
+    {
+      "id": "declaration.field",
+      "stage": "subset",
+      "mutation": "static field",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_INITIALIZATION"
+      }
+    },
+    {
+      "id": "declaration.property",
+      "stage": "subset",
+      "mutation": "property",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_DECLARATION"
+      }
+    },
+    {
+      "id": "declaration.constructor",
+      "stage": "subset",
+      "mutation": "static constructor",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_INITIALIZATION"
+      }
+    },
+    {
+      "id": "declaration.attribute",
+      "stage": "subset",
+      "mutation": "attribute",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_DECLARATION"
+      }
+    },
+    {
+      "id": "method.generic",
+      "stage": "subset",
+      "mutation": "generic method",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_DECLARATION"
+      }
+    },
+    {
+      "id": "method.async",
+      "stage": "subset",
+      "mutation": "async method",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_ABRUPT"
+      }
+    },
+    {
+      "id": "method.iterator",
+      "stage": "subset",
+      "mutation": "iterator method",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_ABRUPT"
+      }
+    },
+    {
+      "id": "method.recursion",
+      "stage": "subset",
+      "mutation": "recursive call closure",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_CALL"
+      }
+    },
+    {
+      "id": "method.overload_ambiguity",
+      "stage": "subset",
+      "mutation": "selection does not resolve exactly once",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_CALL"
+      }
+    },
+    {
+      "id": "method.outside_closure",
+      "stage": "subset",
+      "mutation": "selected source declares an ordinary method unreachable from every selected root",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_CALL"
+      }
+    },
+    {
+      "id": "type.small_integer",
+      "stage": "typecheck",
+      "mutation": "byte, sbyte, short, ushort, or char",
+      "expect": {
+        "status": "rejected",
+        "phase": "typecheck",
+        "code": "CSHARP_SUBSET_TYPE"
+      }
+    },
+    {
+      "id": "type.native_integer",
+      "stage": "typecheck",
+      "mutation": "nint or nuint",
+      "expect": {
+        "status": "rejected",
+        "phase": "typecheck",
+        "code": "CSHARP_SUBSET_TYPE"
+      }
+    },
+    {
+      "id": "type.float",
+      "stage": "typecheck",
+      "mutation": "float or double",
+      "expect": {
+        "status": "rejected",
+        "phase": "typecheck",
+        "code": "CSHARP_SUBSET_TYPE"
+      }
+    },
+    {
+      "id": "type.decimal",
+      "stage": "typecheck",
+      "mutation": "decimal",
+      "expect": {
+        "status": "rejected",
+        "phase": "typecheck",
+        "code": "CSHARP_SUBSET_TYPE"
+      }
+    },
+    {
+      "id": "type.reference",
+      "stage": "typecheck",
+      "mutation": "string, object, array, nullable, or user value",
+      "expect": {
+        "status": "rejected",
+        "phase": "typecheck",
+        "code": "CSHARP_SUBSET_TYPE"
+      }
+    },
+    {
+      "id": "type.framework_alias",
+      "stage": "typecheck",
+      "mutation": "System.Int32, global::System.Int32, or another non-keyword spelling of an admitted type",
+      "expect": {
+        "status": "rejected",
+        "phase": "typecheck",
+        "code": "CSHARP_SUBSET_TYPE"
+      }
+    },
+    {
+      "id": "literal.lowercase_suffix",
+      "stage": "typecheck",
+      "mutation": "lowercase or reordered integer suffix",
+      "expect": {
+        "status": "rejected",
+        "phase": "typecheck",
+        "code": "CSHARP_SUBSET_LITERAL"
+      }
+    },
+    {
+      "id": "literal.non_decimal",
+      "stage": "typecheck",
+      "mutation": "hexadecimal or binary literal",
+      "expect": {
+        "status": "rejected",
+        "phase": "typecheck",
+        "code": "CSHARP_SUBSET_LITERAL"
+      }
+    },
+    {
+      "id": "literal.separator",
+      "stage": "typecheck",
+      "mutation": "integer separator",
+      "expect": {
+        "status": "rejected",
+        "phase": "typecheck",
+        "code": "CSHARP_SUBSET_LITERAL"
+      }
+    },
+    {
+      "id": "literal.composite_constant",
+      "stage": "typecheck",
+      "mutation": "compiler-folded arithmetic constant",
+      "expect": {
+        "status": "rejected",
+        "phase": "typecheck",
+        "code": "CSHARP_SUBSET_LITERAL"
+      }
+    },
+    {
+      "id": "control.loop",
+      "stage": "subset",
+      "mutation": "for, foreach, while, or do",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_CONTROL_FLOW"
+      }
+    },
+    {
+      "id": "control.switch",
+      "stage": "subset",
+      "mutation": "switch or pattern flow",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_CONTROL_FLOW"
+      }
+    },
+    {
+      "id": "control.goto",
+      "stage": "subset",
+      "mutation": "goto or label",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_CONTROL_FLOW"
+      }
+    },
+    {
+      "id": "control.shadow",
+      "stage": "subset",
+      "mutation": "local shadowing",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_CONTROL_FLOW"
+      }
+    },
+    {
+      "id": "control.var",
+      "stage": "subset",
+      "mutation": "var local",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_CONTROL_FLOW"
+      }
+    },
+    {
+      "id": "control.parameter_assignment",
+      "stage": "subset",
+      "mutation": "assignment to parameter",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_CONTROL_FLOW"
+      }
+    },
+    {
+      "id": "operation.default_overflow_context",
+      "stage": "subset",
+      "mutation": "+ - * signed negate div or rem in default context",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_OVERFLOW_CONTEXT"
+      }
+    },
+    {
+      "id": "operation.mixed_numeric",
+      "stage": "subset",
+      "mutation": "implicit binary numeric promotion",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_OPERATION"
+      }
+    },
+    {
+      "id": "operation.boolean_bitwise",
+      "stage": "subset",
+      "mutation": "Boolean &, |, or ^",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_OPERATION"
+      }
+    },
+    {
+      "id": "operation.unsigned_shift_right",
+      "stage": "subset",
+      "mutation": ">>> operator",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_OPERATION"
+      }
+    },
+    {
+      "id": "operation.compound",
+      "stage": "subset",
+      "mutation": "compound or increment assignment",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_OPERATION"
+      }
+    },
+    {
+      "id": "conversion.checked",
+      "stage": "subset",
+      "mutation": "nonidentity checked conversion",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_CHECKED_CONVERSION"
+      }
+    },
+    {
+      "id": "conversion.default_context",
+      "stage": "subset",
+      "mutation": "nonidentity explicit conversion in default context",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_CONVERSION"
+      }
+    },
+    {
+      "id": "conversion.boxing",
+      "stage": "subset",
+      "mutation": "boxing, unboxing, nullable, dynamic, or user conversion",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_CONVERSION"
+      }
+    },
+    {
+      "id": "call.metadata",
+      "stage": "subset",
+      "mutation": "metadata or framework method call",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_CALL"
+      }
+    },
+    {
+      "id": "call.named_argument",
+      "stage": "subset",
+      "mutation": "named, optional, default, or params argument",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_CALL"
+      }
+    },
+    {
+      "id": "call.virtual",
+      "stage": "subset",
+      "mutation": "virtual, interface, delegate, extension, or dynamic call",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_CALL"
+      }
+    },
+    {
+      "id": "purity.field_read",
+      "stage": "subset",
+      "mutation": "field or property read",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_PURITY"
+      }
+    },
+    {
+      "id": "purity.allocation",
+      "stage": "subset",
+      "mutation": "object or collection allocation",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_PURITY"
+      }
+    },
+    {
+      "id": "purity.io",
+      "stage": "subset",
+      "mutation": "I/O, environment, clock, random, reflection, or interop",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_PURITY"
+      }
+    },
+    {
+      "id": "abrupt.throw",
+      "stage": "subset",
+      "mutation": "throw or throw expression",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_ABRUPT"
+      }
+    },
+    {
+      "id": "abrupt.try",
+      "stage": "subset",
+      "mutation": "try, catch, finally, or filter",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_ABRUPT"
+      }
+    },
+    {
+      "id": "abrupt.lock",
+      "stage": "subset",
+      "mutation": "lock, using, fixed, or unsafe flow",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_SUBSET_ABRUPT"
+      }
+    },
+    {
+      "id": "contract.missing",
+      "stage": "subset",
+      "mutation": "closure method has no selected sidecar",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_CONTRACT_MISSING"
+      }
+    },
+    {
+      "id": "contract.invalid_json",
+      "stage": "subset",
+      "mutation": "sidecar is not strict JSON",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_CONTRACT_JSON"
+      }
+    },
+    {
+      "id": "contract.duplicate",
+      "stage": "subset",
+      "mutation": "two sidecars bind one method",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_CONTRACT_DUPLICATE"
+      }
+    },
+    {
+      "id": "contract.unknown_field",
+      "stage": "subset",
+      "mutation": "unknown sidecar member",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_CONTRACT_SHAPE"
+      }
+    },
+    {
+      "id": "contract.wrong_identity",
+      "stage": "subset",
+      "mutation": "wrong profile or method ID",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_CONTRACT_IDENTITY"
+      }
+    },
+    {
+      "id": "contract.unused",
+      "stage": "subset",
+      "mutation": "selected sidecar names no closure method",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_CONTRACT_UNUSED"
+      }
+    },
+    {
+      "id": "contract.bad_typed_integer",
+      "stage": "subset",
+      "mutation": "noncanonical, out-of-range, negative-unsigned, or ill-typed contract integer",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_CONTRACT_TYPE"
+      }
+    },
+    {
+      "id": "contract.bad_operator",
+      "stage": "subset",
+      "mutation": "division, conversion, or arbitrary contract expression",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_CONTRACT_OPERATOR"
+      }
+    },
+    {
+      "id": "contract.hash",
+      "stage": "subset",
+      "mutation": "normalized contract hash differs from exact recomputation",
+      "expect": {
+        "status": "rejected",
+        "phase": "subset",
+        "code": "CSHARP_CONTRACT_HASH"
+      }
+    },
+    {
+      "id": "lowering.unknown_operation",
+      "stage": "lowering",
+      "mutation": "unknown IOperation kind or child order",
+      "expect": {
+        "status": "rejected",
+        "phase": "lowering",
+        "code": "CSHARP_LOWERING_OPERATION"
+      }
+    },
+    {
+      "id": "lowering.invalid_operation",
+      "stage": "lowering",
+      "mutation": "IsInvalid or error/dynamic type",
+      "expect": {
+        "status": "rejected",
+        "phase": "lowering",
+        "code": "CSHARP_LOWERING_OPERATION"
+      }
+    },
+    {
+      "id": "lowering.cfg_exception_region",
+      "stage": "lowering",
+      "mutation": "exception, finally, or filter CFG region",
+      "expect": {
+        "status": "rejected",
+        "phase": "lowering",
+        "code": "CSHARP_LOWERING_CFG"
+      }
+    },
+    {
+      "id": "lowering.missing_check",
+      "stage": "lowering",
+      "mutation": "required check absent",
+      "expect": {
+        "status": "rejected",
+        "phase": "lowering",
+        "code": "CSHARP_LOWERING_CHECK_MISSING"
+      }
+    },
+    {
+      "id": "lowering.extra_check",
+      "stage": "lowering",
+      "mutation": "unrequired check present",
+      "expect": {
+        "status": "rejected",
+        "phase": "lowering",
+        "code": "CSHARP_LOWERING_CHECK_EXTRA"
+      }
+    },
+    {
+      "id": "lowering.reordered_check",
+      "stage": "lowering",
+      "mutation": "required checks reordered",
+      "expect": {
+        "status": "rejected",
+        "phase": "lowering",
+        "code": "CSHARP_LOWERING_CHECK_ORDER"
+      }
+    },
+    {
+      "id": "source_map.external",
+      "stage": "emission",
+      "mutation": "span belongs to external syntax tree",
+      "expect": {
+        "status": "frontend-error",
+        "phase": "emission",
+        "code": "CSHARP_SOURCE_MAP_EXTERNAL"
+      }
+    },
+    {
+      "id": "source_map.range",
+      "stage": "emission",
+      "mutation": "span outside captured source",
+      "expect": {
+        "status": "frontend-error",
+        "phase": "emission",
+        "code": "CSHARP_SOURCE_MAP_RANGE"
+      }
+    },
+    {
+      "id": "source_map.surrogate_split",
+      "stage": "emission",
+      "mutation": "span boundary splits surrogate pair",
+      "expect": {
+        "status": "frontend-error",
+        "phase": "emission",
+        "code": "CSHARP_SOURCE_MAP_UTF16"
+      }
+    },
+    {
+      "id": "toolchain.archive",
+      "stage": "release",
+      "mutation": "archive bytes differ",
+      "expect": {
+        "status": "frontend-error",
+        "phase": "release",
+        "code": "CSHARP_TOOLCHAIN_ARCHIVE"
+      }
+    },
+    {
+      "id": "toolchain.runtime",
+      "stage": "release",
+      "mutation": "runtime host, framework inventory, or roll-forward contract differs",
+      "expect": {
+        "status": "frontend-error",
+        "phase": "release",
+        "code": "CSHARP_TOOLCHAIN_RUNTIME"
+      }
+    },
+    {
+      "id": "toolchain.roslyn",
+      "stage": "release",
+      "mutation": "Roslyn package version, source commit marker, or assembly bytes differ",
+      "expect": {
+        "status": "frontend-error",
+        "phase": "release",
+        "code": "CSHARP_TOOLCHAIN_ROSLYN"
+      }
+    },
+    {
+      "id": "toolchain.reference",
+      "stage": "release",
+      "mutation": "reference inventory differs",
+      "expect": {
+        "status": "frontend-error",
+        "phase": "release",
+        "code": "CSHARP_TOOLCHAIN_REFERENCE"
+      }
+    },
+    {
+      "id": "toolchain.parse_options",
+      "stage": "source",
+      "mutation": "parse-option getter differs before ParseText",
+      "expect": {
+        "status": "frontend-error",
+        "phase": "source",
+        "code": "CSHARP_TOOLCHAIN_OPTIONS"
+      }
+    },
+    {
+      "id": "toolchain.options",
+      "stage": "metadata",
+      "mutation": "parse or compilation option differs",
+      "expect": {
+        "status": "frontend-error",
+        "phase": "metadata",
+        "code": "CSHARP_TOOLCHAIN_OPTIONS"
+      }
+    },
+    {
+      "id": "toolchain.adapter",
+      "stage": "lowering",
+      "mutation": "public operation or CFG pattern differs",
+      "expect": {
+        "status": "frontend-error",
+        "phase": "lowering",
+        "code": "CSHARP_TOOLCHAIN_ADAPTER"
+      }
+    },
+    {
+      "id": "toolchain.line_position_adapter",
+      "stage": "emission",
+      "mutation": "Roslyn line position disagrees with the captured UTF-16 coordinate",
+      "expect": {
+        "status": "frontend-error",
+        "phase": "emission",
+        "code": "CSHARP_TOOLCHAIN_ADAPTER"
+      }
+    },
+    {
+      "id": "frontend.output_limit",
+      "stage": "emission",
+      "mutation": "bounded frontend protocol output exceeds its owner limit",
+      "expect": {
+        "status": "frontend-error",
+        "phase": "emission",
+        "code": "CSHARP_FRONTEND_OUTPUT_LIMIT"
+      }
+    },
+    {
+      "id": "frontend.diagnostic_budget",
+      "stage": "metadata",
+      "mutation": "normalized compiler diagnostics exceed their byte budget",
+      "expect": {
+        "status": "frontend-error",
+        "phase": "metadata",
+        "code": "CSHARP_FRONTEND_DIAGNOSTIC_BUDGET"
+      }
+    },
+    {
+      "id": "frontend.internal",
+      "stage": "lowering",
+      "mutation": "bounded internal failure after lowering starts",
+      "expect": {
+        "status": "frontend-error",
+        "phase": "lowering",
+        "code": "CSHARP_FRONTEND_INTERNAL"
+      }
+    }
+  ],
+  "precedence_cases": [
+    {
+      "id": "precedence.capture_before_source",
+      "coexisting": [
+        "CSHARP_CAPTURE_PATH",
+        "CSHARP_SOURCE_PARSE"
+      ],
+      "winner": "CSHARP_CAPTURE_PATH"
+    },
+    {
+      "id": "precedence.encoding_before_parse",
+      "coexisting": [
+        "CSHARP_SOURCE_ENCODING",
+        "CSHARP_SOURCE_PARSE"
+      ],
+      "winner": "CSHARP_SOURCE_ENCODING"
+    },
+    {
+      "id": "precedence.encoding_before_parse_options",
+      "coexisting": [
+        "CSHARP_SOURCE_ENCODING",
+        "CSHARP_TOOLCHAIN_OPTIONS"
+      ],
+      "winner": "CSHARP_SOURCE_ENCODING"
+    },
+    {
+      "id": "precedence.release_before_parse",
+      "coexisting": [
+        "CSHARP_SOURCE_PARSE",
+        "CSHARP_TOOLCHAIN_REFERENCE"
+      ],
+      "winner": "CSHARP_TOOLCHAIN_REFERENCE"
+    },
+    {
+      "id": "precedence.toolchain_before_typecheck",
+      "coexisting": [
+        "CSHARP_TOOLCHAIN_OPTIONS",
+        "CSHARP_SUBSET_TYPE"
+      ],
+      "winner": "CSHARP_TOOLCHAIN_OPTIONS"
+    },
+    {
+      "id": "precedence.compilation_options_before_diagnostic",
+      "coexisting": [
+        "CSHARP_TOOLCHAIN_OPTIONS",
+        "CSHARP_SOURCE_DIAGNOSTIC"
+      ],
+      "winner": "CSHARP_TOOLCHAIN_OPTIONS"
+    },
+    {
+      "id": "precedence.type_before_subset",
+      "coexisting": [
+        "CSHARP_SUBSET_TYPE",
+        "CSHARP_SUBSET_CONTROL_FLOW"
+      ],
+      "winner": "CSHARP_SUBSET_TYPE"
+    },
+    {
+      "id": "precedence.declaration_before_contract",
+      "coexisting": [
+        "CSHARP_SUBSET_DECLARATION",
+        "CSHARP_CONTRACT_MISSING"
+      ],
+      "winner": "CSHARP_SUBSET_DECLARATION"
+    },
+    {
+      "id": "precedence.contract_before_lowering",
+      "coexisting": [
+        "CSHARP_CONTRACT_HASH",
+        "CSHARP_LOWERING_CFG"
+      ],
+      "winner": "CSHARP_CONTRACT_HASH"
+    },
+    {
+      "id": "precedence.operation_before_check",
+      "coexisting": [
+        "CSHARP_LOWERING_OPERATION",
+        "CSHARP_LOWERING_CHECK_MISSING"
+      ],
+      "winner": "CSHARP_LOWERING_OPERATION"
+    },
+    {
+      "id": "precedence.lowering_before_emission",
+      "coexisting": [
+        "CSHARP_LOWERING_CFG",
+        "CSHARP_SOURCE_MAP_RANGE"
+      ],
+      "winner": "CSHARP_LOWERING_CFG"
+    },
+    {
+      "id": "precedence.map_before_output",
+      "coexisting": [
+        "CSHARP_SOURCE_MAP_UTF16",
+        "CSHARP_FRONTEND_OUTPUT_LIMIT"
+      ],
+      "winner": "CSHARP_SOURCE_MAP_UTF16"
+    }
+  ],
+  "diagnostic_registry": [
+    {
+      "code": "CSHARP_CAPTURE_FILE_TYPE",
+      "status": "rejected",
+      "phase": "capture"
+    },
+    {
+      "code": "CSHARP_CAPTURE_PATH",
+      "status": "rejected",
+      "phase": "capture"
+    },
+    {
+      "code": "CSHARP_CAPTURE_INVENTORY",
+      "status": "rejected",
+      "phase": "capture"
+    },
+    {
+      "code": "CSHARP_SOURCE_ENCODING",
+      "status": "source-error",
+      "phase": "source"
+    },
+    {
+      "code": "CSHARP_SOURCE_PARSE",
+      "status": "source-error",
+      "phase": "source"
+    },
+    {
+      "code": "CSHARP_SOURCE_DIAGNOSTIC",
+      "status": "source-error",
+      "phase": "metadata"
+    },
+    {
+      "code": "CSHARP_TOOLCHAIN_ARCHIVE",
+      "status": "frontend-error",
+      "phase": "release"
+    },
+    {
+      "code": "CSHARP_TOOLCHAIN_RUNTIME",
+      "status": "frontend-error",
+      "phase": "release"
+    },
+    {
+      "code": "CSHARP_TOOLCHAIN_ROSLYN",
+      "status": "frontend-error",
+      "phase": "release"
+    },
+    {
+      "code": "CSHARP_TOOLCHAIN_REFERENCE",
+      "status": "frontend-error",
+      "phase": "release"
+    },
+    {
+      "code": "CSHARP_TOOLCHAIN_OPTIONS",
+      "status": "frontend-error",
+      "phase": "owner-phase"
+    },
+    {
+      "code": "CSHARP_TOOLCHAIN_ADAPTER",
+      "status": "frontend-error",
+      "phase": "owner-phase"
+    },
+    {
+      "code": "CSHARP_SUBSET_DECLARATION",
+      "status": "rejected",
+      "phase": "subset"
+    },
+    {
+      "code": "CSHARP_SUBSET_TYPE",
+      "status": "rejected",
+      "phase": "typecheck"
+    },
+    {
+      "code": "CSHARP_SUBSET_LITERAL",
+      "status": "rejected",
+      "phase": "typecheck"
+    },
+    {
+      "code": "CSHARP_SUBSET_CONTROL_FLOW",
+      "status": "rejected",
+      "phase": "subset"
+    },
+    {
+      "code": "CSHARP_SUBSET_OPERATION",
+      "status": "rejected",
+      "phase": "subset"
+    },
+    {
+      "code": "CSHARP_SUBSET_OVERFLOW_CONTEXT",
+      "status": "rejected",
+      "phase": "subset"
+    },
+    {
+      "code": "CSHARP_SUBSET_CHECKED_CONVERSION",
+      "status": "rejected",
+      "phase": "subset"
+    },
+    {
+      "code": "CSHARP_SUBSET_CONVERSION",
+      "status": "rejected",
+      "phase": "subset"
+    },
+    {
+      "code": "CSHARP_SUBSET_CALL",
+      "status": "rejected",
+      "phase": "subset"
+    },
+    {
+      "code": "CSHARP_SUBSET_INITIALIZATION",
+      "status": "rejected",
+      "phase": "subset"
+    },
+    {
+      "code": "CSHARP_SUBSET_PURITY",
+      "status": "rejected",
+      "phase": "subset"
+    },
+    {
+      "code": "CSHARP_SUBSET_ABRUPT",
+      "status": "rejected",
+      "phase": "subset"
+    },
+    {
+      "code": "CSHARP_CONTRACT_JSON",
+      "status": "rejected",
+      "phase": "subset"
+    },
+    {
+      "code": "CSHARP_CONTRACT_SHAPE",
+      "status": "rejected",
+      "phase": "subset"
+    },
+    {
+      "code": "CSHARP_CONTRACT_IDENTITY",
+      "status": "rejected",
+      "phase": "subset"
+    },
+    {
+      "code": "CSHARP_CONTRACT_DUPLICATE",
+      "status": "rejected",
+      "phase": "subset"
+    },
+    {
+      "code": "CSHARP_CONTRACT_MISSING",
+      "status": "rejected",
+      "phase": "subset"
+    },
+    {
+      "code": "CSHARP_CONTRACT_UNUSED",
+      "status": "rejected",
+      "phase": "subset"
+    },
+    {
+      "code": "CSHARP_CONTRACT_TYPE",
+      "status": "rejected",
+      "phase": "subset"
+    },
+    {
+      "code": "CSHARP_CONTRACT_OPERATOR",
+      "status": "rejected",
+      "phase": "subset"
+    },
+    {
+      "code": "CSHARP_CONTRACT_HASH",
+      "status": "rejected",
+      "phase": "subset"
+    },
+    {
+      "code": "CSHARP_LOWERING_OPERATION",
+      "status": "rejected",
+      "phase": "lowering"
+    },
+    {
+      "code": "CSHARP_LOWERING_CFG",
+      "status": "rejected",
+      "phase": "lowering"
+    },
+    {
+      "code": "CSHARP_LOWERING_CHECK_MISSING",
+      "status": "rejected",
+      "phase": "lowering"
+    },
+    {
+      "code": "CSHARP_LOWERING_CHECK_EXTRA",
+      "status": "rejected",
+      "phase": "lowering"
+    },
+    {
+      "code": "CSHARP_LOWERING_CHECK_ORDER",
+      "status": "rejected",
+      "phase": "lowering"
+    },
+    {
+      "code": "CSHARP_SOURCE_MAP_EXTERNAL",
+      "status": "frontend-error",
+      "phase": "emission"
+    },
+    {
+      "code": "CSHARP_SOURCE_MAP_RANGE",
+      "status": "frontend-error",
+      "phase": "emission"
+    },
+    {
+      "code": "CSHARP_SOURCE_MAP_UTF16",
+      "status": "frontend-error",
+      "phase": "emission"
+    },
+    {
+      "code": "CSHARP_FRONTEND_OUTPUT_LIMIT",
+      "status": "frontend-error",
+      "phase": "owner-phase"
+    },
+    {
+      "code": "CSHARP_FRONTEND_DIAGNOSTIC_BUDGET",
+      "status": "frontend-error",
+      "phase": "owner-phase"
+    },
+    {
+      "code": "CSHARP_FRONTEND_INTERNAL",
+      "status": "frontend-error",
+      "phase": "owner-phase"
+    }
+  ],
+  "diagnostic_normalization": {
+    "public_code": "CSHARP_SOURCE_DIAGNOSTIC",
+    "public_message_template": "C# compiler diagnostic CSNNNN",
+    "roslyn_id_pattern": "CS[0-9]{4}",
+    "status_messages": {
+      "source-error": "C# source is invalid",
+      "rejected": "C# source is outside the frozen profile",
+      "frontend-error": "C# frontend failed closed"
+    },
+    "limit_message": "C# profile limit exceeded",
+    "roslyn_sort": [
+      "normalized_path",
+      "utf8_start",
+      "utf8_end",
+      "roslyn_id",
+      "severity",
+      "message_bytes"
+    ],
+    "roslyn_severity_order": [
+      "Hidden",
+      "Info",
+      "Warning",
+      "Error"
+    ],
+    "absent_roslyn_location_sort_key": {
+      "normalized_path": "",
+      "utf8_start": 0,
+      "utf8_end": 0
+    },
+    "public_span_policy": {
+      "captured_nonempty_mappable": "emit_exact_utf8_span",
+      "zero_length_absent_external_or_unmappable": "omit_span"
+    },
+    "public_issue_sort": [
+      "span.normalized_path_or_empty",
+      "span.start_or_zero",
+      "code",
+      "message",
+      "function_id_or_empty",
+      "span.end_or_zero"
+    ],
+    "omitted": [
+      "source_prose",
+      "snippet",
+      "absolute_path",
+      "arguments",
+      "environment",
+      "stack_trace",
+      "host_suggestion"
+    ]
+  },
+  "limit_cases": [
+    {
+      "id": "source_files",
+      "maximum": 256,
+      "scope": "snapshot",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "reject_before_retaining_excess",
+      "code": "CSHARP_LIMIT_SOURCE_FILES"
+    },
+    {
+      "id": "source_file_bytes",
+      "maximum": 1048576,
+      "scope": "file",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "reject_before_retaining_excess",
+      "code": "CSHARP_LIMIT_SOURCE_FILE_BYTES"
+    },
+    {
+      "id": "source_total_bytes",
+      "maximum": 16777216,
+      "scope": "snapshot",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "reject_before_retaining_excess",
+      "code": "CSHARP_LIMIT_SOURCE_TOTAL_BYTES"
+    },
+    {
+      "id": "contract_files",
+      "maximum": 128,
+      "scope": "snapshot",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "reject_before_retaining_excess",
+      "code": "CSHARP_LIMIT_CONTRACT_FILES"
+    },
+    {
+      "id": "contract_file_bytes",
+      "maximum": 1048576,
+      "scope": "file",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "reject_before_retaining_excess",
+      "code": "CSHARP_LIMIT_CONTRACT_FILE_BYTES"
+    },
+    {
+      "id": "contract_total_bytes",
+      "maximum": 8388608,
+      "scope": "snapshot",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "reject_before_retaining_excess",
+      "code": "CSHARP_LIMIT_CONTRACT_TOTAL_BYTES"
+    },
+    {
+      "id": "snapshot_entries",
+      "maximum": 512,
+      "scope": "snapshot",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "reject_before_retaining_excess",
+      "code": "CSHARP_LIMIT_SNAPSHOT_ENTRIES"
+    },
+    {
+      "id": "snapshot_total_bytes",
+      "maximum": 33554432,
+      "scope": "snapshot",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "reject_before_retaining_excess",
+      "code": "CSHARP_LIMIT_SNAPSHOT_TOTAL_BYTES"
+    },
+    {
+      "id": "normalized_path_bytes",
+      "maximum": 1024,
+      "scope": "path",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "reject_before_retaining_excess",
+      "code": "CSHARP_LIMIT_NORMALIZED_PATH_BYTES"
+    },
+    {
+      "id": "canonical_method_id_bytes",
+      "maximum": 1024,
+      "scope": "method_id",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "reject_before_retaining_excess",
+      "code": "CSHARP_LIMIT_CANONICAL_METHOD_ID_BYTES"
+    },
+    {
+      "id": "selected_methods",
+      "maximum": 32,
+      "scope": "selection",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "reject_before_retaining_excess",
+      "code": "CSHARP_LIMIT_SELECTED_METHODS"
+    },
+    {
+      "id": "method_closure",
+      "maximum": 128,
+      "scope": "closure",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "reject_before_retaining_excess",
+      "code": "CSHARP_LIMIT_METHOD_CLOSURE"
+    },
+    {
+      "id": "syntax_nodes",
+      "maximum": 250000,
+      "scope": "compilation",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "reject_before_retaining_excess",
+      "code": "CSHARP_LIMIT_SYNTAX_NODES"
+    },
+    {
+      "id": "operations_per_method",
+      "maximum": 100000,
+      "scope": "method",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "reject_before_retaining_excess",
+      "code": "CSHARP_LIMIT_OPERATIONS_PER_METHOD"
+    },
+    {
+      "id": "operations_per_closure",
+      "maximum": 250000,
+      "scope": "closure",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "reject_before_retaining_excess",
+      "code": "CSHARP_LIMIT_OPERATIONS_PER_CLOSURE"
+    },
+    {
+      "id": "cfg_blocks_per_method",
+      "maximum": 1024,
+      "scope": "method",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "reject_before_retaining_excess",
+      "code": "CSHARP_LIMIT_CFG_BLOCKS_PER_METHOD"
+    },
+    {
+      "id": "cfg_blocks_per_closure",
+      "maximum": 8192,
+      "scope": "closure",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "reject_before_retaining_excess",
+      "code": "CSHARP_LIMIT_CFG_BLOCKS_PER_CLOSURE"
+    },
+    {
+      "id": "contract_clauses",
+      "maximum": 64,
+      "scope": "method",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "reject_before_retaining_excess",
+      "code": "CSHARP_LIMIT_CONTRACT_CLAUSES"
+    },
+    {
+      "id": "contract_nodes_per_method",
+      "maximum": 1024,
+      "scope": "method",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "reject_before_retaining_excess",
+      "code": "CSHARP_LIMIT_CONTRACT_NODES_PER_METHOD"
+    },
+    {
+      "id": "contract_nodes_per_closure",
+      "maximum": 8192,
+      "scope": "closure",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "reject_before_retaining_excess",
+      "code": "CSHARP_LIMIT_CONTRACT_NODES_PER_CLOSURE"
+    },
+    {
+      "id": "contract_depth",
+      "maximum": 32,
+      "scope": "expression",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "reject_before_retaining_excess",
+      "code": "CSHARP_LIMIT_CONTRACT_DEPTH"
+    },
+    {
+      "id": "normalized_issues",
+      "maximum": 1024,
+      "scope": "response",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "frontend_error_before_retaining_excess",
+      "code": "CSHARP_FRONTEND_DIAGNOSTIC_BUDGET"
+    },
+    {
+      "id": "diagnostic_message_bytes_each",
+      "maximum": 4096,
+      "scope": "diagnostic",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "frontend_error_before_retaining_excess",
+      "code": "CSHARP_FRONTEND_DIAGNOSTIC_BUDGET"
+    },
+    {
+      "id": "diagnostic_message_bytes_total",
+      "maximum": 2097152,
+      "scope": "response",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "frontend_error_before_retaining_excess",
+      "code": "CSHARP_FRONTEND_DIAGNOSTIC_BUDGET"
+    },
+    {
+      "id": "frontend_argument_bytes",
+      "maximum": 131072,
+      "scope": "argv_including_nul",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "reject_before_retaining_excess",
+      "code": "CSHARP_LIMIT_FRONTEND_ARGUMENT_BYTES"
+    },
+    {
+      "id": "private_runtime_stdout",
+      "maximum": 268435456,
+      "scope": "process",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "frontend_error_before_retaining_excess",
+      "code": "CSHARP_FRONTEND_OUTPUT_LIMIT"
+    },
+    {
+      "id": "private_runtime_stderr",
+      "maximum": 2097152,
+      "scope": "process",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "frontend_error_before_retaining_excess",
+      "code": "CSHARP_FRONTEND_OUTPUT_LIMIT"
+    },
+    {
+      "id": "vir_canonical_bytes",
+      "maximum": 201326592,
+      "scope": "artifact",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "reject_before_retaining_excess",
+      "code": "CSHARP_LIMIT_VIR_CANONICAL_BYTES"
+    },
+    {
+      "id": "source_map_canonical_bytes",
+      "maximum": 33554432,
+      "scope": "artifact",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "reject_before_retaining_excess",
+      "code": "CSHARP_LIMIT_SOURCE_MAP_CANONICAL_BYTES"
+    },
+    {
+      "id": "source_manifest_canonical_bytes",
+      "maximum": 4194304,
+      "scope": "artifact",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "reject_before_retaining_excess",
+      "code": "CSHARP_LIMIT_SOURCE_MANIFEST_CANONICAL_BYTES"
+    },
+    {
+      "id": "frontend_stdout",
+      "maximum": 268435456,
+      "scope": "process_including_lf",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "frontend_error_before_retaining_excess",
+      "code": "CSHARP_FRONTEND_OUTPUT_LIMIT"
+    },
+    {
+      "id": "frontend_stderr",
+      "maximum": 2097152,
+      "scope": "process",
+      "exact_boundary": "accept",
+      "boundary_plus_one": "frontend_error_before_retaining_excess",
+      "code": "CSHARP_FRONTEND_OUTPUT_LIMIT"
+    }
+  ],
+  "hash_cases": [
+    {
+      "id": "hash.reference_inventory",
+      "source_pointer": "/toolchain_inputs/reference_projection/inventory",
+      "domain": "MPK-CSHARP-REFERENCE-INVENTORY-0.1",
+      "excluded_field": null,
+      "expected_payload_utf8_length": 24670,
+      "expected_preimage_length": 24705,
+      "expected_sha256": "30623f64b7d85564260e62464e652bfaa89eb56e0e55193989bfb99538ba6cad"
+    },
+    {
+      "id": "hash.toolchain_inputs",
+      "source_pointer": "/toolchain_inputs",
+      "domain": "MPK-CSHARP-TOOLCHAIN-INPUTS-0.1",
+      "excluded_field": "toolchain_inputs_sha256",
+      "expected_payload_utf8_length": 29335,
+      "expected_preimage_length": 29367,
+      "expected_sha256": "d4af1170b2813a5581bb0f60b65fd4e7509576093045557b88689bf7e0876b4f"
+    },
+    {
+      "id": "hash.selection",
+      "source_pointer": "/selection_fixture",
+      "domain": "MPK-CSHARP-SELECTION-0.1",
+      "excluded_field": null,
+      "expected_payload_utf8_length": 215,
+      "expected_preimage_length": 240,
+      "expected_sha256": "d5033138bd8c53eee3901d0d1852ed4c1b1a85686cf2a68f01effb0b8c70dfcd"
+    },
+    {
+      "id": "hash.contract_sidecar",
+      "source_pointer": "/contract_fixture",
+      "domain": "MPK-CSHARP-CONTRACT-SIDECAR-0.1",
+      "excluded_field": null,
+      "expected_payload_utf8_length": 440,
+      "expected_preimage_length": 472,
+      "expected_sha256": "6684361a15dc454a8172d7e515dd6a3a49ec1ff8faae00bc12d958eae8982228"
+    },
+    {
+      "id": "hash.normalized_contract",
+      "source_pointer": "/normalized_contract_fixture",
+      "domain": "MPK-CONTRACT-1.0",
+      "excluded_field": "contract_hash",
+      "expected_payload_utf8_length": 1151,
+      "expected_preimage_length": 1168,
+      "expected_sha256": "4130c5289e3590c43ac91bb15d71344172018aa6e0b2dd4e45725de71aabec9e"
+    }
+  ],
+  "isolation_cases": [
+    {
+      "id": "isolation.no_network",
+      "mutation": "enable or require network",
+      "expect": "reject_or_unavailable"
+    },
+    {
+      "id": "isolation.no_restore",
+      "mutation": "invoke dotnet restore or NuGet client",
+      "expect": "reject_or_unavailable"
+    },
+    {
+      "id": "isolation.no_msbuild",
+      "mutation": "open project, solution, or MSBuild workspace",
+      "expect": "reject"
+    },
+    {
+      "id": "isolation.no_analyzers",
+      "mutation": "load analyzer assembly or execute analyzer",
+      "expect": "reject"
+    },
+    {
+      "id": "isolation.no_generators",
+      "mutation": "load or run source generator",
+      "expect": "reject"
+    },
+    {
+      "id": "isolation.no_compiler_server",
+      "mutation": "use compiler server or subordinate csc",
+      "expect": "reject"
+    },
+    {
+      "id": "isolation.no_ambient_references",
+      "mutation": "use TPA, GAC, runtime implementation, or host reference",
+      "expect": "reject"
+    },
+    {
+      "id": "isolation.no_roll_forward",
+      "mutation": "runtime 10.0.11 absent but another runtime exists",
+      "expect": "reject"
+    },
+    {
+      "id": "isolation.no_environment_inheritance",
+      "mutation": "add undeclared environment variable",
+      "expect": "reject"
+    },
+    {
+      "id": "isolation.no_dynamic_native_search",
+      "mutation": "probe native library outside the .NET archive root and selected native runtime layout",
+      "expect": "reject"
+    },
+    {
+      "id": "isolation.no_candidate_execution",
+      "mutation": "emit or execute candidate source",
+      "expect": "reject"
+    },
+    {
+      "id": "isolation.no_plugins",
+      "mutation": "payload names path, URI, callback, checker, code, or plugin",
+      "expect": "reject"
+    }
+  ],
+  "upgrade_cases": [
+    {
+      "id": "upgrade.sdk",
+      "changed": "SDK archive or version",
+      "requires_new_profile": true
+    },
+    {
+      "id": "upgrade.runtime",
+      "changed": "runtime archive, patch, or native host",
+      "requires_new_profile": true
+    },
+    {
+      "id": "upgrade.roslyn",
+      "changed": "Roslyn package, binary, source commit, or dependency graph",
+      "requires_new_profile": true
+    },
+    {
+      "id": "upgrade.references",
+      "changed": "reference package or any selected assembly",
+      "requires_new_profile": true
+    },
+    {
+      "id": "upgrade.language",
+      "changed": "language version or parse option",
+      "requires_new_profile": true
+    },
+    {
+      "id": "upgrade.compilation_option",
+      "changed": "compilation or diagnostic option",
+      "requires_new_profile": true
+    },
+    {
+      "id": "upgrade.api",
+      "changed": "public API or enum behavior",
+      "requires_new_profile": true
+    },
+    {
+      "id": "upgrade.operation",
+      "changed": "IOperation shape",
+      "requires_new_profile": true
+    },
+    {
+      "id": "upgrade.cfg",
+      "changed": "CFG region, branch, capture, or child pattern",
+      "requires_new_profile": true
+    },
+    {
+      "id": "upgrade.diagnostic",
+      "changed": "diagnostic ID, severity, span, or normalization",
+      "requires_new_profile": true
+    },
+    {
+      "id": "upgrade.host",
+      "changed": "OS, architecture, RID, or runtime configuration",
+      "requires_new_profile": true
+    },
+    {
+      "id": "upgrade.payload",
+      "changed": "compiled profile payload",
+      "requires_new_entry": true
+    }
+  ]
+}

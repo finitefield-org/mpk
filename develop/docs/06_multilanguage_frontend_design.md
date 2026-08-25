@@ -1,13 +1,13 @@
 # Post-Rust Multi-Language Frontend Expansion Design
 
-Status: Gate B and `MLANG-00` are complete after the completed `RUST-07-T05`
-entry gate. Gate C is active; `MLANG-01-T02` is complete and `MLANG-01-T03` is
-next. This document does not activate a new source language or amend an active
-serialized schema.
+Status: Gate B, `MLANG-00`, Gate C, and `MLANG-01` are complete after the
+completed `RUST-07-T05` entry gate. Gate D is next at `CSHARP-02`. This
+document does not activate a new source language or amend an active serialized
+schema.
 
 Prepared: 2026-08-21
 
-Updated: 2026-08-25 (`MLANG-01-T02` completion)
+Updated: 2026-08-25 (`MLANG-01-T03` completion)
 
 ## 1. Decision summary
 
@@ -432,16 +432,20 @@ VC, contract, source-map, manifest, runner, policy, and evidence abstractions
 are genuinely shared. `MLANG-01` then freezes the successor versioning
 strategy and C# specification package.
 
-Progress: `MLANG-01-T01` is complete with a closed implementation-backed gap
-ledger, and `MLANG-01-T02` is complete with the normative inactive successor
-registry design and vectors. `MLANG-01-T03` is next; no C# production work is
-active.
+Completion: `MLANG-01-T01` produced the closed implementation-backed gap
+ledger, `MLANG-01-T02` froze the normative inactive successor registry
+mechanism, and `MLANG-01-T03` froze the exact inactive C# profile, registry
+revision 2, toolchain/reference inventory, semantics, and owned vectors. No C#
+production work is active.
 
 ### Gate D: C# production work after `MLANG-01`
 
 Only after `MLANG-01` completes may C# production code and release bundles
 merge. The earlier `RUST-07-T05 -> MLANG-00 -> MLANG-01` dependencies are
 transitive and may not be bypassed.
+
+Entry status: open. `CSHARP-02` is next and has not begun; the frozen C# entry
+and revision-2 registry remain design inputs rather than installed identities.
 
 ### Gate E: serial language admission
 

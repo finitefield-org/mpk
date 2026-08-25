@@ -59,15 +59,16 @@ follow-on flow:
    at a time in that order.
 
 `MLANG-00-T01` through `MLANG-00-T03` and `MLANG-01-T01` through
-`MLANG-01-T02` are complete. The four non-normative semantic, feasibility, and
+`MLANG-01-T03` are complete. The four non-normative semantic, feasibility, and
 implementation-audit records are
 `docs/mlang-00-semantic-comparison-matrix.md`,
 `docs/mlang-00-compiler-integration-feasibility.md`,
 `docs/mlang-00-go-rust-shared-boundary-audit.md`, and
 `docs/mlang-01-go-rust-csharp-gap-audit.md`. The normative but inactive
-successor mechanism is `specs/SEMANTIC_PROFILE_REGISTRY_V1.md` with its owned
-vector set. `MLANG-01-T03` is the next task. No C# profile, successor parser,
-or future-language production frontend is active.
+successor mechanism is `specs/SEMANTIC_PROFILE_REGISTRY_V1.md`. The frozen,
+normative, but inactive C# package is `specs/CSHARP_PROFILE_V0.md` with its two
+owned vector sets. `CSHARP-02` is the next task. No successor parser, C#
+production frontend, release tuple, or future-language frontend is active.
 
 No multi-language design, feasibility, specification, or implementation phase
 runs in parallel with the Rust program or with another language phase.
@@ -116,6 +117,7 @@ is not an active or accepted production schema:
 | Specification | Conformance vector set(s) |
 |---|---|
 | `specs/SEMANTIC_PROFILE_REGISTRY_V1.md` | `specs/vectors/semantic-profile-registry-v1.json` |
+| `specs/CSHARP_PROFILE_V0.md` | `specs/vectors/csharp-profile-v0.json`, `specs/vectors/semantic-profile-registry-v2.json` |
 
 `specs/vectors/manifest.json` is the closed repository index for every vector
 set. Its repository-governance schema is
@@ -186,9 +188,10 @@ complete VIR artifact set installed at the active paths.
 │   ├── AI_EXPLAIN_V1.md
 │   ├── AI_API_V1.md
 │   ├── SEMANTIC_PROFILE_REGISTRY_V1.md
+│   ├── CSHARP_PROFILE_V0.md
 │   └── vectors/
 │       ├── manifest.json
-│       └── 19 owned vector sets listed above
+│       └── 21 owned vector sets listed above
 ├── roadmap/
 │   ├── ROADMAP.md
 │   ├── MILESTONES.md
@@ -242,7 +245,8 @@ Start with:
 14. `docs/mlang-00-go-rust-shared-boundary-audit.md`
 15. `docs/mlang-01-go-rust-csharp-gap-audit.md`
 16. `specs/SEMANTIC_PROFILE_REGISTRY_V1.md`
-17. `roadmap/RELEASE_GATES.md`
+17. `specs/CSHARP_PROFILE_V0.md`
+18. `roadmap/RELEASE_GATES.md`
 
 Then seed project-management issues from `tasks/github_issues_seed.jsonl` or
 import `tasks/task_backlog.csv` into a tracker.
