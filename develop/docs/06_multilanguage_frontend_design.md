@@ -1,10 +1,12 @@
 # Post-Rust Multi-Language Frontend Expansion Design
 
-Status: queued planning direction only. This document does not activate a new
-source language or amend a frozen serialized schema. Every `MLANG-*` milestone
-waits for its stated entry gate, and none starts before `RUST-07-T05`.
+Status: Gate B is active after the completed `RUST-07-T05` entry gate.
+`MLANG-00-T01` is complete and `MLANG-00-T02` is next. This document does not
+activate a new source language or amend a frozen serialized schema.
 
 Prepared: 2026-08-21
+
+Updated: 2026-08-25 (`MLANG-00-T01` completion)
 
 ## 1. Decision summary
 
@@ -33,6 +35,11 @@ roadmap rationale recorded to choose this queue. They are not completion of an
 implementation and then produces the reviewed semantic and feasibility
 records.
 
+That revalidation's first deliverable is
+`mlang-00-semantic-comparison-matrix.md`. It closes the T01 candidate-operation
+inventory and dispositions while leaving every compiler, target, profile, and
+foundation choice that belongs to later work explicitly blocked.
+
 The order may change only through a reviewed governance amendment that records
 the user value, semantic risk, compiler integration quality, and effect on the
 critical path. It must not be changed merely to start several frontend
@@ -40,7 +47,7 @@ implementations in parallel.
 
 ## 2. Authority and relationship to the active program
 
-Until `RUST-07-T05` completes, the implementation authority remains:
+Before `RUST-07-T05` completed, the implementation authority remained:
 
 - `05_rust_frontend_design.md`;
 - `05_rust_frontend_design-todo.md`;

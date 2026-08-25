@@ -58,6 +58,10 @@ follow-on flow:
 3. implement and release C#, Java, Dart, TypeScript, and Python, one language
    at a time in that order.
 
+`MLANG-00-T01` is complete. Its non-normative closed semantic inventory is
+`docs/mlang-00-semantic-comparison-matrix.md`; `MLANG-00-T02` is the next task.
+No future-language profile or production frontend is active.
+
 No multi-language design, feasibility, specification, or implementation phase
 runs in parallel with the Rust program or with another language phase.
 
@@ -140,7 +144,8 @@ complete VIR artifact set installed at the active paths.
 │   ├── 05_rust_frontend_design-todo.md
 │   ├── rust-frontend-toolchain-upgrade.md
 │   ├── 06_multilanguage_frontend_design.md
-│   └── 06_multilanguage_frontend_design-todo.md
+│   ├── 06_multilanguage_frontend_design-todo.md
+│   └── mlang-00-semantic-comparison-matrix.md
 ├── specs/
 │   ├── CORE_V0.md
 │   ├── CERT_V0.md
@@ -214,7 +219,8 @@ Start with:
 9. `docs/05_rust_frontend_design-todo.md`
 10. `docs/06_multilanguage_frontend_design.md`
 11. `docs/06_multilanguage_frontend_design-todo.md`
-12. `roadmap/RELEASE_GATES.md`
+12. `docs/mlang-00-semantic-comparison-matrix.md`
+13. `roadmap/RELEASE_GATES.md`
 
 Then seed project-management issues from `tasks/github_issues_seed.jsonl` or
 import `tasks/task_backlog.csv` into a tracker.
@@ -226,4 +232,4 @@ checker design, but it is a new system design for language-neutral program
 verification and AI-generated proof-candidate checking.
 
 Prepared: 2026-06-26. VIR governance and multi-language planning amendments:
-2026-08-21.
+2026-08-21; semantic-matrix progress update: 2026-08-25.

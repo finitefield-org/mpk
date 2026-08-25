@@ -2,8 +2,9 @@
 
 Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
-Status: queued task breakdown; no milestone is authorized before its entry
-gate.
+Status: `MLANG-00` active after the completed Rust gate;
+`MLANG-00-T01` complete and `MLANG-00-T02` is next. No later task or language
+phase is active.
 
 ## Scope and sequencing
 
@@ -82,7 +83,16 @@ the phase for an explicit serial remediation milestone.
 
 ### MLANG-00-T01 Build the semantic comparison matrix
 
+Status: Complete (2026-08-25).
+
 Depends on: `RUST-07-T05`.
+
+Deliverable:
+
+- `mlang-00-semantic-comparison-matrix.md`, the non-normative closed inventory
+  of 34 candidate behaviors and 170 single-disposition language cells, with
+  required-check and proposed-foundation catalogs plus a blocked unresolved-
+  question ledger.
 
 Tasks:
 
@@ -95,6 +105,11 @@ Tasks:
 
 Exit gate: every candidate initial operation has exactly one disposition and
 no unresolved item is marked accepted.
+
+Completion evidence: every language cell has exactly one of existing VIR,
+required check, proposed checked foundation, or initial rejection; all 16
+unresolved questions are marked `blocked`; no future-language schema/profile,
+production path, release entry, or axiom category was added.
 
 ### MLANG-00-T02 Validate official compiler integration boundaries
 
