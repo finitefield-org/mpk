@@ -2,13 +2,13 @@
 
 Status: Gate B, `MLANG-00`, Gate C, and `MLANG-01` are complete after the
 completed `RUST-07-T05` entry gate. Gate D is active at its non-production
-planning boundary: `CSHARP-02-T01` is complete and `CSHARP-02-T02` is next.
-This document does not activate a new source language or amend an active
-serialized schema.
+implementation boundary: `CSHARP-02-T01` and `CSHARP-02-T02` are complete,
+and `CSHARP-02-T03` is next. This document does not activate a new source
+language or amend an active serialized schema.
 
 Prepared: 2026-08-21
 
-Updated: 2026-08-25 (`CSHARP-02-T01` completion)
+Updated: 2026-08-26 (`CSHARP-02-T02` completion)
 
 ## 1. Decision summary
 
@@ -459,10 +459,12 @@ Only after `MLANG-01` completes may C# production code and release bundles
 merge. The earlier `RUST-07-T05 -> MLANG-00 -> MLANG-01` dependencies are
 transitive and may not be bypassed.
 
-Entry status: open and planning begun. `CSHARP-02-T01` completed the bounded
-implementation and traceability plan; `CSHARP-02-T02` is the first code task.
-The frozen C# entry and revision-2 registry remain design inputs rather than
-installed identities, and T20 remains the sole activation owner.
+Entry status: open with inactive implementation begun. `CSHARP-02-T01`
+completed the bounded implementation plan, and `CSHARP-02-T02` added only the
+unregistered, source-inert project and reproducible offline build closure.
+`CSHARP-02-T03` is next. The frozen C# entry and revision-2 registry remain
+design inputs rather than installed identities, and T20 remains the sole
+activation owner.
 
 ### Gate E: serial language admission
 

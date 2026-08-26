@@ -1,8 +1,9 @@
 # CSHARP-02 Implementation Decomposition and Traceability Ledger
 
-Status: `CSHARP-02-T01` complete (2026-08-25). `CSHARP-02-T02` is the
-next task. No C# frontend, successor schema parser, registry root, release
-tuple, policy route, evidence route, or AI route is active.
+Status: `CSHARP-02-T01` complete (2026-08-25) and `CSHARP-02-T02`
+complete (2026-08-26). `CSHARP-02-T03` is the next task. No source-capable C#
+frontend, successor schema parser, registry root, release tuple, policy route,
+evidence route, or AI route is active.
 
 This document is the non-normative execution plan for implementing the frozen
 C# package. `CSHARP_PROFILE_V0.md` and
@@ -77,8 +78,8 @@ MLANG-01-T03
 | Task | Status | Bounded outcome |
 | --- | --- | --- |
 | `CSHARP-02-T01` | complete | implementation decomposition and closed traceability ledger |
-| `CSHARP-02-T02` | ready | pinned, reproducible, unregistered `csharp2vir` project and build closure |
-| `CSHARP-02-T03` | blocked on T02 | inactive semantic-registry/context implementation |
+| `CSHARP-02-T02` | complete | pinned, reproducible, unregistered `csharp2vir` project and build closure |
+| `CSHARP-02-T03` | ready | inactive semantic-registry/context implementation |
 | `CSHARP-02-T04` | blocked on T03 | inactive successor source-artifact models and hash domains |
 | `CSHARP-02-T05` | blocked on T04 | C# selection, structural preflight, and immutable capture |
 | `CSHARP-02-T06` | blocked on T05 | exact public Roslyn parse/compilation session |
@@ -167,6 +168,24 @@ remains unchanged.
 Exit gate: the project builds twice to identical reviewed bytes from the exact
 input closure, and changing any archive, selected assembly, reference, mode,
 or build option fails before candidate publication.
+
+Completion evidence (2026-08-26):
+
+- `release/build-inputs/csharp/build-inputs.json` binds the frozen vector,
+  six project inputs, direct pinned-compiler recipe, 13 notice sources, and
+  unregistered candidate inventory;
+- the check-only build validates exact archive hashes, SDK/runtime file counts
+  and modes, package graphs, Roslyn assemblies, and the 167-file reference
+  projection before compiling;
+- two independent fresh extractions build and launch in separate network/user
+  namespaces with a closed environment, no restore, and byte-equal candidate
+  trees and deterministic archives;
+- `csharp2vir.dll` is 5,120 bytes with SHA-256
+  `76aadd20282a655783089cf8148ef3fc627b73f26da7fcc48a653c844ca63b26`;
+  only the exact `--version` probe succeeds; and
+- `crates/mpk-cli/tests/csharp_build_inputs.rs` closes descriptor, project,
+  recipe, inventory, hostile-ambient, ignored-cache, and no-active-route
+  behavior. The raw archive cache is ignored and untracked.
 
 ### CSHARP-02-T03 Implement the inactive semantic-profile registry core
 
@@ -840,13 +859,14 @@ The implementation blocker format is:
 | Blocker | Detected by | Frozen requirement | Why implementation cannot decide | Required owner | Status |
 | --- | --- | --- | --- | --- | --- |
 
-T01 has no blocker. A later task records a blocker before changing scope. It
-may be closed only by a separately named, serial governance/specification task
-followed by regeneration and review of every affected frozen input.
+T01 and T02 have no blocker. A later task records a blocker before changing
+scope. It may be closed only by a separately named, serial governance/
+specification task followed by regeneration and review of every affected
+frozen input.
 
 The T01 review ledger is empty. Its closed traceability inventory contains:
 
-- 20 ordered CSHARP-02 tasks, with T02 the sole ready successor;
+- 20 ordered CSHARP-02 tasks, with T02 the sole ready successor at T01 close;
 - all 31 top-level C# profile-vector fields;
 - all 12 registry-v1 and 10 registry-v2 top-level fields;
 - all 34 semantic rows;
@@ -856,3 +876,20 @@ The T01 review ledger is empty. Its closed traceability inventory contains:
 
 No production source, normative specification, vector, hash, bundle,
 registry, fixture, or accepted identity changed in T01.
+
+The T02 review ledger is empty. Its closed implementation inventory contains:
+
+- one source-inert C# project with six hash-pinned build inputs;
+- one canonical build descriptor and one canonical 18-file candidate/notice
+  inventory;
+- all six frozen archive records, exact SDK/runtime extraction counts and
+  modes, four package records, two managed projections, three reference
+  metadata files, and 167 reference assemblies;
+- two path-independent clean builds and runtime probes under closed,
+  network-isolated environments; and
+- the primary Rust implementation owner plus synthetic hostile-archive and
+  hostile-ambient checks.
+
+No production parser, frontend envelope, successor schema implementation,
+bundle registration, release tuple, normative artifact, or accepted identity
+changed in T02. T03 is the sole ready successor.

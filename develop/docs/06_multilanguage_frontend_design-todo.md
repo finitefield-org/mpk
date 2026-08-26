@@ -3,9 +3,10 @@
 Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
 Status: Gate C and `MLANG-01` are complete after the completed Rust and
-`MLANG-00` gates. Gate D is active at its non-production planning boundary:
-`CSHARP-02-T01` is complete and `CSHARP-02-T02` is next. No C# production
-route or later-language phase is active.
+`MLANG-00` gates. Gate D is active at its non-production implementation
+boundary: `CSHARP-02-T01` and `CSHARP-02-T02` are complete, and
+`CSHARP-02-T03` is next. No C# production route or later-language phase is
+active.
 
 ## Scope and sequencing
 
@@ -328,8 +329,8 @@ was added.
 
 Entry gate: `MLANG-01` complete.
 
-Status: Active at the inactive implementation boundary. `CSHARP-02-T01` is
-complete; `CSHARP-02-T02` is next.
+Status: Active at the inactive implementation boundary. `CSHARP-02-T01` and
+`CSHARP-02-T02` are complete; `CSHARP-02-T03` is next.
 
 Authoritative execution plan:
 `csharp-02-implementation-traceability-ledger.md`.
@@ -381,7 +382,7 @@ ledgers. T02 is the sole ready successor and the T01 review ledger is empty.
 
 ### CSHARP-02-T02 Create the isolated pinned C# frontend project
 
-Status: Next.
+Status: Complete (2026-08-26).
 
 Depends on: `CSHARP-02-T01`.
 
@@ -389,9 +390,19 @@ Exit gate: an unregistered `csharp2vir` candidate builds twice to identical
 bytes from the exact offline input closure; no parser, bundle registration, or
 active route exists.
 
+Completion evidence: `scripts/build-csharp-frontend.sh --check` validates all
+six frozen archives, exact SDK/runtime extraction inventories and modes, the
+four package graphs, both Roslyn projections, and all 167 references; it then
+performs two no-restore builds in separate network namespaces and requires
+byte-identical frontend and notice inventories. The pinned candidate DLL is
+5,120 bytes with SHA-256
+`76aadd20282a655783089cf8148ef3fc627b73f26da7fcc48a653c844ca63b26`.
+Only `--version` succeeds, the active registry remains Go/Rust-only, and the
+raw archive cache is ignored and untracked.
+
 ### CSHARP-02-T03 Implement the inactive semantic-profile registry core
 
-Status: Pending.
+Status: Next.
 
 Depends on: `CSHARP-02-T02`.
 
