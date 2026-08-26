@@ -4,9 +4,9 @@ Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
 Status: Gate C and `MLANG-01` are complete after the completed Rust and
 `MLANG-00` gates. Gate D is active at its non-production implementation
-boundary: `CSHARP-02-T01` and `CSHARP-02-T02` are complete, and
-`CSHARP-02-T03` is complete; `CSHARP-02-T04` is next. No C# production route
-or later-language phase is active.
+boundary: `CSHARP-02-T01` through `CSHARP-02-T04` are complete;
+`CSHARP-02-T05` is next. No C# production route or later-language phase is
+active.
 
 ## Scope and sequencing
 
@@ -329,8 +329,8 @@ was added.
 
 Entry gate: `MLANG-01` complete.
 
-Status: Active at the inactive implementation boundary. `CSHARP-02-T01` and
-`CSHARP-02-T02` and `CSHARP-02-T03` are complete; `CSHARP-02-T04` is next.
+Status: Active at the inactive implementation boundary. `CSHARP-02-T01`
+through `CSHARP-02-T04` are complete; `CSHARP-02-T05` is next.
 
 Authoritative execution plan:
 `csharp-02-implementation-traceability-ledger.md`.
@@ -421,16 +421,26 @@ and semantic-profile parsers still reject successor/C# identities.
 
 ### CSHARP-02-T04 Stage successor source-artifact models and hash domains
 
-Status: Next.
+Status: Complete (2026-08-27).
 
 Depends on: `CSHARP-02-T03`.
 
 Exit gate: successor VIR/frontend/map/manifest artifacts validate and hash in
 staging with bidirectional old/new rejection and no active producer.
 
+Completion evidence: `mpk-vc::successor_source_artifacts` provides sealed,
+registry-injected models for successor VIR/contracts, source maps, and source
+manifests under the four new source-artifact hash domains. The hidden
+`mpk-cli::successor_frontend_protocol` validator requires exact typed request
+identity, canonical LF-framed transport, status/exit agreement, and complete
+artifact linkage. The two primary implementation owners prove canonical
+round trips, the frozen normalized C# contract hash, all common context and
+artifact mismatches, and bidirectional v0/v1 rejection. The registry vector
+bytes and active producers/consumers remain unchanged.
+
 ### CSHARP-02-T05 Implement C# selection, path preflight, and immutable capture
 
-Status: Pending.
+Status: Next.
 
 Depends on: `CSHARP-02-T04`.
 

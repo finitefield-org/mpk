@@ -1,10 +1,10 @@
 # CSHARP-02 Implementation Decomposition and Traceability Ledger
 
-Status: `CSHARP-02-T01` complete (2026-08-25) and `CSHARP-02-T02` through
-`CSHARP-02-T03` complete (2026-08-26). `CSHARP-02-T04` is the next task. No
-source-capable C# frontend, released successor schema parser, installed
-registry root, release tuple, policy route, evidence route, or AI route is
-active.
+Status: `CSHARP-02-T01` complete (2026-08-25), `CSHARP-02-T02` through
+`CSHARP-02-T03` complete (2026-08-26), and `CSHARP-02-T04` complete
+(2026-08-27). `CSHARP-02-T05` is the next task. No source-capable C# frontend,
+released successor route, installed registry root, release tuple, policy
+route, evidence route, or AI route is active.
 
 This document is the non-normative execution plan for implementing the frozen
 C# package. `CSHARP_PROFILE_V0.md` and
@@ -81,8 +81,8 @@ MLANG-01-T03
 | `CSHARP-02-T01` | complete | implementation decomposition and closed traceability ledger |
 | `CSHARP-02-T02` | complete | pinned, reproducible, unregistered `csharp2vir` project and build closure |
 | `CSHARP-02-T03` | complete | inactive semantic-registry/context implementation |
-| `CSHARP-02-T04` | ready | inactive successor source-artifact models and hash domains |
-| `CSHARP-02-T05` | blocked on T04 | C# selection, structural preflight, and immutable capture |
+| `CSHARP-02-T04` | complete | inactive successor source-artifact models and hash domains |
+| `CSHARP-02-T05` | ready | C# selection, structural preflight, and immutable capture |
 | `CSHARP-02-T06` | blocked on T05 | exact public Roslyn parse/compilation session |
 | `CSHARP-02-T07` | blocked on T06 | declaration/subset/closure/purity/initialization gate |
 | `CSHARP-02-T08` | blocked on T07 | typed C# contract parsing, attachment, normalization, and hashing |
@@ -252,6 +252,24 @@ adapter. The primary test owners are
 Exit gate: staged source artifacts round-trip canonically under the new hash
 domains, all member mismatches fail, and no active producer or consumer has
 changed schema.
+
+Completion evidence (2026-08-27):
+
+- `crates/mpk-vc/src/successor_source_artifacts.rs` seals registry-injected
+  successor VIR/contract, source-map, and source-manifest models and computes
+  `MPK-CONTRACT-1.0`, `MPK-VIR-1.0`, `MPK-SOURCE-MAP-1.0`, and
+  `MPK-SOURCE-MANIFEST-1.0` without a compatibility representation;
+- `crates/mpk-cli/src/successor_frontend_protocol.rs` validates only explicit
+  `mpk.frontend.cli.v1` staging calls with exact `SemanticContext`,
+  `SelectionEnvelope`, canonical LF framing, status/exit agreement, and
+  linked validated artifacts;
+- the two primary implementation tests perform canonical round trips, execute
+  the four T04-owned hash-domain rows and frozen normalized C# contract hash,
+  mutate every common context/link member, and prove bidirectional v0/v1
+  rejection; and
+- the source-artifact owner is appended to the registry-vector manifest while
+  frozen vector bytes, active Go/Rust producers and consumers, registered
+  bundles, release tuples, and public commands remain unchanged.
 
 ### CSHARP-02-T05 Implement C# selection, path preflight, and immutable capture
 
@@ -929,3 +947,22 @@ The T03 review ledger is empty. Its closed implementation inventory contains:
 No normative specification or vector byte, active Go/Rust schema/parser,
 installed registry, C# release tuple, bundle, frontend route, checker input,
 or accepted identity changed in T03. T04 is the sole ready successor.
+
+The T04 review ledger is empty. Its closed implementation inventory contains:
+
+- four sealed successor source-artifact models and their exact new hash
+  domains, with complete semantic-context, selection, release-root, input,
+  source-reference, and artifact-root linkage;
+- one hidden, explicitly injected successor frontend-protocol validator with
+  canonical transport, issue-shape, request-identity, status/exit, and success-
+  artifact validation;
+- canonical staging round trips derived in memory from unchanged active
+  fixtures, the exact frozen normalized C# contract hash, all T04-owned domain
+  migration rows, member-mismatch rejection, and bidirectional old/new parser
+  rejection; and
+- one append-only registry-vector implementation owner with no vector-byte or
+  declared specification-owner change.
+
+No active producer, consumer, runner, command, bundle, release tuple, registry
+root, normative specification, frozen vector, or accepted production identity
+changed in T04. T05 is the sole ready successor.

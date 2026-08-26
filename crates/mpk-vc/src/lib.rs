@@ -18,6 +18,7 @@ pub mod semantic_profile;
 pub mod semantic_profile_registry;
 pub mod source_manifest;
 pub mod source_map;
+pub mod successor_source_artifacts;
 pub mod type_encode;
 pub mod vc;
 pub mod vc_canonical;

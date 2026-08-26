@@ -15,6 +15,8 @@ pub mod frontend_protocol;
 mod frontend_registry;
 mod frontend_runner;
 mod frontend_sandbox;
+#[doc(hidden)]
+pub mod successor_frontend_protocol;
 
 #[doc(hidden)]
 pub fn run_frontend_sandbox_bootstrap(arguments: &[String]) -> u8 {

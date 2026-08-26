@@ -2,13 +2,13 @@
 
 Status: Gate B, `MLANG-00`, Gate C, and `MLANG-01` are complete after the
 completed `RUST-07-T05` entry gate. Gate D is active at its non-production
-implementation boundary: `CSHARP-02-T01` and `CSHARP-02-T02` are complete,
-`CSHARP-02-T03` is complete, and `CSHARP-02-T04` is next. This document does
-not activate a new source language or amend an active serialized schema.
+implementation boundary: `CSHARP-02-T01` through `CSHARP-02-T04` are complete,
+and `CSHARP-02-T05` is next. This document does not activate a new source
+language or amend an active serialized schema.
 
 Prepared: 2026-08-21
 
-Updated: 2026-08-26 (`CSHARP-02-T03` completion)
+Updated: 2026-08-27 (`CSHARP-02-T04` completion)
 
 ## 1. Decision summary
 
@@ -460,12 +460,14 @@ merge. The earlier `RUST-07-T05 -> MLANG-00 -> MLANG-01` dependencies are
 transitive and may not be bypassed.
 
 Entry status: open with inactive implementation begun. `CSHARP-02-T01`
-completed the bounded implementation plan, and `CSHARP-02-T02` added only the
-unregistered, source-inert project and reproducible offline build closure.
-`CSHARP-02-T03` added the private/test-injected successor registry core without
-routing it from a released input; `CSHARP-02-T04` is next. The frozen C# entry
-and revision-2 registry remain staging identities rather than installed
-identities, and T20 remains the sole activation owner.
+completed the bounded implementation plan, `CSHARP-02-T02` added only the
+unregistered, source-inert project and reproducible offline build closure,
+and `CSHARP-02-T03` added the private/test-injected successor registry core.
+`CSHARP-02-T04` added sealed, explicitly injected successor source-artifact
+and frontend-protocol validators without routing them from a released input;
+`CSHARP-02-T05` is next. The frozen C# entry and revision-2 registry remain
+staging identities rather than installed identities, and T20 remains the sole
+activation owner.
 
 ### Gate E: serial language admission
 

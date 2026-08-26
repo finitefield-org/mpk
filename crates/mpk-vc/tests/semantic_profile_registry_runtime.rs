@@ -34,6 +34,7 @@ const ACTIVE_VIR_BYTES: &[u8] =
 const TEST_LIMITS: StrictJsonLimits =
     StrictJsonLimits::new(4 * 1024 * 1024, 1_000_000, 128, 2 * 1024 * 1024);
 const RUNTIME_OWNER: &str = "crates/mpk-vc/tests/semantic_profile_registry_runtime.rs";
+const SOURCE_ARTIFACT_OWNER: &str = "crates/mpk-vc/tests/successor_source_artifacts.rs";
 const V1_SHA256: &str = "f7007417279f5173d0102ec2833095f2d97f271e1cdf2622d381d31e6ab86ae7";
 const V2_SHA256: &str = "19c657283836cb920f5c971f9c84ab267d48ea724c05bc1628de4889b4dd059f";
 
@@ -515,27 +516,28 @@ fn runtime_ownership_is_appended_without_changing_frozen_vectors_or_active_route
     assert_eq!(sha256_raw_file_bytes(REGISTRY_V2_BYTES).to_hex(), V2_SHA256);
 
     let manifest = load(MANIFEST_BYTES, "vector manifest");
-    for (path, original_owner) in [
+    for (path, original_owner, successor_owner) in [
         (
             "develop/specs/vectors/semantic-profile-registry-v1.json",
             "crates/mpk-vc/tests/semantic_profile_registry.rs",
+            Some(SOURCE_ARTIFACT_OWNER),
         ),
         (
             "develop/specs/vectors/semantic-profile-registry-v2.json",
             "crates/mpk-vc/tests/csharp_profile_spec.rs",
+            None,
         ),
     ] {
         let record = array(field(&manifest, "vectors"))
             .iter()
             .find(|record| text(field(record, "path")) == path)
             .unwrap_or_else(|| panic!("missing vector manifest record {path}"));
-        assert_eq!(
-            array(field(record, "implementation_test_owners")),
-            [
-                Value::String(original_owner.to_owned()),
-                Value::String(RUNTIME_OWNER.to_owned()),
-            ]
-        );
+        let mut expected = vec![
+            Value::String(original_owner.to_owned()),
+            Value::String(RUNTIME_OWNER.to_owned()),
+        ];
+        expected.extend(successor_owner.map(|owner| Value::String(owner.to_owned())));
+        assert_eq!(array(field(record, "implementation_test_owners")), expected);
     }
 
     assert!(serde_json::from_str::<SemanticProfile>(r#""mpk.csharp.scalar.v0""#).is_err());

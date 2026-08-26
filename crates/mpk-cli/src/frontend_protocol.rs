@@ -1334,7 +1334,7 @@ fn validate_public_paths(value: &Value) -> Result<(), FrontendProtocolError> {
     Ok(())
 }
 
-fn contains_absolute_path(text: &str) -> bool {
+pub(crate) fn contains_absolute_path(text: &str) -> bool {
     let bytes = text.as_bytes();
     for (index, _) in text.char_indices() {
         let at_boundary = index == 0
