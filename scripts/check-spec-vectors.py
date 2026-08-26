@@ -113,11 +113,17 @@ def check_manifest(repo_root: Path) -> int:
 
         vector = parse_json_object(vector_bytes, vector_path)
         require_equal(vector.get("schema"), schema_id, f"{vector_path}.schema")
-        require_equal(
-            vector_test_owners(vector, vector_path),
-            owners,
-            f"{field}.implementation_test_owners",
-        )
+        frozen_owners = vector_test_owners(vector, vector_path)
+        if owners[: len(frozen_owners)] != frozen_owners:
+            raise VectorManifestError(
+                f"{field}.implementation_test_owners must preserve the vector-declared owners as an ordered prefix"
+            )
+        for owner in owners[len(frozen_owners) :]:
+            require_regular_repo_file(
+                repo_root / owner,
+                repo_root,
+                f"{field}.implementation_test_owners",
+            )
 
         checked_spec = repo_root / owning_spec
         require_regular_repo_file(checked_spec, repo_root, f"{field}.owning_spec")
@@ -130,7 +136,7 @@ def check_manifest(repo_root: Path) -> int:
             raise VectorManifestError(
                 f"{field}.owning_spec does not own schema {schema_id}"
             )
-        for owner in owners:
+        for owner in frozen_owners:
             if owner not in spec_text:
                 raise VectorManifestError(
                     f"{field}.owning_spec does not name test owner {owner}"

@@ -69,10 +69,11 @@ successor mechanism is `specs/SEMANTIC_PROFILE_REGISTRY_V1.md`. The frozen,
 normative, but inactive C# package is `specs/CSHARP_PROFILE_V0.md` with its two
 owned vector sets. `docs/csharp-02-implementation-traceability-ledger.md`
 decomposes the implementation into 20 strictly serial tasks.
-`CSHARP-02-T01` and `CSHARP-02-T02` are complete; `CSHARP-02-T03` is next.
-The isolated `csharp-tools/csharp2vir/` project and its offline build gate are
-unregistered and source-inert. No successor parser, C# production frontend,
-release tuple, or future-language frontend is active.
+`CSHARP-02-T01` through `CSHARP-02-T03` are complete; `CSHARP-02-T04` is next.
+The isolated `csharp-tools/csharp2vir/` project, offline build gate, and
+test-injected successor semantic-registry core are inactive. No successor
+parser is routed from a released input, and no C# production frontend, release
+tuple, or future-language frontend is active.
 
 No multi-language design, feasibility, specification, or implementation phase
 runs in parallel with the Rust program or with another language phase.
@@ -273,3 +274,4 @@ Prepared: 2026-06-26. VIR governance and multi-language planning amendments:
 2026-08-25; successor semantic-profile registry and C# package freeze:
 2026-08-25; C# implementation decomposition: 2026-08-25.
 Inactive pinned C# project and build closure: 2026-08-26.
+Inactive successor semantic-profile registry core: 2026-08-26.

@@ -15,6 +15,7 @@ pub mod program_wp;
 pub mod release_bundle;
 pub mod safety_check;
 pub mod semantic_profile;
+pub mod semantic_profile_registry;
 pub mod source_manifest;
 pub mod source_map;
 pub mod type_encode;

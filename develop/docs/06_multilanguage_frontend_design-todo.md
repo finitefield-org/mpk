@@ -5,8 +5,8 @@ Source design: `develop/docs/06_multilanguage_frontend_design.md`
 Status: Gate C and `MLANG-01` are complete after the completed Rust and
 `MLANG-00` gates. Gate D is active at its non-production implementation
 boundary: `CSHARP-02-T01` and `CSHARP-02-T02` are complete, and
-`CSHARP-02-T03` is next. No C# production route or later-language phase is
-active.
+`CSHARP-02-T03` is complete; `CSHARP-02-T04` is next. No C# production route
+or later-language phase is active.
 
 ## Scope and sequencing
 
@@ -330,7 +330,7 @@ was added.
 Entry gate: `MLANG-01` complete.
 
 Status: Active at the inactive implementation boundary. `CSHARP-02-T01` and
-`CSHARP-02-T02` are complete; `CSHARP-02-T03` is next.
+`CSHARP-02-T02` and `CSHARP-02-T03` are complete; `CSHARP-02-T04` is next.
 
 Authoritative execution plan:
 `csharp-02-implementation-traceability-ledger.md`.
@@ -402,16 +402,26 @@ raw archive cache is ignored and untracked.
 
 ### CSHARP-02-T03 Implement the inactive semantic-profile registry core
 
-Status: Next.
+Status: Complete (2026-08-26).
 
 Depends on: `CSHARP-02-T02`.
 
 Exit gate: registry/context/profile-envelope vectors execute against private
 production validation code while released inputs remain unchanged.
 
+Completion evidence: `mpk-vc::semantic_profile_registry` implements strict
+registry transport, hashes, limits, identity precedence, closed models,
+finite Go/Rust/C# dispatch, status mapping, revision lookup, and append-only
+validation behind an explicitly injected inactive boundary. The runtime owner
+executes all 87 revision-1 transport/hash/registry/context/profile/limit
+cases, both revision-2 hash cases, all eight append-only cases, the exact C#
+parameters, and all nine C# compiled-profile payloads. Both frozen vector byte
+hashes are unchanged, their manifest owners are appended, and active VIR v0
+and semantic-profile parsers still reject successor/C# identities.
+
 ### CSHARP-02-T04 Stage successor source-artifact models and hash domains
 
-Status: Pending.
+Status: Next.
 
 Depends on: `CSHARP-02-T03`.
 

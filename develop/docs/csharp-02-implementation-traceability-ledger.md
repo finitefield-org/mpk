@@ -1,9 +1,10 @@
 # CSHARP-02 Implementation Decomposition and Traceability Ledger
 
-Status: `CSHARP-02-T01` complete (2026-08-25) and `CSHARP-02-T02`
-complete (2026-08-26). `CSHARP-02-T03` is the next task. No source-capable C#
-frontend, successor schema parser, registry root, release tuple, policy route,
-evidence route, or AI route is active.
+Status: `CSHARP-02-T01` complete (2026-08-25) and `CSHARP-02-T02` through
+`CSHARP-02-T03` complete (2026-08-26). `CSHARP-02-T04` is the next task. No
+source-capable C# frontend, released successor schema parser, installed
+registry root, release tuple, policy route, evidence route, or AI route is
+active.
 
 This document is the non-normative execution plan for implementing the frozen
 C# package. `CSHARP_PROFILE_V0.md` and
@@ -79,8 +80,8 @@ MLANG-01-T03
 | --- | --- | --- |
 | `CSHARP-02-T01` | complete | implementation decomposition and closed traceability ledger |
 | `CSHARP-02-T02` | complete | pinned, reproducible, unregistered `csharp2vir` project and build closure |
-| `CSHARP-02-T03` | ready | inactive semantic-registry/context implementation |
-| `CSHARP-02-T04` | blocked on T03 | inactive successor source-artifact models and hash domains |
+| `CSHARP-02-T03` | complete | inactive semantic-registry/context implementation |
+| `CSHARP-02-T04` | ready | inactive successor source-artifact models and hash domains |
 | `CSHARP-02-T05` | blocked on T04 | C# selection, structural preflight, and immutable capture |
 | `CSHARP-02-T06` | blocked on T05 | exact public Roslyn parse/compilation session |
 | `CSHARP-02-T07` | blocked on T06 | declaration/subset/closure/purity/initialization gate |
@@ -212,6 +213,23 @@ frozen vector or existing specification owner.
 Exit gate: every registry/context/profile-envelope vector reaches production
 validation code in tests, while the released binary still rejects every
 successor identity.
+
+Completion evidence (2026-08-26):
+
+- `crates/mpk-vc/src/semantic_profile_registry.rs` implements the closed
+  revision-1/revision-2 transport, shape, scalar, limit, order, hash,
+  contract, invariant, identity, context, selection, profile-envelope,
+  linkage, status, and append-only validation phases;
+- all profile, parameter, selection, and contract dispatch is a finite Rust
+  enum/table with no callback, executable, path, URI, plugin, or fallback;
+- `crates/mpk-vc/tests/semantic_profile_registry_runtime.rs` executes all 87
+  T03-owned revision-1 cases, both revision-2 hashes, all eight append-only
+  cases, exact C# parameters, and all nine C# compiled-profile payloads;
+- the runtime owner is appended to both vector-manifest records while the
+  frozen vector bytes and their existing `owner_test` values remain exact;
+  and
+- current `SemanticProfile` and VIR v0 imports continue to reject C# and
+  successor identities; no active consumer calls the injected registry core.
 
 ### CSHARP-02-T04 Stage successor source-artifact models and hash domains
 
@@ -859,7 +877,7 @@ The implementation blocker format is:
 | Blocker | Detected by | Frozen requirement | Why implementation cannot decide | Required owner | Status |
 | --- | --- | --- | --- | --- | --- |
 
-T01 and T02 have no blocker. A later task records a blocker before changing
+T01 through T03 have no blocker. A later task records a blocker before changing
 scope. It may be closed only by a separately named, serial governance/
 specification task followed by regeneration and review of every affected
 frozen input.
@@ -892,4 +910,22 @@ The T02 review ledger is empty. Its closed implementation inventory contains:
 
 No production parser, frontend envelope, successor schema implementation,
 bundle registration, release tuple, normative artifact, or accepted identity
-changed in T02. T03 is the sole ready successor.
+changed in T02. T03 was the sole ready successor at T02 close.
+
+The T03 review ledger is empty. Its closed implementation inventory contains:
+
+- one inactive successor registry module with exact revision-1 and revision-2
+  embedded identities and immutable Go, Rust, and C# entry dispatch;
+- strict registry transport plus 21 stable error/status codes, ten common
+  limits, context/selection/profile-envelope models, and linkage checks;
+- exact C# semantic parameters and nine declarative compiled-profile payload
+  validators, with detailed C# selection/capture semantics still owned by
+  T05;
+- runtime execution of every T03-owned registry vector and append-only
+  assertion; and
+- an append-only implementation-owner manifest mechanism that preserves each
+  vector-declared owner as the ordered prefix.
+
+No normative specification or vector byte, active Go/Rust schema/parser,
+installed registry, C# release tuple, bundle, frontend route, checker input,
+or accepted identity changed in T03. T04 is the sole ready successor.
