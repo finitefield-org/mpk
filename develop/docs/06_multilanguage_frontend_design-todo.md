@@ -4,8 +4,8 @@ Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
 Status: Gate C and `MLANG-01` are complete after the completed Rust and
 `MLANG-00` gates. Gate D is active at its non-production implementation
-boundary: `CSHARP-02-T01` through `CSHARP-02-T07` are complete;
-`CSHARP-02-T08` is next. No C# production route or later-language phase is
+boundary: `CSHARP-02-T01` through `CSHARP-02-T08` are complete;
+`CSHARP-02-T09` is next. No C# production route or later-language phase is
 active.
 
 ## Scope and sequencing
@@ -330,7 +330,7 @@ was added.
 Entry gate: `MLANG-01` complete.
 
 Status: Active at the inactive implementation boundary. `CSHARP-02-T01`
-through `CSHARP-02-T07` are complete; `CSHARP-02-T08` is next.
+through `CSHARP-02-T08` are complete; `CSHARP-02-T09` is next.
 
 Authoritative execution plan:
 `csharp-02-implementation-traceability-ledger.md`.
@@ -502,16 +502,28 @@ artifact.
 
 ### CSHARP-02-T08 Implement typed C# contracts and attachment
 
-Status: Next.
+Status: Complete (2026-08-27).
 
 Depends on: `CSHARP-02-T07`.
 
 Exit gate: every closure method has one exact normalized/hash-bound contract,
 and all malformed, missing, duplicate, or unused sidecars reject.
 
+Completion evidence: the private candidate parses only the closed strict JSON
+sidecar union, rejects duplicate members, validates canonical typed integers,
+checks the exact successor expression rules, and enforces clause, node, closure,
+depth, and operator-arity bounds before excess retention. It verifies and
+carries the T05 selection hash, attaches exactly one sidecar to every closure
+method in deterministic callee-first order, normalizes the complete successor
+semantic context, and reproduces the frozen 440-byte sidecar and 1,151-byte
+contract hash payloads exactly. The pinned offline harness covers every stable
+contract diagnostic, M34, all operator/type families, and exact limit
+boundaries. Raw bytes remain a distinct untrusted input identity. The candidate
+remains unregistered and stops before lowering without a partial artifact.
+
 ### CSHARP-02-T09 Lower scalar C# operations and required checks
 
-Status: Pending.
+Status: Next.
 
 Depends on: `CSHARP-02-T08`.
 

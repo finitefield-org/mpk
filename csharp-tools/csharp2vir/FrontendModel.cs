@@ -7,7 +7,9 @@ namespace Mpk.CSharp2Vir;
 internal static class FrontendConstants
 {
     internal const string SemanticProfile = "mpk.csharp.scalar.v0";
+    internal const string SemanticParametersSchema = "mpk.semantic_parameters.csharp_scalar.v0";
     internal const string SelectionSchema = "mpk.selection.csharp_methods.v0";
+    internal const string ContractSchema = "mpk.csharp.contract.v0";
     internal const string ProfileRegistryId = "mpk.semantic_profile.registry.v1";
     internal const int ProfileRegistryRevision = 2;
     internal const string ProfileRegistrySha256 = "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75";

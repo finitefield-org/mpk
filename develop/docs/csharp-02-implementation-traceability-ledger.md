@@ -2,8 +2,8 @@
 
 Status: `CSHARP-02-T01` complete (2026-08-25), `CSHARP-02-T02` through
 `CSHARP-02-T03` complete (2026-08-26), and `CSHARP-02-T04` through
-`CSHARP-02-T07` complete (2026-08-27). `CSHARP-02-T08` is the next task. No
-contract-normalizing or production C# frontend, released successor route,
+`CSHARP-02-T08` complete (2026-08-27). `CSHARP-02-T09` is the next task. No
+operation-lowering or production C# frontend, released successor route,
 installed registry root, release tuple, policy route, evidence route, or AI
 route is active.
 
@@ -86,8 +86,8 @@ MLANG-01-T03
 | `CSHARP-02-T05` | complete | C# selection, structural preflight, and immutable capture |
 | `CSHARP-02-T06` | complete | exact public Roslyn parse/compilation session |
 | `CSHARP-02-T07` | complete | declaration/subset/closure/purity/initialization gate |
-| `CSHARP-02-T08` | ready | typed C# contract parsing, attachment, normalization, and hashing |
-| `CSHARP-02-T09` | blocked on T08 | scalar/control/conversion lowering and exact required checks |
+| `CSHARP-02-T08` | complete | typed C# contract parsing, attachment, normalization, and hashing |
+| `CSHARP-02-T09` | ready | scalar/control/conversion lowering and exact required checks |
 | `CSHARP-02-T10` | blocked on T09 | static calls, stable IDs, maps, manifests, and successful envelope emission |
 | `CSHARP-02-T11` | blocked on T10 | frontend diagnostics, limits, and source-case vector executor |
 | `CSHARP-02-T12` | blocked on T11 | deterministic C# candidate bundles and staged sandbox runner |
@@ -379,6 +379,8 @@ with SHA-256
 
 Depends on: `CSHARP-02-T07`.
 
+Status: Complete (2026-08-27).
+
 Owns:
 
 - strict sidecar JSON shape, duplicate-key rejection, typed integer grammar,
@@ -395,6 +397,21 @@ It adds no source-language contract syntax. The primary test owner is
 Exit gate: every closure method has one exact normalized contract, all contract
 vectors execute against implementation code, and no raw sidecar claim becomes
 proof evidence.
+
+Completion evidence: `ContractParser.cs` owns the strict closed JSON union,
+recursive duplicate rejection, exact canonical integer grammar/ranges, stable
+contract diagnostics, and checked 64-clause, 1,024-node/method,
+8,192-node/closure, and depth-32 counters. `ContractAttachment.cs` verifies the
+T05 selection digest, refuses unused, duplicate, and missing sidecars, attaches
+in deterministic closure order, and type-checks the exact successor operator
+union without conversion. `ContractCanonical.cs` emits the complete frozen
+semantic context and reproduces the 440-byte sidecar and 1,151-byte normalized
+contract hash payloads. Raw file and canonical sidecar digests remain separate
+private input identities. The primary Rust owner and pinned executable C#
+harness cover M34, all diagnostics/operators/types, one-to-one attachment, the
+frozen vectors, and exact boundaries. The reviewed candidate DLL is 109,056
+bytes with SHA-256
+`2ab139c21fd011755b9de5e1602d3f4aa883f4c28b454659e1dc185769416659`.
 
 ### CSHARP-02-T09 Lower scalar C# operations and required checks
 
@@ -937,7 +954,7 @@ The implementation blocker format is:
 | Blocker | Detected by | Frozen requirement | Why implementation cannot decide | Required owner | Status |
 | --- | --- | --- | --- | --- | --- |
 
-T01 through T07 have no blocker. A later task records a blocker before changing
+T01 through T08 have no blocker. A later task records a blocker before changing
 scope. It may be closed only by a separately named, serial governance/
 specification task followed by regeneration and review of every affected
 frozen input.
@@ -1068,4 +1085,26 @@ The T07 review ledger is empty. Its closed implementation inventory contains:
 No contract JSON parsing or normalization, lowering, required-check creation,
 VIR/map/manifest or success-artifact emission, active registry/bundle,
 released runner or command, normative vector byte, or production identity
-changed in T07. T08 is the sole ready successor.
+changed in T07. T08 was the sole ready successor.
+
+The T08 review ledger is empty. Its closed implementation inventory contains:
+
+- one strict streaming sidecar parser with recursive duplicate detection,
+  canonical typed integers, the exact closed expression union, and checked
+  clause/node/closure/depth bounds before excess retention;
+- exact successor expression typing with no implicit or mixed conversion,
+  declaration-position `argN` normalization, and complete frozen semantic
+  context generation without folding or source-language contract syntax;
+- one selection-hash-bound attachment set with exact closure coverage,
+  deterministic callee-first storage, and missing, unused, and duplicate
+  refusal;
+- separate raw-input, canonical-sidecar, and normalized-contract identities
+  reproducing both frozen hash vectors exactly; and
+- the primary Rust owner plus a pinned executable C# harness covering M34,
+  all stable contract diagnostics and operators, exact hashes, and inclusive
+  64/1,024/8,192/32 boundaries in the offline two-build gate.
+
+No lowering, required-check creation, VIR/map/manifest or success-artifact
+emission, active registry/bundle, released runner or command, normative vector
+byte, proof-acceptance input, or production identity changed in T08. T09 is the
+sole ready successor.

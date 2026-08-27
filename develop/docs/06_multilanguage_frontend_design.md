@@ -2,13 +2,13 @@
 
 Status: Gate B, `MLANG-00`, Gate C, and `MLANG-01` are complete after the
 completed `RUST-07-T05` entry gate. Gate D is active at its non-production
-implementation boundary: `CSHARP-02-T01` through `CSHARP-02-T07` are complete,
-and `CSHARP-02-T08` is next. This document does not activate a new source
+implementation boundary: `CSHARP-02-T01` through `CSHARP-02-T08` are complete,
+and `CSHARP-02-T09` is next. This document does not activate a new source
 language or amend an active serialized schema.
 
 Prepared: 2026-08-21
 
-Updated: 2026-08-27 (`CSHARP-02-T07` completion)
+Updated: 2026-08-27 (`CSHARP-02-T08` completion)
 
 ## 1. Decision summary
 
@@ -471,8 +471,10 @@ snapshot, immutable capture, and strict source-transport path.
 reference projection, diagnostics, and public semantic API adapters.
 `CSHARP-02-T07` added the closed declaration/type/operation gate, conservative
 pure acyclic source-call closure, inert-initialization and definite-assignment
-proofs, and exact pre-lowering accounting; it still stops before contract
-parsing and publishes no artifact. `CSHARP-02-T08` is next. The frozen C#
+proofs, and exact pre-lowering accounting. `CSHARP-02-T08` added strict typed
+sidecars, exact one-to-one closure attachment, complete successor semantic
+context normalization, and the frozen sidecar/contract hashes; it still stops
+before lowering and publishes no artifact. `CSHARP-02-T09` is next. The frozen C#
 entry and revision-2 registry remain
 staging identities rather than installed identities, and T20 remains the sole
 activation owner.

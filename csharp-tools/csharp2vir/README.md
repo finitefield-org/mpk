@@ -8,10 +8,12 @@ and compilation sessions, sealed reference-projection validation, phased
 diagnostics, and public semantic API adapters. `CSHARP-02-T07` adds exact
 declaration/type/literal/operation admission,
 deterministic pure acyclic source-call closure, inert-initialization and
-definite-assignment proofs, and checked syntax/operation/CFG accounting. A
-clean closure still stops before contract parsing and emits no artifact;
-contracts, lowering, bundle registration, and production routing belong to
-later serial tasks.
+definite-assignment proofs, and checked syntax/operation/CFG accounting.
+`CSHARP-02-T08` adds strict typed contract sidecars, exact closure attachment,
+successor-contract normalization, and the frozen sidecar/contract hashes. A
+fully contracted closure still stops before lowering and emits no artifact;
+lowering, bundle registration, and production routing belong to later serial
+tasks.
 `--version` remains the only successful command until those tasks are
 complete.
 
@@ -24,9 +26,10 @@ and compares two independently clean builds:
 ./scripts/build-csharp-frontend.sh --check
 ```
 
-The full check runs all three private executable harnesses. The T06 session and
-T07 subset harnesses can also be run alone with `--test-roslyn` and
-`--test-subset` against the provisioned offline closure.
+The full check runs all four private executable harnesses. The T06 session,
+T07 subset, and T08 contract harnesses can also be run alone with
+`--test-roslyn`, `--test-subset`, and `--test-contracts` against the
+provisioned offline closure.
 
 The command is offline and check-only. On a new machine, an explicit,
 separate provisioning step may populate the ignored raw-archive cache:

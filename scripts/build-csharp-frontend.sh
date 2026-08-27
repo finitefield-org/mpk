@@ -28,6 +28,9 @@ case "$#:${1-}" in
   1:--test-subset)
     action=test-subset
     ;;
+  1:--test-contracts)
+    action=test-contracts
+    ;;
   2:--build)
     action=build
     ;;

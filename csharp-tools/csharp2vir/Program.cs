@@ -51,7 +51,9 @@ internal static class Program
                 sourceSession,
                 System.IO.Path.Combine(FrontendConstants.ToolchainRoot, "reference-pack"));
             phase = "typecheck";
-            _ = CSharpSubset.Validate(selection, compilationSession);
+            SubsetClosure closure = CSharpSubset.Validate(selection, compilationSession);
+            phase = "subset";
+            _ = CSharpContracts.Attach(selection, snapshot, closure);
         }
         catch (SelectionSyntaxFailure)
         {
@@ -67,8 +69,8 @@ internal static class Program
             return WriteFailure(FrontendFailure.Internal(phase));
         }
 
-        // T07 stops after deterministic subset/closure admission. The private
-        // closure cannot be mistaken for a partial successor artifact.
+        // T08 stops after typed one-to-one contract attachment. The private
+        // contract set cannot be mistaken for a partial successor artifact.
         Console.Error.Write("CSHARP_FRONTEND_UNAVAILABLE\n");
         return 64;
     }
