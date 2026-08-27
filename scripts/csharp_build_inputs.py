@@ -33,6 +33,7 @@ CACHE_PARENT = REPOSITORY_ROOT / "release/build-input-cache/csharp"
 ACTIVE_REGISTRY_PATH = REPOSITORY_ROOT / "release/bundles/bundle-registry.json"
 CAPTURE_HARNESS_PATH = REPOSITORY_ROOT / "crates/mpk-cli/tests/csharp_capture_harness.cs"
 ROSLYN_HARNESS_PATH = REPOSITORY_ROOT / "crates/mpk-cli/tests/csharp_roslyn_session_harness.cs"
+SUBSET_HARNESS_PATH = REPOSITORY_ROOT / "crates/mpk-cli/tests/csharp_subset_harness.cs"
 
 TOOLCHAIN_DOMAIN = b"MPK-CSHARP-TOOLCHAIN-INPUTS-0.1\0"
 REFERENCE_DOMAIN = b"MPK-CSHARP-REFERENCE-INVENTORY-0.1\0"
@@ -49,6 +50,10 @@ PROJECT_FILES = (
     "RoslynSession.cs",
     "Selection.cs",
     "SourceTransport.cs",
+    "SubsetModel.cs",
+    "SubsetOperations.cs",
+    "SubsetSymbols.cs",
+    "SubsetValidator.cs",
     "csharp2vir.csproj",
     "csharp2vir.deps.json",
     "csharp2vir.runtimeconfig.json",
@@ -993,6 +998,7 @@ def build_once(
     *,
     run_capture_tests: bool = False,
     run_roslyn_tests: bool = False,
+    run_subset_tests: bool = False,
 ) -> Path:
     roots = materialize_closure(toolchain, archives_root, root / "closure")
     project = copy_project(descriptor, root)
@@ -1045,6 +1051,8 @@ def build_once(
         validate_capture_implementation(toolchain, roots, candidate, root / "capture-tests")
     if run_roslyn_tests:
         validate_roslyn_session_implementation(toolchain, roots, candidate, root / "roslyn-tests")
+    if run_subset_tests:
+        validate_subset_implementation(toolchain, roots, candidate, root / "subset-tests")
     for directory in (path for path in candidate.rglob("*") if path.is_dir()):
         os.chmod(directory, 0o755)
         os.utime(directory, ns=(0, 0), follow_symlinks=False)
@@ -1190,6 +1198,75 @@ def validate_roslyn_session_implementation(
         output.unlink(missing_ok=True)
 
 
+def validate_subset_implementation(
+    toolchain: dict[str, object],
+    roots: dict[str, Path],
+    candidate: Path,
+    work: Path,
+) -> None:
+    work.mkdir(mode=0o700, parents=True, exist_ok=False)
+    harness = work / "SubsetHarness.cs"
+    with opened_regular(SUBSET_HARNESS_PATH, 2 * 1024 * 1024) as (input_stream, before), harness.open("xb") as output_stream:
+        shutil.copyfileobj(input_stream, output_stream, 1024 * 1024)
+    if harness.stat().st_size != before.st_size:
+        raise CSharpBuildFailure("CSHARP_SUBSET_TEST_BUILD")
+    os.chmod(harness, 0o444)
+    os.utime(harness, ns=(0, 0), follow_symlinks=False)
+    frontend = candidate / "frontend"
+    output = frontend / "csharp2vir-subset-tests.dll"
+    sdk = roots["dotnet-sdk-linux-x64"]
+    compiler = sdk / "sdk/10.0.400/Roslyn/bincore/csc.dll"
+    arguments = list(COMPILER_ARGUMENTS)
+    arguments.extend(
+        [
+            "/out:" + str(output),
+            "/main:Mpk.CSharp2Vir.SubsetHarness",
+            "/pathmap:" + str(REPOSITORY_ROOT) + "=/_/mpk",
+        ]
+    )
+    reference_root = roots["microsoft-netcore-app-ref"]
+    for untyped in array(toolchain["reference_projection"]["inventory"]):
+        record = exact_keys(untyped, {"path", "size_bytes", "sha256"})
+        arguments.append("/reference:" + str(reference_root / text(record["path"])))
+    arguments.extend(
+        [
+            "/reference:" + str(frontend / "Microsoft.CodeAnalysis.dll"),
+            "/reference:" + str(frontend / "Microsoft.CodeAnalysis.CSharp.dll"),
+            "/reference:" + str(frontend / "csharp2vir.dll"),
+            str(harness),
+        ]
+    )
+    build_environment = closed_dotnet_environment(sdk, work / "build-environment")
+    result = execute_isolated(
+        [str(sdk / "dotnet"), "exec", str(compiler)] + arguments,
+        cwd=REPOSITORY_ROOT,
+        environment=build_environment,
+    )
+    if result.returncode != 0 or result.stdout or result.stderr or not output.is_file():
+        raise CSharpBuildFailure("CSHARP_SUBSET_TEST_BUILD")
+    try:
+        runtime = roots["dotnet-runtime-linux-x64"]
+        runtime_environment = closed_dotnet_environment(runtime, work / "runtime-environment")
+        result = execute_isolated(
+            [
+                str(runtime / "dotnet"),
+                "exec",
+                "--runtimeconfig",
+                str(frontend / "csharp2vir.runtimeconfig.json"),
+                "--fx-version",
+                "10.0.11",
+                str(output),
+                str(reference_root),
+            ],
+            cwd=candidate,
+            environment=runtime_environment,
+        )
+        if result.returncode != 0 or result.stdout or result.stderr:
+            raise CSharpBuildFailure("CSHARP_SUBSET_TEST_FAILURE")
+    finally:
+        output.unlink(missing_ok=True)
+
+
 def copy_notices(descriptor: dict[str, object], roots: dict[str, Path], project: Path, candidate: Path) -> None:
     for untyped in array(descriptor["notice_sources"]):
         record = exact_keys(untyped, {"source", "path", "output"})
@@ -1274,6 +1351,7 @@ def build_twice(toolchain: dict[str, object], descriptor: dict[str, object]) -> 
             Path(left_name),
             run_capture_tests=True,
             run_roslyn_tests=True,
+            run_subset_tests=True,
         )
         right = build_once(toolchain, descriptor, archives_root, Path(right_name))
         compare_candidates(left, right)
@@ -1415,6 +1493,23 @@ def test_roslyn() -> None:
             raise CSharpBuildFailure("CSHARP_BUILD_INVENTORY_MISMATCH")
 
 
+def test_subset() -> None:
+    validate_build_host()
+    _, toolchain = load_profile()
+    descriptor = load_descriptor(toolchain)
+    archives_root = check_cached_archives(toolchain)
+    with tempfile.TemporaryDirectory(prefix="mpk-csharp-subset-test-") as temporary:
+        candidate = build_once(
+            toolchain,
+            descriptor,
+            archives_root,
+            Path(temporary),
+            run_subset_tests=True,
+        )
+        if candidate_inventory(candidate, descriptor) != load_candidate_inventory():
+            raise CSharpBuildFailure("CSHARP_BUILD_INVENTORY_MISMATCH")
+
+
 def self_test() -> None:
     _, toolchain = load_profile()
     load_descriptor(toolchain)
@@ -1537,6 +1632,8 @@ def main(argv: list[str]) -> int:
             test_capture()
         elif argv == ["test-roslyn"]:
             test_roslyn()
+        elif argv == ["test-subset"]:
+            test_subset()
         elif len(argv) == 2 and argv[0] == "build":
             build_to(argv[1])
         else:

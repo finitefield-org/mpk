@@ -10,3 +10,4 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyInformationalVersion("0.1.0")]
 [assembly: InternalsVisibleTo("csharp2vir-capture-tests")]
 [assembly: InternalsVisibleTo("csharp2vir-roslyn-tests")]
+[assembly: InternalsVisibleTo("csharp2vir-subset-tests")]

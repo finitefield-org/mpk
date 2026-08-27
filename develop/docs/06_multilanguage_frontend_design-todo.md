@@ -4,8 +4,8 @@ Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
 Status: Gate C and `MLANG-01` are complete after the completed Rust and
 `MLANG-00` gates. Gate D is active at its non-production implementation
-boundary: `CSHARP-02-T01` through `CSHARP-02-T06` are complete;
-`CSHARP-02-T07` is next. No C# production route or later-language phase is
+boundary: `CSHARP-02-T01` through `CSHARP-02-T07` are complete;
+`CSHARP-02-T08` is next. No C# production route or later-language phase is
 active.
 
 ## Scope and sequencing
@@ -330,7 +330,7 @@ was added.
 Entry gate: `MLANG-01` complete.
 
 Status: Active at the inactive implementation boundary. `CSHARP-02-T01`
-through `CSHARP-02-T06` are complete; `CSHARP-02-T07` is next.
+through `CSHARP-02-T07` are complete; `CSHARP-02-T08` is next.
 
 Authoritative execution plan:
 `csharp-02-implementation-traceability-ledger.md`.
@@ -480,16 +480,29 @@ partial artifact.
 
 ### CSHARP-02-T07 Enforce the C# subset, closure, purity, and initialization
 
-Status: Next.
+Status: Complete (2026-08-27).
 
 Depends on: `CSHARP-02-T06`.
 
 Exit gate: every omitted construct rejects before VIR and every accepted
 method belongs to one deterministic pure acyclic closure.
 
+Completion evidence: the private candidate validates exact declaration,
+identifier, source-type, literal, statement, operator, conversion, call, and
+abrupt-completion forms against public Roslyn symbols and operations. Closure
+discovery follows every source static call, including source-dead calls,
+rejects cycles and unrelated methods, proves immutable parameters, local
+definite assignment, purity, and inert type initialization, and stores methods
+in deterministic callee-first order. Reference-identity operation unions, CFG
+blocks, syntax nodes, and closure totals enforce all six T07 limits before an
+excess item is retained. The pinned offline harness executes all 16
+`reject_before_vir` rows and exact 128/129 closure boundaries. The candidate
+remains unregistered and stops before contract parsing without a partial
+artifact.
+
 ### CSHARP-02-T08 Implement typed C# contracts and attachment
 
-Status: Pending.
+Status: Next.
 
 Depends on: `CSHARP-02-T07`.
 

@@ -46,10 +46,12 @@ internal static class Program
             CapturedSourceSet sources = SourceTransport.Validate(snapshot);
             RoslynSourceSession sourceSession = RoslynSessionFactory.Parse(selection, sources);
             phase = "metadata";
-            _ = RoslynSessionFactory.Compile(
+            RoslynCompilationSession compilationSession = RoslynSessionFactory.Compile(
                 selection,
                 sourceSession,
                 System.IO.Path.Combine(FrontendConstants.ToolchainRoot, "reference-pack"));
+            phase = "typecheck";
+            _ = CSharpSubset.Validate(selection, compilationSession);
         }
         catch (SelectionSyntaxFailure)
         {
@@ -65,8 +67,8 @@ internal static class Program
             return WriteFailure(FrontendFailure.Internal(phase));
         }
 
-        // T06 stops before subset admission. A valid compiler session remains
-        // private and cannot produce a partial successor artifact.
+        // T07 stops after deterministic subset/closure admission. The private
+        // closure cannot be mistaken for a partial successor artifact.
         Console.Error.Write("CSHARP_FRONTEND_UNAVAILABLE\n");
         return 64;
     }

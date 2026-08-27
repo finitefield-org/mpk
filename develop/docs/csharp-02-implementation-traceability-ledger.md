@@ -2,10 +2,10 @@
 
 Status: `CSHARP-02-T01` complete (2026-08-25), `CSHARP-02-T02` through
 `CSHARP-02-T03` complete (2026-08-26), and `CSHARP-02-T04` through
-`CSHARP-02-T06` complete (2026-08-27). `CSHARP-02-T07` is the next task. No
-subset-admitting or production C# frontend, released successor route, installed
-registry root, release tuple, policy route, evidence route, or AI route is
-active.
+`CSHARP-02-T07` complete (2026-08-27). `CSHARP-02-T08` is the next task. No
+contract-normalizing or production C# frontend, released successor route,
+installed registry root, release tuple, policy route, evidence route, or AI
+route is active.
 
 This document is the non-normative execution plan for implementing the frozen
 C# package. `CSHARP_PROFILE_V0.md` and
@@ -85,8 +85,8 @@ MLANG-01-T03
 | `CSHARP-02-T04` | complete | inactive successor source-artifact models and hash domains |
 | `CSHARP-02-T05` | complete | C# selection, structural preflight, and immutable capture |
 | `CSHARP-02-T06` | complete | exact public Roslyn parse/compilation session |
-| `CSHARP-02-T07` | ready | declaration/subset/closure/purity/initialization gate |
-| `CSHARP-02-T08` | blocked on T07 | typed C# contract parsing, attachment, normalization, and hashing |
+| `CSHARP-02-T07` | complete | declaration/subset/closure/purity/initialization gate |
+| `CSHARP-02-T08` | ready | typed C# contract parsing, attachment, normalization, and hashing |
 | `CSHARP-02-T09` | blocked on T08 | scalar/control/conversion lowering and exact required checks |
 | `CSHARP-02-T10` | blocked on T09 | static calls, stable IDs, maps, manifests, and successful envelope emission |
 | `CSHARP-02-T11` | blocked on T10 | frontend diagnostics, limits, and source-case vector executor |
@@ -342,6 +342,8 @@ reviewed candidate DLL is 48,128 bytes with SHA-256
 
 Depends on: `CSHARP-02-T06`.
 
+Status: Complete (2026-08-27).
+
 Owns:
 
 - declaration, type-spelling, literal, statement, and control-flow admission;
@@ -358,6 +360,20 @@ owner is `crates/mpk-cli/tests/csharp_subset.rs`.
 
 Exit gate: every omitted construct family rejects at its exact earliest phase,
 while accepted closure metadata is deterministic and complete.
+
+Completion evidence: `SubsetSymbols.cs` closes namespaces, static classes,
+ordinary methods, source spellings, predefined carriers, and exact source
+symbol origins. `SubsetOperations.cs` closes statements, literals, operators,
+conversions, calls, purity, abrupt completion, local assignment, public
+operation kinds, CFG regions/branches, and reference-union accounting.
+`SubsetValidator.cs` discovers the conservative multi-root source-call graph
+lazily, rejects the first excess closure member before analysis retention,
+rejects cycles and unrelated methods, and stores the complete graph in
+deterministic callee-first order. The executable pinned harness owns all 16
+T07 semantic rows, source-dead and multi-file calls, exact boundary counters,
+and a real 128/129-method closure. The reviewed candidate DLL is 86,528 bytes
+with SHA-256
+`251508958b2754fda74349a5cd89575dbf9fd86f7f7899458cbd0f07f664d5e6`.
 
 ### CSHARP-02-T08 Implement typed C# contracts and attachment
 
@@ -921,7 +937,7 @@ The implementation blocker format is:
 | Blocker | Detected by | Frozen requirement | Why implementation cannot decide | Required owner | Status |
 | --- | --- | --- | --- | --- | --- |
 
-T01 through T06 have no blocker. A later task records a blocker before changing
+T01 through T07 have no blocker. A later task records a blocker before changing
 scope. It may be closed only by a separately named, serial governance/
 specification task followed by regeneration and review of every affected
 frozen input.
@@ -1033,3 +1049,23 @@ No subset admission, closure decision, contract parsing, lowering, VIR or
 success-artifact emission, active registry/bundle, released runner or command,
 normative vector byte, or production identity changed in T06. T07 is the sole
 ready successor.
+
+The T07 review ledger is empty. Its closed implementation inventory contains:
+
+- exact declaration, ASCII source-spelling, predefined type/literal,
+  statement/control, built-in operator, and numeric-conversion admission;
+- one conservative all-selected-root source-call closure with deterministic
+  callee-first ordering, source-dead call retention, acyclicity, exact source
+  resolution, and unrelated-method rejection;
+- exhaustive operation-based purity, immutable-parameter, inert static-type,
+  and CFG definite-assignment checks over only public Roslyn APIs;
+- checked syntax-node, per-method/closure operation, CFG-block, and 128-method
+  counters that reject before retaining an excess item; and
+- the primary Rust owner plus a pinned executable C# harness covering all 16
+  held-out semantic rows and accepted/boundary/mutation cases in the offline
+  two-build gate.
+
+No contract JSON parsing or normalization, lowering, required-check creation,
+VIR/map/manifest or success-artifact emission, active registry/bundle,
+released runner or command, normative vector byte, or production identity
+changed in T07. T08 is the sole ready successor.

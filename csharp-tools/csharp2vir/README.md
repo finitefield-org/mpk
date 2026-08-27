@@ -5,9 +5,13 @@ This directory contains the inactive C# frontend project established by
 grammar, selection hashing, closed path preflight, immutable capture, and
 strict source transport. `CSHARP-02-T06` adds the exact pinned Roslyn source
 and compilation sessions, sealed reference-projection validation, phased
-diagnostics, and public semantic API adapters. A clean session still stops
-before subset admission and emits no artifact; subset validation, lowering,
-bundle registration, and production routing belong to later serial tasks.
+diagnostics, and public semantic API adapters. `CSHARP-02-T07` adds exact
+declaration/type/literal/operation admission,
+deterministic pure acyclic source-call closure, inert-initialization and
+definite-assignment proofs, and checked syntax/operation/CFG accounting. A
+clean closure still stops before contract parsing and emits no artifact;
+contracts, lowering, bundle registration, and production routing belong to
+later serial tasks.
 `--version` remains the only successful command until those tasks are
 complete.
 
@@ -20,9 +24,9 @@ and compares two independently clean builds:
 ./scripts/build-csharp-frontend.sh --check
 ```
 
-The full check runs both private executable harnesses. The T06 session harness
-can also be run alone with `--test-roslyn` against the provisioned offline
-closure.
+The full check runs all three private executable harnesses. The T06 session and
+T07 subset harnesses can also be run alone with `--test-roslyn` and
+`--test-subset` against the provisioned offline closure.
 
 The command is offline and check-only. On a new machine, an explicit,
 separate provisioning step may populate the ignored raw-archive cache:

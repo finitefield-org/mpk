@@ -25,6 +25,9 @@ case "$#:${1-}" in
   1:--test-roslyn)
     action=test-roslyn
     ;;
+  1:--test-subset)
+    action=test-subset
+    ;;
   2:--build)
     action=build
     ;;
