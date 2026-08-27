@@ -35,6 +35,7 @@ CAPTURE_HARNESS_PATH = REPOSITORY_ROOT / "crates/mpk-cli/tests/csharp_capture_ha
 ROSLYN_HARNESS_PATH = REPOSITORY_ROOT / "crates/mpk-cli/tests/csharp_roslyn_session_harness.cs"
 SUBSET_HARNESS_PATH = REPOSITORY_ROOT / "crates/mpk-cli/tests/csharp_subset_harness.cs"
 CONTRACT_HARNESS_PATH = REPOSITORY_ROOT / "crates/mpk-cli/tests/csharp_contracts_harness.cs"
+LOWERING_HARNESS_PATH = REPOSITORY_ROOT / "crates/mpk-cli/tests/csharp_lowering_harness.cs"
 
 TOOLCHAIN_DOMAIN = b"MPK-CSHARP-TOOLCHAIN-INPUTS-0.1\0"
 REFERENCE_DOMAIN = b"MPK-CSHARP-REFERENCE-INVENTORY-0.1\0"
@@ -49,6 +50,9 @@ PROJECT_FILES = (
     "ContractModel.cs",
     "ContractParser.cs",
     "FrontendModel.cs",
+    "LoweringBuilder.cs",
+    "LoweringModel.cs",
+    "LoweringValidation.cs",
     "NOTICE.txt",
     "Program.cs",
     "RoslynAdapters.cs",
@@ -1005,6 +1009,7 @@ def build_once(
     run_roslyn_tests: bool = False,
     run_subset_tests: bool = False,
     run_contract_tests: bool = False,
+    run_lowering_tests: bool = False,
 ) -> Path:
     roots = materialize_closure(toolchain, archives_root, root / "closure")
     project = copy_project(descriptor, root)
@@ -1061,6 +1066,8 @@ def build_once(
         validate_subset_implementation(toolchain, roots, candidate, root / "subset-tests")
     if run_contract_tests:
         validate_contract_implementation(toolchain, roots, candidate, root / "contract-tests")
+    if run_lowering_tests:
+        validate_lowering_implementation(toolchain, roots, candidate, root / "lowering-tests")
     for directory in (path for path in candidate.rglob("*") if path.is_dir()):
         os.chmod(directory, 0o755)
         os.utime(directory, ns=(0, 0), follow_symlinks=False)
@@ -1344,6 +1351,75 @@ def validate_contract_implementation(
         output.unlink(missing_ok=True)
 
 
+def validate_lowering_implementation(
+    toolchain: dict[str, object],
+    roots: dict[str, Path],
+    candidate: Path,
+    work: Path,
+) -> None:
+    work.mkdir(mode=0o700, parents=True, exist_ok=False)
+    harness = work / "LoweringHarness.cs"
+    with opened_regular(LOWERING_HARNESS_PATH, 2 * 1024 * 1024) as (input_stream, before), harness.open("xb") as output_stream:
+        shutil.copyfileobj(input_stream, output_stream, 1024 * 1024)
+    if harness.stat().st_size != before.st_size:
+        raise CSharpBuildFailure("CSHARP_LOWERING_TEST_BUILD")
+    os.chmod(harness, 0o444)
+    os.utime(harness, ns=(0, 0), follow_symlinks=False)
+    frontend = candidate / "frontend"
+    output = frontend / "csharp2vir-lowering-tests.dll"
+    sdk = roots["dotnet-sdk-linux-x64"]
+    compiler = sdk / "sdk/10.0.400/Roslyn/bincore/csc.dll"
+    arguments = list(COMPILER_ARGUMENTS)
+    arguments.extend(
+        [
+            "/out:" + str(output),
+            "/main:Mpk.CSharp2Vir.LoweringHarness",
+            "/pathmap:" + str(REPOSITORY_ROOT) + "=/_/mpk",
+        ]
+    )
+    reference_root = roots["microsoft-netcore-app-ref"]
+    for untyped in array(toolchain["reference_projection"]["inventory"]):
+        record = exact_keys(untyped, {"path", "size_bytes", "sha256"})
+        arguments.append("/reference:" + str(reference_root / text(record["path"])))
+    arguments.extend(
+        [
+            "/reference:" + str(frontend / "Microsoft.CodeAnalysis.dll"),
+            "/reference:" + str(frontend / "Microsoft.CodeAnalysis.CSharp.dll"),
+            "/reference:" + str(frontend / "csharp2vir.dll"),
+            str(harness),
+        ]
+    )
+    build_environment = closed_dotnet_environment(sdk, work / "build-environment")
+    result = execute_isolated(
+        [str(sdk / "dotnet"), "exec", str(compiler)] + arguments,
+        cwd=REPOSITORY_ROOT,
+        environment=build_environment,
+    )
+    if result.returncode != 0 or result.stdout or result.stderr or not output.is_file():
+        raise CSharpBuildFailure("CSHARP_LOWERING_TEST_BUILD")
+    try:
+        runtime = roots["dotnet-runtime-linux-x64"]
+        runtime_environment = closed_dotnet_environment(runtime, work / "runtime-environment")
+        result = execute_isolated(
+            [
+                str(runtime / "dotnet"),
+                "exec",
+                "--runtimeconfig",
+                str(frontend / "csharp2vir.runtimeconfig.json"),
+                "--fx-version",
+                "10.0.11",
+                str(output),
+                str(reference_root),
+            ],
+            cwd=candidate,
+            environment=runtime_environment,
+        )
+        if result.returncode != 0 or result.stdout or result.stderr:
+            raise CSharpBuildFailure("CSHARP_LOWERING_TEST_FAILURE")
+    finally:
+        output.unlink(missing_ok=True)
+
+
 def copy_notices(descriptor: dict[str, object], roots: dict[str, Path], project: Path, candidate: Path) -> None:
     for untyped in array(descriptor["notice_sources"]):
         record = exact_keys(untyped, {"source", "path", "output"})
@@ -1430,6 +1506,7 @@ def build_twice(toolchain: dict[str, object], descriptor: dict[str, object]) -> 
             run_roslyn_tests=True,
             run_subset_tests=True,
             run_contract_tests=True,
+            run_lowering_tests=True,
         )
         right = build_once(toolchain, descriptor, archives_root, Path(right_name))
         compare_candidates(left, right)
@@ -1605,6 +1682,23 @@ def test_contracts() -> None:
             raise CSharpBuildFailure("CSHARP_BUILD_INVENTORY_MISMATCH")
 
 
+def test_lowering() -> None:
+    validate_build_host()
+    _, toolchain = load_profile()
+    descriptor = load_descriptor(toolchain)
+    archives_root = check_cached_archives(toolchain)
+    with tempfile.TemporaryDirectory(prefix="mpk-csharp-lowering-test-") as temporary:
+        candidate = build_once(
+            toolchain,
+            descriptor,
+            archives_root,
+            Path(temporary),
+            run_lowering_tests=True,
+        )
+        if candidate_inventory(candidate, descriptor) != load_candidate_inventory():
+            raise CSharpBuildFailure("CSHARP_BUILD_INVENTORY_MISMATCH")
+
+
 def self_test() -> None:
     _, toolchain = load_profile()
     load_descriptor(toolchain)
@@ -1731,6 +1825,8 @@ def main(argv: list[str]) -> int:
             test_subset()
         elif argv == ["test-contracts"]:
             test_contracts()
+        elif argv == ["test-lowering"]:
+            test_lowering()
         elif len(argv) == 2 and argv[0] == "build":
             build_to(argv[1])
         else:

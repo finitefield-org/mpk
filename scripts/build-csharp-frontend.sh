@@ -31,6 +31,9 @@ case "$#:${1-}" in
   1:--test-contracts)
     action=test-contracts
     ;;
+  1:--test-lowering)
+    action=test-lowering
+    ;;
   2:--build)
     action=build
     ;;

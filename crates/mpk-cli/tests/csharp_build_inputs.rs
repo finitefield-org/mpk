@@ -90,6 +90,9 @@ fn frozen_descriptor_binds_the_profile_project_recipe_and_candidate_inventory() 
         "ContractModel.cs",
         "ContractParser.cs",
         "FrontendModel.cs",
+        "LoweringBuilder.cs",
+        "LoweringModel.cs",
+        "LoweringValidation.cs",
         "NOTICE.txt",
         "Program.cs",
         "RoslynAdapters.cs",
@@ -216,7 +219,9 @@ fn candidate_remains_inert_unregistered_and_outside_the_active_release() {
     assert!(!project.contains("Analyzer Include"));
     assert!(!program.contains("ParseText"));
     assert!(!program.contains("CSharpCompilation.Create"));
-    assert!(!program.contains("lower"));
+    assert!(program.contains("CSharpLowering.Lower"));
+    assert!(!program.contains("OpenStandardOutput"));
+    assert!(!program.contains("FrontendEnvelope"));
     assert!(program.contains("CSHARP_FRONTEND_UNAVAILABLE"));
 
     let registry = load("release/bundles/bundle-registry.json");

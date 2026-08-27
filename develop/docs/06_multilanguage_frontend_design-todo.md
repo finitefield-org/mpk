@@ -4,8 +4,8 @@ Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
 Status: Gate C and `MLANG-01` are complete after the completed Rust and
 `MLANG-00` gates. Gate D is active at its non-production implementation
-boundary: `CSHARP-02-T01` through `CSHARP-02-T08` are complete;
-`CSHARP-02-T09` is next. No C# production route or later-language phase is
+boundary: `CSHARP-02-T01` through `CSHARP-02-T09` are complete;
+`CSHARP-02-T10` is next. No C# production route or later-language phase is
 active.
 
 ## Scope and sequencing
@@ -330,7 +330,7 @@ was added.
 Entry gate: `MLANG-01` complete.
 
 Status: Active at the inactive implementation boundary. `CSHARP-02-T01`
-through `CSHARP-02-T08` are complete; `CSHARP-02-T09` is next.
+through `CSHARP-02-T09` are complete; `CSHARP-02-T10` is next.
 
 Authoritative execution plan:
 `csharp-02-implementation-traceability-ledger.md`.
@@ -523,16 +523,28 @@ remains unregistered and stops before lowering without a partial artifact.
 
 ### CSHARP-02-T09 Lower scalar C# operations and required checks
 
-Status: Next.
+Status: Complete (2026-08-27).
 
 Depends on: `CSHARP-02-T08`.
 
 Exit gate: scalar/control/conversion lowering is deterministic and every
 required check is complete, unique, and canonically ordered.
 
+Completion evidence: the private candidate lowers Bool and signed/unsigned
+BV32/BV64 constants, locals, copies, returns, eager expressions, short
+circuits, branches, joins, and early returns in stable order. It owns all 34
+non-call mappings, all 12 Roslyn checked-state cases, all 20 conversion rules,
+and all 15 T09 semantic rows. Checked arithmetic, division/remainder guards,
+and masked shifts produce the exact per-instruction checks and a canonical
+required-check ledger; missing, extra, and reordered checks reject before emission.
+The pinned executable harness runs in the reproducible offline build, while
+`CallStatic`, public serialization, and every production route remain closed.
+The reviewed candidate DLL is 158,720 bytes with SHA-256
+`bf94b267c3a67af9057ce103cbffbe3bebfeb307f4ebe7c3335a2756d94bc81e`.
+
 ### CSHARP-02-T10 Lower static calls and emit stable VIR, maps, and manifests
 
-Status: Pending.
+Status: Next.
 
 Depends on: `CSHARP-02-T09`.
 

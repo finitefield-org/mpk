@@ -209,10 +209,26 @@ internal static class SubsetBodies
         }
 
         ValidateBlock(body, method, names);
-        if (body.Statements.Count == 0 || body.Statements[^1] is not ReturnStatementSyntax)
+        if (!HasFinalReturn(body))
         {
             throw FrontendFailure.Rejected("subset", "CSHARP_SUBSET_CONTROL_FLOW");
         }
+    }
+
+    private static bool HasFinalReturn(BlockSyntax block)
+    {
+        if (block.Statements.Count == 0)
+        {
+            return false;
+        }
+
+        return block.Statements[^1] switch
+        {
+            ReturnStatementSyntax => true,
+            BlockSyntax nested => HasFinalReturn(nested),
+            CheckedStatementSyntax checkedStatement => HasFinalReturn(checkedStatement.Block),
+            _ => false,
+        };
     }
 
     private static void ValidateBlock(
@@ -1114,7 +1130,7 @@ internal static class SubsetBodies
             return;
         }
 
-        if (!explicitInSource || !classified.IsExplicit)
+        if (!explicitInSource || (!classified.IsExplicit && !classified.IsImplicit))
         {
             throw FrontendFailure.Rejected("subset", "CSHARP_SUBSET_CONVERSION");
         }

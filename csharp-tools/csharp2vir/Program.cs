@@ -53,7 +53,9 @@ internal static class Program
             phase = "typecheck";
             SubsetClosure closure = CSharpSubset.Validate(selection, compilationSession);
             phase = "subset";
-            _ = CSharpContracts.Attach(selection, snapshot, closure);
+            ContractSet contracts = CSharpContracts.Attach(selection, snapshot, closure);
+            phase = "lowering";
+            _ = CSharpLowering.Lower(selection, closure, contracts);
         }
         catch (SelectionSyntaxFailure)
         {
@@ -69,8 +71,9 @@ internal static class Program
             return WriteFailure(FrontendFailure.Internal(phase));
         }
 
-        // T08 stops after typed one-to-one contract attachment. The private
-        // contract set cannot be mistaken for a partial successor artifact.
+        // T09 stops after deterministic call-free internal lowering and exact
+        // check validation. The private lowering cannot be mistaken for a
+        // partial successor artifact.
         Console.Error.Write("CSHARP_FRONTEND_UNAVAILABLE\n");
         return 64;
     }

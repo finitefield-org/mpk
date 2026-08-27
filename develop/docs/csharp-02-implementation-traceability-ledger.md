@@ -2,10 +2,10 @@
 
 Status: `CSHARP-02-T01` complete (2026-08-25), `CSHARP-02-T02` through
 `CSHARP-02-T03` complete (2026-08-26), and `CSHARP-02-T04` through
-`CSHARP-02-T08` complete (2026-08-27). `CSHARP-02-T09` is the next task. No
-operation-lowering or production C# frontend, released successor route,
-installed registry root, release tuple, policy route, evidence route, or AI
-route is active.
+`CSHARP-02-T09` complete (2026-08-27). `CSHARP-02-T10` is the next task. No
+static-call lowering, public artifact emission, or production C# frontend,
+released successor route, installed registry root, release tuple, policy
+route, evidence route, or AI route is active.
 
 This document is the non-normative execution plan for implementing the frozen
 C# package. `CSHARP_PROFILE_V0.md` and
@@ -87,8 +87,8 @@ MLANG-01-T03
 | `CSHARP-02-T06` | complete | exact public Roslyn parse/compilation session |
 | `CSHARP-02-T07` | complete | declaration/subset/closure/purity/initialization gate |
 | `CSHARP-02-T08` | complete | typed C# contract parsing, attachment, normalization, and hashing |
-| `CSHARP-02-T09` | ready | scalar/control/conversion lowering and exact required checks |
-| `CSHARP-02-T10` | blocked on T09 | static calls, stable IDs, maps, manifests, and successful envelope emission |
+| `CSHARP-02-T09` | complete | scalar/control/conversion lowering and exact required checks |
+| `CSHARP-02-T10` | ready | static calls, stable IDs, maps, manifests, and successful envelope emission |
 | `CSHARP-02-T11` | blocked on T10 | frontend diagnostics, limits, and source-case vector executor |
 | `CSHARP-02-T12` | blocked on T11 | deterministic C# candidate bundles and staged sandbox runner |
 | `CSHARP-02-T13` | blocked on T12 | staged Go producer migration to successor artifacts |
@@ -417,6 +417,8 @@ bytes with SHA-256
 
 Depends on: `CSHARP-02-T08`.
 
+Status: Complete (2026-08-27).
+
 Owns:
 
 - Bool and signed/unsigned BV32/BV64 constants, locals, copies, and returns;
@@ -434,6 +436,23 @@ is `crates/mpk-cli/tests/csharp_lowering.rs`.
 Exit gate: complete internal lowering is deterministic, every required check
 is present exactly once in canonical order, and missing/extra/reordered checks
 fail before emission.
+
+Completion evidence: `LoweringModel.cs`, `LoweringBuilder.cs`, and
+`LoweringValidation.cs` define and validate a private typed call-free IR for
+all five frozen scalar types, stable locals/copies/results, false-before-true
+CFG traversal, block-parameter joins, early returns, all 34 non-call operation
+mappings, 12 Roslyn checked-state records, and 20 identity/implicit/explicit
+conversion rules. Explicitly written widening numeric casts are admitted as
+the frozen conversion table requires. Checked add/subtract/multiply/negate,
+signed and unsigned division/remainder, and masked shifts regenerate their
+complete per-instruction checks; a separately retained canonical ledger
+rejects missing, extra, duplicate, and reordered entries before any emitter
+exists. The primary Rust owner and pinned executable harness cover all 15 T09
+semantic rows, deterministic IDs/evaluation/control flow, diagnostic
+mutations, and the closed `CallStatic` boundary. The candidate remains
+unregistered and unavailable after private lowering. Its reviewed DLL is
+158,720 bytes with SHA-256
+`bf94b267c3a67af9057ce103cbffbe3bebfeb307f4ebe7c3335a2756d94bc81e`.
 
 ### CSHARP-02-T10 Lower static calls and emit stable VIR, maps, and manifests
 
