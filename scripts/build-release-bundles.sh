@@ -12,6 +12,10 @@ case "$#:${1-}:${2-}" in
     exec /usr/bin/env -i PATH=/usr/bin:/bin HOME=/nonexistent \
       /usr/bin/python3 -B "$script_dir/release_bundles.py" check-go
     ;;
+  2:--check:csharp)
+    exec /usr/bin/env -i PATH=/usr/bin:/bin PYTHONDONTWRITEBYTECODE=1 \
+      /usr/bin/python3 -B "$script_dir/csharp_release_bundles.py" check
+    ;;
   2:--update-build-inputs:rust|2:--provision-build-inputs:rust|2:--check-build-inputs:rust)
     case "$1" in
       --update-build-inputs) action=update-build-inputs ;;

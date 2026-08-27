@@ -49,6 +49,42 @@ pub(super) fn load_installed_registry(
     Ok((root, registry))
 }
 
+pub(super) fn load_staged_descriptors(
+) -> Result<(InstalledReleaseRoot, Vec<u8>, Vec<u8>), FrontendReleaseError> {
+    if !cfg!(all(target_arch = "x86_64", target_env = "gnu")) {
+        return Err(release_error(
+            FrontendReleaseCode::SandboxUnavailable,
+            "the executing host does not match the staged Linux ABI",
+        ));
+    }
+    let root = installed_release_root()?;
+    require_exact_names(
+        &root,
+        "share",
+        &["mpk"],
+        FrontendReleaseCode::RegistryMissing,
+        FrontendReleaseCode::RegistryInvalid,
+    )?;
+    require_exact_names(
+        &root,
+        "share/mpk",
+        &["bundle-registry.json", "semantic-profile-registry.json"],
+        FrontendReleaseCode::RegistryMissing,
+        FrontendReleaseCode::RegistryInvalid,
+    )?;
+    let registry = read_stable_installed_file(
+        &root,
+        "share/mpk/bundle-registry.json",
+        mpk_vc::REGISTRY_TRANSPORT_BYTES_MAX,
+    )?;
+    let semantic_registry = read_stable_installed_file(
+        &root,
+        "share/mpk/semantic-profile-registry.json",
+        mpk_vc::REGISTRY_TRANSPORT_BYTES_MAX,
+    )?;
+    Ok((root, registry, semantic_registry))
+}
+
 fn installed_release_root() -> Result<InstalledReleaseRoot, FrontendReleaseError> {
     let image = File::open("/proc/self/exe").map_err(|_| {
         release_error(
@@ -157,13 +193,6 @@ fn open_installed_registry(
         FrontendReleaseCode::RegistryMissing,
         FrontendReleaseCode::RegistryInvalid,
     )?;
-    let mut file = open_regular_beneath(
-        root,
-        "share/mpk/bundle-registry.json",
-        0o444,
-        FrontendReleaseCode::RegistryMissing,
-        "the installed registry is missing",
-    )?;
     require_exact_names(
         root,
         "share/mpk",
@@ -171,40 +200,11 @@ fn open_installed_registry(
         FrontendReleaseCode::RegistryMissing,
         FrontendReleaseCode::RegistryInvalid,
     )?;
-    let before = file.metadata().map_err(|_| {
-        release_error(
-            FrontendReleaseCode::RegistryInvalid,
-            "installed registry metadata is unavailable",
-        )
-    })?;
-    if before.len() > mpk_vc::REGISTRY_TRANSPORT_BYTES_MAX {
-        return Err(release_error(
-            FrontendReleaseCode::RegistryLimit,
-            "installed registry exceeds its transport limit",
-        ));
-    }
-    let mut bytes = Vec::with_capacity(usize::try_from(before.len()).unwrap_or(0));
-    file.by_ref()
-        .take(mpk_vc::REGISTRY_TRANSPORT_BYTES_MAX + 1)
-        .read_to_end(&mut bytes)
-        .map_err(|_| {
-            release_error(
-                FrontendReleaseCode::RegistryInvalid,
-                "installed registry could not be read exactly once",
-            )
-        })?;
-    let after = file.metadata().map_err(|_| {
-        release_error(
-            FrontendReleaseCode::RegistryInvalid,
-            "installed registry identity disappeared",
-        )
-    })?;
-    if bytes.len() as u64 != before.len() || !same_stable_file(&before, &after) {
-        return Err(release_error(
-            FrontendReleaseCode::RegistryInvalid,
-            "installed registry changed during capture",
-        ));
-    }
+    let bytes = read_stable_installed_file(
+        root,
+        "share/mpk/bundle-registry.json",
+        mpk_vc::REGISTRY_TRANSPORT_BYTES_MAX,
+    )?;
     let registry = validate_release_registry(&bytes).map_err(|error| {
         let code = if error.code() == mpk_vc::ReleaseRegistryErrorCode::Limit {
             FrontendReleaseCode::RegistryLimit
@@ -224,9 +224,74 @@ fn open_installed_registry(
     Ok(registry)
 }
 
+fn read_stable_installed_file(
+    root: &InstalledReleaseRoot,
+    path: &str,
+    limit: u64,
+) -> Result<Vec<u8>, FrontendReleaseError> {
+    let mut file = open_regular_beneath(
+        root,
+        path,
+        0o444,
+        FrontendReleaseCode::RegistryMissing,
+        "the installed descriptor is missing",
+    )?;
+    let before = file.metadata().map_err(|_| {
+        release_error(
+            FrontendReleaseCode::RegistryInvalid,
+            "installed descriptor metadata is unavailable",
+        )
+    })?;
+    if before.len() > limit {
+        return Err(release_error(
+            FrontendReleaseCode::RegistryLimit,
+            "installed descriptor exceeds its transport limit",
+        ));
+    }
+    let mut bytes = Vec::with_capacity(usize::try_from(before.len()).unwrap_or(0));
+    file.by_ref()
+        .take(limit + 1)
+        .read_to_end(&mut bytes)
+        .map_err(|_| {
+            release_error(
+                FrontendReleaseCode::RegistryInvalid,
+                "installed descriptor could not be read exactly once",
+            )
+        })?;
+    let after = file.metadata().map_err(|_| {
+        release_error(
+            FrontendReleaseCode::RegistryInvalid,
+            "installed descriptor identity disappeared",
+        )
+    })?;
+    if bytes.len() as u64 != before.len() || !same_stable_file(&before, &after) {
+        return Err(release_error(
+            FrontendReleaseCode::RegistryInvalid,
+            "installed descriptor changed during capture",
+        ));
+    }
+    Ok(bytes)
+}
+
 pub(super) fn snapshot_selected_bundles(
     root: &InstalledReleaseRoot,
     registry: &ValidatedReleaseRegistry,
+    frontend_bundle_id: &str,
+    toolchain_bundle_id: &str,
+) -> Result<BTreeMap<String, Arc<BundleSnapshot>>, FrontendReleaseError> {
+    let mut expected = BTreeMap::new();
+    for frontend in &registry.registry().frontend_bundles {
+        expected.insert(frontend.bundle_id.clone(), &frontend.inventory);
+    }
+    for toolchain in &registry.registry().toolchain_bundles {
+        expected.insert(toolchain.bundle_id.clone(), &toolchain.inventory);
+    }
+    snapshot_inventory_set(root, &expected, frontend_bundle_id, toolchain_bundle_id)
+}
+
+pub(super) fn snapshot_inventory_set(
+    root: &InstalledReleaseRoot,
+    expected: &BTreeMap<String, &BundleInventory>,
     frontend_bundle_id: &str,
     toolchain_bundle_id: &str,
 ) -> Result<BTreeMap<String, Arc<BundleSnapshot>>, FrontendReleaseError> {
@@ -244,13 +309,6 @@ pub(super) fn snapshot_selected_bundles(
         FrontendReleaseCode::BundleInvalid,
         FrontendReleaseCode::BundleInvalid,
     )?;
-    let mut expected = BTreeMap::new();
-    for frontend in &registry.registry().frontend_bundles {
-        expected.insert(frontend.bundle_id.clone(), &frontend.inventory);
-    }
-    for toolchain in &registry.registry().toolchain_bundles {
-        expected.insert(toolchain.bundle_id.clone(), &toolchain.inventory);
-    }
     let expected_ids = expected.keys().cloned().collect::<BTreeSet<_>>();
     let observed = directory_names_beneath(
         root,
@@ -265,7 +323,7 @@ pub(super) fn snapshot_selected_bundles(
     let mut directory_identities = BTreeSet::new();
     let mut file_identities = BTreeSet::new();
     let mut observed_inventories = BTreeMap::new();
-    for (bundle_id, inventory) in &expected {
+    for (bundle_id, inventory) in expected {
         let bundle_root = format!("libexec/mpk/bundles/{bundle_id}");
         let observed = enumerate_bundle(root, &bundle_root)?;
         validate_inventory_metadata(

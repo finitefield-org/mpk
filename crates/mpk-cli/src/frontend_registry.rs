@@ -1,10 +1,13 @@
 #![allow(dead_code)]
 
 #[cfg(test)]
-use mpk_vc::InventoryFile;
+use mpk_vc::validate_release_registry;
 #[cfg(test)]
-use mpk_vc::{validate_release_registry, BundleInventory};
-use mpk_vc::{FrontendBundle, ReleaseSelectionRequest, ToolchainBundle, ValidatedReleaseRegistry};
+use mpk_vc::InventoryFile;
+use mpk_vc::{
+    BundleInventory, FrontendBundle, ReleaseSelectionRequest, ToolchainBundle,
+    ValidatedReleaseRegistry,
+};
 #[cfg(any(test, target_os = "linux"))]
 use sha2::{Digest, Sha256};
 use std::collections::BTreeMap;
@@ -111,6 +114,63 @@ pub(crate) struct InstalledReleaseResolver {
     registry: ValidatedReleaseRegistry,
     #[cfg(target_os = "linux")]
     root: linux::InstalledReleaseRoot,
+}
+
+/// Descriptor-relative handle used only by the inactive successor harness.
+///
+/// It deliberately retains the executing installed image's root descriptor;
+/// callers cannot inject a path, environment value, or alternate executable.
+pub(crate) struct StagedInstalledRelease {
+    pub(crate) registry_bytes: Vec<u8>,
+    pub(crate) semantic_registry_bytes: Vec<u8>,
+    #[cfg(target_os = "linux")]
+    root: linux::InstalledReleaseRoot,
+}
+
+impl StagedInstalledRelease {
+    pub(crate) fn open() -> Result<Self, FrontendReleaseError> {
+        #[cfg(not(target_os = "linux"))]
+        {
+            Err(FrontendReleaseError::new(
+                FrontendReleaseCode::SandboxUnavailable,
+                "the staged installed release root is Linux-only",
+            ))
+        }
+        #[cfg(target_os = "linux")]
+        {
+            let (root, registry_bytes, semantic_registry_bytes) = linux::load_staged_descriptors()?;
+            Ok(Self {
+                registry_bytes,
+                semantic_registry_bytes,
+                root,
+            })
+        }
+    }
+
+    pub(crate) fn snapshot_selected_bundles(
+        &self,
+        expected: &BTreeMap<String, &BundleInventory>,
+        frontend_bundle_id: &str,
+        toolchain_bundle_id: &str,
+    ) -> Result<BTreeMap<String, Arc<BundleSnapshot>>, FrontendReleaseError> {
+        #[cfg(not(target_os = "linux"))]
+        {
+            let _ = (expected, frontend_bundle_id, toolchain_bundle_id);
+            Err(FrontendReleaseError::new(
+                FrontendReleaseCode::SandboxUnavailable,
+                "the staged installed release root is Linux-only",
+            ))
+        }
+        #[cfg(target_os = "linux")]
+        {
+            linux::snapshot_inventory_set(
+                &self.root,
+                expected,
+                frontend_bundle_id,
+                toolchain_bundle_id,
+            )
+        }
+    }
 }
 
 impl InstalledReleaseResolver {

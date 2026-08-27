@@ -86,6 +86,7 @@ fn first_execution_kill_cause(
 pub(crate) const LEGACY_EXECUTION_HOST_PROFILE_ID: &str = "mpk.host.linux-x86_64-gnu.v0";
 pub(crate) const RUST_EXECUTION_HOST_PROFILE_ID: &str =
     "mpk.host.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0";
+const CSHARP_BOOTSTRAP_EXECUTABLE: &str = "dotnet/dotnet";
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum SandboxProfile {
@@ -125,6 +126,8 @@ const CGROUP_SWAP_LIMIT: u64 = 0;
 const RESOURCE_OPEN_FILE_LIMIT: u64 = 1_024;
 #[cfg(any(test, target_os = "linux"))]
 const RESOURCE_ADDRESS_SPACE_LIMIT: u64 = 17_179_869_184;
+#[cfg(any(test, target_os = "linux"))]
+const CSHARP_RESOURCE_ADDRESS_SPACE_LIMIT: u64 = 1_099_511_627_776;
 #[cfg(any(test, target_os = "linux"))]
 const WRITABLE_ALLOCATED_BYTES_LIMIT: u64 = 21_474_836_480;
 #[cfg(any(test, target_os = "linux"))]
@@ -986,7 +989,7 @@ fn valid_resource_cgroup_name(name: &str) -> bool {
 }
 
 #[cfg(target_os = "linux")]
-fn verify_resource_process_controls() -> Result<(), u8> {
+fn verify_resource_process_controls(address_space_limit: u64) -> Result<(), u8> {
     use rustix::process::{getrlimit, Resource, Rlimit};
 
     for (resource, expected) in [
@@ -1007,8 +1010,8 @@ fn verify_resource_process_controls() -> Result<(), u8> {
         (
             Resource::As,
             Rlimit {
-                current: Some(RESOURCE_ADDRESS_SPACE_LIMIT),
-                maximum: Some(RESOURCE_ADDRESS_SPACE_LIMIT),
+                current: Some(address_space_limit),
+                maximum: Some(address_space_limit),
             },
         ),
         (
@@ -1248,10 +1251,15 @@ pub(crate) fn launch_release_frontend(
             profile,
             mut resource_session,
         } = prepared;
-        if !matches!(executable, "bin/go2vir" | "bin/rust2vir") {
+        if !matches!(
+            executable,
+            "bin/go2vir" | "bin/rust2vir" | CSHARP_BOOTSTRAP_EXECUTABLE
+        ) {
             return Err(SandboxError::Unavailable);
         }
-        if matches!(profile, SandboxProfile::Cgroup2Tmpfs) != (executable == "bin/rust2vir")
+        let resource_frontend = matches!(executable, "bin/rust2vir" | CSHARP_BOOTSTRAP_EXECUTABLE);
+        let csharp_frontend = executable == CSHARP_BOOTSTRAP_EXECUTABLE;
+        if matches!(profile, SandboxProfile::Cgroup2Tmpfs) != resource_frontend
             || matches!(profile, SandboxProfile::Cgroup2Tmpfs) != resource_session.is_some()
         {
             return Err(SandboxError::Unavailable);
@@ -1283,8 +1291,21 @@ pub(crate) fn launch_release_frontend(
         ] {
             fs::create_dir_all(root.join(relative)).map_err(|_| SandboxError::Unavailable)?;
         }
+        if csharp_frontend {
+            for relative in [
+                "mpk/empty-home",
+                "mpk/empty-nuget",
+                "mpk/empty-nuget-http",
+                "mpk/empty-nuget-plugins",
+            ] {
+                fs::create_dir_all(root.join(relative)).map_err(|_| SandboxError::Unavailable)?;
+            }
+        }
         fs::write(root.join("dev/null"), b"").map_err(|_| SandboxError::Unavailable)?;
-        if executable == "bin/rust2vir" {
+        if csharp_frontend {
+            fs::write(root.join("dev/urandom"), b"").map_err(|_| SandboxError::Unavailable)?;
+        }
+        if resource_frontend {
             for relative in ["proc", "lib64", "lib/x86_64-linux-gnu"] {
                 fs::create_dir_all(root.join(relative)).map_err(|_| SandboxError::Unavailable)?;
             }
@@ -1301,6 +1322,16 @@ pub(crate) fn launch_release_frontend(
             "mpk/native-runtime",
         ] {
             seal_read_only_tree(&root.join(relative))?;
+        }
+        if csharp_frontend {
+            for relative in [
+                "mpk/empty-home",
+                "mpk/empty-nuget",
+                "mpk/empty-nuget-http",
+                "mpk/empty-nuget-plugins",
+            ] {
+                seal_read_only_tree(&root.join(relative))?;
+            }
         }
         let current_executable = match profile {
             SandboxProfile::LegacyNamespaces => {
@@ -1344,6 +1375,30 @@ pub(crate) fn launch_release_frontend(
         };
         session_cleanup.and(resource_cleanup).and(result)
     }
+}
+
+#[allow(clippy::too_many_arguments)]
+pub(crate) fn launch_staged_csharp_frontend(
+    prepared: PreparedSandbox,
+    frontend: &BundleSnapshot,
+    toolchain: &BundleSnapshot,
+    args: &[String],
+    environment: &BTreeMap<String, String>,
+    captured_inputs: &[CapturedInput<'_>],
+    staged_directories: &[&str],
+    staged_placeholders: &[&str],
+) -> Result<SandboxOutput, SandboxError> {
+    launch_release_frontend(
+        prepared,
+        frontend,
+        toolchain,
+        CSHARP_BOOTSTRAP_EXECUTABLE,
+        args,
+        environment,
+        captured_inputs,
+        staged_directories,
+        staged_placeholders,
+    )
 }
 
 #[cfg(target_os = "linux")]
@@ -1900,6 +1955,14 @@ fn prepare_resource_launch(
     }
     let cgroup_directory = File::open(&cgroup.path).map_err(|_| SandboxError::Unavailable)?;
     let current_directory = File::open(current_directory).map_err(|_| SandboxError::Unavailable)?;
+    let address_space_limit = if args
+        .iter()
+        .any(|argument| argument == CSHARP_BOOTSTRAP_EXECUTABLE)
+    {
+        CSHARP_RESOURCE_ADDRESS_SPACE_LIMIT
+    } else {
+        RESOURCE_ADDRESS_SPACE_LIMIT
+    };
     let capacity = args.len().checked_add(1).ok_or(SandboxError::Unavailable)?;
     let mut arguments = Vec::with_capacity(capacity);
     arguments.push(OsString::from("mpk"));
@@ -1918,7 +1981,7 @@ fn prepare_resource_launch(
         environment,
         mpk_linux_sandbox::ProcessControls {
             open_files: RESOURCE_OPEN_FILE_LIMIT,
-            address_space_bytes: RESOURCE_ADDRESS_SPACE_LIMIT,
+            address_space_bytes: address_space_limit,
         },
     )
     .map_err(|_| SandboxError::Unavailable)
@@ -2332,7 +2395,7 @@ fn linux_probe() -> Result<u8, u8> {
         validate_minimum_kernel_version([6, 4, 0])?;
         verify_only_standard_descriptors()?;
         verify_self_in_resource_cgroup(cgroup)?;
-        verify_resource_process_controls()?;
+        verify_resource_process_controls(RESOURCE_ADDRESS_SPACE_LIMIT)?;
         unshare(UnshareFlags::NEWNS).map_err(|_| 125)?;
         mount_change(
             "/",
@@ -2599,15 +2662,26 @@ fn linux_bootstrap(arguments: &[String]) -> Result<u8, u8> {
     let Some((executable, arguments)) = arguments.split_first() else {
         return Err(125);
     };
-    if !matches!(executable.as_str(), "bin/go2vir" | "bin/rust2vir")
-        || resource_cgroup.is_some() != (executable == "bin/rust2vir")
+    let resource_frontend = matches!(
+        executable.as_str(),
+        "bin/rust2vir" | CSHARP_BOOTSTRAP_EXECUTABLE
+    );
+    let csharp_frontend = executable == CSHARP_BOOTSTRAP_EXECUTABLE;
+    if !matches!(
+        executable.as_str(),
+        "bin/go2vir" | "bin/rust2vir" | CSHARP_BOOTSTRAP_EXECUTABLE
+    ) || resource_cgroup.is_some() != resource_frontend
     {
         return Err(125);
     }
     if let Some(cgroup) = resource_cgroup {
         verify_only_standard_descriptors()?;
         verify_self_in_resource_cgroup(cgroup)?;
-        verify_resource_process_controls()?;
+        verify_resource_process_controls(if csharp_frontend {
+            CSHARP_RESOURCE_ADDRESS_SPACE_LIMIT
+        } else {
+            RESOURCE_ADDRESS_SPACE_LIMIT
+        })?;
     }
     if executable == "bin/go2vir" {
         for (resource, limit) in [
@@ -2635,7 +2709,7 @@ fn linux_bootstrap(arguments: &[String]) -> Result<u8, u8> {
             .map_err(|_| 125)?;
         }
     }
-    if executable == "bin/rust2vir" {
+    if resource_frontend {
         unshare(UnshareFlags::NEWNS).map_err(|_| 125)?;
         mount_change(
             "/",
@@ -2685,10 +2759,10 @@ fn linux_bootstrap(arguments: &[String]) -> Result<u8, u8> {
     )
     .map_err(|_| 125)?;
     let root = std::env::current_dir().map_err(|_| 125)?;
-    if executable != "bin/rust2vir" {
+    if !resource_frontend {
         mount_bind(&root, &root).map_err(|_| 125)?;
     }
-    if executable == "bin/rust2vir" {
+    if resource_frontend {
         let target = root.join("mpk/tmp");
         let writable_root = target.join(".mpk-resource-tmpfs/root");
         mount_bind(&writable_root, &target).map_err(|_| 125)?;
@@ -2751,8 +2825,42 @@ fn linux_bootstrap(arguments: &[String]) -> Result<u8, u8> {
         "",
     )
     .map_err(|_| 125)?;
-    if executable == "bin/rust2vir" {
-        let runtime = root.join("mpk/toolchain/native-runtime");
+    if csharp_frontend {
+        let urandom = fs::metadata("/dev/urandom").map_err(|_| 125)?;
+        if !urandom.file_type().is_char_device() || urandom.rdev() != 265 {
+            return Err(125);
+        }
+        let urandom_target = root.join("dev/urandom");
+        mount_bind("/dev/urandom", &urandom_target).map_err(|_| 125)?;
+        let mounted_urandom = fs::metadata(&urandom_target).map_err(|_| 125)?;
+        if mounted_urandom.dev() != urandom.dev()
+            || mounted_urandom.ino() != urandom.ino()
+            || mounted_urandom.rdev() != urandom.rdev()
+        {
+            return Err(125);
+        }
+        mount_remount(
+            &urandom_target,
+            MountFlags::BIND | MountFlags::RDONLY | MountFlags::NOSUID | MountFlags::NOEXEC,
+            "",
+        )
+        .map_err(|_| 125)?;
+    }
+    if resource_frontend {
+        let runtime_source = root.join("mpk/toolchain/native-runtime");
+        let runtime = if csharp_frontend {
+            let runtime = root.join("mpk/native-runtime");
+            mount_bind(&runtime_source, &runtime).map_err(|_| 125)?;
+            mount_remount(
+                &runtime,
+                MountFlags::BIND | MountFlags::RDONLY | MountFlags::NOSUID | MountFlags::NODEV,
+                "",
+            )
+            .map_err(|_| 125)?;
+            runtime
+        } else {
+            runtime_source
+        };
         let libraries = runtime.join("lib/x86_64-linux-gnu");
         let library_target = root.join("lib/x86_64-linux-gnu");
         mount_bind(&libraries, &library_target).map_err(|_| 125)?;
@@ -2779,7 +2887,12 @@ fn linux_bootstrap(arguments: &[String]) -> Result<u8, u8> {
     )
     .map_err(|_| 125)?;
     rustix::process::chroot(&root).map_err(|_| 125)?;
-    std::env::set_current_dir("/").map_err(|_| 125)?;
+    std::env::set_current_dir(if executable == CSHARP_BOOTSTRAP_EXECUTABLE {
+        "/mpk/source"
+    } else {
+        "/"
+    })
+    .map_err(|_| 125)?;
     set_no_new_privs(true).map_err(|_| 125)?;
     if resource_cgroup.is_some() {
         // The launcher opens this mount namespace before releasing the
@@ -2793,23 +2906,39 @@ fn linux_bootstrap(arguments: &[String]) -> Result<u8, u8> {
             return Err(125);
         }
     }
-    let mut command = if executable == "bin/rust2vir" {
-        let mut command = Command::new("/lib64/ld-linux-x86-64.so.2");
-        command.args([
-            "--library-path",
-            "/lib/x86_64-linux-gnu",
-            "/mpk/frontend/bin/rust2vir",
-            "__rust2vir_outer_sandbox_v0",
-        ]);
-        command
+    let status = if csharp_frontend {
+        let mut child_arguments = Vec::with_capacity(arguments.len() + 1);
+        child_arguments.push(OsString::from("/mpk/toolchain/dotnet/dotnet"));
+        child_arguments.extend(arguments.iter().map(OsString::from));
+        let null = File::open("/dev/null").map_err(|_| 125)?;
+        mpk_linux_sandbox::run_pending_pid_namespace_process_with_proc(
+            Path::new("/mpk/toolchain/dotnet/dotnet"),
+            child_arguments,
+            null,
+        )
+        .map_err(|error| match error {
+            mpk_linux_sandbox::LaunchError::CloneOrSetup(_) => 125,
+            mpk_linux_sandbox::LaunchError::Exec(_) => 126,
+        })?
     } else {
-        Command::new("/mpk/frontend/bin/go2vir")
+        let mut command = if executable == "bin/rust2vir" {
+            let mut command = Command::new("/lib64/ld-linux-x86-64.so.2");
+            command.args([
+                "--library-path",
+                "/lib/x86_64-linux-gnu",
+                "/mpk/frontend/bin/rust2vir",
+                "__rust2vir_outer_sandbox_v0",
+            ]);
+            command
+        } else {
+            Command::new("/mpk/frontend/bin/go2vir")
+        };
+        command
+            .args(arguments)
+            .stdin(Stdio::null())
+            .status()
+            .map_err(|_| 126)?
     };
-    let status = command
-        .args(arguments)
-        .stdin(Stdio::null())
-        .status()
-        .map_err(|_| 126)?;
     if status.signal().is_some() {
         let _ =
             rustix::process::kill_process(rustix::process::getpid(), rustix::process::Signal::KILL);

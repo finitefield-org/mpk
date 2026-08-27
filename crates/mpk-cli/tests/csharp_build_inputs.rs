@@ -246,15 +246,10 @@ fn candidate_remains_inert_unregistered_and_outside_the_active_release() {
             .any(|window| window == forbidden));
     }
 
-    let rejected = Command::new(root.join("scripts/build-release-bundles.sh"))
-        .args(["--check", "csharp"])
-        .env_clear()
-        .env("PATH", "/usr/bin:/bin")
-        .output()
-        .expect("active release assembler rejects C#");
-    assert_eq!(rejected.status.code(), Some(64));
-    assert!(rejected.stdout.is_empty());
-    assert_eq!(rejected.stderr, b"BUNDLE_ASSEMBLER_USAGE\n");
+    let release_script = fs::read_to_string(root.join("scripts/build-release-bundles.sh"))
+        .expect("read release assembler route");
+    assert!(release_script.contains("2:--check:csharp)"));
+    assert!(release_script.contains("csharp_release_bundles.py\" check"));
 
     let ignored = Command::new("git")
         .current_dir(&root)

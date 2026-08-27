@@ -2,13 +2,13 @@
 
 Status: Gate B, `MLANG-00`, Gate C, and `MLANG-01` are complete after the
 completed `RUST-07-T05` entry gate. Gate D is active at its non-production
-implementation boundary: `CSHARP-02-T01` through `CSHARP-02-T11` are complete,
-and `CSHARP-02-T12` is next. This document does not activate a new source
+implementation boundary: `CSHARP-02-T01` through `CSHARP-02-T12` are complete,
+and `CSHARP-02-T13` is next. This document does not activate a new source
 language or amend an active serialized schema.
 
 Prepared: 2026-08-21
 
-Updated: 2026-08-27 (`CSHARP-02-T11` completion)
+Updated: 2026-08-27 (`CSHARP-02-T12` completion)
 
 ## 1. Decision summary
 
@@ -479,10 +479,13 @@ complete ordered safety-check validation, and exact ownership of its 15
 semantic rows. `CSHARP-02-T10` added callee-first static-call lowering, stable
 structural IDs, exact UTF-16-to-UTF-8 source origins, and canonical staged VIR,
 map, frontend manifest, and success-envelope emission accepted by the shared
-successor validators. Failure-envelope closure and the aggregate source-case
-and limit executor remain owned by T11. The frozen C# entry and revision-2
-registry remain staging identities rather than installed identities, and T20
-remains the sole activation owner.
+successor validators. `CSHARP-02-T11` closed frontend diagnostics, limits,
+failure envelopes, and the aggregate source-case executor. `CSHARP-02-T12`
+added deterministic candidate bundle assembly, successor release models, and
+the private descriptor-relative installed-tree runner under the frozen .NET
+launcher and Linux sandbox. The frozen C# entry and revision-2 registry remain
+staging identities rather than installed identities, and T20 remains the sole
+activation owner.
 
 ### Gate E: serial language admission
 

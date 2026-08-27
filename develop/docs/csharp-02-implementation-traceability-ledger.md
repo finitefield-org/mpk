@@ -2,7 +2,7 @@
 
 Status: `CSHARP-02-T01` complete (2026-08-25), `CSHARP-02-T02` through
 `CSHARP-02-T03` complete (2026-08-26), and `CSHARP-02-T04` through
-`CSHARP-02-T11` complete (2026-08-27). `CSHARP-02-T12` is the next task.
+`CSHARP-02-T12` complete (2026-08-27). `CSHARP-02-T13` is the next task.
 Canonical C# success and non-success envelopes now exist only within the
 inactive candidate and its test harness. No production C# frontend, released
 successor route, installed registry root, release tuple, policy route,
@@ -91,8 +91,8 @@ MLANG-01-T03
 | `CSHARP-02-T09` | complete | scalar/control/conversion lowering and exact required checks |
 | `CSHARP-02-T10` | complete | static calls, stable IDs, maps, manifests, and successful envelope emission |
 | `CSHARP-02-T11` | complete | frontend diagnostics, limits, and source-case vector executor |
-| `CSHARP-02-T12` | ready | deterministic C# candidate bundles and staged sandbox runner |
-| `CSHARP-02-T13` | blocked on T12 | staged Go producer migration to successor artifacts |
+| `CSHARP-02-T12` | complete | deterministic C# candidate bundles and staged sandbox runner |
+| `CSHARP-02-T13` | ready | staged Go producer migration to successor artifacts |
 | `CSHARP-02-T14` | blocked on T13 | staged Rust producer/private-driver migration to successor artifacts |
 | `CSHARP-02-T15` | blocked on T14 | staged successor VC and skeleton integration |
 | `CSHARP-02-T16` | blocked on T15 | staged policy, evidence, and program-certificate integration |
@@ -544,6 +544,8 @@ unregistered; its reviewed DLL is 208,384 bytes with SHA-256
 
 Depends on: `CSHARP-02-T11`.
 
+Status: Complete (2026-08-27).
+
 Owns:
 
 - successor release-registry, frontend-bundle, toolchain-bundle,
@@ -563,6 +565,24 @@ owner is `crates/mpk-cli/tests/csharp_frontend_runner.rs`.
 Exit gate: the staged installed-tree fixture launches only the reviewed C#
 bytes under the frozen environment, all hostile isolation cases fail closed,
 and production tuple resolution remains Go/Rust-only.
+
+Completion evidence: `scripts/csharp_release_bundles.py` performs two clean,
+path-independent assemblies from the pinned C# and selected registered Rust
+native inputs, byte-compares both trees, and reproduces the canonical staging
+transports. The staged projection closes an 18-file frontend bundle around the
+reviewed 208,384-byte DLL and a 373-file toolchain bundle containing .NET
+10.0.11, the 167-file net10.0 reference projection, and a 13-file selected
+native runtime. `successor_release_bundle.rs` validates the new descriptors,
+profile contracts, inventories, hashes, tuple linkage, and migration-distinct
+registry hash. The private installed resolver retains only the running
+`bin/mpk` root, snapshots all described bytes with no-follow identity checks,
+and never searches the repository staging path. The runner applies the exact
+.NET argv and 18-entry closed environment inside user, mount, PID, network,
+IPC, and UTS namespaces with read-only/no-exec mounts, private procfs, bounded
+no-swap tmpfs, cgroup and rlimit controls, and bounded protocol streams. Its
+primary owner validates the complete launcher/isolation vector set, active
+Go/Rust-only boundary, successful successor protocol/release identity, and
+byte-identical two-run report.
 
 ### CSHARP-02-T13 Migrate the Go producer to successor artifacts in staging
 
@@ -1015,7 +1035,7 @@ The implementation blocker format is:
 | Blocker | Detected by | Frozen requirement | Why implementation cannot decide | Required owner | Status |
 | --- | --- | --- | --- | --- | --- |
 
-T01 through T08 have no blocker. A later task records a blocker before changing
+T01 through T12 have no blocker. A later task records a blocker before changing
 scope. It may be closed only by a separately named, serial governance/
 specification task followed by regeneration and review of every affected
 frozen input.
@@ -1169,3 +1189,22 @@ No lowering, required-check creation, VIR/map/manifest or success-artifact
 emission, active registry/bundle, released runner or command, normative vector
 byte, proof-acceptance input, or production identity changed in T08. T09 is the
 sole ready successor.
+
+The T12 review ledger is empty. Its closed implementation inventory contains:
+
+- canonical source-only successor candidate, release-registry, and revision-2
+  semantic-registry transports under the declared staging root;
+- reproducible 18-file frontend and 373-file toolchain inventories, including
+  exact .NET 10.0.11, net10.0 references, and selected native-runtime bytes;
+- strict successor descriptor, compiled-profile, inventory, content-hash,
+  registry-hash, release-tuple, and active/staged separation validation;
+- one descriptor-relative no-follow installed resolver and immutable bundle
+  snapshot path with no repository or environment-selected fallback;
+- the exact frozen launcher under closed namespaces, mounts, private procfs,
+  cgroup, no-swap tmpfs, rlimit, environment, stream, and protocol controls;
+  and
+- two byte-identical sandboxed C# executions through the primary T12 owner.
+
+No active registry transport, Go/Rust tuple, production resolver input,
+released CLI route, public successor API, normative C# vector, or proof-
+acceptance identity changed in T12. T13 is the sole ready successor.

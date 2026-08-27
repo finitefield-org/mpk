@@ -10,6 +10,16 @@ fi
 
 case "$2" in
   go) action=fixture-go ;;
+  csharp)
+    repository_root=$(CDPATH= cd -- "$script_dir/.." && pwd -P)
+    cargo_path=$(command -v cargo) || {
+      printf '%s\n' BUNDLE_ASSEMBLER_USAGE >&2
+      exit 64
+    }
+    export CARGO_TARGET_DIR="$repository_root/target"
+    exec "$cargo_path" test --quiet --locked --manifest-path "$repository_root/Cargo.toml" \
+      -p mpk-cli --test csharp_frontend_runner
+    ;;
   all)
     action=fixture-all
     repository_root=$(CDPATH= cd -- "$script_dir/.." && pwd -P)

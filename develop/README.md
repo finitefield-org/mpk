@@ -69,7 +69,7 @@ successor mechanism is `specs/SEMANTIC_PROFILE_REGISTRY_V1.md`. The frozen,
 normative, but inactive C# package is `specs/CSHARP_PROFILE_V0.md` with its two
 owned vector sets. `docs/csharp-02-implementation-traceability-ledger.md`
 decomposes the implementation into 20 strictly serial tasks.
-`CSHARP-02-T01` through `CSHARP-02-T11` are complete; `CSHARP-02-T12` is next.
+`CSHARP-02-T01` through `CSHARP-02-T12` are complete; `CSHARP-02-T13` is next.
 The isolated `csharp-tools/csharp2vir/` project, offline build gate, private
 selection/capture/source-transport and exact Roslyn-session paths,
 test-injected successor semantic-registry core, and sealed successor source-
@@ -80,10 +80,12 @@ static-call closures with exact required checks, emits canonical staged
 successor VIR, source-map, source-manifest, and success-envelope bytes, and
 closes deterministic diagnostics, profile limits, failure envelopes, and all
 frontend-owned vectors. The shared successor validators accept those bytes
-without a C# adapter. Bundle assembly and runner integration remain queued.
-No successor parser is routed from a
-released input, and no C# production frontend, release tuple, or future-
-language frontend is active.
+without a C# adapter. Deterministic C# candidate bundles and the private
+descriptor-relative installed-tree runner now exercise the pinned frontend
+under the frozen .NET launcher and Linux isolation contract. The successor
+descriptors remain source-only staging inputs: no successor parser is routed
+from a released input, and no C# production frontend, release tuple, or
+future-language frontend is active.
 
 No multi-language design, feasibility, specification, or implementation phase
 runs in parallel with the Rust program or with another language phase.

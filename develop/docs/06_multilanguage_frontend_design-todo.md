@@ -4,8 +4,8 @@ Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
 Status: Gate C and `MLANG-01` are complete after the completed Rust and
 `MLANG-00` gates. Gate D is active at its non-production implementation
-boundary: `CSHARP-02-T01` through `CSHARP-02-T11` are complete;
-`CSHARP-02-T12` is next. No C# production route or later-language phase is
+boundary: `CSHARP-02-T01` through `CSHARP-02-T12` are complete;
+`CSHARP-02-T13` is next. No C# production route or later-language phase is
 active.
 
 ## Scope and sequencing
@@ -330,7 +330,7 @@ was added.
 Entry gate: `MLANG-01` complete.
 
 Status: Active at the inactive implementation boundary. `CSHARP-02-T01`
-through `CSHARP-02-T11` are complete; `CSHARP-02-T12` is next.
+through `CSHARP-02-T12` are complete; `CSHARP-02-T13` is next.
 
 Authoritative execution plan:
 `csharp-02-implementation-traceability-ledger.md`.
@@ -591,16 +591,28 @@ The active release remains Go/Rust-only.
 
 ### CSHARP-02-T12 Assemble C# candidate bundles and the staged sandbox runner
 
-Status: Next.
+Status: Complete (2026-08-27).
 
 Depends on: `CSHARP-02-T11`.
 
 Exit gate: a staged installed tree launches only exact registered-candidate C#
 bytes under the frozen isolation contract; the active registry is unchanged.
 
+Completion evidence: the source-only staging directory contains canonical
+successor candidate, registry, and semantic-registry transports. The pinned
+assembler reproduces an 18-file frontend inventory and a 373-file toolchain
+inventory twice, including the exact .NET 10.0.11 runtime, 167-file reference
+projection, selected native closure, and reviewed compatibility shim. The
+private runner resolves only beside the executing installed fixture, snapshots
+every described byte through no-follow descriptors, launches the reviewed
+208,384-byte frontend with the exact argv and 18-entry closed environment,
+and validates its successor envelope and emitted release identity. Two
+isolated runs emit byte-identical reports. The active registry remains
+Go/Rust-only.
+
 ### CSHARP-02-T13 Migrate the Go producer to successor artifacts in staging
 
-Status: Pending.
+Status: Next.
 
 Depends on: `CSHARP-02-T12`.
 
