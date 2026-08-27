@@ -42,6 +42,30 @@ pub const GO_STAGING_FRONTEND_BUNDLE_ID: &str = "frontend.go.go2vir.candidate.v1
 pub const GO_STAGING_TOOLCHAIN_BUNDLE_ID: &str = "toolchain.go.go1.25.0.linux-amd64.candidate.v1";
 pub const GO_STAGING_FRONTEND_SHA256: &str =
     "71f7c73b2796fd8caee6bc5e18a871e6dc1ca5639dc2a0840d6b1af4da32c0b9";
+pub const RUST_STAGING_FRONTEND_BUNDLE_ID: &str = "frontend.rust.rust2vir.candidate.v1";
+pub const RUST_STAGING_TOOLCHAIN_BUNDLE_ID: &str = "toolchain.rust.nightly-2025-06-01.candidate.v1";
+pub const RUST_STAGING_FRONTEND_SHA256: &str =
+    "b1897a991dad216b4299e618160efc6a68c87d44f2a5bc30b7ed37abff1bba9d";
+pub const RUST_STAGING_DRIVER_SHA256: &str =
+    "74cb253216dc7b9cbb0be61e541d8ff5eec3943daecdadab1291787d093d08d2";
+pub const RUST_STAGING_TOOLCHAIN_DISTRIBUTION_SHA256: &str =
+    "86dab73dadd3a3184064e7d7da7e878562eba4cfc4c8a969bc8f44a5e865c90a";
+
+const RUST_STAGING_VERSION: &str = "0.1.0-profile-v1-staging";
+const RUST_TOOLCHAIN_RELEASE: &str = "1.89.0-nightly";
+const RUST_COMPONENT_RELEASE: &str = "nightly-2025-06-01";
+const RUST_HOST_PROFILE_ID: &str = "mpk.host.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0";
+const RUST_RUNTIME_LAYOUT_ID: &str = "mpk.runtime.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0";
+const RUST_CARGO_SHA256: &str = "4ab49080934031ce3b87b1a8792e685f99819e8a3f537f110a339d7331f1dcea";
+const RUST_RUSTC_SHA256: &str = "a7c2179d845e8f40305bace1657b903f10d149cc6d72b0c08ecef75487418922";
+const RUST_NATIVE_RUNTIME_SHA256: &str =
+    "6d8ebe276575c5019abdc97051baf78e166354249eca4d6b65f638c5fb171005";
+const RUST_COMPILER_RUNTIME_SHA256: &str =
+    "7698b22d00656113340f692fd9212a1494077fd470f924948945e690da401292";
+const RUST_TARGET_I686_SHA256: &str =
+    "8f606996b669eb0f4314309d145d93c6eeaad8b261791584387bcff46ccafb0a";
+const RUST_TARGET_X86_64_SHA256: &str =
+    "d8c45533753e17186cefde3e0830f7b358a8b4c818eb732d8814a31861335a15";
 
 const CONTENT_HASH_DOMAIN: HashDomain = HashDomain::new("MPK-BUNDLE-CONTENT-0.1");
 const TRANSPORT_LIMITS: StrictJsonLimits = StrictJsonLimits::new(
@@ -604,6 +628,13 @@ fn validate_projection(
             }
             validate_go_release_contract(toolchain, release_contract)?;
         }
+        if context.semantic_profile() == "mpk.rust.checked.v0" {
+            if frontend.bundle_id != RUST_STAGING_FRONTEND_BUNDLE_ID {
+                return Err(linkage_failure());
+            }
+            validate_rust_release_contract(toolchain, release_contract)?;
+            validate_rust_runtime_linkage(frontend, toolchain, layouts)?;
+        }
         let context_key = serde_json::to_string(&tuple.semantic_context).map_err(|_| {
             failure(
                 SuccessorReleaseValidationPhase::Order,
@@ -753,6 +784,29 @@ fn validate_frontend(
     if frontend.bundle_id == GO_STAGING_FRONTEND_BUNDLE_ID {
         validate_executable_record(&frontend.main, &files, true)?;
     }
+    if frontend.bundle_id == RUST_STAGING_FRONTEND_BUNDLE_ID {
+        let [driver] = frontend.subordinate_binaries.as_slice() else {
+            return Err(linkage_failure());
+        };
+        if frontend.name != "rust2vir"
+            || frontend.version != RUST_STAGING_VERSION
+            || frontend.main.name != "rust2vir"
+            || frontend.main.version != RUST_STAGING_VERSION
+            || frontend.main.path != "bin/rust2vir"
+            || frontend.main.binary_sha256 != RUST_STAGING_FRONTEND_SHA256
+            || !matches!(frontend.main.runtime, ExecutableRuntime::Dynamic { .. })
+            || driver.name != "rust2vir-driver"
+            || driver.version != RUST_STAGING_VERSION
+            || driver.path != "bin/rust2vir-driver"
+            || driver.binary_sha256 != RUST_STAGING_DRIVER_SHA256
+            || !matches!(driver.runtime, ExecutableRuntime::Dynamic { .. })
+            || files.len() != 2
+        {
+            return Err(linkage_failure());
+        }
+        validate_executable_record(&frontend.main, &files, true)?;
+        validate_executable_record(driver, &files, true)?;
+    }
     Ok(())
 }
 
@@ -864,7 +918,91 @@ fn validate_toolchain(
         }
         validate_csharp_runtime_linkage(toolchain, layouts, &root_files)?;
     }
+    if toolchain.bundle_id == RUST_STAGING_TOOLCHAIN_BUNDLE_ID {
+        let names = toolchain
+            .components
+            .iter()
+            .map(ToolchainComponent::name)
+            .collect::<Vec<_>>();
+        if toolchain.execution_host_profile_id != RUST_HOST_PROFILE_ID
+            || toolchain.distribution_sha256 != RUST_STAGING_TOOLCHAIN_DISTRIBUTION_SHA256
+            || names
+                != [
+                    "cargo",
+                    "native-runtime",
+                    "rust-compiler-runtime",
+                    "rust-target-i686",
+                    "rust-target-x86_64",
+                    "rustc",
+                ]
+            || !rust_toolchain_components_are_exact(&toolchain.components)
+        {
+            return Err(linkage_failure());
+        }
+    }
     Ok(())
+}
+
+fn rust_toolchain_components_are_exact(components: &[ToolchainComponent]) -> bool {
+    components.iter().all(|component| match component {
+        ToolchainComponent::Executable {
+            name,
+            release,
+            path,
+            binary_sha256,
+            runtime,
+        } if name == "cargo" => {
+            release == RUST_TOOLCHAIN_RELEASE
+                && path == "bin/cargo"
+                && binary_sha256 == RUST_CARGO_SHA256
+                && matches!(runtime, ExecutableRuntime::Dynamic { .. })
+        }
+        ToolchainComponent::Executable {
+            name,
+            release,
+            path,
+            binary_sha256,
+            runtime,
+        } if name == "rustc" => {
+            release == RUST_TOOLCHAIN_RELEASE
+                && path == "bin/rustc"
+                && binary_sha256 == RUST_RUSTC_SHA256
+                && matches!(runtime, ExecutableRuntime::Dynamic { .. })
+        }
+        ToolchainComponent::Content {
+            name,
+            release,
+            content_sha256,
+            ..
+        } if name == "native-runtime" => {
+            release == RUST_COMPONENT_RELEASE && content_sha256 == RUST_NATIVE_RUNTIME_SHA256
+        }
+        ToolchainComponent::Content {
+            name,
+            release,
+            content_sha256,
+            ..
+        } if name == "rust-compiler-runtime" => {
+            release == RUST_COMPONENT_RELEASE && content_sha256 == RUST_COMPILER_RUNTIME_SHA256
+        }
+        ToolchainComponent::Content {
+            name,
+            release,
+            content_sha256,
+            ..
+        } if name == "rust-target-i686" => {
+            release == RUST_COMPONENT_RELEASE && content_sha256 == RUST_TARGET_I686_SHA256
+        }
+        ToolchainComponent::Content {
+            name,
+            release,
+            content_sha256,
+            ..
+        } if name == "rust-target-x86_64" => {
+            release == RUST_COMPONENT_RELEASE && content_sha256 == RUST_TARGET_X86_64_SHA256
+        }
+        _ => false,
+    })
 }
 
 fn validate_csharp_runtime_linkage(
@@ -897,6 +1035,15 @@ fn validate_csharp_runtime_linkage(
             _ => None,
         })
         .ok_or_else(inventory_failure)?;
+    validate_dynamic_runtime_linkage(runtime, layout, &native_files, root_files)
+}
+
+fn validate_dynamic_runtime_linkage(
+    runtime: &ExecutableRuntime,
+    layout: &NativeRuntimeLayoutProfile,
+    native_files: &BTreeMap<&str, &InventoryFile>,
+    root_files: &BTreeMap<&str, &InventoryFile>,
+) -> Result<(), SuccessorReleaseError> {
     let ExecutableRuntime::Dynamic {
         interpreter_mount,
         libraries,
@@ -933,6 +1080,40 @@ fn validate_csharp_runtime_linkage(
             })
         {
             return Err(inventory_failure());
+        }
+    }
+    Ok(())
+}
+
+fn validate_rust_runtime_linkage(
+    frontend: &SuccessorFrontendBundle,
+    toolchain: &SuccessorToolchainBundle,
+    layouts: &[NativeRuntimeLayoutProfile],
+) -> Result<(), SuccessorReleaseError> {
+    let layout = layouts
+        .iter()
+        .find(|layout| layout.id == RUST_RUNTIME_LAYOUT_ID)
+        .ok_or_else(inventory_failure)?;
+    let native_inventory = toolchain
+        .components
+        .iter()
+        .find_map(|component| match component {
+            ToolchainComponent::Content {
+                name, inventory, ..
+            } if name == "native-runtime" => Some(inventory),
+            _ => None,
+        })
+        .ok_or_else(inventory_failure)?;
+    let native_files = inventory_files(native_inventory);
+    let root_files = inventory_files(&toolchain.inventory);
+
+    validate_dynamic_runtime_linkage(&frontend.main.runtime, layout, &native_files, &root_files)?;
+    for binary in &frontend.subordinate_binaries {
+        validate_dynamic_runtime_linkage(&binary.runtime, layout, &native_files, &root_files)?;
+    }
+    for component in &toolchain.components {
+        if let ToolchainComponent::Executable { runtime, .. } = component {
+            validate_dynamic_runtime_linkage(runtime, layout, &native_files, &root_files)?;
         }
     }
     Ok(())
@@ -1061,6 +1242,78 @@ fn validate_go_release_contract(
     }
     if !found_go || !found_target {
         return Err(linkage_failure());
+    }
+    Ok(())
+}
+
+fn validate_rust_release_contract(
+    toolchain: &SuccessorToolchainBundle,
+    contract: &serde_json::Map<String, Value>,
+) -> Result<(), SuccessorReleaseError> {
+    let compiler = contract
+        .get("compiler")
+        .and_then(Value::as_object)
+        .ok_or_else(linkage_failure)?;
+    let native_runtime = contract
+        .get("native_runtime")
+        .and_then(Value::as_object)
+        .ok_or_else(linkage_failure)?;
+    if toolchain.bundle_id != RUST_STAGING_TOOLCHAIN_BUNDLE_ID
+        || compiler.get("kind").and_then(Value::as_str) != Some("rust")
+        || compiler.get("release").and_then(Value::as_str) != Some(RUST_TOOLCHAIN_RELEASE)
+        || compiler.get("rustc_commit").and_then(Value::as_str)
+            != Some("4d08223c054cf5a56d9761ca925fd46ffebe7115")
+        || native_runtime.get("kind").and_then(Value::as_str) != Some("component")
+        || native_runtime.get("component_name").and_then(Value::as_str) != Some("native-runtime")
+        || native_runtime.get("component_root").and_then(Value::as_str) != Some("native-runtime")
+        || native_runtime
+            .get("layout_profile_id")
+            .and_then(Value::as_str)
+            != Some(RUST_RUNTIME_LAYOUT_ID)
+    {
+        return Err(linkage_failure());
+    }
+
+    let Some(targets) = contract.get("target_libraries").and_then(Value::as_array) else {
+        return Err(linkage_failure());
+    };
+    let expected = [
+        (
+            "rust-target-i686",
+            RUST_TARGET_I686_SHA256,
+            "i686-unknown-linux-gnu",
+            32,
+        ),
+        (
+            "rust-target-x86_64",
+            RUST_TARGET_X86_64_SHA256,
+            "x86_64-unknown-linux-gnu",
+            64,
+        ),
+    ];
+    if targets.len() != expected.len() {
+        return Err(linkage_failure());
+    }
+    for (target, (component_name, content_sha256, target_id, pointer_width)) in
+        targets.iter().zip(expected)
+    {
+        if target.get("component_name").and_then(Value::as_str) != Some(component_name)
+            || target.get("content_sha256").and_then(Value::as_str) != Some(content_sha256)
+            || target.get("target_id").and_then(Value::as_str) != Some(target_id)
+            || target.get("pointer_width").and_then(Value::as_u64) != Some(pointer_width)
+            || !toolchain.components.iter().any(|component| {
+                matches!(
+                    component,
+                    ToolchainComponent::Content {
+                        name,
+                        content_sha256: actual,
+                        ..
+                    } if name == component_name && actual == content_sha256
+                )
+            })
+        {
+            return Err(linkage_failure());
+        }
     }
     Ok(())
 }

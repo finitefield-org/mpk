@@ -4,8 +4,8 @@ Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
 Status: Gate C and `MLANG-01` are complete after the completed Rust and
 `MLANG-00` gates. Gate D is active at its non-production implementation
-boundary: `CSHARP-02-T01` through `CSHARP-02-T13` are complete;
-`CSHARP-02-T14` is next. No C# production route or later-language phase is
+boundary: `CSHARP-02-T01` through `CSHARP-02-T14` are complete;
+`CSHARP-02-T15` is next. No C# production route or later-language phase is
 active.
 
 ## Scope and sequencing
@@ -330,7 +330,7 @@ was added.
 Entry gate: `MLANG-01` complete.
 
 Status: Active at the inactive implementation boundary. `CSHARP-02-T01`
-through `CSHARP-02-T13` are complete; `CSHARP-02-T14` is next.
+through `CSHARP-02-T14` are complete; `CSHARP-02-T15` is next.
 
 Authoritative execution plan:
 `csharp-02-implementation-traceability-ledger.md`.
@@ -634,7 +634,7 @@ release tuple, registry, or production route changed.
 
 ### CSHARP-02-T14 Migrate the Rust producer and private driver in staging
 
-Status: Next.
+Status: Complete (2026-08-28).
 
 Depends on: `CSHARP-02-T13`.
 
@@ -642,9 +642,21 @@ Exit gate: staged `rust2vir` and its private driver emit only successor
 artifacts with unchanged Rust semantics, while active Rust bytes remain
 unchanged and no binary accepts both public VIR schemas.
 
+Completion evidence: an eleven-source exact-hash overlay builds the staged
+frontend and subordinate driver twice from the frozen offline nightly and
+produces an exact two-target successor Rust bundle projection. The complete
+13-positive/73-negative corpus regenerates deterministically with successor
+public artifacts plus v1 private request, result, raw-lowering, and raw-map
+identities. Its checked report has zero source-behavior, required-check,
+target, source-map, manifest-input-intent, and diagnostic changes. Shared
+artifact, protocol, and release validators accept the staged family and reject
+predecessor or crossed input; the staging-only subordinate parser rejects all
+v0 private identities. No active Rust source, binary, fixture, release tuple,
+registry, or production route changed.
+
 ### CSHARP-02-T15 Stage successor VC and skeleton integration
 
-Status: Pending.
+Status: Next.
 
 Depends on: `CSHARP-02-T14`.
 

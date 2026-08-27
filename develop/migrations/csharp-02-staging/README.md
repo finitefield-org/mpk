@@ -1,8 +1,8 @@
-# Inactive C#/Go successor release staging
+# Inactive C#/Go/Rust successor release staging
 
 This directory contains the reviewed, deterministic successor release
-descriptors and generated artifacts for `CSHARP-02-T12` and
-`CSHARP-02-T13`. They are source-only staging inputs and are not searched,
+descriptors and generated artifacts for `CSHARP-02-T12` through
+`CSHARP-02-T14`. They are source-only staging inputs and are not searched,
 copied, or accepted by the active Go/Rust release resolver.
 
 - `semantic-profile-registry.json` is the frozen inactive revision-2 semantic
@@ -14,6 +14,11 @@ copied, or accepted by the active Go/Rust release resolver.
   source-only successor Go candidate and standalone one-tuple registry.
 - `go/` contains the complete deterministic successor Go corpus and the
   zero-change semantic-difference report against the active fixtures.
+- `rust-bundle-candidate.json` and `rust-bundle-registry.json` are the exact
+  source-only two-target successor Rust candidate and standalone registry.
+- `rust/` contains the complete deterministic successor Rust public/private
+  corpus, 73-case negative diagnostic inventory, and zero-change semantic-
+  difference report against the active fixtures.
 
 `scripts/build-release-bundles.sh --check csharp` rebuilds the frontend and
 toolchain projections twice from pinned caches and byte-compares all three
@@ -31,5 +36,16 @@ regenerates all 13 positive and eight negative Go cases under the same image,
 checks every staged byte, and proves the four semantic-difference counters
 remain zero. The overlay verifies exact active-source hashes; it does not edit
 or replace the active binary or fixture family.
+
+`scripts/build-release-bundles.sh --check rust-successor` reproduces the
+staging-only `rust2vir` and `rust2vir-driver` binaries twice under the pinned
+offline nightly and checks both Rust descriptors. The fixture route,
+`scripts/check-release-bundles.sh --fixture rust-successor`, regenerates all
+13 positive cases, runs the complete 73-case negative corpus plus private-
+protocol identity gate, and checks every staged byte. The
+`--fixture-update rust-successor` form is the explicit
+fixture publication route. The eleven-file overlay verifies exact active-
+source hashes and never edits or replaces the active Rust binaries or fixture
+family.
 
 Only `CSHARP-02-T20` may install these schemas into the active release.

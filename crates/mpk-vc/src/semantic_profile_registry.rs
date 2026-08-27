@@ -1423,9 +1423,14 @@ fn validate_parameter_value(contract: CompiledParameterContract, value: &Value) 
             has_exact_fields(
                 value,
                 &["target_id", "pointer_width", "overflow_mode", "panic_mode"],
-            ) && string(get(value, "target_id")) == Some("x86_64-unknown-linux-gnu")
-                && unsigned_integer(get(value, "pointer_width")) == Some(64)
-                && string(get(value, "overflow_mode")) == Some("checked")
+            ) && matches!(
+                (
+                    string(get(value, "target_id")),
+                    unsigned_integer(get(value, "pointer_width")),
+                ),
+                (Some("i686-unknown-linux-gnu"), Some(32))
+                    | (Some("x86_64-unknown-linux-gnu"), Some(64))
+            ) && string(get(value, "overflow_mode")) == Some("checked")
                 && string(get(value, "panic_mode")) == Some("abort")
         }
         CompiledParameterContract::CSharpScalarV0 => {
@@ -1619,12 +1624,44 @@ fn validate_profile_payload(contract: CompiledProfileContract, value: &Value) ->
                     }]
                 })
         }
+        (RustCheckedV0, Release) => {
+            value
+                == &serde_json::json!({
+                    "compiler": {
+                        "kind": "rust",
+                        "release": "1.89.0-nightly",
+                        "rustc_commit": "4d08223c054cf5a56d9761ca925fd46ffebe7115"
+                    },
+                    "execution_host_profile_id": "mpk.host.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0",
+                    "native_runtime": {
+                        "component_name": "native-runtime",
+                        "component_root": "native-runtime",
+                        "kind": "component",
+                        "layout_profile_id": "mpk.runtime.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0"
+                    },
+                    "target_libraries": [
+                        {
+                            "component_name": "rust-target-i686",
+                            "content_sha256": "8f606996b669eb0f4314309d145d93c6eeaad8b261791584387bcff46ccafb0a",
+                            "pointer_width": 32,
+                            "target_id": "i686-unknown-linux-gnu"
+                        },
+                        {
+                            "component_name": "rust-target-x86_64",
+                            "content_sha256": "d8c45533753e17186cefde3e0830f7b358a8b4c818eb732d8814a31861335a15",
+                            "pointer_width": 64,
+                            "target_id": "x86_64-unknown-linux-gnu"
+                        }
+                    ]
+                })
+        }
         (GoFixedV0, Ai | Evidence | Manifest | Policy | SourceMap | Vc | Vir)
-        | (RustCheckedV0, Ai | Evidence | Manifest | Policy | Release | SourceMap | Vc | Vir) => {
-            // Revision-1 freezes only frontend envelope payloads. The other
-            // recognized Go/Rust IDs stay unavailable until their successor
-            // field owners bind exact payload meanings; they never fall back
-            // to an untagged or dynamically selected validator.
+        | (RustCheckedV0, Ai | Evidence | Manifest | Policy | SourceMap | Vc | Vir) => {
+            // Migration owners have bound the admitted frontend and release
+            // payloads above. The remaining recognized Go/Rust IDs stay
+            // unavailable until their successor field owners bind exact
+            // meanings; they never fall back to an untagged or dynamically
+            // selected validator.
             false
         }
     }

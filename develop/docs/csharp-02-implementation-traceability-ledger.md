@@ -2,8 +2,8 @@
 
 Status: `CSHARP-02-T01` complete (2026-08-25), `CSHARP-02-T02` through
 `CSHARP-02-T03` complete (2026-08-26), and `CSHARP-02-T04` through
-`CSHARP-02-T12` complete (2026-08-27), and `CSHARP-02-T13` complete
-(2026-08-28). `CSHARP-02-T14` is the next task.
+`CSHARP-02-T12` complete (2026-08-27), and `CSHARP-02-T13` through
+`CSHARP-02-T14` complete (2026-08-28). `CSHARP-02-T15` is the next task.
 Canonical C# success and non-success envelopes now exist only within the
 inactive candidate and its test harness. No production C# frontend, released
 successor route, installed registry root, release tuple, policy route,
@@ -94,8 +94,8 @@ MLANG-01-T03
 | `CSHARP-02-T11` | complete | frontend diagnostics, limits, and source-case vector executor |
 | `CSHARP-02-T12` | complete | deterministic C# candidate bundles and staged sandbox runner |
 | `CSHARP-02-T13` | complete | staged Go producer migration to successor artifacts |
-| `CSHARP-02-T14` | ready | staged Rust producer/private-driver migration to successor artifacts |
-| `CSHARP-02-T15` | blocked on T14 | staged successor VC and skeleton integration |
+| `CSHARP-02-T14` | complete | staged Rust producer/private-driver migration to successor artifacts |
+| `CSHARP-02-T15` | ready | staged successor VC and skeleton integration |
 | `CSHARP-02-T16` | blocked on T15 | staged policy, evidence, and program-certificate integration |
 | `CSHARP-02-T17` | blocked on T16 | staged AI explanation integration |
 | `CSHARP-02-T18` | blocked on T17 | staged AI API integration |
@@ -640,6 +640,21 @@ Exit gate: staged `rust2vir` and its subordinate driver emit only successor
 artifacts, the complete Rust corpus remains semantically equal to the active
 baseline, the subordinate protocol accepts only its successor identities, and
 active/staged validators reject one another's public artifacts.
+
+Completion evidence: one eleven-file exact-hash overlay builds staging-only
+`rust2vir` and `rust2vir-driver` binaries twice from the frozen offline Rust
+nightly while leaving all active Rust source and fixture bytes untouched. The
+resulting dynamic frontend/driver candidate, six-component toolchain, and
+two-target successor registry validate through the inactive revision-2
+semantic registry with exact native-runtime linkage. All 13 positive cases
+regenerate deterministic successor envelopes, contexts, selection envelopes,
+VIR, contracts, maps, manifests, and private request/result/raw artifacts;
+all 73 normative negative outcomes remain unchanged. The semantic-difference
+report records zero source-behavior, required-check, target, source-map,
+manifest-input-intent, or diagnostic changes. The private driver accepts only
+the v1 request/result/raw identities and 1.0 request/payload domains. Shared
+successor artifact, protocol, and release validators accept the staged bytes,
+while active and staged public validators reject one another's families.
 
 ### CSHARP-02-T15 Stage successor VC and skeleton integration
 

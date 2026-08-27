@@ -24,6 +24,14 @@ case "$#:${1-}:${2-}" in
     exec /usr/bin/env -i PATH=/usr/local/bin:/usr/bin:/bin PYTHONDONTWRITEBYTECODE=1 \
       /usr/bin/python3 -B "$script_dir/go_successor_bundles.py" "$action"
     ;;
+  2:--check:rust-successor|2:--update:rust-successor)
+    case "$1" in
+      --check) action=check ;;
+      --update) action=update ;;
+    esac
+    exec /usr/bin/env -i PATH=/usr/local/bin:/usr/bin:/bin PYTHONDONTWRITEBYTECODE=1 \
+      /usr/bin/python3 -B "$script_dir/rust_successor_bundles.py" "$action"
+    ;;
   2:--update-build-inputs:rust|2:--provision-build-inputs:rust|2:--check-build-inputs:rust)
     case "$1" in
       --update-build-inputs) action=update-build-inputs ;;

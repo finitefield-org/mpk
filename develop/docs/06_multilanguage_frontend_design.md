@@ -2,13 +2,13 @@
 
 Status: Gate B, `MLANG-00`, Gate C, and `MLANG-01` are complete after the
 completed `RUST-07-T05` entry gate. Gate D is active at its non-production
-implementation boundary: `CSHARP-02-T01` through `CSHARP-02-T13` are complete,
-and `CSHARP-02-T14` is next. This document does not activate a new source
+implementation boundary: `CSHARP-02-T01` through `CSHARP-02-T14` are complete,
+and `CSHARP-02-T15` is next. This document does not activate a new source
 language or amend an active serialized schema.
 
 Prepared: 2026-08-21
 
-Updated: 2026-08-28 (`CSHARP-02-T13` completion)
+Updated: 2026-08-28 (`CSHARP-02-T14` completion)
 
 ## 1. Decision summary
 
@@ -489,7 +489,15 @@ a successor Go candidate tuple, and the complete regenerated Go staging
 corpus. Its semantic-difference report records no source-behavior, required-
 check, VC-input-intent, or deterministic-diagnostic change, and active/staged
 validators reject one another's artifacts. The active Go source, binary,
-fixtures, release tuple, and registry remain unchanged. The frozen C# entry
+fixtures, release tuple, and registry remain unchanged. `CSHARP-02-T14` added
+a hash-anchored, pinned Rust nightly staging build for `rust2vir` and its
+private driver, a two-target successor Rust bundle projection, and the
+complete regenerated 13-positive/73-negative Rust corpus. Its successor-only
+private request/result/raw schemas and public artifacts preserve source
+behavior, required checks, target behavior, source maps, manifest input
+intent, and diagnostics exactly; active and staged public validators reject
+one another's families. The active Rust source, binaries, fixtures, release
+tuples, and registry remain unchanged. The frozen C# entry
 and revision-2 registry remain staging identities rather than installed
 identities, and T20 remains the sole activation owner.
 

@@ -69,7 +69,7 @@ successor mechanism is `specs/SEMANTIC_PROFILE_REGISTRY_V1.md`. The frozen,
 normative, but inactive C# package is `specs/CSHARP_PROFILE_V0.md` with its two
 owned vector sets. `docs/csharp-02-implementation-traceability-ledger.md`
 decomposes the implementation into 20 strictly serial tasks.
-`CSHARP-02-T01` through `CSHARP-02-T13` are complete; `CSHARP-02-T14` is next.
+`CSHARP-02-T01` through `CSHARP-02-T14` are complete; `CSHARP-02-T15` is next.
 The isolated `csharp-tools/csharp2vir/` project, offline build gate, private
 selection/capture/source-transport and exact Roslyn-session paths,
 test-injected successor semantic-registry core, and sealed successor source-
@@ -88,7 +88,12 @@ successor candidate descriptors, and a complete regenerated Go corpus whose
 semantic-difference report records zero behavior, required-check, VC-input,
 or diagnostic changes. Active and staged validators reject one another's
 artifact families, while the active Go source, binary, fixtures, release
-tuple, and registry remain unchanged. All successor descriptors remain
+tuple, and registry remain unchanged. The staged Rust migration likewise
+pins and rebuilds `rust2vir` plus its private driver, emits only successor
+public and private identities for both registered targets, and checks all 13
+positive and 73 negative cases with zero semantic-difference counters. The
+active Rust source, binaries, fixtures, release tuples, and registry also
+remain unchanged. All successor descriptors remain
 source-only staging inputs: no successor parser is routed from a released
 input, and no C# production frontend, successor Go/Rust route, or future-
 language frontend is active.
