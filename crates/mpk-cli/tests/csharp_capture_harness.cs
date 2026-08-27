@@ -326,7 +326,9 @@ internal static class CaptureHarness
             .Select(property => property.Name)
             .OrderBy(name => name, StringComparer.Ordinal)
             .ToArray();
-        Equal("Code,ExitCode,Phase,Status", string.Join(',', properties), "FAILURE_SHAPE");
+        Equal("Code,ExitCode,Issues,Phase,Status", string.Join(',', properties), "FAILURE_SHAPE");
+        Equal(1, rejected.Issues.Count, "FAILURE_ISSUE_COUNT");
+        Equal("C# source is outside the frozen profile", rejected.Issues[0].Message, "FAILURE_MESSAGE");
     }
 
     private static void CaptureSizedSource(int size, string? expectedCode)

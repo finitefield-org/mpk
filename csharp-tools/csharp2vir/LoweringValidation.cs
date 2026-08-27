@@ -224,8 +224,7 @@ internal static class LoweringCfgAdapter
         {
             return SubsetTypeRules.ValidateSymbol(
                 symbol,
-                method.SemanticModel.Compilation,
-                "lowering");
+                method.SemanticModel.Compilation);
         }
         catch (FrontendFailure)
         {

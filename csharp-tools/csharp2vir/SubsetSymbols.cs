@@ -49,12 +49,11 @@ internal static class SubsetTypeRules
 
     internal static SubsetValueType ValidateSymbol(
         ITypeSymbol? symbol,
-        Compilation compilation,
-        string phase = "typecheck")
+        Compilation compilation)
     {
         if (symbol is null || !TryMapSpecialType(symbol.SpecialType, out SubsetValueType type))
         {
-            throw FrontendFailure.Rejected(phase, "CSHARP_SUBSET_TYPE");
+            throw FrontendFailure.Rejected("typecheck", "CSHARP_SUBSET_TYPE");
         }
 
         ITypeSymbol expected = compilation.GetSpecialType(SpecialTypeFor(type));
@@ -64,7 +63,7 @@ internal static class SubsetTypeRules
             || !SymbolEqualityComparer.Default.Equals(symbol, expected)
             || !IsExactPredefinedSymbol(expected, type, compilation))
         {
-            throw FrontendFailure.Rejected(phase, "CSHARP_SUBSET_TYPE");
+            throw FrontendFailure.Rejected("typecheck", "CSHARP_SUBSET_TYPE");
         }
 
         return type;

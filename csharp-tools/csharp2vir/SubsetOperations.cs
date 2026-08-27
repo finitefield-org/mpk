@@ -687,8 +687,7 @@ internal static class SubsetBodies
         {
             _ = SubsetTypeRules.ValidateSymbol(
                 operation.Type,
-                method.SemanticModel.Compilation,
-                "subset");
+                method.SemanticModel.Compilation);
         }
 
         switch (operation)
@@ -804,12 +803,10 @@ internal static class SubsetBodies
 
         SubsetValueType operand = SubsetTypeRules.ValidateSymbol(
             operation.Operand.Type,
-            method.SemanticModel.Compilation,
-            "subset");
+            method.SemanticModel.Compilation);
         SubsetValueType result = SubsetTypeRules.ValidateSymbol(
             operation.Type,
-            method.SemanticModel.Compilation,
-            "subset");
+            method.SemanticModel.Compilation);
         if (operand != result)
         {
             throw FrontendFailure.Rejected("subset", "CSHARP_SUBSET_OPERATION");
@@ -868,8 +865,7 @@ internal static class SubsetBodies
     {
         if (SubsetTypeRules.ValidateSymbol(
                 operation.Condition.Type,
-                method.SemanticModel.Compilation,
-                "subset") != SubsetValueType.Bool)
+                method.SemanticModel.Compilation) != SubsetValueType.Bool)
         {
             throw FrontendFailure.Rejected("subset", "CSHARP_SUBSET_CONTROL_FLOW");
         }
@@ -896,16 +892,13 @@ internal static class SubsetBodies
 
         SubsetValueType result = SubsetTypeRules.ValidateSymbol(
             operation.Type,
-            method.SemanticModel.Compilation,
-            "subset");
+            method.SemanticModel.Compilation);
         SubsetValueType whenTrue = SubsetTypeRules.ValidateSymbol(
             operation.WhenTrue.Type,
-            method.SemanticModel.Compilation,
-            "subset");
+            method.SemanticModel.Compilation);
         SubsetValueType whenFalse = SubsetTypeRules.ValidateSymbol(
             whenFalseOperation.Type,
-            method.SemanticModel.Compilation,
-            "subset");
+            method.SemanticModel.Compilation);
         SubsetValueType sourceTrue = SubsetTypeRules.ValidateSymbol(
             RoslynPublicApi.GetTypeInfo(method.SemanticModel, syntax.WhenTrue, "typecheck").Type,
             method.SemanticModel.Compilation);
@@ -930,16 +923,13 @@ internal static class SubsetBodies
 
         SubsetValueType left = SubsetTypeRules.ValidateSymbol(
             operation.LeftOperand.Type,
-            method.SemanticModel.Compilation,
-            "subset");
+            method.SemanticModel.Compilation);
         SubsetValueType right = SubsetTypeRules.ValidateSymbol(
             operation.RightOperand.Type,
-            method.SemanticModel.Compilation,
-            "subset");
+            method.SemanticModel.Compilation);
         SubsetValueType result = SubsetTypeRules.ValidateSymbol(
             operation.Type,
-            method.SemanticModel.Compilation,
-            "subset");
+            method.SemanticModel.Compilation);
         bool shift = operation.OperatorKind == BinaryOperatorKind.LeftShift
             || operation.OperatorKind == BinaryOperatorKind.RightShift;
         if ((!shift && left != right)
@@ -1056,12 +1046,10 @@ internal static class SubsetBodies
         {
             source = SubsetTypeRules.ValidateSymbol(
                 operation.Operand.Type,
-                method.SemanticModel.Compilation,
-                "subset");
+                method.SemanticModel.Compilation);
             destination = SubsetTypeRules.ValidateSymbol(
                 operation.Type,
-                method.SemanticModel.Compilation,
-                "subset");
+                method.SemanticModel.Compilation);
         }
         catch (FrontendFailure failure) when (
             failure.Status == FrontendStatus.Rejected
@@ -1483,7 +1471,7 @@ internal static class SubsetBodies
         {
             if (!uses[index].IsSubsetOf(incoming[index]))
             {
-                throw FrontendFailure.Rejected("typecheck", "CSHARP_SUBSET_CONTROL_FLOW");
+                throw FrontendFailure.Rejected("subset", "CSHARP_SUBSET_CONTROL_FLOW");
             }
         }
     }

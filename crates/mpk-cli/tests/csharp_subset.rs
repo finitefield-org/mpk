@@ -108,6 +108,8 @@ fn pre_lowering_limits_are_bound_to_the_candidate_gate() {
         .expect("read subset symbols");
     let validator = fs::read_to_string(root.join("csharp-tools/csharp2vir/SubsetValidator.cs"))
         .expect("read subset validator");
+    let limits = fs::read_to_string(root.join("csharp-tools/csharp2vir/FrontendLimits.cs"))
+        .expect("read frontend limits");
     for required in [
         "MethodClosureMaximum = 128",
         "SyntaxNodesMaximum = 250_000",
@@ -117,8 +119,9 @@ fn pre_lowering_limits_are_bound_to_the_candidate_gate() {
         "CfgBlocksPerClosureMaximum = 8_192",
         "checked(current + increment)",
     ] {
-        assert!(model.contains(required), "missing limit owner {required}");
+        assert!(limits.contains(required), "missing limit owner {required}");
     }
+    assert!(model.contains("FrontendLimits.MethodClosureMaximum"));
     for required in [
         "DescendantNodesAndSelf(descendIntoTrivia: false)",
         "ReferenceOperationComparer.Instance",

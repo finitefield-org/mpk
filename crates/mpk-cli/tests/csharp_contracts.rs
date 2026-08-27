@@ -139,9 +139,11 @@ fn parser_attachment_typing_and_hashing_are_private_and_closed() {
         .expect("read contract canonicalizer");
     let model = fs::read_to_string(root.join("csharp-tools/csharp2vir/ContractModel.cs"))
         .expect("read contract model");
+    let limits = fs::read_to_string(root.join("csharp-tools/csharp2vir/FrontendLimits.cs"))
+        .expect("read frontend limits");
     let program = fs::read_to_string(root.join("csharp-tools/csharp2vir/Program.cs"))
         .expect("read inactive frontend");
-    let combined = format!("{parser}\n{attachment}\n{canonical}\n{model}");
+    let combined = format!("{parser}\n{attachment}\n{canonical}\n{model}\n{limits}");
 
     for required in [
         "Utf8JsonReader",
@@ -156,10 +158,10 @@ fn parser_attachment_typing_and_hashing_are_private_and_closed() {
         "CSHARP_CONTRACT_TYPE",
         "CSHARP_CONTRACT_OPERATOR",
         "CSHARP_CONTRACT_HASH",
-        "ClausesMaximum = 64",
-        "NodesPerMethodMaximum = 1_024",
-        "NodesPerClosureMaximum = 8_192",
-        "ExpressionDepthMaximum = 32",
+        "ContractClausesMaximum = 64",
+        "ContractNodesPerMethodMaximum = 1_024",
+        "ContractNodesPerClosureMaximum = 8_192",
+        "ContractDepthMaximum = 32",
         "NumberStyles.AllowLeadingSign",
         "ValueSpan.SequenceEqual(\"0\"u8)",
         "MPK-CSHARP-CONTRACT-SIDECAR-0.1",

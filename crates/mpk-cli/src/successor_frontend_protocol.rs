@@ -277,14 +277,21 @@ fn validate_shape(
     }
     let rejected = array_field(object, "rejected_features")?;
     let diagnostics = array_field(object, "diagnostics")?;
-    validate_issues(rejected, diagnostics)?;
+    validate_issues(rejected, diagnostics, status, phase)?;
     let phase_valid = match status {
-        "ir-lowered" => phase == "emission" && rejected.is_empty(),
+        "ir-lowered" => phase == "emission" && rejected.is_empty() && diagnostics.is_empty(),
         "rejected" => {
             matches!(
                 phase,
-                "capture" | "source" | "metadata" | "subset" | "lowering" | "emission"
-            ) && rejected.len() + diagnostics.len() > 0
+                "capture"
+                    | "source"
+                    | "metadata"
+                    | "typecheck"
+                    | "subset"
+                    | "lowering"
+                    | "emission"
+            ) && !rejected.is_empty()
+                && diagnostics.is_empty()
         }
         "source-error" => {
             matches!(phase, "capture" | "source" | "metadata" | "typecheck")
@@ -296,6 +303,7 @@ fn validate_shape(
                 phase,
                 "capture"
                     | "source"
+                    | "release"
                     | "metadata"
                     | "typecheck"
                     | "subset"
@@ -416,6 +424,8 @@ fn validate_success_artifacts(
 fn validate_issues(
     rejected: &[Value],
     diagnostics: &[Value],
+    status: &str,
+    phase: &str,
 ) -> Result<(), SuccessorFrontendProtocolError> {
     let issue_count = rejected
         .len()
@@ -450,6 +460,7 @@ fn validate_issues(
             {
                 return Err(protocol(SuccessorFrontendProtocolCode::ProtocolShape));
             }
+            validate_csharp_issue(code, message, status, phase)?;
             total_message_bytes = total_message_bytes
                 .checked_add(message.len())
                 .ok_or_else(|| protocol(SuccessorFrontendProtocolCode::ProtocolLimit))?;
@@ -484,6 +495,114 @@ fn validate_issues(
     }
     if total_message_bytes > ISSUE_MESSAGE_TOTAL_MAX {
         return Err(protocol(SuccessorFrontendProtocolCode::ProtocolLimit));
+    }
+    Ok(())
+}
+
+fn validate_csharp_issue(
+    code: &str,
+    message: &str,
+    status: &str,
+    phase: &str,
+) -> Result<(), SuccessorFrontendProtocolError> {
+    if !code.starts_with("CSHARP_") {
+        return Ok(());
+    }
+    let (expected_status, expected_phase) = match code {
+        "CSHARP_CAPTURE_FILE_TYPE" | "CSHARP_CAPTURE_PATH" | "CSHARP_CAPTURE_INVENTORY" => {
+            ("rejected", Some("capture"))
+        }
+        "CSHARP_SOURCE_ENCODING" | "CSHARP_SOURCE_PARSE" => ("source-error", Some("source")),
+        "CSHARP_SOURCE_DIAGNOSTIC" => ("source-error", Some("metadata")),
+        "CSHARP_TOOLCHAIN_ARCHIVE"
+        | "CSHARP_TOOLCHAIN_RUNTIME"
+        | "CSHARP_TOOLCHAIN_ROSLYN"
+        | "CSHARP_TOOLCHAIN_REFERENCE" => ("frontend-error", Some("release")),
+        "CSHARP_TOOLCHAIN_OPTIONS" | "CSHARP_TOOLCHAIN_ADAPTER" => ("frontend-error", None),
+        "CSHARP_SUBSET_TYPE" | "CSHARP_SUBSET_LITERAL" => ("rejected", Some("typecheck")),
+        "CSHARP_SUBSET_DECLARATION"
+        | "CSHARP_SUBSET_CONTROL_FLOW"
+        | "CSHARP_SUBSET_OPERATION"
+        | "CSHARP_SUBSET_OVERFLOW_CONTEXT"
+        | "CSHARP_SUBSET_CHECKED_CONVERSION"
+        | "CSHARP_SUBSET_CONVERSION"
+        | "CSHARP_SUBSET_CALL"
+        | "CSHARP_SUBSET_INITIALIZATION"
+        | "CSHARP_SUBSET_PURITY"
+        | "CSHARP_SUBSET_ABRUPT"
+        | "CSHARP_CONTRACT_JSON"
+        | "CSHARP_CONTRACT_SHAPE"
+        | "CSHARP_CONTRACT_IDENTITY"
+        | "CSHARP_CONTRACT_DUPLICATE"
+        | "CSHARP_CONTRACT_MISSING"
+        | "CSHARP_CONTRACT_UNUSED"
+        | "CSHARP_CONTRACT_TYPE"
+        | "CSHARP_CONTRACT_OPERATOR"
+        | "CSHARP_CONTRACT_HASH" => ("rejected", Some("subset")),
+        "CSHARP_LOWERING_OPERATION"
+        | "CSHARP_LOWERING_CFG"
+        | "CSHARP_LOWERING_CHECK_MISSING"
+        | "CSHARP_LOWERING_CHECK_EXTRA"
+        | "CSHARP_LOWERING_CHECK_ORDER" => ("rejected", Some("lowering")),
+        "CSHARP_SOURCE_MAP_EXTERNAL" | "CSHARP_SOURCE_MAP_RANGE" | "CSHARP_SOURCE_MAP_UTF16" => {
+            ("frontend-error", Some("emission"))
+        }
+        "CSHARP_FRONTEND_OUTPUT_LIMIT"
+        | "CSHARP_FRONTEND_DIAGNOSTIC_BUDGET"
+        | "CSHARP_FRONTEND_INTERNAL" => ("frontend-error", None),
+        "CSHARP_LIMIT_SOURCE_FILES"
+        | "CSHARP_LIMIT_SOURCE_FILE_BYTES"
+        | "CSHARP_LIMIT_SOURCE_TOTAL_BYTES"
+        | "CSHARP_LIMIT_CONTRACT_FILES"
+        | "CSHARP_LIMIT_CONTRACT_FILE_BYTES"
+        | "CSHARP_LIMIT_CONTRACT_TOTAL_BYTES"
+        | "CSHARP_LIMIT_SNAPSHOT_ENTRIES"
+        | "CSHARP_LIMIT_SNAPSHOT_TOTAL_BYTES"
+        | "CSHARP_LIMIT_NORMALIZED_PATH_BYTES"
+        | "CSHARP_LIMIT_CANONICAL_METHOD_ID_BYTES"
+        | "CSHARP_LIMIT_SELECTED_METHODS"
+        | "CSHARP_LIMIT_METHOD_CLOSURE"
+        | "CSHARP_LIMIT_SYNTAX_NODES"
+        | "CSHARP_LIMIT_OPERATIONS_PER_METHOD"
+        | "CSHARP_LIMIT_OPERATIONS_PER_CLOSURE"
+        | "CSHARP_LIMIT_CFG_BLOCKS_PER_METHOD"
+        | "CSHARP_LIMIT_CFG_BLOCKS_PER_CLOSURE"
+        | "CSHARP_LIMIT_CONTRACT_CLAUSES"
+        | "CSHARP_LIMIT_CONTRACT_NODES_PER_METHOD"
+        | "CSHARP_LIMIT_CONTRACT_NODES_PER_CLOSURE"
+        | "CSHARP_LIMIT_CONTRACT_DEPTH"
+        | "CSHARP_LIMIT_FRONTEND_ARGUMENT_BYTES"
+        | "CSHARP_LIMIT_VIR_CANONICAL_BYTES"
+        | "CSHARP_LIMIT_SOURCE_MAP_CANONICAL_BYTES"
+        | "CSHARP_LIMIT_SOURCE_MANIFEST_CANONICAL_BYTES" => ("rejected", None),
+        _ => return Err(protocol(SuccessorFrontendProtocolCode::ProtocolShape)),
+    };
+    if status != expected_status || expected_phase.is_some_and(|expected| phase != expected) {
+        return Err(protocol(SuccessorFrontendProtocolCode::ProtocolShape));
+    }
+    let expected_message = if code == "CSHARP_SOURCE_DIAGNOSTIC" {
+        let Some(id) = message.strip_prefix("C# compiler diagnostic ") else {
+            return Err(protocol(SuccessorFrontendProtocolCode::ProtocolShape));
+        };
+        if id.len() != 6
+            || !id.starts_with("CS")
+            || !id.as_bytes()[2..].iter().all(u8::is_ascii_digit)
+        {
+            return Err(protocol(SuccessorFrontendProtocolCode::ProtocolShape));
+        }
+        return Ok(());
+    } else if code.starts_with("CSHARP_LIMIT_") {
+        "C# profile limit exceeded"
+    } else {
+        match status {
+            "source-error" => "C# source is invalid",
+            "rejected" => "C# source is outside the frozen profile",
+            "frontend-error" => "C# frontend failed closed",
+            _ => return Err(protocol(SuccessorFrontendProtocolCode::ProtocolShape)),
+        }
+    };
+    if message != expected_message {
+        return Err(protocol(SuccessorFrontendProtocolCode::ProtocolShape));
     }
     Ok(())
 }

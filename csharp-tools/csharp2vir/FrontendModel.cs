@@ -29,12 +29,43 @@ internal enum FrontendStatus
 
 internal sealed class FrontendFailure : Exception
 {
-    private FrontendFailure(FrontendStatus status, string phase, string code)
+    private readonly ReadOnlyCollection<FrontendIssue> issues;
+
+    private FrontendFailure(
+        FrontendStatus status,
+        string phase,
+        string code,
+        IReadOnlyList<FrontendIssue>? issues = null)
         : base(code)
     {
+        FrontendDiagnosticRegistry.Validate(code, status, phase);
         Status = status;
         Phase = phase;
         Code = code;
+        FrontendIssue[] retained = issues is null
+            ? new[]
+            {
+                new FrontendIssue(
+                    code,
+                    FrontendDiagnosticRegistry.PublicMessage(status, code)),
+            }
+            : CopyIssues(issues);
+        if (retained.Length == 0)
+        {
+            throw new InvalidOperationException("C# frontend failure requires an issue");
+        }
+
+        foreach (FrontendIssue issue in retained)
+        {
+            if (!string.Equals(issue.Code, code, StringComparison.Ordinal))
+            {
+                throw new InvalidOperationException("C# frontend failure issue code mismatch");
+            }
+
+            FrontendDiagnosticRegistry.ValidateIssue(issue, status, phase);
+        }
+
+        this.issues = Array.AsReadOnly(retained);
     }
 
     internal FrontendStatus Status { get; }
@@ -42,6 +73,8 @@ internal sealed class FrontendFailure : Exception
     internal string Phase { get; }
 
     internal string Code { get; }
+
+    internal IReadOnlyList<FrontendIssue> Issues => issues;
 
     internal int ExitCode => Status switch
     {
@@ -74,6 +107,27 @@ internal sealed class FrontendFailure : Exception
     internal static FrontendFailure Internal(string phase)
     {
         return new FrontendFailure(FrontendStatus.FrontendError, phase, "CSHARP_FRONTEND_INTERNAL");
+    }
+
+    internal static FrontendFailure WithIssues(
+        FrontendStatus status,
+        string phase,
+        string code,
+        IReadOnlyList<FrontendIssue> issues)
+    {
+        return new FrontendFailure(status, phase, code, issues);
+    }
+
+    private static FrontendIssue[] CopyIssues(IReadOnlyList<FrontendIssue> values)
+    {
+        var result = new FrontendIssue[values.Count];
+        for (int index = 0; index < values.Count; index++)
+        {
+            result[index] = values[index]
+                ?? throw new InvalidOperationException("null C# frontend issue");
+        }
+
+        return result;
     }
 }
 

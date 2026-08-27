@@ -66,7 +66,7 @@ internal static class CSharpVirEmitter
             }
 
             writer.WriteEndObject();
-        });
+        }, "vir_canonical_bytes", "emission");
     }
 
     private static void WriteUnit(

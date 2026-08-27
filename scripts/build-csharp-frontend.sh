@@ -40,6 +40,12 @@ case "$#:${1-}" in
   1:--emit-test-envelope)
     action=emit-test-envelope
     ;;
+  1:--test-frontend-vectors)
+    action=test-frontend-vectors
+    ;;
+  1:--emit-frontend-vector-report)
+    action=emit-frontend-vector-report
+    ;;
   2:--build)
     action=build
     ;;

@@ -290,22 +290,22 @@ fn successor_error_envelopes_keep_the_typed_request_identity() {
             "rejected",
             "subset",
             3,
-            json!([{"code":"CSHARP_SUBSET","message":"unsupported construct"}]),
+            json!([{"code":"CSHARP_SUBSET_DECLARATION","message":"C# source is outside the frozen profile"}]),
             json!([]),
         ),
         (
             "source-error",
-            "source",
+            "metadata",
             4,
             json!([]),
-            json!([{"code":"CSHARP_SOURCE","message":"invalid source"}]),
+            json!([{"code":"CSHARP_SOURCE_DIAGNOSTIC","message":"C# compiler diagnostic CS0103"}]),
         ),
         (
             "frontend-error",
             "metadata",
             1,
             json!([]),
-            json!([{"code":"CSHARP_FRONTEND","message":"frontend failed"}]),
+            json!([{"code":"CSHARP_TOOLCHAIN_OPTIONS","message":"C# frontend failed closed"}]),
         ),
     ] {
         let envelope = json!({
@@ -324,6 +324,70 @@ fn successor_error_envelopes_keep_the_typed_request_identity() {
         assert_eq!(accepted.status(), status);
         assert!(accepted.artifacts().is_none());
     }
+}
+
+#[test]
+fn csharp_diagnostic_codes_messages_and_phases_are_closed() {
+    let fixture = protocol_fixture();
+    let captured = captured_inputs();
+    let base = json!({
+        "schema": SUCCESSOR_FRONTEND_SCHEMA,
+        "status": "rejected",
+        "phase": "subset",
+        "semantic_context": fixture.envelope["semantic_context"].clone(),
+        "selection": fixture.envelope["selection"].clone(),
+        "rejected_features": [{
+            "code": "CSHARP_SUBSET_DECLARATION",
+            "message": "C# source is outside the frozen profile"
+        }],
+        "diagnostics": [],
+    });
+
+    for (label, mutation) in [
+        ("unknown code", ("code", "CSHARP_UNKNOWN")),
+        ("unknown limit", ("code", "CSHARP_LIMIT_UNKNOWN")),
+        (
+            "host message",
+            ("message", "unsupported token from /tmp/input.cs"),
+        ),
+    ] {
+        let mut envelope = base.clone();
+        envelope["rejected_features"][0][mutation.0] = Value::String(mutation.1.into());
+        let stdout = canonical_line(&envelope);
+        assert_eq!(
+            validate_successor_frontend_process(fixture.request(&captured), process(&stdout, 3))
+                .expect_err(label)
+                .code(),
+            SuccessorFrontendProtocolCode::ProtocolShape,
+            "{label}"
+        );
+    }
+
+    let mut wrong_phase = base.clone();
+    wrong_phase["phase"] = Value::String("typecheck".into());
+    let stdout = canonical_line(&wrong_phase);
+    assert_eq!(
+        validate_successor_frontend_process(fixture.request(&captured), process(&stdout, 3))
+            .expect_err("fixed C# diagnostic phase rejects")
+            .code(),
+        SuccessorFrontendProtocolCode::ProtocolShape
+    );
+
+    let mut wrong_compiler_id = base;
+    wrong_compiler_id["status"] = Value::String("source-error".into());
+    wrong_compiler_id["phase"] = Value::String("metadata".into());
+    wrong_compiler_id["diagnostics"] = json!([{
+        "code": "CSHARP_SOURCE_DIAGNOSTIC",
+        "message": "C# compiler diagnostic BAD001"
+    }]);
+    wrong_compiler_id["rejected_features"] = json!([]);
+    let stdout = canonical_line(&wrong_compiler_id);
+    assert_eq!(
+        validate_successor_frontend_process(fixture.request(&captured), process(&stdout, 4))
+            .expect_err("non-Roslyn compiler ID rejects")
+            .code(),
+        SuccessorFrontendProtocolCode::ProtocolShape
+    );
 }
 
 #[test]

@@ -2,11 +2,11 @@
 
 Status: `CSHARP-02-T01` complete (2026-08-25), `CSHARP-02-T02` through
 `CSHARP-02-T03` complete (2026-08-26), and `CSHARP-02-T04` through
-`CSHARP-02-T10` complete (2026-08-27). `CSHARP-02-T11` is the next task.
-Canonical C# success artifacts now exist only within the inactive candidate
-and its test harness. No complete frontend failure protocol, production C#
-frontend, released successor route, installed registry root, release tuple,
-policy route, evidence route, or AI route is active.
+`CSHARP-02-T11` complete (2026-08-27). `CSHARP-02-T12` is the next task.
+Canonical C# success and non-success envelopes now exist only within the
+inactive candidate and its test harness. No production C# frontend, released
+successor route, installed registry root, release tuple, policy route,
+evidence route, or AI route is active.
 
 This document is the non-normative execution plan for implementing the frozen
 C# package. `CSHARP_PROFILE_V0.md` and
@@ -90,8 +90,8 @@ MLANG-01-T03
 | `CSHARP-02-T08` | complete | typed C# contract parsing, attachment, normalization, and hashing |
 | `CSHARP-02-T09` | complete | scalar/control/conversion lowering and exact required checks |
 | `CSHARP-02-T10` | complete | static calls, stable IDs, maps, manifests, and successful envelope emission |
-| `CSHARP-02-T11` | ready | frontend diagnostics, limits, and source-case vector executor |
-| `CSHARP-02-T12` | blocked on T11 | deterministic C# candidate bundles and staged sandbox runner |
+| `CSHARP-02-T11` | complete | frontend diagnostics, limits, and source-case vector executor |
+| `CSHARP-02-T12` | ready | deterministic C# candidate bundles and staged sandbox runner |
 | `CSHARP-02-T13` | blocked on T12 | staged Go producer migration to successor artifacts |
 | `CSHARP-02-T14` | blocked on T13 | staged Rust producer/private-driver migration to successor artifacts |
 | `CSHARP-02-T15` | blocked on T14 | staged successor VC and skeleton integration |
@@ -501,7 +501,7 @@ SHA-256
 
 Depends on: `CSHARP-02-T10`.
 
-Status: Ready.
+Status: Complete (2026-08-27).
 
 Owns:
 
@@ -522,6 +522,23 @@ Exit gate: every frontend-owned accepted/rejected, diagnostic, precedence,
 limit, and hash vector executes against candidate implementation code;
 deliberate removal of any source case or required check fails the aggregate
 test; and the active CLI still has no C# route.
+
+Completion evidence: `FrontendDiagnostics.cs`, `FrontendLimits.cs`, and
+`FrontendProtocol.cs` close the 44-code registry, invariant Roslyn diagnostic
+normalization, raw-record and public-Issue sorting, redaction, status/phase/
+exit precedence, all 32 exact-boundary counters, bounded canonical artifact
+writes, and artifact-free canonical non-success envelopes. The pinned
+aggregate harness executes all 30 accepted source programs through complete
+capture-independent frontend stages, projects every required operation and
+the exhaustive canonical check ledger, and binds all 88 rejection IDs to the
+already executed capture, Roslyn, subset, contract, lowering, emission, and
+build-input mutation owners. It also executes every diagnostic, precedence,
+limit, semantic-row, and hash record and emits an exact report. The primary
+Rust owner rejects missing or reordered vectors and validates every reported
+non-success envelope with the shared successor protocol. All prior pinned C#
+owner harnesses run in the same aggregate build. The candidate remains
+unregistered; its reviewed DLL is 208,384 bytes with SHA-256
+`0783dc269c152ad1b13e77f42f9eff6f6891002c65890bc1445f2fe1a1a0410d`.
 
 ### CSHARP-02-T12 Assemble C# candidate bundles and the staged sandbox runner
 

@@ -26,10 +26,10 @@ internal sealed class ContractClosureCounter
 
 internal static class ContractLimits
 {
-    internal const uint ClausesMaximum = 64;
-    internal const uint NodesPerMethodMaximum = 1_024;
-    internal const uint NodesPerClosureMaximum = 8_192;
-    internal const uint ExpressionDepthMaximum = 32;
+    internal const uint ClausesMaximum = FrontendLimits.ContractClausesMaximum;
+    internal const uint NodesPerMethodMaximum = FrontendLimits.ContractNodesPerMethodMaximum;
+    internal const uint NodesPerClosureMaximum = FrontendLimits.ContractNodesPerClosureMaximum;
+    internal const uint ExpressionDepthMaximum = FrontendLimits.ContractDepthMaximum;
     internal const int OperatorArgumentsMaximum = 64;
 }
 

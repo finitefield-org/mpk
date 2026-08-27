@@ -30,6 +30,10 @@ internal static class CSharpFrontendSuccessEmitter
             vir,
             sourceMap);
         byte[] envelope = WriteEnvelope(selection, vir, sourceMap, sourceManifest);
+        FrontendLimits.Validate(
+            "frontend_stdout",
+            checked((ulong)envelope.Length + 1),
+            "emission");
         var transport = new byte[checked(envelope.Length + 1)];
         Buffer.BlockCopy(envelope, 0, transport, 0, envelope.Length);
         transport[^1] = (byte)'\n';
@@ -98,6 +102,6 @@ internal static class CSharpFrontendSuccessEmitter
             EmissionCanonical.WriteRaw(writer, sourceMap.CanonicalBytes);
             writer.WriteString("status", "ir-lowered");
             writer.WriteEndObject();
-        });
+        }, "frontend_stdout", "emission");
     }
 }

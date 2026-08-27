@@ -20,12 +20,12 @@ internal enum SubsetValueType
 
 internal static class SubsetLimits
 {
-    internal const uint MethodClosureMaximum = 128;
-    internal const uint SyntaxNodesMaximum = 250_000;
-    internal const uint OperationsPerMethodMaximum = 100_000;
-    internal const uint OperationsPerClosureMaximum = 250_000;
-    internal const uint CfgBlocksPerMethodMaximum = 1_024;
-    internal const uint CfgBlocksPerClosureMaximum = 8_192;
+    internal const uint MethodClosureMaximum = FrontendLimits.MethodClosureMaximum;
+    internal const uint SyntaxNodesMaximum = FrontendLimits.SyntaxNodesMaximum;
+    internal const uint OperationsPerMethodMaximum = FrontendLimits.OperationsPerMethodMaximum;
+    internal const uint OperationsPerClosureMaximum = FrontendLimits.OperationsPerClosureMaximum;
+    internal const uint CfgBlocksPerMethodMaximum = FrontendLimits.CfgBlocksPerMethodMaximum;
+    internal const uint CfgBlocksPerClosureMaximum = FrontendLimits.CfgBlocksPerClosureMaximum;
 
     internal static uint Add(uint current, uint increment, uint maximum, string code)
     {

@@ -4,8 +4,8 @@ Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
 Status: Gate C and `MLANG-01` are complete after the completed Rust and
 `MLANG-00` gates. Gate D is active at its non-production implementation
-boundary: `CSHARP-02-T01` through `CSHARP-02-T10` are complete;
-`CSHARP-02-T11` is next. No C# production route or later-language phase is
+boundary: `CSHARP-02-T01` through `CSHARP-02-T11` are complete;
+`CSHARP-02-T12` is next. No C# production route or later-language phase is
 active.
 
 ## Scope and sequencing
@@ -330,7 +330,7 @@ was added.
 Entry gate: `MLANG-01` complete.
 
 Status: Active at the inactive implementation boundary. `CSHARP-02-T01`
-through `CSHARP-02-T10` are complete; `CSHARP-02-T11` is next.
+through `CSHARP-02-T11` are complete; `CSHARP-02-T12` is next.
 
 Authoritative execution plan:
 `csharp-02-implementation-traceability-ledger.md`.
@@ -569,7 +569,7 @@ The active release registry remains Go/Rust-only.
 
 ### CSHARP-02-T11 Close C# frontend diagnostics, limits, and source-case vectors
 
-Status: Next.
+Status: Complete (2026-08-27).
 
 Depends on: `CSHARP-02-T10`.
 
@@ -577,9 +577,21 @@ Exit gate: all frontend-owned accepted/rejected, diagnostic, precedence,
 limit, and hash vectors execute against candidate code with exact artifact-
 free non-success behavior and no active C# route.
 
+Completion evidence: the candidate owns all 44 stable diagnostics, two-stage
+compiler-issue normalization and redaction, exact status/phase/exit
+precedence, all 32 inclusive profile/operational limits, bounded artifact and
+protocol writers, and canonical artifact-free failure envelopes. Its pinned
+aggregate runs all prior C# mutation owners, all 30 accepted source pipelines,
+all 88 rejection IDs, all 34 semantic rows, and every diagnostic, precedence,
+limit, and hash vector. The Rust primary owner checks exact report closure and
+feeds every non-success envelope through the shared successor validator. The
+reviewed candidate DLL is 208,384 bytes with SHA-256
+`0783dc269c152ad1b13e77f42f9eff6f6891002c65890bc1445f2fe1a1a0410d`.
+The active release remains Go/Rust-only.
+
 ### CSHARP-02-T12 Assemble C# candidate bundles and the staged sandbox runner
 
-Status: Pending.
+Status: Next.
 
 Depends on: `CSHARP-02-T11`.
 

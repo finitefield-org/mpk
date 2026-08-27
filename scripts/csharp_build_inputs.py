@@ -37,6 +37,7 @@ SUBSET_HARNESS_PATH = REPOSITORY_ROOT / "crates/mpk-cli/tests/csharp_subset_harn
 CONTRACT_HARNESS_PATH = REPOSITORY_ROOT / "crates/mpk-cli/tests/csharp_contracts_harness.cs"
 LOWERING_HARNESS_PATH = REPOSITORY_ROOT / "crates/mpk-cli/tests/csharp_lowering_harness.cs"
 EMISSION_HARNESS_PATH = REPOSITORY_ROOT / "crates/mpk-cli/tests/csharp_emission_harness.cs"
+FRONTEND_VECTOR_HARNESS_PATH = REPOSITORY_ROOT / "crates/mpk-cli/tests/csharp_frontend_vectors_harness.cs"
 
 TOOLCHAIN_DOMAIN = b"MPK-CSHARP-TOOLCHAIN-INPUTS-0.1\0"
 REFERENCE_DOMAIN = b"MPK-CSHARP-REFERENCE-INVENTORY-0.1\0"
@@ -53,7 +54,10 @@ PROJECT_FILES = (
     "EmissionCanonical.cs",
     "EmissionModel.cs",
     "EmissionProfiles.cs",
+    "FrontendDiagnostics.cs",
+    "FrontendLimits.cs",
     "FrontendModel.cs",
+    "FrontendProtocol.cs",
     "FrontendSuccessEmitter.cs",
     "LoweringBuilder.cs",
     "LoweringModel.cs",
@@ -1019,6 +1023,7 @@ def build_once(
     run_contract_tests: bool = False,
     run_lowering_tests: bool = False,
     run_emission_tests: bool = False,
+    run_frontend_vector_tests: bool = False,
 ) -> Path:
     roots = materialize_closure(toolchain, archives_root, root / "closure")
     project = copy_project(descriptor, root)
@@ -1079,6 +1084,13 @@ def build_once(
         validate_lowering_implementation(toolchain, roots, candidate, root / "lowering-tests")
     if run_emission_tests:
         validate_emission_implementation(toolchain, roots, candidate, root / "emission-tests")
+    if run_frontend_vector_tests:
+        validate_frontend_vector_implementation(
+            toolchain,
+            roots,
+            candidate,
+            root / "frontend-vector-tests",
+        )
     for directory in (path for path in candidate.rglob("*") if path.is_dir()):
         os.chmod(directory, 0o755)
         os.utime(directory, ns=(0, 0), follow_symlinks=False)
@@ -1511,6 +1523,90 @@ def validate_emission_implementation(
         output.unlink(missing_ok=True)
 
 
+def validate_frontend_vector_implementation(
+    toolchain: dict[str, object],
+    roots: dict[str, Path],
+    candidate: Path,
+    work: Path,
+    *,
+    mode: str = "self-test",
+) -> bytes:
+    if mode not in ("self-test", "report"):
+        raise CSharpBuildFailure("CSHARP_FRONTEND_VECTOR_TEST_MODE")
+    work.mkdir(mode=0o700, parents=True, exist_ok=False)
+    harness = work / "FrontendVectorHarness.cs"
+    with opened_regular(
+        FRONTEND_VECTOR_HARNESS_PATH,
+        4 * 1024 * 1024,
+    ) as (input_stream, before), harness.open("xb") as output_stream:
+        shutil.copyfileobj(input_stream, output_stream, 1024 * 1024)
+    if harness.stat().st_size != before.st_size:
+        raise CSharpBuildFailure("CSHARP_FRONTEND_VECTOR_TEST_BUILD")
+    os.chmod(harness, 0o444)
+    os.utime(harness, ns=(0, 0), follow_symlinks=False)
+    frontend = candidate / "frontend"
+    output = frontend / "csharp2vir-frontend-vector-tests.dll"
+    sdk = roots["dotnet-sdk-linux-x64"]
+    compiler = sdk / "sdk/10.0.400/Roslyn/bincore/csc.dll"
+    arguments = list(COMPILER_ARGUMENTS)
+    arguments.extend(
+        [
+            "/out:" + str(output),
+            "/main:Mpk.CSharp2Vir.FrontendVectorHarness",
+            "/pathmap:" + str(REPOSITORY_ROOT) + "=/_/mpk",
+        ]
+    )
+    reference_root = roots["microsoft-netcore-app-ref"]
+    for untyped in array(toolchain["reference_projection"]["inventory"]):
+        record = exact_keys(untyped, {"path", "size_bytes", "sha256"})
+        arguments.append("/reference:" + str(reference_root / text(record["path"])))
+    arguments.extend(
+        [
+            "/reference:" + str(frontend / "Microsoft.CodeAnalysis.dll"),
+            "/reference:" + str(frontend / "Microsoft.CodeAnalysis.CSharp.dll"),
+            "/reference:" + str(frontend / "csharp2vir.dll"),
+            str(harness),
+        ]
+    )
+    build_environment = closed_dotnet_environment(sdk, work / "build-environment")
+    result = execute_isolated(
+        [str(sdk / "dotnet"), "exec", str(compiler)] + arguments,
+        cwd=REPOSITORY_ROOT,
+        environment=build_environment,
+    )
+    if result.returncode != 0 or result.stdout or result.stderr or not output.is_file():
+        raise CSharpBuildFailure("CSHARP_FRONTEND_VECTOR_TEST_BUILD")
+    try:
+        runtime = roots["dotnet-runtime-linux-x64"]
+        runtime_environment = closed_dotnet_environment(runtime, work / "runtime-environment")
+        result = execute_isolated(
+            [
+                str(runtime / "dotnet"),
+                "exec",
+                "--runtimeconfig",
+                str(frontend / "csharp2vir.runtimeconfig.json"),
+                "--fx-version",
+                "10.0.11",
+                str(output),
+                mode,
+                str(reference_root),
+                str(VECTOR_PATH),
+            ],
+            cwd=candidate,
+            environment=runtime_environment,
+        )
+        if (
+            result.returncode != 0
+            or result.stderr
+            or (mode == "self-test" and result.stdout)
+            or (mode == "report" and (not result.stdout or not result.stdout.endswith(b"\n")))
+        ):
+            raise CSharpBuildFailure("CSHARP_FRONTEND_VECTOR_TEST_FAILURE")
+        return result.stdout
+    finally:
+        output.unlink(missing_ok=True)
+
+
 def copy_notices(descriptor: dict[str, object], roots: dict[str, Path], project: Path, candidate: Path) -> None:
     for untyped in array(descriptor["notice_sources"]):
         record = exact_keys(untyped, {"source", "path", "output"})
@@ -1599,6 +1695,7 @@ def build_twice(toolchain: dict[str, object], descriptor: dict[str, object]) -> 
             run_contract_tests=True,
             run_lowering_tests=True,
             run_emission_tests=True,
+            run_frontend_vector_tests=True,
         )
         right = build_once(toolchain, descriptor, archives_root, Path(right_name))
         compare_candidates(left, right)
@@ -1829,6 +1926,55 @@ def emit_test_envelope() -> None:
         sys.stdout.buffer.flush()
 
 
+def test_frontend_vectors() -> None:
+    validate_build_host()
+    _, toolchain = load_profile()
+    descriptor = load_descriptor(toolchain)
+    archives_root = check_cached_archives(toolchain)
+    with tempfile.TemporaryDirectory(prefix="mpk-csharp-frontend-vector-test-") as temporary:
+        candidate = build_once(
+            toolchain,
+            descriptor,
+            archives_root,
+            Path(temporary),
+            run_frontend_vector_tests=True,
+        )
+        if candidate_inventory(candidate, descriptor) != load_candidate_inventory():
+            raise CSharpBuildFailure("CSHARP_BUILD_INVENTORY_MISMATCH")
+
+
+def emit_frontend_vector_report() -> None:
+    validate_build_host()
+    _, toolchain = load_profile()
+    descriptor = load_descriptor(toolchain)
+    archives_root = check_cached_archives(toolchain)
+    with tempfile.TemporaryDirectory(prefix="mpk-csharp-frontend-vector-report-") as temporary:
+        root = Path(temporary)
+        candidate = build_once(
+            toolchain,
+            descriptor,
+            archives_root,
+            root,
+            run_capture_tests=True,
+            run_roslyn_tests=True,
+            run_subset_tests=True,
+            run_contract_tests=True,
+            run_lowering_tests=True,
+            run_emission_tests=True,
+        )
+        if candidate_inventory(candidate, descriptor) != load_candidate_inventory():
+            raise CSharpBuildFailure("CSHARP_BUILD_INVENTORY_MISMATCH")
+        report = validate_frontend_vector_implementation(
+            toolchain,
+            materialize_closure(toolchain, archives_root, root / "frontend-vector-closure"),
+            candidate,
+            root / "frontend-vector-tests",
+            mode="report",
+        )
+        sys.stdout.buffer.write(report)
+        sys.stdout.buffer.flush()
+
+
 def self_test() -> None:
     _, toolchain = load_profile()
     load_descriptor(toolchain)
@@ -1961,6 +2107,10 @@ def main(argv: list[str]) -> int:
             test_emission()
         elif argv == ["emit-test-envelope"]:
             emit_test_envelope()
+        elif argv == ["test-frontend-vectors"]:
+            test_frontend_vectors()
+        elif argv == ["emit-frontend-vector-report"]:
+            emit_frontend_vector_report()
         elif len(argv) == 2 and argv[0] == "build":
             build_to(argv[1])
         else:

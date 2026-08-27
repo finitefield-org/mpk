@@ -159,7 +159,7 @@ internal static class CSharpSourceManifestEmitter
             writer.WriteEndArray();
             writer.WriteString("vir_hash", vir.Sha256);
             writer.WriteEndObject();
-        });
+        }, "source_manifest_canonical_bytes", "emission");
     }
 
     private static void WriteFrontend(Utf8JsonWriter writer, ReleaseArguments release)

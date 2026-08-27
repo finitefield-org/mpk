@@ -393,9 +393,15 @@ internal static class RoslynSessionFactory
         }
 
         ImmutableArray<Diagnostic> collected = diagnostics.ToImmutable();
-        if (HasActiveDiagnostic(collected))
+        FrontendFailure? parseFailure = FrontendDiagnosticNormalizer.Normalize(
+            "source",
+            "CSHARP_SOURCE_PARSE",
+            collected,
+            sourceTexts.ToImmutable(),
+            syntaxTrees.ToImmutable());
+        if (parseFailure is not null)
         {
-            throw FrontendFailure.SourceError("source", "CSHARP_SOURCE_PARSE");
+            throw parseFailure;
         }
 
         return new RoslynSourceSession(
@@ -449,9 +455,15 @@ internal static class RoslynSessionFactory
             throw FrontendFailure.Toolchain("metadata", "CSHARP_TOOLCHAIN_ADAPTER");
         }
 
-        if (HasActiveDiagnostic(diagnostics))
+        FrontendFailure? diagnosticFailure = FrontendDiagnosticNormalizer.Normalize(
+            "metadata",
+            "CSHARP_SOURCE_DIAGNOSTIC",
+            diagnostics,
+            source.SourceTexts,
+            source.SyntaxTrees);
+        if (diagnosticFailure is not null)
         {
-            throw FrontendFailure.SourceError("metadata", "CSHARP_SOURCE_DIAGNOSTIC");
+            throw diagnosticFailure;
         }
 
         return new RoslynCompilationSession(
@@ -643,21 +655,6 @@ internal static class RoslynSessionFactory
         {
             throw FrontendFailure.Toolchain("metadata", "CSHARP_TOOLCHAIN_ADAPTER");
         }
-    }
-
-    private static bool HasActiveDiagnostic(ImmutableArray<Diagnostic> diagnostics)
-    {
-        foreach (Diagnostic diagnostic in diagnostics)
-        {
-            if (!diagnostic.IsSuppressed
-                && (diagnostic.Severity == DiagnosticSeverity.Warning
-                    || diagnostic.Severity == DiagnosticSeverity.Error))
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     private static bool HasAny(IEnumerable<string> values)

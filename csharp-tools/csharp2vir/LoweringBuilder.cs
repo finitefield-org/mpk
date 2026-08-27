@@ -31,12 +31,10 @@ internal static class CSharpLowering
                     method.Symbol.Parameters.Select(parameter =>
                         SubsetTypeRules.ValidateSymbol(
                             parameter.Type,
-                            method.SemanticModel.Compilation,
-                            "lowering")).ToArray(),
+                            method.SemanticModel.Compilation)).ToArray(),
                     SubsetTypeRules.ValidateSymbol(
                         method.Symbol.ReturnType,
-                        method.SemanticModel.Compilation,
-                        "lowering")));
+                        method.SemanticModel.Compilation)));
         }
 
         var functions = new LoweredFunction[closure.Methods.Length];
@@ -1395,8 +1393,7 @@ internal sealed class LoweringMethodBuilder
         {
             return SubsetTypeRules.ValidateSymbol(
                 symbol,
-                method.SemanticModel.Compilation,
-                "lowering");
+                method.SemanticModel.Compilation);
         }
         catch (FrontendFailure)
         {

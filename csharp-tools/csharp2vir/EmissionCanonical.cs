@@ -11,9 +11,17 @@ internal static class EmissionCanonical
 {
     internal static byte[] Write(Action<Utf8JsonWriter> write)
     {
+        return Write(write, "frontend_stdout", "emission");
+    }
+
+    internal static byte[] Write(
+        Action<Utf8JsonWriter> write,
+        string limitId,
+        string phase)
+    {
         try
         {
-            using var output = new MemoryStream();
+            using var output = new BoundedMemoryStream(limitId, phase);
             using (var writer = new Utf8JsonWriter(
                 output,
                 new JsonWriterOptions
@@ -38,7 +46,7 @@ internal static class EmissionCanonical
             || error is NotSupportedException
             || error is OverflowException)
         {
-            throw EmissionFailure.Internal();
+            throw FrontendFailure.Internal(phase);
         }
     }
 

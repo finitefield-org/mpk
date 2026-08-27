@@ -248,7 +248,7 @@ fn emission_owners_are_complete_and_the_csharp_route_remains_inactive() {
         .find("Console.OpenStandardOutput")
         .expect("success transport");
     assert!(lowering < emission && emission < output);
-    assert!(program.contains("T11 owns successor protocol serialization"));
+    assert!(program.contains("CSharpFrontendFailureEmitter.Emit"));
 
     let harness = fs::read_to_string(root.join("crates/mpk-cli/tests/csharp_emission_harness.cs"))
         .expect("read emission harness");

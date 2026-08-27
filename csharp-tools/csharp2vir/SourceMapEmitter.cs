@@ -325,7 +325,7 @@ internal static class CSharpSourceMapEmitter
             }
 
             writer.WriteEndObject();
-        });
+        }, "source_map_canonical_bytes", "emission");
     }
 
     private static void WriteRecord(Utf8JsonWriter writer, SourceMapRecord record)

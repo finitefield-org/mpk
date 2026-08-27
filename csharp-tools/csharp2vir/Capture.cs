@@ -74,12 +74,12 @@ internal sealed class CapturedSnapshot
 
 internal static class SnapshotCapture
 {
-    private const int SourceFileBytesMaximum = 1_048_576;
-    private const int SourceTotalBytesMaximum = 16_777_216;
-    private const int ContractFileBytesMaximum = 1_048_576;
-    private const int ContractTotalBytesMaximum = 8_388_608;
-    private const int SnapshotEntriesMaximum = 512;
-    private const int SnapshotTotalBytesMaximum = 33_554_432;
+    private const int SourceFileBytesMaximum = FrontendLimits.SourceFileBytesMaximum;
+    private const int SourceTotalBytesMaximum = FrontendLimits.SourceTotalBytesMaximum;
+    private const int ContractFileBytesMaximum = FrontendLimits.ContractFileBytesMaximum;
+    private const int ContractTotalBytesMaximum = FrontendLimits.ContractTotalBytesMaximum;
+    private const int SnapshotEntriesMaximum = FrontendLimits.SnapshotEntriesMaximum;
+    private const int SnapshotTotalBytesMaximum = FrontendLimits.SnapshotTotalBytesMaximum;
 
     internal static CapturedSnapshot Capture(string rootPath, Selection selection)
     {

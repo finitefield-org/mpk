@@ -69,18 +69,19 @@ successor mechanism is `specs/SEMANTIC_PROFILE_REGISTRY_V1.md`. The frozen,
 normative, but inactive C# package is `specs/CSHARP_PROFILE_V0.md` with its two
 owned vector sets. `docs/csharp-02-implementation-traceability-ledger.md`
 decomposes the implementation into 20 strictly serial tasks.
-`CSHARP-02-T01` through `CSHARP-02-T10` are complete; `CSHARP-02-T11` is next.
+`CSHARP-02-T01` through `CSHARP-02-T11` are complete; `CSHARP-02-T12` is next.
 The isolated `csharp-tools/csharp2vir/` project, offline build gate, private
 selection/capture/source-transport and exact Roslyn-session paths,
 test-injected successor semantic-registry core, and sealed successor source-
 artifact/protocol validators are inactive. The C# candidate now admits only
 the frozen deterministic pure acyclic method closure with one strict typed,
 hash-bound contract per method, lowers complete scalar/control/conversion and
-static-call closures with exact required checks, and emits canonical staged
-successor VIR, source-map, source-manifest, and success-envelope bytes. The
-shared successor validators accept those bytes without a C# adapter. Complete
-failure envelopes, aggregate source-case/limit execution, bundle assembly,
-and runner integration remain queued. No successor parser is routed from a
+static-call closures with exact required checks, emits canonical staged
+successor VIR, source-map, source-manifest, and success-envelope bytes, and
+closes deterministic diagnostics, profile limits, failure envelopes, and all
+frontend-owned vectors. The shared successor validators accept those bytes
+without a C# adapter. Bundle assembly and runner integration remain queued.
+No successor parser is routed from a
 released input, and no C# production frontend, release tuple, or future-
 language frontend is active.
 

@@ -75,11 +75,11 @@ internal sealed class Selection
 internal static class SelectionCodec
 {
     private const int CompilationBytesMaximum = 64;
-    internal const int SourceFilesMaximum = 256;
-    internal const int ContractFilesMaximum = 128;
-    internal const int SelectedMethodsMaximum = 32;
-    private const int NormalizedPathBytesMaximum = 1_024;
-    private const int CanonicalMethodIdBytesMaximum = 1_024;
+    internal const int SourceFilesMaximum = FrontendLimits.SourceFilesMaximum;
+    internal const int ContractFilesMaximum = FrontendLimits.ContractFilesMaximum;
+    internal const int SelectedMethodsMaximum = FrontendLimits.SelectedMethodsMaximum;
+    private const int NormalizedPathBytesMaximum = FrontendLimits.NormalizedPathBytesMaximum;
+    private const int CanonicalMethodIdBytesMaximum = FrontendLimits.CanonicalMethodIdBytesMaximum;
     private static readonly byte[] SelectionDomain = Encoding.ASCII.GetBytes("MPK-CSHARP-SELECTION-0.1\0");
 
     internal static Selection Validate(RawSelection raw)

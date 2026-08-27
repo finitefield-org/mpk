@@ -30,16 +30,20 @@ internal static class Program
         }
         catch (FrontendFailure failure)
         {
-            return WriteFailure(failure);
+            // A count refusal can occur before a complete request identity
+            // exists. The staged runner validates that identity before launch.
+            Console.Error.Write(failure.Code + "\n");
+            return failure.ExitCode;
         }
         catch (Exception)
         {
-            return WriteFailure(FrontendFailure.Internal("capture"));
+            return 1;
         }
 
         string phase = "capture";
         try
         {
+            FrontendLimits.ValidateArguments(args);
             Selection selection = SelectionCodec.Validate(request.RawSelection);
             CapturedSnapshot snapshot = SnapshotCapture.Capture(request.SourceRoot, selection);
             phase = "source";
@@ -78,20 +82,30 @@ internal static class Program
         }
         catch (FrontendFailure failure)
         {
-            return WriteFailure(failure);
+            return WriteFailure(request, failure);
         }
         catch (Exception)
         {
-            return WriteFailure(FrontendFailure.Internal(phase));
+            return WriteFailure(request, FrontendFailure.Internal(phase));
         }
 
     }
 
-    private static int WriteFailure(FrontendFailure failure)
+    private static int WriteFailure(LowerRequest request, FrontendFailure failure)
     {
-        // T11 owns successor protocol serialization. Until then, failures are
-        // diagnostic-only and stdout cannot be mistaken for a partial artifact.
-        Console.Error.Write(failure.Code + "\n");
-        return failure.ExitCode;
+        try
+        {
+            byte[] transport = CSharpFrontendFailureEmitter.Emit(request, failure, out int exitCode);
+            System.IO.Stream output = Console.OpenStandardOutput();
+            output.Write(transport);
+            output.Flush();
+            return exitCode;
+        }
+        catch (Exception)
+        {
+            // A failure while constructing the bounded response stays
+            // artifact-free and cannot be confused with a truncated envelope.
+            return 1;
+        }
     }
 }
