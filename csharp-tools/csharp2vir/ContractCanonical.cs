@@ -294,7 +294,7 @@ internal static class ContractCanonical
         writer.WriteEndObject();
     }
 
-    private static void WriteSemanticContext(Utf8JsonWriter writer)
+    internal static void WriteSemanticContext(Utf8JsonWriter writer)
     {
         writer.WritePropertyName("semantic_context");
         writer.WriteStartObject();

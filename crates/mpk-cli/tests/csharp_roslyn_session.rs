@@ -209,7 +209,7 @@ fn candidate_uses_only_the_frozen_public_roslyn_boundary() {
     assert!(session.contains("ReferencesSupersedeLowerVersions is an internal getter"));
     assert!(program.contains("RoslynSessionFactory.Parse(selection, sources)"));
     assert!(program.contains("RoslynSessionFactory.Compile("));
-    assert!(program.contains("CSHARP_FRONTEND_UNAVAILABLE"));
+    assert!(program.contains("CSharpSubset.Validate(selection, compilationSession)"));
     assert!(!program.contains("RoslynPublicApi"));
 }
 

@@ -257,7 +257,7 @@ fn lowering_diagnostics_and_semantic_rows_are_owned_exactly() {
 }
 
 #[test]
-fn lowering_is_private_complete_and_closed_before_emission() {
+fn lowering_is_private_complete_and_separated_from_emission() {
     let root = repository_root();
     let model = fs::read_to_string(root.join("csharp-tools/csharp2vir/LoweringModel.cs"))
         .expect("read lowering model");
@@ -309,15 +309,16 @@ fn lowering_is_private_complete_and_closed_before_emission() {
             "later emission surface {forbidden}"
         );
     }
-    assert!(!model.contains("CallStatic"));
+    assert!(model.contains("CallStatic"));
     assert!(subset.contains("(!classified.IsExplicit && !classified.IsImplicit)"));
 
     let contracts = program.find("CSharpContracts.Attach").unwrap();
     let lowering = program.find("CSharpLowering.Lower").unwrap();
-    let unavailable = program.find("CSHARP_FRONTEND_UNAVAILABLE").unwrap();
-    assert!(contracts < lowering && lowering < unavailable);
+    let emission = program.find("CSharpFrontendSuccessEmitter.Emit").unwrap();
+    let output = program.find("Console.OpenStandardOutput").unwrap();
+    assert!(contracts < lowering && lowering < emission && emission < output);
     assert!(program.contains("phase = \"lowering\""));
-    assert!(!program.contains("OpenStandardOutput"));
+    assert!(program.contains("phase = \"emission\""));
 }
 
 #[test]
@@ -334,9 +335,9 @@ fn executable_harness_build_gate_and_vector_manifest_own_t09() {
         "ControlFlowAndEvaluationAreDeterministic",
         "RequiredChecksAreExactAndClosed",
         "SemanticRowsAreOwned",
-        "LaterBoundariesRemainClosed",
+        "CallStaticIsT10Owned",
         "CHECK_CANONICAL_ORDER",
-        "CALLSTATIC_DEFERRED",
+        "CALLSTATIC_T10_FEATURE",
     ] {
         assert!(harness.contains(owner), "missing harness owner {owner}");
     }

@@ -34,6 +34,12 @@ case "$#:${1-}" in
   1:--test-lowering)
     action=test-lowering
     ;;
+  1:--test-emission)
+    action=test-emission
+    ;;
+  1:--emit-test-envelope)
+    action=emit-test-envelope
+    ;;
   2:--build)
     action=build
     ;;

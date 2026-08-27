@@ -17,17 +17,36 @@ internal static class CSharpLowering
         ContractSet contracts)
     {
         ValidateInputs(selection, closure, contracts);
+        var callTargets = new Dictionary<IMethodSymbol, LoweringCallTarget>(
+            SymbolEqualityComparer.Default);
+        for (int index = 0; index < closure.Methods.Length; index++)
+        {
+            SubsetMethod method = closure.Methods[index];
+            AttachedContract contract = contracts.Contracts[index];
+            callTargets.Add(
+                method.Symbol,
+                new LoweringCallTarget(
+                    method.CanonicalId,
+                    contract.Normalized.ContractHash,
+                    method.Symbol.Parameters.Select(parameter =>
+                        SubsetTypeRules.ValidateSymbol(
+                            parameter.Type,
+                            method.SemanticModel.Compilation,
+                            "lowering")).ToArray(),
+                    SubsetTypeRules.ValidateSymbol(
+                        method.Symbol.ReturnType,
+                        method.SemanticModel.Compilation,
+                        "lowering")));
+        }
+
         var functions = new LoweredFunction[closure.Methods.Length];
         for (int index = 0; index < closure.Methods.Length; index++)
         {
             SubsetMethod method = closure.Methods[index];
-            if (method.Callees.Length != 0)
-            {
-                // T10 is the sole owner of CallStatic lowering.
-                throw LoweringFailure.Operation();
-            }
-
-            functions[index] = new LoweringMethodBuilder(method).Build();
+            functions[index] = new LoweringMethodBuilder(
+                method,
+                contracts.Contracts[index].Normalized.ContractHash,
+                callTargets).Build();
         }
 
         var lowered = new LoweredClosure(selection.Sha256, functions);
@@ -63,12 +82,43 @@ internal static class CSharpLowering
             if (!string.Equals(
                 closure.Methods[index].CanonicalId,
                 contracts.Contracts[index].Normalized.FunctionId,
-                StringComparison.Ordinal))
+                StringComparison.Ordinal)
+                || !string.Equals(
+                    selection.Raw.Compilation,
+                    contracts.Contracts[index].Normalized.UnitId,
+                    StringComparison.Ordinal)
+                || !LoweringValidator.IsLowercaseSha256(
+                    contracts.Contracts[index].Normalized.ContractHash))
             {
                 throw FrontendFailure.Rejected("subset", "CSHARP_CONTRACT_HASH");
             }
         }
     }
+}
+
+internal sealed class LoweringCallTarget
+{
+    private readonly SubsetValueType[] parameterTypes;
+
+    internal LoweringCallTarget(
+        string functionId,
+        string contractHash,
+        SubsetValueType[] parameterTypes,
+        SubsetValueType resultType)
+    {
+        FunctionId = functionId;
+        ContractHash = contractHash;
+        this.parameterTypes = (SubsetValueType[])parameterTypes.Clone();
+        ResultType = resultType;
+    }
+
+    internal string FunctionId { get; }
+
+    internal string ContractHash { get; }
+
+    internal IReadOnlyList<SubsetValueType> ParameterTypes => parameterTypes;
+
+    internal SubsetValueType ResultType { get; }
 }
 
 internal static class LoweringFailure
@@ -87,6 +137,8 @@ internal static class LoweringFailure
 internal sealed class LoweringMethodBuilder
 {
     private readonly SubsetMethod method;
+    private readonly string contractHash;
+    private readonly IReadOnlyDictionary<IMethodSymbol, LoweringCallTarget> callTargets;
     private readonly List<BlockBuilder> blocks = new List<BlockBuilder>();
     private readonly Dictionary<ILocalSymbol, LocalBuilder> locals =
         new Dictionary<ILocalSymbol, LocalBuilder>(SymbolEqualityComparer.Default);
@@ -94,10 +146,16 @@ internal sealed class LoweringMethodBuilder
         new Dictionary<IParameterSymbol, ValueBuilder>(SymbolEqualityComparer.Default);
     private readonly List<LocalBuilder> orderedLocals = new List<LocalBuilder>();
     private readonly HashSet<LoweredFeature> features = new HashSet<LoweredFeature>();
+    private readonly SortedSet<string> observedCallees = new SortedSet<string>(StringComparer.Ordinal);
 
-    internal LoweringMethodBuilder(SubsetMethod method)
+    internal LoweringMethodBuilder(
+        SubsetMethod method,
+        string contractHash,
+        IReadOnlyDictionary<IMethodSymbol, LoweringCallTarget> callTargets)
     {
         this.method = method;
+        this.contractHash = contractHash;
+        this.callTargets = callTargets;
     }
 
     internal LoweredFunction Build()
@@ -113,6 +171,11 @@ internal sealed class LoweringMethodBuilder
         if (final is not null || blocks.Any(block => block.Terminator is null))
         {
             throw LoweringFailure.ControlFlow();
+        }
+
+        if (!method.Callees.SequenceEqual(observedCallees, StringComparer.Ordinal))
+        {
+            throw LoweringFailure.Operation();
         }
 
         LoweredFunction function = Freeze();
@@ -252,13 +315,17 @@ internal sealed class LoweringMethodBuilder
 
     private FlowState LowerExpressionStatement(ExpressionStatementSyntax statement, FlowState state)
     {
+        if (statement.Expression is InvocationExpressionSyntax invocation)
+        {
+            return LowerInvocation(invocation, state).Flow;
+        }
+
         if (statement.Expression is not AssignmentExpressionSyntax assignment
             || !assignment.IsKind(SyntaxKind.SimpleAssignmentExpression)
             || Operation(assignment) is not ISimpleAssignmentOperation operation
             || operation.Target is not ILocalReferenceOperation target
             || !locals.TryGetValue(target.Local, out LocalBuilder? local))
         {
-            // Invocation statements are admitted by T07 but remain T10-owned.
             throw LoweringFailure.Operation();
         }
 
@@ -369,11 +436,94 @@ internal sealed class LoweringMethodBuilder
                 return LowerConversion(cast, state);
             case ConditionalExpressionSyntax conditional:
                 return LowerConditional(conditional, state);
-            case InvocationExpressionSyntax:
-                throw LoweringFailure.Operation();
+            case InvocationExpressionSyntax invocation:
+                return LowerInvocation(invocation, state);
             default:
                 throw LoweringFailure.Operation();
         }
+    }
+
+    private ExpressionResult LowerInvocation(
+        InvocationExpressionSyntax syntax,
+        FlowState state)
+    {
+        if (Operation(syntax) is not IInvocationOperation operation
+            || operation.Instance is not null
+            || !operation.TargetMethod.IsStatic
+            || operation.TargetMethod.MethodKind != MethodKind.Ordinary
+            || operation.TargetMethod.IsGenericMethod
+            || operation.TargetMethod.IsExtensionMethod
+            || operation.TargetMethod.ReducedFrom is not null
+            || operation.Arguments.Length != syntax.ArgumentList.Arguments.Count)
+        {
+            throw LoweringFailure.Operation();
+        }
+
+        SymbolInfo symbolInfo = RoslynPublicApi.GetSymbolInfo(
+            method.SemanticModel,
+            syntax.Expression,
+            "lowering");
+        if (symbolInfo.CandidateReason != CandidateReason.None
+            || symbolInfo.CandidateSymbols.Length != 0
+            || symbolInfo.Symbol is not IMethodSymbol resolved
+            || !SymbolEqualityComparer.Default.Equals(resolved, operation.TargetMethod))
+        {
+            throw LoweringFailure.Operation();
+        }
+
+        if (!callTargets.TryGetValue(operation.TargetMethod, out LoweringCallTarget? target)
+            && (operation.TargetMethod.OriginalDefinition is null
+                || !callTargets.TryGetValue(
+                    operation.TargetMethod.OriginalDefinition,
+                    out target)))
+        {
+            throw LoweringFailure.Operation();
+        }
+
+        if (target.ParameterTypes.Count != operation.Arguments.Length
+            || ExactType(operation.Type) != target.ResultType)
+        {
+            throw LoweringFailure.Operation();
+        }
+
+        var arguments = new ValueBuilder[operation.Arguments.Length];
+        FlowState flow = state;
+        for (int index = 0; index < arguments.Length; index++)
+        {
+            IArgumentOperation argument = operation.Arguments[index];
+            ArgumentSyntax argumentSyntax = syntax.ArgumentList.Arguments[index];
+            if (argument.ArgumentKind != ArgumentKind.Explicit
+                || argument.Parameter is null
+                || argument.Parameter.Ordinal != index
+                || !ReferenceEquals(argument.Syntax, argumentSyntax)
+                || argumentSyntax.NameColon is not null
+                || !argumentSyntax.RefKindKeyword.IsKind(SyntaxKind.None)
+                || !argument.InConversion.Exists
+                || !argument.InConversion.IsIdentity
+                || !argument.OutConversion.Exists
+                || !argument.OutConversion.IsIdentity)
+            {
+                throw LoweringFailure.Operation();
+            }
+
+            ExpressionResult lowered = LowerExpression(argumentSyntax.Expression, flow);
+            if (lowered.Value.Type != target.ParameterTypes[index])
+            {
+                throw LoweringFailure.Operation();
+            }
+
+            arguments[index] = lowered.Value;
+            flow = lowered.Flow;
+        }
+
+        observedCallees.Add(target.FunctionId);
+        features.Add(LoweredFeature.CallStatic);
+        ValueBuilder result = EmitCall(
+            flow.Block,
+            target,
+            arguments,
+            Origin(syntax));
+        return new ExpressionResult(flow, result);
     }
 
     private ExpressionResult LowerUnary(PrefixUnaryExpressionSyntax syntax, FlowState state)
@@ -1080,6 +1230,30 @@ internal sealed class LoweringMethodBuilder
         return ValueBuilder.Defined(instruction);
     }
 
+    private ValueBuilder EmitCall(
+        BlockBuilder block,
+        LoweringCallTarget target,
+        ValueBuilder[] arguments,
+        LoweredOrigin origin)
+    {
+        var instruction = new InstructionBuilder(
+            LoweredInstructionKind.CallStatic,
+            target.ResultType,
+            null,
+            default,
+            default,
+            LoweredConversionForm.None,
+            ExplicitOverflowContext.None,
+            shiftCountMask: false,
+            arguments,
+            Array.Empty<LoweredSafetyCheck>(),
+            origin,
+            target.FunctionId,
+            target.ContractHash);
+        block.AddInstruction(instruction);
+        return ValueBuilder.Defined(instruction);
+    }
+
     private BlockBuilder NewBlock()
     {
         var block = new BlockBuilder();
@@ -1163,6 +1337,9 @@ internal sealed class LoweringMethodBuilder
         LoweredFeature[] loweredFeatures = features.OrderBy(feature => feature).ToArray();
         return new LoweredFunction(
             method.CanonicalId,
+            method.Symbol.Name,
+            contractHash,
+            Origin(method.Declaration),
             loweredParameters,
             loweredResults,
             loweredLocals,
@@ -1302,7 +1479,11 @@ internal sealed class LoweringMethodBuilder
             throw LoweringFailure.Operation();
         }
 
-        return new LoweredOrigin(path, syntax.Span.Start, syntax.Span.End);
+        return new LoweredOrigin(
+            path,
+            syntax.Span.Start,
+            syntax.Span.End,
+            syntax.SyntaxTree);
     }
 
     private sealed class LocalBuilder
@@ -1490,7 +1671,9 @@ internal sealed class LoweringMethodBuilder
             bool shiftCountMask,
             ValueBuilder[] operands,
             LoweredSafetyCheck[] safetyChecks,
-            LoweredOrigin origin)
+            LoweredOrigin origin,
+            string? function = null,
+            string? contractHash = null)
         {
             Kind = kind;
             Type = type;
@@ -1503,6 +1686,8 @@ internal sealed class LoweringMethodBuilder
             this.operands = (ValueBuilder[])operands.Clone();
             this.safetyChecks = (LoweredSafetyCheck[])safetyChecks.Clone();
             Origin = origin;
+            Function = function;
+            ContractHash = contractHash;
         }
 
         public string? ResolvedId { get; set; }
@@ -1525,6 +1710,10 @@ internal sealed class LoweringMethodBuilder
 
         internal LoweredOrigin Origin { get; }
 
+        internal string? Function { get; }
+
+        internal string? ContractHash { get; }
+
         internal LoweredInstruction Freeze()
         {
             return new LoweredInstruction(
@@ -1539,7 +1728,9 @@ internal sealed class LoweringMethodBuilder
                 IsShiftCountMask,
                 operands.Select(operand => operand.Freeze()).ToArray(),
                 safetyChecks,
-                Origin);
+                Origin,
+                Function,
+                ContractHash);
         }
     }
 

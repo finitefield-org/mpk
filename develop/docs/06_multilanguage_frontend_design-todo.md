@@ -4,8 +4,8 @@ Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
 Status: Gate C and `MLANG-01` are complete after the completed Rust and
 `MLANG-00` gates. Gate D is active at its non-production implementation
-boundary: `CSHARP-02-T01` through `CSHARP-02-T09` are complete;
-`CSHARP-02-T10` is next. No C# production route or later-language phase is
+boundary: `CSHARP-02-T01` through `CSHARP-02-T10` are complete;
+`CSHARP-02-T11` is next. No C# production route or later-language phase is
 active.
 
 ## Scope and sequencing
@@ -330,7 +330,7 @@ was added.
 Entry gate: `MLANG-01` complete.
 
 Status: Active at the inactive implementation boundary. `CSHARP-02-T01`
-through `CSHARP-02-T09` are complete; `CSHARP-02-T10` is next.
+through `CSHARP-02-T10` are complete; `CSHARP-02-T11` is next.
 
 Authoritative execution plan:
 `csharp-02-implementation-traceability-ledger.md`.
@@ -544,16 +544,32 @@ The reviewed candidate DLL is 158,720 bytes with SHA-256
 
 ### CSHARP-02-T10 Lower static calls and emit stable VIR, maps, and manifests
 
-Status: Next.
+Status: Complete (2026-08-27).
 
 Depends on: `CSHARP-02-T09`.
 
 Exit gate: every accepted source emits complete staged successor artifacts
 with faithful origins, stable IDs, call dependencies, and exact hashes.
 
+Completion evidence: the candidate lowers exact-signature direct static calls
+left to right, links each `CallStatic` to the callee contract hash, and orders
+the acyclic closure callee first with lexical tie-breaking. Structural
+function, binding, block, instruction, and terminator IDs do not depend on
+Roslyn ordinals or captures. The source mapper rejects split surrogate, empty,
+out-of-range, and external spans and maps every emitted node from exact UTF-16
+boundaries to UTF-8 source bytes without synthetic origins. The emitters
+produce domain-hashed canonical `mpk.vir.v1`, `mpk.source_map.v1`, frontend-
+stage `mpk.source_manifest.v1`, and LF-framed `mpk.frontend.cli.v1` success
+bytes with the exact C# `vir`, `source_map`, and `manifest` profile contracts.
+The pinned harness proves deterministic bytes and the primary Rust owner feeds
+the real envelope to the shared successor validators without a C# adapter.
+The reviewed candidate DLL is 190,464 bytes with SHA-256
+`c2a999ded31b8825670fcc824719162efb5c5d40ae7c93140411242820bb43ee`.
+The active release registry remains Go/Rust-only.
+
 ### CSHARP-02-T11 Close C# frontend diagnostics, limits, and source-case vectors
 
-Status: Pending.
+Status: Next.
 
 Depends on: `CSHARP-02-T10`.
 

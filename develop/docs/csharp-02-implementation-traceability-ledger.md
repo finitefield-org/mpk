@@ -2,10 +2,11 @@
 
 Status: `CSHARP-02-T01` complete (2026-08-25), `CSHARP-02-T02` through
 `CSHARP-02-T03` complete (2026-08-26), and `CSHARP-02-T04` through
-`CSHARP-02-T09` complete (2026-08-27). `CSHARP-02-T10` is the next task. No
-static-call lowering, public artifact emission, or production C# frontend,
-released successor route, installed registry root, release tuple, policy
-route, evidence route, or AI route is active.
+`CSHARP-02-T10` complete (2026-08-27). `CSHARP-02-T11` is the next task.
+Canonical C# success artifacts now exist only within the inactive candidate
+and its test harness. No complete frontend failure protocol, production C#
+frontend, released successor route, installed registry root, release tuple,
+policy route, evidence route, or AI route is active.
 
 This document is the non-normative execution plan for implementing the frozen
 C# package. `CSHARP_PROFILE_V0.md` and
@@ -88,8 +89,8 @@ MLANG-01-T03
 | `CSHARP-02-T07` | complete | declaration/subset/closure/purity/initialization gate |
 | `CSHARP-02-T08` | complete | typed C# contract parsing, attachment, normalization, and hashing |
 | `CSHARP-02-T09` | complete | scalar/control/conversion lowering and exact required checks |
-| `CSHARP-02-T10` | ready | static calls, stable IDs, maps, manifests, and successful envelope emission |
-| `CSHARP-02-T11` | blocked on T10 | frontend diagnostics, limits, and source-case vector executor |
+| `CSHARP-02-T10` | complete | static calls, stable IDs, maps, manifests, and successful envelope emission |
+| `CSHARP-02-T11` | ready | frontend diagnostics, limits, and source-case vector executor |
 | `CSHARP-02-T12` | blocked on T11 | deterministic C# candidate bundles and staged sandbox runner |
 | `CSHARP-02-T13` | blocked on T12 | staged Go producer migration to successor artifacts |
 | `CSHARP-02-T14` | blocked on T13 | staged Rust producer/private-driver migration to successor artifacts |
@@ -437,26 +438,29 @@ Exit gate: complete internal lowering is deterministic, every required check
 is present exactly once in canonical order, and missing/extra/reordered checks
 fail before emission.
 
-Completion evidence: `LoweringModel.cs`, `LoweringBuilder.cs`, and
-`LoweringValidation.cs` define and validate a private typed call-free IR for
-all five frozen scalar types, stable locals/copies/results, false-before-true
-CFG traversal, block-parameter joins, early returns, all 34 non-call operation
-mappings, 12 Roslyn checked-state records, and 20 identity/implicit/explicit
-conversion rules. Explicitly written widening numeric casts are admitted as
-the frozen conversion table requires. Checked add/subtract/multiply/negate,
-signed and unsigned division/remainder, and masked shifts regenerate their
-complete per-instruction checks; a separately retained canonical ledger
-rejects missing, extra, duplicate, and reordered entries before any emitter
-exists. The primary Rust owner and pinned executable harness cover all 15 T09
-semantic rows, deterministic IDs/evaluation/control flow, diagnostic
-mutations, and the closed `CallStatic` boundary. The candidate remains
-unregistered and unavailable after private lowering. Its reviewed DLL is
-158,720 bytes with SHA-256
+Completion evidence at the T09 exit gate: `LoweringModel.cs`,
+`LoweringBuilder.cs`, and `LoweringValidation.cs` defined and validated the
+private typed call-free portion for all five frozen scalar types, stable
+locals/copies/results, false-before-true CFG traversal, block-parameter joins,
+early returns, all 34 non-call operation mappings, 12 Roslyn checked-state
+records, and 20 identity/implicit/explicit conversion rules. Explicitly
+written widening numeric casts were admitted as the frozen conversion table
+requires. Checked add/subtract/multiply/negate, signed and unsigned
+division/remainder, and masked shifts regenerated their complete per-
+instruction checks; a separately retained canonical ledger rejected missing,
+extra, duplicate, and reordered entries before T10 emission. The primary Rust
+owner and pinned executable harness covered all 15 T09 semantic rows,
+deterministic IDs/evaluation/control flow, diagnostic mutations, and the then-
+closed `CallStatic` boundary. The candidate remained unregistered and
+unavailable after private lowering. Its reviewed DLL was 158,720 bytes with
+SHA-256
 `bf94b267c3a67af9057ce103cbffbe3bebfeb307f4ebe7c3335a2756d94bc81e`.
 
 ### CSHARP-02-T10 Lower static calls and emit stable VIR, maps, and manifests
 
 Depends on: `CSHARP-02-T09`.
+
+Status: Complete (2026-08-27).
 
 Owns:
 
@@ -474,9 +478,30 @@ Exit gate: every successful source case has complete canonical artifacts and
 hashes, every emitted instruction/terminator has a faithful origin, and the
 staged shared validators accept the bytes without a C# special case.
 
+Completion evidence: `LoweringBuilder.cs` and `LoweringValidation.cs` lower
+exact-signature source static calls in left-to-right evaluation order, bind
+every edge to the normalized callee contract hash, and regenerate the frozen
+callee-first lexical topological order. Stable IDs derive only from canonical
+method identity and deterministic structural traversal. `VirEmitter.cs`,
+`SourceMapEmitter.cs`, `SourceManifestEmitter.cs`, and
+`FrontendSuccessEmitter.cs` serialize complete canonical successor artifacts
+in memory and compute all domain-separated self-excluding hashes. The source
+mapper builds an exact per-file UTF-16-boundary-to-UTF-8-byte table, cross-
+checks Roslyn line positions, emits only captured-source origins, and owns all
+six frozen map cases. The pinned executable harness covers static-call
+linkage/order, ID stability under trivia and Unicode shifts, canonical byte
+determinism, exact profile contracts, and closed map failures. The primary
+Rust owner validates the emitted VIR, map, frontend manifest, and complete
+success envelope with the shared successor validators and no C# branch. The
+candidate remains unregistered; its reviewed DLL is 190,464 bytes with
+SHA-256
+`c2a999ded31b8825670fcc824719162efb5c5d40ae7c93140411242820bb43ee`.
+
 ### CSHARP-02-T11 Close C# frontend diagnostics, limits, and source-case vectors
 
 Depends on: `CSHARP-02-T10`.
+
+Status: Ready.
 
 Owns:
 

@@ -146,11 +146,10 @@ fn private_cli_and_capture_boundary_are_closed_before_roslyn() {
 
     let capture_call = program.find("SnapshotCapture.Capture").unwrap();
     let transport_call = program.find("SourceTransport.Validate").unwrap();
-    let unavailable = program.find("CSHARP_FRONTEND_UNAVAILABLE").unwrap();
-    assert!(capture_call < transport_call && transport_call < unavailable);
+    let parse_call = program.find("RoslynSessionFactory.Parse").unwrap();
+    assert!(capture_call < transport_call && transport_call < parse_call);
     assert!(!program.contains("ParseText"));
     assert!(!program.contains("CSharpCompilation.Create"));
-    assert!(!program.contains("OpenStandardOutput"));
     assert!(!frontend_model.contains("mpk.frontend.cli.v1"));
     assert!(!frontend_model.contains("FrontendEnvelope"));
 }
@@ -170,7 +169,11 @@ fn capture_harness_and_candidate_inventory_are_pinned() {
         "ContractCanonical.cs",
         "ContractModel.cs",
         "ContractParser.cs",
+        "EmissionCanonical.cs",
+        "EmissionModel.cs",
+        "EmissionProfiles.cs",
         "FrontendModel.cs",
+        "FrontendSuccessEmitter.cs",
         "LoweringBuilder.cs",
         "LoweringModel.cs",
         "LoweringValidation.cs",
@@ -179,11 +182,14 @@ fn capture_harness_and_candidate_inventory_are_pinned() {
         "RoslynAdapters.cs",
         "RoslynSession.cs",
         "Selection.cs",
+        "SourceManifestEmitter.cs",
+        "SourceMapEmitter.cs",
         "SourceTransport.cs",
         "SubsetModel.cs",
         "SubsetOperations.cs",
         "SubsetSymbols.cs",
         "SubsetValidator.cs",
+        "VirEmitter.cs",
         "csharp2vir.csproj",
         "csharp2vir.deps.json",
         "csharp2vir.runtimeconfig.json",

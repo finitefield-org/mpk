@@ -213,8 +213,7 @@ fn declaration_closure_purity_and_cfg_gates_are_private_and_complete() {
     }
     assert!(program.contains("phase = \"typecheck\""));
     assert!(program.contains("CSharpSubset.Validate(selection, compilationSession)"));
-    assert!(program.contains("CSHARP_FRONTEND_UNAVAILABLE"));
-    assert!(!program.contains("OpenStandardOutput"));
+    assert!(program.contains("CSharpContracts.Attach(selection, snapshot, closure)"));
 }
 
 #[test]

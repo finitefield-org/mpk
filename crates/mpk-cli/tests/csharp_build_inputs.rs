@@ -89,7 +89,11 @@ fn frozen_descriptor_binds_the_profile_project_recipe_and_candidate_inventory() 
         "ContractCanonical.cs",
         "ContractModel.cs",
         "ContractParser.cs",
+        "EmissionCanonical.cs",
+        "EmissionModel.cs",
+        "EmissionProfiles.cs",
         "FrontendModel.cs",
+        "FrontendSuccessEmitter.cs",
         "LoweringBuilder.cs",
         "LoweringModel.cs",
         "LoweringValidation.cs",
@@ -98,11 +102,14 @@ fn frozen_descriptor_binds_the_profile_project_recipe_and_candidate_inventory() 
         "RoslynAdapters.cs",
         "RoslynSession.cs",
         "Selection.cs",
+        "SourceManifestEmitter.cs",
+        "SourceMapEmitter.cs",
         "SourceTransport.cs",
         "SubsetModel.cs",
         "SubsetOperations.cs",
         "SubsetSymbols.cs",
         "SubsetValidator.cs",
+        "VirEmitter.cs",
         "csharp2vir.csproj",
         "csharp2vir.deps.json",
         "csharp2vir.runtimeconfig.json",
@@ -220,9 +227,9 @@ fn candidate_remains_inert_unregistered_and_outside_the_active_release() {
     assert!(!program.contains("ParseText"));
     assert!(!program.contains("CSharpCompilation.Create"));
     assert!(program.contains("CSharpLowering.Lower"));
-    assert!(!program.contains("OpenStandardOutput"));
+    assert!(program.contains("CSharpFrontendSuccessEmitter.Emit"));
+    assert!(program.contains("OpenStandardOutput"));
     assert!(!program.contains("FrontendEnvelope"));
-    assert!(program.contains("CSHARP_FRONTEND_UNAVAILABLE"));
 
     let registry = load("release/bundles/bundle-registry.json");
     let registry_bytes = serde_json::to_vec(&registry).unwrap();

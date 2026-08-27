@@ -13,3 +13,4 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("csharp2vir-subset-tests")]
 [assembly: InternalsVisibleTo("csharp2vir-contract-tests")]
 [assembly: InternalsVisibleTo("csharp2vir-lowering-tests")]
+[assembly: InternalsVisibleTo("csharp2vir-emission-tests")]

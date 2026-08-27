@@ -55,7 +55,21 @@ internal static class Program
             phase = "subset";
             ContractSet contracts = CSharpContracts.Attach(selection, snapshot, closure);
             phase = "lowering";
-            _ = CSharpLowering.Lower(selection, closure, contracts);
+            LoweredClosure lowered = CSharpLowering.Lower(selection, closure, contracts);
+            phase = "emission";
+            EmittedFrontendSuccess success = CSharpFrontendSuccessEmitter.Emit(
+                request,
+                selection,
+                snapshot,
+                sources,
+                compilationSession,
+                closure,
+                contracts,
+                lowered);
+            System.IO.Stream output = Console.OpenStandardOutput();
+            output.Write(success.EnvelopeBytes);
+            output.Flush();
+            return 0;
         }
         catch (SelectionSyntaxFailure)
         {
@@ -71,11 +85,6 @@ internal static class Program
             return WriteFailure(FrontendFailure.Internal(phase));
         }
 
-        // T09 stops after deterministic call-free internal lowering and exact
-        // check validation. The private lowering cannot be mistaken for a
-        // partial successor artifact.
-        Console.Error.Write("CSHARP_FRONTEND_UNAVAILABLE\n");
-        return 64;
     }
 
     private static int WriteFailure(FrontendFailure failure)

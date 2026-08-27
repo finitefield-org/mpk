@@ -11,13 +11,15 @@ deterministic pure acyclic source-call closure, inert-initialization and
 definite-assignment proofs, and checked syntax/operation/CFG accounting.
 `CSHARP-02-T08` adds strict typed contract sidecars, exact closure attachment,
 successor-contract normalization, and the frozen sidecar/contract hashes.
-`CSHARP-02-T09` adds deterministic private lowering for call-free scalar and
-control-flow closures, all frozen conversion forms, and exact canonical safety
-checks. Static calls still reject, and successful private lowering stops
-without emitting an artifact; call lowering, artifact emission, bundle
-registration, and production routing belong to later serial tasks.
-`--version` remains the only successful command until those tasks are
-complete.
+`CSHARP-02-T09` adds deterministic private lowering for scalar and control-flow
+closures, all frozen conversion forms, and exact canonical safety checks.
+`CSHARP-02-T10` adds exact-signature callee-first static-call lowering, stable
+structural IDs, UTF-16-boundary-to-UTF-8-byte source mapping, and complete
+canonical staged VIR, source-map, frontend-manifest, and success-envelope
+emission. The private `lower` command can now succeed for the frozen subset,
+but no released command discovers this project and no C# bundle or registry
+tuple is active. Failure-envelope closure, aggregate source-case execution,
+bundle registration, and production routing belong to later serial tasks.
 
 The project is not built with an ambient `dotnet build` or package restore.
 Use the repository entrypoint, which validates and extracts the exact frozen
@@ -28,10 +30,11 @@ and compares two independently clean builds:
 ./scripts/build-csharp-frontend.sh --check
 ```
 
-The full check runs all five private executable harnesses. The T06 session,
-T07 subset, T08 contract, and T09 lowering harnesses can also be run alone with
-`--test-roslyn`, `--test-subset`, `--test-contracts`, and `--test-lowering`
-against the provisioned offline closure.
+The full check runs all six private executable harnesses. The T06 session,
+T07 subset, T08 contract, T09 lowering, and T10 emission harnesses can also be
+run alone with `--test-roslyn`, `--test-subset`, `--test-contracts`,
+`--test-lowering`, and `--test-emission` against the provisioned offline
+closure.
 
 The command is offline and check-only. On a new machine, an explicit,
 separate provisioning step may populate the ignored raw-archive cache:

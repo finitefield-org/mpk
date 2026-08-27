@@ -28,7 +28,11 @@
     <Compile Include="ContractCanonical.cs" />
     <Compile Include="ContractModel.cs" />
     <Compile Include="ContractParser.cs" />
+    <Compile Include="EmissionCanonical.cs" />
+    <Compile Include="EmissionModel.cs" />
+    <Compile Include="EmissionProfiles.cs" />
     <Compile Include="FrontendModel.cs" />
+    <Compile Include="FrontendSuccessEmitter.cs" />
     <Compile Include="LoweringBuilder.cs" />
     <Compile Include="LoweringModel.cs" />
     <Compile Include="LoweringValidation.cs" />
@@ -37,10 +41,13 @@
     <Compile Include="RoslynSession.cs" />
     <Compile Include="Selection.cs" />
     <Compile Include="SourceTransport.cs" />
+    <Compile Include="SourceManifestEmitter.cs" />
+    <Compile Include="SourceMapEmitter.cs" />
     <Compile Include="SubsetModel.cs" />
     <Compile Include="SubsetOperations.cs" />
     <Compile Include="SubsetSymbols.cs" />
     <Compile Include="SubsetValidator.cs" />
+    <Compile Include="VirEmitter.cs" />
     <Reference Include="$(MpkReferenceRoot)/*.dll" />
     <Reference Include="Microsoft.CodeAnalysis">
       <HintPath>$(MpkRoslynRoot)/Microsoft.CodeAnalysis.dll</HintPath>

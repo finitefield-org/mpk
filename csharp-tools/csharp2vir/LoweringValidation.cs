@@ -254,10 +254,29 @@ internal static class LoweringValidator
 
             Validate(function);
         }
+
+        ValidateCallClosure(closure);
     }
 
     internal static void Validate(LoweredFunction function)
     {
+        CanonicalMethodId methodId;
+        try
+        {
+            methodId = SelectionCodec.ParseMethodId(function.Id);
+        }
+        catch (SelectionSyntaxFailure)
+        {
+            throw LoweringFailure.Operation();
+        }
+
+        if (!string.Equals(methodId.Method, function.Name, StringComparison.Ordinal)
+            || !IsLowercaseSha256(function.ContractHash))
+        {
+            throw LoweringFailure.Operation();
+        }
+
+        ValidateOrigin(function.Origin);
         var types = new Dictionary<string, SubsetValueType>(StringComparer.Ordinal);
         ValidateBindings(function.Parameters, "arg", allowEmpty: true, types);
         ValidateBindings(function.Results, "result", allowEmpty: false, types);
@@ -267,6 +286,20 @@ internal static class LoweringValidator
             || function.Blocks.Count == 0)
         {
             throw LoweringFailure.ControlFlow();
+        }
+
+        if (methodId.ParameterTypes.Count != function.Parameters.Count
+            || TypeFromToken(methodId.ResultType) != function.Results[0].Type)
+        {
+            throw LoweringFailure.Operation();
+        }
+
+        for (int index = 0; index < function.Parameters.Count; index++)
+        {
+            if (TypeFromToken(methodId.ParameterTypes[index]) != function.Parameters[index].Type)
+            {
+                throw LoweringFailure.Operation();
+            }
         }
 
         int parameterIndex = 0;
@@ -358,6 +391,7 @@ internal static class LoweringValidator
             LoweredInstructionKind.Const => "Const",
             LoweredInstructionKind.Copy => "Copy",
             LoweredInstructionKind.Convert => "Convert",
+            LoweredInstructionKind.CallStatic => "CallStatic",
             LoweredInstructionKind.Unary => instruction.UnaryOperator switch
             {
                 LoweredUnaryOperator.BoolNot => "bool_not",
@@ -432,6 +466,12 @@ internal static class LoweringValidator
             ValidateValue(operand, types);
         }
 
+        if (instruction.Kind != LoweredInstructionKind.CallStatic
+            && (instruction.Function is not null || instruction.ContractHash is not null))
+        {
+            throw LoweringFailure.Operation();
+        }
+
         switch (instruction.Kind)
         {
             case LoweredInstructionKind.Const:
@@ -469,6 +509,9 @@ internal static class LoweringValidator
             case LoweredInstructionKind.Convert:
                 ValidateConversion(instruction);
                 return;
+            case LoweredInstructionKind.CallStatic:
+                ValidateCall(instruction);
+                return;
             default:
                 throw LoweringFailure.Operation();
         }
@@ -482,6 +525,45 @@ internal static class LoweringValidator
             || instruction.IsShiftCountMask)
         {
             throw LoweringFailure.Operation();
+        }
+    }
+
+    private static void ValidateCall(LoweredInstruction instruction)
+    {
+        if (instruction.Target is not null
+            || instruction.Function is null
+            || instruction.ContractHash is null
+            || !IsLowercaseSha256(instruction.ContractHash)
+            || instruction.ConversionForm != LoweredConversionForm.None
+            || instruction.OverflowContext != ExplicitOverflowContext.None
+            || instruction.IsShiftCountMask
+            || instruction.SafetyChecks.Count != 0)
+        {
+            throw LoweringFailure.Operation();
+        }
+
+        CanonicalMethodId target;
+        try
+        {
+            target = SelectionCodec.ParseMethodId(instruction.Function);
+        }
+        catch (SelectionSyntaxFailure)
+        {
+            throw LoweringFailure.Operation();
+        }
+
+        if (target.ParameterTypes.Count != instruction.Operands.Count
+            || TypeFromToken(target.ResultType) != instruction.Type)
+        {
+            throw LoweringFailure.Operation();
+        }
+
+        for (int index = 0; index < instruction.Operands.Count; index++)
+        {
+            if (TypeFromToken(target.ParameterTypes[index]) != instruction.Operands[index].Type)
+            {
+                throw LoweringFailure.Operation();
+            }
         }
     }
 
@@ -1077,6 +1159,12 @@ internal static class LoweringValidator
             {
                 expected.Add(LoweredFeature.Conversion);
             }
+
+            if (block.Instructions.Any(instruction =>
+                instruction.Kind == LoweredInstructionKind.CallStatic))
+            {
+                expected.Add(LoweredFeature.CallStatic);
+            }
         }
 
         LoweredFeature[] ordered = expected.OrderBy(feature => feature).ToArray();
@@ -1139,6 +1227,90 @@ internal static class LoweringValidator
         {
             throw LoweringFailure.Operation();
         }
+    }
+
+    private static void ValidateCallClosure(LoweredClosure closure)
+    {
+        var functions = closure.Functions
+            .Select((function, index) => (function, index))
+            .ToDictionary(pair => pair.function.Id, StringComparer.Ordinal);
+        var callersByCallee = functions.Keys.ToDictionary(
+            id => id,
+            _ => new SortedSet<string>(StringComparer.Ordinal),
+            StringComparer.Ordinal);
+        var remaining = functions.Keys.ToDictionary(
+            id => id,
+            _ => 0,
+            StringComparer.Ordinal);
+
+        foreach (LoweredFunction caller in closure.Functions)
+        {
+            var callees = new SortedSet<string>(StringComparer.Ordinal);
+            foreach (LoweredInstruction call in caller.Blocks
+                .SelectMany(block => block.Instructions)
+                .Where(instruction => instruction.Kind == LoweredInstructionKind.CallStatic))
+            {
+                if (call.Function is null
+                    || call.ContractHash is null
+                    || !functions.TryGetValue(call.Function, out var callee)
+                    || !string.Equals(
+                        call.ContractHash,
+                        callee.function.ContractHash,
+                        StringComparison.Ordinal)
+                    || callee.index >= functions[caller.Id].index)
+                {
+                    throw LoweringFailure.Operation();
+                }
+
+                callees.Add(call.Function);
+            }
+
+            remaining[caller.Id] = callees.Count;
+            foreach (string callee in callees)
+            {
+                callersByCallee[callee].Add(caller.Id);
+            }
+        }
+
+        var ready = new SortedSet<string>(
+            remaining.Where(pair => pair.Value == 0).Select(pair => pair.Key),
+            StringComparer.Ordinal);
+        var expected = new List<string>(closure.Functions.Count);
+        while (ready.Count != 0)
+        {
+            string next = ready.Min ?? throw LoweringFailure.ControlFlow();
+            ready.Remove(next);
+            expected.Add(next);
+            foreach (string caller in callersByCallee[next])
+            {
+                remaining[caller]--;
+                if (remaining[caller] == 0)
+                {
+                    ready.Add(caller);
+                }
+            }
+        }
+
+        if (expected.Count != closure.Functions.Count
+            || !expected.SequenceEqual(
+                closure.Functions.Select(function => function.Id),
+                StringComparer.Ordinal))
+        {
+            throw LoweringFailure.ControlFlow();
+        }
+    }
+
+    private static SubsetValueType TypeFromToken(string token)
+    {
+        return token switch
+        {
+            "bool" => SubsetValueType.Bool,
+            "i32" => SubsetValueType.I32,
+            "u32" => SubsetValueType.U32,
+            "i64" => SubsetValueType.I64,
+            "u64" => SubsetValueType.U64,
+            _ => throw LoweringFailure.Operation(),
+        };
     }
 
     private static void RequireSameOperands(SubsetValueType left, SubsetValueType right)
@@ -1306,7 +1478,7 @@ internal static class LoweringValidator
         };
     }
 
-    private static bool IsLowercaseSha256(string value)
+    internal static bool IsLowercaseSha256(string value)
     {
         return value.Length == 64
             && value.All(character =>

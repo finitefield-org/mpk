@@ -32,7 +32,7 @@ internal static class LoweringHarness
             ControlFlowAndEvaluationAreDeterministic(referencePackRoot);
             RequiredChecksAreExactAndClosed(referencePackRoot);
             SemanticRowsAreOwned(referencePackRoot);
-            LaterBoundariesRemainClosed(referencePackRoot);
+            CallStaticIsT10Owned(referencePackRoot);
             return 0;
         }
         catch (HarnessFailure failure)
@@ -584,22 +584,26 @@ internal static class LoweringHarness
         Check(InstructionTrace(lowered).Contains("bv_shl"), "SEMANTIC_ROWS_SHIFT");
     }
 
-    private static void LaterBoundariesRemainClosed(string referencePackRoot)
+    private static void CallStaticIsT10Owned(string referencePackRoot)
     {
         const string source =
             "namespace Vector;\npublic static class Calls\n{\n"
             + "    public static int F(int x) { return G(x); }\n"
             + "    private static int G(int x) { return x; }\n"
             + "}\n";
-        LoweringContext context = Compile(
+        LoweringContext context = Lower(
             referencePackRoot,
             "call-boundary",
             source,
             "Vector.Calls::F(i32)->i32");
-        ExpectLoweringRejected(
-            () => CSharpLowering.Lower(context.Selection, context.Closure, context.Contracts),
-            "CSHARP_LOWERING_OPERATION");
-        Check(!Enum.GetNames<LoweredInstructionKind>().Contains("CallStatic"), "CALLSTATIC_DEFERRED");
+        LoweredInstruction call = context.Function("Vector.Calls::F(i32)->i32")
+            .Blocks.SelectMany(block => block.Instructions)
+            .Single(instruction => instruction.Kind == LoweredInstructionKind.CallStatic);
+        Equal("Vector.Calls::G(i32)->i32", call.Function, "CALLSTATIC_T10_FUNCTION");
+        Check(
+            context.Function("Vector.Calls::F(i32)->i32").Features.Contains(
+                LoweredFeature.CallStatic),
+            "CALLSTATIC_T10_FEATURE");
     }
 
     private static LoweringContext Lower(
@@ -800,7 +804,9 @@ internal static class LoweringHarness
             source.IsShiftCountMask,
             operands ?? source.Operands.ToArray(),
             checks ?? source.SafetyChecks.ToArray(),
-            source.Origin);
+            source.Origin,
+            source.Function,
+            source.ContractHash);
     }
 
     private static LoweredFunction ReplaceInstruction(
@@ -827,6 +833,9 @@ internal static class LoweringHarness
     {
         return new LoweredFunction(
             function.Id,
+            function.Name,
+            function.ContractHash,
+            function.Origin,
             function.Parameters.ToArray(),
             function.Results.ToArray(),
             function.Locals.ToArray(),

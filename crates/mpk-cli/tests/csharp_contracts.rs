@@ -249,10 +249,9 @@ fn parser_attachment_typing_and_hashing_are_private_and_closed() {
 
     let subset = program.find("CSharpSubset.Validate").unwrap();
     let contracts = program.find("CSharpContracts.Attach").unwrap();
-    let unavailable = program.find("CSHARP_FRONTEND_UNAVAILABLE").unwrap();
-    assert!(subset < contracts && contracts < unavailable);
+    let lowering = program.find("CSharpLowering.Lower").unwrap();
+    assert!(subset < contracts && contracts < lowering);
     assert!(program.contains("phase = \"subset\""));
-    assert!(!program.contains("OpenStandardOutput"));
 }
 
 #[test]

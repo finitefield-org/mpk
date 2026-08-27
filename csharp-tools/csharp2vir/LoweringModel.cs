@@ -52,11 +52,16 @@ internal sealed class LoweredValue
 
 internal sealed class LoweredOrigin
 {
-    internal LoweredOrigin(string normalizedPath, int utf16Start, int utf16End)
+    internal LoweredOrigin(
+        string normalizedPath,
+        int utf16Start,
+        int utf16End,
+        object? sourceIdentity = null)
     {
         NormalizedPath = normalizedPath;
         Utf16Start = utf16Start;
         Utf16End = utf16End;
+        SourceIdentity = sourceIdentity;
     }
 
     internal string NormalizedPath { get; }
@@ -64,6 +69,8 @@ internal sealed class LoweredOrigin
     internal int Utf16Start { get; }
 
     internal int Utf16End { get; }
+
+    internal object? SourceIdentity { get; }
 }
 
 internal sealed class LoweredBinding
@@ -86,6 +93,7 @@ internal enum LoweredInstructionKind
     Unary,
     Binary,
     Convert,
+    CallStatic,
 }
 
 internal enum LoweredUnaryOperator
@@ -187,7 +195,9 @@ internal sealed class LoweredInstruction
         bool shiftCountMask,
         LoweredValue[] operands,
         LoweredSafetyCheck[] safetyChecks,
-        LoweredOrigin origin)
+        LoweredOrigin origin,
+        string? function = null,
+        string? contractHash = null)
     {
         Id = id;
         Kind = kind;
@@ -201,6 +211,8 @@ internal sealed class LoweredInstruction
         this.operands = Array.AsReadOnly((LoweredValue[])operands.Clone());
         this.safetyChecks = Array.AsReadOnly((LoweredSafetyCheck[])safetyChecks.Clone());
         Origin = origin;
+        Function = function;
+        ContractHash = contractHash;
     }
 
     internal string Id { get; }
@@ -226,6 +238,10 @@ internal sealed class LoweredInstruction
     internal IReadOnlyList<LoweredSafetyCheck> SafetyChecks => safetyChecks;
 
     internal LoweredOrigin Origin { get; }
+
+    internal string? Function { get; }
+
+    internal string? ContractHash { get; }
 }
 
 internal sealed class LoweredRequiredCheck
@@ -320,6 +336,7 @@ internal sealed class LoweredBlock
 internal enum LoweredFeature
 {
     Branch,
+    CallStatic,
     Conversion,
     MutableLocal,
 }
@@ -335,6 +352,9 @@ internal sealed class LoweredFunction
 
     internal LoweredFunction(
         string id,
+        string name,
+        string contractHash,
+        LoweredOrigin origin,
         LoweredBinding[] parameters,
         LoweredBinding[] results,
         LoweredBinding[] locals,
@@ -343,6 +363,9 @@ internal sealed class LoweredFunction
         LoweredFeature[] features)
     {
         Id = id;
+        Name = name;
+        ContractHash = contractHash;
+        Origin = origin;
         this.parameters = Array.AsReadOnly((LoweredBinding[])parameters.Clone());
         this.results = Array.AsReadOnly((LoweredBinding[])results.Clone());
         this.locals = Array.AsReadOnly((LoweredBinding[])locals.Clone());
@@ -352,6 +375,12 @@ internal sealed class LoweredFunction
     }
 
     internal string Id { get; }
+
+    internal string Name { get; }
+
+    internal string ContractHash { get; }
+
+    internal LoweredOrigin Origin { get; }
 
     internal IReadOnlyList<LoweredBinding> Parameters => parameters;
 
