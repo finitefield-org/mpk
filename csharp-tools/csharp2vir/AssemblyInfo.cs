@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("csharp2vir")]
 [assembly: AssemblyDescription("Inactive MPK C# frontend candidate")]
@@ -7,3 +8,5 @@ using System.Reflection;
 [assembly: AssemblyVersion("0.1.0.0")]
 [assembly: AssemblyFileVersion("0.1.0.0")]
 [assembly: AssemblyInformationalVersion("0.1.0")]
+[assembly: InternalsVisibleTo("csharp2vir-capture-tests")]
+[assembly: InternalsVisibleTo("csharp2vir-roslyn-tests")]

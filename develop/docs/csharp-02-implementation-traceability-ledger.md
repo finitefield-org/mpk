@@ -1,10 +1,11 @@
 # CSHARP-02 Implementation Decomposition and Traceability Ledger
 
 Status: `CSHARP-02-T01` complete (2026-08-25), `CSHARP-02-T02` through
-`CSHARP-02-T03` complete (2026-08-26), and `CSHARP-02-T04` complete
-(2026-08-27). `CSHARP-02-T05` is the next task. No source-capable C# frontend,
-released successor route, installed registry root, release tuple, policy
-route, evidence route, or AI route is active.
+`CSHARP-02-T03` complete (2026-08-26), and `CSHARP-02-T04` through
+`CSHARP-02-T06` complete (2026-08-27). `CSHARP-02-T07` is the next task. No
+subset-admitting or production C# frontend, released successor route, installed
+registry root, release tuple, policy route, evidence route, or AI route is
+active.
 
 This document is the non-normative execution plan for implementing the frozen
 C# package. `CSHARP_PROFILE_V0.md` and
@@ -82,9 +83,9 @@ MLANG-01-T03
 | `CSHARP-02-T02` | complete | pinned, reproducible, unregistered `csharp2vir` project and build closure |
 | `CSHARP-02-T03` | complete | inactive semantic-registry/context implementation |
 | `CSHARP-02-T04` | complete | inactive successor source-artifact models and hash domains |
-| `CSHARP-02-T05` | ready | C# selection, structural preflight, and immutable capture |
-| `CSHARP-02-T06` | blocked on T05 | exact public Roslyn parse/compilation session |
-| `CSHARP-02-T07` | blocked on T06 | declaration/subset/closure/purity/initialization gate |
+| `CSHARP-02-T05` | complete | C# selection, structural preflight, and immutable capture |
+| `CSHARP-02-T06` | complete | exact public Roslyn parse/compilation session |
+| `CSHARP-02-T07` | ready | declaration/subset/closure/purity/initialization gate |
 | `CSHARP-02-T08` | blocked on T07 | typed C# contract parsing, attachment, normalization, and hashing |
 | `CSHARP-02-T09` | blocked on T08 | scalar/control/conversion lowering and exact required checks |
 | `CSHARP-02-T10` | blocked on T09 | static calls, stable IDs, maps, manifests, and successful envelope emission |
@@ -291,6 +292,18 @@ It does not invoke Roslyn or inspect C# syntax. The primary test owner is
 Exit gate: every capture/source-transport mutation has the frozen phase,
 status, and code, and no successful path rereads original input after capture.
 
+Completion evidence: `csharp2vir` now accepts only the exact frozen private
+`lower` argv shape and release assertions, validates and canonically hashes the
+closed C# selection, inventories only selected files and implied directories,
+opens regular files with Linux `O_NOFOLLOW`, rejects link/identity/type/path
+collisions, and retains each source or contract byte sequence once. Source
+transport consumes only those retained buffers and rejects BOM, malformed
+UTF-8, NUL, CR/non-LF line endings, lone surrogates, and noncharacters before
+any Roslyn API is called. The pinned offline harness executes exact selection
+bytes/hash, mutation precedence, immutable-after-mutation, and inclusive
+file/total/entry limit cases. Its reviewed candidate DLL is 32,256 bytes with
+SHA-256 `64479185e557f455367f161c7c66fd0d61fb660cf5756c84b972721f25e7782d`.
+
 ### CSHARP-02-T06 Build and validate the exact Roslyn compilation session
 
 Depends on: `CSHARP-02-T05`.
@@ -311,6 +324,19 @@ It does not decide subset admission or emit VIR. The primary test owner is
 Exit gate: getter-level session values and public API shapes match the frozen
 vector, and every changed option/reference/API case fails closed before
 lowering.
+
+Completion evidence: `csharp2vir` validates that only the two frozen Roslyn
+5.6.0 assemblies are loaded, constructs exact strict-UTF-8 SHA-256 source text
+and C# 14 parse options, preserves selected tree order, validates the complete
+canonical reference projection, and builds the exact x64 Release compilation.
+It collects syntax diagnostics before metadata references or compilation
+diagnostics, treats active warnings/errors at their owning source/metadata
+phase, and exposes direct public semantic-model, symbol, type, conversion,
+operation, and method-body CFG adapters with `CancellationToken.None` and
+`ignoreAccessibility=false`. The executable pinned harness validates every
+public getter family and fail-closed option/reference/API mutation. The
+reviewed candidate DLL is 48,128 bytes with SHA-256
+`7ef39a41f4d11e02d3bc85cf06d351b363130260bba3edcbc55810ba09d494ad`.
 
 ### CSHARP-02-T07 Enforce the C# subset, closure, purity, and initialization
 
@@ -895,7 +921,7 @@ The implementation blocker format is:
 | Blocker | Detected by | Frozen requirement | Why implementation cannot decide | Required owner | Status |
 | --- | --- | --- | --- | --- | --- |
 
-T01 through T03 have no blocker. A later task records a blocker before changing
+T01 through T06 have no blocker. A later task records a blocker before changing
 scope. It may be closed only by a separately named, serial governance/
 specification task followed by regeneration and review of every affected
 frozen input.
@@ -965,4 +991,45 @@ The T04 review ledger is empty. Its closed implementation inventory contains:
 
 No active producer, consumer, runner, command, bundle, release tuple, registry
 root, normative specification, frozen vector, or accepted production identity
-changed in T04. T05 is the sole ready successor.
+changed in T04. T05 was the sole ready successor.
+
+The T05 review ledger is empty. Its closed implementation inventory contains:
+
+- one exact ordered private CLI grammar with fixed C# semantic, target,
+  registry, entry, source-root, and toolchain-root assertions and bounded
+  release-identity scalars;
+- immutable validated selection and canonical-method models, exact portable
+  source/contract paths, canonical JSON, and the frozen
+  `MPK-CSHARP-SELECTION-0.1` digest;
+- one Linux x86-64 no-follow inventory/capture path that closes selected files
+  and implied directories, rejects symbolic/hard links and path/type/identity
+  collisions, checks every file/snapshot counter before retaining excess, and
+  copies each selected byte sequence exactly once;
+- one source transport gate over captured buffers only, with strict UTF-8,
+  no BOM/NUL/CR/noncharacter, and final-LF enforcement; and
+- the primary Rust owner plus a pinned executable C# mutation harness run by
+  the offline two-build gate.
+
+No Roslyn parse/compilation API, syntax inspection, active registry/bundle,
+released runner or command, successor success artifact, normative vector byte,
+or production identity changed in T05. T06 is the sole ready successor.
+
+The T06 review ledger is empty. Its closed implementation inventory contains:
+
+- one exact source session with strict UTF-8/SHA-256 text, C# 14 regular parse
+  options, stored selection paths/order, and syntax-first diagnostics;
+- one canonical hash-validated 167-file metadata projection and exact x64
+  Release compilation-option object, with every publicly observable getter
+  checked before compilation;
+- direct public Roslyn semantic-model, symbol, type, conversion, operation,
+  and method-body CFG adapters with no compiler driver, emit, reflection over
+  nonpublic members, speculative model, or syntax-text fallback;
+- fail-closed release/source/metadata/lowering toolchain drift classification;
+  and
+- the primary Rust owner plus a pinned executable getter/mutation/API harness
+  run by the offline two-build gate.
+
+No subset admission, closure decision, contract parsing, lowering, VIR or
+success-artifact emission, active registry/bundle, released runner or command,
+normative vector byte, or production identity changed in T06. T07 is the sole
+ready successor.

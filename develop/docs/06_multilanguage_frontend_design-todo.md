@@ -4,8 +4,8 @@ Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
 Status: Gate C and `MLANG-01` are complete after the completed Rust and
 `MLANG-00` gates. Gate D is active at its non-production implementation
-boundary: `CSHARP-02-T01` through `CSHARP-02-T04` are complete;
-`CSHARP-02-T05` is next. No C# production route or later-language phase is
+boundary: `CSHARP-02-T01` through `CSHARP-02-T06` are complete;
+`CSHARP-02-T07` is next. No C# production route or later-language phase is
 active.
 
 ## Scope and sequencing
@@ -330,7 +330,7 @@ was added.
 Entry gate: `MLANG-01` complete.
 
 Status: Active at the inactive implementation boundary. `CSHARP-02-T01`
-through `CSHARP-02-T04` are complete; `CSHARP-02-T05` is next.
+through `CSHARP-02-T06` are complete; `CSHARP-02-T07` is next.
 
 Authoritative execution plan:
 `csharp-02-implementation-traceability-ledger.md`.
@@ -440,25 +440,47 @@ bytes and active producers/consumers remain unchanged.
 
 ### CSHARP-02-T05 Implement C# selection, path preflight, and immutable capture
 
-Status: Next.
+Status: Complete (2026-08-27).
 
 Depends on: `CSHARP-02-T04`.
 
 Exit gate: exact selection and source-transport mutations fail at their owned
 phase, and successful capture never rereads an original input.
 
+Completion evidence: the pinned candidate implements the exact ordered private
+CLI assertions, canonical method/path/selection validation, the frozen
+215-byte `MPK-CSHARP-SELECTION-0.1` hash, Linux no-follow type/link/inventory
+preflight, checked inclusive file/snapshot counters, one-read immutable bytes,
+and strict UTF-8/LF source transport. The executable offline harness covers
+selection/assertion drift, path and inventory mutations, symbolic and hard
+links, immutable-after-source-mutation behavior, encoding mutations, and
+file/total/entry boundaries. The candidate remains unregistered and stops
+before Roslyn without a partial artifact.
+
 ### CSHARP-02-T06 Build and validate the exact Roslyn compilation session
 
-Status: Pending.
+Status: Complete (2026-08-27).
 
 Depends on: `CSHARP-02-T05`.
 
 Exit gate: the frozen public Roslyn session and reference closure match at
 getter/API level, with every drift case rejected before lowering.
 
+Completion evidence: the candidate loads only the two frozen Roslyn managed
+assemblies, constructs exact SHA-256 `SourceText` and C# 14 regular trees in
+selection order, validates the canonical 167-file reference projection before
+creating assembly references, and creates the exact x64 Release compilation.
+Syntax and compilation diagnostics are queried in source/metadata order, and
+the public semantic-model, symbol, type, conversion, operation, and
+`IMethodBodyOperation` CFG adapters use only the frozen cancellation and
+accessibility arguments. The pinned executable harness covers all getter
+families, reference/option/API mutations, diagnostic precedence, and M33. The
+candidate remains unregistered and stops before subset admission without a
+partial artifact.
+
 ### CSHARP-02-T07 Enforce the C# subset, closure, purity, and initialization
 
-Status: Pending.
+Status: Next.
 
 Depends on: `CSHARP-02-T06`.
 

@@ -31,6 +31,8 @@ INVENTORY_PATH = REPOSITORY_ROOT / "release/build-inputs/csharp/candidate-invent
 PROJECT_ROOT = REPOSITORY_ROOT / "csharp-tools/csharp2vir"
 CACHE_PARENT = REPOSITORY_ROOT / "release/build-input-cache/csharp"
 ACTIVE_REGISTRY_PATH = REPOSITORY_ROOT / "release/bundles/bundle-registry.json"
+CAPTURE_HARNESS_PATH = REPOSITORY_ROOT / "crates/mpk-cli/tests/csharp_capture_harness.cs"
+ROSLYN_HARNESS_PATH = REPOSITORY_ROOT / "crates/mpk-cli/tests/csharp_roslyn_session_harness.cs"
 
 TOOLCHAIN_DOMAIN = b"MPK-CSHARP-TOOLCHAIN-INPUTS-0.1\0"
 REFERENCE_DOMAIN = b"MPK-CSHARP-REFERENCE-INVENTORY-0.1\0"
@@ -38,8 +40,15 @@ TOOLCHAIN_HASH = "d4af1170b2813a5581bb0f60b65fd4e7509576093045557b88689bf7e0876b
 REFERENCE_HASH = "30623f64b7d85564260e62464e652bfaa89eb56e0e55193989bfb99538ba6cad"
 PROJECT_FILES = (
     "AssemblyInfo.cs",
+    "Capture.cs",
+    "Cli.cs",
+    "FrontendModel.cs",
     "NOTICE.txt",
     "Program.cs",
+    "RoslynAdapters.cs",
+    "RoslynSession.cs",
+    "Selection.cs",
+    "SourceTransport.cs",
     "csharp2vir.csproj",
     "csharp2vir.deps.json",
     "csharp2vir.runtimeconfig.json",
@@ -976,7 +985,15 @@ def copy_candidate_file(source: Path, destination: Path) -> None:
     os.utime(destination, ns=(0, 0), follow_symlinks=False)
 
 
-def build_once(toolchain: dict[str, object], descriptor: dict[str, object], archives_root: Path, root: Path) -> Path:
+def build_once(
+    toolchain: dict[str, object],
+    descriptor: dict[str, object],
+    archives_root: Path,
+    root: Path,
+    *,
+    run_capture_tests: bool = False,
+    run_roslyn_tests: bool = False,
+) -> Path:
     roots = materialize_closure(toolchain, archives_root, root / "closure")
     project = copy_project(descriptor, root)
     candidate = root / "candidate"
@@ -1007,7 +1024,7 @@ def build_once(toolchain: dict[str, object], descriptor: dict[str, object], arch
     for untyped in array(toolchain["managed_projection"]):
         record = exact_keys(untyped, {"package_id", "archive_path", "runtime_path", "size_bytes", "sha256"})
         arguments.append("/reference:" + str(managed_roots[text(record["package_id"])] / text(record["archive_path"])))
-    arguments.extend([str(project / "AssemblyInfo.cs"), str(project / "Program.cs")])
+    arguments.extend(str(project / path) for path in PROJECT_FILES if path.endswith(".cs"))
     environment = closed_dotnet_environment(sdk, root / "build-environment")
     result = execute_isolated([str(dotnet), "exec", str(compiler)] + arguments, cwd=project, environment=environment)
     if result.returncode != 0 or result.stdout or result.stderr:
@@ -1024,12 +1041,153 @@ def build_once(toolchain: dict[str, object], descriptor: dict[str, object], arch
         copy_candidate_file(managed_roots[text(record["package_id"])] / text(record["archive_path"]), frontend / output_name)
     copy_notices(descriptor, roots, project, candidate)
     validate_candidate_runtime(roots["dotnet-runtime-linux-x64"], candidate, root / "runtime-environment")
+    if run_capture_tests:
+        validate_capture_implementation(toolchain, roots, candidate, root / "capture-tests")
+    if run_roslyn_tests:
+        validate_roslyn_session_implementation(toolchain, roots, candidate, root / "roslyn-tests")
     for directory in (path for path in candidate.rglob("*") if path.is_dir()):
         os.chmod(directory, 0o755)
         os.utime(directory, ns=(0, 0), follow_symlinks=False)
     os.chmod(candidate, 0o755)
     os.utime(candidate, ns=(0, 0), follow_symlinks=False)
     return candidate
+
+
+def validate_capture_implementation(
+    toolchain: dict[str, object],
+    roots: dict[str, Path],
+    candidate: Path,
+    work: Path,
+) -> None:
+    work.mkdir(mode=0o700, parents=True, exist_ok=False)
+    harness = work / "CaptureHarness.cs"
+    with opened_regular(CAPTURE_HARNESS_PATH, 1024 * 1024) as (input_stream, before), harness.open("xb") as output_stream:
+        shutil.copyfileobj(input_stream, output_stream, 1024 * 1024)
+    if harness.stat().st_size != before.st_size:
+        raise CSharpBuildFailure("CSHARP_CAPTURE_TEST_BUILD")
+    os.chmod(harness, 0o444)
+    os.utime(harness, ns=(0, 0), follow_symlinks=False)
+    frontend = candidate / "frontend"
+    output = frontend / "csharp2vir-capture-tests.dll"
+    sdk = roots["dotnet-sdk-linux-x64"]
+    compiler = sdk / "sdk/10.0.400/Roslyn/bincore/csc.dll"
+    arguments = list(COMPILER_ARGUMENTS)
+    arguments.extend(
+        [
+            "/out:" + str(output),
+            "/main:Mpk.CSharp2Vir.CaptureHarness",
+            "/pathmap:" + str(REPOSITORY_ROOT) + "=/_/mpk",
+        ]
+    )
+    reference_root = roots["microsoft-netcore-app-ref"]
+    for untyped in array(toolchain["reference_projection"]["inventory"]):
+        record = exact_keys(untyped, {"path", "size_bytes", "sha256"})
+        arguments.append("/reference:" + str(reference_root / text(record["path"])))
+    arguments.extend(
+        [
+            "/reference:" + str(frontend / "Microsoft.CodeAnalysis.dll"),
+            "/reference:" + str(frontend / "Microsoft.CodeAnalysis.CSharp.dll"),
+            "/reference:" + str(frontend / "csharp2vir.dll"),
+            str(harness),
+        ]
+    )
+    build_environment = closed_dotnet_environment(sdk, work / "build-environment")
+    result = execute_isolated(
+        [str(sdk / "dotnet"), "exec", str(compiler)] + arguments,
+        cwd=REPOSITORY_ROOT,
+        environment=build_environment,
+    )
+    if result.returncode != 0 or result.stdout or result.stderr or not output.is_file():
+        raise CSharpBuildFailure("CSHARP_CAPTURE_TEST_BUILD")
+    try:
+        runtime = roots["dotnet-runtime-linux-x64"]
+        runtime_environment = closed_dotnet_environment(runtime, work / "runtime-environment")
+        result = execute_isolated(
+            [
+                str(runtime / "dotnet"),
+                "exec",
+                "--runtimeconfig",
+                str(frontend / "csharp2vir.runtimeconfig.json"),
+                "--fx-version",
+                "10.0.11",
+                str(output),
+            ],
+            cwd=candidate,
+            environment=runtime_environment,
+        )
+        if result.returncode != 0 or result.stdout or result.stderr:
+            raise CSharpBuildFailure("CSHARP_CAPTURE_TEST_FAILURE")
+    finally:
+        output.unlink(missing_ok=True)
+
+
+def validate_roslyn_session_implementation(
+    toolchain: dict[str, object],
+    roots: dict[str, Path],
+    candidate: Path,
+    work: Path,
+) -> None:
+    work.mkdir(mode=0o700, parents=True, exist_ok=False)
+    harness = work / "RoslynSessionHarness.cs"
+    with opened_regular(ROSLYN_HARNESS_PATH, 1024 * 1024) as (input_stream, before), harness.open("xb") as output_stream:
+        shutil.copyfileobj(input_stream, output_stream, 1024 * 1024)
+    if harness.stat().st_size != before.st_size:
+        raise CSharpBuildFailure("CSHARP_ROSLYN_TEST_BUILD")
+    os.chmod(harness, 0o444)
+    os.utime(harness, ns=(0, 0), follow_symlinks=False)
+    frontend = candidate / "frontend"
+    output = frontend / "csharp2vir-roslyn-tests.dll"
+    sdk = roots["dotnet-sdk-linux-x64"]
+    compiler = sdk / "sdk/10.0.400/Roslyn/bincore/csc.dll"
+    arguments = list(COMPILER_ARGUMENTS)
+    arguments.extend(
+        [
+            "/out:" + str(output),
+            "/main:Mpk.CSharp2Vir.RoslynSessionHarness",
+            "/pathmap:" + str(REPOSITORY_ROOT) + "=/_/mpk",
+        ]
+    )
+    reference_root = roots["microsoft-netcore-app-ref"]
+    for untyped in array(toolchain["reference_projection"]["inventory"]):
+        record = exact_keys(untyped, {"path", "size_bytes", "sha256"})
+        arguments.append("/reference:" + str(reference_root / text(record["path"])))
+    arguments.extend(
+        [
+            "/reference:" + str(frontend / "Microsoft.CodeAnalysis.dll"),
+            "/reference:" + str(frontend / "Microsoft.CodeAnalysis.CSharp.dll"),
+            "/reference:" + str(frontend / "csharp2vir.dll"),
+            str(harness),
+        ]
+    )
+    build_environment = closed_dotnet_environment(sdk, work / "build-environment")
+    result = execute_isolated(
+        [str(sdk / "dotnet"), "exec", str(compiler)] + arguments,
+        cwd=REPOSITORY_ROOT,
+        environment=build_environment,
+    )
+    if result.returncode != 0 or result.stdout or result.stderr or not output.is_file():
+        raise CSharpBuildFailure("CSHARP_ROSLYN_TEST_BUILD")
+    try:
+        runtime = roots["dotnet-runtime-linux-x64"]
+        runtime_environment = closed_dotnet_environment(runtime, work / "runtime-environment")
+        result = execute_isolated(
+            [
+                str(runtime / "dotnet"),
+                "exec",
+                "--runtimeconfig",
+                str(frontend / "csharp2vir.runtimeconfig.json"),
+                "--fx-version",
+                "10.0.11",
+                str(output),
+                str(reference_root),
+            ],
+            cwd=candidate,
+            environment=runtime_environment,
+        )
+        if result.returncode != 0 or result.stdout or result.stderr:
+            raise CSharpBuildFailure("CSHARP_ROSLYN_TEST_FAILURE")
+    finally:
+        output.unlink(missing_ok=True)
 
 
 def copy_notices(descriptor: dict[str, object], roots: dict[str, Path], project: Path, candidate: Path) -> None:
@@ -1065,7 +1223,7 @@ def validate_candidate_runtime(runtime: Path, candidate: Path, work: Path) -> No
         cwd=candidate,
         environment=environment,
     )
-    if unavailable.returncode != 64 or unavailable.stdout or unavailable.stderr != b"CSHARP_FRONTEND_UNAVAILABLE\n":
+    if unavailable.returncode != 2 or unavailable.stdout or unavailable.stderr != b"CSHARP_FRONTEND_USAGE\n":
         raise CSharpBuildFailure("CSHARP_BUILD_RUNTIME")
 
 
@@ -1109,7 +1267,14 @@ def compare_candidates(left: Path, right: Path) -> None:
 def build_twice(toolchain: dict[str, object], descriptor: dict[str, object]) -> tuple[dict[str, object], bytes]:
     archives_root = check_cached_archives(toolchain)
     with tempfile.TemporaryDirectory(prefix="mpk-csharp-build-a-") as left_name, tempfile.TemporaryDirectory(prefix="mpk-csharp-build-b-") as right_name:
-        left = build_once(toolchain, descriptor, archives_root, Path(left_name))
+        left = build_once(
+            toolchain,
+            descriptor,
+            archives_root,
+            Path(left_name),
+            run_capture_tests=True,
+            run_roslyn_tests=True,
+        )
         right = build_once(toolchain, descriptor, archives_root, Path(right_name))
         compare_candidates(left, right)
         inventory = candidate_inventory(left, descriptor)
@@ -1214,6 +1379,40 @@ def build_to(destination_text: str) -> None:
         if candidate_inventory(candidate, descriptor) != expected:
             raise CSharpBuildFailure("CSHARP_BUILD_INVENTORY_MISMATCH")
         shutil.copytree(candidate, destination, symlinks=False)
+
+
+def test_capture() -> None:
+    validate_build_host()
+    _, toolchain = load_profile()
+    descriptor = load_descriptor(toolchain)
+    archives_root = check_cached_archives(toolchain)
+    with tempfile.TemporaryDirectory(prefix="mpk-csharp-capture-test-") as temporary:
+        candidate = build_once(
+            toolchain,
+            descriptor,
+            archives_root,
+            Path(temporary),
+            run_capture_tests=True,
+        )
+        if candidate_inventory(candidate, descriptor) != load_candidate_inventory():
+            raise CSharpBuildFailure("CSHARP_BUILD_INVENTORY_MISMATCH")
+
+
+def test_roslyn() -> None:
+    validate_build_host()
+    _, toolchain = load_profile()
+    descriptor = load_descriptor(toolchain)
+    archives_root = check_cached_archives(toolchain)
+    with tempfile.TemporaryDirectory(prefix="mpk-csharp-roslyn-test-") as temporary:
+        candidate = build_once(
+            toolchain,
+            descriptor,
+            archives_root,
+            Path(temporary),
+            run_roslyn_tests=True,
+        )
+        if candidate_inventory(candidate, descriptor) != load_candidate_inventory():
+            raise CSharpBuildFailure("CSHARP_BUILD_INVENTORY_MISMATCH")
 
 
 def self_test() -> None:
@@ -1334,6 +1533,10 @@ def main(argv: list[str]) -> int:
             check_full(update=False)
         elif argv == ["self-test"]:
             self_test()
+        elif argv == ["test-capture"]:
+            test_capture()
+        elif argv == ["test-roslyn"]:
+            test_roslyn()
         elif len(argv) == 2 and argv[0] == "build":
             build_to(argv[1])
         else:

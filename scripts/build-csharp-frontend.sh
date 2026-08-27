@@ -19,6 +19,12 @@ case "$#:${1-}" in
   1:--self-test)
     action=self-test
     ;;
+  1:--test-capture)
+    action=test-capture
+    ;;
+  1:--test-roslyn)
+    action=test-roslyn
+    ;;
   2:--build)
     action=build
     ;;

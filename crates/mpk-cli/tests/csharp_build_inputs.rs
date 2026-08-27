@@ -83,8 +83,15 @@ fn frozen_descriptor_binds_the_profile_project_recipe_and_candidate_inventory() 
 
     let expected_project_files = [
         "AssemblyInfo.cs",
+        "Capture.cs",
+        "Cli.cs",
+        "FrontendModel.cs",
         "NOTICE.txt",
         "Program.cs",
+        "RoslynAdapters.cs",
+        "RoslynSession.cs",
+        "Selection.cs",
+        "SourceTransport.cs",
         "csharp2vir.csproj",
         "csharp2vir.deps.json",
         "csharp2vir.runtimeconfig.json",

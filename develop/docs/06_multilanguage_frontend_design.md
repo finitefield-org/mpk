@@ -2,13 +2,13 @@
 
 Status: Gate B, `MLANG-00`, Gate C, and `MLANG-01` are complete after the
 completed `RUST-07-T05` entry gate. Gate D is active at its non-production
-implementation boundary: `CSHARP-02-T01` through `CSHARP-02-T04` are complete,
-and `CSHARP-02-T05` is next. This document does not activate a new source
+implementation boundary: `CSHARP-02-T01` through `CSHARP-02-T06` are complete,
+and `CSHARP-02-T07` is next. This document does not activate a new source
 language or amend an active serialized schema.
 
 Prepared: 2026-08-21
 
-Updated: 2026-08-27 (`CSHARP-02-T04` completion)
+Updated: 2026-08-27 (`CSHARP-02-T06` completion)
 
 ## 1. Decision summary
 
@@ -464,8 +464,14 @@ completed the bounded implementation plan, `CSHARP-02-T02` added only the
 unregistered, source-inert project and reproducible offline build closure,
 and `CSHARP-02-T03` added the private/test-injected successor registry core.
 `CSHARP-02-T04` added sealed, explicitly injected successor source-artifact
-and frontend-protocol validators without routing them from a released input;
-`CSHARP-02-T05` is next. The frozen C# entry and revision-2 registry remain
+and frontend-protocol validators without routing them from a released input.
+`CSHARP-02-T05` added the private exact selection/hash, no-follow closed
+snapshot, immutable capture, and strict source-transport path.
+`CSHARP-02-T06` added the exact pinned Roslyn source/compilation session,
+reference projection, diagnostics, and public semantic API adapters; it still
+stops before subset admission and publishes no artifact. `CSHARP-02-T07` is
+next. The frozen C#
+entry and revision-2 registry remain
 staging identities rather than installed identities, and T20 remains the sole
 activation owner.
 

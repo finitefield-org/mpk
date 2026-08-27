@@ -22,7 +22,14 @@
 
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Capture.cs" />
+    <Compile Include="Cli.cs" />
+    <Compile Include="FrontendModel.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="RoslynAdapters.cs" />
+    <Compile Include="RoslynSession.cs" />
+    <Compile Include="Selection.cs" />
+    <Compile Include="SourceTransport.cs" />
     <Reference Include="$(MpkReferenceRoot)/*.dll" />
     <Reference Include="Microsoft.CodeAnalysis">
       <HintPath>$(MpkRoslynRoot)/Microsoft.CodeAnalysis.dll</HintPath>
