@@ -20,6 +20,11 @@ case "$2" in
     exec "$cargo_path" test --quiet --locked --manifest-path "$repository_root/Cargo.toml" \
       -p mpk-cli --test csharp_frontend_runner
     ;;
+  go-successor)
+    exec /usr/bin/env -i PATH=/usr/local/go/bin:/usr/local/bin:/usr/bin:/bin \
+      PYTHONDONTWRITEBYTECODE=1 \
+      /usr/bin/python3 -B "$script_dir/go_successor_bundles.py" check-fixtures
+    ;;
   all)
     action=fixture-all
     repository_root=$(CDPATH= cd -- "$script_dir/.." && pwd -P)

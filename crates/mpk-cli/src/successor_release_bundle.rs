@@ -1,7 +1,7 @@
 //! Inactive successor release-bundle models and validators.
 //!
 //! The active resolver continues to accept only `mpk.release.bundle_registry.v0`.
-//! This module is reached solely by the explicitly staged C# harness and never
+//! This module is reached solely by explicit C#/Go staging harnesses and never
 //! discovers a repository candidate or an alternate release root.
 
 use mpk_vc::semantic_profile_registry::{
@@ -38,6 +38,10 @@ pub const CSHARP_FRONTEND_SHA256: &str =
 pub const CSHARP_HOST_PROFILE_ID: &str = "mpk.host.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0";
 pub const CSHARP_RUNTIME_LAYOUT_ID: &str =
     "mpk.runtime.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0";
+pub const GO_STAGING_FRONTEND_BUNDLE_ID: &str = "frontend.go.go2vir.candidate.v1";
+pub const GO_STAGING_TOOLCHAIN_BUNDLE_ID: &str = "toolchain.go.go1.25.0.linux-amd64.candidate.v1";
+pub const GO_STAGING_FRONTEND_SHA256: &str =
+    "71f7c73b2796fd8caee6bc5e18a871e6dc1ca5639dc2a0840d6b1af4da32c0b9";
 
 const CONTENT_HASH_DOMAIN: HashDomain = HashDomain::new("MPK-BUNDLE-CONTENT-0.1");
 const TRANSPORT_LIMITS: StrictJsonLimits = StrictJsonLimits::new(
@@ -492,7 +496,6 @@ fn validate_projection(
     semantic_registry: &ValidatedSemanticProfileRegistry,
 ) -> Result<Vec<SemanticContext>, SuccessorReleaseError> {
     if hosts.is_empty()
-        || layouts.is_empty()
         || frontends.is_empty()
         || toolchains.is_empty()
         || tuples.is_empty()
@@ -561,18 +564,29 @@ fn validate_projection(
                     SuccessorReleaseErrorCode::Linkage,
                 )
             })?;
-        let frontend_contract =
-            profile_contract(frontend.profile_contracts.as_slice(), &context, "frontend")?;
-        let release_contract =
-            profile_contract(toolchain.profile_contracts.as_slice(), &context, "release")?;
-        // The frontend limit governs the private C# driver protocol, while
-        // the tuple limit is the shared VIR artifact limit recorded in the
-        // source manifest. Both are frozen by the semantic profile, but they
-        // intentionally have different identities.
+        let frontend_contract = profile_contract(
+            frontend.profile_contracts.as_slice(),
+            &context,
+            semantic_registry,
+            ProfileContractField::Frontend,
+        )?;
+        let release_contract = profile_contract(
+            toolchain.profile_contracts.as_slice(),
+            &context,
+            semantic_registry,
+            ProfileContractField::Release,
+        )?;
+        // C# has a private frontend limit in addition to the shared VIR
+        // artifact limit. Go's existing frontend limit is the shared one.
+        let expected_frontend_limit = match context.semantic_profile() {
+            "mpk.csharp.scalar.v0" => "mpk.csharp.limits.v0",
+            "mpk.go.fixed.v0" | "mpk.rust.checked.v0" => "mpk.vir.limits.v0",
+            _ => return Err(contract_failure()),
+        };
         if frontend_contract
             .get("limit_profile_id")
             .and_then(Value::as_str)
-            != Some("mpk.csharp.limits.v0")
+            != Some(expected_frontend_limit)
             || tuple.limit_profile_id != "mpk.vir.limits.v0"
             || release_contract
                 .get("execution_host_profile_id")
@@ -583,6 +597,12 @@ fn validate_projection(
                 SuccessorReleaseValidationPhase::Linkage,
                 SuccessorReleaseErrorCode::Linkage,
             ));
+        }
+        if context.semantic_profile() == "mpk.go.fixed.v0" {
+            if frontend.bundle_id != GO_STAGING_FRONTEND_BUNDLE_ID {
+                return Err(linkage_failure());
+            }
+            validate_go_release_contract(toolchain, release_contract)?;
         }
         let context_key = serde_json::to_string(&tuple.semantic_context).map_err(|_| {
             failure(
@@ -714,6 +734,24 @@ fn validate_frontend(
             SuccessorReleaseValidationPhase::Linkage,
             SuccessorReleaseErrorCode::Linkage,
         ));
+    }
+    if frontend.bundle_id == GO_STAGING_FRONTEND_BUNDLE_ID
+        && (frontend.name != "go2vir"
+            || frontend.version != "go1.25.0-profile-v1-staging"
+            || frontend.main.name != "go2vir"
+            || frontend.main.version != "go1.25.0-profile-v1-staging"
+            || frontend.main.path != "bin/go2vir"
+            || frontend.main.binary_sha256 != GO_STAGING_FRONTEND_SHA256
+            || !matches!(frontend.main.runtime, ExecutableRuntime::Static)
+            || !frontend.subordinate_binaries.is_empty())
+    {
+        return Err(failure(
+            SuccessorReleaseValidationPhase::Linkage,
+            SuccessorReleaseErrorCode::Linkage,
+        ));
+    }
+    if frontend.bundle_id == GO_STAGING_FRONTEND_BUNDLE_ID {
+        validate_executable_record(&frontend.main, &files, true)?;
     }
     Ok(())
 }
@@ -929,13 +967,14 @@ fn validate_profile_contracts(
 fn profile_contract<'a>(
     contracts: &'a [Value],
     context: &SemanticContext,
-    field: &str,
+    semantic_registry: &ValidatedSemanticProfileRegistry,
+    field: ProfileContractField,
 ) -> Result<&'a serde_json::Map<String, Value>, SuccessorReleaseError> {
-    let expected_id = match field {
-        "frontend" => "mpk.profile.frontend.csharp_scalar.v0",
-        "release" => "mpk.profile.release.csharp_scalar.v0",
-        _ => return Err(contract_failure()),
-    };
+    let expected_id = semantic_registry
+        .lookup(context.source_language(), context.semantic_profile())
+        .ok_or_else(contract_failure)?
+        .contracts()
+        .contract_id(field);
     let mut matching = contracts.iter().filter(|contract| {
         contract.get("profile_entry_sha256").and_then(Value::as_str)
             == Some(context.profile_entry_sha256())
@@ -950,6 +989,80 @@ fn profile_contract<'a>(
         .get("value")
         .and_then(Value::as_object)
         .ok_or_else(contract_failure)
+}
+
+fn validate_go_release_contract(
+    toolchain: &SuccessorToolchainBundle,
+    contract: &serde_json::Map<String, Value>,
+) -> Result<(), SuccessorReleaseError> {
+    let compiler = contract
+        .get("compiler")
+        .and_then(Value::as_object)
+        .ok_or_else(linkage_failure)?;
+    let native_runtime = contract
+        .get("native_runtime")
+        .and_then(Value::as_object)
+        .ok_or_else(linkage_failure)?;
+    if toolchain.bundle_id != GO_STAGING_TOOLCHAIN_BUNDLE_ID
+        || compiler.get("kind").and_then(Value::as_str) != Some("go")
+        || compiler.get("release").and_then(Value::as_str) != Some("go1.25.0")
+        || native_runtime.get("kind").and_then(Value::as_str) != Some("none")
+    {
+        return Err(linkage_failure());
+    }
+    let Some(targets) = contract.get("target_libraries").and_then(Value::as_array) else {
+        return Err(linkage_failure());
+    };
+    if targets.len() != 1
+        || targets[0].get("target_id").and_then(Value::as_str) != Some("linux/amd64")
+        || targets[0].get("pointer_width").and_then(Value::as_u64) != Some(64)
+    {
+        return Err(linkage_failure());
+    }
+    let component_name = targets[0]
+        .get("component_name")
+        .and_then(Value::as_str)
+        .ok_or_else(linkage_failure)?;
+    let content_sha256 = targets[0]
+        .get("content_sha256")
+        .and_then(Value::as_str)
+        .ok_or_else(linkage_failure)?;
+    let mut found_go = false;
+    let mut found_target = false;
+    for component in &toolchain.components {
+        match component {
+            ToolchainComponent::Executable {
+                name,
+                release,
+                runtime,
+                ..
+            } => {
+                if release != "go1.25.0" || !matches!(runtime, ExecutableRuntime::Static) {
+                    return Err(linkage_failure());
+                }
+                if name == "go" {
+                    found_go = true;
+                }
+            }
+            ToolchainComponent::Content {
+                name,
+                release,
+                content_sha256: actual,
+                ..
+            } if name == component_name => {
+                found_target = release == "go1.25.0" && actual == content_sha256;
+            }
+            ToolchainComponent::Content { release, .. } => {
+                if release != "go1.25.0" {
+                    return Err(linkage_failure());
+                }
+            }
+        }
+    }
+    if !found_go || !found_target {
+        return Err(linkage_failure());
+    }
+    Ok(())
 }
 
 fn validate_inventory(
@@ -1110,6 +1223,13 @@ fn contract_failure() -> SuccessorReleaseError {
     failure(
         SuccessorReleaseValidationPhase::Contract,
         SuccessorReleaseErrorCode::Contract,
+    )
+}
+
+fn linkage_failure() -> SuccessorReleaseError {
+    failure(
+        SuccessorReleaseValidationPhase::Linkage,
+        SuccessorReleaseErrorCode::Linkage,
     )
 }
 

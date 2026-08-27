@@ -2,7 +2,8 @@
 
 Status: `CSHARP-02-T01` complete (2026-08-25), `CSHARP-02-T02` through
 `CSHARP-02-T03` complete (2026-08-26), and `CSHARP-02-T04` through
-`CSHARP-02-T12` complete (2026-08-27). `CSHARP-02-T13` is the next task.
+`CSHARP-02-T12` complete (2026-08-27), and `CSHARP-02-T13` complete
+(2026-08-28). `CSHARP-02-T14` is the next task.
 Canonical C# success and non-success envelopes now exist only within the
 inactive candidate and its test harness. No production C# frontend, released
 successor route, installed registry root, release tuple, policy route,
@@ -92,8 +93,8 @@ MLANG-01-T03
 | `CSHARP-02-T10` | complete | static calls, stable IDs, maps, manifests, and successful envelope emission |
 | `CSHARP-02-T11` | complete | frontend diagnostics, limits, and source-case vector executor |
 | `CSHARP-02-T12` | complete | deterministic C# candidate bundles and staged sandbox runner |
-| `CSHARP-02-T13` | ready | staged Go producer migration to successor artifacts |
-| `CSHARP-02-T14` | blocked on T13 | staged Rust producer/private-driver migration to successor artifacts |
+| `CSHARP-02-T13` | complete | staged Go producer migration to successor artifacts |
+| `CSHARP-02-T14` | ready | staged Rust producer/private-driver migration to successor artifacts |
 | `CSHARP-02-T15` | blocked on T14 | staged successor VC and skeleton integration |
 | `CSHARP-02-T16` | blocked on T15 | staged policy, evidence, and program-certificate integration |
 | `CSHARP-02-T17` | blocked on T16 | staged AI explanation integration |
@@ -604,6 +605,20 @@ the complete Go corpus remains semantically equal to the active baseline,
 staged validators reject current artifacts, and active validators reject the
 staged artifacts.
 
+Completion evidence: one SHA-anchored source overlay builds a staging-only
+`go2vir` twice with the frozen offline Go 1.25.0 image while leaving every
+active Go source byte untouched. The resulting static candidate binary,
+source-only frontend/toolchain candidate, and one-tuple successor registry are
+validated through the inactive revision-2 semantic registry. The complete 13
+positive and eight negative Go cases regenerate deterministically into
+successor frontend envelopes, semantic contexts, selection envelopes, VIR,
+contracts, maps, manifests, and new hash domains. The checked semantic-
+difference report records zero source-behavior, required-check, VC-input-
+intent, or diagnostic changes. Shared successor artifact, protocol, and
+release validators accept the staged bytes; active and staged validators
+reject one another's artifact and envelope families. The active Go binary,
+release tuple, fixture index, and fixture bytes remain unchanged.
+
 ### CSHARP-02-T14 Migrate the Rust producer and private driver in staging
 
 Depends on: `CSHARP-02-T13`.
@@ -948,7 +963,7 @@ the aggregate owner named for its task.
 | T10 | `crates/mpk-cli/tests/csharp_emission.rs` | `cargo test -p mpk-cli --test csharp_emission` |
 | T11 | `crates/mpk-cli/tests/csharp_frontend_vectors.rs` | `cargo test -p mpk-cli --test csharp_frontend_vectors` |
 | T12 | `crates/mpk-cli/tests/csharp_frontend_runner.rs` | `./scripts/build-release-bundles.sh --check csharp`; `./scripts/check-release-bundles.sh --fixture csharp`; `cargo test -p mpk-cli --test csharp_frontend_runner` |
-| T13 | `crates/mpk-vc/tests/successor_go_migration.rs` | `cargo test -p mpk-vc --test successor_go_migration` |
+| T13 | `crates/mpk-vc/tests/successor_go_migration.rs` | `./scripts/build-release-bundles.sh --check go-successor`; `./scripts/check-release-bundles.sh --fixture go-successor`; `cargo test -p mpk-vc --test successor_go_migration` |
 | T14 | `crates/mpk-vc/tests/successor_rust_migration.rs` | `cargo test -p mpk-vc --test successor_rust_migration` |
 | T15 | `crates/mpk-vc/tests/successor_vc.rs` | `cargo test -p mpk-vc --test successor_vc` |
 | T16 | `crates/mpk-cli/tests/csharp_policy_verify.rs` | `cargo test -p mpk-cli --test csharp_policy_verify` |
@@ -980,7 +995,7 @@ choosing exact files.
 | T10 | C# call/ID/emitter/source-map/manifest modules under `csharp-tools/csharp2vir/` |
 | T11 | C# issue/limit/protocol modules and candidate vector harnesses |
 | T12 | `mpk-cli` release registry, bundle, runner, sandbox code plus bundle build/check scripts and staging descriptors |
-| T13 | `go-tools/go2vir/` and Go artifacts under `develop/migrations/csharp-02-staging/` |
+| T13 | staging-only `go-tools/go2vir/` overlay/test sources, inactive `mpk-cli` successor release validation, bundle build/check scripts, and Go artifacts under `develop/migrations/csharp-02-staging/` |
 | T14 | `rust-tools/rust2vir/`, its private protocols, and Rust staging artifacts |
 | T15 | `mpk-vc` successor VC/skeleton models, validation, generation, grouping, and hashes |
 | T16 | `mpk-cli` policy/evidence/program-certificate staging and C# policy fixtures |
@@ -1035,7 +1050,7 @@ The implementation blocker format is:
 | Blocker | Detected by | Frozen requirement | Why implementation cannot decide | Required owner | Status |
 | --- | --- | --- | --- | --- | --- |
 
-T01 through T12 have no blocker. A later task records a blocker before changing
+T01 through T13 have no blocker. A later task records a blocker before changing
 scope. It may be closed only by a separately named, serial governance/
 specification task followed by regeneration and review of every affected
 frozen input.
@@ -1207,4 +1222,28 @@ The T12 review ledger is empty. Its closed implementation inventory contains:
 
 No active registry transport, Go/Rust tuple, production resolver input,
 released CLI route, public successor API, normative C# vector, or proof-
-acceptance identity changed in T12. T13 is the sole ready successor.
+acceptance identity changed in T12. At T12 close, T13 was the sole ready
+successor.
+
+The T13 review ledger is empty. Its closed implementation inventory contains:
+
+- one exact-hash-anchored, staging-only overlay over seven active `go2vir`
+  source files, built twice in the pinned offline Go 1.25.0 image without
+  changing the active source tree;
+- one reproducible static `go2vir` candidate with SHA-256
+  `71f7c73b2796fd8caee6bc5e18a871e6dc1ca5639dc2a0840d6b1af4da32c0b9`,
+  one source-only candidate descriptor, and one successor Go release registry
+  containing the exact 5,577-file toolchain projection with registry hash
+  `f4e856a7af469162c4d57fc83f626e08bde637626b86e69fa930c9f9ee16a252`;
+- 13 positive artifact sets and eight deterministic rejection envelopes using
+  only successor semantic contexts, selections, schemas, and hash domains;
+- a pinned two-run producer check and semantic-difference report with zero
+  source-behavior, required-check, VC-input-intent, and diagnostic changes;
+  and
+- primary artifact validation plus focused protocol and release-descriptor
+  tests proving exact predecessor/successor and crossed-profile rejection.
+
+No active Go source, binary, fixture, release descriptor, release tuple,
+registry transport, public CLI/API route, normative vector, Certificate v0
+input, checker rule, or proof-acceptance identity changed in T13. T14 is the
+sole ready successor.

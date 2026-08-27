@@ -2,13 +2,13 @@
 
 Status: Gate B, `MLANG-00`, Gate C, and `MLANG-01` are complete after the
 completed `RUST-07-T05` entry gate. Gate D is active at its non-production
-implementation boundary: `CSHARP-02-T01` through `CSHARP-02-T12` are complete,
-and `CSHARP-02-T13` is next. This document does not activate a new source
+implementation boundary: `CSHARP-02-T01` through `CSHARP-02-T13` are complete,
+and `CSHARP-02-T14` is next. This document does not activate a new source
 language or amend an active serialized schema.
 
 Prepared: 2026-08-21
 
-Updated: 2026-08-27 (`CSHARP-02-T12` completion)
+Updated: 2026-08-28 (`CSHARP-02-T13` completion)
 
 ## 1. Decision summary
 
@@ -483,9 +483,15 @@ successor validators. `CSHARP-02-T11` closed frontend diagnostics, limits,
 failure envelopes, and the aggregate source-case executor. `CSHARP-02-T12`
 added deterministic candidate bundle assembly, successor release models, and
 the private descriptor-relative installed-tree runner under the frozen .NET
-launcher and Linux sandbox. The frozen C# entry and revision-2 registry remain
-staging identities rather than installed identities, and T20 remains the sole
-activation owner.
+launcher and Linux sandbox. `CSHARP-02-T13` added a hash-anchored, pinned Go
+1.25.0 staging build that emits only successor envelopes and source artifacts,
+a successor Go candidate tuple, and the complete regenerated Go staging
+corpus. Its semantic-difference report records no source-behavior, required-
+check, VC-input-intent, or deterministic-diagnostic change, and active/staged
+validators reject one another's artifacts. The active Go source, binary,
+fixtures, release tuple, and registry remain unchanged. The frozen C# entry
+and revision-2 registry remain staging identities rather than installed
+identities, and T20 remains the sole activation owner.
 
 ### Gate E: serial language admission
 

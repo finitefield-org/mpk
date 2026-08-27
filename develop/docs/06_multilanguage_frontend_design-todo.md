@@ -4,8 +4,8 @@ Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
 Status: Gate C and `MLANG-01` are complete after the completed Rust and
 `MLANG-00` gates. Gate D is active at its non-production implementation
-boundary: `CSHARP-02-T01` through `CSHARP-02-T12` are complete;
-`CSHARP-02-T13` is next. No C# production route or later-language phase is
+boundary: `CSHARP-02-T01` through `CSHARP-02-T13` are complete;
+`CSHARP-02-T14` is next. No C# production route or later-language phase is
 active.
 
 ## Scope and sequencing
@@ -330,7 +330,7 @@ was added.
 Entry gate: `MLANG-01` complete.
 
 Status: Active at the inactive implementation boundary. `CSHARP-02-T01`
-through `CSHARP-02-T12` are complete; `CSHARP-02-T13` is next.
+through `CSHARP-02-T13` are complete; `CSHARP-02-T14` is next.
 
 Authoritative execution plan:
 `csharp-02-implementation-traceability-ledger.md`.
@@ -612,7 +612,7 @@ Go/Rust-only.
 
 ### CSHARP-02-T13 Migrate the Go producer to successor artifacts in staging
 
-Status: Next.
+Status: Complete (2026-08-28).
 
 Depends on: `CSHARP-02-T12`.
 
@@ -620,9 +620,21 @@ Exit gate: a staged `go2vir` emits only successor source artifacts with
 unchanged Go semantics, while the active Go binary and fixtures remain
 unchanged.
 
+Completion evidence: a seven-source exact-hash overlay builds the staging-only
+frontend twice with the frozen offline Go 1.25.0 image and produces the exact
+static candidate binary and one-tuple successor Go bundle projection. The
+complete 13-positive/eight-negative corpus regenerates deterministically with
+only successor envelopes, semantic contexts, selection envelopes, VIR,
+contracts, source maps, manifests, and hash domains. The checked semantic-
+difference report has zero source-behavior, required-check, VC-input-intent,
+and diagnostic changes. Shared artifact, protocol, and release validators
+accept the staged family and reject predecessor or crossed input; active
+validators reject the staged family. No active Go source, binary, fixture,
+release tuple, registry, or production route changed.
+
 ### CSHARP-02-T14 Migrate the Rust producer and private driver in staging
 
-Status: Pending.
+Status: Next.
 
 Depends on: `CSHARP-02-T13`.
 

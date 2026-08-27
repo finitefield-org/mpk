@@ -20,6 +20,7 @@ run() {
 cd "$repo_root"
 
 run "$repo_root/scripts/check-fast.sh"
+run "$repo_root/scripts/build-release-bundles.sh" --check go-successor
 # This gate owns the ordered strict migration scan, checker-agreement,
 # registered-bundle, and installed-fixture checks. Do not repeat those
 # I/O-heavy phases below.

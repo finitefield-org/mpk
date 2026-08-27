@@ -1600,10 +1600,27 @@ fn validate_profile_payload(contract: CompiledProfileContract, value: &Value) ->
                     "vir_limit_profile_id": "mpk.vir.limits.v0"
                 })
         }
-        (
-            GoFixedV0 | RustCheckedV0,
-            Ai | Evidence | Manifest | Policy | Release | SourceMap | Vc | Vir,
-        ) => {
+        (GoFixedV0, Release) => {
+            value
+                == &serde_json::json!({
+                    "compiler": {
+                        "kind": "go",
+                        "release": "go1.25.0"
+                    },
+                    "execution_host_profile_id": "mpk.host.linux-x86_64-gnu.v0",
+                    "native_runtime": {
+                        "kind": "none"
+                    },
+                    "target_libraries": [{
+                        "component_name": "go-target-linux-amd64",
+                        "content_sha256": "5380dbbaf794293606958f98f1e0f2fdab25826eba775801becb9159119b6f50",
+                        "pointer_width": 64,
+                        "target_id": "linux/amd64"
+                    }]
+                })
+        }
+        (GoFixedV0, Ai | Evidence | Manifest | Policy | SourceMap | Vc | Vir)
+        | (RustCheckedV0, Ai | Evidence | Manifest | Policy | Release | SourceMap | Vc | Vir) => {
             // Revision-1 freezes only frontend envelope payloads. The other
             // recognized Go/Rust IDs stay unavailable until their successor
             // field owners bind exact payload meanings; they never fall back
