@@ -3,13 +3,13 @@
 Status: `CSHARP-02-T01` complete (2026-08-25), `CSHARP-02-T02` through
 `CSHARP-02-T03` complete (2026-08-26), and `CSHARP-02-T04` through
 `CSHARP-02-T12` complete (2026-08-27), and `CSHARP-02-T13` through
-`CSHARP-02-T16` complete (2026-08-28). `CSHARP-02-T17` is the next task.
+`CSHARP-02-T17` complete (2026-08-28). `CSHARP-02-T18` is the next task.
 Canonical C# success and non-success envelopes now exist only within the
 inactive candidate and its test harness, and canonical successor VC and
-skeleton and policy/evidence bytes now exist only behind explicitly injected
-staging APIs. No production C# frontend, released successor route, installed
-registry root, release tuple, policy route, evidence route, or AI route is
-active.
+skeleton, policy/evidence, and AI request/report bytes now exist only behind
+explicitly injected staging APIs. No production C# frontend, released
+successor route, installed registry root, release tuple, policy route,
+evidence route, or AI route is active.
 
 This document is the non-normative execution plan for implementing the frozen
 C# package. `CSHARP_PROFILE_V0.md` and
@@ -99,8 +99,8 @@ MLANG-01-T03
 | `CSHARP-02-T14` | complete | staged Rust producer/private-driver migration to successor artifacts |
 | `CSHARP-02-T15` | complete | staged successor VC and skeleton integration |
 | `CSHARP-02-T16` | complete | staged policy, evidence, and program-certificate integration |
-| `CSHARP-02-T17` | ready | staged AI explanation integration |
-| `CSHARP-02-T18` | blocked on T17 | staged AI API integration |
+| `CSHARP-02-T17` | complete | staged AI explanation integration |
+| `CSHARP-02-T18` | ready | staged AI API integration |
 | `CSHARP-02-T19` | blocked on T18 | complete cross-profile hardening corpus and release rehearsal |
 | `CSHARP-02-T20` | blocked on T19 | atomic successor cutover and C# production release |
 
@@ -745,6 +745,23 @@ Exit gate: all three staged profiles produce deterministic sanitized requests,
 AI output remains untrusted, and no response changes local evidence or proof
 acceptance.
 
+Completion evidence: `mpk-cli` now exposes a hidden, explicitly injected
+successor explanation boundary that accepts only validated
+`mpk.policy.evidence.v2` plus the matching compiled-profile `ai` envelope.
+It selects the exact Go, Rust, or C# display/projection and policy tuple from
+the evidence context, emits canonical `mpk.ai.explain.request.v2`, and keeps
+selection identifiers, source and contract contents and paths, compiler
+prose, hashes, and raw evidence identifiers outside the provider request.
+The provider response remains the prose-only
+`mpk.ai.explanation.response.v0`; aliases, evidence identities, statuses,
+profile contracts, and the false proof-authority label are restored locally
+into canonical `mpk.ai.explanation.v2`. The primary owner freezes C# request
+and report fixtures, proves deterministic output for all three profiles,
+rejects old/crossed/noncanonical inputs and provider metadata injection, and
+byte-compares the evidence and Certificate v0 outcome before and after every
+response. No provider client, credential lookup, network call, CLI route, or
+released AI schema changed.
+
 ### CSHARP-02-T18 Stage successor AI API integration
 
 Depends on: `CSHARP-02-T17`.
@@ -1341,3 +1358,25 @@ No active policy/evidence parser, CLI command, strategy registry, release
 tuple, Certificate v0 field/tag/hash domain, checker behavior, axiom category,
 normative vector byte, or proof-acceptance rule changed in T16. T17 is the sole
 ready successor.
+
+The T17 review ledger is empty. Its closed implementation inventory contains:
+
+- a hidden, explicitly injected successor request/report boundary over only
+  complete validated policy evidence and the matching compiled `ai` envelope;
+- closed Go, Rust, and C# display/projection/redaction registrations selected
+  from the evidence semantic context and exact policy tuple;
+- canonical `mpk.ai.explain.request.v2` and `mpk.ai.explanation.v2`
+  regeneration with predecessor, crossed, widened, mutated, and noncanonical
+  rejection;
+- the unchanged prose-only `mpk.ai.explanation.response.v0`, prompt, and
+  provider request shape with strict alias, text, provenance, and output
+  limits; and
+- deterministic three-profile coverage plus frozen C# request/report fixtures
+  proving that selection/source/contract/compiler/hash/raw-identifier data do
+  not enter the model request and that no response changes evidence,
+  Certificate v0 bytes, checker acceptance, status, or proof authority.
+
+No active AI parser, provider client, credential lookup, network call, CLI/API
+route, release tuple, normative vector byte, Certificate v0 input, checker
+rule, or proof-acceptance identity changed in T17. T18 is the sole ready
+successor.

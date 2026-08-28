@@ -4,8 +4,8 @@ Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
 Status: Gate C and `MLANG-01` are complete after the completed Rust and
 `MLANG-00` gates. Gate D is active at its non-production implementation
-boundary: `CSHARP-02-T01` through `CSHARP-02-T16` are complete;
-`CSHARP-02-T17` is next. No C# production route or later-language phase is
+boundary: `CSHARP-02-T01` through `CSHARP-02-T17` are complete;
+`CSHARP-02-T18` is next. No C# production route or later-language phase is
 active.
 
 ## Scope and sequencing
@@ -330,7 +330,7 @@ was added.
 Entry gate: `MLANG-01` complete.
 
 Status: Active at the inactive implementation boundary. `CSHARP-02-T01`
-through `CSHARP-02-T16` are complete; `CSHARP-02-T17` is next.
+through `CSHARP-02-T17` are complete; `CSHARP-02-T18` is next.
 
 Authoritative execution plan:
 `csharp-02-implementation-traceability-ledger.md`.
@@ -695,7 +695,7 @@ trusted evidence or routed through the released policy CLI.
 
 ### CSHARP-02-T17 Stage successor AI explanation integration
 
-Status: Next.
+Status: Complete (2026-08-28).
 
 Depends on: `CSHARP-02-T16`.
 
@@ -703,9 +703,21 @@ Exit gate: closed profile-aware AI explanation staging accepts only validated
 successor evidence/context, applies the C# redaction contract, and cannot
 affect proof acceptance.
 
+Completion evidence: the hidden successor explainer validates the exact
+profile-owned `ai` envelope against complete successor policy evidence,
+projects deterministic minimal-v1 requests for Go, Rust, and C#, and emits
+canonical v2 request/report artifacts without adding a provider, credential,
+network, CLI, or released-schema route. The C# fixture proves that source and
+contract contents and paths, compiler prose, selection values, hashes, and
+unsanitized evidence identifiers do not enter the provider request. Provider
+responses remain prose-only untrusted helper analysis; local aliases restore
+the original evidence IDs and immutable statuses, while evidence and
+Certificate v0 outcomes remain byte-identical. Old, crossed, widened,
+noncanonical, metadata-injected, unknown-alias, and bidi inputs reject.
+
 ### CSHARP-02-T18 Stage successor AI API integration
 
-Status: Pending.
+Status: Next.
 
 Depends on: `CSHARP-02-T17`.
 

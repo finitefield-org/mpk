@@ -2,7 +2,7 @@
 
 This directory contains the reviewed, deterministic successor release
 descriptors and generated artifacts for `CSHARP-02-T12` through
-`CSHARP-02-T15`. They are source-only staging inputs and are not searched,
+`CSHARP-02-T17`. They are source-only staging inputs and are not searched,
 copied, or accepted by the active Go/Rust release resolver.
 
 - `semantic-profile-registry.json` is the frozen inactive revision-2 semantic
@@ -20,14 +20,19 @@ copied, or accepted by the active Go/Rust release resolver.
   corpus, 73-case negative diagnostic inventory, and zero-change semantic-
   difference report against the active fixtures.
 - These validated Go/Rust artifacts and the C# candidate context feed only the
-  explicitly injected T15 successor VC test boundary. Canonical successor VC
-  and skeleton bytes are regenerated in tests and are not installed or
-  published from this directory.
+  explicitly injected T15 through T17 successor VC, policy, and AI test
+  boundaries. Canonical successor artifacts are regenerated in tests and are
+  not installed or published from this directory.
 - `policy/csharp/` contains the T16 source/contract witness plus canonical
   successor scan, certificate-stage manifest, evidence, and Certificate v0
   hex fixture. The hidden frontend-only scan and complete-graph verification
   APIs regenerate every byte and do not make this directory discoverable to
   the released policy CLI.
+- `ai/csharp/` contains the T17 canonical sanitized-request and untrusted
+  explanation-report fixtures. The hidden explainer regenerates them only
+  from complete validated successor evidence and an explicitly injected exact
+  `ai` contract; it has no provider client, credentials, network access, CLI
+  route, or proof authority.
 
 `scripts/build-release-bundles.sh --check csharp` rebuilds the frontend and
 toolchain projections twice from pinned caches and byte-compares all three

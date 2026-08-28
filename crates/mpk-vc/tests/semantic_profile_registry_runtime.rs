@@ -37,6 +37,7 @@ const RUNTIME_OWNER: &str = "crates/mpk-vc/tests/semantic_profile_registry_runti
 const SOURCE_ARTIFACT_OWNER: &str = "crates/mpk-vc/tests/successor_source_artifacts.rs";
 const SUCCESSOR_VC_OWNER: &str = "crates/mpk-vc/tests/successor_vc.rs";
 const SUCCESSOR_POLICY_OWNER: &str = "crates/mpk-cli/tests/csharp_policy_verify.rs";
+const SUCCESSOR_AI_OWNER: &str = "crates/mpk-cli/tests/csharp_ai_explain.rs";
 const V1_SHA256: &str = "f7007417279f5173d0102ec2833095f2d97f271e1cdf2622d381d31e6ab86ae7";
 const V2_SHA256: &str = "19c657283836cb920f5c971f9c84ab267d48ea724c05bc1628de4889b4dd059f";
 
@@ -527,6 +528,7 @@ fn runtime_ownership_is_appended_without_changing_frozen_vectors_or_active_route
                 SOURCE_ARTIFACT_OWNER,
                 SUCCESSOR_VC_OWNER,
                 SUCCESSOR_POLICY_OWNER,
+                SUCCESSOR_AI_OWNER,
             ],
         ),
         (
@@ -536,6 +538,7 @@ fn runtime_ownership_is_appended_without_changing_frozen_vectors_or_active_route
                 RUNTIME_OWNER,
                 SUCCESSOR_VC_OWNER,
                 SUCCESSOR_POLICY_OWNER,
+                SUCCESSOR_AI_OWNER,
             ],
         ),
     ] {

@@ -2,13 +2,13 @@
 
 Status: Gate B, `MLANG-00`, Gate C, and `MLANG-01` are complete after the
 completed `RUST-07-T05` entry gate. Gate D is active at its non-production
-implementation boundary: `CSHARP-02-T01` through `CSHARP-02-T16` are complete,
-and `CSHARP-02-T17` is next. This document does not activate a new source
+implementation boundary: `CSHARP-02-T01` through `CSHARP-02-T17` are complete,
+and `CSHARP-02-T18` is next. This document does not activate a new source
 language or amend an active serialized schema.
 
 Prepared: 2026-08-21
 
-Updated: 2026-08-28 (`CSHARP-02-T16` completion)
+Updated: 2026-08-28 (`CSHARP-02-T17` completion)
 
 ## 1. Decision summary
 

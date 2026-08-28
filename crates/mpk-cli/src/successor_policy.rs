@@ -299,6 +299,10 @@ impl SuccessorPolicyEvidenceV2 {
         &self.semantic_context
     }
 
+    pub fn selection(&self) -> &SelectionEnvelope {
+        &self.selection
+    }
+
     pub fn policy_contract(&self) -> &CompiledProfileEnvelope {
         &self.policy_contract
     }
@@ -317,6 +321,10 @@ impl SuccessorPolicyEvidenceV2 {
 
     pub fn properties(&self) -> &[PolicyPropertyV1] {
         &self.properties
+    }
+
+    pub fn helper_artifacts(&self) -> &[PolicyHelperArtifact] {
+        &self.helper_artifacts
     }
 
     pub fn reproduction_recipes(&self) -> &[PolicyReproductionRecipeV1] {

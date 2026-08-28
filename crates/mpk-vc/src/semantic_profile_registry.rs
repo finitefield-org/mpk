@@ -1535,6 +1535,26 @@ fn validate_profile_payload(contract: CompiledProfileContract, value: &Value) ->
                     "source_access": false
                 })
         }
+        (GoFixedV0, Ai) => {
+            value
+                == &serde_json::json!({
+                    "display_language": "Go",
+                    "projection_profile_id": "mpk.go.ai_projection.v0",
+                    "proof_authority": false,
+                    "redaction_profile_id": "minimal-v1",
+                    "source_access": false
+                })
+        }
+        (RustCheckedV0, Ai) => {
+            value
+                == &serde_json::json!({
+                    "display_language": "Rust",
+                    "projection_profile_id": "mpk.rust.ai_projection.v0",
+                    "proof_authority": false,
+                    "redaction_profile_id": "minimal-v1",
+                    "source_access": false
+                })
+        }
         (CSharpScalarV0, Evidence) => {
             value
                 == &serde_json::json!({
@@ -1705,8 +1725,7 @@ fn validate_profile_payload(contract: CompiledProfileContract, value: &Value) ->
                     ]
                 })
         }
-        (GoFixedV0, Ai | Manifest | SourceMap | Vir)
-        | (RustCheckedV0, Ai | Manifest | SourceMap | Vir) => {
+        (GoFixedV0, Manifest | SourceMap | Vir) | (RustCheckedV0, Manifest | SourceMap | Vir) => {
             // Migration owners have bound the admitted frontend and release
             // payloads above. The remaining recognized Go/Rust IDs stay
             // unavailable until their successor field owners bind exact
