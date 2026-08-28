@@ -69,7 +69,7 @@ successor mechanism is `specs/SEMANTIC_PROFILE_REGISTRY_V1.md`. The frozen,
 normative, but inactive C# package is `specs/CSHARP_PROFILE_V0.md` with its two
 owned vector sets. `docs/csharp-02-implementation-traceability-ledger.md`
 decomposes the implementation into 20 strictly serial tasks.
-`CSHARP-02-T01` through `CSHARP-02-T15` are complete; `CSHARP-02-T16` is next.
+`CSHARP-02-T01` through `CSHARP-02-T16` are complete; `CSHARP-02-T17` is next.
 The isolated `csharp-tools/csharp2vir/` project, offline build gate, private
 selection/capture/source-transport and exact Roslyn-session paths,
 test-injected successor semantic-registry core, and sealed successor source-
@@ -97,10 +97,17 @@ remain unchanged. The staging-only successor VC path now generates and
 reimports canonical `mpk.vc.v2` and `mpk.vc.cert_skeleton.v2` bytes for Go,
 Rust, and C# under `MPK-VC-2.0`, retaining the shared checked Bool/BV, WP,
 grouping, declaration, and limit foundations with unchanged Go/Rust
-obligations. All successor descriptors remain
-source-only staging inputs: no successor parser is routed from a released
-input, and no C# production frontend, successor Go/Rust route, or future-
-language frontend is active.
+obligations. The hidden successor policy path now regenerates canonical
+`mpk.policy.scan.v2` from the validated frontend graph and
+`mpk.policy.evidence.v2` from the complete VC/skeleton graph, finalizes
+certificate-stage manifests, and applies
+`mpk.program_certificate.alpha.v1` while emitting unchanged Certificate v0
+bytes to both source-free checkers. The three profiles use exact compiled
+policy/evidence contracts; the representative C# fixture is dual accepted,
+and no helper or compiler result becomes trusted evidence. All successor
+descriptors remain source-only staging inputs: no successor parser is routed
+from a released input, and no C# production frontend, successor Go/Rust route,
+or future-language frontend is active.
 
 No multi-language design, feasibility, specification, or implementation phase
 runs in parallel with the Rust program or with another language phase.

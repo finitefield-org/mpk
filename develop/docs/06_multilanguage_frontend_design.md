@@ -2,13 +2,13 @@
 
 Status: Gate B, `MLANG-00`, Gate C, and `MLANG-01` are complete after the
 completed `RUST-07-T05` entry gate. Gate D is active at its non-production
-implementation boundary: `CSHARP-02-T01` through `CSHARP-02-T15` are complete,
-and `CSHARP-02-T16` is next. This document does not activate a new source
+implementation boundary: `CSHARP-02-T01` through `CSHARP-02-T16` are complete,
+and `CSHARP-02-T17` is next. This document does not activate a new source
 language or amend an active serialized schema.
 
 Prepared: 2026-08-21
 
-Updated: 2026-08-28 (`CSHARP-02-T15` completion)
+Updated: 2026-08-28 (`CSHARP-02-T16` completion)
 
 ## 1. Decision summary
 
@@ -504,7 +504,16 @@ profiles reuse the checked Bool/BV, weakest-precondition, grouping,
 declaration, and limit foundations; Go/Rust obligations remain unchanged and
 C# checks are regenerated through the profile-owned path. The frozen C# entry
 and revision-2 registry remain staging identities rather than installed
-identities, and T20 remains the sole activation owner.
+identities. `CSHARP-02-T16` added hidden, explicitly injected policy paths
+that regenerate canonical successor scans from frontend artifacts and
+evidence from the complete VC/skeleton graph, validate exact Go/Rust/C# policy
+and evidence contracts, perform the certificate-stage manifest transition,
+and apply `mpk.program_certificate.alpha.v1` through the unchanged Certificate
+v0 assembler. Representative Go, Rust, and C#
+obligations retain their prior verdicts, the C# candidate reaches identical-
+byte acceptance by both source-free checkers, and helper/compiler artifacts
+remain untrusted. No released policy parser or command discovers the path,
+and T20 remains the sole activation owner.
 
 ### Gate E: serial language admission
 

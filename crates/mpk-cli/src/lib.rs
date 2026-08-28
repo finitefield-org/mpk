@@ -20,6 +20,8 @@ pub mod successor_frontend_protocol;
 #[doc(hidden)]
 pub mod successor_frontend_runner;
 #[doc(hidden)]
+pub mod successor_policy;
+#[doc(hidden)]
 pub mod successor_release_bundle;
 
 #[doc(hidden)]

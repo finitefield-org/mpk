@@ -1544,6 +1544,24 @@ fn validate_profile_payload(contract: CompiledProfileContract, value: &Value) ->
                     "require_source_free_check": true
                 })
         }
+        (GoFixedV0, Evidence) => {
+            value
+                == &serde_json::json!({
+                    "proof_authority": "certificate_only",
+                    "recipe_profile_id": "mpk.go.evidence_recipe.v0",
+                    "require_reference_checker": true,
+                    "require_source_free_check": true
+                })
+        }
+        (RustCheckedV0, Evidence) => {
+            value
+                == &serde_json::json!({
+                    "proof_authority": "certificate_only",
+                    "recipe_profile_id": "mpk.rust.evidence_recipe.v0",
+                    "require_reference_checker": true,
+                    "require_source_free_check": true
+                })
+        }
         (CSharpScalarV0, Frontend) => {
             value
                 == &serde_json::json!({
@@ -1568,6 +1586,22 @@ fn validate_profile_payload(contract: CompiledProfileContract, value: &Value) ->
                     "axiom_profile": "mvp-theory",
                     "checker_profile": "mvp-strict",
                     "strategy_profile": "payment-policy-csharp-alpha"
+                })
+        }
+        (GoFixedV0, Policy) => {
+            value
+                == &serde_json::json!({
+                    "axiom_profile": "zero-axiom",
+                    "checker_profile": "mvp-strict",
+                    "strategy_profile": "payment-policy-alpha"
+                })
+        }
+        (RustCheckedV0, Policy) => {
+            value
+                == &serde_json::json!({
+                    "axiom_profile": "mvp-theory",
+                    "checker_profile": "mvp-strict",
+                    "strategy_profile": "payment-policy-rust-alpha"
                 })
         }
         (CSharpScalarV0, Release) => {
@@ -1671,8 +1705,8 @@ fn validate_profile_payload(contract: CompiledProfileContract, value: &Value) ->
                     ]
                 })
         }
-        (GoFixedV0, Ai | Evidence | Manifest | Policy | SourceMap | Vir)
-        | (RustCheckedV0, Ai | Evidence | Manifest | Policy | SourceMap | Vir) => {
+        (GoFixedV0, Ai | Manifest | SourceMap | Vir)
+        | (RustCheckedV0, Ai | Manifest | SourceMap | Vir) => {
             // Migration owners have bound the admitted frontend and release
             // payloads above. The remaining recognized Go/Rust IDs stay
             // unavailable until their successor field owners bind exact

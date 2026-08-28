@@ -4,8 +4,8 @@ Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
 Status: Gate C and `MLANG-01` are complete after the completed Rust and
 `MLANG-00` gates. Gate D is active at its non-production implementation
-boundary: `CSHARP-02-T01` through `CSHARP-02-T15` are complete;
-`CSHARP-02-T16` is next. No C# production route or later-language phase is
+boundary: `CSHARP-02-T01` through `CSHARP-02-T16` are complete;
+`CSHARP-02-T17` is next. No C# production route or later-language phase is
 active.
 
 ## Scope and sequencing
@@ -330,7 +330,7 @@ was added.
 Entry gate: `MLANG-01` complete.
 
 Status: Active at the inactive implementation boundary. `CSHARP-02-T01`
-through `CSHARP-02-T15` are complete; `CSHARP-02-T16` is next.
+through `CSHARP-02-T16` are complete; `CSHARP-02-T17` is next.
 
 Authoritative execution plan:
 `csharp-02-implementation-traceability-ledger.md`.
@@ -673,7 +673,7 @@ VC families reject one another, and no released route discovers this API.
 
 ### CSHARP-02-T16 Stage policy, evidence, and certificate integration
 
-Status: Next.
+Status: Complete (2026-08-28).
 
 Depends on: `CSHARP-02-T15`.
 
@@ -681,9 +681,21 @@ Exit gate: all three staged profiles reach policy/evidence and unchanged
 Certificate v0, including a representative C# certificate accepted by both
 checkers from identical bytes.
 
+Completion evidence: hidden, explicitly injected `mpk-cli` staging paths
+regenerate canonical `mpk.policy.scan.v2` from the validated frontend graph
+and `mpk.policy.evidence.v2` from the complete successor VC/skeleton graph.
+They bind exact profile-owned strategy/checker/axiom/recipe contracts,
+finalize only the VC hash and self-hash in `mpk.source_manifest.v1`, and apply
+`mpk.program_certificate.alpha.v1` through the unchanged Certificate v0
+assembler. Representative Go/Rust verdicts remain unchanged; the canonical
+C# candidate and its registered zero-axiom foundations pass both source-free
+checkers from identical bytes. Exact regeneration rejects old/crossed or
+mutated policy artifacts, and no helper/compiler output is promoted to
+trusted evidence or routed through the released policy CLI.
+
 ### CSHARP-02-T17 Stage successor AI explanation integration
 
-Status: Pending.
+Status: Next.
 
 Depends on: `CSHARP-02-T16`.
 

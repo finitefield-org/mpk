@@ -213,9 +213,21 @@ pub fn assemble_program_certificate_alpha(
     skeleton: &[GroupedTheoremDeclaration],
     source_manifest: SourceManifest,
 ) -> Result<ProgramCertificateOutcome, ProgramCertificateError> {
-    validate_skeleton_projection(vc, skeleton)?;
-    let model = ProgramModel::new(vc, skeleton)?;
-    let requested = requested_foundations(vc, &model)?;
+    assemble_program_certificate_alpha_from_functions(&vc.functions, skeleton, source_manifest)
+}
+
+/// Internal source-neutral entry point used by the inactive successor policy
+/// staging path. The caller must first validate its versioned VC and skeleton;
+/// this function independently rechecks the complete function/declaration
+/// projection before invoking the unchanged Certificate v0 assembly path.
+pub(crate) fn assemble_program_certificate_alpha_from_functions(
+    functions: &[VcFunction],
+    skeleton: &[GroupedTheoremDeclaration],
+    source_manifest: SourceManifest,
+) -> Result<ProgramCertificateOutcome, ProgramCertificateError> {
+    validate_skeleton_projection(functions, skeleton)?;
+    let model = ProgramModel::new(functions, skeleton)?;
+    let requested = requested_foundations(functions, &model)?;
     let foundations = load_foundations()?;
     let selected = select_foundation_closure(&foundations, &requested)?;
     verify_selected_foundations_with_reference(&foundations, &selected)?;
@@ -494,11 +506,10 @@ fn terminal_type_is_raw_boolean(
 }
 
 fn validate_skeleton_projection(
-    vc: &VcDocument,
+    functions: &[VcFunction],
     skeleton: &[GroupedTheoremDeclaration],
 ) -> Result<(), ProgramCertificateError> {
-    let expected_count = vc
-        .functions
+    let expected_count = functions
         .iter()
         .map(|function| function.groups.len())
         .sum::<usize>();
@@ -507,8 +518,7 @@ fn validate_skeleton_projection(
             "grouped skeleton declaration count differs from the VC",
         ));
     }
-    let expected = vc
-        .functions
+    let expected = functions
         .iter()
         .flat_map(|function| function.groups.iter().map(move |group| (function, group)));
     for ((function, group), declaration) in expected.zip(skeleton) {
@@ -539,12 +549,12 @@ struct ProgramModel<'a> {
 
 impl<'a> ProgramModel<'a> {
     fn new(
-        vc: &'a VcDocument,
+        vc_functions: &'a [VcFunction],
         skeleton: &'a [GroupedTheoremDeclaration],
     ) -> Result<Self, ProgramCertificateError> {
         let mut functions = BTreeMap::new();
         let mut groups = BTreeMap::new();
-        for function in &vc.functions {
+        for function in vc_functions {
             if functions
                 .insert(function.function_id.as_str(), function)
                 .is_some()
@@ -828,7 +838,7 @@ fn decode_hex(input: &[u8]) -> Result<Vec<u8>, ProgramCertificateError> {
 }
 
 fn requested_foundations(
-    vc: &VcDocument,
+    functions: &[VcFunction],
     model: &ProgramModel<'_>,
 ) -> Result<BTreeSet<String>, ProgramCertificateError> {
     let mut names = BTreeSet::from([
@@ -840,7 +850,7 @@ fn requested_foundations(
     ]);
     let mut has_conjunction = false;
     let mut has_projectable_conjunction = false;
-    for function in &vc.functions {
+    for function in functions {
         for parameter in &function.parameters {
             collect_type_names(&parameter.r#type, &mut names)?;
             if parameter.r#type

@@ -23,6 +23,11 @@ copied, or accepted by the active Go/Rust release resolver.
   explicitly injected T15 successor VC test boundary. Canonical successor VC
   and skeleton bytes are regenerated in tests and are not installed or
   published from this directory.
+- `policy/csharp/` contains the T16 source/contract witness plus canonical
+  successor scan, certificate-stage manifest, evidence, and Certificate v0
+  hex fixture. The hidden frontend-only scan and complete-graph verification
+  APIs regenerate every byte and do not make this directory discoverable to
+  the released policy CLI.
 
 `scripts/build-release-bundles.sh --check csharp` rebuilds the frontend and
 toolchain projections twice from pinned caches and byte-compares all three

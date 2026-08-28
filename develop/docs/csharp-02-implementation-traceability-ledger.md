@@ -3,12 +3,13 @@
 Status: `CSHARP-02-T01` complete (2026-08-25), `CSHARP-02-T02` through
 `CSHARP-02-T03` complete (2026-08-26), and `CSHARP-02-T04` through
 `CSHARP-02-T12` complete (2026-08-27), and `CSHARP-02-T13` through
-`CSHARP-02-T15` complete (2026-08-28). `CSHARP-02-T16` is the next task.
+`CSHARP-02-T16` complete (2026-08-28). `CSHARP-02-T17` is the next task.
 Canonical C# success and non-success envelopes now exist only within the
 inactive candidate and its test harness, and canonical successor VC and
-skeleton bytes now exist only behind an explicitly injected staging API. No
-production C# frontend, released successor route, installed registry root,
-release tuple, policy route, evidence route, or AI route is active.
+skeleton and policy/evidence bytes now exist only behind explicitly injected
+staging APIs. No production C# frontend, released successor route, installed
+registry root, release tuple, policy route, evidence route, or AI route is
+active.
 
 This document is the non-normative execution plan for implementing the frozen
 C# package. `CSHARP_PROFILE_V0.md` and
@@ -97,8 +98,8 @@ MLANG-01-T03
 | `CSHARP-02-T13` | complete | staged Go producer migration to successor artifacts |
 | `CSHARP-02-T14` | complete | staged Rust producer/private-driver migration to successor artifacts |
 | `CSHARP-02-T15` | complete | staged successor VC and skeleton integration |
-| `CSHARP-02-T16` | ready | staged policy, evidence, and program-certificate integration |
-| `CSHARP-02-T17` | blocked on T16 | staged AI explanation integration |
+| `CSHARP-02-T16` | complete | staged policy, evidence, and program-certificate integration |
+| `CSHARP-02-T17` | ready | staged AI explanation integration |
 | `CSHARP-02-T18` | blocked on T17 | staged AI API integration |
 | `CSHARP-02-T19` | blocked on T18 | complete cross-profile hardening corpus and release rehearsal |
 | `CSHARP-02-T20` | blocked on T19 | atomic successor cutover and C# production release |
@@ -709,6 +710,22 @@ Exit gate: representative C# obligations and certificates pass both checkers
 from identical bytes, Go/Rust staged verdicts remain unchanged, and no helper
 or compiler result is promoted to trusted evidence.
 
+Completion evidence: `mpk-cli` now exposes hidden source-injected successor
+policy paths over already validated artifacts. Scan remains frontend-only;
+verification extends that graph with the VC and skeleton. The paths validate
+the exact Go/Rust/C# `policy` and `evidence` envelopes, regenerate only
+canonical `mpk.policy.scan.v2`/`mpk.policy.evidence.v2` documents, perform the
+closed certificate-stage `mpk.source_manifest.v1` transition, and identify the
+assembly as `mpk.program_certificate.alpha.v1`. The existing source-neutral
+Certificate v0 assembler independently rechecks the function/skeleton
+projection and sends identical bytes to the Rust fast kernel and embedded Go
+reference checker. The primary owner freezes a dual-accepted C# identity
+fixture, preserves representative Go/Rust verdicts and strategy tuples,
+checks structured profile-aware recipes and frozen-vector ownership, and
+rejects predecessor transport, crossed contracts, noncanonical bytes, or any
+attempted checker/helper promotion. No active policy parser, CLI route,
+checker rule, certificate tag, hash domain, or axiom category changed.
+
 ### CSHARP-02-T17 Stage successor AI explanation integration
 
 Depends on: `CSHARP-02-T16`.
@@ -1301,4 +1318,26 @@ The T15 review ledger is empty. Its closed implementation inventory contains:
 
 No active VC parser, production CLI/API route, release registry, Certificate
 v0 input, checker rule, normative vector byte, or proof-acceptance identity
-changed in T15. T16 is the sole ready successor.
+changed in T15. T16 was the sole ready successor.
+
+The T16 review ledger is empty. Its closed implementation inventory contains:
+
+- hidden, explicitly injected policy boundaries over the validated frontend
+  graph for scan and the complete VC/skeleton graph for verification, with
+  exact regeneration on scan/evidence import;
+- closed Go, Rust, and C# strategy/checker/axiom/recipe registrations plus the
+  entry-owned `policy` and `evidence` compiled envelopes;
+- canonical `mpk.policy.scan.v2`, `mpk.policy.evidence.v2`, and structured
+  profile-registry-aware reproduction recipes with no released command route;
+- the lifecycle-only successor certificate manifest transition and
+  `mpk.program_certificate.alpha.v1` dispatch through the unchanged
+  Certificate v0 encoder and two source-free checkers; and
+- deterministic C# source, contract, scan, manifest, evidence, and certificate
+  fixtures proving identical-byte dual acceptance, zero axioms, helper-only
+  untrusted inputs, old/new separation, crossed-contract refusal, and
+  unchanged representative Go/Rust verdicts.
+
+No active policy/evidence parser, CLI command, strategy registry, release
+tuple, Certificate v0 field/tag/hash domain, checker behavior, axiom category,
+normative vector byte, or proof-acceptance rule changed in T16. T17 is the sole
+ready successor.
