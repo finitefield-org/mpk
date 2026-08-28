@@ -4,8 +4,8 @@ Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
 Status: Gate C and `MLANG-01` are complete after the completed Rust and
 `MLANG-00` gates. Gate D is active at its non-production implementation
-boundary: `CSHARP-02-T01` through `CSHARP-02-T14` are complete;
-`CSHARP-02-T15` is next. No C# production route or later-language phase is
+boundary: `CSHARP-02-T01` through `CSHARP-02-T15` are complete;
+`CSHARP-02-T16` is next. No C# production route or later-language phase is
 active.
 
 ## Scope and sequencing
@@ -330,7 +330,7 @@ was added.
 Entry gate: `MLANG-01` complete.
 
 Status: Active at the inactive implementation boundary. `CSHARP-02-T01`
-through `CSHARP-02-T14` are complete; `CSHARP-02-T15` is next.
+through `CSHARP-02-T15` are complete; `CSHARP-02-T16` is next.
 
 Authoritative execution plan:
 `csharp-02-implementation-traceability-ledger.md`.
@@ -656,16 +656,24 @@ registry, or production route changed.
 
 ### CSHARP-02-T15 Stage successor VC and skeleton integration
 
-Status: Next.
+Status: Complete (2026-08-28).
 
 Depends on: `CSHARP-02-T14`.
 
 Exit gate: all three staged profiles generate exact successor VC/skeleton
 bytes and required checks with unchanged Go/Rust obligation semantics.
 
+Completion evidence: an explicitly injected `mpk-vc` staging path binds the
+revision-2 semantic context, successor VIR and manifest, and profile-owned VC
+contract into canonical `mpk.vc.v2` and `mpk.vc.cert_skeleton.v2` bytes. It
+uses only `MPK-VC-2.0`, regenerates all members, groups, dependencies, and
+declarations, preserves active Go/Rust obligations, and routes C# required
+checks through the unchanged checked Bool/BV foundation. Active and successor
+VC families reject one another, and no released route discovers this API.
+
 ### CSHARP-02-T16 Stage policy, evidence, and certificate integration
 
-Status: Pending.
+Status: Next.
 
 Depends on: `CSHARP-02-T15`.
 

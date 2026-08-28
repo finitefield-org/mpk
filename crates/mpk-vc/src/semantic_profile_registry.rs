@@ -1597,6 +1597,22 @@ fn validate_profile_payload(contract: CompiledProfileContract, value: &Value) ->
                     "verification_limit_profile_id": "mpk.verify.limits.v0"
                 })
         }
+        (GoFixedV0, Vc) => {
+            value
+                == &serde_json::json!({
+                    "contract_profile_id": "mpk.go.contract.v0",
+                    "required_check_profile_id": "mpk.go.fixed.v0",
+                    "verification_limit_profile_id": "mpk.verify.limits.v0"
+                })
+        }
+        (RustCheckedV0, Vc) => {
+            value
+                == &serde_json::json!({
+                    "contract_profile_id": "mpk.rust.contract.v0",
+                    "required_check_profile_id": "mpk.rust.checked.v0",
+                    "verification_limit_profile_id": "mpk.verify.limits.v0"
+                })
+        }
         (CSharpScalarV0, Vir) => {
             value
                 == &serde_json::json!({
@@ -1655,8 +1671,8 @@ fn validate_profile_payload(contract: CompiledProfileContract, value: &Value) ->
                     ]
                 })
         }
-        (GoFixedV0, Ai | Evidence | Manifest | Policy | SourceMap | Vc | Vir)
-        | (RustCheckedV0, Ai | Evidence | Manifest | Policy | SourceMap | Vc | Vir) => {
+        (GoFixedV0, Ai | Evidence | Manifest | Policy | SourceMap | Vir)
+        | (RustCheckedV0, Ai | Evidence | Manifest | Policy | SourceMap | Vir) => {
             // Migration owners have bound the admitted frontend and release
             // payloads above. The remaining recognized Go/Rust IDs stay
             // unavailable until their successor field owners bind exact

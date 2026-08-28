@@ -23,7 +23,8 @@ use crate::program_encode::{
     ProgramExprEncodeError,
 };
 use crate::safety_check::{
-    classify_safety_evidence, encode_instruction_safety, SafetyCheckError, SafetyEvidenceRoute,
+    classify_safety_evidence_for_profile, encode_instruction_safety_for_profile,
+    CompiledRequiredCheckProfile, SafetyCheckError, SafetyEvidenceRoute,
 };
 use crate::type_encode::{encode_vir_type, MpkTypeTerm};
 use crate::vir::{
@@ -43,9 +44,39 @@ pub fn generate_program_vcs(input: &VirModule) -> Result<ProgramVcModule, Progra
     ProgramWpGenerator::new().generate_module(input)
 }
 
+/// Runs the shared checked WP engine over a projection already validated by
+/// the inactive successor VC boundary. This is deliberately crate-private so
+/// no active VIR v0 caller can bypass [`validate_vir`].
+pub(crate) fn generate_program_vcs_from_staged_projection(
+    input: &VirModule,
+    check_profile: CompiledRequiredCheckProfile,
+) -> Result<StagedProgramVcModule, ProgramWpError> {
+    ProgramWpGenerator::new().generate_staged_projection(input, check_profile)
+}
+
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct ProgramVcModule {
     pub functions: Vec<ProgramVcFunction>,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub(crate) struct StagedProgramVcModule {
+    pub(crate) module: ProgramVcModule,
+    pub(crate) safety_origins: Vec<ProgramVcSafetyOrigin>,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub(crate) struct ProgramVcSafetyOrigin {
+    pub(crate) function_id: String,
+    pub(crate) member_id: String,
+    pub(crate) block_index: usize,
+    pub(crate) instruction_index: usize,
+    pub(crate) check_index: usize,
+}
+
+struct GeneratedProgramVcFunction {
+    function: ProgramVcFunction,
+    safety_origins: Vec<ProgramVcSafetyOrigin>,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -129,14 +160,45 @@ impl ProgramWpGenerator {
 
     pub fn generate_module(self, input: &VirModule) -> Result<ProgramVcModule, ProgramWpError> {
         validate_vir(input).map_err(ProgramWpError::Validation)?;
+        Ok(self
+            .generate_validated_module(input, input.semantic_profile.into())?
+            .module)
+    }
+
+    fn generate_staged_projection(
+        self,
+        input: &VirModule,
+        check_profile: CompiledRequiredCheckProfile,
+    ) -> Result<StagedProgramVcModule, ProgramWpError> {
+        self.generate_validated_module(input, check_profile)
+    }
+
+    fn generate_validated_module(
+        self,
+        input: &VirModule,
+        check_profile: CompiledRequiredCheckProfile,
+    ) -> Result<StagedProgramVcModule, ProgramWpError> {
         let call_graph = ProgramCallGraph::analyze(input).map_err(ProgramWpError::Call)?;
 
         let mut budget = GenerationBudget::new(self.limits);
         let mut output = Vec::new();
+        let mut safety_origins = Vec::new();
         for (unit, function) in call_graph.ordered_functions() {
-            output.push(self.generate_function(input, unit, function, &call_graph, &mut budget)?);
+            let generated = self.generate_function(
+                input,
+                unit,
+                function,
+                &call_graph,
+                &mut budget,
+                check_profile,
+            )?;
+            output.push(generated.function);
+            safety_origins.extend(generated.safety_origins);
         }
-        Ok(ProgramVcModule { functions: output })
+        Ok(StagedProgramVcModule {
+            module: ProgramVcModule { functions: output },
+            safety_origins,
+        })
     }
 
     fn generate_function(
@@ -146,8 +208,9 @@ impl ProgramWpGenerator {
         function: &VirFunction,
         call_graph: &ProgramCallGraph<'_>,
         budget: &mut GenerationBudget,
-    ) -> Result<ProgramVcFunction, ProgramWpError> {
-        self.generate_program_function(module, unit, function, call_graph, budget)
+        check_profile: CompiledRequiredCheckProfile,
+    ) -> Result<GeneratedProgramVcFunction, ProgramWpError> {
+        self.generate_program_function(module, unit, function, call_graph, budget, check_profile)
     }
 
     fn generate_program_function(
@@ -157,7 +220,8 @@ impl ProgramWpGenerator {
         function: &VirFunction,
         call_graph: &ProgramCallGraph<'_>,
         budget: &mut GenerationBudget,
-    ) -> Result<ProgramVcFunction, ProgramWpError> {
+        check_profile: CompiledRequiredCheckProfile,
+    ) -> Result<GeneratedProgramVcFunction, ProgramWpError> {
         let context = ProgramExprContext::for_validated_function(module, unit, function)
             .map_err(|source| expression_error(function, "encoder context", source))?;
         let builder = TermBuilder::new(self.limits);
@@ -310,6 +374,10 @@ impl ProgramWpGenerator {
 
                 for (instruction_index, instruction) in block.instructions.iter().enumerate() {
                     if matches!(instruction, VirInstruction::CallStatic { .. }) {
+                        encode_instruction_safety_for_profile(&context, instruction, check_profile)
+                            .map_err(|source| {
+                                safety_error(function, instruction_id(instruction), source)
+                            })?;
                         process_static_call(
                             module,
                             function,
@@ -328,9 +396,10 @@ impl ProgramWpGenerator {
                     }
 
                     let safety =
-                        encode_instruction_safety(&context, instruction).map_err(|source| {
-                            safety_error(function, instruction_id(instruction), source)
-                        })?;
+                        encode_instruction_safety_for_profile(&context, instruction, check_profile)
+                            .map_err(|source| {
+                                safety_error(function, instruction_id(instruction), source)
+                            })?;
                     for (check_index, predicate) in safety.into_iter().enumerate() {
                         let assumptions = member_assumptions(&state).to_vec();
                         let reservation =
@@ -342,7 +411,7 @@ impl ProgramWpGenerator {
                             reservation.conclusion_ceiling,
                         )?;
                         let evidence =
-                            classify_safety_evidence(module.semantic_profile, &proposition);
+                            classify_safety_evidence_for_profile(check_profile, &proposition);
                         let conclusion = wrap_call_continuation(
                             &builder,
                             &state,
@@ -643,13 +712,17 @@ impl ProgramWpGenerator {
         } = call_graph
             .dependencies(&function.id)
             .map_err(ProgramWpError::Call)?;
-        Ok(ProgramVcFunction {
-            function_id: function.id.clone(),
-            requires,
-            members: finalize_members(function, pending)?,
-            direct_callees,
-            contract_dependencies,
-            panic_free_dependencies,
+        let finalized = finalize_members(function, pending)?;
+        Ok(GeneratedProgramVcFunction {
+            function: ProgramVcFunction {
+                function_id: function.id.clone(),
+                requires,
+                members: finalized.members,
+                direct_callees,
+                contract_dependencies,
+                panic_free_dependencies,
+            },
+            safety_origins: finalized.safety_origins,
         })
     }
 }
@@ -1913,13 +1986,19 @@ fn bitvec_function(width: u32, suffix: &str) -> String {
     format!("{STD_BITVEC_MODULE}.BV{width}.{suffix}")
 }
 
+struct FinalizedProgramVcMembers {
+    members: Vec<ProgramVcMember>,
+    safety_origins: Vec<ProgramVcSafetyOrigin>,
+}
+
 fn finalize_members(
     function: &VirFunction,
     mut pending: Vec<PendingMember>,
-) -> Result<Vec<ProgramVcMember>, ProgramWpError> {
+) -> Result<FinalizedProgramVcMembers, ProgramWpError> {
     pending.sort_by_key(|member| (member.kind, member.origin));
     let mut ordinals = BTreeMap::<ProgramVcMemberKind, usize>::new();
     let mut members = Vec::with_capacity(pending.len());
+    let mut safety_origins = Vec::new();
     for member in pending {
         let ordinal = ordinals.entry(member.kind).or_default();
         if *ordinal > 999_999 {
@@ -1930,8 +2009,18 @@ fn finalize_members(
             });
         }
         let kind = member.kind.as_str();
+        let member_id = format!("{}#{kind}#{:06}", function.id, *ordinal);
+        if member.kind == ProgramVcMemberKind::OperationSafety {
+            safety_origins.push(ProgramVcSafetyOrigin {
+                function_id: function.id.clone(),
+                member_id: member_id.clone(),
+                block_index: member.origin.primary,
+                instruction_index: member.origin.secondary,
+                check_index: member.origin.tertiary,
+            });
+        }
         members.push(ProgramVcMember {
-            id: format!("{}#{kind}#{:06}", function.id, *ordinal),
+            id: member_id,
             function_id: function.id.clone(),
             kind: member.kind,
             local_binders: member.local_binders,
@@ -1947,7 +2036,11 @@ fn finalize_members(
             })?;
     }
     members.sort_by(|lhs, rhs| lhs.id.as_bytes().cmp(rhs.id.as_bytes()));
-    Ok(members)
+    safety_origins.sort_by(|lhs, rhs| lhs.member_id.as_bytes().cmp(rhs.member_id.as_bytes()));
+    Ok(FinalizedProgramVcMembers {
+        members,
+        safety_origins,
+    })
 }
 
 #[allow(clippy::too_many_arguments)]

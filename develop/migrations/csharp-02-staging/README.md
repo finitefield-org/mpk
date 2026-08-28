@@ -2,7 +2,7 @@
 
 This directory contains the reviewed, deterministic successor release
 descriptors and generated artifacts for `CSHARP-02-T12` through
-`CSHARP-02-T14`. They are source-only staging inputs and are not searched,
+`CSHARP-02-T15`. They are source-only staging inputs and are not searched,
 copied, or accepted by the active Go/Rust release resolver.
 
 - `semantic-profile-registry.json` is the frozen inactive revision-2 semantic
@@ -19,6 +19,10 @@ copied, or accepted by the active Go/Rust release resolver.
 - `rust/` contains the complete deterministic successor Rust public/private
   corpus, 73-case negative diagnostic inventory, and zero-change semantic-
   difference report against the active fixtures.
+- These validated Go/Rust artifacts and the C# candidate context feed only the
+  explicitly injected T15 successor VC test boundary. Canonical successor VC
+  and skeleton bytes are regenerated in tests and are not installed or
+  published from this directory.
 
 `scripts/build-release-bundles.sh --check csharp` rebuilds the frontend and
 toolchain projections twice from pinned caches and byte-compares all three

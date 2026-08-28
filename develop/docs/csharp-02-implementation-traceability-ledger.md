@@ -3,11 +3,12 @@
 Status: `CSHARP-02-T01` complete (2026-08-25), `CSHARP-02-T02` through
 `CSHARP-02-T03` complete (2026-08-26), and `CSHARP-02-T04` through
 `CSHARP-02-T12` complete (2026-08-27), and `CSHARP-02-T13` through
-`CSHARP-02-T14` complete (2026-08-28). `CSHARP-02-T15` is the next task.
+`CSHARP-02-T15` complete (2026-08-28). `CSHARP-02-T16` is the next task.
 Canonical C# success and non-success envelopes now exist only within the
-inactive candidate and its test harness. No production C# frontend, released
-successor route, installed registry root, release tuple, policy route,
-evidence route, or AI route is active.
+inactive candidate and its test harness, and canonical successor VC and
+skeleton bytes now exist only behind an explicitly injected staging API. No
+production C# frontend, released successor route, installed registry root,
+release tuple, policy route, evidence route, or AI route is active.
 
 This document is the non-normative execution plan for implementing the frozen
 C# package. `CSHARP_PROFILE_V0.md` and
@@ -95,8 +96,8 @@ MLANG-01-T03
 | `CSHARP-02-T12` | complete | deterministic C# candidate bundles and staged sandbox runner |
 | `CSHARP-02-T13` | complete | staged Go producer migration to successor artifacts |
 | `CSHARP-02-T14` | complete | staged Rust producer/private-driver migration to successor artifacts |
-| `CSHARP-02-T15` | ready | staged successor VC and skeleton integration |
-| `CSHARP-02-T16` | blocked on T15 | staged policy, evidence, and program-certificate integration |
+| `CSHARP-02-T15` | complete | staged successor VC and skeleton integration |
+| `CSHARP-02-T16` | ready | staged policy, evidence, and program-certificate integration |
 | `CSHARP-02-T17` | blocked on T16 | staged AI explanation integration |
 | `CSHARP-02-T18` | blocked on T17 | staged AI API integration |
 | `CSHARP-02-T19` | blocked on T18 | complete cross-profile hardening corpus and release rehearsal |
@@ -674,6 +675,19 @@ The primary owner is `crates/mpk-vc/tests/successor_vc.rs`.
 Exit gate: all three staged profiles generate canonical successor VC/skeleton
 bytes, Go/Rust obligation semantics remain unchanged, and each C# required
 check reaches the same checked foundation path as its frozen mapping.
+
+Completion evidence: `mpk-vc` now has an explicit staging-only successor VC
+boundary that accepts a validated revision-2 registry, successor VIR,
+frontend manifest, and exact entry-owned `vc` contract. It emits and imports
+only `mpk.vc.v2` and `mpk.vc.cert_skeleton.v2`, hashes VCs only under
+`MPK-VC-2.0`, and regenerates source identities, contracts, members, groups,
+dependencies, declarations, and canonical bytes before acceptance. The path
+reuses the checked v1 Bool/BV encoding, weakest-precondition engine, grouping,
+declaration reconstruction, and verification limits; the active v1 entry
+points remain unchanged. The primary owner generates deterministic Go, Rust,
+and C# pairs, compares Go/Rust obligations to the active engines, traces every
+representative C# required check to the existing checked foundation, and
+proves crossed linkage plus predecessor/successor artifacts reject.
 
 ### CSHARP-02-T16 Stage policy, evidence, and certificate integration
 
@@ -1260,5 +1274,31 @@ The T13 review ledger is empty. Its closed implementation inventory contains:
 
 No active Go source, binary, fixture, release descriptor, release tuple,
 registry transport, public CLI/API route, normative vector, Certificate v0
-input, checker rule, or proof-acceptance identity changed in T13. T14 is the
-sole ready successor.
+input, checker rule, or proof-acceptance identity changed in T13. At T13
+close, T14 was the sole ready successor.
+
+The T14 review ledger is empty. Its closed implementation inventory contains
+the exact-hash staging-only Rust source overlay, reproducible frontend/private-
+driver pair, two-target successor release projection, all 13 positive and 73
+negative corpus outcomes, and zero-change semantic-difference report recorded
+in the T14 completion evidence above. No active Rust source, binary, fixture,
+release tuple, registry transport, or public route changed in T14. At T14
+close, T15 was the sole ready successor.
+
+The T15 review ledger is empty. Its closed implementation inventory contains:
+
+- explicit successor VC and skeleton models with complete semantic-context,
+  source-VIR, frontend-manifest, input-set, and compiled-contract linkage;
+- deterministic `MPK-VC-2.0` hashing plus canonical-only import and exact
+  predecessor/successor rejection;
+- one profile-selected required-check dispatch over the existing checked
+  Bool/BV encoding and post-substitution evidence classification;
+- shared v1 weakest-precondition, grouping, dependency, declaration, and
+  verification-limit enforcement without a second foundation; and
+- the primary three-profile owner proving deterministic bytes, unchanged
+  Go/Rust obligations, C# checked-foundation routing, mutation rejection, and
+  frozen-vector ownership.
+
+No active VC parser, production CLI/API route, release registry, Certificate
+v0 input, checker rule, normative vector byte, or proof-acceptance identity
+changed in T15. T16 is the sole ready successor.

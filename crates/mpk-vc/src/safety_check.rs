@@ -20,6 +20,37 @@ pub const SAFETY_OBLIGATION_KIND_COMPONENT: &str = "operation_safety";
 pub const SAFETY_BITVEC_THEORY_FORMAT: &str = "mpk.bitvec-ground.v0";
 pub const SAFETY_GROUPED_CERTIFICATE_FOUNDATION: &str = "Std.Program.Base";
 
+/// Closed required-check dispatch used by the inactive successor VC path.
+///
+/// The active VIR v0 API continues to expose only [`SemanticProfile`].  The
+/// C# variant is crate-private and can therefore be selected only after the
+/// successor semantic-registry and source-artifact boundaries have validated
+/// the complete C# context.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub(crate) enum CompiledRequiredCheckProfile {
+    GoFixedV0,
+    RustCheckedV0,
+    CSharpScalarV0,
+}
+
+impl CompiledRequiredCheckProfile {
+    const fn encoding_profile(self) -> SemanticProfile {
+        match self {
+            Self::GoFixedV0 | Self::CSharpScalarV0 => SemanticProfile::GoFixedV0,
+            Self::RustCheckedV0 => SemanticProfile::RustCheckedV0,
+        }
+    }
+}
+
+impl From<SemanticProfile> for CompiledRequiredCheckProfile {
+    fn from(value: SemanticProfile) -> Self {
+        match value {
+            SemanticProfile::GoFixedV0 => Self::GoFixedV0,
+            SemanticProfile::RustCheckedV0 => Self::RustCheckedV0,
+        }
+    }
+}
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum VirSafetyOperation {
     None(VirInstructionKind),
@@ -63,6 +94,15 @@ pub fn required_safety_checks(
     operation: VirSafetyOperation,
     operand_types: &[VirType],
 ) -> Result<Vec<VirSafetyCheck>, SafetyCheckError> {
+    required_safety_checks_for_profile(profile.into(), operation, operand_types, &[])
+}
+
+fn required_safety_checks_for_profile(
+    profile: CompiledRequiredCheckProfile,
+    operation: VirSafetyOperation,
+    operand_types: &[VirType],
+    actual: &[VirSafetyCheck],
+) -> Result<Vec<VirSafetyCheck>, SafetyCheckError> {
     match operation {
         VirSafetyOperation::None(_) => {
             if !operand_types.is_empty() {
@@ -80,21 +120,40 @@ pub fn required_safety_checks(
                     "binary safety context requires two operands",
                 ));
             };
-            validate_binary_operands(profile, operator, lhs, rhs)?;
+            validate_binary_operands(profile.encoding_profile(), operator, lhs, rhs)?;
             let signed = matches!(lhs, VirType::Bv { signed: true, .. });
             Ok(match (profile, operator) {
-                (SemanticProfile::RustCheckedV0, VirBinaryOperator::BvAdd) => {
+                (CompiledRequiredCheckProfile::RustCheckedV0, VirBinaryOperator::BvAdd) => {
                     vec![integer_check(OverflowOperation::Add, signed)]
                 }
-                (SemanticProfile::RustCheckedV0, VirBinaryOperator::BvSub) => {
+                (CompiledRequiredCheckProfile::RustCheckedV0, VirBinaryOperator::BvSub) => {
                     vec![integer_check(OverflowOperation::Sub, signed)]
                 }
-                (SemanticProfile::RustCheckedV0, VirBinaryOperator::BvMul) => {
+                (CompiledRequiredCheckProfile::RustCheckedV0, VirBinaryOperator::BvMul) => {
+                    vec![integer_check(OverflowOperation::Mul, signed)]
+                }
+                (CompiledRequiredCheckProfile::CSharpScalarV0, VirBinaryOperator::BvAdd)
+                    if has_explicit_overflow_check(actual) =>
+                {
+                    vec![integer_check(OverflowOperation::Add, signed)]
+                }
+                (CompiledRequiredCheckProfile::CSharpScalarV0, VirBinaryOperator::BvSub)
+                    if has_explicit_overflow_check(actual) =>
+                {
+                    vec![integer_check(OverflowOperation::Sub, signed)]
+                }
+                (CompiledRequiredCheckProfile::CSharpScalarV0, VirBinaryOperator::BvMul)
+                    if has_explicit_overflow_check(actual) =>
+                {
                     vec![integer_check(OverflowOperation::Mul, signed)]
                 }
                 (_, VirBinaryOperator::BvSdiv) => {
                     let mut checks = vec![VirSafetyCheck::DivisorNonzero {}];
-                    if profile == SemanticProfile::RustCheckedV0 {
+                    if matches!(
+                        profile,
+                        CompiledRequiredCheckProfile::RustCheckedV0
+                            | CompiledRequiredCheckProfile::CSharpScalarV0
+                    ) {
                         checks.push(VirSafetyCheck::SignedDivremRepresentable {
                             operation: DivRemOperation::Div,
                         });
@@ -103,7 +162,11 @@ pub fn required_safety_checks(
                 }
                 (_, VirBinaryOperator::BvSrem) => {
                     let mut checks = vec![VirSafetyCheck::DivisorNonzero {}];
-                    if profile == SemanticProfile::RustCheckedV0 {
+                    if matches!(
+                        profile,
+                        CompiledRequiredCheckProfile::RustCheckedV0
+                            | CompiledRequiredCheckProfile::CSharpScalarV0
+                    ) {
                         checks.push(VirSafetyCheck::SignedDivremRepresentable {
                             operation: DivRemOperation::Rem,
                         });
@@ -124,8 +187,11 @@ pub fn required_safety_checks(
                     if rhs_signed {
                         checks.push(VirSafetyCheck::ShiftCountNonnegative {});
                     }
-                    if profile == SemanticProfile::RustCheckedV0 {
+                    if profile == CompiledRequiredCheckProfile::RustCheckedV0 {
                         checks.push(VirSafetyCheck::ShiftCountLessThanWidth {});
+                    }
+                    if profile == CompiledRequiredCheckProfile::CSharpScalarV0 {
+                        checks.clear();
                     }
                     checks
                 }
@@ -139,8 +205,12 @@ pub fn required_safety_checks(
                     "unary safety context requires one operand",
                 ));
             };
-            validate_unary_operand(profile, operator, operand)?;
-            if profile == SemanticProfile::RustCheckedV0 && operator == VirUnaryOperator::BvNeg {
+            validate_unary_operand(profile.encoding_profile(), operator, operand)?;
+            if operator == VirUnaryOperator::BvNeg
+                && (profile == CompiledRequiredCheckProfile::RustCheckedV0
+                    || (profile == CompiledRequiredCheckProfile::CSharpScalarV0
+                        && has_explicit_overflow_check(actual)))
+            {
                 Ok(vec![integer_check(OverflowOperation::Neg, true)])
             } else {
                 Ok(Vec::new())
@@ -159,7 +229,13 @@ pub fn required_safety_checks(
                     "index safety context requires an array and a bitvector index",
                 ));
             }
-            if profile == SemanticProfile::RustCheckedV0
+            if profile == CompiledRequiredCheckProfile::CSharpScalarV0 {
+                return Err(invalid(
+                    "VIR_CSHARP_INDEX_TYPE",
+                    "C# scalar profile does not admit Index",
+                ));
+            }
+            if profile == CompiledRequiredCheckProfile::RustCheckedV0
                 && matches!(index, VirType::Bv { signed: true, .. })
             {
                 return Err(invalid(
@@ -260,15 +336,23 @@ pub fn encode_instruction_safety(
     context: &ProgramExprContext,
     instruction: &VirInstruction,
 ) -> Result<Vec<EncodedSafetyPredicate>, SafetyCheckError> {
+    encode_instruction_safety_for_profile(context, instruction, context.profile().into())
+}
+
+pub(crate) fn encode_instruction_safety_for_profile(
+    context: &ProgramExprContext,
+    instruction: &VirInstruction,
+    profile: CompiledRequiredCheckProfile,
+) -> Result<Vec<EncodedSafetyPredicate>, SafetyCheckError> {
     let actual = instruction_checks(instruction);
     let (operation, operand_types) = safety_operation_context(context, instruction)?;
-    let expected = required_safety_checks(context.profile(), operation, &operand_types)?;
+    let expected = required_safety_checks_for_profile(profile, operation, &operand_types, actual)?;
     validate_safety_check_sequence(actual, &expected)?;
-    validate_result_and_profile(context, instruction, &operand_types)?;
+    validate_result_and_profile(context, instruction, &operand_types, profile)?;
 
     actual
         .iter()
-        .map(|check| encode_safety_predicate(context, instruction, check))
+        .map(|check| encode_safety_predicate(context, instruction, check, profile))
         .collect()
 }
 
@@ -297,6 +381,7 @@ fn validate_result_and_profile(
     context: &ProgramExprContext,
     instruction: &VirInstruction,
     operand_types: &[VirType],
+    profile: CompiledRequiredCheckProfile,
 ) -> Result<(), SafetyCheckError> {
     match instruction {
         VirInstruction::BinOp {
@@ -346,7 +431,7 @@ fn validate_result_and_profile(
                     "Index result type does not match the array element",
                 ));
             }
-            if context.profile() == SemanticProfile::RustCheckedV0 {
+            if profile == CompiledRequiredCheckProfile::RustCheckedV0 {
                 let Some(VirType::Bv { width, signed }) = operand_types.get(1) else {
                     return Err(invalid("VIR_INSTRUCTION_TYPE", "Index is not a bitvector"));
                 };
@@ -367,6 +452,7 @@ fn encode_safety_predicate(
     context: &ProgramExprContext,
     instruction: &VirInstruction,
     check: &VirSafetyCheck,
+    profile: CompiledRequiredCheckProfile,
 ) -> Result<EncodedSafetyPredicate, SafetyCheckError> {
     let proposition = match (check, instruction) {
         (
@@ -439,7 +525,7 @@ fn encode_safety_predicate(
             ));
         }
     };
-    let evidence_route = classify_safety_evidence(context.profile(), &proposition);
+    let evidence_route = classify_safety_evidence_for_profile(profile, &proposition);
     Ok(EncodedSafetyPredicate {
         check: check.clone(),
         obligation_kind: SafetyObligationKind::OperationSafety,
@@ -619,8 +705,8 @@ fn encode_index_bounds(
     }
 }
 
-pub(crate) fn classify_safety_evidence(
-    profile: SemanticProfile,
+pub(crate) fn classify_safety_evidence_for_profile(
+    profile: CompiledRequiredCheckProfile,
     proposition: &MpkExprTerm,
 ) -> SafetyEvidenceRoute {
     if !is_ground(proposition) {
@@ -628,7 +714,7 @@ pub(crate) fn classify_safety_evidence(
             foundation: SAFETY_GROUPED_CERTIFICATE_FOUNDATION,
         };
     }
-    if profile == SemanticProfile::GoFixedV0 {
+    if profile == CompiledRequiredCheckProfile::GoFixedV0 {
         return SafetyEvidenceRoute::ZeroAxiomGround;
     }
     if mvp_bitvec_ground_supports(proposition) {
@@ -640,6 +726,12 @@ pub(crate) fn classify_safety_evidence(
             foundation: SAFETY_GROUPED_CERTIFICATE_FOUNDATION,
         }
     }
+}
+
+fn has_explicit_overflow_check(actual: &[VirSafetyCheck]) -> bool {
+    actual
+        .iter()
+        .any(|check| matches!(check, VirSafetyCheck::IntegerNoOverflow { .. }))
 }
 
 fn mvp_bitvec_ground_supports(proposition: &MpkExprTerm) -> bool {
