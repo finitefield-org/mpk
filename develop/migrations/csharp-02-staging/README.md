@@ -2,7 +2,7 @@
 
 This directory contains the reviewed, deterministic successor release
 descriptors and generated artifacts for `CSHARP-02-T12` through
-`CSHARP-02-T18`. They are source-only staging inputs and are not searched,
+`CSHARP-02-T19`. They are source-only staging inputs and are not searched,
 copied, or accepted by the active Go/Rust release resolver.
 
 - `semantic-profile-registry.json` is the frozen inactive revision-2 semantic
@@ -33,6 +33,10 @@ copied, or accepted by the active Go/Rust release resolver.
   from complete validated successor evidence and an explicitly injected exact
   `ai` contract; it has no provider client, credentials, network access, CLI
   route, or proof authority.
+- `final-review.json` is the canonical, explicitly untrusted T19 rehearsal
+  record. It binds the two-pass offline gate, unchanged four-category axiom
+  review, reviewed hardening surfaces, and an empty findings list. It is not
+  proof evidence or a production release marker.
 
 `scripts/build-release-bundles.sh --check csharp` rebuilds the frontend and
 toolchain projections twice from pinned caches and byte-compares all three

@@ -13,7 +13,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Mpk.CSharp2Vir;
 
-internal static class FrontendVectorHarness
+internal static partial class FrontendVectorHarness
 {
     private const string SourcePath = "src/Case.cs";
     private const string BaselineSourcePath = "src/Policy.cs";
@@ -21,7 +21,7 @@ internal static class FrontendVectorHarness
 
     public static int Main(string[] args)
     {
-        if (args.Length != 3 || (args[0] != "self-test" && args[0] != "report"))
+        if (args.Length != 4 || (args[0] != "self-test" && args[0] != "report"))
         {
             Console.Error.Write("CSHARP_FRONTEND_VECTOR_TEST_USAGE\n");
             return 1;
@@ -37,7 +37,7 @@ internal static class FrontendVectorHarness
                     CommentHandling = JsonCommentHandling.Disallow,
                     MaxDepth = 256,
                 });
-            byte[] report = Execute(profile.RootElement, args[1]);
+            byte[] report = Execute(profile.RootElement, args[1], args[3]);
             if (args[0] == "report")
             {
                 Stream output = Console.OpenStandardOutput();
@@ -60,7 +60,10 @@ internal static class FrontendVectorHarness
         }
     }
 
-    private static byte[] Execute(JsonElement profile, string referencePackRoot)
+    private static byte[] Execute(
+        JsonElement profile,
+        string referencePackRoot,
+        string fuzzManifestPath)
     {
         Equal("mpk.csharp.profile.conformance.v0", Text(profile, "schema"), "PROFILE_SCHEMA");
         JsonElement acceptedVectors = Property(profile, "accepted_cases");
@@ -68,7 +71,7 @@ internal static class FrontendVectorHarness
         Equal(30, acceptedVectors.GetArrayLength(), "ACCEPTED_COUNT");
         Equal(88, rejectedVectors.GetArrayLength(), "REJECTED_COUNT");
 
-        var accepted = new List<AcceptedResult>();
+        var accepted = new List<AcceptedEvaluation>();
         foreach (JsonElement vector in acceptedVectors.EnumerateArray())
         {
             accepted.Add(ExecuteAccepted(profile, vector, referencePackRoot));
@@ -87,14 +90,20 @@ internal static class FrontendVectorHarness
         List<PrecedenceResult> precedence = ValidatePrecedence(profile);
         List<HashResult> hashes = ValidateHashes(profile);
         List<SemanticRowResult> semanticRows = ValidateSemanticRows(profile);
+        List<FuzzResult> fuzz = ExecuteFuzz(
+            profile,
+            referencePackRoot,
+            fuzzManifestPath);
+        int differentialCaseCount = accepted.Sum(result => result.Differential.CaseCount);
 
         return EmissionCanonical.Write(writer =>
         {
             writer.WriteStartObject();
             writer.WritePropertyName("accepted");
             writer.WriteStartArray();
-            foreach (AcceptedResult result in accepted)
+            foreach (AcceptedEvaluation evaluation in accepted)
             {
+                AcceptedResult result = evaluation.Result;
                 writer.WriteStartObject();
                 writer.WriteString("code", string.Empty);
                 writer.WriteString("envelope_sha256", result.EnvelopeSha256);
@@ -116,6 +125,37 @@ internal static class FrontendVectorHarness
                 writer.WriteString("code", definition.Code);
                 writer.WriteString("phase", definition.Phase);
                 writer.WriteString("status", FrontendDiagnosticRegistry.StatusText(definition.Status));
+                writer.WriteEndObject();
+            }
+
+            writer.WriteEndArray();
+            writer.WritePropertyName("differential");
+            writer.WriteStartObject();
+            writer.WriteNumber("case_count", differentialCaseCount);
+            writer.WriteString("runtime_version", Environment.Version.ToString(3));
+            writer.WritePropertyName("vectors");
+            writer.WriteStartArray();
+            foreach (AcceptedEvaluation evaluation in accepted)
+            {
+                DifferentialResult result = evaluation.Differential;
+                writer.WriteStartObject();
+                writer.WriteNumber("case_count", result.CaseCount);
+                writer.WriteString("id", result.Id);
+                writer.WriteString("outcomes_sha256", result.OutcomesSha256);
+                writer.WriteEndObject();
+            }
+
+            writer.WriteEndArray();
+            writer.WriteEndObject();
+            writer.WritePropertyName("fuzz");
+            writer.WriteStartArray();
+            foreach (FuzzResult result in fuzz)
+            {
+                writer.WriteStartObject();
+                writer.WriteString("id", result.Id);
+                writer.WriteNumber("mutation_count", result.MutationCount);
+                writer.WriteString("outcomes_sha256", result.OutcomesSha256);
+                writer.WriteNumber("seed_count", result.SeedCount);
                 writer.WriteEndObject();
             }
 
@@ -193,7 +233,7 @@ internal static class FrontendVectorHarness
         });
     }
 
-    private static AcceptedResult ExecuteAccepted(
+    private static AcceptedEvaluation ExecuteAccepted(
         JsonElement profile,
         JsonElement vector,
         string referencePackRoot)
@@ -217,24 +257,23 @@ internal static class FrontendVectorHarness
             id);
         ValidateSuccessEnvelope(execution.Success.EnvelopeBytes, id);
 
-        if (id == "determinism.two_runs")
-        {
-            AcceptedExecution repeated = BuildAccepted(profile, vector, referencePackRoot);
-            EqualBytes(execution.Success.EnvelopeBytes, repeated.Success.EnvelopeBytes, id + "_ENVELOPE");
-            EqualBytes(execution.Success.Vir.CanonicalBytes, repeated.Success.Vir.CanonicalBytes, id + "_VIR");
-            EqualBytes(execution.Success.SourceMap.CanonicalBytes, repeated.Success.SourceMap.CanonicalBytes, id + "_MAP");
-            EqualBytes(
-                execution.Success.SourceManifest.CanonicalBytes,
-                repeated.Success.SourceManifest.CanonicalBytes,
-                id + "_MANIFEST");
-        }
+        AcceptedExecution repeated = BuildAccepted(profile, vector, referencePackRoot);
+        EqualBytes(execution.Success.EnvelopeBytes, repeated.Success.EnvelopeBytes, id + "_ENVELOPE");
+        EqualBytes(execution.Success.Vir.CanonicalBytes, repeated.Success.Vir.CanonicalBytes, id + "_VIR");
+        EqualBytes(execution.Success.SourceMap.CanonicalBytes, repeated.Success.SourceMap.CanonicalBytes, id + "_MAP");
+        EqualBytes(
+            execution.Success.SourceManifest.CanonicalBytes,
+            repeated.Success.SourceManifest.CanonicalBytes,
+            id + "_MANIFEST");
 
-        return new AcceptedResult(
-            id,
-            RawSha256(execution.Success.EnvelopeBytes),
-            execution.Success.Vir.Sha256,
-            execution.Success.SourceMap.Sha256,
-            execution.Success.SourceManifest.Sha256);
+        return new AcceptedEvaluation(
+            new AcceptedResult(
+                id,
+                RawSha256(execution.Success.EnvelopeBytes),
+                execution.Success.Vir.Sha256,
+                execution.Success.SourceMap.Sha256,
+                execution.Success.SourceManifest.Sha256),
+            ExecuteDifferential(id, Text(vector, "method"), execution));
     }
 
     private static AcceptedExecution BuildAccepted(
@@ -311,7 +350,7 @@ internal static class FrontendVectorHarness
             closure,
             contracts,
             lowered);
-        return new AcceptedExecution(lowered, success);
+        return new AcceptedExecution(selection, compiled, lowered, success);
     }
 
     private static RejectedResult ExecuteRejected(JsonElement vector, LowerRequest request)
@@ -1126,7 +1165,15 @@ internal static class FrontendVectorHarness
         throw new VectorFailure(code);
     }
 
-    private sealed record AcceptedExecution(LoweredClosure Lowered, EmittedFrontendSuccess Success);
+    private sealed record AcceptedExecution(
+        Selection Selection,
+        RoslynCompilationSession Compilation,
+        LoweredClosure Lowered,
+        EmittedFrontendSuccess Success);
+
+    private sealed record AcceptedEvaluation(
+        AcceptedResult Result,
+        DifferentialResult Differential);
 
     private sealed record AcceptedResult(
         string Id,
@@ -1160,6 +1207,17 @@ internal static class FrontendVectorHarness
     private sealed record PrecedenceResult(string Id, string Winner);
 
     private sealed record SemanticRowResult(string Row, string Disposition);
+
+    private sealed record DifferentialResult(
+        string Id,
+        int CaseCount,
+        string OutcomesSha256);
+
+    private sealed record FuzzResult(
+        string Id,
+        int SeedCount,
+        int MutationCount,
+        string OutcomesSha256);
 }
 
 internal sealed class VectorFailure : Exception

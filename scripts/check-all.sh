@@ -26,6 +26,7 @@ run "$repo_root/scripts/build-release-bundles.sh" --check rust-successor
 # registered-bundle, and installed-fixture checks. Do not repeat those
 # I/O-heavy phases below.
 run "$repo_root/scripts/check-rust-frontend.sh"
+run "$repo_root/scripts/check-csharp-frontend.sh"
 run python3 "$repo_root/scripts/check-spec-vectors.py" --check
 run python3 "$repo_root/scripts/check-package-manifest-fixtures.py"
 run python3 "$repo_root/scripts/check-package-lock-fixtures.py"

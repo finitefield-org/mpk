@@ -4,8 +4,8 @@ Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
 Status: Gate C and `MLANG-01` are complete after the completed Rust and
 `MLANG-00` gates. Gate D is active at its non-production implementation
-boundary: `CSHARP-02-T01` through `CSHARP-02-T18` are complete;
-`CSHARP-02-T19` is next. No C# production route or later-language phase is
+boundary: `CSHARP-02-T01` through `CSHARP-02-T19` are complete;
+`CSHARP-02-T20` is next. No C# production route or later-language phase is
 active.
 
 ## Scope and sequencing
@@ -330,7 +330,7 @@ was added.
 Entry gate: `MLANG-01` complete.
 
 Status: Active at the inactive implementation boundary. `CSHARP-02-T01`
-through `CSHARP-02-T18` are complete; `CSHARP-02-T19` is next.
+through `CSHARP-02-T19` are complete; `CSHARP-02-T20` is next.
 
 Authoritative execution plan:
 `csharp-02-implementation-traceability-ledger.md`.
@@ -738,7 +738,7 @@ unchanged.
 
 ### CSHARP-02-T19 Complete cross-profile hardening and release rehearsal
 
-Status: Next.
+Status: Complete (2026-08-28).
 
 Depends on: `CSHARP-02-T18`.
 
@@ -746,9 +746,17 @@ Exit gate: all corpus, differential, fuzz, isolation, determinism, upgrade,
 checker, axiom, and staged installed-release gates pass with an empty findings
 ledger.
 
+Completion evidence: one aggregate executes every frozen C# profile field,
+all 12 upgrade cases, predecessor/successor and three-profile cross-rejection,
+exact-runtime differential cases, and five bounded hash-bound fuzz targets.
+All canonical C# artifacts and staged Go/Rust/C# bundles rebuild and replay
+byte-identically. The offline two-pass installed-release gate confirms no
+plugin, credential, host-path, network, checker, Certificate v0, or axiom-
+category expansion, and the final review ledger has zero findings.
+
 ### CSHARP-02-T20 Perform the atomic successor cutover and C# release
 
-Status: Pending.
+Status: Next.
 
 Depends on: `CSHARP-02-T19` and transitively every earlier CSHARP-02 task.
 

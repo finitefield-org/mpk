@@ -3,7 +3,7 @@
 Status: `CSHARP-02-T01` complete (2026-08-25), `CSHARP-02-T02` through
 `CSHARP-02-T03` complete (2026-08-26), and `CSHARP-02-T04` through
 `CSHARP-02-T12` complete (2026-08-27), and `CSHARP-02-T13` through
-`CSHARP-02-T18` complete (2026-08-28). `CSHARP-02-T19` is the next task.
+`CSHARP-02-T19` complete (2026-08-28). `CSHARP-02-T20` is the next task.
 Canonical C# success and non-success envelopes now exist only within the
 inactive candidate and its test harness, and canonical successor VC and
 skeleton, policy/evidence, and AI request/report bytes now exist only behind
@@ -101,8 +101,8 @@ MLANG-01-T03
 | `CSHARP-02-T16` | complete | staged policy, evidence, and program-certificate integration |
 | `CSHARP-02-T17` | complete | staged AI explanation integration |
 | `CSHARP-02-T18` | complete | staged AI API integration |
-| `CSHARP-02-T19` | ready | complete cross-profile hardening corpus and release rehearsal |
-| `CSHARP-02-T20` | blocked on T19 | atomic successor cutover and C# production release |
+| `CSHARP-02-T19` | complete | complete cross-profile hardening corpus and release rehearsal |
+| `CSHARP-02-T20` | ready | atomic successor cutover and C# production release |
 
 The status tokens above are planning state only. They are not registry or
 release status values.
@@ -794,6 +794,8 @@ certificate-acceptance state was added.
 
 ### CSHARP-02-T19 Complete cross-profile hardening and release rehearsal
 
+Status: Complete (2026-08-28).
+
 Depends on: `CSHARP-02-T18`.
 
 Owns:
@@ -821,6 +823,28 @@ specification owner. The gate performs no provisioning or network access.
 Exit gate: the staged whole release passes every fast/full/C# gate twice from
 reviewed offline inputs, all expected artifacts are byte-identical, and the
 implementation review ledger has zero findings.
+
+Completion evidence: the aggregate owner executes all 31 top-level frozen C#
+vector fields and preserves the vector's byte hash and original specification
+owner while appending only its implementation-owner path. Every accepted C#
+case is built twice and byte-compared across its frontend envelope, VIR,
+source map, and source manifest. A test-only VIR interpreter compares bounded
+results and overflow/division traps with the exact accepted Roslyn assembly
+executed on runtime 10.0.11. Ten hash-bound regression seeds drive 60
+deterministic source-parser, contract, successor-protocol, compiler-diagnostic,
+and resource-limit mutations; the host-side protocol parser receives the same
+bounded mutation family.
+
+The release aggregate validates all Go, Rust, and C# successor candidates and
+standalone registries, rejects predecessor and crossed profile/context bytes,
+executes all 12 frozen C# upgrade classes as identity-changing mutations, and
+checks the no-plugin, closed-environment, path, credential, and network
+boundaries. The staged installed fixtures, candidate assemblers, canonical
+artifacts, policy certificate, both source-free checkers, and unchanged four
+axiom categories are rehearsed twice by `scripts/check-csharp-frontend.sh`
+without provisioning or network access. The canonical untrusted
+`develop/migrations/csharp-02-staging/final-review.json` ledger records zero
+findings and zero new axiom categories.
 
 ### CSHARP-02-T20 Perform the atomic successor cutover and C# release
 
@@ -1104,7 +1128,7 @@ task; it does not pull the later task forward.
 | path, credential, network, and ambient-state isolation | T05, T12, and T19 |
 | parser/protocol/compiler-output/resource fuzzing | T19 |
 | canonical C# certificates accepted by both checkers | T16; installed proof in T20 |
-| zero-new-category axiom review | T16 and T20 |
+| zero-new-category axiom review | T16, T19, and T20 |
 | no dual helper schema and atomic Go/Rust migration | T13-T14 staging; T20 activation |
 | empty implementation review ledger | T19 rehearsal; T20 final release |
 
@@ -1128,7 +1152,7 @@ The implementation blocker format is:
 | Blocker | Detected by | Frozen requirement | Why implementation cannot decide | Required owner | Status |
 | --- | --- | --- | --- | --- | --- |
 
-T01 through T13 have no blocker. A later task records a blocker before changing
+T01 through T19 have no blocker. A later task records a blocker before changing
 scope. It may be closed only by a separately named, serial governance/
 specification task followed by regeneration and review of every affected
 frozen input.
@@ -1413,5 +1437,24 @@ The T18 review ledger is empty. Its closed implementation inventory contains:
 
 No active API parser or route, network listener, semantic-registry or
 normative-vector byte, Certificate v0 input, checker rule, accepted-state
-marker, or proof-acceptance identity changed in T18. T19 is the sole ready
+marker, or proof-acceptance identity changed in T18. At T18 close, T19 was the
+sole ready successor.
+
+The T19 review ledger is empty. Its closed implementation inventory contains:
+
+- one aggregate executor covering every frozen C# top-level field, all source
+  and failure cases, profile contracts, isolation rows, and upgrade classes;
+- exact-runtime differential execution plus five bounded fuzz targets and ten
+  checked-in hash-bound regression seeds;
+- two-build and two-run byte equality across C# artifacts and all three staged
+  successor profile releases;
+- predecessor/successor, crossed-profile, no-plugin, ambient-state, host-path,
+  credential, and network rejection checks; and
+- an installed-release rehearsal, unchanged both-checker Certificate v0
+  outcomes, an unchanged four-category axiom inventory, and the canonical
+  zero-findings final-review record.
+
+No active registry, release tuple, parser, frontend route, policy/evidence/AI
+route, Certificate v0 input, checker rule, axiom category, normative C# vector
+byte, or proof-acceptance identity changed in T19. T20 is the sole ready
 successor.

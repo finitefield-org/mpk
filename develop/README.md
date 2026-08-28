@@ -69,7 +69,7 @@ successor mechanism is `specs/SEMANTIC_PROFILE_REGISTRY_V1.md`. The frozen,
 normative, but inactive C# package is `specs/CSHARP_PROFILE_V0.md` with its two
 owned vector sets. `docs/csharp-02-implementation-traceability-ledger.md`
 decomposes the implementation into 20 strictly serial tasks.
-`CSHARP-02-T01` through `CSHARP-02-T18` are complete; `CSHARP-02-T19` is next.
+`CSHARP-02-T01` through `CSHARP-02-T19` are complete; `CSHARP-02-T20` is next.
 The isolated `csharp-tools/csharp2vir/` project, offline build gate, private
 selection/capture/source-transport and exact Roslyn-session paths,
 test-injected successor semantic-registry core, and sealed successor source-
@@ -115,6 +115,13 @@ rejects both schema generations at the opposite boundary, and keeps helper
 candidate success outside canonical certificate acceptance. No successor API
 parser or AI client is routed from a released input, and no C# production
 frontend, successor Go/Rust route, or future-language frontend is active.
+The T19 hardening aggregate now executes every frozen C# vector field, exact
+.NET 10.0.11 differential cases, five checked-in fuzz-seed families, all 12
+upgrade classes, and three-profile predecessor/crossed-profile rejection. Its
+offline two-pass staged release rehearsal proves byte-identical canonical
+artifacts and bundles, closed plugin/credential/path/network boundaries,
+unchanged both-checker and four-category axiom behavior, and an empty final
+review ledger.
 
 No multi-language design, feasibility, specification, or implementation phase
 runs in parallel with the Rust program or with another language phase.

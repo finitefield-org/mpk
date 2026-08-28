@@ -38,6 +38,16 @@ CONTRACT_HARNESS_PATH = REPOSITORY_ROOT / "crates/mpk-cli/tests/csharp_contracts
 LOWERING_HARNESS_PATH = REPOSITORY_ROOT / "crates/mpk-cli/tests/csharp_lowering_harness.cs"
 EMISSION_HARNESS_PATH = REPOSITORY_ROOT / "crates/mpk-cli/tests/csharp_emission_harness.cs"
 FRONTEND_VECTOR_HARNESS_PATH = REPOSITORY_ROOT / "crates/mpk-cli/tests/csharp_frontend_vectors_harness.cs"
+PROFILE_HARDENING_HARNESS_PATH = REPOSITORY_ROOT / "crates/mpk-cli/tests/csharp_profile_hardening_harness.cs"
+FRONTEND_FUZZ_ROOT = PROJECT_ROOT / "fuzz"
+FRONTEND_FUZZ_MANIFEST_PATH = FRONTEND_FUZZ_ROOT / "seed-manifest.json"
+FRONTEND_FUZZ_TARGETS = (
+    "compiler_output",
+    "contract",
+    "parser",
+    "protocol",
+    "resource",
+)
 
 TOOLCHAIN_DOMAIN = b"MPK-CSHARP-TOOLCHAIN-INPUTS-0.1\0"
 REFERENCE_DOMAIN = b"MPK-CSHARP-REFERENCE-INVENTORY-0.1\0"
@@ -1544,6 +1554,17 @@ def validate_frontend_vector_implementation(
         raise CSharpBuildFailure("CSHARP_FRONTEND_VECTOR_TEST_BUILD")
     os.chmod(harness, 0o444)
     os.utime(harness, ns=(0, 0), follow_symlinks=False)
+    hardening_harness = work / "ProfileHardeningHarness.cs"
+    with opened_regular(
+        PROFILE_HARDENING_HARNESS_PATH,
+        4 * 1024 * 1024,
+    ) as (input_stream, before), hardening_harness.open("xb") as output_stream:
+        shutil.copyfileobj(input_stream, output_stream, 1024 * 1024)
+    if hardening_harness.stat().st_size != before.st_size:
+        raise CSharpBuildFailure("CSHARP_FRONTEND_VECTOR_TEST_BUILD")
+    os.chmod(hardening_harness, 0o444)
+    os.utime(hardening_harness, ns=(0, 0), follow_symlinks=False)
+    fuzz_manifest = materialize_frontend_fuzz_seeds(work / "fuzz-regressions")
     frontend = candidate / "frontend"
     output = frontend / "csharp2vir-frontend-vector-tests.dll"
     sdk = roots["dotnet-sdk-linux-x64"]
@@ -1566,6 +1587,7 @@ def validate_frontend_vector_implementation(
             "/reference:" + str(frontend / "Microsoft.CodeAnalysis.CSharp.dll"),
             "/reference:" + str(frontend / "csharp2vir.dll"),
             str(harness),
+            str(hardening_harness),
         ]
     )
     build_environment = closed_dotnet_environment(sdk, work / "build-environment")
@@ -1591,6 +1613,7 @@ def validate_frontend_vector_implementation(
                 mode,
                 str(reference_root),
                 str(VECTOR_PATH),
+                str(fuzz_manifest),
             ],
             cwd=candidate,
             environment=runtime_environment,
@@ -1605,6 +1628,54 @@ def validate_frontend_vector_implementation(
         return result.stdout
     finally:
         output.unlink(missing_ok=True)
+
+
+def materialize_frontend_fuzz_seeds(destination: Path) -> Path:
+    manifest = exact_keys(
+        strict_json_file(FRONTEND_FUZZ_MANIFEST_PATH, canonical_transport=True),
+        {"schema", "targets"},
+    )
+    if text(manifest["schema"]) != "mpk.csharp.fuzz_seeds.v0":
+        raise CSharpBuildFailure("CSHARP_FRONTEND_FUZZ_SEEDS")
+    targets = exact_keys(manifest["targets"], set(FRONTEND_FUZZ_TARGETS))
+    destination.mkdir(mode=0o700, parents=False, exist_ok=False)
+    copied: set[str] = set()
+    for target in FRONTEND_FUZZ_TARGETS:
+        records = array(targets[target])
+        if len(records) != 2:
+            raise CSharpBuildFailure("CSHARP_FRONTEND_FUZZ_SEEDS")
+        previous = ""
+        target_destination = destination / "seeds" / target
+        target_destination.mkdir(mode=0o700, parents=True, exist_ok=False)
+        for untyped in records:
+            record = exact_keys(untyped, {"path", "sha256", "size_bytes"})
+            relative = validate_relative_path(text(record["path"]))
+            if "/" in relative or relative <= previous:
+                raise CSharpBuildFailure("CSHARP_FRONTEND_FUZZ_SEEDS")
+            previous = relative
+            key = target + "/" + relative
+            if key in copied:
+                raise CSharpBuildFailure("CSHARP_FRONTEND_FUZZ_SEEDS")
+            copied.add(key)
+            source = FRONTEND_FUZZ_ROOT / "seeds" / target / relative
+            data = read_regular_bytes(source, 1024 * 1024)
+            if (
+                len(data) != integer(record["size_bytes"])
+                or raw_sha256(data) != validate_hex(record["sha256"], 64)
+            ):
+                raise CSharpBuildFailure("CSHARP_FRONTEND_FUZZ_SEEDS")
+            output = target_destination / relative
+            with output.open("xb") as stream:
+                stream.write(data)
+            os.chmod(output, 0o444)
+            os.utime(output, ns=(0, 0), follow_symlinks=False)
+    manifest_output = destination / "seed-manifest.json"
+    data = read_regular_bytes(FRONTEND_FUZZ_MANIFEST_PATH, MAX_JSON_BYTES)
+    with manifest_output.open("xb") as stream:
+        stream.write(data)
+    os.chmod(manifest_output, 0o444)
+    os.utime(manifest_output, ns=(0, 0), follow_symlinks=False)
+    return manifest_output
 
 
 def copy_notices(descriptor: dict[str, object], roots: dict[str, Path], project: Path, candidate: Path) -> None:
