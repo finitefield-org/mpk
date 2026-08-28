@@ -69,7 +69,7 @@ successor mechanism is `specs/SEMANTIC_PROFILE_REGISTRY_V1.md`. The frozen,
 normative, but inactive C# package is `specs/CSHARP_PROFILE_V0.md` with its two
 owned vector sets. `docs/csharp-02-implementation-traceability-ledger.md`
 decomposes the implementation into 20 strictly serial tasks.
-`CSHARP-02-T01` through `CSHARP-02-T17` are complete; `CSHARP-02-T18` is next.
+`CSHARP-02-T01` through `CSHARP-02-T18` are complete; `CSHARP-02-T19` is next.
 The isolated `csharp-tools/csharp2vir/` project, offline build gate, private
 selection/capture/source-transport and exact Roslyn-session paths,
 test-injected successor semantic-registry core, and sealed successor source-
@@ -109,9 +109,12 @@ descriptors remain source-only staging inputs. The hidden successor AI
 explainer now projects deterministic minimal-v1 requests for all three
 profiles from validated evidence and freezes canonical C# v2 request/report
 fixtures; provider prose remains untrusted and cannot alter local evidence or
-Certificate v0 acceptance. No successor parser or AI client is routed from a
-released input, and no C# production frontend, successor Go/Rust route, or
-future-language frontend is active.
+Certificate v0 acceptance. The hidden successor API now binds sessions and
+every successor VIR/VC operation to one exact semantic context and selection,
+rejects both schema generations at the opposite boundary, and keeps helper
+candidate success outside canonical certificate acceptance. No successor API
+parser or AI client is routed from a released input, and no C# production
+frontend, successor Go/Rust route, or future-language frontend is active.
 
 No multi-language design, feasibility, specification, or implementation phase
 runs in parallel with the Rust program or with another language phase.

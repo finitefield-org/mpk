@@ -3,7 +3,7 @@
 Status: `CSHARP-02-T01` complete (2026-08-25), `CSHARP-02-T02` through
 `CSHARP-02-T03` complete (2026-08-26), and `CSHARP-02-T04` through
 `CSHARP-02-T12` complete (2026-08-27), and `CSHARP-02-T13` through
-`CSHARP-02-T17` complete (2026-08-28). `CSHARP-02-T18` is the next task.
+`CSHARP-02-T18` complete (2026-08-28). `CSHARP-02-T19` is the next task.
 Canonical C# success and non-success envelopes now exist only within the
 inactive candidate and its test harness, and canonical successor VC and
 skeleton, policy/evidence, and AI request/report bytes now exist only behind
@@ -100,8 +100,8 @@ MLANG-01-T03
 | `CSHARP-02-T15` | complete | staged successor VC and skeleton integration |
 | `CSHARP-02-T16` | complete | staged policy, evidence, and program-certificate integration |
 | `CSHARP-02-T17` | complete | staged AI explanation integration |
-| `CSHARP-02-T18` | ready | staged AI API integration |
-| `CSHARP-02-T19` | blocked on T18 | complete cross-profile hardening corpus and release rehearsal |
+| `CSHARP-02-T18` | complete | staged AI API integration |
+| `CSHARP-02-T19` | ready | complete cross-profile hardening corpus and release rehearsal |
 | `CSHARP-02-T20` | blocked on T19 | atomic successor cutover and C# production release |
 
 The status tokens above are planning state only. They are not registry or
@@ -777,6 +777,21 @@ Exit gate: sessions cannot mix profiles or contexts, old/crossed helper
 artifacts reject, failed operations do not mutate accepted state, and API
 success cannot bypass canonical certificate checking.
 
+Completion evidence: `mpk-api` now exposes a hidden successor service with an
+exact `mpk.ai.api.v2`-gated route registry, while the released v1 route table
+and parser remain unchanged. Its immutable store accepts only complete
+validated successor VIR/source-map/frontend-manifest capabilities plus the
+entry-owned compiled `vc` envelope. Session creation and every VIR/VC
+operation revalidate and repeat the complete semantic context and selection;
+state commits only after artifact, linkage, canonical-transport, and response
+validation succeeds. The primary owner runs deterministic Go, Rust, and C#
+sessions through import, generation, and list operations, rejects old/new
+cross-use, crossed profiles/selections/artifacts, stale identities, unknown
+targets, and noncanonical transport without mutation, and proves that a valid
+C# helper candidate cannot change either accepted or rejected canonical
+Certificate v0 checker outcomes. No network listener, released route, or
+certificate-acceptance state was added.
+
 ### CSHARP-02-T19 Complete cross-profile hardening and release rehearsal
 
 Depends on: `CSHARP-02-T18`.
@@ -1379,4 +1394,24 @@ The T17 review ledger is empty. Its closed implementation inventory contains:
 No active AI parser, provider client, credential lookup, network call, CLI/API
 route, release tuple, normative vector byte, Certificate v0 input, checker
 rule, or proof-acceptance identity changed in T17. T18 is the sole ready
+successor.
+
+The T18 review ledger is empty. Its closed implementation inventory contains:
+
+- a hidden, profile-gated successor route registry with no v1 alias or
+  released binding;
+- exact registry-validated semantic-context and selection bindings on session
+  creation and every successor VIR/VC operation;
+- an immutable validated-artifact store and canonical `mpk.vir.v1` /
+  `mpk.vc.v2` import, generation, listing, target, attachment, and helper-check
+  lifecycle with commit-after-validation behavior;
+- deterministic Go, Rust, and C# coverage plus predecessor/successor,
+  cross-profile, crossed-artifact, stale, unknown, and noncanonical rejection;
+  and
+- source-free kernel checks proving that API helper success creates no
+  certificate-acceptance authority.
+
+No active API parser or route, network listener, semantic-registry or
+normative-vector byte, Certificate v0 input, checker rule, accepted-state
+marker, or proof-acceptance identity changed in T18. T19 is the sole ready
 successor.

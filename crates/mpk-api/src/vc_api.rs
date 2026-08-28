@@ -181,7 +181,7 @@ impl V1ApiService {
         let parsed = parse_request::<VcStartProofRequest>(input, 1_048_576)?;
         let (target_term, next_index) = {
             let state = self.validate_vc_context(&parsed.value.context)?;
-            let term = resolve_target_term(state.vc.document(), &parsed.value.target)?;
+            let term = resolve_target_term(&state.vc.document().functions, &parsed.value.target)?;
             (term, state.next_target_index.checked_add(1))
         };
         let next_index = next_index.ok_or_else(|| session_state("target"))?;
@@ -670,13 +670,13 @@ fn vc_counts(document: &VcDocument) -> Result<(u64, u64, u64), V1ApiError> {
     Ok((functions, members, groups))
 }
 
-fn resolve_target_term(
-    document: &VcDocument,
+pub(crate) fn resolve_target_term(
+    functions: &[VcFunction],
     target: &VcProofTarget,
 ) -> Result<VcTerm, V1ApiError> {
     match target {
         VcProofTarget::Member { id } => {
-            let matches = document.functions.iter().flat_map(|function| {
+            let matches = functions.iter().flat_map(|function| {
                 function
                     .members
                     .iter()
@@ -688,7 +688,7 @@ fn resolve_target_term(
             Ok(wrap_function_parameters(function, body))
         }
         VcProofTarget::Group { id } => {
-            let matches = document.functions.iter().flat_map(|function| {
+            let matches = functions.iter().flat_map(|function| {
                 function
                     .groups
                     .iter()
@@ -784,8 +784,78 @@ fn bind_named_variables(
     }
 }
 
-fn materialize_target(session: &mut ApiSession, target: &VcTerm) -> Result<ApiTermId, V1ApiError> {
+pub(crate) fn materialize_target(
+    session: &mut ApiSession,
+    target: &VcTerm,
+) -> Result<ApiTermId, V1ApiError> {
+    // Arena interning is append-only, so discover every recoverable name or
+    // free-variable error before the first helper term is registered.
+    validate_materializable_term(session, target)?;
     materialize_vc_term(session, target)
+}
+
+fn validate_materializable_term(session: &ApiSession, term: &VcTerm) -> Result<(), V1ApiError> {
+    match term {
+        VcTerm::Var { .. } => Err(vc_invalid("VC_TERM_VARIABLE")),
+        VcTerm::Bound { .. } => Ok(()),
+        VcTerm::Constant { name } => validate_materializable_constant(session, name),
+        VcTerm::BitVecLiteral {
+            value,
+            width,
+            signed,
+        } => {
+            validate_materializable_constant(session, &bitvec_literal_name(value, *width, *signed))
+        }
+        VcTerm::Apply { function, args } if function == "Std.Logic.Imp" && args.len() == 2 => {
+            for argument in args {
+                validate_materializable_term(session, argument)?;
+            }
+            Ok(())
+        }
+        VcTerm::Apply { function, args } => {
+            validate_materializable_constant(session, function)?;
+            for argument in args {
+                validate_materializable_term(session, argument)?;
+            }
+            Ok(())
+        }
+        VcTerm::Convert { value, target } => {
+            validate_materializable_constant(session, "V1.Term.Convert")?;
+            validate_materializable_term(session, value)?;
+            validate_materializable_type(session, target)
+        }
+        VcTerm::Forall { binder_type, body } => {
+            validate_materializable_type(session, binder_type)?;
+            validate_materializable_term(session, body)
+        }
+    }
+}
+
+fn validate_materializable_type(session: &ApiSession, term: &VcTypeTerm) -> Result<(), V1ApiError> {
+    match term {
+        VcTypeTerm::Constant { name } => validate_materializable_constant(session, name),
+        VcTypeTerm::Apply { function, args } => {
+            validate_materializable_constant(session, function)?;
+            for argument in args {
+                validate_materializable_type(session, argument)?;
+            }
+            Ok(())
+        }
+        VcTypeTerm::NatLiteral { value } => {
+            validate_materializable_constant(session, &nat_literal_name(*value))
+        }
+        VcTypeTerm::StringLiteral { value } => {
+            validate_materializable_constant(session, &string_literal_name(value))
+        }
+    }
+}
+
+fn validate_materializable_constant(session: &ApiSession, name: &str) -> Result<(), V1ApiError> {
+    session
+        .environment()
+        .resolve(name)
+        .map(|_| ())
+        .map_err(|_| vc_invalid("VC_TERM_NAME"))
 }
 
 fn materialize_vc_term(session: &mut ApiSession, term: &VcTerm) -> Result<ApiTermId, V1ApiError> {
@@ -800,15 +870,7 @@ fn materialize_vc_term(session: &mut ApiSession, term: &VcTerm) -> Result<ApiTer
             value,
             width,
             signed,
-        } => materialize_constant(
-            session,
-            &format!(
-                "V1.Literal.{}.{}.{}",
-                if *signed { "Signed" } else { "Unsigned" },
-                width,
-                value.replace('-', "Neg")
-            ),
-        ),
+        } => materialize_constant(session, &bitvec_literal_name(value, *width, *signed)),
         VcTerm::Apply { function, args } if function == "Std.Logic.Imp" && args.len() == 2 => {
             let domain = materialize_vc_term(session, &args[0])?;
             let body = materialize_vc_term(session, &args[1])?;
@@ -871,16 +933,33 @@ fn materialize_vc_type(
             register_core_term(session, term)
         }
         VcTypeTerm::NatLiteral { value } => {
-            materialize_constant(session, &format!("V1.Type.Nat.{value}"))
+            materialize_constant(session, &nat_literal_name(*value))
         }
         VcTypeTerm::StringLiteral { value } => {
-            let encoded = value
-                .bytes()
-                .map(|byte| format!("{byte:02x}"))
-                .collect::<String>();
-            materialize_constant(session, &format!("V1.Type.String.X{encoded}"))
+            materialize_constant(session, &string_literal_name(value))
         }
     }
+}
+
+fn bitvec_literal_name(value: &str, width: u32, signed: bool) -> String {
+    format!(
+        "V1.Literal.{}.{}.{}",
+        if signed { "Signed" } else { "Unsigned" },
+        width,
+        value.replace('-', "Neg")
+    )
+}
+
+fn nat_literal_name(value: u64) -> String {
+    format!("V1.Type.Nat.{value}")
+}
+
+fn string_literal_name(value: &str) -> String {
+    let encoded = value
+        .bytes()
+        .map(|byte| format!("{byte:02x}"))
+        .collect::<String>();
+    format!("V1.Type.String.X{encoded}")
 }
 
 fn materialize_constant(session: &mut ApiSession, name: &str) -> Result<ApiTermId, V1ApiError> {
@@ -912,7 +991,7 @@ fn require_core_term(session: &ApiSession, term: ApiTermId) -> Result<TermId, V1
         .ok_or_else(|| vc_invalid("VC_TERM_ID"))
 }
 
-fn check_candidate_root(
+pub(crate) fn check_candidate_root(
     session: &ApiSession,
     proof_root: ApiProofId,
     target: ApiTermId,

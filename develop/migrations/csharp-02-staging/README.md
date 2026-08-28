@@ -2,7 +2,7 @@
 
 This directory contains the reviewed, deterministic successor release
 descriptors and generated artifacts for `CSHARP-02-T12` through
-`CSHARP-02-T17`. They are source-only staging inputs and are not searched,
+`CSHARP-02-T18`. They are source-only staging inputs and are not searched,
 copied, or accepted by the active Go/Rust release resolver.
 
 - `semantic-profile-registry.json` is the frozen inactive revision-2 semantic
@@ -20,7 +20,7 @@ copied, or accepted by the active Go/Rust release resolver.
   corpus, 73-case negative diagnostic inventory, and zero-change semantic-
   difference report against the active fixtures.
 - These validated Go/Rust artifacts and the C# candidate context feed only the
-  explicitly injected T15 through T17 successor VC, policy, and AI test
+  explicitly injected T15 through T18 successor VC, policy, AI, and API test
   boundaries. Canonical successor artifacts are regenerated in tests and are
   not installed or published from this directory.
 - `policy/csharp/` contains the T16 source/contract witness plus canonical

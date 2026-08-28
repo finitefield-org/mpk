@@ -4,8 +4,8 @@ Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
 Status: Gate C and `MLANG-01` are complete after the completed Rust and
 `MLANG-00` gates. Gate D is active at its non-production implementation
-boundary: `CSHARP-02-T01` through `CSHARP-02-T17` are complete;
-`CSHARP-02-T18` is next. No C# production route or later-language phase is
+boundary: `CSHARP-02-T01` through `CSHARP-02-T18` are complete;
+`CSHARP-02-T19` is next. No C# production route or later-language phase is
 active.
 
 ## Scope and sequencing
@@ -330,7 +330,7 @@ was added.
 Entry gate: `MLANG-01` complete.
 
 Status: Active at the inactive implementation boundary. `CSHARP-02-T01`
-through `CSHARP-02-T17` are complete; `CSHARP-02-T18` is next.
+through `CSHARP-02-T18` are complete; `CSHARP-02-T19` is next.
 
 Authoritative execution plan:
 `csharp-02-implementation-traceability-ledger.md`.
@@ -717,16 +717,28 @@ noncanonical, metadata-injected, unknown-alias, and bidi inputs reject.
 
 ### CSHARP-02-T18 Stage successor AI API integration
 
-Status: Next.
+Status: Complete (2026-08-28).
 
 Depends on: `CSHARP-02-T17`.
 
 Exit gate: successor API staging binds sessions to exact semantic contexts and
 accepts no old, crossed, or proof-bypassing helper input.
 
+Completion evidence: the hidden `mpk.ai.api.v2` service has its own exact
+profile-gated route registry while leaving the released v1 router unchanged.
+Session creation and every VIR/VC request repeat one registry-validated
+`SemanticContext` and `SelectionEnvelope`; the immutable artifact store accepts
+only validated successor VIR, source-map, frontend-manifest, and compiled VC
+contract capabilities. Go, Rust, and C# produce deterministic canonical
+responses. Old, successor-at-v1, crossed-profile, crossed-selection, stale,
+unknown, and noncanonical operations reject without state mutation. Candidate
+results remain `helper_only`, and a valid helper result leaves both accepted
+and rejected canonical Certificate v0 checker outcomes byte-for-byte
+unchanged.
+
 ### CSHARP-02-T19 Complete cross-profile hardening and release rehearsal
 
-Status: Pending.
+Status: Next.
 
 Depends on: `CSHARP-02-T18`.
 

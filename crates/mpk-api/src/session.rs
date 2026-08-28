@@ -25,14 +25,10 @@ impl ApiService {
         &mut self,
         request: StartSessionRequest,
     ) -> Result<StartSessionResponse, ApiError> {
-        validate_module_name(&request.module_name)?;
-
-        let next_session_index = self
-            .next_session_index
-            .checked_add(1)
-            .ok_or_else(ApiError::session_limit_exceeded)?;
+        let response = self.preview_start_session(&request)?;
+        let next_session_index = self.next_session_index()?;
         self.next_session_index = next_session_index;
-        let session_id = SessionId(format!("s{next_session_index}"));
+        let session_id = response.session_id.clone();
         let session = ApiSession {
             id: session_id.clone(),
             created_index: next_session_index,
@@ -46,9 +42,29 @@ impl ApiService {
             theory_certificates: Vec::new(),
             environment: Environment::new(),
         };
-        let response = session.summary().into_start_response();
         self.sessions.insert(session_id, session);
         Ok(response)
+    }
+
+    pub(crate) fn preview_start_session(
+        &self,
+        request: &StartSessionRequest,
+    ) -> Result<StartSessionResponse, ApiError> {
+        validate_module_name(&request.module_name)?;
+        let next_session_index = self.next_session_index()?;
+        Ok(SessionSummary {
+            session_id: SessionId(format!("s{next_session_index}")),
+            module_name: request.module_name.clone(),
+            proof_profile: request.proof_profile,
+            status: SessionStatus::Active,
+        }
+        .into_start_response())
+    }
+
+    fn next_session_index(&self) -> Result<u64, ApiError> {
+        self.next_session_index
+            .checked_add(1)
+            .ok_or_else(ApiError::session_limit_exceeded)
     }
 
     pub fn session(&self, session_id: &SessionId) -> Option<&ApiSession> {
