@@ -62,7 +62,9 @@ jobs:
 
       - name: Provision a cache miss from frozen identities
         if: steps.rust-build-cache.outputs.cache-hit != 'true'
-        run: ./scripts/build-release-bundles.sh --provision-build-inputs rust
+        # The frozen Rust builder validates and delegates the global cgroup-v2
+        # hierarchy while its untrusted compiler containers remain rootless.
+        run: sudo ./scripts/build-release-bundles.sh --provision-build-inputs rust
 
       - name: Provision a C# cache miss from frozen identities
         if: steps.csharp-build-cache.outputs.cache-hit != 'true'

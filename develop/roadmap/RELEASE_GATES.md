@@ -89,6 +89,11 @@ same order locally and in clean Linux CI:
 
 A CI cache hit is not evidence: restored and newly provisioned closures run the
 same `--check-build-inputs rust` and C# `--check-build-inputs` gates before use.
+On a Rust cache miss, CI provisions the closure as root because the frozen
+builder validates and delegates the same global cgroup-v2 hierarchy required
+by the installed release gate; compiler and build containers still run as the
+fixed unprivileged identity. C# archive provisioning does not use that host
+boundary.
 Verification is networkless and cannot invoke an implicit rustup, Cargo, Go,
 container-image, or dependency download. The digest-pinned Go bundle-build and
 Rust runtime images are materialized before network isolation and every
