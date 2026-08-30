@@ -11,14 +11,14 @@ import (
 )
 
 const (
-	usage = "usage: go2vir lower SOURCE_ROOT --package PACKAGE --semantic-profile PROFILE --target TARGET --function FUNCTION --frontend-bundle-id ID --frontend-sha256 SHA256 --release-registry-id ID --release-registry-sha256 SHA256 --toolchain-bundle-id ID --toolchain-root ROOT --toolchain-distribution-sha256 SHA256 [--contract PATH ...]\n"
+	usage = "usage: go2vir lower SOURCE_ROOT --package PACKAGE --semantic-profile PROFILE --target TARGET --function FUNCTION --profile-registry-id ID --profile-registry-revision REVISION --profile-registry-sha256 SHA256 --profile-entry-sha256 SHA256 --frontend-bundle-id ID --frontend-sha256 SHA256 --release-registry-id ID --release-registry-sha256 SHA256 --toolchain-bundle-id ID --toolchain-root ROOT --toolchain-distribution-sha256 SHA256 [--contract PATH ...]\n"
 
 	goSemanticProfile = "mpk.go.fixed.v0"
 	goTarget          = "linux/amd64"
 	goPointerWidth    = int64(64)
 	logicalSourceRoot = "/mpk/source"
 	logicalToolchain  = "/mpk/toolchain"
-	registryID        = "mpk.release.registry.v0"
+	registryID        = "mpk.release.registry.v1"
 
 	maximumContracts     = 128
 	maximumArgumentBytes = 262_144
@@ -35,6 +35,10 @@ type lowerRequest struct {
 	SourceRoot                  string
 	Package                     string
 	SemanticProfile             string
+	ProfileRegistryID           string
+	ProfileRegistryRevision     string
+	ProfileRegistrySHA256       string
+	ProfileEntrySHA256          string
 	Target                      string
 	Function                    string
 	FrontendBundleID            string
@@ -156,7 +160,7 @@ func parseLowerArguments(args []string) (lowerRequest, error) {
 	if err := validateArgumentTransport(args); err != nil {
 		return request, err
 	}
-	if len(args) < 24 || args[0] != "lower" {
+	if len(args) < 32 || args[0] != "lower" {
 		return request, fmt.Errorf("go2vir requires the exact lower command")
 	}
 	request.SourceRoot = args[1]
@@ -165,6 +169,10 @@ func parseLowerArguments(args []string) (lowerRequest, error) {
 		{name: "--semantic-profile", apply: func(r *lowerRequest, value string) { r.SemanticProfile = value }},
 		{name: "--target", apply: func(r *lowerRequest, value string) { r.Target = value }},
 		{name: "--function", apply: func(r *lowerRequest, value string) { r.Function = value }},
+		{name: "--profile-registry-id", apply: func(r *lowerRequest, value string) { r.ProfileRegistryID = value }},
+		{name: "--profile-registry-revision", apply: func(r *lowerRequest, value string) { r.ProfileRegistryRevision = value }},
+		{name: "--profile-registry-sha256", apply: func(r *lowerRequest, value string) { r.ProfileRegistrySHA256 = value }},
+		{name: "--profile-entry-sha256", apply: func(r *lowerRequest, value string) { r.ProfileEntrySHA256 = value }},
 		{name: "--frontend-bundle-id", apply: func(r *lowerRequest, value string) { r.FrontendBundleID = value }},
 		{name: "--frontend-sha256", apply: func(r *lowerRequest, value string) { r.FrontendSHA256 = value }},
 		{name: "--release-registry-id", apply: func(r *lowerRequest, value string) { r.ReleaseRegistryID = value }},
@@ -220,6 +228,12 @@ func validateLowerRequest(request lowerRequest) error {
 	}
 	if request.Target != goTarget {
 		return fmt.Errorf("--target must be %s", goTarget)
+	}
+	if request.ProfileRegistryID != successorProfileRegistryID ||
+		request.ProfileRegistryRevision != successorProfileRegistryRevisionArgument ||
+		request.ProfileRegistrySHA256 != successorProfileRegistrySHA256 ||
+		request.ProfileEntrySHA256 != successorGoProfileEntrySHA256 {
+		return fmt.Errorf("semantic profile registry assertions do not match the staged Go profile")
 	}
 	if err := validateGoSelection(request.Package, request.Function); err != nil {
 		return err

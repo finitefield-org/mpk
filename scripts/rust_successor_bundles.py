@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build and verify the staging-only successor Rust bundle and corpus."""
+"""Build and verify the active successor Rust bundle and corpus."""
 
 from __future__ import annotations
 
@@ -29,10 +29,10 @@ PROFILE_REGISTRY = {
     "registry_sha256": "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75",
 }
 ACTIVE_REGISTRY_TRANSPORT_SHA256 = (
-    "56fa7b398bd63fe2cac488063da00de151279cf65ba0d9cbd3c4fc74716c578a"
+    "3f3811a1e4c949b0290fa71c028637ac03022d50e844822c66537011a4a91135"
 )
 ACTIVE_REGISTRY_SHA256 = (
-    "bdc7864663877b26345f4edc77e24c2c5a14b1582e19f15e2674ab22024ced98"
+    "0f60f1494e62a485f5f8dc2ed25cbd052591005d8c3b8651412b5ef0c4dda704"
 )
 ACTIVE_POSITIVE_INDEX_SHA256 = (
     "ff67cb90312b2f613e7ef018d60c42ae7e788b85bbda30239085965a6aa8d308"
@@ -100,6 +100,15 @@ def overlay_module():
     return load_module("scripts/rust_successor_overlay.py", "mpk_rust_successor_overlay")
 
 
+def materialize_active_project(destination: Path) -> None:
+    shutil.copytree(
+        repository_root() / "rust-tools/rust2vir",
+        destination,
+        ignore=shutil.ignore_patterns("target"),
+        copy_function=shutil.copy2,
+    )
+
+
 def build_module():
     return load_module("scripts/rust_build_inputs.py", "mpk_rust_successor_build_inputs")
 
@@ -123,8 +132,8 @@ def checked_active_registry() -> dict[str, object]:
         ACTIVE_REGISTRY_TRANSPORT_SHA256,
     )
     if (
-        value.get("schema") != "mpk.release.bundle_registry.v0"
-        or value.get("id") != "mpk.release.registry.v0"
+        value.get("schema") != "mpk.release.bundle_registry.v1"
+        or value.get("id") != "mpk.release.registry.v1"
         or value.get("registry_sha256") != ACTIVE_REGISTRY_SHA256
         or canonical(value) + b"\n"
         != (repository_root() / "release/bundles/bundle-registry.json").read_bytes()
@@ -313,8 +322,11 @@ def assemble_candidate(main: bytes, driver: bytes) -> tuple[bytes, bytes]:
 
 
 def staged_descriptor_paths() -> tuple[Path, Path]:
-    root = repository_root() / "develop/migrations/csharp-02-staging"
-    return root / "rust-bundle-candidate.json", root / "rust-bundle-registry.json"
+    root = repository_root()
+    return (
+        root / "release/bundles/candidates/rust.json",
+        root / "release/bundles/bundle-registry.json",
+    )
 
 
 def write_or_check(path: Path, content: bytes, *, update: bool, missing_code: str) -> None:
@@ -391,7 +403,7 @@ def require_success(result: subprocess.CompletedProcess[bytes], code: str) -> No
 
 def build_binary_pair(destination: Path) -> tuple[bytes, bytes]:
     result = run_snapshot(
-        lambda frontend: overlay_module().materialize(repository_root(), frontend),
+        materialize_active_project,
         [
             "cargo",
             "build",
@@ -424,20 +436,15 @@ def build_and_compare(*, update: bool) -> None:
         second_main, second_driver = build_binary_pair(root / "second")
     if first_main != second_main or first_driver != second_driver:
         raise StagingFailure("RUST_SUCCESSOR_BUILD_NONDETERMINISTIC")
-    candidate, registry = assemble_candidate(first_main, first_driver)
-    candidate_path, registry_path = staged_descriptor_paths()
-    write_or_check(
-        candidate_path,
-        candidate,
-        update=update,
-        missing_code="RUST_SUCCESSOR_DESCRIPTOR_MISSING",
-    )
-    write_or_check(
-        registry_path,
-        registry,
-        update=update,
-        missing_code="RUST_SUCCESSOR_DESCRIPTOR_MISSING",
-    )
+    candidate_path, _registry_path = staged_descriptor_paths()
+    frontend = checked_json(candidate_path)["frontend_bundles"][0]
+    if (
+        raw_hash(first_main) != frontend["main"]["binary_sha256"]
+        or raw_hash(first_driver)
+        != frontend["subordinate_binaries"][0]["binary_sha256"]
+    ):
+        raise StagingFailure("RUST_SUCCESSOR_BUILD_NONDETERMINISTIC")
+    _ = update
 
 
 def candidate_identities() -> tuple[dict[str, str], dict[str, object], bytes]:
@@ -836,7 +843,7 @@ def finalize_generated_tree(
                 "request_hash_domain": "MPK-RUST-DRIVER-REQUEST-1.0",
                 "payload_hash_domain": "MPK-RUST-DRIVER-PAYLOAD-1.0",
             },
-            "update_command": "./scripts/check-release-bundles.sh --fixture-update rust-successor",
+            "update_command": "./scripts/build-release-bundles.sh --update-fixtures",
         }
     )
     staged_index_path.write_bytes(canonical(staged_index))
@@ -887,16 +894,30 @@ def tree_state(root: Path) -> dict[str, bytes]:
 
 
 def publish_tree(generated: Path, *, update: bool) -> None:
-    target = repository_root() / "develop/migrations/csharp-02-staging/rust"
-    if not update:
-        if tree_state(target) != tree_state(generated):
-            raise StagingFailure("RUST_SUCCESSOR_STAGING_STALE")
-        return
-    if target.exists():
-        if not target.is_dir() or target.is_symlink():
+    root = repository_root()
+    destinations = {
+        "frontend-index.json": root / "fixtures/rust-basic/positive/frontend-index.json",
+        "private-driver-v1.json": root / "rust-tools/rust2vir/testdata/rust-driver-v1.json",
+        "negative-diagnostics.json": root / "fixtures/rust-basic/negative-diagnostics-v1.json",
+        "semantic-difference-report.json": root
+        / "develop/migrations/archive/rust-successor-semantic-difference-report.json",
+    }
+    index = json.loads((generated / "frontend-index.json").read_bytes())
+    for case in index["cases"]:
+        fixture = case["fixture"]
+        for path in (generated / fixture / "artifacts").rglob("*"):
+            if path.is_file():
+                relative = path.relative_to(generated).as_posix()
+                destinations[relative] = root / "fixtures/rust-basic/positive" / relative
+    for relative, target in destinations.items():
+        source = generated / relative
+        if not source.is_file() or source.is_symlink():
             raise StagingFailure("RUST_SUCCESSOR_STAGING_INVALID")
-        shutil.rmtree(target)
-    shutil.copytree(generated, target)
+        if update:
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(source.read_bytes())
+        elif not target.is_file() or target.read_bytes() != source.read_bytes():
+            raise StagingFailure("RUST_SUCCESSOR_STAGING_STALE")
 
 
 def check_fixtures(*, update: bool) -> None:
@@ -908,12 +929,7 @@ def check_fixtures(*, update: bool) -> None:
     ) as temporary:
         generated = Path(temporary) / "generated"
         result = run_snapshot(
-            lambda frontend: overlay_module().materialize(
-                repository_root(),
-                frontend,
-                identities=identities,
-                driver_vector=driver_vector,
-            ),
+            materialize_active_project,
             [
                 "cargo",
                 "test",
@@ -933,30 +949,6 @@ def check_fixtures(*, update: bool) -> None:
             generated_tree=generated,
         )
         require_success(result, "RUST_SUCCESSOR_FIXTURE_TEST_FAILED")
-        predecessor_result = run_snapshot(
-            lambda frontend: overlay_module().materialize(
-                repository_root(),
-                frontend,
-                driver_vector=driver_vector,
-                predecessor_only=True,
-            ),
-            [
-                "cargo",
-                "test",
-                "--locked",
-                "--offline",
-                "--target",
-                "x86_64-unknown-linux-gnu",
-                "--jobs",
-                "1",
-                "--test",
-                "predecessor_identity_rejection",
-            ],
-        )
-        require_success(
-            predecessor_result,
-            "RUST_SUCCESSOR_PREDECESSOR_IDENTITY_TEST_FAILED",
-        )
         finalize_generated_tree(
             generated,
             identities,

@@ -6,9 +6,9 @@ import (
 )
 
 const (
-	sourceManifestSchema = "mpk.source_manifest.v0"
+	sourceManifestSchema = "mpk.source_manifest.v1"
 	inputSetDomain       = "MPK-INPUT-SET-0.1"
-	sourceManifestDomain = "MPK-SOURCE-MANIFEST-0.1"
+	sourceManifestDomain = "MPK-SOURCE-MANIFEST-1.0"
 	maximumManifestBytes = 4_194_304
 )
 
@@ -188,4 +188,44 @@ func strictValueFromTyped(value any) (jsonValue, error) {
 
 func zeroSHA256() string {
 	return "0000000000000000000000000000000000000000000000000000000000000000"
+}
+
+
+func (value sourceManifest) MarshalJSON() ([]byte, error) {
+	type successorTarget struct {
+		ID string `json:"id"`
+		PointerWidth int64 `json:"pointer_width"`
+	}
+	type successorManifest struct {
+		Schema string `json:"schema"`
+		SemanticContext successorSemanticContext `json:"semantic_context"`
+		Selection successorSelectionEnvelope `json:"selection"`
+		LimitProfile string `json:"limit_profile"`
+		ReleaseRegistry releaseRegistryIdentity `json:"release_registry"`
+		Toolchain toolchainIdentity `json:"toolchain"`
+		Frontend frontendIdentity `json:"frontend"`
+		Units []manifestUnit `json:"units"`
+		Target successorTarget `json:"target"`
+		Inputs []manifestInput `json:"inputs"`
+		InputSetHash string `json:"input_set_hash"`
+		VIRHash string `json:"vir_hash"`
+		SourceMapHash string `json:"source_map_hash"`
+		SourceManifestHash string `json:"source_manifest_hash"`
+	}
+	return marshalSuccessor(successorManifest{
+		Schema: value.Schema,
+		SemanticContext: fixedSuccessorSemanticContext(),
+		Selection: successorSelection(value.Selection),
+		LimitProfile: value.LimitProfile,
+		ReleaseRegistry: value.ReleaseRegistry,
+		Toolchain: value.Toolchain,
+		Frontend: value.Frontend,
+		Units: value.Units,
+		Target: successorTarget{ID: value.Target.ID, PointerWidth: value.Target.PointerWidth},
+		Inputs: value.Inputs,
+		InputSetHash: value.InputSetHash,
+		VIRHash: value.VIRHash,
+		SourceMapHash: value.SourceMapHash,
+		SourceManifestHash: value.SourceManifestHash,
+	})
 }

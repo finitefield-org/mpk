@@ -4,9 +4,9 @@ use mpk_cli::policy_profile::lookup_strategy_registration;
 use mpk_cli::policy_schema::{PolicyEvidenceV1, PolicyHelperArtifact, PolicyVerificationOptions};
 use mpk_cli::program_certificate::{assemble_program_certificate_alpha, ProgramCertificateOutcome};
 use mpk_cli::successor_policy::{
-    generate_staged_successor_policy_scan, import_staged_successor_policy_scan_json,
-    run_staged_successor_policy, SuccessorPolicyCode, SuccessorPolicyPhase,
-    SuccessorPolicyScanSource, SUCCESSOR_POLICY_EVIDENCE_SCHEMA, SUCCESSOR_POLICY_SCAN_SCHEMA,
+    generate_successor_policy_scan, import_successor_policy_scan_json, run_successor_policy,
+    SuccessorPolicyCode, SuccessorPolicyPhase, SuccessorPolicyScanSource,
+    SUCCESSOR_POLICY_EVIDENCE_SCHEMA, SUCCESSOR_POLICY_SCAN_SCHEMA,
     SUCCESSOR_PROGRAM_CERTIFICATE_PROFILE,
 };
 use mpk_vc::semantic_profile_registry::CompiledSemanticProfile;
@@ -39,10 +39,10 @@ fn csharp_policy_reaches_identical_byte_dual_checker_certificate_and_closed_evid
         strict: true,
         update_fixtures: false,
     };
-    let first = run_staged_successor_policy(boundary, options.clone())
-        .expect("C# successor policy verification");
-    let second = run_staged_successor_policy(boundary, options)
-        .expect("repeat C# successor policy verification");
+    let first =
+        run_successor_policy(boundary, options.clone()).expect("C# successor policy verification");
+    let second =
+        run_successor_policy(boundary, options).expect("repeat C# successor policy verification");
 
     assert_eq!(
         first.scan().canonical_bytes(),
@@ -241,7 +241,7 @@ fn csharp_policy_reaches_identical_byte_dual_checker_certificate_and_closed_evid
         &evidence_contract,
         &captured,
     );
-    let error = run_staged_successor_policy(
+    let error = run_successor_policy(
         crossed,
         PolicyVerificationOptions {
             strict: true,
@@ -261,7 +261,7 @@ fn csharp_policy_reaches_identical_byte_dual_checker_certificate_and_closed_evid
         &crossed_evidence,
         &captured,
     );
-    let error = run_staged_successor_policy(
+    let error = run_successor_policy(
         crossed,
         PolicyVerificationOptions {
             strict: true,
@@ -279,7 +279,7 @@ fn successor_scan_is_frontend_only_and_exactly_reimported() {
     let registry = registry();
     let source = staged_source(
         &registry,
-        "develop/migrations/csharp-02-staging/go/frontend/basic-arith",
+        "fixtures/vir-go/frontend/basic-arith",
         "fixtures/go-basic",
     );
     let policy_contract = profile_contract("go", "policy");
@@ -293,10 +293,10 @@ fn successor_scan_is_frontend_only_and_exactly_reimported() {
         captured_inputs: &captured,
     };
 
-    let scan = generate_staged_successor_policy_scan(boundary)
-        .expect("frontend-only successor policy scan");
+    let scan =
+        generate_successor_policy_scan(boundary).expect("frontend-only successor policy scan");
     assert_eq!(scan.document().schema(), SUCCESSOR_POLICY_SCAN_SCHEMA);
-    let imported = import_staged_successor_policy_scan_json(scan.canonical_bytes(), boundary)
+    let imported = import_successor_policy_scan_json(scan.canonical_bytes(), boundary)
         .expect("exact successor scan reimport");
     assert_eq!(imported.canonical_bytes(), scan.canonical_bytes());
 }
@@ -315,7 +315,7 @@ fn staged_go_and_rust_keep_their_existing_policy_and_checker_verdicts() {
         ),
         (
             "rust",
-            "develop/migrations/csharp-02-staging/rust/module-calls/artifacts",
+            "fixtures/rust-basic/positive/module-calls/artifacts",
             "rust-tools/rust2vir/testdata/positive/module-calls/source",
             CompiledSemanticProfile::RustCheckedV0,
             "payment-policy-rust-alpha",
@@ -332,7 +332,7 @@ fn staged_go_and_rust_keep_their_existing_policy_and_checker_verdicts() {
         let evidence_contract = profile_contract(profile, "evidence");
         let pair = generated_pair(&registry, &source, &vc_contract);
         let captured = captured_refs(&source.storage);
-        let run = run_staged_successor_policy(
+        let run = run_successor_policy(
             source_boundary(
                 &registry,
                 &source,

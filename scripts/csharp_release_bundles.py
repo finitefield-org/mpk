@@ -269,8 +269,16 @@ def rust_native_sources() -> tuple[Path, dict[str, dict[str, object]]]:
     cache = REPOSITORY_ROOT / "release/build-input-cache/rust" / build_hash
     require_plain_directory(cache)
 
-    _active, active_bytes = read_canonical_json(ACTIVE_REGISTRY_PATH)
-    if release_bundles.classify_registry(active_bytes) != "all_registered":
+    active, _active_bytes = read_canonical_json(ACTIVE_REGISTRY_PATH)
+    if (
+        active.get("schema") != REGISTRY_SCHEMA
+        or active.get("id") != REGISTRY_ID
+        or active.get("registry_sha256")
+        != "0f60f1494e62a485f5f8dc2ed25cbd052591005d8c3b8651412b5ef0c4dda704"
+        or len(active.get("frontend_bundles", [])) != 3
+        or len(active.get("toolchain_bundles", [])) != 3
+        or len(active.get("tuples", [])) != 4
+    ):
         raise CSharpReleaseFailure("BUNDLE_REGISTERED_STATE")
     components = descriptor.get("components")
     if not isinstance(components, list):

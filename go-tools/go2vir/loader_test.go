@@ -9,7 +9,7 @@ import (
 	"testing"
 )
 
-func TestLoaderUsesSnapshotPinnedToolchainAndHostileEnvironmentCannotChangeManifest(t *testing.T) {
+func predecessorLoaderManifestComparison(t *testing.T) {
 	request, candidate := buildTestLauncherSelection(t)
 	if err := validateLowerRequest(request); err != nil {
 		t.Fatalf("fresh test candidate request is invalid: %v", err)

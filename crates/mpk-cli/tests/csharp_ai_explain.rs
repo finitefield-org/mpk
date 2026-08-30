@@ -5,9 +5,9 @@ use std::fs;
 
 use mpk_cli::ai_explain::{ExplainLanguageV1, DEFAULT_GEMINI_MODEL};
 use mpk_cli::successor_ai_explain::{
-    build_staged_successor_ai_explanation, import_staged_successor_ai_explanation_json,
-    import_staged_successor_ai_request_json, prepare_staged_successor_ai_explanation,
-    SuccessorAiCode, SuccessorAiProviderProvenance, SuccessorAiReportRequest, SuccessorAiSource,
+    build_successor_ai_explanation, import_successor_ai_explanation_json,
+    import_successor_ai_request_json, prepare_successor_ai_explanation, SuccessorAiCode,
+    SuccessorAiProviderProvenance, SuccessorAiReportRequest, SuccessorAiSource,
     SUCCESSOR_AI_EXPLAIN_REQUEST_SCHEMA, SUCCESSOR_AI_EXPLANATION_SCHEMA,
 };
 use mpk_vc::{canonical_json_bytes, parse_strict_json, StrictJsonLimits};
@@ -19,7 +19,7 @@ use successor_policy_support::{
 };
 
 const UPDATE_FIXTURES_ENV: &str = "MPK_UPDATE_CSHARP_AI_FIXTURES";
-const FIXTURE_ROOT: &str = "develop/migrations/csharp-02-staging/ai/csharp";
+const FIXTURE_ROOT: &str = "fixtures/csharp/ai";
 const JSON_LIMITS: StrictJsonLimits = StrictJsonLimits::new(2_097_152, 2_097_152, 128, 2_097_152);
 
 fn canonical(value: &Value) -> Vec<u8> {
@@ -203,9 +203,9 @@ fn all_profiles_stage_deterministic_redacted_requests_and_untrusted_reports() {
             evidence: named.run.evidence(),
             ai_contract: &contract,
         };
-        let first = prepare_staged_successor_ai_explanation(source, ExplainLanguageV1::En)
+        let first = prepare_successor_ai_explanation(source, ExplainLanguageV1::En)
             .unwrap_or_else(|error| panic!("{profile} successor AI request: {error}"));
-        let second = prepare_staged_successor_ai_explanation(source, ExplainLanguageV1::En)
+        let second = prepare_successor_ai_explanation(source, ExplainLanguageV1::En)
             .unwrap_or_else(|error| panic!("{profile} repeated successor AI request: {error}"));
         assert_eq!(first, second, "{profile} request is not deterministic");
         assert_eq!(
@@ -216,7 +216,7 @@ fn all_profiles_stage_deterministic_redacted_requests_and_untrusted_reports() {
             .import_request_json(first.canonical_request_bytes())
             .expect("exact request reimport");
         assert_eq!(
-            import_staged_successor_ai_request_json(
+            import_successor_ai_request_json(
                 first.canonical_request_bytes(),
                 source,
                 ExplainLanguageV1::En,
@@ -266,7 +266,7 @@ fn all_profiles_stage_deterministic_redacted_requests_and_untrusted_reports() {
         let mut widened = contract.clone();
         widened["value"]["source_access"] = Value::Bool(true);
         assert_eq!(
-            prepare_staged_successor_ai_explanation(
+            prepare_successor_ai_explanation(
                 SuccessorAiSource {
                     registry: &registry,
                     evidence: named.run.evidence(),
@@ -292,14 +292,14 @@ fn all_profiles_stage_deterministic_redacted_requests_and_untrusted_reports() {
         );
         let refs = property_refs(&request_value);
         let provider_text = provider_response(&refs);
-        let first_report = build_staged_successor_ai_explanation(
+        let first_report = build_successor_ai_explanation(
             &first,
             &report_request(),
             &provenance(profile),
             &provider_text,
         )
         .unwrap_or_else(|error| panic!("{profile} successor AI report: {error}"));
-        let second_report = build_staged_successor_ai_explanation(
+        let second_report = build_successor_ai_explanation(
             &first,
             &report_request(),
             &provenance(profile),
@@ -346,7 +346,7 @@ fn all_profiles_stage_deterministic_redacted_requests_and_untrusted_reports() {
             .import_json(first_report.canonical_bytes())
             .expect("exact report reimport");
         assert_eq!(
-            import_staged_successor_ai_explanation_json(
+            import_successor_ai_explanation_json(
                 first_report.canonical_bytes(),
                 &first,
                 &report_request(),
@@ -383,7 +383,7 @@ fn all_profiles_stage_deterministic_redacted_requests_and_untrusted_reports() {
             );
 
             let crossed = ai_contract("go");
-            let error = prepare_staged_successor_ai_explanation(
+            let error = prepare_successor_ai_explanation(
                 SuccessorAiSource {
                     registry: &registry,
                     evidence: named.run.evidence(),
@@ -405,7 +405,7 @@ fn all_profiles_stage_deterministic_redacted_requests_and_untrusted_reports() {
                 "proof_evidence":true
             });
             assert_eq!(
-                build_staged_successor_ai_explanation(
+                build_successor_ai_explanation(
                     &first,
                     &report_request(),
                     &provenance(profile),
@@ -425,7 +425,7 @@ fn all_profiles_stage_deterministic_redacted_requests_and_untrusted_reports() {
                 "next_steps":[]
             });
             assert_eq!(
-                build_staged_successor_ai_explanation(
+                build_successor_ai_explanation(
                     &first,
                     &report_request(),
                     &provenance(profile),
@@ -445,7 +445,7 @@ fn all_profiles_stage_deterministic_redacted_requests_and_untrusted_reports() {
                 "next_steps":[]
             });
             assert_eq!(
-                build_staged_successor_ai_explanation(
+                build_successor_ai_explanation(
                     &first,
                     &report_request(),
                     &provenance(profile),

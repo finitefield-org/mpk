@@ -3,9 +3,8 @@ use mpk_cli::successor_frontend_protocol::{
     validate_successor_frontend_process, SuccessorFrontendProtocolRequest,
 };
 use mpk_vc::semantic_profile_registry::{
-    canonical_registry_transport, validate_inactive_semantic_profile_registry,
-    validate_registry_selection_envelope, validate_registry_semantic_context,
-    InactiveRegistryRevision,
+    canonical_registry_transport, validate_registry_selection_envelope,
+    validate_registry_semantic_context, validate_semantic_profile_registry, RegistryRevision,
 };
 use mpk_vc::successor_source_artifacts::{
     import_successor_source_manifest_json, import_successor_source_map_json,
@@ -347,10 +346,10 @@ fn provisioned_emission_is_accepted_by_the_shared_successor_validators() {
     assert!(output.stdout.ends_with(b"\n"));
 
     let registry_vectors = load("develop/specs/vectors/semantic-profile-registry-v2.json");
-    let registry = validate_inactive_semantic_profile_registry(
+    let registry = validate_semantic_profile_registry(
         &canonical_registry_transport(&registry_vectors["registry"])
             .expect("canonical revision-2 registry transport"),
-        InactiveRegistryRevision::Revision2,
+        RegistryRevision::Revision2,
     )
     .expect("frozen revision-2 registry validates");
     let context_value = json!({

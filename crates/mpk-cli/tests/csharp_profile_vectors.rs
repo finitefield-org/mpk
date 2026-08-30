@@ -6,9 +6,8 @@ use mpk_cli::successor_release_bundle::{
     validate_successor_bundle_candidate, validate_successor_release_registry,
 };
 use mpk_vc::semantic_profile_registry::{
-    canonical_registry_transport, validate_inactive_semantic_profile_registry,
-    validate_registry_selection_envelope, validate_registry_semantic_context,
-    InactiveRegistryRevision,
+    canonical_registry_transport, validate_registry_selection_envelope,
+    validate_registry_semantic_context, validate_semantic_profile_registry, RegistryRevision,
 };
 use mpk_vc::{validate_release_registry, ReleaseRegistryIdentity};
 use serde_json::{json, Map, Value};
@@ -21,8 +20,7 @@ const PROFILE_PATH: &str = "develop/specs/vectors/csharp-profile-v0.json";
 const PROFILE_SHA256: &str = "385e8bdde63bb3656d3643bdc27926087afe04d934774ba593ab0ae4ef8816d5";
 const SEMANTIC_V1_PATH: &str = "develop/specs/vectors/semantic-profile-registry-v1.json";
 const SEMANTIC_V2_PATH: &str = "develop/specs/vectors/semantic-profile-registry-v2.json";
-const STAGED_SEMANTIC_PATH: &str =
-    "develop/migrations/csharp-02-staging/semantic-profile-registry.json";
+const STAGED_SEMANTIC_PATH: &str = "release/bundles/semantic-profile-registry.json";
 const FUZZ_MANIFEST_PATH: &str = "csharp-tools/csharp2vir/fuzz/seed-manifest.json";
 
 const TOP_LEVEL_FIELDS: [&str; 31] = [
@@ -194,10 +192,10 @@ fn every_frozen_top_level_field_has_an_aggregate_executor() {
     }
 
     let registry_vectors = load(SEMANTIC_V2_PATH);
-    let registry = validate_inactive_semantic_profile_registry(
+    let registry = validate_semantic_profile_registry(
         &canonical_registry_transport(&registry_vectors["registry"])
             .expect("canonical revision-2 registry"),
-        InactiveRegistryRevision::Revision2,
+        RegistryRevision::Revision2,
     )
     .expect("revision-2 registry validates");
     let semantic_context = json!({
@@ -363,9 +361,9 @@ fn checked_in_regressions_are_closed_and_protocol_mutations_fail_safely() {
         }
     }
 
-    let registry = validate_inactive_semantic_profile_registry(
+    let registry = validate_semantic_profile_registry(
         &read(STAGED_SEMANTIC_PATH),
-        InactiveRegistryRevision::Revision2,
+        RegistryRevision::Revision2,
     )
     .expect("staged semantic registry");
     let valid = read("csharp-tools/csharp2vir/fuzz/seeds/protocol/rejected.json");
@@ -443,26 +441,23 @@ fn deterministic_mutations(seed: &[u8]) -> Vec<Vec<u8>> {
 }
 
 fn semantic_registry() -> mpk_vc::semantic_profile_registry::ValidatedSemanticProfileRegistry {
-    validate_inactive_semantic_profile_registry(
-        &read(STAGED_SEMANTIC_PATH),
-        InactiveRegistryRevision::Revision2,
-    )
-    .expect("staged revision-2 semantic registry")
+    validate_semantic_profile_registry(&read(STAGED_SEMANTIC_PATH), RegistryRevision::Revision2)
+        .expect("staged revision-2 semantic registry")
 }
 
 #[test]
 fn all_three_profiles_reject_predecessor_and_crossed_release_bytes() {
     let semantic = semantic_registry();
     let candidates = [
-        "develop/migrations/csharp-02-staging/go-bundle-candidate.json",
-        "develop/migrations/csharp-02-staging/rust-bundle-candidate.json",
-        "develop/migrations/csharp-02-staging/csharp-bundle-candidate.json",
+        "release/bundles/candidates/go.json",
+        "release/bundles/candidates/rust.json",
+        "release/bundles/candidates/csharp.json",
     ]
     .map(load);
     let registries = [
-        "develop/migrations/csharp-02-staging/go-bundle-registry.json",
-        "develop/migrations/csharp-02-staging/rust-bundle-registry.json",
-        "develop/migrations/csharp-02-staging/bundle-registry.json",
+        "release/bundles/bundle-registry.json",
+        "release/bundles/bundle-registry.json",
+        "release/bundles/bundle-registry.json",
     ];
     for (index, candidate) in candidates.iter().enumerate() {
         let validated = validate_successor_bundle_candidate(&canonical_line(candidate), &semantic)
@@ -497,16 +492,12 @@ fn all_three_profiles_reject_predecessor_and_crossed_release_bytes() {
     let v1_vectors = load(SEMANTIC_V1_PATH);
     let v1_bytes = canonical_registry_transport(&v1_vectors["fixtures"]["base_registry"])
         .expect("canonical revision-1 registry");
-    validate_inactive_semantic_profile_registry(&v1_bytes, InactiveRegistryRevision::Revision1)
+    validate_semantic_profile_registry(&v1_bytes, RegistryRevision::Revision1)
         .expect("revision-1 registry");
-    assert!(validate_inactive_semantic_profile_registry(
-        &v1_bytes,
-        InactiveRegistryRevision::Revision2
-    )
-    .is_err());
-    assert!(validate_inactive_semantic_profile_registry(
+    assert!(validate_semantic_profile_registry(&v1_bytes, RegistryRevision::Revision2).is_err());
+    assert!(validate_semantic_profile_registry(
         &read(STAGED_SEMANTIC_PATH),
-        InactiveRegistryRevision::Revision1
+        RegistryRevision::Revision1
     )
     .is_err());
 }
@@ -546,7 +537,7 @@ fn every_upgrade_class_requires_a_new_identity() {
     }
 
     let semantic = semantic_registry();
-    let candidate = load("develop/migrations/csharp-02-staging/csharp-bundle-candidate.json");
+    let candidate = load("release/bundles/candidates/csharp.json");
     for id in ids {
         let mut changed = candidate.clone();
         apply_upgrade_mutation(id, &mut changed);

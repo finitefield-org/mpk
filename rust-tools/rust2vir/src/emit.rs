@@ -2,14 +2,13 @@ use crate::cli::{LowerRequest, NonSuccessStatus};
 use crate::driver_protocol::{DriverOutput, DriverRequest, DriverStatus};
 use crate::json::{self, JsonValue};
 use crate::limits::RustLimitId;
-use crate::session;
 use crate::sha256::{hex, Sha256};
 use std::collections::BTreeMap;
 
-const VIR_DOMAIN: &[u8] = b"MPK-VIR-0.1";
+const VIR_DOMAIN: &[u8] = b"MPK-VIR-1.0";
 const INPUT_SET_DOMAIN: &[u8] = b"MPK-INPUT-SET-0.1";
-const SOURCE_MAP_DOMAIN: &[u8] = b"MPK-SOURCE-MAP-0.1";
-const SOURCE_MANIFEST_DOMAIN: &[u8] = b"MPK-SOURCE-MANIFEST-0.1";
+const SOURCE_MAP_DOMAIN: &[u8] = b"MPK-SOURCE-MAP-1.0";
+const SOURCE_MANIFEST_DOMAIN: &[u8] = b"MPK-SOURCE-MANIFEST-1.0";
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum EmissionError {
@@ -53,7 +52,7 @@ pub fn success_envelope(
     .map_err(|_| EmissionError::IrLimit)?;
     let mut source_map = source_map_source.clone();
     let source_map_root = object_mut(&mut source_map)?;
-    source_map_root.insert("schema".to_owned(), string_value("mpk.source_map.v0"));
+    source_map_root.insert("schema".to_owned(), string_value("mpk.source_map.v1"));
     let source_map_hash = domain_hash(
         SOURCE_MAP_DOMAIN,
         &json::canonical_bounded(&source_map, RustLimitId::SourceMapJcs.maximum() as usize)
@@ -77,17 +76,12 @@ pub fn success_envelope(
     }
     let inputs = inputs_source.clone();
     let units = public_units(vir_root, request)?;
-    let language_configuration = rust_language_configuration(request, core_prelude)?;
+    let _ = core_prelude;
     let mut manifest = JsonValue::Object(BTreeMap::from([
-        ("schema".to_owned(), string_value("mpk.source_manifest.v0")),
-        ("source_language".to_owned(), string_value("rust")),
+        ("schema".to_owned(), string_value("mpk.source_manifest.v1")),
         (
-            "semantic_profile".to_owned(),
-            required(request_root, "semantic_profile")?.clone(),
-        ),
-        (
-            "semantic_parameters".to_owned(),
-            required(request_root, "semantic_parameters")?.clone(),
+            "semantic_context".to_owned(),
+            required(request_root, "semantic_context")?.clone(),
         ),
         (
             "selection".to_owned(),
@@ -118,7 +112,6 @@ pub fn success_envelope(
                     "pointer_width".to_owned(),
                     number_value(i64::from(request.target.pointer_width())),
                 ),
-                ("language_configuration".to_owned(), language_configuration),
             ])),
         ),
         ("inputs".to_owned(), inputs),
@@ -141,27 +134,22 @@ pub fn success_envelope(
         (
             "ir".to_owned(),
             JsonValue::Object(BTreeMap::from([
-                ("schema".to_owned(), string_value("mpk.vir.v0")),
+                ("schema".to_owned(), string_value("mpk.vir.v1")),
                 ("sha256".to_owned(), string_value(&vir_hash)),
                 ("value".to_owned(), vir),
             ])),
         ),
         ("phase".to_owned(), string_value("emission")),
         ("rejected_features".to_owned(), JsonValue::Array(Vec::new())),
-        ("schema".to_owned(), string_value("mpk.frontend.cli.v0")),
+        ("schema".to_owned(), string_value("mpk.frontend.cli.v1")),
         (
             "selection".to_owned(),
             required(request_root, "selection")?.clone(),
         ),
         (
-            "semantic_parameters".to_owned(),
-            required(request_root, "semantic_parameters")?.clone(),
+            "semantic_context".to_owned(),
+            required(request_root, "semantic_context")?.clone(),
         ),
-        (
-            "semantic_profile".to_owned(),
-            required(request_root, "semantic_profile")?.clone(),
-        ),
-        ("source_language".to_owned(), string_value("rust")),
         ("source_manifest".to_owned(), manifest),
         ("source_map".to_owned(), source_map),
         ("status".to_owned(), string_value("ir-lowered")),
@@ -252,92 +240,26 @@ fn public_non_success(
         ("diagnostics".to_owned(), diagnostics),
         ("phase".to_owned(), string_value(phase)),
         ("rejected_features".to_owned(), rejected_features),
-        ("schema".to_owned(), string_value("mpk.frontend.cli.v0")),
+        ("schema".to_owned(), string_value("mpk.frontend.cli.v1")),
         ("selection".to_owned(), selection(request)),
         (
-            "semantic_parameters".to_owned(),
-            semantic_parameters(request),
+            "semantic_context".to_owned(),
+            semantic_context(request),
         ),
-        (
-            "semantic_profile".to_owned(),
-            string_value("mpk.rust.checked.v0"),
-        ),
-        ("source_language".to_owned(), string_value("rust")),
         ("status".to_owned(), string_value(status)),
     ])))
 }
 
 fn selection(request: &LowerRequest) -> JsonValue {
-    JsonValue::Object(BTreeMap::from([
-        (
-            "crate".to_owned(),
-            string_value(&request.selection.crate_name),
-        ),
-        (
-            "function".to_owned(),
-            string_value(&request.selection.function),
-        ),
-        ("kind".to_owned(), string_value("lib")),
-        (
-            "package".to_owned(),
-            string_value(&request.selection.package),
-        ),
-    ]))
+    crate::successor::selection_envelope(
+        &request.selection.package,
+        &request.selection.crate_name,
+        &request.selection.function,
+    )
 }
 
-fn semantic_parameters(request: &LowerRequest) -> JsonValue {
-    JsonValue::Object(BTreeMap::from([
-        ("overflow_mode".to_owned(), string_value("checked")),
-        ("panic_mode".to_owned(), string_value("abort")),
-        (
-            "pointer_width".to_owned(),
-            number_value(i64::from(request.target.pointer_width())),
-        ),
-        ("target_id".to_owned(), string_value(request.target.id())),
-    ]))
-}
-
-fn rust_language_configuration(
-    request: &LowerRequest,
-    core_prelude: bool,
-) -> Result<JsonValue, EmissionError> {
-    let cfg = session::target_cfg(request.target.id()).ok_or(EmissionError::Integrity)?;
-    Ok(JsonValue::Object(BTreeMap::from([
-        ("kind".to_owned(), string_value("rust")),
-        ("edition".to_owned(), string_value("2021")),
-        ("crate_type".to_owned(), string_value("lib")),
-        ("enabled_features".to_owned(), JsonValue::Array(Vec::new())),
-        (
-            "prelude".to_owned(),
-            string_value(if core_prelude { "core" } else { "std" }),
-        ),
-        ("locked".to_owned(), JsonValue::Bool(true)),
-        ("offline".to_owned(), JsonValue::Bool(true)),
-        ("default_features".to_owned(), JsonValue::Bool(false)),
-        ("overflow_checks".to_owned(), JsonValue::Bool(true)),
-        ("panic".to_owned(), string_value("abort")),
-        ("debug_assertions".to_owned(), JsonValue::Bool(false)),
-        ("rustc_opt_level".to_owned(), number_value(0)),
-        ("mir_opt_level".to_owned(), number_value(0)),
-        ("jobs".to_owned(), number_value(1)),
-        ("message_format".to_owned(), string_value("json")),
-        (
-            "target_allowlist_id".to_owned(),
-            string_value("mpk.rust.targets.v0"),
-        ),
-        (
-            "environment_profile_id".to_owned(),
-            string_value("mpk.rust.frontend_environment.v0"),
-        ),
-        (
-            "argument_profile_id".to_owned(),
-            string_value("mpk.rust.frontend_arguments.v0"),
-        ),
-        (
-            "cfg".to_owned(),
-            JsonValue::Array(cfg.iter().map(|value| string_value(value)).collect()),
-        ),
-    ])))
+fn semantic_context(request: &LowerRequest) -> JsonValue {
+    crate::successor::semantic_context(request.target.id(), request.target.pointer_width())
 }
 
 fn public_units(

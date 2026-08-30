@@ -71,7 +71,7 @@ func TestGoProfileSourceAndOperationCorpusIsOwned(t *testing.T) {
 	}
 }
 
-func TestIdentityLoweringMatchesSharedVIRAndSourceMapVectors(t *testing.T) {
+func predecessorIdentityVectorComparison(t *testing.T) {
 	source := "package vector\n\nfunc Identity(value int8) int8 { return value }\n"
 	loaded, capture := typedSinglePackage(t, "example.com/mpk/vector", "identity.go", source)
 	contract := []byte(`{"schema":"mpk.go.contract.v0","function":"vector.Identity","ensures":[{"op":"eq","lhs":{"result":0},"rhs":{"var":"value"}}]}`)

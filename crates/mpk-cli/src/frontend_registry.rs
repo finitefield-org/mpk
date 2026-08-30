@@ -116,29 +116,31 @@ pub(crate) struct InstalledReleaseResolver {
     root: linux::InstalledReleaseRoot,
 }
 
-/// Descriptor-relative handle used only by the inactive successor harness.
+/// Descriptor-relative handle for the sole installed successor image.
 ///
-/// It deliberately retains the executing installed image's root descriptor;
-/// callers cannot inject a path, environment value, or alternate executable.
-pub(crate) struct StagedInstalledRelease {
+/// It retains the executing image's root descriptor, captures both registry
+/// transports exactly once, and offers no path, environment, or executable
+/// override.
+pub(crate) struct InstalledSuccessorRelease {
     pub(crate) registry_bytes: Vec<u8>,
     pub(crate) semantic_registry_bytes: Vec<u8>,
     #[cfg(target_os = "linux")]
     root: linux::InstalledReleaseRoot,
 }
 
-impl StagedInstalledRelease {
+impl InstalledSuccessorRelease {
     pub(crate) fn open() -> Result<Self, FrontendReleaseError> {
         #[cfg(not(target_os = "linux"))]
         {
             Err(FrontendReleaseError::new(
                 FrontendReleaseCode::SandboxUnavailable,
-                "the staged installed release root is Linux-only",
+                "the successor installed release root is Linux-only",
             ))
         }
         #[cfg(target_os = "linux")]
         {
-            let (root, registry_bytes, semantic_registry_bytes) = linux::load_staged_descriptors()?;
+            let (root, registry_bytes, semantic_registry_bytes) =
+                linux::load_successor_descriptors()?;
             Ok(Self {
                 registry_bytes,
                 semantic_registry_bytes,

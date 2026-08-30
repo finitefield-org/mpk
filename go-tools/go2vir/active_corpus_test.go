@@ -56,9 +56,12 @@ type activeNegativeIndexEntry struct {
 	ID           string `json:"id"`
 	SourceRoot   string `json:"source_root"`
 	SourcePath   string `json:"source_path"`
+	Code         string `json:"code"`
+	Message      string `json:"message"`
+	Outcome      string `json:"outcome"`
+	Phase        string `json:"phase"`
 	ExpectedCode string `json:"expected_code"`
 	ActualCode   string `json:"actual_code"`
-	Outcome      string `json:"outcome"`
 }
 
 type activeArtifactIndex struct {
@@ -88,7 +91,9 @@ type activeFrontendArtifacts struct {
 	Function int
 }
 
-func TestRegenerateGoVIRFrontendCorpus(t *testing.T) {
+// predecessorCorpusGenerator is retained only as migration comparison code;
+// TestActiveGoCorpus owns the installed v1 fixture family.
+func predecessorCorpusGenerator(t *testing.T) {
 	referenceManifest := frontendManifestReference(t)
 	cases := frontendCorpusCases()
 	first := make(map[string]activeFrontendArtifacts, len(cases))

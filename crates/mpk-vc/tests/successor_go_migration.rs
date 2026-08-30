@@ -1,6 +1,5 @@
 use mpk_vc::semantic_profile_registry::{
-    validate_inactive_semantic_profile_registry, InactiveRegistryRevision,
-    ValidatedSemanticProfileRegistry,
+    validate_semantic_profile_registry, RegistryRevision, ValidatedSemanticProfileRegistry,
 };
 use mpk_vc::successor_source_artifacts::{
     import_successor_source_manifest_json, import_successor_source_map_json,
@@ -19,7 +18,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
-const STAGING_ROOT: &str = "develop/migrations/csharp-02-staging/go";
+const STAGING_ROOT: &str = "fixtures/vir-go";
 const ACTIVE_ROOT: &str = "fixtures/vir-go";
 
 struct OwnedCapturedInput {
@@ -47,9 +46,9 @@ fn json(relative: impl AsRef<Path>) -> Value {
 }
 
 fn semantic_registry() -> ValidatedSemanticProfileRegistry {
-    validate_inactive_semantic_profile_registry(
-        &read("develop/migrations/csharp-02-staging/semantic-profile-registry.json"),
-        InactiveRegistryRevision::Revision2,
+    validate_semantic_profile_registry(
+        &read("release/bundles/semantic-profile-registry.json"),
+        RegistryRevision::Revision2,
     )
     .expect("frozen revision-2 semantic registry")
 }

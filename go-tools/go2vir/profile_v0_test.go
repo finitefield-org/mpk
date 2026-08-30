@@ -29,8 +29,8 @@ func TestGoProfileV0StableDiagnosticTruncation(t *testing.T) {
 	}
 }
 
-func TestGoProfileV0IdentityIsClosed(t *testing.T) {
-	if goSemanticProfile != "mpk.go.fixed.v0" || goTarget != "linux/amd64" || goPointerWidth != 64 || virSchema != "mpk.vir.v0" || sourceMapSchema != "mpk.source_map.v0" {
+func TestGoProfileIdentityIsClosed(t *testing.T) {
+	if goSemanticProfile != "mpk.go.fixed.v0" || goTarget != "linux/amd64" || goPointerWidth != 64 || virSchema != "mpk.vir.v1" || sourceMapSchema != "mpk.source_map.v1" || frontendCLISchema != "mpk.frontend.cli.v1" {
 		t.Fatal("Go/VIR profile identity drifted")
 	}
 }

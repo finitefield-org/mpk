@@ -1,4 +1,4 @@
-//! Inactive successor verification-condition and skeleton integration.
+//! Active verification-condition and skeleton integration.
 //!
 //! This module is reachable only through explicit staging calls carrying an
 //! already validated successor semantic registry, VIR, and frontend manifest.
@@ -21,7 +21,7 @@ use crate::canonical_json::{
 use crate::hash::{hash_domain_separated_raw, HashDomain};
 use crate::program_encode::ProgramExprContext;
 use crate::program_wp::{
-    generate_program_vcs_from_staged_projection, ProgramVcMemberKind, StagedProgramVcModule,
+    generate_program_vcs_from_profiled_projection, ProfiledProgramVcModule, ProgramVcMemberKind,
 };
 use crate::safety_check::{
     required_safety_checks, CompiledRequiredCheckProfile, SafetyEvidenceRoute, VirSafetyOperation,
@@ -834,7 +834,7 @@ fn prepare_source(source: SuccessorVcSource<'_>) -> Result<PreparedSource, Succe
     let projection = project_successor_vir(source.vir, profile)?;
     validate_projection(&projection, profile)?;
     let check_profile = compiled_check_profile(profile_contract.value(), profile)?;
-    let generated = generate_program_vcs_from_staged_projection(&projection, check_profile)
+    let generated = generate_program_vcs_from_profiled_projection(&projection, check_profile)
         .map_err(|error| {
             failure(
                 SuccessorVcValidationPhase::RequiredChecks,
@@ -1100,7 +1100,7 @@ fn compiled_check_profile(
 fn build_source_projection(
     source: SuccessorVcSource<'_>,
     projection: &VirModule,
-    generated: &StagedProgramVcModule,
+    generated: &ProfiledProgramVcModule,
 ) -> Result<
     (
         VcSourceContext,

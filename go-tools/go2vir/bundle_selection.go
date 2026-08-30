@@ -146,7 +146,7 @@ func fixedGoConfiguration() goFixedConfiguration {
 }
 
 func validateLauncherSelection(request lowerRequest, candidate launcherSelection) (validatedLauncherSelection, error) {
-	if candidate.Registry.Schema != "mpk.release.bundle_registry.v0" || candidate.Registry.ID != request.ReleaseRegistryID || candidate.Registry.RegistrySHA256 != request.ReleaseRegistrySHA256 {
+	if candidate.Registry.Schema != "mpk.release.bundle_registry.v1" || candidate.Registry.ID != request.ReleaseRegistryID || candidate.Registry.RegistrySHA256 != request.ReleaseRegistrySHA256 {
 		return validatedLauncherSelection{}, fail("frontend-error", "capture", "GO_FRONTEND_TOOLCHAIN", "release registry selection does not match the launcher request")
 	}
 	if candidate.Frontend.BundleID != request.FrontendBundleID || candidate.Frontend.BinarySHA256 != request.FrontendSHA256 || candidate.Frontend.Name != "go2vir" || len(candidate.Frontend.SubordinateBinaries) != 0 {

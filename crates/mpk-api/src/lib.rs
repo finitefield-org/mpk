@@ -17,15 +17,12 @@ pub mod strategies;
 pub mod term_api;
 pub mod theory_strategy;
 
-#[doc(hidden)]
 pub mod successor_api;
-pub mod v1_router;
-#[cfg(test)]
-mod v1_tests;
+mod v1_router;
 #[cfg(test)]
 mod v2_tests;
-pub mod vc_api;
-pub mod vir_api;
+mod vc_api;
+mod vir_api;
 
 pub use batch::{
     BatchCandidate, BatchCheckMode, BatchCheckRequest, BatchCheckResponse, BatchCheckSummary,

@@ -1,10 +1,9 @@
-//! Inactive successor AI-explanation staging.
+//! Active successor AI-explanation integration.
 //!
-//! This module accepts only an explicitly injected, validated successor policy
+//! This module accepts only a validated successor policy
 //! evidence document and its profile-owned `ai` contract. It prepares a
 //! deterministic, redacted provider request and assembles an untrusted local
-//! report. It has no CLI route, credential lookup, provider client, network
-//! access, or proof-acceptance role.
+//! report. It has no proof-acceptance role.
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::error::Error;
@@ -587,7 +586,7 @@ struct AiPropertyExplanationV2 {
 
 /// Prepares the deterministic, redacted successor provider request. The
 /// returned bytes are inert staging output and are not sent anywhere.
-pub fn prepare_staged_successor_ai_explanation(
+pub fn prepare_successor_ai_explanation(
     source: SuccessorAiSource<'_>,
     language: ExplainLanguageV1,
 ) -> Result<PreparedSuccessorAiRequestV2, SuccessorAiError> {
@@ -785,12 +784,12 @@ pub fn prepare_staged_successor_ai_explanation(
 /// validated evidence and profile-contract boundary. Predecessor, crossed,
 /// widened, noncanonical, or otherwise mutated request bytes cannot be
 /// imported as a successor request.
-pub fn import_staged_successor_ai_request_json(
+pub fn import_successor_ai_request_json(
     input: &[u8],
     source: SuccessorAiSource<'_>,
     language: ExplainLanguageV1,
 ) -> Result<PreparedSuccessorAiRequestV2, SuccessorAiError> {
-    let prepared = prepare_staged_successor_ai_explanation(source, language)?;
+    let prepared = prepare_successor_ai_explanation(source, language)?;
     prepared.import_request_json(input)?;
     Ok(prepared)
 }
@@ -799,7 +798,7 @@ pub fn import_staged_successor_ai_request_json(
 /// All evidence identifiers, statuses, profile bindings, and trust labels are
 /// restored from the prepared local request rather than accepted from the
 /// provider response.
-pub fn build_staged_successor_ai_explanation(
+pub fn build_successor_ai_explanation(
     prepared: &PreparedSuccessorAiRequestV2,
     request: &SuccessorAiReportRequest,
     provenance: &SuccessorAiProviderProvenance,
@@ -927,7 +926,7 @@ pub fn build_staged_successor_ai_explanation(
 /// field from the prepared local request and the separately supplied provider
 /// prose/provenance. The provider response is never treated as an authority
 /// for evidence, status, semantic context, profile contracts, or trust labels.
-pub fn import_staged_successor_ai_explanation_json(
+pub fn import_successor_ai_explanation_json(
     input: &[u8],
     prepared: &PreparedSuccessorAiRequestV2,
     request: &SuccessorAiReportRequest,
@@ -935,7 +934,7 @@ pub fn import_staged_successor_ai_explanation_json(
     provider_text: &[u8],
 ) -> Result<ValidatedSuccessorAiExplanationV2, SuccessorAiError> {
     let mut explanation =
-        build_staged_successor_ai_explanation(prepared, request, provenance, provider_text)?;
+        build_successor_ai_explanation(prepared, request, provenance, provider_text)?;
     explanation.import_json(input)?;
     explanation.canonical_bytes = input.to_vec();
     Ok(explanation)

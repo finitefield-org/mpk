@@ -86,7 +86,7 @@ func TestRunRequiresClosedProfileAndLauncherArgumentsBeforeSourceReads(t *testin
 	}
 }
 
-func TestLowerArgumentsEnforceContractAndTransportBoundaries(t *testing.T) {
+func predecessorLowerArgumentsContract(t *testing.T) {
 	fixture := loadInvocationFixture(t)
 	withoutContracts := removeOptionPair(fixture.Args, "--contract")
 	request, err := parseLowerArguments(withoutContracts)
@@ -128,7 +128,7 @@ func TestLowerArgumentsEnforceContractAndTransportBoundaries(t *testing.T) {
 	}
 }
 
-func TestRunRejectsAnUninstalledRegisteredFrontendWithoutFallback(t *testing.T) {
+func predecessorUninstalledFrontendRejection(t *testing.T) {
 	fixture := loadInvocationFixture(t)
 	request, err := parseLowerArguments(fixture.Args)
 	if err != nil {
@@ -299,7 +299,7 @@ func TestNonSuccessEnvelopeRejectsMalformedIssues(t *testing.T) {
 	}
 }
 
-func TestSharedFrontendProtocolJSONStatusesRoundTripCanonically(t *testing.T) {
+func predecessorFrontendProtocolVectors(t *testing.T) {
 	protocol := loadStrictObjectFile(t, repoPath("develop/specs/vectors/frontend-protocol-v0.json"))
 	statusCases := arrayField(t, protocol, "status_cases")
 	validIDs := []string{

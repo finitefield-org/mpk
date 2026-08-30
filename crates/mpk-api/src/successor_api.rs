@@ -1,7 +1,6 @@
-//! Inactive successor AI API staging boundary.
+//! Active successor AI API boundary.
 //!
-//! This module is reachable only through explicit staging calls. It does not
-//! replace the released `mpk.ai.api.v1` router. Every session is bound to one
+//! This module is the sole released `mpk.ai.api.v2` router. Every session is bound to one
 //! validated successor semantic context and selection, and every source/VC
 //! operation repeats that identity before state can change. All responses are
 //! untrusted helper data; canonical Certificate v0 checking remains outside
@@ -252,7 +251,7 @@ const fn route(method: &'static str, path: &'static str, handler: V1Handler) -> 
     }
 }
 
-pub fn resolve_staged_route(
+pub fn resolve_route(
     api_profile: &str,
     method: &str,
     path: &str,

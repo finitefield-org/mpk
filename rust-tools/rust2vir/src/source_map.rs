@@ -114,7 +114,11 @@ pub struct SourceMapEntry {
     pub origin: SourceOrigin,
 }
 
-pub fn raw_source_map(source_ir_hash: &str, mut entries: Vec<SourceMapEntry>) -> JsonValue {
+pub fn raw_source_map(
+    source_ir_hash: &str,
+    mut entries: Vec<SourceMapEntry>,
+    semantic_context: JsonValue,
+) -> JsonValue {
     entries.sort_by(|left, right| left.reference.cmp(&right.reference));
     let entries = entries
         .into_iter()
@@ -146,9 +150,13 @@ pub fn raw_source_map(source_ir_hash: &str, mut entries: Vec<SourceMapEntry>) ->
     JsonValue::Object(BTreeMap::from([
         (
             "schema".to_owned(),
-            string("mpk.rust.driver.raw_source_map.v0"),
+            string("mpk.rust.driver.raw_source_map.v1"),
         ),
-        ("source_ir_schema".to_owned(), string("mpk.vir.v0")),
+        (
+            "semantic_context".to_owned(),
+            semantic_context,
+        ),
+        ("source_ir_schema".to_owned(), string("mpk.vir.v1")),
         ("source_ir_hash".to_owned(), string(source_ir_hash)),
         ("entries".to_owned(), JsonValue::Array(entries)),
     ]))

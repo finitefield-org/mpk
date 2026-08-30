@@ -93,28 +93,53 @@ pub fn non_success_envelope_at_phase(
     code: &str,
     message: &str,
 ) -> String {
-    format!(
-        concat!(
-            "{{\"diagnostics\":[{{\"code\":\"{}\",\"message\":\"{}\"}}],",
-            "\"phase\":\"{}\",\"rejected_features\":[],",
-            "\"schema\":\"mpk.frontend.cli.v0\",",
-            "\"selection\":{{\"crate\":\"{}\",\"function\":\"{}\",",
-            "\"kind\":\"lib\",\"package\":\"{}\"}},",
-            "\"semantic_parameters\":{{\"overflow_mode\":\"checked\",",
-            "\"panic_mode\":\"abort\",\"pointer_width\":{},\"target_id\":\"{}\"}},",
-            "\"semantic_profile\":\"mpk.rust.checked.v0\",",
-            "\"source_language\":\"rust\",\"status\":\"{}\"}}"
+    let envelope = crate::json::JsonValue::Object(BTreeMap::from([
+        (
+            "diagnostics".to_owned(),
+            crate::json::JsonValue::Array(vec![crate::json::JsonValue::Object(
+                BTreeMap::from([
+                    ("code".to_owned(), crate::json::JsonValue::String(code.to_owned())),
+                    (
+                        "message".to_owned(),
+                        crate::json::JsonValue::String(message.to_owned()),
+                    ),
+                ]),
+            )]),
         ),
-        code,
-        message,
-        phase,
-        request.selection.crate_name,
-        request.selection.function,
-        request.selection.package,
-        request.target.pointer_width(),
-        request.target.id(),
-        status.as_str()
-    )
+        (
+            "phase".to_owned(),
+            crate::json::JsonValue::String(phase.to_owned()),
+        ),
+        (
+            "rejected_features".to_owned(),
+            crate::json::JsonValue::Array(Vec::new()),
+        ),
+        (
+            "schema".to_owned(),
+            crate::json::JsonValue::String("mpk.frontend.cli.v1".to_owned()),
+        ),
+        (
+            "selection".to_owned(),
+            crate::successor::selection_envelope(
+                &request.selection.package,
+                &request.selection.crate_name,
+                &request.selection.function,
+            ),
+        ),
+        (
+            "semantic_context".to_owned(),
+            crate::successor::semantic_context(
+                request.target.id(),
+                request.target.pointer_width(),
+            ),
+        ),
+        (
+            "status".to_owned(),
+            crate::json::JsonValue::String(status.as_str().to_owned()),
+        ),
+    ]));
+    String::from_utf8(crate::json::canonical(&envelope).expect("constructed JSON"))
+        .expect("canonical JSON is UTF-8")
 }
 
 pub fn parse_lower_args<I>(arguments: I) -> Result<LowerRequest, CliError>
@@ -171,6 +196,17 @@ where
     let function = take(&mut singleton, "--function")?;
     let crate_name = validate_function(&function)?;
 
+    if take_identifier(&mut singleton, "--profile-registry-id")?
+        != crate::successor::PROFILE_REGISTRY_ID
+        || take(&mut singleton, "--profile-registry-revision")?
+            != crate::successor::PROFILE_REGISTRY_REVISION.to_string()
+        || take_sha256(&mut singleton, "--profile-registry-sha256")?
+            != crate::successor::PROFILE_REGISTRY_SHA256
+        || take_sha256(&mut singleton, "--profile-entry-sha256")?
+            != crate::successor::PROFILE_ENTRY_SHA256
+    {
+        return Err(CliError);
+    }
     let frontend_bundle_id = take_identifier(&mut singleton, "--frontend-bundle-id")?;
     let frontend_sha256 = take_sha256(&mut singleton, "--frontend-sha256")?;
     let release_registry_id = take_identifier(&mut singleton, "--release-registry-id")?;
@@ -218,6 +254,10 @@ fn is_known_option(value: &str) -> bool {
             | "--semantic-profile"
             | "--target"
             | "--function"
+            | "--profile-registry-id"
+            | "--profile-registry-revision"
+            | "--profile-registry-sha256"
+            | "--profile-entry-sha256"
             | "--frontend-bundle-id"
             | "--frontend-sha256"
             | "--release-registry-id"

@@ -32,7 +32,7 @@ use rustc_span::{FileName, Span};
 use std::collections::{BTreeMap, BTreeSet, VecDeque};
 use std::path::Path;
 
-const VIR_HASH_DOMAIN: &[u8] = b"MPK-VIR-0.1";
+const VIR_HASH_DOMAIN: &[u8] = b"MPK-VIR-1.0";
 const MIR_BLOCKS_FUNCTION_MAX: usize = RustLimitId::MirBlocksFunction.maximum() as usize;
 const MIR_BLOCKS_CLOSURE_MAX: usize = RustLimitId::MirBlocksClosure.maximum() as usize;
 const MIR_STATEMENTS_FUNCTION_MAX: usize = RustLimitId::MirStatementsFunction.maximum() as usize;
@@ -398,24 +398,6 @@ pub(super) fn finish_module(
     }
 
     let unit_id = request.selection().1;
-    let semantic_parameters = JsonValue::Object(BTreeMap::from([
-        (
-            "target_id".to_owned(),
-            JsonValue::String(request.target().to_owned()),
-        ),
-        (
-            "pointer_width".to_owned(),
-            JsonValue::Number(request.pointer_width().to_string()),
-        ),
-        (
-            "overflow_mode".to_owned(),
-            JsonValue::String("checked".to_owned()),
-        ),
-        (
-            "panic_mode".to_owned(),
-            JsonValue::String("abort".to_owned()),
-        ),
-    ]));
     let mut functions_json = Vec::with_capacity(lowered.len());
     let mut entries = Vec::new();
     for item in lowered {
@@ -426,10 +408,11 @@ pub(super) fn finish_module(
         .map_err(|_| MirError::new(MirCode::Rvalue, request.selection().2))?;
     let type_decls = struct_declarations(structs);
     let mut vir = JsonValue::Object(BTreeMap::from([
-        ("schema".to_owned(), string("mpk.vir.v0")),
-        ("source_language".to_owned(), string("rust")),
-        ("semantic_profile".to_owned(), string("mpk.rust.checked.v0")),
-        ("semantic_parameters".to_owned(), semantic_parameters),
+        ("schema".to_owned(), string("mpk.vir.v1")),
+        (
+            "semantic_context".to_owned(),
+            request.semantic_context().clone(),
+        ),
         (
             "units".to_owned(),
             JsonValue::Array(vec![JsonValue::Object(BTreeMap::from([
@@ -450,12 +433,12 @@ pub(super) fn finish_module(
     json::canonical_size(&vir, VIR_CANONICAL_BYTES_MAX)
         .map_err(|_| MirError::new(MirCode::IrLimit, request.selection().2))?;
 
-    let source_map = raw_source_map(&vir_hash, entries);
+    let source_map = raw_source_map(&vir_hash, entries, request.semantic_context().clone());
     json::canonical_size(&source_map, SOURCE_MAP_CANONICAL_BYTES_MAX)
         .map_err(|_| MirError::new(MirCode::IrLimit, request.selection().2))?;
     Ok(MirLowering {
         raw_lowering: JsonValue::Object(BTreeMap::from([
-            ("schema".to_owned(), string("mpk.rust.driver.lowering.v0")),
+            ("schema".to_owned(), string("mpk.rust.driver.lowering.v1")),
             ("mir_profile_id".to_owned(), string(MIR_PROFILE_ID)),
             ("vir".to_owned(), vir),
         ])),

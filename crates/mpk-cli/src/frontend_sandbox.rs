@@ -1378,7 +1378,7 @@ pub(crate) fn launch_release_frontend(
 }
 
 #[allow(clippy::too_many_arguments)]
-pub(crate) fn launch_staged_csharp_frontend(
+pub(crate) fn launch_csharp_frontend(
     prepared: PreparedSandbox,
     frontend: &BundleSnapshot,
     toolchain: &BundleSnapshot,

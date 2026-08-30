@@ -16,11 +16,11 @@ pub const REQUEST_TRANSPORT_MAX: usize =
 pub const OUTPUT_TRANSPORT_MAX: usize =
     crate::limits::RustLimitId::PrivateOutputTransport.maximum() as usize;
 
-const REQUEST_DOMAIN: &[u8] = b"MPK-RUST-DRIVER-REQUEST-0.1";
+const REQUEST_DOMAIN: &[u8] = b"MPK-RUST-DRIVER-REQUEST-1.0";
 const INVENTORY_DOMAIN: &[u8] = b"MPK-RUST-SOURCE-INVENTORY-0.1";
 const INPUT_SET_DOMAIN: &[u8] = b"MPK-INPUT-SET-0.1";
-const PAYLOAD_DOMAIN: &[u8] = b"MPK-RUST-DRIVER-PAYLOAD-0.1";
-const VIR_DOMAIN: &[u8] = b"MPK-VIR-0.1";
+const PAYLOAD_DOMAIN: &[u8] = b"MPK-RUST-DRIVER-PAYLOAD-1.0";
+const VIR_DOMAIN: &[u8] = b"MPK-VIR-1.0";
 const SAFE_INTEGER_MAX: i64 = 9_007_199_254_740_991;
 const DIAGNOSTIC_COUNT_MAX: usize =
     crate::limits::RustLimitId::NormalizedIssueEntries.maximum() as usize;
@@ -41,11 +41,9 @@ const REQUEST_FIELDS: &[&str] = &[
     "request_fingerprint",
     "schema",
     "selection",
-    "semantic_parameters",
-    "semantic_profile",
+    "semantic_context",
     "source_inventory",
     "source_inventory_hash",
-    "source_language",
     "target_allowlist_id",
     "toolchain",
 ];
@@ -64,10 +62,8 @@ const COMMON_OUTPUT_FIELDS: &[&str] = &[
     "request_fingerprint",
     "schema",
     "selection",
-    "semantic_parameters",
-    "semantic_profile",
+    "semantic_context",
     "source_inventory_hash",
-    "source_language",
     "status",
     "target_allowlist_id",
     "toolchain",
@@ -216,8 +212,15 @@ impl DriverRequest {
         &self.source_inventory_hash
     }
 
+    pub fn semantic_context(&self) -> &JsonValue {
+        object_member(self.root(), "semantic_context")
+            .expect("validated request semantic context")
+    }
+
     pub fn selection(&self) -> (&str, &str, &str) {
         let selection = object_member(self.root(), "selection")
+            .and_then(JsonValue::as_object)
+            .and_then(|selection| selection.get("value"))
             .and_then(JsonValue::as_object)
             .expect("validated request selection");
         (
@@ -228,16 +231,14 @@ impl DriverRequest {
     }
 
     pub fn target(&self) -> &str {
-        object_member(self.root(), "semantic_parameters")
-            .and_then(JsonValue::as_object)
+        semantic_parameter_value(self.root())
             .and_then(|parameters| parameters.get("target_id"))
             .and_then(JsonValue::as_str)
             .expect("validated target")
     }
 
     pub fn pointer_width(&self) -> u8 {
-        let width = object_member(self.root(), "semantic_parameters")
-            .and_then(JsonValue::as_object)
+        let width = semantic_parameter_value(self.root())
             .and_then(|parameters| parameters.get("pointer_width"))
             .and_then(JsonValue::integer)
             .expect("validated pointer width");
@@ -534,62 +535,30 @@ pub fn construct_request(
                 ),
                 (
                     "schema".to_owned(),
-                    JsonValue::String("mpk.release.bundle_registry.v0".to_owned()),
+                    JsonValue::String("mpk.release.bundle_registry.v1".to_owned()),
                 ),
             ])),
         ),
         (
             "schema".to_owned(),
-            JsonValue::String("mpk.rust.driver.request.v0".to_owned()),
+            JsonValue::String("mpk.rust.driver.request.v1".to_owned()),
         ),
         (
             "selection".to_owned(),
-            JsonValue::Object(BTreeMap::from([
-                (
-                    "crate".to_owned(),
-                    JsonValue::String(request.selection.crate_name.clone()),
-                ),
-                (
-                    "function".to_owned(),
-                    JsonValue::String(request.selection.function.clone()),
-                ),
-                ("kind".to_owned(), JsonValue::String("lib".to_owned())),
-                (
-                    "package".to_owned(),
-                    JsonValue::String(request.selection.package.clone()),
-                ),
-            ])),
+            crate::successor::selection_envelope(
+                &request.selection.package,
+                &request.selection.crate_name,
+                &request.selection.function,
+            ),
         ),
         (
-            "semantic_parameters".to_owned(),
-            JsonValue::Object(BTreeMap::from([
-                (
-                    "overflow_mode".to_owned(),
-                    JsonValue::String("checked".to_owned()),
-                ),
-                (
-                    "panic_mode".to_owned(),
-                    JsonValue::String("abort".to_owned()),
-                ),
-                (
-                    "pointer_width".to_owned(),
-                    JsonValue::Number(request.target.pointer_width().to_string()),
-                ),
-                (
-                    "target_id".to_owned(),
-                    JsonValue::String(request.target.id().to_owned()),
-                ),
-            ])),
-        ),
-        (
-            "semantic_profile".to_owned(),
-            JsonValue::String("mpk.rust.checked.v0".to_owned()),
+            "semantic_context".to_owned(),
+            crate::successor::semantic_context(
+                request.target.id(),
+                request.target.pointer_width(),
+            ),
         ),
         ("source_inventory".to_owned(), source_inventory),
-        (
-            "source_language".to_owned(),
-            JsonValue::String("rust".to_owned()),
-        ),
         (
             "target_allowlist_id".to_owned(),
             JsonValue::String("mpk.rust.targets.v0".to_owned()),
@@ -792,7 +761,7 @@ fn common_output_root(
     }
     root.insert(
         "schema".to_owned(),
-        JsonValue::String("mpk.rust.driver.v0".to_owned()),
+        JsonValue::String("mpk.rust.driver.v1".to_owned()),
     );
     Ok(root)
 }
@@ -868,7 +837,7 @@ fn parse_output_transport_inner(
         ]);
     }
     closed(root, &fields)?;
-    if string(root, "schema")? != "mpk.rust.driver.v0"
+    if string(root, "schema")? != "mpk.rust.driver.v1"
         || exit_code.is_some_and(|exit_code| exit_code != status.exit_code())
     {
         return Err(DriverProtocolCode::Shape.into());
@@ -929,9 +898,7 @@ fn parse_transport(
 fn validate_request_value(value: &JsonValue) -> Result<(), DriverProtocolError> {
     let root = value.as_object().ok_or(DriverProtocolCode::Shape)?;
     closed(root, REQUEST_FIELDS)?;
-    if string(root, "schema")? != "mpk.rust.driver.request.v0"
-        || string(root, "source_language")? != "rust"
-        || string(root, "semantic_profile")? != "mpk.rust.checked.v0"
+    if string(root, "schema")? != "mpk.rust.driver.request.v1"
         || string(root, "limit_profile")? != "mpk.rust.limits.v0"
         || string(root, "target_allowlist_id")? != "mpk.rust.targets.v0"
         || string(root, "environment_profile_id")? != "mpk.rust.frontend_environment.v0"
@@ -940,8 +907,8 @@ fn validate_request_value(value: &JsonValue) -> Result<(), DriverProtocolError> 
     {
         return Err(DriverProtocolCode::Shape.into());
     }
-    validate_semantic_parameters(object(root, "semantic_parameters")?)?;
-    validate_selection(object(root, "selection")?)?;
+    validate_semantic_context(object(root, "semantic_context")?)?;
+    validate_selection_envelope(object(root, "selection")?)?;
     validate_release_registry(object(root, "release_registry")?)?;
     validate_frontend(object(root, "frontend")?)?;
     validate_toolchain(object(root, "toolchain")?)?;
@@ -979,6 +946,46 @@ fn validate_request_value(value: &JsonValue) -> Result<(), DriverProtocolError> 
     Ok(())
 }
 
+fn semantic_parameter_value(
+    root: &BTreeMap<String, JsonValue>,
+) -> Option<&BTreeMap<String, JsonValue>> {
+    root.get("semantic_context")?
+        .as_object()?
+        .get("semantic_parameters")?
+        .as_object()?
+        .get("value")?
+        .as_object()
+}
+
+fn validate_semantic_context(
+    context: &BTreeMap<String, JsonValue>,
+) -> Result<(), DriverProtocolError> {
+    closed(
+        context,
+        &[
+            "profile_entry_sha256",
+            "profile_registry",
+            "semantic_parameters",
+            "semantic_profile",
+            "source_language",
+        ],
+    )?;
+    let parameters = object(context, "semantic_parameters")?;
+    closed(parameters, &["schema", "value"])?;
+    if string(parameters, "schema")? != crate::successor::PARAMETERS_SCHEMA {
+        return Err(DriverProtocolCode::Shape.into());
+    }
+    let value = object(parameters, "value")?;
+    validate_semantic_parameters(value)?;
+    let width = u8::try_from(integer(value, "pointer_width")?)
+        .map_err(|_| DriverProtocolCode::Shape)?;
+    let expected = crate::successor::semantic_context(string(value, "target_id")?, width);
+    if JsonValue::Object(context.clone()) != expected {
+        return Err(DriverProtocolCode::Identity.into());
+    }
+    Ok(())
+}
+
 fn validate_semantic_parameters(
     parameters: &BTreeMap<String, JsonValue>,
 ) -> Result<(), DriverProtocolError> {
@@ -997,6 +1004,16 @@ fn validate_semantic_parameters(
         return Err(DriverProtocolCode::Shape.into());
     }
     Ok(())
+}
+
+fn validate_selection_envelope(
+    selection: &BTreeMap<String, JsonValue>,
+) -> Result<(), DriverProtocolError> {
+    closed(selection, &["schema", "value"])?;
+    if string(selection, "schema")? != crate::successor::SELECTION_SCHEMA {
+        return Err(DriverProtocolCode::Shape.into());
+    }
+    validate_selection(object(selection, "value")?)
 }
 
 fn validate_selection(selection: &BTreeMap<String, JsonValue>) -> Result<(), DriverProtocolError> {
@@ -1020,8 +1037,8 @@ fn validate_release_registry(
     registry: &BTreeMap<String, JsonValue>,
 ) -> Result<(), DriverProtocolError> {
     closed(registry, &["id", "registry_sha256", "schema"])?;
-    if string(registry, "schema")? != "mpk.release.bundle_registry.v0"
-        || string(registry, "id")? != "mpk.release.registry.v0"
+    if string(registry, "schema")? != "mpk.release.bundle_registry.v1"
+        || string(registry, "id")? != "mpk.release.registry.v1"
         || !sha256(string(registry, "registry_sha256")?)
     {
         return Err(DriverProtocolCode::Shape.into());
@@ -1043,7 +1060,7 @@ fn validate_frontend(frontend: &BTreeMap<String, JsonValue>) -> Result<(), Drive
     let subordinate = array(frontend, "subordinate_binaries")?;
     if string(frontend, "name")? != "rust2vir"
         || string(frontend, "version")? != crate::PACKAGE_VERSION
-        || !release_id(string(frontend, "bundle_id")?)
+        || string(frontend, "bundle_id")? != crate::successor::FRONTEND_ID
         || !sha256(string(frontend, "binary_sha256")?)
         || subordinate.len() != 1
     {
@@ -1067,8 +1084,9 @@ fn validate_toolchain(toolchain: &BTreeMap<String, JsonValue>) -> Result<(), Dri
         toolchain,
         &["bundle_id", "components", "distribution_sha256"],
     )?;
-    if !release_id(string(toolchain, "bundle_id")?)
-        || !sha256(string(toolchain, "distribution_sha256")?)
+    if string(toolchain, "bundle_id")? != crate::successor::TOOLCHAIN_ID
+        || string(toolchain, "distribution_sha256")?
+            != crate::successor::TOOLCHAIN_DISTRIBUTION_SHA256
     {
         return Err(DriverProtocolCode::Shape.into());
     }
@@ -1152,7 +1170,8 @@ fn validate_compiler(root: &BTreeMap<String, JsonValue>) -> Result<(), DriverPro
     if string(compiler, "commit_hash")? != crate::EXPECTED_RUSTC_COMMIT {
         return Err(DriverProtocolCode::ToolchainCommit.into());
     }
-    let parameters = object(root, "semantic_parameters")?;
+    let parameters =
+        semantic_parameter_value(root).ok_or(DriverProtocolCode::Shape)?;
     if string(compiler, "target")? != string(parameters, "target_id")? {
         return Err(DriverProtocolCode::Identity.into());
     }
@@ -1433,7 +1452,7 @@ fn validate_success(
     }
     let lowering = object(root, "raw_lowering")?;
     closed(lowering, &["mir_profile_id", "schema", "vir"])?;
-    if string(lowering, "schema")? != "mpk.rust.driver.lowering.v0"
+    if string(lowering, "schema")? != "mpk.rust.driver.lowering.v1"
         || lowering.get("mir_profile_id") != root.get("mir_profile_id")
     {
         return Err(DriverProtocolCode::Shape.into());
@@ -1452,10 +1471,7 @@ fn validate_success(
     if vir_hash != domain_hash(VIR_DOMAIN, &vir_preimage) {
         return Err(DriverProtocolCode::Identity.into());
     }
-    if vir.get("source_language") != root.get("source_language")
-        || vir.get("semantic_profile") != root.get("semantic_profile")
-        || vir.get("semantic_parameters") != root.get("semantic_parameters")
-    {
+    if vir.get("semantic_context") != root.get("semantic_context") {
         return Err(DriverProtocolCode::Identity.into());
     }
     validate_raw_source_map(object(root, "raw_source_map")?, request, vir, vir_hash)?;
@@ -1483,11 +1499,19 @@ fn validate_raw_source_map(
 ) -> Result<(), DriverProtocolError> {
     closed(
         map,
-        &["entries", "schema", "source_ir_hash", "source_ir_schema"],
+        &[
+            "entries",
+            "schema",
+            "semantic_context",
+            "source_ir_hash",
+            "source_ir_schema",
+        ],
     )?;
-    if string(map, "schema")? != "mpk.rust.driver.raw_source_map.v0"
-        || string(map, "source_ir_schema")? != "mpk.vir.v0"
+    if string(map, "schema")? != "mpk.rust.driver.raw_source_map.v1"
+        || string(map, "source_ir_schema")? != "mpk.vir.v1"
         || string(map, "source_ir_hash")? != vir_hash
+        || map.get("semantic_context") != request.root().get("semantic_context")
+        || map.get("semantic_context") != vir.get("semantic_context")
     {
         return Err(DriverProtocolCode::Identity.into());
     }

@@ -9,7 +9,7 @@ use crate::limits::RustLimitId;
 use crate::sha256::{hex, Sha256};
 use std::collections::BTreeMap;
 
-const CONTRACT_HASH_DOMAIN: &[u8] = b"MPK-CONTRACT-0.1";
+const CONTRACT_HASH_DOMAIN: &[u8] = b"MPK-CONTRACT-1.0";
 
 pub fn attach_contracts(
     inputs: Vec<ContractInput>,
@@ -282,15 +282,6 @@ fn normalize_contract(
         .split("::")
         .next()
         .ok_or_else(|| error_for(ContractCode::Identity, &contract, &function.function_id))?;
-    let semantic_parameters = object([
-        ("overflow_mode", JsonValue::String("checked".to_owned())),
-        ("panic_mode", JsonValue::String("abort".to_owned())),
-        (
-            "pointer_width",
-            JsonValue::Number(pointer_width.to_string()),
-        ),
-        ("target_id", JsonValue::String(target_id.to_owned())),
-    ]);
     let mut root = BTreeMap::from([
         ("unit_id".to_owned(), JsonValue::String(unit_id.to_owned())),
         (
@@ -298,10 +289,9 @@ fn normalize_contract(
             JsonValue::String(function.function_id.clone()),
         ),
         (
-            "semantic_profile".to_owned(),
-            JsonValue::String(RUST_SEMANTIC_PROFILE.to_owned()),
+            "semantic_context".to_owned(),
+            crate::successor::semantic_context(target_id, pointer_width),
         ),
-        ("semantic_parameters".to_owned(), semantic_parameters),
         ("requires".to_owned(), JsonValue::Array(requires)),
         ("ensures".to_owned(), JsonValue::Array(ensures)),
         ("modifies".to_owned(), JsonValue::Array(Vec::new())),

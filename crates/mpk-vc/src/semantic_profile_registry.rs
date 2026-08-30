@@ -1,4 +1,4 @@
-//! Inactive successor semantic-profile registry validation.
+//! Installed semantic-profile registry validation.
 //!
 //! This module implements the frozen `mpk.semantic_profile.registry.v1`
 //! mechanism for private, explicitly injected staging consumers. It does not
@@ -81,12 +81,12 @@ const REGISTRY_TRANSPORT_LIMITS: StrictJsonLimits = StrictJsonLimits::new(
 );
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub enum InactiveRegistryRevision {
+pub enum RegistryRevision {
     Revision1,
     Revision2,
 }
 
-impl InactiveRegistryRevision {
+impl RegistryRevision {
     pub const fn revision(self) -> u64 {
         match self {
             Self::Revision1 => 1,
@@ -406,13 +406,13 @@ impl SemanticProfileEntry {
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct ValidatedSemanticProfileRegistry {
-    revision: InactiveRegistryRevision,
+    revision: RegistryRevision,
     identity: ProfileRegistryIdentity,
     entries: Vec<SemanticProfileEntry>,
 }
 
 impl ValidatedSemanticProfileRegistry {
-    pub const fn revision(&self) -> InactiveRegistryRevision {
+    pub const fn revision(&self) -> RegistryRevision {
         self.revision
     }
 
@@ -873,9 +873,9 @@ pub fn semantic_profile_registry_hash(
     )
 }
 
-pub fn validate_inactive_semantic_profile_registry(
+pub fn validate_semantic_profile_registry(
     transport: &[u8],
-    expected_revision: InactiveRegistryRevision,
+    expected_revision: RegistryRevision,
 ) -> Result<ValidatedSemanticProfileRegistry, SemanticRegistryValidationError> {
     let actual_transport_bytes = u64::try_from(transport.len()).unwrap_or(u64::MAX);
     validate_semantic_registry_limit(
@@ -925,8 +925,8 @@ pub fn validate_semantic_request(
     })
 }
 
-/// Validates one closed successor semantic context against an explicitly
-/// injected, already validated inactive registry.
+/// Validates one closed semantic context against an already validated
+/// installed registry.
 pub fn validate_registry_semantic_context(
     registry: &ValidatedSemanticProfileRegistry,
     context: &Value,
@@ -1144,8 +1144,8 @@ pub fn validate_revision_2_append_only(
     predecessor: &ValidatedSemanticProfileRegistry,
     successor: &ValidatedSemanticProfileRegistry,
 ) -> Result<(), SemanticRegistryValidationError> {
-    let valid_revisions = predecessor.revision == InactiveRegistryRevision::Revision1
-        && successor.revision == InactiveRegistryRevision::Revision2;
+    let valid_revisions = predecessor.revision == RegistryRevision::Revision1
+        && successor.revision == RegistryRevision::Revision2;
     let exact_count = predecessor.entries.len() == 2 && successor.entries.len() == 3;
     let csharp_first = successor.entries.first().is_some_and(|entry| {
         entry.compiled_profile == CompiledSemanticProfile::CSharpScalarV0
@@ -1179,7 +1179,7 @@ pub fn validate_revision_2_append_only(
 fn validate_registry_value(
     registry: &Value,
     transport: &[u8],
-    expected_revision: InactiveRegistryRevision,
+    expected_revision: RegistryRevision,
 ) -> Result<ValidatedSemanticProfileRegistry, SemanticRegistryValidationError> {
     if !has_exact_fields(registry, ROOT_FIELDS)
         || string(get(registry, "schema")) != Some(SEMANTIC_REGISTRY_SCHEMA)

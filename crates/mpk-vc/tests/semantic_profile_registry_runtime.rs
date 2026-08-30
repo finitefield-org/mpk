@@ -1,10 +1,10 @@
 use mpk_vc::semantic_profile_registry::{
     canonical_registry_transport, classify_semantic_registry_failure, semantic_profile_entry_hash,
     semantic_profile_registry_hash, validate_compiled_profile_envelope,
-    validate_inactive_semantic_profile_registry, validate_registry_selection_envelope,
-    validate_registry_semantic_context, validate_revision_2_append_only,
-    validate_semantic_context_linkage, validate_semantic_registry_limit, validate_semantic_request,
-    CompiledSemanticProfile, InactiveRegistryRevision, ProfileContractField,
+    validate_registry_selection_envelope, validate_registry_semantic_context,
+    validate_revision_2_append_only, validate_semantic_context_linkage,
+    validate_semantic_profile_registry, validate_semantic_registry_limit,
+    validate_semantic_request, CompiledSemanticProfile, ProfileContractField, RegistryRevision,
     SemanticRegistryFailureDisposition, SemanticRegistryFailureSurface, SemanticRegistryLimit,
     SemanticRegistryValidationError, ValidatedSemanticProfileRegistry,
     COMPILED_PROFILE_PAYLOAD_CANONICAL_BYTES_MAX, CSHARP_SCALAR_ENTRY_SHA256,
@@ -94,10 +94,7 @@ fn revision_one_transport_hash_and_registry_vectors_execute_runtime_validation()
         let id = text(field(case, "id"));
         let transport = construct_transport(registry, text(field(case, "construction")));
         assert_expected(
-            validate_inactive_semantic_profile_registry(
-                &transport,
-                InactiveRegistryRevision::Revision1,
-            ),
+            validate_semantic_profile_registry(&transport, RegistryRevision::Revision1),
             field(case, "expect"),
             id,
         );
@@ -148,10 +145,7 @@ fn revision_one_transport_hash_and_registry_vectors_execute_runtime_validation()
         }
         let transport = registry_transport(&registry, canonical_transport);
         assert_expected(
-            validate_inactive_semantic_profile_registry(
-                &transport,
-                InactiveRegistryRevision::Revision1,
-            ),
+            validate_semantic_profile_registry(&transport, RegistryRevision::Revision1),
             field(case, "expect"),
             id,
         );
@@ -164,7 +158,7 @@ fn context_profile_envelope_and_limit_vectors_execute_runtime_dispatch() {
     let fixtures = field(&vectors, "fixtures");
     let registry = validate_registry_fixture(
         field(fixtures, "base_registry"),
-        InactiveRegistryRevision::Revision1,
+        RegistryRevision::Revision1,
     );
 
     for case in array(field(&vectors, "context_cases")) {
@@ -316,12 +310,10 @@ fn revision_two_csharp_hash_append_only_and_payload_vectors_execute_runtime_code
 
     let predecessor = validate_registry_fixture(
         field(&v2_vectors, "predecessor"),
-        InactiveRegistryRevision::Revision1,
+        RegistryRevision::Revision1,
     );
-    let successor = validate_registry_fixture(
-        field(&v2_vectors, "registry"),
-        InactiveRegistryRevision::Revision2,
-    );
+    let successor =
+        validate_registry_fixture(field(&v2_vectors, "registry"), RegistryRevision::Revision2);
     assert_eq!(
         predecessor.identity().registry_sha256(),
         REVISION_1_REGISTRY_SHA256
@@ -571,10 +563,10 @@ fn runtime_ownership_is_appended_without_changing_frozen_vectors_or_active_route
 
 fn validate_registry_fixture(
     registry: &Value,
-    revision: InactiveRegistryRevision,
+    revision: RegistryRevision,
 ) -> ValidatedSemanticProfileRegistry {
     let transport = canonical_registry_transport(registry).expect("canonical registry transport");
-    validate_inactive_semantic_profile_registry(&transport, revision)
+    validate_semantic_profile_registry(&transport, revision)
         .unwrap_or_else(|error| panic!("frozen registry validates: {error}"))
 }
 

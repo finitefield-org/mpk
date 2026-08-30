@@ -1,4 +1,4 @@
-//! Inactive successor source-artifact models and hash domains.
+//! Active source-artifact models and hash domains.
 //!
 //! These parsers are available only through explicit staging calls. They do
 //! not discover a registry, accept a compatibility representation, or alter

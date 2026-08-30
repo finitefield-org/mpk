@@ -11,7 +11,7 @@ use std::fs;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::Arc;
 
-const VECTOR: &[u8] = include_bytes!("../../testdata/rust-driver-v0.json");
+const VECTOR: &[u8] = include_bytes!("../../testdata/rust-driver-v1.json");
 static NEXT_TEMP: AtomicU64 = AtomicU64::new(0);
 
 #[allow(dead_code)]
@@ -237,9 +237,18 @@ fn request_for_target(function: &str, target: &str, pointer_width: u8) -> Driver
         .expect("valid request object");
     let mut value = fixture["value"].clone();
     let root = value.as_object_mut().expect("request object");
-    let parameters = root
+    let context = root
+        .get_mut("semantic_context")
+        .expect("semantic context")
+        .as_object_mut()
+        .expect("semantic context object");
+    let parameters = context
         .get_mut("semantic_parameters")
-        .expect("semantic parameters")
+        .expect("semantic parameters envelope")
+        .as_object_mut()
+        .expect("semantic parameters envelope object")
+        .get_mut("value")
+        .expect("semantic parameters value")
         .as_object_mut()
         .expect("semantic parameters object");
     parameters.insert("target_id".to_owned(), JsonValue::String(target.to_owned()));
@@ -253,7 +262,11 @@ fn request_for_target(function: &str, target: &str, pointer_width: u8) -> Driver
         .expect("compiler object")
         .insert("target".to_owned(), JsonValue::String(target.to_owned()));
     root.get_mut("selection")
-        .expect("selection")
+        .expect("selection envelope")
+        .as_object_mut()
+        .expect("selection envelope object")
+        .get_mut("value")
+        .expect("selection value")
         .as_object_mut()
         .expect("selection object")
         .insert(
@@ -262,7 +275,7 @@ fn request_for_target(function: &str, target: &str, pointer_width: u8) -> Driver
         );
     root.remove("request_fingerprint");
     let mut hasher = Sha256::new();
-    hasher.update(b"MPK-RUST-DRIVER-REQUEST-0.1");
+    hasher.update(b"MPK-RUST-DRIVER-REQUEST-1.0");
     hasher.update(&[0]);
     hasher.update(&json::canonical(&value).expect("canonical request"));
     value.as_object_mut().expect("request object").insert(

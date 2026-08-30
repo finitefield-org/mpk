@@ -1,9 +1,7 @@
 use super::hir_check::HirFunction;
 use super::mir_lower::MirCode;
 use super::type_lower::contract_type;
-use rust2vir_internal::contract::{
-    ContractSet, ContractType, NormalizedContract, RUST_SEMANTIC_PROFILE,
-};
+use rust2vir_internal::contract::{ContractSet, ContractType, NormalizedContract};
 use rust2vir_internal::driver_protocol::DriverRequest;
 use rust2vir_internal::json::JsonValue;
 use rustc_hir::def::DefKind;
@@ -249,16 +247,16 @@ impl<'tcx> CallPlan<'tcx> {
         });
         vector.semantic_context_matches = match (caller_contract, callee_contract) {
             (Some(caller), Some(callee)) => {
-                contract_member(&caller.value, "semantic_profile")
-                    == contract_member(&callee.value, "semantic_profile")
-                    && caller
-                        .value
-                        .as_object()
-                        .and_then(|value| value.get("semantic_parameters"))
-                        == callee
-                            .value
-                            .as_object()
-                            .and_then(|value| value.get("semantic_parameters"))
+                let caller_context = caller
+                    .value
+                    .as_object()
+                    .and_then(|value| value.get("semantic_context"));
+                let callee_context = callee
+                    .value
+                    .as_object()
+                    .and_then(|value| value.get("semantic_context"));
+                caller_context == Some(context.request.semantic_context())
+                    && callee_context == caller_context
             }
             _ => false,
         };
@@ -356,7 +354,6 @@ fn contract_binding_matches(
     request: &DriverRequest,
 ) -> bool {
     let unit_id = request.selection().1;
-    let expected_parameters = expected_semantic_parameters(request);
     contract.function_id == function.function_id
         && function
             .function_id
@@ -364,34 +361,12 @@ fn contract_binding_matches(
             .is_some_and(|suffix| suffix.starts_with("::"))
         && contract_member(&contract.value, "unit_id") == Some(unit_id)
         && contract_member(&contract.value, "function_id") == Some(&function.function_id)
-        && contract_member(&contract.value, "semantic_profile") == Some(RUST_SEMANTIC_PROFILE)
         && contract_member(&contract.value, "contract_hash") == Some(&contract.contract_hash)
         && contract
             .value
             .as_object()
-            .and_then(|value| value.get("semantic_parameters"))
-            == Some(&expected_parameters)
-}
-
-fn expected_semantic_parameters(request: &DriverRequest) -> JsonValue {
-    JsonValue::Object(BTreeMap::from([
-        (
-            "target_id".to_owned(),
-            JsonValue::String(request.target().to_owned()),
-        ),
-        (
-            "pointer_width".to_owned(),
-            JsonValue::Number(request.pointer_width().to_string()),
-        ),
-        (
-            "overflow_mode".to_owned(),
-            JsonValue::String("checked".to_owned()),
-        ),
-        (
-            "panic_mode".to_owned(),
-            JsonValue::String("abort".to_owned()),
-        ),
-    ]))
+            .and_then(|value| value.get("semantic_context"))
+            == Some(request.semantic_context())
 }
 
 fn contract_member<'a>(contract: &'a JsonValue, field: &str) -> Option<&'a str> {

@@ -45,12 +45,12 @@ pub fn generate_program_vcs(input: &VirModule) -> Result<ProgramVcModule, Progra
 }
 
 /// Runs the shared checked WP engine over a projection already validated by
-/// the inactive successor VC boundary. This is deliberately crate-private so
-/// no active VIR v0 caller can bypass [`validate_vir`].
-pub(crate) fn generate_program_vcs_from_staged_projection(
+/// the active profile-aware VC boundary. This is deliberately crate-private
+/// so callers cannot bypass the successor artifact validator.
+pub(crate) fn generate_program_vcs_from_profiled_projection(
     input: &VirModule,
     check_profile: CompiledRequiredCheckProfile,
-) -> Result<StagedProgramVcModule, ProgramWpError> {
+) -> Result<ProfiledProgramVcModule, ProgramWpError> {
     ProgramWpGenerator::new().generate_staged_projection(input, check_profile)
 }
 
@@ -60,7 +60,7 @@ pub struct ProgramVcModule {
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
-pub(crate) struct StagedProgramVcModule {
+pub(crate) struct ProfiledProgramVcModule {
     pub(crate) module: ProgramVcModule,
     pub(crate) safety_origins: Vec<ProgramVcSafetyOrigin>,
 }
@@ -169,7 +169,7 @@ impl ProgramWpGenerator {
         self,
         input: &VirModule,
         check_profile: CompiledRequiredCheckProfile,
-    ) -> Result<StagedProgramVcModule, ProgramWpError> {
+    ) -> Result<ProfiledProgramVcModule, ProgramWpError> {
         self.generate_validated_module(input, check_profile)
     }
 
@@ -177,7 +177,7 @@ impl ProgramWpGenerator {
         self,
         input: &VirModule,
         check_profile: CompiledRequiredCheckProfile,
-    ) -> Result<StagedProgramVcModule, ProgramWpError> {
+    ) -> Result<ProfiledProgramVcModule, ProgramWpError> {
         let call_graph = ProgramCallGraph::analyze(input).map_err(ProgramWpError::Call)?;
 
         let mut budget = GenerationBudget::new(self.limits);
@@ -195,7 +195,7 @@ impl ProgramWpGenerator {
             output.push(generated.function);
             safety_origins.extend(generated.safety_origins);
         }
-        Ok(StagedProgramVcModule {
+        Ok(ProfiledProgramVcModule {
             module: ProgramVcModule { functions: output },
             safety_origins,
         })

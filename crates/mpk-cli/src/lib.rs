@@ -15,15 +15,10 @@ pub mod frontend_protocol;
 mod frontend_registry;
 mod frontend_runner;
 mod frontend_sandbox;
-#[doc(hidden)]
 pub mod successor_ai_explain;
-#[doc(hidden)]
 pub mod successor_frontend_protocol;
-#[doc(hidden)]
 pub mod successor_frontend_runner;
-#[doc(hidden)]
 pub mod successor_policy;
-#[doc(hidden)]
 pub mod successor_release_bundle;
 
 #[doc(hidden)]

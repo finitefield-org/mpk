@@ -236,3 +236,31 @@ func loweringFindingDisposition(code string) (string, string) {
 	}
 	return "rejected", "subset"
 }
+
+
+func (value successEnvelope) MarshalJSON() ([]byte, error) {
+	type successorEnvelope struct {
+		Schema string `json:"schema"`
+		Status string `json:"status"`
+		Phase string `json:"phase"`
+		SemanticContext successorSemanticContext `json:"semantic_context"`
+		Selection successorSelectionEnvelope `json:"selection"`
+		IR virArtifact `json:"ir"`
+		SourceManifest sourceManifest `json:"source_manifest"`
+		SourceMap sourceMap `json:"source_map"`
+		RejectedFeatures []issue `json:"rejected_features"`
+		Diagnostics []issue `json:"diagnostics"`
+	}
+	return marshalSuccessor(successorEnvelope{
+		Schema: value.Schema,
+		Status: value.Status,
+		Phase: value.Phase,
+		SemanticContext: fixedSuccessorSemanticContext(),
+		Selection: successorSelection(value.Selection),
+		IR: value.IR,
+		SourceManifest: value.SourceManifest,
+		SourceMap: value.SourceMap,
+		RejectedFeatures: value.RejectedFeatures,
+		Diagnostics: value.Diagnostics,
+	})
+}

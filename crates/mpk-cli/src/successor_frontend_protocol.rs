@@ -1,7 +1,7 @@
-//! Inactive `mpk.frontend.cli.v1` validator.
+//! Active `mpk.frontend.cli.v1` validator.
 //!
 //! This module has no runner, registry discovery, command-line route, or
-//! compatibility adapter. Callers must inject an already validated inactive
+//! compatibility adapter. Callers must inject an already validated installed
 //! semantic registry and the complete expected request identity.
 
 use crate::frontend_protocol::{contains_absolute_path, FrontendProcessFacts};

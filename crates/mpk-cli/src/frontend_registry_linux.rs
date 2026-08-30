@@ -49,12 +49,12 @@ pub(super) fn load_installed_registry(
     Ok((root, registry))
 }
 
-pub(super) fn load_staged_descriptors(
+pub(super) fn load_successor_descriptors(
 ) -> Result<(InstalledReleaseRoot, Vec<u8>, Vec<u8>), FrontendReleaseError> {
     if !cfg!(all(target_arch = "x86_64", target_env = "gnu")) {
         return Err(release_error(
             FrontendReleaseCode::SandboxUnavailable,
-            "the executing host does not match the staged Linux ABI",
+            "the executing host does not match the successor Linux ABI",
         ));
     }
     let root = installed_release_root()?;

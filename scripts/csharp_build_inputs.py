@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Hermetic build-input and reproducibility gate for the inactive C# frontend."""
+"""Hermetic build-input and reproducibility gate for the active C# frontend."""
 
 from __future__ import annotations
 
@@ -31,6 +31,7 @@ INVENTORY_PATH = REPOSITORY_ROOT / "release/build-inputs/csharp/candidate-invent
 PROJECT_ROOT = REPOSITORY_ROOT / "csharp-tools/csharp2vir"
 CACHE_PARENT = REPOSITORY_ROOT / "release/build-input-cache/csharp"
 ACTIVE_REGISTRY_PATH = REPOSITORY_ROOT / "release/bundles/bundle-registry.json"
+ACTIVE_SEMANTIC_REGISTRY_PATH = REPOSITORY_ROOT / "release/bundles/semantic-profile-registry.json"
 CAPTURE_HARNESS_PATH = REPOSITORY_ROOT / "crates/mpk-cli/tests/csharp_capture_harness.cs"
 ROSLYN_HARNESS_PATH = REPOSITORY_ROOT / "crates/mpk-cli/tests/csharp_roslyn_session_harness.cs"
 SUBSET_HARNESS_PATH = REPOSITORY_ROOT / "crates/mpk-cli/tests/csharp_subset_harness.cs"
@@ -483,7 +484,7 @@ def load_descriptor(toolchain: dict[str, object]) -> dict[str, object]:
     }:
         raise CSharpBuildFailure()
     validate_notice_sources(array(descriptor["notice_sources"]))
-    validate_inactive_boundary()
+    validate_active_boundary()
     return descriptor
 
 
@@ -528,15 +529,43 @@ def validate_notice_sources(records: list[object]) -> None:
         raise CSharpBuildFailure()
 
 
-def validate_inactive_boundary() -> None:
+def validate_active_boundary() -> None:
     registry = strict_json_file(ACTIVE_REGISTRY_PATH)
-    encoded = canonical(registry)
-    forbidden = (
-        b'"source_language":"csharp"', b'"semantic_profile":"mpk.csharp.scalar.v0"',
-        b'csharp2vir', b'mpk.semantic_profile.registry.v1',
-    )
-    if any(token in encoded for token in forbidden):
-        raise CSharpBuildFailure("CSHARP_BUILD_ACTIVE_ROUTE")
+    semantic = strict_json_file(ACTIVE_SEMANTIC_REGISTRY_PATH)
+    frontends = registry.get("frontend_bundles")
+    toolchains = registry.get("toolchain_bundles")
+    tuples = registry.get("tuples")
+    profiles = semantic.get("profiles")
+    if (
+        registry.get("schema") != "mpk.release.bundle_registry.v1"
+        or registry.get("id") != "mpk.release.registry.v1"
+        or registry.get("registry_sha256")
+        != "0f60f1494e62a485f5f8dc2ed25cbd052591005d8c3b8651412b5ef0c4dda704"
+        or semantic.get("revision") != 2
+        or semantic.get("registry_sha256")
+        != "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75"
+        or not isinstance(frontends, list)
+        or not isinstance(toolchains, list)
+        or not isinstance(tuples, list)
+        or not isinstance(profiles, list)
+        or len(frontends) != 3
+        or len(toolchains) != 3
+        or len(tuples) != 4
+        or len(profiles) != 3
+        or not any(item.get("bundle_id") == "frontend.csharp.csharp2vir.candidate.v1" for item in frontends)
+        or not any(
+            item.get("bundle_id")
+            == "toolchain.csharp.roslyn-5_6_0.dotnet-10_0_11.candidate.v1"
+            for item in toolchains
+        )
+        or not any(
+            item.get("semantic_context", {}).get("source_language") == "csharp"
+            and item.get("semantic_context", {}).get("semantic_profile")
+            == "mpk.csharp.scalar.v0"
+            for item in tuples
+        )
+    ):
+        raise CSharpBuildFailure("CSHARP_BUILD_RELEASE_ROUTE")
 
 
 def version_tuple(value: str) -> tuple[int, ...]:

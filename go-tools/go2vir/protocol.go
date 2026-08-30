@@ -10,7 +10,7 @@ import (
 	"unicode/utf8"
 )
 
-const frontendCLISchema = "mpk.frontend.cli.v0"
+const frontendCLISchema = "mpk.frontend.cli.v1"
 
 const (
 	maximumIssues             = 1_024
@@ -277,4 +277,26 @@ func writeAll(writer io.Writer, bytes []byte) error {
 		bytes = bytes[written:]
 	}
 	return nil
+}
+
+
+func (value nonSuccessEnvelope) MarshalJSON() ([]byte, error) {
+	type successorEnvelope struct {
+		Schema string `json:"schema"`
+		Status string `json:"status"`
+		Phase string `json:"phase"`
+		SemanticContext successorSemanticContext `json:"semantic_context"`
+		Selection successorSelectionEnvelope `json:"selection"`
+		RejectedFeatures []issue `json:"rejected_features"`
+		Diagnostics []issue `json:"diagnostics"`
+	}
+	return marshalSuccessor(successorEnvelope{
+		Schema: value.Schema,
+		Status: value.Status,
+		Phase: value.Phase,
+		SemanticContext: fixedSuccessorSemanticContext(),
+		Selection: successorSelection(value.Selection),
+		RejectedFeatures: value.RejectedFeatures,
+		Diagnostics: value.Diagnostics,
+	})
 }

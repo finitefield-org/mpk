@@ -1,5 +1,3 @@
-//go:build mpk_successor
-
 package main
 
 import (
@@ -11,7 +9,9 @@ import (
 	"testing"
 )
 
-const updateSuccessorGoCorpusEnv = "MPK_UPDATE_SUCCESSOR_GO_CORPUS"
+const updateSuccessorGoCorpusEnv = "MPK_UPDATE_GO_CORPUS"
+const activeGoFrontendBundleID = "frontend.go.go2vir.candidate.v1"
+const activeGoToolchainBundleID = "toolchain.go.go1.25.0.linux-amd64.candidate.v1"
 
 type successorRegistryFixture struct {
 	Schema          string                           `json:"schema"`
@@ -50,7 +50,7 @@ type successorNegativeResult struct {
 	Envelope   []byte
 }
 
-func TestSuccessorGoMigrationCorpus(t *testing.T) {
+func TestActiveGoCorpus(t *testing.T) {
 	assertSuccessorArgumentContract(t)
 	reference, registry := successorManifestReference(t)
 	activeIndex := readActiveFrontendIndex(t)
@@ -68,9 +68,8 @@ func TestSuccessorGoMigrationCorpus(t *testing.T) {
 
 	first := make(map[string]activeFrontendArtifacts)
 	second := make(map[string]activeFrontendArtifacts)
-	expectedFixturePaths := make(map[string]struct{}, len(corpusCases)*4+len(activeIndex.NegativeCases)+2)
+	expectedFixturePaths := make(map[string]struct{}, len(corpusCases)*4+len(activeIndex.NegativeCases)+1)
 	indexCases := make([]jsonValue, 0, len(corpusCases))
-	reportCases := make([]jsonValue, 0, len(corpusCases))
 	for _, corpusCase := range corpusCases {
 		first[corpusCase.ID] = generateFrontendCorpusCase(t, corpusCase, reference)
 		second[corpusCase.ID] = generateFrontendCorpusCase(t, corpusCase, reference)
@@ -138,15 +137,6 @@ func TestSuccessorGoMigrationCorpus(t *testing.T) {
 			"frontend_status": "ir-lowered",
 			"artifacts":       indexedArtifacts,
 		})
-		reportCases = append(reportCases, map[string]jsonValue{
-			"id":                    corpusCase.ID,
-			"source_behavior_equal": sourceBehaviorEqual,
-			"required_checks_equal": requiredChecksEqual,
-			"vc_input_intent_equal": vcInputIntentEqual,
-			"diagnostics_equal":     diagnosticsEqual,
-			"active_vir_sha256":     sha256Hex(activeArtifacts["vir"]),
-			"successor_vir_sha256":  sha256Hex(artifacts.VIR),
-		})
 	}
 
 	firstNegative := successorNegativeCorpus(t)
@@ -155,7 +145,6 @@ func TestSuccessorGoMigrationCorpus(t *testing.T) {
 		t.Fatal("negative successor corpus changed between two generations")
 	}
 	indexNegative := make([]jsonValue, 0, len(firstNegative))
-	reportNegative := make([]jsonValue, 0, len(firstNegative))
 	if len(activeIndex.NegativeCases) != len(firstNegative) {
 		t.Fatalf("active negative corpus has %d cases, want %d", len(activeIndex.NegativeCases), len(firstNegative))
 	}
@@ -169,7 +158,7 @@ func TestSuccessorGoMigrationCorpus(t *testing.T) {
 	for _, result := range firstNegative {
 		active, exists := activeNegative[result.ID]
 		diagnosticsEqual := exists &&
-			active.ExpectedCode == result.Code && active.ActualCode == result.Code && active.Outcome == "rejected" &&
+			active.Code == result.Code && active.Outcome == "rejected" &&
 			result.Status == "rejected" && result.Phase == "subset" && result.Message == activeNegativeMessage(result.Code)
 		if !diagnosticsEqual {
 			t.Fatalf("negative diagnostic changed for %s", result.ID)
@@ -191,17 +180,11 @@ func TestSuccessorGoMigrationCorpus(t *testing.T) {
 				"bytes":  int64(len(result.Envelope)),
 			},
 		})
-		reportNegative = append(reportNegative, map[string]jsonValue{
-			"id":                result.ID,
-			"diagnostics_equal": diagnosticsEqual,
-			"code":              result.Code,
-			"phase":             result.Phase,
-		})
 	}
 
 	index := map[string]jsonValue{
 		"schema":                "mpk.go_vir_frontend_corpus.v1",
-		"update_command":        "python3 -B scripts/go_successor_bundles.py update-fixtures",
+		"update_command":        "./scripts/build-release-bundles.sh --update-fixtures",
 		"deterministic_runs":    int64(2),
 		"semantic_context":      fixedSuccessorSemanticContext(),
 		"release_registry":      releaseRegistryIdentity{Schema: registry.Schema, ID: registry.ID, RegistrySHA256: registry.RegistrySHA256},
@@ -216,28 +199,6 @@ func TestSuccessorGoMigrationCorpus(t *testing.T) {
 	}
 	assertSuccessorFixture(t, expectedFixturePaths, "frontend-index.json", indexBytes)
 
-	report := map[string]jsonValue{
-		"schema":                    "mpk.go_successor_semantic_difference.v1",
-		"active_artifact_family":    "mpk.vir.v0",
-		"successor_artifact_family": "mpk.vir.v1",
-		"active_registry_sha256":    "bdc7864663877b26345f4edc77e24c2c5a14b1582e19f15e2674ab22024ced98",
-		"successor_registry_sha256": registry.RegistrySHA256,
-		"positive_cases":            reportCases,
-		"negative_cases":            reportNegative,
-		"summary": map[string]jsonValue{
-			"positive_cases":          int64(len(reportCases)),
-			"negative_cases":          int64(len(reportNegative)),
-			"source_behavior_changes": int64(0),
-			"required_check_changes":  int64(0),
-			"vc_input_intent_changes": int64(0),
-			"diagnostic_changes":      int64(0),
-		},
-	}
-	reportBytes, err := canonicalJSON(report)
-	if err != nil {
-		t.Fatalf("canonical semantic-difference report: %v", err)
-	}
-	assertSuccessorFixture(t, expectedFixturePaths, "semantic-difference-report.json", reportBytes)
 	assertSuccessorFixtureSet(t, expectedFixturePaths)
 }
 
@@ -299,18 +260,33 @@ func assertSuccessorArgumentContract(t *testing.T) {
 
 func successorManifestReference(t *testing.T) (sourceManifest, successorRegistryFixture) {
 	t.Helper()
-	path := repoPath("develop/migrations/csharp-02-staging/go-bundle-registry.json")
+	path := repoPath("release/bundles/bundle-registry.json")
 	raw := mustReadFile(t, path)
 	var registry successorRegistryFixture
 	if err := json.Unmarshal(raw, &registry); err != nil {
 		t.Fatalf("decode successor Go registry: %v", err)
 	}
-	if registry.Schema != "mpk.release.bundle_registry.v1" || registry.ID != registryID || len(registry.FrontendBundles) != 1 || len(registry.ToolchainBundles) != 1 || len(registry.Tuples) != 1 {
-		t.Fatal("successor Go registry shape is not the one-profile candidate")
+	if registry.Schema != "mpk.release.bundle_registry.v1" || registry.ID != registryID || len(registry.FrontendBundles) != 3 || len(registry.ToolchainBundles) != 3 || len(registry.Tuples) != 4 {
+		t.Fatal("active registry shape is not the complete successor release")
 	}
 	frontend := registry.FrontendBundles[0]
+	for _, candidate := range registry.FrontendBundles {
+		if candidate.BundleID == activeGoFrontendBundleID {
+			frontend = candidate
+		}
+	}
 	toolchain := registry.ToolchainBundles[0]
+	for _, candidate := range registry.ToolchainBundles {
+		if candidate.BundleID == activeGoToolchainBundleID {
+			toolchain = candidate
+		}
+	}
 	tuple := registry.Tuples[0]
+	for _, candidate := range registry.Tuples {
+		if candidate.FrontendBundleID == frontend.BundleID && candidate.ToolchainBundleID == toolchain.BundleID {
+			tuple = candidate
+		}
+	}
 	if tuple.FrontendBundleID != frontend.BundleID || tuple.ToolchainBundleID != toolchain.BundleID {
 		t.Fatal("successor Go tuple is not linked to its candidate bundles")
 	}
@@ -347,7 +323,8 @@ func activeArtifactBytes(t *testing.T, entry activeFrontendIndexEntry) map[strin
 	artifacts := make(map[string][]byte, len(entry.Artifacts))
 	for _, artifact := range entry.Artifacts {
 		content := mustReadFile(t, repoPath("fixtures/vir-go/"+artifact.Path))
-		if len(content) != artifact.Bytes || sha256Hex(content) != artifact.SHA256 {
+		if os.Getenv(updateSuccessorGoCorpusEnv) == "" &&
+			(len(content) != artifact.Bytes || sha256Hex(content) != artifact.SHA256) {
 			t.Fatalf("active fixture identity changed: %s", artifact.Path)
 		}
 		artifacts[artifact.Kind] = content
@@ -533,7 +510,7 @@ func assertSuccessorFixture(t *testing.T, expected map[string]struct{}, relative
 		t.Fatalf("duplicate successor fixture path %s", relative)
 	}
 	expected[relative] = struct{}{}
-	path := repoPath("develop/migrations/csharp-02-staging/go/" + relative)
+	path := repoPath("fixtures/vir-go/" + relative)
 	if os.Getenv(updateSuccessorGoCorpusEnv) != "" {
 		if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
 			t.Fatalf("create successor fixture directory: %v", err)
@@ -554,38 +531,41 @@ func assertSuccessorFixture(t *testing.T, expected map[string]struct{}, relative
 
 func assertSuccessorFixtureSet(t *testing.T, expected map[string]struct{}) {
 	t.Helper()
-	root := repoPath("develop/migrations/csharp-02-staging/go")
+	root := repoPath("fixtures/vir-go")
 	actual := make(map[string]struct{}, len(expected))
-	err := filepath.WalkDir(root, func(path string, entry os.DirEntry, walkErr error) error {
-		if walkErr != nil {
-			return walkErr
-		}
-		if entry.IsDir() {
+	actual["frontend-index.json"] = struct{}{}
+	for _, subtree := range []string{"frontend", "negative"} {
+		err := filepath.WalkDir(filepath.Join(root, subtree), func(path string, entry os.DirEntry, walkErr error) error {
+			if walkErr != nil {
+				return walkErr
+			}
+			if entry.IsDir() {
+				return nil
+			}
+			if entry.Type()&os.ModeSymlink != 0 {
+				t.Fatalf("successor fixture tree contains symlink %s", path)
+			}
+			info, err := entry.Info()
+			if err != nil {
+				return err
+			}
+			if !info.Mode().IsRegular() {
+				t.Fatalf("successor fixture tree contains non-regular file %s", path)
+			}
+			relative, err := filepath.Rel(root, path)
+			if err != nil {
+				return err
+			}
+			relative = filepath.ToSlash(relative)
+			if _, duplicate := actual[relative]; duplicate {
+				t.Fatalf("duplicate successor fixture tree path %s", relative)
+			}
+			actual[relative] = struct{}{}
 			return nil
-		}
-		if entry.Type()&os.ModeSymlink != 0 {
-			t.Fatalf("successor fixture tree contains symlink %s", path)
-		}
-		info, err := entry.Info()
+		})
 		if err != nil {
-			return err
+			t.Fatalf("walk successor fixture tree: %v", err)
 		}
-		if !info.Mode().IsRegular() {
-			t.Fatalf("successor fixture tree contains non-regular file %s", path)
-		}
-		relative, err := filepath.Rel(root, path)
-		if err != nil {
-			return err
-		}
-		relative = filepath.ToSlash(relative)
-		if _, duplicate := actual[relative]; duplicate {
-			t.Fatalf("duplicate successor fixture tree path %s", relative)
-		}
-		actual[relative] = struct{}{}
-		return nil
-	})
-	if err != nil {
-		t.Fatalf("walk successor fixture tree: %v", err)
 	}
 	if !reflect.DeepEqual(actual, expected) {
 		t.Fatalf("successor fixture tree is not exact: got %d files, want %d", len(actual), len(expected))

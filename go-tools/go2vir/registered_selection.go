@@ -12,7 +12,7 @@ import (
 const (
 	registeredFrontendRoot    = "/mpk/frontend"
 	registeredFrontendPath    = "bin/go2vir"
-	registeredFrontendVersion = "go1.25.0-profile-v0"
+	registeredFrontendVersion = "go1.25.0-profile-v1-staging"
 )
 
 func buildRegisteredLauncherSelection(request lowerRequest) (launcherSelection, error) {
@@ -55,7 +55,7 @@ func buildRegisteredLauncherSelection(request lowerRequest) (launcherSelection, 
 
 	return launcherSelection{
 		Registry: releaseRegistryIdentity{
-			Schema:         "mpk.release.bundle_registry.v0",
+			Schema:         "mpk.release.bundle_registry.v1",
 			ID:             request.ReleaseRegistryID,
 			RegistrySHA256: request.ReleaseRegistrySHA256,
 		},

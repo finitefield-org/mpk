@@ -2,15 +2,13 @@ use mpk_cert::encode::AxiomCategory;
 use mpk_cli::successor_release_bundle::{
     validate_successor_bundle_candidate, validate_successor_release_registry,
 };
-use mpk_vc::semantic_profile_registry::{
-    validate_inactive_semantic_profile_registry, InactiveRegistryRevision,
-};
+use mpk_vc::semantic_profile_registry::{validate_semantic_profile_registry, RegistryRevision};
 use serde_json::{Map, Value};
 use std::fs;
 use std::path::{Path, PathBuf};
 
 const STAGING_ROOT: &str = "develop/migrations/csharp-02-staging";
-const REVIEW_PATH: &str = "develop/migrations/csharp-02-staging/final-review.json";
+const REVIEW_PATH: &str = "develop/migrations/archive/csharp-02-final-review.json";
 
 fn repository_root() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("../..")
@@ -120,11 +118,8 @@ fn review_ledger_is_canonical_complete_and_empty() {
 #[test]
 fn every_staged_profile_candidate_and_registry_is_exactly_validated() {
     let semantic_bytes = read(&format!("{STAGING_ROOT}/semantic-profile-registry.json"));
-    let semantic = validate_inactive_semantic_profile_registry(
-        &semantic_bytes,
-        InactiveRegistryRevision::Revision2,
-    )
-    .expect("staged revision-2 semantic registry");
+    let semantic = validate_semantic_profile_registry(&semantic_bytes, RegistryRevision::Revision2)
+        .expect("staged revision-2 semantic registry");
     let semantic_value: Value =
         serde_json::from_slice(&semantic_bytes).expect("semantic registry JSON");
     assert_eq!(canonical_line(&semantic_value), semantic_bytes);

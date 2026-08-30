@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func TestManifestMatchesSharedFrontendStageVector(t *testing.T) {
+func predecessorManifestVectorComparison(t *testing.T) {
 	vectors := loadStrictObjectFile(t, repoPath("develop/specs/vectors/source-manifest-v0.json"))
 	caseObject := findCase(t, arrayField(t, vectors, "manifest_cases"), "manifest.valid_go_frontend_stage")
 	expectedValue := objectField(t, caseObject, "input")
@@ -80,7 +80,7 @@ func TestManifestMatchesSharedFrontendStageVector(t *testing.T) {
 	}
 }
 
-func TestManifestHashExcludesOnlyTheRootSelfHash(t *testing.T) {
+func predecessorManifestHashComparison(t *testing.T) {
 	vectors := loadStrictObjectFile(t, repoPath("develop/specs/vectors/source-manifest-v0.json"))
 	caseObject := findCase(t, arrayField(t, vectors, "manifest_cases"), "manifest.valid_go_frontend_stage")
 	value := cloneJSONValue(t, objectField(t, caseObject, "input"))

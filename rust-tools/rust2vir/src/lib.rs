@@ -32,8 +32,9 @@ pub mod source_capture;
 pub mod source_gate;
 pub mod source_map;
 pub mod stable_id;
+pub mod successor;
 
-pub const PACKAGE_VERSION: &str = "0.1.0";
+pub const PACKAGE_VERSION: &str = "0.1.0-profile-v1-staging";
 pub const EXPECTED_RUSTC_RELEASE: &str = "1.89.0-nightly";
 pub const EXPECTED_RUSTC_COMMIT: &str = "4d08223c054cf5a56d9761ca925fd46ffebe7115";
 

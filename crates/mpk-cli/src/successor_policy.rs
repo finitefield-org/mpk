@@ -1,10 +1,9 @@
-//! Inactive successor policy, evidence, and program-certificate staging.
+//! Active policy, evidence, and program-certificate integration.
 //!
-//! The entry points accept explicitly injected, completely validated successor
-//! artifact graphs. They have no CLI or installed-registry discovery
-//! route. Policy and evidence remain helper documents; proof acceptance comes
-//! only from the unchanged Certificate v0 bytes submitted to both source-free
-//! checkers by `program_certificate`.
+//! The entry points accept completely validated successor artifact graphs.
+//! Policy and evidence remain helper documents; proof acceptance comes only
+//! from unchanged Certificate v0 bytes submitted to both source-free checkers
+//! by `program_certificate`.
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::error::Error;
@@ -365,7 +364,7 @@ impl ValidatedSuccessorPolicyEvidenceV2 {
 }
 
 #[derive(Clone, Debug)]
-pub struct StagedSuccessorPolicyRun {
+pub struct SuccessorPolicyRun {
     registration: SuccessorPolicyRegistration,
     scan: ValidatedSuccessorPolicyScanV2,
     certificate_manifest: ValidatedSuccessorSourceManifest,
@@ -373,7 +372,7 @@ pub struct StagedSuccessorPolicyRun {
     evidence: ValidatedSuccessorPolicyEvidenceV2,
 }
 
-impl StagedSuccessorPolicyRun {
+impl SuccessorPolicyRun {
     pub const fn registration(&self) -> SuccessorPolicyRegistration {
         self.registration
     }
@@ -432,7 +431,7 @@ struct PreparedPolicyScanSource {
 
 /// Generates a canonical successor scan from frontend-stage artifacts only.
 /// Certificate assembly failures therefore cannot suppress valid scan output.
-pub fn generate_staged_successor_policy_scan(
+pub fn generate_successor_policy_scan(
     source: SuccessorPolicyScanSource<'_>,
 ) -> Result<ValidatedSuccessorPolicyScanV2, SuccessorPolicyError> {
     let prepared = prepare_scan_source(source)?;
@@ -441,7 +440,7 @@ pub fn generate_staged_successor_policy_scan(
 
 /// Imports canonical successor scan bytes by regenerating the complete
 /// document from the explicitly injected frontend-stage source graph.
-pub fn import_staged_successor_policy_scan_json(
+pub fn import_successor_policy_scan_json(
     input: &[u8],
     source: SuccessorPolicyScanSource<'_>,
 ) -> Result<ValidatedSuccessorPolicyScanV2, SuccessorPolicyError> {
@@ -454,14 +453,14 @@ pub fn import_staged_successor_policy_scan_json(
     })
 }
 
-/// Runs the inactive successor policy pipeline. No production route calls this
-/// function, and no document is returned until all source linkage, profile
+/// Runs the active successor policy pipeline. No document is returned until
+/// all source linkage, profile
 /// contracts, Certificate v0 assembly, checker execution, and canonical
 /// regeneration checks have completed.
-pub fn run_staged_successor_policy(
+pub fn run_successor_policy(
     source: SuccessorPolicySource<'_>,
     verification_options: PolicyVerificationOptions,
-) -> Result<StagedSuccessorPolicyRun, SuccessorPolicyError> {
+) -> Result<SuccessorPolicyRun, SuccessorPolicyError> {
     let prepared = prepare_source(source)?;
     let certificate_manifest = attach_successor_vc_hash(source)?;
     let certificate_source_manifest = CertificateSourceManifest {
@@ -500,7 +499,7 @@ pub fn run_staged_successor_policy(
         canonical_bytes: evidence_bytes,
     };
 
-    Ok(StagedSuccessorPolicyRun {
+    Ok(SuccessorPolicyRun {
         registration: prepared.registration,
         scan,
         certificate_manifest,

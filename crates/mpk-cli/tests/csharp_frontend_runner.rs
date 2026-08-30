@@ -3,12 +3,10 @@ use mpk_cli::successor_frontend_runner::{
 };
 use mpk_cli::successor_release_bundle::{
     validate_successor_bundle_candidate, validate_successor_release_registry,
-    CSHARP_FRONTEND_BUNDLE_ID, CSHARP_STAGING_REGISTRY_SHA256, CSHARP_TOOLCHAIN_BUNDLE_ID,
+    ACTIVE_RELEASE_REGISTRY_SHA256, CSHARP_FRONTEND_BUNDLE_ID, CSHARP_TOOLCHAIN_BUNDLE_ID,
     SUCCESSOR_RELEASE_REGISTRY_HASH_DOMAIN,
 };
-use mpk_vc::semantic_profile_registry::{
-    validate_inactive_semantic_profile_registry, InactiveRegistryRevision,
-};
+use mpk_vc::semantic_profile_registry::{validate_semantic_profile_registry, RegistryRevision};
 use mpk_vc::{hash_domain_separated_raw, validate_release_registry, CapturedInput, InputKind};
 use serde_json::{json, Value};
 use std::collections::BTreeSet;
@@ -24,15 +22,15 @@ const PROFILE_BYTES: &[u8] = include_bytes!(concat!(
 ));
 const STAGED_REGISTRY_BYTES: &[u8] = include_bytes!(concat!(
     env!("CARGO_MANIFEST_DIR"),
-    "/../../develop/migrations/csharp-02-staging/bundle-registry.json"
+    "/../../release/bundles/bundle-registry.json"
 ));
 const STAGED_CANDIDATE_BYTES: &[u8] = include_bytes!(concat!(
     env!("CARGO_MANIFEST_DIR"),
-    "/../../develop/migrations/csharp-02-staging/csharp-bundle-candidate.json"
+    "/../../release/bundles/candidates/csharp.json"
 ));
 const STAGED_SEMANTIC_REGISTRY_BYTES: &[u8] = include_bytes!(concat!(
     env!("CARGO_MANIFEST_DIR"),
-    "/../../develop/migrations/csharp-02-staging/semantic-profile-registry.json"
+    "/../../release/bundles/semantic-profile-registry.json"
 ));
 const ACTIVE_REGISTRY_BYTES: &[u8] = include_bytes!(concat!(
     env!("CARGO_MANIFEST_DIR"),
@@ -127,9 +125,9 @@ fn run_outer_suite() -> Result<(), String> {
 }
 
 fn validate_staged_models() -> Result<(), String> {
-    let semantic = validate_inactive_semantic_profile_registry(
+    let semantic = validate_semantic_profile_registry(
         STAGED_SEMANTIC_REGISTRY_BYTES,
-        InactiveRegistryRevision::Revision2,
+        RegistryRevision::Revision2,
     )
     .map_err(display)?;
     let registry =
@@ -137,7 +135,7 @@ fn validate_staged_models() -> Result<(), String> {
     let candidate =
         validate_successor_bundle_candidate(STAGED_CANDIDATE_BYTES, &semantic).map_err(display)?;
     ensure(
-        registry.registry_sha256() == CSHARP_STAGING_REGISTRY_SHA256,
+        registry.registry_sha256() == ACTIVE_RELEASE_REGISTRY_SHA256,
         "staged release-registry hash differs from the compiled assertion",
     )?;
     let registry_value = serde_json::to_value(registry.registry()).map_err(display)?;
@@ -181,7 +179,7 @@ fn validate_staged_models() -> Result<(), String> {
             .map_err(display)?
             .to_hex();
     ensure(
-        successor == CSHARP_STAGING_REGISTRY_SHA256 && legacy != successor,
+        successor == ACTIVE_RELEASE_REGISTRY_SHA256 && legacy != successor,
         "successor release hash domain is not migration-distinct",
     )?;
 
@@ -464,9 +462,9 @@ fn validate_active_registry_boundary() -> Result<(), String> {
         validate_release_registry(STAGED_REGISTRY_BYTES).is_err(),
         "active validator accepted the staged successor registry",
     )?;
-    let semantic = validate_inactive_semantic_profile_registry(
+    let semantic = validate_semantic_profile_registry(
         STAGED_SEMANTIC_REGISTRY_BYTES,
-        InactiveRegistryRevision::Revision2,
+        RegistryRevision::Revision2,
     )
     .map_err(display)?;
     ensure(
@@ -565,7 +563,7 @@ fn run_assembled_fixture() -> Result<(), String> {
             && report["program"] == DOTNET_PROGRAM
             && report["working_directory"] == "/mpk/source"
             && report["environment_count"] == 18
-            && report["registry_sha256"] == CSHARP_STAGING_REGISTRY_SHA256,
+            && report["registry_sha256"] == ACTIVE_RELEASE_REGISTRY_SHA256,
         "installed C# runner report differs",
     )?;
     for field in ["vir_hash", "source_map_hash", "source_manifest_hash"] {
@@ -631,7 +629,7 @@ fn expected_baseline_argv() -> Value {
         "--release-registry-id",
         "mpk.release.registry.v1",
         "--release-registry-sha256",
-        CSHARP_STAGING_REGISTRY_SHA256,
+        ACTIVE_RELEASE_REGISTRY_SHA256,
         "--toolchain-bundle-id",
         CSHARP_TOOLCHAIN_BUNDLE_ID,
         "--toolchain-root",

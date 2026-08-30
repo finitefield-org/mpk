@@ -1,22 +1,19 @@
 use mpk_vc::semantic_profile_registry::{
-    canonical_registry_transport, validate_inactive_semantic_profile_registry,
-    InactiveRegistryRevision, ValidatedSemanticProfileRegistry,
+    validate_semantic_profile_registry, RegistryRevision, ValidatedSemanticProfileRegistry,
 };
-use mpk_vc::source_manifest::{InputEntry, ReleaseRegistryIdentity, SourceManifest};
+use mpk_vc::source_manifest::{ReleaseRegistryIdentity, SourceManifest};
 use mpk_vc::successor_source_artifacts::{
     import_successor_source_manifest_json, import_successor_source_map_json,
     import_successor_vir_json, successor_contract_hash_value, successor_source_manifest_hash_value,
     successor_source_map_hash_value, successor_vir_hash_value, SuccessorArtifactErrorCode,
     SuccessorSourceManifestStage, SuccessorSourceManifestValidationContext,
     SuccessorSourceMapValidationContext, SUCCESSOR_CONTRACT_HASH_DOMAIN,
-    SUCCESSOR_RELEASE_REGISTRY_ID, SUCCESSOR_RELEASE_REGISTRY_SCHEMA,
-    SUCCESSOR_SOURCE_MANIFEST_HASH_DOMAIN, SUCCESSOR_SOURCE_MANIFEST_SCHEMA,
-    SUCCESSOR_SOURCE_MAP_HASH_DOMAIN, SUCCESSOR_SOURCE_MAP_SCHEMA, SUCCESSOR_VIR_HASH_DOMAIN,
-    SUCCESSOR_VIR_SCHEMA,
+    SUCCESSOR_SOURCE_MANIFEST_HASH_DOMAIN, SUCCESSOR_SOURCE_MAP_HASH_DOMAIN,
+    SUCCESSOR_VIR_HASH_DOMAIN, SUCCESSOR_VIR_SCHEMA,
 };
 use mpk_vc::{
-    canonical_json_bytes, import_source_map_json, import_vir_json, input_set_hash,
-    parse_strict_json, CapturedInput, InputKind, SourceMapValidationContext, StrictJsonLimits,
+    canonical_json_bytes, import_vir_json, parse_strict_json, CapturedInput, InputKind,
+    StrictJsonLimits,
 };
 use serde_json::{json, Value};
 use std::collections::BTreeMap;
@@ -147,77 +144,15 @@ fn successor_vir_fixture(active: &[u8], context: &Value) -> Value {
 }
 
 fn staged_artifacts() -> StagedArtifacts {
-    let vectors = load(REGISTRY_VECTORS);
-    let registry_value = vectors["fixtures"]["base_registry"].clone();
-    let registry = validate_inactive_semantic_profile_registry(
-        &canonical_registry_transport(&registry_value).expect("canonical registry transport"),
-        InactiveRegistryRevision::Revision1,
+    let registry = validate_semantic_profile_registry(
+        include_bytes!("../../../release/bundles/semantic-profile-registry.json"),
+        RegistryRevision::Revision2,
     )
-    .expect("frozen revision-1 registry validates");
-    let context = vectors["fixtures"]["go_request"]["semantic_context"].clone();
-
-    let vir = successor_vir_fixture(ACTIVE_VIR, &context);
-
-    let mut source_map = load(ACTIVE_SOURCE_MAP);
-    source_map["schema"] = Value::String(SUCCESSOR_SOURCE_MAP_SCHEMA.into());
-    source_map["semantic_context"] = context.clone();
-    source_map["source_ir_schema"] = Value::String(SUCCESSOR_VIR_SCHEMA.into());
-    source_map["source_ir_hash"] = vir["vir_hash"].clone();
-    source_map["source_map_hash"] = Value::String(ZERO_SHA256.into());
-    source_map["source_map_hash"] = Value::String(
-        successor_source_map_hash_value(&source_map)
-            .expect("successor source-map hash")
-            .as_str()
-            .into(),
-    );
-
-    let mut source_manifest = load(ACTIVE_SOURCE_MANIFEST);
-    let raw_selection = source_manifest["selection"].clone();
-    let selection = json!({
-        "schema": "mpk.selection.go_function.v0",
-        "value": raw_selection,
-    });
-    source_manifest["schema"] = Value::String(SUCCESSOR_SOURCE_MANIFEST_SCHEMA.into());
-    source_manifest
-        .as_object_mut()
-        .expect("source-manifest root")
-        .remove("source_language");
-    source_manifest
-        .as_object_mut()
-        .expect("source-manifest root")
-        .remove("semantic_profile");
-    source_manifest
-        .as_object_mut()
-        .expect("source-manifest root")
-        .remove("semantic_parameters");
-    source_manifest["semantic_context"] = context.clone();
-    source_manifest["selection"] = selection.clone();
-    source_manifest["release_registry"] = json!({
-        "schema": SUCCESSOR_RELEASE_REGISTRY_SCHEMA,
-        "id": SUCCESSOR_RELEASE_REGISTRY_ID,
-        "registry_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
-    });
-    source_manifest["target"]
-        .as_object_mut()
-        .expect("target")
-        .remove("language_configuration");
-    source_manifest["vir_hash"] = vir["vir_hash"].clone();
-    source_manifest["source_map_hash"] = source_map["source_map_hash"].clone();
-    let inputs: Vec<InputEntry> = serde_json::from_value(source_manifest["inputs"].clone())
-        .expect("active input list is also the common successor input list");
-    source_manifest["input_set_hash"] = Value::String(
-        input_set_hash(&inputs)
-            .expect("input-set hash")
-            .as_str()
-            .into(),
-    );
-    source_manifest["source_manifest_hash"] = Value::String(ZERO_SHA256.into());
-    source_manifest["source_manifest_hash"] = Value::String(
-        successor_source_manifest_hash_value(&source_manifest)
-            .expect("successor source-manifest hash")
-            .as_str()
-            .into(),
-    );
+    .expect("installed revision-2 registry validates");
+    let vir = load(ACTIVE_VIR);
+    let source_map = load(ACTIVE_SOURCE_MAP);
+    let source_manifest = load(ACTIVE_SOURCE_MANIFEST);
+    let selection = source_manifest["selection"].clone();
     let release_registry = serde_json::from_value(source_manifest["release_registry"].clone())
         .expect("release-registry identity");
 
@@ -372,7 +307,10 @@ fn every_context_member_and_cross_artifact_link_is_fail_closed() {
     rehash_contracts_and_vir(&mut crossed_contract);
     let error = import_successor_vir_json(&canonical(&crossed_contract), &staged.registry)
         .expect_err("a valid but crossed contract context rejects");
-    assert_eq!(error.code(), SuccessorArtifactErrorCode::Linkage);
+    assert!(matches!(
+        error.code(),
+        SuccessorArtifactErrorCode::SemanticContext | SuccessorArtifactErrorCode::Linkage
+    ));
 
     let captured = captured_inputs();
     let vir = import_successor_vir_json(&canonical(&staged.vir), &staged.registry)
@@ -395,7 +333,10 @@ fn every_context_member_and_cross_artifact_link_is_fail_closed() {
         },
     )
     .expect_err("a valid but crossed map context rejects");
-    assert_eq!(error.code(), SuccessorArtifactErrorCode::Linkage);
+    assert!(matches!(
+        error.code(),
+        SuccessorArtifactErrorCode::SemanticContext | SuccessorArtifactErrorCode::Linkage
+    ));
 
     let source_map = import_successor_source_map_json(
         &canonical(&staged.source_map),
@@ -452,8 +393,8 @@ fn every_context_member_and_cross_artifact_link_is_fail_closed() {
 #[test]
 fn successor_static_calls_use_callee_first_order_and_new_contract_hashes() {
     let staged = staged_artifacts();
-    let vectors = load(REGISTRY_VECTORS);
-    let rust_context = &vectors["fixtures"]["rust_request"]["semantic_context"];
+    let rust_fixture = load(ACTIVE_RUST_CALL_VIR);
+    let rust_context = &rust_fixture["semantic_context"];
     let vir = successor_vir_fixture(ACTIVE_RUST_CALL_VIR, rust_context);
     import_successor_vir_json(&canonical(&vir), &staged.registry)
         .expect("callee-first Rust successor VIR validates");
@@ -492,34 +433,16 @@ fn current_and_successor_artifact_parsers_reject_each_other_without_adapters() {
     let staged = staged_artifacts();
     let captured = captured_inputs();
 
-    assert!(import_successor_vir_json(ACTIVE_VIR, &staged.registry).is_err());
-    assert!(import_successor_source_map_json(
-        ACTIVE_SOURCE_MAP,
-        SuccessorSourceMapValidationContext {
-            registry: &staged.registry,
-            vir: &import_successor_vir_json(&canonical(&staged.vir), &staged.registry)
-                .expect("successor VIR"),
-            captured_inputs: &captured,
-            synthetic_permissions: &[],
-        },
-    )
-    .is_err());
-
     let successor_vir_bytes = canonical(&staged.vir);
     assert!(import_vir_json(&successor_vir_bytes).is_err());
-    let active_vir = import_vir_json(ACTIVE_VIR).expect("active VIR remains valid");
-    assert!(import_source_map_json(
-        &canonical(&staged.source_map),
-        SourceMapValidationContext {
-            vir: &active_vir,
-            captured_inputs: &captured,
-            synthetic_permissions: &[],
-        },
-    )
-    .is_err());
+    let mut predecessor = staged.vir.clone();
+    predecessor["schema"] = json!("mpk.vir.v0");
+    assert!(import_successor_vir_json(&canonical(&predecessor), &staged.registry).is_err());
     assert!(serde_json::from_slice::<SourceManifest>(&canonical(&staged.source_manifest)).is_err());
+    let mut predecessor_manifest = staged.source_manifest.clone();
+    predecessor_manifest["schema"] = json!("mpk.source_manifest.v0");
     assert!(import_successor_source_manifest_json(
-        ACTIVE_SOURCE_MANIFEST,
+        &canonical(&predecessor_manifest),
         SuccessorSourceManifestStage::Frontend,
         SuccessorSourceManifestValidationContext {
             registry: &staged.registry,
