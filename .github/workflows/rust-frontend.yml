@@ -1,4 +1,4 @@
-name: Rust frontend release gate
+name: Go/Rust/C# successor release gate
 
 # This privileged release workflow deliberately has no pull_request trigger.
 # Only reviewed main bytes or a write-access-controlled manual ref may run it.
@@ -12,8 +12,8 @@ permissions:
   contents: read
 
 jobs:
-  rust-frontend:
-    name: Frozen clean Linux gate
+  successor-release:
+    name: Frozen clean Linux successor gate
     runs-on: ubuntu-24.04
     timeout-minutes: 180
 
@@ -42,6 +42,13 @@ jobs:
           path: release/build-input-cache/rust
           key: rust-build-inputs-${{ runner.os }}-${{ hashFiles('release/build-inputs/rust/build-inputs.json') }}
 
+      - name: Restore untrusted C# frozen-build cache
+        id: csharp-build-cache
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: release/build-input-cache/csharp
+          key: csharp-build-inputs-${{ runner.os }}-${{ hashFiles('release/build-inputs/csharp/build-inputs.json') }}
+
       - name: Materialize digest-pinned verification images
         env:
           GO_BUNDLE_IMAGE: docker.io/library/golang@sha256:ebd54034f076819b3054f155db53660ded951612bb4dfd277f933e62059e5d5a
@@ -57,8 +64,15 @@ jobs:
         if: steps.rust-build-cache.outputs.cache-hit != 'true'
         run: ./scripts/build-release-bundles.sh --provision-build-inputs rust
 
+      - name: Provision a C# cache miss from frozen identities
+        if: steps.csharp-build-cache.outputs.cache-hit != 'true'
+        run: ./scripts/build-csharp-frontend.sh --provision-build-inputs
+
       - name: Validate restored or provisioned bytes before use
         run: ./scripts/build-release-bundles.sh --check-build-inputs rust
+
+      - name: Validate restored or provisioned C# bytes before use
+        run: ./scripts/build-csharp-frontend.sh --check-build-inputs
 
       - name: Prefetch host-only test dependencies
         shell: bash
@@ -106,4 +120,4 @@ jobs:
             "$go_root" \
             "$go_mod_cache" \
             "$trusted_path" \
-            "$GITHUB_WORKSPACE/scripts/check-rust-frontend.sh"
+            "$GITHUB_WORKSPACE/scripts/check-csharp-frontend.sh"

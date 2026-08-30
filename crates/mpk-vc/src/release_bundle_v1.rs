@@ -29,7 +29,7 @@ pub const SUCCESSOR_BUNDLE_CANDIDATE_SCHEMA: &str = "mpk.release.bundle_candidat
 pub const SUCCESSOR_RELEASE_REGISTRY_HASH_DOMAIN: HashDomain =
     HashDomain::new("MPK-BUNDLE-REGISTRY-1.0");
 pub const ACTIVE_RELEASE_REGISTRY_SHA256: &str =
-    "0f60f1494e62a485f5f8dc2ed25cbd052591005d8c3b8651412b5ef0c4dda704";
+    "00580f5ef519ae077432460d2e9e1214bb15b624b2781a96188dd81ad92f8fce";
 pub const CSHARP_FRONTEND_BUNDLE_ID: &str = "frontend.csharp.csharp2vir.candidate.v1";
 pub const CSHARP_TOOLCHAIN_BUNDLE_ID: &str =
     "toolchain.csharp.roslyn-5_6_0.dotnet-10_0_11.candidate.v1";
@@ -45,9 +45,9 @@ pub const GO_FRONTEND_SHA256: &str =
 pub const RUST_FRONTEND_BUNDLE_ID: &str = "frontend.rust.rust2vir.candidate.v1";
 pub const RUST_TOOLCHAIN_BUNDLE_ID: &str = "toolchain.rust.nightly-2025-06-01.candidate.v1";
 pub const RUST_FRONTEND_SHA256: &str =
-    "b1897a991dad216b4299e618160efc6a68c87d44f2a5bc30b7ed37abff1bba9d";
+    "5b879e3d8b73f6069b8f717e6920cccf2d84d68f6734b84a8286aeec447a987d";
 pub const RUST_DRIVER_SHA256: &str =
-    "74cb253216dc7b9cbb0be61e541d8ff5eec3943daecdadab1291787d093d08d2";
+    "68d3349eed187b30cf6e08fc9cef794fc766667ddbfd371ced6aac01adbbd21b";
 pub const RUST_TOOLCHAIN_DISTRIBUTION_SHA256: &str =
     "86dab73dadd3a3184064e7d7da7e878562eba4cfc4c8a969bc8f44a5e865c90a";
 

@@ -34,8 +34,8 @@ use std::os::unix::fs::{MetadataExt, PermissionsExt};
 pub const EXECUTION_HOST_PROFILE_ID: &str = "mpk.host.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0";
 pub const RUNTIME_LAYOUT_PROFILE_ID: &str =
     "mpk.runtime.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0";
-pub const FRONTEND_BUNDLE_ID: &str = "frontend.rust.rust2vir.candidate.v0";
-pub const TOOLCHAIN_BUNDLE_ID: &str = "toolchain.rust.nightly-2025-06-01.candidate.v0";
+pub const FRONTEND_BUNDLE_ID: &str = crate::successor::FRONTEND_ID;
+pub const TOOLCHAIN_BUNDLE_ID: &str = crate::successor::TOOLCHAIN_ID;
 pub const LIMIT_PROFILE_ID: &str = "mpk.vir.limits.v0";
 
 pub const RESOURCE_PROFILE_ID: &str = "mpk.rust.build_resources.cgroup2_tmpfs.v0";
@@ -669,6 +669,7 @@ fn validate_driver_release_identity(definition: &CandidateDefinition) -> Result<
     Ok(())
 }
 
+#[cfg_attr(not(target_os = "linux"), allow(dead_code))]
 pub struct ValidatedCandidate {
     frontend_root: PathBuf,
     toolchain_root: PathBuf,
@@ -861,6 +862,7 @@ pub fn validate_resource_filesystem_observation(
 }
 
 #[derive(Debug)]
+#[cfg_attr(not(target_os = "linux"), allow(dead_code))]
 pub struct SandboxContext<'a> {
     invocation_id: u64,
     snapshot_root: &'a Path,
@@ -869,6 +871,7 @@ pub struct SandboxContext<'a> {
     environment: &'a EvidenceEnvironment,
     limits: SandboxLimits,
     snapshot_handle: &'a File,
+    driver_request: &'a driver_protocol::DriverRequest,
 }
 
 impl SandboxContext<'_> {
@@ -902,6 +905,10 @@ impl SandboxContext<'_> {
 
     pub fn driver_request_host_path(&self) -> &Path {
         self.workspace.driver_request_host_path()
+    }
+
+    pub fn driver_request(&self) -> &driver_protocol::DriverRequest {
+        self.driver_request
     }
 
     #[cfg(target_os = "linux")]
@@ -1048,6 +1055,7 @@ impl<'a, E: SandboxExecutor> PreparedSandbox<'a, E> {
             environment: &self.environment,
             limits,
             snapshot_handle: &self.snapshot_handle,
+            driver_request: &self.driver_request,
         };
         let output = self.executor.execute(&context, invocation)?;
         self.observed_stdout_bytes = self
@@ -3138,11 +3146,10 @@ fn tree_usage(root: &Path) -> Result<(u64, u64), SandboxError> {
     Ok((files, bytes))
 }
 
-#[cfg(test)]
+#[cfg(all(test, target_os = "linux"))]
 mod usage_tests {
     use super::*;
 
-    #[cfg(target_os = "linux")]
     #[test]
     fn second_process_reader_enforces_aggregate_remaining_allowance() {
         let aggregate_maximum = 7_usize;

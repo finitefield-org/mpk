@@ -2,11 +2,10 @@
 
 Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
-Status: Gate C and `MLANG-01` are complete after the completed Rust and
-`MLANG-00` gates. Gate D is active at its non-production implementation
-boundary: `CSHARP-02-T01` through `CSHARP-02-T19` are complete;
-`CSHARP-02-T20` is next. No C# production route or later-language phase is
-active.
+Status: Gate C, `MLANG-01`, and Gate D are complete after the completed Rust
+and `MLANG-00` gates. `CSHARP-02-T01` through `CSHARP-02-T20` are complete;
+the shared Go/Rust/C# successor release is active and `JAVA-03` is eligible.
+No Java or later-language phase is active.
 
 ## Scope and sequencing
 
@@ -329,8 +328,8 @@ was added.
 
 Entry gate: `MLANG-01` complete.
 
-Status: Active at the inactive implementation boundary. `CSHARP-02-T01`
-through `CSHARP-02-T19` are complete; `CSHARP-02-T20` is next.
+Status: Complete (2026-08-30). `CSHARP-02-T01` through `CSHARP-02-T20`
+completed serially, including the atomic successor cutover.
 
 Authoritative execution plan:
 `csharp-02-implementation-traceability-ledger.md`.
@@ -756,13 +755,26 @@ category expansion, and the final review ledger has zero findings.
 
 ### CSHARP-02-T20 Perform the atomic successor cutover and C# release
 
-Status: Next.
+Status: Complete (2026-08-30).
 
 Depends on: `CSHARP-02-T19` and transitively every earlier CSHARP-02 task.
 
 Exit gate: one release activates revision 2 and successor schemas for
 Go/Rust/C#, removes every old public helper path, passes both checkers and the
 installed release gates, and makes `JAVA-03` eligible.
+
+Completion evidence: the active semantic registry is the frozen revision-2
+root, the active successor bundle registry contains three frontend bundles,
+three toolchain bundles, and four exact tuples, and C# exposes all nine frozen
+compiled-profile contracts. `crates/mpk-cli/tests/successor_atomic_cutover.rs`
+materializes one installed image beside both registries, executes Go, Rust,
+and C# only through registered descriptor-relative bundles, rejects old and
+crossed identities, and detects bundle tampering. The executable staging tree
+is removed; the T19 review and Go/Rust semantic-difference reports are retained
+only under `develop/migrations/archive/`. The two-pass offline installed gate,
+both source-free checker agreement, unchanged Certificate v0 bytes, unchanged
+four-category axiom inventory, and final zero-finding review close Gate D and
+make `JAVA-03` eligible.
 
 ## JAVA-03: Implement and release Java
 

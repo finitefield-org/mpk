@@ -242,10 +242,7 @@ fn public_non_success(
         ("rejected_features".to_owned(), rejected_features),
         ("schema".to_owned(), string_value("mpk.frontend.cli.v1")),
         ("selection".to_owned(), selection(request)),
-        (
-            "semantic_context".to_owned(),
-            semantic_context(request),
-        ),
+        ("semantic_context".to_owned(), semantic_context(request)),
         ("status".to_owned(), string_value(status)),
     ])))
 }

@@ -4,7 +4,7 @@ use rust2vir_internal::json::{self, JsonValue};
 use rust2vir_internal::session::{target_cfg, EffectiveSession, SessionField};
 use std::collections::BTreeMap;
 
-const VECTOR: &[u8] = include_bytes!("../testdata/rust-driver-v0.json");
+const VECTOR: &[u8] = include_bytes!("../testdata/rust-driver-v1.json");
 type SessionMutation = (SessionField, fn(&mut EffectiveSession));
 
 #[test]

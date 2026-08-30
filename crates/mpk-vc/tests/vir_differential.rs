@@ -1,3 +1,5 @@
+#[path = "support/successor_projection.rs"]
+mod successor_projection;
 #[path = "support/vir_interpreter.rs"]
 mod vir_interpreter;
 
@@ -6,10 +8,11 @@ use std::panic::{catch_unwind, AssertUnwindSafe};
 use std::path::PathBuf;
 
 use mpk_vc::{
-    evaluate_total_bitvector_operation, import_vir_json, BitVectorWidth, DivRemOperation,
-    OverflowOperation, TotalBitVectorResult, VirBinaryOperator, VirModule, VirSafetyCheck, VirType,
+    evaluate_total_bitvector_operation, BitVectorWidth, DivRemOperation, OverflowOperation,
+    TotalBitVectorResult, VirBinaryOperator, VirModule, VirSafetyCheck, VirType,
 };
 use serde_json::Value;
+use successor_projection::import_successor_vir_projection;
 use vir_interpreter::{
     evaluate_modeled_safety, execute, total_binary, total_convert, total_unary, ExecutionOutcome,
     ModeledPanic, RuntimeValue,
@@ -723,10 +726,9 @@ fn go_module(fixture: &str) -> VirModule {
 }
 
 fn load_module(path: PathBuf) -> VirModule {
-    import_vir_json(
+    import_successor_vir_projection(
         &fs::read(&path).unwrap_or_else(|error| panic!("read {}: {error}", path.display())),
     )
-    .unwrap_or_else(|error| panic!("import {}: {error}", path.display()))
 }
 
 fn repo_root() -> PathBuf {

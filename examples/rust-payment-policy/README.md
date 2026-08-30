@@ -1,55 +1,29 @@
 # Rust payment-policy example
 
-This dependency-free library is the Rust product-gate example for the
-`payment-policy-rust-alpha` strategy. `approved_reserve_cents` returns the
-payment approval bit unchanged. Its helper requires the reserve-request bit,
-so the positive contract supplies that precondition and stays entirely within
-the structural program-certificate subset.
+This dependency-free library is the Rust example for the active
+`payment-policy-rust-alpha` successor route. The checked-in source and
+contracts are inputs; generated VIR, VC, evidence, and certificate files are
+deliberately not retained as a second predecessor fixture family.
 
-The sibling contract in `contracts/insufficient-precondition.json` omits the
-caller precondition without changing the accepted Rust source. It therefore
-has no certificate candidate: non-strict verification records proof-pending
-evidence, while strict verification records the same evidence and returns
-`POLICY_PROOF_PENDING`.
-
-## Trust boundary
-
-The Rust source, contracts, registered frontend and toolchain identities,
-frontend envelope, VIR, source map, manifests, VC, grouped skeleton, policy
-scan, evidence JSON, and Markdown provide deterministic traceability. They are
-not proof evidence and do not become trusted because they are checked in.
-
-The trusted result is the exact `artifacts/program.mpcert` byte sequence after
-both source-free checkers accept it. Its checked declarations bind the
-certificate-stage source manifest and the structural member proofs. The
-recomputed `artifacts/axiom-report.json` records zero axioms; the certificate's
-import, proof-node, and theory-certificate tables are empty. The package and
-release gates independently bind those bytes and reports to the
-`mvp-strict` checker profile and `mvp-theory` axiom allowlist.
-
-## Reproduction
-
-Run the library test with:
+The semantic context and function selection are frozen in
+`mpk-semantic-context.json` and `mpk-selection.json`. On the installed Linux
+release, produce a scan with:
 
 ```sh
-cargo test --locked
+mpk policy scan examples/rust-payment-policy \
+  --semantic-context examples/rust-payment-policy/mpk-semantic-context.json \
+  --selection examples/rust-payment-policy/mpk-selection.json \
+  --contract contracts/helper.json \
+  --contract contracts/selected.json \
+  --json-out rust-policy-scan.json
 ```
 
-From the repository root, regenerate every frontend, certificate, evidence,
-package, and release-report fixture explicitly with:
+Run strict verification by replacing `scan` with `verify` and
+`--json-out rust-policy-scan.json` with
+`--evidence-json rust-policy-evidence.json`. Bundle identities, registry
+digests, toolchain roots, and executable paths are resolved only from the
+installed successor release and cannot be selected by the caller.
 
-```sh
-scripts/regenerate-rust-payment-policy.sh --update
-```
-
-Check all frozen bytes without updating them with:
-
-```sh
-scripts/regenerate-rust-payment-policy.sh --check
-```
-
-The canonical scan and evidence reproduction command arrays are stored in
-`artifacts/evidence.json`; they use only repository-relative inputs and
-registered bundle identities. A normal test run generates twice in clean
-temporary directories, requires byte equality, and rejects local-path leaks.
-Fixture writes occur only when `MPK_UPDATE_RUST_PAYMENT_POLICY=1` is present.
+`contracts/insufficient-precondition.json` is a negative proof-planning input.
+Use it instead of `contracts/selected.json` to reproduce the proof-pending
+case; it is not a compatibility or fallback route.

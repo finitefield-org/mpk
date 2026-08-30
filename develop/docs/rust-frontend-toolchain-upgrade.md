@@ -89,17 +89,18 @@ must not become release bundles.
 Use only each fixture owner's explicit update mode. Regenerate every affected
 private MIR lowering, public VIR, source map, frontend-stage manifest,
 certificate-stage manifest, VC, grouped skeleton, certificate, checker report,
-axiom report, policy artifact, corpus index, and release report. For the Rust
-product example, run:
+axiom report, policy artifact, corpus index, and release report. Regenerate the
+active Rust corpus only through the pinned Linux toolchain:
 
 ```sh
-./scripts/regenerate-rust-payment-policy.sh --update
+MPK_UPDATE_RUST_POSITIVE_CORPUS=1 \
+  ./scripts/run-rust2vir-toolchain.sh cargo test --locked --test positive_corpus
 ```
 
 Review semantic and byte changes independently. Compiler-local IDs, paths,
 timestamps, hostnames, and raw diagnostics must not enter public artifacts.
 Build-input identity remains release-report provenance only; it must not be
-added to `mpk.policy.evidence.v1`, either source-manifest stage, a certificate,
+added to `mpk.policy.evidence.v2`, either source-manifest stage, a certificate,
 or a checker input.
 
 ## 5. Close the transaction
@@ -108,7 +109,7 @@ Run the differential, two-clean-build, path, limit, fuzz, obsolete-interface,
 checker, and complete release gates:
 
 ```sh
-sudo ./scripts/check-rust-frontend.sh
+sudo ./scripts/check-csharp-frontend.sh
 ./scripts/check-no-active-gir.sh --strict
 sudo ./scripts/check-all.sh
 cargo test --workspace
@@ -118,7 +119,7 @@ python3 scripts/generate-release-report.py --check
 git diff --check
 ```
 
-The aggregate Rust gate requires root in the initial cgroup namespace only to
+The aggregate successor gate requires root in the initial cgroup namespace only to
 create its fresh delegated cgroup and fixed `noswap` tmpfs backing. It executes
 the frontend, compiler, and generated program after entering the registered
 user/execution namespaces and setting `no_new_privileges`.

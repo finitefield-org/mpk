@@ -28,13 +28,20 @@ run() {
 
 cd "$repo_root"
 
+run "$repo_root/scripts/build-release-bundles.sh" --check-build-inputs rust
+run "$repo_root/scripts/build-csharp-frontend.sh" --check-build-inputs
+run cargo fmt --all -- --check
+run cargo clippy --workspace --all-targets -- -D warnings
+run cargo test --workspace
+run "$repo_root/scripts/run-rust2vir-toolchain.sh" cargo fmt --all -- --check
+run "$repo_root/scripts/run-rust2vir-toolchain.sh" cargo test --locked
+
+# `--fixture successor` executes the `successor_atomic_cutover` installed-image owner.
 for pass in 1 2; do
-  printf '\n==== C# staged release rehearsal pass %s of 2 ====\n' "$pass"
+  printf '\n==== Active successor release pass %s of 2 ====\n' "$pass"
 
   run "$repo_root/scripts/build-csharp-frontend.sh" --check
-  run "$repo_root/scripts/build-release-bundles.sh" --check go-successor
-  run "$repo_root/scripts/build-release-bundles.sh" --check rust-successor
-  run "$repo_root/scripts/build-release-bundles.sh" --check csharp
+  run "$repo_root/scripts/build-release-bundles.sh" --check successor
 
   run cargo test --locked -p mpk-cli \
     --test csharp_profile_vectors \
@@ -42,6 +49,7 @@ for pass in 1 2; do
   run cargo test --locked -p mpk-cli \
     --test successor_go_release \
     --test successor_rust_release \
+    --test csharp_frontend_runner \
     --test csharp_emission \
     --test csharp_policy_verify \
     --test csharp_ai_explain
@@ -60,12 +68,14 @@ for pass in 1 2; do
   )
   run "$repo_root/scripts/run-rust2vir-toolchain.sh" cargo test --locked --test differential
 
-  run "$repo_root/scripts/check-release-bundles.sh" --fixture go-successor
-  run "$repo_root/scripts/check-release-bundles.sh" --fixture rust-successor
-  run "$repo_root/scripts/check-release-bundles.sh" --fixture csharp
+  run "$repo_root/scripts/check-release-bundles.sh" --fixture successor
   run "$repo_root/scripts/check-reference.sh"
   run python3 -B "$repo_root/scripts/check-artifact-paths.py"
-  run git diff --check
+  run /usr/bin/git diff --check
 done
 
-printf '\nC# staged release gate passed twice.\n'
+run "$repo_root/scripts/check-fuzz-smoke.sh"
+run "$repo_root/scripts/check-no-active-gir.sh" --strict
+run python3 -B "$repo_root/scripts/generate-release-report.py" --check
+
+printf '\nActive Go/Rust/C# successor release gate passed twice.\n'

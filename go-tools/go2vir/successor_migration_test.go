@@ -100,6 +100,9 @@ func TestActiveGoCorpus(t *testing.T) {
 				"sha256": sha256Hex(file.content),
 				"bytes":  int64(len(file.content)),
 			})
+			if corpusCase.ExamplePath != "" {
+				assertFixtureAt(t, repoPath("examples/"+corpusCase.ExamplePath+"/"+file.name), file.content)
+			}
 		}
 		activeArtifacts := activeArtifactBytes(t, active)
 		sourceBehaviorEqual := bytes.Equal(
@@ -128,15 +131,31 @@ func TestActiveGoCorpus(t *testing.T) {
 				diagnosticsEqual,
 			)
 		}
-		indexCases = append(indexCases, map[string]jsonValue{
+		selection := successorSelection(goSelection{Package: corpusCase.ImportPath, Function: corpusCase.SelectedFunction})
+		entry := map[string]jsonValue{
 			"id":              corpusCase.ID,
 			"source_root":     corpusCase.SourceRoot,
 			"source_path":     corpusCase.SourcePath,
-			"selection":       successorSelection(goSelection{Package: corpusCase.ImportPath, Function: corpusCase.SelectedFunction}),
+			"selection":       selection,
 			"function_count":  int64(artifacts.Function),
 			"frontend_status": "ir-lowered",
 			"artifacts":       indexedArtifacts,
-		})
+		}
+		if corpusCase.ExamplePath != "" {
+			entry["example_path"] = "examples/" + corpusCase.ExamplePath
+			contextBytes, err := canonicalJSON(fixedSuccessorSemanticContext())
+			if err != nil {
+				t.Fatalf("canonical semantic context for %s: %v", corpusCase.ID, err)
+			}
+			selectionBytes, err := canonicalJSON(selection)
+			if err != nil {
+				t.Fatalf("canonical selection for %s: %v", corpusCase.ID, err)
+			}
+			exampleRoot := "examples/" + corpusCase.ExamplePath + "/"
+			assertFixtureAt(t, repoPath(exampleRoot+"mpk-semantic-context.json"), contextBytes)
+			assertFixtureAt(t, repoPath(exampleRoot+"mpk-selection.json"), selectionBytes)
+		}
+		indexCases = append(indexCases, entry)
 	}
 
 	firstNegative := successorNegativeCorpus(t)
@@ -184,7 +203,7 @@ func TestActiveGoCorpus(t *testing.T) {
 
 	index := map[string]jsonValue{
 		"schema":                "mpk.go_vir_frontend_corpus.v1",
-		"update_command":        "./scripts/build-release-bundles.sh --update-fixtures",
+		"update_command":        "MPK_UPDATE_GO_CORPUS=1 go test -count=1 -run TestActiveGoCorpus",
 		"deterministic_runs":    int64(2),
 		"semantic_context":      fixedSuccessorSemanticContext(),
 		"release_registry":      releaseRegistryIdentity{Schema: registry.Schema, ID: registry.ID, RegistrySHA256: registry.RegistrySHA256},

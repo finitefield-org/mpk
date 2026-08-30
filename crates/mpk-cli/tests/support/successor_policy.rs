@@ -3,8 +3,9 @@
 use std::fs;
 use std::path::{Path, PathBuf};
 
-use mpk_cli::policy_schema::PolicyVerificationOptions;
-use mpk_cli::successor_policy::{run_successor_policy, SuccessorPolicySource};
+use mpk_cli::successor_policy::{
+    run_successor_policy, PolicyVerificationOptions, SuccessorPolicySource,
+};
 use mpk_vc::semantic_profile_registry::{
     validate_semantic_profile_registry, RegistryRevision, ValidatedSemanticProfileRegistry,
 };

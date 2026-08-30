@@ -430,11 +430,19 @@ mod tests {
     #[test]
     fn embedded_registry_constants_match_the_reviewed_registry() {
         let bytes = include_bytes!("../../../release/bundles/bundle-registry.json");
-        let registry = validate_release_registry(bytes).expect("reviewed registry validates");
+        let semantic = mpk_vc::semantic_profile_registry::validate_semantic_profile_registry(
+            include_bytes!("../../../release/bundles/semantic-profile-registry.json"),
+            mpk_vc::semantic_profile_registry::RegistryRevision::Revision2,
+        )
+        .expect("reviewed semantic registry validates");
+        let registry =
+            mpk_vc::release_bundle_v1::validate_successor_release_registry(bytes, &semantic)
+                .expect("reviewed successor registry validates");
         assert_eq!(registry.registry().id, EXPECTED_REGISTRY_ID);
+        assert_eq!(registry.registry_sha256(), EXPECTED_REGISTRY_SHA256_HEX);
         assert_eq!(
-            registry.registry_digest().as_bytes(),
-            &EXPECTED_REGISTRY_SHA256
+            decode_sha256(EXPECTED_REGISTRY_SHA256_HEX),
+            EXPECTED_REGISTRY_SHA256
         );
     }
 
@@ -535,5 +543,21 @@ mod tests {
         }
         assert_eq!(count, 0);
         output
+    }
+
+    fn decode_sha256(value: &str) -> [u8; 32] {
+        let mut output = [0_u8; 32];
+        for (index, pair) in value.as_bytes().chunks_exact(2).enumerate() {
+            output[index] = (hex(pair[0]) << 4) | hex(pair[1]);
+        }
+        output
+    }
+
+    fn hex(value: u8) -> u8 {
+        match value {
+            b'0'..=b'9' => value - b'0',
+            b'a'..=b'f' => value - b'a' + 10,
+            _ => panic!("non-hexadecimal registry digest"),
+        }
     }
 }

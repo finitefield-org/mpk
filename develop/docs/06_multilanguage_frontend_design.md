@@ -1,14 +1,13 @@
 # Post-Rust Multi-Language Frontend Expansion Design
 
-Status: Gate B, `MLANG-00`, Gate C, and `MLANG-01` are complete after the
-completed `RUST-07-T05` entry gate. Gate D is active at its non-production
-implementation boundary: `CSHARP-02-T01` through `CSHARP-02-T19` are complete,
-and `CSHARP-02-T20` is next. This document does not activate a new source
-language or amend an active serialized schema.
+Status: Gate B, `MLANG-00`, Gate C, `MLANG-01`, and Gate D are complete after
+the completed `RUST-07-T05` entry gate. `CSHARP-02-T01` through
+`CSHARP-02-T20` completed serially; the shared successor Go/Rust/C# release is
+active and `JAVA-03` is eligible. No Java or later-language route is active.
 
 Prepared: 2026-08-21
 
-Updated: 2026-08-28 (`CSHARP-02-T19` completion)
+Updated: 2026-08-30 (`CSHARP-02-T20` completion)
 
 ## 1. Decision summary
 
@@ -448,10 +447,10 @@ are genuinely shared. `MLANG-01` then freezes the successor versioning
 strategy and C# specification package.
 
 Completion: `MLANG-01-T01` produced the closed implementation-backed gap
-ledger, `MLANG-01-T02` froze the normative inactive successor registry
-mechanism, and `MLANG-01-T03` froze the exact inactive C# profile, registry
-revision 2, toolchain/reference inventory, semantics, and owned vectors. No C#
-production work is active.
+ledger, `MLANG-01-T02` froze the then-inactive successor registry mechanism,
+and `MLANG-01-T03` froze the exact then-inactive C# profile, registry revision
+2, toolchain/reference inventory, semantics, and owned vectors. Those outputs
+became active only through the later atomic `CSHARP-02-T20` release.
 
 ### Gate D: C# production work after `MLANG-01`
 
@@ -459,61 +458,23 @@ Only after `MLANG-01` completes may C# production code and release bundles
 merge. The earlier `RUST-07-T05 -> MLANG-00 -> MLANG-01` dependencies are
 transitive and may not be bypassed.
 
-Entry status: open with inactive implementation begun. `CSHARP-02-T01`
-completed the bounded implementation plan, `CSHARP-02-T02` added only the
-unregistered, source-inert project and reproducible offline build closure,
-and `CSHARP-02-T03` added the private/test-injected successor registry core.
-`CSHARP-02-T04` added sealed, explicitly injected successor source-artifact
-and frontend-protocol validators without routing them from a released input.
-`CSHARP-02-T05` added the private exact selection/hash, no-follow closed
-snapshot, immutable capture, and strict source-transport path.
-`CSHARP-02-T06` added the exact pinned Roslyn source/compilation session,
-reference projection, diagnostics, and public semantic API adapters.
-`CSHARP-02-T07` added the closed declaration/type/operation gate, conservative
-pure acyclic source-call closure, inert-initialization and definite-assignment
-proofs, and exact pre-lowering accounting. `CSHARP-02-T08` added strict typed
-sidecars, exact one-to-one closure attachment, complete successor semantic
-context normalization, and the frozen sidecar/contract hashes.
-`CSHARP-02-T09` added deterministic scalar/control/conversion lowering,
-complete ordered safety-check validation, and exact ownership of its 15
-semantic rows. `CSHARP-02-T10` added callee-first static-call lowering, stable
-structural IDs, exact UTF-16-to-UTF-8 source origins, and canonical staged VIR,
-map, frontend manifest, and success-envelope emission accepted by the shared
-successor validators. `CSHARP-02-T11` closed frontend diagnostics, limits,
-failure envelopes, and the aggregate source-case executor. `CSHARP-02-T12`
-added deterministic candidate bundle assembly, successor release models, and
-the private descriptor-relative installed-tree runner under the frozen .NET
-launcher and Linux sandbox. `CSHARP-02-T13` added a hash-anchored, pinned Go
-1.25.0 staging build that emits only successor envelopes and source artifacts,
-a successor Go candidate tuple, and the complete regenerated Go staging
-corpus. Its semantic-difference report records no source-behavior, required-
-check, VC-input-intent, or deterministic-diagnostic change, and active/staged
-validators reject one another's artifacts. The active Go source, binary,
-fixtures, release tuple, and registry remain unchanged. `CSHARP-02-T14` added
-a hash-anchored, pinned Rust nightly staging build for `rust2vir` and its
-private driver, a two-target successor Rust bundle projection, and the
-complete regenerated 13-positive/73-negative Rust corpus. Its successor-only
-private request/result/raw schemas and public artifacts preserve source
-behavior, required checks, target behavior, source maps, manifest input
-intent, and diagnostics exactly; active and staged public validators reject
-one another's families. The active Rust source, binaries, fixtures, release
-tuples, and registry remain unchanged. `CSHARP-02-T15` added explicitly
-injected successor VC and skeleton generation/import under
-`mpk.vc.v2`, `mpk.vc.cert_skeleton.v2`, and `MPK-VC-2.0`. All three staged
-profiles reuse the checked Bool/BV, weakest-precondition, grouping,
-declaration, and limit foundations; Go/Rust obligations remain unchanged and
-C# checks are regenerated through the profile-owned path. The frozen C# entry
-and revision-2 registry remain staging identities rather than installed
-identities. `CSHARP-02-T16` added hidden, explicitly injected policy paths
-that regenerate canonical successor scans from frontend artifacts and
-evidence from the complete VC/skeleton graph, validate exact Go/Rust/C# policy
-and evidence contracts, perform the certificate-stage manifest transition,
-and apply `mpk.program_certificate.alpha.v1` through the unchanged Certificate
-v0 assembler. Representative Go, Rust, and C#
-obligations retain their prior verdicts, the C# candidate reaches identical-
-byte acceptance by both source-free checkers, and helper/compiler artifacts
-remain untrusted. No released policy parser or command discovers the path,
-and T20 remains the sole activation owner.
+Completion: `CSHARP-02-T01` through `CSHARP-02-T19` built and hardened the
+successor registry, source artifacts, Go/Rust/C# frontends, VC,
+policy/evidence, program-certificate, AI, API, bundle, and installed-release
+paths behind the recorded staging boundary. `CSHARP-02-T20` then performed the
+single atomic activation: semantic-registry revision 2 and the successor
+bundle registry are installed beside one `bin/mpk`; all four registered
+Go/Rust/C# tuples and the nine C# compiled-profile contracts are active;
+active fixtures use successor identities; predecessor and crossed identities
+reject; and the executable staging tree is gone.
+
+The cutover retains only the archived zero-finding review and semantic-
+difference reports. `crates/mpk-cli/tests/successor_atomic_cutover.rs` owns the
+installed-image proof, and `scripts/check-csharp-frontend.sh` performs the
+offline two-pass release gate. Certificate v0, both checker inputs and
+verdicts, the four axiom categories, and the untrusted status of every helper
+artifact remain unchanged. Gate D is closed and Gate E may admit only
+`JAVA-03` next.
 
 ### Gate E: serial language admission
 

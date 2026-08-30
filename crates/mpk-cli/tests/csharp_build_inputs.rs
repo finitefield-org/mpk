@@ -201,7 +201,7 @@ fn build_input_self_test_is_closed_against_hostile_ambient_settings() {
     let output = Command::new(&script)
         .arg("--self-test")
         .env_clear()
-        .env("PATH", "/nonexistent")
+        .env("PATH", "/usr/bin:/bin")
         .env("HOME", "/ambient-home-must-not-be-used")
         .env("DOTNET_ROOT", "/ambient-dotnet-must-not-be-used")
         .env("NUGET_PACKAGES", "/ambient-nuget-must-not-be-used")
@@ -219,12 +219,12 @@ fn build_input_self_test_is_closed_against_hostile_ambient_settings() {
 }
 
 #[test]
-fn candidate_remains_inert_unregistered_and_outside_the_active_release() {
+fn registered_frontend_remains_closed_and_uses_the_successor_release_assembler() {
     let root = repository_root();
     let project = fs::read_to_string(root.join("csharp-tools/csharp2vir/csharp2vir.csproj"))
         .expect("read C# project");
     let program = fs::read_to_string(root.join("csharp-tools/csharp2vir/Program.cs"))
-        .expect("read inactive C# program");
+        .expect("read active C# program");
     assert!(!project.contains("PackageReference"));
     assert!(!project.contains("Analyzer Include"));
     assert!(!program.contains("ParseText"));
@@ -236,22 +236,22 @@ fn candidate_remains_inert_unregistered_and_outside_the_active_release() {
 
     let registry = load("release/bundles/bundle-registry.json");
     let registry_bytes = serde_json::to_vec(&registry).unwrap();
-    for forbidden in [
+    for required in [
         b"csharp2vir".as_slice(),
         b"mpk.csharp.scalar.v0".as_slice(),
         b"mpk.semantic_profile.registry.v1".as_slice(),
     ] {
-        assert!(!registry_bytes
-            .windows(forbidden.len())
-            .any(|window| window == forbidden));
+        assert!(registry_bytes
+            .windows(required.len())
+            .any(|window| window == required));
     }
 
     let release_script = fs::read_to_string(root.join("scripts/build-release-bundles.sh"))
         .expect("read release assembler route");
-    assert!(release_script.contains("2:--check:csharp)"));
-    assert!(release_script.contains("csharp_release_bundles.py\" check"));
+    assert!(release_script.contains("2:--check:successor|"));
+    assert!(release_script.contains("successor_release_bundles.py\" check"));
 
-    let ignored = Command::new("git")
+    let ignored = Command::new("/usr/bin/git")
         .current_dir(&root)
         .args([
             "check-ignore",
@@ -261,7 +261,7 @@ fn candidate_remains_inert_unregistered_and_outside_the_active_release() {
         .output()
         .expect("check C# cache ignore rule");
     assert!(ignored.status.success());
-    let tracked = Command::new("git")
+    let tracked = Command::new("/usr/bin/git")
         .current_dir(&root)
         .args(["ls-files", "release/build-input-cache/csharp"])
         .output()

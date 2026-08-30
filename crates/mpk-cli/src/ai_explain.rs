@@ -94,6 +94,7 @@ const RECOGNIZED_CATEGORIES: &[&str] = &[
 ];
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[allow(dead_code)]
 pub enum AiExplainV1ErrorCode {
     InputUnavailable,
     InputTooLarge,
@@ -157,6 +158,7 @@ impl AiExplainV1Error {
         Self { code, detail }
     }
 
+    #[allow(dead_code)]
     pub const fn code(&self) -> AiExplainV1ErrorCode {
         self.code
     }

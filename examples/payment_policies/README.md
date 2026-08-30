@@ -10,7 +10,10 @@ current Go subset v0 and has:
 - `vc.json`: generated helper verification conditions;
 - `vc_skeleton.json`: generated helper theorem-obligation skeletons.
 
-These files are helper artifacts only. Trusted proof evidence starts only when
+The successor corpus also stores `mpk-semantic-context.json`,
+`mpk-selection.json`, `frontend-envelope.json`, `source-map.json`, and the
+frontend source manifest. These files are helper artifacts only. Trusted proof
+evidence starts only when
 canonical `.mpcert` bytes or checked theory certificates are accepted by MPK
 under the active checker profile.
 
@@ -25,45 +28,24 @@ root as the current strict end-to-end path for checked theory evidence:
 
 ```sh
 mkdir -p target/proof-ops
-registry_id=mpk.release.registry.v0
-registry_sha256=bdc7864663877b26345f4edc77e24c2c5a14b1582e19f15e2674ab22024ced98
-frontend_bundle=frontend.go.go2vir.v0
-toolchain_bundle=toolchain.go.go1.25.0.linux-amd64.v0
 
 mpk policy scan examples/payment_policies/reserve \
-  --language go \
-  --semantic-profile mpk.go.fixed.v0 \
-  --require-release-registry-id "$registry_id" \
-  --require-release-registry-sha256 "$registry_sha256" \
-  --frontend-bundle "$frontend_bundle" \
-  --toolchain-bundle "$toolchain_bundle" \
-  --target linux/amd64 \
-  --package example.com/payment/reserve \
-  --function example.com/payment/reserve.ApprovedReserveCents \
+  --semantic-context examples/payment_policies/reserve/mpk-semantic-context.json \
+  --selection examples/payment_policies/reserve/mpk-selection.json \
   --contract policy_contract.json \
   --json-out target/proof-ops/reserve.scan.json
 
 mpk policy verify examples/payment_policies/reserve \
-  --language go \
-  --semantic-profile mpk.go.fixed.v0 \
-  --require-release-registry-id "$registry_id" \
-  --require-release-registry-sha256 "$registry_sha256" \
-  --frontend-bundle "$frontend_bundle" \
-  --toolchain-bundle "$toolchain_bundle" \
-  --target linux/amd64 \
-  --package example.com/payment/reserve \
-  --function example.com/payment/reserve.ApprovedReserveCents \
+  --semantic-context examples/payment_policies/reserve/mpk-semantic-context.json \
+  --selection examples/payment_policies/reserve/mpk-selection.json \
   --contract policy_contract.json \
-  --strategy-profile payment-policy-alpha \
-  --checker-profile mvp-strict \
-  --axiom-profile zero-axiom \
-  --evidence-json target/proof-ops/reserve.evidence.json \
-  --evidence-md target/proof-ops/reserve.evidence.md \
-  --strict
+  --evidence-json target/proof-ops/reserve.evidence.json
 ```
 
-Expected CLI output is `ok policy verify status=complete`; the generated v1
-evidence contains the reviewed property counts and statuses.
+Expected CLI output identifies `mpk.policy.evidence.v2`; the generated
+evidence contains the reviewed property counts and statuses. Registry, bundle,
+toolchain, strategy, checker, and axiom identities come only from the installed
+successor release and its compiled profile contracts.
 
 Review these helper artifacts in PRs when a policy changes:
 
@@ -73,10 +55,10 @@ Review these helper artifacts in PRs when a policy changes:
 - generated `vc.json`;
 - generated `vc_skeleton.json`;
 - generated scan JSON from `mpk policy scan`;
-- generated evidence JSON and Markdown from `mpk policy verify`.
+- generated evidence JSON from `mpk policy verify`.
 
-Treat VIR, VC JSON, scan JSON, Markdown reports, and CI status as helper
+Treat VIR, VC JSON, scan JSON, explanation requests, and CI status as helper
 artifacts only. They are useful drift signals, but they are not proof evidence.
 Trusted proof evidence is limited to checked certificates, checked theory
 certificates, checker verdicts, and the corresponding axiom reports recorded in
-`mpk.policy.evidence.v1`.
+`mpk.policy.evidence.v2`.

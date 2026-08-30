@@ -1,25 +1,29 @@
 # Alpha Demo Guide
 
-This guide reproduces the active Go/Rust VIR paths and the source-free proof checks.
+This guide reproduces the active Go/Rust/C# successor paths and source-free
+proof checks.
 Run commands from the repository root unless noted otherwise.
 
 ## Trust boundary
 
-Go/Rust source, contracts, rustc, frontend envelopes, VIR, source maps,
+Go/Rust/C# source, contracts, compilers, frontend envelopes, VIR, source maps,
 manifests, VC JSON, skeletons, policy reports, CI results, and AI output are
 untrusted helper artifacts. Proof
 acceptance comes only from canonical certificate bytes or checked theory
 certificates accepted by the configured source-free checkers.
 
-## 1. Run the Go source corpus
+## 1. Run the frontend source corpora
 
 ```sh
 (cd fixtures/go-alpha && go test ./...)
 (cd go-tools/go2vir && go test -count=1 ./...)
+cargo test -p mpk-cli --test csharp_profile_vectors
+./scripts/build-csharp-frontend.sh --check
 ```
 
-The frontend corpus covers all 100 alpha functions, the positive examples, and
-the reviewed negative cases. Unsupported source features fail closed.
+The corpora cover the registered profiles, positive examples, and reviewed
+negative cases. Unsupported source features and crossed profile identities
+fail closed.
 
 ## 2. Check the installed Go/VIR artifacts
 
@@ -28,8 +32,8 @@ the reviewed negative cases. Unsupported source features fail closed.
 cargo test -p mpk-vc --test go_vir_corpus
 ```
 
-The test performs two clean generations, imports VIR and source maps, rebuilds
-VC v1 and grouped skeletons, and compares the result with `fixtures/vir-go`,
+The test imports successor VIR and source maps, rebuilds successor VC and
+grouped skeletons, and compares the result with `fixtures/vir-go`,
 `fixtures/vc-alpha`, and the active example files. Use `--update` only for an
 intentional fixture regeneration, then review every changed hash and byte.
 
@@ -41,16 +45,19 @@ The inspectable example outputs include:
 
 ## 3. Run the registered policy path
 
-Production `mpk policy scan` and `mpk policy verify` resolve a frontend and
-toolchain from the release registry installed beside `bin/mpk`. They require
-the full language/profile/registry/bundle/target/selection tuple and reject raw
-executable, toolchain, and registry paths.
+Production `mpk policy scan` and `mpk policy verify` resolve a frontend,
+toolchain, registry identity, and compiled profile contracts from the release
+installed beside `bin/mpk`. Callers provide only revision-2 semantic-context
+and selection envelopes, Go/Rust contract paths, and an output path. Raw
+executables, toolchain roots, registries, bundle identities, and compatibility
+flags reject.
 
 Use the complete reserve commands in
 [`proof-ops-policy-ci.md`](proof-ops-policy-ci.md). A successful scan prints
-`ok policy scan status=ready`; a successful verification prints
-`ok policy verify status=complete`. The canonical policy evidence v1 report,
-not the success line, records individual property statuses and trusted links.
+`ok policy scan schema=mpk.policy.scan.v2`; a successful verification prints
+`ok policy verify schema=mpk.policy.evidence.v2`. The canonical evidence
+report, not the success line, records individual property statuses and trusted
+links.
 
 ## 4. Check canonical proof evidence
 
@@ -70,23 +77,23 @@ these checks.
 
 ```sh
 ./scripts/check-fast.sh
-sudo ./scripts/check-rust-frontend.sh
+sudo ./scripts/check-csharp-frontend.sh
 sudo ./scripts/check-all.sh
 ```
 
-The Rust gate validates frozen build inputs and registered bundles, both target
-libraries, the Rust product example, two-clean-build and differential results,
-limits, fuzz smoke, path sanitation, checker agreement, axiom/profile equality,
-and the strict removed-interface scan. Its release report is untrusted
-provenance; it cannot replace the certificate checks in section 4.
+The successor gate validates frozen build inputs and all registered bundles,
+executes Go, Rust, and C# through one installed image, checks determinism,
+differential cases, limits, fuzz smoke, path sanitation, checker agreement,
+axiom/profile equality, and removed predecessor interfaces. Its release report
+is untrusted provenance; it cannot replace the certificate checks in section
+4.
 The root boundary is used only to create the release sandbox's fresh delegated
 cgroup and fixed `noswap` backing; Rust source processing runs after the
 sandbox removes host privileges.
 
-The checked Rust example and its exact reproduction recipes live under
-`examples/rust-payment-policy`. Verify the frozen bytes with:
+The Rust example and its exact request envelopes live under
+`examples/rust-payment-policy`. Verify generated release metadata with:
 
 ```sh
-./scripts/regenerate-rust-payment-policy.sh --check
 python3 scripts/generate-release-report.py --check
 ```

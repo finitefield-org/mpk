@@ -1,3 +1,6 @@
+#[path = "support/successor_projection.rs"]
+mod successor_projection;
+
 use std::fs;
 use std::path::{Path, PathBuf};
 
@@ -12,6 +15,7 @@ use mpk_vc::{
     SAFETY_GROUPED_CERTIFICATE_FOUNDATION, VERIFICATION_LIMIT_PROFILE, VIR_SCHEMA_VERSION,
 };
 use serde_json::Value;
+use successor_projection::import_successor_rust_vir_projection;
 
 const ARITHMETIC_VIR: &[u8] =
     include_bytes!("../../../rust-tools/rust2vir/testdata/arithmetic/expected-vir.json");
@@ -277,11 +281,12 @@ fn import_modules(bytes: &[u8]) -> Vec<VirModule> {
             .into_iter()
             .map(|module| {
                 let bytes = serde_json::to_vec(&module).expect("fixture module serializes");
-                import_vir_json(&bytes).expect("fixture passes independent VIR validation")
+                import_successor_rust_vir_projection(&bytes)
             })
             .collect(),
-        module => vec![import_vir_json(&serde_json::to_vec(&module).unwrap())
-            .expect("fixture passes independent VIR validation")],
+        module => vec![import_successor_rust_vir_projection(
+            &serde_json::to_vec(&module).expect("fixture module serializes"),
+        )],
     }
 }
 

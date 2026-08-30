@@ -141,6 +141,7 @@ fn package_check_accepts_valid_manifest_fixture() {
 }
 
 #[test]
+#[cfg(target_os = "linux")]
 fn package_verify_certs_uses_the_embedded_reference_checker() {
     let output = Command::new(env!("CARGO_BIN_EXE_mpk"))
         .current_dir(repo_root())

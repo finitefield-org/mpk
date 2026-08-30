@@ -1,326 +1,185 @@
 # MPK: Machine Proof Kernel
 
 MPK is a certificate-first proof kernel and program-verification toolchain for
-AI-assisted proof workflows. The current implementation focuses on canonical
-proof certificates, source-free checking, restricted Go and Rust frontends, VC
-generation, and product-facing payment-policy evidence for ProofOps.
+AI-assisted proof workflows. The active release accepts restricted Go, Rust,
+and C# programs through one registered successor pipeline and produces
+deterministic verification artifacts.
 
-The project is designed around a small trusted base. Go/Rust source, contracts,
-compilers, frontends, VIR, VC JSON, AI output, solver answers, Markdown reports,
-and CI status are useful engineering artifacts, but they are not proof
-evidence. The objects that matter
-are canonical `.mpcert` bytes, checked theory certificates, deterministic
-hashes, axiom reports, and checker verdicts.
+The trusted boundary is deliberately small. Source, contracts, compilers,
+frontends, VIR, VC JSON, policy reports, AI requests, Markdown, CI status, and
+release reports are untrusted helper artifacts. Proof acceptance comes only
+from canonical `.mpcert` bytes or checked theory certificates accepted by the
+source-free Rust checker and, where required, the independent reference
+checker.
 
-```text
-untrusted / helper analysis:
-  Go or Rust source / contract JSON / go2vir / rustc / rust2vir / VIR / VC JSON
-  AI traces / solver answers / report prose / CI status / web logs
+## Current status
 
-trusted proof evidence:
-  canonical .mpcert bytes
-  checked theory certificates
-  Rust kernel / verifier verdicts
-  independent source-free reference checker verdicts
-  deterministic export_hash, certificate_hash, and axiom_report_hash
-```
+The workspace version is `0.1.0`, and the installed CLI is `mpk`.
+`CSHARP-02-T20` completed the atomic successor cutover:
 
-MPK is not a production replacement for Lean or Rocq. It is a research and
-implementation repository for a proof-certificate-centered verification
-toolchain and its first Go/Rust policy paths.
+- semantic-profile registry revision 2 is the only active profile registry;
+- `mpk.release.registry.v1` is the only active bundle registry;
+- Go, Rust, and C# resolve exact frontend/toolchain tuples from the installed
+  release beside `bin/mpk`;
+- policy scan and evidence use `mpk.policy.scan.v2` and
+  `mpk.policy.evidence.v2`;
+- `mpk explain` emits only a deterministic, sanitized
+  `mpk.ai.explain.request.v2` helper request;
+- callers cannot supply registry paths, executable paths, bundle identities,
+  toolchain roots, provider credentials, or compatibility flags.
 
-## Current Status
+Certificate v0 and both source-free checking paths remain unchanged by this
+frontend migration.
 
-The workspace version is `0.1.0`. The installed CLI binary is `mpk`.
+## Build from source
 
-Implemented paths include:
-
-- canonical certificate encoding and source-free verification;
-- Rust kernel checks for core proof certificates;
-- checked theory-certificate support for selected theory proofs;
-- package manifest validation and certificate verification;
-- an untrusted `go2vir` frontend for a restricted Go subset;
-- an untrusted, registered `rust2vir` frontend over a frozen nightly compiler
-  and two registered target libraries;
-- VC generation for supported VIR functions;
-- `mpk policy scan` with schema `mpk.policy.scan.v1`;
-- `mpk policy verify` with schema `mpk.policy.evidence.v1`;
-- payment-policy examples for reserve, refund, discount, fee, and points;
-- a structurally checked Rust payment-policy release example accepted by both
-  source-free checkers.
-
-The ProofOps-facing policy path currently distinguishes:
-
-- `strategy_profile`: product workflow selection such as
-  `payment-policy-alpha` for Go or `payment-policy-rust-alpha` for Rust;
-- `checker_profile`: MPK checker mode such as `mvp-strict`;
-- `axiom_profile`: axiom policy allowlist such as `zero-axiom`.
-
-These fields must remain separate in product reports and integrations.
-
-## Continuous Integration
-
-The `rust-frontend.yml` workflow runs only after bytes reach `main` or through
-a write-access-controlled manual dispatch; pull-request refs never enter its
-root release job. It provisions frozen Rust build inputs only on a cache miss,
-materializes only digest-pinned verification images, validates restored or
-provisioned bytes before use, then runs the same local release gate in a
-network namespace with Docker pulls forbidden. That namespace prevents
-accidental fetches by the reviewed gate; it is not a hostile-root sandbox. Use
-an externally egress-denied disposable runner before executing an untrusted
-ref. CI, caches, compiler output, and the generated release report remain
-untrusted helper evidence.
-
-## Build From Source
-
-Install Rust and Go, then build the CLI:
+Install Rust, Go, and Python 3, then build the workspace CLI:
 
 ```sh
 cargo build -p mpk-cli
-```
-
-Run the binary from the repository build output:
-
-```sh
 target/debug/mpk --help
 ```
 
-Build the Go frontend for development and corpus checks:
+The source checkout is suitable for development tests. Policy commands must
+run from a materialized Linux release because their frontend and toolchain
+bundles are resolved relative to the installed `bin/mpk`.
 
-```sh
-(cd go-tools/go2vir && go build -o ../../target/debug/go2vir .)
-```
+## Certificate verification
 
-## Certificate Verification Quick Start
-
-Verify a canonical certificate fixture:
+Verify a canonical fixture:
 
 ```sh
 cargo run --quiet -p mpk-cli -- check fixtures/cert-basic/one-theorem.hex
 ```
 
-Expected result: JSON with `"verdict":"accepted"`.
-
-Verify a package manifest that requires source-free checking and the independent
-reference checker:
+Verify a package whose certificates require both source-free checking paths:
 
 ```sh
 cargo run --quiet -p mpk-cli -- package verify-certs \
   fixtures/package-manifest/valid/basic-package.json
 ```
 
-Expected result:
+## Successor policy CLI
 
-```text
-ok package=Example.Basic.Package source_free=1 reference=1
-```
+Each request supplies only a source root, a revision-2 semantic-context
+envelope, a selection envelope, normalized Go/Rust contract paths, and an
+output path. The installed release selects every security-sensitive identity.
 
-## ProofOps Policy Quick Start
-
-The payment-policy path is the product-facing integration surface for
-`../proof-ops`. It produces deterministic helper artifacts and evidence JSON
-without expanding MPK's trusted boundary. Production policy commands resolve
-the frontend and toolchain only from the registry installed beside `bin/mpk`;
-they do not accept executable or registry paths.
-
-Select the installed Go release tuple:
+Scan the Go reserve example:
 
 ```sh
 mkdir -p target/proof-ops
-export MPK_RELEASE_REGISTRY_ID=mpk.release.registry.v0
-export MPK_RELEASE_REGISTRY_SHA256=bdc7864663877b26345f4edc77e24c2c5a14b1582e19f15e2674ab22024ced98
-export MPK_GO_FRONTEND_BUNDLE=frontend.go.go2vir.v0
-export MPK_GO_TOOLCHAIN_BUNDLE=toolchain.go.go1.25.0.linux-amd64.v0
-```
-
-Scan the reserve policy:
-
-```sh
-cargo run --quiet -p mpk-cli -- policy scan examples/payment_policies/reserve \
-  --language go \
-  --semantic-profile mpk.go.fixed.v0 \
-  --require-release-registry-id "$MPK_RELEASE_REGISTRY_ID" \
-  --require-release-registry-sha256 "$MPK_RELEASE_REGISTRY_SHA256" \
-  --frontend-bundle "$MPK_GO_FRONTEND_BUNDLE" \
-  --toolchain-bundle "$MPK_GO_TOOLCHAIN_BUNDLE" \
-  --target linux/amd64 \
-  --package example.com/payment/reserve \
-  --function example.com/payment/reserve.ApprovedReserveCents \
+mpk policy scan examples/payment_policies/reserve \
+  --semantic-context examples/payment_policies/reserve/mpk-semantic-context.json \
+  --selection examples/payment_policies/reserve/mpk-selection.json \
   --contract policy_contract.json \
   --json-out target/proof-ops/reserve.scan.json
 ```
 
-Verify the reserve policy and write product evidence:
+Verify it and emit strict evidence:
 
 ```sh
-cargo run --quiet -p mpk-cli -- policy verify examples/payment_policies/reserve \
-  --language go \
-  --semantic-profile mpk.go.fixed.v0 \
-  --require-release-registry-id "$MPK_RELEASE_REGISTRY_ID" \
-  --require-release-registry-sha256 "$MPK_RELEASE_REGISTRY_SHA256" \
-  --frontend-bundle "$MPK_GO_FRONTEND_BUNDLE" \
-  --toolchain-bundle "$MPK_GO_TOOLCHAIN_BUNDLE" \
-  --target linux/amd64 \
-  --package example.com/payment/reserve \
-  --function example.com/payment/reserve.ApprovedReserveCents \
+mpk policy verify examples/payment_policies/reserve \
+  --semantic-context examples/payment_policies/reserve/mpk-semantic-context.json \
+  --selection examples/payment_policies/reserve/mpk-selection.json \
   --contract policy_contract.json \
-  --strategy-profile payment-policy-alpha \
-  --checker-profile mvp-strict \
-  --axiom-profile zero-axiom \
-  --evidence-json target/proof-ops/reserve.evidence.json \
-  --evidence-md target/proof-ops/reserve.evidence.md
+  --evidence-json target/proof-ops/reserve.evidence.json
 ```
 
-The scan JSON is helper analysis. The evidence JSON is the product API. A
-property is `mpk_verified` only when it references checked declaration evidence
-or checked theory-certificate evidence under `trusted_evidence`; VIR, VC JSON,
-Markdown, CI status, and Gemini output remain helper analysis.
+The profile-owned policy contract fixes the strategy, checker, and axiom
+profiles. Verification is strict; there is no public flag that weakens it.
+Only `trusted_evidence` links backed by accepted certificates or checked
+theory certificates can support an `mpk_verified` property.
 
-## Optional Vertex AI Explanation
+Rust uses the same command shape and may repeat `--contract`; see
+[the Rust example](examples/rust-payment-policy/README.md). C# contract paths
+come from the validated C# selection envelope, so C# requests do not accept
+`--contract`.
 
-The opt-in `mpk explain` command is available only in a build with the
-`vertex-ai` feature:
+## Sanitized explanation request
 
-```sh
-cargo build -p mpk-cli --features vertex-ai
-export GOOGLE_CLOUD_PROJECT="your-lowercase-project-id"
-export GOOGLE_CLOUD_LOCATION="global"
-gcloud services enable aiplatform.googleapis.com \
-  --project "$GOOGLE_CLOUD_PROJECT"
-gcloud auth application-default login
-gcloud auth application-default set-quota-project "$GOOGLE_CLOUD_PROJECT"
-mkdir -p target/proof-ops
-```
-
-Use a dedicated billed non-production project with approved quotas and budget
-alerts. A cloud administrator must enable the Vertex AI API. The calling
-identity needs `roles/aiplatform.user`; when user ADC assigns a quota project,
-it also needs `serviceusage.services.use` on that project, normally through
-`roles/serviceusage.serviceUsageConsumer`. Grant these roles only at the
-narrowest practical scope. Do not approve live use until the `GEMINI-AUX-05`
-English and Japanese release gate in the design document has been completed.
-
-Before sending anything, inspect the exact credential-free request body with
-the offline dry run:
+Generate an English request projection without credentials or network access:
 
 ```sh
-target/debug/mpk explain target/proof-ops/reserve.evidence.json \
-  --provider vertex-ai \
+mpk explain examples/payment_policies/reserve \
+  --semantic-context examples/payment_policies/reserve/mpk-semantic-context.json \
+  --selection examples/payment_policies/reserve/mpk-selection.json \
+  --contract policy_contract.json \
   --language en \
-  --dry-run \
   --request-json-out target/proof-ops/reserve.explain-request.json
 ```
 
-Normal mode obtains a short-lived token from local ADC through
-`gcloud auth application-default print-access-token --quiet`, then sends the
-allowlisted, redacted payload to Vertex AI. It writes separate JSON and
-Markdown helper reports:
+The output is untrusted helper analysis. The public CLI does not authenticate,
+select a provider, contact an AI service, consume a response, or alter policy
+evidence. Any external system that sends the request is independently
+responsible for consent, credentials, retention, and provider governance.
 
-```sh
-target/debug/mpk explain target/proof-ops/reserve.evidence.json \
-  --provider vertex-ai \
-  --output-json target/proof-ops/reserve.ai-explanation.json \
-  --output-md target/proof-ops/reserve.ai-explanation.md
-```
+## Continuous integration and local gates
 
-Every report is explicitly untrusted helper analysis. The JSON carries
-`proof_evidence: false`, and the Markdown warning is inserted locally before
-any generated text. MPK restores property IDs and statuses only from the
-validated local evidence; AI prose cannot change proof results. Remote
-processing, project metadata, source-evidence hashes, and provider retention
-or abuse-monitoring policies still require customer consent and a current
-Google Cloud data-governance review. Do not treat this feature as a zero-
-retention guarantee, and never commit real request previews or reports.
+The privileged workflow in `.github/workflows/rust-frontend.yml` is the sole
+Go/Rust/C# successor release gate. It runs only on reviewed `main` bytes or a
+write-access-controlled manual dispatch. It validates frozen inputs, uses
+digest-pinned images, disables network access during the gate, materializes
+one installed release, runs all three registered frontends, checks both
+source-free verifiers, and repeats the installed-release pass twice.
 
-To remove local ADC after use, run `gcloud auth application-default revoke`.
-
-## Repository Layout
-
-```text
-.
-+-- crates/
-|   +-- mpk-core/      trusted core terms, names, environments, and checking
-|   +-- mpk-cert/      canonical certificate encoding and hash material
-|   +-- mpk-kernel/    certificate verifier and JSON verdict output
-|   +-- mpk-theory/    checked theory-certificate implementations
-|   +-- mpk-vc/        VIR import, VC generation, and policy classification
-|   +-- mpk-api/       untrusted API and strategy orchestration
-|   +-- mpk-cli/       installed `mpk` command
-+-- go-tools/
-|   +-- go2vir/        untrusted Go subset frontend
-|   +-- mpk-checker-ref/ independent source-free checker prototype
-+-- docs/              user-facing ProofOps and integration documentation
-+-- develop/           specs, roadmap, release gates, and internal design docs
-+-- examples/          Max64, order policy, and payment-policy examples
-+-- fixtures/          certificate, package, Go, and VC regression fixtures
-+-- proofs/            checked proof fixtures and standard-library material
-+-- fuzz/              fuzz targets for malformed proof inputs
-+-- scripts/           local verification gates
-```
-
-## Documentation
-
-Start with the current user-facing guides:
-
-- [Alpha Demo Guide](docs/alpha-demo.md)
-- [ProofOps Engine Support Design](docs/proof-ops-engine-design.md)
-- [Rust Toolchain Upgrade Procedure](develop/docs/rust-frontend-toolchain-upgrade.md)
-- [ProofOps Policy CI](docs/proof-ops-policy-ci.md)
-- [Vertex AI Gemini Assistant Design](docs/vertex-ai-gemini-assistant-design.md)
-- [Web System Integration Guide](docs/web-system-integration.md)
-- [Contributing Guide](CONTRIBUTING.md)
-- [Security Policy](SECURITY.md)
-
-Developer-facing specs, roadmap, and release gates are routed from
-[Development Documentation](develop/README.md). The most important trust-boundary
-references are:
-
-- [Trust Boundary v0](develop/specs/TRUST_BOUNDARY_V0.md)
-- [Certificate Format v0](develop/specs/CERT_V0.md)
-- [VIR v0](develop/specs/VIR_V0.md)
-- [Go VIR Profile v0](develop/specs/GO_VIR_PROFILE_V0.md)
-- [Axiom Policy v0](develop/specs/AXIOM_POLICY_V0.md)
-
-## Local Development Gates
-
-For ordinary development, start with the fast gate:
+Ordinary development:
 
 ```sh
 ./scripts/check-fast.sh
 ```
 
-For a fuller local release-style check:
-
-```sh
-sudo ./scripts/check-all.sh
-```
-
-For the frozen Go/Rust frontend release gate, first provision the ignored Rust
-build-input cache explicitly if it is absent, then run:
+Full local release gate on a reviewed Linux host with writable cgroup v2:
 
 ```sh
 ./scripts/build-release-bundles.sh --provision-build-inputs rust
-sudo ./scripts/check-rust-frontend.sh
+sudo ./scripts/check-csharp-frontend.sh
+sudo ./scripts/check-all.sh
 ```
 
-Both release gates are offline and never download or upgrade a toolchain. Run
-them only from reviewed repository bytes with Rust and Go available through
-sudo's root-owned secure path; do not forward a user-writable `HOME` or `PATH`.
-Their
-installed Rust scan requires root in the initial cgroup namespace so it can
-create one empty delegated cgroup and fixed `noswap` tmpfs backing; the
-frontend and compiler execute only after the sandbox drops those host
-privileges.
+These gates never download or upgrade a toolchain. Root is used only to create
+the release sandbox's delegated cgroup and fixed `noswap` tmpfs; frontend and
+compiler work starts after host privileges are removed. Run privileged gates
+only from reviewed bytes on an externally egress-denied disposable runner.
 
-Useful targeted gates:
+Useful targeted checks:
 
 ```sh
 cargo test --workspace
-cargo test -p mpk-cli --test policy_cli
-cargo test -p mpk-cli --test policy_report
+cargo test -p mpk-cli --test successor_atomic_cutover
+cargo test -p mpk-cli --test csharp_policy_verify
 cargo test -p mpk-vc --test go_vir_corpus
 (cd go-tools/go2vir && go test -count=1 ./...)
 ```
+
+## Repository layout
+
+```text
+crates/                 kernel, certificates, VC, API, and installed CLI
+go-tools/go2vir/        restricted Go successor frontend
+rust-tools/rust2vir/    restricted Rust successor frontend and private driver
+csharp-tools/csharp2vir restricted C# successor frontend
+release/                frozen build inputs and active successor registries
+docs/                   user-facing operation and integration guides
+develop/                normative specs, vectors, roadmaps, and migration logs
+examples/               Go and Rust policy examples
+fixtures/               certificate and frontend regression corpora
+scripts/                generation and verification gates
+```
+
+## Documentation
+
+- [Alpha Demo Guide](docs/alpha-demo.md)
+- [ProofOps Policy CI](docs/proof-ops-policy-ci.md)
+- [ProofOps Engine Support Design](docs/proof-ops-engine-design.md)
+- [Web System Integration Guide](docs/web-system-integration.md)
+- [Contributing Guide](CONTRIBUTING.md)
+- [Security Policy](SECURITY.md)
+- [Development Documentation](develop/README.md)
+
+Normative successor contracts are in
+[`SEMANTIC_PROFILE_REGISTRY_V1.md`](develop/specs/SEMANTIC_PROFILE_REGISTRY_V1.md)
+and [`CSHARP_PROFILE_V0.md`](develop/specs/CSHARP_PROFILE_V0.md).
 
 ## License
 

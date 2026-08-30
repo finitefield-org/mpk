@@ -1,10 +1,12 @@
+#![cfg_attr(not(target_os = "linux"), allow(unused_imports, dead_code))]
+
 use mpk_cert::encode::SourceManifest as CertificateSourceManifest;
 use mpk_cert::{certificate_hash, decode_canonical_certificate, hash_hex};
 use mpk_cli::policy_profile::lookup_strategy_registration;
-use mpk_cli::policy_schema::{PolicyEvidenceV1, PolicyHelperArtifact, PolicyVerificationOptions};
 use mpk_cli::program_certificate::{assemble_program_certificate_alpha, ProgramCertificateOutcome};
 use mpk_cli::successor_policy::{
     generate_successor_policy_scan, import_successor_policy_scan_json, run_successor_policy,
+    PolicyEvidenceReferenceV1, PolicyEvidenceV1, PolicyHelperArtifact, PolicyVerificationOptions,
     SuccessorPolicyCode, SuccessorPolicyPhase, SuccessorPolicyScanSource,
     SUCCESSOR_POLICY_EVIDENCE_SCHEMA, SUCCESSOR_POLICY_SCAN_SCHEMA,
     SUCCESSOR_PROGRAM_CERTIFICATE_PROFILE,
@@ -19,6 +21,7 @@ mod successor_policy_support;
 use successor_policy_support::*;
 
 #[test]
+#[cfg(target_os = "linux")]
 fn csharp_policy_reaches_identical_byte_dual_checker_certificate_and_closed_evidence() {
     let registry = registry();
     let source = csharp_source(&registry);
@@ -147,11 +150,9 @@ fn csharp_policy_reaches_identical_byte_dual_checker_certificate_and_closed_evid
         .all(|member| {
             member.status == "mpk_verified"
                 && member.evidence
-                    == [
-                        mpk_cli::policy_schema::PolicyEvidenceReferenceV1::CheckedDeclaration {
-                            certificate_id: "program".to_owned(),
-                        },
-                    ]
+                    == [PolicyEvidenceReferenceV1::CheckedDeclaration {
+                        certificate_id: "program".to_owned(),
+                    }]
         }));
     assert!(first
         .evidence()
@@ -160,12 +161,21 @@ fn csharp_policy_reaches_identical_byte_dual_checker_certificate_and_closed_evid
         .iter()
         .all(|recipe| {
             recipe.working_directory_role == "source_root"
+                && recipe.argv.contains(&"--semantic-context".to_owned())
                 && recipe
                     .argv
-                    .contains(&"--profile-registry-sha256".to_owned())
-                && recipe.argv.contains(&"--profile-entry-sha256".to_owned())
-                && recipe.argv.contains(&"--compilation".to_owned())
-                && recipe.argv.contains(&"--method".to_owned())
+                    .contains(&"mpk-semantic-context.json".to_owned())
+                && recipe.argv.contains(&"--selection".to_owned())
+                && recipe.argv.contains(&"mpk-selection.json".to_owned())
+                && recipe.argv.iter().all(|argument| {
+                    !matches!(
+                        argument.as_str(),
+                        "--profile-registry-sha256"
+                            | "--profile-entry-sha256"
+                            | "--compilation"
+                            | "--method"
+                    )
+                })
                 && recipe
                     .argv
                     .iter()
@@ -302,6 +312,7 @@ fn successor_scan_is_frontend_only_and_exactly_reimported() {
 }
 
 #[test]
+#[cfg(target_os = "linux")]
 fn staged_go_and_rust_keep_their_existing_policy_and_checker_verdicts() {
     let registry = registry();
     for (profile, artifacts, sources, expected_profile, strategy, axiom) in [

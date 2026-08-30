@@ -15,8 +15,10 @@ use std::ffi::OsString;
 use std::fs;
 #[cfg(target_os = "linux")]
 use std::fs::File;
+#[cfg(target_os = "linux")]
+use std::io::Write;
 #[cfg(any(test, target_os = "linux"))]
-use std::io::{self, Read, Write};
+use std::io::{self, Read};
 #[cfg(any(test, target_os = "linux"))]
 use std::path::Path;
 #[cfg(target_os = "linux")]
@@ -24,7 +26,9 @@ use std::path::{Component, PathBuf};
 #[cfg(any(test, target_os = "linux"))]
 use std::process::{Command, Stdio};
 #[cfg(any(test, target_os = "linux"))]
-use std::sync::atomic::{AtomicBool, AtomicU64, AtomicU8, Ordering};
+use std::sync::atomic::{AtomicBool, Ordering};
+#[cfg(target_os = "linux")]
+use std::sync::atomic::{AtomicU64, AtomicU8};
 #[cfg(any(test, target_os = "linux"))]
 use std::sync::Arc;
 #[cfg(any(test, target_os = "linux"))]
@@ -1610,6 +1614,7 @@ fn run_closed_process_with_timeout(
             SandboxError::Spawn
         }
     })?;
+    #[cfg(target_os = "linux")]
     let mut namespace_ack = if requires_output_copy_ack {
         match child.stdin.take() {
             Some(stdin) => Some(stdin),
@@ -1681,8 +1686,6 @@ fn run_closed_process_with_timeout(
     } else {
         None
     };
-    #[cfg(not(target_os = "linux"))]
-    let resource_mount_namespace: Option<()> = None;
     let overflow = Arc::new(AtomicBool::new(false));
     let read_failed = Arc::new(AtomicBool::new(false));
     let stdout_reader = bounded_reader(
@@ -1764,6 +1767,7 @@ fn run_closed_process_with_timeout(
     let stderr_result = stderr_reader.join().map_err(|_| SandboxError::Killed);
     // The namespace descriptor pins the aggregate tmpfs until every accepted
     // output byte has been copied out of the child pipes.
+    #[cfg(target_os = "linux")]
     drop(resource_mount_namespace);
     cgroup_validation?;
     let (stdout, _) = stdout_result?;

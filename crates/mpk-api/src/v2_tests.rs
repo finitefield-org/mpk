@@ -1,4 +1,4 @@
-//! Primary conformance owner for inactive `mpk.ai.api.v2` staging.
+//! Primary conformance owner for the active `mpk.ai.api.v2` boundary.
 
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -31,7 +31,7 @@ use crate::successor_api::{
     SUCCESSOR_ROUTES,
 };
 use crate::v1_router::{
-    parse_request as parse_v1_request, resolve_route, V1ErrorCode, AI_API_V1_PROFILE, V1_ROUTES,
+    parse_request as parse_v1_request, V1ErrorCode, AI_API_V1_PROFILE, V1_ROUTES,
 };
 use crate::vc_api::materialize_target;
 use crate::vir_api::{V1ApiService, ValidatedFrontendArtifactStore};
@@ -84,10 +84,6 @@ fn v2_routes_and_transports_are_closed_against_both_generations() {
             resolve_route(SUCCESSOR_AI_API_PROFILE, successor.method, successor.path)
                 .expect("successor route resolves"),
             successor.handler
-        );
-        assert_eq!(
-            resolve_route(active.method, active.path).expect("active route still resolves"),
-            active.handler
         );
     }
     let error = resolve_route(AI_API_V1_PROFILE, "POST", "/vir/import")

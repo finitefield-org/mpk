@@ -44,12 +44,16 @@ fn both_registered_targets_emit_one_target_width_usize_index_check() {
             &tautology_contract("vector::read", width),
         );
         let vir = member(&lowering.raw_lowering, "vir");
+        let parameters = member(
+            member(member(vir, "semantic_context"), "semantic_parameters"),
+            "value",
+        );
         assert_eq!(
-            member(member(vir, "semantic_parameters"), "target_id").as_str(),
+            member(parameters, "target_id").as_str(),
             Some(target)
         );
         assert_eq!(
-            member(member(vir, "semantic_parameters"), "pointer_width").integer(),
+            member(parameters, "pointer_width").integer(),
             Some(i64::from(width))
         );
         let instruction = index_instruction(vir);

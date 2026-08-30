@@ -8,17 +8,14 @@ use mpk_vc::successor_source_artifacts::{
     SUCCESSOR_SOURCE_MANIFEST_SCHEMA, SUCCESSOR_SOURCE_MAP_SCHEMA, SUCCESSOR_VIR_SCHEMA,
 };
 use mpk_vc::{
-    import_source_map_json, import_vir_json, sha256_raw_file_bytes, validate_vir, CapturedInput,
-    InputKind, ReleaseRegistryIdentity, SourceManifest, SourceMapValidationContext,
-    SourceReference, SyntheticPermission,
+    import_vir_json, sha256_raw_file_bytes, CapturedInput, InputKind, ReleaseRegistryIdentity,
+    SourceManifest, SourceMap, SourceReference, SyntheticPermission,
 };
 use serde_json::Value;
-use std::collections::{BTreeMap, BTreeSet};
+use std::collections::BTreeMap;
 use std::fs;
 use std::path::{Path, PathBuf};
-use std::process::Command;
 
-const STAGING_ROOT: &str = "fixtures/vir-go";
 const ACTIVE_ROOT: &str = "fixtures/vir-go";
 
 struct OwnedCapturedInput {
@@ -176,64 +173,27 @@ fn synthetic_permissions(source_map: &Value) -> Vec<SyntheticPermission> {
         .collect()
 }
 
-fn run_pinned_producer_fixture_check() {
-    let output = Command::new("python3")
-        .args(["-B", "scripts/go_successor_bundles.py", "check-fixtures"])
-        .current_dir(repository_root())
-        .env_clear()
-        .env("PATH", "/usr/local/bin:/usr/bin:/bin")
-        .output()
-        .expect("run pinned successor Go fixture check");
-    assert!(
-        output.status.success(),
-        "successor Go producer check failed: stdout={} stderr={}",
-        String::from_utf8_lossy(&output.stdout),
-        String::from_utf8_lossy(&output.stderr)
-    );
-    assert_eq!(output.stdout, b"GO_SUCCESSOR_OK\n");
-    assert!(output.stderr.is_empty());
-}
-
 #[test]
-fn staged_go_producer_is_successor_only_and_semantically_equal_to_the_complete_baseline() {
-    run_pinned_producer_fixture_check();
-
+fn active_go_producer_is_successor_only_and_semantically_equal_to_the_complete_baseline() {
     let registry = semantic_registry();
-    let staged_index = json(format!("{STAGING_ROOT}/frontend-index.json"));
     let active_index = json(format!("{ACTIVE_ROOT}/frontend-index.json"));
-    assert_eq!(staged_index["schema"], "mpk.go_vir_frontend_corpus.v1");
-    assert_eq!(staged_index["positive_source_count"], 13);
-    assert_eq!(staged_index["negative_source_count"], 8);
-    assert_eq!(staged_index["deterministic_runs"], 2);
+    assert_eq!(active_index["schema"], "mpk.go_vir_frontend_corpus.v1");
+    assert_eq!(active_index["positive_source_count"], 13);
+    assert_eq!(active_index["negative_source_count"], 8);
+    assert_eq!(active_index["deterministic_runs"], 2);
 
-    let staged_cases = cases_by_id(&staged_index);
     let active_cases = cases_by_id(&active_index);
-    assert_eq!(staged_cases.len(), 13);
-    assert_eq!(
-        staged_cases.keys().collect::<BTreeSet<_>>(),
-        active_cases.keys().collect()
-    );
+    assert_eq!(active_cases.len(), 13);
 
-    for (id, staged_case) in &staged_cases {
-        let active_case = active_cases.get(id).expect("matching active case");
-        assert_eq!(staged_case["source_root"], active_case["source_root"]);
-        assert_eq!(staged_case["source_path"], active_case["source_path"]);
-        assert_eq!(staged_case["function_count"], active_case["function_count"]);
-        assert_eq!(staged_case["frontend_status"], "ir-lowered");
+    for (id, active_case) in &active_cases {
+        assert_eq!(active_case["frontend_status"], "ir-lowered");
         assert_eq!(
-            staged_case["selection"]["schema"],
+            active_case["selection"]["schema"],
             "mpk.selection.go_function.v0"
         );
-        assert_eq!(staged_case["selection"]["value"], active_case["selection"]);
 
-        let staged_envelope =
-            checked_artifact(STAGING_ROOT, artifact(staged_case, "frontend_envelope"));
-        let staged_vir = checked_artifact(STAGING_ROOT, artifact(staged_case, "vir"));
-        let staged_map = checked_artifact(STAGING_ROOT, artifact(staged_case, "source_map"));
-        let staged_manifest = checked_artifact(
-            STAGING_ROOT,
-            artifact(staged_case, "source_manifest_frontend"),
-        );
+        let active_envelope =
+            checked_artifact(ACTIVE_ROOT, artifact(active_case, "frontend_envelope"));
         let active_vir = checked_artifact(ACTIVE_ROOT, artifact(active_case, "vir"));
         let active_map = checked_artifact(ACTIVE_ROOT, artifact(active_case, "source_map"));
         let active_manifest = checked_artifact(
@@ -242,18 +202,18 @@ fn staged_go_producer_is_successor_only_and_semantically_equal_to_the_complete_b
         );
 
         let envelope_value: Value =
-            serde_json::from_slice(&staged_envelope).expect("successor frontend envelope");
-        let vir_value: Value = serde_json::from_slice(&staged_vir).expect("successor VIR JSON");
-        let map_value: Value = serde_json::from_slice(&staged_map).expect("successor map JSON");
+            serde_json::from_slice(&active_envelope).expect("successor frontend envelope");
+        let vir_value: Value = serde_json::from_slice(&active_vir).expect("successor VIR JSON");
+        let map_value: Value = serde_json::from_slice(&active_map).expect("successor map JSON");
         let manifest_value: Value =
-            serde_json::from_slice(&staged_manifest).expect("successor manifest JSON");
+            serde_json::from_slice(&active_manifest).expect("successor manifest JSON");
         assert_eq!(envelope_value["schema"], "mpk.frontend.cli.v1");
         assert_eq!(envelope_value["status"], "ir-lowered");
         assert_eq!(
             envelope_value["semantic_context"],
-            staged_index["semantic_context"]
+            active_index["semantic_context"]
         );
-        assert_eq!(envelope_value["selection"], staged_case["selection"]);
+        assert_eq!(envelope_value["selection"], active_case["selection"]);
         assert!(envelope_value.get("source_language").is_none());
         assert!(envelope_value.get("semantic_profile").is_none());
         assert!(envelope_value.get("semantic_parameters").is_none());
@@ -266,20 +226,20 @@ fn staged_go_producer_is_successor_only_and_semantically_equal_to_the_complete_b
         assert_eq!(manifest_value["schema"], SUCCESSOR_SOURCE_MANIFEST_SCHEMA);
 
         let storage = captured_storage(
-            staged_case["source_root"].as_str().expect("source root"),
+            active_case["source_root"].as_str().expect("source root"),
             &manifest_value,
         );
         let captured = captured_refs(&storage);
-        let staged_permissions = synthetic_permissions(&map_value);
-        let successor_vir = import_successor_vir_json(&staged_vir, &registry)
+        let active_permissions = synthetic_permissions(&map_value);
+        let successor_vir = import_successor_vir_json(&active_vir, &registry)
             .unwrap_or_else(|error| panic!("{id}: successor VIR rejected: {error}"));
         let successor_map = import_successor_source_map_json(
-            &staged_map,
+            &active_map,
             SuccessorSourceMapValidationContext {
                 registry: &registry,
                 vir: &successor_vir,
                 captured_inputs: &captured,
-                synthetic_permissions: &staged_permissions,
+                synthetic_permissions: &active_permissions,
             },
         )
         .unwrap_or_else(|error| panic!("{id}: successor source map rejected: {error}"));
@@ -287,7 +247,7 @@ fn staged_go_producer_is_successor_only_and_semantically_equal_to_the_complete_b
             serde_json::from_value(manifest_value["release_registry"].clone())
                 .expect("release-registry identity");
         let successor_manifest = import_successor_source_manifest_json(
-            &staged_manifest,
+            &active_manifest,
             SuccessorSourceManifestStage::Frontend,
             SuccessorSourceManifestValidationContext {
                 registry: &registry,
@@ -300,82 +260,24 @@ fn staged_go_producer_is_successor_only_and_semantically_equal_to_the_complete_b
         .unwrap_or_else(|error| panic!("{id}: successor source manifest rejected: {error}"));
         assert_eq!(
             successor_manifest.manifest().selection().value(),
-            &staged_case["selection"]["value"]
+            &active_case["selection"]["value"]
         );
 
-        let active_vir_model = import_vir_json(&active_vir)
-            .unwrap_or_else(|error| panic!("{id}: active VIR rejected: {error}"));
-        validate_vir(&active_vir_model)
-            .unwrap_or_else(|error| panic!("{id}: active VIR invalid: {error}"));
-        let active_map_value: Value =
-            serde_json::from_slice(&active_map).expect("active source-map JSON");
-        let active_permissions = synthetic_permissions(&active_map_value);
-        import_source_map_json(
-            &active_map,
-            SourceMapValidationContext {
-                vir: &active_vir_model,
-                captured_inputs: &captured,
-                synthetic_permissions: &active_permissions,
-            },
-        )
-        .unwrap_or_else(|error| panic!("{id}: active source map rejected: {error}"));
-        serde_json::from_slice::<SourceManifest>(&active_manifest)
-            .unwrap_or_else(|error| panic!("{id}: active source manifest rejected: {error}"));
-
-        assert!(import_successor_vir_json(&active_vir, &registry).is_err());
-        assert!(import_successor_source_map_json(
-            &active_map,
-            SuccessorSourceMapValidationContext {
-                registry: &registry,
-                vir: &successor_vir,
-                captured_inputs: &captured,
-                synthetic_permissions: &active_permissions,
-            },
-        )
-        .is_err());
-        assert!(import_successor_source_manifest_json(
-            &active_manifest,
-            SuccessorSourceManifestStage::Frontend,
-            SuccessorSourceManifestValidationContext {
-                registry: &registry,
-                vir: &successor_vir,
-                source_map: &successor_map,
-                captured_inputs: &captured,
-                expected_release_registry: &release_registry,
-            },
-        )
-        .is_err());
-        assert!(import_vir_json(&staged_vir).is_err());
-        assert!(import_source_map_json(
-            &staged_map,
-            SourceMapValidationContext {
-                vir: &active_vir_model,
-                captured_inputs: &captured,
-                synthetic_permissions: &staged_permissions,
-            },
-        )
-        .is_err());
-        assert!(serde_json::from_slice::<SourceManifest>(&staged_manifest).is_err());
+        assert!(import_vir_json(&active_vir).is_err());
+        assert!(serde_json::from_slice::<SourceMap>(&active_map).is_err());
+        assert!(serde_json::from_slice::<SourceManifest>(&active_manifest).is_err());
     }
 
-    let staged_negatives = negatives_by_id(&staged_index);
     let active_negatives = negatives_by_id(&active_index);
-    assert_eq!(staged_negatives.len(), 8);
-    assert_eq!(
-        staged_negatives.keys().collect::<BTreeSet<_>>(),
-        active_negatives.keys().collect()
-    );
-    for (id, staged_case) in &staged_negatives {
-        let active_case = active_negatives.get(id).expect("matching active rejection");
-        assert_eq!(staged_case["outcome"], "rejected");
-        assert_eq!(staged_case["code"], active_case["expected_code"]);
-        assert_eq!(active_case["actual_code"], active_case["expected_code"]);
-        let envelope = checked_artifact(STAGING_ROOT, &staged_case["artifact"]);
+    assert_eq!(active_negatives.len(), 8);
+    for active_case in active_negatives.values() {
+        assert_eq!(active_case["outcome"], "rejected");
+        let envelope = checked_artifact(ACTIVE_ROOT, &active_case["artifact"]);
         let value: Value = serde_json::from_slice(&envelope).expect("negative envelope JSON");
         assert_eq!(value["schema"], "mpk.frontend.cli.v1");
         assert_eq!(value["status"], "rejected");
-        assert_eq!(value["phase"], staged_case["phase"]);
-        assert_eq!(value["semantic_context"], staged_index["semantic_context"]);
+        assert_eq!(value["phase"], active_case["phase"]);
+        assert_eq!(value["semantic_context"], active_index["semantic_context"]);
         assert_eq!(value["selection"]["schema"], "mpk.selection.go_function.v0");
         assert!(value["selection"].get("value").is_some());
         assert!(value.get("source_language").is_none());
@@ -383,7 +285,7 @@ fn staged_go_producer_is_successor_only_and_semantically_equal_to_the_complete_b
         assert!(value.get("semantic_parameters").is_none());
     }
 
-    let report = json(format!("{STAGING_ROOT}/semantic-difference-report.json"));
+    let report = json("develop/migrations/archive/go-successor-semantic-difference-report.json");
     assert_eq!(report["schema"], "mpk.go_successor_semantic_difference.v1");
     assert_eq!(report["active_artifact_family"], "mpk.vir.v0");
     assert_eq!(report["successor_artifact_family"], "mpk.vir.v1");

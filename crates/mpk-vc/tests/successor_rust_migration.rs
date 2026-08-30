@@ -8,14 +8,13 @@ use mpk_vc::successor_source_artifacts::{
     SUCCESSOR_SOURCE_MANIFEST_SCHEMA, SUCCESSOR_SOURCE_MAP_SCHEMA, SUCCESSOR_VIR_SCHEMA,
 };
 use mpk_vc::{
-    import_source_map_json, import_vir_json, sha256_raw_file_bytes, validate_vir, CapturedInput,
-    InputKind, ReleaseRegistryIdentity, SourceManifest, SourceMapValidationContext,
+    import_vir_json, sha256_raw_file_bytes, CapturedInput, InputKind, ReleaseRegistryIdentity,
+    SourceManifest,
 };
 use serde_json::Value;
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
 use std::path::{Path, PathBuf};
-use std::process::Command;
 
 const STAGING_ROOT: &str = "fixtures/rust-basic/positive";
 const ACTIVE_ROOT: &str = "rust-tools/rust2vir/testdata/positive";
@@ -151,31 +150,12 @@ fn captured_refs(storage: &[OwnedCapturedInput]) -> Vec<CapturedInput<'_>> {
         .collect()
 }
 
-fn run_pinned_producer_fixture_check() {
-    let output = Command::new("python3")
-        .args(["-B", "scripts/rust_successor_bundles.py", "check-fixtures"])
-        .current_dir(repository_root())
-        .env_clear()
-        .env("PATH", "/usr/local/bin:/usr/bin:/bin")
-        .output()
-        .expect("run pinned successor Rust fixture check");
-    assert!(
-        output.status.success(),
-        "successor Rust producer check failed: stdout={} stderr={}",
-        String::from_utf8_lossy(&output.stdout),
-        String::from_utf8_lossy(&output.stderr)
-    );
-    assert_eq!(output.stdout, b"RUST_SUCCESSOR_OK\n");
-    assert!(output.stderr.is_empty());
-}
-
 #[test]
-fn staged_rust_producer_and_driver_are_successor_only_and_semantically_equal() {
-    run_pinned_producer_fixture_check();
-
+fn active_rust_producer_and_driver_are_successor_only_and_semantically_equal() {
     let registry = semantic_registry();
     let staged_index = json(format!("{STAGING_ROOT}/frontend-index.json"));
     let active_index = json(format!("{ACTIVE_ROOT}/frontend-index.json"));
+    assert_eq!(staged_index, active_index, "public and producer indexes");
     assert_eq!(
         staged_index["schema"],
         "mpk.rust.positive_frontend_corpus.v1"
@@ -218,7 +198,7 @@ fn staged_rust_producer_and_driver_are_successor_only_and_semantically_equal() {
         );
         assert_eq!(
             staged_case["selection"]["value"]["function"],
-            active_case["selection"]
+            active_case["selection"]["value"]["function"]
         );
 
         let staged_envelope =
@@ -235,6 +215,9 @@ fn staged_rust_producer_and_driver_are_successor_only_and_semantically_equal() {
             ACTIVE_ROOT,
             artifact(active_case, "source_manifest_frontend"),
         );
+        assert_eq!(staged_vir, active_vir, "{id}: VIR mirror");
+        assert_eq!(staged_map, active_map, "{id}: source-map mirror");
+        assert_eq!(staged_manifest, active_manifest, "{id}: manifest mirror");
 
         let envelope_value: Value =
             serde_json::from_slice(&staged_envelope).expect("successor frontend envelope");
@@ -295,55 +278,7 @@ fn staged_rust_producer_and_driver_are_successor_only_and_semantically_equal() {
             &staged_case["selection"]["value"]
         );
 
-        let active_vir_model = import_vir_json(&active_vir)
-            .unwrap_or_else(|error| panic!("{id}: active VIR rejected: {error}"));
-        validate_vir(&active_vir_model)
-            .unwrap_or_else(|error| panic!("{id}: active VIR invalid: {error}"));
-        import_source_map_json(
-            &active_map,
-            SourceMapValidationContext {
-                vir: &active_vir_model,
-                captured_inputs: &captured,
-                synthetic_permissions: &[],
-            },
-        )
-        .unwrap_or_else(|error| panic!("{id}: active source map rejected: {error}"));
-        serde_json::from_slice::<SourceManifest>(&active_manifest)
-            .unwrap_or_else(|error| panic!("{id}: active source manifest rejected: {error}"));
-
-        assert!(import_successor_vir_json(&active_vir, &registry).is_err());
-        assert!(import_successor_source_map_json(
-            &active_map,
-            SuccessorSourceMapValidationContext {
-                registry: &registry,
-                vir: &successor_vir,
-                captured_inputs: &captured,
-                synthetic_permissions: &[],
-            },
-        )
-        .is_err());
-        assert!(import_successor_source_manifest_json(
-            &active_manifest,
-            SuccessorSourceManifestStage::Frontend,
-            SuccessorSourceManifestValidationContext {
-                registry: &registry,
-                vir: &successor_vir,
-                source_map: &successor_map,
-                captured_inputs: &captured,
-                expected_release_registry: &release_registry,
-            },
-        )
-        .is_err());
         assert!(import_vir_json(&staged_vir).is_err());
-        assert!(import_source_map_json(
-            &staged_map,
-            SourceMapValidationContext {
-                vir: &active_vir_model,
-                captured_inputs: &captured,
-                synthetic_permissions: &[],
-            },
-        )
-        .is_err());
         assert!(serde_json::from_slice::<SourceManifest>(&staged_manifest).is_err());
 
         let private_request: Value = serde_json::from_slice(&checked_artifact(
@@ -366,6 +301,19 @@ fn staged_rust_producer_and_driver_are_successor_only_and_semantically_equal() {
             artifact(staged_case, "raw_source_map"),
         ))
         .expect("raw source map JSON");
+        for kind in [
+            "frontend_envelope",
+            "private_request",
+            "private_result",
+            "raw_lowering",
+            "raw_source_map",
+        ] {
+            assert_eq!(
+                checked_artifact(STAGING_ROOT, artifact(staged_case, kind)),
+                checked_artifact(ACTIVE_ROOT, artifact(active_case, kind)),
+                "{id}: {kind} mirror"
+            );
+        }
         assert_eq!(private_request["schema"], "mpk.rust.driver.request.v1");
         assert_eq!(private_result["schema"], "mpk.rust.driver.v1");
         assert_eq!(raw_lowering["schema"], "mpk.rust.driver.lowering.v1");
@@ -390,7 +338,7 @@ fn staged_rust_producer_and_driver_are_successor_only_and_semantically_equal() {
         }
     }
 
-    let diagnostics = json(format!("{STAGING_ROOT}/negative-diagnostics.json"));
+    let diagnostics = json("fixtures/rust-basic/negative-diagnostics-v1.json");
     assert_eq!(
         diagnostics["schema"],
         "mpk.rust.successor_negative_diagnostics.v1"
@@ -403,7 +351,7 @@ fn staged_rust_producer_and_driver_are_successor_only_and_semantically_equal() {
         .iter()
         .all(|case| case["diagnostics_equal"] == true));
 
-    let report = json(format!("{STAGING_ROOT}/semantic-difference-report.json"));
+    let report = json("develop/migrations/archive/rust-successor-semantic-difference-report.json");
     assert_eq!(
         report["schema"],
         "mpk.rust_successor_semantic_difference.v1"

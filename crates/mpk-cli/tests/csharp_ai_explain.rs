@@ -1,14 +1,15 @@
+#![cfg_attr(not(target_os = "linux"), allow(unused_imports, dead_code))]
+
 #[path = "support/successor_policy.rs"]
 mod successor_policy_support;
 
 use std::fs;
 
-use mpk_cli::ai_explain::{ExplainLanguageV1, DEFAULT_GEMINI_MODEL};
 use mpk_cli::successor_ai_explain::{
     build_successor_ai_explanation, import_successor_ai_explanation_json,
-    import_successor_ai_request_json, prepare_successor_ai_explanation, SuccessorAiCode,
-    SuccessorAiProviderProvenance, SuccessorAiReportRequest, SuccessorAiSource,
-    SUCCESSOR_AI_EXPLAIN_REQUEST_SCHEMA, SUCCESSOR_AI_EXPLANATION_SCHEMA,
+    import_successor_ai_request_json, prepare_successor_ai_explanation, ExplainLanguageV1,
+    SuccessorAiCode, SuccessorAiProviderProvenance, SuccessorAiReportRequest, SuccessorAiSource,
+    DEFAULT_GEMINI_MODEL, SUCCESSOR_AI_EXPLAIN_REQUEST_SCHEMA, SUCCESSOR_AI_EXPLANATION_SCHEMA,
 };
 use mpk_vc::{canonical_json_bytes, parse_strict_json, StrictJsonLimits};
 use serde_json::{json, Value};
@@ -188,6 +189,7 @@ fn assert_redacted(profile: &str, request_body: &[u8], evidence: &Value) {
 }
 
 #[test]
+#[cfg(target_os = "linux")]
 fn all_profiles_stage_deterministic_redacted_requests_and_untrusted_reports() {
     let registry = validated_registry();
     let active_vectors = checked_in_json("develop/specs/vectors/ai-explain-v1.json");

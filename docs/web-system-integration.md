@@ -11,11 +11,12 @@ The runnable example is `examples/order_policy`:
 examples/order_policy/
   policy.go
   policy_contract.json
+  mpk-semantic-context.json
+  mpk-selection.json
   frontend-envelope.json
   vir.json
   source-map.json
   source-manifest.frontend.json
-  source-manifest.certificate.json
   vc.json
   vc_skeleton.json
   webapp/
@@ -56,11 +57,13 @@ hash differences together.
 ## Policy and CI integration
 
 Run `mpk policy scan` and `mpk policy verify` from an installed Linux release.
-Both commands select the registered Go frontend/toolchain tuple; no raw binary
-or registry path is accepted. The complete argument contract and reusable CI
-block are in [`proof-ops-policy-ci.md`](proof-ops-policy-ci.md).
+Both commands validate revision-2 semantic-context and selection envelopes and
+select the registered Go frontend/toolchain tuple. No raw binary, registry,
+bundle, toolchain, or compatibility path is accepted. The complete argument
+contract and reusable CI block are in
+[`proof-ops-policy-ci.md`](proof-ops-policy-ci.md).
 
-Store scan/evidence/Markdown outputs as review artifacts. Only
+Store scan/evidence outputs as review artifacts. Only
 `trusted_evidence` entries backed by accepted declarations or theory
 certificates can support an `mpk_verified` property. VIR, VC JSON, skeletons,
 source locations, diagnostics, AI prose, and HTTP logs remain helper data.
@@ -70,5 +73,5 @@ source locations, diagnostics, AI prose, and HTTP logs remain helper data.
 - Run pure-package and web-handler Go tests.
 - Run the Go/VIR corpus and release-bundle drift gates.
 - Review source, contract, VIR, source-map, manifest, VC, and skeleton changes.
-- Keep policy v1 property statuses separate from helper-artifact readiness.
+- Keep policy v2 property statuses separate from helper-artifact readiness.
 - Run source-free certificate checkers for every proof claim.

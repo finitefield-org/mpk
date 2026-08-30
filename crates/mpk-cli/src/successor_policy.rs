@@ -33,13 +33,15 @@ use mpk_vc::{
 use serde::Serialize;
 use serde_json::{json, Value};
 
-use crate::policy_schema::{
+pub use crate::policy_schema::{
     PolicyAxiomCategoryCountsV1, PolicyAxiomReportV1, PolicyCertificateEvidenceV1,
     PolicyCheckedDeclaration, PolicyCheckerVerdictV1, PolicyDeclarationDependency,
-    PolicyEvidenceReferenceV1, PolicyHelperArtifact, PolicyIssue, PolicyMemberRowV1,
-    PolicyPropertyV1, PolicyReproductionRecipeV1, PolicyTrustedEvidenceV1,
-    PolicyVerificationOptions, POLICY_JSON_NESTING_MAX, POLICY_JSON_TRANSPORT_BYTES_MAX,
-    POLICY_STRING_BYTES_MAX,
+    PolicyEvidenceReferenceV1, PolicyEvidenceV1, PolicyHelperArtifact, PolicyIssue,
+    PolicyMemberRowV1, PolicyPropertyV1, PolicyReproductionRecipeV1, PolicyTrustedEvidenceV1,
+    PolicyVerificationOptions,
+};
+use crate::policy_schema::{
+    POLICY_JSON_NESTING_MAX, POLICY_JSON_TRANSPORT_BYTES_MAX, POLICY_STRING_BYTES_MAX,
 };
 use crate::program_certificate::{
     assemble_program_certificate_alpha_from_functions, ProgramCertificateError,
@@ -1369,41 +1371,29 @@ fn property_description(function: &str, kind: &str) -> String {
 
 fn reproduction_recipes(
     source: SuccessorPolicySource<'_>,
-    prepared: &PreparedPolicySource,
-    options: PolicyVerificationOptions,
+    _prepared: &PreparedPolicySource,
+    _options: PolicyVerificationOptions,
 ) -> Result<Vec<PolicyReproductionRecipeV1>, SuccessorPolicyError> {
-    let context = source.vir.module().semantic_context();
-    let registry = context.profile_registry();
     let manifest = source.frontend_manifest.manifest();
     let mut prefix = vec![
         "mpk".to_owned(),
         "policy".to_owned(),
         "scan".to_owned(),
         ".".to_owned(),
-        "--profile-registry-id".to_owned(),
-        registry.id().to_owned(),
-        "--profile-registry-revision".to_owned(),
-        registry.revision().to_string(),
-        "--profile-registry-sha256".to_owned(),
-        registry.registry_sha256().to_owned(),
-        "--profile-entry-sha256".to_owned(),
-        context.profile_entry_sha256().to_owned(),
-        "--language".to_owned(),
-        context.source_language().to_owned(),
-        "--semantic-profile".to_owned(),
-        context.semantic_profile().to_owned(),
-        "--require-release-registry-id".to_owned(),
-        manifest.release_registry().id.clone(),
-        "--require-release-registry-sha256".to_owned(),
-        manifest.release_registry().registry_sha256.clone(),
-        "--frontend-bundle".to_owned(),
-        manifest.frontend().bundle_id.clone(),
-        "--toolchain-bundle".to_owned(),
-        manifest.toolchain().bundle_id.clone(),
-        "--target".to_owned(),
-        manifest.target().id().to_owned(),
+        "--semantic-context".to_owned(),
+        "mpk-semantic-context.json".to_owned(),
+        "--selection".to_owned(),
+        "mpk-selection.json".to_owned(),
     ];
-    append_selection_arguments(&mut prefix, context, manifest.selection())?;
+    if source.vir.module().semantic_context().source_language() != "csharp" {
+        for contract in manifest
+            .inputs()
+            .iter()
+            .filter(|input| input.kind == InputKind::Contract)
+        {
+            prefix.extend(["--contract".to_owned(), contract.normalized_path.clone()]);
+        }
+    }
 
     let mut scan = prefix.clone();
     scan.extend([
@@ -1412,25 +1402,9 @@ fn reproduction_recipes(
     ]);
     prefix[2] = "verify".to_owned();
     prefix.extend([
-        "--strategy-profile".to_owned(),
-        prepared.registration.strategy_profile.to_owned(),
-        "--checker-profile".to_owned(),
-        prepared.registration.checker_profile.to_owned(),
-        "--axiom-profile".to_owned(),
-        prepared.registration.axiom_profile.to_owned(),
-        "--program-certificate-profile".to_owned(),
-        SUCCESSOR_PROGRAM_CERTIFICATE_PROFILE.to_owned(),
         "--evidence-json".to_owned(),
         "mpk-reproduction-evidence.json".to_owned(),
-        "--evidence-md".to_owned(),
-        "mpk-reproduction-evidence.md".to_owned(),
     ]);
-    if options.strict {
-        prefix.push("--strict".to_owned());
-    }
-    if options.update_fixtures {
-        prefix.push("--update-fixtures".to_owned());
-    }
     Ok(vec![
         PolicyReproductionRecipeV1 {
             label: "scan".to_owned(),
@@ -1443,70 +1417,6 @@ fn reproduction_recipes(
             argv: prefix,
         },
     ])
-}
-
-fn append_selection_arguments(
-    argv: &mut Vec<String>,
-    context: &SemanticContext,
-    selection: &SelectionEnvelope,
-) -> Result<(), SuccessorPolicyError> {
-    let value = selection.value();
-    let string = |name: &str| {
-        value
-            .get(name)
-            .and_then(Value::as_str)
-            .map(str::to_owned)
-            .ok_or_else(|| evidence_error(format!("selection field {name:?} is absent")))
-    };
-    let array = |name: &str| {
-        value
-            .get(name)
-            .and_then(Value::as_array)
-            .ok_or_else(|| evidence_error(format!("selection field {name:?} is absent")))?
-            .iter()
-            .map(|item| {
-                item.as_str()
-                    .map(str::to_owned)
-                    .ok_or_else(|| evidence_error(format!("selection field {name:?} is invalid")))
-            })
-            .collect::<Result<Vec<_>, _>>()
-    };
-    match context.source_language() {
-        "go" => argv.extend([
-            "--package".to_owned(),
-            string("package")?,
-            "--function".to_owned(),
-            string("function")?,
-        ]),
-        "rust" => argv.extend([
-            "--package".to_owned(),
-            string("package")?,
-            "--crate".to_owned(),
-            string("crate")?,
-            "--unit-kind".to_owned(),
-            string("kind")?,
-            "--function".to_owned(),
-            string("function")?,
-        ]),
-        "csharp" => {
-            argv.extend(["--compilation".to_owned(), string("compilation")?]);
-            append_pairs(argv, "--source", &array("sources")?);
-            append_pairs(argv, "--contract", &array("contracts")?);
-            append_pairs(argv, "--method", &array("methods")?);
-        }
-        _ => {
-            return Err(evidence_error(
-                "successor recipe selected an uncompiled source language",
-            ));
-        }
-    }
-    Ok(())
-}
-
-fn append_pairs(argv: &mut Vec<String>, option: &str, values: &[String]) {
-    for value in values {
-        argv.extend([option.to_owned(), value.clone()]);
-    }
 }
 
 fn registration(profile: CompiledSemanticProfile) -> SuccessorPolicyRegistration {

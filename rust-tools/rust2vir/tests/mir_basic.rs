@@ -19,7 +19,7 @@ mod rustc_harness;
 
 use rust2vir_internal::json::{self, JsonValue};
 
-const DRIVER_VECTOR: &[u8] = include_bytes!("../testdata/rust-driver-v0.json");
+const DRIVER_VECTOR: &[u8] = include_bytes!("../testdata/rust-driver-v1.json");
 const IDENTITY_CONTRACT: &[u8] = include_bytes!("../testdata/contracts/identity.json");
 
 #[test]

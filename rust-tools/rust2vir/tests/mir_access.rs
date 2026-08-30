@@ -30,7 +30,7 @@ use std::fs;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::Arc;
 
-const VECTOR: &[u8] = include_bytes!("../testdata/rust-driver-v0.json");
+const VECTOR: &[u8] = include_bytes!("../testdata/rust-driver-v1.json");
 static NEXT_TEMP: AtomicU64 = AtomicU64::new(0);
 
 #[test]
@@ -211,7 +211,15 @@ fn request(target: &str, pointer_width: u8) -> DriverRequest {
     let mut value = fixture["value"].clone();
     let root = value.as_object_mut().unwrap();
     let parameters = root
+        .get_mut("semantic_context")
+        .unwrap()
+        .as_object_mut()
+        .unwrap()
         .get_mut("semantic_parameters")
+        .unwrap()
+        .as_object_mut()
+        .unwrap()
+        .get_mut("value")
         .unwrap()
         .as_object_mut()
         .unwrap();
@@ -227,7 +235,7 @@ fn request(target: &str, pointer_width: u8) -> DriverRequest {
         .insert("target".to_owned(), JsonValue::String(target.to_owned()));
     root.remove("request_fingerprint");
     let mut hasher = Sha256::new();
-    hasher.update(b"MPK-RUST-DRIVER-REQUEST-0.1");
+    hasher.update(b"MPK-RUST-DRIVER-REQUEST-1.0");
     hasher.update(&[0]);
     hasher.update(&json::canonical(&value).unwrap());
     value.as_object_mut().unwrap().insert(

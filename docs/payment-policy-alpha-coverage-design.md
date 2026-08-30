@@ -1,7 +1,8 @@
 # Payment Policy Alpha Coverage Design
 
-Status: historical implementation record; active policy contracts are in
-`develop/specs/POLICY_V1.md`.
+Status: historical predecessor-v1 implementation record. Its flags and schema
+are not active interfaces; see `proof-ops-engine-design.md` for the revision-2
+successor contract.
 
 This document defines the first practical coverage expansion for the
 `payment-policy-alpha` strategy profile. The goal is to make the MPK-side

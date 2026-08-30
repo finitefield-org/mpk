@@ -15,7 +15,7 @@ use rust2vir_internal::sandbox::{
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::PathBuf;
 
-const DRIVER_VECTOR: &[u8] = include_bytes!("../testdata/rust-driver-v0.json");
+const DRIVER_VECTOR: &[u8] = include_bytes!("../testdata/rust-driver-v1.json");
 const FUNCTION_ID: &str = "vector::identity";
 
 #[test]
@@ -309,7 +309,9 @@ fn request_fixture() -> (DriverRequest, LowerRequest) {
 
 fn lower_request(request: &DriverRequest) -> LowerRequest {
     let root = request.value().as_object().unwrap();
-    let selection = root["selection"].as_object().unwrap();
+    let selection = root["selection"].as_object().unwrap()["value"]
+        .as_object()
+        .unwrap();
     let frontend = root["frontend"].as_object().unwrap();
     let toolchain = root["toolchain"].as_object().unwrap();
     let registry = root["release_registry"].as_object().unwrap();

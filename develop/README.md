@@ -58,80 +58,45 @@ follow-on flow:
 3. implement and release C#, Java, Dart, TypeScript, and Python, one language
    at a time in that order.
 
-`MLANG-00-T01` through `MLANG-00-T03` and `MLANG-01-T01` through
-`MLANG-01-T03` are complete. The four non-normative semantic, feasibility, and
-implementation-audit records are
+`MLANG-00-T01` through `MLANG-00-T03`, `MLANG-01-T01` through
+`MLANG-01-T03`, and `CSHARP-02-T01` through `CSHARP-02-T20` are complete. The
+four non-normative semantic, feasibility, and implementation-audit records are
 `docs/mlang-00-semantic-comparison-matrix.md`,
 `docs/mlang-00-compiler-integration-feasibility.md`,
 `docs/mlang-00-go-rust-shared-boundary-audit.md`, and
-`docs/mlang-01-go-rust-csharp-gap-audit.md`. The normative but inactive
-successor mechanism is `specs/SEMANTIC_PROFILE_REGISTRY_V1.md`. The frozen,
-normative, but inactive C# package is `specs/CSHARP_PROFILE_V0.md` with its two
-owned vector sets. `docs/csharp-02-implementation-traceability-ledger.md`
-decomposes the implementation into 20 strictly serial tasks.
-`CSHARP-02-T01` through `CSHARP-02-T19` are complete; `CSHARP-02-T20` is next.
-The isolated `csharp-tools/csharp2vir/` project, offline build gate, private
-selection/capture/source-transport and exact Roslyn-session paths,
-test-injected successor semantic-registry core, and sealed successor source-
-artifact/protocol validators are inactive. The C# candidate now admits only
-the frozen deterministic pure acyclic method closure with one strict typed,
-hash-bound contract per method, lowers complete scalar/control/conversion and
-static-call closures with exact required checks, emits canonical staged
-successor VIR, source-map, source-manifest, and success-envelope bytes, and
-closes deterministic diagnostics, profile limits, failure envelopes, and all
-frontend-owned vectors. The shared successor validators accept those bytes
-without a C# adapter. Deterministic C# candidate bundles and the private
-descriptor-relative installed-tree runner now exercise the pinned frontend
-under the frozen .NET launcher and Linux isolation contract. The successor
-Go migration now also has a pinned, hash-anchored staging-only `go2vir`, exact
-successor candidate descriptors, and a complete regenerated Go corpus whose
-semantic-difference report records zero behavior, required-check, VC-input,
-or diagnostic changes. Active and staged validators reject one another's
-artifact families, while the active Go source, binary, fixtures, release
-tuple, and registry remain unchanged. The staged Rust migration likewise
-pins and rebuilds `rust2vir` plus its private driver, emits only successor
-public and private identities for both registered targets, and checks all 13
-positive and 73 negative cases with zero semantic-difference counters. The
-active Rust source, binaries, fixtures, release tuples, and registry also
-remain unchanged. The staging-only successor VC path now generates and
-reimports canonical `mpk.vc.v2` and `mpk.vc.cert_skeleton.v2` bytes for Go,
-Rust, and C# under `MPK-VC-2.0`, retaining the shared checked Bool/BV, WP,
-grouping, declaration, and limit foundations with unchanged Go/Rust
-obligations. The hidden successor policy path now regenerates canonical
-`mpk.policy.scan.v2` from the validated frontend graph and
-`mpk.policy.evidence.v2` from the complete VC/skeleton graph, finalizes
-certificate-stage manifests, and applies
-`mpk.program_certificate.alpha.v1` while emitting unchanged Certificate v0
-bytes to both source-free checkers. The three profiles use exact compiled
-policy/evidence contracts; the representative C# fixture is dual accepted,
-and no helper or compiler result becomes trusted evidence. All successor
-descriptors remain source-only staging inputs. The hidden successor AI
-explainer now projects deterministic minimal-v1 requests for all three
-profiles from validated evidence and freezes canonical C# v2 request/report
-fixtures; provider prose remains untrusted and cannot alter local evidence or
-Certificate v0 acceptance. The hidden successor API now binds sessions and
-every successor VIR/VC operation to one exact semantic context and selection,
-rejects both schema generations at the opposite boundary, and keeps helper
-candidate success outside canonical certificate acceptance. No successor API
-parser or AI client is routed from a released input, and no C# production
-frontend, successor Go/Rust route, or future-language frontend is active.
-The T19 hardening aggregate now executes every frozen C# vector field, exact
-.NET 10.0.11 differential cases, five checked-in fuzz-seed families, all 12
-upgrade classes, and three-profile predecessor/crossed-profile rejection. Its
-offline two-pass staged release rehearsal proves byte-identical canonical
-artifacts and bundles, closed plugin/credential/path/network boundaries,
-unchanged both-checker and four-category axiom behavior, and an empty final
-review ledger.
+`docs/mlang-01-go-rust-csharp-gap-audit.md`. The active successor mechanism is
+`specs/SEMANTIC_PROFILE_REGISTRY_V1.md`; the active C# package is
+`specs/CSHARP_PROFILE_V0.md` with its two owned vector sets.
+`docs/csharp-02-implementation-traceability-ledger.md` records the completed
+20-task implementation and atomic release.
+
+The active release installs semantic-registry revision 2 and the sole
+`mpk.release.bundle_registry.v1` registry beside `bin/mpk`. It admits exactly
+the registered Go, Rust, and C# tuples, uses successor VIR, frontend,
+source-map, source-manifest, VC, policy/evidence, AI, and API identities, and
+compiles all nine C# profile contracts. C# runs only through the shared
+descriptor-relative installed-tree runner under the frozen .NET launcher and
+Linux isolation contract; Go and Rust use that same successor release path.
+Predecessor and crossed identities reject, the executable staging tree is
+removed, and only reviewed migration reports remain under
+`develop/migrations/archive/`.
+
+Certificate v0 encoding, both source-free checker inputs, and the four axiom
+categories are unchanged. Frontends, compilers, registries, helper schemas,
+policy/evidence documents, AI output, and API state remain untrusted. The
+atomic installed-release owner is
+`crates/mpk-cli/tests/successor_atomic_cutover.rs`, and the offline two-pass
+release gate is `scripts/check-csharp-frontend.sh`. With CSHARP-02 complete,
+`JAVA-03` is the next eligible language phase; no Java or later-language
+frontend is active.
 
 No multi-language design, feasibility, specification, or implementation phase
 runs in parallel with the Rust program or with another language phase.
 
 The order and gates are defined by `docs/06_multilanguage_frontend_design.md`
-and `docs/06_multilanguage_frontend_design-todo.md`. They do not amend the
-currently frozen Go/Rust schemas. In particular, `mpk.vir.v0` receives no
-placeholder language IDs, every future language gets a distinct semantic
-profile, mixed-language VIR remains forbidden, and cross-language composition
-uses checked hash-pinned certificate imports.
+and `docs/06_multilanguage_frontend_design-todo.md`. Every future language
+gets a distinct semantic profile, mixed-language VIR remains forbidden, and
+cross-language composition uses checked hash-pinned certificate imports.
 
 The files under `tasks/` remain the original baseline tracker seed. Post-Rust
 task IDs are dependency-ordered by the `05_*_todo.md` and `06_*_todo.md`
@@ -168,8 +133,8 @@ ownership are:
 | `specs/AI_EXPLAIN_V1.md` | `specs/vectors/ai-explain-v1.json` |
 | `specs/AI_API_V1.md` | `specs/vectors/ai-api-v1.json` |
 
-The frozen successor design below is normative for later implementation but
-is not an active or accepted production schema:
+The successor design below is normative and active for the Go/Rust/C# helper
+release:
 
 | Specification | Conformance vector set(s) |
 |---|---|

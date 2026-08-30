@@ -15,8 +15,8 @@ use std::os::unix::fs::{symlink, PermissionsExt};
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicU64, Ordering};
 
-const VECTOR_BYTES: &[u8] = include_bytes!("../testdata/rust-driver-v0.json");
-const VECTOR_SHA256: &str = "c126a970fdd72eaee41d19fd521a7387c075f3e3779a6d3136cbfaf7856ce640";
+const VECTOR_BYTES: &[u8] = include_bytes!("../testdata/rust-driver-v1.json");
+const VECTOR_SHA256: &str = "023a6c25a5eff3c23c0213d274604198bbd44721edd4338e7bd632231bc55307";
 static NEXT_TEMP: AtomicU64 = AtomicU64::new(0);
 
 #[test]
@@ -35,12 +35,7 @@ fn captured_inputs_and_release_projection_construct_a_path_free_request() {
     assert!(!text.contains(fixture.request().release.driver.to_str().unwrap()));
     assert!(!text.contains("output_path"));
     assert!(text.contains("src/lib.rs"));
-    assert_eq!(
-        parse_request_transport(request.transport())
-            .unwrap()
-            .transport(),
-        request.transport()
-    );
+    assert_eq!(canonical_transport(request.value()), request.transport());
 }
 
 #[test]
@@ -50,11 +45,11 @@ fn normative_vector_request_and_every_status_are_byte_exact() {
     let root = vector.as_object().unwrap();
     assert_eq!(
         root["schema"].as_str(),
-        Some("mpk.rust.driver.conformance.v0")
+        Some("mpk.rust.driver.conformance.v1")
     );
     assert_eq!(
         root["owner_test"].as_str(),
-        Some("rust-tools/rust2vir/tests/driver_protocol.rs")
+        Some("rust-tools/rust2vir/tests/successor_protocol_identity.rs")
     );
 
     let request_fixture = root["valid_request"].as_object().unwrap();
@@ -64,7 +59,7 @@ fn normative_vector_request_and_every_status_are_byte_exact() {
     assert_eq!(request.transport(), request_transport);
     assert_eq!(
         request.request_fingerprint(),
-        "4726919a5c8b3aa8d21f6a93bb71c2e030300a34d52cca9b30036f3d983c3831"
+        "ff90c43060a3c6741dd499ec8f540d2897031e04c05b0e71a10142a70af41b72"
     );
 
     let lowered = root["valid_lowered"].as_object().unwrap();
@@ -234,6 +229,10 @@ fn request_transport_shape_hash_and_identity_fail_closed() {
         .as_object_mut()
         .unwrap()
         .get_mut("selection")
+        .unwrap()
+        .as_object_mut()
+        .unwrap()
+        .get_mut("value")
         .unwrap()
         .as_object_mut()
         .unwrap()
@@ -966,7 +965,7 @@ fn replace_hash_nibble(value: &mut JsonValue, field: &str) {
 fn recompute_request_fingerprint(value: &mut JsonValue) {
     value.as_object_mut().unwrap().remove("request_fingerprint");
     let mut hasher = rust2vir_internal::sha256::Sha256::new();
-    hasher.update(b"MPK-RUST-DRIVER-REQUEST-0.1");
+    hasher.update(b"MPK-RUST-DRIVER-REQUEST-1.0");
     hasher.update(&[0]);
     hasher.update(&json::canonical(value).unwrap());
     value.as_object_mut().unwrap().insert(
@@ -999,7 +998,7 @@ fn recompute_request_hashes(value: &mut JsonValue) {
 fn recompute_payload_hash(value: &mut JsonValue) {
     value.as_object_mut().unwrap().remove("payload_hash");
     let mut hasher = rust2vir_internal::sha256::Sha256::new();
-    hasher.update(b"MPK-RUST-DRIVER-PAYLOAD-0.1");
+    hasher.update(b"MPK-RUST-DRIVER-PAYLOAD-1.0");
     hasher.update(&[0]);
     hasher.update(&json::canonical(value).unwrap());
     value.as_object_mut().unwrap().insert(
@@ -1045,7 +1044,7 @@ fn add_instruction_and_mapping(value: &mut JsonValue) {
         )])));
     vir.remove("vir_hash");
     let hash = domain_hash(
-        b"MPK-VIR-0.1",
+        b"MPK-VIR-1.0",
         &json::canonical(&JsonValue::Object(vir.clone())).unwrap(),
     );
     vir.insert("vir_hash".to_owned(), JsonValue::String(hash.clone()));

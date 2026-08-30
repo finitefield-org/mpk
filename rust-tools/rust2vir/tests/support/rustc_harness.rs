@@ -1,12 +1,11 @@
 use crate::rustc_driver_adapter::{
     self, HirAnalysis, MirLowering, PrimaryAnalysis, RustcDriverError,
 };
-use rust2vir_internal::driver_protocol::{
-    parse_request_transport, DriverInputIdentity, DriverRequest,
-};
+use rust2vir_internal::driver_protocol::{seal_request_value, DriverInputIdentity, DriverRequest};
 use rust2vir_internal::file_loader::SnapshotFileLoader;
 use rust2vir_internal::json::{self, JsonValue};
-use rust2vir_internal::sha256::{digest, hex, Sha256};
+use rust2vir_internal::sha256::{digest, hex};
+use std::collections::BTreeMap;
 use std::fs;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::Arc;
@@ -26,16 +25,13 @@ pub fn analyze(source: &[u8], function: &str) -> Result<HirAnalysis, RustcDriver
     fs::create_dir_all(source_path.parent().expect("source parent")).expect("create source tree");
     fs::create_dir(&output_path).expect("create output directory");
     fs::write(&source_path, source).expect("write source fixture");
-    let loader = match SnapshotFileLoader::open(
-        &root,
-        "src/lib.rs",
-        &[DriverInputIdentity {
-            kind: "source".to_owned(),
-            normalized_path: "src/lib.rs".to_owned(),
-            size_bytes: source.len() as u64,
-            sha256: hex(&digest(source)),
-        }],
-    ) {
+    let source_inventory = [DriverInputIdentity {
+        kind: "source".to_owned(),
+        normalized_path: "src/lib.rs".to_owned(),
+        size_bytes: source.len() as u64,
+        sha256: hex(&digest(source)),
+    }];
+    let loader = match SnapshotFileLoader::open(&root, "src/lib.rs", &source_inventory) {
         Ok(loader) => loader,
         Err(error) => {
             fs::remove_dir_all(root).expect("remove rejected source fixture");
@@ -44,7 +40,7 @@ pub fn analyze(source: &[u8], function: &str) -> Result<HirAnalysis, RustcDriver
     };
     let result = rustc_driver_adapter::analyze_hir_primary(
         &compiler_arguments(&source_path, &output_path),
-        &request(function),
+        &request(function, &source_inventory, &[]),
         Arc::new(loader),
     );
     fs::remove_dir_all(root).expect("remove source fixture");
@@ -101,7 +97,7 @@ pub fn analyze_contracts(
     };
     let result = rustc_driver_adapter::analyze_primary(
         &compiler_arguments(&source_path, &output_path),
-        &request(function),
+        &request(function, &source_inventory, &contract_inventory),
         Arc::new(loader),
     );
     fs::remove_dir_all(root).expect("remove contract fixture");
@@ -181,7 +177,13 @@ pub fn lower_with_session_target(
     };
     let result = rustc_driver_adapter::lower_primary(
         &compiler_arguments_for_target(&source_path, &output_path, compiler_target),
-        &request_for_target(function, request_target, pointer_width),
+        &request_for_target(
+            function,
+            request_target,
+            pointer_width,
+            &source_inventory,
+            &contract_inventory,
+        ),
         Arc::new(loader),
     );
     fs::remove_dir_all(root).expect("remove lowering fixture");
@@ -226,11 +228,27 @@ fn compiler_arguments_for_target(
     .collect()
 }
 
-fn request(function: &str) -> DriverRequest {
-    request_for_target(function, "x86_64-unknown-linux-gnu", 64)
+fn request(
+    function: &str,
+    source_inventory: &[DriverInputIdentity],
+    contract_inventory: &[DriverInputIdentity],
+) -> DriverRequest {
+    request_for_target(
+        function,
+        "x86_64-unknown-linux-gnu",
+        64,
+        source_inventory,
+        contract_inventory,
+    )
 }
 
-fn request_for_target(function: &str, target: &str, pointer_width: u8) -> DriverRequest {
+fn request_for_target(
+    function: &str,
+    target: &str,
+    pointer_width: u8,
+    source_inventory: &[DriverInputIdentity],
+    contract_inventory: &[DriverInputIdentity],
+) -> DriverRequest {
     let vector = json::parse(VECTOR, VECTOR.len()).expect("parse driver vector");
     let fixture = vector.as_object().expect("vector object")["valid_request"]
         .as_object()
@@ -273,16 +291,68 @@ fn request_for_target(function: &str, target: &str, pointer_width: u8) -> Driver
             "function".to_owned(),
             JsonValue::String(function.to_owned()),
         );
-    root.remove("request_fingerprint");
-    let mut hasher = Sha256::new();
-    hasher.update(b"MPK-RUST-DRIVER-REQUEST-1.0");
-    hasher.update(&[0]);
-    hasher.update(&json::canonical(&value).expect("canonical request"));
-    value.as_object_mut().expect("request object").insert(
-        "request_fingerprint".to_owned(),
-        JsonValue::String(hex(&hasher.finish())),
-    );
-    let mut bytes = json::canonical(&value).expect("canonical request");
-    bytes.push(b'\n');
-    parse_request_transport(&bytes).expect("parse request transport")
+    let retained = root["inputs"]
+        .as_array()
+        .expect("request inputs")
+        .iter()
+        .filter(|input| {
+            matches!(
+                input
+                    .as_object()
+                    .and_then(|object| object.get("kind"))
+                    .and_then(JsonValue::as_str),
+                Some("lockfile" | "build_manifest")
+            )
+        })
+        .cloned();
+    let mut inputs = retained
+        .chain(contract_inventory.iter().map(input_value))
+        .chain(source_inventory.iter().map(input_value))
+        .collect::<Vec<_>>();
+    inputs.sort_by(|left, right| input_path(left).as_bytes().cmp(input_path(right).as_bytes()));
+    let mut sources = source_inventory
+        .iter()
+        .map(source_value)
+        .collect::<Vec<_>>();
+    sources.sort_by(|left, right| input_path(left).as_bytes().cmp(input_path(right).as_bytes()));
+    root.insert("inputs".to_owned(), JsonValue::Array(inputs));
+    root.insert("source_inventory".to_owned(), JsonValue::Array(sources));
+    seal_request_value(value).expect("seal request transport")
+}
+
+fn input_path(value: &JsonValue) -> &str {
+    value
+        .as_object()
+        .and_then(|object| object.get("normalized_path"))
+        .and_then(JsonValue::as_str)
+        .expect("constructed input path")
+}
+
+fn input_value(input: &DriverInputIdentity) -> JsonValue {
+    JsonValue::Object(BTreeMap::from([
+        ("kind".to_owned(), JsonValue::String(input.kind.clone())),
+        (
+            "normalized_path".to_owned(),
+            JsonValue::String(input.normalized_path.clone()),
+        ),
+        ("sha256".to_owned(), JsonValue::String(input.sha256.clone())),
+        (
+            "size_bytes".to_owned(),
+            JsonValue::Number(input.size_bytes.to_string()),
+        ),
+    ]))
+}
+
+fn source_value(input: &DriverInputIdentity) -> JsonValue {
+    JsonValue::Object(BTreeMap::from([
+        (
+            "normalized_path".to_owned(),
+            JsonValue::String(input.normalized_path.clone()),
+        ),
+        ("sha256".to_owned(), JsonValue::String(input.sha256.clone())),
+        (
+            "size_bytes".to_owned(),
+            JsonValue::Number(input.size_bytes.to_string()),
+        ),
+    ]))
 }

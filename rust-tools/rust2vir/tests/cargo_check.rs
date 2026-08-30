@@ -6,10 +6,9 @@ use common::{
 };
 use rust2vir_internal::cargo_check::{CargoCheckCode, CompilerMessageLevel, RustSourceCode};
 use rust2vir_internal::cargo_metadata::MetadataPhase;
-use rust2vir_internal::driver_process::{publish_result, read_request};
+use rust2vir_internal::driver_process::publish_result;
 use rust2vir_internal::driver_protocol::{
-    encode_non_success, parse_request_transport, DriverProtocolCode, DriverStatus,
-    PrivateDiagnostic,
+    encode_non_success, DriverProtocolCode, DriverStatus, PrivateDiagnostic,
 };
 use rust2vir_internal::environment::DRIVER_OUTPUT_ROOT;
 use rust2vir_internal::sandbox::{
@@ -29,11 +28,9 @@ impl SandboxExecutor for HandshakeExecutor {
         if invocation.kind() == CargoInvocationKind::Metadata {
             return Ok(ProcessOutput::success(metadata_json()));
         }
-        let request =
-            parse_request_transport(&read_request(context.driver_request_host_path()).unwrap())
-                .unwrap();
+        let request = context.driver_request();
         let bytes = encode_non_success(
-            &request,
+            request,
             DriverStatus::SourceError,
             "typecheck",
             &[PrivateDiagnostic {
@@ -64,11 +61,9 @@ impl SandboxExecutor for PrimaryArgumentFailureExecutor {
         if invocation.kind() == CargoInvocationKind::Metadata {
             return Ok(ProcessOutput::success(metadata_json()));
         }
-        let request =
-            parse_request_transport(&read_request(context.driver_request_host_path()).unwrap())
-                .unwrap();
+        let request = context.driver_request();
         let bytes = encode_non_success(
-            &request,
+            request,
             DriverStatus::FrontendError,
             "typecheck",
             &[PrivateDiagnostic {

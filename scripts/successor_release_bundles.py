@@ -29,7 +29,7 @@ CANDIDATE_PATHS = {
     language: REPOSITORY_ROOT / f"release/bundles/candidates/{language}.json"
     for language in ("go", "rust", "csharp")
 }
-REGISTRY_SHA256 = "0f60f1494e62a485f5f8dc2ed25cbd052591005d8c3b8651412b5ef0c4dda704"
+REGISTRY_SHA256 = "00580f5ef519ae077432460d2e9e1214bb15b624b2781a96188dd81ad92f8fce"
 SEMANTIC_REGISTRY_SHA256 = (
     "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75"
 )
@@ -146,7 +146,7 @@ def validate_release_models() -> tuple[dict[str, object], dict[str, dict[str, ob
     if hashlib.sha256(REGISTRY_DOMAIN + canonical(payload)).hexdigest() != REGISTRY_SHA256:
         raise SuccessorReleaseFailure()
     if hashlib.sha256(registry_bytes).hexdigest() != (
-        "3f3811a1e4c949b0290fa71c028637ac03022d50e844822c66537011a4a91135"
+        "5c8e9f8a343c675a429f6cdb5299d08e6ed7a232e2d3a81d32e880091bb39253"
     ):
         raise SuccessorReleaseFailure()
     for field, key in (
@@ -397,7 +397,12 @@ def main(argv: list[str]) -> int:
     except SuccessorReleaseFailure as error:
         print(error.code, file=sys.stderr)
         return error.exit_code
-    except (csharp.CSharpReleaseFailure, go_release.BundleFailure, rust.RustBuildFailure) as error:
+    except (
+        csharp.CSharpReleaseFailure,
+        csharp.csharp_build_inputs.CSharpBuildFailure,
+        go_release.BundleFailure,
+        rust.RustBuildFailure,
+    ) as error:
         print(getattr(error, "code", "BUNDLE_REPRODUCIBILITY_MISMATCH"), file=sys.stderr)
         return getattr(error, "exit_code", 65)
     except (KeyError, OSError, TypeError, ValueError, subprocess.SubprocessError):

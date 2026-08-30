@@ -1,5 +1,7 @@
 use std::process::{Command, Output};
 
+use mpk_cli::successor_cli::EXPLAIN_USAGE;
+
 fn run_mpk(args: &[&str]) -> Output {
     Command::new(env!("CARGO_BIN_EXE_mpk"))
         .args(args)
@@ -15,48 +17,42 @@ fn stderr(output: &Output) -> String {
     String::from_utf8(output.stderr.clone()).expect("stderr is UTF-8")
 }
 
-#[cfg(not(feature = "vertex-ai"))]
 #[test]
-fn explain_requires_the_opt_in_feature() {
-    let output = run_mpk(&["explain"]);
-
-    assert_eq!(output.status.code(), Some(2));
-    assert!(output.stdout.is_empty());
-    assert_eq!(
-        stderr(&output),
-        "mpk explain requires a build with --features vertex-ai\n"
-    );
-}
-
-#[cfg(feature = "vertex-ai")]
-#[test]
-fn feature_enabled_explain_route_validates_normal_arguments_before_auth() {
-    let output = run_mpk(&["explain"]);
-
-    assert_eq!(output.status.code(), Some(2));
-    assert!(output.stdout.is_empty());
-    assert!(stderr(&output).contains("mpk explain is missing the evidence path"));
+fn explain_is_the_offline_successor_route_in_every_build() {
+    let output = run_mpk(&["explain", "--help"]);
+    assert!(output.status.success(), "stderr: {}", stderr(&output));
+    assert_eq!(stdout(&output), format!("{EXPLAIN_USAGE}\n"));
+    assert!(output.stderr.is_empty());
+    assert!(EXPLAIN_USAGE.contains("--semantic-context"));
+    assert!(EXPLAIN_USAGE.contains("--selection"));
+    assert!(EXPLAIN_USAGE.contains("--request-json-out"));
+    for removed in ["--provider", "--project", "--location", "--credentials"] {
+        assert!(!EXPLAIN_USAGE.contains(removed));
+    }
 }
 
 #[test]
-fn top_level_help_reserves_explain_without_credential_flags() {
+fn explain_requires_a_successor_source_request() {
+    let output = run_mpk(&["explain"]);
+    assert_eq!(output.status.code(), Some(2));
+    assert!(output.stdout.is_empty());
+    assert!(stderr(&output).contains("source-root positional is missing"));
+}
+
+#[test]
+fn top_level_help_exposes_no_provider_or_predecessor_route() {
     let output = run_mpk(&["--help"]);
-
     assert!(output.status.success(), "stderr: {}", stderr(&output));
     let help = stdout(&output);
-    assert!(help.contains("mpk explain <evidence.json>"));
-    assert!(help.contains("normal mode uses ADC"));
-    assert!(!help.contains("--api-key"));
-    assert!(!help.contains("--access-token"));
-    assert!(!help.contains("--credentials"));
-}
-
-#[cfg(feature = "vertex-ai")]
-#[test]
-fn feature_help_is_explicitly_not_an_implemented_command() {
-    let output = run_mpk(&["explain", "--help"]);
-
-    assert!(output.status.success(), "stderr: {}", stderr(&output));
-    assert!(stdout(&output).contains("--output-json"));
-    assert!(!stdout(&output).contains("not available until the implementation tasks are complete"));
+    assert!(help.contains("mpk explain <source-root>"));
+    assert!(help.contains("--semantic-context <context.json>"));
+    for removed in [
+        "--api-key",
+        "--access-token",
+        "--credentials",
+        "--provider",
+        "mpk explain <evidence.json>",
+    ] {
+        assert!(!help.contains(removed), "help exposed {removed}");
+    }
 }

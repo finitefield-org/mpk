@@ -85,7 +85,7 @@ fn complete_archive_cache(profile: &Value) -> bool {
 }
 
 #[test]
-fn aggregate_owner_is_pinned_and_the_active_cli_stays_csharp_free() {
+fn aggregate_owner_is_pinned_and_the_active_release_registers_csharp() {
     let root = repository_root();
     let project = fs::read_to_string(root.join("csharp-tools/csharp2vir/csharp2vir.csproj"))
         .expect("read C# project");
@@ -154,13 +154,13 @@ fn aggregate_owner_is_pinned_and_the_active_cli_stays_csharp_free() {
 
     let active_registry = fs::read_to_string(root.join("release/bundles/bundle-registry.json"))
         .expect("read active bundle registry");
-    assert!(!active_registry.contains("csharp2vir"));
-    assert!(!active_registry.contains("mpk.csharp.scalar.v0"));
+    assert!(active_registry.contains("csharp2vir"));
+    assert!(active_registry.contains("mpk.csharp.scalar.v0"));
 
     let release_script = fs::read_to_string(root.join("scripts/build-release-bundles.sh"))
         .expect("read release assembler route");
-    assert!(release_script.contains("2:--check:csharp)"));
-    assert!(release_script.contains("csharp_release_bundles.py\" check"));
+    assert!(release_script.contains("2:--check:successor|"));
+    assert!(release_script.contains("successor_release_bundles.py\" check"));
 }
 
 #[test]

@@ -34,16 +34,11 @@ logs in the initial report.
 
 ## Credentials And Repository Hygiene
 
-Never commit API keys, access or refresh tokens, local Application Default
-Credentials (ADC) files, service-account key JSON, private keys,
-credential-bearing `.env` files, copied `gcloud` configuration, or real
-customer AI request and response artifacts.
+Never commit API keys, access or refresh tokens, Application Default
+Credentials (ADC), service-account key JSON, private keys, credential-bearing
+`.env` files, provider configuration, or real customer AI request and response
+artifacts.
 
-- Keep local Google Cloud ADC in the platform's normal user configuration
-  directory outside this checkout.
-- Prefer user ADC for local development and attached workload identities for
-  deployed environments. Do not copy a downloaded service-account key into the
-  repository.
 - Put local generated reports and request previews under the ignored `target/`
   tree unless another approved, non-repository location is required.
 - Use placeholders and deterministic fake authentication in documentation,
@@ -59,30 +54,13 @@ Git history as appropriate, and verify the replacement credential. Deleting
 the value in a later commit or rewriting history does not make the exposed
 credential safe to reuse.
 
-The optional `mpk explain` command is ADC-only. It invokes the fixed
-`gcloud auth application-default print-access-token --quiet` argument vector
-and never accepts an API key, raw bearer token, or credential-file path. The
-dry run does not authenticate or access the network. Normal mode sends only
-the reviewed minimal redacted evidence payload to the selected Vertex AI
-project/location; it does not send source, contracts, certificates, paths,
-commands, or original property identifiers. The provider still processes the
-request remotely, so operators must obtain appropriate customer consent and
-review Google's current retention, abuse-monitoring, caching, and data-use
-terms. MPK does not promise zero retention.
-
-A cloud administrator must enable `aiplatform.googleapis.com` in a dedicated
-billed non-production project and configure approved quota and budget
-controls. The calling identity should receive only `roles/aiplatform.user`;
-user ADC that assigns a quota project additionally requires
-`serviceusage.services.use`, normally through
-`roles/serviceusage.serviceUsageConsumer`. Do not use broad owner/editor roles
-or place cloud credentials in this repository to bypass an IAM failure.
-
-The final JSON and Markdown reports are customer artifacts even though they
-are untrusted helper analysis: they contain the project ID, exact source hash,
-and locally restored property identifiers. Store them under an approved
-location, restrict access, and delete local ADC with
-`gcloud auth application-default revoke` when it is no longer needed.
+The active `mpk explain` command is credential-free and network-free. It emits
+only the profile-owned, redacted `mpk.ai.explain.request.v2` projection and
+does not accept a provider, project, endpoint, API key, bearer token,
+credential file, or response. Treat that request as customer data despite its
+redaction. Any separate system that transmits it must establish its own
+consent, least-privilege authentication, retention policy, and provider review;
+that external transmission is outside MPK's proof and CLI boundaries.
 
 ## Security Boundary
 
@@ -98,9 +76,9 @@ Only these artifacts can support proof acceptance:
 The following artifacts are helper analysis only and must not be treated as
 proof evidence:
 
-- Go source;
+- Go, Rust, or C# source;
 - contract JSON;
-- `go2vir` output;
+- frontend or compiler output;
 - VIR JSON;
 - VC JSON;
 - policy scan JSON;

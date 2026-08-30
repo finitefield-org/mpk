@@ -1,3 +1,6 @@
+#[path = "support/successor_projection.rs"]
+mod successor_projection;
+
 use std::fs;
 use std::path::{Path, PathBuf};
 
@@ -28,10 +31,11 @@ use mpk_vc::vir::{
     VirType, VirValue, VirVariableRef,
 };
 use mpk_vc::{
-    generate_program_vcs, import_vir_json, validate_vir_safety_fragment, MpkExprTerm,
-    VirSafetyOperation, STD_BITVEC_MODULE, STD_BOOL_AND, STD_BOOL_IF, STD_BOOL_NOT, STD_EQ,
+    generate_program_vcs, validate_vir_safety_fragment, MpkExprTerm, VirSafetyOperation,
+    STD_BITVEC_MODULE, STD_BOOL_AND, STD_BOOL_IF, STD_BOOL_NOT, STD_EQ,
 };
 use serde_json::Value;
+use successor_projection::import_successor_rust_vir_projection;
 
 const RUST_ARRAYS_VIR: &[u8] =
     include_bytes!("../../../rust-tools/rust2vir/testdata/arrays/expected-vir.json");
@@ -185,8 +189,8 @@ fn rust_constant_array_golden_imports_and_generates_stable_vcs() {
     let fixtures = fixtures.as_array().expect("dual-target array VIR fixtures");
     assert_eq!(fixtures.len(), 2);
     for fixture in fixtures {
-        let module = import_vir_json(&serde_json::to_vec(fixture).unwrap())
-            .expect("constant/array VIR passes independent validation");
+        let bytes = serde_json::to_vec(fixture).expect("successor array VIR serializes");
+        let module = import_successor_rust_vir_projection(&bytes);
         let first = generate_program_vcs(&module).expect("array construction generates VCs");
         let second = generate_program_vcs(&module).expect("repeat array construction VCs");
         assert_eq!(first, second);
@@ -203,8 +207,8 @@ fn rust_nominal_struct_golden_imports_and_generates_stable_contract_groups() {
         .expect("dual-target struct VIR fixtures");
     assert_eq!(fixtures.len(), 2);
     for fixture in fixtures {
-        let module = import_vir_json(&serde_json::to_vec(fixture).unwrap())
-            .expect("nominal struct VIR passes independent validation");
+        let bytes = serde_json::to_vec(fixture).expect("successor struct VIR serializes");
+        let module = import_successor_rust_vir_projection(&bytes);
         assert_eq!(
             module.units[0].type_decls,
             vec![pair_like_point_declaration()]

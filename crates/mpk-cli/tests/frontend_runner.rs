@@ -2,6 +2,8 @@ use mpk_cli::frontend_protocol::{
     validate_frontend_process, FrontendProcessFacts, FrontendProtocolCode, FrontendProtocolRequest,
     FRONTEND_STDERR_BYTES_MAX, FRONTEND_STDOUT_BYTES_MAX,
 };
+use mpk_cli::successor_release_bundle::validate_successor_release_registry;
+use mpk_vc::semantic_profile_registry::{validate_semantic_profile_registry, RegistryRevision};
 use mpk_vc::{
     canonical_json_bytes, parse_strict_json, validate_release_registry, CapturedInput, InputKind,
     ReleaseSelectionRequest, StrictJsonLimits,
@@ -196,42 +198,54 @@ fn release_installation_selection_and_assembler_vectors_are_all_owned() {
     }
     assert_eq!(visited, ids.len());
 
-    let tracked =
+    let semantic_bytes = fs::read(root.join("release/bundles/semantic-profile-registry.json"))
+        .expect("read semantic registry");
+    let semantic = validate_semantic_profile_registry(&semantic_bytes, RegistryRevision::Revision2)
+        .expect("revision-2 semantic registry validates");
+    let tracked_bytes =
         fs::read(root.join("release/bundles/bundle-registry.json")).expect("read tracked registry");
-    let tracked = validate_release_registry(&tracked).expect("tracked combined registry validates");
-    assert_eq!(tracked.registry().tuples.len(), 3);
-    assert_eq!(tracked.registry().tuples[0].source_language, "go");
+    let tracked = validate_successor_release_registry(&tracked_bytes, &semantic)
+        .expect("tracked successor registry validates");
+    assert_eq!(tracked.registry().tuples.len(), 4);
+    assert_eq!(tracked.registry().frontend_bundles.len(), 3);
+    assert_eq!(tracked.registry().toolchain_bundles.len(), 3);
+    let tracked_value: Value = serde_json::from_slice(&tracked_bytes).expect("tracked JSON");
     assert_eq!(
-        tracked.registry().tuples[0].semantic_profile,
-        "mpk.go.fixed.v0"
-    );
-    assert_eq!(tracked.registry().tuples[0].target_id, "linux/amd64");
-    assert!(tracked.registry().frontend_bundles[0]
-        .subordinate_binaries
-        .is_empty());
-    assert_eq!(
-        tracked.registry().tuples[1..]
+        tracked_value["tuples"]
+            .as_array()
+            .expect("successor tuples")
             .iter()
             .map(|tuple| (
-                tuple.source_language.as_str(),
-                tuple.target_id.as_str(),
-                tuple.pointer_width
+                tuple["semantic_context"]["source_language"]
+                    .as_str()
+                    .expect("source language"),
+                tuple["semantic_context"]["semantic_parameters"]["value"]["target_id"]
+                    .as_str()
+                    .expect("target ID")
             ))
             .collect::<Vec<_>>(),
         [
-            ("rust", "i686-unknown-linux-gnu", 32),
-            ("rust", "x86_64-unknown-linux-gnu", 64),
+            ("go", "linux/amd64"),
+            ("rust", "i686-unknown-linux-gnu"),
+            ("rust", "x86_64-unknown-linux-gnu"),
+            ("csharp", "linux-x64"),
         ]
     );
-    let rust_frontend = tracked
-        .registry()
-        .frontend_bundles
+    let rust_frontend = tracked_value["frontend_bundles"]
+        .as_array()
+        .expect("frontend bundles")
         .iter()
-        .find(|bundle| bundle.source_language == "rust")
+        .find(|bundle| bundle["bundle_id"] == "frontend.rust.rust2vir.candidate.v1")
         .expect("registered Rust frontend");
-    assert_eq!(rust_frontend.subordinate_binaries.len(), 1);
     assert_eq!(
-        rust_frontend.subordinate_binaries[0].name,
+        rust_frontend["subordinate_binaries"]
+            .as_array()
+            .expect("subordinate binaries")
+            .len(),
+        1
+    );
+    assert_eq!(
+        rust_frontend["subordinate_binaries"][0]["name"],
         "rust2vir-driver"
     );
 }
@@ -293,6 +307,7 @@ fn stable_root_workspace_explicitly_excludes_standalone_rust_packages() {
 }
 
 #[test]
+#[cfg(target_os = "linux")]
 fn rust_build_input_vectors_are_owned_by_the_internal_conformance_harness() {
     let root = repository_root();
     let output = Command::new("/usr/bin/env")
@@ -315,7 +330,7 @@ fn rust_build_input_vectors_are_owned_by_the_internal_conformance_harness() {
 }
 
 #[test]
-fn released_cli_help_exposes_only_registered_frontend_selection() {
+fn released_cli_help_exposes_only_successor_semantic_selection() {
     let output = Command::new(env!("CARGO_BIN_EXE_mpk"))
         .arg("--help")
         .output()
@@ -323,12 +338,14 @@ fn released_cli_help_exposes_only_registered_frontend_selection() {
     assert!(output.status.success());
     assert!(output.stderr.is_empty());
     let help = String::from_utf8(output.stdout).expect("help is UTF-8");
-    for expected in ["--frontend-bundle", "--toolchain-bundle"] {
+    for expected in ["--semantic-context", "--selection"] {
         assert!(help.contains(expected), "released help omitted {expected}");
     }
     for private in [
         "go2vir",
         "rust2vir",
+        "--frontend-bundle",
+        "--toolchain-bundle",
         "--release-registry",
         "__mpk_frontend_",
     ] {

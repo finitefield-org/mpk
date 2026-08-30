@@ -213,8 +213,7 @@ impl DriverRequest {
     }
 
     pub fn semantic_context(&self) -> &JsonValue {
-        object_member(self.root(), "semantic_context")
-            .expect("validated request semantic context")
+        object_member(self.root(), "semantic_context").expect("validated request semantic context")
     }
 
     pub fn selection(&self) -> (&str, &str, &str) {
@@ -373,8 +372,18 @@ impl DriverOutput {
 }
 
 pub fn parse_request_transport(bytes: &[u8]) -> Result<DriverRequest, DriverProtocolError> {
+    parse_request_transport_with_distribution(
+        bytes,
+        crate::successor::TOOLCHAIN_DISTRIBUTION_SHA256,
+    )
+}
+
+fn parse_request_transport_with_distribution(
+    bytes: &[u8],
+    expected_toolchain_distribution_sha256: &str,
+) -> Result<DriverRequest, DriverProtocolError> {
     let (value, canonical) = parse_transport(bytes, REQUEST_TRANSPORT_MAX, false)?;
-    validate_request_value(&value)?;
+    validate_request_value(&value, expected_toolchain_distribution_sha256)?;
     let root = value.as_object().ok_or(DriverProtocolCode::Shape)?;
     let request_fingerprint = string(root, "request_fingerprint")?.to_owned();
     let source_inventory_hash = string(root, "source_inventory_hash")?.to_owned();
@@ -553,10 +562,7 @@ pub fn construct_request(
         ),
         (
             "semantic_context".to_owned(),
-            crate::successor::semantic_context(
-                request.target.id(),
-                request.target.pointer_width(),
-            ),
+            crate::successor::semantic_context(request.target.id(), request.target.pointer_width()),
         ),
         ("source_inventory".to_owned(), source_inventory),
         (
@@ -586,7 +592,10 @@ pub fn construct_request(
         "source_inventory_hash".to_owned(),
         JsonValue::String(String::new()),
     );
-    seal_request_value(JsonValue::Object(root))
+    seal_request_value_with_distribution(
+        JsonValue::Object(root),
+        &release.toolchain_distribution_sha256,
+    )
 }
 
 fn component_value(component: &DriverComponentIdentity) -> Result<JsonValue, DriverProtocolError> {
@@ -646,7 +655,17 @@ pub fn validate_transport_size(
     Ok(total)
 }
 
-pub fn seal_request_value(mut value: JsonValue) -> Result<DriverRequest, DriverProtocolError> {
+pub fn seal_request_value(value: JsonValue) -> Result<DriverRequest, DriverProtocolError> {
+    seal_request_value_with_distribution(
+        value,
+        crate::successor::TOOLCHAIN_DISTRIBUTION_SHA256,
+    )
+}
+
+fn seal_request_value_with_distribution(
+    mut value: JsonValue,
+    expected_toolchain_distribution_sha256: &str,
+) -> Result<DriverRequest, DriverProtocolError> {
     {
         let root = value.as_object_mut().ok_or(DriverProtocolCode::Shape)?;
         root.remove("request_fingerprint");
@@ -678,7 +697,10 @@ pub fn seal_request_value(mut value: JsonValue) -> Result<DriverRequest, DriverP
     let mut transport = json::canonical_bounded(&value, REQUEST_TRANSPORT_MAX - 1)
         .map_err(|_| DriverProtocolCode::Transport)?;
     transport.push(b'\n');
-    parse_request_transport(&transport)
+    parse_request_transport_with_distribution(
+        &transport,
+        expected_toolchain_distribution_sha256,
+    )
 }
 
 pub fn encode_non_success(
@@ -895,7 +917,10 @@ fn parse_transport(
     Ok((value, canonical))
 }
 
-fn validate_request_value(value: &JsonValue) -> Result<(), DriverProtocolError> {
+fn validate_request_value(
+    value: &JsonValue,
+    expected_toolchain_distribution_sha256: &str,
+) -> Result<(), DriverProtocolError> {
     let root = value.as_object().ok_or(DriverProtocolCode::Shape)?;
     closed(root, REQUEST_FIELDS)?;
     if string(root, "schema")? != "mpk.rust.driver.request.v1"
@@ -911,7 +936,10 @@ fn validate_request_value(value: &JsonValue) -> Result<(), DriverProtocolError> 
     validate_selection_envelope(object(root, "selection")?)?;
     validate_release_registry(object(root, "release_registry")?)?;
     validate_frontend(object(root, "frontend")?)?;
-    validate_toolchain(object(root, "toolchain")?)?;
+    validate_toolchain(
+        object(root, "toolchain")?,
+        expected_toolchain_distribution_sha256,
+    )?;
     validate_compiler(root)?;
     let inputs = array(root, "inputs")?;
     validate_inputs(inputs)?;
@@ -977,8 +1005,8 @@ fn validate_semantic_context(
     }
     let value = object(parameters, "value")?;
     validate_semantic_parameters(value)?;
-    let width = u8::try_from(integer(value, "pointer_width")?)
-        .map_err(|_| DriverProtocolCode::Shape)?;
+    let width =
+        u8::try_from(integer(value, "pointer_width")?).map_err(|_| DriverProtocolCode::Shape)?;
     let expected = crate::successor::semantic_context(string(value, "target_id")?, width);
     if JsonValue::Object(context.clone()) != expected {
         return Err(DriverProtocolCode::Identity.into());
@@ -1079,14 +1107,16 @@ fn validate_frontend(frontend: &BTreeMap<String, JsonValue>) -> Result<(), Drive
     Ok(())
 }
 
-fn validate_toolchain(toolchain: &BTreeMap<String, JsonValue>) -> Result<(), DriverProtocolError> {
+fn validate_toolchain(
+    toolchain: &BTreeMap<String, JsonValue>,
+    expected_distribution_sha256: &str,
+) -> Result<(), DriverProtocolError> {
     closed(
         toolchain,
         &["bundle_id", "components", "distribution_sha256"],
     )?;
     if string(toolchain, "bundle_id")? != crate::successor::TOOLCHAIN_ID
-        || string(toolchain, "distribution_sha256")?
-            != crate::successor::TOOLCHAIN_DISTRIBUTION_SHA256
+        || string(toolchain, "distribution_sha256")? != expected_distribution_sha256
     {
         return Err(DriverProtocolCode::Shape.into());
     }
@@ -1170,8 +1200,7 @@ fn validate_compiler(root: &BTreeMap<String, JsonValue>) -> Result<(), DriverPro
     if string(compiler, "commit_hash")? != crate::EXPECTED_RUSTC_COMMIT {
         return Err(DriverProtocolCode::ToolchainCommit.into());
     }
-    let parameters =
-        semantic_parameter_value(root).ok_or(DriverProtocolCode::Shape)?;
+    let parameters = semantic_parameter_value(root).ok_or(DriverProtocolCode::Shape)?;
     if string(compiler, "target")? != string(parameters, "target_id")? {
         return Err(DriverProtocolCode::Identity.into());
     }

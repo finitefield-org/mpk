@@ -25,7 +25,7 @@ use std::collections::BTreeSet;
 use std::path::PathBuf;
 
 const SUBSET_VECTOR: &[u8] = include_bytes!("../testdata/rust-subset-v0.json");
-const DRIVER_VECTOR: &[u8] = include_bytes!("../testdata/rust-driver-v0.json");
+const DRIVER_VECTOR: &[u8] = include_bytes!("../testdata/rust-driver-v1.json");
 
 #[test]
 fn normative_rust_subset_rejections_have_exact_outcomes() {
@@ -263,7 +263,9 @@ fn integer(object: &std::collections::BTreeMap<String, JsonValue>, key: &str) ->
 
 fn lower_request(request: &rust2vir_internal::driver_protocol::DriverRequest) -> LowerRequest {
     let root = request.value().as_object().unwrap();
-    let selection = root["selection"].as_object().unwrap();
+    let selection = root["selection"].as_object().unwrap()["value"]
+        .as_object()
+        .unwrap();
     let frontend = root["frontend"].as_object().unwrap();
     let toolchain = root["toolchain"].as_object().unwrap();
     let registry = root["release_registry"].as_object().unwrap();

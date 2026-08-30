@@ -81,7 +81,7 @@ fn frozen_project_files_have_the_exact_registered_bytes() {
 fn version_identity_is_stable() {
     assert_eq!(
         rust2vir_internal::version_line("rust2vir"),
-        "rust2vir 0.1.0 (rustc 4d08223c054cf5a56d9761ca925fd46ffebe7115)"
+        "rust2vir 0.1.0-profile-v1-staging (rustc 4d08223c054cf5a56d9761ca925fd46ffebe7115)"
     );
 }
 
@@ -96,7 +96,9 @@ fn binaries_expose_only_the_frozen_version_identity() {
         assert!(output.stderr.is_empty(), "{name}");
         assert_eq!(
             String::from_utf8(output.stdout).unwrap(),
-            format!("{name} 0.1.0 (rustc 4d08223c054cf5a56d9761ca925fd46ffebe7115)\n")
+            format!(
+                "{name} 0.1.0-profile-v1-staging (rustc 4d08223c054cf5a56d9761ca925fd46ffebe7115)\n"
+            )
         );
     }
 }

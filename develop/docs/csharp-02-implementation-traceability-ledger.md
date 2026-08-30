@@ -1,15 +1,13 @@
 # CSHARP-02 Implementation Decomposition and Traceability Ledger
 
 Status: `CSHARP-02-T01` complete (2026-08-25), `CSHARP-02-T02` through
-`CSHARP-02-T03` complete (2026-08-26), and `CSHARP-02-T04` through
-`CSHARP-02-T12` complete (2026-08-27), and `CSHARP-02-T13` through
-`CSHARP-02-T19` complete (2026-08-28). `CSHARP-02-T20` is the next task.
-Canonical C# success and non-success envelopes now exist only within the
-inactive candidate and its test harness, and canonical successor VC and
-skeleton, policy/evidence, and AI request/report bytes now exist only behind
-explicitly injected staging APIs. No production C# frontend, released
-successor route, installed registry root, release tuple, policy route,
-evidence route, or AI route is active.
+`CSHARP-02-T03` complete (2026-08-26), `CSHARP-02-T04` through
+`CSHARP-02-T12` complete (2026-08-27), `CSHARP-02-T13` through
+`CSHARP-02-T19` complete (2026-08-28), and `CSHARP-02-T20` complete
+(2026-08-30). The sole successor Go/Rust/C# release is active. Semantic-
+registry revision 2, the successor bundle registry, all four release tuples,
+and all nine C# compiled-profile contracts are installed through the shared
+registered path; predecessor and crossed identities reject.
 
 This document is the non-normative execution plan for implementing the frozen
 C# package. `CSHARP_PROFILE_V0.md` and
@@ -102,14 +100,14 @@ MLANG-01-T03
 | `CSHARP-02-T17` | complete | staged AI explanation integration |
 | `CSHARP-02-T18` | complete | staged AI API integration |
 | `CSHARP-02-T19` | complete | complete cross-profile hardening corpus and release rehearsal |
-| `CSHARP-02-T20` | ready | atomic successor cutover and C# production release |
+| `CSHARP-02-T20` | complete | atomic successor cutover and C# production release |
 
 The status tokens above are planning state only. They are not registry or
 release status values.
 
-## 3. Inactive staging contract
+## 3. Historical staging and active release boundary
 
-Intermediate implementation uses one fail-closed staging model:
+T02 through T19 used one fail-closed staging model:
 
 - `csharp-tools/csharp2vir/` may contain reviewed candidate source after T02,
   but no active command discovers or launches it by path.
@@ -129,8 +127,12 @@ Intermediate implementation uses one fail-closed staging model:
   reviewed staging output before installing it. It removes the staging gates
   and old public helper-schema parsers in the same change.
 
-An intermediate task fails if a production test can select C#, revision 2, a
-successor schema, or a staging root without the private test harness.
+An intermediate task failed if a production test could select C#, revision 2,
+a successor schema, or a staging root without the private test harness. T20
+closed that boundary atomically: the reviewed bytes now live only in active
+fixtures and registries, the installed runner resolves only descriptor-
+relative bundles, and the executable staging tree no longer exists. The
+archived review and semantic-difference reports are non-production records.
 
 ## 4. Task contracts
 
@@ -850,6 +852,8 @@ findings and zero new axiom categories.
 
 Depends on: `CSHARP-02-T19` and transitively every earlier CSHARP-02 task.
 
+Status: Complete (2026-08-30).
+
 Owns one indivisible release change that:
 
 - installs the exact revision-2 semantic registry and successor bundle
@@ -877,6 +881,22 @@ release image.
 Exit gate: C# is active only through the shared registered path, Go/Rust are
 active only through the successor path, old and crossed identities reject,
 Certificate v0 remains unchanged, both checkers agree, and `JAVA-03` becomes
+eligible.
+
+Completion evidence: `release/bundles/semantic-profile-registry.json` is the
+frozen revision-2 registry and `release/bundles/bundle-registry.json` is the
+sole successor release registry with three frontend bundles, three toolchain
+bundles, and four Go/Rust/C# tuples. Active Go and Rust corpora and the C#
+policy/AI fixtures use successor identities. The manifest assigns
+`crates/mpk-cli/tests/successor_atomic_cutover.rs` to both semantic-registry
+vector containers; that owner validates all nine C# contracts, materializes
+both registries beside one installed `bin/mpk`, executes every active language
+through its registered bundle, rejects predecessor and crossed identities,
+and detects installed-tree tampering. `scripts/check-csharp-frontend.sh` runs
+the complete offline installed gate twice. The executable staging tree and
+its old publication gates are absent, Certificate v0 and both source-free
+checkers are unchanged, the four-category axiom review has no additions, and
+the final implementation review has zero findings. `JAVA-03` is therefore
 eligible.
 
 ## 5. Normative specification traceability
@@ -1456,5 +1476,13 @@ The T19 review ledger is empty. Its closed implementation inventory contains:
 
 No active registry, release tuple, parser, frontend route, policy/evidence/AI
 route, Certificate v0 input, checker rule, axiom category, normative C# vector
-byte, or proof-acceptance identity changed in T19. T20 is the sole ready
-successor.
+byte, or proof-acceptance identity changed in T19. T20 was the sole ready
+successor and completed the atomic activation recorded above.
+
+The T20 review ledger is empty. Its closed implementation inventory contains
+the active revision-2 semantic registry, one successor release registry, the
+four exact Go/Rust/C# tuples, nine active C# compiled-profile contracts,
+successor-only fixtures and installed routes, predecessor/crossed rejection,
+the archived migration reports, unchanged Certificate v0 and checker
+behavior, and the two-pass installed-release gate. CSHARP-02 is complete and
+`JAVA-03` is the sole eligible next language phase.

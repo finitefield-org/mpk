@@ -18,10 +18,16 @@ pub mod term_api;
 pub mod theory_strategy;
 
 pub mod successor_api;
+// Successor routing reuses a small, type-checked subset of the predecessor
+// implementation as an internal foundation. The predecessor route itself is
+// no longer public, so intentionally unreferenced surface area stays private.
+#[allow(dead_code)]
 mod v1_router;
 #[cfg(test)]
 mod v2_tests;
+#[allow(dead_code)]
 mod vc_api;
+#[allow(dead_code)]
 mod vir_api;
 
 pub use batch::{

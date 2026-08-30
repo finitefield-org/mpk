@@ -1,221 +1,127 @@
 # ProofOps Policy CI
 
-This guide shows a CI shape for a repository that uses MPK to review one
-payment-policy package. MPK now maintains a repository release workflow at
-`.github/workflows/rust-frontend.yml`; the command blocks here remain the
-portable customer-repository integration surface.
+This guide uses the sole active Go/Rust/C# successor CLI. Run policy commands
+from a materialized Linux release: the executable resolves both registries,
+the selected frontend/toolchain tuple, and all compiled profile contracts from
+the installed tree beside `bin/mpk`.
 
-CI has two separate jobs:
+The privileged repository gate is `.github/workflows/rust-frontend.yml`, whose
+active job runs `scripts/check-csharp-frontend.sh`. The workflow filename is
+retained for CI continuity; it no longer denotes a Rust-only release.
 
-- helper-artifact drift checks for Go source, contract JSON, VIR, VC JSON,
-  skeletons, scan JSON, Markdown reports, and generated evidence JSON;
-- trusted-evidence checks for canonical `.mpcert` bytes, checked theory
-  certificates, checker verdicts, and axiom reports.
+## Trust boundary
 
-CI success does not replace proof evidence. A policy property is proof evidence
-only when `mpk.policy.evidence.v1` records checked declaration evidence or
-checked theory-certificate evidence under the configured checker profile.
+Policy scan JSON, evidence metadata, source, contracts, compiler output, VIR,
+VC, AI requests, CI logs, and release reports are helper artifacts. A property
+may be `mpk_verified` only when its `trusted_evidence` reference resolves to a
+canonical certificate declaration or checked theory certificate accepted by
+the configured source-free checker path.
 
-## Repository Example
+## Reserve example
 
-Run this from the MPK repository root to exercise the reserve policy example.
-The commands use the real POE-10 CLI names and the checked-in example paths.
+Create an ignored output directory:
 
 ```sh
-set -euo pipefail
-
 mkdir -p target/proof-ops
-registry_id=mpk.release.registry.v0
-registry_sha256=bdc7864663877b26345f4edc77e24c2c5a14b1582e19f15e2674ab22024ced98
-frontend_bundle=frontend.go.go2vir.v0
-toolchain_bundle=toolchain.go.go1.25.0.linux-amd64.v0
+```
 
-# Helper-artifact generation for the reserve policy.
+Run the readiness scan:
+
+```sh
 mpk policy scan examples/payment_policies/reserve \
-  --language go \
-  --semantic-profile mpk.go.fixed.v0 \
-  --require-release-registry-id "$registry_id" \
-  --require-release-registry-sha256 "$registry_sha256" \
-  --frontend-bundle "$frontend_bundle" \
-  --toolchain-bundle "$toolchain_bundle" \
-  --target linux/amd64 \
-  --package example.com/payment/reserve \
-  --function example.com/payment/reserve.ApprovedReserveCents \
+  --semantic-context examples/payment_policies/reserve/mpk-semantic-context.json \
+  --selection examples/payment_policies/reserve/mpk-selection.json \
   --contract policy_contract.json \
   --json-out target/proof-ops/reserve.scan.json
+```
 
-# Non-strict evidence generation for drift review. This writes the helper
-# sections and any available trusted evidence, but it is not the strict gate.
+Run strict verification:
+
+```sh
 mpk policy verify examples/payment_policies/reserve \
-  --language go \
-  --semantic-profile mpk.go.fixed.v0 \
-  --require-release-registry-id "$registry_id" \
-  --require-release-registry-sha256 "$registry_sha256" \
-  --frontend-bundle "$frontend_bundle" \
-  --toolchain-bundle "$toolchain_bundle" \
-  --target linux/amd64 \
-  --package example.com/payment/reserve \
-  --function example.com/payment/reserve.ApprovedReserveCents \
+  --semantic-context examples/payment_policies/reserve/mpk-semantic-context.json \
+  --selection examples/payment_policies/reserve/mpk-selection.json \
   --contract policy_contract.json \
-  --strategy-profile payment-policy-alpha \
-  --checker-profile mvp-strict \
-  --axiom-profile zero-axiom \
-  --evidence-json target/proof-ops/reserve.evidence.json \
-  --evidence-md target/proof-ops/reserve.evidence.md
+  --evidence-json target/proof-ops/reserve.evidence.json
+```
 
-# Strict product gate for the supported payment-policy alpha subset.
+The scan schema is `mpk.policy.scan.v2`; the evidence schema is
+`mpk.policy.evidence.v2`. Verification is always strict. Strategy, checker,
+axiom, registry, bundle, and toolchain choices are profile-owned or
+release-owned and are not public flags.
+
+Go and Rust require at least one normalized `--contract` path. Repeat the flag
+when the selection needs multiple sidecars. C# contract paths are part of the
+validated C# selection envelope and therefore must not be repeated as CLI
+flags.
+
+## Sanitized explanation projection
+
+Generate a deterministic helper request without authenticating or accessing a
+network:
+
+```sh
+mpk explain examples/payment_policies/reserve \
+  --semantic-context examples/payment_policies/reserve/mpk-semantic-context.json \
+  --selection examples/payment_policies/reserve/mpk-selection.json \
+  --contract policy_contract.json \
+  --language en \
+  --request-json-out target/proof-ops/reserve.explain-request.json
+```
+
+The public CLI stops at `mpk.ai.explain.request.v2`. It does not accept a
+provider or credential and does not consume a model response. Keep any
+external transmission outside the proof boundary and subject it to separate
+customer-consent and data-retention controls.
+
+## Reusable CI block
+
+Run ordinary source tests and deterministic corpus checks before invoking a
+materialized installed release:
+
+```sh
+set -eu
+
+(cd examples/payment_policies/reserve && go test -count=1 ./...)
+./scripts/regenerate-go-vir-corpus.sh --check
+cargo test -p mpk-vc --test go_vir_corpus
+
+mkdir -p target/proof-ops
+mpk policy scan examples/payment_policies/reserve \
+  --semantic-context examples/payment_policies/reserve/mpk-semantic-context.json \
+  --selection examples/payment_policies/reserve/mpk-selection.json \
+  --contract policy_contract.json \
+  --json-out target/proof-ops/reserve.scan.json
 mpk policy verify examples/payment_policies/reserve \
-  --language go \
-  --semantic-profile mpk.go.fixed.v0 \
-  --require-release-registry-id "$registry_id" \
-  --require-release-registry-sha256 "$registry_sha256" \
-  --frontend-bundle "$frontend_bundle" \
-  --toolchain-bundle "$toolchain_bundle" \
-  --target linux/amd64 \
-  --package example.com/payment/reserve \
-  --function example.com/payment/reserve.ApprovedReserveCents \
+  --semantic-context examples/payment_policies/reserve/mpk-semantic-context.json \
+  --selection examples/payment_policies/reserve/mpk-selection.json \
   --contract policy_contract.json \
-  --strategy-profile payment-policy-alpha \
-  --checker-profile mvp-strict \
-  --axiom-profile zero-axiom \
-  --evidence-json target/proof-ops/reserve.strict.evidence.json \
-  --evidence-md target/proof-ops/reserve.strict.evidence.md \
-  --strict
-
-# Trusted-evidence checker smoke checks against existing repository fixtures.
-mpk check fixtures/cert-basic/one-theorem.hex
-mpk axiom-report fixtures/cert-basic/one-theorem.hex
-mpk package verify-certs \
-  fixtures/package-manifest/valid/basic-package.json
+  --evidence-json target/proof-ops/reserve.evidence.json
 ```
 
-For the supported reserve policy, the strict `policy verify` command must report
-`ok policy verify status=complete`. The evidence report carries the exact
-verified/pending/unsupported counts. The non-strict
-command is still useful for helper-artifact generation and drift review, but the
-strict command is the product gate that fails if any property remains
-`proof_pending` or `unsupported`.
-
-The trusted-evidence smoke checks above prove the checkers are running against
-existing repository fixtures. They are not proof evidence for the reserve
-policy; reserve-specific trust still comes only from checked certificate or
-checked theory-certificate entries in the reserve evidence JSON.
-
-If a repository intentionally tracks generated helper fixtures, refresh them in
-the CI worktree and then use `git diff --exit-code` as the drift gate. For the
-current payment-policy corpus, VC and skeleton drift is checked this way:
+For release-facing changes, the authoritative repository check is:
 
 ```sh
-./scripts/regenerate-go-vir-corpus.sh --update
-git diff --exit-code -- examples/payment_policies
+./scripts/build-release-bundles.sh --check-build-inputs rust
+./scripts/build-csharp-frontend.sh --check-build-inputs
+sudo ./scripts/check-csharp-frontend.sh
+python3 scripts/generate-release-report.py --check
 ```
 
-If the repository also tracks `vir.json`, regenerate VIR with the checked
-`go2vir` binary before the diff check. For one package:
+The gate requires reviewed Linux bytes, root access to the initial cgroup-v2
+namespace, pre-existing frozen Rust and C# build-input caches, and no network
+access.
+
+## Drift and proof checks
+
+Generated frontend and VC fixtures are reviewed together:
 
 ```sh
-(cd examples/payment_policies/reserve && \
-  ../../../target/debug/go2vir . > ../../../target/proof-ops/reserve.go2vir.json)
-python3 - <<'PY'
-import json
-from pathlib import Path
-
-raw = json.loads(Path("target/proof-ops/reserve.go2vir.json").read_text())
-Path("examples/payment_policies/reserve/vir.json").write_text(
-    json.dumps(raw["vir"], indent=2, sort_keys=False) + "\n"
-)
-PY
-git diff --exit-code -- examples/payment_policies/reserve/vir.json
+./scripts/regenerate-go-vir-corpus.sh --check
+git diff --exit-code -- fixtures/vir-go fixtures/vc-alpha examples
 ```
 
-## Customer Repository Block
-
-For a customer repository that vendors or installs `mpk` and `go2vir` as
-binaries on `PATH`, use the same command names with repository-local paths:
-
-```sh
-set -euo pipefail
-
-mkdir -p build/proof-ops
-
-go test -count=1 ./internal/paymentpolicy/...
-
-registry_id=mpk.release.registry.v0
-registry_sha256=bdc7864663877b26345f4edc77e24c2c5a14b1582e19f15e2674ab22024ced98
-frontend_bundle=frontend.go.go2vir.v0
-toolchain_bundle=toolchain.go.go1.25.0.linux-amd64.v0
-
-mpk policy scan ./internal/paymentpolicy \
-  --language go \
-  --semantic-profile mpk.go.fixed.v0 \
-  --require-release-registry-id "$registry_id" \
-  --require-release-registry-sha256 "$registry_sha256" \
-  --frontend-bundle "$frontend_bundle" \
-  --toolchain-bundle "$toolchain_bundle" \
-  --target linux/amd64 \
-  --package example.com/customer/internal/paymentpolicy \
-  --function example.com/customer/internal/paymentpolicy.ApprovedReserveCents \
-  --contract policy_contract.json \
-  --json-out build/proof-ops/paymentpolicy.scan.json
-
-mpk policy verify ./internal/paymentpolicy \
-  --language go \
-  --semantic-profile mpk.go.fixed.v0 \
-  --require-release-registry-id "$registry_id" \
-  --require-release-registry-sha256 "$registry_sha256" \
-  --frontend-bundle "$frontend_bundle" \
-  --toolchain-bundle "$toolchain_bundle" \
-  --target linux/amd64 \
-  --package example.com/customer/internal/paymentpolicy \
-  --function example.com/customer/internal/paymentpolicy.ApprovedReserveCents \
-  --contract policy_contract.json \
-  --strategy-profile payment-policy-alpha \
-  --checker-profile mvp-strict \
-  --axiom-profile zero-axiom \
-  --evidence-json build/proof-ops/paymentpolicy.evidence.json \
-  --evidence-md build/proof-ops/paymentpolicy.evidence.md \
-  --strict
-```
-
-Keep `build/proof-ops/*.scan.json`, `*.evidence.json`, and `*.evidence.md` as
-CI artifacts for review. Commit generated VIR, VC, and skeleton files only when
-the repository intentionally tracks them; otherwise, compare them against a
-golden artifact store or upload them as CI artifacts.
-
-For targets inside the supported alpha subset, the customer strict gate should
-expect `status=verified`, zero `proof_pending` properties, and zero
-`unsupported` properties. If a target is intentionally outside the supported
-subset, run non-strict `policy verify` for drift review and do not claim
-`mpk_verified` unless the evidence JSON contains checked declaration or checked
-theory-certificate references under `trusted_evidence`.
-
-## Drift Checks
-
-Helper-artifact drift is useful because it shows that the function, contract, or
-frontend output changed. It is not proof acceptance.
-
-Review these helper artifacts in pull requests:
-
-- `policy.go`, especially changes to branch conditions and returned amounts;
-- `policy_contract.json`, especially `requires` and `ensures`;
-- generated `vir.json`;
-- generated `vc.json`;
-- generated `vc_skeleton.json`;
-- `mpk.policy.scan.v1` output from `mpk policy scan`;
-- `mpk.policy.evidence.v1` helper sections and Markdown reports from
-  `mpk policy verify`.
-
-Fail CI on unexpected helper drift with a normal diff check, for example:
-
-```sh
-git diff --exit-code -- \
-  internal/paymentpolicy/vir.json \
-  internal/paymentpolicy/vc.json \
-  internal/paymentpolicy/vc_skeleton.json
-```
-
-Trusted-evidence checks are separate. Run MPK checkers against checked proof
-artifacts and fail if the checker rejects them:
+Proof checks remain separate:
 
 ```sh
 mpk check proofs/paymentpolicy.mpcert
@@ -223,20 +129,17 @@ mpk axiom-report proofs/paymentpolicy.mpcert
 mpk package verify-certs package-manifest.json
 ```
 
-Do not use VIR, VC JSON, scan JSON, Markdown, CI status, AI analysis, or web
-handler traces as proof evidence. They may explain a review result, but they do
-not establish `mpk_verified` by themselves.
+Do not use a successful frontend run, readiness status, hash match, CI result,
+or explanation as a substitute for these checker verdicts.
 
-## Review Checklist
+## Review checklist
 
-- Go tests for the policy package and any web handler wrapper pass.
-- `mpk policy scan` exits successfully and reports the target as `ready`.
-- Non-strict `mpk policy verify` writes deterministic evidence JSON and
-  Markdown for drift review.
-- Strict `mpk policy verify --strict` passes for supported alpha policies and
-  reports zero `proof_pending` and zero `unsupported` properties.
-- Helper-artifact drift is either absent or intentionally reviewed.
-- Trusted proof artifacts are checked by MPK checkers when the PR claims a
-  property is verified.
-- The PR description names any properties that remain `proof_pending`,
-  `helper_only`, or `unsupported`.
+- semantic-context and selection envelopes are revision-2 registered values;
+- no command accepts a caller-selected registry, bundle, executable,
+  toolchain, provider, credential, or compatibility flag;
+- `mpk.policy.scan.v2` reports an expected readiness state;
+- `mpk.policy.evidence.v2` contains no unresolved strict properties;
+- every `mpk_verified` property has a valid `trusted_evidence` link;
+- frontend/VC fixture drift is absent or intentionally reviewed;
+- both source-free checker paths agree for every proof claim;
+- explanation requests and external AI processing remain helper-only.

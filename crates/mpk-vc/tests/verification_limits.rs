@@ -262,7 +262,7 @@ fn strict_json_scanner_counts_escaped_bytes_and_stops_at_tighter_limit() {
 fn vc_import_stream_rejects_assumption_limit_before_typed_allocation() {
     let maximum = VerificationLimitId::AssumptionsPerMember.maximum() as usize;
     let mut document: serde_json::Value = serde_json::from_slice(include_bytes!(
-        "../../../fixtures/vir-go/derived/payment-points/vc.json"
+        "../../../fixtures/program-certificate/internal-v1/checked-addition.vc.json"
     ))
     .expect("committed VC fixture parses");
     let mut scalar_only = document.clone();
@@ -379,7 +379,7 @@ fn vc_import_stream_rejects_assumption_limit_before_typed_allocation() {
 fn vc_parameter_overflow_keeps_exact_scalar_context_precedence() {
     let maximum = VerificationLimitId::AssumptionsPerMember.maximum() as usize;
     let mut document: serde_json::Value = serde_json::from_slice(include_bytes!(
-        "../../../fixtures/vir-go/derived/payment-points/vc.json"
+        "../../../fixtures/program-certificate/internal-v1/checked-addition.vc.json"
     ))
     .expect("committed VC fixture parses");
     let parameters = document["functions"][0]["parameters"]
@@ -456,7 +456,7 @@ fn empty_source_context() -> VcSourceContext {
 fn skeleton_import_stream_limit_preserves_shape_and_scalar_precedence() {
     let maximum = VerificationLimitId::MembersPerDocument.maximum() as usize;
     let mut skeleton: serde_json::Value = serde_json::from_slice(include_bytes!(
-        "../../../fixtures/vir-go/derived/payment-points/vc-skeleton.json"
+        "../../../fixtures/program-certificate/internal-v1/checked-addition.vc-skeleton.json"
     ))
     .expect("committed skeleton fixture parses");
     let original = skeleton.clone();

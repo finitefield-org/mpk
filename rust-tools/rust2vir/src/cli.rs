@@ -96,15 +96,16 @@ pub fn non_success_envelope_at_phase(
     let envelope = crate::json::JsonValue::Object(BTreeMap::from([
         (
             "diagnostics".to_owned(),
-            crate::json::JsonValue::Array(vec![crate::json::JsonValue::Object(
-                BTreeMap::from([
-                    ("code".to_owned(), crate::json::JsonValue::String(code.to_owned())),
-                    (
-                        "message".to_owned(),
-                        crate::json::JsonValue::String(message.to_owned()),
-                    ),
-                ]),
-            )]),
+            crate::json::JsonValue::Array(vec![crate::json::JsonValue::Object(BTreeMap::from([
+                (
+                    "code".to_owned(),
+                    crate::json::JsonValue::String(code.to_owned()),
+                ),
+                (
+                    "message".to_owned(),
+                    crate::json::JsonValue::String(message.to_owned()),
+                ),
+            ]))]),
         ),
         (
             "phase".to_owned(),
@@ -128,10 +129,7 @@ pub fn non_success_envelope_at_phase(
         ),
         (
             "semantic_context".to_owned(),
-            crate::successor::semantic_context(
-                request.target.id(),
-                request.target.pointer_width(),
-            ),
+            crate::successor::semantic_context(request.target.id(), request.target.pointer_width()),
         ),
         (
             "status".to_owned(),

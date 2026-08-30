@@ -2,8 +2,10 @@
 
 Source: `docs/proof-ops-engine-design.md`
 
-Status: historical completed task breakdown; active operations are documented
-in `docs/proof-ops-policy-ci.md` and `develop/specs/POLICY_V1.md`.
+Status: historical completed predecessor-v1 task breakdown. Its flags and
+schemas are migration history, not active interfaces. Active operations are
+documented in `docs/proof-ops-policy-ci.md` and
+`docs/proof-ops-engine-design.md`.
 
 ## Scope
 

@@ -540,7 +540,7 @@ def validate_active_boundary() -> None:
         registry.get("schema") != "mpk.release.bundle_registry.v1"
         or registry.get("id") != "mpk.release.registry.v1"
         or registry.get("registry_sha256")
-        != "0f60f1494e62a485f5f8dc2ed25cbd052591005d8c3b8651412b5ef0c4dda704"
+        != "00580f5ef519ae077432460d2e9e1214bb15b624b2781a96188dd81ad92f8fce"
         or semantic.get("revision") != 2
         or semantic.get("registry_sha256")
         != "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75"
@@ -764,7 +764,9 @@ def extract_tar(archive_path: Path, destination: Path, archive_id: str) -> None:
         stats: dict[tuple[str, int], int] = {}
         total = 0
         directories: set[str] = set()
-        for member, relative in zip(members, normalized, strict=True):
+        if len(members) != len(normalized):
+            raise CSharpBuildFailure()
+        for member, relative in zip(members, normalized):
             mode = member.mode & 0o7777
             if mode & 0o7000:
                 raise CSharpBuildFailure()
@@ -785,7 +787,9 @@ def extract_tar(archive_path: Path, destination: Path, archive_id: str) -> None:
         if stats != EXPECTED_TAR_STATS.get(archive_id):
             raise CSharpBuildFailure()
         destination.mkdir(mode=0o755, parents=True, exist_ok=False)
-        for member, relative in zip(members, normalized, strict=True):
+        if len(members) != len(normalized):
+            raise CSharpBuildFailure()
+        for member, relative in zip(members, normalized):
             if relative == "":
                 continue
             target = destination / relative
@@ -837,7 +841,9 @@ def extract_zip(archive_path: Path, destination: Path) -> None:
                 if total > MAX_EXTRACTED_BYTES:
                     raise CSharpBuildFailure()
         destination.mkdir(mode=0o755, parents=True, exist_ok=False)
-        for info, relative in zip(infos, normalized, strict=True):
+        if len(infos) != len(normalized):
+            raise CSharpBuildFailure()
+        for info, relative in zip(infos, normalized):
             target = destination / relative
             if zip_entry_kind(info) == "directory":
                 target.mkdir(mode=0o755, parents=True, exist_ok=False)

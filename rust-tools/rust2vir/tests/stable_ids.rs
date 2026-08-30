@@ -81,7 +81,11 @@ fn raw_source_map_orders_function_then_all_instructions_then_terminators() {
             origin,
         },
     ];
-    let map = raw_source_map(&"a".repeat(64), entries);
+    let map = raw_source_map(
+        &"a".repeat(64),
+        entries,
+        rust2vir_internal::successor::semantic_context("x86_64-unknown-linux-gnu", 64),
+    );
     let references = map.as_object().expect("map")["entries"]
         .as_array()
         .expect("entries")

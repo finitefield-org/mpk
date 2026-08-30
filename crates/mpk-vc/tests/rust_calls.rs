@@ -1,3 +1,6 @@
+#[path = "support/successor_projection.rs"]
+mod successor_projection;
+
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
 use std::path::PathBuf;
@@ -9,17 +12,17 @@ use mpk_vc::vir::{
 use mpk_vc::{
     canonical_json_bytes, canonical_vc_json, contract_hash, emit_validated_vc_skeleton_v1,
     encode_vir_type, generate_program_vcs, generate_vc_v1_from_context, import_vc_v1_json,
-    import_vir_json, parse_strict_json, program_declaration_name, validate_policy_member_binding,
-    vir_hash, BitVectorWidth, GroupedTheoremDeclaration, LowercaseSha256, MpkExprTerm,
-    OverflowMode, PanicMode, PointerWidth, ProgramDeclarationKind, ProgramVcFunction,
-    ProgramVcMemberKind, ProgramVcModule, RustCheckedParameters, SemanticParameters,
-    SemanticProfile, SourceLanguage, StrictJsonLimits, ValidatedVcCertificateSkeleton,
-    ValidatedVcDocument, VcBinder, VcDocument, VcGroup, VcGroupKind, VcMember, VcSourceContext,
-    VcSourceFunction, VcTerm, VcTypeTerm, VcValidationPhase, VirBinaryOperator, VirBinding,
-    VirBlock, VirContract, VirContractExpr, VirFeature, VirFunction, VirInstruction, VirModule,
-    VirSafetyCheck, VirTerminator, VirType, VirUnit, VirValue, VERIFICATION_LIMIT_PROFILE,
-    VIR_SCHEMA_VERSION,
+    parse_strict_json, program_declaration_name, validate_policy_member_binding, vir_hash,
+    BitVectorWidth, GroupedTheoremDeclaration, LowercaseSha256, MpkExprTerm, OverflowMode,
+    PanicMode, PointerWidth, ProgramDeclarationKind, ProgramVcFunction, ProgramVcMemberKind,
+    ProgramVcModule, RustCheckedParameters, SemanticParameters, SemanticProfile, SourceLanguage,
+    StrictJsonLimits, ValidatedVcCertificateSkeleton, ValidatedVcDocument, VcBinder, VcDocument,
+    VcGroup, VcGroupKind, VcMember, VcSourceContext, VcSourceFunction, VcTerm, VcTypeTerm,
+    VcValidationPhase, VirBinaryOperator, VirBinding, VirBlock, VirContract, VirContractExpr,
+    VirFeature, VirFunction, VirInstruction, VirModule, VirSafetyCheck, VirTerminator, VirType,
+    VirUnit, VirValue, VERIFICATION_LIMIT_PROFILE, VIR_SCHEMA_VERSION,
 };
+use successor_projection::import_successor_rust_vir_projection;
 
 const UNIT_ID: &str = "vector";
 const LEAF_ID: &str = "vector::a_leaf";
@@ -581,10 +584,7 @@ fn contains_bound(term: &MpkExprTerm, expected: u32) -> bool {
 }
 
 fn diamond_module() -> VirModule {
-    let canonical = FRONTEND_VIR
-        .strip_suffix(b"\n")
-        .expect("source-controlled frontend VIR ends with one newline");
-    import_vir_json(canonical).expect("compiler-emitted Rust call VIR imports")
+    import_successor_rust_vir_projection(FRONTEND_VIR)
 }
 
 fn repeated_module() -> VirModule {

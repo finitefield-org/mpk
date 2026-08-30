@@ -22,16 +22,16 @@ use serde_json::Value;
 use sha2::{Digest, Sha256};
 
 use crate::ai_explain::{
-    parse_provider_response_v0, prompt_template_sha256_v1, ExplainLanguageV1,
-    ModelExplanationResponseV0, VertexContentV1, VertexEnumStringSchemaV1, VertexGenerateRequestV1,
-    VertexGenerationConfigV1, VertexPartV1, VertexPropertyExplanationPropertiesV1,
-    VertexPropertyExplanationSchemaV1, VertexPropertyExplanationsSchemaV1, VertexResponseFormatV1,
-    VertexResponseSchemaPropertiesV1, VertexResponseSchemaV1, VertexStringSchemaV1,
-    VertexTextListSchemaV1, VertexTextResponseFormatV1, VertexThinkingConfigV1,
-    AI_EXPLANATION_RESPONSE_SCHEMA_V0, DEFAULT_GEMINI_MODEL, MINIMAL_REDACTION_PROFILE_V1,
-    PROMPT_TEMPLATE_ID_V1, SYSTEM_INSTRUCTION_V1, TRUST_CLASSIFICATION, TRUST_DISCLAIMER,
-    USER_TEMPLATE_V1, VERTEX_AI_PROVIDER,
+    parse_provider_response_v0, prompt_template_sha256_v1, ModelExplanationResponseV0,
+    VertexContentV1, VertexEnumStringSchemaV1, VertexGenerateRequestV1, VertexGenerationConfigV1,
+    VertexPartV1, VertexPropertyExplanationPropertiesV1, VertexPropertyExplanationSchemaV1,
+    VertexPropertyExplanationsSchemaV1, VertexResponseFormatV1, VertexResponseSchemaPropertiesV1,
+    VertexResponseSchemaV1, VertexStringSchemaV1, VertexTextListSchemaV1,
+    VertexTextResponseFormatV1, VertexThinkingConfigV1, AI_EXPLANATION_RESPONSE_SCHEMA_V0,
+    MINIMAL_REDACTION_PROFILE_V1, PROMPT_TEMPLATE_ID_V1, SYSTEM_INSTRUCTION_V1,
+    TRUST_CLASSIFICATION, TRUST_DISCLAIMER, USER_TEMPLATE_V1, VERTEX_AI_PROVIDER,
 };
+pub use crate::ai_explain::{ExplainLanguageV1, DEFAULT_GEMINI_MODEL};
 use crate::policy_schema::{
     PolicyAxiomReportV1, PolicyEvidenceReferenceV1, PolicyHelperArtifact, PolicyPropertyV1,
     PolicyTrustedEvidenceV1,

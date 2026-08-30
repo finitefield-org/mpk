@@ -4,12 +4,19 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 use mpk_cert::decode_canonical_certificate;
+use mpk_vc::semantic_profile_registry::{
+    validate_compiled_profile_envelope, validate_semantic_profile_registry, ProfileContractField,
+    RegistryRevision, ValidatedSemanticProfileRegistry,
+};
+use mpk_vc::successor_source_artifacts::{
+    import_successor_source_manifest_json, import_successor_source_map_json,
+    import_successor_vir_json, SuccessorSourceManifestStage,
+    SuccessorSourceManifestValidationContext, SuccessorSourceMapValidationContext,
+};
+use mpk_vc::successor_vc::{emit_successor_vc_skeleton, generate_successor_vc, SuccessorVcSource};
 use mpk_vc::{
-    attach_vc_hash, canonical_json_bytes, emit_validated_vc_skeleton_v1, generate_vc_v1,
-    import_frontend_source_manifest_json, import_source_map_json, import_vir_json,
-    parse_strict_json, validate_release_registry, CapturedInput, InputKind,
-    SourceManifestValidationContext, SourceMapValidationContext, SourceReference, StrictJsonLimits,
-    SyntheticPermission, ValidatedVcIdentity,
+    canonical_json_bytes, parse_strict_json, sha256_raw_file_bytes, CapturedInput, InputKind,
+    ReleaseRegistryIdentity, SourceReference, StrictJsonLimits, SyntheticPermission,
 };
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
@@ -27,11 +34,12 @@ struct FrontendIndex {
     schema: String,
     update_command: String,
     deterministic_runs: u64,
-    alpha_function_count: u64,
+    semantic_context: Value,
+    release_registry: ReleaseRegistryIdentity,
     positive_source_count: u64,
+    negative_source_count: u64,
     cases: Vec<FrontendCase>,
     negative_cases: Vec<NegativeCase>,
-    semantic_vector: SemanticVector,
 }
 
 #[derive(Debug, Deserialize)]
@@ -49,6 +57,19 @@ struct FrontendCase {
 
 #[derive(Debug, Deserialize)]
 #[serde(deny_unknown_fields)]
+struct NegativeCase {
+    id: String,
+    source_root: String,
+    source_path: String,
+    outcome: String,
+    phase: String,
+    code: String,
+    message: String,
+    artifact: FrontendArtifact,
+}
+
+#[derive(Clone, Debug, Deserialize, Serialize)]
+#[serde(deny_unknown_fields)]
 struct FrontendArtifact {
     kind: String,
     path: String,
@@ -56,36 +77,14 @@ struct FrontendArtifact {
     bytes: u64,
 }
 
-#[derive(Debug, Deserialize)]
-#[serde(deny_unknown_fields)]
-struct NegativeCase {
-    id: String,
-    source_root: String,
-    source_path: String,
-    expected_code: String,
-    actual_code: String,
-    outcome: String,
-}
-
-#[derive(Debug, Deserialize)]
-#[serde(deny_unknown_fields)]
-struct SemanticVector {
-    path: String,
-    accepted_cases: u64,
-    rejected_cases: u64,
-    runtime_checks: u64,
-    loops: u64,
-    conversions: u64,
-    calls: u64,
-    contracts: u64,
-    unresolved_cases: u64,
-}
-
 #[derive(Clone)]
 struct DerivedArtifacts {
     vc: Vec<u8>,
     skeleton: Vec<u8>,
-    certificate_manifest: Vec<u8>,
+    source_ir_hash: String,
+    source_manifest_hash: String,
+    input_set_hash: String,
+    vc_hash: String,
     function_count: usize,
     member_count: usize,
     group_count: usize,
@@ -103,9 +102,9 @@ struct DerivedIndex {
 struct DerivedIndexEntry {
     id: String,
     source_ir_hash: String,
+    source_manifest_hash: String,
     input_set_hash: String,
     vc_hash: String,
-    certificate_source_manifest_hash: String,
     function_count: usize,
     member_count: usize,
     group_count: usize,
@@ -120,61 +119,21 @@ struct CorpusArtifact {
     bytes: usize,
 }
 
-#[derive(Debug, Serialize)]
-struct CorpusManifest {
-    schema: &'static str,
-    status: &'static str,
-    generation: GenerationAudit,
-    coverage: CoverageAudit,
-    checker_audit: CheckerAudit,
-    artifacts: Vec<CorpusArtifact>,
-    unresolved_dispositions: Vec<Value>,
-}
-
-#[derive(Debug, Serialize)]
-struct GenerationAudit {
-    commands: Vec<&'static str>,
-    clean_runs: u64,
-    byte_identical: bool,
-    leakage_scan: &'static str,
-    intentional_hash_migration: bool,
-    compatibility_aliases: bool,
-    active_release_uses_vir: bool,
-}
-
-#[derive(Debug, Serialize)]
-struct CoverageAudit {
-    alpha_functions: u64,
-    positive_frontend_roots: u64,
-    vc_fixture_roots: u64,
-    frontend_only_aggregate_roots: Vec<&'static str>,
-    negative_frontend_roots: u64,
-    payment_policies: u64,
-    loops: u64,
-    conversions: u64,
-    runtime_operations: u64,
-    calls: u64,
-    contracts: u64,
-}
-
-#[derive(Debug, Serialize)]
-struct CheckerAudit {
-    certificate: &'static str,
-    source_free: &'static str,
-    reference: &'static str,
-    hash_agreement: bool,
-    axiom_count: u64,
+struct OwnedCapturedInput {
+    kind: InputKind,
+    normalized_path: String,
+    bytes: Vec<u8>,
 }
 
 #[test]
-fn regenerated_go_vir_corpus_is_linked_deterministic_and_active() {
+fn regenerated_go_successor_corpus_is_linked_deterministic_and_active() {
     let root = repo_root();
     let index: FrontendIndex = read_json(&root.join(FRONTEND_INDEX));
     validate_frontend_index(&root, &index);
-    let registry = valid_registry(&root);
+    let registry = semantic_registry(&root);
 
     let mut derived_entries = Vec::new();
-    let mut all_artifacts = indexed_frontend_artifacts(&index);
+    let mut all_artifacts = indexed_frontend_artifacts(&root, &index);
     for corpus_case in &index.cases {
         if !owns_vc_fixture(corpus_case) {
             continue;
@@ -185,25 +144,20 @@ fn regenerated_go_vir_corpus_is_linked_deterministic_and_active() {
 
         let base = format!("derived/{}", corpus_case.id);
         let outputs = [
-            ("vc_v1", "vc.json", first.vc.as_slice()),
+            ("vc_v2", "vc.json", first.vc.as_slice()),
             (
-                "grouped_skeleton",
+                "grouped_skeleton_v2",
                 "vc-skeleton.json",
                 first.skeleton.as_slice(),
-            ),
-            (
-                "source_manifest_certificate",
-                "source-manifest.certificate.json",
-                first.certificate_manifest.as_slice(),
             ),
         ];
         let mut artifacts = Vec::new();
         for (kind, name, bytes) in outputs {
             let path = format!("{base}/{name}");
             assert_corpus_fixture(&root, &path, bytes);
-            let artifact = artifact(kind, &path, bytes);
-            artifacts.push(artifact.clone());
-            all_artifacts.push(artifact);
+            let descriptor = artifact(kind, &path, bytes);
+            artifacts.push(descriptor.clone());
+            all_artifacts.push(descriptor);
             if let Some(example) = &corpus_case.example_path {
                 let example_name = if name == "vc-skeleton.json" {
                     "vc_skeleton.json"
@@ -213,8 +167,8 @@ fn regenerated_go_vir_corpus_is_linked_deterministic_and_active() {
                 assert_fixture(&root.join(example).join(example_name), bytes);
             }
         }
+
         if corpus_case.id == "alpha-branch" {
-            let alpha_vc: Value = serde_json::from_slice(&first.vc).expect("alpha VC JSON");
             for (name, bytes) in [
                 ("vc.json", first.vc.as_slice()),
                 ("vc_skeleton.json", first.skeleton.as_slice()),
@@ -222,12 +176,12 @@ fn regenerated_go_vir_corpus_is_linked_deterministic_and_active() {
                 assert_fixture(&root.join("fixtures/vc-alpha").join(name), bytes);
             }
             let alpha_manifest = canonical(&json!({
-                "schema_version": "mpk.vc_alpha_manifest.v1",
+                "schema_version": "mpk.vc_alpha_manifest.v2",
                 "source": {
                     "frontend_case": corpus_case.id,
                     "frontend_index": FRONTEND_INDEX,
                     "function_count": first.function_count,
-                    "source_ir_hash": text(&alpha_vc["source_ir_hash"])
+                    "source_ir_hash": first.source_ir_hash
                 },
                 "artifacts": {
                     "vc": {
@@ -248,20 +202,17 @@ fn regenerated_go_vir_corpus_is_linked_deterministic_and_active() {
                 &root.join("fixtures/vc-alpha/manifest.json"),
                 &alpha_manifest,
             );
-            let alpha_artifact = artifact("vc_alpha_manifest", alpha_path, &alpha_manifest);
-            artifacts.push(alpha_artifact.clone());
-            all_artifacts.push(alpha_artifact);
+            let descriptor = artifact("vc_alpha_manifest_v2", alpha_path, &alpha_manifest);
+            artifacts.push(descriptor.clone());
+            all_artifacts.push(descriptor);
         }
-        let vc: Value = serde_json::from_slice(&first.vc).expect("derived VC JSON");
-        let certificate_manifest: Value =
-            serde_json::from_slice(&first.certificate_manifest).expect("certificate manifest JSON");
+
         derived_entries.push(DerivedIndexEntry {
             id: corpus_case.id.clone(),
-            source_ir_hash: text(&vc["source_ir_hash"]).to_owned(),
-            input_set_hash: text(&vc["input_set_hash"]).to_owned(),
-            vc_hash: text(&vc["vc_hash"]).to_owned(),
-            certificate_source_manifest_hash: text(&certificate_manifest["source_manifest_hash"])
-                .to_owned(),
+            source_ir_hash: first.source_ir_hash,
+            source_manifest_hash: first.source_manifest_hash,
+            input_set_hash: first.input_set_hash,
+            vc_hash: first.vc_hash,
             function_count: first.function_count,
             member_count: first.member_count,
             group_count: first.group_count,
@@ -269,134 +220,148 @@ fn regenerated_go_vir_corpus_is_linked_deterministic_and_active() {
         });
     }
 
-    let vc_fixture_roots = derived_entries.len() as u64;
-    assert_eq!(vc_fixture_roots, 11);
+    assert_eq!(derived_entries.len(), 11);
     let derived_index = canonical(&DerivedIndex {
-        schema: "mpk.go_vir_derived_corpus.v0",
+        schema: "mpk.go_vir_derived_corpus.v1",
         update_command: "MPK_UPDATE_GO_VIR_CORPUS=1 cargo test -p mpk-vc --test go_vir_corpus",
         deterministic_runs: 2,
         cases: derived_entries,
     });
     assert_corpus_fixture(&root, "derived-index.json", &derived_index);
     all_artifacts.push(artifact(
-        "derived_index",
+        "derived_index_v1",
         "derived-index.json",
         &derived_index,
     ));
 
-    let support = generate_support_artifacts(&root);
-    for (kind, path, bytes) in &support {
-        assert_corpus_fixture(&root, path, bytes);
-        all_artifacts.push(artifact(kind, path, bytes));
+    for (kind, path, bytes) in generate_checker_artifacts(&root) {
+        assert_corpus_fixture(&root, path, &bytes);
+        all_artifacts.push(artifact(kind, path, &bytes));
     }
     all_artifacts.sort_by(|left, right| left.path.cmp(&right.path));
     assert!(all_artifacts
         .windows(2)
         .all(|pair| pair[0].path < pair[1].path));
-    let manifest = canonical(&CorpusManifest {
-        schema: "mpk.go_vir_corpus.v0",
-        status: "reviewed_zero_unexplained_differences",
-        generation: GenerationAudit {
-            commands: vec![
-                "MPK_UPDATE_GO_VIR_CORPUS=1 go test -count=1 -run TestRegenerateGoVIRFrontendCorpus",
+
+    let manifest = canonical(&json!({
+        "schema": "mpk.go_vir_corpus.v1",
+        "status": "active_successor_reviewed_zero_unexplained_differences",
+        "generation": {
+            "commands": [
+                "MPK_UPDATE_GO_CORPUS=1 go test -count=1 -run TestActiveGoCorpus",
                 "MPK_UPDATE_GO_VIR_CORPUS=1 cargo test -p mpk-vc --test go_vir_corpus",
-                "python3 scripts/generate-release-report.py --check",
+                "python3 scripts/generate-release-report.py --check"
             ],
-            clean_runs: 2,
-            byte_identical: true,
-            leakage_scan: "local_path,temp_path,host,timestamp,obsolete_interface",
-            intentional_hash_migration: true,
-            compatibility_aliases: false,
-            active_release_uses_vir: true,
+            "clean_runs": 2,
+            "byte_identical": true,
+            "compatibility_aliases": false,
+            "active_release_uses_successor_vir": true
         },
-        coverage: CoverageAudit {
-            alpha_functions: index.alpha_function_count,
-            positive_frontend_roots: index.positive_source_count,
-            vc_fixture_roots,
-            frontend_only_aggregate_roots: vec!["alpha-array", "basic-structarray"],
-            negative_frontend_roots: index.negative_cases.len() as u64,
-            payment_policies: 5,
-            loops: index.semantic_vector.loops,
-            conversions: index.semantic_vector.conversions,
-            runtime_operations: index.semantic_vector.runtime_checks,
-            calls: index.semantic_vector.calls,
-            contracts: index.semantic_vector.contracts,
+        "coverage": {
+            "positive_frontend_roots": index.positive_source_count,
+            "negative_frontend_roots": index.negative_source_count,
+            "vc_fixture_roots": 11,
+            "frontend_only_aggregate_roots": ["alpha-array", "basic-structarray"],
+            "payment_policies": 5
         },
-        checker_audit: CheckerAudit {
-            certificate: "checker/one-theorem.hex",
-            source_free: "accepted",
-            reference: "accepted",
-            hash_agreement: true,
-            axiom_count: 0,
+        "checker_audit": {
+            "certificate": "checker/one-theorem.hex",
+            "source_free": "accepted",
+            "reference": "accepted",
+            "hash_agreement": true,
+            "axiom_count": 0
         },
-        artifacts: all_artifacts,
-        unresolved_dispositions: Vec::new(),
-    });
+        "artifacts": all_artifacts,
+        "unresolved_dispositions": []
+    }));
     assert_corpus_fixture(&root, "manifest.json", &manifest);
     assert_no_unintended_leakage(&root, &manifest);
+
+    for retired in ["policy", "ai"] {
+        let path = root.join(SHARED_ROOT).join(retired);
+        assert!(
+            !path.exists()
+                || fs::read_dir(&path)
+                    .expect("inspect retired fixture subtree")
+                    .next()
+                    .is_none(),
+            "predecessor helper fixture subtree remains active: {retired}"
+        );
+    }
 }
 
 fn validate_frontend_index(root: &Path, index: &FrontendIndex) {
-    assert_eq!(index.schema, "mpk.go_vir_frontend_corpus.v0");
+    assert_eq!(index.schema, "mpk.go_vir_frontend_corpus.v1");
     assert_eq!(index.deterministic_runs, 2);
-    assert_eq!(index.alpha_function_count, 100);
     assert_eq!(index.positive_source_count as usize, index.cases.len());
-    assert!(index.update_command.contains("MPK_UPDATE_GO_VIR_CORPUS=1"));
     assert_eq!(
-        index.semantic_vector.path,
-        "develop/specs/vectors/go-vir-profile-v0.json"
+        index.negative_source_count as usize,
+        index.negative_cases.len()
     );
-    assert!(index.semantic_vector.accepted_cases > 0);
-    assert!(index.semantic_vector.rejected_cases > 0);
-    assert!(index.semantic_vector.runtime_checks > 0);
-    assert!(index.semantic_vector.loops > 0);
-    assert!(index.semantic_vector.conversions > 0);
-    assert!(index.semantic_vector.calls > 0);
-    assert!(index.semantic_vector.contracts > 0);
-    assert_eq!(index.semantic_vector.unresolved_cases, 0);
+    assert!(index.update_command.contains("MPK_UPDATE_GO_CORPUS=1"));
+    assert_eq!(index.cases.len(), 13);
+    assert_eq!(index.negative_cases.len(), 8);
+    assert_eq!(index.semantic_context["source_language"], "go");
+    assert_eq!(
+        index.semantic_context["semantic_profile"],
+        "mpk.go.fixed.v0"
+    );
+    assert_eq!(index.release_registry.id, "mpk.release.registry.v1");
 
     let mut ids = BTreeSet::new();
-    let mut alpha_functions = 0;
-    let mut payment_policies = 0;
+    let mut examples = 0;
     for corpus_case in &index.cases {
         assert!(ids.insert(corpus_case.id.as_str()));
         assert_eq!(corpus_case.frontend_status, "ir-lowered");
-        assert!(corpus_case.selection.is_object());
+        assert_eq!(
+            corpus_case.selection["schema"],
+            "mpk.selection.go_function.v0"
+        );
+        assert!(corpus_case.function_count > 0);
         assert!(root
             .join(&corpus_case.source_root)
             .join(&corpus_case.source_path)
             .is_file());
-        if corpus_case.id.starts_with("alpha-") {
-            alpha_functions += corpus_case.function_count;
-        }
-        if corpus_case.id.starts_with("payment-") {
-            payment_policies += 1;
-        }
         assert_eq!(corpus_case.artifacts.len(), 4);
-        for artifact in &corpus_case.artifacts {
-            assert!(matches!(
-                artifact.kind.as_str(),
-                "frontend_envelope" | "vir" | "source_map" | "source_manifest_frontend"
-            ));
-            let bytes = fs::read(root.join(SHARED_ROOT).join(&artifact.path))
-                .unwrap_or_else(|error| panic!("read {}: {error}", artifact.path));
-            assert_eq!(bytes.len() as u64, artifact.bytes);
-            assert_eq!(sha256(&bytes), artifact.sha256);
-            assert_no_unintended_leakage(root, &bytes);
+        for descriptor in &corpus_case.artifacts {
+            checked_artifact(root, descriptor);
+        }
+        if let Some(example) = &corpus_case.example_path {
+            examples += 1;
+            assert!(example.starts_with("examples/"));
+            assert_eq!(
+                read_json::<Value>(&root.join(example).join("mpk-semantic-context.json")),
+                index.semantic_context
+            );
+            assert_eq!(
+                read_json::<Value>(&root.join(example).join("mpk-selection.json")),
+                corpus_case.selection
+            );
         }
     }
-    assert_eq!(alpha_functions, 100);
-    assert_eq!(payment_policies, 5);
-    assert_eq!(index.negative_cases.len(), 8);
+    assert_eq!(examples, 7);
+
     for negative in &index.negative_cases {
-        assert!(!negative.id.is_empty());
+        assert!(ids.insert(negative.id.as_str()));
+        assert_eq!(negative.outcome, "rejected");
+        assert_eq!(negative.phase, "subset");
+        assert!(!negative.code.is_empty());
+        assert!(!negative.message.is_empty());
         assert!(root
             .join(&negative.source_root)
             .join(&negative.source_path)
             .is_file());
-        assert_eq!(negative.outcome, "rejected");
-        assert_eq!(negative.actual_code, negative.expected_code);
+        checked_artifact(root, &negative.artifact);
     }
+}
+
+fn checked_artifact(root: &Path, descriptor: &FrontendArtifact) -> Vec<u8> {
+    let bytes = fs::read(root.join(SHARED_ROOT).join(&descriptor.path))
+        .unwrap_or_else(|error| panic!("read {}: {error}", descriptor.path));
+    assert_eq!(bytes.len() as u64, descriptor.bytes);
+    assert_eq!(sha256(&bytes), descriptor.sha256);
+    assert_no_unintended_leakage(root, &bytes);
+    bytes
 }
 
 fn owns_vc_fixture(corpus_case: &FrontendCase) -> bool {
@@ -406,99 +371,101 @@ fn owns_vc_fixture(corpus_case: &FrontendCase) -> bool {
 fn derive_case(
     root: &Path,
     corpus_case: &FrontendCase,
-    registry: &mpk_vc::ValidatedReleaseRegistry,
+    registry: &ValidatedSemanticProfileRegistry,
 ) -> DerivedArtifacts {
     let frontend_root = root
         .join(SHARED_ROOT)
         .join("frontend")
         .join(&corpus_case.id);
-    let vir_bytes = fs::read(frontend_root.join("vir.json")).expect("frontend VIR");
-    let source_map_bytes = fs::read(frontend_root.join("source-map.json")).expect("source map");
-    let manifest_bytes =
-        fs::read(frontend_root.join("source-manifest.frontend.json")).expect("frontend manifest");
-    let vir = import_vir_json(&vir_bytes).expect("VIR imports");
+    let vir_bytes = fs::read(frontend_root.join("vir.json")).expect("successor frontend VIR");
+    let map_bytes = fs::read(frontend_root.join("source-map.json")).expect("successor source map");
+    let manifest_bytes = fs::read(frontend_root.join("source-manifest.frontend.json"))
+        .expect("successor frontend manifest");
     let manifest_value: Value = serde_json::from_slice(&manifest_bytes).expect("manifest JSON");
+    let map_value: Value = serde_json::from_slice(&map_bytes).expect("source-map JSON");
     let storage = captured_storage(root, corpus_case, &manifest_value);
-    let captures = captured_refs(&storage);
-    let source_map_value: Value =
-        serde_json::from_slice(&source_map_bytes).expect("source-map JSON");
-    let synthetic_permissions = source_map_value["entries"]
-        .as_array()
-        .expect("source-map entries")
-        .iter()
-        .filter_map(|entry| {
-            if entry["origin"]["kind"] != "synthetic" {
-                return None;
-            }
-            let reason = text(&entry["origin"]["reason"]);
-            assert_eq!(reason, "go.control_flow_join");
-            let reference = serde_json::from_value::<SourceReference>(entry["reference"].clone())
-                .expect("synthetic source-map reference");
-            assert!(matches!(reference, SourceReference::Terminator { .. }));
-            Some(SyntheticPermission {
-                reference,
-                reason: reason.to_owned(),
-            })
-        })
-        .collect::<Vec<_>>();
-    let source_map = import_source_map_json(
-        &source_map_bytes,
-        SourceMapValidationContext {
+    let captured = captured_refs(&storage);
+    let permissions = synthetic_permissions(&map_value);
+    let vir = import_successor_vir_json(&vir_bytes, registry).expect("successor VIR imports");
+    let source_map = import_successor_source_map_json(
+        &map_bytes,
+        SuccessorSourceMapValidationContext {
+            registry,
             vir: &vir,
-            captured_inputs: &captures,
-            synthetic_permissions: &synthetic_permissions,
+            captured_inputs: &captured,
+            synthetic_permissions: &permissions,
         },
     )
-    .expect("source map imports");
-    let context = SourceManifestValidationContext {
-        vir: &vir,
-        source_map: &source_map,
-        captured_inputs: &captures,
-        release_registry: registry,
-        expected_language_configuration: None,
-    };
-    let frontend_manifest = import_frontend_source_manifest_json(&manifest_bytes, context)
-        .expect("frontend manifest imports");
-    let vc = generate_vc_v1(&vir, &frontend_manifest).expect("VIR generates VC v1");
-    let skeleton = emit_validated_vc_skeleton_v1(&vc).expect("VC emits grouped skeleton");
-    let document = vc.document();
-    let identity = ValidatedVcIdentity::new(
-        document.input_set_hash.clone(),
-        document.source_ir_schema.clone(),
-        document.source_ir_hash.clone(),
-        document.semantic_profile,
-        document.semantic_parameters.clone(),
-        document.vc_hash.clone(),
+    .expect("successor source map imports");
+    let release_registry = serde_json::from_value::<ReleaseRegistryIdentity>(
+        manifest_value["release_registry"].clone(),
     )
-    .expect("VC identity validates");
-    let certificate_manifest = attach_vc_hash(&manifest_bytes, context, &identity)
-        .expect("certificate-stage manifest attaches exact VC identity");
-    let function_count = document.functions.len();
+    .expect("release-registry identity");
+    let manifest = import_successor_source_manifest_json(
+        &manifest_bytes,
+        SuccessorSourceManifestStage::Frontend,
+        SuccessorSourceManifestValidationContext {
+            registry,
+            vir: &vir,
+            source_map: &source_map,
+            captured_inputs: &captured,
+            expected_release_registry: &release_registry,
+        },
+    )
+    .expect("successor source manifest imports");
+    let contract = go_vc_contract();
+    validate_compiled_profile_envelope(registry, &contract, ProfileContractField::Vc)
+        .expect("compiled Go VC contract");
+    let source = SuccessorVcSource {
+        registry,
+        vir: &vir,
+        manifest: &manifest,
+        profile_contract: &contract,
+    };
+    let vc = generate_successor_vc(source).expect("successor VIR generates successor VC");
+    let skeleton = emit_successor_vc_skeleton(&vc, source).expect("successor skeleton emits");
+    let document = vc.document();
+    let function_count = document.functions().len();
     let member_count = document
-        .functions
+        .functions()
         .iter()
         .map(|function| function.members.len())
         .sum();
     let group_count = document
-        .functions
+        .functions()
         .iter()
         .map(|function| function.groups.len())
         .sum();
     DerivedArtifacts {
         vc: vc.canonical_bytes().to_vec(),
         skeleton: skeleton.canonical_bytes().to_vec(),
-        certificate_manifest: certificate_manifest.canonical_bytes().to_vec(),
+        source_ir_hash: document.source_ir_hash().as_str().to_owned(),
+        source_manifest_hash: document.source_manifest_hash().as_str().to_owned(),
+        input_set_hash: document.input_set_hash().as_str().to_owned(),
+        vc_hash: document.vc_hash().as_str().to_owned(),
         function_count,
         member_count,
         group_count,
     }
 }
 
+fn go_vc_contract() -> Value {
+    json!({
+        "profile_entry_sha256":"b10ec338d1f2b3fefc015e4d46c27def43e92ff3d87341624b48c93db951ca96",
+        "contract_id":"mpk.profile.vc.go_fixed.v0",
+        "value":{
+            "contract_profile_id":"mpk.go.contract.v0",
+            "required_check_profile_id":"mpk.go.fixed.v0",
+            "verification_limit_profile_id":"mpk.verify.limits.v0"
+        }
+    })
+}
+
 fn captured_storage(
     root: &Path,
     corpus_case: &FrontendCase,
     manifest: &Value,
-) -> Vec<(InputKind, String, Vec<u8>)> {
+) -> Vec<OwnedCapturedInput> {
     manifest["inputs"]
         .as_array()
         .expect("manifest inputs")
@@ -506,41 +473,70 @@ fn captured_storage(
         .map(|input| {
             let kind: InputKind =
                 serde_json::from_value(input["kind"].clone()).expect("known input kind");
-            let normalized = text(&input["normalized_path"]).to_owned();
-            let path = root.join(&corpus_case.source_root).join(&normalized);
-            let bytes = if normalized == "go.sum" && !path.exists() {
+            let normalized_path = input["normalized_path"]
+                .as_str()
+                .expect("normalized path")
+                .to_owned();
+            let path = root.join(&corpus_case.source_root).join(&normalized_path);
+            let bytes = if kind == InputKind::Lockfile && !path.exists() {
                 Vec::new()
             } else {
                 fs::read(&path).unwrap_or_else(|error| panic!("read {}: {error}", path.display()))
             };
             assert_eq!(bytes.len() as u64, input["size_bytes"]);
-            assert_eq!(sha256(&bytes), input["sha256"]);
-            (kind, normalized, bytes)
+            assert_eq!(sha256_raw_file_bytes(&bytes).to_hex(), input["sha256"]);
+            OwnedCapturedInput {
+                kind,
+                normalized_path,
+                bytes,
+            }
         })
         .collect()
 }
 
-fn captured_refs(storage: &[(InputKind, String, Vec<u8>)]) -> Vec<CapturedInput<'_>> {
+fn captured_refs(storage: &[OwnedCapturedInput]) -> Vec<CapturedInput<'_>> {
     storage
         .iter()
-        .map(|(kind, path, bytes)| CapturedInput {
-            kind: *kind,
-            normalized_path: path,
-            bytes,
+        .map(|input| CapturedInput {
+            kind: input.kind,
+            normalized_path: &input.normalized_path,
+            bytes: &input.bytes,
         })
         .collect()
 }
 
-fn generate_support_artifacts(root: &Path) -> Vec<(&'static str, &'static str, Vec<u8>)> {
+fn synthetic_permissions(source_map: &Value) -> Vec<SyntheticPermission> {
+    source_map["entries"]
+        .as_array()
+        .expect("source-map entries")
+        .iter()
+        .filter(|entry| entry["origin"]["kind"] == "synthetic")
+        .map(|entry| {
+            let reason = entry["origin"]["reason"]
+                .as_str()
+                .expect("synthetic reason");
+            assert!(matches!(
+                reason,
+                "go.control_flow_join" | "go.loop_backedge" | "go.implicit_return"
+            ));
+            SyntheticPermission {
+                reference: serde_json::from_value::<SourceReference>(entry["reference"].clone())
+                    .expect("synthetic source reference"),
+                reason: reason.to_owned(),
+            }
+        })
+        .collect()
+}
+
+fn generate_checker_artifacts(root: &Path) -> Vec<(&'static str, &'static str, Vec<u8>)> {
     let release: Value = read_json(&root.join("release-report.json"));
     let certificate_hex =
         fs::read(root.join("fixtures/cert-basic/one-theorem.hex")).expect("certificate fixture");
-    let certificate_bytes = decode_hex(&certificate_hex);
-    let certificate = decode_canonical_certificate(&certificate_bytes)
-        .expect("support certificate is canonical and source-free checkable");
+    let certificate = decode_canonical_certificate(&decode_hex(&certificate_hex))
+        .expect("support certificate is canonical");
     assert_eq!(certificate.axiom_report.summary.total_axiom_count, 0);
     let checker = canonical(&json!({
-        "schema": "mpk.go_vir_checker_audit.v0",
+        "schema": "mpk.go_vir_checker_audit.v1",
         "certificate_sha256": release["certificates"][0]["expected_hashes"]["certificate"],
         "source_free_checker": release["certificates"][0]["source_free_checker"],
         "reference_checker": release["certificates"][0]["reference_checker"],
@@ -548,68 +544,28 @@ fn generate_support_artifacts(root: &Path) -> Vec<(&'static str, &'static str, V
         "unresolved": []
     }));
     let axiom = canonical(&release["certificates"][0]["axiom_report"]);
-
-    let scans: Value = read_json(&root.join("develop/specs/vectors/policy-scan-v1.json"));
-    let evidence: Value = read_json(&root.join("develop/specs/vectors/policy-evidence-v1.json"));
-    let ai: Value = read_json(&root.join("develop/specs/vectors/ai-explain-v1.json"));
-    let api: Value = read_json(&root.join("develop/specs/vectors/ai-api-v1.json"));
     vec![
         ("certificate", "checker/one-theorem.hex", certificate_hex),
         ("axiom_report", "checker/axiom-report.json", axiom),
-        ("checker_audit", "checker/verdicts.json", checker),
-        (
-            "policy_scan_v1",
-            "policy/scan.json",
-            canonical_transport(&fixture(&scans, "fixtures", "scan.go_identity_ready")["input"]),
-        ),
-        (
-            "policy_evidence_v1",
-            "policy/evidence.json",
-            canonical_transport(
-                &fixture(&evidence, "fixtures", "evidence.go_identity_pending")["input"],
-            ),
-        ),
-        (
-            "ai_v1_dry_run",
-            "ai/dry-run.json",
-            stable_json(&fixture(&ai, "request_fixtures", "request.go_pending.en")),
-        ),
-        (
-            "ai_v1_output",
-            "ai/output.json",
-            pretty_transport(
-                &fixture(&ai, "explanation_fixtures", "explanation.rust_verified.v1")["input"],
-            ),
-        ),
-        (
-            "ai_api_v1",
-            "ai/api-v1-response.json",
-            canonical_transport(
-                &fixture(&api, "generate_fixtures", "generate.go_identity")["expected_response"],
-            ),
-        ),
+        ("checker_audit_v1", "checker/verdicts.json", checker),
     ]
 }
 
-fn indexed_frontend_artifacts(index: &FrontendIndex) -> Vec<CorpusArtifact> {
+fn indexed_frontend_artifacts(root: &Path, index: &FrontendIndex) -> Vec<CorpusArtifact> {
     let mut artifacts = index
         .cases
         .iter()
         .flat_map(|corpus_case| &corpus_case.artifacts)
-        .map(|value| CorpusArtifact {
-            kind: value.kind.clone(),
-            path: value.path.clone(),
-            sha256: value.sha256.clone(),
-            bytes: value.bytes as usize,
+        .chain(index.negative_cases.iter().map(|case| &case.artifact))
+        .map(|descriptor| CorpusArtifact {
+            kind: descriptor.kind.clone(),
+            path: descriptor.path.clone(),
+            sha256: descriptor.sha256.clone(),
+            bytes: descriptor.bytes as usize,
         })
         .collect::<Vec<_>>();
-    for (kind, path) in [
-        ("frontend_index", "frontend-index.json"),
-        ("negative_audit", "negative-results.json"),
-    ] {
-        let bytes = fs::read(repo_root().join(SHARED_ROOT).join(path)).expect("frontend audit");
-        artifacts.push(artifact(kind, path, &bytes));
-    }
+    let bytes = fs::read(root.join(FRONTEND_INDEX)).expect("frontend index");
+    artifacts.push(artifact("frontend_index_v1", "frontend-index.json", &bytes));
     artifacts
 }
 
@@ -619,10 +575,10 @@ fn assert_derived_equal(id: &str, left: &DerivedArtifacts, right: &DerivedArtifa
         left.skeleton, right.skeleton,
         "{id} skeleton changed between clean runs"
     );
-    assert_eq!(
-        left.certificate_manifest, right.certificate_manifest,
-        "{id} certificate manifest changed between clean runs"
-    );
+    assert_eq!(left.source_ir_hash, right.source_ir_hash);
+    assert_eq!(left.source_manifest_hash, right.source_manifest_hash);
+    assert_eq!(left.input_set_hash, right.input_set_hash);
+    assert_eq!(left.vc_hash, right.vc_hash);
     assert_eq!(left.function_count, right.function_count);
     assert_eq!(left.member_count, right.member_count);
     assert_eq!(left.group_count, right.group_count);
@@ -649,33 +605,20 @@ fn assert_fixture(path: &Path, bytes: &[u8]) {
 
 fn assert_no_unintended_leakage(root: &Path, bytes: &[u8]) {
     let root_text = root.to_string_lossy();
+    let temporary = env::temp_dir();
+    let temporary_text = temporary.to_string_lossy();
     for forbidden in [
         root_text.as_bytes(),
-        env::temp_dir().to_string_lossy().as_bytes(),
+        temporary_text.as_bytes(),
+        br#"\"timestamp\""#,
+        br#"\"generated_at\""#,
+        br#"\"hostname\""#,
     ] {
         assert!(
             !bytes
                 .windows(forbidden.len())
                 .any(|window| window == forbidden),
-            "generated artifact leaks a local or temporary path"
-        );
-    }
-    let mut forbidden_values = vec![
-        br#""timestamp""#.as_slice(),
-        br#""generated_at""#.as_slice(),
-        br#""generatedAt""#.as_slice(),
-        br#""hostname""#.as_slice(),
-    ];
-    let hostname = env::var("HOSTNAME").ok();
-    if let Some(hostname) = hostname.as_deref().filter(|value| !value.is_empty()) {
-        forbidden_values.push(hostname.as_bytes());
-    }
-    for forbidden in forbidden_values {
-        assert!(
-            !bytes
-                .windows(forbidden.len())
-                .any(|window| window == forbidden),
-            "generated artifact leaks host, timestamp, or obsolete interface text"
+            "generated artifact leaks a local, host, or temporal value"
         );
     }
 }
@@ -689,42 +632,19 @@ fn artifact(kind: &str, path: &str, bytes: &[u8]) -> CorpusArtifact {
     }
 }
 
-fn valid_registry(root: &Path) -> mpk_vc::ValidatedReleaseRegistry {
-    let vectors: Value = read_json(&root.join("develop/specs/vectors/release-bundles-v0.json"));
-    let mut bytes = canonical(&vectors["fixtures"]["valid_registry"]);
-    bytes.push(b'\n');
-    validate_release_registry(&bytes).expect("release registry validates")
-}
-
-fn fixture<'a>(vectors: &'a Value, group: &str, id: &str) -> &'a Value {
-    vectors[group]
-        .as_array()
-        .expect("fixture group")
-        .iter()
-        .find(|value| value["id"] == id)
-        .unwrap_or_else(|| panic!("missing {group} fixture {id}"))
+fn semantic_registry(root: &Path) -> ValidatedSemanticProfileRegistry {
+    validate_semantic_profile_registry(
+        &fs::read(root.join("release/bundles/semantic-profile-registry.json"))
+            .expect("semantic registry"),
+        RegistryRevision::Revision2,
+    )
+    .expect("active revision-2 semantic registry")
 }
 
 fn canonical(value: &impl Serialize) -> Vec<u8> {
     let transport = serde_json::to_vec(value).expect("serialize JSON fixture");
     let strict = parse_strict_json(&transport, JSON_LIMITS).expect("strict JSON fixture");
     canonical_json_bytes(&strict).expect("canonical JSON fixture")
-}
-
-fn canonical_transport(value: &impl Serialize) -> Vec<u8> {
-    let mut bytes = canonical(value);
-    bytes.push(b'\n');
-    bytes
-}
-
-fn pretty_transport(value: &impl Serialize) -> Vec<u8> {
-    let mut bytes = serde_json::to_vec_pretty(value).expect("serialize pretty JSON fixture");
-    bytes.push(b'\n');
-    bytes
-}
-
-fn stable_json(value: &impl Serialize) -> Vec<u8> {
-    serde_json::to_vec(value).expect("serialize deterministic JSON fixture")
 }
 
 fn decode_hex(input: &[u8]) -> Vec<u8> {
@@ -746,10 +666,6 @@ fn decode_hex(input: &[u8]) -> Vec<u8> {
 
 fn sha256(bytes: &[u8]) -> String {
     format!("{:x}", Sha256::digest(bytes))
-}
-
-fn text(value: &Value) -> &str {
-    value.as_str().expect("JSON string")
 }
 
 fn read_json<T: for<'de> Deserialize<'de>>(path: &Path) -> T {

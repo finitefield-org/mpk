@@ -3,7 +3,7 @@ mod common;
 use common::{frozen_environment, metadata_json, Fixture};
 use rust2vir_internal::cargo_metadata::{MetadataCode, MetadataPhase};
 use rust2vir_internal::driver_process::read_request;
-use rust2vir_internal::driver_protocol::{parse_request_transport, DriverProtocolCode};
+use rust2vir_internal::driver_protocol::DriverProtocolCode;
 use rust2vir_internal::environment::{EvidenceEnvironment, ENCODED_RUSTFLAGS_ELEMENTS};
 use rust2vir_internal::sandbox::{
     fixed_read_only_views, fixed_writable_mount_views, fixed_writable_views, CargoInvocation,
@@ -41,7 +41,7 @@ impl SandboxExecutor for RequestMountExecutor {
             0o400
         );
         let bytes = read_request(path).unwrap();
-        parse_request_transport(&bytes).unwrap();
+        assert_eq!(bytes, context.driver_request().transport());
         assert!(context
             .environment()
             .entries()

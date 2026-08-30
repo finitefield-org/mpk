@@ -1,55 +1,44 @@
 # Alpha Release Report
 
-Schema: `mpk.alpha_release_report.v0`
+Schema: `mpk.alpha_release_report.v1`
 
-Status: completed Go/Rust VIR release gate
+Status: completed Go/Rust/C# successor release gate
 
-Milestone: `RUST-07-T05`
+Milestone: `CSHARP-02-T20`
 
 ## Result
 
-The active Go and Rust source paths use registered frontends, canonical VIR,
-source-map and source-manifest validation, VC v1, and policy v1. Rust uses the
-frozen registered compiler/build closure and both target libraries. Removed
-predecessor interfaces and the unregistered Rust candidate path have no runtime
-adapter, route, flag, fixture, or production selector.
+The sole active release uses semantic-profile registry revision 2 and
+`mpk.release.registry.v1`. Go, Rust, and C# run only through registered
+descriptor-relative frontend/toolchain bundles installed beside `bin/mpk`.
+Policy scan, evidence, and explanation requests use successor v2 schemas; old
+public parsers, flags, staging gates, and dual-generation selectors are
+unavailable.
 
-Certificate v0 and proof acceptance are unchanged. Go source, contracts,
-release registries, compilers, frontend results, VIR, source maps, manifests,
-VCs, policy reports, and AI output remain untrusted helper artifacts. Only
-canonical certificates and checked theory certificates accepted by the
-configured source-free checkers support proof acceptance.
+Certificate v0 and proof acceptance are unchanged. All source, compiler,
+frontend, VIR, VC, policy, AI, CI, and release-report material remains
+untrusted helper evidence.
 
-## Active release evidence
+## Canonical generated report
 
-`release-report.json` remains the canonical generated, untrusted package,
-checker, and release-provenance report. It records registered Rust targets,
-build-input/dependency/cargo-fuzz/native-runtime/notice identities, both
-manifest hashes, VIR/VC/certificate hashes, clean-build/path results,
-source-free and independent reference-checker results, and axiom/profile
-agreement. Verify it without rewriting:
+`release-report.json` is the deterministic untrusted provenance report. It
+binds both active registries, all three candidate projections, active C#
+policy/AI fixtures, package certificates, both source-free checker results,
+and the archived zero-finding migration records.
 
 ```sh
 python3 scripts/generate-release-report.py --check
 ```
-
-The Go/VIR corpus manifest is `fixtures/vir-go/manifest.json`. It records two
-clean byte-identical generations, 100 alpha functions, positive and negative
-frontend roots, example/VC coverage, checker agreement, and zero unresolved
-semantic dispositions. The reviewed migration report is archived at
-`develop/migrations/archive/go-gir-to-vir-report.md` and is never executed.
 
 ## Reproduction
 
 ```sh
 ./scripts/check-no-active-gir.sh --strict
 ./scripts/build-release-bundles.sh --check-build-inputs rust
-./scripts/build-release-bundles.sh --check all
-./scripts/check-release-bundles.sh --fixture all
+./scripts/build-release-bundles.sh --check successor
+./scripts/check-release-bundles.sh --fixture successor
 ./scripts/regenerate-go-vir-corpus.sh --check
-./scripts/regenerate-rust-payment-policy.sh --check
-sudo ./scripts/check-rust-frontend.sh
-cargo test -p mpk-cli --test frontend_runner
+sudo ./scripts/check-csharp-frontend.sh
 ./scripts/check-fast.sh
 sudo ./scripts/check-all.sh
 (cd go-tools/go2vir && go test -count=1 ./...)
@@ -58,40 +47,28 @@ python3 scripts/generate-release-report.py --check
 git diff --check
 ```
 
-## Registered Go tuple
+## Registered release
 
-- registry: `mpk.release.registry.v0`;
-- frontend: `frontend.go.go2vir.v0`;
-- toolchain: `toolchain.go.go1.25.0.linux-amd64.v0`;
-- source language: `go`;
-- semantic profile: `mpk.go.fixed.v0`;
-- target: `linux/amd64`;
-- limit profile: `mpk.vir.limits.v0`.
+- registry: `mpk.release.registry.v1`;
+- frontends: `frontend.go.go2vir.candidate.v1`,
+  `frontend.rust.rust2vir.candidate.v1`, and
+  `frontend.csharp.csharp2vir.candidate.v1`;
+- toolchains: frozen Go 1.25.0, Rust nightly 2025-06-01, and
+  Roslyn 5.6.0/.NET 10.0.11 candidate-v1 bundles;
+- targets: Go `linux/amd64`, Rust `i686-unknown-linux-gnu` and
+  `x86_64-unknown-linux-gnu`, and C# `linux-x64`;
+- semantic profiles: `mpk.go.fixed.v0`, `mpk.rust.checked.v0`, and
+  `mpk.csharp.scalar.v0`.
 
-The canonical registry digest is stored in
-`release/bundles/bundle-registry.json` and is asserted explicitly by policy
-commands. Raw frontend, toolchain, registry, helper, or sandbox paths are not
-accepted.
-
-## Registered Rust tuples
-
-- registry: `mpk.release.registry.v0`;
-- frontend: `frontend.rust.rust2vir.candidate.v0` (a registered historical ID);
-- toolchain: `toolchain.rust.nightly-2025-06-01.candidate.v0` (registered);
-- semantic profile: `mpk.rust.checked.v0`;
-- targets: `i686-unknown-linux-gnu` and `x86_64-unknown-linux-gnu`;
-- limit profile: `mpk.vir.limits.v0`.
-
-The candidate publication subtree is absent and candidate modes reject. The
-compiler, build closure, reports, and CI status remain untrusted.
+The exact registry digest and bundle inventory hashes are recorded in
+`release/bundles/bundle-registry.json`; callers cannot override them.
 
 ## Review conclusions
 
-- The strict removed-interface scanner reports no active occurrence.
-- Active examples contain frontend envelope, VIR, source map, both manifest
-  stages, VC v1, and grouped skeleton outputs.
-- The one-off migration comparator and staging tree are removed after verified
-  byte-for-byte installation.
-- The semantic migration report has no unresolved disposition.
-- The Go/Rust migration review ledger is empty; future-language work starts
-  only through the separate `MLANG-00` handoff.
+- active Go/Rust corpora and C# policy/AI fixtures use successor identities;
+- the installed release rejects predecessor, crossed, and tampered identities;
+- both source-free checkers agree and the axiom inventory has no new category;
+- the executable C# staging tree is absent and only reviewed migration reports
+  remain under `develop/migrations/archive`;
+- the final implementation review has zero findings;
+- `JAVA-03` is eligible.

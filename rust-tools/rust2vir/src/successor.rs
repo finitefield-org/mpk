@@ -60,19 +60,12 @@ pub fn semantic_context(target: &str, pointer_width: u8) -> JsonValue {
                 ),
             ])),
         ),
-        (
-            "semantic_profile".to_owned(),
-            string("mpk.rust.checked.v0"),
-        ),
+        ("semantic_profile".to_owned(), string("mpk.rust.checked.v0")),
         ("source_language".to_owned(), string("rust")),
     ]))
 }
 
-pub fn selection_envelope(
-    package: &str,
-    crate_name: &str,
-    function: &str,
-) -> JsonValue {
+pub fn selection_envelope(package: &str, crate_name: &str, function: &str) -> JsonValue {
     JsonValue::Object(BTreeMap::from([
         ("schema".to_owned(), string(SELECTION_SCHEMA)),
         (

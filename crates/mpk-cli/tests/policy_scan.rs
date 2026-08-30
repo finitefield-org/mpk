@@ -1,73 +1,59 @@
-use mpk_cli::policy_scan::v1::USAGE;
-use std::path::PathBuf;
+use std::fs;
+use std::path::{Path, PathBuf};
 use std::process::{Command, Output};
 
-const REGISTRY_SHA256: &str = "bdc7864663877b26345f4edc77e24c2c5a14b1582e19f15e2674ab22024ced98";
+use mpk_cli::successor_cli::POLICY_SCAN_USAGE;
+use serde_json::Value;
+
+fn repository_root() -> PathBuf {
+    Path::new(env!("CARGO_MANIFEST_DIR")).join("../..")
+}
+
+fn run_mpk(arguments: &[&str]) -> Output {
+    Command::new(env!("CARGO_BIN_EXE_mpk"))
+        .current_dir(repository_root())
+        .args(arguments)
+        .output()
+        .expect("mpk command runs")
+}
+
+fn stderr(output: &Output) -> String {
+    String::from_utf8(output.stderr.clone()).expect("stderr is UTF-8")
+}
+
+fn load(relative: &str) -> Value {
+    serde_json::from_slice(&fs::read(repository_root().join(relative)).expect("fixture"))
+        .expect("fixture JSON")
+}
 
 #[test]
-fn released_scan_help_is_generic_and_locator_free() {
+fn successor_scan_help_has_no_caller_selected_identity_or_locator() {
     let output = run_mpk(&["policy", "scan", "--help"]);
     assert!(output.status.success());
     assert!(output.stderr.is_empty());
     assert_eq!(
         String::from_utf8(output.stdout).unwrap(),
-        format!("{USAGE}\n")
+        format!("{POLICY_SCAN_USAGE}\n")
     );
-    assert!(USAGE.contains("--language <go|rust>"));
-    for locator in [
-        "--frontend ",
-        "--frontend-helper",
-        "--driver",
-        "--toolchain-root",
-        "--toolchain-path",
+    for removed in [
+        "--language",
+        "--semantic-profile",
+        "--frontend-bundle",
+        "--toolchain-bundle",
         "--registry-path",
+        "--driver",
     ] {
-        assert!(!USAGE.contains(locator));
+        assert!(!POLICY_SCAN_USAGE.contains(removed));
     }
 }
 
 #[test]
-fn released_scan_reports_prelaunch_configuration_errors_as_exit_two() {
-    let mut crossed = valid_rust_args();
-    replace_option(&mut crossed, "--target", "aarch64-unknown-linux-gnu");
-    let output = run_mpk_owned(&crossed);
-    assert_eq!(output.status.code(), Some(2));
-    assert!(output.stdout.is_empty());
-    assert!(stderr(&output).contains("POLICY_PROFILE_TUPLE"));
-
-    for (option, value) in [
-        (
-            "--require-release-registry-id",
-            "mpk.release.registry.future",
-        ),
-        (
-            "--require-release-registry-sha256",
-            "0000000000000000000000000000000000000000000000000000000000000000",
-        ),
-    ] {
-        let mut assertion = valid_rust_args();
-        replace_option(&mut assertion, option, value);
-        let output = run_mpk_owned(&assertion);
-        assert_eq!(output.status.code(), Some(2), "{option}");
-        assert!(output.stdout.is_empty(), "{option}");
-        assert!(
-            stderr(&output).contains("FRONTEND_REGISTRY_ASSERTION"),
-            "{option}: {}",
-            stderr(&output)
-        );
-        assert!(!stderr(&output).contains("POLICY_CLI_INPUT"), "{option}");
-    }
-}
-
-#[test]
-fn released_scan_forbids_every_raw_locator_before_required_options() {
+fn successor_scan_rejects_raw_locators_as_unknown_arguments() {
     for locator in [
         "--frontend",
         "--frontend-helper",
         "--driver",
-        "--removed-frontend",
         "--toolchain-root",
-        "--toolchain-path",
         "--registry",
         "--registry-path",
         "--release-registry-path",
@@ -81,72 +67,69 @@ fn released_scan_forbids_every_raw_locator_before_required_options() {
         ]);
         assert_eq!(output.status.code(), Some(2), "{locator}");
         assert!(output.stdout.is_empty());
-        assert!(
-            stderr(&output).contains("POLICY_CLI_FORBIDDEN_LOCATOR"),
-            "{locator}: {}",
-            stderr(&output)
-        );
+        assert!(stderr(&output).contains("unknown flag"), "{locator}");
     }
 }
 
-fn valid_rust_args() -> Vec<String> {
-    vec![
+#[test]
+fn csharp_contracts_come_only_from_the_validated_selection() {
+    let temporary = tempfile::tempdir().unwrap();
+    let candidate = load("release/bundles/candidates/csharp.json");
+    let vector = load("develop/specs/vectors/csharp-profile-v0.json");
+    let context = &candidate["tuples"][0]["semantic_context"];
+    let selection = &vector["case_harness"]["baseline_selection"];
+    let context_path = temporary.path().join("context.json");
+    let selection_path = temporary.path().join("selection.json");
+    let output_path = temporary.path().join("scan.json");
+    fs::write(&context_path, serde_json::to_vec(context).unwrap()).unwrap();
+    fs::write(&selection_path, serde_json::to_vec(selection).unwrap()).unwrap();
+
+    let output = run_mpk(&[
         "policy",
         "scan",
-        "does-not-exist",
-        "--language",
-        "rust",
-        "--semantic-profile",
-        "mpk.rust.checked.v0",
-        "--require-release-registry-id",
-        "mpk.release.registry.v0",
-        "--require-release-registry-sha256",
-        REGISTRY_SHA256,
-        "--frontend-bundle",
-        "frontend.rust.rust2vir.candidate.v0",
-        "--toolchain-bundle",
-        "toolchain.rust.nightly-2025-06-01.candidate.v0",
-        "--target",
-        "x86_64-unknown-linux-gnu",
-        "--package",
-        "vector",
-        "--function",
-        "vector::identity",
+        "missing-source-root",
+        "--semantic-context",
+        context_path.to_str().unwrap(),
+        "--selection",
+        selection_path.to_str().unwrap(),
         "--contract",
-        "contracts/vector.json",
+        "contracts/approved.json",
         "--json-out",
-        "out/scan.json",
-    ]
-    .into_iter()
-    .map(str::to_owned)
-    .collect()
+        output_path.to_str().unwrap(),
+    ]);
+    assert_eq!(output.status.code(), Some(1));
+    assert!(output.stdout.is_empty());
+    assert!(stderr(&output).contains("selected only by the validated selection"));
+    assert!(!output_path.exists());
 }
 
-fn replace_option(argv: &mut [String], option: &str, value: &str) {
-    let position = argv.iter().position(|argument| argument == option).unwrap();
-    argv[position + 1] = value.to_owned();
-}
+#[test]
+fn duplicate_json_members_reject_before_source_capture() {
+    let temporary = tempfile::tempdir().unwrap();
+    let context_path = temporary.path().join("context.json");
+    let selection_path = temporary.path().join("selection.json");
+    let output_path = temporary.path().join("scan.json");
+    fs::write(
+        &context_path,
+        br#"{"source_language":"go","source_language":"go"}"#,
+    )
+    .unwrap();
+    fs::write(&selection_path, br#"{"schema":"x","value":{}}"#).unwrap();
 
-fn run_mpk(arguments: &[&str]) -> Output {
-    Command::new(env!("CARGO_BIN_EXE_mpk"))
-        .current_dir(repo_root())
-        .args(arguments)
-        .output()
-        .unwrap()
-}
-
-fn run_mpk_owned(arguments: &[String]) -> Output {
-    Command::new(env!("CARGO_BIN_EXE_mpk"))
-        .current_dir(repo_root())
-        .args(arguments)
-        .output()
-        .unwrap()
-}
-
-fn stderr(output: &Output) -> String {
-    String::from_utf8(output.stderr.clone()).unwrap()
-}
-
-fn repo_root() -> PathBuf {
-    PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..")
+    let output = run_mpk(&[
+        "policy",
+        "scan",
+        "missing-source-root",
+        "--semantic-context",
+        context_path.to_str().unwrap(),
+        "--selection",
+        selection_path.to_str().unwrap(),
+        "--contract",
+        "policy_contract.json",
+        "--json-out",
+        output_path.to_str().unwrap(),
+    ]);
+    assert_eq!(output.status.code(), Some(1));
+    assert!(stderr(&output).contains("duplicate JSON object name"));
+    assert!(!output_path.exists());
 }

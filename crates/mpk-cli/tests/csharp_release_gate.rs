@@ -1,25 +1,22 @@
 use mpk_cert::encode::AxiomCategory;
 use mpk_cli::successor_release_bundle::{
     validate_successor_bundle_candidate, validate_successor_release_registry,
+    ACTIVE_RELEASE_REGISTRY_SHA256,
 };
 use mpk_vc::semantic_profile_registry::{validate_semantic_profile_registry, RegistryRevision};
 use serde_json::{Map, Value};
 use std::fs;
 use std::path::{Path, PathBuf};
+use std::process::Command;
 
-const STAGING_ROOT: &str = "develop/migrations/csharp-02-staging";
-const REVIEW_PATH: &str = "develop/migrations/archive/csharp-02-final-review.json";
+const ARCHIVED_REVIEW_PATH: &str = "develop/migrations/archive/csharp-02-final-review.json";
 
 fn repository_root() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("../..")
 }
 
 fn read(relative: &str) -> Vec<u8> {
-    fs::read(repository_root().join(relative)).expect("read staged release input")
-}
-
-fn load(relative: &str) -> Value {
-    serde_json::from_slice(&read(relative)).expect("parse staged release JSON")
+    fs::read(repository_root().join(relative)).expect("read active release input")
 }
 
 fn object(value: &Value) -> &Map<String, Value> {
@@ -41,35 +38,14 @@ fn canonical_line(value: &Value) -> Vec<u8> {
 }
 
 #[test]
-fn review_ledger_is_canonical_complete_and_empty() {
-    let bytes = read(REVIEW_PATH);
+fn archived_rehearsal_ledger_remains_canonical_complete_and_empty() {
+    let bytes = read(ARCHIVED_REVIEW_PATH);
     let review: Value = serde_json::from_slice(&bytes).expect("review ledger JSON");
     assert_eq!(canonical_line(&review), bytes);
-    assert_eq!(
-        object(&review)
-            .keys()
-            .map(String::as_str)
-            .collect::<Vec<_>>(),
-        [
-            "axiom_review",
-            "findings",
-            "rehearsal",
-            "reviewed_surfaces",
-            "schema",
-            "status",
-            "task",
-            "trust",
-        ]
-    );
-    assert_eq!(
-        review["schema"],
-        "mpk.csharp.staged_release.final_review.v0"
-    );
     assert_eq!(review["status"], "reviewed_zero_findings");
     assert_eq!(review["task"], "CSHARP-02-T19");
     assert_eq!(review["trust"], "untrusted_review_record");
     assert!(array(&review["findings"]).is_empty());
-    assert_eq!(array(&review["reviewed_surfaces"]).len(), 7);
 
     let categories = [
         AxiomCategory::CoreAxiom,
@@ -86,65 +62,34 @@ fn review_ledger_is_canonical_complete_and_empty() {
         categories
     );
     assert!(array(&review["axiom_review"]["new_categories"]).is_empty());
-    assert_eq!(
-        review["axiom_review"]["status"],
-        "unchanged_zero_new_categories"
-    );
-
-    let rehearsal = &review["rehearsal"];
-    assert_eq!(rehearsal["gate_passes"], 2);
-    assert_eq!(rehearsal["network_access"], false);
-    assert_eq!(rehearsal["provisioning"], false);
-    assert_eq!(rehearsal["release_state"], "inactive_staging");
-    assert_eq!(rehearsal["runtime"], "10.0.11");
-    assert!(array(&rehearsal["credential_sources"]).is_empty());
-    assert_eq!(
-        array(&rehearsal["profile_order"])
-            .iter()
-            .map(text)
-            .collect::<Vec<_>>(),
-        ["go", "rust", "csharp"]
-    );
-    assert_eq!(
-        array(&rehearsal["installed_fixtures"])
-            .iter()
-            .map(text)
-            .collect::<Vec<_>>(),
-        ["go-successor", "rust-successor", "csharp"]
-    );
-    assert_eq!(array(&rehearsal["artifact_equality"]).len(), 3);
+    assert_eq!(review["rehearsal"]["gate_passes"], 2);
+    assert_eq!(review["rehearsal"]["network_access"], false);
+    assert_eq!(review["rehearsal"]["provisioning"], false);
 }
 
 #[test]
-fn every_staged_profile_candidate_and_registry_is_exactly_validated() {
-    let semantic_bytes = read(&format!("{STAGING_ROOT}/semantic-profile-registry.json"));
+fn every_active_candidate_is_an_exact_projection_of_the_successor_registry() {
+    let semantic_bytes = read("release/bundles/semantic-profile-registry.json");
     let semantic = validate_semantic_profile_registry(&semantic_bytes, RegistryRevision::Revision2)
-        .expect("staged revision-2 semantic registry");
+        .expect("active revision-2 semantic registry");
     let semantic_value: Value =
         serde_json::from_slice(&semantic_bytes).expect("semantic registry JSON");
     assert_eq!(canonical_line(&semantic_value), semantic_bytes);
 
-    for (profile, candidate_path, registry_path, tuple_count) in [
-        (
-            "go",
-            "go-bundle-candidate.json",
-            "go-bundle-registry.json",
-            1,
-        ),
-        (
-            "rust",
-            "rust-bundle-candidate.json",
-            "rust-bundle-registry.json",
-            2,
-        ),
-        (
-            "csharp",
-            "csharp-bundle-candidate.json",
-            "bundle-registry.json",
-            1,
-        ),
-    ] {
-        let candidate_bytes = read(&format!("{STAGING_ROOT}/{candidate_path}"));
+    let registry_bytes = read("release/bundles/bundle-registry.json");
+    let registry = validate_successor_release_registry(&registry_bytes, &semantic)
+        .expect("active successor release registry");
+    let registry_value: Value =
+        serde_json::from_slice(&registry_bytes).expect("release registry JSON");
+    assert_eq!(canonical_line(&registry_value), registry_bytes);
+    assert_eq!(registry.registry_sha256(), ACTIVE_RELEASE_REGISTRY_SHA256);
+    assert_eq!(array(&registry_value["frontend_bundles"]).len(), 3);
+    assert_eq!(array(&registry_value["toolchain_bundles"]).len(), 3);
+    assert_eq!(array(&registry_value["tuples"]).len(), 4);
+
+    for (profile, tuple_count) in [("go", 1), ("rust", 2), ("csharp", 1)] {
+        let path = format!("release/bundles/candidates/{profile}.json");
+        let candidate_bytes = read(&path);
         let candidate_value: Value =
             serde_json::from_slice(&candidate_bytes).expect("candidate JSON");
         assert_eq!(
@@ -155,48 +100,56 @@ fn every_staged_profile_candidate_and_registry_is_exactly_validated() {
         let candidate = validate_successor_bundle_candidate(&candidate_bytes, &semantic)
             .unwrap_or_else(|error| panic!("{profile} candidate: {error}"));
         assert_eq!(candidate.candidate().tuples.len(), tuple_count, "{profile}");
-
-        let registry_bytes = read(&format!("{STAGING_ROOT}/{registry_path}"));
-        let registry_value: Value =
-            serde_json::from_slice(&registry_bytes).expect("release registry JSON");
-        assert_eq!(canonical_line(&registry_value), registry_bytes, "{profile}");
-        let registry = validate_successor_release_registry(&registry_bytes, &semantic)
-            .unwrap_or_else(|error| panic!("{profile} registry: {error}"));
-        assert_eq!(registry.registry().tuples.len(), tuple_count, "{profile}");
-        assert_eq!(
-            candidate.candidate().tuples,
-            registry.registry().tuples,
-            "{profile} candidate/registry tuple projection"
-        );
+        for field in [
+            "execution_host_profiles",
+            "native_runtime_layout_profiles",
+            "frontend_bundles",
+            "toolchain_bundles",
+            "tuples",
+        ] {
+            for item in array(&candidate_value[field]) {
+                assert!(
+                    array(&registry_value[field]).contains(item),
+                    "{profile} {field} item is absent from the active registry"
+                );
+            }
+        }
     }
+
+    let csharp = array(&semantic_value["profiles"])
+        .iter()
+        .find(|entry| entry["source_language"] == "csharp")
+        .expect("active C# semantic entry");
+    assert_eq!(object(&csharp["contracts"]).len(), 9);
 }
 
 #[test]
-fn installed_rehearsal_owns_two_run_hostile_ambient_and_tamper_rejection() {
-    let runner = String::from_utf8(read("crates/mpk-cli/tests/csharp_frontend_runner.rs"))
-        .expect("runner source UTF-8");
+fn installed_successor_gate_owns_replay_hostile_ambient_and_tamper_rejection() {
+    let runner = String::from_utf8(read("crates/mpk-cli/tests/successor_atomic_cutover.rs"))
+        .expect("cutover owner source UTF-8");
     for marker in [
         "run_once(false)",
         "run_once(true)",
-        "replay.stdout == execution.stdout",
-        "DOTNET_ROLL_FORWARD",
+        "second.stdout == first.stdout",
+        "DOTNET_ROOT",
         "LD_LIBRARY_PATH",
         "MPK_PLUGIN",
-        "BUNDLE_REPRODUCIBILITY_MISMATCH",
-        "validate_active_registry_boundary",
+        "tampered installed successor image did not fail closed",
+        "validate_active_models",
     ] {
         assert!(
             runner.contains(marker),
-            "missing installed rehearsal marker {marker}"
+            "missing installed gate marker {marker}"
         );
     }
 
-    let assembler = String::from_utf8(read("scripts/csharp_release_bundles.py"))
-        .expect("assembler source UTF-8");
+    let assembler = String::from_utf8(read("scripts/successor_release_bundles.py"))
+        .expect("successor assembler source UTF-8");
     for marker in [
-        "compare_trees(first_output, second_output)",
-        "first_candidate != second_candidate",
-        "first_registry != second_registry",
+        "def check()",
+        "first = build_roots",
+        "second = build_roots",
+        "def install(",
         "materialize-fixture",
         "run-installed",
     ] {
@@ -210,14 +163,16 @@ fn installed_rehearsal_owns_two_run_hostile_ambient_and_tamper_rejection() {
         String::from_utf8(read("scripts/check-csharp-frontend.sh")).expect("C# gate source UTF-8");
     for marker in [
         "for pass in 1 2",
-        "--check csharp",
-        "--fixture csharp",
-        "--fixture go-successor",
-        "--fixture rust-successor",
+        "--check successor",
+        "--fixture successor",
+        "successor_atomic_cutover",
         "csharp_profile_vectors",
         "csharp_release_gate",
     ] {
-        assert!(gate.contains(marker), "missing C# gate marker {marker}");
+        assert!(
+            gate.contains(marker),
+            "missing active C# gate marker {marker}"
+        );
     }
     for forbidden in [
         "--provision",
@@ -234,12 +189,42 @@ fn installed_rehearsal_owns_two_run_hostile_ambient_and_tamper_rejection() {
 }
 
 #[test]
-fn staged_evidence_has_no_host_path_credential_or_network_leakage() {
+fn predecessor_publication_actions_are_not_script_routes() {
+    let root = repository_root();
+    for (script, action) in [
+        ("scripts/release_bundles.py", "update-go"),
+        ("scripts/release_bundles.py", "check-all"),
+        ("scripts/release_bundles.py", "fixture-go"),
+        ("scripts/rust_build_inputs.py", "update-candidate"),
+        ("scripts/rust_build_inputs.py", "check-candidate"),
+    ] {
+        let output = Command::new("/usr/bin/python3")
+            .args(["-B", script, action])
+            .current_dir(&root)
+            .env_clear()
+            .env("PATH", "/usr/bin:/bin")
+            .env("PYTHONDONTWRITEBYTECODE", "1")
+            .env("TMPDIR", "/tmp")
+            .output()
+            .expect("run retired publication action");
+        assert_eq!(output.status.code(), Some(64), "{script} {action}");
+        assert!(output.stdout.is_empty(), "{script} {action}");
+        assert_eq!(
+            output.stderr, b"BUNDLE_ASSEMBLER_USAGE\n",
+            "{script} {action}"
+        );
+    }
+}
+
+#[test]
+fn active_release_artifacts_have_no_host_path_credential_or_network_leakage() {
     let mut artifacts = Vec::new();
-    collect_staged_json(&repository_root().join(STAGING_ROOT), &mut artifacts);
-    assert!(artifacts.len() > 20, "complete staged JSON inventory");
+    for root in ["release/bundles", "fixtures/csharp", "fixtures/vir-go"] {
+        collect_json(&repository_root().join(root), &mut artifacts);
+    }
+    assert!(artifacts.len() > 20, "complete active JSON inventory");
     for path in artifacts {
-        let transport = fs::read_to_string(&path).expect("staged artifact UTF-8");
+        let transport = fs::read_to_string(&path).expect("active artifact UTF-8");
         let lower = transport.to_ascii_lowercase();
         for forbidden in [
             "/root/",
@@ -261,32 +246,19 @@ fn staged_evidence_has_no_host_path_credential_or_network_leakage() {
             );
         }
     }
-
-    let profile = load("develop/specs/vectors/csharp-profile-v0.json");
-    let isolation = array(&profile["isolation_cases"])
-        .iter()
-        .map(|case| text(&case["id"]))
-        .collect::<Vec<_>>();
-    assert!(isolation.contains(&"isolation.no_network"));
-    assert!(isolation.contains(&"isolation.no_plugins"));
-    assert!(isolation.contains(&"isolation.no_environment_inheritance"));
-    assert_eq!(
-        profile["launcher_contract"]["inherited_environment"],
-        Value::Array(vec![])
-    );
 }
 
-fn collect_staged_json(directory: &Path, output: &mut Vec<PathBuf>) {
+fn collect_json(directory: &Path, output: &mut Vec<PathBuf>) {
     let mut entries = fs::read_dir(directory)
-        .expect("read staged artifact directory")
-        .map(|entry| entry.expect("staged artifact entry").path())
+        .expect("read active artifact directory")
+        .map(|entry| entry.expect("active artifact entry").path())
         .collect::<Vec<_>>();
     entries.sort();
     for path in entries {
-        let metadata = fs::symlink_metadata(&path).expect("staged artifact metadata");
+        let metadata = fs::symlink_metadata(&path).expect("active artifact metadata");
         assert!(!metadata.file_type().is_symlink(), "{}", path.display());
         if metadata.is_dir() {
-            collect_staged_json(&path, output);
+            collect_json(&path, output);
         } else if metadata.is_file() && path.extension().is_some_and(|value| value == "json") {
             output.push(path);
         }
@@ -294,19 +266,19 @@ fn collect_staged_json(directory: &Path, output: &mut Vec<PathBuf>) {
 }
 
 #[test]
-fn production_activation_is_still_absent() {
+fn production_activation_is_complete_and_the_executable_staging_tree_is_absent() {
     let active = String::from_utf8(read("release/bundles/bundle-registry.json"))
         .expect("active registry UTF-8");
-    assert!(!active.contains("csharp"));
-    assert!(!active.contains("mpk.release.bundle_registry.v1"));
+    assert!(active.contains("csharp"));
+    assert!(active.contains("mpk.release.bundle_registry.v1"));
+    assert!(!repository_root()
+        .join("develop/migrations/csharp-02-staging")
+        .exists());
 
     let todo = String::from_utf8(read(
         "develop/docs/06_multilanguage_frontend_design-todo.md",
     ))
     .expect("todo UTF-8");
     assert!(todo.contains("CSHARP-02-T20"));
-    assert!(todo.contains("T20 alone may activate the successor release"));
-
-    let review = load(REVIEW_PATH);
-    assert_eq!(review["rehearsal"]["release_state"], "inactive_staging");
+    assert!(todo.contains("Status: Complete (2026-08-30)."));
 }

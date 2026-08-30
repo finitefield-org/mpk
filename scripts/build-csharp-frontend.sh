@@ -56,9 +56,9 @@ case "$#:${1-}" in
 esac
 
 if [ "$action" = build ]; then
-  exec /usr/bin/env -i PATH=/usr/bin:/bin PYTHONDONTWRITEBYTECODE=1 \
+  exec /usr/bin/env -i PATH=/usr/bin:/bin PYTHONDONTWRITEBYTECODE=1 TMPDIR=/tmp \
     /usr/bin/python3 -B "$script_dir/csharp_build_inputs.py" build "$2"
 fi
 
-exec /usr/bin/env -i PATH=/usr/bin:/bin PYTHONDONTWRITEBYTECODE=1 \
+exec /usr/bin/env -i PATH=/usr/bin:/bin PYTHONDONTWRITEBYTECODE=1 TMPDIR=/tmp \
   /usr/bin/python3 -B "$script_dir/csharp_build_inputs.py" "$action"

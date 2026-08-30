@@ -70,17 +70,17 @@ The unsafe-code portion of this gate is defined by `specs/UNSAFE_POLICY_V0.md`.
 - Malformed certificates never panic.
 - Public API cannot bypass certificate verification.
 
-## Gate I: Rust frontend final release gate
+## Gate I: Go/Rust/C# successor final release gate
 
-The Go/Rust release closes only through `scripts/check-rust-frontend.sh` in the
+The Go/Rust/C# release closes only through `scripts/check-csharp-frontend.sh` in the
 same order locally and in clean Linux CI:
 
-- validate the tracked Rust build-input descriptor and unchanged
-  content-addressed cache before any byte is mounted or executed;
-- rebuild and validate the registered Go/Rust release, install only registered
-  bundle inventories, exercise both Rust target libraries, and reject the
-  removed candidate publication path and candidate commands;
-- run the Rust frontend, migrated Go corpus, Rust policy example, both
+- validate the tracked Rust and C# build-input descriptors and unchanged
+  content-addressed caches before any byte is mounted or executed;
+- rebuild and validate the registered Go/Rust/C# release, install only
+  registered bundle inventories, exercise both Rust target libraries and C#,
+  and reject removed predecessor publication paths and commands;
+- run all three frontends, the active corpora, both
   source-free checkers, artifact-path scan, two-clean-build differential suite,
   exact limits, bounded fuzz smoke, and strict obsolete-interface scan; and
 - regenerate the untrusted release provenance from registry, bundle, build
@@ -88,11 +88,11 @@ same order locally and in clean Linux CI:
   and zero-finding review records.
 
 A CI cache hit is not evidence: restored and newly provisioned closures run the
-same `--check-build-inputs rust` gate before use. Verification is networkless
-and cannot invoke an implicit rustup, Cargo, Go, container-image, or dependency
-download. The digest-pinned Go bundle-build and Rust runtime images are
-materialized before network isolation and every verification container uses
-`--pull=never` plus `--network=none`.
+same `--check-build-inputs rust` and C# `--check-build-inputs` gates before use.
+Verification is networkless and cannot invoke an implicit rustup, Cargo, Go,
+container-image, or dependency download. The digest-pinned Go bundle-build and
+Rust runtime images are materialized before network isolation and every
+verification container uses `--pull=never` plus `--network=none`.
 The privileged workflow has no pull-request trigger: it runs reviewed `main`
 bytes or a write-access-controlled manual ref, makes host tool/cache roots
 root-owned, and starts with an empty environment and a fixed tool path. Its

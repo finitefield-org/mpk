@@ -10,7 +10,7 @@ case "$mode" in
   --update)
     (
       cd go-tools/go2vir
-      MPK_UPDATE_GO_VIR_CORPUS=1 go test -count=1 -run TestRegenerateGoVIRFrontendCorpus
+      MPK_UPDATE_GO_CORPUS=1 go test -count=1 -run TestActiveGoCorpus
     )
     MPK_UPDATE_GO_VIR_CORPUS=1 cargo test -p mpk-vc --test go_vir_corpus
     python3 scripts/generate-release-report.py --check
@@ -18,7 +18,7 @@ case "$mode" in
   --check)
     (
       cd go-tools/go2vir
-      go test -count=1 -run TestRegenerateGoVIRFrontendCorpus
+      go test -count=1 -run TestActiveGoCorpus
     )
     cargo test -p mpk-vc --test go_vir_corpus
     python3 scripts/generate-release-report.py --check

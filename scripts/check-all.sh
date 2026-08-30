@@ -20,12 +20,9 @@ run() {
 cd "$repo_root"
 
 run "$repo_root/scripts/check-fast.sh"
-run "$repo_root/scripts/build-release-bundles.sh" --check go-successor
-run "$repo_root/scripts/build-release-bundles.sh" --check rust-successor
-# This gate owns the ordered strict migration scan, checker-agreement,
-# registered-bundle, and installed-fixture checks. Do not repeat those
-# I/O-heavy phases below.
-run "$repo_root/scripts/check-rust-frontend.sh"
+# This two-pass gate owns the complete successor image, installed frontends,
+# checker agreement, and C# release validation. Do not repeat its I/O-heavy
+# phases below.
 run "$repo_root/scripts/check-csharp-frontend.sh"
 run python3 "$repo_root/scripts/check-spec-vectors.py" --check
 run python3 "$repo_root/scripts/check-package-manifest-fixtures.py"
@@ -50,7 +47,6 @@ cd "$repo_root"
 run cargo test -p mpk-vc --test go_vir_corpus
 run cargo test -p mpk-cli --test frontend_runner
 run cargo test -p mpk-cli --test policy_cli
-run cargo test -p mpk-cli --test policy_report
-run cargo test -p mpk-cli --test ai_explain_v1
+run cargo test -p mpk-cli --test policy_scan
 run cargo test -p mpk-cert hash
 run cargo test -p mpk-cert cert_basic

@@ -4,6 +4,9 @@ use rust2vir_internal::module_closure::{self, ClosureStatus, ModuleClosure, Modu
 use rust2vir_internal::preflight;
 use rust2vir_internal::sha256;
 use rust2vir_internal::source_capture::InputKind;
+use rust2vir_internal::successor::{
+    FRONTEND_ID, PROFILE_ENTRY_SHA256, PROFILE_REGISTRY_ID, PROFILE_REGISTRY_SHA256, TOOLCHAIN_ID,
+};
 use std::ffi::OsString;
 use std::fs;
 use std::os::unix::fs::symlink;
@@ -80,16 +83,24 @@ fn arguments(root: &Path) -> Vec<OsString> {
         "x86_64-unknown-linux-gnu",
         "--function",
         "vector::identity",
+        "--profile-registry-id",
+        PROFILE_REGISTRY_ID,
+        "--profile-registry-revision",
+        "2",
+        "--profile-registry-sha256",
+        PROFILE_REGISTRY_SHA256,
+        "--profile-entry-sha256",
+        PROFILE_ENTRY_SHA256,
         "--frontend-bundle-id",
-        "frontend.rust.rust2vir.v0",
+        FRONTEND_ID,
         "--frontend-sha256",
         SHA256,
         "--release-registry-id",
-        "mpk.release.registry.v0",
+        "mpk.release.registry.v1",
         "--release-registry-sha256",
         SHA256,
         "--toolchain-bundle-id",
-        "toolchain.rust.nightly-2025-06-01.v0",
+        TOOLCHAIN_ID,
         "--toolchain-root",
         "/mpk/toolchain",
         "--toolchain-distribution-sha256",

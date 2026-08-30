@@ -14,9 +14,10 @@ use mpk_vc::semantic_profile_registry::{
     SEMANTIC_REGISTRY_JSON_NESTING_MAX, SEMANTIC_REGISTRY_PROFILES_MAX,
     SEMANTIC_REGISTRY_REVISION_MAX, SOURCE_LANGUAGE_BYTES_MAX,
 };
+use mpk_vc::successor_source_artifacts::import_successor_vir_json;
 use mpk_vc::{
     canonical_json_bytes, import_vir_json, parse_strict_json, sha256_raw_file_bytes,
-    SemanticProfile, StrictJsonLimits, StrictJsonValue, VirImportError,
+    SemanticProfile, StrictJsonLimits, StrictJsonValue,
 };
 use serde_json::{Map, Value};
 use std::collections::BTreeSet;
@@ -30,6 +31,8 @@ const CSHARP_PROFILE_BYTES: &[u8] =
 const MANIFEST_BYTES: &[u8] = include_bytes!("../../../develop/specs/vectors/manifest.json");
 const ACTIVE_VIR_BYTES: &[u8] =
     include_bytes!("../../../fixtures/vir-go/frontend/basic-branch/vir.json");
+const ACTIVE_SEMANTIC_REGISTRY_BYTES: &[u8] =
+    include_bytes!("../../../release/bundles/semantic-profile-registry.json");
 
 const TEST_LIMITS: StrictJsonLimits =
     StrictJsonLimits::new(4 * 1024 * 1024, 1_000_000, 128, 2 * 1024 * 1024);
@@ -507,7 +510,7 @@ fn revision_two_csharp_hash_append_only_and_payload_vectors_execute_runtime_code
 }
 
 #[test]
-fn runtime_ownership_is_appended_without_changing_frozen_vectors_or_active_routes() {
+fn runtime_ownership_is_appended_and_the_successor_is_the_only_active_importer() {
     assert_eq!(sha256_raw_file_bytes(REGISTRY_V1_BYTES).to_hex(), V1_SHA256);
     assert_eq!(sha256_raw_file_bytes(REGISTRY_V2_BYTES).to_hex(), V2_SHA256);
 
@@ -523,6 +526,7 @@ fn runtime_ownership_is_appended_without_changing_frozen_vectors_or_active_route
                 SUCCESSOR_POLICY_OWNER,
                 SUCCESSOR_AI_OWNER,
                 SUCCESSOR_API_OWNER,
+                "crates/mpk-cli/tests/successor_atomic_cutover.rs",
             ],
         ),
         (
@@ -534,6 +538,7 @@ fn runtime_ownership_is_appended_without_changing_frozen_vectors_or_active_route
                 SUCCESSOR_POLICY_OWNER,
                 SUCCESSOR_AI_OWNER,
                 SUCCESSOR_API_OWNER,
+                "crates/mpk-cli/tests/successor_atomic_cutover.rs",
             ],
         ),
     ] {
@@ -549,16 +554,17 @@ fn runtime_ownership_is_appended_without_changing_frozen_vectors_or_active_route
     }
 
     assert!(serde_json::from_str::<SemanticProfile>(r#""mpk.csharp.scalar.v0""#).is_err());
-    let mut successor_vir = load(ACTIVE_VIR_BYTES, "active VIR fixture");
-    successor_vir["schema"] = Value::String("mpk.vir.v1".into());
-    let error = import_vir_json(&canonical(&successor_vir))
-        .expect_err("the complete successor VIR stays outside the active importer");
-    match error {
-        VirImportError::Validation(error) => {
-            assert_eq!(error.code(), "VIR_SCHEMA_UNSUPPORTED");
-        }
-        other => panic!("unexpected active VIR rejection: {other}"),
-    }
+    let active_registry = validate_semantic_profile_registry(
+        ACTIVE_SEMANTIC_REGISTRY_BYTES,
+        RegistryRevision::Revision2,
+    )
+    .expect("active semantic registry");
+    import_successor_vir_json(ACTIVE_VIR_BYTES, &active_registry)
+        .expect("the successor importer owns the active VIR fixture");
+    assert!(
+        import_vir_json(ACTIVE_VIR_BYTES).is_err(),
+        "the predecessor importer accepted active successor VIR bytes"
+    );
 }
 
 fn validate_registry_fixture(

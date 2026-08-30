@@ -1517,22 +1517,10 @@ def fixture_all(mpk_binary: Path) -> None:
 
 def main(argv: list[str]) -> int:
     try:
-        if argv == ["update-go"]:
-            update_go()
-        elif argv == ["check-go"]:
-            check_go()
-        elif argv == ["fixture-go"]:
-            fixture_go()
-        elif argv == ["update-all"]:
-            update_all()
-        elif argv == ["check-all"]:
-            check_all()
-        elif argv == ["update-reference-checker"]:
+        if argv == ["update-reference-checker"]:
             update_reference_checker()
         elif argv == ["check-reference-checker"]:
             check_reference_checker()
-        elif len(argv) == 2 and argv[0] == "fixture-all":
-            fixture_all(Path(argv[1]))
         else:
             raise BundleFailure("BUNDLE_ASSEMBLER_USAGE", 64)
         return 0

@@ -9,7 +9,7 @@ use crate::driver_protocol::{
 };
 use crate::json::{self, JsonValue};
 
-const DRIVER_VECTOR: &[u8] = include_bytes!("../testdata/rust-driver-v0.json");
+const DRIVER_VECTOR: &[u8] = include_bytes!("../testdata/rust-driver-v1.json");
 
 /// Exercises the private request, output-stream, and result-artifact parsers
 /// without starting a compiler, reading a path, or retaining arbitrary bytes.

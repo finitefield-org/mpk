@@ -1,9 +1,11 @@
+use mpk_vc::release_bundle_v1::validate_successor_release_registry;
+use mpk_vc::semantic_profile_registry::{validate_semantic_profile_registry, RegistryRevision};
 use mpk_vc::{
     canonical_json_bytes, hash_canonical_inventory, hash_canonical_json, parse_strict_json,
-    registry_build_constants, sha256_raw_file_bytes, validate_release_limit,
-    validate_release_registry, ExecutableRuntime, HashDomain, ReleaseRegistryErrorCode,
-    ReleaseSelectionError, ReleaseSelectionRequest, ReleaseValidationPhase, StrictJsonLimits,
-    StrictJsonValue, BUNDLE_CONTENT_HASH_DOMAIN, BUNDLE_REGISTRY_HASH_DOMAIN,
+    sha256_raw_file_bytes, validate_release_limit, validate_release_registry, ExecutableRuntime,
+    HashDomain, ReleaseRegistryErrorCode, ReleaseSelectionError, ReleaseSelectionRequest,
+    ReleaseValidationPhase, StrictJsonLimits, StrictJsonValue, BUNDLE_CONTENT_HASH_DOMAIN,
+    BUNDLE_REGISTRY_HASH_DOMAIN,
 };
 use serde::Deserialize;
 use serde_json::{Map, Value};
@@ -239,11 +241,8 @@ fn cgroup2_tmpfs_execution_host_profile_is_closed_and_versioned() {
 
 #[test]
 fn registry_shape_precedes_streamed_scalar_count_limits_without_full_vectors() {
-    let mut registry: Value = serde_json::from_slice(
-        &fs::read(repository_root().join("release/bundles/bundle-registry.json"))
-            .expect("tracked registry reads"),
-    )
-    .expect("tracked registry parses");
+    let vectors = load_vectors();
+    let mut registry = field(field(&vectors, "fixtures"), "valid_registry").clone();
     let exemplar = registry["frontend_bundles"]
         .as_array()
         .and_then(|bundles| bundles.first())
@@ -444,22 +443,30 @@ fn release_bundle_hash_vectors_match_every_payload_and_domain() {
 }
 
 #[test]
-fn tracked_release_registry_is_valid_and_build_constants_are_derived() {
-    let path = repository_root().join("release/bundles/bundle-registry.json");
-    let bytes = fs::read(path).expect("read tracked bundle registry");
-    let validated = validate_release_registry(&bytes).expect("tracked registry validates");
-    let constants = registry_build_constants(&bytes).expect("build constants recompute");
-    assert_eq!(constants.id, "mpk.release.registry.v0");
+fn tracked_successor_release_registry_is_valid_and_build_inputs_are_derived() {
+    let root = repository_root();
+    let semantic_bytes = fs::read(root.join("release/bundles/semantic-profile-registry.json"))
+        .expect("read tracked semantic registry");
+    let semantic = validate_semantic_profile_registry(&semantic_bytes, RegistryRevision::Revision2)
+        .expect("tracked revision-2 semantic registry validates");
+    let bytes = fs::read(root.join("release/bundles/bundle-registry.json"))
+        .expect("read tracked bundle registry");
+    let validated = validate_successor_release_registry(&bytes, &semantic)
+        .expect("tracked successor registry validates");
+    assert_eq!(validated.registry().id, "mpk.release.registry.v1");
     assert_eq!(
-        constants.registry_sha256,
-        *validated.registry_digest().as_bytes()
+        validated.registry().profile_registry.registry_sha256,
+        semantic.identity().registry_sha256()
     );
-    assert_eq!(validated.registry().frontend_bundles.len(), 2);
-    assert_eq!(validated.registry().toolchain_bundles.len(), 2);
-    assert_eq!(validated.registry().tuples.len(), 3);
+    assert_eq!(validated.registry().frontend_bundles.len(), 3);
+    assert_eq!(validated.registry().toolchain_bundles.len(), 3);
+    assert_eq!(validated.registry().tuples.len(), 4);
     assert_eq!(validated.registry().native_runtime_layout_profiles.len(), 1);
     let frontend = validated
-        .frontend_bundle("frontend.go.go2vir.v0")
+        .registry()
+        .frontend_bundles
+        .iter()
+        .find(|bundle| bundle.bundle_id == "frontend.go.go2vir.candidate.v1")
         .expect("registered Go frontend");
     assert!(frontend.subordinate_binaries.is_empty());
     assert!(matches!(frontend.main.runtime, ExecutableRuntime::Static));

@@ -62,10 +62,15 @@ pub mod v1 {
         "--registry-path",
         "--release-registry-path",
     ];
+    #[cfg(target_os = "linux")]
     const STAGING_FILES_MAX: usize = 65_536;
+    #[cfg(target_os = "linux")]
     const STAGING_FILE_BYTES_MAX: u64 = 33_554_432;
+    #[cfg(target_os = "linux")]
     const STAGING_TOTAL_BYTES_MAX: u64 = 536_870_912;
+    #[cfg(target_os = "linux")]
     const STAGING_DIRECTORIES_MAX: usize = 65_536;
+    #[cfg(target_os = "linux")]
     const STAGING_DIRECTORY_ENTRIES_MAX: usize = 262_144;
     const STAGING_PATH_BYTES_MAX: usize = 1_024;
     const GO_AUXILIARY_SUFFIXES: [&str; 19] = [
@@ -614,16 +619,22 @@ pub mod v1 {
         working_directory: &Path,
     ) -> Result<OwnedFrontendStaging, PolicyScanV1Error> {
         let root = working_directory.join(&invocation.source_root);
-        let contract_paths = invocation
-            .contracts
-            .iter()
-            .cloned()
-            .collect::<BTreeSet<_>>();
+        capture_successor_staging(&root, &invocation.source_language, &invocation.contracts)
+    }
+
+    /// Captures the immutable source closure shared by the active successor
+    /// CLI without discovering a registry or executable path.
+    pub(crate) fn capture_successor_staging(
+        root: &Path,
+        source_language: &str,
+        contracts: &[String],
+    ) -> Result<OwnedFrontendStaging, PolicyScanV1Error> {
+        let contract_paths = contracts.iter().cloned().collect::<BTreeSet<_>>();
         #[cfg(target_os = "linux")]
-        let mut staging = capture_linux_tree(&root, &invocation.source_language, &contract_paths)?;
+        let mut staging = capture_linux_tree(root, source_language, &contract_paths)?;
         #[cfg(not(target_os = "linux"))]
         let mut staging = {
-            let metadata = fs::symlink_metadata(&root)
+            let metadata = fs::symlink_metadata(root)
                 .map_err(|error| input_error(format!("source root is unavailable: {error}")))?;
             if !metadata.is_dir() || metadata.file_type().is_symlink() {
                 return Err(input_error("source root must be a regular directory"));
@@ -632,9 +643,9 @@ pub mod v1 {
             let mut staged_directories = Vec::new();
             let mut staged_placeholders = Vec::new();
             capture_directory(
-                &root,
-                &root,
-                &invocation.source_language,
+                root,
+                root,
+                source_language,
                 &contract_paths,
                 &mut inputs,
                 &mut staged_directories,
@@ -1141,6 +1152,15 @@ pub mod v1 {
                         | ".cargo/config.toml" => Some(InputKind::BuildManifest),
                         _ => file_name.map(|_| InputKind::Source),
                     }
+                }
+            }
+            "csharp" => {
+                if contracts.contains(relative) {
+                    Some(InputKind::Contract)
+                } else {
+                    file_name
+                        .filter(|name| name.ends_with(".cs"))
+                        .map(|_| InputKind::Source)
                 }
             }
             _ => None,

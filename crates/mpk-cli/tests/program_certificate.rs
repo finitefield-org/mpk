@@ -1,3 +1,5 @@
+#![cfg(target_os = "linux")]
+
 use mpk_cert::encode::{DeclarationKind, SourceManifest};
 use mpk_cli::program_certificate::{
     assemble_program_certificate_alpha, ProgramCertificateErrorKind, ProgramCertificateOutcome,
@@ -9,16 +11,17 @@ use mpk_vc::{
 };
 
 const VC_BYTES: &[u8] =
-    include_bytes!("../../../fixtures/rust-basic/positive/module-calls/artifacts/vc.json");
-const SKELETON_BYTES: &[u8] =
-    include_bytes!("../../../fixtures/rust-basic/positive/module-calls/artifacts/vc-skeleton.json");
+    include_bytes!("../../../fixtures/program-certificate/internal-v1/module-calls.vc.json");
+const SKELETON_BYTES: &[u8] = include_bytes!(
+    "../../../fixtures/program-certificate/internal-v1/module-calls.vc-skeleton.json"
+);
 const SOURCE_MANIFEST_BYTES: &[u8] = include_bytes!(
     "../../../fixtures/program-certificate/alpha-module-calls.source-manifest.certificate.json"
 );
 const BITVEC_VC_BYTES: &[u8] =
-    include_bytes!("../../../fixtures/rust-basic/positive/checked-addition/artifacts/vc.json");
+    include_bytes!("../../../fixtures/program-certificate/internal-v1/checked-addition.vc.json");
 const BITVEC_SKELETON_BYTES: &[u8] = include_bytes!(
-    "../../../fixtures/rust-basic/positive/checked-addition/artifacts/vc-skeleton.json"
+    "../../../fixtures/program-certificate/internal-v1/checked-addition.vc-skeleton.json"
 );
 const PROGRAM_CERTIFICATE_HEX: &[u8] =
     include_bytes!("../../../fixtures/program-certificate/alpha-module-calls.hex");

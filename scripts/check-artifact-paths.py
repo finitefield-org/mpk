@@ -20,18 +20,12 @@ RUST_CORPUS_ROOTS = (
     Path("fixtures/rust-basic/positive"),
 )
 GO_CORPUS_ROOT = Path("fixtures/vir-go")
-EXAMPLE_ARTIFACT_ROOTS = (Path("examples/rust-payment-policy/artifacts"),)
 GO_TOP_LEVEL_ARTIFACTS = (
     Path("frontend-index.json"),
     Path("derived-index.json"),
     Path("manifest.json"),
-    Path("negative-results.json"),
-    Path("policy/evidence.json"),
-    Path("policy/scan.json"),
-    Path("ai/api-v1-response.json"),
-    Path("ai/dry-run.json"),
 )
-MINIMUM_ARTIFACT_COUNT = 200
+MINIMUM_ARTIFACT_COUNT = 150
 
 UNIX_PATH_RE = re.compile(r"(?:^|[\s=\"'(:])/(?!/)[^\s\"']+")
 WINDOWS_PATH_RE = re.compile(r"(?:^|[\s=\"'(])(?:[A-Za-z]:[\\/]|\\\\)[^\s\"']+")
@@ -100,10 +94,6 @@ def discover_artifacts() -> list[Path]:
         subtree_root = require_directory(GO_CORPUS_ROOT / subtree)
         artifacts.update(path.relative_to(ROOT) for path in subtree_root.rglob("*.json"))
     artifacts.update(GO_CORPUS_ROOT / path for path in GO_TOP_LEVEL_ARTIFACTS)
-    for relative_root in EXAMPLE_ARTIFACT_ROOTS:
-        root = require_directory(relative_root)
-        artifacts.update(path.relative_to(ROOT) for path in root.rglob("*.json"))
-
     ordered = sorted(artifacts, key=lambda path: path.as_posix())
     if len(ordered) < MINIMUM_ARTIFACT_COUNT:
         raise ArtifactPathError(

@@ -1,3 +1,6 @@
+#[path = "support/successor_projection.rs"]
+mod successor_projection;
+
 use std::fs;
 use std::path::{Path, PathBuf};
 
@@ -15,6 +18,7 @@ use mpk_vc::{
     SAFETY_OBLIGATION_KIND_COMPONENT,
 };
 use serde_json::Value;
+use successor_projection::import_successor_rust_vir_projection;
 
 const RUST_FRONTEND_ARITHMETIC_VIR: &[u8] =
     include_bytes!("../../../rust-tools/rust2vir/testdata/arithmetic/expected-vir.json");
@@ -32,14 +36,13 @@ fn rust_frontend_checked_arithmetic_fixture_is_profile_complete() {
     assert!(!modules.is_empty());
     for module in modules {
         let bytes = serde_json::to_vec(&module).expect("serialize fixture module");
-        mpk_vc::import_vir_json(&bytes).expect("frontend VIR passes independent validation");
+        import_successor_rust_vir_projection(&bytes);
     }
 }
 
 #[test]
 fn rust_frontend_div_rem_fixture_imports_and_emits_pending_safety_vcs() {
-    let module =
-        mpk_vc::import_vir_json(RUST_FRONTEND_DIV_REM_VIR).expect("division VIR fixture imports");
+    let module = import_successor_rust_vir_projection(RUST_FRONTEND_DIV_REM_VIR);
     let generated = generate_program_vcs(&module).expect("division safety VCs generate");
     let safety = generated.functions[0]
         .members
@@ -57,8 +60,7 @@ fn rust_frontend_div_rem_fixture_imports_and_emits_pending_safety_vcs() {
 
 #[test]
 fn rust_frontend_cross_width_shift_fixture_imports_and_emits_pending_safety_vcs() {
-    let module = mpk_vc::import_vir_json(RUST_FRONTEND_BITWISE_SHIFT_VIR)
-        .expect("cross-width shift VIR fixture imports");
+    let module = import_successor_rust_vir_projection(RUST_FRONTEND_BITWISE_SHIFT_VIR);
     let generated = generate_program_vcs(&module).expect("shift safety VCs generate");
     let safety = generated.functions[0]
         .members
@@ -82,7 +84,7 @@ fn rust_frontend_dual_target_array_fixture_imports_exact_bounds_checks() {
     let mut hashes = Vec::new();
     for value in modules {
         let bytes = serde_json::to_vec(&value).expect("serialize array-index module");
-        let module = mpk_vc::import_vir_json(&bytes).expect("array-index VIR fixture imports");
+        let module = import_successor_rust_vir_projection(&bytes);
         hashes.push(module.vir_hash.as_str().to_owned());
         let indexes = module.units[0].functions[0]
             .blocks

@@ -6,7 +6,7 @@ use mpk_cli::successor_release_bundle::{
     RUST_TOOLCHAIN_BUNDLE_ID,
 };
 use mpk_vc::semantic_profile_registry::{validate_semantic_profile_registry, RegistryRevision};
-use mpk_vc::{CapturedInput, InputKind, SourceReference, SyntheticPermission};
+use mpk_vc::{CapturedInput, InputKind};
 use serde_json::{json, Value};
 use std::env;
 use std::fs;
@@ -28,6 +28,11 @@ struct OwnedInput {
 }
 
 fn main() -> ExitCode {
+    if !cfg!(target_os = "linux") {
+        // The installed image and cgroup-v2 sandbox are a Linux release gate.
+        // Cross-platform runs validate the source-level successor owners.
+        return ExitCode::SUCCESS;
+    }
     let arguments = env::args().skip(1).collect::<Vec<_>>();
     if arguments.first().map(String::as_str) == Some("__mpk_frontend_sandbox_v0") {
         return ExitCode::from(mpk_cli::run_frontend_sandbox_bootstrap(&arguments[1..]));
@@ -52,10 +57,7 @@ fn main() -> ExitCode {
 }
 
 fn run_inside_installed_release() -> Result<(), String> {
-    let mut reports = Vec::new();
-    reports.push(run_go()?);
-    reports.push(run_rust()?);
-    reports.push(run_csharp()?);
+    let reports = vec![run_go()?, run_rust()?, run_csharp()?];
     let report = json!({
         "languages": reports,
         "registry_sha256": ACTIVE_RELEASE_REGISTRY_SHA256,
@@ -74,12 +76,10 @@ fn run_go() -> Result<Value, String> {
     let source_root = repository_root().join("fixtures/go-basic");
     let storage = captured_storage(&source_root, &envelope["source_manifest"])?;
     let captured = captured_refs(&storage);
-    let permissions = synthetic_permissions(&envelope["source_map"])?;
     run_native(
         "go",
         &envelope,
         &captured,
-        &permissions,
         &[],
         GO_FRONTEND_BUNDLE_ID,
         GO_TOOLCHAIN_BUNDLE_ID,
@@ -98,7 +98,6 @@ fn run_rust() -> Result<Value, String> {
         "rust",
         &envelope,
         &captured,
-        &[],
         &contracts,
         RUST_FRONTEND_BUNDLE_ID,
         RUST_TOOLCHAIN_BUNDLE_ID,
@@ -109,7 +108,6 @@ fn run_native(
     language: &str,
     envelope: &Value,
     captured: &[CapturedInput<'_>],
-    permissions: &[SyntheticPermission],
     contracts: &[String],
     frontend_bundle_id: &str,
     toolchain_bundle_id: &str,
@@ -122,7 +120,7 @@ fn run_native(
         frontend_bundle_id,
         toolchain_bundle_id,
         captured_inputs: captured,
-        synthetic_permissions: permissions,
+        synthetic_permissions: &[],
         staged_directories: &[],
         staged_placeholders: &[],
         contracts,
@@ -430,25 +428,6 @@ fn captured_refs(storage: &[OwnedInput]) -> Vec<CapturedInput<'_>> {
             kind: input.kind,
             normalized_path: &input.path,
             bytes: &input.bytes,
-        })
-        .collect()
-}
-
-fn synthetic_permissions(source_map: &Value) -> Result<Vec<SyntheticPermission>, String> {
-    source_map["entries"]
-        .as_array()
-        .ok_or("source-map entries are absent")?
-        .iter()
-        .filter(|entry| entry["origin"]["kind"] == "synthetic")
-        .map(|entry| {
-            Ok(SyntheticPermission {
-                reference: serde_json::from_value::<SourceReference>(entry["reference"].clone())
-                    .map_err(display)?,
-                reason: entry["origin"]["reason"]
-                    .as_str()
-                    .ok_or("synthetic reason is absent")?
-                    .to_owned(),
-            })
         })
         .collect()
 }

@@ -1,21 +1,24 @@
 #![forbid(unsafe_code)]
 
 pub mod policy_profile;
-pub mod policy_report;
-pub mod policy_scan;
-pub mod policy_schema;
-pub mod policy_verify;
+#[allow(dead_code)]
+mod policy_scan;
+#[allow(dead_code)]
+mod policy_schema;
 pub mod program_certificate;
 #[doc(hidden)]
 pub mod reference_checker;
 
 extern crate self as mpk_cli;
 
+#[allow(dead_code)]
 pub mod frontend_protocol;
 mod frontend_registry;
+#[allow(dead_code)]
 mod frontend_runner;
 mod frontend_sandbox;
 pub mod successor_ai_explain;
+pub mod successor_cli;
 pub mod successor_frontend_protocol;
 pub mod successor_frontend_runner;
 pub mod successor_policy;
@@ -31,4 +34,4 @@ pub fn run_frontend_sandbox_probe() -> u8 {
     frontend_sandbox::run_probe()
 }
 
-pub mod ai_explain;
+mod ai_explain;

@@ -220,7 +220,7 @@ fn frozen_call_map_source_offsets_and_owned_profiles_are_exact() {
 }
 
 #[test]
-fn emission_owners_are_complete_and_the_csharp_route_remains_inactive() {
+fn emission_owners_are_complete_and_the_csharp_route_is_active_only_in_successor() {
     let root = repository_root();
     let project = fs::read_to_string(root.join("csharp-tools/csharp2vir/csharp2vir.csproj"))
         .expect("read C# project");
@@ -274,8 +274,9 @@ fn emission_owners_are_complete_and_the_csharp_route_remains_inactive() {
     }
     let active = fs::read_to_string(root.join("release/bundles/bundle-registry.json"))
         .expect("read active registry");
-    assert!(!active.contains("csharp2vir"));
-    assert!(!active.contains("mpk.csharp.scalar.v0"));
+    assert!(active.contains("frontend.csharp.csharp2vir.candidate.v1"));
+    assert!(active.contains("mpk.csharp.scalar.v0"));
+    assert!(!active.contains("frontend.csharp.csharp2vir.candidate.v0"));
 
     let manifest = load("develop/specs/vectors/manifest.json");
     let record = manifest["vectors"]

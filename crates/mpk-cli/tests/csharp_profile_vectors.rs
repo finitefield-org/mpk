@@ -485,10 +485,6 @@ fn all_three_profiles_reject_predecessor_and_crossed_release_bytes() {
         }
     }
 
-    let active = read("release/bundles/bundle-registry.json");
-    validate_release_registry(&active).expect("active predecessor registry");
-    assert!(validate_successor_release_registry(&active, &semantic).is_err());
-
     let v1_vectors = load(SEMANTIC_V1_PATH);
     let v1_bytes = canonical_registry_transport(&v1_vectors["fixtures"]["base_registry"])
         .expect("canonical revision-1 registry");
@@ -603,11 +599,11 @@ fn apply_upgrade_mutation(id: &str, candidate: &mut Value) {
 }
 
 #[test]
-fn active_release_and_candidate_sources_remain_plugin_free() {
+fn active_release_and_frontend_sources_remain_plugin_free() {
     let active = String::from_utf8(read("release/bundles/bundle-registry.json"))
         .expect("active registry UTF-8");
-    assert!(!active.contains("csharp"));
-    assert!(!active.contains("csharp2vir"));
+    assert!(active.contains("csharp"));
+    assert!(active.contains("csharp2vir"));
 
     let root = repository_root();
     let mut sources = fs::read_dir(root.join("csharp-tools/csharp2vir"))

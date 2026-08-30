@@ -6684,10 +6684,6 @@ def main(argv: list[str]) -> int:
             update_build_inputs(provision=True)
         elif argv and argv[0] == "launch":
             return launch(argv[1:])
-        elif argv == ["update-candidate"]:
-            update_candidate(check=False)
-        elif argv == ["check-candidate"]:
-            update_candidate(check=True)
         elif argv == ["self-test"]:
             run_self_test()
         else:

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Deterministic inactive C# successor bundle assembler and fixture builder."""
+"""C# bundle builder used only by the active successor release assembler."""
 
 from __future__ import annotations
 
@@ -9,18 +9,11 @@ from pathlib import Path
 import shutil
 import stat
 import subprocess
-import sys
-import tempfile
 
 import csharp_build_inputs
-import release_bundles
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parent.parent
-STAGING_ROOT = REPOSITORY_ROOT / "develop/migrations/csharp-02-staging"
-CANDIDATE_PATH = STAGING_ROOT / "csharp-bundle-candidate.json"
-REGISTRY_PATH = STAGING_ROOT / "bundle-registry.json"
-SEMANTIC_REGISTRY_PATH = STAGING_ROOT / "semantic-profile-registry.json"
 PROFILE_VECTOR_PATH = REPOSITORY_ROOT / "develop/specs/vectors/csharp-profile-v0.json"
 SEMANTIC_VECTOR_PATH = (
     REPOSITORY_ROOT / "develop/specs/vectors/semantic-profile-registry-v2.json"
@@ -274,7 +267,7 @@ def rust_native_sources() -> tuple[Path, dict[str, dict[str, object]]]:
         active.get("schema") != REGISTRY_SCHEMA
         or active.get("id") != REGISTRY_ID
         or active.get("registry_sha256")
-        != "0f60f1494e62a485f5f8dc2ed25cbd052591005d8c3b8651412b5ef0c4dda704"
+        != "00580f5ef519ae077432460d2e9e1214bb15b624b2781a96188dd81ad92f8fce"
         or len(active.get("frontend_bundles", [])) != 3
         or len(active.get("toolchain_bundles", [])) != 3
         or len(active.get("tuples", [])) != 4
@@ -790,177 +783,8 @@ def validate_model(candidate: dict[str, object], registry: dict[str, object]) ->
         raise CSharpReleaseFailure()
 
 
-def compare_trees(left: Path, right: Path) -> None:
-    left_paths = sorted(path.relative_to(left).as_posix() for path in left.rglob("*"))
-    right_paths = sorted(path.relative_to(right).as_posix() for path in right.rglob("*"))
-    if left_paths != right_paths:
-        raise CSharpReleaseFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
-    for relative in left_paths:
-        left_path = left / relative
-        right_path = right / relative
-        left_metadata = left_path.lstat()
-        right_metadata = right_path.lstat()
-        if (
-            stat.S_IFMT(left_metadata.st_mode) != stat.S_IFMT(right_metadata.st_mode)
-            or stat.S_IMODE(left_metadata.st_mode) != stat.S_IMODE(right_metadata.st_mode)
-        ):
-            raise CSharpReleaseFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
-        if stat.S_ISREG(left_metadata.st_mode) and (
-            left_metadata.st_size != right_metadata.st_size
-            or raw_hash(left_path) != raw_hash(right_path)
-        ):
-            raise CSharpReleaseFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
-
-
 def build_once(root: Path) -> tuple[dict[str, object], dict[str, object], Path]:
     output = root / "bundles"
     frontend, toolchain = materialize_bundle_roots(root / "work", output)
     candidate, registry = build_models(frontend, toolchain)
     return candidate, registry, output
-
-
-def generated_semantic_registry() -> bytes:
-    vectors = read_json(SEMANTIC_VECTOR_PATH)
-    registry = vectors.get("registry")
-    if not isinstance(registry, dict):
-        raise CSharpReleaseFailure()
-    return canonical_line(registry)
-
-
-def check_or_update(*, update: bool) -> None:
-    with (
-        tempfile.TemporaryDirectory(prefix="mpk-csharp-release-a-") as first_name,
-        tempfile.TemporaryDirectory(prefix="mpk-csharp-release-b-") as second_name,
-    ):
-        first_candidate, first_registry, first_output = build_once(Path(first_name))
-        second_candidate, second_registry, second_output = build_once(Path(second_name))
-        compare_trees(first_output, second_output)
-        if first_candidate != second_candidate or first_registry != second_registry:
-            raise CSharpReleaseFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
-        candidate_data = canonical_line(first_candidate)
-        registry_data = canonical_line(first_registry)
-        semantic_data = generated_semantic_registry()
-    if update:
-        STAGING_ROOT.mkdir(mode=0o755, parents=True, exist_ok=True)
-        CANDIDATE_PATH.write_bytes(candidate_data)
-        REGISTRY_PATH.write_bytes(registry_data)
-        SEMANTIC_REGISTRY_PATH.write_bytes(semantic_data)
-        for path in (CANDIDATE_PATH, REGISTRY_PATH, SEMANTIC_REGISTRY_PATH):
-            path.chmod(0o644)
-    elif (
-        CANDIDATE_PATH.read_bytes() != candidate_data
-        or REGISTRY_PATH.read_bytes() != registry_data
-        or SEMANTIC_REGISTRY_PATH.read_bytes() != semantic_data
-    ):
-        raise CSharpReleaseFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
-
-
-def assemble_installed_fixture(executable: Path, destination: Path) -> None:
-    if destination.exists() or not destination.parent.is_dir():
-        raise CSharpReleaseFailure("BUNDLE_ASSEMBLER_IO", 74)
-    expected_candidate, _candidate_data = read_canonical_json(CANDIDATE_PATH)
-    expected_registry, tracked_registry_data = read_canonical_json(REGISTRY_PATH)
-    _semantic, tracked_semantic_data = read_canonical_json(SEMANTIC_REGISTRY_PATH)
-    with tempfile.TemporaryDirectory(prefix="mpk-csharp-release-fixture-") as work_name:
-        candidate, registry, output = build_once(Path(work_name))
-        if candidate != expected_candidate or registry != expected_registry:
-            raise CSharpReleaseFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
-        destination.mkdir(mode=0o755)
-        (destination / "bin").mkdir(mode=0o755)
-        (destination / "share/mpk").mkdir(mode=0o755, parents=True)
-        bundles = destination / "libexec/mpk/bundles"
-        bundles.mkdir(mode=0o755, parents=True)
-        copy_regular(executable, destination / "bin/mpk", executable=True)
-        (destination / "share/mpk/bundle-registry.json").write_bytes(tracked_registry_data)
-        (destination / "share/mpk/semantic-profile-registry.json").write_bytes(
-            tracked_semantic_data
-        )
-        for path in (
-            destination / "share/mpk/bundle-registry.json",
-            destination / "share/mpk/semantic-profile-registry.json",
-        ):
-            path.chmod(0o444)
-        shutil.copytree(output / "frontend", bundles / FRONTEND_ID, copy_function=shutil.copy2)
-        shutil.copytree(output / "toolchain", bundles / TOOLCHAIN_ID, copy_function=shutil.copy2)
-    normalize_directories(destination)
-    validate_installed_fixture(expected_registry, destination)
-
-
-def validate_installed_fixture(registry: dict[str, object], root: Path) -> None:
-    exact = {
-        ".": {"bin", "libexec", "share"},
-        "bin": {"mpk"},
-        "share": {"mpk"},
-        "share/mpk": {"bundle-registry.json", "semantic-profile-registry.json"},
-        "libexec": {"mpk"},
-        "libexec/mpk": {"bundles"},
-        "libexec/mpk/bundles": {FRONTEND_ID, TOOLCHAIN_ID},
-    }
-    for relative, names in exact.items():
-        path = root if relative == "." else root / relative
-        metadata = path.lstat()
-        if (
-            not stat.S_ISDIR(metadata.st_mode)
-            or stat.S_IMODE(metadata.st_mode) != 0o555
-            or {entry.name for entry in path.iterdir()} != names
-        ):
-            raise CSharpReleaseFailure()
-    described = {
-        bundle["bundle_id"]: bundle["inventory"]["files"]
-        for field in ("frontend_bundles", "toolchain_bundles")
-        for bundle in registry[field]
-    }
-    for bundle_id, files in described.items():
-        if inventory(root / "libexec/mpk/bundles" / bundle_id) != files:
-            raise CSharpReleaseFailure()
-
-
-def materialize_fixture(executable_text: str, destination_text: str) -> None:
-    executable = Path(executable_text)
-    destination = Path(destination_text)
-    if not executable.is_absolute() or not destination.is_absolute():
-        raise CSharpReleaseFailure("BUNDLE_ASSEMBLER_USAGE", 64)
-    assemble_installed_fixture(executable, destination)
-
-
-def run_installed(executable_text: str) -> None:
-    executable = Path(executable_text)
-    if not executable.is_absolute() or executable.name != "mpk":
-        raise CSharpReleaseFailure("BUNDLE_ASSEMBLER_USAGE", 64)
-    command = release_bundles.rust_fixture_cgroup_command(
-        [str(executable), "--inside-csharp-runner"]
-    )
-    result = release_bundles.run_bounded_rust_fixture(
-        command, cwd=executable.parent.parent, env={}
-    )
-    if result.returncode != 0 or result.stderr:
-        raise CSharpReleaseFailure("BUNDLE_REPRODUCIBILITY_MISMATCH")
-    sys.stdout.buffer.write(result.stdout)
-
-
-def main(argv: list[str]) -> int:
-    try:
-        if argv == ["check"]:
-            check_or_update(update=False)
-        elif argv == ["update-staging"]:
-            check_or_update(update=True)
-        elif len(argv) == 3 and argv[0] == "materialize-fixture":
-            materialize_fixture(argv[1], argv[2])
-        elif len(argv) == 2 and argv[0] == "run-installed":
-            run_installed(argv[1])
-        else:
-            raise CSharpReleaseFailure("BUNDLE_ASSEMBLER_USAGE", 64)
-        return 0
-    except CSharpReleaseFailure as error:
-        sys.stderr.write(error.code + "\n")
-        return error.exit_code
-    except (csharp_build_inputs.CSharpBuildFailure, release_bundles.BundleFailure) as error:
-        sys.stderr.write(error.code + "\n")
-        return error.exit_code
-    except (OSError, KeyError, TypeError, ValueError, subprocess.SubprocessError):
-        sys.stderr.write("BUNDLE_ASSEMBLER_IO\n")
-        return 74
-
-
-if __name__ == "__main__":
-    raise SystemExit(main(sys.argv[1:]))

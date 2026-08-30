@@ -2,7 +2,8 @@
 
 Source design: `docs/payment-policy-alpha-coverage-design.md`
 
-Status: historical completed task record; not an active command reference.
+Status: historical completed predecessor-v1 task record. Its commands are not
+active CLI guidance; see `proof-ops-policy-ci.md` for revision-2 usage.
 
 This document breaks the payment-policy alpha coverage design into
 implementation milestones that can be executed one at a time. Source design

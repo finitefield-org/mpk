@@ -330,7 +330,7 @@ func assertCorpusFixture(t *testing.T, relative string, content []byte) {
 
 func assertFixtureAt(t *testing.T, path string, content []byte) {
 	t.Helper()
-	if os.Getenv(updateGoVIRCorpusEnv) != "" {
+	if os.Getenv(updateGoVIRCorpusEnv) != "" || os.Getenv(updateSuccessorGoCorpusEnv) != "" {
 		if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
 			t.Fatalf("create fixture directory %s: %v", filepath.Dir(path), err)
 		}

@@ -31,7 +31,7 @@ use mpk_vc::semantic_profile_registry::{
 };
 use mpk_vc::{
     BundleInventory, CapturedInput, ComponentIdentity, ExecutableRuntime, FrontendIdentity,
-    InputKind, ReleaseRegistryIdentity, SubordinateIdentity, SyntheticPermission,
+    InputKind, ReleaseRegistryIdentity, SourceReference, SubordinateIdentity, SyntheticPermission,
     ToolchainComponent, ToolchainIdentity,
 };
 use serde_json::{json, Value};
@@ -294,6 +294,10 @@ pub fn run_installed_frontend(
         });
     }
 
+    if !request.synthetic_permissions.is_empty() {
+        return Err(installed_failure(InstalledFrontendRunCode::Selection));
+    }
+
     run_installed_native_frontend(request)
 }
 
@@ -463,6 +467,10 @@ fn run_installed_native_frontend(
             SuccessorFrontendProtocolCode::ProtocolLimit,
         )));
     }
+    let synthetic_permissions = installed_synthetic_permissions(
+        resolved.semantic_context.source_language(),
+        &output.stdout,
+    )?;
     let release_registry = registry.release_identity();
     let envelope = validate_successor_frontend_process(
         SuccessorFrontendProtocolRequest {
@@ -471,7 +479,7 @@ fn run_installed_native_frontend(
             selection: &selection,
             release_registry: &release_registry,
             captured_inputs: request.captured_inputs,
-            synthetic_permissions: request.synthetic_permissions,
+            synthetic_permissions: &synthetic_permissions,
         },
         FrontendProcessFacts {
             exit_code: output.exit_code,
@@ -487,6 +495,61 @@ fn run_installed_native_frontend(
         launcher,
         release_registry,
     })
+}
+
+/// The installed Go producer is content-addressed and closed by the active
+/// release tuple, so its three frozen synthetic-origin reasons are compiled
+/// into this runner. Generic protocol imports still require exact explicit
+/// permissions; only this installed-bundle path derives their exact
+/// references from the candidate output before strict protocol validation.
+fn installed_synthetic_permissions(
+    language: &str,
+    stdout: &[u8],
+) -> Result<Vec<SyntheticPermission>, InstalledFrontendRunError> {
+    if language != "go" {
+        return Ok(Vec::new());
+    }
+    let envelope: Value = serde_json::from_slice(stdout).map_err(|_| {
+        installed_failure(InstalledFrontendRunCode::Protocol(
+            SuccessorFrontendProtocolCode::ProtocolMalformed,
+        ))
+    })?;
+    let Some(entries) = envelope
+        .get("source_map")
+        .and_then(|source_map| source_map.get("entries"))
+        .and_then(Value::as_array)
+    else {
+        return Ok(Vec::new());
+    };
+    entries
+        .iter()
+        .filter(|entry| entry["origin"]["kind"] == "synthetic")
+        .map(|entry| {
+            let reason = entry["origin"]["reason"].as_str().ok_or_else(|| {
+                installed_failure(InstalledFrontendRunCode::Protocol(
+                    SuccessorFrontendProtocolCode::ProtocolShape,
+                ))
+            })?;
+            if !matches!(
+                reason,
+                "go.control_flow_join" | "go.loop_backedge" | "go.implicit_return"
+            ) {
+                return Err(installed_failure(InstalledFrontendRunCode::Protocol(
+                    SuccessorFrontendProtocolCode::ProtocolArtifactMismatch,
+                )));
+            }
+            let reference = serde_json::from_value::<SourceReference>(entry["reference"].clone())
+                .map_err(|_| {
+                installed_failure(InstalledFrontendRunCode::Protocol(
+                    SuccessorFrontendProtocolCode::ProtocolShape,
+                ))
+            })?;
+            Ok(SyntheticPermission {
+                reference,
+                reason: reason.to_owned(),
+            })
+        })
+        .collect()
 }
 
 fn native_launcher_plan(

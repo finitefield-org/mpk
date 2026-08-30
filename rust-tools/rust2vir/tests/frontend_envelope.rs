@@ -12,7 +12,7 @@ use rust2vir_internal::json::{self, JsonValue};
 use rust2vir_internal::sha256::{hex, Sha256};
 use std::path::PathBuf;
 
-const VECTOR: &[u8] = include_bytes!("../testdata/rust-driver-v0.json");
+const VECTOR: &[u8] = include_bytes!("../testdata/rust-driver-v1.json");
 
 #[test]
 fn validated_private_lowering_emits_one_canonical_public_envelope() {
@@ -46,11 +46,10 @@ fn validated_private_lowering_emits_one_canonical_public_envelope() {
             .as_str(),
         Some("vector")
     );
-    let configuration = manifest["target"].as_object().unwrap()["language_configuration"]
-        .as_object()
-        .unwrap();
-    assert_eq!(configuration["prelude"].as_str(), Some("std"));
-    assert_eq!(configuration["cfg"].as_array().unwrap().len(), 38);
+    let target = manifest["target"].as_object().unwrap();
+    assert_eq!(target["id"].as_str(), Some("x86_64-unknown-linux-gnu"));
+    assert_eq!(target["pointer_width"].integer(), Some(64));
+    assert_eq!(manifest["semantic_context"], root["semantic_context"]);
     assert_eq!(
         manifest["source_map_hash"],
         root["source_map"].as_object().unwrap()["source_map_hash"]
@@ -58,12 +57,12 @@ fn validated_private_lowering_emits_one_canonical_public_envelope() {
     assert_self_hash(
         &root["source_map"],
         "source_map_hash",
-        b"MPK-SOURCE-MAP-0.1",
+        b"MPK-SOURCE-MAP-1.0",
     );
     assert_self_hash(
         &root["source_manifest"],
         "source_manifest_hash",
-        b"MPK-SOURCE-MANIFEST-0.1",
+        b"MPK-SOURCE-MANIFEST-1.0",
     );
     let text = std::str::from_utf8(&first).unwrap();
     for forbidden in ["/tmp/", "/root/", "/mpk/toolchain", "rustc --"] {
@@ -257,7 +256,9 @@ fn lowered_fixture() -> (
 
 fn lower_request(request: &rust2vir_internal::driver_protocol::DriverRequest) -> LowerRequest {
     let root = request.value().as_object().unwrap();
-    let selection = root["selection"].as_object().unwrap();
+    let selection = root["selection"].as_object().unwrap()["value"]
+        .as_object()
+        .unwrap();
     let frontend = root["frontend"].as_object().unwrap();
     let toolchain = root["toolchain"].as_object().unwrap();
     let registry = root["release_registry"].as_object().unwrap();

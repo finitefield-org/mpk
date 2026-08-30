@@ -152,10 +152,7 @@ pub fn raw_source_map(
             "schema".to_owned(),
             string("mpk.rust.driver.raw_source_map.v1"),
         ),
-        (
-            "semantic_context".to_owned(),
-            semantic_context,
-        ),
+        ("semantic_context".to_owned(), semantic_context),
         ("source_ir_schema".to_owned(), string("mpk.vir.v1")),
         ("source_ir_hash".to_owned(), string(source_ir_hash)),
         ("entries".to_owned(), JsonValue::Array(entries)),

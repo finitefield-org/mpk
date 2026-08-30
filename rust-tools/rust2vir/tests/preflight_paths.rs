@@ -1,5 +1,8 @@
 use rust2vir_internal::cli::{parse_lower_args, LowerRequest, SEMANTIC_PROFILE};
 use rust2vir_internal::preflight::{self, InputKind, PreflightCode};
+use rust2vir_internal::successor::{
+    FRONTEND_ID, PROFILE_ENTRY_SHA256, PROFILE_REGISTRY_ID, PROFILE_REGISTRY_SHA256, TOOLCHAIN_ID,
+};
 use std::ffi::OsString;
 use std::fs;
 use std::os::unix::fs::symlink;
@@ -62,16 +65,24 @@ fn arguments(root: &Path) -> Vec<OsString> {
         "x86_64-unknown-linux-gnu",
         "--function",
         "vector::identity",
+        "--profile-registry-id",
+        PROFILE_REGISTRY_ID,
+        "--profile-registry-revision",
+        "2",
+        "--profile-registry-sha256",
+        PROFILE_REGISTRY_SHA256,
+        "--profile-entry-sha256",
+        PROFILE_ENTRY_SHA256,
         "--frontend-bundle-id",
-        "frontend.rust.rust2vir.v0",
+        FRONTEND_ID,
         "--frontend-sha256",
         SHA256,
         "--release-registry-id",
-        "mpk.release.registry.v0",
+        "mpk.release.registry.v1",
         "--release-registry-sha256",
         SHA256,
         "--toolchain-bundle-id",
-        "toolchain.rust.nightly-2025-06-01.v0",
+        TOOLCHAIN_ID,
         "--toolchain-root",
         "/mpk/toolchain",
         "--toolchain-distribution-sha256",
@@ -314,14 +325,21 @@ fn structural_rejection_uses_the_exact_path_free_envelope() {
         "{\"diagnostics\":[],\"phase\":\"capture\",",
         "\"rejected_features\":[{\"code\":\"RUST_PREFLIGHT_CONFIG\",",
         "\"message\":\"Cargo configuration is not permitted\"}],",
-        "\"schema\":\"mpk.frontend.cli.v0\",",
-        "\"selection\":{\"crate\":\"vector\",\"function\":\"vector::identity\",",
-        "\"kind\":\"lib\",\"package\":\"vector\"},",
-        "\"semantic_parameters\":{\"overflow_mode\":\"checked\",",
+        "\"schema\":\"mpk.frontend.cli.v1\",",
+        "\"selection\":{\"schema\":\"mpk.selection.rust_function.v0\",",
+        "\"value\":{\"crate\":\"vector\",\"function\":\"vector::identity\",",
+        "\"kind\":\"lib\",\"package\":\"vector\"}},",
+        "\"semantic_context\":{",
+        "\"profile_entry_sha256\":\"1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057\",",
+        "\"profile_registry\":{\"id\":\"mpk.semantic_profile.registry.v1\",",
+        "\"registry_sha256\":\"6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75\",",
+        "\"revision\":2,\"schema\":\"mpk.semantic_profile.registry.v1\"},",
+        "\"semantic_parameters\":{\"schema\":\"mpk.semantic_parameters.rust_checked.v0\",",
+        "\"value\":{\"overflow_mode\":\"checked\",",
         "\"panic_mode\":\"abort\",\"pointer_width\":64,",
-        "\"target_id\":\"x86_64-unknown-linux-gnu\"},",
+        "\"target_id\":\"x86_64-unknown-linux-gnu\"}},",
         "\"semantic_profile\":\"mpk.rust.checked.v0\",",
-        "\"source_language\":\"rust\",\"status\":\"rejected\"}\n"
+        "\"source_language\":\"rust\"},\"status\":\"rejected\"}\n"
     );
     assert_eq!(output.stdout, expected.as_bytes());
     let envelope = String::from_utf8(output.stdout).unwrap();
