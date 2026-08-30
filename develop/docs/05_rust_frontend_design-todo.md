@@ -4689,7 +4689,7 @@ python3 scripts/check-artifact-paths.py
 git diff --check
 ```
 
-### RUST-07-T05 Add Clean CI, Compiler Upgrade Procedure, and Final Release Gate
+### RUST-07-T05 Add Clean Local Verification, Compiler Upgrade Procedure, and Final Release Gate
 
 Status: Complete (2026-08-24)
 
@@ -4702,7 +4702,6 @@ Inputs:
 
 Likely touched files:
 
-- `.github/workflows/rust-frontend.yml`
 - `scripts/check-rust-frontend.sh`
 - `scripts/check-all.sh`
 - `scripts/generate-release-report.py`
@@ -4717,20 +4716,21 @@ Likely touched files:
 
 Tasks:
 
-1. Add a clean Linux CI job that validates the spec-frozen build/test
+1. Add a clean local Linux gate that validates the spec-frozen build/test
    toolchain, linker/sysroot, vendor, cargo-fuzz, and private-runtime
-   materialization from the tracked descriptor and reviewed CI artifacts. A
-   cache miss runs `--provision-build-inputs rust`; a restored cache is treated
-   as untrusted, and both paths run `--check-build-inputs rust` before use. The
-   job then disables network, installs only registered release bundles for
+   materialization from the tracked descriptor and reviewed local artifacts. A
+   missing cache is provisioned explicitly; every cache is treated as
+   untrusted and must pass `--check-build-inputs rust` before use. The gate then
+   disables network, installs only registered release bundles for
    evidence routes, uses both registered target libraries, rejects every
    unregistered candidate, and executes frontend, Go migration, policy,
    both-checker, path,
    clean-build determinism, limit, fuzz-smoke, and obsolete-interface gates.
    Because this ordered gate needs the initial cgroup namespace and root mount
-   privileges, the repository workflow runs only reviewed `main` bytes or a
-   write-access-controlled manual ref, never a pull-request ref. Its in-job
-   network namespace is a no-fetch control, not a hostile-root sandbox.
+   privileges, an operator runs it only from reviewed bytes on a disposable
+   local host with externally denied egress. Its network namespace is a
+   no-fetch control, not a hostile-root sandbox. GitHub Actions and workflow
+   files are not used.
 2. Add a local aggregate gate with the same command ordering and no implicit
    rustup/toolchain download during verification.
 3. Document the compiler/build-closure upgrade as an ordered, reviewed
@@ -4770,8 +4770,8 @@ Acceptance criteria:
 - all Rust gates, migrated Go gates, both target corpora, both checkers,
   build/evidence inventory validation, two-clean-build determinism, path
   sanitation, limits, fuzz smoke, and release report pass;
-- no CI evidence route can select the removed Rust candidate or a build-only
-  tool, dependency cache, linker, or sysroot as a release bundle;
+- no automation evidence route can select the removed Rust candidate or a
+  build-only tool, dependency cache, linker, or sysroot as a release bundle;
 - no active production/interface/documentation GIR or v0 policy/AI hit remains;
 - certificate v0, trust boundary, checker semantics, and axiom categories are
   unchanged;

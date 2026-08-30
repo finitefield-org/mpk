@@ -1,21 +1,22 @@
-# ProofOps Policy CI
+# ProofOps Policy Local Verification
 
 This guide uses the sole active Go/Rust/C# successor CLI. Run policy commands
 from a materialized Linux release: the executable resolves both registries,
 the selected frontend/toolchain tuple, and all compiled profile contracts from
 the installed tree beside `bin/mpk`.
 
-The privileged repository gate is `.github/workflows/rust-frontend.yml`, whose
-active job runs `scripts/check-csharp-frontend.sh`. The workflow filename is
-retained for CI continuity; it no longer denotes a Rust-only release.
+The repository intentionally has no GitHub Actions or workflow files. Start
+all policy and release checks locally from reviewed bytes. The authoritative
+Go/Rust/C# release command is `scripts/check-csharp-frontend.sh`; it is not
+triggered or monitored through a hosted automation service.
 
 ## Trust boundary
 
 Policy scan JSON, evidence metadata, source, contracts, compiler output, VIR,
-VC, AI requests, CI logs, and release reports are helper artifacts. A property
-may be `mpk_verified` only when its `trusted_evidence` reference resolves to a
-canonical certificate declaration or checked theory certificate accepted by
-the configured source-free checker path.
+VC, AI requests, automation logs, and release reports are helper artifacts. A
+property may be `mpk_verified` only when its `trusted_evidence` reference
+resolves to a canonical certificate declaration or checked theory certificate
+accepted by the configured source-free checker path.
 
 ## Reserve example
 
@@ -74,7 +75,7 @@ provider or credential and does not consume a model response. Keep any
 external transmission outside the proof boundary and subject it to separate
 customer-consent and data-retention controls.
 
-## Reusable CI block
+## Reusable local verification block
 
 Run ordinary source tests and deterministic corpus checks before invoking a
 materialized installed release:
@@ -129,8 +130,8 @@ mpk axiom-report proofs/paymentpolicy.mpcert
 mpk package verify-certs package-manifest.json
 ```
 
-Do not use a successful frontend run, readiness status, hash match, CI result,
-or explanation as a substitute for these checker verdicts.
+Do not use a successful frontend run, readiness status, hash match, automation
+result, or explanation as a substitute for these checker verdicts.
 
 ## Review checklist
 

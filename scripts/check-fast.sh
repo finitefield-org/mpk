@@ -11,6 +11,22 @@ run() {
   "$@"
 }
 
+check_no_github_actions_workflows() {
+  local workflow_dir="$repo_root/.github/workflows"
+  local workflow_entry=""
+
+  if [[ -L "$workflow_dir" || ( -e "$workflow_dir" && ! -d "$workflow_dir" ) ]]; then
+    workflow_entry="$workflow_dir"
+  elif [[ -d "$workflow_dir" ]]; then
+    workflow_entry="$(find "$workflow_dir" -mindepth 1 -print -quit)"
+  fi
+  if [[ -n "$workflow_entry" ]]; then
+    printf 'GitHub Actions workflow content is forbidden: %s\n' \
+      "$workflow_entry" >&2
+    return 1
+  fi
+}
+
 check_accepts() {
   local fixture="$1"
   local output
@@ -49,6 +65,7 @@ require_fixture() {
   fi
 }
 
+run check_no_github_actions_workflows
 run cargo fmt --check
 run "$repo_root/scripts/check-no-active-gir.sh" --strict
 run cargo clippy --workspace --all-targets -- -D warnings

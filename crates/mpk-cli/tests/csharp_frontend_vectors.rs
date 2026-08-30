@@ -173,6 +173,9 @@ fn pinned_candidate_executes_every_frontend_owned_vector() {
     assert_eq!(array(&profile["limit_cases"]).len(), 32);
     assert_eq!(array(&profile["hash_cases"]).len(), 5);
     assert_eq!(array(&profile["semantic_rows"]).len(), 34);
+    if !cfg!(target_os = "linux") {
+        return;
+    }
     if !complete_archive_cache(&profile) {
         return;
     }

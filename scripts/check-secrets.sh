@@ -1,9 +1,9 @@
 #!/bin/sh
 set -eu
 
-# This local/CI entry point deliberately emits only rule IDs and paths. The
+# This local entry point deliberately emits only rule IDs and paths. The
 # matching value is never printed, so a finding cannot become a second leak in
-# the scanner log. CI also runs the pinned Gitleaks action against this config.
+# the scanner log. The repository does not use a hosted action or workflow.
 exec python3 - "$@" <<'PY'
 import pathlib
 import re

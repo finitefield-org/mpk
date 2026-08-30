@@ -464,7 +464,7 @@ Out of scope:
   - Keep this helper conservative. It is a lint for product reports, not a
     verified frontend.
 
-### POE-12 Add Policy CI Examples
+### POE-12 Add Policy Local Verification Examples
 
 - Status: Pending
 - Depends on: POE-10
@@ -475,23 +475,23 @@ Out of scope:
 - Likely touched files:
   - `docs/proof-ops-policy-ci.md`
   - `examples/payment_policies/README.md`
-  - `.github/workflows` if this repository already uses workflow files
 - Deliverables:
-  - CI documentation showing how to build `go2vir`, run `mpk policy scan`, run
-    `mpk policy verify`, and fail on unexpected artifact drift.
+  - Local verification documentation showing how to build `go2vir`, run
+    `mpk policy scan`, run `mpk policy verify`, and fail on unexpected artifact
+    drift.
   - Example command block suitable for customer repositories.
-  - Trust-boundary warning that CI success does not replace checker evidence.
+  - Trust-boundary warning that local gate success does not replace checker
+    evidence.
 - Acceptance criteria:
-  - CI example uses real command names and paths from POE-10.
-  - CI example separates helper-artifact drift checks from trusted-evidence
+  - Local example uses real command names and paths from POE-10.
+  - Local example separates helper-artifact drift checks from trusted-evidence
     checks.
   - Documentation states which artifacts should be reviewed in PRs.
 - Verification:
   - `rg -n "mpk policy scan|mpk policy verify|VIR|proof evidence" docs/proof-ops-policy-ci.md examples/payment_policies/README.md`
   - `git diff --check`
 - Notes:
-  - Do not add a GitHub workflow unless the repository already has a workflow
-    convention or the implementation milestone explicitly chooses one.
+  - Do not add GitHub Actions or workflow files; all checks stay local.
 
 ### POE-13 Update Release And Alpha Checks
 

@@ -114,14 +114,15 @@ select a provider, contact an AI service, consume a response, or alter policy
 evidence. Any external system that sends the request is independently
 responsible for consent, credentials, retention, and provider governance.
 
-## Continuous integration and local gates
+## Local verification gates
 
-The privileged workflow in `.github/workflows/rust-frontend.yml` is the sole
-Go/Rust/C# successor release gate. It runs only on reviewed `main` bytes or a
-write-access-controlled manual dispatch. It validates frozen inputs, uses
-digest-pinned images, disables network access during the gate, materializes
-one installed release, runs all three registered frontends, checks both
-source-free verifiers, and repeats the installed-release pass twice.
+This repository intentionally does not use GitHub Actions or workflow files.
+Do not create, trigger, monitor, or rely on `.github/workflows/`. All checks
+must be started locally from reviewed bytes. The full gate validates frozen
+inputs, uses digest-pinned images, disables network access during verification,
+materializes one installed release, runs all three registered frontends,
+checks both source-free verifiers, and repeats the installed-release pass
+twice.
 
 Ordinary development:
 
@@ -129,18 +130,29 @@ Ordinary development:
 ./scripts/check-fast.sh
 ```
 
-Full local release gate on a reviewed Linux host with writable cgroup v2:
+The fast gate fails if `.github/workflows/` contains any entry.
+
+Prepare the frozen build-input caches explicitly before entering the
+networkless gate:
 
 ```sh
-./scripts/build-release-bundles.sh --provision-build-inputs rust
+sudo ./scripts/build-release-bundles.sh --provision-build-inputs rust
+./scripts/build-csharp-frontend.sh --provision-build-inputs
+```
+
+Then run the full local release gate on a reviewed Linux host with writable
+cgroup v2:
+
+```sh
 sudo ./scripts/check-csharp-frontend.sh
 sudo ./scripts/check-all.sh
 ```
 
-These gates never download or upgrade a toolchain. Root is used only to create
-the release sandbox's delegated cgroup and fixed `noswap` tmpfs; frontend and
-compiler work starts after host privileges are removed. Run privileged gates
-only from reviewed bytes on an externally egress-denied disposable runner.
+Provisioning is a separate setup step; the verification gates never download
+or upgrade a toolchain. Root is used by the gates only to create the release
+sandbox's delegated cgroup and fixed `noswap` tmpfs; frontend and compiler work
+starts after host privileges are removed. Run privileged gates only from
+reviewed bytes on an externally egress-denied disposable runner.
 
 Useful targeted checks:
 
@@ -170,7 +182,7 @@ scripts/                generation and verification gates
 ## Documentation
 
 - [Alpha Demo Guide](docs/alpha-demo.md)
-- [ProofOps Policy CI](docs/proof-ops-policy-ci.md)
+- [ProofOps Policy Local Verification](docs/proof-ops-policy-ci.md)
 - [ProofOps Engine Support Design](docs/proof-ops-engine-design.md)
 - [Web System Integration Guide](docs/web-system-integration.md)
 - [Contributing Guide](CONTRIBUTING.md)

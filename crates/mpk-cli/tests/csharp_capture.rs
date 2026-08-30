@@ -231,6 +231,10 @@ fn capture_harness_and_candidate_inventory_are_pinned() {
 
 #[test]
 fn provisioned_offline_closure_executes_the_capture_harness() {
+    if !cfg!(target_os = "linux") {
+        return;
+    }
+
     let root = repository_root();
     let profile = load("develop/specs/vectors/csharp-profile-v0.json");
     let hash = text(&profile["toolchain_inputs"]["toolchain_inputs_sha256"]);

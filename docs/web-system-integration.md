@@ -54,13 +54,13 @@ Use `./scripts/regenerate-go-vir-corpus.sh --update` only for intentional
 changes and review the resulting VIR, source map, manifest, VC, skeleton, and
 hash differences together.
 
-## Policy and CI integration
+## Policy and local verification
 
 Run `mpk policy scan` and `mpk policy verify` from an installed Linux release.
 Both commands validate revision-2 semantic-context and selection envelopes and
 select the registered Go frontend/toolchain tuple. No raw binary, registry,
 bundle, toolchain, or compatibility path is accepted. The complete argument
-contract and reusable CI block are in
+contract and reusable local verification block are in
 [`proof-ops-policy-ci.md`](proof-ops-policy-ci.md).
 
 Store scan/evidence outputs as review artifacts. Only

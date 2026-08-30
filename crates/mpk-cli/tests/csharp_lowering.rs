@@ -384,6 +384,10 @@ fn executable_harness_build_gate_and_vector_manifest_own_t09() {
 
 #[test]
 fn provisioned_offline_closure_executes_the_lowering_harness() {
+    if !cfg!(target_os = "linux") {
+        return;
+    }
+
     let root = repository_root();
     let profile = load("develop/specs/vectors/csharp-profile-v0.json");
     let hash = profile["toolchain_inputs"]["toolchain_inputs_sha256"]

@@ -637,13 +637,13 @@ cargo test -p mpk-cli --test policy_verify
 cargo test -p mpk-vc --test payment_policy_examples
 ```
 
-### PAYALPHA-COV-05: Docs And CI Gate
+### PAYALPHA-COV-05: Docs And Local Gate
 
 Tasks:
 
 - update `examples/payment_policies/README.md` with the new expected verified
   coverage;
-- update `docs/proof-ops-policy-ci.md` if the CI example status changes from
+- update `docs/proof-ops-policy-ci.md` if the local example status changes from
   `proof_pending` to `verified`;
 - update `docs/alpha-demo.md` so customer-facing demo language does not claim
   old pending counts;

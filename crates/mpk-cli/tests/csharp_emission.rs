@@ -294,6 +294,10 @@ fn emission_owners_are_complete_and_the_csharp_route_is_active_only_in_successor
 
 #[test]
 fn provisioned_emission_is_accepted_by_the_shared_successor_validators() {
+    if !cfg!(target_os = "linux") {
+        return;
+    }
+
     let root = repository_root();
     let profile = load("develop/specs/vectors/csharp-profile-v0.json");
     let hash = profile["toolchain_inputs"]["toolchain_inputs_sha256"]

@@ -654,7 +654,7 @@ cargo test -p mpk-cli --test policy_verify
 git diff --check
 ```
 
-### PAYALPHA-COV-T08 Refresh Docs, Fixture, and CI Guidance
+### PAYALPHA-COV-T08 Refresh Docs, Fixture, and Local Verification Guidance
 
 Status: Completed
 
@@ -727,8 +727,8 @@ Deliverables:
 
 - Updated reserve evidence fixture.
 - Docs that accurately describe the final strict payment-policy alpha path.
-- CI guidance that treats checked theory evidence as the gate for supported
-  alpha policies.
+- local verification guidance that treats checked theory evidence as the gate
+  for supported alpha policies.
 
 Acceptance criteria:
 

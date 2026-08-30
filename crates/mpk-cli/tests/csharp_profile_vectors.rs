@@ -235,6 +235,9 @@ fn every_frozen_top_level_field_has_an_aggregate_executor() {
 #[test]
 fn pinned_report_is_two_run_identical_and_complete() {
     let profile = load(PROFILE_PATH);
+    if !cfg!(target_os = "linux") {
+        return;
+    }
     if !complete_archive_cache(&profile) {
         return;
     }

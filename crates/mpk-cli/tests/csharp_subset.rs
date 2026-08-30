@@ -259,6 +259,10 @@ fn executable_harness_and_build_gate_own_subset_drift() {
 
 #[test]
 fn provisioned_offline_closure_executes_the_subset_harness() {
+    if !cfg!(target_os = "linux") {
+        return;
+    }
+
     let root = repository_root();
     let profile = load("develop/specs/vectors/csharp-profile-v0.json");
     let hash = profile["toolchain_inputs"]["toolchain_inputs_sha256"]
