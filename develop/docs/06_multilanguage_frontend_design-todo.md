@@ -4,10 +4,11 @@ Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
 Status: Gate C, `MLANG-01`, and Gate D are complete after the completed Rust
 and `MLANG-00` gates. `CSHARP-02-T01` through `CSHARP-02-T20` are complete;
-the shared Go/Rust/C# successor release is active. The Java phase has a
-dedicated design in `07_java_frontend_design.md`; its normative freeze and
-implementation tasks remain pending. No Java or later-language frontend is
-active, and no later-language phase has started.
+the shared Go/Rust/C# successor release is active. `JAVA-03-T01` completed
+the inactive normative profile/vector/toolchain freeze and disposable
+compiler/JVM compatibility probes. `JAVA-03-T02` is next; T02-T10 remain
+pending. No Java or later-language frontend is active, registry revision 2
+remains installed, and no later-language phase has started.
 
 ## Scope and sequencing
 
@@ -786,15 +787,24 @@ Design: `07_java_frontend_design.md` (2026-08-31). Java SE 25, a pinned Temurin
 JDK, public compiler/tree/language-model APIs, and a scalar subset of
 field-free interfaces with pure static methods are selected. Java owns its
 wrapping/division/shift check rules; Go/Rust/C# profile entries remain
-byte-identical in the proposed registry revision 3.
+byte-identical in the frozen, inactive registry revision 3.
 
-Execution follows the ten serial tasks in that design's section 11:
-`JAVA-03-T01` freezes the normative profile, vectors and measured JVM closure;
-T02-T07 build the inactive frontend, validators, lowering and runner; T08
-integrates VC/policy/evidence/AI/API; T09 hardens and rehearses the release;
-T10 activates the complete four-language release. All ten tasks are pending.
-No Java producer/consumer branch merges before T01, and no public Java tuple
-is activated before T10. Later-language phases remain blocked.
+Execution follows the ten serial tasks in that design's section 11 and
+`java-03-implementation-traceability-ledger.md`. `JAVA-03-T01` is complete;
+`JAVA-03-T02` is next. T02-T07 build the inactive frontend, validators,
+lowering and registered runner; T08 integrates VC/policy/evidence/AI/API;
+T09 hardens and rehearses the release; T10 activates the four-language
+release. T02-T10 remain pending. No public Java tuple is activated before
+T10. Later-language phases remain blocked.
+
+T01 completion evidence: `JAVA_PROFILE_V0.md`, Java and revision-3 vectors,
+manifest entries, the traceability ledger, exact Temurin 25.0.4.1+1/JDK/native
+inventory, fixed JVM options/budgets, and recorded public-API/host probes. All
+34 semantic rows are classified. The probes establish actual Linux amd64
+compiler/JVM compatibility under CPU emulation; they do not establish every
+native Linux cgroup/syscall/resource-failure release condition. T07/T09/T10
+own those installed enforcement gates. The production registry remains
+revision 2 and no Java implementation or active route was added.
 
 Exit gate: Java passes the common definition of done without reinterpreting C#,
 Go, or Rust semantics, including the local offline two-pass installed gate,

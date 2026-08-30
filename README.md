@@ -31,9 +31,13 @@ The workspace version is `0.1.0`, and the installed CLI is `mpk`.
 Certificate v0 and both source-free checking paths remain unchanged by this
 frontend migration.
 
-The next language is Java. Its [detailed design](develop/docs/07_java_frontend_design.md)
-defines the initial Java 25 scalar subset and serial implementation gates;
-the normative profile freeze and Java implementation are still pending.
+`JAVA-03-T01` completed the inactive [Java 25 profile freeze](develop/specs/JAVA_PROFILE_V0.md),
+including conformance vectors and pinned compiler/JVM compatibility evidence.
+Next is `JAVA-03-T02`, the isolated frontend build, in the
+[Java implementation ledger](develop/docs/java-03-implementation-traceability-ledger.md).
+Java is not implemented or active; the installed registry remains revision 2.
+The T01 Linux amd64 probe used CPU emulation and does not replace the later
+native Linux release gate.
 
 ## Build from source
 

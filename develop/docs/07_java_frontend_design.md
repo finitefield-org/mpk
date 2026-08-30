@@ -1,9 +1,10 @@
 # Java Scalar Frontend Design
 
-Status: Java-specific implementation design; not a frozen specification or an
-active frontend. `CSHARP-02` is complete, so `JAVA-03` may proceed. This change
-adds documentation only. The active release remains Go/Rust/C# with semantic
-registry revision 2.
+Status: Java-specific implementation design, subordinate to the normative
+`JAVA_PROFILE_V0.md` frozen by completed `JAVA-03-T01` (2026-08-31). T02 is
+next; Java implementation and activation remain pending. The active release
+remains Go/Rust/C# with semantic registry revision 2. This document includes
+the corrections established by T01's disposable compiler/JVM probes.
 
 Prepared: 2026-08-31.
 
@@ -22,12 +23,15 @@ matrix; that matrix and the compiler-feasibility record retain their original
 research status. The frozen specifications and registry admission rules win
 over this design if a conflict is discovered.
 
-`JAVA-03-T01` must turn these decisions into the normative Java profile,
-conformance vectors, pinned build-input inventory, and revision-3 registry
-vectors before any Java producer or consumer branch merges. Hashes, archive
-inventories, exact adapter observations, and launcher compatibility results
-are outputs of that specification-freeze task, not claims made by this design.
-Do not insert placeholder hashes or accept a Java identity until that gate.
+`JAVA-03-T01` completed the normative Java profile, conformance vectors,
+pinned build-input inventory, revision-3 registry vectors, and
+`java-03-implementation-traceability-ledger.md`. Exact hashes, inventories,
+API observations and JVM options live in `../specs/vectors/java-profile-v0.json`;
+this design does not duplicate mutable descriptor digests. T01's Linux amd64
+measurements used CPU emulation on an ARM host. They establish the recorded
+compiler/JVM compatibility, not the complete native Linux production
+isolation gate owned by T07/T09/T10. T02 may start the inactive frontend
+implementation; no public Java route is authorized before T10.
 
 Certificate v0, checker inputs, the two source-free checking implementations,
 and the four axiom categories remain unchanged. Java source, contracts, JDK,
@@ -75,12 +79,13 @@ artifacts as Go or C#. Do not inherit C# check requirements by analogy.
 
 ## 3. Profile, selection, and source closure
 
-### 3.1 Planned identities
+### 3.1 Frozen, inactive identities
 
-The following names are reserved in this design only; they are not accepted
-schema values until the specification and later release gates pass.
+T01 froze the following names in the normative specification. They remain
+inactive production values until the later implementation and release gates
+pass; the current registry does not accept Java.
 
-| Role | Planned identity |
+| Role | Frozen identity |
 | --- | --- |
 | Language / semantic profile | `java` / `mpk.java.scalar.v0` |
 | Parameter / selection schema | `mpk.semantic_parameters.java_scalar.v0` / `mpk.selection.java_methods.v0` |
@@ -109,9 +114,12 @@ Use the existing `SelectionEnvelope` shape with the Java schema. Its closed
 
 A method ID is `package.Interface::method(T1,T2)->R`, with no whitespace;
 `T1`, `T2`, and `R` are exactly `boolean`, `int`, or `long`. Zero parameters
-use `()`. Each identifier uses `[A-Za-z_][A-Za-z0-9_]*`, is a legal Java 25
-identifier in its position, and is not `_`. `$`, non-ASCII identifiers,
-escaped spelling, and alternate separators reject. The package has at least
+use `()`. Every package/type/method/parameter/local identifier uses
+`[A-Za-z_][A-Za-z0-9_]*`, excluding `_` and the normative profile's complete
+reserved/contextual-word list. T01 deliberately rejects contextual words in
+every identifier position, including `record`, `var`, `when`, and `yield`.
+`$`, non-ASCII/identifier-ignorable characters, escaped spelling and alternate
+separators reject. The package has at least
 one segment and cannot occupy `java`, `javax`, `jdk`, `sun`, or `com.sun`
 namespaces. Each file declares exactly one public top-level interface, with
 path `src/<package path>/<Interface>.java`; package and file case must match.
@@ -155,7 +163,11 @@ Each interface has no fields, superinterfaces, type parameters, annotations,
 nested declarations, or initialization blocks. Its only members are methods
 with explicitly written `public static`, no other modifiers, an explicit
 scalar return type, scalar parameters, and a body. No `throws` clause is
-accepted. Imports, module declarations and `package-info.java` reject.
+accepted. Count descriptor parameter units explicitly: `boolean`/`int` use
+one and `long` uses two, with maximum 255 for a static method. The T01 probe
+found that `analyze()` accepts 256 units without diagnostics, so the subset
+validator must enforce this bound itself. Imports, module declarations and
+`package-info.java` reject.
 
 This shape closes initialization structurally: invoking a static interface
 method initializes that interface, which has no state or initialization
@@ -283,12 +295,28 @@ forbidden. The public API boundaries are documented in
 [`JavacTask`](https://docs.oracle.com/en/java/javase/25/docs/api/jdk.compiler/com/sun/source/util/JavacTask.html)
 and [`jdk.compiler`](https://docs.oracle.com/en/java/javase/25/docs/api/jdk.compiler/module-summary.html).
 
-Validate source trees before and after attribution, with a frozen inventory of
-allowed compiler transformations. An erroneous tree, missing/error type,
-unresolved element, unexpected synthesized member, or unknown tree kind
-fails closed. Derive promotions only from the closed source rules and resolved
-types; do not infer them from javac internal operator symbols. Count and check
-all syntactic branches before lowering reachable execution.
+Snapshot source trees before attribution; finish attribution diagnostics
+before subset classification. After diagnostic-free attribution, reject known
+excluded raw source parents/forms before checking compiler transformations
+inside candidate accepted subtrees. The measured valid-class case gains a
+synthetic constructor with missing end positions, but still rejects as
+`JAVA_SUBSET_DECLARATION`; its generated descendants are neither admitted AST
+nor origin-mapped source. The measured `var` declaration has no type child
+before analysis and gains a `PRIMITIVE_TYPE` with missing end afterward;
+reject its raw source shape as `JAVA_SUBSET_TYPE` before those accepted-tree
+checks. Apply the same ordering to records/enums, disallowed raw identifiers
+and other ordinary excluded forms.
+
+Only source subtrees that survive those gates are compared with the frozen
+pre/post-attribution inventory. An erroneous tree, missing/error type,
+unresolved element, unexpected synthesized member, or unknown tree kind in
+that accepted candidate fails closed as an adapter error. Compiler/resource
+failure and attribution diagnostics keep their earlier precedence. Derive
+promotions only from the closed source rules and resolved types, never javac
+internal operator symbols. Count all public nodes under the bounded inventory,
+but do not treat counting an excluded subtree's synthetic nodes as acceptance
+or as an accepted-source transformation check. Every syntactic branch under
+an admitted parent, including a constant-dead arm, is checked before lowering.
 
 The CFG has one entry, no loop/back-edge or exceptional region, explicit
 conditional terminators, and return terminators on all complete paths.
@@ -298,12 +326,15 @@ the existing VIR local/copy rules, requiring assignment on every incoming
 path. Lower callee-before-caller with method-ID lexical tie breaking. Emit
 all conservative closure methods, even if a call occurs in a source-dead arm.
 
-Use `arg0...` by parameter order, `local0...` by declaration byte position,
-`t0...` by canonical emitted instruction order, `result0`, and `bb0...` by
-breadth-first traversal with false before true. Compiler object identities,
-hash-map order and compiler tree numbering never enter public IDs. Freeze
-branch, join, constant-condition, nested-call, and conversion patterns as
-golden vectors before implementing this adapter.
+Use `arg0...` by parameter order, `local0...` only for source locals by
+declaration byte position, `t0...` by canonical emitted instruction order,
+`result0`, and `bb0...` by breadth-first traversal with false before true.
+Short-circuit/conditional expression results join through existing block
+parameters `p0...` in canonical block/parameter order; do not invent synthetic
+source locals. The normative profile and `cfg_patterns` freeze these shapes.
+Compiler object identities, hash-map order and compiler tree numbering never
+enter public IDs. T01 froze representative branch/join/nested-call/conversion
+golden patterns; constant conditions preserve the same branch shape.
 
 ## 6. Contract sidecars and verification
 
@@ -312,7 +343,9 @@ Use a closed root with exactly `schema`, `semantic_profile`, `method`,
 Fix the first two to the Java identities, bind `method` to the exact method
 ID, require `modifies=[]`, `abrupt_completion="forbidden"`, and
 `termination="total"`. `requires` may be empty; `ensures` is nonempty; their
-combined clause count is at most 64. Every clause has Boolean type.
+combined clause count is at most 64. Every clause has Boolean type. Parameter
+references resolve only to that method's parameters; locals never appear. Result references are permitted
+only in `ensures`, never anywhere inside `requires`.
 
 The expression encoding follows the existing sidecar approach, with this
 smaller closed Java vocabulary:
@@ -358,11 +391,13 @@ compiler/runtime build, with `--release 25`. Its
 is the discovery source, not a runtime download route. No `latest` tag,
 automatic update, host JDK, SDK manager, or version-range match is permitted.
 
-Before implementation, T01 must record the exact archive URL, byte length,
-SHA-256, safe extraction rules, `release` metadata, executable/library modes,
-complete JDK/reference/native inventory, dependency linkage, redistribution
-notices, and canonical descriptor self-hash. Verify the archive against the
-publisher checksum and the independently recorded digest. JDK 25 Temurin
+T01 recorded the exact archive URL, byte length, SHA-256, safe extraction
+rules, `release` metadata, executable/library modes, complete JDK/reference/
+native inventory, dependency linkage, redistribution notices, and canonical
+descriptor self-hash in the Java vector. The native dependency closure adds
+six exact host files: the ELF loader and libc, libdl, libm, libpthread, and
+librt; JDK-owned native libraries remain in the complete JDK inventory. Verify
+the archive against the publisher checksum and the independently recorded digest. JDK 25 Temurin
 archives need not contain `jmods`; inventory the actual runtime modules and
 `ct.sym` rather than assume that directory exists. See
 [Temurin 25 packaging](https://adoptium.net/news/2025/09/eclipse-temurin-25-available).
@@ -390,10 +425,15 @@ error/warning count limits from section 9. Do not call `generate()` or
 user option, response file, `--source`, `--target`, or `--system` override is
 accepted. See [javac options](https://docs.oracle.com/en/java/javase/25/docs/specs/man/javac.html).
 
-Wrap a standard file manager with a closed, audited lookup boundary. Expose
-only captured source objects and the frozen JDK system-module/reference view.
-Set application class, source, module, upgrade, patch and processor locations
-to empty where the public API permits; refuse unsupported location queries
+Wrap the application standard file manager with a closed, audited lookup
+boundary exposing only captured source objects. T01 observed that
+`--release 25` obtains platform references through a separate internal javac
+file manager outside that wrapper; successful JDK type resolution produced
+zero wrapper system-file returns. Close this separate platform view through
+the exact pinned JDK inventory, fixed options/runtime image and OS filesystem
+boundary. Do not claim the wrapper intercepts all platform reads, and do not
+call internal compiler APIs to replace it. Set application class, source,
+module, upgrade, patch and processor locations to empty where the public API permits; refuse unsupported location queries
 according to the API contract. Never pass an empty string as a classpath
 element, since that can denote the working directory. A controlled empty
 directory or an empty location collection supplies an explicit empty path.
@@ -425,10 +465,16 @@ provider is a frontend error. No subordinate `javac` process is launched.
 Freeze an interpreter-only baseline (`-Xint`), shared-archive loading off
 (`-Xshare:off`), Serial GC, one reported processor, attach and performance-data
 facilities disabled, explicit heap/stack ceilings, fixed UTF-8/English/UTC
-properties, and bounded private temporary/error paths. The exact JVM option
-array, supported-option probe, root module graph and memory/process budgets
-must be measured and frozen in T01; these flags do not themselves establish
-sandbox compatibility. The
+properties, and bounded private temporary/error paths. T01 froze the exact
+JVM option array, supported-option probe, root module graph and memory/process
+budgets in `launcher_contract` and `toolchain_inputs.host`. The heap is
+32 MiB initial/512 MiB maximum, each stack 1 MiB; JVM root modules are
+`java.base,java.compiler,jdk.compiler,jdk.zipfs` (the resolved graph also
+includes `jdk.internal.opt`). Native requirements are glibc 2.36 and kernel
+ABI 6.4.0 or later, 16 GiB address space, 1 GiB cgroup memory, zero swap,
+128 PIDs, 1,024 open files, zero core bytes, 64 MiB private `noswap` tmpfs,
+and 120 seconds per request. These flags and requirements do not by
+themselves establish production sandbox enforcement. The
 [Java launcher manual](https://docs.oracle.com/en/java/javase/25/docs/specs/man/java.html)
 is the option reference. No fallback to JIT or a less restricted launch is
 allowed if the baseline fails the local Linux probe.
@@ -440,13 +486,20 @@ and `TZ=UTC`. Do not inherit `JAVA_HOME`, `CLASSPATH`, `JAVA_TOOL_OPTIONS`,
 `LD_LIBRARY_PATH`; the executable and native dependency closure come from
 validated descriptors. There are no provider credentials or host home mounts.
 
-Java requires a new measured host/layout profile. Do not claim compatibility
-with, widen, or silently reuse the current .NET-specific layout. Freeze the
-JVM's ELF interpreter, `libjli`/`libjvm`/native dependencies and libc ABI,
-required devices and `/proc` view, thread/clone behavior, file permissions,
-temporary storage and system calls. Preserve read-only source/toolchain mounts,
-private bounded `noswap` tmpfs, cgroup memory/PID limits, privilege dropping,
-no network, no writable executable inputs and descendant-process cleanup.
+Java uses its own host/layout profile; do not widen or silently reuse the
+.NET-specific layout. T01 freezes declarative Linux/glibc/JDK/native-library,
+ELF-interpreter, file/device/proc-layout, permission, temporary-storage and
+resource-budget requirements. It records the disposable compiler/JVM
+compatibility measurements and their stated limitations. It does not invent
+unmeasured native syscall or clone restrictions.
+
+T07 implements the registered native runner and verifies its syscall/clone
+policy, cgroup/resource-failure enforcement, privilege drop and descendant
+cleanup; T09/T10 run the complete native Linux release gates. Those tasks
+must preserve the frozen read-only source/toolchain mounts, private bounded
+`noswap` tmpfs, cgroup memory/PID limits, denied network and absence of
+writable executable inputs. An emulated T01 success cannot discharge those
+later enforcement obligations or authorize a weaker sandbox.
 
 The generic runner may gain a finite JVM launcher branch. It may not expose
 raw caller paths or relax Go/Rust/C# contracts. If the current descriptor
@@ -502,9 +555,11 @@ unbounded compiler prose. See
 | Unsupported declaration/type/operator/initialization/call/contract | `rejected`, exact Java subset/contract family |
 | Unknown compiler API state, invalid map, exhausted diagnostic/output budget, timeout or killed child | `frontend-error`; no partial success artifacts |
 
-T01 owns a closed `JAVA_*` diagnostic registry with phase, status, stable
-message and exit mappings under the shared frontend protocol. Normalize
-issues to logical path, byte span, severity and code; sort using those fields
+T01 froze a closed `JAVA_*` diagnostic registry with phase, status, stable
+message and exit mappings under the shared frontend protocol. The exact
+compiler code/kind allowlist, including the six observed ERROR codes, is in
+`diagnostic_normalization`; unknown codes or NOPOS provenance fail closed.
+Normalize issues to logical path, byte span, severity and code; sort using those fields
 and a frozen tie rule. Messages contain no source snippet, compiler prose,
 absolute path, environment content or stack trace. Normalize resource/signal
 failures at the parent when the child cannot emit valid bounded JSON. A
@@ -524,6 +579,7 @@ and emission as well as the final output.
 | Snapshot entries / total file bytes | 512 / 33,554,432 |
 | Path / method ID bytes | 1,024 / 1,024 |
 | Selected methods / closure methods | 32 / 128 |
+| Descriptor parameter units per static method | 255 |
 | Public syntax nodes per compilation / nesting depth | 250,000 / 256 |
 | Emitted instructions per method / closure | 100,000 / 250,000 |
 | CFG blocks per method / closure | 1,024 / 8,192 |
@@ -538,8 +594,11 @@ and emission as well as the final output.
 Source and sidecar byte counts use raw captured bytes. Snapshot entries count
 files plus distinct nonempty parent directories, excluding the root. Syntax
 nodes count each source public tree once before attribution; the post-analysis
-inventory must match the frozen allowed transformations and is separately
-bounded by the same count/depth. Instructions include masks, casts, copies
+inventory is separately bounded by the same count/depth. Transformation
+comparison follows raw source rejection gates and applies only to candidate
+accepted subtrees, as specified in section 5.3. Counting synthesized children
+of an excluded parent does not reinterpret them as accepted source or replace
+that parent's subset rejection with an adapter error. Instructions include masks, casts, copies
 and branch temporaries; contract roots have depth one. Check depth during
 iterative traversal, before recursive lowering. The isolated compiler may
 hit its hard memory/time bound before a logical count is available; report
@@ -547,9 +606,10 @@ that as a frontend resource failure, not a supported-source rejection.
 
 Configure javac's error/warning ceilings above the public issue budget (1,025
 each), and enforce the 1,024 all-kind limit in the listener so silent compiler
-truncation cannot produce success. T01 vectors must establish the exact
-listener/abort behavior for the pinned build. JVM heap, native memory, process
-count, timeout and tmpfs bounds belong to the measured host profile in section
+truncation cannot produce success. T01 vectors record the exact
+listener/abort behavior for the pinned build: the 1,025th callback aborts,
+1,024 issues are retained, and no output is generated. JVM heap, native
+memory, process count, timeout and tmpfs bounds belong to the measured host profile in section
 7, and must be numerical and frozen before production work.
 
 ## 10. Registry admission and all consumers
@@ -576,8 +636,8 @@ Java owns all nine IDs `mpk.profile.<field>.java_scalar.v0`:
 | `ai` | `mpk.java.ai_projection.v0`, label `Java`, `minimal-v1`, no source access or proof authority |
 
 Profiles select finite compiled validators; a registry is not executable
-configuration. Exact payload fields, envelope sizes, hashes and mutations
-must be frozen in T01. A recognized language with any missing contract is an
+configuration. T01 froze exact payload fields, envelope sizes, applicable hashes and
+mutations in the normative vectors. A recognized language with any missing contract is an
 invalid release, not partial Java support.
 
 The existing CLI selection route gains a Java branch that builds the validated
@@ -606,9 +666,10 @@ source-free and does not require a registry compatibility adapter.
 
 ## 11. Serial implementation plan
 
-These tasks refine `JAVA-03`; all remain pending. Each task depends on the
-previous row, starting from the completed `CSHARP-02-T20`. This design does
-not claim that the normative freeze, runtime probe or implementation is done.
+These tasks refine `JAVA-03`. T01 is complete; T02 is next and T02-T10
+remain pending. Each task depends on the previous row, starting from
+completed `CSHARP-02-T20`. The completed freeze/probes do not claim that the
+Java frontend or complete native Linux release gate is implemented.
 
 | Task | Deliverable | Exit condition |
 | --- | --- | --- |
@@ -629,17 +690,20 @@ private test/build boundary; do not add runtime environment toggles or
 alternate public input routes. The final task removes executable staging
 entrypoints and retains review evidence only as archived documentation.
 
-If a T01 probe falsifies an assumption, repair this design and review it
-before freezing. This is a prerequisite with an explicit owner, not permission
-for an implementer to guess archive hashes, relax isolation or accept an
-unknown compiler behavior. No Dart or later-language phase runs concurrently.
+T01 repaired assumptions falsified by its probes before freezing, including
+the platform-file-manager boundary and the unchecked descriptor-unit limit.
+An implementation finding must follow the profile's reviewed upgrade rules;
+it cannot guess archive hashes, relax isolation, or accept unknown compiler
+behavior. No Dart or later-language phase runs concurrently.
 
 ## 12. Validation and acceptance criteria
 
 ### 12.1 Required test families
 
-Planned owners are test files to create during implementation, not currently
-available commands. T01 records their exact vector ownership in the manifest.
+`java_profile_spec.rs` is the current T01 specification/hash model owner.
+Other owners below are implementation tests to create in their ledger tasks,
+not currently available Java commands. The manifest records current owning
+tests; the frozen ledger assigns every later implementation owner.
 
 | Planned owner | Required coverage |
 | --- | --- |

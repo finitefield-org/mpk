@@ -86,13 +86,16 @@ categories are unchanged. Frontends, compilers, registries, helper schemas,
 policy/evidence documents, AI output, and API state remain untrusted. The
 atomic installed-release owner is
 `crates/mpk-cli/tests/successor_atomic_cutover.rs`, and the offline two-pass
-release gate is `scripts/check-csharp-frontend.sh`. With CSHARP-02 complete,
-`JAVA-03` is the next language phase. Its detailed design is
-[`docs/07_java_frontend_design.md`](docs/07_java_frontend_design.md), covering
-the Java 25 scalar subset, public compiler integration, JVM isolation,
-revision-3 admission and ten serial implementation tasks. The normative
-profile/vector freeze and implementation remain pending; no Java or
-later-language frontend is active.
+release gate is `scripts/check-csharp-frontend.sh`. `JAVA-03-T01` completed
+the inactive [Java profile](specs/JAVA_PROFILE_V0.md), exact Java/revision-3
+vectors, pinned JDK/native inventory and disposable public-API/JVM probes.
+The [design](docs/07_java_frontend_design.md) and
+[implementation ledger](docs/java-03-implementation-traceability-ledger.md)
+record the ten serial tasks; `JAVA-03-T02` (isolated offline frontend build)
+is next. T01 measured Linux amd64 compatibility under CPU emulation, not the
+complete native Linux release gate. Java implementation remains pending; no
+Java or later-language frontend is active and registry revision 2 stays
+installed.
 
 No multi-language design, feasibility, specification, or implementation phase
 runs in parallel with the Rust program or with another language phase.
@@ -276,12 +279,14 @@ Start with:
 17. `specs/CSHARP_PROFILE_V0.md`
 18. `docs/csharp-02-implementation-traceability-ledger.md`
 19. `docs/07_java_frontend_design.md`
-20. `roadmap/RELEASE_GATES.md`
+20. `docs/java-03-implementation-traceability-ledger.md`
+21. `specs/JAVA_PROFILE_V0.md`
+22. `roadmap/RELEASE_GATES.md`
 
 The original baseline can be seeded from `tasks/github_issues_seed.jsonl` or
 imported from `tasks/task_backlog.csv`. Use the two design todo documents and
-the C# ledger for post-Rust tracker tasks; Java's serial task outline is in
-section 11 of its detailed design until its T01 traceability ledger is frozen.
+the C# and Java implementation ledgers for post-Rust tracker tasks. Java's
+T01 freeze is complete; its next serial task is `JAVA-03-T02`.
 
 ## Reference posture
 

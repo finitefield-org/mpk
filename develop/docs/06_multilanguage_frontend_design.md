@@ -3,13 +3,15 @@
 Status: Gate B, `MLANG-00`, Gate C, `MLANG-01`, and Gate D are complete after
 the completed `RUST-07-T05` entry gate. `CSHARP-02-T01` through
 `CSHARP-02-T20` completed serially; the shared successor Go/Rust/C# release is
-active. Java-specific design is recorded in `07_java_frontend_design.md`;
-its normative freeze and implementation remain pending. No Java or
-later-language route is active.
+active. `JAVA-03-T01` completed the inactive Java profile/vector/toolchain
+freeze and disposable compiler/JVM compatibility probes; `JAVA-03-T02` is
+next. `07_java_frontend_design.md` and the Java implementation ledger record
+the implementation boundary. No Java or later-language route is active;
+registry revision 2 remains installed.
 
 Prepared: 2026-08-21
 
-Updated: 2026-08-31 (Java-specific design after `CSHARP-02-T20` completion)
+Updated: 2026-08-31 (`JAVA-03-T01` freeze complete; T02 next)
 
 ## 1. Decision summary
 
@@ -323,9 +325,12 @@ SE 25 without preview features, a pinned Temurin JDK, and a first scalar
 profile over `boolean`, `int`, and `long` in field-free source interfaces.
 Static acyclic calls are admitted only within the completely selected inert
 initialization closure. Java wrapping arithmetic and masked shifts use the
-existing BV foundations with Java-owned checks. The normative package,
-measured JVM host closure and revision-3 vectors must be frozen before
-production work; this design does not activate Java.
+existing BV foundations with Java-owned checks. `JAVA-03-T01` froze
+`../specs/JAVA_PROFILE_V0.md`, Java/revision-3 vectors, the exact JDK/native
+inventory and JVM requirements. The disposable compiler/JVM measurements ran
+on Linux amd64 under CPU emulation; native Linux production enforcement
+remains owned by T07/T09/T10. T02 starts the inactive implementation. This
+freeze does not activate Java or replace the installed revision-2 registry.
 
 The supported JDK compiler APIs expose parse/analyze trees and language/type
 models. The initial profile rejects allocation, reference values, instance and
