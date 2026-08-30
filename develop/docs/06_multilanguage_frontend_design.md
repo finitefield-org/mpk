@@ -3,11 +3,13 @@
 Status: Gate B, `MLANG-00`, Gate C, `MLANG-01`, and Gate D are complete after
 the completed `RUST-07-T05` entry gate. `CSHARP-02-T01` through
 `CSHARP-02-T20` completed serially; the shared successor Go/Rust/C# release is
-active and `JAVA-03` is eligible. No Java or later-language route is active.
+active. Java-specific design is recorded in `07_java_frontend_design.md`;
+its normative freeze and implementation remain pending. No Java or
+later-language route is active.
 
 Prepared: 2026-08-21
 
-Updated: 2026-08-30 (`CSHARP-02-T20` completion)
+Updated: 2026-08-31 (Java-specific design after `CSHARP-02-T20` completion)
 
 ## 1. Decision summary
 
@@ -315,6 +317,15 @@ framework, reference assemblies, preprocessor symbols, analyzer/source-
 generator policy, and compiler package graph are pinned inputs.
 
 ### 8.2 Java boundary
+
+The implementation design is `07_java_frontend_design.md`. It selects Java
+SE 25 without preview features, a pinned Temurin JDK, and a first scalar
+profile over `boolean`, `int`, and `long` in field-free source interfaces.
+Static acyclic calls are admitted only within the completely selected inert
+initialization closure. Java wrapping arithmetic and masked shifts use the
+existing BV foundations with Java-owned checks. The normative package,
+measured JVM host closure and revision-3 vectors must be frozen before
+production work; this design does not activate Java.
 
 The supported JDK compiler APIs expose parse/analyze trees and language/type
 models. The initial profile rejects allocation, reference values, instance and

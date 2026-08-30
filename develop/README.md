@@ -87,8 +87,12 @@ policy/evidence documents, AI output, and API state remain untrusted. The
 atomic installed-release owner is
 `crates/mpk-cli/tests/successor_atomic_cutover.rs`, and the offline two-pass
 release gate is `scripts/check-csharp-frontend.sh`. With CSHARP-02 complete,
-`JAVA-03` is the next eligible language phase; no Java or later-language
-frontend is active.
+`JAVA-03` is the next language phase. Its detailed design is
+[`docs/07_java_frontend_design.md`](docs/07_java_frontend_design.md), covering
+the Java 25 scalar subset, public compiler integration, JVM isolation,
+revision-3 admission and ten serial implementation tasks. The normative
+profile/vector freeze and implementation remain pending; no Java or
+later-language frontend is active.
 
 No multi-language design, feasibility, specification, or implementation phase
 runs in parallel with the Rust program or with another language phase.
@@ -183,6 +187,7 @@ complete VIR artifact set installed at the active paths.
 │   ├── rust-frontend-toolchain-upgrade.md
 │   ├── 06_multilanguage_frontend_design.md
 │   ├── 06_multilanguage_frontend_design-todo.md
+│   ├── 07_java_frontend_design.md
 │   ├── mlang-00-semantic-comparison-matrix.md
 │   ├── mlang-00-compiler-integration-feasibility.md
 │   ├── mlang-00-go-rust-shared-boundary-audit.md
@@ -270,11 +275,13 @@ Start with:
 16. `specs/SEMANTIC_PROFILE_REGISTRY_V1.md`
 17. `specs/CSHARP_PROFILE_V0.md`
 18. `docs/csharp-02-implementation-traceability-ledger.md`
-19. `roadmap/RELEASE_GATES.md`
+19. `docs/07_java_frontend_design.md`
+20. `roadmap/RELEASE_GATES.md`
 
 The original baseline can be seeded from `tasks/github_issues_seed.jsonl` or
 imported from `tasks/task_backlog.csv`. Use the two design todo documents and
-the C# ledger for post-Rust tracker tasks.
+the C# ledger for post-Rust tracker tasks; Java's serial task outline is in
+section 11 of its detailed design until its T01 traceability ledger is frozen.
 
 ## Reference posture
 

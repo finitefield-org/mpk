@@ -4,8 +4,10 @@ Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
 Status: Gate C, `MLANG-01`, and Gate D are complete after the completed Rust
 and `MLANG-00` gates. `CSHARP-02-T01` through `CSHARP-02-T20` are complete;
-the shared Go/Rust/C# successor release is active and `JAVA-03` is eligible.
-No Java or later-language phase is active.
+the shared Go/Rust/C# successor release is active. The Java phase has a
+dedicated design in `07_java_frontend_design.md`; its normative freeze and
+implementation tasks remain pending. No Java or later-language frontend is
+active, and no later-language phase has started.
 
 ## Scope and sequencing
 
@@ -780,13 +782,23 @@ make `JAVA-03` eligible.
 
 Entry gate: `CSHARP-02` complete.
 
-Only after the entry gate, freeze the Java subset/profile/toolchain package
-using the pinned JDK Compiler Tree and language-model APIs, exact `--release`
-target, system modules, source/class/module paths, and an empty annotation-
-processor set. Then implement the same common deliverables and gates as C#.
+Design: `07_java_frontend_design.md` (2026-08-31). Java SE 25, a pinned Temurin
+JDK, public compiler/tree/language-model APIs, and a scalar subset of
+field-free interfaces with pure static methods are selected. Java owns its
+wrapping/division/shift check rules; Go/Rust/C# profile entries remain
+byte-identical in the proposed registry revision 3.
+
+Execution follows the ten serial tasks in that design's section 11:
+`JAVA-03-T01` freezes the normative profile, vectors and measured JVM closure;
+T02-T07 build the inactive frontend, validators, lowering and runner; T08
+integrates VC/policy/evidence/AI/API; T09 hardens and rehearses the release;
+T10 activates the complete four-language release. All ten tasks are pending.
+No Java producer/consumer branch merges before T01, and no public Java tuple
+is activated before T10. Later-language phases remain blocked.
 
 Exit gate: Java passes the common definition of done without reinterpreting C#,
-Go, or Rust semantics.
+Go, or Rust semantics, including the local offline two-pass installed gate,
+same-byte dual-checker certificate corpus and zero open review findings.
 
 ## DART-04: Implement and release Dart
 

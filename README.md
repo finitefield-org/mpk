@@ -31,6 +31,10 @@ The workspace version is `0.1.0`, and the installed CLI is `mpk`.
 Certificate v0 and both source-free checking paths remain unchanged by this
 frontend migration.
 
+The next language is Java. Its [detailed design](develop/docs/07_java_frontend_design.md)
+defines the initial Java 25 scalar subset and serial implementation gates;
+the normative profile freeze and Java implementation are still pending.
+
 ## Build from source
 
 Install Rust, Go, and Python 3, then build the workspace CLI:
