@@ -48,10 +48,16 @@ PROJECT_FILES = (
     "src/mpk/java2vir/DiagnosticRegistry.java",
     "src/mpk/java2vir/FrontendFailure.java",
     "src/mpk/java2vir/FrontendLimits.java",
+    "src/mpk/java2vir/JavaAdmission.java",
+    "src/mpk/java2vir/JavaContracts.java",
+    "src/mpk/java2vir/JavaSubset.java",
     "src/mpk/java2vir/Main.java",
     "src/mpk/java2vir/Protocol.java",
+    "src/mpk/java2vir/ScalarType.java",
     "src/mpk/java2vir/Selection.java",
     "src/mpk/java2vir/SourceText.java",
+    "src/mpk/java2vir/SourceTokens.java",
+    "src/mpk/java2vir/StrictJson.java",
     "src/mpk/java2vir/TreeInventory.java",
 )
 MANIFEST = b"Manifest-Version: 1.0\nMain-Class: mpk.java2vir.Main\n\n"

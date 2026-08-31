@@ -8,7 +8,16 @@ import java.util.TreeMap;
 /** Failure-only successor transport. T06 owns success/artifact emission. */
 final class Protocol {
     private Protocol() {}
-    private static final String CONTEXT = "{\"profile_entry_sha256\":\"0d80d13f97c45557fa9978eccc2545ffdb3fc1b93a26856b365a9be200470301\",\"profile_registry\":{\"id\":\"mpk.semantic_profile.registry.v1\",\"registry_sha256\":\"fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557\",\"revision\":3,\"schema\":\"mpk.semantic_profile.registry.v1\"},\"semantic_parameters\":{\"schema\":\"mpk.semantic_parameters.java_scalar.v0\",\"value\":{\"annotation_processing\":\"none\",\"encoding\":\"UTF-8\",\"language_version\":\"25\",\"preview\":false,\"release\":\"25\",\"target_id\":\"linux-x64\"}},\"semantic_profile\":\"mpk.java.scalar.v0\",\"source_language\":\"java\"}";
+    private static final Map<String, Object> CONTEXT = Map.of(
+            "profile_entry_sha256", "0d80d13f97c45557fa9978eccc2545ffdb3fc1b93a26856b365a9be200470301",
+            "profile_registry", Map.of("id", "mpk.semantic_profile.registry.v1", "schema", "mpk.semantic_profile.registry.v1",
+                    "revision", 3, "registry_sha256", "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557"),
+            "semantic_parameters", Map.of("schema", "mpk.semantic_parameters.java_scalar.v0", "value", Map.of(
+                    "annotation_processing", "none", "encoding", "UTF-8", "language_version", "25", "preview", false,
+                    "release", "25", "target_id", "linux-x64")),
+            "semantic_profile", "mpk.java.scalar.v0", "source_language", "java");
+
+    static Map<String, Object> semanticContext() { return CONTEXT; }
 
     static byte[] failure(Selection selection, FrontendFailure failure) {
         List<Map<String, Object>> issues = failure.issues().stream().map(FrontendFailure.Issue::json).toList();
@@ -19,7 +28,7 @@ final class Protocol {
         out.append(",\"rejected_features\":");
         append(out, failure.status().equals("rejected") ? issues : List.of());
         out.append(",\"schema\":\"mpk.frontend.cli.v1\",\"selection\":"); append(out, selection.envelope());
-        out.append(",\"semantic_context\":").append(CONTEXT);
+        out.append(",\"semantic_context\":").append(json(CONTEXT));
         out.append(",\"status\":"); append(out, failure.status());
         out.append("}\n");
         byte[] bytes = out.toString().getBytes(StandardCharsets.UTF_8);

@@ -66,10 +66,12 @@ final class TreeInventory {
     private record Pending(Tree tree, TreePath path, CompilationUnitTree unit, SourceText source, int depth) {}
     private final List<Node> ordered;
     private final Map<Tree, Node> byTree;
+    private final Set<Tree> shared;
 
-    private TreeInventory(List<Node> ordered, Map<Tree, Node> byTree) {
+    private TreeInventory(List<Node> ordered, Map<Tree, Node> byTree, Set<Tree> shared) {
         this.ordered = List.copyOf(ordered);
         this.byTree = Collections.unmodifiableMap(new IdentityHashMap<>(byTree));
+        this.shared = Collections.unmodifiableSet(shared);
     }
     List<Node> nodes() { return ordered; }
     Node node(Tree tree) {
@@ -82,10 +84,13 @@ final class TreeInventory {
                                   Origins origins, boolean analyzed) {
         var ordered = new ArrayList<Node>();
         var seen = new IdentityHashMap<Tree, Node>();
+        var discovered = Collections.newSetFromMap(new IdentityHashMap<Tree, Boolean>());
+        var shared = Collections.newSetFromMap(new IdentityHashMap<Tree, Boolean>());
         var pending = new ArrayDeque<Pending>();
         for (int i = units.size() - 1; i >= 0; i--) {
             CompilationUnitTree unit = units.get(i);
             SourceText source = origins.source(unit);
+            if (!discovered.add(unit)) throw adapter();
             pending.push(new Pending(unit, new TreePath(unit), unit, source, 1));
         }
         while (!pending.isEmpty()) {
@@ -98,7 +103,7 @@ final class TreeInventory {
             Tree.Kind kind = requireKnownKind(tree);
             long start = trees.getSourcePositions().getStartPosition(item.unit(), tree);
             long end = trees.getSourcePositions().getEndPosition(item.unit(), tree);
-            var children = children(tree, (long) ordered.size() + pending.size() + 1, item.depth(), phase);
+            var children = children(tree, discovered.size(), item.depth(), phase, discovered);
             // Raw spelling stays in SourceText; spans/facts are copied before javac can mutate a tree.
             TypeMirror type = analyzed ? trees.getTypeMirror(item.path()) : null;
             Element element = analyzed ? trees.getElement(item.path()) : null;
@@ -108,21 +113,33 @@ final class TreeInventory {
             ordered.add(node);
             for (int i = children.size() - 1; i >= 0; i--) {
                 Tree child = children.get(i);
-                // Count pending nodes as well, before an excess child is retained.
-                FrontendLimits.check("syntax_nodes", (long) ordered.size() + pending.size() + 1, phase);
                 FrontendLimits.check("syntax_depth", (long) item.depth() + 1, phase);
+                // javac shares modifier/type objects between multi-declarators.
+                // Count each object once, but never admit a shared accepted tree.
+                // The raw parent gate must be able to reject that declaration first.
+                if (discovered.contains(child)) { shared.add(child); continue; }
+                FrontendLimits.check("syntax_nodes", (long) discovered.size() + 1, phase);
+                discovered.add(child);
                 pending.push(new Pending(child, new TreePath(item.path(), child), item.unit(), item.source(), item.depth() + 1));
             }
         }
-        return new TreeInventory(ordered, seen);
+        return new TreeInventory(ordered, seen, shared);
     }
 
     static List<Tree> children(Tree tree, long retained, int depth, String phase) {
+        return children(tree, retained, depth, phase, Set.of());
+    }
+
+    private static List<Tree> children(Tree tree, long retained, int depth, String phase, Set<Tree> discovered) {
         var children = new ArrayList<Tree>();
+        var additional = Collections.newSetFromMap(new IdentityHashMap<Tree, Boolean>());
         tree.accept(new TreeScanner<Void, Void>() {
             @Override public Void scan(Tree child, Void unused) {
                 if (child != null) {
-                    FrontendLimits.check("syntax_nodes", retained + children.size() + 1, phase);
+                    if (!discovered.contains(child) && !additional.contains(child)) {
+                        FrontendLimits.check("syntax_nodes", retained + additional.size() + 1, phase);
+                        additional.add(child);
+                    }
                     FrontendLimits.check("syntax_depth", (long) depth + 1, phase);
                     children.add(child);
                 }
@@ -152,6 +169,7 @@ final class TreeInventory {
         pending.push(root);
         while (!pending.isEmpty()) {
             Tree tree = pending.pop();
+            if (shared.contains(tree) || after.shared.contains(tree)) throw adapter();
             Node old = node(tree);
             Node now = after.node(tree);
             if (old.kind() != now.kind() || old.start() != now.start() || old.end() != now.end()

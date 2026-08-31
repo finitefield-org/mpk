@@ -7,14 +7,15 @@ active. `JAVA-03-T01` completed the inactive Java profile/vector/toolchain
 freeze and disposable compiler/JVM compatibility probes. T02 completed the
 inactive offline build candidate; T03 completed the inactive registry and
 artifact validators. T04 completed internal capture, the public compiler
-adapter and bounded diagnostics. `JAVA-03-T05` is next.
+adapter and bounded diagnostics. T05 completed source admission, inert
+initialization, acyclic call closure and typed sidecars. `JAVA-03-T06` is next.
 `07_java_frontend_design.md` and the Java implementation ledger record
 the implementation boundary. No Java or later-language route is active;
 registry revision 2 remains installed.
 
 Prepared: 2026-08-21
 
-Updated: 2026-08-31 (`JAVA-03-T01` through T04 complete; T05 next)
+Updated: 2026-08-31 (`JAVA-03-T01` through T05 complete; T06 next)
 
 ## 1. Decision summary
 
@@ -334,8 +335,9 @@ inventory and JVM requirements. The disposable compiler/JVM measurements ran
 on Linux amd64 under CPU emulation; native Linux production enforcement
 remains owned by T07/T09/T10. T02 added the offline build candidate with
 exact project/class/JAR inventories and two isolated builds. T03 completed
-the inactive profile and source-artifact validators. T04 begins capture and
-the public compiler adapter. These changes do not activate Java or replace
+the inactive profile and source-artifact validators. T04 completed capture and
+the public compiler adapter; T05 completed source admission and typed sidecars.
+T06 owns lowering and artifact emission. These changes do not activate Java or replace
 the installed revision-2 registry.
 
 The supported JDK compiler APIs expose parse/analyze trees and language/type

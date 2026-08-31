@@ -6,7 +6,8 @@ semantic registry revision 2. The disposable compiler/JVM compatibility
 measurements establish the recorded T01 observations, not the complete native
 Linux production isolation gate. T02's offline build candidate and T03's
 inactive contract/artifact validators and T04's internal capture/compiler
-adapter are complete; `JAVA-03-T05` (source subset/sidecars) is next.
+adapter are complete. T05's internal source admission and typed sidecars are
+complete; `JAVA-03-T06` (lowering and artifact emission) is next.
 Java activation belongs only to `JAVA-03-T10`.
 
 T04 corrected lost Unicode characters in one recorded adapter fixture from

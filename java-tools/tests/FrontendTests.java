@@ -414,8 +414,8 @@ public final class FrontendTests {
         expect("precedence/encoding_before_parse", "JAVA_SOURCE_ENCODING", "source", () -> new SourceText(SOURCE, new byte[]{(byte) 0xff, '{', '\n'}));
         expect("precedence/parse_before_attribution", "JAVA_SOURCE_PARSE", "source", () -> { try (var session = CompilerSession.analyzeSources(List.of(source("package vector; public interface Case { static int f() { return missing;\n")))) { session.units(); } });
         expect("precedence/attribution_before_subset", "JAVA_SOURCE_DIAGNOSTIC", "typecheck", () -> { try (var session = CompilerSession.analyzeSources(List.of(source("package vector; public interface Case { static int f() { while (true) { return missing; } } }\n")))) { session.units(); } });
-        // T05/T06 own actual subset/contract/lowering/map outcomes. T04 proves
-        // their fixed failure transport never adds any partial artifact member.
+        // AdmissionTests executes T05's source/contract outcomes; T06 owns maps.
+        // T04 also proves their failure transport has no partial artifact member.
         for (String code : List.of("JAVA_SUBSET_INITIALIZATION", "JAVA_CONTRACT_JSON", "JAVA_SOURCE_MAP_RANGE"))
             failure("future-phase-transport/" + code, SELECTION, FrontendFailure.of(code, "emission"));
     }

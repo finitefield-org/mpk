@@ -3,8 +3,8 @@
 Status: Java-specific implementation design, subordinate to the normative
 `JAVA_PROFILE_V0.md` frozen by completed `JAVA-03-T01` (2026-08-31). T02's
 offline build candidate, T03's inactive validators and T04's internal
-capture/compiler adapter are complete; T05 is next. Source subset/sidecars,
-VIR emission and activation remain pending. The active release
+capture/compiler adapter and T05's source admission/typed sidecars are
+complete; T06 is next. VIR emission and activation remain pending. The active release
 remains Go/Rust/C# with semantic registry revision 2. This document includes
 the corrections established by T01's disposable compiler/JVM probes.
 
@@ -670,10 +670,10 @@ source-free and does not require a registry compatibility adapter.
 
 ## 11. Serial implementation plan
 
-These tasks refine `JAVA-03`. T01-T04 are complete; T05 is next and T05-T10
+These tasks refine `JAVA-03`. T01-T05 are complete; T06 is next and T06-T10
 remain pending. Each task depends on the previous row, starting from
 completed `CSHARP-02-T20`. The completed freeze/probes do not claim that the
-complete Java source-admission/lowering frontend or native Linux release gate is implemented.
+complete Java lowering frontend or native Linux release gate is implemented.
 
 | Task | Deliverable | Exit condition |
 | --- | --- | --- |
@@ -704,17 +704,19 @@ behavior. No Dart or later-language phase runs concurrently.
 
 ### 12.1 Required test families
 
-`java_profile_spec.rs` is the current T01 specification/hash model owner.
-Other owners below are implementation tests to create in their ledger tasks,
-not currently available Java commands. The manifest records current owning
-tests; the frozen ledger assigns every later implementation owner.
+`java_profile_spec.rs` owns the T01 specification/hash model. The build,
+profile, capture and source/contract admission owners through T05 are
+implemented. Later owners and downstream contributions remain assigned to
+their ledger tasks. The manifest records the currently available tests.
 
-| Planned owner | Required coverage |
+| Owner | Required coverage |
 | --- | --- |
 | `crates/mpk-vc/tests/java_profile_spec.rs` | Strict specification vectors, canonical hashes, all nine contracts, exact predecessor entries |
 | `crates/mpk-cli/tests/java_build_inputs.rs` | Archive/path/link/native inventory mutations, version/option mismatches, offline reconstruction |
-| `crates/mpk-cli/tests/java_frontend_vectors.rs` | Capture, parse/analyze, diagnostics, initialization, tree closure, sidecars, maps and protocol |
+| `crates/mpk-cli/tests/java_frontend_vectors.rs` | Capture, parse/analyze, tree inventories, diagnostics and protocol; downstream precedence contributions |
 | `crates/mpk-vc/tests/java_profile_vectors.rs` | All typed VIR/VC mappings, missing/extra checks, signed/unsigned internal-pattern mutations |
+| `crates/mpk-cli/tests/java_subset.rs` | Source forms, inert initialization, typed bindings/conversions, complete acyclic call closure and subset limits |
+| `crates/mpk-cli/tests/java_contracts.rs` | Strict sidecar JSON, complete attachment, type/operator rules, ordered normalization, canonical hashes and contract limits |
 | `crates/mpk-cli/tests/java_policy_verify.rs` | Contract/call obligations, evidence regeneration, same-byte dual checking, AI/API rejection and redaction |
 | `crates/mpk-cli/tests/java_release_gate.rs` | Candidate rehearsal and active four-language installation, isolation, cross-generation rejection, determinism and upgrade corpus |
 

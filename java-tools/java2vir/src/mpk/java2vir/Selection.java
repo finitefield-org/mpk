@@ -31,11 +31,7 @@ record Selection(String compilation, List<String> sources, List<String> contract
         }
         for (String method : methods) {
             FrontendLimits.check("canonical_method_id_bytes", method.length(), "capture");
-            var parsed = METHOD.matcher(method);
-            if (!parsed.matches() || !identifier(parsed.group(2))) throw pathFailure();
-            int separator = parsed.group(1).lastIndexOf('.');
-            if (separator < 0 || !packageName(parsed.group(1).substring(0, separator))
-                    || !identifier(parsed.group(1).substring(separator + 1))) throw pathFailure();
+            if (!methodId(method)) throw pathFailure();
         }
         expected(sources, contracts);
     }
@@ -55,7 +51,16 @@ record Selection(String compilation, List<String> sources, List<String> contract
         return IDENTIFIER.matcher(value).matches() && !(" " + EXCLUDED + " ").contains(" " + value + " ");
     }
 
-    private static boolean packageName(String value) {
+    static boolean methodId(String value) {
+        if (value == null || value.length() > 1024) return false;
+        var parsed = METHOD.matcher(value);
+        if (!parsed.matches() || !identifier(parsed.group(2))) return false;
+        int separator = parsed.group(1).lastIndexOf('.');
+        return separator > 0 && packageName(parsed.group(1).substring(0, separator))
+                && identifier(parsed.group(1).substring(separator + 1));
+    }
+
+    static boolean packageName(String value) {
         for (String part : value.split("\\.", -1)) if (!identifier(part)) return false;
         for (String prefix : List.of("java", "javax", "jdk", "sun", "com.sun"))
             if (value.equals(prefix) || value.startsWith(prefix + ".")) return false;

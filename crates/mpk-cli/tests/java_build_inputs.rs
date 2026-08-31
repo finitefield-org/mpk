@@ -6,9 +6,9 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 
 const TOOLCHAIN_HASH: &str = "a75175ba0cce86d97a8e056d4dda7a0826bb6676ba551c454bd65e5d44d23fc4";
-const JAR_HASH: &str = "a08106c84aa784f37b0f88484c8d30dee2eaf060d62c591575582b420677d8ea";
+const JAR_HASH: &str = "9ec1e1c639dca558365820108359dc97d1b7613b11c9f19025430dd68379f82c";
 const CLASS_INVENTORY_HASH: &str =
-    "9cd035ed1125b7c7b1b8d7238902d27fa19b0bec9a0dca3540a707112f3c562c";
+    "b6d962fbd72f8c40ed8a9e1406801785fe7ccb415e966df75de7fe1d66309538";
 
 fn root() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("../..")
@@ -78,10 +78,16 @@ fn java_build_descriptor_binds_sources_recipe_and_measured_candidate() {
         "src/mpk/java2vir/DiagnosticRegistry.java",
         "src/mpk/java2vir/FrontendFailure.java",
         "src/mpk/java2vir/FrontendLimits.java",
+        "src/mpk/java2vir/JavaAdmission.java",
+        "src/mpk/java2vir/JavaContracts.java",
+        "src/mpk/java2vir/JavaSubset.java",
         "src/mpk/java2vir/Main.java",
         "src/mpk/java2vir/Protocol.java",
+        "src/mpk/java2vir/ScalarType.java",
         "src/mpk/java2vir/Selection.java",
         "src/mpk/java2vir/SourceText.java",
+        "src/mpk/java2vir/SourceTokens.java",
+        "src/mpk/java2vir/StrictJson.java",
         "src/mpk/java2vir/TreeInventory.java",
     ];
     assert_eq!(records.len(), paths.len());
@@ -170,10 +176,35 @@ fn java_build_descriptor_binds_sources_recipe_and_measured_candidate() {
             "mpk/java2vir/FrontendFailure.class",
             "mpk/java2vir/FrontendLimits$Limit.class",
             "mpk/java2vir/FrontendLimits.class",
+            "mpk/java2vir/JavaAdmission$Program.class",
+            "mpk/java2vir/JavaAdmission.class",
+            "mpk/java2vir/JavaContracts$Attached.class",
+            "mpk/java2vir/JavaContracts$ClosureCounter.class",
+            "mpk/java2vir/JavaContracts$ContractSet.class",
+            "mpk/java2vir/JavaContracts$Expr.class",
+            "mpk/java2vir/JavaContracts$MethodCounter.class",
+            "mpk/java2vir/JavaContracts$Parsed.class",
+            "mpk/java2vir/JavaContracts$Pending.class",
+            "mpk/java2vir/JavaContracts$Typed.class",
+            "mpk/java2vir/JavaContracts$Validated.class",
+            "mpk/java2vir/JavaContracts.class",
+            "mpk/java2vir/JavaSubset$1.class",
+            "mpk/java2vir/JavaSubset$Binding.class",
+            "mpk/java2vir/JavaSubset$Body.class",
+            "mpk/java2vir/JavaSubset$Closure.class",
+            "mpk/java2vir/JavaSubset$Declaration.class",
+            "mpk/java2vir/JavaSubset$Method.class",
+            "mpk/java2vir/JavaSubset.class",
             "mpk/java2vir/Main.class",
             "mpk/java2vir/Protocol.class",
+            "mpk/java2vir/ScalarType.class",
             "mpk/java2vir/Selection.class",
             "mpk/java2vir/SourceText.class",
+            "mpk/java2vir/SourceTokens.class",
+            "mpk/java2vir/StrictJson$Cursor.class",
+            "mpk/java2vir/StrictJson$Frame.class",
+            "mpk/java2vir/StrictJson$Value.class",
+            "mpk/java2vir/StrictJson.class",
             "mpk/java2vir/TreeInventory$1.class",
             "mpk/java2vir/TreeInventory$Node.class",
             "mpk/java2vir/TreeInventory$Origins$Origin.class",
@@ -188,12 +219,15 @@ fn java_build_descriptor_binds_sources_recipe_and_measured_candidate() {
         "2cc9db1b015cbb6988fe39ef16f59144bf627a4156ce5bc560899779934c8a52"
     );
     assert_eq!(
-        classes[18]["sha256"],
+        classes
+            .iter()
+            .find(|record| record["path"] == "mpk/java2vir/Main.class")
+            .unwrap()["sha256"],
         "e7f7f8b630e05d8565ce8173c85b920046180a9d550aa2ec42e4c882c6e7e102"
     );
     assert_eq!(
         inventory["frontend_files"],
-        json!([{"path":"java2vir.jar", "mode":"0644", "size_bytes":108747, "sha256":JAR_HASH}])
+        json!([{"path":"java2vir.jar", "mode":"0644", "size_bytes":202319, "sha256":JAR_HASH}])
     );
     assert_eq!(inventory["notice_files"][0]["sha256"], records[1]["sha256"]);
 }

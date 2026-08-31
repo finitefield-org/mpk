@@ -5,8 +5,9 @@ successful invocation is `--version`; every source/frontend invocation exits
 2 with `JAVA_FRONTEND_UNAVAILABLE` and no stdout. T03 adds independent Rust
 contract/artifact validators. T04 adds internal immutable capture, strict
 UTF-8 transport, public javac parse/analyze sessions and bounded failure
-diagnostics, exercised through a separately compiled private test harness.
-Source subset/sidecars, VIR emission and installed execution remain T05-T07.
+diagnostics. T05 adds source subset admission, inert initialization, conservative
+acyclic call closure and typed contract sidecars, exercised through separately
+compiled private test harnesses. VIR emission and installed execution remain T06-T07.
 The active Go/Rust/C# release and semantic registry revision 2 are unchanged.
 
 The normative inputs are in
@@ -58,7 +59,7 @@ From the repository root:
 cargo test -p mpk-cli --test java_build_inputs --offline
 ./scripts/build-java-frontend.sh --check
 mkdir -p target/java-candidates
-./scripts/build-java-frontend.sh --build "$(pwd -P)/target/java-candidates/t04"
+./scripts/build-java-frontend.sh --build "$(pwd -P)/target/java-candidates/t05"
 ```
 
 `--check` and `--build` each perform two isolated builds and require identical
@@ -117,10 +118,12 @@ passes the Java-produced failures through the independent Rust validator.
 The private `CompilerSession` always creates a fresh pinned compiler task and
 file manager, fixes `Locale.US` and all options, and only calls `parse()` and
 `analyze()`. Its pre-attribution inventory retains raw children, names,
-modifiers and literals, including dead branches. T05 must reject excluded raw
+modifiers and literals, including dead branches. T05 rejects excluded raw
 parents before calling `requireUnchanged` on admitted subtrees. In particular,
 an implicit class constructor or an inferred `var` type is inventoried without
-prematurely converting a future subset rejection into an adapter failure.
+prematurely converting a subset rejection into an adapter failure. javac's
+shared modifier/type objects in multi-declarators are counted once and marked;
+sharing still fails accepted-tree comparison, after the raw statement gate.
 
 The unit source object can be a javac wrapper. At parse completion, the adapter
 binds it once to the supplied source using the immutable `CharSequence`
@@ -149,11 +152,44 @@ The pinned JDK and T07 filesystem boundary close that view; this wrapper does
 not claim to intercept it.
 
 T04 executes the capture/encoding/parse/attribution precedence and operational
-failure cases. `follow_on_precedence` in the private report names the six final
-outcomes that require T05 subset/contracts, T06 emission, or T07 release
-preflight. Their closed failure transport and raw-tree deferral are covered
-now; actual downstream outcomes must be added before the T09 aggregate gate.
+failure cases. `admission_precedence` names T05's three executable contributions:
+subset before missing sidecars, and excluded class/var parents before accepted-
+tree comparison. `follow_on_precedence` preserves three pending T06/T07
+outcomes: contracts before lowering, map failure before publication, and
+release before source. Those final stages must execute before the T09 gate.
 No successful source artifact or installed Java release is claimed by this test.
+
+## Source admission and sidecar verification
+
+```sh
+./scripts/check-java-frontend.sh --check-admission-fixtures
+cargo test -p mpk-cli --test java_subset --test java_contracts --offline
+./scripts/check-java-frontend.sh --run-admission
+cargo test -p mpk-cli --test java_subset --test java_contracts --offline -- --ignored --test-threads=1
+```
+
+The fixture check needs no JDK or Docker. The executable uses the same pinned,
+offline build and isolation setup as T04, and compiles `AdmissionTests.java`
+outside the candidate JAR. It executes all 61 T05 source refusals, 14 contract
+refusals, source admission for the 49 accepted vectors, all 35 conversion rules,
+and the six subset/contract counter boundaries and their plus-one failures.
+Extra cases cover raw identifiers and symbols, inert declaration forms, dead
+branches, JSON syntax/Unicode/numbers, complete attachment and failure ordering.
+Python independently checks declaration/callee order, original variable spans,
+sidecar/raw-byte hashes and order-preserving normalization. Rust independently
+checks the actual failure envelopes, complete Java context and normalized hashes.
+
+`JavaSubset` validates raw spellings and all syntactic paths, closes calls over
+the exact captured method symbols and exposes immutable typed bindings for T06.
+`JavaContracts` validates every selected file as strict JSON before parsing the
+bounded expression model, then checks attachment before type interpretation.
+It never infers a contract, folds an expression or drops a duplicate clause.
+The canonical sidecar hash, raw input hash and common normalized contract hash
+remain distinct. Source bytes and the selection must match the admitted closure.
+
+`JavaAdmission` sequences these internal stages and closes each compiler session.
+Its successful result is an internal model, not an `ir-lowered` response or proof
+verdict. The packaged `Main` is unchanged and still refuses source invocations.
 
 ## Closed inputs and deterministic output
 

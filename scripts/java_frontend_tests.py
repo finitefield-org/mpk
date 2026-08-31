@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Private T04 conformance executor. No installed runner or source CLI entrypoint."""
+"""Private T04/T05 conformance executor. No installed runner or source CLI entrypoint."""
 
 import importlib.util
 import json
@@ -17,6 +17,9 @@ HOST_ENVIRONMENT = {"PATH": "/usr/bin:/bin", "LANG": "C.UTF-8", "LC_ALL": "C.UTF
 SPEC = importlib.util.spec_from_file_location("java_build_owner", Path(__file__).with_name("java_build_inputs.py"))
 BUILD = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(BUILD)
+ADMISSION_SPEC = importlib.util.spec_from_file_location("java_admission_owner", Path(__file__).with_name("java_admission_tests.py"))
+ADMISSION = importlib.util.module_from_spec(ADMISSION_SPEC)
+ADMISSION_SPEC.loader.exec_module(ADMISSION)
 
 OBSERVATIONS = (
     "negative-literals", "constant-trees", "implicit-public", "utf16-tab-bmp-nonbmp", "syntax-eof",
@@ -36,11 +39,11 @@ PRECEDENCE = (
     "capture_before_encoding", "encoding_before_parse", "parse_before_attribution",
     "attribution_before_subset", "diagnostic_overflow_beats_source", "compiler_exception_beats_source",
 )
-# The T04 harness owns this family, but these final outcomes need later stages.
+# The T04 harness owns this family; T05 contributes three executable cases.
+ADMISSION_PRECEDENCE = dict.fromkeys(ADMISSION.PRECEDENCE, "T05: --run-admission")
 FOLLOW_ON_PRECEDENCE = {
-    "release_before_source": "T07", "subset_before_contract": "T05",
-    "contract_before_lowering": "T05/T06", "map_failure_prevents_partial_output": "T06",
-    "excluded_class_before_accepted_tree_compare": "T05", "excluded_var_before_accepted_tree_compare": "T05",
+    "release_before_source": "T07", "contract_before_lowering": "T06",
+    "map_failure_prevents_partial_output": "T06",
 }
 
 
@@ -61,7 +64,7 @@ def fixture_ownership(vector):
     actual = tuple(case["id"] for case in vector["rejected_cases"]
                    if case["id"].startswith(("source.", "capture.", "compiler.")))
     BUILD.require(actual == OWNED_REJECTIONS, "JAVA_FRONTEND_TEST_REJECTION_OWNERS")
-    BUILD.require({case["id"] for case in vector["precedence_cases"]} == set(PRECEDENCE) | set(FOLLOW_ON_PRECEDENCE),
+    BUILD.require({case["id"] for case in vector["precedence_cases"]} == set(PRECEDENCE) | set(ADMISSION_PRECEDENCE) | set(FOLLOW_ON_PRECEDENCE),
                   "JAVA_FRONTEND_TEST_PRECEDENCE_OWNERS")
     for case in vector["limit_cases"]:
         BUILD.require(case["boundary"] == case["limit"] and case["overflow"] == case["limit"] + 1)
@@ -198,7 +201,7 @@ def validate_report(report, vector):
                     BUILD.require(actual[stage] == rows, "JAVA_FRONTEND_TEST_TREE_OBSERVATION")
 
 
-def worker():
+def worker(admission=False):
     # This diagnostic stream is for compilation of our test/project sources only.
     # Selected-source diagnostics are still normalized by the Java implementation.
     execute = BUILD.execute
@@ -227,12 +230,12 @@ def worker():
                  "-Xlint:all", "-Werror", "--class-path", "/work/java2vir.jar",
                  "--source-path", "/work/empty", "--processor-path", "/work/empty",
                  "--module-path", "/work/empty", "-d", "/work/test-classes",
-                 "/mpk/tests/FrontendTests.java"]
+                 "/mpk/tests/AdmissionTests.java" if admission else "/mpk/tests/FrontendTests.java"]
     code, stdout, stderr = compile_with_diagnostics(arguments, environment=BUILD.ENVIRONMENT)
     BUILD.require(code == 0 and not stdout and not stderr, "JAVA_FRONTEND_TEST_COMPILE")
     code, stdout, stderr = execute(
         ["/mpk/toolchain/jdk/bin/java", *BUILD.JVM_ARGUMENTS, "-cp", "/work/java2vir.jar:/work/test-classes:/work/poison-classes",
-         "mpk.java2vir.FrontendTests"], environment=BUILD.ENVIRONMENT, timeout=300)
+         "mpk.java2vir.AdmissionTests" if admission else "mpk.java2vir.FrontendTests"], environment=BUILD.ENVIRONMENT, timeout=300)
     if stderr:
         sys.stderr.buffer.write(stderr)
     BUILD.require(code == 0 and not stderr, "JAVA_FRONTEND_TEST_FAILED")
@@ -241,7 +244,7 @@ def worker():
     sys.stdout.buffer.write(BUILD.canonical(report) + b"\n")
 
 
-def run():
+def run(admission=False):
     inputs = BUILD.load_toolchain()
     BUILD.validate_active_boundary()
     descriptor = BUILD.load_descriptor(update=True)
@@ -264,12 +267,15 @@ def run():
         (frozen / "build-inputs.json").write_bytes(BUILD.canonical(descriptor) + b"\n")
         scripts = root / "build"
         scripts.mkdir()
-        for name in ("java_build_inputs.py", "java_frontend_tests.py"):
+        for name in ("java_build_inputs.py", "java_frontend_tests.py", "java_admission_tests.py"):
             (scripts / name).write_bytes(BUILD.read_bytes(ROOT / "scripts" / name, BUILD.MAX_SOURCE))
         tests = root / "tests"
         tests.mkdir()
         (tests / "FrontendTests.java").write_bytes(BUILD.read_bytes(TEST_ROOT / "FrontendTests.java", BUILD.MAX_SOURCE))
         vector = fixtures(tests)
+        if admission:
+            (tests / "AdmissionTests.java").write_bytes(BUILD.read_bytes(TEST_ROOT / "AdmissionTests.java", BUILD.MAX_SOURCE))
+            admission_fixtures = ADMISSION.fixtures(tests, BUILD)
         config = root / "docker-config"
         config.mkdir(mode=0o700)
         docker = BUILD.docker_prefix(config)
@@ -285,7 +291,7 @@ def run():
             argv.extend(["--mount", f"type=bind,src={root / source},dst={target},readonly"])
         argv.extend([BUILD.IMAGE, "/usr/bin/env", "-i"])
         argv.extend(key + "=" + value for key, value in BUILD.ENVIRONMENT.items())
-        argv.extend(["/usr/local/bin/python3", "-I", "-S", "-B", "/mpk/build/java_frontend_tests.py", "_worker"])
+        argv.extend(["/usr/local/bin/python3", "-I", "-S", "-B", "/mpk/build/java_frontend_tests.py", "_worker-admission" if admission else "_worker"])
         try:
             code, stdout, stderr = BUILD.execute(argv, environment=HOST_ENVIRONMENT, timeout=600)
             if stderr:
@@ -295,8 +301,12 @@ def run():
             BUILD.require(report["candidate_inventory"]["project_files_sha256"] == BUILD.sha256(BUILD.canonical(descriptor["project_files"])))
             BUILD.require(BUILD.project_records(ROOT / BUILD.PROJECT) == descriptor["project_files"])
             BUILD.validate_active_boundary()
-            validate_report(report, vector)
-            report["follow_on_precedence"] = FOLLOW_ON_PRECEDENCE
+            if admission:
+                ADMISSION.validate_report(report, admission_fixtures, BUILD)
+            else:
+                validate_report(report, vector)
+                report["admission_precedence"] = ADMISSION_PRECEDENCE
+                report["follow_on_precedence"] = FOLLOW_ON_PRECEDENCE
             sys.stdout.buffer.write(BUILD.canonical(report) + b"\n")
         finally:
             BUILD.execute([*docker, "rm", "--force", name], environment=HOST_ENVIRONMENT, limit=BUILD.MAX_STDERR, timeout=30)
@@ -310,11 +320,18 @@ def main():
     os.umask(0o022)
     if sys.argv[1:] == ["_worker"]:
         worker()
+    elif sys.argv[1:] == ["_worker-admission"]:
+        worker(admission=True)
     elif sys.argv[1:] == ["run"]:
         run()
+    elif sys.argv[1:] == ["run-admission"]:
+        run(admission=True)
     elif sys.argv[1:] == ["check-fixtures"]:
         with tempfile.TemporaryDirectory(prefix="mpk-java-t04-fixtures-", dir="/tmp") as directory:
             fixtures(Path(directory))
+    elif sys.argv[1:] == ["check-admission-fixtures"]:
+        with tempfile.TemporaryDirectory(prefix="mpk-java-t05-fixtures-", dir="/tmp") as directory:
+            ADMISSION.fixtures(Path(directory), BUILD)
     else:
         raise BUILD.BuildFailure("JAVA_FRONTEND_TEST_USAGE", 64)
 

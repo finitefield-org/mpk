@@ -8,8 +8,9 @@ the shared Go/Rust/C# successor release is active. `JAVA-03-T01` completed
 the inactive normative profile/vector/toolchain freeze and disposable
 compiler/JVM compatibility probes. T02 completed the inactive offline build
 and T03 completed the inactive contract/artifact validators. T04 completed
-internal capture, the public compiler adapter and bounded diagnostics;
-`JAVA-03-T05` is next and T05-T10 remain pending.
+internal capture, the public compiler adapter and bounded diagnostics. T05
+completed source admission, inert initialization, call closure and typed
+sidecars; `JAVA-03-T06` is next and T06-T10 remain pending.
 No Java or later-language frontend is active, registry revision 2
 remains installed, and no later-language phase has started.
 
@@ -793,11 +794,11 @@ wrapping/division/shift check rules; Go/Rust/C# profile entries remain
 byte-identical in the frozen, inactive registry revision 3.
 
 Execution follows the ten serial tasks in that design's section 11 and
-`java-03-implementation-traceability-ledger.md`. T01-T04 are complete;
-`JAVA-03-T05` is next. T05-T07 complete the inactive frontend,
-lowering and registered runner; T08 integrates VC/policy/evidence/AI/API;
+`java-03-implementation-traceability-ledger.md`. T01-T05 are complete;
+`JAVA-03-T06` is next. T06-T07 complete lowering, artifact emission and
+the registered runner; T08 integrates VC/policy/evidence/AI/API;
 T09 hardens and rehearses the release; T10 activates the four-language
-release. T05-T10 remain pending. No public Java tuple is activated before
+release. T06-T10 remain pending. No public Java tuple is activated before
 T10. Later-language phases remain blocked.
 
 T01 completion evidence: `JAVA_PROFILE_V0.md`, Java and revision-3 vectors,
@@ -830,9 +831,19 @@ and original byte positions, fresh parse/analyze-only javac sessions, closed
 application dependency/output paths, raw pre/post tree inventories and bounded
 fixed-message failure transport. `java_frontend_vectors.rs` independently
 validates diagnostics and runs the private pinned-JDK conformance harness.
-T05 must run raw subset gates before accepted-subtree transformation checks;
+T05 now runs raw subset gates before accepted-subtree transformation checks;
 T06 owns successful artifacts and T07 owns installed runtime isolation. The
 packaged main entry remains version-only and the active release is unchanged.
+
+T05 completion evidence: raw declaration/name/statement/expression gates,
+inert interfaces, explicit 255-unit signatures, typed bindings and conversions,
+conservative acyclic source-call closure with deterministic callee-first order,
+and strict JSON sidecar coverage, typing, normalization and hashes. The private
+`JavaAdmission` pipeline rejects all unaccounted selected content and only
+returns an internal model. `java_subset.rs` and `java_contracts.rs` execute the
+frozen source/contract families, all 34 semantic rows and 35 conversion rules,
+exact-boundary/plus-one consumers and cross-file JSON/attachment precedence.
+T06 remains responsible for lowering and any successful source artifact.
 
 Exit gate: Java passes the common definition of done without reinterpreting C#,
 Go, or Rust semantics, including the local offline two-pass installed gate,

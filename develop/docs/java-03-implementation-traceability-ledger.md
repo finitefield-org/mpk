@@ -1,9 +1,9 @@
 # JAVA-03 Implementation Traceability Ledger
 
-Status: `JAVA-03-T01` through `JAVA-03-T04` complete (2026-08-31);
-`JAVA-03-T05` is next and T05 through T10 are pending. Internal capture,
-compiler analysis and independent validators do not establish source subset
-admission, successful artifacts, native release isolation or Java activation. The active release remains
+Status: `JAVA-03-T01` through `JAVA-03-T05` complete (2026-08-31);
+`JAVA-03-T06` is next and T06 through T10 are pending. Internal capture,
+compiler analysis, source admission, typed sidecars and independent validators
+do not establish successful artifacts, native release isolation or Java activation. The active release remains
 Go/Rust/C# at registry revision 2.
 
 This is an execution plan subordinate to `../specs/JAVA_PROFILE_V0.md`, the
@@ -18,7 +18,8 @@ consume that owner's result without redefining it.
 -> T09 -> T10 -> DART-04`. Every task requires its predecessor's completed,
 reviewed result. T01 froze the profile; T02 added the inactive offline build;
 T03 added the inactive profile and artifact validators. T04 added capture,
-the public compiler adapter and bounded failure diagnostics.
+the public compiler adapter and bounded failure diagnostics. T05 added source
+admission, inert initialization, acyclic call closure and typed sidecars.
 
 | Task | Scope | Exit evidence |
 | --- | --- | --- |
@@ -559,6 +560,79 @@ T04 implementation record (2026-08-31):
   host. These JDK runs use Linux amd64 emulation. T07/T09/T10 still own native
   JVM enforcement, complete downstream conformance and release acceptance;
   the packaged main remains version-only and Java is not activated.
+
+T05 implementation record (2026-08-31):
+
+- `JavaSubset`, `SourceTokens` and `ScalarType` enforce the exact raw interface,
+  method, parameter/local, statement, literal, operation and conversion rules.
+  Initialization is inert by source shape, signatures count explicit JVM
+  descriptor units, and admitted variable reads retain exact source spelling
+  and symbol bindings. All syntactic branches are checked, including dead
+  branches; every path returns and every selected declaration is accounted for.
+- Calls resolve to the captured `ExecutableElement` identities. Selection roots
+  close over all syntactic calls, reject cycles or unused methods/files and
+  produce deterministic callee-first order with canonical-ID tie breaking.
+  The internal immutable closure preserves raw origins, types, variable
+  bindings and call targets for T06, without implementing CFGs or lowering.
+- `StrictJson` performs an iterative validation pass over every selected sidecar
+  before retaining a contract expression model. It rejects duplicate keys at
+  every level, invalid UTF-8/Unicode/numbers, null and malformed JSON. Parsing
+  then enforces closed shapes and inclusive clause/node/depth bounds. Complete
+  attachment precedes type interpretation; type failures follow selected-file
+  order, while successful attached contracts follow callee-first method order.
+- `JavaContracts` resolves only method parameters and the ensures-only result,
+  enforces signed scalar types and the closed operator set, preserves clause/
+  operand order and computes the canonical sidecar and common normalized hashes.
+  The frozen 430-byte sidecar and 975-byte normalized hash payload reproduce
+  their exact T01 hashes. Raw input bytes retain a distinct hash; a closure from
+  different source bytes or a different selection cannot receive the sidecars.
+- `JavaAdmission` sequences compiler analysis, source admission and contracts,
+  closes the compiler session and normalizes operational failures without
+  returning partial results. It has no public launcher. The packaged main is
+  still version-only; no successful source artifact, proof verdict or installed
+  Java tuple is exposed. T06 remains the next task.
+- `java_subset.rs` and `java_contracts.rs` own the private fixed-JDK executor:
+  61 source refusals, 14 contract refusals, source admission for 49 accepted
+  vectors, all 34 matrix rows, all 35 conversion rules, and real exact/plus-one
+  consumers for six subset/contract limits. Python independently checks source
+  bindings, call order, raw and canonical hashes and normalization; Rust checks
+  the actual failure envelopes, Java context and normalized contract hashes.
+  The vector manifest adds those owners; frozen vector bytes and identities
+  are unchanged. Missing-sidecar fixtures retain a reachable helper's sidecar
+  so the required nonempty selection is valid and capture completes first.
+  The 256-slot boundary case calls the oversized declaration from a valid
+  zero-parameter root, since the parent already rejects oversized selected
+  signatures. All 301 generated selections pass the independent Rust validator.
+- Review found javac sharing raw modifier/type objects in multi-declarators.
+  T04's inventory now counts those objects once and marks sharing for deferred
+  accepted-tree comparison, so T05's raw multi-declarator gate yields the frozen
+  subset refusal. Sharing in an admitted subtree still fails closed. Other
+  regressions cover raw identifier/symbol agreement, JSON validation across a
+  whole batch, attachment-before-type precedence, operator tags distinct from
+  atom tags and selected-file error order independent of emission order.
+- T05 contributes three executable precedence outcomes to T04's owning harness:
+  subset before missing sidecars, excluded class before synthesized-constructor
+  comparison, and excluded `var` before inferred-type comparison. Three remain
+  explicitly pending: contracts before lowering and map failures (T06), and
+  release preflight before source (T07). None is claimed complete by a transport-
+  only check.
+- Two isolated offline builds reproduced all 21 project-file records, 53
+  classes and the same 202,319-byte JAR, SHA-256
+  `9ec1e1c639dca558365820108359dc97d1b7613b11c9f19025430dd68379f82c`.
+  Source/class/JAR inventories and independent build-test goldens agree.
+  The version-only `Main` and `BuildIdentity` class bytes are unchanged.
+- Verification passed: the fixed-JDK admission harness (301 cases and 833
+  Java assertions), explicitly enabled offline build/export, T04 compiler/
+  diagnostic, T05 source-subset and contract integration tests, and the full
+  `CARGO_NET_OFFLINE=true ./scripts/check-fast.sh` gate. The final gate includes
+  formatting, obsolete-interface checks, Clippy, workspace tests, CLI build
+  and certificate smoke checks. The boundary fixture fix was rerun through
+  both T05 owning integration tests, the T04 regression and the full fast gate.
+  The repeated final task review has no remaining findings.
+- Native installed Linux release enforcement was not run on the ARM development
+  host. Fixed-JDK tests use Linux amd64 emulation; T07/T09/T10 still own native
+  JVM isolation, full downstream conformance and release acceptance. The active
+  registry remains revision 2 with the existing four Go/Rust/C# tuples.
 
 A task is complete only after its exact deliverables, required verification
 (or explicitly recorded unrun reason), fix/review loop, commit and push are
