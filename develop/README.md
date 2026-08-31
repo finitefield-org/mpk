@@ -91,9 +91,12 @@ the inactive [Java profile](specs/JAVA_PROFILE_V0.md), exact Java/revision-3
 vectors, pinned JDK/native inventory and disposable public-API/JVM probes.
 The [design](docs/07_java_frontend_design.md) and
 [implementation ledger](docs/java-03-implementation-traceability-ledger.md)
-record the ten serial tasks; `JAVA-03-T02` (isolated offline frontend build)
-is next. T01 measured Linux amd64 compatibility under CPU emulation, not the
-complete native Linux release gate. Java implementation remains pending; no
+record the ten serial tasks. `JAVA-03-T02` completed the
+[offline build candidate](../java-tools/README.md), with exact project/class/JAR
+inventories and two isolated builds. `JAVA-03-T03` (inactive profile and
+artifact validators) is next. T01/T02 measured Linux amd64 compatibility and
+build reproducibility under CPU emulation, not the complete native Linux
+release gate. Java source processing remains pending; no
 Java or later-language frontend is active and registry revision 2 stays
 installed.
 
@@ -286,7 +289,7 @@ Start with:
 The original baseline can be seeded from `tasks/github_issues_seed.jsonl` or
 imported from `tasks/task_backlog.csv`. Use the two design todo documents and
 the C# and Java implementation ledgers for post-Rust tracker tasks. Java's
-T01 freeze is complete; its next serial task is `JAVA-03-T02`.
+T01 freeze and T02 offline build are complete; the next task is `JAVA-03-T03`.
 
 ## Reference posture
 

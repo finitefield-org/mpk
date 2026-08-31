@@ -33,9 +33,11 @@ frontend migration.
 
 `JAVA-03-T01` completed the inactive [Java 25 profile freeze](develop/specs/JAVA_PROFILE_V0.md),
 including conformance vectors and pinned compiler/JVM compatibility evidence.
-Next is `JAVA-03-T02`, the isolated frontend build, in the
+`JAVA-03-T02` added the [offline build candidate](java-tools/README.md), with
+two isolated builds and exact source/class/JAR inventories. Next is T03's
+inactive profile and artifact validators in the
 [Java implementation ledger](develop/docs/java-03-implementation-traceability-ledger.md).
-Java is not implemented or active; the installed registry remains revision 2.
+Java source processing is not implemented or active; the installed registry remains revision 2.
 The T01 Linux amd64 probe used CPU emulation and does not replace the later
 native Linux release gate.
 

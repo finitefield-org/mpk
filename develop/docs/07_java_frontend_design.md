@@ -1,8 +1,9 @@
 # Java Scalar Frontend Design
 
 Status: Java-specific implementation design, subordinate to the normative
-`JAVA_PROFILE_V0.md` frozen by completed `JAVA-03-T01` (2026-08-31). T02 is
-next; Java implementation and activation remain pending. The active release
+`JAVA_PROFILE_V0.md` frozen by completed `JAVA-03-T01` (2026-08-31). T02's
+offline build candidate is complete; T03 is next. Java source processing
+and activation remain pending. The active release
 remains Go/Rust/C# with semantic registry revision 2. This document includes
 the corrections established by T01's disposable compiler/JVM probes.
 
@@ -30,8 +31,10 @@ API observations and JVM options live in `../specs/vectors/java-profile-v0.json`
 this design does not duplicate mutable descriptor digests. T01's Linux amd64
 measurements used CPU emulation on an ARM host. They establish the recorded
 compiler/JVM compatibility, not the complete native Linux production
-isolation gate owned by T07/T09/T10. T02 may start the inactive frontend
-implementation; no public Java route is authorized before T10.
+isolation gate owned by T07/T09/T10. T02 added the unregistered project and
+offline build owner, with exact source/class/JAR inventories and two matching
+isolated builds. See `java-tools/README.md` and the implementation ledger.
+No public Java route is authorized before T10.
 
 Certificate v0, checker inputs, the two source-free checking implementations,
 and the four axiom categories remain unchanged. Java source, contracts, JDK,
@@ -666,10 +669,10 @@ source-free and does not require a registry compatibility adapter.
 
 ## 11. Serial implementation plan
 
-These tasks refine `JAVA-03`. T01 is complete; T02 is next and T02-T10
+These tasks refine `JAVA-03`. T01/T02 are complete; T03 is next and T03-T10
 remain pending. Each task depends on the previous row, starting from
 completed `CSHARP-02-T20`. The completed freeze/probes do not claim that the
-Java frontend or complete native Linux release gate is implemented.
+Java source-processing frontend or complete native Linux release gate is implemented.
 
 | Task | Deliverable | Exit condition |
 | --- | --- | --- |

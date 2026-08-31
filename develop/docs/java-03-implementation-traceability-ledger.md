@@ -1,8 +1,9 @@
 # JAVA-03 Implementation Traceability Ledger
 
-Status: `JAVA-03-T01` complete (2026-08-31); `JAVA-03-T02` is next and T02
-through T10 are pending. This completed freeze does not establish Java
-implementation, native Linux release isolation, or Java activation. The active release remains Go/Rust/C# at registry revision 2.
+Status: `JAVA-03-T01` and `JAVA-03-T02` complete (2026-08-31);
+`JAVA-03-T03` is next and T03 through T10 are pending. The freeze and offline
+build candidate do not establish Java source processing, native Linux release
+isolation, or Java activation. The active release remains Go/Rust/C# at registry revision 2.
 
 This is an execution plan subordinate to `../specs/JAVA_PROFILE_V0.md`, the
 exact Java/revision-3 vectors, and `SEMANTIC_PROFILE_REGISTRY_V1.md`. It does
@@ -14,7 +15,8 @@ consume that owner's result without redefining it.
 
 `CSHARP-02-T20 -> JAVA-03-T01 -> T02 -> T03 -> T04 -> T05 -> T06 -> T07 -> T08
 -> T09 -> T10 -> DART-04`. Every task requires its predecessor's completed,
-reviewed result. T01 is the completed freeze; implementation begins with T02.
+reviewed result. T01 froze the profile; T02 added the inactive offline build.
+T03 begins the inactive profile and artifact validators.
 
 | Task | Scope | Exit evidence |
 | --- | --- | --- |
@@ -413,8 +415,37 @@ the current C# composed local Linux release gate remains active. T10 changes
 preserving every predecessor-language test. GitHub Actions/workflows are not
 created, run, monitored or required.
 
+T02 implementation record (2026-08-31):
+
+- `java-tools/java2vir` contains the inactive main class, runtime identity
+  smoke check, exact manifest and project notice. It performs no selected-
+  source parsing, artifact emission or release registration.
+- `scripts/build-java-frontend.sh` and `java_build_inputs.py` import only the
+  hash-pinned archive, materialize its exact inventory, snapshot every project
+  input and execute two separate offline builds. No host JDK or package
+  resolver is used. Generated class/JAR bytes and canonical metadata match.
+- `release/build-inputs/java/build-inputs.json` owns the closed recipe and
+  source inventory; `candidate-inventory.json` owns class/JAR/notice hashes.
+  `java_build_inputs.rs` independently binds those records and runs the
+  hostile-input test owner. The provisioned integration test builds and
+  exports under hostile Java/Docker/proxy environment settings.
+- The candidate remains unregistered and rejects frontend arguments without
+  stdout. The active release and all frozen semantic vectors remain unchanged.
+  Native installed-runner enforcement and release acceptance remain T07/T09/T10.
+- Verification passed: 13 hostile-input self-tests, three ordinary
+  `java_build_inputs.rs` tests, the explicitly enabled two-build/export
+  integration test, `--check-build-inputs`, `--check`, and `check-fast.sh`.
+  The integration test's normal ignored status does not represent an unrun
+  gate: it was run explicitly with the provisioned archive and pinned image.
+  The final task review has no findings. These builds ran under Linux x86-64
+  emulation on the ARM development host; no native installed Java release
+  acceptance is claimed.
+
+For commands and artifact formats, see `java-tools/README.md`. The local
+two-build gate is separate from the unimplemented native Java release gate.
+
 A task is complete only after its exact deliverables, required verification
 (or explicitly recorded unrun reason), fix/review loop, commit and push are
-finished. T01 does not claim T02 implementation or T10 activation. An unknown
+finished. T02 does not claim T03 validators or T10 activation. An unknown
 compiler/host/schema behavior must be resolved through reviewed freeze changes,
 not guessed by an implementer or admitted under an immutable existing ID.

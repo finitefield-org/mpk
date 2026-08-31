@@ -6,8 +6,9 @@ Status: Gate C, `MLANG-01`, and Gate D are complete after the completed Rust
 and `MLANG-00` gates. `CSHARP-02-T01` through `CSHARP-02-T20` are complete;
 the shared Go/Rust/C# successor release is active. `JAVA-03-T01` completed
 the inactive normative profile/vector/toolchain freeze and disposable
-compiler/JVM compatibility probes. `JAVA-03-T02` is next; T02-T10 remain
-pending. No Java or later-language frontend is active, registry revision 2
+compiler/JVM compatibility probes. T02 completed the inactive offline build;
+`JAVA-03-T03` is next and T03-T10 remain pending.
+No Java or later-language frontend is active, registry revision 2
 remains installed, and no later-language phase has started.
 
 ## Scope and sequencing
@@ -790,11 +791,11 @@ wrapping/division/shift check rules; Go/Rust/C# profile entries remain
 byte-identical in the frozen, inactive registry revision 3.
 
 Execution follows the ten serial tasks in that design's section 11 and
-`java-03-implementation-traceability-ledger.md`. `JAVA-03-T01` is complete;
-`JAVA-03-T02` is next. T02-T07 build the inactive frontend, validators,
+`java-03-implementation-traceability-ledger.md`. T01 and T02 are complete;
+`JAVA-03-T03` is next. T03-T07 build the inactive frontend, validators,
 lowering and registered runner; T08 integrates VC/policy/evidence/AI/API;
 T09 hardens and rehearses the release; T10 activates the four-language
-release. T02-T10 remain pending. No public Java tuple is activated before
+release. T03-T10 remain pending. No public Java tuple is activated before
 T10. Later-language phases remain blocked.
 
 T01 completion evidence: `JAVA_PROFILE_V0.md`, Java and revision-3 vectors,
@@ -804,7 +805,14 @@ inventory, fixed JVM options/budgets, and recorded public-API/host probes. All
 compiler/JVM compatibility under CPU emulation; they do not establish every
 native Linux cgroup/syscall/resource-failure release condition. T07/T09/T10
 own those installed enforcement gates. The production registry remains
-revision 2 and no Java implementation or active route was added.
+revision 2 and no Java source-processing or active route was added.
+
+T02 completion evidence: `java-tools/java2vir`, the offline
+`scripts/build-java-frontend.sh` owner, exact source/recipe/class/JAR records
+in `release/build-inputs/java/`, and `java_build_inputs.rs` tests. Two fresh
+offline containers produce identical candidate bytes. The candidate only
+supports its version check; source parsing and VIR generation remain pending.
+See `java-tools/README.md` for provisioning and the explicit local build test.
 
 Exit gate: Java passes the common definition of done without reinterpreting C#,
 Go, or Rust semantics, including the local offline two-pass installed gate,
