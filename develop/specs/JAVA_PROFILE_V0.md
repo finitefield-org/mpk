@@ -5,8 +5,14 @@ Status: normative and frozen for implementation by `JAVA-03-T01`
 semantic registry revision 2. The disposable compiler/JVM compatibility
 measurements establish the recorded T01 observations, not the complete native
 Linux production isolation gate. T02's offline build candidate and T03's
-inactive contract/artifact validators are complete; `JAVA-03-T04` is next.
+inactive contract/artifact validators and T04's internal capture/compiler
+adapter are complete; `JAVA-03-T05` (source subset/sidecars) is next.
 Java activation belongs only to `JAVA-03-T10`.
+
+T04 corrected lost Unicode characters in one recorded adapter fixture from
+the archived T01 probe source. Measured positions, compiler behavior and all
+profile/contract identities are unchanged; the vector manifest records the
+corrected raw-file digest. See the implementation ledger for the erratum.
 
 ## 1. Scope, authority, and identities
 

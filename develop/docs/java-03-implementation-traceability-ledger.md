@@ -1,9 +1,9 @@
 # JAVA-03 Implementation Traceability Ledger
 
-Status: `JAVA-03-T01` through `JAVA-03-T03` complete (2026-08-31);
-`JAVA-03-T04` is next and T04 through T10 are pending. The freeze, offline
-build and independent validators do not establish Java source processing,
-native Linux release isolation, or Java activation. The active release remains
+Status: `JAVA-03-T01` through `JAVA-03-T04` complete (2026-08-31);
+`JAVA-03-T05` is next and T05 through T10 are pending. Internal capture,
+compiler analysis and independent validators do not establish source subset
+admission, successful artifacts, native release isolation or Java activation. The active release remains
 Go/Rust/C# at registry revision 2.
 
 This is an execution plan subordinate to `../specs/JAVA_PROFILE_V0.md`, the
@@ -17,8 +17,8 @@ consume that owner's result without redefining it.
 `CSHARP-02-T20 -> JAVA-03-T01 -> T02 -> T03 -> T04 -> T05 -> T06 -> T07 -> T08
 -> T09 -> T10 -> DART-04`. Every task requires its predecessor's completed,
 reviewed result. T01 froze the profile; T02 added the inactive offline build;
-T03 added the inactive profile and artifact validators. T04 begins capture and
-the public compiler adapter.
+T03 added the inactive profile and artifact validators. T04 added capture,
+the public compiler adapter and bounded failure diagnostics.
 
 | Task | Scope | Exit evidence |
 | --- | --- | --- |
@@ -489,6 +489,76 @@ T03 implementation record (2026-08-31):
   build recipe, fixed JDK and measured candidate inventories are unchanged.
   The complete native Linux release gate was not run on this ARM development
   host; installed JVM enforcement and Java release acceptance remain T07/T09/T10.
+
+T04 implementation record (2026-08-31):
+
+- `CapturedSnapshot`, `Selection` and `SourceText` enforce immutable selected
+  file/contract bytes, no-follow file types and inventory, strict UTF-8 with no
+  Unicode escape preprocessing, and original UTF-8 positions. The shared
+  native capture recognizes Java inputs and preserves unlisted entries for
+  rejection. The Java second pass requires the native parent's private
+  read-only snapshot; its path metadata checks do not replace host capture.
+- `CompilerSession`, `ClosedFileManager` and `TreeInventory` use fresh public
+  parse/analyze APIs, exact options and locale, immutable raw syntax facts,
+  all syntactic branches and bounded pre/post traversals. Captured immutable
+  character-sequence identity binds compiler unit wrappers without internal
+  APIs; diagnostic provenance still requires the original source object.
+  Post-attribution comparison applies only after T05's raw admission gates.
+- `CompilerDiagnostics`, the closed Java codebook and failure serializer
+  count before retention, never request compiler prose, validate byte spans,
+  sort deterministically and publish no partial artifact. Rust independently
+  validates the complete Java diagnostic code/status/phase/message/exit set.
+- `java_frontend_vectors.rs` owns the separately compiled private Java harness.
+  It executes all 20 compiler observations, the 17 T04 rejection cases, all 15
+  file-manager boundary checks, capture/source/diagnostic/counter regressions,
+  planted-dependency positive controls and original byte-coordinate checks.
+  The 32 frozen numeric definitions have inclusive/plus-one tests; T05/T06
+  still own their subset/contract/lowering counter consumers. Test-only code,
+  planted classes and processor services are excluded from the candidate JAR.
+- The `precedence_cases` harness executes six current capture/encoding/parse/
+  attribution and operational-failure cases. Its explicit
+  `follow_on_precedence` inventory preserves six downstream obligations:
+  release preflight (T07), subset before sidecars and raw excluded class/var
+  gates (T05), sidecars before lowering (T05/T06), and map failure before
+  publication (T06). Their closed failure transport and raw-tree deferral are
+  tested in T04; final semantic outcomes require those stages and all must
+  execute before T09. These are downstream contributions to the T04 harness,
+  not a claim that T05-T07 have been implemented.
+- T04 found a T01 fixture transcription defect: `utf16-tab-bmp-nonbmp` had
+  `??` in five source/spelling strings although its recorded coordinates
+  described the original `é😀` comment. `CompilerProbe.java` retains that
+  exact input. Only those five strings were restored; all measured offsets,
+  tree/type/element facts, compiler settings, semantic payloads and immutable
+  IDs remain unchanged. The Java vector raw SHA-256 changed from
+  `598d066c2e707e1302f16560f9e4efe69558f5153ae29a870d85ef99e7dea26d` to
+  `6d5b467efd44cdf044f21e34adf53a87c9c06ede78f664107b5e246794e1aea0`.
+  The manifest records the correction and T04 owner. A no-JDK fixture test
+  now recomputes every recorded spelling and UTF-16/UTF-8 range, and the
+  pinned compiler reproduces the complete repaired observation.
+- Two isolated offline builds produced the same 28 classes and 108,747-byte
+  JAR, SHA-256
+  `a08106c84aa784f37b0f88484c8d30dee2eaf060d62c591575582b420677d8ea`.
+  Build/source/class inventories and independent build-test goldens were
+  updated together. The T02 main/provider-check class bytes, installed
+  registries and four Go/Rust/C# tuples are unchanged.
+- The review also found that an invalid path could compete with the entry
+  budget in filesystem iteration order. Capture now completes bounded name
+  collection and sorting before path validation. Opposite creation-order
+  regressions produce the same limit outcome. The repeated task review has
+  no remaining findings.
+- Verification passed: the fixed-JDK harness (20 observations, 17 owned
+  rejections, 15 file-manager boundaries, 32 limit definitions and 301 Java
+  assertions), both explicitly enabled build/export and frontend-vector
+  integration tests, the ordinary Java build/protocol/capture tests, the
+  10 specification and 12 artifact/profile tests, and the complete
+  `CARGO_NET_OFFLINE=true ./scripts/check-fast.sh` local gate. The latter
+  includes formatting, obsolete-interface checks, Clippy, workspace tests,
+  CLI build and certificate smoke checks and runs outside the sandbox for
+  Git enumeration. The final code was rebuilt and rechecked after review fixes.
+- The native Linux installed release gate was not run on the ARM development
+  host. These JDK runs use Linux amd64 emulation. T07/T09/T10 still own native
+  JVM enforcement, complete downstream conformance and release acceptance;
+  the packaged main remains version-only and Java is not activated.
 
 A task is complete only after its exact deliverables, required verification
 (or explicitly recorded unrun reason), fix/review loop, commit and push are

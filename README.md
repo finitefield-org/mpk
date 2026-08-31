@@ -35,10 +35,12 @@ frontend migration.
 including conformance vectors and pinned compiler/JVM compatibility evidence.
 `JAVA-03-T02` added the [offline build candidate](java-tools/README.md), with
 two isolated builds and exact source/class/JAR inventories. `JAVA-03-T03`
-completed the inactive registry, contract and artifact validators. Next is
-T04's capture/compiler adapter in the
+completed the inactive registry, contract and artifact validators. `JAVA-03-T04`
+added internal input capture, the public compiler API adapter and bounded
+diagnostics. Next is T05's source subset and contract sidecars in the
 [Java implementation ledger](develop/docs/java-03-implementation-traceability-ledger.md).
-Java source processing is not implemented or active; the installed registry remains revision 2.
+Source admission, VIR emission and installed Java execution remain pending;
+Java is not active and the installed registry remains revision 2.
 The T01 Linux amd64 probe used CPU emulation and does not replace the later
 native Linux release gate.
 

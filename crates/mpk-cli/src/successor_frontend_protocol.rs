@@ -277,7 +277,8 @@ fn validate_shape(
     }
     let rejected = array_field(object, "rejected_features")?;
     let diagnostics = array_field(object, "diagnostics")?;
-    validate_issues(rejected, diagnostics, status, phase)?;
+    let java_profile = value["semantic_context"]["source_language"] == "java";
+    validate_issues(rejected, diagnostics, status, phase, java_profile)?;
     let phase_valid = match status {
         "ir-lowered" => phase == "emission" && rejected.is_empty() && diagnostics.is_empty(),
         "rejected" => {
@@ -426,6 +427,7 @@ fn validate_issues(
     diagnostics: &[Value],
     status: &str,
     phase: &str,
+    java_profile: bool,
 ) -> Result<(), SuccessorFrontendProtocolError> {
     let issue_count = rejected
         .len()
@@ -461,6 +463,9 @@ fn validate_issues(
                 return Err(protocol(SuccessorFrontendProtocolCode::ProtocolShape));
             }
             validate_csharp_issue(code, message, status, phase)?;
+            if java_profile || code.starts_with("JAVA_") {
+                validate_java_issue(code, message, status, phase)?;
+            }
             total_message_bytes = total_message_bytes
                 .checked_add(message.len())
                 .ok_or_else(|| protocol(SuccessorFrontendProtocolCode::ProtocolLimit))?;
@@ -602,6 +607,107 @@ fn validate_csharp_issue(
         }
     };
     if message != expected_message {
+        return Err(protocol(SuccessorFrontendProtocolCode::ProtocolShape));
+    }
+    Ok(())
+}
+
+// Independently compiled Java codebook. A Java failure cannot fall back to an
+// arbitrary shared issue code, compiler prose, or a caller-local release phase.
+fn validate_java_issue(
+    code: &str,
+    message: &str,
+    status: &str,
+    phase: &str,
+) -> Result<(), SuccessorFrontendProtocolError> {
+    let (expected_status, expected_phase) = match code {
+        "JAVA_CAPTURE_FILE_TYPE"
+        | "JAVA_CAPTURE_PATH"
+        | "JAVA_CAPTURE_INVENTORY"
+        | "JAVA_LIMIT_SOURCE_FILES"
+        | "JAVA_LIMIT_SOURCE_FILE_BYTES"
+        | "JAVA_LIMIT_SOURCE_TOTAL_BYTES"
+        | "JAVA_LIMIT_CONTRACT_FILES"
+        | "JAVA_LIMIT_CONTRACT_FILE_BYTES"
+        | "JAVA_LIMIT_CONTRACT_TOTAL_BYTES"
+        | "JAVA_LIMIT_SNAPSHOT_ENTRIES"
+        | "JAVA_LIMIT_SNAPSHOT_TOTAL_BYTES"
+        | "JAVA_LIMIT_NORMALIZED_PATH_BYTES"
+        | "JAVA_LIMIT_CANONICAL_METHOD_ID_BYTES"
+        | "JAVA_LIMIT_SELECTED_METHODS"
+        | "JAVA_LIMIT_FRONTEND_ARGUMENT_BYTES" => ("rejected", Some("capture")),
+        "JAVA_LIMIT_SYNTAX_NODES" | "JAVA_LIMIT_SYNTAX_DEPTH" => ("rejected", Some("source")),
+        "JAVA_SOURCE_ENCODING" | "JAVA_SOURCE_PARSE" => ("source-error", Some("source")),
+        "JAVA_SOURCE_DIAGNOSTIC" => ("source-error", Some("typecheck")),
+        "JAVA_TOOLCHAIN_ARCHIVE"
+        | "JAVA_TOOLCHAIN_RUNTIME"
+        | "JAVA_TOOLCHAIN_COMPILER"
+        | "JAVA_TOOLCHAIN_REFERENCE"
+        | "JAVA_TOOLCHAIN_OPTIONS" => ("frontend-error", Some("metadata")),
+        "JAVA_SUBSET_DECLARATION"
+        | "JAVA_SUBSET_IDENTIFIER"
+        | "JAVA_SUBSET_TYPE"
+        | "JAVA_SUBSET_LITERAL"
+        | "JAVA_SUBSET_CONTROL_FLOW"
+        | "JAVA_SUBSET_OPERATION"
+        | "JAVA_SUBSET_CONVERSION"
+        | "JAVA_SUBSET_CALL"
+        | "JAVA_SUBSET_INITIALIZATION"
+        | "JAVA_SUBSET_PURITY"
+        | "JAVA_SUBSET_ABRUPT"
+        | "JAVA_CONTRACT_JSON"
+        | "JAVA_CONTRACT_SHAPE"
+        | "JAVA_CONTRACT_IDENTITY"
+        | "JAVA_CONTRACT_DUPLICATE"
+        | "JAVA_CONTRACT_MISSING"
+        | "JAVA_CONTRACT_UNUSED"
+        | "JAVA_CONTRACT_TYPE"
+        | "JAVA_CONTRACT_OPERATOR"
+        | "JAVA_CONTRACT_HASH"
+        | "JAVA_LIMIT_METHOD_CLOSURE"
+        | "JAVA_LIMIT_PARAMETER_SLOTS"
+        | "JAVA_LIMIT_CONTRACT_CLAUSES"
+        | "JAVA_LIMIT_CONTRACT_NODES_PER_METHOD"
+        | "JAVA_LIMIT_CONTRACT_NODES_PER_CLOSURE"
+        | "JAVA_LIMIT_CONTRACT_DEPTH" => ("rejected", Some("subset")),
+        "JAVA_LOWERING_OPERATION"
+        | "JAVA_LOWERING_CFG"
+        | "JAVA_LOWERING_CHECK_MISSING"
+        | "JAVA_LOWERING_CHECK_EXTRA"
+        | "JAVA_LOWERING_CHECK_ORDER"
+        | "JAVA_LOWERING_SHIFT_PATTERN"
+        | "JAVA_LIMIT_INSTRUCTIONS_PER_METHOD"
+        | "JAVA_LIMIT_INSTRUCTIONS_PER_CLOSURE"
+        | "JAVA_LIMIT_CFG_BLOCKS_PER_METHOD"
+        | "JAVA_LIMIT_CFG_BLOCKS_PER_CLOSURE" => ("rejected", Some("lowering")),
+        "JAVA_LIMIT_VIR_CANONICAL_BYTES"
+        | "JAVA_LIMIT_SOURCE_MAP_CANONICAL_BYTES"
+        | "JAVA_LIMIT_SOURCE_MANIFEST_CANONICAL_BYTES" => ("rejected", Some("emission")),
+        "JAVA_SOURCE_MAP_EXTERNAL" | "JAVA_SOURCE_MAP_RANGE" | "JAVA_SOURCE_MAP_UTF16" => {
+            ("frontend-error", Some("emission"))
+        }
+        "JAVA_TOOLCHAIN_ADAPTER"
+        | "JAVA_TOOLCHAIN_FILE_MANAGER"
+        | "JAVA_FRONTEND_DIAGNOSTIC_BUDGET"
+        | "JAVA_FRONTEND_OUTPUT_LIMIT"
+        | "JAVA_FRONTEND_RESOURCE"
+        | "JAVA_FRONTEND_INTERNAL" => ("frontend-error", None),
+        _ => return Err(protocol(SuccessorFrontendProtocolCode::ProtocolShape)),
+    };
+    let expected_message = if code.starts_with("JAVA_LIMIT_") {
+        "Java profile limit exceeded"
+    } else {
+        match expected_status {
+            "rejected" => "Java source is outside the frozen profile",
+            "source-error" => "Java source is invalid",
+            _ => "Java frontend failed closed",
+        }
+    };
+    if status != expected_status
+        || message != expected_message
+        || phase == "release"
+        || expected_phase.is_some_and(|expected| phase != expected)
+    {
         return Err(protocol(SuccessorFrontendProtocolCode::ProtocolShape));
     }
     Ok(())

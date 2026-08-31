@@ -41,7 +41,18 @@ PROJECT_FILES = (
     "META-INF/MANIFEST.MF",
     "NOTICE.txt",
     "src/mpk/java2vir/BuildIdentity.java",
+    "src/mpk/java2vir/CapturedSnapshot.java",
+    "src/mpk/java2vir/ClosedFileManager.java",
+    "src/mpk/java2vir/CompilerDiagnostics.java",
+    "src/mpk/java2vir/CompilerSession.java",
+    "src/mpk/java2vir/DiagnosticRegistry.java",
+    "src/mpk/java2vir/FrontendFailure.java",
+    "src/mpk/java2vir/FrontendLimits.java",
     "src/mpk/java2vir/Main.java",
+    "src/mpk/java2vir/Protocol.java",
+    "src/mpk/java2vir/Selection.java",
+    "src/mpk/java2vir/SourceText.java",
+    "src/mpk/java2vir/TreeInventory.java",
 )
 MANIFEST = b"Manifest-Version: 1.0\nMain-Class: mpk.java2vir.Main\n\n"
 VERSION = b"java2vir 0.1.0 (Temurin 25.0.4.1+1; inactive)\n"
@@ -556,7 +567,7 @@ def load_inventory(descriptor):
     return value
 
 
-def worker():
+def compile_project():
     """Internal fixed-path container entry; no Docker socket or writable host mount."""
     require(os.getuid() == os.getgid() == 65534 and dict(os.environ) == ENVIRONMENT, "JAVA_BUILD_HOST")
     # Docker deliberately does not expose RLIMIT_AS as a --ulimit type.
@@ -608,6 +619,11 @@ def worker():
                       ["--version", "--extra"]):
         code, stdout, stderr = execute([*launch, *arguments], environment=ENVIRONMENT, limit=MAX_STDERR)
         require((code, stdout, stderr) == (2, b"", UNAVAILABLE), "JAVA_BUILD_INACTIVE_BOUNDARY")
+    return descriptor, jar
+
+
+def worker():
+    descriptor, jar = compile_project()
     report = {"inventory": candidate_inventory(jar, descriptor),
               "jar_base64": base64.b64encode(jar).decode("ascii")}
     sys.stdout.buffer.write(canonical(report) + b"\n")

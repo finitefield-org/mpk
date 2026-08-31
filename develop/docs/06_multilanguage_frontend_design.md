@@ -6,14 +6,15 @@ the completed `RUST-07-T05` entry gate. `CSHARP-02-T01` through
 active. `JAVA-03-T01` completed the inactive Java profile/vector/toolchain
 freeze and disposable compiler/JVM compatibility probes. T02 completed the
 inactive offline build candidate; T03 completed the inactive registry and
-artifact validators. `JAVA-03-T04` is next.
+artifact validators. T04 completed internal capture, the public compiler
+adapter and bounded diagnostics. `JAVA-03-T05` is next.
 `07_java_frontend_design.md` and the Java implementation ledger record
 the implementation boundary. No Java or later-language route is active;
 registry revision 2 remains installed.
 
 Prepared: 2026-08-21
 
-Updated: 2026-08-31 (`JAVA-03-T01` through T03 complete; T04 next)
+Updated: 2026-08-31 (`JAVA-03-T01` through T04 complete; T05 next)
 
 ## 1. Decision summary
 

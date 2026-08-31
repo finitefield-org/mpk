@@ -6,7 +6,9 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 
 const TOOLCHAIN_HASH: &str = "a75175ba0cce86d97a8e056d4dda7a0826bb6676ba551c454bd65e5d44d23fc4";
-const JAR_HASH: &str = "13d194e1140d8e3e0c0ea0833e3c810a2abf30a470a3ceca05327784ab2569d9";
+const JAR_HASH: &str = "a08106c84aa784f37b0f88484c8d30dee2eaf060d62c591575582b420677d8ea";
+const CLASS_INVENTORY_HASH: &str =
+    "9cd035ed1125b7c7b1b8d7238902d27fa19b0bec9a0dca3540a707112f3c562c";
 
 fn root() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("../..")
@@ -69,7 +71,18 @@ fn java_build_descriptor_binds_sources_recipe_and_measured_candidate() {
         "META-INF/MANIFEST.MF",
         "NOTICE.txt",
         "src/mpk/java2vir/BuildIdentity.java",
+        "src/mpk/java2vir/CapturedSnapshot.java",
+        "src/mpk/java2vir/ClosedFileManager.java",
+        "src/mpk/java2vir/CompilerDiagnostics.java",
+        "src/mpk/java2vir/CompilerSession.java",
+        "src/mpk/java2vir/DiagnosticRegistry.java",
+        "src/mpk/java2vir/FrontendFailure.java",
+        "src/mpk/java2vir/FrontendLimits.java",
         "src/mpk/java2vir/Main.java",
+        "src/mpk/java2vir/Protocol.java",
+        "src/mpk/java2vir/Selection.java",
+        "src/mpk/java2vir/SourceText.java",
+        "src/mpk/java2vir/TreeInventory.java",
     ];
     assert_eq!(records.len(), paths.len());
     for (record, path) in records.iter().zip(paths) {
@@ -128,18 +141,59 @@ fn java_build_descriptor_binds_sources_recipe_and_measured_candidate() {
         digest(&canonical(&descriptor["project_files"]))
     );
     assert_eq!(inventory["build_recipe_sha256"], digest(&canonical(recipe)));
+    let classes = inventory["class_files"].as_array().unwrap();
     assert_eq!(
-        inventory["class_files"],
-        json!([
-            {"path":"mpk/java2vir/BuildIdentity.class", "mode":"0644", "size_bytes":947,
-             "sha256":"2cc9db1b015cbb6988fe39ef16f59144bf627a4156ce5bc560899779934c8a52"},
-            {"path":"mpk/java2vir/Main.class", "mode":"0644", "size_bytes":691,
-             "sha256":"e7f7f8b630e05d8565ce8173c85b920046180a9d550aa2ec42e4c882c6e7e102"}
-        ])
+        digest(&canonical(&inventory["class_files"])),
+        CLASS_INVENTORY_HASH
+    );
+    assert_eq!(
+        classes
+            .iter()
+            .map(|record| record["path"].as_str().unwrap())
+            .collect::<Vec<_>>(),
+        [
+            "mpk/java2vir/BuildIdentity.class",
+            "mpk/java2vir/CapturedSnapshot$Input.class",
+            "mpk/java2vir/CapturedSnapshot$Pass.class",
+            "mpk/java2vir/CapturedSnapshot$Stat.class",
+            "mpk/java2vir/CapturedSnapshot.class",
+            "mpk/java2vir/ClosedFileManager$1.class",
+            "mpk/java2vir/ClosedFileManager.class",
+            "mpk/java2vir/CompilerDiagnostics$Raw.class",
+            "mpk/java2vir/CompilerDiagnostics.class",
+            "mpk/java2vir/CompilerSession$RejectingWriter.class",
+            "mpk/java2vir/CompilerSession.class",
+            "mpk/java2vir/DiagnosticRegistry$Definition.class",
+            "mpk/java2vir/DiagnosticRegistry.class",
+            "mpk/java2vir/FrontendFailure$Issue.class",
+            "mpk/java2vir/FrontendFailure$Span.class",
+            "mpk/java2vir/FrontendFailure.class",
+            "mpk/java2vir/FrontendLimits$Limit.class",
+            "mpk/java2vir/FrontendLimits.class",
+            "mpk/java2vir/Main.class",
+            "mpk/java2vir/Protocol.class",
+            "mpk/java2vir/Selection.class",
+            "mpk/java2vir/SourceText.class",
+            "mpk/java2vir/TreeInventory$1.class",
+            "mpk/java2vir/TreeInventory$Node.class",
+            "mpk/java2vir/TreeInventory$Origins$Origin.class",
+            "mpk/java2vir/TreeInventory$Origins.class",
+            "mpk/java2vir/TreeInventory$Pending.class",
+            "mpk/java2vir/TreeInventory.class",
+        ]
+    );
+    // The inactive main/provider check stay byte-identical to T02.
+    assert_eq!(
+        classes[0]["sha256"],
+        "2cc9db1b015cbb6988fe39ef16f59144bf627a4156ce5bc560899779934c8a52"
+    );
+    assert_eq!(
+        classes[18]["sha256"],
+        "e7f7f8b630e05d8565ce8173c85b920046180a9d550aa2ec42e4c882c6e7e102"
     );
     assert_eq!(
         inventory["frontend_files"],
-        json!([{"path":"java2vir.jar", "mode":"0644", "size_bytes":2091, "sha256":JAR_HASH}])
+        json!([{"path":"java2vir.jar", "mode":"0644", "size_bytes":108747, "sha256":JAR_HASH}])
     );
     assert_eq!(inventory["notice_files"][0]["sha256"], records[1]["sha256"]);
 }

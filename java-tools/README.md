@@ -1,11 +1,13 @@
-# Java offline build candidate
+# Java offline frontend candidate
 
 `JAVA-03-T02` provides the unregistered `java2vir` build project. Its only
 successful invocation is `--version`; every source/frontend invocation exits
 2 with `JAVA_FRONTEND_UNAVAILABLE` and no stdout. T03 adds independent Rust
-contract/artifact validators; Java source parsing, source subset admission,
-VIR generation and installed execution belong to later tasks. The active
-Go/Rust/C# release and semantic registry revision 2 are unchanged.
+contract/artifact validators. T04 adds internal immutable capture, strict
+UTF-8 transport, public javac parse/analyze sessions and bounded failure
+diagnostics, exercised through a separately compiled private test harness.
+Source subset/sidecars, VIR emission and installed execution remain T05-T07.
+The active Go/Rust/C# release and semantic registry revision 2 are unchanged.
 
 The normative inputs are in
 [`JAVA_PROFILE_V0.md`](../develop/specs/JAVA_PROFILE_V0.md) and the Java
@@ -56,7 +58,7 @@ From the repository root:
 cargo test -p mpk-cli --test java_build_inputs --offline
 ./scripts/build-java-frontend.sh --check
 mkdir -p target/java-candidates
-./scripts/build-java-frontend.sh --build "$(pwd -P)/target/java-candidates/t02"
+./scripts/build-java-frontend.sh --build "$(pwd -P)/target/java-candidates/t04"
 ```
 
 `--check` and `--build` each perform two isolated builds and require identical
@@ -85,6 +87,73 @@ After an intentional project change, `--update-inventory` regenerates
 only after two matching builds. Review source/recipe/class/JAR changes
 together and update the test goldens. It is an offline maintenance action,
 not an installed release operation. Ordinary builds never rewrite metadata.
+
+## Capture and compiler adapter verification
+
+```sh
+./scripts/check-java-frontend.sh --check-fixtures
+cargo test -p mpk-cli --test java_frontend_vectors --offline
+./scripts/check-java-frontend.sh --run
+cargo test -p mpk-cli --test java_frontend_vectors --offline pinned_java_capture_compiler_and_diagnostic_vectors_execute -- --ignored --exact
+```
+
+`--check-fixtures` needs no JDK or Docker. It checks closed vector ownership
+and recomputes every recorded tree spelling and UTF-16/UTF-8 coordinate from
+the fixture's original bytes. The Rust tests independently reject unknown
+Java issue codes, messages, phases, statuses, exits, crossed identities and
+partial/noncanonical failure responses.
+
+`--run` uses the same provisioned archive, pinned image, scrubbed environment
+and offline project compiler as the build owner. It builds the current project
+without rewriting inventories and compiles `java-tools/tests/FrontendTests.java`
+separately; that test class and planted dependencies never enter `java2vir.jar`.
+The canonical test report includes all 20 compiler observations, 17 T04
+rejections, file-manager boundaries, counter checks and artifact-free failures.
+Full recorded trees, types, elements, original spellings and byte positions
+are compared; equal node counts alone do not pass. The ignored Rust test also
+requires the measured candidate to match the checked-in build inventory and
+passes the Java-produced failures through the independent Rust validator.
+
+The private `CompilerSession` always creates a fresh pinned compiler task and
+file manager, fixes `Locale.US` and all options, and only calls `parse()` and
+`analyze()`. Its pre-attribution inventory retains raw children, names,
+modifiers and literals, including dead branches. T05 must reject excluded raw
+parents before calling `requireUnchanged` on admitted subtrees. In particular,
+an implicit class constructor or an inferred `var` type is inventoried without
+prematurely converting a future subset rejection into an adapter failure.
+
+The unit source object can be a javac wrapper. At parse completion, the adapter
+binds it once to the supplied source using the immutable `CharSequence`
+identity, source order and URI, then checks unit/file identity afterward.
+Diagnostic sources must be the original captured `JavaFileObject`; URI or
+text equality cannot admit a substitute. The listener never asks for compiler
+messages or line/column positions. It maps checked UTF-16 boundaries into the
+original UTF-8 bytes and retains at most 1,024 callbacks before fixed-message
+normalization and deterministic sorting.
+
+`CapturedSnapshot` is the second capture boundary over a native parent's
+private, read-only snapshot. It uses no-follow secure directory streams,
+regular-file/link checks, exact selection inventory, bounded byte reads and
+two metadata/content passes. Its POSIX path metadata checks do not replace
+the parent's descriptor-based host capture and read-only seal. The shared
+native capture now recognizes Java source/selected-contract inputs and retains
+unlisted inventory for the child's rejection. T07 owns connecting that capture
+to the registered read-only mount and complete native process sandbox.
+
+Application class/source/module/processor paths are closed; all four output
+methods and service loading refuse access. Planted source/class positive
+controls and module/service fixtures prove that the test dependencies exist
+but the adapter does not consume them. `--release 25` still uses javac's
+separate platform manager: zero wrapper system-file returns are expected.
+The pinned JDK and T07 filesystem boundary close that view; this wrapper does
+not claim to intercept it.
+
+T04 executes the capture/encoding/parse/attribution precedence and operational
+failure cases. `follow_on_precedence` in the private report names the six final
+outcomes that require T05 subset/contracts, T06 emission, or T07 release
+preflight. Their closed failure transport and raw-tree deferral are covered
+now; actual downstream outcomes must be added before the T09 aggregate gate.
+No successful source artifact or installed Java release is claimed by this test.
 
 ## Closed inputs and deterministic output
 

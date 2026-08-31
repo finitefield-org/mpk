@@ -7,8 +7,9 @@ and `MLANG-00` gates. `CSHARP-02-T01` through `CSHARP-02-T20` are complete;
 the shared Go/Rust/C# successor release is active. `JAVA-03-T01` completed
 the inactive normative profile/vector/toolchain freeze and disposable
 compiler/JVM compatibility probes. T02 completed the inactive offline build
-and T03 completed the inactive contract/artifact validators; `JAVA-03-T04`
-is next and T04-T10 remain pending.
+and T03 completed the inactive contract/artifact validators. T04 completed
+internal capture, the public compiler adapter and bounded diagnostics;
+`JAVA-03-T05` is next and T05-T10 remain pending.
 No Java or later-language frontend is active, registry revision 2
 remains installed, and no later-language phase has started.
 
@@ -792,11 +793,11 @@ wrapping/division/shift check rules; Go/Rust/C# profile entries remain
 byte-identical in the frozen, inactive registry revision 3.
 
 Execution follows the ten serial tasks in that design's section 11 and
-`java-03-implementation-traceability-ledger.md`. T01-T03 are complete;
-`JAVA-03-T04` is next. T04-T07 build the inactive frontend,
+`java-03-implementation-traceability-ledger.md`. T01-T04 are complete;
+`JAVA-03-T05` is next. T05-T07 complete the inactive frontend,
 lowering and registered runner; T08 integrates VC/policy/evidence/AI/API;
 T09 hardens and rehearses the release; T10 activates the four-language
-release. T04-T10 remain pending. No public Java tuple is activated before
+release. T05-T10 remain pending. No public Java tuple is activated before
 T10. Later-language phases remain blocked.
 
 T01 completion evidence: `JAVA_PROFILE_V0.md`, Java and revision-3 vectors,
@@ -812,7 +813,8 @@ T02 completion evidence: `java-tools/java2vir`, the offline
 `scripts/build-java-frontend.sh` owner, exact source/recipe/class/JAR records
 in `release/build-inputs/java/`, and `java_build_inputs.rs` tests. Two fresh
 offline containers produce identical candidate bytes. The candidate only
-supports its version check; source parsing and VIR generation remain pending.
+supports its version check. Source parsing was pending at T02 and is now
+implemented internally by T04; VIR generation remains T06.
 See `java-tools/README.md` for provisioning and the explicit local build test.
 
 T03 completion evidence: compiled revision-3/Java identities, exact parameters,
@@ -822,6 +824,15 @@ and the installed four tuples are unchanged. CLI and API regressions confirm
 that Java cannot open a public source route or mutate session state. T04 owns
 capture, public javac adaptation and bounded diagnostics; T08 still owns the
 complete policy/evidence/certificate/AI/API integration.
+
+T04 completion evidence: descriptor-based Java capture support, strict UTF-8
+and original byte positions, fresh parse/analyze-only javac sessions, closed
+application dependency/output paths, raw pre/post tree inventories and bounded
+fixed-message failure transport. `java_frontend_vectors.rs` independently
+validates diagnostics and runs the private pinned-JDK conformance harness.
+T05 must run raw subset gates before accepted-subtree transformation checks;
+T06 owns successful artifacts and T07 owns installed runtime isolation. The
+packaged main entry remains version-only and the active release is unchanged.
 
 Exit gate: Java passes the common definition of done without reinterpreting C#,
 Go, or Rust semantics, including the local offline two-pass installed gate,
