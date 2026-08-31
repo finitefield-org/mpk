@@ -7,17 +7,13 @@ import java.util.Map;
 import java.util.TreeMap;
 import static mpk.java2vir.JavaIr.*;
 
-/** Private artifact assembly. T07 must supply a validated release identity; Main stays inactive. */
+/** Artifact assembly after the parent's validated candidate release identity. */
 final class JavaEmission {
     private JavaEmission() {}
     static final String JDK_ARCHIVE_SHA256 = "dbb698396d478e7fa2b1e50f4103324b2a99b90569ee27c33f2261f9215cf41e";
-    private static final List<Map<String, Object>> COMPONENTS = List.of(
-            content("hotspot", "5e0fb6e83a5676090f28ff0b453e9199df06af1ff90d473c1b9837e41096114c"),
-            content("jdk-modules", "6b11db4c84e8ac3b9500397753e02ad03450e904fa8656eb8fd2a2197e536b57"),
-            content("jdk-release", "44be64b383baa18668afefbe9a780ae3a9d730a066eaaa92500f77bd1e4b934c"));
 
     // No defaults, bundle discovery or fabricated installed-release tuple. The
-    // private conformance harness explicitly injects test identities until T07.
+    // private conformance harness explicitly injects its own test identities.
     record Identity(String releaseRegistrySha256, String toolchainBundleId, String distributionSha256,
                     String frontendBundleId, String frontendSha256) {
         Identity {
@@ -73,7 +69,7 @@ final class JavaEmission {
         manifest.put("release_registry", Map.of("schema", "mpk.release.bundle_registry.v1", "id", "mpk.release.registry.v1",
                 "registry_sha256", identity.releaseRegistrySha256()));
         manifest.put("toolchain", Map.of("bundle_id", identity.toolchainBundleId(),
-                "distribution_sha256", identity.distributionSha256(), "components", COMPONENTS));
+                "distribution_sha256", identity.distributionSha256(), "components", JavaRelease.components()));
         manifest.put("frontend", Map.of("bundle_id", identity.frontendBundleId(), "name", "java2vir", "version", "0.1.0",
                 "binary_sha256", identity.frontendSha256(), "subordinate_binaries", List.of()));
         String unit = snapshot.selection().compilation();
@@ -83,9 +79,6 @@ final class JavaEmission {
         manifest.put("input_set_hash", CanonicalJson.hash("MPK-INPUT-SET-0.1", inputs, "source_manifest_canonical_bytes"));
         manifest.put("vir_hash", virHash); manifest.put("source_map_hash", mapHash);
         return CanonicalJson.artifact(manifest, "source_manifest_hash", "MPK-SOURCE-MANIFEST-1.0", "source_manifest_canonical_bytes");
-    }
-    private static Map<String, Object> content(String name, String hash) {
-        return Map.of("kind", "content", "name", name, "release", "25.0.4.1+1", "content_sha256", hash);
     }
     private static FrontendFailure internal() { return FrontendFailure.of("JAVA_FRONTEND_INTERNAL", "emission"); }
 }

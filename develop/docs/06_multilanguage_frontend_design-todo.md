@@ -11,7 +11,8 @@ and T03 completed the inactive contract/artifact validators. T04 completed
 internal capture, the public compiler adapter and bounded diagnostics. T05
 completed source admission, inert initialization, call closure and typed
 sidecars. T06 completed private CFG/lowering and complete artifact emission;
-`JAVA-03-T07` is next and T07-T10 remain pending.
+T07's private candidate/JVM runner is implemented, with native x86-64 Linux
+acceptance still pending. T08-T10 remain pending.
 No Java or later-language frontend is active, registry revision 2
 remains installed, and no later-language phase has started.
 
@@ -796,10 +797,10 @@ byte-identical in the frozen, inactive registry revision 3.
 
 Execution follows the ten serial tasks in that design's section 11 and
 `java-03-implementation-traceability-ledger.md`. T01-T06 are complete;
-`JAVA-03-T07` is next and implements candidate bundles and the registered
-JVM runner; T08 integrates VC/policy/evidence/AI/API;
+T07 implements candidate bundles and the registered JVM runner, but its
+native acceptance gate is still outstanding. T08 integrates VC/policy/evidence/AI/API;
 T09 hardens and rehearses the release; T10 activates the four-language
-release. T07-T10 remain pending. No public Java tuple is activated before
+release. Accept T07's native gate before starting T08. No public Java tuple is activated before
 T10. Later-language phases remain blocked.
 
 T01 completion evidence: `JAVA_PROFILE_V0.md`, Java and revision-3 vectors,
@@ -814,8 +815,8 @@ revision 2 and no Java source-processing or active route was added.
 T02 completion evidence: `java-tools/java2vir`, the offline
 `scripts/build-java-frontend.sh` owner, exact source/recipe/class/JAR records
 in `release/build-inputs/java/`, and `java_build_inputs.rs` tests. Two fresh
-offline containers produce identical candidate bytes. The packaged entrypoint
-only supports its version check. Source parsing and VIR generation were
+offline containers produce identical candidate bytes. At T02 completion, the
+packaged entrypoint only supported its version check. Source parsing and VIR generation were
 pending at T02 and are now implemented internally by T04 and T06, respectively.
 See `java-tools/README.md` for provisioning and the explicit local build test.
 
@@ -834,7 +835,8 @@ fixed-message failure transport. `java_frontend_vectors.rs` independently
 validates diagnostics and runs the private pinned-JDK conformance harness.
 T05 now runs raw subset gates before accepted-subtree transformation checks;
 T06 owns successful artifacts and T07 owns installed runtime isolation. The
-packaged main entry remains version-only and the active release is unchanged.
+packaged main entry was version-only at T04 completion. T07 connects that private
+entry to the candidate runner; the active release remains unchanged.
 
 T05 completion evidence: raw declaration/name/statement/expression gates,
 inert interfaces, explicit 255-unit signatures, typed bindings and conversions,

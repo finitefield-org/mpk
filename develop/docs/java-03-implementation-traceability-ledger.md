@@ -1,9 +1,10 @@
 # JAVA-03 Implementation Traceability Ledger
 
 Status: `JAVA-03-T01` through `JAVA-03-T06` complete (2026-08-31);
-`JAVA-03-T07` is next and T07 through T10 are pending. Private CFG/lowering
-and complete artifact emission do not establish registered installed execution,
-native release isolation or Java activation. The active release remains
+T07's private candidate/JVM runner is implemented, but native x86-64 Linux
+acceptance is still pending. T08 through T10 are pending. Neither private
+artifacts nor emulated tests establish native release isolation or Java
+activation. The active release remains
 Go/Rust/C# at registry revision 2.
 
 This is an execution plan subordinate to `../specs/JAVA_PROFILE_V0.md`, the
@@ -703,6 +704,104 @@ T06 implementation record (2026-08-31):
   registered native runner, T09 the JDK differential/fuzz corpus and release
   rehearsal, and T10 activation. Frozen Java/revision-3 vector bytes, the
   installed revision-2 registry and all four Go/Rust/C# tuples are unchanged.
+
+T07 implementation record (2026-08-31; native acceptance pending):
+
+- `java_release_bundles.py` and `build-java-candidate.sh` reconstruct a private
+  Java candidate and registry from the frozen inputs and measured frontend.
+  They live under `release/build-inputs/java/`, outside the active registry.
+  The private registry digest is
+  `3208209c96bedce5ce94b26a824a9164c281f5bf8bc76e03f56497a85d564269`;
+  the complete toolchain distribution digest is
+  `8f6c540278984d0a8f94f3d288ab94fa84fe165a023c2a376b26bfa955d0e8e1`.
+  The frontend contains its JAR and project notice. The toolchain has 405
+  regular files: 399 JDK files and six frozen native files. All 205 archive
+  legal links become independent regular copies of their frozen target bytes.
+  No host JDK, native library, dependency restore or image pull is used.
+- Assembly requires a new absolute destination and an explicit Linux x86-64
+  owning test executable. Two isolated offline builds precede copying the
+  exact JDK/native closure. The final check verifies every file, directory,
+  byte hash, executable bit, sealed mode and unique inode. Links, missing or
+  extra content, aliases and writable inputs reject. A failed assembly is not
+  a publishable image; this private assembler does not activate a release.
+- `java_release.rs` constructs only the frozen 27-token JVM prefix, six-entry
+  environment and ordered frontend grammar, including actual candidate
+  identities. The shared descriptor validator requires the exact Java
+  candidate, host and layout even after outer hashes are repaired. Java's
+  `mpk.host.linux-x86_64-gnu.java25.v0` and corresponding runtime layout are
+  distinct from the existing Go/Rust/C# contracts; those budgets and IDs are
+  unchanged. No environment flag or caller-selected executable opens Java.
+- `java_frontend_runner.rs` is included only by its owning test executable.
+  It locates registries beside the actual installed `bin/mpk` inode, uses the
+  shared no-follow loader to snapshot registered bundles, and prepares the
+  Java host before accessing selected source. It checks captured path/kind/
+  count/size agreement before materialization, imports the complete response
+  through the shared validators, and binds successful manifests to the exact
+  frontend, distribution, component and release-registry identities.
+- Java's sandbox branch uses atomic cgroup placement and the existing pidfd,
+  bounded-stream and descendant/backing cleanup machinery with 1 GiB memory,
+  zero swap, 128 PIDs, 16 GiB address space, 1,024 descriptors, zero core bytes,
+  64 MiB `noswap`/noexec tmpfs, a 120-second timeout, 256 MiB stdout and 2 MiB
+  stderr limits. It maps only UID/GID 65534, clears supplementary groups and
+  all capability sets, mounts a private read-only PID proc view, and installs
+  a finite x86-64 syscall policy. Only exact pthread clone flags pass;
+  clone3 receives ENOSYS for the glibc fallback. Socket and namespace
+  challenges must fail in the installed policy before source is exposed.
+  This describes the implemented boundary, not measured native acceptance.
+- `FrontendArguments`, `JavaRelease` and `RuntimePreflight` connect packaged
+  `Main` to the existing admission/lowering/emission pipeline. Before capture,
+  the child checks exact argv/environment, compiler/JAR/JDK bytes, code source,
+  read-only roots, PID/UID/GID/capability state and the fixed JVM settings.
+  Malformed invocation has no stdout and exits 2. Valid-request operational
+  failures use artifact-free successor envelopes. The private lowering
+  harness retains its explicit test identities; real component projections
+  now describe the Java executable, complete JDK content and native content.
+- The owning test checks real descriptor validation, repaired-hash mutations,
+  ordered multi-file launcher expansion and the closed isolation inventory.
+  `RunnerTests.java` adds 118 fixed-JDK assertions covering truncated/reordered
+  arguments, forbidden overrides, byte/link/size changes and packaged-Main
+  metadata failure before absent source capture. T04's precedence ledger now
+  names that executable contribution; native installed precedence remains
+  required separately. The image gate rejects ten real JAR/JDK/native/mode/
+  link/registry mutations without claiming kernel enforcement.
+- `check-java-runner.sh --native` requires a native x86-64 Linux host, writable
+  initial cgroup-v2 hierarchy, root and strace. It runs installed Java cases,
+  demands identical hostile-environment output, rejects an undelegated launch,
+  and exercises OOM/PID/timeout/stdout/stderr/tmpfs faults with fixed source-free
+  payloads through the same resource supervisor. It also runs the ten image
+  mutations through installed preflight. Its receipt binds the runner and
+  registry and records JVM-attributed clone flags, clone3 fallback, pre-exec
+  socket denials and trace hash. A transport-only parser regression rejects
+  parent-only or incomplete traces; it is not substituted for native evidence.
+- Review fixed the candidate inventory schema, installed success status and
+  component linkage, constrained the shared .NET address-space exception to
+  its actual bootstrap slot, and restored an exhaustive Linux-only C# test
+  match without changing its Go/Rust cases. It also corrected stale source/
+  notice/status descriptions and prevented another process's trace events
+  from satisfying JVM evidence requirements. Final source records cover 31
+  project files and 87 classes; two isolated builds reproduce the 332,137-byte
+  JAR, SHA-256
+  `333a050128cddc206474c9bdcca244276c08b246f2a5ba11f55983537cf7cd75`.
+- Verification passed: the eight explicitly enabled offline Java integration
+  tests from T02/T04/T05/T06; `check-java-frontend.sh --run-runner`; private
+  candidate assembly and `check-java-runner.sh --image`; the owning Rust test;
+  and `CARGO_NET_OFFLINE=true ./scripts/check-fast.sh`. The full gate includes
+  formatting, obsolete-interface checks, workspace Clippy/tests, CLI build
+  and certificate smoke checks. Fixed offline Linux amd64 builds also passed
+  all-target Clippy, owning-runner compilation and the sandbox unit target,
+  including the seccomp logic test. Those builds/tests ran under ARM-host CPU
+  emulation and do not establish native kernel isolation.
+  The final standard gate was repeated with all new files staged. The repeated
+  task diff review has no remaining findings; native acceptance remains
+  separate as recorded below.
+- The actual native command was attempted with the assembled image and
+  refused this ARM macOS host with exit 69, `JAVA_NATIVE_HOST_REQUIRED`.
+  No native host was available: JVM/syscall compatibility, installed privilege/
+  filesystem/network/resource failures and cleanup therefore remain unrun.
+  **T07 native acceptance is pending; run and review that gate before accepting
+  T07 or starting T08.** T09 still owns complete release rehearsal and T10
+  public activation. Frozen Java/revision-3 vector bytes, active revision-2
+  descriptors and the existing four Go/Rust/C# tuples remain unchanged.
 
 A task is complete only after its exact deliverables, required verification
 (or explicitly recorded unrun reason), fix/review loop, commit and push are

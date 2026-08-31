@@ -9,14 +9,15 @@ inactive offline build candidate; T03 completed the inactive registry and
 artifact validators. T04 completed internal capture, the public compiler
 adapter and bounded diagnostics. T05 completed source admission, inert
 initialization, acyclic call closure and typed sidecars. T06 completed private
-CFG/lowering and deterministic artifact emission. `JAVA-03-T07` is next.
+CFG/lowering and deterministic artifact emission. T07's private candidate/JVM
+runner is implemented; native x86-64 Linux acceptance remains pending.
 `07_java_frontend_design.md` and the Java implementation ledger record
 the implementation boundary. No Java or later-language route is active;
 registry revision 2 remains installed.
 
 Prepared: 2026-08-21
 
-Updated: 2026-08-31 (`JAVA-03-T01` through T06 complete; T07 next)
+Updated: 2026-08-31 (`JAVA-03-T01` through T06 complete; T07 native gate pending)
 
 ## 1. Decision summary
 

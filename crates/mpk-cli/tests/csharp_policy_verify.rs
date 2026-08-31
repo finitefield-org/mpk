@@ -376,7 +376,9 @@ fn staged_go_and_rust_keep_their_existing_policy_and_checker_verdicts() {
             semantic_profile: match expected_profile {
                 CompiledSemanticProfile::GoFixedV0 => SemanticProfile::GoFixedV0,
                 CompiledSemanticProfile::RustCheckedV0 => SemanticProfile::RustCheckedV0,
-                CompiledSemanticProfile::CSharpScalarV0 => unreachable!("loop has no C# case"),
+                CompiledSemanticProfile::CSharpScalarV0 | CompiledSemanticProfile::JavaScalarV0 => {
+                    unreachable!("loop contains only Go and Rust cases")
+                }
             },
             semantic_parameters: serde_json::from_value::<SemanticParameters>(
                 context.semantic_parameters().value().clone(),

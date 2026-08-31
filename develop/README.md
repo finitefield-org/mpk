@@ -295,7 +295,8 @@ imported from `tasks/task_backlog.csv`. Use the two design todo documents and
 the C# and Java implementation ledgers for post-Rust tracker tasks. Java's
 T01 freeze, T02 offline build, T03 validators, T04 capture/compiler adapter,
 T05 source subset/sidecars and T06 lowering/artifact emission are complete;
-the next task is `JAVA-03-T07`.
+T07's private candidate/JVM runner is implemented, with native x86-64 Linux
+acceptance still pending. Run that gate before accepting T07 and starting T08.
 
 ## Reference posture
 

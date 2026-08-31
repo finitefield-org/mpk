@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Private T04/T05/T06 conformance executor. No installed runner or source CLI entrypoint."""
+"""Private T04-T07 JDK conformance executor; no public source CLI entrypoint."""
 
 import importlib.util
 import json
@@ -45,9 +45,8 @@ PRECEDENCE = (
 # The T04 harness owns this family; T05/T06 contribute executable cases.
 ADMISSION_PRECEDENCE = dict.fromkeys(ADMISSION.PRECEDENCE, "T05: --run-admission")
 LOWERING_PRECEDENCE = dict.fromkeys(LOWERING.PRECEDENCE, "T06: --run-lowering")
-FOLLOW_ON_PRECEDENCE = {
-    "release_before_source": "T07",
-}
+RUNNER_PRECEDENCE = {"release_before_source": "T07: --run-runner"}
+FOLLOW_ON_PRECEDENCE = {}
 
 
 def fixture_ownership(vector):
@@ -67,7 +66,7 @@ def fixture_ownership(vector):
     actual = tuple(case["id"] for case in vector["rejected_cases"]
                    if case["id"].startswith(("source.", "capture.", "compiler.")))
     BUILD.require(actual == OWNED_REJECTIONS, "JAVA_FRONTEND_TEST_REJECTION_OWNERS")
-    BUILD.require({case["id"] for case in vector["precedence_cases"]} == set(PRECEDENCE) | set(ADMISSION_PRECEDENCE) | set(LOWERING_PRECEDENCE) | set(FOLLOW_ON_PRECEDENCE),
+    BUILD.require({case["id"] for case in vector["precedence_cases"]} == set(PRECEDENCE) | set(ADMISSION_PRECEDENCE) | set(LOWERING_PRECEDENCE) | set(RUNNER_PRECEDENCE) | set(FOLLOW_ON_PRECEDENCE),
                   "JAVA_FRONTEND_TEST_PRECEDENCE_OWNERS")
     for case in vector["limit_cases"]:
         BUILD.require(case["boundary"] == case["limit"] and case["overflow"] == case["limit"] + 1)
@@ -204,7 +203,25 @@ def validate_report(report, vector):
                     BUILD.require(actual[stage] == rows, "JAVA_FRONTEND_TEST_TREE_OBSERVATION")
 
 
-def worker(admission=False, lowering=False):
+def runner_fixtures(destination, vector):
+    candidate = BUILD.load_json(ROOT / "release/build-inputs/java/bundle-candidate.json")
+    registry = BUILD.load_json(ROOT / "release/build-inputs/java/bundle-registry.json")
+    substitutions = {
+        "{selection.compilation}": "vector", "{each selection.sources in stored order}": "src/vector/Case.java",
+        "{each selection.contracts in stored order}": "contracts/selected.json",
+        "{each selection.methods in stored order}": "vector.Case::f(int)->int",
+        "{release.frontend_bundle_id}": candidate["frontend_bundles"][0]["bundle_id"],
+        "{release.frontend_sha256}": candidate["frontend_bundles"][0]["main"]["binary_sha256"],
+        "{release.registry_sha256}": registry["registry_sha256"],
+        "{release.toolchain_bundle_id}": candidate["toolchain_bundles"][0]["bundle_id"],
+        "{release.toolchain_distribution_sha256}": candidate["toolchain_bundles"][0]["distribution_sha256"],
+    }
+    arguments = [substitutions.get(token, token) for token in vector["launcher_contract"]["frontend_argv_template"]]
+    BUILD.require(all("{" not in token and "\n" not in token for token in arguments), "JAVA_RUNNER_FIXTURE")
+    (destination / "runner-arguments.txt").write_text("\n".join(arguments) + "\n", encoding="ascii")
+
+
+def worker(admission=False, lowering=False, runner=False):
     # This diagnostic stream is for compilation of our test/project sources only.
     # Selected-source diagnostics are still normalized by the Java implementation.
     execute = BUILD.execute
@@ -233,12 +250,12 @@ def worker(admission=False, lowering=False):
                  "-Xlint:all", "-Werror", "--class-path", "/work/java2vir.jar",
                  "--source-path", "/work/empty", "--processor-path", "/work/empty",
                  "--module-path", "/work/empty", "-d", "/work/test-classes",
-                 "/mpk/tests/LoweringTests.java" if lowering else "/mpk/tests/AdmissionTests.java" if admission else "/mpk/tests/FrontendTests.java"]
+                 "/mpk/tests/RunnerTests.java" if runner else "/mpk/tests/LoweringTests.java" if lowering else "/mpk/tests/AdmissionTests.java" if admission else "/mpk/tests/FrontendTests.java"]
     code, stdout, stderr = compile_with_diagnostics(arguments, environment=BUILD.ENVIRONMENT)
     BUILD.require(code == 0 and not stdout and not stderr, "JAVA_FRONTEND_TEST_COMPILE")
     code, stdout, stderr = execute(
         ["/mpk/toolchain/jdk/bin/java", *BUILD.JVM_ARGUMENTS, "-cp", "/work/java2vir.jar:/work/test-classes:/work/poison-classes",
-         "mpk.java2vir.LoweringTests" if lowering else "mpk.java2vir.AdmissionTests" if admission else "mpk.java2vir.FrontendTests"],
+         "mpk.java2vir.RunnerTests" if runner else "mpk.java2vir.LoweringTests" if lowering else "mpk.java2vir.AdmissionTests" if admission else "mpk.java2vir.FrontendTests"],
         environment=BUILD.ENVIRONMENT, timeout=300)
     if stderr:
         sys.stderr.buffer.write(stderr)
@@ -248,7 +265,7 @@ def worker(admission=False, lowering=False):
     sys.stdout.buffer.write(BUILD.canonical(report) + b"\n")
 
 
-def run(admission=False, lowering=False):
+def run(admission=False, lowering=False, runner=False):
     inputs = BUILD.load_toolchain()
     BUILD.validate_active_boundary()
     descriptor = BUILD.load_descriptor(update=True)
@@ -277,6 +294,9 @@ def run(admission=False, lowering=False):
         tests.mkdir()
         (tests / "FrontendTests.java").write_bytes(BUILD.read_bytes(TEST_ROOT / "FrontendTests.java", BUILD.MAX_SOURCE))
         vector = fixtures(tests)
+        if runner:
+            (tests / "RunnerTests.java").write_bytes(BUILD.read_bytes(TEST_ROOT / "RunnerTests.java", BUILD.MAX_SOURCE))
+            runner_fixtures(tests, vector)
         if admission:
             (tests / "AdmissionTests.java").write_bytes(BUILD.read_bytes(TEST_ROOT / "AdmissionTests.java", BUILD.MAX_SOURCE))
             admission_fixtures = ADMISSION.fixtures(tests, BUILD)
@@ -292,6 +312,8 @@ def run(admission=False, lowering=False):
                 "--cap-drop=ALL", "--security-opt=no-new-privileges", "--pids-limit=128",
                 "--memory=1073741824", "--memory-swap=1073741824", "--ulimit=core=0:0", "--ulimit=nofile=1024:1024",
                 "--tmpfs=/work:rw,nosuid,nodev,noexec,size=134217728,uid=65534,gid=65534,mode=0700", "--workdir=/work"]
+        if runner:
+            argv.append("--tmpfs=/mpk/tmp:rw,nosuid,nodev,noexec,size=67108864,uid=65534,gid=65534,mode=0700")
         for source, target in (("jdk", "/mpk/toolchain/jdk"), ("project", "/mpk/project"),
                                ("inputs", "/mpk/inputs"), ("build", "/mpk/build"), ("tests", "/mpk/tests")):
             BUILD.require("," not in str(root / source))
@@ -299,7 +321,7 @@ def run(admission=False, lowering=False):
         argv.extend([BUILD.IMAGE, "/usr/bin/env", "-i"])
         argv.extend(key + "=" + value for key, value in BUILD.ENVIRONMENT.items())
         argv.extend(["/usr/local/bin/python3", "-I", "-S", "-B", "/mpk/build/java_frontend_tests.py",
-                     "_worker-lowering" if lowering else "_worker-admission" if admission else "_worker"])
+                     "_worker-runner" if runner else "_worker-lowering" if lowering else "_worker-admission" if admission else "_worker"])
         try:
             code, stdout, stderr = BUILD.execute(argv, environment=HOST_ENVIRONMENT, timeout=600)
             if stderr:
@@ -309,7 +331,13 @@ def run(admission=False, lowering=False):
             BUILD.require(report["candidate_inventory"]["project_files_sha256"] == BUILD.sha256(BUILD.canonical(descriptor["project_files"])))
             BUILD.require(BUILD.project_records(ROOT / BUILD.PROJECT) == descriptor["project_files"])
             BUILD.validate_active_boundary()
-            if lowering:
+            if runner:
+                BUILD.require(report["schema"] == "mpk.java.runner_tests.v0" and report["assertions"] >= 100
+                              and report["precedence"] == "release_before_source", "JAVA_RUNNER_REPORT")
+                envelope = BUILD.strict_json(report["envelope"].encode("utf-8"), canonical_transport=True)
+                BUILD.require(envelope["status"] == "frontend-error" and envelope["phase"] == "metadata"
+                              and "vir" not in envelope and "source_manifest" not in envelope, "JAVA_RUNNER_REPORT")
+            elif lowering:
                 LOWERING.validate_report(report, lowering_fixtures, BUILD)
             elif admission:
                 ADMISSION.validate_report(report, admission_fixtures, BUILD)
@@ -317,6 +345,7 @@ def run(admission=False, lowering=False):
                 validate_report(report, vector)
                 report["admission_precedence"] = ADMISSION_PRECEDENCE
                 report["lowering_precedence"] = LOWERING_PRECEDENCE
+                report["runner_precedence"] = RUNNER_PRECEDENCE
                 report["follow_on_precedence"] = FOLLOW_ON_PRECEDENCE
             sys.stdout.buffer.write(BUILD.canonical(report) + b"\n")
         finally:
@@ -335,12 +364,16 @@ def main():
         worker(admission=True)
     elif sys.argv[1:] == ["_worker-lowering"]:
         worker(lowering=True)
+    elif sys.argv[1:] == ["_worker-runner"]:
+        worker(runner=True)
     elif sys.argv[1:] == ["run"]:
         run()
     elif sys.argv[1:] == ["run-admission"]:
         run(admission=True)
     elif sys.argv[1:] == ["run-lowering"]:
         run(lowering=True)
+    elif sys.argv[1:] == ["run-runner"]:
+        run(runner=True)
     elif sys.argv[1:] == ["check-fixtures"]:
         with tempfile.TemporaryDirectory(prefix="mpk-java-t04-fixtures-", dir="/tmp") as directory:
             fixtures(Path(directory))

@@ -271,9 +271,10 @@ fn pinned_java_capture_compiler_and_diagnostic_vectors_execute() {
         })
     );
     assert_eq!(
-        report["follow_on_precedence"],
-        json!({"release_before_source":"T07"})
+        report["runner_precedence"],
+        json!({"release_before_source":"T07: --run-runner"})
     );
+    assert_eq!(report["follow_on_precedence"], json!({}));
     for case in report["failures"].as_array().unwrap() {
         let envelope: Value = serde_json::from_str(case["envelope"].as_str().unwrap()).unwrap();
         let request = Request::new(&envelope["selection"]);

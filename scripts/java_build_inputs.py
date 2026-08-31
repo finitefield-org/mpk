@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Offline builder for the unregistered JAVA-03 candidate; no source frontend."""
+"""Offline builder for the private JAVA-03 frontend candidate."""
 
 from __future__ import annotations
 
@@ -47,6 +47,7 @@ PROJECT_FILES = (
     "src/mpk/java2vir/CompilerDiagnostics.java",
     "src/mpk/java2vir/CompilerSession.java",
     "src/mpk/java2vir/DiagnosticRegistry.java",
+    "src/mpk/java2vir/FrontendArguments.java",
     "src/mpk/java2vir/FrontendFailure.java",
     "src/mpk/java2vir/FrontendLimits.java",
     "src/mpk/java2vir/JavaAdmission.java",
@@ -56,10 +57,12 @@ PROJECT_FILES = (
     "src/mpk/java2vir/JavaIr.java",
     "src/mpk/java2vir/JavaLowering.java",
     "src/mpk/java2vir/JavaLoweringValidation.java",
+    "src/mpk/java2vir/JavaRelease.java",
     "src/mpk/java2vir/JavaSourceMaps.java",
     "src/mpk/java2vir/JavaSubset.java",
     "src/mpk/java2vir/Main.java",
     "src/mpk/java2vir/Protocol.java",
+    "src/mpk/java2vir/RuntimePreflight.java",
     "src/mpk/java2vir/ScalarType.java",
     "src/mpk/java2vir/Selection.java",
     "src/mpk/java2vir/SourceText.java",

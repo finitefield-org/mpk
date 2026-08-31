@@ -604,6 +604,7 @@ fn validate_projection(
         // artifact limit. Go's existing frontend limit is the shared one.
         let expected_frontend_limit = match context.semantic_profile() {
             "mpk.csharp.scalar.v0" => "mpk.csharp.limits.v0",
+            "mpk.java.scalar.v0" => "mpk.java.limits.v0",
             "mpk.go.fixed.v0" | "mpk.rust.checked.v0" => "mpk.vir.limits.v0",
             _ => return Err(contract_failure()),
         };
@@ -634,6 +635,11 @@ fn validate_projection(
             }
             validate_rust_release_contract(toolchain, release_contract)?;
             validate_rust_runtime_linkage(frontend, toolchain, layouts)?;
+        }
+        if context.semantic_profile() == "mpk.java.scalar.v0"
+            && !crate::java_release::exact_release(frontend, toolchain, hosts, layouts)
+        {
+            return Err(linkage_failure());
         }
         let context_key = serde_json::to_string(&tuple.semantic_context).map_err(|_| {
             failure(
@@ -702,6 +708,11 @@ fn validate_frontend(
     frontend: &SuccessorFrontendBundle,
     semantic_registry: &ValidatedSemanticProfileRegistry,
 ) -> Result<(), SuccessorReleaseError> {
+    if frontend.bundle_id == crate::java_release::FRONTEND_ID
+        && frontend != &crate::java_release::candidate().frontend_bundles[0]
+    {
+        return Err(linkage_failure());
+    }
     if frontend.schema != SUCCESSOR_FRONTEND_BUNDLE_SCHEMA
         || !valid_identifier(&frontend.bundle_id)
         || frontend.name.is_empty()
@@ -816,6 +827,11 @@ fn validate_toolchain(
     layouts: &[NativeRuntimeLayoutProfile],
     semantic_registry: &ValidatedSemanticProfileRegistry,
 ) -> Result<(), SuccessorReleaseError> {
+    if toolchain.bundle_id == crate::java_release::TOOLCHAIN_ID
+        && toolchain != &crate::java_release::candidate().toolchain_bundles[0]
+    {
+        return Err(linkage_failure());
+    }
     if toolchain.schema != SUCCESSOR_TOOLCHAIN_BUNDLE_SCHEMA
         || !valid_identifier(&toolchain.bundle_id)
         || !hosts

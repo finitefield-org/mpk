@@ -11,6 +11,7 @@ pub mod expr_encode;
 pub mod grouping;
 pub mod hash;
 mod java_profile;
+pub mod java_release;
 mod java_source_artifacts;
 pub mod program_encode;
 pub mod program_wp;

@@ -1,6 +1,6 @@
 package mpk.java2vir;
 
-/** Private phase pipeline, intentionally not wired into the version-only Main. */
+/** Source admission and artifact pipeline used by the fixed private candidate Main. */
 final class JavaFrontend {
     private JavaFrontend() {}
     record Result(int exitCode, byte[] stdout) {

@@ -6,9 +6,9 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 
 const TOOLCHAIN_HASH: &str = "a75175ba0cce86d97a8e056d4dda7a0826bb6676ba551c454bd65e5d44d23fc4";
-const JAR_HASH: &str = "125ef66b3de047ca5ff8c659c1d38e8c225f1cf2975db5fb4d4b4e9c8d67c2ff";
+const JAR_HASH: &str = "333a050128cddc206474c9bdcca244276c08b246f2a5ba11f55983537cf7cd75";
 const CLASS_INVENTORY_HASH: &str =
-    "33667ae00eb8b166df7a07b32a48b6b93cdeb0d832a630a1218ed8fe6cda7397";
+    "1a600a7699f89e4c5cd0aef304c61b8514c65fed17732d3202ff6bd5820ea80b";
 
 fn root() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("../..")
@@ -77,6 +77,7 @@ fn java_build_descriptor_binds_sources_recipe_and_measured_candidate() {
         "src/mpk/java2vir/CompilerDiagnostics.java",
         "src/mpk/java2vir/CompilerSession.java",
         "src/mpk/java2vir/DiagnosticRegistry.java",
+        "src/mpk/java2vir/FrontendArguments.java",
         "src/mpk/java2vir/FrontendFailure.java",
         "src/mpk/java2vir/FrontendLimits.java",
         "src/mpk/java2vir/JavaAdmission.java",
@@ -86,10 +87,12 @@ fn java_build_descriptor_binds_sources_recipe_and_measured_candidate() {
         "src/mpk/java2vir/JavaIr.java",
         "src/mpk/java2vir/JavaLowering.java",
         "src/mpk/java2vir/JavaLoweringValidation.java",
+        "src/mpk/java2vir/JavaRelease.java",
         "src/mpk/java2vir/JavaSourceMaps.java",
         "src/mpk/java2vir/JavaSubset.java",
         "src/mpk/java2vir/Main.java",
         "src/mpk/java2vir/Protocol.java",
+        "src/mpk/java2vir/RuntimePreflight.java",
         "src/mpk/java2vir/ScalarType.java",
         "src/mpk/java2vir/Selection.java",
         "src/mpk/java2vir/SourceText.java",
@@ -182,6 +185,9 @@ fn java_build_descriptor_binds_sources_recipe_and_measured_candidate() {
             "mpk/java2vir/CompilerSession.class",
             "mpk/java2vir/DiagnosticRegistry$Definition.class",
             "mpk/java2vir/DiagnosticRegistry.class",
+            "mpk/java2vir/FrontendArguments$Cursor.class",
+            "mpk/java2vir/FrontendArguments$Request.class",
+            "mpk/java2vir/FrontendArguments.class",
             "mpk/java2vir/FrontendFailure$Issue.class",
             "mpk/java2vir/FrontendFailure$Span.class",
             "mpk/java2vir/FrontendFailure.class",
@@ -223,6 +229,7 @@ fn java_build_descriptor_binds_sources_recipe_and_measured_candidate() {
             "mpk/java2vir/JavaLowering$Expression.class",
             "mpk/java2vir/JavaLowering.class",
             "mpk/java2vir/JavaLoweringValidation.class",
+            "mpk/java2vir/JavaRelease.class",
             "mpk/java2vir/JavaSourceMaps.class",
             "mpk/java2vir/JavaSubset$1.class",
             "mpk/java2vir/JavaSubset$Binding.class",
@@ -233,6 +240,7 @@ fn java_build_descriptor_binds_sources_recipe_and_measured_candidate() {
             "mpk/java2vir/JavaSubset.class",
             "mpk/java2vir/Main.class",
             "mpk/java2vir/Protocol.class",
+            "mpk/java2vir/RuntimePreflight.class",
             "mpk/java2vir/ScalarType.class",
             "mpk/java2vir/Selection.class",
             "mpk/java2vir/SourceText.class",
@@ -259,11 +267,11 @@ fn java_build_descriptor_binds_sources_recipe_and_measured_candidate() {
             .iter()
             .find(|record| record["path"] == "mpk/java2vir/Main.class")
             .unwrap()["sha256"],
-        "e7f7f8b630e05d8565ce8173c85b920046180a9d550aa2ec42e4c882c6e7e102"
+        "2b02ada2e90928879ee7b552ff7ef53f66c56f7047439b1f4f9a9e4a99c2603e"
     );
     assert_eq!(
         inventory["frontend_files"],
-        json!([{"path":"java2vir.jar", "mode":"0644", "size_bytes":313051, "sha256":JAR_HASH}])
+        json!([{"path":"java2vir.jar", "mode":"0644", "size_bytes":332137, "sha256":JAR_HASH}])
     );
     assert_eq!(inventory["notice_files"][0]["sha256"], records[1]["sha256"]);
 }

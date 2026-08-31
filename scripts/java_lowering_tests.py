@@ -261,9 +261,9 @@ def validate_report(report, fixtures_, build):
         build.require(manifest["selection"] == expected["selection"]
                       and manifest["frontend"]["binary_sha256"] == report["candidate_inventory"]["frontend_files"][0]["sha256"])
         build.require(manifest["toolchain"]["distribution_sha256"] == vector["toolchain_inputs"]["archive"]["sha256"])
-        jdk = {entry["path"]: entry for entry in vector["toolchain_inputs"]["jdk_inventory"]}
-        components = [dict(kind="content", name=name, release="25.0.4.1+1", content_sha256=jdk[path]["sha256"])
-                      for name, path in (("hotspot", "lib/server/libjvm.so"), ("jdk-modules", "lib/modules"), ("jdk-release", "release"))]
+        candidate = build.load_json(build.ROOT / "release/build-inputs/java/bundle-candidate.json")
+        components = [{key: value for key, value in row.items() if key in ("kind", "name", "release", "content_sha256", "binary_sha256")}
+                      for row in candidate["toolchain_bundles"][0]["components"]]
         build.require(manifest["toolchain"]["components"] == components and manifest["toolchain"]["bundle_id"] == "test.java.toolchain")
         build.require(manifest["frontend"]["name"] == "java2vir" and manifest["frontend"]["version"] == "0.1.0"
                       and manifest["frontend"]["bundle_id"] == "test.java.frontend" and manifest["frontend"]["subordinate_binaries"] == [])
