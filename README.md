@@ -38,10 +38,11 @@ two isolated builds and exact source/class/JAR inventories. `JAVA-03-T03`
 completed the inactive registry, contract and artifact validators. `JAVA-03-T04`
 added internal input capture, the public compiler API adapter and bounded
 diagnostics. `JAVA-03-T05` added internal source admission, inert initialization,
-acyclic call closure and typed contract sidecars. Next is T06's lowering and
-artifact emission in the
+acyclic call closure and typed contract sidecars. `JAVA-03-T06` added private
+CFG/lowering, original-byte source maps and deterministic complete artifacts.
+Next is T07's registered candidate bundles and JVM runner in the
 [Java implementation ledger](develop/docs/java-03-implementation-traceability-ledger.md).
-VIR emission and installed Java execution remain pending;
+Installed Java execution remains pending;
 Java is not active and the installed registry remains revision 2.
 The T01 Linux amd64 probe used CPU emulation and does not replace the later
 native Linux release gate.

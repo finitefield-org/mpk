@@ -7,7 +7,8 @@ measurements establish the recorded T01 observations, not the complete native
 Linux production isolation gate. T02's offline build candidate and T03's
 inactive contract/artifact validators and T04's internal capture/compiler
 adapter are complete. T05's internal source admission and typed sidecars are
-complete; `JAVA-03-T06` (lowering and artifact emission) is next.
+complete. T06's private CFG/lowering and artifact emission are complete;
+`JAVA-03-T07` (registered candidates and JVM runner) is next.
 Java activation belongs only to `JAVA-03-T10`.
 
 T04 corrected lost Unicode characters in one recorded adapter fixture from

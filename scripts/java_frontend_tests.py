@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Private T04/T05 conformance executor. No installed runner or source CLI entrypoint."""
+"""Private T04/T05/T06 conformance executor. No installed runner or source CLI entrypoint."""
 
 import importlib.util
 import json
@@ -20,6 +20,9 @@ SPEC.loader.exec_module(BUILD)
 ADMISSION_SPEC = importlib.util.spec_from_file_location("java_admission_owner", Path(__file__).with_name("java_admission_tests.py"))
 ADMISSION = importlib.util.module_from_spec(ADMISSION_SPEC)
 ADMISSION_SPEC.loader.exec_module(ADMISSION)
+LOWERING_SPEC = importlib.util.spec_from_file_location("java_lowering_owner", Path(__file__).with_name("java_lowering_tests.py"))
+LOWERING = importlib.util.module_from_spec(LOWERING_SPEC)
+LOWERING_SPEC.loader.exec_module(LOWERING)
 
 OBSERVATIONS = (
     "negative-literals", "constant-trees", "implicit-public", "utf16-tab-bmp-nonbmp", "syntax-eof",
@@ -39,11 +42,11 @@ PRECEDENCE = (
     "capture_before_encoding", "encoding_before_parse", "parse_before_attribution",
     "attribution_before_subset", "diagnostic_overflow_beats_source", "compiler_exception_beats_source",
 )
-# The T04 harness owns this family; T05 contributes three executable cases.
+# The T04 harness owns this family; T05/T06 contribute executable cases.
 ADMISSION_PRECEDENCE = dict.fromkeys(ADMISSION.PRECEDENCE, "T05: --run-admission")
+LOWERING_PRECEDENCE = dict.fromkeys(LOWERING.PRECEDENCE, "T06: --run-lowering")
 FOLLOW_ON_PRECEDENCE = {
-    "release_before_source": "T07", "contract_before_lowering": "T06",
-    "map_failure_prevents_partial_output": "T06",
+    "release_before_source": "T07",
 }
 
 
@@ -64,7 +67,7 @@ def fixture_ownership(vector):
     actual = tuple(case["id"] for case in vector["rejected_cases"]
                    if case["id"].startswith(("source.", "capture.", "compiler.")))
     BUILD.require(actual == OWNED_REJECTIONS, "JAVA_FRONTEND_TEST_REJECTION_OWNERS")
-    BUILD.require({case["id"] for case in vector["precedence_cases"]} == set(PRECEDENCE) | set(ADMISSION_PRECEDENCE) | set(FOLLOW_ON_PRECEDENCE),
+    BUILD.require({case["id"] for case in vector["precedence_cases"]} == set(PRECEDENCE) | set(ADMISSION_PRECEDENCE) | set(LOWERING_PRECEDENCE) | set(FOLLOW_ON_PRECEDENCE),
                   "JAVA_FRONTEND_TEST_PRECEDENCE_OWNERS")
     for case in vector["limit_cases"]:
         BUILD.require(case["boundary"] == case["limit"] and case["overflow"] == case["limit"] + 1)
@@ -201,7 +204,7 @@ def validate_report(report, vector):
                     BUILD.require(actual[stage] == rows, "JAVA_FRONTEND_TEST_TREE_OBSERVATION")
 
 
-def worker(admission=False):
+def worker(admission=False, lowering=False):
     # This diagnostic stream is for compilation of our test/project sources only.
     # Selected-source diagnostics are still normalized by the Java implementation.
     execute = BUILD.execute
@@ -230,12 +233,13 @@ def worker(admission=False):
                  "-Xlint:all", "-Werror", "--class-path", "/work/java2vir.jar",
                  "--source-path", "/work/empty", "--processor-path", "/work/empty",
                  "--module-path", "/work/empty", "-d", "/work/test-classes",
-                 "/mpk/tests/AdmissionTests.java" if admission else "/mpk/tests/FrontendTests.java"]
+                 "/mpk/tests/LoweringTests.java" if lowering else "/mpk/tests/AdmissionTests.java" if admission else "/mpk/tests/FrontendTests.java"]
     code, stdout, stderr = compile_with_diagnostics(arguments, environment=BUILD.ENVIRONMENT)
     BUILD.require(code == 0 and not stdout and not stderr, "JAVA_FRONTEND_TEST_COMPILE")
     code, stdout, stderr = execute(
         ["/mpk/toolchain/jdk/bin/java", *BUILD.JVM_ARGUMENTS, "-cp", "/work/java2vir.jar:/work/test-classes:/work/poison-classes",
-         "mpk.java2vir.AdmissionTests" if admission else "mpk.java2vir.FrontendTests"], environment=BUILD.ENVIRONMENT, timeout=300)
+         "mpk.java2vir.LoweringTests" if lowering else "mpk.java2vir.AdmissionTests" if admission else "mpk.java2vir.FrontendTests"],
+        environment=BUILD.ENVIRONMENT, timeout=300)
     if stderr:
         sys.stderr.buffer.write(stderr)
     BUILD.require(code == 0 and not stderr, "JAVA_FRONTEND_TEST_FAILED")
@@ -244,7 +248,7 @@ def worker(admission=False):
     sys.stdout.buffer.write(BUILD.canonical(report) + b"\n")
 
 
-def run(admission=False):
+def run(admission=False, lowering=False):
     inputs = BUILD.load_toolchain()
     BUILD.validate_active_boundary()
     descriptor = BUILD.load_descriptor(update=True)
@@ -267,7 +271,7 @@ def run(admission=False):
         (frozen / "build-inputs.json").write_bytes(BUILD.canonical(descriptor) + b"\n")
         scripts = root / "build"
         scripts.mkdir()
-        for name in ("java_build_inputs.py", "java_frontend_tests.py", "java_admission_tests.py"):
+        for name in ("java_build_inputs.py", "java_frontend_tests.py", "java_admission_tests.py", "java_lowering_tests.py"):
             (scripts / name).write_bytes(BUILD.read_bytes(ROOT / "scripts" / name, BUILD.MAX_SOURCE))
         tests = root / "tests"
         tests.mkdir()
@@ -276,6 +280,9 @@ def run(admission=False):
         if admission:
             (tests / "AdmissionTests.java").write_bytes(BUILD.read_bytes(TEST_ROOT / "AdmissionTests.java", BUILD.MAX_SOURCE))
             admission_fixtures = ADMISSION.fixtures(tests, BUILD)
+        if lowering:
+            (tests / "LoweringTests.java").write_bytes(BUILD.read_bytes(TEST_ROOT / "LoweringTests.java", BUILD.MAX_SOURCE))
+            lowering_fixtures = LOWERING.fixtures(tests, BUILD)
         config = root / "docker-config"
         config.mkdir(mode=0o700)
         docker = BUILD.docker_prefix(config)
@@ -291,7 +298,8 @@ def run(admission=False):
             argv.extend(["--mount", f"type=bind,src={root / source},dst={target},readonly"])
         argv.extend([BUILD.IMAGE, "/usr/bin/env", "-i"])
         argv.extend(key + "=" + value for key, value in BUILD.ENVIRONMENT.items())
-        argv.extend(["/usr/local/bin/python3", "-I", "-S", "-B", "/mpk/build/java_frontend_tests.py", "_worker-admission" if admission else "_worker"])
+        argv.extend(["/usr/local/bin/python3", "-I", "-S", "-B", "/mpk/build/java_frontend_tests.py",
+                     "_worker-lowering" if lowering else "_worker-admission" if admission else "_worker"])
         try:
             code, stdout, stderr = BUILD.execute(argv, environment=HOST_ENVIRONMENT, timeout=600)
             if stderr:
@@ -301,11 +309,14 @@ def run(admission=False):
             BUILD.require(report["candidate_inventory"]["project_files_sha256"] == BUILD.sha256(BUILD.canonical(descriptor["project_files"])))
             BUILD.require(BUILD.project_records(ROOT / BUILD.PROJECT) == descriptor["project_files"])
             BUILD.validate_active_boundary()
-            if admission:
+            if lowering:
+                LOWERING.validate_report(report, lowering_fixtures, BUILD)
+            elif admission:
                 ADMISSION.validate_report(report, admission_fixtures, BUILD)
             else:
                 validate_report(report, vector)
                 report["admission_precedence"] = ADMISSION_PRECEDENCE
+                report["lowering_precedence"] = LOWERING_PRECEDENCE
                 report["follow_on_precedence"] = FOLLOW_ON_PRECEDENCE
             sys.stdout.buffer.write(BUILD.canonical(report) + b"\n")
         finally:
@@ -322,16 +333,23 @@ def main():
         worker()
     elif sys.argv[1:] == ["_worker-admission"]:
         worker(admission=True)
+    elif sys.argv[1:] == ["_worker-lowering"]:
+        worker(lowering=True)
     elif sys.argv[1:] == ["run"]:
         run()
     elif sys.argv[1:] == ["run-admission"]:
         run(admission=True)
+    elif sys.argv[1:] == ["run-lowering"]:
+        run(lowering=True)
     elif sys.argv[1:] == ["check-fixtures"]:
         with tempfile.TemporaryDirectory(prefix="mpk-java-t04-fixtures-", dir="/tmp") as directory:
             fixtures(Path(directory))
     elif sys.argv[1:] == ["check-admission-fixtures"]:
         with tempfile.TemporaryDirectory(prefix="mpk-java-t05-fixtures-", dir="/tmp") as directory:
             ADMISSION.fixtures(Path(directory), BUILD)
+    elif sys.argv[1:] == ["check-lowering-fixtures"]:
+        with tempfile.TemporaryDirectory(prefix="mpk-java-t06-fixtures-", dir="/tmp") as directory:
+            LOWERING.fixtures(Path(directory), BUILD)
     else:
         raise BUILD.BuildFailure("JAVA_FRONTEND_TEST_USAGE", 64)
 

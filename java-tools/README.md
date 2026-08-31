@@ -7,7 +7,8 @@ contract/artifact validators. T04 adds internal immutable capture, strict
 UTF-8 transport, public javac parse/analyze sessions and bounded failure
 diagnostics. T05 adds source subset admission, inert initialization, conservative
 acyclic call closure and typed contract sidecars, exercised through separately
-compiled private test harnesses. VIR emission and installed execution remain T06-T07.
+compiled private test harnesses. T06 adds private CFG/lowering, original-byte
+source maps and deterministic complete artifacts. Installed execution remains T07.
 The active Go/Rust/C# release and semantic registry revision 2 are unchanged.
 
 The normative inputs are in
@@ -59,7 +60,7 @@ From the repository root:
 cargo test -p mpk-cli --test java_build_inputs --offline
 ./scripts/build-java-frontend.sh --check
 mkdir -p target/java-candidates
-./scripts/build-java-frontend.sh --build "$(pwd -P)/target/java-candidates/t05"
+./scripts/build-java-frontend.sh --build "$(pwd -P)/target/java-candidates/t06"
 ```
 
 `--check` and `--build` each perform two isolated builds and require identical
@@ -154,9 +155,10 @@ not claim to intercept it.
 T04 executes the capture/encoding/parse/attribution precedence and operational
 failure cases. `admission_precedence` names T05's three executable contributions:
 subset before missing sidecars, and excluded class/var parents before accepted-
-tree comparison. `follow_on_precedence` preserves three pending T06/T07
-outcomes: contracts before lowering, map failure before publication, and
-release before source. Those final stages must execute before the T09 gate.
+tree comparison. `lowering_precedence` names T06's executed contracts-before-
+lowering and map-failure-before-publication contributions. `follow_on_precedence`
+preserves T07's pending release-before-source outcome. All stages must execute
+before the T09 gate.
 No successful source artifact or installed Java release is claimed by this test.
 
 ## Source admission and sidecar verification
@@ -190,6 +192,59 @@ remain distinct. Source bytes and the selection must match the admitted closure.
 `JavaAdmission` sequences these internal stages and closes each compiler session.
 Its successful result is an internal model, not an `ir-lowered` response or proof
 verdict. The packaged `Main` is unchanged and still refuses source invocations.
+
+## Lowering, source maps and manifest verification
+
+```sh
+./scripts/check-java-frontend.sh --check-lowering-fixtures
+cargo test -p mpk-cli --test java_lowering --test java_source_maps --offline
+./scripts/check-java-frontend.sh --run-lowering
+cargo test -p mpk-cli --test java_lowering --test java_source_maps --offline -- --ignored --test-threads=1
+```
+
+The fixture check needs no JDK or Docker. `--run-lowering` compiles
+`LoweringTests.java` separately from the candidate and uses the same pinned,
+offline build boundary. It executes all 49 accepted cases, 27 operation
+mappings, six symbolic CFG goldens and seven original-source map vectors.
+Each successful source is analyzed twice with fresh compiler sessions and
+must produce identical complete response bytes. Python independently checks
+canonical JSON, all artifact/input hashes, complete origins and mathematical
+Bool/BV evaluations. Rust imports the real responses and exact captured bytes
+through the existing revision-3 validators, then rejects rehashed operation,
+check, source-map and manifest mutations. This is not the separately compiled
+JDK differential/fuzz corpus or native release rehearsal owned by T09.
+
+`JavaLowering` constructs the graph before canonical numbering. False edges
+precede true edges in BFS order. Nested eager operands and call arguments use
+block parameters to carry live values across short-circuit/ternary graphs;
+there are no generated source locals or cross-block temporary references.
+Java shifts use the exact adjacent mask and signed/unsigned carrier pattern.
+Division and remainder carry only `divisor_nonzero`; wrapping operations have
+no overflow checks. The finished graph is independently checked for shape,
+scope, definite assignment, acyclicity, calls, checks and carrier uses.
+
+`JavaSourceMaps` requires original captured source/tree identity, exact valid
+UTF-16 boundaries, method containment and the correct source-node role. Every
+function, instruction and terminator has a UTF-8 byte origin; block parameters
+have none. `JavaEmission` rechecks selection and raw source/sidecar bindings,
+hashes the complete VIR/map/manifest with the successor domains, and returns
+bytes only after all canonical budgets, including the final stdout LF, pass.
+All nine lowering/emission counters have inclusive/plus-one tests through the
+production counter consumers. These counter tests do not allocate maximal
+artifacts or claim such inputs can bypass earlier syntax or native limits.
+
+The private `JavaFrontend` sequences admission, lowering and emission and
+returns a complete success or artifact-free failure. It is not wired into
+`Main`. The harness explicitly supplies `test.java.frontend`,
+`test.java.toolchain` and a zero release-registry digest, together with the
+actual built JAR hash and the frozen JDK archive hash as the test distribution
+identity. These are test identities, not registered candidate bundles. The
+production identity input does not equate the complete candidate distribution
+digest with its JDK archive digest. Manifest components bind the frozen
+`lib/server/libjvm.so`, `lib/modules` (including javac/system modules) and
+`release` bytes. T07 must supply validated registered release identities and
+the measured native runner; no environment toggle or alternate public route
+discovers this private pipeline.
 
 ## Closed inputs and deterministic output
 

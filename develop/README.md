@@ -96,10 +96,11 @@ record the ten serial tasks. `JAVA-03-T02` completed the
 inventories and two isolated builds. `JAVA-03-T03` completed the inactive
 profile and artifact validators; `JAVA-03-T04` completed internal capture,
 the public compiler adapter and bounded diagnostics. `JAVA-03-T05` completed
-source subset admission, inert initialization, call closure and typed sidecars;
-T06 (lowering and artifact emission) is next. T01/T02/T04/T05 measured Linux amd64 compatibility and
-build reproducibility under CPU emulation, not the complete native Linux
-release gate. VIR emission and installed execution remain pending; no
+source subset admission, inert initialization, call closure and typed sidecars.
+T06 completed private CFG/lowering and deterministic artifact emission; T07's
+registered candidate bundles and JVM runner are next. The Java build and
+frontend tests use Linux amd64 CPU emulation, not the complete native Linux
+release gate. Installed execution remains pending; no
 Java or later-language frontend is active and registry revision 2 stays
 installed.
 
@@ -292,8 +293,9 @@ Start with:
 The original baseline can be seeded from `tasks/github_issues_seed.jsonl` or
 imported from `tasks/task_backlog.csv`. Use the two design todo documents and
 the C# and Java implementation ledgers for post-Rust tracker tasks. Java's
-T01 freeze, T02 offline build, T03 validators, T04 capture/compiler adapter
-and T05 source subset/sidecars are complete; the next task is `JAVA-03-T06`.
+T01 freeze, T02 offline build, T03 validators, T04 capture/compiler adapter,
+T05 source subset/sidecars and T06 lowering/artifact emission are complete;
+the next task is `JAVA-03-T07`.
 
 ## Reference posture
 

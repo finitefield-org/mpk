@@ -6,9 +6,9 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 
 const TOOLCHAIN_HASH: &str = "a75175ba0cce86d97a8e056d4dda7a0826bb6676ba551c454bd65e5d44d23fc4";
-const JAR_HASH: &str = "9ec1e1c639dca558365820108359dc97d1b7613b11c9f19025430dd68379f82c";
+const JAR_HASH: &str = "125ef66b3de047ca5ff8c659c1d38e8c225f1cf2975db5fb4d4b4e9c8d67c2ff";
 const CLASS_INVENTORY_HASH: &str =
-    "b6d962fbd72f8c40ed8a9e1406801785fe7ccb415e966df75de7fe1d66309538";
+    "33667ae00eb8b166df7a07b32a48b6b93cdeb0d832a630a1218ed8fe6cda7397";
 
 fn root() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("../..")
@@ -71,6 +71,7 @@ fn java_build_descriptor_binds_sources_recipe_and_measured_candidate() {
         "META-INF/MANIFEST.MF",
         "NOTICE.txt",
         "src/mpk/java2vir/BuildIdentity.java",
+        "src/mpk/java2vir/CanonicalJson.java",
         "src/mpk/java2vir/CapturedSnapshot.java",
         "src/mpk/java2vir/ClosedFileManager.java",
         "src/mpk/java2vir/CompilerDiagnostics.java",
@@ -80,6 +81,12 @@ fn java_build_descriptor_binds_sources_recipe_and_measured_candidate() {
         "src/mpk/java2vir/FrontendLimits.java",
         "src/mpk/java2vir/JavaAdmission.java",
         "src/mpk/java2vir/JavaContracts.java",
+        "src/mpk/java2vir/JavaEmission.java",
+        "src/mpk/java2vir/JavaFrontend.java",
+        "src/mpk/java2vir/JavaIr.java",
+        "src/mpk/java2vir/JavaLowering.java",
+        "src/mpk/java2vir/JavaLoweringValidation.java",
+        "src/mpk/java2vir/JavaSourceMaps.java",
         "src/mpk/java2vir/JavaSubset.java",
         "src/mpk/java2vir/Main.java",
         "src/mpk/java2vir/Protocol.java",
@@ -159,6 +166,10 @@ fn java_build_descriptor_binds_sources_recipe_and_measured_candidate() {
             .collect::<Vec<_>>(),
         [
             "mpk/java2vir/BuildIdentity.class",
+            "mpk/java2vir/CanonicalJson$ByteCounter.class",
+            "mpk/java2vir/CanonicalJson$Sink.class",
+            "mpk/java2vir/CanonicalJson$Writer.class",
+            "mpk/java2vir/CanonicalJson.class",
             "mpk/java2vir/CapturedSnapshot$Input.class",
             "mpk/java2vir/CapturedSnapshot$Pass.class",
             "mpk/java2vir/CapturedSnapshot$Stat.class",
@@ -188,6 +199,31 @@ fn java_build_descriptor_binds_sources_recipe_and_measured_candidate() {
             "mpk/java2vir/JavaContracts$Typed.class",
             "mpk/java2vir/JavaContracts$Validated.class",
             "mpk/java2vir/JavaContracts.class",
+            "mpk/java2vir/JavaEmission$Identity.class",
+            "mpk/java2vir/JavaEmission.class",
+            "mpk/java2vir/JavaFrontend$Result.class",
+            "mpk/java2vir/JavaFrontend.class",
+            "mpk/java2vir/JavaIr$1.class",
+            "mpk/java2vir/JavaIr$Block.class",
+            "mpk/java2vir/JavaIr$ClosureCounter.class",
+            "mpk/java2vir/JavaIr$Edge.class",
+            "mpk/java2vir/JavaIr$Function.class",
+            "mpk/java2vir/JavaIr$Instruction.class",
+            "mpk/java2vir/JavaIr$MethodCounter.class",
+            "mpk/java2vir/JavaIr$Origin.class",
+            "mpk/java2vir/JavaIr$Program.class",
+            "mpk/java2vir/JavaIr$Terminator.class",
+            "mpk/java2vir/JavaIr$Type.class",
+            "mpk/java2vir/JavaIr$Value.class",
+            "mpk/java2vir/JavaIr.class",
+            "mpk/java2vir/JavaLowering$1.class",
+            "mpk/java2vir/JavaLowering$Builder.class",
+            "mpk/java2vir/JavaLowering$Demand.class",
+            "mpk/java2vir/JavaLowering$Draft.class",
+            "mpk/java2vir/JavaLowering$Expression.class",
+            "mpk/java2vir/JavaLowering.class",
+            "mpk/java2vir/JavaLoweringValidation.class",
+            "mpk/java2vir/JavaSourceMaps.class",
             "mpk/java2vir/JavaSubset$1.class",
             "mpk/java2vir/JavaSubset$Binding.class",
             "mpk/java2vir/JavaSubset$Body.class",
@@ -227,7 +263,7 @@ fn java_build_descriptor_binds_sources_recipe_and_measured_candidate() {
     );
     assert_eq!(
         inventory["frontend_files"],
-        json!([{"path":"java2vir.jar", "mode":"0644", "size_bytes":202319, "sha256":JAR_HASH}])
+        json!([{"path":"java2vir.jar", "mode":"0644", "size_bytes":313051, "sha256":JAR_HASH}])
     );
     assert_eq!(inventory["notice_files"][0]["sha256"], records[1]["sha256"]);
 }

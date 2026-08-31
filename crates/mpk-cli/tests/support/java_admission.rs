@@ -80,8 +80,8 @@ pub fn run() -> Value {
         validate_registry_semantic_context(&registry, &profile()["semantic_context_fixture"])
             .unwrap();
     let release = ReleaseRegistryIdentity {
-        schema: "mpk.release.registry.v1".into(),
-        id: "mpk.release.registry.v1".into(),
+        schema: mpk_vc::successor_source_artifacts::SUCCESSOR_RELEASE_REGISTRY_SCHEMA.into(),
+        id: mpk_vc::successor_source_artifacts::SUCCESSOR_RELEASE_REGISTRY_ID.into(),
         registry_sha256: "0".repeat(64),
     };
     for case in report["cases"]

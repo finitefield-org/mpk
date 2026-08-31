@@ -1,9 +1,9 @@
 # JAVA-03 Implementation Traceability Ledger
 
-Status: `JAVA-03-T01` through `JAVA-03-T05` complete (2026-08-31);
-`JAVA-03-T06` is next and T06 through T10 are pending. Internal capture,
-compiler analysis, source admission, typed sidecars and independent validators
-do not establish successful artifacts, native release isolation or Java activation. The active release remains
+Status: `JAVA-03-T01` through `JAVA-03-T06` complete (2026-08-31);
+`JAVA-03-T07` is next and T07 through T10 are pending. Private CFG/lowering
+and complete artifact emission do not establish registered installed execution,
+native release isolation or Java activation. The active release remains
 Go/Rust/C# at registry revision 2.
 
 This is an execution plan subordinate to `../specs/JAVA_PROFILE_V0.md`, the
@@ -20,6 +20,8 @@ reviewed result. T01 froze the profile; T02 added the inactive offline build;
 T03 added the inactive profile and artifact validators. T04 added capture,
 the public compiler adapter and bounded failure diagnostics. T05 added source
 admission, inert initialization, acyclic call closure and typed sidecars.
+T06 added deterministic CFG/lowering, original-byte source maps and complete
+frontend-stage manifests and success envelopes through a private pipeline.
 
 | Task | Scope | Exit evidence |
 | --- | --- | --- |
@@ -590,7 +592,7 @@ T05 implementation record (2026-08-31):
   closes the compiler session and normalizes operational failures without
   returning partial results. It has no public launcher. The packaged main is
   still version-only; no successful source artifact, proof verdict or installed
-  Java tuple is exposed. T06 remains the next task.
+  Java tuple was exposed at T05 completion; T06 was then the next task.
 - `java_subset.rs` and `java_contracts.rs` own the private fixed-JDK executor:
   61 source refusals, 14 contract refusals, source admission for 49 accepted
   vectors, all 34 matrix rows, all 35 conversion rules, and real exact/plus-one
@@ -612,10 +614,10 @@ T05 implementation record (2026-08-31):
   atom tags and selected-file error order independent of emission order.
 - T05 contributes three executable precedence outcomes to T04's owning harness:
   subset before missing sidecars, excluded class before synthesized-constructor
-  comparison, and excluded `var` before inferred-type comparison. Three remain
-  explicitly pending: contracts before lowering and map failures (T06), and
-  release preflight before source (T07). None is claimed complete by a transport-
-  only check.
+  comparison, and excluded `var` before inferred-type comparison. At T05
+  completion, three remained pending: contracts before lowering and map
+  failures (T06), and release preflight before source (T07). None was claimed
+  complete by a transport-only check.
 - Two isolated offline builds reproduced all 21 project-file records, 53
   classes and the same 202,319-byte JAR, SHA-256
   `9ec1e1c639dca558365820108359dc97d1b7613b11c9f19025430dd68379f82c`.
@@ -633,6 +635,74 @@ T05 implementation record (2026-08-31):
   host. Fixed-JDK tests use Linux amd64 emulation; T07/T09/T10 still own native
   JVM isolation, full downstream conformance and release acceptance. The active
   registry remains revision 2 with the existing four Go/Rust/C# tuples.
+
+T06 implementation record (2026-08-31):
+
+- `JavaIr`, `JavaLowering` and `JavaLoweringValidation` construct and validate
+  the complete acyclic CFG from T05's admitted source model. Functions retain
+  callee-first order; blocks receive false-before-true BFS IDs only after graph
+  construction, followed by dense block-parameter and instruction IDs. Source
+  locals keep declaration order, and a separate topological pass verifies
+  definite assignment. Values live across expression branches travel through
+  explicit block parameters and edge arguments without generated source locals.
+- Operations preserve left-to-right evaluation, branch-local checks and source
+  syntax without constant folding. Wrapping arithmetic, MIN/-1 division and
+  remainder, exact `divisor_nonzero` lists, widening/truncation and adjacent
+  masked shift patterns follow the Java profile. Unsigned shift carriers have
+  only their required uses; calls bind the earlier callee's exact contract hash.
+- `JavaSourceMaps` emits one original UTF-8 byte origin per function,
+  instruction and terminator, in canonical reference order. Original source
+  and tree identity, UTF-16 boundaries, method containment and source-node
+  roles are checked; block parameters receive no synthetic map entries.
+  `JavaEmission` rechecks raw source/sidecar and selection bindings, then
+  assembles complete VIR, map, frontend-stage manifest and success response.
+  `CanonicalJson` counts canonical bytes before allocation and before each
+  write, includes the final stdout LF, and uses the common domain-NUL hashes.
+  `JavaFrontend` returns either the complete response or an artifact-free
+  normalized failure. No partial success bytes are published.
+- The private fixed-JDK harness has 99 source fixtures: all 49 accepted
+  vectors, 27 operation mappings, six symbolic CFG goldens, 13 additional
+  evaluation/origin regressions, two raw-input linkage cases, one actual
+  method-block overflow and one contracts-before-lowering case. Fresh compiler
+  sessions must produce identical complete response bytes. Python separately
+  checks canonical artifacts and 125 mathematical Bool/BV evaluations; the
+  Rust owning tests import real responses and captured bytes through T03's
+  validators and reject rehashed semantic, map and manifest mutations.
+- All seven frozen lowering refusals are included in 25 producer-model
+  mutations; all seven source-map vectors execute. All nine T06 counters
+  have inclusive/plus-one checks through production consumers, including
+  verifying that excess additions do not change either method or closure
+  totals. These counter checks do not allocate maximal artifacts or claim
+  native process-resource enforcement. The private producer has no normal
+  stderr output; T07 still owns the native parent stream limits.
+- T06 supplies the two executable precedence contributions recorded by T04:
+  invalid contracts prevent lowering, and invalid maps prevent publication.
+  Only release preflight before source remains pending for T07. Review fixes
+  distinguish the release registry's schema from its ID, allow T07 to inject
+  the complete distribution digest independently of the JDK archive digest,
+  enforce source-origin ownership and roles, reject stray call metadata, and
+  avoid repeated scans when resolving local declarations.
+- Two isolated offline builds reproduced 28 project-file records, 82 classes
+  and the same 313,051-byte JAR, SHA-256
+  `125ef66b3de047ca5ff8c659c1d38e8c225f1cf2975db5fb4d4b4e9c8d67c2ff`.
+  Source/class/JAR inventories and independent build-test goldens agree.
+  All 53 predecessor class records, including `Main` and `BuildIdentity`,
+  are unchanged. The harness explicitly
+  supplies test bundle identities, a zero registry digest, the measured JAR
+  hash and a test distribution digest; these do not register a release tuple.
+- Verification passed: all eight explicitly enabled offline integration tests for
+  `java_build_inputs`, `java_frontend_vectors`, `java_subset`, `java_contracts`,
+  `java_lowering` and `java_source_maps`, plus
+  `CARGO_NET_OFFLINE=true ./scripts/check-fast.sh`. The full fast gate includes
+  formatting, obsolete-interface checks, Clippy, workspace tests, CLI build
+  and certificate smoke checks. The strict obsolete-interface check was also
+  rerun with every new file staged. The repeated full task review has no
+  remaining findings.
+- Native installed Linux release enforcement was not run on the ARM
+  development host. Fixed-JDK tests use Linux amd64 emulation; T07 owns the
+  registered native runner, T09 the JDK differential/fuzz corpus and release
+  rehearsal, and T10 activation. Frozen Java/revision-3 vector bytes, the
+  installed revision-2 registry and all four Go/Rust/C# tuples are unchanged.
 
 A task is complete only after its exact deliverables, required verification
 (or explicitly recorded unrun reason), fix/review loop, commit and push are

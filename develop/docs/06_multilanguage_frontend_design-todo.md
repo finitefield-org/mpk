@@ -10,7 +10,8 @@ compiler/JVM compatibility probes. T02 completed the inactive offline build
 and T03 completed the inactive contract/artifact validators. T04 completed
 internal capture, the public compiler adapter and bounded diagnostics. T05
 completed source admission, inert initialization, call closure and typed
-sidecars; `JAVA-03-T06` is next and T06-T10 remain pending.
+sidecars. T06 completed private CFG/lowering and complete artifact emission;
+`JAVA-03-T07` is next and T07-T10 remain pending.
 No Java or later-language frontend is active, registry revision 2
 remains installed, and no later-language phase has started.
 
@@ -794,11 +795,11 @@ wrapping/division/shift check rules; Go/Rust/C# profile entries remain
 byte-identical in the frozen, inactive registry revision 3.
 
 Execution follows the ten serial tasks in that design's section 11 and
-`java-03-implementation-traceability-ledger.md`. T01-T05 are complete;
-`JAVA-03-T06` is next. T06-T07 complete lowering, artifact emission and
-the registered runner; T08 integrates VC/policy/evidence/AI/API;
+`java-03-implementation-traceability-ledger.md`. T01-T06 are complete;
+`JAVA-03-T07` is next and implements candidate bundles and the registered
+JVM runner; T08 integrates VC/policy/evidence/AI/API;
 T09 hardens and rehearses the release; T10 activates the four-language
-release. T06-T10 remain pending. No public Java tuple is activated before
+release. T07-T10 remain pending. No public Java tuple is activated before
 T10. Later-language phases remain blocked.
 
 T01 completion evidence: `JAVA_PROFILE_V0.md`, Java and revision-3 vectors,
@@ -813,9 +814,9 @@ revision 2 and no Java source-processing or active route was added.
 T02 completion evidence: `java-tools/java2vir`, the offline
 `scripts/build-java-frontend.sh` owner, exact source/recipe/class/JAR records
 in `release/build-inputs/java/`, and `java_build_inputs.rs` tests. Two fresh
-offline containers produce identical candidate bytes. The candidate only
-supports its version check. Source parsing was pending at T02 and is now
-implemented internally by T04; VIR generation remains T06.
+offline containers produce identical candidate bytes. The packaged entrypoint
+only supports its version check. Source parsing and VIR generation were
+pending at T02 and are now implemented internally by T04 and T06, respectively.
 See `java-tools/README.md` for provisioning and the explicit local build test.
 
 T03 completion evidence: compiled revision-3/Java identities, exact parameters,
@@ -843,7 +844,18 @@ and strict JSON sidecar coverage, typing, normalization and hashes. The private
 returns an internal model. `java_subset.rs` and `java_contracts.rs` execute the
 frozen source/contract families, all 34 semantic rows and 35 conversion rules,
 exact-boundary/plus-one consumers and cross-file JSON/attachment precedence.
-T06 remains responsible for lowering and any successful source artifact.
+T06 consumes these immutable source and contract models.
+
+T06 completion evidence: acyclic statement/short-circuit CFGs, explicit live
+value block arguments, callee-first functions and canonical BFS/parameter/
+instruction IDs. Java wrapping/division/shift/conversion rules have exact
+checks and complete original UTF-8 origins. Bounded canonical serializers
+assemble VIR, source map, frontend manifest and one LF-framed success response
+only after all checks pass. Private pinned-JDK tests execute the 49 accepted
+cases, 27 operation mappings, six symbolic CFGs, seven map vectors and all
+nine lowering/emission counter boundaries. The Rust owning tests independently
+import real artifacts and reject rehashed semantic and binding mutations.
+The main entrypoint, active registry and four installed tuples remain unchanged.
 
 Exit gate: Java passes the common definition of done without reinterpreting C#,
 Go, or Rust semantics, including the local offline two-pass installed gate,

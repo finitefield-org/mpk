@@ -67,8 +67,9 @@ impl Request {
             context,
             selection,
             release: ReleaseRegistryIdentity {
-                schema: "mpk.release.registry.v1".into(),
-                id: "mpk.release.registry.v1".into(),
+                schema: mpk_vc::successor_source_artifacts::SUCCESSOR_RELEASE_REGISTRY_SCHEMA
+                    .into(),
+                id: mpk_vc::successor_source_artifacts::SUCCESSOR_RELEASE_REGISTRY_ID.into(),
                 registry_sha256: "0".repeat(64),
             },
         }
@@ -262,6 +263,17 @@ fn pinned_java_capture_compiler_and_diagnostic_vectors_execute() {
     )
     .unwrap();
     assert_eq!(report["candidate_inventory"], inventory);
+    assert_eq!(
+        report["lowering_precedence"],
+        json!({
+            "contract_before_lowering":"T06: --run-lowering",
+            "map_failure_prevents_partial_output":"T06: --run-lowering"
+        })
+    );
+    assert_eq!(
+        report["follow_on_precedence"],
+        json!({"release_before_source":"T07"})
+    );
     for case in report["failures"].as_array().unwrap() {
         let envelope: Value = serde_json::from_str(case["envelope"].as_str().unwrap()).unwrap();
         let request = Request::new(&envelope["selection"]);
