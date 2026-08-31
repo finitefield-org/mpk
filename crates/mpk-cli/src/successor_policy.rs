@@ -696,7 +696,7 @@ fn prepare_scan_source(
             "policy contract belongs to another semantic entry",
         ));
     }
-    let registration = registration(profile);
+    let registration = registration(profile)?;
     validate_policy_registration(&policy_contract, registration)?;
 
     Ok(PreparedPolicyScanSource {
@@ -1419,8 +1419,10 @@ fn reproduction_recipes(
     ])
 }
 
-fn registration(profile: CompiledSemanticProfile) -> SuccessorPolicyRegistration {
-    match profile {
+fn registration(
+    profile: CompiledSemanticProfile,
+) -> Result<SuccessorPolicyRegistration, SuccessorPolicyError> {
+    Ok(match profile {
         CompiledSemanticProfile::GoFixedV0 => SuccessorPolicyRegistration {
             profile,
             strategy_profile: "payment-policy-alpha",
@@ -1442,7 +1444,10 @@ fn registration(profile: CompiledSemanticProfile) -> SuccessorPolicyRegistration
             axiom_profile: "mvp-theory",
             recipe_profile_id: "mpk.csharp.evidence_recipe.v0",
         },
-    }
+        CompiledSemanticProfile::JavaScalarV0 => {
+            return Err(profile_error("Java policy integration is not active"))
+        }
+    })
 }
 
 fn validate_policy_registration(

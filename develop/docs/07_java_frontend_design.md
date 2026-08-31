@@ -2,8 +2,8 @@
 
 Status: Java-specific implementation design, subordinate to the normative
 `JAVA_PROFILE_V0.md` frozen by completed `JAVA-03-T01` (2026-08-31). T02's
-offline build candidate is complete; T03 is next. Java source processing
-and activation remain pending. The active release
+offline build candidate and T03's inactive validators are complete; T04 is
+next. Java source processing and activation remain pending. The active release
 remains Go/Rust/C# with semantic registry revision 2. This document includes
 the corrections established by T01's disposable compiler/JVM probes.
 
@@ -669,7 +669,7 @@ source-free and does not require a registry compatibility adapter.
 
 ## 11. Serial implementation plan
 
-These tasks refine `JAVA-03`. T01/T02 are complete; T03 is next and T03-T10
+These tasks refine `JAVA-03`. T01-T03 are complete; T04 is next and T04-T10
 remain pending. Each task depends on the previous row, starting from
 completed `CSHARP-02-T20`. The completed freeze/probes do not claim that the
 Java source-processing frontend or complete native Linux release gate is implemented.

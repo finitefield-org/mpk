@@ -10,6 +10,8 @@ pub mod canonical_json;
 pub mod expr_encode;
 pub mod grouping;
 pub mod hash;
+mod java_profile;
+mod java_source_artifacts;
 pub mod program_encode;
 pub mod program_wp;
 mod release_bundle;

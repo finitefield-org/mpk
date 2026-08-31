@@ -334,6 +334,34 @@ fn crossed_old_stale_and_noncanonical_operations_reject_atomically() {
 }
 
 #[test]
+fn compiled_java_candidate_cannot_start_an_installed_api_session() {
+    let registry = registry();
+    let store = SuccessorFrontendArtifactStore::from_frontend_successes(&registry, []).unwrap();
+    let mut service = SuccessorApiService::new(registry, store).unwrap();
+    let profile = load("develop/specs/vectors/java-profile-v0.json");
+    let before = fingerprint(&service, &[]);
+    for use_installed_identity in [false, true] {
+        let mut context = profile["semantic_context_fixture"].clone();
+        if use_installed_identity {
+            context["profile_registry"] =
+                serde_json::to_value(RegistryRevision::Revision2.identity()).unwrap();
+        }
+        let request = json!({
+            "api_profile": SUCCESSOR_AI_API_PROFILE,
+            "module_name": "Example.Java.Candidate",
+            "proof_profile": "mvp-strict",
+            "semantic_context": context,
+            "selection": profile["selection_fixture"]
+        });
+        service
+            .handle_start_session(&canonical_transport(&request))
+            .expect_err("Java is not in the installed registry");
+        assert_eq!(service.mutation_count(), 0);
+        assert_eq!(fingerprint(&service, &[]), before);
+    }
+}
+
+#[test]
 fn failed_target_materialization_does_not_leave_partial_helper_state() {
     let mut proof_service = crate::session::ApiService::new();
     let session_id = proof_service

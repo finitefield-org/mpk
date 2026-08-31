@@ -455,6 +455,9 @@ impl SuccessorSourceMap {
 pub struct ValidatedSuccessorSourceMap {
     map: SuccessorSourceMap,
     canonical_bytes: Vec<u8>,
+    // Java map ranges must remain tied to the same captured bytes at manifest
+    // import. This is validation state, never a new serialized map member.
+    java_captured_inputs: Option<Vec<InputEntry>>,
 }
 
 impl ValidatedSuccessorSourceMap {
@@ -800,10 +803,17 @@ pub fn import_successor_vir_json(
     if computed != module.vir_hash {
         return Err(hash_failure(SuccessorArtifactKind::Vir));
     }
-    Ok(ValidatedSuccessorVir {
+    let validated = ValidatedSuccessorVir {
         module,
         canonical_bytes: canonical,
-    })
+    };
+    if validated.module().semantic_context().semantic_profile()
+        == crate::semantic_profile_registry::JAVA_SCALAR_PROFILE
+    {
+        crate::java_source_artifacts::validate(&validated)
+            .map_err(|_| shape_failure(SuccessorArtifactKind::Vir))?;
+    }
+    Ok(validated)
 }
 
 pub fn successor_contract_hash(
@@ -963,6 +973,17 @@ pub fn import_successor_source_map_json(
         context.captured_inputs,
         context.synthetic_permissions,
     )?;
+    let java_captured_inputs = if semantic_context.semantic_profile()
+        == crate::semantic_profile_registry::JAVA_SCALAR_PROFILE
+    {
+        if !context.synthetic_permissions.is_empty() {
+            return Err(linkage_failure(SuccessorArtifactKind::SourceMap));
+        }
+        validate_java_map(&wire.entries, context.vir)?;
+        Some(java_captured_input_inventory(context.captured_inputs)?)
+    } else {
+        None
+    };
     let map = SuccessorSourceMap {
         schema: wire.schema,
         semantic_context,
@@ -986,6 +1007,7 @@ pub fn import_successor_source_map_json(
     Ok(ValidatedSuccessorSourceMap {
         map,
         canonical_bytes: canonical,
+        java_captured_inputs,
     })
 }
 
@@ -1256,6 +1278,9 @@ pub fn import_successor_source_manifest_json(
     validate_manifest_order(&wire, profile)?;
     validate_manifest_semantics(&wire, &semantic_context, &selection, profile, context)?;
     validate_manifest_inputs(&wire.inputs, context.captured_inputs, profile)?;
+    if profile == CompiledSemanticProfile::JavaScalarV0 {
+        validate_java_manifest(&wire, &selection, context)?;
+    }
 
     let recomputed_input_set = input_set_hash(&wire.inputs)
         .map_err(|_| linkage_failure(SuccessorArtifactKind::SourceManifest))?;
@@ -1350,6 +1375,7 @@ fn validate_manifest_order(
         CompiledSemanticProfile::RustCheckedV0 | CompiledSemanticProfile::CSharpScalarV0 => {
             SOURCE_MANIFEST_RUST_INPUTS_MAX
         }
+        CompiledSemanticProfile::JavaScalarV0 => 384,
     };
     if manifest.limit_profile != "mpk.vir.limits.v0"
         || manifest.units.is_empty()
@@ -1459,10 +1485,15 @@ fn validate_manifest_semantics(
         .get("target_id")
         .and_then(Value::as_str)
         .ok_or_else(|| semantic_context_failure(SuccessorArtifactKind::SourceManifest))?;
-    let pointer_width = parameters
-        .get("pointer_width")
-        .and_then(Value::as_u64)
-        .ok_or_else(|| semantic_context_failure(SuccessorArtifactKind::SourceManifest))?;
+    // Java has no pointer-width parameter; its sole pinned host is x64.
+    let pointer_width = if profile == CompiledSemanticProfile::JavaScalarV0 {
+        64
+    } else {
+        parameters
+            .get("pointer_width")
+            .and_then(Value::as_u64)
+            .ok_or_else(|| semantic_context_failure(SuccessorArtifactKind::SourceManifest))?
+    };
     if manifest.target.id != target_id
         || u64::from(manifest.target.pointer_width.bits()) != pointer_width
         || manifest.units.len() != context.vir.module().units().len()
@@ -1472,7 +1503,9 @@ fn validate_manifest_semantics(
     let expected_kind = match profile {
         CompiledSemanticProfile::GoFixedV0 => SuccessorManifestUnitKind::Package,
         CompiledSemanticProfile::RustCheckedV0 => SuccessorManifestUnitKind::Lib,
-        CompiledSemanticProfile::CSharpScalarV0 => SuccessorManifestUnitKind::Compilation,
+        CompiledSemanticProfile::CSharpScalarV0 | CompiledSemanticProfile::JavaScalarV0 => {
+            SuccessorManifestUnitKind::Compilation
+        }
     };
     if manifest
         .units
@@ -1543,7 +1576,7 @@ fn validate_manifest_selection(
                 return Err(selection_failure());
             }
         }
-        CompiledSemanticProfile::CSharpScalarV0 => {
+        CompiledSemanticProfile::CSharpScalarV0 | CompiledSemanticProfile::JavaScalarV0 => {
             let compilation = value
                 .get("compilation")
                 .and_then(Value::as_str)
@@ -1614,10 +1647,280 @@ fn input_kind_allowed(profile: CompiledSemanticProfile, kind: InputKind) -> bool
                 | InputKind::BuildManifest
                 | InputKind::Lockfile
         ),
-        CompiledSemanticProfile::CSharpScalarV0 => {
+        CompiledSemanticProfile::CSharpScalarV0 | CompiledSemanticProfile::JavaScalarV0 => {
             matches!(kind, InputKind::Source | InputKind::Contract)
         }
     }
+}
+
+fn java_captured_input_inventory(
+    captured: &[CapturedInput<'_>],
+) -> Result<Vec<InputEntry>, SuccessorArtifactError> {
+    let error = || linkage_failure(SuccessorArtifactKind::SourceMap);
+    if captured.len() > 384
+        || !crate::java_profile::valid_path_inventory(captured.iter().map(|i| i.normalized_path))
+    {
+        return Err(error());
+    }
+    let mut inventory = Vec::new();
+    let mut sources = 0;
+    let mut contracts = 0;
+    let mut source_bytes = 0;
+    let mut contract_bytes = 0;
+    let mut entries = BTreeSet::new();
+    for input in captured {
+        if input.bytes.len() > 1_048_576 {
+            return Err(error());
+        }
+        match input.kind {
+            InputKind::Source => {
+                if !crate::java_profile::valid_source_path(input.normalized_path) {
+                    return Err(error());
+                }
+                let text = std::str::from_utf8(input.bytes).map_err(|_| error())?;
+                if text.is_empty()
+                    || !text.ends_with('\n')
+                    || text.starts_with('\u{feff}')
+                    || text.contains(['\0', '\r'])
+                    || input.bytes.windows(2).any(|b| b == b"\\u")
+                    || text.chars().any(|c| {
+                        (0xfdd0..=0xfdef).contains(&(c as u32)) || (c as u32 & 0xffff) >= 0xfffe
+                    })
+                {
+                    return Err(error());
+                }
+                sources += 1;
+                source_bytes += input.bytes.len();
+            }
+            InputKind::Contract => {
+                if !input.normalized_path.starts_with("contracts/")
+                    || !input.normalized_path.ends_with(".json")
+                {
+                    return Err(error());
+                }
+                contracts += 1;
+                contract_bytes += input.bytes.len();
+            }
+            _ => return Err(error()),
+        }
+        if sources > 256
+            || contracts > 128
+            || source_bytes > 16_777_216
+            || contract_bytes > 8_388_608
+        {
+            return Err(error());
+        }
+        let mut path = input.normalized_path;
+        loop {
+            entries.insert(path);
+            let Some((parent, _)) = path.rsplit_once('/') else {
+                break;
+            };
+            path = parent;
+        }
+        if entries.len() > 512 {
+            return Err(error());
+        }
+        inventory.push(InputEntry {
+            kind: input.kind,
+            normalized_path: input.normalized_path.to_owned(),
+            size_bytes: input.bytes.len() as i64,
+            sha256: crate::sha256_raw_file_bytes(input.bytes).to_hex(),
+        });
+    }
+    if sources == 0 || contracts == 0 {
+        return Err(error());
+    }
+    inventory.sort_by(|a, b| a.normalized_path.cmp(&b.normalized_path));
+    Ok(inventory)
+}
+
+fn validate_java_map(
+    entries: &[SourceMapEntry],
+    vir: &ValidatedSuccessorVir,
+) -> Result<(), SuccessorArtifactError> {
+    use crate::vir::{VirBinaryOperator as Op, VirValue};
+    let error = || linkage_failure(SuccessorArtifactKind::SourceMap);
+    let origins: BTreeMap<_, _> = entries.iter().map(|e| (&e.reference, &e.origin)).collect();
+    for entry in entries {
+        let SourceOrigin::Source {
+            normalized_path,
+            start,
+            end,
+            ..
+        } = &entry.origin
+        else {
+            return Err(error());
+        };
+        let method =
+            crate::java_profile::method_id(entry.reference.function_id()).ok_or_else(error)?;
+        if *normalized_path != method.source_path() {
+            return Err(error());
+        }
+        let reference = SourceReference::Function {
+            unit_id: entry.reference.unit_id().to_owned(),
+            function_id: entry.reference.function_id().to_owned(),
+        };
+        let Some(SourceOrigin::Source {
+            start: method_start,
+            end: method_end,
+            ..
+        }) = origins.get(&reference).copied()
+        else {
+            return Err(error());
+        };
+        if start < method_start || end > method_end {
+            return Err(error());
+        }
+    }
+    // Generated mask and bit-preserving conversion helpers must share the
+    // shift expression's exact source origin, not a nearby or synthetic range.
+    for unit in vir.module().units() {
+        for function in unit.functions() {
+            for block in function.blocks() {
+                let definitions: BTreeMap<_, _> = block
+                    .instructions
+                    .iter()
+                    .map(|i| (vir_instruction_id(i), i))
+                    .collect();
+                let restorations: BTreeMap<_, _> = block
+                    .instructions
+                    .iter()
+                    .filter_map(|i| match i {
+                        VirInstruction::Convert {
+                            value: VirValue::Variable(r),
+                            ..
+                        } => Some((r.var.as_str(), i)),
+                        _ => None,
+                    })
+                    .collect();
+                let origin = |id: &str| -> Result<&SourceOrigin, SuccessorArtifactError> {
+                    origins
+                        .get(&SourceReference::Instruction {
+                            unit_id: unit.id().to_owned(),
+                            function_id: function.id().to_owned(),
+                            block: block.label.clone(),
+                            instruction: id.to_owned(),
+                        })
+                        .copied()
+                        .ok_or_else(error)
+                };
+                let var = |value: &VirValue| match value {
+                    VirValue::Variable(r) => Some(r.var.clone()),
+                    _ => None,
+                };
+                for instruction in &block.instructions {
+                    if let VirInstruction::BinOp {
+                        id,
+                        op: Op::BvShl | Op::BvAshr | Op::BvLshr,
+                        lhs,
+                        rhs,
+                        ..
+                    } = instruction
+                    {
+                        let count = var(rhs).ok_or_else(error)?;
+                        let Some(VirInstruction::BinOp { rhs: mask, .. }) =
+                            definitions.get(count.as_str())
+                        else {
+                            return Err(error());
+                        };
+                        let mask = var(mask).ok_or_else(error)?;
+                        if origin(id)? != origin(&count)? || origin(id)? != origin(&mask)? {
+                            return Err(error());
+                        }
+                        if matches!(instruction, VirInstruction::BinOp { op: Op::BvLshr, .. }) {
+                            let unsigned = var(lhs).ok_or_else(error)?;
+                            let restored =
+                                restorations.get(id.as_str()).copied().ok_or_else(error)?;
+                            if origin(id)? != origin(&unsigned)?
+                                || origin(id)? != origin(vir_instruction_id(restored))?
+                            {
+                                return Err(error());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    Ok(())
+}
+
+fn validate_java_manifest(
+    manifest: &WireSuccessorSourceManifest,
+    selection: &SelectionEnvelope,
+    context: SuccessorSourceManifestValidationContext<'_>,
+) -> Result<(), SuccessorArtifactError> {
+    let error = || linkage_failure(SuccessorArtifactKind::SourceManifest);
+    if context.source_map.map().source_ir_hash() != context.vir.hash()
+        || context.source_map.java_captured_inputs.as_deref() != Some(manifest.inputs.as_slice())
+    {
+        return Err(error());
+    }
+    for (field, kind) in [
+        ("sources", InputKind::Source),
+        ("contracts", InputKind::Contract),
+    ] {
+        let paths = selection.value()[field].as_array().ok_or_else(error)?;
+        if !paths.iter().filter_map(Value::as_str).eq(manifest
+            .inputs
+            .iter()
+            .filter(|i| i.kind == kind)
+            .map(|i| i.normalized_path.as_str()))
+        {
+            return Err(error());
+        }
+    }
+    let functions = context.vir.module().units()[0].functions();
+    if selection.value()["contracts"]
+        .as_array()
+        .ok_or_else(error)?
+        .len()
+        != functions.len()
+    {
+        return Err(error());
+    }
+    let source_paths = functions
+        .iter()
+        .map(|f| {
+            crate::java_profile::method_id(f.id())
+                .map(|m| m.source_path())
+                .ok_or_else(error)
+        })
+        .collect::<Result<BTreeSet<_>, _>>()?;
+    let selected_sources = selection.value()["sources"]
+        .as_array()
+        .ok_or_else(error)?
+        .iter()
+        .filter_map(Value::as_str)
+        .map(str::to_owned)
+        .collect::<BTreeSet<_>>();
+    if source_paths != selected_sources {
+        return Err(error());
+    }
+    let by_id: BTreeMap<_, _> = functions.iter().map(|f| (f.id(), f)).collect();
+    let mut pending = selection.value()["methods"]
+        .as_array()
+        .ok_or_else(error)?
+        .iter()
+        .filter_map(Value::as_str)
+        .collect::<Vec<_>>();
+    let mut closure = BTreeSet::new();
+    while let Some(id) = pending.pop() {
+        if !closure.insert(id) {
+            continue;
+        }
+        let function = by_id.get(id).ok_or_else(error)?;
+        for instruction in function.blocks().iter().flat_map(|b| &b.instructions) {
+            if let VirInstruction::CallStatic { function, .. } = instruction {
+                pending.push(function)
+            }
+        }
+    }
+    if closure.len() != functions.len() {
+        return Err(error());
+    }
+    Ok(())
 }
 
 fn input_kind_name(kind: InputKind) -> &'static str {

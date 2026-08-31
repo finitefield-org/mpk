@@ -2,8 +2,9 @@
 
 `JAVA-03-T02` provides the unregistered `java2vir` build project. Its only
 successful invocation is `--version`; every source/frontend invocation exits
-2 with `JAVA_FRONTEND_UNAVAILABLE` and no stdout. Parsing, profile admission,
-VIR generation and installed execution belong to later Java tasks. The active
+2 with `JAVA_FRONTEND_UNAVAILABLE` and no stdout. T03 adds independent Rust
+contract/artifact validators; Java source parsing, source subset admission,
+VIR generation and installed execution belong to later tasks. The active
 Go/Rust/C# release and semantic registry revision 2 are unchanged.
 
 The normative inputs are in

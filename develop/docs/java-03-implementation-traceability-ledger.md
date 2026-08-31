@@ -1,9 +1,10 @@
 # JAVA-03 Implementation Traceability Ledger
 
-Status: `JAVA-03-T01` and `JAVA-03-T02` complete (2026-08-31);
-`JAVA-03-T03` is next and T03 through T10 are pending. The freeze and offline
-build candidate do not establish Java source processing, native Linux release
-isolation, or Java activation. The active release remains Go/Rust/C# at registry revision 2.
+Status: `JAVA-03-T01` through `JAVA-03-T03` complete (2026-08-31);
+`JAVA-03-T04` is next and T04 through T10 are pending. The freeze, offline
+build and independent validators do not establish Java source processing,
+native Linux release isolation, or Java activation. The active release remains
+Go/Rust/C# at registry revision 2.
 
 This is an execution plan subordinate to `../specs/JAVA_PROFILE_V0.md`, the
 exact Java/revision-3 vectors, and `SEMANTIC_PROFILE_REGISTRY_V1.md`. It does
@@ -15,8 +16,9 @@ consume that owner's result without redefining it.
 
 `CSHARP-02-T20 -> JAVA-03-T01 -> T02 -> T03 -> T04 -> T05 -> T06 -> T07 -> T08
 -> T09 -> T10 -> DART-04`. Every task requires its predecessor's completed,
-reviewed result. T01 froze the profile; T02 added the inactive offline build.
-T03 begins the inactive profile and artifact validators.
+reviewed result. T01 froze the profile; T02 added the inactive offline build;
+T03 added the inactive profile and artifact validators. T04 begins capture and
+the public compiler adapter.
 
 | Task | Scope | Exit evidence |
 | --- | --- | --- |
@@ -443,6 +445,50 @@ T02 implementation record (2026-08-31):
 
 For commands and artifact formats, see `java-tools/README.md`. The local
 two-build gate is separate from the unimplemented native Java release gate.
+
+T03 implementation record (2026-08-31):
+
+- `semantic_profile_registry.rs` compiles the exact Java entry, revision-3
+  root, parameter envelope and nine payloads; `java_profile.rs` validates
+  finite selection/path/name/signature rules. Explicit candidate validation
+  proves every revision-2 entry is byte-identical. Compiled support alone does
+  not install a registry or register a frontend tuple.
+- `java_source_artifacts.rs`, `successor_source_artifacts.rs`, `safety_check.rs`
+  and the private structural projection in `successor_vc.rs` admit only the
+  Java scalar operations, exact check lists, linked and ordered shift helpers,
+  closed unsigned intermediates, typed normalized contracts, dense identifiers,
+  acyclic CFG and source calls. Public artifact and VC contexts remain Java;
+  no new source axiom or checker rule is added.
+- Source maps require original UTF-8 ranges, method-owned paths and identical
+  shift-helper origins, with no synthetic permission. Captured input hashes
+  remain private validation state and must match the manifest's exact selected
+  input set; rehashing different bytes cannot reuse an old validated map.
+  Manifest selection must account for every closure method and source file.
+- `java_profile_vectors.rs` executes the frozen registry/identity/payload/hash
+  cases and additional repaired-hash, type, conversion, check, shift, flow,
+  call, map, manifest and VC mutations. Raw sidecar parsing/attachment remains
+  T05; compiler/capture and emitted-source conformance remain T04-T06. Test
+  artifacts are hand-authored and do not claim Java source execution.
+- The shift-order review finding was reproduced by a failing regression, then
+  fixed by validating the exact helper sequence. The repeated full-diff review
+  has no remaining findings.
+- Verification passed: `cargo test -p mpk-vc --test java_profile_vectors
+  --test java_profile_spec --test semantic_profile_registry_runtime
+  --test successor_source_artifacts --test successor_vc --offline`
+  (12 + 10 + 4 + 4 + 5 tests), `cargo test -p mpk-cli --test java_build_inputs
+  --offline` (four ordinary tests), and `cargo test -p mpk-api
+  compiled_java_candidate_cannot_start_an_installed_api_session --offline`
+  (one test). `cargo check --workspace --all-targets --offline` and
+  `cargo clippy --workspace --all-targets --offline -- -D warnings` passed.
+  All 23 frozen vector raw-byte digests still match their manifest records.
+- `CARGO_NET_OFFLINE=true ./scripts/check-fast.sh` passed the complete local
+  gate: formatting, obsolete-interface checks, Clippy, workspace tests, CLI
+  build and certificate acceptance/rejection smoke checks. The gate, including
+  its Git file enumeration, ran outside the sandbox.
+- The ignored Java two-build/export test was not rerun in T03: the T02 project,
+  build recipe, fixed JDK and measured candidate inventories are unchanged.
+  The complete native Linux release gate was not run on this ARM development
+  host; installed JVM enforcement and Java release acceptance remain T07/T09/T10.
 
 A task is complete only after its exact deliverables, required verification
 (or explicitly recorded unrun reason), fix/review loop, commit and push are

@@ -641,7 +641,7 @@ pub fn prepare_successor_ai_explanation(
         }
     }
 
-    let registration = registration(entry.compiled_profile());
+    let registration = registration(entry.compiled_profile())?;
     validate_policy_contract(evidence.policy_contract(), registration)?;
     let ai_contract = validate_compiled_profile_envelope(
         source.registry,
@@ -946,8 +946,10 @@ impl PreparedSuccessorAiRequestV2 {
     }
 }
 
-fn registration(profile: CompiledSemanticProfile) -> SuccessorAiRegistration {
-    match profile {
+fn registration(
+    profile: CompiledSemanticProfile,
+) -> Result<SuccessorAiRegistration, SuccessorAiError> {
+    Ok(match profile {
         CompiledSemanticProfile::GoFixedV0 => SuccessorAiRegistration {
             profile,
             display_language: "Go",
@@ -975,7 +977,14 @@ fn registration(profile: CompiledSemanticProfile) -> SuccessorAiRegistration {
             checker_profile: "mvp-strict",
             axiom_profile: "mvp-theory",
         },
-    }
+        CompiledSemanticProfile::JavaScalarV0 => {
+            return Err(failure(
+                SuccessorAiPhase::ProfileContract,
+                SuccessorAiCode::ProfileContract,
+                "Java AI integration is not active",
+            ))
+        }
+    })
 }
 
 fn validate_policy_contract(

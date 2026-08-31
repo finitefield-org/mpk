@@ -532,6 +532,7 @@ fn active_contract(
                 CompiledSemanticProfile::GoFixedV0 => "mpk.go.evidence_recipe.v0",
                 CompiledSemanticProfile::RustCheckedV0 => "mpk.rust.evidence_recipe.v0",
                 CompiledSemanticProfile::CSharpScalarV0 => "mpk.csharp.evidence_recipe.v0",
+                CompiledSemanticProfile::JavaScalarV0 => return Err(input("Java is not active")),
             },
             "require_reference_checker":true,
             "require_source_free_check":true
@@ -540,12 +541,14 @@ fn active_contract(
             "axiom_profile":match profile {
                 CompiledSemanticProfile::GoFixedV0 => "zero-axiom",
                 CompiledSemanticProfile::RustCheckedV0 | CompiledSemanticProfile::CSharpScalarV0 => "mvp-theory",
+                CompiledSemanticProfile::JavaScalarV0 => return Err(input("Java is not active")),
             },
             "checker_profile":"mvp-strict",
             "strategy_profile":match profile {
                 CompiledSemanticProfile::GoFixedV0 => "payment-policy-alpha",
                 CompiledSemanticProfile::RustCheckedV0 => "payment-policy-rust-alpha",
                 CompiledSemanticProfile::CSharpScalarV0 => "payment-policy-csharp-alpha",
+                CompiledSemanticProfile::JavaScalarV0 => return Err(input("Java is not active")),
             }
         }),
         (profile, ProfileContractField::Vc) => json!({
@@ -553,11 +556,13 @@ fn active_contract(
                 CompiledSemanticProfile::GoFixedV0 => "mpk.go.contract.v0",
                 CompiledSemanticProfile::RustCheckedV0 => "mpk.rust.contract.v0",
                 CompiledSemanticProfile::CSharpScalarV0 => "mpk.csharp.contract.v0",
+                CompiledSemanticProfile::JavaScalarV0 => return Err(input("Java is not active")),
             },
             "required_check_profile_id":match profile {
                 CompiledSemanticProfile::GoFixedV0 => "mpk.go.fixed.v0",
                 CompiledSemanticProfile::RustCheckedV0 => "mpk.rust.checked.v0",
                 CompiledSemanticProfile::CSharpScalarV0 => "mpk.csharp.required_checks.v0",
+                CompiledSemanticProfile::JavaScalarV0 => return Err(input("Java is not active")),
             },
             "verification_limit_profile_id":"mpk.verify.limits.v0"
         }),

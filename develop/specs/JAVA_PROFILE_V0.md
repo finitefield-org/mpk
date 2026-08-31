@@ -4,9 +4,9 @@ Status: normative and frozen for implementation by `JAVA-03-T01`
 (2026-08-31), but inactive. The installed release remains Go/Rust/C# with
 semantic registry revision 2. The disposable compiler/JVM compatibility
 measurements establish the recorded T01 observations, not the complete native
-Linux production isolation gate. T02's offline build candidate is complete;
-`JAVA-03-T03` is next. Java activation
-belongs only to `JAVA-03-T10`.
+Linux production isolation gate. T02's offline build candidate and T03's
+inactive contract/artifact validators are complete; `JAVA-03-T04` is next.
+Java activation belongs only to `JAVA-03-T10`.
 
 ## 1. Scope, authority, and identities
 

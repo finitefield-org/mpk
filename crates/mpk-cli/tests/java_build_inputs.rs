@@ -174,13 +174,12 @@ fn java_offline_input_owner_executes_hostile_input_tests_without_ambient_configu
 
 #[test]
 fn java_candidate_does_not_install_a_release_or_accept_toolchain_overrides() {
-    assert!(
-        mpk_vc::semantic_profile_registry::CompiledSemanticProfile::from_identity(
-            "java",
-            "mpk.java.scalar.v0"
-        )
-        .is_none()
-    );
+    let installed = mpk_vc::semantic_profile_registry::validate_semantic_profile_registry(
+        &fs::read(root().join("release/bundles/semantic-profile-registry.json")).unwrap(),
+        mpk_vc::semantic_profile_registry::RegistryRevision::Revision2,
+    )
+    .unwrap();
+    assert!(installed.lookup("java", "mpk.java.scalar.v0").is_none());
     let active = load("release/bundles/semantic-profile-registry.json");
     assert_eq!(
         active,
@@ -217,6 +216,66 @@ fn java_candidate_does_not_install_a_release_or_accept_toolchain_overrides() {
     assert_eq!(output.status.code(), Some(65));
     assert!(output.stdout.is_empty());
     assert_eq!(output.stderr, b"JAVA_BUILD_OUTPUT\n");
+}
+
+#[test]
+fn compiled_java_contracts_do_not_open_public_source_routes() {
+    let temporary = tempfile::tempdir().unwrap();
+    let profile = load("develop/specs/vectors/java-profile-v0.json");
+    let context_path = temporary.path().join("context.json");
+    let selection_path = temporary.path().join("selection.json");
+    let output_path = temporary.path().join("must-not-exist.json");
+    fs::write(&selection_path, canonical(&profile["selection_fixture"])).unwrap();
+    for use_installed_identity in [false, true] {
+        let mut context = profile["semantic_context_fixture"].clone();
+        if use_installed_identity {
+            context["profile_registry"] = serde_json::to_value(
+                mpk_vc::semantic_profile_registry::RegistryRevision::Revision2.identity(),
+            )
+            .unwrap();
+        }
+        fs::write(&context_path, canonical(&context)).unwrap();
+        for (command, flag) in [
+            (vec!["policy", "scan"], "--json-out"),
+            (vec!["policy", "verify"], "--evidence-json"),
+            (vec!["explain"], "--request-json-out"),
+        ] {
+            let output = Command::new(env!("CARGO_BIN_EXE_mpk"))
+                .args(command)
+                .arg(temporary.path().join("missing-source-root"))
+                .arg("--semantic-context")
+                .arg(&context_path)
+                .arg("--selection")
+                .arg(&selection_path)
+                .arg(flag)
+                .arg(&output_path)
+                .env("JAVA_HOME", "/unselected/jdk")
+                .env(
+                    "MPK_SEMANTIC_REGISTRY",
+                    root().join("develop/specs/vectors/semantic-profile-registry-v3.json"),
+                )
+                .output()
+                .unwrap();
+            assert_eq!(
+                output.status.code(),
+                Some(1), // Preserve the installed CLI's semantic-input error exit code.
+                "{}",
+                String::from_utf8_lossy(&output.stderr)
+            );
+            assert!(output.stdout.is_empty());
+            let error = String::from_utf8_lossy(&output.stderr);
+            assert!(
+                error.contains(if use_installed_identity {
+                    "SEMANTIC_PROFILE_UNKNOWN"
+                } else {
+                    "SEMANTIC_REGISTRY_ASSERTION"
+                }),
+                "{error}"
+            );
+            assert!(!output_path.exists());
+            assert!(!temporary.path().join("missing-source-root").exists());
+        }
+    }
 }
 
 #[test]

@@ -1406,9 +1406,14 @@ fn assert_numeric_evaluations(case: &Value) {
 
 #[test]
 fn java_freeze_does_not_activate_a_production_frontend() {
-    // This assertion deliberately belongs to the T01 inactive freeze. T03 may
-    // replace it when compiled, still-inactive Java contracts are introduced.
-    assert!(CompiledSemanticProfile::from_identity("java", "mpk.java.scalar.v0").is_none());
+    // T03 compiles Java validators; installed membership remains revision 2.
+    assert!(CompiledSemanticProfile::from_identity("java", "mpk.java.scalar.v0").is_some());
+    let active = mpk_vc::semantic_profile_registry::validate_semantic_profile_registry(
+        ACTIVE,
+        mpk_vc::semantic_profile_registry::RegistryRevision::Revision2,
+    )
+    .unwrap();
+    assert!(active.lookup("java", "mpk.java.scalar.v0").is_none());
     let mut active_transport = canonical(&load(PREDECESSOR)["registry"]);
     active_transport.push(b'\n');
     assert_eq!(ACTIVE, active_transport);

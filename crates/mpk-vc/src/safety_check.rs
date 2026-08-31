@@ -31,12 +31,15 @@ pub(crate) enum CompiledRequiredCheckProfile {
     GoFixedV0,
     RustCheckedV0,
     CSharpScalarV0,
+    JavaScalarV0,
 }
 
 impl CompiledRequiredCheckProfile {
     const fn encoding_profile(self) -> SemanticProfile {
         match self {
-            Self::GoFixedV0 | Self::CSharpScalarV0 => SemanticProfile::GoFixedV0,
+            Self::GoFixedV0 | Self::CSharpScalarV0 | Self::JavaScalarV0 => {
+                SemanticProfile::GoFixedV0
+            }
             Self::RustCheckedV0 => SemanticProfile::RustCheckedV0,
         }
     }
@@ -97,12 +100,15 @@ pub fn required_safety_checks(
     required_safety_checks_for_profile(profile.into(), operation, operand_types, &[])
 }
 
-fn required_safety_checks_for_profile(
+pub(crate) fn required_safety_checks_for_profile(
     profile: CompiledRequiredCheckProfile,
     operation: VirSafetyOperation,
     operand_types: &[VirType],
     actual: &[VirSafetyCheck],
 ) -> Result<Vec<VirSafetyCheck>, SafetyCheckError> {
+    if profile == CompiledRequiredCheckProfile::JavaScalarV0 {
+        return required_java_safety_checks(operation, operand_types);
+    }
     match operation {
         VirSafetyOperation::None(_) => {
             if !operand_types.is_empty() {
@@ -246,6 +252,92 @@ fn required_safety_checks_for_profile(
             Ok(vec![VirSafetyCheck::IndexInBounds {}])
         }
     }
+}
+
+// Java owns this finite rule independently of C# checked intent and Go shift
+// checks. Artifact validation additionally proves the exact linked shift mask.
+fn required_java_safety_checks(
+    operation: VirSafetyOperation,
+    operands: &[VirType],
+) -> Result<Vec<VirSafetyCheck>, SafetyCheckError> {
+    use crate::java_profile::{is_integer, is_scalar};
+    use crate::vir::BitVectorWidth::{Bits32, Bits64};
+    use VirBinaryOperator as Op;
+    let valid = match (operation, operands) {
+        (VirSafetyOperation::None(kind), []) => matches!(
+            kind,
+            VirInstructionKind::Const
+                | VirInstructionKind::Copy
+                | VirInstructionKind::Convert
+                | VirInstructionKind::CallStatic
+        ),
+        (VirSafetyOperation::Unary(VirUnaryOperator::Not), [ty]) => matches!(ty, VirType::Bool {}),
+        (VirSafetyOperation::Unary(VirUnaryOperator::BvNeg | VirUnaryOperator::BvNot), [ty]) => {
+            is_integer(ty)
+        }
+        (VirSafetyOperation::Binary(Op::Eq | Op::NotEq), [left, right]) => {
+            left == right && is_scalar(left)
+        }
+        (
+            VirSafetyOperation::Binary(
+                Op::BvAdd
+                | Op::BvSub
+                | Op::BvMul
+                | Op::BvSdiv
+                | Op::BvSrem
+                | Op::BvAnd
+                | Op::BvOr
+                | Op::BvXor
+                | Op::SignedLt
+                | Op::SignedLe
+                | Op::SignedGt
+                | Op::SignedGe,
+            ),
+            [left, right],
+        ) => left == right && is_integer(left),
+        (VirSafetyOperation::Binary(Op::BvShl | Op::BvAshr), [left, right]) => {
+            is_integer(left)
+                && matches!(
+                    right,
+                    VirType::Bv {
+                        width: Bits32,
+                        signed: true
+                    }
+                )
+        }
+        (VirSafetyOperation::Binary(Op::BvLshr), [left, right]) => {
+            matches!(
+                left,
+                VirType::Bv {
+                    width: Bits32 | Bits64,
+                    signed: false
+                }
+            ) && matches!(
+                right,
+                VirType::Bv {
+                    width: Bits32,
+                    signed: true
+                }
+            )
+        }
+        _ => false,
+    };
+    if !valid {
+        return Err(invalid(
+            "VIR_JAVA_OPERATION",
+            "operation or operands are outside the Java scalar profile",
+        ));
+    }
+    Ok(
+        if matches!(
+            operation,
+            VirSafetyOperation::Binary(Op::BvSdiv | Op::BvSrem)
+        ) {
+            vec![VirSafetyCheck::DivisorNonzero {}]
+        } else {
+            Vec::new()
+        },
+    )
 }
 
 /// Validates exact kind, order, operation, and signedness metadata.
