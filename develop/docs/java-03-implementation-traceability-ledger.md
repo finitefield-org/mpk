@@ -1,11 +1,9 @@
 # JAVA-03 Implementation Traceability Ledger
 
-Status: `JAVA-03-T01` through `JAVA-03-T06` complete (2026-08-31);
-T07's private candidate/JVM runner is implemented, but native x86-64 Linux
-acceptance is still pending. T08 through T10 are pending. Neither private
-artifacts nor emulated tests establish native release isolation or Java
-activation. The active release remains
-Go/Rust/C# at registry revision 2.
+Status: `JAVA-03-T07 Complete` (native x86-64 Linux acceptance: 2026-09-01);
+T01 through T06 are also complete. T08 through T10 are pending. The private
+T07 receipt does not establish T09 release rehearsal or T10 Java activation.
+The active release remains Go/Rust/C# at registry revision 2.
 
 This is an execution plan subordinate to `../specs/JAVA_PROFILE_V0.md`, the
 exact Java/revision-3 vectors, and `SEMANTIC_PROFILE_REGISTRY_V1.md`. It does
@@ -398,7 +396,8 @@ The local Linux amd64 compatibility measurements run under CPU emulation.
 They measure actual pinned JVM/compiler behavior and the recorded minimal
 filesystem/privilege/network setup. They do not establish every production
 cgroup limit, syscall policy, clone restriction, descendant-cleanup condition,
-or native Linux resource-failure path. T07 owns their installed enforcement;
+or native Linux resource-failure path. T07 separately accepted their installed
+enforcement on native x86-64 Linux;
 T09/T10 must execute the complete local native Linux release gates. No weaker
 JIT/sandbox fallback is permitted when the frozen baseline fails.
 
@@ -411,9 +410,9 @@ T01 verification record (2026-08-31):
   checks. Repeated runs produced identical JSON bytes.
 - Five extracted-JDK tamper cases rejected; a sparse archive declaring 1 TiB
   was rejected before archive-body processing.
-- The complete native Linux release gate was not run on the ARM development
-  host. The recorded x86-64 runs use emulation; native installed enforcement
-  and release acceptance remain T07/T09/T10 obligations.
+- At T01 completion the complete native Linux release gate had not run on the
+  ARM development host. The recorded T01 x86-64 runs use emulation; T07 later
+  accepted installed enforcement, while T09/T10 release obligations remain.
 
 Normal verification uses `./scripts/check-fast.sh`. Before Java activation,
 the current C# composed local Linux release gate remains active. T10 changes
@@ -437,7 +436,8 @@ T02 implementation record (2026-08-31):
   exports under hostile Java/Docker/proxy environment settings.
 - The candidate remains unregistered and rejects frontend arguments without
   stdout. The active release and all frozen semantic vectors remain unchanged.
-  Native installed-runner enforcement and release acceptance remain T07/T09/T10.
+  At T02 completion native installed-runner enforcement remained assigned to
+  T07 and release acceptance to T09/T10.
 - Verification passed: 13 hostile-input self-tests, three ordinary
   `java_build_inputs.rs` tests, the explicitly enabled two-build/export
   integration test, `--check-build-inputs`, `--check`, and `check-fast.sh`.
@@ -492,7 +492,8 @@ T03 implementation record (2026-08-31):
 - The ignored Java two-build/export test was not rerun in T03: the T02 project,
   build recipe, fixed JDK and measured candidate inventories are unchanged.
   The complete native Linux release gate was not run on this ARM development
-  host; installed JVM enforcement and Java release acceptance remain T07/T09/T10.
+  host; at T03 completion installed JVM enforcement remained T07 and Java
+  release acceptance T09/T10.
 
 T04 implementation record (2026-08-31):
 
@@ -560,8 +561,8 @@ T04 implementation record (2026-08-31):
   CLI build and certificate smoke checks and runs outside the sandbox for
   Git enumeration. The final code was rebuilt and rechecked after review fixes.
 - The native Linux installed release gate was not run on the ARM development
-  host. These JDK runs use Linux amd64 emulation. T07/T09/T10 still own native
-  JVM enforcement, complete downstream conformance and release acceptance;
+  host. These JDK runs use Linux amd64 emulation. At T04 completion T07 still
+  owned native JVM enforcement and T09/T10 downstream release acceptance;
   the packaged main remains version-only and Java is not activated.
 
 T05 implementation record (2026-08-31):
@@ -633,9 +634,9 @@ T05 implementation record (2026-08-31):
   both T05 owning integration tests, the T04 regression and the full fast gate.
   The repeated final task review has no remaining findings.
 - Native installed Linux release enforcement was not run on the ARM development
-  host. Fixed-JDK tests use Linux amd64 emulation; T07/T09/T10 still own native
-  JVM isolation, full downstream conformance and release acceptance. The active
-  registry remains revision 2 with the existing four Go/Rust/C# tuples.
+  host. Fixed-JDK tests use Linux amd64 emulation; at T05 completion T07 still
+  owned native JVM isolation and T09/T10 downstream release acceptance. The
+  active registry remains revision 2 with the existing four Go/Rust/C# tuples.
 
 T06 implementation record (2026-08-31):
 
@@ -675,12 +676,14 @@ T06 implementation record (2026-08-31):
   verifying that excess additions do not change either method or closure
   totals. These counter checks do not allocate maximal artifacts or claim
   native process-resource enforcement. The private producer has no normal
-  stderr output; T07 still owns the native parent stream limits.
+  stderr output; at T06 completion T07 still owned the native parent stream
+  limits.
 - T06 supplies the two executable precedence contributions recorded by T04:
   invalid contracts prevent lowering, and invalid maps prevent publication.
-  Only release preflight before source remains pending for T07. Review fixes
-  distinguish the release registry's schema from its ID, allow T07 to inject
-  the complete distribution digest independently of the JDK archive digest,
+  At T06 completion only release preflight before source remained pending for
+  T07. Review fixes distinguish the release registry's schema from its ID,
+  allow T07 to inject the complete distribution digest independently of the
+  JDK archive digest,
   enforce source-origin ownership and roles, reject stray call metadata, and
   avoid repeated scans when resolving local declarations.
 - Two isolated offline builds reproduced 28 project-file records, 82 classes
@@ -700,12 +703,13 @@ T06 implementation record (2026-08-31):
   rerun with every new file staged. The repeated full task review has no
   remaining findings.
 - Native installed Linux release enforcement was not run on the ARM
-  development host. Fixed-JDK tests use Linux amd64 emulation; T07 owns the
-  registered native runner, T09 the JDK differential/fuzz corpus and release
-  rehearsal, and T10 activation. Frozen Java/revision-3 vector bytes, the
-  installed revision-2 registry and all four Go/Rust/C# tuples are unchanged.
+  development host. Fixed-JDK tests use Linux amd64 emulation; at T06 completion
+  T07 owned the registered native runner, T09 the JDK differential/fuzz corpus
+  and release rehearsal, and T10 activation. Frozen Java/revision-3 vector
+  bytes, the installed revision-2 registry and all four Go/Rust/C# tuples are
+  unchanged.
 
-T07 implementation record (2026-08-31; native acceptance pending):
+T07 implementation and native acceptance record (2026-08-31 through 2026-09-01):
 
 - `java_release_bundles.py` and `build-java-candidate.sh` reconstruct a private
   Java candidate and registry from the frozen inputs and measured frontend.
@@ -747,7 +751,7 @@ T07 implementation record (2026-08-31; native acceptance pending):
   a finite x86-64 syscall policy. Only exact pthread clone flags pass;
   clone3 receives ENOSYS for the glibc fallback. Socket and namespace
   challenges must fail in the installed policy before source is exposed.
-  This describes the implemented boundary, not measured native acceptance.
+  Native acceptance measured this boundary without changing any frozen limit.
 - `FrontendArguments`, `JavaRelease` and `RuntimePreflight` connect packaged
   `Main` to the existing admission/lowering/emission pipeline. Before capture,
   the child checks exact argv/environment, compiler/JAR/JDK bytes, code source,
@@ -761,8 +765,8 @@ T07 implementation record (2026-08-31; native acceptance pending):
   `RunnerTests.java` adds 118 fixed-JDK assertions covering truncated/reordered
   arguments, forbidden overrides, byte/link/size changes and packaged-Main
   metadata failure before absent source capture. T04's precedence ledger now
-  names that executable contribution; native installed precedence remains
-  required separately. The image gate rejects ten real JAR/JDK/native/mode/
+  names that executable contribution; the native installed gate executes it
+  separately. The image gate rejects ten real JAR/JDK/native/mode/
   link/registry mutations without claiming kernel enforcement.
 - `check-java-runner.sh --native` requires a native x86-64 Linux host, writable
   initial cgroup-v2 hierarchy, root and strace. It runs installed Java cases,
@@ -771,37 +775,63 @@ T07 implementation record (2026-08-31; native acceptance pending):
   payloads through the same resource supervisor. It also runs the ten image
   mutations through installed preflight. Its receipt binds the runner and
   registry and records JVM-attributed clone flags, clone3 fallback, pre-exec
-  socket denials and trace hash. A transport-only parser regression rejects
-  parent-only or incomplete traces; it is not substituted for native evidence.
+  socket denials and trace hash. Full lowering remains untraced and retains the
+  exact 120-second request timeout. The trace uses the same registered JDK/JAR,
+  launcher, environment, mounts, cgroup and seccomp policy with a source-free
+  exact-identity probe, so ptrace transport overhead is not misclassified as
+  source-request time. PID-namespace decoding attributes every successful
+  transitive clone and clone3 fallback to the JVM thread tree. A transport-only
+  parser regression rejects parent-only, unrelated-child or incomplete traces;
+  it is not substituted for native evidence.
 - Review fixed the candidate inventory schema, installed success status and
   component linkage, constrained the shared .NET address-space exception to
   its actual bootstrap slot, and restored an exhaustive Linux-only C# test
   match without changing its Go/Rust cases. It also corrected stale source/
   notice/status descriptions and prevented another process's trace events
-  from satisfying JVM evidence requirements. Final source records cover 31
+  from satisfying JVM evidence requirements. Native follow-up review maps
+  namespace clone results to host trace PIDs, requires the entire clone set to
+  be transitive, closes Java hard-link aliases during Linux capture, and checks
+  cgroup cleanup while an unrelated sibling hierarchy exists. Final source
+  records cover 31
   project files and 87 classes; two isolated builds reproduce the 332,137-byte
   JAR, SHA-256
   `333a050128cddc206474c9bdcca244276c08b246f2a5ba11f55983537cf7cd75`.
-- Verification passed: the eight explicitly enabled offline Java integration
-  tests from T02/T04/T05/T06; `check-java-frontend.sh --run-runner`; private
-  candidate assembly and `check-java-runner.sh --image`; the owning Rust test;
-  and `CARGO_NET_OFFLINE=true ./scripts/check-fast.sh`. The full gate includes
-  formatting, obsolete-interface checks, workspace Clippy/tests, CLI build
-  and certificate smoke checks. Fixed offline Linux amd64 builds also passed
-  all-target Clippy, owning-runner compilation and the sandbox unit target,
-  including the seccomp logic test. Those builds/tests ran under ARM-host CPU
-  emulation and do not establish native kernel isolation.
-  The final standard gate was repeated with all new files staged. The repeated
-  task diff review has no remaining findings; native acceptance remains
-  separate as recorded below.
-- The actual native command was attempted with the assembled image and
-  refused this ARM macOS host with exit 69, `JAVA_NATIVE_HOST_REQUIRED`.
-  No native host was available: JVM/syscall compatibility, installed privilege/
-  filesystem/network/resource failures and cleanup therefore remain unrun.
-  **T07 native acceptance is pending; run and review that gate before accepting
-  T07 or starting T08.** T09 still owns complete release rehearsal and T10
-  public activation. Frozen Java/revision-3 vector bytes, active revision-2
-  descriptors and the existing four Go/Rust/C# tuples remain unchanged.
+- Native diagnosis found two independent causes. The outer release helper was
+  comparing global root-cgroup descendant counters, so unrelated sibling
+  creation could produce exit 125 after the owned PID-qualified tree had been
+  removed. Cleanup now proves exact removal inside that private ownership
+  boundary, retaining the manager/domain descendant and dying limits without
+  attributing global sibling churn. Separately, ptrace made a complete lowering
+  exceed 120 seconds even though the same untraced request completed in budget.
+  The source-free registered identity probe records syscall evidence while all
+  three complete lowering cases remain independently required under the
+  unchanged 120-second limit.
+- T07 verification passed: the eight explicitly enabled offline Java
+  integration tests from T02/T04/T05/T06;
+  `check-java-frontend.sh --run-runner`; private candidate assembly, both image
+  checks and the official `check-java-runner.sh --native`; the owning Rust
+  test; formatting and the task diff checks. The required
+  `CARGO_NET_OFFLINE=true ./scripts/check-fast.sh` was also executed: all T07
+  owners passed, but the workspace gate stopped later while materializing the
+  pre-existing Rust successor candidate. Two clean frozen Rust builds produced
+  identical `rust2vir` SHA-256 `93386390a1a75ef56cbfc212d2afef6a42ff7d14eebaed403dc0d8ac5d28bbc3`,
+  while the unchanged candidate requires
+  `5b879e3d8b73f6069b8f717e6920cccf2d84d68f6734b84a8286aeec447a987d`.
+  That pre-T07 Rust provenance was not changed in this task. The final
+  candidate receipt records runner SHA-256
+  `9a99d838c0818c1aa99004940fa2818cb0ad394b779ba2a81d9962b4885e79b4`
+  and registry SHA-256
+  `3208209c96bedce5ce94b26a824a9164c281f5bf8bc76e03f56497a85d564269`.
+  The native receipt records all six resource faults, all ten installed
+  mutations, hostile-environment equality, ten JVM thread creations with the
+  exact pthread flags, clone3 fallback, denied AF_INET/AF_UNIX sockets and
+  syscall trace SHA-256
+  `4e0de4e3cdb97df975dd76349058e884f6f3db581447db192ce8a6221b1cbe53`.
+  The repeated task diff review has no remaining findings.
+- **JAVA-03-T07 is complete.** T08 is next. T09 still owns complete release
+  rehearsal and T10 public activation. Frozen Java/revision-3 vector bytes,
+  active revision-2 descriptors and the existing four Go/Rust/C# tuples remain
+  unchanged.
 
 A task is complete only after its exact deliverables, required verification
 (or explicitly recorded unrun reason), fix/review loop, commit and push are

@@ -40,12 +40,13 @@ added internal input capture, the public compiler API adapter and bounded
 diagnostics. `JAVA-03-T05` added internal source admission, inert initialization,
 acyclic call closure and typed contract sidecars. `JAVA-03-T06` added private
 CFG/lowering, original-byte source maps and deterministic complete artifacts.
-Next is T07's registered candidate bundles and JVM runner in the
+`JAVA-03-T07` completed the registered candidate bundles and JVM runner,
+including native x86-64 Linux acceptance. Next is T08's private
+VC/policy/evidence/AI/API integration in the
 [Java implementation ledger](develop/docs/java-03-implementation-traceability-ledger.md).
-Installed Java execution remains pending;
-Java is not active and the installed registry remains revision 2.
-The T01 Linux amd64 probe used CPU emulation and does not replace the later
-native Linux release gate.
+Public Java activation remains pending; Java is not active and the installed
+registry remains revision 2. T09/T10 still own complete release rehearsal and
+atomic activation.
 
 ## Build from source
 

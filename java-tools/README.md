@@ -9,8 +9,8 @@ diagnostics. T05 adds source subset admission, inert initialization, conservativ
 acyclic call closure and typed contract sidecars, exercised through separately
 compiled private test harnesses. T06 adds private CFG/lowering, original-byte
 source maps and deterministic complete artifacts. T07's installed runner is
-implemented, but its native x86-64 Linux acceptance gate has not run on the ARM
-macOS development host. That gate remains necessary before T07 is accepted.
+implemented and passed its native x86-64 Linux acceptance gate on 2026-09-01.
+T08-T10 remain pending, including public activation at T10.
 The active Go/Rust/C# release and semantic registry revision 2 are unchanged.
 
 The normative inputs are in
@@ -161,8 +161,8 @@ subset before missing sidecars, and excluded class/var parents before accepted-
 tree comparison. `lowering_precedence` names T06's executed contracts-before-
 lowering and map-failure-before-publication contributions. `runner_precedence`
 names T07's executed release-before-source JVM test; `follow_on_precedence`
-is empty. Native installed precedence is also required by the T07 gate. All stages must execute
-before the T09 gate.
+is empty. T07's native installed gate also executes release-before-source
+precedence. All stages must execute before the T09 gate.
 No successful source artifact or installed Java release is claimed by this test.
 
 ## Source admission and sidecar verification
@@ -247,7 +247,7 @@ production identity input does not equate the complete candidate distribution
 digest with its JDK archive digest. Manifest components now bind the actual
 `java` executable, the complete JDK content projection and the native-runtime
 inventory. T07 supplies validated candidate identities; its native enforcement
-gate remains unrun. No environment toggle or alternate public MPK route
+gate passed on native x86-64 Linux. No environment toggle or alternate public MPK route
 discovers this private pipeline.
 
 ## T07 private candidate and runner
@@ -316,15 +316,21 @@ JDK or library. A failed assembly is not a publishable image.
 enforcement. `--native` additionally requires root on native x86-64 Linux,
 kernel 6.4+, the writable initial cgroup-v2 hierarchy and `/usr/bin/strace`.
 It runs the installed JVM, checks hostile environment equivalence, captures
-thread/syscall evidence attributed to the JVM and its threads, rejects unbounded launch, tests real OOM/PID/
-120-second timeout/pipe/tmpfs failures and cleanup with source-free test payloads,
-and executes the same mutations through installed release preflight before source access. ARM
+thread/syscall evidence attributed to the JVM and its threads, rejects
+unbounded launch, tests real OOM/PID/120-second timeout/pipe/tmpfs failures and
+cleanup with source-free test payloads, and executes the same mutations through
+installed release preflight before source access. The three complete lowering
+cases remain untraced and must finish within the frozen 120-second request
+budget. The source-free trace probe launches the same registered JDK/JAR through
+the same sandbox solely to keep ptrace transport overhead outside that request
+budget; it must produce the exact packaged identity and no gate streams. ARM
 emulation or missing primitives cause failure, never a skipped passing gate.
 The report binds the runner and registry digests and records the observed JVM
 thread flags, clone3 fallback and pre-exec socket denials. Ordinary tests also
 check that parent-only or incomplete trace records cannot pass as JVM evidence.
-T07's native compatibility, resource-fault and acceptance evidence is still
-outstanding. Complete release rehearsal and activation remain T09/T10.
+T07's native gate passed on 2026-09-01 with all six resource faults, all ten
+installed mutations and complete syscall evidence. Complete release rehearsal
+and activation remain T09/T10.
 
 ## Closed inputs and deterministic output
 
@@ -364,5 +370,5 @@ the exact build container; absence is checked before returning. The generated
 JAR must pass the version/identity check and reject malformed frontend invocations.
 
 On ARM development hosts Docker may emulate Linux x86-64. This verifies the
-pinned build and artifact determinism; it does not establish the complete
-native Linux installed sandbox or release gate owned by T07/T09/T10.
+pinned build and artifact determinism; it does not substitute for T07's
+separately completed native installed acceptance or the T09/T10 release gates.

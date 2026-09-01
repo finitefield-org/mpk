@@ -371,6 +371,18 @@ fn main() -> ExitCode {
             poison_environment();
             native_case(id)
         }
+        [flag]
+            if flag == "--native-trace-probe"
+                && cfg!(all(target_os = "linux", target_arch = "x86_64")) =>
+        {
+            PreparedJavaRun::open()
+                .map_err(|error| format!("JAVA_RUN_{error:?}"))
+                .and_then(|prepared| {
+                    prepared
+                        .trace_probe()
+                        .map_err(|error| format!("JAVA_RUN_{error:?}"))
+                })
+        }
         [flag] if flag == "--release-before-source" => match PreparedJavaRun::open() {
             Err(JavaRunError::Release) => Ok(()),
             _ => Err("release did not fail before source access".to_owned()),

@@ -3,7 +3,9 @@
 
 use crate::frontend_protocol::FrontendProcessFacts;
 use crate::frontend_registry::{BundleSnapshot, InstalledSuccessorRelease};
-use crate::frontend_sandbox::{launch_java_frontend, prepare_release_sandbox, PreparedSandbox};
+use crate::frontend_sandbox::{
+    launch_java_frontend, launch_java_trace_probe, prepare_release_sandbox, PreparedSandbox,
+};
 use mpk_cli::successor_frontend_protocol::{
     validate_successor_frontend_process, AcceptedSuccessorFrontendEnvelope,
     SuccessorFrontendProtocolRequest,
@@ -227,5 +229,31 @@ impl PreparedJavaRun {
             }
         }
         Ok(envelope)
+    }
+
+    /// Measures the registered JVM's native thread/syscall behavior without
+    /// charging ptrace overhead to a source request. The full native cases
+    /// separately prove that the same registered launcher lowers source within
+    /// its frozen request timeout.
+    pub(crate) fn trace_probe(self) -> Result<(), JavaRunError> {
+        let frontend = self
+            .snapshots
+            .get(java_release::FRONTEND_ID)
+            .ok_or(JavaRunError::Release)?;
+        let toolchain = self
+            .snapshots
+            .get(java_release::TOOLCHAIN_ID)
+            .ok_or(JavaRunError::Release)?;
+        let output = launch_java_trace_probe(self.sandbox, frontend, toolchain)
+            .map_err(|_| JavaRunError::Process)?;
+        if output.exit_code != Some(0)
+            || output.signaled
+            || output.stdout != b"java2vir 0.1.0 (Temurin 25.0.4.1+1; inactive)\n"
+            || output.stderr_observed_bytes != 0
+            || output.stream_limit_exceeded
+        {
+            return Err(JavaRunError::Process);
+        }
+        Ok(())
     }
 }

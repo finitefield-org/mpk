@@ -1491,6 +1491,38 @@ pub(crate) fn launch_java_frontend(
     )
 }
 
+/// Runs the registered JVM and JAR through Java's exact sandbox solely to
+/// measure native JVM thread/syscall behavior. Complete source processing is
+/// exercised separately by the native cases; keeping trace transport out of
+/// their frozen 120-second request budget avoids measuring ptrace overhead as
+/// frontend work.
+#[cfg(test)]
+pub(crate) fn launch_java_trace_probe(
+    prepared: PreparedSandbox,
+    frontend: &BundleSnapshot,
+    toolchain: &BundleSnapshot,
+) -> Result<SandboxOutput, SandboxError> {
+    if prepared.profile != SandboxProfile::Java25 {
+        return Err(SandboxError::Unavailable);
+    }
+    let mut arguments = mpk_vc::java_release::ARGV_PREFIX[1..]
+        .iter()
+        .map(|value| (*value).to_owned())
+        .collect::<Vec<_>>();
+    arguments.push("--version".to_owned());
+    launch_release_frontend(
+        prepared,
+        frontend,
+        toolchain,
+        JAVA_BOOTSTRAP_EXECUTABLE,
+        &arguments,
+        &mpk_vc::java_release::environment(),
+        &[],
+        &[],
+        &[],
+    )
+}
+
 #[allow(clippy::too_many_arguments)]
 pub(crate) fn launch_csharp_frontend(
     prepared: PreparedSandbox,

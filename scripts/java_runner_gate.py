@@ -8,8 +8,10 @@ import os
 from pathlib import Path
 import re
 import shutil
+import subprocess
 import sys
 import tempfile
+import time
 import zipfile
 
 
@@ -57,9 +59,12 @@ def trace_evidence(data):
     threads = {java_pid}
     clones = []
     for pid, call in events[start + 1:]:
-        match = re.fullmatch(r"clone\(.*flags=([^,]+),.*\)\s+= ([1-9][0-9]*)", call)
+        match = re.fullmatch(
+            r"clone\(.*flags=([^,]+),.*\)\s+= ([1-9][0-9]*)"
+            r"(?: /\* ([1-9][0-9]*) in strace's PID NS \*/)?",
+            call)
         if match:
-            clones.append((pid, int(match[2]), set(match[1].split("|"))))
+            clones.append((pid, int(match[3] or match[2]), set(match[1].split("|"))))
     # A child can run before its parent's unfinished clone line is resumed.
     while True:
         expanded = threads | {child for parent, child, _ in clones if parent in threads}
@@ -69,9 +74,12 @@ def trace_evidence(data):
     observed = [flags for parent, _, flags in clones if parent in threads]
     expected = {"CLONE_VM", "CLONE_FS", "CLONE_FILES", "CLONE_SIGHAND", "CLONE_THREAD",
                 "CLONE_SYSVSEM", "CLONE_SETTLS", "CLONE_PARENT_SETTID", "CLONE_CHILD_CLEARTID"}
-    BUILD.require(observed and all(flags == expected for flags in observed), "JAVA_NATIVE_TRACE")
-    BUILD.require(any(pid in threads and call.startswith("clone3(") and " = -1 ENOSYS " in call
-                      for pid, call in events[start + 1:]), "JAVA_NATIVE_TRACE")
+    BUILD.require(observed and len(observed) == len(clones)
+                  and all(flags == expected for flags in observed), "JAVA_NATIVE_TRACE")
+    clone3_fallbacks = [pid for pid, call in events[start + 1:]
+                        if call.startswith("clone3(") and " = -1 ENOSYS " in call]
+    BUILD.require(clone3_fallbacks and all(pid in threads for pid in clone3_fallbacks),
+                  "JAVA_NATIVE_TRACE")
     return dict(jvm_thread_flags=sorted(expected), jvm_clone3_fallback=True,
                 jvm_thread_creations=len(observed), preexec_socket_denials=["AF_INET", "AF_UNIX"])
 
@@ -84,14 +92,16 @@ def check_trace_parser():
 7 execve("/mpk/toolchain/jdk/bin/java", ["java"], 0x1) = 0
 7 clone3({flags=0}, 88) = -1 ENOSYS (Function not implemented)
 7 clone(child_stack=0x1, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, parent_tid=0x1 <unfinished ...>
-7 <... clone resumed>, tls=0x1, child_tidptr=0x1) = 8
+7 <... clone resumed>, tls=0x1, child_tidptr=0x1) = 2 /* 8 in strace's PID NS */
+8 clone(child_stack=0x2, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, parent_tid=0x2, tls=0x2, child_tidptr=0x2) = 3 /* 9 in strace's PID NS */
 '''
-    BUILD.require(trace_evidence(fixture)["jvm_thread_creations"] == 1, "JAVA_TRACE_PARSER")
+    BUILD.require(trace_evidence(fixture)["jvm_thread_creations"] == 2, "JAVA_TRACE_PARSER")
     for changed in (
         fixture.replace(b"7 clone", b"9 clone").replace(b"7 <... clone", b"9 <... clone"),
+        fixture.replace(b"8 clone", b"19 clone"),
         fixture.replace(b"7 seccomp", b"9 seccomp"),
         fixture.replace(b"7 socket(AF_UNIX", b"9 socket(AF_UNIX"),
-        fixture.replace(b"7 clone3", b"9 clone3"),
+        fixture.replace(b"7 clone3", b"19 clone3"),
         fixture.replace(b"|CLONE_THREAD", b"|CLONE_VFORK"),
         fixture[:fixture.index(b"7 <... clone")],
     ):
@@ -110,6 +120,49 @@ def require_native():
                       for line in cpu.splitlines()), "JAVA_NATIVE_HOST_REQUIRED", 69)
     BUILD.require(os.access("/sys/fs/cgroup/cgroup.subtree_control", os.W_OK)
                   and Path("/usr/bin/strace").is_file(), "JAVA_NATIVE_PRIMITIVES_REQUIRED", 69)
+
+
+def check_cgroup_cleanup_attribution():
+    """Unrelated sibling churn must not be attributed to the owned hierarchy."""
+    command = module("java_native_cleanup_owner", "release_bundles.py").rust_fixture_cgroup_command(
+        ["/usr/bin/sleep", "1"])
+    unrelated = Path(f"/sys/fs/cgroup/mpk-java-unrelated-{os.getpid()}")
+    process = None
+    unrelated_created = False
+    try:
+        process = subprocess.Popen(command, cwd="/tmp", env={}, stdin=subprocess.DEVNULL,
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE, start_new_session=True)
+        owned = Path(f"/sys/fs/cgroup/mpk-rust-fixture-{process.pid}")
+        deadline = time.monotonic() + 2
+        while not (owned / "domain").is_dir() and process.poll() is None and time.monotonic() < deadline:
+            time.sleep(0.005)
+        BUILD.require((owned / "domain").is_dir() and not unrelated.exists(), "JAVA_NATIVE_CGROUP_ATTRIBUTION")
+        unrelated.mkdir()
+        unrelated_created = True
+        stdout, stderr = process.communicate(timeout=10)
+        BUILD.require(process.returncode == 0 and not stdout and not stderr and not owned.exists(),
+                      "JAVA_NATIVE_CGROUP_ATTRIBUTION")
+    except (OSError, subprocess.SubprocessError):
+        raise BUILD.BuildFailure("JAVA_NATIVE_CGROUP_ATTRIBUTION")
+    finally:
+        cleanup_failed = False
+        if process is not None and process.poll() is None:
+            try:
+                process.terminate()
+                try:
+                    process.communicate(timeout=5)
+                except subprocess.TimeoutExpired:
+                    process.kill()
+                    process.communicate()
+            except (OSError, subprocess.SubprocessError):
+                cleanup_failed = True
+        if unrelated_created:
+            try:
+                unrelated.rmdir()
+            except OSError:
+                cleanup_failed = True
+        if cleanup_failed:
+            raise BUILD.BuildFailure("JAVA_NATIVE_CGROUP_ATTRIBUTION")
 
 
 def writable(directory):
@@ -203,6 +256,7 @@ def main(arguments):
         return image_gate(Path(arguments[1]), Path(arguments[2]))
     BUILD.require(len(arguments) == 2, "JAVA_NATIVE_GATE_USAGE", 64)
     require_native()  # No image/source reads before the native host admission.
+    check_cgroup_cleanup_attribution()
     image, runner = map(Path, arguments)
     BUILD.require(image.is_absolute() and runner.is_absolute(), "JAVA_NATIVE_GATE_USAGE", 64)
     runner_bytes = BUILD.read_bytes(runner, 512 * 1024 * 1024)
@@ -239,10 +293,11 @@ def main(arguments):
         # Record the actual native JVM thread/syscall behavior. The production
         # execution above is untraced and must already pass the same policy.
         trace = root / "syscalls.log"
-        command = release.rust_fixture_cgroup_command([str(executable), "--native-case", "int.identity"])
-        traced = release.run_bounded_rust_fixture(["/usr/bin/strace", "-f", "-qq", "-s", "256", "-o", str(trace),
+        command = release.rust_fixture_cgroup_command([str(executable), "--native-trace-probe"])
+        traced = release.run_bounded_rust_fixture(["/usr/bin/strace", "-f", "-qq", "--decode-pids=pidns",
+            "-s", "256", "-o", str(trace),
             "-e", "trace=execve,execveat,clone,clone3,seccomp,prctl,capset,socket,unshare", *command], cwd=image, env={})
-        BUILD.require(traced.returncode == 0 and not traced.stderr and traced.stdout == baseline, "JAVA_NATIVE_TRACE")
+        BUILD.require(traced.returncode == 0 and not traced.stdout and not traced.stderr, "JAVA_NATIVE_TRACE")
         trace_bytes = BUILD.read_bytes(trace, 8 * 1024 * 1024)
         observed_trace = trace_evidence(trace_bytes)
         def native_rejection(changed):

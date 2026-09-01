@@ -1003,10 +1003,7 @@ parent=/sys/fs/cgroup/mpk-rust-fixture-$$
 domain="$parent/domain"
 parent_created=0
 domain_created=0
-root_baseline_descendants=
-root_baseline_dying=
 domain_attributable_dying=0
-parent_attributable_dying=0
 read_cgroup_counts() {
     settle_descendants=
     settle_dying=
@@ -1084,31 +1081,17 @@ cleanup() {
         # attributable manager count; no other dying descendant is accepted.
         if ! cgroup_has_at_most_dying "$parent" "$parent_dying_limit"; then
             cleanup_status=1
-        else
-            parent_attributable_dying=$settle_dying
         fi
         if ! printf '%s\n' '-memory -pids' \
                 > "$parent/cgroup.subtree_control" 2>/dev/null; then
             cleanup_status=1
         fi
         /usr/bin/rmdir "$parent" 2>/dev/null || cleanup_status=1
-    fi
-    if [ -n "$root_baseline_descendants" ] && [ -n "$root_baseline_dying" ]; then
-        root_dying_limit=$((root_baseline_dying + parent_attributable_dying + 1))
-        attempt=0
-        while [ "$attempt" -lt 100 ]; do
-            read_cgroup_counts /sys/fs/cgroup || break
-            [ "$settle_descendants" -eq "$root_baseline_descendants" ] \
-                && [ "$settle_dying" -le "$root_dying_limit" ] && break
-            attempt=$((attempt + 1))
-            /usr/bin/sleep 0.01
-        done
-        # The removed outer hierarchy accounts for at most its parent plus the
-        # already measured domain/manager entries. Reject any larger ancestor
-        # delta.
-        if ! read_cgroup_counts /sys/fs/cgroup \
-                || [ "$settle_descendants" -ne "$root_baseline_descendants" ] \
-                || [ "$settle_dying" -gt "$root_dying_limit" ]; then
+        # The unpredictable PID-qualified path is this command's complete
+        # ownership boundary. Its successful removal proves that every visible
+        # owned descendant is gone without attributing concurrent sibling
+        # cgroup creation or kernel dying-state changes to this command.
+        if [ -e "$parent" ]; then
             cleanup_status=1
         fi
     fi
@@ -1117,9 +1100,6 @@ cleanup() {
 }
 trap cleanup EXIT
 trap 'exit 124' HUP INT TERM
-read_cgroup_counts /sys/fs/cgroup
-root_baseline_descendants=$settle_descendants
-root_baseline_dying=$settle_dying
 /usr/bin/mkdir "$parent"
 parent_created=1
 printf '+memory +pids\n' > "$parent/cgroup.subtree_control"

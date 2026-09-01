@@ -958,7 +958,7 @@ pub mod v1 {
             .checked_add(before.len())
             .filter(|bytes| *bytes <= STAGING_TOTAL_BYTES_MAX)
             .ok_or_else(|| input_error("source staging total-byte limit exceeded"))?;
-        if state.source_language == "rust"
+        if matches!(state.source_language, "rust" | "java")
             && !state.staged_identities.insert((before.dev(), before.ino()))
         {
             return Err(input_error("source snapshot contains a hard-link alias"));

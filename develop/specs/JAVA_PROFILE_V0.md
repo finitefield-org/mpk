@@ -8,8 +8,8 @@ Linux production isolation gate. T02's offline build candidate and T03's
 inactive contract/artifact validators and T04's internal capture/compiler
 adapter are complete. T05's internal source admission and typed sidecars are
 complete. T06's private CFG/lowering and artifact emission are complete;
-`JAVA-03-T07` provides private registered candidates and the JVM runner;
-its native x86-64 Linux acceptance remains pending on the ARM development host.
+`JAVA-03-T07` completed private registered candidates, the JVM runner and its
+native x86-64 Linux acceptance on 2026-09-01.
 Java activation belongs only to `JAVA-03-T10`.
 
 T04 corrected lost Unicode characters in one recorded adapter fixture from
@@ -685,11 +685,11 @@ address-space limit, 1 GiB cgroup memory limit, zero cgroup swap, 128 PIDs,
 1,024 open files, zero core bytes, 64 MiB private `noswap` tmpfs, and a
 120-second request timeout. These are exact frozen requirements, not claims
 that the disposable T01 probe exercised every enforcement/failure path.
-T07 implements and tests the installed runner; T09/T10 own the complete
+T07 implemented and accepted the installed runner; T09/T10 own the complete
 native Linux release enforcement gates.
 T01 freezes the measured ELF interpreter, complete native linkage, libc ABI,
-required files/devices/proc view, permissions and numerical budgets. T07 must
-measure and validate native clone/thread behavior, syscall policy and all
+required files/devices/proc view, permissions and numerical budgets. T07
+measured and validated native clone/thread behavior, syscall policy and all
 installed enforcement/failure paths; T01 does not guess those constraints or
 claim they were measured under native execution. The runner must require
 read-only toolchain/source mounts, bounded private `noswap` tmpfs, cgroup

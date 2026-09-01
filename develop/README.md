@@ -97,10 +97,10 @@ inventories and two isolated builds. `JAVA-03-T03` completed the inactive
 profile and artifact validators; `JAVA-03-T04` completed internal capture,
 the public compiler adapter and bounded diagnostics. `JAVA-03-T05` completed
 source subset admission, inert initialization, call closure and typed sidecars.
-T06 completed private CFG/lowering and deterministic artifact emission; T07's
-registered candidate bundles and JVM runner are next. The Java build and
-frontend tests use Linux amd64 CPU emulation, not the complete native Linux
-release gate. Installed execution remains pending; no
+T06 completed private CFG/lowering and deterministic artifact emission; T07
+completed the registered candidate bundles, JVM runner and native x86-64 Linux
+acceptance. T08 is next. Complete release rehearsal and public installed
+execution remain T09/T10; no
 Java or later-language frontend is active and registry revision 2 stays
 installed.
 
@@ -295,8 +295,8 @@ imported from `tasks/task_backlog.csv`. Use the two design todo documents and
 the C# and Java implementation ledgers for post-Rust tracker tasks. Java's
 T01 freeze, T02 offline build, T03 validators, T04 capture/compiler adapter,
 T05 source subset/sidecars and T06 lowering/artifact emission are complete;
-T07's private candidate/JVM runner is implemented, with native x86-64 Linux
-acceptance still pending. Run that gate before accepting T07 and starting T08.
+T07's private candidate/JVM runner and native x86-64 Linux acceptance are
+complete. T08 is next; T09/T10 release rehearsal and activation remain pending.
 
 ## Reference posture
 

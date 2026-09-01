@@ -9,15 +9,15 @@ inactive offline build candidate; T03 completed the inactive registry and
 artifact validators. T04 completed internal capture, the public compiler
 adapter and bounded diagnostics. T05 completed source admission, inert
 initialization, acyclic call closure and typed sidecars. T06 completed private
-CFG/lowering and deterministic artifact emission. T07's private candidate/JVM
-runner is implemented; native x86-64 Linux acceptance remains pending.
+CFG/lowering and deterministic artifact emission. T07 completed the private
+candidate/JVM runner and native x86-64 Linux acceptance. T08 is next.
 `07_java_frontend_design.md` and the Java implementation ledger record
 the implementation boundary. No Java or later-language route is active;
 registry revision 2 remains installed.
 
 Prepared: 2026-08-21
 
-Updated: 2026-08-31 (`JAVA-03-T01` through T06 complete; T07 native gate pending)
+Updated: 2026-09-01 (`JAVA-03-T01` through T07 complete; T08 next)
 
 ## 1. Decision summary
 
@@ -334,14 +334,16 @@ initialization closure. Java wrapping arithmetic and masked shifts use the
 existing BV foundations with Java-owned checks. `JAVA-03-T01` froze
 `../specs/JAVA_PROFILE_V0.md`, Java/revision-3 vectors, the exact JDK/native
 inventory and JVM requirements. The disposable compiler/JVM measurements ran
-on Linux amd64 under CPU emulation; native Linux production enforcement
-remains owned by T07/T09/T10. T02 added the offline build candidate with
+on Linux amd64 under CPU emulation. Native Linux production enforcement was
+accepted separately for T07; complete release rehearsal and activation remain
+owned by T09/T10. T02 added the offline build candidate with
 exact project/class/JAR inventories and two isolated builds. T03 completed
 the inactive profile and source-artifact validators. T04 completed capture and
 the public compiler adapter; T05 completed source admission and typed sidecars.
 T06 completed private CFG/lowering, original-byte source maps and complete
-artifact emission. T07 owns the registered candidate and JVM runner. These
-changes do not activate Java or replace the installed revision-2 registry.
+artifact emission. T07 completed the registered candidate, JVM runner and
+native acceptance. T08 is next. These changes do not activate Java or replace
+the installed revision-2 registry.
 
 The supported JDK compiler APIs expose parse/analyze trees and language/type
 models. The initial profile rejects allocation, reference values, instance and
