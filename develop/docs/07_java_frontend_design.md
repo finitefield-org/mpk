@@ -6,8 +6,9 @@ offline build candidate, T03's inactive validators and T04's internal
 capture/compiler adapter and T05's source admission/typed sidecars are
 complete. T06's private CFG/lowering and artifact emission are complete;
 T07's private candidate/JVM runner and native x86-64 Linux acceptance are
-complete. T08-T10 and activation remain pending. The active release
-remains Go/Rust/C# with semantic registry revision 2. This document includes
+complete; T08's private VC/policy/evidence/certificate/AI/API integration is
+also complete. T09-T10 and activation remain pending. The active release remains
+Go/Rust/C# with semantic registry revision 2. This document includes
 the corrections established by T01's disposable compiler/JVM probes.
 
 Prepared: 2026-08-31.
@@ -673,7 +674,7 @@ source-free and does not require a registry compatibility adapter.
 
 ## 11. Serial implementation plan
 
-These tasks refine `JAVA-03`. T01-T07 are complete. T08-T10 remain pending.
+These tasks refine `JAVA-03`. T01-T08 are complete. T09-T10 remain pending.
 Each task depends on the previous row, starting from
 completed `CSHARP-02-T20`. Private artifact generation does not establish
 registered installed execution or the complete native Linux release gate.
@@ -708,9 +709,9 @@ behavior. No Dart or later-language phase runs concurrently.
 ### 12.1 Required test families
 
 `java_profile_spec.rs` owns the T01 specification/hash model. The build,
-profile, capture, source/contract admission, lowering/emission and native
-candidate/runner owners through T07 are implemented and accepted. Later owners
-and downstream contributions remain
+profile, capture, source/contract admission, lowering/emission, native
+candidate/runner and private policy owners through T08 are implemented and
+accepted. Later owners and downstream contributions remain
 assigned to their ledger tasks. The manifest records the available tests.
 
 | Owner | Required coverage |

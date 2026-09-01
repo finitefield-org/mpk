@@ -940,6 +940,7 @@ fn contract_identity(
         "go" => ("mpk.go.contract.v0", "function"),
         "rust" => ("mpk.rust.contract.v0", "function"),
         "csharp" => ("mpk.csharp.contract.v0", "method"),
+        "java" => ("mpk.java.contract.v0", "method"),
         _ => {
             return Err(source_error(
                 "successor contract selected an uncompiled source language",
@@ -1295,19 +1296,30 @@ fn selected_function_ids(
             .filter(|function| !function.is_empty())
             .ok_or_else(|| evidence_error("selection has no function"))?
             .to_owned()],
-        "csharp" => value
-            .get("methods")
-            .and_then(Value::as_array)
-            .ok_or_else(|| evidence_error("C# selection has no methods"))?
-            .iter()
-            .map(|method| {
-                method
-                    .as_str()
-                    .filter(|method| !method.is_empty())
-                    .map(str::to_owned)
-                    .ok_or_else(|| evidence_error("C# selection contains an invalid method"))
-            })
-            .collect::<Result<Vec<_>, _>>()?,
+        "csharp" | "java" => {
+            let language = if context.source_language() == "csharp" {
+                "C#"
+            } else {
+                "Java"
+            };
+            value
+                .get("methods")
+                .and_then(Value::as_array)
+                .ok_or_else(|| evidence_error(format!("{language} selection has no methods")))?
+                .iter()
+                .map(|method| {
+                    method
+                        .as_str()
+                        .filter(|method| !method.is_empty())
+                        .map(str::to_owned)
+                        .ok_or_else(|| {
+                            evidence_error(format!(
+                                "{language} selection contains an invalid method"
+                            ))
+                        })
+                })
+                .collect::<Result<Vec<_>, _>>()?
+        }
         _ => {
             return Err(evidence_error(
                 "successor policy strategy selected an uncompiled source language",
@@ -1329,7 +1341,7 @@ fn selected_function_ids(
 }
 
 fn property_id(language: &str, function: &str, kind: &str) -> String {
-    let symbol = if language == "csharp" {
+    let symbol = if matches!(language, "csharp" | "java") {
         function
     } else {
         function
@@ -1444,9 +1456,13 @@ fn registration(
             axiom_profile: "mvp-theory",
             recipe_profile_id: "mpk.csharp.evidence_recipe.v0",
         },
-        CompiledSemanticProfile::JavaScalarV0 => {
-            return Err(profile_error("Java policy integration is not active"))
-        }
+        CompiledSemanticProfile::JavaScalarV0 => SuccessorPolicyRegistration {
+            profile,
+            strategy_profile: "payment-policy-java-alpha",
+            checker_profile: "mvp-strict",
+            axiom_profile: "mvp-theory",
+            recipe_profile_id: "mpk.java.evidence_recipe.v0",
+        },
     })
 }
 

@@ -1,5 +1,6 @@
 #![allow(dead_code)]
 
+use std::collections::BTreeMap;
 use std::fs;
 use std::path::{Path, PathBuf};
 
@@ -7,7 +8,8 @@ use mpk_cli::successor_policy::{
     run_successor_policy, PolicyVerificationOptions, SuccessorPolicySource,
 };
 use mpk_vc::semantic_profile_registry::{
-    validate_semantic_profile_registry, RegistryRevision, ValidatedSemanticProfileRegistry,
+    canonical_registry_transport, validate_semantic_profile_registry, RegistryRevision,
+    ValidatedSemanticProfileRegistry,
 };
 use mpk_vc::successor_source_artifacts::{
     import_successor_source_manifest_json, import_successor_source_map_json,
@@ -90,6 +92,16 @@ pub(super) fn registry() -> ValidatedSemanticProfileRegistry {
         RegistryRevision::Revision2,
     )
     .expect("revision-2 semantic registry")
+}
+
+pub(super) fn candidate_registry() -> ValidatedSemanticProfileRegistry {
+    let vector = load("develop/specs/vectors/semantic-profile-registry-v3.json");
+    validate_semantic_profile_registry(
+        &canonical_registry_transport(&vector["registry"])
+            .expect("canonical revision-3 semantic registry"),
+        RegistryRevision::Revision3,
+    )
+    .expect("inactive revision-3 semantic registry")
 }
 
 fn input_kind(value: &Value) -> InputKind {
@@ -413,6 +425,214 @@ pub(super) fn csharp_source(registry: &ValidatedSemanticProfileRegistry) -> Vali
     }
 }
 
+pub(super) fn java_source(
+    registry: &ValidatedSemanticProfileRegistry,
+    case: &Value,
+) -> ValidatedSource {
+    let envelope: Value =
+        serde_json::from_str(case["envelope"].as_str().expect("Java frontend envelope"))
+            .expect("Java frontend envelope JSON");
+    let storage = case["captured_inputs"]
+        .as_array()
+        .expect("Java captured inputs")
+        .iter()
+        .map(|input| OwnedCapturedInput {
+            kind: match input["kind"].as_str().expect("Java input kind") {
+                "contract" => InputKind::Contract,
+                "source" => InputKind::Source,
+                other => panic!("unexpected Java input kind {other}"),
+            },
+            normalized_path: input["path"].as_str().expect("Java input path").to_owned(),
+            bytes: input["text"]
+                .as_str()
+                .expect("Java input bytes")
+                .as_bytes()
+                .to_vec(),
+        })
+        .collect::<Vec<_>>();
+    let captured = captured_refs(&storage);
+    let vir = import_successor_vir_json(&canonical(&envelope["ir"]["value"]), registry)
+        .expect("Java successor VIR");
+    let source_map = import_successor_source_map_json(
+        &canonical(&envelope["source_map"]),
+        SuccessorSourceMapValidationContext {
+            registry,
+            vir: &vir,
+            captured_inputs: &captured,
+            synthetic_permissions: &[],
+        },
+    )
+    .expect("Java successor source map");
+    let release_registry = serde_json::from_value::<ReleaseRegistryIdentity>(
+        envelope["source_manifest"]["release_registry"].clone(),
+    )
+    .expect("Java release-registry identity");
+    let manifest = import_successor_source_manifest_json(
+        &canonical(&envelope["source_manifest"]),
+        SuccessorSourceManifestStage::Frontend,
+        SuccessorSourceManifestValidationContext {
+            registry,
+            vir: &vir,
+            source_map: &source_map,
+            captured_inputs: &captured,
+            expected_release_registry: &release_registry,
+        },
+    )
+    .expect("Java successor manifest");
+    ValidatedSource {
+        storage,
+        vir,
+        source_map,
+        manifest,
+    }
+}
+
+pub(super) fn java_source_with_callee_preconditions(
+    registry: &ValidatedSemanticProfileRegistry,
+    case: &Value,
+) -> ValidatedSource {
+    let mut derived = case.clone();
+    let mut envelope: Value = serde_json::from_str(
+        derived["envelope"]
+            .as_str()
+            .expect("Java frontend envelope"),
+    )
+    .expect("Java frontend envelope JSON");
+    let self_equal_raw = json!({
+        "op":"eq",
+        "args":[
+            {"parameter":"arg"},
+            {"parameter":"arg"}
+        ]
+    });
+    for captured in derived["captured_inputs"]
+        .as_array_mut()
+        .expect("Java captured inputs")
+        .iter_mut()
+        .filter(|input| input["kind"] == "contract")
+    {
+        let mut raw: Value =
+            serde_json::from_str(captured["text"].as_str().expect("Java raw contract bytes"))
+                .expect("Java raw contract JSON");
+        let parameter = match raw["method"].as_str().expect("Java contract method") {
+            "vector.Case::f(int)->int" => "x",
+            "vector.Case::g(int)->int" => "y",
+            other => panic!("unexpected Java call.direct method {other}"),
+        };
+        let mut require = self_equal_raw.clone();
+        require["args"][0]["parameter"] = Value::String(parameter.to_owned());
+        require["args"][1]["parameter"] = Value::String(parameter.to_owned());
+        raw["requires"] = json!([require]);
+        let mut bytes = canonical(&raw);
+        bytes.push(b'\n');
+        captured["text"] = Value::String(String::from_utf8(bytes).expect("contract UTF-8"));
+    }
+
+    let functions = envelope["ir"]["value"]["units"][0]["functions"]
+        .as_array_mut()
+        .expect("Java VIR functions");
+    let mut contract_hashes = BTreeMap::new();
+    for function in functions.iter_mut() {
+        function["contracts"]["requires"] = json!([{
+            "op":"eq",
+            "lhs":{"var":"arg0"},
+            "rhs":{"var":"arg0"}
+        }]);
+        function["contracts"]["contract_hash"] = Value::String(ZERO_SHA256.to_owned());
+        let hash = successor_contract_hash_value(&function["contracts"])
+            .expect("derived Java contract hash")
+            .as_str()
+            .to_owned();
+        function["contracts"]["contract_hash"] = Value::String(hash.clone());
+        contract_hashes.insert(
+            function["id"]
+                .as_str()
+                .expect("derived Java function ID")
+                .to_owned(),
+            hash,
+        );
+    }
+    for instruction in functions
+        .iter_mut()
+        .flat_map(|function| function["blocks"].as_array_mut().expect("Java blocks"))
+        .flat_map(|block| {
+            block["instructions"]
+                .as_array_mut()
+                .expect("Java instructions")
+        })
+        .filter(|instruction| instruction["kind"] == "CallStatic")
+    {
+        let callee = instruction["function"]
+            .as_str()
+            .expect("Java static callee");
+        instruction["contract_hash"] = Value::String(
+            contract_hashes
+                .get(callee)
+                .expect("derived Java callee contract")
+                .clone(),
+        );
+    }
+    envelope["ir"]["value"]["vir_hash"] = Value::String(ZERO_SHA256.to_owned());
+    let vir_hash = successor_vir_hash_value(&envelope["ir"]["value"])
+        .expect("derived Java VIR hash")
+        .as_str()
+        .to_owned();
+    envelope["ir"]["value"]["vir_hash"] = Value::String(vir_hash.clone());
+    envelope["ir"]["sha256"] = Value::String(vir_hash.clone());
+
+    envelope["source_map"]["source_ir_hash"] = Value::String(vir_hash.clone());
+    envelope["source_map"]["source_map_hash"] = Value::String(ZERO_SHA256.to_owned());
+    let map_hash = successor_source_map_hash_value(&envelope["source_map"])
+        .expect("derived Java source-map hash")
+        .as_str()
+        .to_owned();
+    envelope["source_map"]["source_map_hash"] = Value::String(map_hash.clone());
+
+    for entry in envelope["source_manifest"]["inputs"]
+        .as_array_mut()
+        .expect("Java manifest inputs")
+    {
+        let path = entry["normalized_path"]
+            .as_str()
+            .expect("Java manifest input path");
+        let captured = derived["captured_inputs"]
+            .as_array()
+            .expect("Java captured inputs")
+            .iter()
+            .find(|captured| captured["path"] == path)
+            .expect("derived Java captured input");
+        let bytes = captured["text"]
+            .as_str()
+            .expect("derived Java input bytes")
+            .as_bytes();
+        entry["size_bytes"] = json!(bytes.len());
+        entry["sha256"] = Value::String(sha256_raw_file_bytes(bytes).to_hex());
+    }
+    let inputs =
+        serde_json::from_value::<Vec<InputEntry>>(envelope["source_manifest"]["inputs"].clone())
+            .expect("derived Java manifest inputs");
+    envelope["source_manifest"]["input_set_hash"] = Value::String(
+        input_set_hash(&inputs)
+            .expect("derived Java input-set hash")
+            .as_str()
+            .to_owned(),
+    );
+    envelope["source_manifest"]["vir_hash"] = Value::String(vir_hash);
+    envelope["source_manifest"]["source_map_hash"] = Value::String(map_hash);
+    envelope["source_manifest"]["source_manifest_hash"] = Value::String(ZERO_SHA256.to_owned());
+    envelope["source_manifest"]["source_manifest_hash"] = Value::String(
+        successor_source_manifest_hash_value(&envelope["source_manifest"])
+            .expect("derived Java source-manifest hash")
+            .as_str()
+            .to_owned(),
+    );
+    let mut envelope_bytes = canonical(&envelope);
+    envelope_bytes.push(b'\n');
+    derived["envelope"] =
+        Value::String(String::from_utf8(envelope_bytes).expect("derived envelope UTF-8"));
+    java_source(registry, &derived)
+}
+
 pub(super) fn go_identity_source(registry: &ValidatedSemanticProfileRegistry) -> ValidatedSource {
     let baseline = load("fixtures/vir-go/frontend/basic-arith/source-manifest.frontend.json");
     let context = baseline["semantic_context"].clone();
@@ -650,6 +870,13 @@ pub(super) fn profile_contract(profile: &str, field: &str) -> Value {
             .find(|contract| contract["field"] == field)
             .unwrap_or_else(|| panic!("missing C# {field} contract"))["envelope"]
             .clone(),
+        ("java", field) => load("develop/specs/vectors/java-profile-v0.json")["profile_contracts"]
+            .as_array()
+            .expect("Java profile contracts")
+            .iter()
+            .find(|contract| contract["field"] == field)
+            .unwrap_or_else(|| panic!("missing Java {field} contract"))["envelope"]
+            .clone(),
         other => panic!("unknown profile contract {other:?}"),
     }
 }
@@ -749,6 +976,7 @@ pub(super) fn ai_contract(profile: &str) -> Value {
             }
         }),
         "csharp" => profile_contract("csharp", "ai"),
+        "java" => profile_contract("java", "ai"),
         other => panic!("unknown AI profile contract {other}"),
     }
 }

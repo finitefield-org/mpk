@@ -1,8 +1,8 @@
 # JAVA-03 Implementation Traceability Ledger
 
-Status: `JAVA-03-T07 Complete` (native x86-64 Linux acceptance: 2026-09-01);
-T01 through T06 are also complete. T08 through T10 are pending. The private
-T07 receipt does not establish T09 release rehearsal or T10 Java activation.
+Status: `JAVA-03-T08 Complete` (private policy acceptance: 2026-09-01);
+T01 through T07 are also complete. T09 and T10 are pending. The private T08
+receipt does not establish T09 release rehearsal or T10 Java activation.
 The active release remains Go/Rust/C# at registry revision 2.
 
 This is an execution plan subordinate to `../specs/JAVA_PROFILE_V0.md`, the
@@ -828,10 +828,55 @@ T07 implementation and native acceptance record (2026-08-31 through 2026-09-01):
   syscall trace SHA-256
   `4e0de4e3cdb97df975dd76349058e884f6f3db581447db192ce8a6221b1cbe53`.
   The repeated task diff review has no remaining findings.
-- **JAVA-03-T07 is complete.** T08 is next. T09 still owns complete release
+- **JAVA-03-T07 is complete.** T08 then owned private verification integration.
+  T09 owns complete release
   rehearsal and T10 public activation. Frozen Java/revision-3 vector bytes,
   active revision-2 descriptors and the existing four Go/Rust/C# tuples remain
   unchanged.
+
+T08 private policy acceptance record (2026-09-01):
+
+- The generic successor policy and AI consumers now recognize
+  `mpk.java.scalar.v0` only after their caller supplies a validated inactive
+  revision-3 registry and all nine exact Java profile contracts. Policy binds
+  `payment-policy-java-alpha`, `mvp-strict`, `mvp-theory` and
+  `mpk.java.evidence_recipe.v0`; AI binds `mpk.java.ai_projection.v0`, label
+  `Java` and `minimal-v1`. The installed revision-2 registry still has no Java
+  entry, the public strategy registry still has no Java registration, and no
+  Java candidate release descriptor or public activation route was added.
+- The owning test imports the real pinned-JDK T06 `accepted/call.direct`
+  envelope and captured source/sidecars, then validates its VIR, source map and
+  frontend manifest against the inactive registry. It generates postcondition
+  and call panic-freedom obligations from those bytes. A contract-linked
+  derivative of the same call graph additionally proves an explicit
+  `callee_precondition` member, so both body and callee-WP paths are exercised
+  without adding a Java axiom or changing frozen frontend/JAR/T07 bytes.
+- Two policy runs reproduce identical scan, evidence and certificate results.
+  Evidence retains the exact release-registry, frontend, toolchain, semantic
+  context, selection, source-manifest, input-set, source-map, VIR and VC
+  bindings. Rehashed altered evidence and a crossed C# policy contract reject.
+  Rust and embedded reference checkers accept the identical canonical
+  Certificate v0 bytes with zero axioms; both reject an altered certificate.
+- The private AI projection removes Java paths, method symbols, artifact hashes,
+  semantic context and selection from the provider request. Its report remains
+  untrusted helper prose with no proof authority; a widened source-access
+  contract rejects. A private successor API service bound to the inactive
+  registry starts, imports VIR and generates the identical VC, while crossed
+  registry roots and manifest capabilities reject before state mutation. The
+  installed API regression continues to reject a Java candidate session.
+- The canonical receipt is
+  `{"schema":"mpk.java.t08.receipt.v0","source_ir_sha256":"f563a795dbe1834a9c028dcb391d056bd3e11d4287625e5a54c2233cd4f584e1","source_manifest_sha256":"0c3374533ee52bb54405dc93f1f7fa3ceca5b67633d8a3f651af8c1ed6d8b386","vc_sha256":"ebff0959728ba840e99431182f7de8a5e05283cb42ac4fdc2a7e48d8375be705","certificate_sha256":"a6b4849bcc1395ca3fda46db5e1ab924ba07fbbccea29a6d983a6975dfa9da2b","evidence_sha256":"aa031bb446e88371e5bcca38657c0b0ab1de0d2b7123ef69632d2e53747e82c0","ai_request_sha256":"24e92e9049e451d10efc9d1c066b8701238cbb0678b705f5b7f442fe98fef8fa","rust_checker":"accepted","reference_checker":"accepted","axiom_count":0,"api_mutations":3,"public_activation":false}`.
+- The full ignored T08 acceptance test, its non-ignored vector/activation test,
+  C#/Go/Rust policy regressions, remaining Java non-ignored owners, the API
+  suite, formatting and T08-only Clippy all pass. Two unrelated baseline checks
+  remain recorded rather than widened into T08: `java_build_inputs` does not
+  reliably observe its capture-time file-change race on this host, and
+  workspace Clippy under Rust 1.95 stops in unchanged
+  `crates/mpk-vc/src/safety_check.rs` at lines 494 and 506. The earlier frozen
+  Rust candidate provenance mismatch recorded by T07 is also unchanged.
+- The repeated T08 diff review has no remaining findings. **JAVA-03-T08 is
+  complete.** T09 is next and still owns the full conformance, differential,
+  fuzz, upgrade and release rehearsal. T10 alone owns public Java activation.
 
 A task is complete only after its exact deliverables, required verification
 (or explicitly recorded unrun reason), fix/review loop, commit and push are

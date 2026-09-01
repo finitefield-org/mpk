@@ -977,13 +977,15 @@ fn registration(
             checker_profile: "mvp-strict",
             axiom_profile: "mvp-theory",
         },
-        CompiledSemanticProfile::JavaScalarV0 => {
-            return Err(failure(
-                SuccessorAiPhase::ProfileContract,
-                SuccessorAiCode::ProfileContract,
-                "Java AI integration is not active",
-            ))
-        }
+        CompiledSemanticProfile::JavaScalarV0 => SuccessorAiRegistration {
+            profile,
+            display_language: "Java",
+            projection_profile_id: "mpk.java.ai_projection.v0",
+            redaction_profile_id: MINIMAL_REDACTION_PROFILE_V1,
+            strategy_profile: "payment-policy-java-alpha",
+            checker_profile: "mvp-strict",
+            axiom_profile: "mvp-theory",
+        },
     })
 }
 
