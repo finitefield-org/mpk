@@ -295,11 +295,11 @@ generic types, and conditional compilation remain rejected. The only admitted
 metadata-backed types beyond the pinned scalar value surface are the exact
 predefined text/floating/decimal types, inert `object` base, closed exception
 hierarchy, `StringComparison.Ordinal` intrinsic position, admitted
-date/time/GUID types, and closed instantiations of the profile-owned collection,
-option, lookup, result, validation, boundary-presence, transition, task, and
-iterator protocols. Compiler-
-synthesized members may be observed only for an exact frozen pattern and are
-never used as the semantic definition of an admitted source feature.
+date/time/GUID types, the exact closed `System.DayOfWeek` enum, and closed
+instantiations of the profile-owned collection, option, lookup, result,
+validation, boundary-presence, transition, task, and iterator protocols.
+Compiler-synthesized members may be observed only for an exact frozen pattern
+and are never used as the semantic definition of an admitted source feature.
 
 ## 7. Concise syntax
 
@@ -574,9 +574,10 @@ methods, default value quirks, and full method set are not accepted wholesale.
 Add exact profile-owned `Mpk.OrderedMap<K,V>` and `Mpk.OrderedSet<T>` plus
 unique local builders. Key/element types must satisfy the frozen total-order
 matrix in section 8.5; values are any admitted immutable value. The immutable
-surface admits `Count`, `Contains`, lookup returning `Mpk.Lookup<V>`, and
-`foreach` in strict canonical key order. It exposes neither buckets nor
-insertion order.
+map surface admits `Count`, `ContainsKey(K)`, `Lookup(K)` returning
+`Mpk.Lookup<V>`, and `foreach` in strict canonical key order. The immutable set
+surface admits `Count`, `Contains(T)`, and the same canonical enumeration. Both
+expose no buckets or insertion order.
 
 A map builder admits bounded creation, `Add` with duplicate-key
 `ArgumentException`, `Put` with deterministic replacement, lookup returning
@@ -613,7 +614,8 @@ The first practical profile admits only this closed string operation set:
 - `==`, `!=`, and exact ordinal equality;
 - ordinal `Compare`, `StartsWith`, `EndsWith`, and `Contains` overloads with an
   explicit `StringComparison.Ordinal` argument;
-- bounded `Concat`/`+` over string and char operands;
+- bounded C# `string + string`, `string + char`, and `char + string`, plus the
+  exact two-, three-, and four-string `String.Concat` overloads;
 - bounded `Substring` with explicit start and length;
 - `IsNullOrEmpty`; and
 - switch constant matching under exact ordinal, case-sensitive semantics.
@@ -630,10 +632,13 @@ admission of the framework enum or its other members. It cannot be stored,
 returned, converted, or passed anywhere except the exact allowlisted argument
 position.
 
-For `Concat` and `+`, a null string operand contributes the empty sequence and
-the result is non-null. String equality distinguishes null from empty and uses
-the exact C# ordinal value rules; ordinal `Compare` also preserves the defined
-null ordering. An instance call on a null receiver has its
+For the admitted `Concat` and `+` forms, a null string operand contributes the
+empty sequence and the result is non-null. At least one `+` operand must be a
+string; `char + char`, object-converting concatenation, boxing, and implicit
+`ToString` calls are not admitted string operations. String equality
+distinguishes null from empty and uses the exact C# ordinal value rules;
+ordinal `Compare` also preserves the defined null ordering. An instance call
+on a null receiver has its
 `NullReferenceException` edge. Where an exact chosen overload rejects a null
 argument or invalid index/range, it has the corresponding allowlisted C#
 exception subtype; overloads defined to accept null retain that behavior. A
@@ -767,16 +772,20 @@ fallback instead proves that fallback's public invariant.
 Dereference or `Value` access without a proven present branch emits the exact
 null/invalid-operation exceptional edge. The null-forgiving operator `!` is
 accepted only if MPK's own dataflow already proves non-null and therefore it
-has no semantic effect; otherwise it rejects. Nested option forms and nullable
-by-reference storage reject.
+has no semantic effect; otherwise it rejects. Repeated nullable encodings and
+`Mpk.Option<Mpk.Option<T>>` reject; `Lookup<Option<T>>` is the one intentionally
+admitted lookup-versus-null composition described in section 12.2. Other
+tagged-sum nesting follows the explicit depth limit. Nullable by-reference
+storage rejects.
 
 ### 12.2 Option, lookup, result, and accumulating validation
 
 Add exact profile-owned closed instantiations of `Mpk.Option<T>`,
 `Mpk.Lookup<T>`, `Mpk.Result<T,E>`, and `Mpk.Validation<T,E>`. Type arguments
-must be admitted closed immutable values; user declarations do not gain generic
-parameters, variance, constraints, reflection, interface dispatch, or
-arbitrary generic method inference.
+must be admitted closed immutable values, subject to the nested-option
+exclusion in section 12.1; user declarations do not gain generic parameters,
+variance, constraints, reflection, interface dispatch, or arbitrary generic
+method inference.
 
 `Option<T>` is `None` or `Some(T)`. `Lookup<T>` is `MissingKey` or `Found(T)`;
 unlike nested option, `Lookup<Option<T>>` is admitted so a map can distinguish a
@@ -814,8 +823,11 @@ not authorize other framework members.
 
 - `DateOnly` uses the proleptic Gregorian calendar and the exact pinned .NET
   range. Construction, year/month/day/day-number access, comparison, day-of-
-  week, and bounded `AddDays`/`AddMonths`/`AddYears` are admitted with exact
-  range exceptions.
+  week through the exact closed `System.DayOfWeek` enum, and bounded
+  `AddDays`/`AddMonths`/`AddYears` are admitted with exact range exceptions.
+  That enum has exactly the seven pinned named values and the corresponding
+  carriers; numeric casts, arithmetic, flags behavior, and other `System.Enum`
+  APIs remain rejected.
 - `TimeOnly` is a time of day represented by 100-nanosecond ticks in one day.
   Components, comparison, subtraction to duration, and explicitly frozen
   wrap/day-carry behavior for addition are admitted.
@@ -824,11 +836,13 @@ not authorize other framework members.
   allowed; scaling requires a separately frozen exact profile operation.
 - `Mpk.Instant` is a signed 64-bit Unix-millisecond UTC instant. It admits
   comparison. Duration addition/subtraction returns an exact result containing
-  either an instant or `Mpk.InstantError`; instant difference likewise returns
-  either a duration or that error when sub-millisecond precision or the result
-  range is invalid. The freeze must fix the closed error enum and error
-  precedence. It has no local-time, timezone, calendar, leap-second, or clock
-  lookup behavior.
+  either an instant or `Mpk.InstantError` when the duration has non-millisecond
+  ticks or the result is out of range. Instant difference likewise returns
+  either an exact duration or that error when the millisecond difference cannot
+  be represented as signed 64-bit 100-nanosecond ticks; it cannot create a
+  sub-millisecond remainder because both operands are millisecond instants. The
+  freeze must fix the closed error enum and error precedence. It has no local-
+  time, timezone, calendar, leap-second, or clock lookup behavior.
 - `Guid` is an exact 128-bit identifier with `Empty`, equality, the frozen
   .NET comparison order, and the `N`/`D` codecs in section 10. It has no
   `NewGuid`, random source, byte-layout reinterpretation, or ambient generator.
@@ -1027,8 +1041,10 @@ Admit `async Task` and `async Task<T>` methods only when:
 
 - every task-producing call resolves to an admitted source method or exact
   `Task.FromResult`/completed-task intrinsic;
-- every produced task is immediately awaited or returned as the one method
-  task; tasks are not stored, compared, combined, raced, or inspected;
+- every callee-produced task is immediately awaited; it cannot be stored,
+  compared, combined, raced, inspected, or returned directly from an `async`
+  method. The only task that escapes is the compiler-produced `Task` or
+  `Task<T>` representing that method's own terminal completion;
 - there is no custom awaiter, `async void`, `Task.Run`, delay, cancellation,
   synchronization context, `ConfigureAwait`, blocking wait, or continuation
   callback;
@@ -1388,10 +1404,10 @@ The freeze and implementation gates must include:
 | Data types / construction | positive structural cases, enum unknown/cast/zero-default cases, recursive default-eligible/ineligible cases, constructor-only and ordered init/required/object-initializer cases, construction/public invariant proofs, attribute bypass and all mutation/identity/inheritance escapes reject |
 | Arrays / builders / sequences | structural rejection versus symbolic bound obligations, default-eligible length allocation versus fully initialized non-defaultable elements, boundary lengths and indices, active-foreach mutation, every linear ownership/freeze/use-after-freeze path, filtered variable-result construction |
 | Ordered map/set | key-order matrix, duplicate add/replace, lookup, canonical enumeration, bound preservation, rejected float keys/comparers/hash/insertion-order dependencies |
-| Strings / codecs | null/empty concat and equality, intrinsic-only ordinal arguments, null receivers/arguments, UTF-16/surrogates, every exact parse/format grammar and noncanonical/range mutation, lossless round-trip plus fixed-scale rounded-value laws, and pinned-runtime differential corpus |
+| Strings / codecs | exact string/string and string/char concat matrix, rejected char/char and object conversion, null/empty concat and equality, intrinsic-only ordinal arguments, null receivers/arguments, UTF-16/surrogates, every exact parse/format grammar and noncanonical/range mutation, lossless round-trip plus fixed-scale rounded-value laws, and pinned-runtime differential corpus |
 | Float / decimal | exhaustive small-domain properties plus bit/rounding/overflow/NaN/signed-zero differential vectors against the pinned runtime |
-| Nullable / lookup / results / validation | all option/lookup and tagged-sum transitions, missing-key versus stored-null lookup, active/inactive payloads and empty-invalid exception, default-ineligible fallback rejection, annotations versus runtime null, deterministic error accumulation/order/bounds, exhaustive matching |
-| Business values | calendar boundaries/leap days, time wrap/carry, duration/instant overflow and granularity, GUID comparison/codecs/no-generation, Money creation/add/subtract/rate/division, currency/scale/rounding/error precedence, and canonical-storage-versus-business comparison cases |
+| Nullable / lookup / results / validation | all option/lookup and tagged-sum transitions, nested-option rejection and the exact lookup-versus-null exception, missing-key versus stored-null lookup, active/inactive payloads and empty-invalid exception, default-ineligible fallback rejection, annotations versus runtime null, deterministic error accumulation/order/bounds, exhaustive matching |
+| Business values | calendar boundaries/leap days and exact day-of-week enum, time wrap/carry, duration/instant precision and difference-range errors, GUID comparison/codecs/no-generation, Money creation/add/subtract/rate/division, currency/scale/rounding/error precedence, and canonical-storage-versus-business comparison cases |
 | Structural equality/order | every admitted recursive type, null/decimal/GUID corner, lexicographic cases, NaN preservation and rejected non-total keys |
 | Loops | invariant initialization/preservation/exit, decreases, break/continue, nested loops, partial-versus-total evidence |
 | Switch / patterns | source-order arms and guards, exhaustiveness, null/property/list cases, Roslyn decision-graph upgrade vectors |
@@ -1523,8 +1539,9 @@ The design intentionally does not guess:
   observations at every selected edge;
 - the recursive default-eligibility matrix for every admitted semantic type;
 - the final sequence/map/set/lookup/result/validation/boundary-presence source
-  API, Money operation/error API, key-order matrix, parse/format grammars,
-  instant granularity, construction invariants, transition error/precedence
+  API, Money operation/error API, key-order matrix, string/char concatenation
+  matrix, parse/format grammars, day-of-week enum mapping, instant granularity
+  and difference range, construction invariants, transition error/precedence
   rules, and boundary/state-transition schemas;
 - the final artifact/schema/profile names and hashes;
 - the exact deterministic limits that both checkers can sustain; or
