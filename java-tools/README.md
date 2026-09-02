@@ -10,7 +10,8 @@ acyclic call closure and typed contract sidecars, exercised through separately
 compiled private test harnesses. T06 adds private CFG/lowering, original-byte
 source maps and deterministic complete artifacts. T07's installed runner is
 implemented and passed its native x86-64 Linux acceptance gate on 2026-09-01.
-T08-T10 remain pending, including public activation at T10.
+T08's private verification integration and T09's complete local release
+rehearsal are also complete. T10 public activation remains pending.
 The active Go/Rust/C# release and semantic registry revision 2 are unchanged.
 
 The normative inputs are in
@@ -330,7 +331,7 @@ thread flags, clone3 fallback and pre-exec socket denials. Ordinary tests also
 check that parent-only or incomplete trace records cannot pass as JVM evidence.
 T07's native gate passed on 2026-09-01 with all six resource faults, all ten
 installed mutations and complete syscall evidence. Complete release rehearsal
-and activation remain T09/T10.
+passed again under T09; activation remains T10-only.
 
 ## Closed inputs and deterministic output
 
@@ -371,4 +372,5 @@ JAR must pass the version/identity check and reject malformed frontend invocatio
 
 On ARM development hosts Docker may emulate Linux x86-64. This verifies the
 pinned build and artifact determinism; it does not substitute for T07's
-separately completed native installed acceptance or the T09/T10 release gates.
+separately completed native installed acceptance, T09's complete native
+release rehearsal, or T10's activation gate.

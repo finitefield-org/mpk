@@ -14,6 +14,7 @@ pub mod driver_protocol;
 pub mod emit;
 pub mod environment;
 pub mod file_loader;
+#[cfg(debug_assertions)]
 #[doc(hidden)]
 pub mod fuzz_entrypoints;
 pub mod json;

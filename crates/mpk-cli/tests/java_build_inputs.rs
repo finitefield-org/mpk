@@ -6,9 +6,9 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 
 const TOOLCHAIN_HASH: &str = "a75175ba0cce86d97a8e056d4dda7a0826bb6676ba551c454bd65e5d44d23fc4";
-const JAR_HASH: &str = "333a050128cddc206474c9bdcca244276c08b246f2a5ba11f55983537cf7cd75";
+const JAR_HASH: &str = "aeddb537d396bc7374390d5d01c4dc576c1975e2244dcf7a64de5757fd921558";
 const CLASS_INVENTORY_HASH: &str =
-    "1a600a7699f89e4c5cd0aef304c61b8514c65fed17732d3202ff6bd5820ea80b";
+    "f7daec7838a38ed6c4059337ec5533223a814d431a7a029dd3a4694051f3c743";
 
 fn root() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("../..")
@@ -271,7 +271,7 @@ fn java_build_descriptor_binds_sources_recipe_and_measured_candidate() {
     );
     assert_eq!(
         inventory["frontend_files"],
-        json!([{"path":"java2vir.jar", "mode":"0644", "size_bytes":332137, "sha256":JAR_HASH}])
+        json!([{"path":"java2vir.jar", "mode":"0644", "size_bytes":331860, "sha256":JAR_HASH}])
     );
     assert_eq!(inventory["notice_files"][0]["sha256"], records[1]["sha256"]);
 }

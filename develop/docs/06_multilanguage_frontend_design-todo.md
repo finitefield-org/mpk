@@ -12,7 +12,8 @@ internal capture, the public compiler adapter and bounded diagnostics. T05
 completed source admission, inert initialization, call closure and typed
 sidecars. T06 completed private CFG/lowering and complete artifact emission;
 T07 completed the private candidate/JVM runner and native x86-64 Linux
-acceptance. T08-T10 remain pending.
+acceptance. T08 completed private verification integration, and T09 completed
+conformance and local release rehearsal. T10 activation remains pending.
 No Java or later-language frontend is active, registry revision 2
 remains installed, and no later-language phase has started.
 
@@ -796,11 +797,10 @@ wrapping/division/shift check rules; Go/Rust/C# profile entries remain
 byte-identical in the frozen, inactive registry revision 3.
 
 Execution follows the ten serial tasks in that design's section 11 and
-`java-03-implementation-traceability-ledger.md`. T01-T07 are complete. T08
-integrates VC/policy/evidence/AI/API;
-T09 hardens and rehearses the release; T10 activates the four-language
-release. No public Java tuple is activated before T10. Later-language phases
-remain blocked.
+`java-03-implementation-traceability-ledger.md`. T01-T09 are complete: T08
+integrated VC/policy/evidence/AI/API, and T09 hardened and rehearsed the
+release. T10 activates the four-language release. No public Java tuple is
+activated before T10. Later-language phases remain blocked.
 
 T01 completion evidence: `JAVA_PROFILE_V0.md`, Java and revision-3 vectors,
 manifest entries, the traceability ledger, exact Temurin 25.0.4.1+1/JDK/native
@@ -808,8 +808,8 @@ inventory, fixed JVM options/budgets, and recorded public-API/host probes. All
 34 semantic rows are classified. The probes establish actual Linux amd64
 compiler/JVM compatibility under CPU emulation; they do not establish every
 native Linux cgroup/syscall/resource-failure release condition. T07 later
-accepted its installed native gate; T09/T10 retain release rehearsal and
-activation. The production registry remains
+accepted its installed native gate and T09 later completed release rehearsal;
+T10 retains activation. The production registry remains
 revision 2 and no Java source-processing or active route was added.
 
 T02 completion evidence: `java-tools/java2vir`, the offline
@@ -867,8 +867,9 @@ lowering outputs, hostile-environment equality, six real resource faults, ten
 release-before-source mutations, and JVM-attributed seccomp/socket/clone
 evidence. Full lowering requests retain the frozen 120-second limit; a
 source-free registered identity probe records syscall evidence without charging
-ptrace transport overhead to those requests. T08 is next. T09/T10 release
-rehearsal and activation remain pending, and revision 2 remains active.
+ptrace transport overhead to those requests. At T07 completion, T08 was next
+and T09/T10 release rehearsal and activation were still pending; revision 2
+remains active.
 
 Exit gate: Java passes the common definition of done without reinterpreting C#,
 Go, or Rust semantics, including the local offline two-pass installed gate,

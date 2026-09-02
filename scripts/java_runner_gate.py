@@ -64,7 +64,8 @@ def trace_evidence(data):
             r"(?: /\* ([1-9][0-9]*) in strace's PID NS \*/)?",
             call)
         if match:
-            clones.append((pid, int(match[3] or match[2]), set(match[1].split("|"))))
+            clones.append((pid, int(match[3] or match[2]),
+                           {flag.strip() for flag in match[1].split("|")}))
     # A child can run before its parent's unfinished clone line is resumed.
     while True:
         expanded = threads | {child for parent, child, _ in clones if parent in threads}
@@ -91,8 +92,8 @@ def check_trace_parser():
 7 socket(AF_UNIX, SOCK_STREAM, 0) = -1 EPERM (Operation not permitted)
 7 execve("/mpk/toolchain/jdk/bin/java", ["java"], 0x1) = 0
 7 clone3({flags=0}, 88) = -1 ENOSYS (Function not implemented)
-7 clone(child_stack=0x1, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, parent_tid=0x1 <unfinished ...>
-7 <... clone resumed>, tls=0x1, child_tidptr=0x1) = 2 /* 8 in strace's PID NS */
+7 clone(child_stack=0x1, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID <unfinished ...>
+7 <... clone resumed>, parent_tid=0x1, tls=0x1, child_tidptr=0x1) = 2 /* 8 in strace's PID NS */
 8 clone(child_stack=0x2, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, parent_tid=0x2, tls=0x2, child_tidptr=0x2) = 3 /* 9 in strace's PID NS */
 '''
     BUILD.require(trace_evidence(fixture)["jvm_thread_creations"] == 2, "JAVA_TRACE_PARSER")
@@ -183,6 +184,7 @@ def validate_mutations(image, root, check):
     mutation_ids = []
     frontend = f"libexec/mpk/bundles/{BUNDLES.FRONTEND_ID}/java2vir.jar"
     java = f"libexec/mpk/bundles/{BUNDLES.TOOLCHAIN_ID}/jdk/bin/java"
+    modules = f"libexec/mpk/bundles/{BUNDLES.TOOLCHAIN_ID}/jdk/lib/modules"
     jvm = f"libexec/mpk/bundles/{BUNDLES.TOOLCHAIN_ID}/jdk/lib/server/libjvm.so"
     for mutation in ("jar-byte", "manifest-classpath", "processor-service", "jdk-byte", "missing-native",
                      "unknown-native", "writable-input", "symlink", "hardlink", "registry-context"):
@@ -190,7 +192,7 @@ def validate_mutations(image, root, check):
         shutil.copytree(image, changed, symlinks=True)
         try:
             if mutation in ("jar-byte", "jdk-byte"):
-                path = changed / (frontend if mutation == "jar-byte" else java)
+                path = changed / (frontend if mutation == "jar-byte" else modules)
                 data = bytearray(path.read_bytes()); data[-1] ^= 1; rewrite(path, data)
             elif mutation in ("manifest-classpath", "processor-service"):
                 path = changed / frontend
@@ -310,7 +312,7 @@ def main(arguments):
             cases=reports, hostile_environment_equal=True, resource_faults=faults, source_precedence_mutations=mutation_ids,
             syscall_trace_sha256=BUILD.sha256(trace_bytes),
             syscall_observation=observed_trace,
-            scope="T07 candidate runner; complete release rehearsal and activation remain T09/T10")
+            scope="T07-owned candidate runner evidence within T09 complete release rehearsal; public activation remains T10")
         sys.stdout.buffer.write(BUILD.canonical(report) + b"\n")
 
 

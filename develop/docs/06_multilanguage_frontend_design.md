@@ -10,14 +10,16 @@ artifact validators. T04 completed internal capture, the public compiler
 adapter and bounded diagnostics. T05 completed source admission, inert
 initialization, acyclic call closure and typed sidecars. T06 completed private
 CFG/lowering and deterministic artifact emission. T07 completed the private
-candidate/JVM runner and native x86-64 Linux acceptance. T08 is next.
+candidate/JVM runner and native x86-64 Linux acceptance. T08 completed private
+verification integration, and T09 completed conformance and local release
+rehearsal. T10 activation is next.
 `07_java_frontend_design.md` and the Java implementation ledger record
 the implementation boundary. No Java or later-language route is active;
 registry revision 2 remains installed.
 
 Prepared: 2026-08-21
 
-Updated: 2026-09-01 (`JAVA-03-T01` through T07 complete; T08 next)
+Updated: 2026-09-02 (`JAVA-03-T01` through T09 complete; T10 next)
 
 ## 1. Decision summary
 
@@ -335,15 +337,16 @@ existing BV foundations with Java-owned checks. `JAVA-03-T01` froze
 `../specs/JAVA_PROFILE_V0.md`, Java/revision-3 vectors, the exact JDK/native
 inventory and JVM requirements. The disposable compiler/JVM measurements ran
 on Linux amd64 under CPU emulation. Native Linux production enforcement was
-accepted separately for T07; complete release rehearsal and activation remain
-owned by T09/T10. T02 added the offline build candidate with
+accepted separately for T07, and T09 completed the full local release
+rehearsal; T10 alone owns activation. T02 added the offline build candidate with
 exact project/class/JAR inventories and two isolated builds. T03 completed
 the inactive profile and source-artifact validators. T04 completed capture and
 the public compiler adapter; T05 completed source admission and typed sidecars.
 T06 completed private CFG/lowering, original-byte source maps and complete
 artifact emission. T07 completed the registered candidate, JVM runner and
-native acceptance. T08 is next. These changes do not activate Java or replace
-the installed revision-2 registry.
+native acceptance. T08 completed private verification integration, and T09
+completed conformance and release rehearsal. T10 is next. These changes do not
+activate Java or replace the installed revision-2 registry.
 
 The supported JDK compiler APIs expose parse/analyze trees and language/type
 models. The initial profile rejects allocation, reference values, instance and

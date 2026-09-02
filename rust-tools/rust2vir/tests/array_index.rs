@@ -48,10 +48,7 @@ fn both_registered_targets_emit_one_target_width_usize_index_check() {
             member(member(vir, "semantic_context"), "semantic_parameters"),
             "value",
         );
-        assert_eq!(
-            member(parameters, "target_id").as_str(),
-            Some(target)
-        );
+        assert_eq!(member(parameters, "target_id").as_str(), Some(target));
         assert_eq!(
             member(parameters, "pointer_width").integer(),
             Some(i64::from(width))

@@ -158,7 +158,7 @@ class BuildInputsTests(unittest.TestCase):
             with self.assertRaises(BUILD.BuildFailure):
                 with BUILD.opened_regular(path, 64) as (source, _):
                     self.assertEqual(source.read(), b"original")
-                    path.write_bytes(b"modified")
+                    path.write_bytes(b"modified-longer")
 
     def test_archive_materialization_preserves_readonly_modes_and_relative_links(self):
         inputs = fixture_inputs()

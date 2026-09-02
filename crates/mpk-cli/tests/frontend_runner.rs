@@ -235,7 +235,7 @@ fn release_installation_selection_and_assembler_vectors_are_all_owned() {
         .as_array()
         .expect("frontend bundles")
         .iter()
-        .find(|bundle| bundle["bundle_id"] == "frontend.rust.rust2vir.candidate.v1")
+        .find(|bundle| bundle["bundle_id"] == "frontend.rust.rust2vir.candidate.v2")
         .expect("registered Rust frontend");
     assert_eq!(
         rust_frontend["subordinate_binaries"]

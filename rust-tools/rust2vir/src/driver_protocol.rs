@@ -656,10 +656,7 @@ pub fn validate_transport_size(
 }
 
 pub fn seal_request_value(value: JsonValue) -> Result<DriverRequest, DriverProtocolError> {
-    seal_request_value_with_distribution(
-        value,
-        crate::successor::TOOLCHAIN_DISTRIBUTION_SHA256,
-    )
+    seal_request_value_with_distribution(value, crate::successor::TOOLCHAIN_DISTRIBUTION_SHA256)
 }
 
 fn seal_request_value_with_distribution(
@@ -697,10 +694,7 @@ fn seal_request_value_with_distribution(
     let mut transport = json::canonical_bounded(&value, REQUEST_TRANSPORT_MAX - 1)
         .map_err(|_| DriverProtocolCode::Transport)?;
     transport.push(b'\n');
-    parse_request_transport_with_distribution(
-        &transport,
-        expected_toolchain_distribution_sha256,
-    )
+    parse_request_transport_with_distribution(&transport, expected_toolchain_distribution_sha256)
 }
 
 pub fn encode_non_success(

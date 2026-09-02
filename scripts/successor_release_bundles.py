@@ -29,7 +29,7 @@ CANDIDATE_PATHS = {
     language: REPOSITORY_ROOT / f"release/bundles/candidates/{language}.json"
     for language in ("go", "rust", "csharp")
 }
-REGISTRY_SHA256 = "00580f5ef519ae077432460d2e9e1214bb15b624b2781a96188dd81ad92f8fce"
+REGISTRY_SHA256 = "1205df31d1f274bb13c2f2c6192f1094f1f1b879823c1a32e4032fb4526e9e98"
 SEMANTIC_REGISTRY_SHA256 = (
     "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75"
 )
@@ -146,7 +146,7 @@ def validate_release_models() -> tuple[dict[str, object], dict[str, dict[str, ob
     if hashlib.sha256(REGISTRY_DOMAIN + canonical(payload)).hexdigest() != REGISTRY_SHA256:
         raise SuccessorReleaseFailure()
     if hashlib.sha256(registry_bytes).hexdigest() != (
-        "5c8e9f8a343c675a429f6cdb5299d08e6ed7a232e2d3a81d32e880091bb39253"
+        "9b1aad5ba10126ffffd715b94cadcee7f79fc1f9c463ad7cd46925ec49ba586e"
     ):
         raise SuccessorReleaseFailure()
     for field, key in (
@@ -372,14 +372,38 @@ def install(executable: Path, destination: Path) -> None:
 def run_installed(executable: Path) -> None:
     if not executable.is_absolute() or executable.name != "mpk":
         raise SuccessorReleaseFailure("BUNDLE_ASSEMBLER_USAGE", 64)
-    command = go_release.rust_fixture_cgroup_command(
-        [str(executable), "--inside-successor-cutover"]
+    reports: list[object] = []
+    for language in ("go", "rust", "csharp"):
+        command = go_release.rust_fixture_cgroup_command(
+            [str(executable), f"--inside-successor-cutover-{language}"]
+        )
+        result = go_release.run_bounded_rust_fixture(
+            command, cwd=executable.parent.parent, env={}
+        )
+        if result.returncode != 0 or result.stderr:
+            sys.stderr.buffer.write(result.stderr)
+            raise SuccessorReleaseFailure()
+        try:
+            report = json.loads(result.stdout)
+        except (UnicodeDecodeError, json.JSONDecodeError) as error:
+            raise SuccessorReleaseFailure() from error
+        if (
+            not isinstance(report, dict)
+            or report.get("language") != language
+            or canonical_line(report) != result.stdout
+        ):
+            raise SuccessorReleaseFailure()
+        reports.append(report)
+    sys.stdout.buffer.write(
+        canonical_line(
+            {
+                "languages": reports,
+                "registry_sha256": REGISTRY_SHA256,
+                "semantic_registry_sha256": SEMANTIC_REGISTRY_SHA256,
+                "status": "active_successor",
+            }
+        )
     )
-    result = go_release.run_bounded_rust_fixture(command, cwd=executable.parent.parent, env={})
-    if result.returncode != 0 or result.stderr:
-        sys.stderr.buffer.write(result.stderr)
-        raise SuccessorReleaseFailure()
-    sys.stdout.buffer.write(result.stdout)
 
 
 def main(argv: list[str]) -> int:

@@ -15,7 +15,7 @@ SPEC = importlib.util.spec_from_file_location("java_build_owner", Path(__file__)
 BUILD = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(BUILD)
 
-FRONTEND_ID = "frontend.java.java2vir.candidate.v1"
+FRONTEND_ID = "frontend.java.java2vir.candidate.v2"
 TOOLCHAIN_ID = "toolchain.java.temurin-25_0_4_1_1.candidate.v1"
 HOST_ID = "mpk.host.linux-x86_64-gnu.java25.v0"
 LAYOUT_ID = "mpk.runtime.linux-x86_64-gnu.java25.v0"

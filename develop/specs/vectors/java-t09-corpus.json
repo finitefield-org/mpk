@@ -1,0 +1,104 @@
+{
+  "schema": "mpk.java.t09.corpus.v0",
+  "owner_test": "crates/mpk-cli/tests/java_release_gate.rs",
+  "task": "JAVA-03-T09",
+  "candidate_upgrade": {
+    "from_frontend_bundle_id": "frontend.java.java2vir.candidate.v1",
+    "from_jar_sha256": "333a050128cddc206474c9bdcca244276c08b246f2a5ba11f55983537cf7cd75",
+    "to_frontend_bundle_id": "frontend.java.java2vir.candidate.v2",
+    "to_jar_sha256": "aeddb537d396bc7374390d5d01c4dc576c1975e2244dcf7a64de5757fd921558",
+    "unchanged_toolchain_bundle_id": "toolchain.java.temurin-25_0_4_1_1.candidate.v1",
+    "parent_snapshot_boundary": "complete_descriptor_inventory_before_source",
+    "removed_child_rehash_bytes": 175883627,
+    "unchanged_launcher_mode": "-Xint",
+    "unchanged_timeout_seconds": 120
+  },
+  "differential_supplements": [
+    {
+      "id": "int.division.zero",
+      "case_id": "int.division",
+      "method": "vector.Case::f(int,int)->int",
+      "arguments": ["1", "0"],
+      "trap": "java.lang.ArithmeticException"
+    },
+    {
+      "id": "int.remainder.zero",
+      "case_id": "int.remainder",
+      "method": "vector.Case::f(int,int)->int",
+      "arguments": ["1", "0"],
+      "trap": "java.lang.ArithmeticException"
+    },
+    {
+      "id": "call.dead_branch.normal",
+      "case_id": "call.dead_branch",
+      "method": "vector.Case::f(int)->int",
+      "arguments": ["7"],
+      "result": "7"
+    },
+    {
+      "id": "call.multiple_entrypoints.caller",
+      "case_id": "call.multiple_entrypoints",
+      "method": "vector.Case::f(int)->int",
+      "arguments": ["7"],
+      "result": "7"
+    },
+    {
+      "id": "call.multiple_entrypoints.callee",
+      "case_id": "call.multiple_entrypoints",
+      "method": "vector.Other::g(int)->int",
+      "arguments": ["-7"],
+      "result": "-7"
+    }
+  ],
+  "fuzz_profiles": [
+    {
+      "id": "source_decoder_parser",
+      "seed": "0123456789abcdef",
+      "iterations": 32,
+      "executor": "pinned_jdk_private_adapter",
+      "sequence_sha256": "8c9d226aa7929042cc46f869df3612b7c7f642443d51b2b8d2e587b61feadd1a"
+    },
+    {
+      "id": "contract_parser",
+      "seed": "89abcdef01234567",
+      "iterations": 32,
+      "executor": "pinned_jdk_private_adapter",
+      "sequence_sha256": "be1680772cf13a5f7af9229622b858cd8f483e5721945c23a41684165c5f08a9"
+    },
+    {
+      "id": "diagnostic_normalizer",
+      "seed": "a5a5a5a55a5a5a5a",
+      "iterations": 32,
+      "executor": "pinned_jdk_private_adapter",
+      "sequence_sha256": "af68e74a8a1e5e3cbba7146a2ff78ac5a29ba18cec8dde18d1254800e77d4b4e"
+    },
+    {
+      "id": "frontend_protocol",
+      "seed": "0f1e2d3c4b5a6978",
+      "iterations": 32,
+      "executor": "rust_parent_validator",
+      "sequence_sha256": "19e098bde8c97107c776c998a8567589d6a9a9ba55f645633c6d5c8d8ad9eb8b"
+    },
+    {
+      "id": "resource_capture",
+      "seed": "fedcba9876543210",
+      "iterations": 32,
+      "executor": "pinned_jdk_private_adapter",
+      "sequence_sha256": "48b525dccb6fcb238133aec86671aa18d9f1248a552a87488e92a509c87e9dd7"
+    }
+  ],
+  "upgrade_case_ids": [
+    "jdk",
+    "compiler",
+    "reference",
+    "launcher",
+    "environment",
+    "native",
+    "public_api",
+    "diagnostics",
+    "semantics",
+    "registry",
+    "partial_release",
+    "axioms"
+  ]
+}

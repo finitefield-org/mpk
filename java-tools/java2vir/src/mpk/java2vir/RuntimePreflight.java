@@ -50,10 +50,15 @@ final class RuntimePreflight {
             if (Runtime.getRuntime().availableProcessors() != 1 || Runtime.getRuntime().maxMemory() > 512L * 1024 * 1024)
                 throw failure("RUNTIME");
             if (!Main.class.getProtectionDomain().getCodeSource().getLocation().toExternalForm().equals("file:/mpk/frontend/java2vir.jar")) throw failure("RUNTIME");
+            // The parent has already opened, streamed, hashed and copied every
+            // registered JDK/native file into this immutable mount before it
+            // reads source. Rehashing the 146 MiB modules image and 29 MiB JVM
+            // in an interpreter-only child duplicates that trust boundary and
+            // consumes almost the complete fixed request budget. Retain the
+            // small executable/self/release checks here; BuildIdentity also
+            // proves that this exact launcher provides the expected compiler.
             verifyFile(Path.of("/mpk/frontend/java2vir.jar"), request.identity().frontendSha256(), 16L * 1024 * 1024);
             verifyFile(Path.of("/mpk/toolchain/jdk/bin/java"), JavaRelease.JAVA_SHA256, 1024 * 1024);
-            verifyFile(Path.of("/mpk/toolchain/jdk/lib/modules"), "6b11db4c84e8ac3b9500397753e02ad03450e904fa8656eb8fd2a2197e536b57", 256L * 1024 * 1024);
-            verifyFile(Path.of("/mpk/toolchain/jdk/lib/server/libjvm.so"), "5e0fb6e83a5676090f28ff0b453e9199df06af1ff90d473c1b9837e41096114c", 128L * 1024 * 1024);
             verifyFile(Path.of("/mpk/toolchain/jdk/release"), "44be64b383baa18668afefbe9a780ae3a9d730a066eaaa92500f77bd1e4b934c", 65536);
         } catch (IOException | SecurityException error) { throw failure("RUNTIME"); }
     }

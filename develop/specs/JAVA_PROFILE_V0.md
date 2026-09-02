@@ -63,8 +63,8 @@ Unknown members, aliases, case variants, target variants, preview modes,
 compiler defaults, and another profile/parameter pairing reject. Integer
 widths are fixed independently of host pointer width.
 
-The companion `vectors/java-profile-v0.json` is the exact member-level data
-contract for this specification. Its `profile_identity`, `profile_contracts`,
+The companion `develop/specs/vectors/java-profile-v0.json` is the exact
+member-level data contract for this specification. Its `profile_identity`, `profile_contracts`,
 `semantic_parameters`, `toolchain_inputs`, `compiler_session`, and
 `launcher_contract` are closed values, not example configuration. A described
 field cannot be extended while retaining its immutable ID. Runtime values are
@@ -685,8 +685,9 @@ address-space limit, 1 GiB cgroup memory limit, zero cgroup swap, 128 PIDs,
 1,024 open files, zero core bytes, 64 MiB private `noswap` tmpfs, and a
 120-second request timeout. These are exact frozen requirements, not claims
 that the disposable T01 probe exercised every enforcement/failure path.
-T07 implemented and accepted the installed runner; T09/T10 own the complete
-native Linux release enforcement gates.
+T07 implemented and accepted the installed runner. T09 completed the private
+native Linux release enforcement gate; T10 must repeat it for the activated
+image.
 T01 freezes the measured ELF interpreter, complete native linkage, libc ABI,
 required files/devices/proc view, permissions and numerical budgets. T07
 measured and validated native clone/thread behavior, syscall policy and all
@@ -751,14 +752,19 @@ before state mutation.
 
 ## 13. Vector ownership, upgrades, and activation gate
 
-`vectors/java-profile-v0.json` has schema `mpk.java.profile.conformance.v0`;
-`vectors/semantic-profile-registry-v3.json` has schema
+`develop/specs/vectors/java-profile-v0.json` has schema
+`mpk.java.profile.conformance.v0`;
+`develop/specs/vectors/semantic-profile-registry-v3.json` has schema
 `mpk.semantic_profile.registry.conformance.v3`. T01's specification owner is
 `crates/mpk-vc/tests/java_profile_spec.rs`, a test-only model with no production
 Java dispatch. The implementation traceability ledger assigns every vector
 family and normative requirement to exactly one primary implementation task
 and concrete test file. A model/hash test does not claim Java source execution
 or operating-system isolation.
+
+`develop/specs/vectors/java-t09-corpus.json` has schema
+`mpk.java.t09.corpus.v0` and freezes
+`crates/mpk-cli/tests/java_release_gate.rs` as its implementation test owner.
 
 Accepted source cases contain exact source bytes, selected entrypoints, all
 closure sidecars, ordered required operation projections and exhaustive safety

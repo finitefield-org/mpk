@@ -7,8 +7,9 @@ capture/compiler adapter and T05's source admission/typed sidecars are
 complete. T06's private CFG/lowering and artifact emission are complete;
 T07's private candidate/JVM runner and native x86-64 Linux acceptance are
 complete; T08's private VC/policy/evidence/certificate/AI/API integration is
-also complete. T09-T10 and activation remain pending. The active release remains
-Go/Rust/C# with semantic registry revision 2. This document includes
+also complete. T09's conformance/differential/fuzz/upgrade and complete local
+release rehearsal are complete. T10 activation remains pending. The active
+release remains Go/Rust/C# with semantic registry revision 2. This document includes
 the corrections established by T01's disposable compiler/JVM probes.
 
 Prepared: 2026-08-31.
@@ -35,7 +36,8 @@ API observations and JVM options live in `../specs/vectors/java-profile-v0.json`
 this design does not duplicate mutable descriptor digests. T01's Linux amd64
 measurements used CPU emulation on an ARM host. They establish the recorded
 compiler/JVM compatibility, not the native Linux production isolation accepted
-separately by T07 or the complete T09/T10 release gates. T02 added the
+separately by T07 and the complete T09 release gate; T10 must repeat the gate
+for the activated image. T02 added the
 unregistered project and offline build owner, with exact source/class/JAR
 inventories and two matching isolated builds. See `java-tools/README.md` and
 the implementation ledger.
@@ -503,7 +505,8 @@ unmeasured native syscall or clone restrictions.
 
 T07 implemented the registered native runner and verified its syscall/clone
 policy, cgroup/resource-failure enforcement, privilege drop and descendant
-cleanup; T09/T10 run the complete native Linux release gates. Those tasks
+cleanup; T09 ran the complete native Linux release gate and T10 must run it
+again for activation. Those tasks
 must preserve the frozen read-only source/toolchain mounts, private bounded
 `noswap` tmpfs, cgroup memory/PID limits, denied network and absence of
 writable executable inputs. An emulated T01 success cannot discharge those
@@ -674,7 +677,7 @@ source-free and does not require a registry compatibility adapter.
 
 ## 11. Serial implementation plan
 
-These tasks refine `JAVA-03`. T01-T08 are complete. T09-T10 remain pending.
+These tasks refine `JAVA-03`. T01-T09 are complete. T10 remains pending.
 Each task depends on the previous row, starting from
 completed `CSHARP-02-T20`. Private artifact generation does not establish
 registered installed execution or the complete native Linux release gate.

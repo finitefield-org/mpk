@@ -309,12 +309,20 @@ fn request_for_target(
         .chain(contract_inventory.iter().map(input_value))
         .chain(source_inventory.iter().map(input_value))
         .collect::<Vec<_>>();
-    inputs.sort_by(|left, right| input_path(left).as_bytes().cmp(input_path(right).as_bytes()));
+    inputs.sort_by(|left, right| {
+        input_path(left)
+            .as_bytes()
+            .cmp(input_path(right).as_bytes())
+    });
     let mut sources = source_inventory
         .iter()
         .map(source_value)
         .collect::<Vec<_>>();
-    sources.sort_by(|left, right| input_path(left).as_bytes().cmp(input_path(right).as_bytes()));
+    sources.sort_by(|left, right| {
+        input_path(left)
+            .as_bytes()
+            .cmp(input_path(right).as_bytes())
+    });
     root.insert("inputs".to_owned(), JsonValue::Array(inputs));
     root.insert("source_inventory".to_owned(), JsonValue::Array(sources));
     seal_request_value(value).expect("seal request transport")

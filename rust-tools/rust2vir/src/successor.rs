@@ -12,7 +12,7 @@ pub const PROFILE_ENTRY_SHA256: &str =
     "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057";
 pub const PARAMETERS_SCHEMA: &str = "mpk.semantic_parameters.rust_checked.v0";
 pub const SELECTION_SCHEMA: &str = "mpk.selection.rust_function.v0";
-pub const FRONTEND_ID: &str = "frontend.rust.rust2vir.candidate.v1";
+pub const FRONTEND_ID: &str = "frontend.rust.rust2vir.candidate.v2";
 pub const TOOLCHAIN_ID: &str = "toolchain.rust.nightly-2025-06-01.candidate.v1";
 pub const TOOLCHAIN_DISTRIBUTION_SHA256: &str =
     "86dab73dadd3a3184064e7d7da7e878562eba4cfc4c8a969bc8f44a5e865c90a";

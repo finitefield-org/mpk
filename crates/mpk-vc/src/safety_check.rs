@@ -469,6 +469,9 @@ fn safety_operation_context(
     }
 }
 
+// Keep the result-type checks visibly separate from operation selection: this
+// ordering is part of the reviewed fail-closed validation precedence.
+#[allow(clippy::collapsible_match)]
 fn validate_result_and_profile(
     context: &ProgramExprContext,
     instruction: &VirInstruction,

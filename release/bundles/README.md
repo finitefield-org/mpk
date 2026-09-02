@@ -20,15 +20,17 @@ The registered bundle pairs are:
 
 - `frontend.go.go2vir.candidate.v1` and
   `toolchain.go.go1.25.0.linux-amd64.candidate.v1`;
-- `frontend.rust.rust2vir.candidate.v1` and
+- `frontend.rust.rust2vir.candidate.v2` and
   `toolchain.rust.nightly-2025-06-01.candidate.v1`; and
 - `frontend.csharp.csharp2vir.candidate.v1` and
   `toolchain.csharp.roslyn-5_6_0.dotnet-10_0_11.candidate.v1`.
 
-The `.candidate.v1` suffix is part of each frozen reviewed identifier. It does
-not create a second publication state. The JSON files under `candidates/` are
-source-only projections used to reproduce the combined active registry; an
-installed release never copies that directory or resolves it at runtime.
+Each `.candidate.vN` suffix is part of its frozen reviewed identifier; Rust v2
+supersedes the unreproducible v1 descriptor without mutating that identity. The
+suffix does not create a second publication state. The JSON files under
+`candidates/` are source-only projections used to reproduce the combined active
+registry; an installed release never copies that directory or resolves it at
+runtime.
 
 Verify the complete release deterministically and without repository writes:
 

@@ -41,12 +41,13 @@ diagnostics. `JAVA-03-T05` added internal source admission, inert initialization
 acyclic call closure and typed contract sidecars. `JAVA-03-T06` added private
 CFG/lowering, original-byte source maps and deterministic complete artifacts.
 `JAVA-03-T07` completed the registered candidate bundles and JVM runner,
-including native x86-64 Linux acceptance. Next is T08's private
-VC/policy/evidence/AI/API integration in the
+including native x86-64 Linux acceptance. `JAVA-03-T08` completed private
+VC/policy/evidence/AI/API integration, and `JAVA-03-T09` completed the
+two-build/two-run conformance, differential, fuzz, upgrade and native Linux
+release rehearsal recorded in the
 [Java implementation ledger](develop/docs/java-03-implementation-traceability-ledger.md).
 Public Java activation remains pending; Java is not active and the installed
-registry remains revision 2. T09/T10 still own complete release rehearsal and
-atomic activation.
+registry remains revision 2. T10 alone owns atomic activation.
 
 ## Build from source
 

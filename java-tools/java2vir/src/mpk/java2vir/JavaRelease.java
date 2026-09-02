@@ -3,10 +3,10 @@ package mpk.java2vir;
 import java.util.List;
 import java.util.Map;
 
-/** Closed T07 candidate identity. None of these values activates an installed MPK route. */
+/** Closed T09 candidate identity. None of these values activates an installed MPK route. */
 final class JavaRelease {
     private JavaRelease() {}
-    static final String FRONTEND_ID = "frontend.java.java2vir.candidate.v1";
+    static final String FRONTEND_ID = "frontend.java.java2vir.candidate.v2";
     static final String TOOLCHAIN_ID = "toolchain.java.temurin-25_0_4_1_1.candidate.v1";
     static final String DISTRIBUTION = "8f6c540278984d0a8f94f3d288ab94fa84fe165a023c2a376b26bfa955d0e8e1";
     static final String JAVA_SHA256 = "7380ce48ed5013735d2c8414db54adb8f981e7933ff594bd36f3baccddaafba3";

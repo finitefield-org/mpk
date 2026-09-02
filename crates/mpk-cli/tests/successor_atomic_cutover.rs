@@ -40,12 +40,16 @@ fn main() -> ExitCode {
     if arguments.as_slice() == ["__mpk_frontend_probe_v0"] {
         return ExitCode::from(mpk_cli::run_frontend_sandbox_probe());
     }
-    let result = if arguments.as_slice() == ["--inside-successor-cutover"] {
-        run_inside_installed_release()
-    } else if arguments.is_empty() {
-        run_outer_cutover_gate()
-    } else {
-        Err("unexpected cutover-test arguments".to_owned())
+    let result = match arguments.as_slice() {
+        [mode] if mode == "--inside-successor-cutover-go" => run_inside_installed_frontend("go"),
+        [mode] if mode == "--inside-successor-cutover-rust" => {
+            run_inside_installed_frontend("rust")
+        }
+        [mode] if mode == "--inside-successor-cutover-csharp" => {
+            run_inside_installed_frontend("csharp")
+        }
+        [] => run_outer_cutover_gate(),
+        _ => Err("unexpected cutover-test arguments".to_owned()),
     };
     match result {
         Ok(()) => ExitCode::SUCCESS,
@@ -56,14 +60,14 @@ fn main() -> ExitCode {
     }
 }
 
-fn run_inside_installed_release() -> Result<(), String> {
-    let reports = vec![run_go()?, run_rust()?, run_csharp()?];
-    let report = json!({
-        "languages": reports,
-        "registry_sha256": ACTIVE_RELEASE_REGISTRY_SHA256,
-        "semantic_registry_sha256": SEMANTIC_REGISTRY_SHA256,
-        "status": "active_successor"
-    });
+fn run_inside_installed_frontend(language: &str) -> Result<(), String> {
+    let report = match language {
+        "go" => run_go(),
+        "rust" => run_rust(),
+        "csharp" => run_csharp(),
+        _ => Err("unknown installed frontend".to_owned()),
+    }
+    .map_err(|error| format!("{language} frontend: {error}"))?;
     print!(
         "{}",
         String::from_utf8(canonical_line(&report)?).map_err(display)?

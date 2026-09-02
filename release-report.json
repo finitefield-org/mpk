@@ -22,20 +22,20 @@
     },
     "bundle_registry": {
       "path": "release/bundles/bundle-registry.json",
-      "sha256": "5c8e9f8a343c675a429f6cdb5299d08e6ed7a232e2d3a81d32e880091bb39253"
+      "sha256": "9b1aad5ba10126ffffd715b94cadcee7f79fc1f9c463ad7cd46925ec49ba586e"
     },
     "active_fixtures": [
       {
         "path": "fixtures/csharp/policy/scan.json",
-        "sha256": "08667ceaba2ee9a23d8e60a9a4de5fcb20334492bfcdd574ae5c2c8f512c5d78"
+        "sha256": "09f9c774512c7d0fb825b460553a7a2943edcf7d7492a602982b05cfeb77694d"
       },
       {
         "path": "fixtures/csharp/policy/evidence.json",
-        "sha256": "bca735b7351d817aa2ad6aa1ba31aebc5a3f323439accf1fa5717ba56732a86e"
+        "sha256": "75de899b89f4697af0eb813cf15633491012cf68fefaf9fb8b81bd1153310dff"
       },
       {
         "path": "fixtures/csharp/policy/program-certificate.hex",
-        "sha256": "8dfb763f9ea640914460ce6cfd51541caf7623f87d97e25ae02982fc246828f2"
+        "sha256": "44e336b43f95d62e641587f6c1e0833e246ff03ac1fc18b55e8b29244582be9d"
       },
       {
         "path": "fixtures/csharp/ai/request.json",
@@ -43,7 +43,7 @@
       },
       {
         "path": "fixtures/csharp/ai/explanation.json",
-        "sha256": "287fbef6e7faec9001ad42b6511c316033125b4f4697eca241fc2f5ab03a9fad"
+        "sha256": "f46b8988a02d0271659e25d7d3b491a5d6a00bc13726f7de8ec8b226921ccb9a"
       }
     ]
   },
@@ -187,11 +187,11 @@
     "bundle_registry": {
       "schema": "mpk.release.bundle_registry.v1",
       "id": "mpk.release.registry.v1",
-      "registry_sha256": "00580f5ef519ae077432460d2e9e1214bb15b624b2781a96188dd81ad92f8fce",
+      "registry_sha256": "1205df31d1f274bb13c2f2c6192f1094f1f1b879823c1a32e4032fb4526e9e98",
       "frontend_bundle_ids": [
         "frontend.csharp.csharp2vir.candidate.v1",
         "frontend.go.go2vir.candidate.v1",
-        "frontend.rust.rust2vir.candidate.v1"
+        "frontend.rust.rust2vir.candidate.v2"
       ],
       "toolchain_bundle_ids": [
         "toolchain.csharp.roslyn-5_6_0.dotnet-10_0_11.candidate.v1",
@@ -223,7 +223,7 @@
           "toolchain_bundle_id": "toolchain.go.go1.25.0.linux-amd64.candidate.v1"
         },
         {
-          "frontend_bundle_id": "frontend.rust.rust2vir.candidate.v1",
+          "frontend_bundle_id": "frontend.rust.rust2vir.candidate.v2",
           "limit_profile_id": "mpk.vir.limits.v0",
           "semantic_context": {
             "profile_entry_sha256": "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057",
@@ -248,7 +248,7 @@
           "toolchain_bundle_id": "toolchain.rust.nightly-2025-06-01.candidate.v1"
         },
         {
-          "frontend_bundle_id": "frontend.rust.rust2vir.candidate.v1",
+          "frontend_bundle_id": "frontend.rust.rust2vir.candidate.v2",
           "limit_profile_id": "mpk.vir.limits.v0",
           "semantic_context": {
             "profile_entry_sha256": "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057",
@@ -323,7 +323,7 @@
       {
         "language": "rust",
         "path": "release/bundles/candidates/rust.json",
-        "sha256": "dcef880f1d23b9fcd755d2fa05c105f0af2537b0461deda7dfb7c8e69bbc6039",
+        "sha256": "d78de1a44c47068add4fc7b5704e4b573c440474ccdb3c195ba482aede4006d0",
         "schema": "mpk.release.bundle_candidate.v1"
       }
     ],

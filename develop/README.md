@@ -99,8 +99,9 @@ the public compiler adapter and bounded diagnostics. `JAVA-03-T05` completed
 source subset admission, inert initialization, call closure and typed sidecars.
 T06 completed private CFG/lowering and deterministic artifact emission; T07
 completed the registered candidate bundles, JVM runner and native x86-64 Linux
-acceptance. T08 is next. Complete release rehearsal and public installed
-execution remain T09/T10; no
+acceptance. T08 completed private VC, policy/evidence, certificate, AI and API
+integration, and T09 completed the private release rehearsal. Public installed
+execution remains T10; no
 Java or later-language frontend is active and registry revision 2 stays
 installed.
 
@@ -296,7 +297,8 @@ the C# and Java implementation ledgers for post-Rust tracker tasks. Java's
 T01 freeze, T02 offline build, T03 validators, T04 capture/compiler adapter,
 T05 source subset/sidecars and T06 lowering/artifact emission are complete;
 T07's private candidate/JVM runner and native x86-64 Linux acceptance are
-complete. T08 is next; T09/T10 release rehearsal and activation remain pending.
+complete. T08's private integration and T09's release rehearsal are complete;
+T10 public activation remains pending.
 
 ## Reference posture
 

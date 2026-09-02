@@ -10,7 +10,7 @@ use crate::{ExecutionHostProfile, NativeRuntimeLayoutProfile};
 use std::collections::BTreeMap;
 use std::sync::OnceLock;
 
-pub const FRONTEND_ID: &str = "frontend.java.java2vir.candidate.v1";
+pub const FRONTEND_ID: &str = "frontend.java.java2vir.candidate.v2";
 pub const TOOLCHAIN_ID: &str = "toolchain.java.temurin-25_0_4_1_1.candidate.v1";
 pub const HOST_ID: &str = "mpk.host.linux-x86_64-gnu.java25.v0";
 pub const LAYOUT_ID: &str = "mpk.runtime.linux-x86_64-gnu.java25.v0";

@@ -267,7 +267,7 @@ def rust_native_sources() -> tuple[Path, dict[str, dict[str, object]]]:
         active.get("schema") != REGISTRY_SCHEMA
         or active.get("id") != REGISTRY_ID
         or active.get("registry_sha256")
-        != "00580f5ef519ae077432460d2e9e1214bb15b624b2781a96188dd81ad92f8fce"
+        != "1205df31d1f274bb13c2f2c6192f1094f1f1b879823c1a32e4032fb4526e9e98"
         or len(active.get("frontend_bundles", [])) != 3
         or len(active.get("toolchain_bundles", [])) != 3
         or len(active.get("tuples", [])) != 4

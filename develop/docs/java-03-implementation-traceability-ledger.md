@@ -1,8 +1,8 @@
 # JAVA-03 Implementation Traceability Ledger
 
-Status: `JAVA-03-T08 Complete` (private policy acceptance: 2026-09-01);
-T01 through T07 are also complete. T09 and T10 are pending. The private T08
-receipt does not establish T09 release rehearsal or T10 Java activation.
+Status: `JAVA-03-T09 Complete` (private release rehearsal: 2026-09-02);
+T01 through T08 are also complete. T10 activation is pending. The private T09
+receipt and native gate do not establish T10 Java activation.
 The active release remains Go/Rust/C# at registry revision 2.
 
 This is an execution plan subordinate to `../specs/JAVA_PROFILE_V0.md`, the
@@ -397,8 +397,8 @@ They measure actual pinned JVM/compiler behavior and the recorded minimal
 filesystem/privilege/network setup. They do not establish every production
 cgroup limit, syscall policy, clone restriction, descendant-cleanup condition,
 or native Linux resource-failure path. T07 separately accepted their installed
-enforcement on native x86-64 Linux;
-T09/T10 must execute the complete local native Linux release gates. No weaker
+enforcement on native x86-64 Linux. T09 has now executed the complete local
+native Linux release gate; T10 must repeat it for activation. No weaker
 JIT/sandbox fallback is permitted when the frozen baseline fails.
 
 T01 verification record (2026-08-31):
@@ -412,7 +412,8 @@ T01 verification record (2026-08-31):
   was rejected before archive-body processing.
 - At T01 completion the complete native Linux release gate had not run on the
   ARM development host. The recorded T01 x86-64 runs use emulation; T07 later
-  accepted installed enforcement, while T09/T10 release obligations remain.
+  accepted installed enforcement, while T09/T10 release obligations were then
+  still pending.
 
 Normal verification uses `./scripts/check-fast.sh`. Before Java activation,
 the current C# composed local Linux release gate remains active. T10 changes
@@ -875,8 +876,61 @@ T08 private policy acceptance record (2026-09-01):
   `crates/mpk-vc/src/safety_check.rs` at lines 494 and 506. The earlier frozen
   Rust candidate provenance mismatch recorded by T07 is also unchanged.
 - The repeated T08 diff review has no remaining findings. **JAVA-03-T08 is
-  complete.** T09 is next and still owns the full conformance, differential,
-  fuzz, upgrade and release rehearsal. T10 alone owns public Java activation.
+  complete.** T09 then owned the full conformance, differential, fuzz, upgrade
+  and release rehearsal. T10 alone owns public Java activation.
+
+T09 private release-rehearsal record (2026-09-02):
+
+- `develop/specs/vectors/java-t09-corpus.json` freezes its Rust/Python/Java
+  owners, five deterministic 32-case fuzz profiles, five differential
+  supplements and the exact twelve upgrade categories. The private gate runs
+  102 JDK differential cases, 160 fixed-seed fuzz cases and 125 independent VIR
+  evaluations, then requires two isolated offline builds and two byte-identical
+  reports. It preserves the four existing axiom categories and adds no Java
+  axiom, installed Java tuple, public strategy, API activation or registry-v3
+  route.
+- The active predecessor gate initially exposed stale Rust release provenance:
+  a production `rust2vir` binary still compiled vector-dependent fuzz
+  entrypoints. Release builds now exclude those debug-only entrypoints and use
+  the reviewed immutable Rust v2 candidate identity. All dependent positive
+  corpora, bundle descriptors, release report and fuzz seeds/manifests were
+  regenerated. The pre-existing Rust 1.95 `collapsible_match` warning on the
+  reviewed shared validation precedence is scoped to its owning function, not
+  disabled across the workspace. The installed successor rehearsal also runs Go, Rust and C# in
+  separate owned bounded cgroup processes before canonical aggregation, so one
+  language cannot consume another language's one-shot resource session.
+- Native Java diagnosis found that candidate v1 spent almost its complete
+  frozen request budget rehashing `jdk/lib/modules` and `libjvm.so` inside the
+  interpreter-only child. Those 175,883,627 bytes had already been opened
+  no-follow, streamed, hashed against the complete 405-file descriptor and
+  copied into the immutable read-only sandbox by the Rust parent before source
+  access. Candidate v2 removes only that redundant child rehash. It retains
+  child checks of the JAR, Java executable, JDK release/compiler identity,
+  exact argv/environment/properties and read-only mounts; parent image and
+  installed mutation rejection still cover the complete JDK/native inventory.
+  `-Xint`, the 120-second request budget, syscall evidence and every cgroup
+  cleanup/resource condition are unchanged.
+- Immutability is preserved rather than overwriting v1. The current inactive
+  frontend is `frontend.java.java2vir.candidate.v2`, with 331,860-byte JAR
+  SHA-256 `aeddb537d396bc7374390d5d01c4dc576c1975e2244dcf7a64de5757fd921558`;
+  the unchanged toolchain remains
+  `toolchain.java.temurin-25_0_4_1_1.candidate.v1`. The private candidate
+  registry SHA-256 is
+  `92d12f7e839583b37ccc3e5547a662f3dca8de569d02d54320d169f790710764`.
+  The worst observed native shift case fell from the 120-second boundary to
+  18.525 seconds without changing its semantics or limit.
+- The canonical private receipt is
+  `{"axiom_categories":4,"builds":2,"candidate_jar_sha256":"aeddb537d396bc7374390d5d01c4dc576c1975e2244dcf7a64de5757fd921558","differential_cases":102,"fuzz_cases":160,"java_axioms":0,"native_rehearsal":"separate_official_gate_required","private_report_sha256":"31248b2d0257f3122121db19efa147428feaf298e1c742490a3172ce2d8d5625","public_activation":false,"runs":2,"schema":"mpk.java.t09.receipt.v0","upgrade_cases":12,"vir_evaluations":125}`.
+- The official v2 native gate returned exit 0. Its receipt binds runner SHA-256
+  `b8921014d56765f26ef089fce359ea31f6da61b7089e986e0298f2d95f35656a`,
+  the v2 private registry, all three canonical cases, hostile-environment
+  equality, all six resource faults, all ten source-precedence mutations, ten
+  exact JVM thread creations, clone3 fallback, denied AF_INET/AF_UNIX sockets
+  and syscall trace SHA-256
+  `5fbb5d363dabaf652e7102eac5a23a33b5e582db9ca5aac94b3ebc49e9591d0d`.
+- The active installed release remains the reviewed Go/Rust/C# revision-2
+  successor. `public_activation` is false and **JAVA-03-T09 is complete.** T10
+  alone may atomically install revision 3 and the Java tuple.
 
 A task is complete only after its exact deliverables, required verification
 (or explicitly recorded unrun reason), fix/review loop, commit and push are

@@ -23,6 +23,9 @@ ADMISSION_SPEC.loader.exec_module(ADMISSION)
 LOWERING_SPEC = importlib.util.spec_from_file_location("java_lowering_owner", Path(__file__).with_name("java_lowering_tests.py"))
 LOWERING = importlib.util.module_from_spec(LOWERING_SPEC)
 LOWERING_SPEC.loader.exec_module(LOWERING)
+RELEASE_SPEC = importlib.util.spec_from_file_location("java_release_owner", Path(__file__).with_name("java_release_gate.py"))
+RELEASE = importlib.util.module_from_spec(RELEASE_SPEC)
+RELEASE_SPEC.loader.exec_module(RELEASE)
 
 OBSERVATIONS = (
     "negative-literals", "constant-trees", "implicit-public", "utf16-tab-bmp-nonbmp", "syntax-eof",
@@ -221,7 +224,7 @@ def runner_fixtures(destination, vector):
     (destination / "runner-arguments.txt").write_text("\n".join(arguments) + "\n", encoding="ascii")
 
 
-def worker(admission=False, lowering=False, runner=False):
+def worker(admission=False, lowering=False, runner=False, release=False):
     # This diagnostic stream is for compilation of our test/project sources only.
     # Selected-source diagnostics are still normalized by the Java implementation.
     execute = BUILD.execute
@@ -245,27 +248,37 @@ def worker(admission=False, lowering=False, runner=False):
     service = Path("/work/poison-classes/META-INF/services/javax.annotation.processing.Processor")
     service.parent.mkdir(parents=True)
     service.write_text("poison.PoisonProcessor\n")
+    test_sources = (["/mpk/tests/LoweringTests.java", "/mpk/tests/ReleaseGateTests.java"] if release else
+                    ["/mpk/tests/RunnerTests.java" if runner else "/mpk/tests/LoweringTests.java" if lowering
+                     else "/mpk/tests/AdmissionTests.java" if admission else "/mpk/tests/FrontendTests.java"])
     arguments = ["/mpk/toolchain/jdk/bin/javac", *BUILD.RECIPE["compiler_jvm_arguments"],
                  "--release", "25", "-encoding", "UTF-8", "-g:none", "-proc:none", "-implicit:none",
                  "-Xlint:all", "-Werror", "--class-path", "/work/java2vir.jar",
                  "--source-path", "/work/empty", "--processor-path", "/work/empty",
-                 "--module-path", "/work/empty", "-d", "/work/test-classes",
-                 "/mpk/tests/RunnerTests.java" if runner else "/mpk/tests/LoweringTests.java" if lowering else "/mpk/tests/AdmissionTests.java" if admission else "/mpk/tests/FrontendTests.java"]
+                 "--module-path", "/work/empty", "-d", "/work/test-classes", *test_sources]
     code, stdout, stderr = compile_with_diagnostics(arguments, environment=BUILD.ENVIRONMENT)
     BUILD.require(code == 0 and not stdout and not stderr, "JAVA_FRONTEND_TEST_COMPILE")
-    code, stdout, stderr = execute(
-        ["/mpk/toolchain/jdk/bin/java", *BUILD.JVM_ARGUMENTS, "-cp", "/work/java2vir.jar:/work/test-classes:/work/poison-classes",
-         "mpk.java2vir.RunnerTests" if runner else "mpk.java2vir.LoweringTests" if lowering else "mpk.java2vir.AdmissionTests" if admission else "mpk.java2vir.FrontendTests"],
-        environment=BUILD.ENVIRONMENT, timeout=300)
-    if stderr:
-        sys.stderr.buffer.write(stderr)
-    BUILD.require(code == 0 and not stderr, "JAVA_FRONTEND_TEST_FAILED")
-    report = BUILD.strict_json(stdout, maximum=BUILD.MAX_REPORT, canonical_transport=True)
+    def execute_test(main):
+        code, stdout, stderr = execute(
+            ["/mpk/toolchain/jdk/bin/java", *BUILD.JVM_ARGUMENTS,
+             "-cp", "/work/java2vir.jar:/work/test-classes:/work/poison-classes", main],
+            environment=BUILD.ENVIRONMENT, timeout=300)
+        if stderr:
+            sys.stderr.buffer.write(stderr)
+        BUILD.require(code == 0 and not stderr, "JAVA_FRONTEND_TEST_FAILED")
+        return BUILD.strict_json(stdout, maximum=BUILD.MAX_REPORT, canonical_transport=True)
+    if release:
+        report = {"schema": "mpk.java.t09.private_run.v0",
+                  "lowering": execute_test("mpk.java2vir.LoweringTests"),
+                  "rehearsal": execute_test("mpk.java2vir.ReleaseGateTests")}
+    else:
+        report = execute_test("mpk.java2vir.RunnerTests" if runner else "mpk.java2vir.LoweringTests" if lowering
+                              else "mpk.java2vir.AdmissionTests" if admission else "mpk.java2vir.FrontendTests")
     report["candidate_inventory"] = BUILD.candidate_inventory(jar, descriptor)
     sys.stdout.buffer.write(BUILD.canonical(report) + b"\n")
 
 
-def run(admission=False, lowering=False, runner=False):
+def run(admission=False, lowering=False, runner=False, release=False):
     inputs = BUILD.load_toolchain()
     BUILD.validate_active_boundary()
     descriptor = BUILD.load_descriptor(update=True)
@@ -288,7 +301,8 @@ def run(admission=False, lowering=False, runner=False):
         (frozen / "build-inputs.json").write_bytes(BUILD.canonical(descriptor) + b"\n")
         scripts = root / "build"
         scripts.mkdir()
-        for name in ("java_build_inputs.py", "java_frontend_tests.py", "java_admission_tests.py", "java_lowering_tests.py"):
+        for name in ("java_build_inputs.py", "java_frontend_tests.py", "java_admission_tests.py",
+                     "java_lowering_tests.py", "java_release_gate.py"):
             (scripts / name).write_bytes(BUILD.read_bytes(ROOT / "scripts" / name, BUILD.MAX_SOURCE))
         tests = root / "tests"
         tests.mkdir()
@@ -303,6 +317,11 @@ def run(admission=False, lowering=False, runner=False):
         if lowering:
             (tests / "LoweringTests.java").write_bytes(BUILD.read_bytes(TEST_ROOT / "LoweringTests.java", BUILD.MAX_SOURCE))
             lowering_fixtures = LOWERING.fixtures(tests, BUILD)
+        if release:
+            (tests / "LoweringTests.java").write_bytes(BUILD.read_bytes(TEST_ROOT / "LoweringTests.java", BUILD.MAX_SOURCE))
+            (tests / "ReleaseGateTests.java").write_bytes(BUILD.read_bytes(TEST_ROOT / "ReleaseGateTests.java", BUILD.MAX_SOURCE))
+            lowering_fixtures = LOWERING.fixtures(tests, BUILD)
+            release_fixtures = RELEASE.fixtures(tests, BUILD)
         config = root / "docker-config"
         config.mkdir(mode=0o700)
         docker = BUILD.docker_prefix(config)
@@ -321,7 +340,8 @@ def run(admission=False, lowering=False, runner=False):
         argv.extend([BUILD.IMAGE, "/usr/bin/env", "-i"])
         argv.extend(key + "=" + value for key, value in BUILD.ENVIRONMENT.items())
         argv.extend(["/usr/local/bin/python3", "-I", "-S", "-B", "/mpk/build/java_frontend_tests.py",
-                     "_worker-runner" if runner else "_worker-lowering" if lowering else "_worker-admission" if admission else "_worker"])
+                     "_worker-release" if release else "_worker-runner" if runner else "_worker-lowering" if lowering
+                     else "_worker-admission" if admission else "_worker"])
         try:
             code, stdout, stderr = BUILD.execute(argv, environment=HOST_ENVIRONMENT, timeout=600)
             if stderr:
@@ -331,7 +351,12 @@ def run(admission=False, lowering=False, runner=False):
             BUILD.require(report["candidate_inventory"]["project_files_sha256"] == BUILD.sha256(BUILD.canonical(descriptor["project_files"])))
             BUILD.require(BUILD.project_records(ROOT / BUILD.PROJECT) == descriptor["project_files"])
             BUILD.validate_active_boundary()
-            if runner:
+            if release:
+                BUILD.require(report["schema"] == "mpk.java.t09.private_run.v0", "JAVA_RELEASE_REPORT")
+                report["lowering"]["candidate_inventory"] = report["candidate_inventory"]
+                LOWERING.validate_report(report["lowering"], lowering_fixtures, BUILD)
+                RELEASE.validate_report(report["rehearsal"], report["lowering"], release_fixtures, BUILD, LOWERING)
+            elif runner:
                 BUILD.require(report["schema"] == "mpk.java.runner_tests.v0" and report["assertions"] >= 100
                               and report["precedence"] == "release_before_source", "JAVA_RUNNER_REPORT")
                 envelope = BUILD.strict_json(report["envelope"].encode("utf-8"), canonical_transport=True)
@@ -366,6 +391,8 @@ def main():
         worker(lowering=True)
     elif sys.argv[1:] == ["_worker-runner"]:
         worker(runner=True)
+    elif sys.argv[1:] == ["_worker-release"]:
+        worker(release=True)
     elif sys.argv[1:] == ["run"]:
         run()
     elif sys.argv[1:] == ["run-admission"]:
@@ -374,6 +401,8 @@ def main():
         run(lowering=True)
     elif sys.argv[1:] == ["run-runner"]:
         run(runner=True)
+    elif sys.argv[1:] == ["run-release"]:
+        run(release=True)
     elif sys.argv[1:] == ["check-fixtures"]:
         with tempfile.TemporaryDirectory(prefix="mpk-java-t04-fixtures-", dir="/tmp") as directory:
             fixtures(Path(directory))
@@ -383,6 +412,9 @@ def main():
     elif sys.argv[1:] == ["check-lowering-fixtures"]:
         with tempfile.TemporaryDirectory(prefix="mpk-java-t06-fixtures-", dir="/tmp") as directory:
             LOWERING.fixtures(Path(directory), BUILD)
+    elif sys.argv[1:] == ["check-release-fixtures"]:
+        with tempfile.TemporaryDirectory(prefix="mpk-java-t09-fixtures-", dir="/tmp") as directory:
+            RELEASE.fixtures(Path(directory), BUILD)
     else:
         raise BUILD.BuildFailure("JAVA_FRONTEND_TEST_USAGE", 64)
 

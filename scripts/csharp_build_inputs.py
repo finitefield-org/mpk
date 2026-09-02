@@ -540,7 +540,7 @@ def validate_active_boundary() -> None:
         registry.get("schema") != "mpk.release.bundle_registry.v1"
         or registry.get("id") != "mpk.release.registry.v1"
         or registry.get("registry_sha256")
-        != "00580f5ef519ae077432460d2e9e1214bb15b624b2781a96188dd81ad92f8fce"
+        != "1205df31d1f274bb13c2f2c6192f1094f1f1b879823c1a32e4032fb4526e9e98"
         or semantic.get("revision") != 2
         or semantic.get("registry_sha256")
         != "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75"
