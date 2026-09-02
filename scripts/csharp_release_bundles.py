@@ -5,10 +5,13 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 from pathlib import Path
 import shutil
 import stat
 import subprocess
+import sys
+import tempfile
 
 import csharp_build_inputs
 
@@ -16,7 +19,7 @@ import csharp_build_inputs
 REPOSITORY_ROOT = Path(__file__).resolve().parent.parent
 PROFILE_VECTOR_PATH = REPOSITORY_ROOT / "develop/specs/vectors/csharp-profile-v0.json"
 SEMANTIC_VECTOR_PATH = (
-    REPOSITORY_ROOT / "develop/specs/vectors/semantic-profile-registry-v2.json"
+    REPOSITORY_ROOT / "develop/specs/vectors/semantic-profile-registry-v3.json"
 )
 ACTIVE_REGISTRY_PATH = REPOSITORY_ROOT / "release/bundles/bundle-registry.json"
 RUST_BUILD_INPUTS_PATH = REPOSITORY_ROOT / "release/build-inputs/rust/build-inputs.json"
@@ -44,7 +47,7 @@ REFERENCE_INVENTORY_SHA256 = (
     "30623f64b7d85564260e62464e652bfaa89eb56e0e55193989bfb99538ba6cad"
 )
 CSHARP_FRONTEND_SHA256 = (
-    "0783dc269c152ad1b13e77f42f9eff6f6891002c65890bc1445f2fe1a1a0410d"
+    "e245d50913f8589be6fd763aa9185d3812b932a5dabc0e21ed03744eafa09f49"
 )
 LIBC_COMPAT_SOURCE_SHA256 = (
     "bd2ba2b47f7b7ad7620565a6b3e456cf5c60607ce39c4cf6cec9ec8054b28cd6"
@@ -267,10 +270,10 @@ def rust_native_sources() -> tuple[Path, dict[str, dict[str, object]]]:
         active.get("schema") != REGISTRY_SCHEMA
         or active.get("id") != REGISTRY_ID
         or active.get("registry_sha256")
-        != "1205df31d1f274bb13c2f2c6192f1094f1f1b879823c1a32e4032fb4526e9e98"
-        or len(active.get("frontend_bundles", [])) != 3
-        or len(active.get("toolchain_bundles", [])) != 3
-        or len(active.get("tuples", [])) != 4
+        != "7877c7c04fae912815713a8a7f6f9900198721ea572788f6f48d1dbe3f00afbd"
+        or len(active.get("frontend_bundles", [])) != 4
+        or len(active.get("toolchain_bundles", [])) != 4
+        or len(active.get("tuples", [])) != 5
     ):
         raise CSharpReleaseFailure("BUNDLE_REGISTERED_STATE")
     components = descriptor.get("components")
@@ -617,8 +620,8 @@ def build_models(
     if profile_registry != {
         "schema": "mpk.semantic_profile.registry.v1",
         "id": "mpk.semantic_profile.registry.v1",
-        "revision": 2,
-        "registry_sha256": "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75",
+        "revision": 3,
+        "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
     }:
         raise CSharpReleaseFailure()
 
@@ -788,3 +791,22 @@ def build_once(root: Path) -> tuple[dict[str, object], dict[str, object], Path]:
     frontend, toolchain = materialize_bundle_roots(root / "work", output)
     candidate, registry = build_models(frontend, toolchain)
     return candidate, registry, output
+
+
+def update_active_candidate() -> None:
+    destination = REPOSITORY_ROOT / "release/bundles/candidates/csharp.json"
+    with tempfile.TemporaryDirectory(prefix="mpk-csharp-candidate-") as temporary:
+        candidate, _registry, _output = build_once(Path(temporary))
+    staging = destination.with_name(f".{destination.name}.tmp")
+    staging.write_bytes(canonical(candidate) + b"\n")
+    os.replace(staging, destination)
+
+
+if __name__ == "__main__":
+    try:
+        if sys.argv[1:] != ["update-active-candidate"]:
+            raise CSharpReleaseFailure("CSHARP_RELEASE_USAGE", 64)
+        update_active_candidate()
+    except (CSharpReleaseFailure, csharp_build_inputs.CSharpBuildFailure) as error:
+        print(error.code, file=sys.stderr)
+        raise SystemExit(error.exit_code)

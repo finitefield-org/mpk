@@ -1,10 +1,9 @@
 //! Installed semantic-profile registry validation.
 //!
 //! This module implements the frozen `mpk.semantic_profile.registry.v1`
-//! mechanism for private, explicitly injected staging consumers. It does not
-//! locate an installed registry, select an active release, or alter the
-//! current Go/Rust [`crate::semantic_profile`] path. Revision selection is a
-//! closed test/staging input and never a compatibility negotiation.
+//! mechanism used by installed releases and explicitly injected conformance
+//! consumers. It does not locate a release or negotiate registry revisions;
+//! each caller selects exactly one compiled revision.
 
 use crate::canonical_json::{
     canonical_json_bytes_bounded, parse_strict_json, StrictJsonLimits, StrictJsonValue,
@@ -92,7 +91,7 @@ const REGISTRY_TRANSPORT_LIMITS: StrictJsonLimits = StrictJsonLimits::new(
 pub enum RegistryRevision {
     Revision1,
     Revision2,
-    /// Explicit candidate input only; the installed release still selects revision 2.
+    /// Sole installed revision after the Java atomic cutover.
     Revision3,
 }
 

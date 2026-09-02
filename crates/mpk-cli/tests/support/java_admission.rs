@@ -23,8 +23,10 @@ pub fn profile() -> Value {
 }
 
 fn command() -> Command {
-    let mut command = Command::new(root().join("scripts/check-java-frontend.sh"));
+    let mut command = Command::new("/usr/bin/python3");
     command
+        .args(["-I", "-S", "-B"])
+        .arg(root().join("scripts/java_frontend_tests.py"))
         .current_dir(root())
         .env("JAVA_HOME", "/unselected/jdk")
         .env("CLASSPATH", "/unselected/classes")
@@ -36,10 +38,7 @@ fn command() -> Command {
 }
 
 pub fn check_fixtures() {
-    let output = command()
-        .arg("--check-admission-fixtures")
-        .output()
-        .unwrap();
+    let output = command().arg("check-admission-fixtures").output().unwrap();
     assert!(
         output.status.success(),
         "{}",
@@ -49,7 +48,7 @@ pub fn check_fixtures() {
 }
 
 pub fn run() -> Value {
-    let output = command().arg("--run-admission").output().unwrap();
+    let output = command().arg("run-admission").output().unwrap();
     assert!(
         output.status.success(),
         "{}",

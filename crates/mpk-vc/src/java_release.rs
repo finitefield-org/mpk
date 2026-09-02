@@ -1,9 +1,9 @@
-//! Closed, inactive Java candidate identities and pure launcher construction.
-//! No installed release resolver or caller-selected executable is exposed here.
+//! Frozen Java release identities and pure launcher construction.
+//! No caller-selected executable, registry, or toolchain path is exposed here.
 
 use crate::release_bundle_v1::{
-    ResolvedSuccessorRelease, SuccessorBundleCandidate, SuccessorBundleRegistry,
-    SuccessorFrontendBundle, SuccessorToolchainBundle, ValidatedSuccessorReleaseRegistry,
+    ResolvedSuccessorRelease, SuccessorBundleCandidate, SuccessorFrontendBundle,
+    SuccessorToolchainBundle, ValidatedSuccessorReleaseRegistry,
 };
 use crate::semantic_profile_registry::SelectionEnvelope;
 use crate::{ExecutionHostProfile, NativeRuntimeLayoutProfile};
@@ -71,19 +71,9 @@ pub fn candidate() -> &'static SuccessorBundleCandidate {
     static VALUE: OnceLock<SuccessorBundleCandidate> = OnceLock::new();
     VALUE.get_or_init(|| {
         serde_json::from_slice(include_bytes!(
-            "../../../release/build-inputs/java/bundle-candidate.json"
+            "../../../release/bundles/candidates/java.json"
         ))
         .expect("compiled Java candidate descriptor")
-    })
-}
-
-pub fn registry() -> &'static SuccessorBundleRegistry {
-    static VALUE: OnceLock<SuccessorBundleRegistry> = OnceLock::new();
-    VALUE.get_or_init(|| {
-        serde_json::from_slice(include_bytes!(
-            "../../../release/build-inputs/java/bundle-registry.json"
-        ))
-        .expect("compiled private Java registry descriptor")
     })
 }
 
@@ -128,15 +118,14 @@ pub fn launcher_plan(
     resolved: &ResolvedSuccessorRelease<'_>,
     selection: &SelectionEnvelope,
 ) -> Result<JavaLauncherPlan, JavaLaunchError> {
-    if release.registry() != registry()
-        || !exact_release(
-            resolved.frontend,
-            resolved.toolchain,
-            &release.registry().execution_host_profiles,
-            &release.registry().native_runtime_layout_profiles,
-        )
-        || serde_json::to_value(&resolved.semantic_context).map_err(|_| JavaLaunchError::Release)?
-            != candidate().tuples[0].semantic_context
+    if !exact_release(
+        resolved.frontend,
+        resolved.toolchain,
+        &release.registry().execution_host_profiles,
+        &release.registry().native_runtime_layout_profiles,
+    ) || serde_json::to_value(&resolved.semantic_context)
+        .map_err(|_| JavaLaunchError::Release)?
+        != candidate().tuples[0].semantic_context
     {
         return Err(JavaLaunchError::Release);
     }

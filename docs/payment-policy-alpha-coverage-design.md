@@ -1,7 +1,7 @@
 # Payment Policy Alpha Coverage Design
 
 Status: historical predecessor-v1 implementation record. Its flags and schema
-are not active interfaces; see `proof-ops-engine-design.md` for the revision-2
+are not active interfaces; see `proof-ops-engine-design.md` for the revision-3
 successor contract.
 
 This document defines the first practical coverage expansion for the

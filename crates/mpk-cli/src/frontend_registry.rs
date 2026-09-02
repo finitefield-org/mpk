@@ -432,7 +432,7 @@ mod tests {
         let bytes = include_bytes!("../../../release/bundles/bundle-registry.json");
         let semantic = mpk_vc::semantic_profile_registry::validate_semantic_profile_registry(
             include_bytes!("../../../release/bundles/semantic-profile-registry.json"),
-            mpk_vc::semantic_profile_registry::RegistryRevision::Revision2,
+            mpk_vc::semantic_profile_registry::RegistryRevision::Revision3,
         )
         .expect("reviewed semantic registry validates");
         let registry =

@@ -1,11 +1,10 @@
 //! Active source-artifact models and hash domains.
 //!
-//! These parsers are available only through explicit staging calls. They do
-//! not discover a registry, accept a compatibility representation, or alter
-//! any active VIR, source-map, source-manifest, frontend, VC, or checker path.
-//! Profile-specific producer conformance remains with the later profile
-//! owners; this module seals the common successor shapes, identities, hashes,
-//! ordering, and cross-artifact links they must consume.
+//! These parsers are reached only after their caller supplies a validated
+//! registry and semantic context. They do not discover a registry or accept a
+//! compatibility representation. Profile-specific producer conformance
+//! remains with each profile owner; this module seals the common successor
+//! shapes, identities, hashes, ordering, and cross-artifact links they consume.
 
 use crate::canonical_json::{
     canonical_json_bytes_bounded, parse_strict_json, serialize_json_bounded, StrictJsonLimits,

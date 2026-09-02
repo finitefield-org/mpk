@@ -8,9 +8,12 @@ complete. T06's private CFG/lowering and artifact emission are complete;
 T07's private candidate/JVM runner and native x86-64 Linux acceptance are
 complete; T08's private VC/policy/evidence/certificate/AI/API integration is
 also complete. T09's conformance/differential/fuzz/upgrade and complete local
-release rehearsal are complete. T10 activation remains pending. The active
-release remains Go/Rust/C# with semantic registry revision 2. This document includes
-the corrections established by T01's disposable compiler/JVM probes.
+release rehearsal are complete. T10 implemented the atomic Java activation on
+2026-09-03. The checked-in release is Go/Rust/C#/Java with semantic registry
+revision 3 and five registered tuples. Native x86-64 Linux release acceptance
+remains unrun on the ARM64 development host; the exact failure is recorded in
+the ledger. This document includes the corrections established by T01's
+disposable compiler/JVM probes.
 
 Prepared: 2026-08-31.
 
@@ -36,12 +39,12 @@ API observations and JVM options live in `../specs/vectors/java-profile-v0.json`
 this design does not duplicate mutable descriptor digests. T01's Linux amd64
 measurements used CPU emulation on an ARM host. They establish the recorded
 compiler/JVM compatibility, not the native Linux production isolation accepted
-separately by T07 and the complete T09 release gate; T10 must repeat the gate
-for the activated image. T02 added the
+separately by T07, the complete T09 rehearsal, and T10's repeated gate for the
+activated image. T02 added the
 unregistered project and offline build owner, with exact source/class/JAR
 inventories and two matching isolated builds. See `java-tools/README.md` and
 the implementation ledger.
-No public Java route is authorized before T10.
+The public Java route is authorized only by the completed T10 atomic release.
 
 Certificate v0, checker inputs, the two source-free checking implementations,
 and the four axiom categories remain unchanged. Java source, contracts, JDK,
@@ -80,7 +83,7 @@ dispatch branches, not a new numeric carrier or a common operation meaning.
 | `crates/mpk-cli/src/frontend_sandbox.rs` | Registered JVM execution under measured isolation requirements; no ambient `java` lookup |
 | `crates/mpk-cli/src/` policy, frontend and release routes | Java selection translation, runner, policy/evidence reproduction, installation and release cutover |
 | `crates/mpk-cli/src/successor_ai_explain.rs`, `crates/mpk-api/src/successor_api.rs` | Java display/redaction and exact context-bound API routing |
-| Planned `java-tools/java2vir/` | Public compiler adapter, capture, subset/closure checks, contracts, CFG, lowering, emission |
+| `java-tools/java2vir/` | Public compiler adapter, capture, subset/closure checks, contracts, CFG, lowering, emission |
 
 Do not add Java to the legacy Go/Rust `SemanticProfile` API to bypass the
 successor boundary. Any reuse of the existing private structural projection
@@ -89,11 +92,11 @@ artifacts as Go or C#. Do not inherit C# check requirements by analogy.
 
 ## 3. Profile, selection, and source closure
 
-### 3.1 Frozen, inactive identities
+### 3.1 Frozen identities
 
-T01 froze the following names in the normative specification. They remain
-inactive production values until the later implementation and release gates
-pass; the current registry does not accept Java.
+T01 froze the following names in the normative specification. T10 installed
+them as the sole revision-3 Java production values; no predecessor or staging
+registry accepts them as a compatibility route.
 
 | Role | Frozen identity |
 | --- | --- |
@@ -465,7 +468,7 @@ services and JARs outside the selection and prove they are never consumed.
 
 ### 7.3 Registered JVM launcher and isolation
 
-The planned launcher directly executes the registered
+The launcher directly executes the registered
 `/mpk/toolchain/jdk/bin/java`, with frontend classpath exactly
 `/mpk/frontend/java2vir.jar` and main class `mpk.java2vir.Main`. The main class
 loads only the frontend and frozen JDK. `ToolProvider.getSystemJavaCompiler()`
@@ -505,8 +508,9 @@ unmeasured native syscall or clone restrictions.
 
 T07 implemented the registered native runner and verified its syscall/clone
 policy, cgroup/resource-failure enforcement, privilege drop and descendant
-cleanup; T09 ran the complete native Linux release gate and T10 must run it
-again for activation. Those tasks
+cleanup; T09 ran the complete native Linux release gate and the T10 gate must
+repeat it on a native x86-64 Linux host before its release receipt is complete.
+Those tasks
 must preserve the frozen read-only source/toolchain mounts, private bounded
 `noswap` tmpfs, cgroup memory/PID limits, denied network and absence of
 writable executable inputs. An emulated T01 success cannot discharge those
@@ -677,7 +681,8 @@ source-free and does not require a registry compatibility adapter.
 
 ## 11. Serial implementation plan
 
-These tasks refine `JAVA-03`. T01-T09 are complete. T10 remains pending.
+These tasks refine `JAVA-03`. T01-T09 are complete and T10 implementation is
+complete; its native release acceptance remains pending.
 Each task depends on the previous row, starting from
 completed `CSHARP-02-T20`. Private artifact generation does not establish
 registered installed execution or the complete native Linux release gate.
@@ -693,7 +698,7 @@ registered installed execution or the complete native Linux release gate.
 | `JAVA-03-T07` | Registered candidate bundles and measured JVM runner | Installed candidate image launches only registered bytes; offline, native closure, cgroup and hostile-environment tests pass |
 | `JAVA-03-T08` | VC, policy/evidence, certificate, AI and API integration | End-to-end Java certificate accepted from identical bytes by both checkers; context/redaction/regression gates pass without public activation |
 | `JAVA-03-T09` | Conformance/differential/fuzz/upgrade and release rehearsal | Two-build/two-run determinism, all vector owners execute, zero open findings and unchanged axiom categories |
-| `JAVA-03-T10` | Atomic four-language release, examples and active docs | Only revision 3 is installed, all five tuples work, old/crossed contexts reject, final local Linux release gate passes; then proposed `CSHARP-03` is eligible |
+| `JAVA-03-T10` | Atomic four-language release, examples and active docs | Only revision 3 is installed, all five tuples work, old/crossed contexts reject; the final native Linux release receipt is required before proposed `CSHARP-03` is eligible |
 
 The T01 ledger assigns each normative section, payload field, vector family
 and concrete test file exactly one primary implementation owner. Staging is a
@@ -713,9 +718,9 @@ behavior. No Dart or later-language phase runs concurrently.
 
 `java_profile_spec.rs` owns the T01 specification/hash model. The build,
 profile, capture, source/contract admission, lowering/emission, native
-candidate/runner and private policy owners through T08 are implemented and
-accepted. Later owners and downstream contributions remain
-assigned to their ledger tasks. The manifest records the available tests.
+candidate/runner, private policy and T09/T10 activation owners are implemented.
+The outstanding native T10 receipt remains assigned to the composed release
+gate. The manifest records the available tests.
 
 | Owner | Required coverage |
 | --- | --- |
@@ -727,9 +732,11 @@ assigned to their ledger tasks. The manifest records the available tests.
 | `crates/mpk-cli/tests/java_contracts.rs` | Strict sidecar JSON, complete attachment, type/operator rules, ordered normalization, canonical hashes and contract limits |
 | `crates/mpk-cli/tests/java_lowering.rs` | All accepted cases/operations/CFGs, exact checks and evaluation order, deterministic complete artifacts and lowering/emission limits |
 | `crates/mpk-cli/tests/java_source_maps.rs` | Original UTF-8 origins, complete coverage, source/sidecar/manifest binding and artifact-free emission failures |
-| `crates/mpk-cli/tests/java_frontend_runner.rs` | Private candidate inventories, fixed JVM invocation, installed precedence and explicit native isolation/resource gate |
+| `crates/mpk-cli/tests/java_frontend_runner.rs` | Active candidate inventories, fixed JVM invocation and absence of the retired Java-only staging routes |
 | `crates/mpk-cli/tests/java_policy_verify.rs` | Contract/call obligations, evidence regeneration, same-byte dual checking, AI/API rejection and redaction |
 | `crates/mpk-cli/tests/java_release_gate.rs` | Candidate rehearsal and active four-language installation, isolation, cross-generation rejection, determinism and upgrade corpus |
+| `crates/mpk-cli/tests/java_activation.rs` | Revision-3-only atomic registry/release cutover, five-tuple union, compiled contracts, checker identity and active example |
+| `crates/mpk-cli/tests/successor_atomic_cutover.rs` | Installed four-language execution, hostile ambient equality, Java native cases/resource/syscall enforcement, tamper rejection and two-pass ownership |
 
 The positive/differential corpus covers both widths at zero, one, minus one,
 MIN and MAX; wrapping arithmetic; signed division/remainder with all signs;
@@ -757,13 +764,11 @@ semantic payloads, while checking expected revision-root hash changes.
 
 ### 12.2 Local-only gates and completion
 
-Use `./scripts/check-fast.sh` for ordinary repository checks. Until Java
-activation, the existing release owner remains
-`sudo ./scripts/check-csharp-frontend.sh` and the README's local Linux gate.
-The future `scripts/check-java-frontend.sh` must become the single composed
-Go/Rust/C#/Java offline two-pass release gate at T10, with existing checks
-preserved and documentation updated together. `check-all.sh` must route
-through that owner without skipping a predecessor language.
+Use `./scripts/check-fast.sh` for ordinary repository checks.
+`sudo ./scripts/check-java-frontend.sh` is the single composed Go/Rust/C#/Java
+offline two-pass release gate. T10 preserved every predecessor check and
+routes `check-all.sh` through that owner; the retired C#-named script no longer
+executes a release gate.
 
 Release checks run only on a reviewed Linux host with the required cgroup,
 kernel/native closure, privilege drop, externally denied egress and frozen

@@ -29,25 +29,25 @@ pub const SUCCESSOR_BUNDLE_CANDIDATE_SCHEMA: &str = "mpk.release.bundle_candidat
 pub const SUCCESSOR_RELEASE_REGISTRY_HASH_DOMAIN: HashDomain =
     HashDomain::new("MPK-BUNDLE-REGISTRY-1.0");
 pub const ACTIVE_RELEASE_REGISTRY_SHA256: &str =
-    "1205df31d1f274bb13c2f2c6192f1094f1f1b879823c1a32e4032fb4526e9e98";
+    "7877c7c04fae912815713a8a7f6f9900198721ea572788f6f48d1dbe3f00afbd";
 pub const CSHARP_FRONTEND_BUNDLE_ID: &str = "frontend.csharp.csharp2vir.candidate.v1";
 pub const CSHARP_TOOLCHAIN_BUNDLE_ID: &str =
     "toolchain.csharp.roslyn-5_6_0.dotnet-10_0_11.candidate.v1";
 pub const CSHARP_FRONTEND_SHA256: &str =
-    "0783dc269c152ad1b13e77f42f9eff6f6891002c65890bc1445f2fe1a1a0410d";
+    "e245d50913f8589be6fd763aa9185d3812b932a5dabc0e21ed03744eafa09f49";
 pub const CSHARP_HOST_PROFILE_ID: &str = "mpk.host.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0";
 pub const CSHARP_RUNTIME_LAYOUT_ID: &str =
     "mpk.runtime.linux-x86_64-gnu.glibc2_27.cgroup2_tmpfs.v0";
 pub const GO_FRONTEND_BUNDLE_ID: &str = "frontend.go.go2vir.candidate.v1";
 pub const GO_TOOLCHAIN_BUNDLE_ID: &str = "toolchain.go.go1.25.0.linux-amd64.candidate.v1";
 pub const GO_FRONTEND_SHA256: &str =
-    "71f7c73b2796fd8caee6bc5e18a871e6dc1ca5639dc2a0840d6b1af4da32c0b9";
+    "62dda4ba6589347eea5e4d59b035b41988fc6cab65088c1039e79ecbc92e8bff";
 pub const RUST_FRONTEND_BUNDLE_ID: &str = "frontend.rust.rust2vir.candidate.v2";
 pub const RUST_TOOLCHAIN_BUNDLE_ID: &str = "toolchain.rust.nightly-2025-06-01.candidate.v1";
 pub const RUST_FRONTEND_SHA256: &str =
-    "9a31c1b6f906517be78a356b5d7e74f76ed769ed68df91fc88f868f4730da31d";
+    "dd8715c3a54e0e02a940cfac5b61ed87d0ca8afb9b6259e853c0dd700e32f344";
 pub const RUST_DRIVER_SHA256: &str =
-    "f115ef6865746e72d56510f318844c72bf0275d98518f7c6c7a50dde6fd1d478";
+    "84d2c05f7c9e49b68c5eb79dde3566791d52f2603baa10e2bcf8f9f4ad7c3da7";
 pub const RUST_TOOLCHAIN_DISTRIBUTION_SHA256: &str =
     "86dab73dadd3a3184064e7d7da7e878562eba4cfc4c8a969bc8f44a5e865c90a";
 

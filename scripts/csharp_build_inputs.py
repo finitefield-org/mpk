@@ -507,6 +507,19 @@ def validate_project_files(records: list[object]) -> None:
         raise CSharpBuildFailure()
 
 
+def update_project_file_records() -> None:
+    descriptor = strict_json_file(DESCRIPTOR_PATH, canonical_transport=True)
+    descriptor["project_files"] = []
+    for relative in PROJECT_FILES:
+        data = read_regular_bytes(PROJECT_ROOT / relative, 1024 * 1024)
+        descriptor["project_files"].append(
+            {"path": relative, "size_bytes": len(data), "sha256": raw_sha256(data)}
+        )
+    temporary = DESCRIPTOR_PATH.with_name(f".{DESCRIPTOR_PATH.name}.tmp")
+    temporary.write_bytes(canonical(descriptor) + b"\n")
+    os.replace(temporary, DESCRIPTOR_PATH)
+
+
 def validate_notice_sources(records: list[object]) -> None:
     if len(records) != 13:
         raise CSharpBuildFailure()
@@ -540,18 +553,18 @@ def validate_active_boundary() -> None:
         registry.get("schema") != "mpk.release.bundle_registry.v1"
         or registry.get("id") != "mpk.release.registry.v1"
         or registry.get("registry_sha256")
-        != "1205df31d1f274bb13c2f2c6192f1094f1f1b879823c1a32e4032fb4526e9e98"
-        or semantic.get("revision") != 2
+        != "7877c7c04fae912815713a8a7f6f9900198721ea572788f6f48d1dbe3f00afbd"
+        or semantic.get("revision") != 3
         or semantic.get("registry_sha256")
-        != "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75"
+        != "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557"
         or not isinstance(frontends, list)
         or not isinstance(toolchains, list)
         or not isinstance(tuples, list)
         or not isinstance(profiles, list)
-        or len(frontends) != 3
-        or len(toolchains) != 3
-        or len(tuples) != 4
-        or len(profiles) != 3
+        or len(frontends) != 4
+        or len(toolchains) != 4
+        or len(tuples) != 5
+        or len(profiles) != 4
         or not any(item.get("bundle_id") == "frontend.csharp.csharp2vir.candidate.v1" for item in frontends)
         or not any(
             item.get("bundle_id")
@@ -2195,6 +2208,8 @@ def main(argv: list[str]) -> int:
             validate_project_files(array(descriptor["project_files"]))
         elif argv == ["update-inventory"]:
             check_full(update=True)
+        elif argv == ["update-project-files"]:
+            update_project_file_records()
         elif argv == ["check"]:
             check_full(update=False)
         elif argv == ["self-test"]:

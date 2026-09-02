@@ -107,19 +107,19 @@ internal static class ContractHarness
 
         NormalizedContract normalized = attached.Normalized;
         Equal(
-            "4130c5289e3590c43ac91bb15d71344172018aa6e0b2dd4e45725de71aabec9e",
+            "b88b13b2041782b1728563e9ae3d34bf2334771fb05171fa4ba38a8c1ffb0cab",
             normalized.ContractHash,
             "VECTOR_CONTRACT_HASH");
         Equal(1_151, normalized.HashPayloadBytes.Length, "VECTOR_CONTRACT_LENGTH");
         const string expectedNormalized =
-            "{\"contract_hash\":\"4130c5289e3590c43ac91bb15d71344172018aa6e0b2dd4e45725de71aabec9e\","
+            "{\"contract_hash\":\"b88b13b2041782b1728563e9ae3d34bf2334771fb05171fa4ba38a8c1ffb0cab\","
             + "\"ensures\":[{\"lhs\":{\"result\":0},\"op\":\"eq\",\"rhs\":{\"bool\":true}}],"
             + "\"function_id\":\"Example.Payment.Policy::Approved(i64,i64)->bool\",\"loops\":[],\"modifies\":[],\"panic\":\"forbidden\","
             + "\"requires\":[{\"lhs\":{\"var\":\"arg0\"},\"op\":\"signed_ge\",\"rhs\":{\"var\":\"arg1\"}},"
             + "{\"lhs\":{\"var\":\"arg0\"},\"op\":\"signed_ge\",\"rhs\":{\"int\":{\"signed\":true,\"value\":\"0\",\"width\":64}}}],"
             + "\"semantic_context\":{\"profile_entry_sha256\":\"d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac\","
-            + "\"profile_registry\":{\"id\":\"mpk.semantic_profile.registry.v1\",\"registry_sha256\":\"6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75\","
-            + "\"revision\":2,\"schema\":\"mpk.semantic_profile.registry.v1\"},\"semantic_parameters\":{\"schema\":\"mpk.semantic_parameters.csharp_scalar.v0\","
+            + "\"profile_registry\":{\"id\":\"mpk.semantic_profile.registry.v1\",\"registry_sha256\":\"fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557\","
+            + "\"revision\":3,\"schema\":\"mpk.semantic_profile.registry.v1\"},\"semantic_parameters\":{\"schema\":\"mpk.semantic_parameters.csharp_scalar.v0\","
             + "\"value\":{\"check_overflow_default\":false,\"documentation_mode\":\"none\",\"language_version\":\"14.0\",\"nullable_context\":\"disable\","
             + "\"optimization\":\"release\",\"platform\":\"x64\",\"pointer_width\":64,\"preprocessor_symbols\":[],\"source_kind\":\"regular\","
             + "\"target_framework\":\"net10.0\",\"target_id\":\"linux-x64\",\"unsafe\":false}},\"semantic_profile\":\"mpk.csharp.scalar.v0\","

@@ -5,9 +5,9 @@ use std::collections::BTreeMap;
 
 pub const PROFILE_REGISTRY_SCHEMA: &str = "mpk.semantic_profile.registry.v1";
 pub const PROFILE_REGISTRY_ID: &str = "mpk.semantic_profile.registry.v1";
-pub const PROFILE_REGISTRY_REVISION: i64 = 2;
+pub const PROFILE_REGISTRY_REVISION: i64 = 3;
 pub const PROFILE_REGISTRY_SHA256: &str =
-    "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75";
+    "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557";
 pub const PROFILE_ENTRY_SHA256: &str =
     "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057";
 pub const PARAMETERS_SCHEMA: &str = "mpk.semantic_parameters.rust_checked.v0";

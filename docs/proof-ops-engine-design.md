@@ -1,6 +1,6 @@
 # ProofOps Engine Support Design
 
-Status: implemented on the active Go/Rust/C# successor release
+Status: implemented on the active Go/Rust/C#/Java successor release
 
 MPK is the verification engine for ProofOps. It owns deterministic source
 capture, registered frontend execution, successor VIR and VC generation,
@@ -17,8 +17,8 @@ JSON, explanation requests, CI status, and report prose are helper artifacts.
 
 MPK owns:
 
-- the revision-2 semantic-profile registry and compiled profile contracts;
-- the `mpk.release.registry.v1` Go/Rust/C# release tuples;
+- the revision-3 semantic-profile registry and compiled profile contracts;
+- the `mpk.release.bundle_registry.v1` Go/Rust/C#/Java release tuples;
 - immutable source capture and deterministic subset diagnostics;
 - successor VIR, VC, skeleton, policy, evidence, and program-certificate
   generation;
@@ -99,9 +99,9 @@ profile-owned `mpk.ai.explain.request.v2` projection. It does not authenticate,
 select a provider, make a network call, ingest a provider response, write
 prose, or change evidence.
 
-Go and Rust require one or more normalized `--contract` paths. C# contracts
-are fixed by the validated selection envelope, so C# rejects CLI contract
-paths.
+Go and Rust require one or more normalized `--contract` paths. C# and Java
+contracts are fixed by their validated selection envelopes, so both profiles
+reject CLI contract paths.
 
 ## Closed caller surface
 
@@ -137,7 +137,7 @@ metadata alone never elevate a property.
 
 ## Product profiles
 
-The active registry contains exact Go, Rust, and C# semantic profiles. Each
+The active registry contains exact Go, Rust, C#, and Java semantic profiles. Each
 entry compiles nine contracts (`frontend`, `vir`, `source_map`, `manifest`,
 `vc`, `policy`, `evidence`, `ai`, and `release`) into the release. The policy
 contract fixes the strategy, checker, and axiom profiles for that language.
@@ -164,9 +164,9 @@ and `axiom_profile` recorded by the compiled policy contract.
 
 ## Release and verification gate
 
-`scripts/check-csharp-frontend.sh` owns the complete two-pass offline release
+`scripts/check-java-frontend.sh` owns the complete two-pass offline release
 gate. It rebuilds active bundles, validates the semantic and bundle registries,
-executes Go/Rust/C# through one installed image, rejects old/crossed/tampered
+executes Go/Rust/C#/Java through one installed image, rejects old/crossed/tampered
 identities, checks the frontend and VC corpora, runs both source-free checkers,
 checks artifact paths, and requires a clean byte diff.
 
@@ -177,6 +177,6 @@ acceptance is still decided only by the source-free checkers.
 
 MPK does not verify an entire web service, authorize a payment, replace service
 authentication, own customer data governance, accept arbitrary source
-languages, or make AI output proof evidence. Later languages must enter through
-their frozen semantic profile and a new atomic release; Java is the next
-eligible phase after the completed C# cutover.
+languages, or make AI output proof evidence. Later profiles must enter through
+their frozen semantic profile and a new atomic release. The proposed practical
+C# profile remains blocked until the native JAVA-03-T10 receipt is recorded.

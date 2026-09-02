@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Private T04-T07 JDK conformance executor; no public source CLI entrypoint."""
+"""Private T04-T10 JDK conformance executor; no public source CLI entrypoint."""
 
 import importlib.util
 import json
@@ -46,9 +46,15 @@ PRECEDENCE = (
     "attribution_before_subset", "diagnostic_overflow_beats_source", "compiler_exception_beats_source",
 )
 # The T04 harness owns this family; T05/T06 contribute executable cases.
-ADMISSION_PRECEDENCE = dict.fromkeys(ADMISSION.PRECEDENCE, "T05: --run-admission")
-LOWERING_PRECEDENCE = dict.fromkeys(LOWERING.PRECEDENCE, "T06: --run-lowering")
-RUNNER_PRECEDENCE = {"release_before_source": "T07: --run-runner"}
+ADMISSION_PRECEDENCE = dict.fromkeys(
+    ADMISSION.PRECEDENCE, "T05: java_frontend_tests run-admission"
+)
+LOWERING_PRECEDENCE = dict.fromkeys(
+    LOWERING.PRECEDENCE, "T06: java_frontend_tests run-lowering"
+)
+RUNNER_PRECEDENCE = {
+    "release_before_source": "T10: successor_atomic_cutover release-before-source"
+}
 FOLLOW_ON_PRECEDENCE = {}
 
 
@@ -207,8 +213,8 @@ def validate_report(report, vector):
 
 
 def runner_fixtures(destination, vector):
-    candidate = BUILD.load_json(ROOT / "release/build-inputs/java/bundle-candidate.json")
-    registry = BUILD.load_json(ROOT / "release/build-inputs/java/bundle-registry.json")
+    candidate = BUILD.load_json(ROOT / "release/bundles/candidates/java.json")
+    registry = BUILD.load_json(ROOT / "release/bundles/bundle-registry.json")
     substitutions = {
         "{selection.compilation}": "vector", "{each selection.sources in stored order}": "src/vector/Case.java",
         "{each selection.contracts in stored order}": "contracts/selected.json",

@@ -22,7 +22,7 @@ fn frozen_contract_vector_semantic_row_and_limits_are_owned_exactly() {
     );
     assert_eq!(
         profile["normalized_contract_fixture"]["contract_hash"],
-        "4130c5289e3590c43ac91bb15d71344172018aa6e0b2dd4e45725de71aabec9e"
+        "b88b13b2041782b1728563e9ae3d34bf2334771fb05171fa4ba38a8c1ffb0cab"
     );
     assert_eq!(
         profile["contract_fixture"]["schema"],
@@ -269,7 +269,7 @@ fn executable_harness_build_gate_and_vector_manifest_own_t08() {
         "ContractLimitsRejectBeforeExcessRetention",
         "SemanticRowM34IsOwned",
         "6684361a15dc454a8172d7e515dd6a3a49ec1ff8faae00bc12d958eae8982228",
-        "4130c5289e3590c43ac91bb15d71344172018aa6e0b2dd4e45725de71aabec9e",
+        "b88b13b2041782b1728563e9ae3d34bf2334771fb05171fa4ba38a8c1ffb0cab",
         "1_151",
         "1_024",
     ] {

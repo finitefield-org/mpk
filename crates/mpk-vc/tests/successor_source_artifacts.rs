@@ -146,9 +146,9 @@ fn successor_vir_fixture(active: &[u8], context: &Value) -> Value {
 fn staged_artifacts() -> StagedArtifacts {
     let registry = validate_semantic_profile_registry(
         include_bytes!("../../../release/bundles/semantic-profile-registry.json"),
-        RegistryRevision::Revision2,
+        RegistryRevision::Revision3,
     )
-    .expect("installed revision-2 registry validates");
+    .expect("installed revision-3 registry validates");
     let vir = load(ACTIVE_VIR);
     let source_map = load(ACTIVE_SOURCE_MAP);
     let source_manifest = load(ACTIVE_SOURCE_MANIFEST);
@@ -262,7 +262,7 @@ fn successor_artifacts_round_trip_and_use_the_frozen_domains() {
     assert_eq!(hash.as_str(), normalized["contract_hash"]);
     assert_eq!(
         hash.as_str(),
-        "4130c5289e3590c43ac91bb15d71344172018aa6e0b2dd4e45725de71aabec9e"
+        "b88b13b2041782b1728563e9ae3d34bf2334771fb05171fa4ba38a8c1ffb0cab"
     );
 }
 

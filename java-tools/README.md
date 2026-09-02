@@ -1,6 +1,6 @@
 # Java offline frontend candidate
 
-`JAVA-03-T02` provides the inactive `java2vir` build project. T07 adds a
+`JAVA-03-T02` provided the original inactive `java2vir` build project. T07 added a
 private registered candidate and the fixed JVM entrypoint; malformed invocations
 still exit 2 with `JAVA_FRONTEND_UNAVAILABLE` and no stdout. T03 adds independent Rust
 contract/artifact validators. T04 adds internal immutable capture, strict
@@ -11,8 +11,8 @@ compiled private test harnesses. T06 adds private CFG/lowering, original-byte
 source maps and deterministic complete artifacts. T07's installed runner is
 implemented and passed its native x86-64 Linux acceptance gate on 2026-09-01.
 T08's private verification integration and T09's complete local release
-rehearsal are also complete. T10 public activation remains pending.
-The active Go/Rust/C# release and semantic registry revision 2 are unchanged.
+rehearsal are also complete. T10 atomically activated the reviewed candidate.
+The active Go/Rust/C#/Java release uses semantic registry revision 3.
 
 The normative inputs are in
 [`JAVA_PROFILE_V0.md`](../develop/specs/JAVA_PROFILE_V0.md) and the Java
@@ -76,8 +76,10 @@ compiler. Output contains:
 - `build-manifest.json`: the exact canonical candidate inventory plus LF.
 - `notices/NOTICE.txt`: the project notice.
 
-This frontend-only export contains no JDK or native library. T07's separate
-candidate-image builder below includes the frozen JDK and native closure.
+This frontend-only export contains no JDK or native library. The combined
+successor release assembler reconstructs the active Java bundle from this
+export plus the frozen JDK and native closure; there is no Java-only image
+builder after T10.
 
 The provisioned integration test exercises that export with hostile Java,
 Docker and proxy environment settings. It is ignored by the ordinary test
@@ -96,19 +98,19 @@ not an installed release operation. Ordinary builds never rewrite metadata.
 ## Capture and compiler adapter verification
 
 ```sh
-./scripts/check-java-frontend.sh --check-fixtures
+/usr/bin/python3 -I -S -B scripts/java_frontend_tests.py check-fixtures
 cargo test -p mpk-cli --test java_frontend_vectors --offline
-./scripts/check-java-frontend.sh --run
+/usr/bin/python3 -I -S -B scripts/java_frontend_tests.py run
 cargo test -p mpk-cli --test java_frontend_vectors --offline pinned_java_capture_compiler_and_diagnostic_vectors_execute -- --ignored --exact
 ```
 
-`--check-fixtures` needs no JDK or Docker. It checks closed vector ownership
+`check-fixtures` needs no JDK or Docker. It checks closed vector ownership
 and recomputes every recorded tree spelling and UTF-16/UTF-8 coordinate from
 the fixture's original bytes. The Rust tests independently reject unknown
 Java issue codes, messages, phases, statuses, exits, crossed identities and
 partial/noncanonical failure responses.
 
-`--run` uses the same provisioned archive, pinned image, scrubbed environment
+`run` uses the same provisioned archive, pinned image, scrubbed environment
 and offline project compiler as the build owner. It builds the current project
 without rewriting inventories and compiles `java-tools/tests/FrontendTests.java`
 separately; that test class and planted dependencies never enter `java2vir.jar`.
@@ -144,9 +146,9 @@ regular-file/link checks, exact selection inventory, bounded byte reads and
 two metadata/content passes. Its POSIX path metadata checks do not replace
 the parent's descriptor-based host capture and read-only seal. The shared
 native capture now recognizes Java source/selected-contract inputs and retains
-unlisted inventory for the child's rejection. T07's private runner materializes
-the exact selected captured inputs under the registered read-only mount;
-public capture/API integration remains T08.
+unlisted inventory for the child's rejection. T07's then-private runner
+materialized the exact selected captured inputs under the registered read-only
+mount; T08 later added capture/API integration and T10 activated that path.
 
 Application class/source/module/processor paths are closed; all four output
 methods and service loading refuse access. Planted source/class positive
@@ -161,17 +163,18 @@ failure cases. `admission_precedence` names T05's three executable contributions
 subset before missing sidecars, and excluded class/var parents before accepted-
 tree comparison. `lowering_precedence` names T06's executed contracts-before-
 lowering and map-failure-before-publication contributions. `runner_precedence`
-names T07's executed release-before-source JVM test; `follow_on_precedence`
-is empty. T07's native installed gate also executes release-before-source
-precedence. All stages must execute before the T09 gate.
+names T10's installed `successor_atomic_cutover` release-before-source owner;
+`follow_on_precedence` is empty. T07's historical native candidate gate and
+T10's active native gate both execute this precedence. All provisioned stages
+must execute before either installed T10 release pass.
 No successful source artifact or installed Java release is claimed by this test.
 
 ## Source admission and sidecar verification
 
 ```sh
-./scripts/check-java-frontend.sh --check-admission-fixtures
+/usr/bin/python3 -I -S -B scripts/java_frontend_tests.py check-admission-fixtures
 cargo test -p mpk-cli --test java_subset --test java_contracts --offline
-./scripts/check-java-frontend.sh --run-admission
+/usr/bin/python3 -I -S -B scripts/java_frontend_tests.py run-admission
 cargo test -p mpk-cli --test java_subset --test java_contracts --offline -- --ignored --test-threads=1
 ```
 
@@ -196,18 +199,19 @@ remain distinct. Source bytes and the selection must match the admitted closure.
 
 `JavaAdmission` sequences these internal stages and closes each compiler session.
 Its successful result is an internal model, not an `ir-lowered` response or proof
-verdict. The packaged `Main` is unchanged and still refuses source invocations.
+verdict. The packaged `Main` consumes that model only after the T10 installed
+runner has validated the exact release and prepared the closed sandbox.
 
 ## Lowering, source maps and manifest verification
 
 ```sh
-./scripts/check-java-frontend.sh --check-lowering-fixtures
+/usr/bin/python3 -I -S -B scripts/java_frontend_tests.py check-lowering-fixtures
 cargo test -p mpk-cli --test java_lowering --test java_source_maps --offline
-./scripts/check-java-frontend.sh --run-lowering
+/usr/bin/python3 -I -S -B scripts/java_frontend_tests.py run-lowering
 cargo test -p mpk-cli --test java_lowering --test java_source_maps --offline -- --ignored --test-threads=1
 ```
 
-The fixture check needs no JDK or Docker. `--run-lowering` compiles
+The fixture check needs no JDK or Docker. `run-lowering` compiles
 `LoweringTests.java` separately from the candidate and uses the same pinned,
 offline build boundary. It executes all 49 accepted cases, 27 operation
 mappings, six symbolic CFG goldens and seven original-source map vectors.
@@ -238,26 +242,30 @@ All nine lowering/emission counters have inclusive/plus-one tests through the
 production counter consumers. These counter tests do not allocate maximal
 artifacts or claim such inputs can bypass earlier syntax or native limits.
 
-The private `JavaFrontend` sequences admission, lowering and emission and
-returns a complete success or artifact-free failure. The fixed T07 `Main`
-invokes it only after runtime preflight. The lowering harness explicitly supplies `test.java.frontend`,
+`JavaFrontend` sequences admission, lowering and emission and returns a
+complete success or artifact-free failure. The fixed `Main` invokes it only
+after runtime preflight. The lowering harness explicitly supplies `test.java.frontend`,
 `test.java.toolchain` and a zero release-registry digest, together with the
 actual built JAR hash and the frozen JDK archive hash as the test distribution
 identity. These are test identities, not registered candidate bundles. The
 production identity input does not equate the complete candidate distribution
 digest with its JDK archive digest. Manifest components now bind the actual
 `java` executable, the complete JDK content projection and the native-runtime
-inventory. T07 supplies validated candidate identities; its native enforcement
-gate passed on native x86-64 Linux. No environment toggle or alternate public MPK route
-discovers this private pipeline.
+inventory. T07 supplied validated candidate identities and passed its native
+enforcement gate on x86-64 Linux. T10 exposes the same reviewed pipeline only
+through the active descriptor-relative MPK route; no environment toggle or
+caller-selected executable discovers it.
 
-## T07 private candidate and runner
+## T07 candidate and T10 activation
 
-The candidate descriptors live under `release/build-inputs/java/`, outside
-the active `release/bundles/` registry. They contain one Java tuple, the exact
-revision-3 semantic context, and Java-specific host/layout IDs. The shared
-descriptor validator requires these exact candidate bytes even if an attacker
-repairs outer hashes. No existing host ID or Go/Rust/C# budget changes.
+T07 originally kept the candidate descriptor under
+`release/build-inputs/java/` and outside the active registry. That byte-exact
+descriptor remains archived as build provenance. T10 installed the identical
+projection at `release/bundles/candidates/java.json` and added its one tuple to
+the sole combined registry. It carries the exact revision-3 semantic context
+and Java-specific host/layout IDs. The shared descriptor validator requires
+these exact candidate bytes even if an attacker repairs outer hashes. No
+predecessor host profile or Go/Rust/C# resource budget changes.
 
 The frontend bundle contains `java2vir.jar` and its notice. The toolchain
 contains 399 JDK files and six frozen native files. The 205 inventoried JDK
@@ -266,12 +274,13 @@ separate regular files; all JDK legal-notice bytes are retained. Inventory hashe
 cover these paths, executable bits, sizes and bytes. Files are sealed 0444/0555
 and directories 0555; links, extra files and changed permissions reject.
 
-The private runner is compiled only into `java_frontend_runner.rs`'s test
-executable. Its installed root is discovered beside its actual `bin/mpk`
-inode, through the existing no-follow descriptor loader. It checks both
-registries, captures both bundles and prepares the host before accessing source
-inputs. There is no caller-selected Java executable, JDK, classpath or registry.
-Its fixed fixtures do not constitute a new user-source CLI.
+The runner began as T07 test-only code. T10 moved it into the production shared
+installed-runner path; `java_frontend_runner.rs` now tests descriptor and
+launcher invariants rather than owning a private executable. The installed
+root is discovered beside the actual `bin/mpk` inode through the existing
+no-follow descriptor loader. The runner checks both registries, captures both
+bundles and prepares the host before accessing source inputs. There is no
+caller-selected Java executable, JDK, classpath or registry.
 
 The Java sandbox uses 1 GiB memory, zero swap, 128 PIDs, 16 GiB address space,
 1,024 descriptors, zero core bytes, a 64 MiB `noswap`/noexec tmpfs and 120 seconds.
@@ -283,55 +292,33 @@ thread fallback; only the exact pthread `clone` flags pass. Socket/process/
 namespace escapes reject. The capability probe installs and challenges this
 policy before source materialization. The packaged Main checks fixed argv and
 environment, JDK/JAR bytes, PID/capability state and read-only input mounts
-before capturing or analyzing source. This is candidate code, not evidence of
-native compatibility until the native gate below passes.
+before capturing or analyzing source. T07 accepted these candidate mechanics
+natively; the final T10 four-language native receipt remains pending as
+recorded in the implementation ledger.
 
-Local checks, including a provisioned fixed-JDK test:
+Local checks and the complete provisioned release gate are:
 
 ```sh
 ./scripts/build-java-candidate.sh --check
-cargo test --offline -p mpk-cli --test java_frontend_runner
-./scripts/check-java-frontend.sh --run-runner
+cargo test --offline -p mpk-cli --test java_frontend_runner --test java_activation
+sudo ./scripts/check-java-frontend.sh
 ```
 
-After an intentional Java source/notice change, run the existing
-`--update-inventory` build first, then
-`./scripts/build-java-candidate.sh --update-descriptors`; review all related
-hashes together. Neither command installs or activates a release.
+The candidate check reconstructs the active descriptor from frozen inputs and
+requires it to match both the archived T09 candidate and
+`release/bundles/candidates/java.json`. It does not create a Java-only registry
+or image. The release gate is the sole assembler and native owner: on Linux
+x86-64 with root, a writable initial cgroup-v2 hierarchy, `/usr/bin/strace`,
+and all frozen caches provisioned, it builds and runs the complete
+Go/Rust/C#/Java image twice. ARM emulation or missing primitives fail rather
+than producing a skipped passing gate.
 
-Build the owning test executable on Linux x86-64 with
-`cargo test --offline --locked -p mpk-cli --test java_frontend_runner --no-run`.
-Use the executable path Cargo prints (not the public `mpk` binary) below.
-The output directory must not exist; the assembler uses two offline JDK builds,
-the frozen archive and the already provisioned native image. It copies no host
-JDK or library. A failed assembly is not a publishable image.
-
-```sh
-./scripts/build-java-candidate.sh --assemble /absolute/new/java-image /absolute/path/to/java_frontend_runner-HASH
-./scripts/build-java-candidate.sh --check-image /absolute/new/java-image /absolute/path/to/java_frontend_runner-HASH
-./scripts/check-java-runner.sh --image /absolute/new/java-image /absolute/path/to/java_frontend_runner-HASH
-./scripts/check-java-runner.sh --native /absolute/new/java-image /absolute/path/to/java_frontend_runner-HASH
-```
-
-`--image` executes ten real file/registry mutations without claiming kernel
-enforcement. `--native` additionally requires root on native x86-64 Linux,
-kernel 6.4+, the writable initial cgroup-v2 hierarchy and `/usr/bin/strace`.
-It runs the installed JVM, checks hostile environment equivalence, captures
-thread/syscall evidence attributed to the JVM and its threads, rejects
-unbounded launch, tests real OOM/PID/120-second timeout/pipe/tmpfs failures and
-cleanup with source-free test payloads, and executes the same mutations through
-installed release preflight before source access. The three complete lowering
-cases remain untraced and must finish within the frozen 120-second request
-budget. The source-free trace probe launches the same registered JDK/JAR through
-the same sandbox solely to keep ptrace transport overhead outside that request
-budget; it must produce the exact packaged identity and no gate streams. ARM
-emulation or missing primitives cause failure, never a skipped passing gate.
-The report binds the runner and registry digests and records the observed JVM
-thread flags, clone3 fallback and pre-exec socket denials. Ordinary tests also
-check that parent-only or incomplete trace records cannot pass as JVM evidence.
-T07's native gate passed on 2026-09-01 with all six resource faults, all ten
-installed mutations and complete syscall evidence. Complete release rehearsal
-passed again under T09; activation remains T10-only.
+After an intentional Java source or notice change, update the build inventory,
+then update and review the combined successor descriptors and every derived
+fixture/hash together. `build-java-candidate.sh` intentionally has no update,
+assembly, image-check, or private execution mode after T10. Installed execution
+is available only through the descriptor-relative shared successor runner;
+rollback replaces the complete release image.
 
 ## Closed inputs and deterministic output
 

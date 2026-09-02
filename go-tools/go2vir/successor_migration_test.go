@@ -285,7 +285,7 @@ func successorManifestReference(t *testing.T) (sourceManifest, successorRegistry
 	if err := json.Unmarshal(raw, &registry); err != nil {
 		t.Fatalf("decode successor Go registry: %v", err)
 	}
-	if registry.Schema != "mpk.release.bundle_registry.v1" || registry.ID != registryID || len(registry.FrontendBundles) != 3 || len(registry.ToolchainBundles) != 3 || len(registry.Tuples) != 4 {
+	if registry.Schema != "mpk.release.bundle_registry.v1" || registry.ID != registryID || len(registry.FrontendBundles) != 4 || len(registry.ToolchainBundles) != 4 || len(registry.Tuples) != 5 {
 		t.Fatal("active registry shape is not the complete successor release")
 	}
 	frontend := registry.FrontendBundles[0]

@@ -334,31 +334,34 @@ fn crossed_old_stale_and_noncanonical_operations_reject_atomically() {
 }
 
 #[test]
-fn compiled_java_candidate_cannot_start_an_installed_api_session() {
+fn installed_java_profile_starts_only_with_the_revision_three_root() {
+    let active_registry = registry();
+    let store =
+        SuccessorFrontendArtifactStore::from_frontend_successes(&active_registry, []).unwrap();
+    let mut service = SuccessorApiService::new(active_registry, store).unwrap();
+    let profile = load("develop/specs/vectors/java-profile-v0.json");
+    let request = json!({
+        "api_profile": SUCCESSOR_AI_API_PROFILE,
+        "module_name": "Example.Java.Active",
+        "proof_profile": "mvp-strict",
+        "semantic_context": profile["semantic_context_fixture"],
+        "selection": profile["selection_fixture"]
+    });
+    service
+        .handle_start_session(&canonical_transport(&request))
+        .expect("revision-three Java session starts");
+    assert_eq!(service.mutation_count(), 1);
+
     let registry = registry();
     let store = SuccessorFrontendArtifactStore::from_frontend_successes(&registry, []).unwrap();
-    let mut service = SuccessorApiService::new(registry, store).unwrap();
-    let profile = load("develop/specs/vectors/java-profile-v0.json");
-    let before = fingerprint(&service, &[]);
-    for use_installed_identity in [false, true] {
-        let mut context = profile["semantic_context_fixture"].clone();
-        if use_installed_identity {
-            context["profile_registry"] =
-                serde_json::to_value(RegistryRevision::Revision2.identity()).unwrap();
-        }
-        let request = json!({
-            "api_profile": SUCCESSOR_AI_API_PROFILE,
-            "module_name": "Example.Java.Candidate",
-            "proof_profile": "mvp-strict",
-            "semantic_context": context,
-            "selection": profile["selection_fixture"]
-        });
-        service
-            .handle_start_session(&canonical_transport(&request))
-            .expect_err("Java is not in the installed registry");
-        assert_eq!(service.mutation_count(), 0);
-        assert_eq!(fingerprint(&service, &[]), before);
-    }
+    let mut old_service = SuccessorApiService::new(registry, store).unwrap();
+    let mut old_request = request;
+    old_request["semantic_context"]["profile_registry"] =
+        serde_json::to_value(RegistryRevision::Revision2.identity()).unwrap();
+    old_service
+        .handle_start_session(&canonical_transport(&old_request))
+        .expect_err("revision-two Java context rejects");
+    assert_eq!(old_service.mutation_count(), 0);
 }
 
 #[test]
@@ -729,9 +732,9 @@ fn store(
 fn registry() -> ValidatedSemanticProfileRegistry {
     validate_semantic_profile_registry(
         &read("release/bundles/semantic-profile-registry.json"),
-        RegistryRevision::Revision2,
+        RegistryRevision::Revision3,
     )
-    .expect("revision-2 registry")
+    .expect("revision-3 registry")
 }
 
 fn profile_contract(profile: &str) -> Value {
@@ -972,7 +975,7 @@ fn csharp_source(registry: &ValidatedSemanticProfileRegistry) -> ValidatedSource
             "bundle_id":"frontend.csharp.csharp2vir.candidate.v1",
             "name":"csharp2vir",
             "version":"0.1.0",
-            "binary_sha256":"0783dc269c152ad1b13e77f42f9eff6f6891002c65890bc1445f2fe1a1a0410d",
+            "binary_sha256":"e245d50913f8589be6fd763aa9185d3812b932a5dabc0e21ed03744eafa09f49",
             "subordinate_binaries":[]
         },
         "units":[{"identity":"payment-policy","name":"payment-policy","kind":"compilation"}],

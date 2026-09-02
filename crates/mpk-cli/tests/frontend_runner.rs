@@ -200,15 +200,15 @@ fn release_installation_selection_and_assembler_vectors_are_all_owned() {
 
     let semantic_bytes = fs::read(root.join("release/bundles/semantic-profile-registry.json"))
         .expect("read semantic registry");
-    let semantic = validate_semantic_profile_registry(&semantic_bytes, RegistryRevision::Revision2)
-        .expect("revision-2 semantic registry validates");
+    let semantic = validate_semantic_profile_registry(&semantic_bytes, RegistryRevision::Revision3)
+        .expect("revision-3 semantic registry validates");
     let tracked_bytes =
         fs::read(root.join("release/bundles/bundle-registry.json")).expect("read tracked registry");
     let tracked = validate_successor_release_registry(&tracked_bytes, &semantic)
         .expect("tracked successor registry validates");
-    assert_eq!(tracked.registry().tuples.len(), 4);
-    assert_eq!(tracked.registry().frontend_bundles.len(), 3);
-    assert_eq!(tracked.registry().toolchain_bundles.len(), 3);
+    assert_eq!(tracked.registry().tuples.len(), 5);
+    assert_eq!(tracked.registry().frontend_bundles.len(), 4);
+    assert_eq!(tracked.registry().toolchain_bundles.len(), 4);
     let tracked_value: Value = serde_json::from_slice(&tracked_bytes).expect("tracked JSON");
     assert_eq!(
         tracked_value["tuples"]
@@ -229,6 +229,7 @@ fn release_installation_selection_and_assembler_vectors_are_all_owned() {
             ("rust", "i686-unknown-linux-gnu"),
             ("rust", "x86_64-unknown-linux-gnu"),
             ("csharp", "linux-x64"),
+            ("java", "linux-x64"),
         ]
     );
     let rust_frontend = tracked_value["frontend_bundles"]

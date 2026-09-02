@@ -1,6 +1,7 @@
 # CSHARP-03 Practical C# Implementation Milestones and Tasks
 
-Status: planning complete; execution blocked by `JAVA-03-T10`.
+Status: planning complete; execution remains blocked pending the native
+`JAVA-03-T10` x86-64 Linux release receipt. CSHARP-03 has not started.
 
 Source design: `08_csharp_practical_subset_design.md`.
 
@@ -19,11 +20,13 @@ The only permitted entry edge is:
 JAVA-03-T10 -> CSHARP-03-T01-W01
 ```
 
-`JAVA-03-T10` must have atomically activated Java and recorded its complete
-local native Linux release evidence before W01 starts. Until then, this file is
-planning material only. In particular, no CSHARP-03 specification, vector,
-identity, hash, build input, production code, fixture, candidate bundle, or
-public route may be frozen or changed from this plan.
+`JAVA-03-T10` implemented the atomic Java activation on 2026-09-03, but the
+ARM64 development host cannot produce the required native x86-64 Linux release
+evidence. This prerequisite therefore remains open. This file remains planning
+material. No CSHARP-03
+specification, vector, identity, hash, build input, production code, fixture,
+candidate bundle, or public route has been frozen or changed by the Java
+release task.
 
 The following are unconditional stop conditions:
 
@@ -279,7 +282,7 @@ extend the build-input script tests, run
 `cargo test -p mpk-cli --test csharp_practical_build_inputs` against the two
 private paths, run the isolated two-build recipe, and run
 `./scripts/build-csharp-frontend.sh --check-build-inputs` to prove the active
-scalar inputs remain unchanged. The native `./scripts/check-csharp-frontend.sh`
+scalar inputs remain unchanged. The native `./scripts/check-java-frontend.sh`
 gate is reserved for T07/T08.
 
 ### CSHARP-03-T01-W04 — Measure Roslyn data and construction shapes

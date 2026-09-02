@@ -2,14 +2,14 @@
 
 Schema: `mpk.alpha_release_report.v1`
 
-Status: completed Go/Rust/C# successor release gate
+Status: JAVA-03-T10 activation implemented; native x86-64 Linux receipt pending
 
-Milestone: `CSHARP-02-T20`
+Milestone: `JAVA-03-T10`
 
 ## Result
 
-The sole active release uses semantic-profile registry revision 2 and
-`mpk.release.registry.v1`. Go, Rust, and C# run only through registered
+The sole active release uses semantic-profile registry revision 3 and
+`mpk.release.registry.v1`. Go, Rust, C#, and Java run only through registered
 descriptor-relative frontend/toolchain bundles installed beside `bin/mpk`.
 Policy scan, evidence, and explanation requests use successor v2 schemas; old
 public parsers, flags, staging gates, and dual-generation selectors are
@@ -22,7 +22,7 @@ untrusted helper evidence.
 ## Canonical generated report
 
 `release-report.json` is the deterministic untrusted provenance report. It
-binds both active registries, all three candidate projections, active C#
+binds both active registries, all four candidate projections, active C#
 policy/AI fixtures, package certificates, both source-free checker results,
 and the archived zero-finding migration records.
 
@@ -38,7 +38,7 @@ python3 scripts/generate-release-report.py --check
 ./scripts/build-release-bundles.sh --check successor
 ./scripts/check-release-bundles.sh --fixture successor
 ./scripts/regenerate-go-vir-corpus.sh --check
-sudo ./scripts/check-csharp-frontend.sh
+sudo ./scripts/check-java-frontend.sh
 ./scripts/check-fast.sh
 sudo ./scripts/check-all.sh
 (cd go-tools/go2vir && go test -count=1 ./...)
@@ -51,24 +51,28 @@ git diff --check
 
 - registry: `mpk.release.registry.v1`;
 - frontends: `frontend.go.go2vir.candidate.v1`,
-  `frontend.rust.rust2vir.candidate.v2`, and
-  `frontend.csharp.csharp2vir.candidate.v1`;
-- toolchains: frozen Go 1.25.0, Rust nightly 2025-06-01, and
-  Roslyn 5.6.0/.NET 10.0.11 candidate-v1 bundles;
+  `frontend.rust.rust2vir.candidate.v2`,
+  `frontend.csharp.csharp2vir.candidate.v1`, and
+  `frontend.java.java2vir.candidate.v2`;
+- toolchains: frozen Go 1.25.0, Rust nightly 2025-06-01,
+  Roslyn 5.6.0/.NET 10.0.11, and Temurin 25.0.4.1+1 candidate-v1 bundles;
 - targets: Go `linux/amd64`, Rust `i686-unknown-linux-gnu` and
-  `x86_64-unknown-linux-gnu`, and C# `linux-x64`;
-- semantic profiles: `mpk.go.fixed.v0`, `mpk.rust.checked.v0`, and
-  `mpk.csharp.scalar.v0`.
+  `x86_64-unknown-linux-gnu`, C# `linux-x64`, and Java `linux-x64`;
+- semantic profiles: `mpk.go.fixed.v0`, `mpk.rust.checked.v0`,
+  `mpk.csharp.scalar.v0`, and `mpk.java.scalar.v0`.
 
 The exact registry digest and bundle inventory hashes are recorded in
 `release/bundles/bundle-registry.json`; callers cannot override them.
 
 ## Review conclusions
 
-- active Go/Rust corpora and C# policy/AI fixtures use successor identities;
+- active Go/Rust corpora, C# policy/AI fixtures, and the Java example use the
+  revision-3 successor identities;
 - the installed release rejects predecessor, crossed, and tampered identities;
 - both source-free checkers agree and the axiom inventory has no new category;
-- the executable C# staging tree is absent and only reviewed migration reports
-  remain under `develop/migrations/archive`;
+- the executable Java staging tree and predecessor composed gates are absent;
 - the final implementation review has zero findings;
-- `JAVA-03` is eligible.
+- the native two-pass Go/Rust/C#/Java receipt is not claimed: the available
+  amd64 Linux container returns `ENOSYS` for the namespace isolation probes, so
+  both official release passes remain unstarted and `CSHARP-03` remains
+  blocked.

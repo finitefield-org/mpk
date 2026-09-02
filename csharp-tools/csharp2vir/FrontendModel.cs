@@ -11,8 +11,8 @@ internal static class FrontendConstants
     internal const string SelectionSchema = "mpk.selection.csharp_methods.v0";
     internal const string ContractSchema = "mpk.csharp.contract.v0";
     internal const string ProfileRegistryId = "mpk.semantic_profile.registry.v1";
-    internal const int ProfileRegistryRevision = 2;
-    internal const string ProfileRegistrySha256 = "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75";
+    internal const int ProfileRegistryRevision = 3;
+    internal const string ProfileRegistrySha256 = "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557";
     internal const string ProfileEntrySha256 = "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac";
     internal const string ReleaseRegistryId = "mpk.release.registry.v1";
     internal const string SourceRoot = "/mpk/source";

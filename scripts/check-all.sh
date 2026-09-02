@@ -21,9 +21,9 @@ cd "$repo_root"
 
 run "$repo_root/scripts/check-fast.sh"
 # This two-pass gate owns the complete successor image, installed frontends,
-# checker agreement, and C# release validation. Do not repeat its I/O-heavy
+# checker agreement, and Java release validation. Do not repeat its I/O-heavy
 # phases below.
-run "$repo_root/scripts/check-csharp-frontend.sh"
+run "$repo_root/scripts/check-java-frontend.sh"
 run python3 "$repo_root/scripts/check-spec-vectors.py" --check
 run python3 "$repo_root/scripts/check-package-manifest-fixtures.py"
 run python3 "$repo_root/scripts/check-package-lock-fixtures.py"

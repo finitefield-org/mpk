@@ -69,7 +69,7 @@ def write_tar(path, members):
 
 
 class BuildInputsTests(unittest.TestCase):
-    def test_checked_in_recipe_inventory_and_inactive_release_are_bound(self):
+    def test_checked_in_recipe_inventory_and_active_release_are_bound(self):
         inputs = BUILD.load_toolchain()
         self.assertEqual(inputs["toolchain_inputs_sha256"], BUILD.TOOLCHAIN_HASH)
         descriptor = BUILD.load_descriptor()

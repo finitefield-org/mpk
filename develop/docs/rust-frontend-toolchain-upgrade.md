@@ -109,7 +109,7 @@ Run the differential, two-clean-build, path, limit, fuzz, obsolete-interface,
 checker, and complete release gates:
 
 ```sh
-sudo ./scripts/check-csharp-frontend.sh
+sudo ./scripts/check-java-frontend.sh
 ./scripts/check-no-active-gir.sh --strict
 sudo ./scripts/check-all.sh
 cargo test --workspace

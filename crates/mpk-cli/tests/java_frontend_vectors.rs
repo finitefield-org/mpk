@@ -1,5 +1,6 @@
 //! T04: independent failure transport and the private pinned-JDK adapter executor.
-//! No installed Java tuple or public source-processing route is enabled here.
+//! This owner exposes no public source-processing route; T10 activation is
+//! exercised separately by the installed release owners.
 
 use mpk_cli::frontend_protocol::FrontendProcessFacts;
 use mpk_cli::successor_frontend_protocol::{
@@ -208,8 +209,10 @@ fn java_failure_transport_is_bounded_canonical_and_identity_linked() {
 }
 
 fn command() -> Command {
-    let mut command = Command::new(root().join("scripts/check-java-frontend.sh"));
+    let mut command = Command::new("/usr/bin/python3");
     command
+        .args(["-I", "-S", "-B"])
+        .arg(root().join("scripts/java_frontend_tests.py"))
         .env_clear()
         .env("PATH", "/nonexistent")
         .env("HOME", "/unselected")
@@ -226,7 +229,7 @@ fn command() -> Command {
 
 #[test]
 fn private_adapter_fixture_ownership_is_closed_and_requires_an_explicit_run() {
-    let output = command().arg("--check-fixtures").output().unwrap();
+    let output = command().arg("check-fixtures").output().unwrap();
     assert!(
         output.status.success(),
         "{}",
@@ -235,7 +238,7 @@ fn private_adapter_fixture_ownership_is_closed_and_requires_an_explicit_run() {
     assert!(output.stdout.is_empty() && output.stderr.is_empty());
     for arguments in [
         vec![],
-        vec!["--run", "--class-path", "/unselected"],
+        vec!["run", "--class-path", "/unselected"],
         vec!["--worker"],
     ] {
         let output = command().args(arguments).output().unwrap();
@@ -248,7 +251,7 @@ fn private_adapter_fixture_ownership_is_closed_and_requires_an_explicit_run() {
 #[test]
 #[ignore = "requires the provisioned pinned JDK cache and local Linux amd64 image; runs offline"]
 fn pinned_java_capture_compiler_and_diagnostic_vectors_execute() {
-    let output = command().arg("--run").output().unwrap();
+    let output = command().arg("run").output().unwrap();
     assert!(
         output.status.success(),
         "{}",
@@ -266,13 +269,15 @@ fn pinned_java_capture_compiler_and_diagnostic_vectors_execute() {
     assert_eq!(
         report["lowering_precedence"],
         json!({
-            "contract_before_lowering":"T06: --run-lowering",
-            "map_failure_prevents_partial_output":"T06: --run-lowering"
+            "contract_before_lowering":"T06: java_frontend_tests run-lowering",
+            "map_failure_prevents_partial_output":"T06: java_frontend_tests run-lowering"
         })
     );
     assert_eq!(
         report["runner_precedence"],
-        json!({"release_before_source":"T07: --run-runner"})
+        json!({
+            "release_before_source":"T10: successor_atomic_cutover release-before-source"
+        })
     );
     assert_eq!(report["follow_on_precedence"], json!({}));
     for case in report["failures"].as_array().unwrap() {

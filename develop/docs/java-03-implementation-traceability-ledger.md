@@ -1,9 +1,10 @@
 # JAVA-03 Implementation Traceability Ledger
 
-Status: `JAVA-03-T09 Complete` (private release rehearsal: 2026-09-02);
-T01 through T08 are also complete. T10 activation is pending. The private T09
-receipt and native gate do not establish T10 Java activation.
-The active release remains Go/Rust/C# at registry revision 2.
+Status: `JAVA-03-T10` activation implementation complete (2026-09-03);
+native x86-64 Linux release acceptance pending. T01 through T09 are complete.
+The checked-in active release is Go/Rust/C#/Java at registry revision 3 with
+all five tuples. The ARM64 development host cannot supply the distinct native
+x86-64 T10 receipt, so CSHARP-03 remains blocked until that receipt is recorded.
 
 This is an execution plan subordinate to `../specs/JAVA_PROFILE_V0.md`, the
 exact Java/revision-3 vectors, and `SEMANTIC_PROFILE_REGISTRY_V1.md`. It does
@@ -737,13 +738,16 @@ T07 implementation and native acceptance record (2026-08-31 through 2026-09-01):
   `mpk.host.linux-x86_64-gnu.java25.v0` and corresponding runtime layout are
   distinct from the existing Go/Rust/C# contracts; those budgets and IDs are
   unchanged. No environment flag or caller-selected executable opens Java.
-- `java_frontend_runner.rs` is included only by its owning test executable.
-  It locates registries beside the actual installed `bin/mpk` inode, uses the
-  shared no-follow loader to snapshot registered bundles, and prepares the
-  Java host before accessing selected source. It checks captured path/kind/
-  count/size agreement before materialization, imports the complete response
-  through the shared validators, and binds successful manifests to the exact
-  frontend, distribution, component and release-registry identities.
+- At T07, `java_frontend_runner.rs` was included only by its owning test
+  executable. T10 moved that reviewed implementation into the production
+  shared installed runner and reduced the test owner to active descriptor,
+  launcher and retired-staging assertions. The production runner locates
+  registries beside the actual installed `bin/mpk` inode, uses the shared
+  no-follow loader to snapshot registered bundles, and prepares the Java host
+  before accessing selected source. It checks captured path/kind/count/size
+  agreement before materialization, imports the complete response through the
+  shared validators, and binds successful manifests to the exact frontend,
+  distribution, component and release-registry identities.
 - Java's sandbox branch uses atomic cgroup placement and the existing pidfd,
   bounded-stream and descendant/backing cleanup machinery with 1 GiB memory,
   zero swap, 128 PIDs, 16 GiB address space, 1,024 descriptors, zero core bytes,
@@ -932,6 +936,84 @@ T09 private release-rehearsal record (2026-09-02):
 - The active installed release remains the reviewed Go/Rust/C# revision-2
   successor. `public_activation` is false and **JAVA-03-T09 is complete.** T10
   alone may atomically install revision 3 and the Java tuple.
+
+T10 atomic activation implementation record (2026-09-03):
+
+- The sole checked-in semantic registry is revision 3, with canonical identity
+  `fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557`
+  and raw-byte SHA-256
+  `1c9671f7db1f872f93d21757c271b39ddedd4fe612f4f388fe1700acd9808080`.
+  The sole checked-in release registry has canonical identity
+  `7877c7c04fae912815713a8a7f6f9900198721ea572788f6f48d1dbe3f00afbd`
+  and raw-byte SHA-256
+  `f2da0168c30ac72b2d624a2af76959231114b5ad862fad9d893c4e15b48395d0`.
+  It contains exactly three host profiles, two native-runtime layouts, four
+  frontend bundles, four toolchain bundles and five tuples. The four
+  predecessor Go/Rust/C# tuples are preserved and the exact Java Linux-x64
+  tuple is added; the four source-only candidate projections are exact subsets
+  whose union is that release.
+- CLI, API and shared installed-runner resolution now admit Java only through
+  those descriptor-relative revision-3 bytes. All nine compiled Java profile
+  contracts are required. Revision 2, crossed revision-3 roots, partial
+  registries, caller-selected bundle/toolchain paths and mixed installed trees
+  reject. There is no dual loader or compatibility flag. The former Java
+  runner/rehearsal scripts and private candidate registry are deleted;
+  `build-java-candidate.sh` is check-only and source candidates are not an
+  executable publication route.
+- `crates/mpk-cli/tests/java_activation.rs` owns the eight frozen activation
+  cases, exact five-tuple union, old/crossed/partial rejection and all nine Java
+  envelopes. `successor_atomic_cutover.rs` remains the installed four-language
+  owner. Go, Rust and C# context-bound corpora, examples, policy/evidence,
+  certificates and AI fixtures were regenerated against the sole revision-3
+  context rather than accepted through a compatibility path. The Java payment
+  policy example uses selection-owned sidecars and no public `--contract`
+  argument.
+- `scripts/check-java-frontend.sh` is the sole composed release gate and
+  `scripts/check-all.sh` delegates to it. It is no-argument, offline, root-only
+  and native-x86-64-Linux-only; it checks frozen inputs, formatting, all-target
+  Clippy, the workspace, every provisioned Java owner, four language owners,
+  both source-free checkers and release reports. Each installed pass repeats
+  hostile-ambient comparison, the Java scalar native cases, rejection without
+  an owned delegated cgroup, all six cgroup / stream / timeout / tmpfs fault
+  boundaries, all ten Java image mutations with release-before-source
+  precedence, and the source-free actual-JVM syscall trace without charging
+  ptrace overhead to the frozen source-request timeout. The
+  installed release pass runs twice. The old C# gate exits 64 with the
+  replacement command. No GitHub workflow is used.
+- Certificate v0 encoding, checker inputs, checker acceptance, the empty Java
+  axiom contribution and the four existing axiom categories are unchanged.
+  The regenerated release report raw-byte SHA-256 is
+  `fc8ae46c8b0cfe3cde0f13bf86788a2b900ed4651627be0c7656ee1cde49c003`.
+- The T10 review/fix loop compared the composed gate against the deleted T07 /
+  T09 gates and restored two inherited native boundaries: an undelegated JVM
+  launch must reject before source access, and syscall evidence uses the
+  source-free registered JVM probe instead of charging ptrace overhead to a
+  120-second lowering request. It also corrected the provisioned T04 owner to
+  call the private `run` action rather than the rejected former wrapper flag,
+  and replaced stale runner-precedence labels. The provisioned T02, T04, T05
+  and T06 owners pass on the development host. A focused offline translated
+  amd64 Linux run also passed the Linux-only T08 same-byte dual-checker owner
+  and T09 two-build/two-run rehearsal; its post-cutover certificate SHA-256 is
+  `782ac1d28c39e171549c81e24d1059fc3544d1222fe4978247024d9397c08ef7`
+  and private T09 report SHA-256 is
+  `46b2e57807392999aa01fa78396810333e4e9e9614c53a7c64982e6a895c0b47`.
+  These translated checks are additional conformance evidence, not native
+  release acceptance.
+- The native T10 gate is explicitly unrun, not passed. The available host is
+  `Darwin 25.5.0 arm64`. An offline amd64 Linux container with a writable
+  cgroup-v2 hierarchy completed the frozen-input checks, formatting and
+  all-target Clippy, but translated `cargo test --workspace` stopped before
+  either release pass because the host could not implement required namespace
+  syscalls (`Function not implemented (os error 38)` / `Unavailable`) in
+  `frontend_sandbox::tests::private_source_namespace_seals_and_unseals_a_deep_legal_tree`,
+  `policy_scan::v1::tests::noncandidate_inspection_uses_a_path_only_descriptor`,
+  and
+  `policy_scan::v1::tests::private_java_capture_preserves_source_contract_and_unlisted_inventory`.
+  ARM translation is not native x86-64 acceptance, and these tests were not
+  weakened, skipped or reclassified. The required two installed-release passes
+  therefore never started. A real native x86-64 Linux run of
+  `sudo ./scripts/check-java-frontend.sh` must supply the remaining receipt;
+  CSHARP-03 remains blocked until then.
 
 A task is complete only after its exact deliverables, required verification
 (or explicitly recorded unrun reason), fix/review loop, commit and push are

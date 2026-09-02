@@ -53,8 +53,8 @@ The scoped Rust v0 program completed at `RUST-07-T05`. Its strictly serial
 follow-on flow now has this status and order:
 
 1. `MLANG-00`, `MLANG-01`, and the C# scalar release are complete;
-2. Java is complete through T09 and T10 public activation is next; and
-3. after T10, expand C# through the proposed practical profile, then implement
+2. Java is complete through the T10 atomic public activation; and
+3. next expand C# through the proposed practical profile, then implement
    Dart, TypeScript, and Python, one phase at a time.
 
 `MLANG-00-T01` through `MLANG-00-T03`, `MLANG-01-T01` through
@@ -69,13 +69,14 @@ four non-normative semantic, feasibility, and implementation-audit records are
 `docs/csharp-02-implementation-traceability-ledger.md` records the completed
 20-task implementation and atomic release.
 
-The active release installs semantic-registry revision 2 and the sole
+The active release installs semantic-registry revision 3 and the sole
 `mpk.release.bundle_registry.v1` registry beside `bin/mpk`. It admits exactly
-the registered Go, Rust, and C# tuples, uses successor VIR, frontend,
+the five registered Go, Rust, C#, and Java tuples, uses successor VIR, frontend,
 source-map, source-manifest, VC, policy/evidence, AI, and API identities, and
-compiles all nine C# profile contracts. C# runs only through the shared
-descriptor-relative installed-tree runner under the frozen .NET launcher and
-Linux isolation contract; Go and Rust use that same successor release path.
+compiles all nine C# and all nine Java profile contracts. C# and Java run only
+through the shared descriptor-relative installed-tree runner under their frozen .NET/JVM
+launchers and Linux isolation contracts; Go and Rust use that same successor
+release path.
 Predecessor and crossed identities reject, the executable staging tree is
 removed, and only reviewed migration reports remain under
 `develop/migrations/archive/`.
@@ -85,8 +86,8 @@ categories are unchanged. Frontends, compilers, registries, helper schemas,
 policy/evidence documents, AI output, and API state remain untrusted. The
 atomic installed-release owner is
 `crates/mpk-cli/tests/successor_atomic_cutover.rs`, and the offline two-pass
-release gate is `scripts/check-csharp-frontend.sh`. `JAVA-03-T01` completed
-the inactive [Java profile](specs/JAVA_PROFILE_V0.md), exact Java/revision-3
+release gate is `scripts/check-java-frontend.sh`. `JAVA-03-T01` completed
+the [Java profile](specs/JAVA_PROFILE_V0.md), exact Java/revision-3
 vectors, pinned JDK/native inventory and disposable public-API/JVM probes.
 The [design](docs/07_java_frontend_design.md) and
 [implementation ledger](docs/java-03-implementation-traceability-ledger.md)
@@ -99,10 +100,10 @@ source subset admission, inert initialization, call closure and typed sidecars.
 T06 completed private CFG/lowering and deterministic artifact emission; T07
 completed the registered candidate bundles, JVM runner and native x86-64 Linux
 acceptance. T08 completed private VC, policy/evidence, certificate, AI and API
-integration, and T09 completed the private release rehearsal. Public installed
-execution remains T10; no
-Java or later-language frontend is active and registry revision 2 stays
-installed.
+integration, and T09 completed the private release rehearsal. T10 then
+installed revision 3 and the Java tuple atomically and removed executable
+staging entrypoints. Its four-language two-pass native x86-64 Linux gate is
+explicitly unrun on the ARM64 development host.
 
 The proposed post-Java
 [practical C# design](docs/08_csharp_practical_subset_design.md) adds the
@@ -110,9 +111,9 @@ business-domain capability set requested for C# without widening the active
 scalar profile. It covers immutable construction, bounded collections and
 builders, exact codecs, domain outcomes and business values, explicit data
 boundaries, and pure state transitions in addition to the requested language
-constructs. It is design/governance work only: `JAVA-03-T10` must complete
-before `CSHARP-03` may freeze a specification or begin implementation, and
-Dart waits for the complete practical-profile release gate.
+constructs. It remains design/governance work only. The T10 code prerequisite
+is present, but `CSHARP-03-T01-W01` remains blocked until the native T10 gate
+receipt is recorded. Dart waits for the complete practical-profile release gate.
 
 No multi-language feasibility, specification, or implementation phase runs in
 parallel with the Rust program or with another production phase. A later
@@ -159,13 +160,14 @@ ownership are:
 | `specs/AI_EXPLAIN_V1.md` | `specs/vectors/ai-explain-v1.json` |
 | `specs/AI_API_V1.md` | `specs/vectors/ai-api-v1.json` |
 
-The successor design below is normative and active for the Go/Rust/C# helper
-release:
+The successor design below is normative and active for the Go/Rust/C#/Java
+helper release:
 
 | Specification | Conformance vector set(s) |
 |---|---|
 | `specs/SEMANTIC_PROFILE_REGISTRY_V1.md` | `specs/vectors/semantic-profile-registry-v1.json` |
 | `specs/CSHARP_PROFILE_V0.md` | `specs/vectors/csharp-profile-v0.json`, `specs/vectors/semantic-profile-registry-v2.json` |
+| `specs/JAVA_PROFILE_V0.md` | `specs/vectors/java-profile-v0.json`, `specs/vectors/semantic-profile-registry-v3.json`, `specs/vectors/java-t09-corpus.json` |
 
 `specs/vectors/manifest.json` is the closed repository index for every vector
 set. Its repository-governance schema is
@@ -310,9 +312,10 @@ the C# and Java implementation ledgers for post-Rust tracker tasks. Java's
 T01 freeze, T02 offline build, T03 validators, T04 capture/compiler adapter,
 T05 source subset/sidecars and T06 lowering/artifact emission are complete;
 T07's private candidate/JVM runner and native x86-64 Linux acceptance are
-complete. T08's private integration and T09's release rehearsal are complete;
-T10 public activation remains pending. The proposed CSHARP-03 practical
-profile begins only after T10 and completes before DART-04.
+complete. T08's private integration, T09's release rehearsal, and T10's atomic
+public activation changes are implemented. Native T10 release acceptance is
+still required before the proposed CSHARP-03 practical profile may begin; that
+profile must complete before DART-04.
 
 ## Reference posture
 

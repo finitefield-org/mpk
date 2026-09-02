@@ -1,4 +1,5 @@
-//! T06: real Java output is imported by the independent, inactive revision-3 validators.
+//! T06: real Java output is imported by the independent revision-3 validators;
+//! T10 installs the same frozen contracts through the active release.
 
 #[path = "support/java_lowering.rs"]
 mod harness;

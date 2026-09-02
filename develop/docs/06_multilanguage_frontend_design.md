@@ -2,8 +2,8 @@
 
 Status: Gate B, `MLANG-00`, Gate C, `MLANG-01`, and Gate D are complete after
 the completed `RUST-07-T05` entry gate. `CSHARP-02-T01` through
-`CSHARP-02-T20` completed serially; the shared successor Go/Rust/C# release is
-active. `JAVA-03-T01` completed the inactive Java profile/vector/toolchain
+`CSHARP-02-T20` completed serially; `JAVA-03-T01` through T10 are also
+implemented. The checked-in successor Go/Rust/C#/Java release is active. T01 completed the Java profile/vector/toolchain
 freeze and disposable compiler/JVM compatibility probes. T02 completed the
 inactive offline build candidate; T03 completed the inactive registry and
 artifact validators. T04 completed internal capture, the public compiler
@@ -11,16 +11,17 @@ adapter and bounded diagnostics. T05 completed source admission, inert
 initialization, acyclic call closure and typed sidecars. T06 completed private
 CFG/lowering and deterministic artifact emission. T07 completed the private
 candidate/JVM runner and native x86-64 Linux acceptance. T08 completed private
-verification integration, and T09 completed conformance and local release
-rehearsal. T10 activation is next.
+verification integration, T09 completed conformance and local release
+rehearsal, and T10 implemented atomic activation.
 `07_java_frontend_design.md` and the Java implementation ledger record
-the implementation boundary. No Java or later-language route is active;
-registry revision 2 remains installed.
+the implementation boundary. Registry revision 3 and all five tuples are
+installed; the native x86-64 T10 receipt is still required, so CSHARP-03 has
+not started.
 
 Prepared: 2026-08-21
 
-Updated: 2026-09-02 (`JAVA-03-T01` through T09 complete; T10 next;
-post-Java `CSHARP-03` practical-profile design proposed)
+Updated: 2026-09-03 (`JAVA-03-T10` activation implemented; native x86-64
+release receipt pending; post-Java `CSHARP-03` still blocked)
 
 ## 1. Decision summary
 
@@ -108,8 +109,9 @@ profile for immutable domain types and construction, bounded collections,
 canonical text codecs, business values and outcomes, richer numeric and control
 flow, exceptions, iterators, closed async source shape, explicit integration
 boundaries, and pure business state transitions. It does not widen the active
-scalar profile or authorize a profile, schema, bundle, or public route before
-`JAVA-03-T10` completes.
+scalar profile or authorize a profile, schema, bundle, or public route. The
+T10 activation implementation is present, but the native x86-64 release
+receipt remains an explicit entry prerequisite.
 
 The order may change only through a reviewed governance amendment that records
 the user value, semantic risk, compiler integration quality, and effect on the
@@ -355,16 +357,16 @@ existing BV foundations with Java-owned checks. `JAVA-03-T01` froze
 `../specs/JAVA_PROFILE_V0.md`, Java/revision-3 vectors, the exact JDK/native
 inventory and JVM requirements. The disposable compiler/JVM measurements ran
 on Linux amd64 under CPU emulation. Native Linux production enforcement was
-accepted separately for T07, and T09 completed the full local release
-rehearsal; T10 alone owns activation. T02 added the offline build candidate with
+accepted separately for T07, T09 completed the full local release rehearsal,
+and T10 atomically activated the reviewed release. T02 added the offline build candidate with
 exact project/class/JAR inventories and two isolated builds. T03 completed
 the inactive profile and source-artifact validators. T04 completed capture and
 the public compiler adapter; T05 completed source admission and typed sidecars.
 T06 completed private CFG/lowering, original-byte source maps and complete
 artifact emission. T07 completed the registered candidate, JVM runner and
 native acceptance. T08 completed private verification integration, and T09
-completed conformance and release rehearsal. T10 is next. These changes do not
-activate Java or replace the installed revision-2 registry.
+completed conformance and release rehearsal. T10 installed revision 3 and the
+Java tuple without changing predecessor entry semantics.
 
 The supported JDK compiler APIs expose parse/analyze trees and language/type
 models. The initial profile rejects allocation, reference values, instance and
@@ -518,16 +520,18 @@ Go/Rust/C# tuples and the nine C# compiled-profile contracts are active;
 active fixtures use successor identities; predecessor and crossed identities
 reject; and the executable staging tree is gone.
 
-The cutover retains only the archived zero-finding review and semantic-
-difference reports. `crates/mpk-cli/tests/successor_atomic_cutover.rs` owns the
-installed-image proof, and `scripts/check-csharp-frontend.sh` performs the
-offline two-pass release gate. Certificate v0, both checker inputs and
+The C# cutover retained only the archived zero-finding review and semantic-
+difference reports. `crates/mpk-cli/tests/successor_atomic_cutover.rs` still
+owns the installed-image proof; after Java activation,
+`scripts/check-java-frontend.sh` is the sole offline two-pass release gate.
+Certificate v0, both checker inputs and
 verdicts, the four axiom categories, and the untrusted status of every helper
 artifact remain unchanged. Gate D is closed and Gate E may admit only
 `JAVA-03` next.
 
-After `JAVA-03-T10` closes Gate E, the proposed `CSHARP-03` practical C# phase
-is next. DART-04 remains blocked until that entire phase passes its release
+`JAVA-03-T10` implemented the Gate E cutover, but the native x86-64 release
+receipt remains open. The proposed `CSHARP-03` practical C# phase is next but
+cannot start yet. DART-04 remains blocked until that entire phase passes its release
 gate; design preparation does not count as phase entry.
 
 ### Gate E: serial language/profile admission

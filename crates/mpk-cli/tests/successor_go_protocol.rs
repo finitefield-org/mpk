@@ -40,9 +40,9 @@ fn json(relative: impl AsRef<Path>) -> Value {
 fn semantic_registry() -> ValidatedSemanticProfileRegistry {
     validate_semantic_profile_registry(
         &read("release/bundles/semantic-profile-registry.json"),
-        RegistryRevision::Revision2,
+        RegistryRevision::Revision3,
     )
-    .expect("revision-2 semantic registry")
+    .expect("revision-3 semantic registry")
 }
 
 fn kind(value: &Value) -> InputKind {

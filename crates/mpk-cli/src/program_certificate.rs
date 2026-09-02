@@ -216,8 +216,8 @@ pub fn assemble_program_certificate_alpha(
     assemble_program_certificate_alpha_from_functions(&vc.functions, skeleton, source_manifest)
 }
 
-/// Internal source-neutral entry point used by the inactive successor policy
-/// staging path. The caller must first validate its versioned VC and skeleton;
+/// Internal source-neutral entry point used by the successor policy path. The
+/// caller must first validate its versioned VC and skeleton;
 /// this function independently rechecks the complete function/declaration
 /// projection before invoking the unchanged Certificate v0 assembly path.
 pub(crate) fn assemble_program_certificate_alpha_from_functions(

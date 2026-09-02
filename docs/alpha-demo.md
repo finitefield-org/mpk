@@ -1,12 +1,12 @@
 # Alpha Demo Guide
 
-This guide reproduces the active Go/Rust/C# successor paths and source-free
+This guide reproduces the active Go/Rust/C#/Java successor paths and source-free
 proof checks.
 Run commands from the repository root unless noted otherwise.
 
 ## Trust boundary
 
-Go/Rust/C# source, contracts, compilers, frontend envelopes, VIR, source maps,
+Go/Rust/C#/Java source, contracts, compilers, frontend envelopes, VIR, source maps,
 manifests, VC JSON, skeletons, policy reports, CI results, and AI output are
 untrusted helper artifacts. Proof
 acceptance comes only from canonical certificate bytes or checked theory
@@ -19,6 +19,8 @@ certificates accepted by the configured source-free checkers.
 (cd go-tools/go2vir && go test -count=1 ./...)
 cargo test -p mpk-cli --test csharp_profile_vectors
 ./scripts/build-csharp-frontend.sh --check
+cargo test -p mpk-cli --test java_activation
+./scripts/build-java-candidate.sh --check
 ```
 
 The corpora cover the registered profiles, positive examples, and reviewed
@@ -47,8 +49,9 @@ The inspectable example outputs include:
 
 Production `mpk policy scan` and `mpk policy verify` resolve a frontend,
 toolchain, registry identity, and compiled profile contracts from the release
-installed beside `bin/mpk`. Callers provide only revision-2 semantic-context
-and selection envelopes, Go/Rust contract paths, and an output path. Raw
+installed beside `bin/mpk`. Callers provide only revision-3 semantic-context
+and selection envelopes, Go/Rust contract paths, and an output path. C# and
+Java sidecars are selection-owned. Raw
 executables, toolchain roots, registries, bundle identities, and compatibility
 flags reject.
 
@@ -77,12 +80,12 @@ these checks.
 
 ```sh
 ./scripts/check-fast.sh
-sudo ./scripts/check-csharp-frontend.sh
+sudo ./scripts/check-java-frontend.sh
 sudo ./scripts/check-all.sh
 ```
 
 The successor gate validates frozen build inputs and all registered bundles,
-executes Go, Rust, and C# through one installed image, checks determinism,
+executes Go, Rust, C#, and Java through one installed image, checks determinism,
 differential cases, limits, fuzz smoke, path sanitation, checker agreement,
 axiom/profile equality, and removed predecessor interfaces. Its release report
 is untrusted provenance; it cannot replace the certificate checks in section
@@ -91,8 +94,9 @@ The root boundary is used only to create the release sandbox's fresh delegated
 cgroup and fixed `noswap` backing; Rust source processing runs after the
 sandbox removes host privileges.
 
-The Rust example and its exact request envelopes live under
-`examples/rust-payment-policy`. Verify generated release metadata with:
+The Rust and Java examples and their exact request envelopes live under
+`examples/rust-payment-policy` and `examples/java-payment-policy`. Verify
+generated release metadata with:
 
 ```sh
 python3 scripts/generate-release-report.py --check

@@ -15,7 +15,7 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 
 const PROFILE_PATH: &str = "develop/specs/vectors/csharp-profile-v0.json";
-const REGISTRY_PATH: &str = "develop/specs/vectors/semantic-profile-registry-v2.json";
+const REGISTRY_PATH: &str = "release/bundles/semantic-profile-registry.json";
 
 fn repository_root() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("../..")
@@ -330,10 +330,10 @@ fn assert_failure_envelopes_pass_the_shared_protocol(profile: &Value, report: &V
     let registry_vectors = load(REGISTRY_PATH);
     let registry = validate_semantic_profile_registry(
         &canonical_registry_transport(&registry_vectors["registry"])
-            .expect("canonical revision-2 registry transport"),
-        RegistryRevision::Revision2,
+            .expect("canonical revision-3 registry transport"),
+        RegistryRevision::Revision3,
     )
-    .expect("frozen revision-2 registry validates");
+    .expect("active revision-3 registry validates");
     let first = &report["rejected"][0]["envelope"];
     assert_eq!(
         first["selection"],

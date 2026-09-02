@@ -13,6 +13,7 @@ use crate::frontend_registry::{
 use crate::frontend_sandbox::{
     launch_csharp_frontend, launch_release_frontend, prepare_release_sandbox, SandboxError,
 };
+use crate::java_frontend_runner::{JavaRunError, PreparedJavaRun};
 use crate::successor_frontend_protocol::{
     validate_successor_frontend_process, AcceptedSuccessorFrontendEnvelope,
     SuccessorFrontendProtocolCode, SuccessorFrontendProtocolRequest,
@@ -254,11 +255,45 @@ impl AcceptedInstalledFrontendRun {
 }
 
 /// Runs exactly one registry-selected frontend from the installed successor
-/// image. The caller supplies assertions, never paths; all three languages
+/// image. The caller supplies assertions, never paths; all four languages
 /// pass through the same registry/context/selection/protocol chain.
 pub fn run_installed_frontend(
     request: InstalledFrontendRunRequest<'_>,
 ) -> Result<AcceptedInstalledFrontendRun, InstalledFrontendRunError> {
+    if request
+        .semantic_context
+        .get("source_language")
+        .and_then(Value::as_str)
+        == Some("java")
+    {
+        if request.release_registry_id != SUCCESSOR_RELEASE_REGISTRY_ID
+            || request.release_registry_sha256 != EXPECTED_REGISTRY_SHA256_HEX
+            || request.frontend_bundle_id != mpk_vc::java_release::FRONTEND_ID
+            || request.toolchain_bundle_id != mpk_vc::java_release::TOOLCHAIN_ID
+            || request.semantic_context
+                != &mpk_vc::java_release::candidate().tuples[0].semantic_context
+            || !request.synthetic_permissions.is_empty()
+            || !request.staged_directories.is_empty()
+            || !request.staged_placeholders.is_empty()
+            || !request.contracts.is_empty()
+        {
+            return Err(installed_failure(InstalledFrontendRunCode::Selection));
+        }
+        let accepted = PreparedJavaRun::open()
+            .map_err(map_java_error)?
+            .run(request.selection, request.captured_inputs)
+            .map_err(map_java_error)?;
+        return Ok(AcceptedInstalledFrontendRun {
+            envelope: accepted.envelope,
+            launcher: FrontendLauncherPlan {
+                program: mpk_vc::java_release::PROGRAM.to_owned(),
+                argv: accepted.launcher.argv().to_vec(),
+                environment: accepted.launcher.environment().clone(),
+            },
+            release_registry: accepted.release_registry,
+        });
+    }
+
     if request
         .semantic_context
         .get("source_language")
@@ -307,7 +342,7 @@ pub fn run_installed_csharp_frontend(
     let installed = InstalledSuccessorRelease::open().map_err(release_error)?;
     let semantic_registry = validate_semantic_profile_registry(
         &installed.semantic_registry_bytes,
-        RegistryRevision::Revision2,
+        RegistryRevision::Revision3,
     )
     .map_err(|_| failure(CSharpRunCode::Release))?;
     let registry =
@@ -399,7 +434,7 @@ fn run_installed_native_frontend(
     let installed = InstalledSuccessorRelease::open().map_err(installed_release_error)?;
     let semantic_registry = validate_semantic_profile_registry(
         &installed.semantic_registry_bytes,
-        RegistryRevision::Revision2,
+        RegistryRevision::Revision3,
     )
     .map_err(|_| installed_failure(InstalledFrontendRunCode::Release))?;
     let registry =
@@ -884,6 +919,18 @@ fn map_csharp_error(code: CSharpRunCode) -> InstalledFrontendRunCode {
     }
 }
 
+fn map_java_error(error: JavaRunError) -> InstalledFrontendRunError {
+    installed_failure(match error {
+        JavaRunError::Release | JavaRunError::Sandbox => InstalledFrontendRunCode::Release,
+        JavaRunError::Selection => InstalledFrontendRunCode::Selection,
+        JavaRunError::Process => InstalledFrontendRunCode::Process,
+        JavaRunError::Protocol => {
+            InstalledFrontendRunCode::Protocol(SuccessorFrontendProtocolCode::ProtocolMalformed)
+        }
+        JavaRunError::Identity => InstalledFrontendRunCode::Identity,
+    })
+}
+
 fn installed_release_error(
     _error: crate::frontend_registry::FrontendReleaseError,
 ) -> InstalledFrontendRunError {
@@ -972,9 +1019,9 @@ fn validate_csharp_release(
     resolved: &ResolvedSuccessorRelease<'_>,
 ) -> Result<(), CSharpRunError> {
     let identity = semantic_registry.identity();
-    if identity.revision() != 2
+    if identity.revision() != 3
         || identity.registry_sha256()
-            != "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75"
+            != "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557"
         || resolved.semantic_context.source_language() != "csharp"
         || resolved.semantic_context.semantic_profile() != "mpk.csharp.scalar.v0"
         || resolved.semantic_context.profile_entry_sha256() != CSHARP_PROFILE_ENTRY_SHA256

@@ -42,11 +42,11 @@ For release-facing or cross-boundary changes, run:
 sudo ./scripts/check-all.sh
 ```
 
-For a targeted Go, Rust, C#, release-bundle, or policy change, run the sole
+For a targeted Go, Rust, C#, Java, release-bundle, or policy change, run the sole
 successor release gate directly:
 
 ```sh
-sudo ./scripts/check-csharp-frontend.sh
+sudo ./scripts/check-java-frontend.sh
 ```
 
 The ignored frozen-build cache must already exist; neither gate provisions or
@@ -63,6 +63,7 @@ Targeted checks are acceptable while iterating:
 ```sh
 cargo test --workspace
 cargo test -p mpk-cli --test successor_atomic_cutover
+cargo test -p mpk-cli --test java_activation
 cargo test -p mpk-cli --test csharp_policy_verify
 cargo test -p mpk-vc --test go_vir_corpus
 (cd go-tools/go2vir && go test -count=1 ./...)
@@ -102,7 +103,7 @@ and tests together:
 
 Keep `mpk.policy.scan.v2` as helper analysis. Keep
 `mpk.policy.evidence.v2` as the product source of truth. Public commands must
-continue to accept only revision-2 semantic-context and selection envelopes;
+continue to accept only revision-3 semantic-context and selection envelopes;
 do not reintroduce caller-selected registry, bundle, toolchain, provider, or
 compatibility options.
 

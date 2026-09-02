@@ -1,11 +1,12 @@
-//! Private T07 installed-candidate runner. Included only by its owning test
-//! executable; no public CLI/API, feature flag or environment toggle selects it.
+//! Descriptor-relative Java runner for the sole installed successor release.
+//! No public caller can select an executable, registry, toolchain, or root.
 
 use crate::frontend_protocol::FrontendProcessFacts;
-use crate::frontend_registry::{BundleSnapshot, InstalledSuccessorRelease};
-use crate::frontend_sandbox::{
-    launch_java_frontend, launch_java_trace_probe, prepare_release_sandbox, PreparedSandbox,
+use crate::frontend_registry::{
+    BundleSnapshot, InstalledSuccessorRelease, EXPECTED_REGISTRY_SHA256_HEX,
+    EXPECTED_SEMANTIC_REGISTRY_SHA256,
 };
+use crate::frontend_sandbox::{launch_java_frontend, prepare_release_sandbox, PreparedSandbox};
 use mpk_cli::successor_frontend_protocol::{
     validate_successor_frontend_process, AcceptedSuccessorFrontendEnvelope,
     SuccessorFrontendProtocolRequest,
@@ -19,7 +20,9 @@ use mpk_vc::semantic_profile_registry::{
     validate_registry_selection_envelope, validate_semantic_profile_registry, RegistryRevision,
     ValidatedSemanticProfileRegistry,
 };
-use mpk_vc::{CapturedInput, ComponentIdentity, InputKind, ToolchainComponent};
+use mpk_vc::{
+    CapturedInput, ComponentIdentity, InputKind, ReleaseRegistryIdentity, ToolchainComponent,
+};
 use serde_json::Value;
 use std::collections::{BTreeMap, BTreeSet};
 use std::sync::Arc;
@@ -41,6 +44,12 @@ pub(crate) struct PreparedJavaRun {
     sandbox: PreparedSandbox,
 }
 
+pub(crate) struct AcceptedJavaRun {
+    pub(crate) envelope: AcceptedSuccessorFrontendEnvelope,
+    pub(crate) launcher: mpk_vc::java_release::JavaLauncherPlan,
+    pub(crate) release_registry: ReleaseRegistryIdentity,
+}
+
 impl PreparedJavaRun {
     // There is deliberately no caller-selected registry, executable or root.
     // All release I/O and host preparation precede access to source inputs.
@@ -53,7 +62,13 @@ impl PreparedJavaRun {
         .map_err(|_| JavaRunError::Release)?;
         let release = validate_successor_release_registry(&installed.registry_bytes, &semantic)
             .map_err(|_| JavaRunError::Release)?;
-        if release.registry() != java_release::registry() {
+        if semantic.identity().registry_sha256() != EXPECTED_SEMANTIC_REGISTRY_SHA256
+            || release.registry_sha256() != EXPECTED_REGISTRY_SHA256_HEX
+            || !release.registry().tuples.iter().any(|release_tuple| {
+                release_tuple.frontend_bundle_id == java_release::FRONTEND_ID
+                    && release_tuple.toolchain_bundle_id == java_release::TOOLCHAIN_ID
+            })
+        {
             return Err(JavaRunError::Release);
         }
         let expected = release
@@ -90,7 +105,7 @@ impl PreparedJavaRun {
         self,
         selection: &Value,
         captured: &[CapturedInput<'_>],
-    ) -> Result<AcceptedSuccessorFrontendEnvelope, JavaRunError> {
+    ) -> Result<AcceptedJavaRun, JavaRunError> {
         let resolved = self
             .release
             .resolve(
@@ -228,32 +243,10 @@ impl PreparedJavaRun {
                 return Err(JavaRunError::Identity);
             }
         }
-        Ok(envelope)
-    }
-
-    /// Measures the registered JVM's native thread/syscall behavior without
-    /// charging ptrace overhead to a source request. The full native cases
-    /// separately prove that the same registered launcher lowers source within
-    /// its frozen request timeout.
-    pub(crate) fn trace_probe(self) -> Result<(), JavaRunError> {
-        let frontend = self
-            .snapshots
-            .get(java_release::FRONTEND_ID)
-            .ok_or(JavaRunError::Release)?;
-        let toolchain = self
-            .snapshots
-            .get(java_release::TOOLCHAIN_ID)
-            .ok_or(JavaRunError::Release)?;
-        let output = launch_java_trace_probe(self.sandbox, frontend, toolchain)
-            .map_err(|_| JavaRunError::Process)?;
-        if output.exit_code != Some(0)
-            || output.signaled
-            || output.stdout != b"java2vir 0.1.0 (Temurin 25.0.4.1+1; inactive)\n"
-            || output.stderr_observed_bytes != 0
-            || output.stream_limit_exceeded
-        {
-            return Err(JavaRunError::Process);
-        }
-        Ok(())
+        Ok(AcceptedJavaRun {
+            envelope,
+            launcher: plan,
+            release_registry: identity,
+        })
     }
 }

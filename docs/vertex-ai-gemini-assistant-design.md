@@ -5,7 +5,7 @@ the active successor exposes a sanitized request projection only
 
 ## Decision
 
-`mpk explain` performs the same local, strict Go/Rust/C# verification as
+`mpk explain` performs the same local, strict Go/Rust/C#/Java verification as
 `mpk policy verify` and emits a deterministic `mpk.ai.explain.request.v2`
 document. MPK does not choose or contact a model provider and does not accept a
 provider response through the public CLI.
@@ -19,7 +19,7 @@ mpk explain <source-root> \
   --request-json-out <sanitized-request.json>
 ```
 
-The revision-2 semantic profile supplies the AI projection contract. The
+The revision-3 semantic profile supplies the AI projection contract. The
 request contains a bounded summary of validated policy evidence and omits
 source, contract bodies, certificate bytes, local paths, commands,
 credentials, and original property identifiers.

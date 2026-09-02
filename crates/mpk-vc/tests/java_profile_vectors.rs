@@ -132,7 +132,10 @@ fn frozen_registry_and_all_nine_contracts_execute_compiled_dispatch() {
     );
     assert_eq!(vectors["profile_spec"], "develop/specs/JAVA_PROFILE_V0.md");
     let registry = registry();
-    let previous = validate_semantic_profile_registry(ACTIVE, RegistryRevision::Revision2).unwrap();
+    let predecessor_bytes = canonical_registry_transport(&vectors["predecessor"]).unwrap();
+    let previous =
+        validate_semantic_profile_registry(&predecessor_bytes, RegistryRevision::Revision2)
+            .unwrap();
     validate_revision_3_append_only(&previous, &registry).unwrap();
     assert!(validate_revision_3_append_only(&registry, &previous).is_err());
     assert!(validate_revision_3_append_only(&registry, &registry).is_err());
@@ -171,16 +174,16 @@ fn frozen_registry_and_all_nine_contracts_execute_compiled_dispatch() {
         }
     }
     assert_eq!(
-        canonical_registry_transport(&vectors["predecessor"]).unwrap(),
-        ACTIVE
+        canonical_registry_transport(&vectors["registry"]).unwrap(),
+        ACTIVE,
     );
     assert!(previous.lookup("java", JAVA_SCALAR_PROFILE).is_none());
-    assert_eq!(load(BUNDLES)["tuples"].as_array().unwrap().len(), 4);
+    assert_eq!(load(BUNDLES)["tuples"].as_array().unwrap().len(), 5);
     assert!(load(BUNDLES)["tuples"]
         .as_array()
         .unwrap()
         .iter()
-        .all(|t| t["semantic_context"]["source_language"] != "java"));
+        .any(|t| t["semantic_context"]["source_language"] == "java"));
     let profile = load(PROFILE);
     assert_eq!(profile["schema"], "mpk.java.profile.conformance.v0");
     let identity = &profile["profile_identity"];
@@ -246,7 +249,7 @@ fn frozen_registry_and_all_nine_contracts_execute_compiled_dispatch() {
         )
         .is_err());
     }
-    assert!(validate_semantic_profile_registry(ACTIVE, RegistryRevision::Revision3).is_err());
+    assert!(validate_semantic_profile_registry(ACTIVE, RegistryRevision::Revision3).is_ok());
 }
 
 #[test]

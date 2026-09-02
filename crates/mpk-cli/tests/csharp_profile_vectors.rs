@@ -17,9 +17,9 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 
 const PROFILE_PATH: &str = "develop/specs/vectors/csharp-profile-v0.json";
-const PROFILE_SHA256: &str = "385e8bdde63bb3656d3643bdc27926087afe04d934774ba593ab0ae4ef8816d5";
+const PROFILE_SHA256: &str = "8109f781ca1f2b90ba02f786da09ba97602f4cd484b8835b561d5ecf4e7781c8";
 const SEMANTIC_V1_PATH: &str = "develop/specs/vectors/semantic-profile-registry-v1.json";
-const SEMANTIC_V2_PATH: &str = "develop/specs/vectors/semantic-profile-registry-v2.json";
+const SEMANTIC_V3_PATH: &str = "develop/specs/vectors/semantic-profile-registry-v3.json";
 const STAGED_SEMANTIC_PATH: &str = "release/bundles/semantic-profile-registry.json";
 const FUZZ_MANIFEST_PATH: &str = "csharp-tools/csharp2vir/fuzz/seed-manifest.json";
 
@@ -191,13 +191,13 @@ fn every_frozen_top_level_field_has_an_aggregate_executor() {
         assert!(!object(&profile[field]).is_empty(), "{field}");
     }
 
-    let registry_vectors = load(SEMANTIC_V2_PATH);
+    let registry_vectors = load(SEMANTIC_V3_PATH);
     let registry = validate_semantic_profile_registry(
         &canonical_registry_transport(&registry_vectors["registry"])
-            .expect("canonical revision-2 registry"),
-        RegistryRevision::Revision2,
+            .expect("canonical revision-3 registry"),
+        RegistryRevision::Revision3,
     )
-    .expect("revision-2 registry validates");
+    .expect("revision-3 registry validates");
     let semantic_context = json!({
         "profile_entry_sha256": profile["profile_identity"]["profile_entry_sha256"],
         "profile_registry": {
@@ -366,7 +366,7 @@ fn checked_in_regressions_are_closed_and_protocol_mutations_fail_safely() {
 
     let registry = validate_semantic_profile_registry(
         &read(STAGED_SEMANTIC_PATH),
-        RegistryRevision::Revision2,
+        RegistryRevision::Revision3,
     )
     .expect("staged semantic registry");
     let valid = read("csharp-tools/csharp2vir/fuzz/seeds/protocol/rejected.json");
@@ -444,20 +444,22 @@ fn deterministic_mutations(seed: &[u8]) -> Vec<Vec<u8>> {
 }
 
 fn semantic_registry() -> mpk_vc::semantic_profile_registry::ValidatedSemanticProfileRegistry {
-    validate_semantic_profile_registry(&read(STAGED_SEMANTIC_PATH), RegistryRevision::Revision2)
-        .expect("staged revision-2 semantic registry")
+    validate_semantic_profile_registry(&read(STAGED_SEMANTIC_PATH), RegistryRevision::Revision3)
+        .expect("active revision-3 semantic registry")
 }
 
 #[test]
-fn all_three_profiles_reject_predecessor_and_crossed_release_bytes() {
+fn all_four_profiles_reject_predecessor_and_crossed_release_bytes() {
     let semantic = semantic_registry();
     let candidates = [
         "release/bundles/candidates/go.json",
         "release/bundles/candidates/rust.json",
         "release/bundles/candidates/csharp.json",
+        "release/bundles/candidates/java.json",
     ]
     .map(load);
     let registries = [
+        "release/bundles/bundle-registry.json",
         "release/bundles/bundle-registry.json",
         "release/bundles/bundle-registry.json",
         "release/bundles/bundle-registry.json",
@@ -465,7 +467,7 @@ fn all_three_profiles_reject_predecessor_and_crossed_release_bytes() {
     for (index, candidate) in candidates.iter().enumerate() {
         let validated = validate_successor_bundle_candidate(&canonical_line(candidate), &semantic)
             .expect("successor candidate");
-        assert_eq!(validated.candidate().tuples.len(), [1, 2, 1][index]);
+        assert_eq!(validated.candidate().tuples.len(), [1, 2, 1, 1][index]);
     }
     for path in registries {
         let bytes = read(path);

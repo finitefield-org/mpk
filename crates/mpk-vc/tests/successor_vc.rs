@@ -73,9 +73,9 @@ fn canonical(value: &Value) -> Vec<u8> {
 fn registry() -> ValidatedSemanticProfileRegistry {
     validate_semantic_profile_registry(
         &read("release/bundles/semantic-profile-registry.json"),
-        RegistryRevision::Revision2,
+        RegistryRevision::Revision3,
     )
-    .expect("revision-2 semantic registry")
+    .expect("revision-3 semantic registry")
 }
 
 fn profile_contract(profile: &str) -> Value {
@@ -590,7 +590,7 @@ fn csharp_source(registry: &ValidatedSemanticProfileRegistry) -> ValidatedSource
             "bundle_id":"frontend.csharp.csharp2vir.candidate.v1",
             "name":"csharp2vir",
             "version":"0.1.0",
-            "binary_sha256":"0783dc269c152ad1b13e77f42f9eff6f6891002c65890bc1445f2fe1a1a0410d",
+            "binary_sha256":"e245d50913f8589be6fd763aa9185d3812b932a5dabc0e21ed03744eafa09f49",
             "subordinate_binaries":[]
         },
         "units":[{"identity":"payment-policy","name":"payment-policy","kind":"compilation"}],

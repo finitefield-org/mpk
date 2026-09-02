@@ -350,19 +350,19 @@ fn provisioned_emission_is_accepted_by_the_shared_successor_validators() {
     assert!(output.stderr.is_empty());
     assert!(output.stdout.ends_with(b"\n"));
 
-    let registry_vectors = load("develop/specs/vectors/semantic-profile-registry-v2.json");
+    let registry_vectors = load("develop/specs/vectors/semantic-profile-registry-v3.json");
     let registry = validate_semantic_profile_registry(
         &canonical_registry_transport(&registry_vectors["registry"])
-            .expect("canonical revision-2 registry transport"),
-        RegistryRevision::Revision2,
+            .expect("canonical revision-3 registry transport"),
+        RegistryRevision::Revision3,
     )
-    .expect("frozen revision-2 registry validates");
+    .expect("revision-3 registry validates");
     let context_value = json!({
         "profile_registry": {
             "schema": "mpk.semantic_profile.registry.v1",
             "id": "mpk.semantic_profile.registry.v1",
-            "revision": 2,
-            "registry_sha256": "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75"
+            "revision": 3,
+            "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557"
         },
         "profile_entry_sha256": "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac",
         "source_language": "csharp",

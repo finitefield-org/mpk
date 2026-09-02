@@ -23,8 +23,8 @@ pub fn import_successor_vir_projection(input: &[u8]) -> VirModule {
     let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
     let registry_bytes = fs::read(root.join("release/bundles/semantic-profile-registry.json"))
         .expect("semantic-profile registry");
-    let registry = validate_semantic_profile_registry(&registry_bytes, RegistryRevision::Revision2)
-        .expect("revision-2 semantic-profile registry");
+    let registry = validate_semantic_profile_registry(&registry_bytes, RegistryRevision::Revision3)
+        .expect("revision-3 semantic-profile registry");
     let successor = import_successor_vir_json(canonical, &registry)
         .expect("successor VIR passes independent validation");
     project_successor_vir(&successor)

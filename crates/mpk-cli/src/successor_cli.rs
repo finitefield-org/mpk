@@ -1,6 +1,6 @@
 //! Active successor policy and explanation command routes.
 //!
-//! These routes accept only revision-2 semantic-context and selection
+//! These routes accept only revision-3 semantic-context and selection
 //! envelopes. Bundle identities and profile contracts are compiled into the
 //! release; callers cannot select paths, predecessor registries, or alternate
 //! contract payloads.
@@ -370,7 +370,7 @@ fn parse_invocation(
 
 fn prepare_invocation(parsed: &ParsedInvocation) -> Result<PreparedInvocation, SuccessorCliError> {
     let registry =
-        validate_semantic_profile_registry(ACTIVE_SEMANTIC_REGISTRY, RegistryRevision::Revision2)
+        validate_semantic_profile_registry(ACTIVE_SEMANTIC_REGISTRY, RegistryRevision::Revision3)
             .map_err(|error| input(format!("compiled semantic registry is invalid: {error}")))?;
     let semantic_context = read_strict_value(&parsed.semantic_context, "semantic context")?;
     let selection = read_strict_value(&parsed.selection, "selection")?;
@@ -386,21 +386,22 @@ fn prepare_invocation(parsed: &ParsedInvocation) -> Result<PreparedInvocation, S
         .map_err(|error| input(format!("serialize selection: {error}")))?;
     let language = validated.semantic_context().source_language();
     let (frontend_bundle_id, toolchain_bundle_id) = release_pair(language)?;
-    let (capture_contracts, launcher_contracts) = if language == "csharp" {
+    let contracts_are_selected = matches!(language, "csharp" | "java");
+    let (capture_contracts, launcher_contracts) = if contracts_are_selected {
         if !parsed.contracts.is_empty() {
-            return Err(input(
-                "C# contract paths are selected only by the validated selection envelope",
-            ));
+            return Err(input(format!(
+                "{language} contract paths are selected only by the validated selection envelope"
+            )));
         }
         let contracts = validated.selection().value()["contracts"]
             .as_array()
-            .ok_or_else(|| input("C# selection has no contract list"))?
+            .ok_or_else(|| input(format!("{language} selection has no contract list")))?
             .iter()
             .map(|value| {
                 value
                     .as_str()
                     .map(str::to_owned)
-                    .ok_or_else(|| input("C# selection contract path is invalid"))
+                    .ok_or_else(|| input(format!("{language} selection contract path is invalid")))
             })
             .collect::<Result<Vec<_>, _>>()?;
         (contracts, Vec::new())
@@ -427,8 +428,11 @@ fn run_frontend(
     prepared: &PreparedInvocation,
 ) -> Result<AcceptedInstalledFrontendRun, SuccessorCliError> {
     let captured = captured_refs(&prepared.staging);
-    let csharp = prepared.semantic_context["source_language"] == "csharp";
-    let staged_directories = if csharp {
+    let captured_launcher = matches!(
+        prepared.semantic_context["source_language"].as_str(),
+        Some("csharp" | "java")
+    );
+    let staged_directories = if captured_launcher {
         Vec::new()
     } else {
         prepared
@@ -438,7 +442,7 @@ fn run_frontend(
             .map(String::as_str)
             .collect::<Vec<_>>()
     };
-    let staged_placeholders = if csharp {
+    let staged_placeholders = if captured_launcher {
         Vec::new()
     } else {
         prepared
@@ -489,6 +493,10 @@ fn release_pair(language: &str) -> Result<(&'static str, &'static str), Successo
         "go" => Ok((GO_FRONTEND_BUNDLE_ID, GO_TOOLCHAIN_BUNDLE_ID)),
         "rust" => Ok((RUST_FRONTEND_BUNDLE_ID, RUST_TOOLCHAIN_BUNDLE_ID)),
         "csharp" => Ok((CSHARP_FRONTEND_BUNDLE_ID, CSHARP_TOOLCHAIN_BUNDLE_ID)),
+        "java" => Ok((
+            mpk_vc::java_release::FRONTEND_ID,
+            mpk_vc::java_release::TOOLCHAIN_ID,
+        )),
         _ => Err(input(
             "semantic request selected an inactive source language",
         )),
@@ -526,13 +534,20 @@ fn active_contract(
             "redaction_profile_id":"minimal-v1",
             "source_access":false
         }),
+        (CompiledSemanticProfile::JavaScalarV0, ProfileContractField::Ai) => json!({
+            "display_language":"Java",
+            "projection_profile_id":"mpk.java.ai_projection.v0",
+            "proof_authority":false,
+            "redaction_profile_id":"minimal-v1",
+            "source_access":false
+        }),
         (profile, ProfileContractField::Evidence) => json!({
             "proof_authority":"certificate_only",
             "recipe_profile_id":match profile {
                 CompiledSemanticProfile::GoFixedV0 => "mpk.go.evidence_recipe.v0",
                 CompiledSemanticProfile::RustCheckedV0 => "mpk.rust.evidence_recipe.v0",
                 CompiledSemanticProfile::CSharpScalarV0 => "mpk.csharp.evidence_recipe.v0",
-                CompiledSemanticProfile::JavaScalarV0 => return Err(input("Java is not active")),
+                CompiledSemanticProfile::JavaScalarV0 => "mpk.java.evidence_recipe.v0",
             },
             "require_reference_checker":true,
             "require_source_free_check":true
@@ -541,14 +556,14 @@ fn active_contract(
             "axiom_profile":match profile {
                 CompiledSemanticProfile::GoFixedV0 => "zero-axiom",
                 CompiledSemanticProfile::RustCheckedV0 | CompiledSemanticProfile::CSharpScalarV0 => "mvp-theory",
-                CompiledSemanticProfile::JavaScalarV0 => return Err(input("Java is not active")),
+                CompiledSemanticProfile::JavaScalarV0 => "mvp-theory",
             },
             "checker_profile":"mvp-strict",
             "strategy_profile":match profile {
                 CompiledSemanticProfile::GoFixedV0 => "payment-policy-alpha",
                 CompiledSemanticProfile::RustCheckedV0 => "payment-policy-rust-alpha",
                 CompiledSemanticProfile::CSharpScalarV0 => "payment-policy-csharp-alpha",
-                CompiledSemanticProfile::JavaScalarV0 => return Err(input("Java is not active")),
+                CompiledSemanticProfile::JavaScalarV0 => "payment-policy-java-alpha",
             }
         }),
         (profile, ProfileContractField::Vc) => json!({
@@ -556,13 +571,13 @@ fn active_contract(
                 CompiledSemanticProfile::GoFixedV0 => "mpk.go.contract.v0",
                 CompiledSemanticProfile::RustCheckedV0 => "mpk.rust.contract.v0",
                 CompiledSemanticProfile::CSharpScalarV0 => "mpk.csharp.contract.v0",
-                CompiledSemanticProfile::JavaScalarV0 => return Err(input("Java is not active")),
+                CompiledSemanticProfile::JavaScalarV0 => "mpk.java.contract.v0",
             },
             "required_check_profile_id":match profile {
                 CompiledSemanticProfile::GoFixedV0 => "mpk.go.fixed.v0",
                 CompiledSemanticProfile::RustCheckedV0 => "mpk.rust.checked.v0",
                 CompiledSemanticProfile::CSharpScalarV0 => "mpk.csharp.required_checks.v0",
-                CompiledSemanticProfile::JavaScalarV0 => return Err(input("Java is not active")),
+                CompiledSemanticProfile::JavaScalarV0 => "mpk.java.required_checks.v0",
             },
             "verification_limit_profile_id":"mpk.verify.limits.v0"
         }),

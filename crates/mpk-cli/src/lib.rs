@@ -17,6 +17,7 @@ mod frontend_registry;
 #[allow(dead_code)]
 mod frontend_runner;
 mod frontend_sandbox;
+mod java_frontend_runner;
 pub mod successor_ai_explain;
 pub mod successor_cli;
 pub mod successor_frontend_protocol;

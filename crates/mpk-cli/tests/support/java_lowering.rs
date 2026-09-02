@@ -24,8 +24,10 @@ pub fn profile() -> Value {
     .unwrap()
 }
 fn command() -> Command {
-    let mut command = Command::new(root().join("scripts/check-java-frontend.sh"));
+    let mut command = Command::new("/usr/bin/python3");
     command
+        .args(["-I", "-S", "-B"])
+        .arg(root().join("scripts/java_frontend_tests.py"))
         .current_dir(root())
         .env("JAVA_HOME", "/unselected/jdk")
         .env("CLASSPATH", "/unselected/classes")
@@ -36,7 +38,7 @@ fn command() -> Command {
     command
 }
 pub fn check_fixtures() {
-    let output = command().arg("--check-lowering-fixtures").output().unwrap();
+    let output = command().arg("check-lowering-fixtures").output().unwrap();
     assert!(
         output.status.success(),
         "{}",
@@ -128,7 +130,7 @@ impl Request {
 pub fn run() -> &'static Value {
     static REPORT: OnceLock<Value> = OnceLock::new();
     REPORT.get_or_init(|| {
-        let output = command().arg("--run-lowering").output().unwrap();
+        let output = command().arg("run-lowering").output().unwrap();
         assert!(
             output.status.success(),
             "{}",

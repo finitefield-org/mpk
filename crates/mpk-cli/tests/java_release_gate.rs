@@ -51,7 +51,7 @@ fn states(seed: &str, iterations: usize) -> (Vec<u64>, String) {
 }
 
 #[test]
-fn t09_owns_exact_upgrade_corpus_and_keeps_public_activation_closed() {
+fn t09_corpus_is_preserved_and_t10_installs_the_exact_reviewed_candidate() {
     let corpus = checked_in_json(CORPUS_PATH);
     let java = checked_in_json("develop/specs/vectors/java-profile-v0.json");
     let manifest = checked_in_json("develop/specs/vectors/manifest.json");
@@ -189,10 +189,11 @@ fn t09_owns_exact_upgrade_corpus_and_keeps_public_activation_closed() {
 
     let installed = registry();
     let candidate = candidate_registry();
-    assert!(installed.lookup("java", "mpk.java.scalar.v0").is_none());
+    assert!(installed.lookup("java", "mpk.java.scalar.v0").is_some());
     assert!(candidate.lookup("java", "mpk.java.scalar.v0").is_some());
+    assert_eq!(installed.identity(), candidate.identity());
     assert!(lookup_strategy_registration("payment-policy-java-alpha").is_none());
-    assert!(!repository_path("release/bundles/candidates/java.json").exists());
+    assert!(repository_path("release/bundles/candidates/java.json").is_file());
 
     let revision2 = checked_in_json("develop/specs/vectors/semantic-profile-registry-v2.json");
     let revision3 = checked_in_json("develop/specs/vectors/semantic-profile-registry-v3.json");
@@ -283,13 +284,15 @@ fn t09_owns_exact_upgrade_corpus_and_keeps_public_activation_closed() {
             .find(|record| record["path"] == "develop/specs/vectors/java-profile-v0.json")
             .unwrap()["sha256"]
     );
-    assert!(
-        validate_registry_semantic_context(&installed, &java["semantic_context_fixture"]).is_err()
-    );
+    validate_registry_semantic_context(&installed, &java["semantic_context_fixture"])
+        .expect("installed Java context");
     let private_candidate = fs::read(repository_path(
         "release/build-inputs/java/bundle-candidate.json",
     ))
-    .expect("private Java candidate");
+    .expect("archived Java candidate");
+    let active_candidate = fs::read(repository_path("release/bundles/candidates/java.json"))
+        .expect("active Java candidate");
+    assert_eq!(private_candidate, active_candidate);
     let private_candidate_value: Value = serde_json::from_slice(&private_candidate).unwrap();
     assert_eq!(
         private_candidate_value["frontend_bundles"][0]["bundle_id"],
@@ -331,7 +334,8 @@ fn t09_owns_exact_upgrade_corpus_and_keeps_public_activation_closed() {
     assert!(!runtime_preflight.contains("Path.of(\"/mpk/toolchain/jdk/lib/server/libjvm.so\")"));
     validate_successor_bundle_candidate(&private_candidate, &candidate)
         .expect("candidate under revision 3");
-    assert!(validate_successor_bundle_candidate(&private_candidate, &installed).is_err());
+    validate_successor_bundle_candidate(&private_candidate, &installed)
+        .expect("installed candidate under revision 3");
 
     let categories = [
         AxiomCategory::CoreAxiom,
@@ -356,8 +360,16 @@ fn t09_owns_exact_upgrade_corpus_and_keeps_public_activation_closed() {
 #[cfg(all(target_os = "linux", target_arch = "x86_64"))]
 fn pinned_t09_release_rehearsal_builds_and_runs_twice() {
     fn run() -> Vec<u8> {
-        let output = Command::new(repository_path("scripts/check-java-frontend.sh"))
-            .arg("--run-release")
+        let output = Command::new("/usr/bin/python3")
+            .args([
+                "-I",
+                "-S",
+                "-B",
+                repository_path("scripts/java_frontend_tests.py")
+                    .to_str()
+                    .expect("test path is UTF-8"),
+                "run-release",
+            ])
             .current_dir(repository_path(""))
             .env("JAVA_HOME", "/unselected/jdk")
             .env("CLASSPATH", "/unselected/classes")

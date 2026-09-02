@@ -48,9 +48,9 @@ fn json(relative: impl AsRef<Path>) -> Value {
 fn semantic_registry() -> ValidatedSemanticProfileRegistry {
     validate_semantic_profile_registry(
         &read("release/bundles/semantic-profile-registry.json"),
-        RegistryRevision::Revision2,
+        RegistryRevision::Revision3,
     )
-    .expect("frozen revision-2 semantic registry")
+    .expect("active revision-3 semantic registry")
 }
 
 fn cases_by_id(index: &Value) -> BTreeMap<&str, &Value> {

@@ -20,12 +20,12 @@ pub const SAFETY_OBLIGATION_KIND_COMPONENT: &str = "operation_safety";
 pub const SAFETY_BITVEC_THEORY_FORMAT: &str = "mpk.bitvec-ground.v0";
 pub const SAFETY_GROUPED_CERTIFICATE_FOUNDATION: &str = "Std.Program.Base";
 
-/// Closed required-check dispatch used by the inactive successor VC path.
+/// Closed required-check dispatch used by the successor VC path.
 ///
-/// The active VIR v0 API continues to expose only [`SemanticProfile`].  The
-/// C# variant is crate-private and can therefore be selected only after the
-/// successor semantic-registry and source-artifact boundaries have validated
-/// the complete C# context.
+/// The legacy VIR v0 API continues to expose only [`SemanticProfile`]. These
+/// variants are crate-private and can therefore be selected only after the
+/// active or explicitly injected semantic registry and source-artifact
+/// boundaries have validated the complete frontend context.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub(crate) enum CompiledRequiredCheckProfile {
     GoFixedV0,

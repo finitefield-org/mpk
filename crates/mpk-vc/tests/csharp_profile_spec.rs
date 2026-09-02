@@ -25,13 +25,14 @@ const CONTRACT_DOMAIN: HashDomain = HashDomain::new("MPK-CONTRACT-1.0");
 
 const CSHARP_ENTRY_HASH: &str = "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac";
 const REGISTRY_V2_HASH: &str = "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75";
+const REGISTRY_V3_HASH: &str = "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557";
 const REGISTRY_V2_TRANSPORT_HASH: &str =
     "d3ccae252f388c21fbb3c400b58454c45d28943ae7d681d385a1dd4c017c0952";
 const TOOLCHAIN_HASH: &str = "d4af1170b2813a5581bb0f60b65fd4e7509576093045557b88689bf7e0876b4f";
 const REFERENCE_HASH: &str = "30623f64b7d85564260e62464e652bfaa89eb56e0e55193989bfb99538ba6cad";
 const SELECTION_HASH: &str = "d5033138bd8c53eee3901d0d1852ed4c1b1a85686cf2a68f01effb0b8c70dfcd";
 const SIDECAR_HASH: &str = "6684361a15dc454a8172d7e515dd6a3a49ec1ff8faae00bc12d958eae8982228";
-const CONTRACT_HASH: &str = "4130c5289e3590c43ac91bb15d71344172018aa6e0b2dd4e45725de71aabec9e";
+const CONTRACT_HASH: &str = "b88b13b2041782b1728563e9ae3d34bf2334771fb05171fa4ba38a8c1ffb0cab";
 
 #[test]
 fn csharp_profile_identity_toolchain_and_payloads_are_frozen() {
@@ -109,8 +110,8 @@ fn csharp_profile_identity_toolchain_and_payloads_are_frozen() {
         text(field(identity, "profile_entry_sha256")),
         CSHARP_ENTRY_HASH
     );
-    assert_eq!(integer(field(identity, "registry_revision")), 2);
-    assert_eq!(text(field(identity, "registry_sha256")), REGISTRY_V2_HASH);
+    assert_eq!(integer(field(identity, "registry_revision")), 3);
+    assert_eq!(text(field(identity, "registry_sha256")), REGISTRY_V3_HASH);
 
     assert_semantic_parameters(field(&profile, "semantic_parameters"));
     assert_selection(field(&profile, "selection_fixture"));
@@ -1004,7 +1005,7 @@ fn assert_launcher_contract(launcher: &Value) {
     ] {
         assert!(arguments.contains(&required));
     }
-    assert!(arguments.contains(&REGISTRY_V2_HASH));
+    assert!(arguments.contains(&REGISTRY_V3_HASH));
     assert!(arguments.contains(&CSHARP_ENTRY_HASH));
 
     let environment = object(field(launcher, "environment"));

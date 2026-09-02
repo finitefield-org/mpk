@@ -1,9 +1,9 @@
 //! Active verification-condition and skeleton integration.
 //!
-//! This module is reachable only through explicit staging calls carrying an
-//! already validated successor semantic registry, VIR, and frontend manifest.
-//! It does not alter the active `mpk.vc.v1` parser or any production route.
-//! The successor envelope is new; the checked Bool/BV encoding, weakest-
+//! This module is reached through successor integration carrying an already
+//! validated semantic registry, VIR, and frontend manifest. It does not alter
+//! the legacy `mpk.vc.v1` parser. The successor envelope is new; the checked
+//! Bool/BV encoding, weakest-
 //! precondition engine, grouping rules, theorem declarations, and limits are
 //! deliberately shared with VC v1.
 

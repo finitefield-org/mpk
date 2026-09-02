@@ -396,9 +396,9 @@ func defaultVIRContract(unitID, functionID string) virContract {
 const (
 	successorProfileRegistrySchema = "mpk.semantic_profile.registry.v1"
 	successorProfileRegistryID = "mpk.semantic_profile.registry.v1"
-	successorProfileRegistryRevision = int64(2)
-	successorProfileRegistryRevisionArgument = "2"
-	successorProfileRegistrySHA256 = "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75"
+	successorProfileRegistryRevision = int64(3)
+	successorProfileRegistryRevisionArgument = "3"
+	successorProfileRegistrySHA256 = "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557"
 	successorGoProfileEntrySHA256 = "b10ec338d1f2b3fefc015e4d46c27def43e92ff3d87341624b48c93db951ca96"
 	successorSemanticParametersSchema = "mpk.semantic_parameters.go_fixed.v0"
 	successorSelectionSchema = "mpk.selection.go_function.v0"

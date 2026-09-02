@@ -442,14 +442,18 @@ def load_descriptor(*, update=False):
 
 def validate_active_boundary():
     semantic = load_json(ROOT / "release/bundles/semantic-profile-registry.json")
-    baseline = load_json(ROOT / "develop/specs/vectors/semantic-profile-registry-v2.json")["registry"]
-    require(semantic == baseline and semantic["revision"] == 2, "JAVA_BUILD_RELEASE_ROUTE")
+    baseline = load_json(ROOT / "develop/specs/vectors/semantic-profile-registry-v3.json")["registry"]
+    require(semantic == baseline and semantic["revision"] == 3, "JAVA_BUILD_RELEASE_ROUTE")
     registry = load_json(ROOT / "release/bundles/bundle-registry.json")
-    require(len(registry["tuples"]) == 4, "JAVA_BUILD_RELEASE_ROUTE")
-    require(all(item["semantic_context"]["source_language"] in ("go", "rust", "csharp")
-                for item in registry["tuples"]), "JAVA_BUILD_RELEASE_ROUTE")
-    require(not any("java" in item["bundle_id"] for key in ("frontend_bundles", "toolchain_bundles")
-                    for item in registry[key]), "JAVA_BUILD_RELEASE_ROUTE")
+    require(len(registry["tuples"]) == 5, "JAVA_BUILD_RELEASE_ROUTE")
+    require({item["semantic_context"]["source_language"] for item in registry["tuples"]}
+            == {"go", "rust", "csharp", "java"}, "JAVA_BUILD_RELEASE_ROUTE")
+    java_tuples = [item for item in registry["tuples"]
+                   if item["semantic_context"]["source_language"] == "java"]
+    require(len(java_tuples) == 1, "JAVA_BUILD_RELEASE_ROUTE")
+    require(java_tuples[0]["frontend_bundle_id"] == "frontend.java.java2vir.candidate.v2"
+            and java_tuples[0]["toolchain_bundle_id"]
+            == "toolchain.java.temurin-25_0_4_1_1.candidate.v1", "JAVA_BUILD_RELEASE_ROUTE")
 
 
 def execute(argv, *, environment, cwd=None, limit=MAX_REPORT, timeout=BUILD_SECONDS):

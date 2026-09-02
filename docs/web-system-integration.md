@@ -57,7 +57,7 @@ hash differences together.
 ## Policy and local verification
 
 Run `mpk policy scan` and `mpk policy verify` from an installed Linux release.
-Both commands validate revision-2 semantic-context and selection envelopes and
+Both commands validate revision-3 semantic-context and selection envelopes and
 select the registered Go frontend/toolchain tuple. No raw binary, registry,
 bundle, toolchain, or compatibility path is accepted. The complete argument
 contract and reusable local verification block are in

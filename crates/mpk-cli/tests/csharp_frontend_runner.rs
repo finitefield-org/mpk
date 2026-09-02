@@ -31,7 +31,7 @@ fn canonical_line(value: &Value) -> Vec<u8> {
 #[test]
 fn csharp_candidate_is_an_exact_member_of_the_active_successor_release() {
     let semantic_bytes = read("release/bundles/semantic-profile-registry.json");
-    let semantic = validate_semantic_profile_registry(&semantic_bytes, RegistryRevision::Revision2)
+    let semantic = validate_semantic_profile_registry(&semantic_bytes, RegistryRevision::Revision3)
         .expect("active semantic registry");
     let registry_bytes = read("release/bundles/bundle-registry.json");
     let registry = validate_successor_release_registry(&registry_bytes, &semantic)
@@ -41,9 +41,9 @@ fn csharp_candidate_is_an_exact_member_of_the_active_successor_release() {
         .expect("active C# candidate");
 
     assert_eq!(registry.registry_sha256(), ACTIVE_RELEASE_REGISTRY_SHA256);
-    assert_eq!(registry.registry().frontend_bundles.len(), 3);
-    assert_eq!(registry.registry().toolchain_bundles.len(), 3);
-    assert_eq!(registry.registry().tuples.len(), 4);
+    assert_eq!(registry.registry().frontend_bundles.len(), 4);
+    assert_eq!(registry.registry().toolchain_bundles.len(), 4);
+    assert_eq!(registry.registry().tuples.len(), 5);
     assert_eq!(candidate.candidate().frontend_bundles.len(), 1);
     assert_eq!(candidate.candidate().toolchain_bundles.len(), 1);
     assert_eq!(candidate.candidate().tuples.len(), 1);

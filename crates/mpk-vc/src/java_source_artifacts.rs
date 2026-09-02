@@ -1,8 +1,8 @@
 //! Java-specific admission of untrusted successor VIR. No source execution.
 //!
 //! Common structural/type/dominance validation runs after these closed rules.
-//! The shared projection is private; the validated artifacts retain Java IDs,
-//! context, hashes, and the original required-check arrays throughout.
+//! The shared projection remains crate-private; validated artifacts retain
+//! Java IDs, context, hashes, and the original required-check arrays throughout.
 
 use crate::java_profile::{is_integer, is_scalar, method_id, valid_compilation, valid_source_path};
 use crate::safety_check::{

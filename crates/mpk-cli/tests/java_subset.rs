@@ -1,4 +1,5 @@
-//! T05 owns source admission; CFG/lowering and public activation remain later tasks.
+//! T05 owns source admission; the later CFG/lowering and T10 activation owners
+//! exercise this frozen boundary separately.
 
 #[path = "support/java_admission.rs"]
 mod harness;

@@ -137,7 +137,7 @@ provisioningを先に行います。リリース全体を確認する場合は�
 次のローカルgateを使用します。
 
 ```sh
-sudo ./scripts/check-csharp-frontend.sh
+sudo ./scripts/check-java-frontend.sh
 ```
 
 どちらも「既存の `Required.cs` が準拠サンプルである」という判定ではなく、固定

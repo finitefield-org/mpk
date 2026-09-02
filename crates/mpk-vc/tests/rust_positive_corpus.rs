@@ -80,7 +80,7 @@ fn active_rust_positive_corpus_is_successor_only_and_byte_mirrored() {
         assert!(ids.insert(id), "duplicate case {id}");
         assert_eq!(case["frontend_status"], "ir-lowered");
         assert_eq!(case["semantic_context"]["source_language"], "rust");
-        assert_eq!(case["semantic_context"]["profile_registry"]["revision"], 2);
+        assert_eq!(case["semantic_context"]["profile_registry"]["revision"], 3);
         assert_eq!(
             case["selection"]["schema"],
             "mpk.selection.rust_function.v0"

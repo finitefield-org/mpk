@@ -70,30 +70,31 @@ The unsafe-code portion of this gate is defined by `specs/UNSAFE_POLICY_V0.md`.
 - Malformed certificates never panic.
 - Public API cannot bypass certificate verification.
 
-## Gate I: Go/Rust/C# successor final release gate
+## Gate I: Go/Rust/C#/Java successor final release gate
 
-The Go/Rust/C# release closes only through `scripts/check-csharp-frontend.sh`,
+The Go/Rust/C#/Java release closes only through `scripts/check-java-frontend.sh`,
 run manually in the same order on a reviewed local Linux host:
 
-- validate the tracked Rust and C# build-input descriptors and unchanged
+- validate the tracked Rust, C#, and Java build-input descriptors and unchanged
   content-addressed caches before any byte is mounted or executed;
-- rebuild and validate the registered Go/Rust/C# release, install only
-  registered bundle inventories, exercise both Rust target libraries and C#,
+- rebuild and validate the registered Go/Rust/C#/Java release, install only
+  registered bundle inventories, exercise both Rust target libraries, C#, and Java,
   and reject removed predecessor publication paths and commands;
-- run all three frontends, the active corpora, both
+- run all four frontends, the active corpora, both
   source-free checkers, artifact-path scan, two-clean-build differential suite,
   exact limits, bounded fuzz smoke, and strict obsolete-interface scan; and
 - regenerate the untrusted release provenance from registry, bundle, build
   closure, manifest, VIR, VC, certificate, checker, axiom, determinism, path,
   and zero-finding review records.
 
-Both frozen build-input caches must be provisioned explicitly before the
+All three frozen build-input caches must be provisioned explicitly before the
 networkless gate. Restored and newly provisioned closures run the same
 `--check-build-inputs rust` and C# `--check-build-inputs` checks before use. The
 Rust closure is provisioned as root because the frozen builder validates and
 delegates the same global cgroup-v2 hierarchy required by the installed
 release gate; compiler and build containers still run as the fixed
-unprivileged identity. C# archive provisioning does not use that host boundary.
+unprivileged identity. C# and Java archive provisioning do not use that host
+boundary.
 Verification is networkless and cannot invoke an implicit rustup, Cargo, Go,
 container-image, or dependency download. The digest-pinned Go bundle-build and
 Rust runtime images are materialized before network isolation and every

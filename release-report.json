@@ -18,24 +18,24 @@
     },
     "semantic_registry": {
       "path": "release/bundles/semantic-profile-registry.json",
-      "sha256": "d3ccae252f388c21fbb3c400b58454c45d28943ae7d681d385a1dd4c017c0952"
+      "sha256": "1c9671f7db1f872f93d21757c271b39ddedd4fe612f4f388fe1700acd9808080"
     },
     "bundle_registry": {
       "path": "release/bundles/bundle-registry.json",
-      "sha256": "9b1aad5ba10126ffffd715b94cadcee7f79fc1f9c463ad7cd46925ec49ba586e"
+      "sha256": "f2da0168c30ac72b2d624a2af76959231114b5ad862fad9d893c4e15b48395d0"
     },
     "active_fixtures": [
       {
         "path": "fixtures/csharp/policy/scan.json",
-        "sha256": "09f9c774512c7d0fb825b460553a7a2943edcf7d7492a602982b05cfeb77694d"
+        "sha256": "3a89743d1c57be285d10b0df2ad1ad6fd367246160a031da3eaffc90e412e68b"
       },
       {
         "path": "fixtures/csharp/policy/evidence.json",
-        "sha256": "75de899b89f4697af0eb813cf15633491012cf68fefaf9fb8b81bd1153310dff"
+        "sha256": "45349b1007e9c0003990073d5be3464ae9d6da8d3b479882fe51a19a83cb7019"
       },
       {
         "path": "fixtures/csharp/policy/program-certificate.hex",
-        "sha256": "44e336b43f95d62e641587f6c1e0833e246ff03ac1fc18b55e8b29244582be9d"
+        "sha256": "b592729891b9165570e906d0fd2dd8dc77531e2e07f0122a716166506a6ec3f2"
       },
       {
         "path": "fixtures/csharp/ai/request.json",
@@ -43,7 +43,7 @@
       },
       {
         "path": "fixtures/csharp/ai/explanation.json",
-        "sha256": "f46b8988a02d0271659e25d7d3b491a5d6a00bc13726f7de8ec8b226921ccb9a"
+        "sha256": "a256b658bac25a3e3d888d07f69da81366be0382b88215ad843554c5b24b24a7"
       }
     ]
   },
@@ -131,8 +131,8 @@
     "semantic_registry": {
       "schema": "mpk.semantic_profile.registry.v1",
       "id": "mpk.semantic_profile.registry.v1",
-      "revision": 2,
-      "registry_sha256": "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75",
+      "revision": 3,
+      "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
       "profiles": [
         {
           "source_language": "csharp",
@@ -167,6 +167,22 @@
           }
         },
         {
+          "source_language": "java",
+          "semantic_profile": "mpk.java.scalar.v0",
+          "entry_sha256": "0d80d13f97c45557fa9978eccc2545ffdb3fc1b93a26856b365a9be200470301",
+          "contracts": {
+            "ai": "mpk.profile.ai.java_scalar.v0",
+            "evidence": "mpk.profile.evidence.java_scalar.v0",
+            "frontend": "mpk.profile.frontend.java_scalar.v0",
+            "manifest": "mpk.profile.manifest.java_scalar.v0",
+            "policy": "mpk.profile.policy.java_scalar.v0",
+            "release": "mpk.profile.release.java_scalar.v0",
+            "source_map": "mpk.profile.source_map.java_scalar.v0",
+            "vc": "mpk.profile.vc.java_scalar.v0",
+            "vir": "mpk.profile.vir.java_scalar.v0"
+          }
+        },
+        {
           "source_language": "rust",
           "semantic_profile": "mpk.rust.checked.v0",
           "entry_sha256": "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057",
@@ -187,15 +203,17 @@
     "bundle_registry": {
       "schema": "mpk.release.bundle_registry.v1",
       "id": "mpk.release.registry.v1",
-      "registry_sha256": "1205df31d1f274bb13c2f2c6192f1094f1f1b879823c1a32e4032fb4526e9e98",
+      "registry_sha256": "7877c7c04fae912815713a8a7f6f9900198721ea572788f6f48d1dbe3f00afbd",
       "frontend_bundle_ids": [
         "frontend.csharp.csharp2vir.candidate.v1",
         "frontend.go.go2vir.candidate.v1",
+        "frontend.java.java2vir.candidate.v2",
         "frontend.rust.rust2vir.candidate.v2"
       ],
       "toolchain_bundle_ids": [
         "toolchain.csharp.roslyn-5_6_0.dotnet-10_0_11.candidate.v1",
         "toolchain.go.go1.25.0.linux-amd64.candidate.v1",
+        "toolchain.java.temurin-25_0_4_1_1.candidate.v1",
         "toolchain.rust.nightly-2025-06-01.candidate.v1"
       ],
       "tuples": [
@@ -206,8 +224,8 @@
             "profile_entry_sha256": "b10ec338d1f2b3fefc015e4d46c27def43e92ff3d87341624b48c93db951ca96",
             "profile_registry": {
               "id": "mpk.semantic_profile.registry.v1",
-              "registry_sha256": "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75",
-              "revision": 2,
+              "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+              "revision": 3,
               "schema": "mpk.semantic_profile.registry.v1"
             },
             "semantic_parameters": {
@@ -229,8 +247,8 @@
             "profile_entry_sha256": "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057",
             "profile_registry": {
               "id": "mpk.semantic_profile.registry.v1",
-              "registry_sha256": "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75",
-              "revision": 2,
+              "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+              "revision": 3,
               "schema": "mpk.semantic_profile.registry.v1"
             },
             "semantic_parameters": {
@@ -254,8 +272,8 @@
             "profile_entry_sha256": "1cee9716bb21d07e07b8bc1de59ecaf83437549a4d595039486312260816f057",
             "profile_registry": {
               "id": "mpk.semantic_profile.registry.v1",
-              "registry_sha256": "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75",
-              "revision": 2,
+              "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+              "revision": 3,
               "schema": "mpk.semantic_profile.registry.v1"
             },
             "semantic_parameters": {
@@ -279,8 +297,8 @@
             "profile_entry_sha256": "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac",
             "profile_registry": {
               "id": "mpk.semantic_profile.registry.v1",
-              "registry_sha256": "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75",
-              "revision": 2,
+              "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+              "revision": 3,
               "schema": "mpk.semantic_profile.registry.v1"
             },
             "semantic_parameters": {
@@ -304,6 +322,33 @@
             "source_language": "csharp"
           },
           "toolchain_bundle_id": "toolchain.csharp.roslyn-5_6_0.dotnet-10_0_11.candidate.v1"
+        },
+        {
+          "frontend_bundle_id": "frontend.java.java2vir.candidate.v2",
+          "limit_profile_id": "mpk.vir.limits.v0",
+          "semantic_context": {
+            "profile_entry_sha256": "0d80d13f97c45557fa9978eccc2545ffdb3fc1b93a26856b365a9be200470301",
+            "profile_registry": {
+              "id": "mpk.semantic_profile.registry.v1",
+              "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+              "revision": 3,
+              "schema": "mpk.semantic_profile.registry.v1"
+            },
+            "semantic_parameters": {
+              "schema": "mpk.semantic_parameters.java_scalar.v0",
+              "value": {
+                "annotation_processing": "none",
+                "encoding": "UTF-8",
+                "language_version": "25",
+                "preview": false,
+                "release": "25",
+                "target_id": "linux-x64"
+              }
+            },
+            "semantic_profile": "mpk.java.scalar.v0",
+            "source_language": "java"
+          },
+          "toolchain_bundle_id": "toolchain.java.temurin-25_0_4_1_1.candidate.v1"
         }
       ]
     },
@@ -311,19 +356,25 @@
       {
         "language": "csharp",
         "path": "release/bundles/candidates/csharp.json",
-        "sha256": "984b0e8ce5fff49cbe61ca096a6388538eb3cac99628b3c13fee68a4e9a2d0f0",
+        "sha256": "0361d6d544f3fcc0f3957836a41fd460676ef7b1f65e073fb542b0ea0363b650",
         "schema": "mpk.release.bundle_candidate.v1"
       },
       {
         "language": "go",
         "path": "release/bundles/candidates/go.json",
-        "sha256": "4175a21b6f54b437f7553680724f7a816d6f05e50e7ec34be9e099e59515042d",
+        "sha256": "14f4284b642a651259f0622dec1905f14a2b13e226c213f83ec1498a125e60d8",
+        "schema": "mpk.release.bundle_candidate.v1"
+      },
+      {
+        "language": "java",
+        "path": "release/bundles/candidates/java.json",
+        "sha256": "e2bfb53d2166e5504d06f7d473fe382d2805d6b43bb552319f758d8359125a38",
         "schema": "mpk.release.bundle_candidate.v1"
       },
       {
         "language": "rust",
         "path": "release/bundles/candidates/rust.json",
-        "sha256": "d78de1a44c47068add4fc7b5704e4b573c440474ccdb3c195ba482aede4006d0",
+        "sha256": "af41ec64b399d9d542b626774d93e6e4c2865fd4be1c02ddff66df931cdb3768",
         "schema": "mpk.release.bundle_candidate.v1"
       }
     ],
@@ -369,7 +420,7 @@
     "reproduction": [
       "./scripts/build-release-bundles.sh --check successor",
       "./scripts/check-release-bundles.sh --fixture successor",
-      "sudo ./scripts/check-csharp-frontend.sh",
+      "sudo ./scripts/check-java-frontend.sh",
       "python3 scripts/generate-release-report.py --check"
     ],
     "certificate_v0_unchanged": true,

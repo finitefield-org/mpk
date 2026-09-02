@@ -89,8 +89,8 @@ fn captured_inputs() -> [CapturedInput<'static>; 3] {
 
 fn protocol_fixture() -> ProtocolFixture {
     let registry =
-        validate_semantic_profile_registry(SEMANTIC_PROFILE_REGISTRY, RegistryRevision::Revision2)
-            .expect("installed revision-2 registry validates");
+        validate_semantic_profile_registry(SEMANTIC_PROFILE_REGISTRY, RegistryRevision::Revision3)
+            .expect("installed revision-3 registry validates");
     let envelope = load(ACTIVE_ENVELOPE);
     let context_value = envelope["semantic_context"].clone();
     let selection_value = envelope["selection"].clone();

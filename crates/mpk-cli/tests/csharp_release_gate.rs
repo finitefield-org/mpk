@@ -70,8 +70,8 @@ fn archived_rehearsal_ledger_remains_canonical_complete_and_empty() {
 #[test]
 fn every_active_candidate_is_an_exact_projection_of_the_successor_registry() {
     let semantic_bytes = read("release/bundles/semantic-profile-registry.json");
-    let semantic = validate_semantic_profile_registry(&semantic_bytes, RegistryRevision::Revision2)
-        .expect("active revision-2 semantic registry");
+    let semantic = validate_semantic_profile_registry(&semantic_bytes, RegistryRevision::Revision3)
+        .expect("active revision-3 semantic registry");
     let semantic_value: Value =
         serde_json::from_slice(&semantic_bytes).expect("semantic registry JSON");
     assert_eq!(canonical_line(&semantic_value), semantic_bytes);
@@ -83,11 +83,11 @@ fn every_active_candidate_is_an_exact_projection_of_the_successor_registry() {
         serde_json::from_slice(&registry_bytes).expect("release registry JSON");
     assert_eq!(canonical_line(&registry_value), registry_bytes);
     assert_eq!(registry.registry_sha256(), ACTIVE_RELEASE_REGISTRY_SHA256);
-    assert_eq!(array(&registry_value["frontend_bundles"]).len(), 3);
-    assert_eq!(array(&registry_value["toolchain_bundles"]).len(), 3);
-    assert_eq!(array(&registry_value["tuples"]).len(), 4);
+    assert_eq!(array(&registry_value["frontend_bundles"]).len(), 4);
+    assert_eq!(array(&registry_value["toolchain_bundles"]).len(), 4);
+    assert_eq!(array(&registry_value["tuples"]).len(), 5);
 
-    for (profile, tuple_count) in [("go", 1), ("rust", 2), ("csharp", 1)] {
+    for (profile, tuple_count) in [("go", 1), ("rust", 2), ("csharp", 1), ("java", 1)] {
         let path = format!("release/bundles/candidates/{profile}.json");
         let candidate_bytes = read(&path);
         let candidate_value: Value =
@@ -121,6 +121,11 @@ fn every_active_candidate_is_an_exact_projection_of_the_successor_registry() {
         .find(|entry| entry["source_language"] == "csharp")
         .expect("active C# semantic entry");
     assert_eq!(object(&csharp["contracts"]).len(), 9);
+    let java = array(&semantic_value["profiles"])
+        .iter()
+        .find(|entry| entry["source_language"] == "java")
+        .expect("active Java semantic entry");
+    assert_eq!(object(&java["contracts"]).len(), 9);
 }
 
 #[test]
@@ -133,7 +138,12 @@ fn installed_successor_gate_owns_replay_hostile_ambient_and_tamper_rejection() {
         "second.stdout == first.stdout",
         "DOTNET_ROOT",
         "LD_LIBRARY_PATH",
+        "JAVA_TOOL_OPTIONS",
         "MPK_PLUGIN",
+        "run-installed-java-native-gate",
+        "--inside-successor-java-trace-probe",
+        "native_report[\"undelegated_cgroup_rejected\"] == true",
+        "mutations.len() == 10",
         "tampered installed successor image did not fail closed",
         "validate_active_models",
     ] {
@@ -150,8 +160,12 @@ fn installed_successor_gate_owns_replay_hostile_ambient_and_tamper_rejection() {
         "first = build_roots",
         "second = build_roots",
         "def install(",
+        "def check_java_trace_parser()",
         "materialize-fixture",
         "run-installed",
+        "BUNDLE_JAVA_NATIVE_CGROUP_REQUIRED",
+        "--inside-successor-java-trace-probe",
+        "source_precedence_mutations",
     ] {
         assert!(
             assembler.contains(marker),
@@ -160,18 +174,25 @@ fn installed_successor_gate_owns_replay_hostile_ambient_and_tamper_rejection() {
     }
 
     let gate =
-        String::from_utf8(read("scripts/check-csharp-frontend.sh")).expect("C# gate source UTF-8");
+        String::from_utf8(read("scripts/check-java-frontend.sh")).expect("Java gate source UTF-8");
     for marker in [
         "for pass in 1 2",
         "--check successor",
         "--fixture successor",
         "successor_atomic_cutover",
+        "--ignored",
+        "/usr/bin/strace",
+        "offline_java_candidate_builds_twice_and_refuses_ambient_options",
+        "pinned_source_admission_executes_every_owned_case_and_preserves_full_closure",
+        "pinned_contract_executor_matches_independent_normalized_hashes_and_all_refusals",
+        "pinned_java_reaches_same_byte_certificate_and_private_consumers",
+        "pinned_t09_release_rehearsal_builds_and_runs_twice",
         "csharp_profile_vectors",
         "csharp_release_gate",
     ] {
         assert!(
             gate.contains(marker),
-            "missing active C# gate marker {marker}"
+            "missing active successor gate marker {marker}"
         );
     }
     for forbidden in [
@@ -183,9 +204,15 @@ fn installed_successor_gate_owns_replay_hostile_ambient_and_tamper_rejection() {
     ] {
         assert!(
             !gate.contains(forbidden),
-            "C# gate can provision or fetch: {forbidden}"
+            "successor gate can provision or fetch: {forbidden}"
         );
     }
+
+    let retired = String::from_utf8(read("scripts/check-csharp-frontend.sh"))
+        .expect("retired C# gate source UTF-8");
+    assert!(retired.contains("retired by JAVA-03-T10"));
+    assert!(retired.contains("check-java-frontend.sh"));
+    assert!(!retired.contains("for pass in 1 2"));
 }
 
 #[test]
@@ -225,7 +252,13 @@ fn active_release_artifacts_have_no_host_path_credential_or_network_leakage() {
     assert!(artifacts.len() > 20, "complete active JSON inventory");
     for path in artifacts {
         let transport = fs::read_to_string(&path).expect("active artifact UTF-8");
-        let lower = transport.to_ascii_lowercase();
+        // The frozen JDK inventory legitimately contains the upstream
+        // jmxremote.password.template filename. Remove only that exact public
+        // distribution path before scanning the artifact transport for secret
+        // material; any other password occurrence must still fail closed.
+        let lower = transport
+            .to_ascii_lowercase()
+            .replace("jdk/conf/management/jmxremote.password.template", "");
         for forbidden in [
             "/root/",
             "/home/",

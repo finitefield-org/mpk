@@ -501,7 +501,7 @@ internal static class CaptureHarness
             "--profile-registry-id",
             FrontendConstants.ProfileRegistryId,
             "--profile-registry-revision",
-            "2",
+            "3",
             "--profile-registry-sha256",
             FrontendConstants.ProfileRegistrySha256,
             "--profile-entry-sha256",

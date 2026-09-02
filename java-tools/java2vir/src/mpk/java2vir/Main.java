@@ -1,6 +1,6 @@
 package mpk.java2vir;
 
-/** Fixed candidate launcher. The public MPK CLI still has no active Java route. */
+/** Fixed candidate launcher; activation is owned by the descriptor-relative MPK release. */
 public final class Main {
     private Main() {}
 

@@ -17,7 +17,7 @@ case "$1:$2" in
     }
     export CARGO_TARGET_DIR="$repository_root/target"
     exec "$cargo_path" test --quiet --locked --manifest-path "$repository_root/Cargo.toml" \
-      -p mpk-cli --test successor_atomic_cutover
+      -p mpk-cli --test successor_atomic_cutover -- --full-native-gate
     ;;
   *)
     printf '%s\n' BUNDLE_ASSEMBLER_USAGE >&2

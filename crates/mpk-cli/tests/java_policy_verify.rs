@@ -85,7 +85,7 @@ fn generate_request(session_id: &str, source: &successor_policy_support::Validat
 }
 
 #[test]
-fn t08_vectors_are_owned_while_installed_java_activation_remains_closed() {
+fn t08_vectors_remain_owned_after_t10_installed_activation() {
     let manifest = checked_in_json("develop/specs/vectors/manifest.json");
     for path in [
         "develop/specs/vectors/ai-api-v1.json",
@@ -107,13 +107,13 @@ fn t08_vectors_are_owned_while_installed_java_activation_remains_closed() {
     }
 
     let installed = successor_policy_support::registry();
-    assert!(installed.lookup("java", "mpk.java.scalar.v0").is_none());
-    assert!(candidate_registry()
-        .lookup("java", "mpk.java.scalar.v0")
-        .is_some());
+    let candidate = candidate_registry();
+    assert!(installed.lookup("java", "mpk.java.scalar.v0").is_some());
+    assert!(candidate.lookup("java", "mpk.java.scalar.v0").is_some());
+    assert_eq!(installed.identity(), candidate.identity());
     assert!(lookup_strategy_registration("payment-policy-java-alpha").is_none());
     assert!(
-        !successor_policy_support::repository_path("release/bundles/candidates/java.json").exists()
+        successor_policy_support::repository_path("release/bundles/candidates/java.json").is_file()
     );
 }
 

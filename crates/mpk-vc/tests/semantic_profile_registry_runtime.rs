@@ -276,7 +276,7 @@ fn context_profile_envelope_and_limit_vectors_execute_runtime_dispatch() {
 }
 
 #[test]
-fn revision_two_csharp_hash_append_only_and_payload_vectors_execute_runtime_code() {
+fn revision_two_csharp_hash_append_only_and_active_payload_vectors_execute_runtime_code() {
     let v1_vectors = load(REGISTRY_V1_BYTES, "revision-1 vectors");
     let v2_vectors = load(REGISTRY_V2_BYTES, "revision-2 vectors");
     assert_exact_fields(
@@ -422,6 +422,19 @@ fn revision_two_csharp_hash_append_only_and_payload_vectors_execute_runtime_code
         }
     }
 
+    let active = validate_semantic_profile_registry(
+        ACTIVE_SEMANTIC_REGISTRY_BYTES,
+        RegistryRevision::Revision3,
+    )
+    .expect("active revision-3 semantic registry");
+    let active_csharp_entry = active
+        .lookup("csharp", CSHARP_SCALAR_PROFILE)
+        .expect("active C# entry");
+    assert_eq!(
+        active_csharp_entry.canonical_json(),
+        csharp_entry.canonical_json()
+    );
+
     let csharp_profile = load(CSHARP_PROFILE_BYTES, "C# profile vectors");
     let profile_identity = field(&csharp_profile, "profile_identity");
     assert_exact_fields(
@@ -437,7 +450,7 @@ fn revision_two_csharp_hash_append_only_and_payload_vectors_execute_runtime_code
             "registry_sha256",
         ],
     );
-    let identity = successor.identity();
+    let identity = active.identity();
     assert_eq!(
         text(field(profile_identity, "source_language")),
         csharp_entry.source_language()
@@ -485,7 +498,7 @@ fn revision_two_csharp_hash_append_only_and_payload_vectors_execute_runtime_code
         },
         "selection": field(&csharp_profile, "selection_fixture")
     });
-    let validated = validate_semantic_request(&successor, &csharp_request)
+    let validated = validate_semantic_request(&active, &csharp_request)
         .expect("frozen C# parameter and selection dispatch");
     assert_eq!(
         validated.compiled_profile(),
@@ -503,7 +516,7 @@ fn revision_two_csharp_hash_append_only_and_payload_vectors_execute_runtime_code
         let contract_field =
             ProfileContractField::from_name(field_name).expect("known C# contract field");
         assert!(seen_fields.insert(contract_field));
-        validate_compiled_profile_envelope(&successor, field(record, "envelope"), contract_field)
+        validate_compiled_profile_envelope(&active, field(record, "envelope"), contract_field)
             .unwrap_or_else(|error| panic!("C# {field_name} payload: {error}"));
     }
     assert_eq!(seen_fields.len(), 9);
@@ -556,7 +569,7 @@ fn runtime_ownership_is_appended_and_the_successor_is_the_only_active_importer()
     assert!(serde_json::from_str::<SemanticProfile>(r#""mpk.csharp.scalar.v0""#).is_err());
     let active_registry = validate_semantic_profile_registry(
         ACTIVE_SEMANTIC_REGISTRY_BYTES,
-        RegistryRevision::Revision2,
+        RegistryRevision::Revision3,
     )
     .expect("active semantic registry");
     import_successor_vir_json(ACTIVE_VIR_BYTES, &active_registry)

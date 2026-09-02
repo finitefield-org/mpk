@@ -147,7 +147,7 @@ def build_report(repo_root: Path) -> dict[str, Any]:
             "reproduction": [
                 "./scripts/build-release-bundles.sh --check successor",
                 "./scripts/check-release-bundles.sh --fixture successor",
-                "sudo ./scripts/check-csharp-frontend.sh",
+                "sudo ./scripts/check-java-frontend.sh",
                 "python3 scripts/generate-release-report.py --check",
             ],
             "certificate_v0_unchanged": True,
@@ -167,15 +167,12 @@ def active_release(
     if (
         semantic.get("schema") != "mpk.semantic_profile.registry.v1"
         or semantic.get("id") != "mpk.semantic_profile.registry.v1"
-        or semantic.get("revision") != 2
+        or semantic.get("revision") != 3
         or {entry.get("source_language") for entry in semantic.get("profiles", [])}
-        != {"go", "rust", "csharp"}
+        != {"go", "rust", "csharp", "java"}
     ):
-        raise ReleaseReportError("active semantic registry is not the frozen revision-2 set")
-    csharp = next(
-        entry for entry in semantic["profiles"] if entry["source_language"] == "csharp"
-    )
-    if set(csharp.get("contracts", {})) != {
+        raise ReleaseReportError("active semantic registry is not the frozen revision-3 set")
+    required_contracts = {
         "ai",
         "evidence",
         "frontend",
@@ -185,8 +182,12 @@ def active_release(
         "source_map",
         "vc",
         "vir",
-    }:
-        raise ReleaseReportError("active C# entry does not bind all nine contracts")
+    }
+    for entry in semantic["profiles"]:
+        if set(entry.get("contracts", {})) != required_contracts:
+            raise ReleaseReportError(
+                f"active {entry.get('source_language')} entry does not bind all nine contracts"
+            )
     return semantic, registry, candidates
 
 

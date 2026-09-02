@@ -1495,8 +1495,7 @@ pub(crate) fn launch_java_frontend(
 /// measure native JVM thread/syscall behavior. Complete source processing is
 /// exercised separately by the native cases; keeping trace transport out of
 /// their frozen 120-second request budget avoids measuring ptrace overhead as
-/// frontend work.
-#[cfg(test)]
+/// frontend work. This helper has no production command route.
 pub(crate) fn launch_java_trace_probe(
     prepared: PreparedSandbox,
     frontend: &BundleSnapshot,

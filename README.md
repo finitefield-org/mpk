@@ -2,7 +2,7 @@
 
 MPK is a certificate-first proof kernel and program-verification toolchain for
 AI-assisted proof workflows. The active release accepts restricted Go, Rust,
-and C# programs through one registered successor pipeline and produces
+C#, and Java programs through one registered successor pipeline and produces
 deterministic verification artifacts.
 
 The trusted boundary is deliberately small. Source, contracts, compilers,
@@ -15,12 +15,12 @@ checker.
 ## Current status
 
 The workspace version is `0.1.0`, and the installed CLI is `mpk`.
-`CSHARP-02-T20` completed the atomic successor cutover:
+`JAVA-03-T10` completed the four-language atomic successor cutover:
 
-- semantic-profile registry revision 2 is the only active profile registry;
-- `mpk.release.registry.v1` is the only active bundle registry;
-- Go, Rust, and C# resolve exact frontend/toolchain tuples from the installed
-  release beside `bin/mpk`;
+- semantic-profile registry revision 3 is the only active profile registry;
+- `mpk.release.bundle_registry.v1` is the only active bundle registry;
+- Go, Rust, C#, and Java resolve five exact frontend/toolchain tuples from the
+  installed release beside `bin/mpk`;
 - policy scan and evidence use `mpk.policy.scan.v2` and
   `mpk.policy.evidence.v2`;
 - `mpk explain` emits only a deterministic, sanitized
@@ -31,7 +31,7 @@ The workspace version is `0.1.0`, and the installed CLI is `mpk`.
 Certificate v0 and both source-free checking paths remain unchanged by this
 frontend migration.
 
-`JAVA-03-T01` completed the inactive [Java 25 profile freeze](develop/specs/JAVA_PROFILE_V0.md),
+`JAVA-03-T01` completed the [Java 25 profile freeze](develop/specs/JAVA_PROFILE_V0.md),
 including conformance vectors and pinned compiler/JVM compatibility evidence.
 `JAVA-03-T02` added the [offline build candidate](java-tools/README.md), with
 two isolated builds and exact source/class/JAR inventories. `JAVA-03-T03`
@@ -46,8 +46,11 @@ VC/policy/evidence/AI/API integration, and `JAVA-03-T09` completed the
 two-build/two-run conformance, differential, fuzz, upgrade and native Linux
 release rehearsal recorded in the
 [Java implementation ledger](develop/docs/java-03-implementation-traceability-ledger.md).
-Public Java activation remains pending; Java is not active and the installed
-registry remains revision 2. T10 alone owns atomic activation.
+`JAVA-03-T10` installed the exact revision-3 registry and Java Linux-x64
+tuple, removed executable staging routes, added the Java example, and made the
+four-language local Linux gate the sole release owner. The current development
+host is ARM64, so the required native x86-64 gate remains explicitly unrun as
+recorded in the ledger; `CSHARP-03` stays blocked until that receipt exists.
 
 ## Build from source
 
@@ -79,7 +82,7 @@ cargo run --quiet -p mpk-cli -- package verify-certs \
 
 ## Successor policy CLI
 
-Each request supplies only a source root, a revision-2 semantic-context
+Each request supplies only a source root, a revision-3 semantic-context
 envelope, a selection envelope, normalized Go/Rust contract paths, and an
 output path. The installed release selects every security-sensitive identity.
 
@@ -110,9 +113,10 @@ Only `trusted_evidence` links backed by accepted certificates or checked
 theory certificates can support an `mpk_verified` property.
 
 Rust uses the same command shape and may repeat `--contract`; see
-[the Rust example](examples/rust-payment-policy/README.md). C# contract paths
-come from the validated C# selection envelope, so C# requests do not accept
-`--contract`.
+[the Rust example](examples/rust-payment-policy/README.md). C# and Java
+contract paths come from their validated selection envelopes, so those
+requests do not accept `--contract`; see
+[the Java example](examples/java-payment-policy/README.md).
 
 ## Sanitized explanation request
 
@@ -138,7 +142,7 @@ This repository intentionally does not use GitHub Actions or workflow files.
 Do not create, trigger, monitor, or rely on `.github/workflows/`. All checks
 must be started locally from reviewed bytes. The full gate validates frozen
 inputs, uses digest-pinned images, disables network access during verification,
-materializes one installed release, runs all three registered frontends,
+materializes one installed release, runs all four registered frontends,
 checks both source-free verifiers, and repeats the installed-release pass
 twice.
 
@@ -156,13 +160,15 @@ networkless gate:
 ```sh
 sudo ./scripts/build-release-bundles.sh --provision-build-inputs rust
 ./scripts/build-csharp-frontend.sh --provision-build-inputs
+./scripts/build-java-frontend.sh --import-build-inputs \
+  /absolute/path/to/OpenJDK25U-jdk_x64_linux_hotspot_25.0.4.1_1.tar.gz
 ```
 
 Then run the full local release gate on a reviewed Linux host with writable
 cgroup v2:
 
 ```sh
-sudo ./scripts/check-csharp-frontend.sh
+sudo ./scripts/check-java-frontend.sh
 sudo ./scripts/check-all.sh
 ```
 
@@ -177,6 +183,7 @@ Useful targeted checks:
 ```sh
 cargo test --workspace
 cargo test -p mpk-cli --test successor_atomic_cutover
+cargo test -p mpk-cli --test java_activation
 cargo test -p mpk-cli --test csharp_policy_verify
 cargo test -p mpk-vc --test go_vir_corpus
 (cd go-tools/go2vir && go test -count=1 ./...)
@@ -192,7 +199,7 @@ csharp-tools/csharp2vir restricted C# successor frontend
 release/                frozen build inputs and active successor registries
 docs/                   user-facing operation and integration guides
 develop/                normative specs, vectors, roadmaps, and migration logs
-examples/               Go and Rust policy examples
+examples/               Go, Rust, and Java policy examples
 fixtures/               certificate and frontend regression corpora
 scripts/                generation and verification gates
 ```

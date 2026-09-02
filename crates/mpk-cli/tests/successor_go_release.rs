@@ -21,9 +21,9 @@ fn read(relative: &str) -> Vec<u8> {
 fn semantic_registry() -> mpk_vc::semantic_profile_registry::ValidatedSemanticProfileRegistry {
     validate_semantic_profile_registry(
         &read("release/bundles/semantic-profile-registry.json"),
-        RegistryRevision::Revision2,
+        RegistryRevision::Revision3,
     )
-    .expect("revision-2 semantic registry")
+    .expect("revision-3 semantic registry")
 }
 
 #[test]

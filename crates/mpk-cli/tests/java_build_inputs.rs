@@ -257,7 +257,7 @@ fn java_build_descriptor_binds_sources_recipe_and_measured_candidate() {
             "mpk/java2vir/TreeInventory.class",
         ]
     );
-    // The inactive main/provider check stay byte-identical to T02.
+    // The main/provider checks stay byte-identical to the T02 build baseline.
     assert_eq!(
         classes[0]["sha256"],
         "2cc9db1b015cbb6988fe39ef16f59144bf627a4156ce5bc560899779934c8a52"
@@ -305,26 +305,25 @@ fn java_offline_input_owner_executes_hostile_input_tests_without_ambient_configu
 }
 
 #[test]
-fn java_candidate_does_not_install_a_release_or_accept_toolchain_overrides() {
+fn active_java_candidate_is_installed_without_toolchain_override_inputs() {
     let installed = mpk_vc::semantic_profile_registry::validate_semantic_profile_registry(
         &fs::read(root().join("release/bundles/semantic-profile-registry.json")).unwrap(),
-        mpk_vc::semantic_profile_registry::RegistryRevision::Revision2,
+        mpk_vc::semantic_profile_registry::RegistryRevision::Revision3,
     )
     .unwrap();
-    assert!(installed.lookup("java", "mpk.java.scalar.v0").is_none());
+    assert!(installed.lookup("java", "mpk.java.scalar.v0").is_some());
     let active = load("release/bundles/semantic-profile-registry.json");
     assert_eq!(
         active,
-        load("develop/specs/vectors/semantic-profile-registry-v2.json")["registry"]
+        load("develop/specs/vectors/semantic-profile-registry-v3.json")["registry"]
     );
     let registry = load("release/bundles/bundle-registry.json");
     let tuples = registry["tuples"].as_array().unwrap();
-    assert_eq!(tuples.len(), 4);
-    assert!(tuples.iter().all(|tuple| {
-        matches!(
-            tuple["semantic_context"]["source_language"].as_str(),
-            Some("go" | "rust" | "csharp")
-        )
+    assert_eq!(tuples.len(), 5);
+    assert!(tuples.iter().any(|tuple| {
+        tuple["semantic_context"]["source_language"] == "java"
+            && tuple["frontend_bundle_id"] == "frontend.java.java2vir.candidate.v2"
+            && tuple["toolchain_bundle_id"] == "toolchain.java.temurin-25_0_4_1_1.candidate.v1"
     }));
     for arguments in [
         vec![],
@@ -351,20 +350,23 @@ fn java_candidate_does_not_install_a_release_or_accept_toolchain_overrides() {
 }
 
 #[test]
-fn compiled_java_contracts_do_not_open_public_source_routes() {
+fn active_java_route_rejects_revision_2_before_reading_source() {
     let temporary = tempfile::tempdir().unwrap();
     let profile = load("develop/specs/vectors/java-profile-v0.json");
     let context_path = temporary.path().join("context.json");
     let selection_path = temporary.path().join("selection.json");
     let output_path = temporary.path().join("must-not-exist.json");
     fs::write(&selection_path, canonical(&profile["selection_fixture"])).unwrap();
-    for use_installed_identity in [false, true] {
+    for use_previous_identity in [false, true] {
         let mut context = profile["semantic_context_fixture"].clone();
-        if use_installed_identity {
-            context["profile_registry"] = serde_json::to_value(
-                mpk_vc::semantic_profile_registry::RegistryRevision::Revision2.identity(),
-            )
-            .unwrap();
+        if use_previous_identity {
+            let previous = load("develop/specs/vectors/semantic-profile-registry-v2.json");
+            context["profile_registry"] = json!({
+                "schema":"mpk.semantic_profile.registry.v1",
+                "id":"mpk.semantic_profile.registry.v1",
+                "revision":2,
+                "registry_sha256":previous["registry"]["registry_sha256"]
+            });
         }
         fs::write(&context_path, canonical(&context)).unwrap();
         for (command, flag) in [
@@ -396,14 +398,11 @@ fn compiled_java_contracts_do_not_open_public_source_routes() {
             );
             assert!(output.stdout.is_empty());
             let error = String::from_utf8_lossy(&output.stderr);
-            assert!(
-                error.contains(if use_installed_identity {
-                    "SEMANTIC_PROFILE_UNKNOWN"
-                } else {
-                    "SEMANTIC_REGISTRY_ASSERTION"
-                }),
-                "{error}"
-            );
+            if use_previous_identity {
+                assert!(error.contains("SEMANTIC_REGISTRY_ASSERTION"), "{error}");
+            } else {
+                assert!(!error.contains("SEMANTIC_REGISTRY_ASSERTION"), "{error}");
+            }
             assert!(!output_path.exists());
             assert!(!temporary.path().join("missing-source-root").exists());
         }

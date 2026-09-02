@@ -1,13 +1,13 @@
 # ProofOps Policy Local Verification
 
-This guide uses the sole active Go/Rust/C# successor CLI. Run policy commands
+This guide uses the sole active Go/Rust/C#/Java successor CLI. Run policy commands
 from a materialized Linux release: the executable resolves both registries,
 the selected frontend/toolchain tuple, and all compiled profile contracts from
 the installed tree beside `bin/mpk`.
 
 The repository intentionally has no GitHub Actions or workflow files. Start
 all policy and release checks locally from reviewed bytes. The authoritative
-Go/Rust/C# release command is `scripts/check-csharp-frontend.sh`; it is not
+Go/Rust/C#/Java release command is `scripts/check-java-frontend.sh`; it is not
 triggered or monitored through a hosted automation service.
 
 ## Trust boundary
@@ -52,9 +52,9 @@ axiom, registry, bundle, and toolchain choices are profile-owned or
 release-owned and are not public flags.
 
 Go and Rust require at least one normalized `--contract` path. Repeat the flag
-when the selection needs multiple sidecars. C# contract paths are part of the
-validated C# selection envelope and therefore must not be repeated as CLI
-flags.
+when the selection needs multiple sidecars. C# and Java contract paths are
+part of their validated selection envelopes and therefore must not be repeated
+as CLI flags.
 
 ## Sanitized explanation projection
 
@@ -105,13 +105,15 @@ For release-facing changes, the authoritative repository check is:
 ```sh
 ./scripts/build-release-bundles.sh --check-build-inputs rust
 ./scripts/build-csharp-frontend.sh --check-build-inputs
-sudo ./scripts/check-csharp-frontend.sh
+./scripts/build-java-frontend.sh --check-build-inputs
+./scripts/build-java-candidate.sh --check
+sudo ./scripts/check-java-frontend.sh
 python3 scripts/generate-release-report.py --check
 ```
 
 The gate requires reviewed Linux bytes, root access to the initial cgroup-v2
-namespace, pre-existing frozen Rust and C# build-input caches, and no network
-access.
+namespace, pre-existing frozen Rust, C#, and Java build-input caches, and no
+network access.
 
 ## Drift and proof checks
 
@@ -135,7 +137,7 @@ result, or explanation as a substitute for these checker verdicts.
 
 ## Review checklist
 
-- semantic-context and selection envelopes are revision-2 registered values;
+- semantic-context and selection envelopes are revision-3 registered values;
 - no command accepts a caller-selected registry, bundle, executable,
   toolchain, provider, credential, or compatibility flag;
 - `mpk.policy.scan.v2` reports an expected readiness state;

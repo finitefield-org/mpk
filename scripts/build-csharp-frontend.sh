@@ -13,6 +13,9 @@ case "$#:${1-}" in
   1:--update-inventory)
     action=update-inventory
     ;;
+  1:--update-project-files)
+    action=update-project-files
+    ;;
   1:--check)
     action=check
     ;;

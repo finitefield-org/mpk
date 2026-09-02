@@ -1,16 +1,17 @@
 # Java Scalar Profile v0 Specification
 
-Status: normative and frozen for implementation by `JAVA-03-T01`
-(2026-08-31), but inactive. The installed release remains Go/Rust/C# with
-semantic registry revision 2. The disposable compiler/JVM compatibility
+Status: normative and frozen by `JAVA-03-T01` (2026-08-31); atomic activation
+is implemented by `JAVA-03-T10` (2026-09-03). The checked-in release is
+Go/Rust/C#/Java with semantic registry revision 3. Native x86-64 Linux release
+acceptance remains unrun on the ARM64 development host. The disposable compiler/JVM compatibility
 measurements establish the recorded T01 observations, not the complete native
 Linux production isolation gate. T02's offline build candidate and T03's
 inactive contract/artifact validators and T04's internal capture/compiler
 adapter are complete. T05's internal source admission and typed sidecars are
 complete. T06's private CFG/lowering and artifact emission are complete;
 `JAVA-03-T07` completed private registered candidates, the JVM runner and its
-native x86-64 Linux acceptance on 2026-09-01.
-Java activation belongs only to `JAVA-03-T10`.
+native x86-64 Linux acceptance on 2026-09-01; T08/T09 completed integration
+and release rehearsal before T10 installed the reviewed bytes.
 
 T04 corrected lost Unicode characters in one recorded adapter fixture from
 the archived T01 probe source. Measured positions, compiler behavior and all
@@ -787,7 +788,7 @@ replacement still requires new pinned hashes and full upgrade evidence.
 There is no in-place update, floating resolver, compatibility fallback or
 partial-language rollback.
 
-T10 alone atomically replaces the installed image: retain the existing four
+`JAVA-03-T10` atomically replaced the installed image: it retained the existing four
 Go/Rust/C# tuples, add Linux-x64 Java, migrate every context-bound producer and
 consumer to revision 3, and reject revision-2 helpers under that installation.
 Old entry bytes and language semantics remain unchanged; artifacts embedding
@@ -795,10 +796,10 @@ the registry root necessarily change hashes. Rollback replaces the whole
 installed image, with no mixed registry/bundle generations. Certificate v0
 remains source-free and requires no registry migration.
 
-Before activation, all owning test executors, deterministic/differential/fuzz/
+Activation required all owning test executors, deterministic/differential/fuzz/
 upgrade corpus, same-byte dual-checker examples, hostile environment tests,
 measured native Linux sandbox, and composed four-language installed release
-gate must pass. Ordinary checks use `./scripts/check-fast.sh`; release checks
-use the README's local Linux gates. No GitHub Actions or workflow file is
-created, run, monitored or relied on. This specification task adds no active
-Java parser, frontend executable, installed tuple, policy route or proof rule.
+gate to pass. Ordinary checks use `./scripts/check-fast.sh`; release checks use
+the README's local Linux gate. No GitHub Actions or workflow file is created,
+run, monitored or relied on. This specification itself adds no executable or
+proof rule; the reviewed T10 release supplies the active Java route.

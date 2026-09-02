@@ -3,8 +3,10 @@
 Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
 Status: Gate C, `MLANG-01`, and Gate D are complete after the completed Rust
-and `MLANG-00` gates. `CSHARP-02-T01` through `CSHARP-02-T20` are complete;
-the shared Go/Rust/C# successor release is active. `JAVA-03-T01` completed
+and `MLANG-00` gates. `CSHARP-02-T01` through `CSHARP-02-T20` and
+`JAVA-03-T01` through T09 are complete; T10 activation is implemented but its
+native x86-64 release receipt is pending. The checked-in Go/Rust/C#/Java
+successor release is active. T01 completed
 the inactive normative profile/vector/toolchain freeze and disposable
 compiler/JVM compatibility probes. T02 completed the inactive offline build
 and T03 completed the inactive contract/artifact validators. T04 completed
@@ -13,11 +15,10 @@ completed source admission, inert initialization, call closure and typed
 sidecars. T06 completed private CFG/lowering and complete artifact emission;
 T07 completed the private candidate/JVM runner and native x86-64 Linux
 acceptance. T08 completed private verification integration, and T09 completed
-conformance and local release rehearsal. T10 activation remains pending.
-No Java or later-language frontend is active, registry revision 2
-remains installed, and no later-language phase has started.
-`CSHARP-03` is recorded only as a post-Java governance/design proposal; no
-practical-profile specification or implementation phase has started.
+conformance and local release rehearsal, and T10 implemented atomic activation.
+Registry revision 3 and all five tuples are installed. `CSHARP-03` remains a
+governance/design proposal; its native-receipt entry gate is not satisfied and
+no practical-profile specification or implementation phase has started.
 
 ## Scope and sequencing
 
@@ -803,13 +804,15 @@ Design: `07_java_frontend_design.md` (2026-08-31). Java SE 25, a pinned Temurin
 JDK, public compiler/tree/language-model APIs, and a scalar subset of
 field-free interfaces with pure static methods are selected. Java owns its
 wrapping/division/shift check rules; Go/Rust/C# profile entries remain
-byte-identical in the frozen, inactive registry revision 3.
+byte-identical in the now-installed registry revision 3.
 
 Execution follows the ten serial tasks in that design's section 11 and
-`java-03-implementation-traceability-ledger.md`. T01-T09 are complete: T08
+`java-03-implementation-traceability-ledger.md`. T01-T09 are complete and T10
+implementation is complete: T08
 integrated VC/policy/evidence/AI/API, and T09 hardened and rehearsed the
-release. T10 activates the four-language release. No public Java tuple is
-activated before T10. Later-language phases remain blocked.
+release. T10 installed the four-language release metadata and route. No public
+Java tuple was activated before T10. CSHARP-03 and later phases remain blocked
+until the native T10 receipt exists.
 
 T01 completion evidence: `JAVA_PROFILE_V0.md`, Java and revision-3 vectors,
 manifest entries, the traceability ledger, exact Temurin 25.0.4.1+1/JDK/native
@@ -818,8 +821,8 @@ inventory, fixed JVM options/budgets, and recorded public-API/host probes. All
 compiler/JVM compatibility under CPU emulation; they do not establish every
 native Linux cgroup/syscall/resource-failure release condition. T07 later
 accepted its installed native gate and T09 later completed release rehearsal;
-T10 retains activation. The production registry remains
-revision 2 and no Java source-processing or active route was added.
+T10 retained activation ownership. At T01 completion, the production registry
+remained revision 2 and no Java source-processing or active route was added.
 
 T02 completion evidence: `java-tools/java2vir`, the offline
 `scripts/build-java-frontend.sh` owner, exact source/recipe/class/JAR records
@@ -879,6 +882,33 @@ source-free registered identity probe records syscall evidence without charging
 ptrace transport overhead to those requests. At T07 completion, T08 was next
 and T09/T10 release rehearsal and activation were still pending; revision 2
 remains active.
+
+T08 completion evidence: the inactive Java route generated Java-owned VC,
+policy/evidence, same-byte dual-checker Certificate v0 results, sanitized AI
+requests and API responses while preserving full revision-3 context and adding
+no Java axiom or public strategy route. T09 then executed the complete
+conformance, 102-case JDK differential, 160 fixed-seed fuzz, upgrade and
+private release-rehearsal owners, froze candidate v2 without mutating v1, and
+recorded its native release receipt.
+
+T10 implementation evidence: the sole checked-in semantic registry is
+revision 3 and the sole release registry contains exactly four frontends, four
+toolchains and five Go/Rust/C#/Java tuples. CLI/API installed execution, all
+nine Java compiled contracts, old/crossed/partial rejection, regenerated
+context-bound corpora, active docs and the Java payment-policy example are
+owned by `java_activation.rs` and `successor_atomic_cutover.rs`. Executable
+Java staging routes were removed. `scripts/check-java-frontend.sh` is the sole
+offline two-pass release gate and `check-all.sh` delegates to it. Certificate
+v0, both source-free checker inputs and the four axiom categories are
+unchanged.
+
+The remaining T10 native receipt is explicitly open. The available Darwin
+ARM64 host reached workspace tests in an amd64 Linux container, but host
+translation returned ENOSYS for three required namespace/isolation tests
+before either installed-release pass began. Those tests were not skipped or
+weakened, and emulation is not native x86-64 acceptance. CSHARP-03 therefore
+remains blocked until `sudo ./scripts/check-java-frontend.sh` completes on a
+real native x86-64 Linux host.
 
 Exit gate: Java passes the common definition of done without reinterpreting C#,
 Go, or Rust semantics, including the local offline two-pass installed gate,

@@ -1,10 +1,14 @@
-use mpk_cli::successor_frontend_runner::{run_installed_frontend, InstalledFrontendRunRequest};
+use mpk_cli::frontend_protocol;
+use mpk_cli::successor_frontend_runner::{
+    run_installed_frontend, InstalledFrontendRunCode, InstalledFrontendRunRequest,
+};
 use mpk_cli::successor_release_bundle::{
     validate_successor_bundle_candidate, validate_successor_release_registry,
     ACTIVE_RELEASE_REGISTRY_SHA256, CSHARP_FRONTEND_BUNDLE_ID, CSHARP_TOOLCHAIN_BUNDLE_ID,
     GO_FRONTEND_BUNDLE_ID, GO_TOOLCHAIN_BUNDLE_ID, RUST_FRONTEND_BUNDLE_ID,
     RUST_TOOLCHAIN_BUNDLE_ID,
 };
+use mpk_vc::java_release;
 use mpk_vc::semantic_profile_registry::{validate_semantic_profile_registry, RegistryRevision};
 use mpk_vc::{CapturedInput, InputKind};
 use serde_json::{json, Value};
@@ -14,8 +18,19 @@ use std::os::unix::fs::PermissionsExt;
 use std::path::{Path, PathBuf};
 use std::process::{Command, ExitCode};
 
+// The active installed-image test executable owns the source-free resource
+// fault children. Including the sandbox here keeps those hidden entrypoints
+// out of the production `mpk` binary while exercising the exact production
+// implementation from the composed release gate.
+#[path = "../src/frontend_registry.rs"]
+#[allow(unused_imports)]
+mod frontend_registry;
+#[path = "../src/frontend_sandbox.rs"]
+#[allow(unused_imports)]
+mod frontend_sandbox;
+
 const SEMANTIC_REGISTRY_SHA256: &str =
-    "6928e49ab2d0af03bdc1b92c189f99308f815e77edb3850a5f5a8fd9a3d48b75";
+    "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557";
 const CSHARP_PROFILE_ENTRY_SHA256: &str =
     "d4cc54a5364af848af845a9044d0f5aec962e6e509554e9a9b75a7a9f0b6e7ac";
 const GENERATED_CARGO_TOML: &[u8] = b"[package]\nname = \"vector\"\nversion = \"0.1.0\"\nedition = \"2021\"\n\n[lib]\nname = \"vector\"\npath = \"src/lib.rs\"\n\n[features]\ndefault = []\n";
@@ -40,6 +55,21 @@ fn main() -> ExitCode {
     if arguments.as_slice() == ["__mpk_frontend_probe_v0"] {
         return ExitCode::from(mpk_cli::run_frontend_sandbox_probe());
     }
+    #[cfg(target_os = "linux")]
+    if let [mode, case] = arguments.as_slice() {
+        if mode == "__mpk_java_resource_fault_v0" {
+            return ExitCode::from(frontend_sandbox::run_java_resource_test_child(case));
+        }
+        if mode == "--inside-successor-java-resource" {
+            return match frontend_sandbox::test_java_resource_boundary(case) {
+                Ok(()) => ExitCode::SUCCESS,
+                Err(error) => {
+                    eprintln!("JAVA_RESOURCE_TEST_{error:?}");
+                    ExitCode::FAILURE
+                }
+            };
+        }
+    }
     let result = match arguments.as_slice() {
         [mode] if mode == "--inside-successor-cutover-go" => run_inside_installed_frontend("go"),
         [mode] if mode == "--inside-successor-cutover-rust" => {
@@ -48,7 +78,41 @@ fn main() -> ExitCode {
         [mode] if mode == "--inside-successor-cutover-csharp" => {
             run_inside_installed_frontend("csharp")
         }
-        [] => run_outer_cutover_gate(),
+        [mode] if mode == "--inside-successor-cutover-java" => {
+            run_inside_installed_frontend("java")
+        }
+        [mode] if mode == "--inside-successor-cutover-go-hostile" => {
+            poison_environment();
+            run_inside_installed_frontend("go")
+        }
+        [mode] if mode == "--inside-successor-cutover-rust-hostile" => {
+            poison_environment();
+            run_inside_installed_frontend("rust")
+        }
+        [mode] if mode == "--inside-successor-cutover-csharp-hostile" => {
+            poison_environment();
+            run_inside_installed_frontend("csharp")
+        }
+        [mode] if mode == "--inside-successor-cutover-java-hostile" => {
+            poison_environment();
+            run_inside_installed_frontend("java")
+        }
+        [mode, case] if mode == "--inside-successor-cutover-java-case" => {
+            run_java_case(case).and_then(write_report)
+        }
+        [mode, case] if mode == "--inside-successor-cutover-java-hostile-case" => {
+            poison_environment();
+            run_java_case(case).and_then(write_report)
+        }
+        [mode] if mode == "--inside-successor-java-release-before-source" => {
+            java_release_preflight(InstalledFrontendRunCode::Release)
+        }
+        [mode] if mode == "--inside-successor-java-release-control" => {
+            java_release_preflight(InstalledFrontendRunCode::Selection)
+        }
+        [mode] if mode == "--inside-successor-java-trace-probe" => run_java_trace_probe(),
+        [] => run_outer_cutover_gate(false),
+        [mode] if mode == "--full-native-gate" => run_outer_cutover_gate(true),
         _ => Err("unexpected cutover-test arguments".to_owned()),
     };
     match result {
@@ -65,9 +129,14 @@ fn run_inside_installed_frontend(language: &str) -> Result<(), String> {
         "go" => run_go(),
         "rust" => run_rust(),
         "csharp" => run_csharp(),
+        "java" => run_java(),
         _ => Err("unknown installed frontend".to_owned()),
     }
     .map_err(|error| format!("{language} frontend: {error}"))?;
+    write_report(report)
+}
+
+fn write_report(report: Value) -> Result<(), String> {
     print!(
         "{}",
         String::from_utf8(canonical_line(&report)?).map_err(display)?
@@ -158,7 +227,7 @@ fn run_csharp() -> Result<Value, String> {
         "profile_registry": {
             "schema": "mpk.semantic_profile.registry.v1",
             "id": "mpk.semantic_profile.registry.v1",
-            "revision": 2,
+            "revision": 3,
             "registry_sha256": SEMANTIC_REGISTRY_SHA256
         },
         "profile_entry_sha256": CSHARP_PROFILE_ENTRY_SHA256,
@@ -215,7 +284,183 @@ fn run_csharp() -> Result<Value, String> {
     }))
 }
 
-fn run_outer_cutover_gate() -> Result<(), String> {
+fn run_java() -> Result<Value, String> {
+    run_java_case("int.identity")
+}
+
+fn run_java_case(case_id: &str) -> Result<Value, String> {
+    let vector = load("develop/specs/vectors/java-profile-v0.json")?;
+    let case = vector["accepted_cases"]
+        .as_array()
+        .and_then(|cases| cases.iter().find(|case| case["id"] == case_id))
+        .ok_or("Java installed case is absent")?;
+    let mut storage = Vec::new();
+    for (path, source) in case["sources"]
+        .as_object()
+        .ok_or("Java sources are absent")?
+    {
+        storage.push(OwnedInput {
+            kind: InputKind::Source,
+            path: path.clone(),
+            bytes: source
+                .as_str()
+                .ok_or("Java source is invalid")?
+                .as_bytes()
+                .to_vec(),
+        });
+    }
+    for (index, contract) in case["contracts"]
+        .as_array()
+        .ok_or("Java contracts are absent")?
+        .iter()
+        .enumerate()
+    {
+        storage.push(OwnedInput {
+            kind: InputKind::Contract,
+            path: format!("contracts/c{index}.json"),
+            bytes: canonical_line(contract)?,
+        });
+    }
+    let paths = |kind| {
+        storage
+            .iter()
+            .filter(|input| input.kind == kind)
+            .map(|input| input.path.clone())
+            .collect::<Vec<_>>()
+    };
+    let selection = json!({"schema":"mpk.selection.java_methods.v0", "value": {
+        "compilation":"installed-vector",
+        "sources":paths(InputKind::Source),
+        "contracts":paths(InputKind::Contract),
+        "methods":case["methods"]
+    }});
+    let captured = captured_refs(&storage);
+    let accepted = run_installed_frontend(InstalledFrontendRunRequest {
+        semantic_context: &vector["semantic_context_fixture"],
+        selection: &selection,
+        release_registry_id: "mpk.release.registry.v1",
+        release_registry_sha256: ACTIVE_RELEASE_REGISTRY_SHA256,
+        frontend_bundle_id: java_release::FRONTEND_ID,
+        toolchain_bundle_id: java_release::TOOLCHAIN_ID,
+        captured_inputs: &captured,
+        synthetic_permissions: &[],
+        staged_directories: &[],
+        staged_placeholders: &[],
+        contracts: &[],
+    })
+    .map_err(display)?;
+    let artifacts = accepted
+        .envelope()
+        .artifacts()
+        .ok_or("Java emitted no artifacts")?;
+    ensure(
+        accepted.envelope().status() == "ir-lowered",
+        "Java frontend status",
+    )?;
+    ensure(
+        accepted.envelope().phase() == "emission",
+        "Java frontend phase",
+    )?;
+    ensure(
+        accepted.release_registry().registry_sha256 == ACTIVE_RELEASE_REGISTRY_SHA256,
+        "Java frontend release identity",
+    )?;
+    Ok(json!({
+        "language":"java",
+        "source_manifest_hash":artifacts.source_manifest().hash().as_str(),
+        "source_map_hash":artifacts.source_map().hash().as_str(),
+        "status":accepted.envelope().status(),
+        "vir_hash":artifacts.vir().hash().as_str()
+    }))
+}
+
+fn java_release_preflight(expected: InstalledFrontendRunCode) -> Result<(), String> {
+    let context = &java_release::candidate().tuples[0].semantic_context;
+    let selection = json!({"schema":"mpk.selection.java_methods.v0", "value": {
+        "compilation":"release-preflight",
+        "sources":["src/must-not-be-read.java"],
+        "contracts":["contracts/must-not-be-read.json"],
+        "methods":["preflight.Case::f(int)->int"]
+    }});
+    let result = run_installed_frontend(InstalledFrontendRunRequest {
+        semantic_context: context,
+        selection: &selection,
+        release_registry_id: "mpk.release.registry.v1",
+        release_registry_sha256: ACTIVE_RELEASE_REGISTRY_SHA256,
+        frontend_bundle_id: java_release::FRONTEND_ID,
+        toolchain_bundle_id: java_release::TOOLCHAIN_ID,
+        captured_inputs: &[],
+        synthetic_permissions: &[],
+        staged_directories: &[],
+        staged_placeholders: &[],
+        contracts: &[],
+    });
+    match result {
+        Err(error) if error.code() == expected => Ok(()),
+        _ => Err(format!(
+            "Java release preflight did not return {} before source access",
+            expected.as_str()
+        )),
+    }
+}
+
+fn run_java_trace_probe() -> Result<(), String> {
+    let installed = frontend_registry::InstalledSuccessorRelease::open().map_err(display)?;
+    let semantic = validate_semantic_profile_registry(
+        &installed.semantic_registry_bytes,
+        RegistryRevision::Revision3,
+    )
+    .map_err(display)?;
+    let release = validate_successor_release_registry(&installed.registry_bytes, &semantic)
+        .map_err(display)?;
+    ensure(
+        semantic.identity().registry_sha256() == SEMANTIC_REGISTRY_SHA256
+            && release.registry_sha256() == ACTIVE_RELEASE_REGISTRY_SHA256,
+        "Java trace probe release identity",
+    )?;
+    let expected = release
+        .registry()
+        .frontend_bundles
+        .iter()
+        .map(|bundle| (bundle.bundle_id.clone(), &bundle.inventory))
+        .chain(
+            release
+                .registry()
+                .toolchain_bundles
+                .iter()
+                .map(|bundle| (bundle.bundle_id.clone(), &bundle.inventory)),
+        )
+        .collect();
+    let snapshots = installed
+        .snapshot_selected_bundles(
+            &expected,
+            java_release::FRONTEND_ID,
+            java_release::TOOLCHAIN_ID,
+        )
+        .map_err(display)?;
+    let sandbox = frontend_sandbox::prepare_release_sandbox(java_release::HOST_ID)
+        .map_err(|error| format!("Java trace probe sandbox: {error:?}"))?;
+    let frontend = snapshots
+        .get(java_release::FRONTEND_ID)
+        .ok_or("Java trace probe frontend snapshot")?;
+    let toolchain = snapshots
+        .get(java_release::TOOLCHAIN_ID)
+        .ok_or("Java trace probe toolchain snapshot")?;
+    let output = frontend_sandbox::launch_java_trace_probe(sandbox, frontend, toolchain)
+        .map_err(|error| format!("Java trace probe launch: {error:?}"))?;
+    // `inactive` is the immutable T09 candidate's version label, not an
+    // activation switch; the installed revision-3 descriptors own activation.
+    ensure(
+        output.exit_code == Some(0)
+            && !output.signaled
+            && output.stdout == b"java2vir 0.1.0 (Temurin 25.0.4.1+1; inactive)\n"
+            && output.stderr_observed_bytes == 0
+            && !output.stream_limit_exceeded,
+        "Java trace probe output",
+    )
+}
+
+fn run_outer_cutover_gate(full_native_gate: bool) -> Result<(), String> {
     validate_active_models()?;
     let temporary = tempfile::Builder::new()
         .prefix("mpk-successor-cutover-")
@@ -243,18 +488,15 @@ fn run_outer_cutover_gate() -> Result<(), String> {
         let installed_executable = installed.join("bin/mpk");
         let mut command = assembler_command();
         command.args([
-            "run-installed",
+            if hostile {
+                "run-installed-hostile"
+            } else {
+                "run-installed"
+            },
             installed_executable
                 .to_str()
                 .ok_or("installed executable path is not UTF-8")?,
         ]);
-        if hostile {
-            command
-                .env("DOTNET_ROOT", "/host/dotnet")
-                .env("HOME", "/host/home")
-                .env("LD_LIBRARY_PATH", "/host/lib")
-                .env("MPK_PLUGIN", "/host/plugin");
-        }
         command.output().map_err(display)
     };
     let first = run_once(false)?;
@@ -282,9 +524,44 @@ fn run_outer_cutover_gate() -> Result<(), String> {
     ensure(
         report["languages"]
             .as_array()
-            .is_some_and(|languages| languages.len() == 3),
+            .is_some_and(|languages| languages.len() == 4),
         "installed report did not execute all frontends",
     )?;
+
+    if full_native_gate {
+        let installed_executable = installed.join("bin/mpk");
+        let native = assembler(&[
+            "run-installed-java-native-gate",
+            installed_executable
+                .to_str()
+                .ok_or("installed executable path is not UTF-8")?,
+        ])?;
+        ensure(
+            native.status.success() && native.stderr.is_empty(),
+            &format!(
+                "installed Java native gate failed: {}",
+                String::from_utf8_lossy(&native.stderr)
+            ),
+        )?;
+        let native_report: Value = serde_json::from_slice(&native.stdout).map_err(display)?;
+        ensure(
+            canonical_line(&native_report)? == native.stdout
+                && native_report["schema"] == "mpk.java.active_native_gate.v0"
+                && native_report["native_architecture"] == "x86_64"
+                && native_report["hostile_environment_equal"] == true
+                && native_report["undelegated_cgroup_rejected"] == true
+                && native_report["resource_faults"]
+                    == json!(["oom", "pids", "timeout", "stdout", "stderr", "tmpfs"])
+                && native_report["source_precedence_mutations"]
+                    .as_array()
+                    .is_some_and(|mutations| mutations.len() == 10)
+                && native_report["syscall_observation"]["jvm_clone3_fallback"] == true
+                && native_report["syscall_observation"]["jvm_thread_creations"]
+                    .as_u64()
+                    .is_some_and(|count| count > 0),
+            "installed Java native report is incomplete",
+        )?;
+    }
 
     let tampered = installed
         .join("libexec/mpk/bundles")
@@ -303,9 +580,30 @@ fn run_outer_cutover_gate() -> Result<(), String> {
     Ok(())
 }
 
+fn poison_environment() {
+    // Set these after the trusted test executable has started so loader
+    // variables challenge child inheritance without poisoning this process.
+    for (key, value) in [
+        ("CLASSPATH", "/host/classes"),
+        ("DOTNET_ROOT", "/host/dotnet"),
+        ("HOME", "/host/home"),
+        ("JAVA_HOME", "/host/jdk"),
+        ("JAVA_TOOL_OPTIONS", "-javaagent:/host/agent.jar"),
+        ("JDK_JAVA_OPTIONS", "-Dhost.injected=true"),
+        ("JDK_JAVAC_OPTIONS", "-processor poison.Processor"),
+        ("LD_LIBRARY_PATH", "/host/lib"),
+        ("LD_PRELOAD", "/host/preload.so"),
+        ("MPK_PLUGIN", "/host/plugin"),
+        ("PATH", "/nonexistent"),
+        ("_JAVA_OPTIONS", "-Dhost.legacy=true"),
+    ] {
+        env::set_var(key, value);
+    }
+}
+
 fn validate_active_models() -> Result<(), String> {
     let semantic_bytes = read("release/bundles/semantic-profile-registry.json")?;
-    let semantic = validate_semantic_profile_registry(&semantic_bytes, RegistryRevision::Revision2)
+    let semantic = validate_semantic_profile_registry(&semantic_bytes, RegistryRevision::Revision3)
         .map_err(display)?;
     ensure(
         semantic.identity().registry_sha256() == SEMANTIC_REGISTRY_SHA256,
@@ -316,12 +614,12 @@ fn validate_active_models() -> Result<(), String> {
         validate_successor_release_registry(&registry_bytes, &semantic).map_err(display)?;
     ensure(
         registry.registry_sha256() == ACTIVE_RELEASE_REGISTRY_SHA256
-            && registry.registry().frontend_bundles.len() == 3
-            && registry.registry().toolchain_bundles.len() == 3
-            && registry.registry().tuples.len() == 4,
+            && registry.registry().frontend_bundles.len() == 4
+            && registry.registry().toolchain_bundles.len() == 4
+            && registry.registry().tuples.len() == 5,
         "release registry is not the complete successor",
     )?;
-    for language in ["go", "rust", "csharp"] {
+    for language in ["go", "rust", "csharp", "java"] {
         validate_successor_bundle_candidate(
             &read(&format!("release/bundles/candidates/{language}.json"))?,
             &semantic,
@@ -373,6 +671,8 @@ fn validate_installed_topology(root: &Path) -> Result<(), String> {
         GO_TOOLCHAIN_BUNDLE_ID,
         RUST_FRONTEND_BUNDLE_ID,
         RUST_TOOLCHAIN_BUNDLE_ID,
+        java_release::FRONTEND_ID,
+        java_release::TOOLCHAIN_ID,
     ];
     let mut actual = fs::read_dir(root.join("libexec/mpk/bundles"))
         .map_err(display)?
