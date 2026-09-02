@@ -893,14 +893,20 @@ local native Linux release evidence. Preparing the proposal does not satisfy
 this gate and does not permit a specification freeze or production change.
 
 Only after entry, freeze and implement one new immutable practical profile for
-expression bodies, `var`, domain value types, bounded arrays and strings,
-floating-point and decimal values, nullable values, structured loops,
-switch/patterns, closed exceptions, iterators, and scheduler-unobservable
-async source shape. Keep `mpk.csharp.scalar.v0` immutable. The required
-successor registry and affected-artifact migration follow the source design,
-are atomic across all active profiles, keep Certificate v0 and both checker
-acceptance rules unchanged, and retain empty proof-node/theory tables with a
-recomputed total axiom count of zero.
+expression bodies, `var`, immutable domain value types and construction,
+bounded arrays, sequence builders, immutable sequences, canonical ordered
+maps/sets, strings and exact culture-free codecs, floating-point and decimal
+values, nullable and closed option/lookup/result/validation values, explicit
+missing/null/value boundary presence, dates, times, durations, instants, GUIDs,
+a checked money template, structural equality/order, structured loops,
+switch/patterns, closed exceptions, iterators, and scheduler-unobservable async
+source shape.
+Freeze explicit serialization boundaries and pure business state transitions
+without claiming infrastructure correctness. Keep `mpk.csharp.scalar.v0`
+immutable. The required successor registry and affected-artifact migration
+follow the source design, are atomic across all active profiles, keep
+Certificate v0 and both checker acceptance rules unchanged, and retain empty
+proof-node/theory tables with a recomputed total axiom count of zero.
 
 Execution follows the serial stages and acceptance criteria in the source
 design. Each requested capability must have positive, rejection, boundary,
@@ -910,9 +916,10 @@ dual-checker path. Local native Linux and fast gates plus a zero-finding review
 are required before activation.
 
 Exit gate: the practical C# profile is atomically active, every predecessor
-profile remains semantically equivalent, the general-facing sample is
-runnable, and the release receipt records all identities, hashes, native-gate
-evidence, checker agreement, axiom inventory, and zero open findings.
+profile remains semantically equivalent, all three general-facing business
+samples are runnable, and the release receipt records all identities, hashes,
+native-gate evidence, checker agreement, axiom inventory, and zero open
+findings.
 
 ## DART-04: Implement and release Dart
 

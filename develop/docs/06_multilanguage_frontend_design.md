@@ -104,10 +104,12 @@ normative specification.
 
 The proposed eighth design record is
 `08_csharp_practical_subset_design.md`. It defines a post-Java practical C#
-profile for immutable domain types, collections, text, richer numeric and
-control flow, exceptions, iterators, and closed async source shape. It does
-not widen the active scalar profile or authorize a profile, schema, bundle, or
-public route before `JAVA-03-T10` completes.
+profile for immutable domain types and construction, bounded collections,
+canonical text codecs, business values and outcomes, richer numeric and control
+flow, exceptions, iterators, closed async source shape, explicit integration
+boundaries, and pure business state transitions. It does not widen the active
+scalar profile or authorize a profile, schema, bundle, or public route before
+`JAVA-03-T10` completes.
 
 The order may change only through a reviewed governance amendment that records
 the user value, semantic risk, compiler integration quality, and effect on the

@@ -107,7 +107,10 @@ installed.
 The proposed post-Java
 [practical C# design](docs/08_csharp_practical_subset_design.md) adds the
 business-domain capability set requested for C# without widening the active
-scalar profile. It is design/governance work only: `JAVA-03-T10` must complete
+scalar profile. It covers immutable construction, bounded collections and
+builders, exact codecs, domain outcomes and business values, explicit data
+boundaries, and pure state transitions in addition to the requested language
+constructs. It is design/governance work only: `JAVA-03-T10` must complete
 before `CSHARP-03` may freeze a specification or begin implementation, and
 Dart waits for the complete practical-profile release gate.
 

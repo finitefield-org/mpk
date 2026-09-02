@@ -145,9 +145,13 @@ vectorに対してfrontendがサブセット境界を正しく受理・拒否す
 
 ## 今後の実務向け拡張
 
-式本体、immutableなinstance data model、配列、文字列、浮動小数点、decimal、
-nullable、loop、switch/pattern、例外、iterator、閉じた `async` / `await` を追加する
-提案は
+式本体、`init` / `required` とobject initializerを含むimmutableなinstance data
+model、配列、上限付きsequence builder、immutable sequence、canonical ordered
+map/set、文字列とculture非依存の厳密codec、浮動小数点、decimal、nullable、
+`Option` / `Lookup` / `Result` / accumulating `Validation`、省略・明示的null・値を
+区別するboundary presence、日付・時刻・duration・instant・GUID・Money、構造的な
+等値性と順序、loop、switch/pattern、例外、iterator、閉じた `async` / `await`、
+明示的なserialization boundary、pureなbusiness state transitionを追加する提案は
 [`C# Practical Subset Expansion Design`](../develop/docs/08_csharp_practical_subset_design.md)
 にまとめています。この設計は提案段階であり、現在のprofileや公開された受理範囲を
 変更するものではありません。
