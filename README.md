@@ -201,6 +201,7 @@ scripts/                generation and verification gates
 
 - [Alpha Demo Guide](docs/alpha-demo.md)
 - [C# Samples and Supported Subset](docs/csharp-samples-and-subset.md)
+- [Practical C# Expansion Design (proposal)](develop/docs/08_csharp_practical_subset_design.md)
 - [ProofOps Policy Local Verification](docs/proof-ops-policy-ci.md)
 - [ProofOps Engine Support Design](docs/proof-ops-engine-design.md)
 - [Web System Integration Guide](docs/web-system-integration.md)

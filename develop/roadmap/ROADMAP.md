@@ -8,21 +8,25 @@ The forward VIR/Rust migration sequence is owned by
 `../docs/05_rust_frontend_design.md` and
 `../docs/05_rust_frontend_design-todo.md`:
 
-1. VIR-00 freezes all replacement specifications, vectors, ownership, and
+1. VIR-00 froze all replacement specifications, vectors, ownership, and
    governance amendments.
-2. VIR-01 implements the shared VIR/VC/checking foundations.
+2. VIR-01 implemented the shared VIR/VC/checking foundations.
 3. GO-VIR-02 implemented all new Go consumers and completed the atomic cutover.
-4. RUST-03 is now active and builds the pinned Rust frontend.
-5. Later RUST phases add semantics without widening the proof trust boundary.
+4. RUST-03 through RUST-07-T05 completed the pinned Rust frontend, semantics,
+   verification, hardening, and release without widening the proof trust
+   boundary.
+5. The serial post-Rust program below now owns subsequent production phases.
 
-Post-Rust source-language expansion is queued in
+Post-Rust source-language expansion is governed by
 `../docs/06_multilanguage_frontend_design.md` and
 `../docs/06_multilanguage_frontend_design-todo.md`. It is one continuation of
-the same flow, not a parallel track: complete `RUST-07-T05`, then run
-`MLANG-00`, then `MLANG-01`, then implement and release C#, Java, Dart,
-TypeScript, and Python in that order. No future-language design phase,
-placeholder ID, profile, selection branch, release tuple, bundle, or frontend
-belongs in the current Go/Rust program.
+the same flow, not a parallel track. The flow completed `RUST-07-T05`,
+`MLANG-00`, `MLANG-01`, the C# scalar release, and Java through T09; Java T10
+is next. The proposed `CSHARP-03` practical C# expansion follows Java, then
+Dart, TypeScript, and Python follow in that order. A governance design record
+may prepare a later phase, but no specification, placeholder ID, profile,
+selection branch, release tuple, bundle, or frontend starts before its entry
+gate.
 
 The Phase 0 through Phase 12 entries below are a historical record of the
 replaced Go-only baseline, not a parallel active path. Certificate v0,

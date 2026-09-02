@@ -3417,9 +3417,12 @@ language branch, or widened frozen parser.
 After `RUST-07-T05`, `MLANG-00` may use the completed Go/Rust path for semantic
 comparison and compiler-API feasibility work. `MLANG-01` then designs the
 strict successor extension mechanism and freezes the C# specification package.
-Production frontends then proceed serially: C#, Java, Dart, TypeScript, and
-Python. Each language has its own semantic profile, pinned registered frontend/
-toolchain bundle, complete conformance vectors, and both-checker release gate.
+Production phases proceed serially. The original queue was C#, Java, Dart,
+TypeScript, and Python; the 2026-09-02 governance amendment in
+`08_csharp_practical_subset_design.md` inserts the proposed CSHARP-03 practical
+profile after Java and before Dart. Each admitted language/profile phase has a
+globally unique semantic profile, pinned registered frontend/toolchain bundle,
+complete conformance vectors, and both-checker release gate.
 
 The first added language may require successor versions of VIR, frontend,
 selection, manifest, release, policy, or evidence contracts because current v0

@@ -14,8 +14,9 @@ consume that owner's result without redefining it.
 ## 1. Serial task graph and bounded deliverables
 
 `CSHARP-02-T20 -> JAVA-03-T01 -> T02 -> T03 -> T04 -> T05 -> T06 -> T07 -> T08
--> T09 -> T10 -> DART-04`. Every task requires its predecessor's completed,
-reviewed result. T01 froze the profile; T02 added the inactive offline build;
+-> T09 -> T10 -> CSHARP-03 -> DART-04`. Every implementation node requires its
+predecessor's completed, reviewed result. T01 froze the profile; T02 added the
+inactive offline build;
 T03 added the inactive profile and artifact validators. T04 added capture,
 the public compiler adapter and bounded failure diagnostics. T05 added source
 admission, inert initialization, acyclic call closure and typed sidecars.

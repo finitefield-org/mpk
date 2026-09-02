@@ -47,16 +47,15 @@ The completed implementation sequence and migration record are
 `docs/05_rust_frontend_design-todo.md`. The older numbered roadmap records the
 completed baseline; it does not override that migration dependency graph.
 
-## Future source-language expansion
+## Post-Rust source-language expansion
 
-The scoped Rust v0 program completed at `RUST-07-T05`. MPK plans to add C#,
-Java, Dart, TypeScript, and Python only through the queued, strictly serial
-follow-on flow:
+The scoped Rust v0 program completed at `RUST-07-T05`. Its strictly serial
+follow-on flow now has this status and order:
 
-1. run `MLANG-00` semantic comparison and compiler-API feasibility work;
-2. run `MLANG-01` successor-contract and C# specification freeze; and
-3. implement and release C#, Java, Dart, TypeScript, and Python, one language
-   at a time in that order.
+1. `MLANG-00`, `MLANG-01`, and the C# scalar release are complete;
+2. Java is complete through T09 and T10 public activation is next; and
+3. after T10, expand C# through the proposed practical profile, then implement
+   Dart, TypeScript, and Python, one phase at a time.
 
 `MLANG-00-T01` through `MLANG-00-T03`, `MLANG-01-T01` through
 `MLANG-01-T03`, and `CSHARP-02-T01` through `CSHARP-02-T20` are complete. The
@@ -105,8 +104,17 @@ execution remains T10; no
 Java or later-language frontend is active and registry revision 2 stays
 installed.
 
-No multi-language design, feasibility, specification, or implementation phase
-runs in parallel with the Rust program or with another language phase.
+The proposed post-Java
+[practical C# design](docs/08_csharp_practical_subset_design.md) adds the
+business-domain capability set requested for C# without widening the active
+scalar profile. It is design/governance work only: `JAVA-03-T10` must complete
+before `CSHARP-03` may freeze a specification or begin implementation, and
+Dart waits for the complete practical-profile release gate.
+
+No multi-language feasibility, specification, or implementation phase runs in
+parallel with the Rust program or with another production phase. A later
+proposal-only governance record creates no profile identity or implementation
+authority.
 
 The order and gates are defined by `docs/06_multilanguage_frontend_design.md`
 and `docs/06_multilanguage_frontend_design-todo.md`. Every future language
@@ -199,6 +207,7 @@ complete VIR artifact set installed at the active paths.
 │   ├── 06_multilanguage_frontend_design.md
 │   ├── 06_multilanguage_frontend_design-todo.md
 │   ├── 07_java_frontend_design.md
+│   ├── 08_csharp_practical_subset_design.md
 │   ├── mlang-00-semantic-comparison-matrix.md
 │   ├── mlang-00-compiler-integration-feasibility.md
 │   ├── mlang-00-go-rust-shared-boundary-audit.md
@@ -230,7 +239,7 @@ complete VIR artifact set installed at the active paths.
 │   ├── CSHARP_PROFILE_V0.md
 │   └── vectors/
 │       ├── manifest.json
-│       └── 21 owned vector sets listed above
+│       └── 24 owned vector sets listed above
 ├── roadmap/
 │   ├── ROADMAP.md
 │   ├── MILESTONES.md
@@ -289,7 +298,8 @@ Start with:
 19. `docs/07_java_frontend_design.md`
 20. `docs/java-03-implementation-traceability-ledger.md`
 21. `specs/JAVA_PROFILE_V0.md`
-22. `roadmap/RELEASE_GATES.md`
+22. `docs/08_csharp_practical_subset_design.md`
+23. `roadmap/RELEASE_GATES.md`
 
 The original baseline can be seeded from `tasks/github_issues_seed.jsonl` or
 imported from `tasks/task_backlog.csv`. Use the two design todo documents and
@@ -298,7 +308,8 @@ T01 freeze, T02 offline build, T03 validators, T04 capture/compiler adapter,
 T05 source subset/sidecars and T06 lowering/artifact emission are complete;
 T07's private candidate/JVM runner and native x86-64 Linux acceptance are
 complete. T08's private integration and T09's release rehearsal are complete;
-T10 public activation remains pending.
+T10 public activation remains pending. The proposed CSHARP-03 practical
+profile begins only after T10 and completes before DART-04.
 
 ## Reference posture
 
@@ -312,3 +323,4 @@ Prepared: 2026-06-26. VIR governance and multi-language planning amendments:
 2026-08-25; C# implementation decomposition: 2026-08-25.
 Inactive pinned C# project and build closure: 2026-08-26.
 Inactive successor semantic-profile registry core: 2026-08-26.
+Practical C# profile governance and design proposal: 2026-09-02.

@@ -693,7 +693,7 @@ registered installed execution or the complete native Linux release gate.
 | `JAVA-03-T07` | Registered candidate bundles and measured JVM runner | Installed candidate image launches only registered bytes; offline, native closure, cgroup and hostile-environment tests pass |
 | `JAVA-03-T08` | VC, policy/evidence, certificate, AI and API integration | End-to-end Java certificate accepted from identical bytes by both checkers; context/redaction/regression gates pass without public activation |
 | `JAVA-03-T09` | Conformance/differential/fuzz/upgrade and release rehearsal | Two-build/two-run determinism, all vector owners execute, zero open findings and unchanged axiom categories |
-| `JAVA-03-T10` | Atomic four-language release, examples and active docs | Only revision 3 is installed, all five tuples work, old/crossed contexts reject, final local Linux release gate passes; then `DART-04` is eligible |
+| `JAVA-03-T10` | Atomic four-language release, examples and active docs | Only revision 3 is installed, all five tuples work, old/crossed contexts reject, final local Linux release gate passes; then proposed `CSHARP-03` is eligible |
 
 The T01 ledger assigns each normative section, payload field, vector family
 and concrete test file exactly one primary implementation owner. Staging is a

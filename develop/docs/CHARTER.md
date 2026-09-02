@@ -53,20 +53,21 @@ Unsupported or ambiguous behavior must fail closed. The MVP must reject rather t
 
 ## Post-MVP source-language direction
 
-C#, Java, Dart, TypeScript, and Python are future source frontends, not an
-expansion of the MVP acceptance boundary. The queued program is documented in
-`06_multilanguage_frontend_design.md`, but none of its design, feasibility,
-specification, or implementation phases starts until the current Go/VIR/Rust
-program completes `RUST-07-T05`.
+C#, Java, Dart, TypeScript, and Python belong to a source-frontend program
+outside the MVP acceptance boundary. That program began only after the
+Go/VIR/Rust sequence completed `RUST-07-T05`; C# scalar is now active and Java
+is complete through T09 with T10 activation pending. Its governance remains in
+`06_multilanguage_frontend_design.md`.
 
 Execution is one flow: `MLANG-00` then performs common semantic and compiler-
 API research, `MLANG-01` freezes the successor extension and C# package, and
-production admission proceeds C#, Java, Dart, TypeScript, then Python. Each
-language must freeze its own subset and semantic profile, fail closed at a
-pinned compiler or analysis boundary, and reuse the unchanged certificate and
-source-free checker boundary. There are no mixed-language VIR modules or FFI
-claims in this program, and current Go/Rust contracts must not reserve dormant
-future-language IDs or implementation hooks. The exact tasks are owned by
+production admission proceeds C#, Java, the proposed `CSHARP-03` practical C#
+profile, Dart, TypeScript, then Python. Each phase must freeze its own subset
+and semantic profile, fail closed at a pinned compiler or analysis boundary,
+and reuse the unchanged certificate and source-free checker boundary. There
+are no mixed-language VIR modules or FFI claims in this program, and current
+Go/Rust contracts must not reserve dormant future-language IDs or
+implementation hooks. The exact tasks are owned by
 `06_multilanguage_frontend_design-todo.md`.
 
 ## Acceptance Philosophy

@@ -2,17 +2,16 @@
 
 ## Authority during the VIR migration
 
-M0 through M10 record the completed Go-only implementation baseline. Active
-work follows the Rust milestones below and does not create a parallel helper
-path.
+M0 through M10 record the completed Go-only implementation baseline. The Rust
+milestones below also completed through `RUST-07-T05`; subsequent work follows
+the serial multi-language handoff and does not create a parallel helper path.
 
-Forward implementation follows the dependency-ordered milestones in
-`../docs/05_rust_frontend_design-todo.md`: VIR-00 freezes the replacement
-contracts, VIR-01 builds shared foundations, GO-VIR-02 cut the Go path over to
-VIR, and RUST-03 is now the next active phase for the
-pinned Rust frontend. The cutover replaces the applicable M6/M7 helper
-interfaces as one release change while leaving Certificate v0 and checker
-acceptance unchanged.
+Forward implementation followed the dependency-ordered milestones in
+`../docs/05_rust_frontend_design-todo.md`: VIR-00 froze the replacement
+contracts, VIR-01 built shared foundations, GO-VIR-02 cut the Go path over to
+VIR, and RUST-03 through RUST-07-T05 completed the pinned Rust frontend and
+release. The cutover replaced the applicable M6/M7 helper interfaces as one
+release change while leaving Certificate v0 and checker acceptance unchanged.
 
 The multi-language program in
 `../docs/06_multilanguage_frontend_design-todo.md` is a strictly post-Rust
@@ -21,7 +20,7 @@ for completing Rust v0. Its single sequence is:
 
 ```text
 RUST-07-T05 -> MLANG-00 -> MLANG-01 -> CSHARP-02 -> JAVA-03
-  -> DART-04 -> TYPESCRIPT-05 -> PYTHON-06
+  -> CSHARP-03 -> DART-04 -> TYPESCRIPT-05 -> PYTHON-06
 ```
 
 No phase in that sequence overlaps its predecessor.

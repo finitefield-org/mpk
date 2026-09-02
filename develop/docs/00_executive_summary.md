@@ -74,18 +74,19 @@ zero trusted use of source text, tactics, AI traces, or solver yes/no answers
 
 ## Post-Rust source-language direction
 
-C#, Java, Dart, TypeScript, and Python are queued after the scoped Rust v0
-release. Recording that direction now does not start a parallel design track:
-all multi-language semantic research, compiler-API feasibility work,
-specification, and production implementation wait for `RUST-07-T05`.
+C#, Java, Dart, TypeScript, and Python entered one post-Rust program after the
+scoped Rust v0 release. The Rust gate, shared feasibility/specification work,
+and C# scalar release are now complete; Java is complete through T09 with T10
+activation pending. No production phases run in parallel.
 
 The continuation is strictly serial: `MLANG-00` research, `MLANG-01` successor
-contract and C# specification freeze, then C#, Java, Dart, TypeScript, and
-Python implementation and release, one at a time. Each frontend remains
-untrusted, has a frozen language-specific subset and semantic profile, emits a
-language-isolated VIR module, and preserves the existing Certificate v0 and
-source-free checker boundary. No placeholder future-language value or dormant
-production hook is added to the Go/Rust path. See
+contract and C# specification freeze, C# and Java release, the proposed
+`CSHARP-03` practical C# expansion, then Dart, TypeScript, and Python, one phase
+at a time. Each frontend remains untrusted, has a frozen language-specific
+subset and semantic profile, emits a language-isolated VIR module, and
+preserves the existing Certificate v0 and source-free checker boundary. No
+placeholder future-language value or dormant production hook is added to the
+Go/Rust path. See
 `06_multilanguage_frontend_design.md` and
 `06_multilanguage_frontend_design-todo.md`.
 

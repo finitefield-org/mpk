@@ -119,16 +119,19 @@ transaction. Gate success and every reported provenance field remain untrusted;
 proof acceptance still requires canonical certificate or checked-theory bytes
 accepted by the configured source-free checkers.
 
-## Gate J: New source-language admission gate
+## Gate J: New source-language or semantic-profile admission gate
 
 This gate is not part of the current Go/Rust release and does not add a Rust
 v0 prerequisite. It activates only after the serial handoff in
 `../docs/06_multilanguage_frontend_design-todo.md`: `RUST-07-T05` completes,
 then `MLANG-00`, then `MLANG-01`, and only then C# production begins. Every
-later language's entire phase waits for its predecessor's complete release
+later language or source-profile expansion phase waits for its predecessor's
+complete release gate. The proposed practical C# expansion is therefore
+`JAVA-03 -> CSHARP-03 -> DART-04`; its design record alone does not open the
 gate.
 
-Before a new source language becomes a registered production frontend:
+Before a new source language or widened capability profile becomes a
+registered production frontend:
 
 - its exact supported subset, rejected-feature taxonomy, semantic profile,
   contract syntax, compiler/API boundary, target model, canonical fixtures,
@@ -136,16 +139,18 @@ Before a new source language becomes a registered production frontend:
 - its frontend, subordinate compiler components, toolchain, runtime inputs,
   and release bundle are exact, registered, reproducible identities rather
   than ambient or user-selected executables;
-- language selection resolves to exactly one registered frontend and one
-  semantic profile before lowering; unknown identities and mismatches reject;
-- the frontend emits one language-isolated VIR module; mixed-language VIR,
+- phase selection resolves to exactly one registered frontend and one
+  language/profile pair before lowering; unknown identities and mismatches
+  reject;
+- the frontend emits one language-isolated, single-profile VIR module;
+  mixed-language VIR,
   cross-language calls, FFI semantics, and ABI claims remain unsupported;
-- the language adds no new certificate axiom category, does not change
-  Certificate v0 or either source-free checker acceptance rule, and remains
-  outside the proof trust boundary;
+- the language/profile phase adds no new certificate axiom category, does not
+  change Certificate v0 or either source-free checker acceptance rule, and
+  remains outside the proof trust boundary;
 - positive, negative, boundary, determinism, differential, adversarial, and
   bounded fuzz suites pass, and both source-free checkers accept identical
   resulting certificate bytes; and
-- the language-specific review ledger is empty and the release report records
+- the phase-specific review ledger is empty and the release report records
   all selected profiles, bundles, inputs, manifests, VIR, VCs, certificates,
   and recomputed hashes.

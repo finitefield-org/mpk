@@ -16,12 +16,15 @@ acceptance. T08 completed private verification integration, and T09 completed
 conformance and local release rehearsal. T10 activation remains pending.
 No Java or later-language frontend is active, registry revision 2
 remains installed, and no later-language phase has started.
+`CSHARP-03` is recorded only as a post-Java governance/design proposal; no
+practical-profile specification or implementation phase has started.
 
 ## Scope and sequencing
 
-This plan queues C#, Java, Dart, TypeScript, and Python after the complete
-Go/VIR/Rust critical path. It defines one flow; none of its milestones overlap
-the Rust program or another language milestone.
+This plan queues C#, Java, the proposed practical C# expansion, Dart,
+TypeScript, and Python after the complete Go/VIR/Rust critical path. It defines
+one flow; none of its production milestones overlap the Rust program or
+another language milestone.
 
 ```text
 VIR-00 -> VIR-01 -> GO-VIR-02 -> RUST-03 -> RUST-04 -> RUST-05
@@ -30,14 +33,18 @@ VIR-00 -> VIR-01 -> GO-VIR-02 -> RUST-03 -> RUST-04 -> RUST-05
   -> MLANG-01 successor contract freeze
   -> CSHARP-02
   -> JAVA-03
+  -> CSHARP-03 practical C# expansion
   -> DART-04
   -> TYPESCRIPT-05
   -> PYTHON-06
 ```
 
-Every phase starts only after the preceding phase's exit gate. A later
-language's specification and production work are both contained in its phase
-and start only after the preceding language's final release gate.
+Every production phase starts only after the preceding phase's exit gate. A
+later language or source-profile expansion's feasibility, specification, and
+implementation work are contained in its production phase and start only
+after the preceding production phase's final release gate. A proposal-only
+governance record may be prepared earlier but grants no implementation
+authority.
 
 ## Common execution rules
 
@@ -49,9 +56,10 @@ and start only after the preceding language's final release gate.
    manifest claim, VC, policy output, and differential result untrusted.
 4. Keep Certificate v0, core/checker semantics, source-free checker inputs, and
    the four axiom categories unchanged.
-5. Each language owns a distinct semantic profile. An implementation never
-   infers source behavior from `source_language` or reuses another language's
-   profile.
+5. A language may own multiple globally unique, immutable semantic profiles.
+   One request and one VIR module select exactly one language/profile pair; an
+   implementation never infers behavior from `source_language` alone or reuses
+   a profile owned by another language.
 6. Unknown syntax, compiler nodes, types, conversions, operations, dispatch,
    targets, options, or semantics reject deterministically.
 7. One VIR module has one language/profile. Cross-language composition uses
@@ -62,17 +70,18 @@ and start only after the preceding language's final release gate.
    corpora, not an automatic dependency update.
 10. New shared code requires demonstrated identical behavior in at least two
     completed frontends; speculative plugin infrastructure is out of scope.
-11. Execute numbered tasks and language phases in the displayed order. Do not
-    overlap tasks within `MLANG-00` or `MLANG-01`, and do not begin feasibility
-    refresh or specification work for a later language while its predecessor
-    is still active.
+11. Execute numbered tasks and language/profile phases in the displayed order.
+    Do not overlap tasks within `MLANG-00` or `MLANG-01`, and do not begin a
+    feasibility refresh or specification work for a later production phase
+    while its predecessor is still active. A proposal-only governance record
+    creates no profile identity or implementation authority.
 12. Execute `CSHARP-02-T01` through `CSHARP-02-T20` serially under
     `csharp-02-implementation-traceability-ledger.md`. T02 through T19 remain
     inactive staging; T20 alone may activate the successor release.
 
-## Common definition of done for a language
+## Common definition of done for a language/profile phase
 
-Each production language phase must provide:
+Each production language or source-profile expansion phase must provide:
 
 - frozen subset, semantic-profile, toolchain, frontend, selection, contract,
   diagnostic, limit, and upgrade contracts;
@@ -875,9 +884,39 @@ Exit gate: Java passes the common definition of done without reinterpreting C#,
 Go, or Rust semantics, including the local offline two-pass installed gate,
 same-byte dual-checker certificate corpus and zero open review findings.
 
+## CSHARP-03: Design, implement, and release the practical C# profile
+
+Source design: `develop/docs/08_csharp_practical_subset_design.md`.
+
+Entry gate: `JAVA-03` is complete, including T10 atomic activation and its
+local native Linux release evidence. Preparing the proposal does not satisfy
+this gate and does not permit a specification freeze or production change.
+
+Only after entry, freeze and implement one new immutable practical profile for
+expression bodies, `var`, domain value types, bounded arrays and strings,
+floating-point and decimal values, nullable values, structured loops,
+switch/patterns, closed exceptions, iterators, and scheduler-unobservable
+async source shape. Keep `mpk.csharp.scalar.v0` immutable. The required
+successor registry and affected-artifact migration follow the source design,
+are atomic across all active profiles, keep Certificate v0 and both checker
+acceptance rules unchanged, and retain empty proof-node/theory tables with a
+recomputed total axiom count of zero.
+
+Execution follows the serial stages and acceptance criteria in the source
+design. Each requested capability must have positive, rejection, boundary,
+differential, determinism, and compiler-upgrade evidence. Actual C# source,
+not manually assembled VIR, must pass the installed frontend and the same-byte
+dual-checker path. Local native Linux and fast gates plus a zero-finding review
+are required before activation.
+
+Exit gate: the practical C# profile is atomically active, every predecessor
+profile remains semantically equivalent, the general-facing sample is
+runnable, and the release receipt records all identities, hashes, native-gate
+evidence, checker agreement, axiom inventory, and zero open findings.
+
 ## DART-04: Implement and release Dart
 
-Entry gate: `JAVA-03` complete.
+Entry gate: `CSHARP-03` complete.
 
 Only after the entry gate, freeze one Dart execution target and exact integer,
 null, dispatch, failure, SDK/analyzer, package-config, platform-library, and
@@ -912,11 +951,14 @@ annotations or runtime introspection.
 ## Final handoff checklist
 
 - Rust v0 completed `RUST-07-T05` before `MLANG-00` began.
-- Every design, specification, and production phase began only after its
-  immediate predecessor's exit gate; no multi-language phases overlapped.
-- Languages were admitted in the recorded order, or an explicit governance
-  amendment changed the future sequence before the affected phase began.
-- Every active language has one distinct semantic profile and complete vectors.
+- Every feasibility, specification, and production phase began only after its
+  immediate predecessor's exit gate; proposal-only design records granted no
+  implementation authority and no production phases overlapped.
+- Language/profile production phases were admitted in the recorded order, or
+  an explicit governance amendment changed the future sequence before the
+  affected production phase began.
+- Every active language has one or more globally unique immutable profiles;
+  every profile has complete vectors and every request selects exactly one.
 - No mixed-language VIR, runtime plugin, raw executable path, or new language-
   axiom category exists.
 - Certificate v0 and both source-free checker acceptance rules remain

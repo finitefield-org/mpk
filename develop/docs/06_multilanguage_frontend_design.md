@@ -19,7 +19,8 @@ registry revision 2 remains installed.
 
 Prepared: 2026-08-21
 
-Updated: 2026-09-02 (`JAVA-03-T01` through T09 complete; T10 next)
+Updated: 2026-09-02 (`JAVA-03-T01` through T09 complete; T10 next;
+post-Java `CSHARP-03` practical-profile design proposed)
 
 ## 1. Decision summary
 
@@ -36,8 +37,9 @@ The sequencing decision is:
    feasibility work for all five candidate languages.
 3. `MLANG-01` then audits the completed Go/Rust implementation and freezes the
    successor extension mechanism and first C# specification package.
-4. New production frontends are then added serially, initially in this order:
-   C#, Java, Dart, TypeScript, then Python.
+4. New production frontends are then added serially. C# and Java are followed
+   by the proposed `CSHARP-03` practical C# expansion before Dart, TypeScript,
+   and Python.
 5. “Rust v0 complete” means the deliberately restricted Rust profile in
    `05_rust_frontend_design.md` satisfies its release gates. It does not mean
    waiting for full-language Rust support.
@@ -100,6 +102,13 @@ one primary implementation owner, and reserves production activation for the
 final atomic cutover in T20. It is an execution plan and does not amend either
 normative specification.
 
+The proposed eighth design record is
+`08_csharp_practical_subset_design.md`. It defines a post-Java practical C#
+profile for immutable domain types, collections, text, richer numeric and
+control flow, exceptions, iterators, and closed async source shape. It does
+not widen the active scalar profile or authorize a profile, schema, bundle, or
+public route before `JAVA-03-T10` completes.
+
 The order may change only through a reviewed governance amendment that records
 the user value, semantic risk, compiler integration quality, and effect on the
 critical path. It must not be changed merely to start several frontend
@@ -143,8 +152,10 @@ The multi-language expansion should:
   lowering;
 - define a small fail-closed subset before accepting any source program;
 - reuse VIR operations only where the source-language behavior is exact;
-- add checked definitions or checked theory-certificate support when a new
-  value model is required;
+- add ordinary checked definitions and proof terms accepted by the current
+  program-certificate profile when a new value model is required; any theory
+  support is a separate prior foundation/checker project, not authority granted
+  by a language phase;
 - preserve one source language and one semantic profile per VIR module; and
 - make language additions repeatable without creating an unreviewed plugin or
   raw-executable escape hatch.
@@ -321,6 +332,11 @@ making C# the preferred third source language. The initial profile still
 rejects reference types, allocation, properties with accessors, delegates,
 virtual/interface calls, exceptions, iterators, async, reflection, unsafe code,
 user-defined operators/conversions, and ambiguous overflow contexts.
+
+The proposed successor practical boundary is designed separately in
+`08_csharp_practical_subset_design.md`. It uses a new semantic profile and
+successor helper-artifact family; it does not reinterpret the active
+`mpk.csharp.scalar.v0` profile or make any listed feature currently accepted.
 
 The language version, nullable mode, default overflow-checking option, target
 framework, reference assemblies, preprocessor symbols, analyzer/source-
@@ -508,11 +524,15 @@ verdicts, the four axiom categories, and the untrusted status of every helper
 artifact remain unchanged. Gate D is closed and Gate E may admit only
 `JAVA-03` next.
 
-### Gate E: serial language admission
+After `JAVA-03-T10` closes Gate E, the proposed `CSHARP-03` practical C# phase
+is next. DART-04 remains blocked until that entire phase passes its release
+gate; design preparation does not count as phase entry.
 
-A later language's entire phase, including its feasibility refresh,
-specification freeze, implementation, and release work, starts only after the
-previous language has:
+### Gate E: serial language/profile admission
+
+A later language or source-profile expansion's entire production phase,
+including its feasibility refresh, specification freeze, implementation, and
+release work, starts only after the previous production phase has:
 
 - a frozen specification/vector package;
 - an end-to-end accepted certificate corpus;
@@ -530,7 +550,7 @@ previous language has:
 | A universal IR operation hides different source behavior | Per-language profile matrices and exact required checks; add a new operation/version when meanings differ. |
 | Five compiler ecosystems multiply supply-chain and sandbox scope | One frontend at a time, complete pinned inventories, registered bundles, no ambient package manager or network. |
 | Static type information is mistaken for runtime semantics | Differential tests plus source-language specifications; TypeScript/Python annotations remain untrusted helper input. |
-| New numeric or heap semantics expand the trusted base | Checked definitions/theory certificates only; stop for governance rather than adding a language axiom. |
+| New numeric or heap semantics expand the trusted base | Use ordinary checked terms under the active program-certificate profile; a theory/checker change is a separate prior governance project, never a language shortcut. |
 | A compiler API changes silently | Exact compiler/SDK/library pins, exhaustive node matching, upgrade corpus, no automatic upgrades. |
 | Cross-language FFI bypasses module isolation | No mixed-language VIR or FFI profile; compose only checked certificate imports. |
 
@@ -545,10 +565,11 @@ The queued-roadmap documentation is complete when:
 - no frozen v0 schema contains a placeholder future-language value; and
 - the release gates define how a new language is admitted.
 
-A language implementation is complete only when its own specification package,
-frontend, deterministic registered bundle, conformance/differential corpus,
-policy/evidence path, certificate corpus, both-checker agreement, axiom review,
-upgrade procedure, and clean review ledger all pass.
+A language or source-profile expansion is complete only when its own
+specification package, frontend, deterministic registered bundle,
+conformance/differential corpus, policy/evidence path, certificate corpus,
+both-checker agreement, axiom review, upgrade procedure, and clean review
+ledger all pass.
 
 ## 14. Primary references
 

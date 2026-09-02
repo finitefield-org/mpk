@@ -142,3 +142,12 @@ sudo ./scripts/check-csharp-frontend.sh
 
 どちらも「既存の `Required.cs` が準拠サンプルである」という判定ではなく、固定
 vectorに対してfrontendがサブセット境界を正しく受理・拒否することを確認します。
+
+## 今後の実務向け拡張
+
+式本体、immutableなinstance data model、配列、文字列、浮動小数点、decimal、
+nullable、loop、switch/pattern、例外、iterator、閉じた `async` / `await` を追加する
+提案は
+[`C# Practical Subset Expansion Design`](../develop/docs/08_csharp_practical_subset_design.md)
+にまとめています。この設計は提案段階であり、現在のprofileや公開された受理範囲を
+変更するものではありません。
