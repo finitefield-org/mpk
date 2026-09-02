@@ -74,7 +74,9 @@ Every work item follows this common contract:
    implementation. Frozen spec-model tests do not count as production
    execution tests.
 4. Reject every unknown enum/tag/field/node/type/operation and every
-   out-of-limit input before emitting downstream artifacts.
+   structural or transport over-limit input before emitting downstream
+   artifacts. Represent an admitted run-time semantic bound with its frozen
+   predicate and VC; do not claim verified acceptance until it is proved.
 5. Run the targeted command listed below, then `./scripts/check-fast.sh`.
    Native Linux commands are additionally required only where stated.
 6. Review the complete diff for contradictions, stale assumptions, missing
@@ -129,10 +131,12 @@ work item.
 | Policy/evidence/AI/API | `crates/mpk-cli/src/successor_policy.rs`, `successor_ai_explain.rs`, `program_certificate.rs`, and `crates/mpk-api/src/successor_api.rs` |
 | Installed registry/bundles | `release/bundles/semantic-profile-registry.json`, `bundle-registry.json`, and `release/bundles/candidates/` |
 
-Until T08-W01 repairs and regenerates it, nothing under
-`fixtures/csharp/policy/` may count as CSHARP-03 frontend, policy, evidence,
-certificate, AI, or release acceptance evidence. Earlier tasks use dedicated
-new fixtures and retain the old fixture only as a negative mismatch case.
+Nothing under the tracked `fixtures/csharp/policy/` path may count as CSHARP-03
+frontend, policy, evidence, certificate, AI, or release acceptance evidence
+until T08-W10 atomically replaces the complete linked fixture. Earlier tasks
+use dedicated new fixtures and retain the old fixture only as a negative
+mismatch case. T08-W01 stages the verified replacement under private migration
+evidence and does not modify the tracked fixture path.
 
 ## 4. Common definition of done
 
@@ -204,7 +208,7 @@ vector row under exactly one of these owners. In this table only,
 | T06-W10-W12 | `crates/mpk-cli/tests/csharp_practical_policy_verify.rs`, `crates/mpk-api/tests/csharp_practical_api.rs` |
 | T07-W01/W02 | `crates/mpk-cli/tests/csharp_practical_build_inputs.rs`, `crates/mpk-cli/tests/csharp_practical_release_bundle.rs` |
 | T07-W03-W06 | `crates/mpk-cli/tests/csharp_practical_frontend_runner.rs`, `crates/mpk-cli/tests/csharp_practical_release_gate.rs` |
-| T08-W01 | existing C# fixture policy/evidence/AI tests plus `crates/mpk-cli/tests/csharp_practical_fixture.rs` |
+| T08-W01 | `crates/mpk-cli/tests/csharp_practical_fixture.rs` against the private candidate, plus existing mismatch-negative tests |
 | T08-W02-W05 | `crates/mpk-cli/tests/csharp_practical_examples.rs` and example-local .NET tests |
 | T08-W06-W10 | `crates/mpk-cli/tests/csharp_practical_release_gate.rs`, `crates/mpk-cli/tests/successor_atomic_cutover.rs` |
 
@@ -361,7 +365,7 @@ transition version/idempotency/event semantics; all successor identity and
 hash-domain names; whether one context-dispatched C# executable safely serves
 both scalar and practical profiles; diagnostic families/precedence; exact
 measured limits classified as pre-invocation structural counters or admitted
-run-time value predicates/VCs; and producer/consumer ownership from W02.
+run-time value predicates/VCs; and producer/consumer ownership from T01-W02.
 
 Exit gate: no “provisional”, “working”, or unmeasured value remains in a
 normative row; unknown fields/tags reject; each counter has one increment site,
@@ -483,9 +487,10 @@ Owns: the successor skeleton/VC schemas, canonical ordering, context and VIR
 linkage, ordinary-term type/value encoding, obligation groups, limits, and
 hashes while leaving Certificate v0 and checker acceptance unchanged.
 
-Exit gate: all new values and control forms have a closed encoding path; empty
-proof/theory tables and zero axioms are structurally enforced; no unproved
-intrinsic is accepted.
+Exit gate: all new values and control forms have a closed encoding path. The
+practical-profile assembly structurally enforces empty proof/theory tables and
+zero axioms; predecessor assemblies retain their frozen table and axiom rules;
+no unproved intrinsic is accepted.
 
 Verification: successor VC/hash vectors, canonical byte mutations, and direct
 rejection of nonempty proof-node/theory-certificate tables.
@@ -530,12 +535,14 @@ Owns: private successor consumers in VC, certificate assembly, policy/evidence,
 CLI, release, AI explanation, API, fixture tooling, and documentation; removes
 private dual-format fallbacks; records the complete migration receipt.
 
-Exit gate: every W02 inventory edge consumes exactly one successor format,
+Exit gate: every T01-W02 inventory edge consumes exactly one successor format,
 predecessor equivalence tests pass, no public practical route exists, and T02
 review has zero findings.
 
 Verification: targeted consumer tests, inventory search/mutation tests,
-complete predecessor local gates, and `./scripts/check-fast.sh`.
+complete predecessor semantic/certificate regression suites, and
+`./scripts/check-fast.sh`. Native installed-image gates remain owned by T07 and
+T08.
 
 ## 8. CSHARP-03-T03 — Data frontend
 
@@ -597,9 +604,10 @@ Owns: the frozen field/property forms, getter normalization, constructor
 selection and assignment order, definite initialization, constructor-only
 construction, construction invariants, and public type invariants.
 
-Exit gate: all stored members initialize exactly once under the frozen order;
-partial construction, setter/alias escape, hidden mutable state, invalid
-overload, and unproved invariant cases reject.
+Exit gate: all stored members follow the frozen assignment multiplicity and
+order and establish exactly one final value; partial construction,
+setter/alias escape, hidden mutable state, invalid overload, and unproved
+invariant cases reject.
 
 Verification: constructor/member order cases plus invariant attachment and
 failure-precedence tests.
@@ -642,9 +650,13 @@ Owns: fixed/bounded allocation, default-eligible versus fully initialized
 elements, reads/writes/length/index checks, alias rules, active-foreach
 mutation rejection, and freeze/escape behavior.
 
-Exit gate: every access has ordered symbolic or structural bounds checks;
-ownership cannot duplicate or escape; non-defaultable elements are initialized
-before read.
+Exit gate: every access has ordered symbolic or structural bounds checks. A
+negative or otherwise invalid C# length takes its frozen exception edge; a
+constant/initializer above the profile maximum rejects structurally; a
+symbolic length carries the separate profile-bound predicate and VC. Unique
+mutable ownership cannot be duplicated, and every permitted transfer, return,
+storage, or alias freezes/transfers it exactly as specified; non-defaultable
+elements are initialized before read.
 
 Verification: boundary lengths/indices, alias/use-after-freeze, foreach
 mutation, and default-eligibility tests.
@@ -653,12 +665,15 @@ mutation, and default-eligibility tests.
 
 Depends on: T03-W07.
 
-Owns: builder create/add/add-range/filter/freeze operations, linear state,
-capacity and result-length bounds, immutable sequence indexing/enumeration, and
-variable-result construction.
+Owns: builder creation, `Count`, indexed read, `Add`, and `Freeze`; linear
+state; capacity and result-length bounds; immutable sequence indexing and
+enumeration; and filtered variable-result construction expressed with ordinary
+control flow plus conditional `Add`. There is no `AddRange` or `Filter` API.
 
-Exit gate: capacity precedence and freeze state are exact; use-after-freeze,
-double freeze, alias, escape, over-capacity, and unbounded growth reject.
+Exit gate: negative capacity and full-builder `Add` take their exact frozen
+exceptional edges; the separate profile-capacity predicate becomes a VC;
+use-after-freeze, double freeze, alias, escape, and unbounded growth reject
+statically.
 
 Verification: state-machine transition matrix, filtered construction, boundary
 capacity, determinism, and mutation tests.
@@ -672,8 +687,9 @@ canonical key ordering/enumeration, map stored-null versus missing semantics,
 and key admissibility.
 
 Exit gate: output is independent of insertion order; duplicate/error
-precedence is exact; custom comparers, hashing, float keys, mutable keys, and
-unbounded collections reject.
+precedence and full-builder exceptional edges are exact; the semantic profile
+bound is a separate VC. Custom comparers, hashing, float keys, mutable keys,
+and framework or unbounded collection source forms reject.
 
 Verification: permutation tests over the key matrix, duplicate add/replace,
 missing/stored-null lookup, capacity, and rejected comparer/hash cases.
@@ -686,9 +702,12 @@ Owns: ordinal UTF-16 operations, allowed string methods, exact string/string and
 string/char concatenation, null/empty rules, surrogate handling, and the frozen
 culture-free codecs for all admitted primitives/business values.
 
-Exit gate: only intrinsic constant ordinal options are accepted; char/char,
-object conversion, culture-sensitive/general framework calls, noncanonical
-forms, bad ranges, and null receiver/argument cases follow frozen results.
+Exit gate: only intrinsic constant ordinal options are accepted. Codec syntax,
+noncanonical, range, scale/precision, and input-bound failures return their
+frozen `ParseError`; admitted null receiver/argument and bad-index/range cases
+take exact exception/result paths; output/profile-length predicates become
+VCs. Char/char, object conversion, culture-sensitive/general framework calls,
+and unknown codec/rounding IDs reject during source/contract validation.
 
 Verification: grammar and round-trip corpus, hostile cultures, surrogate/null
 boundaries, concatenation matrix, and pinned-runtime differential cases.
@@ -718,8 +737,12 @@ matching, deterministic error order/bounds, nesting restrictions, and the one
 frozen Lookup<Option> exception.
 
 Exit gate: annotations never substitute for runtime null; missing key differs
-from stored null; default-ineligible fallback and empty-invalid validation
-reject; nested Option forms outside the frozen exception reject.
+from stored null; inactive-payload access and empty `Invalid` construction take
+their exact frozen exceptional edges and must be proved unreachable, caught,
+or declared. Parameterless default fallback rejects when its payload is not
+`default_eligible`, while an explicit fallback carries its public-invariant
+obligation; nested Option forms outside the frozen exception reject during
+source/contract validation.
 
 Verification: full transition/payload matrix, null/missing/value boundaries,
 error accumulation order/capacity, match exhaustiveness, and mutation tests.
@@ -733,9 +756,11 @@ comparison, exact codecs, calendar/leap/day-of-week rules, wrap/carry,
 precision/range, no-generation policy, and Money currency/scale/rate/division/
 rounding/error precedence.
 
-Exit gate: every operation uses only explicit inputs; invalid date/time/range,
-ambient clock/time-zone, random Guid, currency mismatch, scale mismatch,
-division/rounding, and unsupported codec cases reject exactly.
+Exit gate: every operation uses only explicit inputs; date/time range failures
+take their frozen exception or result edge; Instant precision/range and Money
+currency/scale/division/overflow failures produce their frozen error arms;
+ambient clock/time-zone, random Guid, implicit rounding, and unsupported codec
+or source forms reject during source/contract validation.
 
 Verification: complete boundary/differential tables, leap/calendar cases,
 instant difference extremes, Guid ordering/codecs, and Money operation matrix.
@@ -754,9 +779,10 @@ serializer/framework calls, persistence/transport/time/random access, unknown
 fields, and invalid transition shapes reject; every T03 vector runs through
 the real frontend; T03 review has zero findings.
 
-Verification: C# subset/contracts/lowering/emission suites, two isolated runs,
-all T03 fuzz seeds, `./scripts/check-csharp-frontend.sh`, and
-`./scripts/check-fast.sh`.
+Verification: C# subset/contracts/lowering/emission suites and all T03 fuzz
+seeds in two isolated runs, `./scripts/build-csharp-frontend.sh --check`, and
+`./scripts/check-fast.sh`. The native installed-release gate remains owned by
+T07/T08.
 
 ## 9. CSHARP-03-T04 — Control frontend
 
@@ -783,7 +809,9 @@ stable IDs, invariant entry/back-edge/exit points, decreases, break/continue,
 nested targets, and partial-versus-total metadata.
 
 Exit gate: source-order evaluation and every normal/abrupt edge are explicit;
-unbounded/unsupported loop forms and ambiguous targets reject.
+unsupported or irreducible loop forms and ambiguous targets reject. A partial
+loop may omit decreases only when its partial-termination status remains
+explicit; a total claim requires the frozen decreases obligations.
 
 Verification: CFG golden vectors, loop interpreter differential cases, stable
 ID determinism, and invariant/decreases boundary tests.
@@ -795,9 +823,10 @@ Depends on: T04-W02.
 Owns: source-order arms/guards, exhaustiveness, null/type/property/list patterns,
 bindings and scopes, decision nodes, and unmatched behavior.
 
-Exit gate: pattern selection matches frozen Roslyn/runtime probes; dynamic,
-recursive/open, identity, side-effecting, nonexhaustive, or unsupported
-patterns reject deterministically.
+Exit gate: pattern selection matches frozen Roslyn/runtime probes; an
+expression switch is exhaustive or carries the exact modeled non-exhaustive
+exception path; dynamic, recursive/open, identity-sensitive, side-effecting,
+or otherwise unsupported patterns reject deterministically.
 
 Verification: decision-graph goldens, guard ordering, exhaustiveness/overlap,
 binding scope, runtime differential, and compiler-upgrade cases.
@@ -811,8 +840,11 @@ method exceptional result sets, exceptional postcondition attachment, and
 uncaught classification.
 
 Exit gate: runtime exception objects/messages/stacks never enter artifacts;
-each throw has one typed closed value and edge; undeclared/dynamic/wrapped/
-reflection-origin exceptions reject.
+each throw has one typed closed value and edge. Unknown, dynamic, wrapped, or
+reflection-origin exception forms reject. A closed exception outside the
+method's declared `throws` set instead creates the exact catch-or-unreachable
+obligation and must be caught or proved unreachable before verified
+acceptance.
 
 Verification: exception constructor/tag/payload/throw/uncaught vectors and
 exceptional contract type tests.
@@ -936,7 +968,9 @@ boundary, differential, determinism, and upgrade evidence; review has zero
 findings. If not, stop and return to T01 rather than narrowing the profile.
 
 Verification: complete iterator/async suites twice, bounded adapter/protocol
-fuzzing, `./scripts/check-csharp-frontend.sh`, and `./scripts/check-fast.sh`.
+fuzzing, `./scripts/build-csharp-frontend.sh --check`, and
+`./scripts/check-fast.sh`. The native installed-release gate remains owned by
+T07/T08.
 
 ## 11. CSHARP-03-T06 — Verification integration
 
@@ -1035,9 +1069,11 @@ missing/null/value rules, numeric/text canonicality, depth/count/byte limits,
 typed conversion, raw-input-to-value hash linkage, canonical output, and output
 reparse equality.
 
-Exit gate: serializer/runtime output is never proof authority; a certificate
-binds exact raw input, typed canonical value, output bytes, and reparsed value;
-all mutations break linkage or fail parsing.
+Exit gate: serializer/runtime output is never proof authority. The manifest and
+evidence chain bind exact raw input and output bytes to the typed canonical and
+reparsed values; the certificate proves only the ordinary relation over those
+typed values and does not assert serializer correctness. All mutations break
+linkage or fail parsing.
 
 Verification: boundary parser corpus/fuzzing, three-state field matrix, limit
 boundaries, hostile serializer mutations, and round-trip proof cases.
@@ -1182,13 +1218,14 @@ Verification: hostile-environment runner matrix twice on native Linux.
 
 Depends on: T07-W04.
 
-Owns: private image assembly, all active tuples on the sole successor registry,
-two builds/two runs, image mutation checks, predecessor/practical corpus,
-policy/evidence/API/checker paths, and rollback image materialization.
+Owns: private image assembly, every active predecessor tuple plus the inactive
+practical candidate tuple on the sole successor registry, two builds/two runs,
+image mutation checks, predecessor/practical corpus, policy/evidence/API/
+checker paths, and rollback image materialization.
 
 Exit gate: the candidate image is byte-identical across builds, all runs are
 deterministic, no old/staging compatibility route exists, and rollback restores
-the exact W01 baseline image.
+the exact T01-W01 baseline image.
 
 Verification: local native Linux candidate release gate twice and complete
 predecessor equivalence reports.
@@ -1210,21 +1247,32 @@ and a second native candidate run from the recorded inputs.
 
 ## 13. CSHARP-03-T08 — Complete rehearsal and atomic activation
 
-### CSHARP-03-T08-W01 — Repair the existing C# policy fixture from actual source
+T08-W01 through T08-W09 remain private rehearsal work. They may check in
+candidate evidence and examples only after each item satisfies its own
+installed-frontend, boundary, and checker gates, but they must not modify the
+tracked `fixtures/csharp/policy/` tree or expose an active/public practical
+profile route. T08-W10 is the sole fixture replacement and activation owner.
+
+### CSHARP-03-T08-W01 — Stage the C# policy-fixture replacement from actual source
 
 Depends on: T07-W06.
 
-Owns: correction of `fixtures/csharp/policy/source/src/Required.cs` and atomic
-regeneration, through the real private installed frontend, of its selection,
-context, maps, manifests, VIR, VC/skeleton, scan, evidence, certificate, hashes,
-AI fixtures, and manifest ownership.
+Owns: a private candidate under
+`develop/migrations/csharp-03/fixture-candidate/` containing the corrected
+`Required.cs` and the selection, context, maps, manifests, VIR, VC/skeleton,
+scan, evidence, certificate, hashes, AI fixtures, and manifest ownership
+regenerated through the real private installed frontend. The tracked
+`fixtures/csharp/policy/` tree remains byte-identical to the T01-W01 baseline.
 
-Exit gate: source syntax and artifacts agree; no manually attached VIR or stale
-byte/hash remains; boundary bytes round-trip where applicable; both checkers
-accept the exact recorded certificate bytes.
+Exit gate: candidate source syntax and artifacts agree; no manually attached
+VIR or stale byte/hash remains; boundary bytes round-trip where applicable;
+both checkers accept the exact recorded certificate bytes; a complete
+candidate inventory proves that T08-W10 can replace the linked tracked files
+atomically.
 
-Verification: fixture reproduction from scratch, policy/evidence/AI tests,
-checker agreement, and a mutation proving the old mismatch rejects.
+Verification: private-candidate reproduction from scratch, policy/evidence/AI
+tests, checker agreement, a mutation proving the old mismatch rejects, and a
+repository diff assertion that the tracked fixture path is unchanged.
 
 ### CSHARP-03-T08-W02 — Add the invoice pricing and tax example
 
@@ -1235,9 +1283,9 @@ currency/scale, business/effective dates, decimal rounding, ordered line
 aggregation, bounded sequence builder, construction styles, contracts,
 boundary input/output, artifacts, tests, and trust-boundary README.
 
-Exit gate: positive and business-error cases run through scan/verify,
-round-trip canonical JSON, and both checkers; README states exactly what is and
-is not proved.
+Exit gate: positive and business-error cases run through `mpk policy scan` and
+`mpk policy verify`, round-trip canonical JSON, and both checkers; README
+states exactly what is and is not proved.
 
 Verification: example-local runtime assertions plus installed frontend,
 policy/evidence reproduction, and same-byte checker tests. Runtime assertions
@@ -1257,8 +1305,9 @@ Exit gate: accept/error/replay/conflict/encoding-mismatch/capacity cases prove
 the frozen relations without claiming persistence, locking, clock, identity
 generation, or transport correctness.
 
-Verification: transition matrix through installed scan/verify, boundary
-round-trip, evidence reproduction, and both checkers.
+Verification: transition matrix through installed `mpk policy scan` and
+`mpk policy verify`, boundary round-trip, evidence reproduction, and both
+checkers.
 
 ### CSHARP-03-T08-W04 — Add the batch validation example
 
@@ -1272,9 +1321,9 @@ Exit gate: duplicate/unknown/noncanonical/limit and validation-order cases are
 demonstrated; iterator prefixes/disposal and async erasure are verified; both
 checkers accept the exact certificates.
 
-Verification: installed end-to-end positive/negative runs, boundary reparse,
-iterator/async differential checks, evidence reproduction, and checker
-agreement.
+Verification: installed end-to-end positive/negative `mpk policy scan` and
+`mpk policy verify` runs, boundary reparse, iterator/async differential checks,
+evidence reproduction, and checker agreement.
 
 ### CSHARP-03-T08-W05 — Close cross-example capability coverage
 
@@ -1319,9 +1368,10 @@ corpora under the final candidate; semantic-difference reports; Certificate v0
 byte/acceptance audit; same-byte dual-checker agreement; proof/theory table and
 axiom inventory audit.
 
-Exit gate: all predecessor behavior/obligations/verdicts are equivalent, all
-new and old certificates retain allowed zero-axiom state, and neither checker
-contains a profile-specific acceptance bypass.
+Exit gate: all predecessor behavior/obligations/verdicts and prior axiom
+inventories/categories are equivalent; every practical-profile certificate has
+empty proof/theory tables and total axiom count zero; neither checker contains
+a profile-specific acceptance bypass.
 
 Verification: complete predecessor local gates, checker agreement, axiom audit,
 and repository search/mutation tests for bypasses and obsolete formats.
@@ -1337,8 +1387,8 @@ and executable whole-image rollback procedure.
 
 Exit gate: documentation never calls the profile full C# support; every final
 identity/hash/limit is exact; activation is one atomic installed-image change;
-rollback needs no artifact reinterpretation and returns to the recorded T07
-baseline.
+rollback needs no artifact reinterpretation and returns to the T01-W01
+pre-CSHARP-03 installed-image baseline retained in the T07 receipt.
 
 Verification: docs/link/spec checks, release descriptor dry run, failure
 injection at each activation step, rollback drill, and obsolete-route search.
@@ -1362,19 +1412,24 @@ rerun by the final reviewer; any mismatch returns to the owning earlier item.
 
 Depends on: T08-W09 and transitively every earlier work item.
 
-Owns: the one release commit that installs only the frozen successor registry
-and bundles for all active profiles, removes executable private/staging and old
-format routes, activates the practical C# tuple, publishes the three examples,
-updates status/routing documents, and finalizes the release receipt.
+Owns: the one release commit that installs the frozen successor registry and
+bundles for all active profiles, removes executable private/staging and old
+format routes, atomically replaces the complete tracked C# policy fixture from
+the exact T08-W01 candidate inventory, activates the practical C# tuple,
+publishes the three examples, updates status/routing documents, and finalizes
+the release receipt.
 
 Exit gate: one installed successor release serves Go, Rust, scalar C#, Java,
 and practical C#; no compatibility selector or alternate registry is
 executable; actual-source examples pass; receipt records all identities,
 hashes, native evidence, checker agreement, empty proof/theory tables, total
-axiom count zero, rollback target, and zero findings; `DART-04` is unblocked.
+axiom count zero for the practical-profile certificates, unchanged predecessor
+axiom inventories/categories, rollback target, and zero findings; `DART-04` is
+unblocked.
 
 Verification: clean-image native release gate after activation, complete local
 corpus and checker agreement, installed-route and obsolete-format searches,
+an exact tracked-fixture-versus-T08-W01-candidate inventory/hash comparison,
 rollback then re-activation rehearsal, and `./scripts/check-fast.sh`.
 
 ## 14. Requirement-to-work-item traceability
@@ -1385,6 +1440,7 @@ the task contract above and the frozen T01 ledger.
 | Source design area | Freeze owner | Implementation/verification owner |
 | --- | --- | --- |
 | authority, trust, atomic migration | T01-W01/W02/W09 | T02-W08/W09, T07-W05/W06, T08-W08-W10 |
+| semantic registry/context/parameters/selection | T01-W02/W09 | T02-W01/W04/W08/W09, T08-W10 |
 | source/declaration/call/type closure | T01-W03/W04 | T03-W01 |
 | expression bodies and `var` | T01-W04 | T03-W02 |
 | enum/struct/class/default eligibility | T01-W04/W08 | T03-W03, T06-W02 |
@@ -1410,7 +1466,7 @@ the task contract above and the frozen T01 ledger.
 | diagnostics, precedence, and limits | T01-W09 | each frontend task; gates T03-W14/T04-W06/T05-W06 |
 | policy/evidence/AI/API | T01-W02/W09 | T02-W09, T06-W10-W12 |
 | build, bundle, sandbox, release | T01-W03/W09 | T07-W01-W06, T08-W08-W10 |
-| Required.cs repair and examples | T01-W10 vector ownership | T08-W01-W05 |
+| Required.cs repair and examples | T01-W10 vector ownership | T08-W01-W05, T08-W10 |
 | aggregate conformance/fuzz/upgrade | T01-W04-W10 | T08-W06/W07/W09 |
 
 ## 15. Per-item handoff checklist

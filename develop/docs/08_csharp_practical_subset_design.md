@@ -278,7 +278,7 @@ The new selection envelope names:
 - one compilation ID;
 - all source paths;
 - selected root methods or constructors;
-- every method and type-contract sidecar; and
+- every type, method/constructor, boundary, and transition sidecar; and
 - no executable, reference, package, registry, or toolchain path.
 
 The closure begins at the selected roots and includes every source-declared
@@ -552,6 +552,10 @@ aliased, captured, placed in a field/array/map, passed to an arbitrary method,
 returned, compared, yielded, or live across `await`. A loop may retain it only
 when its ownership and count are explicit in that loop's modifies/invariant
 record.
+
+“Copying into a fresh builder” and filtered projection mean ordinary bounded
+creation followed by source-order `foreach`/conditional `Add` calls. They do
+not add `AddRange`, `Filter`, a callback, a lambda, or another builder API.
 
 `Add` preserves insertion order. Builder creation requires a nonnegative
 capacity and has an exact `ArgumentOutOfRangeException` edge otherwise.
@@ -1429,7 +1433,9 @@ mismatch must be repaired before using that fixture as frontend evidence. The
 replacement fixture must run through the real installed C# frontend rather
 than attach a manually constructed VIR to source bytes. Regenerate all linked
 scan, evidence, certificate, source-map, manifest, and hash bytes in one
-reviewed change.
+reviewed change. Before activation, a verified replacement may exist only as
+private migration evidence; the tracked `fixtures/csharp/policy/` files change
+together in the atomic release commit.
 
 Add three general-facing, runnable end-to-end C# examples:
 
@@ -1451,11 +1457,16 @@ new business primitive. Each example documents what the certificate proves and
 what remains an untrusted serializer, identity/time source, persistence, or
 transport claim.
 
-No example is published until `mpk policy scan` and `verify` process its actual
-source through the installed frontend, its boundary bytes round-trip through
-the canonical value, and both checkers accept the same certificate bytes.
+No example is published until `mpk policy scan` and `mpk policy verify`
+process its actual source through the installed frontend, its boundary bytes
+round-trip through the canonical value, and both checkers accept the same
+certificate bytes.
 
 ## 24. Implementation stages and gates
+
+The implementation-sized work items, dependencies, owners, exit gates, and
+verification commands are maintained in
+[`08_csharp_practical_subset_design-todo.md`](08_csharp_practical_subset_design-todo.md).
 
 CSHARP-03 is implemented serially behind private entrypoints:
 
@@ -1509,7 +1520,8 @@ Activation requires all of the following:
 
 - every requested capability in section 1 has positive, negative, boundary,
   differential, deterministic, and upgrade evidence;
-- all old C# scalar accepted/rejected cases remain semantically identical;
+- all old C# scalar accepted/rejected cases retain their source behavior,
+  obligations, checker verdicts, and axiom categories;
 - all active Go, Rust, and Java cases retain their source behavior,
   obligations, checker verdicts, and axiom categories;
 - Certificate v0 and both checker acceptance rules are unchanged;
@@ -1518,8 +1530,8 @@ Activation requires all of the following:
   async encodings retain an empty proof-node table, empty theory-certificate
   table, no theory primitive/node, and a recomputed total axiom count of zero;
 - all three actual installed-source business examples, not constructed helper
-  IR, pass boundary round-trip, scan, verification, evidence reproduction, and
-  both checkers;
+  IR, pass boundary round-trip, `mpk policy scan`, `mpk policy verify`, evidence
+  reproduction, and both checkers;
 - the candidate passes the local native Linux assembly, image mutation,
   syscall, cgroup, resource, cleanup, and two-pass installed release gates;
 - `./scripts/check-fast.sh` and the complete local release gate pass without
