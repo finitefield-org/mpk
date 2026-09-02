@@ -1405,10 +1405,10 @@ The freeze and implementation gates must include:
 | Capability | Required evidence |
 | --- | --- |
 | Expression bodies / `var` | same normalized VIR and obligations as the explicit block/type form; malformed and ambiguous forms reject |
-| Data types / construction | positive structural cases, enum unknown/cast/zero-default cases, recursive default-eligible/ineligible cases, constructor-only and ordered init/required/object-initializer cases, construction/public invariant proofs, attribute bypass and all mutation/identity/inheritance escapes reject |
+| Data types / construction | positive structural cases, enum unknown/cast/zero-default cases, recursive default-eligible/ineligible cases, acyclic constructor delegation, receiver-first pure instance-call lowering, constructor-only and ordered init/required/object-initializer cases, construction/public invariant proofs, attribute bypass and all mutation/identity/inheritance escapes reject |
 | Arrays / builders / sequences | structural rejection versus symbolic bound obligations, default-eligible length allocation versus fully initialized non-defaultable elements, boundary lengths and indices, active-foreach mutation, every linear ownership/freeze/use-after-freeze path, filtered variable-result construction |
-| Ordered map/set | key-order matrix, duplicate add/replace, lookup, canonical enumeration, bound preservation, rejected float keys/comparers/hash/insertion-order dependencies |
-| Strings / codecs | exact string/string and string/char concat matrix, rejected char/char and object conversion, null/empty concat and equality, intrinsic-only ordinal arguments, null receivers/arguments, UTF-16/surrogates, every exact parse/format grammar and noncanonical/range mutation, lossless round-trip plus fixed-scale rounded-value laws, and pinned-runtime differential corpus |
+| Ordered map/set | exact immutable/builder API transition, read, count, contains, and ordered-enumeration matrices; key-order matrix, duplicate add/replace, lookup, bound preservation, and rejected float keys/comparers/hash/insertion-order dependencies |
+| Strings / codecs | exact string/string and string/char concat matrix, restricted interpolation equivalence and rejected alignment/format/non-string/non-char holes, rejected char/char and object conversion, null/empty concat and equality, intrinsic-only ordinal arguments, null receivers/arguments, UTF-16/surrogates, every exact parse/format grammar and noncanonical/range mutation, lossless round-trip plus fixed-scale rounded-value laws, and pinned-runtime differential corpus |
 | Float / decimal | exhaustive small-domain properties plus bit/rounding/overflow/NaN/signed-zero differential vectors against the pinned runtime |
 | Nullable / lookup / results / validation | all option/lookup and tagged-sum transitions, nested-option rejection and the exact lookup-versus-null exception, missing-key versus stored-null lookup, active/inactive payloads and empty-invalid exception, default-ineligible fallback rejection, annotations versus runtime null, deterministic error accumulation/order/bounds, exhaustive matching |
 | Business values | calendar boundaries/leap days and exact day-of-week enum, time wrap/carry, duration/instant precision and difference-range errors, GUID comparison/codecs/no-generation, Money creation/add/subtract/rate/division, currency/scale/rounding/error precedence, and canonical-storage-versus-business comparison cases |
@@ -1457,10 +1457,14 @@ new business primitive. Each example documents what the certificate proves and
 what remains an untrusted serializer, identity/time source, persistence, or
 transport claim.
 
-No example is published until `mpk policy scan` and `mpk policy verify`
-process its actual source through the installed frontend, its boundary bytes
-round-trip through the canonical value, and both checkers accept the same
-certificate bytes.
+An example's source and artifacts may be checked in only after `mpk policy
+scan` and `mpk policy verify` process its actual source through the installed
+frontend, its boundary bytes round-trip through the canonical value, and both
+checkers accept the same certificate bytes. Before T08-W10, “installed
+frontend” means the exact privately materialized candidate image: a checked-in
+example remains rehearsal-only, is absent from the active installed release
+and public routing/documentation, and does not activate a production tuple.
+T08-W10 atomically installs and advertises the already verified examples.
 
 ## 24. Implementation stages and gates
 

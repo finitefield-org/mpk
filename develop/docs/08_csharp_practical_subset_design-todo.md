@@ -214,10 +214,12 @@ vector row under exactly one of these owners. In this table only,
 
 ## 6. CSHARP-03-T01 — Feasibility and normative freeze
 
-T01 changes specifications, vectors, probes, and the ledger only. It must not
-change production acceptance or install a candidate. All observed values are
-captured from the final pinned toolchain; documentation recollection is not
-evidence.
+T01 changes specifications, vectors, private probe/test harnesses, private
+build-input measurement descriptors under `develop/migrations/csharp-03/`,
+and the ledger only. It must not change production acceptance, active
+release/build descriptors, or install/register a candidate. All observed
+values are captured from the final pinned toolchain; documentation recollection
+is not evidence.
 
 ### CSHARP-03-T01-W01 — Close the entry audit and baseline receipt
 
@@ -261,26 +263,35 @@ Owns: measure and freeze the .NET SDK/runtime, Roslyn assemblies/analyzers,
 reference pack, native host, source/build flags, archive hashes/modes/notices,
 offline extraction, and exact deterministic build inventory; prohibit project
 files, restore, NuGet/package-cache discovery, generators, analyzers outside
-the inventory, and ambient references.
+the inventory, and ambient references. Store the private candidate descriptor
+and inventory as
+`develop/migrations/csharp-03/build-inputs/build-inputs.json` and
+`develop/migrations/csharp-03/build-inputs/candidate-inventory.json`; the T01
+harness consumes only those paths and must not rewrite
+`release/build-inputs/csharp/`.
 
 Exit gate: two clean offline builds from frozen bytes are identical; every
 one-byte, file-count, mode, flag, reference, and environment mutation fails
 before publication; the candidate remains unregistered.
 
-Verification: add `crates/mpk-cli/tests/csharp_practical_build_inputs.rs` and
-extend the build-input script tests;
-run the isolated two-build recipe and
-`./scripts/build-csharp-frontend.sh --check-build-inputs`. The native
-`./scripts/check-csharp-frontend.sh` gate is reserved for T07/T08.
+Verification: add `crates/mpk-cli/tests/csharp_practical_build_inputs.rs`,
+extend the build-input script tests, run
+`cargo test -p mpk-cli --test csharp_practical_build_inputs` against the two
+private paths, run the isolated two-build recipe, and run
+`./scripts/build-csharp-frontend.sh --check-build-inputs` to prove the active
+scalar inputs remain unchanged. The native `./scripts/check-csharp-frontend.sh`
+gate is reserved for T07/T08.
 
 ### CSHARP-03-T01-W04 — Measure Roslyn data and construction shapes
 
 Depends on: T01-W03.
 
 Owns: disposable probes for expression bodies, `var`, enums, readonly structs,
-sealed immutable classes, fields/properties/constructors, `init`, `required`,
-object initializers, synthesized members, nullable annotations, conversions,
-arrays, collection calls, strings, and every proposed data intrinsic.
+sealed immutable classes, fields/properties/constructors and same-type
+constructor delegation, pure instance-method declarations/calls and overload
+resolution, `init`, `required`, object initializers, synthesized members,
+nullable annotations, conversions, arrays, collection calls, strings including
+restricted interpolation, and every proposed data intrinsic.
 
 Exit gate: canonical probe output records syntax, symbols, `IOperation`, CFG
 where present, implicit/synthesized flags, source spans, and rejected near
@@ -327,9 +338,10 @@ settings, and process paths; canonical results remain identical.
 Depends on: T01-W06.
 
 Owns: finite runtime probes for UTF-16/surrogates, ordinal string operations,
-the exact string/char concatenation matrix, null behavior, parse/format
-grammars, float/double result bits including NaN and signed zero, decimal
-coefficient/scale/rounding/overflow, and culture-independent error precedence.
+the exact string/char concatenation matrix and restricted-interpolation
+normalization, null behavior, parse/format grammars, float/double result bits
+including NaN and signed zero, decimal coefficient/scale/rounding/overflow,
+and culture-independent error precedence.
 
 Exit gate: every operation has an exact accepted domain, result encoding,
 error, precedence, and differential vector; no result depends on ambient
@@ -338,19 +350,25 @@ culture or general framework parsing/formatting.
 Verification: run under at least two hostile cultures and mutated runtime
 inputs; compare canonical bits/values and rejection IDs.
 
-### CSHARP-03-T01-W08 — Freeze collection, outcome, and business-value semantics
+### CSHARP-03-T01-W08 — Freeze data, collection, outcome, and business-value semantics
 
 Depends on: T01-W07.
 
-Owns: the final sequence/builder/map/set APIs and capacities; ownership/freeze
-rules; duplicate add/replace precedence; recursive default eligibility;
-structural equality and total-key ordering matrix; nullable/Option/Lookup/
-Result/Validation forms and nesting exceptions; DateOnly/TimeOnly/TimeSpan/
-Instant/Guid/Money representations, operations, codecs, ranges, and errors.
+Owns: the final declaration, stored-member, constructor, `init`/`required`, and
+object-initializer forms; constructor delegation, assignment/finalization
+order, construction/public invariants, and receiver-first statically resolved
+pure instance calls; sequence/builder/map/set APIs and capacities;
+ownership/freeze rules; duplicate add/replace precedence; recursive default
+eligibility; structural equality and total-key ordering matrix;
+nullable/Option/Lookup/Result/Validation forms and nesting exceptions; and
+DateOnly/TimeOnly/TimeSpan/Instant/Guid/Money representations, operations,
+codecs, ranges, and errors.
 
-Exit gate: every source API maps to one closed semantic operation; active and
-inactive payload rules, bounds, day-of-week mapping, instant granularity,
-Money currency/scale/rounding rules, and all exclusions are explicit.
+Exit gate: every admitted construction step and source API maps to one closed
+semantic operation; delegation and assignment order, invariant handoff,
+receiver dispatch, active and inactive payload rules, bounds, day-of-week
+mapping, instant granularity, Money currency/scale/rounding rules, and all
+exclusions are explicit.
 
 Verification: spec-model table completeness tests and independent finite .NET
 differential probes for every runtime-backed row.
@@ -427,7 +445,8 @@ Exit gate: recursive well-formedness, default eligibility, active-payload,
 capacity, key-order, scale/range, and canonical encoding rules reject before
 use; no framework object or serializer representation enters an artifact.
 
-Verification: new `csharp_practical_foundation.rs` vectors including every tag,
+Verification: foundation/value modules in
+`crates/mpk-vc/tests/csharp_practical_vir_model.rs`, including every tag,
 recursive boundary, inactive payload mutation, and canonical round trip.
 
 ### CSHARP-03-T02-W03 — Implement operation and explicit-control vocabulary
@@ -586,8 +605,9 @@ Verification: equivalence pairs and negative Roslyn-shape mutations in
 Depends on: T03-W02.
 
 Owns: declaration modifiers, members, source enums including exact underlying
-values and `System.DayOfWeek`, immutable type graphs, inheritance/identity/
-mutation rejection, and recursive default eligibility.
+values, the closed metadata-backed `System.DayOfWeek` enum, immutable type
+graphs, inheritance/identity/mutation rejection, and recursive default
+eligibility.
 
 Exit gate: every admitted instance is a structural value; unknown enum values,
 casts, zero/default cases, cycles, mutable/static/virtual/reflection/identity
@@ -600,17 +620,20 @@ differential vectors.
 
 Depends on: T03-W03.
 
-Owns: the frozen field/property forms, getter normalization, constructor
-selection and assignment order, definite initialization, constructor-only
-construction, construction invariants, and public type invariants.
+Owns: the frozen field/property forms, getter normalization, acyclic
+same-type constructor delegation, constructor selection and assignment order,
+definite initialization, constructor-only construction, receiver-first
+lowering and static resolution of admitted pure instance methods, construction
+invariants, and public type invariants.
 
 Exit gate: all stored members follow the frozen assignment multiplicity and
 order and establish exactly one final value; partial construction,
-setter/alias escape, hidden mutable state, invalid overload, and unproved
+constructor-delegation cycles, setter/alias escape, hidden mutable state,
+virtual/dynamic/ambiguous instance dispatch, invalid overload, and unproved
 invariant cases reject.
 
-Verification: constructor/member order cases plus invariant attachment and
-failure-precedence tests.
+Verification: constructor delegation/member-order cases, receiver-first pure
+instance-call equivalence, invariant attachment, and failure-precedence tests.
 
 ### CSHARP-03-T03-W05 — Admit `init`, `required`, and object initializers
 
@@ -682,8 +705,11 @@ capacity, determinism, and mutation tests.
 
 Depends on: T03-W08.
 
-Owns: builders, add/replace/duplicate behavior, lookup, freeze, capacity,
-canonical key ordering/enumeration, map stored-null versus missing semantics,
+Owns: immutable-map `Count`/`ContainsKey`/`Lookup`/ordered `foreach`, immutable-
+set `Count`/`Contains`/ordered `foreach`, bounded map-builder
+`Add`/`Put`/`Lookup`/`Count`/`Freeze`, bounded set-builder
+`Add`/`Contains`/`Count`/`Freeze`, duplicate/replacement/full-capacity
+precedence, map stored-null versus missing semantics, canonical key ordering,
 and key admissibility.
 
 Exit gate: output is independent of insertion order; duplicate/error
@@ -691,26 +717,31 @@ precedence and full-builder exceptional edges are exact; the semantic profile
 bound is a separate VC. Custom comparers, hashing, float keys, mutable keys,
 and framework or unbounded collection source forms reject.
 
-Verification: permutation tests over the key matrix, duplicate add/replace,
-missing/stored-null lookup, capacity, and rejected comparer/hash cases.
+Verification: exact immutable and builder API transition/read/enumeration
+matrices, permutation tests over the key matrix, count/contains behavior,
+duplicate add/replace, missing/stored-null lookup, capacity, and rejected
+comparer/hash cases.
 
 ### CSHARP-03-T03-W10 — Lower strings, characters, parsing, and formatting
 
 Depends on: T03-W09.
 
 Owns: ordinal UTF-16 operations, allowed string methods, exact string/string and
-string/char concatenation, null/empty rules, surrogate handling, and the frozen
+string/char concatenation, restricted interpolation normalized to the same
+bounded concatenation, null/empty rules, surrogate handling, and the frozen
 culture-free codecs for all admitted primitives/business values.
 
 Exit gate: only intrinsic constant ordinal options are accepted. Codec syntax,
 noncanonical, range, scale/precision, and input-bound failures return their
 frozen `ParseError`; admitted null receiver/argument and bad-index/range cases
 take exact exception/result paths; output/profile-length predicates become
-VCs. Char/char, object conversion, culture-sensitive/general framework calls,
+VCs. Interpolation with alignment, a format component, or a non-string/non-char
+hole; char/char; object conversion; culture-sensitive/general framework calls;
 and unknown codec/rounding IDs reject during source/contract validation.
 
 Verification: grammar and round-trip corpus, hostile cultures, surrogate/null
-boundaries, concatenation matrix, and pinned-runtime differential cases.
+boundaries, concatenation/interpolation equivalence and rejection matrices,
+and pinned-runtime differential cases.
 
 ### CSHARP-03-T03-W11 — Lower float, double, and decimal
 
@@ -1116,14 +1147,21 @@ Depends on: T06-W09.
 
 Owns: practical-profile policy scan, evidence schemas, source/profile/context/
 boundary/transition/checker linkage, provider redaction, registered-bundle-only
-reproduction, and complete installed-source recipe.
+reproduction semantics, and a complete source-to-candidate recipe. Its sole
+bundle/registry input is a private test fixture under
+`develop/migrations/csharp-03/t06-policy-bundle/`; it is not a release bundle
+or installed registry entry, and T07-W02 alone owns their final candidate
+forms.
 
 Exit gate: evidence can be reproduced without compiler/runtime trust, raw
 paths, credentials, network, or unregistered binaries; any linkage mutation
-fails closed.
+fails closed. Production logic accepts only a bundle present in its supplied
+validated registry, while the T06 fixture and its identity remain absent from
+`release/bundles/` and the active installed registry.
 
 Verification: `csharp_practical_policy_verify.rs`, evidence schema/hash cases,
-redaction tests, and offline reproduction from the private registered bundle.
+redaction tests, rejection of an unregistered fixture mutation, and offline
+reproduction from the exact private fixture bundle and fixture registry.
 
 ### CSHARP-03-T06-W11 — Integrate AI explanation and structured API
 
@@ -1161,9 +1199,13 @@ predecessor suites, `./scripts/check-fast.sh`.
 
 Depends on: T06-W12.
 
-Owns: the release build descriptor, source closure, final frontend/foundation
-assembly inventory, runtime files, notices, modes, build recipe, deterministic
-archive, and hostile ambient build checks.
+Owns: promotion of the frozen T01 private toolchain measurements into the final
+candidate inputs under `release/build-inputs/csharp/`, the release build
+descriptor, source closure, final frontend/foundation assembly inventory,
+runtime files, notices, modes, build recipe, deterministic archive, and hostile
+ambient build checks. Toolchain facts must remain byte-for-byte traceable to
+T01; implementation-owned source inventory is recomputed from the reviewed
+T06 tree rather than copied from the T01 probe harness.
 
 Exit gate: two fresh offline builds produce byte-identical reviewed candidate
 trees/archives; any archive/file/mode/flag/reference/environment mutation fails.
@@ -1218,10 +1260,11 @@ Verification: hostile-environment runner matrix twice on native Linux.
 
 Depends on: T07-W04.
 
-Owns: private image assembly, every active predecessor tuple plus the inactive
-practical candidate tuple on the sole successor registry, two builds/two runs,
-image mutation checks, predecessor/practical corpus, policy/evidence/API/
-checker paths, and rollback image materialization.
+Owns: private image assembly, every active predecessor tuple plus a practical
+tuple installed and executable only inside that private candidate image (and
+absent from the active production image), all on the sole successor registry;
+two builds/two runs; image mutation checks; predecessor/practical corpus;
+policy/evidence/API/checker paths; and rollback image materialization.
 
 Exit gate: the candidate image is byte-identical across builds, all runs are
 deterministic, no old/staging compatibility route exists, and rollback restores
@@ -1251,7 +1294,11 @@ T08-W01 through T08-W09 remain private rehearsal work. They may check in
 candidate evidence and examples only after each item satisfies its own
 installed-frontend, boundary, and checker gates, but they must not modify the
 tracked `fixtures/csharp/policy/` tree or expose an active/public practical
-profile route. T08-W10 is the sole fixture replacement and activation owner.
+profile route. Throughout these items, “installed” means the exact T07 private
+candidate image and its candidate-only practical tuple; the active production
+image and registry remain unchanged. Examples checked in by T08-W02 through
+T08-W04 remain uninstalled and unadvertised until T08-W10. T08-W10 is the sole
+fixture replacement, installed-example routing, and activation owner.
 
 ### CSHARP-03-T08-W01 — Stage the C# policy-fixture replacement from actual source
 
@@ -1278,8 +1325,8 @@ repository diff assertion that the tracked fixture path is unchanged.
 
 Depends on: T08-W01.
 
-Owns: runnable installed-source example with immutable request/result, Money,
-currency/scale, business/effective dates, decimal rounding, ordered line
+Owns: runnable candidate-verified source example with immutable request/result,
+Money, currency/scale, business/effective dates, decimal rounding, ordered line
 aggregation, bounded sequence builder, construction styles, contracts,
 boundary input/output, artifacts, tests, and trust-boundary README.
 
@@ -1416,8 +1463,8 @@ Owns: the one release commit that installs the frozen successor registry and
 bundles for all active profiles, removes executable private/staging and old
 format routes, atomically replaces the complete tracked C# policy fixture from
 the exact T08-W01 candidate inventory, activates the practical C# tuple,
-publishes the three examples, updates status/routing documents, and finalizes
-the release receipt.
+installs and advertises the three already verified examples, updates status/
+routing documents, and finalizes the release receipt.
 
 Exit gate: one installed successor release serves Go, Rust, scalar C#, Java,
 and practical C#; no compatibility selector or alternate registry is
@@ -1441,17 +1488,17 @@ the task contract above and the frozen T01 ledger.
 | --- | --- | --- |
 | authority, trust, atomic migration | T01-W01/W02/W09 | T02-W08/W09, T07-W05/W06, T08-W08-W10 |
 | semantic registry/context/parameters/selection | T01-W02/W09 | T02-W01/W04/W08/W09, T08-W10 |
-| source/declaration/call/type closure | T01-W03/W04 | T03-W01 |
+| source/declaration/call/type closure | T01-W03/W04 | T03-W01/W04 |
 | expression bodies and `var` | T01-W04 | T03-W02 |
 | enum/struct/class/default eligibility | T01-W04/W08 | T03-W03, T06-W02 |
-| fields/properties/constructors/init/required | T01-W04/W08 | T03-W04/W05, T06-W02 |
-| structural equality and ordering | T01-W08 | T03-W06, T06-W03 |
+| fields/properties/constructors/instance methods/init/required | T01-W04/W08 | T03-W04/W05, T06-W02 |
+| structural equality and ordering | T01-W04/W08 | T03-W06, T06-W03 |
 | arrays, builders, sequences | T01-W04/W08 | T03-W07/W08, T06-W03 |
-| ordered maps and sets | T01-W08 | T03-W09, T06-W03 |
-| UTF-16 strings and codecs | T01-W07 | T03-W10, T06-W03/W07 |
-| float/double and decimal | T01-W07 | T03-W11, T06-W03/W09 |
-| nullable and closed outcomes | T01-W08 | T03-W12, T06-W03 |
-| date/time/duration/instant/Guid/Money | T01-W08 | T03-W13, T06-W03 |
+| ordered maps and sets | T01-W04/W08 | T03-W09, T06-W03 |
+| UTF-16 strings and codecs | T01-W04/W07 | T03-W10, T06-W03/W07 |
+| float/double and decimal | T01-W04/W07 | T03-W11, T06-W03/W09 |
+| nullable and closed outcomes | T01-W04/W08 | T03-W12, T06-W03 |
+| date/time/duration/instant/Guid/Money | T01-W04/W08 | T03-W13, T06-W03 |
 | loops and contracts | T01-W05/W09 | T04-W01/W02, T06-W04 |
 | switch and patterns | T01-W05 | T04-W03, T06-W04 |
 | exceptions and abrupt completion | T01-W05/W09 | T04-W04-W06, T06-W05 |
