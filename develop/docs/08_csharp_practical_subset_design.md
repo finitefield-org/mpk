@@ -2003,9 +2003,11 @@ It replaces the superseded source-visible-library, iterator/async, and
 suspension-stage plan and is the current execution decomposition subordinate
 to this design and the future T01 frozen specifications. Its `Wnn`
 identifiers, dependencies, owners, acceptance gates, and primary test routing
-are current, but every item remains blocked until the native `JAVA-03-T10`
-x86-64 Linux release receipt satisfies the entry gate. No task may reintroduce
-a source-visible `Mpk.*` API, user-defined generic, iterator, or async scope.
+are current. The accepted native `JAVA-03-T10` x86-64 Linux release receipt
+satisfies the phase entry gate, so `CSHARP-03-T01-W01` is eligible to start;
+each later work item remains blocked until its serial predecessor and
+task-local entry gate are satisfied. No task may reintroduce a source-visible
+`Mpk.*` API, user-defined generic, iterator, or async scope.
 
 CSHARP-03 is implemented serially behind private entrypoints:
 
