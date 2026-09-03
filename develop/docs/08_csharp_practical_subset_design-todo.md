@@ -2,10 +2,10 @@
 
 Status: current reviewed implementation decomposition, prepared on 2026-09-03.
 The native `JAVA-03-T10` x86-64 Linux release receipt is accepted and
-`CSHARP-03-T01-W01/W02/W03` have completed the entry audit, consumer
-inventory, and private frontend/toolchain closure proof.
-`CSHARP-03-T01-W04` is ready; every later work item remains blocked by its
-serial predecessor.
+`CSHARP-03-T01-W01/W02/W03/W04` have completed the entry audit, consumer
+inventory, private frontend/toolchain closure proof, and Roslyn data/
+construction-shape measurement. `CSHARP-03-T01-W05` is ready; every later
+work item remains blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
 
@@ -44,14 +44,17 @@ JAVA-03-T10 -> CSHARP-03-T01-W01
 
 `JAVA-03-T10` completed atomic Java activation and the required native x86-64
 Linux two-pass release gate on 2026-09-03. This prerequisite is satisfied and
-T01-W01/W02/W03 have closed the entry audit, consumer inventory, and private
-frontend/toolchain closure proof; T01-W04 is ready. This file remains planning
-material. W01 added its baseline and ledger; W02 added only the private
+T01-W01/W02/W03/W04 have closed the entry audit, consumer inventory, private
+frontend/toolchain closure proof, and Roslyn data/construction-shape
+measurement; T01-W05 is ready. This file remains planning material. W01 added
+its baseline and ledger; W02 added only the private
 consumer inventory, owner tests, ledger evidence, and current-status
 documentation; W03 added only private build-input evidence and its harness and
-owner tests. No CSHARP-03 specification, vector, normative identity, production
-code, fixture, candidate bundle, public route, active build input, or active
-registry/release descriptor has been frozen or changed.
+owner tests; W04 added only private disposable probe source, canonical
+measurement evidence, its runner, documentation, and owner tests. No CSHARP-03
+specification, vector, normative identity, production code, fixture, candidate
+bundle, public route, active build input, or active registry/release descriptor
+has been frozen or changed.
 
 The following are unconditional stop conditions:
 

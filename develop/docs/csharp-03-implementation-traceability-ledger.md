@@ -1,10 +1,11 @@
 # CSHARP-03 Implementation Traceability Ledger
 
-Status: `CSHARP-03-T01-W01/W02/W03` complete (2026-09-03). The entry audit,
-consumer inventory, and private frontend/toolchain closure proof are closed,
-`CSHARP-03-T01-W04` is ready, and every later work item remains blocked by its
+Status: `CSHARP-03-T01-W01/W02/W03/W04` complete (2026-09-04). The entry
+audit, consumer inventory, private frontend/toolchain closure proof, and
+Roslyn data/construction-shape measurement are closed,
+`CSHARP-03-T01-W05` is ready, and every later work item remains blocked by its
 serial predecessor. No practical-profile identity, production acceptance path,
-registered candidate, or active registry entry was introduced by W01-W03.
+registered candidate, or active registry entry was introduced by W01-W04.
 
 This ledger is subordinate to
 [`08_csharp_practical_subset_design.md`](08_csharp_practical_subset_design.md)
@@ -37,9 +38,9 @@ it does not freeze a new profile or alter an active release.
 | --- | --- | --- | --- |
 | `CSHARP-03-T01-W01` | `Complete` | `crates/mpk-vc/tests/csharp_practical_inventory.rs#CSHARP-03-T01-W01` | `17275ffcba4f37d93a74fd188d9860b0a7d5f10d` |
 | `CSHARP-03-T01-W02` | `Complete` | `crates/mpk-vc/tests/csharp_practical_inventory.rs#CSHARP-03-T01-W02` | `f84a5c6ff5122a3a5e64d9305fe999ed1f501f85` |
-| `CSHARP-03-T01-W03` | `Complete` | `crates/mpk-cli/tests/csharp_practical_build_inputs.rs#CSHARP-03-T01-W03` | `SELF` |
-| `CSHARP-03-T01-W04` | `Ready` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W04` | `—` |
-| `CSHARP-03-T01-W05` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W05` | `—` |
+| `CSHARP-03-T01-W03` | `Complete` | `crates/mpk-cli/tests/csharp_practical_build_inputs.rs#CSHARP-03-T01-W03` | `4ad2cd480792d8e7cac71eb798e6b55b66bd97fb` |
+| `CSHARP-03-T01-W04` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W04` | `SELF` |
+| `CSHARP-03-T01-W05` | `Ready` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W05` | `—` |
 | `CSHARP-03-T01-W06` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W06` | `—` |
 | `CSHARP-03-T01-W07` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W07` | `—` |
 | `CSHARP-03-T01-W08` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W08` | `—` |
@@ -478,3 +479,153 @@ byte/count/mode/flag/reference/environment closure, offline two-build
 reproducibility, ambient-state stripping, private registration state, active
 scalar byte preservation, W02 consumer closure, serial ledger state, and the
 T01-W10/T07/T08 native-gate ownership boundary after all fixes.
+
+## 6. CSHARP-03-T01-W04 completion record
+
+### 6.1 Pinned compiler observations and upgrade mutations
+
+W04 consumes only the completed W03 commit
+`4ad2cd480792d8e7cac71eb798e6b55b66bd97fb`, tree
+`3ab99588482bfb3666088fa88dede679c748c17c`, private build-input descriptor
+raw SHA-256
+`83bf64dcbedce89f79613fe7aab3d95a92179122df54f9b5407273a245738015`,
+private candidate-inventory raw SHA-256
+`ff4b48790c67135144419c816149f8edfbd7b40ade231d6ab44c8433efef0cce`,
+toolchain SHA-256
+`d4af1170b2813a5581bb0f60b65fd4e7509576093045557b88689bf7e0876b4f`,
+and reference-projection SHA-256
+`30623f64b7d85564260e62464e652bfaa89eb56e0e55193989bfb99538ba6cad`.
+The disposable probe source raw SHA-256 is
+`e49a96c63ef1dc8548d54b5ad5cb6dd81ebb90b56fa7a27d54adfcb99c1d4657`.
+
+The canonical result at
+`develop/migrations/csharp-03/probes/roslyn-data-construction.json` is
+5,925,271 bytes with raw SHA-256
+`c5de8bc209331c2295497210a570ba0be32e0871b3dd2576980d6c109222142e`.
+Its normalized raw-observation section is 5,870,363 bytes with SHA-256
+`f264897e932272135510f8294eaccb3e42a9f93445392cbded8d18917821db93`;
+the deterministic probe binary SHA-256 is
+`0fd5d16ebfbebed44377301b64fad8366e6fe9d04f3ababbd4406a6a0a100ca5`.
+Both clean reruns agree on all three values.
+
+Fourteen isolated compilation units record 181 distinct target shapes: 129
+proposed admitted shapes and 52 rejected near misses. The sorted whole,
+admitted, and rejected shape-ID sets have SHA-256 values
+`727b7203815631d83cdb8475a2ce8360061205318763ed36a09fce76628a57b2`,
+`fe3a7b166ac51e184249debc491532b71fa30a9d1a5723cc830da67a8792ff6e`,
+and
+`506ba206622d81aa61b5ee8973958fc2c68a4155cf64d047e0daec4bcc9fd346`.
+Every admitted target has a separately named upgrade mutation and a SHA-256
+over its exact observation. All eight admitted compilation units are
+warning- and error-free. Rejected near misses deliberately include both
+compiler-successful profile exclusions and compiler-error shapes.
+
+Each compilation records exact source bytes/hash, diagnostics, syntax nodes,
+tokens and directive trivia with UTF-16 spans, declared and selected symbols,
+conversion classification, complete root `IOperation` trees, target operation
+shapes, and CFG blocks, regions, branches, implicit flags, and spans where a
+method or constructor body supplies a graph. Source-type inventories include
+all explicit and implicit members. Deterministically emitted, never-executed
+probe assemblies are re-imported through public APIs; their symbol views and
+raw ECMA-335 type/member/custom-attribute/signature rows retain the compiler-
+owned `IsExternalInit`, `RequiredMemberAttribute`, and
+`CompilerFeatureRequiredAttribute` observations that source symbols summarize
+or omit. Selected intrinsic symbols include complete containing-type and
+parameter signatures, while string, array, and date observations retain their
+incidental generic metadata without admitting that metadata as source surface.
+
+### 6.2 Bounded outputs and non-activation
+
+W04 adds only:
+
+- `develop/probes/csharp-03/DataConstructionProbe.cs` and its README;
+- `develop/probes/csharp-03/run-data-construction-probe.py` and sanitized shell
+  wrapper;
+- the canonical private measurement above; and
+- `crates/mpk-cli/tests/csharp_practical_probes.rs` as the exact
+  `CSHARP-03-T01-W04` primary owner.
+
+The runner source and shell-wrapper raw SHA-256 values are
+`2ac7d9491a618a29d44cc695f3dbc831e71710ef7003d938085f58a9e01c7731`
+and
+`f39aa6a2dec1db6f90128b981a2cd77058048e178c4cf8d95fdd6f379c8b488b`.
+The probe README and primary test raw SHA-256 values are
+`24db0e39cbbe607738956dc1c63a6d23000985b9ec060a4c96465e0d2c44a8eb`
+and
+`59cfd5b48ab58a67035bc39baf8769d2d7e57f6ad06a3cb46f11e6e5e8a33811`.
+
+The probe sources are harness-owned; no selected application snippet contains
+an MPK source or binary dependency, and no snippet or emitted probe assembly is
+executed as application code. W04 does not freeze the final operation set,
+semantic templates/bindings, schemas, vectors, diagnostic identities, limits,
+or practical profile identity. Those remain T01-W08-W10 scope. Control,
+exception, and pattern probes remain W05-owned; dependency/generic/iterator/
+async probes remain W06-owned; run-time semantic probes remain W07-owned.
+
+No production source, normative specification/vector, fixture, candidate,
+build input, public route, registry, release descriptor, or installed artifact
+changed. The active scalar descriptor, inventory, and vector remain at the W03
+raw SHA-256 values
+`0345044d16d4efb3568c32a3d7bc67fec508fe9359eff423a7f09c7f69b348dc`,
+`4ff3ba6fdc2eb2857c32563b959f11194075a4264164cd7aebc808858e500e9b`,
+and
+`8109f781ca1f2b90ba02f786da09ba97602f4cd484b8835b561d5ecf4e7781c8`.
+W05 is the sole ready item.
+
+### 6.3 Verification and review
+
+Target host: Darwin arm64. The following local checks passed:
+
+- `cargo test -p mpk-cli --test csharp_practical_probes`;
+- `cargo fmt --all -- --check`;
+- `cargo clippy -p mpk-cli --test csharp_practical_probes -- -D warnings`;
+- `./develop/probes/csharp-03/run-data-construction-probe.sh --check-record`;
+- `./develop/probes/csharp-03/run-data-construction-probe.sh --self-test`;
+- `cargo test -p mpk-vc --test csharp_practical_inventory`;
+- `python3 scripts/check-artifact-paths.py`;
+- `python3 scripts/check-spec-vectors.py --check`; and
+- `./scripts/check-fast.sh`.
+
+The exact two-build/two-run probe check passed under x86-64 emulation in the
+existing Linux local-gate image
+`sha256:ea3189955dd9c0e5deda7a30ef48a0c7ef5af3b128f74fcd6e368384b8e1420a`
+with no network, a read-only container root, a fresh executable tmpfs, the
+fixed W03 archive cache, empty compiler/run environments, and fresh output
+directories. The command is recorded in
+`develop/probes/csharp-03/README.md`; its `--check` action reproduced the
+checked-in result byte-for-byte after all fixes.
+
+Review/fix history:
+
+- The first pass found that repeated full symbol/operation objects inflated
+  the observation to 22.6 MB. Full operation trees now live once at their
+  roots, CFGs retain summaries and edges, and detailed symbols remain at target
+  and source-type ownership points; no required observation was removed.
+- The second pass added direct near misses for global/static/alias imports,
+  nullable directive variants, expression-bodied construction, multi-`var`,
+  required non-init state, and constructor/object-initializer rewrites.
+- The third pass found one admitted nullable `Value` probe produced `CS8629`.
+  Its source now establishes presence first, and every admitted compilation is
+  diagnostic-free.
+- The fourth pass found a compilation-unit marker selected the root rather
+  than its first `using`, and incidental string/array metadata markers selected
+  parameters instead of values. Target selection now excludes the root and the
+  metadata cases bind exact value expressions.
+- The fifth pass found selected method symbols were recorded without
+  containing type or parameter signature. The public symbol display now fixes
+  complete overload identities.
+- The sixth pass found Roslyn source symbols expose requiredness as symbol
+  properties while omitting the compiler-emitted required attributes from
+  `GetAttributes()`. The probe now emits deterministic temporary metadata,
+  re-imports it, and records raw ECMA-335 custom attributes and signature blobs
+  through public APIs.
+- The seventh pass removed an unused runner import and added a direct assertion
+  for `CompilerFeatureRequiredAttribute`, so the required-member marker promise
+  no longer relies only on the whole-document fingerprint.
+
+Final review findings: `0`. The final pass checks W04-only scope, exact W03
+input binding, complete task-term routing, syntax/symbol/operation/CFG and
+emitted-marker evidence, source/span/hash integrity, diagnostic-free admitted
+cases, near-miss coverage, one unique upgrade mutation per admitted shape,
+changed-observation rejection, deterministic rerun bytes, active scalar byte
+preservation, non-activation, and serial ledger state after all fixes.

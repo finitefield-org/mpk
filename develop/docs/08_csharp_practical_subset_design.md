@@ -98,9 +98,10 @@ JAVA-03-T10 -> CSHARP-03 practical profile -> DART-04
 
 Preparing this design was a governance amendment, not the start of CSHARP-03
 specification or implementation. The `JAVA-03-T10` code predecessor is
-complete with its native receipt. W01/W02/W03 have now closed the entry audit,
-consumer inventory, and private frontend/toolchain closure proof without a
-normative identity or production change, and W04 is ready. DART-04 waits for
+complete with its native receipt. W01/W02/W03/W04 have now closed the entry
+audit, consumer inventory, private frontend/toolchain closure proof, and
+Roslyn data/construction-shape measurement without a normative identity or
+production change, and W05 is ready. DART-04 waits for
 the complete CSHARP-03 release gate. This
 insertion records the user value of making the already released C# frontend
 useful for business-domain logic before adding another language; it does not
@@ -2005,10 +2006,11 @@ suspension-stage plan and is the current execution decomposition subordinate
 to this design and the future T01 frozen specifications. Its `Wnn`
 identifiers, dependencies, owners, acceptance gates, and primary test routing
 are current. The accepted native `JAVA-03-T10` x86-64 Linux release receipt
-satisfied the phase entry gate. `CSHARP-03-T01-W01/W02/W03` have closed the
-entry audit, consumer inventory, and private frontend/toolchain closure proof,
-`CSHARP-03-T01-W04` is ready, and each later work item remains blocked until
-its serial predecessor and task-local entry gate are satisfied. No task may
+satisfied the phase entry gate. `CSHARP-03-T01-W01/W02/W03/W04` have closed
+the entry audit, consumer inventory, private frontend/toolchain closure proof,
+and Roslyn data/construction-shape measurement, `CSHARP-03-T01-W05` is ready,
+and each later work item remains blocked until its serial predecessor and
+task-local entry gate are satisfied. No task may
 reintroduce a source-visible
 `Mpk.*` API, user-defined generic, iterator, or async scope.
 
