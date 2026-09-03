@@ -5,7 +5,9 @@ This directory contains disposable feasibility probes for the serial
 profile specification, application library, installed candidate, or release
 gate. Application snippets compiled by the probes contain no MPK namespace,
 assembly, attribute, interface, base type, generated source, or runtime
-dependency.
+dependency when they are proposed admitted candidates. T01-W06 deliberately
+compiles isolated rejected dependency forms as negative observations; no
+snippet or emitted assembly is executed as application code.
 
 ## T01-W04 data and construction probe
 
@@ -131,5 +133,76 @@ docker run --rm --platform linux/amd64 --privileged --network none --read-only -
 
 W05 remains measurement evidence only. It does not freeze decision semantics,
 exception lowering, diagnostic identities, profile/schema identities, or a
-production route. Dependency/generic/iterator/async observations remain W06;
-runtime behavior remains W07; specification and activation remain W08-W10.
+production route. Its dependency/generic/iterator/async successor evidence is
+recorded by W06 below; runtime behavior remains W07, and specification and
+activation remain W08-W10.
+
+## T01-W06 dependency, generic, iterator, and async rejection probe
+
+`DependencyGenericSuspensionProbe.cs` uses only public Roslyn and public .NET
+metadata APIs with the exact W03 toolchain closure and W05 result fixed as its
+predecessor. Its 16 isolated compilation units record 144 source shapes in 41
+deterministic families: 12 narrowly admitted exception observations and 132
+rejected profile forms. The corpus covers:
+
+- MPK package, assembly, namespace, attribute, interface, base-type,
+  generated-source, project, and ambient-reference dependencies;
+- source-written attributes on all relevant declaration/member/parameter
+  targets versus compiler-emitted `init`/`required` metadata;
+- generic declarations, methods, parameters, constraints, variance,
+  explicit/inferred calls, closed/open uses, constructed framework types, and
+  invalid nullable payloads;
+- the exact value-type `T?` exception, its immediate closed `option`
+  specialization, rejected `System.Nullable<T>`/alias/construction/cast forms,
+  and non-generic arrays/reference annotations;
+- exact allowlisted string, array, decimal, and date operations whose observed
+  framework types carry incidental generic metadata, paired with rejected
+  source-visible uses of that metadata; and
+- iterator declarations, `yield`, enumeration protocols, async iterators,
+  `async`/`await`, task/value-task forms, factories, continuations, schedulers,
+  task races, parallel execution, custom awaiters, cancellation, lambdas/local
+  functions, and emitted state machines.
+
+Every unit records exact source bytes/hash, diagnostics, full syntax and
+operation roots, selected/declared/enclosing symbols, types and converted
+types, generic facts, UTF-16 marker/source order, generated sources, and
+deterministically emitted metadata where compilation succeeds. Three synthetic
+references have fixed virtual package/project/ambient origins. The nullable
+records state the concrete payload and require `residual_type_parameter=false`;
+the emitted records expose `IsExternalInit`, required-member attributes,
+assembly references, and iterator/async state-machine types and attributes.
+
+The canonical result is
+`../../migrations/csharp-03/probes/roslyn-dependency-generic-suspension.json`.
+It is 4,511,101 bytes with raw SHA-256
+`5dadf10613f95be9b35c108008a33474c55d222bef1be987c2614c6dcc48fe96`.
+Each of the 144 shapes has an exact observation hash and a distinct substantive
+upgrade mutation. Rejected units include compiler-clean profile exclusions,
+one warning-only exclusion, and compiler-error near misses.
+
+On native x86-64 Linux with the frozen W03 archive cache present:
+
+```sh
+./develop/probes/csharp-03/run-dependency-generic-suspension-probe.sh --check
+```
+
+`--check` performs two fresh empty-environment builds and runs, requires equal
+binary and observation bytes, normalizes both, and compares the result
+byte-for-byte with the checked-in record. `--check-record` validates the
+canonical record without running Linux binaries; `--self-test` changes every
+shape's selected observation and requires full-document rejection; `--update`
+uses the same two-run equality gate before atomic replacement.
+
+The recorded and final checks use the immutable local Linux x86-64 gate image,
+no network, a read-only container/repository for checking, and a fresh
+executable tmpfs:
+
+```text
+docker run --rm --platform linux/amd64 --privileged --network none --read-only --tmpfs /tmp:rw,nosuid,nodev,exec,size=4g --mount type=bind,source=<repository>,target=/workspace,readonly -w /workspace sha256:ea3189955dd9c0e5deda7a30ef48a0c7ef5af3b128f74fcd6e368384b8e1420a ./develop/probes/csharp-03/run-dependency-generic-suspension-probe.sh --check
+```
+
+W06 is private measurement and rejection evidence only. It introduces no
+application dependency, source-facing library, generic/iterator/async
+capability, production route, registered identity, or normative vector.
+Runtime behavior remains W07-owned and final specification/activation remains
+W08-W10-owned.

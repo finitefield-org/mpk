@@ -35,6 +35,21 @@ const CONTROL_ADMITTED_SHAPE_IDS_SHA256: &str =
     "524e05d67fa72c5520176711f06a42739f44d881ad30e2c0b31cfbc83f76864c";
 const CONTROL_REJECTED_SHAPE_IDS_SHA256: &str =
     "b510c715a9d915a1217bccfbcc80611877c06a5bd8cf036bd1959db7012e0870";
+const DEPENDENCY_RESULT_PATH: &str =
+    "develop/migrations/csharp-03/probes/roslyn-dependency-generic-suspension.json";
+const DEPENDENCY_RESULT_SIZE: usize = 4_511_101;
+const DEPENDENCY_RESULT_SHA256: &str =
+    "5dadf10613f95be9b35c108008a33474c55d222bef1be987c2614c6dcc48fe96";
+const DEPENDENCY_PROBE_SOURCE_SHA256: &str =
+    "7e2114bdb75ef5b78e330c24e04c551c7766740ba037a12419547212026c6db6";
+const DEPENDENCY_SHAPE_IDS_SHA256: &str =
+    "6f7cb87aa1efae91b220244b5b85cac5d13e9995b8b93539bc04cc1925060446";
+const DEPENDENCY_ADMITTED_SHAPE_IDS_SHA256: &str =
+    "3529ba40edc421a2a19fe74eceaf825426063c4336da2b72c75cc4c06633d35c";
+const DEPENDENCY_REJECTED_SHAPE_IDS_SHA256: &str =
+    "4a72c24a0b06bb25e4e8b69dcd17695a253d754ee85b6599c636d9d944415ef4";
+const DEPENDENCY_FAMILY_IDS_SHA256: &str =
+    "407f67fc75f02b61d555834ade2f192e0db3e249f74f16b505291235bb7e93be";
 
 fn repository_root() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("../..")
@@ -1532,6 +1547,1116 @@ fn pinned_control_probe_rerun_is_byte_identical_when_the_linux_cache_is_availabl
     .env("PATH", "/usr/bin:/bin")
     .output()
     .expect("execute pinned W05 Roslyn probe");
+    assert!(
+        output.status.success(),
+        "stdout={} stderr={}",
+        String::from_utf8_lossy(&output.stdout),
+        String::from_utf8_lossy(&output.stderr)
+    );
+    assert!(output.stdout.is_empty());
+    assert!(output.stderr.is_empty());
+}
+
+fn load_dependency() -> Value {
+    serde_json::from_slice(&bytes(DEPENDENCY_RESULT_PATH)).expect("parse W06 probe result")
+}
+
+fn dependency_case<'a>(document: &'a Value, case_id: &str) -> &'a Value {
+    array(&document["observations"]["cases"])
+        .iter()
+        .find(|case| case["id"] == case_id)
+        .unwrap_or_else(|| panic!("missing dependency case {case_id}"))
+}
+
+fn dependency_target<'a>(document: &'a Value, shape_id: &str) -> &'a Value {
+    for case in array(&document["observations"]["cases"]) {
+        for candidate in array(&case["targets"]) {
+            if candidate["shape_id"] == shape_id {
+                return candidate;
+            }
+        }
+    }
+    panic!("missing dependency target {shape_id}");
+}
+
+fn dependency_target_mut<'a>(document: &'a mut Value, shape_id: &str) -> &'a mut Value {
+    for case in document["observations"]["cases"]
+        .as_array_mut()
+        .expect("dependency cases")
+    {
+        for candidate in case["targets"].as_array_mut().expect("dependency targets") {
+            if candidate["shape_id"] == shape_id {
+                return candidate;
+            }
+        }
+    }
+    panic!("missing mutable dependency target {shape_id}");
+}
+
+fn dependency_family(shape_id: &str) -> Option<&'static str> {
+    [
+        (
+            "exception.compiler_metadata.",
+            "exception.compiler_metadata",
+        ),
+        ("exception.incidental.", "exception.incidental_metadata"),
+        ("exception.nullable.", "exception.nullable_shorthand"),
+        ("exception.array.", "exception.array_non_generic"),
+        (
+            "near_miss.dependency.generated_source.",
+            "dependency.generated_source",
+        ),
+        ("near_miss.dependency.namespace.", "dependency.namespace"),
+        ("near_miss.dependency.package.", "dependency.package"),
+        ("near_miss.dependency.assembly.", "dependency.assembly"),
+        ("near_miss.dependency.attribute.", "dependency.attribute"),
+        ("near_miss.dependency.interface.", "dependency.interface"),
+        ("near_miss.dependency.base_type.", "dependency.base_type"),
+        ("near_miss.dependency.project.", "dependency.project"),
+        ("near_miss.dependency.ambient.", "dependency.ambient"),
+        (
+            "near_miss.attribute.compiler_marker.",
+            "attribute.compiler_marker_spelling",
+        ),
+        ("near_miss.attribute.source.", "attribute.source_written"),
+        ("near_miss.generic.declaration.", "generic.declaration"),
+        ("near_miss.generic.method.", "generic.method"),
+        (
+            "near_miss.generic.type_parameter.",
+            "generic.type_parameter",
+        ),
+        ("near_miss.generic.constraint.", "generic.constraint"),
+        ("near_miss.generic.variance.", "generic.variance"),
+        ("near_miss.generic.explicit_call.", "generic.explicit_call"),
+        ("near_miss.generic.inferred_call.", "generic.inferred_call"),
+        ("near_miss.generic.closed_use.", "generic.closed_use"),
+        (
+            "near_miss.generic.framework_type.",
+            "generic.framework_type",
+        ),
+        ("near_miss.generic.open_type.", "generic.open_type"),
+        (
+            "near_miss.generic.explicit_nullable.",
+            "generic.explicit_nullable",
+        ),
+        (
+            "near_miss.generic.unsupported_nullable.",
+            "generic.unsupported_nullable",
+        ),
+        (
+            "near_miss.generic.transitive_metadata.",
+            "generic.transitive_metadata",
+        ),
+        ("near_miss.iterator.async.", "iterator.async"),
+        ("near_miss.iterator.declaration.", "iterator.declaration"),
+        ("near_miss.iterator.yield.", "iterator.yield"),
+        ("near_miss.iterator.protocol.", "iterator.protocol"),
+        ("near_miss.iterator.state_machine", "iterator.state_machine"),
+        ("near_miss.async.declaration.", "async.declaration"),
+        ("near_miss.async.await.", "async.await"),
+        ("near_miss.async.task.", "async.task"),
+        ("near_miss.async.value_task.", "async.value_task"),
+        ("near_miss.async.awaiter.", "async.awaiter"),
+        ("near_miss.async.cancellation.", "async.cancellation"),
+        ("near_miss.async.parallel.", "async.parallel"),
+        ("near_miss.async.state_machine", "async.state_machine"),
+    ]
+    .into_iter()
+    .find_map(|(prefix, family)| shape_id.starts_with(prefix).then_some(family))
+}
+
+fn dependency_mutation_field(target: &Value) -> Result<&'static str, String> {
+    if !array(&target["emitted_evidence"]).is_empty() {
+        return Ok("emitted_evidence[0]");
+    }
+    if target["operation"]["kind"].is_string() {
+        return Ok("operation.kind");
+    }
+    if target["symbol"]["display"].is_string() {
+        return Ok("symbol.display");
+    }
+    if target["declared_symbol"]["display"].is_string() {
+        return Ok("declared_symbol.display");
+    }
+    if target["syntax"]["kind"].is_string() {
+        return Ok("syntax.kind");
+    }
+    Err("dependency mutation field".to_owned())
+}
+
+fn apply_dependency_mutation(target: &mut Value, field: &str) {
+    match field {
+        "emitted_evidence[0]" => {
+            target["emitted_evidence"].as_array_mut().expect("evidence")[0] =
+                json!("#upgrade-mutation");
+        }
+        "operation.kind" => {
+            target["operation"]["kind"] = json!(format!(
+                "{}#upgrade-mutation",
+                text(&target["operation"]["kind"])
+            ));
+        }
+        "symbol.display" => {
+            target["symbol"]["display"] = json!(format!(
+                "{}#upgrade-mutation",
+                text(&target["symbol"]["display"])
+            ));
+        }
+        "declared_symbol.display" => {
+            target["declared_symbol"]["display"] = json!(format!(
+                "{}#upgrade-mutation",
+                text(&target["declared_symbol"]["display"])
+            ));
+        }
+        "syntax.kind" => {
+            target["syntax"]["kind"] = json!(format!(
+                "{}#upgrade-mutation",
+                text(&target["syntax"]["kind"])
+            ));
+        }
+        _ => panic!("unknown dependency mutation field {field}"),
+    }
+}
+
+fn valid_sha256(value: &Value) -> bool {
+    value.as_str().is_some_and(|digest| {
+        digest.len() == 64
+            && digest
+                .bytes()
+                .all(|byte| byte.is_ascii_digit() || (b'a'..=b'f').contains(&byte))
+    })
+}
+
+fn validate_dependency_document(document: &Value) -> Result<(), String> {
+    if object(document)
+        .keys()
+        .map(String::as_str)
+        .collect::<Vec<_>>()
+        != [
+            "baseline",
+            "family_index",
+            "measurement",
+            "observations",
+            "probe_input",
+            "schema",
+            "shape_index",
+            "upgrade_mutations",
+            "work_item",
+        ]
+    {
+        return Err("dependency top-level keys".to_owned());
+    }
+    if document["schema"] != "mpk.csharp_practical.t01_w06.roslyn_exclusion_probe.v0"
+        || document["work_item"] != "CSHARP-03-T01-W06"
+    {
+        return Err("dependency identity".to_owned());
+    }
+    if document["baseline"]
+        != json!({
+            "build_inputs": "develop/migrations/csharp-03/build-inputs/build-inputs.json",
+            "build_inputs_raw_sha256": W03_DESCRIPTOR_SHA256,
+            "candidate_inventory": "develop/migrations/csharp-03/build-inputs/candidate-inventory.json",
+            "candidate_inventory_raw_sha256": W03_INVENTORY_SHA256,
+            "control_probe": CONTROL_RESULT_PATH,
+            "control_probe_raw_sha256": CONTROL_RESULT_SHA256,
+            "source_commit": "13415911853c0368c103bd9d5feeb8374596d724",
+            "source_tree": "5d9000f11b2c3cab35ad08dc61a66fb14894d249"
+        })
+    {
+        return Err("dependency baseline".to_owned());
+    }
+    if document["probe_input"]
+        != json!({
+            "compiler_arguments": [
+                "/nologo", "/noconfig", "/nostdlib+", "/deterministic+",
+                "/optimize+", "/debug-", "/target:exe", "/platform:x64",
+                "/langversion:14.0", "/nullable:enable", "/checked+", "/unsafe-",
+                "/warnaserror+", "/utf8output", "/filealign:512", "/highentropyva+"
+            ],
+            "path": "develop/probes/csharp-03/DependencyGenericSuspensionProbe.cs",
+            "raw_sha256": DEPENDENCY_PROBE_SOURCE_SHA256,
+            "reference_projection_sha256": REFERENCE_SHA256,
+            "size_bytes": 89065,
+            "toolchain_inputs_sha256": TOOLCHAIN_SHA256
+        })
+    {
+        return Err("dependency probe input".to_owned());
+    }
+    if object(&document["measurement"])
+        .keys()
+        .map(String::as_str)
+        .collect::<Vec<_>>()
+        != [
+            "probe_binary_sha256",
+            "raw_observation_sha256",
+            "raw_observation_size_bytes",
+        ]
+        || !valid_sha256(&document["measurement"]["probe_binary_sha256"])
+        || !valid_sha256(&document["measurement"]["raw_observation_sha256"])
+    {
+        return Err("dependency measurement".to_owned());
+    }
+    let mut observation_bytes = canonical_bytes(&document["observations"]);
+    observation_bytes.push(b'\n');
+    if sha256(&observation_bytes) != document["measurement"]["raw_observation_sha256"]
+        || observation_bytes.len() as u64
+            != integer(&document["measurement"]["raw_observation_size_bytes"])
+    {
+        return Err("dependency observation measurement".to_owned());
+    }
+
+    let observations = &document["observations"];
+    if object(observations)
+        .keys()
+        .map(String::as_str)
+        .collect::<Vec<_>>()
+        != [
+            "cases",
+            "compiler",
+            "schema",
+            "synthetic_references",
+            "work_item",
+        ]
+        || observations["schema"] != "mpk.csharp_practical.t01_w06.roslyn_exclusion_probe.raw.v0"
+        || observations["work_item"] != "CSHARP-03-T01-W06"
+        || observations["compiler"]
+            != json!({
+                "architecture": "X64",
+                "base_reference_count": 167,
+                "language": "C#",
+                "language_version": "14.0",
+                "nullable_context": "Enable",
+                "roslyn_common": {
+                    "culture": "neutral", "name": "Microsoft.CodeAnalysis",
+                    "public_key_token": "31bf3856ad364e35", "version": "5.6.0.0"
+                },
+                "roslyn_csharp": {
+                    "culture": "neutral", "name": "Microsoft.CodeAnalysis.CSharp",
+                    "public_key_token": "31bf3856ad364e35", "version": "5.6.0.0"
+                },
+                "runtime_version": "10.0.11"
+            })
+    {
+        return Err("dependency raw identity".to_owned());
+    }
+
+    let synthetic = array(&observations["synthetic_references"]);
+    let mut synthetic_ids = BTreeSet::new();
+    let mut synthetic_origins = BTreeSet::new();
+    for reference in synthetic {
+        if object(reference)
+            .keys()
+            .map(String::as_str)
+            .collect::<Vec<_>>()
+            != [
+                "assembly_name",
+                "id",
+                "origin",
+                "pe_sha256",
+                "pe_size_bytes",
+                "source_sha256",
+                "virtual_path",
+            ]
+            || !valid_sha256(&reference["pe_sha256"])
+            || !valid_sha256(&reference["source_sha256"])
+            || integer(&reference["pe_size_bytes"]) == 0
+            || !text(&reference["virtual_path"]).starts_with("/virtual/")
+        {
+            return Err("synthetic reference".to_owned());
+        }
+        synthetic_ids.insert(text(&reference["id"]));
+        synthetic_origins.insert(text(&reference["origin"]));
+    }
+    if synthetic.len() != 3
+        || synthetic_ids != BTreeSet::from(["ambient-project", "mpk-package", "mpk-project"])
+        || synthetic_origins != BTreeSet::from(["ambient", "package", "project"])
+        || synthetic
+            .iter()
+            .map(|reference| {
+                format!(
+                    "{}|{}|{}|{}",
+                    text(&reference["id"]),
+                    text(&reference["origin"]),
+                    text(&reference["assembly_name"]),
+                    text(&reference["virtual_path"])
+                )
+            })
+            .collect::<Vec<_>>()
+            != [
+                "ambient-project|ambient|Vendor.Ambient.Dependency|/virtual/ambient/Vendor.Ambient.Dependency.dll",
+                "mpk-package|package|Mpk.Package.Dependency|/virtual/packages/Mpk.Package/1.0.0/lib/net10.0/Mpk.Package.Dependency.dll",
+                "mpk-project|project|Mpk.Project.Dependency|/virtual/projects/Mpk.Project.Dependency/bin/Mpk.Project.Dependency.dll",
+            ]
+    {
+        return Err("synthetic reference set".to_owned());
+    }
+
+    let cases = array(&observations["cases"]);
+    let mut case_ids = BTreeSet::new();
+    let mut admitted_cases = 0usize;
+    let mut rejected_outcomes = BTreeSet::new();
+    let mut shape_records = Vec::new();
+    let mut family_shapes: BTreeMap<String, Vec<String>> = BTreeMap::new();
+    let mut family_outcomes: BTreeMap<String, BTreeSet<String>> = BTreeMap::new();
+    let mut targets_by_shape = BTreeMap::new();
+    for case in cases {
+        if object(case).keys().map(String::as_str).collect::<Vec<_>>()
+            != [
+                "compiler_outcome",
+                "diagnostics",
+                "disposition",
+                "emitted_metadata",
+                "extra_references",
+                "generated_sources",
+                "id",
+                "operation_roots",
+                "source",
+                "source_order",
+                "source_utf8_sha256",
+                "syntax",
+                "targets",
+            ]
+        {
+            return Err("dependency case keys".to_owned());
+        }
+        let case_id = text(&case["id"]);
+        if !case_ids.insert(case_id) {
+            return Err("duplicate dependency case".to_owned());
+        }
+        let disposition = text(&case["disposition"]);
+        let has_error = array(&case["diagnostics"])
+            .iter()
+            .any(|diagnostic| diagnostic["severity"] == "Error");
+        let expected_compiler_outcome = if has_error { "error" } else { "success" };
+        if case["compiler_outcome"] != expected_compiler_outcome {
+            return Err("dependency compiler outcome".to_owned());
+        }
+        if disposition == "admitted_exception_observation" {
+            admitted_cases += 1;
+            if has_error || !array(&case["diagnostics"]).is_empty() {
+                return Err("admitted dependency diagnostics".to_owned());
+            }
+        } else if disposition == "rejected_profile_form" {
+            rejected_outcomes.insert(if has_error {
+                "error"
+            } else if array(&case["diagnostics"]).is_empty() {
+                "clean"
+            } else {
+                "warning"
+            });
+        } else {
+            return Err("dependency disposition".to_owned());
+        }
+        let source = text(&case["source"]);
+        if sha256(source.as_bytes()) != case["source_utf8_sha256"]
+            || array(&case["syntax"]).is_empty()
+            || array(&case["operation_roots"]).is_empty()
+        {
+            return Err("dependency case observation".to_owned());
+        }
+        for generated in array(&case["generated_sources"]) {
+            if object(generated)
+                .keys()
+                .map(String::as_str)
+                .collect::<Vec<_>>()
+                != ["hint_name", "path", "source", "source_utf8_sha256"]
+                || sha256(text(&generated["source"]).as_bytes()) != generated["source_utf8_sha256"]
+            {
+                return Err("generated source observation".to_owned());
+            }
+        }
+        let targets = array(&case["targets"]);
+        let source_order = array(&case["source_order"]);
+        if targets.len() != source_order.len() {
+            return Err("dependency source order count".to_owned());
+        }
+        let source_utf16_length = source.encode_utf16().count() as u64;
+        let mut previous_start = 0u64;
+        for (ordinal, (target, order)) in targets.iter().zip(source_order).enumerate() {
+            if object(target)
+                .keys()
+                .map(String::as_str)
+                .collect::<Vec<_>>()
+                != [
+                    "candidate_reason",
+                    "candidate_symbols",
+                    "converted_type",
+                    "declared_symbol",
+                    "emitted_evidence",
+                    "enclosing_symbol",
+                    "family",
+                    "generic_facts",
+                    "marker_span",
+                    "operation",
+                    "profile_outcome",
+                    "shape_id",
+                    "source_ordinal",
+                    "symbol",
+                    "syntax",
+                    "type",
+                ]
+                || object(order).keys().map(String::as_str).collect::<Vec<_>>()
+                    != ["shape_id", "source_ordinal", "start"]
+            {
+                return Err("dependency target keys".to_owned());
+            }
+            let shape_id = text(&target["shape_id"]);
+            let Some(family) = dependency_family(shape_id) else {
+                return Err("dependency family".to_owned());
+            };
+            let expected_profile = if shape_id.starts_with("exception.") {
+                "admitted_exception"
+            } else {
+                "rejected"
+            };
+            if target["family"] != family
+                || target["profile_outcome"] != expected_profile
+                || integer(&target["source_ordinal"]) != ordinal as u64
+                || order["shape_id"] != shape_id
+                || integer(&order["source_ordinal"]) != ordinal as u64
+            {
+                return Err("dependency target identity".to_owned());
+            }
+            validate_span(&target["marker_span"], source_utf16_length)?;
+            validate_span(&target["syntax"]["span"], source_utf16_length)?;
+            let start = integer(&target["marker_span"]["start"]);
+            if integer(&order["start"]) != start || (ordinal > 0 && start < previous_start) {
+                return Err("dependency source order".to_owned());
+            }
+            previous_start = start;
+            let facts = &target["generic_facts"];
+            if object(facts).keys().map(String::as_str).collect::<Vec<_>>()
+                != [
+                    "constructed_nullable_value_type",
+                    "immediate_specialization",
+                    "source_contains_generic_name",
+                    "source_contains_nullable_shorthand",
+                    "source_contains_type_parameter",
+                    "symbol_arity",
+                    "symbol_is_generic",
+                    "type_arguments",
+                    "type_parameters",
+                ]
+                || facts["constructed_nullable_value_type"].as_bool().is_none()
+                || facts["source_contains_generic_name"].as_bool().is_none()
+                || facts["source_contains_nullable_shorthand"]
+                    .as_bool()
+                    .is_none()
+                || facts["source_contains_type_parameter"].as_bool().is_none()
+                || facts["symbol_arity"].as_u64().is_none()
+                || facts["symbol_is_generic"].as_bool().is_none()
+                || !facts["type_arguments"].is_array()
+                || !facts["type_parameters"].is_array()
+                || !target["syntax"].is_object()
+            {
+                return Err("dependency target observation".to_owned());
+            }
+            if targets_by_shape.insert(shape_id, target).is_some() {
+                return Err("duplicate dependency shape".to_owned());
+            }
+            family_shapes
+                .entry(family.to_owned())
+                .or_default()
+                .push(shape_id.to_owned());
+            family_outcomes
+                .entry(family.to_owned())
+                .or_default()
+                .insert(expected_profile.to_owned());
+            shape_records.push(json!({
+                "case_id": case_id,
+                "disposition": disposition,
+                "family": family,
+                "observation_sha256": canonical_sha256(target),
+                "profile_outcome": expected_profile,
+                "shape_id": shape_id,
+                "source_ordinal": ordinal
+            }));
+        }
+    }
+    if cases.len() != 16
+        || admitted_cases != 1
+        || rejected_outcomes != BTreeSet::from(["clean", "error", "warning"])
+    {
+        return Err("dependency case catalog".to_owned());
+    }
+
+    shape_records.sort_by(|left, right| text(&left["shape_id"]).cmp(text(&right["shape_id"])));
+    if document["shape_index"] != json!(shape_records) {
+        return Err("dependency shape index".to_owned());
+    }
+    let shape_ids = shape_records
+        .iter()
+        .map(|row| text(&row["shape_id"]).to_owned())
+        .collect::<Vec<_>>();
+    let admitted_shape_ids = shape_ids
+        .iter()
+        .filter(|shape_id| shape_id.starts_with("exception."))
+        .cloned()
+        .collect::<Vec<_>>();
+    let rejected_shape_ids = shape_ids
+        .iter()
+        .filter(|shape_id| !shape_id.starts_with("exception."))
+        .cloned()
+        .collect::<Vec<_>>();
+    if shape_ids.len() != 144
+        || admitted_shape_ids.len() != 12
+        || rejected_shape_ids.len() != 132
+        || canonical_sha256(&json!(shape_ids)) != DEPENDENCY_SHAPE_IDS_SHA256
+        || canonical_sha256(&json!(admitted_shape_ids)) != DEPENDENCY_ADMITTED_SHAPE_IDS_SHA256
+        || canonical_sha256(&json!(rejected_shape_ids)) != DEPENDENCY_REJECTED_SHAPE_IDS_SHA256
+    {
+        return Err("dependency shape catalog".to_owned());
+    }
+
+    for ids in family_shapes.values_mut() {
+        ids.sort();
+    }
+    let family_index = family_shapes
+        .iter()
+        .map(|(family, ids)| {
+            json!({
+                "family": family,
+                "profile_outcomes": family_outcomes[family].iter().collect::<Vec<_>>(),
+                "shape_ids": ids,
+                "shape_ids_sha256": canonical_sha256(&json!(ids))
+            })
+        })
+        .collect::<Vec<_>>();
+    let family_ids = family_shapes.keys().cloned().collect::<Vec<_>>();
+    if family_index.len() != 41
+        || document["family_index"] != json!(family_index)
+        || canonical_sha256(&json!(family_ids)) != DEPENDENCY_FAMILY_IDS_SHA256
+    {
+        return Err("dependency family index".to_owned());
+    }
+
+    let mut mutations = Vec::new();
+    let mut mutation_ids = BTreeSet::new();
+    for row in &shape_records {
+        let shape_id = text(&row["shape_id"]);
+        let target = targets_by_shape[shape_id];
+        let field = dependency_mutation_field(target)?;
+        let mutation_id = format!(
+            "CSHARP-03-T01-W06-UPGRADE-{}",
+            shape_id.to_ascii_uppercase().replace('.', "-")
+        );
+        if !mutation_ids.insert(mutation_id.clone()) {
+            return Err("duplicate dependency mutation".to_owned());
+        }
+        mutations.push(json!({
+            "case_id": row["case_id"],
+            "family": row["family"],
+            "mutation_field": field,
+            "mutation_id": mutation_id,
+            "observation_sha256": row["observation_sha256"],
+            "profile_outcome": row["profile_outcome"],
+            "shape_id": shape_id
+        }));
+    }
+    mutations.sort_by(|left, right| text(&left["mutation_id"]).cmp(text(&right["mutation_id"])));
+    if mutations.len() != 144 || document["upgrade_mutations"] != json!(mutations) {
+        return Err("dependency mutation index".to_owned());
+    }
+    Ok(())
+}
+
+// CSHARP-03-T01-W06
+#[test]
+fn canonical_dependency_probe_closes_symbols_families_and_source_order() {
+    let raw = bytes(DEPENDENCY_RESULT_PATH);
+    assert_eq!(raw.len(), DEPENDENCY_RESULT_SIZE);
+    assert_eq!(sha256(&raw), DEPENDENCY_RESULT_SHA256);
+    let document: Value = serde_json::from_slice(&raw).expect("parse dependency probe");
+    let mut canonical = canonical_bytes(&document);
+    canonical.push(b'\n');
+    assert_eq!(raw, canonical);
+    validate_dependency_document(&document).unwrap();
+
+    let probe_source = String::from_utf8(bytes(
+        "develop/probes/csharp-03/DependencyGenericSuspensionProbe.cs",
+    ))
+    .expect("UTF-8 dependency probe source");
+    assert!(probe_source.contains("MetadataImportOptions.Public"));
+    for forbidden in [
+        "BindingFlags",
+        "InternalsVisibleTo",
+        "Microsoft.CodeAnalysis.CSharp.Binder",
+        "Microsoft.CodeAnalysis.CSharp.Symbols",
+        "NonPublic",
+        "System.Reflection.MethodInfo",
+        "System.Reflection.PropertyInfo",
+        "Activator.CreateInstance",
+        "GetType().Get",
+    ] {
+        assert!(
+            !probe_source.contains(forbidden),
+            "private/compiler-internal API escape: {forbidden}"
+        );
+    }
+}
+
+// CSHARP-03-T01-W06
+#[test]
+fn dependency_and_attribute_forms_are_observed_without_becoming_capabilities() {
+    let document = load_dependency();
+    validate_dependency_document(&document).unwrap();
+    let dependency_families = array(&document["family_index"])
+        .iter()
+        .filter(|row| text(&row["family"]).starts_with("dependency."))
+        .map(|row| text(&row["family"]))
+        .collect::<BTreeSet<_>>();
+    assert_eq!(
+        dependency_families,
+        BTreeSet::from([
+            "dependency.ambient",
+            "dependency.assembly",
+            "dependency.attribute",
+            "dependency.base_type",
+            "dependency.generated_source",
+            "dependency.interface",
+            "dependency.namespace",
+            "dependency.package",
+            "dependency.project",
+        ])
+    );
+
+    let package = dependency_target(&document, "near_miss.dependency.package.reference_origin");
+    assert_eq!(package["operation"]["kind"], "PropertyReference");
+    assert_eq!(package["symbol"]["display"], "Mpk.Package.Api.Value");
+    assert!(text(&package["symbol"]["containing_assembly"]).starts_with("Mpk.Package.Dependency,"));
+    assert!(array(&package["emitted_evidence"])
+        .iter()
+        .any(|reference| reference["name"] == "Mpk.Package.Dependency"));
+
+    let project = dependency_target(&document, "near_miss.dependency.project.reference_origin");
+    let ambient = dependency_target(&document, "near_miss.dependency.ambient.reference");
+    assert!(text(&project["symbol"]["containing_assembly"]).starts_with("Mpk.Project.Dependency,"));
+    assert!(
+        text(&ambient["symbol"]["containing_assembly"]).starts_with("Vendor.Ambient.Dependency,")
+    );
+    assert_eq!(
+        dependency_case(&document, "dependency-namespace-spoof")["diagnostics"][0]["id"],
+        "CS1030"
+    );
+
+    let generated = dependency_target(&document, "near_miss.dependency.generated_source.member");
+    assert_eq!(generated["operation"]["kind"], "Invocation");
+    assert!(array(&generated["symbol"]["locations"])
+        .iter()
+        .any(|location| location["origin"] == "generated"));
+    assert_eq!(
+        generated["emitted_evidence"][0]["hint_name"],
+        "GeneratedDependency.g.cs"
+    );
+
+    let attributes = array(&document["shape_index"])
+        .iter()
+        .filter(|row| row["family"] == "attribute.source_written")
+        .collect::<Vec<_>>();
+    assert_eq!(attributes.len(), 23);
+    let source_attribute_case = dependency_case(&document, "source-written-attributes");
+    assert_eq!(
+        array(&source_attribute_case["syntax"])
+            .iter()
+            .filter(|item| item["item"] == "node" && item["kind"] == "Attribute")
+            .count(),
+        attributes.len(),
+        "every source-written attribute syntax needs an owned target"
+    );
+    for row in attributes {
+        let target = dependency_target(&document, text(&row["shape_id"]));
+        assert_eq!(target["syntax"]["kind"], "Attribute");
+        assert_eq!(target["operation"]["kind"], "Attribute");
+        assert_eq!(
+            target["operation"]["source_path"],
+            "src/source-written-attributes.cs"
+        );
+        if row["shape_id"] == "near_miss.attribute.source.attribute_usage" {
+            assert!(text(&target["symbol"]["display"])
+                .starts_with("System.AttributeUsageAttribute.AttributeUsageAttribute("));
+            assert!(array(&target["symbol"]["locations"])
+                .iter()
+                .all(|location| location["origin"] == "metadata"));
+        } else {
+            assert!(text(&target["symbol"]["containing_assembly"])
+                .starts_with("probe_source_written_attributes,"));
+            assert!(array(&target["symbol"]["locations"])
+                .iter()
+                .all(|location| location["origin"] == "selected"));
+        }
+    }
+
+    let required = dependency_target(&document, "exception.compiler_metadata.required_attributes");
+    let required_text = serde_json::to_string(&required["emitted_evidence"]).unwrap();
+    assert!(required_text.contains("RequiredMemberAttribute"));
+    assert!(required_text.contains("CompilerFeatureRequiredAttribute"));
+    let init = dependency_target(&document, "exception.compiler_metadata.init_modreq");
+    assert!(serde_json::to_string(&init["emitted_evidence"])
+        .unwrap()
+        .contains("IsExternalInit"));
+    assert_eq!(
+        array(&document["shape_index"])
+            .iter()
+            .filter(|row| row["family"] == "attribute.compiler_marker_spelling")
+            .count(),
+        3
+    );
+}
+
+// CSHARP-03-T01-W06
+#[test]
+fn exact_nullable_shorthand_is_the_only_constructed_generic_exception() {
+    let document = load_dependency();
+    validate_dependency_document(&document).unwrap();
+    let admitted_constructed = array(&document["shape_index"])
+        .iter()
+        .filter(|row| row["profile_outcome"] == "admitted_exception")
+        .filter_map(|row| {
+            let target = dependency_target(&document, text(&row["shape_id"]));
+            target["generic_facts"]["constructed_nullable_value_type"]
+                .as_bool()
+                .unwrap()
+                .then_some(target)
+        })
+        .collect::<Vec<_>>();
+    assert_eq!(admitted_constructed.len(), 4);
+    for target in admitted_constructed {
+        assert!(text(&target["shape_id"]).starts_with("exception.nullable.shorthand."));
+        assert_eq!(
+            target["generic_facts"]["source_contains_generic_name"],
+            false
+        );
+        if target["shape_id"] == "exception.nullable.shorthand.implicit_conversion" {
+            assert_eq!(
+                target["converted_type"]["original_definition"],
+                "System.Nullable<T>"
+            );
+        } else {
+            assert_eq!(
+                target["generic_facts"]["source_contains_nullable_shorthand"],
+                true
+            );
+        }
+        assert_eq!(
+            target["generic_facts"]["immediate_specialization"]["shape"],
+            "option"
+        );
+        assert_eq!(
+            target["generic_facts"]["immediate_specialization"]["residual_type_parameter"],
+            false
+        );
+        assert_eq!(
+            target["generic_facts"]["immediate_specialization"]["payload"]["display"],
+            "int"
+        );
+    }
+
+    let reference = dependency_target(&document, "exception.nullable.reference_annotation");
+    let array_target = dependency_target(&document, "exception.array.not_constructed_generic");
+    assert_eq!(
+        reference["generic_facts"]["constructed_nullable_value_type"],
+        false
+    );
+    assert_eq!(
+        array_target["generic_facts"]["constructed_nullable_value_type"],
+        false
+    );
+    assert!(reference["generic_facts"]["immediate_specialization"].is_null());
+    assert!(array_target["generic_facts"]["immediate_specialization"].is_null());
+
+    for shape_id in [
+        "near_miss.generic.explicit_nullable.system",
+        "near_miss.generic.explicit_nullable.alias",
+        "near_miss.generic.explicit_nullable.construction",
+        "near_miss.generic.explicit_nullable.cast",
+    ] {
+        let target = dependency_target(&document, shape_id);
+        assert_eq!(target["profile_outcome"], "rejected");
+        assert_eq!(
+            target["generic_facts"]["constructed_nullable_value_type"],
+            true
+        );
+    }
+    let explicit = dependency_target(&document, "near_miss.generic.explicit_nullable.system");
+    assert_eq!(
+        explicit["type"]["original_definition"],
+        "System.Nullable<T>"
+    );
+    assert_eq!(
+        explicit["generic_facts"]["source_contains_generic_name"],
+        true
+    );
+
+    let generic_families = array(&document["family_index"])
+        .iter()
+        .filter(|row| text(&row["family"]).starts_with("generic."))
+        .map(|row| text(&row["family"]))
+        .collect::<BTreeSet<_>>();
+    assert_eq!(generic_families.len(), 13);
+    for required in [
+        "generic.closed_use",
+        "generic.constraint",
+        "generic.declaration",
+        "generic.explicit_call",
+        "generic.explicit_nullable",
+        "generic.framework_type",
+        "generic.inferred_call",
+        "generic.method",
+        "generic.open_type",
+        "generic.transitive_metadata",
+        "generic.type_parameter",
+        "generic.unsupported_nullable",
+        "generic.variance",
+    ] {
+        assert!(generic_families.contains(required), "missing {required}");
+    }
+}
+
+// CSHARP-03-T01-W06
+#[test]
+fn incidental_generic_metadata_does_not_expand_the_source_surface() {
+    let document = load_dependency();
+    validate_dependency_document(&document).unwrap();
+    for (shape_id, operation_kind, symbol_display) in [
+        (
+            "exception.incidental.string_length",
+            "PropertyReference",
+            "string.Length",
+        ),
+        (
+            "exception.incidental.array_length",
+            "PropertyReference",
+            "System.Array.Length",
+        ),
+        (
+            "exception.incidental.decimal_round",
+            "Invocation",
+            "decimal.Round(decimal, int, System.MidpointRounding)",
+        ),
+        (
+            "exception.incidental.date_only_constructor",
+            "ObjectCreation",
+            "System.DateOnly.DateOnly(int, int, int)",
+        ),
+    ] {
+        let target = dependency_target(&document, shape_id);
+        assert_eq!(target["operation"]["kind"], operation_kind, "{shape_id}");
+        assert_eq!(target["symbol"]["display"], symbol_display, "{shape_id}");
+        assert_eq!(target["profile_outcome"], "admitted_exception");
+        assert_eq!(
+            target["generic_facts"]["source_contains_generic_name"],
+            false
+        );
+        let type_text = serde_json::to_string(&target["type"]).unwrap();
+        assert!(
+            type_text.contains('<'),
+            "missing incidental metadata: {shape_id}"
+        );
+    }
+    for row in array(&document["shape_index"])
+        .iter()
+        .filter(|row| row["family"] == "generic.transitive_metadata")
+    {
+        assert_eq!(row["profile_outcome"], "rejected");
+    }
+    assert_eq!(
+        array(&document["family_index"])
+            .iter()
+            .find(|row| row["family"] == "generic.transitive_metadata")
+            .unwrap()["shape_ids"]
+            .as_array()
+            .unwrap()
+            .len(),
+        8
+    );
+}
+
+// CSHARP-03-T01-W06
+#[test]
+fn iterator_and_async_shapes_are_rejection_and_upgrade_only() {
+    let document = load_dependency();
+    validate_dependency_document(&document).unwrap();
+    let suspension_rows = array(&document["shape_index"])
+        .iter()
+        .filter(|row| {
+            let family = text(&row["family"]);
+            family.starts_with("iterator.") || family.starts_with("async.")
+        })
+        .collect::<Vec<_>>();
+    assert_eq!(suspension_rows.len(), 50);
+    assert!(suspension_rows
+        .iter()
+        .all(|row| row["profile_outcome"] == "rejected"));
+    let suspension_families = suspension_rows
+        .iter()
+        .map(|row| text(&row["family"]))
+        .collect::<BTreeSet<_>>();
+    assert_eq!(
+        suspension_families,
+        BTreeSet::from([
+            "async.await",
+            "async.awaiter",
+            "async.cancellation",
+            "async.declaration",
+            "async.parallel",
+            "async.state_machine",
+            "async.task",
+            "async.value_task",
+            "iterator.async",
+            "iterator.declaration",
+            "iterator.protocol",
+            "iterator.state_machine",
+            "iterator.yield",
+        ])
+    );
+    for (shape_id, symbol) in [
+        (
+            "near_miss.async.task.factory_run",
+            "System.Threading.Tasks.Task.Run(System.Action)",
+        ),
+        (
+            "near_miss.async.task.race_when_any",
+            "System.Threading.Tasks.Task.WhenAny(System.Threading.Tasks.Task, System.Threading.Tasks.Task)",
+        ),
+        (
+            "near_miss.async.parallel.for",
+            "System.Threading.Tasks.Parallel.For(int, int, System.Action<int>)",
+        ),
+    ] {
+        let target = dependency_target(&document, shape_id);
+        assert_eq!(target["profile_outcome"], "rejected");
+        assert_eq!(target["operation"]["kind"], "Invocation");
+        assert_eq!(target["symbol"]["display"], symbol);
+    }
+    for (shape_id, observed_symbol) in [
+        (
+            "near_miss.iterator.protocol.ienumerable_generic",
+            "System.Collections.Generic.IEnumerable<int>",
+        ),
+        (
+            "near_miss.iterator.protocol.ienumerable_non_generic",
+            "System.Collections.IEnumerable",
+        ),
+        (
+            "near_miss.iterator.async.iasyncenumerator",
+            "System.Collections.Generic.IAsyncEnumerator<int>",
+        ),
+    ] {
+        let target = dependency_target(&document, shape_id);
+        assert_eq!(target["profile_outcome"], "rejected");
+        assert_eq!(target["symbol"]["display"], observed_symbol);
+    }
+    let async_enumerable =
+        dependency_target(&document, "near_miss.iterator.async.iasyncenumerable");
+    assert_eq!(async_enumerable["profile_outcome"], "rejected");
+    assert_eq!(
+        async_enumerable["declared_symbol"]["display"],
+        "System.Collections.Generic.IAsyncEnumerable<int> values"
+    );
+    for shape_id in [
+        "near_miss.iterator.state_machine",
+        "near_miss.iterator.async.state_machine",
+        "near_miss.async.state_machine",
+        "near_miss.async.state_machine.custom_awaiter",
+        "near_miss.async.state_machine.lambda",
+    ] {
+        let evidence =
+            serde_json::to_string(&dependency_target(&document, shape_id)["emitted_evidence"])
+                .unwrap();
+        assert!(
+            evidence.contains("d__"),
+            "missing state-machine type: {shape_id}"
+        );
+        assert!(
+            evidence.contains("StateMachineAttribute"),
+            "missing state-machine attribute: {shape_id}"
+        );
+    }
+
+    let mut seen_families = BTreeSet::new();
+    for row in array(&document["upgrade_mutations"]) {
+        let shape_id = text(&row["shape_id"]);
+        let target = dependency_target(&document, shape_id);
+        assert_eq!(canonical_sha256(target), row["observation_sha256"]);
+        let mut changed_target = target.clone();
+        apply_dependency_mutation(&mut changed_target, text(&row["mutation_field"]));
+        assert_ne!(canonical_sha256(&changed_target), row["observation_sha256"]);
+
+        let family = text(&row["family"]);
+        if seen_families.insert(family) {
+            let mut changed_document = document.clone();
+            let changed = dependency_target_mut(&mut changed_document, shape_id);
+            apply_dependency_mutation(changed, text(&row["mutation_field"]));
+            assert!(
+                validate_dependency_document(&changed_document).is_err(),
+                "mutation accepted for {family}"
+            );
+        }
+    }
+    assert_eq!(seen_families.len(), 41);
+}
+
+// CSHARP-03-T01-W06
+#[test]
+fn dependency_probe_preserves_w05_and_the_active_release_boundary() {
+    assert_eq!(sha256(&bytes(CONTROL_RESULT_PATH)), CONTROL_RESULT_SHA256);
+    assert_eq!(
+        sha256(&bytes(
+            "develop/probes/csharp-03/ControlExceptionPatternProbe.cs"
+        )),
+        CONTROL_PROBE_SOURCE_SHA256
+    );
+    assert_eq!(
+        sha256(&bytes("release/build-inputs/csharp/build-inputs.json")),
+        "0345044d16d4efb3568c32a3d7bc67fec508fe9359eff423a7f09c7f69b348dc"
+    );
+    assert_eq!(
+        sha256(&bytes(
+            "release/build-inputs/csharp/candidate-inventory.json"
+        )),
+        "4ff3ba6fdc2eb2857c32563b959f11194075a4264164cd7aebc808858e500e9b"
+    );
+    assert_eq!(
+        sha256(&bytes("develop/specs/vectors/csharp-profile-v0.json")),
+        "8109f781ca1f2b90ba02f786da09ba97602f4cd484b8835b561d5ecf4e7781c8"
+    );
+    for relative in [
+        "release/bundles/semantic-profile-registry.json",
+        "release/bundles/bundle-registry.json",
+    ] {
+        let content = String::from_utf8(bytes(relative)).unwrap();
+        assert!(!content.contains("CSHARP-03"));
+        assert!(!content.contains("mpk.csharp.practical"));
+        assert!(!content.contains("roslyn_exclusion_probe"));
+    }
+}
+
+// CSHARP-03-T01-W06
+#[test]
+fn pinned_dependency_probe_rerun_is_byte_identical_when_the_linux_cache_is_available() {
+    if !cfg!(all(target_os = "linux", target_arch = "x86_64")) {
+        return;
+    }
+    let archives = repository_root()
+        .join("release/build-input-cache/csharp")
+        .join(TOOLCHAIN_SHA256)
+        .join("archives");
+    let present = fs::read_dir(&archives)
+        .map(|entries| entries.filter_map(Result::ok).count())
+        .unwrap_or(0);
+    assert!(present == 0 || present == 6, "partial C# archive cache");
+    if present == 0 {
+        return;
+    }
+    let output = Command::new(
+        repository_root()
+            .join("develop/probes/csharp-03/run-dependency-generic-suspension-probe.sh"),
+    )
+    .arg("--check")
+    .env_clear()
+    .env("PATH", "/usr/bin:/bin")
+    .output()
+    .expect("execute pinned W06 Roslyn probe");
     assert!(
         output.status.success(),
         "stdout={} stderr={}",

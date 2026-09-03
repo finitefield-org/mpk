@@ -2,11 +2,11 @@
 
 Status: current reviewed implementation decomposition, prepared on 2026-09-03.
 The native `JAVA-03-T10` x86-64 Linux release receipt is accepted and
-`CSHARP-03-T01-W01/W02/W03/W04/W05` have completed the entry audit, consumer
+`CSHARP-03-T01-W01/W02/W03/W04/W05/W06` have completed the entry audit, consumer
 inventory, private frontend/toolchain closure proof, and Roslyn data,
-construction, control, exception, and pattern-shape measurements.
-`CSHARP-03-T01-W06` is ready; every later work item remains blocked by its
-serial predecessor.
+construction, control, exception, pattern, dependency, generic, iterator, and
+async-rejection measurements. `CSHARP-03-T01-W07` is ready; every later work
+item remains blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
 
@@ -45,15 +45,18 @@ JAVA-03-T10 -> CSHARP-03-T01-W01
 
 `JAVA-03-T10` completed atomic Java activation and the required native x86-64
 Linux two-pass release gate on 2026-09-03. This prerequisite is satisfied and
-T01-W01/W02/W03/W04/W05 have closed the entry audit, consumer inventory,
+T01-W01/W02/W03/W04/W05/W06 have closed the entry audit, consumer inventory,
 private frontend/toolchain closure proof, and Roslyn data, construction,
-control, exception, and pattern-shape measurements; T01-W06 is ready. This
+control, exception, pattern, dependency, generic, iterator, and async-rejection
+measurements; T01-W07 is ready. This
 file remains planning material. W01 added its baseline and ledger; W02 added
 only the private consumer inventory, owner tests, ledger evidence, and current-
 status documentation; W03 added only private build-input evidence and its
 harness and owner tests; W04 added only private disposable probe source,
 canonical measurement evidence, its runner, documentation, and owner tests;
 W05 added only the corresponding private control/exception/pattern probe,
+canonical measurement, runner, documentation, and owner tests; W06 added only
+the corresponding private dependency/generic/iterator/async-rejection probe,
 canonical measurement, runner, documentation, and owner tests. No CSHARP-03
 specification, vector, normative identity, production code, fixture, candidate
 bundle, public route, active build input, or active registry/release descriptor

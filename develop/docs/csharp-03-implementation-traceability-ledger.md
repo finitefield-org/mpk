@@ -1,12 +1,13 @@
 # CSHARP-03 Implementation Traceability Ledger
 
-Status: `CSHARP-03-T01-W01/W02/W03/W04/W05` complete (2026-09-04). The entry
+Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06` complete (2026-09-04). The entry
 audit, consumer inventory, private frontend/toolchain closure proof, and
-Roslyn data/construction/control/exception/pattern-shape measurements are
-closed, `CSHARP-03-T01-W06` is ready, and every later work item remains blocked
-by its serial predecessor. No practical-profile identity, production
+Roslyn data/construction/control/exception/pattern/dependency/generic/iterator/
+async-rejection measurements are closed, `CSHARP-03-T01-W07` is ready, and
+every later work item remains blocked by its serial predecessor. No practical-
+profile identity, production
 acceptance path, registered candidate, or active registry entry was introduced
-by W01-W05.
+by W01-W06.
 
 This ledger is subordinate to
 [`08_csharp_practical_subset_design.md`](08_csharp_practical_subset_design.md)
@@ -41,9 +42,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T01-W02` | `Complete` | `crates/mpk-vc/tests/csharp_practical_inventory.rs#CSHARP-03-T01-W02` | `f84a5c6ff5122a3a5e64d9305fe999ed1f501f85` |
 | `CSHARP-03-T01-W03` | `Complete` | `crates/mpk-cli/tests/csharp_practical_build_inputs.rs#CSHARP-03-T01-W03` | `4ad2cd480792d8e7cac71eb798e6b55b66bd97fb` |
 | `CSHARP-03-T01-W04` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W04` | `b6680168c2666be503741575c009f0a26dd0da22` |
-| `CSHARP-03-T01-W05` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W05` | `SELF` |
-| `CSHARP-03-T01-W06` | `Ready` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W06` | `—` |
-| `CSHARP-03-T01-W07` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W07` | `—` |
+| `CSHARP-03-T01-W05` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W05` | `13415911853c0368c103bd9d5feeb8374596d724` |
+| `CSHARP-03-T01-W06` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W06` | `SELF` |
+| `CSHARP-03-T01-W07` | `Ready` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W07` | `—` |
 | `CSHARP-03-T01-W08` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W08` | `—` |
 | `CSHARP-03-T01-W09` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W09` | `—` |
 | `CSHARP-03-T01-W10` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W10` | `—` |
@@ -713,7 +714,8 @@ The runner source and shell-wrapper raw SHA-256 values are
 `cf452035539a3d5f48eb74d5fafe04d917cf6c486922b07c5f6cb87b3470e45e`
 and
 `35e92c495431eb502db2662209a1261d0d2635a1e93781c83a9a72403218fa36`.
-The current probe README and primary test raw SHA-256 values are
+At W05 completion, the then-current probe README and primary test raw SHA-256
+values were
 `d90f90a8b517bcfc2ec30464365907e02c14b3b9cb4a0894d4c46fff32cb3355`
 and
 `6f86651b930068feb81a904703c0921df62fe23c8e972c9ba3912dab09deaa5c`.
@@ -727,8 +729,9 @@ SHA-256 values
 and
 `8109f781ca1f2b90ba02f786da09ba97602f4cd484b8835b561d5ecf4e7781c8`.
 W05 does not freeze decision semantics, exception lowering, diagnostic or
-profile/schema identities, or a production route. W06 is the sole ready item;
-runtime behavior remains W07-owned and normative freeze remains W08-W10-owned.
+profile/schema identities, or a production route. At W05 completion, W06 was
+the sole ready item; section 8 records its later completion and W07 readiness.
+Runtime behavior remains W07-owned and normative freeze remains W08-W10-owned.
 
 ### 7.3 Verification and review
 
@@ -789,3 +792,161 @@ diagnostic-free admitted units, warning/error/clean rejection coverage,
 decision and exception-region mutation sensitivity, deterministic rerun
 bytes, active scalar byte preservation, non-activation, and serial ledger
 state after all fixes.
+
+## 8. CSHARP-03-T01-W06 completion record
+
+### 8.1 Frozen dependency, generic, iterator, and async observations
+
+W06 consumes only the completed W05 commit
+`13415911853c0368c103bd9d5feeb8374596d724`, tree
+`5d9000f11b2c3cab35ad08dc61a66fb14894d249`, and canonical W05 result raw
+SHA-256
+`b1215ad7f4a0e08dc269834229d7158158d31c0e9475218fa0791feea5a1629a`.
+It retains the W03 descriptor, candidate inventory, toolchain, and reference-
+projection SHA-256 values
+`83bf64dcbedce89f79613fe7aab3d95a92179122df54f9b5407273a245738015`,
+`ff4b48790c67135144419c816149f8edfbd7b40ade231d6ab44c8433efef0cce`,
+`d4af1170b2813a5581bb0f60b65fd4e7509576093045557b88689bf7e0876b4f`,
+and
+`30623f64b7d85564260e62464e652bfaa89eb56e0e55193989bfb99538ba6cad`.
+
+The disposable public-API probe source at
+`develop/probes/csharp-03/DependencyGenericSuspensionProbe.cs` is 89,065 bytes
+with raw SHA-256
+`7e2114bdb75ef5b78e330c24e04c551c7766740ba037a12419547212026c6db6`.
+It uses `MetadataImportOptions.Public`, public Roslyn symbols/operations and
+public `System.Reflection.Metadata` readers. The owner test rejects reflection
+binding/private access and direct compiler-internal namespaces. Probe snippets
+and emitted assemblies are observations only and are never executed as
+application code.
+
+The canonical result at
+`develop/migrations/csharp-03/probes/roslyn-dependency-generic-suspension.json`
+is 4,511,101 bytes with raw SHA-256
+`5dadf10613f95be9b35c108008a33474c55d222bef1be987c2614c6dcc48fe96`.
+Its normalized raw-observation section is 4,400,807 bytes with SHA-256
+`dd6a5b4bea8909e8f2680f050df2d167055c214e503d701b548a07639b11ac07`;
+the deterministic probe binary SHA-256 is
+`81edd76cd4fba206f005447dcf4cf46e85dd41421a45af09ccfef6dcb2755c3e`.
+Both clean reruns agree on all three values.
+
+Sixteen isolated compilation units record 144 distinct source shapes: 12
+narrow admitted-exception observations and 132 rejected profile forms. The
+sorted whole, admitted-exception, and rejected shape-ID sets have SHA-256
+values
+`6f7cb87aa1efae91b220244b5b85cac5d13e9995b8b93539bc04cc1925060446`,
+`3529ba40edc421a2a19fe74eceaf825426063c4336da2b72c75cc4c06633d35c`,
+and
+`4a72c24a0b06bb25e4e8b69dcd17695a253d754ee85b6599c636d9d944415ef4`.
+The 41 sorted rejection/exception family IDs have SHA-256
+`407f67fc75f02b61d555834ade2f192e0db3e249f74f16b505291235bb7e93be`.
+Rejected compilations retain compiler-clean exclusions, one warning-only
+exclusion, and compiler-error near misses.
+
+The corpus binds synthetic package, project, and ambient assemblies to exact
+virtual origins and covers every task-owned dependency family, 23 source-
+written attribute targets, and exact compiler-emitted `IsExternalInit`,
+`RequiredMemberAttribute`, and `CompilerFeatureRequiredAttribute` evidence.
+It distinguishes all closed generic families named by the task. The exact
+value-type `T?` exception is immediately specialized to an `option` payload
+with no residual type parameter; explicit `System.Nullable<T>`, its alias,
+construction/cast shortcuts, invalid payloads, every user-generic form, and
+arbitrary constructed framework types reject. Exact string/array/decimal/date
+symbols remain observable despite incidental generic metadata, while all eight
+source-visible transitive-metadata cases reject.
+
+Iterator and async observations are rejection-only. Their 50 shapes cover
+iterator/yield/enumeration protocols and async iterator/await/task/value-task/
+awaiter/cancellation/state-machine forms, including task factories, races, and
+parallel execution; emitted `d__` types and exact state-machine attributes are
+retained as compiler evidence, never as admitted suspension semantics.
+All 144 source shapes have distinct upgrade mutations bound to their exact
+target hashes. The Python self-test changes every target and requires full-
+document rejection; the independent Rust owner validates
+every mutation hash and performs one full rejection mutation per each of the
+41 families.
+
+### 8.2 Bounded outputs and non-activation
+
+W06 adds only the disposable probe and sanitized runner, its canonical private
+measurement, the W06 probe README section, owner-test extensions in
+`crates/mpk-cli/tests/csharp_practical_probes.rs`, and status/ledger updates.
+The runner source and shell-wrapper raw SHA-256 values are
+`b2bdeed1dc821a667359bb559bd16225b1e8d25b3f79709fe68a098e39bc1950`
+and
+`a332507e3b4113115844a4fcb82fd41d8c0408702d7036102f18ad091263870c`.
+At W06 completion, the probe README and primary owner-test raw SHA-256 values
+are
+`eb69d8509beee56dd550bc7693cc4f2baf61b6ff0cd9cde79126fc0e76c6763e`
+and
+`8dd1ec95caf21bab7d0bd44ed19d7511a157b05f47a65ef01e7836a613ac755b`.
+
+No production source, normative specification/vector, fixture, candidate,
+build input, public route, registry, release descriptor, or installed artifact
+changed. The active scalar descriptor, inventory, and vector remain at raw
+SHA-256 values
+`0345044d16d4efb3568c32a3d7bc67fec508fe9359eff423a7f09c7f69b348dc`,
+`4ff3ba6fdc2eb2857c32563b959f11194075a4264164cd7aebc808858e500e9b`,
+and
+`8109f781ca1f2b90ba02f786da09ba97602f4cd484b8835b561d5ecf4e7781c8`.
+W06 does not admit an MPK source dependency, user generic, iterator, async
+form, or a new registered or normative profile/schema identity. W07 is the
+sole ready item; normative freeze and activation remain W08-W10-owned.
+
+### 8.3 Verification and review
+
+Target host: Darwin arm64. The following local checks passed:
+
+- `cargo test -p mpk-cli --test csharp_practical_probes`;
+- `cargo test -p mpk-vc --test csharp_practical_inventory`;
+- `cargo fmt --all -- --check`;
+- `cargo clippy -p mpk-cli --test csharp_practical_probes -- -D warnings`;
+- `./develop/probes/csharp-03/run-dependency-generic-suspension-probe.sh --check-record`;
+- `./develop/probes/csharp-03/run-dependency-generic-suspension-probe.sh --self-test`;
+- `python3 scripts/check-artifact-paths.py`;
+- `python3 scripts/check-spec-vectors.py --check`; and
+- `./scripts/check-fast.sh`.
+
+The exact two-clean-build/two-clean-run check also passed under x86-64
+emulation in the immutable local Linux gate image
+`sha256:ea3189955dd9c0e5deda7a30ef48a0c7ef5af3b128f74fcd6e368384b8e1420a`
+with no network, a read-only container and repository, a fresh executable
+tmpfs, the fixed W03 archive cache, empty compiler/run environments, and fresh
+output directories. The `--check` command recorded in
+`develop/probes/csharp-03/README.md` reproduced the checked-in result
+byte-for-byte after all fixes.
+
+Review/fix history:
+
+- The compiler/API pass corrected one nested observation tuple, removed a
+  nonexistent yield-operation interface assumption, and made unexpected probe
+  failures diagnosable without changing successful output.
+- The emitted-metadata pass handles a nil base-type metadata handle before its
+  default handle kind can be mistaken for a type definition, then verified
+  required/init and all iterator/async state-machine evidence through public
+  metadata APIs.
+- The outcome pass added an isolated warning-only namespace dependency case so
+  clean, warning, and error rejection classes are independently frozen.
+- The owner-test pass found that nullable local-type and conversion records did
+  not both carry immediate-specialization evidence. Target selection now binds
+  the exact local `NullableType`, converted nullable types participate in the
+  generic facts, and all four value-type `T?` observations prove a concrete
+  payload with no residual type parameter.
+- The coverage pass separated generic and non-generic `IEnumerable` protocol
+  observations and added explicit `IAsyncEnumerable<T>` parameter evidence.
+  It also gave the source-written `AttributeUsage` syntax its own rejected
+  target, so every attribute syntax in the attribute fixture is owned. A final
+  design-to-corpus comparison added `Task.Run`, `Task.WhenAny`, and
+  `Parallel.For` observations for the explicit task-race and parallel-
+  execution exclusions.
+- The documentation pass corrected the probe README's admitted-source statement
+  so it does not contradict W06's deliberately compiled negative MPK
+  dependency cases.
+
+Final review findings: `0`. The final pass checks W06-only scope, exact W05/W03
+input binding, all dependency/generic/attribute/incidental-metadata categories,
+the sole exact-`T?` constructed-generic exception and immediate specialization,
+complete iterator/async rejection and state-machine observations, source/span/
+hash/order integrity, clean/warning/error rejected outcomes, all shape/family
+mutation links, deterministic rerun bytes, W05 and active scalar byte
+preservation, non-activation, and serial ledger state after all fixes.
