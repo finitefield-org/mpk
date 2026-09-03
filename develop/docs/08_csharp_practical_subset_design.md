@@ -10,6 +10,13 @@ implementation work.
 
 Prepared: 2026-09-02. Revised: 2026-09-03.
 
+T01-W08 handoff: candidate foundation, specialization, binding and data
+semantics are now frozen in
+`develop/specs/CSHARP_PRACTICAL_FOUNDATION_V1.md`, with a private descriptor,
+conformance vectors and independent runtime evidence. The containing successor
+context/sidecar/limit freeze remains T01-W09, and package completion T01-W10.
+This candidate freeze changes no installed profile or production acceptance.
+
 ## 1. Decision
 
 Create a new, immutable C# profile for deterministic business-domain logic.

@@ -165,8 +165,8 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
         let expected_status = match work_item.as_str() {
             "CSHARP-03-T01-W01" | "CSHARP-03-T01-W02" | "CSHARP-03-T01-W03"
             | "CSHARP-03-T01-W04" | "CSHARP-03-T01-W05" | "CSHARP-03-T01-W06"
-            | "CSHARP-03-T01-W07" => "Complete",
-            "CSHARP-03-T01-W08" => "Ready",
+            | "CSHARP-03-T01-W07" | "CSHARP-03-T01-W08" => "Complete",
+            "CSHARP-03-T01-W09" => "Ready",
             _ => "Blocked",
         };
         assert_eq!(row.status, expected_status, "status drift for {work_item}");
@@ -177,7 +177,8 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             "CSHARP-03-T01-W04" => "b6680168c2666be503741575c009f0a26dd0da22",
             "CSHARP-03-T01-W05" => "13415911853c0368c103bd9d5feeb8374596d724",
             "CSHARP-03-T01-W06" => "22673dbc96d8ba4f0d9a4cb97c3f2490c00d1804",
-            "CSHARP-03-T01-W07" => "SELF",
+            "CSHARP-03-T01-W07" => "b0ff7daec663b95b1f88ecc1d98f0b7c1f6fdf00",
+            "CSHARP-03-T01-W08" => "SELF",
             _ => "—",
         };
         assert_eq!(
@@ -224,6 +225,11 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
         "154 exact operations and 26 evidence families",
         "83 culture-varying BCL differential vectors",
         "Profile-side codec results come only from the probe's closed ASCII grammars",
+        "## 10. CSHARP-03-T01-W08 completion record",
+        "develop/specs/CSHARP_PRACTICAL_FOUNDATION_V1.md",
+        "2,051 executable specification vectors",
+        "1,629 independent runtime vectors",
+        "T01-W09 is the sole ready item",
     ] {
         assert!(ledger.contains(required), "ledger is missing {required}");
     }

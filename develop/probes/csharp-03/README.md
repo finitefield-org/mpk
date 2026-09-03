@@ -204,8 +204,9 @@ docker run --rm --platform linux/amd64 --privileged --network none --read-only -
 W06 is private measurement and rejection evidence only. It introduces no
 application dependency, source-facing library, generic/iterator/async
 capability, production route, registered identity, or normative vector.
-Runtime behavior remains W07-owned and final specification/activation remains
-W08-W10-owned.
+Primitive/string/numeric/codec behavior is W07 evidence. Foundation/data
+semantics are W08-owned; the remaining freeze package is W09/W10-owned and
+production activation remains T07/T08-owned.
 
 ## T01-W07 primitive, string, numeric, and codec runtime probe
 
@@ -293,3 +294,67 @@ schema identity, VIR/VC semantics, source-facing library, production route,
 or activation. The normative freeze package begins in T01-W08 and remains
 serial through T01-W10; production implementation and atomic activation
 belong to the later implementation/release milestones.
+
+## T01-W08 foundation/data semantic freeze and runtime differential
+
+`develop/specs/CSHARP_PRACTICAL_FOUNDATION_V1.md` freezes the candidate's twelve
+templates, four non-template definitions, concrete closure/hash/ordering rules,
+binding obligations, source construction and ownership semantics, total-order
+matrix, nullable operations and business-value operations. The descriptor at
+`develop/migrations/csharp-03/foundation/foundation-descriptor.json` binds that
+document and `foundation-definitions.json`; it is not installed or activated.
+
+The private `foundation_model.py`/`foundation_package.py` model generates 2,051
+vectors at `develop/specs/vectors/csharp-practical-foundation-v1.json`. It checks
+strict descriptor and binding fields, hashes, type substitution and dependency
+closure, provenance merging, count/depth boundaries, missing/extra/colliding
+entries, source cycles, residual generics, projection losses and operation
+signature mismatch, recursive default eligibility, constructor transactions,
+ownership joins/publication and ordered-collection failure precedence. Each
+row names its later primary implementation/test owner; a passing model does
+not complete that implementation or prove a source invariant.
+
+`FoundationDataProbe.cs` is an observation-only program, compiled directly
+under the exact W03 C# 14/167-reference closure and .NET 10.0.11 Linux-x64.
+`foundation_runtime_model.py` independently constructs its inputs and expected
+Gregorian/integer/Boolean/IEEE-bit/decimal-value results. There are 1,629 vectors
+and 82 operation groups: date/time/duration/GUID, the closed lifted nullable
+matrix, construction/evaluation order, arrays and count-then-allocate, plus
+fixture-owned instant/money outcomes and explicit rounding/error precedence.
+Runtime setup/parsing/instrumentation is not an application API admission.
+W07's existing 3,468 vectors remain the sealed scalar/codec evidence.
+
+The runner compiles twice, each time executes under two constructed hostile
+cultures and two unlisted environment values, and requires equal binaries,
+raw observations and independently calculated expectations. The final record
+is `develop/migrations/csharp-03/probes/runtime-foundation-data.json` with raw
+SHA-256 `6ef1194e1398d5822c676248ea6ccbbb31381b95cfd32c8b8a65e68376118064`.
+It records source/oracle/runner/build-input hashes, all exact input rows,
+canonical values/errors and deterministic binary hash. No raw exception prose,
+machine path, stack, clock or ambient-culture formatting enters observations.
+
+Portable local checks:
+
+```sh
+python3 develop/probes/csharp-03/foundation_package.py --check
+python3 develop/probes/csharp-03/run-foundation-data-probe.py --check-record
+cargo test -p mpk-vc --test csharp_practical_spec
+python3 scripts/check-spec-vectors.py --check
+```
+
+The full repeatability check uses the existing immutable local Linux image and
+W03 offline archive cache; `<repository>` is the absolute repository path:
+
+```text
+docker run --rm --platform linux/amd64 --privileged --network none --read-only --tmpfs /tmp:rw,nosuid,nodev,exec,size=4g --mount type=bind,source=<repository>,target=/workspace,readonly -w /workspace sha256:ea3189955dd9c0e5deda7a30ef48a0c7ef5af3b128f74fcd6e368384b8e1420a python3 develop/probes/csharp-03/run-foundation-data-probe.py --check
+```
+
+`--check-record` re-derives every expected observation and verifies all live
+input hashes without running a Linux binary. `--check` also repeats the two
+builds/eight executions and compares the entire record byte-for-byte.
+`--update` is an explicit generated-record operation, requiring the same runtime
+agreement first and a writable repository mount. The package model likewise
+has explicit `--update` for its three generated JSON files, and `--emit-patch`
+for review; update the normative vector manifest hash after regeneration.
+Neither check silently repairs changed data. No production route, source-facing
+library, active profile or release artifact is changed by W08.

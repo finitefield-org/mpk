@@ -2,10 +2,11 @@
 
 Status: current reviewed implementation decomposition, prepared on 2026-09-03.
 The native `JAVA-03-T10` x86-64 Linux release receipt is accepted and
-`CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07` have completed the entry audit,
+`CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08` have completed the entry audit,
 consumer inventory, private frontend/toolchain closure proof, Roslyn shape
-probes, and primitive/string/numeric/codec runtime measurements.
-`CSHARP-03-T01-W08` is ready; every later work item remains blocked by its serial
+probes, primitive/string/numeric/codec runtime measurements, and the candidate
+foundation/specialization/binding/data semantic freeze.
+`CSHARP-03-T01-W09` is ready; every later work item remains blocked by its serial
 predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
@@ -45,10 +46,11 @@ JAVA-03-T10 -> CSHARP-03-T01-W01
 
 `JAVA-03-T10` completed atomic Java activation and the required native x86-64
 Linux two-pass release gate on 2026-09-03. This prerequisite is satisfied and
-T01-W01/W02/W03/W04/W05/W06/W07 have closed the entry audit, consumer inventory,
+T01-W01/W02/W03/W04/W05/W06/W07/W08 have closed the entry audit, consumer inventory,
 private frontend/toolchain closure proof, and Roslyn data, construction,
 control, exception, pattern, dependency, generic, iterator, and async-rejection
-plus primitive/string/numeric/codec runtime measurements; T01-W08 is ready. This
+plus primitive/string/numeric/codec runtime measurements and the foundation/
+specialization/binding/data semantic freeze; T01-W09 is ready. This
 file remains planning material. W01 added its baseline and ledger; W02 added
 only the private consumer inventory, owner tests, ledger evidence, and current-
 status documentation; W03 added only private build-input evidence and its
@@ -59,10 +61,12 @@ canonical measurement, runner, documentation, and owner tests; W06 added only
 the corresponding private dependency/generic/iterator/async-rejection probe,
 canonical measurement, runner, documentation, and owner tests; W07 added only
 the corresponding private primitive/string/numeric/codec runtime probe,
-canonical measurement, runner, documentation, and owner tests. No CSHARP-03
-specification, vector, normative identity, production code, fixture, candidate
-bundle, public route, active build input, or active registry/release descriptor
-has been frozen or changed.
+canonical measurement, runner, documentation, and owner tests. W08 adds the
+candidate foundation/data specification, generated descriptor/definitions and
+vectors, independent private runtime/model evidence and owner tests. No
+production code, application fixture, installed candidate bundle, public route,
+active build input or active registry/release descriptor has changed. The
+remaining successor-wide identity/schema/limit freeze belongs to W09/W10.
 
 The following are unconditional stop conditions:
 
@@ -530,6 +534,13 @@ Verification: descriptor/member/hash, template/dependency/expansion,
 closed-instance closure/order/dedup/limit, binding/projection/identity, and
 residual-generic vectors; spec-model completeness tests; and independent
 finite .NET differential probes for every runtime-backed row.
+
+Completed handoff: `develop/specs/CSHARP_PRACTICAL_FOUNDATION_V1.md`, the
+candidate descriptor/definitions in `develop/migrations/csharp-03/foundation/`,
+`develop/specs/vectors/csharp-practical-foundation-v1.json`, and
+`develop/migrations/csharp-03/probes/runtime-foundation-data.json`. The primary
+owner is `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W08`;
+ledger section 10 records exact hashes, verification and the review/fix loop.
 
 ### CSHARP-03-T01-W09 — Freeze contracts, boundary, transition, identities, and limits
 

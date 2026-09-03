@@ -1,13 +1,12 @@
 # CSHARP-03 Implementation Traceability Ledger
 
-Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07` complete (2026-09-04). The
+Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08` complete (2026-09-04). The
 entry audit, consumer inventory, private frontend/toolchain closure proof,
-Roslyn shape probes, and primitive/string/numeric/codec runtime measurements
-are closed, `CSHARP-03-T01-W08` is ready, and
-every later work item remains blocked by its serial predecessor. No practical-
-profile identity, production
-acceptance path, registered candidate, or active registry entry was introduced
-by W01-W07.
+Roslyn shape probes, primitive/string/numeric/codec runtime measurements and
+candidate foundation/specialization/binding/data semantics are closed.
+`CSHARP-03-T01-W09` is ready; later items remain serially blocked. W08 freezes
+candidate-local identities and semantics only. No production acceptance path,
+installed candidate or active registry entry was introduced by W01-W08.
 
 This ledger is subordinate to
 [`08_csharp_practical_subset_design.md`](08_csharp_practical_subset_design.md)
@@ -44,9 +43,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T01-W04` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W04` | `b6680168c2666be503741575c009f0a26dd0da22` |
 | `CSHARP-03-T01-W05` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W05` | `13415911853c0368c103bd9d5feeb8374596d724` |
 | `CSHARP-03-T01-W06` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W06` | `22673dbc96d8ba4f0d9a4cb97c3f2490c00d1804` |
-| `CSHARP-03-T01-W07` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W07` | `SELF` |
-| `CSHARP-03-T01-W08` | `Ready` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W08` | `—` |
-| `CSHARP-03-T01-W09` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W09` | `—` |
+| `CSHARP-03-T01-W07` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W07` | `b0ff7daec663b95b1f88ecc1d98f0b7c1f6fdf00` |
+| `CSHARP-03-T01-W08` | `Complete` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W08` | `SELF` |
+| `CSHARP-03-T01-W09` | `Ready` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W09` | `—` |
 | `CSHARP-03-T01-W10` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W10` | `—` |
 | `CSHARP-03-T02-W01` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_registry.rs#CSHARP-03-T02-W01` | `—` |
 | `CSHARP-03-T02-W02` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W02` | `—` |
@@ -1124,3 +1123,138 @@ float/double NaN and signed-zero bits, decimal representation/rounding/
 overflow behavior, all three hostile cultures, unlisted-input independence,
 every operation mutation, deterministic rerun bytes, W06 and active scalar
 byte preservation, non-activation, and serial ledger state after all fixes.
+
+## 10. CSHARP-03-T01-W08 completion record
+
+### 10.1 Candidate foundation and specification handoff
+
+The input is W07 commit `b0ff7daec663b95b1f88ecc1d98f0b7c1f6fdf00`, tree
+`b74233683af4c85ba7576d65e627b0a7efa51598`. W03 build inputs, reference
+projection, W04–W07 observations and active scalar release bytes are retained.
+The final data/foundation contract is
+`develop/specs/CSHARP_PRACTICAL_FOUNDATION_V1.md`, owned by
+`crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W08`.
+
+The one candidate descriptor at
+`develop/migrations/csharp-03/foundation/foundation-descriptor.json` is 2,087
+bytes, raw SHA-256
+`1aceff726735f38a4b7c57e2ca1688c61428a49bb5997bb6963369d5beaf2118`.
+Its domain-separated semantic content hash is
+`d3c3422d509ee00fff3e98e6bc0d8b27b6f30bd2848a0d38d3873927813482e0`.
+It binds the normative specification and the 18,051-byte definition inventory
+`develop/migrations/csharp-03/foundation/foundation-definitions.json`, raw
+SHA-256 `01f05d59c0a3642baeb4f3c5b55a6a946251bab71a2750f0115b9920b1ffd9bc`.
+Exactly twelve templates and four non-template definitions are enumerated;
+there is no source-callable member or caller extension point.
+
+The freeze fixes stored declarations, constructors/init/required transactions,
+receiver-first pure calls, default eligibility, array ownership and publication,
+count/fill construction, ordered maps/sets and equality/order; all template
+IDs/arities/dependencies/equations and ordinary-core representation recipes;
+concrete root/argument/member closure, canonical instance IDs, deduplication,
+provenance unions and counters; exact semantic bindings, typed operation maps,
+field-complete projection obligations; nullable/outcome operations; and
+date/time/duration/instant/GUID/money values, operations, codecs and errors.
+Enum carrier width/signedness is explicit and carrier/tag values use canonical
+decimal strings rather than unsafe JSON integer tokens.
+
+There are 2,051 executable specification vectors in
+`develop/specs/vectors/csharp-practical-foundation-v1.json` (795,975 bytes),
+raw SHA-256 `af9695867a92a212fe2abd68e5c3b38ff9cc47d044b6860aece96fb2b1cf13f0`.
+Every row names its primary downstream implementation task and exact test
+owner; source count/fill execution is T04-W02, not T03's representation handoff.
+The local comparison budgets are exercised at cap-1/cap/cap+1, including actual
+255/256/257-instance closures and 15/16/17 argument depth. The all-template
+specimen derives 13 distinct instances, 83 operations and 863 recipe nodes.
+These are specification-recipe counts, not claims of measured kernel capacity;
+the complete emitted-term and checker-capacity freeze remains T01-W09-owned.
+
+Ordinary-core recipes use concrete finite-depth Boolean function trees and
+existing Bool/Nat/Eq eliminators, not new inductive shapes or bit-vector/array
+axioms. Field/sequence equality is an explicit relation, not function
+extensionality. Actual definition construction and certificate proof discharge
+remain the named T02/T06 work items; W08 does not claim they are already built.
+
+### 10.2 Independent runtime evidence and non-activation
+
+`develop/probes/csharp-03/FoundationDataProbe.cs` is 16,249 bytes, raw SHA-256
+`940ea5faf7a5a35863f479aed619a4226dd960b050f173ff25b0387d00be9b1f`.
+`foundation_runtime_model.py` independently computes expectations using
+Gregorian/integer/Boolean/IEEE-bit/decimal-value algorithms. Two clean builds
+under the fixed W03 compiler/reference/runtime closure each execute twice
+under each of two hostile cultures (eight executions total).
+
+The 501,898-byte result
+`develop/migrations/csharp-03/probes/runtime-foundation-data.json`, raw SHA-256
+`6ef1194e1398d5822c676248ea6ccbbb31381b95cfd32c8b8a65e68376118064`, contains
+1,629 independent runtime vectors covering 82 operation groups. Its normalized
+observation hash is
+`fee66d2fe11251d0dbbcc2d0408bc32dbb5352d3a8a853f3a6ea6c640e9f5369`,
+and deterministic binary hash is
+`e796041d209811c5a3b968cd3caba95a70940cbc3f73509d9d01395c0686d02d`.
+The record binds source/oracle/runner/W03 input hashes. The full read-only local
+Linux rerun reproduces the record byte-for-byte, with network disabled and a
+fresh executable tmpfs in the same immutable image recorded for W07.
+
+Coverage includes Gregorian clamping/endpoints, wrapping time subtraction and
+duration addition, signed duration components/overflow, unsigned GUID field
+order, every admitted lifted nullable operator, NaN non-reflexivity, signed-zero
+bits, bool? truth/equality tables, construction/init/receiver/argument order,
+null-call argument evaluation, array defaults/errors, two-pass output order,
+instant precision-before-range and difference overflow, and all money
+arithmetic/rounding/error-precedence operations. Instrumented helper/setup APIs
+remain observation-only; they add no application source admission. W07's sealed
+primitive/codecs record is unchanged at
+`0055835ce456fb9c438336332bc0e2a214d900c137eca34f90c3fcddd2688769`.
+
+Only private probes/models, generated candidate specification artifacts,
+normative vectors/manifest registration, owner tests and documentation changed.
+No production source, installed descriptor, public route, active registry,
+application dependency, release candidate bundle, core/checker behavior or
+GitHub workflow changed. The active scalar descriptor/inventory/vector remain
+at the raw digests recorded in section 9.2. T01-W09 is the sole ready item;
+W10 and all production implementation/activation work remain serially blocked.
+
+### 10.3 Verification and review
+
+Local verification:
+
+- `python3 develop/probes/csharp-03/foundation_package.py --check`;
+- `python3 develop/probes/csharp-03/run-foundation-data-probe.py --check-record`;
+- the README's fixed offline Linux, read-only `--check` command;
+- `cargo test -p mpk-vc --test csharp_practical_spec --test canonical_json`;
+- `cargo test -p mpk-vc --test csharp_practical_inventory`;
+- `python3 scripts/check-spec-vectors.py --check` (25 vector sets);
+- `python3 scripts/check-artifact-paths.py`;
+- `cargo fmt --all -- --check`; and
+- `./scripts/check-fast.sh`.
+
+Review/fix iterations:
+
+- Separate binding admission from actual-source-default eligibility; none/missing
+  internal defaults do not replace CLR null/zero storage or ignore invariants.
+- Include every stored source member in projection obligations, distinguish
+  representation round trips from IEEE operator equality, reject inactive
+  payload loss, arm collapse, signature mismatch and operation non-commutation.
+- Recursively collect instances through source member graphs as well as direct
+  template arguments/dependencies; preserve all root provenance after dedup.
+- Reject old-owner reads after transfer and inconsistent branch owners/lifetimes;
+  intersect initialization facts and retain explicit SSA phi values at joins.
+- Preserve negative zero for floating remainder/negation, exercise nullable NaN
+  comparisons and bool? equality, and verify arguments precede null-call failure.
+- Use shared-safe JSON integer tokens, explicit decimal-string wide carriers
+  and enum underlying types; update the closed vector-manifest count from 24
+  to 25 without changing parser acceptance rules.
+- Correct loop and instance-call downstream ownership, bind normative document
+  bytes into the descriptor, retain predecessor/active hashes, and verify the
+  generated descriptor, definitions, operation closure, counters and evidence
+  independently in Rust as well as through the Python model.
+- Disable probe-side Python bytecode writes; move only the two W08-created
+  Python 3.11 cache files to a disposable temporary directory, restoring the
+  frozen W02 consumer search without changing its inventory or fingerprints.
+
+Final review findings: `0`. The final pass covers W08-only scope, descriptor
+member/hash closure, exact twelve/four registry, generic erasure, source-member
+closure, bindings and default/projection distinctions, core-recipe trust
+boundary, field/collection semantics, all runtime comparisons and precedence,
+manifest/schema/owner consistency, serial ledger state and non-activation.
