@@ -203,8 +203,8 @@ later-stage owner early. Apply them at stage gates as follows:
 | --- | --- |
 | T01 | frozen probes, specifications, vectors, hashes, limits, names, and later production-test ownership only; no production importer, source run, proof discharge, candidate, or public-route claim |
 | T02 | private test-injected registry, foundation, artifact, importer, VC-schema, protocol, and predecessor-migration guarantees; no practical C# source-acceptance or installed-route claim |
-| T03 | actual captured C# data-source runs, MPK-free application build/output inspection, source maps/manifests, generic rejection, specialization integration, and monomorphic data emission |
-| T04 | source control, pattern, explicit throw/handler, and exceptional-region guarantees |
+| T03 | actual captured loop-free C# source-capability runs, direct collection representations, MPK-free application build/output inspection, source maps/manifests, generic rejection, specialization integration, monomorphic data emission, and production typed handoffs for later boundary/control owners; loop-dependent collection algorithms and boundary invocation remain deferred |
+| T04 | source control, loop-dependent sequence/map/set algorithms, pattern, explicit throw/handler, and exceptional-region guarantees |
 | T05 | boundary/transition source and sidecar guarantees, including structural rejection of every partial method on a total root closure; proof discharge remains T06-owned |
 | T06 | ordinary VC/proof construction, totality discharge, Certificate v0, both-checker, policy/evidence, AI, and structured-API guarantees on private routes |
 | T07 | registered private candidate, reproducible bundle, native sandbox, hostile-environment, and candidate installed-image guarantees |
@@ -258,8 +258,8 @@ atomic activation, and a tested whole-image rollback procedure.
 | --- | ---: | --- | --- |
 | `CSHARP-03-T01` | 10 | measured feasibility record, frozen practical profile package, exact vectors and ledger | no unresolved or guessed fact |
 | `CSHARP-03-T02` | 9 | private successor shared-artifact foundation and equivalent predecessor migration | no public route; all predecessor equivalence cases pass |
-| `CSHARP-03-T03` | 14 | complete data-oriented practical frontend | every data capability lowers from actual C# source |
-| `CSHARP-03-T04` | 6 | loops, switch/pattern, and explicit exceptional CFG | normal and abrupt control are independently validated |
+| `CSHARP-03-T03` | 14 | loop-free data frontend and collection/boundary representation substrates | every loop-free source capability and direct collection form lowers from actual C# source; internal typed handoffs and all deferred control/boundary cases have exact later owners |
+| `CSHARP-03-T04` | 6 | loops, loop-dependent collection algorithms, switch/pattern, and explicit exceptional CFG | normal and abrupt control plus every deferred collection path are independently validated |
 | `CSHARP-03-T05` | 6 | canonical boundary and pure transition frontend | overlay linkage, round trip, total-root structural eligibility, version, and optional idempotency validation pass; proof discharge remains T06-owned |
 | `CSHARP-03-T06` | 12 | VC, certificate, semantic-binding, policy/evidence/AI/API integration | same certificate bytes pass both checkers with zero axioms |
 | `CSHARP-03-T07` | 6 | reproducible registered private candidate and native sandbox evidence | two builds/runs and hostile-environment gates pass |
@@ -384,8 +384,12 @@ extend the build-input script tests, run
 `cargo test -p mpk-cli --test csharp_practical_build_inputs` against the two
 private paths, run the isolated two-build recipe, and run
 `./scripts/build-csharp-frontend.sh --check-build-inputs` to prove the active
-scalar inputs remain unchanged. The native `./scripts/check-java-frontend.sh`
-gate is reserved for T07/T08.
+scalar inputs remain unchanged. The currently installed native
+`./scripts/check-java-frontend.sh` gate remains predecessor baseline evidence;
+it is not a T01 practical toolchain probe. T01-W10 freezes the exact practical
+candidate/release-gate command and its replacement, extension, or retirement
+relation to the current gate; native execution of the practical gate is
+reserved for T07/T08.
 
 ### CSHARP-03-T01-W04 — Measure Roslyn data and construction shapes
 
@@ -548,7 +552,9 @@ specifications, exact vectors and manifest entries, canonical probe records,
 name-and-owner inventory, traceability ledger, upgrade matrix, and routing
 updates in the design/todo/developer documentation; freezes the exact primary
 test owner pairs and the exact local practical candidate/release-gate command
-name and owner used by T07-W05/W06 and T08-W06/W09/W10.
+name and owner used by T07-W05/W06 and T08-W06/W09/W10, including whether that
+command replaces, extends, or retires the currently installed Java-named gate
+at atomic activation.
 
 Exit gate: every freeze-only requirement maps to its exact T01 W item and one
 probe/specification-test owner; every implementation or release requirement,
@@ -607,8 +613,9 @@ deduplicates them, enforces all counters, and expands them into concrete
 definitions. No caller bundle, caller allowlist, framework object, serializer
 representation, source-facing MPK type, or generic/template value can enter
 VIR. T02 executes this engine only with private test-injected root/provenance
-sets; deriving those roots from actual C# source and sidecars belongs
-exclusively to T03-W14.
+sets. T03-W14 first derives the data-phase roots from actual C# source and data
+sidecars; T04-W06 and T05-W06 extend that same cumulative root set for their
+newly admitted control/exception and boundary/transition forms.
 
 Verification: descriptor/hash/member mutations; every template arity,
 dependency, operation, and expansion; closure/order/dedup/depth/count limits;
@@ -749,19 +756,28 @@ complete predecessor semantic/certificate regression suites, and
 `./scripts/check-fast.sh`. Native installed-image gates remain owned by T07 and
 T08.
 
-## 8. CSHARP-03-T03 — Data frontend
+## 8. CSHARP-03-T03 — Loop-free data frontend and collection substrates
 
-Every T03 accepted case starts as immutable captured `.cs` and exact JSON
-sidecars, passes the pinned Roslyn public APIs, and is independently validated
-after emission. A helper-constructed VIR is not acceptance evidence. T03 may
-emit the frozen closed exceptional successor of a data operation using the
-T02 vocabulary, but it does not admit source-declared exceptions, explicit
+Every T03 source-acceptance case starts as immutable captured `.cs` and exact
+JSON sidecars, passes the pinned Roslyn public APIs, and is independently
+validated after emission. A helper-constructed VIR is not source-acceptance
+evidence. Production typed tests may exercise an internal handoff whose first
+source/control/boundary consumer belongs to T04 or T05, but the handoff test
+cannot claim that later capability. T03 may emit the frozen closed exceptional
+successor of a data operation using the T02 vocabulary, but it does not admit
+source-declared exceptions, explicit
 `throw`, `catch`, filters, or `finally`; those source forms and their region
 semantics belong to T04. Each T03 feature item extends source-side type/method
 sidecar parsing and attachment for its owned expression forms; T03-W14 closes
 that data-sidecar union before T04 begins. T04-W06 and T05-W06 extend the
 closed root/provenance set for their newly accepted forms by invoking the same
 T02-W02 specialization engine; neither later stage may fork its algorithms.
+Because source loops are not admitted until T04, T03 accepts only loop-free
+direct collection representations and straight-line construction paths.
+T03-W08/W09 implement their data representations, bindings, and handoff
+contracts; T04-W01/W02 own the first positive source acceptance and lowering
+of count-then-allocate, membership, lookup, traversal, aggregation, sort, and
+dedup loops, and T04-W06 closes their actual-source emission evidence.
 
 ### CSHARP-03-T03-W01 — Extend capture, declaration accounting, and closure
 
@@ -801,11 +817,14 @@ reference, and limit cases.
 
 Depends on: T03-W01.
 
-Owns: expression-bodied methods/getters, `var` locals/`foreach` variables whose
-exact admitted type is available, ordinary non-global namespace `using`
+Owns: expression-bodied methods/getters, `var` locals whose exact admitted type
+is available, the reusable exact-type normalization handoff later consumed by
+T04-W02 for a `foreach` variable, ordinary non-global namespace `using`
 directives, and the exact redundant file-wide `#nullable enable`; normalizes
-them to the same internal form as block bodies, explicit types, fully qualified
-names, and the profile's already enabled nullable context.
+the T03 forms to the same internal form as block bodies, explicit types, fully
+qualified names, and the profile's already enabled nullable context. A
+positive `foreach` source form, including `var` in that position, remains
+T04-W02-owned.
 
 Exit gate: normalized artifacts and obligations are byte-identical to explicit
 equivalents; ambiguous, anonymous, dynamic, target-typed, disallowed, or
@@ -816,7 +835,8 @@ directive reject and emit no partial artifacts.
 
 Verification: equivalence pairs and negative Roslyn-shape mutations in
 `csharp_practical_syntax.rs`, including conditional-compilation and every
-other rejected directive family.
+other rejected directive family, plus a routing assertion that positive
+`foreach`-variable cases are not claimed before T04-W02.
 
 ### CSHARP-03-T03-W03 — Admit enum, readonly struct, and sealed immutable class declarations
 
@@ -907,14 +927,21 @@ and business values; admitted primitive/string source equality; and source-defin
 non-generic pure field-by-field helpers included in the captured closure.
 Enforces the frozen total-key matrix and lexicographic rules. The internal
 operations are contract/boundary/foundation vocabulary, not callable `Mpk.*`
-C# methods.
+C# methods. W06 implements one type-directed production generator over the
+T02 concrete descriptor vocabulary and exercises it through the source types
+available by W06. W07-W13 must route each newly admitted collection, numeric,
+nullable/outcome, and business-value type through that same generator and add
+its actual-source vectors; they may not fork equality or ordering logic.
 
 Exit gate: no CLR identity, virtual equality, hash code, comparer, locale, or
 insertion order is observable; float-containing/non-total types reject as map
 or set keys.
 
-Verification: algebraic finite-domain tests, corner vectors, and pinned-runtime
-comparisons where the spec deliberately mirrors .NET.
+Verification: algebraic finite-domain tests, corner vectors, pinned-runtime
+comparisons where the spec deliberately mirrors .NET, and a production-
+generator routing test over every source type available by W06. W07-W13 extend
+that same test for their types; W14 closes its completeness assertion over all
+admitted actual-source types.
 
 ### CSHARP-03-T03-W07 — Lower arrays with explicit ownership
 
@@ -922,9 +949,11 @@ Depends on: T03-W06.
 
 Owns: fixed/bounded allocation, default-eligible versus fully initialized
 elements, reads/writes/length/index checks, alias rules, active-foreach
-mutation rejection, and freeze/escape behavior. The admitted source forms are
-the exact explicit/implicit one-dimensional array creation and initializer
-forms frozen by the design, with exact `int` lengths and indices.
+read-borrow/write-conflict handoff, and freeze/escape behavior. T04-W02 owns
+the first positive `foreach` source form and applies that conflict rule. The
+admitted T03 source forms are the exact explicit/implicit one-dimensional array
+creation and initializer forms frozen by the design, with exact `int` lengths
+and indices.
 
 Exit gate: every access has ordered symbolic or structural bounds checks. A
 negative or otherwise invalid C# length takes its frozen exception edge; a
@@ -938,35 +967,39 @@ target-typed collection, `Array.Empty<T>()`, and best-common-type array forms
 reject before emission.
 
 Verification: boundary lengths/indices, alias/use-after-freeze, foreach
-mutation, default eligibility, every admitted creation form, and every rejected
-array/storage/index form listed above.
+mutation routing, default eligibility, every admitted creation form, and every
+rejected array/storage/index form listed above. Actual `foreach` mutation
+rejection executes under T04-W02.
 
-### CSHARP-03-T03-W08 — Lower bounded sequences and two-pass construction
+### CSHARP-03-T03-W08 — Lower bounded-sequence representations and the construction substrate
 
 Depends on: T03-W07.
 
 Owns: projection of admitted arrays and bound non-generic immutable wrappers to
 closed internal bounded sequences; length, indexed read, structural equality,
-and applicable lexicographic ordering; plus filtered variable-result
-construction using the exact count-then-allocate two-pass source form. The
-first loop emits the frozen exact-output-count claim and obligations, the fresh
-array allocation uses that count, and the second loop fills every index once
-in source order before publication. T06-W03/W04 own discharge of the emitted
-count, initialization, bound, and loop obligations.
+and applicable lexicographic ordering; integration of the specialized
+monomorphic construction state for loop-free fixed-size and straight-line
+initialization; and the exact typed allocation/fill/freeze handoff consumed by
+T04. The filtered count-then-allocate source form, its loop-contract
+attachment, its CFG lowering, and its count/fill loop obligations first become
+accepted under T04-W01/W02. T06-W03/W04 later discharge the emitted data and
+loop obligations.
 
-Exit gate: count agreement, initialized-prefix, element invariant, exact
+Exit gate: for every loop-free direct form, element initialization, exact
 result length, profile bound, unique ownership, and final publication are
 explicit and independently validated. The specialized monomorphic construction
 state is explicit in VIR, cannot cross an incompatible merge or public
 boundary, and publication eliminates it to an immutable value before
-certificate generation; `List<T>`, immutable framework collections,
-single-pass growth, callbacks/lambdas, and every
-source-visible builder API reject.
+certificate generation. A source loop still rejects at the frozen T03 control
+gate and emits no artifact; no T03 test may claim positive two-pass source
+coverage. `List<T>`, immutable framework collections, single-pass growth,
+callbacks/lambdas, and every source-visible builder API reject.
 
-Verification: zero/full/filtered-result cases, count/fill disagreement,
+Verification: zero/full/direct-result and straight-line initialization cases,
 premature publication/read, ownership transfer, profile-capacity boundaries,
-determinism, residual-construction-state rejection, and wrapper-binding
-mutations.
+determinism, residual-construction-state rejection, wrapper-binding mutations,
+and a routing assertion that every positive two-pass loop vector is owned by
+T04 rather than accepted in T03.
 
 ### CSHARP-03-T03-W09 — Lower canonical ordered maps and sets
 
@@ -974,25 +1007,28 @@ Depends on: T03-W08.
 
 Owns: semantic binding of an admitted element array as a set and an array of an
 application-owned non-generic immutable entry type as a map; optional bound
-non-generic wrappers; source loops/pure helpers for count, membership, lookup,
-ordered traversal, direct canonical construction, duplicate rejection or
-replacement, and a source-defined closed sort/dedup algorithm with its complete
-proof obligations; internal ordered map/set projection; missing-key versus
-stored-null outcomes; canonical key ordering; and key admissibility. T06-W03/
-W04 own semantic discharge of the collection and loop obligations.
+non-generic wrappers; direct canonical construction from an already strictly
+ordered, duplicate-free admitted array; internal ordered map/set projection;
+missing-key versus stored-null outcomes; canonical key ordering; key
+admissibility; and the exact typed operation handoff consumed by T04. T04-W01/
+W02 own source-loop contracts and lowering for count, membership, lookup,
+ordered traversal, aggregation, duplicate rejection/replacement, and closed
+sort/dedup algorithms. T06-W03/W04 later discharge the collection and loop
+obligations.
 
-Exit gate: every publication point carries the frozen bound, strict-order,
-uniqueness, and insertion-order-independence obligations, and every application
-helper body remains in the captured closure; these semantic obligations are
-not considered discharged before T06-W03/W04. Custom comparers, runtime
-hashing, float/non-total or mutable keys, generic entry types, framework
-collections or enumeration, insertion-order assumptions, and source-visible
-map/set builders reject.
+Exit gate: every loop-free direct publication point carries the frozen bound,
+strict-order, and uniqueness obligations. No insertion-order-independence or
+loop-helper claim is made at T03; T04 adds those obligations from the captured
+source bodies, and they are not considered discharged before T06-W03/W04.
+Source loops still reject artifact-free at the T03 control gate. Custom
+comparers, runtime hashing, float/non-total or mutable keys, generic entry
+types, framework collections or enumeration, insertion-order assumptions, and
+source-visible map/set builders reject.
 
-Verification: entry/array/wrapper binding mutations, permutation and canonical
-order tests over the key matrix, count/membership/lookup loops, duplicate
-reject/replace paths, missing/stored-null lookup, bounds, and rejected
-comparer/hash/framework cases.
+Verification: entry/array/wrapper binding mutations, direct preordered and
+duplicate-input cases, canonical-order tests over the key matrix, missing-
+versus-stored-null projection, bounds, rejected comparer/hash/framework cases,
+and routing assertions for all loop-dependent operation vectors.
 
 ### CSHARP-03-T03-W10 — Lower strings, characters, and boundary codec relations
 
@@ -1003,7 +1039,15 @@ string/char concatenation, restricted interpolation normalized to the same
 bounded concatenation, null/empty rules, surrogate handling, and the frozen
 culture-free boundary codec relations for all admitted primitives/business
 values. Source string operations and internal boundary codecs remain distinct;
-the codec relation does not admit a general source parse/format call.
+the codec relation does not admit a general source parse/format call. T03
+implements one type-dispatched production codec relation over the T02 concrete
+descriptor vocabulary and tests it independently of a boundary document.
+W11 and W13 route each applicable newly admitted numeric or business-value
+type through that same relation and extend its source-type coverage and
+internal typed-codec vectors without forking a grammar or parser. W12 owns no
+composite presence/outcome document codec; T05-W01-W03 own that document
+mapping, the first canonical-document invocation, and end-to-end input/output
+linkage.
 
 Exit gate: only intrinsic constant ordinal options are accepted. Boundary codec
 syntax, noncanonical, range, scale/precision, and input-bound failures return
@@ -1024,7 +1068,8 @@ Depends on: T03-W10.
 
 Owns: exact float/double bit values and operations, NaN/signed-zero behavior,
 decimal coefficient/scale representation, checked operations, rounding and
-overflow, conversions, and ordering exclusions.
+overflow, conversions, ordering exclusions, and applicable boundary codecs
+through T03-W10's shared typed relation.
 
 Exit gate: emitted operations reproduce every frozen runtime bit/value/error
 vector without theory primitives or checker floating/decimal primitives;
@@ -1042,7 +1087,8 @@ source spelling and immediate `option<T>` specialization; the restricted
 conditional-access and null-coalescing matrices; and semantic binding of
 application-owned non-generic option, lookup, result, and accumulating-
 validation representations, plus an application-owned three-arm
-representation bound to internal `boundary_field<T>` semantics. Includes
+representation's data-phase projection to internal `boundary_field<T>`
+semantics independently of any boundary document or field attachment. Includes
 active/inactive payloads, actual default arm, missing/null/value distinction,
 exhaustive matching, deterministic array-
 based error order/bounds, nesting restrictions, and the one frozen
@@ -1059,6 +1105,8 @@ not `default_eligible`, while an explicit fallback carries its public-invariant
 obligation; nested `option` forms outside the frozen exception reject during
 source/contract validation. `T?` near-misses and all other constructed generic
 source types, including explicit `System.Nullable<T>`, reject.
+T03 establishes no required/optional boundary-field mapping, canonical byte
+parse/format claim, or boundary invocation; those belong to T05.
 
 Verification: full arm/payload matrix, null/missing/value boundaries,
 error accumulation order/capacity, match exhaustiveness, and mutation tests.
@@ -1073,8 +1121,9 @@ instant definition; the reusable internal instant carrier, operations, and
 codecs later consumed by T05's exact raw-carrier classifications; and
 application-owned non-generic money values bound to the internal `money<C>`
 template. Includes construction, operations, comparison, exact boundary
-codecs, calendar/leap/day-of-week rules, wrap/carry, precision/range,
-no-generation policy, and money currency/scale/rate/division/rounding/error
+codecs through T03-W10's shared typed relation, calendar/leap/day-of-week
+rules, wrap/carry, precision/range, no-generation policy, and money currency/
+scale/rate/division/rounding/error
 precedence. An unclassified signed 64-bit value remains an ordinary integer;
 only T05-W01 or T05-W04 may classify one as a raw instant carrier through its
 owned boundary or transition field.
@@ -1102,29 +1151,39 @@ argument IDs; tag/payload/member/default/bound validation; derivation of the
 exact closed root/provenance set from actual source and sidecars; invocation
 of the T02-W02 specialization engine; deterministic emission of that engine's
 validated concrete definitions before VIR; complete data-phase emission,
-diagnostics, and negative-case ownership. It does not implement a second
-closure, identity, ordering, deduplication, limit, or expansion algorithm.
+diagnostics, negative-case ownership, and completeness of the shared T03-W06
+equality/ordering generator and T03-W10 typed-codec routing across every
+applicable admitted concrete type. It does not implement a second closure,
+identity, ordering, deduplication, limit, expansion, equality, or codec
+algorithm.
 
 Exit gate: stale/colliding/missing/duplicate/unreachable/cyclic bindings and
 tampered foundation descriptors, instance tables, manifests, or expansion
 reject. No source-defined generic, unsupported constructed CLR type, generic
 call, or template node survives the VIR barrier; no monomorphic sequence-
 construction state crosses an incompatible merge/publication boundary or
-is live at a function or public-value boundary. T06-W09 separately owns proof
+is live at a function or public-value boundary. Each admitted concrete type
+has exactly its applicable shared equality, ordering, and codec route, and no
+later type-specific implementation bypass exists. T06-W09 separately owns proof
 that no such state is encoded into a certificate. Frozen built-in data-operation
 exception values and normal/exceptional successors are independently
 validated, while every source exception declaration or explicit handler form
 remains outside T03 acceptance and emits no T03 artifact; T04 owns its final
 validation and diagnostics. No MPK application dependency is introduced;
 iterator and async families are covered only by the frozen rejection vectors.
-Every accepted T03 vector runs through the real frontend and independently
-validated importer. Every rejected T03 vector reaches its frozen owning
-source, sidecar, lowering, emission, or import barrier, emits no downstream
-artifact, and has the expected diagnostic and precedence. The T03 review has
-zero findings.
+Every source vector whose first applicable gate is T03 runs through the real
+frontend and independently validated importer when accepted, or reaches its
+frozen owning source, sidecar, lowering, emission, or import barrier without a
+downstream artifact when rejected. Each internal typed handoff vector executes
+production validation code and names the later first source/control/boundary
+owner that must replace model-only evidence with end-to-end evidence. Loop-
+dependent collection positives are not T03 acceptance rows: their routing is
+asserted at T03, and their first actual-source acceptance owner is T04. Boundary
+invocation is likewise T05-owned. The T03 review has zero findings.
 
-Verification: C# subset/contracts/lowering/emission suites and all T03 fuzz
-seeds in two isolated runs, `./scripts/build-csharp-frontend.sh --check`, and
+Verification: C# subset/contracts/lowering/emission suites, equality/ordering/
+codec routing completeness and bypass mutations, and all T03 fuzz seeds in two
+isolated runs, `./scripts/build-csharp-frontend.sh --check`, and
 `./scripts/check-fast.sh`. The native installed-release gate remains owned by
 T07/T08.
 
@@ -1136,7 +1195,10 @@ Depends on: T03-W14.
 
 Owns: loop invariant, optional decreases, modifies/ownership facts, normal and
 abrupt exit claims, strict loop-to-sidecar attachment, expression typing, and
-complete loop nesting/accounting.
+complete loop nesting/accounting. Collection-loop records additionally own
+exact output-count, initialized-prefix, canonical-order, uniqueness,
+duplicate-policy, and applicable insertion-order-independence clauses for the
+T03-W08/W09 handoff operations.
 
 Exit gate: every admitted loop has the required contract; missing, duplicate,
 wrong-target, ill-typed, impure, or out-of-scope facts reject before lowering.
@@ -1151,16 +1213,28 @@ Depends on: T04-W01.
 Owns: canonical CFG for admitted `for`, `while`, `do`, and exact compiler-
 recognized `foreach` over arrays or strings; stable IDs, invariant entry/back-
 edge/exit points, decreases, break/continue, nested targets, and partial-versus-
-total metadata.
+total metadata. It consumes the T03-W08/W09 data-operation handoffs and owns
+the first source lowering for count-then-allocate count/fill pairs and
+source-defined count, membership, lookup, traversal, aggregation, sort, dedup,
+and duplicate reject/replace loops; it does not duplicate the T03 collection
+representations or the T02 specialization engine. For `foreach`, it consumes
+T03-W02's exact-type normalization and T03-W07's array ownership handoff,
+accepts explicit-type and `var` variables over the exact array/string forms,
+and rejects a write conflicting with the active read borrow.
 
 Exit gate: source-order evaluation and every normal/abrupt edge are explicit;
 `goto`, labels, unsafe jumps, unsupported or irreducible loop forms, and
 ambiguous targets reject. A partial loop may omit decreases only when its
 partial-termination status remains explicit; a total claim requires the
-frozen decreases obligations.
+frozen decreases obligations. Every admitted two-pass result emits exact count
+agreement, initialized-prefix, bound, and publication obligations; every
+admitted map/set algorithm emits its frozen ordering, uniqueness, duplicate-
+policy, and insertion-order-independence obligations.
 
 Verification: CFG golden vectors, loop interpreter differential cases, stable
-ID determinism, and invariant/decreases boundary tests.
+ID determinism, invariant/decreases boundary tests, count/fill disagreements,
+explicit-type/`var` `foreach` equivalence and active-borrow mutation, and
+positive/negative collection-loop source cases routed from T03-W08/W09.
 
 ### CSHARP-03-T04-W03 — Lower switch and admitted patterns
 
@@ -1176,7 +1250,9 @@ expression switch is exhaustive or carries the exact modeled non-exhaustive
 exception path; dynamic, recursive/open, identity-sensitive, side-effecting,
 positional/deconstruction, slice, extension-based, or otherwise unsupported
 patterns reject deterministically. Statement fall-through, `goto case`, and
-`goto default` reject. Property getters must be total, pure, and immutable.
+`goto default` reject. A property getter must pass the structural purity and
+immutability rules and carry the frozen totality claim; T06-W04 owns semantic
+discharge for its use in the decision graph.
 
 Verification: decision-graph goldens, guard ordering, exhaustiveness/overlap,
 binding scope, runtime differential, and compiler-upgrade cases.
@@ -1238,7 +1314,10 @@ Owns: independent VIR validation for loop/pattern/exception regions, complete
 maps/manifests, control diagnostics/counters/fuzz seeds, and T04 cross-feature
 cases, including abrupt discard and catch/finally non-observation of a
 partially constructed object, initialized array, or sequence-construction
-state; derivation of the additional closed root/provenance set introduced by
+state; actual-source emission evidence for every loop-dependent collection
+vector deferred by T03-W08/W09; revalidation of construction ownership and
+publication over every newly loop-lowered normal and abrupt path; derivation
+of the additional closed root/provenance set introduced by
 accepted control/exception source and contract forms; and invocation of the
 T02-W02 specialization engine over the complete data-plus-control/exception
 root set.
@@ -1250,12 +1329,17 @@ Exit gate: malformed dominance, region, target, handler, ordering, source
 mapping, or closed-instance linkage rejects independent of Roslyn; the
 importer recomputes the complete data-plus-control/exception closed-instance
 table; no construction-state value becomes visible on an exceptional edge or
-handler/finally path; all T04 source cases are deterministic; review has zero
-findings.
+handler/finally path, crosses an incompatible merge, or remains live at a
+function or public-value boundary; every normal publication eliminates it to
+the exact immutable value. Every deferred collection positive now passes
+through the real frontend and importer, while every negative is artifact-free;
+all T04 source cases are deterministic; review has zero findings.
 
 Verification: control importer tests, closed-root/instance/linkage mutations,
 partial-object/array/sequence exceptional-path mutations, bounded pattern/
-exception/CFG fuzzing, full C# control frontend suite, and
+exception/CFG fuzzing, two-pass and map/set loop matrices, incompatible-merge/
+premature-publication/residual-state mutations after loop lowering, full C#
+control frontend suite, and
 `./scripts/check-fast.sh`.
 
 ## 10. CSHARP-03-T05 — Boundary and transition frontend
@@ -1271,9 +1355,10 @@ Depends on: T04-W06.
 Owns: strict parsing and attachment of the frozen boundary schema/version,
 semantic context, selected-method identity, ordered input/output fields, exact
 admitted value types, document/value limits, and parse/format profile; plus
-application-owned non-generic presence types bound to internal
-`boundary_field<T>` semantics with exact missing/null/value arms, payload,
-default, invariant, and optional-missing mapping. It is also the sole owner of
+attachment of a T03-W12-validated application-owned non-generic presence
+binding to each exact boundary field, with checked missing/null/value arms,
+payload, default, invariant, required/optional status, and optional-missing
+mapping. It is also the sole owner of
 classifying an exact signed 64-bit boundary field as the raw internal instant
 carrier; absent that explicit field classification, the value remains an
 ordinary integer.
@@ -1979,13 +2064,13 @@ the task contract above and the frozen T01 ledger.
 | user-generic prohibition, exact `T?`, incidental metadata | T01-W04/W06/W08 | T02-W02/W05, T03-W01/W12/W14, T06-W06/W09 |
 | registered foundation descriptor and closed specialization | T01-W02/W08/W09 | T02-W01-W06, T03-W14, T04-W06, T05-W06, T06-W06/W09/W10, T07-W02/W06 |
 | application semantic bindings and projection obligations | T01-W08/W09 | T02-W03-W05, T03-W08/W09/W12-W14, T05-W01/W04, T06-W01/W06 |
-| expression bodies, `var`, imports, nullable directive | T01-W04 | T03-W02 |
+| expression bodies, `var`, imports, nullable directive | T01-W04 | T03-W02, T04-W02 for `foreach var` |
 | enum/struct/ordinary immutable class/default eligibility | T01-W04/W08 | T03-W03, T06-W02 |
 | fields/properties/constructors/instance methods/init/required | T01-W04/W08 | T03-W04/W05, T04-W06, T06-W02 |
-| structural equality and ordering | T01-W04/W08 | T03-W06, T06-W03 |
-| arrays and internal sequence construction | T01-W04/W08 | T02-W02/W03, T03-W07/W08, T04-W06, T06-W03 |
-| ordered maps and sets | T01-W04/W08 | T03-W09, T06-W03 |
-| UTF-16 strings and codecs | T01-W04/W07 | T03-W10, T06-W03/W07 |
+| structural equality and ordering | T01-W04/W08 | T03-W06/W14, T06-W03 |
+| arrays and internal sequence construction | T01-W04/W08 | T02-W02/W03, T03-W07/W08, T04-W01/W02/W06, T06-W03/W04 |
+| ordered maps and sets | T01-W04/W08 | T03-W09, T04-W01/W02/W06, T06-W03/W04 |
+| UTF-16 strings and codecs | T01-W04/W07 | T03-W10/W14, T05-W02/W03, T06-W03/W07 |
 | float/double and decimal | T01-W04/W07 | T03-W11, T06-W03/W09 |
 | nullable and application-owned closed outcomes | T01-W04/W08 | T03-W12, T06-W03/W06 |
 | date/time/duration/instant/GUID/money | T01-W04/W08 | T03-W13, T05-W01/W04/W06, T06-W03/W06 |
@@ -1997,7 +2082,7 @@ the task contract above and the frozen T01 ledger.
 | pure transitions and optional full-snapshot idempotency | T01-W08/W09 | T05-W04-W06, T06-W08 |
 | contract expression union | T01-W09 | T03-W04-W14, T04-W01/W04/W06, T05-W01/W04/W06, T06-W01 |
 | closed framework surface and effect firewall | T01-W03/W06/W08/W09 | T03-W01/W10/W13/W14, T05-W02/W04/W06, T06-W10/W11, T07-W03/W04 |
-| successor VIR/source artifacts/maps/manifests | T01-W02/W09 | T02-W02-W07 |
+| successor VIR/source artifacts/maps/manifests | T01-W02/W09 | T02-W02-W07, T03-W14, T04-W06, T05-W06 |
 | VC/hash/certificate/zero axioms | T01-W09 | T02-W06, T06-W02-W09 |
 | diagnostics, precedence, and limits | T01-W09 | each frontend task; gates T03-W14/T04-W06/T05-W06 |
 | policy/evidence/AI/API | T01-W02/W09 | T02-W09, T06-W10-W12 |

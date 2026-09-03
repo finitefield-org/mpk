@@ -948,8 +948,10 @@ tables with a recomputed total axiom count of zero.
 Execution follows the serial stages and acceptance criteria in the source
 design. The reviewed detailed
 `08_csharp_practical_subset_design-todo.md` is the current subordinate
-execution decomposition, but all of its `Wnn` items remain blocked until the
-native `JAVA-03-T10` x86-64 Linux release receipt satisfies its entry gate.
+execution decomposition. The accepted native `JAVA-03-T10` x86-64 Linux
+release receipt satisfies its phase entry gate, so `CSHARP-03-T01-W01` is
+eligible to start; each later `Wnn` item remains blocked until its serial
+predecessor and task-local gate are complete.
 Each requested capability must have positive, rejection,
 boundary, differential, determinism, and compiler-upgrade evidence. Actual C#
 source, not manually assembled VIR, must pass the installed frontend and the

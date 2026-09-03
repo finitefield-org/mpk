@@ -2029,20 +2029,26 @@ CSHARP-03-T01 -> T02 -> T03 -> T04 -> T05 -> T06 -> T07 -> T08
 2. **CSHARP-03-T02 — Shared artifact foundation.** Implement the one successor
    registry, monomorphic VIR type/operation/exception, sequence/map/set and
    tagged-sum vocabulary, registered foundation descriptor/hash,
-   semantic-template and closed-instance registries, application-binding
-   linkage, business-value/codecs, three-state boundary presence, source-map,
+   semantic-template registry and derived closed-instance tables,
+   application-binding linkage, business-value/codecs, three-state boundary
+   presence, source-map,
    manifest, VC/skeleton, hash, and generic-free VIR-importer boundary. Migrate
    predecessor producers/consumers privately and prove semantic equivalence.
-3. **CSHARP-03-T03 — Data frontend.** Add concise/name-resolution syntax,
-   immutable types, constructors, fields/properties, init/required/object
-   initializers,
+3. **CSHARP-03-T03 — Loop-free data frontend.** Add expression bodies, local
+   `var`, name-resolution syntax, immutable types, constructors, fields/
+   properties, init/required/object initializers,
    source-dependency and generic rejection, semantic-binding validation,
    closed-instance collection, canonical monomorphization, structural
-   equality/order, arrays/sequence construction/maps/sets, strings,
-   float/decimal, nullable/closed outcomes/boundary-presence, and business
-   primitives with complete negative vectors.
-4. **CSHARP-03-T04 — Control frontend.** Add loops/contracts, switch/patterns,
-   and explicit exceptional CFGs and handlers.
+   equality/order, arrays and direct sequence/map/set representations, strings,
+   float/decimal, nullable/closed outcomes, internal boundary-presence and codec
+   handoffs, and business primitives with complete negative vectors. Loop-
+   dependent collection algorithms remain assigned to T04, and boundary
+   invocation remains assigned to T05.
+4. **CSHARP-03-T04 — Control frontend.** Add loops/contracts, including
+   explicit-type/`var` `foreach` and its array read-borrow rule; complete count/
+   fill, lookup, aggregation, sort, and dedup source algorithms over the T03
+   collection representations; then add switch/patterns and explicit
+   exceptional CFGs and handlers.
 5. **CSHARP-03-T05 — Boundary and transition frontend.** Add canonical boundary
    decoding/encoding, application-owned presence/result/transition bindings,
    verification-overlay handoff contracts, ordered event arrays, and
@@ -2053,9 +2059,10 @@ CSHARP-03-T01 -> T02 -> T03 -> T04 -> T05 -> T06 -> T07 -> T08
    boundary round trips, concrete specialized ordinary core definitions and
    proof terms, policy/evidence/AI/API linkage, and same-byte dual-checker
    certificates.
-7. **CSHARP-03-T07 — Release candidate.** Build reproducibly, register
-   immutable frontend and toolchain bundles, run hostile-environment and native
-   sandbox gates, and add no ambient library/effect route.
+7. **CSHARP-03-T07 — Release candidate.** Build reproducibly, assemble
+   immutable toolchain, frontend, and verification-foundation bundles plus a
+   private candidate tuple, run hostile-environment and native sandbox gates,
+   and add no ambient library/effect route. Active installation remains T08.
 8. **CSHARP-03-T08 — Complete rehearsal and activation.** Run the complete
    predecessor and practical corpus twice, fix review findings to zero,
    generate and verify all three runnable business examples, then atomically
