@@ -16,9 +16,9 @@ sidecars. T06 completed private CFG/lowering and complete artifact emission;
 T07 completed the private candidate/JVM runner and native x86-64 Linux
 acceptance. T08 completed private verification integration, and T09 completed
 conformance and local release rehearsal, and T10 implemented atomic activation.
-Registry revision 3 and all five tuples are installed. `CSHARP-03` remains a
-governance/design proposal; its entry gate is satisfied and T01-W01 is eligible
-to start, but no practical-profile specification or implementation has started.
+Registry revision 3 and all five tuples are installed. `CSHARP-03-T01-W01`
+completed the entry audit without adding a practical-profile identity or
+production path; T01-W02 is ready and all later items remain serially blocked.
 
 ## Scope and sequencing
 
@@ -810,8 +810,9 @@ Execution follows the ten serial tasks in that design's section 11 and
 `java-03-implementation-traceability-ledger.md`. T01-T10 are complete: T08
 integrated VC/policy/evidence/AI/API, and T09 hardened and rehearsed the
 release. T10 installed the four-language release metadata and route. No public
-Java tuple was activated before T10. The native T10 receipt is accepted, so
-CSHARP-03-T01-W01 is eligible to start; later phases remain serially blocked.
+Java tuple was activated before T10. The native T10 receipt is accepted;
+CSHARP-03-T01-W01 completed the entry audit, T01-W02 is ready, and later
+phases remain serially blocked.
 
 T01 completion evidence: `JAVA_PROFILE_V0.md`, Java and revision-3 vectors,
 manifest entries, the traceability ledger, exact Temurin 25.0.4.1+1/JDK/native
@@ -949,9 +950,9 @@ Execution follows the serial stages and acceptance criteria in the source
 design. The reviewed detailed
 `08_csharp_practical_subset_design-todo.md` is the current subordinate
 execution decomposition. The accepted native `JAVA-03-T10` x86-64 Linux
-release receipt satisfies its phase entry gate, so `CSHARP-03-T01-W01` is
-eligible to start; each later `Wnn` item remains blocked until its serial
-predecessor and task-local gate are complete.
+release receipt satisfied its phase entry gate. `CSHARP-03-T01-W01` completed
+the entry audit, `CSHARP-03-T01-W02` is ready, and each later `Wnn` item remains
+blocked until its serial predecessor and task-local gate are complete.
 Each requested capability must have positive, rejection,
 boundary, differential, determinism, and compiler-upgrade evidence. Actual C#
 source, not manually assembled VIR, must pass the installed frontend and the

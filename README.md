@@ -51,7 +51,8 @@ tuple, removed executable staging routes, added the Java example, and made the
 four-language local Linux gate the sole release owner. On 2026-09-03 the full
 gate passed twice on native x86-64 Linux; the receipt is recorded in the
 [Java implementation ledger](develop/docs/java-03-implementation-traceability-ledger.md).
-`JAVA-03` is complete and `CSHARP-03-T01-W01` is now eligible to start.
+`JAVA-03` and `CSHARP-03-T01-W01` are complete;
+`CSHARP-03-T01-W02` is now ready.
 
 ## Build from source
 
