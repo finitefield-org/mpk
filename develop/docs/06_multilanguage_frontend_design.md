@@ -85,9 +85,9 @@ The fifth deliverable is
 `../specs/vectors/semantic-profile-registry-v1.json`. It chooses and freezes a
 closed, hash-pinned semantic-profile registry whose entries can select only
 finite validators compiled into the pinned release. Its revision-1 baseline
-contains only the existing Go/Rust profiles; it freezes the atomic successor
-schema migration but remains inactive. Exact C# content and the revision-2
-root remain assigned to `MLANG-01-T03`.
+contains only the existing Go/Rust profiles; at that deliverable's freeze point
+the atomic successor schema remained inactive. Exact C# content and the
+revision-2 root remained assigned to `MLANG-01-T03`.
 
 The sixth deliverable is `../specs/CSHARP_PROFILE_V0.md` with
 `../specs/vectors/csharp-profile-v0.json` and
@@ -110,11 +110,13 @@ canonical text codecs, business values and outcomes, richer numeric and control
 flow, closed exceptions, explicit integration boundaries, and pure business
 state transitions. Application source and runtime remain independent of MPK;
 user-defined generics, iterators, and async source are explicit exclusions,
-while enumerated internal semantic templates are monomorphized before VIR
-emission. The proposal does not widen the active scalar profile or authorize a
-profile, schema, bundle, or public route. The T10 activation implementation is
-present, but the native x86-64 release receipt remains an explicit entry
-prerequisite.
+while enumerated internal semantic templates come from one registered,
+content-hash-pinned foundation bundle and are monomorphized before VIR
+emission. Its canonical document is an MPK verification-overlay transport,
+not a required application runtime protocol. The proposal does not widen the
+active scalar profile or authorize a profile, schema, bundle, or public route.
+The T10 activation implementation is present, but the native x86-64 release
+receipt remains an explicit entry prerequisite.
 
 The order may change only through a reviewed governance amendment that records
 the user value, semantic risk, compiler integration quality, and effect on the

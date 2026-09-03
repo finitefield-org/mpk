@@ -312,7 +312,7 @@ Depends on: `MLANG-01-T02`.
 
 Deliverables:
 
-- `../specs/CSHARP_PROFILE_V0.md`, the normative but inactive exact C# scalar
+- `../specs/CSHARP_PROFILE_V0.md`, the normative, then-inactive exact C# scalar
   profile and implementation handoff;
 - `../specs/vectors/csharp-profile-v0.json`, the complete semantic,
   toolchain, reference, contract, diagnostic, limit, isolation, and upgrade
@@ -932,17 +932,19 @@ application-owned money, structural equality/order, structured loops, switch/
 patterns, and closed exceptions. Reject every user-defined generic and
 arbitrary constructed framework type except the exact nullable-value `T?`
 source form; specialize only enumerated MPK-owned internal semantic templates
-before VIR emission.
+from one registered, content-hash-pinned foundation bundle before VIR emission.
 Application source and runtime must not import, reference, implement, generate,
 link, or deploy an MPK API or assembly. Iterators and async source are negative
 conformance scope, not requested implementation capabilities.
 
-Freeze explicit serialization boundaries and pure business state transitions
-without claiming infrastructure correctness. Keep `mpk.csharp.scalar.v0`
-immutable. The required successor registry and affected-artifact migration
-follow the source design, are atomic across all active profiles, keep
-Certificate v0 and both checker acceptance rules unchanged, and retain empty
-proof-node/theory tables with a recomputed total axiom count of zero.
+Freeze the canonical serialization boundary as an MPK verification-overlay
+transport rather than an application runtime protocol, and freeze pure
+business state transitions with optional full-snapshot idempotency without
+claiming infrastructure correctness. Keep `mpk.csharp.scalar.v0` immutable.
+The required successor registry and affected-artifact migration follow the
+source design, are atomic across all active profiles, keep Certificate v0 and
+both checker acceptance rules unchanged, and retain empty proof-node/theory
+tables with a recomputed total axiom count of zero.
 
 Execution follows the serial stages and acceptance criteria in the source
 design. The existing detailed `08_csharp_practical_subset_design-todo.md` is

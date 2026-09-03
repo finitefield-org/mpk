@@ -16,10 +16,13 @@ removed work and preserve useful verification details.
 Before CSHARP-03 work resumes, replace this file in full with a reviewed
 decomposition of the current source design. The replacement must prohibit all
 user-defined generics, admit only the enumerated closed internal semantic
-instances, eliminate them before VIR emission, keep application source and
-runtime free of MPK dependencies, and treat iterator/async as negative
-conformance scope. Until that replacement is committed, the high-level stages
-and gates in the source design are the only CSHARP-03 planning authority.
+instances from one hash-pinned registered foundation bundle, eliminate them
+before VIR emission, keep application source and runtime free of MPK
+dependencies, treat the canonical boundary as a verification-overlay transport,
+make idempotency an optional full-snapshot claim, and treat iterator/async as
+negative conformance scope. Until that replacement is committed, the
+high-level stages and gates in the source design are the only CSHARP-03
+planning authority.
 
 ## Superseded decomposition (historical; do not execute)
 

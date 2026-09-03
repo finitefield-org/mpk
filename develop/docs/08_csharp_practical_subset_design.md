@@ -222,6 +222,13 @@ boundary data and invoke the same selected method, but it may not reimplement
 business logic and claim that the original method was proved. Evidence binds
 the exact selected source bytes, semantic bindings, and compilation context.
 
+The validated semantic context and registered release tuple select one exact
+foundation-bundle descriptor and content hash. A request cannot supply a
+bundle path, body, template table, operation set, or replacement hash. The
+frontend and VIR importer each read an immutable registered snapshot, recompute
+its content hash, and require the same identity in the source manifest and
+reproduction evidence before using an expansion.
+
 The frontend continues to execute only in the registered Linux x86-64 release
 sandbox with the exact SDK, Roslyn packages, reference assemblies, runtime,
 native closure, arguments, environment, cgroup, filesystem, process, and
@@ -263,7 +270,7 @@ artifact family. Working names are:
 | Application semantic bindings | `mpk.csharp.semantic_binding.v1` |
 | Closed semantic-instance set | `mpk.csharp.closed_instances.v1` |
 | Business boundary/transition contracts | `mpk.csharp.boundary.v1`, `mpk.csharp.transition.v1` |
-| Internal semantic-template bundle | `mpk.csharp.practical.foundation.v1` |
+| Internal semantic-template bundle | `mpk.csharp.practical.foundation.v1` plus a successor descriptor and content-hash domain |
 | Operation/check profiles | `mpk.csharp.operations.v1`, `mpk.csharp.required_checks.v1` |
 | Limits | `mpk.csharp.limits.v1` |
 | Semantic registry | successor schema/root/entry family after `mpk.semantic_profile.registry.v1` |
@@ -287,8 +294,9 @@ their closed preimage or compiled contract changes.
 These working names reserve no public values. T01 must inventory every active
 producer, consumer, repeated context member, and serialized root, then settle
 the exact names. Every self-hashed root whose preimage changes receives a new
-domain, including contract, registry, VIR, source-map, manifest, release-root,
-semantic-binding, closed-instance, and VC hashes. A Certificate v0,
+domain, including contract, registry, foundation-bundle, VIR, source-map,
+manifest, release-root, semantic-binding, closed-instance, and VC hashes. A
+Certificate v0,
 declaration, axiom-report, or input-set domain may remain only when its exact
 preimage and meaning remain unchanged. Old parsers must reject every new
 family, and new parsers must reject old-family bytes wherever parallel
@@ -305,9 +313,9 @@ One release must:
    complete;
 3. migrate every active producer and consumer to the one successor shared
    artifact family;
-4. regenerate all context-bound contracts, semantic bindings, closed-instance
-   sets, transports, manifests, examples, fixtures, VCs, reports, receipts,
-   and hashes;
+4. regenerate the registered foundation bundle and all context-bound
+   contracts, semantic bindings, closed-instance sets, transports, manifests,
+   examples, fixtures, VCs, reports, receipts, and hashes;
 5. prove predecessor Go/Rust/C# scalar/Java source behavior and obligations are
    unchanged; and
 6. atomically install the new registry, release registry, binaries, bundles,
@@ -356,13 +364,19 @@ Partial declarations, source generators, ambient metadata user types, every
 source-defined generic declaration, every nested type declaration, and
 conditional compilation remain rejected. The only admitted metadata-backed
 types beyond the pinned scalar value surface are the exact predefined text/
-floating/decimal types, inert `object` base, closed exception hierarchy,
-`StringComparison.Ordinal` and the closed allowlisted `System.MidpointRounding`
-values in their exact intrinsic argument positions, admitted date/time/GUID
-types, the exact closed `System.DayOfWeek` enum, and the exact value-type-
-nullable source form described in section 12.1. Compiler-synthesized members
-may be observed only for an exact frozen pattern and are never used as the
-semantic definition of an admitted source feature.
+floating/decimal types, compiler-owned implicit `System.Object`,
+`System.ValueType`, and `System.Enum` bases for the exact admitted declaration
+forms, the closed exception hierarchy, `StringComparison.Ordinal` and the
+closed allowlisted `System.MidpointRounding` values in their exact intrinsic
+argument positions, admitted date/time/GUID types, the exact closed
+`System.DayOfWeek` enum, the exact value-type-nullable source form described in
+section 12.1, and the exact compiler-owned modifier/attribute identities emitted
+for otherwise admitted `init`/`required` declarations. The implicit bases,
+their inherited members, and those synthesized markers are opaque declaration
+metadata, not admitted source values or calls; source access to a marker symbol
+rejects. Compiler-synthesized members and markers may be observed only for an
+exact frozen pattern and are never used as the semantic definition of an
+admitted source feature.
 
 ### 6.1 Application-source dependency boundary
 
@@ -417,8 +431,12 @@ names one exact compiler-recognized intrinsic source form. The frontend
 validates the selected symbol identity and allowlisted operation directly; it
 never accepts a transitive metadata surface.
 
-The foundation bundle instead contains this closed initial registry of internal
-semantic templates. These are working semantic names, not source or schema IDs:
+The exact registered foundation bundle instead contains this closed initial
+registry of internal semantic templates. Its descriptor binds the bundle
+schema and semantic-context ID, canonical member inventory, content hash,
+template identities and versions, operation sets, dependency rules, expansion
+definitions, and applicable counters. These are working semantic names, not
+source or schema IDs:
 
 | Template | Arity and direct generated dependencies | Derivation source |
 | --- | --- | --- |
@@ -466,22 +484,26 @@ instantiation appears exactly once in this derived per-compilation table; an
 instance absent from the table rejects even when its template and argument
 types are individually registered.
 
-The source manifest records the complete derived instance table and its
-source-binding provenance. The importer independently recomputes its closure,
-identities, order, and limits. Expansion converts every instance into concrete
-struct, tagged-sum, sequence, map/set, or operation definitions before VIR
-emission. A type parameter, generic definition, constructed generic type, or
-generic call remaining at the VIR boundary is a deterministic internal
-consistency rejection. The VIR, VC language, certificates, and both checkers
-gain no generic representation or reduction rule.
+The source manifest records the exact foundation descriptor ID and content
+hash, the complete derived instance table, and its source-binding provenance.
+The importer independently validates the registered bundle bytes and
+recomputes their hash, then recomputes the instance closure, identities, order,
+and limits. Expansion converts every instance into concrete struct, tagged-sum,
+sequence, map/set, or operation definitions before VIR emission. A type
+parameter, generic definition, constructed generic type, or generic call
+remaining at the VIR boundary is a deterministic internal consistency
+rejection. VIR and VC gain no source-generic or semantic-template node;
+certificates contain only existing ordinary core terms over concrete types,
+and neither checker gains a C#-generic-specific representation or reduction
+rule.
 
-Each closed-instance entry contains the semantic-context and template-version
-IDs, arity, ordered concrete argument IDs, sorted direct dependency IDs,
-derived instance ID, ordered expanded type/operation IDs, contributing
-source-binding IDs, and checked expansion counters. The table is sorted by
-instance ID and has no duplicate or unreachable entry. Callers cannot submit a
-second allowlist or request an instance that is not derived from the captured
-closure.
+The closed-instance-set root repeats the foundation descriptor ID and content
+hash. Each entry contains the semantic-context and template-version IDs, arity,
+ordered concrete argument IDs, sorted direct dependency IDs, derived instance
+ID, ordered expanded type/operation IDs, contributing source-binding IDs, and
+checked expansion counters. The table is sorted by instance ID and has no
+duplicate or unreachable entry. Callers cannot submit a second allowlist or
+request an instance that is not derived from the captured closure.
 
 ### 6.3 Application-owned semantic bindings
 
@@ -499,16 +521,20 @@ Without a binding, a source type has only its ordinary structural semantics;
 the frontend never infers a role from its name or shape. Any contract, boundary,
 transition, or closed-instance request that treats an application type as one
 of these roles requires exactly one reachable binding. The only role mappings
-that need no application binding are the profile's exact syntax/framework
-intrinsics, including value-type `T?`, nullable reference forms, direct
-admitted arrays, strings, and the closed business primitives whose
-representations are fixed without an application wrapper.
+that need no application-type binding are exact value-type `T?`, nullable
+reference forms, direct admitted arrays and strings, the admitted framework
+date/time/GUID values, and a raw instant carrier explicitly classified by a
+boundary or transition field. Money and every application-owned option,
+lookup, result, validation, boundary-presence, transition, instant wrapper,
+sequence wrapper, entry, map, or set always require one binding.
 
 Each canonical binding entry contains exactly:
 
 - schema, semantic-context, compilation, source-type, and source-hash
   identities;
-- one registered representation-role and template-version identity;
+- one registered representation-role and semantic-definition-version identity
+  (the template version for a templated role, or the concrete definition
+  version for a non-template role such as an instant wrapper);
 - ordered carrier, tag, payload, element, key, value, state, event, and
   response member IDs required by that role, with all inapplicable positions
   absent;
@@ -685,7 +711,8 @@ Admit ordinary non-generic `sealed class` declarations as immutable value
 objects under these restrictions. Source exception declarations use the
 separate closed-hierarchy rule in section 15:
 
-- the only base type is `object`;
+- the compiler-owned implicit base is `object`, and no source base-list syntax
+  appears;
 - all instance state is in source-declared readonly fields, getter-only
   properties, or admitted init-only auto-properties;
 - the complete reachable type and value graph is acyclic and deterministically
@@ -840,6 +867,10 @@ A length-only allocation whose length is nonzero and whose element type is not
 marked uninitialized; the CLR's temporary zero-filled cells are semantically
 unobservable. Each cell has exactly one first write that changes its state from
 uninitialized to initialized, and that cell cannot be read before this write.
+When the element type is `default_eligible`, a length-only allocation instead
+creates an immediately complete array whose cells contain that type's frozen
+recursive default. A zero-length allocation is immediately complete for every
+admitted element type because it has no element invariant to establish.
 Until all cells are initialized, only the unique local owner may initialize a
 cell or read an already initialized cell; aliasing, calls, storage, return,
 wrapper construction, and every other publication reject. A loop may establish
@@ -932,10 +963,11 @@ application-owned wrapper remains immutable and does not create a second
 mutable-container exception; its array is built under section 9.1 before the
 wrapper is published.
 
-Internally, the frontend may represent unique allocation, indexed fill, and
-freeze as a linear sequence-construction state. That state is an untrusted
-lowering device, cannot appear in source or at a public boundary, and is
-eliminated into concrete sequence operations before certificate generation.
+Internally, the frontend represents unique allocation, indexed fill, and
+freeze as a monomorphic linear sequence-construction state. That state is an
+untrusted lowering device, cannot appear in source or at a public boundary,
+and is eliminated into concrete sequence operations before certificate
+generation.
 Failure to prove the profile bound or complete initialization blocks verified
 acceptance and never yields a partial sequence.
 
@@ -1159,11 +1191,25 @@ Represent internally:
 A non-nullable reference parameter must have an explicit `not_null`
 precondition. A non-nullable result or field must be proven non-null on every
 normal exit. Nullable references may use `is null`, `is not null`, `== null`,
-`!= null`, `?.`, and `??`. Nullable value types may use `HasValue`, `Value`,
+and `!= null`. Nullable value types may use `HasValue`, `Value`,
 `GetValueOrDefault`, lifted equality/comparison/arithmetic in a frozen closed
 matrix, and matching patterns. Parameterless `GetValueOrDefault()` is admitted
 only when the payload type is `default_eligible`; the overload with an explicit
 fallback instead proves that fallback's public invariant.
+
+Conditional access is limited to `receiver?.Member`, where `receiver` is one
+nullable admitted application-class reference and `Member` is one directly
+resolved source field or total pure parameterless getter returning a
+non-nullable admitted reference type `U`. The receiver evaluates once; the
+absent branch produces the nullable-reference form `U?`, and the present branch
+performs the same member read as an explicit null test. A value-type or already-
+nullable member result, chained conditional access, conditional invocation,
+array/indexer access, or extension access rejects. Null coalescing is limited
+to `left ?? right`, where `left` has the exact value- or reference-nullable
+form `T?`, `right` has the exact non-nullable payload type `T` without a
+conversion, and the result is `T`; it evaluates `left` once and evaluates
+`right` only on the absent branch. `??=`, a throw operand, a user-defined
+conversion, and every other lifted result shape reject.
 
 The initial nullable-value construction forms are exactly `null` or
 `default(T?)` for `none`, and the built-in implicit conversion from one exact
@@ -1218,10 +1264,11 @@ check, exception, or source path.
 The frozen recursive defaults for internal option and lookup are `none` and
 `missing_key`; a bound source type is `default_eligible` only if its actual
 default value maps to that arm and satisfies its public invariant. Result and
-validation are not `default_eligible` unless a later separately frozen source
-mapping proves an identical valid default; the initial profile requires
-explicit construction. No inactive source payload becomes unobservable or
-satisfies an invariant merely because a binding classifies the type.
+validation are not `default_eligible` in this profile and require explicit
+construction. A future profile may choose a different mapping only under a new
+reviewed identity; it cannot widen this one. No inactive source payload becomes
+unobservable or satisfies an invariant merely because a binding classifies
+the type.
 
 The profile supplies no source-visible lambda-based `Map`, `Bind`, query
 syntax, implicit conversion, exception coercion, or hidden short circuit. Code
@@ -1239,9 +1286,13 @@ Admit a closed operation subset over pinned `System.DateOnly`,
 Unix-millisecond instant semantic value. The framework metadata types are
 explicit practical-foundation intrinsics: their runtime implementations remain
 untrusted observations and do not authorize other framework members. Source
-represents an instant as a raw admitted carrier or an application-owned
-non-generic immutable type bound to that carrier; it does not reference an MPK
-type.
+represents an instant either as an application-owned non-generic immutable type
+bound to that carrier, or as an exact signed 64-bit field that a boundary or
+transition sidecar explicitly classifies for transport and contracts. An
+unclassified integer remains an ordinary integer. The raw-carrier form gains
+no source-visible instant operation; selected logic that needs instant-specific
+addition, subtraction, or error outcomes uses a bound application type. Neither
+form references an MPK type.
 
 - `DateOnly` uses the proleptic Gregorian calendar and the exact pinned .NET
   range. Construction, year/month/day/day-number access, comparison, day-of-
@@ -1518,18 +1569,25 @@ tests, active-payload access, matching, and inactive-payload exceptions follow
 the closed sum rules in section 12.2. The source type is `default_eligible`
 only if its actual default maps to `missing` and satisfies its invariant.
 
-The verified input is always one canonical boundary document. MPK captures its
-exact bytes, independently parses it into the typed value, hashes both the byte
-identity and canonical value, and binds them into the manifest/evidence chain.
-An application adapter may accept some other JSON/media format, but it must
-translate that input into this canonical document before invocation. The
-adapter may record the original byte/provenance identity separately; the
-certificate does not prove that its translation preserved the external
-meaning. Supplying an adapter-created object while bypassing MPK's byte parser
-rejects. Output follows the reverse rule: the verified core returns a canonical
-value; an untrusted serializer emits a canonical boundary document; MPK
-reparses it and checks that the bytes denote exactly that value before
-retaining reproduction evidence.
+Each MPK verification or reproduction run starts from one canonical boundary
+document. This document is a verification-overlay transport, not a required
+application API, production message format, serializer, stored type, or
+deployment file. MPK captures its exact bytes, independently parses it into
+the application-owned typed value, hashes both the byte identity and canonical
+value, and binds them into the manifest/evidence chain before the internal
+verification wrapper invokes the original selected method.
+
+An MPK-side capture adapter may start from some other JSON/media bytes, but it
+must produce and record the canonical document before the verified invocation.
+The original byte/provenance identity remains separate, and the certificate
+does not prove that this untrusted translation preserved external meaning.
+Supplying an adapter-created object while bypassing MPK's canonical byte parser
+rejects from the verification route. Output follows the reverse rule: the
+verification overlay encodes the returned application value, reparses the
+canonical bytes, and checks that they denote exactly that value before
+retaining reproduction evidence. The external company's existing production
+adapter may remain unchanged and completely unaware of MPK; it stays outside
+the certificate unless a separate profile later verifies that adapter itself.
 
 The initial canonical JSON projection uses UTF-8, rejects duplicate/unknown
 members, fixes member order in output, and reuses section 10 codecs for decimal,
@@ -1575,22 +1633,31 @@ command proves the new invariant, the frozen version-increment rule,
 event/response correspondence, and all collection bounds. A rejected command
 leaves the input state unchanged.
 
-Idempotency is claimed only when the explicit input state contains a bounded
-processed-command record with the key, bounded canonical invocation bytes, and
-response. The invocation bytes are the exact canonical boundary encoding of
-the complete ordered `(Command, Context)` pair; the transition contract cannot
-select a smaller caller-provided projection. This ensures that an effective
-date, tenant, authorization fact, or any other explicit context value cannot
-change unnoticed under a reused key. After ordinary boundary preconditions, a
-retained key is checked first: byte-identical invocation bytes return the
-current unchanged state, no new events, and the stored response; different
-bytes return an explicit idempotency-conflict error. This remains reflexive even
-for NaN payloads and distinguishes missing from null. An evidence digest may
-identify the record but never substitutes for byte equality or adds a
-collision-resistance assumption. A new key then checks `expected_version`; a
-mismatch is an explicit optimistic-concurrency error rather than an inference
-from a future database write. The initial profile performs no implicit history
-eviction: a new command at full history returns a specified capacity error.
+Idempotency is an optional claim. It is admitted only when the explicit input
+state contains a bounded processed-command record with the key, complete
+application-owned `Command` and `Context` snapshots, and the response. A
+source-defined, field-complete equality helper for those snapshots remains in
+the selected closure and must be proved equivalent to equality of their exact
+canonical boundary encodings. The transition contract cannot select a smaller
+caller-provided projection. This ensures that an effective date, tenant,
+authorization fact, or any other explicit context value cannot change
+unnoticed under a reused key.
+
+Every snapshot field must have reflexive admitted equality; a `float`,
+`double`, or recursively containing type is therefore ineligible for the
+initial idempotency claim because C# NaN equality is not reflexive. Missing and
+null remain distinct through their bound arms. After ordinary boundary
+preconditions, a retained key is checked first: field-complete equal snapshots
+return the current unchanged state, no new events, and the stored response;
+different snapshots return an explicit idempotency-conflict error. The MPK
+overlay records their canonical encodings for evidence, but an encoding digest
+never substitutes for source equality or adds a collision-resistance
+assumption. A project that does not have this processed-record shape may still
+verify the transition without claiming idempotent replay. A new key then checks
+`expected_version`; a mismatch is an explicit optimistic-concurrency error
+rather than an inference from a future database write. The initial profile
+performs no implicit history eviction: a new command at full history returns a
+specified capacity error.
 Event ordering is source order and deterministic. Hidden current time, random
 IDs, mutable aggregate identity, ambient tenant context, and implicit retry
 behavior reject.
@@ -1833,11 +1900,14 @@ non-allowlisted constructed framework types, explicit `System.Nullable<T>`, open
 arguments, unsupported nullable payloads, specialization depth/count, and a
 generic value surviving the VIR barrier. The dependency family distinguishes
 an MPK source/package/assembly/attribute/generated-code reference from another
-unsupported ambient reference. The source-binding family distinguishes unknown
-source identity, invalid role, shape mismatch, tag/payload mismatch, unproved
-invariant, dependency-closure mismatch, canonical-ID mismatch, and
-manifest/VIR disagreement. No public diagnostic includes a customer namespace
-or member spelling.
+unsupported ambient reference. The foundation family distinguishes an unknown
+descriptor/schema/member/template/operation identity, semantic-context
+mismatch, noncanonical inventory, content-hash mismatch, dependency mismatch,
+over-limit expansion, and an unregistered or caller-supplied bundle. The
+source-binding family distinguishes unknown source identity, invalid role,
+shape mismatch, tag/payload mismatch, unproved invariant, dependency-closure
+mismatch, canonical-ID mismatch, and manifest/VIR disagreement. No public
+diagnostic includes a customer namespace or member spelling.
 
 Public messages remain bounded and sanitized. Raw compiler prose, source
 snippets, exception messages, host paths, generated type names, culture, and
@@ -1850,21 +1920,21 @@ The freeze and implementation gates must include:
 | Capability | Required evidence |
 | --- | --- |
 | Expression bodies / `var` / name binding | same normalized VIR and obligations as the explicit block/type form; ordinary namespace `using` changes spelling only; exact redundant file-wide `#nullable enable`; alias/static/global/project-generated imports, other directives, malformed, and ambiguous forms reject |
-| Source dependency / generics / binding | an unchanged application build with no MPK reference; rejected MPK namespace/package/assembly/attribute/generated-source dependencies; every user generic declaration/method and arbitrary constructed framework type rejects; exact `T?` exception; an allowed intrinsic remains allowed despite incidental generic metadata while any source-visible use of that metadata rejects; binding shape/tag/payload/invariant checks; total, arm-distinct, observation-preserving projection round trips and operation commutation; logical declaration identity versus source provenance, collision/staleness mutations, transitive specialization closure, canonical identity, sorting, deduplication, limits, tampered manifest, and residual-generic rejection |
-| Data types / construction | positive structural cases, enum unknown/cast/zero-default cases, recursive default-eligible/ineligible cases, acyclic constructor delegation, receiver-first pure instance-call lowering, constructor-only and ordered init/required/object-initializer cases, construction/public invariant proofs, sidecar non-authority, attribute bypass, rewritten-mirror rejection, and all mutation/identity/inheritance escapes reject |
-| Arrays / sequence construction | exact explicit/implicit creation forms and rejected collection/stack/range/best-common-type forms; structural rejection versus symbolic bound obligations; default-eligible allocation versus unobservable uninitialized construction cells; initialized-set/prefix tracking; premature read/alias/call/publication and catch/finally rejection; abrupt discard; complete non-defaultable elements; exact-`int` boundary lengths and indices; post-initialization unique rewrites; active-foreach mutation; every linear ownership/publication path; count-then-allocate filtered variable-result construction; and rejected source-visible builders |
+| Source dependency / generics / binding | an unchanged application build with no MPK reference; rejected MPK namespace/package/assembly/attribute/generated-source dependencies; every user generic declaration/method and arbitrary constructed framework type rejects; exact `T?` exception; an allowed intrinsic remains allowed despite incidental generic metadata while any source-visible use of that metadata rejects; binding shape/tag/payload/invariant checks; total, arm-distinct, observation-preserving projection round trips and operation commutation; logical declaration identity versus source provenance, collision/staleness mutations, exact foundation descriptor/hash and tampering, transitive specialization closure, canonical identity, sorting, deduplication, limits, tampered manifest, and residual-generic rejection |
+| Data types / construction | positive structural cases, exact implicit object/value-type/enum bases and compiler-owned init/required markers with rejected source base lists, marker access, and inherited-member calls, enum unknown/cast/zero-default cases, recursive default-eligible/ineligible cases, acyclic constructor delegation, receiver-first pure instance-call lowering, constructor-only and ordered init/required/object-initializer cases, construction/public invariant proofs, sidecar non-authority, attribute bypass, rewritten-mirror rejection, and all mutation/identity/inheritance escapes reject |
+| Arrays / sequence construction | exact explicit/implicit creation forms and rejected collection/stack/range/best-common-type forms; structural rejection versus symbolic bound obligations; immediately complete default-eligible/zero-length allocation versus unobservable uninitialized construction cells; initialized-set/prefix tracking; premature read/alias/call/publication and catch/finally rejection; abrupt discard; complete non-defaultable elements; exact-`int` boundary lengths and indices; post-initialization unique rewrites; active-foreach mutation; every linear ownership/publication path; count-then-allocate filtered variable-result construction; and rejected source-visible builders |
 | Ordered map/set | application-owned entry/array/wrapper bindings, read/count/membership/lookup loops, canonical ordered enumeration, key-order matrix, duplicate rejection/replacement semantics when implemented in captured source, bound preservation, and rejected float keys/comparers/hash/framework/insertion-order dependencies |
 | Strings / codecs | exact string/string and string/char concat matrix, restricted interpolation equivalence and rejected alignment/format/non-string/non-char holes, rejected char/char and object conversion, null/empty concat and equality, intrinsic-only ordinal arguments, null receivers/arguments, UTF-16/surrogates, every exact parse/format grammar and noncanonical/range mutation, lossless round-trip plus fixed-scale rounded-value laws, and pinned-runtime differential corpus |
 | Float / decimal | exhaustive small-domain properties plus bit/rounding/overflow/NaN/signed-zero differential vectors against the pinned runtime |
-| Nullable / lookup / results / validation | exact `T?` compiler identity and lowering, reference annotations versus runtime null, application-owned closed bindings, all internal option/lookup/tagged-sum transitions, nested-option rejection and the exact lookup-versus-null exception, missing-key versus stored-null lookup, guarded active/inactive payloads, actual default mapping, empty-invalid enforcement, deterministic array-based error accumulation/order/bounds, and exhaustive matching |
+| Nullable / lookup / results / validation | exact `T?` compiler identity and lowering, reference annotations versus runtime null, exact conditional-access/coalescing evaluation and rejected lifted shapes, application-owned closed bindings, all internal option/lookup/tagged-sum transitions, nested-option rejection and the exact lookup-versus-null exception, missing-key versus stored-null lookup, guarded active/inactive payloads, actual default mapping, empty-invalid enforcement, deterministic array-based error accumulation/order/bounds, and exhaustive matching |
 | Business values | calendar boundaries/leap days and exact day-of-week enum, time wrap/carry, duration/application-instant binding/precision/difference-range errors, GUID comparison/codecs/no-generation, application-owned money creation/add/subtract/rate/division, currency/scale/rounding/error precedence, and canonical-storage-versus-business comparison cases |
 | Structural equality/order | every admitted recursive type, null/decimal/GUID corner, lexicographic cases, NaN preservation and rejected non-total keys |
 | Loops | invariant initialization/preservation/exit, decreases, break/continue, nested loops, partial-versus-total evidence, rejection of a partial callee on a total path, and total-only boundary/transition/example/public routes |
 | Switch / patterns | source-order arms and guards, exhaustiveness, null/property/list cases, Roslyn decision-graph upgrade vectors |
 | Exceptions | built-in operation edges, parameterless explicit built-in construction, source-exception payload construction, rejected message/inner/runtime-state constructors, lexical filter-before-finally search, inner-to-outer unwind, filter throws, ordered catch/finally propagation, exceptional contracts, and uncaught rejection/obligations |
 | Iterator / async exclusions | every iterator, `yield`, framework enumeration protocol, `async`, `await`, task/value-task type, awaiter, cancellation, and state-machine shape rejects inside the selected closure while an unselected adapter remains outside proof |
-| Boundary values | duplicate/unknown and required/non-null/three-state missing/null cases, numeric/text canonicality, depth/count/byte limits, raw-input/canonical-value/output-reparse linkage, serializer/runtime mutation |
-| State transitions | invariant and version preservation, accepted/error arms, ordered bounded events and response relation, explicit-time and optimistic-conflict behavior, idempotency replay/complete-invocation-encoding mismatch/history-capacity and precedence cases |
+| Boundary values | duplicate/unknown and required/non-null/three-state missing/null cases, numeric/text canonicality, depth/count/byte limits, raw-input/canonical-value/output-reparse linkage, serializer/runtime mutation, verification-overlay-only transport, and an unchanged MPK-unaware production adapter |
+| State transitions | invariant and version preservation, accepted/error arms, ordered bounded events and response relation, explicit-time and optimistic-conflict behavior, optional idempotency replay, field-complete snapshot equality/mismatch, non-reflexive-field rejection, history capacity, and precedence cases |
 
 Every accepted source case runs twice from isolated builds and emits identical
 canonical artifacts. Independent evaluators compare MPK VIR behavior with the
@@ -1938,8 +2008,9 @@ CSHARP-03-T01 -> T02 -> T03 -> T04 -> T05 -> T06 -> T07 -> T08
 1. **CSHARP-03-T01 — Feasibility and freeze.** Pin toolchain versions; measure
    exact public Roslyn shapes and .NET behavior; freeze the zero-dependency
    source rule, exact `T?` exception, application semantic-binding schemas,
-   section 6.2's exact closed template registry and generated dependencies,
-   recursive default eligibility, specialization identity and expansion,
+   the exact foundation descriptor/content hash, section 6.2's closed template
+   registry and generated dependencies, recursive default eligibility,
+   specialization identity and expansion,
    construction lowering, equality/key ordering, application-owned money/
    instant obligations, calendar/GUID/codecs,
    boundary/state-transition schemas, specification, vectors, identities,
@@ -1947,14 +2018,14 @@ CSHARP-03-T01 -> T02 -> T03 -> T04 -> T05 -> T06 -> T07 -> T08
    a stop condition.
 2. **CSHARP-03-T02 — Shared artifact foundation.** Implement the one successor
    registry, monomorphic VIR type/operation/exception, sequence/map/set and
-   tagged-sum vocabulary, semantic-template and closed-instance registries,
-   application-binding linkage, business-value/codecs, three-state boundary
-   presence, source-map, manifest, VC/skeleton, hash, and generic-free
-   VIR-importer boundary. Migrate predecessor producers/consumers privately and
-   prove semantic equivalence.
+   tagged-sum vocabulary, registered foundation descriptor/hash,
+   semantic-template and closed-instance registries, application-binding
+   linkage, business-value/codecs, three-state boundary presence, source-map,
+   manifest, VC/skeleton, hash, and generic-free VIR-importer boundary. Migrate
+   predecessor producers/consumers privately and prove semantic equivalence.
 3. **CSHARP-03-T03 — Data frontend.** Add concise/name-resolution syntax,
-   immutable types,
-   constructors, fields/properties, init/required/object initializers,
+   immutable types, constructors, fields/properties, init/required/object
+   initializers,
    source-dependency and generic rejection, semantic-binding validation,
    closed-instance collection, canonical monomorphization, structural
    equality/order, arrays/sequence construction/maps/sets, strings,
@@ -1964,7 +2035,7 @@ CSHARP-03-T01 -> T02 -> T03 -> T04 -> T05 -> T06 -> T07 -> T08
    and explicit exceptional CFGs and handlers.
 5. **CSHARP-03-T05 — Boundary and transition frontend.** Add canonical boundary
    decoding/encoding, application-owned presence/result/transition bindings,
-   synchronous adapter handoff contracts, ordered event arrays, and
+   verification-overlay handoff contracts, ordered event arrays, and
    idempotency/version behavior without a source or runtime MPK dependency.
 6. **CSHARP-03-T06 — Verification integration.** Add expanded contract
    expressions, construction/type/state invariants, exceptional/loop/
@@ -2008,6 +2079,9 @@ Activation requires all of the following:
   reference;
 - every emitted VIR, VC, certificate, and checker input is monomorphic and the
   importer has recomputed the complete bounded specialization closure;
+- the semantic context, registered release tuple, foundation descriptor,
+  source manifest, evidence, and reproduction recipe all bind the same
+  independently recomputed foundation-bundle content hash;
 - every installed boundary, transition, example, and public practical-profile
   root plus its reachable call/loop closure has a discharged total-termination
   claim; partial evidence is absent from those routes;
@@ -2028,14 +2102,16 @@ The design intentionally does not guess:
 
 - exact Roslyn syntax/symbol/`IOperation` and CFG shapes for ordinary namespace
   imports, the redundant nullable directive, patterns, nullable shorthand,
-  constructed-type identity, and synthesized/init/required/object-initializer
-  forms under the pinned compiler;
+  the restricted conditional-access/coalescing matrix, constructed-type
+  identity, and the complete synthesized member/modifier/attribute inventory
+  for init/required/object-initializer forms under the pinned compiler;
 - exact .NET float/decimal result bits, scale, rounding, exception, string,
   date/calendar, time/duration, and GUID comparison/codec observations at every
   selected edge;
 - the recursive default-eligibility matrix for every admitted semantic type;
-- section 6.2's exact closed template registry, operation sets, generated
-  dependencies, and application-owned semantic-binding schemas;
+- the exact foundation-bundle descriptor, member inventory, content hash and
+  hash domain, plus section 6.2's closed template registry, operation sets,
+  generated dependencies, and application-owned semantic-binding schemas;
 - the money/instant source-shape obligations, key-order matrix, string/char
   concatenation matrix, parse/format grammars, day-of-week enum mapping,
   instant granularity and difference range, construction invariants,

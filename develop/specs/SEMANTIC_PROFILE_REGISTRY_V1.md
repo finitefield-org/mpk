@@ -1,8 +1,10 @@
 # Successor Semantic Profile Registry v1 Specification
 
-Status: normative and frozen for successor implementation, but inactive until
-the atomic migration in section 12. The currently released Go/Rust path
-continues to accept only its existing schemas.
+Status: normative, frozen, and active as the successor registry schema.
+`CSHARP-02-T20` activated revision 2 on 2026-08-30, and `JAVA-03-T10` installed
+the append-only revision-3 Go/Rust/C#/Java root on 2026-09-03. Historical
+handoff and migration clauses below record the required activation path;
+revision-1 and revision-2 roots are not alternate active inputs.
 
 This specification is the `MLANG-01-T02` successor-extension decision. MPK
 chooses a closed, hash-pinned semantic-profile registry rather than adding a
@@ -221,8 +223,10 @@ JCS-without-root-hash payload is 1,547 bytes; the complete domain-separated
 preimage is 1,581 bytes. The SHA-256 of its exact JCS-plus-LF transport is
 `e9466a1baf1936dc82289b35eaf993856cc06e4df6bd6e6d43c943e7da5d1d03`.
 
-This root is a frozen design/vector baseline, not an installed or accepted
-production root. No current parser recognizes its schema.
+This revision-1 root is a frozen design/vector baseline, not an installed or
+accepted production root. The active production route recognizes the v1
+schema but requires the embedded revision-3 identity, so the revision-1 ID/hash
+rejects there.
 
 ## 5. Semantic context and payload ownership
 
@@ -639,8 +643,10 @@ position:
 A release may select only a subset of registry entries through release tuples,
 which permits fail-closed deactivation without deleting history. An entry for
 a future language must not be added before that language's normative profile
-and vectors are complete. In this plan, T03 owns the first C# entry and exact
-revision-2 root; Java and later languages remain absent.
+and vectors are complete. At the original freeze, T03 owned the first C# entry
+and exact revision-2 root while Java and later languages were absent. Revision
+3 subsequently appended Java without changing the retained entries; the same
+admission rule applies to every later language.
 
 Every registry update is a reviewed release change with an exact predecessor
 diff, new root hash, regenerated cross-profile vectors, and all affected helper
@@ -648,8 +654,8 @@ artifact hashes. There is no runtime install/update command.
 
 ## 12. Atomic migration and no dual IR
 
-The current schemas remain the sole production path until one C#
-implementation/release change performs all of these steps atomically:
+The predecessor schemas were required to remain the sole production path until
+the C# implementation/release change performed all of these steps atomically:
 
 1. consume without alteration T03's already frozen exact C# entry, revision-2
    root, profile specification, compiled-profile payloads, and vectors;
@@ -669,9 +675,10 @@ implementation/release change performs all of these steps atomically:
 
 The successor binary MUST NOT accept `mpk.vir.v0` or expose a second import
 route, version flag, compatibility parser, adapter, fallback hash domain, or
-parallel old release registry. The current binary likewise does not accept
-the future `mpk.vir.v1`. Development may compare separate whole binaries and
-fixtures, but one binary/release never accepts both public VIR schemas.
+parallel old release registry. Before activation, the predecessor binary was
+likewise required not to accept the then-future `mpk.vir.v1`. Development may
+compare separate whole binaries and fixtures, but one binary/release never
+accepts both public VIR schemas.
 
 Rollback replaces the whole installed release with the prior release image;
 it never mixes old/new registries, binaries, bundles, or artifacts. Existing
@@ -717,9 +724,9 @@ closed conformance model and hash checker; it exports no library item and is
 not linked into `mpk`, a frontend, a checker, or any production parser/emitter.
 The repository vector manifest pins the vector's raw bytes.
 
-## 14. T03 handoff and exit state
+## 14. Historical T03 handoff and current exit state
 
-`MLANG-01-T03` must use this mechanism without changing it. T03 owns only:
+`MLANG-01-T03` used this mechanism without changing it. T03 owned only:
 
 - the exact C# language/profile, parameter, selection, nine contract IDs, and
   corresponding compiled-profile payload values;
@@ -728,8 +735,10 @@ The repository vector manifest pins the vector's raw bytes.
   evidence, AI, diagnostic, limit, and rejection content; and
 - every C# conformance/hash vector and implementation-test owner.
 
-It must preserve both revision-1 entries exactly and leave every later
-language absent. `CSHARP-02` then owns the atomic implementation in section 12.
+It preserved both revision-1 entries exactly and left every later language
+absent. `CSHARP-02` then completed the atomic implementation in section 12.
 
-This design is frozen with no production parser/emitter, no released dual IR
-input, no C# entry, no executable registry field, and no checker/trust change.
+At freeze, this design introduced no production parser/emitter, released dual
+IR input, C# entry, executable registry field, or checker/trust change. The
+active production routes now select only the embedded revision-3 identity and
+still have no dual-IR mode, executable registry field, or checker/trust change.

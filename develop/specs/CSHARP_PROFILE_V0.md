@@ -1,12 +1,14 @@
 # C# Scalar Profile v0 Specification
 
-Status: normative and frozen for implementation, but inactive. No current MPK
-binary, frontend, parser, release registry, policy route, or AI route accepts
-the identities in this specification.
+Status: normative, frozen, and active. `CSHARP-02-T20` atomically activated the
+profile on 2026-08-30; `JAVA-03-T10` retained it unchanged in the installed
+revision-3 Go/Rust/C#/Java release on 2026-09-03. Historical future-tense gate
+text below records the required freeze-to-activation path and does not mean the
+profile is currently inactive.
 
-This specification is the `MLANG-01-T03` C# package. It consumes the closed
-successor mechanism in `SEMANTIC_PROFILE_REGISTRY_V1.md` without changing that
-mechanism. `CSHARP-02` may implement only this frozen package and must perform
+This specification is the frozen `MLANG-01-T03` C# package. It consumes the
+closed successor mechanism in `SEMANTIC_PROFILE_REGISTRY_V1.md` without
+changing that mechanism. `CSHARP-02` implemented this package and performed
 the whole-release atomic migration defined by the registry specification.
 
 ## 1. Scope, trust, and profile identity
@@ -851,10 +853,12 @@ revision-2 root, both unchanged predecessor entries, C# entry, sizes/hashes,
 append-only proof, ordering, later-language absence, and inactive/atomic
 activation cases.
 
-The sole current owner is `crates/mpk-vc/tests/csharp_profile_spec.rs`. It is a
-test-only conformance and hash model, exports no library item, and is not linked
-into `mpk`, a frontend, checker, or production parser. `CSHARP-02` must add an
-implementation executor for every vector without weakening this owner.
+The frozen vector-model owner remains
+`crates/mpk-vc/tests/csharp_profile_spec.rs`. It is a test-only conformance and
+hash model, exports no library item, and is not linked into `mpk`, a frontend,
+checker, or production parser. The completed CSHARP-02 implementation adds
+production validators and implementation executors without weakening this
+owner; their exact ownership is recorded in the CSHARP-02 traceability ledger.
 
 ## 13. Upgrade procedure
 
@@ -876,10 +880,15 @@ requires:
 No update command, package restore, version range, floating tag, latest alias,
 or in-place mutation of a released profile is permitted.
 
-## 14. Implementation and activation gate
+## 14. Historical implementation and activation gate
 
-`CSHARP-02` may begin after this task but C# remains inactive until one release
-atomically:
+The frozen T03 handoff status was: “No current MPK binary accepted this
+profile; C# remains inactive; this package adds no executable or production
+route.” That sentence is retained as a conformance-model anchor and describes
+only the pre-activation state.
+
+At specification freeze, C# was required to remain inactive until one
+CSHARP-02 release atomically:
 
 1. implements the exact source capture, Roslyn adapter, contracts, lowering,
    map/manifest, runner, policy/evidence, and AI contracts above;
@@ -892,7 +901,8 @@ atomically:
    source-free checkers; and
 6. passes the complete installed release gate with an empty review ledger.
 
-Until then, the current Go/Rust schemas are sole production inputs and must
-reject every C# and successor identity. This T03 package adds no executable,
-bundle, parser, policy strategy, evidence route, AI route, proof rule, or
-accepted production C# value.
+`CSHARP-02-T20` satisfied that gate on 2026-08-30. `JAVA-03-T10` subsequently
+retained the exact C# entry and semantics in revision 3. The pre-activation
+Go/Rust-only state and this T03 package's lack of executable, bundle, parser,
+policy, evidence, AI, or proof-rule changes remain historical facts, not the
+current release state.
