@@ -77,9 +77,9 @@ zero trusted use of source text, tactics, AI traces, or solver yes/no answers
 C#, Java, Dart, TypeScript, and Python entered one post-Rust program after the
 scoped Rust v0 release. The Rust gate, shared feasibility/specification work,
 the C# scalar release, Java T10 release including its native x86-64 receipt,
-and `CSHARP-03-T01-W01/W02/W03/W04/W05/W06`, through the private Roslyn data,
-construction, control, exception, pattern, dependency, generic, iterator, and
-async-rejection measurements, are now complete. `CSHARP-03-T01-W07` is ready.
+and `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07`, through the private Roslyn
+shape probes and primitive/string/numeric/codec runtime measurements, are now
+complete. `CSHARP-03-T01-W08` is ready.
 No production phases run in parallel.
 
 The continuation is strictly serial: `MLANG-00` research, `MLANG-01` successor

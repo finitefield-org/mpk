@@ -50,6 +50,21 @@ const DEPENDENCY_REJECTED_SHAPE_IDS_SHA256: &str =
     "4a72c24a0b06bb25e4e8b69dcd17695a253d754ee85b6599c636d9d944415ef4";
 const DEPENDENCY_FAMILY_IDS_SHA256: &str =
     "407f67fc75f02b61d555834ade2f192e0db3e249f74f16b505291235bb7e93be";
+const RUNTIME_RESULT_PATH: &str =
+    "develop/migrations/csharp-03/probes/runtime-primitive-string-numeric-codec.json";
+const RUNTIME_RESULT_SIZE: usize = 9_318_258;
+const RUNTIME_RESULT_SHA256: &str =
+    "0055835ce456fb9c438336332bc0e2a214d900c137eca34f90c3fcddd2688769";
+const RUNTIME_PROBE_SOURCE_SHA256: &str =
+    "d587acd6b1baab5602c8da8c54a803a9baa797400b70a6328bfd059e6a9f5f42";
+const RUNTIME_VECTOR_IDS_SHA256: &str =
+    "e4e2f9c55154bec304a66e80c5d574c071307ff91e4bd93b3a0073153905073c";
+const RUNTIME_OPERATION_IDS_SHA256: &str =
+    "96db56971b3cc908ac618880bf4d1993567d0217ea3a325c14deb4691277b3a5";
+const RUNTIME_FAMILY_IDS_SHA256: &str =
+    "802e897a25d358fce385ea9390da70a5c2cd5bb9a3d6f4dc5a419e5ee6e9da37";
+const RUNTIME_CULTURE_VARIANT_IDS_SHA256: &str =
+    "d17191a68f4d0e2e0596e309e4e945765f294f7e0a2a2a397e558fc66ae0c965";
 
 fn repository_root() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("../..")
@@ -2657,6 +2672,895 @@ fn pinned_dependency_probe_rerun_is_byte_identical_when_the_linux_cache_is_avail
     .env("PATH", "/usr/bin:/bin")
     .output()
     .expect("execute pinned W06 Roslyn probe");
+    assert!(
+        output.status.success(),
+        "stdout={} stderr={}",
+        String::from_utf8_lossy(&output.stdout),
+        String::from_utf8_lossy(&output.stderr)
+    );
+    assert!(output.stdout.is_empty());
+    assert!(output.stderr.is_empty());
+}
+
+fn load_runtime_probe() -> Value {
+    serde_json::from_slice(&bytes(RUNTIME_RESULT_PATH)).expect("parse W07 runtime probe result")
+}
+
+fn runtime_vector_in_run<'a>(run: &'a Value, vector_id: &str) -> &'a Value {
+    array(&run["vectors"])
+        .iter()
+        .find(|vector| vector["id"] == vector_id)
+        .unwrap_or_else(|| panic!("missing runtime vector {vector_id}"))
+}
+
+fn runtime_vector<'a>(document: &'a Value, vector_id: &str) -> &'a Value {
+    runtime_vector_in_run(
+        &array(&document["observations"]["culture_runs"])[0],
+        vector_id,
+    )
+}
+
+fn runtime_semantic_projection(vector: &Value) -> Value {
+    let mut result = vector.clone();
+    result
+        .as_object_mut()
+        .expect("runtime vector object")
+        .remove("differential")
+        .expect("runtime differential");
+    result
+}
+
+fn runtime_string_set(value: &Value) -> BTreeSet<String> {
+    array(value)
+        .iter()
+        .map(|item| text(item).to_owned())
+        .collect()
+}
+
+fn validate_runtime_result(value: &Value, profile: bool) -> Result<(), String> {
+    let expected = if profile {
+        &["error_id", "kind", "result_encoding", "value"][..]
+    } else {
+        &["exception", "kind", "result_encoding", "value"][..]
+    };
+    if object(value).keys().map(String::as_str).collect::<Vec<_>>() != expected {
+        return Err("runtime result keys".to_owned());
+    }
+    let kind = text(&value["kind"]);
+    let encoding = text(&value["result_encoding"]);
+    let result = text(&value["value"]);
+    if !result.is_ascii() || result.len() > 1024 {
+        return Err("runtime result bound".to_owned());
+    }
+    if profile {
+        match kind {
+            "value" if value["error_id"].is_null() && encoding != "none" => {}
+            "error" | "rejected"
+                if value["error_id"].as_str().is_some()
+                    && encoding == "none"
+                    && result.is_empty() => {}
+            _ => return Err("runtime profile result".to_owned()),
+        }
+    } else {
+        match kind {
+            "value" if value["exception"].is_null() && encoding != "none" => {}
+            "exception"
+                if value["exception"].as_str().is_some()
+                    && encoding == "none"
+                    && result.is_empty() => {}
+            "not_applicable"
+                if value["exception"].is_null() && encoding == "none" && result.is_empty() => {}
+            _ => return Err("runtime differential result".to_owned()),
+        }
+    }
+    Ok(())
+}
+
+fn validate_runtime_document(document: &Value) -> Result<(), String> {
+    if object(document)
+        .keys()
+        .map(String::as_str)
+        .collect::<Vec<_>>()
+        != [
+            "baseline",
+            "coverage",
+            "culture_variants",
+            "family_index",
+            "measurement",
+            "observations",
+            "operation_index",
+            "probe_input",
+            "schema",
+            "upgrade_mutations",
+            "vector_index",
+            "work_item",
+        ]
+    {
+        return Err("runtime top-level keys".to_owned());
+    }
+    if document["schema"] != "mpk.csharp_practical.t01_w07.runtime_semantics_probe.v0"
+        || document["work_item"] != "CSHARP-03-T01-W07"
+    {
+        return Err("runtime identity".to_owned());
+    }
+    if document["baseline"]
+        != json!({
+            "build_inputs": "develop/migrations/csharp-03/build-inputs/build-inputs.json",
+            "build_inputs_raw_sha256": W03_DESCRIPTOR_SHA256,
+            "candidate_inventory": "develop/migrations/csharp-03/build-inputs/candidate-inventory.json",
+            "candidate_inventory_raw_sha256": W03_INVENTORY_SHA256,
+            "dependency_probe": DEPENDENCY_RESULT_PATH,
+            "dependency_probe_raw_sha256": DEPENDENCY_RESULT_SHA256,
+            "source_commit": "22673dbc96d8ba4f0d9a4cb97c3f2490c00d1804",
+            "source_tree": "687631b3799ba385ccde29de9d72286c48d3f8fc"
+        })
+    {
+        return Err("runtime baseline".to_owned());
+    }
+    if document["probe_input"]
+        != json!({
+            "compiler_arguments": [
+                "/nologo", "/noconfig", "/nostdlib+", "/deterministic+",
+                "/optimize+", "/debug-", "/target:exe", "/platform:x64",
+                "/langversion:14.0", "/nullable:enable", "/checked+", "/unsafe-",
+                "/warnaserror+", "/utf8output", "/filealign:512", "/highentropyva+"
+            ],
+            "culture_profiles": ["hostile-arabic", "hostile-comma", "hostile-swap"],
+            "path": "develop/probes/csharp-03/PrimitiveStringNumericCodecProbe.cs",
+            "raw_sha256": RUNTIME_PROBE_SOURCE_SHA256,
+            "reference_projection_sha256": REFERENCE_SHA256,
+            "size_bytes": 126717,
+            "toolchain_inputs_sha256": TOOLCHAIN_SHA256
+        })
+    {
+        return Err("runtime probe input".to_owned());
+    }
+    if document["measurement"]
+        != json!({
+            "culture_run_count_per_build": 6,
+            "probe_binary_sha256": "7b61263a2847340902b5692dd397c458a72cdd24a7b9158a8f4b3ea2279d85ed",
+            "raw_observation_sha256": "872e6150d17476c52ee01db3530f9e710afc8c6252592daa5393f3c705e46967",
+            "raw_observation_size_bytes": 6641752,
+            "runtime_input_mutations": [
+                "unlisted_environment.clean", "unlisted_environment.hostile"
+            ]
+        })
+    {
+        return Err("runtime measurement".to_owned());
+    }
+    let observations = &document["observations"];
+    if object(observations)
+        .keys()
+        .map(String::as_str)
+        .collect::<Vec<_>>()
+        != ["culture_runs", "schema", "work_item"]
+        || observations["schema"]
+            != "mpk.csharp_practical.t01_w07.runtime_semantics_observations.v0"
+        || observations["work_item"] != "CSHARP-03-T01-W07"
+    {
+        return Err("runtime observation identity".to_owned());
+    }
+    let mut observation_bytes = canonical_bytes(observations);
+    observation_bytes.push(b'\n');
+    if sha256(&observation_bytes) != document["measurement"]["raw_observation_sha256"]
+        || observation_bytes.len() as u64
+            != integer(&document["measurement"]["raw_observation_size_bytes"])
+    {
+        return Err("runtime observation measurement".to_owned());
+    }
+
+    let runs = array(&observations["culture_runs"]);
+    if runs.len() != 3 {
+        return Err("runtime culture count".to_owned());
+    }
+    let expected_cultures = [
+        json!({
+            "date_separator_utf16": "002a", "decimal_separator_utf16": "066b",
+            "group_separator_utf16": "066c", "negative_sign_utf16": "2212",
+            "profile": "hostile-arabic",
+            "short_date_pattern_utf16": "00640064002a004d004d002a0079007900790079",
+            "time_separator_utf16": "0021"
+        }),
+        json!({
+            "date_separator_utf16": "002e", "decimal_separator_utf16": "002c",
+            "group_separator_utf16": "002e", "negative_sign_utf16": "007e",
+            "profile": "hostile-comma",
+            "short_date_pattern_utf16": "0079007900790079002e004d004d002e00640064",
+            "time_separator_utf16": "002d"
+        }),
+        json!({
+            "date_separator_utf16": "005f", "decimal_separator_utf16": "003b",
+            "group_separator_utf16": "002c", "negative_sign_utf16": "004e00450047",
+            "profile": "hostile-swap",
+            "short_date_pattern_utf16": "004d004d005f00640064005f0079007900790079",
+            "time_separator_utf16": "002e"
+        }),
+    ];
+    let mut run_vectors: Vec<BTreeMap<&str, &Value>> = Vec::new();
+    for (run, culture) in runs.iter().zip(expected_cultures) {
+        if object(run).keys().map(String::as_str).collect::<Vec<_>>()
+            != ["culture", "runtime", "schema", "vectors", "work_item"]
+            || run["schema"] != "mpk.csharp_practical.t01_w07.runtime_semantics_probe.raw.v0"
+            || run["work_item"] != "CSHARP-03-T01-W07"
+            || run["culture"] != culture
+            || run["runtime"]
+                != json!({
+                    "architecture": "X64",
+                    "framework_description": ".NET 10.0.11",
+                    "runtime_version": "10.0.11"
+                })
+        {
+            return Err("runtime culture run".to_owned());
+        }
+        let vectors = array(&run["vectors"]);
+        if vectors.len() != 3468 {
+            return Err("runtime vector count".to_owned());
+        }
+        let mut by_id = BTreeMap::new();
+        let mut previous = None;
+        for vector in vectors {
+            if object(vector)
+                .keys()
+                .map(String::as_str)
+                .collect::<Vec<_>>()
+                != [
+                    "accepted_domain",
+                    "differential",
+                    "error_precedence",
+                    "family",
+                    "id",
+                    "inputs",
+                    "operation",
+                    "profile",
+                    "profile_outcome",
+                    "runtime_culture_sensitive",
+                ]
+            {
+                return Err("runtime vector keys".to_owned());
+            }
+            let vector_id = text(&vector["id"]);
+            if previous.is_some_and(|value| value >= vector_id)
+                || !vector_id.is_ascii()
+                || !text(&vector["family"]).is_ascii()
+                || !text(&vector["operation"]).is_ascii()
+                || !text(&vector["accepted_domain"]).is_ascii()
+                || array(&vector["inputs"]).is_empty()
+                || array(&vector["inputs"])
+                    .iter()
+                    .any(|input| !text(input).is_ascii())
+                || vector["runtime_culture_sensitive"].as_bool().is_none()
+            {
+                return Err("runtime vector scalar".to_owned());
+            }
+            previous = Some(vector_id);
+            validate_runtime_result(&vector["profile"], true)?;
+            validate_runtime_result(&vector["differential"], false)?;
+            let error = vector["profile"]["error_id"].as_str();
+            let precedence = runtime_string_set(&vector["error_precedence"]);
+            if error.is_some_and(|value| !precedence.contains(value)) {
+                return Err("runtime error precedence link".to_owned());
+            }
+            if by_id.insert(vector_id, vector).is_some() {
+                return Err("duplicate runtime vector".to_owned());
+            }
+        }
+        run_vectors.push(by_id);
+    }
+    let vector_ids = run_vectors[0].keys().copied().collect::<Vec<_>>();
+    if canonical_sha256(&Value::Array(
+        vector_ids.iter().map(|id| json!(id)).collect(),
+    )) != RUNTIME_VECTOR_IDS_SHA256
+        || run_vectors[1].keys().copied().collect::<Vec<_>>() != vector_ids
+        || run_vectors[2].keys().copied().collect::<Vec<_>>() != vector_ids
+    {
+        return Err("runtime vector catalog".to_owned());
+    }
+
+    let mut actual_variant_ids = Vec::new();
+    for vector_id in &vector_ids {
+        let first = run_vectors[0][vector_id];
+        for other in [&run_vectors[1][vector_id], &run_vectors[2][vector_id]] {
+            if runtime_semantic_projection(first) != runtime_semantic_projection(other) {
+                return Err("runtime candidate culture drift".to_owned());
+            }
+            if first["runtime_culture_sensitive"] == false && first != *other {
+                return Err("runtime undeclared culture drift".to_owned());
+            }
+        }
+        if run_vectors[1][vector_id]["differential"] != first["differential"]
+            || run_vectors[2][vector_id]["differential"] != first["differential"]
+        {
+            actual_variant_ids.push(*vector_id);
+        }
+    }
+    if actual_variant_ids.len() != 83
+        || canonical_sha256(&Value::Array(
+            actual_variant_ids.iter().map(|id| json!(id)).collect(),
+        )) != RUNTIME_CULTURE_VARIANT_IDS_SHA256
+    {
+        return Err("runtime culture variant catalog".to_owned());
+    }
+
+    let vector_index = array(&document["vector_index"]);
+    if vector_index.len() != vector_ids.len() {
+        return Err("runtime vector index count".to_owned());
+    }
+    for (row, vector_id) in vector_index.iter().zip(&vector_ids) {
+        if object(row).keys().map(String::as_str).collect::<Vec<_>>()
+            != [
+                "candidate_observation_sha256",
+                "culture_invariant_runtime",
+                "family",
+                "operation",
+                "profile_outcome",
+                "runtime_observations",
+                "vector_id",
+            ]
+            || row["vector_id"] != **vector_id
+        {
+            return Err("runtime vector index".to_owned());
+        }
+        let vector = run_vectors[0][vector_id];
+        if row["candidate_observation_sha256"]
+            != canonical_sha256(&runtime_semantic_projection(vector))
+            || row["family"] != vector["family"]
+            || row["operation"] != vector["operation"]
+            || row["profile_outcome"] != vector["profile_outcome"]
+            || row["culture_invariant_runtime"] != !actual_variant_ids.contains(vector_id)
+        {
+            return Err("runtime vector index link".to_owned());
+        }
+        let runtime_rows = array(&row["runtime_observations"]);
+        if runtime_rows.len() != 3 {
+            return Err("runtime vector observations".to_owned());
+        }
+        for (ordinal, profile) in ["hostile-arabic", "hostile-comma", "hostile-swap"]
+            .iter()
+            .enumerate()
+        {
+            let runtime_row = &runtime_rows[ordinal];
+            if object(runtime_row)
+                .keys()
+                .map(String::as_str)
+                .collect::<Vec<_>>()
+                != ["culture", "observation_sha256"]
+                || runtime_row["culture"] != *profile
+                || runtime_row["observation_sha256"]
+                    != canonical_sha256(&run_vectors[ordinal][vector_id]["differential"])
+            {
+                return Err("runtime differential link".to_owned());
+            }
+        }
+    }
+
+    let mut operations: BTreeMap<&str, Vec<&str>> = BTreeMap::new();
+    let mut families: BTreeMap<&str, Vec<&str>> = BTreeMap::new();
+    for vector_id in &vector_ids {
+        let vector = run_vectors[0][vector_id];
+        operations
+            .entry(text(&vector["operation"]))
+            .or_default()
+            .push(vector_id);
+        families
+            .entry(text(&vector["family"]))
+            .or_default()
+            .push(vector_id);
+    }
+    let operation_index = array(&document["operation_index"]);
+    let operation_ids = operation_index
+        .iter()
+        .map(|row| text(&row["operation"]))
+        .collect::<Vec<_>>();
+    if operation_index.len() != 154
+        || canonical_sha256(&Value::Array(
+            operation_ids.iter().map(|id| json!(id)).collect(),
+        )) != RUNTIME_OPERATION_IDS_SHA256
+        || operation_ids != operations.keys().copied().collect::<Vec<_>>()
+    {
+        return Err("runtime operation catalog".to_owned());
+    }
+    for row in operation_index {
+        if object(row).keys().map(String::as_str).collect::<Vec<_>>()
+            != [
+                "accepted_domain",
+                "error_precedence",
+                "families",
+                "observed_error_ids",
+                "operation",
+                "possible_failures",
+                "profile_outcomes",
+                "result_encodings",
+                "vector_ids",
+                "vector_ids_sha256",
+            ]
+        {
+            return Err("runtime operation index keys".to_owned());
+        }
+        let operation = text(&row["operation"]);
+        let expected_ids = &operations[operation];
+        let vectors = expected_ids
+            .iter()
+            .map(|id| run_vectors[0][id])
+            .collect::<Vec<_>>();
+        let first = vectors[0];
+        if vectors.iter().any(|vector| {
+            vector["accepted_domain"] != first["accepted_domain"]
+                || vector["error_precedence"] != first["error_precedence"]
+        }) {
+            return Err("runtime operation contract drift".to_owned());
+        }
+        let expected_families = vectors
+            .iter()
+            .map(|vector| text(&vector["family"]))
+            .collect::<BTreeSet<_>>();
+        let expected_errors = vectors
+            .iter()
+            .filter_map(|vector| vector["profile"]["error_id"].as_str())
+            .collect::<BTreeSet<_>>();
+        let expected_outcomes = vectors
+            .iter()
+            .map(|vector| text(&vector["profile_outcome"]))
+            .collect::<BTreeSet<_>>();
+        let expected_encodings = vectors
+            .iter()
+            .map(|vector| text(&vector["profile"]["result_encoding"]))
+            .collect::<BTreeSet<_>>();
+        if *row
+            != json!({
+                "accepted_domain": first["accepted_domain"],
+                "error_precedence": first["error_precedence"],
+                "families": expected_families,
+                "observed_error_ids": expected_errors,
+                "operation": operation,
+                "possible_failures": first["error_precedence"],
+                "profile_outcomes": expected_outcomes,
+                "result_encodings": expected_encodings,
+                "vector_ids": expected_ids,
+                "vector_ids_sha256": canonical_sha256(&json!(expected_ids)),
+            })
+        {
+            return Err("runtime operation index link".to_owned());
+        }
+        let possible = runtime_string_set(&row["possible_failures"]);
+        let observed = runtime_string_set(&row["observed_error_ids"]);
+        let required = possible
+            .iter()
+            .filter(|value| {
+                value.starts_with("exception.")
+                    || value.starts_with("parse_error.")
+                    || value.starts_with("source_rejection.")
+            })
+            .cloned()
+            .collect::<BTreeSet<_>>();
+        if !operation.starts_with("precedence.") && observed != required {
+            return Err("runtime operation error closure".to_owned());
+        }
+    }
+
+    let family_index = array(&document["family_index"]);
+    let family_ids = family_index
+        .iter()
+        .map(|row| text(&row["family"]))
+        .collect::<Vec<_>>();
+    if family_index.len() != 26
+        || canonical_sha256(&Value::Array(
+            family_ids.iter().map(|id| json!(id)).collect(),
+        )) != RUNTIME_FAMILY_IDS_SHA256
+        || family_ids != families.keys().copied().collect::<Vec<_>>()
+    {
+        return Err("runtime family catalog".to_owned());
+    }
+    for row in family_index {
+        if object(row).keys().map(String::as_str).collect::<Vec<_>>()
+            != ["family", "operation_ids", "vector_ids", "vector_ids_sha256"]
+        {
+            return Err("runtime family index keys".to_owned());
+        }
+        let family = text(&row["family"]);
+        let expected_ids = &families[family];
+        let expected_operations = expected_ids
+            .iter()
+            .map(|id| text(&run_vectors[0][id]["operation"]))
+            .collect::<BTreeSet<_>>();
+        if *row
+            != json!({
+                "family": family,
+                "operation_ids": expected_operations,
+                "vector_ids": expected_ids,
+                "vector_ids_sha256": canonical_sha256(&json!(expected_ids)),
+            })
+        {
+            return Err("runtime family index link".to_owned());
+        }
+    }
+
+    if array(&document["culture_variants"]).len() != actual_variant_ids.len()
+        || array(&document["culture_variants"])
+            .iter()
+            .map(|row| text(&row["vector_id"]))
+            .collect::<Vec<_>>()
+            != actual_variant_ids
+    {
+        return Err("runtime culture variant links".to_owned());
+    }
+    for row in array(&document["culture_variants"]) {
+        let vector_id = text(&row["vector_id"]);
+        let vector = run_vectors[0][vector_id];
+        let expected_observations = ["hostile-arabic", "hostile-comma", "hostile-swap"]
+            .iter()
+            .enumerate()
+            .map(|(ordinal, profile)| {
+                json!({
+                    "culture": profile,
+                    "observation_sha256": canonical_sha256(
+                        &run_vectors[ordinal][vector_id]["differential"]
+                    ),
+                })
+            })
+            .collect::<Vec<_>>();
+        if *row
+            != json!({
+                "family": vector["family"],
+                "operation": vector["operation"],
+                "runtime_observations": expected_observations,
+                "vector_id": vector_id,
+            })
+        {
+            return Err("runtime culture variant payload".to_owned());
+        }
+    }
+    let mutations = array(&document["upgrade_mutations"]);
+    if mutations.len() != operations.len() {
+        return Err("runtime mutation count".to_owned());
+    }
+    let mut mutation_operations = BTreeSet::new();
+    for row in mutations {
+        if object(row).keys().map(String::as_str).collect::<Vec<_>>()
+            != [
+                "candidate_observation_sha256",
+                "families",
+                "mutation_field",
+                "mutation_id",
+                "operation",
+                "vector_id",
+            ]
+        {
+            return Err("runtime mutation keys".to_owned());
+        }
+        let vector_id = text(&row["vector_id"]);
+        let vector = run_vectors[0]
+            .get(vector_id)
+            .ok_or_else(|| "runtime mutation vector".to_owned())?;
+        let operation = text(&vector["operation"]);
+        let expected_families = operations[operation]
+            .iter()
+            .map(|id| text(&run_vectors[0][id]["family"]))
+            .collect::<BTreeSet<_>>();
+        if row["mutation_field"] != "inputs[0]"
+            || row["candidate_observation_sha256"]
+                != canonical_sha256(&runtime_semantic_projection(vector))
+            || row["operation"] != vector["operation"]
+            || row["families"] != json!(expected_families)
+            || row["mutation_id"]
+                != format!(
+                    "CSHARP-03-T01-W07-RUNTIME-INPUT-{}",
+                    operation.to_uppercase().replace(['.', '_'], "-")
+                )
+            || !mutation_operations.insert(text(&row["operation"]))
+        {
+            return Err("runtime mutation link".to_owned());
+        }
+    }
+    if mutation_operations != operations.keys().copied().collect() {
+        return Err("runtime mutation closure".to_owned());
+    }
+
+    let covered = array(&document["coverage"])
+        .iter()
+        .flat_map(|row| array(&row["families"]).iter().map(text))
+        .collect::<BTreeSet<_>>();
+    if covered != families.keys().copied().collect() {
+        return Err("runtime coverage closure".to_owned());
+    }
+    Ok(())
+}
+
+// CSHARP-03-T01-W07
+#[test]
+fn canonical_runtime_probe_closes_operations_errors_and_culture_differentials() {
+    let raw = bytes(RUNTIME_RESULT_PATH);
+    assert_eq!(raw.len(), RUNTIME_RESULT_SIZE);
+    assert_eq!(sha256(&raw), RUNTIME_RESULT_SHA256);
+    let document: Value = serde_json::from_slice(&raw).expect("parse runtime probe");
+    let mut canonical = canonical_bytes(&document);
+    canonical.push(b'\n');
+    assert_eq!(
+        raw, canonical,
+        "runtime probe must be canonical JSON plus LF"
+    );
+    validate_runtime_document(&document).unwrap();
+    assert_eq!(
+        sha256(&bytes(
+            "develop/probes/csharp-03/PrimitiveStringNumericCodecProbe.cs"
+        )),
+        RUNTIME_PROBE_SOURCE_SHA256
+    );
+}
+
+// CSHARP-03-T01-W07
+#[test]
+fn runtime_probe_freezes_utf16_codecs_float_decimal_and_precedence() {
+    let document = load_runtime_probe();
+    validate_runtime_document(&document).unwrap();
+
+    assert_eq!(
+        runtime_vector(&document, "string.literal.lone_high")["profile"]["value"],
+        "d800"
+    );
+    assert_eq!(
+        runtime_vector(&document, "string.length.pair")["profile"]["value"],
+        "2"
+    );
+    assert_eq!(
+        runtime_vector(&document, "string.concat.operator.string_string.both_null")["profile"]
+            ["value"],
+        ""
+    );
+    let char_char = runtime_vector(&document, "string.concat.char_char");
+    assert_eq!(char_char["profile"]["kind"], "rejected");
+    assert_eq!(
+        char_char["profile"]["error_id"],
+        "source_rejection.concat_char_char"
+    );
+    assert_eq!(char_char["differential"]["value"], "195");
+
+    assert_eq!(
+        runtime_vector(&document, "codec.integer.i32.parse.plus")["profile"]["error_id"],
+        "parse_error.noncanonical"
+    );
+    for vector_id in [
+        "codec.integer.i32.parse.plus_malformed",
+        "codec.decimal.normalized.parse.plus_malformed",
+        "codec.decimal.fixed.parse.syntax_before_scale",
+    ] {
+        assert_eq!(
+            runtime_vector(&document, vector_id)["profile"]["error_id"],
+            "parse_error.syntax",
+            "syntax must win for {vector_id}"
+        );
+    }
+    assert_eq!(
+        runtime_vector(
+            &document,
+            "codec.decimal.fixed.parse.noncanonical_before_scale"
+        )["profile"]["error_id"],
+        "parse_error.noncanonical"
+    );
+    assert_eq!(
+        runtime_vector(&document, "codec.decimal.normalized.parse.scale_29")["profile"]["error_id"],
+        "parse_error.scale_precision"
+    );
+    assert_eq!(
+        runtime_vector(&document, "codec.binary32.parse.signaling_nan")["profile"]["value"],
+        "7fa12345"
+    );
+    assert_eq!(
+        runtime_vector(&document, "codec.binary64.parse.negative_zero")["profile"]["value"],
+        "8000000000000000"
+    );
+    assert_eq!(
+        runtime_vector(&document, "codec.guid.d.parse.uppercase")["profile"]["error_id"],
+        "parse_error.noncanonical"
+    );
+    assert_eq!(
+        runtime_vector(
+            &document,
+            "codec.decimal.fixed.roundtrip.n1_255.awayfromzero"
+        )["profile"]["value"],
+        "true"
+    );
+    assert_eq!(
+        runtime_vector(&document, "codec.decimal.fixed.parse.maximum_scale28")["profile"]["value"],
+        "sign=0;scale=00;coefficient=ffffffffffffffffffffffff"
+    );
+    assert_eq!(
+        runtime_vector(
+            &document,
+            "codec.decimal.fixed.parse.unrepresentable_coefficient"
+        )["profile"]["error_id"],
+        "parse_error.range"
+    );
+    for endpoint in [
+        "integer_scale2",
+        "maximum_scale2",
+        "maximum_scale28",
+        "minimum_scale28",
+        "negative_zero_scale28",
+        "least_fraction_scale28",
+        "round_to_zero_scale0",
+    ] {
+        for mode in [
+            "toeven",
+            "awayfromzero",
+            "tozero",
+            "tonegativeinfinity",
+            "topositiveinfinity",
+        ] {
+            let vector_id = format!("codec.decimal.fixed.roundtrip.{endpoint}.{mode}");
+            assert_eq!(
+                runtime_vector(&document, &vector_id)["profile"]["value"],
+                "true",
+                "fixed-scale endpoint round trip: {vector_id}"
+            );
+        }
+    }
+
+    assert_eq!(
+        runtime_vector(&document, "floating.single.add.v08.v05")["profile"]["value"],
+        "7fe12345"
+    );
+    assert_eq!(
+        runtime_vector(&document, "floating.single.min.v02.v03")["profile"]["value"],
+        "80000000"
+    );
+    assert_eq!(
+        runtime_vector(&document, "floating.single.max.v02.v03")["profile"]["value"],
+        "00000000"
+    );
+    assert_eq!(
+        runtime_vector(&document, "decimal.edge.max_plus_one")["operation"],
+        "decimal.add"
+    );
+    assert_eq!(
+        runtime_vector(&document, "decimal.edge.max_plus_one")["profile"]["error_id"],
+        "exception.overflow"
+    );
+    assert_eq!(
+        runtime_vector(&document, "decimal.edge.max_divide_fraction")["profile"]["error_id"],
+        "exception.overflow"
+    );
+    assert_eq!(
+        runtime_vector(&document, "decimal.equivalence.negative_zero")["profile"]["value"],
+        "true"
+    );
+
+    let sidecar = runtime_vector(&document, "precedence.sidecar.codec_before_rounding");
+    assert_eq!(sidecar["profile"]["error_id"], "sidecar.unknown_codec");
+    assert_eq!(
+        array(&sidecar["error_precedence"])
+            .iter()
+            .map(text)
+            .take(2)
+            .collect::<Vec<_>>(),
+        ["sidecar.unknown_codec", "sidecar.unknown_rounding_mode"]
+    );
+
+    let runs = array(&document["observations"]["culture_runs"]);
+    let interpolation = runs
+        .iter()
+        .map(|run| {
+            text(
+                &runtime_vector_in_run(run, "string.interpolation.numeric")["differential"]
+                    ["value"],
+            )
+        })
+        .collect::<BTreeSet<_>>();
+    assert_eq!(interpolation.len(), 3, "hostile cultures must disagree");
+    for run in runs {
+        let vector = runtime_vector_in_run(run, "string.interpolation.numeric");
+        assert_eq!(vector["profile"]["kind"], "rejected");
+        assert_eq!(
+            vector["profile"]["error_id"],
+            "source_rejection.interpolation_hole_type"
+        );
+    }
+}
+
+// CSHARP-03-T01-W07
+#[test]
+fn runtime_probe_mutations_fail_closed() {
+    let document = load_runtime_probe();
+    validate_runtime_document(&document).unwrap();
+    for (vector_id, field) in [
+        ("floating.single.add.v00.v00", "value"),
+        ("codec.integer.i32.parse.plus", "error_id"),
+        ("string.concat.char_char", "error_id"),
+    ] {
+        let mut changed = document.clone();
+        let run = &mut changed["observations"]["culture_runs"][0];
+        let vector = run["vectors"]
+            .as_array_mut()
+            .expect("runtime vectors")
+            .iter_mut()
+            .find(|vector| vector["id"] == vector_id)
+            .expect("mutation vector");
+        let original = text(&vector["profile"][field]).to_owned();
+        vector["profile"][field] = json!(original + "#mutation");
+        assert!(
+            validate_runtime_document(&changed).is_err(),
+            "runtime mutation accepted for {vector_id}"
+        );
+    }
+    for (index, field) in [
+        ("operation_index", "accepted_domain"),
+        ("family_index", "operation_ids"),
+        ("culture_variants", "runtime_observations"),
+        ("upgrade_mutations", "mutation_id"),
+        ("vector_index", "culture_invariant_runtime"),
+    ] {
+        let mut changed = document.clone();
+        changed[index][0][field] = json!("index mutation");
+        assert!(
+            validate_runtime_document(&changed).is_err(),
+            "runtime index mutation accepted for {index}.{field}"
+        );
+    }
+}
+
+// CSHARP-03-T01-W07
+#[test]
+fn runtime_probe_preserves_w06_and_the_active_release_boundary() {
+    assert_eq!(
+        sha256(&bytes(DEPENDENCY_RESULT_PATH)),
+        DEPENDENCY_RESULT_SHA256
+    );
+    assert_eq!(
+        sha256(&bytes(
+            "develop/probes/csharp-03/DependencyGenericSuspensionProbe.cs"
+        )),
+        DEPENDENCY_PROBE_SOURCE_SHA256
+    );
+    assert_eq!(
+        sha256(&bytes("release/build-inputs/csharp/build-inputs.json")),
+        "0345044d16d4efb3568c32a3d7bc67fec508fe9359eff423a7f09c7f69b348dc"
+    );
+    assert_eq!(
+        sha256(&bytes(
+            "release/build-inputs/csharp/candidate-inventory.json"
+        )),
+        "4ff3ba6fdc2eb2857c32563b959f11194075a4264164cd7aebc808858e500e9b"
+    );
+    assert_eq!(
+        sha256(&bytes("develop/specs/vectors/csharp-profile-v0.json")),
+        "8109f781ca1f2b90ba02f786da09ba97602f4cd484b8835b561d5ecf4e7781c8"
+    );
+    for relative in [
+        "release/bundles/semantic-profile-registry.json",
+        "release/bundles/bundle-registry.json",
+    ] {
+        let content = String::from_utf8(bytes(relative)).unwrap();
+        assert!(!content.contains("CSHARP-03"));
+        assert!(!content.contains("mpk.csharp.practical"));
+        assert!(!content.contains("runtime_semantics_probe"));
+    }
+}
+
+// CSHARP-03-T01-W07
+#[test]
+fn pinned_runtime_probe_rerun_is_byte_identical_when_the_linux_cache_is_available() {
+    if !cfg!(all(target_os = "linux", target_arch = "x86_64")) {
+        return;
+    }
+    let archives = repository_root()
+        .join("release/build-input-cache/csharp")
+        .join(TOOLCHAIN_SHA256)
+        .join("archives");
+    let present = fs::read_dir(&archives)
+        .map(|entries| entries.filter_map(Result::ok).count())
+        .unwrap_or(0);
+    assert!(present == 0 || present == 6, "partial C# archive cache");
+    if present == 0 {
+        return;
+    }
+    let output = Command::new(
+        repository_root()
+            .join("develop/probes/csharp-03/run-primitive-string-numeric-codec-probe.sh"),
+    )
+    .arg("--check")
+    .env_clear()
+    .env("PATH", "/usr/bin:/bin")
+    .output()
+    .expect("execute pinned W07 runtime probe");
     assert!(
         output.status.success(),
         "stdout={} stderr={}",

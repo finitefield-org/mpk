@@ -206,3 +206,90 @@ application dependency, source-facing library, generic/iterator/async
 capability, production route, registered identity, or normative vector.
 Runtime behavior remains W07-owned and final specification/activation remains
 W08-W10-owned.
+
+## T01-W07 primitive, string, numeric, and codec runtime probe
+
+`PrimitiveStringNumericCodecProbe.cs` is a disposable runtime measurement
+program compiled directly by the exact W03 C# 14 compiler and 167-reference
+projection, then executed on the pinned .NET 10.0.11 Linux-x64 runtime. It has
+no MPK application API and does not become part of a frontend, foundation
+library, profile bundle, or customer project. Its finite corpus contains 3,468
+vectors grouped into 154 exact operations and 26 evidence families covering:
+
+- UTF-16 literals, surrogate pairs and lone surrogates, code-unit length and
+  indexing, ordinal equality/comparison/predicates, null receivers and
+  arguments, substring ranges, null/empty behavior, and constant switches;
+- the exact string/string, string/char, char/string, and two-/three-/four-
+  string concatenation matrix, including null-as-empty results, rejected
+  char/char and object conversion, restricted string/char interpolation, and
+  rejected numeric/alignment/format holes;
+- independently implemented canonical ASCII parsers and formatters for every
+  signed/unsigned integer width, normalized and fixed-scale decimal, DateOnly,
+  TimeOnly, duration ticks, Unix milliseconds, binary32/binary64 bits, and
+  lowercase GUID N/D forms, with syntax, noncanonical, range,
+  scale/precision and input-bound errors, output-bound obligations, and 96
+  explicit lossless/rounded-value round-trip vectors;
+- exhaustive pairwise operations over nine binary32 and nine binary64 edge
+  values, including infinities, both zero signs, a subnormal, quiet NaN and
+  signaling NaN payloads, plus exact intrinsics and checked conversions;
+- exhaustive pairwise decimal operations/comparisons over eight small-domain
+  representations, decimal sign/coefficient/scale observations, five rounding
+  modes, conversions, trailing-scale and signed-zero equality, division by
+  zero, and arithmetic overflow; and
+- parser and sidecar multi-failure vectors that fix input-bound, syntax,
+  canonicality, scale/range, unknown-codec, and unknown-rounding precedence.
+
+General framework parsing, formatting, interpolation, object conversion, and
+culture-sensitive string calls appear only in the differential side of a
+vector. Profile-side codec results are produced by closed ASCII grammar code;
+float/double values use exact bit strings and decimal values use sign, scale,
+and a 96-bit coefficient. No raw exception message, stack, path, source text,
+or ambient culture name is recorded.
+
+Each clean build executes all vectors twice under each of three explicitly
+constructed hostile current cultures (`hostile-arabic`, `hostile-comma`, and
+`hostile-swap`). The second execution mutates an unlisted environment input.
+The runner requires equal output across that mutation and equal profile-side
+values, bit strings, error IDs, and precedence across all cultures. It records
+83 intentionally culture-varying BCL differential vectors without allowing
+those values to define the candidate semantics.
+
+The canonical result is
+`../../migrations/csharp-03/probes/runtime-primitive-string-numeric-codec.json`.
+It is 9,318,258 bytes with raw SHA-256
+`0055835ce456fb9c438336332bc0e2a214d900c137eca34f90c3fcddd2688769`.
+The normalized three-culture observation section is 6,641,752 bytes with
+SHA-256
+`872e6150d17476c52ee01db3530f9e710afc8c6252592daa5393f3c705e46967`;
+the deterministic probe binary SHA-256 is
+`7b61263a2847340902b5692dd397c458a72cdd24a7b9158a8f4b3ea2279d85ed`.
+
+On native x86-64 Linux with the W03 archive cache already provisioned:
+
+```sh
+./develop/probes/csharp-03/run-primitive-string-numeric-codec-probe.sh --check
+```
+
+`--check` performs two fresh builds and twelve isolated runtime executions,
+requires deterministic binary/raw/normalized bytes, and compares the result
+byte-for-byte with the record. `--check-record` validates the canonical record
+and every live predecessor/input hash without running Linux binaries.
+`--self-test` mutates one recorded input per operation to check its semantic
+hash binding, rejects missing/extra culture runs, and changes representative
+result-bit, rejection-ID, parse-error, and precedence observations. It does
+not substitute for the actual input/edge cases executed by `--check`.
+`--update` applies the same full two-build gate before an atomic replacement.
+
+The recorded and final check use the immutable local Linux-x64 gate image, no
+network, a read-only root, and a fresh executable tmpfs:
+
+```text
+docker run --rm --platform linux/amd64 --privileged --network none --read-only --tmpfs /tmp:rw,nosuid,nodev,exec,size=4g --mount type=bind,source=<repository>,target=/workspace,readonly -w /workspace sha256:ea3189955dd9c0e5deda7a30ef48a0c7ef5af3b128f74fcd6e368384b8e1420a ./develop/probes/csharp-03/run-primitive-string-numeric-codec-probe.sh --check
+```
+
+W07 remains private measurement evidence. It does not freeze the final
+foundation descriptor, operation allowlist, public diagnostics, profile or
+schema identity, VIR/VC semantics, source-facing library, production route,
+or activation. The normative freeze package begins in T01-W08 and remains
+serial through T01-W10; production implementation and atomic activation
+belong to the later implementation/release milestones.

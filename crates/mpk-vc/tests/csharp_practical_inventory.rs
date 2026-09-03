@@ -164,8 +164,9 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
 
         let expected_status = match work_item.as_str() {
             "CSHARP-03-T01-W01" | "CSHARP-03-T01-W02" | "CSHARP-03-T01-W03"
-            | "CSHARP-03-T01-W04" | "CSHARP-03-T01-W05" | "CSHARP-03-T01-W06" => "Complete",
-            "CSHARP-03-T01-W07" => "Ready",
+            | "CSHARP-03-T01-W04" | "CSHARP-03-T01-W05" | "CSHARP-03-T01-W06"
+            | "CSHARP-03-T01-W07" => "Complete",
+            "CSHARP-03-T01-W08" => "Ready",
             _ => "Blocked",
         };
         assert_eq!(row.status, expected_status, "status drift for {work_item}");
@@ -175,7 +176,8 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             "CSHARP-03-T01-W03" => "4ad2cd480792d8e7cac71eb798e6b55b66bd97fb",
             "CSHARP-03-T01-W04" => "b6680168c2666be503741575c009f0a26dd0da22",
             "CSHARP-03-T01-W05" => "13415911853c0368c103bd9d5feeb8374596d724",
-            "CSHARP-03-T01-W06" => "SELF",
+            "CSHARP-03-T01-W06" => "22673dbc96d8ba4f0d9a4cb97c3f2490c00d1804",
+            "CSHARP-03-T01-W07" => "SELF",
             _ => "—",
         };
         assert_eq!(
@@ -216,6 +218,12 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
         "All 144 source shapes have distinct upgrade mutations",
         "value-type `T?` exception is immediately specialized",
         "Iterator and async observations are rejection-only",
+        "## 9. CSHARP-03-T01-W07 completion record",
+        "develop/migrations/csharp-03/probes/runtime-primitive-string-numeric-codec.json",
+        "3,468 distinct runtime vectors",
+        "154 exact operations and 26 evidence families",
+        "83 culture-varying BCL differential vectors",
+        "Profile-side codec results come only from the probe's closed ASCII grammars",
     ] {
         assert!(ledger.contains(required), "ledger is missing {required}");
     }

@@ -1,13 +1,13 @@
 # CSHARP-03 Implementation Traceability Ledger
 
-Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06` complete (2026-09-04). The entry
-audit, consumer inventory, private frontend/toolchain closure proof, and
-Roslyn data/construction/control/exception/pattern/dependency/generic/iterator/
-async-rejection measurements are closed, `CSHARP-03-T01-W07` is ready, and
+Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07` complete (2026-09-04). The
+entry audit, consumer inventory, private frontend/toolchain closure proof,
+Roslyn shape probes, and primitive/string/numeric/codec runtime measurements
+are closed, `CSHARP-03-T01-W08` is ready, and
 every later work item remains blocked by its serial predecessor. No practical-
 profile identity, production
 acceptance path, registered candidate, or active registry entry was introduced
-by W01-W06.
+by W01-W07.
 
 This ledger is subordinate to
 [`08_csharp_practical_subset_design.md`](08_csharp_practical_subset_design.md)
@@ -43,9 +43,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T01-W03` | `Complete` | `crates/mpk-cli/tests/csharp_practical_build_inputs.rs#CSHARP-03-T01-W03` | `4ad2cd480792d8e7cac71eb798e6b55b66bd97fb` |
 | `CSHARP-03-T01-W04` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W04` | `b6680168c2666be503741575c009f0a26dd0da22` |
 | `CSHARP-03-T01-W05` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W05` | `13415911853c0368c103bd9d5feeb8374596d724` |
-| `CSHARP-03-T01-W06` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W06` | `SELF` |
-| `CSHARP-03-T01-W07` | `Ready` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W07` | `—` |
-| `CSHARP-03-T01-W08` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W08` | `—` |
+| `CSHARP-03-T01-W06` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W06` | `22673dbc96d8ba4f0d9a4cb97c3f2490c00d1804` |
+| `CSHARP-03-T01-W07` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W07` | `SELF` |
+| `CSHARP-03-T01-W08` | `Ready` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W08` | `—` |
 | `CSHARP-03-T01-W09` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W09` | `—` |
 | `CSHARP-03-T01-W10` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W10` | `—` |
 | `CSHARP-03-T02-W01` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_registry.rs#CSHARP-03-T02-W01` | `—` |
@@ -950,3 +950,177 @@ complete iterator/async rejection and state-machine observations, source/span/
 hash/order integrity, clean/warning/error rejected outcomes, all shape/family
 mutation links, deterministic rerun bytes, W05 and active scalar byte
 preservation, non-activation, and serial ledger state after all fixes.
+
+## 9. CSHARP-03-T01-W07 completion record
+
+### 9.1 Frozen primitive, string, numeric, and codec observations
+
+W07 consumes only the completed W06 commit
+`22673dbc96d8ba4f0d9a4cb97c3f2490c00d1804`, tree
+`687631b3799ba385ccde29de9d72286c48d3f8fc`, canonical W06 result raw SHA-256
+`5dadf10613f95be9b35c108008a33474c55d222bef1be987c2614c6dcc48fe96`,
+and W06 probe-source raw SHA-256
+`7e2114bdb75ef5b78e330c24e04c551c7766740ba037a12419547212026c6db6`.
+It retains the W03 descriptor, candidate inventory, toolchain, and reference-
+projection SHA-256 values
+`83bf64dcbedce89f79613fe7aab3d95a92179122df54f9b5407273a245738015`,
+`ff4b48790c67135144419c816149f8edfbd7b40ade231d6ab44c8433efef0cce`,
+`d4af1170b2813a5581bb0f60b65fd4e7509576093045557b88689bf7e0876b4f`,
+and
+`30623f64b7d85564260e62464e652bfaa89eb56e0e55193989bfb99538ba6cad`.
+
+The disposable runtime source at
+`develop/probes/csharp-03/PrimitiveStringNumericCodecProbe.cs` is 126,717
+bytes with raw SHA-256
+`d587acd6b1baab5602c8da8c54a803a9baa797400b70a6328bfd059e6a9f5f42`.
+It is compiled directly as C# 14 with the fixed 167-reference projection and
+executed only on .NET 10.0.11 Linux-x64. It emits UTF-16, binary32/binary64,
+and decimal sign/scale/coefficient encodings rather than culture-formatted
+values. Raw exception prose, stack text, host paths, source snippets, and
+ambient culture names are excluded.
+
+The canonical result at
+`develop/migrations/csharp-03/probes/runtime-primitive-string-numeric-codec.json`
+is 9,318,258 bytes with raw SHA-256
+`0055835ce456fb9c438336332bc0e2a214d900c137eca34f90c3fcddd2688769`.
+Its normalized three-culture observation section is 6,641,752 bytes with
+SHA-256
+`872e6150d17476c52ee01db3530f9e710afc8c6252592daa5393f3c705e46967`;
+the deterministic probe binary SHA-256 is
+`7b61263a2847340902b5692dd397c458a72cdd24a7b9158a8f4b3ea2279d85ed`.
+Both clean builds agree on the binary and all raw and normalized bytes.
+
+The result contains 3,468 distinct runtime vectors grouped into
+154 exact operations and 26 evidence families. Their sorted vector-,
+operation-, and family-ID set
+SHA-256 values are
+`e4e2f9c55154bec304a66e80c5d574c071307ff91e4bd93b3a0073153905073c`,
+`96db56971b3cc908ac618880bf4d1993567d0217ea3a325c14deb4691277b3a5`,
+and
+`802e897a25d358fce385ea9390da70a5c2cd5bb9a3d6f4dc5a419e5ee6e9da37`.
+Each operation fixes its accepted domain, possible failures in precedence
+order, observed failure IDs, result encodings, culture-invariant candidate
+projection, runtime differential hashes, and one named input mutation.
+
+The string corpus preserves UTF-16 code units, surrogate pairs, and lone
+surrogates and closes ordinal operations, null/range exceptions, the exact
+concatenation matrix, restricted interpolation normalization, and rejected
+conversion/alignment/format holes. The codec corpus implements the exact
+ASCII grammars independently of general framework parsing/formatting and
+covers every syntax, noncanonical, range, scale/precision, and input-bound
+parser failure. Formatter output obligations and sidecar codec/rounding
+precedence are separate. Every integer, decimal, date/time, duration/instant,
+floating-bit, and GUID codec has an explicit lossless round trip; fixed-scale
+decimal round trips to the selected-mode rounded value.
+Fixed-scale parsing removes only exact zero padding when a coefficient needs
+more than 96 bits; it never rounds an unrepresentable input. Scale-2/28
+maximum and minimum values, integer padding, negative zero, and least-fraction
+rounding are checked by value equivalence rather than representation-bit
+equality.
+
+Binary32 and binary64 each use the exhaustive cross product of nine values for
+every admitted binary arithmetic, Min/Max, and ordered-comparison operation,
+plus all unary/intrinsic cases and critical conversions. The set includes both
+zero signs, infinities, the least subnormal, quiet NaN, and signaling NaN;
+every result remains an exact bit string. Decimal uses an exhaustive pairwise
+small domain with distinct scaled/signed zero representations, explicit
+sign/96-bit-coefficient/scale results, all five selected rounding modes,
+integral conversions, equality normalization, division-by-zero precedence,
+and operation-linked overflow endpoints.
+
+Each build runs twice under each of three explicitly constructed hostile
+current cultures. A second unlisted runtime environment value is also changed
+for every culture, giving twelve isolated executions across the two builds.
+All profile-side values, exact bits, error IDs, and precedence remain equal.
+83 culture-varying BCL differential vectors are retained; their
+sorted ID-set SHA-256 is
+`d17191a68f4d0e2e0596e309e4e945765f294f7e0a2a2a397e558fc66ae0c965`.
+Profile-side codec results come only from the probe's closed ASCII grammars;
+BCL Parse/Format/ToString/interpolation results remain differential evidence.
+
+### 9.2 Bounded outputs and non-activation
+
+W07 adds only the disposable runtime probe, its sanitized runner and shell
+wrapper, the canonical private measurement, its probe README section, owner-
+test extensions in `crates/mpk-cli/tests/csharp_practical_probes.rs`, and
+status/ledger updates. The runner and wrapper raw SHA-256 values are
+`85c3c99b1e84af28f7c9b734c1e333e88b994e90bfff02ad3819e9ddccf7089e`
+and
+`db5cf9230665ffb3e52b1ea95b31bf828dfcd48178bd7f317125206befe7cc94`.
+
+No production source, normative specification/vector, fixture, foundation
+descriptor, candidate bundle, public route, registered identity, build input,
+or active registry/release artifact changed. The active scalar descriptor,
+inventory, and vector remain at raw SHA-256 values
+`0345044d16d4efb3568c32a3d7bc67fec508fe9359eff423a7f09c7f69b348dc`,
+`4ff3ba6fdc2eb2857c32563b959f11194075a4264164cd7aebc808858e500e9b`,
+and
+`8109f781ca1f2b90ba02f786da09ba97602f4cd484b8835b561d5ecf4e7781c8`.
+W08 is the sole ready item. The normative freeze package remains T01-W08-W10-
+owned; production implementation and atomic activation remain in the later
+implementation/release milestones.
+
+### 9.3 Verification and review
+
+Target host: Darwin arm64. The following local checks passed:
+
+- `cargo test -p mpk-cli --test csharp_practical_probes`;
+- `cargo test -p mpk-vc --test csharp_practical_inventory`;
+- `cargo fmt --all -- --check`;
+- `cargo clippy -p mpk-cli --test csharp_practical_probes -- -D warnings`;
+- `./develop/probes/csharp-03/run-primitive-string-numeric-codec-probe.sh --check-record`;
+- `./develop/probes/csharp-03/run-primitive-string-numeric-codec-probe.sh --self-test`;
+- `python3 scripts/check-artifact-paths.py`;
+- `python3 scripts/check-spec-vectors.py --check`; and
+- `./scripts/check-fast.sh`.
+
+The exact two-clean-build/twelve-run check also passed under x86-64 emulation
+in immutable local Linux gate image
+`sha256:ea3189955dd9c0e5deda7a30ef48a0c7ef5af3b128f74fcd6e368384b8e1420a`
+with no network, a read-only container/repository, a fresh executable tmpfs,
+the fixed W03 archive cache, closed compiler/runtime environments, and fresh
+output directories. The `--check` command recorded in the probe README
+reproduced the checked-in result byte-for-byte after all fixes.
+
+Review/fix history:
+
+- The compile/runtime pass removed compiler-folded decimal overflow cases,
+  routed them through runtime operands, and made 96-bit word conversions
+  explicit under the globally checked build.
+- The schema pass replaced a false one-family-per-operation assumption with an
+  exact family set, allowing normal, null, and range observations to remain
+  attached to one operation contract.
+- The error-closure pass added missing null-receiver and input-bound vectors,
+  made every operation's failure precedence exact, and requires every declared
+  parse/exception/source-rejection failure to have a differential vector.
+- The decimal pass moved endpoint failures from synthetic edge operation names
+  onto `decimal.add`, subtract, multiply, divide, and remainder and added both
+  division-by-zero and overflow outcomes under their declared precedence.
+- The round-trip pass added separately indexed lossless relations for every
+  codec and fixed-scale decimal rounded-value relations for all five measured
+  rounding modes.
+- The codec-independence pass separated candidate decimal round trips from
+  BCL parsing and uses explicit ASCII digit generation for numeric/date/time
+  output. BCL Parse/Format calls supply differential evidence only.
+- The fixed-scale endpoint pass preserves exact values when zero padding
+  exceeds 96 coefficient bits, rejects nonzero precision loss, and checks all
+  five modes against the maximum, minimum, zero, integer, and least-fraction
+  round-trip cases without requiring identical decimal representation bits.
+- The precedence pass executes the real probe parsers and closed sidecar
+  dispatch on multi-failure inputs, checks syntax before canonicality and
+  scale before range, and records over-bound repeated text losslessly.
+- The run-count pass rejects missing and extra culture runs before pairing
+  them with the closed culture list and adds both rejection self-tests.
+- The independent owner-test pass recomputes all vector, operation, family,
+  culture-variant, observation, mutation, predecessor, and active-release
+  links and rejects changed bits, parse/rejection IDs, precedence, and
+  aggregate-index payloads. Recorded-input hash mutations are distinct from
+  the real numeric/string/parser input cases executed by the runtime probe.
+
+Final review findings: `0`. The final pass checks W07-only scope, exact W06/W03
+input binding, complete §10/§11 operation and error ownership, UTF-16/null/
+concat/interpolation behavior, every exact codec grammar and round trip,
+float/double NaN and signed-zero bits, decimal representation/rounding/
+overflow behavior, all three hostile cultures, unlisted-input independence,
+every operation mutation, deterministic rerun bytes, W06 and active scalar
+byte preservation, non-activation, and serial ledger state after all fixes.
