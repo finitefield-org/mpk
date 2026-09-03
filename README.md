@@ -48,9 +48,10 @@ release rehearsal recorded in the
 [Java implementation ledger](develop/docs/java-03-implementation-traceability-ledger.md).
 `JAVA-03-T10` installed the exact revision-3 registry and Java Linux-x64
 tuple, removed executable staging routes, added the Java example, and made the
-four-language local Linux gate the sole release owner. The current development
-host is ARM64, so the required native x86-64 gate remains explicitly unrun as
-recorded in the ledger; `CSHARP-03` stays blocked until that receipt exists.
+four-language local Linux gate the sole release owner. On 2026-09-03 the full
+gate passed twice on native x86-64 Linux; the receipt is recorded in the
+[Java implementation ledger](develop/docs/java-03-implementation-traceability-ledger.md).
+`JAVA-03` is complete and `CSHARP-03-T01-W01` is now eligible to start.
 
 ## Build from source
 

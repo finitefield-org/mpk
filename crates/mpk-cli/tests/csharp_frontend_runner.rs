@@ -41,6 +41,8 @@ fn csharp_candidate_is_an_exact_member_of_the_active_successor_release() {
         .expect("active C# candidate");
 
     assert_eq!(registry.registry_sha256(), ACTIVE_RELEASE_REGISTRY_SHA256);
+    assert_eq!(registry.registry().execution_host_profiles.len(), 3);
+    assert_eq!(registry.registry().native_runtime_layout_profiles.len(), 2);
     assert_eq!(registry.registry().frontend_bundles.len(), 4);
     assert_eq!(registry.registry().toolchain_bundles.len(), 4);
     assert_eq!(registry.registry().tuples.len(), 5);

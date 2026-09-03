@@ -4,8 +4,8 @@ Source design: `develop/docs/06_multilanguage_frontend_design.md`
 
 Status: Gate C, `MLANG-01`, and Gate D are complete after the completed Rust
 and `MLANG-00` gates. `CSHARP-02-T01` through `CSHARP-02-T20` and
-`JAVA-03-T01` through T09 are complete; T10 activation is implemented but its
-native x86-64 release receipt is pending. The checked-in Go/Rust/C#/Java
+`JAVA-03-T01` through T10 are complete, including the native x86-64 two-pass
+release receipt. The checked-in Go/Rust/C#/Java
 successor release is active. T01 completed
 the inactive normative profile/vector/toolchain freeze and disposable
 compiler/JVM compatibility probes. T02 completed the inactive offline build
@@ -17,8 +17,8 @@ T07 completed the private candidate/JVM runner and native x86-64 Linux
 acceptance. T08 completed private verification integration, and T09 completed
 conformance and local release rehearsal, and T10 implemented atomic activation.
 Registry revision 3 and all five tuples are installed. `CSHARP-03` remains a
-governance/design proposal; its native-receipt entry gate is not satisfied and
-no practical-profile specification or implementation phase has started.
+governance/design proposal; its entry gate is satisfied and T01-W01 is eligible
+to start, but no practical-profile specification or implementation has started.
 
 ## Scope and sequencing
 
@@ -807,12 +807,11 @@ wrapping/division/shift check rules; Go/Rust/C# profile entries remain
 byte-identical in the now-installed registry revision 3.
 
 Execution follows the ten serial tasks in that design's section 11 and
-`java-03-implementation-traceability-ledger.md`. T01-T09 are complete and T10
-implementation is complete: T08
+`java-03-implementation-traceability-ledger.md`. T01-T10 are complete: T08
 integrated VC/policy/evidence/AI/API, and T09 hardened and rehearsed the
 release. T10 installed the four-language release metadata and route. No public
-Java tuple was activated before T10. CSHARP-03 and later phases remain blocked
-until the native T10 receipt exists.
+Java tuple was activated before T10. The native T10 receipt is accepted, so
+CSHARP-03-T01-W01 is eligible to start; later phases remain serially blocked.
 
 T01 completion evidence: `JAVA_PROFILE_V0.md`, Java and revision-3 vectors,
 manifest entries, the traceability ledger, exact Temurin 25.0.4.1+1/JDK/native
@@ -902,13 +901,13 @@ offline two-pass release gate and `check-all.sh` delegates to it. Certificate
 v0, both source-free checker inputs and the four axiom categories are
 unchanged.
 
-The remaining T10 native receipt is explicitly open. The available Darwin
-ARM64 host reached workspace tests in an amd64 Linux container, but host
-translation returned ENOSYS for three required namespace/isolation tests
-before either installed-release pass began. Those tests were not skipped or
-weakened, and emulation is not native x86-64 acceptance. CSHARP-03 therefore
-remains blocked until `sudo ./scripts/check-java-frontend.sh` completes on a
-real native x86-64 Linux host.
+The T10 native receipt was accepted on 2026-09-03. On native x86-64 Linux with
+kernel `6.8.0-134-generic`, `./scripts/check-java-frontend.sh` returned exit 0
+after both installed-release passes, including every namespace, cgroup,
+resource-failure, mutation, syscall-trace, checker and report check. The
+canonical receipt is
+`develop/migrations/archive/java-03-t10-native-receipt.json`; CSHARP-03-T01-W01
+is therefore unblocked.
 
 Exit gate: Java passes the common definition of done without reinterpreting C#,
 Go, or Rust semantics, including the local offline two-pass installed gate,

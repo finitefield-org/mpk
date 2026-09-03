@@ -102,8 +102,8 @@ completed the registered candidate bundles, JVM runner and native x86-64 Linux
 acceptance. T08 completed private VC, policy/evidence, certificate, AI and API
 integration, and T09 completed the private release rehearsal. T10 then
 installed revision 3 and the Java tuple atomically and removed executable
-staging entrypoints. Its four-language two-pass native x86-64 Linux gate is
-explicitly unrun on the ARM64 development host.
+staging entrypoints. Its four-language two-pass native x86-64 Linux gate passed
+on 2026-09-03 with kernel `6.8.0-134-generic`.
 
 The proposed post-Java
 [practical C# design](docs/08_csharp_practical_subset_design.md) adds the
@@ -113,8 +113,8 @@ closed collection semantics, exact boundary codecs, application-owned domain
 outcomes and business values, explicit data boundaries, and pure state
 transitions. Application source and runtime remain free of MPK dependencies;
 user-defined generics, iterators, and async source are excluded. It remains
-design/governance work only. The T10 code prerequisite is present, but
-CSHARP-03 entry remains blocked until the native T10 gate receipt is recorded.
+design/governance work only. The T10 code prerequisite and native receipt are
+present, so `CSHARP-03-T01-W01` is eligible to start.
 Dart waits for the complete practical-profile release gate.
 
 No multi-language feasibility, specification, or implementation phase runs in
@@ -315,9 +315,9 @@ T01 freeze, T02 offline build, T03 validators, T04 capture/compiler adapter,
 T05 source subset/sidecars and T06 lowering/artifact emission are complete;
 T07's private candidate/JVM runner and native x86-64 Linux acceptance are
 complete. T08's private integration, T09's release rehearsal, and T10's atomic
-public activation changes are implemented. Native T10 release acceptance is
-still required before the proposed CSHARP-03 practical profile may begin; that
-profile must complete before DART-04.
+public activation and native release acceptance are complete. The proposed
+CSHARP-03 practical profile may begin at T01-W01; that profile must complete
+before DART-04.
 
 ## Reference posture
 

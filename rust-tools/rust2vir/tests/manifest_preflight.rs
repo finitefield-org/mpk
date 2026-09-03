@@ -86,7 +86,7 @@ fn arguments(root: &Path) -> Vec<OsString> {
         "--profile-registry-id",
         PROFILE_REGISTRY_ID,
         "--profile-registry-revision",
-        "2",
+        "3",
         "--profile-registry-sha256",
         PROFILE_REGISTRY_SHA256,
         "--profile-entry-sha256",

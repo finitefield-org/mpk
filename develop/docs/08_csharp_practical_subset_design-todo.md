@@ -1,8 +1,8 @@
 # CSHARP-03 Practical C# Implementation Milestones and Tasks
 
 Status: current reviewed implementation decomposition, prepared on 2026-09-03.
-CSHARP-03 has not started and every work item remains blocked pending the
-native `JAVA-03-T10` x86-64 Linux release receipt.
+The native `JAVA-03-T10` x86-64 Linux release receipt is accepted and
+`CSHARP-03-T01-W01` is eligible to start. CSHARP-03 has not started.
 
 Source design: `08_csharp_practical_subset_design.md`.
 
@@ -39,10 +39,9 @@ The only permitted entry edge is:
 JAVA-03-T10 -> CSHARP-03-T01-W01
 ```
 
-`JAVA-03-T10` implemented the atomic Java activation on 2026-09-03, but the
-ARM64 development host cannot produce the required native x86-64 Linux release
-evidence. This prerequisite therefore remains open. This file remains planning
-material. No CSHARP-03
+`JAVA-03-T10` completed atomic Java activation and the required native x86-64
+Linux two-pass release gate on 2026-09-03. This prerequisite is satisfied and
+T01-W01 is eligible to start. This file remains planning material. No CSHARP-03
 specification, vector, identity, hash, build input, production code, fixture,
 candidate bundle, or public route has been frozen or changed by the Java
 release task.

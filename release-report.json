@@ -417,6 +417,30 @@
         }
       }
     ],
+    "native_acceptance": {
+      "path": "develop/migrations/archive/java-03-t10-native-receipt.json",
+      "sha256": "712261fc353e1f84e70eecd8f0db690f5b9f7e364eef32b8f5afc5446fdd1de8",
+      "architecture": "x86_64",
+      "bundle_registry": {
+        "raw_sha256": "f2da0168c30ac72b2d624a2af76959231114b5ad862fad9d893c4e15b48395d0",
+        "registry_sha256": "7877c7c04fae912815713a8a7f6f9900198721ea572788f6f48d1dbe3f00afbd"
+      },
+      "certificate_sha256": "782ac1d28c39e171549c81e24d1059fc3544d1222fe4978247024d9397c08ef7",
+      "command": "./scripts/check-java-frontend.sh",
+      "date": "2026-09-03",
+      "exit_code": 0,
+      "host_profile_id": "mpk.host.linux-x86_64-gnu.java25.v0",
+      "installed_release_passes": 2,
+      "kernel": "6.8.0-134-generic",
+      "private_report_sha256": "46b2e57807392999aa01fa78396810333e4e9e9614c53a7c64982e6a895c0b47",
+      "schema": "mpk.java.t10.native_receipt.v0",
+      "semantic_registry": {
+        "raw_sha256": "1c9671f7db1f872f93d21757c271b39ddedd4fe612f4f388fe1700acd9808080",
+        "registry_sha256": "fc102411ac266a38db27f904df2ca6f794bca1a216fff12377d88990e653c557",
+        "revision": 3
+      },
+      "status": "accepted"
+    },
     "reproduction": [
       "./scripts/build-release-bundles.sh --check successor",
       "./scripts/check-release-bundles.sh --fixture successor",

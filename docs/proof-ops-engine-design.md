@@ -179,4 +179,5 @@ MPK does not verify an entire web service, authorize a payment, replace service
 authentication, own customer data governance, accept arbitrary source
 languages, or make AI output proof evidence. Later profiles must enter through
 their frozen semantic profile and a new atomic release. The proposed practical
-C# profile remains blocked until the native JAVA-03-T10 receipt is recorded.
+C# profile is eligible to begin at T01-W01 after the native JAVA-03-T10 receipt
+was recorded on 2026-09-03.

@@ -56,8 +56,8 @@ Unsupported or ambiguous behavior must fail closed. The MVP must reject rather t
 C#, Java, Dart, TypeScript, and Python belong to a source-frontend program
 outside the MVP acceptance boundary. That program began only after the
 Go/VIR/Rust sequence completed `RUST-07-T05`; C# scalar is now active and Java
-T10 activation is implemented, with only its native x86-64 release receipt
-still pending. Its governance remains in `06_multilanguage_frontend_design.md`.
+is complete through T10, including native release acceptance. Its governance remains in
+`06_multilanguage_frontend_design.md`.
 
 Execution is one flow: `MLANG-00` then performs common semantic and compiler-
 API research, `MLANG-01` freezes the successor extension and C# package, and

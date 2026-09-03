@@ -681,8 +681,8 @@ source-free and does not require a registry compatibility adapter.
 
 ## 11. Serial implementation plan
 
-These tasks refine `JAVA-03`. T01-T09 are complete and T10 implementation is
-complete; its native release acceptance remains pending.
+These tasks refine `JAVA-03`. T01-T10 are complete, including the native
+x86-64 Linux two-pass release acceptance recorded on 2026-09-03.
 Each task depends on the previous row, starting from
 completed `CSHARP-02-T20`. Private artifact generation does not establish
 registered installed execution or the complete native Linux release gate.
@@ -698,7 +698,7 @@ registered installed execution or the complete native Linux release gate.
 | `JAVA-03-T07` | Registered candidate bundles and measured JVM runner | Installed candidate image launches only registered bytes; offline, native closure, cgroup and hostile-environment tests pass |
 | `JAVA-03-T08` | VC, policy/evidence, certificate, AI and API integration | End-to-end Java certificate accepted from identical bytes by both checkers; context/redaction/regression gates pass without public activation |
 | `JAVA-03-T09` | Conformance/differential/fuzz/upgrade and release rehearsal | Two-build/two-run determinism, all vector owners execute, zero open findings and unchanged axiom categories |
-| `JAVA-03-T10` | Atomic four-language release, examples and active docs | Only revision 3 is installed, all five tuples work, old/crossed contexts reject; the final native Linux release receipt is required before proposed `CSHARP-03` is eligible |
+| `JAVA-03-T10` | Atomic four-language release, examples and active docs | Complete: only revision 3 is installed, all five tuples work, old/crossed contexts reject, and the native Linux gate passed twice; proposed `CSHARP-03-T01-W01` is eligible |
 
 The T01 ledger assigns each normative section, payload field, vector family
 and concrete test file exactly one primary implementation owner. Staging is a
@@ -719,8 +719,8 @@ behavior. No Dart or later-language phase runs concurrently.
 `java_profile_spec.rs` owns the T01 specification/hash model. The build,
 profile, capture, source/contract admission, lowering/emission, native
 candidate/runner, private policy and T09/T10 activation owners are implemented.
-The outstanding native T10 receipt remains assigned to the composed release
-gate. The manifest records the available tests.
+The native T10 receipt was accepted from the composed two-pass release gate on
+2026-09-03. The manifest records the available tests.
 
 | Owner | Required coverage |
 | --- | --- |

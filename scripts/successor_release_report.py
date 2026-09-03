@@ -21,6 +21,9 @@ LOCK_PATH = Path("fixtures/package-lock/valid/basic-package-lock.json")
 SEMANTIC_REGISTRY_PATH = Path("release/bundles/semantic-profile-registry.json")
 BUNDLE_REGISTRY_PATH = Path("release/bundles/bundle-registry.json")
 DEFAULT_REPORT_PATH = Path("release-report.json")
+NATIVE_ACCEPTANCE_PATH = Path(
+    "develop/migrations/archive/java-03-t10-native-receipt.json"
+)
 ARCHIVED_REPORTS = (
     Path("develop/migrations/archive/csharp-02-final-review.json"),
     Path("develop/migrations/archive/go-successor-semantic-difference-report.json"),
@@ -78,6 +81,7 @@ def build_report(repo_root: Path) -> dict[str, Any]:
     semantic, registry, candidates = active_release(repo_root)
     review_reports = archived_reports(repo_root)
     validate_review_reports(review_reports)
+    native_acceptance = native_acceptance_receipt(repo_root, semantic, registry)
 
     return {
         "schema": REPORT_SCHEMA,
@@ -144,6 +148,7 @@ def build_report(repo_root: Path) -> dict[str, Any]:
                 for language, candidate in sorted(candidates.items())
             ],
             "migration_reports": review_reports,
+            "native_acceptance": native_acceptance,
             "reproduction": [
                 "./scripts/build-release-bundles.sh --check successor",
                 "./scripts/check-release-bundles.sh --fixture successor",
@@ -153,6 +158,37 @@ def build_report(repo_root: Path) -> dict[str, Any]:
             "certificate_v0_unchanged": True,
             "proof_authority": "certificate_only",
         },
+    }
+
+
+def native_acceptance_receipt(
+    repo_root: Path, semantic: dict[str, Any], registry: dict[str, Any]
+) -> dict[str, Any]:
+    value = read_canonical_object(repo_root / NATIVE_ACCEPTANCE_PATH)
+    if (
+        value.get("schema") != "mpk.java.t10.native_receipt.v0"
+        or value.get("status") != "accepted"
+        or value.get("architecture") != "x86_64"
+        or value.get("command") != "./scripts/check-java-frontend.sh"
+        or value.get("exit_code") != 0
+        or value.get("installed_release_passes") != 2
+        or value.get("semantic_registry")
+        != {
+            "raw_sha256": sha256_file(repo_root / SEMANTIC_REGISTRY_PATH),
+            "registry_sha256": semantic["registry_sha256"],
+            "revision": 3,
+        }
+        or value.get("bundle_registry")
+        != {
+            "raw_sha256": sha256_file(repo_root / BUNDLE_REGISTRY_PATH),
+            "registry_sha256": registry["registry_sha256"],
+        }
+    ):
+        raise ReleaseReportError("JAVA-03-T10 native acceptance receipt is invalid")
+    return {
+        "path": NATIVE_ACCEPTANCE_PATH.as_posix(),
+        "sha256": sha256_file(repo_root / NATIVE_ACCEPTANCE_PATH),
+        **value,
     }
 
 

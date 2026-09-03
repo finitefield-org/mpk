@@ -2,7 +2,7 @@
 
 Schema: `mpk.alpha_release_report.v1`
 
-Status: JAVA-03-T10 activation implemented; native x86-64 Linux receipt pending
+Status: JAVA-03-T10 complete; native x86-64 Linux receipt accepted
 
 Milestone: `JAVA-03-T10`
 
@@ -72,7 +72,7 @@ The exact registry digest and bundle inventory hashes are recorded in
 - both source-free checkers agree and the axiom inventory has no new category;
 - the executable Java staging tree and predecessor composed gates are absent;
 - the final implementation review has zero findings;
-- the native two-pass Go/Rust/C#/Java receipt is not claimed: the available
-  amd64 Linux container returns `ENOSYS` for the namespace isolation probes, so
-  both official release passes remain unstarted and `CSHARP-03` remains
-  blocked.
+- the native x86-64 Linux gate completed both installed-release passes on
+  2026-09-03 with kernel `6.8.0-134-generic`; its canonical receipt is
+  `develop/migrations/archive/java-03-t10-native-receipt.json`, and
+  `CSHARP-03-T01-W01` is unblocked.

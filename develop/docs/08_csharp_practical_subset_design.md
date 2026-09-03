@@ -4,9 +4,9 @@ Status: proposed governance and implementation design. This document does not
 change the active `mpk.csharp.scalar.v0` profile, register a new profile, or
 authorize a practical-profile public route. The active release is registry
 revision 3 with Go, Rust, C# scalar, and Java scalar support. `JAVA-03-T10`
-implementation landed on 2026-09-03, but its native x86-64 Linux gate receipt
-is still required before CSHARP-03 entry; this proposal does not itself start
-specification or implementation work.
+and native x86-64 Linux gate completed on 2026-09-03. The CSHARP-03 entry gate
+is satisfied, but this proposal does not itself start specification or
+implementation work.
 
 Prepared: 2026-09-02. Revised: 2026-09-03.
 
@@ -98,9 +98,9 @@ JAVA-03-T10 -> CSHARP-03 practical profile -> DART-04
 
 Preparing this design was a governance amendment, not the start of CSHARP-03
 specification or implementation. The `JAVA-03-T10` code predecessor is
-implemented, but CSHARP-03 entry remains blocked until its native release
-receipt is recorded; no normative identity or production change has started
-here. DART-04 waits for the complete CSHARP-03 release gate. This
+complete with its native receipt, so W01 is eligible to start; no normative
+identity or production change has started here. DART-04 waits for the complete
+CSHARP-03 release gate. This
 insertion records the user value of making the already released C# frontend
 useful for business-domain logic before adding another language; it does not
 authorize parallel language work.

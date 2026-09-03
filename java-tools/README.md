@@ -293,8 +293,8 @@ namespace escapes reject. The capability probe installs and challenges this
 policy before source materialization. The packaged Main checks fixed argv and
 environment, JDK/JAR bytes, PID/capability state and read-only input mounts
 before capturing or analyzing source. T07 accepted these candidate mechanics
-natively; the final T10 four-language native receipt remains pending as
-recorded in the implementation ledger.
+natively; the final T10 four-language native receipt was accepted on
+2026-09-03 as recorded in the implementation ledger.
 
 Local checks and the complete provisioned release gate are:
 

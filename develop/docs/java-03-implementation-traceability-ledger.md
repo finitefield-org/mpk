@@ -1,10 +1,10 @@
 # JAVA-03 Implementation Traceability Ledger
 
-Status: `JAVA-03-T10` activation implementation complete (2026-09-03);
-native x86-64 Linux release acceptance pending. T01 through T09 are complete.
+Status: `JAVA-03-T10` complete (2026-09-03), including native x86-64 Linux
+release acceptance. T01 through T10 are complete.
 The checked-in active release is Go/Rust/C#/Java at registry revision 3 with
-all five tuples. The ARM64 development host cannot supply the distinct native
-x86-64 T10 receipt, so CSHARP-03 remains blocked until that receipt is recorded.
+all five tuples. The native receipt is accepted, so CSHARP-03-T01-W01 is
+eligible to start.
 
 This is an execution plan subordinate to `../specs/JAVA_PROFILE_V0.md`, the
 exact Java/revision-3 vectors, and `SEMANTIC_PROFILE_REGISTRY_V1.md`. It does
@@ -983,7 +983,7 @@ T10 atomic activation implementation record (2026-09-03):
 - Certificate v0 encoding, checker inputs, checker acceptance, the empty Java
   axiom contribution and the four existing axiom categories are unchanged.
   The regenerated release report raw-byte SHA-256 is
-  `fc8ae46c8b0cfe3cde0f13bf86788a2b900ed4651627be0c7656ee1cde49c003`.
+  `853f1e318ed55e33fcba1d68cd44f31575fd7a772c5563b851f67809594cec24`.
 - The T10 review/fix loop compared the composed gate against the deleted T07 /
   T09 gates and restored two inherited native boundaries: an undelegated JVM
   launch must reject before source access, and syscall evidence uses the
@@ -999,21 +999,18 @@ T10 atomic activation implementation record (2026-09-03):
   `46b2e57807392999aa01fa78396810333e4e9e9614c53a7c64982e6a895c0b47`.
   These translated checks are additional conformance evidence, not native
   release acceptance.
-- The native T10 gate is explicitly unrun, not passed. The available host is
-  `Darwin 25.5.0 arm64`. An offline amd64 Linux container with a writable
-  cgroup-v2 hierarchy completed the frozen-input checks, formatting and
-  all-target Clippy, but translated `cargo test --workspace` stopped before
-  either release pass because the host could not implement required namespace
-  syscalls (`Function not implemented (os error 38)` / `Unavailable`) in
-  `frontend_sandbox::tests::private_source_namespace_seals_and_unseals_a_deep_legal_tree`,
-  `policy_scan::v1::tests::noncandidate_inspection_uses_a_path_only_descriptor`,
-  and
-  `policy_scan::v1::tests::private_java_capture_preserves_source_contract_and_unlisted_inventory`.
-  ARM translation is not native x86-64 acceptance, and these tests were not
-  weakened, skipped or reclassified. The required two installed-release passes
-  therefore never started. A real native x86-64 Linux run of
-  `sudo ./scripts/check-java-frontend.sh` must supply the remaining receipt;
-  CSHARP-03 remains blocked until then.
+- The native T10 gate passed on 2026-09-03 on x86-64 Linux kernel
+  `6.8.0-134-generic`. The unchanged `./scripts/check-java-frontend.sh`
+  completed both installed-release passes and returned exit 0. Each pass
+  validated the raw revision-3 semantic registry, all five tuples, hostile
+  ambient equality, Java scalar native execution, undelegated-cgroup refusal,
+  all six resource faults, all ten installed-image mutations, the source-free
+  JVM syscall trace, both checkers, artifact paths, spec vectors and a clean
+  diff. The canonical receipt is
+  `develop/migrations/archive/java-03-t10-native-receipt.json`; it binds the
+  semantic registry identity/raw hashes, release registry identity/raw hashes,
+  certificate SHA-256 and private report SHA-256. **JAVA-03-T10 and JAVA-03 are
+  complete; CSHARP-03-T01-W01 is unblocked.**
 
 A task is complete only after its exact deliverables, required verification
 (or explicitly recorded unrun reason), fix/review loop, commit and push are

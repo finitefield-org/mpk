@@ -1004,8 +1004,8 @@ fn validate_csharp_registry_layout(
         .native_runtime_layout_profiles
         .iter()
         .find(|profile| profile.id == CSHARP_RUNTIME_LAYOUT_ID);
-    if value.execution_host_profiles.len() != 2
-        || value.native_runtime_layout_profiles.len() != 1
+    if value.execution_host_profiles.len() != 3
+        || value.native_runtime_layout_profiles.len() != 2
         || host.and_then(|profile| serde_json::to_value(profile).ok()) != Some(expected_host)
         || layout.and_then(|profile| serde_json::to_value(profile).ok()) != Some(expected_layout)
     {

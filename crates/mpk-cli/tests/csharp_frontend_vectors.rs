@@ -3,8 +3,8 @@ use mpk_cli::successor_frontend_protocol::{
     validate_successor_frontend_process, SuccessorFrontendProtocolRequest,
 };
 use mpk_vc::semantic_profile_registry::{
-    canonical_registry_transport, validate_registry_selection_envelope,
-    validate_registry_semantic_context, validate_semantic_profile_registry, RegistryRevision,
+    validate_registry_selection_envelope, validate_registry_semantic_context,
+    validate_semantic_profile_registry, RegistryRevision,
 };
 use mpk_vc::ReleaseRegistryIdentity;
 use serde_json::{json, Map, Value};
@@ -24,6 +24,13 @@ fn repository_root() -> PathBuf {
 fn load(relative: &str) -> Value {
     let bytes = fs::read(repository_root().join(relative)).expect("read JSON");
     serde_json::from_slice(&bytes).expect("parse JSON")
+}
+
+fn active_semantic_registry() -> mpk_vc::semantic_profile_registry::ValidatedSemanticProfileRegistry
+{
+    let bytes = fs::read(repository_root().join(REGISTRY_PATH)).expect("read active registry");
+    validate_semantic_profile_registry(&bytes, RegistryRevision::Revision3)
+        .expect("active revision-3 registry validates")
 }
 
 fn object(value: &Value) -> &Map<String, Value> {
@@ -161,6 +168,16 @@ fn aggregate_owner_is_pinned_and_the_active_release_registers_csharp() {
         .expect("read release assembler route");
     assert!(release_script.contains("2:--check:successor|"));
     assert!(release_script.contains("successor_release_bundles.py\" check"));
+}
+
+#[test]
+fn active_revision_three_registry_is_consumed_as_raw_transport() {
+    let installed = load(REGISTRY_PATH);
+    assert!(installed.get("registry").is_none());
+
+    let registry = active_semantic_registry();
+    assert_eq!(registry.revision(), RegistryRevision::Revision3);
+    assert_eq!(registry.entries().len(), 4);
 }
 
 #[test]
@@ -327,13 +344,7 @@ fn assert_semantic_row_report(profile: &Value, report: &Value) {
 }
 
 fn assert_failure_envelopes_pass_the_shared_protocol(profile: &Value, report: &Value) {
-    let registry_vectors = load(REGISTRY_PATH);
-    let registry = validate_semantic_profile_registry(
-        &canonical_registry_transport(&registry_vectors["registry"])
-            .expect("canonical revision-3 registry transport"),
-        RegistryRevision::Revision3,
-    )
-    .expect("active revision-3 registry validates");
+    let registry = active_semantic_registry();
     let first = &report["rejected"][0]["envelope"];
     assert_eq!(
         first["selection"],
