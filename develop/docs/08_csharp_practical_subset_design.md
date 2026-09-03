@@ -1997,15 +1997,15 @@ verified examples.
 
 ## 24. Implementation stages and gates
 
-An earlier implementation decomposition is retained at
-[`08_csharp_practical_subset_design-todo.md`](08_csharp_practical_subset_design-todo.md)
-only as superseded planning history. It predates the 2026-09-03
-zero-source-dependency and internal-specialization amendment and is not
-implementation authority: none of its `Wnn` identifiers, dependencies, owners,
-or acceptance gates may be executed. Before CSHARP-03 work resumes, replace
-that document in full with a newly reviewed decomposition derived from this
-revision. No replacement task may reintroduce a source-visible `Mpk.*` API,
-user-defined generic, iterator, or async scope.
+The reviewed implementation decomposition is maintained at
+[`08_csharp_practical_subset_design-todo.md`](08_csharp_practical_subset_design-todo.md).
+It replaces the superseded source-visible-library, iterator/async, and
+suspension-stage plan and is the current execution decomposition subordinate
+to this design and the future T01 frozen specifications. Its `Wnn`
+identifiers, dependencies, owners, acceptance gates, and primary test routing
+are current, but every item remains blocked until the native `JAVA-03-T10`
+x86-64 Linux release receipt satisfies the entry gate. No task may reintroduce
+a source-visible `Mpk.*` API, user-defined generic, iterator, or async scope.
 
 CSHARP-03 is implemented serially behind private entrypoints:
 
