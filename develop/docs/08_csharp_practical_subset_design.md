@@ -65,12 +65,12 @@ The requested capability set is:
 | Text | bounded UTF-16 strings and ordinal source operations, plus exact culture-free parse/format relations at the canonical boundary |
 | Numbers | existing integers plus exact `float`, `double`, and .NET `decimal` semantics |
 | Absence | nullable value types, nullable string/array/class references, and boundary-only missing/null/value presence with explicit proof obligations |
-| Business values | exact date, time-of-day, duration, GUID, plus application-owned instant/money values bound to internal templates, structural equality, and canonical ordering semantics |
+| Business values | exact date, time-of-day, duration, GUID, plus application-owned instant/money values bound to internal semantic definitions; structural equality is available, while canonical ordering follows the closed section 8.5 matrix |
 | Domain outcomes | application-owned closed outcome types mapped to internal `option<T>`, `lookup<T>`, `result<T,E>`, and accumulating `validation<T,E>` semantics |
 | Control flow | `while`, `do`, `for`, `foreach`, `break`, `continue`, switch statements/expressions, and closed patterns |
 | Failure | explicit throws, built-in operation exceptions, typed catch, pure filters, and `finally` under a closed exception model |
 | Integration footprint | no MPK source, package, assembly, attribute, generated-code, or runtime dependency in the application |
-| Integration | versioned canonical boundary values and pure state/command-to-new-state/events/response transitions; serializers, clocks, databases, and transports remain outside proof |
+| Integration | versioned verification-overlay canonical boundary values and pure state/command-to-new-state/events/response transitions; serializers, clocks, databases, and transports remain outside proof |
 
 “Supported” means source capture, pinned Roslyn analysis, profile validation,
 lowering, source mapping, VIR import, VC generation, both-checker certificate
@@ -127,8 +127,8 @@ authorize parallel language work.
   deterministically bounded.
 - Add no axiom, theory certificate, C# semantics primitive, or new
   proof-authority path to an accepted program certificate.
-- Retain identical semantics for every active Go, Rust, C# scalar, and, after
-  T10, Java profile during the required shared-artifact migration.
+- Retain identical semantics for every active Go, Rust, C# scalar, and Java
+  profile during the required shared-artifact migration.
 
 ### 3.2 Non-goals
 
@@ -1777,14 +1777,15 @@ Encode option/lookup/result/validation/boundary-presence/transition, immutable
 records, bounded sequences, ordered maps/sets, business primitives, canonical
 boundary-codec relations, float, decimal, and closed exception outcomes using
 ordinary checked core terms and definitions over the existing Bool/BV/array/
-struct foundations. The installed
-`mpk.program_certificate.alpha.v1` assembly profile preserves the
-`PROGRAM_CERTIFICATE_ALPHA_V0.md` acceptance rules: the root retains
-`proof_node_table: []` and `theory_certificates: []`, contains no
-`TheoryPrimitive` declaration or `Theory` node, and has a recomputed total
-axiom count of zero. Untrusted generators may optimize construction, but both
-checkers receive the same complete ordinary-term Certificate v0 bytes and
-recompute every declaration and axiom report.
+struct foundations. The successor program-assembly profile required by
+section 5.1 must preserve the acceptance rules already carried by the installed
+`mpk.program_certificate.alpha.v1` profile from
+`PROGRAM_CERTIFICATE_ALPHA_V0.md`: the root retains `proof_node_table: []` and
+`theory_certificates: []`, contains no `TheoryPrimitive` declaration or
+`Theory` node, and has a recomputed total axiom count of zero. Untrusted
+generators may optimize construction, but both checkers receive the same
+complete ordinary-term Certificate v0 bytes and recompute every declaration
+and axiom report.
 
 Semantic-template specialization and application-type projection are
 untrusted generation steps. Each expanded instance contributes ordinary
@@ -1814,7 +1815,7 @@ accepted values:
 | Constructors per type | 8 |
 | Structural type nesting | 16 |
 | Array elements per run-time value | 4,096 |
-| Sequence-construction capacity per value | 4,096 |
+| Sequence-construction capacity per value | 16,384 |
 | Array/sequence construction states per method / simultaneously live | 32 / 8 |
 | Ordered map/set entries per value | 4,096 |
 | Total collection cells represented by one request | 65,536 |
@@ -1835,6 +1836,13 @@ accepted values:
 | Catch/finally regions per method | 32 |
 | Source exception types per compilation | 32 |
 | Bounded-quantifier nesting | 4 |
+
+The shared sequence-construction ceiling accommodates the largest admitted
+string construction. Publication still proves the narrower value-specific
+ceiling: an array or ordinary sequence cannot exceed its 4,096-element bound,
+and map/set, validation-error, and transition-event values retain their own
+rows above. Reaching the lower-level construction ceiling therefore never
+widens a published value's semantic limit.
 
 Existing source, closure, operation, CFG, contract, diagnostic, artifact, and
 process limits remain ceilings unless the freeze provides reproducible memory,
@@ -1921,7 +1929,7 @@ The freeze and implementation gates must include:
 | --- | --- |
 | Expression bodies / `var` / name binding | same normalized VIR and obligations as the explicit block/type form; ordinary namespace `using` changes spelling only; exact redundant file-wide `#nullable enable`; alias/static/global/project-generated imports, other directives, malformed, and ambiguous forms reject |
 | Source dependency / generics / binding | an unchanged application build with no MPK reference; rejected MPK namespace/package/assembly/attribute/generated-source dependencies; every user generic declaration/method and arbitrary constructed framework type rejects; exact `T?` exception; an allowed intrinsic remains allowed despite incidental generic metadata while any source-visible use of that metadata rejects; binding shape/tag/payload/invariant checks; total, arm-distinct, observation-preserving projection round trips and operation commutation; logical declaration identity versus source provenance, collision/staleness mutations, exact foundation descriptor/hash and tampering, transitive specialization closure, canonical identity, sorting, deduplication, limits, tampered manifest, and residual-generic rejection |
-| Data types / construction | positive structural cases, exact implicit object/value-type/enum bases and compiler-owned init/required markers with rejected source base lists, marker access, and inherited-member calls, enum unknown/cast/zero-default cases, recursive default-eligible/ineligible cases, acyclic constructor delegation, receiver-first pure instance-call lowering, constructor-only and ordered init/required/object-initializer cases, construction/public invariant proofs, sidecar non-authority, attribute bypass, rewritten-mirror rejection, and all mutation/identity/inheritance escapes reject |
+| Data types / construction | positive structural cases, exact implicit object/value-type/enum bases, admitted enum-underlying and source-exception base clauses, rejected other source base lists, compiler-owned init/required markers with rejected marker access and inherited-member calls, enum unknown/cast/zero-default cases, recursive default-eligible/ineligible cases, acyclic constructor delegation, receiver-first pure instance-call lowering, constructor-only and ordered init/required/object-initializer cases, construction/public invariant proofs, sidecar non-authority, attribute bypass, rewritten-mirror rejection, and all mutation/identity/inheritance escapes reject |
 | Arrays / sequence construction | exact explicit/implicit creation forms and rejected collection/stack/range/best-common-type forms; structural rejection versus symbolic bound obligations; immediately complete default-eligible/zero-length allocation versus unobservable uninitialized construction cells; initialized-set/prefix tracking; premature read/alias/call/publication and catch/finally rejection; abrupt discard; complete non-defaultable elements; exact-`int` boundary lengths and indices; post-initialization unique rewrites; active-foreach mutation; every linear ownership/publication path; count-then-allocate filtered variable-result construction; and rejected source-visible builders |
 | Ordered map/set | application-owned entry/array/wrapper bindings, read/count/membership/lookup loops, canonical ordered enumeration, key-order matrix, duplicate rejection/replacement semantics when implemented in captured source, bound preservation, and rejected float keys/comparers/hash/framework/insertion-order dependencies |
 | Strings / codecs | exact string/string and string/char concat matrix, restricted interpolation equivalence and rejected alignment/format/non-string/non-char holes, rejected char/char and object conversion, null/empty concat and equality, intrinsic-only ordinal arguments, null receivers/arguments, UTF-16/surrogates, every exact parse/format grammar and noncanonical/range mutation, lossless round-trip plus fixed-scale rounded-value laws, and pinned-runtime differential corpus |
