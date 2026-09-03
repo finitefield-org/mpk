@@ -156,7 +156,8 @@ ownership is divided as follows:
 | Installed frontend, sandbox, CLI, policy, evidence, AI | `crates/mpk-cli/src/` |
 | Public structured API | `crates/mpk-api/src/successor_api.rs` and routed tests |
 | Normative specifications and vectors | `develop/specs/` and `develop/specs/vectors/` |
-| Probes, migration reports, receipts, review ledgers | `develop/migrations/csharp-03/` |
+| Traceability/status ledger | `develop/docs/csharp-03-implementation-traceability-ledger.md` |
+| Probes, migration reports, receipts, and per-item review attachments | `develop/migrations/csharp-03/` |
 | Build inputs and immutable bundles | `release/build-inputs/csharp/` and `release/bundles/` |
 | Practical examples | `examples/csharp-practical/` |
 | Existing policy fixture to repair | `fixtures/csharp/policy/` |
@@ -165,6 +166,11 @@ New files named in the task tables are expected test/owner names. T01 may
 rename them once, before downstream implementation, and must update this file
 and the traceability ledger atomically. Production logic must not live only in
 test harnesses.
+
+Until that one permitted T01 rename, “the CSHARP-03 ledger” below means
+`develop/docs/csharp-03-implementation-traceability-ledger.md`. Machine-
+readable baselines, inventories, receipts, probe results, and review-finding
+attachments referenced by it live under `develop/migrations/csharp-03/`.
 
 The following existing files are the mandatory starting points for the
 corresponding changes. An implementation may split a large module, but it must
@@ -190,8 +196,27 @@ evidence and does not modify the tracked fixture path.
 
 ## 4. Common definition of done
 
-Each stage gate requires all of the following for the capability completed so
-far:
+The requirements below are cumulative only after their implementation owner
+exists. Passing an earlier gate neither requires nor authorizes implementing a
+later-stage owner early. Apply them at stage gates as follows:
+
+| First applicable gate | Scope that becomes executable at that gate |
+| --- | --- |
+| T01 | frozen probes, specifications, vectors, hashes, limits, names, and later production-test ownership only; no production importer, source run, proof discharge, candidate, or public-route claim |
+| T02 | private test-injected registry, foundation, artifact, importer, VC-schema, protocol, and predecessor-migration guarantees; no practical C# source-acceptance or installed-route claim |
+| T03 | actual captured C# data-source runs, MPK-free application build/output inspection, source maps/manifests, generic rejection, specialization integration, and monomorphic data emission |
+| T04 | source control, pattern, explicit throw/handler, and exceptional-region guarantees |
+| T05 | boundary/transition source and sidecar guarantees, including structural rejection of every partial method on a total root closure; proof discharge remains T06-owned |
+| T06 | ordinary VC/proof construction, totality discharge, Certificate v0, both-checker, policy/evidence, AI, and structured-API guarantees on private routes |
+| T07 | registered private candidate, reproducible bundle, native sandbox, hostile-environment, and candidate installed-image guarantees |
+| T08 | checked-in examples, complete aggregate/release evidence, active installed image, rollback, and final public-route guarantees |
+
+At each gate, every requirement whose first applicable gate has been reached
+must hold for the capability completed so far and remain true at every later
+gate. When one requirement names artifacts introduced at different stages, it
+applies artifact by artifact as each owner lands; for example, T03 proves the
+generic-free VIR barrier and T06 extends that proof to VC and certificate
+inputs:
 
 - positive, negative, boundary, precedence, deterministic, mutation, and
   compiler/runtime-upgrade cases have exactly one implementation-test owner;
@@ -240,14 +265,18 @@ atomic activation, and a tested whole-image rollback procedure.
 | `CSHARP-03-T07` | 6 | reproducible registered private candidate and native sandbox evidence | two builds/runs and hostile-environment gates pass |
 | `CSHARP-03-T08` | 10 | repaired evidence, three examples, complete rehearsal, atomic activation | sole installed successor release; zero findings |
 
-### 5.1 Primary implementation-test routing
+### 5.1 Primary test routing
 
-The paths below are the planned primary production executors. Multiple work
-items may share a test binary, but each owns a distinct test module/prefix
-matching its full W ID. T01-W10 freezes the exact names and puts each frozen
-vector row under exactly one of these owners.
+The paths below are the planned primary test executors. T01 rows execute only
+probe, schema, specification, and routing checks and do not count as production
+execution; T01-W10 additionally assigns every frozen vector row to exactly one
+downstream T02-T08 production executor. Multiple work items may share a test
+binary, but each owns a distinct test module/prefix matching its full W ID. A
+primary owner is the exact pair of one path and one full-W-ID prefix;
+additional regression commands do not create a second owner. T01-W10 freezes
+all exact names.
 
-| Work items | Primary implementation test |
+| Work items | Primary test owner |
 | --- | --- |
 | T01-W01/W02 | `crates/mpk-vc/tests/csharp_practical_inventory.rs` |
 | T01-W03 | `crates/mpk-cli/tests/csharp_practical_build_inputs.rs` |
@@ -260,22 +289,29 @@ vector row under exactly one of these owners.
 | T02-W06 | `crates/mpk-vc/tests/csharp_practical_vc_model.rs` |
 | T02-W07 | `crates/mpk-cli/tests/csharp_practical_frontend_protocol.rs` |
 | T02-W08/W09 | `crates/mpk-cli/tests/csharp_practical_migration.rs` |
-| T03-W01/W02 | `crates/mpk-cli/tests/csharp_practical_capture.rs`, `crates/mpk-cli/tests/csharp_practical_syntax.rs` |
+| T03-W01 | `crates/mpk-cli/tests/csharp_practical_capture.rs` |
+| T03-W02 | `crates/mpk-cli/tests/csharp_practical_syntax.rs` |
 | T03-W03-W06 | `crates/mpk-cli/tests/csharp_practical_types.rs` |
 | T03-W07-W09 | `crates/mpk-cli/tests/csharp_practical_collections.rs` |
-| T03-W10/W11 | `crates/mpk-cli/tests/csharp_practical_codecs.rs`, `crates/mpk-cli/tests/csharp_practical_numbers.rs` |
+| T03-W10 | `crates/mpk-cli/tests/csharp_practical_codecs.rs` |
+| T03-W11 | `crates/mpk-cli/tests/csharp_practical_numbers.rs` |
 | T03-W12-W14 | `crates/mpk-cli/tests/csharp_practical_domain.rs` |
 | T04-W01-W06 | `crates/mpk-cli/tests/csharp_practical_control.rs` |
 | T05-W01-W03 | `crates/mpk-cli/tests/csharp_practical_boundary.rs` |
 | T05-W04/W05 | `crates/mpk-cli/tests/csharp_practical_transition.rs` |
-| T05-W06 | `crates/mpk-cli/tests/csharp_practical_boundary.rs`, `crates/mpk-cli/tests/csharp_practical_transition.rs` |
+| T05-W06 | `crates/mpk-cli/tests/csharp_practical_boundary_transition.rs` |
 | T06-W01-W09 | `crates/mpk-vc/tests/csharp_practical_vc.rs` |
-| T06-W10-W12 | `crates/mpk-cli/tests/csharp_practical_policy_verify.rs`, `crates/mpk-api/tests/csharp_practical_api.rs` |
-| T07-W01/W02 | `crates/mpk-cli/tests/csharp_practical_build_inputs.rs`, `crates/mpk-cli/tests/csharp_practical_release_bundle.rs` |
-| T07-W03-W06 | `crates/mpk-cli/tests/csharp_practical_frontend_runner.rs`, `crates/mpk-cli/tests/csharp_practical_release_gate.rs` |
-| T08-W01 | `crates/mpk-cli/tests/csharp_practical_fixture.rs` against the private candidate, plus existing mismatch-negative tests |
-| T08-W02-W05 | `crates/mpk-cli/tests/csharp_practical_examples.rs` and example-local .NET tests |
-| T08-W06-W10 | `crates/mpk-cli/tests/csharp_practical_release_gate.rs`, `crates/mpk-cli/tests/successor_atomic_cutover.rs` |
+| T06-W10 | `crates/mpk-cli/tests/csharp_practical_policy_verify.rs` |
+| T06-W11 | `crates/mpk-api/tests/csharp_practical_api.rs` |
+| T06-W12 | `crates/mpk-cli/tests/csharp_practical_end_to_end.rs` |
+| T07-W01 | `crates/mpk-cli/tests/csharp_practical_build_inputs.rs` |
+| T07-W02 | `crates/mpk-cli/tests/csharp_practical_release_bundle.rs` |
+| T07-W03/W04 | `crates/mpk-cli/tests/csharp_practical_frontend_runner.rs` |
+| T07-W05/W06 | `crates/mpk-cli/tests/csharp_practical_release_gate.rs` |
+| T08-W01 | `crates/mpk-cli/tests/csharp_practical_fixture.rs` against the private candidate |
+| T08-W02-W05 | `crates/mpk-cli/tests/csharp_practical_examples.rs` |
+| T08-W06-W09 | `crates/mpk-cli/tests/csharp_practical_release_gate.rs` |
+| T08-W10 | `crates/mpk-cli/tests/successor_atomic_cutover.rs` |
 
 ## 6. CSHARP-03-T01 — Feasibility and normative freeze
 
@@ -294,7 +330,8 @@ Owns: confirm Java activation; capture the installed release registry and all
 active tuple/hash/checker identities; record the exact Go/Rust/scalar-C#/Java
 test corpus, release command, axiom inventory, and clean-worktree commit in
 `develop/migrations/csharp-03/baseline.json`; create the ledger with every W
-item in this document.
+item in this document at
+`develop/docs/csharp-03-implementation-traceability-ledger.md`.
 
 Exit gate: the receipt is reproducible from the active image, `JAVA-03-T10` is
 linked by commit and receipt hash, every later item has one owner/status row,
@@ -313,9 +350,10 @@ manifests, VC/skeleton, release, policy/evidence, program assembly, AI, and API
 identities; map every producer, validator, serializer, parser, hash domain,
 bundle member, CLI/API route, fixture, and test that consumes them.
 
-Exit gate: `artifact-consumer-inventory.json` has no unowned read/write/hash
-edge, distinguishes active and private routes, and identifies the single
-atomic migration set and whole-image rollback set.
+Exit gate:
+`develop/migrations/csharp-03/artifact-consumer-inventory.json` has no unowned
+read/write/hash edge, distinguishes active and private routes, and identifies
+the single atomic migration set and whole-image rollback set.
 
 Verification: repository search fixtures prove that deleting or adding a
 known consumer makes the inventory test fail.
@@ -504,12 +542,17 @@ Depends on: T01-W09.
 Owns: the practical-profile specification package, successor shared-artifact
 specifications, exact vectors and manifest entries, canonical probe records,
 name-and-owner inventory, traceability ledger, upgrade matrix, and routing
-updates in the design/todo/developer documentation.
+updates in the design/todo/developer documentation; freezes the exact primary
+test owner pairs and the exact local practical candidate/release-gate command
+name and owner used by T07-W05/W06 and T08-W06/W09/W10.
 
-Exit gate: every source-design requirement, vector field, semantic row,
-diagnostic, limit, implementation surface, and release criterion maps to one
-later W item and one primary test; all hashes are recomputed; a complete
-specification review produces zero findings. Production behavior is unchanged.
+Exit gate: every freeze-only requirement maps to its exact T01 W item and one
+probe/specification-test owner; every implementation or release requirement,
+vector row, diagnostic, limit, implementation surface, and release criterion
+maps to one primary downstream implementation W item, any separately named
+verification/activation owners, and one primary production-test owner pair.
+All hashes are recomputed; a complete specification review produces zero
+findings. Production behavior is unchanged.
 
 Verification: `scripts/check-spec-vectors.py`, manifest tests,
 `./scripts/check-fast.sh`, and a documented second-pass review after all fixes.
@@ -543,19 +586,25 @@ Depends on: T02-W01.
 Owns: the one frozen descriptor schema and hash domain; the exact twelve
 internal templates and four non-template definitions frozen by T01-W08;
 template identities, arities, operations, dependency and expansion rules;
-canonical descriptor/member encoding; derived closed-instance roots and
-entries; and monomorphic representations for enums, immutable products,
+canonical descriptor/member encoding; the closed root/provenance input schema
+and derived closed-instance entries; a reusable specialization engine whose
+inputs are one validated registered descriptor and one explicit closed
+root/provenance set; and monomorphic representations for enums, immutable
+products,
 arrays/sequences, ordered entries/maps/sets, strings/chars, float/decimal bits,
 nullable/tagged sums, boundary presence, dates/times/duration/internal instant,
 GUID/money, transitions, parse errors, and closed exceptions.
 
 Exit gate: production validation accepts only the registered descriptor and
-independently recomputed bundle content hash. It derives only source- and
-sidecar-reachable closed instances, recursively closes dependencies, derives
-canonical identities, sorts/deduplicates them, enforces all counters, and
-expands them into concrete definitions. No caller bundle, caller allowlist,
-framework object, serializer representation, source-facing MPK type, or
-generic/template value can enter VIR.
+independently recomputed bundle content hash. Given an explicit validated
+root/provenance set, it derives only instances reachable from those roots,
+recursively closes dependencies, derives canonical identities, sorts and
+deduplicates them, enforces all counters, and expands them into concrete
+definitions. No caller bundle, caller allowlist, framework object, serializer
+representation, source-facing MPK type, or generic/template value can enter
+VIR. T02 executes this engine only with private test-injected root/provenance
+sets; deriving those roots from actual C# source and sidecars belongs
+exclusively to T03-W14.
 
 Verification: descriptor/hash/member mutations; every template arity,
 dependency, operation, and expansion; closure/order/dedup/depth/count limits;
@@ -678,12 +727,17 @@ accepted and rejected corpora.
 Depends on: T02-W08.
 
 Owns: private successor consumers in VC, certificate assembly, policy/evidence,
-CLI, release, AI explanation, API, fixture tooling, and documentation; removes
-private dual-format fallbacks; records the complete migration receipt.
+CLI, release, AI explanation, API, fixture tooling, and documentation. The
+release consumer includes strict private successor release-root, tuple,
+frontend/toolchain/foundation descriptor, member-inventory, linkage, and hash-
+domain validation over test-injected descriptors; T07-W02 alone materializes
+the final candidate bundles and tuple. This item removes private dual-format
+fallbacks and records the complete migration receipt.
 
 Exit gate: every T01-W02 inventory edge consumes exactly one successor format,
-predecessor equivalence tests pass, no public practical route exists, and T02
-review has zero findings.
+including the release and foundation-bundle edges needed by T06 and T07;
+predecessor equivalence tests pass, no release candidate or public practical
+route exists, and T02 review has zero findings.
 
 Verification: targeted consumer tests, inventory search/mutation tests,
 complete predecessor semantic/certificate regression suites, and
@@ -694,7 +748,13 @@ T08.
 
 Every T03 accepted case starts as immutable captured `.cs` and exact JSON
 sidecars, passes the pinned Roslyn public APIs, and is independently validated
-after emission. A helper-constructed VIR is not acceptance evidence.
+after emission. A helper-constructed VIR is not acceptance evidence. T03 may
+emit the frozen closed exceptional successor of a data operation using the
+T02 vocabulary, but it does not admit source-declared exceptions, explicit
+`throw`, `catch`, filters, or `finally`; those source forms and their region
+semantics belong to T04. Each T03 feature item extends source-side type/method
+sidecar parsing and attachment for its owned expression forms; T03-W14 closes
+that data-sidecar union before T04 begins.
 
 ### CSHARP-03-T03-W01 — Extend capture, declaration accounting, and closure
 
@@ -747,18 +807,24 @@ Depends on: T03-W02.
 
 Owns: declaration modifiers, members, source enums including exact underlying
 values, the closed metadata-backed `System.DayOfWeek` enum, immutable type
-graphs, exact implicit object/value-type/enum bases, the separate admitted
-source-exception base clauses, inheritance/identity/mutation rejection, and
-recursive default eligibility.
+graphs, exact implicit object/value-type/enum bases for ordinary data
+declarations, inheritance/identity/mutation rejection, and recursive default
+eligibility. It classifies a source-exception candidate separately from an
+ordinary immutable class and preserves its source identity for the next
+stage, but T04-W04 is the sole owner of its exact base-clause validation,
+admission, diagnostics, and lowering.
 
 Exit gate: every admitted instance is a structural value; unknown enum values,
 casts, zero/default cases, cycles, mutable/static/virtual/reflection/identity
 escapes, and ineligible defaults follow frozen rules. Records, record structs,
 `with`, unsupported base lists, interfaces, operators, conversions, and
-mutable/unsafe/ref-like layouts reject.
+mutable/unsafe/ref-like layouts reject. No source exception declaration is an
+accepted or emitted T03 data output, and none can be misclassified as an
+ordinary sealed class.
 
-Verification: declaration/type/default matrix tests and source/runtime
-differential vectors.
+Verification: declaration/type/default matrix tests, ordinary-data-path
+exclusion of source-exception candidates, classifier handoff tests that make no
+base-clause acceptance claim, and source/runtime differential vectors.
 
 ### CSHARP-03-T03-W04 — Admit fields, properties, constructors, and invariants
 
@@ -975,19 +1041,27 @@ instant difference extremes, GUID ordering/codecs, and money operation matrix.
 
 Depends on: T03-W13.
 
-Owns: strict semantic-binding parsing/attachment, logical declaration identity
-versus source provenance, reachable binding closure, inferred closed argument
-IDs, tag/payload/member/default/bound validation, derived foundation-instance
-collection, recursive dependency closure, canonical identity/order/dedup,
-counter enforcement, deterministic concrete expansion before VIR, complete
-data-phase emission, diagnostics, and negative-case ownership.
+Owns: closure of data-relevant type/method contract expression parsing and
+attachment; strict semantic-binding parsing/attachment; logical declaration
+identity versus source provenance; reachable binding closure; inferred closed
+argument IDs; tag/payload/member/default/bound validation; derivation of the
+exact closed root/provenance set from actual source and sidecars; invocation
+of the T02-W02 specialization engine; deterministic emission of that engine's
+validated concrete definitions before VIR; complete data-phase emission,
+diagnostics, and negative-case ownership. It does not implement a second
+closure, identity, ordering, deduplication, limit, or expansion algorithm.
 
 Exit gate: stale/colliding/missing/duplicate/unreachable/cyclic bindings and
 tampered foundation descriptors, instance tables, manifests, or expansion
 reject. No source-defined generic, unsupported constructed CLR type, generic
 call, or template node survives the VIR barrier; no monomorphic sequence-
 construction state crosses an incompatible merge/publication boundary or
-survives certificate assembly. No MPK application dependency is introduced;
+is live at a function or public-value boundary. T06-W09 separately owns proof
+that no such state is encoded into a certificate. Frozen built-in data-operation
+exception values and normal/exceptional successors are independently
+validated, while every source exception declaration or explicit handler form
+remains outside T03 acceptance and emits no T03 artifact; T04 owns its final
+validation and diagnostics. No MPK application dependency is introduced;
 iterator and async families are covered only by the frozen rejection vectors.
 Every T03 vector runs through the real frontend and importer, and the T03
 review has zero findings.
@@ -1049,25 +1123,31 @@ immutable.
 Verification: decision-graph goldens, guard ordering, exhaustiveness/overlap,
 binding scope, runtime differential, and compiler-upgrade cases.
 
-### CSHARP-03-T04-W04 — Lower closed exception values and throw sites
+### CSHARP-03-T04-W04 — Admit closed exception declarations and explicit throw sites
 
 Depends on: T04-W03.
 
-Owns: the closed exception sum, parameterless admitted built-in construction,
-source-exception declarations and frozen payload constructors, built-in
-operation-error conversion, explicit throw, method exceptional result sets,
-exceptional postcondition attachment, and uncaught classification.
+Owns: extension of declaration validation for the exact source-exception base
+clauses reserved by T03-W03; the closed exception sum; parameterless admitted
+built-in construction; source-exception declarations and frozen payload
+constructors with the exact parameterless `System.Exception` base call;
+standalone `throw new ExactException(...)`; method exceptional result sets;
+exceptional postcondition attachment; and uncaught classification. It consumes
+the frozen built-in operation exception values and successors already emitted
+by the T03 data-operation owners and does not define a second conversion for
+them.
 
 Exit gate: runtime exception objects/messages/stacks never enter artifacts;
 each throw has one typed closed value and edge. Unknown, dynamic, wrapped, or
 reflection-origin exception forms, message/inner/runtime-state constructors,
-and observation of message/stack/runtime identity reject. A closed exception outside the
-method's declared `throws` set instead creates the exact catch-or-unreachable
-obligation and must be caught or proved unreachable before verified
-acceptance.
+throw expressions, `throw null`, stored/reused exception objects, and
+observation of message/stack/runtime identity reject. A closed exception
+outside the method's declared `throws` set instead creates the exact catch-or-
+unreachable obligation and must be caught or proved unreachable before
+verified acceptance.
 
-Verification: exception constructor/tag/payload/throw/uncaught vectors and
-exceptional contract type tests.
+Verification: source-exception base-clause, constructor, tag, payload, throw,
+and uncaught vectors plus exceptional contract type tests.
 
 ### CSHARP-03-T04-W05 — Lower catch, filters, finally, and propagation
 
@@ -1075,15 +1155,16 @@ Depends on: T04-W04.
 
 Owns: lexical inner-to-outer handler search, filter-before-finally evaluation,
 filter throws, ordered catch selection, finally on every exit, override/
-propagation behavior, return/break/continue interaction, and explicit CFG
-regions/edges.
+propagation behavior, the exact bare `throw;` rethrow within its active catch,
+return/break/continue interaction, and explicit CFG regions/edges.
 
 Exit gate: every source-design search/unwind case has one canonical trace;
 hidden runtime dispatch, unspecified order, exception suppression outside the
-frozen rule, and unsupported nesting reject.
+frozen rule, rethrow outside the active catch, and source control that exits a
+`finally` via return or outward break/continue/goto reject.
 
 Verification: trace differential corpus, region/edge goldens, filter/finally
-mutation matrix, and abrupt-control combinations.
+mutation matrix, rethrow cases, and abrupt-control combinations.
 
 ### CSHARP-03-T04-W06 — Close control emission and validation
 
@@ -1246,21 +1327,26 @@ The native installed-release gate remains owned by T07/T08.
 
 ## 11. CSHARP-03-T06 — Verification integration
 
-### CSHARP-03-T06-W01 — Implement the complete contract expression union
+### CSHARP-03-T06-W01 — Import and validate the complete contract expression union
 
 Depends on: T05-W06.
 
-Owns: strict parsing, typing, canonicalization, resource bounds, and source
-attachment for every frozen type/method/boundary/transition expression form,
-including structural projections, sums, collections, codecs, control state,
-exception values, semantic-binding identities, specialized closed foundation
-operations, boundary linkage, and transition relations.
+Owns: independent verification-side parsing/import, typing, canonicalization,
+resource bounds, and attachment-identity recomputation for every canonical
+type/method/boundary/transition expression artifact already emitted by the
+T03-W14, T04-W06, and T05-W06 frontend gates, including structural
+projections, sums, collections, codecs, control state, exception values,
+semantic-binding identities, specialized closed foundation operations,
+boundary linkage, and transition relations. Source-side sidecar parsing and
+attachment remain with those earlier feature owners; T06-W01 does not
+reimplement them.
 
 Exit gate: every expression has one typed ordinary-term encoding; unknown,
 impure, partial, ill-scoped, ambiguous, duplicate, or over-limit expressions
 reject before VC generation.
 
-Verification: exhaustive tag/typing/normalization vectors and parser fuzzing.
+Verification: exhaustive tag/typing/normalization vectors, frontend-versus-
+importer attachment comparisons, and importer parser fuzzing.
 
 ### CSHARP-03-T06-W02 — Generate construction and type-invariant obligations
 
@@ -1465,28 +1551,32 @@ Depends on: T06-W12.
 
 Owns: promotion of the frozen T01 private toolchain measurements into the final
 candidate inputs under `release/build-inputs/csharp/`, the release build
-descriptor, source closure, final frontend inventory, the registered foundation
-descriptor/member/content-hash inventory, runtime files, notices, modes, build
-recipe, deterministic archive, and hostile ambient build checks. The
-foundation is an MPK verification input, not a .NET application assembly.
+descriptor, source closure, final frontend inventory, runtime files, notices,
+modes, build recipe, deterministic archive, and hostile ambient build checks.
 Toolchain facts must remain byte-for-byte traceable to T01;
 implementation-owned source inventory is recomputed from the reviewed T06 tree
-rather than copied from the T01 probe harness.
+rather than copied from the T01 probe harness. No foundation descriptor,
+template, expanded definition, or semantic operation is placed in the .NET
+reference closure, application build output, or
+`release/build-inputs/csharp/`; foundation bundle packaging belongs to
+T07-W02.
 
 Exit gate: two fresh offline builds produce byte-identical reviewed candidate
 trees/archives; any archive/file/mode/flag/reference/environment mutation fails.
 
 Verification: C# build-input tests and the exact two-clean-build recipe.
 
-### CSHARP-03-T07-W02 — Assemble immutable toolchain and frontend bundles
+### CSHARP-03-T07-W02 — Assemble immutable toolchain, frontend, and foundation bundles
 
 Depends on: T07-W01.
 
-Owns: candidate bundle descriptors, content hashes, member inventories,
-launcher contract, semantic-context/profile/foundation linkage, native
-dependencies, the closed foundation descriptor selected by the registry, and
-the private release-registry tuple. No caller-provided foundation bundle or
-instance allowlist is accepted.
+Owns: candidate toolchain, frontend, and verification-foundation bundle
+descriptors, content hashes, member inventories, launcher contract,
+semantic-context/profile/foundation linkage, native dependencies, the exact
+closed foundation descriptor and bytes selected by the registry, and the
+private release-registry tuple. The foundation remains an MPK verification
+input and is never a .NET application reference or runtime component. No
+caller-provided foundation bundle or instance allowlist is accepted.
 
 Exit gate: only exact registered members launch; replacement, omission, mode,
 path traversal, symlink, extra file, wrong context/profile, and hash mutation
@@ -1534,7 +1624,9 @@ absent from the active production image), all on the sole successor registry;
 two builds/two runs; image mutation checks; predecessor/practical corpus;
 policy/evidence/API/checker paths; ordinary practical-source builds and output
 dependency inspection proving no MPK reference; and rollback image
-materialization.
+materialization. Implements the exact local practical candidate/release-gate
+command and owner frozen by T01-W10; later release tasks invoke this command
+rather than inventing another aggregate gate.
 
 Exit gate: the candidate image is byte-identical across builds, all runs are
 deterministic, no old/staging compatibility route exists, and rollback restores
@@ -1558,7 +1650,8 @@ manifest, and candidate image; T07 review has zero findings and the active
 release remains unchanged.
 
 Verification: receipt schema/recomputation tests, `./scripts/check-fast.sh`,
-and a second native candidate run from the recorded inputs.
+and a second native candidate run from the recorded inputs through the exact
+T01-W10-frozen command.
 
 ## 13. CSHARP-03-T08 — Complete rehearsal and atomic activation
 
@@ -1688,8 +1781,9 @@ Exit gate: all seeds/counters/time budgets are recorded and reproducible; every
 frozen row executes in production code; two complete runs are identical; no
 open crash, timeout, nondeterminism, or unowned vector remains.
 
-Verification: practical release-gate script twice plus all recorded fuzz and
-mutation commands and `./scripts/check-fast.sh`.
+Verification: the T01-W10-frozen practical candidate/release-gate command
+twice, plus all recorded fuzz and mutation commands and
+`./scripts/check-fast.sh`.
 
 ### CSHARP-03-T08-W07 — Prove complete predecessor and checker preservation
 
@@ -1731,9 +1825,11 @@ injection at each activation step, rollback drill, and obsolete-route search.
 
 Depends on: T08-W08.
 
-Owns: `./scripts/check-fast.sh`, the complete reviewed native root x86-64 Linux
-assembly/image-mutation/syscall/cgroup/resource/cleanup gate twice, installed
-example reproduction, release receipt draft, and whole-diff review/fix cycles.
+Owns: `./scripts/check-fast.sh`, two runs of the exact T01-W10-frozen practical
+candidate/release-gate command covering the complete reviewed native root
+x86-64 Linux assembly/image-mutation/syscall/cgroup/resource/cleanup gate,
+installed example reproduction, release receipt draft, and whole-diff
+review/fix cycles.
 
 Exit gate: every command passes from clean inputs on the exact candidate; both
 native passes have identical hashes/verdicts; all reviewer findings are fixed
@@ -1764,9 +1860,10 @@ inventories/categories, rollback target, and zero findings; `DART-04` is
 unblocked.
 
 Verification: clean-image native release gate after activation, complete local
-corpus and checker agreement, installed-route and obsolete-format searches,
-an exact tracked-fixture-versus-T08-W01-candidate inventory/hash comparison,
-rollback then re-activation rehearsal, and `./scripts/check-fast.sh`.
+corpus and checker agreement through the exact T01-W10-frozen command,
+installed-route and obsolete-format searches, an exact tracked-fixture-versus-
+T08-W01-candidate inventory/hash comparison, rollback then re-activation
+rehearsal, and `./scripts/check-fast.sh`.
 
 ## 14. Requirement-to-work-item traceability
 
@@ -1780,10 +1877,10 @@ the task contract above and the frozen T01 ledger.
 | source dependency, declaration/call/type closure | T01-W03/W04/W06 | T03-W01/W14, T06-W12, T07-W05, T08-W02-W04 |
 | canonical source identity and provenance | T01-W02/W08/W09 | T02-W04/W05, T03-W14, T05-W01, T06-W06 |
 | user-generic prohibition, exact `T?`, incidental metadata | T01-W04/W06/W08 | T02-W02/W05, T03-W01/W12/W14, T06-W06/W09 |
-| registered foundation descriptor and closed specialization | T01-W02/W08/W09 | T02-W01-W06, T03-W14, T06-W06/W09/W10, T07-W01/W02/W06 |
+| registered foundation descriptor and closed specialization | T01-W02/W08/W09 | T02-W01-W06, T03-W14, T06-W06/W09/W10, T07-W02/W06 |
 | application semantic bindings and projection obligations | T01-W08/W09 | T02-W03-W05, T03-W08/W09/W12-W14, T05-W01/W04, T06-W01/W06 |
 | expression bodies, `var`, imports, nullable directive | T01-W04 | T03-W02 |
-| enum/struct/class/default eligibility | T01-W04/W08 | T03-W03, T06-W02 |
+| enum/struct/ordinary immutable class/default eligibility | T01-W04/W08 | T03-W03, T06-W02 |
 | fields/properties/constructors/instance methods/init/required | T01-W04/W08 | T03-W04/W05, T06-W02 |
 | structural equality and ordering | T01-W04/W08 | T03-W06, T06-W03 |
 | arrays and internal sequence construction | T01-W04/W08 | T02-W02/W03, T03-W07/W08, T06-W03 |
@@ -1794,24 +1891,27 @@ the task contract above and the frozen T01 ledger.
 | date/time/duration/instant/GUID/money | T01-W04/W08 | T03-W13, T06-W03/W06 |
 | loops and contracts | T01-W05/W09 | T04-W01/W02, T06-W04 |
 | switch and patterns | T01-W05 | T04-W03, T06-W04 |
-| exceptions and abrupt completion | T01-W05/W09 | T04-W04-W06, T06-W05 |
+| exceptions, exact source-exception bases, and abrupt completion | T01-W05/W09 | T04-W04-W06, T06-W05 |
 | iterator/async/task/enumeration exclusions | T01-W06/W09 | T03-W01/W14, T05-W06, T08-W06 |
 | boundary JSON, overlay linkage, three-state presence | T01-W08/W09 | T05-W01-W03/W06, T06-W07 |
 | pure transitions and optional full-snapshot idempotency | T01-W08/W09 | T05-W04-W06, T06-W08 |
-| contract expression union | T01-W09 | T06-W01 |
+| contract expression union | T01-W09 | T03-W04-W14, T04-W01/W04/W06, T05-W01/W04/W06, T06-W01 |
 | closed framework surface and effect firewall | T01-W03/W06/W08/W09 | T03-W01/W10/W13/W14, T05-W02/W04/W06, T06-W10/W11, T07-W03/W04 |
 | successor VIR/source artifacts/maps/manifests | T01-W02/W09 | T02-W02-W07 |
 | VC/hash/certificate/zero axioms | T01-W09 | T02-W06, T06-W02-W09 |
 | diagnostics, precedence, and limits | T01-W09 | each frontend task; gates T03-W14/T04-W06/T05-W06 |
 | policy/evidence/AI/API | T01-W02/W09 | T02-W09, T06-W10-W12 |
-| build, bundle, sandbox, release | T01-W03/W09 | T07-W01-W06, T08-W08-W10 |
+| build, bundle, sandbox, release | T01-W03/W09 | T02-W09, T07-W01-W06, T08-W08-W10 |
 | Required.cs repair and examples | T01-W10 vector ownership | T08-W01-W05, T08-W10 |
 | aggregate conformance/fuzz/upgrade | T01-W04-W10 | T08-W06/W07/W09 |
 
 ## 15. Per-item handoff checklist
 
 Before marking any work item complete, its commit and ledger row must answer
-all of these without an implicit “as above”:
+all of these without an implicit “as above”. An answer may be an exact value or
+an explicit `not_applicable` that cites the first applicable owner/gate from
+section 4; omission is never valid, and `not_applicable` is invalid once that
+owner/gate has been reached:
 
 - Which exact predecessor receipt and frozen spec/vector hashes were inputs?
 - Which production files, tests, vectors, fixtures, and docs changed?
