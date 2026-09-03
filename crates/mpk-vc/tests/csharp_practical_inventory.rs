@@ -5,6 +5,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 const BASELINE_PATH: &str = "develop/migrations/csharp-03/baseline.json";
+const INVENTORY_PATH: &str = "develop/migrations/csharp-03/artifact-consumer-inventory.json";
 const LEDGER_PATH: &str = "develop/docs/csharp-03-implementation-traceability-ledger.md";
 const PLAN_PATH: &str = "develop/docs/08_csharp_practical_subset_design-todo.md";
 
@@ -162,15 +163,15 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
         );
 
         let expected_status = match work_item.as_str() {
-            "CSHARP-03-T01-W01" => "Complete",
-            "CSHARP-03-T01-W02" => "Ready",
+            "CSHARP-03-T01-W01" | "CSHARP-03-T01-W02" => "Complete",
+            "CSHARP-03-T01-W03" => "Ready",
             _ => "Blocked",
         };
         assert_eq!(row.status, expected_status, "status drift for {work_item}");
-        let expected_commit = if work_item == "CSHARP-03-T01-W01" {
-            "SELF"
-        } else {
-            "—"
+        let expected_commit = match work_item.as_str() {
+            "CSHARP-03-T01-W01" => "17275ffcba4f37d93a74fd188d9860b0a7d5f10d",
+            "CSHARP-03-T01-W02" => "SELF",
+            _ => "—",
         };
         assert_eq!(
             row.commit, expected_commit,
@@ -186,8 +187,367 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
         "./scripts/check-fast.sh",
         "Native x86-64 Linux gate",
         "Final review findings: `0`",
+        "## 4. CSHARP-03-T01-W02 completion record",
+        "develop/migrations/csharp-03/artifact-consumer-inventory.json",
+        "Repository search fixtures: `136`",
+        "inventory records 67 explicit",
+        "bind 4,920 family-to-path consumer hits",
     ] {
         assert!(ledger.contains(required), "ledger is missing {required}");
+    }
+}
+
+#[test]
+fn csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge() {
+    let inventory = read_json(INVENTORY_PATH);
+    assert_exact_keys(
+        &inventory,
+        &[
+            "schema",
+            "work_item",
+            "observed_source",
+            "route_classes",
+            "identity_families",
+            "explicit_edges",
+            "search_policy",
+            "bundle_members",
+            "cli_routes",
+            "api_routes",
+            "atomic_migration_set",
+            "whole_image_rollback_set",
+            "closure",
+        ],
+    );
+    assert_eq!(
+        text(&inventory["schema"]),
+        "mpk.csharp_practical.artifact_consumer_inventory.v1"
+    );
+    assert_eq!(text(&inventory["work_item"]), "CSHARP-03-T01-W02");
+    assert_eq!(
+        inventory["observed_source"]["commit"],
+        "17275ffcba4f37d93a74fd188d9860b0a7d5f10d"
+    );
+    assert_eq!(
+        inventory["observed_source"]["tree"],
+        "957b38264b0e149fa6050b0c5d692ee4b1761001"
+    );
+    assert_eq!(inventory["observed_source"]["baseline"], BASELINE_PATH);
+
+    let route_classes = object(&inventory["route_classes"]);
+    assert_eq!(
+        route_classes
+            .keys()
+            .map(String::as_str)
+            .collect::<BTreeSet<_>>(),
+        BTreeSet::from(["active", "private"])
+    );
+
+    let required_families = string_set(&inventory["closure"]["required_families"]);
+    assert_eq!(
+        required_families,
+        BTreeSet::from([
+            "semantic_registry".to_owned(),
+            "semantic_context".to_owned(),
+            "semantic_parameters".to_owned(),
+            "selection".to_owned(),
+            "profile_contract".to_owned(),
+            "source_artifact".to_owned(),
+            "foundation".to_owned(),
+            "vir".to_owned(),
+            "frontend_protocol".to_owned(),
+            "source_map".to_owned(),
+            "source_manifest".to_owned(),
+            "vc_skeleton".to_owned(),
+            "release".to_owned(),
+            "policy_evidence".to_owned(),
+            "program_assembly".to_owned(),
+            "ai".to_owned(),
+            "api".to_owned(),
+        ])
+    );
+
+    let planned_items = planned_work_items(&read_text(PLAN_PATH));
+    let search_fixtures = array(&inventory["search_policy"]["fixtures"]);
+    assert_eq!(
+        search_fixtures.len(),
+        136,
+        "repository search inventory drift"
+    );
+    assert_eq!(
+        search_fixtures
+            .iter()
+            .map(|fixture| {
+                fixture["expected_count"]
+                    .as_u64()
+                    .expect("search count must be an unsigned integer")
+            })
+            .sum::<u64>(),
+        4_920,
+        "family-to-path inventory total drift"
+    );
+    let fixture_by_id = search_fixtures
+        .iter()
+        .map(|fixture| (text(&fixture["id"]).to_owned(), fixture))
+        .collect::<BTreeMap<_, _>>();
+    let fixture_ids = fixture_by_id.keys().cloned().collect::<BTreeSet<_>>();
+    assert_eq!(
+        fixture_ids.len(),
+        search_fixtures.len(),
+        "duplicate search fixture ID"
+    );
+
+    let families = array(&inventory["identity_families"]);
+    assert_eq!(families.len(), 17, "identity-family inventory drift");
+    let mut actual_families = BTreeSet::new();
+    let mut referenced_fixtures = BTreeSet::new();
+    for family in families {
+        assert_exact_keys(
+            family,
+            &[
+                "id",
+                "current_identities",
+                "current_hash_domains",
+                "successor_requirement",
+                "identity_freeze_owner",
+                "implementation_owners",
+                "search_fixture_ids",
+            ],
+        );
+        let family_id = text(&family["id"]);
+        assert!(
+            actual_families.insert(family_id.to_owned()),
+            "duplicate identity family {family_id}"
+        );
+        assert!(
+            !array(&family["current_identities"]).is_empty(),
+            "{family_id} lacks a current identity"
+        );
+        assert_eq!(
+            array(&family["current_identities"]).len(),
+            string_set(&family["current_identities"]).len(),
+            "{family_id} repeats a current identity"
+        );
+        assert_eq!(
+            array(&family["current_hash_domains"]).len(),
+            string_set(&family["current_hash_domains"]).len(),
+            "{family_id} repeats a current hash domain"
+        );
+        assert!(
+            !text(&family["successor_requirement"]).is_empty(),
+            "{family_id} lacks a successor requirement"
+        );
+        assert_eq!(text(&family["identity_freeze_owner"]), "CSHARP-03-T01-W09");
+        assert!(
+            !array(&family["implementation_owners"]).is_empty(),
+            "{family_id} lacks an implementation owner"
+        );
+        for owner in array(&family["implementation_owners"]) {
+            let owner = text(owner);
+            assert!(planned_items.contains(owner), "unknown owner {owner}");
+        }
+        assert!(
+            !array(&family["search_fixture_ids"]).is_empty(),
+            "{family_id} lacks a repository search fixture"
+        );
+        for fixture_id in array(&family["search_fixture_ids"]) {
+            let fixture_id = text(fixture_id);
+            assert!(
+                fixture_ids.contains(fixture_id),
+                "{family_id} references missing search fixture {fixture_id}"
+            );
+            assert!(
+                referenced_fixtures.insert(fixture_id.to_owned()),
+                "search fixture {fixture_id} is assigned to multiple families"
+            );
+        }
+        for token in array(&family["current_identities"])
+            .iter()
+            .chain(array(&family["current_hash_domains"]).iter())
+            .map(text)
+            .filter(|token| {
+                token.starts_with("mpk.") || token.starts_with("MPK-") || token.starts_with("Std.")
+            })
+        {
+            assert!(
+                array(&family["search_fixture_ids"])
+                    .iter()
+                    .any(|fixture_id| {
+                        let fixture = fixture_by_id
+                            .get(text(fixture_id))
+                            .expect("family search fixture must exist");
+                        token.starts_with(text(&fixture["needle"]))
+                    }),
+                "{family_id} identity/domain token has no search coverage: {token}"
+            );
+        }
+    }
+    assert_eq!(actual_families, required_families);
+    assert_eq!(referenced_fixtures, fixture_ids);
+    assert_installed_identity_inventory(families);
+    assert_current_hash_domain_inventory(families);
+
+    let required_roles = string_set(&inventory["closure"]["required_roles"]);
+    let allowed_operations = string_set(&inventory["closure"]["edge_operations"]);
+    assert_eq!(
+        allowed_operations,
+        BTreeSet::from(["hash".to_owned(), "read".to_owned(), "write".to_owned()])
+    );
+    let migration_set = text(&inventory["atomic_migration_set"]["id"]);
+    let mut edge_ids = BTreeSet::new();
+    let mut observed_edge_families = BTreeSet::new();
+    let mut observed_roles = BTreeSet::new();
+    let mut observed_operations = BTreeSet::new();
+    let mut observed_routes = BTreeSet::new();
+    let explicit_edges = array(&inventory["explicit_edges"]);
+    assert_eq!(explicit_edges.len(), 67, "explicit edge inventory drift");
+    for edge in explicit_edges {
+        assert_exact_keys(
+            edge,
+            &[
+                "id",
+                "family",
+                "path",
+                "anchors",
+                "operations",
+                "roles",
+                "route",
+                "migration_owner",
+                "migration_set",
+            ],
+        );
+        let edge_id = text(&edge["id"]);
+        assert!(
+            edge_ids.insert(edge_id.to_owned()),
+            "duplicate edge {edge_id}"
+        );
+        assert!(
+            required_families.contains(text(&edge["family"])),
+            "edge {edge_id} has unknown family"
+        );
+        observed_edge_families.insert(text(&edge["family"]).to_owned());
+        let path = text(&edge["path"]);
+        let contents = read_text(path);
+        assert!(
+            !array(&edge["anchors"]).is_empty(),
+            "edge {edge_id} lacks anchors"
+        );
+        for anchor in array(&edge["anchors"]) {
+            let anchor = text(anchor);
+            assert!(
+                contents.contains(anchor),
+                "edge {edge_id} lost anchor {anchor} in {path}"
+            );
+        }
+        assert!(
+            !array(&edge["operations"]).is_empty(),
+            "edge {edge_id} lacks operations"
+        );
+        for operation in array(&edge["operations"]) {
+            let operation = text(operation);
+            assert!(
+                allowed_operations.contains(operation),
+                "edge {edge_id} has unknown operation {operation}"
+            );
+            observed_operations.insert(operation.to_owned());
+        }
+        assert!(
+            !array(&edge["roles"]).is_empty(),
+            "edge {edge_id} lacks roles"
+        );
+        for role in array(&edge["roles"]) {
+            let role = text(role);
+            assert!(
+                required_roles.contains(role),
+                "edge {edge_id} has unknown role {role}"
+            );
+            observed_roles.insert(role.to_owned());
+        }
+        let route = text(&edge["route"]);
+        assert!(
+            route_classes.contains_key(route),
+            "unknown edge route {route}"
+        );
+        let (classified_route, _) = classify_search_path(&inventory["search_policy"], path)
+            .unwrap_or_else(|| panic!("explicit edge {edge_id} has no path route"));
+        assert_eq!(
+            route, classified_route,
+            "explicit edge {edge_id} route disagrees with path classification"
+        );
+        observed_routes.insert(route.to_owned());
+        assert!(
+            planned_items.contains(text(&edge["migration_owner"])),
+            "edge {edge_id} has an unknown migration owner"
+        );
+        assert_eq!(text(&edge["migration_set"]), migration_set);
+    }
+    assert_eq!(observed_edge_families, required_families);
+    assert_eq!(observed_roles, required_roles);
+    assert_eq!(observed_operations, allowed_operations);
+    assert_eq!(
+        observed_routes,
+        BTreeSet::from(["active".to_owned(), "private".to_owned()])
+    );
+
+    let search_routes = assert_repository_search_fixtures(&inventory, &required_families);
+    assert_eq!(
+        search_routes,
+        BTreeSet::from(["active".to_owned(), "private".to_owned()])
+    );
+    assert_bundle_members_and_routes(&inventory);
+    assert_atomic_migration_and_rollback(&inventory, &required_families, &planned_items);
+
+    let closure = &inventory["closure"];
+    assert_exact_keys(
+        closure,
+        &[
+            "required_families",
+            "required_roles",
+            "edge_operations",
+            "unowned_edges",
+            "unclassified_routes",
+            "unassigned_atomic_members",
+            "unassigned_rollback_members",
+        ],
+    );
+    for field in [
+        "unowned_edges",
+        "unclassified_routes",
+        "unassigned_atomic_members",
+        "unassigned_rollback_members",
+    ] {
+        assert!(
+            array(&closure[field]).is_empty(),
+            "closure field {field} is not empty"
+        );
+    }
+}
+
+#[test]
+fn csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers() {
+    let inventory = read_json(INVENTORY_PATH);
+    let policy = &inventory["search_policy"];
+    let search_index = repository_search_index(policy);
+    for fixture in array(&policy["fixtures"]) {
+        let id = text(&fixture["id"]);
+        let observed = repository_search_paths(&search_index, text(&fixture["needle"]));
+        assert_search_fingerprint(fixture, &observed).expect("checked-in consumer set");
+
+        let mut deleted = observed.clone();
+        deleted
+            .pop()
+            .unwrap_or_else(|| panic!("search fixture {id} must own a known consumer"));
+        assert!(
+            assert_search_fingerprint(fixture, &deleted).is_err(),
+            "deleting a known consumer must fail search fixture {id}"
+        );
+
+        let mut added = observed;
+        added.push(format!("fixtures/csharp/__synthetic_{id}_consumer__.json"));
+        added.sort();
+        assert!(
+            assert_search_fingerprint(fixture, &added).is_err(),
+            "adding a known consumer must fail search fixture {id}"
+        );
     }
 }
 
@@ -596,6 +956,684 @@ fn code_span(field: &str) -> &str {
         .split('`')
         .nth(1)
         .expect("owner path must be the first code span")
+}
+
+fn assert_repository_search_fixtures(
+    inventory: &Value,
+    required_families: &BTreeSet<String>,
+) -> BTreeSet<String> {
+    let policy = &inventory["search_policy"];
+    assert_exact_keys(
+        policy,
+        &[
+            "roots",
+            "ignored_directory_names",
+            "path_route_rules",
+            "fixtures",
+        ],
+    );
+    let search_roots = string_set(&policy["roots"]);
+    assert_eq!(
+        search_roots,
+        BTreeSet::from([
+            "alpha-release-report".to_owned(),
+            "crates".to_owned(),
+            "csharp-tools".to_owned(),
+            "develop/specs".to_owned(),
+            "examples".to_owned(),
+            "fixtures".to_owned(),
+            "fuzz".to_owned(),
+            "go-tools".to_owned(),
+            "java-tools".to_owned(),
+            "proofs".to_owned(),
+            "release-report.json".to_owned(),
+            "release/build-inputs".to_owned(),
+            "release/bundles".to_owned(),
+            "rust-tools".to_owned(),
+            "scripts".to_owned(),
+        ]),
+        "repository search-root inventory drift"
+    );
+    assert_eq!(
+        array(&policy["roots"]).len(),
+        search_roots.len(),
+        "duplicate repository search root"
+    );
+    for root in array(&policy["roots"]) {
+        let root = text(root);
+        assert!(
+            repo_path(root).exists(),
+            "search root does not exist: {root}"
+        );
+    }
+
+    let mut rule_ids = BTreeSet::new();
+    for rule in array(&policy["path_route_rules"]) {
+        assert_exact_keys(rule, &["id", "match", "pattern", "route", "role"]);
+        let id = text(&rule["id"]);
+        assert!(rule_ids.insert(id.to_owned()), "duplicate route rule {id}");
+        assert!(
+            matches!(text(&rule["match"]), "prefix" | "suffix" | "contains"),
+            "unknown route-rule matcher for {id}"
+        );
+        assert!(
+            matches!(text(&rule["route"]), "active" | "private"),
+            "unknown route class for {id}"
+        );
+    }
+
+    let mut routes = BTreeSet::new();
+    let mut errors = Vec::new();
+    let search_index = repository_search_index(policy);
+    for fixture in array(&policy["fixtures"]) {
+        assert_exact_keys(
+            fixture,
+            &[
+                "id",
+                "family",
+                "needle",
+                "expected_count",
+                "expected_paths_sha256",
+            ],
+        );
+        let id = text(&fixture["id"]);
+        let family = text(&fixture["family"]);
+        assert!(
+            required_families.contains(family),
+            "{id} has unknown family"
+        );
+        let paths = repository_search_paths(&search_index, text(&fixture["needle"]));
+        if let Err(error) = assert_search_fingerprint(fixture, &paths) {
+            errors.push(error);
+        }
+        for path in &paths {
+            let (route, role) = classify_search_path(policy, path)
+                .unwrap_or_else(|| panic!("unowned search edge {id}:{path}"));
+            assert!(
+                matches!(
+                    role,
+                    "producer" | "validator" | "bundle_member" | "fixture" | "test" | "api_route"
+                ),
+                "search edge {id}:{path} has invalid role {role}"
+            );
+            routes.insert(route.to_owned());
+        }
+    }
+    assert!(
+        errors.is_empty(),
+        "repository consumer search drift:\n{}",
+        errors.join("\n")
+    );
+    routes
+}
+
+fn assert_installed_identity_inventory(families: &[Value]) {
+    let registry = read_json("release/bundles/semantic-profile-registry.json");
+    let profiles = array(&registry["profiles"]);
+
+    let mut registry_identities = BTreeSet::from([
+        "mpk.semantic_profile.entry.v1".to_owned(),
+        "mpk.semantic_profile.registry.limits.v1".to_owned(),
+        "mpk.semantic_profile.registry.v1".to_owned(),
+    ]);
+    let mut parameter_identities = BTreeSet::new();
+    let mut selection_identities = BTreeSet::new();
+    let mut contract_identities = BTreeSet::from([
+        "mpk.csharp.contract.v0".to_owned(),
+        "mpk.go.contract.v0".to_owned(),
+        "mpk.java.contract.v0".to_owned(),
+        "mpk.rust.contract.v0".to_owned(),
+    ]);
+    for profile in profiles {
+        registry_identities.insert(text(&profile["semantic_profile"]).to_owned());
+        parameter_identities.insert(text(&profile["semantic_parameters_schema"]).to_owned());
+        selection_identities.insert(text(&profile["selection_schema"]).to_owned());
+        contract_identities.extend(
+            object(&profile["contracts"])
+                .values()
+                .map(text)
+                .map(str::to_owned),
+        );
+    }
+
+    assert_eq!(
+        string_set(&identity_family(families, "semantic_registry")["current_identities"]),
+        registry_identities
+    );
+    assert_eq!(
+        string_set(&identity_family(families, "semantic_parameters")["current_identities"]),
+        parameter_identities
+    );
+    assert_eq!(
+        string_set(&identity_family(families, "selection")["current_identities"]),
+        selection_identities
+    );
+    assert_eq!(
+        string_set(&identity_family(families, "profile_contract")["current_identities"]),
+        contract_identities
+    );
+}
+
+fn assert_current_hash_domain_inventory(families: &[Value]) {
+    let expected = BTreeMap::from([
+        (
+            "semantic_registry",
+            vec![
+                "MPK-SEMANTIC-PROFILE-ENTRY-1.0",
+                "MPK-SEMANTIC-PROFILE-REGISTRY-1.0",
+            ],
+        ),
+        (
+            "selection",
+            vec!["MPK-CSHARP-SELECTION-0.1", "MPK-JAVA-SELECTION-0.1"],
+        ),
+        (
+            "profile_contract",
+            vec![
+                "MPK-CONTRACT-0.1",
+                "MPK-CONTRACT-1.0",
+                "MPK-CSHARP-CONTRACT-SIDECAR-0.1",
+                "MPK-JAVA-CONTRACT-SIDECAR-0.1",
+            ],
+        ),
+        (
+            "vir",
+            vec![
+                "MPK-CONTRACT-0.1",
+                "MPK-CONTRACT-1.0",
+                "MPK-VIR-0.1",
+                "MPK-VIR-1.0",
+            ],
+        ),
+        (
+            "frontend_protocol",
+            vec![
+                "MPK-RUST-DRIVER-PAYLOAD-0.1",
+                "MPK-RUST-DRIVER-PAYLOAD-1.0",
+                "MPK-RUST-DRIVER-REQUEST-0.1",
+                "MPK-RUST-DRIVER-REQUEST-1.0",
+            ],
+        ),
+        (
+            "source_map",
+            vec!["MPK-SOURCE-MAP-0.1", "MPK-SOURCE-MAP-1.0"],
+        ),
+        (
+            "source_manifest",
+            vec![
+                "MPK-INPUT-SET-0.1",
+                "MPK-RUST-SOURCE-INVENTORY-0.1",
+                "MPK-SOURCE-MANIFEST-0.1",
+                "MPK-SOURCE-MANIFEST-1.0",
+            ],
+        ),
+        ("vc_skeleton", vec!["MPK-VC-1.0", "MPK-VC-2.0"]),
+        (
+            "release",
+            vec![
+                "MPK-BUNDLE-CONTENT-0.1",
+                "MPK-BUNDLE-REGISTRY-0.1",
+                "MPK-BUNDLE-REGISTRY-1.0",
+                "MPK-CSHARP-REFERENCE-INVENTORY-0.1",
+                "MPK-CSHARP-TOOLCHAIN-INPUTS-0.1",
+                "MPK-JAVA-TOOLCHAIN-INPUTS-0.1",
+                "MPK-RUST-BUILD-INPUTS-0.1",
+            ],
+        ),
+        (
+            "program_assembly",
+            vec![
+                "MPK-AXIOM-REPORT-0.1",
+                "MPK-DECL-0.1",
+                "MPK-LEVEL-0.1",
+                "MPK-MODULE-CERT-0.1",
+                "MPK-MODULE-EXPORT-0.1",
+                "MPK-PROOF-NODE-0.1",
+                "MPK-SOURCE-MANIFEST-0.1",
+                "MPK-TERM-0.1",
+                "MPK-THEORY-CERT-0.1",
+            ],
+        ),
+    ]);
+    for family in families {
+        let id = text(&family["id"]);
+        let actual = string_set(&family["current_hash_domains"]);
+        let expected = expected
+            .get(id)
+            .map(|domains| domains.iter().map(|domain| (*domain).to_owned()).collect())
+            .unwrap_or_default();
+        assert_eq!(actual, expected, "current hash-domain drift for {id}");
+    }
+}
+
+fn identity_family<'a>(families: &'a [Value], id: &str) -> &'a Value {
+    families
+        .iter()
+        .find(|family| text(&family["id"]) == id)
+        .unwrap_or_else(|| panic!("missing identity family {id}"))
+}
+
+fn assert_search_fingerprint(fixture: &Value, paths: &[String]) -> Result<(), String> {
+    let id = text(&fixture["id"]);
+    let expected_count = fixture["expected_count"]
+        .as_u64()
+        .expect("search count must be an unsigned integer") as usize;
+    let expected_hash = text(&fixture["expected_paths_sha256"]);
+    let actual_hash = search_path_set_hash(paths);
+    if paths.len() == expected_count && actual_hash == expected_hash {
+        Ok(())
+    } else {
+        Err(format!(
+            "{id}: expected count={expected_count} sha256={expected_hash}; actual count={} sha256={actual_hash}",
+            paths.len()
+        ))
+    }
+}
+
+fn repository_search_index(policy: &Value) -> Vec<(String, String)> {
+    let root = repo_path("");
+    let ignored = string_set(&policy["ignored_directory_names"]);
+    let mut files = Vec::new();
+    for search_root in array(&policy["roots"]) {
+        collect_search_files(&root.join(text(search_root)), &ignored, &mut files);
+    }
+    files.sort();
+    files.dedup();
+    files
+        .into_iter()
+        .filter_map(|path| {
+            fs::read(&path).ok().map(|bytes| {
+                let relative = path
+                    .strip_prefix(&root)
+                    .expect("search path must remain under repository root")
+                    .to_string_lossy()
+                    .replace('\\', "/");
+                (relative, String::from_utf8_lossy(&bytes).into_owned())
+            })
+        })
+        .collect()
+}
+
+fn repository_search_paths(search_index: &[(String, String)], needle: &str) -> Vec<String> {
+    assert!(!needle.is_empty(), "search needle must not be empty");
+    let mut matches = search_index
+        .iter()
+        .filter(|(_, contents)| contents.contains(needle))
+        .map(|(path, _)| path.clone())
+        .collect::<Vec<_>>();
+    matches.sort();
+    matches
+}
+
+fn collect_search_files(path: &Path, ignored: &BTreeSet<String>, files: &mut Vec<PathBuf>) {
+    let metadata = fs::symlink_metadata(path)
+        .unwrap_or_else(|error| panic!("failed to inspect {}: {error}", path.display()));
+    if metadata.file_type().is_symlink() {
+        return;
+    }
+    if metadata.is_file() {
+        files.push(path.to_path_buf());
+        return;
+    }
+    if path
+        .file_name()
+        .and_then(|name| name.to_str())
+        .is_some_and(|name| ignored.contains(name))
+    {
+        return;
+    }
+    let entries = fs::read_dir(path)
+        .unwrap_or_else(|error| panic!("failed to list {}: {error}", path.display()));
+    for entry in entries {
+        let entry = entry.unwrap_or_else(|error| {
+            panic!("failed to read an entry under {}: {error}", path.display())
+        });
+        collect_search_files(&entry.path(), ignored, files);
+    }
+}
+
+fn search_path_set_hash(paths: &[String]) -> String {
+    let mut hasher = Sha256::new();
+    for path in paths {
+        hasher.update(path.as_bytes());
+        hasher.update(b"\n");
+    }
+    hasher
+        .finalize()
+        .iter()
+        .map(|byte| format!("{byte:02x}"))
+        .collect()
+}
+
+fn classify_search_path<'a>(policy: &'a Value, path: &str) -> Option<(&'a str, &'a str)> {
+    for rule in array(&policy["path_route_rules"]) {
+        let pattern = text(&rule["pattern"]);
+        let matched = match text(&rule["match"]) {
+            "prefix" => path.starts_with(pattern),
+            "suffix" => path.ends_with(pattern),
+            "contains" => path.contains(pattern),
+            _ => false,
+        };
+        if matched {
+            return Some((text(&rule["route"]), text(&rule["role"])));
+        }
+    }
+    None
+}
+
+fn assert_bundle_members_and_routes(inventory: &Value) {
+    let members = &inventory["bundle_members"];
+    assert_exact_keys(
+        members,
+        &[
+            "descriptor_paths",
+            "binary_members",
+            "frontend_bundle_ids",
+            "toolchain_bundle_ids",
+            "inventory_sets",
+            "tuple_keys",
+        ],
+    );
+    for path in array(&members["descriptor_paths"]) {
+        let path = text(path);
+        assert!(
+            repo_path(path).is_file(),
+            "missing bundle descriptor {path}"
+        );
+    }
+    assert_eq!(
+        string_set(&members["descriptor_paths"]).len(),
+        array(&members["descriptor_paths"]).len(),
+        "duplicate bundle descriptor path"
+    );
+    let binary_members = array(&members["binary_members"]);
+    assert_eq!(
+        binary_members.len(),
+        1,
+        "checked binary member inventory drift"
+    );
+    let binary_member = &binary_members[0];
+    assert_exact_keys(
+        binary_member,
+        &["family", "path", "raw_sha256", "roles", "route"],
+    );
+    assert_eq!(text(&binary_member["family"]), "program_assembly");
+    assert_eq!(text(&binary_member["route"]), "active");
+    assert_eq!(
+        string_set(&binary_member["roles"]),
+        BTreeSet::from([
+            "bundle_member".to_owned(),
+            "parser".to_owned(),
+            "validator".to_owned(),
+        ])
+    );
+    let binary_path = text(&binary_member["path"]);
+    assert_eq!(binary_path, "release/checkers/mpk-checker-ref-linux-amd64");
+    assert_eq!(
+        text(&binary_member["raw_sha256"]),
+        hex_sha256(&fs::read(repo_path(binary_path)).expect("checked binary member"))
+    );
+
+    let registry = read_json("release/bundles/bundle-registry.json");
+    let frontend_ids = array(&registry["frontend_bundles"])
+        .iter()
+        .map(|bundle| text(&bundle["bundle_id"]).to_owned())
+        .collect::<BTreeSet<_>>();
+    let toolchain_ids = array(&registry["toolchain_bundles"])
+        .iter()
+        .map(|bundle| text(&bundle["bundle_id"]).to_owned())
+        .collect::<BTreeSet<_>>();
+    assert_eq!(frontend_ids, string_set(&members["frontend_bundle_ids"]));
+    assert_eq!(toolchain_ids, string_set(&members["toolchain_bundle_ids"]));
+    let mut expected_inventory_sets = BTreeMap::new();
+    for inventory_set in array(&members["inventory_sets"]) {
+        assert_exact_keys(inventory_set, &["bundle_id", "file_count", "paths_sha256"]);
+        let bundle_id = text(&inventory_set["bundle_id"]);
+        let file_count = inventory_set["file_count"]
+            .as_u64()
+            .expect("bundle member count must be u64");
+        let paths_sha256 = text(&inventory_set["paths_sha256"]);
+        assert!(
+            paths_sha256.len() == 64
+                && paths_sha256
+                    .bytes()
+                    .all(|byte| byte.is_ascii_digit() || (b'a'..=b'f').contains(&byte)),
+            "bundle path-set SHA-256 is malformed for {bundle_id}"
+        );
+        assert!(
+            expected_inventory_sets
+                .insert(bundle_id.to_owned(), (file_count, paths_sha256.to_owned()),)
+                .is_none(),
+            "duplicate bundle inventory set for {bundle_id}"
+        );
+    }
+    let mut observed_inventory_sets = BTreeMap::new();
+    for bundle in array(&registry["frontend_bundles"])
+        .iter()
+        .chain(array(&registry["toolchain_bundles"]).iter())
+    {
+        let bundle_id = text(&bundle["bundle_id"]);
+        let files = array(&bundle["inventory"]["files"]);
+        assert!(
+            !files.is_empty(),
+            "bundle inventory is empty for {bundle_id}"
+        );
+        let mut paths = BTreeSet::new();
+        for file in files {
+            let path = text(&file["path"]);
+            assert!(
+                paths.insert(path),
+                "duplicate bundle-inventory member {bundle_id}:{path}"
+            );
+        }
+        let sorted_paths = paths
+            .into_iter()
+            .map(str::to_owned)
+            .collect::<Vec<String>>();
+        observed_inventory_sets.insert(
+            bundle_id.to_owned(),
+            (files.len() as u64, search_path_set_hash(&sorted_paths)),
+        );
+    }
+    assert_eq!(observed_inventory_sets, expected_inventory_sets);
+
+    let tuple_keys = array(&registry["tuples"])
+        .iter()
+        .map(|tuple| {
+            let context = &tuple["semantic_context"];
+            format!(
+                "{}|{}|{}",
+                text(&context["source_language"]),
+                text(&context["semantic_profile"]),
+                text(&context["semantic_parameters"]["value"]["target_id"])
+            )
+        })
+        .collect::<Vec<_>>();
+    assert_eq!(
+        tuple_keys,
+        array(&members["tuple_keys"])
+            .iter()
+            .map(|value| text(value).to_owned())
+            .collect::<Vec<_>>()
+    );
+
+    let main = read_text("crates/mpk-cli/src/main.rs");
+    let mut cli_routes = BTreeSet::new();
+    for route in array(&inventory["cli_routes"]) {
+        assert_exact_keys(
+            route,
+            &["route", "path", "dispatch_anchor", "handler", "route_class"],
+        );
+        assert_eq!(text(&route["path"]), "crates/mpk-cli/src/main.rs");
+        assert_eq!(text(&route["route_class"]), "active");
+        assert!(
+            cli_routes.insert(text(&route["route"]).to_owned()),
+            "duplicate CLI route"
+        );
+        let dispatch_anchor = text(&route["dispatch_anchor"]);
+        assert!(
+            main.contains(dispatch_anchor),
+            "CLI route lost dispatch anchor {dispatch_anchor}"
+        );
+        let handler = text(&route["handler"]);
+        assert!(main.contains(handler), "CLI route lost handler {handler}");
+    }
+    assert_eq!(
+        cli_routes,
+        BTreeSet::from([
+            "mpk __mpk_frontend_probe_v0".to_owned(),
+            "mpk __mpk_frontend_sandbox_v0".to_owned(),
+            "mpk axiom-report".to_owned(),
+            "mpk check".to_owned(),
+            "mpk explain".to_owned(),
+            "mpk package check".to_owned(),
+            "mpk package verify-certs".to_owned(),
+            "mpk policy scan".to_owned(),
+            "mpk policy verify".to_owned(),
+            "mpk verify".to_owned(),
+        ])
+    );
+    let run_dispatch = main
+        .split_once("fn run(args: Vec<String>)")
+        .and_then(|(_, suffix)| suffix.split_once("fn explain_route").map(|(body, _)| body))
+        .expect("top-level CLI dispatcher");
+    assert_eq!(
+        run_dispatch.matches("=>").count(),
+        11,
+        "top-level CLI dispatcher gained or lost an action/help route"
+    );
+    let main_dispatch = main
+        .split_once("fn main()")
+        .and_then(|(_, suffix)| suffix.split_once("fn run(args").map(|(body, _)| body))
+        .expect("internal frontend CLI dispatcher");
+    assert_eq!(
+        main_dispatch
+            .matches("return ExitCode::from(mpk_cli::run_frontend_")
+            .count(),
+        2,
+        "internal frontend CLI dispatcher gained or lost a route"
+    );
+
+    let api_source = read_text("crates/mpk-api/src/successor_api.rs");
+    let api_route_table = api_source
+        .split_once("pub const SUCCESSOR_ROUTES")
+        .and_then(|(_, suffix)| suffix.split_once("];").map(|(table, _)| table))
+        .expect("successor API route table");
+    let compact_api = api_route_table.split_whitespace().collect::<String>();
+    let mut api_routes = BTreeSet::new();
+    for route in array(&inventory["api_routes"]) {
+        assert_exact_keys(route, &["method", "path"]);
+        let method = text(&route["method"]);
+        let path = text(&route["path"]);
+        assert!(matches!(method, "GET" | "POST"));
+        assert!(
+            api_routes.insert(format!("{method} {path}")),
+            "duplicate API route {method} {path}"
+        );
+        let source_route = format!("route(\"{method}\",\"{path}\"");
+        assert!(
+            compact_api.contains(&source_route),
+            "API route drift for {method} {path}"
+        );
+    }
+    assert_eq!(api_routes.len(), 33, "successor API route inventory drift");
+    assert_eq!(
+        compact_api.matches("route(\"").count(),
+        api_routes.len(),
+        "successor API table has an unowned or missing route"
+    );
+}
+
+fn assert_atomic_migration_and_rollback(
+    inventory: &Value,
+    required_families: &BTreeSet<String>,
+    planned_items: &BTreeSet<String>,
+) {
+    let migration = &inventory["atomic_migration_set"];
+    assert_exact_keys(
+        migration,
+        &[
+            "id",
+            "activation_owner",
+            "producer_migration_owner",
+            "consumer_migration_owner",
+            "member_families",
+            "activation_units",
+            "forbidden_partial_states",
+        ],
+    );
+    assert_eq!(
+        text(&migration["id"]),
+        "csharp-practical-successor-whole-release"
+    );
+    for owner in [
+        "activation_owner",
+        "producer_migration_owner",
+        "consumer_migration_owner",
+    ] {
+        assert!(
+            planned_items.contains(text(&migration[owner])),
+            "unknown atomic migration owner"
+        );
+    }
+    assert_eq!(
+        string_set(&migration["member_families"]),
+        *required_families
+    );
+    assert_eq!(
+        array(&migration["member_families"]).len(),
+        required_families.len(),
+        "duplicate atomic migration family"
+    );
+    assert!(!array(&migration["activation_units"]).is_empty());
+    assert!(!array(&migration["forbidden_partial_states"]).is_empty());
+
+    let rollback = &inventory["whole_image_rollback_set"];
+    assert_exact_keys(
+        rollback,
+        &[
+            "id",
+            "source_baseline",
+            "source_commit",
+            "source_tree",
+            "member_families",
+            "restore_units",
+            "rollback_rule",
+            "partial_rollback_forbidden",
+        ],
+    );
+    assert_eq!(text(&rollback["source_baseline"]), BASELINE_PATH);
+    assert_eq!(
+        rollback["source_commit"],
+        inventory["observed_source"]["commit"]
+    );
+    assert_eq!(
+        rollback["source_tree"],
+        inventory["observed_source"]["tree"]
+    );
+    assert_eq!(string_set(&rollback["member_families"]), *required_families);
+    assert_eq!(
+        array(&rollback["member_families"]).len(),
+        required_families.len(),
+        "duplicate rollback family"
+    );
+    assert_eq!(rollback["partial_rollback_forbidden"], true);
+    assert!(!array(&rollback["restore_units"]).is_empty());
+    assert!(
+        text(&rollback["rollback_rule"]).contains("entire installed image"),
+        "rollback must be whole-image only"
+    );
+}
+
+fn object(value: &Value) -> &serde_json::Map<String, Value> {
+    value.as_object().expect("expected object")
+}
+
+fn string_set(value: &Value) -> BTreeSet<String> {
+    array(value)
+        .iter()
+        .map(|value| text(value).to_owned())
+        .collect()
 }
 
 fn assert_exact_keys(value: &Value, expected: &[&str]) {

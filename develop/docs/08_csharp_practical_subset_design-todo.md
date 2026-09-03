@@ -2,8 +2,9 @@
 
 Status: current reviewed implementation decomposition, prepared on 2026-09-03.
 The native `JAVA-03-T10` x86-64 Linux release receipt is accepted and
-`CSHARP-03-T01-W01` has completed the entry audit. `CSHARP-03-T01-W02` is
-ready; every later work item remains blocked by its serial predecessor.
+`CSHARP-03-T01-W01/W02` have completed the entry audit and consumer inventory.
+`CSHARP-03-T01-W03` is ready; every later work item remains blocked by its
+serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
 
@@ -42,11 +43,12 @@ JAVA-03-T10 -> CSHARP-03-T01-W01
 
 `JAVA-03-T10` completed atomic Java activation and the required native x86-64
 Linux two-pass release gate on 2026-09-03. This prerequisite is satisfied and
-T01-W01 has closed the entry audit; T01-W02 is ready. This file remains
-planning material. W01 added only its baseline, traceability ledger, schema
-test, and current-status documentation. No CSHARP-03 specification, vector,
-identity, hash, build input, production code, fixture, candidate bundle, or
-public route has been frozen or changed.
+T01-W01/W02 have closed the entry audit and consumer inventory; T01-W03 is
+ready. This file remains planning material. W01 added its baseline and ledger;
+W02 added only the private inventory, owner tests, ledger evidence, and
+current-status documentation. No CSHARP-03 specification, vector, identity,
+hash, build input, production code, fixture, candidate bundle, or public route
+has been frozen or changed.
 
 The following are unconditional stop conditions:
 

@@ -1,9 +1,10 @@
 # CSHARP-03 Implementation Traceability Ledger
 
-Status: `CSHARP-03-T01-W01` complete (2026-09-03). The entry audit is closed,
-`CSHARP-03-T01-W02` is ready, and every later work item remains blocked by its
-serial predecessor. No practical-profile identity, production acceptance path,
-candidate, or active registry entry was introduced by W01.
+Status: `CSHARP-03-T01-W01/W02` complete (2026-09-03). The entry audit and
+consumer inventory are closed, `CSHARP-03-T01-W03` is ready, and every later
+work item remains blocked by its serial predecessor. No practical-profile
+identity, production acceptance path, candidate, or active registry entry was
+introduced by W01/W02.
 
 This ledger is subordinate to
 [`08_csharp_practical_subset_design.md`](08_csharp_practical_subset_design.md)
@@ -34,9 +35,9 @@ it does not freeze a new profile or alter an active release.
 <!-- work-item-ledger:start -->
 | Work item | Status | Primary test owner | Commit |
 | --- | --- | --- | --- |
-| `CSHARP-03-T01-W01` | `Complete` | `crates/mpk-vc/tests/csharp_practical_inventory.rs#CSHARP-03-T01-W01` | `SELF` |
-| `CSHARP-03-T01-W02` | `Ready` | `crates/mpk-vc/tests/csharp_practical_inventory.rs#CSHARP-03-T01-W02` | `—` |
-| `CSHARP-03-T01-W03` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_build_inputs.rs#CSHARP-03-T01-W03` | `—` |
+| `CSHARP-03-T01-W01` | `Complete` | `crates/mpk-vc/tests/csharp_practical_inventory.rs#CSHARP-03-T01-W01` | `17275ffcba4f37d93a74fd188d9860b0a7d5f10d` |
+| `CSHARP-03-T01-W02` | `Complete` | `crates/mpk-vc/tests/csharp_practical_inventory.rs#CSHARP-03-T01-W02` | `SELF` |
+| `CSHARP-03-T01-W03` | `Ready` | `crates/mpk-cli/tests/csharp_practical_build_inputs.rs#CSHARP-03-T01-W03` | `—` |
 | `CSHARP-03-T01-W04` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W04` | `—` |
 | `CSHARP-03-T01-W05` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W05` | `—` |
 | `CSHARP-03-T01-W06` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W06` | `—` |
@@ -169,10 +170,10 @@ closure, foundation specialization, and application semantic bindings are
 applicable owners are T01-W02 through T01-W10 and their routed downstream
 production items.
 
-The active semantic and bundle registries contain neither `CSHARP-03` nor
-`mpk.csharp.practical`. No identity therefore exists for an active, public,
-staging, or ambient practical-profile route. W02 is the sole ready item; all
-other rows remain blocked.
+At W01 completion, the active semantic and bundle registries contained neither
+`CSHARP-03` nor `mpk.csharp.practical`. No identity therefore existed for an
+active, public, staging, or ambient practical-profile route; W02 was the sole
+ready item and all other rows remained blocked.
 
 ### 3.3 Verification and review
 
@@ -218,3 +219,126 @@ Final review findings: `0`. The final review checks scope, baseline
 recomputation, ledger completeness/uniqueness, plan-to-owner routing, serial
 statuses, absence of active practical-profile identity, and the explicit
 native-gate disposition after all fixes.
+
+## 4. CSHARP-03-T01-W02 completion record
+
+### 4.1 Closed artifact and consumer inventory
+
+The machine-readable inventory at
+`develop/migrations/csharp-03/artifact-consumer-inventory.json` is bound to the
+W01 commit `17275ffcba4f37d93a74fd188d9860b0a7d5f10d` and tree
+`957b38264b0e149fa6050b0c5d692ee4b1761001`. It closes all 17 required identity
+families: semantic registry, context, parameters, selection, profile
+contracts, source-artifact graph, foundation, VIR, frontend protocol, source
+map, source manifest, VC/skeleton, release, policy/evidence, program assembly,
+AI, and API.
+
+The inventory records 67 explicit producer/parser/validator/serializer/hash,
+bundle, CLI/API, fixture, and test edges. Repository search fixtures: `136`;
+their exact search roots, exclusions, counts, and sorted-path-set SHA-256 values
+bind 4,920 family-to-path consumer hits. Every hit resolves through an ordered
+path rule to either `active` or `private` and to a concrete edge role. The
+closed ledger contains no unowned read/write/hash edge, unclassified route, or
+unassigned cutover/rollback member.
+
+Current names remain observations rather than a new specification freeze. In
+particular, the working practical foundation and successor artifact names are
+not installed or accepted by W02; final identity and hash-domain ownership
+remains with `CSHARP-03-T01-W09`. No production source, normative vector,
+active registry/release descriptor, candidate, fixture, CLI/API route, or
+acceptance behavior changed.
+
+### 4.2 Atomic migration and rollback boundary
+
+`csharp-practical-successor-whole-release` is the only migration set. It
+includes every family above, all four predecessor producers, all shared
+consumers, all five retained release tuples, foundation bytes and descriptor,
+registries, bundles, hashes, routes, fixtures, reports, gates, and
+documentation. Producer migration remains owned by `CSHARP-03-T02-W08`,
+consumer closure by `CSHARP-03-T02-W09`, and public activation by
+`CSHARP-03-T08-W10`; no public old/new selector or partial tuple migration is
+permitted.
+
+`csharp-practical-pre-cutover-installed-image` is the only rollback set. It is
+bound to the same W01 commit/tree and baseline receipt. Rollback replaces the
+whole installed image, including binaries, checker bytes, frontend/toolchain
+bundles, both registry roots, candidates/receipts, profile contracts,
+fixtures, reports, and documentation. Per-file, per-registry, per-route, and
+per-language rollback are explicitly forbidden.
+
+### 4.3 Verification and review
+
+Target host: Darwin arm64. The following local checks passed:
+
+- `cargo test -p mpk-vc --test csharp_practical_inventory`;
+- `cargo fmt --all -- --check`;
+- `cargo clippy -p mpk-vc --test csharp_practical_inventory -- -D warnings`;
+- `python3 scripts/check-artifact-paths.py`;
+- `python3 scripts/check-spec-vectors.py --check`; and
+- `./scripts/check-fast.sh`.
+
+The W02 owner test recomputes all 136 repository searches and proves the stored
+path-set fingerprints reject both deletion of an observed consumer and
+addition of a synthetic consumer. It also checks exact family/edge/route
+schemas, every live bundle member through per-bundle counts and path-set
+SHA-256 fingerprints, five tuple keys, all eight public and two internal CLI
+routes, all 33 successor API routes, planned downstream owners, the single
+atomic set, and the whole-image rollback set.
+
+Review/fix history:
+
+- The first implementation pass found an unowned active consumer in
+  `crates/mpk-cli/build.rs`; the route rules now include crate build inputs,
+  and the full search was recomputed.
+- The second pass removed `bin` from ignored directory names because
+  `rust-tools/rust2vir/src/bin` is production source rather than generated
+  output, and added private classifications for tool `tests`, `testdata`, and
+  fuzz paths.
+- The third pass audited every mandatory starting point and found that the
+  shared v0 VIR/map/manifest/VC substrate, C# capture-through-lowering stages,
+  runtime/program encoders, and the C# libc-compat member were represented too
+  coarsely. It added 23 explicit edges, 19 repository searches, and exact
+  per-bundle inventory-file counts and path-set fingerprints without activating
+  any successor identity.
+- The fourth pass found that broad identity/hash families, all per-bundle paths,
+  and surplus API routes were not independently mutation-sensitive. It added 18
+  identity/domain searches, fingerprints every bundle member path, compares the
+  complete API route table, and runs add/delete mutations for every search.
+- The fifth pass compared every C# frontend source with the search union and
+  found source transport, emission-model, private CLI-parser, and executable
+  entrypoint ownership under-specified. Four explicit edges and four searches
+  now bind those read/write and CLI-route consumers.
+- The sixth pass found the top-level machine/human release reports and shipped
+  reference-checker binary were only indirectly reachable through the W01
+  baseline. It now inventories both report edges and search roots, binds the
+  checker bytes, and requires every exact identity/hash token to have a
+  family-owned search.
+- The seventh pass found the tracked C# policy fixture incorrectly routed to
+  the private shared-consumer stage. Its replacement owner is now T08-W10, as
+  required by the plan; T08-W01 remains the owner of a separate private staged
+  replacement and does not mutate the tracked fixture path.
+- The eighth pass found that Certificate v0 hash ownership was described as one
+  umbrella instead of enumerated. All nine unchanged domains and the shared
+  `mpk-cert` dispatch edge now have exact search ownership.
+- The ninth pass found that active checked-in examples and the top-level private
+  fuzz harness were absent from the search roots, and that predecessor registry
+  identities and build/driver hash domains were represented only indirectly.
+  Both roots are now route-classified, every installed profile/parameter/
+  selection/contract identity is enumerated from the active registry, and all
+  affected current and retained-predecessor domains have exact searches.
+- The tenth pass found a W01 completion paragraph whose present-tense wording
+  appeared to leave W02 ready after W02 completion. It now explicitly records
+  that status as the historical W01 state.
+- The eleventh pass found that every search fixture independently rebuilt the
+  same repository file list. The owner tests now take one immutable search
+  snapshot per test and reuse it for all fingerprints and add/delete mutations,
+  preserving coverage while avoiding fixture-count-scaled filesystem walks.
+- The twelfth pass found that the separate CLI route table named only the three
+  successor policy/explanation commands. It now closes the five existing
+  certificate/package routes and both internal frontend routes as well, and
+  checks the production dispatchers for surplus or missing arms.
+
+Final review findings: `0`. The final review checks W02-only scope, complete
+family and role coverage, live-path anchors, search-set mutation sensitivity,
+active/private separation, downstream ownership, no practical activation,
+and atomic cutover/whole-image rollback closure after all fixes.
