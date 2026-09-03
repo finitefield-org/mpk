@@ -1,16 +1,27 @@
 # CSHARP-03 Practical C# Implementation Milestones and Tasks
 
-Status: planning complete; execution remains blocked pending the native
-`JAVA-03-T10` x86-64 Linux release receipt. CSHARP-03 has not started.
+Status: superseded in full on 2026-09-03; non-executable planning history.
+CSHARP-03 has not started and remains blocked pending the native
+`JAVA-03-T10` x86-64 Linux release receipt.
 
 Source design: `08_csharp_practical_subset_design.md`.
 
-This document decomposes the source design's eight serial CSHARP-03 stages
-into implementation-sized work items. It is subordinate to the source design,
-the specifications and vectors frozen by `CSHARP-03-T01`, and the active
-release contracts. It does not itself freeze a profile identity, schema,
-artifact hash, compiler observation, runtime observation, or deterministic
-limit.
+Do not execute or cite any `CSHARP-03-Tnn-Wnn` item below as current work. This
+decomposition predates the source design's zero-application-dependency and
+internal-monomorphization amendment: it still assumes source-visible `Mpk.*`
+APIs, user-facing sequence builders, iterator/async admission, and an obsolete
+T05/T06 split. It is retained only so the replacement plan can account for
+removed work and preserve useful verification details.
+
+Before CSHARP-03 work resumes, replace this file in full with a reviewed
+decomposition of the current source design. The replacement must prohibit all
+user-defined generics, admit only the enumerated closed internal semantic
+instances, eliminate them before VIR emission, keep application source and
+runtime free of MPK dependencies, and treat iterator/async as negative
+conformance scope. Until that replacement is committed, the high-level stages
+and gates in the source design are the only CSHARP-03 planning authority.
+
+## Superseded decomposition (historical; do not execute)
 
 ## 1. Entry gate, authority, and stop conditions
 

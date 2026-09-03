@@ -923,14 +923,20 @@ local native Linux release evidence. Preparing the proposal does not satisfy
 this gate and does not permit a specification freeze or production change.
 
 Only after entry, freeze and implement one new immutable practical profile for
-expression bodies, `var`, immutable domain value types and construction,
-bounded arrays, sequence builders, immutable sequences, canonical ordered
-maps/sets, strings and exact culture-free codecs, floating-point and decimal
-values, nullable and closed option/lookup/result/validation values, explicit
-missing/null/value boundary presence, dates, times, durations, instants, GUIDs,
-a checked money template, structural equality/order, structured loops,
-switch/patterns, closed exceptions, iterators, and scheduler-unobservable async
-source shape.
+expression bodies, `var`, ordinary namespace `using`, immutable domain value
+types and construction, bounded arrays and internal monomorphic sequence/map/
+set semantics, strings and exact boundary codecs, floating-point and decimal
+values, nullable values, application-owned closed outcomes, explicit missing/
+null/value boundary presence, dates, times, durations, instants, GUIDs,
+application-owned money, structural equality/order, structured loops, switch/
+patterns, and closed exceptions. Reject every user-defined generic and
+arbitrary constructed framework type except the exact nullable-value `T?`
+source form; specialize only enumerated MPK-owned internal semantic templates
+before VIR emission.
+Application source and runtime must not import, reference, implement, generate,
+link, or deploy an MPK API or assembly. Iterators and async source are negative
+conformance scope, not requested implementation capabilities.
+
 Freeze explicit serialization boundaries and pure business state transitions
 without claiming infrastructure correctness. Keep `mpk.csharp.scalar.v0`
 immutable. The required successor registry and affected-artifact migration
@@ -939,11 +945,13 @@ Certificate v0 and both checker acceptance rules unchanged, and retain empty
 proof-node/theory tables with a recomputed total axiom count of zero.
 
 Execution follows the serial stages and acceptance criteria in the source
-design. Each requested capability must have positive, rejection, boundary,
-differential, determinism, and compiler-upgrade evidence. Actual C# source,
-not manually assembled VIR, must pass the installed frontend and the same-byte
-dual-checker path. Local native Linux and fast gates plus a zero-finding review
-are required before activation.
+design. The existing detailed `08_csharp_practical_subset_design-todo.md` is
+superseded and must be replaced before execution; none of its `Wnn` items is
+current authority. Each requested capability must have positive, rejection,
+boundary, differential, determinism, and compiler-upgrade evidence. Actual C#
+source, not manually assembled VIR, must pass the installed frontend and the
+same-byte dual-checker path. Local native Linux and fast gates plus a
+zero-finding review are required before activation.
 
 Exit gate: the practical C# profile is atomically active, every predecessor
 profile remains semantically equivalent, all three general-facing business

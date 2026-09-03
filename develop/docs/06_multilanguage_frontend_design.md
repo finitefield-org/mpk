@@ -107,11 +107,14 @@ The proposed eighth design record is
 `08_csharp_practical_subset_design.md`. It defines a post-Java practical C#
 profile for immutable domain types and construction, bounded collections,
 canonical text codecs, business values and outcomes, richer numeric and control
-flow, exceptions, iterators, closed async source shape, explicit integration
-boundaries, and pure business state transitions. It does not widen the active
-scalar profile or authorize a profile, schema, bundle, or public route. The
-T10 activation implementation is present, but the native x86-64 release
-receipt remains an explicit entry prerequisite.
+flow, closed exceptions, explicit integration boundaries, and pure business
+state transitions. Application source and runtime remain independent of MPK;
+user-defined generics, iterators, and async source are explicit exclusions,
+while enumerated internal semantic templates are monomorphized before VIR
+emission. The proposal does not widen the active scalar profile or authorize a
+profile, schema, bundle, or public route. The T10 activation implementation is
+present, but the native x86-64 release receipt remains an explicit entry
+prerequisite.
 
 The order may change only through a reviewed governance amendment that records
 the user value, semantic risk, compiler integration quality, and effect on the
@@ -526,8 +529,8 @@ owns the installed-image proof; after Java activation,
 `scripts/check-java-frontend.sh` is the sole offline two-pass release gate.
 Certificate v0, both checker inputs and
 verdicts, the four axiom categories, and the untrusted status of every helper
-artifact remain unchanged. Gate D is closed and Gate E may admit only
-`JAVA-03` next.
+artifact remain unchanged. Gate D then admitted `JAVA-03` as its next serial
+phase.
 
 `JAVA-03-T10` implemented the Gate E cutover, but the native x86-64 release
 receipt remains open. The proposed `CSHARP-03` practical C# phase is next but

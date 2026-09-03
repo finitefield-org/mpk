@@ -108,12 +108,14 @@ explicitly unrun on the ARM64 development host.
 The proposed post-Java
 [practical C# design](docs/08_csharp_practical_subset_design.md) adds the
 business-domain capability set requested for C# without widening the active
-scalar profile. It covers immutable construction, bounded collections and
-builders, exact codecs, domain outcomes and business values, explicit data
-boundaries, and pure state transitions in addition to the requested language
-constructs. It remains design/governance work only. The T10 code prerequisite
-is present, but `CSHARP-03-T01-W01` remains blocked until the native T10 gate
-receipt is recorded. Dart waits for the complete practical-profile release gate.
+scalar profile. It covers immutable construction, bounded arrays and internal
+closed collection semantics, exact boundary codecs, application-owned domain
+outcomes and business values, explicit data boundaries, and pure state
+transitions. Application source and runtime remain free of MPK dependencies;
+user-defined generics, iterators, and async source are excluded. It remains
+design/governance work only. The T10 code prerequisite is present, but
+CSHARP-03 entry remains blocked until the native T10 gate receipt is recorded.
+Dart waits for the complete practical-profile release gate.
 
 No multi-language feasibility, specification, or implementation phase runs in
 parallel with the Rust program or with another production phase. A later
