@@ -1,11 +1,12 @@
 # CSHARP-03 Implementation Traceability Ledger
 
-Status: `CSHARP-03-T01-W01/W02/W03/W04` complete (2026-09-04). The entry
+Status: `CSHARP-03-T01-W01/W02/W03/W04/W05` complete (2026-09-04). The entry
 audit, consumer inventory, private frontend/toolchain closure proof, and
-Roslyn data/construction-shape measurement are closed,
-`CSHARP-03-T01-W05` is ready, and every later work item remains blocked by its
-serial predecessor. No practical-profile identity, production acceptance path,
-registered candidate, or active registry entry was introduced by W01-W04.
+Roslyn data/construction/control/exception/pattern-shape measurements are
+closed, `CSHARP-03-T01-W06` is ready, and every later work item remains blocked
+by its serial predecessor. No practical-profile identity, production
+acceptance path, registered candidate, or active registry entry was introduced
+by W01-W05.
 
 This ledger is subordinate to
 [`08_csharp_practical_subset_design.md`](08_csharp_practical_subset_design.md)
@@ -39,9 +40,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T01-W01` | `Complete` | `crates/mpk-vc/tests/csharp_practical_inventory.rs#CSHARP-03-T01-W01` | `17275ffcba4f37d93a74fd188d9860b0a7d5f10d` |
 | `CSHARP-03-T01-W02` | `Complete` | `crates/mpk-vc/tests/csharp_practical_inventory.rs#CSHARP-03-T01-W02` | `f84a5c6ff5122a3a5e64d9305fe999ed1f501f85` |
 | `CSHARP-03-T01-W03` | `Complete` | `crates/mpk-cli/tests/csharp_practical_build_inputs.rs#CSHARP-03-T01-W03` | `4ad2cd480792d8e7cac71eb798e6b55b66bd97fb` |
-| `CSHARP-03-T01-W04` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W04` | `SELF` |
-| `CSHARP-03-T01-W05` | `Ready` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W05` | `—` |
-| `CSHARP-03-T01-W06` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W06` | `—` |
+| `CSHARP-03-T01-W04` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W04` | `b6680168c2666be503741575c009f0a26dd0da22` |
+| `CSHARP-03-T01-W05` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W05` | `SELF` |
+| `CSHARP-03-T01-W06` | `Ready` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W06` | `—` |
 | `CSHARP-03-T01-W07` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W07` | `—` |
 | `CSHARP-03-T01-W08` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W08` | `—` |
 | `CSHARP-03-T01-W09` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W09` | `—` |
@@ -545,11 +546,11 @@ W04 adds only:
 - `crates/mpk-cli/tests/csharp_practical_probes.rs` as the exact
   `CSHARP-03-T01-W04` primary owner.
 
-The runner source and shell-wrapper raw SHA-256 values are
+At W04 completion, the runner source and shell-wrapper raw SHA-256 values were
 `2ac7d9491a618a29d44cc695f3dbc831e71710ef7003d938085f58a9e01c7731`
 and
 `f39aa6a2dec1db6f90128b981a2cd77058048e178c4cf8d95fdd6f379c8b488b`.
-The probe README and primary test raw SHA-256 values are
+The then-current probe README and primary test raw SHA-256 values were
 `24db0e39cbbe607738956dc1c63a6d23000985b9ec060a4c96465e0d2c44a8eb`
 and
 `59cfd5b48ab58a67035bc39baf8769d2d7e57f6ad06a3cb46f11e6e5e8a33811`.
@@ -570,7 +571,8 @@ raw SHA-256 values
 `4ff3ba6fdc2eb2857c32563b959f11194075a4264164cd7aebc808858e500e9b`,
 and
 `8109f781ca1f2b90ba02f786da09ba97602f4cd484b8835b561d5ecf4e7781c8`.
-W05 is the sole ready item.
+At W04 completion, W05 was the sole ready item; section 7 records its later
+completion and W06 readiness.
 
 ### 6.3 Verification and review
 
@@ -629,3 +631,161 @@ emitted-marker evidence, source/span/hash integrity, diagnostic-free admitted
 cases, near-miss coverage, one unique upgrade mutation per admitted shape,
 changed-observation rejection, deterministic rerun bytes, active scalar byte
 preservation, non-activation, and serial ledger state after all fixes.
+
+## 7. CSHARP-03-T01-W05 completion record
+
+### 7.1 Pinned control, exception, and pattern observations
+
+W05 consumes only the completed W04 commit
+`b6680168c2666be503741575c009f0a26dd0da22`, tree
+`0f1e86bbdf986870b60fe335da58290baac26b0f`, and canonical W04 result raw
+SHA-256
+`c5de8bc209331c2295497210a570ba0be32e0871b3dd2576980d6c109222142e`.
+It retains the W03 descriptor, candidate inventory, toolchain, and reference-
+projection SHA-256 values
+`83bf64dcbedce89f79613fe7aab3d95a92179122df54f9b5407273a245738015`,
+`ff4b48790c67135144419c816149f8edfbd7b40ade231d6ab44c8433efef0cce`,
+`d4af1170b2813a5581bb0f60b65fd4e7509576093045557b88689bf7e0876b4f`,
+and
+`30623f64b7d85564260e62464e652bfaa89eb56e0e55193989bfb99538ba6cad`.
+
+The disposable public-Roslyn-API probe source at
+`develop/probes/csharp-03/ControlExceptionPatternProbe.cs` is 70,299 bytes
+with raw SHA-256
+`f62ff3deb7c0fff2799f99426ab9dbd7e6fd373a5fd9d8ed91bbb118a9808f1f`.
+Its compiler uses `MetadataImportOptions.Public`; the owner test rejects
+reflection/private-binding escape names and direct compiler-internal
+namespaces. No selected source unit contains an MPK package, namespace,
+assembly reference, attribute, interface, base type, generated source, or
+runtime component.
+
+The canonical result at
+`develop/migrations/csharp-03/probes/roslyn-control-exception-pattern.json` is
+2,331,920 bytes with raw SHA-256
+`b1215ad7f4a0e08dc269834229d7158158d31c0e9475218fa0791feea5a1629a`.
+Its normalized raw-observation section is 2,277,192 bytes with SHA-256
+`14e14bd219678f49e53efa660d127ebded7b74af4dd72a790bdda5fe2d7b80d3`;
+the deterministic probe binary SHA-256 is
+`f4730abbac2055aa795208b30a1926bd4ff4e4606343dc92818d3e718f714b01`.
+Both clean reruns agree on all three values.
+
+Eighteen isolated compilation units record 103 distinct source shapes: 62
+proposed admitted shapes and 41 rejected near misses. The sorted whole,
+admitted, and rejected shape-ID sets have SHA-256 values
+`431e5891260b9e3284f6b3646ae25d4643d9d53c8fdede0db69a1d2fd5d2d501`,
+`524e05d67fa72c5520176711f06a42739f44d881ad30e2c0b31cfbc83f76864c`,
+and
+`b510c715a9d915a1217bccfbcc80611877c06a5bd8cf036bd1959db7012e0870`.
+All eight admitted units are warning- and error-free. The rejected units
+retain compiler-successful profile exclusions, warning-only forms, and
+compiler-error forms as three separately required outcome classes. All 83
+method/constructor operation roots in the 15 compiler-successful units have
+exactly one CFG; compiler-error units retain every graph Roslyn can construct.
+
+The source corpus covers all four loop statements, explicit-type and `var`
+array `foreach`, exact string `foreach`, structured break/continue, switch
+statements and expressions, guards, every closed admitted pattern category,
+standalone and propagated throws, exact source/built-in exception
+construction, ordered typed catches, immutable payload access, rethrow,
+filters and filter failure, nested lexical search/unwind, `finally`, and each
+normal or abrupt completion interaction. Rejected near misses cover jumps,
+unsupported enumeration, open/effectful/deconstruction/dynamic/slice pattern
+forms, non-exhaustive/fall-through/goto switches, exception construction and
+runtime-state escapes, invalid handlers/filters/rethrow, and illegal exits
+from `finally`.
+
+Each unit records complete syntax and operation roots, exact target and source
+spans, diagnostics, CFG blocks/branches/region trees, exception regions,
+abrupt completions, and one combined lexical source-order sequence. Guard and
+filter expressions—including the throwing filter—are explicit decision
+nodes. Explicit and omitted parameterless `System.Exception()` base calls are
+both fixed as invocation operations. All 40 decision graphs and 25 exception regions have distinct upgrade mutations bound to their exact observation
+hashes. The 65 mutations change a decision-node operation kind, handler search
+order, or exception-region nesting depth rather than only envelope metadata;
+each mutation must fail full-document validation.
+
+### 7.2 Bounded outputs and non-activation
+
+W05 adds only the disposable probe and sanitized runner, its canonical private
+measurement, the W05 section of the probe README, owner-test extensions in
+`crates/mpk-cli/tests/csharp_practical_probes.rs`, and status/ledger updates.
+The runner source and shell-wrapper raw SHA-256 values are
+`cf452035539a3d5f48eb74d5fafe04d917cf6c486922b07c5f6cb87b3470e45e`
+and
+`35e92c495431eb502db2662209a1261d0d2635a1e93781c83a9a72403218fa36`.
+The current probe README and primary test raw SHA-256 values are
+`d90f90a8b517bcfc2ec30464365907e02c14b3b9cb4a0894d4c46fff32cb3355`
+and
+`6f86651b930068feb81a904703c0921df62fe23c8e972c9ba3912dab09deaa5c`.
+
+No production source, normative specification/vector, fixture, candidate,
+build input, public route, registry, release descriptor, or installed artifact
+changed. The active scalar descriptor, inventory, and vector remain at raw
+SHA-256 values
+`0345044d16d4efb3568c32a3d7bc67fec508fe9359eff423a7f09c7f69b348dc`,
+`4ff3ba6fdc2eb2857c32563b959f11194075a4264164cd7aebc808858e500e9b`,
+and
+`8109f781ca1f2b90ba02f786da09ba97602f4cd484b8835b561d5ecf4e7781c8`.
+W05 does not freeze decision semantics, exception lowering, diagnostic or
+profile/schema identities, or a production route. W06 is the sole ready item;
+runtime behavior remains W07-owned and normative freeze remains W08-W10-owned.
+
+### 7.3 Verification and review
+
+Target host: Darwin arm64. The following local checks passed:
+
+- `cargo test -p mpk-cli --test csharp_practical_probes`;
+- `cargo test -p mpk-vc --test csharp_practical_inventory`;
+- `cargo fmt --all -- --check`;
+- `cargo clippy -p mpk-cli --test csharp_practical_probes -- -D warnings`;
+- `./develop/probes/csharp-03/run-control-exception-pattern-probe.sh --check-record`;
+- `./develop/probes/csharp-03/run-control-exception-pattern-probe.sh --self-test`;
+- `python3 scripts/check-artifact-paths.py`;
+- `python3 scripts/check-spec-vectors.py --check`; and
+- `./scripts/check-fast.sh`.
+
+The exact two-clean-build/two-clean-run check also passed under x86-64
+emulation in the immutable local Linux gate image
+`sha256:ea3189955dd9c0e5deda7a30ef48a0c7ef5af3b128f74fcd6e368384b8e1420a`
+with no network, a read-only container and repository, a fresh executable
+tmpfs, the fixed W03 archive cache, empty compiler/run environments, and fresh
+output directories. The `--check` command recorded in
+`develop/probes/csharp-03/README.md` reproduced the checked-in result
+byte-for-byte after all fixes.
+
+Review/fix history:
+
+- Initial passes separated warning-only non-exhaustive switches from compiler-
+  error fall-through cases, made reference-`foreach` a compiler-successful
+  profile exclusion, corrected explicit base-constructor targeting and lexical
+  try-nesting depth, and closed the abrupt-`finally` preservation matrix.
+- The next pass made parenthesized/relational/logical patterns select their
+  exact syntax/operation forms and added an independent `and` source-shape ID,
+  so no admitted pattern category relies only on incidental graph presence.
+- A CFG-completeness pass changed successful method/constructor graph failures
+  from silent omission to a probe failure and independently checks all 83
+  eligible roots. It also freezes diagnostic/outcome coherence and all three
+  rejected outcome classes.
+- The upgrade pass replaced envelope-ordinal mutations with substantive
+  decision/region mutations, closed their exact fields and 22/18/11/14 family-
+  disposition counts, and verifies every mutation both by hash and full-schema
+  rejection.
+- The final semantic pass added top-level guard/filter expressions to decision
+  graphs, proved that filter failure remains present, fixed propagation to an
+  exact invocation target, and exposed the omitted parameterless base call as
+  an implicit `System.Exception()` invocation.
+- The rejection-isolation pass separated positional deconstruction from open-
+  hierarchy rejection and removed the slice from the string list-pattern
+  case, leaving each near miss with one intended unsupported boundary.
+- The target-integrity pass found that a preferred-kind search could skip to a
+  later node, and that adjacent `and`/relational markers exposed the ambiguity.
+  Every marker now binds only among nodes starting at the first actual token
+  after its own comment, so missing or changed local syntax fails closed.
+
+Final review findings: `0`. The final pass checks W05-only scope, exact W04/W03
+input binding, complete admitted/rejected source-shape coverage, public API
+use, compiler-success CFG closure, source/span/hash/order integrity,
+diagnostic-free admitted units, warning/error/clean rejection coverage,
+decision and exception-region mutation sensitivity, deterministic rerun
+bytes, active scalar byte preservation, non-activation, and serial ledger
+state after all fixes.

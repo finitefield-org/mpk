@@ -1,5 +1,6 @@
 use serde_json::{json, Map, Value};
 use sha2::{Digest, Sha256};
+use std::cmp::Reverse;
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -21,6 +22,19 @@ const W03_INVENTORY_SHA256: &str =
     "ff4b48790c67135144419c816149f8edfbd7b40ade231d6ab44c8433efef0cce";
 const TOOLCHAIN_SHA256: &str = "d4af1170b2813a5581bb0f60b65fd4e7509576093045557b88689bf7e0876b4f";
 const REFERENCE_SHA256: &str = "30623f64b7d85564260e62464e652bfaa89eb56e0e55193989bfb99538ba6cad";
+const CONTROL_RESULT_PATH: &str =
+    "develop/migrations/csharp-03/probes/roslyn-control-exception-pattern.json";
+const CONTROL_RESULT_SIZE: usize = 2_331_920;
+const CONTROL_RESULT_SHA256: &str =
+    "b1215ad7f4a0e08dc269834229d7158158d31c0e9475218fa0791feea5a1629a";
+const CONTROL_PROBE_SOURCE_SHA256: &str =
+    "f62ff3deb7c0fff2799f99426ab9dbd7e6fd373a5fd9d8ed91bbb118a9808f1f";
+const CONTROL_SHAPE_IDS_SHA256: &str =
+    "431e5891260b9e3284f6b3646ae25d4643d9d53c8fdede0db69a1d2fd5d2d501";
+const CONTROL_ADMITTED_SHAPE_IDS_SHA256: &str =
+    "524e05d67fa72c5520176711f06a42739f44d881ad30e2c0b31cfbc83f76864c";
+const CONTROL_REJECTED_SHAPE_IDS_SHA256: &str =
+    "b510c715a9d915a1217bccfbcc80611877c06a5bd8cf036bd1959db7012e0870";
 
 fn repository_root() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("../..")
@@ -585,6 +599,939 @@ fn pinned_compiler_rerun_is_byte_identical_when_the_linux_cache_is_available() {
     .env("PATH", "/usr/bin:/bin")
     .output()
     .expect("execute pinned W04 Roslyn probe");
+    assert!(
+        output.status.success(),
+        "stdout={} stderr={}",
+        String::from_utf8_lossy(&output.stdout),
+        String::from_utf8_lossy(&output.stderr)
+    );
+    assert!(output.stdout.is_empty());
+    assert!(output.stderr.is_empty());
+}
+
+fn load_control() -> Value {
+    serde_json::from_slice(&bytes(CONTROL_RESULT_PATH)).expect("parse W05 probe result")
+}
+
+fn control_case<'a>(document: &'a Value, case_id: &str) -> &'a Value {
+    array(&document["observations"]["cases"])
+        .iter()
+        .find(|case| case["id"] == case_id)
+        .unwrap_or_else(|| panic!("missing control case {case_id}"))
+}
+
+fn control_target<'a>(document: &'a Value, shape_id: &str) -> &'a Value {
+    for case in array(&document["observations"]["cases"]) {
+        for candidate in array(&case["targets"]) {
+            if candidate["shape_id"] == shape_id {
+                return candidate;
+            }
+        }
+    }
+    panic!("missing control target {shape_id}");
+}
+
+fn control_observation<'a>(document: &'a Value, family: &str, observation_id: &str) -> &'a Value {
+    let key = match family {
+        "decision_graph" => "decision_graphs",
+        "exception_region" => "exception_regions",
+        _ => panic!("unknown observation family {family}"),
+    };
+    for case in array(&document["observations"]["cases"]) {
+        for observation in array(&case[key]) {
+            if observation["id"] == observation_id {
+                return observation;
+            }
+        }
+    }
+    panic!("missing control observation {observation_id}");
+}
+
+fn control_observation_mut<'a>(
+    document: &'a mut Value,
+    family: &str,
+    observation_id: &str,
+) -> &'a mut Value {
+    let key = match family {
+        "decision_graph" => "decision_graphs",
+        "exception_region" => "exception_regions",
+        _ => panic!("unknown observation family {family}"),
+    };
+    for case in document["observations"]["cases"]
+        .as_array_mut()
+        .expect("control cases")
+    {
+        for observation in case[key].as_array_mut().expect("control observations") {
+            if observation["id"] == observation_id {
+                return observation;
+            }
+        }
+    }
+    panic!("missing control observation {observation_id}");
+}
+
+fn control_upgrade_mutation_field(
+    family: &str,
+    observation: &Value,
+) -> Result<&'static str, String> {
+    match family {
+        "decision_graph" if !array(&observation["nodes"]).is_empty() => {
+            Ok("nodes[0].operation_kind")
+        }
+        "decision_graph" => Err("empty decision graph mutation".to_owned()),
+        "exception_region" if !array(&observation["catches"]).is_empty() => {
+            if array(&observation["handler_search_order"]).is_empty() {
+                Err("empty handler-search mutation".to_owned())
+            } else {
+                Ok("handler_search_order[0]")
+            }
+        }
+        "exception_region" => Ok("nesting_depth"),
+        _ => Err("unknown control mutation family".to_owned()),
+    }
+}
+
+fn apply_control_upgrade_mutation(observation: &mut Value, mutation_field: &str) {
+    match mutation_field {
+        "nodes[0].operation_kind" => {
+            let node = &mut observation["nodes"].as_array_mut().expect("decision nodes")[0];
+            node["operation_kind"] = json!(format!(
+                "{}#upgrade-mutation",
+                text(&node["operation_kind"])
+            ));
+        }
+        "handler_search_order[0]" => {
+            let search = observation["handler_search_order"]
+                .as_array_mut()
+                .expect("handler search");
+            search[0] = json!(integer(&search[0]) + 1);
+        }
+        "nesting_depth" => {
+            observation["nesting_depth"] = json!(integer(&observation["nesting_depth"]) + 1);
+        }
+        _ => panic!("unknown control mutation field {mutation_field}"),
+    }
+}
+
+fn collect_region_kinds(region: &Value, kinds: &mut BTreeSet<String>) {
+    kinds.insert(text(&region["kind"]).to_owned());
+    for nested in array(&region["nested"]) {
+        collect_region_kinds(nested, kinds);
+    }
+}
+
+fn validate_control_document(document: &Value) -> Result<(), String> {
+    if object(document)
+        .keys()
+        .map(String::as_str)
+        .collect::<Vec<_>>()
+        != [
+            "baseline",
+            "coverage",
+            "measurement",
+            "observations",
+            "probe_input",
+            "schema",
+            "shape_index",
+            "upgrade_mutations",
+            "work_item",
+        ]
+    {
+        return Err("control top-level keys".to_owned());
+    }
+    if document["schema"] != "mpk.csharp_practical.t01_w05.roslyn_control_probe.v0"
+        || document["work_item"] != "CSHARP-03-T01-W05"
+    {
+        return Err("control identity".to_owned());
+    }
+    if document["baseline"]
+        != json!({
+            "build_inputs": "develop/migrations/csharp-03/build-inputs/build-inputs.json",
+            "build_inputs_raw_sha256": W03_DESCRIPTOR_SHA256,
+            "candidate_inventory": "develop/migrations/csharp-03/build-inputs/candidate-inventory.json",
+            "candidate_inventory_raw_sha256": W03_INVENTORY_SHA256,
+            "data_probe": RESULT_PATH,
+            "data_probe_raw_sha256": RESULT_SHA256,
+            "source_commit": "b6680168c2666be503741575c009f0a26dd0da22",
+            "source_tree": "0f1e86bbdf986870b60fe335da58290baac26b0f"
+        })
+    {
+        return Err("control baseline".to_owned());
+    }
+    if document["probe_input"]
+        != json!({
+            "compiler_arguments": [
+                "/nologo", "/noconfig", "/nostdlib+", "/deterministic+",
+                "/optimize+", "/debug-", "/target:exe", "/platform:x64",
+                "/langversion:14.0", "/nullable:enable", "/checked+", "/unsafe-",
+                "/warnaserror+", "/utf8output", "/filealign:512", "/highentropyva+"
+            ],
+            "path": "develop/probes/csharp-03/ControlExceptionPatternProbe.cs",
+            "raw_sha256": CONTROL_PROBE_SOURCE_SHA256,
+            "reference_projection_sha256": REFERENCE_SHA256,
+            "size_bytes": 70299,
+            "toolchain_inputs_sha256": TOOLCHAIN_SHA256
+        })
+    {
+        return Err("control probe input".to_owned());
+    }
+    assert_exact_keys(
+        &document["measurement"],
+        &[
+            "probe_binary_sha256",
+            "raw_observation_sha256",
+            "raw_observation_size_bytes",
+        ],
+    );
+    assert_sha256(&document["measurement"]["probe_binary_sha256"]);
+    assert_sha256(&document["measurement"]["raw_observation_sha256"]);
+    let mut observation_bytes = canonical_bytes(&document["observations"]);
+    observation_bytes.push(b'\n');
+    if sha256(&observation_bytes) != document["measurement"]["raw_observation_sha256"]
+        || observation_bytes.len() as u64
+            != integer(&document["measurement"]["raw_observation_size_bytes"])
+    {
+        return Err("control observation measurement".to_owned());
+    }
+    if document["observations"]["schema"]
+        != "mpk.csharp_practical.t01_w05.roslyn_control_probe.raw.v0"
+        || document["observations"]["work_item"] != "CSHARP-03-T01-W05"
+        || document["observations"]["compiler"]
+            != json!({
+                "architecture": "X64",
+                "language": "C#",
+                "language_version": "14.0",
+                "nullable_context": "Enable",
+                "reference_count": 167,
+                "roslyn_common": {
+                    "culture": "neutral", "name": "Microsoft.CodeAnalysis",
+                    "public_key_token": "31bf3856ad364e35", "version": "5.6.0.0"
+                },
+                "roslyn_csharp": {
+                    "culture": "neutral", "name": "Microsoft.CodeAnalysis.CSharp",
+                    "public_key_token": "31bf3856ad364e35", "version": "5.6.0.0"
+                },
+                "runtime_version": "10.0.11"
+            })
+    {
+        return Err("control compiler identity".to_owned());
+    }
+
+    let cases = array(&document["observations"]["cases"]);
+    if cases.len() != 18 {
+        return Err("control case count".to_owned());
+    }
+    let mut case_ids = BTreeSet::new();
+    let mut cases_by_id = BTreeMap::new();
+    let mut targets = BTreeMap::new();
+    let mut observations = BTreeMap::new();
+    let mut rejected_clean = false;
+    let mut rejected_warning = false;
+    let mut rejected_error = false;
+    for case in cases {
+        if object(case).keys().map(String::as_str).collect::<Vec<_>>()
+            != [
+                "abrupt_completions",
+                "compiler_outcome",
+                "control_flow_graphs",
+                "decision_graphs",
+                "diagnostics",
+                "disposition",
+                "exception_regions",
+                "id",
+                "operation_roots",
+                "source",
+                "source_order",
+                "source_utf8_sha256",
+                "syntax",
+                "targets",
+            ]
+        {
+            return Err("control case keys".to_owned());
+        }
+        let case_id = text(&case["id"]);
+        if !case_ids.insert(case_id) {
+            return Err("duplicate control case".to_owned());
+        }
+        let disposition = text(&case["disposition"]);
+        cases_by_id.insert(case_id, disposition);
+        let source = text(&case["source"]);
+        if source.contains("Mpk.")
+            || source.contains("MPK")
+            || sha256(source.as_bytes()) != case["source_utf8_sha256"]
+        {
+            return Err("control source identity".to_owned());
+        }
+        let source_utf16_length = source.encode_utf16().count() as u64;
+        if array(&case["syntax"]).is_empty() || array(&case["operation_roots"]).is_empty() {
+            return Err("control observations missing".to_owned());
+        }
+        let diagnostics = array(&case["diagnostics"]);
+        let mut has_error_diagnostic = false;
+        for diagnostic in diagnostics {
+            if object(diagnostic)
+                .keys()
+                .map(String::as_str)
+                .collect::<Vec<_>>()
+                != [
+                    "id",
+                    "is_suppressed",
+                    "location_kind",
+                    "severity",
+                    "span",
+                    "warning_level",
+                ]
+            {
+                return Err("control diagnostic keys".to_owned());
+            }
+            has_error_diagnostic |= diagnostic["severity"] == "Error";
+        }
+        if (case["compiler_outcome"] == "error") != has_error_diagnostic {
+            return Err("control compiler outcome/diagnostic mismatch".to_owned());
+        }
+        if case["compiler_outcome"] == "success" {
+            let cfg_eligible_roots = array(&case["operation_roots"])
+                .iter()
+                .filter(|root| {
+                    matches!(
+                        text(&root["kind"]),
+                        "ConstructorBodyOperation" | "MethodBodyOperation"
+                    )
+                })
+                .count();
+            if array(&case["control_flow_graphs"]).len() != cfg_eligible_roots {
+                return Err("successful control CFG closure".to_owned());
+            }
+        }
+        match disposition {
+            "admitted_shape" => {
+                if case["compiler_outcome"] != "success"
+                    || !diagnostics.is_empty()
+                    || array(&case["control_flow_graphs"]).is_empty()
+                {
+                    return Err("admitted control diagnostics or CFG".to_owned());
+                }
+            }
+            "rejected_near_miss" => match text(&case["compiler_outcome"]) {
+                "success" if diagnostics.is_empty() => rejected_clean = true,
+                "success" => rejected_warning = true,
+                "error" => rejected_error = true,
+                _ => return Err("control compiler outcome".to_owned()),
+            },
+            _ => return Err("control disposition".to_owned()),
+        }
+        for syntax in array(&case["syntax"]) {
+            validate_span(&syntax["span"], source_utf16_length)?;
+            validate_span(&syntax["full_span"], source_utf16_length)?;
+        }
+
+        let mut expected_source_order: Vec<(u64, String, String)> = Vec::new();
+        let marker_count = source.matches("/*@shape:").count();
+        if marker_count != array(&case["targets"]).len() {
+            return Err("control marker/target mismatch".to_owned());
+        }
+        for target_value in array(&case["targets"]) {
+            if object(target_value)
+                .keys()
+                .map(String::as_str)
+                .collect::<Vec<_>>()
+                != [
+                    "candidate_reason",
+                    "candidate_symbols",
+                    "marker_span",
+                    "operation",
+                    "shape_id",
+                    "source_ordinal",
+                    "symbol",
+                    "syntax",
+                    "type",
+                ]
+            {
+                return Err("control target keys".to_owned());
+            }
+            validate_span(&target_value["marker_span"], source_utf16_length)?;
+            validate_span(&target_value["syntax"]["span"], source_utf16_length)?;
+            let shape_id = text(&target_value["shape_id"]);
+            if targets
+                .insert(
+                    shape_id,
+                    (
+                        case_id,
+                        disposition,
+                        integer(&target_value["source_ordinal"]),
+                        canonical_sha256(target_value),
+                    ),
+                )
+                .is_some()
+            {
+                return Err("duplicate control target".to_owned());
+            }
+            expected_source_order.push((
+                integer(&target_value["marker_span"]["start"]),
+                "target".to_owned(),
+                shape_id.to_owned(),
+            ));
+        }
+
+        for (family, key) in [
+            ("decision_graph", "decision_graphs"),
+            ("exception_region", "exception_regions"),
+        ] {
+            let mut previous_observation_start = None;
+            for (observation_ordinal, observation) in array(&case[key]).iter().enumerate() {
+                if integer(&observation["source_ordinal"]) != observation_ordinal as u64 {
+                    return Err("control observation source order".to_owned());
+                }
+                let observation_id = text(&observation["id"]);
+                let mutation_field = control_upgrade_mutation_field(family, observation)?;
+                if observations
+                    .insert(
+                        observation_id,
+                        (
+                            case_id,
+                            disposition,
+                            family,
+                            canonical_sha256(observation),
+                            mutation_field,
+                        ),
+                    )
+                    .is_some()
+                {
+                    return Err("duplicate control observation".to_owned());
+                }
+                let start = if family == "decision_graph" {
+                    integer(&observation["root"]["span"]["start"])
+                } else {
+                    integer(&observation["span"]["start"])
+                };
+                if previous_observation_start.is_some_and(|previous| previous > start) {
+                    return Err("control observation lexical order".to_owned());
+                }
+                previous_observation_start = Some(start);
+                expected_source_order.push((start, family.to_owned(), observation_id.to_owned()));
+                if family == "decision_graph" {
+                    let nodes = array(&observation["nodes"]);
+                    if nodes.is_empty() {
+                        return Err("empty decision graph".to_owned());
+                    }
+                    let node_ids = nodes
+                        .iter()
+                        .map(|node| text(&node["id"]))
+                        .collect::<BTreeSet<_>>();
+                    let mut previous_node_order = None;
+                    for (ordinal, node) in nodes.iter().enumerate() {
+                        if integer(&node["source_ordinal"]) != ordinal as u64 {
+                            return Err("decision source order".to_owned());
+                        }
+                        validate_span(&node["span"], source_utf16_length)?;
+                        let node_order = (
+                            integer(&node["span"]["start"]),
+                            Reverse(integer(&node["span"]["length"])),
+                            text(&node["operation_kind"]).to_owned(),
+                        );
+                        if previous_node_order
+                            .as_ref()
+                            .is_some_and(|previous| previous > &node_order)
+                        {
+                            return Err("decision lexical order".to_owned());
+                        }
+                        previous_node_order = Some(node_order);
+                        if !node["parent_id"].is_null()
+                            && !node_ids.contains(text(&node["parent_id"]))
+                        {
+                            return Err("decision parent".to_owned());
+                        }
+                    }
+                    for edge in array(&observation["edges"]) {
+                        if edge["kind"] != "operation_parent"
+                            || !node_ids.contains(text(&edge["from"]))
+                            || !node_ids.contains(text(&edge["to"]))
+                        {
+                            return Err("decision edge".to_owned());
+                        }
+                    }
+                } else {
+                    validate_span(&observation["span"], source_utf16_length)?;
+                    let catches = array(&observation["catches"]);
+                    let search = array(&observation["handler_search_order"]);
+                    if search.len() != catches.len() {
+                        return Err("handler search count".to_owned());
+                    }
+                    let mut previous_catch_start = None;
+                    for (ordinal, catch_clause) in catches.iter().enumerate() {
+                        if integer(&catch_clause["source_ordinal"]) != ordinal as u64
+                            || integer(&search[ordinal]) != ordinal as u64
+                        {
+                            return Err("handler search order".to_owned());
+                        }
+                        validate_span(&catch_clause["span"], source_utf16_length)?;
+                        let catch_start = integer(&catch_clause["span"]["start"]);
+                        if previous_catch_start.is_some_and(|previous| previous > catch_start) {
+                            return Err("catch lexical order".to_owned());
+                        }
+                        previous_catch_start = Some(catch_start);
+                    }
+                    let mut previous_throw_start = None;
+                    for (ordinal, throw_operation) in
+                        array(&observation["throws"]).iter().enumerate()
+                    {
+                        if integer(&throw_operation["source_ordinal"]) != ordinal as u64 {
+                            return Err("throw source order".to_owned());
+                        }
+                        validate_span(&throw_operation["span"], source_utf16_length)?;
+                        let throw_start = integer(&throw_operation["span"]["start"]);
+                        if previous_throw_start.is_some_and(|previous| previous > throw_start) {
+                            return Err("throw lexical order".to_owned());
+                        }
+                        previous_throw_start = Some(throw_start);
+                    }
+                }
+            }
+        }
+        for abrupt in array(&case["abrupt_completions"]) {
+            validate_span(&abrupt["span"], source_utf16_length)?;
+            expected_source_order.push((
+                integer(&abrupt["span"]["start"]),
+                "abrupt_completion".to_owned(),
+                text(&abrupt["id"]).to_owned(),
+            ));
+        }
+        expected_source_order.sort();
+        let actual_source_order = array(&case["source_order"])
+            .iter()
+            .enumerate()
+            .map(|(ordinal, row)| {
+                if integer(&row["source_ordinal"]) != ordinal as u64 {
+                    return Err("case source ordinal".to_owned());
+                }
+                Ok((
+                    integer(&row["start"]),
+                    text(&row["category"]).to_owned(),
+                    text(&row["id"]).to_owned(),
+                ))
+            })
+            .collect::<Result<Vec<_>, String>>()?;
+        if actual_source_order != expected_source_order {
+            return Err("case source order".to_owned());
+        }
+    }
+    if !rejected_clean || !rejected_warning || !rejected_error {
+        return Err("rejected compiler outcome coverage".to_owned());
+    }
+
+    let shape_index = array(&document["shape_index"]);
+    let mut shape_ids = Vec::new();
+    let mut admitted = Vec::new();
+    let mut rejected = Vec::new();
+    for row in shape_index {
+        let shape_id = text(&row["shape_id"]);
+        let Some(expected) = targets.get(shape_id) else {
+            return Err("control shape target link".to_owned());
+        };
+        if (
+            text(&row["case_id"]),
+            text(&row["disposition"]),
+            integer(&row["source_ordinal"]),
+            text(&row["observation_sha256"]),
+        ) != (expected.0, expected.1, expected.2, expected.3.as_str())
+        {
+            return Err("control shape index".to_owned());
+        }
+        shape_ids.push(shape_id);
+        match expected.1 {
+            "admitted_shape" => admitted.push(shape_id),
+            "rejected_near_miss" => rejected.push(shape_id),
+            _ => return Err("control shape disposition".to_owned()),
+        }
+    }
+    if shape_ids.len() != 103
+        || admitted.len() != 62
+        || rejected.len() != 41
+        || shape_ids.len() != targets.len()
+        || !shape_ids.windows(2).all(|pair| pair[0] < pair[1])
+    {
+        return Err("control shape catalog".to_owned());
+    }
+    if canonical_sha256(&Value::Array(
+        shape_ids.iter().map(|id| json!(id)).collect(),
+    )) != CONTROL_SHAPE_IDS_SHA256
+        || canonical_sha256(&Value::Array(admitted.iter().map(|id| json!(id)).collect()))
+            != CONTROL_ADMITTED_SHAPE_IDS_SHA256
+        || canonical_sha256(&Value::Array(rejected.iter().map(|id| json!(id)).collect()))
+            != CONTROL_REJECTED_SHAPE_IDS_SHA256
+    {
+        return Err("control shape fingerprint".to_owned());
+    }
+    let coverage = array(&document["coverage"]);
+    if coverage
+        .iter()
+        .map(|row| text(&row["requirement"]))
+        .collect::<Vec<_>>()
+        != [
+            "abrupt_completion",
+            "catch_and_throw",
+            "filters_finally_and_regions",
+            "guards",
+            "loops_and_structured_branches",
+            "patterns",
+            "switch_statements_and_expressions",
+        ]
+        || coverage
+            .iter()
+            .any(|row| array(&row["shape_ids"]).is_empty())
+    {
+        return Err("control coverage".to_owned());
+    }
+    let covered = coverage
+        .iter()
+        .flat_map(|row| array(&row["shape_ids"]).iter().map(text))
+        .collect::<BTreeSet<_>>();
+    if covered != shape_ids.iter().copied().collect() {
+        return Err("unowned control shape".to_owned());
+    }
+
+    let mutations = array(&document["upgrade_mutations"]);
+    let mut mutation_ids = BTreeSet::new();
+    let mut linked_observations = BTreeSet::new();
+    let mut family_dispositions = BTreeMap::new();
+    let mut mutation_fields = BTreeSet::new();
+    for row in mutations {
+        if object(row).keys().map(String::as_str).collect::<Vec<_>>()
+            != [
+                "case_id",
+                "disposition",
+                "family",
+                "mutation_field",
+                "mutation_id",
+                "observation_id",
+                "observation_sha256",
+            ]
+        {
+            return Err("control upgrade mutation keys".to_owned());
+        }
+        let observation_id = text(&row["observation_id"]);
+        let Some(expected) = observations.get(observation_id) else {
+            return Err("upgrade observation link".to_owned());
+        };
+        if row["case_id"] != expected.0
+            || row["disposition"] != expected.1
+            || row["family"] != expected.2
+            || row["observation_sha256"] != expected.3
+            || row["mutation_field"] != expected.4
+            || !mutation_ids.insert(text(&row["mutation_id"]))
+            || !linked_observations.insert(observation_id)
+        {
+            return Err("control upgrade mutation".to_owned());
+        }
+        *family_dispositions
+            .entry((expected.2, expected.1))
+            .or_insert(0usize) += 1;
+        mutation_fields.insert(text(&row["mutation_field"]));
+    }
+    if mutations.len() != 65
+        || linked_observations.len() != observations.len()
+        || mutation_fields
+            != BTreeSet::from([
+                "handler_search_order[0]",
+                "nesting_depth",
+                "nodes[0].operation_kind",
+            ])
+        || family_dispositions
+            != BTreeMap::from([
+                (("decision_graph", "admitted_shape"), 22),
+                (("decision_graph", "rejected_near_miss"), 18),
+                (("exception_region", "admitted_shape"), 11),
+                (("exception_region", "rejected_near_miss"), 14),
+            ])
+    {
+        return Err("control upgrade catalog".to_owned());
+    }
+    Ok(())
+}
+
+// CSHARP-03-T01-W05
+#[test]
+fn canonical_control_probe_closes_decisions_regions_and_source_order() {
+    let raw = bytes(CONTROL_RESULT_PATH);
+    assert_eq!(raw.len(), CONTROL_RESULT_SIZE);
+    assert_eq!(sha256(&raw), CONTROL_RESULT_SHA256);
+    let document: Value = serde_json::from_slice(&raw).expect("parse control probe");
+    let mut canonical = canonical_bytes(&document);
+    canonical.push(b'\n');
+    assert_eq!(raw, canonical);
+    validate_control_document(&document).unwrap();
+
+    for (shape_id, syntax_kind, operation_kind) in [
+        ("loop.while.statement", "WhileStatement", "Loop"),
+        ("loop.do.statement", "DoStatement", "Loop"),
+        ("loop.for.statement", "ForStatement", "Loop"),
+        ("loop.foreach.array_var", "ForEachStatement", "Loop"),
+        ("loop.foreach.string", "ForEachStatement", "Loop"),
+        ("switch.statement.integer", "SwitchStatement", "Switch"),
+        (
+            "switch.expression.logical",
+            "SwitchExpression",
+            "SwitchExpression",
+        ),
+        (
+            "pattern.constant.integer",
+            "ConstantPattern",
+            "ConstantPattern",
+        ),
+        ("pattern.and", "AndPattern", "BinaryPattern"),
+        (
+            "pattern.relational.greater",
+            "RelationalPattern",
+            "RelationalPattern",
+        ),
+        ("pattern.list.empty", "ListPattern", "ListPattern"),
+        (
+            "exception.propagation.call_to_handler",
+            "InvocationExpression",
+            "Invocation",
+        ),
+        (
+            "exception.source.implicit_parameterless_base",
+            "ConstructorDeclaration",
+            "ConstructorBodyOperation",
+        ),
+        ("exception.throw.rethrow", "ThrowStatement", "Throw"),
+    ] {
+        let probe_target = control_target(&document, shape_id);
+        assert_eq!(probe_target["syntax"]["kind"], syntax_kind, "{shape_id}");
+        assert_eq!(
+            probe_target["operation"]["kind"], operation_kind,
+            "{shape_id}"
+        );
+    }
+    assert_eq!(
+        control_target(&document, "pattern.parenthesized")["syntax"]["kind"],
+        "ParenthesizedPattern"
+    );
+    assert!(control_target(&document, "pattern.parenthesized")["operation"].is_null());
+
+    let implicit_base = control_target(&document, "exception.source.implicit_parameterless_base");
+    let implicit_base_call = &implicit_base["operation"]["children"][0]["children"][0];
+    assert_eq!(implicit_base_call["kind"], "Invocation");
+    assert_eq!(implicit_base_call["is_implicit"], true);
+    assert_eq!(
+        implicit_base_call["details"]["target"]["display"],
+        "System.Exception.Exception()"
+    );
+
+    for shape_id in [
+        "pattern.guard.statement",
+        "pattern.guard.expression",
+        "exception.filter.pure_boolean",
+        "exception.filter.failure",
+        "exception.search.outer_filter_before_inner_finally",
+        "near_miss.exception.filter_side_effect",
+    ] {
+        let target = control_target(&document, shape_id);
+        assert!(
+            array(&document["observations"]["cases"])
+                .iter()
+                .flat_map(|case| array(&case["decision_graphs"]))
+                .flat_map(|graph| array(&graph["nodes"]))
+                .any(|node| {
+                    node["operation_kind"] == target["operation"]["kind"]
+                        && node["span"] == target["operation"]["span"]
+                }),
+            "decision graph is missing {shape_id}"
+        );
+    }
+
+    let probe_source = String::from_utf8(bytes(
+        "develop/probes/csharp-03/ControlExceptionPatternProbe.cs",
+    ))
+    .expect("UTF-8 control probe source");
+    assert!(probe_source.contains("MetadataImportOptions.Public"));
+    for forbidden in [
+        "BindingFlags",
+        "InternalsVisibleTo",
+        "Microsoft.CodeAnalysis.CSharp.Binder",
+        "Microsoft.CodeAnalysis.CSharp.Symbols",
+        "NonPublic",
+        ".GetField(",
+        ".GetMethod(",
+        ".GetMethods(",
+        ".GetProperties(",
+        ".GetProperty(",
+        ".Invoke(",
+    ] {
+        assert!(
+            !probe_source.contains(forbidden),
+            "private/compiler-internal API escape: {forbidden}"
+        );
+    }
+
+    let decision_kinds = array(&document["observations"]["cases"])
+        .iter()
+        .flat_map(|case| array(&case["decision_graphs"]))
+        .flat_map(|graph| array(&graph["nodes"]))
+        .map(|node| text(&node["operation_kind"]))
+        .collect::<BTreeSet<_>>();
+    for required in [
+        "BinaryPattern",
+        "Branch",
+        "ConstantPattern",
+        "DeclarationPattern",
+        "DiscardPattern",
+        "ListPattern",
+        "Loop",
+        "NegatedPattern",
+        "RecursivePattern",
+        "RelationalPattern",
+        "SlicePattern",
+        "Switch",
+        "SwitchExpression",
+        "TypePattern",
+    ] {
+        assert!(decision_kinds.contains(required), "missing {required}");
+    }
+}
+
+// CSHARP-03-T01-W05
+#[test]
+fn exception_regions_freeze_lexical_search_filter_failure_and_unwind() {
+    let document = load_control();
+    validate_control_document(&document).unwrap();
+    let mut region_kinds = BTreeSet::new();
+    for case in array(&document["observations"]["cases"]) {
+        for cfg in array(&case["control_flow_graphs"]) {
+            collect_region_kinds(&cfg["regions"], &mut region_kinds);
+        }
+    }
+    for required in [
+        "Catch",
+        "Filter",
+        "FilterAndHandler",
+        "Finally",
+        "Try",
+        "TryAndCatch",
+        "TryAndFinally",
+    ] {
+        assert!(region_kinds.contains(required), "missing region {required}");
+    }
+
+    let nested = control_case(&document, "admitted-filters-and-finally");
+    assert!(array(&nested["exception_regions"])
+        .iter()
+        .any(|region| region["nesting_depth"] == 1 && !region["finally"].is_null()));
+    assert_eq!(
+        control_target(
+            &document,
+            "exception.search.outer_filter_before_inner_finally"
+        )["operation"]["kind"],
+        "Invocation"
+    );
+
+    let failure = control_case(&document, "admitted-filter-failure-and-abrupt-finally");
+    let filtered = array(&failure["exception_regions"])
+        .iter()
+        .find(|region| array(&region["catches"]).len() == 2)
+        .expect("filter failure region");
+    assert!(!filtered["catches"][0]["filter"].is_null());
+    assert!(filtered["catches"][1]["filter"].is_null());
+    assert_eq!(filtered["handler_search_order"], json!([0, 1]));
+
+    let abrupt_kinds = array(&document["observations"]["cases"])
+        .iter()
+        .flat_map(|case| array(&case["abrupt_completions"]))
+        .map(|abrupt| text(&abrupt["completion_kind"]))
+        .collect::<BTreeSet<_>>();
+    assert_eq!(
+        abrupt_kinds,
+        BTreeSet::from(["Break", "Continue", "GoTo", "Rethrow", "Return", "Throw"])
+    );
+}
+
+// CSHARP-03-T01-W05
+#[test]
+fn every_decision_graph_and_exception_region_has_an_upgrade_mutation() {
+    let document = load_control();
+    validate_control_document(&document).unwrap();
+    let mut mutation_ids = BTreeSet::new();
+    for row in array(&document["upgrade_mutations"]) {
+        assert!(mutation_ids.insert(text(&row["mutation_id"])));
+        let family = text(&row["family"]);
+        let observation_id = text(&row["observation_id"]);
+        let mut observation = control_observation(&document, family, observation_id).clone();
+        apply_control_upgrade_mutation(&mut observation, text(&row["mutation_field"]));
+        assert_ne!(canonical_sha256(&observation), row["observation_sha256"]);
+    }
+    assert_eq!(mutation_ids.len(), 65);
+    for family in ["decision_graph", "exception_region"] {
+        let row = array(&document["upgrade_mutations"])
+            .iter()
+            .find(|row| row["family"] == family)
+            .expect("upgrade family");
+        let observation_id = text(&row["observation_id"]).to_owned();
+        let mut changed = document.clone();
+        let observation = control_observation_mut(&mut changed, family, &observation_id);
+        apply_control_upgrade_mutation(observation, text(&row["mutation_field"]));
+        assert!(validate_control_document(&changed).is_err());
+    }
+}
+
+// CSHARP-03-T01-W05
+#[test]
+fn control_probe_preserves_w04_and_the_active_release_boundary() {
+    assert_eq!(sha256(&bytes(RESULT_PATH)), RESULT_SHA256);
+    assert_eq!(
+        sha256(&bytes("develop/probes/csharp-03/DataConstructionProbe.cs")),
+        PROBE_SOURCE_SHA256
+    );
+    assert_eq!(
+        sha256(&bytes("release/build-inputs/csharp/build-inputs.json")),
+        "0345044d16d4efb3568c32a3d7bc67fec508fe9359eff423a7f09c7f69b348dc"
+    );
+    assert_eq!(
+        sha256(&bytes(
+            "release/build-inputs/csharp/candidate-inventory.json"
+        )),
+        "4ff3ba6fdc2eb2857c32563b959f11194075a4264164cd7aebc808858e500e9b"
+    );
+    assert_eq!(
+        sha256(&bytes("develop/specs/vectors/csharp-profile-v0.json")),
+        "8109f781ca1f2b90ba02f786da09ba97602f4cd484b8835b561d5ecf4e7781c8"
+    );
+    for relative in [
+        "release/bundles/semantic-profile-registry.json",
+        "release/bundles/bundle-registry.json",
+    ] {
+        let content = String::from_utf8(bytes(relative)).unwrap();
+        assert!(!content.contains("CSHARP-03"));
+        assert!(!content.contains("mpk.csharp.practical"));
+        assert!(!content.contains("roslyn_control_probe"));
+    }
+}
+
+// CSHARP-03-T01-W05
+#[test]
+fn pinned_control_probe_rerun_is_byte_identical_when_the_linux_cache_is_available() {
+    if !cfg!(all(target_os = "linux", target_arch = "x86_64")) {
+        return;
+    }
+    let archives = repository_root()
+        .join("release/build-input-cache/csharp")
+        .join(TOOLCHAIN_SHA256)
+        .join("archives");
+    let present = fs::read_dir(&archives)
+        .map(|entries| entries.filter_map(Result::ok).count())
+        .unwrap_or(0);
+    assert!(present == 0 || present == 6, "partial C# archive cache");
+    if present == 0 {
+        return;
+    }
+    let output = Command::new(
+        repository_root().join("develop/probes/csharp-03/run-control-exception-pattern-probe.sh"),
+    )
+    .arg("--check")
+    .env_clear()
+    .env("PATH", "/usr/bin:/bin")
+    .output()
+    .expect("execute pinned W05 Roslyn probe");
     assert!(
         output.status.success(),
         "stdout={} stderr={}",

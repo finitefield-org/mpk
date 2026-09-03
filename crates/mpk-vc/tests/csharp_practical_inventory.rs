@@ -164,8 +164,8 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
 
         let expected_status = match work_item.as_str() {
             "CSHARP-03-T01-W01" | "CSHARP-03-T01-W02" | "CSHARP-03-T01-W03"
-            | "CSHARP-03-T01-W04" => "Complete",
-            "CSHARP-03-T01-W05" => "Ready",
+            | "CSHARP-03-T01-W04" | "CSHARP-03-T01-W05" => "Complete",
+            "CSHARP-03-T01-W06" => "Ready",
             _ => "Blocked",
         };
         assert_eq!(row.status, expected_status, "status drift for {work_item}");
@@ -173,7 +173,8 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             "CSHARP-03-T01-W01" => "17275ffcba4f37d93a74fd188d9860b0a7d5f10d",
             "CSHARP-03-T01-W02" => "f84a5c6ff5122a3a5e64d9305fe999ed1f501f85",
             "CSHARP-03-T01-W03" => "4ad2cd480792d8e7cac71eb798e6b55b66bd97fb",
-            "CSHARP-03-T01-W04" => "SELF",
+            "CSHARP-03-T01-W04" => "b6680168c2666be503741575c009f0a26dd0da22",
+            "CSHARP-03-T01-W05" => "SELF",
             _ => "—",
         };
         assert_eq!(
@@ -204,6 +205,10 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
         "develop/migrations/csharp-03/probes/roslyn-data-construction.json",
         "Fourteen isolated compilation units record 181 distinct target shapes",
         "Every admitted target has a separately named upgrade mutation",
+        "## 7. CSHARP-03-T01-W05 completion record",
+        "develop/migrations/csharp-03/probes/roslyn-control-exception-pattern.json",
+        "Eighteen isolated compilation units record 103 distinct source shapes",
+        "All 40 decision graphs and 25 exception regions have distinct upgrade mutations",
     ] {
         assert!(ledger.contains(required), "ledger is missing {required}");
     }

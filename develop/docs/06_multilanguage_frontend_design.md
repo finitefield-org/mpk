@@ -16,16 +16,17 @@ rehearsal, and T10 implemented atomic activation.
 `07_java_frontend_design.md` and the Java implementation ledger record
 the implementation boundary. Registry revision 3 and all five tuples are
 installed; the native x86-64 T10 gate passed twice on 2026-09-03, so
-CSHARP-03-T01-W01/W02/W03/W04 completed the entry audit, consumer inventory,
-private frontend/toolchain closure proof, and Roslyn data/construction-shape
-measurement, and CSHARP-03-T01-W05 is ready.
+CSHARP-03-T01-W01/W02/W03/W04/W05 completed the entry audit, consumer
+inventory, private frontend/toolchain closure proof, and Roslyn data,
+construction, control, exception, and pattern-shape measurements, and
+CSHARP-03-T01-W06 is ready.
 
 Prepared: 2026-08-21
 
 Updated: 2026-09-04 (`JAVA-03-T10` complete with native x86-64 release
-receipt; post-Java `CSHARP-03-T01-W01/W02/W03/W04` audit, inventory, private
-toolchain closure, and Roslyn data/construction measurement complete and W05
-ready)
+receipt; post-Java `CSHARP-03-T01-W01/W02/W03/W04/W05` audit, inventory,
+private toolchain closure, and Roslyn data/construction/control/exception/
+pattern measurement complete and W06 ready)
 
 ## 1. Decision summary
 

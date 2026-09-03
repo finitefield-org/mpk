@@ -75,3 +75,61 @@ templates, application bindings, profile identity, diagnostic IDs, or limits.
 Those decisions remain with T01-W08 through T01-W10. Control, exception, and
 pattern observations remain T01-W05-owned; dependency/generic/iterator/async
 rejections remain T01-W06-owned; runtime semantics remain T01-W07-owned.
+
+## T01-W05 control, exception, and pattern probe
+
+`ControlExceptionPatternProbe.cs` uses only public Roslyn APIs to measure the
+control forms proposed by T01-W05. Its 18 isolated compilation units contain
+62 proposed admitted shapes and 41 rejected near misses covering:
+
+- `while`, `do`, `for`, array/string `foreach`, `break`, and `continue`;
+- switch statements and expressions, guards, constant/discard/`var`, null,
+  relational, logical, type/declaration, property/tag, and bounded list
+  patterns;
+- exact standalone throws, source and built-in exception construction, typed
+  catch ordering, immutable payload access, rethrow, and propagation;
+- filters, filter failure, nested handler search, inner-to-outer unwind,
+  normal `finally`, and return/break/continue/throw completion through
+  `finally`; and
+- compiler-successful exclusions, warning-bearing exclusions, and compiler-
+  error near misses for jumps, enumeration protocols, patterns, switches,
+  exception state/constructors, handlers, filters, and illegal `finally`
+  exits.
+
+The result records complete operation roots, 40 operation-parent decision
+graphs, 25 exception-region records, public CFG blocks/edges/region trees,
+abrupt completions, exact source and marker spans, and one combined source-
+order sequence per compilation. Catch, arm, decision-node, throw, region, and
+abrupt-completion ordinals are explicit. All 65 decision graphs and exception
+regions have separately named upgrade mutations bound to their exact
+observation hashes.
+
+The canonical result is
+`../../migrations/csharp-03/probes/roslyn-control-exception-pattern.json`. It
+is 2,331,920 bytes with raw SHA-256
+`b1215ad7f4a0e08dc269834229d7158158d31c0e9475218fa0791feea5a1629a`.
+The runner is offline and consumes the exact W04 commit/result and W03
+toolchain closure. On native x86-64 Linux with that archive cache present:
+
+```sh
+./develop/probes/csharp-03/run-control-exception-pattern-probe.sh --check
+```
+
+`--check-record` validates canonical schema, links, spans, source order, and
+observation hashes without executing Linux binaries. `--self-test` mutates
+every decision/region observation and requires full-schema rejection for both
+families. `--update` runs the same two-clean-build/two-clean-run equality gate
+before atomically replacing the result.
+
+The recorded and final check use the immutable local Linux x86-64 gate image,
+no network, a read-only root and repository mount, and a fresh executable
+tmpfs:
+
+```text
+docker run --rm --platform linux/amd64 --privileged --network none --read-only --tmpfs /tmp:rw,nosuid,nodev,exec,size=4g --mount type=bind,source=<repository>,target=/workspace,readonly -w /workspace sha256:ea3189955dd9c0e5deda7a30ef48a0c7ef5af3b128f74fcd6e368384b8e1420a ./develop/probes/csharp-03/run-control-exception-pattern-probe.sh --check
+```
+
+W05 remains measurement evidence only. It does not freeze decision semantics,
+exception lowering, diagnostic identities, profile/schema identities, or a
+production route. Dependency/generic/iterator/async observations remain W06;
+runtime behavior remains W07; specification and activation remain W08-W10.
