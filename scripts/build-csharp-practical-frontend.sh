@@ -1,0 +1,26 @@
+#!/bin/sh
+set -eu
+
+script_dir=$(CDPATH= cd -- "$(/usr/bin/dirname -- "$0")" && pwd -P)
+
+case "$#:${1-}" in
+  1:--check-build-inputs)
+    action=check-build-inputs
+    ;;
+  1:--check)
+    action=check
+    ;;
+  1:--update-inventory)
+    action=update-inventory
+    ;;
+  1:--self-test)
+    action=self-test
+    ;;
+  *)
+    printf '%s\n' CSHARP_PRACTICAL_BUILD_USAGE >&2
+    exit 64
+    ;;
+esac
+
+exec /usr/bin/env -i PATH=/usr/bin:/bin PYTHONDONTWRITEBYTECODE=1 TMPDIR=/tmp \
+  /usr/bin/python3 -B "$script_dir/csharp_practical_build_inputs.py" "$action"

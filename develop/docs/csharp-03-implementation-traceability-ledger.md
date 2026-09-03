@@ -1,10 +1,10 @@
 # CSHARP-03 Implementation Traceability Ledger
 
-Status: `CSHARP-03-T01-W01/W02` complete (2026-09-03). The entry audit and
-consumer inventory are closed, `CSHARP-03-T01-W03` is ready, and every later
-work item remains blocked by its serial predecessor. No practical-profile
-identity, production acceptance path, candidate, or active registry entry was
-introduced by W01/W02.
+Status: `CSHARP-03-T01-W01/W02/W03` complete (2026-09-03). The entry audit,
+consumer inventory, and private frontend/toolchain closure proof are closed,
+`CSHARP-03-T01-W04` is ready, and every later work item remains blocked by its
+serial predecessor. No practical-profile identity, production acceptance path,
+registered candidate, or active registry entry was introduced by W01-W03.
 
 This ledger is subordinate to
 [`08_csharp_practical_subset_design.md`](08_csharp_practical_subset_design.md)
@@ -36,9 +36,9 @@ it does not freeze a new profile or alter an active release.
 | Work item | Status | Primary test owner | Commit |
 | --- | --- | --- | --- |
 | `CSHARP-03-T01-W01` | `Complete` | `crates/mpk-vc/tests/csharp_practical_inventory.rs#CSHARP-03-T01-W01` | `17275ffcba4f37d93a74fd188d9860b0a7d5f10d` |
-| `CSHARP-03-T01-W02` | `Complete` | `crates/mpk-vc/tests/csharp_practical_inventory.rs#CSHARP-03-T01-W02` | `SELF` |
-| `CSHARP-03-T01-W03` | `Ready` | `crates/mpk-cli/tests/csharp_practical_build_inputs.rs#CSHARP-03-T01-W03` | `—` |
-| `CSHARP-03-T01-W04` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W04` | `—` |
+| `CSHARP-03-T01-W02` | `Complete` | `crates/mpk-vc/tests/csharp_practical_inventory.rs#CSHARP-03-T01-W02` | `f84a5c6ff5122a3a5e64d9305fe999ed1f501f85` |
+| `CSHARP-03-T01-W03` | `Complete` | `crates/mpk-cli/tests/csharp_practical_build_inputs.rs#CSHARP-03-T01-W03` | `SELF` |
+| `CSHARP-03-T01-W04` | `Ready` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W04` | `—` |
 | `CSHARP-03-T01-W05` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W05` | `—` |
 | `CSHARP-03-T01-W06` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W06` | `—` |
 | `CSHARP-03-T01-W07` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W07` | `—` |
@@ -236,7 +236,7 @@ AI, and API.
 The inventory records 67 explicit producer/parser/validator/serializer/hash,
 bundle, CLI/API, fixture, and test edges. Repository search fixtures: `136`;
 their exact search roots, exclusions, counts, and sorted-path-set SHA-256 values
-bind 4,920 family-to-path consumer hits. Every hit resolves through an ordered
+bind 4,922 family-to-path consumer hits. Every hit resolves through an ordered
 path rule to either `active` or `private` and to a concrete edge role. The
 closed ledger contains no unowned read/write/hash edge, unclassified route, or
 unassigned cutover/rollback member.
@@ -342,3 +342,139 @@ Final review findings: `0`. The final review checks W02-only scope, complete
 family and role coverage, live-path anchors, search-set mutation sensitivity,
 active/private separation, downstream ownership, no practical activation,
 and atomic cutover/whole-image rollback closure after all fixes.
+
+## 5. CSHARP-03-T01-W03 completion record
+
+### 5.1 Frozen frontend and toolchain closure
+
+The private descriptor at
+`develop/migrations/csharp-03/build-inputs/build-inputs.json` is bound to the
+completed W02 commit `f84a5c6ff5122a3a5e64d9305fe999ed1f501f85`, tree
+`c14885505d0eeb6901aa077dd6f497b2fc0a4d5d`, and W02 inventory raw SHA-256
+`6b5b7f601f6174d61496424084d264604a5a3325a460a5c0640bfcd71a564c49`.
+Its own raw SHA-256 is
+`83bf64dcbedce89f79613fe7aab3d95a92179122df54f9b5407273a245738015`.
+
+The descriptor closes these measured inputs:
+
+- .NET SDK `10.0.400`, .NET runtime/reference pack `10.0.11`, Roslyn source
+  commit `c0573ed0a7dc3e3b4d2e70da47f97cc51a35524f`, Roslyn runtime packages
+  `5.6.0`, and analyzer package `5.3.0` as build metadata only;
+- six exact upstream archives with size and SHA-256, including SHA-512 for the
+  SDK and runtime tarballs; all six cached archive files are regular mode
+  `0444` files;
+- 167 exact `net10.0` reference assemblies totaling 6,046,008 bytes under
+  `MPK-CSHARP-REFERENCE-INVENTORY-0.1`, with inventory SHA-256
+  `30623f64b7d85564260e62464e652bfaa89eb56e0e55193989bfb99538ba6cad`;
+- the complete toolchain preimage under
+  `MPK-CSHARP-TOOLCHAIN-INPUTS-0.1`, with SHA-256
+  `d4af1170b2813a5581bb0f60b65fd4e7509576093045557b88689bf7e0876b4f`;
+- 34 exact source/build-metadata files, 13 notice projections, direct
+  `csc.dll` invocation with all 16 ordered flags, and 20 exact build-process
+  environment variables; and
+- bounded offline tar/ZIP extraction, canonical modes, path/case/symlink
+  rejection, an empty temporary home/package cache, and no network after
+  cached-archive validation.
+
+Project evaluation, restore, package-cache discovery, source generators,
+compile-time analyzers, ambient references, and unlisted source/reference
+selection are forbidden. The wrapper starts from an empty environment and
+passes only its three launcher variables; the compiler process starts from an
+empty environment and receives only the descriptor's declared closure.
+
+### 5.2 Deterministic private candidate and non-activation
+
+The private inventory at
+`develop/migrations/csharp-03/build-inputs/candidate-inventory.json` has raw
+SHA-256
+`ff4b48790c67135144419c816149f8edfbd7b40ade231d6ab44c8433efef0cce`.
+Two clean builds from the frozen bytes produced the same 18-file candidate:
+five frontend/runtime files and 13 notice files, all mode `0644`. Its candidate
+file-inventory SHA-256 is
+`e02a1d95f8c7f9fe576de16575b6c1247bebca0f678f8ddfc26ead3ad64a395f`.
+Candidate deterministic USTAR SHA-256:
+`a26bc0ad42ed424812caf25b5b8d73df95e2ccefaa0442282ecb8399c440a302`;
+its size is 10,516,480 bytes and its canonical header layout fixes USTAR,
+mode, UID/GID, owner/group, and timestamp values.
+
+Private mutation checks: `12`. They reject archive/reference/candidate byte,
+project/candidate/notice count, cache/candidate mode, compiler flag, declared
+environment, and restore-policy changes before publication. The isolated
+two-build run additionally injects hostile home, SDK, package-cache, proxy,
+and unlisted variables; the empty-environment wrapper ignores them and still
+reproduces the recorded candidate bytes.
+
+The private descriptor, inventory, harness, wrapper, and primary tests are the
+only new W03 surfaces. They do not register a practical candidate or change
+production acceptance. The active scalar descriptor, active scalar candidate
+inventory, and active scalar vector remain byte-identical at raw SHA-256
+`0345044d16d4efb3568c32a3d7bc67fec508fe9359eff423a7f09c7f69b348dc`,
+`4ff3ba6fdc2eb2857c32563b959f11194075a4264164cd7aebc808858e500e9b`,
+and `8109f781ca1f2b90ba02f786da09ba97602f4cd484b8835b561d5ecf4e7781c8`.
+No active registry, release descriptor, production source, normative profile,
+or public route changed.
+
+W03's primary test is
+`crates/mpk-cli/tests/csharp_practical_build_inputs.rs#CSHARP-03-T01-W03`.
+The W02 consumer inventory remains live: its 136 searches now bind 4,922 hits,
+including the new primary test's two private hash-domain uses.
+
+### 5.3 Verification and review
+
+Target host: Darwin arm64. The following local checks passed:
+
+- `cargo test -p mpk-cli --test csharp_practical_build_inputs`;
+- `cargo test -p mpk-vc --test csharp_practical_inventory`;
+- `cargo fmt --all -- --check`;
+- `cargo clippy -p mpk-cli --test csharp_practical_build_inputs -- -D warnings`;
+- `./scripts/build-csharp-practical-frontend.sh --self-test`;
+- `./scripts/build-csharp-practical-frontend.sh --check-build-inputs`;
+- `./scripts/build-csharp-frontend.sh --check-build-inputs`;
+- `python3 scripts/check-artifact-paths.py`;
+- `python3 scripts/check-spec-vectors.py --check`; and
+- `./scripts/check-fast.sh`.
+
+The exact two-clean-build recipe passed under host emulation in the existing
+Linux x86-64 local gate image
+`sha256:ea3189955dd9c0e5deda7a30ef48a0c7ef5af3b128f74fcd6e368384b8e1420a`,
+with `--network none`, a read-only repository mount, a fresh executable tmpfs,
+and hostile ambient variables:
+
+```text
+docker run --rm --platform linux/amd64 --privileged --network none --read-only --tmpfs /tmp:rw,nosuid,nodev,exec,size=4g -e MPK_CSHARP_PRACTICAL_UNLISTED_AMBIENT=hostile -e HOME=/ambient-home-must-not-be-used -e DOTNET_ROOT=/ambient-dotnet-must-not-be-used -e NUGET_PACKAGES=/ambient-nuget-must-not-be-used -e HTTP_PROXY=http://127.0.0.1:1 -e HTTPS_PROXY=http://127.0.0.1:1 --mount type=bind,source=<repository>,target=/workspace,readonly -w /workspace mpk-java-t10-gate:local ./scripts/build-csharp-practical-frontend.sh --check
+```
+
+This W03 evidence does not redefine the future practical release gate. Its
+exact release command and relation to the current Java-owned aggregate gate
+remain owned by T01-W10, while native practical execution remains T07/T08
+scope. The installed Java native receipt remains predecessor evidence only.
+
+Review/fix history:
+
+- The first implementation pass found that a well-formed but different
+  candidate archive hash survived inventory-shape validation. Exact descriptor,
+  recipe, project, candidate, archive hashes and archive size are now checked,
+  and all 12 mutation cases pass only when every altered value rejects.
+- The second pass found that validating the historical W02 source manifest
+  directly against the mutable future worktree would make W03 evidence fail
+  after later implementation tasks. Historical manifest identity is now
+  validated against its frozen aggregate hash, while both build-check actions
+  separately validate the live files before compiling them.
+- The third pass detected the two new hash-domain consumers through the W02
+  search gate. Both path fingerprints and the aggregate hit count were updated
+  in this same work item; all 136 add/delete-sensitive searches pass.
+- The fourth pass found that the complete build and inventory-update path did
+  not independently check live project bytes before compiling and could write
+  a generated inventory before checking all frozen aggregate values. Live
+  files are now checked before compilation and generated inventory is fully
+  validated before either comparison or atomic replacement.
+- The fifth pass found one remaining historical-manifest dependency on the
+  active scalar script's mutable project-file list. The historical validator
+  now relies only on its exact 34-record aggregate, while the build paths retain
+  their separate live-manifest validation.
+
+Final review findings: `0`. The final review checks W03-only scope, frozen
+byte/count/mode/flag/reference/environment closure, offline two-build
+reproducibility, ambient-state stripping, private registration state, active
+scalar byte preservation, W02 consumer closure, serial ledger state, and the
+T01-W10/T07/T08 native-gate ownership boundary after all fixes.

@@ -163,14 +163,15 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
         );
 
         let expected_status = match work_item.as_str() {
-            "CSHARP-03-T01-W01" | "CSHARP-03-T01-W02" => "Complete",
-            "CSHARP-03-T01-W03" => "Ready",
+            "CSHARP-03-T01-W01" | "CSHARP-03-T01-W02" | "CSHARP-03-T01-W03" => "Complete",
+            "CSHARP-03-T01-W04" => "Ready",
             _ => "Blocked",
         };
         assert_eq!(row.status, expected_status, "status drift for {work_item}");
         let expected_commit = match work_item.as_str() {
             "CSHARP-03-T01-W01" => "17275ffcba4f37d93a74fd188d9860b0a7d5f10d",
-            "CSHARP-03-T01-W02" => "SELF",
+            "CSHARP-03-T01-W02" => "f84a5c6ff5122a3a5e64d9305fe999ed1f501f85",
+            "CSHARP-03-T01-W03" => "SELF",
             _ => "—",
         };
         assert_eq!(
@@ -191,7 +192,12 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
         "develop/migrations/csharp-03/artifact-consumer-inventory.json",
         "Repository search fixtures: `136`",
         "inventory records 67 explicit",
-        "bind 4,920 family-to-path consumer hits",
+        "bind 4,922 family-to-path consumer hits",
+        "## 5. CSHARP-03-T01-W03 completion record",
+        "develop/migrations/csharp-03/build-inputs/build-inputs.json",
+        "develop/migrations/csharp-03/build-inputs/candidate-inventory.json",
+        "Candidate deterministic USTAR SHA-256",
+        "Private mutation checks: `12`",
     ] {
         assert!(ledger.contains(required), "ledger is missing {required}");
     }
@@ -282,7 +288,7 @@ fn csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge() {
                     .expect("search count must be an unsigned integer")
             })
             .sum::<u64>(),
-        4_920,
+        4_922,
         "family-to-path inventory total drift"
     );
     let fixture_by_id = search_fixtures
