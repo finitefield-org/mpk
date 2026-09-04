@@ -876,6 +876,10 @@ pub struct PracticalArtifactContext {
 }
 
 impl PracticalArtifactContext {
+    pub(crate) fn typed_context(&self) -> &SuccessorSemanticContext {
+        &self.typed_semantic_context
+    }
+
     pub fn semantic_context(&self) -> &PracticalJsonValue {
         &self.semantic_context
     }
@@ -1348,6 +1352,18 @@ impl ArtifactRef {
         })
     }
 
+    pub(crate) fn validated_successor(
+        context: &PracticalArtifactContext,
+        captures: &CapturedInputSet,
+        schema: &str,
+        sha256: &str,
+        canonical_bytes: u64,
+    ) -> Result<Self, PracticalArtifactError> {
+        let mut reference = Self::opaque_successor(context, schema, sha256, canonical_bytes)?;
+        reference.input_set_sha256 = Some(captures.snapshot_sha256().to_owned());
+        Ok(reference)
+    }
+
     pub fn value(&self) -> PracticalJsonValue {
         PracticalJsonValue::object(vec![
             ("schema", PracticalJsonValue::string(&self.schema)),
@@ -1724,6 +1740,26 @@ impl CapturedInputSet {
 
     pub fn entry(&self, path: &str) -> Option<&CapturedOriginalInput> {
         self.entries.iter().find(|entry| entry.path == path)
+    }
+
+    pub(crate) fn matches_context(&self, context: &PracticalArtifactContext) -> bool {
+        let expected = context
+            .source_paths
+            .iter()
+            .map(|path| (OriginalInputKind::Source, path.as_str()))
+            .chain(
+                context
+                    .sidecar_paths
+                    .iter()
+                    .map(|path| (OriginalInputKind::Sidecar, path.as_str())),
+            )
+            .collect::<BTreeSet<_>>();
+        let actual = self
+            .entries
+            .iter()
+            .map(|entry| (entry.kind, entry.path.as_str()))
+            .collect::<BTreeSet<_>>();
+        actual.len() == self.entries.len() && actual == expected
     }
 
     fn contains_source_raw_sha256(&self, sha256: &str) -> bool {

@@ -2027,6 +2027,19 @@ fn csharp_03_t02_w03_validates_exception_values_handlers_and_explicit_control() 
         validate_explicit_control_graph(&fixture.roots, &fixture.closed, &universe, &changed),
         PracticalVirErrorCode::HandlerOrder,
     );
+    let mut changed = graph.clone();
+    let orphan_ordinal = u32::try_from(changed.nodes.len()).unwrap();
+    changed.nodes.push(control_node(
+        orphan_ordinal,
+        "orphan.handler",
+        ControlNodeTag::HandlerEntry,
+        &["exit"],
+        &[],
+    ));
+    assert_vir_reject(
+        validate_explicit_control_graph(&fixture.roots, &fixture.closed, &universe, &changed),
+        PracticalVirErrorCode::HandlerShape,
+    );
     let mut changed = graph;
     changed.unwind_plans[0].finally_region_ids = vec!["region.outer".to_owned()];
     assert_vir_reject(

@@ -1967,7 +1967,8 @@ fn vir_failure(
     PracticalVirValidationError { phase, code }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(rename_all = "snake_case")]
 pub enum ClosedOperationTag {
     Foundation,
     FieldRead,
@@ -2026,7 +2027,8 @@ impl ClosedOperationTag {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(rename_all = "snake_case")]
 pub enum RequiredCheckTag {
     StaticObligation,
     ParseError,
@@ -2055,14 +2057,16 @@ impl RequiredCheckTag {
     }
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(deny_unknown_fields)]
 pub struct RequiredCheck {
     pub id: String,
     pub tag: RequiredCheckTag,
     pub failure_type_id: Option<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(deny_unknown_fields)]
 pub struct ClosedOperationSignature {
     pub id: String,
     pub tag: ClosedOperationTag,
@@ -2071,20 +2075,23 @@ pub struct ClosedOperationSignature {
     pub ordered_checks: Vec<RequiredCheck>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(deny_unknown_fields)]
 pub struct TypedValueRef {
     pub id: String,
     pub type_id: String,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(deny_unknown_fields)]
 pub struct ExceptionalSuccessor {
     pub check_id: String,
     pub exception_type_id: String,
     pub target_id: String,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(deny_unknown_fields)]
 pub struct OperationInvocation {
     pub operation_id: String,
     pub operands: Vec<TypedValueRef>,
@@ -2710,13 +2717,33 @@ fn known_concrete_type(
         || closed_set.metadata.contains_key(type_id)
 }
 
+/// Returns whether `type_id` is one of the concrete monomorphic types admitted
+/// by the validated root and closed-instance inputs.
+///
+/// The successor VIR importer uses this instead of duplicating the foundation
+/// model's private type-index construction.
+pub(crate) fn is_known_concrete_type(
+    roots: &ValidatedClosedRootSet,
+    closed_set: &ClosedInstanceSet,
+    type_id: &str,
+) -> bool {
+    known_concrete_type(roots, closed_set, type_id)
+}
+
 fn valid_vocabulary_id(value: &str) -> bool {
     (1..=1_024).contains(&value.len())
         && value.bytes().all(|byte| byte.is_ascii_graphic())
         && !value.contains(['<', '>', '`'])
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
+/// Returns whether `value` is a bounded, generic-free practical-VIR
+/// vocabulary identifier.
+pub(crate) fn is_valid_vocabulary_id(value: &str) -> bool {
+    valid_vocabulary_id(value)
+}
+
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(deny_unknown_fields)]
 pub struct BindingTypeProjection {
     pub id: String,
     pub binding_id: String,
@@ -2726,7 +2753,8 @@ pub struct BindingTypeProjection {
     pub reconstruct: ClosedOperationSignature,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(deny_unknown_fields)]
 pub struct CheckCommutation {
     pub ordinal: u32,
     pub source_check_id: String,
@@ -2734,7 +2762,8 @@ pub struct CheckCommutation {
     pub failure_projection_id: Option<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(deny_unknown_fields)]
 pub struct BindingOperationCommutation {
     pub binding_id: String,
     pub source_operation: ClosedOperationSignature,
@@ -2950,14 +2979,16 @@ impl ConstructionActionTag {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(rename_all = "snake_case")]
 pub enum ConstructionStatus {
     Active,
     Frozen,
     Discarded,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(deny_unknown_fields)]
 pub struct SequenceConstructionState {
     pub construction_id: String,
     pub instance_id: String,
@@ -3413,7 +3444,8 @@ impl AbruptCompletionTag {
     }
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(tag = "tag", rename_all = "snake_case", deny_unknown_fields)]
 pub enum AbruptCompletion {
     Normal,
     Return {
@@ -3445,7 +3477,8 @@ impl AbruptCompletion {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(rename_all = "snake_case")]
 pub enum ControlNodeTag {
     Entry,
     Operation,
@@ -3507,7 +3540,8 @@ impl ControlNodeTag {
     }
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(deny_unknown_fields)]
 pub struct ControlNode {
     pub id: String,
     pub ordinal: u32,
@@ -3520,7 +3554,8 @@ pub struct ControlNode {
     pub region_stack: Vec<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(deny_unknown_fields)]
 pub struct LoopRegion {
     pub id: String,
     pub parent_loop_id: Option<String>,
@@ -3531,7 +3566,8 @@ pub struct LoopRegion {
     pub backedge_source_ids: Vec<String>,
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(rename_all = "snake_case")]
 pub enum PatternTag {
     Constant,
     Discard,
@@ -3590,14 +3626,16 @@ impl PatternTag {
     }
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(deny_unknown_fields)]
 pub struct PatternPropertyAccess {
     pub member_id: String,
     pub total: bool,
     pub pure: bool,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(deny_unknown_fields)]
 pub struct PatternArm {
     pub ordinal: u32,
     pub tag: PatternTag,
@@ -3611,7 +3649,8 @@ pub struct PatternArm {
     pub has_slice: bool,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(deny_unknown_fields)]
 pub struct PatternDecision {
     pub node_id: String,
     pub governing_value_id: String,
@@ -3624,7 +3663,8 @@ pub struct PatternDecision {
     pub non_exhaustive_exceptional_successor: Option<ExceptionalSuccessor>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(deny_unknown_fields)]
 pub struct SourceExceptionDefinition {
     pub type_id: String,
     pub sealed: bool,
@@ -3855,7 +3895,8 @@ fn closed_type_id_for_operation(
     }
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(deny_unknown_fields)]
 pub struct ExceptionFilterRule {
     pub condition_type_id: String,
     pub thrown_filter_exception_successor_id: String,
@@ -3863,7 +3904,8 @@ pub struct ExceptionFilterRule {
     pub preserves_original_exception: bool,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(deny_unknown_fields)]
 pub struct CatchHandler {
     pub ordinal: u32,
     pub exception_type_id: String,
@@ -3871,7 +3913,8 @@ pub struct CatchHandler {
     pub handler_entry_node_id: String,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(deny_unknown_fields)]
 pub struct ExceptionHandlerRegion {
     pub id: String,
     pub parent_region_id: Option<String>,
@@ -3881,7 +3924,8 @@ pub struct ExceptionHandlerRegion {
     pub finally_entry_node_id: Option<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(deny_unknown_fields)]
 pub struct ExceptionUnwindPlan {
     pub source_node_id: String,
     pub check_id: String,
@@ -4438,6 +4482,7 @@ fn validate_exception_regions(
         }
     }
     let mut handler_entry_ids = BTreeSet::new();
+    let mut finally_entry_ids = BTreeSet::new();
     for region in regions {
         match region.parent_region_id.as_deref() {
             None if region.nesting_depth == 0 => {}
@@ -4474,13 +4519,29 @@ fn validate_exception_regions(
                 return Err(vir_failure(phase, PracticalVirErrorCode::HandlerOrder));
             }
         }
-        if region.finally_entry_node_id.as_deref().is_some_and(|id| {
-            nodes
-                .get(id)
-                .is_none_or(|node| node.tag != ControlNodeTag::FinallyEntry)
-        }) {
-            return Err(vir_failure(phase, PracticalVirErrorCode::HandlerShape));
+        if let Some(id) = region.finally_entry_node_id.as_deref() {
+            if !finally_entry_ids.insert(id)
+                || nodes
+                    .get(id)
+                    .is_none_or(|node| node.tag != ControlNodeTag::FinallyEntry)
+            {
+                return Err(vir_failure(phase, PracticalVirErrorCode::HandlerShape));
+            }
         }
+    }
+    let graph_handler_entry_ids = nodes
+        .values()
+        .filter(|node| node.tag == ControlNodeTag::HandlerEntry)
+        .map(|node| node.id.as_str())
+        .collect::<BTreeSet<_>>();
+    let graph_finally_entry_ids = nodes
+        .values()
+        .filter(|node| node.tag == ControlNodeTag::FinallyEntry)
+        .map(|node| node.id.as_str())
+        .collect::<BTreeSet<_>>();
+    if graph_handler_entry_ids != handler_entry_ids || graph_finally_entry_ids != finally_entry_ids
+    {
+        return Err(vir_failure(phase, PracticalVirErrorCode::HandlerShape));
     }
     for node in nodes.values() {
         if !valid_region_stack(&by_id, &node.region_stack) {

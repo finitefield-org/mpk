@@ -12,13 +12,16 @@ practical foundation, closed specialization engine, and monomorphic value
 model. T02-W03 followed with the closed operation/check, construction,
 binding, control/pattern, and exception vocabulary. T02-W04 then completed the
 context-bound successor source artifacts, source map, manifests, closed tables,
-and boundary byte/value linkage.
+and boundary byte/value linkage. T02-W05 then completed the strict successor
+VIR importer, including independent foundation/specialization reconstruction,
+closed operation and artifact linkage, structural control/value/ownership/
+exception validation, bounded parsing, and the generic-free barrier.
 `CSHARP-03-T01-W09-F01` is resolved
 by W08's reviewed binary-addressed Boolean-cube and static concrete-transformer
 expansion (ledger section 11). Both checkers accept all W09 capacity cases
 through each frozen limit plus one without a core change. W10 publishes the
 normative but inactive specifications and 700 vectors.
-`CSHARP-03-T02-W01/W02/W03/W04` are complete, `CSHARP-03-T02-W05` is ready, and every
+`CSHARP-03-T02-W01/W02/W03/W04/W05` are complete, `CSHARP-03-T02-W06` is ready, and every
 later implementation work item remains blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
@@ -82,8 +85,9 @@ and canonical monomorphic values; see ledger section 15. T02-W03 then added
 the closed operation/check tags, monomorphic linear construction state,
 binding commutation, explicit loop/pattern/exception control, and their
 structural validators; see ledger section 16. T02-W04 then completed the
-successor source-artifact/linkage layer; see ledger section 17. T02-W05 is
-ready. This
+successor source-artifact/linkage layer; see ledger section 17. T02-W05 then
+completed the strict successor VIR importer and validator; see ledger section
+18. T02-W06 is ready. This
 file remains planning material. W01 added its baseline and ledger; W02 added
 only the private consumer inventory, owner tests, ledger evidence, and current-
 status documentation; W03 added only private build-input evidence and its
@@ -109,10 +113,13 @@ binding-commutation, control/pattern, closed-exception, handler, and unwind
 models. It added no serialized successor artifacts or operation/check tables;
 T02-W04 now implements those tables together with the context-bound successor
 source-artifact, immutable-input, binding, boundary-evidence, source-map, and
-manifest layer in a separate private module and owner test. No application
+manifest layer in a separate private module and owner test. T02-W05 adds only
+the private, explicitly invoked strict successor VIR transport/import module,
+the minimum W03/W04 private linkage accessors and transport derives it needs,
+and its owner tests. No application
 fixture, installed candidate bundle, public route, active build input or active
-registry/release descriptor has changed. The next serial work is T02-W05's
-successor VIR importer and validator.
+registry/release descriptor has changed. The next serial work is T02-W06's
+successor VC skeleton, VC, and hash models.
 
 The following are unconditional stop conditions:
 
@@ -782,7 +789,7 @@ members, and cross-profile splicing.
 
 Depends on: T02-W04.
 
-Current status: `Ready`.
+Current status: `Complete`.
 
 Owns: strict parsing, resource counters, stable ID/reference validation,
 dominance/control-region checks, finite acyclic call/type graphs, ownership,
@@ -804,6 +811,8 @@ and cross-artifact/profile/hash mutation suites.
 ### CSHARP-03-T02-W06 — Implement successor VC skeleton, VC, and hash models
 
 Depends on: T02-W05.
+
+Current status: `Ready`.
 
 Owns: the successor skeleton/VC schemas, canonical ordering, context and VIR
 linkage, ordinary-term type/value encoding, obligation groups, limits, and

@@ -13,6 +13,8 @@ pub mod csharp_practical_registry;
 pub mod csharp_practical_source_artifacts;
 #[doc(hidden)]
 pub mod csharp_practical_vir_model;
+#[doc(hidden)]
+pub mod csharp_practical_vir_validation;
 pub mod expr_encode;
 pub mod grouping;
 pub mod hash;

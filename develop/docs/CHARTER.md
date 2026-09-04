@@ -63,8 +63,8 @@ remains in `06_multilanguage_frontend_design.md`.
 Execution is one flow: `MLANG-00` then performs common semantic and compiler-
 API research, `MLANG-01` freezes the successor extension and C# package, and
 production admission proceeds C#, Java, the `CSHARP-03` practical C# profile,
-Dart, TypeScript, then Python. Practical C# T02-W01/W02/W03/W04 are complete
-and T02-W05 is the next ready item.
+Dart, TypeScript, then Python. Practical C# T02-W01/W02/W03/W04/W05 are
+complete and T02-W06 is the next ready item.
 Each phase must freeze its own subset
 and semantic profile, fail closed at a pinned compiler or analysis boundary,
 and reuse the unchanged certificate and source-free checker boundary. There

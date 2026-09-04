@@ -1,7 +1,7 @@
 # CSHARP-03 Implementation Traceability Ledger
 
 Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10` and
-`CSHARP-03-T02-W01/W02/W03/W04` complete (2026-09-04). The entry audit, consumer inventory,
+`CSHARP-03-T02-W01/W02/W03/W04/W05` complete (2026-09-04). The entry audit, consumer inventory,
 private frontend/toolchain closure proof,
 Roslyn shape probes, primitive/string/numeric/codec runtime measurements and
 candidate foundation/specialization/binding/data semantics and the successor
@@ -21,7 +21,10 @@ control/pattern, and explicit-exception vocabulary behind that boundary.
 T02-W04 implements the context-bound successor source artifacts, semantic
 bindings, closed operation/check tables, immutable input capture, source map,
 both manifest stages, and boundary byte/value linkage behind that boundary.
-`CSHARP-03-T02-W05` is ready and all later implementation items remain serially
+T02-W05 implements the strict, context-bound successor VIR importer and its
+generic-free, resource, graph, dominance, ownership, exception, binding,
+foundation, and operation validation barriers. `CSHARP-03-T02-W06` is ready
+and all later implementation items remain serially
 blocked. No public production acceptance path, installed candidate, or active
 registry entry was introduced.
 
@@ -68,9 +71,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T02-W01` | `Complete` | `crates/mpk-vc/tests/csharp_practical_registry.rs#CSHARP-03-T02-W01` | `4a9e8afef62eaf54a8184119b4e62e50cb73de06` |
 | `CSHARP-03-T02-W02` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W02` | `026243eae673672c45ed96d348b3248afcde40b5` |
 | `CSHARP-03-T02-W03` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W03` | `cb2c2eb419adceaf84d4b610a19deb4b8205bf96` |
-| `CSHARP-03-T02-W04` | `Complete` | `crates/mpk-vc/tests/csharp_practical_source_artifacts.rs#CSHARP-03-T02-W04` | `SELF` |
-| `CSHARP-03-T02-W05` | `Ready` | `crates/mpk-vc/tests/csharp_practical_vir_validation.rs#CSHARP-03-T02-W05` | `—` |
-| `CSHARP-03-T02-W06` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc_model.rs#CSHARP-03-T02-W06` | `—` |
+| `CSHARP-03-T02-W04` | `Complete` | `crates/mpk-vc/tests/csharp_practical_source_artifacts.rs#CSHARP-03-T02-W04` | `c487b098403c326d1802fe9ea6d43ff8e76e5b80` |
+| `CSHARP-03-T02-W05` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vir_validation.rs#CSHARP-03-T02-W05` | `SELF` |
+| `CSHARP-03-T02-W06` | `Ready` | `crates/mpk-vc/tests/csharp_practical_vc_model.rs#CSHARP-03-T02-W06` | `—` |
 | `CSHARP-03-T02-W07` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_frontend_protocol.rs#CSHARP-03-T02-W07` | `—` |
 | `CSHARP-03-T02-W08` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_migration.rs#CSHARP-03-T02-W08` | `—` |
 | `CSHARP-03-T02-W09` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_migration.rs#CSHARP-03-T02-W09` | `—` |
@@ -1798,7 +1801,7 @@ First-pass review findings: `3`.
   grammar, selected callable roots use their separately bounded canonical-ID
   grammar, and each hash helper enforces its own family limit.
 
-Verification follow-up findings: `4`.
+Verification follow-up findings: `6`.
 
 - Request/selection coverage initially exercised the practical entry and all
   five contexts but did not validate a complete request for each retained
@@ -2353,3 +2356,182 @@ linkage; source-map and two-manifest chains; generic-free output; predecessor
 preservation; non-activation; formatting, lint, focused mutations, all
 `mpk-vc` regressions, and the complete local fast gate. T02-W05 is the sole
 ready item.
+
+## 18. CSHARP-03-T02-W05 completion record
+
+### 18.1 Strict successor transport and immutable authority
+
+W05 adds the strict, Rustdoc-hidden `mpk.vir.v2` importer in
+`crates/mpk-vc/src/csharp_practical_vir_validation.rs` and its sole owner test.
+The module is available only through explicit internal invocation; no installed
+profile, bundle, CLI/API route, runtime dependency, or public acceptance path
+changes. The successor parser checks the frozen input/canonical-byte, nesting,
+string, node, function, block, operation, construction, loop, pattern,
+exception, binding, parameter, call-argument, phi-incoming, and CFG-edge
+limits before VC construction. Duplicate, unknown, missing, reordered,
+noncanonical, wrong-family, and old-schema inputs reject. The predecessor v0
+and v1 parsers continue to reject v2, and the v2 parser rejects predecessor
+bytes.
+
+The canonical root binds the exact semantic-context bytes, compilation and
+selection identities, captured-input snapshot hash, registered foundation
+descriptor, closed-instance artifact, semantic-binding artifact, required-
+check table, operation table, source-type closure, expanded foundation,
+exception declarations, binding obligations, functions, and `MPK-VIR-2.0`
+hash. The import context accepts only W01/W04 validated private capabilities
+and immutable transports. It independently revalidates the registered
+foundation bytes and content hash, validates the supplied roots, reconstructs
+the complete closed-instance closure, rebinds it to W04 capture provenance,
+and recomputes dependency order, identities, deduplication, resource limits,
+source-type DAG, and concrete expansion. A supplied table cannot become
+authority merely by repeating a valid digest.
+
+The generic barrier runs on the strictly scanned untyped tree before typed
+shape decoding. Type parameters, generic definitions, constructed generics,
+generic calls, semantic-template IDs, and surviving template nodes reject;
+only the independently expanded monomorphic foundation and concrete value
+types reach the validated result.
+
+### 18.2 Complete graph, value, operation, and binding validation
+
+Every function has one registered `source_call` signature with exact parameter
+and result types. Selected roots and reachable callees are accounted for
+exactly, the call graph and source-type graph are finite and acyclic, and all
+function/block/value/node identifiers are globally stable and unique. The W03
+control validator is supplemented with entry reachability, predecessor and
+region-edge checks, dominator computation, ordered phi validation, and typed
+use-site validation. An operation result must traverse its one dedicated
+normal-successor edge before it becomes available; exceptional and bypass
+paths cannot consume it. Return and abrupt-completion metadata must agree with
+the function signature.
+
+The importer reconstructs the required-check and operation tables from their
+canonical W04 transports, validates every signature and hash link, and requires
+the consumed operation set to equal the complete registered table. Ordinary
+invocation cannot bypass the linear `sequence_construction` protocol.
+Construction actions carry actual typed input/result value references, and
+allocation, read, fill, rewrite, borrow, transfer, freeze, discard, merge, and
+terminal-state rules are checked through W03's ownership machine. No active or
+borrowed construction may escape a terminal.
+
+Each handler-entry node defines exactly one typed handler-entry exception
+value; declared catch/finally regions must equal the graph's handler/finally
+entry set, closed catch ancestry and filter values are checked, and every
+exceptional successor has a compatible unwind plan. Semantic bindings,
+projection types, project/reconstruct operations, member operation maps, and
+commutation obligations are re-read from the W04 artifact and matched exactly
+against the VIR. Cross-context, cross-profile, cross-source-snapshot,
+cross-foundation, cross-artifact, schema, and hash substitutions reject without
+a compiler, Roslyn, CLR, filesystem, or runtime callback.
+
+### 18.3 Verification and review
+
+Completed local verification:
+
+| Command | Result |
+| --- | --- |
+| `python3 develop/probes/csharp-03/foundation_package.py --check` | pass: exact registered foundation and 2,051 vectors |
+| `python3 develop/probes/csharp-03/profile_package.py --check` | pass: 10 freeze owners, 63 downstream owners, and 700 vectors |
+| `cargo test -p mpk-vc --test csharp_practical_vir_validation` | pass: all eight W05 owner tests, including bounded parser fuzz seeds and cross-artifact/profile/hash mutations |
+| `cargo test -p mpk-vc` | pass: complete `mpk-vc` regression suite |
+| `cargo test -p mpk-cli --test successor_atomic_cutover` | pass: candidate remains unavailable to installed routes |
+| `cargo clippy -p mpk-vc --all-targets -- -D warnings` | pass |
+| `cargo fmt --all -- --check` | pass |
+| `./scripts/check-fast.sh` | pass |
+| `/usr/bin/git diff --check` | pass |
+
+First-pass review findings: `12`.
+
+- The first importer draft lacked a transport surface for several W03 models
+  and a private successor-reference constructor. Exact deny-unknown Serde
+  transports and the input-lineage-preserving constructor now form the only
+  W05 bridge.
+- Foundation and semantic-context data were initially inaccessible without
+  duplicating authority. Narrow read-only accessors now reuse W01/W02/W04
+  validation instead of creating a second registry path.
+- Void return validation initially required one result value. Unit signatures
+  now require zero result IDs and non-unit signatures require exactly one.
+- The positive owner fixture initially exercised only an empty specialization
+  closure. A registered `option<i32>` specimen now proves nonempty concrete
+  expansion and absence of residual template/generic IDs.
+- Operation use initially guaranteed only membership, allowing unused extra
+  operation rows and functions without an exact source-call signature. Import
+  now requires whole-table equality and signature/parameter/result agreement.
+- Operation results initially became available by block dominance alone. Each
+  result is now gated by its unique normal-successor edge, so an exception or
+  bypass cannot observe it.
+- The root initially relied on context equality without binding the immutable
+  input capture. It now carries and validates the exact source snapshot hash,
+  and its returned artifact reference retains that lineage.
+- The nested semantic context initially decoded to an equal value even when
+  its member order or string spelling was noncanonical. Its raw nested bytes
+  must now equal W01's canonical context bytes exactly.
+- Construction actions initially carried element types but not the actual
+  values read, filled, rewritten, or frozen. Their typed value references are
+  now registered and checked at each action ordinal.
+- A caller could initially express a sequence-construction foundation
+  operation as an ordinary invocation. Those operations now require the
+  linear ownership action path.
+- Handler entries initially named only a graph node. Each now owns one explicit
+  closed exception carrier value available at handler entry.
+- W03 exception-region validation initially allowed orphan handler/finally
+  entry nodes. Region declarations must now exactly cover both graph entry
+  sets, with a regression mutation in the W03 owner suite.
+
+Verification follow-up findings: `11`.
+
+- An early handler fixture used `System.Exception` and widened catch ancestry
+  to admit it, contradicting the frozen closed-catch vocabulary. Catch types
+  are again exact universe arms, the positive fixture uses the admitted
+  `System.ArgumentException` arm, and ancestry still orders admitted arms.
+- Retained per-function parameter, call-argument, block-parameter, phi,
+  CFG-edge, loop-depth, pattern-arm, exception-region, and live-construction
+  limits were initially incomplete. The strict observer and typed pass now
+  cover the full W05 inventory and their limit-plus-one mutations.
+- The first JSON-node cap introduced an unowned two-million-node limit below
+  the frozen transport budget. It now derives from the retained maximum input
+  bytes rather than inventing a stricter semantic boundary.
+- The independently reconstructed closed set was initially compared to W04's
+  set but not rebound to the exact captured source provenance. Import now
+  invokes the W04 binding step and validates that rebound identity and order.
+- The first exception resource pass bounded the number of try records rather
+  than the frozen count of individual catch and finally regions. It now counts
+  every catch and optional finally exactly once and rejects the 33rd region.
+- Binding linkage initially stopped after artifact hashes, projection IDs, and
+  operation commutation. The importer now independently checks that each bound
+  type is reachable, source-owned and identity-insensitive; its source hash is
+  exact; every mapped member belongs to that type; tag arms exhaust the actual
+  enum carrier; and inferred closed arguments are rederived from the real
+  member types. A valid instant projection and a wrong-carrier mutation cover
+  this path.
+- The resource-observer operation branch initially retained a collapsible
+  match and formatting drift after aggregate-limit hardening. It now uses one
+  guarded value arm, and the full target passes formatting and warning-denied
+  Clippy checks.
+- Ownership edge validation initially required every predecessor output to be
+  byte-for-byte equal to the target input and therefore bypassed W03's
+  compatible branch-merge rule. The importer now reconstructs predecessor
+  merges through W03, intersects definite-initialization facts, and rejects a
+  caller-supplied non-intersection state.
+- The concrete-type and vocabulary predicates exposed for W05 linkage were
+  initially made public even though no consumer outside `mpk-vc` needs them.
+  Their visibility is now crate-local, preserving the private successor
+  boundary.
+- Explicit-control validation initially collapsed W03 exception failures into
+  the generic control phase. W05 now preserves the exception phase at its
+  boundary, with an importer-level broad-`System.Exception` rejection proving
+  both the closed vocabulary and stable error classification.
+- Four W03 in-memory-only construction/control helper types initially received
+  transport derives despite never appearing in the W05 wire schema. Those
+  derives are removed; only types actually nested in `mpk.vir.v2` gained a
+  serialization surface.
+
+Final review findings: `0`. The final pass rechecks W05-only private scope;
+strict canonical transport and parser-family separation; exact immutable
+context, input, foundation, specialization, binding, check, and operation
+linkage; generic/template absence; graph finiteness, reachability, region and
+dominance rules; normal-edge value availability; construction ownership and
+terminal state; explicit exception values and unwind coverage; every retained
+resource limit; predecessor preservation; non-activation; formatting, lint,
+focused fuzz/mutation coverage, all `mpk-vc` regressions, and the complete
+local fast gate. T02-W06 is the sole ready item.
