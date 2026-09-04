@@ -18,14 +18,15 @@ the implementation boundary. Registry revision 3 and all five tuples are
 installed; the native x86-64 T10 gate passed twice on 2026-09-03, so
 CSHARP-03-T01-W01 through W10 completed the entry audit, feasibility and
 runtime probes, foundation/freeze work, and normative package publication.
-The package is inactive, production behavior is unchanged, and
-CSHARP-03-T02-W01 is ready.
+The package is inactive, production behavior is unchanged,
+CSHARP-03-T02-W01/W02 are complete, and CSHARP-03-T02-W03 is ready.
 
 Prepared: 2026-08-21
 
 Updated: 2026-09-04 (`JAVA-03-T10` complete with native x86-64 release
-receipt; post-Java `CSHARP-03-T01-W01` through W10 complete with the practical
-C# normative freeze package published and inactive; T02-W01 ready)
+receipt; post-Java `CSHARP-03-T01-W01` through W10 and T02-W01/W02 complete
+with the practical C# normative freeze package published and inactive;
+T02-W03 ready)
 
 ## 1. Decision summary
 
@@ -121,8 +122,8 @@ not a required application runtime protocol. T01-W10 published
 `CSHARP_PRACTICAL_PROFILE_V1.md`,
 `CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md`, and the manifested 700-vector
 package without widening the active scalar profile or authorizing an installed
-bundle or public route. The Java T10 receipt is accepted, CSHARP-03 T01 is
-complete, and T02-W01 is ready.
+bundle or public route. The Java T10 receipt is accepted, CSHARP-03 T01 and
+T02-W01/W02 are complete, and T02-W03 is ready.
 
 The order may change only through a reviewed governance amendment that records
 the user value, semantic risk, compiler integration quality, and effect on the
@@ -542,9 +543,9 @@ phase.
 
 `JAVA-03-T10` completed the Gate E cutover and its native x86-64 release gate
 passed twice. The `CSHARP-03` practical C# phase is next; all ten T01 freeze
-work items are complete and T02-W01 is ready. DART-04 remains blocked until
-that entire phase passes its release gate; design preparation does not count
-as phase entry.
+work items and T02-W01/W02 are complete, and T02-W03 is ready. DART-04 remains
+blocked until that entire phase passes its release gate; design preparation
+does not count as phase entry.
 
 ### Gate E: serial language/profile admission
 

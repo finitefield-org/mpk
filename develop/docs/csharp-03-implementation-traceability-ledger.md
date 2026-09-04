@@ -1,7 +1,7 @@
 # CSHARP-03 Implementation Traceability Ledger
 
 Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10` and
-`CSHARP-03-T02-W01` complete (2026-09-04). The entry audit, consumer inventory,
+`CSHARP-03-T02-W01/W02` complete (2026-09-04). The entry audit, consumer inventory,
 private frontend/toolchain closure proof,
 Roslyn shape probes, primitive/string/numeric/codec runtime measurements and
 candidate foundation/specialization/binding/data semantics and the successor
@@ -13,9 +13,12 @@ but inactive profile/shared-artifact package, 700 vectors, owner closure,
 upgrade matrix, and future release-gate decision. T02-W01 implements the closed
 candidate successor registry, complete semantic context/request binding,
 immutable dispatch, and predecessor projection behind an explicit private
-injection boundary. `CSHARP-03-T02-W02` is ready and all later implementation
-items remain serially blocked. No public production acceptance path, installed
-candidate, or active registry entry was introduced.
+injection boundary. T02-W02 implements the exact registered foundation,
+root-driven closed specialization, concrete expansion, and canonical
+monomorphic values behind the same private boundary. `CSHARP-03-T02-W03` is
+ready and all later implementation items remain serially blocked. No public
+production acceptance path, installed candidate, or active registry entry was
+introduced.
 
 This ledger is subordinate to
 [`08_csharp_practical_subset_design.md`](08_csharp_practical_subset_design.md)
@@ -57,9 +60,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T01-W08` | `Complete` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W08` | `4ffd8b3a9918b6cae9e4d4704e4bc6b09a12cd5c` |
 | `CSHARP-03-T01-W09` | `Complete` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W09` | `17525292755c4e508acd9300cfa72d20cdf9bb92` |
 | `CSHARP-03-T01-W10` | `Complete` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W10` | `d4459f16562c9f5a7d4d0074571c9d0af17c0dd5` |
-| `CSHARP-03-T02-W01` | `Complete` | `crates/mpk-vc/tests/csharp_practical_registry.rs#CSHARP-03-T02-W01` | `SELF` |
-| `CSHARP-03-T02-W02` | `Ready` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W02` | `—` |
-| `CSHARP-03-T02-W03` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W03` | `—` |
+| `CSHARP-03-T02-W01` | `Complete` | `crates/mpk-vc/tests/csharp_practical_registry.rs#CSHARP-03-T02-W01` | `4a9e8afef62eaf54a8184119b4e62e50cb73de06` |
+| `CSHARP-03-T02-W02` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W02` | `SELF` |
+| `CSHARP-03-T02-W03` | `Ready` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W03` | `—` |
 | `CSHARP-03-T02-W04` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_source_artifacts.rs#CSHARP-03-T02-W04` | `—` |
 | `CSHARP-03-T02-W05` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vir_validation.rs#CSHARP-03-T02-W05` | `—` |
 | `CSHARP-03-T02-W06` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc_model.rs#CSHARP-03-T02-W06` | `—` |
@@ -1819,3 +1822,127 @@ limits, context and compiled-envelope linkage; the five-by-nine dispatch;
 revision-1/2/3 preservation and revision-3-only projection; active-release
 non-activation; historical-inventory closure; formatting, lint, focused
 regressions, and the complete local fast gate.
+
+## 15. CSHARP-03-T02-W02 completion record
+
+### 15.1 Registered foundation and root-driven specialization
+
+W02 adds `crates/mpk-vc/src/csharp_practical_vir_model.rs` as a Rustdoc-hidden,
+explicitly invoked implementation. It accepts only the exact registered
+`mpk.csharp.foundation_descriptor.v1` object and exact definition member,
+recomputes the descriptor under `MPK-CSHARP-PRACTICAL-FOUNDATION-1.0`, and
+requires content SHA-256
+`d8c2a023f1c445470123519f5024a17aaca1766553331a2fed4733fecf7deec1`.
+It also independently checks the raw definition and semantics members at
+SHA-256
+`25738447bf793e37dc2125e7a07da55a03fb15f2fa4dfb87b25646a16cc9d1b4`
+and
+`29c5986e3c7ce2ab018e36eea61caaf9d9e53d6b8e47f0229ef4681db8c3fc8b`.
+Changed descriptors, member bodies, missing/extra fields, duplicate keys,
+floating JSON, non-finite tokens, and non-canonical transport reject before
+specialization.
+
+The validated inventory contains exactly all twelve templates and four
+non-template definitions. The closed-root input accepts only the frozen closed
+type grammar, registered template arities, admitted derivation origins,
+canonical provenance IDs, and an acyclic source-value graph. User parameters,
+unknown templates/types, nested option, construction/exception data payloads,
+non-total keys, invalid currency types, duplicate roots, and over-depth graphs
+reject. Roots remain explicit private inputs: W02 does not infer source facts,
+trust caller allowlists, or expose a public application route.
+
+The specialization engine recursively collects nested arguments and ordered
+dependency recipes, derives domain-separated concrete instance IDs, unions and
+sorts provenance, emits entries in lexical instance-ID order, retains recipe
+order for `dependencyN`, deduplicates serialized dependency IDs, removes only
+unavailable compare operations, substitutes every parameter/reference with a
+concrete ID, and recomputes every entry, counter, operation body, and the whole
+closed-set hash. The all-template fixture deterministically produces 13 closed
+instances, 83 operations, and 863 recipe nodes. Full-object recomputation
+rejects omitted, duplicated, reordered, unreachable/caller-injected, stale,
+or residual-generic entries rather than trusting a submitted hash.
+
+### 15.2 Canonical monomorphic values and limits
+
+The same private module provides closed typed representations for unit,
+Boolean and fixed-width integer values; chars and bounded UTF-16 strings;
+binary32/binary64 bits and decimal sign/scale/coefficient; source and
+`DayOfWeek` enums; immutable source products; arrays and bounded sequences;
+ordered entries/maps/sets; option, lookup, result, validation and boundary
+arms; date/time/duration/internal instant and GUID; money and transition
+values; all parse-error arms; and built-in/source closed exceptions. Each
+representation validates its exact concrete type ID, active payload shape,
+field order, carrier range and family bound before canonical encoding.
+
+Ordered map keys and set elements are strictly increasing under the frozen
+semantic order, not JSON lexical order. This includes signed integers,
+decimal value equivalence (including scale and signed zero), UTF-16 strings,
+enum carriers, structural values, tagged arms, GUID N-field order, money's
+currency-before-amount order, and transition field order. Equal or descending
+adjacent values reject. Nested failures preserve their owning validation code,
+and recursively counted live value cells reject above 65,536.
+
+The primary owner performs canonical encode/import/re-encode round trips for
+every listed value family and verifies family bounds, semantic ordering,
+wrong nested values, non-canonical transport, and attempted generic-value
+injection. No value transport contains a template application or parameter,
+and no caller-defined framework or serializer representation is accepted.
+
+### 15.3 Verification and review
+
+Completed local verification:
+
+| Command | Result |
+| --- | --- |
+| `python3 develop/probes/csharp-03/foundation_package.py --check` | pass: exact 12-template/4-non-template package and 2,051 vectors |
+| `python3 develop/probes/csharp-03/profile_package.py --check` | pass: 10 freeze owners, 63 downstream owners, 700 vectors |
+| `cargo test -p mpk-vc --test csharp_practical_vir_model` | pass: 19 descriptor, 57 specialization, and 12 shared limit vectors plus all canonical value families |
+| `cargo test -p mpk-vc --test csharp_practical_registry --test semantic_profile_registry --test semantic_profile_registry_runtime` | pass: successor and revision-1/2/3 registry regressions |
+| `cargo test -p mpk-vc --test csharp_practical_inventory` | pass: ledger state and historical consumer fingerprints |
+| `cargo test -p mpk-cli --test successor_atomic_cutover` | pass: candidate remains unavailable to installed routes |
+| `cargo clippy -p mpk-vc --all-targets -- -D warnings` | pass |
+| `cargo fmt --all -- --check` | pass |
+| `./scripts/check-fast.sh` | pass |
+| `/usr/bin/git diff --check` | pass |
+
+First-pass review findings: `6`.
+
+- The definition member was byte-checked but its paired semantics member was
+  represented only by descriptor constants. The registered semantics bytes
+  are now embedded and independently checked for exact size and raw digest.
+- Nested ordered-entry/map, money, and transition validation converted a child
+  invariant/type failure into a total-cell failure. Child results are now
+  propagated before checked cell addition, with a regression assertion on the
+  exact error.
+- The general product arm admitted specialized ordered-entry/money/transition
+  IDs and could bypass their dedicated type relations. General products are
+  now limited to exact captured source products; each specialized family uses
+  its closed representation.
+- Ordered maps and sets initially checked only duplicate serialized values.
+  They now require strict frozen semantic ordering, including numerically
+  ordered multi-digit integers and value-equivalent decimal encodings.
+- The concrete enum arm initially omitted the frozen framework-owned
+  `DayOfWeek` carrier. It now accepts exactly i32 carriers 0 through 6 while
+  retaining declaration-bound checks for source enums.
+- Canonical concrete-value coverage initially stopped at the generated
+  specialization object. The owner now round-trips every required family and
+  covers per-family bounds, total cells, generic injection, and canonical-byte
+  rejection.
+
+Verification follow-up findings: `2`.
+
+- The nullable-lookup vector intentionally has `inputs: null` and carries its
+  positive type in `expected.value`; the first harness read the wrong field.
+  It now validates the frozen positive type itself.
+- Direct structural-limit vectors distinguish `closed_instance_count/depth`
+  from closure's `instance_count/depth` errors. Separate frozen error values
+  now preserve both contracts without changing specialization precedence.
+
+Final review findings: `0`. The final pass rechecks W02-only production scope;
+the exact descriptor/member bytes and hashes; all template identities,
+arities, dependencies, operations and expansions; root/source/type closure;
+identity/order/dedup/provenance and all counters; whole-object closed-set
+recomputation; complete monomorphic value typing, canonical ordering and
+round trips; generic-free output; predecessor preservation; non-activation;
+historical inventory closure; formatting, lint, focused regressions, and the
+complete local fast gate. T02-W03 is the sole ready item.

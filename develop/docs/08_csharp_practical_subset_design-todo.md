@@ -5,15 +5,18 @@ The native `JAVA-03-T10` x86-64 Linux release receipt is accepted and
 `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10` have completed the entry audit,
 consumer inventory, private frontend/toolchain closure proof, Roslyn shape
 probes, primitive/string/numeric/codec runtime measurements, the candidate
-foundation/specialization/binding/data semantics, the successor contract/
-boundary/transition/identity/limit freeze and publication, and the private
-successor registry/context foundation. `CSHARP-03-T01-W09-F01` is resolved
+foundation/specialization/binding/data semantics, and the successor contract/
+boundary/transition/identity/limit freeze and publication. T02-W01/W02 then
+completed the private successor registry/context foundation, registered
+practical foundation, closed specialization engine, and monomorphic value
+model.
+`CSHARP-03-T01-W09-F01` is resolved
 by W08's reviewed binary-addressed Boolean-cube and static concrete-transformer
 expansion (ledger section 11). Both checkers accept all W09 capacity cases
 through each frozen limit plus one without a core change. W10 publishes the
-normative but inactive specifications and 700 vectors. `CSHARP-03-T02-W01` is
-complete, `CSHARP-03-T02-W02` is ready, and every later implementation work
-item remains blocked by its serial predecessor.
+normative but inactive specifications and 700 vectors.
+`CSHARP-03-T02-W01/W02` are complete, `CSHARP-03-T02-W03` is ready, and every
+later implementation work item remains blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
 
@@ -70,7 +73,9 @@ both checkers at every capacity limit plus one; see ledger sections 11 and 12.
 T01-W10 then published and reviewed the complete normative package; see ledger
 section 13. T02-W01 then completed the closed private successor registry,
 context, parameter, selection, contract-envelope, and predecessor-projection
-implementation; see ledger section 14. T02-W02 is ready. This
+implementation; see ledger section 14. T02-W02 then completed registered
+foundation validation, root-driven closed specialization, concrete expansion,
+and canonical monomorphic values; see ledger section 15. T02-W03 is ready. This
 file remains planning material. W01 added its baseline and ledger; W02 added
 only the private consumer inventory, owner tests, ledger evidence, and current-
 status documentation; W03 added only private build-input evidence and its
@@ -88,11 +93,12 @@ only private freeze/capacity artifacts, generators, owner tests, and
 documentation. W10 adds the normative profile/shared-artifact specifications,
 manifested vectors, deterministic package generator, owner/upgrade/gate
 closure, and specification tests. T02-W01 adds only the private, explicitly
-injected successor registry/context validation module and its runtime tests. No
-application fixture, installed candidate bundle, public route,
+injected successor registry/context validation module and its runtime tests.
+T02-W02 adds only the private registered-foundation/closed-instance and
+monomorphic-value module and its runtime tests. No application fixture,
+installed candidate bundle, public route,
 active build input or active registry/release descriptor has changed. The
-next serial work is T02-W02's registered foundation and closed-instance
-implementation.
+next serial work is T02-W03's operation and explicit-control vocabulary.
 
 The following are unconditional stop conditions:
 
@@ -685,7 +691,7 @@ predecessor vector tests and `successor_atomic_cutover` rejection cases.
 
 Depends on: T02-W01.
 
-Current status: `Ready`.
+Current status: `Complete`.
 
 Owns: the one frozen descriptor schema and hash domain; the exact twelve
 internal templates and four non-template definitions frozen by T01-W08;
@@ -719,6 +725,8 @@ canonical concrete-value round trips in `csharp_practical_vir_model.rs`.
 ### CSHARP-03-T02-W03 — Implement operation and explicit-control vocabulary
 
 Depends on: T02-W02.
+
+Current status: `Ready`.
 
 Owns: closed operation/check tags for the frozen data APIs and boundary codecs;
 the monomorphic linear construction state expanded from each derived concrete
