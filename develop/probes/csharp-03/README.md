@@ -425,7 +425,48 @@ python3 develop/probes/csharp-03/profile_freeze.py --check
 cargo test -p mpk-vc --test csharp_practical_spec --test csharp_practical_inventory
 ```
 
-The freeze and vectors remain private migration evidence. W10 owns their
-publication and manifest registration. W09 does not alter production code,
-core/checker behavior, the installed registry/release, public routes, or an
-external company's application source or build output.
+The freeze and vectors remain private migration evidence. W09 did not alter
+production code, core/checker behavior, the installed registry/release, public
+routes, or an external company's application source or build output. W10
+publishes them through the separate package below.
+
+## T01-W10 normative publication package
+
+`profile_package.py` publishes the W09 handoff without changing a frozen value.
+It produces
+`develop/specs/vectors/csharp-practical-profile-v1.json`, schema
+`mpk.csharp.practical.profile.conformance.v1`, owned by
+`develop/specs/CSHARP_PRACTICAL_PROFILE_V1.md` and
+`crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W10`. The companion
+`develop/specs/CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md` defines the mandatory
+successor migration. The vector manifest pins the package raw SHA-256.
+
+The package copies the complete W09 contract and the same 700 sorted vectors,
+then adds 16 canonical W01-W09 evidence hashes, ten freeze requirement owners,
+63 downstream T02-T08 work-item/test-owner pairs with their exact owns/exit/
+verification contracts, flattened name/schema/diagnostic/limit ownership,
+four upgrade-observation sets, twelve excluded
+families, the historical W02 inventory extension, and the future release-gate
+decision. The only inventory extension is the two specifications and this
+vector file; it cannot hide another added consumer from the W02 fingerprints.
+
+Reproduce or explicitly regenerate it with:
+
+```sh
+python3 develop/probes/csharp-03/profile_package.py --check
+python3 develop/probes/csharp-03/profile_package.py --update
+python3 scripts/check-spec-vectors.py --check
+cargo test -p mpk-vc --test csharp_practical_spec --test csharp_practical_inventory
+```
+
+`--check` is read-only and fails on any source, specification, owner, design
+projection, or generated-byte drift. `--update` atomically rewrites only the
+published JSON; the manifest digest must then be updated explicitly and
+reviewed. Neither mode installs a profile or changes application code.
+
+The future command is exactly
+`sudo ./scripts/check-csharp-practical-release.sh`. T07-W05 creates it
+privately, T07-W06 records its receipt, and T08-W10 atomically replaces and
+retires `scripts/check-java-frontend.sh`. Until then the Java-named gate and
+active revision-3 registries are unchanged, the practical gate path is absent,
+and this normative package is inactive.

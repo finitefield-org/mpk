@@ -54,8 +54,9 @@ follow-on flow now has this status and order:
 
 1. `MLANG-00`, `MLANG-01`, and the C# scalar release are complete;
 2. Java is complete through the T10 atomic public activation; and
-3. next expand C# through the proposed practical profile, then implement
-   Dart, TypeScript, and Python, one phase at a time.
+3. next implement the published but inactive practical C# profile from
+   `CSHARP-03-T02-W01`, then implement Dart, TypeScript, and Python one phase
+   at a time.
 
 `MLANG-00-T01` through `MLANG-00-T03`, `MLANG-01-T01` through
 `MLANG-01-T03`, and `CSHARP-02-T01` through `CSHARP-02-T20` are complete. The
@@ -105,16 +106,17 @@ installed revision 3 and the Java tuple atomically and removed executable
 staging entrypoints. Its four-language two-pass native x86-64 Linux gate passed
 on 2026-09-03 with kernel `6.8.0-134-generic`.
 
-The proposed post-Java
+The post-Java
 [practical C# design](docs/08_csharp_practical_subset_design.md) adds the
 business-domain capability set requested for C# without widening the active
 scalar profile. It covers immutable construction, bounded arrays and internal
 closed collection semantics, exact boundary codecs, application-owned domain
 outcomes and business values, explicit data boundaries, and pure state
 transitions. Application source and runtime remain free of MPK dependencies;
-user-defined generics, iterators, and async source are excluded. It remains
-design/governance work only. The T10 code prerequisite and native receipt are
-present, so `CSHARP-03-T01-W01` is eligible to start.
+user-defined generics, iterators, and async source are excluded. T01-W01
+through W10 are complete: the profile, successor shared-artifact specification,
+foundation, and 700-row package are normative but inactive. Production remains
+unchanged and `CSHARP-03-T02-W01` is ready.
 Dart waits for the complete practical-profile release gate.
 
 No multi-language feasibility, specification, or implementation phase runs in
@@ -170,6 +172,15 @@ helper release:
 | `specs/SEMANTIC_PROFILE_REGISTRY_V1.md` | `specs/vectors/semantic-profile-registry-v1.json` |
 | `specs/CSHARP_PROFILE_V0.md` | `specs/vectors/csharp-profile-v0.json`, `specs/vectors/semantic-profile-registry-v2.json` |
 | `specs/JAVA_PROFILE_V0.md` | `specs/vectors/java-profile-v0.json`, `specs/vectors/semantic-profile-registry-v3.json`, `specs/vectors/java-t09-corpus.json` |
+
+The following practical C# package is normative but inactive. It is not an
+active registry entry or public route:
+
+| Specification | Conformance vector set(s) |
+|---|---|
+| `specs/CSHARP_PRACTICAL_FOUNDATION_V1.md` | `specs/vectors/csharp-practical-foundation-v1.json` |
+| `specs/CSHARP_PRACTICAL_PROFILE_V1.md` | `specs/vectors/csharp-practical-profile-v1.json` |
+| `specs/CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md` | owner/name/migration rows in `specs/vectors/csharp-practical-profile-v1.json` |
 
 `specs/vectors/manifest.json` is the closed repository index for every vector
 set. Its repository-governance schema is
@@ -244,9 +255,12 @@ complete VIR artifact set installed at the active paths.
 │   ├── AI_API_V1.md
 │   ├── SEMANTIC_PROFILE_REGISTRY_V1.md
 │   ├── CSHARP_PROFILE_V0.md
+│   ├── CSHARP_PRACTICAL_FOUNDATION_V1.md
+│   ├── CSHARP_PRACTICAL_PROFILE_V1.md
+│   ├── CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md
 │   └── vectors/
 │       ├── manifest.json
-│       └── 24 owned vector sets listed above
+│       └── 26 owned vector sets listed above or in the manifest
 ├── roadmap/
 │   ├── ROADMAP.md
 │   ├── MILESTONES.md
@@ -306,7 +320,11 @@ Start with:
 20. `docs/java-03-implementation-traceability-ledger.md`
 21. `specs/JAVA_PROFILE_V0.md`
 22. `docs/08_csharp_practical_subset_design.md`
-23. `roadmap/RELEASE_GATES.md`
+23. `docs/08_csharp_practical_subset_design-todo.md`
+24. `specs/CSHARP_PRACTICAL_PROFILE_V1.md`
+25. `specs/CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md`
+26. `docs/csharp-03-implementation-traceability-ledger.md`
+27. `roadmap/RELEASE_GATES.md`
 
 The original baseline can be seeded from `tasks/github_issues_seed.jsonl` or
 imported from `tasks/task_backlog.csv`. Use the two design todo documents and
@@ -315,8 +333,9 @@ T01 freeze, T02 offline build, T03 validators, T04 capture/compiler adapter,
 T05 source subset/sidecars and T06 lowering/artifact emission are complete;
 T07's private candidate/JVM runner and native x86-64 Linux acceptance are
 complete. T08's private integration, T09's release rehearsal, and T10's atomic
-public activation and native release acceptance are complete. The proposed
-CSHARP-03 practical profile may begin at T01-W01; that profile must complete
+public activation and native release acceptance are complete. CSHARP-03 T01
+has published and reviewed the complete inactive practical-profile package;
+T02-W01 is ready. The profile must be implemented and atomically activated
 before DART-04.
 
 ## Reference posture
@@ -332,3 +351,4 @@ Prepared: 2026-06-26. VIR governance and multi-language planning amendments:
 Inactive pinned C# project and build closure: 2026-08-26.
 Inactive successor semantic-profile registry core: 2026-08-26.
 Practical C# profile governance and design proposal: 2026-09-02.
+Practical C# normative freeze-package publication: 2026-09-04.

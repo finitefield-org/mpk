@@ -22,11 +22,12 @@ Post-Rust source-language expansion is governed by
 `../docs/06_multilanguage_frontend_design-todo.md`. It is one continuation of
 the same flow, not a parallel track. The flow completed `RUST-07-T05`,
 `MLANG-00`, `MLANG-01`, the C# scalar release, and Java through T10, including
-its native x86-64 Linux receipt. The proposed `CSHARP-03` practical C# expansion
-is next, then Dart, TypeScript, and Python follow in that order. A governance
-design record may prepare a later phase, but no specification, placeholder ID,
-profile, selection branch, release tuple, bundle, or frontend starts before
-its entry gate.
+its native x86-64 Linux receipt. `CSHARP-03-T01` has published the normative but
+inactive practical C# package and `CSHARP-03-T02-W01` is next; Dart,
+TypeScript, and Python follow the complete practical-profile release in that
+order. A governance or inactive specification record may prepare a later
+phase, but no production profile, selection branch, release tuple, bundle, or
+frontend starts before its entry gate.
 
 The Phase 0 through Phase 12 entries below are a historical record of the
 replaced Go-only baseline, not a parallel active path. Certificate v0,

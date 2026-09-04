@@ -127,9 +127,12 @@ v0 prerequisite. It activates only after the serial handoff in
 `../docs/06_multilanguage_frontend_design-todo.md`: `RUST-07-T05` completes,
 then `MLANG-00`, then `MLANG-01`, and only then C# production begins. Every
 later language or source-profile expansion phase waits for its predecessor's
-complete release gate. The proposed practical C# expansion is therefore
-`JAVA-03 -> CSHARP-03 -> DART-04`; its design record alone does not open the
-gate.
+complete release gate. The practical C# expansion is therefore
+`JAVA-03 -> CSHARP-03 -> DART-04`. Its T01 specification package is now
+normative but inactive, T02-W01 is ready, and publication alone does not open
+the production gate. The frozen future invocation is
+`sudo ./scripts/check-csharp-practical-release.sh`; it atomically replaces and
+retires the Java-named installed gate only at CSHARP-03-T08-W10.
 
 Before a new source language or widened capability profile becomes a
 registered production frontend:

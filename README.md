@@ -51,8 +51,9 @@ tuple, removed executable staging routes, added the Java example, and made the
 four-language local Linux gate the sole release owner. On 2026-09-03 the full
 gate passed twice on native x86-64 Linux; the receipt is recorded in the
 [Java implementation ledger](develop/docs/java-03-implementation-traceability-ledger.md).
-`JAVA-03` and `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07` are complete;
-`CSHARP-03-T01-W08` is now ready.
+`JAVA-03` and `CSHARP-03-T01-W01` through `W10` are complete. The practical
+C# specification package is normative but inactive; `CSHARP-03-T02-W01` is
+now ready.
 
 ## Build from source
 
@@ -210,7 +211,9 @@ scripts/                generation and verification gates
 
 - [Alpha Demo Guide](docs/alpha-demo.md)
 - [C# Samples and Supported Subset](docs/csharp-samples-and-subset.md)
-- [Practical C# Expansion Design (proposal)](develop/docs/08_csharp_practical_subset_design.md)
+- [Practical C# Expansion Design](develop/docs/08_csharp_practical_subset_design.md)
+- [Practical C# Profile v1 (normative, inactive)](develop/specs/CSHARP_PRACTICAL_PROFILE_V1.md)
+- [Practical C# Successor Shared Artifacts v1 (normative, inactive)](develop/specs/CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md)
 - [ProofOps Policy Local Verification](docs/proof-ops-policy-ci.md)
 - [ProofOps Engine Support Design](docs/proof-ops-engine-design.md)
 - [Web System Integration Guide](docs/web-system-integration.md)
@@ -220,7 +223,9 @@ scripts/                generation and verification gates
 
 Normative successor contracts are in
 [`SEMANTIC_PROFILE_REGISTRY_V1.md`](develop/specs/SEMANTIC_PROFILE_REGISTRY_V1.md)
-and [`CSHARP_PROFILE_V0.md`](develop/specs/CSHARP_PROFILE_V0.md).
+and [`CSHARP_PROFILE_V0.md`](develop/specs/CSHARP_PROFILE_V0.md). The additional
+practical C# contracts above are published but remain outside the active
+registry until the planned atomic activation.
 
 ## License
 

@@ -1,15 +1,18 @@
 # CSHARP-03 Implementation Traceability Ledger
 
-Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09` complete (2026-09-04). The
+Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10` complete (2026-09-04). The
 entry audit, consumer inventory, private frontend/toolchain closure proof,
 Roslyn shape probes, primitive/string/numeric/codec runtime measurements and
 candidate foundation/specialization/binding/data semantics and the successor
 contract/boundary/transition/identity/limit freeze have historical completion
 records. The authorized W08 expansion amendment resolves
 `CSHARP-03-T01-W09-F01` without changing core; W09 then measures checker
-capacity and completes the private freeze. `CSHARP-03-T01-W10` is ready and all
-implementation items remain serially blocked. No production acceptance path,
-installed candidate, or active registry entry was introduced by W01-W09.
+capacity and completes the private freeze. W10 publishes the complete normative
+but inactive profile/shared-artifact package, 700 vectors, owner closure,
+upgrade matrix, and future release-gate decision. `CSHARP-03-T02-W01` is ready
+and all later implementation items remain serially blocked. No production
+acceptance path, installed candidate, or active registry entry was introduced
+by T01.
 
 This ledger is subordinate to
 [`08_csharp_practical_subset_design.md`](08_csharp_practical_subset_design.md)
@@ -49,9 +52,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T01-W06` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W06` | `22673dbc96d8ba4f0d9a4cb97c3f2490c00d1804` |
 | `CSHARP-03-T01-W07` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W07` | `b0ff7daec663b95b1f88ecc1d98f0b7c1f6fdf00` |
 | `CSHARP-03-T01-W08` | `Complete` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W08` | `4ffd8b3a9918b6cae9e4d4704e4bc6b09a12cd5c` |
-| `CSHARP-03-T01-W09` | `Complete` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W09` | `SELF` |
-| `CSHARP-03-T01-W10` | `Ready` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W10` | `—` |
-| `CSHARP-03-T02-W01` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_registry.rs#CSHARP-03-T02-W01` | `—` |
+| `CSHARP-03-T01-W09` | `Complete` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W09` | `17525292755c4e508acd9300cfa72d20cdf9bb92` |
+| `CSHARP-03-T01-W10` | `Complete` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W10` | `SELF` |
+| `CSHARP-03-T02-W01` | `Ready` | `crates/mpk-vc/tests/csharp_practical_registry.rs#CSHARP-03-T02-W01` | `—` |
 | `CSHARP-03-T02-W02` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W02` | `—` |
 | `CSHARP-03-T02-W03` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W03` | `—` |
 | `CSHARP-03-T02-W04` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_source_artifacts.rs#CSHARP-03-T02-W04` | `—` |
@@ -1544,3 +1547,134 @@ uniqueness, strict schema and expression closure, boundary non-protocol status,
 complete-snapshot idempotency, transition/diagnostic precedence, every counter
 boundary, dual-checker capacity/reproducibility, total termination, W10-only
 publication, predecessor preservation, serial ledger state, and non-activation.
+
+## 13. CSHARP-03-T01-W10 completion record
+
+### 13.1 Published normative package
+
+W10 consumes the complete W09 commit
+`17525292755c4e508acd9300cfa72d20cdf9bb92` without changing its frozen values.
+It publishes these normative but inactive members:
+
+| Member | Bytes | Raw SHA-256 |
+| --- | ---: | --- |
+| `develop/specs/CSHARP_PRACTICAL_PROFILE_V1.md` | 15,287 | `a45d0fda3322f17148201504f19e620c389a65ca24f79b5cbed4fa6a9c29b28b` |
+| `develop/specs/CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md` | 10,586 | `d1d6618dba572d24c3706d5cd88d08c6532fa6828c356803fd63ea2bc32395ab` |
+| `develop/specs/vectors/csharp-practical-profile-v1.json` | 522,760 | `d3b7be7d09d79742c8f339db3ca6313808e0257c30476cf6959aa7c5231d1b16` |
+
+The vector schema is `mpk.csharp.practical.profile.conformance.v1`. Its
+`frozen_contract` is byte-value-equivalent to the W09 private freeze with
+domain-separated content SHA-256
+`f292de00a79048ecd1ff2cbe52d90fad36654f1b3e74ad580b5ec3077afa28cb`.
+Its 700 sorted vector rows are exactly the W09 private rows. The package binds
+all 16 canonical W01-W09 evidence records, all three specification members,
+the publication generator, and the incorporated design section 6-through-23
+projection. `develop/specs/vectors/manifest.json` registers the package with
+the exact schema, owner, and raw hash above; its resulting 12,390 bytes have
+raw SHA-256
+`2f71697db72900b7bdbc2cb36b5f23db41865a06847a0b7ffc0b9e69ead6985b`.
+
+The deterministic publication generator
+`develop/probes/csharp-03/profile_package.py` is 28,890 bytes with raw SHA-256
+`3b6e4e9849408d28bd6c0d6021fbd54d9aba0eb52848cd130f9d1feb3816f1ae`.
+It freezes the publication-time predecessor gate hashes as data rather than
+reading mutable post-activation paths, so `--check` remains reproducible after
+the planned gate replacement.
+
+The historical W02 inventory remains immutable. The package records its raw
+hash and a closed three-path publication extension containing only the two new
+specifications and the published vector. The W02 repository fingerprint owner
+excludes only those three W10-owned paths; the W10 owner independently closes
+their names, hashes, manifest registration, and non-activation. Any other new,
+removed, or changed historical consumer remains a W02 fingerprint failure.
+
+### 13.2 Complete owner and upgrade closure
+
+The package maps each of the ten T01 freeze requirements to its exact work item
+and specification/probe test owner. It records exactly 63 downstream work-item
+owners for every T02-T08 implementation/release item, including each item's
+exact title, `Owns`, exit-gate, verification, and plan anchor text, with only
+T02-W01 ready and all later items serially blocked. Every implementation
+surface and release criterion is therefore attached to a work item and its
+primary production-test pair. Every one of the 700 vector rows resolves to one
+of those same implementation items and owners.
+
+The flattened inventory closes 243 unique identity/hash-domain names (102
+successor identities, 42 successor domains, 88 retained identities, and 11
+retained domains), 71 strict root/nested/union/expression shapes, 29 diagnostic
+families, and 67 practical-plus-retained limits. It also binds four canonical
+upgrade-observation sets containing 181, 65, 144, and 154 unique IDs and twelve
+disjoint excluded-source families. No excluded family has a positive v1
+vector. Future admission requires a new semantic-profile identity and a new
+atomic release; the exact value-type `T?` exception is not widened.
+
+### 13.3 Release-gate and non-activation decision
+
+The future practical candidate and release invocation is exactly:
+
+```text
+sudo ./scripts/check-csharp-practical-release.sh
+```
+
+T07-W05 owns the private script, T07-W06 owns its receipt, and T07-W05/W06 plus
+T08-W06/W09/W10 are the exact invocation owners. Before atomic activation,
+`scripts/check-java-frontend.sh` remains the sole installed-release gate and
+the practical script is absent. At T08-W10, the practical gate replaces and
+retires the Java-named gate atomically; `scripts/check-all.sh` delegates only
+to the practical gate. The replacement does not extend the installed gate by
+running both names.
+
+W10 adds no production source, public route, installed registry entry, bundle,
+candidate executable, compatibility selector, application dependency, core or
+checker rule, proof-node kind, theory certificate, axiom, or GitHub workflow.
+The active semantic and bundle registries contain no practical identity.
+
+### 13.4 Verification and review
+
+Completed local verification:
+
+| Command | Result |
+| --- | --- |
+| `python3 develop/probes/csharp-03/profile_package.py --check` | pass: 10 freeze owners, 63 downstream owners, 700 vectors |
+| `python3 scripts/check-spec-vectors.py --check` | pass: 26 manifested vector sets |
+| `python3 scripts/check-artifact-paths.py` | pass: 256 canonical JSON artifacts |
+| `cargo test -p mpk-vc --test csharp_practical_spec --test csharp_practical_inventory` | pass: 20 owner/spec/inventory tests |
+| `cargo test -p mpk-vc --test canonical_json` | pass: 8 canonical JSON and closed-manifest tests |
+| `cargo fmt --all -- --check` | pass |
+| `./scripts/check-fast.sh` | pass |
+| `/usr/bin/git diff --check` | pass |
+
+First-pass review findings: `4`.
+
+- The publication generator originally re-read the mutable installed Java and
+  aggregate gate bytes. Their W10 predecessor hashes are now frozen constants,
+  while the W10 non-activation test separately proves that the current files
+  still match. The normative package therefore remains reproducible after the
+  planned T08-W10 gate replacement.
+- The W02 historical repository search originally trusted whichever exclusion
+  paths the new package supplied. Its owner now independently requires exactly
+  the two W10 specifications and one W10 vector path, so the extension cannot
+  conceal another added consumer.
+- The first package draft routed each of the 63 downstream items by title and
+  anchor only. It now carries every item's normalized `Owns`, exit-gate, and
+  verification contract as well as its exact primary production-test pair,
+  closing implementation surfaces and release criteria rather than merely
+  pointing at them.
+- The task-contract normalizer initially inserted spaces into words split at a
+  Markdown line-ending hyphen or slash. It now joins those continuations,
+  owner tests require every field, the historical W09 record remains
+  unchanged, and current charter/roadmap routing points to T02-W01.
+
+Verification follow-up findings: `1`.
+
+- The repository-wide canonical JSON test retained the predecessor manifest
+  cardinality of 25 after W10 registered its one normative vector container.
+  The independent closed-manifest assertion now requires exactly 26 entries;
+  its focused test and the complete fast gate both pass.
+
+Final review findings: `0`. The final pass rechecks the W09 value and
+700-row identity, all source/spec/generator/manifest hashes, ten freeze and 63
+downstream owner contracts, flattened name/schema/diagnostic/limit ownership,
+upgrade exclusions, exact future gate replacement, historical inventory
+closure, active-registry/gate non-activation, documentation routing, changed-
+path scope, and deterministic regeneration. No production behavior changed.

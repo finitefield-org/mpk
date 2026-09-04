@@ -17,18 +17,17 @@ T07 completed the private candidate/JVM runner and native x86-64 Linux
 acceptance. T08 completed private verification integration, and T09 completed
 conformance and local release rehearsal, and T10 implemented atomic activation.
 Registry revision 3 and all five tuples are installed.
-`CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07` completed the entry audit,
-consumer inventory, private frontend/toolchain closure proof, Roslyn shape
-probes, and primitive/string/numeric/codec runtime measurements without adding
-a practical-profile identity or production path; T01-W08 is ready and all later
-items remain serially blocked.
+`CSHARP-03-T01-W01` through W10 completed the entry audit, probes,
+foundation/freeze work, and normative package publication without adding an
+installed practical-profile identity or production path. T02-W01 is ready and
+all later items remain serially blocked.
 
 ## Scope and sequencing
 
-This plan queues C#, Java, the proposed practical C# expansion, Dart,
-TypeScript, and Python after the complete Go/VIR/Rust critical path. It defines
-one flow; none of its production milestones overlap the Rust program or
-another language milestone.
+This plan queues C#, Java, the published but inactive practical C# expansion,
+Dart, TypeScript, and Python after the complete Go/VIR/Rust critical path. It
+defines one flow; none of its production milestones overlap the Rust program
+or another language milestone.
 
 ```text
 VIR-00 -> VIR-01 -> GO-VIR-02 -> RUST-03 -> RUST-04 -> RUST-05
@@ -814,10 +813,9 @@ Execution follows the ten serial tasks in that design's section 11 and
 integrated VC/policy/evidence/AI/API, and T09 hardened and rehearsed the
 release. T10 installed the four-language release metadata and route. No public
 Java tuple was activated before T10. The native T10 receipt is accepted;
-CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07 completed the entry audit, consumer
-inventory, private frontend/toolchain closure proof, Roslyn shape probes, and
-primitive/string/numeric/codec runtime measurements; T01-W08 is ready, and later
-phases remain serially blocked.
+CSHARP-03-T01-W01 through W10 completed the practical-profile entry, evidence,
+freeze, and normative publication work. T02-W01 is ready, and later phases
+remain serially blocked.
 
 T01 completion evidence: `JAVA_PROFILE_V0.md`, Java and revision-3 vectors,
 manifest entries, the traceability ledger, exact Temurin 25.0.4.1+1/JDK/native
@@ -912,8 +910,8 @@ kernel `6.8.0-134-generic`, `./scripts/check-java-frontend.sh` returned exit 0
 after both installed-release passes, including every namespace, cgroup,
 resource-failure, mutation, syscall-trace, checker and report check. The
 canonical receipt is
-`develop/migrations/archive/java-03-t10-native-receipt.json`; CSHARP-03-T01-W01
-is therefore unblocked.
+`develop/migrations/archive/java-03-t10-native-receipt.json`; it unblocked
+CSHARP-03 T01, which has now completed.
 
 Exit gate: Java passes the common definition of done without reinterpreting C#,
 Go, or Rust semantics, including the local offline two-pass installed gate,
@@ -924,8 +922,9 @@ same-byte dual-checker certificate corpus and zero open review findings.
 Source design: `develop/docs/08_csharp_practical_subset_design.md`.
 
 Entry gate: `JAVA-03` is complete, including T10 atomic activation and its
-local native Linux release evidence. Preparing the proposal does not satisfy
-this gate and does not permit a specification freeze or production change.
+local native Linux release evidence. CSHARP-03 T01 used that authority to
+publish the normative but inactive freeze package; publication does not permit
+a production route or partial successor activation.
 
 Only after entry, freeze and implement one new immutable practical profile for
 expression bodies, `var`, ordinary namespace `using`, immutable domain value
@@ -956,11 +955,12 @@ design. The reviewed detailed
 `08_csharp_practical_subset_design-todo.md` is the current subordinate
 execution decomposition. The accepted native `JAVA-03-T10` x86-64 Linux
 release receipt satisfied its phase entry gate.
-`CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07` completed the entry audit,
-consumer inventory, private frontend/toolchain closure proof, Roslyn shape
-probes, and primitive/string/numeric/codec runtime measurements,
-`CSHARP-03-T01-W08` is ready, and each later `Wnn` item remains blocked until its
-serial predecessor and task-local gate are complete.
+`CSHARP-03-T01-W01` through W10 completed the entry audit, probes, foundation,
+private freeze, and complete publication/review. The normative inactive
+outputs are `CSHARP_PRACTICAL_PROFILE_V1.md`,
+`CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md`, and the manifested 700-vector
+package. `CSHARP-03-T02-W01` is ready, and each later `Wnn` item remains blocked
+until its serial predecessor and task-local gate are complete.
 Each requested capability must have positive, rejection,
 boundary, differential, determinism, and compiler-upgrade evidence. Actual C#
 source, not manually assembled VIR, must pass the installed frontend and the

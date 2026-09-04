@@ -1,13 +1,13 @@
 # C# Practical Subset Expansion Design
 
-Status: frozen candidate governance and implementation design through
-`CSHARP-03-T01-W09`. This document does not
+Status: normative freeze package published through `CSHARP-03-T01-W10`; the
+production implementation remains unstarted. This document does not
 change the active `mpk.csharp.scalar.v0` profile, register a new profile, or
 authorize a practical-profile public route. The active release is registry
 revision 3 with Go, Rust, C# scalar, and Java scalar support. `JAVA-03-T10`
 and native x86-64 Linux gate completed on 2026-09-03. The CSHARP-03 entry gate
-is satisfied. T01-W10 still owns publication and the complete freeze-package
-review; production implementation and activation remain blocked.
+is satisfied. T01-W10 completed publication and the complete freeze-package
+review; T02-W01 is ready, while activation remains blocked through T08-W10.
 
 Prepared: 2026-09-02. Revised: 2026-09-04.
 
@@ -15,8 +15,8 @@ T01-W08 handoff: candidate foundation, specialization, binding and data
 semantics are now frozen in
 `develop/specs/CSHARP_PRACTICAL_FOUNDATION_V1.md`, with a private descriptor,
 conformance vectors and independent runtime evidence. The containing successor
-context/sidecar/identity/limit freeze is complete in the private T01-W09
-artifacts, and package publication remains T01-W10. This candidate freeze
+context/sidecar/identity/limit freeze is preserved from the private T01-W09
+artifacts in the manifested T01-W10 normative package. This published freeze
 changes no installed profile or production acceptance.
 
 T01-W09 feasibility resolution (2026-09-04): the original W08 cross-result
@@ -35,9 +35,9 @@ See `csharp-03-implementation-traceability-ledger.md` sections 11 and 12 and
 ## 1. Decision
 
 Create a new, immutable C# profile for deterministic business-domain logic.
-Its frozen successor identity is `mpk.csharp.practical.v1`. It remains a
-private candidate value until T01-W10 publishes the complete specification
-package and the later atomic activation task installs it.
+Its frozen successor identity is `mpk.csharp.practical.v1`. Its complete
+specification package is normative and published but remains inactive until
+the later atomic activation task installs it.
 
 Do not widen or reinterpret `mpk.csharp.scalar.v0`. Its source semantics,
 profile-payload meanings, diagnostic meanings, and historical artifact bytes
@@ -106,11 +106,15 @@ The normative authority remains, in order:
 1. Certificate v0 and the source-free checker specifications;
 2. the active successor artifact and semantic-registry specifications;
 3. `CSHARP_PROFILE_V0.md` for the existing scalar profile; and
-4. a future frozen practical-profile specification and owned vectors.
+4. `CSHARP_PRACTICAL_PROFILE_V1.md`,
+   `CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md`, and manifested
+   `csharp-practical-profile-v1.json` vectors for the practical profile.
 
-This document is subordinate to the first three. A conflict is resolved by
-changing this design or minting a new artifact version, never by silently
-changing an existing meaning.
+This document supplies the detailed source rules incorporated by item 4 and is
+subordinate to the complete normative authority above. T01-W10 binds the exact
+section 6-through-23 projection in the published package. A conflict is
+resolved by rejecting the candidate and revising/re-freezing the affected
+version or by minting a new version, never by silently choosing one meaning.
 
 The proposed serial production order is:
 
@@ -125,7 +129,8 @@ entry audit, consumer inventory, private frontend/toolchain closure proof, and
 Roslyn data/construction/control/exception/pattern/dependency/generic/iterator/
 async-rejection plus primitive/string/numeric/codec runtime measurements
 without a production change. W08 is complete, its authorized expansion
-amendment resolves F01, W09 is complete, and W10 is ready. DART-04
+amendment resolves F01, and W09/W10 completed the freeze and normative
+publication. T02-W01 is ready. DART-04
 waits for the complete CSHARP-03 release gate. This
 insertion records the user value of making the already released C# frontend
 useful for business-domain logic before adding another language; it does not
@@ -314,11 +319,14 @@ implementation happening to fit a new field into an old transport. Relevant
 private runner/build transports also receive successor identities wherever
 their closed preimage or compiled contract changes.
 
-The private machine-readable freeze at
-`develop/migrations/csharp-03/freeze/profile-freeze.json` is authoritative for
+The normative machine-readable package at
+`develop/specs/vectors/csharp-practical-profile-v1.json` is authoritative for
 the complete 17-family identity/domain/owner inventory, including the exact
-five-profile by nine-contract-category compiled-profile matrix. These frozen
-names are not public or installed until atomic activation. Every self-hashed
+five-profile by nine-contract-category compiled-profile matrix. It reproduces
+the private W09 freeze at
+`develop/migrations/csharp-03/freeze/profile-freeze.json` without changing a
+value. These frozen names are specified but not installed until atomic
+activation. Every self-hashed
 root whose preimage changes receives a new
 domain, including contract, registry, foundation-bundle, VIR, source-map,
 manifest, release-root, semantic-binding, closed-instance, and VC hashes. A
@@ -1777,8 +1785,9 @@ the final hash omits only itself from its domain-separated preimage.
 | `mpk.csharp.transition.v1` | `MPK-CSHARP-TRANSITION-CONTRACT-1.0` | T05-W04 |
 
 The exact ordered root fields and consumer lists are in
-`develop/migrations/csharp-03/freeze/profile-freeze.json`; T01-W10 copies them
-into the published specification without minting aliases.
+`develop/migrations/csharp-03/freeze/profile-freeze.json`; T01-W10 copied them
+into `develop/specs/vectors/csharp-practical-profile-v1.json` without changing
+their names, field order, types, domains, or owners and without minting aliases.
 
 Together with semantic context, practical semantic parameters, selection,
 validated request, and frontend request/success/diagnostic/source-artifact
@@ -2165,16 +2174,17 @@ The reviewed implementation decomposition is maintained at
 [`08_csharp_practical_subset_design-todo.md`](08_csharp_practical_subset_design-todo.md).
 It replaces the superseded source-visible-library, iterator/async, and
 suspension-stage plan and is the current execution decomposition subordinate
-to this design and the T01-W09 private freeze that T01-W10 must publish. Its `Wnn`
-identifiers, dependencies, owners, acceptance gates, and primary test routing
-are current. The accepted native `JAVA-03-T10` x86-64 Linux release receipt
-satisfied the phase entry gate. `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09` have
+to this design and the T01-W10 published specification package. The T01-W09
+private freeze remains its immutable evidence source. Its `Wnn` identifiers,
+dependencies, owners, acceptance gates, and primary test routing are current.
+The accepted native `JAVA-03-T10` x86-64 Linux release receipt satisfied the
+phase entry gate. `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10` have
 closed the entry audit, consumer inventory, private frontend/toolchain closure
 proof, and Roslyn data/construction/control/exception/pattern/dependency/
 generic/iterator/async-rejection plus primitive/string/numeric/codec runtime
 measurements, foundation semantics, and the successor contract/identity/limit
-freeze; the section 4 amendment resolves F01. `CSHARP-03-T01-W10` is ready.
-Each later work item remains blocked
+freeze and normative publication; the section 4 amendment resolves F01.
+`CSHARP-03-T02-W01` is ready. Each later work item remains blocked
 until its serial predecessor and task-local entry gate are satisfied.
 No task may reintroduce a source-visible `Mpk.*` API, user-defined generic,
 iterator, or async scope.
@@ -2238,6 +2248,14 @@ CSHARP-03-T01 -> T02 -> T03 -> T04 -> T05 -> T06 -> T07 -> T08
    generate and verify all three runnable business examples, then atomically
    install the sole successor release.
 
+The exact practical candidate and release invocation frozen by T01-W10 is
+`sudo ./scripts/check-csharp-practical-release.sh`. T07-W05 owns its private
+implementation, T07-W06 owns its receipt, and T07-W05/W06 plus T08-W06/W09/W10
+invoke it. Until T08-W10, `scripts/check-java-frontend.sh` remains the sole
+installed-release gate. T08-W10 atomically replaces and retires that
+Java-named gate; afterward `scripts/check-all.sh` delegates only to the
+practical gate and never runs both names.
+
 No stage creates a public compatibility flag or partial practical-profile
 route. If any requested capability fails feasibility, the profile remains
 inactive; the design is revised and re-frozen rather than claiming partial
@@ -2285,8 +2303,8 @@ Activation requires all of the following:
 
 ## 26. Freeze-time evidence status
 
-T01-W01 through W09 now bind every fact that this design previously refused to
-guess:
+T01-W01 through W10 now bind and publish every fact that this design previously
+refused to guess:
 
 - W04-W06 retain exact public Roslyn syntax, symbol, operation, CFG,
   synthesized-metadata, dependency, generic, iterator, and async observations;
@@ -2300,16 +2318,20 @@ guess:
   diagnostic family, termination rule, and deterministic limit with 700
   private vectors and 48 successful capacity-checker invocations.
 
-The canonical private handoff is
+The canonical private handoff remains
 `develop/migrations/csharp-03/freeze/profile-freeze.json`; its content hash and
 all evidence hashes are independently recomputed by
-`crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W09`. T01-W10 must
-publish that handoff as the complete specification/vector/name-and-owner
-package and run its independent zero-finding review. It may not change a
-frozen value without returning to W09 and regenerating the boundary vectors
-and evidence. A future failed or ambiguous observation still blocks the
-profile; it never falls back to compiler trust, caller-supplied metadata, or
-an axiom.
+`crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W09`. T01-W10
+published it without changing a frozen value as
+`CSHARP_PRACTICAL_PROFILE_V1.md`,
+`CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md`, and
+`develop/specs/vectors/csharp-practical-profile-v1.json`. The W10 owner test
+recomputes every source/specification hash, the ten freeze-owner mappings, 63
+downstream production owners, all 700 rows, the upgrade matrix, and the
+release-gate decision. A change to a frozen value requires returning to W09
+and regenerating the boundary vectors and evidence. A future failed or
+ambiguous observation still blocks the profile; it never falls back to
+compiler trust, caller-supplied metadata, or an axiom.
 
 ## 27. Primary references
 

@@ -8,6 +8,7 @@ const BASELINE_PATH: &str = "develop/migrations/csharp-03/baseline.json";
 const INVENTORY_PATH: &str = "develop/migrations/csharp-03/artifact-consumer-inventory.json";
 const LEDGER_PATH: &str = "develop/docs/csharp-03-implementation-traceability-ledger.md";
 const PLAN_PATH: &str = "develop/docs/08_csharp_practical_subset_design-todo.md";
+const W10_PACKAGE_PATH: &str = "develop/specs/vectors/csharp-practical-profile-v1.json";
 
 #[test]
 fn csharp_03_t01_w01_baseline_recomputes_the_active_release() {
@@ -165,8 +166,9 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
         let expected_status = match work_item.as_str() {
             "CSHARP-03-T01-W01" | "CSHARP-03-T01-W02" | "CSHARP-03-T01-W03"
             | "CSHARP-03-T01-W04" | "CSHARP-03-T01-W05" | "CSHARP-03-T01-W06"
-            | "CSHARP-03-T01-W07" | "CSHARP-03-T01-W08" | "CSHARP-03-T01-W09" => "Complete",
-            "CSHARP-03-T01-W10" => "Ready",
+            | "CSHARP-03-T01-W07" | "CSHARP-03-T01-W08" | "CSHARP-03-T01-W09"
+            | "CSHARP-03-T01-W10" => "Complete",
+            "CSHARP-03-T02-W01" => "Ready",
             _ => "Blocked",
         };
         assert_eq!(row.status, expected_status, "status drift for {work_item}");
@@ -179,7 +181,8 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             "CSHARP-03-T01-W06" => "22673dbc96d8ba4f0d9a4cb97c3f2490c00d1804",
             "CSHARP-03-T01-W07" => "b0ff7daec663b95b1f88ecc1d98f0b7c1f6fdf00",
             "CSHARP-03-T01-W08" => "4ffd8b3a9918b6cae9e4d4704e4bc6b09a12cd5c",
-            "CSHARP-03-T01-W09" => "SELF",
+            "CSHARP-03-T01-W09" => "17525292755c4e508acd9300cfa72d20cdf9bb92",
+            "CSHARP-03-T01-W10" => "SELF",
             _ => "—",
         };
         assert_eq!(
@@ -238,6 +241,14 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
         "700 sorted rows",
         "12 cases x 2 checkers x 2 runs = 48",
         "Final review findings: `0`",
+        "## 13. CSHARP-03-T01-W10 completion record",
+        "develop/specs/CSHARP_PRACTICAL_PROFILE_V1.md",
+        "develop/specs/CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md",
+        "develop/specs/vectors/csharp-practical-profile-v1.json",
+        "exactly 63 downstream work-item",
+        "sudo ./scripts/check-csharp-practical-release.sh",
+        "Verification follow-up findings: `1`",
+        "The independent closed-manifest assertion now requires exactly 26 entries",
     ] {
         assert!(ledger.contains(required), "ledger is missing {required}");
     }
@@ -1279,6 +1290,7 @@ fn assert_search_fingerprint(fixture: &Value, paths: &[String]) -> Result<(), St
 fn repository_search_index(policy: &Value) -> Vec<(String, String)> {
     let root = repo_path("");
     let ignored = string_set(&policy["ignored_directory_names"]);
+    let exclusions = historical_inventory_exclusions();
     let mut files = Vec::new();
     for search_root in array(&policy["roots"]) {
         collect_search_files(&root.join(text(search_root)), &ignored, &mut files);
@@ -1288,16 +1300,37 @@ fn repository_search_index(policy: &Value) -> Vec<(String, String)> {
     files
         .into_iter()
         .filter_map(|path| {
-            fs::read(&path).ok().map(|bytes| {
-                let relative = path
-                    .strip_prefix(&root)
-                    .expect("search path must remain under repository root")
-                    .to_string_lossy()
-                    .replace('\\', "/");
-                (relative, String::from_utf8_lossy(&bytes).into_owned())
-            })
+            let relative = path
+                .strip_prefix(&root)
+                .expect("search path must remain under repository root")
+                .to_string_lossy()
+                .replace('\\', "/");
+            if exclusions.contains(&relative) {
+                None
+            } else {
+                fs::read(&path)
+                    .ok()
+                    .map(|bytes| (relative, String::from_utf8_lossy(&bytes).into_owned()))
+            }
         })
         .collect()
+}
+
+fn historical_inventory_exclusions() -> BTreeSet<String> {
+    let package = read_json(W10_PACKAGE_PATH);
+    assert_eq!(
+        package["schema"],
+        "mpk.csharp.practical.profile.conformance.v1"
+    );
+    assert_eq!(package["work_item"], "CSHARP-03-T01-W10");
+    let actual = string_set(&package["historical_inventory_extension"]["publication_paths"]);
+    let expected = BTreeSet::from([
+        "develop/specs/CSHARP_PRACTICAL_PROFILE_V1.md".to_owned(),
+        "develop/specs/CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md".to_owned(),
+        W10_PACKAGE_PATH.to_owned(),
+    ]);
+    assert_eq!(actual, expected, "closed W10 publication-path extension");
+    actual
 }
 
 fn repository_search_paths(search_index: &[(String, String)], needle: &str) -> Vec<String> {

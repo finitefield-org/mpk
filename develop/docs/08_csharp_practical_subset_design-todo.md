@@ -2,21 +2,24 @@
 
 Status: current reviewed implementation decomposition, revised on 2026-09-04.
 The native `JAVA-03-T10` x86-64 Linux release receipt is accepted and
-`CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09` have completed the entry audit,
+`CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10` have completed the entry audit,
 consumer inventory, private frontend/toolchain closure proof, Roslyn shape
 probes, primitive/string/numeric/codec runtime measurements, and the candidate
 foundation/specialization/binding/data semantics, and the successor contract/
-boundary/transition/identity/limit freeze. `CSHARP-03-T01-W09-F01` is resolved
+boundary/transition/identity/limit freeze and publication. `CSHARP-03-T01-W09-F01` is resolved
 by W08's reviewed binary-addressed Boolean-cube and static concrete-transformer
 expansion (ledger section 11). Both checkers accept all W09 capacity cases
-through each frozen limit plus one without a core change. `CSHARP-03-T01-W10`
-is ready; every implementation work item remains blocked by its serial
-predecessor.
+through each frozen limit plus one without a core change. W10 publishes the
+normative but inactive specifications and 700 vectors. `CSHARP-03-T02-W01` is
+ready; every later implementation work item remains blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
 
-This document is subordinate to the source design and the T01-W09 private
-freeze, which T01-W10 must publish as the complete frozen specifications. It
+This document is subordinate to the source design, the published
+`CSHARP_PRACTICAL_PROFILE_V1.md` and
+`CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md` specifications, and their manifested
+`csharp-practical-profile-v1.json` package. The T01-W09 private freeze remains
+their immutable evidence source. This document
 replaces the superseded source-visible-library,
 iterator/async, and suspension-stage plan. Its `Wnn` items are the current
 independently assignable units, but none is executable until its stated entry
@@ -51,7 +54,7 @@ JAVA-03-T10 -> CSHARP-03-T01-W01
 
 `JAVA-03-T10` completed atomic Java activation and the required native x86-64
 Linux two-pass release gate on 2026-09-03. This prerequisite is satisfied and
-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09 have closed the entry audit, consumer inventory,
+T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10 have closed the entry audit, consumer inventory,
 private frontend/toolchain closure proof, and Roslyn data, construction,
 control, exception, pattern, dependency, generic, iterator, and async-rejection
 plus primitive/string/numeric/codec runtime measurements and the foundation/
@@ -62,7 +65,8 @@ binary Bool addressing and static concrete-transformer composition, resolving
 that type-feasibility finding. T01-W09 then froze the strict schema, identity,
 boundary, transition, diagnostic, termination, and limit contracts and measured
 both checkers at every capacity limit plus one; see ledger sections 11 and 12.
-T01-W10 is ready. This
+T01-W10 then published and reviewed the complete normative package; see ledger
+section 13. T02-W01 is ready. This
 file remains planning material. W01 added its baseline and ledger; W02 added
 only the private consumer inventory, owner tests, ledger evidence, and current-
 status documentation; W03 added only private build-input evidence and its
@@ -77,10 +81,12 @@ canonical measurement, runner, documentation, and owner tests. W08 adds the
 candidate foundation/data specification, generated descriptor/definitions and
 vectors, independent private runtime/model evidence and owner tests. W09 adds
 only private freeze/capacity artifacts, generators, owner tests, and
-documentation. No
+documentation. W10 adds the normative profile/shared-artifact specifications,
+manifested vectors, deterministic package generator, owner/upgrade/gate
+closure, and specification tests. No
 production code, application fixture, installed candidate bundle, public route,
 active build input or active registry/release descriptor has changed. The
-remaining T01 work is the W10 publication and complete package review.
+next serial work is T02-W01's private successor registry/context implementation.
 
 The following are unconditional stop conditions:
 
@@ -612,7 +618,7 @@ are private candidate inputs to W10, not published or installed schemas.
 
 Depends on: T01-W09.
 
-Current status: `Ready`.
+Current status: `Complete`.
 
 Owns: the practical-profile specification package, successor shared-artifact
 specifications, exact vectors and manifest entries, canonical probe records,
@@ -634,6 +640,17 @@ findings. Production behavior is unchanged.
 Verification: `python3 scripts/check-spec-vectors.py --check`, manifest tests,
 `./scripts/check-fast.sh`, and a documented second-pass review after all fixes.
 
+Completed handoff: `develop/specs/CSHARP_PRACTICAL_PROFILE_V1.md`,
+`develop/specs/CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md`, and manifested vector
+`develop/specs/vectors/csharp-practical-profile-v1.json`. The package preserves
+the W09 freeze and all 700 rows exactly, binds 16 canonical probe/evidence
+records, closes ten freeze owners and 63 downstream production owners, and
+records the twelve-family upgrade matrix plus exact future release-gate
+replacement decision. The primary owner is
+`crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W10`; ledger section
+13 records hashes, verification, non-activation, and both zero-finding review
+passes.
+
 ## 7. CSHARP-03-T02 — Shared artifact foundation
 
 T02 is private and test-injected. It may create successor models and candidate
@@ -643,6 +660,8 @@ dual-registry lookup, or ambient staging-root discovery.
 ### CSHARP-03-T02-W01 — Implement the closed successor registry and context
 
 Depends on: T01-W10.
+
+Current status: `Ready`.
 
 Owns: strict transport/root/entry hashing, revision/order/limits, semantic
 context, parameters, selection, compiled-profile envelopes, immutable profile

@@ -1,5 +1,5 @@
-//! Private W08 specification owner and W09 freeze/capacity evidence.
-//! These tests do not install/dispatch any practical production profile.
+//! W08 foundation, W09 freeze/capacity evidence, and the W10 publication owner.
+//! These tests do not install or dispatch any practical production profile.
 
 use serde_json::{json, Value};
 use sha2::{Digest, Sha256};
@@ -17,6 +17,19 @@ const W09_FREEZE: &str = "develop/migrations/csharp-03/freeze/profile-freeze.jso
 const W09_VECTORS: &str = "develop/migrations/csharp-03/freeze/profile-freeze-vectors.json";
 const W09_CAPACITY: &str = "develop/migrations/csharp-03/probes/checker-capacity.json";
 const W09_INVENTORY: &str = "develop/migrations/csharp-03/artifact-consumer-inventory.json";
+const W10_PROFILE_SPEC: &str = "develop/specs/CSHARP_PRACTICAL_PROFILE_V1.md";
+const W10_SHARED_SPEC: &str = "develop/specs/CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md";
+const W10_VECTORS: &str = "develop/specs/vectors/csharp-practical-profile-v1.json";
+const W10_MANIFEST: &str = "develop/specs/vectors/manifest.json";
+const W10_GENERATOR: &str = "develop/probes/csharp-03/profile_package.py";
+const W10_DESIGN: &str = "develop/docs/08_csharp_practical_subset_design.md";
+const W10_PLAN: &str = "develop/docs/08_csharp_practical_subset_design-todo.md";
+const W10_LEDGER: &str = "develop/docs/csharp-03-implementation-traceability-ledger.md";
+const ACTIVE_SEMANTIC_REGISTRY: &str = "release/bundles/semantic-profile-registry.json";
+const ACTIVE_BUNDLE_REGISTRY: &str = "release/bundles/bundle-registry.json";
+const JAVA_GATE: &str = "scripts/check-java-frontend.sh";
+const AGGREGATE_GATE: &str = "scripts/check-all.sh";
+const PRACTICAL_GATE: &str = "scripts/check-csharp-practical-release.sh";
 const OWNER: &str = "crates/mpk-vc/tests/csharp_practical_spec.rs";
 
 #[path = "../../../develop/probes/csharp-03/recursor_feasibility.rs"]
@@ -1413,4 +1426,503 @@ fn csharp_03_t01_w09_freeze_generator_is_reproducible() {
         String::from_utf8_lossy(&output.stdout),
         String::from_utf8_lossy(&output.stderr)
     );
+}
+
+#[test]
+fn csharp_03_t01_w10_publication_reproduces_the_complete_private_freeze() {
+    let package = document(W10_VECTORS);
+    assert_keys(
+        &package,
+        &[
+            "canonical_evidence",
+            "downstream_work_item_owners",
+            "freeze_requirement_owners",
+            "frozen_contract",
+            "historical_inventory_extension",
+            "incorporated_design",
+            "name_owner_inventory",
+            "owner_test",
+            "publication_generator",
+            "release_gate",
+            "schema",
+            "semantic_profile",
+            "source_w09",
+            "specification_members",
+            "status",
+            "upgrade_matrix",
+            "vector_count",
+            "vector_ids_sha256",
+            "vectors",
+            "work_item",
+        ],
+    );
+    assert_eq!(
+        package["schema"],
+        "mpk.csharp.practical.profile.conformance.v1"
+    );
+    assert_eq!(package["work_item"], "CSHARP-03-T01-W10");
+    assert_eq!(package["status"], "normative_frozen_inactive");
+    assert_eq!(package["semantic_profile"], "mpk.csharp.practical.v1");
+    assert_eq!(package["owner_test"], OWNER);
+
+    let freeze = document(W09_FREEZE);
+    let private_vectors = document(W09_VECTORS);
+    assert_eq!(package["frozen_contract"], freeze);
+    assert_eq!(package["vectors"], private_vectors["vectors"]);
+    assert_eq!(package["vector_count"], private_vectors["vector_count"]);
+    assert_eq!(
+        package["vector_ids_sha256"],
+        private_vectors["vector_ids_sha256"]
+    );
+    let ids = array(&package["vectors"])
+        .iter()
+        .map(|row| text(&row["id"]))
+        .collect::<Vec<_>>();
+    assert!(ids.windows(2).all(|pair| pair[0] < pair[1]));
+    assert_eq!(ids.len(), 700);
+    assert_eq!(ids.iter().copied().collect::<BTreeSet<_>>().len(), 700);
+    assert_eq!(package["vector_ids_sha256"], sha(&canonical(&json!(ids))));
+
+    let source = &package["source_w09"];
+    assert_eq!(source["commit"], "17525292755c4e508acd9300cfa72d20cdf9bb92");
+    assert_eq!(source["freeze_path"], W09_FREEZE);
+    assert_eq!(source["vectors_path"], W09_VECTORS);
+    assert_eq!(source["freeze_schema"], freeze["schema"]);
+    assert_eq!(source["vectors_schema"], private_vectors["schema"]);
+    assert_eq!(source["freeze_content_sha256"], freeze["content_sha256"]);
+    assert_eq!(text(&source["freeze_raw_sha256"]), sha(&read(W09_FREEZE)));
+    assert_eq!(text(&source["vectors_raw_sha256"]), sha(&read(W09_VECTORS)));
+
+    let expected_evidence = BTreeSet::from([
+        "develop/migrations/csharp-03/baseline.json",
+        W09_INVENTORY,
+        "develop/migrations/csharp-03/build-inputs/build-inputs.json",
+        "develop/migrations/csharp-03/build-inputs/candidate-inventory.json",
+        "develop/migrations/csharp-03/probes/roslyn-data-construction.json",
+        "develop/migrations/csharp-03/probes/roslyn-control-exception-pattern.json",
+        "develop/migrations/csharp-03/probes/roslyn-dependency-generic-suspension.json",
+        "develop/migrations/csharp-03/probes/runtime-primitive-string-numeric-codec.json",
+        DEFINITIONS,
+        DESCRIPTOR,
+        VECTORS,
+        RUNTIME,
+        "develop/migrations/csharp-03/probes/recursor-feasibility.json",
+        W09_CAPACITY,
+        W09_FREEZE,
+        W09_VECTORS,
+    ]);
+    let evidence = array(&package["canonical_evidence"]);
+    assert_eq!(evidence.len(), expected_evidence.len());
+    assert_eq!(
+        evidence
+            .iter()
+            .map(|record| text(&record["path"]))
+            .collect::<BTreeSet<_>>(),
+        expected_evidence
+    );
+    let mut evidence_items = BTreeSet::new();
+    for record in evidence {
+        let path = text(&record["path"]);
+        let bytes = read(path);
+        let source_document = document(path);
+        assert_eq!(text(&record["raw_sha256"]), sha(&bytes), "{path}");
+        assert_eq!(record["size_bytes"], bytes.len() as u64, "{path}");
+        assert_eq!(record["schema"], source_document["schema"], "{path}");
+        assert!(!text(&record["role"]).is_empty());
+        evidence_items.insert(text(&record["work_item"]).to_owned());
+    }
+    assert_eq!(
+        evidence_items,
+        (1..=9)
+            .map(|index| format!("CSHARP-03-T01-W{index:02}"))
+            .collect::<BTreeSet<_>>()
+    );
+
+    let expected_members = BTreeMap::from([
+        (SPEC, "normative_foundation_specification"),
+        (W10_PROFILE_SPEC, "normative_profile_specification"),
+        (
+            W10_SHARED_SPEC,
+            "normative_successor_shared_artifact_specification",
+        ),
+    ]);
+    let members = array(&package["specification_members"]);
+    assert_eq!(members.len(), expected_members.len());
+    for member in members {
+        let path = text(&member["path"]);
+        let bytes = read(path);
+        assert_eq!(text(&member["role"]), expected_members[path]);
+        assert_eq!(text(&member["raw_sha256"]), sha(&bytes));
+        assert_eq!(member["size_bytes"], bytes.len() as u64);
+    }
+    let generator = &package["publication_generator"];
+    assert_eq!(generator["path"], W10_GENERATOR);
+    assert_eq!(generator["role"], "deterministic_publication_generator");
+    assert_eq!(text(&generator["raw_sha256"]), sha(&read(W10_GENERATOR)));
+
+    let design = String::from_utf8(read(W10_DESIGN)).expect("UTF-8 design");
+    let start_heading = "## 6. Source closure and declaration model";
+    let end_heading = "## 24. Implementation stages and gates";
+    let start = design.find(start_heading).expect("design projection start");
+    let end = design.find(end_heading).expect("design projection end");
+    let projection = &design.as_bytes()[start..end];
+    let incorporated = &package["incorporated_design"];
+    assert_eq!(incorporated["path"], W10_DESIGN);
+    assert_eq!(incorporated["start_heading"], start_heading);
+    assert_eq!(incorporated["end_before_heading"], end_heading);
+    assert_eq!(
+        text(&incorporated["raw_projection_sha256"]),
+        sha(projection)
+    );
+    assert_eq!(incorporated["size_bytes"], projection.len() as u64);
+}
+
+#[test]
+fn csharp_03_t01_w10_freeze_and_downstream_ownership_is_total_and_exact() {
+    let package = document(W10_VECTORS);
+    let ledger_owners = published_ledger_owners();
+    assert_eq!(ledger_owners.len(), 73);
+
+    let freeze_rows = array(&package["freeze_requirement_owners"]);
+    assert_eq!(freeze_rows.len(), 10);
+    for (index, row) in freeze_rows.iter().enumerate() {
+        let work_item = format!("CSHARP-03-T01-W{:02}", index + 1);
+        assert_eq!(text(&row["work_item"]), work_item);
+        assert_eq!(text(&row["primary_test_owner"]), ledger_owners[&work_item]);
+        assert!(text(&row["primary_test_owner"]).ends_with(&work_item));
+        assert!(!array(&row["artifacts"]).is_empty());
+        assert!(!text(&row["requirement"]).is_empty());
+    }
+
+    let expected_items = [(2, 9), (3, 14), (4, 6), (5, 6), (6, 12), (7, 6), (8, 10)]
+        .into_iter()
+        .flat_map(|(stage, last)| {
+            (1..=last).map(move |work| format!("CSHARP-03-T{stage:02}-W{work:02}"))
+        })
+        .collect::<BTreeSet<_>>();
+    let downstream = array(&package["downstream_work_item_owners"]);
+    assert_eq!(downstream.len(), 63);
+    assert_eq!(
+        downstream
+            .iter()
+            .map(|row| text(&row["work_item"]).to_owned())
+            .collect::<BTreeSet<_>>(),
+        expected_items
+    );
+    let downstream_by_item = downstream
+        .iter()
+        .map(|row| (text(&row["work_item"]), text(&row["primary_test_owner"])))
+        .collect::<BTreeMap<_, _>>();
+    for row in downstream {
+        assert_keys(
+            row,
+            &[
+                "entry_state_at_publication",
+                "exit_gate",
+                "owns",
+                "primary_test_owner",
+                "requirement_anchor",
+                "title",
+                "verification",
+                "work_item",
+            ],
+        );
+        let work_item = text(&row["work_item"]);
+        assert_eq!(text(&row["primary_test_owner"]), ledger_owners[work_item]);
+        assert!(text(&row["primary_test_owner"]).ends_with(work_item));
+        assert_eq!(
+            row["entry_state_at_publication"],
+            if work_item == "CSHARP-03-T02-W01" {
+                json!("ready")
+            } else {
+                json!("serially_blocked")
+            }
+        );
+        assert_eq!(row["requirement_anchor"], format!("{W10_PLAN}#{work_item}"));
+        for field in ["title", "owns", "exit_gate", "verification"] {
+            assert!(!text(&row[field]).is_empty(), "{work_item}:{field}");
+        }
+    }
+    for row in array(&package["vectors"]) {
+        let work_item = text(&row["implementation_owner"]);
+        assert_eq!(
+            text(&row["production_test_owner"]),
+            downstream_by_item[work_item],
+            "{}",
+            text(&row["id"])
+        );
+    }
+
+    let inventory = &package["name_owner_inventory"];
+    let names = array(&inventory["names"]);
+    assert_eq!(names.len(), 243);
+    assert_eq!(
+        names
+            .iter()
+            .map(|row| (text(&row["kind"]), text(&row["name"])))
+            .collect::<BTreeSet<_>>()
+            .len(),
+        names.len()
+    );
+    assert_eq!(
+        names
+            .iter()
+            .filter(|row| row["kind"] == "identity" && row["disposition"] == "successor")
+            .count(),
+        102
+    );
+    assert_eq!(
+        names
+            .iter()
+            .filter(|row| row["kind"] == "hash_domain" && row["disposition"] == "successor")
+            .count(),
+        42
+    );
+    assert_eq!(
+        names
+            .iter()
+            .filter(|row| row["kind"] == "identity" && row["disposition"] == "retained")
+            .count(),
+        88
+    );
+    assert_eq!(
+        names
+            .iter()
+            .filter(|row| row["kind"] == "hash_domain" && row["disposition"] == "retained")
+            .count(),
+        11
+    );
+    for row in names {
+        assert!(!array(&row["implementation_owners"]).is_empty());
+        assert!(!text(&row["family"]).is_empty());
+    }
+
+    let shapes = array(&inventory["shapes"]);
+    assert_eq!(shapes.len(), 71);
+    assert_eq!(
+        shapes
+            .iter()
+            .map(|row| (text(&row["kind"]), text(&row["id"])))
+            .collect::<BTreeSet<_>>()
+            .len(),
+        shapes.len()
+    );
+    for row in shapes {
+        let work_item = text(&row["primary_owner"]);
+        assert_eq!(text(&row["primary_test_owner"]), ledger_owners[work_item]);
+    }
+    let limits = array(&inventory["limits"]);
+    assert_eq!(limits.len(), 67);
+    for row in limits {
+        let work_item = text(&row["primary_owner"]);
+        assert_eq!(text(&row["primary_test_owner"]), ledger_owners[work_item]);
+    }
+    let diagnostics = array(&inventory["diagnostics"]);
+    assert_eq!(diagnostics.len(), 29);
+    for row in diagnostics {
+        assert_eq!(row["primary_owner"], "CSHARP-03-T02-W08");
+        assert_eq!(
+            text(&row["primary_test_owner"]),
+            ledger_owners["CSHARP-03-T02-W08"]
+        );
+    }
+}
+
+#[test]
+fn csharp_03_t01_w10_upgrade_gate_and_nonactivation_decisions_are_closed() {
+    let package = document(W10_VECTORS);
+    let upgrade = &package["upgrade_matrix"];
+    assert!(text(&upgrade["future_change_rule"]).contains("new semantic-profile identity"));
+    assert!(text(&upgrade["nullable_exception"]).contains("value-type T?"));
+    let evidence_paths = array(&package["canonical_evidence"])
+        .iter()
+        .map(|row| text(&row["path"]))
+        .collect::<BTreeSet<_>>();
+    let mut forms = BTreeSet::new();
+    let excluded = array(&upgrade["excluded_families"]);
+    assert_eq!(excluded.len(), 12);
+    for family in excluded {
+        assert_eq!(
+            family["current_disposition"],
+            "reject_before_VIR_without_partial_artifacts"
+        );
+        assert_eq!(family["future_profile_required"], true);
+        assert_eq!(family["positive_vectors"], "forbidden");
+        assert!(evidence_paths.contains(text(&family["evidence_path"])));
+        let owner = text(&family["rejection_owner"]);
+        assert!(text(&family["primary_test_owner"]).ends_with(owner));
+        for form in array(&family["source_forms_or_claims"]) {
+            assert!(forms.insert(text(form)), "duplicate excluded form");
+        }
+    }
+
+    let observations = array(&upgrade["observation_sets"]);
+    assert_eq!(
+        observations
+            .iter()
+            .map(|row| row["case_count"].as_u64().expect("case count"))
+            .collect::<Vec<_>>(),
+        vec![181, 65, 144, 154]
+    );
+    for observation in observations {
+        let source = document(text(&observation["path"]));
+        let source_field = text(&observation["source_field"]);
+        let id_field = if source_field == "shape_index" {
+            "shape_id"
+        } else {
+            "mutation_id"
+        };
+        let mut ids = array(&source[source_field])
+            .iter()
+            .map(|row| text(&row[id_field]))
+            .collect::<Vec<_>>();
+        ids.sort();
+        assert_eq!(
+            ids.iter().copied().collect::<BTreeSet<_>>().len(),
+            ids.len()
+        );
+        assert_eq!(observation["case_count"], ids.len() as u64);
+        assert_eq!(
+            text(&observation["ids_sha256"]),
+            sha(&canonical(&json!(ids)))
+        );
+    }
+
+    let gate = &package["release_gate"];
+    assert_eq!(
+        gate["candidate_and_release_command"],
+        "sudo ./scripts/check-csharp-practical-release.sh"
+    );
+    assert_eq!(gate["implementation_owner"], "CSHARP-03-T07-W05");
+    assert_eq!(gate["receipt_owner"], "CSHARP-03-T07-W06");
+    assert_eq!(gate["activation_owner"], "CSHARP-03-T08-W10");
+    assert_eq!(
+        gate["invocation_owners"],
+        json!([
+            "CSHARP-03-T07-W05",
+            "CSHARP-03-T07-W06",
+            "CSHARP-03-T08-W06",
+            "CSHARP-03-T08-W09",
+            "CSHARP-03-T08-W10"
+        ])
+    );
+    assert_eq!(
+        gate["post_activation_relation"],
+        "replace_and_retire_java_named_gate_atomically"
+    );
+    assert_eq!(gate["pre_activation_gate_path"], JAVA_GATE);
+    assert_eq!(gate["aggregate_gate_path"], AGGREGATE_GATE);
+    assert_eq!(gate["practical_gate_path"], PRACTICAL_GATE);
+    assert_eq!(
+        text(&gate["pre_activation_gate_raw_sha256"]),
+        sha(&read(JAVA_GATE))
+    );
+    assert_eq!(
+        text(&gate["aggregate_gate_predecessor_raw_sha256"]),
+        sha(&read(AGGREGATE_GATE))
+    );
+    assert!(!root().join(PRACTICAL_GATE).exists());
+    let aggregate = String::from_utf8(read(AGGREGATE_GATE)).expect("UTF-8 gate");
+    assert!(aggregate.contains(JAVA_GATE));
+    assert!(!aggregate.contains(PRACTICAL_GATE));
+
+    let active = format!(
+        "{}{}",
+        String::from_utf8(read(ACTIVE_SEMANTIC_REGISTRY)).expect("semantic registry UTF-8"),
+        String::from_utf8(read(ACTIVE_BUNDLE_REGISTRY)).expect("bundle registry UTF-8")
+    );
+    assert!(!active.contains("mpk.csharp.practical"));
+    assert!(!active.contains("csharp-practical"));
+
+    let extension = &package["historical_inventory_extension"];
+    assert_eq!(extension["baseline_inventory_path"], W09_INVENTORY);
+    assert_eq!(
+        text(&extension["baseline_inventory_raw_sha256"]),
+        sha(&read(W09_INVENTORY))
+    );
+    assert_eq!(extension["owner"], "CSHARP-03-T01-W10");
+    assert_eq!(
+        extension["owner_test"],
+        format!("{OWNER}#CSHARP-03-T01-W10")
+    );
+    assert_eq!(
+        extension["publication_paths"],
+        json!([W10_PROFILE_SPEC, W10_SHARED_SPEC, W10_VECTORS])
+    );
+}
+
+#[test]
+fn csharp_03_t01_w10_manifest_specs_and_generator_are_reproducible() {
+    let package_bytes = read(W10_VECTORS);
+    let package = document(W10_VECTORS);
+    let manifest = document(W10_MANIFEST);
+    let entries = array(&manifest["vectors"])
+        .iter()
+        .filter(|entry| entry["path"] == W10_VECTORS)
+        .collect::<Vec<_>>();
+    assert_eq!(entries.len(), 1);
+    let entry = entries[0];
+    assert_eq!(entry["schema_id"], package["schema"]);
+    assert_eq!(text(&entry["sha256"]), sha(&package_bytes));
+    assert_eq!(entry["owning_spec"], W10_PROFILE_SPEC);
+    assert_eq!(entry["implementation_test_owners"], json!([OWNER]));
+
+    let profile = String::from_utf8(read(W10_PROFILE_SPEC)).expect("profile spec UTF-8");
+    let shared = String::from_utf8(read(W10_SHARED_SPEC)).expect("shared spec UTF-8");
+    for contents in [&profile, &shared] {
+        assert!(contents.contains(W10_VECTORS));
+        assert!(contents.contains("mpk.csharp.practical.profile.conformance.v1"));
+        assert!(contents.contains("crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W10"));
+        assert!(!contents.contains("MetisDoc"));
+    }
+    assert!(profile.contains(W10_SHARED_SPEC));
+    assert!(profile.contains("mpk.csharp.practical.v1"));
+    assert!(profile.contains("normative, frozen, and inactive"));
+    assert!(shared.contains("17 identity families"));
+    assert!(shared.contains("102 globally unique successor"));
+    assert!(shared.contains("Atomic migration and rollback"));
+
+    let output = Command::new("python3")
+        .arg(root().join(W10_GENERATOR))
+        .arg("--check")
+        .env("PYTHONDONTWRITEBYTECODE", "1")
+        .current_dir(root())
+        .output()
+        .expect("run W10 publication generator");
+    assert!(
+        output.status.success(),
+        "{}{}",
+        String::from_utf8_lossy(&output.stdout),
+        String::from_utf8_lossy(&output.stderr)
+    );
+}
+
+fn published_ledger_owners() -> BTreeMap<String, String> {
+    let ledger = String::from_utf8(read(W10_LEDGER)).expect("ledger UTF-8");
+    let section = ledger
+        .split("<!-- work-item-ledger:start -->")
+        .nth(1)
+        .expect("ledger start")
+        .split("<!-- work-item-ledger:end -->")
+        .next()
+        .expect("ledger end");
+    let mut result = BTreeMap::new();
+    for line in section
+        .lines()
+        .filter(|line| line.starts_with("| `CSHARP-03-T"))
+    {
+        let fields = line
+            .trim_matches('|')
+            .split('|')
+            .map(str::trim)
+            .collect::<Vec<_>>();
+        assert_eq!(fields.len(), 4);
+        let work_item = fields[0].trim_matches('`').to_owned();
+        let owner = fields[2].trim_matches('`').to_owned();
+        assert!(
+            result.insert(work_item.clone(), owner).is_none(),
+            "{work_item}"
+        );
+    }
+    result
 }

@@ -16,17 +16,16 @@ rehearsal, and T10 implemented atomic activation.
 `07_java_frontend_design.md` and the Java implementation ledger record
 the implementation boundary. Registry revision 3 and all five tuples are
 installed; the native x86-64 T10 gate passed twice on 2026-09-03, so
-CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07 completed the entry audit, consumer
-inventory, private frontend/toolchain closure proof, Roslyn shape probes, and
-primitive/string/numeric/codec runtime measurements, and CSHARP-03-T01-W08 is
-ready.
+CSHARP-03-T01-W01 through W10 completed the entry audit, feasibility and
+runtime probes, foundation/freeze work, and normative package publication.
+The package is inactive, production behavior is unchanged, and
+CSHARP-03-T02-W01 is ready.
 
 Prepared: 2026-08-21
 
 Updated: 2026-09-04 (`JAVA-03-T10` complete with native x86-64 release
-receipt; post-Java `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07` audit,
-inventory, private toolchain closure, Roslyn shape probes, and primitive/
-string/numeric/codec runtime measurement complete and W08 ready)
+receipt; post-Java `CSHARP-03-T01-W01` through W10 complete with the practical
+C# normative freeze package published and inactive; T02-W01 ready)
 
 ## 1. Decision summary
 
@@ -44,7 +43,7 @@ The sequencing decision is:
 3. `MLANG-01` then audits the completed Go/Rust implementation and freezes the
    successor extension mechanism and first C# specification package.
 4. New production frontends are then added serially. C# and Java are followed
-   by the proposed `CSHARP-03` practical C# expansion before Dart, TypeScript,
+   by the published `CSHARP-03` practical C# expansion before Dart, TypeScript,
    and Python.
 5. “Rust v0 complete” means the deliberately restricted Rust profile in
    `05_rust_frontend_design.md` satisfies its release gates. It does not mean
@@ -108,7 +107,7 @@ one primary implementation owner, and reserves production activation for the
 final atomic cutover in T20. It is an execution plan and does not amend either
 normative specification.
 
-The proposed eighth design record is
+The eighth design and freeze-package record is
 `08_csharp_practical_subset_design.md`. It defines a post-Java practical C#
 profile for immutable domain types and construction, bounded collections,
 canonical text codecs, business values and outcomes, richer numeric and control
@@ -118,10 +117,12 @@ user-defined generics, iterators, and async source are explicit exclusions,
 while enumerated internal semantic templates come from one registered,
 content-hash-pinned foundation bundle and are monomorphized before VIR
 emission. Its canonical document is an MPK verification-overlay transport,
-not a required application runtime protocol. The proposal does not widen the
-active scalar profile or authorize a profile, schema, bundle, or public route.
-T10 activation and its native x86-64 release receipt are complete; the first
-CSHARP-03 work item closed the entry audit and the second is ready.
+not a required application runtime protocol. T01-W10 published
+`CSHARP_PRACTICAL_PROFILE_V1.md`,
+`CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md`, and the manifested 700-vector
+package without widening the active scalar profile or authorizing an installed
+bundle or public route. The Java T10 receipt is accepted, CSHARP-03 T01 is
+complete, and T02-W01 is ready.
 
 The order may change only through a reviewed governance amendment that records
 the user value, semantic risk, compiler integration quality, and effect on the
@@ -540,8 +541,8 @@ artifact remain unchanged. Gate D then admitted `JAVA-03` as its next serial
 phase.
 
 `JAVA-03-T10` completed the Gate E cutover and its native x86-64 release gate
-passed twice. The proposed `CSHARP-03` practical C# phase is next; its first
-work item is complete and its second is ready. DART-04 remains blocked until
+passed twice. The `CSHARP-03` practical C# phase is next; all ten T01 freeze
+work items are complete and T02-W01 is ready. DART-04 remains blocked until
 that entire phase passes its release gate; design preparation does not count
 as phase entry.
 
