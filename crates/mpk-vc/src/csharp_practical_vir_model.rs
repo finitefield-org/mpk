@@ -1823,6 +1823,2800 @@ pub fn validate_closed_instance_set(
     Ok(expected)
 }
 
+pub const CSHARP_PRACTICAL_OPERATIONS_SCHEMA: &str = "mpk.csharp.operations.v1";
+pub const CSHARP_PRACTICAL_REQUIRED_CHECKS_SCHEMA: &str = "mpk.csharp.required_checks.v1";
+pub const SEQUENCE_CONSTRUCTION_CAPACITY_MAX: u32 = 16_384;
+
+const BOOL_TYPE_ID: &str = "mpk.csharp.value.bool.v1";
+const I32_TYPE_ID: &str = "mpk.csharp.value.i32.v1";
+const STRING_TYPE_ID: &str = "mpk.csharp.value.string.v1";
+const PARSE_ERROR_TYPE_ID: &str = "mpk.csharp.value.parse_error.v1";
+const EXCEPTION_TYPE_ID: &str = "mpk.csharp.value.exception.v1";
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum PracticalVirValidationPhase {
+    Operation,
+    Construction,
+    Binding,
+    Control,
+    Pattern,
+    Exception,
+}
+
+impl PracticalVirValidationPhase {
+    pub const fn as_str(self) -> &'static str {
+        match self {
+            Self::Operation => "operation",
+            Self::Construction => "construction",
+            Self::Binding => "binding",
+            Self::Control => "control",
+            Self::Pattern => "pattern",
+            Self::Exception => "exception",
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum PracticalVirErrorCode {
+    UnknownTag,
+    UnknownOperation,
+    UnknownCheck,
+    Identifier,
+    ConcreteType,
+    Arity,
+    OperandType,
+    ResultType,
+    CheckKind,
+    CheckOrder,
+    NormalSuccessor,
+    ExceptionalSuccessor,
+    ConstructionInstance,
+    ConstructionState,
+    ConstructionOwnership,
+    ConstructionIndex,
+    ConstructionInitialization,
+    ConstructionBound,
+    BindingShape,
+    BindingCommutation,
+    ControlShape,
+    ControlOrder,
+    ControlEdge,
+    LoopShape,
+    PatternShape,
+    PatternOrder,
+    PatternExhaustiveness,
+    ExceptionType,
+    HandlerShape,
+    HandlerOrder,
+    UnwindOrder,
+    FinallyAbrupt,
+}
+
+impl PracticalVirErrorCode {
+    pub const fn as_str(self) -> &'static str {
+        match self {
+            Self::UnknownTag => "unknown_tag",
+            Self::UnknownOperation => "unknown_operation",
+            Self::UnknownCheck => "unknown_check",
+            Self::Identifier => "identifier",
+            Self::ConcreteType => "concrete_type",
+            Self::Arity => "arity",
+            Self::OperandType => "operand_type",
+            Self::ResultType => "result_type",
+            Self::CheckKind => "check_kind",
+            Self::CheckOrder => "check_order",
+            Self::NormalSuccessor => "normal_successor",
+            Self::ExceptionalSuccessor => "exceptional_successor",
+            Self::ConstructionInstance => "construction_instance",
+            Self::ConstructionState => "construction_state",
+            Self::ConstructionOwnership => "construction_ownership",
+            Self::ConstructionIndex => "construction_index",
+            Self::ConstructionInitialization => "construction_initialization",
+            Self::ConstructionBound => "construction_bound",
+            Self::BindingShape => "binding_shape",
+            Self::BindingCommutation => "binding_commutation",
+            Self::ControlShape => "control_shape",
+            Self::ControlOrder => "control_order",
+            Self::ControlEdge => "control_edge",
+            Self::LoopShape => "loop_shape",
+            Self::PatternShape => "pattern_shape",
+            Self::PatternOrder => "pattern_order",
+            Self::PatternExhaustiveness => "pattern_exhaustiveness",
+            Self::ExceptionType => "exception_type",
+            Self::HandlerShape => "handler_shape",
+            Self::HandlerOrder => "handler_order",
+            Self::UnwindOrder => "unwind_order",
+            Self::FinallyAbrupt => "finally_abrupt",
+        }
+    }
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct PracticalVirValidationError {
+    phase: PracticalVirValidationPhase,
+    code: PracticalVirErrorCode,
+}
+
+impl PracticalVirValidationError {
+    pub const fn phase(&self) -> PracticalVirValidationPhase {
+        self.phase
+    }
+
+    pub const fn code(&self) -> PracticalVirErrorCode {
+        self.code
+    }
+}
+
+impl fmt::Display for PracticalVirValidationError {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            formatter,
+            "{} at practical-VIR phase {}",
+            self.code.as_str(),
+            self.phase.as_str()
+        )
+    }
+}
+
+impl Error for PracticalVirValidationError {}
+
+fn vir_failure(
+    phase: PracticalVirValidationPhase,
+    code: PracticalVirErrorCode,
+) -> PracticalVirValidationError {
+    PracticalVirValidationError { phase, code }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum ClosedOperationTag {
+    Foundation,
+    FieldRead,
+    ValueConstruct,
+    SourceCall,
+    BindingProject,
+    BindingReconstruct,
+    StructuralEqual,
+    CanonicalCompare,
+    BoundaryParse,
+    BoundaryFormat,
+    Data,
+    ExceptionConstruct,
+    ExceptionIsType,
+    ExceptionPayload,
+}
+
+impl ClosedOperationTag {
+    pub const fn as_str(self) -> &'static str {
+        match self {
+            Self::Foundation => "foundation",
+            Self::FieldRead => "field_read",
+            Self::ValueConstruct => "value_construct",
+            Self::SourceCall => "source_call",
+            Self::BindingProject => "binding_project",
+            Self::BindingReconstruct => "binding_reconstruct",
+            Self::StructuralEqual => "structural_equal",
+            Self::CanonicalCompare => "canonical_compare",
+            Self::BoundaryParse => "boundary_parse",
+            Self::BoundaryFormat => "boundary_format",
+            Self::Data => "data",
+            Self::ExceptionConstruct => "exception_construct",
+            Self::ExceptionIsType => "exception_is_type",
+            Self::ExceptionPayload => "exception_payload",
+        }
+    }
+
+    pub fn from_id(id: &str) -> Option<Self> {
+        match id {
+            "foundation" => Some(Self::Foundation),
+            "field_read" => Some(Self::FieldRead),
+            "value_construct" => Some(Self::ValueConstruct),
+            "source_call" => Some(Self::SourceCall),
+            "binding_project" => Some(Self::BindingProject),
+            "binding_reconstruct" => Some(Self::BindingReconstruct),
+            "structural_equal" => Some(Self::StructuralEqual),
+            "canonical_compare" => Some(Self::CanonicalCompare),
+            "boundary_parse" => Some(Self::BoundaryParse),
+            "boundary_format" => Some(Self::BoundaryFormat),
+            "data" => Some(Self::Data),
+            "exception_construct" => Some(Self::ExceptionConstruct),
+            "exception_is_type" => Some(Self::ExceptionIsType),
+            "exception_payload" => Some(Self::ExceptionPayload),
+            _ => None,
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum RequiredCheckTag {
+    StaticObligation,
+    ParseError,
+    Exception,
+    ErrorOutcome,
+}
+
+impl RequiredCheckTag {
+    pub const fn as_str(self) -> &'static str {
+        match self {
+            Self::StaticObligation => "static_obligation",
+            Self::ParseError => "parse_error",
+            Self::Exception => "exception",
+            Self::ErrorOutcome => "error_outcome",
+        }
+    }
+
+    pub fn from_id(id: &str) -> Option<Self> {
+        match id {
+            "static_obligation" => Some(Self::StaticObligation),
+            "parse_error" => Some(Self::ParseError),
+            "exception" => Some(Self::Exception),
+            "error_outcome" => Some(Self::ErrorOutcome),
+            _ => None,
+        }
+    }
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct RequiredCheck {
+    pub id: String,
+    pub tag: RequiredCheckTag,
+    pub failure_type_id: Option<String>,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct ClosedOperationSignature {
+    pub id: String,
+    pub tag: ClosedOperationTag,
+    pub argument_type_ids: Vec<String>,
+    pub normal_result_type_id: String,
+    pub ordered_checks: Vec<RequiredCheck>,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct TypedValueRef {
+    pub id: String,
+    pub type_id: String,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct ExceptionalSuccessor {
+    pub check_id: String,
+    pub exception_type_id: String,
+    pub target_id: String,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct OperationInvocation {
+    pub operation_id: String,
+    pub operands: Vec<TypedValueRef>,
+    pub result: TypedValueRef,
+    pub ordered_check_ids: Vec<String>,
+    pub normal_successor_id: String,
+    pub exceptional_successors: Vec<ExceptionalSuccessor>,
+}
+
+pub fn validate_closed_operation_signature(
+    roots: &ValidatedClosedRootSet,
+    closed_set: &ClosedInstanceSet,
+    signature: &ClosedOperationSignature,
+) -> Result<(), PracticalVirValidationError> {
+    let phase = PracticalVirValidationPhase::Operation;
+    if !valid_vocabulary_id(&signature.id) {
+        return Err(vir_failure(phase, PracticalVirErrorCode::Identifier));
+    }
+    for type_id in signature
+        .argument_type_ids
+        .iter()
+        .chain(std::iter::once(&signature.normal_result_type_id))
+    {
+        if !known_concrete_type(roots, closed_set, type_id) {
+            return Err(vir_failure(phase, PracticalVirErrorCode::ConcreteType));
+        }
+    }
+    let mut check_ids = BTreeSet::new();
+    for check in &signature.ordered_checks {
+        if !check_ids.insert(check.id.as_str()) {
+            return Err(vir_failure(phase, PracticalVirErrorCode::CheckOrder));
+        }
+        validate_required_check(roots, closed_set, check)?;
+    }
+
+    match signature.tag {
+        ClosedOperationTag::Foundation => {
+            let definition = foundation_operation_definition(closed_set, &signature.id)
+                .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::UnknownOperation))?;
+            let expected_arguments = definition["argument_type_ids"]
+                .as_array()
+                .and_then(|values| json_string_array(values))
+                .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::UnknownOperation))?;
+            if signature.argument_type_ids != expected_arguments {
+                return Err(vir_failure(phase, PracticalVirErrorCode::OperandType));
+            }
+            if definition["normal_result_type_id"].as_str()
+                != Some(signature.normal_result_type_id.as_str())
+            {
+                return Err(vir_failure(phase, PracticalVirErrorCode::ResultType));
+            }
+            let expected_checks = definition["error_precedence"]
+                .as_array()
+                .and_then(|values| json_string_array(values))
+                .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::UnknownOperation))?;
+            if signature
+                .ordered_checks
+                .iter()
+                .map(|check| check.id.as_str())
+                .ne(expected_checks.iter().map(String::as_str))
+            {
+                return Err(vir_failure(phase, PracticalVirErrorCode::CheckOrder));
+            }
+        }
+        ClosedOperationTag::FieldRead => {
+            if signature.argument_type_ids.len() != 1 {
+                return Err(vir_failure(phase, PracticalVirErrorCode::Arity));
+            }
+        }
+        ClosedOperationTag::ValueConstruct => {
+            if !roots
+                .source_types
+                .contains_key(&signature.normal_result_type_id)
+            {
+                return Err(vir_failure(phase, PracticalVirErrorCode::ResultType));
+            }
+        }
+        ClosedOperationTag::SourceCall => {
+            if !signature.id.starts_with("mpk.csharp.source.") {
+                return Err(vir_failure(phase, PracticalVirErrorCode::UnknownOperation));
+            }
+        }
+        ClosedOperationTag::BindingProject => validate_unary_signature(
+            signature,
+            "binding.project.",
+            PracticalVirErrorCode::BindingShape,
+        )?,
+        ClosedOperationTag::BindingReconstruct => validate_unary_signature(
+            signature,
+            "binding.reconstruct.",
+            PracticalVirErrorCode::BindingShape,
+        )?,
+        ClosedOperationTag::StructuralEqual => {
+            validate_same_type_binary(signature, BOOL_TYPE_ID)?;
+        }
+        ClosedOperationTag::CanonicalCompare => {
+            validate_same_type_binary(signature, I32_TYPE_ID)?;
+        }
+        ClosedOperationTag::BoundaryParse => {
+            validate_boundary_parse_signature(closed_set, signature)?;
+        }
+        ClosedOperationTag::BoundaryFormat => {
+            validate_boundary_format_signature(signature)?;
+        }
+        ClosedOperationTag::Data => {
+            if !is_closed_data_operation_id(&signature.id) {
+                return Err(vir_failure(phase, PracticalVirErrorCode::UnknownOperation));
+            }
+        }
+        ClosedOperationTag::ExceptionConstruct => {
+            if signature.id != "mpk.csharp.value.exception.v1.construct"
+                || signature.normal_result_type_id != EXCEPTION_TYPE_ID
+            {
+                return Err(vir_failure(phase, PracticalVirErrorCode::ResultType));
+            }
+        }
+        ClosedOperationTag::ExceptionIsType => {
+            if signature.id != "mpk.csharp.value.exception.v1.is_type"
+                || signature.argument_type_ids != [EXCEPTION_TYPE_ID]
+                || signature.normal_result_type_id != BOOL_TYPE_ID
+            {
+                return Err(vir_failure(phase, PracticalVirErrorCode::OperandType));
+            }
+        }
+        ClosedOperationTag::ExceptionPayload => {
+            if signature.id != "mpk.csharp.value.exception.v1.payload"
+                || signature.argument_type_ids != [EXCEPTION_TYPE_ID]
+            {
+                return Err(vir_failure(phase, PracticalVirErrorCode::OperandType));
+            }
+        }
+    }
+    Ok(())
+}
+
+pub fn validate_operation_invocation(
+    roots: &ValidatedClosedRootSet,
+    closed_set: &ClosedInstanceSet,
+    signature: &ClosedOperationSignature,
+    invocation: &OperationInvocation,
+) -> Result<(), PracticalVirValidationError> {
+    validate_closed_operation_signature(roots, closed_set, signature)?;
+    let phase = PracticalVirValidationPhase::Operation;
+    if invocation.operation_id != signature.id {
+        return Err(vir_failure(phase, PracticalVirErrorCode::UnknownOperation));
+    }
+    if invocation.operands.len() != signature.argument_type_ids.len() {
+        return Err(vir_failure(phase, PracticalVirErrorCode::Arity));
+    }
+    if invocation
+        .operands
+        .iter()
+        .map(|operand| operand.type_id.as_str())
+        .ne(signature.argument_type_ids.iter().map(String::as_str))
+    {
+        return Err(vir_failure(phase, PracticalVirErrorCode::OperandType));
+    }
+    if invocation.result.type_id != signature.normal_result_type_id {
+        return Err(vir_failure(phase, PracticalVirErrorCode::ResultType));
+    }
+    if invocation
+        .ordered_check_ids
+        .iter()
+        .map(String::as_str)
+        .ne(signature
+            .ordered_checks
+            .iter()
+            .map(|check| check.id.as_str()))
+    {
+        return Err(vir_failure(phase, PracticalVirErrorCode::CheckOrder));
+    }
+    if !valid_vocabulary_id(&invocation.normal_successor_id) {
+        return Err(vir_failure(phase, PracticalVirErrorCode::NormalSuccessor));
+    }
+    let expected_exceptional = signature
+        .ordered_checks
+        .iter()
+        .filter(|check| check.tag == RequiredCheckTag::Exception)
+        .collect::<Vec<_>>();
+    if invocation.exceptional_successors.len() != expected_exceptional.len() {
+        return Err(vir_failure(
+            phase,
+            PracticalVirErrorCode::ExceptionalSuccessor,
+        ));
+    }
+    for (successor, check) in invocation
+        .exceptional_successors
+        .iter()
+        .zip(expected_exceptional)
+    {
+        if successor.check_id != check.id
+            || check.failure_type_id.as_deref() != Some(successor.exception_type_id.as_str())
+            || !valid_vocabulary_id(&successor.target_id)
+            || successor.target_id == invocation.normal_successor_id
+        {
+            return Err(vir_failure(
+                phase,
+                PracticalVirErrorCode::ExceptionalSuccessor,
+            ));
+        }
+    }
+    Ok(())
+}
+
+fn validate_required_check(
+    roots: &ValidatedClosedRootSet,
+    closed_set: &ClosedInstanceSet,
+    check: &RequiredCheck,
+) -> Result<(), PracticalVirValidationError> {
+    let phase = PracticalVirValidationPhase::Operation;
+    let expected = check_contract(&check.id)
+        .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::UnknownCheck))?;
+    if expected.tag != check.tag {
+        return Err(vir_failure(phase, PracticalVirErrorCode::CheckKind));
+    }
+    match expected.failure {
+        CheckFailureType::None => {
+            if check.failure_type_id.is_some() {
+                return Err(vir_failure(phase, PracticalVirErrorCode::CheckKind));
+            }
+        }
+        CheckFailureType::Exact(type_id) => {
+            if check.failure_type_id.as_deref() != Some(type_id) {
+                return Err(vir_failure(phase, PracticalVirErrorCode::CheckKind));
+            }
+        }
+        CheckFailureType::Closed => {
+            if !check
+                .failure_type_id
+                .as_deref()
+                .is_some_and(|type_id| known_concrete_type(roots, closed_set, type_id))
+            {
+                return Err(vir_failure(phase, PracticalVirErrorCode::CheckKind));
+            }
+        }
+    }
+    Ok(())
+}
+
+#[derive(Clone, Copy)]
+enum CheckFailureType {
+    None,
+    Exact(&'static str),
+    Closed,
+}
+
+#[derive(Clone, Copy)]
+struct CheckContract {
+    tag: RequiredCheckTag,
+    failure: CheckFailureType,
+}
+
+fn check_contract(id: &str) -> Option<CheckContract> {
+    let static_obligation = [
+        "already_initialized",
+        "construction_bound",
+        "incomplete",
+        "invalid_representation",
+        "obligation.output_bound",
+        "ownership",
+        "publication_bound",
+        "uninitialized",
+    ];
+    if static_obligation.contains(&id) {
+        return Some(CheckContract {
+            tag: RequiredCheckTag::StaticObligation,
+            failure: CheckFailureType::None,
+        });
+    }
+    if matches!(
+        id,
+        "parse_error.input_bound"
+            | "parse_error.syntax"
+            | "parse_error.noncanonical"
+            | "parse_error.scale_precision"
+            | "parse_error.range"
+    ) {
+        return Some(CheckContract {
+            tag: RequiredCheckTag::ParseError,
+            failure: CheckFailureType::Exact(PARSE_ERROR_TYPE_ID),
+        });
+    }
+    let exception_type = match id {
+        "negative_length" | "exception.overflow" => "System.OverflowException",
+        "index_range" => "System.IndexOutOfRangeException",
+        "invalid_operation" => "System.InvalidOperationException",
+        "exception.division_by_zero" => "System.DivideByZeroException",
+        "exception.range" => "System.ArgumentOutOfRangeException",
+        "exception.null_receiver" => "System.NullReferenceException",
+        "exception.null_argument" => "System.ArgumentNullException",
+        _ => "",
+    };
+    if !exception_type.is_empty() {
+        return Some(CheckContract {
+            tag: RequiredCheckTag::Exception,
+            failure: CheckFailureType::Exact(exception_type),
+        });
+    }
+    if matches!(
+        id,
+        "capacity"
+            | "currency_mismatch"
+            | "decimal_overflow"
+            | "division_by_zero"
+            | "duplicate_element"
+            | "duplicate_key"
+            | "empty_errors"
+            | "event_bound"
+            | "invalid_currency"
+            | "invalid_precision"
+            | "invalid_rounding"
+            | "invalid_scale"
+            | "missing_key"
+            | "precision"
+            | "range"
+            | "validation_bound"
+    ) {
+        return Some(CheckContract {
+            tag: RequiredCheckTag::ErrorOutcome,
+            failure: CheckFailureType::Closed,
+        });
+    }
+    None
+}
+
+fn validate_unary_signature(
+    signature: &ClosedOperationSignature,
+    id_prefix: &str,
+    code: PracticalVirErrorCode,
+) -> Result<(), PracticalVirValidationError> {
+    if signature.argument_type_ids.len() != 1
+        || !signature.ordered_checks.is_empty()
+        || !signature.id.starts_with(id_prefix)
+    {
+        Err(vir_failure(PracticalVirValidationPhase::Binding, code))
+    } else {
+        Ok(())
+    }
+}
+
+fn validate_same_type_binary(
+    signature: &ClosedOperationSignature,
+    result_type_id: &str,
+) -> Result<(), PracticalVirValidationError> {
+    if signature.argument_type_ids.len() != 2 {
+        return Err(vir_failure(
+            PracticalVirValidationPhase::Operation,
+            PracticalVirErrorCode::Arity,
+        ));
+    }
+    if signature.argument_type_ids[0] != signature.argument_type_ids[1] {
+        return Err(vir_failure(
+            PracticalVirValidationPhase::Operation,
+            PracticalVirErrorCode::OperandType,
+        ));
+    }
+    if signature.normal_result_type_id != result_type_id || !signature.ordered_checks.is_empty() {
+        return Err(vir_failure(
+            PracticalVirValidationPhase::Operation,
+            PracticalVirErrorCode::ResultType,
+        ));
+    }
+    Ok(())
+}
+
+fn validate_boundary_parse_signature(
+    closed_set: &ClosedInstanceSet,
+    signature: &ClosedOperationSignature,
+) -> Result<(), PracticalVirValidationError> {
+    let phase = PracticalVirValidationPhase::Operation;
+    if !is_closed_codec_operation(&signature.id, "parse")
+        || signature.argument_type_ids.first().map(String::as_str) != Some(STRING_TYPE_ID)
+    {
+        return Err(vir_failure(phase, PracticalVirErrorCode::UnknownOperation));
+    }
+    let metadata = closed_set
+        .metadata
+        .get(&signature.normal_result_type_id)
+        .filter(|metadata| template_name(&metadata.template_id) == Some("result"));
+    if !metadata.is_some_and(|metadata| {
+        metadata.argument_ids.len() == 2 && metadata.argument_ids[1] == PARSE_ERROR_TYPE_ID
+    }) {
+        return Err(vir_failure(phase, PracticalVirErrorCode::ResultType));
+    }
+    let ranks = signature
+        .ordered_checks
+        .iter()
+        .map(|check| match check.id.as_str() {
+            "parse_error.input_bound" => Some(0_u8),
+            "parse_error.syntax" => Some(1),
+            "parse_error.noncanonical" => Some(2),
+            "parse_error.scale_precision" => Some(3),
+            "parse_error.range" => Some(4),
+            _ => None,
+        })
+        .collect::<Option<Vec<_>>>()
+        .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::CheckKind))?;
+    if ranks.len() < 2 || ranks[0..2] != [0, 1] || ranks.windows(2).any(|pair| pair[0] >= pair[1]) {
+        return Err(vir_failure(phase, PracticalVirErrorCode::CheckOrder));
+    }
+    Ok(())
+}
+
+fn validate_boundary_format_signature(
+    signature: &ClosedOperationSignature,
+) -> Result<(), PracticalVirValidationError> {
+    let phase = PracticalVirValidationPhase::Operation;
+    if !is_closed_codec_operation(&signature.id, "format") {
+        return Err(vir_failure(phase, PracticalVirErrorCode::UnknownOperation));
+    }
+    if signature.argument_type_ids.is_empty() {
+        return Err(vir_failure(phase, PracticalVirErrorCode::Arity));
+    }
+    if signature.normal_result_type_id != STRING_TYPE_ID {
+        return Err(vir_failure(phase, PracticalVirErrorCode::ResultType));
+    }
+    if signature.ordered_checks
+        != [RequiredCheck {
+            id: "obligation.output_bound".to_owned(),
+            tag: RequiredCheckTag::StaticObligation,
+            failure_type_id: None,
+        }]
+    {
+        return Err(vir_failure(phase, PracticalVirErrorCode::CheckOrder));
+    }
+    Ok(())
+}
+
+fn is_closed_codec_operation(id: &str, operation: &str) -> bool {
+    let suffix = format!(".{operation}");
+    let Some(codec) = id
+        .strip_prefix("codec.")
+        .and_then(|id| id.strip_suffix(&suffix))
+    else {
+        return false;
+    };
+    matches!(
+        codec,
+        "binary32"
+            | "binary64"
+            | "date"
+            | "decimal.fixed"
+            | "decimal.normalized"
+            | "duration_ticks"
+            | "guid.d"
+            | "guid.n"
+            | "integer.i8"
+            | "integer.u8"
+            | "integer.i16"
+            | "integer.u16"
+            | "integer.i32"
+            | "integer.u32"
+            | "integer.i64"
+            | "integer.u64"
+            | "time"
+            | "unix_milliseconds"
+    )
+}
+
+fn is_closed_data_operation_id(id: &str) -> bool {
+    let exact = [
+        "date.add_days",
+        "date.add_months",
+        "date.add_years",
+        "date.compare",
+        "date.construct",
+        "duration.add",
+        "duration.compare",
+        "duration.construct",
+        "duration.negate",
+        "duration.subtract",
+        "guid.compare",
+        "guid.empty",
+        "instant.add_duration",
+        "instant.compare",
+        "instant.difference",
+        "instant.subtract_duration",
+        "numeric.conversion.double_to_int64.checked",
+        "numeric.conversion.double_to_single",
+        "numeric.conversion.int32_to_single",
+        "numeric.conversion.int64_to_double",
+        "numeric.conversion.single_to_double",
+        "numeric.conversion.single_to_int32.checked",
+        "string.compare.ordinal",
+        "string.concat.operator.char_string",
+        "string.concat.operator.string_char",
+        "string.concat.operator.string_string",
+        "string.concat.string2",
+        "string.concat.string3",
+        "string.concat.string4",
+        "string.contains.ordinal",
+        "string.ends_with.ordinal",
+        "string.equality.operator",
+        "string.equals.ordinal",
+        "string.index",
+        "string.inequality.operator",
+        "string.interpolation.restricted",
+        "string.is_null_or_empty",
+        "string.length",
+        "string.literal.decode",
+        "string.starts_with.ordinal",
+        "string.substring.start_length",
+        "string.switch.constant",
+        "time.add_duration",
+        "time.compare",
+        "time.construct",
+        "time.subtract",
+        "mpk.csharp.value.unit.v1.make",
+        "mpk.csharp.value.unit.v1.equal",
+        "mpk.csharp.value.unit.v1.compare",
+        "mpk.csharp.value.parse_error.v1.tag",
+        "mpk.csharp.value.parse_error.v1.equal",
+        "mpk.csharp.value.parse_error.v1.compare",
+        "mpk.csharp.value.instant.v1.milliseconds",
+        "mpk.csharp.value.instant.v1.compare",
+        "mpk.csharp.value.instant.v1.add_duration",
+        "mpk.csharp.value.instant.v1.subtract_duration",
+        "mpk.csharp.value.instant.v1.difference",
+    ];
+    if exact.contains(&id) {
+        return true;
+    }
+    if let Some(operation) = id.strip_prefix("decimal.") {
+        return matches!(
+            operation,
+            "add"
+                | "ceiling"
+                | "conversion.decimal_to_int32"
+                | "conversion.int64_to_decimal"
+                | "conversion.uint64_to_decimal"
+                | "divide"
+                | "equal"
+                | "floor"
+                | "greater"
+                | "greater_equal"
+                | "less"
+                | "less_equal"
+                | "multiply"
+                | "negate"
+                | "not_equal"
+                | "plus"
+                | "remainder"
+                | "round"
+                | "subtract"
+                | "truncate"
+                | "value_equality"
+        );
+    }
+    if let Some((carrier, operation)) = id
+        .strip_prefix("lifted.")
+        .and_then(|value| value.split_once('.'))
+    {
+        return matches!(carrier, "i32" | "i64" | "f32" | "f64" | "decimal")
+            && matches!(
+                operation,
+                "add"
+                    | "compare"
+                    | "divide"
+                    | "multiply"
+                    | "negate"
+                    | "plus"
+                    | "remainder"
+                    | "subtract"
+            );
+    }
+    let floating_operation = id
+        .strip_prefix("floating.single.")
+        .or_else(|| id.strip_prefix("floating.double."));
+    floating_operation.is_some_and(|operation| {
+        matches!(
+            operation,
+            "abs"
+                | "add"
+                | "divide"
+                | "equal"
+                | "greater"
+                | "greater_equal"
+                | "is_finite"
+                | "is_infinity"
+                | "is_nan"
+                | "less"
+                | "less_equal"
+                | "max"
+                | "min"
+                | "multiply"
+                | "negate"
+                | "not_equal"
+                | "plus"
+                | "remainder"
+                | "subtract"
+        )
+    })
+}
+
+fn foundation_operation_definition<'a>(
+    closed_set: &'a ClosedInstanceSet,
+    operation_id: &str,
+) -> Option<&'a Value> {
+    closed_set.entries().iter().find_map(|entry| {
+        entry["operation_definitions"]
+            .as_array()?
+            .iter()
+            .find(|operation| operation["id"].as_str() == Some(operation_id))
+    })
+}
+
+fn json_string_array(values: &[Value]) -> Option<Vec<String>> {
+    values
+        .iter()
+        .map(|value| value.as_str().map(str::to_owned))
+        .collect()
+}
+
+fn known_concrete_type(
+    roots: &ValidatedClosedRootSet,
+    closed_set: &ClosedInstanceSet,
+    type_id: &str,
+) -> bool {
+    PRIMITIVES
+        .iter()
+        .any(|primitive| type_id == format!("mpk.csharp.value.{primitive}.v1"))
+        || roots.source_types.contains_key(type_id)
+        || closed_set.metadata.contains_key(type_id)
+}
+
+fn valid_vocabulary_id(value: &str) -> bool {
+    (1..=1_024).contains(&value.len())
+        && value.bytes().all(|byte| byte.is_ascii_graphic())
+        && !value.contains(['<', '>', '`'])
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct BindingTypeProjection {
+    pub id: String,
+    pub binding_id: String,
+    pub source_type_id: String,
+    pub semantic_type_id: String,
+    pub project: ClosedOperationSignature,
+    pub reconstruct: ClosedOperationSignature,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct CheckCommutation {
+    pub ordinal: u32,
+    pub source_check_id: String,
+    pub semantic_check_id: String,
+    pub failure_projection_id: Option<String>,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct BindingOperationCommutation {
+    pub binding_id: String,
+    pub source_operation: ClosedOperationSignature,
+    pub semantic_operation: ClosedOperationSignature,
+    pub operand_projection_ids: Vec<String>,
+    pub result_projection_id: String,
+    pub ordered_outcomes: Vec<CheckCommutation>,
+}
+
+pub fn validate_binding_operation_commutation(
+    roots: &ValidatedClosedRootSet,
+    closed_set: &ClosedInstanceSet,
+    projections: &[BindingTypeProjection],
+    commutation: &BindingOperationCommutation,
+) -> Result<(), PracticalVirValidationError> {
+    let phase = PracticalVirValidationPhase::Binding;
+    if !valid_vocabulary_id(&commutation.binding_id) {
+        return Err(vir_failure(phase, PracticalVirErrorCode::BindingShape));
+    }
+    let mut by_id = BTreeMap::new();
+    let mut operation_ids = BTreeSet::new();
+    for projection in projections {
+        if !valid_vocabulary_id(&projection.id)
+            || !valid_vocabulary_id(&projection.binding_id)
+            || !known_concrete_type(roots, closed_set, &projection.source_type_id)
+            || !known_concrete_type(roots, closed_set, &projection.semantic_type_id)
+            || by_id.insert(projection.id.as_str(), projection).is_some()
+        {
+            return Err(vir_failure(phase, PracticalVirErrorCode::BindingShape));
+        }
+        if !operation_ids.insert(projection.project.id.as_str())
+            || !operation_ids.insert(projection.reconstruct.id.as_str())
+        {
+            return Err(vir_failure(phase, PracticalVirErrorCode::BindingShape));
+        }
+        validate_closed_operation_signature(roots, closed_set, &projection.project)?;
+        validate_closed_operation_signature(roots, closed_set, &projection.reconstruct)?;
+        if projection.project.tag != ClosedOperationTag::BindingProject
+            || projection.project.argument_type_ids != [projection.source_type_id.as_str()]
+            || projection.project.normal_result_type_id != projection.semantic_type_id
+            || projection.reconstruct.tag != ClosedOperationTag::BindingReconstruct
+            || projection.reconstruct.argument_type_ids != [projection.semantic_type_id.as_str()]
+            || projection.reconstruct.normal_result_type_id != projection.source_type_id
+        {
+            return Err(vir_failure(phase, PracticalVirErrorCode::BindingShape));
+        }
+    }
+    validate_closed_operation_signature(roots, closed_set, &commutation.source_operation)?;
+    validate_closed_operation_signature(roots, closed_set, &commutation.semantic_operation)?;
+    if commutation.source_operation.tag != ClosedOperationTag::SourceCall
+        || matches!(
+            commutation.semantic_operation.tag,
+            ClosedOperationTag::SourceCall
+                | ClosedOperationTag::BindingProject
+                | ClosedOperationTag::BindingReconstruct
+                | ClosedOperationTag::FieldRead
+                | ClosedOperationTag::ValueConstruct
+        )
+        || commutation.operand_projection_ids.len()
+            != commutation.source_operation.argument_type_ids.len()
+        || commutation.semantic_operation.argument_type_ids.len()
+            != commutation.source_operation.argument_type_ids.len()
+    {
+        return Err(vir_failure(
+            phase,
+            PracticalVirErrorCode::BindingCommutation,
+        ));
+    }
+    for (ordinal, projection_id) in commutation.operand_projection_ids.iter().enumerate() {
+        let projection = by_id
+            .get(projection_id.as_str())
+            .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::BindingCommutation))?;
+        if projection.source_type_id != commutation.source_operation.argument_type_ids[ordinal]
+            || projection.semantic_type_id
+                != commutation.semantic_operation.argument_type_ids[ordinal]
+        {
+            return Err(vir_failure(
+                phase,
+                PracticalVirErrorCode::BindingCommutation,
+            ));
+        }
+    }
+    if commutation
+        .operand_projection_ids
+        .first()
+        .and_then(|id| by_id.get(id.as_str()))
+        .is_none_or(|projection| projection.binding_id != commutation.binding_id)
+    {
+        return Err(vir_failure(
+            phase,
+            PracticalVirErrorCode::BindingCommutation,
+        ));
+    }
+    let result_projection = by_id
+        .get(commutation.result_projection_id.as_str())
+        .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::BindingCommutation))?;
+    if result_projection.source_type_id != commutation.source_operation.normal_result_type_id
+        || result_projection.semantic_type_id
+            != commutation.semantic_operation.normal_result_type_id
+    {
+        return Err(vir_failure(
+            phase,
+            PracticalVirErrorCode::BindingCommutation,
+        ));
+    }
+    if commutation.source_operation.ordered_checks.len()
+        != commutation.semantic_operation.ordered_checks.len()
+        || commutation.ordered_outcomes.len() != commutation.source_operation.ordered_checks.len()
+    {
+        return Err(vir_failure(
+            phase,
+            PracticalVirErrorCode::BindingCommutation,
+        ));
+    }
+    for (ordinal, ((outcome, source), semantic)) in commutation
+        .ordered_outcomes
+        .iter()
+        .zip(&commutation.source_operation.ordered_checks)
+        .zip(&commutation.semantic_operation.ordered_checks)
+        .enumerate()
+    {
+        if usize::try_from(outcome.ordinal).ok() != Some(ordinal)
+            || outcome.source_check_id != source.id
+            || outcome.semantic_check_id != semantic.id
+            || source.tag != semantic.tag
+        {
+            return Err(vir_failure(phase, PracticalVirErrorCode::CheckOrder));
+        }
+        match (&source.failure_type_id, &semantic.failure_type_id) {
+            (None, None) => {
+                if outcome.failure_projection_id.is_some() {
+                    return Err(vir_failure(
+                        phase,
+                        PracticalVirErrorCode::BindingCommutation,
+                    ));
+                }
+            }
+            (Some(source_type), Some(semantic_type)) if source_type == semantic_type => {
+                if outcome.failure_projection_id.is_some() {
+                    return Err(vir_failure(
+                        phase,
+                        PracticalVirErrorCode::BindingCommutation,
+                    ));
+                }
+            }
+            (Some(source_type), Some(semantic_type)) => {
+                let projection = outcome
+                    .failure_projection_id
+                    .as_deref()
+                    .and_then(|id| by_id.get(id))
+                    .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::BindingCommutation))?;
+                if &projection.source_type_id != source_type
+                    || &projection.semantic_type_id != semantic_type
+                {
+                    return Err(vir_failure(
+                        phase,
+                        PracticalVirErrorCode::BindingCommutation,
+                    ));
+                }
+            }
+            _ => {
+                return Err(vir_failure(
+                    phase,
+                    PracticalVirErrorCode::BindingCommutation,
+                ));
+            }
+        }
+    }
+    Ok(())
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum ConstructionActionTag {
+    Allocate,
+    Read,
+    Fill,
+    Rewrite,
+    Borrow,
+    EndBorrow,
+    Transfer,
+    Freeze,
+    Discard,
+}
+
+impl ConstructionActionTag {
+    pub const fn as_str(self) -> &'static str {
+        match self {
+            Self::Allocate => "allocate",
+            Self::Read => "read",
+            Self::Fill => "fill",
+            Self::Rewrite => "rewrite",
+            Self::Borrow => "borrow",
+            Self::EndBorrow => "end_borrow",
+            Self::Transfer => "transfer",
+            Self::Freeze => "freeze",
+            Self::Discard => "discard",
+        }
+    }
+
+    pub fn from_id(id: &str) -> Option<Self> {
+        match id {
+            "allocate" => Some(Self::Allocate),
+            "read" => Some(Self::Read),
+            "fill" => Some(Self::Fill),
+            "rewrite" => Some(Self::Rewrite),
+            "borrow" => Some(Self::Borrow),
+            "end_borrow" => Some(Self::EndBorrow),
+            "transfer" => Some(Self::Transfer),
+            "freeze" => Some(Self::Freeze),
+            "discard" => Some(Self::Discard),
+            _ => None,
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum ConstructionStatus {
+    Active,
+    Frozen,
+    Discarded,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct SequenceConstructionState {
+    pub construction_id: String,
+    pub instance_id: String,
+    pub element_type_id: String,
+    pub published_type_id: String,
+    pub owner_id: String,
+    pub version: u64,
+    pub length: u32,
+    pub publication_length_maximum: u32,
+    pub initialized_indices: BTreeSet<u32>,
+    pub borrower_id: Option<String>,
+    pub status: ConstructionStatus,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub enum SequenceConstructionAction {
+    Read {
+        actor_id: String,
+        index: i32,
+        result_type_id: String,
+    },
+    Fill {
+        actor_id: String,
+        index: i32,
+        value_type_id: String,
+    },
+    Rewrite {
+        actor_id: String,
+        index: i32,
+        value_type_id: String,
+    },
+    Borrow {
+        actor_id: String,
+        borrower_id: String,
+    },
+    EndBorrow {
+        actor_id: String,
+        borrower_id: String,
+    },
+    Transfer {
+        actor_id: String,
+        new_owner_id: String,
+    },
+    Freeze {
+        actor_id: String,
+        result_type_id: String,
+    },
+    Discard {
+        actor_id: String,
+    },
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct SequenceConstructionEffect {
+    pub state: SequenceConstructionState,
+    pub read_type_id: Option<String>,
+    pub published_type_id: Option<String>,
+}
+
+impl SequenceConstructionState {
+    pub fn allocate(
+        closed_set: &ClosedInstanceSet,
+        construction_id: &str,
+        instance_id: &str,
+        owner_id: &str,
+        length: i64,
+        default_eligible: bool,
+        publication_length_maximum: u32,
+    ) -> Result<Self, PracticalVirValidationError> {
+        let phase = PracticalVirValidationPhase::Construction;
+        if !valid_vocabulary_id(construction_id) || !valid_vocabulary_id(owner_id) {
+            return Err(vir_failure(phase, PracticalVirErrorCode::Identifier));
+        }
+        let metadata = sequence_construction_metadata(closed_set, instance_id)?;
+        if length < 0 {
+            return Err(vir_failure(phase, PracticalVirErrorCode::ConstructionBound));
+        }
+        let length = u32::try_from(length)
+            .ok()
+            .filter(|length| *length <= SEQUENCE_CONSTRUCTION_CAPACITY_MAX)
+            .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::ConstructionBound))?;
+        if publication_length_maximum > SEQUENCE_CONSTRUCTION_CAPACITY_MAX {
+            return Err(vir_failure(phase, PracticalVirErrorCode::ConstructionBound));
+        }
+        let initialized_indices = if default_eligible {
+            (0..length).collect()
+        } else {
+            BTreeSet::new()
+        };
+        Ok(Self {
+            construction_id: construction_id.to_owned(),
+            instance_id: instance_id.to_owned(),
+            element_type_id: metadata.argument_ids[0].clone(),
+            published_type_id: metadata.dependency_ids[0].clone(),
+            owner_id: owner_id.to_owned(),
+            version: 0,
+            length,
+            publication_length_maximum,
+            initialized_indices,
+            borrower_id: None,
+            status: ConstructionStatus::Active,
+        })
+    }
+
+    pub fn validate(
+        &self,
+        closed_set: &ClosedInstanceSet,
+    ) -> Result<(), PracticalVirValidationError> {
+        let phase = PracticalVirValidationPhase::Construction;
+        let metadata = sequence_construction_metadata(closed_set, &self.instance_id)?;
+        if metadata.argument_ids != [self.element_type_id.as_str()]
+            || metadata.dependency_ids != [self.published_type_id.as_str()]
+        {
+            return Err(vir_failure(
+                phase,
+                PracticalVirErrorCode::ConstructionInstance,
+            ));
+        }
+        if !valid_vocabulary_id(&self.construction_id)
+            || !valid_vocabulary_id(&self.owner_id)
+            || self
+                .borrower_id
+                .as_deref()
+                .is_some_and(|id| !valid_vocabulary_id(id) || id == self.owner_id)
+        {
+            return Err(vir_failure(phase, PracticalVirErrorCode::Identifier));
+        }
+        if self.length > SEQUENCE_CONSTRUCTION_CAPACITY_MAX
+            || self.publication_length_maximum > SEQUENCE_CONSTRUCTION_CAPACITY_MAX
+            || (self.status == ConstructionStatus::Frozen
+                && self.length > self.publication_length_maximum)
+            || self
+                .initialized_indices
+                .iter()
+                .any(|index| *index >= self.length)
+        {
+            return Err(vir_failure(phase, PracticalVirErrorCode::ConstructionBound));
+        }
+        let complete =
+            self.initialized_indices.len() == usize::try_from(self.length).unwrap_or(usize::MAX);
+        if (self.status == ConstructionStatus::Frozen && !complete)
+            || (self.status != ConstructionStatus::Active && self.borrower_id.is_some())
+        {
+            return Err(vir_failure(phase, PracticalVirErrorCode::ConstructionState));
+        }
+        Ok(())
+    }
+
+    pub fn apply(
+        &self,
+        closed_set: &ClosedInstanceSet,
+        action: &SequenceConstructionAction,
+    ) -> Result<SequenceConstructionEffect, PracticalVirValidationError> {
+        self.validate(closed_set)?;
+        let phase = PracticalVirValidationPhase::Construction;
+        if self.status != ConstructionStatus::Active {
+            return Err(vir_failure(phase, PracticalVirErrorCode::ConstructionState));
+        }
+        let mut next = self.clone();
+        let mut read_type_id = None;
+        let mut published_type_id = None;
+        match action {
+            SequenceConstructionAction::Read {
+                actor_id,
+                index,
+                result_type_id,
+            } => {
+                if actor_id != &self.owner_id && self.borrower_id.as_ref() != Some(actor_id) {
+                    return Err(vir_failure(
+                        phase,
+                        PracticalVirErrorCode::ConstructionOwnership,
+                    ));
+                }
+                let index = checked_construction_index(*index, self.length)?;
+                if !self.initialized_indices.contains(&index) {
+                    return Err(vir_failure(
+                        phase,
+                        PracticalVirErrorCode::ConstructionInitialization,
+                    ));
+                }
+                if result_type_id != &self.element_type_id {
+                    return Err(vir_failure(phase, PracticalVirErrorCode::ResultType));
+                }
+                read_type_id = Some(result_type_id.clone());
+            }
+            SequenceConstructionAction::Fill {
+                actor_id,
+                index,
+                value_type_id,
+            } => {
+                require_writable_owner(self, actor_id)?;
+                let index = checked_construction_index(*index, self.length)?;
+                if value_type_id != &self.element_type_id {
+                    return Err(vir_failure(phase, PracticalVirErrorCode::OperandType));
+                }
+                if !next.initialized_indices.insert(index) {
+                    return Err(vir_failure(
+                        phase,
+                        PracticalVirErrorCode::ConstructionInitialization,
+                    ));
+                }
+                next.version = next
+                    .version
+                    .checked_add(1)
+                    .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::ConstructionState))?;
+            }
+            SequenceConstructionAction::Rewrite {
+                actor_id,
+                index,
+                value_type_id,
+            } => {
+                require_writable_owner(self, actor_id)?;
+                let _ = checked_construction_index(*index, self.length)?;
+                if value_type_id != &self.element_type_id {
+                    return Err(vir_failure(phase, PracticalVirErrorCode::OperandType));
+                }
+                if !construction_is_complete(self) {
+                    return Err(vir_failure(
+                        phase,
+                        PracticalVirErrorCode::ConstructionInitialization,
+                    ));
+                }
+                next.version = next
+                    .version
+                    .checked_add(1)
+                    .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::ConstructionState))?;
+            }
+            SequenceConstructionAction::Borrow {
+                actor_id,
+                borrower_id,
+            } => {
+                require_owner(self, actor_id)?;
+                if !construction_is_complete(self)
+                    || self.borrower_id.is_some()
+                    || !valid_vocabulary_id(borrower_id)
+                    || borrower_id == actor_id
+                {
+                    return Err(vir_failure(
+                        phase,
+                        PracticalVirErrorCode::ConstructionOwnership,
+                    ));
+                }
+                next.borrower_id = Some(borrower_id.clone());
+                next.version = next
+                    .version
+                    .checked_add(1)
+                    .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::ConstructionState))?;
+            }
+            SequenceConstructionAction::EndBorrow {
+                actor_id,
+                borrower_id,
+            } => {
+                require_owner(self, actor_id)?;
+                if self.borrower_id.as_ref() != Some(borrower_id) {
+                    return Err(vir_failure(
+                        phase,
+                        PracticalVirErrorCode::ConstructionOwnership,
+                    ));
+                }
+                next.borrower_id = None;
+                next.version = next
+                    .version
+                    .checked_add(1)
+                    .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::ConstructionState))?;
+            }
+            SequenceConstructionAction::Transfer {
+                actor_id,
+                new_owner_id,
+            } => {
+                require_writable_owner(self, actor_id)?;
+                if !construction_is_complete(self)
+                    || !valid_vocabulary_id(new_owner_id)
+                    || new_owner_id == actor_id
+                {
+                    return Err(vir_failure(
+                        phase,
+                        PracticalVirErrorCode::ConstructionOwnership,
+                    ));
+                }
+                next.owner_id = new_owner_id.clone();
+                next.version = next
+                    .version
+                    .checked_add(1)
+                    .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::ConstructionState))?;
+            }
+            SequenceConstructionAction::Freeze {
+                actor_id,
+                result_type_id,
+            } => {
+                require_writable_owner(self, actor_id)?;
+                if !construction_is_complete(self) {
+                    return Err(vir_failure(
+                        phase,
+                        PracticalVirErrorCode::ConstructionInitialization,
+                    ));
+                }
+                if self.length > self.publication_length_maximum {
+                    return Err(vir_failure(phase, PracticalVirErrorCode::ConstructionBound));
+                }
+                if result_type_id != &self.published_type_id {
+                    return Err(vir_failure(phase, PracticalVirErrorCode::ResultType));
+                }
+                next.status = ConstructionStatus::Frozen;
+                next.version = next
+                    .version
+                    .checked_add(1)
+                    .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::ConstructionState))?;
+                published_type_id = Some(result_type_id.clone());
+            }
+            SequenceConstructionAction::Discard { actor_id } => {
+                require_writable_owner(self, actor_id)?;
+                next.status = ConstructionStatus::Discarded;
+                next.version = next
+                    .version
+                    .checked_add(1)
+                    .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::ConstructionState))?;
+            }
+        }
+        next.validate(closed_set)?;
+        Ok(SequenceConstructionEffect {
+            state: next,
+            read_type_id,
+            published_type_id,
+        })
+    }
+
+    pub fn merge(
+        closed_set: &ClosedInstanceSet,
+        left: &Self,
+        right: &Self,
+    ) -> Result<Self, PracticalVirValidationError> {
+        left.validate(closed_set)?;
+        right.validate(closed_set)?;
+        let phase = PracticalVirValidationPhase::Construction;
+        if left.construction_id != right.construction_id
+            || left.instance_id != right.instance_id
+            || left.element_type_id != right.element_type_id
+            || left.published_type_id != right.published_type_id
+            || left.owner_id != right.owner_id
+            || left.version != right.version
+            || left.length != right.length
+            || left.publication_length_maximum != right.publication_length_maximum
+            || left.borrower_id != right.borrower_id
+            || left.status != right.status
+        {
+            return Err(vir_failure(phase, PracticalVirErrorCode::ConstructionState));
+        }
+        let mut merged = left.clone();
+        merged.initialized_indices = left
+            .initialized_indices
+            .intersection(&right.initialized_indices)
+            .copied()
+            .collect();
+        merged.validate(closed_set)?;
+        Ok(merged)
+    }
+}
+
+fn sequence_construction_metadata<'a>(
+    closed_set: &'a ClosedInstanceSet,
+    instance_id: &str,
+) -> Result<&'a InstanceMetadata, PracticalVirValidationError> {
+    closed_set
+        .metadata
+        .get(instance_id)
+        .filter(|metadata| {
+            template_name(&metadata.template_id) == Some("sequence_construction")
+                && metadata.argument_ids.len() == 1
+                && metadata.dependency_ids.len() == 1
+        })
+        .ok_or_else(|| {
+            vir_failure(
+                PracticalVirValidationPhase::Construction,
+                PracticalVirErrorCode::ConstructionInstance,
+            )
+        })
+}
+
+fn require_owner(
+    state: &SequenceConstructionState,
+    actor_id: &str,
+) -> Result<(), PracticalVirValidationError> {
+    if state.owner_id == actor_id {
+        Ok(())
+    } else {
+        Err(vir_failure(
+            PracticalVirValidationPhase::Construction,
+            PracticalVirErrorCode::ConstructionOwnership,
+        ))
+    }
+}
+
+fn require_writable_owner(
+    state: &SequenceConstructionState,
+    actor_id: &str,
+) -> Result<(), PracticalVirValidationError> {
+    require_owner(state, actor_id)?;
+    if state.borrower_id.is_some() {
+        Err(vir_failure(
+            PracticalVirValidationPhase::Construction,
+            PracticalVirErrorCode::ConstructionOwnership,
+        ))
+    } else {
+        Ok(())
+    }
+}
+
+fn checked_construction_index(index: i32, length: u32) -> Result<u32, PracticalVirValidationError> {
+    u32::try_from(index)
+        .ok()
+        .filter(|index| *index < length)
+        .ok_or_else(|| {
+            vir_failure(
+                PracticalVirValidationPhase::Construction,
+                PracticalVirErrorCode::ConstructionIndex,
+            )
+        })
+}
+
+fn construction_is_complete(state: &SequenceConstructionState) -> bool {
+    state.initialized_indices.len() == usize::try_from(state.length).unwrap_or(usize::MAX)
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum AbruptCompletionTag {
+    Normal,
+    Return,
+    Break,
+    Continue,
+    Throw,
+}
+
+impl AbruptCompletionTag {
+    pub const fn as_str(self) -> &'static str {
+        match self {
+            Self::Normal => "normal",
+            Self::Return => "return",
+            Self::Break => "break",
+            Self::Continue => "continue",
+            Self::Throw => "throw",
+        }
+    }
+
+    pub fn from_id(id: &str) -> Option<Self> {
+        match id {
+            "normal" => Some(Self::Normal),
+            "return" => Some(Self::Return),
+            "break" => Some(Self::Break),
+            "continue" => Some(Self::Continue),
+            "throw" => Some(Self::Throw),
+            _ => None,
+        }
+    }
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub enum AbruptCompletion {
+    Normal,
+    Return {
+        value_type_id: Option<String>,
+    },
+    Break {
+        loop_id: String,
+        target_id: String,
+    },
+    Continue {
+        loop_id: String,
+        target_id: String,
+    },
+    Throw {
+        exception_type_id: String,
+        rethrow_from_catch_id: Option<String>,
+    },
+}
+
+impl AbruptCompletion {
+    pub const fn tag(&self) -> AbruptCompletionTag {
+        match self {
+            Self::Normal => AbruptCompletionTag::Normal,
+            Self::Return { .. } => AbruptCompletionTag::Return,
+            Self::Break { .. } => AbruptCompletionTag::Break,
+            Self::Continue { .. } => AbruptCompletionTag::Continue,
+            Self::Throw { .. } => AbruptCompletionTag::Throw,
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum ControlNodeTag {
+    Entry,
+    Operation,
+    Branch,
+    Jump,
+    LoopHeader,
+    PatternDecision,
+    Return,
+    Break,
+    Continue,
+    Throw,
+    Rethrow,
+    HandlerEntry,
+    FinallyEntry,
+    FinallyExit,
+    Exit,
+}
+
+impl ControlNodeTag {
+    pub const fn as_str(self) -> &'static str {
+        match self {
+            Self::Entry => "entry",
+            Self::Operation => "operation",
+            Self::Branch => "branch",
+            Self::Jump => "jump",
+            Self::LoopHeader => "loop_header",
+            Self::PatternDecision => "pattern_decision",
+            Self::Return => "return",
+            Self::Break => "break",
+            Self::Continue => "continue",
+            Self::Throw => "throw",
+            Self::Rethrow => "rethrow",
+            Self::HandlerEntry => "handler_entry",
+            Self::FinallyEntry => "finally_entry",
+            Self::FinallyExit => "finally_exit",
+            Self::Exit => "exit",
+        }
+    }
+
+    pub fn from_id(id: &str) -> Option<Self> {
+        match id {
+            "entry" => Some(Self::Entry),
+            "operation" => Some(Self::Operation),
+            "branch" => Some(Self::Branch),
+            "jump" => Some(Self::Jump),
+            "loop_header" => Some(Self::LoopHeader),
+            "pattern_decision" => Some(Self::PatternDecision),
+            "return" => Some(Self::Return),
+            "break" => Some(Self::Break),
+            "continue" => Some(Self::Continue),
+            "throw" => Some(Self::Throw),
+            "rethrow" => Some(Self::Rethrow),
+            "handler_entry" => Some(Self::HandlerEntry),
+            "finally_entry" => Some(Self::FinallyEntry),
+            "finally_exit" => Some(Self::FinallyExit),
+            "exit" => Some(Self::Exit),
+            _ => None,
+        }
+    }
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct ControlNode {
+    pub id: String,
+    pub ordinal: u32,
+    pub tag: ControlNodeTag,
+    pub condition_type_id: Option<String>,
+    pub normal_successor_ids: Vec<String>,
+    pub exceptional_successors: Vec<ExceptionalSuccessor>,
+    pub abrupt: Option<AbruptCompletion>,
+    pub loop_id: Option<String>,
+    pub region_stack: Vec<String>,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct LoopRegion {
+    pub id: String,
+    pub parent_loop_id: Option<String>,
+    pub header_node_id: String,
+    pub body_entry_node_id: String,
+    pub continue_target_node_id: String,
+    pub break_target_node_id: String,
+    pub backedge_source_ids: Vec<String>,
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum PatternTag {
+    Constant,
+    Discard,
+    Var,
+    Null,
+    NotNull,
+    Relational,
+    Parenthesized,
+    And,
+    Or,
+    Not,
+    DeclarationType,
+    ExactTag,
+    Property,
+    List,
+}
+
+impl PatternTag {
+    pub const fn as_str(self) -> &'static str {
+        match self {
+            Self::Constant => "constant",
+            Self::Discard => "discard",
+            Self::Var => "var",
+            Self::Null => "null",
+            Self::NotNull => "not_null",
+            Self::Relational => "relational",
+            Self::Parenthesized => "parenthesized",
+            Self::And => "and",
+            Self::Or => "or",
+            Self::Not => "not",
+            Self::DeclarationType => "declaration_type",
+            Self::ExactTag => "exact_tag",
+            Self::Property => "property",
+            Self::List => "list",
+        }
+    }
+
+    pub fn from_id(id: &str) -> Option<Self> {
+        match id {
+            "constant" => Some(Self::Constant),
+            "discard" => Some(Self::Discard),
+            "var" => Some(Self::Var),
+            "null" => Some(Self::Null),
+            "not_null" => Some(Self::NotNull),
+            "relational" => Some(Self::Relational),
+            "parenthesized" => Some(Self::Parenthesized),
+            "and" => Some(Self::And),
+            "or" => Some(Self::Or),
+            "not" => Some(Self::Not),
+            "declaration_type" => Some(Self::DeclarationType),
+            "exact_tag" => Some(Self::ExactTag),
+            "property" => Some(Self::Property),
+            "list" => Some(Self::List),
+            _ => None,
+        }
+    }
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct PatternPropertyAccess {
+    pub member_id: String,
+    pub total: bool,
+    pub pure: bool,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct PatternArm {
+    pub ordinal: u32,
+    pub tag: PatternTag,
+    pub target_node_id: String,
+    pub guard_ordinal: Option<u32>,
+    pub guard_type_id: Option<String>,
+    pub bound_parameter_type_ids: Vec<String>,
+    pub property_accesses: Vec<PatternPropertyAccess>,
+    pub finite_sealed_type: bool,
+    pub bounded_list: bool,
+    pub has_slice: bool,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct PatternDecision {
+    pub node_id: String,
+    pub governing_value_id: String,
+    pub governing_type_id: String,
+    pub governing_evaluation_count: u32,
+    pub expression: bool,
+    pub exhaustive: bool,
+    pub arms: Vec<PatternArm>,
+    pub no_match_target_id: Option<String>,
+    pub non_exhaustive_exceptional_successor: Option<ExceptionalSuccessor>,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct SourceExceptionDefinition {
+    pub type_id: String,
+    pub sealed: bool,
+    pub direct_base_type_id: String,
+    pub payload_member_ids: Vec<String>,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct ClosedExceptionArm {
+    pub tag: u32,
+    pub type_id: String,
+    pub payload_member_ids: Vec<String>,
+    pub payload_type_ids: Vec<String>,
+    pub ancestry: Vec<String>,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct ClosedExceptionUniverse {
+    arms: Vec<ClosedExceptionArm>,
+}
+
+impl ClosedExceptionUniverse {
+    pub fn arms(&self) -> &[ClosedExceptionArm] {
+        &self.arms
+    }
+
+    pub fn arm(&self, type_id: &str) -> Option<&ClosedExceptionArm> {
+        self.arms.iter().find(|arm| arm.type_id == type_id)
+    }
+
+    pub fn admits_catch_type(&self, type_id: &str) -> bool {
+        self.arm(type_id).is_some()
+    }
+
+    fn catch_is_ancestor(&self, ancestor: &str, descendant: &str) -> bool {
+        self.arm(ancestor).is_some()
+            && self
+                .arm(descendant)
+                .is_some_and(|arm| arm.ancestry.iter().any(|item| item == ancestor))
+    }
+}
+
+pub fn derive_closed_exception_universe(
+    roots: &ValidatedClosedRootSet,
+    closed_set: &ClosedInstanceSet,
+    source_exceptions: &[SourceExceptionDefinition],
+) -> Result<ClosedExceptionUniverse, PracticalVirValidationError> {
+    let phase = PracticalVirValidationPhase::Exception;
+    if source_exceptions
+        .windows(2)
+        .any(|pair| pair[0].type_id >= pair[1].type_id)
+    {
+        return Err(vir_failure(phase, PracticalVirErrorCode::ExceptionType));
+    }
+    let mut arms = builtin_exception_arms();
+    for source_exception in source_exceptions {
+        let source = roots
+            .source_types
+            .get(&source_exception.type_id)
+            .filter(|source| source.kind == SourceKind::SealedClass)
+            .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::ExceptionType))?;
+        if !source_exception.sealed
+            || source_exception.direct_base_type_id != "System.Exception"
+            || source_exception.payload_member_ids
+                != source
+                    .members
+                    .iter()
+                    .map(|member| member.id.as_str())
+                    .collect::<Vec<_>>()
+        {
+            return Err(vir_failure(phase, PracticalVirErrorCode::ExceptionType));
+        }
+        let payload_type_ids = source
+            .members
+            .iter()
+            .map(|member| closed_type_id_for_operation(closed_set, roots, &member.ty))
+            .collect::<Result<Vec<_>, _>>()?;
+        let tag = u32::try_from(arms.len())
+            .map_err(|_| vir_failure(phase, PracticalVirErrorCode::ExceptionType))?;
+        arms.push(ClosedExceptionArm {
+            tag,
+            type_id: source_exception.type_id.clone(),
+            payload_member_ids: source_exception.payload_member_ids.clone(),
+            payload_type_ids,
+            ancestry: vec![
+                source_exception.type_id.clone(),
+                "System.Exception".to_owned(),
+            ],
+        });
+    }
+    Ok(ClosedExceptionUniverse { arms })
+}
+
+pub fn validate_explicit_exception_value(
+    bundle: &ValidatedFoundationBundle,
+    roots: &ValidatedClosedRootSet,
+    closed_set: &ClosedInstanceSet,
+    universe: &ClosedExceptionUniverse,
+    value: &MonomorphicValue,
+) -> Result<(), PracticalVirValidationError> {
+    validate_monomorphic_value(bundle, roots, closed_set, value).map_err(|_| {
+        vir_failure(
+            PracticalVirValidationPhase::Exception,
+            PracticalVirErrorCode::ExceptionType,
+        )
+    })?;
+    let MonomorphicValue::ClosedException {
+        type_id,
+        tag,
+        source_type_id,
+        payload,
+    } = value
+    else {
+        return Err(vir_failure(
+            PracticalVirValidationPhase::Exception,
+            PracticalVirErrorCode::ExceptionType,
+        ));
+    };
+    if type_id != EXCEPTION_TYPE_ID {
+        return Err(vir_failure(
+            PracticalVirValidationPhase::Exception,
+            PracticalVirErrorCode::ExceptionType,
+        ));
+    }
+    usize::try_from(*tag)
+        .ok()
+        .and_then(|tag| universe.arms.get(tag))
+        .filter(|arm| {
+            if *tag < 9 {
+                source_type_id.is_none()
+            } else {
+                source_type_id.as_deref() == Some(arm.type_id.as_str())
+            }
+        })
+        .ok_or_else(|| {
+            vir_failure(
+                PracticalVirValidationPhase::Exception,
+                PracticalVirErrorCode::ExceptionType,
+            )
+        })?;
+    if (*tag < 9 && payload.is_some()) || (*tag >= 9 && payload.is_none()) {
+        return Err(vir_failure(
+            PracticalVirValidationPhase::Exception,
+            PracticalVirErrorCode::ExceptionType,
+        ));
+    }
+    Ok(())
+}
+
+fn builtin_exception_arms() -> Vec<ClosedExceptionArm> {
+    const BUILTINS: [&str; 9] = [
+        "System.DivideByZeroException",
+        "System.OverflowException",
+        "System.IndexOutOfRangeException",
+        "System.ArgumentException",
+        "System.ArgumentOutOfRangeException",
+        "System.ArgumentNullException",
+        "System.InvalidOperationException",
+        "System.NullReferenceException",
+        "System.Runtime.CompilerServices.SwitchExpressionException",
+    ];
+    BUILTINS
+        .iter()
+        .enumerate()
+        .map(|(tag, type_id)| {
+            let mut ancestry = vec![(*type_id).to_owned()];
+            match *type_id {
+                "System.ArgumentOutOfRangeException" | "System.ArgumentNullException" => {
+                    ancestry.push("System.ArgumentException".to_owned());
+                }
+                "System.Runtime.CompilerServices.SwitchExpressionException" => {
+                    ancestry.push("System.InvalidOperationException".to_owned());
+                }
+                _ => {}
+            }
+            ancestry.push("System.SystemException".to_owned());
+            ancestry.push("System.Exception".to_owned());
+            ClosedExceptionArm {
+                tag: u32::try_from(tag).expect("nine built-in exception tags fit u32"),
+                type_id: (*type_id).to_owned(),
+                payload_member_ids: Vec::new(),
+                payload_type_ids: Vec::new(),
+                ancestry,
+            }
+        })
+        .collect()
+}
+
+fn closed_type_id_for_operation(
+    closed_set: &ClosedInstanceSet,
+    roots: &ValidatedClosedRootSet,
+    ty: &ClosedType,
+) -> Result<String, PracticalVirValidationError> {
+    let id = match ty {
+        ClosedType::Primitive(id) => format!("mpk.csharp.value.{id}.v1"),
+        ClosedType::Source(id) => id.clone(),
+        ClosedType::Instance {
+            template,
+            arguments,
+        } => {
+            let argument_ids = arguments
+                .iter()
+                .map(|argument| closed_type_id_for_operation(closed_set, roots, argument))
+                .collect::<Result<Vec<_>, _>>()?;
+            closed_set
+                .metadata
+                .iter()
+                .find_map(|(id, metadata)| {
+                    (metadata.template_id == format!("mpk.csharp.semantic.{template}.v1")
+                        && metadata.argument_ids == argument_ids)
+                        .then(|| id.clone())
+                })
+                .ok_or_else(|| {
+                    vir_failure(
+                        PracticalVirValidationPhase::Exception,
+                        PracticalVirErrorCode::ConcreteType,
+                    )
+                })?
+        }
+    };
+    if known_concrete_type(roots, closed_set, &id) {
+        Ok(id)
+    } else {
+        Err(vir_failure(
+            PracticalVirValidationPhase::Exception,
+            PracticalVirErrorCode::ConcreteType,
+        ))
+    }
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct ExceptionFilterRule {
+    pub condition_type_id: String,
+    pub thrown_filter_exception_successor_id: String,
+    pub throw_means_false: bool,
+    pub preserves_original_exception: bool,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct CatchHandler {
+    pub ordinal: u32,
+    pub exception_type_id: String,
+    pub filter: Option<ExceptionFilterRule>,
+    pub handler_entry_node_id: String,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct ExceptionHandlerRegion {
+    pub id: String,
+    pub parent_region_id: Option<String>,
+    pub nesting_depth: u32,
+    pub try_entry_node_id: String,
+    pub catches: Vec<CatchHandler>,
+    pub finally_entry_node_id: Option<String>,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct ExceptionUnwindPlan {
+    pub source_node_id: String,
+    pub check_id: String,
+    pub from_region_id: Option<String>,
+    pub selected_handler_region_id: Option<String>,
+    pub finally_region_ids: Vec<String>,
+    pub destination_node_id: String,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct FinallyCompletionRule {
+    pub incoming: AbruptCompletion,
+    pub produced: AbruptCompletion,
+    pub outgoing: AbruptCompletion,
+}
+
+pub fn validate_finally_completion(
+    rule: &FinallyCompletionRule,
+) -> Result<(), PracticalVirValidationError> {
+    let phase = PracticalVirValidationPhase::Exception;
+    match &rule.produced {
+        AbruptCompletion::Normal if rule.outgoing == rule.incoming => Ok(()),
+        AbruptCompletion::Throw { .. } if rule.outgoing == rule.produced => Ok(()),
+        AbruptCompletion::Return { .. }
+        | AbruptCompletion::Break { .. }
+        | AbruptCompletion::Continue { .. } => {
+            Err(vir_failure(phase, PracticalVirErrorCode::FinallyAbrupt))
+        }
+        _ => Err(vir_failure(phase, PracticalVirErrorCode::FinallyAbrupt)),
+    }
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct ExplicitControlGraph {
+    pub nodes: Vec<ControlNode>,
+    pub loops: Vec<LoopRegion>,
+    pub patterns: Vec<PatternDecision>,
+    pub exception_regions: Vec<ExceptionHandlerRegion>,
+    pub unwind_plans: Vec<ExceptionUnwindPlan>,
+}
+
+pub fn validate_explicit_control_graph(
+    roots: &ValidatedClosedRootSet,
+    closed_set: &ClosedInstanceSet,
+    universe: &ClosedExceptionUniverse,
+    graph: &ExplicitControlGraph,
+) -> Result<(), PracticalVirValidationError> {
+    let phase = PracticalVirValidationPhase::Control;
+    let mut by_id = BTreeMap::new();
+    for (ordinal, node) in graph.nodes.iter().enumerate() {
+        if usize::try_from(node.ordinal).ok() != Some(ordinal)
+            || !valid_vocabulary_id(&node.id)
+            || by_id.insert(node.id.as_str(), node).is_some()
+        {
+            return Err(vir_failure(phase, PracticalVirErrorCode::ControlOrder));
+        }
+    }
+    if graph.nodes.first().map(|node| node.tag) != Some(ControlNodeTag::Entry)
+        || graph
+            .nodes
+            .iter()
+            .filter(|node| node.tag == ControlNodeTag::Entry)
+            .count()
+            != 1
+    {
+        return Err(vir_failure(phase, PracticalVirErrorCode::ControlShape));
+    }
+    if graph
+        .nodes
+        .iter()
+        .filter(|node| node.tag == ControlNodeTag::Exit)
+        .count()
+        != 1
+    {
+        return Err(vir_failure(phase, PracticalVirErrorCode::ControlShape));
+    }
+    for node in &graph.nodes {
+        validate_control_node_shape(roots, closed_set, universe, node)?;
+        for target in node
+            .normal_successor_ids
+            .iter()
+            .chain(
+                node.exceptional_successors
+                    .iter()
+                    .map(|edge| &edge.target_id),
+            )
+            .chain(abrupt_target(node.abrupt.as_ref()))
+        {
+            if !by_id.contains_key(target.as_str()) {
+                return Err(vir_failure(phase, PracticalVirErrorCode::ControlEdge));
+            }
+        }
+    }
+    validate_loops(&by_id, &graph.loops)?;
+    validate_patterns(roots, closed_set, &by_id, &graph.patterns)?;
+    validate_exception_regions(universe, &by_id, &graph.exception_regions)?;
+    validate_unwind_plans(
+        universe,
+        &by_id,
+        &graph.exception_regions,
+        &graph.unwind_plans,
+    )?;
+    Ok(())
+}
+
+fn validate_control_node_shape(
+    roots: &ValidatedClosedRootSet,
+    closed_set: &ClosedInstanceSet,
+    universe: &ClosedExceptionUniverse,
+    node: &ControlNode,
+) -> Result<(), PracticalVirValidationError> {
+    let phase = PracticalVirValidationPhase::Control;
+    if node
+        .condition_type_id
+        .as_deref()
+        .is_some_and(|type_id| !known_concrete_type(roots, closed_set, type_id))
+    {
+        return Err(vir_failure(phase, PracticalVirErrorCode::ConcreteType));
+    }
+    let mut exceptional_check_ids = BTreeSet::new();
+    for edge in &node.exceptional_successors {
+        if universe.arm(&edge.exception_type_id).is_none()
+            || !valid_vocabulary_id(&edge.check_id)
+            || !exceptional_check_ids.insert(edge.check_id.as_str())
+        {
+            return Err(vir_failure(
+                phase,
+                PracticalVirErrorCode::ExceptionalSuccessor,
+            ));
+        }
+    }
+    match node.abrupt.as_ref() {
+        Some(AbruptCompletion::Return {
+            value_type_id: Some(type_id),
+        }) if !known_concrete_type(roots, closed_set, type_id) => {
+            return Err(vir_failure(phase, PracticalVirErrorCode::ConcreteType));
+        }
+        Some(AbruptCompletion::Break { loop_id, target_id })
+        | Some(AbruptCompletion::Continue { loop_id, target_id })
+            if !valid_vocabulary_id(loop_id)
+                || !valid_vocabulary_id(target_id)
+                || node.loop_id.as_deref() != Some(loop_id.as_str()) =>
+        {
+            return Err(vir_failure(phase, PracticalVirErrorCode::LoopShape));
+        }
+        Some(AbruptCompletion::Throw {
+            exception_type_id, ..
+        }) if universe.arm(exception_type_id).is_none()
+            || node
+                .exceptional_successors
+                .first()
+                .is_some_and(|edge| edge.exception_type_id != *exception_type_id) =>
+        {
+            return Err(vir_failure(phase, PracticalVirErrorCode::ExceptionType));
+        }
+        _ => {}
+    }
+    match node.tag {
+        ControlNodeTag::Entry
+        | ControlNodeTag::Jump
+        | ControlNodeTag::HandlerEntry
+        | ControlNodeTag::FinallyEntry
+        | ControlNodeTag::FinallyExit => require_control_shape(node, 1, 0, false, None),
+        ControlNodeTag::Operation => require_control_shape(node, 1, usize::MAX, false, None),
+        ControlNodeTag::Branch | ControlNodeTag::LoopHeader => {
+            require_control_shape(node, 2, 0, false, Some(BOOL_TYPE_ID))
+        }
+        ControlNodeTag::PatternDecision => {
+            if node.normal_successor_ids.is_empty()
+                || node.condition_type_id.is_some()
+                || node.abrupt.is_some()
+                || node.loop_id.is_some()
+            {
+                Err(vir_failure(phase, PracticalVirErrorCode::ControlShape))
+            } else {
+                Ok(())
+            }
+        }
+        ControlNodeTag::Return => require_abrupt_shape(node, AbruptCompletionTag::Return, false),
+        ControlNodeTag::Break => require_abrupt_shape(node, AbruptCompletionTag::Break, false),
+        ControlNodeTag::Continue => {
+            require_abrupt_shape(node, AbruptCompletionTag::Continue, false)
+        }
+        ControlNodeTag::Throw => require_abrupt_shape(node, AbruptCompletionTag::Throw, false)
+            .and_then(|()| require_rethrow_state(node, false)),
+        ControlNodeTag::Rethrow => require_abrupt_shape(node, AbruptCompletionTag::Throw, false)
+            .and_then(|()| require_rethrow_state(node, true)),
+        ControlNodeTag::Exit => {
+            if node.normal_successor_ids.is_empty()
+                && node.exceptional_successors.is_empty()
+                && node.condition_type_id.is_none()
+                && node.loop_id.is_none()
+                && node.abrupt == Some(AbruptCompletion::Normal)
+            {
+                Ok(())
+            } else {
+                Err(vir_failure(phase, PracticalVirErrorCode::ControlShape))
+            }
+        }
+    }
+}
+
+fn require_control_shape(
+    node: &ControlNode,
+    normal_count: usize,
+    exceptional_count: usize,
+    abrupt: bool,
+    condition_type_id: Option<&str>,
+) -> Result<(), PracticalVirValidationError> {
+    let exceptional_ok =
+        exceptional_count == usize::MAX || node.exceptional_successors.len() == exceptional_count;
+    if node.normal_successor_ids.len() == normal_count
+        && exceptional_ok
+        && node.abrupt.is_some() == abrupt
+        && node.condition_type_id.as_deref() == condition_type_id
+        && (node.tag == ControlNodeTag::LoopHeader || node.loop_id.is_none())
+    {
+        Ok(())
+    } else {
+        Err(vir_failure(
+            PracticalVirValidationPhase::Control,
+            PracticalVirErrorCode::ControlShape,
+        ))
+    }
+}
+
+fn require_abrupt_shape(
+    node: &ControlNode,
+    expected: AbruptCompletionTag,
+    normal_edge: bool,
+) -> Result<(), PracticalVirValidationError> {
+    let exceptional_count = usize::from(expected == AbruptCompletionTag::Throw);
+    let loop_shape = if matches!(
+        expected,
+        AbruptCompletionTag::Break | AbruptCompletionTag::Continue
+    ) {
+        node.loop_id.is_some()
+    } else {
+        node.loop_id.is_none()
+    };
+    if node.normal_successor_ids.is_empty() == !normal_edge
+        && node.exceptional_successors.len() == exceptional_count
+        && node.condition_type_id.is_none()
+        && node.abrupt.as_ref().map(AbruptCompletion::tag) == Some(expected)
+        && loop_shape
+    {
+        Ok(())
+    } else {
+        Err(vir_failure(
+            PracticalVirValidationPhase::Control,
+            PracticalVirErrorCode::ControlShape,
+        ))
+    }
+}
+
+fn require_rethrow_state(
+    node: &ControlNode,
+    rethrow: bool,
+) -> Result<(), PracticalVirValidationError> {
+    let Some(AbruptCompletion::Throw {
+        exception_type_id,
+        rethrow_from_catch_id,
+    }) = &node.abrupt
+    else {
+        return Err(vir_failure(
+            PracticalVirValidationPhase::Control,
+            PracticalVirErrorCode::ControlShape,
+        ));
+    };
+    if !exception_type_id.is_empty()
+        && rethrow_from_catch_id.is_some() == rethrow
+        && rethrow_from_catch_id
+            .as_deref()
+            .is_none_or(valid_vocabulary_id)
+    {
+        Ok(())
+    } else {
+        Err(vir_failure(
+            PracticalVirValidationPhase::Control,
+            PracticalVirErrorCode::ControlShape,
+        ))
+    }
+}
+
+fn abrupt_target(abrupt: Option<&AbruptCompletion>) -> impl Iterator<Item = &String> {
+    let target = match abrupt {
+        Some(AbruptCompletion::Break { target_id, .. })
+        | Some(AbruptCompletion::Continue { target_id, .. }) => Some(target_id),
+        _ => None,
+    };
+    target.into_iter()
+}
+
+fn validate_loops(
+    nodes: &BTreeMap<&str, &ControlNode>,
+    loops: &[LoopRegion],
+) -> Result<(), PracticalVirValidationError> {
+    let phase = PracticalVirValidationPhase::Control;
+    let mut loop_ids = BTreeSet::new();
+    for loop_region in loops {
+        if !canonical_loop_id(&loop_region.id)
+            || !loop_ids.insert(loop_region.id.as_str())
+            || loop_region
+                .parent_loop_id
+                .as_deref()
+                .is_some_and(|parent| !loop_ids.contains(parent))
+        {
+            return Err(vir_failure(phase, PracticalVirErrorCode::LoopShape));
+        }
+        let header = nodes
+            .get(loop_region.header_node_id.as_str())
+            .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::LoopShape))?;
+        if header.tag != ControlNodeTag::LoopHeader
+            || header.loop_id.as_deref() != Some(loop_region.id.as_str())
+            || header.normal_successor_ids
+                != [
+                    loop_region.body_entry_node_id.as_str(),
+                    loop_region.break_target_node_id.as_str(),
+                ]
+            || !nodes.contains_key(loop_region.body_entry_node_id.as_str())
+            || !nodes.contains_key(loop_region.continue_target_node_id.as_str())
+            || !nodes.contains_key(loop_region.break_target_node_id.as_str())
+            || loop_region.backedge_source_ids.is_empty()
+        {
+            return Err(vir_failure(phase, PracticalVirErrorCode::LoopShape));
+        }
+        let mut previous_ordinal = None;
+        for source_id in &loop_region.backedge_source_ids {
+            let source = nodes
+                .get(source_id.as_str())
+                .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::LoopShape))?;
+            if !source
+                .normal_successor_ids
+                .iter()
+                .any(|target| target == &loop_region.header_node_id)
+                || previous_ordinal.is_some_and(|ordinal| ordinal >= source.ordinal)
+            {
+                return Err(vir_failure(phase, PracticalVirErrorCode::LoopShape));
+            }
+            previous_ordinal = Some(source.ordinal);
+        }
+        let declared_backedges = loop_region
+            .backedge_source_ids
+            .iter()
+            .map(String::as_str)
+            .collect::<BTreeSet<_>>();
+        let incoming = nodes
+            .values()
+            .filter(|node| {
+                node.normal_successor_ids
+                    .iter()
+                    .any(|target| target == &loop_region.header_node_id)
+            })
+            .collect::<Vec<_>>();
+        if incoming
+            .iter()
+            .filter(|node| !declared_backedges.contains(node.id.as_str()))
+            .count()
+            != 1
+        {
+            return Err(vir_failure(phase, PracticalVirErrorCode::LoopShape));
+        }
+    }
+    let loop_headers = nodes
+        .values()
+        .filter(|node| node.tag == ControlNodeTag::LoopHeader)
+        .collect::<Vec<_>>();
+    let header_loop_ids = loop_headers
+        .iter()
+        .filter_map(|node| node.loop_id.as_deref())
+        .collect::<BTreeSet<_>>();
+    if header_loop_ids != loop_ids || header_loop_ids.len() != loop_headers.len() {
+        return Err(vir_failure(phase, PracticalVirErrorCode::LoopShape));
+    }
+    for node in nodes.values() {
+        match &node.abrupt {
+            Some(AbruptCompletion::Break { loop_id, target_id }) => {
+                let loop_region = loops.iter().find(|item| item.id == *loop_id);
+                if !loop_region.is_some_and(|item| item.break_target_node_id == *target_id) {
+                    return Err(vir_failure(phase, PracticalVirErrorCode::LoopShape));
+                }
+            }
+            Some(AbruptCompletion::Continue { loop_id, target_id }) => {
+                let loop_region = loops.iter().find(|item| item.id == *loop_id);
+                if !loop_region.is_some_and(|item| item.continue_target_node_id == *target_id) {
+                    return Err(vir_failure(phase, PracticalVirErrorCode::LoopShape));
+                }
+            }
+            _ => {}
+        }
+    }
+    Ok(())
+}
+
+fn canonical_loop_id(id: &str) -> bool {
+    let Some((method, ordinal)) = id.rsplit_once("#loop#") else {
+        return false;
+    };
+    !method.is_empty()
+        && ordinal.len() == 4
+        && ordinal.bytes().all(|byte| byte.is_ascii_digit())
+        && valid_vocabulary_id(id)
+}
+
+fn validate_patterns(
+    roots: &ValidatedClosedRootSet,
+    closed_set: &ClosedInstanceSet,
+    nodes: &BTreeMap<&str, &ControlNode>,
+    patterns: &[PatternDecision],
+) -> Result<(), PracticalVirValidationError> {
+    let phase = PracticalVirValidationPhase::Pattern;
+    let mut decision_ids = BTreeSet::new();
+    for decision in patterns {
+        let node = nodes
+            .get(decision.node_id.as_str())
+            .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::PatternShape))?;
+        if node.tag != ControlNodeTag::PatternDecision
+            || !decision_ids.insert(decision.node_id.as_str())
+            || !valid_vocabulary_id(&decision.governing_value_id)
+            || !known_concrete_type(roots, closed_set, &decision.governing_type_id)
+            || decision.governing_evaluation_count != 1
+            || decision.arms.is_empty()
+        {
+            return Err(vir_failure(phase, PracticalVirErrorCode::PatternShape));
+        }
+        let mut expected_guard_ordinal = 0_u32;
+        for (ordinal, arm) in decision.arms.iter().enumerate() {
+            if usize::try_from(arm.ordinal).ok() != Some(ordinal)
+                || !nodes.contains_key(arm.target_node_id.as_str())
+                || arm
+                    .bound_parameter_type_ids
+                    .iter()
+                    .any(|type_id| !known_concrete_type(roots, closed_set, type_id))
+                || arm.property_accesses.iter().any(|access| {
+                    !valid_vocabulary_id(&access.member_id) || !access.total || !access.pure
+                })
+            {
+                return Err(vir_failure(phase, PracticalVirErrorCode::PatternShape));
+            }
+            match (arm.guard_ordinal, arm.guard_type_id.as_deref()) {
+                (Some(actual), Some(BOOL_TYPE_ID)) if actual == expected_guard_ordinal => {
+                    expected_guard_ordinal = expected_guard_ordinal
+                        .checked_add(1)
+                        .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::PatternOrder))?;
+                }
+                (None, None) => {}
+                _ => return Err(vir_failure(phase, PracticalVirErrorCode::PatternOrder)),
+            }
+            match arm.tag {
+                PatternTag::DeclarationType if !arm.finite_sealed_type => {
+                    return Err(vir_failure(phase, PracticalVirErrorCode::PatternShape));
+                }
+                PatternTag::List if !arm.bounded_list || arm.has_slice => {
+                    return Err(vir_failure(phase, PracticalVirErrorCode::PatternShape));
+                }
+                PatternTag::Discard | PatternTag::Var
+                    if ordinal + 1 != decision.arms.len()
+                        || !decision.exhaustive
+                        || arm.guard_ordinal.is_some() =>
+                {
+                    return Err(vir_failure(phase, PracticalVirErrorCode::PatternOrder));
+                }
+                _ => {}
+            }
+            if (arm.tag != PatternTag::DeclarationType && arm.finite_sealed_type)
+                || (arm.tag != PatternTag::List && (arm.bounded_list || arm.has_slice))
+            {
+                return Err(vir_failure(phase, PracticalVirErrorCode::PatternShape));
+            }
+        }
+        let expected_normal = decision
+            .arms
+            .iter()
+            .map(|arm| arm.target_node_id.as_str())
+            .chain(decision.no_match_target_id.as_deref())
+            .collect::<Vec<_>>();
+        if node
+            .normal_successor_ids
+            .iter()
+            .map(String::as_str)
+            .ne(expected_normal)
+        {
+            return Err(vir_failure(phase, PracticalVirErrorCode::PatternOrder));
+        }
+        if decision.expression {
+            if decision.exhaustive {
+                if decision.no_match_target_id.is_some()
+                    || decision.non_exhaustive_exceptional_successor.is_some()
+                    || !node.exceptional_successors.is_empty()
+                {
+                    return Err(vir_failure(
+                        phase,
+                        PracticalVirErrorCode::PatternExhaustiveness,
+                    ));
+                }
+            } else {
+                let successor = decision
+                    .non_exhaustive_exceptional_successor
+                    .as_ref()
+                    .ok_or_else(|| {
+                        vir_failure(phase, PracticalVirErrorCode::PatternExhaustiveness)
+                    })?;
+                if decision.no_match_target_id.is_some()
+                    || successor.exception_type_id
+                        != "System.Runtime.CompilerServices.SwitchExpressionException"
+                    || node.exceptional_successors != [successor.clone()]
+                {
+                    return Err(vir_failure(
+                        phase,
+                        PracticalVirErrorCode::PatternExhaustiveness,
+                    ));
+                }
+            }
+        } else if decision.non_exhaustive_exceptional_successor.is_some()
+            || !node.exceptional_successors.is_empty()
+            || decision.exhaustive == decision.no_match_target_id.is_some()
+        {
+            return Err(vir_failure(
+                phase,
+                PracticalVirErrorCode::PatternExhaustiveness,
+            ));
+        }
+    }
+    if graph_pattern_node_ids(nodes) != decision_ids {
+        return Err(vir_failure(phase, PracticalVirErrorCode::PatternShape));
+    }
+    Ok(())
+}
+
+fn graph_pattern_node_ids<'a>(nodes: &BTreeMap<&'a str, &'a ControlNode>) -> BTreeSet<&'a str> {
+    nodes
+        .values()
+        .filter(|node| node.tag == ControlNodeTag::PatternDecision)
+        .map(|node| node.id.as_str())
+        .collect()
+}
+
+fn validate_exception_regions(
+    universe: &ClosedExceptionUniverse,
+    nodes: &BTreeMap<&str, &ControlNode>,
+    regions: &[ExceptionHandlerRegion],
+) -> Result<(), PracticalVirValidationError> {
+    let phase = PracticalVirValidationPhase::Exception;
+    let mut by_id = BTreeMap::new();
+    let mut try_entry_ids = BTreeSet::new();
+    for region in regions {
+        if !valid_vocabulary_id(&region.id)
+            || by_id.insert(region.id.as_str(), region).is_some()
+            || !nodes.contains_key(region.try_entry_node_id.as_str())
+            || !try_entry_ids.insert(region.try_entry_node_id.as_str())
+            || (region.catches.is_empty() && region.finally_entry_node_id.is_none())
+        {
+            return Err(vir_failure(phase, PracticalVirErrorCode::HandlerShape));
+        }
+    }
+    let mut handler_entry_ids = BTreeSet::new();
+    for region in regions {
+        match region.parent_region_id.as_deref() {
+            None if region.nesting_depth == 0 => {}
+            Some(parent_id)
+                if by_id.get(parent_id).is_some_and(|parent| {
+                    parent.nesting_depth.checked_add(1) == Some(region.nesting_depth)
+                }) => {}
+            _ => return Err(vir_failure(phase, PracticalVirErrorCode::HandlerShape)),
+        }
+        for (ordinal, catch) in region.catches.iter().enumerate() {
+            if usize::try_from(catch.ordinal).ok() != Some(ordinal)
+                || !universe.admits_catch_type(&catch.exception_type_id)
+                || !handler_entry_ids.insert(catch.handler_entry_node_id.as_str())
+                || nodes
+                    .get(catch.handler_entry_node_id.as_str())
+                    .is_none_or(|node| node.tag != ControlNodeTag::HandlerEntry)
+            {
+                return Err(vir_failure(phase, PracticalVirErrorCode::HandlerOrder));
+            }
+            if let Some(filter) = &catch.filter {
+                if filter.condition_type_id != BOOL_TYPE_ID
+                    || !filter.throw_means_false
+                    || !filter.preserves_original_exception
+                    || !nodes.contains_key(filter.thrown_filter_exception_successor_id.as_str())
+                {
+                    return Err(vir_failure(phase, PracticalVirErrorCode::HandlerShape));
+                }
+            }
+            if region.catches[..ordinal].iter().any(|earlier| {
+                earlier.filter.is_none()
+                    && universe
+                        .catch_is_ancestor(&earlier.exception_type_id, &catch.exception_type_id)
+            }) {
+                return Err(vir_failure(phase, PracticalVirErrorCode::HandlerOrder));
+            }
+        }
+        if region.finally_entry_node_id.as_deref().is_some_and(|id| {
+            nodes
+                .get(id)
+                .is_none_or(|node| node.tag != ControlNodeTag::FinallyEntry)
+        }) {
+            return Err(vir_failure(phase, PracticalVirErrorCode::HandlerShape));
+        }
+    }
+    for node in nodes.values() {
+        if !valid_region_stack(&by_id, &node.region_stack) {
+            return Err(vir_failure(phase, PracticalVirErrorCode::HandlerShape));
+        }
+        if node.tag == ControlNodeTag::Rethrow {
+            let active_catch = match node.abrupt.as_ref() {
+                Some(AbruptCompletion::Throw {
+                    rethrow_from_catch_id: Some(id),
+                    ..
+                }) => id,
+                _ => {
+                    return Err(vir_failure(phase, PracticalVirErrorCode::HandlerShape));
+                }
+            };
+            if !node.region_stack.iter().any(|region_id| {
+                by_id.get(region_id.as_str()).is_some_and(|region| {
+                    region
+                        .catches
+                        .iter()
+                        .any(|catch| catch.handler_entry_node_id == *active_catch)
+                })
+            }) {
+                return Err(vir_failure(phase, PracticalVirErrorCode::HandlerShape));
+            }
+        }
+    }
+    Ok(())
+}
+
+fn valid_region_stack(regions: &BTreeMap<&str, &ExceptionHandlerRegion>, stack: &[String]) -> bool {
+    for (depth, region_id) in stack.iter().enumerate() {
+        let Some(region) = regions.get(region_id.as_str()) else {
+            return false;
+        };
+        if usize::try_from(region.nesting_depth).ok() != Some(depth)
+            || (depth == 0 && region.parent_region_id.is_some())
+            || (depth > 0 && region.parent_region_id.as_deref() != Some(stack[depth - 1].as_str()))
+        {
+            return false;
+        }
+    }
+    true
+}
+
+fn validate_unwind_plans(
+    universe: &ClosedExceptionUniverse,
+    nodes: &BTreeMap<&str, &ControlNode>,
+    regions: &[ExceptionHandlerRegion],
+    plans: &[ExceptionUnwindPlan],
+) -> Result<(), PracticalVirValidationError> {
+    let phase = PracticalVirValidationPhase::Exception;
+    let by_id = regions
+        .iter()
+        .map(|region| (region.id.as_str(), region))
+        .collect::<BTreeMap<_, _>>();
+    let mut planned_edges = BTreeSet::new();
+    for plan in plans {
+        let source_node = nodes
+            .get(plan.source_node_id.as_str())
+            .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::UnwindOrder))?;
+        let edge = source_node
+            .exceptional_successors
+            .iter()
+            .find(|edge| edge.check_id == plan.check_id)
+            .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::UnwindOrder))?;
+        if !planned_edges.insert((plan.source_node_id.as_str(), plan.check_id.as_str()))
+            || !nodes.contains_key(plan.destination_node_id.as_str())
+            || source_node.region_stack.last().map(String::as_str) != plan.from_region_id.as_deref()
+        {
+            return Err(vir_failure(phase, PracticalVirErrorCode::UnwindOrder));
+        }
+        let mut expected = Vec::new();
+        let mut current = plan.from_region_id.as_deref();
+        while let Some(region_id) = current {
+            if Some(region_id) == plan.selected_handler_region_id.as_deref() {
+                break;
+            }
+            let region = by_id
+                .get(region_id)
+                .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::UnwindOrder))?;
+            if region.finally_entry_node_id.is_some() {
+                expected.push(region.id.as_str());
+            }
+            current = region.parent_region_id.as_deref();
+        }
+        if plan.selected_handler_region_id.is_some() && current.is_none() {
+            return Err(vir_failure(phase, PracticalVirErrorCode::UnwindOrder));
+        }
+        if let Some(handler_region_id) = plan.selected_handler_region_id.as_deref() {
+            let handler_region = by_id
+                .get(handler_region_id)
+                .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::UnwindOrder))?;
+            if !handler_region.catches.iter().any(|catch| {
+                catch.handler_entry_node_id == plan.destination_node_id
+                    && universe.catch_is_ancestor(&catch.exception_type_id, &edge.exception_type_id)
+            }) {
+                return Err(vir_failure(phase, PracticalVirErrorCode::UnwindOrder));
+            }
+        } else if nodes
+            .get(plan.destination_node_id.as_str())
+            .is_none_or(|node| node.tag != ControlNodeTag::Exit)
+        {
+            return Err(vir_failure(phase, PracticalVirErrorCode::UnwindOrder));
+        }
+        if plan
+            .finally_region_ids
+            .iter()
+            .map(String::as_str)
+            .ne(expected.iter().copied())
+        {
+            return Err(vir_failure(phase, PracticalVirErrorCode::UnwindOrder));
+        }
+        let expected_first_target = expected
+            .first()
+            .and_then(|region_id| by_id.get(region_id))
+            .and_then(|region| region.finally_entry_node_id.as_deref())
+            .unwrap_or(plan.destination_node_id.as_str());
+        if edge.target_id != expected_first_target {
+            return Err(vir_failure(phase, PracticalVirErrorCode::UnwindOrder));
+        }
+    }
+    let expected_edges = nodes
+        .values()
+        .flat_map(|node| {
+            node.exceptional_successors
+                .iter()
+                .map(move |edge| (node.id.as_str(), edge.check_id.as_str()))
+        })
+        .collect::<BTreeSet<_>>();
+    if planned_edges != expected_edges {
+        return Err(vir_failure(phase, PracticalVirErrorCode::UnwindOrder));
+    }
+    Ok(())
+}
+
 fn collect_instances(
     ty: &ClosedType,
     source_types: &BTreeMap<String, SourceType>,

@@ -1,7 +1,7 @@
 # CSHARP-03 Implementation Traceability Ledger
 
 Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10` and
-`CSHARP-03-T02-W01/W02` complete (2026-09-04). The entry audit, consumer inventory,
+`CSHARP-03-T02-W01/W02/W03` complete (2026-09-04). The entry audit, consumer inventory,
 private frontend/toolchain closure proof,
 Roslyn shape probes, primitive/string/numeric/codec runtime measurements and
 candidate foundation/specialization/binding/data semantics and the successor
@@ -15,10 +15,12 @@ candidate successor registry, complete semantic context/request binding,
 immutable dispatch, and predecessor projection behind an explicit private
 injection boundary. T02-W02 implements the exact registered foundation,
 root-driven closed specialization, concrete expansion, and canonical
-monomorphic values behind the same private boundary. `CSHARP-03-T02-W03` is
-ready and all later implementation items remain serially blocked. No public
-production acceptance path, installed candidate, or active registry entry was
-introduced.
+monomorphic values behind the same private boundary. T02-W03 adds the closed
+operation/check, linear-construction, application-binding commutation,
+control/pattern, and explicit-exception vocabulary behind that boundary.
+`CSHARP-03-T02-W04` is ready and all later implementation items remain
+serially blocked. No public production acceptance path, installed candidate,
+or active registry entry was introduced.
 
 This ledger is subordinate to
 [`08_csharp_practical_subset_design.md`](08_csharp_practical_subset_design.md)
@@ -61,9 +63,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T01-W09` | `Complete` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W09` | `17525292755c4e508acd9300cfa72d20cdf9bb92` |
 | `CSHARP-03-T01-W10` | `Complete` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W10` | `d4459f16562c9f5a7d4d0074571c9d0af17c0dd5` |
 | `CSHARP-03-T02-W01` | `Complete` | `crates/mpk-vc/tests/csharp_practical_registry.rs#CSHARP-03-T02-W01` | `4a9e8afef62eaf54a8184119b4e62e50cb73de06` |
-| `CSHARP-03-T02-W02` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W02` | `SELF` |
-| `CSHARP-03-T02-W03` | `Ready` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W03` | `—` |
-| `CSHARP-03-T02-W04` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_source_artifacts.rs#CSHARP-03-T02-W04` | `—` |
+| `CSHARP-03-T02-W02` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W02` | `026243eae673672c45ed96d348b3248afcde40b5` |
+| `CSHARP-03-T02-W03` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W03` | `SELF` |
+| `CSHARP-03-T02-W04` | `Ready` | `crates/mpk-vc/tests/csharp_practical_source_artifacts.rs#CSHARP-03-T02-W04` | `—` |
 | `CSHARP-03-T02-W05` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vir_validation.rs#CSHARP-03-T02-W05` | `—` |
 | `CSHARP-03-T02-W06` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc_model.rs#CSHARP-03-T02-W06` | `—` |
 | `CSHARP-03-T02-W07` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_frontend_protocol.rs#CSHARP-03-T02-W07` | `—` |
@@ -1945,4 +1947,183 @@ identity/order/dedup/provenance and all counters; whole-object closed-set
 recomputation; complete monomorphic value typing, canonical ordering and
 round trips; generic-free output; predecessor preservation; non-activation;
 historical inventory closure; formatting, lint, focused regressions, and the
-complete local fast gate. T02-W03 is the sole ready item.
+complete local fast gate. At that W02 handoff, T02-W03 became the sole ready
+item.
+
+## 16. CSHARP-03-T02-W03 completion record
+
+### 16.1 Closed operation and check vocabulary
+
+W03 extends the Rustdoc-hidden, explicitly invoked
+`crates/mpk-vc/src/csharp_practical_vir_model.rs` implementation. It defines
+the exact `mpk.csharp.operations.v1` and `mpk.csharp.required_checks.v1`
+identities and closed Rust enums for 14 operation kinds and four required-check
+kinds. String-to-tag conversion rejects every unknown value; the vocabulary
+contains no iterator, `yield`, async, await, task, scheduler, suspension, or
+continuation state.
+
+Operation signatures admit only primitive, captured source, or derived closed
+instance type IDs. Registered-foundation operations are looked up from W02's
+recomputed concrete expansion and must repeat its exact operands, result, and
+check precedence. Frozen boundary codec names, parser precedence, formatter
+output-bound obligation, decimal/floating/string/date/time/duration/GUID/
+instant and lifted-data operation families, structural comparison, binding,
+and exception operation shapes have closed tags and reject unknown IDs.
+Invocation validation repeats the exact operand/result types and check order,
+requires one normal successor, and pairs each exception check in order with
+its concrete exception type and explicit exceptional successor.
+
+This is the in-memory typed vocabulary only. W03 does not create a serialized
+operation/check artifact, canonical hash domain, source manifest member, or
+public route. T02-W04 remains the sole owner of the concrete serialized
+operation/check tables and their complete source/context/artifact linkage.
+
+### 16.2 Linear construction and binding commutation
+
+The derived monomorphic `sequence_construction<T>` metadata determines the
+exact element and published `bounded_sequence<T>` types. Its non-storable
+linear state records construction identity, unique owner, version, length,
+publication-role bound, definitely initialized bitmap, optional immutable
+borrow, and active/frozen/discarded status. Allocation distinguishes
+default-eligible and initially uninitialized storage; negative or over-16,384
+lengths reject. First fill, complete-only rewrite/borrow/transfer/freeze,
+read authorization, exact borrow end, old-owner invalidation, partial discard,
+publication bounds, and post-terminal-use rejection are explicit transitions.
+Branch merge requires identical instance, owner, version, lifetime, borrower,
+length, publication bound, and status, then intersects definite-initialization
+sets.
+
+Application-binding projections are paired unary source-to-semantic and
+semantic-to-source operations over concrete types. Operation commutation
+checks receiver-first operand projections, result projection, source versus
+semantic signature shape, ordered normal/error/exception branches, and any
+required failure projection. Duplicate projection or projection-operation IDs,
+type disagreement, reordered checks, and a diagram that does not use its
+declared receiver binding reject structurally. W04 supplies the context-bound
+binding records; W06 later proves the universal round trips and commuting
+diagrams rather than trusting this structural check as an assertion.
+
+### 16.3 Explicit control, patterns, and exceptions
+
+W03 adds five abrupt-completion kinds, 15 control-node kinds, nine
+construction actions, and 14 pattern kinds. The graph validator checks one
+ordered entry and exit, concrete branch/return types, explicit normal and
+exceptional edges, reducible loop headers/backedges and canonical loop IDs,
+single governing-value evaluation, lexical guard/arm order, exhaustive versus
+explicit switch-exception behavior, total pure property access, finite sealed
+type patterns, and bounded slice-free list patterns. Catch-all patterns must be
+last, exhaustive, and unguarded.
+
+The closed exception universe fixes the nine frozen built-in tags and appends
+only sorted captured sealed direct `System.Exception` source types with their
+exact immutable payload members. Broad `catch`, `catch (Exception)`,
+`SystemException`, and resource/runtime exceptions remain outside the admitted
+catch vocabulary. Typed catches preserve lexical shadowing rules, filters are
+Boolean and preserve the original search exception when filter evaluation
+throws, and handler entry identities are distinct. Rethrow retains its exact
+active-catch identity. Finally completion preserves its incoming abrupt value
+on normal completion, replaces it on throw, and rejects source return/break/
+continue from the finally body.
+
+Every exceptional successor has exactly one unwind plan keyed by source node
+and check ID. Plans agree with the source region stack, select only a compatible
+closed catch, execute exited finally regions inner-to-outer, and connect the
+edge to the first finally or final handler. An uncaught exception instead
+terminates at the method exit after all enclosing finally regions. This covers
+exceptional operation edges, explicit throw/rethrow, and a non-exhaustive
+switch edge; it is not limited to explicit throw nodes and does not require a
+synthetic handler region at method root.
+
+The implementation is pinned to the already frozen evidence without changing
+it: Roslyn control/exception/pattern record SHA-256
+`b1215ad7f4a0e08dc269834229d7158158d31c0e9475218fa0791feea5a1629a`,
+W07 runtime record SHA-256
+`0055835ce456fb9c438336332bc0e2a214d900c137eca34f90c3fcddd2688769`,
+W08 runtime record SHA-256
+`6ef1194e1398d5822c676248ea6ccbbb31381b95cfd32c8b8a65e68376118064`,
+foundation definition SHA-256
+`25738447bf793e37dc2125e7a07da55a03fb15f2fa4dfb87b25646a16cc9d1b4`,
+foundation semantic specification SHA-256
+`29c5986e3c7ce2ab018e36eea61caaf9d9e53d6b8e47f0229ef4681db8c3fc8b`,
+and freeze record SHA-256
+`83954067c156e58cb349dbf07da44edf60a3ec550e628e6d2f1a890889d574e3`.
+No C# compiler or runtime is invoked by the W03 owner test.
+
+### 16.4 Verification and review
+
+Completed local verification:
+
+| Command | Result |
+| --- | --- |
+| `python3 develop/probes/csharp-03/foundation_package.py --check` | pass: exact registered foundation and 2,051 vectors |
+| `python3 develop/probes/csharp-03/profile_package.py --check` | pass: 10 freeze owners, 63 downstream owners, 700 vectors |
+| `cargo test -p mpk-vc --test csharp_practical_vir_model` | pass: all W02 regressions and W03 closed-tag, operation, binding, construction, pattern/control, handler, unwind, and mutation cases |
+| `cargo test -p mpk-vc --test csharp_practical_registry --test semantic_profile_registry --test semantic_profile_registry_runtime` | pass: successor and revision-1/2/3 registry regressions |
+| `cargo test -p mpk-vc --test csharp_practical_inventory` | pass: ledger state and historical consumer fingerprints |
+| `cargo test -p mpk-cli --test successor_atomic_cutover` | pass: candidate remains unavailable to installed routes |
+| `cargo clippy -p mpk-vc --all-targets -- -D warnings` | pass |
+| `cargo fmt --all -- --check` | pass |
+| `./scripts/check-fast.sh` | pass |
+| `/usr/bin/git diff --check` | pass |
+
+First-pass review findings: `11`.
+
+- Codec/data operation admission initially used open prefixes and omitted the
+  frozen lifted families. It now uses exact codec/data carrier and operation
+  sets; unknown suffixes reject.
+- Partial discard initially changed the initialization bitmap, and immutable
+  borrow/transfer initially admitted a partial construction. Discard now
+  publishes nothing and preserves the partial state; borrow and transfer
+  require completeness.
+- Construction publication initially lacked the distinct target-role bound.
+  State now carries that bound independently of allocation capacity and checks
+  it at freeze and merge.
+- A directly reconstructed frozen construction state initially did not repeat
+  `length <= publication_length_maximum`. State validation now rejects this
+  mutation independently of the transition that produced it.
+- Binding diagrams initially ignored duplicate operation IDs and whether the
+  declared binding owned the receiver projection. Both identities and the
+  receiver-first relation are now checked.
+- The exception-universe arm vector was initially caller-mutable. Its field is
+  now private and only the checked constructor can create a universe.
+- Broad `Exception`/`SystemException` catches were initially admitted even
+  though they include runtime/resource exceptions outside the closed sum.
+  Catch types must now be exact universe arms while exact admitted ancestor
+  arms such as `ArgumentException` retain their closed hierarchy behavior.
+- Control validation initially required different exception types to target
+  different blocks. It now distinguishes edges by check ID and permits several
+  exact exceptions to enter one handler.
+- Unwind records initially covered only explicit throw/rethrow nodes, required
+  a handler region even for a method-root throw, and were not completely tied
+  to source edges. They now cover every exceptional edge exactly once and
+  support operation, pattern, caught, and uncaught paths.
+- Entry/exit, loop-header inventory, pattern-local loop metadata, guarded
+  catch-all, exceptional-check identity, and handler-entry uniqueness were
+  initially underconstrained. Exact cross-table checks and mutations now cover
+  each case.
+- Construction and control mutations initially missed publication overflow,
+  partial ownership transfer, duplicate handler/check identities, broad catch,
+  shared handler targets, and root uncaught propagation. Each is now an owner
+  regression case.
+
+Verification follow-up findings: `3`.
+
+- The transfer-guard edit omitted one opening delimiter; formatting rejected
+  the module before compilation. The delimiter is restored.
+- The strengthened unwind comparison consumed its expected-region vector
+  before checking the first destination. It now compares by borrowed iterator
+  and retains the vector for edge validation.
+- Raising the recorded first-pass finding count after the final construction-
+  state review initially left the inventory owner's exact ledger assertion at
+  the old count. The assertion now tracks the reviewed count and the complete
+  fast gate passes with the ledger and owner test in agreement.
+
+Final review findings: `0`. The final pass rechecks W03-only private scope;
+closed tag and operation sets; concrete operands/results and ordered checks;
+normal and exceptional successors; construction ownership, initialization,
+publication and merge behavior; binding commutation; loop/pattern structure;
+closed exception values, catches, filters, rethrow, finally and all unwind
+paths; absence of iterator/async/scheduler vocabulary; W04 artifact-table
+ownership; predecessor preservation; non-activation; documentation state;
+formatting, lint, focused regressions, and the complete local fast gate.
+T02-W04 is the sole ready item.

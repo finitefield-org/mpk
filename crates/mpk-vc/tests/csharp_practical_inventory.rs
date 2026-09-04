@@ -173,8 +173,9 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             "CSHARP-03-T01-W01" | "CSHARP-03-T01-W02" | "CSHARP-03-T01-W03"
             | "CSHARP-03-T01-W04" | "CSHARP-03-T01-W05" | "CSHARP-03-T01-W06"
             | "CSHARP-03-T01-W07" | "CSHARP-03-T01-W08" | "CSHARP-03-T01-W09"
-            | "CSHARP-03-T01-W10" | "CSHARP-03-T02-W01" | "CSHARP-03-T02-W02" => "Complete",
-            "CSHARP-03-T02-W03" => "Ready",
+            | "CSHARP-03-T01-W10" | "CSHARP-03-T02-W01" | "CSHARP-03-T02-W02"
+            | "CSHARP-03-T02-W03" => "Complete",
+            "CSHARP-03-T02-W04" => "Ready",
             _ => "Blocked",
         };
         assert_eq!(row.status, expected_status, "status drift for {work_item}");
@@ -190,7 +191,8 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             "CSHARP-03-T01-W09" => "17525292755c4e508acd9300cfa72d20cdf9bb92",
             "CSHARP-03-T01-W10" => "d4459f16562c9f5a7d4d0074571c9d0af17c0dd5",
             "CSHARP-03-T02-W01" => "4a9e8afef62eaf54a8184119b4e62e50cb73de06",
-            "CSHARP-03-T02-W02" => "SELF",
+            "CSHARP-03-T02-W02" => "026243eae673672c45ed96d348b3248afcde40b5",
+            "CSHARP-03-T02-W03" => "SELF",
             _ => "—",
         };
         assert_eq!(
@@ -270,7 +272,13 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
         "canonical encode/import/re-encode round trips",
         "First-pass review findings: `6`",
         "Verification follow-up findings: `2`",
-        "T02-W03 is the sole ready item.",
+        "At that W02 handoff, T02-W03 became the sole ready",
+        "## 16. CSHARP-03-T02-W03 completion record",
+        "b1215ad7f4a0e08dc269834229d7158158d31c0e9475218fa0791feea5a1629a",
+        "Every exceptional successor has exactly one unwind plan",
+        "First-pass review findings: `11`",
+        "Verification follow-up findings: `3`",
+        "T02-W04 is the sole ready item.",
         "Final review findings: `0`",
     ] {
         assert!(ledger.contains(required), "ledger is missing {required}");
