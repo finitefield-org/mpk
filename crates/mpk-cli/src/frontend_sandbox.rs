@@ -56,6 +56,46 @@ pub(crate) struct SandboxOutput {
     pub(crate) stream_limit_exceeded: bool,
 }
 
+/// Launch-free fixture plan for the W09 consumer closure. It validates only
+/// normalized member names; native sandbox materialization remains T07-owned.
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub(crate) struct PrivateConsumerFixturePlan {
+    members: Vec<String>,
+}
+
+impl PrivateConsumerFixturePlan {
+    pub(crate) fn members(&self) -> &[String] {
+        &self.members
+    }
+}
+
+pub(crate) fn prepare_private_consumer_fixture(
+    member_paths: &[&str],
+) -> Result<PrivateConsumerFixturePlan, &'static str> {
+    if member_paths.is_empty() {
+        return Err("private consumer fixture is empty");
+    }
+    let mut members = member_paths
+        .iter()
+        .map(|value| (*value).to_owned())
+        .collect::<Vec<_>>();
+    members.sort();
+    if members.windows(2).any(|pair| pair[0] >= pair[1])
+        || members.iter().any(|value| {
+            value.is_empty()
+                || value.starts_with('/')
+                || value.ends_with('/')
+                || value.contains('\\')
+                || value
+                    .split('/')
+                    .any(|component| component.is_empty() || component == "." || component == "..")
+        })
+    {
+        return Err("private consumer fixture member");
+    }
+    Ok(PrivateConsumerFixturePlan { members })
+}
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum SandboxError {
     Unavailable,

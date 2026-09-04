@@ -911,6 +911,23 @@ fn integer_field(
         .ok_or_else(|| protocol(SuccessorFrontendProtocolCode::ProtocolShape))
 }
 
+/// W09's private source-artifact consumer. The active v1 protocol above does
+/// not gain a fallback branch; this entry accepts only the v2 root emitted by
+/// the private predecessor migration.
+pub(crate) fn consume_private_successor_source_artifacts(
+    artifact: &crate::csharp_practical_migration::PrivateSuccessorArtifact,
+) -> Result<String, &'static str> {
+    if artifact.schema() != crate::csharp_practical_migration::SUCCESSOR_SOURCE_ARTIFACTS_SCHEMA {
+        return Err("private source-artifact schema");
+    }
+    crate::csharp_practical_migration::validate_private_successor_schema(
+        crate::csharp_practical_migration::PrivateSuccessorSchemaKind::FrontendSourceArtifacts,
+        artifact.canonical_bytes(),
+    )
+    .map_err(|_| "private source-artifact transport")?;
+    Ok(artifact.sha256().to_owned())
+}
+
 const fn protocol(code: SuccessorFrontendProtocolCode) -> SuccessorFrontendProtocolError {
     SuccessorFrontendProtocolError { code }
 }

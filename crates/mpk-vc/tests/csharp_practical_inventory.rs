@@ -9,12 +9,15 @@ const INVENTORY_PATH: &str = "develop/migrations/csharp-03/artifact-consumer-inv
 const LEDGER_PATH: &str = "develop/docs/csharp-03-implementation-traceability-ledger.md";
 const PLAN_PATH: &str = "develop/docs/08_csharp_practical_subset_design-todo.md";
 const W10_PACKAGE_PATH: &str = "develop/specs/vectors/csharp-practical-profile-v1.json";
-const POST_FREEZE_IMPLEMENTATION_PATHS: [&str; 18] = [
+const POST_FREEZE_IMPLEMENTATION_PATHS: [&str; 22] = [
     "crates/mpk-cli/src/csharp_practical_frontend_protocol.rs",
+    "crates/mpk-cli/src/csharp_practical_consumer_migration.rs",
     "crates/mpk-cli/src/csharp_practical_migration.rs",
     "crates/mpk-cli/tests/csharp_practical_frontend_protocol.rs",
     "crates/mpk-cli/tests/csharp_practical_migration.rs",
     "crates/mpk-vc/src/csharp_practical_registry.rs",
+    "crates/mpk-vc/src/csharp_practical_consumer.rs",
+    "crates/mpk-vc/src/csharp_practical_release.rs",
     "crates/mpk-vc/src/csharp_practical_source_artifacts.rs",
     "crates/mpk-vc/src/csharp_practical_vir_model.rs",
     "crates/mpk-vc/src/csharp_practical_vir_validation.rs",
@@ -28,6 +31,7 @@ const POST_FREEZE_IMPLEMENTATION_PATHS: [&str; 18] = [
     "develop/migrations/csharp-03/predecessor-producer-go-difference.json",
     "develop/migrations/csharp-03/predecessor-producer-java-difference.json",
     "develop/migrations/csharp-03/predecessor-producer-rust-difference.json",
+    "develop/migrations/csharp-03/private-consumer-migration-receipt.json",
 ];
 
 #[test]
@@ -189,8 +193,9 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             | "CSHARP-03-T01-W07" | "CSHARP-03-T01-W08" | "CSHARP-03-T01-W09"
             | "CSHARP-03-T01-W10" | "CSHARP-03-T02-W01" | "CSHARP-03-T02-W02"
             | "CSHARP-03-T02-W03" | "CSHARP-03-T02-W04" | "CSHARP-03-T02-W05"
-            | "CSHARP-03-T02-W06" | "CSHARP-03-T02-W07" | "CSHARP-03-T02-W08" => "Complete",
-            "CSHARP-03-T02-W09" => "Ready",
+            | "CSHARP-03-T02-W06" | "CSHARP-03-T02-W07" | "CSHARP-03-T02-W08"
+            | "CSHARP-03-T02-W09" => "Complete",
+            "CSHARP-03-T03-W01" => "Ready",
             _ => "Blocked",
         };
         assert_eq!(row.status, expected_status, "status drift for {work_item}");
@@ -212,7 +217,8 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             "CSHARP-03-T02-W05" => "816280dc5ea298f6b215c63ae7185f89f0a240a9",
             "CSHARP-03-T02-W06" => "3a3da6af26e301f95692dd787a8920b58fafb566",
             "CSHARP-03-T02-W07" => "ed9054603eec5d410c59a708ee81d79052ee27d1",
-            "CSHARP-03-T02-W08" => "SELF",
+            "CSHARP-03-T02-W08" => "a9b2c862e9386ec25b7183b8b4c9b8db4cc426a6",
+            "CSHARP-03-T02-W09" => "SELF",
             _ => "—",
         };
         assert_eq!(
@@ -358,6 +364,13 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
         "Second-pass review findings: `3`",
         "Documentation review findings: `1`",
         "T02-W09 is the sole ready item.",
+        "## 22. CSHARP-03-T02-W09 completion record",
+        "develop/migrations/csharp-03/private-consumer-migration-receipt.json",
+        "all 18 W09-owned inventory edges",
+        "all four frozen W09 identity vectors",
+        concat!("test-injected `mpk", ".release.bundle_registry.v2`"),
+        "Certificate v0 bytes remain unchanged",
+        "T03-W01 is the sole ready item.",
     ] {
         assert!(ledger.contains(required), "ledger is missing {required}");
     }

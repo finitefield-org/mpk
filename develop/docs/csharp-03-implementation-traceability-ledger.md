@@ -1,7 +1,7 @@
 # CSHARP-03 Implementation Traceability Ledger
 
 Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10` and
-`CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08` complete (2026-09-05). The entry audit, consumer inventory,
+`CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` complete (2026-09-05). The entry audit, consumer inventory,
 private frontend/toolchain closure proof,
 Roslyn shape probes, primitive/string/numeric/codec runtime measurements and
 candidate foundation/specialization/binding/data semantics and the successor
@@ -33,7 +33,9 @@ artifact-free failure, and complete source-map/manifest/input-set lineage.
 T02-W08 implements private, typed migration of all four predecessor producers,
 regenerates the sole v2 artifact family with exact successor context and hashes,
 and pins complete-corpus equivalence in four semantic-difference reports.
-`CSHARP-03-T02-W09` is ready and all later implementation items remain serially
+T02-W09 closes all 18 inventoried private consumer edges over the sole
+successor family, the registered foundation and retained Certificate v0 bytes.
+`CSHARP-03-T03-W01` is ready and all later implementation items remain serially
 blocked. No public production acceptance path, installed candidate, or active
 registry entry was introduced.
 
@@ -84,9 +86,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T02-W05` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vir_validation.rs#CSHARP-03-T02-W05` | `816280dc5ea298f6b215c63ae7185f89f0a240a9` |
 | `CSHARP-03-T02-W06` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc_model.rs#CSHARP-03-T02-W06` | `3a3da6af26e301f95692dd787a8920b58fafb566` |
 | `CSHARP-03-T02-W07` | `Complete` | `crates/mpk-cli/tests/csharp_practical_frontend_protocol.rs#CSHARP-03-T02-W07` | `ed9054603eec5d410c59a708ee81d79052ee27d1` |
-| `CSHARP-03-T02-W08` | `Complete` | `crates/mpk-cli/tests/csharp_practical_migration.rs#CSHARP-03-T02-W08` | `SELF` |
-| `CSHARP-03-T02-W09` | `Ready` | `crates/mpk-cli/tests/csharp_practical_migration.rs#CSHARP-03-T02-W09` | `—` |
-| `CSHARP-03-T03-W01` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_capture.rs#CSHARP-03-T03-W01` | `—` |
+| `CSHARP-03-T02-W08` | `Complete` | `crates/mpk-cli/tests/csharp_practical_migration.rs#CSHARP-03-T02-W08` | `a9b2c862e9386ec25b7183b8b4c9b8db4cc426a6` |
+| `CSHARP-03-T02-W09` | `Complete` | `crates/mpk-cli/tests/csharp_practical_migration.rs#CSHARP-03-T02-W09` | `SELF` |
+| `CSHARP-03-T03-W01` | `Ready` | `crates/mpk-cli/tests/csharp_practical_capture.rs#CSHARP-03-T03-W01` | `—` |
 | `CSHARP-03-T03-W02` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_syntax.rs#CSHARP-03-T03-W02` | `—` |
 | `CSHARP-03-T03-W03` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W03` | `—` |
 | `CSHARP-03-T03-W04` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W04` | `—` |
@@ -3037,3 +3039,162 @@ zero behavior, obligation, verdict, axiom, and practical-instance differences;
 Certificate v0 preservation; absence of a format selector or installed route;
 formatting, warning-denied lint, predecessor regressions, inventory closure,
 and the complete local fast gate. T02-W09 is the sole ready item.
+
+## 22. CSHARP-03-T02-W09 completion record
+
+### 22.1 Sole private consumer closure
+
+W09 adds one Rustdoc-hidden, non-dispatchable consumer orchestrator. It accepts
+only an explicitly validated revision-4 registry, a test-injected successor
+release descriptor, a W08 migration, and retained Certificate v0 bytes. Before
+calling any downstream consumer it independently checks canonical transport,
+the last hash field and frozen domain of every W08 root, complete semantic-
+context equality, selection identity, foundation identity, every schema/hash/
+size reference, the source-artifact root embedded by the success result, and
+the predecessor equivalence/axiom receipt. There is no old-schema branch,
+format selector, environment override, installed-registry lookup, or fallback.
+
+The production identity inventory is the exact 17-family successor projection
+from the T01-W09 freeze. It executes all four frozen W09 identity vectors and
+rejects duplicate successor identities, duplicate successor hash domains, and
+an old schema paired with a successor context. The deterministic accepted
+receipt names all 18 W09-owned inventory edges. Those edges cover semantic-
+context/API linkage, source artifacts and frontend result consumption, both
+registered-foundation edges, VC/skeleton, program assembly/profile binding,
+policy/evidence and its CLI paths, AI request/report and CLI preparation, API
+request/session/response, release model/resolver/re-export, and launch-free
+fixture validation.
+
+Successful predecessor output is consumed as `mpk.vc.v3`,
+`mpk.vc.cert_skeleton.v3`, and
+`mpk.program_certificate.ordinary_context.v2`, followed by the v3 policy,
+AI, and API families. All serializers immediately pass their bytes through an
+independent strict importer. A predecessor diagnostic stops with exactly the
+v2 request and diagnostic; its W09 receipt records zero downstream artifacts.
+The checked-in implementation receipt is
+`develop/migrations/csharp-03/private-consumer-migration-receipt.json`.
+
+### 22.2 Release and foundation gate
+
+The candidate-only release consumer validates a test-injected `mpk.release.bundle_registry.v2`
+root and exactly five profile tuples. It
+recomputes the frontend/toolchain content hashes and root hash under their
+frozen domains; requires sorted unique bundle IDs, profile claims, contracts,
+portable ASCII member paths (including case-folded uniqueness), member raw
+hashes, per-file and per-bundle byte limits; binds the revision-4 registry,
+profile-entry hashes and registered foundation descriptor into every tuple;
+and requires each profile to have exactly one frontend and one toolchain. It
+does not read or write `release/bundles`, materialize a bundle candidate, or
+make the practical profile discoverable.
+
+Program consumption independently validates the registered practical
+foundation descriptor/definition bytes, reloads every retained checker
+foundation including `proofs/program/base/std-program-base.hex`, and passes
+the supplied unchanged Certificate v0 bytes through the Rust source-free
+checker. Certificate v0 bytes remain unchanged, proof and theory tables remain
+empty, and both the consumer assembly and checker report require zero axioms.
+The independent reference-checker regression remains part of the local
+certificate suites; native installed-image execution remains owned by T07 and
+T08.
+
+### 22.3 Verification and review
+
+Completed local verification on Darwin arm64:
+
+| Command | Result |
+| --- | --- |
+| `cargo test -p mpk-cli --test csharp_practical_migration` | pass: all W08 regressions plus six W09 owner tests and all four frozen W09 identity vectors |
+| `cargo test -p mpk-vc --test csharp_practical_inventory` | pass: all inventory, ledger, and post-freeze search checks |
+| `cargo test -p mpk-cli --lib program_certificate::tests` | pass: 4 retained Certificate v0 assembly/checker protocol regressions |
+| `cargo test -p mpk-cli --test program_certificate` | platform-gated: 0 tests on Darwin; native integration remains in the later Linux release gate |
+| `cargo test -p mpk-cli --test csharp_policy_verify --test java_policy_verify` | pass: portable predecessor semantic/certificate regressions |
+| `cargo test -p mpk-cli --test successor_atomic_cutover` | pass: no candidate is available to installed routes |
+| `cargo clippy -p mpk-cli --all-targets -- -D warnings` | pass |
+| `cargo fmt --all -- --check` | pass |
+| `./scripts/check-fast.sh` | pass |
+| `/usr/bin/git diff --check` | pass |
+
+Final evidence regeneration binds the completed W09 production-source set.
+The checker-capacity record has raw SHA-256
+`8f9c40c19e2af7fd209975528a72b66010d81ac78823542db0d9acdc37ac8ad5`
+and binds 76 source records under inventory digest
+`edd01f537d1c87ec63f170c31220109da1e48f895c0a5d6c1b4d1fbeec5ad409`.
+The recursor record has raw SHA-256
+`b0cd0fd692749d34dabe2065a8d5efba79c36968275b72dc7dbe50450bdcf36d`,
+binds that capacity record exactly, and has its own 76-record inventory digest
+`f00428012b54eccac59dfc0d89da91afb372ad4919d7fe266c4d78f92307bb26`.
+The regenerated freeze has raw SHA-256
+`480ddd2399b3bc139b0ff9911f7efb5e0d87332ee41339a16c81165c6463523b`
+and internal content SHA-256
+`b1dc1c9c1b6124410965c0a1763b9cedc902eadee221058aa093a95f2d7000b5`;
+its vector file has raw SHA-256
+`0d4c7322974c211231c6e2216d737f250f4edd0fad672d37f995a953be8db4a3`.
+The manifested 700-vector package has raw SHA-256
+`dd3b45276d91086b62dce8757cef4f79e16fe1dedcfce398af0ff979ad2489ac`,
+and the 26-set manifest has raw SHA-256
+`1bf650796e5ccbe76d004ada782b80afaeb7f21e339f42c24ed14f62cb0b2f4f`.
+These changes bind the added private consumers; no frozen semantic value,
+identity, hash-domain name, limit, or checker verdict changed.
+
+Implementation-verification findings: `2`.
+
+- W08 artifacts use schema-ordered practical JSON, while their nested
+  validated semantic request retains the registry's canonical-key order. The
+  first consumer used one canonicalization rule for both. It now validates
+  the outer artifact with the practical codec and re-encodes the nested request
+  with the registry codec before registry validation.
+- W08's non-routing assertion initially rejected any later private reference
+  from the successor frontend-runner module. W09 legitimately adds its typed,
+  launch-free consumer there, so the W08 assertion now guards actual CLI and
+  installed runner entrypoints while W09 separately proves that its consumer
+  is absent from `main` and has no dispatch spelling.
+
+First-pass review findings: `3`.
+
+- The first identity table contained only representative W09-consumed names.
+  It now contains every successor identity and hash domain in all 17 frozen
+  families, and the owner test compares every ordered list directly with the
+  freeze before executing the duplicate and mixed-family mutations.
+- The first fixture projection flattened equal relative member names from
+  different bundles and rejected any name containing an unrelated historical
+  word. Member names are now qualified by bundle kind and ID, while validation
+  enforces only the closed portable-path rules.
+- The first raw artifact importer checked the outer hash but not every root's
+  exact ordered field set and nested successor reference types. It now applies
+  root-specific request, context, source/map/manifest, binding, closed-instance,
+  foundation, hash, byte-size, and collection checks before graph linkage.
+
+Second-pass review findings: `4`.
+
+- Release members initially lacked ASCII case-fold collision checks and the
+  retained file/bundle byte ceilings, while bundle IDs allowed noncanonical
+  separators. The release builder and importer now enforce all three.
+- Predecessor VC/skeleton/assembly references initially omitted canonical byte
+  sizes and explicit registered-foundation linkage, and their hash preimages
+  passed through a key-sorted generic map. The documents now carry complete
+  artifact references and foundation descriptors and hash dedicated
+  schema-ordered preimage structs.
+- The certificate edge initially accepted only an assembly schema/hash pair.
+  It now independently consumes and revalidates the complete assembly bytes,
+  zero-axiom report, empty proof/theory/import tables, linkage identities, and
+  assembly hash before invoking the retained Certificate v0 checker.
+- Policy, AI, and API raw re-import initially relied on builder-validated
+  context inputs. They now validate the complete strict successor context at
+  every raw boundary; policy hashes also use dedicated ordered preimages and
+  all nested reference schema/hash pairs are checked.
+
+Documentation review findings: `1`.
+
+- README and executive-summary wording briefly described the already
+  published normative specification package as private. They now distinguish
+  the normative-but-inactive package from the private, uninstalled producer
+  and consumer migrations.
+
+Final review findings: `0`. The final pass rechecks all 18 inventory edges;
+the exact 17-family identity/domain freeze and four owner vectors; canonical
+artifact/hash/reference/context linkage; deterministic accepted and rejected
+receipts; strict release root, bundle, member, tuple, foundation and domain
+mutations; raw VC/policy/AI/API importer mutations; retained Certificate v0 and
+zero-axiom checks; complete predecessor regressions; absence of a candidate,
+public route, installed metadata change, or dual-format fallback; formatting,
+warning-denied lint, and the complete local fast gate. T03-W01 is the sole ready item.

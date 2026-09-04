@@ -27,10 +27,11 @@ use mpk_vc::successor_vc::{
     ValidatedSuccessorVc, ValidatedSuccessorVcSkeleton, SUCCESSOR_VC_SCHEMA,
 };
 use mpk_vc::{
-    canonical_json_bytes_bounded, parse_strict_json, serialize_json_bounded, CapturedInput,
-    FrontendIdentity, InputKind, ReleaseRegistryIdentity, StrictJsonLimits, ToolchainIdentity,
+    canonical_json_bytes_bounded, hash_domain_separated_raw, parse_strict_json,
+    serialize_json_bounded, CapturedInput, FrontendIdentity, HashDomain, InputKind,
+    ReleaseRegistryIdentity, StrictJsonLimits, ToolchainIdentity,
 };
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 
 pub use crate::policy_schema::{
@@ -1636,4 +1637,387 @@ fn failure(
         code,
         detail: detail.into(),
     }
+}
+
+// Candidate-only v3 policy linkage for CSHARP-03-T02-W09. These documents
+// have no command dispatcher; T06-W10 owns proof-policy behavior and T08-W10
+// owns installation of their public routes.
+pub(crate) const PRIVATE_POLICY_SCAN_SCHEMA: &str = "mpk.policy.scan.v3";
+pub(crate) const PRIVATE_POLICY_EVIDENCE_SCHEMA: &str = "mpk.policy.evidence.v3";
+pub(crate) const PRIVATE_POLICY_REPRODUCTION_SCHEMA: &str = "mpk.policy.reproduction.v3";
+pub(crate) const PRIVATE_POLICY_RECEIPT_SCHEMA: &str = "mpk.policy.receipt.v3";
+
+const PRIVATE_POLICY_EVIDENCE_HASH_DOMAIN: HashDomain = HashDomain::new("MPK-POLICY-EVIDENCE-3.0");
+const PRIVATE_POLICY_REPRODUCTION_HASH_DOMAIN: HashDomain =
+    HashDomain::new("MPK-POLICY-REPRODUCTION-3.0");
+const PRIVATE_POLICY_RECEIPT_HASH_DOMAIN: HashDomain = HashDomain::new("MPK-POLICY-RECEIPT-3.0");
+
+#[derive(Clone, Copy, Debug)]
+pub(crate) struct PrivatePolicySource<'a> {
+    pub semantic_context: &'a Value,
+    pub source_ir_sha256: &'a str,
+    pub source_map_sha256: &'a str,
+    pub source_manifest_sha256: &'a str,
+    pub source_artifacts_sha256: &'a str,
+    pub source_vc_sha256: &'a str,
+    pub source_skeleton_sha256: &'a str,
+    pub program_assembly_sha256: &'a str,
+    pub certificate_sha256: &'a str,
+    pub release_registry_sha256: &'a str,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub(crate) struct PrivatePolicyArtifacts {
+    scan: Vec<u8>,
+    evidence: Vec<u8>,
+    reproduction: Vec<u8>,
+    receipt: Vec<u8>,
+    scan_sha256: String,
+    evidence_sha256: String,
+    reproduction_sha256: String,
+    receipt_sha256: String,
+}
+
+impl PrivatePolicyArtifacts {
+    pub(crate) fn scan(&self) -> &[u8] {
+        &self.scan
+    }
+
+    pub(crate) fn evidence(&self) -> &[u8] {
+        &self.evidence
+    }
+
+    pub(crate) fn reproduction(&self) -> &[u8] {
+        &self.reproduction
+    }
+
+    pub(crate) fn receipt(&self) -> &[u8] {
+        &self.receipt
+    }
+
+    pub(crate) fn scan_sha256(&self) -> &str {
+        &self.scan_sha256
+    }
+
+    pub(crate) fn evidence_sha256(&self) -> &str {
+        &self.evidence_sha256
+    }
+
+    pub(crate) fn reproduction_sha256(&self) -> &str {
+        &self.reproduction_sha256
+    }
+
+    pub(crate) fn receipt_sha256(&self) -> &str {
+        &self.receipt_sha256
+    }
+}
+
+#[derive(Clone, Debug, PartialEq, Deserialize, Serialize)]
+#[serde(deny_unknown_fields)]
+struct PrivatePolicyScan {
+    schema: String,
+    semantic_context: Value,
+    source_ir: PrivatePolicyArtifactRef,
+    source_map: PrivatePolicyArtifactRef,
+    source_manifest: PrivatePolicyArtifactRef,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq, Deserialize, Serialize)]
+#[serde(deny_unknown_fields)]
+struct PrivatePolicyArtifactRef {
+    schema: String,
+    sha256: String,
+}
+
+#[derive(Clone, Debug, PartialEq, Deserialize, Serialize)]
+#[serde(deny_unknown_fields)]
+struct PrivatePolicyEvidence {
+    schema: String,
+    semantic_context: Value,
+    scan: PrivatePolicyArtifactRef,
+    source_vc: PrivatePolicyArtifactRef,
+    source_skeleton: PrivatePolicyArtifactRef,
+    program_assembly: PrivatePolicyArtifactRef,
+    certificate_sha256: String,
+    evidence_sha256: String,
+}
+
+#[derive(Clone, Debug, PartialEq, Deserialize, Serialize)]
+#[serde(deny_unknown_fields)]
+struct PrivatePolicyReproduction {
+    schema: String,
+    semantic_context: Value,
+    release_registry_sha256: String,
+    source_artifacts_sha256: String,
+    evidence_sha256: String,
+    reproduction_sha256: String,
+}
+
+#[derive(Clone, Debug, PartialEq, Deserialize, Serialize)]
+#[serde(deny_unknown_fields)]
+struct PrivatePolicyReceipt {
+    schema: String,
+    semantic_context: Value,
+    evidence_sha256: String,
+    reproduction_sha256: String,
+    certificate_sha256: String,
+    receipt_sha256: String,
+}
+
+pub(crate) fn build_private_successor_policy(
+    source: PrivatePolicySource<'_>,
+) -> Result<PrivatePolicyArtifacts, &'static str> {
+    if !private_policy_context(source.semantic_context)
+        || [
+            source.source_ir_sha256,
+            source.source_map_sha256,
+            source.source_manifest_sha256,
+            source.source_artifacts_sha256,
+            source.source_vc_sha256,
+            source.source_skeleton_sha256,
+            source.program_assembly_sha256,
+            source.certificate_sha256,
+            source.release_registry_sha256,
+        ]
+        .into_iter()
+        .any(|hash| !private_policy_sha256(hash))
+    {
+        return Err("private policy source linkage");
+    }
+    let scan = PrivatePolicyScan {
+        schema: PRIVATE_POLICY_SCAN_SCHEMA.to_owned(),
+        semantic_context: source.semantic_context.clone(),
+        source_ir: private_policy_ref("mpk.vir.v2", source.source_ir_sha256),
+        source_map: private_policy_ref("mpk.source_map.v2", source.source_map_sha256),
+        source_manifest: private_policy_ref(
+            "mpk.source_manifest.frontend.v2",
+            source.source_manifest_sha256,
+        ),
+    };
+    let scan = private_policy_encode(&scan)?;
+    let scan_sha256 = mpk_vc::sha256_raw_file_bytes(&scan).to_hex();
+    let mut evidence = PrivatePolicyEvidence {
+        schema: PRIVATE_POLICY_EVIDENCE_SCHEMA.to_owned(),
+        semantic_context: source.semantic_context.clone(),
+        scan: private_policy_ref(PRIVATE_POLICY_SCAN_SCHEMA, &scan_sha256),
+        source_vc: private_policy_ref("mpk.vc.v3", source.source_vc_sha256),
+        source_skeleton: private_policy_ref(
+            "mpk.vc.cert_skeleton.v3",
+            source.source_skeleton_sha256,
+        ),
+        program_assembly: private_policy_ref(
+            "mpk.program_certificate.ordinary_context.v2",
+            source.program_assembly_sha256,
+        ),
+        certificate_sha256: source.certificate_sha256.to_owned(),
+        evidence_sha256: String::new(),
+    };
+    evidence.evidence_sha256 = private_policy_evidence_hash(&evidence)?;
+    let evidence_bytes = private_policy_encode(&evidence)?;
+    let mut reproduction = PrivatePolicyReproduction {
+        schema: PRIVATE_POLICY_REPRODUCTION_SCHEMA.to_owned(),
+        semantic_context: source.semantic_context.clone(),
+        release_registry_sha256: source.release_registry_sha256.to_owned(),
+        source_artifacts_sha256: source.source_artifacts_sha256.to_owned(),
+        evidence_sha256: evidence.evidence_sha256.clone(),
+        reproduction_sha256: String::new(),
+    };
+    reproduction.reproduction_sha256 = private_policy_reproduction_hash(&reproduction)?;
+    let reproduction_bytes = private_policy_encode(&reproduction)?;
+    let mut receipt = PrivatePolicyReceipt {
+        schema: PRIVATE_POLICY_RECEIPT_SCHEMA.to_owned(),
+        semantic_context: source.semantic_context.clone(),
+        evidence_sha256: evidence.evidence_sha256.clone(),
+        reproduction_sha256: reproduction.reproduction_sha256.clone(),
+        certificate_sha256: source.certificate_sha256.to_owned(),
+        receipt_sha256: String::new(),
+    };
+    receipt.receipt_sha256 = private_policy_receipt_hash(&receipt)?;
+    let receipt_bytes = private_policy_encode(&receipt)?;
+    validate_private_successor_policy(&scan, &evidence_bytes, &reproduction_bytes, &receipt_bytes)?;
+    Ok(PrivatePolicyArtifacts {
+        scan,
+        evidence: evidence_bytes,
+        reproduction: reproduction_bytes,
+        receipt: receipt_bytes,
+        scan_sha256,
+        evidence_sha256: evidence.evidence_sha256,
+        reproduction_sha256: reproduction.reproduction_sha256,
+        receipt_sha256: receipt.receipt_sha256,
+    })
+}
+
+pub(crate) fn validate_private_successor_policy(
+    scan: &[u8],
+    evidence: &[u8],
+    reproduction: &[u8],
+    receipt: &[u8],
+) -> Result<(), &'static str> {
+    let scan: PrivatePolicyScan = private_policy_decode(scan)?;
+    let evidence: PrivatePolicyEvidence = private_policy_decode(evidence)?;
+    let reproduction: PrivatePolicyReproduction = private_policy_decode(reproduction)?;
+    let receipt: PrivatePolicyReceipt = private_policy_decode(receipt)?;
+    let scan_bytes = private_policy_encode(&scan)?;
+    if scan.schema != PRIVATE_POLICY_SCAN_SCHEMA
+        || evidence.schema != PRIVATE_POLICY_EVIDENCE_SCHEMA
+        || reproduction.schema != PRIVATE_POLICY_REPRODUCTION_SCHEMA
+        || receipt.schema != PRIVATE_POLICY_RECEIPT_SCHEMA
+        || scan.semantic_context != evidence.semantic_context
+        || scan.semantic_context != reproduction.semantic_context
+        || scan.semantic_context != receipt.semantic_context
+        || !private_policy_context(&scan.semantic_context)
+        || !private_policy_ref_is(&scan.source_ir, "mpk.vir.v2")
+        || !private_policy_ref_is(&scan.source_map, "mpk.source_map.v2")
+        || !private_policy_ref_is(&scan.source_manifest, "mpk.source_manifest.frontend.v2")
+        || evidence.scan
+            != private_policy_ref(
+                PRIVATE_POLICY_SCAN_SCHEMA,
+                &mpk_vc::sha256_raw_file_bytes(&scan_bytes).to_hex(),
+            )
+        || !private_policy_ref_is(&evidence.source_vc, "mpk.vc.v3")
+        || !private_policy_ref_is(&evidence.source_skeleton, "mpk.vc.cert_skeleton.v3")
+        || !private_policy_ref_is(
+            &evidence.program_assembly,
+            "mpk.program_certificate.ordinary_context.v2",
+        )
+        || !private_policy_sha256(&evidence.certificate_sha256)
+        || private_policy_evidence_hash(&evidence)? != evidence.evidence_sha256
+        || !private_policy_sha256(&reproduction.release_registry_sha256)
+        || !private_policy_sha256(&reproduction.source_artifacts_sha256)
+        || reproduction.evidence_sha256 != evidence.evidence_sha256
+        || private_policy_reproduction_hash(&reproduction)? != reproduction.reproduction_sha256
+        || receipt.evidence_sha256 != evidence.evidence_sha256
+        || receipt.reproduction_sha256 != reproduction.reproduction_sha256
+        || receipt.certificate_sha256 != evidence.certificate_sha256
+        || private_policy_receipt_hash(&receipt)? != receipt.receipt_sha256
+    {
+        return Err("private policy document linkage");
+    }
+    Ok(())
+}
+
+fn private_policy_ref(schema: &str, sha256: &str) -> PrivatePolicyArtifactRef {
+    PrivatePolicyArtifactRef {
+        schema: schema.to_owned(),
+        sha256: sha256.to_owned(),
+    }
+}
+
+fn private_policy_context(value: &Value) -> bool {
+    serde_json::to_vec(value).is_ok_and(|transport| {
+        mpk_vc::csharp_practical_registry::validate_successor_registry_document(
+            mpk_vc::csharp_practical_registry::SuccessorRegistryDocumentKind::SemanticContext,
+            &transport,
+        )
+        .is_ok()
+    })
+}
+
+fn private_policy_ref_is(reference: &PrivatePolicyArtifactRef, schema: &str) -> bool {
+    reference.schema == schema && private_policy_sha256(&reference.sha256)
+}
+
+fn private_policy_encode<T: Serialize>(value: &T) -> Result<Vec<u8>, &'static str> {
+    serde_json::to_vec(value).map_err(|_| "private policy transport")
+}
+
+fn private_policy_decode<T: for<'de> Deserialize<'de> + Serialize>(
+    input: &[u8],
+) -> Result<T, &'static str> {
+    parse_strict_json(
+        input,
+        StrictJsonLimits::new(16_777_216, 16_777_216, 64, 1_048_576),
+    )
+    .map_err(|_| "private policy transport")?;
+    let value = serde_json::from_slice(input).map_err(|_| "private policy transport")?;
+    if private_policy_encode(&value)? != input {
+        return Err("private policy canonical transport");
+    }
+    Ok(value)
+}
+
+fn private_policy_evidence_hash(value: &PrivatePolicyEvidence) -> Result<String, &'static str> {
+    #[derive(Serialize)]
+    struct Preimage<'a> {
+        schema: &'a str,
+        semantic_context: &'a Value,
+        scan: &'a PrivatePolicyArtifactRef,
+        source_vc: &'a PrivatePolicyArtifactRef,
+        source_skeleton: &'a PrivatePolicyArtifactRef,
+        program_assembly: &'a PrivatePolicyArtifactRef,
+        certificate_sha256: &'a str,
+    }
+    private_policy_hash(
+        PRIVATE_POLICY_EVIDENCE_HASH_DOMAIN,
+        &Preimage {
+            schema: &value.schema,
+            semantic_context: &value.semantic_context,
+            scan: &value.scan,
+            source_vc: &value.source_vc,
+            source_skeleton: &value.source_skeleton,
+            program_assembly: &value.program_assembly,
+            certificate_sha256: &value.certificate_sha256,
+        },
+    )
+}
+
+fn private_policy_reproduction_hash(
+    value: &PrivatePolicyReproduction,
+) -> Result<String, &'static str> {
+    #[derive(Serialize)]
+    struct Preimage<'a> {
+        schema: &'a str,
+        semantic_context: &'a Value,
+        release_registry_sha256: &'a str,
+        source_artifacts_sha256: &'a str,
+        evidence_sha256: &'a str,
+    }
+    private_policy_hash(
+        PRIVATE_POLICY_REPRODUCTION_HASH_DOMAIN,
+        &Preimage {
+            schema: &value.schema,
+            semantic_context: &value.semantic_context,
+            release_registry_sha256: &value.release_registry_sha256,
+            source_artifacts_sha256: &value.source_artifacts_sha256,
+            evidence_sha256: &value.evidence_sha256,
+        },
+    )
+}
+
+fn private_policy_receipt_hash(value: &PrivatePolicyReceipt) -> Result<String, &'static str> {
+    #[derive(Serialize)]
+    struct Preimage<'a> {
+        schema: &'a str,
+        semantic_context: &'a Value,
+        evidence_sha256: &'a str,
+        reproduction_sha256: &'a str,
+        certificate_sha256: &'a str,
+    }
+    private_policy_hash(
+        PRIVATE_POLICY_RECEIPT_HASH_DOMAIN,
+        &Preimage {
+            schema: &value.schema,
+            semantic_context: &value.semantic_context,
+            evidence_sha256: &value.evidence_sha256,
+            reproduction_sha256: &value.reproduction_sha256,
+            certificate_sha256: &value.certificate_sha256,
+        },
+    )
+}
+
+fn private_policy_hash<T: Serialize>(
+    domain: HashDomain,
+    value: &T,
+) -> Result<String, &'static str> {
+    let bytes = serde_json::to_vec(value).map_err(|_| "private policy hash")?;
+    hash_domain_separated_raw(domain, &bytes)
+        .map(|hash| hash.to_hex())
+        .map_err(|_| "private policy hash")
+}
+
+fn private_policy_sha256(value: &str) -> bool {
+    value.len() == 64
+        && value
+            .bytes()
+            .all(|byte| byte.is_ascii_digit() || (b'a'..=b'f').contains(&byte))
 }

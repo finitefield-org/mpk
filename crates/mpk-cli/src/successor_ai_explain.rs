@@ -17,7 +17,7 @@ use mpk_vc::semantic_profile_registry::{
 use mpk_vc::{
     canonical_json_bytes_bounded, parse_strict_json, serialize_json_bounded, StrictJsonLimits,
 };
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use sha2::{Digest, Sha256};
 
@@ -1630,4 +1630,152 @@ const fn failure(
         code,
         detail,
     }
+}
+
+// Private v3 linkage-only explanation documents for CSHARP-03-T02-W09.
+// They never invoke a provider and are not reachable from the installed CLI.
+pub(crate) const PRIVATE_AI_REQUEST_SCHEMA: &str = "mpk.ai.explain.request.v3";
+pub(crate) const PRIVATE_AI_EXPLANATION_SCHEMA: &str = "mpk.ai.explanation.v3";
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub(crate) struct PrivateAiArtifacts {
+    request: Vec<u8>,
+    explanation: Vec<u8>,
+    request_sha256: String,
+    explanation_sha256: String,
+}
+
+impl PrivateAiArtifacts {
+    pub(crate) fn request(&self) -> &[u8] {
+        &self.request
+    }
+
+    pub(crate) fn explanation(&self) -> &[u8] {
+        &self.explanation
+    }
+
+    pub(crate) fn request_sha256(&self) -> &str {
+        &self.request_sha256
+    }
+
+    pub(crate) fn explanation_sha256(&self) -> &str {
+        &self.explanation_sha256
+    }
+}
+
+#[derive(Clone, Debug, PartialEq, Deserialize, Serialize)]
+#[serde(deny_unknown_fields)]
+struct PrivateAiRequest {
+    schema: String,
+    semantic_context: Value,
+    policy_evidence_sha256: String,
+    policy_receipt_sha256: String,
+    redaction: String,
+}
+
+#[derive(Clone, Debug, PartialEq, Deserialize, Serialize)]
+#[serde(deny_unknown_fields)]
+struct PrivateAiExplanation {
+    schema: String,
+    semantic_context: Value,
+    request_sha256: String,
+    status: String,
+    proof_authority: String,
+}
+
+pub(crate) fn build_private_successor_ai_artifacts(
+    semantic_context: &Value,
+    policy_evidence_sha256: &str,
+    policy_receipt_sha256: &str,
+) -> Result<PrivateAiArtifacts, &'static str> {
+    if !private_ai_context(semantic_context)
+        || !private_ai_sha256(policy_evidence_sha256)
+        || !private_ai_sha256(policy_receipt_sha256)
+    {
+        return Err("private AI linkage");
+    }
+    let request = PrivateAiRequest {
+        schema: PRIVATE_AI_REQUEST_SCHEMA.to_owned(),
+        semantic_context: semantic_context.clone(),
+        policy_evidence_sha256: policy_evidence_sha256.to_owned(),
+        policy_receipt_sha256: policy_receipt_sha256.to_owned(),
+        redaction: "closed_sanitized_projection".to_owned(),
+    };
+    let request = private_ai_encode(&request)?;
+    let request_sha256 = mpk_vc::sha256_raw_file_bytes(&request).to_hex();
+    let explanation = PrivateAiExplanation {
+        schema: PRIVATE_AI_EXPLANATION_SCHEMA.to_owned(),
+        semantic_context: semantic_context.clone(),
+        request_sha256: request_sha256.clone(),
+        status: "private_local_summary".to_owned(),
+        proof_authority: "none".to_owned(),
+    };
+    let explanation = private_ai_encode(&explanation)?;
+    let explanation_sha256 = mpk_vc::sha256_raw_file_bytes(&explanation).to_hex();
+    validate_private_successor_ai_artifacts(&request, &explanation)?;
+    Ok(PrivateAiArtifacts {
+        request,
+        explanation,
+        request_sha256,
+        explanation_sha256,
+    })
+}
+
+pub(crate) fn validate_private_successor_ai_artifacts(
+    request: &[u8],
+    explanation: &[u8],
+) -> Result<(), &'static str> {
+    let request: PrivateAiRequest = private_ai_decode(request)?;
+    let explanation: PrivateAiExplanation = private_ai_decode(explanation)?;
+    if request.schema != PRIVATE_AI_REQUEST_SCHEMA
+        || explanation.schema != PRIVATE_AI_EXPLANATION_SCHEMA
+        || !private_ai_context(&request.semantic_context)
+        || request.semantic_context != explanation.semantic_context
+        || !private_ai_sha256(&request.policy_evidence_sha256)
+        || !private_ai_sha256(&request.policy_receipt_sha256)
+        || explanation.request_sha256
+            != mpk_vc::sha256_raw_file_bytes(&private_ai_encode(&request)?).to_hex()
+        || request.redaction != "closed_sanitized_projection"
+        || explanation.status != "private_local_summary"
+        || explanation.proof_authority != "none"
+    {
+        return Err("private AI document linkage");
+    }
+    Ok(())
+}
+
+fn private_ai_encode<T: Serialize>(value: &T) -> Result<Vec<u8>, &'static str> {
+    serde_json::to_vec(value).map_err(|_| "private AI transport")
+}
+
+fn private_ai_context(value: &Value) -> bool {
+    serde_json::to_vec(value).is_ok_and(|transport| {
+        mpk_vc::csharp_practical_registry::validate_successor_registry_document(
+            mpk_vc::csharp_practical_registry::SuccessorRegistryDocumentKind::SemanticContext,
+            &transport,
+        )
+        .is_ok()
+    })
+}
+
+fn private_ai_decode<T: for<'de> Deserialize<'de> + Serialize>(
+    input: &[u8],
+) -> Result<T, &'static str> {
+    parse_strict_json(
+        input,
+        StrictJsonLimits::new(1_048_576, 1_048_576, 32, 1_048_576),
+    )
+    .map_err(|_| "private AI transport")?;
+    let value = serde_json::from_slice(input).map_err(|_| "private AI transport")?;
+    if private_ai_encode(&value)? != input {
+        return Err("private AI canonical transport");
+    }
+    Ok(value)
+}
+
+fn private_ai_sha256(value: &str) -> bool {
+    value.len() == 64
+        && value
+            .bytes()
+            .all(|byte| byte.is_ascii_digit() || (b'a'..=b'f').contains(&byte))
 }

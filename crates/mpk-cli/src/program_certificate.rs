@@ -204,6 +204,88 @@ impl ProgramCertificateOutcome {
     }
 }
 
+/// Private CSHARP-03-T02-W09 linkage between the successor assembly plan,
+/// registered practical foundation, retained Certificate v0 bytes, and the
+/// Rust source-free checker. The independent checker regression suite remains
+/// a required W09 gate; native installed-image execution belongs to T07/T08.
+#[derive(Clone, Debug, Eq, PartialEq)]
+#[doc(hidden)]
+pub struct ValidatedPrivateProgramConsumer {
+    foundation_content_sha256: String,
+    certificate_sha256: String,
+    axiom_count: u64,
+}
+
+impl ValidatedPrivateProgramConsumer {
+    pub fn foundation_content_sha256(&self) -> &str {
+        &self.foundation_content_sha256
+    }
+
+    pub fn certificate_sha256(&self) -> &str {
+        &self.certificate_sha256
+    }
+
+    pub const fn axiom_count(&self) -> u64 {
+        self.axiom_count
+    }
+}
+
+#[doc(hidden)]
+pub fn validate_private_successor_program_consumer(
+    assembly_bytes: &[u8],
+    assembly_sha256: &str,
+    certificate_bytes: &[u8],
+) -> Result<ValidatedPrivateProgramConsumer, ProgramCertificateError> {
+    if mpk_vc::csharp_practical_consumer::validate_private_predecessor_program_assembly_transport(
+        assembly_bytes,
+        assembly_sha256,
+    )
+    .is_err()
+    {
+        return Err(ProgramCertificateError::new(
+            ProgramCertificateErrorKind::Interface,
+            "private successor assembly transport mismatch",
+        ));
+    }
+    let practical = mpk_vc::csharp_practical_vir_model::validate_registered_foundation_bundle(
+        mpk_vc::csharp_practical_vir_model::registered_foundation_descriptor_transport(),
+        mpk_vc::csharp_practical_vir_model::registered_foundation_definitions_transport(),
+    )
+    .map_err(|error| {
+        ProgramCertificateError::new(
+            ProgramCertificateErrorKind::Foundation,
+            format!("registered practical foundation rejected: {error}"),
+        )
+    })?;
+    // Revalidate every retained checker foundation, including the exact
+    // Std.Program.Base bytes inventoried by T01-W02.
+    let _ = load_foundations()?;
+    let report = verify_certificate_bytes(certificate_bytes).map_err(|error| {
+        ProgramCertificateError::new(
+            if error.kind() == VerificationErrorKind::InternalInvariant {
+                ProgramCertificateErrorKind::CheckerExecution
+            } else {
+                ProgramCertificateErrorKind::CheckerRejected
+            },
+            format!("retained Certificate v0 rejected: {}", error.detail()),
+        )
+    })?;
+    if report.axiom_count != 0
+        || !report.axiom_report.entries.is_empty()
+        || !report.axiom_report.declaration_dependencies.is_empty()
+    {
+        return Err(ProgramCertificateError::new(
+            ProgramCertificateErrorKind::Interface,
+            "private successor certificate has a non-zero axiom inventory",
+        ));
+    }
+    Ok(ValidatedPrivateProgramConsumer {
+        foundation_content_sha256: practical.content_sha256().to_owned(),
+        certificate_sha256: hash_hex(&report.certificate_hash),
+        axiom_count: report.axiom_count,
+    })
+}
+
 /// Builds the complete alpha interface before proof planning and returns an
 /// all-or-nothing pending result, a dual-accepted candidate, or a deterministically
 /// unaccepted candidate. Execution/protocol failures and unequal accepted reports

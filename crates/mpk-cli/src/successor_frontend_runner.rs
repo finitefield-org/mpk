@@ -1525,6 +1525,66 @@ fn sandbox_error(error: SandboxError) -> CSharpRunError {
     }
 }
 
+/// Private, launch-free successor result consumer for CSHARP-03-T02-W09.
+/// Installed bundle discovery and process execution are deliberately absent.
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub(crate) struct PrivateFrontendConsumerReceipt {
+    result_schema: &'static str,
+    result_sha256: String,
+    artifacts_sha256: Option<String>,
+}
+
+impl PrivateFrontendConsumerReceipt {
+    pub(crate) const fn result_schema(&self) -> &'static str {
+        self.result_schema
+    }
+
+    pub(crate) fn result_sha256(&self) -> &str {
+        &self.result_sha256
+    }
+
+    pub(crate) fn artifacts_sha256(&self) -> Option<&str> {
+        self.artifacts_sha256.as_deref()
+    }
+}
+
+pub(crate) fn consume_private_successor_frontend_result(
+    migration: &crate::csharp_practical_migration::PrivatePredecessorMigration,
+) -> Result<PrivateFrontendConsumerReceipt, &'static str> {
+    use crate::csharp_practical_migration::{
+        validate_private_successor_schema, PrivateSuccessorSchemaKind,
+        SUCCESSOR_FRONTEND_DIAGNOSTIC_SCHEMA, SUCCESSOR_FRONTEND_SUCCESS_SCHEMA,
+    };
+    let result = migration.frontend_result();
+    let (kind, expected_artifacts) = match result.schema() {
+        SUCCESSOR_FRONTEND_SUCCESS_SCHEMA => (
+            PrivateSuccessorSchemaKind::FrontendSuccess,
+            migration
+                .artifacts()
+                .map(|artifacts| artifacts.source_artifacts().sha256()),
+        ),
+        SUCCESSOR_FRONTEND_DIAGNOSTIC_SCHEMA => {
+            if migration.artifacts().is_some() {
+                return Err("private diagnostic retained artifacts");
+            }
+            (PrivateSuccessorSchemaKind::FrontendDiagnostic, None)
+        }
+        _ => return Err("private frontend result schema"),
+    };
+    validate_private_successor_schema(kind, result.canonical_bytes())
+        .map_err(|_| "private frontend result transport")?;
+    let mut expected_stdout = result.canonical_bytes().to_vec();
+    expected_stdout.push(b'\n');
+    if expected_stdout != migration.frontend_stdout() {
+        return Err("private frontend stdout linkage");
+    }
+    Ok(PrivateFrontendConsumerReceipt {
+        result_schema: result.schema(),
+        result_sha256: result.sha256().to_owned(),
+        artifacts_sha256: expected_artifacts.map(str::to_owned),
+    })
+}
+
 const fn failure(code: CSharpRunCode) -> CSharpRunError {
     CSharpRunError { code }
 }

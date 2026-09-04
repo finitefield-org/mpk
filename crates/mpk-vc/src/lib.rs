@@ -8,7 +8,11 @@
 pub mod call_wp;
 pub mod canonical_json;
 #[doc(hidden)]
+pub mod csharp_practical_consumer;
+#[doc(hidden)]
 pub mod csharp_practical_registry;
+#[doc(hidden)]
+pub mod csharp_practical_release;
 #[doc(hidden)]
 pub mod csharp_practical_source_artifacts;
 #[doc(hidden)]

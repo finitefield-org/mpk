@@ -5,6 +5,14 @@
 //! Go/Rust frontend artifacts, bind the complete scalar C#/Java corpora, and
 //! reject every frozen protocol/linkage/limit mutation owned by W08.
 
+use mpk_cli::csharp_practical_consumer_migration::{
+    close_private_successor_consumers, private_successor_identity_inventory,
+    validate_private_ai_documents, validate_private_api_documents,
+    validate_private_policy_documents, validate_private_successor_artifact_transport,
+    validate_private_successor_identity_inventory, PrivateConsumerMigrationCode,
+    PrivateConsumerMigrationOutcome, PrivateIdentityCode, PrivateObservedArtifactIdentity,
+    PRIVATE_CONSUMER_FAMILIES, PRIVATE_CONSUMER_INVENTORY_EDGES, PRIVATE_CONSUMER_RECEIPT_SCHEMA,
+};
 use mpk_cli::csharp_practical_frontend_protocol::{
     build_csharp_practical_frontend_request, emit_csharp_practical_frontend_diagnostic,
     validate_csharp_practical_frontend_process, PracticalDiagnosticFamily,
@@ -28,6 +36,10 @@ use mpk_cli::successor_frontend_protocol::{
     validate_successor_frontend_process, AcceptedSuccessorFrontendEnvelope,
     SuccessorFrontendProtocolRequest,
 };
+use mpk_vc::csharp_practical_consumer::{
+    validate_private_predecessor_verification_transports, PrivatePredecessorVerificationSource,
+    PrivateVerificationArtifactRef,
+};
 use mpk_vc::csharp_practical_registry::{
     canonical_successor_registry_transport, csharp_practical_selection_hash,
     successor_profile_entry_hash, successor_profile_registry_hash,
@@ -39,6 +51,10 @@ use mpk_vc::csharp_practical_registry::{
     SUCCESSOR_CONTRACT_FIELDS, SUCCESSOR_PROFILE_ORDER, SUCCESSOR_SEMANTIC_CONTEXT_SCHEMA,
     SUCCESSOR_SEMANTIC_REGISTRY_ENTRY_SCHEMA, SUCCESSOR_SEMANTIC_REGISTRY_SCHEMA,
     SUCCESSOR_VALIDATED_REQUEST_SCHEMA,
+};
+use mpk_vc::csharp_practical_release::{
+    build_private_successor_release_fixture, validate_private_successor_release_registry,
+    PrivateReleaseBundleInput, PrivateReleaseMemberInput,
 };
 use mpk_vc::csharp_practical_source_artifacts::{
     bind_practical_artifact_context, capture_original_inputs, OriginalInput, OriginalInputKind,
@@ -54,7 +70,7 @@ use mpk_vc::semantic_profile_registry::{
 use mpk_vc::{
     canonical_json_bytes, hash_domain_separated_raw, sha256_raw_file_bytes, CapturedInput,
     HashDomain, InputKind, ReleaseRegistryIdentity, SourceReference, StrictJsonValue,
-    SyntheticPermission,
+    SyntheticPermission, BUNDLE_FILE_BYTES_MAX,
 };
 use serde_json::{json, Map, Value};
 use std::collections::{BTreeMap, BTreeSet};
@@ -1739,7 +1755,6 @@ fn csharp_03_t02_w08_has_no_public_format_selector_or_installed_route() {
         "crates/mpk-cli/src/successor_cli.rs",
         "crates/mpk-cli/src/frontend_runner.rs",
         "crates/mpk-cli/src/java_frontend_runner.rs",
-        "crates/mpk-cli/src/successor_frontend_runner.rs",
     ] {
         let source = String::from_utf8(read(routed_source)).expect("route source");
         assert!(
@@ -1788,4 +1803,644 @@ fn csharp_03_t02_w08_has_no_public_format_selector_or_installed_route() {
             .code(),
         PredecessorMigrationCode::IdentityMismatch
     );
+}
+
+fn w09_release_transport(registry: &ValidatedSuccessorRegistry) -> Vec<u8> {
+    let profiles = SUCCESSOR_PROFILE_ORDER.map(|profile| profile.semantic_profile());
+    let frontend_hash = sha256_raw_file_bytes(b"private frontend fixture").to_hex();
+    let toolchain_hash = sha256_raw_file_bytes(b"private toolchain fixture").to_hex();
+    let frontend_members = [PrivateReleaseMemberInput {
+        path: "bin/private-successor",
+        raw_sha256: &frontend_hash,
+        size_bytes: 24,
+    }];
+    let toolchain_members = [PrivateReleaseMemberInput {
+        path: "bin/private-successor",
+        raw_sha256: &toolchain_hash,
+        size_bytes: 25,
+    }];
+    let frontends = [PrivateReleaseBundleInput {
+        bundle_id: "private.frontend.successor",
+        semantic_profiles: &profiles,
+        members: &frontend_members,
+    }];
+    let toolchains = [PrivateReleaseBundleInput {
+        bundle_id: "private.toolchain.successor",
+        semantic_profiles: &profiles,
+        members: &toolchain_members,
+    }];
+    build_private_successor_release_fixture(registry, &frontends, &toolchains)
+        .expect("private successor release fixture")
+        .canonical_bytes()
+        .to_vec()
+}
+
+fn w09_certificate_bytes() -> Vec<u8> {
+    let input = read("fixtures/program-certificate/alpha-module-calls.hex");
+    let digits = input
+        .into_iter()
+        .filter(|byte| !byte.is_ascii_whitespace())
+        .collect::<Vec<_>>();
+    assert_eq!(digits.len() % 2, 0);
+    digits
+        .chunks_exact(2)
+        .map(|pair| {
+            let nibble = |byte: u8| match byte {
+                b'0'..=b'9' => byte - b'0',
+                b'a'..=b'f' => byte - b'a' + 10,
+                b'A'..=b'F' => byte - b'A' + 10,
+                _ => panic!("non-hex certificate fixture"),
+            };
+            (nibble(pair[0]) << 4) | nibble(pair[1])
+        })
+        .collect()
+}
+
+fn w09_replace_first(bytes: &[u8], from: &str, to: &str) -> Vec<u8> {
+    let text = std::str::from_utf8(bytes).expect("UTF-8 release transport");
+    assert!(text.contains(from), "missing mutation target {from}");
+    text.replacen(from, to, 1).into_bytes()
+}
+
+fn w09_first_go_success(candidate: &CandidateRegistry) -> PrivatePredecessorMigration {
+    let active = active_registry();
+    let index = load(format!("{GO_ROOT}/frontend-index.json"));
+    let case = &index["cases"][0];
+    let envelope_bytes = checked_artifact(GO_ROOT, artifact(case, "frontend_envelope"));
+    let envelope: Value = serde_json::from_slice(&envelope_bytes).unwrap();
+    let manifest_bytes = checked_artifact(GO_ROOT, artifact(case, "source_manifest_frontend"));
+    let manifest: Value = serde_json::from_slice(&manifest_bytes).unwrap();
+    let source_map_bytes = checked_artifact(GO_ROOT, artifact(case, "source_map"));
+    let source_map: Value = serde_json::from_slice(&source_map_bytes).unwrap();
+    let storage = captured_storage(case["source_root"].as_str().unwrap(), &manifest);
+    let captured = captured_refs(&storage);
+    let permissions = go_synthetic_permissions(&source_map);
+    let predecessor = validate_predecessor(&active, &envelope, &captured, &permissions);
+    let request = candidate_request(
+        candidate,
+        &envelope["semantic_context"],
+        &envelope["selection"],
+    );
+    migrate_predecessor_frontend(&request, &predecessor, &captured)
+        .expect("first real Go successor migration")
+}
+
+fn w09_first_go_rejection(candidate: &CandidateRegistry) -> PrivatePredecessorMigration {
+    let active = active_registry();
+    let index = load(format!("{GO_ROOT}/frontend-index.json"));
+    let case = &index["negative_cases"][0];
+    let envelope_bytes = checked_artifact(GO_ROOT, &case["artifact"]);
+    let envelope: Value = serde_json::from_slice(&envelope_bytes).unwrap();
+    let source_path = case["source_path"].as_str().unwrap();
+    let source_bytes = read(Path::new(case["source_root"].as_str().unwrap()).join(source_path));
+    let captured = [CapturedInput {
+        kind: InputKind::Source,
+        normalized_path: source_path,
+        bytes: &source_bytes,
+    }];
+    let predecessor = validate_predecessor(&active, &envelope, &captured, &[]);
+    let request = candidate_request(
+        candidate,
+        &envelope["semantic_context"],
+        &envelope["selection"],
+    );
+    migrate_predecessor_frontend(&request, &predecessor, &captured)
+        .expect("first real Go rejection migration")
+}
+
+#[test]
+fn csharp_03_t02_w09_executes_all_four_frozen_identity_vectors() {
+    let vectors = load("develop/migrations/csharp-03/freeze/profile-freeze-vectors.json");
+    let frozen = vectors["vectors"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|vector| vector["implementation_owner"] == "CSHARP-03-T02-W09")
+        .collect::<Vec<_>>();
+    assert_eq!(frozen.len(), 4);
+    assert_eq!(
+        frozen
+            .iter()
+            .map(|vector| vector["id"].as_str().unwrap())
+            .collect::<BTreeSet<_>>(),
+        BTreeSet::from([
+            "identity.all_successor_names_unique",
+            "identity.duplicate_hash_domain",
+            "identity.duplicate_identity",
+            "identity.old_new_mixed",
+        ])
+    );
+
+    let inventory = private_successor_identity_inventory();
+    assert_eq!(inventory.len(), 17);
+    validate_private_successor_identity_inventory(&inventory, None)
+        .expect("all successor identities and domains are unique");
+    let freeze = load("develop/migrations/csharp-03/freeze/profile-freeze.json");
+    for family in &inventory {
+        let frozen = freeze["identity_families"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|entry| entry["family"] == family.family)
+            .unwrap_or_else(|| panic!("missing frozen family {}", family.family));
+        assert_eq!(
+            frozen["successor_identities"],
+            json!(family.successor_identities),
+            "{} identities",
+            family.family
+        );
+        assert_eq!(
+            frozen["successor_hash_domains"],
+            json!(family.successor_hash_domains),
+            "{} hash domains",
+            family.family
+        );
+    }
+
+    let mut duplicate_identity = inventory.clone();
+    duplicate_identity[1].successor_identities[0] =
+        duplicate_identity[0].successor_identities[0].clone();
+    assert_eq!(
+        validate_private_successor_identity_inventory(&duplicate_identity, None),
+        Err(PrivateIdentityCode::DuplicateSuccessorIdentity)
+    );
+
+    let mut duplicate_domain = inventory.clone();
+    duplicate_domain[1].successor_hash_domains[0] =
+        duplicate_domain[0].successor_hash_domains[0].clone();
+    assert_eq!(
+        validate_private_successor_identity_inventory(&duplicate_domain, None),
+        Err(PrivateIdentityCode::DuplicateSuccessorHashDomain)
+    );
+
+    assert_eq!(
+        validate_private_successor_identity_inventory(
+            &inventory,
+            Some(PrivateObservedArtifactIdentity {
+                family: "vir",
+                artifact_schema: "mpk.vir.v1",
+                semantic_context_schema: SUCCESSOR_SEMANTIC_CONTEXT_SCHEMA,
+            }),
+        ),
+        Err(PrivateIdentityCode::MixedArtifactFamily)
+    );
+    validate_private_successor_identity_inventory(
+        &inventory,
+        Some(PrivateObservedArtifactIdentity {
+            family: "vir",
+            artifact_schema: SUCCESSOR_VIR_SCHEMA,
+            semantic_context_schema: SUCCESSOR_SEMANTIC_CONTEXT_SCHEMA,
+        }),
+    )
+    .expect("successor VIR and context match");
+}
+
+#[test]
+fn csharp_03_t02_w09_closes_every_consumer_edge_deterministically() {
+    let candidate = candidate_registry();
+    let release = w09_release_transport(&candidate.validated);
+    let certificate = w09_certificate_bytes();
+    let migration = w09_first_go_success(&candidate);
+    let first =
+        close_private_successor_consumers(&candidate.validated, &release, &migration, &certificate)
+            .expect("first private consumer closure");
+    let second =
+        close_private_successor_consumers(&candidate.validated, &release, &migration, &certificate)
+            .expect("second private consumer closure");
+    assert_eq!(first, second, "two-run complete-consumer equality");
+    let PrivateConsumerMigrationOutcome::Accepted(accepted) = first else {
+        panic!("accepted predecessor must close all consumers");
+    };
+    assert_eq!(
+        accepted.receipt_sha256(),
+        sha256_raw_file_bytes(accepted.receipt()).to_hex()
+    );
+    let receipt: Value = serde_json::from_slice(accepted.receipt()).unwrap();
+    assert_eq!(receipt["schema"], PRIVATE_CONSUMER_RECEIPT_SCHEMA);
+    assert_eq!(receipt["work_item"], "CSHARP-03-T02-W09");
+    assert_eq!(receipt["status"], "accepted_private_consumer_closure");
+    assert_eq!(
+        receipt["consumer_families"],
+        json!(PRIVATE_CONSUMER_FAMILIES)
+    );
+    assert_eq!(
+        receipt["inventory_edges"],
+        json!(PRIVATE_CONSUMER_INVENTORY_EDGES)
+    );
+    assert_eq!(receipt["equivalence"]["axiom_count"], 0);
+    assert_eq!(receipt["certificate_sha256"], accepted.certificate_sha256());
+    assert_eq!(accepted.certificate_sha256().len(), 64);
+    assert_eq!(receipt["guarantees"]["public_route_added"], false);
+    assert_eq!(
+        receipt["guarantees"]["release_candidate_materialized"],
+        false
+    );
+    assert_eq!(receipt["guarantees"]["dual_format_fallback"], false);
+    assert_eq!(receipt["guarantees"]["certificate_v0_retained"], true);
+    let text = String::from_utf8(accepted.receipt().to_vec()).unwrap();
+    for predecessor in [
+        "mpk.vir.v1",
+        "mpk.source_map.v1",
+        "mpk.source_manifest.v1",
+        "mpk.vc.v2",
+        "mpk.policy.scan.v2",
+        "mpk.ai.explain.request.v2",
+    ] {
+        assert!(
+            !text.contains(predecessor),
+            "receipt retained {predecessor}"
+        );
+    }
+
+    let [scan, evidence, reproduction, policy_receipt] = accepted.policy_documents();
+    validate_private_policy_documents(scan, evidence, reproduction, policy_receipt)
+        .expect("private policy documents");
+    let [ai_request, ai_explanation] = accepted.ai_documents();
+    validate_private_ai_documents(ai_request, ai_explanation).expect("private AI documents");
+    let [api_request, api_session, api_response] = accepted.api_documents();
+    validate_private_api_documents(api_request, api_session, api_response)
+        .expect("private API documents");
+}
+
+#[test]
+fn csharp_03_t02_w09_rejects_mutated_consumer_transports() {
+    let candidate = candidate_registry();
+    let release = w09_release_transport(&candidate.validated);
+    let certificate = w09_certificate_bytes();
+    let migration = w09_first_go_success(&candidate);
+    let artifacts = migration.artifacts().unwrap();
+    for artifact in [
+        migration.request(),
+        artifacts.vir(),
+        artifacts.source_map(),
+        artifacts.source_manifest(),
+        artifacts.semantic_bindings(),
+        artifacts.closed_instances(),
+        artifacts.source_artifacts(),
+        migration.frontend_result(),
+    ] {
+        validate_private_successor_artifact_transport(
+            artifact.schema(),
+            artifact.sha256(),
+            artifact.canonical_bytes(),
+        )
+        .unwrap_or_else(|error| panic!("{}: {error}", artifact.schema()));
+        let mut noncanonical = artifact.canonical_bytes().to_vec();
+        noncanonical.push(b' ');
+        assert_eq!(
+            validate_private_successor_artifact_transport(
+                artifact.schema(),
+                artifact.sha256(),
+                &noncanonical,
+            )
+            .expect_err("noncanonical successor artifact")
+            .code(),
+            PrivateConsumerMigrationCode::Artifact
+        );
+        assert!(validate_private_successor_artifact_transport(
+            artifact.schema(),
+            ZERO_SHA256,
+            artifact.canonical_bytes(),
+        )
+        .is_err());
+    }
+    assert!(validate_private_successor_artifact_transport(
+        "mpk.vir.v1",
+        artifacts.vir().sha256(),
+        artifacts.vir().canonical_bytes(),
+    )
+    .is_err());
+
+    let accepted =
+        close_private_successor_consumers(&candidate.validated, &release, &migration, &certificate)
+            .expect("private consumer closure");
+    let PrivateConsumerMigrationOutcome::Accepted(accepted) = accepted else {
+        panic!("expected accepted closure");
+    };
+    let semantic_context = serde_json::from_slice::<Value>(artifacts.vir().canonical_bytes())
+        .unwrap()["semantic_context"]
+        .clone();
+    let verification_source = PrivatePredecessorVerificationSource {
+        semantic_context: &semantic_context,
+        source_ir: PrivateVerificationArtifactRef {
+            schema: artifacts.vir().schema(),
+            sha256: artifacts.vir().sha256(),
+            canonical_bytes: artifacts.vir().canonical_bytes().len() as u64,
+        },
+        source_manifest: PrivateVerificationArtifactRef {
+            schema: artifacts.source_manifest().schema(),
+            sha256: artifacts.source_manifest().sha256(),
+            canonical_bytes: artifacts.source_manifest().canonical_bytes().len() as u64,
+        },
+        obligation_sha256: migration.equivalence().obligation_sha256(),
+        verdict_sha256: migration.equivalence().verdict_sha256(),
+        axiom_count: migration.equivalence().axiom_count(),
+    };
+    let verification = accepted.verification();
+    validate_private_predecessor_verification_transports(
+        verification_source,
+        verification.vc().canonical_bytes(),
+        verification.skeleton().canonical_bytes(),
+        verification.assembly().canonical_bytes(),
+    )
+    .expect("private verification transports");
+    let wrong_size_source = PrivatePredecessorVerificationSource {
+        source_ir: PrivateVerificationArtifactRef {
+            canonical_bytes: verification_source.source_ir.canonical_bytes + 1,
+            ..verification_source.source_ir
+        },
+        ..verification_source
+    };
+    assert!(validate_private_predecessor_verification_transports(
+        wrong_size_source,
+        verification.vc().canonical_bytes(),
+        verification.skeleton().canonical_bytes(),
+        verification.assembly().canonical_bytes(),
+    )
+    .is_err());
+    let wrong_foundation_vc = w09_replace_first(
+        verification.vc().canonical_bytes(),
+        FOUNDATION_DESCRIPTOR_CONTENT_SHA256,
+        ZERO_SHA256,
+    );
+    assert!(validate_private_predecessor_verification_transports(
+        verification_source,
+        &wrong_foundation_vc,
+        verification.skeleton().canonical_bytes(),
+        verification.assembly().canonical_bytes(),
+    )
+    .is_err());
+    for index in 0..3 {
+        let mut documents = [
+            verification.vc().canonical_bytes().to_vec(),
+            verification.skeleton().canonical_bytes().to_vec(),
+            verification.assembly().canonical_bytes().to_vec(),
+        ];
+        documents[index].push(b' ');
+        assert!(validate_private_predecessor_verification_transports(
+            verification_source,
+            &documents[0],
+            &documents[1],
+            &documents[2],
+        )
+        .is_err());
+    }
+    let [scan, evidence, reproduction, policy_receipt] = accepted.policy_documents();
+    let mut mutated_policy = evidence.to_vec();
+    mutated_policy.push(b' ');
+    assert!(
+        validate_private_policy_documents(scan, &mutated_policy, reproduction, policy_receipt,)
+            .is_err()
+    );
+    let [ai_request, ai_explanation] = accepted.ai_documents();
+    let mut mutated_ai = ai_explanation.to_vec();
+    mutated_ai.push(b' ');
+    assert!(validate_private_ai_documents(ai_request, &mutated_ai).is_err());
+    let [api_request, api_session, api_response] = accepted.api_documents();
+    let mut mutated_api = api_session.to_vec();
+    mutated_api.push(b' ');
+    assert!(validate_private_api_documents(api_request, &mutated_api, api_response).is_err());
+
+    let mut release_value: Value = serde_json::from_slice(&release).unwrap();
+    release_value["tuples"][0]["frontend_bundle_id"] = json!("wrong.frontend");
+    assert!(validate_private_successor_release_registry(
+        &canonical(&release_value),
+        &candidate.validated,
+    )
+    .is_err());
+}
+
+#[test]
+fn csharp_03_t02_w09_release_consumer_rejects_every_owned_layer() {
+    let candidate = candidate_registry();
+    let release = w09_release_transport(&candidate.validated);
+    validate_private_successor_release_registry(&release, &candidate.validated)
+        .expect("private release baseline");
+    let root: Value = serde_json::from_slice(&release).unwrap();
+    let frontend_member_hash = root["frontend_bundles"][0]["inventory"]["members"][0]["raw_sha256"]
+        .as_str()
+        .unwrap();
+    let registry_hash = root["registry_sha256"].as_str().unwrap();
+    let mutations = [
+        w09_replace_first(
+            &release,
+            "mpk.release.bundle_registry.v2",
+            "mpk.release.bundle_registry.v1",
+        ),
+        w09_replace_first(
+            &release,
+            "mpk.release.registry.v2",
+            "mpk.release.registry.v1",
+        ),
+        w09_replace_first(&release, FOUNDATION_DESCRIPTOR_CONTENT_SHA256, ZERO_SHA256),
+        w09_replace_first(
+            &release,
+            "mpk.release.frontend_bundle.v2",
+            "mpk.release.frontend_bundle.v1",
+        ),
+        w09_replace_first(
+            &release,
+            "mpk.release.toolchain_bundle.v2",
+            "mpk.release.toolchain_bundle.v1",
+        ),
+        w09_replace_first(
+            &release,
+            "mpk.release.bundle_inventory.v1",
+            "mpk.release.bundle_inventory.v0",
+        ),
+        w09_replace_first(
+            &release,
+            "bin/private-successor",
+            "../bin/private-successor",
+        ),
+        w09_replace_first(&release, frontend_member_hash, ZERO_SHA256),
+        w09_replace_first(&release, "\"size_bytes\":24", "\"size_bytes\":0"),
+        w09_replace_first(
+            &release,
+            "private.frontend.successor",
+            "private.frontend.mutated",
+        ),
+        w09_replace_first(&release, registry_hash, ZERO_SHA256),
+    ];
+    for (index, mutation) in mutations.iter().enumerate() {
+        assert!(
+            validate_private_successor_release_registry(mutation, &candidate.validated).is_err(),
+            "release mutation {index} was accepted"
+        );
+    }
+    let unknown_field = w09_replace_first(
+        &release,
+        "\"registry_sha256\"",
+        "\"future\":false,\"registry_sha256\"",
+    );
+    assert!(
+        validate_private_successor_release_registry(&unknown_field, &candidate.validated).is_err()
+    );
+
+    let profiles = SUCCESSOR_PROFILE_ORDER.map(|profile| profile.semantic_profile());
+    let member_hash = sha256_raw_file_bytes(b"member").to_hex();
+    let invalid_members = [
+        PrivateReleaseMemberInput {
+            path: "Bin/member",
+            raw_sha256: &member_hash,
+            size_bytes: 1,
+        },
+        PrivateReleaseMemberInput {
+            path: "bin/member",
+            raw_sha256: &member_hash,
+            size_bytes: 1,
+        },
+    ];
+    let invalid_frontends = [PrivateReleaseBundleInput {
+        bundle_id: "private.frontend.casefold",
+        semantic_profiles: &profiles,
+        members: &invalid_members,
+    }];
+    assert!(
+        build_private_successor_release_fixture(&candidate.validated, &invalid_frontends, &[],)
+            .is_err()
+    );
+    let oversized_members = [PrivateReleaseMemberInput {
+        path: "bin/member",
+        raw_sha256: &member_hash,
+        size_bytes: BUNDLE_FILE_BYTES_MAX + 1,
+    }];
+    let oversized_frontends = [PrivateReleaseBundleInput {
+        bundle_id: "private.frontend.oversized",
+        semantic_profiles: &profiles,
+        members: &oversized_members,
+    }];
+    assert!(build_private_successor_release_fixture(
+        &candidate.validated,
+        &oversized_frontends,
+        &[],
+    )
+    .is_err());
+}
+
+#[test]
+fn csharp_03_t02_w09_keeps_rejections_artifact_free() {
+    let candidate = candidate_registry();
+    let release = w09_release_transport(&candidate.validated);
+    let migration = w09_first_go_rejection(&candidate);
+    let outcome = close_private_successor_consumers(
+        &candidate.validated,
+        &release,
+        &migration,
+        &w09_certificate_bytes(),
+    )
+    .expect("artifact-free rejection closure");
+    let PrivateConsumerMigrationOutcome::Rejected(rejected) = outcome else {
+        panic!("rejected predecessor must not reach downstream consumers");
+    };
+    assert_eq!(rejected.request_sha256(), migration.request().sha256());
+    assert_eq!(
+        rejected.diagnostic_sha256(),
+        migration.frontend_result().sha256()
+    );
+    assert_eq!(
+        rejected.receipt_sha256(),
+        sha256_raw_file_bytes(rejected.receipt()).to_hex()
+    );
+    let receipt: Value = serde_json::from_slice(rejected.receipt()).unwrap();
+    assert_eq!(receipt["status"], "rejected_artifact_free");
+    assert_eq!(receipt["downstream_artifact_count"], 0);
+    assert!(receipt.get("source_vc").is_none());
+    assert!(receipt.get("policy_evidence").is_none());
+    assert!(receipt.get("api_request").is_none());
+}
+
+#[test]
+fn csharp_03_t02_w09_inventory_and_routing_are_closed() {
+    let inventory = load("develop/migrations/csharp-03/artifact-consumer-inventory.json");
+    let edges = inventory["explicit_edges"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|edge| edge["migration_owner"] == "CSHARP-03-T02-W09")
+        .map(|edge| edge["id"].as_str().unwrap())
+        .collect::<BTreeSet<_>>();
+    assert_eq!(
+        edges,
+        PRIVATE_CONSUMER_INVENTORY_EDGES
+            .into_iter()
+            .collect::<BTreeSet<_>>()
+    );
+    assert_eq!(
+        inventory["identity_families"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|family| family["id"].as_str().unwrap())
+            .collect::<BTreeSet<_>>(),
+        PRIVATE_CONSUMER_FAMILIES
+            .into_iter()
+            .collect::<BTreeSet<_>>()
+    );
+    let receipt = load("develop/migrations/csharp-03/private-consumer-migration-receipt.json");
+    assert_eq!(receipt["work_item"], "CSHARP-03-T02-W09");
+    assert_eq!(receipt["status"], "complete_private_only");
+    assert_eq!(receipt["identity_closure"]["family_count"], 17);
+    assert_eq!(
+        receipt["consumer_edges"],
+        json!(PRIVATE_CONSUMER_INVENTORY_EDGES)
+    );
+    assert_eq!(receipt["release_consumer"]["tuple_count"], 5);
+    assert_eq!(receipt["release_consumer"]["materializes_candidate"], false);
+    assert_eq!(
+        receipt["release_consumer"]["reads_installed_release"],
+        false
+    );
+    assert!(receipt["release_consumer"]["validates"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .any(|value| value == "portable_member_identity_and_limits"));
+    assert!(receipt["successor_artifacts"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .any(|value| value == SUCCESSOR_SEMANTIC_BINDINGS_SCHEMA));
+    assert!(receipt["successor_artifacts"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .any(|value| value == SUCCESSOR_CLOSED_INSTANCES_SCHEMA));
+    assert_eq!(
+        receipt["foundation_gate"]["assembly_transport"],
+        "mpk.program_certificate.ordinary_context.v2"
+    );
+    assert_eq!(receipt["foundation_gate"]["required_axiom_count"], 0);
+    assert_eq!(receipt["absence"]["no_public_practical_route"], true);
+    assert_eq!(receipt["absence"]["no_dual_format_fallback"], true);
+
+    assert_eq!(
+        mpk_api::successor_api::SUCCESSOR_AI_API_PROFILE,
+        "mpk.ai.api.v2"
+    );
+    assert_eq!(mpk_api::successor_api::SUCCESSOR_ROUTES.len(), 33);
+    assert_ne!(
+        mpk_api::successor_api::SUCCESSOR_AI_API_PROFILE,
+        mpk_api::successor_api::PRIVATE_SUCCESSOR_AI_API_PROFILE
+    );
+
+    let main = String::from_utf8(read("crates/mpk-cli/src/main.rs")).unwrap();
+    assert!(!main.contains("close_private_successor_consumers"));
+    assert!(!main.contains(PRIVATE_CONSUMER_RECEIPT_SCHEMA));
+    let migration_source = String::from_utf8(read(
+        "crates/mpk-cli/src/csharp_practical_consumer_migration.rs",
+    ))
+    .unwrap();
+    for forbidden in [
+        "--artifact-version",
+        "--frontend-format",
+        "MPK_ARTIFACT_VERSION",
+        "build_private_successor_release_candidate",
+    ] {
+        assert!(
+            !migration_source.contains(forbidden),
+            "private consumer closure introduced {forbidden}"
+        );
+    }
+    assert!(!migration_source.contains(".or_else("));
 }

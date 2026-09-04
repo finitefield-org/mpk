@@ -751,3 +751,56 @@ impl Drop for OutputReservation {
         }
     }
 }
+
+/// Non-dispatchable W09 plan proving that the private CLI consumers all read
+/// the successor family. No argv spelling or public route is created here.
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub(crate) struct PrivateCliConsumerPlan {
+    semantic_profile: String,
+    consumed_schemas: Vec<String>,
+}
+
+impl PrivateCliConsumerPlan {
+    pub(crate) fn semantic_profile(&self) -> &str {
+        &self.semantic_profile
+    }
+
+    pub(crate) fn consumed_schemas(&self) -> &[String] {
+        &self.consumed_schemas
+    }
+}
+
+pub(crate) fn prepare_private_successor_cli_consumer(
+    semantic_profile: &str,
+    frontend_schema: &str,
+    policy_scan_schema: &str,
+    policy_evidence_schema: &str,
+    ai_request_schema: &str,
+) -> Result<PrivateCliConsumerPlan, &'static str> {
+    let recognized_profile =
+        mpk_vc::csharp_practical_registry::SuccessorCompiledSemanticProfile::from_semantic_profile(
+            semantic_profile,
+        )
+        .is_some();
+    let schemas = [
+        frontend_schema,
+        policy_scan_schema,
+        policy_evidence_schema,
+        ai_request_schema,
+    ];
+    if !recognized_profile
+        || schemas
+            != [
+                "mpk.frontend.success.v2",
+                "mpk.policy.scan.v3",
+                "mpk.policy.evidence.v3",
+                "mpk.ai.explain.request.v3",
+            ]
+    {
+        return Err("private CLI consumer identity");
+    }
+    Ok(PrivateCliConsumerPlan {
+        semantic_profile: semantic_profile.to_owned(),
+        consumed_schemas: schemas.into_iter().map(str::to_owned).collect(),
+    })
+}

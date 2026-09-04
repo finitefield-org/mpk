@@ -35,6 +35,16 @@ pub(crate) enum FrontendReleaseCode {
     SandboxUnavailable,
 }
 
+/// Test-injected successor release resolver used only by
+/// CSHARP-03-T02-W09's private consumer closure.
+pub(crate) fn validate_private_csharp_practical_release(
+    input: &[u8],
+    registry: &mpk_vc::csharp_practical_registry::ValidatedSuccessorRegistry,
+) -> Result<mpk_vc::csharp_practical_release::ValidatedPrivateReleaseRegistry, &'static str> {
+    mpk_vc::csharp_practical_release::validate_private_successor_release_registry(input, registry)
+        .map_err(|_| "private successor release rejected")
+}
+
 impl FrontendReleaseCode {
     pub(crate) const fn as_str(self) -> &'static str {
         match self {

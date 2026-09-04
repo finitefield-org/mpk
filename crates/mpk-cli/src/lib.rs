@@ -12,6 +12,8 @@ pub mod reference_checker;
 extern crate self as mpk_cli;
 
 #[doc(hidden)]
+pub mod csharp_practical_consumer_migration;
+#[doc(hidden)]
 pub mod csharp_practical_frontend_protocol;
 #[doc(hidden)]
 pub mod csharp_practical_migration;

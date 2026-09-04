@@ -32,8 +32,8 @@ by W08's reviewed binary-addressed Boolean-cube and static concrete-transformer
 expansion (ledger section 11). Both checkers accept all W09 capacity cases
 through each frozen limit plus one without a core change. W10 publishes the
 normative but inactive specifications and 700 vectors.
-`CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08` are complete,
-`CSHARP-03-T02-W09` is ready, and every later implementation work item remains
+`CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` are complete,
+`CSHARP-03-T03-W01` is ready, and every later implementation work item remains
 blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
@@ -103,7 +103,8 @@ completed the strict successor VIR importer and validator; see ledger section
 assembly models; see ledger section 19. T02-W07 then completed the private
 frontend protocol and complete artifact/inventory linkage; see ledger section
 20. T02-W08 then completed private migration of all four predecessor producers;
-see ledger section 21. T02-W09 is ready. This
+see ledger section 21. T02-W09 then completed the private consumer and
+foundation closure; see ledger section 22. T03-W01 is ready. This
 file remains planning material. W01 added its baseline and ledger; W02 added
 only the private consumer inventory, owner tests, ledger evidence, and current-
 status documentation; W03 added only private build-input evidence and its
@@ -896,7 +897,7 @@ accepted and rejected corpora.
 
 Depends on: T02-W08.
 
-Current status: `Ready`.
+Current status: `Complete`.
 
 Owns: private successor consumers in VC, certificate assembly, policy/evidence,
 CLI, release, AI explanation, API, fixture tooling, and documentation. The
@@ -942,6 +943,8 @@ dedup loops, and T04-W06 closes their actual-source emission evidence.
 ### CSHARP-03-T03-W01 — Extend capture, declaration accounting, and closure
 
 Depends on: T02-W09.
+
+Current status: `Ready`.
 
 Owns: selected source roots, immutable byte capture, encoding/path checks, all-
 declaration accounting for selected files, reachable method/type closure,

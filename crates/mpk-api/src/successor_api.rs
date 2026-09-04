@@ -1604,3 +1604,248 @@ fn vc_invalid(detail: impl Into<String>) -> SuccessorApiError {
         Some(detail),
     )
 }
+
+// CSHARP-03-T02-W09 keeps the v3 exchange detached from `SUCCESSOR_ROUTES`.
+// It is a typed consumer/linkage boundary for the private migration only;
+// T06-W11 owns the practical API behavior and T08-W10 owns public routing.
+#[doc(hidden)]
+pub const PRIVATE_SUCCESSOR_AI_API_PROFILE: &str = "mpk.ai.api.v3";
+#[doc(hidden)]
+pub const PRIVATE_SUCCESSOR_API_REQUEST_SCHEMA: &str = "mpk.ai.api.request.v3";
+#[doc(hidden)]
+pub const PRIVATE_SUCCESSOR_API_SESSION_SCHEMA: &str = "mpk.ai.api.session.v3";
+#[doc(hidden)]
+pub const PRIVATE_SUCCESSOR_API_RESPONSE_SCHEMA: &str = "mpk.ai.api.response.v3";
+
+#[derive(Clone, Copy, Debug)]
+#[doc(hidden)]
+pub struct PrivateSuccessorApiArtifactRef<'a> {
+    pub schema: &'a str,
+    pub sha256: &'a str,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+#[doc(hidden)]
+pub struct PrivateSuccessorApiExchange {
+    request: Vec<u8>,
+    session: Vec<u8>,
+    response: Vec<u8>,
+    request_sha256: String,
+    session_sha256: String,
+    response_sha256: String,
+}
+
+impl PrivateSuccessorApiExchange {
+    pub fn request(&self) -> &[u8] {
+        &self.request
+    }
+
+    pub fn session(&self) -> &[u8] {
+        &self.session
+    }
+
+    pub fn response(&self) -> &[u8] {
+        &self.response
+    }
+
+    pub fn request_sha256(&self) -> &str {
+        &self.request_sha256
+    }
+
+    pub fn session_sha256(&self) -> &str {
+        &self.session_sha256
+    }
+
+    pub fn response_sha256(&self) -> &str {
+        &self.response_sha256
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[doc(hidden)]
+pub enum PrivateSuccessorApiError {
+    Context,
+    Artifact,
+    Transport,
+    Linkage,
+}
+
+impl fmt::Display for PrivateSuccessorApiError {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(formatter, "private successor API {:?}", self)
+    }
+}
+
+impl Error for PrivateSuccessorApiError {}
+
+#[derive(Clone, Debug, Eq, PartialEq, Deserialize, Serialize)]
+#[serde(deny_unknown_fields)]
+struct PrivateApiArtifactRef {
+    schema: String,
+    sha256: String,
+}
+
+#[derive(Clone, Debug, PartialEq, Deserialize, Serialize)]
+#[serde(deny_unknown_fields)]
+struct PrivateApiRequest {
+    schema: String,
+    api_profile: String,
+    semantic_context: Value,
+    source_ir: PrivateApiArtifactRef,
+    source_vc: PrivateApiArtifactRef,
+}
+
+#[derive(Clone, Debug, PartialEq, Deserialize, Serialize)]
+#[serde(deny_unknown_fields)]
+struct PrivateApiSession {
+    schema: String,
+    api_profile: String,
+    semantic_context: Value,
+    request_sha256: String,
+    state: String,
+}
+
+#[derive(Clone, Debug, PartialEq, Deserialize, Serialize)]
+#[serde(deny_unknown_fields)]
+struct PrivateApiResponse {
+    schema: String,
+    api_profile: String,
+    semantic_context: Value,
+    session_sha256: String,
+    status: String,
+}
+
+/// Constructs and re-imports the private v3 API linkage documents.
+///
+/// The function intentionally has no method/path argument and cannot alter the
+/// released route table.
+#[doc(hidden)]
+pub fn build_private_successor_api_exchange(
+    semantic_context: &Value,
+    source_ir: PrivateSuccessorApiArtifactRef<'_>,
+    source_vc: PrivateSuccessorApiArtifactRef<'_>,
+) -> Result<PrivateSuccessorApiExchange, PrivateSuccessorApiError> {
+    if !private_api_context(semantic_context) {
+        return Err(PrivateSuccessorApiError::Context);
+    }
+    if source_ir.schema != "mpk.vir.v2"
+        || source_vc.schema != "mpk.vc.v3"
+        || !private_valid_sha256(source_ir.sha256)
+        || !private_valid_sha256(source_vc.sha256)
+    {
+        return Err(PrivateSuccessorApiError::Artifact);
+    }
+    let request = PrivateApiRequest {
+        schema: PRIVATE_SUCCESSOR_API_REQUEST_SCHEMA.to_owned(),
+        api_profile: PRIVATE_SUCCESSOR_AI_API_PROFILE.to_owned(),
+        semantic_context: semantic_context.clone(),
+        source_ir: PrivateApiArtifactRef {
+            schema: source_ir.schema.to_owned(),
+            sha256: source_ir.sha256.to_owned(),
+        },
+        source_vc: PrivateApiArtifactRef {
+            schema: source_vc.schema.to_owned(),
+            sha256: source_vc.sha256.to_owned(),
+        },
+    };
+    let request_bytes = private_api_encode(&request)?;
+    let request_sha256 = mpk_vc::sha256_raw_file_bytes(&request_bytes).to_hex();
+    let session = PrivateApiSession {
+        schema: PRIVATE_SUCCESSOR_API_SESSION_SCHEMA.to_owned(),
+        api_profile: PRIVATE_SUCCESSOR_AI_API_PROFILE.to_owned(),
+        semantic_context: semantic_context.clone(),
+        request_sha256: request_sha256.clone(),
+        state: "private_validated".to_owned(),
+    };
+    let session_bytes = private_api_encode(&session)?;
+    let session_sha256 = mpk_vc::sha256_raw_file_bytes(&session_bytes).to_hex();
+    let response = PrivateApiResponse {
+        schema: PRIVATE_SUCCESSOR_API_RESPONSE_SCHEMA.to_owned(),
+        api_profile: PRIVATE_SUCCESSOR_AI_API_PROFILE.to_owned(),
+        semantic_context: semantic_context.clone(),
+        session_sha256: session_sha256.clone(),
+        status: "ready".to_owned(),
+    };
+    let response_bytes = private_api_encode(&response)?;
+    let response_sha256 = mpk_vc::sha256_raw_file_bytes(&response_bytes).to_hex();
+    validate_private_successor_api_exchange(&request_bytes, &session_bytes, &response_bytes)?;
+    Ok(PrivateSuccessorApiExchange {
+        request: request_bytes,
+        session: session_bytes,
+        response: response_bytes,
+        request_sha256,
+        session_sha256,
+        response_sha256,
+    })
+}
+
+#[doc(hidden)]
+pub fn validate_private_successor_api_exchange(
+    request: &[u8],
+    session: &[u8],
+    response: &[u8],
+) -> Result<(), PrivateSuccessorApiError> {
+    let request: PrivateApiRequest = private_api_decode(request)?;
+    let session: PrivateApiSession = private_api_decode(session)?;
+    let response: PrivateApiResponse = private_api_decode(response)?;
+    if request.schema != PRIVATE_SUCCESSOR_API_REQUEST_SCHEMA
+        || session.schema != PRIVATE_SUCCESSOR_API_SESSION_SCHEMA
+        || response.schema != PRIVATE_SUCCESSOR_API_RESPONSE_SCHEMA
+        || request.api_profile != PRIVATE_SUCCESSOR_AI_API_PROFILE
+        || session.api_profile != PRIVATE_SUCCESSOR_AI_API_PROFILE
+        || response.api_profile != PRIVATE_SUCCESSOR_AI_API_PROFILE
+        || !private_api_context(&request.semantic_context)
+        || request.semantic_context != session.semantic_context
+        || request.semantic_context != response.semantic_context
+        || request.source_ir.schema != "mpk.vir.v2"
+        || request.source_vc.schema != "mpk.vc.v3"
+        || !private_valid_sha256(&request.source_ir.sha256)
+        || !private_valid_sha256(&request.source_vc.sha256)
+        || session.request_sha256
+            != mpk_vc::sha256_raw_file_bytes(&private_api_encode(&request)?).to_hex()
+        || response.session_sha256
+            != mpk_vc::sha256_raw_file_bytes(&private_api_encode(&session)?).to_hex()
+        || session.state != "private_validated"
+        || response.status != "ready"
+    {
+        return Err(PrivateSuccessorApiError::Linkage);
+    }
+    Ok(())
+}
+
+fn private_api_encode<T: Serialize>(value: &T) -> Result<Vec<u8>, PrivateSuccessorApiError> {
+    serde_json::to_vec(value).map_err(|_| PrivateSuccessorApiError::Transport)
+}
+
+fn private_api_context(value: &Value) -> bool {
+    serde_json::to_vec(value).is_ok_and(|transport| {
+        mpk_vc::csharp_practical_registry::validate_successor_registry_document(
+            mpk_vc::csharp_practical_registry::SuccessorRegistryDocumentKind::SemanticContext,
+            &transport,
+        )
+        .is_ok()
+    })
+}
+
+fn private_api_decode<T: DeserializeOwned + Serialize>(
+    input: &[u8],
+) -> Result<T, PrivateSuccessorApiError> {
+    parse_strict_json(
+        input,
+        StrictJsonLimits::new(1_048_576, 1_048_576, 32, 1_048_576),
+    )
+    .map_err(|_| PrivateSuccessorApiError::Transport)?;
+    let value: T =
+        serde_json::from_slice(input).map_err(|_| PrivateSuccessorApiError::Transport)?;
+    if private_api_encode(&value)? != input {
+        return Err(PrivateSuccessorApiError::Transport);
+    }
+    Ok(value)
+}
+
+fn private_valid_sha256(value: &str) -> bool {
+    value.len() == 64
+        && value
+            .bytes()
+            .all(|byte| byte.is_ascii_digit() || (b'a'..=b'f').contains(&byte))
+}
