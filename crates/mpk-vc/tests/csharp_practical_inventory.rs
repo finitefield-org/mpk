@@ -9,10 +9,12 @@ const INVENTORY_PATH: &str = "develop/migrations/csharp-03/artifact-consumer-inv
 const LEDGER_PATH: &str = "develop/docs/csharp-03-implementation-traceability-ledger.md";
 const PLAN_PATH: &str = "develop/docs/08_csharp_practical_subset_design-todo.md";
 const W10_PACKAGE_PATH: &str = "develop/specs/vectors/csharp-practical-profile-v1.json";
-const POST_FREEZE_IMPLEMENTATION_PATHS: [&str; 4] = [
+const POST_FREEZE_IMPLEMENTATION_PATHS: [&str; 6] = [
     "crates/mpk-vc/src/csharp_practical_registry.rs",
+    "crates/mpk-vc/src/csharp_practical_source_artifacts.rs",
     "crates/mpk-vc/src/csharp_practical_vir_model.rs",
     "crates/mpk-vc/tests/csharp_practical_registry.rs",
+    "crates/mpk-vc/tests/csharp_practical_source_artifacts.rs",
     "crates/mpk-vc/tests/csharp_practical_vir_model.rs",
 ];
 
@@ -174,8 +176,8 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             | "CSHARP-03-T01-W04" | "CSHARP-03-T01-W05" | "CSHARP-03-T01-W06"
             | "CSHARP-03-T01-W07" | "CSHARP-03-T01-W08" | "CSHARP-03-T01-W09"
             | "CSHARP-03-T01-W10" | "CSHARP-03-T02-W01" | "CSHARP-03-T02-W02"
-            | "CSHARP-03-T02-W03" => "Complete",
-            "CSHARP-03-T02-W04" => "Ready",
+            | "CSHARP-03-T02-W03" | "CSHARP-03-T02-W04" => "Complete",
+            "CSHARP-03-T02-W05" => "Ready",
             _ => "Blocked",
         };
         assert_eq!(row.status, expected_status, "status drift for {work_item}");
@@ -192,7 +194,8 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             "CSHARP-03-T01-W10" => "d4459f16562c9f5a7d4d0074571c9d0af17c0dd5",
             "CSHARP-03-T02-W01" => "4a9e8afef62eaf54a8184119b4e62e50cb73de06",
             "CSHARP-03-T02-W02" => "026243eae673672c45ed96d348b3248afcde40b5",
-            "CSHARP-03-T02-W03" => "SELF",
+            "CSHARP-03-T02-W03" => "cb2c2eb419adceaf84d4b610a19deb4b8205bf96",
+            "CSHARP-03-T02-W04" => "SELF",
             _ => "—",
         };
         assert_eq!(
@@ -279,6 +282,24 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
         "First-pass review findings: `11`",
         "Verification follow-up findings: `3`",
         "T02-W04 is the sole ready item.",
+        "## 17. CSHARP-03-T02-W04 completion record",
+        "all six W04 owner tests, including all 16 frozen schema vectors",
+        "input and output references deliberately cannot pass",
+        "The closed-instance artifact does not trust a supplied table",
+        "Source-map declarations initially trusted caller-supplied declaration IDs",
+        "including a sidecar. Type, method, and semantic-binding artifacts now require",
+        "Canonical source names and namespaces initially reused the wider internal-ID",
+        "Canonical JSON strings initially used only Rust UTF-8 `String`",
+        "Both UTF-8 scalar and UTF-16-unit writers now stop",
+        "Individual semantic bindings initially used an implementation-invented",
+        "Canonical declaration IDs initially included the compilation ID",
+        "First-pass review findings: `12`",
+        "all twelve published W08 positive",
+        "Ordered-unique contract-member arrays initially rejected only adjacent",
+        "Boundary input capture initially treated original adapter bytes",
+        "The manifest builder initially relied on semantic-context equality alone",
+        "Verification follow-up findings: `14`",
+        "T02-W05 is the sole",
         "Final review findings: `0`",
     ] {
         assert!(ledger.contains(required), "ledger is missing {required}");

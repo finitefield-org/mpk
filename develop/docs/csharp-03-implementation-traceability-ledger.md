@@ -1,7 +1,7 @@
 # CSHARP-03 Implementation Traceability Ledger
 
 Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10` and
-`CSHARP-03-T02-W01/W02/W03` complete (2026-09-04). The entry audit, consumer inventory,
+`CSHARP-03-T02-W01/W02/W03/W04` complete (2026-09-04). The entry audit, consumer inventory,
 private frontend/toolchain closure proof,
 Roslyn shape probes, primitive/string/numeric/codec runtime measurements and
 candidate foundation/specialization/binding/data semantics and the successor
@@ -18,9 +18,12 @@ root-driven closed specialization, concrete expansion, and canonical
 monomorphic values behind the same private boundary. T02-W03 adds the closed
 operation/check, linear-construction, application-binding commutation,
 control/pattern, and explicit-exception vocabulary behind that boundary.
-`CSHARP-03-T02-W04` is ready and all later implementation items remain
-serially blocked. No public production acceptance path, installed candidate,
-or active registry entry was introduced.
+T02-W04 implements the context-bound successor source artifacts, semantic
+bindings, closed operation/check tables, immutable input capture, source map,
+both manifest stages, and boundary byte/value linkage behind that boundary.
+`CSHARP-03-T02-W05` is ready and all later implementation items remain serially
+blocked. No public production acceptance path, installed candidate, or active
+registry entry was introduced.
 
 This ledger is subordinate to
 [`08_csharp_practical_subset_design.md`](08_csharp_practical_subset_design.md)
@@ -64,9 +67,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T01-W10` | `Complete` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W10` | `d4459f16562c9f5a7d4d0074571c9d0af17c0dd5` |
 | `CSHARP-03-T02-W01` | `Complete` | `crates/mpk-vc/tests/csharp_practical_registry.rs#CSHARP-03-T02-W01` | `4a9e8afef62eaf54a8184119b4e62e50cb73de06` |
 | `CSHARP-03-T02-W02` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W02` | `026243eae673672c45ed96d348b3248afcde40b5` |
-| `CSHARP-03-T02-W03` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W03` | `SELF` |
-| `CSHARP-03-T02-W04` | `Ready` | `crates/mpk-vc/tests/csharp_practical_source_artifacts.rs#CSHARP-03-T02-W04` | `—` |
-| `CSHARP-03-T02-W05` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vir_validation.rs#CSHARP-03-T02-W05` | `—` |
+| `CSHARP-03-T02-W03` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W03` | `cb2c2eb419adceaf84d4b610a19deb4b8205bf96` |
+| `CSHARP-03-T02-W04` | `Complete` | `crates/mpk-vc/tests/csharp_practical_source_artifacts.rs#CSHARP-03-T02-W04` | `SELF` |
+| `CSHARP-03-T02-W05` | `Ready` | `crates/mpk-vc/tests/csharp_practical_vir_validation.rs#CSHARP-03-T02-W05` | `—` |
 | `CSHARP-03-T02-W06` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc_model.rs#CSHARP-03-T02-W06` | `—` |
 | `CSHARP-03-T02-W07` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_frontend_protocol.rs#CSHARP-03-T02-W07` | `—` |
 | `CSHARP-03-T02-W08` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_migration.rs#CSHARP-03-T02-W08` | `—` |
@@ -2127,3 +2130,226 @@ paths; absence of iterator/async/scheduler vocabulary; W04 artifact-table
 ownership; predecessor preservation; non-activation; documentation state;
 formatting, lint, focused regressions, and the complete local fast gate.
 T02-W04 is the sole ready item.
+
+## 17. CSHARP-03-T02-W04 completion record
+
+### 17.1 Canonical artifacts and closed context linkage
+
+W04 adds the Rustdoc-hidden, explicitly invoked
+`crates/mpk-vc/src/csharp_practical_source_artifacts.rs` implementation and its
+sole owner test. The implementation preserves the practical schemas' frozen
+field order rather than applying lexicographic object-key sorting. Its strict
+JSON transport rejects duplicate, missing, unknown, reordered, wrong-typed,
+noncanonical, over-16-MiB, and over-128-level inputs; retains the full unsigned
+64-bit range; writes every U+0000 through U+001F code point with the frozen
+lowercase `\uXXXX` spelling; and preserves lone UTF-16 surrogates in that same
+form while requiring shortest UTF-8 for valid surrogate pairs.
+
+A `PracticalArtifactContext` can be created only from a W01-validated practical
+semantic request and the W02-validated registered foundation. It retains the
+full semantic context, compilation identity, selection hash, normalized source
+and sidecar paths, selected roots, foundation identity/content hash, and a
+canonical private linkage key. Artifact references have private fields and are
+created only from a validated artifact or from one of the exact opaque
+successor VIR, VC, and certificate-skeleton identities owned by later tasks.
+Every built artifact repeats and validates the same context, compilation,
+selection, foundation, schema, and predecessor linkage. W04 introduces no new
+hash domain beyond the T01-W09 frozen inventory and does not install or expose
+a candidate route.
+
+Context equality alone is not accepted as artifact lineage. Validated private
+references retain their captured input-set identity and source artifact body;
+the manifest builder rechecks the exact operation/check/closed-instance,
+source-map/VIR, boundary-capture/contract, selection, and input-snapshot links
+before it serializes any reference.
+
+The strict contract validator covers the frozen selection, type, method,
+semantic-binding, boundary-contract, and transition-contract roots. Boundary
+input and output references deliberately cannot pass through that general
+path: only their retained-byte/value builders can create them, preventing a
+caller from asserting boundary evidence without the original transport or
+reparsed result.
+
+### 17.2 Complete source, binding, specialization, and operation accounting
+
+Original-input capture requires exactly every selected source and sidecar path
+once, normalizes each relative path, owns the unchanged bytes, records its raw
+SHA-256, and invokes the existing `MPK-INPUT-SET-0.1` input-set algorithm.
+Semantic binding entries preserve W08's exact eleven fields: source type/hash,
+role-specific member and tag maps, ordered inferred arguments, exact default,
+fixed bound, operation map, and binding hash. Entry hashes retain W08's sorted-
+object canonical preimage while the enclosing context/compilation-bound set
+uses the successor schema-ordered form. Duplicate source types, unknown roles
+or operations, noncanonical/colliding tag carriers, wrong role members,
+defaults, argument arities, or bounds, and more than 128 entries reject. Source
+types, stored members, concrete arguments, and mapped source callables must use
+their exact frozen canonical ID families; all twelve published W08 positive
+binding specimens pass the production artifact validator.
+
+The closed-instance artifact does not trust a supplied table. It invokes W02's
+whole-set validator against the supplied root/provenance set and closed bytes,
+then requires every instance's provenance identity to name one of those roots.
+The concrete operation/check builders invoke W03 signature validation, require
+exactly every operation expanded by that registered closed set once, reject
+extra or conflicting definitions, deduplicate identical checks, and hash-link
+the check table, operation table, closed instances, foundation, and practical
+context. No template, constructed generic, caller allowlist, or unregistered
+foundation value is emitted.
+
+### 17.3 Source maps, manifests, and boundary evidence
+
+The source map reuses the W08 declaration and stored-member identity builders,
+requires every supplied reachable identity and provenance label once, rejects
+duplicate VIR node IDs, checks selected-root coverage and captured-file
+ordinals, and bounds every byte span by its immutable input. A declaration ID
+hashes only its logical signature. Its separate provenance hash uses exactly
+the declaration ID, normalized path, captured source hash, byte start, and byte
+length; compilation and caller labels cannot alter either frozen preimage.
+Declaration provenance and the complete map are then hashed under only their
+frozen domains.
+
+The frontend manifest links the exact selection, input set, type/method/
+semantic/boundary/transition artifacts, registered foundation, derived closed
+instances, concrete operations/checks, successor VIR, and source map. The
+certificate manifest extends that exact frontend manifest with its successor
+VC and certificate-skeleton references. The final
+`mpk.frontend.source_artifacts.v2` builder reopens the validated frontend
+manifest and requires every repeated reference, context member, selection,
+binding, map, foundation, and boundary/transition member to agree before
+computing the root hash.
+
+Boundary input capture retains the exact original adapter/input bytes, their
+provenance, raw hash, and size separately from the canonical verification
+document. Only the latter is parsed into the typed value and supplies the
+canonical document/value hashes; both identities enter the enclosing capture
+hash. Boundary output capture canonicalizes
+the typed source value, reparses it, requires field-complete equality, and
+links the source value, reparsed value, canonical output bytes, and all hashes.
+Dedicated validators rebuild each complete capture from the retained evidence;
+byte, value, output, context, contract, or hash substitution rejects.
+
+### 17.4 Verification and review
+
+Completed local verification:
+
+| Command | Result |
+| --- | --- |
+| `python3 develop/probes/csharp-03/foundation_package.py --check` | pass: exact registered foundation and 2,051 vectors |
+| `python3 develop/probes/csharp-03/profile_package.py --check` | pass: 10 freeze owners, 63 downstream owners, and 700 vectors |
+| `cargo test -p mpk-vc --test csharp_practical_source_artifacts` | pass: all six W04 owner tests, including all 16 frozen schema vectors and all 12 published positive W08 binding specimens |
+| `cargo test -p mpk-vc` | pass: complete `mpk-vc` regression suite |
+| `cargo test -p mpk-cli --test successor_atomic_cutover` | pass: candidate remains unavailable to installed routes |
+| `cargo clippy -p mpk-vc --all-targets -- -D warnings` | pass |
+| `cargo fmt --all -- --check` | pass |
+| `./scripts/check-fast.sh` | pass |
+| `/usr/bin/git diff --check` | pass |
+
+First-pass review findings: `12`.
+
+- Generic validation initially allowed boundary-input/output artifacts without
+  retained raw/reparsed evidence. Those schemas now reject on the general path
+  and can be constructed only by the dedicated evidence builders.
+- Closed-instance linkage initially checked provenance membership without
+  rederiving the complete set from the supplied roots. It now invokes W02's
+  independent whole-set validator before creating the artifact.
+- Original-input capture initially recomposed the frozen input-set domain with
+  a new preimage. It now calls the existing exact `MPK-INPUT-SET-0.1`
+  implementation.
+- Semantic-binding root validation initially underchecked nested members, arm
+  mappings, bounds, dependencies, and type arguments. Each nested record now
+  has an exact field/type/order/identity validator.
+- The first context linkage used an implementation-private hash-domain name.
+  It now uses the canonical bytes of the complete validated linkage tuple, so
+  every emitted hash domain is present in the frozen inventory.
+- Source-map declarations initially trusted caller-supplied declaration IDs.
+  They now repeat the full declaration identity and independently recompute its
+  frozen-domain hash.
+- Source-content linkage initially accepted the raw hash of any captured input,
+  including a sidecar. Type, method, and semantic-binding artifacts now require
+  that the digest names captured source bytes; an exact sidecar-hash
+  substitution is a regression case.
+- Canonical source names and namespaces initially reused the wider internal-ID
+  character set. They now independently enforce the scalar C# ASCII identifier
+  grammar and dot-separated namespace components; punctuation aliases and
+  empty namespace components reject.
+- Canonical JSON strings initially used only Rust UTF-8 `String`, which cannot
+  retain a lone UTF-16 surrogate. A bounded reversible parse path now carries
+  exact UTF-16 units, emits lone surrogates as lowercase `\uXXXX`, and rejects
+  escaped valid pairs because their canonical form is shortest UTF-8.
+- Canonical output initially checked the transport limit after appending a
+  complete string. Both UTF-8 scalar and UTF-16-unit writers now stop at the
+  first character that exceeds 16 MiB, including object-key output.
+- Individual semantic bindings initially used an implementation-invented
+  context, compilation, binding ID, version, dependency, and array-record
+  shape. They now use exactly W08's eleven fields and role inventories,
+  preserve ordered (including equal) inferred arguments, and reproduce the
+  published sorted-object binding hash inside the schema-ordered successor
+  root.
+- Canonical declaration IDs initially included the compilation ID and source-
+  map provenance initially hashed a caller label and ordinal-bearing location.
+  The source map now reuses the published logical declaration/stored-member ID
+  builders and hashes the exact path/source-hash/start/length provenance tuple.
+
+Verification follow-up findings: `14`.
+
+- The first aggregate frozen-vector helper inverted the remove-each and
+  wrong-type result aggregation. It now accepts the vector only when every
+  required mutation rejects with the expected code.
+- Clippy found an over-wide manifest-builder argument list. Related links now
+  travel in one typed `FrontendSourceArtifactLinks` record.
+- Clippy found an owned-vector API where a borrowed slice is sufficient. The
+  reference-normalization helper now accepts a slice.
+- Historical T01-W02 repository fingerprints initially classified the two new
+  post-freeze W04 owner paths as frozen-input drift. The inventory owner now
+  excludes those exact implementation paths, while the frozen inventory bytes
+  and fingerprints remain unchanged.
+- The first ledger-evidence assertion spanned a Markdown line break and could
+  not match the intended sentence. It now checks a stable contiguous phrase
+  while retaining the exact W04 evidence requirement.
+- The source-only capture helper rename initially left one builder precheck at
+  the former method name. Compilation caught it; both construction and import
+  paths now invoke the same source-only predicate.
+- Two broad count-only documentation edits temporarily matched earlier W01/W02
+  completion records. The final ledger review restored those immutable counts
+  and scoped the W04 counters to section 17.
+- Semantic-binding fields initially accepted generic vocabulary strings where
+  W08 requires canonical source-declaration, stored-member, concrete-type, and
+  source-callable ID families. The structural validator now enforces those
+  families, and the owner test imports all twelve published positive bindings.
+- Ordered-unique contract-member arrays initially rejected only adjacent
+  duplicates. Their validator now rejects a repeated member at any position,
+  with a nonadjacent regression mutation.
+- Boundary input capture initially treated original adapter bytes as the
+  canonical verification document. It now retains and hashes them separately,
+  parses only the independently supplied canonical document, and detects a
+  substitution on either side.
+- The manifest builder initially relied on semantic-context equality alone, so
+  artifacts from another input snapshot, VIR, closed-instance/check table, or
+  boundary contract in the same context could be combined. Private references
+  now retain lineage and every cross-artifact edge is reopened and compared.
+- Frontend-manifest input rows initially renamed the retained input-set fields
+  and represented a verification-overlay sidecar as `sidecar`, even though the
+  hash used the unchanged `MPK-INPUT-SET-0.1` `contract` row. The emitted rows
+  now use the exact retained `kind`, `normalized_path`, `size_bytes`, and
+  `sha256` preimage, and the owner test independently recomputes the manifest
+  hash from those rows.
+- After the retained row shape was restored, input capture still ordered rows
+  by kind before path, while the retained source-manifest validator orders by
+  normalized path before kind. Capture and its regression assertion now use
+  that exact canonical order, so the emitted preimage is directly importable.
+- Declaration identities, contracts, source-map nodes, and boundary captures
+  initially admitted broad printable strings in fields whose frozen types are
+  compilation IDs, canonical source IDs, canonical member IDs, provenance IDs,
+  or schema-owned canonical IDs. Each field now enforces its exact family and
+  grammar before hashing or linkage, with malformed-family and malformed-
+  grammar regressions.
+
+Final review findings: `0`. The final pass rechecks W04-only private scope;
+canonical field order and JSON tokens; exact frozen identities and domains;
+context, selection, compilation, source, foundation, and schema isolation;
+complete source/input/declaration/provenance accounting; closed-set
+rederivation; operation/check completeness; boundary byte/value/reparse
+linkage; source-map and two-manifest chains; generic-free output; predecessor
+preservation; non-activation; formatting, lint, focused mutations, all
+`mpk-vc` regressions, and the complete local fast gate. T02-W05 is the sole
+ready item.
