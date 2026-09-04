@@ -14,8 +14,9 @@ T02-W03 completed the operation and explicit-control vocabulary, T02-W04
 completed successor source artifacts and linkage, T02-W05 completed the strict
 successor VIR importer, T02-W06 completed the successor VC/skeleton and
 ordinary-context assembly models, T02-W07 completed the candidate-only
-frontend protocol and complete artifact/inventory linkage, and T02-W08 is
-ready, while activation remains blocked
+frontend protocol and complete artifact/inventory linkage, and T02-W08
+completed private migration of all four predecessor producers into the sole
+successor artifact family. T02-W09 is ready, while activation remains blocked
 through T08-W10.
 
 Prepared: 2026-09-02. Revised: 2026-09-05.
@@ -148,7 +149,9 @@ completed the strict successor VIR importer, T02-W06 has completed the
 successor VC/skeleton and ordinary-context assembly models, and T02-W07 has
 completed the candidate-only request/result protocol, sanitized diagnostics,
 and complete source-artifact/input-set linkage without changing the installed
-revision-3 route; T02-W08 is ready. DART-04
+revision-3 route; T02-W08 has completed private predecessor-producer migration
+without adding a public format selector or installed route, and T02-W09 is
+ready. DART-04
 waits for the complete CSHARP-03 release gate. This
 insertion records the user value of making the already released C# frontend
 useful for business-domain logic before adding another language; it does not
@@ -2202,12 +2205,13 @@ proof, and Roslyn data/construction/control/exception/pattern/dependency/
 generic/iterator/async-rejection plus primitive/string/numeric/codec runtime
 measurements, foundation semantics, and the successor contract/identity/limit
 freeze and normative publication; the section 4 amendment resolves F01.
-`CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07` have completed the private successor
+`CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08` have completed the private successor
 registry/context, registered foundation, closed specialization,
 monomorphic-value foundation, operation/explicit-control vocabulary,
 successor source-artifact/linkage implementation, strict successor VIR import,
-and successor VC/skeleton and ordinary-context assembly models;
-`CSHARP-03-T02-W08` is ready. Each later work item remains blocked
+successor VC/skeleton and ordinary-context assembly models, and migration of
+all four predecessor producers; `CSHARP-03-T02-W09` is ready. Each later work
+item remains blocked
 until its serial predecessor and task-local entry gate are satisfied.
 No task may reintroduce a source-visible `Mpk.*` API, user-defined generic,
 iterator, or async scope.

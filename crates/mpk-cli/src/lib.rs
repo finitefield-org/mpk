@@ -13,6 +13,8 @@ extern crate self as mpk_cli;
 
 #[doc(hidden)]
 pub mod csharp_practical_frontend_protocol;
+#[doc(hidden)]
+pub mod csharp_practical_migration;
 #[allow(dead_code)]
 pub mod frontend_protocol;
 mod frontend_registry;

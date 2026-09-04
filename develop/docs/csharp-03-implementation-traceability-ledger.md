@@ -1,7 +1,7 @@
 # CSHARP-03 Implementation Traceability Ledger
 
 Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10` and
-`CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07` complete (2026-09-05). The entry audit, consumer inventory,
+`CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08` complete (2026-09-05). The entry audit, consumer inventory,
 private frontend/toolchain closure proof,
 Roslyn shape probes, primitive/string/numeric/codec runtime measurements and
 candidate foundation/specialization/binding/data semantics and the successor
@@ -30,7 +30,10 @@ and the proof-empty, theory-empty, zero-axiom ordinary-context assembly
 profile. T02-W07 implements the candidate-only successor frontend request/result
 protocol, exact source/sidecar inventory, sanitized phase-ordered diagnostics,
 artifact-free failure, and complete source-map/manifest/input-set lineage.
-`CSHARP-03-T02-W08` is ready and all later implementation items remain serially
+T02-W08 implements private, typed migration of all four predecessor producers,
+regenerates the sole v2 artifact family with exact successor context and hashes,
+and pins complete-corpus equivalence in four semantic-difference reports.
+`CSHARP-03-T02-W09` is ready and all later implementation items remain serially
 blocked. No public production acceptance path, installed candidate, or active
 registry entry was introduced.
 
@@ -80,9 +83,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T02-W04` | `Complete` | `crates/mpk-vc/tests/csharp_practical_source_artifacts.rs#CSHARP-03-T02-W04` | `c487b098403c326d1802fe9ea6d43ff8e76e5b80` |
 | `CSHARP-03-T02-W05` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vir_validation.rs#CSHARP-03-T02-W05` | `816280dc5ea298f6b215c63ae7185f89f0a240a9` |
 | `CSHARP-03-T02-W06` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc_model.rs#CSHARP-03-T02-W06` | `3a3da6af26e301f95692dd787a8920b58fafb566` |
-| `CSHARP-03-T02-W07` | `Complete` | `crates/mpk-cli/tests/csharp_practical_frontend_protocol.rs#CSHARP-03-T02-W07` | `SELF` |
-| `CSHARP-03-T02-W08` | `Ready` | `crates/mpk-cli/tests/csharp_practical_migration.rs#CSHARP-03-T02-W08` | `—` |
-| `CSHARP-03-T02-W09` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_migration.rs#CSHARP-03-T02-W09` | `—` |
+| `CSHARP-03-T02-W07` | `Complete` | `crates/mpk-cli/tests/csharp_practical_frontend_protocol.rs#CSHARP-03-T02-W07` | `ed9054603eec5d410c59a708ee81d79052ee27d1` |
+| `CSHARP-03-T02-W08` | `Complete` | `crates/mpk-cli/tests/csharp_practical_migration.rs#CSHARP-03-T02-W08` | `SELF` |
+| `CSHARP-03-T02-W09` | `Ready` | `crates/mpk-cli/tests/csharp_practical_migration.rs#CSHARP-03-T02-W09` | `—` |
 | `CSHARP-03-T03-W01` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_capture.rs#CSHARP-03-T03-W01` | `—` |
 | `CSHARP-03-T03-W02` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_syntax.rs#CSHARP-03-T03-W02` | `—` |
 | `CSHARP-03-T03-W03` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W03` | `—` |
@@ -2866,3 +2869,171 @@ phase/location sorting and budgets; public-data sanitization; one-line
 transport and exit mapping; fuzz/mutation/limit behavior; predecessor
 preservation; non-activation; formatting, warning-denied lint, focused
 regressions, and the complete local fast gate. T02-W08 is the sole ready item.
+
+## 21. CSHARP-03-T02-W08 completion record
+
+### 21.1 Private predecessor boundary and sole successor output
+
+W08 adds the Rustdoc-hidden `csharp_practical_migration` module to `mpk-cli`.
+It has no runner, CLI command, registry lookup, environment switch, fallback,
+or installed release route. Its migration entry accepts only an already
+validated active revision-3 frontend envelope, a separately validated
+revision-4 request, and the immutable captured input bytes. Source language,
+semantic profile, semantic parameters, selection, active predecessor registry,
+and registered successor foundation descriptor must all match. The private C#
+dispatch has exactly the scalar-v0 and practical-v1 arms and rejects every
+ambient selector and non-C# profile.
+
+For each accepted predecessor envelope, the adapter canonically regenerates
+the `mpk.frontend.request.v2`, `mpk.vir.v2`, `mpk.source_map.v2`,
+`mpk.source_manifest.frontend.v2`, empty context-bound semantic-binding and
+closed-instance roots, `mpk.frontend.source_artifacts.v2`, and
+`mpk.frontend.success.v2` artifacts. It replaces every contract context with
+the complete validated revision-4 context, recomputes every changed hash with
+the frozen successor domain, and preserves the original captured-input set,
+unit behavior, and obligation projection. A predecessor receives zero
+practical closed instances and the equivalence receipt records zero axioms.
+The retained input and artifact limits are enforced both before parsing old
+bytes and after canonical successor regeneration.
+
+Every predecessor failure becomes one artifact-free
+`mpk.frontend.diagnostic.v2` document. Only the fixed public message and typed
+family escape; predecessor compiler prose, paths, snippets, stack text, and
+generated names do not. The root phase is derived from the predecessor phase
+and must equal the frozen phase of its diagnostic family. Both success and
+failure transports are one canonical JSON document followed by one LF. The 34
+W08 schema vectors execute the same strict production validator used on every
+generated result rather than a test-local shape approximation.
+
+### 21.2 Complete-corpus equivalence and reports
+
+The primary owner executes all 178 W08 vectors: 34 diagnostic, 4 dispatch, 10
+frontend-linkage, 96 retained-limit, and 34 schema cases. It directly migrates
+the 13 accepted and 8 rejected checked-in Go frontend cases twice and the 13
+accepted checked-in Rust artifacts plus all 73 frozen Rust rejection cases
+twice. The scalar C# and Java paths bind all 30/88 and 49/99 accepted/rejected
+case IDs respectively to their established real-frontend owners; every
+rejected case is directly migrated twice. Their accepted real-frontend and
+interpreter/VC/checker executions remain the pinned Linux/cache-gated owners,
+while W08 composes those frozen results with the same typed migration adapter
+whose accepted branch is exercised by every Go and Rust artifact.
+
+The four checked-in reports are:
+
+- `develop/migrations/csharp-03/predecessor-producer-csharp-scalar-difference.json`
+  (raw SHA-256
+  `33f9b44a9ff234722b9e3b134130899af570c08bf30525e245405983a0a2f2ce`);
+- `develop/migrations/csharp-03/predecessor-producer-go-difference.json`
+  (raw SHA-256
+  `401eb7ada97db2c7f4f61064e4f34970a103f79648a09546d460719e65ca57e2`);
+- `develop/migrations/csharp-03/predecessor-producer-java-difference.json`
+  (raw SHA-256
+  `38daf161d97e20ec230b476c159c13c3513acd323112122657ea6d331b8282d5`);
+- `develop/migrations/csharp-03/predecessor-producer-rust-difference.json`
+  (raw SHA-256
+  `9b2dccfa71f7870b714102d05a11a38a111cab5497ccc40e79866d8cbb3bcd6e`).
+
+Each report binds the exact corpus bytes and case-ID digest, the real frontend
+and interpreter/VC/checker owner, two-run equality, the v1-to-v2 artifact
+identities, zero behavior/obligation/verdict/axiom differences, zero practical
+foundation instances, unchanged Certificate v0, and absence of a public
+selector or installed route. The adapter and primary owner raw SHA-256 values
+at completion are respectively
+`bcbdd41bfb06cd7171169757e57b7cf486d191170384b8017c0feaa13947b930`
+and
+`cacdf3612a64d5701ada23f27696f63671ba9af7d08f4ad6968cdc286e896930`.
+
+### 21.3 Verification and review
+
+Completed local verification on Darwin arm64:
+
+| Command | Result |
+| --- | --- |
+| `python3 develop/probes/csharp-03/foundation_package.py --check` | pass: exact registered foundation and 2,051 vectors |
+| `python3 develop/probes/csharp-03/run-checker-capacity-probe.py --check` | pass: all 48 dual-checker capacity invocations remain accepted |
+| `python3 develop/probes/csharp-03/run-recursor-probe.py --check` | pass: all 60 dual-checker feasibility verdicts remain unchanged |
+| `python3 develop/probes/csharp-03/profile_freeze.py --check` | pass: 17 identity families, 15 strict schemas, 35 practical limits, and 700 vectors |
+| `python3 develop/probes/csharp-03/profile_package.py --check` | pass: 10 freeze owners, 63 downstream owners, and 700 vectors |
+| `python3 scripts/check-spec-vectors.py --check` | pass: all 26 registered specification-vector hashes |
+| `cargo test -p mpk-cli --test csharp_practical_migration` | pass: all seven W08 owner tests and all 178 owned vectors |
+| `cargo test -p mpk-cli --test csharp_practical_frontend_protocol` | pass: all six W07 protocol regressions |
+| `cargo test -p mpk-vc --test csharp_practical_source_artifacts` | pass: all six W04 artifact/linkage regressions |
+| `cargo test -p mpk-vc --test csharp_practical_inventory` | pass: all four inventory and ledger closure tests |
+| `cargo test -p mpk-cli --test csharp_frontend_vectors --test java_lowering` | pass: frozen corpus ownership; two Java native tests remain explicitly Linux/cache-gated |
+| `cargo test -p mpk-cli --test csharp_policy_verify --test java_policy_verify` | pass: portable owners; native C#/Go/Rust and Java dual-checker owners remain platform-gated |
+| `cargo test -p mpk-cli --test successor_atomic_cutover` | pass: candidate remains unavailable to installed routes |
+| `cargo clippy -p mpk-cli --all-targets -- -D warnings` | pass |
+| `cargo fmt --all -- --check` | pass |
+| `./scripts/check-fast.sh` | pass |
+| `/usr/bin/git diff --check` | pass |
+
+The W08 revalidation records are now 75-file source inventories. The capacity
+record has raw SHA-256
+`5525760fa2db1f022affb9d9c06907c76cf426939536f8cd4254355854842366`
+and source-inventory SHA-256
+`e153e971b5b90e47300b1d213d7bb2bc4e62df3a6f9813a849da6d2b9e463682`;
+the recursor record has raw SHA-256
+`b30df0edceee6d170422520abdbcbdf23313558a9f86ff1061e0b134489497fa`
+and source-inventory SHA-256
+`2f0b7adc7047f69fcdd9234c359eb18279b14d3c7ec2dc7365534bb979a11aae`.
+The regenerated private freeze has content SHA-256
+`6f7c4e61f7ad8830901e27267e57ecd219eb5030f01359d5adef138f015ccb3d`
+and raw SHA-256
+`ce87461072c9446d2e86202bdc3ecedad6840d006b635e0b7a4073b641c10aa2`;
+its vector record has raw SHA-256
+`2a493ef9647d38c6f2cc06650e3214f9124b279744982d6229fc8515669ce373`.
+The conformance package and vector manifest raw SHA-256 values are respectively
+`dfce6f3c46627586d14b515f2068ab2f5f54c79c27975d427d556ccbb220a67e`
+and
+`236da4c266b2f2b4127691212c51969e6ec73836f211c6cd417c7959ebdbb522`.
+These identities change only because W08's production source and evidence
+owners joined the private inventory; no schema ID, vector ID, limit, checker
+verdict, hash domain, active registry, release tuple, or installed route
+changed.
+
+First-pass review findings: `1`.
+
+- The 34 schema vectors initially executed test-local shape helpers. They now
+  call a strict production validator in the migration module, and every
+  generated success, diagnostic, and source-artifact root passes that same
+  boundary before return.
+
+Second-pass review findings: `3`.
+
+- Source-error and lowering conversions could initially pair a diagnostic
+  family with a different root phase. The adapter now reuses W07's typed family
+  registry, maps each predecessor phase to the matching frozen family, and
+  rejects mixed-phase documents.
+- The first identity check accepted a validated envelope from an older
+  predecessor registry. Migration now requires the exact installed revision-3
+  identity, and a revision-2 envelope has a direct rejection test.
+- Canonical artifact limits were initially checked only against predecessor
+  input bytes. VIR, source-map, and frontend-manifest limits are now checked
+  again after successor context and hashes have been added.
+
+Verification-gate findings: `2`.
+
+- Adding the W08 production module changed the checker/build source inventory
+  without changing checker behavior. Both independent probes, the freeze, its
+  vectors, and the conformance package were regenerated; all dual-checker
+  results remain identical.
+- Package regeneration changed the practical conformance-vector bytes. Its
+  global vector-manifest digest was updated, after which all 26 registered
+  vector sets passed the closed manifest check.
+
+Documentation review findings: `1`.
+
+- README and executive-summary wording could imply that the private migration
+  implementation itself was normative. They now state separately that the
+  specification package is normative but inactive and that migration remains
+  private and uninstalled.
+
+Final review findings: `0`. The final pass rechecks exact W08 scope; active
+revision-3 and candidate revision-4 identity binding; all four producer paths;
+complete context replacement and hash regeneration; strict schema and retained
+limit enforcement; sanitized, phase-consistent artifact-free diagnostics;
+two-run determinism; all 178 frozen vectors; complete corpus/report identities;
+zero behavior, obligation, verdict, axiom, and practical-instance differences;
+Certificate v0 preservation; absence of a format selector or installed route;
+formatting, warning-denied lint, predecessor regressions, inventory closure,
+and the complete local fast gate. T02-W09 is the sole ready item.

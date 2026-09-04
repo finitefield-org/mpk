@@ -78,9 +78,10 @@ C#, Java, Dart, TypeScript, and Python entered one post-Rust program after the
 scoped Rust v0 release. The Rust gate, shared feasibility/specification work,
 the C# scalar release, Java T10 release including its native x86-64 receipt,
 and `CSHARP-03-T01-W01` through W10 plus
-`CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07` are now complete. The practical C#
-profile/shared-artifact package and 700 vectors are normative but inactive;
-production behavior is unchanged and `CSHARP-03-T02-W08` is ready.
+`CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08` are now complete. The practical
+C# profile/shared-artifact package and 700 vectors are normative but inactive;
+predecessor-producer migration remains private and uninstalled. Production
+behavior is unchanged and `CSHARP-03-T02-W09` is ready.
 No production phases run in parallel.
 
 The continuation is strictly serial: `MLANG-00` research, `MLANG-01` successor

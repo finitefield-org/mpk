@@ -272,7 +272,7 @@ impl PracticalDiagnosticFamily {
         }
     }
 
-    fn parse(value: &str) -> Option<Self> {
+    pub(crate) fn parse(value: &str) -> Option<Self> {
         Some(match value {
             "CSHARP_PRACTICAL_PROTOCOL" => Self::Protocol,
             "CSHARP_PRACTICAL_LIMIT" => Self::Limit,
