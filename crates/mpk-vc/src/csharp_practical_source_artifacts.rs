@@ -9,7 +9,8 @@
 
 use crate::csharp_practical_registry::{
     SuccessorCompiledSemanticProfile, SuccessorSemanticContext, ValidatedSuccessorRequest,
-    CSHARP_PRACTICAL_PROFILE, FOUNDATION_DESCRIPTOR_ID, FOUNDATION_DESCRIPTOR_SCHEMA,
+    CSHARP_PRACTICAL_PROFILE, CSHARP_PRACTICAL_SELECTION_SCHEMA, FOUNDATION_DESCRIPTOR_ID,
+    FOUNDATION_DESCRIPTOR_SCHEMA,
 };
 use crate::csharp_practical_vir_model::{
     csharp_practical_declaration_id, csharp_practical_stored_member_id,
@@ -903,6 +904,31 @@ impl PracticalArtifactContext {
     pub fn sidecar_paths(&self) -> &[String] {
         &self.sidecar_paths
     }
+
+    /// Returns whether this private artifact context was bound from the
+    /// complete validated request.  Successor frontend envelopes use this
+    /// predicate instead of treating a repeated digest as context evidence.
+    pub fn matches_request(&self, request: &ValidatedSuccessorRequest) -> bool {
+        self.typed_semantic_context == *request.semantic_context()
+            && request.selection().get("schema").and_then(Value::as_str)
+                == Some(CSHARP_PRACTICAL_SELECTION_SCHEMA)
+            && request
+                .selection()
+                .get("compilation_id")
+                .and_then(Value::as_str)
+                == Some(self.compilation_id())
+            && string_array(request.selection().get("source_paths")).as_deref()
+                == Some(self.source_paths())
+            && string_array(request.selection().get("selected_root_ids")).as_deref()
+                == Some(self.selected_root_ids())
+            && string_array(request.selection().get("sidecar_paths")).as_deref()
+                == Some(self.sidecar_paths())
+            && request
+                .selection()
+                .get("selection_sha256")
+                .and_then(Value::as_str)
+                == Some(self.selection_sha256())
+    }
 }
 
 pub fn bind_practical_artifact_context(
@@ -970,7 +996,7 @@ pub fn bind_practical_artifact_context(
             PracticalArtifactErrorCode::Shape,
         )
     })?;
-    let semantic_context = semantic_context_value(request.semantic_context())?;
+    let semantic_context = practical_semantic_context_value(request.semantic_context())?;
     let linkage_preimage = PracticalJsonValue::object(vec![
         ("semantic_context", semantic_context.clone()),
         (
@@ -1005,7 +1031,9 @@ pub fn bind_practical_artifact_context(
     })
 }
 
-fn semantic_context_value(
+/// Converts a validated practical-profile context to the schema-ordered JSON
+/// representation shared by source artifacts and frontend envelopes.
+pub fn practical_semantic_context_value(
     context: &SuccessorSemanticContext,
 ) -> Result<PracticalJsonValue, PracticalArtifactError> {
     let registry = context.profile_registry();
@@ -1428,6 +1456,18 @@ impl ValidatedPracticalArtifact {
             source_value: Some(Box::new(self.value.clone())),
             input_set_sha256: self.input_set_sha256.clone(),
         }
+    }
+
+    /// Checks the complete private input/context lineage retained by artifact
+    /// roots that can cross the successor frontend boundary.
+    pub fn matches_validated_lineage(
+        &self,
+        context: &PracticalArtifactContext,
+        captures: &CapturedInputSet,
+    ) -> bool {
+        self.linkage_key == context.linkage_key
+            && self.input_set_sha256.as_deref() == Some(captures.snapshot_sha256())
+            && captures.matches_context(context)
     }
 
     fn with_input_set(mut self, captures: &CapturedInputSet) -> Self {
@@ -4129,6 +4169,25 @@ pub fn build_certificate_source_manifest(
             PracticalArtifactErrorCode::Hash,
         ));
     }
+    let input_set_sha256 = frontend_manifest.input_set_sha256.clone().ok_or_else(|| {
+        failure(
+            kind,
+            PracticalArtifactPhase::Linkage,
+            PracticalArtifactErrorCode::Linkage,
+        )
+    })?;
+    if [vc, certificate_skeleton].iter().any(|reference| {
+        reference
+            .input_set_sha256
+            .as_deref()
+            .is_some_and(|value| value != input_set_sha256)
+    }) {
+        return Err(failure(
+            kind,
+            PracticalArtifactPhase::Linkage,
+            PracticalArtifactErrorCode::Linkage,
+        ));
+    }
     finalized_artifact(
         context,
         kind,
@@ -4150,6 +4209,10 @@ pub fn build_certificate_source_manifest(
             ),
         ],
     )
+    .map(|mut artifact| {
+        artifact.input_set_sha256 = Some(input_set_sha256);
+        artifact
+    })
 }
 
 pub struct FrontendSourceArtifactLinks<'a> {
@@ -4244,6 +4307,37 @@ pub fn build_frontend_source_artifacts(
             PracticalArtifactErrorCode::Foundation,
         ));
     }
+    let input_set_sha256 = source_manifest_ref
+        .input_set_sha256
+        .clone()
+        .ok_or_else(|| {
+            failure(
+                kind,
+                PracticalArtifactPhase::Linkage,
+                PracticalArtifactErrorCode::Linkage,
+            )
+        })?;
+    if [
+        links.vir,
+        links.source_map,
+        links.semantic_bindings,
+        links.closed_instances,
+    ]
+    .into_iter()
+    .chain(&links.boundary_contracts)
+    .chain(&links.transition_contracts)
+    .any(|reference| {
+        reference
+            .input_set_sha256
+            .as_deref()
+            .is_some_and(|value| value != input_set_sha256)
+    }) {
+        return Err(failure(
+            kind,
+            PracticalArtifactPhase::Linkage,
+            PracticalArtifactErrorCode::Linkage,
+        ));
+    }
     finalized_artifact(
         context,
         kind,
@@ -4283,6 +4377,10 @@ pub fn build_frontend_source_artifacts(
             ),
         ],
     )
+    .map(|mut artifact| {
+        artifact.input_set_sha256 = Some(input_set_sha256);
+        artifact
+    })
 }
 
 fn normalize_refs(

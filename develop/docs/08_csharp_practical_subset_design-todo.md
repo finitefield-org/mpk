@@ -20,12 +20,15 @@ T02-W06 then completed the context-bound successor VC and theorem-skeleton
 models, closed ordinary-term routes and later proof ownership, deterministic
 limits/hashes, and the proof-empty, theory-empty, zero-axiom ordinary-context
 assembly profile without changing Certificate v0 or checker acceptance.
+T02-W07 then completed the candidate-only frontend request/result protocol,
+schema-ordered source/sidecar inventory, phase-ordered sanitized diagnostics,
+artifact-free failure, and complete source-map/manifest/input-set linkage.
 `CSHARP-03-T01-W09-F01` is resolved
 by W08's reviewed binary-addressed Boolean-cube and static concrete-transformer
 expansion (ledger section 11). Both checkers accept all W09 capacity cases
 through each frozen limit plus one without a core change. W10 publishes the
 normative but inactive specifications and 700 vectors.
-`CSHARP-03-T02-W01/W02/W03/W04/W05/W06` are complete, `CSHARP-03-T02-W07` is ready, and every
+`CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07` are complete, `CSHARP-03-T02-W08` is ready, and every
 later implementation work item remains blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
@@ -92,7 +95,9 @@ structural validators; see ledger section 16. T02-W04 then completed the
 successor source-artifact/linkage layer; see ledger section 17. T02-W05 then
 completed the strict successor VIR importer and validator; see ledger section
 18. T02-W06 then completed the successor VC/skeleton and ordinary-context
-assembly models; see ledger section 19. T02-W07 is ready. This
+assembly models; see ledger section 19. T02-W07 then completed the private
+frontend protocol and complete artifact/inventory linkage; see ledger section
+20. T02-W08 is ready. This
 file remains planning material. W01 added its baseline and ledger; W02 added
 only the private consumer inventory, owner tests, ledger evidence, and current-
 status documentation; W03 added only private build-input evidence and its
@@ -125,10 +130,13 @@ and its owner tests. T02-W06 adds only the Rustdoc-hidden successor VC,
 theorem-skeleton, and ordinary-context assembly models; a narrow W05 validated
 operation-table accessor and W04 lineage predicate; direct Certificate v0
 structure validation; and its owner tests. It generates no proof and invokes
-no checker. No application
+no checker. T02-W07 adds only the Rustdoc-hidden candidate frontend request,
+success, and diagnostic protocol; strict inventory/hash/order validation; two
+narrow W04 context/lineage predicates and lineage propagation; and its owner
+tests. No application
 fixture, installed candidate bundle, public route, active build input or active
-registry/release descriptor has changed. The next serial work is T02-W07's
-successor frontend protocol, maps, and manifests.
+registry/release descriptor has changed. The next serial work is T02-W08's
+private predecessor-producer migration.
 
 The following are unconditional stop conditions:
 
@@ -842,7 +850,7 @@ rejection of nonempty proof-node/theory-certificate tables.
 
 Depends on: T02-W06.
 
-Current status: `Ready`.
+Current status: `Complete`.
 
 Owns: private request/result envelopes, phase/status precedence, sanitized
 diagnostics, artifact-free failure, source-map original-byte coverage, frontend
@@ -859,6 +867,8 @@ truncation, duplicates, unknown versions, oversize values, and phase conflicts.
 ### CSHARP-03-T02-W08 — Migrate all predecessor producers privately
 
 Depends on: T02-W07.
+
+Current status: `Ready`.
 
 Owns: private adapters for active Go, Rust, scalar C#, and Java producers to the
 sole successor artifact family, including exact context propagation and

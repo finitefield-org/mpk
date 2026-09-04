@@ -1,7 +1,7 @@
 # CSHARP-03 Implementation Traceability Ledger
 
 Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10` and
-`CSHARP-03-T02-W01/W02/W03/W04/W05/W06` complete (2026-09-05). The entry audit, consumer inventory,
+`CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07` complete (2026-09-05). The entry audit, consumer inventory,
 private frontend/toolchain closure proof,
 Roslyn shape probes, primitive/string/numeric/codec runtime measurements and
 candidate foundation/specialization/binding/data semantics and the successor
@@ -27,8 +27,10 @@ foundation, and operation validation barriers. T02-W06 implements the
 context-bound successor VC and theorem-skeleton schemas, closed ordinary-term
 encoding routes and later proof ownership, deterministic limits and hashes,
 and the proof-empty, theory-empty, zero-axiom ordinary-context assembly
-profile. `CSHARP-03-T02-W07` is ready
-and all later implementation items remain serially
+profile. T02-W07 implements the candidate-only successor frontend request/result
+protocol, exact source/sidecar inventory, sanitized phase-ordered diagnostics,
+artifact-free failure, and complete source-map/manifest/input-set lineage.
+`CSHARP-03-T02-W08` is ready and all later implementation items remain serially
 blocked. No public production acceptance path, installed candidate, or active
 registry entry was introduced.
 
@@ -77,9 +79,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T02-W03` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W03` | `cb2c2eb419adceaf84d4b610a19deb4b8205bf96` |
 | `CSHARP-03-T02-W04` | `Complete` | `crates/mpk-vc/tests/csharp_practical_source_artifacts.rs#CSHARP-03-T02-W04` | `c487b098403c326d1802fe9ea6d43ff8e76e5b80` |
 | `CSHARP-03-T02-W05` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vir_validation.rs#CSHARP-03-T02-W05` | `816280dc5ea298f6b215c63ae7185f89f0a240a9` |
-| `CSHARP-03-T02-W06` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc_model.rs#CSHARP-03-T02-W06` | `SELF` |
-| `CSHARP-03-T02-W07` | `Ready` | `crates/mpk-cli/tests/csharp_practical_frontend_protocol.rs#CSHARP-03-T02-W07` | `—` |
-| `CSHARP-03-T02-W08` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_migration.rs#CSHARP-03-T02-W08` | `—` |
+| `CSHARP-03-T02-W06` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc_model.rs#CSHARP-03-T02-W06` | `3a3da6af26e301f95692dd787a8920b58fafb566` |
+| `CSHARP-03-T02-W07` | `Complete` | `crates/mpk-cli/tests/csharp_practical_frontend_protocol.rs#CSHARP-03-T02-W07` | `SELF` |
+| `CSHARP-03-T02-W08` | `Ready` | `crates/mpk-cli/tests/csharp_practical_migration.rs#CSHARP-03-T02-W08` | `—` |
 | `CSHARP-03-T02-W09` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_migration.rs#CSHARP-03-T02-W09` | `—` |
 | `CSHARP-03-T03-W01` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_capture.rs#CSHARP-03-T03-W01` | `—` |
 | `CSHARP-03-T03-W02` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_syntax.rs#CSHARP-03-T03-W02` | `—` |
@@ -2695,3 +2697,172 @@ route; real Certificate v0 structural rejection; predecessor parser,
 certificate, assembly, and checker preservation; non-activation; formatting,
 warning-denied lint, focused mutations, all `mpk-vc` regressions, and the
 complete local fast gate. T02-W07 is the sole ready item.
+
+## 20. CSHARP-03-T02-W07 completion record
+
+### 20.1 Candidate frontend request and input inventory
+
+W07 adds the Rustdoc-hidden `csharp_practical_frontend_protocol` module to
+`mpk-cli`; it is callable only through explicit typed injection and has no
+runner, CLI command, registry lookup, fallback, or installed release route.
+The `mpk.frontend.request.v2` constructor and importer require an already
+validated practical semantic request and the exact immutable W04 capture set.
+They emit and revalidate the frozen root and nested field order for
+`source_snapshot_v2`, `source_snapshot_entry`, `sidecar_set_v2`, and
+`sidecar_ref`, reject unknown/later schemas and duplicate fields, and recompute
+the outer `MPK-FRONTEND-REQUEST-2.0` hash.
+
+The source and sidecar rows must exactly partition the validated selection and
+captured paths, raw hashes, sizes, and registered sidecar schemas. A sidecar
+descriptor's schema must also equal the root schema in its exact captured
+canonical bytes. Source and sidecar subset digests reuse `MPK-INPUT-SET-0.1`
+only with its unchanged retained `InputEntry` preimage; the complete capture-
+set digest remains the cross-artifact lineage identity. W07 applies the frozen
+per-file, aggregate, entry-count, path, and request-transport limits before
+returning a request. Sorted arrays are emitted by canonical bytes and duplicate
+rows reject.
+
+### 20.2 Success, rejection, map, and manifest closure
+
+A success envelope is constructible only from the complete typed
+`mpk.frontend.source_artifacts.v2` root. The artifact context must match every
+validated selection field, the request and artifact semantic contexts must be
+field-complete equal, the artifact selection hash must match, and the exact
+captured input-set lineage must survive through the source map, frontend
+manifest, and source-artifact root. W07 extends the existing W04 artifact
+capability only with narrow typed predicates and propagation of that already
+validated lineage. Certificate manifests likewise retain the frontend
+manifest's input set and reject a conflicting validated VC or skeleton input
+set. No map or manifest schema, field, hash domain, or active predecessor
+implementation changes.
+
+Rejected output has the exact `rejected` status and can contain no artifact
+field. Raw request identity is reduced to its hash and byte count before parse.
+The linkage arm is `unvalidated` only before request validation and otherwise
+repeats the exact frontend request hash and complete schema-ordered semantic
+context. Callers supply only one of the 29 typed diagnostic families and an
+optional numeric source location; W07 emits the sole frozen 63-byte public
+message. It selects the earliest failing phase, discards later-phase findings,
+sorts within that phase by the frozen family/location order, validates every
+byte range against the retained raw source size, and enforces the 1,024-issue
+budget. The API accepts no compiler message, source text, path, exception,
+culture, generated type name, or stack string, so those values cannot enter a
+failure artifact.
+
+The private CLI transport is one canonical JSON document plus one trailing
+newline. Success maps only to exit 0 and rejection only to exit 3; missing,
+truncated, duplicate, noncanonical, unknown-version, wrong-exit, signaled,
+stderr-limit, and canonical-size failures all reject with a closed public
+protocol code. The active `mpk.frontend.cli.v1`, predecessor producers,
+Certificate v0, checkers, application source/output, registry/release files,
+and installed behavior remain unchanged.
+
+### 20.3 Verification and review
+
+Completed local verification on Darwin arm64:
+
+| Command | Result |
+| --- | --- |
+| `python3 develop/probes/csharp-03/foundation_package.py --check` | pass: exact registered foundation and 2,051 vectors |
+| `python3 develop/probes/csharp-03/run-checker-capacity-probe.py --check` | pass: all 48 dual-checker capacity invocations remain accepted |
+| `python3 develop/probes/csharp-03/run-recursor-probe.py --check` | pass: all 60 dual-checker feasibility verdicts remain unchanged |
+| `python3 develop/probes/csharp-03/profile_freeze.py --check` | pass: 17 identity families, 15 strict schemas, 35 practical limits, and 700 vectors |
+| `python3 develop/probes/csharp-03/profile_package.py --check` | pass: 10 freeze owners, 63 downstream owners, and 700 vectors |
+| `python3 scripts/check-spec-vectors.py --check` | pass: all 26 registered specification-vector hashes |
+| `cargo test -p mpk-cli --test csharp_practical_frontend_protocol` | pass: all six W07 owner tests, including all 26 owned schema vectors, all 29 diagnostic families, complete request/success/diagnostic round trips, map/manifest lineage, truncation, duplicates, later versions, limits, mutations, deterministic precedence, and byte fuzzing |
+| `cargo test -p mpk-vc --test csharp_practical_source_artifacts` | pass: complete W04 map/manifest/source-artifact regression suite |
+| `cargo test -p mpk-cli --test successor_atomic_cutover` | pass: candidate remains unavailable to installed routes |
+| `cargo clippy -p mpk-cli --all-targets -- -D warnings` | pass |
+| `cargo fmt --all -- --check` | pass |
+| `./scripts/check-fast.sh` | pass |
+| `/usr/bin/git diff --check` | pass |
+
+First-pass review findings: `3`.
+
+- The first context-lineage predicate compared only the validated context and
+  selection digest. It now compares the selection schema, compilation ID,
+  complete source/root/sidecar arrays, and digest so a hash never substitutes
+  for the required field-complete equality.
+- The first W04 bridge retained input lineage on maps and frontend manifests
+  but not on the enclosing source-artifact and certificate-manifest roots. The
+  roots now propagate the already validated input-set identity and reject any
+  conflicting typed subordinate identity.
+- Oversized canonical result documents initially surfaced as generic JSON
+  failure through the shared practical parser. The protocol now checks that
+  bound first and returns the closed limit failure deterministically.
+
+Second-pass review findings: `2`.
+
+- An unvalidated raw request larger than `u32` initially used the inventory
+  limit helper even though raw request sizing belongs to transport. Request
+  creation, diagnostic emission, and diagnostic validation now share one
+  transport-phase size conversion.
+- A caller-supplied sidecar descriptor initially needed only a registered
+  schema ID and matching selected path. Request construction now also parses
+  the captured canonical bytes and requires their root schema to equal that
+  descriptor, preventing a valid registered label from being attached to a
+  differently typed sidecar.
+
+Third-pass review findings: `1`.
+
+- The complete-selection predicate initially repeated the frozen practical
+  selection schema as a local string literal. It now uses the registry-owned
+  schema constant so the context and registry validators cannot drift.
+
+Verification-gate findings: `3`.
+
+- The repository-wide inventory test still classified W07 as ready and used
+  W06's pre-commit `SELF` marker. It now classifies W07 as complete, records
+  W06's published commit, assigns `SELF` to W07, and makes W08 the sole ready
+  item.
+- The post-freeze search exclusions stopped at W06, so W07's new protocol
+  implementation and owner-test paths were incorrectly compared with the
+  historical W02 consumer fingerprints. Both W07 paths now join the same
+  explicit post-freeze exclusion set as W01-W06; the published W02 inventory
+  bytes and their W09/W10 bindings remain unchanged.
+- The first complete gate showed that exporting the W07 production module
+  legitimately changes the checker/build source inventory even though it does
+  not change either checker rule or installed route. Both independent checker
+  probes were rerun: all 48 capacity invocations remain accepted and all 60
+  feasibility verdicts remain unchanged. Their evidence records, the private
+  freeze, its vectors, the W10 conformance package, and the vector manifest
+  were regenerated with the checked-in deterministic tools.
+
+The W07 revalidation records are now 74-file inventories. The capacity record
+has raw SHA-256
+`1cbe1b2c453432e100bc46abcea129c3f695a5cc318f029fdb72430593a23ba4`
+and source-inventory SHA-256
+`e2f0932f20f452e6d45068079bd9f87a2c08a3445b9b1237c4bb35f8992b9e97`;
+the recursor record has raw SHA-256
+`97fb98167d207193030e4918a0dcf66951e0fa1d53e18e525f1b2be1228a2b02`
+and source-inventory SHA-256
+`ad0de6c600b4d57e7e71119a46748bff230bdcf0105274d61d62a3ff53a081ae`.
+The regenerated private freeze has content SHA-256
+`3182c77c5b8fefb68d9d44ed202291f2ebd0fedf6c4e75be81315f24c31def82`
+and raw SHA-256
+`2caf30720c3ae67ac7e975a8f3382601aa5f1863079ea884a458adc0e7589323`;
+its vector record has raw SHA-256
+`2ba41ef31f12c5806a34d10fc3ebb8067b1b69d630cd9d0d3c150f00e46889c1`.
+The conformance package and manifest raw SHA-256 values are respectively
+`57945110a447736425edcf185ba724dbbe0ae5572ccf9dd73ef9391ac03916f2`
+and
+`432fc4e17b60c2a0677d654d026e443becbdbcbfcc9ef97879c48141f591dc80`.
+Sections 11-13 retain their original completion-time hashes; these W07 values
+are the current-file revalidation identities and change no schema, vector ID,
+limit, checker verdict, or hash domain.
+
+Final documentation review findings: `1`.
+
+- The W07 evidence-revalidation commands were initially inserted into the
+  historical W04 verification table. They now appear only in this W07
+  completion record, alongside the evidence identities they validate.
+
+Final review findings: `0`. The final pass rechecks W07-only private scope;
+all 26 frozen owner vectors; schema/member/hash order; exact source/sidecar
+inventory and retained input-set preimages; original-byte source-map coverage;
+frontend, source-artifact, and certificate-manifest linkage; complete success
+versus artifact-free failure; raw-request linkage; all 29 diagnostic families,
+phase/location sorting and budgets; public-data sanitization; one-line
+transport and exit mapping; fuzz/mutation/limit behavior; predecessor
+preservation; non-activation; formatting, warning-denied lint, focused
+regressions, and the complete local fast gate. T02-W08 is the sole ready item.

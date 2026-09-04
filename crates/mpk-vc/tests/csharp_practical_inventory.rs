@@ -9,7 +9,9 @@ const INVENTORY_PATH: &str = "develop/migrations/csharp-03/artifact-consumer-inv
 const LEDGER_PATH: &str = "develop/docs/csharp-03-implementation-traceability-ledger.md";
 const PLAN_PATH: &str = "develop/docs/08_csharp_practical_subset_design-todo.md";
 const W10_PACKAGE_PATH: &str = "develop/specs/vectors/csharp-practical-profile-v1.json";
-const POST_FREEZE_IMPLEMENTATION_PATHS: [&str; 10] = [
+const POST_FREEZE_IMPLEMENTATION_PATHS: [&str; 12] = [
+    "crates/mpk-cli/src/csharp_practical_frontend_protocol.rs",
+    "crates/mpk-cli/tests/csharp_practical_frontend_protocol.rs",
     "crates/mpk-vc/src/csharp_practical_registry.rs",
     "crates/mpk-vc/src/csharp_practical_source_artifacts.rs",
     "crates/mpk-vc/src/csharp_practical_vir_model.rs",
@@ -181,8 +183,8 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             | "CSHARP-03-T01-W07" | "CSHARP-03-T01-W08" | "CSHARP-03-T01-W09"
             | "CSHARP-03-T01-W10" | "CSHARP-03-T02-W01" | "CSHARP-03-T02-W02"
             | "CSHARP-03-T02-W03" | "CSHARP-03-T02-W04" | "CSHARP-03-T02-W05"
-            | "CSHARP-03-T02-W06" => "Complete",
-            "CSHARP-03-T02-W07" => "Ready",
+            | "CSHARP-03-T02-W06" | "CSHARP-03-T02-W07" => "Complete",
+            "CSHARP-03-T02-W08" => "Ready",
             _ => "Blocked",
         };
         assert_eq!(row.status, expected_status, "status drift for {work_item}");
@@ -202,7 +204,8 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             "CSHARP-03-T02-W03" => "cb2c2eb419adceaf84d4b610a19deb4b8205bf96",
             "CSHARP-03-T02-W04" => "c487b098403c326d1802fe9ea6d43ff8e76e5b80",
             "CSHARP-03-T02-W05" => "816280dc5ea298f6b215c63ae7185f89f0a240a9",
-            "CSHARP-03-T02-W06" => "SELF",
+            "CSHARP-03-T02-W06" => "3a3da6af26e301f95692dd787a8920b58fafb566",
+            "CSHARP-03-T02-W07" => "SELF",
             _ => "—",
         };
         assert_eq!(
@@ -328,6 +331,15 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
         "Verification follow-up findings: `6`",
         "T02-W07 is the sole ready item.",
         "Final review findings: `0`",
+        "## 20. CSHARP-03-T02-W07 completion record",
+        "The `mpk.frontend.request.v2` constructor and importer require",
+        "all six W07 owner tests",
+        "First-pass review findings: `3`",
+        "Second-pass review findings: `2`",
+        "Third-pass review findings: `1`",
+        "Verification-gate findings: `3`",
+        "Final documentation review findings: `1`",
+        "T02-W08 is the sole ready item.",
     ] {
         assert!(ledger.contains(required), "ledger is missing {required}");
     }

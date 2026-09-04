@@ -391,13 +391,13 @@ invocation, so the evidence demonstrates checker headroom rather than widening
 checker acceptance.
 
 The canonical capacity record is
-`develop/migrations/csharp-03/probes/checker-capacity.json` (38,701 bytes, raw
+`develop/migrations/csharp-03/probes/checker-capacity.json` (38,849 bytes, raw
 SHA-256
-`de040d4342e90a23e4bbe6464aeaccbfa9f2630c1423b77b716b40c805ac8a99`).
-Its 73-file source inventory SHA-256 is
-`e855ce008b87b4509a8af7d3b07ce5f907f9a98383b942710d362a146a2d0e38`.
-Across the retained two runs, Rust checker observations range from 35 to 1,814
-ms and Go checker observations from 26 to 397 ms under the per-invocation
+`1cbe1b2c453432e100bc46abcea129c3f695a5cc318f029fdb72430593a23ba4`).
+Its 74-file source inventory SHA-256 is
+`e2f0932f20f452e6d45068079bd9f87a2c08a3445b9b1237c4bb35f8992b9e97`.
+Across the retained two runs, Rust checker observations range from 36 to 1,891
+ms and Go checker observations from 26 to 377 ms under the per-invocation
 60-second failure bound. Timing is observational and excluded from the stable
 rerun comparison; certificate hashes, verdicts, exits, and output hashes must
 match.
@@ -410,11 +410,11 @@ expression union, canonical JSON, context/frontend/boundary linkage, transition
 and idempotency precedence, one context-dispatched `csharp2vir` successor bundle,
 29 diagnostic families, termination rules, 35 practical counters, and the 32
 unchanged scalar-v0 limits. It is 97,316 bytes, has content SHA-256
-`f292de00a79048ecd1ff2cbe52d90fad36654f1b3e74ad580b5ec3077afa28cb`
+`3182c77c5b8fefb68d9d44ed202291f2ebd0fedf6c4e75be81315f24c31def82`
 under `MPK-CSHARP-PRACTICAL-FREEZE-1.0`, and raw SHA-256
-`83954067c156e58cb349dbf07da44edf60a3ec550e628e6d2f1a890889d574e3`.
+`2caf30720c3ae67ac7e975a8f3382601aa5f1863079ea884a458adc0e7589323`.
 `profile-freeze-vectors.json` is 230,986 bytes with raw SHA-256
-`7d1de4f4d087fe0de7b32ec44ee2b17f08cbfb052e5993699137c47736c94ef3`.
+`2ba41ef31f12c5806a34d10fc3ebb8067b1b69d630cd9d0d3c150f00e46889c1`.
 
 Portable reproduction commands are:
 
