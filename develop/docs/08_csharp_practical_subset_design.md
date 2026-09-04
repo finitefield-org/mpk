@@ -1,28 +1,43 @@
 # C# Practical Subset Expansion Design
 
-Status: proposed governance and implementation design. This document does not
+Status: frozen candidate governance and implementation design through
+`CSHARP-03-T01-W09`. This document does not
 change the active `mpk.csharp.scalar.v0` profile, register a new profile, or
 authorize a practical-profile public route. The active release is registry
 revision 3 with Go, Rust, C# scalar, and Java scalar support. `JAVA-03-T10`
 and native x86-64 Linux gate completed on 2026-09-03. The CSHARP-03 entry gate
-is satisfied, but this proposal does not itself start specification or
-implementation work.
+is satisfied. T01-W10 still owns publication and the complete freeze-package
+review; production implementation and activation remain blocked.
 
-Prepared: 2026-09-02. Revised: 2026-09-03.
+Prepared: 2026-09-02. Revised: 2026-09-04.
 
 T01-W08 handoff: candidate foundation, specialization, binding and data
 semantics are now frozen in
 `develop/specs/CSHARP_PRACTICAL_FOUNDATION_V1.md`, with a private descriptor,
 conformance vectors and independent runtime evidence. The containing successor
-context/sidecar/limit freeze remains T01-W09, and package completion T01-W10.
-This candidate freeze changes no installed profile or production acceptance.
+context/sidecar/identity/limit freeze is complete in the private T01-W09
+artifacts, and package publication remains T01-W10. This candidate freeze
+changes no installed profile or production acceptance.
+
+T01-W09 feasibility resolution (2026-09-04): the original W08 cross-result
+Bool/Nat recursor applications remain rejected, but W08 section 4 now uses a
+binary-addressed Boolean cube and statically composed concrete state
+transformers. Every replacement conditional exposes a Bool leaf, so its checked
+recursor returns only Bool; the replacement does not use `Std.Nat.rec`. Both
+source-free checkers accept the replacement feasibility certificates without a
+core change, new axiom, inductive shape, proof node, or theory certificate.
+T01-W09 subsequently measured four ordinary-certificate capacity counters at
+limit-minus-one, limit, and limit-plus-one. Both checkers accepted all 48
+invocations; the profile rejects each plus-one case before checker invocation.
+See `csharp-03-implementation-traceability-ledger.md` sections 11 and 12 and
+`../migrations/csharp-03/freeze/profile-freeze.json`.
 
 ## 1. Decision
 
 Create a new, immutable C# profile for deterministic business-domain logic.
-The working name in this design is `mpk.csharp.practical.v1`. The name is not
-an accepted schema value until a later specification-freeze task assigns exact
-identities, canonical vectors, hashes, compiler observations, and limits.
+Its frozen successor identity is `mpk.csharp.practical.v1`. It remains a
+private candidate value until T01-W10 publishes the complete specification
+package and the later atomic activation task installs it.
 
 Do not widen or reinterpret `mpk.csharp.scalar.v0`. Its source semantics,
 profile-payload meanings, diagnostic meanings, and historical artifact bytes
@@ -109,7 +124,8 @@ complete with its native receipt. W01/W02/W03/W04/W05/W06/W07 have now closed th
 entry audit, consumer inventory, private frontend/toolchain closure proof, and
 Roslyn data/construction/control/exception/pattern/dependency/generic/iterator/
 async-rejection plus primitive/string/numeric/codec runtime measurements
-without a normative identity or production change, and W08 is ready. DART-04
+without a production change. W08 is complete, its authorized expansion
+amendment resolves F01, W09 is complete, and W10 is ready. DART-04
 waits for the complete CSHARP-03 release gate. This
 insertion records the user value of making the already released C# frontend
 useful for business-domain logic before adding another language; it does not
@@ -269,30 +285,27 @@ without changing a closed meaning:
 
 Encoding these as profile-specific strings inside existing fields is
 forbidden. The practical profile therefore requires a successor shared
-artifact family. Working names are:
+artifact family. T01-W09 freezes these successor identities:
 
-| Role | Working successor identity |
+| Role | Frozen successor identity |
 | --- | --- |
+| Semantic registry/context | `mpk.semantic_profile.registry.v2`, `mpk.semantic_profile.entry.v2`, `mpk.semantic_profile.registry.limits.v2`, `mpk.semantic_context.v2`, `mpk.validated_semantic_request.v2` |
 | Semantic profile | `mpk.csharp.practical.v1` |
-| Parameters | `mpk.semantic_parameters.csharp_practical.v1` |
-| Selection | `mpk.selection.csharp_members.v1` |
-| Method/type contracts | `mpk.csharp.contract.v1`, `mpk.csharp.type_contract.v1` |
-| Application semantic bindings | `mpk.csharp.semantic_binding.v1` |
+| Parameters and selection | `mpk.semantic_parameters.csharp_practical.v1`, `mpk.selection.csharp_members.v1` |
+| Method/type/expression contracts | `mpk.csharp.contract.v1`, `mpk.csharp.type_contract.v1`, `mpk.csharp.contract_expression.v1` |
+| Application semantic bindings | entry `mpk.csharp.semantic_binding.v1`; context-bound root `mpk.csharp.semantic_bindings.v1` |
 | Closed semantic-instance set | `mpk.csharp.closed_instances.v1` |
-| Business boundary/transition contracts | `mpk.csharp.boundary.v1`, `mpk.csharp.transition.v1` |
-| Internal semantic-template bundle | `mpk.csharp.practical.foundation.v1` plus a successor descriptor and content-hash domain |
-| Operation/check profiles | `mpk.csharp.operations.v1`, `mpk.csharp.required_checks.v1` |
-| Limits | `mpk.csharp.limits.v1` |
-| Semantic registry | successor schema/root/entry family after `mpk.semantic_profile.registry.v1` |
-| Shared program IR | `mpk.vir.v2` with a new hash domain |
-| Frontend protocol | successor request, success, and diagnostic schemas |
-| Source map | successor schema and hash domain |
-| Source manifest | successor frontend/certificate-stage schema and hash domain |
-| VC and skeleton | successor versions after the current `mpk.vc.v2` family, including a new VC hash domain |
-| Release registry | successor root, tuple, descriptor, candidate, and receipt schemas plus a new root hash domain |
-| Policy/evidence | successor scan, evidence, reproduction, and receipt schemas |
-| Program assembly | successor assembly profile consuming the new context; Certificate v0 remains unchanged |
-| AI/API | successor request, session, report, and route contracts that repeat the new semantic context |
+| Canonical verification overlay | `mpk.csharp.canonical_json.v1`, `mpk.csharp.parse_format.v1`, `mpk.csharp.boundary.v1`, `mpk.csharp.boundary_input.v1`, `mpk.csharp.boundary_output.v1`, `mpk.csharp.transition.v1` |
+| Internal semantic-template bundle | `mpk.csharp.practical.foundation.v1`, `mpk.csharp.foundation_descriptor.v1`, `mpk.csharp.foundation_definitions.v1`, `mpk.csharp.foundation_expansion.v1` |
+| Operation/check/limit profiles | `mpk.csharp.operations.v1`, `mpk.csharp.required_checks.v1`, `mpk.csharp.limits.v1` |
+| Source-artifact root / VIR | `mpk.frontend.source_artifacts.v2`, `mpk.vir.v2` |
+| Frontend protocol | `mpk.frontend.cli.v2`, `mpk.frontend.request.v2`, `mpk.frontend.success.v2`, `mpk.frontend.diagnostic.v2` |
+| Source map/manifests | `mpk.source_map.v2`, `mpk.source_manifest.frontend.v2`, `mpk.source_manifest.certificate.v2` |
+| VC and skeleton | `mpk.vc.v3`, `mpk.vc.cert_skeleton.v3` |
+| Release registry | `mpk.release.bundle_registry.v2`, `mpk.release.registry.v2`, `mpk.release.frontend_bundle.v2`, `mpk.release.toolchain_bundle.v2`, `mpk.release.bundle_candidate.v2`, `mpk.release.bundle_inventory.v1`, `mpk.release.evidence.v2`, `mpk.release.receipt.v2` |
+| Policy/evidence | `mpk.policy.scan.v3`, `mpk.policy.evidence.v3`, `mpk.policy.reproduction.v3`, `mpk.policy.receipt.v3` |
+| Program assembly | `mpk.program_certificate.ordinary_context.v2`; Certificate v0 and its hash domains remain unchanged |
+| AI/API | `mpk.ai.explain.request.v3`, `mpk.ai.explanation.v3`, `mpk.ai.api.v3`, `mpk.ai.api.request.v3`, `mpk.ai.api.session.v3`, `mpk.ai.api.response.v3` |
 
 The new common value, operation, exception, and contract vocabulary makes
 these successor surfaces mandatory under
@@ -301,16 +314,37 @@ implementation happening to fit a new field into an old transport. Relevant
 private runner/build transports also receive successor identities wherever
 their closed preimage or compiled contract changes.
 
-These working names reserve no public values. T01 must inventory every active
-producer, consumer, repeated context member, and serialized root, then settle
-the exact names. Every self-hashed root whose preimage changes receives a new
+The private machine-readable freeze at
+`develop/migrations/csharp-03/freeze/profile-freeze.json` is authoritative for
+the complete 17-family identity/domain/owner inventory, including the exact
+five-profile by nine-contract-category compiled-profile matrix. These frozen
+names are not public or installed until atomic activation. Every self-hashed
+root whose preimage changes receives a new
 domain, including contract, registry, foundation-bundle, VIR, source-map,
 manifest, release-root, semantic-binding, closed-instance, and VC hashes. A
-Certificate v0,
-declaration, axiom-report, or input-set domain may remain only when its exact
-preimage and meaning remain unchanged. Old parsers must reject every new
+Certificate v0 declaration and axiom-report domains remain unchanged. The
+input-set and Rust source-inventory domains also remain because their exact
+preimages and meanings are unchanged. Old parsers must reject every new
 family, and new parsers must reject old-family bytes wherever parallel
 acceptance would create ambiguity.
+
+The practical parameter document is also closed there: C# 14, nullable
+context enabled, checked-overflow default enabled, release optimization, x64,
+64-bit pointer width, regular source kind, no documentation parsing, no
+preprocessor symbol, no unsafe code, `net10.0`, and `linux-x64`. The successor
+selection preimage contains exactly its schema, compilation ID, sorted nonempty
+source paths, sorted nonempty selected method/constructor root IDs, sorted
+sidecar paths, and final selection hash. It cannot carry a project, package,
+binary, reference, toolchain, environment override, or fallback input.
+The shared `mpk.validated_semantic_request.v2` uses the strict selection schema
+named by its validated registry entry; it does not hard-code the practical C#
+selection for Go, Rust, Java, or C# scalar requests. For
+`mpk.csharp.practical.v1`, that entry requires the complete
+`mpk.selection.csharp_members.v1` root above. The entry hash must resolve
+exactly once in the referenced immutable registry revision; source language,
+semantic profile, parameter schema, and foundation descriptor must equal that
+entry. Every repeated context is compared as a complete typed value; a context
+hash or projection cannot replace it.
 
 ### 5.2 Atomic migration
 
@@ -445,8 +479,8 @@ The exact registered foundation bundle instead contains this closed initial
 registry of internal semantic templates. Its descriptor binds the bundle
 schema and semantic-context ID, canonical member inventory, content hash,
 template identities and versions, operation sets, dependency rules, expansion
-definitions, and applicable counters. These are working semantic names, not
-source or schema IDs:
+definitions, and applicable counters. These are frozen internal semantic
+names, not source or schema IDs:
 
 | Template | Arity and direct generated dependencies | Derivation source |
 | --- | --- | --- |
@@ -1066,8 +1100,8 @@ Limits count UTF-16 units and encoded artifact bytes separately.
 ### 10.2 Exact boundary parse and format profiles
 
 Add profile-owned, statically resolved parse/format relations used by boundary
-sidecars and canonical reproduction. Their working values are internal bounded
-text and closed `result<T,parse_error>` instances. They expose no `Mpk.*` C#
+sidecars and canonical reproduction. Their values are internal bounded text
+and closed `result<T,parse_error>` instances. They expose no `Mpk.*` C#
 API. Parsing produces either a value or a closed parse-error arm rather than
 using application `out` parameters or exception-driven control. Formatting
 produces bounded non-null text and carries an output-length obligation. These
@@ -1613,6 +1647,31 @@ serialization, arbitrary attributes, runtime type names, culture, host paths,
 credentials, and serializer exception text do not enter proof or public
 evidence.
 
+The frozen canonical profile is `mpk.csharp.canonical_json.v1`. It permits no
+BOM or whitespace outside strings. Objects use the field order declared by
+their closed schema; application boundary fields use sidecar order. Signed and
+unsigned 32-bit semantic fields use minimal base-10 JSON integer tokens.
+Schema-declared artifact metadata counters may additionally use minimal
+unsigned 64-bit JSON integer tokens within their declared ranges. Wider
+semantic integer, duration, and instant carriers use canonical decimal strings; decimal,
+binary32, binary64, date, time, and GUID fields use the exact section 10.2
+strings. A string emits shortest UTF-8 for Unicode scalar values, `\"` and
+`\\` for quote and reverse solidus, and lowercase `\uXXXX` for controls and
+lone UTF-16 surrogates; short control escapes and an escaped slash reject.
+Tagged sums order `tag` before the sole active `payload`, omitting `payload`
+for payload-free arms. Canonical hashes use ASCII domain bytes, one zero byte,
+then the canonical JSON bytes without a trailing newline.
+
+`mpk.csharp.boundary_input.v1` retains the raw-input provenance/hash and the
+independently parsed canonical value/hash under
+`MPK-CSHARP-BOUNDARY-INPUT-1.0`. `mpk.csharp.boundary_output.v1` retains the
+returned source value/hash, encoded-byte hash, and reparsed value/hash under
+`MPK-CSHARP-BOUNDARY-OUTPUT-1.0`. Hash equality never substitutes for typed,
+field-complete equality. Every root field and its order, including the
+`mpk.csharp.boundary.v1` contract root, is frozen in the T01-W09 machine
+artifact; missing required fields, unknown fields, duplicate keys, and later
+schema versions reject before invocation.
+
 Authentication claims, authorization roles, tenant IDs, database rows,
 optimistic-concurrency versions, and current time may enter only as explicit
 typed fields with checked preconditions and recorded provenance identities.
@@ -1672,6 +1731,26 @@ Event ordering is source order and deterministic. Hidden current time, random
 IDs, mutable aggregate identity, ambient tenant context, and implicit retry
 behavior reject.
 
+The frozen transition precedence after ordinary boundary validation is:
+
+1. retained-key lookup;
+2. equal complete snapshots replay, otherwise idempotency conflict;
+3. expected-version conflict for a new key;
+4. idempotency-history capacity;
+5. unsigned 64-bit version exhaustion;
+6. accepted-command cases and their sidecar-declared business errors in
+   declared order; and
+7. new success.
+
+Replay and every error preserve the complete input state. New success uses
+checked `new_version = old_version + 1`, preserves source append order for the
+event sequence, and returns the newly computed response. Replay emits no event
+and returns the complete stored response. The `disabled` idempotency mode is
+always available; `complete_snapshot` is unavailable unless the retained
+record, complete `Command`/`Context` snapshots, reflexive field equality, and
+canonical-encoding equivalence obligations are all present. A digest is
+evidence only and cannot satisfy this gate.
+
 An adapter may load and atomically persist state/events outside the verified
 root, but transaction isolation, durability, locks, retries, message delivery,
 and exactly-once effects are not certificate claims. The release documentation
@@ -1681,6 +1760,34 @@ transition for proof of the surrounding infrastructure.
 ## 19. Contract design
 
 Use separate closed sidecars for types and callable members.
+
+T01-W09 freezes the following strict C# contract roots. `semantic_context` is repeated in
+full; a hash-only or projected context is invalid. Every listed field is
+required in the exact recorded order, there are no optional root fields, and
+the final hash omits only itself from its domain-separated preimage.
+
+| Root | Hash domain | Primary producer |
+| --- | --- | --- |
+| `mpk.csharp.type_contract.v1` | `MPK-CSHARP-TYPE-CONTRACT-1.0` | T06-W01 |
+| `mpk.csharp.contract.v1` | `MPK-CSHARP-METHOD-CONTRACT-1.0` | T06-W01 |
+| `mpk.csharp.semantic_bindings.v1` | `MPK-CSHARP-SEMANTIC-BINDING-SET-1.0` | T02-W04 |
+| `mpk.csharp.boundary.v1` | `MPK-CSHARP-BOUNDARY-CONTRACT-1.0` | T05-W01 |
+| `mpk.csharp.boundary_input.v1` | `MPK-CSHARP-BOUNDARY-INPUT-1.0` | T05-W02 |
+| `mpk.csharp.boundary_output.v1` | `MPK-CSHARP-BOUNDARY-OUTPUT-1.0` | T05-W03 |
+| `mpk.csharp.transition.v1` | `MPK-CSHARP-TRANSITION-CONTRACT-1.0` | T05-W04 |
+
+The exact ordered root fields and consumer lists are in
+`develop/migrations/csharp-03/freeze/profile-freeze.json`; T01-W10 copies them
+into the published specification without minting aliases.
+
+Together with semantic context, practical semantic parameters, selection,
+validated request, and frontend request/success/diagnostic/source-artifact
+roots, the machine freeze contains 15 strict roots. It also closes 20 nested
+records, the boundary-missing, transition-idempotency, and frontend-diagnostic
+request-linkage tagged unions, and every field type of every
+contract-expression variant. Ordered, nonempty, unique, sorted, literal,
+enum, and artifact-reference type constructors are defined once in the same
+artifact; no parser may infer a looser field shape.
 
 A type contract contains exactly its schema/profile/type identity, ordered
 field/property identities, frozen recursive default, `default_eligible` fact,
@@ -1704,12 +1811,14 @@ A method/constructor contract contains:
 - partial/total termination;
 - ordered loop records with invariants, modifies, and decreases.
 
-The expression union adds typed field/property access, sequence length/index,
-map/set lookup and membership, string/char, float, decimal, enum,
-date/time/duration/instant/GUID, specialized internal
-option/lookup/result/validation/boundary-field/transition construction and
-tests, source-binding identity, structural equality/order, parse-error kind,
-exception kind and payload, and bounded `forall`/`exists`. Every expression is
+The closed `mpk.csharp.contract_expression.v1` union includes `literal`,
+`variable`, `result`, `old`, `field`, `property`, `unary`, `binary`,
+`conditional`, `let`, `construct`, sequence length/index, map lookup/
+membership, set membership, tagged construction/test/payload, source project/
+reconstruct, structural equality/comparison, codec parse/format, parse-error
+kind, exception test/payload, transition state/events/response, and bounded
+`forall`/`exists`. Every node begins with `tag,type_id`; its remaining field
+order is closed in the machine artifact. Every expression is
 closed, explicitly typed, depth/count bounded, and free of source method calls.
 There is no arbitrary C# expression evaluator inside a contract parser and no
 contract expression can make an internal template callable from application
@@ -1783,12 +1892,22 @@ the source projection or VIR for this profile.
 
 ### 20.3 Certificate encoding
 
+Feasibility gate status: `CSHARP-03-T01-W09-F01` is resolved by the reviewed
+W08 replacement. Concrete values are binary-addressed Boolean cubes;
+conditionals expose a Bool leaf before applying `Std.Bool.rec`, and bounded
+foundation scans statically compose monomorphic `S -> S` transformers with
+ordinary `Lam`/`App`/`Let`. No replacement operation applies `Std.Nat.rec` or
+asks a checked recursor to return `S`. Both source-free checkers accept the
+replacement type-feasibility certificates. W09 also measured the final
+ordinary-term, generated-declaration, binder-depth, and concrete-transformer
+ceilings and their plus-one headroom as recorded in section 21.
+
 Encode option/lookup/result/validation/boundary-presence/transition, immutable
 records, bounded sequences, ordered maps/sets, business primitives, canonical
 boundary-codec relations, float, decimal, and closed exception outcomes using
-ordinary checked core terms and definitions over the existing Bool/BV/array/
-struct foundations. The successor program-assembly profile required by
-section 5.1 must preserve the acceptance rules already carried by the installed
+ordinary checked core terms over the existing Bool/Eq/logic definitions and
+the generated concrete Boolean-cube definitions. The successor program-assembly
+profile required by section 5.1 must preserve the acceptance rules already carried by the installed
 `mpk.program_certificate.alpha.v1` profile from
 `PROGRAM_CERTIFICATE_ALPHA_V0.md`: the root retains `proof_node_table: []` and
 `theory_certificates: []`, contains no `TheoryPrimitive` declaration or
@@ -1812,68 +1931,86 @@ boundary, and this profile cannot activate while such a dependency is
 unresolved. It must not add a `CSharpSemanticsAxiom`, theory shortcut, trusted
 primitive, runtime answer, or omitted obligation.
 
-## 21. Provisional deterministic limits
+## 21. Frozen deterministic limits
 
-The specification-freeze probes must replace this table with exact measured
-limits. These provisional ceilings bound the intended design and are not
-accepted values:
+`mpk.csharp.limits.v1` uses inclusive ceilings. `S` is a pre-invocation
+structural counter: increment exactly once with checked arithmetic at the
+frozen retention site, then reject before allocation or retention when the
+candidate exceeds the ceiling. `V` is an admitted run-time value predicate and
+VC: prove the value measure does not exceed the ceiling before verified
+acceptance. Counter overflow is a limit rejection. The machine freeze records
+one exact increment site, comparison rule, diagnostic, implementation owner,
+and limit-minus-one/limit/limit-plus-one vector for every row.
 
-| Counter | Proposed inclusive ceiling |
-| --- | ---: |
-| Source-defined data/exception types per compilation | 128 |
-| Fields/properties per type | 32 |
-| Constructors per type | 8 |
-| Structural type nesting | 16 |
-| Array elements per run-time value | 4,096 |
-| Sequence-construction capacity per value | 16,384 |
-| Array/sequence construction states per method / simultaneously live | 32 / 8 |
-| Ordered map/set entries per value | 4,096 |
-| Total collection cells represented by one request | 65,536 |
-| UTF-16 units per string value | 16,384 |
-| Option/lookup/result/validation/boundary-presence nesting | 16 |
-| Validation errors per result | 256 |
-| Application semantic bindings per compilation | 128 |
-| Projection obligations per semantic binding | 64 |
-| Distinct closed semantic instances per compilation | 256 |
-| Closed semantic-instance nesting | 16 |
-| Specialized declarations / operations per compilation | 1,024 / 4,096 |
-| Boundary fields / nesting / canonical bytes | 256 / 32 / 1,048,576 |
-| Events emitted by one transition | 4,096 |
-| Loops per method / nesting | 32 / 8 |
-| Invariants plus decreases per loop | 64 |
-| Switch arms per method | 256 |
-| Pattern nesting | 16 |
-| Catch/finally regions per method | 32 |
-| Source exception types per compilation | 32 |
-| Bounded-quantifier nesting | 4 |
+| Counter ID | Class | Inclusive ceiling |
+| --- | :---: | ---: |
+| `source_data_exception_types` | S | 128 |
+| `fields_properties_per_type` | S | 32 |
+| `constructors_per_type` | S | 8 |
+| `structural_type_nesting` | S | 16 |
+| `array_elements` | V | 4,096 |
+| `sequence_construction_capacity` | V | 16,384 |
+| `construction_states_per_method` | S | 32 |
+| `simultaneously_live_construction_states` | S | 8 |
+| `ordered_map_set_entries` | V | 4,096 |
+| `total_collection_cells` | V | 65,536 |
+| `string_utf16_units` | V | 16,384 |
+| `outcome_presence_nesting` | S | 16 |
+| `validation_errors` | V | 256 |
+| `semantic_bindings` | S | 128 |
+| `projection_obligations_per_binding` | S | 64 |
+| `closed_semantic_instances` | S | 256 |
+| `closed_instance_nesting` | S | 16 |
+| `specialized_declarations` | S | 1,024 |
+| `specialized_operations` | S | 4,096 |
+| `boundary_fields` | S | 256 |
+| `boundary_nesting` | S | 32 |
+| `boundary_canonical_bytes` | S | 1,048,576 |
+| `transition_events` | V | 4,096 |
+| `loops_per_method` | S | 32 |
+| `loop_nesting` | S | 8 |
+| `invariant_decreases_per_loop` | S | 64 |
+| `switch_arms_per_method` | S | 256 |
+| `pattern_nesting` | S | 16 |
+| `catch_finally_regions_per_method` | S | 32 |
+| `source_exception_types` | S | 32 |
+| `bounded_quantifier_nesting` | S | 4 |
+| `ordinary_term_nodes` | S | 262,144 |
+| `generated_declarations` | S | 8,192 |
+| `binder_depth` | S | 256 |
+| `static_transformers` | S | 16,384 |
 
 The shared sequence-construction ceiling accommodates the largest admitted
 string construction. Publication still proves the narrower value-specific
-ceiling: an array or ordinary sequence cannot exceed its 4,096-element bound,
-and map/set, validation-error, and transition-event values retain their own
-rows above. Reaching the lower-level construction ceiling therefore never
-widens a published value's semantic limit.
+ceiling: an array or ordinary sequence cannot exceed 4,096 elements, and map/
+set, validation-error, and transition-event values retain their own rows.
+Reaching the construction ceiling never widens a published value limit.
 
-Existing source, closure, operation, CFG, contract, diagnostic, artifact, and
-process limits remain ceilings unless the freeze provides reproducible memory,
-time, and output evidence for a changed successor limit. Structural and
-transport counters reject boundary-plus-one before allocating or retaining the
-excess. Untrusted boundary documents and parser inputs follow their specified
-pre-invocation rejection or `parse_error` paths. Within admitted source
-execution, run-time array, string, sequence-construction, map/set,
-validation-error, and transition-event maxima instead become explicit value
-predicates and VCs; an unproved bound blocks verified acceptance and never
-invents a source-language exception. Semantic bindings and their transitive
-closed-instance expansion are counted and rejected before VIR retention. All
-counter arithmetic is checked, and semantic value limits remain distinct from
-encoded byte limits.
+The 32 scalar-v0 source, closure, operation, CFG, contract, diagnostic,
+artifact, and output/process limits remain byte-for-byte unchanged. Their
+constant names, exact values, dispositions, and 96 boundary vectors are copied
+into the W09 machine freeze; the successor does not silently increase them.
+Untrusted boundary documents and parser inputs follow their pre-invocation
+rejection or `parse_error` paths. Semantic bindings and their transitive
+closed-instance expansion are counted before VIR retention. Semantic value
+limits remain distinct from encoded-byte and operational output limits.
+
+The capacity evidence generates ordinary, axiom-free Certificate v0 networks
+at 255/256/257 binder depth, 8,191/8,192/8,193 generated declarations,
+262,143/262,144/262,145 terms, and 16,383/16,384/16,385 statically composed
+concrete transformers. All twelve byte-identical cases were accepted twice by
+both checkers—48 accepted invocations—with no proof node, theory certificate,
+or core/checker change. The plus-one rows are deliberately checker-acceptable:
+the profile rejects them before invocation, preserving measured headroom.
 
 ## 22. Diagnostics and fail-closed precedence
 
 Do not reuse a scalar-v0 code with a broader meaning. The practical profile
-needs its own closed families, provisionally:
+uses these 29 frozen closed families:
 
 ```text
+CSHARP_PRACTICAL_PROTOCOL
+CSHARP_PRACTICAL_LIMIT
 CSHARP_PRACTICAL_DECLARATION
 CSHARP_PRACTICAL_TYPE
 CSHARP_PRACTICAL_DEPENDENCY
@@ -1903,15 +2040,20 @@ CSHARP_PRACTICAL_FOUNDATION
 CSHARP_PRACTICAL_LOWERING
 ```
 
-Capture/source/metadata/typecheck failures precede subset failures; subset and
-contract validation precede lowering; lowering precedes emission. Dependency
-validation precedes generic-shape validation, which precedes semantic-binding
-validation and transitive closed-instance expansion. Within a method, validate
-declarations/types, construction state, ownership, ordinary operations,
-control contracts, exceptions, then artifact mapping. Boundary
-shape/size/canonicality validation precedes typed conversion and any selected
-method launch. The normative vector must freeze every ambiguous multi-failure
-case.
+The exact phase precedence is protocol/limit, dependency, declaration/type,
+generic, source-binding/foundation, boundary/transition, data operations,
+control/effect, then lowering. Processing stops after the earliest failing
+phase. Within it diagnostics sort by the listed family order, source-file
+ordinal, start byte, end byte, and code. Boundary shape, size, canonicality,
+and typed conversion therefore precede any selected-method launch. The W09
+vectors contain every adjacent-family ambiguous pair and freeze the primary
+result.
+
+The diagnostic `phase` is the canonical integer 0 through 8 from that exact
+phase table; a code from another phase or any other integer rejects. An
+optional source location uses the validated source-snapshot ordinal and must
+satisfy `0 <= start_byte < end_byte <= raw source size`. A location is absent
+until that source identity and range are available.
 
 The generic family distinguishes user generic declarations, generic methods,
 non-allowlisted constructed framework types, explicit `System.Nullable<T>`, open
@@ -1930,6 +2072,18 @@ diagnostic includes a customer namespace or member spelling.
 Public messages remain bounded and sanitized. Raw compiler prose, source
 snippets, exception messages, host paths, generated type names, culture, and
 runtime stack text never enter public artifacts.
+
+A frontend success repeats the exact validated request hash and semantic
+context and carries the complete strict `mpk.frontend.source_artifacts.v2`
+root; a reduced subset of source artifacts is invalid. A frontend diagnostic
+always binds the raw request hash and byte count. Its closed request-linkage
+union is `unvalidated` only until strict request and semantic-context
+validation succeeds; after that point it is `validated` and carries the exact
+validated request hash and complete semantic context. A failure never carries
+partial source artifacts. Success additionally requires its artifact context
+to equal its own context and its artifact selection hash to equal the validated
+request selection hash. These are field-complete typed comparisons; matching
+digests alone never substitute for the repeated values.
 
 ## 23. Conformance and verification strategy
 
@@ -2011,16 +2165,17 @@ The reviewed implementation decomposition is maintained at
 [`08_csharp_practical_subset_design-todo.md`](08_csharp_practical_subset_design-todo.md).
 It replaces the superseded source-visible-library, iterator/async, and
 suspension-stage plan and is the current execution decomposition subordinate
-to this design and the future T01 frozen specifications. Its `Wnn`
+to this design and the T01-W09 private freeze that T01-W10 must publish. Its `Wnn`
 identifiers, dependencies, owners, acceptance gates, and primary test routing
 are current. The accepted native `JAVA-03-T10` x86-64 Linux release receipt
-satisfied the phase entry gate. `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07` have
+satisfied the phase entry gate. `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09` have
 closed the entry audit, consumer inventory, private frontend/toolchain closure
 proof, and Roslyn data/construction/control/exception/pattern/dependency/
 generic/iterator/async-rejection plus primitive/string/numeric/codec runtime
-measurements; `CSHARP-03-T01-W08` is ready,
-and each later work item remains blocked until its serial predecessor and task-
-local entry gate are satisfied.
+measurements, foundation semantics, and the successor contract/identity/limit
+freeze; the section 4 amendment resolves F01. `CSHARP-03-T01-W10` is ready.
+Each later work item remains blocked
+until its serial predecessor and task-local entry gate are satisfied.
 No task may reintroduce a source-visible `Mpk.*` API, user-defined generic,
 iterator, or async scope.
 
@@ -2128,39 +2283,33 @@ Activation requires all of the following:
   profile full C# support; and
 - review produces no findings before commit and push.
 
-## 26. Freeze-time facts that must be measured
+## 26. Freeze-time evidence status
 
-The design intentionally does not guess:
+T01-W01 through W09 now bind every fact that this design previously refused to
+guess:
 
-- exact Roslyn syntax/symbol/`IOperation` and CFG shapes for ordinary namespace
-  imports, the redundant nullable directive, patterns, nullable shorthand,
-  the restricted conditional-access/coalescing matrix, constructed-type
-  identity, and the complete synthesized member/modifier/attribute inventory
-  for init/required/object-initializer forms under the pinned compiler;
-- exact .NET float/decimal result bits, scale, rounding, exception, string,
-  date/calendar, time/duration, and GUID comparison/codec observations at every
-  selected edge;
-- the recursive default-eligibility matrix for every admitted semantic type;
-- the exact foundation-bundle descriptor, member inventory, content hash and
-  hash domain, plus section 6.2's closed template registry, operation sets,
-  generated dependencies, and application-owned semantic-binding schemas;
-- the money/instant source-shape obligations, key-order matrix, string/char
-  concatenation matrix, parse/format grammars, day-of-week enum mapping,
-  instant granularity and difference range, construction invariants,
-  transition error/precedence rules, and boundary/state-transition schemas;
-- the canonical specialization identity, dependency-closure, deduplication,
-  ordering, expansion, and residual-generic rejection algorithms;
-- the final artifact/schema/profile names and hashes;
-- the exact deterministic limits that both checkers can sustain; or
-- whether any proposed intrinsic needs a smaller initial allowlist.
+- W04-W06 retain exact public Roslyn syntax, symbol, operation, CFG,
+  synthesized-metadata, dependency, generic, iterator, and async observations;
+- W07-W08 retain exact runtime numeric/string/codec/business-value behavior,
+  default eligibility, construction behavior, foundation definitions,
+  specialization, and application-owned binding rules;
+- the W08 amendment and W09 feasibility record prove that the final Boolean-
+  cube/static-transformer recipes use only ordinary checked core terms; and
+- the W09 freeze fixes every successor identity/domain/owner, strict root and
+  expression tag, canonical boundary rule, transition/idempotency precedence,
+  diagnostic family, termination rule, and deterministic limit with 700
+  private vectors and 48 successful capacity-checker invocations.
 
-Each compiler or runtime observation needs a disposable public-API/runtime
-probe, a checked-in canonical result, an independent implementation owner, and
-an upgrade mutation. Each schema, identity, closure, or specialization rule
-instead needs canonical positive and negative vectors plus an independently
-recomputed implementation check; it must not be justified by a runtime probe.
-A failed or ambiguous required measurement narrows or blocks the feature; it
-never falls back to compiler trust, caller-supplied metadata, or an axiom.
+The canonical private handoff is
+`develop/migrations/csharp-03/freeze/profile-freeze.json`; its content hash and
+all evidence hashes are independently recomputed by
+`crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W09`. T01-W10 must
+publish that handoff as the complete specification/vector/name-and-owner
+package and run its independent zero-finding review. It may not change a
+frozen value without returning to W09 and regenerating the boundary vectors
+and evidence. A future failed or ambiguous observation still blocks the
+profile; it never falls back to compiler trust, caller-supplied metadata, or
+an axiom.
 
 ## 27. Primary references
 

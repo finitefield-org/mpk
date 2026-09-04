@@ -1,18 +1,23 @@
 # CSHARP-03 Practical C# Implementation Milestones and Tasks
 
-Status: current reviewed implementation decomposition, prepared on 2026-09-03.
+Status: current reviewed implementation decomposition, revised on 2026-09-04.
 The native `JAVA-03-T10` x86-64 Linux release receipt is accepted and
-`CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08` have completed the entry audit,
+`CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09` have completed the entry audit,
 consumer inventory, private frontend/toolchain closure proof, Roslyn shape
 probes, primitive/string/numeric/codec runtime measurements, and the candidate
-foundation/specialization/binding/data semantic freeze.
-`CSHARP-03-T01-W09` is ready; every later work item remains blocked by its serial
+foundation/specialization/binding/data semantics, and the successor contract/
+boundary/transition/identity/limit freeze. `CSHARP-03-T01-W09-F01` is resolved
+by W08's reviewed binary-addressed Boolean-cube and static concrete-transformer
+expansion (ledger section 11). Both checkers accept all W09 capacity cases
+through each frozen limit plus one without a core change. `CSHARP-03-T01-W10`
+is ready; every implementation work item remains blocked by its serial
 predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
 
-This document is subordinate to the source design and the future T01 frozen
-specifications. It replaces the superseded source-visible-library,
+This document is subordinate to the source design and the T01-W09 private
+freeze, which T01-W10 must publish as the complete frozen specifications. It
+replaces the superseded source-visible-library,
 iterator/async, and suspension-stage plan. Its `Wnn` items are the current
 independently assignable units, but none is executable until its stated entry
 gate and predecessor are complete.
@@ -46,11 +51,18 @@ JAVA-03-T10 -> CSHARP-03-T01-W01
 
 `JAVA-03-T10` completed atomic Java activation and the required native x86-64
 Linux two-pass release gate on 2026-09-03. This prerequisite is satisfied and
-T01-W01/W02/W03/W04/W05/W06/W07/W08 have closed the entry audit, consumer inventory,
+T01-W01/W02/W03/W04/W05/W06/W07/W08/W09 have closed the entry audit, consumer inventory,
 private frontend/toolchain closure proof, and Roslyn data, construction,
 control, exception, pattern, dependency, generic, iterator, and async-rejection
 plus primitive/string/numeric/codec runtime measurements and the foundation/
-specialization/binding/data semantic freeze; T01-W09 is ready. This
+specialization/binding/data semantic freeze. T01-W09 subsequently found that
+W08's cross-result Bool/Nat recursor applications do not typecheck against the
+checked standard interfaces; the authorized W08 amendment replaces them with
+binary Bool addressing and static concrete-transformer composition, resolving
+that type-feasibility finding. T01-W09 then froze the strict schema, identity,
+boundary, transition, diagnostic, termination, and limit contracts and measured
+both checkers at every capacity limit plus one; see ledger sections 11 and 12.
+T01-W10 is ready. This
 file remains planning material. W01 added its baseline and ledger; W02 added
 only the private consumer inventory, owner tests, ledger evidence, and current-
 status documentation; W03 added only private build-input evidence and its
@@ -63,10 +75,12 @@ canonical measurement, runner, documentation, and owner tests; W07 added only
 the corresponding private primitive/string/numeric/codec runtime probe,
 canonical measurement, runner, documentation, and owner tests. W08 adds the
 candidate foundation/data specification, generated descriptor/definitions and
-vectors, independent private runtime/model evidence and owner tests. No
+vectors, independent private runtime/model evidence and owner tests. W09 adds
+only private freeze/capacity artifacts, generators, owner tests, and
+documentation. No
 production code, application fixture, installed candidate bundle, public route,
 active build input or active registry/release descriptor has changed. The
-remaining successor-wide identity/schema/limit freeze belongs to W09/W10.
+remaining T01 work is the W10 publication and complete package review.
 
 The following are unconditional stop conditions:
 
@@ -139,12 +153,12 @@ commands use `/usr/bin/git`.
 
 ## 3. Frozen-name handoff and implementation surfaces
 
-Names in the source design such as `mpk.csharp.practical.v1`, “successor VIR”,
-and the practical sidecar families are working names until T01 completes. T01
-must publish one machine-readable name-and-owner inventory containing the
-final profile, registry, schema, artifact, hash-domain, bundle, diagnostic,
-and vector identities. Later tasks consume that inventory verbatim and do not
-mint aliases.
+T01-W09 froze `mpk.csharp.practical.v1`, the successor shared-artifact family,
+all sidecar schemas and hash domains, the context-dispatched C# bundle, and the
+complete producer/consumer ownership map in
+`develop/migrations/csharp-03/freeze/profile-freeze.json`. T01-W10 must publish
+that private machine-readable handoff as the name-and-owner specification and
+manifested vectors. Later tasks consume it verbatim and do not mint aliases.
 
 Every implementation item preserves this end-to-end data flow:
 
@@ -546,6 +560,20 @@ ledger section 10 records exact hashes, verification and the review/fix loop.
 
 Depends on: T01-W08.
 
+Current status: `Complete`. The private feasibility probe retains the original
+cross-result rejections and demonstrates the replacement Boolean-cube
+selection and concrete state-transformer fold in both checkers. F01 is resolved
+without changing core or using `Std.Nat.rec` in the replacement. The private
+freeze fixes all 17 successor identity families, 15 strict roots, 20 strict
+nested records, three tagged unions, the fully typed closed expression union,
+registry-entry/context/frontend equality linkage, canonical
+boundary/transition/idempotency rules, 29
+diagnostic families, 35 practical limits, and all retained scalar-v0 limits.
+The 700 sorted private vectors assign every row to its downstream implementation
+and primary production-test owner. The capacity record covers four generated-
+certificate counters at limit minus one, limit, and limit plus one through both
+checkers twice.
+
 Owns: final type/method/semantic-binding/boundary/transition sidecar schemas
 and expression union; verification-overlay handoff; missing/null/value
 canonical JSON; raw-input/canonical-value and canonical-output/reparsed-value
@@ -572,9 +600,19 @@ Verification: strict schema/hash/limit/precedence tests, later-version and
 duplicate-key mutations, and checker capacity probes at limit minus one,
 limit, and limit plus one.
 
+Completed handoff:
+`develop/migrations/csharp-03/freeze/profile-freeze.json`,
+`develop/migrations/csharp-03/freeze/profile-freeze-vectors.json`, and
+`develop/migrations/csharp-03/probes/checker-capacity.json`. The primary owner
+is `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W09`; ledger
+section 12 records exact hashes, verification, and the review/fix loop. These
+are private candidate inputs to W10, not published or installed schemas.
+
 ### CSHARP-03-T01-W10 — Publish and review the complete freeze package
 
 Depends on: T01-W09.
+
+Current status: `Ready`.
 
 Owns: the practical-profile specification package, successor shared-artifact
 specifications, exact vectors and manifest entries, canonical probe records,

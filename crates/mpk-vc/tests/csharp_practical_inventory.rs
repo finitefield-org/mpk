@@ -165,8 +165,8 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
         let expected_status = match work_item.as_str() {
             "CSHARP-03-T01-W01" | "CSHARP-03-T01-W02" | "CSHARP-03-T01-W03"
             | "CSHARP-03-T01-W04" | "CSHARP-03-T01-W05" | "CSHARP-03-T01-W06"
-            | "CSHARP-03-T01-W07" | "CSHARP-03-T01-W08" => "Complete",
-            "CSHARP-03-T01-W09" => "Ready",
+            | "CSHARP-03-T01-W07" | "CSHARP-03-T01-W08" | "CSHARP-03-T01-W09" => "Complete",
+            "CSHARP-03-T01-W10" => "Ready",
             _ => "Blocked",
         };
         assert_eq!(row.status, expected_status, "status drift for {work_item}");
@@ -178,7 +178,8 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             "CSHARP-03-T01-W05" => "13415911853c0368c103bd9d5feeb8374596d724",
             "CSHARP-03-T01-W06" => "22673dbc96d8ba4f0d9a4cb97c3f2490c00d1804",
             "CSHARP-03-T01-W07" => "b0ff7daec663b95b1f88ecc1d98f0b7c1f6fdf00",
-            "CSHARP-03-T01-W08" => "SELF",
+            "CSHARP-03-T01-W08" => "4ffd8b3a9918b6cae9e4d4704e4bc6b09a12cd5c",
+            "CSHARP-03-T01-W09" => "SELF",
             _ => "—",
         };
         assert_eq!(
@@ -229,7 +230,14 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
         "develop/specs/CSHARP_PRACTICAL_FOUNDATION_V1.md",
         "2,051 executable specification vectors",
         "1,629 independent runtime vectors",
-        "T01-W09 is the sole ready item",
+        "## 11. CSHARP-03-T01-W09 feasibility finding and resolution record",
+        "CSHARP-03-T01-W09-F01",
+        "Feasibility-amendment review findings: `0`",
+        "## 12. CSHARP-03-T01-W09 completion record",
+        "develop/migrations/csharp-03/freeze/profile-freeze.json",
+        "700 sorted rows",
+        "12 cases x 2 checkers x 2 runs = 48",
+        "Final review findings: `0`",
     ] {
         assert!(ledger.contains(required), "ledger is missing {required}");
     }

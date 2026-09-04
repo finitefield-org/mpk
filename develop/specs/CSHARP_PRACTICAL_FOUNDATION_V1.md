@@ -285,55 +285,100 @@ that exceed an encoding/transport counter reject before invocation.
 ## 4. Ordinary-core expansion calculus
 
 All recipes lower to ordinary Certificate v0 `Sort`, `Var`, `Const`, `App`,
-`Lam`, `Pi`, `Let` terms and already supported Bool/Nat/Eq eliminators. There is
-no new kernel type former, generic checker, product/sum inductive shape,
-axiom, extensionality rule, theory primitive, proof-node entry or theory
-certificate. The self-contained root copies the checked zero-axiom Bool/Nat/Eq
-and required logic definitions. Existing theory-oriented bit-vector or array
-axioms are **not** usable merely because they have similar names.
+`Lam`, `Pi`, and `Let` terms plus the already checked Bool/Eq and required logic
+definitions. There is no new kernel type former, generic checker, product/sum
+inductive shape, axiom, extensionality rule, theory primitive, proof-node entry,
+or theory certificate. The existing natural-number type in namespace `Std` may
+remain in a containing assembly when an unchanged predecessor needs it, but no
+practical-foundation recipe applies that namespace's `Nat.rec`. Existing
+theory-oriented bit-vector or array axioms are **not**
+usable merely because they have similar names.
 
-The concrete value carrier is a finite-depth Boolean tree represented by
-functions:
+The concrete value carrier is a finite-depth, binary-addressed Boolean cube:
 
 ```text
-C(0)   = Nat -> Bool
-C(d+1) = Nat -> C(d)
-Z(0)   = lambda i. false
-Z(d+1) = lambda i. Z(d)
-lift(x)= lambda i. if i=0 then x else Z(depth(x))
-unlift(x)=x(0)
+C(0)   = Bool
+C(d+1) = Bool -> C(d)
+Z(0)   = false
+Z(d+1) = lambda b. Z(d)
+addr(b0,...,bq-1) = sum(bit(bj) * 2^j)
+mux(0,c,t,e)      = Bool.rec(e,t,c)
+mux(d+1,c,t,e)    = lambda b. mux(d,c,t(b),e(b))
 ```
 
-`C(d)` is a monomorphic `Pi` chain. Nat indexes are structural positions, never
-a unary encoding of a 64/96-bit numeric value. Leaf `C(0)` stores fixed-width
-little-endian bits, false beyond width. Signed values use two's complement;
-char uses 16 bits, GUID 128 N-order bits, decimal sign/scale/coefficient uses
-the W07 exact representation. Scalar comparisons/arithmetic use finite-width
-bit definitions, not conversion to huge unary naturals or trusted host math.
+These are generation equations, not polymorphic or depth-indexed declarations
+inside the certificate. Every generated `Bool.rec` has Bool false/true cases,
+Bool major and Bool result. Selector arguments are ordered least-significant
+first (`b0` first); false is address bit 0 and true is address bit 1. A fixed
+block of `w` bits uses `C(ceil(log2(max(1,w))))`; every address `>= w` is false.
+Bool itself uses `C(0)`. Signed values use fixed-width two's complement; char
+uses 16 bits, GUID 128 N-order bits, and decimal sign/scale/coefficient uses the
+W07 exact representation. No 64/96/128-bit scalar is converted to unary Nat.
 
-For each closed type compute depth bottom-up. A product's children share the
-maximum child depth, using repeated `lift`; the product has one more level and
-is a finite index switch with zero at unused indexes. Projection applies its
-fixed field index and `unlift`s to the declared child depth. A sum is a product
-of a fixed-width tag and a payload slot at the maximum arm payload depth;
-inactive/no-payload branches contain zero. A semantic validity predicate checks
-the tag and only the **active** arm payload. Thus `none` does not require a
-default inhabitant of T. Branches are distinct even when payloads are identical.
-Sequence = product(u32 length, indexed elements); elements are lifted to one
-common depth, zero at indexes >= length. Maps/sets reuse that sequence layout
-plus their sortedness invariant. Transition fields are state/events/response;
-money storage fields are amount/currency even though its order compares
-currency first. `unit` is the zero leaf; parse-error/exception tag layouts follow
-section 3.1. The per-compilation exception payload union is concrete before VIR.
+For `a <= d`, `pad(a,d,x)` adds `d-a` leading selector binders and returns
+`x` only when every added selector is false; all other padding addresses return
+`Z(a)`. `unpad` applies false for those exact binders. Both operations expand
+pointwise through `mux`; neither eliminates Bool into a function result.
 
-An `if` is Bool.rec with constant-result motive. Fixed-width folds and bounded
-sequence scans expand through Nat.rec; intermediate arithmetic remains Boolean
-vectors. Generated recursive helpers take no source type parameter: the
-element layout, operation IDs, width, field count and fold bound are fixed by
-the concrete type. Numeric/codec primitive recipe behavior is W07's exact
-operation table, domains, bits and error order; no BCL Parse/Format/operation
-call becomes a proof oracle. The production owners must construct and check
-these bodies before a candidate can be registered.
+For a product with `n` fields, let `q=ceil(log2(max(1,n)))` and let `d` be the
+maximum padded child depth. Its carrier is `C(q+d)`: the first `q` selectors
+encode the field ordinal and the remaining selectors address the padded child.
+Unused field ordinals are zero. Projection supplies the fixed little-endian
+field-selector bits and then `unpad`s to the declared child depth. A sum is the
+two-field product of a fixed-width tag and the maximum-depth payload. Inactive
+or no-payload branches contain zero, and validity checks only the **active** arm
+payload. Thus `none` needs no default inhabitant of T and equal payload bytes do
+not collapse distinct arms.
+
+A sequence whose role admits `0 <= length <= N` is the product of its u32
+length and an element cube with `ceil(log2(max(1,N)))` leading little-endian index
+selectors. Selectors at addresses `>= N` and every address `>= length` return
+the zero element. A checked read first proves the signed i32 index is in
+`0..length`, then applies its low index bits; it never treats truncated high bits
+as an address. Maps and sets reuse that sequence layout and add their sortedness
+invariant. Transition fields are state/events/response; money storage fields are
+amount/currency even though order compares currency first. `unit` is `Z(0)`;
+parse-error and exception tags follow section 3.1. The per-compilation exception
+payload union is concrete before VIR.
+
+Every value conditional expands as `mux(depth,c,t,e)`. Fixed-width arithmetic,
+range checks, index comparison, scalar comparison, and codec character logic
+are finite Boolean circuits in the W07 bit order. Carry/borrow chains run from
+least- to most-significant bit; equality is the balanced conjunction of per-bit
+equivalence; order uses the frozen signed/unsigned rule; shifts, multiply,
+division/remainder, decimal normalization, and codec rules use their explicitly
+bounded width/character networks. A generator may share repeated subterms with
+`Let`, but may not substitute host evaluation, a BCL result, or a theory node.
+
+A bounded scan over concrete state carrier `S = C(d)` does not use an inductive
+recursor. Write `mux_S(c,t,e) = mux(d,c,t,e)`, and generate one closed
+transformer per possible source index:
+
+```text
+step_i : S -> S
+step_i = lambda s. mux_S(unsigned(i) < length, body(i,s), s)
+id_S   = lambda s. s
+compose_S(f,g) = lambda s. g(f(s))
+scan_S = balanced_ordered_compose(step_0,...,step_(N-1))(initial)
+```
+
+`mux_S`, `id_S`, and `compose_S` are generated at the one concrete `S`;
+they are not user-visible or foundation generics. The balanced composition tree
+is split into contiguous halves, evaluates the lower-index half before the
+higher-index half, and uses `id_S` for an empty interval. Search/early-exit state
+contains an explicit found/stopped bit, so every later transformer becomes an
+identity after the first terminal step. This form permits one state coordinate
+to depend on any prior coordinate while every actual `Bool.rec` still returns
+only Bool. The term table and `Let` bind the shared concrete transformer bodies;
+the containing W09 counters, not this semantic value bound, decide whether the
+expanded network is small enough for both checkers.
+
+Generated helpers take no source type parameter: element layout, operation IDs,
+width, field count, state carrier, and scan bound are fixed by the concrete
+closed operation. Numeric/codec primitive behavior remains W07's exact operation
+table, domains, bits and error order; no BCL Parse/Format/operation call becomes
+a proof oracle. The production owners must construct and check these bodies
+before a candidate can be registered.
 
 The equation vocabulary in the definition member is closed:
 

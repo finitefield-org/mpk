@@ -1,12 +1,15 @@
 # CSHARP-03 Implementation Traceability Ledger
 
-Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08` complete (2026-09-04). The
+Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09` complete (2026-09-04). The
 entry audit, consumer inventory, private frontend/toolchain closure proof,
 Roslyn shape probes, primitive/string/numeric/codec runtime measurements and
-candidate foundation/specialization/binding/data semantics are closed.
-`CSHARP-03-T01-W09` is ready; later items remain serially blocked. W08 freezes
-candidate-local identities and semantics only. No production acceptance path,
-installed candidate or active registry entry was introduced by W01-W08.
+candidate foundation/specialization/binding/data semantics and the successor
+contract/boundary/transition/identity/limit freeze have historical completion
+records. The authorized W08 expansion amendment resolves
+`CSHARP-03-T01-W09-F01` without changing core; W09 then measures checker
+capacity and completes the private freeze. `CSHARP-03-T01-W10` is ready and all
+implementation items remain serially blocked. No production acceptance path,
+installed candidate, or active registry entry was introduced by W01-W09.
 
 This ledger is subordinate to
 [`08_csharp_practical_subset_design.md`](08_csharp_practical_subset_design.md)
@@ -18,8 +21,9 @@ it does not freeze a new profile or alter an active release.
 
 ## 1. Ledger rules
 
-- Work items execute in the serial order defined by the task document. Exactly
-  one row may be `Ready`; no two rows may be `In progress`.
+- Work items execute in the serial order defined by the task document. At most
+  one row may be `Ready`; a stop finding leaves none ready. No two rows may be
+  `In progress`.
 - `Primary test owner` is the exact planned path plus a full work-item prefix.
   A later work item must create or extend that owner without taking ownership
   from another row.
@@ -44,9 +48,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T01-W05` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W05` | `13415911853c0368c103bd9d5feeb8374596d724` |
 | `CSHARP-03-T01-W06` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W06` | `22673dbc96d8ba4f0d9a4cb97c3f2490c00d1804` |
 | `CSHARP-03-T01-W07` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W07` | `b0ff7daec663b95b1f88ecc1d98f0b7c1f6fdf00` |
-| `CSHARP-03-T01-W08` | `Complete` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W08` | `SELF` |
-| `CSHARP-03-T01-W09` | `Ready` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W09` | `—` |
-| `CSHARP-03-T01-W10` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W10` | `—` |
+| `CSHARP-03-T01-W08` | `Complete` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W08` | `4ffd8b3a9918b6cae9e4d4704e4bc6b09a12cd5c` |
+| `CSHARP-03-T01-W09` | `Complete` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W09` | `SELF` |
+| `CSHARP-03-T01-W10` | `Ready` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W10` | `—` |
 | `CSHARP-03-T02-W01` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_registry.rs#CSHARP-03-T02-W01` | `—` |
 | `CSHARP-03-T02-W02` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W02` | `—` |
 | `CSHARP-03-T02-W03` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W03` | `—` |
@@ -1131,7 +1135,9 @@ byte preservation, non-activation, and serial ledger state after all fixes.
 The input is W07 commit `b0ff7daec663b95b1f88ecc1d98f0b7c1f6fdf00`, tree
 `b74233683af4c85ba7576d65e627b0a7efa51598`. W03 build inputs, reference
 projection, W04–W07 observations and active scalar release bytes are retained.
-The final data/foundation contract is
+This subsection preserves the original W08 completion bytes; section 11 records
+the authorized current-candidate amendment and superseding hashes. The original
+data/foundation contract is
 `develop/specs/CSHARP_PRACTICAL_FOUNDATION_V1.md`, owned by
 `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W08`.
 
@@ -1169,11 +1175,13 @@ specimen derives 13 distinct instances, 83 operations and 863 recipe nodes.
 These are specification-recipe counts, not claims of measured kernel capacity;
 the complete emitted-term and checker-capacity freeze remains T01-W09-owned.
 
-Ordinary-core recipes use concrete finite-depth Boolean function trees and
-existing Bool/Nat/Eq eliminators, not new inductive shapes or bit-vector/array
-axioms. Field/sequence equality is an explicit relation, not function
-extensionality. Actual definition construction and certificate proof discharge
-remain the named T02/T06 work items; W08 does not claim they are already built.
+At original completion, ordinary-core recipes used concrete finite-depth
+Boolean function trees and existing Bool/Nat/Eq eliminators. Section 11
+supersedes only that infeasible expansion recipe with the binary Bool cube and
+static-transformer form; semantic operation behavior remains unchanged.
+Field/sequence equality is an explicit relation, not function extensionality.
+Actual definition construction and certificate proof discharge remain the named
+T02/T06 work items; W08 does not claim they are already built.
 
 ### 10.2 Independent runtime evidence and non-activation
 
@@ -1212,8 +1220,10 @@ normative vectors/manifest registration, owner tests and documentation changed.
 No production source, installed descriptor, public route, active registry,
 application dependency, release candidate bundle, core/checker behavior or
 GitHub workflow changed. The active scalar descriptor/inventory/vector remain
-at the raw digests recorded in section 9.2. T01-W09 is the sole ready item;
-W10 and all production implementation/activation work remain serially blocked.
+at the raw digests recorded in section 9.2. At W08 completion T01-W09 was the
+sole ready item; section 11 records the later finding and authorized amendment
+that restores that readiness. W10 and all production implementation/activation
+work remain serially blocked.
 
 ### 10.3 Verification and review
 
@@ -1258,3 +1268,279 @@ member/hash closure, exact twelve/four registry, generic erasure, source-member
 closure, bindings and default/projection distinctions, core-recipe trust
 boundary, field/collection semantics, all runtime comparisons and precedence,
 manifest/schema/owner consistency, serial ledger state and non-activation.
+
+## 11. CSHARP-03-T01-W09 feasibility finding and resolution record
+
+Status: finding `CSHARP-03-T01-W09-F01` (P1) is `Resolved` (2026-09-04).
+This section preserves the authorized W08 amendment and counterexample;
+section 12 records the subsequent W09 completion and capacity freeze.
+
+### 11.1 Retained counterexample
+
+Entry commit is `4ffd8b3a9918b6cae9e4d4704e4bc6b09a12cd5c` on `main`, with a
+clean worktree at entry. The original W08 section 4 assumed arbitrary concrete-
+result Bool/Nat elimination. The checked interfaces instead have fixed results:
+
+```text
+Std.Bool.rec : Bool -> Bool -> Bool -> Bool
+Std.Nat.rec  : Nat -> (Nat -> Nat -> Nat) -> Nat -> Nat
+```
+
+The retained direct `Bool.rec`-to-tree and `Nat.rec`-to-Bool certificates still
+fail declaration typechecking in both checkers, including Nat major zero. This
+rules out the old recipe and a smaller numerical cap as its repair; it does not
+change or weaken either checker.
+
+### 11.2 Authorized replacement and dual-checker evidence
+
+The replacement carrier is `C(0)=Bool; C(d+1)=Bool -> C(d)`. Selector binders
+are binary address bits, least-significant first. Products, sums, padding and
+sequence indexing expose every coordinate before selecting through
+`Std.Bool.rec`, so its cases, major and result are always Bool. Bounded scans
+statically compose closed, concrete `S -> S` state transformers with ordinary
+`Lam`/`App`/`Let`; they never eliminate Bool or Nat into `S` and never apply
+`Std.Nat.rec`. Fixed-width numeric/index/codec work remains finite Boolean
+circuit generation, with no unary wide scalar or theory shortcut.
+
+The complete rules are in the amended
+`develop/specs/CSHARP_PRACTICAL_FOUNDATION_V1.md` section 4. The canonical
+record is `develop/migrations/csharp-03/probes/recursor-feasibility.json`, raw
+SHA-256
+`c1a9024df81555ab3af21926885c62a1da88ded918842ca9f657794a079a8785`.
+It binds 73 checker/build/probe source files and the unchanged checked standard
+inputs:
+
+- Bool raw SHA-256:
+  `88a37f9df68a18bc19d51c0832279ff97a2944fc1676326022269766933ee806`;
+- Nat raw SHA-256:
+  `65bc5b701561d07b0f675668d942917da23c43606c0cfe0f9edfa113be99f583`.
+
+Each of 15 self-contained Certificate v0 cases has 13 declarations and zero
+axioms, proof nodes and theory certificates. Each checker receives identical
+bytes twice: 15 cases x 2 checkers x 2 runs = 60 invocations. Per run, ten
+controls/replacement cases accept, including the two-address Bool cube and a
+function-valued state advanced through cross-coordinate static transformer
+composition; the five old cross-result cases reject with the original type
+mismatch. The probe independently counts direct `Std.Nat.rec` applications and
+requires zero in every replacement case. Unexpected builds, timeouts, signals
+or checker errors abort the runner and cannot become a semantic verdict.
+
+### 11.3 Candidate amendment and remaining boundary
+
+The candidate artifacts were regenerated as one deterministic set from the
+amended model:
+
+| Artifact | Raw SHA-256 / identity |
+| --- | --- |
+| foundation specification | `29c5986e3c7ce2ab018e36eea61caaf9d9e53d6b8e47f0229ef4681db8c3fc8b` |
+| foundation definitions | `25738447bf793e37dc2125e7a07da55a03fb15f2fa4dfb87b25646a16cc9d1b4` |
+| foundation descriptor content hash | `d8c2a023f1c445470123519f5024a17aaca1766553331a2fed4733fecf7deec1` |
+| foundation conformance vectors | `5889d91e2365dfb8bce4260a4eae0fb3dd63b2e5fa430f7ed5a6dc8a0220bdc1` |
+
+The candidate remains private and inactive. No core/checker behavior,
+production frontend, public route, installed profile/registry, release input,
+application source, source-visible generic, or value bound changed. The probe's
+`capacity_measurement` now binds the separate checker-capacity record while
+`release_gate` remains false. Section 12 owns that measurement and the final
+W09 boundaries; this feasibility result alone makes no capacity claim.
+
+### 11.4 Verification and review
+
+Completed local checks:
+
+| Command | Result |
+| --- | --- |
+| `python3 develop/probes/csharp-03/run-recursor-probe.py --check` | pass: expected verdicts in all 60 invocations |
+| `python3 develop/probes/csharp-03/foundation_package.py --check` | pass: 2,051 vectors, 12 templates, 4 non-template definitions |
+| `cargo test -p mpk-vc --test csharp_practical_spec --test csharp_practical_inventory` | pass |
+| `python3 scripts/check-spec-vectors.py --check` | pass: 25 vector sets |
+| `python3 scripts/check-artifact-paths.py` | pass: 256 registered canonical JSON artifacts |
+| `./scripts/check-fast.sh` | pass |
+| `/usr/bin/git diff --check` | pass |
+
+The default fast gate's provisioned-Linux tests remain ignored as documented;
+this amendment is not a native Linux release receipt.
+Feasibility-amendment review findings: `0`. The complete W09 review and
+publication boundary are recorded separately in section 12.
+
+## 12. CSHARP-03-T01-W09 completion record
+
+### 12.1 Frozen private handoff
+
+W09 consumes W08 commit
+`4ffd8b3a9918b6cae9e4d4704e4bc6b09a12cd5c`, the complete W02 17-family
+consumer inventory, the amended W08 foundation descriptor/content hash, and
+the section 11 recursor evidence. It produces no public schema, manifest entry,
+installed bundle, registry value, or production route. W10 remains the sole
+publication owner.
+
+The generated private freeze at
+`develop/migrations/csharp-03/freeze/profile-freeze.json` is 97,316 bytes with
+raw SHA-256
+`83954067c156e58cb349dbf07da44edf60a3ec550e628e6d2f1a890889d574e3`.
+Its domain-separated content SHA-256 is
+`f292de00a79048ecd1ff2cbe52d90fad36654f1b3e74ad580b5ec3077afa28cb`
+under `MPK-CSHARP-PRACTICAL-FREEZE-1.0`. It binds the W02 inventory raw SHA-256
+`14b861354c54a59b06e625810b106d53fa830a39d49e68c3aef9ec82b93fef55`,
+the W08 foundation descriptor content SHA-256
+`d8c2a023f1c445470123519f5024a17aaca1766553331a2fed4733fecf7deec1`,
+the recursor-evidence raw SHA-256
+`c1a9024df81555ab3af21926885c62a1da88ded918842ca9f657794a079a8785`,
+and the checker-capacity evidence below.
+
+The freeze contains all 17 successor identity families and their unchanged
+W02 implementation owners; globally unique successor IDs and hash domains;
+the exact five-profile by nine-category compiled-contract matrix; 15 strict
+root schemas; 20 strict nested records; three closed tagged unions; a closed,
+field-complete explicitly typed contract-expression union; canonical
+JSON and raw/canonical/reparsed boundary linkage; transition, response, event,
+version and error precedence; optional complete-snapshot idempotency; 29
+diagnostic families; total-termination rules; 35 practical limits; and all 32
+unchanged scalar-v0 limits. Unknown fields/tags, duplicate JSON keys, later
+versions, mixed artifact families, and ambient profile selection all reject.
+
+The private vectors at
+`develop/migrations/csharp-03/freeze/profile-freeze-vectors.json` contain 700 sorted rows and
+are 230,986 bytes with raw SHA-256
+`7d1de4f4d087fe0de7b32ec44ee2b17f08cbfb052e5993699137c47736c94ef3`.
+They cover every strict root's valid value, later version, unknown field,
+missing required field, wrong field type, and duplicate-key mutation; every
+strict nested record, expression arm, and tagged-union arm's valid/unknown/
+missing/wrong-type/duplicate cases plus unknown tags; expression-tag closure;
+identity/domain collision and old/new mixing; canonical JSON; missing/null/
+value and raw/canonical/reparsed linkage; transition/idempotency precedence;
+every diagnostic adjacency; every retained and new counter at limit minus one,
+limit and limit plus one; dispatch; and total termination. Each row names one
+downstream implementation task and exact primary production-test owner.
+
+### 12.2 Boundary, transition, identity, and executable decisions
+
+The boundary document is an MPK verification-overlay transport. It is not an
+application API, stored model, production serializer, or external-company
+deployment dependency. Input evidence retains both raw provenance/bytes and
+the independently parsed canonical typed value; output evidence retains the
+source value, canonical bytes, and reparsed value. Typed equality is checked
+field-completely; digest equality is never a substitute.
+
+Transition version is unsigned 64-bit and advances by checked addition only on
+a new success. Replay and all errors preserve the complete state. Retained-key
+snapshot replay/conflict precedes expected-version conflict, which precedes
+history capacity, version exhaustion, declared business errors, and new
+success. Event order is source append order. Idempotency is unavailable unless
+the retained record stores the key, complete application-owned `Command` and
+`Context` snapshots, and complete response, and a source equality helper is
+proved field-complete and equivalent to their canonical field encodings.
+`float`, `double`, recursively containing types, and any other non-reflexive
+snapshot are ineligible.
+
+One successor frontend bundle,
+`frontend.csharp.csharp2vir.candidate.v2`, with `csharp2vir.dll` serves both
+`mpk.csharp.scalar.v0` and `mpk.csharp.practical.v1`. Dispatch uses only the
+validated `semantic_context.semantic_profile`; an environment flag, fallback,
+or mixed old/new artifact family rejects. The scalar route must pass byte-level
+predecessor source-verdict, obligation, and Certificate v0 equivalence before
+atomic activation. The neutral successor assembly profile is
+`mpk.program_certificate.ordinary_context.v2`; existing Certificate v0 and
+checker hash domains retain their exact meanings.
+
+### 12.3 Checker-capacity evidence
+
+The record at
+`develop/migrations/csharp-03/probes/checker-capacity.json` is 38,701 bytes
+with raw SHA-256
+`de040d4342e90a23e4bbe6464aeaccbfa9f2630c1423b77b716b40c805ac8a99`.
+Its 73-file checker/build/probe source inventory SHA-256 is
+`e855ce008b87b4509a8af7d3b07ce5f907f9a98383b942710d362a146a2d0e38`.
+The probe generates self-contained ordinary Certificate v0 networks at:
+
+| Counter | Below / at / above |
+| --- | --- |
+| binder depth | 255 / 256 / 257 |
+| successor-generated declarations, excluding the pinned prelude | 8,191 / 8,192 / 8,193 |
+| total ordinary term nodes | 262,143 / 262,144 / 262,145 |
+| statically composed concrete transformers | 16,383 / 16,384 / 16,385 |
+
+All twelve cases have zero axioms, proof nodes, and theory certificates. Each
+checker receives identical bytes twice: 12 cases x 2 checkers x 2 runs = 48
+accepted invocations. The largest certificate is 2,081,286 bytes. Recorded Rust
+observations range from 35 to 1,814 ms and reference-Go observations from 26 to
+397 ms under a 60-second per-invocation failure bound. Timing is observational
+and excluded from stable rerun equality; certificate bytes/hashes, verdicts,
+exits, stdout/stderr and their hashes must match. The profile accepts below/at
+and rejects above before checker invocation, retaining measured one-step
+headroom without modifying either checker.
+
+### 12.4 Non-activation and verification
+
+Only private migration evidence, disposable generators/probes, owner tests,
+and design/task/ledger/probe documentation changed. The accompanying W08
+amendment regenerates its candidate foundation artifacts and preserves their
+semantics. No production source, core/checker rule, source-visible package or
+generic, external-company application file, installed registry/release input,
+candidate executable bytes, public route, or GitHub workflow changed.
+
+Completed local verification:
+
+| Command | Result |
+| --- | --- |
+| `python3 develop/probes/csharp-03/run-recursor-probe.py --check` | pass: 60 expected dual-checker verdicts |
+| `python3 develop/probes/csharp-03/run-checker-capacity-probe.py --check` | pass: 48 checker acceptances and stable outputs |
+| `python3 develop/probes/csharp-03/profile_freeze.py --check` | pass: 17 families, 15 schemas, 35 practical limits, 700 vectors |
+| `python3 develop/probes/csharp-03/foundation_package.py --check` | pass: amended W08 artifacts reproduce |
+| `cargo test -p mpk-vc --test csharp_practical_spec --test csharp_practical_inventory` | pass |
+| `python3 scripts/check-spec-vectors.py --check` | pass |
+| `python3 scripts/check-artifact-paths.py` | pass |
+| `./scripts/check-fast.sh` | pass |
+| `/usr/bin/git diff --check` | pass |
+
+Review/fix iterations:
+
+- The schema-owner pass found that the validated semantic request's declared
+  hash field was absent from its ordered required fields. The field was added,
+  and both the generator and independent Rust owner now require every hashed
+  root to place its hash last.
+- The evidence-state pass replaced the feasibility record's obsolete
+  capacity-pending marker with an exact path/raw-hash binding to the separate
+  capacity record; the small recursor cases remain explicitly non-capacity
+  evidence.
+- The diagnostic pass corrected the frozen sanitized public message's UTF-8
+  byte count, changed the entry field from a literal placeholder token to the
+  exact frozen-message type, restricted phases to 0 through 8, closed the
+  phase/code and source-location rules, and added generator-side recomputation.
+- The schema-closure pass found untyped expression fields, implicit nested
+  requiredness, an underspecified boundary-default arm, and missing exact
+  practical-parameter/selection roots. It closed all field-type expressions,
+  restricted construction and public invariants to Bool expressions, made all
+  tagged unions strict, made the shared validated request dispatch its strict
+  selection shape from the registry entry, and added the missing roots without
+  changing an active schema.
+- The parameter pass cross-checked the W04-W06 pinned Roslyn compilation
+  options and corrected the practical checked-overflow default to the measured
+  enabled value rather than copying the scalar-v0 predecessor value.
+- The source-artifact pass found that the success envelope's reduced three-
+  artifact record omitted semantic bindings, closed instances, the foundation,
+  and boundary/transition contracts. It now requires the complete strict
+  `mpk.frontend.source_artifacts.v2` root.
+- The frontend-linkage pass found that success did not repeat the validated
+  request hash and that diagnostics could not distinguish pre-validation from
+  validated failures. Success now binds the request hash, semantic context,
+  complete artifact root, matching artifact context, and request selection;
+  diagnostics always bind the raw request and use a closed
+  `unvalidated`/`validated` linkage union without partial artifacts.
+- The context-binding pass found that the shared validated request hard-coded
+  the practical C# selection shape and did not enumerate its registry-entry or
+  repeated-context equalities. It now dispatches the strict selection envelope
+  from the resolved entry and freezes every field-complete mismatch rejection.
+- The vector-ownership pass replaced the single placeholder schema/limit owner
+  with each frozen producer or counter owner and its task-plan primary test;
+  it also added wrong-type coverage for nested records and full valid/unknown/
+  missing/wrong-type/duplicate coverage for every expression and union arm.
+- The status pass corrected the stale design sentence that still called W09
+  ready after its handoff had completed.
+
+Final review findings: `0`. The final pass checks W09-only scope plus the
+authorized W08 amendment, all W02 families/owners, global name/domain
+uniqueness, strict schema and expression closure, boundary non-protocol status,
+complete-snapshot idempotency, transition/diagnostic precedence, every counter
+boundary, dual-checker capacity/reproducibility, total termination, W10-only
+publication, predecessor preservation, serial ledger state, and non-activation.

@@ -1,4 +1,4 @@
-//! Private executable-specification owner: CSHARP-03-T01-W08.
+//! Private W08 specification owner and W09 freeze/capacity evidence.
 //! These tests do not install/dispatch any practical production profile.
 
 use serde_json::{json, Value};
@@ -13,7 +13,14 @@ const DESCRIPTOR: &str = "develop/migrations/csharp-03/foundation/foundation-des
 const DEFINITIONS: &str = "develop/migrations/csharp-03/foundation/foundation-definitions.json";
 const VECTORS: &str = "develop/specs/vectors/csharp-practical-foundation-v1.json";
 const RUNTIME: &str = "develop/migrations/csharp-03/probes/runtime-foundation-data.json";
+const W09_FREEZE: &str = "develop/migrations/csharp-03/freeze/profile-freeze.json";
+const W09_VECTORS: &str = "develop/migrations/csharp-03/freeze/profile-freeze-vectors.json";
+const W09_CAPACITY: &str = "develop/migrations/csharp-03/probes/checker-capacity.json";
+const W09_INVENTORY: &str = "develop/migrations/csharp-03/artifact-consumer-inventory.json";
 const OWNER: &str = "crates/mpk-vc/tests/csharp_practical_spec.rs";
+
+#[path = "../../../develop/probes/csharp-03/recursor_feasibility.rs"]
+mod recursor_feasibility;
 
 fn root() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("../..")
@@ -106,6 +113,13 @@ fn row<'a>(vectors: &'a Value, id: &str) -> &'a Value {
         .iter()
         .find(|row| row["id"] == id)
         .expect("vector ID")
+}
+
+fn vector<'a>(vectors: &'a Value, id: &str) -> &'a Value {
+    array(&vectors["vectors"])
+        .iter()
+        .find(|row| row["id"] == id)
+        .expect("W09 vector ID")
 }
 
 #[test]
@@ -206,8 +220,12 @@ fn csharp_03_t01_w08_descriptor_members_domains_and_closed_registry() {
     );
     assert_eq!(
         definitions["ordinary_core"]["value_carrier"],
-        "C(0)=Pi(Nat,Bool); C(d+1)=Pi(Nat,C(d))"
+        "C(0)=Bool; C(d+1)=Pi(Bool,C(d))"
     );
+    assert!(text(&definitions["ordinary_core"]["conditionals"])
+        .contains("every Bool.rec has Bool cases, major, and result"));
+    assert!(text(&definitions["ordinary_core"]["folds"]).contains("concrete S->S transformers"));
+    assert!(text(&definitions["ordinary_core"]["folds"]).contains("no Nat.rec"));
     assert!(text(&definitions["ordinary_core"]["proofs"]).contains("no new inductive shape"));
 }
 
@@ -517,4 +535,882 @@ fn csharp_03_t01_w08_executable_specification_and_independent_runtime_oracle() {
             String::from_utf8_lossy(&output.stderr)
         );
     }
+}
+
+#[test]
+fn csharp_03_t01_w09_successor_identities_schemas_and_owners_are_frozen() {
+    let freeze = document(W09_FREEZE);
+    assert_keys(
+        &freeze,
+        &[
+            "schema",
+            "work_item",
+            "status",
+            "semantic_profile",
+            "activation",
+            "predecessor_commit",
+            "identity_families",
+            "schemas",
+            "schema_type_system",
+            "expression_union",
+            "semantic_context_binding",
+            "canonical_json",
+            "boundary_handoff",
+            "transition",
+            "diagnostics",
+            "frontend_linkage",
+            "limits",
+            "executable_dispatch",
+            "termination",
+            "ownership",
+            "evidence",
+            "publication_owner",
+            "content_hash_domain",
+            "content_sha256",
+        ],
+    );
+    assert_eq!(freeze["schema"], "mpk.csharp_practical.t01_w09.freeze.v1");
+    assert_eq!(freeze["work_item"], "CSHARP-03-T01-W09");
+    assert_eq!(freeze["status"], "frozen_candidate_only");
+    assert_eq!(freeze["activation"], "candidate_only");
+    assert_eq!(freeze["semantic_profile"], "mpk.csharp.practical.v1");
+    assert_eq!(freeze["publication_owner"], "CSHARP-03-T01-W10");
+    let mut preimage = freeze.clone();
+    preimage.as_object_mut().unwrap().remove("content_sha256");
+    assert_eq!(
+        text(&freeze["content_sha256"]),
+        domain_hash("MPK-CSHARP-PRACTICAL-FREEZE-1.0", &preimage)
+    );
+
+    let inventory = document(W09_INVENTORY);
+    assert_eq!(
+        freeze["ownership"]["inventory_raw_sha256"],
+        sha(&read(W09_INVENTORY))
+    );
+    assert_eq!(
+        freeze["ownership"]["migration_set"],
+        inventory["atomic_migration_set"]
+    );
+    assert_eq!(
+        freeze["ownership"]["rollback_set"],
+        inventory["whole_image_rollback_set"]
+    );
+    let frozen_families = array(&freeze["identity_families"]);
+    let inventory_families = array(&inventory["identity_families"]);
+    assert_eq!(frozen_families.len(), 17);
+    assert_eq!(frozen_families.len(), inventory_families.len());
+    let mut identities = BTreeMap::new();
+    let mut domains = BTreeMap::new();
+    let mut retained_identities = BTreeSet::new();
+    let mut retained_domains = BTreeSet::new();
+    for (frozen, inventoried) in frozen_families.iter().zip(inventory_families) {
+        assert_keys(
+            frozen,
+            &[
+                "family",
+                "successor_identities",
+                "successor_hash_domains",
+                "retained_identities",
+                "retained_hash_domains",
+                "implementation_owners",
+                "migration_set",
+            ],
+        );
+        assert_eq!(frozen["family"], inventoried["id"]);
+        assert_eq!(
+            frozen["implementation_owners"],
+            inventoried["implementation_owners"]
+        );
+        assert_eq!(
+            frozen["retained_identities"],
+            inventoried["current_identities"]
+        );
+        retained_identities.extend(array(&frozen["retained_identities"]).iter().map(text));
+        retained_domains.extend(
+            array(&frozen["retained_hash_domains"])
+                .iter()
+                .map(|row| text(&row["id"])),
+        );
+        for identity in array(&frozen["successor_identities"]) {
+            assert!(identities
+                .insert(text(identity), text(&frozen["family"]))
+                .is_none());
+        }
+        for domain in array(&frozen["successor_hash_domains"]) {
+            assert!(domains
+                .insert(text(domain), text(&frozen["family"]))
+                .is_none());
+        }
+    }
+    assert_eq!(
+        frozen_families[14]["successor_identities"],
+        json!(["mpk.program_certificate.ordinary_context.v2"])
+    );
+    let certificate_domain = format!("MPK-{}-0.1", "CERT");
+    assert!(array(&frozen_families[14]["retained_hash_domains"])
+        .iter()
+        .any(|row| row["id"] == certificate_domain
+            && row["decision"] == "retain_certificate_v0_preimage"));
+    assert!(identities
+        .keys()
+        .all(|identity| !retained_identities.contains(identity)));
+    assert!(domains
+        .keys()
+        .all(|domain| !retained_domains.contains(domain)));
+
+    let declared: BTreeSet<_> = identities.keys().copied().collect();
+    let schemas = array(&freeze["schemas"]);
+    assert_eq!(schemas.len(), 15);
+    for schema in schemas {
+        assert_keys(
+            schema,
+            &[
+                "id",
+                "version",
+                "root",
+                "ordered_fields",
+                "field_types",
+                "required_fields",
+                "optional_fields",
+                "hash_field",
+                "hash_domain",
+                "hash_preimage_fields",
+                "unknown_fields",
+                "duplicate_keys",
+                "later_versions",
+                "producer",
+                "consumers",
+            ],
+        );
+        assert!(declared.contains(text(&schema["id"])));
+        assert_eq!(schema["root"], "object");
+        assert_eq!(
+            array(&schema["ordered_fields"])
+                .iter()
+                .map(text)
+                .collect::<BTreeSet<_>>(),
+            schema["field_types"]
+                .as_object()
+                .unwrap()
+                .keys()
+                .map(String::as_str)
+                .collect()
+        );
+        assert_eq!(schema["ordered_fields"], schema["required_fields"]);
+        assert_eq!(schema["optional_fields"], json!([]));
+        assert_eq!(schema["unknown_fields"], "reject");
+        assert_eq!(
+            schema["duplicate_keys"],
+            "reject_before_object_construction"
+        );
+        assert_eq!(schema["later_versions"], "reject");
+        assert!(!array(&schema["ordered_fields"]).is_empty());
+        if !schema["hash_field"].is_null() {
+            assert_eq!(
+                array(&schema["ordered_fields"]).last(),
+                Some(&schema["hash_field"])
+            );
+            assert!(domains.contains_key(text(&schema["hash_domain"])));
+        }
+        if !schema["hash_domain"].is_null() {
+            assert!(domains.contains_key(text(&schema["hash_domain"])));
+            assert_eq!(
+                array(&schema["hash_preimage_fields"])
+                    .iter()
+                    .collect::<Vec<_>>(),
+                array(&schema["ordered_fields"])
+                    .iter()
+                    .filter(|field| **field != schema["hash_field"])
+                    .collect::<Vec<_>>()
+            );
+        } else {
+            assert!(schema["hash_preimage_fields"].is_null());
+        }
+    }
+    let type_system = &freeze["schema_type_system"];
+    let records = array(&type_system["nested_records"]);
+    assert_eq!(records.len(), 20);
+    let record_ids: BTreeSet<_> = records.iter().map(|row| text(&row["id"])).collect();
+    assert_eq!(record_ids.len(), records.len());
+    for required in [
+        "boundary_field",
+        "csharp_practical_parameter_values_v1",
+        "boundary_evidence_linkage",
+        "exceptional_case",
+        "loop_contract",
+        "transition_version_rule",
+        "idempotency_complete_snapshot",
+        "diagnostic_entry_v2",
+    ] {
+        assert!(record_ids.contains(required));
+    }
+    for record in records {
+        assert_eq!(record["required_fields"], record["ordered_fields"]);
+        assert_eq!(record["optional_fields"], json!([]));
+        assert_eq!(record["unknown_fields"], "reject");
+        assert_eq!(
+            record["duplicate_keys"],
+            "reject_before_object_construction"
+        );
+        assert_eq!(
+            array(&record["ordered_fields"])
+                .iter()
+                .map(text)
+                .collect::<BTreeSet<_>>(),
+            record["field_types"]
+                .as_object()
+                .unwrap()
+                .keys()
+                .map(String::as_str)
+                .collect()
+        );
+        assert!(text(&record["producer"]).starts_with("CSHARP-03-"));
+    }
+    let practical_parameters = records
+        .iter()
+        .find(|row| row["id"] == "csharp_practical_parameter_values_v1")
+        .unwrap();
+    assert_eq!(
+        practical_parameters["field_types"]["check_overflow_default"],
+        "literal<true>"
+    );
+    assert_eq!(
+        practical_parameters["field_types"]["nullable_context"],
+        "literal<enable>"
+    );
+    let diagnostic_entry = records
+        .iter()
+        .find(|row| row["id"] == "diagnostic_entry_v2")
+        .unwrap();
+    assert_eq!(
+        diagnostic_entry["field_types"]["message"],
+        "sanitized_public_message_literal"
+    );
+    let type_contract = schemas
+        .iter()
+        .find(|row| text(&row["id"]).ends_with("csharp.type_contract.v1"))
+        .unwrap();
+    assert_eq!(
+        type_contract["field_types"]["construction_invariant"],
+        "contract_expression_bool_or_null"
+    );
+    assert_eq!(
+        type_contract["field_types"]["invariants"],
+        "ordered_array<contract_expression_bool>"
+    );
+    assert_eq!(
+        type_contract["field_types"]["source_type_id"],
+        "closed_source_type_id"
+    );
+    assert_eq!(
+        type_contract["field_types"]["ordered_member_ids"],
+        "ordered_unique_array<canonical_source_member_id>"
+    );
+    let unions = array(&type_system["tagged_unions"]);
+    assert_eq!(unions.len(), 3);
+    let idempotency_union = unions
+        .iter()
+        .find(|row| row["id"] == "transition_idempotency")
+        .unwrap();
+    assert_eq!(idempotency_union["id"], "transition_idempotency");
+    assert_eq!(idempotency_union["unknown_tags"], "reject");
+    assert_eq!(idempotency_union["unknown_fields"], "reject");
+    assert_eq!(
+        idempotency_union["duplicate_keys"],
+        "reject_before_object_construction"
+    );
+    assert!(unions
+        .iter()
+        .any(|row| row["id"] == "boundary_missing_rule"));
+    let diagnostic_linkage = unions
+        .iter()
+        .find(|row| row["id"] == "frontend_diagnostic_request_linkage")
+        .unwrap();
+    assert_eq!(diagnostic_linkage["tag_field"], "state");
+    let linkage_variants = array(&diagnostic_linkage["variants"]);
+    assert_eq!(
+        linkage_variants
+            .iter()
+            .map(|row| text(&row["tag"]))
+            .collect::<Vec<_>>(),
+        vec!["unvalidated", "validated"]
+    );
+    assert_eq!(linkage_variants[0]["ordered_fields"], json!(["state"]));
+    assert_eq!(
+        linkage_variants[1]["ordered_fields"],
+        json!(["state", "request_sha256", "semantic_context"])
+    );
+    let frontend_success = schemas
+        .iter()
+        .find(|row| text(&row["id"]).ends_with("frontend.success.v2"))
+        .unwrap();
+    assert_eq!(
+        frontend_success["ordered_fields"],
+        json!([
+            "schema",
+            "request_sha256",
+            "semantic_context",
+            "artifacts",
+            "success_sha256"
+        ])
+    );
+    assert_eq!(
+        frontend_success["field_types"]["artifacts"],
+        "mpk.frontend.source_artifacts.v2"
+    );
+    let frontend_diagnostic = schemas
+        .iter()
+        .find(|row| text(&row["id"]).ends_with("frontend.diagnostic.v2"))
+        .unwrap();
+    assert_eq!(
+        frontend_diagnostic["ordered_fields"],
+        json!([
+            "schema",
+            "raw_request_sha256",
+            "raw_request_size_bytes",
+            "request_linkage",
+            "status",
+            "phase",
+            "diagnostics",
+            "diagnostic_sha256"
+        ])
+    );
+    assert_eq!(
+        frontend_diagnostic["field_types"]["request_linkage"],
+        "frontend_diagnostic_request_linkage"
+    );
+    assert_eq!(
+        frontend_diagnostic["field_types"]["phase"],
+        "diagnostic_phase"
+    );
+    let validated_request = schemas
+        .iter()
+        .find(|row| text(&row["id"]).ends_with("validated_semantic_request.v2"))
+        .unwrap();
+    assert_eq!(
+        validated_request["field_types"]["selection"],
+        "selection_envelope"
+    );
+    let context_binding = &freeze["semantic_context_binding"];
+    assert_eq!(array(&context_binding["required_equalities"]).len(), 4);
+    assert_eq!(context_binding["hash_only_or_projected_context"], "reject");
+    assert!(text(&context_binding["validated_request_selection"])
+        .contains("profile_entry.selection_schema"));
+}
+
+#[test]
+fn csharp_03_t01_w09_contract_boundary_transition_and_dispatch_are_closed() {
+    let freeze = document(W09_FREEZE);
+    let expressions = &freeze["expression_union"];
+    assert_eq!(expressions["schema"], "mpk.csharp.contract_expression.v1");
+    assert_eq!(expressions["unknown_tags"], "reject");
+    assert_eq!(expressions["unknown_fields"], "reject");
+    assert_eq!(
+        expressions["duplicate_keys"],
+        "reject_before_object_construction"
+    );
+    assert_eq!(expressions["calls_source_methods"], false);
+    let variants = array(&expressions["variants"]);
+    let tags: BTreeSet<_> = variants.iter().map(|row| text(&row["tag"])).collect();
+    assert_eq!(tags.len(), variants.len());
+    for required in [
+        "field",
+        "sequence_index",
+        "map_lookup",
+        "tagged_make",
+        "source_project",
+        "structural_equal",
+        "codec_parse",
+        "exception_payload",
+        "transition_events",
+        "bounded_forall",
+        "bounded_exists",
+    ] {
+        assert!(tags.contains(required));
+    }
+    for variant in variants {
+        let fields = array(&variant["ordered_fields"]);
+        assert_eq!(fields[0], "tag");
+        assert_eq!(fields[1], "type_id");
+        assert_eq!(variant["required_fields"], variant["ordered_fields"]);
+        assert_eq!(variant["optional_fields"], json!([]));
+        assert_eq!(
+            fields.iter().map(text).collect::<BTreeSet<_>>(),
+            variant["field_types"]
+                .as_object()
+                .unwrap()
+                .keys()
+                .map(String::as_str)
+                .collect()
+        );
+    }
+    let by_tag: BTreeMap<_, _> = variants
+        .iter()
+        .map(|variant| (text(&variant["tag"]), variant))
+        .collect();
+    assert_eq!(
+        by_tag["codec_parse"]["field_types"]["codec_id"],
+        "registered_codec_id"
+    );
+    assert_eq!(
+        by_tag["tagged_make"]["field_types"]["arm"],
+        "registered_sum_arm_id"
+    );
+    assert_eq!(
+        by_tag["source_project"]["field_types"]["binding_id"],
+        "registered_semantic_binding_id"
+    );
+
+    let json = &freeze["canonical_json"];
+    assert_eq!(json["encoding"], "UTF-8 without BOM");
+    assert_eq!(json["outside_string_whitespace"], "forbidden");
+    assert_eq!(
+        json["duplicate_members"],
+        "reject before object construction"
+    );
+    assert_eq!(json["unknown_members"], "reject");
+    assert_eq!(
+        json["missing_null_value"],
+        "missing omits the field; null emits JSON null; value emits exactly one canonical payload"
+    );
+    assert_eq!(
+        json["map"],
+        "ordered array of typed key/value entries, never a JSON object"
+    );
+
+    let boundary = &freeze["boundary_handoff"];
+    assert_eq!(
+        boundary["classification"],
+        "MPK verification-overlay transport"
+    );
+    assert_eq!(boundary["application_protocol"], false);
+    assert_eq!(boundary["bypass"], "reject");
+    assert_eq!(boundary["hash_only_equivalence"], "forbidden");
+    assert_eq!(array(&boundary["input_order"]).len(), 6);
+    assert_eq!(array(&boundary["output_order"]).len(), 5);
+
+    let transition = &freeze["transition"];
+    assert_eq!(
+        transition["precedence"],
+        json!([
+            "ordinary_boundary_preconditions",
+            "retained_key_lookup",
+            "equal_snapshot_replay_or_idempotency_conflict",
+            "expected_version_conflict",
+            "idempotency_history_capacity",
+            "version_exhausted",
+            "accepted_command_case_and_declared_business_errors",
+            "new_success"
+        ])
+    );
+    assert_eq!(transition["version_rule"]["carrier"], "u64");
+    assert_eq!(transition["version_rule"]["replay"], "unchanged");
+    assert_eq!(transition["version_rule"]["error"], "unchanged");
+    let idempotency = &transition["idempotency"];
+    assert_eq!(
+        idempotency["modes"],
+        json!(["disabled", "complete_snapshot"])
+    );
+    assert_eq!(idempotency["unavailable_when_incomplete"], true);
+    assert_eq!(idempotency["digest_substitution"], "forbidden");
+    assert!(array(&idempotency["ineligible_fields"]).contains(&json!("float")));
+    assert!(array(&idempotency["ineligible_fields"]).contains(&json!("double")));
+
+    let dispatch = &freeze["executable_dispatch"];
+    assert_eq!(dispatch["binary_name"], "csharp2vir");
+    assert_eq!(dispatch["binary_path"], "csharp2vir.dll");
+    assert_eq!(
+        dispatch["successor_bundle_id"],
+        "frontend.csharp.csharp2vir.candidate.v2"
+    );
+    let scalar_profile_id = ["mpk.csharp.", "scalar.v0"].concat();
+    assert_eq!(
+        dispatch["profiles"],
+        json!(["mpk.csharp.practical.v1", scalar_profile_id])
+    );
+    assert_eq!(dispatch["ambient_flag"], "forbidden");
+    assert_eq!(dispatch["fallback"], "forbidden");
+    let frontend_linkage = &freeze["frontend_linkage"];
+    assert_eq!(array(&frontend_linkage["success_equalities"]).len(), 4);
+    assert_eq!(
+        array(&frontend_linkage["diagnostic_validated_equalities"]).len(),
+        2
+    );
+    assert_eq!(
+        frontend_linkage["partial_artifacts_on_failure"],
+        "forbidden"
+    );
+    assert!(text(&frontend_linkage["comparison"]).contains("field-complete typed equality"));
+    assert_eq!(
+        freeze["termination"]["total_required_routes"],
+        json!([
+            "boundary",
+            "transition",
+            "example",
+            "public practical profile"
+        ])
+    );
+    assert_eq!(
+        freeze["termination"]["partial_callee_on_total_path"],
+        "reject"
+    );
+}
+
+#[test]
+fn csharp_03_t01_w09_limits_capacity_and_diagnostics_have_total_boundaries() {
+    let freeze = document(W09_FREEZE);
+    let limits = array(&freeze["limits"]["practical"]);
+    assert_eq!(limits.len(), 35);
+    let mut by_id = BTreeMap::new();
+    let mut classifications = BTreeSet::new();
+    for limit in limits {
+        assert_keys(
+            limit,
+            &[
+                "id",
+                "inclusive_maximum",
+                "unit",
+                "classification",
+                "increment_site",
+                "increment_rule",
+                "comparison_rule",
+                "overflow_rule",
+                "diagnostic",
+                "implementation_owner",
+            ],
+        );
+        assert!(limit["inclusive_maximum"].as_u64().unwrap() > 0);
+        assert_eq!(limit["diagnostic"], "CSHARP_PRACTICAL_LIMIT");
+        assert_eq!(
+            limit["increment_rule"],
+            "checked_add(counter,1) exactly once at the increment site"
+        );
+        classifications.insert(text(&limit["classification"]));
+        assert!(by_id.insert(text(&limit["id"]), limit).is_none());
+    }
+    assert_eq!(
+        classifications,
+        BTreeSet::from(["pre_invocation_structural", "runtime_value_predicate_vc"])
+    );
+    assert_eq!(array(&freeze["limits"]["retained_scalar_v0"]).len(), 32);
+
+    let capacity = document(W09_CAPACITY);
+    assert_eq!(
+        freeze["evidence"]["freeze_generator_raw_sha256"],
+        sha(&read("develop/probes/csharp-03/profile_freeze.py"))
+    );
+    assert_eq!(
+        freeze["evidence"]["retained_limit_source_raw_sha256"],
+        sha(&read(text(
+            &freeze["evidence"]["retained_limit_source_path"]
+        )))
+    );
+    assert_eq!(
+        freeze["evidence"]["capacity_evidence_raw_sha256"],
+        sha(&read(W09_CAPACITY))
+    );
+    assert_eq!(
+        freeze["evidence"]["capacity_source_inventory_sha256"],
+        capacity["source_inventory_sha256"]
+    );
+    assert_eq!(freeze["evidence"]["checker_invocations"], 48);
+    assert_eq!(freeze["evidence"]["checker_acceptances"], 48);
+    for family in [
+        "binder_depth",
+        "generated_declarations",
+        "ordinary_term_nodes",
+        "static_transformers",
+    ] {
+        assert_eq!(
+            by_id[family]["inclusive_maximum"],
+            capacity["probe"]["limits"][family]
+        );
+        let cases: Vec<_> = array(&capacity["probe"]["cases"])
+            .iter()
+            .filter(|row| row["family"] == family)
+            .collect();
+        assert_eq!(cases.len(), 3);
+        let maximum = by_id[family]["inclusive_maximum"].as_u64().unwrap();
+        assert_eq!(
+            cases
+                .iter()
+                .map(|row| row["counter_value"].as_u64().unwrap())
+                .collect::<BTreeSet<_>>(),
+            BTreeSet::from([maximum - 1, maximum, maximum + 1])
+        );
+        assert_eq!(
+            cases
+                .iter()
+                .filter(|row| row["profile_expected"] == "limit_exceeded")
+                .count(),
+            1
+        );
+        assert!(cases.iter().all(|row| row["checker_expected"] == "accepted"
+            && row["proof_nodes"] == 0
+            && row["theory_certificates"] == 0
+            && row["axioms"] == 0));
+    }
+    for run in array(&capacity["runs"]) {
+        assert_eq!(array(&run["observations"]).len(), 12);
+        assert!(array(&run["observations"]).iter().all(|row| {
+            row["rust"]["result"] == "accepted" && row["reference"]["result"] == "accepted"
+        }));
+    }
+
+    let diagnostics = &freeze["diagnostics"];
+    let families = array(&diagnostics["families"]);
+    assert_eq!(families.len(), 29);
+    assert_eq!(
+        families.iter().map(text).collect::<BTreeSet<_>>().len(),
+        families.len()
+    );
+    let flattened: Vec<_> = array(&diagnostics["phase_precedence"])
+        .iter()
+        .flat_map(|phase| {
+            array(&phase["families_in_precedence_order"])
+                .iter()
+                .map(text)
+        })
+        .collect();
+    assert_eq!(flattened.len(), families.len());
+    assert_eq!(
+        flattened.iter().copied().collect::<BTreeSet<_>>(),
+        families.iter().map(text).collect()
+    );
+    assert!(
+        array(&diagnostics["forbidden_public_data"]).contains(&json!("customer member spelling"))
+    );
+    assert!(text(&diagnostics["request_linkage"]).contains("raw request hash and size"));
+    assert!(text(&diagnostics["phase_rule"]).contains("exactly 0..8"));
+    assert!(text(&diagnostics["location_rule"]).contains("start_byte < end_byte"));
+}
+
+#[test]
+fn csharp_03_t01_w09_vectors_cover_all_strict_mutations_limits_and_precedence() {
+    let freeze = document(W09_FREEZE);
+    let vectors = document(W09_VECTORS);
+    assert_keys(
+        &vectors,
+        &[
+            "schema",
+            "work_item",
+            "freeze_content_sha256",
+            "owner_test",
+            "publication_owner",
+            "vector_count",
+            "vector_ids_sha256",
+            "vectors",
+        ],
+    );
+    assert_eq!(vectors["work_item"], "CSHARP-03-T01-W09");
+    assert_eq!(vectors["freeze_content_sha256"], freeze["content_sha256"]);
+    assert_eq!(vectors["owner_test"], format!("{OWNER}#CSHARP-03-T01-W09"));
+    assert_eq!(vectors["publication_owner"], "CSHARP-03-T01-W10");
+    let rows = array(&vectors["vectors"]);
+    let ids: Vec<_> = rows.iter().map(|row| text(&row["id"])).collect();
+    assert!(ids.windows(2).all(|pair| pair[0] < pair[1]));
+    assert_eq!(vectors["vector_count"].as_u64().unwrap(), rows.len() as u64);
+    assert_eq!(vectors["vector_ids_sha256"], sha(&canonical(&json!(ids))));
+    for row in rows {
+        assert_keys(
+            row,
+            &[
+                "id",
+                "family",
+                "inputs",
+                "expected",
+                "implementation_owner",
+                "production_test_owner",
+            ],
+        );
+        assert!(text(&row["production_test_owner"]).ends_with(text(&row["implementation_owner"])));
+    }
+
+    for schema in array(&freeze["schemas"]) {
+        let key = text(&schema["id"])
+            .strip_prefix("mpk.")
+            .unwrap()
+            .replace('.', "_");
+        for suffix in [
+            "valid",
+            "later_version",
+            "unknown_field",
+            "missing_field",
+            "wrong_field_type",
+            "duplicate_key",
+        ] {
+            let item = vector(&vectors, &format!("schema.{key}.{suffix}"));
+            if suffix == "valid" {
+                assert_eq!(item["expected"], json!({"accept":true}));
+            } else {
+                assert!(item["expected"].get("reject").is_some());
+            }
+            assert_eq!(item["implementation_owner"], schema["producer"]);
+        }
+    }
+    for record in array(&freeze["schema_type_system"]["nested_records"]) {
+        let key = text(&record["id"]).replace('.', "_");
+        for suffix in [
+            "valid",
+            "unknown_field",
+            "missing_field",
+            "wrong_field_type",
+            "duplicate_key",
+        ] {
+            let item = vector(&vectors, &format!("schema.nested_{key}.{suffix}"));
+            if suffix == "valid" {
+                assert_eq!(item["expected"], json!({"accept":true}));
+            } else {
+                assert!(item["expected"].get("reject").is_some());
+            }
+            assert_eq!(item["implementation_owner"], record["producer"]);
+        }
+    }
+    for variant in array(&freeze["expression_union"]["variants"]) {
+        let tag = text(&variant["tag"]);
+        for suffix in [
+            "valid",
+            "unknown_field",
+            "missing_field",
+            "wrong_field_type",
+            "duplicate_key",
+        ] {
+            let item = vector(&vectors, &format!("schema.expression.{tag}.{suffix}"));
+            if suffix == "valid" {
+                assert_eq!(item["expected"], json!({"accept":true}));
+            } else {
+                assert!(item["expected"].get("reject").is_some());
+            }
+            assert_eq!(item["implementation_owner"], "CSHARP-03-T06-W01");
+        }
+    }
+    for union in array(&freeze["schema_type_system"]["tagged_unions"]) {
+        let union_id = text(&union["id"]);
+        for variant in array(&union["variants"]) {
+            let tag = text(&variant["tag"]);
+            for suffix in [
+                "valid",
+                "unknown_field",
+                "missing_field",
+                "wrong_field_type",
+                "duplicate_key",
+            ] {
+                let item = vector(&vectors, &format!("schema.union_{union_id}.{tag}.{suffix}"));
+                if suffix == "valid" {
+                    assert_eq!(item["expected"], json!({"accept":true}));
+                } else {
+                    assert!(item["expected"].get("reject").is_some());
+                }
+                assert_eq!(item["implementation_owner"], union["producer"]);
+            }
+        }
+        assert!(
+            vector(&vectors, &format!("schema.union_{union_id}.unknown_tag"))["expected"]
+                .get("reject")
+                .is_some()
+        );
+    }
+    assert_eq!(
+        vector(&vectors, "schema.union_transition_idempotency.unknown_tag")["expected"]["reject"],
+        "unknown_transition_idempotency_tag"
+    );
+    for group in ["practical", "retained"] {
+        let source = if group == "practical" {
+            &freeze["limits"]["practical"]
+        } else {
+            &freeze["limits"]["retained_scalar_v0"]
+        };
+        for limit in array(source) {
+            let maximum = limit["inclusive_maximum"].as_u64().unwrap();
+            for (suffix, expected) in [
+                ("below", maximum - 1),
+                ("at", maximum),
+                ("above", maximum + 1),
+            ] {
+                let item = vector(
+                    &vectors,
+                    &format!("limit.{group}.{}.{suffix}", text(&limit["id"])),
+                );
+                assert_eq!(item["inputs"]["value"], expected);
+                assert_eq!(item["inputs"]["inclusive_maximum"], maximum);
+                if group == "practical" {
+                    assert_eq!(item["implementation_owner"], limit["implementation_owner"]);
+                }
+            }
+        }
+    }
+    let precedence: Vec<_> = array(&freeze["diagnostics"]["phase_precedence"])
+        .iter()
+        .flat_map(|phase| {
+            array(&phase["families_in_precedence_order"])
+                .iter()
+                .map(text)
+        })
+        .collect();
+    for (index, family) in precedence.iter().take(precedence.len() - 1).enumerate() {
+        assert_eq!(
+            vector(&vectors, &format!("diagnostic.precedence_{index:02}"))["expected"]["primary"],
+            *family
+        );
+    }
+    assert_eq!(
+        vector(&vectors, "idempotency.float_field")["expected"]["mode"],
+        "unavailable"
+    );
+    assert_eq!(
+        vector(&vectors, "boundary.input_bypass")["expected"]["reject"],
+        "boundary_bypass"
+    );
+    assert_eq!(
+        vector(&vectors, "dispatch.scalar")["expected"]["bundle"],
+        vector(&vectors, "dispatch.practical")["expected"]["bundle"]
+    );
+    assert_eq!(
+        vector(&vectors, "context.selection_schema_mismatch")["expected"]["reject"],
+        "selection_schema_mismatch"
+    );
+    assert_eq!(
+        vector(&vectors, "context.projected_context")["expected"]["reject"],
+        "projected_semantic_context"
+    );
+    assert_eq!(
+        vector(
+            &vectors,
+            "frontend_linkage.diagnostic_unvalidated_after_validation"
+        )["expected"]["reject"],
+        "diagnostic_request_linkage"
+    );
+    assert_eq!(
+        vector(&vectors, "frontend_linkage.diagnostic_partial_artifacts")["expected"]["reject"],
+        "partial_frontend_artifacts"
+    );
+    assert_eq!(
+        vector(&vectors, "diagnostic.phase_above")["expected"]["reject"],
+        "diagnostic_phase"
+    );
+    assert_eq!(
+        vector(&vectors, "diagnostic.mixed_phase")["expected"]["reject"],
+        "diagnostic_phase_code"
+    );
+    assert_eq!(
+        vector(&vectors, "diagnostic.invalid_location")["expected"]["reject"],
+        "diagnostic_location"
+    );
+}
+
+#[test]
+fn csharp_03_t01_w09_freeze_generator_is_reproducible() {
+    let output = Command::new("python3")
+        .arg(root().join("develop/probes/csharp-03/profile_freeze.py"))
+        .arg("--check")
+        .env("PYTHONDONTWRITEBYTECODE", "1")
+        .current_dir(root())
+        .output()
+        .expect("run W09 freeze generator");
+    assert!(
+        output.status.success(),
+        "{}{}",
+        String::from_utf8_lossy(&output.stdout),
+        String::from_utf8_lossy(&output.stderr)
+    );
 }

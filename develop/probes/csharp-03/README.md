@@ -358,3 +358,74 @@ has explicit `--update` for its three generated JSON files, and `--emit-patch`
 for review; update the normative vector manifest hash after regeneration.
 Neither check silently repairs changed data. No production route, source-facing
 library, active profile or release artifact is changed by W08.
+
+## T01-W09 feasibility, capacity, and private freeze
+
+`recursor_feasibility.rs` and `run-recursor-probe.py` retain
+`CSHARP-03-T01-W09-F01`: the unchanged checked `Std.Bool.rec` / `Std.Nat.rec`
+interfaces reject W08's original cross-result applications. The amended W08
+carrier uses little-endian Bool address binders, pointwise Bool selection, and
+static composition of concrete state transformers; it never uses `Nat.rec` in
+the replacement. The canonical result is
+`develop/migrations/csharp-03/probes/recursor-feasibility.json`; details and
+the resolved finding are in `develop/migrations/csharp-03/w09-recursor-stop.md`.
+The 15 cases run twice through both checkers. Ten controls/replacement cases,
+including a two-address cube and cross-coordinate function-valued static fold,
+accept per run; the five retained old applications reject with the expected
+type mismatch. Every replacement case also recomputes a zero direct
+`Std.Nat.rec` application count from its term table.
+
+The runner's explicit `--update` regenerates evidence only. F01's type-
+feasibility gate is resolved without a core change. The record now links the
+separate completed capacity evidence rather than claiming capacity from the
+small feasibility cases.
+
+`run-checker-capacity-probe.py` generates twelve self-contained, reachable,
+ordinary-term Certificate v0 cases: limit-minus-one, limit, and limit-plus-one
+for 256 binder depth, 8,192 successor-generated declarations, 262,144 total
+terms, and 16,384 balanced concrete state transformers. It feeds identical
+bytes twice to the Rust and Go checkers. All 48 invocations accept, remain
+axiom-free, and contain no proof node or theory certificate. The profile keeps
+the inclusive ceilings and rejects each plus-one case before checker
+invocation, so the evidence demonstrates checker headroom rather than widening
+checker acceptance.
+
+The canonical capacity record is
+`develop/migrations/csharp-03/probes/checker-capacity.json` (38,701 bytes, raw
+SHA-256
+`de040d4342e90a23e4bbe6464aeaccbfa9f2630c1423b77b716b40c805ac8a99`).
+Its 73-file source inventory SHA-256 is
+`e855ce008b87b4509a8af7d3b07ce5f907f9a98383b942710d362a146a2d0e38`.
+Across the retained two runs, Rust checker observations range from 35 to 1,814
+ms and Go checker observations from 26 to 397 ms under the per-invocation
+60-second failure bound. Timing is observational and excluded from the stable
+rerun comparison; certificate hashes, verdicts, exits, and output hashes must
+match.
+
+`profile_freeze.py` generates the private implementation handoff and its 700
+vectors. `profile-freeze.json` contains all 17 W02 identity families, unique
+successor names/domains, exact producers/consumers, 15 strict root schemas, 20
+strict nested records, three closed tagged unions, the field-complete typed
+expression union, canonical JSON, context/frontend/boundary linkage, transition
+and idempotency precedence, one context-dispatched `csharp2vir` successor bundle,
+29 diagnostic families, termination rules, 35 practical counters, and the 32
+unchanged scalar-v0 limits. It is 97,316 bytes, has content SHA-256
+`f292de00a79048ecd1ff2cbe52d90fad36654f1b3e74ad580b5ec3077afa28cb`
+under `MPK-CSHARP-PRACTICAL-FREEZE-1.0`, and raw SHA-256
+`83954067c156e58cb349dbf07da44edf60a3ec550e628e6d2f1a890889d574e3`.
+`profile-freeze-vectors.json` is 230,986 bytes with raw SHA-256
+`7d1de4f4d087fe0de7b32ec44ee2b17f08cbfb052e5993699137c47736c94ef3`.
+
+Portable reproduction commands are:
+
+```sh
+python3 develop/probes/csharp-03/run-recursor-probe.py --check
+python3 develop/probes/csharp-03/run-checker-capacity-probe.py --check
+python3 develop/probes/csharp-03/profile_freeze.py --check
+cargo test -p mpk-vc --test csharp_practical_spec --test csharp_practical_inventory
+```
+
+The freeze and vectors remain private migration evidence. W10 owns their
+publication and manifest registration. W09 does not alter production code,
+core/checker behavior, the installed registry/release, public routes, or an
+external company's application source or build output.
