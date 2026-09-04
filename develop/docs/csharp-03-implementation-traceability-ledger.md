@@ -1,7 +1,8 @@
 # CSHARP-03 Implementation Traceability Ledger
 
-Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10` complete (2026-09-04). The
-entry audit, consumer inventory, private frontend/toolchain closure proof,
+Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10` and
+`CSHARP-03-T02-W01` complete (2026-09-04). The entry audit, consumer inventory,
+private frontend/toolchain closure proof,
 Roslyn shape probes, primitive/string/numeric/codec runtime measurements and
 candidate foundation/specialization/binding/data semantics and the successor
 contract/boundary/transition/identity/limit freeze have historical completion
@@ -9,10 +10,12 @@ records. The authorized W08 expansion amendment resolves
 `CSHARP-03-T01-W09-F01` without changing core; W09 then measures checker
 capacity and completes the private freeze. W10 publishes the complete normative
 but inactive profile/shared-artifact package, 700 vectors, owner closure,
-upgrade matrix, and future release-gate decision. `CSHARP-03-T02-W01` is ready
-and all later implementation items remain serially blocked. No production
-acceptance path, installed candidate, or active registry entry was introduced
-by T01.
+upgrade matrix, and future release-gate decision. T02-W01 implements the closed
+candidate successor registry, complete semantic context/request binding,
+immutable dispatch, and predecessor projection behind an explicit private
+injection boundary. `CSHARP-03-T02-W02` is ready and all later implementation
+items remain serially blocked. No public production acceptance path, installed
+candidate, or active registry entry was introduced.
 
 This ledger is subordinate to
 [`08_csharp_practical_subset_design.md`](08_csharp_practical_subset_design.md)
@@ -53,9 +56,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T01-W07` | `Complete` | `crates/mpk-cli/tests/csharp_practical_probes.rs#CSHARP-03-T01-W07` | `b0ff7daec663b95b1f88ecc1d98f0b7c1f6fdf00` |
 | `CSHARP-03-T01-W08` | `Complete` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W08` | `4ffd8b3a9918b6cae9e4d4704e4bc6b09a12cd5c` |
 | `CSHARP-03-T01-W09` | `Complete` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W09` | `17525292755c4e508acd9300cfa72d20cdf9bb92` |
-| `CSHARP-03-T01-W10` | `Complete` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W10` | `SELF` |
-| `CSHARP-03-T02-W01` | `Ready` | `crates/mpk-vc/tests/csharp_practical_registry.rs#CSHARP-03-T02-W01` | `—` |
-| `CSHARP-03-T02-W02` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W02` | `—` |
+| `CSHARP-03-T01-W10` | `Complete` | `crates/mpk-vc/tests/csharp_practical_spec.rs#CSHARP-03-T01-W10` | `d4459f16562c9f5a7d4d0074571c9d0af17c0dd5` |
+| `CSHARP-03-T02-W01` | `Complete` | `crates/mpk-vc/tests/csharp_practical_registry.rs#CSHARP-03-T02-W01` | `SELF` |
+| `CSHARP-03-T02-W02` | `Ready` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W02` | `—` |
 | `CSHARP-03-T02-W03` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W03` | `—` |
 | `CSHARP-03-T02-W04` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_source_artifacts.rs#CSHARP-03-T02-W04` | `—` |
 | `CSHARP-03-T02-W05` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vir_validation.rs#CSHARP-03-T02-W05` | `—` |
@@ -1678,3 +1681,141 @@ downstream owner contracts, flattened name/schema/diagnostic/limit ownership,
 upgrade exclusions, exact future gate replacement, historical inventory
 closure, active-registry/gate non-activation, documentation routing, changed-
 path scope, and deterministic regeneration. No production behavior changed.
+
+## 14. CSHARP-03-T02-W01 completion record
+
+### 14.1 Closed private successor registry
+
+W01 adds `crates/mpk-vc/src/csharp_practical_registry.rs` as an explicitly
+constructed, candidate-only semantic-registry implementation. It does not
+replace the installed revision-3 registry, add a public CLI/API route, install
+a release tuple, add a compatibility selector, read an ambient staging root,
+or perform a dual-registry lookup. The implementation accepts only revision 4
+under `mpk.semantic_profile.registry.v2` and requires exactly five entries in
+canonical `(source_language, semantic_profile)` order: practical C#, retained
+scalar C#, Go, Java, and Rust.
+
+Every entry has the exact v2 entry schema, semantic-parameter and selection
+schemas, registered foundation descriptor reference, nine compiled-contract
+identities, and recomputed entry hash. The complete registry has the immutable
+root SHA-256
+`1cad5b32ce432eac39655240a84ec83ba6f347c335452b5e143fca3ba2cb78c8`.
+Its exact entry hashes are:
+
+| Entry | Entry SHA-256 |
+| --- | --- |
+| `csharp` / `mpk.csharp.practical.v1` | `9a5b4737e928a93dfa07f71e72d49181d32a84200e3e786fc3a8914914676661` |
+| `csharp` / `mpk.csharp.scalar.v0` | `ff99f04464d3485f7239460da0562b8b812abbf25577bbb35ce05f07c5273bc3` |
+| `go` / `mpk.go.fixed.v0` | `8fa92fb20f37a0aef96f496d68b8d6d62370be0ea25fb4590aa4bba716d0d986` |
+| `java` / `mpk.java.scalar.v0` | `cf6a4b2432a15f89196d0469ef67729d2d9d9a97dd5596ed48c43b905fa6fd51` |
+| `rust` / `mpk.rust.checked.v0` | `a224764969f554caadf8b205a9a5f34db833dbb622d306ba048fc6d854725c75` |
+
+The practical entry pins descriptor schema
+`mpk.csharp.foundation_descriptor.v1`, descriptor identity
+`mpk.csharp.practical.foundation.v1`, and content SHA-256
+`d8c2a023f1c445470123519f5024a17aaca1766553331a2fed4733fecf7deec1`.
+The same validated reference is carried by the successor context and request;
+callers cannot substitute a descriptor or allowlist.
+
+### 14.2 Context, selection, contracts, and limits
+
+The production validator implements strict duplicate-key-preserving JSON
+transport checks, LF termination, exact shape/type/unknown-field rejection,
+canonical serialization, domain-separated parameter/selection/context/request/
+contract hashes, immutable profile dispatch, and complete equality linkage
+between the registry entry, semantic context, validated request, selection,
+foundation reference, and compiled envelope. C# dispatch distinguishes scalar
+and practical profiles; all other languages have no C# frontend dispatch arm.
+
+The W10 package assigns exactly 50 rows to this work item. The primary owner
+executes all 44 schema and 6 context vectors through production validation,
+including each missing field, each wrong type, unknown and duplicate fields,
+later-schema inputs, crossed known identities, and independently rehashed
+mutations. It also checks the full five-profile by nine-contract matrix (45
+immutable contract identities), registered parameter and selection shapes for
+all five profiles, context/request/hash linkage, and rejection of unknown or
+mixed language/profile pairs.
+
+All ten inherited registry/common counters are closed with below, inclusive-
+maximum, and above-limit tests: canonical registry bytes, transport bytes,
+JSON nesting, identifier bytes, source-language bytes, profile count,
+parameter bytes, selection bytes, compiled-profile bytes, and revision. Hash
+helpers apply the owning family limit rather than a wider common allocation
+ceiling.
+
+### 14.3 Append-only predecessor and non-activation proof
+
+Revision-1, revision-2, and revision-3 published registries continue to pass
+their original validators and reject under the candidate validator. Candidate
+bytes reject under every predecessor parser. Only the installed revision-3
+registry can be projected into the candidate: the projection retains every
+predecessor profile, parameter/selection schema, and compiled-contract identity
+unchanged, then appends the practical entry. Revision 1 or 2, partial,
+reordered, unknown, and mixed candidates cannot project.
+
+Projection source: installed revision 3 only.
+
+The active registry resolver still reports revision 3 and exposes only its
+four released profiles. The W10 normative package and its three publication
+paths remain byte-identical; the historical W02 consumer fingerprint adds
+only the exact W01 production module and primary test to its post-freeze
+exclusion set. Thus the new implementation is reachable only by explicit test
+construction and does not alter installed selection or release behavior.
+
+### 14.4 Verification and review
+
+Completed local verification:
+
+| Command | Result |
+| --- | --- |
+| `python3 develop/probes/csharp-03/profile_package.py --check` | pass: 10 freeze owners, 63 downstream owners, 700 vectors |
+| `cargo test -p mpk-vc --test csharp_practical_registry --test semantic_profile_registry --test semantic_profile_registry_runtime` | pass: 17 registry/context/predecessor tests |
+| `cargo test -p mpk-cli --test successor_atomic_cutover` | pass |
+| `cargo test -p mpk-vc --test csharp_practical_inventory` | pass: 4 ledger/inventory tests |
+| `cargo clippy -p mpk-vc --all-targets -- -D warnings` | pass |
+| `cargo fmt --all -- --check` | pass |
+| `./scripts/check-fast.sh` | pass |
+| `/usr/bin/git diff --check` | pass |
+
+First-pass review findings: `3`.
+
+- The first schema-fragment validator admitted later context/request schemas
+  and generic unregistered parameter envelopes. Dispatch now selects the exact
+  registered schema and its closed validator before accepting a fragment.
+- Entry ordering could originally be checked before a malformed entry's exact
+  shape, changing error precedence. Each entry now completes strict shape and
+  type validation before canonical ordering is evaluated.
+- Identifier syntax and hash-input ceilings were initially broader than their
+  predecessor contracts. Registry identifiers now use the retained lowercase
+  grammar, selected callable roots use their separately bounded canonical-ID
+  grammar, and each hash helper enforces its own family limit.
+
+Verification follow-up findings: `4`.
+
+- Request/selection coverage initially exercised the practical entry and all
+  five contexts but did not validate a complete request for each retained
+  selection schema. The owner now builds and validates all five profile
+  requests before checking the complete contract matrix.
+- The practical selection initially applied only local component checks to
+  normalized paths and accepted arbitrary printable root IDs. It now reuses
+  the existing portable normalized-path predicate and requires the frozen
+  domain-separated `mpk.csharp.source.<64 lowercase hex>` callable identity;
+  repaired-hash mutations cover both former escapes. Request outer-shape
+  validation is separate from registered selection validation, so these
+  failures reach the selection-owned phase instead of collapsing to shape.
+- The candidate module must be exported so its integration-test owner can call
+  production code, but that export was initially visible in generated API
+  documentation. It is now explicitly Rustdoc-hidden and remains unreachable
+  from every installed CLI/API/release route.
+- Context shape validation initially performed registered-value checks before
+  the context-owned binding phases, making the later parameter-value and
+  foundation errors unreachable for malformed values. Outer JSON typing is
+  now separated from full standalone-document validation; repaired context and
+  request hashes reach their owning parameter, foundation, and hash phases.
+
+Final review findings: `0`. The final pass rechecks task-only scope; all 50
+published W01 vectors; exact schemas, identities, domains, hashes, ordering,
+limits, context and compiled-envelope linkage; the five-by-nine dispatch;
+revision-1/2/3 preservation and revision-3-only projection; active-release
+non-activation; historical-inventory closure; formatting, lint, focused
+regressions, and the complete local fast gate.

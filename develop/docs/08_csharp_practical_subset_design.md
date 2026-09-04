@@ -1,13 +1,15 @@
 # C# Practical Subset Expansion Design
 
-Status: normative freeze package published through `CSHARP-03-T01-W10`; the
-production implementation remains unstarted. This document does not
+Status: normative freeze package published through `CSHARP-03-T01-W10` and
+private shared-artifact implementation complete through `CSHARP-03-T02-W01`.
+This document does not
 change the active `mpk.csharp.scalar.v0` profile, register a new profile, or
 authorize a practical-profile public route. The active release is registry
 revision 3 with Go, Rust, C# scalar, and Java scalar support. `JAVA-03-T10`
 and native x86-64 Linux gate completed on 2026-09-03. The CSHARP-03 entry gate
 is satisfied. T01-W10 completed publication and the complete freeze-package
-review; T02-W01 is ready, while activation remains blocked through T08-W10.
+review; T02-W01 completed the private successor registry/context foundation,
+and T02-W02 is ready, while activation remains blocked through T08-W10.
 
 Prepared: 2026-09-02. Revised: 2026-09-04.
 
@@ -130,7 +132,9 @@ Roslyn data/construction/control/exception/pattern/dependency/generic/iterator/
 async-rejection plus primitive/string/numeric/codec runtime measurements
 without a production change. W08 is complete, its authorized expansion
 amendment resolves F01, and W09/W10 completed the freeze and normative
-publication. T02-W01 is ready. DART-04
+publication. T02-W01 has now completed the closed, test-injected successor
+registry/context implementation without changing the installed revision-3
+route; T02-W02 is ready. DART-04
 waits for the complete CSHARP-03 release gate. This
 insertion records the user value of making the already released C# frontend
 useful for business-domain logic before adding another language; it does not
@@ -2184,7 +2188,8 @@ proof, and Roslyn data/construction/control/exception/pattern/dependency/
 generic/iterator/async-rejection plus primitive/string/numeric/codec runtime
 measurements, foundation semantics, and the successor contract/identity/limit
 freeze and normative publication; the section 4 amendment resolves F01.
-`CSHARP-03-T02-W01` is ready. Each later work item remains blocked
+`CSHARP-03-T02-W01` has completed the private successor registry/context
+foundation and `CSHARP-03-T02-W02` is ready. Each later work item remains blocked
 until its serial predecessor and task-local entry gate are satisfied.
 No task may reintroduce a source-visible `Mpk.*` API, user-defined generic,
 iterator, or async scope.

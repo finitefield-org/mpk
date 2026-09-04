@@ -7,6 +7,8 @@
 
 pub mod call_wp;
 pub mod canonical_json;
+#[doc(hidden)]
+pub mod csharp_practical_registry;
 pub mod expr_encode;
 pub mod grouping;
 pub mod hash;

@@ -9,6 +9,10 @@ const INVENTORY_PATH: &str = "develop/migrations/csharp-03/artifact-consumer-inv
 const LEDGER_PATH: &str = "develop/docs/csharp-03-implementation-traceability-ledger.md";
 const PLAN_PATH: &str = "develop/docs/08_csharp_practical_subset_design-todo.md";
 const W10_PACKAGE_PATH: &str = "develop/specs/vectors/csharp-practical-profile-v1.json";
+const POST_FREEZE_W01_PATHS: [&str; 2] = [
+    "crates/mpk-vc/src/csharp_practical_registry.rs",
+    "crates/mpk-vc/tests/csharp_practical_registry.rs",
+];
 
 #[test]
 fn csharp_03_t01_w01_baseline_recomputes_the_active_release() {
@@ -167,8 +171,8 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             "CSHARP-03-T01-W01" | "CSHARP-03-T01-W02" | "CSHARP-03-T01-W03"
             | "CSHARP-03-T01-W04" | "CSHARP-03-T01-W05" | "CSHARP-03-T01-W06"
             | "CSHARP-03-T01-W07" | "CSHARP-03-T01-W08" | "CSHARP-03-T01-W09"
-            | "CSHARP-03-T01-W10" => "Complete",
-            "CSHARP-03-T02-W01" => "Ready",
+            | "CSHARP-03-T01-W10" | "CSHARP-03-T02-W01" => "Complete",
+            "CSHARP-03-T02-W02" => "Ready",
             _ => "Blocked",
         };
         assert_eq!(row.status, expected_status, "status drift for {work_item}");
@@ -182,7 +186,8 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             "CSHARP-03-T01-W07" => "b0ff7daec663b95b1f88ecc1d98f0b7c1f6fdf00",
             "CSHARP-03-T01-W08" => "4ffd8b3a9918b6cae9e4d4704e4bc6b09a12cd5c",
             "CSHARP-03-T01-W09" => "17525292755c4e508acd9300cfa72d20cdf9bb92",
-            "CSHARP-03-T01-W10" => "SELF",
+            "CSHARP-03-T01-W10" => "d4459f16562c9f5a7d4d0074571c9d0af17c0dd5",
+            "CSHARP-03-T02-W01" => "SELF",
             _ => "—",
         };
         assert_eq!(
@@ -249,6 +254,13 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
         "sudo ./scripts/check-csharp-practical-release.sh",
         "Verification follow-up findings: `1`",
         "The independent closed-manifest assertion now requires exactly 26 entries",
+        "## 14. CSHARP-03-T02-W01 completion record",
+        "1cad5b32ce432eac39655240a84ec83ba6f347c335452b5e143fca3ba2cb78c8",
+        "all 44 schema and 6 context vectors",
+        "five-profile by nine-contract matrix",
+        "Projection source: installed revision 3 only.",
+        "Request/selection coverage initially exercised the practical entry",
+        "Final review findings: `0`",
     ] {
         assert!(ledger.contains(required), "ledger is missing {required}");
     }
@@ -1331,6 +1343,9 @@ fn historical_inventory_exclusions() -> BTreeSet<String> {
     ]);
     assert_eq!(actual, expected, "closed W10 publication-path extension");
     actual
+        .into_iter()
+        .chain(POST_FREEZE_W01_PATHS.map(str::to_owned))
+        .collect()
 }
 
 fn repository_search_paths(search_index: &[(String, String)], needle: &str) -> Vec<String> {
