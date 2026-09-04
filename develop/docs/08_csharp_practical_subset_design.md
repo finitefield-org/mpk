@@ -1,7 +1,7 @@
 # C# Practical Subset Expansion Design
 
 Status: normative freeze package published through `CSHARP-03-T01-W10` and
-private shared-artifact implementation complete through `CSHARP-03-T02-W05`.
+private shared-artifact implementation complete through `CSHARP-03-T02-W06`.
 This document does not
 change the active `mpk.csharp.scalar.v0` profile, register a new profile, or
 authorize a practical-profile public route. The active release is registry
@@ -12,10 +12,11 @@ review; T02-W01 completed the private successor registry/context foundation,
 T02-W02 completed registered foundation validation and closed specialization,
 T02-W03 completed the operation and explicit-control vocabulary, T02-W04
 completed successor source artifacts and linkage, T02-W05 completed the strict
-successor VIR importer, and T02-W06 is ready, while activation remains blocked
+successor VIR importer, T02-W06 completed the successor VC/skeleton and
+ordinary-context assembly models, and T02-W07 is ready, while activation remains blocked
 through T08-W10.
 
-Prepared: 2026-09-02. Revised: 2026-09-04.
+Prepared: 2026-09-02. Revised: 2026-09-05.
 
 T01-W08 handoff: candidate foundation, specialization, binding and data
 semantics are now frozen in
@@ -140,9 +141,10 @@ publication. T02-W01 has completed the closed, test-injected successor
 registry/context implementation, T02-W02 has completed the registered
 foundation, closed-instance, and monomorphic-value implementation, and
 T02-W03 has completed the operation and explicit-control vocabulary, and
-T02-W04 has completed successor source artifacts and linkage and T02-W05 has
-completed the strict successor VIR importer without changing the installed
-revision-3 route; T02-W06 is ready. DART-04
+T02-W04 has completed successor source artifacts and linkage, T02-W05 has
+completed the strict successor VIR importer, and T02-W06 has completed the
+successor VC/skeleton and ordinary-context assembly models without changing
+the installed revision-3 route; T02-W07 is ready. DART-04
 waits for the complete CSHARP-03 release gate. This
 insertion records the user value of making the already released C# frontend
 useful for business-domain logic before adding another language; it does not
@@ -2196,11 +2198,12 @@ proof, and Roslyn data/construction/control/exception/pattern/dependency/
 generic/iterator/async-rejection plus primitive/string/numeric/codec runtime
 measurements, foundation semantics, and the successor contract/identity/limit
 freeze and normative publication; the section 4 amendment resolves F01.
-`CSHARP-03-T02-W01/W02/W03/W04/W05` have completed the private successor
+`CSHARP-03-T02-W01/W02/W03/W04/W05/W06` have completed the private successor
 registry/context, registered foundation, closed specialization,
 monomorphic-value foundation, operation/explicit-control vocabulary,
-successor source-artifact/linkage implementation, and strict successor VIR
-import; `CSHARP-03-T02-W06` is ready. Each later work item remains blocked
+successor source-artifact/linkage implementation, strict successor VIR import,
+and successor VC/skeleton and ordinary-context assembly models;
+`CSHARP-03-T02-W07` is ready. Each later work item remains blocked
 until its serial predecessor and task-local entry gate are satisfied.
 No task may reintroduce a source-visible `Mpk.*` API, user-defined generic,
 iterator, or async scope.

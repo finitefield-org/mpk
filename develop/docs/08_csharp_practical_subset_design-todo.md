@@ -1,6 +1,6 @@
 # CSHARP-03 Practical C# Implementation Milestones and Tasks
 
-Status: current reviewed implementation decomposition, revised on 2026-09-04.
+Status: current reviewed implementation decomposition, revised on 2026-09-05.
 The native `JAVA-03-T10` x86-64 Linux release receipt is accepted and
 `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10` have completed the entry audit,
 consumer inventory, private frontend/toolchain closure proof, Roslyn shape
@@ -16,12 +16,16 @@ and boundary byte/value linkage. T02-W05 then completed the strict successor
 VIR importer, including independent foundation/specialization reconstruction,
 closed operation and artifact linkage, structural control/value/ownership/
 exception validation, bounded parsing, and the generic-free barrier.
+T02-W06 then completed the context-bound successor VC and theorem-skeleton
+models, closed ordinary-term routes and later proof ownership, deterministic
+limits/hashes, and the proof-empty, theory-empty, zero-axiom ordinary-context
+assembly profile without changing Certificate v0 or checker acceptance.
 `CSHARP-03-T01-W09-F01` is resolved
 by W08's reviewed binary-addressed Boolean-cube and static concrete-transformer
 expansion (ledger section 11). Both checkers accept all W09 capacity cases
 through each frozen limit plus one without a core change. W10 publishes the
 normative but inactive specifications and 700 vectors.
-`CSHARP-03-T02-W01/W02/W03/W04/W05` are complete, `CSHARP-03-T02-W06` is ready, and every
+`CSHARP-03-T02-W01/W02/W03/W04/W05/W06` are complete, `CSHARP-03-T02-W07` is ready, and every
 later implementation work item remains blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
@@ -87,7 +91,8 @@ binding commutation, explicit loop/pattern/exception control, and their
 structural validators; see ledger section 16. T02-W04 then completed the
 successor source-artifact/linkage layer; see ledger section 17. T02-W05 then
 completed the strict successor VIR importer and validator; see ledger section
-18. T02-W06 is ready. This
+18. T02-W06 then completed the successor VC/skeleton and ordinary-context
+assembly models; see ledger section 19. T02-W07 is ready. This
 file remains planning material. W01 added its baseline and ledger; W02 added
 only the private consumer inventory, owner tests, ledger evidence, and current-
 status documentation; W03 added only private build-input evidence and its
@@ -116,10 +121,14 @@ source-artifact, immutable-input, binding, boundary-evidence, source-map, and
 manifest layer in a separate private module and owner test. T02-W05 adds only
 the private, explicitly invoked strict successor VIR transport/import module,
 the minimum W03/W04 private linkage accessors and transport derives it needs,
-and its owner tests. No application
+and its owner tests. T02-W06 adds only the Rustdoc-hidden successor VC,
+theorem-skeleton, and ordinary-context assembly models; a narrow W05 validated
+operation-table accessor and W04 lineage predicate; direct Certificate v0
+structure validation; and its owner tests. It generates no proof and invokes
+no checker. No application
 fixture, installed candidate bundle, public route, active build input or active
-registry/release descriptor has changed. The next serial work is T02-W06's
-successor VC skeleton, VC, and hash models.
+registry/release descriptor has changed. The next serial work is T02-W07's
+successor frontend protocol, maps, and manifests.
 
 The following are unconditional stop conditions:
 
@@ -812,7 +821,7 @@ and cross-artifact/profile/hash mutation suites.
 
 Depends on: T02-W05.
 
-Current status: `Ready`.
+Current status: `Complete`.
 
 Owns: the successor skeleton/VC schemas, canonical ordering, context and VIR
 linkage, ordinary-term type/value encoding, obligation groups, limits, and
@@ -832,6 +841,8 @@ rejection of nonempty proof-node/theory-certificate tables.
 ### CSHARP-03-T02-W07 — Implement successor frontend protocol, maps, and manifests
 
 Depends on: T02-W06.
+
+Current status: `Ready`.
 
 Owns: private request/result envelopes, phase/status precedence, sanitized
 diagnostics, artifact-free failure, source-map original-byte coverage, frontend

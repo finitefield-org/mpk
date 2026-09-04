@@ -9,15 +9,17 @@ const INVENTORY_PATH: &str = "develop/migrations/csharp-03/artifact-consumer-inv
 const LEDGER_PATH: &str = "develop/docs/csharp-03-implementation-traceability-ledger.md";
 const PLAN_PATH: &str = "develop/docs/08_csharp_practical_subset_design-todo.md";
 const W10_PACKAGE_PATH: &str = "develop/specs/vectors/csharp-practical-profile-v1.json";
-const POST_FREEZE_IMPLEMENTATION_PATHS: [&str; 8] = [
+const POST_FREEZE_IMPLEMENTATION_PATHS: [&str; 10] = [
     "crates/mpk-vc/src/csharp_practical_registry.rs",
     "crates/mpk-vc/src/csharp_practical_source_artifacts.rs",
     "crates/mpk-vc/src/csharp_practical_vir_model.rs",
     "crates/mpk-vc/src/csharp_practical_vir_validation.rs",
+    "crates/mpk-vc/src/csharp_practical_vc_model.rs",
     "crates/mpk-vc/tests/csharp_practical_registry.rs",
     "crates/mpk-vc/tests/csharp_practical_source_artifacts.rs",
     "crates/mpk-vc/tests/csharp_practical_vir_model.rs",
     "crates/mpk-vc/tests/csharp_practical_vir_validation.rs",
+    "crates/mpk-vc/tests/csharp_practical_vc_model.rs",
 ];
 
 #[test]
@@ -178,8 +180,9 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             | "CSHARP-03-T01-W04" | "CSHARP-03-T01-W05" | "CSHARP-03-T01-W06"
             | "CSHARP-03-T01-W07" | "CSHARP-03-T01-W08" | "CSHARP-03-T01-W09"
             | "CSHARP-03-T01-W10" | "CSHARP-03-T02-W01" | "CSHARP-03-T02-W02"
-            | "CSHARP-03-T02-W03" | "CSHARP-03-T02-W04" | "CSHARP-03-T02-W05" => "Complete",
-            "CSHARP-03-T02-W06" => "Ready",
+            | "CSHARP-03-T02-W03" | "CSHARP-03-T02-W04" | "CSHARP-03-T02-W05"
+            | "CSHARP-03-T02-W06" => "Complete",
+            "CSHARP-03-T02-W07" => "Ready",
             _ => "Blocked",
         };
         assert_eq!(row.status, expected_status, "status drift for {work_item}");
@@ -198,7 +201,8 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             "CSHARP-03-T02-W02" => "026243eae673672c45ed96d348b3248afcde40b5",
             "CSHARP-03-T02-W03" => "cb2c2eb419adceaf84d4b610a19deb4b8205bf96",
             "CSHARP-03-T02-W04" => "c487b098403c326d1802fe9ea6d43ff8e76e5b80",
-            "CSHARP-03-T02-W05" => "SELF",
+            "CSHARP-03-T02-W05" => "816280dc5ea298f6b215c63ae7185f89f0a240a9",
+            "CSHARP-03-T02-W06" => "SELF",
             _ => "—",
         };
         assert_eq!(
@@ -313,6 +317,16 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
         "First-pass review findings: `12`",
         "Verification follow-up findings: `11`",
         "T02-W06 is the sole ready item.",
+        "Final review findings: `0`",
+        "## 19. CSHARP-03-T02-W06 completion record",
+        "`ValidatedPracticalVir` capability",
+        "`MPK-VC-3.0` hash preimage",
+        "`mpk.program_certificate.ordinary_context.v2` plan",
+        "2a66a554285ed4f5f2263a7996bfbb87c35da421c38e81052dbe5369db5df598",
+        "all five W06 owner tests",
+        "First-pass review findings: `4`",
+        "Verification follow-up findings: `6`",
+        "T02-W07 is the sole ready item.",
         "Final review findings: `0`",
     ] {
         assert!(ledger.contains(required), "ledger is missing {required}");

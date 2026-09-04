@@ -1,7 +1,7 @@
 # CSHARP-03 Implementation Traceability Ledger
 
 Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10` and
-`CSHARP-03-T02-W01/W02/W03/W04/W05` complete (2026-09-04). The entry audit, consumer inventory,
+`CSHARP-03-T02-W01/W02/W03/W04/W05/W06` complete (2026-09-05). The entry audit, consumer inventory,
 private frontend/toolchain closure proof,
 Roslyn shape probes, primitive/string/numeric/codec runtime measurements and
 candidate foundation/specialization/binding/data semantics and the successor
@@ -23,7 +23,11 @@ bindings, closed operation/check tables, immutable input capture, source map,
 both manifest stages, and boundary byte/value linkage behind that boundary.
 T02-W05 implements the strict, context-bound successor VIR importer and its
 generic-free, resource, graph, dominance, ownership, exception, binding,
-foundation, and operation validation barriers. `CSHARP-03-T02-W06` is ready
+foundation, and operation validation barriers. T02-W06 implements the
+context-bound successor VC and theorem-skeleton schemas, closed ordinary-term
+encoding routes and later proof ownership, deterministic limits and hashes,
+and the proof-empty, theory-empty, zero-axiom ordinary-context assembly
+profile. `CSHARP-03-T02-W07` is ready
 and all later implementation items remain serially
 blocked. No public production acceptance path, installed candidate, or active
 registry entry was introduced.
@@ -72,9 +76,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T02-W02` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W02` | `026243eae673672c45ed96d348b3248afcde40b5` |
 | `CSHARP-03-T02-W03` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vir_model.rs#CSHARP-03-T02-W03` | `cb2c2eb419adceaf84d4b610a19deb4b8205bf96` |
 | `CSHARP-03-T02-W04` | `Complete` | `crates/mpk-vc/tests/csharp_practical_source_artifacts.rs#CSHARP-03-T02-W04` | `c487b098403c326d1802fe9ea6d43ff8e76e5b80` |
-| `CSHARP-03-T02-W05` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vir_validation.rs#CSHARP-03-T02-W05` | `SELF` |
-| `CSHARP-03-T02-W06` | `Ready` | `crates/mpk-vc/tests/csharp_practical_vc_model.rs#CSHARP-03-T02-W06` | `—` |
-| `CSHARP-03-T02-W07` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_frontend_protocol.rs#CSHARP-03-T02-W07` | `—` |
+| `CSHARP-03-T02-W05` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vir_validation.rs#CSHARP-03-T02-W05` | `816280dc5ea298f6b215c63ae7185f89f0a240a9` |
+| `CSHARP-03-T02-W06` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc_model.rs#CSHARP-03-T02-W06` | `SELF` |
+| `CSHARP-03-T02-W07` | `Ready` | `crates/mpk-cli/tests/csharp_practical_frontend_protocol.rs#CSHARP-03-T02-W07` | `—` |
 | `CSHARP-03-T02-W08` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_migration.rs#CSHARP-03-T02-W08` | `—` |
 | `CSHARP-03-T02-W09` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_migration.rs#CSHARP-03-T02-W09` | `—` |
 | `CSHARP-03-T03-W01` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_capture.rs#CSHARP-03-T03-W01` | `—` |
@@ -2535,3 +2539,159 @@ terminal state; explicit exception values and unwind coverage; every retained
 resource limit; predecessor preservation; non-activation; formatting, lint,
 focused fuzz/mutation coverage, all `mpk-vc` regressions, and the complete
 local fast gate. T02-W06 is the sole ready item.
+
+## 19. CSHARP-03-T02-W06 completion record
+
+### 19.1 Inputs, scope, and immutable linkage
+
+W06 entered from clean `main` commit
+`816280dc5ea298f6b215c63ae7185f89f0a240a9`, tree
+`fc334ba157a62147c1989cea9beb3858d65e0a69`, after the W05 strict VIR
+boundary completed. The normative practical-profile, shared-artifact, and
+manifested-vector SHA-256 values were respectively
+`a45d0fda3322f17148201504f19e620c389a65ca24f79b5cbed4fa6a9c29b28b`,
+`d1d6618dba572d24c3706d5cd88d08c6532fa6828c356803fd63ea2bc32395ab`,
+and `d3b7be7d09d79742c8f339db3ca6313808e0257c30476cf6959aa7c5231d1b16`.
+The private freeze SHA-256 remained
+`83954067c156e58cb349dbf07da44edf60a3ec550e628e6d2f1a890889d574e3`;
+the registered foundation descriptor raw SHA-256 remained
+`2ddc0cd4381a574b093b2f208acfaf7028c1db78bbdcd43daea4b616f5f40781`, with its independently
+validated content hash
+`d8c2a023f1c445470123519f5024a17aaca1766553331a2fed4733fecf7deec1`.
+
+W06 adds the Rustdoc-hidden
+`crates/mpk-vc/src/csharp_practical_vc_model.rs` boundary and its sole owner
+test. It accepts only a W05 `ValidatedPracticalVir` capability paired with the
+same W04 artifact context and captured-input snapshot. The importer repeats
+and validates the complete canonical semantic context, compilation ID,
+input-set digest, registered descriptor tuple, VIR schema/hash/size, ordinary
+encoding profile, verification-limit profile, and validated lineage. Neither
+a caller-provided digest nor an opaque successor reference can substitute for
+that capability chain.
+
+The new `mpk.vc.v3` root has schema-declared member order and the
+`MPK-VC-3.0` hash preimage. Its type, operation, required-check, and explicit-
+control entries are deterministically rebuilt from validated W05 data. Type
+IDs have only checked-Bool-leaf, registered monomorphic Boolean-cube, or
+application-projection routes. Every W03 operation, check, control-node, and
+pattern tag has one exhaustive ordinary-term route and an explicit later
+`CSHARP-03-T06-W02` through W09 proof owner. There is no intrinsic, runtime,
+host-evaluation, generic theorem, proof-node, theory, or axiom route. Sorted
+obligation groups name all reconstructed subjects, retain exact dependency
+order, and begin with the ordinary-foundation group.
+
+The model records only Certificate v0's `Sort`, `Var`, `Const`, `App`, `Lam`,
+`Pi`, and `Let` terms and the frozen inclusive maxima of 262,144 ordinary term
+nodes, 8,192 generated declarations, binder depth 256, and 16,384 static
+transformers. It deliberately generates no proof and invokes no checker;
+actual definition/proof construction and counter enforcement remain with the
+already frozen T06-W09 owner.
+
+### 19.2 Skeleton, assembly profile, and predecessor preservation
+
+`mpk.vc.cert_skeleton.v3` is reconstructed from the accepted VC. Each sorted
+obligation group yields one theorem interface with the same subjects,
+dependencies, function scope, and later proof owner. Its complete canonical
+bytes are linked to the exact semantic context, foundation, VIR, and VC and
+hashed under the frozen successor VC domain.
+
+The separate `mpk.program_certificate.ordinary_context.v2` plan is bound to
+that context, VIR, VC, and skeleton and self-hashed under
+`MPK-PROGRAM-ASSEMBLY-2.0`. It admits generated `Def` and `Theorem` plans over
+the seven ordinary term forms and structurally fixes imports, proof-node table,
+theory-certificate table, axiom entries, axiom dependencies, and all five axiom
+counts to empty or zero. A direct validator applies the same intersection to a
+real `mpk_cert::Certificate`: imports, proof nodes, theory certificates,
+`Axiom`, and `TheoryPrimitive` declarations reject, and the complete axiom
+report must equal an independent recomputation with total count zero.
+
+The fixed owner vector produces VC, skeleton, and assembly hashes
+`2a66a554285ed4f5f2263a7996bfbb87c35da421c38e81052dbe5369db5df598`,
+`03dbe460131c1240bf35aac8b7b954b9cac5a215a184efef66eea0735fd2f420`,
+and `90002cbc6f509d02365c2ec04c12c708112c7ab2ecaf3ad40448bf5ca7ac38c1`.
+Old `mpk.vc.v1`, `mpk.vc.v2`, Certificate v0, certificate hash domains,
+program-certificate implementations, kernel/checker code, and their
+acceptance rules are unchanged. The practical structure validator is opt-in;
+no existing producer or checker calls it. No CLI/API dispatch, installed
+registry, bundle, release descriptor, fixture, application source, or public
+route changed.
+
+Application build/output inspection, source-generic and iterator/async source
+cases, application semantic-binding proof discharge, boundary/transition
+execution, and native Linux release evidence are `not_applicable` at this
+model-only item under task-document section 4. Their first applicable owners
+remain T03 through T08. W06 nevertheless consumes the registered foundation,
+complete independently validated closed operation set, and W05's generic-free
+VIR capability; it cannot accept a residual template or cross-input binding.
+
+### 19.3 Verification and review
+
+Completed local verification on Darwin arm64:
+
+| Command | Result |
+| --- | --- |
+| `python3 develop/probes/csharp-03/foundation_package.py --check` | pass: exact registered foundation and 2,051 vectors |
+| `python3 develop/probes/csharp-03/profile_package.py --check` | pass: 10 freeze owners, 63 downstream owners, and 700 vectors |
+| `cargo test -p mpk-vc --test csharp_practical_vc_model` | pass: all five W06 owner tests, including fixed hash vectors, canonical/linkage/limit mutations, exhaustive route tables, and direct proof/theory/axiom rejection |
+| `cargo test -p mpk-vc` | pass: complete `mpk-vc` regression suite |
+| `cargo test -p mpk-cli --test successor_atomic_cutover` | pass: candidate remains unavailable to installed routes |
+| `cargo clippy -p mpk-vc --all-targets -- -D warnings` | pass |
+| `cargo fmt --all -- --check` | pass |
+| `./scripts/check-fast.sh` | pass |
+| `/usr/bin/git diff --check` | pass |
+
+First-pass review findings: `4`.
+
+- A first boundary draft lacked access to the complete W05-validated operation
+  set, including registered foundation operations not invoked by a particular
+  function. W05 now retains that independently reconstructed sorted table
+  behind one crate-local accessor; W06 never trusts a caller operation list.
+- Successor references initially exposed only schema/hash/size and context
+  linkage. A crate-local predicate now also requires the exact captured-input
+  digest and revalidates capture-to-context linkage before VIR, VC, or skeleton
+  capabilities can be composed.
+- The ordinary type route was initially internal while the exhaustive W03 tag
+  routes were externally owner-tested. Its narrow public, Rustdoc-hidden route
+  function now makes all three accepted type families and unknown-family
+  rejection directly auditable without exposing an application API.
+- The real Certificate structure check initially had only a test-time
+  `mpk-cert` dependency. It is now an ordinary `mpk-vc` dependency so the
+  production W06 boundary validates the actual Certificate v0 model rather
+  than a parallel test shape.
+
+Verification follow-up findings: `6`.
+
+- The first Certificate validator imported `DeclarationKind` from a root that
+  does not re-export it. Compilation moved the import to the canonical public
+  `mpk_cert::encode` module without changing its meaning.
+- Initial hash assertions checked only lowercase digest shape. The owner test
+  now pins the exact VC, complete-skeleton, and assembly bytes-to-hash vectors
+  above and retains independent hash-field mutations.
+- The first typed decoder disabled Serde's recursion limit without a preceding
+  W05-style structural scan. W06's flat reference-table schema needs no such
+  relaxation, so the final decoder retains the bounded default recursion
+  guard for untrusted input.
+- The frozen T01 consumer fingerprint initially counted the two new W06 owner
+  paths as historical input drift. The inventory owner now excludes exactly
+  the W06 production and test paths, as it already does for W01-W05, while the
+  frozen consumer inventory bytes and fingerprints remain unchanged.
+- The assembly plan initially duplicated the Certificate v0 format literal,
+  and its negative suite covered only the task's minimum proof/theory cases.
+  It now takes the format directly from `mpk-cert` and additionally exercises
+  reordered and duplicate VC members, noncanonical skeleton bytes, assembly
+  hash mutation, imports, and `TheoryPrimitive` declarations.
+- Required-check ownership initially depended only on the four broad W03 tags,
+  which would have assigned construction checks to the data owner and a
+  transition event bound outside T06-W08. The VC boundary now independently
+  validates all 37 frozen ID/tag pairs and maps construction, data, boundary,
+  exception, and transition checks to their exact later proof owners.
+
+Final review findings: `0`. The final pass rechecks W06-only private scope;
+exact schema order and canonical transport; context/input/foundation/VIR/VC/
+skeleton lineage; exhaustive monomorphic type, operation, check, control, and
+pattern routing; obligation sorting/dependencies and later owners; frozen
+limits/domains and fixed hashes; absence of an intrinsic/proof/theory/axiom
+route; real Certificate v0 structural rejection; predecessor parser,
+certificate, assembly, and checker preservation; non-activation; formatting,
+warning-denied lint, focused mutations, all `mpk-vc` regressions, and the
+complete local fast gate. T02-W07 is the sole ready item.

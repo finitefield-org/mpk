@@ -12,6 +12,8 @@ pub mod csharp_practical_registry;
 #[doc(hidden)]
 pub mod csharp_practical_source_artifacts;
 #[doc(hidden)]
+pub mod csharp_practical_vc_model;
+#[doc(hidden)]
 pub mod csharp_practical_vir_model;
 #[doc(hidden)]
 pub mod csharp_practical_vir_validation;

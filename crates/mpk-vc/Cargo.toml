@@ -8,12 +8,10 @@ homepage.workspace = true
 publish = false
 
 [dependencies]
+mpk-cert = { path = "../mpk-cert" }
 serde = { version = "1", features = ["derive"] }
 serde_json = { version = "1", features = ["raw_value", "unbounded_depth"] }
 sha2 = "0.10"
-
-[dev-dependencies]
-mpk-cert = { path = "../mpk-cert" }
 
 [lints]
 workspace = true

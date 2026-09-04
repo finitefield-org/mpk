@@ -510,6 +510,7 @@ pub struct ValidatedPracticalVir {
     wire: WirePracticalVirModule,
     canonical_bytes: Vec<u8>,
     artifact_ref: ArtifactRef,
+    operation_signatures: Vec<ClosedOperationSignature>,
 }
 
 impl ValidatedPracticalVir {
@@ -539,6 +540,10 @@ impl ValidatedPracticalVir {
 
     pub fn binding_commutations(&self) -> &[BindingOperationCommutation] {
         &self.wire.binding_commutations
+    }
+
+    pub(crate) fn operation_signatures(&self) -> &[ClosedOperationSignature] {
+        &self.operation_signatures
     }
 }
 
@@ -711,10 +716,12 @@ pub fn import_csharp_practical_vir_json(
             PracticalVirImportErrorCode::Linkage,
         )
     })?;
+    let operation_signatures = prepared.operations.into_values().collect();
     Ok(ValidatedPracticalVir {
         wire,
         canonical_bytes: input.to_vec(),
         artifact_ref,
+        operation_signatures,
     })
 }
 

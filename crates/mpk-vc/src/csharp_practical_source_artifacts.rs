@@ -1364,6 +1364,16 @@ impl ArtifactRef {
         Ok(reference)
     }
 
+    pub(crate) fn matches_validated_lineage(
+        &self,
+        context: &PracticalArtifactContext,
+        captures: &CapturedInputSet,
+    ) -> bool {
+        self.linkage_key == context.linkage_key
+            && self.input_set_sha256.as_deref() == Some(captures.snapshot_sha256())
+            && captures.matches_context(context)
+    }
+
     pub fn value(&self) -> PracticalJsonValue {
         PracticalJsonValue::object(vec![
             ("schema", PracticalJsonValue::string(&self.schema)),
