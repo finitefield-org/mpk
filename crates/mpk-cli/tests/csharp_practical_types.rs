@@ -182,11 +182,12 @@ fn csharp_03_t03_w03_pinned_roslyn_harness_passes_when_cache_is_present() {
 }
 
 fn run_pinned_harness(argument: &str) {
+    let package = json("develop/migrations/csharp-03/build-inputs/build-inputs.json");
+    let archives = package["toolchain_inputs"]["archives"].as_array().unwrap();
+    // Validate the manifest shape on every host before the Linux-only runner.
     if !cfg!(target_os = "linux") {
         return;
     }
-    let package = json(PACKAGE);
-    let archives = package["toolchain_inputs"]["archives"].as_array().unwrap();
     let cache = root().join("release/build-input-cache/csharp/d4af1170b2813a5581bb0f60b65fd4e7509576093045557b88689bf7e0876b4f/archives");
     let count = archives
         .iter()

@@ -2,7 +2,7 @@
 
 Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10`,
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09`, and
-`CSHARP-03-T03-W01/W02/W03/W04/W05/W06` complete (2026-09-05). The entry audit, consumer
+`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07` complete (2026-09-05). The entry audit, consumer
 inventory, private frontend/toolchain closure proof,
 Roslyn shape probes, primitive/string/numeric/codec runtime measurements and
 candidate foundation/specialization/binding/data semantics and the successor
@@ -45,7 +45,8 @@ constructor flow analysis, exact synthesized IL checks, receiver-first calls,
 and pending invariant obligations. T03-W05 adds ordered init/required
 transactions and explicit finalization. T03-W06 adds shared structural
 equality and canonical ordering over concrete descriptors.
-`CSHARP-03-T03-W07` is ready and all later implementation items remain serially blocked. No public production acceptance
+T03-W07 adds ordered array bounds, initialization and ownership plans.
+`CSHARP-03-T03-W08` is ready and all later implementation items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
 This ledger is subordinate to
@@ -102,9 +103,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T03-W03` | `Complete` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W03` | `d96594ad4cf3db973d04fb4057784d2356de358d` |
 | `CSHARP-03-T03-W04` | `Complete` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W04` | `ba7223fe8238e47703c8da983aa6ba3d8fa73526` |
 | `CSHARP-03-T03-W05` | `Complete` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W05` | `381a20a54249e4a1f38e0edea6f4ce1ac9de3d50` |
-| `CSHARP-03-T03-W06` | `Complete` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W06` | `SELF` |
-| `CSHARP-03-T03-W07` | `Ready` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W07` | `—` |
-| `CSHARP-03-T03-W08` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W08` | `—` |
+| `CSHARP-03-T03-W06` | `Complete` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W06` | `47bde686b1ffd209cf981d5614836e09b4ed9fe6` |
+| `CSHARP-03-T03-W07` | `Complete` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W07` | `SELF` |
+| `CSHARP-03-T03-W08` | `Ready` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W08` | `—` |
 | `CSHARP-03-T03-W09` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W09` | `—` |
 | `CSHARP-03-T03-W10` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_codecs.rs#CSHARP-03-T03-W10` | `—` |
 | `CSHARP-03-T03-W11` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_numbers.rs#CSHARP-03-T03-W11` | `—` |
@@ -3981,3 +3982,106 @@ Final manifest SHA-256 receipts:
 | `structural-inputs.json` | `172872a7ef8dbd2c191c51202c6094eec08a77f921ebb133b7b0328432114363` |
 
 T03-W07 is the sole ready item.
+
+
+## 29. CSHARP-03-T03-W07 completion record
+
+### 29.1 Ordered source array handoff
+
+`csharp-tools/csharp2vir/PracticalArrays.cs` adds the private W07 entry point.
+It composes W04-W06 construction, initialization and structural capture, and
+replaces the preliminary flow-independent array write barrier only for this
+entry point. Earlier entry points retain their existing rejection boundaries.
+The result preserves typed Roslyn source/operand operations, allocation
+identities, branch paths and ordered steps; it emits no public artifact.
+
+Each allocation evaluates its exact `int` length once, records the pinned
+`OverflowException` edge for invalid C# lengths, then the separate inclusive
+4096-element profile predicate and unique allocation. Constant lengths and
+initializers above the profile maximum reject with `CSHARP_PRACTICAL_LIMIT`.
+Input and result arrays retain profile-bound obligations, with reference
+presence handled separately. Indexed accesses evaluate the array and exact
+`int` index once, then record null, lower-bound and upper-bound edges. Simple
+stores evaluate the RHS before those checks; compound stores read first.
+
+Default-eligible elements use the frozen recursive default; zero length is
+complete for every admitted element type. Initializers evaluate left to right
+with element invariant obligations. Other arrays track definite and possible
+initialized cells. Branch joins intersect definite initialization and union
+possible initialization/freeze state. A partial array permits first writes
+and initialized reads; complete unique arrays permit ordinary rewrites.
+Symbolic writes retain initialization/completeness obligations, including the
+conditional transition from first writes to rewrites, without claiming proof
+discharge. Return, calls, storage and aliases require complete initialization
+and freeze or transfer ownership. Unpublished storage is discarded on exit.
+
+The exact explicit, local and identity-inferred one-dimensional forms are
+covered. Unsupported dimensions, jagged/covariant storage, framework collection
+and storage types, stack allocation, collection expressions, ranges/from-end,
+non-int indices/lengths, `Array.Empty<T>()` and best-common-type inference reject
+before emission. The T03 gate rejects loops and exception-control forms;
+`RequireWritable` exposes the active-foreach read-borrow conflict to T04-W02.
+W08 owns specialization into monomorphic construction state and wrapper
+bindings. T04 owns positive loop/foreach lowering; T06 discharges obligations;
+T07 remains the sole owner of public frontend activation.
+
+### 29.2 Ownership and verification
+
+`crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W07`
+executes the three frozen array-limit vectors through the production
+monomorphic value validator and the shared W06 structural generator. The
+exact private manifest `develop/migrations/csharp-03/arrays/arrays-inputs.json`
+binds the seven compiler/harness input files.
+`--test-arrays` uses the pinned SDK 10.0.400, Roslyn 5.6.0 and runtime 10.0.11
+on offline Linux/amd64 with the repository read-only.
+
+### 29.3 Review and verification
+
+The review/fix iterations closed symbolic initialization/completion tracking,
+RHS-before-store-check ordering, declaration-initializer publication handling,
+phase-0 array-limit precedence, and untracked binding/control constructs such
+as `??=` and patterns. Existing field-declaration initializer rejection remains
+in force. Negative source tests reject internal protocol failures as test
+failures, so adapter faults cannot masquerade as intentional source rejection.
+The new runner exposed a shared Linux-only test issue: the archive inventory
+was read from the vector package instead of the private build descriptor.
+Capture, syntax, types and arrays owner tests now validate the correct archive
+inventory before the host-specific execution guard. This regression is checked
+on macOS as well as Linux.
+
+The final review covers source evaluation order, branch ownership joins,
+initialization/publication obligations, unsupported source gates, shared
+consumer routing, exact manifests/runners and current task statuses.
+Final review findings: `0`.
+
+| Verification | Result |
+| --- | --- |
+| Rust capture/syntax/types/collections owners | pass: 30 tests, including all three W07 limit vectors |
+| Rust implementation inventory | pass: 4 tests |
+| Pinned arrays harness | pass: source forms, ownership, bounds, runtime exception timing and borrow handoff |
+| Pinned types/construction/initialization/structural harnesses | pass after the shared callback changes |
+| `--self-test` and `--check-build-inputs` | pass |
+| `cargo clippy -p mpk-cli --tests -- -D warnings` | pass on final owner tests |
+| `cargo fmt --all -- --check` and `/usr/bin/git diff --check` | pass |
+
+`./scripts/check-fast.sh` passed: strict source scan, formatting, warning-denied
+lint, workspace tests, CLI build, and accepted/rejected certificate fixtures.
+Final owner-test runner changes were additionally checked by the 30 targeted
+tests and warning-denied lint above. The formal `--test-arrays` script route
+also passed with the final bound inputs.
+These offline Linux/amd64 runs are private frontend verification; a native
+release gate is not required for this change and was not run.
+
+Final manifest SHA-256 receipts:
+
+| Manifest | SHA-256 |
+| --- | --- |
+| `capture-inputs.json` | `c8059dd9769bf284363f8012d64d80606a49203eb7a5f0d3239fdfd535dc9007` |
+| `syntax-inputs.json` | `619673fd89eab5158f50ddd7e693808a93999ea5fc0715ff7a9dc58d98bd9054` |
+| `types-inputs.json` | `0c58e9609f8b7ed8dcf44c18881330e22f9029b464930b44b3f45d810f408575` |
+| `construction-inputs.json` | `c79e2fd8f5acd48a57f5aa13312ab77a979973639e840e8373fd89e8fc7b1eca` |
+| `initialization-inputs.json` | `8f0895cc311f0e0212bb8e5f7c81c7e0f08cb6a69fde7467e3d08062142baabe` |
+| `structural-inputs.json` | `aa63a74e0c6a4ce1a136e7ce32589bc5c80fd5b3647f0f0a5c9fb942566a8c5f` |
+| `arrays-inputs.json` | `f3367bc2319ebaf0303ead560b4da6d41280d48cdc7d9e33f19ba3af4e0a162d` |
+
+T03-W08 is the sole ready item.

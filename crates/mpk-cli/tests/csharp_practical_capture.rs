@@ -82,8 +82,8 @@ fn csharp_03_t03_w01_capture_inputs_and_private_routing_are_exact() {
     assert!(wrapper.contains("--test-capture"));
     assert!(script.contains("def test_capture()"));
     assert!(script.contains("/main:Mpk.CSharp2Vir.PracticalCaptureHarness"));
-    assert_eq!(script.matches("active.validate_project_files").count(), 8);
-    assert_eq!(script.matches("copy_bound_file(").count(), 13);
+    assert_eq!(script.matches("active.validate_project_files").count(), 9);
+    assert_eq!(script.matches("copy_bound_file(").count(), 15);
     assert!(script.contains("active.materialize_closure"));
     assert!(script.contains("active.closed_dotnet_environment"));
     assert!(script.contains("active.execute_isolated"));
@@ -291,14 +291,14 @@ fn csharp_03_t03_w01_closed_instance_ids_match_the_registered_foundation() {
 
 #[test]
 fn csharp_03_t03_w01_pinned_roslyn_harness_passes_when_cache_is_present() {
-    if !cfg!(target_os = "linux") {
-        return;
-    }
-
-    let package = load(PACKAGE_PATH);
+    let package = load("develop/migrations/csharp-03/build-inputs/build-inputs.json");
     let archives = package["toolchain_inputs"]["archives"]
         .as_array()
         .expect("archives");
+    // Validate the manifest shape on every host before the Linux-only runner.
+    if !cfg!(target_os = "linux") {
+        return;
+    }
     let cache = repository_root()
         .join("release/build-input-cache/csharp")
         .join(TOOLCHAIN_HASH)

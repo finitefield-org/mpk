@@ -266,14 +266,14 @@ fn csharp_03_t03_w02_published_owner_and_foreach_routing_are_exact() {
 
 #[test]
 fn csharp_03_t03_w02_pinned_roslyn_harness_passes_when_cache_is_present() {
-    if !cfg!(target_os = "linux") {
-        return;
-    }
-
-    let package = load(PACKAGE_PATH);
+    let package = load("develop/migrations/csharp-03/build-inputs/build-inputs.json");
     let archives = package["toolchain_inputs"]["archives"]
         .as_array()
         .expect("archives");
+    // Validate the manifest shape on every host before the Linux-only runner.
+    if !cfg!(target_os = "linux") {
+        return;
+    }
     let cache = repository_root()
         .join("release/build-input-cache/csharp")
         .join(TOOLCHAIN_HASH)

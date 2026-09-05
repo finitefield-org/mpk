@@ -113,7 +113,9 @@ internal static class CSharpPracticalConstruction
     internal static PracticalConstruction Validate(PracticalSourceSelection selection,
         IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references,
         IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims = null, bool allowInitializers = false,
-        bool allowStructuralEquality = false)
+        bool allowStructuralEquality = false,
+        Action<CSharpCompilation, IReadOnlyList<PracticalDataType>>? validateArrays = null,
+        Action<CSharpCompilation>? validateArrayLimits = null)
     {
         try
         {
@@ -124,8 +126,10 @@ internal static class CSharpPracticalConstruction
                     model.Analyze(current);
                     if (closure.Sidecars.Count != 0) { throw PracticalFailures.Object("unbound_invariant"); }
                     model.Finish(types, closure, invariantClaims);
-                }, ValidateLimits, ValidateSignatures, deferDeclaredInvariantProof: invariantClaims is not null,
-                allowInitializerConstruction: allowInitializers, allowStructuralEquality: allowStructuralEquality);
+                    validateArrays?.Invoke(current, types);
+                }, current => { ValidateLimits(current); validateArrayLimits?.Invoke(current); }, ValidateSignatures, deferDeclaredInvariantProof: invariantClaims is not null,
+                allowInitializerConstruction: allowInitializers, allowStructuralEquality: allowStructuralEquality,
+                allowArrayConstruction: validateArrays is not null);
             return model.Build(data);
         }
         catch (PracticalCaptureFailure) { throw; }

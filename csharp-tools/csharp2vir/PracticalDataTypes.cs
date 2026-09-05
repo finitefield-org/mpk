@@ -124,15 +124,15 @@ internal static class CSharpPracticalDataTypes
         Action<CSharpCompilation>? validateConstructorLimits = null,
         Action<CSharpCompilation>? validateSignatures = null,
         bool deferDeclaredInvariantProof = false, bool allowInitializerConstruction = false,
-        bool allowStructuralEquality = false)
+        bool allowStructuralEquality = false, bool allowArrayConstruction = false)
     {
         try
         {
             if (selection is null) { throw PracticalFailures.Protocol("selection_shape"); }
-            if ((deferDeclaredInvariantProof || allowInitializerConstruction || allowStructuralEquality) && validateConstruction is null)
+            if ((deferDeclaredInvariantProof || allowInitializerConstruction || allowStructuralEquality || allowArrayConstruction) && validateConstruction is null)
             { throw PracticalFailures.Protocol("missing_invariant_obligation_consumer"); }
             var model = new DataModel(selection.SidecarPaths.Count != 0 || deferDeclaredInvariantProof,
-                deferDeclaredInvariantProof, allowInitializerConstruction, allowStructuralEquality);
+                deferDeclaredInvariantProof, allowInitializerConstruction, allowStructuralEquality, allowArrayConstruction);
             PracticalNormalizedSyntax syntax = CSharpPracticalSyntaxNormalizer.Normalize(
                 selection, inputs, references,
                 current => { model.ValidateDeclarations(current); validateSignatures?.Invoke(current); },
@@ -208,17 +208,19 @@ internal static class CSharpPracticalDataTypes
         private readonly bool deferDeclaredInvariantProof;
         private readonly bool allowInitializerConstruction;
         private readonly bool allowStructuralEquality;
+        private readonly bool allowArrayConstruction;
         private readonly List<TypeRecord> records = new();
         private readonly Dictionary<ISymbol, TypeRecord> bySymbol = new(SymbolEqualityComparer.Default);
         private readonly List<TypeRecord> ordered = new();
         private CSharpCompilation compilation = null!;
         private PracticalDataType? dayOfWeek;
 
-        internal DataModel(bool hasSidecars, bool deferDeclaredInvariantProof, bool allowInitializerConstruction, bool allowStructuralEquality)
+        internal DataModel(bool hasSidecars, bool deferDeclaredInvariantProof, bool allowInitializerConstruction, bool allowStructuralEquality, bool allowArrayConstruction)
         {
             this.hasSidecars = hasSidecars; this.deferDeclaredInvariantProof = deferDeclaredInvariantProof;
             this.allowInitializerConstruction = allowInitializerConstruction;
             this.allowStructuralEquality = allowStructuralEquality;
+            this.allowArrayConstruction = allowArrayConstruction;
         }
 
         internal void ValidateLimits(CSharpCompilation current)
@@ -690,13 +692,13 @@ internal static class CSharpPracticalDataTypes
                                     && !(binary.RightOperand.ConstantValue.HasValue && binary.RightOperand.ConstantValue.Value is null))):
                             throw PracticalFailures.Type("class_identity");
                         case ISimpleAssignmentOperation assignment:
-                            ValidateWrite(assignment.Target, expression, model, publishedAliases, publications);
+                            ValidateWrite(assignment.Target, expression, model, publishedAliases, publications, allowArrayConstruction);
                             break;
                         case ICompoundAssignmentOperation assignment:
-                            ValidateWrite(assignment.Target, expression, model, publishedAliases, publications);
+                            ValidateWrite(assignment.Target, expression, model, publishedAliases, publications, allowArrayConstruction);
                             break;
                         case IIncrementOrDecrementOperation increment:
-                            ValidateWrite(increment.Target, expression, model, publishedAliases, publications);
+                            ValidateWrite(increment.Target, expression, model, publishedAliases, publications, allowArrayConstruction);
                             break;
                     }
                 }
@@ -898,8 +900,11 @@ internal static class CSharpPracticalDataTypes
         }
 
         private static void ValidateWrite(IOperation target, ExpressionSyntax expression, SemanticModel model,
-            HashSet<ILocalSymbol> publishedAliases, Dictionary<ILocalSymbol, int> publications)
+            HashSet<ILocalSymbol> publishedAliases, Dictionary<ILocalSymbol, int> publications, bool allowArrayConstruction)
         {
+            // W07 replaces the preliminary flow-independent array barrier with
+            // its ordered ownership analysis; immutable member checks stay here.
+            if (allowArrayConstruction && target is IArrayElementReferenceOperation) { return; }
             if (target is IArrayElementReferenceOperation element)
             {
                 var dependencies = new HashSet<ILocalSymbol>(SymbolEqualityComparer.Default);

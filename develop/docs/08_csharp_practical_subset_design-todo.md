@@ -33,7 +33,7 @@ expansion (ledger section 11). Both checkers accept all W09 capacity cases
 through each frozen limit plus one without a core change. W10 publishes the
 normative but inactive specifications and 700 vectors.
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
-`CSHARP-03-T03-W01/W02/W03/W04/W05/W06` are complete, `CSHARP-03-T03-W07` is ready, and every
+`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07` are complete, `CSHARP-03-T03-W08` is ready, and every
 later implementation work item remains blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
@@ -112,7 +112,8 @@ data declarations, enums, type graphs, and recursive defaults; see ledger
 section 25. T03-W04 adds construction and invariant handoffs; see ledger
 section 26. T03-W05 adds initializer transactions and finalization; see
 section 27. T03-W06 adds shared structural equality and canonical ordering; see
-section 28. T03-W07 is ready. This
+section 28. T03-W07 adds explicit array ownership and initialization; see
+section 29. T03-W08 is ready. This
 file remains planning material. W01 added its baseline and ledger; W02 added
 only the private consumer inventory, owner tests, ledger evidence, and current-
 status documentation; W03 added only private build-input evidence and its
@@ -1140,7 +1141,11 @@ admitted actual-source types.
 
 Depends on: T03-W06.
 
-Current status: `Ready`.
+Current status: `Complete` (2026-09-05).
+
+Completion evidence: ledger section 29; private ordered array ownership and
+initialization plans, exact source forms, separate C# exception/profile-bound
+edges, and the T04 read-borrow conflict handoff. No public frontend activation.
 
 Owns: fixed/bounded allocation, default-eligible versus fully initialized
 elements, reads/writes/length/index checks, alias rules, active-foreach
@@ -1169,6 +1174,8 @@ rejection executes under T04-W02.
 ### CSHARP-03-T03-W08 — Lower bounded-sequence representations and the construction substrate
 
 Depends on: T03-W07.
+
+Current status: `Ready`.
 
 Owns: projection of admitted arrays and bound non-generic immutable wrappers to
 closed internal bounded sequences; length, indexed read, structural equality,
