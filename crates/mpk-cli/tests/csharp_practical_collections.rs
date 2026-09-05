@@ -160,3 +160,6 @@ fn csharp_03_t03_w07_pinned_source_harness_when_available() {
 
 #[path = "support/csharp_practical_sequences.rs"]
 mod sequences;
+
+#[path = "support/csharp_practical_ordered.rs"]
+mod ordered;

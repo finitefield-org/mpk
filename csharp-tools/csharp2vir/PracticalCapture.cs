@@ -443,17 +443,23 @@ internal static class PracticalIdentity
         return id;
     }
 
-    internal static string ClosedInstanceId(string template, string argumentTypeId)
+    internal static string ClosedInstanceId(string template, params string[] argumentTypeIds)
     {
         string templateId = template switch
         {
             "bounded_sequence" => "mpk.csharp.semantic.bounded_sequence.v1",
             "sequence_construction" => "mpk.csharp.semantic.sequence_construction.v1",
             "option" => "mpk.csharp.semantic.option.v1",
+            "ordered_entry" => "mpk.csharp.semantic.ordered_entry.v1",
+            "ordered_map" => "mpk.csharp.semantic.ordered_map.v1",
+            "ordered_set" => "mpk.csharp.semantic.ordered_set.v1",
+            "lookup" => "mpk.csharp.semantic.lookup.v1",
             _ => throw PracticalFailures.Protocol("identity_template"),
         };
-        ValidateConcreteTypeId(argumentTypeId);
-        string json = "{\"arguments\":[\"" + argumentTypeId
+        int arity = template is "ordered_entry" or "ordered_map" ? 2 : 1;
+        if (argumentTypeIds.Length != arity) { throw PracticalFailures.Protocol("identity_arity"); }
+        foreach (string argument in argumentTypeIds) { ValidateConcreteTypeId(argument); }
+        string json = "{\"arguments\":[\"" + string.Join("\",\"", argumentTypeIds)
             + "\"],\"template\":\"" + templateId + "\",\"version\":1}";
         byte[] payload = Encoding.ASCII.GetBytes(json);
         var preimage = new byte[checked(ClosedInstanceDomain.Length + payload.Length)];

@@ -33,7 +33,7 @@ expansion (ledger section 11). Both checkers accept all W09 capacity cases
 through each frozen limit plus one without a core change. W10 publishes the
 normative but inactive specifications and 700 vectors.
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
-`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08` are complete, `CSHARP-03-T03-W09` is ready, and every
+`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09` are complete, `CSHARP-03-T03-W10` is ready, and every
 later implementation work item remains blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
@@ -114,7 +114,8 @@ section 26. T03-W05 adds initializer transactions and finalization; see
 section 27. T03-W06 adds shared structural equality and canonical ordering; see
 section 28. T03-W07 adds explicit array ownership and initialization; see
 section 29. T03-W08 adds the typed sequence construction substrate; see
-section 30. T03-W09 is ready. This
+section 30. T03-W09 adds ordered map/set bindings and typed operation handoffs;
+see section 31. T03-W10 is ready. This
 file remains planning material. W01 added its baseline and ledger; W02 added
 only the private consumer inventory, owner tests, ledger evidence, and current-
 status documentation; W03 added only private build-input evidence and its
@@ -167,7 +168,8 @@ evidence. T03-W04 adds private constructor flow analysis, synthesized-member IL
 checks, receiver-first functions, and pending type-invariant obligations.
 T03-W05 adds ordered init/required transactions and finalization.
 T03-W06 adds shared structural equality and canonical ordering.
-The next serial work is T03-W09's canonical ordered maps and sets.
+T03-W09 adds canonical ordered map/set projections and typed operation handoffs.
+The next serial work is T03-W10's strings, characters, and boundary codecs.
 
 The following are unconditional stop conditions:
 
@@ -1212,7 +1214,7 @@ T04 rather than accepted in T03.
 
 Depends on: T03-W08.
 
-Current status: `Ready`.
+Current status: `Complete` (2026-09-06); evidence: ledger section 31.
 
 Owns: semantic binding of an admitted element array as a set and an array of an
 application-owned non-generic immutable entry type as a map; optional bound
@@ -1242,6 +1244,8 @@ and routing assertions for all loop-dependent operation vectors.
 ### CSHARP-03-T03-W10 — Lower strings, characters, and boundary codec relations
 
 Depends on: T03-W09.
+
+Current status: `Ready`.
 
 Owns: ordinal UTF-16 operations, allowed string methods, exact string/string and
 string/char concatenation, restricted interpolation normalized to the same

@@ -6686,3 +6686,10 @@ pub use sequences::{
     project_bounded_sequence_wrapper, SequenceConstructionBatch, SequenceWrapperBinding,
     SEQUENCE_LIVE_STATES_MAX, SEQUENCE_STATES_PER_METHOD_MAX,
 };
+
+#[path = "csharp_practical_ordered_collections.rs"]
+mod ordered_collections;
+pub use ordered_collections::{
+    OrderedCollectionError, OrderedCollectionModel, OrderedCollectionOperation,
+    OrderedEntryBinding, ORDERED_COLLECTION_LOOP_OWNER,
+};

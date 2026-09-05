@@ -2,7 +2,7 @@
 
 Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10`,
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09`, and
-`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08` complete (2026-09-06). The entry audit, consumer
+`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09` complete (2026-09-06). The entry audit, consumer
 inventory, private frontend/toolchain closure proof,
 Roslyn shape probes, primitive/string/numeric/codec runtime measurements and
 candidate foundation/specialization/binding/data semantics and the successor
@@ -47,7 +47,8 @@ transactions and explicit finalization. T03-W06 adds shared structural
 equality and canonical ordering over concrete descriptors.
 T03-W07 adds ordered array bounds, initialization and ownership plans.
 T03-W08 adds typed sequence plans, wrapper projection and construction elimination.
-`CSHARP-03-T03-W09` is ready and all later implementation items remain serially blocked. No public production acceptance
+T03-W09 adds ordered map/set projection and typed operation handoffs.
+`CSHARP-03-T03-W10` is ready and all later implementation items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
 This ledger is subordinate to
@@ -106,9 +107,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T03-W05` | `Complete` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W05` | `381a20a54249e4a1f38e0edea6f4ce1ac9de3d50` |
 | `CSHARP-03-T03-W06` | `Complete` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W06` | `47bde686b1ffd209cf981d5614836e09b4ed9fe6` |
 | `CSHARP-03-T03-W07` | `Complete` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W07` | `dc36a561b7b445d450374663af8a96aa63ebad5e` |
-| `CSHARP-03-T03-W08` | `Complete` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W08` | `SELF` |
-| `CSHARP-03-T03-W09` | `Ready` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W09` | `—` |
-| `CSHARP-03-T03-W10` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_codecs.rs#CSHARP-03-T03-W10` | `—` |
+| `CSHARP-03-T03-W08` | `Complete` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W08` | `b2ecf2949c82bb6687b0916e292f4f4bfbcbdc86` |
+| `CSHARP-03-T03-W09` | `Complete` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W09` | `SELF` |
+| `CSHARP-03-T03-W10` | `Ready` | `crates/mpk-cli/tests/csharp_practical_codecs.rs#CSHARP-03-T03-W10` | `—` |
 | `CSHARP-03-T03-W11` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_numbers.rs#CSHARP-03-T03-W11` | `—` |
 | `CSHARP-03-T03-W12` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W12` | `—` |
 | `CSHARP-03-T03-W13` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W13` | `—` |
@@ -4197,3 +4198,79 @@ rebound without changing the installed build inputs):
 | `sequences-inputs.json` | `2528e80d0ffc33e0689817f87be9a5091bc52a64d4a0a1e77accc2fa2ac1a09e` |
 
 T03-W09 is the sole ready item.
+
+## 31. CSHARP-03-T03-W09 completion record
+
+Completed 2026-09-06. The private ordered-collection adapter consumes W08 array
+plans and frozen typed binding roles for admitted element sets, immutable
+non-generic source-entry maps, and optional non-generic wrappers. It records
+exact key/value/entry/lookup identities, captured source hashes and the seven
+binding obligations, including reconstruction of every stored extra field.
+Every input/publication boundary retains pending length, total-cell, strict
+ordering, uniqueness and public-element-invariant obligations. Projection
+never sorts or removes duplicates; no source helper is replaced.
+
+The shared Rust model revalidates concrete entry/member/content bindings,
+projects canonical arrays/wrappers, uses the common key comparator and exposes
+exact typed operation signatures. It distinguishes `missing_key` from
+`found(none)`, rejects non-total key types, and offers map comparison only when
+both keys and values are total. Concrete specification relations preserve
+invalid-representation/duplicate/capacity precedence and existing-key replacement.
+Their execution is private model evidence, not source-loop acceptance or a
+commutation proof. Source count/membership/lookup/traversal/aggregation and
+insertion/replacement/sort/dedup loops remain T04-W01/W02 work; proof discharge
+remains T06-W03/W04. Framework collections, comparers, hashing, mutable/generic
+entries, computed binding members and source loops reject artifact-free.
+
+### 31.1 Verification ownership and review
+
+`crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W09`
+owns all eight frozen collection vectors and six map/set/total-cell boundary
+vectors. The error-list vector remains an ordinary sequence with order and
+duplicates preserved; it is never normalized as a set. Tests cover direct
+publication, binding/hash/member mutations even for empty arrays, duplicate
+and reversed keys, nullable keys and values, decimal equivalent keys, the
+canonical key-type matrix, conditional comparison with float values and exact
+operation handoff mutations. Positive source-loop vectors remain assigned to
+the control owner.
+
+`develop/migrations/csharp-03/ordered/ordered-inputs.json` binds every private
+compiler, harness and `source-ordered.json` input. The pinned Roslyn harness
+regenerates the map/set identity and operation fixture from captured source;
+the Rust owner compares it with registered foundation expansion, including
+argument/result types and outcome order. `--test-ordered` uses the unchanged
+offline Linux/amd64 SDK 10.0.400, Roslyn 5.6.0 and runtime 10.0.11 isolation.
+Shared capture identity changes rebind the private phase manifests only.
+Installed compiler inputs, active profiles and Certificate v0 remain unchanged.
+
+Review caught an invalid lookup-type assumption: dependency IDs are stored in
+canonical sorted order, not recipe order. Lookup now uses the exact expanded
+operation result type; nullable-found and missing regressions exercise the fix.
+Review also moved effective-capacity handling behind the duplicate decision:
+an application capacity can only tighten the frozen maximum, and replacement
+never consults it. Full-set, oversized-capacity and replacement regressions
+exercise the precedence. Final task-diff review findings: `0`.
+
+### 31.2 Local verification
+
+The two historical T01-W02 inventory fingerprint failures recorded in section
+30 remain baseline failures. The frozen inventory is not rewritten by W09.
+Every frozen search path set matches unchanged HEAD
+`b2ecf2949c82bb6687b0916e292f4f4bfbcbdc86`; both have the same 17 fingerprint
+mismatches. The standard gate passed formatting, the strict obsolete-interface
+scan and warning-denied lint, then failed only the two tests named in section 30.
+
+| Verification | Result |
+| --- | --- |
+| `cargo test -p mpk-cli --test csharp_practical_collections --test csharp_practical_capture` | pass: 26 tests |
+| Pinned offline `--test-ordered` plus W01–W08 harness regressions | pass |
+| Offline `--self-test` and `--check-build-inputs` | pass |
+| `cargo clippy --workspace --all-targets -- -D warnings` | pass |
+| Unfiltered `./scripts/check-fast.sh` | two unchanged baseline inventory failures |
+| Workspace tests with only those two baseline tests skipped | pass: all remaining tests and doc tests |
+| CLI build and four accepted/rejected certificate fixtures | pass |
+
+These are private Linux/amd64 compiler checks; no release gate was required or
+run. New ordered-input manifest SHA-256: `5c08ce86376b9e58cff88968b12d3d3e1e69b88373ec9e11c25112707820c167`.
+
+T03-W10 is the sole ready item.
