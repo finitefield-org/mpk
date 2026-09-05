@@ -6678,3 +6678,11 @@ mod tests {
 #[path = "csharp_practical_structural.rs"]
 mod structural;
 pub use structural::{generate_structural_program, StructuralProgram, StructuralRecipe};
+
+#[path = "csharp_practical_sequences.rs"]
+mod sequences;
+pub use sequences::{
+    bounded_sequence_length, bounded_sequence_read, project_bounded_sequence_array,
+    project_bounded_sequence_wrapper, SequenceConstructionBatch, SequenceWrapperBinding,
+    SEQUENCE_LIVE_STATES_MAX, SEQUENCE_STATES_PER_METHOD_MAX,
+};

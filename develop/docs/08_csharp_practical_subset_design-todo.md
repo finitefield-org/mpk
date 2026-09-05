@@ -1,6 +1,6 @@
 # CSHARP-03 Practical C# Implementation Milestones and Tasks
 
-Status: current reviewed implementation decomposition, revised on 2026-09-05.
+Status: current reviewed implementation decomposition, revised on 2026-09-06.
 The native `JAVA-03-T10` x86-64 Linux release receipt is accepted and
 `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10` have completed the entry audit,
 consumer inventory, private frontend/toolchain closure proof, Roslyn shape
@@ -33,7 +33,7 @@ expansion (ledger section 11). Both checkers accept all W09 capacity cases
 through each frozen limit plus one without a core change. W10 publishes the
 normative but inactive specifications and 700 vectors.
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
-`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07` are complete, `CSHARP-03-T03-W08` is ready, and every
+`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08` are complete, `CSHARP-03-T03-W09` is ready, and every
 later implementation work item remains blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
@@ -113,7 +113,8 @@ section 25. T03-W04 adds construction and invariant handoffs; see ledger
 section 26. T03-W05 adds initializer transactions and finalization; see
 section 27. T03-W06 adds shared structural equality and canonical ordering; see
 section 28. T03-W07 adds explicit array ownership and initialization; see
-section 29. T03-W08 is ready. This
+section 29. T03-W08 adds the typed sequence construction substrate; see
+section 30. T03-W09 is ready. This
 file remains planning material. W01 added its baseline and ledger; W02 added
 only the private consumer inventory, owner tests, ledger evidence, and current-
 status documentation; W03 added only private build-input evidence and its
@@ -166,7 +167,7 @@ evidence. T03-W04 adds private constructor flow analysis, synthesized-member IL
 checks, receiver-first functions, and pending type-invariant obligations.
 T03-W05 adds ordered init/required transactions and finalization.
 T03-W06 adds shared structural equality and canonical ordering.
-The next serial work is T03-W07's explicit array ownership.
+The next serial work is T03-W09's canonical ordered maps and sets.
 
 The following are unconditional stop conditions:
 
@@ -1175,7 +1176,11 @@ rejection executes under T04-W02.
 
 Depends on: T03-W07.
 
-Current status: `Ready`.
+Current status: `Complete` (2026-09-06).
+
+Completion evidence: ledger section 30; private typed sequence plans, wrapper
+projection, monomorphic construction elimination and source-to-VIR replay.
+T04 retains every positive two-pass source loop; T06 retains proof discharge.
 
 Owns: projection of admitted arrays and bound non-generic immutable wrappers to
 closed internal bounded sequences; length, indexed read, structural equality,
@@ -1206,6 +1211,8 @@ T04 rather than accepted in T03.
 ### CSHARP-03-T03-W09 — Lower canonical ordered maps and sets
 
 Depends on: T03-W08.
+
+Current status: `Ready`.
 
 Owns: semantic binding of an admitted element array as a set and an array of an
 application-owned non-generic immutable entry type as a map; optional bound

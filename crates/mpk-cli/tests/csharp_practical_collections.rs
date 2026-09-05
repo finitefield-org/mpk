@@ -157,3 +157,6 @@ fn csharp_03_t03_w07_pinned_source_harness_when_available() {
     assert!(output.stdout.is_empty());
     assert!(output.stderr.is_empty());
 }
+
+#[path = "support/csharp_practical_sequences.rs"]
+mod sequences;

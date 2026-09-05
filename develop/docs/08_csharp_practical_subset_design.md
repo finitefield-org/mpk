@@ -24,10 +24,12 @@ private immutable data declarations, enums, type graphs, and recursive default
 validation; T03-W04 completed private constructor analysis, receiver-first
 calls, and invariant obligations; T03-W05 completed initializer finalization;
 T03-W06 completed shared structural equality and canonical ordering.
-T03-W07 completed private array ownership, initialization and bounds plans. T03-W08 is ready, while
+T03-W07 completed private array ownership, initialization and bounds plans.
+T03-W08 completed typed bounded-sequence construction and wrapper projection.
+T03-W09 is ready, while
 activation remains blocked through T08-W10.
 
-Prepared: 2026-09-02. Revised: 2026-09-05.
+Prepared: 2026-09-02. Revised: 2026-09-06.
 
 T01-W08 handoff: candidate foundation, specialization, binding and data
 semantics are now frozen in
@@ -166,7 +168,9 @@ gate without activation; T03-W03 completed private immutable data declarations,
 enums, type graphs, and recursive default validation; T03-W04 completed private constructor analysis, receiver-first
 calls, and invariant obligations; T03-W05 completed initializer finalization;
 T03-W06 completed shared structural equality and canonical ordering.
-T03-W07 completed private array ownership, initialization and bounds plans. T03-W08 is ready.
+T03-W07 completed private array ownership, initialization and bounds plans.
+T03-W08 completed typed bounded-sequence construction and wrapper projection.
+T03-W09 is ready.
 DART-04
 waits for the complete CSHARP-03 release gate. This
 insertion records the user value of making the already released C# frontend
@@ -2236,8 +2240,9 @@ validation; `CSHARP-03-T03-W04` has completed private constructor analysis,
 receiver-first calls, and invariant obligations; T03-W05 completed initializer
 finalization; T03-W06 completed shared structural equality and canonical ordering;
 T03-W07 completed array bounds, initialization and ownership plans.
+T03-W08 completed typed sequence construction and wrapper projection.
 These handoffs remain private.
-`CSHARP-03-T03-W08` is ready. Each
+`CSHARP-03-T03-W09` is ready. Each
 later work item remains blocked until its serial predecessor and task-local
 entry gate are satisfied.
 No task may reintroduce a source-visible `Mpk.*` API, user-defined generic,

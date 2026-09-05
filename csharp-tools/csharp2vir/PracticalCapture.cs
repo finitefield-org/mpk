@@ -448,6 +448,7 @@ internal static class PracticalIdentity
         string templateId = template switch
         {
             "bounded_sequence" => "mpk.csharp.semantic.bounded_sequence.v1",
+            "sequence_construction" => "mpk.csharp.semantic.sequence_construction.v1",
             "option" => "mpk.csharp.semantic.option.v1",
             _ => throw PracticalFailures.Protocol("identity_template"),
         };

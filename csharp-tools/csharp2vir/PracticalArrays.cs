@@ -14,7 +14,7 @@ namespace Mpk.CSharp2Vir;
 // Predicates are obligations, never claims that T06 has discharged a proof.
 internal sealed record PracticalArrayStep(string Site, string Path, string Operation, IOperation Source,
     IReadOnlyList<string> Arrays, IOperation? Operand = null, string Predicate = "",
-    string Exception = "");
+    string Exception = "", PracticalNormalizedType? ElementType = null, string Method = "");
 internal sealed record PracticalArrays(PracticalConstruction Construction,
     IReadOnlyList<PracticalArrayStep> Steps)
 {
@@ -35,9 +35,9 @@ internal static class CSharpPracticalArrays
 
     internal static PracticalArrays Validate(PracticalSourceSelection selection,
         IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references,
-        IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims = null)
+        IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims = null, bool sequenceConstruction = false)
     {
-        var analyzer = new Analyzer();
+        var analyzer = new Analyzer(sequenceConstruction);
         PracticalConstruction construction = CSharpPracticalConstruction.Validate(selection, inputs, references,
             invariantClaims, allowInitializers: true, allowStructuralEquality: true,
             validateArrays: analyzer.Analyze, validateArrayLimits: ValidateLimits);
@@ -75,9 +75,10 @@ internal static class CSharpPracticalArrays
         internal bool Complete;
         internal bool Frozen;
         internal bool SymbolicWrites;
+        internal int Version;
         internal HashSet<int> Initialized = new();
         internal HashSet<int> PossiblyInitialized = new();
-        internal Storage Copy() => new() { Length = Length, Complete = Complete, Frozen = Frozen, SymbolicWrites = SymbolicWrites,
+        internal Storage Copy() => new() { Length = Length, Complete = Complete, Frozen = Frozen, SymbolicWrites = SymbolicWrites, Version = Version,
             Initialized = new(Initialized), PossiblyInitialized = new(PossiblyInitialized) };
     }
     private sealed class State
@@ -89,11 +90,19 @@ internal static class CSharpPracticalArrays
             Locals = Locals.ToDictionary(pair => pair.Key, pair => new HashSet<string>(pair.Value),
                 (IEqualityComparer<ILocalSymbol>)SymbolEqualityComparer.Default),
             Arrays = Arrays.ToDictionary(pair => pair.Key, pair => pair.Value.Copy(), StringComparer.Ordinal) };
-        internal void Join(State a, State b)
+        internal void Join(State a, State b, bool strict)
         {
             if (!a.Live || !b.Live) {
                 State live = a.Live ? a : b;
                 Live = live.Live; Locals = live.Locals; Arrays = live.Arrays; return;
+            }
+            if (strict) {
+                foreach (string id in a.Arrays.Keys.Concat(b.Arrays.Keys).Distinct(StringComparer.Ordinal)) {
+                    a.Arrays.TryGetValue(id, out Storage? left); b.Arrays.TryGetValue(id, out Storage? right);
+                    if (left is null ? right is { Frozen: false } : right is null ? !left.Frozen
+                        : left.Frozen != right.Frozen || !left.Frozen && (left.Version != right.Version || left.Length != right.Length))
+                    { throw PracticalFailures.Type("sequence_incompatible_merge"); }
+                }
             }
             Live = true; Locals.Clear(); Arrays.Clear();
             foreach (ILocalSymbol local in a.Locals.Keys.Concat(b.Locals.Keys).Distinct(SymbolEqualityComparer.Default).Cast<ILocalSymbol>()) {
@@ -116,17 +125,28 @@ internal static class CSharpPracticalArrays
     private sealed class Analyzer
     {
         internal readonly List<PracticalArrayStep> Steps = new();
+        private readonly bool sequenceConstruction;
+        internal Analyzer(bool sequenceConstruction) { this.sequenceConstruction = sequenceConstruction; }
         private CSharpCompilation compilation = null!;
         private IReadOnlyList<PracticalDataType> types = null!;
         private string path = "entry";
+        private string methodPath = "entry";
         private static string Site(IOperation operation) => operation.Syntax.SyntaxTree.FilePath + ":"
             + operation.Syntax.SpanStart.ToString(System.Globalization.CultureInfo.InvariantCulture) + ":"
             + operation.Kind.ToString();
         private void Step(IOperation source, string operation, IEnumerable<string>? arrays = null,
-            IOperation? operand = null, string predicate = "", string exception = "") =>
+            IOperation? operand = null, string predicate = "", string exception = "", ITypeSymbol? elementType = null) =>
             Steps.Add(new(Site(source), path, operation, source,
                 Array.AsReadOnly((arrays ?? Array.Empty<string>()).OrderBy(id => id,StringComparer.Ordinal).ToArray()),
-                operand, predicate, exception));
+                operand, predicate, exception, ArrayElementType(source, operand, elementType), methodPath));
+        private PracticalNormalizedType? ArrayElementType(IOperation source, IOperation? operand, ITypeSymbol? element)
+        {
+            IArrayTypeSymbol? array = source.Type as IArrayTypeSymbol ?? operand?.Type as IArrayTypeSymbol
+                ?? (source as IArrayElementReferenceOperation)?.ArrayReference.Type as IArrayTypeSymbol
+                ?? (source as IPropertyReferenceOperation)?.Instance?.Type as IArrayTypeSymbol;
+            element ??= array?.ElementType;
+            return element is null ? null : PracticalExactTypeNormalizer.Normalize(element, compilation);
+        }
 
         internal void Analyze(CSharpCompilation current, IReadOnlyList<PracticalDataType> dataTypes)
         {
@@ -154,12 +174,13 @@ internal static class CSharpPracticalArrays
                         if (node is EqualsValueClauseSyntax equals) { body = semantic.GetOperation(equals.Value); }
                         if (body is null && node is ArrowExpressionClauseSyntax arrow) { body = semantic.GetOperation(arrow.Expression); }
                         if (body is not null) {
-                            path = Site(body); var state = new State();
+                            path = Site(body); methodPath = path; var state = new State();
                             if (semantic.GetDeclaredSymbol(node) is IMethodSymbol method) {
                                 foreach (IParameterSymbol parameter in method.Parameters.Where(p=>p.Type is IArrayTypeSymbol)) {
                                     Step(body,"parameter_profile_bound",new[]{"parameter:"+Site(body)+":"+parameter.Ordinal},
                                         predicate:parameter.NullableAnnotation == NullableAnnotation.Annotated
-                                            ? "absent || 0 <= length <= 4096" : "0 <= length <= 4096");
+                                            ? "absent || 0 <= length <= 4096" : "0 <= length <= 4096",
+                                        elementType:((IArrayTypeSymbol)parameter.Type).ElementType);
                                 }
                             }
                             var result = Visit(body, state);
@@ -204,18 +225,18 @@ internal static class CSharpPracticalArrays
                     var yesValue = Visit(conditional.WhenTrue,yes);
                     path = previous + "/" + Site(operation) + ":false";
                     var noValue = conditional.WhenFalse is null ? Empty() : Visit(conditional.WhenFalse,no);
-                    path = previous; state.Join(yes,no);
+                    path = previous; state.Join(yes,no,sequenceConstruction);
                     Step(operation,"merge",yesValue.Concat(noValue)); yesValue.UnionWith(noValue); return yesValue;
                 case IBinaryOperation binary when binary.OperatorKind is BinaryOperatorKind.ConditionalAnd or BinaryOperatorKind.ConditionalOr:
                     Visit(binary.LeftOperand,state); State skip = state.Copy(), execute = state.Copy();
                     string outer = path; path += "/" + Site(operation) + ":rhs";
-                    Visit(binary.RightOperand,execute); path = outer; state.Join(skip,execute);
+                    Visit(binary.RightOperand,execute); path = outer; state.Join(skip,execute,sequenceConstruction);
                     Step(operation,"merge"); return Empty();
                 case ICoalesceOperation coalesce:
                     var present = Visit(coalesce.Value,state); State nonnull = state.Copy(), absent = state.Copy();
                     string saved = path; path += "/" + Site(operation) + ":null";
                     var fallback = Visit(coalesce.WhenNull,absent); path = saved;
-                    state.Join(nonnull,absent); present.UnionWith(fallback);
+                    state.Join(nonnull,absent,sequenceConstruction); present.UnionWith(fallback);
                     Step(operation,"merge",present); return present;
                 case ISwitchOperation or ISwitchExpressionOperation or IBranchOperation or IConditionalAccessOperation
                     or ICoalesceAssignmentOperation or IIsPatternOperation or IAnonymousFunctionOperation or ILocalFunctionOperation:
@@ -377,6 +398,7 @@ internal static class CSharpPracticalArrays
             int? index = ConstantInt(element.Indices[0]);
             foreach (string id in ids) {
                 Storage storage = state.Arrays[id]; RequireWritable(!storage.Frozen,false);
+                storage.Version = checked(storage.Version + 1);
                 if (!storage.Complete) {
                     bool uncertainComplete = storage.Length is null || storage.SymbolicWrites;
                     if (!uncertainComplete && (readModifyWrite || index is int known && storage.PossiblyInitialized.Contains(known)))
@@ -401,6 +423,7 @@ internal static class CSharpPracticalArrays
                     if (storage.Length is int && !storage.SymbolicWrites) { Fail("array_incomplete_publication"); }
                     Step(operation,"complete_publication_vc",new[]{id},predicate:"forall i in [0,length): initialized(i)");
                 }
+                if (!storage.Frozen) { storage.Version = checked(storage.Version + 1); }
                 storage.Frozen=true; Step(operation,kind,new[]{id});
             }
         }

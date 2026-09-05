@@ -22,6 +22,9 @@ case "$#:${1-}" in
   1:--test-syntax)
     action=test-syntax
     ;;
+  1:--test-sequences)
+    action=test-sequences
+    ;;
   1:--test-arrays)
     action=test-arrays
     ;;

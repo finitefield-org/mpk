@@ -2,7 +2,7 @@
 
 Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10`,
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09`, and
-`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07` complete (2026-09-05). The entry audit, consumer
+`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08` complete (2026-09-06). The entry audit, consumer
 inventory, private frontend/toolchain closure proof,
 Roslyn shape probes, primitive/string/numeric/codec runtime measurements and
 candidate foundation/specialization/binding/data semantics and the successor
@@ -46,7 +46,8 @@ and pending invariant obligations. T03-W05 adds ordered init/required
 transactions and explicit finalization. T03-W06 adds shared structural
 equality and canonical ordering over concrete descriptors.
 T03-W07 adds ordered array bounds, initialization and ownership plans.
-`CSHARP-03-T03-W08` is ready and all later implementation items remain serially blocked. No public production acceptance
+T03-W08 adds typed sequence plans, wrapper projection and construction elimination.
+`CSHARP-03-T03-W09` is ready and all later implementation items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
 This ledger is subordinate to
@@ -104,9 +105,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T03-W04` | `Complete` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W04` | `ba7223fe8238e47703c8da983aa6ba3d8fa73526` |
 | `CSHARP-03-T03-W05` | `Complete` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W05` | `381a20a54249e4a1f38e0edea6f4ce1ac9de3d50` |
 | `CSHARP-03-T03-W06` | `Complete` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W06` | `47bde686b1ffd209cf981d5614836e09b4ed9fe6` |
-| `CSHARP-03-T03-W07` | `Complete` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W07` | `SELF` |
-| `CSHARP-03-T03-W08` | `Ready` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W08` | `—` |
-| `CSHARP-03-T03-W09` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W09` | `—` |
+| `CSHARP-03-T03-W07` | `Complete` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W07` | `dc36a561b7b445d450374663af8a96aa63ebad5e` |
+| `CSHARP-03-T03-W08` | `Complete` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W08` | `SELF` |
+| `CSHARP-03-T03-W09` | `Ready` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W09` | `—` |
 | `CSHARP-03-T03-W10` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_codecs.rs#CSHARP-03-T03-W10` | `—` |
 | `CSHARP-03-T03-W11` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_numbers.rs#CSHARP-03-T03-W11` | `—` |
 | `CSHARP-03-T03-W12` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W12` | `—` |
@@ -4085,3 +4086,114 @@ Final manifest SHA-256 receipts:
 | `arrays-inputs.json` | `f3367bc2319ebaf0303ead560b4da6d41280d48cdc7d9e33f19ba3af4e0a162d` |
 
 T03-W08 is the sole ready item.
+
+## 30. CSHARP-03-T03-W08 completion record
+
+### 30.1 Private typed sequence substrate
+
+`csharp-tools/csharp2vir/PracticalSequences.cs` consumes W07's captured ordered
+array operations. Every allocation specializes `sequence_construction<T>` and
+`bounded_sequence<T>` with an exact closed element type, including separate
+nullable-reference presence. Read-only source arrays receive the same sequence
+projection. Allocation, initializer indices, fill/rewrite, read, length,
+freeze, immutable publication, discard and merge retain source operands,
+method/path identity, ordered checks and pending invariant/profile predicates.
+The independently regenerated candidate bytes detect altered types, operands,
+checks, ownership routes and wrapper selections. W08 enforces the frozen 32
+construction identities per method and 8 simultaneously live states.
+
+W08's source gate checks construction ownership/version compatibility at branch
+joins. W07's earlier entry point retains its original array analysis. Once an
+alias/call/storage/return freezes an array, later read/publication operations
+consume an immutable sequence and do not freeze a second construction token.
+Bound wrappers must be selected immutable non-generic source products containing
+exactly one non-null array and admitted scalar metadata. Binding a getter in
+place of the stored array, another type/member, multiple arrays or unsupported
+metadata rejects. Constructor, getter, invariant and helper source remains
+captured for verification; a projection is not a proof of those bodies.
+
+`crates/mpk-vc/src/csharp_practical_sequences.rs` composes the existing shared
+`SequenceConstructionState` validator with concrete element storage. Typed
+fills (including explicit recursive defaults), reads, rewrites, borrow/transfer,
+freeze and discard revalidate ownership and initialization before mutation.
+Invalid values and transitions leave the state unchanged. The 16384 internal
+capacity never raises the 4096 array/wrapper publication bound. Finishing a
+method rejects every residual active construction, and successful finishing
+returns only immutable monomorphic values. Wrapper projection revalidates the
+source content hash, exact member and semantic type against validated roots,
+then uses the common structural equality and conditional ordering generator.
+Symbolic obligations remain pending for T06; concrete execution cannot bypass
+them by claiming default eligibility or importing initialized-state flags.
+
+### 30.2 Verification ownership and serial boundary
+
+`crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W08`
+owns all nine frozen capacity/state-count vectors, zero/full publication,
+straight-line initialization, invalid element/read/publication, transfer,
+incompatible merge, residual-state and wrapper-binding mutations. The pinned
+Roslyn harness regenerates `source-direct.json` from an actual direct-result
+initializer; the Rust owner replays those exact types, length and element
+values through construction elimination and checks deterministic results.
+
+`develop/migrations/csharp-03/sequences/sequences-inputs.json` binds the private
+compiler/harness and source-replay inputs. `--test-sequences` uses the same
+SDK 10.0.400, Roslyn 5.6.0 and runtime 10.0.11 offline Linux/amd64 runner as W07.
+The T03 source loop gate remains artifact-free: filtered count/allocate/fill
+loops, framework collections, lambdas and source-visible builders reject.
+Every positive two-pass source form belongs to T04-W01/W02; emitted data/loop
+proofs belong to T06-W03/W04. No installed compiler route, public format,
+Certificate v0 rule or checker acceptance changes.
+
+### 30.3 Review and verification
+
+Review found and corrected missing read-only array type projection, incompatible
+construction merges, repeated freeze after immutable alias publication, and
+missing value revalidation on length/read. Array and wrapper projections now
+normalize to the same immutable representation before shared comparison. The
+existing capture-route count test includes the new private runner. Targeted
+regressions exercise each corrected behavior. Final task-diff review findings:
+`0`.
+
+The unfiltered `./scripts/check-fast.sh` passed the strict source scan,
+formatting and warning-denied lint, then exposed two **pre-existing** historical
+inventory failures: `csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge`
+and `csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers`.
+For every frozen search fixture, a comparison of the working-tree path set
+against `/usr/bin/git grep` at unchanged HEAD
+`dc36a561b7b445d450374663af8a96aa63ebad5e` found **zero changed path sets**.
+Both have the same 17 fingerprint mismatches. For example, `registry.literal`
+expects 400 paths but both HEAD and this change contain 398, with path-set
+SHA-256 `d99eb1c12d7eb5c51fb891b19bc6cbfa2d0a2f5458ee0c19c38d11c8593824ec`.
+No frozen inventory/specification was rewritten to conceal that baseline drift.
+Those two baseline failures remain outside W08's implementation scope.
+
+| Verification | Result |
+| --- | --- |
+| `cargo test -p mpk-cli --test csharp_practical_collections --test csharp_practical_capture` | pass: 18 tests, including all nine W08 boundary vectors |
+| `cargo clippy --workspace --all-targets -- -D warnings` | pass on final code |
+| Offline pinned `--test-sequences` and `--test-arrays` | pass |
+| Offline pinned capture/syntax/types/construction/initialization/structural runners | pass |
+| Offline `--self-test` and `--check-build-inputs` | pass |
+| Unfiltered `./scripts/check-fast.sh` | fails only at the two unchanged baseline inventory tests described above |
+| `cargo test --workspace -- --skip csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge --skip csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers` | pass: all remaining workspace tests and doc tests |
+| `cargo build -p mpk-cli` and the four `check-fast.sh` accepted/rejected certificate fixtures | pass |
+| `cargo fmt --all -- --check` and `/usr/bin/git diff --check` | pass |
+
+These are private compiler checks on Linux/amd64, not a native release gate.
+No release gate was required or run.
+
+Final private input-manifest SHA-256 receipts (shared source dependencies were
+rebound without changing the installed build inputs):
+
+| Manifest | SHA-256 |
+| --- | --- |
+| `capture-inputs.json` | `35a1dbe8688a8bd3fedc772ffe64a41e852a2268c1ba855d7fc5007548e3e71c` |
+| `syntax-inputs.json` | `a3eff14b176eff38e504524da46f371fc3de42f4fb16a09e3c9aae3c3d4bc134` |
+| `types-inputs.json` | `b3d4a05308ca98fb0dbae3ced67a45b155393409a4904703acf372ec6dc36064` |
+| `construction-inputs.json` | `0053f2f20800ae11e78714223c24ae5f3b60039b60d44ace13b944f7165b906b` |
+| `initialization-inputs.json` | `90c1c826ccb6b1ea76b0488efcdb5efbce1bd5c80f87cfd6b03e7058ed49dc4a` |
+| `structural-inputs.json` | `9e7288c81aa0a438172e46c2b27005a6756b714697fb1cafd9507cb3be055d36` |
+| `arrays-inputs.json` | `1cc274414d9557bfb0f1dbc466f6bbeba911d893d3f7023b1cd944b03c717782` |
+| `sequences-inputs.json` | `2528e80d0ffc33e0689817f87be9a5091bc52a64d4a0a1e77accc2fa2ac1a09e` |
+
+T03-W09 is the sole ready item.
