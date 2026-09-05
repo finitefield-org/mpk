@@ -79,7 +79,7 @@ scoped Rust v0 release. The Rust gate, shared feasibility/specification work,
 the C# scalar release, Java T10 release including its native x86-64 receipt,
 and `CSHARP-03-T01-W01` through W10 plus
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
-`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11` are now complete. The
+`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12` are now complete. The
 practical C# profile/shared-artifact package and 700 vectors are normative but
 inactive; producer migration and consumer closure remain private and
 uninstalled. The source capture/closure gate is likewise private and
@@ -92,7 +92,8 @@ Typed bounded-sequence construction and wrapper projection also remain private.
 Canonical ordered map/set projection and typed operation handoffs remain private.
 T03-W10 completed private UTF-16 string plans and the shared typed boundary codecs.
 T03-W11 completed exact float/double/decimal relations and typed numeric source plans.
-`CSHARP-03-T03-W12` is ready.
+T03-W12 completed nullable relations and application outcome projections with pending binding obligations.
+`CSHARP-03-T03-W13` is ready.
 No production phases run in parallel.
 
 The continuation is strictly serial: `MLANG-00` research, `MLANG-01` successor

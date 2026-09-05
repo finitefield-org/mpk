@@ -1377,6 +1377,13 @@ internal static class CSharpPracticalSyntaxNormalizer
             private string CanonicalOperationType(IOperation operation)
             {
                 ITypeSymbol type = operation.Type!;
+                // W12 exceptions are retained as control operands, never as
+                // registered values or source-visible exception parameters.
+                if((IsIntrinsicArgumentCarrier(type,"InvalidOperationException")
+                    || IsIntrinsicArgumentCarrier(type,"ArgumentException")
+                    || IsIntrinsicArgumentCarrier(type,"Exception"))
+                    && operation.Syntax.AncestorsAndSelf().Any(n=>n is ThrowStatementSyntax or ThrowExpressionSyntax))
+                {return "source_exception:"+type.ToDisplayString(SymbolDisplayFormat.CSharpErrorMessageFormat);}
                 // W10: only the compiler-inserted char boxing of an exact
                 // string/char + is normalized to its UTF-16 operand. Explicit
                 // object conversions and numeric concatenation remain closed.

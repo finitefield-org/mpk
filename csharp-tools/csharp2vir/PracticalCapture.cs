@@ -454,9 +454,12 @@ internal static class PracticalIdentity
             "ordered_map" => "mpk.csharp.semantic.ordered_map.v1",
             "ordered_set" => "mpk.csharp.semantic.ordered_set.v1",
             "lookup" => "mpk.csharp.semantic.lookup.v1",
+            "result" => "mpk.csharp.semantic.result.v1",
+            "validation" => "mpk.csharp.semantic.validation.v1",
+            "boundary_field" => "mpk.csharp.semantic.boundary_field.v1",
             _ => throw PracticalFailures.Protocol("identity_template"),
         };
-        int arity = template is "ordered_entry" or "ordered_map" ? 2 : 1;
+        int arity = template is "ordered_entry" or "ordered_map" or "result" or "validation" ? 2 : 1;
         if (argumentTypeIds.Length != arity) { throw PracticalFailures.Protocol("identity_arity"); }
         foreach (string argument in argumentTypeIds) { ValidateConcreteTypeId(argument); }
         string json = "{\"arguments\":[\"" + string.Join("\",\"", argumentTypeIds)
@@ -1587,6 +1590,7 @@ internal static class CSharpPracticalCapture
                     && externalMethod.MethodKind != MethodKind.BuiltinOperator
                     && externalMethod.MethodKind != MethodKind.Conversion
                     && (!IsAllowlistedFrameworkMember(externalMethod)
+                        && !IsOutcomeThrowConstructor(externalMethod, node)
                         || !HasExactIntrinsicArguments(externalMethod, node, model)))
                 {
                     throw PracticalFailures.Type("framework_api");
@@ -1757,6 +1761,9 @@ internal static class CSharpPracticalCapture
         TypeSyntax syntax,
         SemanticModel model)
     {
+        foreach(var creation in syntax.AncestorsAndSelf().OfType<ObjectCreationExpressionSyntax>()) {
+            if(model.GetSymbolInfo(creation).Symbol is IMethodSymbol constructor&&IsOutcomeThrowConstructor(constructor,creation)){return true;}
+        }
         foreach (MemberAccessExpressionSyntax access in syntax.AncestorsAndSelf()
             .OfType<MemberAccessExpressionSyntax>())
         {
@@ -1772,11 +1779,21 @@ internal static class CSharpPracticalCapture
         return false;
     }
 
+    // W12 source helpers may construct these exact exceptions only as the
+    // immediate operand of throw. This admits no exception-valued API/catch.
+    private static bool IsOutcomeThrowConstructor(IMethodSymbol method,SyntaxNode syntax) =>
+        method.MethodKind==MethodKind.Constructor&&method.Parameters.Length==0
+        && (IsExactSystemRuntimeType(method.ContainingType,"InvalidOperationException")
+            || IsExactSystemRuntimeType(method.ContainingType,"ArgumentException"))
+        && syntax is ObjectCreationExpressionSyntax {Parent:ThrowExpressionSyntax or ThrowStatementSyntax};
+
     private static bool IsIntrinsicConstantCarrier(ITypeSymbol type) =>
         IsExactSystemRuntimeType(type, "StringComparison")
         || IsExactSystemRuntimeType(type, "MidpointRounding")
         || IsExactSystemRuntimeType(type, "Math")
-        || IsExactSystemRuntimeType(type, "MathF");
+        || IsExactSystemRuntimeType(type, "MathF")
+        || IsExactSystemRuntimeType(type,"InvalidOperationException")
+        || IsExactSystemRuntimeType(type,"ArgumentException");
 
     private static bool IsAdmittedPredefinedType(ITypeSymbol type) => type.SpecialType is
         SpecialType.System_Void

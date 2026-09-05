@@ -36,9 +36,9 @@ internal static class CSharpPracticalArrays
     internal static PracticalArrays Validate(PracticalSourceSelection selection,
         IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references,
         IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims = null, bool sequenceConstruction = false,
-        Action<CSharpCompilation>? validateStrings = null)
+        Action<CSharpCompilation>? validateStrings = null, bool domainOperations = false)
     {
-        var analyzer = new Analyzer(sequenceConstruction);
+        var analyzer = new Analyzer(sequenceConstruction,domainOperations);
         PracticalConstruction construction = CSharpPracticalConstruction.Validate(selection, inputs, references,
             invariantClaims, allowInitializers: true, allowStructuralEquality: true,
             validateArrays: (current, types) => { analyzer.Analyze(current, types); validateStrings?.Invoke(current); }, validateArrayLimits: ValidateLimits);
@@ -127,7 +127,8 @@ internal static class CSharpPracticalArrays
     {
         internal readonly List<PracticalArrayStep> Steps = new();
         private readonly bool sequenceConstruction;
-        internal Analyzer(bool sequenceConstruction) { this.sequenceConstruction = sequenceConstruction; }
+        private readonly bool domainOperations;
+        internal Analyzer(bool sequenceConstruction,bool domainOperations) { this.sequenceConstruction = sequenceConstruction; this.domainOperations=domainOperations; }
         private CSharpCompilation compilation = null!;
         private IReadOnlyList<PracticalDataType> types = null!;
         private string path = "entry";
@@ -239,6 +240,15 @@ internal static class CSharpPracticalArrays
                     var fallback = Visit(coalesce.WhenNull,absent); path = saved;
                     state.Join(nonnull,absent,sequenceConstruction); present.UnionWith(fallback);
                     Step(operation,"merge",present); return present;
+                case IConditionalAccessOperation access when domainOperations:
+                    Visit(access.Operation,state); State receiverAbsent=state.Copy(),receiverPresent=state.Copy();
+                    string outerPath=path;path+="/"+Site(operation)+":present";
+                    var accessed=Visit(access.WhenNotNull,receiverPresent);path=outerPath;
+                    state.Join(receiverAbsent,receiverPresent,sequenceConstruction);Step(operation,"merge",accessed);return accessed;
+                case IIsPatternOperation pattern when domainOperations&&pattern.Value.Type?.IsReferenceType==true
+                    && (pattern.Pattern is IConstantPatternOperation {Value.ConstantValue.HasValue:true,Value.ConstantValue.Value:null}
+                        || pattern.Pattern is INegatedPatternOperation {Pattern:IConstantPatternOperation {Value.ConstantValue.HasValue:true,Value.ConstantValue.Value:null}}):
+                    return Visit(pattern.Value,state);
                 case ISwitchOperation or ISwitchExpressionOperation or IBranchOperation or IConditionalAccessOperation
                     or ICoalesceAssignmentOperation or IIsPatternOperation or IAnonymousFunctionOperation or ILocalFunctionOperation:
                     Fail("array_control_handoff"); break;

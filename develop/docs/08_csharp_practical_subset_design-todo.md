@@ -33,7 +33,7 @@ expansion (ledger section 11). Both checkers accept all W09 capacity cases
 through each frozen limit plus one without a core change. W10 publishes the
 normative but inactive specifications and 700 vectors.
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
-`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11` are complete, `CSHARP-03-T03-W12` is ready, and every
+`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12` are complete, `CSHARP-03-T03-W13` is ready, and every
 later implementation work item remains blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
@@ -117,7 +117,8 @@ section 29. T03-W08 adds the typed sequence construction substrate; see
 section 30. T03-W09 adds ordered map/set bindings and typed operation handoffs;
 see section 31. T03-W10 adds string plans and the shared typed codec relation;
 see section 32. T03-W11 adds exact numeric relations and source plans; see
-section 33. T03-W12 is ready. This
+section 33. T03-W12 adds nullable and application outcome relations; see
+section 34. T03-W13 is ready. This
 file remains planning material. W01 added its baseline and ledger; W02 added
 only the private consumer inventory, owner tests, ledger evidence, and current-
 status documentation; W03 added only private build-input evidence and its
@@ -173,7 +174,8 @@ T03-W06 adds shared structural equality and canonical ordering.
 T03-W09 adds canonical ordered map/set projections and typed operation handoffs.
 T03-W10 adds UTF-16 string plans and the shared typed boundary codec relation.
 T03-W11 adds exact numeric relations and source plans.
-The next serial work is T03-W12's nullable and closed outcome values.
+T03-W12 adds nullable and closed application outcome relations.
+The next serial work is T03-W13's calendar, time, GUID, instant, and money values.
 
 The following are unconditional stop conditions:
 
@@ -1301,7 +1303,7 @@ rounding tables, differential harness, and canonical encode/decode mutations.
 
 Depends on: T03-W11.
 
-Current status: `Ready`.
+Current status: `Complete`; see ledger section 34.
 
 Owns: nullable reference operations; the exact compiler-owned value-type `T?`
 source spelling and immediate `option<T>` specialization; the restricted
@@ -1335,6 +1337,8 @@ error accumulation order/capacity, match exhaustiveness, and mutation tests.
 ### CSHARP-03-T03-W13 — Lower calendar, time, GUID, instant, and money values
 
 Depends on: T03-W12.
+
+Current status: `Ready`.
 
 Owns: exact DateOnly/TimeOnly/TimeSpan/GUID intrinsics; application-owned
 non-generic instant wrappers bound to the registered non-template internal

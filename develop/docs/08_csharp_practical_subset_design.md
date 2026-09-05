@@ -29,7 +29,8 @@ T03-W08 completed typed bounded-sequence construction and wrapper projection.
 T03-W09 completed private ordered map/set projection and typed operation handoffs.
 T03-W10 completed private UTF-16 string plans and the shared typed boundary codecs.
 T03-W11 completed exact float/double/decimal relations and typed numeric source plans.
-T03-W12 is ready, while
+T03-W12 completed nullable relations and application outcome projections with pending binding obligations.
+T03-W13 is ready, while
 activation remains blocked through T08-W10.
 
 Prepared: 2026-09-02. Revised: 2026-09-06.
@@ -176,7 +177,8 @@ T03-W08 completed typed bounded-sequence construction and wrapper projection.
 T03-W09 completed private ordered map/set projection and typed operation handoffs.
 T03-W10 completed private UTF-16 string plans and the shared typed boundary codecs.
 T03-W11 completed exact float/double/decimal relations and typed numeric source plans.
-T03-W12 is ready.
+T03-W12 completed nullable relations and application outcome projections with pending binding obligations.
+T03-W13 is ready.
 DART-04
 waits for the complete CSHARP-03 release gate. This
 insertion records the user value of making the already released C# frontend
@@ -2250,8 +2252,9 @@ T03-W08 completed typed sequence construction and wrapper projection.
 T03-W09 completed private ordered map/set projection and typed operation handoffs.
 T03-W10 completed private UTF-16 string plans and the shared typed boundary codecs.
 T03-W11 completed exact float/double/decimal relations and typed numeric source plans.
+T03-W12 completed nullable relations and application outcome projections with pending binding obligations.
 These handoffs remain private.
-`CSHARP-03-T03-W12` is ready. Each
+`CSHARP-03-T03-W13` is ready. Each
 later work item remains blocked until its serial predecessor and task-local
 entry gate are satisfied.
 No task may reintroduce a source-visible `Mpk.*` API, user-defined generic,

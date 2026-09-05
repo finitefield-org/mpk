@@ -51,6 +51,8 @@ CODECS_INPUTS_PATH = REPOSITORY_ROOT / "develop/migrations/csharp-03/codecs/code
 CODECS_INPUTS_SCHEMA = "mpk.csharp_practical.t03_w10.codecs_inputs.v1"
 NUMERIC_INPUTS_PATH = REPOSITORY_ROOT / "develop/migrations/csharp-03/numeric/numeric-inputs.json"
 NUMERIC_INPUTS_SCHEMA = "mpk.csharp_practical.t03_w11.numeric_inputs.v1"
+DOMAIN_INPUTS_PATH = REPOSITORY_ROOT / "develop/migrations/csharp-03/domain/domain-inputs.json"
+DOMAIN_INPUTS_SCHEMA = "mpk.csharp_practical.t03_w12.domain_inputs.v1"
 STRUCTURAL_INPUTS_SCHEMA = "mpk.csharp_practical.t03_w06.structural_inputs.v1"
 
 CONSTRUCTION_INPUTS_SCHEMA = "mpk.csharp_practical.t03_w04.construction_inputs.v1"
@@ -806,6 +808,52 @@ def load_numeric_inputs() -> dict[str, object]:
     )
 
 
+def validate_domain_inputs_value(value: object) -> dict[str, object]:
+    manifest = active.exact_keys(value, {"files", "schema", "work_item"})
+    if (
+        active.text(manifest["schema"]) != DOMAIN_INPUTS_SCHEMA
+        or active.text(manifest["work_item"]) != "CSHARP-03-T03-W12"
+    ):
+        raise active.CSharpBuildFailure("CSHARP_PRACTICAL_DOMAIN_INPUTS")
+    records = active.array(manifest["files"])
+    expected_paths = [
+        "crates/mpk-cli/tests/csharp_practical_domain_harness.cs",
+        "csharp-tools/csharp2vir/PracticalArrays.cs",
+        "csharp-tools/csharp2vir/PracticalCapture.cs",
+        "csharp-tools/csharp2vir/PracticalConstruction.cs",
+        "csharp-tools/csharp2vir/PracticalDataTypes.cs",
+        "csharp-tools/csharp2vir/PracticalDomain.cs",
+        "csharp-tools/csharp2vir/PracticalNumeric.cs",
+        "csharp-tools/csharp2vir/PracticalStrings.cs",
+        "csharp-tools/csharp2vir/PracticalStructural.cs",
+        "csharp-tools/csharp2vir/PracticalSyntaxNormalization.cs",
+        "develop/migrations/csharp-03/domain/domain-runtime.json",
+        "develop/probes/csharp-03/FoundationDataProbe.cs",
+    ]
+    if len(records) != len(expected_paths):
+        raise active.CSharpBuildFailure("CSHARP_PRACTICAL_DOMAIN_INPUTS")
+    for untyped, expected_path in zip(records, expected_paths):
+        record = active.exact_keys(untyped, {"path", "sha256", "size_bytes"})
+        path = active.validate_relative_path(active.text(record["path"]))
+        if path != expected_path:
+            raise active.CSharpBuildFailure("CSHARP_PRACTICAL_DOMAIN_INPUTS")
+        size, sha256, _mode = active.hash_regular_file(
+            REPOSITORY_ROOT / path, 2 * 1024 * 1024
+        )
+        if (
+            active.integer(record["size_bytes"]) != size
+            or active.validate_hex(active.text(record["sha256"]), 64) != sha256
+        ):
+            raise active.CSharpBuildFailure("CSHARP_PRACTICAL_DOMAIN_INPUTS")
+    return manifest
+
+
+def load_domain_inputs() -> dict[str, object]:
+    return validate_domain_inputs_value(
+        active.strict_json_file(DOMAIN_INPUTS_PATH, canonical_transport=True)
+    )
+
+
 def copy_bound_file(
     source: Path,
     destination: Path,
@@ -1019,6 +1067,7 @@ def check_build_inputs() -> None:
     load_ordered_inputs()
     load_codecs_inputs()
     load_numeric_inputs()
+    load_domain_inputs()
     toolchain = active.exact_keys(
         descriptor["toolchain_inputs"], set(descriptor["toolchain_inputs"])
     )
@@ -2529,6 +2578,147 @@ def test_numeric() -> None:
             raise active.CSharpBuildFailure("CSHARP_PRACTICAL_NUMERIC_TEST_FAILURE")
 
 
+def test_domain() -> None:
+    active.validate_build_host()
+    descriptor = load_descriptor()
+    project_records: dict[str, dict[str, object]] = {}
+    project_files = active.array(descriptor["project_files"])
+    active.validate_project_files(project_files)
+    for untyped in project_files:
+        record = active.exact_keys(untyped, {"path", "sha256", "size_bytes"})
+        project_records[active.validate_relative_path(active.text(record["path"]))] = record
+    manifest = load_domain_inputs()
+    toolchain = active.exact_keys(
+        descriptor["toolchain_inputs"], set(descriptor["toolchain_inputs"])
+    )
+    archives = checked_archives(toolchain)
+    with tempfile.TemporaryDirectory(
+        prefix="mpk-csharp-practical-domain-test-"
+    ) as temporary:
+        temporary_root = Path(temporary)
+        roots = active.materialize_closure(
+            toolchain, archives, temporary_root / "closure"
+        )
+        work = temporary_root / "work"
+        work.mkdir(mode=0o700, parents=True, exist_ok=False)
+        copied: dict[str, Path] = {}
+        for untyped in active.array(manifest["files"]):
+            record = active.exact_keys(untyped, {"path", "sha256", "size_bytes"})
+            relative = active.text(record["path"])
+            target = work / Path(relative).name
+            copy_bound_file(
+                REPOSITORY_ROOT / relative,
+                target,
+                record,
+                "CSHARP_PRACTICAL_DOMAIN_INPUTS",
+            )
+            copied[relative] = target
+
+        sdk = roots["dotnet-sdk-linux-x64"]
+        compiler = sdk / "sdk/10.0.400/Roslyn/bincore/csc.dll"
+        output = work / "csharp2vir-practical-domain-tests.dll"
+        arguments = list(active.COMPILER_ARGUMENTS)
+        arguments.extend(
+            [
+                "/out:" + str(output),
+                "/main:Mpk.CSharp2Vir.PracticalDomainHarness",
+                "/pathmap:" + str(work) + "=/_/csharp-practical-domain",
+            ]
+        )
+        reference_root = roots["microsoft-netcore-app-ref"]
+        for untyped in active.array(toolchain["reference_projection"]["inventory"]):
+            record = active.exact_keys(
+                untyped, {"path", "size_bytes", "sha256"}
+            )
+            arguments.append(
+                "/reference:" + str(reference_root / active.text(record["path"]))
+            )
+        managed_roots = {
+            "Microsoft.CodeAnalysis.Common": roots["microsoft-codeanalysis-common"],
+            "Microsoft.CodeAnalysis.CSharp": roots["microsoft-codeanalysis-csharp"],
+        }
+        managed_sources: list[tuple[Path, str]] = []
+        for untyped in active.array(toolchain["managed_projection"]):
+            record = active.exact_keys(
+                untyped,
+                {
+                    "package_id",
+                    "archive_path",
+                    "runtime_path",
+                    "size_bytes",
+                    "sha256",
+                },
+            )
+            source = managed_roots[active.text(record["package_id"])] / active.text(
+                record["archive_path"]
+            )
+            arguments.append("/reference:" + str(source))
+            managed_sources.append((source, Path(active.text(record["runtime_path"])).name))
+        arguments.extend(
+            [
+                str(copied["csharp-tools/csharp2vir/PracticalArrays.cs"]),
+                str(copied["csharp-tools/csharp2vir/PracticalStrings.cs"]),
+                str(copied["csharp-tools/csharp2vir/PracticalNumeric.cs"]),
+                str(copied["csharp-tools/csharp2vir/PracticalDomain.cs"]),
+                str(copied["develop/probes/csharp-03/FoundationDataProbe.cs"]),
+                str(copied["csharp-tools/csharp2vir/PracticalCapture.cs"]),
+                str(copied["csharp-tools/csharp2vir/PracticalSyntaxNormalization.cs"]),
+                str(copied["csharp-tools/csharp2vir/PracticalDataTypes.cs"]),
+                str(copied["csharp-tools/csharp2vir/PracticalConstruction.cs"]),
+                str(copied["csharp-tools/csharp2vir/PracticalStructural.cs"]),
+                str(copied["crates/mpk-cli/tests/csharp_practical_domain_harness.cs"]),
+            ]
+        )
+        build_environment = active.closed_dotnet_environment(
+            sdk, temporary_root / "build-environment"
+        )
+        result = active.execute_isolated(
+            [str(sdk / "dotnet"), "exec", str(compiler)] + arguments,
+            cwd=work,
+            environment=build_environment,
+        )
+        if (
+            result.returncode != 0
+            or result.stdout
+            or result.stderr
+            or not output.is_file()
+        ):
+            raise active.CSharpBuildFailure("CSHARP_PRACTICAL_DOMAIN_TEST_BUILD")
+
+        for source, name in managed_sources:
+            active.copy_candidate_file(source, work / name)
+        runtime_config = work / "csharp2vir.runtimeconfig.json"
+        runtime_record = project_records.get("csharp2vir.runtimeconfig.json")
+        if runtime_record is None:
+            raise active.CSharpBuildFailure("CSHARP_PRACTICAL_DOMAIN_INPUTS")
+        copy_bound_file(
+            REPOSITORY_ROOT / "csharp-tools/csharp2vir/csharp2vir.runtimeconfig.json",
+            runtime_config,
+            runtime_record,
+            "CSHARP_PRACTICAL_DOMAIN_INPUTS",
+        )
+        runtime = roots["dotnet-runtime-linux-x64"]
+        runtime_environment = active.closed_dotnet_environment(
+            runtime, temporary_root / "runtime-environment"
+        )
+        result = active.execute_isolated(
+            [
+                str(runtime / "dotnet"),
+                "exec",
+                "--runtimeconfig",
+                str(runtime_config),
+                "--fx-version",
+                "10.0.11",
+                str(output),
+                str(reference_root),
+            ],
+            cwd=work,
+            environment=runtime_environment,
+        )
+        if result.returncode != 0 or result.stdout or result.stderr:
+            raise active.CSharpBuildFailure("CSHARP_PRACTICAL_DOMAIN_TEST_FAILURE")
+
+
 def check_full(*, update: bool) -> None:
     active.validate_build_host()
     descriptor = load_descriptor()
@@ -2630,6 +2820,14 @@ def self_test() -> None:
     changed = deep_copy(numeric_inputs)
     changed["files"].pop()
     expect_rejected(lambda: validate_numeric_inputs_value(changed))
+    domain_inputs = load_domain_inputs()
+    for key, replacement in (("sha256", "0" * 64), ("size_bytes", 0), ("path", "README.md")):
+        changed = deep_copy(domain_inputs)
+        changed["files"][0][key] = replacement
+        expect_rejected(lambda: validate_domain_inputs_value(changed))
+    changed = deep_copy(domain_inputs)
+    changed["files"].pop()
+    expect_rejected(lambda: validate_domain_inputs_value(changed))
     structural_inputs = load_structural_inputs()
     for key, replacement in (("sha256", "0" * 64), ("size_bytes", 0), ("path", "README.md")):
         changed = deep_copy(structural_inputs)
@@ -2726,6 +2924,8 @@ def main(argv: list[str]) -> int:
             test_capture()
         elif argv == ["test-syntax"]:
             test_syntax()
+        elif argv == ["test-domain"]:
+            test_domain()
         elif argv == ["test-numeric"]:
             test_numeric()
         elif argv == ["test-codecs"]:

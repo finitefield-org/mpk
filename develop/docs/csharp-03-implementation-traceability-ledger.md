@@ -2,7 +2,7 @@
 
 Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10`,
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09`, and
-`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11` complete (2026-09-06). The entry audit, consumer
+`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12` complete (2026-09-06). The entry audit, consumer
 inventory, private frontend/toolchain closure proof,
 Roslyn shape probes, primitive/string/numeric/codec runtime measurements and
 candidate foundation/specialization/binding/data semantics and the successor
@@ -50,7 +50,7 @@ T03-W08 adds typed sequence plans, wrapper projection and construction eliminati
 T03-W09 adds ordered map/set projection and typed operation handoffs.
 T03-W10 adds UTF-16 string plans and the shared typed boundary codec relation.
 T03-W11 adds exact numeric relations and typed source plans.
-`CSHARP-03-T03-W12` is ready and all later implementation items remain serially blocked. No public production acceptance
+`CSHARP-03-T03-W13` is ready and all later implementation items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
 This ledger is subordinate to
@@ -112,9 +112,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T03-W08` | `Complete` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W08` | `b2ecf2949c82bb6687b0916e292f4f4bfbcbdc86` |
 | `CSHARP-03-T03-W09` | `Complete` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W09` | `6714e88e963fba6f06c050989072a2cedfeefedd` |
 | `CSHARP-03-T03-W10` | `Complete` | `crates/mpk-cli/tests/csharp_practical_codecs.rs#CSHARP-03-T03-W10` | `7399590a1b692b999ab4fd30e752d27f77c45948` |
-| `CSHARP-03-T03-W11` | `Complete` | `crates/mpk-cli/tests/csharp_practical_numbers.rs#CSHARP-03-T03-W11` | `SELF` |
-| `CSHARP-03-T03-W12` | `Ready` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W12` | `—` |
-| `CSHARP-03-T03-W13` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W13` | `—` |
+| `CSHARP-03-T03-W11` | `Complete` | `crates/mpk-cli/tests/csharp_practical_numbers.rs#CSHARP-03-T03-W11` | `2e384db5d97565dc25aec50e73d911950c315f66` |
+| `CSHARP-03-T03-W12` | `Complete` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W12` | `SELF` |
+| `CSHARP-03-T03-W13` | `Ready` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W13` | `—` |
 | `CSHARP-03-T03-W14` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W14` | `—` |
 | `CSHARP-03-T04-W01` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W01` | `—` |
 | `CSHARP-03-T04-W02` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W02` | `—` |
@@ -4452,3 +4452,78 @@ Final private numeric input manifest SHA-256:
 `b090030b366599d497c70c12dcda6da991f4eb4cab045999372df4f05f8062d2`.
 
 T03-W12 is the sole ready item.
+
+
+## 34. CSHARP-03-T03-W12 completion record
+
+W12 adds the private `PracticalDomain` source handoff and native `OutcomeModel`
+and `OutcomeBindingPlan` relations. Exact compiler-owned value `T?` has none/some
+construction, HasValue/Value, eager explicit/default fallback, lazy coalescing,
+and the frozen lifted same-type arithmetic, comparison and three-valued Boolean
+matrix. Present float/decimal operations reuse W11's exact integer models;
+absent operands do not execute underlying arithmetic. Reference annotations
+remain pending preconditions/invariants. Suppression requires an independent
+local presence proof, and conditional access admits only the frozen member
+shape, evaluating the receiver once and the member on the present branch.
+W12 connects that branch to W07's ownership-state merge only on this private route.
+
+Application-owned immutable option, lookup, result, validation and boundary-field
+representations bind exact captured tags, payload storage and helper identities.
+All seven foundational projection obligations, actual default eligibility,
+every stored field's reconstruction, and all three operation-commutation
+relations remain pending. Nested application lookup/option projections retain
+those dependencies. Concrete round-trip checks include inactive and extra storage,
+retain floating bit observations and compare decimal numeric values. Validation
+requires 1..256 errors, preserves duplicates and appends left before right.
+A representation precondition is not invented as a source exception; the two
+admitted parameterless outcome exceptions are captured only as immediate throw
+operands. They introduce no exception-valued source API or catch support.
+
+The owner `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W12`
+replays all 628 frozen nullable observations and all six owned limit vectors,
+checks the arm/payload/default matrix, matching coverage, type/identity mutations,
+error ordering/capacity, lazy versus eager fallback, and loss of nested source
+storage. The byte-bound `develop/migrations/csharp-03/domain/domain-inputs.json`
+keeps 12 private inputs, including the unchanged frozen runtime probe. Its
+`--test-domain` harness compiles real source forms and differentially executes
+all 628 observations under two hostile cultures using the pinned Linux/amd64
+SDK 10.0.400, Roslyn 5.6.0 and runtime 10.0.11 closure.
+
+T04 owns general control and exception dispatch, T05 owns boundary-document
+classification and invocation, and T06-W06 owns universal binding discharge.
+No binding obligation is discharged by finite cases. The installed producer,
+public acceptance route, release identities and Certificate v0 are unchanged.
+
+### 34.1 Review and local verification
+
+Review corrected implicit none/some conversion capture, conditional-access
+ownership integration, duplicate-binding diagnostics, nullable stored-member
+default eligibility, and the pinned integer MIN % -1 overflow edge. Positive,
+rejection and runtime edge tests exercise those corrections. The latest full
+scope review has no remaining findings.
+
+| Local verification | Result |
+| --- | --- |
+| `./scripts/check-fast.sh` | Formatting, strict obsolete-interface scan and clippy passed. Workspace tests stop only at the two pre-existing inventory failures below. |
+| `cargo test -p mpk-cli --test csharp_practical_domain` | 8 passed; the platform availability guard is supplemented by the explicit pinned execution. |
+| Capture owner and task-status/owner ledger tests | Passed. |
+| Workspace tests with only the two named baseline failures skipped | 807 passed, 8 existing platform-dependent tests ignored, 2 filtered; 118 suites completed. |
+| Offline pinned Linux/amd64 `--test-domain` | Final source/binding/default/rejection cases passed; all 628 runtime cases matched under both hostile cultures. |
+| Offline pinned W01-W11 source/runtime harnesses | Capture, syntax, types, construction, initialization, structural, arrays, sequences, ordered, codecs and numeric all passed with the changed shared source inputs. |
+| Private `--self-test` and `--check-build-inputs` | Passed, including domain manifest hash/path/size/file-count mutations. |
+| `cargo build -p mpk-cli` and four standard CLI fixtures | Build passed; zero-axiom and one-theorem accepted, bad-magic and unsorted-name-table rejected. |
+| `/usr/bin/git diff --check` | Passed. |
+
+The two unfiltered failures remain
+`csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge` and
+`csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers`.
+All 17 mismatching frozen fingerprints already exist at parent
+`2e384db5d97565dc25aec50e73d911950c315f66`; comparing every inventory search's
+path set found no W12 additions/removals. The frozen inventory was not rewritten,
+and the standard gate is therefore still non-green. No release gate was
+required or claimed for this private task.
+
+Final domain input manifest SHA-256:
+`0a16156d8af7154cf8cff20713b0f7944472b2c2108ff87677df48bd1439fa02`.
+
+T03-W13 is the sole ready item.

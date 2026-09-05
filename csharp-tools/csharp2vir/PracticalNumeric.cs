@@ -25,10 +25,10 @@ internal sealed record PracticalNumeric(PracticalStrings Strings,IReadOnlyList<P
 internal static class CSharpPracticalNumeric
 {
     internal static PracticalNumeric Validate(PracticalSourceSelection selection,IEnumerable<PracticalCapturedInput> inputs,
-        ImmutableArray<MetadataReference> references)
+        ImmutableArray<MetadataReference> references, Action<CSharpCompilation>? validateDomain=null)
     {
         var steps=new List<PracticalNumericStep>();
-        var strings=CSharpPracticalStrings.Validate(selection,inputs,references,validateNumeric:c=>Analyze(c,steps));
+        var strings=CSharpPracticalStrings.Validate(selection,inputs,references,validateNumeric:c=>{Analyze(c,steps,validateDomain is not null);validateDomain?.Invoke(c);},domainOperations:validateDomain is not null);
         return new(strings,Array.AsReadOnly(steps.OrderBy(s=>s.Site,StringComparer.Ordinal).ThenBy(s=>s.Operation,StringComparer.Ordinal).ToArray()));
     }
     internal static void ValidateCandidate(PracticalNumeric regenerated,ReadOnlySpan<byte> candidate)
@@ -37,7 +37,7 @@ internal static class CSharpPracticalNumeric
     private static bool Integral(ITypeSymbol? t)=>t?.SpecialType is SpecialType.System_SByte or SpecialType.System_Byte or SpecialType.System_Int16 or SpecialType.System_UInt16 or SpecialType.System_Int32 or SpecialType.System_UInt32 or SpecialType.System_Int64 or SpecialType.System_UInt64 or SpecialType.System_Char;
     private static string Name(ITypeSymbol? t)=>t?.SpecialType switch {SpecialType.System_Single=>"single",SpecialType.System_Double=>"double",SpecialType.System_Decimal=>"decimal",SpecialType.System_SByte=>"sbyte",SpecialType.System_Byte=>"byte",SpecialType.System_Int16=>"int16",SpecialType.System_UInt16=>"uint16",SpecialType.System_Int32=>"int32",SpecialType.System_UInt32=>"uint32",SpecialType.System_Int64=>"int64",SpecialType.System_UInt64=>"uint64",SpecialType.System_Char=>"char",_=>""};
     private static string Prefix(ITypeSymbol? t)=>t?.SpecialType==SpecialType.System_Decimal?"decimal.":"floating."+Name(t)+".";
-    private static void Analyze(CSharpCompilation compilation,List<PracticalNumericStep> steps)
+    private static void Analyze(CSharpCompilation compilation,List<PracticalNumericStep> steps,bool nullableOperations)
     {
         var seen=new HashSet<string>(StringComparer.Ordinal);
         foreach(var tree in compilation.SyntaxTrees) {
@@ -51,6 +51,8 @@ internal static class CSharpPracticalNumeric
                     string key=site+"/"+operation.Kind+"/"+operation.Type?.ToDisplayString();
                     if(!seen.Add(key)){continue;}
                     var operands=new List<IOperation>();var exceptions=new List<string>();string id="",rounding="";
+                    if(nullableOperations && (operation is IBinaryOperation {IsLifted:true} || operation is IUnaryOperation {IsLifted:true}
+                        || operation is IConversionOperation cv && (cv.Type is INamedTypeSymbol nt && nt.OriginalDefinition.SpecialType==SpecialType.System_Nullable_T || cv.Operand.Type is INamedTypeSymbol nf && nf.OriginalDefinition.SpecialType==SpecialType.System_Nullable_T))) {continue;}
                     switch(operation) {
                         case IConversionOperation convert when Numeric(convert.Type)||Numeric(convert.Operand.Type):
                             if(SymbolEqualityComparer.Default.Equals(convert.Type,convert.Operand.Type)){continue;}

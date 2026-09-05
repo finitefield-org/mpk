@@ -205,8 +205,9 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             | "CSHARP-03-T02-W09" | "CSHARP-03-T03-W01" | "CSHARP-03-T03-W02"
             | "CSHARP-03-T03-W03" | "CSHARP-03-T03-W04" | "CSHARP-03-T03-W05"
             | "CSHARP-03-T03-W06" | "CSHARP-03-T03-W07" | "CSHARP-03-T03-W08"
-            | "CSHARP-03-T03-W09" | "CSHARP-03-T03-W10" | "CSHARP-03-T03-W11" => "Complete",
-            "CSHARP-03-T03-W12" => "Ready",
+            | "CSHARP-03-T03-W09" | "CSHARP-03-T03-W10" | "CSHARP-03-T03-W11"
+            | "CSHARP-03-T03-W12" => "Complete",
+            "CSHARP-03-T03-W13" => "Ready",
             _ => "Blocked",
         };
         assert_eq!(row.status, expected_status, "status drift for {work_item}");
@@ -240,7 +241,8 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             "CSHARP-03-T03-W08" => "b2ecf2949c82bb6687b0916e292f4f4bfbcbdc86",
             "CSHARP-03-T03-W09" => "6714e88e963fba6f06c050989072a2cedfeefedd",
             "CSHARP-03-T03-W10" => "7399590a1b692b999ab4fd30e752d27f77c45948",
-            "CSHARP-03-T03-W11" => "SELF",
+            "CSHARP-03-T03-W11" => "2e384db5d97565dc25aec50e73d911950c315f66",
+            "CSHARP-03-T03-W12" => "SELF",
             _ => "—",
         };
         assert_eq!(
@@ -421,6 +423,9 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
         "T03-W03 is the sole ready item.",
         "## 28. CSHARP-03-T03-W06 completion record",
         "## 29. CSHARP-03-T03-W07 completion record",
+        "## 34. CSHARP-03-T03-W12 completion record",
+        "T03-W13 is the sole ready item.",
+        "develop/migrations/csharp-03/domain/domain-inputs.json",
         "## 33. CSHARP-03-T03-W11 completion record",
         "T03-W12 is the sole ready item.",
         "develop/migrations/csharp-03/numeric/numeric-inputs.json",

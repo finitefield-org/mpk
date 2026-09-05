@@ -6708,3 +6708,9 @@ pub use strings::{evaluate_string_operation, StringError, StringOperand};
 #[path = "csharp_practical_numeric.rs"]
 mod numeric;
 pub use numeric::{NumericError, NumericOperation};
+
+#[path = "csharp_practical_domain.rs"]
+mod domain;
+pub use domain::{
+    domain_default, DomainError, OutcomeBindingPlan, OutcomeModel, OutcomeObligation,
+};
