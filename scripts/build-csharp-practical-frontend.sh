@@ -22,6 +22,9 @@ case "$#:${1-}" in
   1:--test-syntax)
     action=test-syntax
     ;;
+  1:--test-types)
+    action=test-types
+    ;;
   *)
     printf '%s\n' CSHARP_PRACTICAL_BUILD_USAGE >&2
     exit 64

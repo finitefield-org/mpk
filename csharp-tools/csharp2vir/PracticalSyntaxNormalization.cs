@@ -351,14 +351,20 @@ internal static class CSharpPracticalSyntaxNormalizer
     internal static PracticalNormalizedSyntax Normalize(
         PracticalSourceSelection selection,
         IEnumerable<PracticalCapturedInput> capturedInputs,
-        ImmutableArray<MetadataReference> references)
+        ImmutableArray<MetadataReference> references,
+        Action<CSharpCompilation>? validateDataDeclarations = null,
+        Action<CSharpCompilation>? validateDataTypes = null,
+        Action<CSharpCompilation>? validateDataLimits = null)
     {
         try
         {
             PracticalSourceClosure closure = CSharpPracticalCapture.Validate(
                 selection,
                 capturedInputs,
-                references);
+                references,
+                validateDataDeclarations,
+                validateDataTypes,
+                validateDataLimits);
             SyntaxState state = CreateState(selection, closure, references);
             ValidateImportsAndDirectives(state);
             ValidateExpressionBodies(state);
@@ -1350,13 +1356,24 @@ internal static class CSharpPracticalSyntaxNormalizer
                 {
                     writer.WriteString(
                         "type",
-                        CanonicalOperationType(operation.Type));
+                        CanonicalOperationType(operation));
                 }
                 writer.WriteEndObject();
             }
 
-            private string CanonicalOperationType(ITypeSymbol type)
+            private string CanonicalOperationType(IOperation operation)
             {
+                ITypeSymbol type = operation.Type!;
+                // Roslyn's default-value operation can erase the reference
+                // annotation. Recover it from the exact admitted type syntax,
+                // never from a target or nullable-flow guess.
+                if (operation is IDefaultValueOperation && type.IsReferenceType
+                    && operation.Syntax is DefaultExpressionSyntax exactDefault)
+                {
+                    return syntaxModel.NormalizeType(type.WithNullableAnnotation(
+                        exactDefault.Type is NullableTypeSyntax
+                            ? NullableAnnotation.Annotated : NullableAnnotation.NotAnnotated)).CanonicalKey;
+                }
                 if (IsIntrinsicArgumentCarrier(type, "StringComparison"))
                 {
                     return "intrinsic_argument:System.StringComparison";

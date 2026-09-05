@@ -33,7 +33,7 @@ expansion (ledger section 11). Both checkers accept all W09 capacity cases
 through each frozen limit plus one without a core change. W10 publishes the
 normative but inactive specifications and 700 vectors.
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
-`CSHARP-03-T03-W01/W02` are complete, `CSHARP-03-T03-W03` is ready, and every
+`CSHARP-03-T03-W01/W02/W03` are complete, `CSHARP-03-T03-W04` is ready, and every
 later implementation work item remains blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
@@ -107,7 +107,9 @@ see ledger section 21. T02-W09 then completed the private consumer and
 foundation closure; see ledger section 22. T03-W01 then completed the private
 source capture/declaration/closure gate; see ledger section 23. T03-W02 then
 completed private concise-syntax, exact-type, and name-resolution
-normalization; see ledger section 24. T03-W03 is ready. This
+normalization; see ledger section 24. T03-W03 then completed private immutable
+data declarations, enums, type graphs, and recursive defaults; see ledger
+section 25. T03-W04 is ready. This
 file remains planning material. W01 added its baseline and ledger; W02 added
 only the private consumer inventory, owner tests, ledger evidence, and current-
 status documentation; W03 added only private build-input evidence and its
@@ -153,8 +155,11 @@ Certificate v0 handoff, receipt, and owner tests. T03-W01 adds only the private
 pinned-Roslyn capture/declaration/closure gate, its exact input manifest,
 executable C# harness, owner tests, and status evidence. T03-W02 adds only the
 private concise-syntax, exact-type, and name-resolution normalizer, its exact
-input manifest, executable C# harness, owner tests, and status evidence. The
-next serial work is T03-W03's immutable data-type declaration admission.
+input manifest, executable C# harness, owner tests, and status evidence.
+T03-W03 adds private immutable data declarations, enum/type/default validation,
+its exact input manifest, executable C# harness, owner tests, and status
+evidence. The next serial work is T03-W04's member, constructor, and invariant
+admission.
 
 The following are unconditional stop conditions:
 
@@ -1016,7 +1021,7 @@ other rejected directive family, plus a routing assertion that positive
 
 Depends on: T03-W02.
 
-Current status: `Ready`.
+Current status: `Complete`.
 
 Owns: declaration modifiers, members, source enums including exact underlying
 values, the closed metadata-backed `System.DayOfWeek` enum, immutable type
@@ -1045,6 +1050,8 @@ and source/runtime differential vectors.
 ### CSHARP-03-T03-W04 — Admit fields, properties, constructors, and invariants
 
 Depends on: T03-W03.
+
+Current status: `Ready`.
 
 Owns: the frozen field/property forms, getter normalization, acyclic
 same-type constructor delegation, constructor selection and assignment order,

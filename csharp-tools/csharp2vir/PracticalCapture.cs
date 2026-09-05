@@ -682,7 +682,10 @@ internal static class CSharpPracticalCapture
     internal static PracticalSourceClosure Validate(
         PracticalSourceSelection selection,
         IEnumerable<PracticalCapturedInput> capturedInputs,
-        ImmutableArray<MetadataReference> references)
+        ImmutableArray<MetadataReference> references,
+        Action<CSharpCompilation>? validateDataDeclarations = null,
+        Action<CSharpCompilation>? validateDataTypes = null,
+        Action<CSharpCompilation>? validateDataLimits = null)
     {
         try
         {
@@ -697,6 +700,7 @@ internal static class CSharpPracticalCapture
             ImmutableArray<MetadataReference> pinnedReferences = ValidateReferences(references);
             RoslynState roslyn = CreateCompilation(selection, captured.Sources, pinnedReferences);
             ValidateSyntaxNodeLimit(roslyn);
+            validateDataLimits?.Invoke(roslyn.Compilation);
 
             // The ordering below is the frozen diagnostic phase precedence.  A
             // later scan must never mask an earlier dependency/declaration/generic
@@ -704,8 +708,10 @@ internal static class CSharpPracticalCapture
             ValidateDependencies(roslyn);
             ValidateCompilerDiagnostics(roslyn);
             ValidateGlobalDeclarationExclusions(roslyn);
+            validateDataDeclarations?.Invoke(roslyn.Compilation);
             ValidateSynthesizedMarkers(roslyn);
             ValidateFrameworkApi(roslyn);
+            validateDataTypes?.Invoke(roslyn.Compilation);
             ValidateGenerics(roslyn);
             PracticalSourceClosure closure = BuildClosure(
                 selection,

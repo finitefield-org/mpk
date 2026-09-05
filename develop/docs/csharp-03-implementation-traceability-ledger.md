@@ -2,7 +2,7 @@
 
 Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10`,
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09`, and
-`CSHARP-03-T03-W01/W02` complete (2026-09-05). The entry audit, consumer
+`CSHARP-03-T03-W01/W02/W03` complete (2026-09-05). The entry audit, consumer
 inventory, private frontend/toolchain closure proof,
 Roslyn shape probes, primitive/string/numeric/codec runtime measurements and
 candidate foundation/specialization/binding/data semantics and the successor
@@ -39,8 +39,9 @@ successor family, the registered foundation and retained Certificate v0 bytes.
 T03-W01 adds the private pinned-Roslyn capture, dependency/declaration/generic/
 effect firewall, complete declaration accounting, and finite source call/type
 closure. T03-W02 adds private concise-syntax, exact-type, and name-resolution
-normalization over that closure. `CSHARP-03-T03-W03` is ready and all later
-implementation items remain serially blocked. No public production acceptance
+normalization over that closure. T03-W03 adds private immutable data declarations,
+closed enums, type graphs, and recursive default eligibility.
+`CSHARP-03-T03-W04` is ready and all later implementation items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
 This ledger is subordinate to
@@ -93,9 +94,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T02-W08` | `Complete` | `crates/mpk-cli/tests/csharp_practical_migration.rs#CSHARP-03-T02-W08` | `a9b2c862e9386ec25b7183b8b4c9b8db4cc426a6` |
 | `CSHARP-03-T02-W09` | `Complete` | `crates/mpk-cli/tests/csharp_practical_migration.rs#CSHARP-03-T02-W09` | `0c4cd3bac346d68d72111305192c9766342ec68e` |
 | `CSHARP-03-T03-W01` | `Complete` | `crates/mpk-cli/tests/csharp_practical_capture.rs#CSHARP-03-T03-W01` | `c16bca82c8f39e34decc09959a4e3b34c18bc12d` |
-| `CSHARP-03-T03-W02` | `Complete` | `crates/mpk-cli/tests/csharp_practical_syntax.rs#CSHARP-03-T03-W02` | `SELF` |
-| `CSHARP-03-T03-W03` | `Ready` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W03` | `—` |
-| `CSHARP-03-T03-W04` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W04` | `—` |
+| `CSHARP-03-T03-W02` | `Complete` | `crates/mpk-cli/tests/csharp_practical_syntax.rs#CSHARP-03-T03-W02` | `773591e4ef0900eca84724a15be2d785449c51ad` |
+| `CSHARP-03-T03-W03` | `Complete` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W03` | `SELF` |
+| `CSHARP-03-T03-W04` | `Ready` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W04` | `—` |
 | `CSHARP-03-T03-W05` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W05` | `—` |
 | `CSHARP-03-T03-W06` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W06` | `—` |
 | `CSHARP-03-T03-W07` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W07` | `—` |
@@ -3569,3 +3570,113 @@ ordering and immutable output; artifact-free sanitized failures; exact
 diagnostic precedence; T04-W02 `foreach` ownership; predecessor preservation;
 non-activation; formatting, warning-denied lint, focused regressions, and the
 complete local fast gate. T03-W03 is the sole ready item.
+
+## 25. CSHARP-03-T03-W03 completion record
+
+### 25.1 Private declaration and type validation
+
+W03 adds `PracticalDataTypes.cs` and the `CSharpPracticalDataTypes.Validate`
+handoff over the W01/W02 immutable source closure. Its limit, declaration,
+and type checks run inside the corresponding capture phases. The two W03
+structural counters therefore precede dependency and compiler errors, while
+ordinary declaration failures precede generic/effect diagnostics. Existing
+callers retain their preceding behavior without installing a practical route.
+
+The model admits closed source enums with all eight exact integer carriers,
+implicit values, aliases, and full-width signed/unsigned constants. The
+metadata-backed `System.DayOfWeek` is checked against its exact seven names,
+values, and `int` carrier. Numeric/nullable-enum conversions, implicit numeric
+zero, enum arithmetic, unknown member references, and ineligible zero/default
+publication reject. An exact already-typed enum value remains a value of that
+closed type; boundary decoding and boundary validation remain T05-owned.
+
+Ordinary data declarations require the exact implicit `object`, `ValueType`,
+or `Enum` base. Non-generic readonly structs and sealed classes retain fields
+and properties in canonical source order and types in acyclic dependency
+order. Mutable/static/constant/virtual/ref-like state, source initializers,
+custom init bodies, other base lists, and unsupported declarations reject.
+Only the frozen auto-property backing-storage category is retained; W04 owns
+its complete construction and synthesized-constructor proof. The model checks
+identity operations, direct mutation, and array mutation through member,
+parameter, local-alias, reassignment, nested-array, and ref-argument paths.
+Fresh local array construction remains a later ownership/lowering handoff.
+
+Recursive defaults are independently built from exact zero/null semantics.
+They require a declared enum zero, eligible stored members, no required
+members, and a nullable arm for reference defaults. Computed getters add no
+stored zero cell. Shared default DAG nodes avoid exponential expansion through
+repeated product members. Explicit struct constructors remain distinct from
+`default(T)` and implicit zero construction. The exact nullable reference
+default syntax also restores a Roslyn operation annotation omitted by the
+preceding normalizer. Opaque sidecars cannot prove public invariants or role
+defaults: affected source products and enums retain `default_invariant_pending`, do not
+claim `default_eligible`, and cannot publish a default until the W04/W13 owners
+resolve those claims. W03 emits no construction/invariant proof or success
+artifact.
+
+`ClassifySourceException` preserves the source ID and original immutable
+syntax reference for a class with an exception ancestor, including candidates
+whose actual base is not admissible. It neither validates a base clause nor
+admits an exception. Such declarations cannot enter the ordinary data result;
+T04-W04 remains the sole owner of source-exception base admission, diagnostics,
+and lowering.
+
+### 25.2 Executable evidence and ownership
+
+`crates/mpk-cli/tests/csharp_practical_types.rs` is the primary owner. The
+canonical `develop/migrations/csharp-03/types/types-inputs.json` binds the W03
+implementation and harness plus the W01/W02 sources. The predecessor capture
+and syntax manifests are rebound to the shared sources changed in this task;
+the earlier completion sections retain their historical byte/hash receipts.
+No installed project, active build manifest, bundle, registry, CLI/API route,
+or application-visible MPK dependency includes the new implementation.
+
+The executable harness tests the declaration/member/default matrix, exact
+integer carrier boundaries and aliases, the closed framework enum, excluded
+exception candidates and original-source handoff, forbidden declaration and
+identity/mutation forms, immutable deterministic descriptor bytes, diagnostic
+precedence, and original-source .NET runtime differential comparisons. It owns
+all six frozen W03 limit vectors: 31/32/33 fields/properties and 15/16/17
+structural member edges, including earlier-phase limit precedence.
+
+Final manifest SHA-256 receipts:
+
+| Manifest | SHA-256 |
+| --- | --- |
+| `capture-inputs.json` | `4a523fe7aed211aaf45a60b3c61bf90a68f7ef422f0a79929530d55980c1261f` |
+| `syntax-inputs.json` | `79bee39a6967ad7baab82263fa349594d585b1f2b02f0651cbdc5035a0de450b` |
+| `types-inputs.json` | `35b75c8bde037a3d7f49a966843b621b212d9530d00ef5431b2754b8895daa0f` |
+
+### 25.3 Verification and review
+
+The pinned Roslyn harness runs in the existing Linux/amd64 container with network
+disabled, a read-only repository, and manifest-bound copied inputs. This is
+private frontend evidence, not a native release-gate receipt.
+
+| Command | Result |
+| --- | --- |
+| `cargo test -p mpk-cli --test csharp_practical_types --test csharp_practical_capture --test csharp_practical_syntax` | pass: all 15 owner tests on the final manifests |
+| `docker run --rm --platform linux/amd64 ... scripts/build-csharp-practical-frontend.sh --test-types` | pass: pinned compiler and all W03 executable vectors |
+| same closed container with `--test-capture` and `--test-syntax` | pass: predecessor executable regressions |
+| `scripts/build-csharp-practical-frontend.sh --check-build-inputs` | pass |
+| `scripts/build-csharp-practical-frontend.sh --self-test` | pass |
+| `./scripts/check-fast.sh` | pass: formatting, strict obsolete-interface scan, warning-denied workspace lint, workspace tests, CLI build, and accept/reject fixture checks |
+| `/usr/bin/git diff --check` | pass |
+
+Review corrections cover nullable reference default annotation, nullable-enum
+conversion escape, implicit enum zero construction, published-array aliases
+and ref arguments, mutation after construction publishes an aliased array,
+and scalar-copy versus shared-array alias classification,
+phase-0 structural limit precedence, independent type failures in a batch
+containing generics, and nullable-none eligibility with opaque sidecars.
+Direct executable regressions cover each correction. The tests also distinguish C# compiler
+rejections and full captured-call-closure requirements from implementation
+failures. Status references in the cross-language design and both practical
+plan summaries now consistently name W04 as the next serial item.
+
+Final review findings: `0`. The final pass covers the full W03 diff,
+source/runtime regressions, frozen limit and diagnostic precedence, immutable
+type/default handoff, exception classification ownership, exact manifest-only
+execution, predecessor preservation, and absence of any installed route.
+
+T03-W04 is the sole ready item.
