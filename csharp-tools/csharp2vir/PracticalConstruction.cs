@@ -61,22 +61,39 @@ internal sealed record PracticalReceiverFunction(string Id, IReadOnlyList<Practi
 internal sealed record PracticalInvariantObligation(string TypeId, string Site,
     string Kind, IReadOnlyList<string> Members, bool Discharged = false,
     PracticalInvariantExpression? Expression = null);
+// W05: each execution of Begin allocates a fresh transaction; Site identifies
+// source provenance, never a reusable runtime object identity. Only Finalize
+// publishes a value. Exception edges from initializer evaluations discard it.
+internal enum PracticalInitializationStepKind
+{
+    EvaluateArgument, Begin, InvokeConstructor, ConstructionInvariant,
+    EvaluateInitializer, Assign, PublicInvariant, Finalize,
+}
+internal sealed record PracticalInitializationStep(PracticalInitializationStepKind Kind,
+    string Target, IOperation? Expression, string ExceptionalExit);
+internal sealed record PracticalInitializationPlan(string Site, string TypeId, string ConstructorId,
+    IReadOnlyList<PracticalInitializationStep> Steps, IReadOnlyList<string> MemberOrder,
+    uint DefinitelyAssigned, uint PossiblyAssigned, bool HasNormalExit);
+
 internal sealed class PracticalConstruction
 {
     internal PracticalConstruction(PracticalDataTypes data, PracticalConstructorPlan[] constructors,
-        PracticalDirectCall[] calls, PracticalInvariantObligation[] obligations, PracticalReceiverFunction[] functions)
+        PracticalDirectCall[] calls, PracticalInvariantObligation[] obligations, PracticalReceiverFunction[] functions,
+        PracticalInitializationPlan[] initializations)
     {
         Data = data;
         Constructors = Array.AsReadOnly(constructors);
         Calls = Array.AsReadOnly(calls);
         Functions = Array.AsReadOnly(functions);
         Obligations = Array.AsReadOnly(obligations);
+        Initializations = Array.AsReadOnly(initializations);
     }
     internal PracticalDataTypes Data { get; }
     internal IReadOnlyList<PracticalConstructorPlan> Constructors { get; }
     internal IReadOnlyList<PracticalDirectCall> Calls { get; }
     internal IReadOnlyList<PracticalReceiverFunction> Functions { get; }
     internal IReadOnlyList<PracticalInvariantObligation> Obligations { get; }
+    internal IReadOnlyList<PracticalInitializationPlan> Initializations { get; }
     internal int ArtifactCount => 0;
 }
 
@@ -86,18 +103,19 @@ internal static class CSharpPracticalConstruction
 
     internal static PracticalConstruction Validate(PracticalSourceSelection selection,
         IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references,
-        IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims = null)
+        IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims = null, bool allowInitializers = false)
     {
         try
         {
-            var model = new Model();
+            var model = new Model(allowInitializers);
             PracticalDataTypes data = CSharpPracticalDataTypes.Validate(selection, inputs, references,
                 (current, closure, types) =>
                 {
                     model.Analyze(current);
                     if (closure.Sidecars.Count != 0) { throw PracticalFailures.Object("unbound_invariant"); }
                     model.Finish(types, closure, invariantClaims);
-                }, ValidateLimits, ValidateSignatures, deferDeclaredInvariantProof: invariantClaims is not null);
+                }, ValidateLimits, ValidateSignatures, deferDeclaredInvariantProof: invariantClaims is not null,
+                allowInitializerConstruction: allowInitializers);
             return model.Build(data);
         }
         catch (PracticalCaptureFailure) { throw; }
@@ -159,6 +177,10 @@ internal static class CSharpPracticalConstruction
 
     private sealed class Model
     {
+        private readonly bool allowInitializers;
+        internal Model(bool allowInitializers) { this.allowInitializers = allowInitializers; }
+        private readonly List<(IObjectCreationOperation Operation, INamedTypeSymbol Type, PracticalConstructorPlan Constructor)> initializers = new();
+        private readonly List<PracticalInitializationPlan> initializationPlans = new();
         private CSharpCompilation compilation = null!;
         private readonly Dictionary<ISymbol, PracticalConstructorPlan> plans = new(SymbolEqualityComparer.Default);
         private readonly HashSet<ISymbol> visiting = new(SymbolEqualityComparer.Default);
@@ -229,11 +251,12 @@ internal static class CSharpPracticalConstruction
                     if (node is ObjectCreationExpressionSyntax && model.GetOperation(node) is IObjectCreationOperation creation
                         && creation.Type is INamedTypeSymbol type && storage.ContainsKey(type))
                     {
-                        if (creation.Initializer is not null)
+                        if (creation.Initializer is not null && !allowInitializers)
                         { throw PracticalFailures.Object("initializer_requires_w05"); }
                         ValidateArguments(creation.Arguments, creation.Constructor!);
                         PracticalConstructorPlan plan = AnalyzeConstructor(creation.Constructor!);
-                        if (plan.HasNormalExit) { creations.Add((type, Site(node))); }
+                        if (allowInitializers) { initializers.Add((creation, type, plan)); }
+                        else if (plan.HasNormalExit) { creations.Add((type, Site(node))); }
                     }
                 }
             }
@@ -505,7 +528,9 @@ internal static class CSharpPracticalConstruction
                 {
                     if ((plan.DefinitelyAssigned & (1u << index)) != 0) { continue; }
                     PracticalDataMember member = type.Members.Single(member => member.Name == members[index].Name);
-                    if (member.Required) { continue; } // W05 owns required completion.
+                    if (member.Required) { continue; }
+                    if (allowInitializers && members[index] is IPropertySymbol { SetMethod.IsInitOnly: true })
+                    { continue; } // Its constructor zero storage is finalized by this creation's initializer.
                     if (!DefaultAvailable(member.Type, types))
                     { throw PracticalFailures.Object("member_without_final_value"); }
                     defaulted.Add(member.Name);
@@ -516,8 +541,12 @@ internal static class CSharpPracticalConstruction
                 bool init = members.OfType<IPropertySymbol>().Any(property => property.SetMethod is not null);
                 obligations.Add(new(type.Id, plan.Id, init ? "construction_invariant" : "public_invariant",
                     Array.AsReadOnly(members.Where(member => !init || member is not IPropertySymbol { IsRequired: true })
+                        .Where(member => !allowInitializers || member is not IPropertySymbol { SetMethod.IsInitOnly: true }
+                            || (plan.DefinitelyAssigned & MemberBit(member, ((IMethodSymbol)pair.Key).ContainingType)) != 0)
                         .Select(member => member.Name).ToArray())));
             }
+            foreach (var initializer in initializers)
+            { FinalizeInitializer(initializer.Operation, initializer.Type, initializer.Constructor, types, obligations); }
             foreach (var creation in creations)
             {
                 obligations.Add(new(TypeId(creation.Type), creation.Site, "public_invariant",
@@ -541,10 +570,77 @@ internal static class CSharpPracticalConstruction
             completedObligations = obligations.ToArray();
         }
 
+        private void FinalizeInitializer(IObjectCreationOperation creation, INamedTypeSymbol type,
+            PracticalConstructorPlan constructor, IReadOnlyList<PracticalDataType> types,
+            List<PracticalInvariantObligation> obligations)
+        {
+            string site = Site(creation.Syntax);
+            ISymbol[] members = storage[type];
+            State state = new(constructor.DefinitelyAssigned, constructor.PossiblyAssigned);
+            var assignments = new List<(IPropertySymbol Property, IOperation Value)>();
+            if (creation.Initializer is not null)
+            {
+                if (!creation.Initializer.Syntax.IsKind(SyntaxKind.ObjectInitializerExpression))
+                { throw PracticalFailures.Object("initializer_shape"); }
+                foreach (IOperation initializer in creation.Initializer.Initializers)
+                {
+                    if (initializer is not ISimpleAssignmentOperation assignment || assignment.IsRef
+                        || assignment.Target is not IPropertyReferenceOperation target
+                        || target.Instance is not IInstanceReferenceOperation { ReferenceKind: InstanceReferenceKind.ImplicitReceiver }
+                        || target.Arguments.Length != 0
+                        || !SymbolEqualityComparer.Default.Equals(target.Property.ContainingType, type)
+                        || !IsAuto(target.Property) || target.Property.SetMethod is not { IsInitOnly: true })
+                    { throw PracticalFailures.Object("initializer_target"); }
+                    uint bit = MemberBit(target.Property, type);
+                    if ((state.May & bit) != 0) { throw PracticalFailures.Object("duplicate_member_assignment"); }
+                    state = state.Assign(bit);
+                    assignments.Add((target.Property, assignment.Value));
+                }
+            }
+            foreach (IPropertySymbol required in members.OfType<IPropertySymbol>().Where(property => property.IsRequired))
+            {
+                if (!assignments.Any(assignment => SymbolEqualityComparer.Default.Equals(assignment.Property, required)))
+                { throw PracticalFailures.Object("required_member_missing"); }
+            }
+            var steps = new List<PracticalInitializationStep>();
+            foreach (IArgumentOperation argument in creation.Arguments)
+            { steps.Add(new(PracticalInitializationStepKind.EvaluateArgument, "argument:" + argument.Parameter!.Ordinal, argument.Value, "no_value")); }
+            steps.Add(new(PracticalInitializationStepKind.Begin, site, null, "no_value"));
+            steps.Add(new(PracticalInitializationStepKind.InvokeConstructor, constructor.Id, null, "discard"));
+            if (constructor.HasNormalExit)
+            {
+                if (members.OfType<IPropertySymbol>().Any(property => property.SetMethod is not null))
+                { steps.Add(new(PracticalInitializationStepKind.ConstructionInvariant, constructor.Id, null, "discard")); }
+                foreach (var assignment in assignments)
+                {
+                    steps.Add(new(PracticalInitializationStepKind.EvaluateInitializer, assignment.Property.Name, assignment.Value, "discard"));
+                    steps.Add(new(PracticalInitializationStepKind.Assign, assignment.Property.Name, null, "discard"));
+                }
+                PracticalDataType dataType = types.Single(candidate => candidate.Id == constructor.TypeId);
+                var defaulted = new List<string>();
+                for (int index = 0; index < members.Length; index++)
+                {
+                    if ((state.Must & (1u << index)) != 0) { continue; }
+                    PracticalDataMember member = dataType.Members.Single(member => member.Name == members[index].Name);
+                    if (!DefaultAvailable(member.Type, types)) { throw PracticalFailures.Object("member_without_final_value"); }
+                    defaulted.Add(member.Name);
+                    EmitDefaultObligations(member.Type.Id, site + ":default:" + member.Name, types, obligations);
+                }
+                if (defaulted.Count != 0)
+                { obligations.Add(new(constructor.TypeId, site, "recursive_default", defaulted.AsReadOnly())); }
+                obligations.Add(new(constructor.TypeId, site, "public_invariant",
+                    Array.AsReadOnly(members.Select(member => member.Name).ToArray())));
+                steps.Add(new(PracticalInitializationStepKind.PublicInvariant, site, null, "discard"));
+                steps.Add(new(PracticalInitializationStepKind.Finalize, site, null, "discard"));
+            }
+            initializationPlans.Add(new(site, constructor.TypeId, constructor.Id, steps.AsReadOnly(),
+                Array.AsReadOnly(members.Select(member => member.Name).ToArray()), state.Must, state.May, constructor.HasNormalExit));
+        }
+
         private PracticalInvariantObligation[] completedObligations = Array.Empty<PracticalInvariantObligation>();
         internal PracticalConstruction Build(PracticalDataTypes data) => new(data,
             plans.Values.OrderBy(plan => plan.Id, StringComparer.Ordinal).ToArray(),
-            calls.ToArray(), completedObligations, ReceiverFunctions(data));
+            calls.ToArray(), completedObligations, ReceiverFunctions(data), initializationPlans.ToArray());
 
         private PracticalReceiverFunction[] ReceiverFunctions(PracticalDataTypes data)
         {
@@ -737,4 +833,13 @@ internal static class CSharpPracticalConstruction
                 .Any(primitive => type.Id == PracticalIdentity.PrimitiveId(primitive));
         }
     }
+}
+
+// W05 composes W04 without changing the earlier stage's admission boundary.
+internal static class CSharpPracticalInitialization
+{
+    internal static PracticalConstruction Validate(PracticalSourceSelection selection,
+        IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references,
+        IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims = null) =>
+        CSharpPracticalConstruction.Validate(selection, inputs, references, invariantClaims, allowInitializers: true);
 }

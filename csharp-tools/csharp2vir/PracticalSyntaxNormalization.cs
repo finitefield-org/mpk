@@ -1387,6 +1387,19 @@ internal static class CSharpPracticalSyntaxNormalizer
                         exactDefault.Type is NullableTypeSyntax
                             ? NullableAnnotation.Annotated : NullableAnnotation.NotAnnotated)).CanonicalKey;
                 }
+                // W05: the implicit initializer receiver is the fresh, non-null
+                // object of its enclosing exact new expression. Roslyn omits
+                // that annotation on the initializer and receiver operations.
+                if (type.IsReferenceType && (operation is IObjectOrCollectionInitializerOperation
+                    || operation is IInstanceReferenceOperation { ReferenceKind: InstanceReferenceKind.ImplicitReceiver }))
+                {
+                    for (IOperation? parent = operation.Parent; parent is not null; parent = parent.Parent)
+                    {
+                        if (parent is IObjectCreationOperation creation
+                            && SymbolEqualityComparer.Default.Equals(creation.Type, type))
+                        { return syntaxModel.NormalizeType(type.WithNullableAnnotation(NullableAnnotation.NotAnnotated)).CanonicalKey; }
+                    }
+                }
                 if (IsIntrinsicArgumentCarrier(type, "StringComparison"))
                 {
                     return "intrinsic_argument:System.StringComparison";

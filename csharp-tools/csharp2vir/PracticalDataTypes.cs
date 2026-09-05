@@ -123,15 +123,15 @@ internal static class CSharpPracticalDataTypes
         Action<CSharpCompilation, PracticalSourceClosure, IReadOnlyList<PracticalDataType>>? validateConstruction = null,
         Action<CSharpCompilation>? validateConstructorLimits = null,
         Action<CSharpCompilation>? validateSignatures = null,
-        bool deferDeclaredInvariantProof = false)
+        bool deferDeclaredInvariantProof = false, bool allowInitializerConstruction = false)
     {
         try
         {
             if (selection is null) { throw PracticalFailures.Protocol("selection_shape"); }
-            if (deferDeclaredInvariantProof && validateConstruction is null)
+            if ((deferDeclaredInvariantProof || allowInitializerConstruction) && validateConstruction is null)
             { throw PracticalFailures.Protocol("missing_invariant_obligation_consumer"); }
             var model = new DataModel(selection.SidecarPaths.Count != 0 || deferDeclaredInvariantProof,
-                deferDeclaredInvariantProof);
+                deferDeclaredInvariantProof, allowInitializerConstruction);
             PracticalNormalizedSyntax syntax = CSharpPracticalSyntaxNormalizer.Normalize(
                 selection, inputs, references,
                 current => { model.ValidateDeclarations(current); validateSignatures?.Invoke(current); },
@@ -205,14 +205,18 @@ internal static class CSharpPracticalDataTypes
     {
         private readonly bool hasSidecars;
         private readonly bool deferDeclaredInvariantProof;
+        private readonly bool allowInitializerConstruction;
         private readonly List<TypeRecord> records = new();
         private readonly Dictionary<ISymbol, TypeRecord> bySymbol = new(SymbolEqualityComparer.Default);
         private readonly List<TypeRecord> ordered = new();
         private CSharpCompilation compilation = null!;
         private PracticalDataType? dayOfWeek;
 
-        internal DataModel(bool hasSidecars, bool deferDeclaredInvariantProof)
-        { this.hasSidecars = hasSidecars; this.deferDeclaredInvariantProof = deferDeclaredInvariantProof; }
+        internal DataModel(bool hasSidecars, bool deferDeclaredInvariantProof, bool allowInitializerConstruction)
+        {
+            this.hasSidecars = hasSidecars; this.deferDeclaredInvariantProof = deferDeclaredInvariantProof;
+            this.allowInitializerConstruction = allowInitializerConstruction;
+        }
 
         internal void ValidateLimits(CSharpCompilation current)
         {
@@ -645,7 +649,13 @@ internal static class CSharpPracticalDataTypes
                         && operation.Type is INamedTypeSymbol created && created.IsValueType
                         && operation.Arguments.Length == 0
                         && (operation.Constructor is null || operation.Constructor.IsImplicitlyDeclared))
-                    { RequireDefault(created); }
+                    {
+                        // W05's fresh initialized struct starts in temporary CLR
+                        // zero storage; it is not publication of default(T).
+                        if (!(allowInitializerConstruction && operation.Initializer is not null
+                            && created.TypeKind == TypeKind.Struct && !created.DeclaringSyntaxReferences.IsEmpty))
+                        { RequireDefault(created); }
+                    }
                     if (node is not ExpressionSyntax expression) { continue; }
                     TypeInfo information = model.GetTypeInfo(expression);
                     if (information.Type is not null && information.ConvertedType is not null

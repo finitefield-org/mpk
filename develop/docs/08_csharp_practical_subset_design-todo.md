@@ -33,7 +33,7 @@ expansion (ledger section 11). Both checkers accept all W09 capacity cases
 through each frozen limit plus one without a core change. W10 publishes the
 normative but inactive specifications and 700 vectors.
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
-`CSHARP-03-T03-W01/W02/W03/W04` are complete, `CSHARP-03-T03-W05` is ready, and every
+`CSHARP-03-T03-W01/W02/W03/W04/W05` are complete, `CSHARP-03-T03-W06` is ready, and every
 later implementation work item remains blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
@@ -110,7 +110,8 @@ completed private concise-syntax, exact-type, and name-resolution
 normalization; see ledger section 24. T03-W03 then completed private immutable
 data declarations, enums, type graphs, and recursive defaults; see ledger
 section 25. T03-W04 adds construction and invariant handoffs; see ledger
-section 26. T03-W05 is ready. This
+section 26. T03-W05 adds initializer transactions and finalization; see
+section 27. T03-W06 is ready. This
 file remains planning material. W01 added its baseline and ledger; W02 added
 only the private consumer inventory, owner tests, ledger evidence, and current-
 status documentation; W03 added only private build-input evidence and its
@@ -161,7 +162,8 @@ T03-W03 adds private immutable data declarations, enum/type/default validation,
 its exact input manifest, executable C# harness, owner tests, and status
 evidence. T03-W04 adds private constructor flow analysis, synthesized-member IL
 checks, receiver-first functions, and pending type-invariant obligations.
-The next serial work is T03-W05's init/required and object-initializer admission.
+T03-W05 adds ordered init/required transactions and finalization.
+The next serial work is T03-W06's structural equality and canonical ordering.
 
 The following are unconditional stop conditions:
 
@@ -1087,7 +1089,7 @@ invariant attachment, and failure-precedence tests.
 
 Depends on: T03-W04.
 
-Current status: `Ready`.
+Current status: `Complete`.
 
 Owns: ordered object-initializer lowering, required-member coverage, init-only
 assignment state, duplicate/missing/member-order errors, and attribute-bypass
@@ -1107,6 +1109,8 @@ and source-order assertions.
 ### CSHARP-03-T03-W06 — Lower structural equality and canonical ordering
 
 Depends on: T03-W05.
+
+Current status: `Ready`.
 
 Owns: internal `structural_equal` and `canonical_compare` over every admitted
 recursive value, null, decimal, GUID, sequences, structural products, enums,

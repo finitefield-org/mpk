@@ -82,8 +82,8 @@ fn csharp_03_t03_w01_capture_inputs_and_private_routing_are_exact() {
     assert!(wrapper.contains("--test-capture"));
     assert!(script.contains("def test_capture()"));
     assert!(script.contains("/main:Mpk.CSharp2Vir.PracticalCaptureHarness"));
-    assert_eq!(script.matches("active.validate_project_files").count(), 6);
-    assert_eq!(script.matches("copy_bound_file(").count(), 9);
+    assert_eq!(script.matches("active.validate_project_files").count(), 7);
+    assert_eq!(script.matches("copy_bound_file(").count(), 11);
     assert!(script.contains("active.materialize_closure"));
     assert!(script.contains("active.closed_dotnet_environment"));
     assert!(script.contains("active.execute_isolated"));

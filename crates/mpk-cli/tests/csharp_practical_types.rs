@@ -314,3 +314,70 @@ fn csharp_03_t03_w04_frozen_constructor_limits() {
 fn csharp_03_t03_w04_pinned_construction_harness() {
     run_pinned_harness("--test-construction");
 }
+
+#[test]
+fn csharp_03_t03_w05_initialization_manifest_and_private_route() {
+    let path = "develop/migrations/csharp-03/initialization/initialization-inputs.json";
+    let manifest = json(path);
+    assert_eq!(
+        manifest["schema"],
+        "mpk.csharp_practical.t03_w05.initialization_inputs.v1"
+    );
+    assert_eq!(manifest["work_item"], "CSHARP-03-T03-W05");
+    let mut canonical = serde_json::to_vec(&manifest).unwrap();
+    canonical.push(b'\n');
+    assert_eq!(read(path), canonical);
+    let expected = [
+        "crates/mpk-cli/tests/csharp_practical_initialization_harness.cs",
+        "csharp-tools/csharp2vir/PracticalCapture.cs",
+        "csharp-tools/csharp2vir/PracticalConstruction.cs",
+        "csharp-tools/csharp2vir/PracticalDataTypes.cs",
+        "csharp-tools/csharp2vir/PracticalSyntaxNormalization.cs",
+    ];
+    let files = manifest["files"].as_array().unwrap();
+    assert_eq!(files.len(), expected.len());
+    for (file, path) in files.iter().zip(expected) {
+        let bytes = read(path);
+        assert_eq!(file["path"], path);
+        assert_eq!(file["size_bytes"], bytes.len());
+        assert_eq!(file["sha256"], format!("{:x}", Sha256::digest(bytes)));
+    }
+    for path in [
+        "csharp-tools/csharp2vir/csharp2vir.csproj",
+        "csharp-tools/csharp2vir/Program.cs",
+        "develop/migrations/csharp-03/build-inputs/build-inputs.json",
+    ] {
+        assert!(!text(path).contains("PracticalInitialization"));
+    }
+    for marker in [
+        "OrderedTransactions",
+        "RequiredAndDefaults",
+        "DuplicateAndMutationMatrix",
+        "InvariantSites",
+        "RuntimeOrderAndDiscard",
+        "NestedCreationInConstructor",
+        "PUBLISH_ONLY_AFTER_CHECK",
+        "RUNTIME_EXCEPTION_ORDER",
+    ] {
+        assert!(
+            text("crates/mpk-cli/tests/csharp_practical_initialization_harness.cs")
+                .contains(marker)
+        );
+    }
+    let package = json(PACKAGE);
+    let owner = package["downstream_work_item_owners"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|owner| owner["work_item"] == "CSHARP-03-T03-W05")
+        .unwrap();
+    assert_eq!(
+        owner["primary_test_owner"],
+        "crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W05"
+    );
+}
+
+#[test]
+fn csharp_03_t03_w05_pinned_initialization_harness() {
+    run_pinned_harness("--test-initialization");
+}
