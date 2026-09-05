@@ -47,6 +47,8 @@ fn fixture(
         .map(|t| {
             if t["kind"] == "source" {
                 t["id"].as_str().unwrap().to_owned()
+            } else if t["kind"] == "primitive" {
+                ty(t["id"].as_str().unwrap())
             } else {
                 csharp_practical_closed_instance_id(b, t).unwrap()
             }
@@ -875,3 +877,6 @@ fn csharp_03_t03_w12_application_lookup_option_dependency_and_commutation() {
         Err(DomainError::ObservationLoss)
     );
 }
+
+#[path = "support/csharp_practical_business.rs"]
+mod business;

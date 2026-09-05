@@ -33,7 +33,7 @@ expansion (ledger section 11). Both checkers accept all W09 capacity cases
 through each frozen limit plus one without a core change. W10 publishes the
 normative but inactive specifications and 700 vectors.
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
-`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12` are complete, `CSHARP-03-T03-W13` is ready, and every
+`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12/W13` are complete, `CSHARP-03-T03-W14` is ready, and every
 later implementation work item remains blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
@@ -118,7 +118,8 @@ section 30. T03-W09 adds ordered map/set bindings and typed operation handoffs;
 see section 31. T03-W10 adds string plans and the shared typed codec relation;
 see section 32. T03-W11 adds exact numeric relations and source plans; see
 section 33. T03-W12 adds nullable and application outcome relations; see
-section 34. T03-W13 is ready. This
+section 34. T03-W13 adds calendar/time/GUID and bound instant/money relations;
+see section 35. T03-W14 is ready. This
 file remains planning material. W01 added its baseline and ledger; W02 added
 only the private consumer inventory, owner tests, ledger evidence, and current-
 status documentation; W03 added only private build-input evidence and its
@@ -1338,7 +1339,7 @@ error accumulation order/capacity, match exhaustiveness, and mutation tests.
 
 Depends on: T03-W12.
 
-Current status: `Ready`.
+Current status: `Complete`; see ledger section 35.
 
 Owns: exact DateOnly/TimeOnly/TimeSpan/GUID intrinsics; application-owned
 non-generic instant wrappers bound to the registered non-template internal
@@ -1368,6 +1369,8 @@ operation matrix.
 ### CSHARP-03-T03-W14 — Close semantic binding, specialization, and data emission
 
 Depends on: T03-W13.
+
+Current status: `Ready`.
 
 Owns: closure of data-relevant type/method contract expression parsing and
 attachment; strict semantic-binding parsing/attachment; logical declaration

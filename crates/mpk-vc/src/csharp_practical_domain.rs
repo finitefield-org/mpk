@@ -820,6 +820,9 @@ impl OutcomeBindingPlan {
     pub fn default_eligible(&self) -> bool {
         self.default_eligible
     }
+    pub fn source_type_id(&self) -> &str {
+        &self.source
+    }
     pub fn semantic_type_id(&self) -> &str {
         &self.semantic
     }
@@ -912,47 +915,54 @@ impl OutcomeBindingPlan {
     ) -> Result<(), DomainError> {
         self.project(b, r, c, original)?;
         self.project(b, r, c, reconstructed)?;
-        fn normalize(v: &mut Value) {
-            match v {
-                Value::Object(fields) => {
-                    if fields.get("kind").and_then(Value::as_str) == Some("decimal_bits") {
-                        let mut coefficient = fields["coefficient"]
-                            .as_str()
-                            .unwrap()
-                            .parse::<u128>()
-                            .unwrap();
-                        let mut scale = fields["scale"].as_u64().unwrap();
-                        while scale > 0 && coefficient.is_multiple_of(10) {
-                            coefficient /= 10;
-                            scale -= 1;
-                        }
-                        fields.insert("coefficient".into(), json!(coefficient.to_string()));
-                        fields.insert("scale".into(), json!(scale));
-                        if coefficient == 0 {
-                            fields.insert("negative".into(), json!(false));
-                        }
-                    } else {
-                        for value in fields.values_mut() {
-                            normalize(value);
-                        }
-                    }
-                }
-                Value::Array(values) => {
-                    for value in values {
-                        normalize(value);
-                    }
-                }
-                _ => {}
-            }
-        }
-        let mut a = serde_json::to_value(original).map_err(|_| DomainError::OperandType)?;
-        let mut z = serde_json::to_value(reconstructed).map_err(|_| DomainError::OperandType)?;
-        normalize(&mut a);
-        normalize(&mut z);
-        if a == z {
+        if source_observations_equal(original, reconstructed) {
             Ok(())
         } else {
             Err(DomainError::ObservationLoss)
         }
     }
+}
+
+pub(super) fn source_observations_equal(
+    original: &MonomorphicValue,
+    reconstructed: &MonomorphicValue,
+) -> bool {
+    fn normalize(v: &mut Value) {
+        match v {
+            Value::Object(fields) => {
+                if fields.get("kind").and_then(Value::as_str) == Some("decimal_bits") {
+                    let mut coefficient = fields["coefficient"]
+                        .as_str()
+                        .unwrap()
+                        .parse::<u128>()
+                        .unwrap();
+                    let mut scale = fields["scale"].as_u64().unwrap();
+                    while scale > 0 && coefficient.is_multiple_of(10) {
+                        coefficient /= 10;
+                        scale -= 1;
+                    }
+                    fields.insert("coefficient".into(), json!(coefficient.to_string()));
+                    fields.insert("scale".into(), json!(scale));
+                    if coefficient == 0 {
+                        fields.insert("negative".into(), json!(false));
+                    }
+                } else {
+                    for value in fields.values_mut() {
+                        normalize(value);
+                    }
+                }
+            }
+            Value::Array(values) => {
+                for value in values {
+                    normalize(value);
+                }
+            }
+            _ => {}
+        }
+    }
+    let mut a = serde_json::to_value(original).expect("serializable value");
+    let mut z = serde_json::to_value(reconstructed).expect("serializable value");
+    normalize(&mut a);
+    normalize(&mut z);
+    a == z
 }

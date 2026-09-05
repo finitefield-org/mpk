@@ -53,7 +53,7 @@ gate passed twice on native x86-64 Linux; the receipt is recorded in the
 [Java implementation ledger](develop/docs/java-03-implementation-traceability-ledger.md).
 `JAVA-03`, `CSHARP-03-T01-W01` through `W10`, and
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
-`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12` are complete. The practical
+`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12/W13` are complete. The practical
 C# specification package is normative but inactive; predecessor-producer
 migration and complete successor-consumer closure remain private and
 uninstalled. The first practical source capture/closure gate also remains
@@ -69,7 +69,8 @@ T03-W09 completed private ordered map/set projection and typed operation handoff
 T03-W10 completed private UTF-16 string plans and the shared typed boundary codecs.
 T03-W11 completed exact float/double/decimal relations and typed numeric source plans.
 T03-W12 completed nullable relations and application outcome projections with pending binding obligations.
-`CSHARP-03-T03-W13` is now ready.
+T03-W13 completed calendar/time/GUID and bound instant/money relations with pending source, currency, and error-projection obligations.
+`CSHARP-03-T03-W14` is now ready.
 
 ## Build from source
 

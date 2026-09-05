@@ -2,7 +2,7 @@
 
 Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10`,
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09`, and
-`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12` complete (2026-09-06). The entry audit, consumer
+`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12/W13` complete (2026-09-06). The entry audit, consumer
 inventory, private frontend/toolchain closure proof,
 Roslyn shape probes, primitive/string/numeric/codec runtime measurements and
 candidate foundation/specialization/binding/data semantics and the successor
@@ -50,7 +50,10 @@ T03-W08 adds typed sequence plans, wrapper projection and construction eliminati
 T03-W09 adds ordered map/set projection and typed operation handoffs.
 T03-W10 adds UTF-16 string plans and the shared typed boundary codec relation.
 T03-W11 adds exact numeric relations and typed source plans.
-`CSHARP-03-T03-W13` is ready and all later implementation items remain serially blocked. No public production acceptance
+T03-W12 adds nullable relations and pending application outcome projections.
+T03-W13 adds calendar/time/GUID and bound instant/money relations with pending
+source, currency and exhaustive error-projection obligations.
+`CSHARP-03-T03-W14` is ready and all later implementation items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
 This ledger is subordinate to
@@ -113,9 +116,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T03-W09` | `Complete` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W09` | `6714e88e963fba6f06c050989072a2cedfeefedd` |
 | `CSHARP-03-T03-W10` | `Complete` | `crates/mpk-cli/tests/csharp_practical_codecs.rs#CSHARP-03-T03-W10` | `7399590a1b692b999ab4fd30e752d27f77c45948` |
 | `CSHARP-03-T03-W11` | `Complete` | `crates/mpk-cli/tests/csharp_practical_numbers.rs#CSHARP-03-T03-W11` | `2e384db5d97565dc25aec50e73d911950c315f66` |
-| `CSHARP-03-T03-W12` | `Complete` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W12` | `SELF` |
-| `CSHARP-03-T03-W13` | `Ready` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W13` | `—` |
-| `CSHARP-03-T03-W14` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W14` | `—` |
+| `CSHARP-03-T03-W12` | `Complete` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W12` | `3e3c7813db8b2fc4a9472aa11efef03e3f3381bb` |
+| `CSHARP-03-T03-W13` | `Complete` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W13` | `SELF` |
+| `CSHARP-03-T03-W14` | `Ready` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W14` | `—` |
 | `CSHARP-03-T04-W01` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W01` | `—` |
 | `CSHARP-03-T04-W02` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W02` | `—` |
 | `CSHARP-03-T04-W03` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W03` | `—` |
@@ -4527,3 +4530,74 @@ Final domain input manifest SHA-256:
 `0a16156d8af7154cf8cff20713b0f7944472b2c2108ff87677df48bd1439fa02`.
 
 T03-W13 is the sole ready item.
+
+## 35. CSHARP-03-T03-W13 completion record
+
+W13 adds the private `PracticalBusiness` source handoff, `BusinessOperation`,
+`MoneyModel`, and content-bound `BusinessBindingPlan`. Exact framework identities
+and signatures admit only the specified DateOnly, TimeOnly, TimeSpan and Guid
+operations. Plans preserve explicit operand order and frozen exception edges.
+The Gregorian calendar, signed duration components, wrapping time arithmetic,
+unsigned GUID ordering, and millisecond instant precision-before-range rules
+use the existing concrete value model. Calendar intermediates cannot create
+spurious integer-overflow exceptions. Money reuses W11's representable decimal
+arithmetic before explicit rounding, preserving currency/scale/mode/zero/
+overflow precedence. Currency is an explicit application predicate over exact
+source enum or ordinal string values; no external metadata is consulted.
+
+Instant wrappers target the registered non-template definition, and readonly
+money wrappers target the one specialized `money<C>`. Content hashes, stored
+member identities, exact argument types and separately bound result/error
+representations are checked. Error and rounding enum maps are exhaustive and
+remain tied to pending source-body commutation obligations. Reconstruction
+checks include every extra stored field and compare decimal observations by
+value. No default money is publishable. A raw i64 remains an integer; T05 owns
+raw-carrier field classification. W10 supplies the same scalar codecs and
+money field composition. No ambient clock, timezone or GUID generation is
+admitted. T03-W14 still owns full sidecar attachment, reachable binding closure,
+specialization and data emission; T06 owns universal proof discharge.
+
+The owner `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W13`
+uses a dedicated support module and byte-bound private manifest
+`develop/migrations/csharp-03/business/business-inputs.json`. All 1,007 frozen
+W13 cases execute natively, including 994 runtime-derived rows and 13
+mathematical instant/money cases. The unchanged FoundationDataProbe runs all
+994 runtime rows under both hostile cultures. Additional tests cover every day
+of a 400-year Gregorian cycle, exact shared codecs, raw-carrier rejection,
+application enum currencies, all-field reconstruction, stale binding mutations,
+and separate exhaustive error projections. Passing finite tests never marks a
+projection or source-helper proof obligation discharged.
+
+### 35.1 Review and local verification
+
+Review corrected static source-helper owner identity, explicit/default and
+nullable money publication, and complete stored-field observation checks.
+Source and native mutation tests cover those corrections; the latest task-scope
+review has no remaining findings.
+
+| Local verification | Result |
+| --- | --- |
+| `./scripts/check-fast.sh` | Formatting, strict obsolete-interface scan and clippy passed. Workspace tests stop only at the two pre-existing inventory failures below. |
+| `cargo test -p mpk-cli --test csharp_practical_domain` | 15 passed, including all 1,007 W13 vectors; the platform availability guard is supplemented by explicit pinned execution. |
+| Offline pinned Linux/amd64 `--test-business` | Final source/binding/default/rejection cases passed; all 994 runtime rows matched under both hostile cultures. |
+| Offline pinned W01-W12 source/runtime harnesses | Capture, syntax, types, construction, initialization, structural, arrays, sequences, ordered, codecs, numeric and domain all passed with the changed shared source inputs. |
+| Workspace tests with only the two named baseline failures skipped | 814 passed, 8 existing platform-dependent tests ignored, 2 filtered; 118 suites completed. |
+| Final `cargo clippy --workspace --all-targets -- -D warnings` | Passed. |
+| Private `--self-test` and `--check-build-inputs` | Passed, including business manifest hash/path/size/file-count mutations. |
+| `cargo build -p mpk-cli` and four standard CLI fixtures | Build passed; zero-axiom and one-theorem accepted, bad-magic and unsorted-name-table rejected. |
+| Capture owner and task-status/owner ledger tests | Passed. |
+| `/usr/bin/git diff --check` | Passed. |
+
+The two unfiltered failures remain
+`csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge` and
+`csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers`.
+All 17 mismatching frozen fingerprints already exist at parent
+`3e3c7813db8b2fc4a9472aa11efef03e3f3381bb`; comparing every inventory search's
+path set found no W13 additions/removals. The frozen inventory was not rewritten,
+and the standard gate is therefore still non-green. No release gate was
+required or claimed for this private task.
+
+Final business input manifest SHA-256:
+`716568dfaed305232cab194704fd6a0e5207a8e6706dc98129f946bdee81a536`.
+
+T03-W14 is the sole ready item.

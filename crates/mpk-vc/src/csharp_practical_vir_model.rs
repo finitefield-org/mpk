@@ -6714,3 +6714,11 @@ mod domain;
 pub use domain::{
     domain_default, DomainError, OutcomeBindingPlan, OutcomeModel, OutcomeObligation,
 };
+
+#[path = "csharp_practical_business.rs"]
+mod business;
+pub use business::{
+    BusinessBindingPlan, BusinessError, BusinessOperation, CurrencyDomain, MoneyModel,
+};
+
+use domain::source_observations_equal;

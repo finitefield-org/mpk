@@ -457,6 +457,7 @@ internal static class PracticalIdentity
             "result" => "mpk.csharp.semantic.result.v1",
             "validation" => "mpk.csharp.semantic.validation.v1",
             "boundary_field" => "mpk.csharp.semantic.boundary_field.v1",
+            "money" => "mpk.csharp.semantic.money.v1",
             _ => throw PracticalFailures.Protocol("identity_template"),
         };
         int arity = template is "ordered_entry" or "ordered_map" or "result" or "validation" ? 2 : 1;
@@ -2032,7 +2033,7 @@ internal static class CSharpPracticalCapture
 
     private static bool IsAllowlistedFrameworkMember(IMethodSymbol method)
     {
-        if (IsAllowlistedFloatingMember(method)) { return true; }
+        if (IsAllowlistedFloatingMember(method)||IsAllowlistedBusinessMember(method)) { return true; }
 
         if (method.ContainingType.SpecialType == SpecialType.System_String)
         {
@@ -2219,8 +2220,45 @@ internal static class CSharpPracticalCapture
                 && IsExactSystemRuntimeType(method.Parameters[2].Type, "MidpointRounding");
     }
 
+    internal static bool IsAllowlistedBusinessMember(IMethodSymbol method)
+    {
+        var type=method.ContainingType;
+        if(!new[]{"DateOnly","TimeOnly","TimeSpan","Guid"}.Any(n=>IsExactSystemRuntimeType(type,n))){return false;}
+        bool Exact(ITypeSymbol t)=>SymbolEqualityComparer.Default.Equals(t,type);
+        bool Params(params SpecialType[] types)=>method.Parameters.Length==types.Length&&method.Parameters.Select(p=>p.Type.SpecialType).SequenceEqual(types);
+        bool OwnParams(int count)=>method.Parameters.Length==count&&method.Parameters.All(p=>Exact(p.Type));
+        if(method.MethodKind==MethodKind.Constructor) {
+            return type.MetadataName=="DateOnly"?Params(SpecialType.System_Int32,SpecialType.System_Int32,SpecialType.System_Int32)
+                :type.MetadataName is "TimeOnly" or "TimeSpan"&&Params(SpecialType.System_Int64);
+        }
+        if(!method.IsStatic) {
+            if(method.Name=="CompareTo"){return OwnParams(1)&&method.ReturnType.SpecialType==SpecialType.System_Int32;}
+            if(type.MetadataName=="DateOnly"&&method.Name is "AddDays" or "AddMonths" or "AddYears"){return Params(SpecialType.System_Int32)&&Exact(method.ReturnType);}
+            return type.MetadataName=="TimeOnly"&&method.Name=="Add"&&Exact(method.ReturnType)&&method.Parameters.Length==1&&IsExactSystemRuntimeType(method.Parameters[0].Type,"TimeSpan");
+        }
+        if(method.Name is "op_Equality" or "op_Inequality" or "op_LessThan" or "op_LessThanOrEqual" or "op_GreaterThan" or "op_GreaterThanOrEqual") {
+            return (type.MetadataName!="Guid"||method.Name is "op_Equality" or "op_Inequality")&&OwnParams(2)&&method.ReturnType.SpecialType==SpecialType.System_Boolean;
+        }
+        if(type.MetadataName=="TimeSpan"&&method.Name is "op_Addition" or "op_Subtraction" or "op_UnaryNegation") {return OwnParams(method.Name=="op_UnaryNegation"?1:2)&&Exact(method.ReturnType);}
+        return type.MetadataName=="TimeOnly"&&method.Name=="op_Subtraction"&&OwnParams(2)&&IsExactSystemRuntimeType(method.ReturnType,"TimeSpan");
+    }
+    internal static bool IsAllowlistedBusinessProperty(IPropertySymbol property)
+    {
+        if(property.IsStatic||property.Parameters.Length!=0){return false;}
+        string owner=property.ContainingType.MetadataName;
+        if(!IsExactSystemRuntimeType(property.ContainingType,owner)){return false;}
+        if(owner=="DateOnly"&&property.Name=="DayOfWeek"){return IsExactSystemRuntimeType(property.Type,"DayOfWeek");}
+        if(owner is "TimeOnly" or "TimeSpan"&&property.Name=="Ticks"){return property.Type.SpecialType==SpecialType.System_Int64;}
+        return property.Type.SpecialType==SpecialType.System_Int32&&(owner switch {
+            "DateOnly"=>property.Name is "Year" or "Month" or "Day" or "DayNumber",
+            "TimeOnly"=>property.Name is "Hour" or "Minute" or "Second" or "Millisecond",
+            "TimeSpan"=>property.Name is "Days" or "Hours" or "Minutes" or "Seconds" or "Milliseconds",
+            _=>false});
+    }
+
     private static bool IsAllowlistedFrameworkProperty(IPropertySymbol property)
     {
+        if(IsAllowlistedBusinessProperty(property)){return true;}
         if (IsExactNullable(property.ContainingType))
         {
             return property.Name is "HasValue" or "Value";
