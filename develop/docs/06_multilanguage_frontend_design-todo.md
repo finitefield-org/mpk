@@ -20,8 +20,8 @@ Registry revision 3 and all five tuples are installed.
 `CSHARP-03-T01-W01` through W10 completed the entry audit, probes,
 foundation/freeze work, and normative package publication without adding an
 installed practical-profile identity or production path.
-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09 are complete, T03-W01 is ready, and
-all later items remain serially blocked.
+T02-W01/W02/W03/W04/W05/W06/W07/W08/W09 and T03-W01 are complete, T03-W02 is
+ready, and all later items remain serially blocked.
 
 ## Scope and sequencing
 
@@ -816,7 +816,8 @@ release. T10 installed the four-language release metadata and route. No public
 Java tuple was activated before T10. The native T10 receipt is accepted;
 CSHARP-03-T01-W01 through W10 completed the practical-profile entry, evidence,
 freeze, and normative publication work. T02-W01/W02/W03/W04/W05/W06/W07/W08/W09
-are complete, T03-W01 is ready, and later phases remain serially blocked.
+and T03-W01 are complete, T03-W02 is ready, and later phases remain serially
+blocked.
 
 T01 completion evidence: `JAVA_PROFILE_V0.md`, Java and revision-3 vectors,
 manifest entries, the traceability ledger, exact Temurin 25.0.4.1+1/JDK/native
@@ -960,8 +961,9 @@ release receipt satisfied its phase entry gate.
 private freeze, and complete publication/review. The normative inactive
 outputs are `CSHARP_PRACTICAL_PROFILE_V1.md`,
 `CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md`, and the manifested 700-vector
-package. `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` are complete,
-`CSHARP-03-T03-W01` is ready, and each later `Wnn` item remains blocked until
+package. `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
+`CSHARP-03-T03-W01` are complete, `CSHARP-03-T03-W02` is ready, and each later
+`Wnn` item remains blocked until
 its serial predecessor and task-local gate are complete.
 Each requested capability must have positive, rejection,
 boundary, differential, determinism, and compiler-upgrade evidence. Actual C#

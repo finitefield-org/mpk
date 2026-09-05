@@ -1,7 +1,8 @@
 # CSHARP-03 Implementation Traceability Ledger
 
-Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10` and
-`CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` complete (2026-09-05). The entry audit, consumer inventory,
+Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10`,
+`CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09`, and
+`CSHARP-03-T03-W01` complete (2026-09-05). The entry audit, consumer inventory,
 private frontend/toolchain closure proof,
 Roslyn shape probes, primitive/string/numeric/codec runtime measurements and
 candidate foundation/specialization/binding/data semantics and the successor
@@ -35,9 +36,11 @@ regenerates the sole v2 artifact family with exact successor context and hashes,
 and pins complete-corpus equivalence in four semantic-difference reports.
 T02-W09 closes all 18 inventoried private consumer edges over the sole
 successor family, the registered foundation and retained Certificate v0 bytes.
-`CSHARP-03-T03-W01` is ready and all later implementation items remain serially
-blocked. No public production acceptance path, installed candidate, or active
-registry entry was introduced.
+T03-W01 adds the private pinned-Roslyn capture, dependency/declaration/generic/
+effect firewall, complete declaration accounting, and finite source call/type
+closure. `CSHARP-03-T03-W02` is ready and all later implementation items remain
+serially blocked. No public production acceptance path, installed candidate,
+or active registry entry was introduced.
 
 This ledger is subordinate to
 [`08_csharp_practical_subset_design.md`](08_csharp_practical_subset_design.md)
@@ -87,9 +90,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T02-W06` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc_model.rs#CSHARP-03-T02-W06` | `3a3da6af26e301f95692dd787a8920b58fafb566` |
 | `CSHARP-03-T02-W07` | `Complete` | `crates/mpk-cli/tests/csharp_practical_frontend_protocol.rs#CSHARP-03-T02-W07` | `ed9054603eec5d410c59a708ee81d79052ee27d1` |
 | `CSHARP-03-T02-W08` | `Complete` | `crates/mpk-cli/tests/csharp_practical_migration.rs#CSHARP-03-T02-W08` | `a9b2c862e9386ec25b7183b8b4c9b8db4cc426a6` |
-| `CSHARP-03-T02-W09` | `Complete` | `crates/mpk-cli/tests/csharp_practical_migration.rs#CSHARP-03-T02-W09` | `SELF` |
-| `CSHARP-03-T03-W01` | `Ready` | `crates/mpk-cli/tests/csharp_practical_capture.rs#CSHARP-03-T03-W01` | `—` |
-| `CSHARP-03-T03-W02` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_syntax.rs#CSHARP-03-T03-W02` | `—` |
+| `CSHARP-03-T02-W09` | `Complete` | `crates/mpk-cli/tests/csharp_practical_migration.rs#CSHARP-03-T02-W09` | `0c4cd3bac346d68d72111305192c9766342ec68e` |
+| `CSHARP-03-T03-W01` | `Complete` | `crates/mpk-cli/tests/csharp_practical_capture.rs#CSHARP-03-T03-W01` | `SELF` |
+| `CSHARP-03-T03-W02` | `Ready` | `crates/mpk-cli/tests/csharp_practical_syntax.rs#CSHARP-03-T03-W02` | `—` |
 | `CSHARP-03-T03-W03` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W03` | `—` |
 | `CSHARP-03-T03-W04` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W04` | `—` |
 | `CSHARP-03-T03-W05` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W05` | `—` |
@@ -3198,3 +3201,186 @@ mutations; raw VC/policy/AI/API importer mutations; retained Certificate v0 and
 zero-axiom checks; complete predecessor regressions; absence of a candidate,
 public route, installed metadata change, or dual-format fallback; formatting,
 warning-denied lint, and the complete local fast gate. T03-W01 is the sole ready item.
+
+## 23. CSHARP-03-T03-W01 completion record
+
+### 23.1 Private source capture and finite closure
+
+W01 adds one internal capture gate that is deliberately absent from the active
+`csharp2vir.csproj`, installed build-input manifests, CLI dispatch, and release
+registries. The gate accepts only the frozen
+`mpk.selection.csharp_members.v1` selection and test-injected captured inputs.
+It retains independent immutable snapshots of every selected `.cs` file and
+exact JSON sidecar, assigns deterministic ordinals, validates sorted unique
+portable paths and selected-root IDs, decodes strict BOM-free UTF-8, and
+enforces the frozen file-count, per-file, total-byte, selected-method,
+syntax-node, contract-input, and source-data-exception-type limits. Project,
+package, binary, generated-source, analyzer-config, editor-config, ambient
+source, and ambient reference inputs fail without artifacts.
+
+Compilation uses the exact pinned .NET 10 reference projection of 167 files
+and the pinned Roslyn public API and options. The gate checks that reference
+closure byte-for-byte, rebuilds canonical in-memory references from the checked
+PE snapshots, and compiles only those snapshots in canonical order. It rejects
+every active compiler error or warning, admits only the frozen informational/
+hidden diagnostic disposition, and sanitizes every failure to the single public
+message with phase, family, stable private code, and zero artifacts.
+Dependencies reject MPK packages, assemblies, namespaces, attributes, base
+types, interfaces, and generated sources, so selected application source
+remains MPK-independent.
+
+Every ordinary declaration in every selected file is accounted for before
+reachability. The closed gates reject unsupported dead declarations, delegates
+and method-group values, lambdas, expression trees, query/LINQ, dynamic,
+reflection and runtime code generation, external effects, concurrency,
+source-written attributes, every user generic declaration or method, and every
+source-visible constructed generic. Exact nullable value types are immediately
+concretized; all other framework types and API symbols must match the closed
+allowlist, and `StringComparison`/`MidpointRounding` constants are admitted only
+as the exact argument operation of their allowlisted intrinsic. Compiler-
+synthesized init/required metadata is observation-only and cannot become a
+callable source API.
+
+Selected roots then produce complete deterministic method and source-data-type
+closures, including constructor initializers. Dead declarations, call cycles,
+type cycles, and inclusive closure limits reject before lowering. Source type
+and method identities use the registered canonical declaration algorithm, and
+each admitted foundation-owned closed instance uses the registered closed-
+instance algorithm. The executable Rust/C# cross-check fixes both source IDs
+and representative `bounded_sequence`/`option` instance IDs to the already
+registered foundation; W01 introduces no alternative identity or generic
+runtime representation.
+
+### 23.2 Exact executable evidence
+
+`crates/mpk-cli/tests/csharp_practical_capture.rs` is the primary owner. It
+binds the source and executable C# harness through
+`develop/migrations/csharp-03/capture/capture-inputs.json`, proves that neither
+file enters an installed route, projects the three frozen
+`source_data_exception_types` vectors, and cross-checks registered foundation
+and source identities. The build-input helper materializes and executes the
+harness only from this canonical manifest and the pinned Linux/amd64 closure;
+the read-only repository mount cannot supply an unrecorded source.
+
+The final manifest raw SHA-256 is
+`0c3b74d0947ded2e01ca2c5ad8dafac48749e1fe7e02c19cda67e167586457d8`.
+Its two records are:
+
+| Path | Bytes | SHA-256 |
+| --- | ---: | --- |
+| `crates/mpk-cli/tests/csharp_practical_capture_harness.cs` | 55,730 | `5332a5af2d434bb00e30f05d679ba054923e43f0e0168de56e0a4238e07daafc` |
+| `csharp-tools/csharp2vir/PracticalCapture.cs` | 124,254 | `99d02b02ff4caf25e5be79ab3d908900ba8b6ee4b64e867207fe8c37e2626e82` |
+
+The harness covers deterministic multi-file closure; immutable source and
+sidecar capture; source selection, path, encoding, reference, and every frozen
+limit boundary; dead and unsupported declarations; all compiler severities;
+dependency, declaration, type, generic, and effect phase precedence; exact
+nullable and closed framework types; incidental transitive generic metadata;
+context-bound intrinsic constants; constructor-initializer closure; call/type
+cycles; synthesized metadata; and artifact-free failures.
+
+### 23.3 Verification and review
+
+Completed local verification on Darwin arm64, with the capture harness also
+compiled and executed in the exact Linux/amd64 environment:
+
+| Command | Result |
+| --- | --- |
+| `cargo test -p mpk-cli --test csharp_practical_capture` | pass: all six W01 owner tests; its Linux/cache harness launch is platform-gated on Darwin |
+| `docker run --rm --platform linux/amd64 ... scripts/build-csharp-practical-frontend.sh --test-capture` | pass: exact manifest-only .NET 10/Roslyn build and all executable C# vectors |
+| `scripts/build-csharp-practical-frontend.sh --check-build-inputs` | pass |
+| `scripts/build-csharp-practical-frontend.sh --self-test` | pass |
+| `cargo test -p mpk-vc --test csharp_practical_inventory` | pass: status, ledger, source inventory, and route-absence closure |
+| `cargo test -p mpk-vc --test csharp_practical_source_artifacts --test csharp_practical_vir_model` | pass: predecessor identity and artifact regressions |
+| `cargo test -p mpk-cli --test csharp_practical_build_inputs --test csharp_practical_migration --test csharp_practical_frontend_protocol --test successor_atomic_cutover` | pass: build-input and predecessor/candidate routing regressions |
+| all six CSHARP-03 freeze/package/vector `--check` commands | pass |
+| `cargo clippy -p mpk-cli --all-targets -- -D warnings` | pass |
+| `cargo fmt --all -- --check` | pass |
+| `./scripts/check-fast.sh` | pass |
+| `/usr/bin/git diff --check` | pass |
+
+Implementation-verification findings: `2`.
+
+- A `Guid` member mutation initially reached the generic framework-API failure
+  before its frozen effect-family result, and nullable symbols were initially
+  identified from display spelling. The gate now orders those checks by the
+  frozen phase and identifies nullable values from Roslyn symbols.
+- The first executable path could use a locally available compiler closure
+  without independently binding every reference. It now checks the exact
+  167-file .NET 10 reference projection and every captured implementation input
+  before compilation.
+
+First-pass review findings: `8`.
+
+- Review closed MPK dependency spelling, portable-path and immutable-byte
+  aliases, constructor-initializer reachability, reflection/runtime-codegen
+  aliases, effect-protocol families, method-limit inclusivity, exact nullable
+  admission, and framework constructed-type admission. Each now has a direct
+  executable mutation and an artifact-free failure assertion.
+
+Second-pass review findings: `9`.
+
+- Review removed an enum self-edge, rejected noncanonical identifier spellings,
+  closed required/init metadata use, validated diagnostic locations, corrected
+  empty and missing selected roots, made call/type traversal deterministic,
+  added closed source and foundation identity cross-checks, closed nested
+  framework-type recursion, and strengthened public-message sanitization.
+
+Final-hardening review findings: `8`.
+
+- Review corrected recursive array/nullable unwrapping and declaration-before-
+  type-cycle precedence; made generic rejection precede the framework firewall;
+  removed three implementation-invented limits; counts only reachable
+  source-data exception types; rejects verbatim, Unicode, and escaped identifier
+  spellings; validates nullable-reference and nested generic components;
+  makes nested `bounded_sequence<option<T>>` identity construction iterative;
+  and retains sidecar bytes in the immutable result closure.
+
+Documentation review findings: `1`.
+
+- Status prose still named T02-W09/T03-W01 as the next item after W01 became
+  complete. The design, plan, README, executive summary, and this ledger now
+  consistently identify T03-W02 as the only ready item.
+
+Final review follow-up findings: `13`.
+
+- Dependency resolution initially classified an application-owned local,
+  parameter, member, or type spelled exactly `Mpk`, and local symbols in an
+  application compilation whose ID was `mpk`, as MPK dependencies. The gate
+  now distinguishes source-owned symbols from external MPK ownership while
+  retaining phase-1 rejection for real and unresolved MPK dependencies.
+- `nameof` could create false call/type reachability, a property getter could
+  be selected as a root, and a class/struct primary constructor could escape
+  ordinary-declaration accounting. Semantic `nameof` subtrees are now pruned,
+  roots are exact methods or Roslyn `MethodKind.Constructor` instance
+  constructors, and primary constructors reject as unsupported declarations.
+- Exact nullable members initially bypassed the framework-member firewall,
+  while the `StringComparison` and `MidpointRounding` carriers rejected their
+  positive intrinsic uses and their constants were not position-bound. The
+  nullable allowlist and exact Roslyn argument-operation checks now close both
+  directions, with positive and negative executable vectors.
+- Capture/selection enumerables were initially materialized without their
+  frozen count bounds, and UTF-16-to-UTF-8 provenance conversion plus several
+  declaration/graph lookups could grow quadratically. Bounded single-pass
+  capture, a precomputed byte-offset table, symbol/edge indexes, an owner-indexed
+  getter table, and a work queue make the retained work linear in the bounded
+  input and graph sizes.
+- The exact-input harness initially validated repository files before a lengthy
+  materialization/build interval but did not bind the copied compiler/runtime
+  inputs, and its owner assertion retained the earlier validation-call count.
+  Every copied W01 source and runtimeconfig is now re-hashed against its
+  in-memory manifest record, with the owner assertion fixed to the complete
+  three-path validation and copy-binding contract.
+- A caller-provided `PortableExecutableReference` implementation or a later
+  file mutation could differ from the bytes whose reference inventory was
+  checked. The gate now reads each bounded PE exactly once, validates the
+  canonical 167-file inventory, rebuilds standard in-memory Roslyn references
+  from those snapshots, and orders them canonically before compilation.
+
+Final review findings: `0`. The final pass rechecks exact W01 ownership;
+manifest hashes and manifest-only execution; frozen Roslyn/reference/options,
+input, diagnostic, declaration, dependency, generic, effect, framework API,
+call/type closure, identity, and limit barriers; all positive and negative C#
+vectors; predecessor regressions; no active project, registry, bundle, CLI,
+API, installed metadata, or application-source MPK dependency; formatting,
+warning-denied lint, and the complete local fast gate. T03-W02 is the sole ready item.

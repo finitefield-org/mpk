@@ -9,12 +9,15 @@ const INVENTORY_PATH: &str = "develop/migrations/csharp-03/artifact-consumer-inv
 const LEDGER_PATH: &str = "develop/docs/csharp-03-implementation-traceability-ledger.md";
 const PLAN_PATH: &str = "develop/docs/08_csharp_practical_subset_design-todo.md";
 const W10_PACKAGE_PATH: &str = "develop/specs/vectors/csharp-practical-profile-v1.json";
-const POST_FREEZE_IMPLEMENTATION_PATHS: [&str; 22] = [
+const POST_FREEZE_IMPLEMENTATION_PATHS: [&str; 27] = [
+    "csharp-tools/csharp2vir/PracticalCapture.cs",
     "crates/mpk-cli/src/csharp_practical_frontend_protocol.rs",
     "crates/mpk-cli/src/csharp_practical_consumer_migration.rs",
     "crates/mpk-cli/src/csharp_practical_migration.rs",
     "crates/mpk-cli/tests/csharp_practical_frontend_protocol.rs",
     "crates/mpk-cli/tests/csharp_practical_migration.rs",
+    "crates/mpk-cli/tests/csharp_practical_capture.rs",
+    "crates/mpk-cli/tests/csharp_practical_capture_harness.cs",
     "crates/mpk-vc/src/csharp_practical_registry.rs",
     "crates/mpk-vc/src/csharp_practical_consumer.rs",
     "crates/mpk-vc/src/csharp_practical_release.rs",
@@ -32,6 +35,8 @@ const POST_FREEZE_IMPLEMENTATION_PATHS: [&str; 22] = [
     "develop/migrations/csharp-03/predecessor-producer-java-difference.json",
     "develop/migrations/csharp-03/predecessor-producer-rust-difference.json",
     "develop/migrations/csharp-03/private-consumer-migration-receipt.json",
+    "scripts/build-csharp-practical-frontend.sh",
+    "scripts/csharp_practical_build_inputs.py",
 ];
 
 #[test]
@@ -194,8 +199,8 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             | "CSHARP-03-T01-W10" | "CSHARP-03-T02-W01" | "CSHARP-03-T02-W02"
             | "CSHARP-03-T02-W03" | "CSHARP-03-T02-W04" | "CSHARP-03-T02-W05"
             | "CSHARP-03-T02-W06" | "CSHARP-03-T02-W07" | "CSHARP-03-T02-W08"
-            | "CSHARP-03-T02-W09" => "Complete",
-            "CSHARP-03-T03-W01" => "Ready",
+            | "CSHARP-03-T02-W09" | "CSHARP-03-T03-W01" => "Complete",
+            "CSHARP-03-T03-W02" => "Ready",
             _ => "Blocked",
         };
         assert_eq!(row.status, expected_status, "status drift for {work_item}");
@@ -218,7 +223,8 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             "CSHARP-03-T02-W06" => "3a3da6af26e301f95692dd787a8920b58fafb566",
             "CSHARP-03-T02-W07" => "ed9054603eec5d410c59a708ee81d79052ee27d1",
             "CSHARP-03-T02-W08" => "a9b2c862e9386ec25b7183b8b4c9b8db4cc426a6",
-            "CSHARP-03-T02-W09" => "SELF",
+            "CSHARP-03-T02-W09" => "0c4cd3bac346d68d72111305192c9766342ec68e",
+            "CSHARP-03-T03-W01" => "SELF",
             _ => "—",
         };
         assert_eq!(
@@ -371,6 +377,19 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
         concat!("test-injected `mpk", ".release.bundle_registry.v2`"),
         "Certificate v0 bytes remain unchanged",
         "T03-W01 is the sole ready item.",
+        "## 23. CSHARP-03-T03-W01 completion record",
+        "develop/migrations/csharp-03/capture/capture-inputs.json",
+        "exact pinned .NET 10 reference projection of 167 files",
+        "0c3b74d0947ded2e01ca2c5ad8dafac48749e1fe7e02c19cda67e167586457d8",
+        "5332a5af2d434bb00e30f05d679ba054923e43f0e0168de56e0a4238e07daafc",
+        "99d02b02ff4caf25e5be79ab3d908900ba8b6ee4b64e867207fe8c37e2626e82",
+        "Implementation-verification findings: `2`",
+        "First-pass review findings: `8`",
+        "Second-pass review findings: `9`",
+        "Final-hardening review findings: `8`",
+        "Documentation review findings: `1`",
+        "Final review follow-up findings: `13`",
+        "T03-W02 is the sole ready item.",
     ] {
         assert!(ledger.contains(required), "ledger is missing {required}");
     }

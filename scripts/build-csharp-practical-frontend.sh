@@ -16,6 +16,9 @@ case "$#:${1-}" in
   1:--self-test)
     action=self-test
     ;;
+  1:--test-capture)
+    action=test-capture
+    ;;
   *)
     printf '%s\n' CSHARP_PRACTICAL_BUILD_USAGE >&2
     exit 64

@@ -32,9 +32,9 @@ by W08's reviewed binary-addressed Boolean-cube and static concrete-transformer
 expansion (ledger section 11). Both checkers accept all W09 capacity cases
 through each frozen limit plus one without a core change. W10 publishes the
 normative but inactive specifications and 700 vectors.
-`CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` are complete,
-`CSHARP-03-T03-W01` is ready, and every later implementation work item remains
-blocked by its serial predecessor.
+`CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
+`CSHARP-03-T03-W01` are complete, `CSHARP-03-T03-W02` is ready, and every
+later implementation work item remains blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
 
@@ -104,7 +104,8 @@ assembly models; see ledger section 19. T02-W07 then completed the private
 frontend protocol and complete artifact/inventory linkage; see ledger section
 20. T02-W08 then completed private migration of all four predecessor producers;
 see ledger section 21. T02-W09 then completed the private consumer and
-foundation closure; see ledger section 22. T03-W01 is ready. This
+foundation closure; see ledger section 22. T03-W01 then completed the private
+source capture/declaration/closure gate; see ledger section 23. T03-W02 is ready. This
 file remains planning material. W01 added its baseline and ledger; W02 added
 only the private consumer inventory, owner tests, ledger evidence, and current-
 status documentation; W03 added only private build-input evidence and its
@@ -144,8 +145,12 @@ tests. No application
 fixture, installed candidate bundle, public route, active build input or active
 registry/release descriptor has changed. T02-W08 adds only the Rustdoc-hidden
 private predecessor adapter, its primary owner tests, and four pinned semantic-
-difference reports. The next serial work is T02-W09's private consumer
-migration and foundation-gate closure.
+difference reports. T02-W09 adds only the Rustdoc-hidden private successor
+consumer orchestrator, its strict importers, candidate-only release consumer,
+Certificate v0 handoff, receipt, and owner tests. T03-W01 adds only the private
+pinned-Roslyn capture/declaration/closure gate, its exact input manifest,
+executable C# harness, owner tests, and status evidence. The next serial work
+is T03-W02's concise-syntax and exact-name normalization.
 
 The following are unconditional stop conditions:
 
@@ -944,7 +949,7 @@ dedup loops, and T04-W06 closes their actual-source emission evidence.
 
 Depends on: T02-W09.
 
-Current status: `Ready`.
+Current status: `Complete`.
 
 Owns: selected source roots, immutable byte capture, encoding/path checks, all-
 declaration accounting for selected files, reachable method/type closure,
@@ -979,6 +984,8 @@ reference, and limit cases.
 ### CSHARP-03-T03-W02 — Normalize concise syntax and name resolution
 
 Depends on: T03-W01.
+
+Current status: `Ready`.
 
 Owns: expression-bodied methods/getters, `var` locals whose exact admitted type
 is available, the reusable exact-type normalization handoff later consumed by

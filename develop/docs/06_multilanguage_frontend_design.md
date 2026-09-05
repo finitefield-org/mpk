@@ -19,16 +19,16 @@ installed; the native x86-64 T10 gate passed twice on 2026-09-03, so
 CSHARP-03-T01-W01 through W10 completed the entry audit, feasibility and
 runtime probes, foundation/freeze work, and normative package publication.
 The package is inactive, production behavior is unchanged,
-CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09 are complete, and
-CSHARP-03-T03-W01 is ready.
+CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09 and
+CSHARP-03-T03-W01 are complete, and CSHARP-03-T03-W02 is ready.
 
 Prepared: 2026-08-21
 
 Updated: 2026-09-05 (`JAVA-03-T10` complete with native x86-64 release
 receipt; post-Java `CSHARP-03-T01-W01` through W10 and
 T02-W01/W02/W03/W04/W05/W06/W07/W08/W09 complete with the practical C#
-normative freeze package plus private producer/consumer migration inactive;
-T03-W01 ready)
+normative freeze package plus private producer/consumer migration and source
+capture/closure gate inactive; T03-W02 ready)
 
 ## 1. Decision summary
 
@@ -125,7 +125,8 @@ not a required application runtime protocol. T01-W10 published
 `CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md`, and the manifested 700-vector
 package without widening the active scalar profile or authorizing an installed
 bundle or public route. The Java T10 receipt is accepted, CSHARP-03 T01 and
-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09 are complete, and T03-W01 is ready.
+T02-W01/W02/W03/W04/W05/W06/W07/W08/W09 and T03-W01 are complete, and
+T03-W02 is ready.
 
 The order may change only through a reviewed governance amendment that records
 the user value, semantic risk, compiler integration quality, and effect on the
