@@ -354,7 +354,8 @@ internal static class CSharpPracticalSyntaxNormalizer
         ImmutableArray<MetadataReference> references,
         Action<CSharpCompilation>? validateDataDeclarations = null,
         Action<CSharpCompilation>? validateDataTypes = null,
-        Action<CSharpCompilation>? validateDataLimits = null)
+        Action<CSharpCompilation>? validateDataLimits = null,
+        Action<CSharpCompilation, PracticalSourceClosure>? validateConstruction = null)
     {
         try
         {
@@ -362,9 +363,21 @@ internal static class CSharpPracticalSyntaxNormalizer
                 selection,
                 capturedInputs,
                 references,
-                validateDataDeclarations,
+                current =>
+                {
+                    if (validateConstruction is not null)
+                    {
+                        // W04 must not let a phase-6 construction finding mask
+                        // a prerequisite syntax/declaration failure.
+                        var prerequisite = new SyntaxState(current, current.SyntaxTrees.ToImmutableArray());
+                        ValidateImportsAndDirectives(prerequisite);
+                        ValidateExpressionBodies(prerequisite);
+                        ValidateVarContexts(prerequisite);
+                    }
+                    validateDataDeclarations?.Invoke(current);
+                },
                 validateDataTypes,
-                validateDataLimits);
+                validateDataLimits, validateConstruction);
             SyntaxState state = CreateState(selection, closure, references);
             ValidateImportsAndDirectives(state);
             ValidateExpressionBodies(state);

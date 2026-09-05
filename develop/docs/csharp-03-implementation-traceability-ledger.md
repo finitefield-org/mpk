@@ -2,7 +2,7 @@
 
 Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10`,
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09`, and
-`CSHARP-03-T03-W01/W02/W03` complete (2026-09-05). The entry audit, consumer
+`CSHARP-03-T03-W01/W02/W03/W04` complete (2026-09-05). The entry audit, consumer
 inventory, private frontend/toolchain closure proof,
 Roslyn shape probes, primitive/string/numeric/codec runtime measurements and
 candidate foundation/specialization/binding/data semantics and the successor
@@ -40,8 +40,10 @@ T03-W01 adds the private pinned-Roslyn capture, dependency/declaration/generic/
 effect firewall, complete declaration accounting, and finite source call/type
 closure. T03-W02 adds private concise-syntax, exact-type, and name-resolution
 normalization over that closure. T03-W03 adds private immutable data declarations,
-closed enums, type graphs, and recursive default eligibility.
-`CSHARP-03-T03-W04` is ready and all later implementation items remain serially blocked. No public production acceptance
+closed enums, type graphs, and recursive default eligibility. T03-W04 adds
+constructor flow analysis, exact synthesized IL checks, receiver-first calls,
+and pending invariant obligations.
+`CSHARP-03-T03-W05` is ready and all later implementation items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
 This ledger is subordinate to
@@ -95,9 +97,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T02-W09` | `Complete` | `crates/mpk-cli/tests/csharp_practical_migration.rs#CSHARP-03-T02-W09` | `0c4cd3bac346d68d72111305192c9766342ec68e` |
 | `CSHARP-03-T03-W01` | `Complete` | `crates/mpk-cli/tests/csharp_practical_capture.rs#CSHARP-03-T03-W01` | `c16bca82c8f39e34decc09959a4e3b34c18bc12d` |
 | `CSHARP-03-T03-W02` | `Complete` | `crates/mpk-cli/tests/csharp_practical_syntax.rs#CSHARP-03-T03-W02` | `773591e4ef0900eca84724a15be2d785449c51ad` |
-| `CSHARP-03-T03-W03` | `Complete` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W03` | `SELF` |
-| `CSHARP-03-T03-W04` | `Ready` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W04` | `—` |
-| `CSHARP-03-T03-W05` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W05` | `—` |
+| `CSHARP-03-T03-W03` | `Complete` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W03` | `d96594ad4cf3db973d04fb4057784d2356de358d` |
+| `CSHARP-03-T03-W04` | `Complete` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W04` | `SELF` |
+| `CSHARP-03-T03-W05` | `Ready` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W05` | `—` |
 | `CSHARP-03-T03-W06` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W06` | `—` |
 | `CSHARP-03-T03-W07` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W07` | `—` |
 | `CSHARP-03-T03-W08` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W08` | `—` |
@@ -3680,3 +3682,107 @@ type/default handoff, exception classification ownership, exact manifest-only
 execution, predecessor preservation, and absence of any installed route.
 
 T03-W04 is the sole ready item.
+
+## 26. CSHARP-03-T03-W04 completion record
+
+### 26.1 Private construction and call handoff
+
+`csharp-tools/csharp2vir/PracticalConstruction.cs` composes the W01 capture,
+W02 normalization, and W03 immutable type gates. The constructor counter runs
+at phase 0, signature exclusions at phase 2, and construction analysis after
+source-closure validation and before the phase-7 effect firewall. All failures
+remain sanitized and artifact-free. This task installs no compiler project,
+frontend route, bundle, registry entry, or success envelope.
+
+The private constructor plans retain reachable CFG blocks, explicit assignment
+and direct-read order, delegation targets, and incoming must/may assignment
+sets. A fixed point covers branches, early exits, and back edges. Delegation
+propagates explicit assignments; implicit CLR zero storage does not count as
+a write. A compiler capture used exclusively as a direct assignment location
+is distinguished from an unfinished receiver escape. Compound assignments and
+increments cannot bypass assignment multiplicity. Missing member values need
+eligible recursive zero storage; nullable-none remains a distinct value.
+Uninvoked implicit struct zero constructors do not impose default eligibility
+on an explicitly constructed, default-ineligible struct.
+
+The exact synthesized parameterless class constructor and auto-property
+accessors are cross-checked against emitted metadata and IL from the pinned
+compiler: inert object base call, exact backing-field token, no locals or
+exception regions, and no extra instructions. Getter and method bodies retain
+W02 normalization. Instance functions expose receiver parameter zero; direct
+call plans retain the actual immutable operation operands in receiver/argument
+order and a separate null check at the language call point. Each call and
+creation retains a source site so repeated uses are not collapsed.
+
+Member-domain, recursive-default, public, and construction invariant
+obligations remain undischargeable by this frontend handoff. Private typed
+claims bind to an exact source type and captured source SHA-256, check Boolean
+expression types and member attachment, require complete per-source-type
+coverage when supplied, and retain every declared expression at its applicable
+construction/default site. The private expression algebra covers Boolean/i32
+literals, stored-member references, Boolean connectives, and exact scalar
+equality; it is not a second sidecar format. T06-W01 still owns the frozen JSON
+contract-expression parser and its broader vocabulary; opaque sidecar bytes
+cannot assert a claim here. Declared claims leave recursive default eligibility
+pending, including nested default obligations. T06-W02 owns semantic discharge.
+W05 owns object-initializer and required/init completion; initializer source
+forms still reject at this stage.
+
+### 26.2 Executable evidence and scope
+
+`crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W04` owns all three
+frozen `constructors_per_type` vectors (7/8/9, inclusive maximum 8). The
+canonical `develop/migrations/csharp-03/construction/construction-inputs.json`
+binds all four private frontend sources and the construction harness. Shared
+capture/syntax/types manifests are rebound; prior ledger receipts remain
+historical. `--test-construction` uses the existing closed offline Linux/amd64
+compiler/runtime runner, sanitized errors, and manifest-bound copied bytes.
+The runner self-test mutates construction paths, hashes, sizes, and file count.
+
+The executable matrix covers delegation, mutually exclusive and duplicate
+writes, loop writes, conditional RHS captures, unfinished receiver/member
+reads, exact signatures, synthesis and IL mutations, invariant attachment,
+incomplete/ill-typed claims, pending defaults, getter/method normalization,
+receiver-first runtime equivalence and argument-before-null-check behavior,
+object-initializer handoff, and diagnostic precedence. Existing W01-W03
+harnesses remain regression owners.
+
+Final manifest SHA-256 receipts:
+
+| Manifest | SHA-256 |
+| --- | --- |
+| `capture-inputs.json` | `2a2505d977225adb5c675adb7e8f2bf590adcccdd335650e5db03f3caab95f5f` |
+| `syntax-inputs.json` | `4963b6ac17d6b3e80316ce6f8dbc0a9d21aa6c7a53e6e68d610d09cac1806727` |
+| `types-inputs.json` | `ad297425d2e4c669df0df713e4d9f6326008a1a314a18278d7271a862a0c8162` |
+| `construction-inputs.json` | `0545b787eaa58b635a2450d3dac88e31c72649ae9b7c66417925b8821fb0ccb8` |
+
+### 26.3 Verification and review
+
+Local verification uses `./scripts/check-fast.sh`, the construction/types/
+capture/syntax pinned harnesses, `--check-build-inputs`, `--self-test`, the Rust
+owner and inventory tests, and `/usr/bin/git diff --check`. Pinned harnesses run
+with networking disabled and the repository mounted read-only; these are
+private frontend checks, not a native release-gate receipt.
+
+Review corrections cover compiler assignment-location captures, compound
+writes with branching RHS expressions, unused implicit struct constructors,
+non-returning delegation, source-bound typed claims, pending default eligibility and nested obligations,
+exact synthesized IL, receiver nullability, and phase-ordered construction
+failures. Each semantic correction has an executable regression.
+
+| Verification | Result |
+| --- | --- |
+| `./scripts/check-fast.sh` | pass: format, strict source scan, warning-denied lint, workspace tests, CLI build, accepted/rejected fixtures |
+| Rust capture/syntax/types owners | pass: 18 tests |
+| Rust implementation inventory | pass: 4 tests |
+| Pinned `--test-construction` | pass |
+| Pinned `--test-capture`, `--test-syntax`, `--test-types` | pass |
+| `--check-build-inputs` and `--self-test` | pass |
+| `cargo fmt --all -- --check` and `/usr/bin/git diff --check` | pass |
+
+Final review findings: `0`. The reviewed diff includes the private implementation,
+all phase hooks, executable regression matrices, manifest-only build paths,
+owner tests, and current task statuses. No frozen public schema or installed
+route changes are included.
+
+T03-W05 is the sole ready item.

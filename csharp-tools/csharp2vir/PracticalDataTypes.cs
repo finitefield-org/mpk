@@ -119,15 +119,26 @@ internal static class CSharpPracticalDataTypes
     internal const int StructuralTypeNestingMaximum = 16;
 
     internal static PracticalDataTypes Validate(PracticalSourceSelection selection,
-        IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references)
+        IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references,
+        Action<CSharpCompilation, PracticalSourceClosure, IReadOnlyList<PracticalDataType>>? validateConstruction = null,
+        Action<CSharpCompilation>? validateConstructorLimits = null,
+        Action<CSharpCompilation>? validateSignatures = null,
+        bool deferDeclaredInvariantProof = false)
     {
         try
         {
             if (selection is null) { throw PracticalFailures.Protocol("selection_shape"); }
-            var model = new DataModel(selection.SidecarPaths.Count != 0);
+            if (deferDeclaredInvariantProof && validateConstruction is null)
+            { throw PracticalFailures.Protocol("missing_invariant_obligation_consumer"); }
+            var model = new DataModel(selection.SidecarPaths.Count != 0 || deferDeclaredInvariantProof,
+                deferDeclaredInvariantProof);
             PracticalNormalizedSyntax syntax = CSharpPracticalSyntaxNormalizer.Normalize(
-                selection, inputs, references, model.ValidateDeclarations, model.ValidateTypes,
-                model.ValidateLimits);
+                selection, inputs, references,
+                current => { model.ValidateDeclarations(current); validateSignatures?.Invoke(current); },
+                model.ValidateTypes,
+                current => { model.ValidateLimits(current); validateConstructorLimits?.Invoke(current); },
+                validateConstruction is null ? null :
+                    (current, closure) => validateConstruction(current, closure, model.GetTypes()));
             return model.Build(syntax);
         }
         catch (PracticalCaptureFailure) { throw; }
@@ -193,13 +204,15 @@ internal static class CSharpPracticalDataTypes
     private sealed class DataModel
     {
         private readonly bool hasSidecars;
+        private readonly bool deferDeclaredInvariantProof;
         private readonly List<TypeRecord> records = new();
         private readonly Dictionary<ISymbol, TypeRecord> bySymbol = new(SymbolEqualityComparer.Default);
         private readonly List<TypeRecord> ordered = new();
         private CSharpCompilation compilation = null!;
         private PracticalDataType? dayOfWeek;
 
-        internal DataModel(bool hasSidecars) { this.hasSidecars = hasSidecars; }
+        internal DataModel(bool hasSidecars, bool deferDeclaredInvariantProof)
+        { this.hasSidecars = hasSidecars; this.deferDeclaredInvariantProof = deferDeclaredInvariantProof; }
 
         internal void ValidateLimits(CSharpCompilation current)
         {
@@ -694,7 +707,7 @@ internal static class CSharpPracticalDataTypes
             { throw PracticalFailures.Type("ineligible_default"); }
             // Opaque sidecars cannot prove an invariant or semantic-role default.
             // W04/W13 must resolve those claims before any such value is published.
-            if (hasSidecars && type.IsValueType && bySymbol.ContainsKey(type))
+            if (hasSidecars && !deferDeclaredInvariantProof && type.IsValueType && bySymbol.ContainsKey(type))
             { throw PracticalFailures.Type("default_invariant_pending"); }
         }
 
@@ -905,6 +918,10 @@ internal static class CSharpPracticalDataTypes
             { return; } // unique initializer transaction belongs to W05
             throw PracticalFailures.Type("member_mutation");
         }
+
+        internal IReadOnlyList<PracticalDataType> GetTypes() => Array.AsReadOnly(
+            ordered.Where(record => record.Output is not null).Select(record => record.Output!)
+                .Concat(dayOfWeek is null ? Array.Empty<PracticalDataType>() : new[] { dayOfWeek }).ToArray());
 
         internal PracticalDataTypes Build(PracticalNormalizedSyntax syntax)
         {

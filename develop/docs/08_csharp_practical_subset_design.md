@@ -1,7 +1,7 @@
 # C# Practical Subset Expansion Design
 
 Status: normative freeze package published through `CSHARP-03-T01-W10` and
-private implementation complete through `CSHARP-03-T03-W03`.
+private implementation complete through `CSHARP-03-T03-W04`.
 This document does not
 change the active `mpk.csharp.scalar.v0` profile, register a new profile, or
 authorize a practical-profile public route. The active release is registry
@@ -21,7 +21,8 @@ foundation gate; T03-W01 completed the private practical source capture,
 declaration-accounting, and closure gate; T03-W02 completed private concise-
 syntax, exact-type, and name-resolution normalization; T03-W03 completed
 private immutable data declarations, enums, type graphs, and recursive default
-validation; T03-W04 is ready, while
+validation; T03-W04 completed private constructor analysis, receiver-first
+calls, and invariant obligations; T03-W05 is ready, while
 activation remains blocked through T08-W10.
 
 Prepared: 2026-09-02. Revised: 2026-09-05.
@@ -160,7 +161,8 @@ all inventoried private consumers without activation, and T03-W01 has completed
 the private source capture/declaration/closure gate without activation;
 T03-W02 has completed the private concise-syntax and exact-name normalization
 gate without activation; T03-W03 completed private immutable data declarations,
-enums, type graphs, and recursive default validation; T03-W04 is ready.
+enums, type graphs, and recursive default validation; T03-W04 completed private constructor analysis, receiver-first
+calls, and invariant obligations; T03-W05 is ready.
 DART-04
 waits for the complete CSHARP-03 release gate. This
 insertion records the user value of making the already released C# frontend
@@ -2226,7 +2228,8 @@ declaration-accounting, dependency/generic/effect firewall, and finite closure
 gate; `CSHARP-03-T03-W02` has completed the private concise-syntax, exact-type,
 and name-resolution normalization gate; `CSHARP-03-T03-W03` has completed
 private immutable data declarations, enums, type graphs, and recursive default
-validation; `CSHARP-03-T03-W04` is ready. Each
+validation; `CSHARP-03-T03-W04` has completed private constructor analysis,
+receiver-first calls, and invariant obligations; `CSHARP-03-T03-W05` is ready. Each
 later work item remains blocked until its serial predecessor and task-local
 entry gate are satisfied.
 No task may reintroduce a source-visible `Mpk.*` API, user-defined generic,

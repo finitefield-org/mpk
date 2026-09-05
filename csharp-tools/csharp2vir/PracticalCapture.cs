@@ -41,6 +41,7 @@ internal enum PracticalDiagnosticFamily
     CSHARP_PRACTICAL_DECLARATION,
     CSHARP_PRACTICAL_TYPE,
     CSHARP_PRACTICAL_GENERIC,
+    CSHARP_PRACTICAL_OBJECT,
     CSHARP_PRACTICAL_EFFECT,
 }
 
@@ -84,6 +85,9 @@ internal static class PracticalFailures
 
     internal static PracticalCaptureFailure Generic(string code) =>
         new PracticalCaptureFailure(3, PracticalDiagnosticFamily.CSHARP_PRACTICAL_GENERIC, code);
+
+    internal static PracticalCaptureFailure Object(string code) =>
+        new PracticalCaptureFailure(6, PracticalDiagnosticFamily.CSHARP_PRACTICAL_OBJECT, code);
 
     internal static PracticalCaptureFailure Effect(string code) =>
         new PracticalCaptureFailure(7, PracticalDiagnosticFamily.CSHARP_PRACTICAL_EFFECT, code);
@@ -685,7 +689,8 @@ internal static class CSharpPracticalCapture
         ImmutableArray<MetadataReference> references,
         Action<CSharpCompilation>? validateDataDeclarations = null,
         Action<CSharpCompilation>? validateDataTypes = null,
-        Action<CSharpCompilation>? validateDataLimits = null)
+        Action<CSharpCompilation>? validateDataLimits = null,
+        Action<CSharpCompilation, PracticalSourceClosure>? validateConstruction = null)
     {
         try
         {
@@ -718,6 +723,7 @@ internal static class CSharpPracticalCapture
                 captured.Sources,
                 captured.Sidecars,
                 roslyn);
+            validateConstruction?.Invoke(roslyn.Compilation, closure);
             ValidateEffectsAndConcurrency(roslyn);
             return closure;
         }

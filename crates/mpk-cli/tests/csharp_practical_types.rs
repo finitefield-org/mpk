@@ -178,6 +178,10 @@ fn csharp_03_t03_w03_harness_covers_shapes_defaults_limits_and_runtime() {
 
 #[test]
 fn csharp_03_t03_w03_pinned_roslyn_harness_passes_when_cache_is_present() {
+    run_pinned_harness("--test-types");
+}
+
+fn run_pinned_harness(argument: &str) {
     if !cfg!(target_os = "linux") {
         return;
     }
@@ -205,7 +209,7 @@ fn csharp_03_t03_w03_pinned_roslyn_harness_passes_when_cache_is_present() {
         return;
     }
     let output = Command::new(root().join("scripts/build-csharp-practical-frontend.sh"))
-        .arg("--test-types")
+        .arg(argument)
         .env_clear()
         .env("PATH", "/usr/bin:/bin")
         .output()
@@ -216,4 +220,97 @@ fn csharp_03_t03_w03_pinned_roslyn_harness_passes_when_cache_is_present() {
         String::from_utf8_lossy(&output.stdout),
         String::from_utf8_lossy(&output.stderr)
     );
+}
+
+#[test]
+fn csharp_03_t03_w04_constructor_manifest_and_private_route() {
+    let path = "develop/migrations/csharp-03/construction/construction-inputs.json";
+    let manifest = json(path);
+    let mut canonical = serde_json::to_vec(&manifest).unwrap();
+    canonical.push(b'\n');
+    assert_eq!(canonical, read(path));
+    assert_eq!(manifest["work_item"], "CSHARP-03-T03-W04");
+    assert_eq!(
+        manifest["schema"],
+        "mpk.csharp_practical.t03_w04.construction_inputs.v1"
+    );
+    let expected = [
+        "crates/mpk-cli/tests/csharp_practical_construction_harness.cs",
+        "csharp-tools/csharp2vir/PracticalCapture.cs",
+        "csharp-tools/csharp2vir/PracticalConstruction.cs",
+        "csharp-tools/csharp2vir/PracticalDataTypes.cs",
+        "csharp-tools/csharp2vir/PracticalSyntaxNormalization.cs",
+    ];
+    assert_eq!(manifest["files"].as_array().unwrap().len(), expected.len());
+    for (record, path) in manifest["files"].as_array().unwrap().iter().zip(expected) {
+        let bytes = read(path);
+        assert_eq!(record["path"], path);
+        assert_eq!(record["size_bytes"], bytes.len());
+        assert_eq!(record["sha256"], format!("{:x}", Sha256::digest(bytes)));
+    }
+    for path in [
+        "csharp-tools/csharp2vir/csharp2vir.csproj",
+        "csharp-tools/csharp2vir/Program.cs",
+        "develop/migrations/csharp-03/build-inputs/build-inputs.json",
+    ] {
+        assert!(!text(path).contains("PracticalConstruction"));
+    }
+    let capture = text("csharp-tools/csharp2vir/PracticalCapture.cs");
+    assert!(
+        capture.find("BuildClosure(\n").unwrap()
+            < capture.find("validateConstruction?.Invoke").unwrap()
+    );
+    assert!(
+        capture.find("validateConstruction?.Invoke").unwrap()
+            < capture
+                .find("ValidateEffectsAndConcurrency(roslyn)")
+                .unwrap()
+    );
+}
+
+#[test]
+fn csharp_03_t03_w04_frozen_constructor_limits() {
+    let package = json(PACKAGE);
+    let owned: Vec<_> = package["vectors"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|vector| vector["implementation_owner"] == "CSHARP-03-T03-W04")
+        .collect();
+    assert_eq!(owned.len(), 3);
+    for (suffix, value) in [("below", 7), ("at", 8), ("above", 9)] {
+        let id = format!("limit.practical.constructors_per_type.{suffix}");
+        let vector = owned.iter().find(|vector| vector["id"] == id).unwrap();
+        assert_eq!(
+            vector["production_test_owner"],
+            "crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W04"
+        );
+        assert_eq!(vector["inputs"]["inclusive_maximum"], 8);
+        assert_eq!(vector["inputs"]["value"], value);
+        if value == 9 {
+            assert_eq!(vector["expected"]["reject"], "limit_exceeded");
+        } else {
+            assert_eq!(vector["expected"]["accept"], true);
+        }
+    }
+    for marker in [
+        "InvariantAttachment",
+        "SynthesizedMutations",
+        "RuntimeEquivalence",
+        "RejectionMatrix",
+        "DELEGATION_STATE",
+        "COMPLETE_CLAIM_EMISSION",
+        "NULL_CHECK_POINT",
+        "new[] {7,8,9}",
+    ] {
+        assert!(
+            text("crates/mpk-cli/tests/csharp_practical_construction_harness.cs").contains(marker),
+            "{marker}"
+        );
+    }
+}
+
+#[test]
+fn csharp_03_t03_w04_pinned_construction_harness() {
+    run_pinned_harness("--test-construction");
 }
