@@ -2,7 +2,7 @@
 
 Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10`,
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09`, and
-`CSHARP-03-T03-W01/W02/W03/W04/W05` complete (2026-09-05). The entry audit, consumer
+`CSHARP-03-T03-W01/W02/W03/W04/W05/W06` complete (2026-09-05). The entry audit, consumer
 inventory, private frontend/toolchain closure proof,
 Roslyn shape probes, primitive/string/numeric/codec runtime measurements and
 candidate foundation/specialization/binding/data semantics and the successor
@@ -43,8 +43,9 @@ normalization over that closure. T03-W03 adds private immutable data declaration
 closed enums, type graphs, and recursive default eligibility. T03-W04 adds
 constructor flow analysis, exact synthesized IL checks, receiver-first calls,
 and pending invariant obligations. T03-W05 adds ordered init/required
-transactions and explicit finalization.
-`CSHARP-03-T03-W06` is ready and all later implementation items remain serially blocked. No public production acceptance
+transactions and explicit finalization. T03-W06 adds shared structural
+equality and canonical ordering over concrete descriptors.
+`CSHARP-03-T03-W07` is ready and all later implementation items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
 This ledger is subordinate to
@@ -100,9 +101,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T03-W02` | `Complete` | `crates/mpk-cli/tests/csharp_practical_syntax.rs#CSHARP-03-T03-W02` | `773591e4ef0900eca84724a15be2d785449c51ad` |
 | `CSHARP-03-T03-W03` | `Complete` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W03` | `d96594ad4cf3db973d04fb4057784d2356de358d` |
 | `CSHARP-03-T03-W04` | `Complete` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W04` | `ba7223fe8238e47703c8da983aa6ba3d8fa73526` |
-| `CSHARP-03-T03-W05` | `Complete` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W05` | `SELF` |
-| `CSHARP-03-T03-W06` | `Ready` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W06` | `—` |
-| `CSHARP-03-T03-W07` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W07` | `—` |
+| `CSHARP-03-T03-W05` | `Complete` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W05` | `381a20a54249e4a1f38e0edea6f4ce1ac9de3d50` |
+| `CSHARP-03-T03-W06` | `Complete` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W06` | `SELF` |
+| `CSHARP-03-T03-W07` | `Ready` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W07` | `—` |
 | `CSHARP-03-T03-W08` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W08` | `—` |
 | `CSHARP-03-T03-W09` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W09` | `—` |
 | `CSHARP-03-T03-W10` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_codecs.rs#CSHARP-03-T03-W10` | `—` |
@@ -3880,3 +3881,103 @@ consistent task statuses. The local pinned harnesses are private frontend
 evidence, not a native release-gate receipt.
 
 T03-W06 is the sole ready item.
+
+
+## 28. CSHARP-03-T03-W06 completion record
+
+### 28.1 Shared structural specialization
+
+`generate_structural_program` specializes a concrete T02 type into a shared
+DAG of scalar, stored-product, sequence, canonical-entry, and active-payload
+recipes. Contract equality, canonical comparison and map/set ordering use the
+same recursive evaluator. Decimal compares mathematical values across scale
+and signed-zero encodings; GUID follows unsigned N-text field order; strings
+compare UTF-16 code units; products retain stored declaration order. Nullable
+references project to option values, with null first. Sequences compare elements
+before length, sums compare tags before active payloads, money compares currency
+before amount, and transitions compare state/events/response.
+
+IEEE equality preserves non-reflexive NaN and equal signed zeros, including
+nested values. The whole concrete type determines order eligibility before
+value inspection: empty float sequences and absent float options still reject
+canonical comparison. Closed-operation signature validation applies the same
+matrix. Canonical map/set validation shares the comparison engine and rejects
+unsorted and numerically duplicate decimal keys. Unknown types, construction
+tokens, mismatched operand types and malformed values fail closed.
+
+`PracticalStructural.cs` projects the W06 source types to the T02 descriptor
+vocabulary without implementing a second comparison engine. The pinned source
+fixture covers all 19 available primitive/business scalar types, enum aliases,
+readonly structs, sealed classes, init properties, nullable references/value
+types and array type declarations. The executable Roslyn harness checks its
+exact projection against `source-routes.json`; the Rust routing test passes
+those projections through T02 validation and the production generator. The
+fixture's explicit pure helper retains its original captured body and direct
+call. It is not replaced by a structural-equality assertion, and its
+field-completeness is not assumed. Source primitive/string operators remain
+captured operations. W06 also records a typed `structural_equal` handoff
+for each source `==`/`!=`, retaining left then right evaluation exactly once,
+nullable reference adaptation and final negation for `!=`. Exact ordinal
+static and instance `String.Equals` overloads use that same handoff; instance
+calls retain the receiver-null check after argument evaluation. CLR identity,
+virtual equality and hashing reject.
+
+The source normalizer handles Roslyn's implicit object conversions only for
+reference/null equality by retaining the exact nullable reference operand type.
+No object value or boxing form is added. `CSharpPracticalStructural.Validate`
+is the explicit W06 entry; the earlier W03-W05 entry points preserve their
+reference/null rejection boundary. W07-W13 must extend the same projection
+and generator routing tests for newly admitted source forms; W14 owns final
+actual-source completeness. Core proof discharge remains with T06. This work
+adds no installed frontend, public schema, registry entry or success envelope.
+
+### 28.2 Ownership and verification
+
+`crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W06` executes all
+23 frozen `ordering` vectors and owns the source-routing, finite-domain algebra,
+recursive NaN, declaration-order, enum, decimal/GUID/null/UTF-16, canonical
+collection and business/sum regressions. The pinned .NET checks mirror numeric
+and ordinal corner rules under invariant, comma and Arabic decimal separators with a hostile negative sign. The new
+`structural-inputs.json` binds production frontend code, source fixture,
+projection and harness bytes. Existing capture/syntax/types/construction/initialization
+manifests are rebound; earlier receipts remain historical. The wrapper's
+`--test-structural` route uses the existing pinned offline Linux/amd64 runner.
+Its self-test rejects changed hashes, sizes, paths and file count.
+
+### 28.3 Review and verification
+
+Review corrections preserve the earlier phase rejection boundary, add explicit
+source operator/ordinal-equality handoffs with receiver-null timing, and peel
+parenthesized invocations before the existing exact-intrinsic-argument check.
+The source regressions execute the affected forms and retain identity/hash and
+non-ordinal rejections. Total-key signature traversal memoizes shared type DAGs.
+The full diff review covers shared recursive semantics, type-based rejection,
+source projection/operation routing, private manifests/runners and task statuses.
+Final review findings: `0`.
+
+| Verification | Result |
+| --- | --- |
+| Rust capture/syntax/types owners | pass: 27 tests, including all 23 frozen ordering vectors |
+| Rust implementation inventory | pass: 4 tests |
+| Pinned `--test-structural` and `--test-capture` | pass, including parenthesized ordinal calls |
+| Pinned `--test-syntax`, `--test-types`, `--test-construction`, `--test-initialization` | pass |
+| `--self-test` and `--check-build-inputs` | pass |
+| `cargo fmt --all -- --check` and `/usr/bin/git diff --check` | pass |
+
+`./scripts/check-fast.sh` passed: formatting, strict source scan, warning-denied
+lint, workspace tests, CLI build and accepted/rejected certificate fixtures.
+The pinned tests run offline on Linux/amd64 with the repository read-only;
+these are private frontend checks, not a native release-gate receipt.
+
+Final manifest SHA-256 receipts:
+
+| Manifest | SHA-256 |
+| --- | --- |
+| `capture-inputs.json` | `c8059dd9769bf284363f8012d64d80606a49203eb7a5f0d3239fdfd535dc9007` |
+| `syntax-inputs.json` | `619673fd89eab5158f50ddd7e693808a93999ea5fc0715ff7a9dc58d98bd9054` |
+| `types-inputs.json` | `cd23b3ad86322f029a25eaf002779f17ca6537febad923abacee8dfadd6980aa` |
+| `construction-inputs.json` | `ab5f2e6709c6978aa01a5b8d5e8469c4240cde003b49de32cf43f29de20fde28` |
+| `initialization-inputs.json` | `eb7318587c943267555f3d4cee5d99d58e273ee0b10c46fc4feb4d7ec557af4b` |
+| `structural-inputs.json` | `172872a7ef8dbd2c191c51202c6094eec08a77f921ebb133b7b0328432114363` |
+
+T03-W07 is the sole ready item.

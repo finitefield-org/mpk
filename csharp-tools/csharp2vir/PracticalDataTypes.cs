@@ -123,15 +123,16 @@ internal static class CSharpPracticalDataTypes
         Action<CSharpCompilation, PracticalSourceClosure, IReadOnlyList<PracticalDataType>>? validateConstruction = null,
         Action<CSharpCompilation>? validateConstructorLimits = null,
         Action<CSharpCompilation>? validateSignatures = null,
-        bool deferDeclaredInvariantProof = false, bool allowInitializerConstruction = false)
+        bool deferDeclaredInvariantProof = false, bool allowInitializerConstruction = false,
+        bool allowStructuralEquality = false)
     {
         try
         {
             if (selection is null) { throw PracticalFailures.Protocol("selection_shape"); }
-            if ((deferDeclaredInvariantProof || allowInitializerConstruction) && validateConstruction is null)
+            if ((deferDeclaredInvariantProof || allowInitializerConstruction || allowStructuralEquality) && validateConstruction is null)
             { throw PracticalFailures.Protocol("missing_invariant_obligation_consumer"); }
             var model = new DataModel(selection.SidecarPaths.Count != 0 || deferDeclaredInvariantProof,
-                deferDeclaredInvariantProof, allowInitializerConstruction);
+                deferDeclaredInvariantProof, allowInitializerConstruction, allowStructuralEquality);
             PracticalNormalizedSyntax syntax = CSharpPracticalSyntaxNormalizer.Normalize(
                 selection, inputs, references,
                 current => { model.ValidateDeclarations(current); validateSignatures?.Invoke(current); },
@@ -206,16 +207,18 @@ internal static class CSharpPracticalDataTypes
         private readonly bool hasSidecars;
         private readonly bool deferDeclaredInvariantProof;
         private readonly bool allowInitializerConstruction;
+        private readonly bool allowStructuralEquality;
         private readonly List<TypeRecord> records = new();
         private readonly Dictionary<ISymbol, TypeRecord> bySymbol = new(SymbolEqualityComparer.Default);
         private readonly List<TypeRecord> ordered = new();
         private CSharpCompilation compilation = null!;
         private PracticalDataType? dayOfWeek;
 
-        internal DataModel(bool hasSidecars, bool deferDeclaredInvariantProof, bool allowInitializerConstruction)
+        internal DataModel(bool hasSidecars, bool deferDeclaredInvariantProof, bool allowInitializerConstruction, bool allowStructuralEquality)
         {
             this.hasSidecars = hasSidecars; this.deferDeclaredInvariantProof = deferDeclaredInvariantProof;
             this.allowInitializerConstruction = allowInitializerConstruction;
+            this.allowStructuralEquality = allowStructuralEquality;
         }
 
         internal void ValidateLimits(CSharpCompilation current)
@@ -681,7 +684,10 @@ internal static class CSharpPracticalDataTypes
                         case ICompoundAssignmentOperation compound when Enum(UnwrapOptional(compound.Target.Type)):
                             throw PracticalFailures.Type("enum_arithmetic");
                         case IBinaryOperation binary when binary.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals
-                            && (ClassIdentity(binary.LeftOperand.Type) || ClassIdentity(binary.RightOperand.Type)):
+                            && (ClassIdentity(binary.LeftOperand.Type) || ClassIdentity(binary.RightOperand.Type))
+                            && (!allowStructuralEquality
+                                || (!(binary.LeftOperand.ConstantValue.HasValue && binary.LeftOperand.ConstantValue.Value is null)
+                                    && !(binary.RightOperand.ConstantValue.HasValue && binary.RightOperand.ConstantValue.Value is null))):
                             throw PracticalFailures.Type("class_identity");
                         case ISimpleAssignmentOperation assignment:
                             ValidateWrite(assignment.Target, expression, model, publishedAliases, publications);

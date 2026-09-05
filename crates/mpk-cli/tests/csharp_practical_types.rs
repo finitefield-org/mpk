@@ -381,3 +381,50 @@ fn csharp_03_t03_w05_initialization_manifest_and_private_route() {
 fn csharp_03_t03_w05_pinned_initialization_harness() {
     run_pinned_harness("--test-initialization");
 }
+
+#[path = "support/csharp_practical_structural.rs"]
+mod structural;
+
+#[test]
+fn csharp_03_t03_w06_pinned_structural_harness() {
+    run_pinned_harness("--test-structural");
+}
+
+#[test]
+fn csharp_03_t03_w06_manifest_and_private_route() {
+    let path = "develop/migrations/csharp-03/structural/structural-inputs.json";
+    let manifest = json(path);
+    let mut canonical = serde_json::to_vec(&manifest).unwrap();
+    canonical.push(b'\n');
+    assert_eq!(canonical, read(path));
+    assert_eq!(manifest["work_item"], "CSHARP-03-T03-W06");
+    assert_eq!(
+        manifest["schema"],
+        "mpk.csharp_practical.t03_w06.structural_inputs.v1"
+    );
+    let expected = [
+        "crates/mpk-cli/tests/csharp_practical_structural_harness.cs",
+        "csharp-tools/csharp2vir/PracticalCapture.cs",
+        "csharp-tools/csharp2vir/PracticalConstruction.cs",
+        "csharp-tools/csharp2vir/PracticalDataTypes.cs",
+        "csharp-tools/csharp2vir/PracticalStructural.cs",
+        "csharp-tools/csharp2vir/PracticalSyntaxNormalization.cs",
+        "develop/migrations/csharp-03/structural/source-routes.json",
+        "develop/migrations/csharp-03/structural/source.cs",
+    ];
+    assert_eq!(manifest["files"].as_array().unwrap().len(), expected.len());
+    for (record, path) in manifest["files"].as_array().unwrap().iter().zip(expected) {
+        let bytes = read(path);
+        assert_eq!(record["path"], path);
+        assert_eq!(record["size_bytes"], bytes.len());
+        assert_eq!(record["sha256"], format!("{:x}", Sha256::digest(bytes)));
+    }
+    for path in [
+        "csharp-tools/csharp2vir/csharp2vir.csproj",
+        "csharp-tools/csharp2vir/Program.cs",
+        "develop/migrations/csharp-03/build-inputs/build-inputs.json",
+    ] {
+        assert!(!text(path).contains("PracticalStructural"));
+    }
+    assert!(text("scripts/build-csharp-practical-frontend.sh").contains("--test-structural"));
+}

@@ -1377,6 +1377,27 @@ internal static class CSharpPracticalSyntaxNormalizer
             private string CanonicalOperationType(IOperation operation)
             {
                 ITypeSymbol type = operation.Type!;
+                // W06: Roslyn inserts object reference conversions for a
+                // class/array null comparison. Retain the exact operand's
+                // nullable value type; object itself never enters the model.
+                if (type.SpecialType == SpecialType.System_Object
+                    && operation is IConversionOperation { IsImplicit: true }
+                    && operation.Parent is IBinaryOperation binary
+                    && binary.OperatorMethod is null
+                    && binary.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals
+                    && ((binary.LeftOperand.ConstantValue.HasValue && binary.LeftOperand.ConstantValue.Value is null)
+                        || (binary.RightOperand.ConstantValue.HasValue && binary.RightOperand.ConstantValue.Value is null)))
+                {
+                    foreach (IOperation operand in new[] { binary.LeftOperand, binary.RightOperand })
+                    {
+                        IOperation exact = operand;
+                        while (exact is IConversionOperation { IsImplicit: true } conversion) { exact = conversion.Operand; }
+                        if (exact.Type is ITypeSymbol reference && reference.IsReferenceType
+                            && reference.SpecialType != SpecialType.System_Object)
+                        { return syntaxModel.NormalizeType(reference.WithNullableAnnotation(NullableAnnotation.Annotated)).CanonicalKey; }
+                    }
+                }
+
                 // Roslyn's default-value operation can erase the reference
                 // annotation. Recover it from the exact admitted type syntax,
                 // never from a target or nullable-flow guess.

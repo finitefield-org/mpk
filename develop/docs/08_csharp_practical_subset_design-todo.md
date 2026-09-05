@@ -33,7 +33,7 @@ expansion (ledger section 11). Both checkers accept all W09 capacity cases
 through each frozen limit plus one without a core change. W10 publishes the
 normative but inactive specifications and 700 vectors.
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
-`CSHARP-03-T03-W01/W02/W03/W04/W05` are complete, `CSHARP-03-T03-W06` is ready, and every
+`CSHARP-03-T03-W01/W02/W03/W04/W05/W06` are complete, `CSHARP-03-T03-W07` is ready, and every
 later implementation work item remains blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
@@ -111,7 +111,8 @@ normalization; see ledger section 24. T03-W03 then completed private immutable
 data declarations, enums, type graphs, and recursive defaults; see ledger
 section 25. T03-W04 adds construction and invariant handoffs; see ledger
 section 26. T03-W05 adds initializer transactions and finalization; see
-section 27. T03-W06 is ready. This
+section 27. T03-W06 adds shared structural equality and canonical ordering; see
+section 28. T03-W07 is ready. This
 file remains planning material. W01 added its baseline and ledger; W02 added
 only the private consumer inventory, owner tests, ledger evidence, and current-
 status documentation; W03 added only private build-input evidence and its
@@ -163,7 +164,8 @@ its exact input manifest, executable C# harness, owner tests, and status
 evidence. T03-W04 adds private constructor flow analysis, synthesized-member IL
 checks, receiver-first functions, and pending type-invariant obligations.
 T03-W05 adds ordered init/required transactions and finalization.
-The next serial work is T03-W06's structural equality and canonical ordering.
+T03-W06 adds shared structural equality and canonical ordering.
+The next serial work is T03-W07's explicit array ownership.
 
 The following are unconditional stop conditions:
 
@@ -1110,7 +1112,7 @@ and source-order assertions.
 
 Depends on: T03-W05.
 
-Current status: `Ready`.
+Current status: `Complete`.
 
 Owns: internal `structural_equal` and `canonical_compare` over every admitted
 recursive value, null, decimal, GUID, sequences, structural products, enums,
@@ -1137,6 +1139,8 @@ admitted actual-source types.
 ### CSHARP-03-T03-W07 — Lower arrays with explicit ownership
 
 Depends on: T03-W06.
+
+Current status: `Ready`.
 
 Owns: fixed/bounded allocation, default-eligible versus fully initialized
 elements, reads/writes/length/index checks, alias rules, active-foreach

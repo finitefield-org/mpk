@@ -2189,6 +2189,9 @@ pub fn validate_closed_operation_signature(
         }
         ClosedOperationTag::CanonicalCompare => {
             validate_same_type_binary(signature, I32_TYPE_ID)?;
+            if !structural::concrete_total(roots, closed_set, &signature.argument_type_ids[0]) {
+                return Err(vir_failure(phase, PracticalVirErrorCode::OperandType));
+            }
         }
         ClosedOperationTag::BoundaryParse => {
             validate_boundary_parse_signature(closed_set, signature)?;
@@ -5738,10 +5741,26 @@ fn ensure_strictly_increasing<'a>(
     Ok(())
 }
 
+// W06: map/set canonicalization and contract operations share this evaluator.
 fn compare_monomorphic_values(
     bundle: &ValidatedFoundationBundle,
     roots: &ValidatedClosedRootSet,
     closed_set: &ClosedInstanceSet,
+    left: &MonomorphicValue,
+    right: &MonomorphicValue,
+) -> Result<Ordering, FoundationValidationError> {
+    let program = generate_structural_program(bundle, roots, closed_set, left.type_id())?;
+    if !program.is_total() {
+        return Err(value_failure(FoundationErrorCode::NonTotalKey));
+    }
+    relate_monomorphic_values(bundle, roots, closed_set, false, left, right)
+}
+
+fn relate_monomorphic_values(
+    bundle: &ValidatedFoundationBundle,
+    roots: &ValidatedClosedRootSet,
+    closed_set: &ClosedInstanceSet,
+    equality_only: bool,
     left: &MonomorphicValue,
     right: &MonomorphicValue,
 ) -> Result<Ordering, FoundationValidationError> {
@@ -5798,7 +5817,7 @@ fn compare_monomorphic_values(
         (
             MonomorphicValue::Product { fields: left, .. },
             MonomorphicValue::Product { fields: right, .. },
-        ) => compare_named_values(bundle, roots, closed_set, left, right)?,
+        ) => compare_named_values(bundle, roots, closed_set, equality_only, left, right)?,
         (
             MonomorphicValue::Array { elements: left, .. },
             MonomorphicValue::Array {
@@ -5828,7 +5847,7 @@ fn compare_monomorphic_values(
             MonomorphicValue::OrderedSet {
                 elements: right, ..
             },
-        ) => compare_value_slices(bundle, roots, closed_set, left, right)?,
+        ) => compare_value_slices(bundle, roots, closed_set, equality_only, left, right)?,
         (
             MonomorphicValue::OrderedEntry {
                 key: left_key,
@@ -5844,15 +5863,14 @@ fn compare_monomorphic_values(
             bundle,
             roots,
             closed_set,
-            left_key,
-            right_key,
-            left_value,
-            right_value,
+            equality_only,
+            (left_key, right_key),
+            (left_value, right_value),
         )?,
         (
             MonomorphicValue::OrderedMap { entries: left, .. },
             MonomorphicValue::OrderedMap { entries: right, .. },
-        ) => compare_map_entries(bundle, roots, closed_set, left, right)?,
+        ) => compare_map_entries(bundle, roots, closed_set, equality_only, left, right)?,
         (
             MonomorphicValue::Option {
                 arm: left_arm,
@@ -5868,10 +5886,9 @@ fn compare_monomorphic_values(
             bundle,
             roots,
             closed_set,
-            option_rank(*left_arm),
-            left_value.as_deref(),
-            option_rank(*right_arm),
-            right_value.as_deref(),
+            equality_only,
+            (option_rank(*left_arm), left_value.as_deref()),
+            (option_rank(*right_arm), right_value.as_deref()),
         )?,
         (
             MonomorphicValue::TaggedSum {
@@ -5891,7 +5908,14 @@ fn compare_monomorphic_values(
             if rank != Ordering::Equal {
                 rank
             } else {
-                compare_value_slices(bundle, roots, closed_set, left_payload, right_payload)?
+                compare_value_slices(
+                    bundle,
+                    roots,
+                    closed_set,
+                    equality_only,
+                    left_payload,
+                    right_payload,
+                )?
             }
         }
         (
@@ -5909,10 +5933,9 @@ fn compare_monomorphic_values(
             bundle,
             roots,
             closed_set,
-            boundary_rank(*left_arm),
-            left_value.as_deref(),
-            boundary_rank(*right_arm),
-            right_value.as_deref(),
+            equality_only,
+            (boundary_rank(*left_arm), left_value.as_deref()),
+            (boundary_rank(*right_arm), right_value.as_deref()),
         )?,
         (
             MonomorphicValue::Date {
@@ -5957,10 +5980,9 @@ fn compare_monomorphic_values(
             bundle,
             roots,
             closed_set,
-            left_currency,
-            right_currency,
-            left_amount,
-            right_amount,
+            equality_only,
+            (left_currency, right_currency),
+            (left_amount, right_amount),
         )?,
         (
             MonomorphicValue::Transition {
@@ -5976,20 +5998,33 @@ fn compare_monomorphic_values(
                 ..
             },
         ) => {
-            let state =
-                compare_monomorphic_values(bundle, roots, closed_set, left_state, right_state)?;
+            let state = relate_monomorphic_values(
+                bundle,
+                roots,
+                closed_set,
+                equality_only,
+                left_state,
+                right_state,
+            )?;
             if state != Ordering::Equal {
                 state
             } else {
-                let events =
-                    compare_value_slices(bundle, roots, closed_set, left_events, right_events)?;
+                let events = compare_value_slices(
+                    bundle,
+                    roots,
+                    closed_set,
+                    equality_only,
+                    left_events,
+                    right_events,
+                )?;
                 if events != Ordering::Equal {
                     events
                 } else {
-                    compare_monomorphic_values(
+                    relate_monomorphic_values(
                         bundle,
                         roots,
                         closed_set,
+                        equality_only,
                         left_response,
                         right_response,
                     )?
@@ -6000,6 +6035,61 @@ fn compare_monomorphic_values(
             MonomorphicValue::ParseError { arm: left, .. },
             MonomorphicValue::ParseError { arm: right, .. },
         ) => parse_error_rank(*left).cmp(&parse_error_rank(*right)),
+        (
+            MonomorphicValue::ClosedException {
+                tag: lt,
+                source_type_id: ls,
+                payload: lp,
+                ..
+            },
+            MonomorphicValue::ClosedException {
+                tag: rt,
+                source_type_id: rs,
+                payload: rp,
+                ..
+            },
+        ) if equality_only => {
+            if lt != rt || ls != rs {
+                Ordering::Less
+            } else {
+                compare_optional_arm(
+                    bundle,
+                    roots,
+                    closed_set,
+                    true,
+                    (0, lp.as_deref()),
+                    (0, rp.as_deref()),
+                )?
+            }
+        }
+        (
+            MonomorphicValue::F32Bits { bits: left, .. },
+            MonomorphicValue::F32Bits { bits: right, .. },
+        ) if equality_only => {
+            let left = u32::from_str_radix(left, 16)
+                .map_err(|_| value_failure(FoundationErrorCode::ConcreteValueInvariant))?;
+            let right = u32::from_str_radix(right, 16)
+                .map_err(|_| value_failure(FoundationErrorCode::ConcreteValueInvariant))?;
+            if f32::from_bits(left) == f32::from_bits(right) {
+                Ordering::Equal
+            } else {
+                Ordering::Less
+            }
+        }
+        (
+            MonomorphicValue::F64Bits { bits: left, .. },
+            MonomorphicValue::F64Bits { bits: right, .. },
+        ) if equality_only => {
+            let left = u64::from_str_radix(left, 16)
+                .map_err(|_| value_failure(FoundationErrorCode::ConcreteValueInvariant))?;
+            let right = u64::from_str_radix(right, 16)
+                .map_err(|_| value_failure(FoundationErrorCode::ConcreteValueInvariant))?;
+            if f64::from_bits(left) == f64::from_bits(right) {
+                Ordering::Equal
+            } else {
+                Ordering::Less
+            }
+        }
         (
             MonomorphicValue::F32Bits { .. }
             | MonomorphicValue::F64Bits { .. }
@@ -6015,6 +6105,7 @@ fn compare_named_values(
     bundle: &ValidatedFoundationBundle,
     roots: &ValidatedClosedRootSet,
     closed_set: &ClosedInstanceSet,
+    equality_only: bool,
     left: &[NamedMonomorphicValue],
     right: &[NamedMonomorphicValue],
 ) -> Result<Ordering, FoundationValidationError> {
@@ -6027,8 +6118,14 @@ fn compare_named_values(
         return Err(value_failure(FoundationErrorCode::ConcreteValueInvariant));
     }
     for (left, right) in left.iter().zip(right) {
-        let ordering =
-            compare_monomorphic_values(bundle, roots, closed_set, &left.value, &right.value)?;
+        let ordering = relate_monomorphic_values(
+            bundle,
+            roots,
+            closed_set,
+            equality_only,
+            &left.value,
+            &right.value,
+        )?;
         if ordering != Ordering::Equal {
             return Ok(ordering);
         }
@@ -6040,11 +6137,13 @@ fn compare_value_slices(
     bundle: &ValidatedFoundationBundle,
     roots: &ValidatedClosedRootSet,
     closed_set: &ClosedInstanceSet,
+    equality_only: bool,
     left: &[MonomorphicValue],
     right: &[MonomorphicValue],
 ) -> Result<Ordering, FoundationValidationError> {
     for (left, right) in left.iter().zip(right) {
-        let ordering = compare_monomorphic_values(bundle, roots, closed_set, left, right)?;
+        let ordering =
+            relate_monomorphic_values(bundle, roots, closed_set, equality_only, left, right)?;
         if ordering != Ordering::Equal {
             return Ok(ordering);
         }
@@ -6056,16 +6155,29 @@ fn compare_pair(
     bundle: &ValidatedFoundationBundle,
     roots: &ValidatedClosedRootSet,
     closed_set: &ClosedInstanceSet,
-    left_first: &MonomorphicValue,
-    right_first: &MonomorphicValue,
-    left_second: &MonomorphicValue,
-    right_second: &MonomorphicValue,
+    equality_only: bool,
+    first_pair: (&MonomorphicValue, &MonomorphicValue),
+    second_pair: (&MonomorphicValue, &MonomorphicValue),
 ) -> Result<Ordering, FoundationValidationError> {
-    let first = compare_monomorphic_values(bundle, roots, closed_set, left_first, right_first)?;
+    let first = relate_monomorphic_values(
+        bundle,
+        roots,
+        closed_set,
+        equality_only,
+        first_pair.0,
+        first_pair.1,
+    )?;
     if first != Ordering::Equal {
         Ok(first)
     } else {
-        compare_monomorphic_values(bundle, roots, closed_set, left_second, right_second)
+        relate_monomorphic_values(
+            bundle,
+            roots,
+            closed_set,
+            equality_only,
+            second_pair.0,
+            second_pair.1,
+        )
     }
 }
 
@@ -6073,6 +6185,7 @@ fn compare_map_entries(
     bundle: &ValidatedFoundationBundle,
     roots: &ValidatedClosedRootSet,
     closed_set: &ClosedInstanceSet,
+    equality_only: bool,
     left: &[MonomorphicMapEntry],
     right: &[MonomorphicMapEntry],
 ) -> Result<Ordering, FoundationValidationError> {
@@ -6081,10 +6194,9 @@ fn compare_map_entries(
             bundle,
             roots,
             closed_set,
-            &left.key,
-            &right.key,
-            &left.value,
-            &right.value,
+            equality_only,
+            (&left.key, &right.key),
+            (&left.value, &right.value),
         )?;
         if ordering != Ordering::Equal {
             return Ok(ordering);
@@ -6097,19 +6209,18 @@ fn compare_optional_arm(
     bundle: &ValidatedFoundationBundle,
     roots: &ValidatedClosedRootSet,
     closed_set: &ClosedInstanceSet,
-    left_rank: u8,
-    left_value: Option<&MonomorphicValue>,
-    right_rank: u8,
-    right_value: Option<&MonomorphicValue>,
+    equality_only: bool,
+    left: (u8, Option<&MonomorphicValue>),
+    right: (u8, Option<&MonomorphicValue>),
 ) -> Result<Ordering, FoundationValidationError> {
-    let rank = left_rank.cmp(&right_rank);
+    let rank = left.0.cmp(&right.0);
     if rank != Ordering::Equal {
         return Ok(rank);
     }
-    match (left_value, right_value) {
+    match (left.1, right.1) {
         (None, None) => Ok(Ordering::Equal),
         (Some(left), Some(right)) => {
-            compare_monomorphic_values(bundle, roots, closed_set, left, right)
+            relate_monomorphic_values(bundle, roots, closed_set, equality_only, left, right)
         }
         _ => Err(value_failure(FoundationErrorCode::ConcreteValueInvariant)),
     }
@@ -6563,3 +6674,7 @@ mod tests {
         }
     }
 }
+
+#[path = "csharp_practical_structural.rs"]
+mod structural;
+pub use structural::{generate_structural_program, StructuralProgram, StructuralRecipe};

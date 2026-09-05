@@ -2048,6 +2048,9 @@ internal static class CSharpPracticalCapture
             return true;
         }
 
+        // A parenthesized invocation can itself resolve to the method symbol.
+        // Find the actual call before checking its exact intrinsic arguments.
+        while (syntax is ParenthesizedExpressionSyntax parentheses) { syntax = parentheses.Expression; }
         InvocationExpressionSyntax? invocation = syntax.AncestorsAndSelf()
             .OfType<InvocationExpressionSyntax>()
             .FirstOrDefault(candidate =>

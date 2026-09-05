@@ -46,6 +46,13 @@ internal sealed class PracticalTypeInvariantClaim
     internal PracticalInvariantExpression? Construction { get; }
     internal IReadOnlyList<PracticalInvariantExpression> Invariants { get; }
 }
+// W06: evaluate Left, then Right, once each, adapt references to option,
+// invoke the one concrete structural_equal recipe, then negate only for !=.
+internal sealed record PracticalSourceEquality(string Site, PracticalNormalizedType OperandType,
+    IOperation Left, IOperation Right, bool Negated, bool NullCheckAfterArguments = false)
+{
+    internal string Operation => "structural_equal";
+}
 internal sealed record PracticalConstructionStep(string Kind, string Target, int Ordinal);
 internal sealed record PracticalConstructionBlock(int Ordinal, uint DefinitelyAssigned,
     uint PossiblyAssigned, IReadOnlyList<PracticalConstructionStep> Steps,
@@ -79,7 +86,7 @@ internal sealed class PracticalConstruction
 {
     internal PracticalConstruction(PracticalDataTypes data, PracticalConstructorPlan[] constructors,
         PracticalDirectCall[] calls, PracticalInvariantObligation[] obligations, PracticalReceiverFunction[] functions,
-        PracticalInitializationPlan[] initializations)
+        PracticalInitializationPlan[] initializations, PracticalSourceEquality[] sourceEqualities)
     {
         Data = data;
         Constructors = Array.AsReadOnly(constructors);
@@ -87,6 +94,7 @@ internal sealed class PracticalConstruction
         Functions = Array.AsReadOnly(functions);
         Obligations = Array.AsReadOnly(obligations);
         Initializations = Array.AsReadOnly(initializations);
+        SourceEqualities = Array.AsReadOnly(sourceEqualities);
     }
     internal PracticalDataTypes Data { get; }
     internal IReadOnlyList<PracticalConstructorPlan> Constructors { get; }
@@ -94,6 +102,7 @@ internal sealed class PracticalConstruction
     internal IReadOnlyList<PracticalReceiverFunction> Functions { get; }
     internal IReadOnlyList<PracticalInvariantObligation> Obligations { get; }
     internal IReadOnlyList<PracticalInitializationPlan> Initializations { get; }
+    internal IReadOnlyList<PracticalSourceEquality> SourceEqualities { get; }
     internal int ArtifactCount => 0;
 }
 
@@ -103,11 +112,12 @@ internal static class CSharpPracticalConstruction
 
     internal static PracticalConstruction Validate(PracticalSourceSelection selection,
         IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references,
-        IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims = null, bool allowInitializers = false)
+        IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims = null, bool allowInitializers = false,
+        bool allowStructuralEquality = false)
     {
         try
         {
-            var model = new Model(allowInitializers);
+            var model = new Model(allowInitializers, allowStructuralEquality);
             PracticalDataTypes data = CSharpPracticalDataTypes.Validate(selection, inputs, references,
                 (current, closure, types) =>
                 {
@@ -115,7 +125,7 @@ internal static class CSharpPracticalConstruction
                     if (closure.Sidecars.Count != 0) { throw PracticalFailures.Object("unbound_invariant"); }
                     model.Finish(types, closure, invariantClaims);
                 }, ValidateLimits, ValidateSignatures, deferDeclaredInvariantProof: invariantClaims is not null,
-                allowInitializerConstruction: allowInitializers);
+                allowInitializerConstruction: allowInitializers, allowStructuralEquality: allowStructuralEquality);
             return model.Build(data);
         }
         catch (PracticalCaptureFailure) { throw; }
@@ -178,7 +188,10 @@ internal static class CSharpPracticalConstruction
     private sealed class Model
     {
         private readonly bool allowInitializers;
-        internal Model(bool allowInitializers) { this.allowInitializers = allowInitializers; }
+        private readonly bool allowStructuralEquality;
+        private readonly List<PracticalSourceEquality> sourceEqualities = new();
+        internal Model(bool allowInitializers, bool allowStructuralEquality)
+        { this.allowInitializers = allowInitializers; this.allowStructuralEquality = allowStructuralEquality; }
         private readonly List<(IObjectCreationOperation Operation, INamedTypeSymbol Type, PracticalConstructorPlan Constructor)> initializers = new();
         private readonly List<PracticalInitializationPlan> initializationPlans = new();
         private CSharpCompilation compilation = null!;
@@ -234,6 +247,10 @@ internal static class CSharpPracticalConstruction
                 SemanticModel model = compilation.GetSemanticModel(tree);
                 foreach (SyntaxNode node in tree.GetRoot().DescendantNodes())
                 {
+                    if (allowStructuralEquality && node is BinaryExpressionSyntax
+                        && model.GetOperation(node) is IBinaryOperation comparison
+                        && comparison.OperatorKind is BinaryOperatorKind.Equals or BinaryOperatorKind.NotEquals)
+                    { AddEquality(comparison); }
                     if (node is InvocationExpressionSyntax && model.GetOperation(node) is IInvocationOperation call)
                     { AddCall(call); }
                     if (node is DefaultExpressionSyntax && model.GetTypeInfo(node).Type is INamedTypeSymbol defaultType
@@ -260,6 +277,27 @@ internal static class CSharpPracticalConstruction
                     }
                 }
             }
+        }
+
+        private void AddEquality(IBinaryOperation comparison)
+        {
+            ITypeSymbol? type = comparison.LeftOperand.Type ?? comparison.RightOperand.Type;
+            if (type?.SpecialType == SpecialType.System_Object)
+            {
+                // Only reference/null comparison reaches W06 through the data gate.
+                type = null;
+                foreach (IOperation operand in new[] { comparison.LeftOperand, comparison.RightOperand })
+                {
+                    IOperation exact = operand;
+                    while (exact is IConversionOperation { IsImplicit: true } conversion) { exact = conversion.Operand; }
+                    if (exact.Type?.IsReferenceType == true && exact.Type.SpecialType != SpecialType.System_Object)
+                    { type = exact.Type; break; }
+                }
+            }
+            if (type is null) { throw PracticalFailures.Type("structural_operand"); }
+            if (type.IsReferenceType) { type = type.WithNullableAnnotation(NullableAnnotation.Annotated); }
+            sourceEqualities.Add(new(Site(comparison.Syntax), PracticalExactTypeNormalizer.Normalize(type, compilation),
+                comparison.LeftOperand, comparison.RightOperand, comparison.OperatorKind == BinaryOperatorKind.NotEquals));
         }
 
         private static bool IsAuto(IPropertySymbol property) =>
@@ -497,6 +535,17 @@ internal static class CSharpPracticalConstruction
         private void AddCall(IInvocationOperation call)
         {
             IMethodSymbol method = call.TargetMethod;
+            if (allowStructuralEquality && method.DeclaringSyntaxReferences.IsEmpty
+                && method.ContainingType.SpecialType == SpecialType.System_String && method.Name == "Equals")
+            {
+                // Capture has already validated the exact ordinal overload and
+                // intrinsic constant. Its ordinal argument has no runtime effect.
+                IOperation left = method.IsStatic ? call.Arguments[0].Value : call.Instance!;
+                IOperation right = call.Arguments[method.IsStatic ? 1 : 0].Value;
+                sourceEqualities.Add(new(Site(call.Syntax), PracticalExactTypeNormalizer.Normalize(
+                    method.ContainingType.WithNullableAnnotation(NullableAnnotation.Annotated), compilation),
+                    left, right, false, NullCheckAfterArguments: !method.IsStatic));
+            }
             if (method.DeclaringSyntaxReferences.IsEmpty) { return; }
             ValidateArguments(call.Arguments, method);
             if (call.IsVirtual || method.IsAbstract || method.IsVirtual || method.IsOverride || method.ReducedFrom is not null)
@@ -640,7 +689,7 @@ internal static class CSharpPracticalConstruction
         private PracticalInvariantObligation[] completedObligations = Array.Empty<PracticalInvariantObligation>();
         internal PracticalConstruction Build(PracticalDataTypes data) => new(data,
             plans.Values.OrderBy(plan => plan.Id, StringComparer.Ordinal).ToArray(),
-            calls.ToArray(), completedObligations, ReceiverFunctions(data), initializationPlans.ToArray());
+            calls.ToArray(), completedObligations, ReceiverFunctions(data), initializationPlans.ToArray(), sourceEqualities.ToArray());
 
         private PracticalReceiverFunction[] ReceiverFunctions(PracticalDataTypes data)
         {
