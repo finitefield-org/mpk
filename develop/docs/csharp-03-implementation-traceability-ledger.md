@@ -2,7 +2,7 @@
 
 Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10`,
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09`, and
-`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09` complete (2026-09-06). The entry audit, consumer
+`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10` complete (2026-09-06). The entry audit, consumer
 inventory, private frontend/toolchain closure proof,
 Roslyn shape probes, primitive/string/numeric/codec runtime measurements and
 candidate foundation/specialization/binding/data semantics and the successor
@@ -48,7 +48,8 @@ equality and canonical ordering over concrete descriptors.
 T03-W07 adds ordered array bounds, initialization and ownership plans.
 T03-W08 adds typed sequence plans, wrapper projection and construction elimination.
 T03-W09 adds ordered map/set projection and typed operation handoffs.
-`CSHARP-03-T03-W10` is ready and all later implementation items remain serially blocked. No public production acceptance
+T03-W10 adds UTF-16 string plans and the shared typed boundary codec relation.
+`CSHARP-03-T03-W11` is ready and all later implementation items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
 This ledger is subordinate to
@@ -108,9 +109,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T03-W06` | `Complete` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W06` | `47bde686b1ffd209cf981d5614836e09b4ed9fe6` |
 | `CSHARP-03-T03-W07` | `Complete` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W07` | `dc36a561b7b445d450374663af8a96aa63ebad5e` |
 | `CSHARP-03-T03-W08` | `Complete` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W08` | `b2ecf2949c82bb6687b0916e292f4f4bfbcbdc86` |
-| `CSHARP-03-T03-W09` | `Complete` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W09` | `SELF` |
-| `CSHARP-03-T03-W10` | `Ready` | `crates/mpk-cli/tests/csharp_practical_codecs.rs#CSHARP-03-T03-W10` | `—` |
-| `CSHARP-03-T03-W11` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_numbers.rs#CSHARP-03-T03-W11` | `—` |
+| `CSHARP-03-T03-W09` | `Complete` | `crates/mpk-cli/tests/csharp_practical_collections.rs#CSHARP-03-T03-W09` | `6714e88e963fba6f06c050989072a2cedfeefedd` |
+| `CSHARP-03-T03-W10` | `Complete` | `crates/mpk-cli/tests/csharp_practical_codecs.rs#CSHARP-03-T03-W10` | `SELF` |
+| `CSHARP-03-T03-W11` | `Ready` | `crates/mpk-cli/tests/csharp_practical_numbers.rs#CSHARP-03-T03-W11` | `—` |
 | `CSHARP-03-T03-W12` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W12` | `—` |
 | `CSHARP-03-T03-W13` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W13` | `—` |
 | `CSHARP-03-T03-W14` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W14` | `—` |
@@ -4274,3 +4275,83 @@ These are private Linux/amd64 compiler checks; no release gate was required or
 run. New ordered-input manifest SHA-256: `5c08ce86376b9e58cff88968b12d3d3e1e69b88373ec9e11c25112707820c167`.
 
 T03-W10 is the sole ready item.
+
+## 32. CSHARP-03-T03-W10 completion record
+
+Completed 2026-09-06. The private source-string adapter retains exact Roslyn
+operands, evaluation order, ordinal overloads, UTF-16 constants, null/range
+exception types and pending input/output length obligations. String/string and
+string/char concatenation and restricted string/char interpolation share the
+bounded UTF-16 concatenation relation. The source firewall admits the exact
+string indexer and normalizes compiler-generated boxing for string/char concatenation;
+explicit object conversion, char/char, numeric/aligned/formatted interpolation,
+source parse/format, non-ordinal options and general framework APIs reject.
+
+The Rust UTF-16 relation reproduces ordinal comparison/equality, null/empty,
+contains/prefix/suffix, length, index, substring and concatenation without UTF-8
+scalar replacement. Null receiver, null argument, index and substring errors
+retain their exact C# exception subtypes; a profile/output bound is a pending
+obligation, never an invented resource exception. Constant string switches and
+source-loop control remain T04 work.
+
+One type-dispatched `BoundaryCodec` relation handles the 18 frozen codec IDs:
+signed/unsigned integers, normalized/fixed decimal, binary32/binary64 bits,
+Gregorian date, seven-digit time, duration ticks, instant milliseconds and GUID
+N/D. It uses bounded ASCII/UTF-16 and integer algorithms, retains every float
+bit pattern and all five decimal rounding modes, and returns registered
+`result<T,parse_error>` values. Unknown IDs/rounding configurations and crossed
+concrete result/operand types reject. Parser precedence remains input bound,
+syntax, canonicality, scale/precision and range; invalid fixed scale is checked
+after syntax/canonicality, while format configuration rejects before output.
+W11/W13 reuse this relation for their new source coverage. Money fields and
+presence/outcome/document mapping remain T05-W01-W03 work. No installed route,
+active release tuple, public document invocation or Certificate v0 rule changes.
+
+### 32.1 Ownership, review and verification
+
+`crates/mpk-cli/tests/csharp_practical_codecs.rs#CSHARP-03-T03-W10` owns the
+three frozen string-length boundary vectors, all 396 recorded codec cases in
+each of three hostile cultures, and 63 direct string runtime cases. Tests
+exercise grammar/error precedence, decimal precision reduction at the 96-bit
+limit, signed zero/NaN bits, round trips, surrogate/null handling, conditional
+instance-equality null checks, concatenation equivalence and output bounds.
+Contract mutation tests reject wrong codec value types and excess arguments.
+
+`develop/migrations/csharp-03/codecs/codecs-inputs.json` binds all private source,
+harness and `source-strings.json` inputs. The owner checks that the string
+fixture is exactly the selected frozen runtime corpus. The new `--test-codecs`
+runner compiles real admitted/rejected source and executes the string corpus
+under three constructed hostile cultures using the unchanged offline
+Linux/amd64 SDK 10.0.400, Roslyn 5.6.0 and runtime 10.0.11 closure. Existing
+private manifests rebind their changed shared capture/normalizer/array inputs.
+
+Review corrected missing string-indexer admission, compiler-generated char
+boxing, overlapping expression-site suppression, and untyped codec signature
+acceptance. Targeted source/runtime and contract mutation tests cover these
+corrections. The final full-diff review found no remaining findings.
+
+| Local verification | Result |
+| --- | --- |
+| `./scripts/check-fast.sh` | Formatting, strict active-GIR scan and clippy passed; workspace tests stopped at the two pre-existing T01-W02 inventory fingerprint failures described below. |
+| `cargo test -p mpk-cli --test csharp_practical_codecs --test csharp_practical_capture` | 13 passed; the macOS harness availability guard is supplemented by the explicit Linux execution below. |
+| `cargo test -p mpk-vc --test csharp_practical_vir_model` | 9 passed, including the existing operation-signature checks. |
+| `cargo test --workspace -- --skip csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge --skip csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers` | 792 passed, 8 existing platform-dependent tests ignored, and only the two named baseline failures filtered out. |
+| Offline Linux/amd64 private harnesses `--test-capture`, `--test-syntax`, `--test-types`, `--test-construction`, `--test-initialization`, `--test-structural`, `--test-arrays`, `--test-sequences`, `--test-ordered`, `--test-codecs` | All passed against the pinned closure; final W10 source-operation assertions were rerun with `--test-codecs` and passed. |
+| Private `--self-test` and `--check-build-inputs` | Passed, including source, fixture and manifest mutation checks. |
+| `cargo build -p mpk-cli` and the four `check-fast.sh` CLI fixtures | Build passed; both positive fixtures accepted and both negative fixtures rejected. |
+| `/usr/bin/git diff --check` | Passed. |
+
+The unfiltered gate still fails
+`csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge` and
+`csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers` on the
+same 17 frozen search fingerprints reported by W09. Comparing every inventory
+search against parent `6714e88e963fba6f06c050989072a2cedfeefedd` found no changed
+path sets; all 17 mismatches already exist at that parent. The frozen inventory
+was not rewritten. The full standard gate therefore remains non-green despite
+the passing W10 and remaining-workspace verification. No release gate was
+claimed or required for this private handoff.
+
+Final private codec input manifest SHA-256:
+`f84a880942694835781db682cfcb4ed6c4bbab71a127bf5e8319d923c89484c5`.
+
+T03-W11 is the sole ready item.

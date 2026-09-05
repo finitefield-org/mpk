@@ -2475,7 +2475,18 @@ fn validate_boundary_parse_signature(
         .get(&signature.normal_result_type_id)
         .filter(|metadata| template_name(&metadata.template_id) == Some("result"));
     if !metadata.is_some_and(|metadata| {
-        metadata.argument_ids.len() == 2 && metadata.argument_ids[1] == PARSE_ERROR_TYPE_ID
+        metadata.argument_ids.len() == 2
+            && metadata.argument_ids[1] == PARSE_ERROR_TYPE_ID
+            && signature.argument_type_ids.len() == 1
+            && codecs::codec_token(
+                signature
+                    .id
+                    .strip_prefix("codec.")
+                    .unwrap()
+                    .strip_suffix(".parse")
+                    .unwrap(),
+            )
+            .is_ok_and(|token| metadata.argument_ids[0] == format!("mpk.csharp.value.{token}.v1"))
     }) {
         return Err(vir_failure(phase, PracticalVirErrorCode::ResultType));
     }
@@ -2505,8 +2516,20 @@ fn validate_boundary_format_signature(
     if !is_closed_codec_operation(&signature.id, "format") {
         return Err(vir_failure(phase, PracticalVirErrorCode::UnknownOperation));
     }
-    if signature.argument_type_ids.is_empty() {
+    if signature.argument_type_ids.len() != 1 {
         return Err(vir_failure(phase, PracticalVirErrorCode::Arity));
+    }
+    let token = codecs::codec_token(
+        signature
+            .id
+            .strip_prefix("codec.")
+            .unwrap()
+            .strip_suffix(".format")
+            .unwrap(),
+    )
+    .map_err(|_| vir_failure(phase, PracticalVirErrorCode::UnknownOperation))?;
+    if signature.argument_type_ids[0] != format!("mpk.csharp.value.{token}.v1") {
+        return Err(vir_failure(phase, PracticalVirErrorCode::OperandType));
     }
     if signature.normal_result_type_id != STRING_TYPE_ID {
         return Err(vir_failure(phase, PracticalVirErrorCode::ResultType));
@@ -2531,27 +2554,7 @@ fn is_closed_codec_operation(id: &str, operation: &str) -> bool {
     else {
         return false;
     };
-    matches!(
-        codec,
-        "binary32"
-            | "binary64"
-            | "date"
-            | "decimal.fixed"
-            | "decimal.normalized"
-            | "duration_ticks"
-            | "guid.d"
-            | "guid.n"
-            | "integer.i8"
-            | "integer.u8"
-            | "integer.i16"
-            | "integer.u16"
-            | "integer.i32"
-            | "integer.u32"
-            | "integer.i64"
-            | "integer.u64"
-            | "time"
-            | "unix_milliseconds"
-    )
+    codecs::codec_token(codec).is_ok()
 }
 
 fn is_closed_data_operation_id(id: &str) -> bool {
@@ -6693,3 +6696,11 @@ pub use ordered_collections::{
     OrderedCollectionError, OrderedCollectionModel, OrderedCollectionOperation,
     OrderedEntryBinding, ORDERED_COLLECTION_LOOP_OWNER,
 };
+
+#[path = "csharp_practical_codecs.rs"]
+mod codecs;
+pub use codecs::{BoundaryCodec, CodecError, CodecRounding};
+
+#[path = "csharp_practical_strings.rs"]
+mod strings;
+pub use strings::{evaluate_string_operation, StringError, StringOperand};

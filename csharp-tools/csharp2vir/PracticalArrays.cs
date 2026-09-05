@@ -35,12 +35,13 @@ internal static class CSharpPracticalArrays
 
     internal static PracticalArrays Validate(PracticalSourceSelection selection,
         IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references,
-        IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims = null, bool sequenceConstruction = false)
+        IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims = null, bool sequenceConstruction = false,
+        Action<CSharpCompilation>? validateStrings = null)
     {
         var analyzer = new Analyzer(sequenceConstruction);
         PracticalConstruction construction = CSharpPracticalConstruction.Validate(selection, inputs, references,
             invariantClaims, allowInitializers: true, allowStructuralEquality: true,
-            validateArrays: analyzer.Analyze, validateArrayLimits: ValidateLimits);
+            validateArrays: (current, types) => { analyzer.Analyze(current, types); validateStrings?.Invoke(current); }, validateArrayLimits: ValidateLimits);
         return new PracticalArrays(construction, Array.AsReadOnly(analyzer.Steps.ToArray()));
     }
 

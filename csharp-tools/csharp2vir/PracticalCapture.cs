@@ -2182,6 +2182,12 @@ internal static class CSharpPracticalCapture
             return property.Name is "HasValue" or "Value";
         }
 
+        if (property.ContainingType.SpecialType == SpecialType.System_String && property.IsIndexer)
+        {
+            return !property.IsStatic && property.Type.SpecialType == SpecialType.System_Char
+                && property.Parameters.Length == 1
+                && property.Parameters[0].Type.SpecialType == SpecialType.System_Int32;
+        }
         return property.Name == "Length"
             && !property.IsStatic
             && property.Type.SpecialType == SpecialType.System_Int32

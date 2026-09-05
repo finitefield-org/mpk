@@ -1377,6 +1377,18 @@ internal static class CSharpPracticalSyntaxNormalizer
             private string CanonicalOperationType(IOperation operation)
             {
                 ITypeSymbol type = operation.Type!;
+                // W10: only the compiler-inserted char boxing of an exact
+                // string/char + is normalized to its UTF-16 operand. Explicit
+                // object conversions and numeric concatenation remain closed.
+                if (type.SpecialType == SpecialType.System_Object
+                    && operation is IConversionOperation { IsImplicit: true } boxed
+                    && boxed.Operand.Type?.SpecialType == SpecialType.System_Char
+                    && operation.Parent is IBinaryOperation concat
+                    && concat.OperatorMethod is null && concat.OperatorKind == BinaryOperatorKind.Add
+                    && concat.Type?.SpecialType == SpecialType.System_String
+                    && (concat.LeftOperand.Type?.SpecialType == SpecialType.System_String
+                        || concat.RightOperand.Type?.SpecialType == SpecialType.System_String))
+                { return syntaxModel.NormalizeType(boxed.Operand.Type).CanonicalKey; }
                 // W06: Roslyn inserts object reference conversions for a
                 // class/array null comparison. Retain the exact operand's
                 // nullable value type; object itself never enters the model.
