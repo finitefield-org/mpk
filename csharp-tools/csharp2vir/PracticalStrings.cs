@@ -30,10 +30,10 @@ internal static class CSharpPracticalStrings
 {
     internal const int MaximumUtf16Units=16384;
     internal static PracticalStrings Validate(PracticalSourceSelection selection,IEnumerable<PracticalCapturedInput> inputs,
-        ImmutableArray<MetadataReference> references,IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims=null)
+        ImmutableArray<MetadataReference> references,IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims=null, Action<CSharpCompilation>? validateNumeric=null)
     {
         var steps=new List<PracticalStringStep>();var obligations=new List<PracticalStringObligation>();
-        var arrays=CSharpPracticalArrays.Validate(selection,inputs,references,invariantClaims,true,current=>Analyze(current,steps,obligations));
+        var arrays=CSharpPracticalArrays.Validate(selection,inputs,references,invariantClaims,true,current=>{Analyze(current,steps,obligations);validateNumeric?.Invoke(current);});
         return new(arrays,Array.AsReadOnly(steps.OrderBy(s=>s.Site,StringComparer.Ordinal).ThenBy(s=>s.Operation,StringComparer.Ordinal).ToArray()),Array.AsReadOnly(obligations.Distinct().OrderBy(o=>o.Site,StringComparer.Ordinal).ThenBy(o=>o.Kind,StringComparer.Ordinal).ToArray()));
     }
     internal static void ValidateCandidate(PracticalStrings regenerated,ReadOnlySpan<byte> candidate)

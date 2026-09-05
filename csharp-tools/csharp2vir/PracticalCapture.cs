@@ -1760,6 +1760,8 @@ internal static class CSharpPracticalCapture
         foreach (MemberAccessExpressionSyntax access in syntax.AncestorsAndSelf()
             .OfType<MemberAccessExpressionSyntax>())
         {
+            if (model.GetSymbolInfo(access, CancellationToken.None).Symbol is IMethodSymbol method
+                && IsAllowlistedFloatingMember(method)) { return true; }
             if (model.GetSymbolInfo(access, CancellationToken.None).Symbol is IFieldSymbol field
                 && IsAllowlistedFrameworkField(field, access, model))
             {
@@ -1772,7 +1774,9 @@ internal static class CSharpPracticalCapture
 
     private static bool IsIntrinsicConstantCarrier(ITypeSymbol type) =>
         IsExactSystemRuntimeType(type, "StringComparison")
-        || IsExactSystemRuntimeType(type, "MidpointRounding");
+        || IsExactSystemRuntimeType(type, "MidpointRounding")
+        || IsExactSystemRuntimeType(type, "Math")
+        || IsExactSystemRuntimeType(type, "MathF");
 
     private static bool IsAdmittedPredefinedType(ITypeSymbol type) => type.SpecialType is
         SpecialType.System_Void
@@ -2011,6 +2015,8 @@ internal static class CSharpPracticalCapture
 
     private static bool IsAllowlistedFrameworkMember(IMethodSymbol method)
     {
+        if (IsAllowlistedFloatingMember(method)) { return true; }
+
         if (method.ContainingType.SpecialType == SpecialType.System_String)
         {
             return IsAllowlistedStringMember(method);
@@ -2144,6 +2150,27 @@ internal static class CSharpPracticalCapture
                 && IsInt32(1),
             _ => false,
         };
+    }
+
+    private static bool IsAllowlistedFloatingMember(IMethodSymbol method)
+    {
+        if (!method.IsStatic || method.IsGenericMethod) { return false; }
+        SpecialType scalar = method.ContainingType.SpecialType;
+        if (scalar is SpecialType.System_Single or SpecialType.System_Double)
+        {
+            return method.Name is "IsNaN" or "IsInfinity" or "IsFinite"
+                && method.ReturnType.SpecialType == SpecialType.System_Boolean
+                && method.Parameters.Length == 1
+                && method.Parameters[0].Type.SpecialType == scalar;
+        }
+        scalar = IsExactSystemRuntimeType(method.ContainingType, "MathF")
+            ? SpecialType.System_Single : IsExactSystemRuntimeType(method.ContainingType, "Math")
+                ? SpecialType.System_Double : SpecialType.None;
+        return scalar != SpecialType.None
+            && method.ReturnType.SpecialType == scalar
+            && (method.Name == "Abs" && method.Parameters.Length == 1
+                || method.Name is "Min" or "Max" && method.Parameters.Length == 2)
+            && method.Parameters.All(p => p.Type.SpecialType == scalar);
     }
 
     private static bool IsAllowlistedDecimalMember(IMethodSymbol method)

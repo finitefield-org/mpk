@@ -6704,3 +6704,7 @@ pub use codecs::{BoundaryCodec, CodecError, CodecRounding};
 #[path = "csharp_practical_strings.rs"]
 mod strings;
 pub use strings::{evaluate_string_operation, StringError, StringOperand};
+
+#[path = "csharp_practical_numeric.rs"]
+mod numeric;
+pub use numeric::{NumericError, NumericOperation};
