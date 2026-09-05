@@ -53,11 +53,12 @@ gate passed twice on native x86-64 Linux; the receipt is recorded in the
 [Java implementation ledger](develop/docs/java-03-implementation-traceability-ledger.md).
 `JAVA-03`, `CSHARP-03-T01-W01` through `W10`, and
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
-`CSHARP-03-T03-W01` are complete. The practical
+`CSHARP-03-T03-W01/W02` are complete. The practical
 C# specification package is normative but inactive; predecessor-producer
 migration and complete successor-consumer closure remain private and
 uninstalled. The first practical source capture/closure gate also remains
-private and uninstalled; `CSHARP-03-T03-W02` is now ready.
+private and uninstalled. Concise-syntax and exact-name normalization is likewise
+private and uninstalled; `CSHARP-03-T03-W03` is now ready.
 
 ## Build from source
 

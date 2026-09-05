@@ -33,7 +33,7 @@ expansion (ledger section 11). Both checkers accept all W09 capacity cases
 through each frozen limit plus one without a core change. W10 publishes the
 normative but inactive specifications and 700 vectors.
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
-`CSHARP-03-T03-W01` are complete, `CSHARP-03-T03-W02` is ready, and every
+`CSHARP-03-T03-W01/W02` are complete, `CSHARP-03-T03-W03` is ready, and every
 later implementation work item remains blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
@@ -105,7 +105,9 @@ frontend protocol and complete artifact/inventory linkage; see ledger section
 20. T02-W08 then completed private migration of all four predecessor producers;
 see ledger section 21. T02-W09 then completed the private consumer and
 foundation closure; see ledger section 22. T03-W01 then completed the private
-source capture/declaration/closure gate; see ledger section 23. T03-W02 is ready. This
+source capture/declaration/closure gate; see ledger section 23. T03-W02 then
+completed private concise-syntax, exact-type, and name-resolution
+normalization; see ledger section 24. T03-W03 is ready. This
 file remains planning material. W01 added its baseline and ledger; W02 added
 only the private consumer inventory, owner tests, ledger evidence, and current-
 status documentation; W03 added only private build-input evidence and its
@@ -149,8 +151,10 @@ difference reports. T02-W09 adds only the Rustdoc-hidden private successor
 consumer orchestrator, its strict importers, candidate-only release consumer,
 Certificate v0 handoff, receipt, and owner tests. T03-W01 adds only the private
 pinned-Roslyn capture/declaration/closure gate, its exact input manifest,
-executable C# harness, owner tests, and status evidence. The next serial work
-is T03-W02's concise-syntax and exact-name normalization.
+executable C# harness, owner tests, and status evidence. T03-W02 adds only the
+private concise-syntax, exact-type, and name-resolution normalizer, its exact
+input manifest, executable C# harness, owner tests, and status evidence. The
+next serial work is T03-W03's immutable data-type declaration admission.
 
 The following are unconditional stop conditions:
 
@@ -985,7 +989,7 @@ reference, and limit cases.
 
 Depends on: T03-W01.
 
-Current status: `Ready`.
+Current status: `Complete`.
 
 Owns: expression-bodied methods/getters, `var` locals whose exact admitted type
 is available, the reusable exact-type normalization handoff later consumed by
@@ -1011,6 +1015,8 @@ other rejected directive family, plus a routing assertion that positive
 ### CSHARP-03-T03-W03 — Admit enum, readonly struct, and sealed immutable class declarations
 
 Depends on: T03-W02.
+
+Current status: `Ready`.
 
 Owns: declaration modifiers, members, source enums including exact underlying
 values, the closed metadata-backed `System.DayOfWeek` enum, immutable type

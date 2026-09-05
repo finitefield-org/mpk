@@ -2,8 +2,8 @@
 
 Status: `CSHARP-03-T01-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10`,
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09`, and
-`CSHARP-03-T03-W01` complete (2026-09-05). The entry audit, consumer inventory,
-private frontend/toolchain closure proof,
+`CSHARP-03-T03-W01/W02` complete (2026-09-05). The entry audit, consumer
+inventory, private frontend/toolchain closure proof,
 Roslyn shape probes, primitive/string/numeric/codec runtime measurements and
 candidate foundation/specialization/binding/data semantics and the successor
 contract/boundary/transition/identity/limit freeze have historical completion
@@ -38,9 +38,10 @@ T02-W09 closes all 18 inventoried private consumer edges over the sole
 successor family, the registered foundation and retained Certificate v0 bytes.
 T03-W01 adds the private pinned-Roslyn capture, dependency/declaration/generic/
 effect firewall, complete declaration accounting, and finite source call/type
-closure. `CSHARP-03-T03-W02` is ready and all later implementation items remain
-serially blocked. No public production acceptance path, installed candidate,
-or active registry entry was introduced.
+closure. T03-W02 adds private concise-syntax, exact-type, and name-resolution
+normalization over that closure. `CSHARP-03-T03-W03` is ready and all later
+implementation items remain serially blocked. No public production acceptance
+path, installed candidate, or active registry entry was introduced.
 
 This ledger is subordinate to
 [`08_csharp_practical_subset_design.md`](08_csharp_practical_subset_design.md)
@@ -91,9 +92,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T02-W07` | `Complete` | `crates/mpk-cli/tests/csharp_practical_frontend_protocol.rs#CSHARP-03-T02-W07` | `ed9054603eec5d410c59a708ee81d79052ee27d1` |
 | `CSHARP-03-T02-W08` | `Complete` | `crates/mpk-cli/tests/csharp_practical_migration.rs#CSHARP-03-T02-W08` | `a9b2c862e9386ec25b7183b8b4c9b8db4cc426a6` |
 | `CSHARP-03-T02-W09` | `Complete` | `crates/mpk-cli/tests/csharp_practical_migration.rs#CSHARP-03-T02-W09` | `0c4cd3bac346d68d72111305192c9766342ec68e` |
-| `CSHARP-03-T03-W01` | `Complete` | `crates/mpk-cli/tests/csharp_practical_capture.rs#CSHARP-03-T03-W01` | `SELF` |
-| `CSHARP-03-T03-W02` | `Ready` | `crates/mpk-cli/tests/csharp_practical_syntax.rs#CSHARP-03-T03-W02` | `—` |
-| `CSHARP-03-T03-W03` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W03` | `—` |
+| `CSHARP-03-T03-W01` | `Complete` | `crates/mpk-cli/tests/csharp_practical_capture.rs#CSHARP-03-T03-W01` | `c16bca82c8f39e34decc09959a4e3b34c18bc12d` |
+| `CSHARP-03-T03-W02` | `Complete` | `crates/mpk-cli/tests/csharp_practical_syntax.rs#CSHARP-03-T03-W02` | `SELF` |
+| `CSHARP-03-T03-W03` | `Ready` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W03` | `—` |
 | `CSHARP-03-T03-W04` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W04` | `—` |
 | `CSHARP-03-T03-W05` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W05` | `—` |
 | `CSHARP-03-T03-W06` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_types.rs#CSHARP-03-T03-W06` | `—` |
@@ -3262,14 +3263,14 @@ and source identities. The build-input helper materializes and executes the
 harness only from this canonical manifest and the pinned Linux/amd64 closure;
 the read-only repository mount cannot supply an unrecorded source.
 
-The final manifest raw SHA-256 is
-`0c3b74d0947ded2e01ca2c5ad8dafac48749e1fe7e02c19cda67e167586457d8`.
+The current manifest raw SHA-256 after W02's directive pass-through correction
+is `6249750d3a71cc918e29a7f6cbcf93b219ce0dd1093fa876382e8223c2a724e0`.
 Its two records are:
 
 | Path | Bytes | SHA-256 |
 | --- | ---: | --- |
 | `crates/mpk-cli/tests/csharp_practical_capture_harness.cs` | 55,730 | `5332a5af2d434bb00e30f05d679ba054923e43f0e0168de56e0a4238e07daafc` |
-| `csharp-tools/csharp2vir/PracticalCapture.cs` | 124,254 | `99d02b02ff4caf25e5be79ab3d908900ba8b6ee4b64e867207fe8c37e2626e82` |
+| `csharp-tools/csharp2vir/PracticalCapture.cs` | 124,249 | `ea1bc3fa3ea9980a8d85132f67a9ee3351f9177416b6c954578175c7af992aa8` |
 
 The harness covers deterministic multi-file closure; immutable source and
 sidecar capture; source selection, path, encoding, reference, and every frozen
@@ -3384,3 +3385,187 @@ call/type closure, identity, and limit barriers; all positive and negative C#
 vectors; predecessor regressions; no active project, registry, bundle, CLI,
 API, installed metadata, or application-source MPK dependency; formatting,
 warning-denied lint, and the complete local fast gate. T03-W02 is the sole ready item.
+
+## 24. CSHARP-03-T03-W02 completion record
+
+### 24.1 Private normalization and exact-type handoff
+
+W02 adds one internal normalizer over the W01-validated immutable source
+closure. It remains absent from `csharp2vir.csproj`, active build-input
+manifests, installed bundles, both registries, CLI/API dispatch, and application
+source. Before normalization it independently snapshots and checks the exact
+167-file .NET 10 reference projection, recompiles only the retained W01 source
+bytes under the frozen C# 14/options tuple, and rejects any new compiler error
+or warning without producing an artifact.
+
+Expression-bodied methods, void methods, expression-bodied properties, and
+getter arrows become the same semantic operation stream as their explicit
+block/return/expression-statement forms. Constructors, setters, local
+functions, and every other arrow owner remain rejected by their frozen
+declaration precedence. The operation stream is prefix encoded with exact
+child counts and traversed iteratively, so the W01 syntax-node bound does not
+become an implementation call-stack limit.
+
+Every ordinary local has a deterministic callable-local ordinal and an exact
+normalized type. A direct `var` local is accepted only with one initializer,
+one declarator, no alias/source type named `var`, no ref-shaped declaration,
+and an exact admitted Roslyn type. Anonymous and dynamic types, target-typed
+object/default/collection/stack-allocation forms, and implicit arrays that
+require a best-common-type conversion reject. Homogeneous implicit arrays,
+nullable values, and recursive array/reference nullability retain their exact
+closed-instance and annotation structure. The reusable type normalizer and
+its canonical structural key are iterative. Compilation-local, nullability-
+aware caches ensure repeated occurrences of one deeply nested semantic type
+reuse both normalization and the lazily built key; positive `foreach`,
+including its `var` variable, remains exclusively T04-W02-owned.
+
+Ordinary namespace imports at compilation-unit or namespace scope affect only
+Roslyn name resolution. The semantic stream records resolved source IDs and
+closed framework symbols, never source spelling. Global, static, unsafe,
+alias, alias-qualified, generated, unresolved, ambiguous, or MPK imports,
+`extern alias`, and disposal `using` forms reject with frozen precedence. The
+sole admitted directive is one exact redundant file-wide `#nullable enable`;
+all scoped, targeted, conditional, pragma, line, region, error/warning, and
+other directives reject. Successful canonical bytes and per-callable body
+bytes are immutable copies; failures retain the W01 fixed public message and
+zero artifacts.
+
+### 24.2 Exact executable evidence
+
+`crates/mpk-cli/tests/csharp_practical_syntax.rs` is the primary owner. It
+binds the implementation and executable C# harness through
+`develop/migrations/csharp-03/syntax/syntax-inputs.json`, proves that the
+normalizer has no active route, checks the published W02 owner and T04-W02
+`foreach` handoff, and runs the pinned harness when the complete cache is
+present. The build helper validates and copies only those manifest-bound bytes
+before compiling and executing them in the closed Linux/amd64 toolchain.
+
+The final manifest raw SHA-256 is
+`8c5512550f2795b0cc69b080ca7f028cf911b6dd1e6f3b461a03fe07fecd995b`.
+Its three records are:
+
+| Path | Bytes | SHA-256 |
+| --- | ---: | --- |
+| `crates/mpk-cli/tests/csharp_practical_syntax_harness.cs` | 33,839 | `a33785dbb9fd95080b16a146f1ca68d848f01125c9b4a07f25eefbff3d7341ac` |
+| `csharp-tools/csharp2vir/PracticalCapture.cs` | 124,249 | `ea1bc3fa3ea9980a8d85132f67a9ee3351f9177416b6c954578175c7af992aa8` |
+| `csharp-tools/csharp2vir/PracticalSyntaxNormalization.cs` | 62,040 | `1e4df29c1187743c30f774133860eb19e978e4524c19150612f9a06b6c273fdb` |
+
+The harness compares full canonical bytes, semantic hashes, callable IDs,
+body bytes, and exact-type bindings across arrow/block, `var`/explicit,
+import/fully-qualified, and directive/no-directive pairs. Its negative vectors
+cover every W02 inference, import, directive, generated-input, deferred-
+`foreach`, immutability, deterministic-order, sanitization, and artifact-free
+failure boundary.
+
+### 24.3 Verification and review
+
+Completed local verification on Darwin arm64, with the syntax harness also
+compiled and executed in the exact Linux/amd64 environment:
+
+| Command | Result |
+| --- | --- |
+| `cargo test -p mpk-cli --test csharp_practical_syntax` | pass: all five W02 owner tests; its cache launch is platform-gated on Darwin |
+| `docker run --rm --platform linux/amd64 ... scripts/build-csharp-practical-frontend.sh --test-syntax` | pass: exact manifest-only .NET 10/Roslyn build and all executable C# vectors |
+| `scripts/build-csharp-practical-frontend.sh --check-build-inputs` | pass |
+| `scripts/build-csharp-practical-frontend.sh --self-test` | pass |
+| `cargo test -p mpk-cli --test csharp_practical_capture` | pass: complete W01 capture regression suite |
+| `cargo test -p mpk-vc --test csharp_practical_inventory` | pass: status, ledger, source inventory, and route-absence closure |
+| `cargo test -p mpk-vc --test csharp_practical_source_artifacts --test csharp_practical_vir_model` | pass: predecessor identity and artifact regressions |
+| `cargo test -p mpk-cli --test csharp_practical_build_inputs --test csharp_practical_migration --test csharp_practical_frontend_protocol --test successor_atomic_cutover` | pass: build-input, predecessor, protocol, and non-activation regressions |
+| all six CSHARP-03 freeze/package/vector `--check` commands | pass |
+| `cargo clippy -p mpk-cli --all-targets -- -D warnings` | pass |
+| `cargo fmt --all -- --check` | pass |
+| `./scripts/check-fast.sh` | pass |
+| `/usr/bin/git diff --check` | pass |
+
+Implementation-verification findings: `5`.
+
+- Roslyn does not expose the drafted `ILocalSymbol.IsImplicitlyTyped` member,
+  and inferred reference nullability is carried by initializer `TypeInfo`.
+  W02 now recognizes direct `var` syntax and retains that exact top-level
+  annotation independently of the local symbol.
+- Implicit arrays were initially rejected as a whole. The gate now admits only
+  exact homogeneous element types and rejects each best-common-type
+  conversion, as required by the frozen design.
+- Several mutations initially expected W02 diagnostics even though compiler,
+  dependency, type, or effect gates own earlier precedence. The executable
+  assertions now bind the exact observed family and private code.
+- The generated-global-import case initially omitted the generated input from
+  the selected inventory. It now reaches and proves the intended W01
+  `generated_source` rejection.
+- W01's position-bound `StringComparison` and `MidpointRounding` constants are
+  not general admitted value types. W02 now uses closed internal operation
+  carriers for those exact intrinsic arguments, with qualified/imported and
+  explicit/`var` equivalence tests.
+
+First-pass review findings: `6`.
+
+- The first handoff trusted the already checked reference objects while
+  rebuilding the semantic model. It now re-snapshots every PE image, verifies
+  the exact canonical inventory, and recompiles from the snapshots.
+- Void expression-bodied methods and rejected constructor/setter/local-
+  function arrows lacked direct equivalence or routing cases. All now have
+  executable owners.
+- Initial reference-nullability coverage was top-level only. Recursive array
+  element nullability and its explicit/`var` byte equivalence are now checked.
+- Alias-qualified namespace imports could pass the ordinary-import rule.
+  `using global::...` now joins global/static/alias imports in the closed
+  rejection set.
+- A `ref var` type wrapped the identifier and bypassed the direct `var` check.
+  Every variable-declaration type subtree is now inspected and only the exact
+  direct by-value shape is admitted.
+- Exact-type/key construction and semantic-operation emission initially used
+  recursive traversal. Both now use bounded iterative work stacks and a flat
+  prefix operation stream under W01's existing syntax-node/input bounds.
+
+Second-pass review findings: `2`.
+
+- The allowed-arrow test covered a non-init setter rejected by W01, but not an
+  init accessor that reaches W02. A direct init-arrow mutation now proves that
+  only method/property/getter arrows enter normalization.
+- Duplicate and unresolved namespace imports relied only on the general
+  compiler gate. Direct cases now freeze their earlier `compiler_diagnostic`
+  precedence alongside W02's import-shape mutations.
+
+Third-pass review findings: `1`.
+
+- W01's prerequisite filter required `#nullable enable` to be the first
+  non-whitespace trivia, which incorrectly rejected a harmless leading source
+  comment even though the frozen rule is relative to the first non-directive
+  token. The pass-through check now uses that token boundary; W02 proves the
+  commented and comment-free forms have identical semantic bytes.
+
+Fourth-pass review findings: `1`.
+
+- Iterative traversal removed call-stack growth, but repeated operation and
+  local uses of one deeply nested type still rebuilt its full normalization
+  and structural key. Compilation-local `IncludeNullability` caches and a
+  lazy key cache now bound that repeated work by unique semantic types.
+
+Verification follow-up findings: `1`.
+
+- The W01 owner counted only its original build-helper validation and copy
+  sites. Its explicit regression assertion now includes W02's additional
+  manifest validation, project-file check, and copied implementation/harness
+  inputs. The preceding directive-boundary fix repinned the W01 implementation
+  and manifest hashes recorded above; this assertion repair did not change
+  either hash again.
+
+Documentation review findings: `2`.
+
+- Four shared-status sentences exceeded the repository's prose wrapping
+  convention after W02 completion was recorded. They are reflowed without
+  changing the completion state or implementation claims.
+- The verification follow-up incorrectly said the W01 manifest and
+  implementation hashes were unchanged, although the preceding directive-
+  boundary fix had repinned both. It now distinguishes that repinning from the
+  later owner-assertion repair, which did not change either hash again.
+
+Final review findings: `0`. The final pass rechecks W02-only private scope;
+manifest-bound immutable inputs; pinned reference and compilation identity;
+expression-body, exact-type, nullability, inference, namespace import, and
+directive semantics; byte-identical explicit equivalence; deterministic
+ordering and immutable output; artifact-free sanitized failures; exact
+diagnostic precedence; T04-W02 `foreach` ownership; predecessor preservation;
+non-activation; formatting, warning-denied lint, focused regressions, and the
+complete local fast gate. T03-W03 is the sole ready item.

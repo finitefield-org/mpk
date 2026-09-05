@@ -2243,14 +2243,15 @@ internal static class CSharpPracticalCapture
     private static bool IsExactFileWideNullableEnable(DirectiveTriviaSyntax directive, SyntaxNode root)
     {
         if (directive is not NullableDirectiveTriviaSyntax nullable
+            || !nullable.IsActive
             || !nullable.SettingToken.IsKind(SyntaxKind.EnableKeyword)
             || nullable.TargetToken.Kind() != SyntaxKind.None)
         {
             return false;
         }
 
-        SyntaxTrivia first = root.GetLeadingTrivia().FirstOrDefault(trivia => !trivia.IsKind(SyntaxKind.WhitespaceTrivia));
-        return first.GetStructure() == directive;
+        SyntaxToken firstToken = root.GetFirstToken(includeZeroWidth: true);
+        return nullable.Span.End <= firstToken.SpanStart;
     }
 
     private static void ValidateDirectives(SyntaxNode root)

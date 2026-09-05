@@ -1,7 +1,7 @@
 # C# Practical Subset Expansion Design
 
 Status: normative freeze package published through `CSHARP-03-T01-W10` and
-private implementation complete through `CSHARP-03-T03-W01`.
+private implementation complete through `CSHARP-03-T03-W02`.
 This document does not
 change the active `mpk.csharp.scalar.v0` profile, register a new profile, or
 authorize a practical-profile public route. The active release is registry
@@ -18,7 +18,8 @@ frontend protocol and complete artifact/inventory linkage, and T02-W08
 completed private migration of all four predecessor producers into the sole
 successor artifact family. T02-W09 completed the private consumer closure and
 foundation gate; T03-W01 completed the private practical source capture,
-declaration-accounting, and closure gate, and T03-W02 is ready, while
+declaration-accounting, and closure gate; T03-W02 completed private concise-
+syntax, exact-type, and name-resolution normalization; T03-W03 is ready, while
 activation remains blocked through T08-W10.
 
 Prepared: 2026-09-02. Revised: 2026-09-05.
@@ -155,7 +156,8 @@ revision-3 route; T02-W08 has completed private predecessor-producer migration
 without adding a public format selector or installed route. T02-W09 has closed
 all inventoried private consumers without activation, and T03-W01 has completed
 the private source capture/declaration/closure gate without activation;
-T03-W02 is ready.
+T03-W02 has completed the private concise-syntax and exact-name normalization
+gate without activation; T03-W03 is ready.
 DART-04
 waits for the complete CSHARP-03 release gate. This
 insertion records the user value of making the already released C# frontend
@@ -2218,8 +2220,10 @@ successor VC/skeleton and ordinary-context assembly models, and migration of
 all four predecessor producers and the complete private consumer/foundation
 closure; `CSHARP-03-T03-W01` has completed the private source capture,
 declaration-accounting, dependency/generic/effect firewall, and finite closure
-gate; `CSHARP-03-T03-W02` is ready. Each later work item remains blocked
-until its serial predecessor and task-local entry gate are satisfied.
+gate; `CSHARP-03-T03-W02` has completed the private concise-syntax, exact-type,
+and name-resolution normalization gate; `CSHARP-03-T03-W03` is ready. Each
+later work item remains blocked until its serial predecessor and task-local
+entry gate are satisfied.
 No task may reintroduce a source-visible `Mpk.*` API, user-defined generic,
 iterator, or async scope.
 
