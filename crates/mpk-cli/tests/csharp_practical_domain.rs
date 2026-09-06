@@ -20,6 +20,149 @@ fn file(p: &str) -> Value {
 fn ty(s: &str) -> String {
     format!("mpk.csharp.value.{s}.v1")
 }
+
+#[test]
+fn csharp_03_t03_w14_explicit_codec_configuration_and_frozen_schema_mutations() {
+    use mpk_vc::csharp_practical_source_artifacts::PracticalJsonValue as J;
+    let decode = |codec: &str, bytes: &[u8]| {
+        BoundaryCodec::from_contract_parameters_json(codec, &ty("decimal"), bytes)
+    };
+    let valid = br#"{"scale":2,"rounding":"ToEven"}"#;
+    // Internal typed evidence; T05 owns the first boundary-document invocation.
+    let no_parameters = J::object(vec![("scale", J::Null), ("rounding", J::Null)]);
+    assert!(
+        BoundaryCodec::from_optional_contract_parameters(None, &ty("decimal"), &J::Null)
+            .unwrap()
+            .is_none()
+    );
+    assert!(
+        BoundaryCodec::from_optional_contract_parameters(None, &ty("decimal"), &no_parameters)
+            .is_err()
+    );
+    assert!(BoundaryCodec::from_optional_contract_parameters(
+        Some("decimal.normalized"),
+        &ty("decimal"),
+        &J::Null
+    )
+    .is_err());
+    assert!(BoundaryCodec::from_optional_contract_parameters(
+        Some("decimal.normalized"),
+        &ty("decimal"),
+        &no_parameters
+    )
+    .unwrap()
+    .is_some());
+    assert!(decode("decimal.fixed", valid).is_ok());
+    for invalid in [
+        br#"{}"#.as_slice(),
+        br#"null"#,
+        br#"[]"#,
+        br#"{"scale":2}"#,
+        br#"{"rounding":"ToEven"}"#,
+        br#"{"scale":2,"rounding":"ToEven","extra":0}"#,
+        br#"{"scale":2,"scale":2,"rounding":"ToEven"}"#,
+        br#"{"rounding":"ToEven","scale":2}"#,
+        br#"{"scale":-1,"rounding":"ToEven"}"#,
+        br#"{"scale":29,"rounding":"ToEven"}"#,
+        br#"{"scale":2.0,"rounding":"ToEven"}"#,
+        br#"{"scale":2e0,"rounding":"ToEven"}"#,
+        br#"{"scale":true,"rounding":"ToEven"}"#,
+        br#"{"scale":"2","rounding":"ToEven"}"#,
+        br#"{"scale":null,"rounding":"ToEven"}"#,
+        br#"{"scale":2,"rounding":null}"#,
+        br#"{"scale":2,"rounding":"unknown"}"#,
+        br#"{"scale":2,"rounding":0}"#,
+        br#"{"scale":2,"rounding":"ToEven"} "#,
+    ] {
+        assert!(decode("decimal.fixed", invalid).is_err(), "{invalid:?}");
+    }
+    assert!(decode("decimal.fixed.scale.2", valid).is_err());
+    assert!(decode("decimal.normalized", valid).is_err());
+    assert!(decode("decimal.normalized", br#"{"scale":null,"rounding":null}"#).is_ok());
+    let b = bundle();
+    let (r, c, _) = fixture(&b, &[], json!({}));
+    let value = MonomorphicValue::DecimalBits {
+        type_id: ty("decimal"),
+        negative: false,
+        scale: 2,
+        coefficient: "125".into(),
+    };
+    for scale in [0, 1, 2, 28] {
+        for rounding in [
+            "ToEven",
+            "AwayFromZero",
+            "ToZero",
+            "ToNegativeInfinity",
+            "ToPositiveInfinity",
+        ] {
+            let parameters = J::object(vec![
+                ("scale", J::U64(scale)),
+                ("rounding", J::string(rounding)),
+            ]);
+            let codec = BoundaryCodec::from_contract_parameters(
+                "decimal.fixed",
+                &ty("decimal"),
+                &parameters,
+            )
+            .unwrap();
+            assert!(codec.validate_contract_format_mode("canonical").is_ok());
+            assert!(codec.validate_contract_format_mode(rounding).is_err());
+            let text = codec.format(&b, &r, &c, &value).unwrap();
+            assert!(codec.parse(&text).is_ok());
+            if scale == 1 {
+                let expected = if ["AwayFromZero", "ToPositiveInfinity"].contains(&rounding) {
+                    "1.3"
+                } else {
+                    "1.2"
+                };
+                assert_eq!(String::from_utf16(&text).unwrap(), expected);
+            }
+        }
+    }
+    let text: Vec<u16> = "1.20".encode_utf16().collect();
+    assert!(
+        decode("decimal.fixed", br#"{"scale":1,"rounding":"ToEven"}"#)
+            .unwrap()
+            .parse(&text)
+            .is_err()
+    );
+    assert!(decode("decimal.fixed", valid).unwrap().parse(&text).is_ok());
+    let package = file("develop/specs/vectors/csharp-practical-profile-v1.json");
+    let mut count = 0;
+    for row in package["vectors"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|v| v["inputs"]["record"] == "codec_parameters")
+    {
+        assert_eq!(row["implementation_owner"], "CSHARP-03-T03-W14");
+        count += 1;
+        match row["id"].as_str().unwrap().rsplit('.').next().unwrap() {
+            "valid" => assert!(decode("decimal.fixed", valid).is_ok()),
+            "unknown_field" => {
+                assert!(
+                    decode("decimal.fixed", br#"{"scale":2,"rounding":"ToEven","x":0}"#).is_err()
+                )
+            }
+            "missing_field" => {
+                assert!(decode("decimal.fixed", br#"{"scale":2}"#).is_err());
+                assert!(decode("decimal.fixed", br#"{"rounding":"ToEven"}"#).is_err());
+            }
+            "wrong_field_type" => {
+                assert!(decode("decimal.fixed", br#"{"scale":[],"rounding":"ToEven"}"#).is_err());
+                assert!(decode("decimal.fixed", br#"{"scale":2,"rounding":[]}"#).is_err());
+            }
+            "duplicate_key" => assert!(decode(
+                "decimal.fixed",
+                row["inputs"]["raw_utf8"].as_str().unwrap().as_bytes()
+            )
+            .is_err()),
+            _ => panic!("unexecuted configuration vector {row}"),
+        }
+    }
+    assert_eq!(count, 5);
+}
+
 fn primitive(s: &str) -> Value {
     json!({"kind":"primitive","id":s})
 }

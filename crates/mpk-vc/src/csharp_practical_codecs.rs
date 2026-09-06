@@ -38,6 +38,83 @@ pub struct BoundaryCodec {
     rounding: Option<CodecRounding>,
 }
 impl BoundaryCodec {
+    /// Shared attachment rule for an optional boundary-field codec. This
+    /// validates configuration only; document invocation belongs to T05.
+    pub fn from_optional_contract_parameters(
+        id: Option<&str>,
+        type_id: &str,
+        parameters: &crate::csharp_practical_source_artifacts::PracticalJsonValue,
+    ) -> Result<Option<Self>, CodecError> {
+        use crate::csharp_practical_source_artifacts::PracticalJsonValue as J;
+        match id {
+            None if parameters == &J::Null => Ok(None),
+            None => Err(CodecError::Configuration),
+            Some(id) => Self::from_contract_parameters(id, type_id, parameters).map(Some),
+        }
+    }
+
+    /// Strict W14 sidecar attachment. The W10 internal relation deliberately
+    /// retains its runtime scale-error precedence; sidecars validate their
+    /// complete explicit configuration before invoking that relation.
+    pub fn from_contract_parameters(
+        id: &str,
+        type_id: &str,
+        parameters: &crate::csharp_practical_source_artifacts::PracticalJsonValue,
+    ) -> Result<Self, CodecError> {
+        use crate::csharp_practical_source_artifacts::PracticalJsonValue as J;
+        let fields = parameters.as_object().ok_or(CodecError::Configuration)?;
+        if fields
+            .iter()
+            .map(|(key, _)| key.as_str())
+            .ne(["scale", "rounding"])
+        {
+            return Err(CodecError::Configuration);
+        }
+        let scale = match &fields[0].1 {
+            J::Null => None,
+            value => Some(
+                value
+                    .as_u64()
+                    .filter(|n| *n <= 28)
+                    .ok_or(CodecError::Configuration)? as u8,
+            ),
+        };
+        let rounding = match &fields[1].1 {
+            J::Null => None,
+            value => Some(value.as_str().ok_or(CodecError::Configuration)?),
+        };
+        Self::new(id, type_id, scale, rounding)
+    }
+
+    pub fn from_contract_parameters_json(
+        id: &str,
+        type_id: &str,
+        transport: &[u8],
+    ) -> Result<Self, CodecError> {
+        use crate::csharp_practical_source_artifacts::{
+            parse_canonical_practical_json, PracticalArtifactKind,
+        };
+        // Every valid parameter record is shorter than this bound. Reject
+        // oversized untrusted configuration before allocating a JSON tree.
+        if transport.len() > 128 {
+            return Err(CodecError::Configuration);
+        }
+        let value =
+            parse_canonical_practical_json(PracticalArtifactKind::MethodContract, transport)
+                .map_err(|_| CodecError::Configuration)?;
+        Self::from_contract_parameters(id, type_id, &value)
+    }
+
+    /// The canonical spelling is configuration-independent; fixed decimal's
+    /// scale and rounding are explicit members of the hashed sidecar.
+    pub fn validate_contract_format_mode(&self, mode: &str) -> Result<(), CodecError> {
+        if mode == "canonical" {
+            Ok(())
+        } else {
+            Err(CodecError::Configuration)
+        }
+    }
+
     pub fn new(
         id: &str,
         type_id: &str,

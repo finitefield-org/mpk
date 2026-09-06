@@ -57,6 +57,89 @@ const ZERO_SHA256: &str = "00000000000000000000000000000000000000000000000000000
 const SOURCE: &[u8] = b"public static class Order { public static int Run() => 1; }\n";
 
 #[test]
+fn csharp_03_t03_w14_codec_configuration_is_in_contract_and_manifest_preimages() {
+    // Artifact-layer mutation evidence. Source/boundary invocation remains
+    // subject to W14/T05's separate typing and attachment gates.
+    use PracticalJsonValue as J;
+    let fixture = fixture();
+    let contract = |scale| {
+        let mut value = fixture.boundary_contract.value().clone();
+        set_field(
+            &mut value,
+            "input_fields",
+            J::Array(vec![J::object(vec![
+                ("field_id", J::string("amount")),
+                ("json_name", J::string("amount")),
+                ("type_id", J::string("mpk.csharp.value.decimal.v1")),
+                ("required", J::Bool(true)),
+                ("nullable", J::Bool(false)),
+                (
+                    "missing_rule",
+                    J::object(vec![("mode", J::string("reject"))]),
+                ),
+                ("codec_id", J::string("decimal.fixed")),
+                (
+                    "codec_parameters",
+                    J::object(vec![
+                        ("scale", J::U64(scale)),
+                        ("rounding", J::string("ToEven")),
+                    ]),
+                ),
+            ])]),
+        );
+        rehash_document(value, BOUNDARY_CONTRACT_HASH_DOMAIN, "contract_sha256")
+    };
+    let first_bytes = contract(1);
+    let first = validate_contract_artifact(
+        &fixture.context,
+        &fixture.captures,
+        PracticalArtifactKind::BoundaryContract,
+        &first_bytes,
+    )
+    .unwrap();
+    let second_bytes = contract(2);
+    let second = validate_contract_artifact(
+        &fixture.context,
+        &fixture.captures,
+        PracticalArtifactKind::BoundaryContract,
+        &second_bytes,
+    )
+    .unwrap();
+    assert_ne!(first.hash(), second.hash());
+    assert!(validate_expected_artifact(&first, &second_bytes).is_err());
+    let mut stale = second.value().clone();
+    set_field(&mut stale, "contract_sha256", J::string(first.hash()));
+    assert_code(
+        validate_contract_artifact(
+            &fixture.context,
+            &fixture.captures,
+            PracticalArtifactKind::BoundaryContract,
+            &canonical_practical_json_bytes(&stale).unwrap(),
+        ),
+        PracticalArtifactErrorCode::Hash,
+    );
+    let manifest = |reference| {
+        let mut artifacts = frontend_manifest_artifacts(&fixture);
+        artifacts.boundary_inputs.clear();
+        artifacts.boundary_outputs.clear();
+        artifacts.boundary_contracts = vec![reference];
+        build_frontend_source_manifest(
+            &fixture.context,
+            &fixture.foundation,
+            &fixture.captures,
+            artifacts,
+        )
+        .unwrap()
+    };
+    let first_manifest = manifest(first.artifact_ref());
+    let second_manifest = manifest(second.artifact_ref());
+    assert_ne!(first_manifest.hash(), second_manifest.hash());
+    assert!(
+        validate_expected_artifact(&first_manifest, second_manifest.canonical_bytes()).is_err()
+    );
+}
+
+#[test]
 fn csharp_03_t02_w04_executes_every_frozen_schema_vector() {
     let fixture = fixture();
     let package: Value = serde_json::from_str(PACKAGE).expect("profile package");

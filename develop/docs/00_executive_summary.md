@@ -80,7 +80,7 @@ the C# scalar release, Java T10 release including its native x86-64 receipt,
 and `CSHARP-03-T01-W01` through W10 plus
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
 `CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12/W13` are now complete. The
-practical C# profile/shared-artifact package and 700 vectors are normative but
+practical C# profile/shared-artifact package and 705 vectors are normative but
 inactive; producer migration and consumer closure remain private and
 uninstalled. The source capture/closure gate is likewise private and
 uninstalled. Concise-syntax and exact-name normalization is likewise private

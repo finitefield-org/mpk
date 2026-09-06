@@ -31,7 +31,8 @@ without adding an installed route or public format selector.
 by W08's reviewed binary-addressed Boolean-cube and static concrete-transformer
 expansion (ledger section 11). Both checkers accept all W09 capacity cases
 through each frozen limit plus one without a core change. W10 publishes the
-normative but inactive specifications and 700 vectors.
+normative but inactive specifications and, after the approved W14 codec
+parameter amendment, 705 vectors.
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
 `CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12/W13` are complete, `CSHARP-03-T03-W14` is ready, and every
 later implementation work item remains blocked by its serial predecessor.
@@ -660,12 +661,12 @@ Current status: `Complete`. The private feasibility probe retains the original
 cross-result rejections and demonstrates the replacement Boolean-cube
 selection and concrete state-transformer fold in both checkers. F01 is resolved
 without changing core or using `Std.Nat.rec` in the replacement. The private
-freeze fixes all 17 successor identity families, 15 strict roots, 20 strict
+freeze fixes all 17 successor identity families, 15 strict roots, 21 strict
 nested records, three tagged unions, the fully typed closed expression union,
 registry-entry/context/frontend equality linkage, canonical
 boundary/transition/idempotency rules, 29
 diagnostic families, 35 practical limits, and all retained scalar-v0 limits.
-The 700 sorted private vectors assign every row to its downstream implementation
+The 705 sorted private vectors assign every row to its downstream implementation
 and primary production-test owner. The capacity record covers four generated-
 certificate counters at limit minus one, limit, and limit plus one through both
 checkers twice.
@@ -733,7 +734,7 @@ Verification: `python3 scripts/check-spec-vectors.py --check`, manifest tests,
 Completed handoff: `develop/specs/CSHARP_PRACTICAL_PROFILE_V1.md`,
 `develop/specs/CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md`, and manifested vector
 `develop/specs/vectors/csharp-practical-profile-v1.json`. The package preserves
-the W09 freeze and all 700 rows exactly, binds 16 canonical probe/evidence
+the amended W09 freeze and all 705 rows exactly, binds 16 canonical probe/evidence
 records, closes ten freeze owners and 63 downstream production owners, and
 records the twelve-family upgrade matrix plus exact future release-gate
 replacement decision. The primary owner is
@@ -1371,6 +1372,9 @@ operation matrix.
 Depends on: T03-W13.
 
 Current status: `Ready`.
+
+The approved explicit-codec-parameter prerequisite amendment is recorded in
+ledger section 36. This does not complete W14 or unblock T04.
 
 Owns: closure of data-relevant type/method contract expression parsing and
 attachment; strict semantic-binding parsing/attachment; logical declaration

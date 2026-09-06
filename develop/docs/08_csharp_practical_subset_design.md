@@ -1842,7 +1842,7 @@ their names, field order, types, domains, or owners and without minting aliases.
 
 Together with semantic context, practical semantic parameters, selection,
 validated request, and frontend request/success/diagnostic/source-artifact
-roots, the machine freeze contains 15 strict roots. It also closes 20 nested
+roots, the machine freeze contains 15 strict roots. It also closes 21 nested
 records, the boundary-missing, transition-idempotency, and frontend-diagnostic
 request-linkage tagged unions, and every field type of every
 contract-expression variant. Ordered, nonempty, unique, sorted, literal,
@@ -1878,7 +1878,10 @@ membership, set membership, tagged construction/test/payload, source project/
 reconstruct, structural equality/comparison, codec parse/format, parse-error
 kind, exception test/payload, transition state/events/response, and bounded
 `forall`/`exists`. Every node begins with `tag,type_id`; its remaining field
-order is closed in the machine artifact. Every expression is
+order is closed in the machine artifact. The approved W14 amendment adds explicit `codec_parameters` immediately after
+`codec_id` in codec expressions and boundary fields, as specified in
+`../specs/CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md`. The parameter record closes
+scale and rounding before invoking the existing W10 relation. Every expression is
 closed, explicitly typed, depth/count bounded, and free of source method calls.
 There is no arbitrary C# expression evaluator inside a contract parser and no
 contract expression can make an internal template callable from application
@@ -2401,7 +2404,7 @@ published it without changing a frozen value as
 `CSHARP_PRACTICAL_SHARED_ARTIFACTS_V1.md`, and
 `develop/specs/vectors/csharp-practical-profile-v1.json`. The W10 owner test
 recomputes every source/specification hash, the ten freeze-owner mappings, 63
-downstream production owners, all 700 rows, the upgrade matrix, and the
+downstream production owners, all 705 rows, the upgrade matrix, and the
 release-gate decision. A change to a frozen value requires returning to W09
 and regenerating the boundary vectors and evidence. A future failed or
 ambiguous observation still blocks the profile; it never falls back to

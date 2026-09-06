@@ -243,7 +243,7 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             "CSHARP-03-T03-W10" => "7399590a1b692b999ab4fd30e752d27f77c45948",
             "CSHARP-03-T03-W11" => "2e384db5d97565dc25aec50e73d911950c315f66",
             "CSHARP-03-T03-W12" => "3e3c7813db8b2fc4a9472aa11efef03e3f3381bb",
-            "CSHARP-03-T03-W13" => "SELF",
+            "CSHARP-03-T03-W13" => "78c8f7295f75baf3ea0efc68c684d31d95e6bc46",
             _ => "—",
         };
         assert_eq!(

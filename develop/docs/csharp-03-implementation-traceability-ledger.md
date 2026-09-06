@@ -117,7 +117,7 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T03-W10` | `Complete` | `crates/mpk-cli/tests/csharp_practical_codecs.rs#CSHARP-03-T03-W10` | `7399590a1b692b999ab4fd30e752d27f77c45948` |
 | `CSHARP-03-T03-W11` | `Complete` | `crates/mpk-cli/tests/csharp_practical_numbers.rs#CSHARP-03-T03-W11` | `2e384db5d97565dc25aec50e73d911950c315f66` |
 | `CSHARP-03-T03-W12` | `Complete` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W12` | `3e3c7813db8b2fc4a9472aa11efef03e3f3381bb` |
-| `CSHARP-03-T03-W13` | `Complete` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W13` | `SELF` |
+| `CSHARP-03-T03-W13` | `Complete` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W13` | `78c8f7295f75baf3ea0efc68c684d31d95e6bc46` |
 | `CSHARP-03-T03-W14` | `Ready` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W14` | `—` |
 | `CSHARP-03-T04-W01` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W01` | `—` |
 | `CSHARP-03-T04-W02` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W02` | `—` |
@@ -4601,3 +4601,61 @@ Final business input manifest SHA-256:
 `716568dfaed305232cab194704fd6a0e5207a8e6706dc98129f946bdee81a536`.
 
 T03-W14 is the sole ready item.
+
+
+## 36. W14 prerequisite amendment: explicit codec parameters
+
+On 2026-09-06 the user approved returning to the T01-W09/W10 freeze to
+resolve the fixed-decimal configuration gap found during W14. This record
+covers that prerequisite repair only. **CSHARP-03-T03-W14 remains Ready and
+incomplete**; its complete source/sidecar attachment, specialization, VIR
+emission, independent import and all-vector/fuzz exit gates are still required.
+T04 remains blocked by W14.
+
+The strict `codec_parameters` record has ordered required fields
+`scale,rounding`. Codec expressions and boundary fields bind it immediately
+after `codec_id`. Fixed decimal requires explicit scale 0..28 and one of the
+five W10 rounding modes; other codecs require both null. A null boundary codec
+requires null parameters. The sole format mode is `canonical`. Configuration
+is part of each enclosing contract's complete hash preimage, never inferred
+from decimal bits, input text or ambient state. The W10 codec IDs and algorithms
+and all installed-profile/checker behavior remain unchanged.
+
+`BoundaryCodec::from_contract_parameters` and its strict JSON entry point
+validate configuration before invoking the W10 relation. This leaves the W10
+internal runtime-vector precedence for an invalid scale intact while rejecting
+invalid sidecars before parsing. Tests cover strict fields/order/types,
+duplicate keys, canonical numbers, missing configuration, scale -1/0/28/29,
+all rounding modes, exact scale-sensitive parsing, rounding-sensitive output,
+and crossed codec configurations. All five new frozen nested-record vectors
+execute these production entry points under the W14 domain test owner.
+
+The amended W09 freeze and W10 publication contain 705 vectors, 21 strict
+nested records and 72 inventoried shapes; the 15 roots, three tagged unions
+and 33 expression tags are unchanged. Their regenerated hashes and the
+normative vector manifest bind the new bytes. `frozen_contract.amendments`
+retains the amendment base commit and previous freeze/publication hashes.
+Earlier ledger counts and hashes are historical records of the original freeze.
+
+Final amendment review: no remaining findings within this prerequisite scope.
+The source-to-VIR integration draft is not part of this change and is not
+claimed as completed work.
+
+| Local verification | Result |
+| --- | --- |
+| W09/W10 generators with `--check` | Passed; 705 vectors reproduced, with unchanged foundation, limits, diagnostic and checker evidence. |
+| `python3 -B scripts/check-spec-vectors.py --check` | Passed: all 26 vector sets. |
+| Codec/domain owner suites and the new contract/manifest hash mutation test | Passed. Configuration changes invalidate the contract hash and referencing manifest; stale hashes and field-complete reference substitutions reject. |
+| `cargo test --workspace -- --skip csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge --skip csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers` | 816 passed, 8 existing tests ignored, 2 named baseline failures filtered out, 118 suites. |
+| `./scripts/check-fast.sh` | Formatting, strict obsolete-interface scan and clippy passed. Workspace tests stopped at the two known T01-W02 inventory failures. |
+| Private `check-build-inputs` | Passed; the private source input closure remains unchanged. |
+| Parent-versus-current frozen inventory searches | No changed path sets; all 17 mismatching fingerprints already exist at parent `78c8f7295f75baf3ea0efc68c684d31d95e6bc46`. The historical inventory was not rewritten. |
+| `/usr/bin/git diff --check` | Passed. |
+
+The complete standard gate remains non-green because of the two named baseline
+failures. W14's full C# emission/importer suites, all T03 fuzz seeds in two
+isolated runs and frontend build gate remain outstanding with W14 itself;
+this prerequisite receipt does not substitute for them.
+
+Amended freeze content SHA-256: `35602bd9a6e8febd68c96fc7abcd9839931b9a197ca2155d7e6b4591079154bc`.
+Published package raw SHA-256: `efd8b157de50b1fbd432ed34447c986839c9f033f73070cfcc9665c75a919aad`.

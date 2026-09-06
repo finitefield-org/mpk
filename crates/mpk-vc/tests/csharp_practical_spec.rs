@@ -580,6 +580,7 @@ fn csharp_03_t01_w09_successor_identities_schemas_and_owners_are_frozen() {
             "publication_owner",
             "content_hash_domain",
             "content_sha256",
+            "amendments",
         ],
     );
     assert_eq!(freeze["schema"], "mpk.csharp_practical.t01_w09.freeze.v1");
@@ -588,6 +589,22 @@ fn csharp_03_t01_w09_successor_identities_schemas_and_owners_are_frozen() {
     assert_eq!(freeze["activation"], "candidate_only");
     assert_eq!(freeze["semantic_profile"], "mpk.csharp.practical.v1");
     assert_eq!(freeze["publication_owner"], "CSHARP-03-T01-W10");
+    assert_eq!(array(&freeze["amendments"]).len(), 1);
+    let amendment = &freeze["amendments"][0];
+    assert_eq!(amendment["id"], "explicit_codec_parameters");
+    assert_eq!(amendment["owner"], "CSHARP-03-T03-W14");
+    assert_eq!(
+        amendment["base_commit"],
+        "78c8f7295f75baf3ea0efc68c684d31d95e6bc46"
+    );
+    assert_eq!(
+        amendment["previous_freeze_content_sha256"],
+        "b1dc1c9c1b6124410965c0a1763b9cedc902eadee221058aa093a95f2d7000b5"
+    );
+    assert_eq!(
+        amendment["previous_publication_raw_sha256"],
+        "dd3b45276d91086b62dce8757cef4f79e16fe1dedcfce398af0ff979ad2489ac"
+    );
     let mut preimage = freeze.clone();
     preimage.as_object_mut().unwrap().remove("content_sha256");
     assert_eq!(
@@ -742,9 +759,23 @@ fn csharp_03_t01_w09_successor_identities_schemas_and_owners_are_frozen() {
     }
     let type_system = &freeze["schema_type_system"];
     let records = array(&type_system["nested_records"]);
-    assert_eq!(records.len(), 20);
+    assert_eq!(records.len(), 21);
     let record_ids: BTreeSet<_> = records.iter().map(|row| text(&row["id"])).collect();
     assert_eq!(record_ids.len(), records.len());
+    let parameters = records
+        .iter()
+        .find(|r| r["id"] == "codec_parameters")
+        .unwrap();
+    assert_eq!(parameters["ordered_fields"], json!(["scale", "rounding"]));
+    assert_eq!(parameters["producer"], "CSHARP-03-T03-W14");
+    let boundary = records
+        .iter()
+        .find(|r| r["id"] == "boundary_field")
+        .unwrap();
+    assert_eq!(
+        &array(&boundary["ordered_fields"])[6..],
+        &[json!("codec_id"), json!("codec_parameters")]
+    );
     for required in [
         "boundary_field",
         "csharp_practical_parameter_values_v1",
@@ -964,6 +995,21 @@ fn csharp_03_t01_w09_contract_boundary_transition_and_dispatch_are_closed() {
     assert_eq!(
         by_tag["codec_parse"]["field_types"]["codec_id"],
         "registered_codec_id"
+    );
+    assert_eq!(
+        by_tag["codec_parse"]["ordered_fields"],
+        json!(["tag", "type_id", "codec_id", "codec_parameters", "text"])
+    );
+    assert_eq!(
+        by_tag["codec_format"]["ordered_fields"],
+        json!([
+            "tag",
+            "type_id",
+            "codec_id",
+            "codec_parameters",
+            "value",
+            "mode"
+        ])
     );
     assert_eq!(
         by_tag["tagged_make"]["field_types"]["arm"],
@@ -1479,8 +1525,8 @@ fn csharp_03_t01_w10_publication_reproduces_the_complete_private_freeze() {
         .map(|row| text(&row["id"]))
         .collect::<Vec<_>>();
     assert!(ids.windows(2).all(|pair| pair[0] < pair[1]));
-    assert_eq!(ids.len(), 700);
-    assert_eq!(ids.iter().copied().collect::<BTreeSet<_>>().len(), 700);
+    assert_eq!(ids.len(), 705);
+    assert_eq!(ids.iter().copied().collect::<BTreeSet<_>>().len(), 705);
     assert_eq!(package["vector_ids_sha256"], sha(&canonical(&json!(ids))));
 
     let source = &package["source_w09"];
@@ -1698,7 +1744,7 @@ fn csharp_03_t01_w10_freeze_and_downstream_ownership_is_total_and_exact() {
     }
 
     let shapes = array(&inventory["shapes"]);
-    assert_eq!(shapes.len(), 71);
+    assert_eq!(shapes.len(), 72);
     assert_eq!(
         shapes
             .iter()

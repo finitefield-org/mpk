@@ -19,7 +19,7 @@ The package contains, without semantic rewriting:
 
 - the complete W09 `frozen_contract`, including all names, strict shapes,
   diagnostic precedence, transition rules, termination rules, and limits;
-- the same 700 sorted conformance rows as the W09 private handoff;
+- the same 705 sorted conformance rows as the W09 private handoff;
 - raw hashes for every canonical W01-W09 evidence record and all three
   specification members;
 - one exact primary test owner for every freeze requirement and every T02-T08

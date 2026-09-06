@@ -16,7 +16,7 @@ owner is
 
 The package contains 17 identity families, 102 globally unique successor
 identities, 42 globally unique successor hash domains, 88 retained identities,
-11 retained hash domains, 15 strict root schemas, 20 strict nested records,
+11 retained hash domains, 15 strict root schemas, 21 strict nested records,
 three closed tagged unions, and the 33-variant contract-expression union. The
 machine rows, not abbreviations in this prose, are the exact inventory. No
 alias, alternate spelling, implicit version, or unlisted tag/member exists.
@@ -73,6 +73,29 @@ hash the complete typed preimage and independently recompute every referenced
 hash; a caller-provided hash does not establish validity.
 
 ## 4. Semantic context and frontend linkage
+
+The user-authorized T03-W14 amendment re-freezes the inactive W09/W10
+package with explicit codec parameters. The historical W09 commit remains
+the original publication ancestor; `frozen_contract.amendments` identifies
+the amendment base and owner, and the regenerated hashes bind the amended
+bytes. The installed scalar and practical activation states do not change.
+
+`codec_parse`, `codec_format`, and `boundary_field` include the required
+`codec_parameters` member immediately after `codec_id`. Its strict ordered
+record is `scale,rounding`. A null boundary codec ID requires null parameters.
+Every selected codec requires the record. For `decimal.fixed`, scale is a
+canonical JSON integer 0..28 and rounding is exactly `ToEven`, `AwayFromZero`,
+`ToZero`, `ToNegativeInfinity`, or `ToPositiveInfinity`. For every other
+registered codec, both fields are null. Parameters are validated before
+parsing input, including when rounding affects formatting only. They cannot
+be inferred from input digits or the decimal value's representation scale.
+The sole `codec_format.mode` is `canonical`; rounding is specified only by
+the parameter record. Missing, extra, duplicate, or unknown parameters reject.
+
+Configuration is part of the complete contract preimage and every referencing
+artifact hash. It is not ambient state or an unbound importer option. The
+amendment retains the 18 W10 codec IDs and their parse/format algorithms.
+Boundary invocation remains T05-owned.
 
 `profile_entry_sha256` resolves exactly one entry in one referenced immutable
 registry revision. Source language, semantic profile, semantic-parameter
@@ -175,7 +198,7 @@ unknown-field preservation, best-effort conversion, or legacy fallback exists.
 
 ## 9. Conformance and activation gate
 
-The 700 published rows are minimum mandatory conformance cases. All applicable
+The 705 published rows are minimum mandatory conformance cases. All applicable
 retained predecessor vectors also run. Passing a model test without executing
 the named production owner is insufficient. Every exact path/identity/domain
 listed in the package is immutable for v1.
