@@ -206,8 +206,8 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             | "CSHARP-03-T03-W03" | "CSHARP-03-T03-W04" | "CSHARP-03-T03-W05"
             | "CSHARP-03-T03-W06" | "CSHARP-03-T03-W07" | "CSHARP-03-T03-W08"
             | "CSHARP-03-T03-W09" | "CSHARP-03-T03-W10" | "CSHARP-03-T03-W11"
-            | "CSHARP-03-T03-W12" | "CSHARP-03-T03-W13" => "Complete",
-            "CSHARP-03-T03-W14" => "Ready",
+            | "CSHARP-03-T03-W12" | "CSHARP-03-T03-W13" | "CSHARP-03-T03-W14" => "Complete",
+            "CSHARP-03-T04-W01" => "Ready",
             _ => "Blocked",
         };
         assert_eq!(row.status, expected_status, "status drift for {work_item}");
@@ -244,6 +244,7 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             "CSHARP-03-T03-W11" => "2e384db5d97565dc25aec50e73d911950c315f66",
             "CSHARP-03-T03-W12" => "3e3c7813db8b2fc4a9472aa11efef03e3f3381bb",
             "CSHARP-03-T03-W13" => "78c8f7295f75baf3ea0efc68c684d31d95e6bc46",
+            "CSHARP-03-T03-W14" => "SELF",
             _ => "—",
         };
         assert_eq!(
@@ -424,6 +425,9 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
         "T03-W03 is the sole ready item.",
         "## 28. CSHARP-03-T03-W06 completion record",
         "## 29. CSHARP-03-T03-W07 completion record",
+        "## 37. CSHARP-03-T03-W14 completion record",
+        "T04-W01 is the sole",
+        "develop/migrations/csharp-03/data-phase/integration-review.md",
         "## 35. CSHARP-03-T03-W13 completion record",
         "T03-W14 is the sole ready item.",
         "develop/migrations/csharp-03/business/business-inputs.json",
@@ -811,6 +815,27 @@ fn csharp_03_t01_w02_search_fixtures_reject_added_or_deleted_consumers() {
             "adding a known consumer must fail search fixture {id}"
         );
     }
+}
+
+#[test]
+fn csharp_03_t03_w14_inventory_ignores_generated_python_caches() {
+    let directory = std::env::temp_dir().join(format!(
+        "mpk-w14-inventory-cache-{}-{}",
+        std::process::id(),
+        std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .unwrap()
+            .as_nanos()
+    ));
+    let cache = directory.join("__pycache__");
+    fs::create_dir_all(&cache).unwrap();
+    let source = directory.join("consumer.py");
+    fs::write(&source, "real consumer").unwrap();
+    fs::write(cache.join("consumer.cpython-312.pyc"), "generated consumer").unwrap();
+    let mut paths = vec![];
+    collect_search_files(&directory, &BTreeSet::new(), &mut paths);
+    fs::remove_dir_all(&directory).unwrap();
+    assert_eq!(paths, vec![source]);
 }
 
 fn assert_java_t10_link(baseline: &Value, successor: &Value) {
@@ -1481,13 +1506,48 @@ fn assert_search_fingerprint(fixture: &Value, paths: &[String]) -> Result<(), St
         .as_u64()
         .expect("search count must be an unsigned integer") as usize;
     let expected_hash = text(&fixture["expected_paths_sha256"]);
-    let actual_hash = search_path_set_hash(paths);
-    if paths.len() == expected_count && actual_hash == expected_hash {
+    let correction = read_json(
+        "develop/migrations/csharp-03/data-phase/historical-inventory-cache-correction.json",
+    );
+    assert_eq!(
+        correction["schema"],
+        "mpk.csharp_practical.historical_inventory_cache_correction.v1"
+    );
+    assert_eq!(correction["inventory_path"], INVENTORY_PATH);
+    let inventory_bytes = fs::read(repo_path(INVENTORY_PATH)).unwrap();
+    assert_eq!(
+        correction["inventory_sha256"],
+        format!("{:x}", Sha256::digest(&inventory_bytes))
+    );
+    // Reconstruct only the historical path-set preimage, never cache files.
+    // The original frozen hash still binds every real consumer path exactly.
+    let mut historical = paths.to_vec();
+    if let Some(caches) = correction["recorded_cache_paths"].get(id) {
+        for cache in array(caches) {
+            let cache = text(cache);
+            let module = cache
+                .strip_prefix("scripts/__pycache__/")
+                .and_then(|s| s.strip_suffix(".cpython-312.pyc"))
+                .expect("only recorded Python 3.12 cache paths");
+            assert!(
+                !module.is_empty()
+                    && module
+                        .bytes()
+                        .all(|c| c.is_ascii_alphanumeric() || c == b'_')
+            );
+            assert!(repo_path(format!("scripts/{module}.py")).is_file());
+            assert!(!historical.iter().any(|p| p == cache));
+            historical.push(cache.to_owned());
+        }
+    }
+    historical.sort();
+    let actual_hash = search_path_set_hash(&historical);
+    if historical.len() == expected_count && actual_hash == expected_hash {
         Ok(())
     } else {
         Err(format!(
             "{id}: expected count={expected_count} sha256={expected_hash}; actual count={} sha256={actual_hash}",
-            paths.len()
+            historical.len()
         ))
     }
 }
@@ -1565,7 +1625,7 @@ fn collect_search_files(path: &Path, ignored: &BTreeSet<String>, files: &mut Vec
     if path
         .file_name()
         .and_then(|name| name.to_str())
-        .is_some_and(|name| ignored.contains(name))
+        .is_some_and(|name| name == "__pycache__" || ignored.contains(name))
     {
         return;
     }

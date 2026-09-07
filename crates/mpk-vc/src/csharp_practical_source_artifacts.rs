@@ -1946,6 +1946,7 @@ pub struct SemanticBindingInput {
     pub default_arm: String,
     pub bounds: Vec<SemanticBound>,
     pub operation_map: Vec<SemanticOperationMapping>,
+    pub enum_arms: BTreeMap<String, BTreeMap<String, String>>,
 }
 
 const SEMANTIC_BINDING_FIELDS: &[&str] = &[
@@ -1959,6 +1960,7 @@ const SEMANTIC_BINDING_FIELDS: &[&str] = &[
     "default_arm",
     "bounds",
     "operation_map",
+    "enum_arms",
     "binding_sha256",
 ];
 
@@ -2211,6 +2213,25 @@ fn semantic_binding_value(
         },
     );
     let operation_map = ordered_operation_map(&binding.operation_map, role.operations);
+    let enum_arms = PracticalJsonValue::Object(
+        binding
+            .enum_arms
+            .iter()
+            .map(|(id, arms)| {
+                (
+                    id.clone(),
+                    PracticalJsonValue::Object(
+                        arms.iter()
+                            .map(|(label, carrier)| {
+                                (label.clone(), PracticalJsonValue::string(carrier))
+                            })
+                            .collect(),
+                    ),
+                )
+            })
+            .collect(),
+    );
+    validate_binding_enum_arms(&enum_arms, &binding.role)?;
     let fields = vec![
         (
             "schema",
@@ -2237,6 +2258,7 @@ fn semantic_binding_value(
         ),
         ("bounds", bounds),
         ("operation_map", operation_map),
+        ("enum_arms", enum_arms),
     ];
     let preimage = PracticalJsonValue::object(fields.clone());
     let hash = hash_complete_with_sorted_objects(SEMANTIC_BINDING_HASH_DOMAIN, &preimage, kind)?;
@@ -2492,6 +2514,10 @@ fn validate_semantic_binding_entry(
     validate_binding_arm_mappings(value.get("tag_arms"), role.arms)?;
     validate_binding_bounds(value.get("bounds"), role.bound)?;
     validate_binding_operation_map(value.get("operation_map"), role.operations)?;
+    validate_binding_enum_arms(
+        value.get("enum_arms").expect("exact fields checked"),
+        role_name,
+    )?;
     let arguments = practical_string_array_for(kind, value.get("inferred_argument_ids"))?;
     if arguments.len() != role.argument_count
         || arguments
@@ -2517,6 +2543,80 @@ fn validate_semantic_binding_entry(
     require_sorted_object_hash_field(kind, value, "binding_sha256", SEMANTIC_BINDING_HASH_DOMAIN)?;
     Ok(())
 }
+
+/// Shape validation is independent of source identity. Reachability, exhaustive
+/// carrier coverage and actual operation use are checked by the VIR importer.
+fn validate_binding_enum_arms(
+    value: &PracticalJsonValue,
+    role: &str,
+) -> Result<(), PracticalArtifactError> {
+    let kind = PracticalArtifactKind::SemanticBindings;
+    let bad = || {
+        failure(
+            kind,
+            PracticalArtifactPhase::Shape,
+            PracticalArtifactErrorCode::Shape,
+        )
+    };
+    let domains = value.as_object().ok_or_else(bad)?;
+    let mut previous = None;
+    for (id, mapping) in domains {
+        if !valid_source_declaration_id(id) || previous.is_some_and(|p: &str| p >= id.as_str()) {
+            return Err(bad());
+        }
+        previous = Some(id.as_str());
+        let arms = mapping.as_object().ok_or_else(bad)?;
+        let mut last = None;
+        let mut carriers = BTreeSet::new();
+        if arms.is_empty() {
+            return Err(bad());
+        }
+        let rounding = arms
+            .iter()
+            .any(|(label, _)| SEMANTIC_ROUNDING_LABELS.contains(&label.as_str()));
+        if rounding && (role != "money" || arms.len() != SEMANTIC_ROUNDING_LABELS.len()) {
+            return Err(bad());
+        }
+        for (label, carrier) in arms {
+            let allowed = if rounding {
+                SEMANTIC_ROUNDING_LABELS.contains(&label.as_str())
+            } else {
+                match role {
+                    "instant" => ["precision", "range"].contains(&label.as_str()),
+                    "money" => [
+                        "invalid_currency",
+                        "invalid_scale",
+                        "invalid_precision",
+                        "currency_mismatch",
+                        "invalid_rounding",
+                        "division_by_zero",
+                        "decimal_overflow",
+                    ]
+                    .contains(&label.as_str()),
+                    _ => false,
+                }
+            };
+            let carrier = carrier.as_str().ok_or_else(bad)?;
+            if !allowed
+                || last.is_some_and(|p: &str| p >= label.as_str())
+                || !valid_canonical_enum_carrier(carrier)
+                || !carriers.insert(carrier)
+            {
+                return Err(bad());
+            }
+            last = Some(label.as_str());
+        }
+    }
+    Ok(())
+}
+
+pub const SEMANTIC_ROUNDING_LABELS: &[&str] = &[
+    "ToEven",
+    "AwayFromZero",
+    "ToZero",
+    "ToNegativeInfinity",
+    "ToPositiveInfinity",
+];
 
 fn validate_binding_members(
     value: Option<&PracticalJsonValue>,
@@ -2852,7 +2952,7 @@ fn validate_contract_root_types(
                 && string_field(kind, value, "source_type_id")
                     .is_ok_and(valid_source_declaration_id)
                 && source_member_array("ordered_member_ids")
-                && object("recursive_default")
+                && value.get("recursive_default").is_some()
                 && boolean("default_eligible")
                 && source_member_array("required_member_ids")
                 && source_member_array("init_member_ids")

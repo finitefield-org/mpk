@@ -34,7 +34,7 @@ through each frozen limit plus one without a core change. W10 publishes the
 normative but inactive specifications and, after the approved W14 codec
 parameter amendment, 705 vectors.
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
-`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12/W13` are complete, `CSHARP-03-T03-W14` is ready, and every
+`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12/W13/W14` are complete, `CSHARP-03-T04-W01` is ready, and every
 later implementation work item remains blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
@@ -120,7 +120,8 @@ see section 31. T03-W10 adds string plans and the shared typed codec relation;
 see section 32. T03-W11 adds exact numeric relations and source plans; see
 section 33. T03-W12 adds nullable and application outcome relations; see
 section 34. T03-W13 adds calendar/time/GUID and bound instant/money relations;
-see section 35. T03-W14 is ready. This
+see section 35. T03-W14 closes data emission and independent import; see
+section 37. T04-W01 is ready. This
 file remains planning material. W01 added its baseline and ledger; W02 added
 only the private consumer inventory, owner tests, ledger evidence, and current-
 status documentation; W03 added only private build-input evidence and its
@@ -177,7 +178,7 @@ T03-W09 adds canonical ordered map/set projections and typed operation handoffs.
 T03-W10 adds UTF-16 string plans and the shared typed boundary codec relation.
 T03-W11 adds exact numeric relations and source plans.
 T03-W12 adds nullable and closed application outcome relations.
-The next serial work is T03-W13's calendar, time, GUID, instant, and money values.
+The next serial work is T04-W01's loop-contract attachment.
 
 The following are unconditional stop conditions:
 
@@ -1371,10 +1372,11 @@ operation matrix.
 
 Depends on: T03-W13.
 
-Current status: `Ready`.
+Current status: `Complete`.
 
-The approved explicit-codec-parameter prerequisite amendment is recorded in
-ledger section 36. This does not complete W14 or unblock T04.
+Ledger section 37 records complete data emission/import, the approved binding
+and constructor amendments, exhaustive source replay, and final local gates.
+The earlier codec prerequisite remains recorded in section 36.
 
 Owns: closure of data-relevant type/method contract expression parsing and
 attachment; strict semantic-binding parsing/attachment; logical declaration
@@ -1424,6 +1426,8 @@ T07/T08.
 ### CSHARP-03-T04-W01 — Parse and attach loop contracts
 
 Depends on: T03-W14.
+
+Current status: `Ready`.
 
 Owns: loop invariant, optional decreases, modifies/ownership facts, normal and
 abrupt exit claims, strict loop-to-sidecar attachment, expression typing, and

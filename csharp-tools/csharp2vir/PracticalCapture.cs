@@ -714,6 +714,11 @@ internal static class CSharpPracticalCapture
             ValidateSelection(selection);
             PracticalCaptureSet captured = CaptureInputs(selection, capturedInputs);
             ImmutableArray<MetadataReference> pinnedReferences = ValidateReferences(references);
+#if MPK_T03_REPLAY
+            PracticalDataReplayHarness.Record(selection,
+                captured.Sources.Select(s => new PracticalCapturedInput(PracticalCapturedInputKind.Source,s.Path,s.CopyBytes()))
+                    .Concat(captured.Sidecars.Select(s => new PracticalCapturedInput(PracticalCapturedInputKind.Sidecar,s.Path,s.CopyBytes()))).ToArray());
+#endif
             RoslynState roslyn = CreateCompilation(selection, captured.Sources, pinnedReferences);
             ValidateSyntaxNodeLimit(roslyn);
             validateDataLimits?.Invoke(roslyn.Compilation);
@@ -2837,7 +2842,8 @@ internal static class CSharpPracticalCapture
                             callable.AddCallee(callee);
                         }
                     }
-                    else if (symbol is IPropertySymbol property && property.GetMethod is not null)
+                    else if (symbol is IPropertySymbol property && property.GetMethod is not null
+                        && !IsWriteOnlyPropertyTarget(callable.Model, node))
                     {
                         SourceCallableRecord? getter = FindCallable(property.GetMethod);
                         if (getter is not null)
@@ -2857,6 +2863,14 @@ internal static class CSharpPracticalCapture
                 callable.Callees.Sort((left, right) => string.CompareOrdinal(left.Id, right.Id));
             }
 
+        }
+
+        private static bool IsWriteOnlyPropertyTarget(SemanticModel model, SyntaxNode node)
+        {
+            if (node.Parent is MemberAccessExpressionSyntax access && access.Name == node) node=access;
+            return model.GetOperation(node) is IPropertyReferenceOperation property
+                && property.Parent is ISimpleAssignmentOperation assignment
+                && ReferenceEquals(assignment.Target,property);
         }
 
         internal PracticalSourceClosure Close(

@@ -145,7 +145,7 @@ def fixture_binding(role: str) -> tuple[dict, dict, dict]:
                "inferred_argument_ids": [m.type_id(t) for t in m.binding_arguments(role, {r: members[r] for r in m.ROLE_MEMBERS[role]})],
                "default_arm": "none" if role == "option" else "missing_key" if role == "lookup" else "ineligible",
                "bounds": {"bounded_sequence": {"length": 4096}, "ordered_map": {"length": 4096}, "ordered_set": {"length": 4096}, "validation": {"errors": 256}, "transition": {"events": 4096}}.get(role, {}),
-               "operation_map": {}}
+               "operation_map": {}, "enum_arms": {}}
     binding["binding_sha256"] = m.digest(binding, "binding")
     return binding, sources, {}
 
@@ -261,7 +261,7 @@ def vector_rows() -> list[dict]:
     cyclic = source("Cycle", [("next", {"kind": "source", "id": cyclic_id})])
     rejects("specialization", "source_cycle", "source_cycle", lambda: m.validate_sources({cyclic_id: cyclic}))
     changed_origin = copy.deepcopy(roots[0])
-    changed_origin["origin"] = "source_construction"
+    changed_origin["origin"] = "source_string"
     rejects("specialization", "invalid_root_derivation", "root_derivation_source", lambda: m.derive([changed_origin], {}, frozen["content_sha256"]))
     for count in (15, 16, 17):
         ty = m.type_ref("i32")

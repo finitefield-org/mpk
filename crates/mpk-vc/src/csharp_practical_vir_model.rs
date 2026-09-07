@@ -56,11 +56,11 @@ const FOUNDATION_TRANSPORT_BYTES_MAX: u64 = 1_048_576;
 const FOUNDATION_JSON_DEPTH_MAX: u64 = 64;
 const FOUNDATION_STRING_BYTES_MAX: u64 = 262_144;
 const FOUNDATION_DEFINITIONS_RAW_SHA256: &str =
-    "25738447bf793e37dc2125e7a07da55a03fb15f2fa4dfb87b25646a16cc9d1b4";
+    "c49766ae45a9c74e066ea91035dfc47ad4fe296154ad89d826697df691cd193c";
 const FOUNDATION_SEMANTICS_RAW_SHA256: &str =
-    "29c5986e3c7ce2ab018e36eea61caaf9d9e53d6b8e47f0229ef4681db8c3fc8b";
-const FOUNDATION_DEFINITIONS_SIZE_BYTES: u64 = 18_467;
-const FOUNDATION_SEMANTICS_SIZE_BYTES: u64 = 54_806;
+    "d3623ade42f68ed94b9abf9b4cb2693b0c5898a6a9e9b5b650a7802a8e7926c3";
+const FOUNDATION_DEFINITIONS_SIZE_BYTES: u64 = 18511;
+const FOUNDATION_SEMANTICS_SIZE_BYTES: u64 = 62222;
 const FOUNDATION_DEFINITIONS_PATH: &str =
     "develop/migrations/csharp-03/foundation/foundation-definitions.json";
 const FOUNDATION_SEMANTICS_PATH: &str = "develop/specs/CSHARP_PRACTICAL_FOUNDATION_V1.md";
@@ -1208,8 +1208,9 @@ fn validate_source_types(
         }
         validate_enum_shape(source)?;
     }
+    let mut done = BTreeSet::new();
     for source_id in source_types.keys() {
-        visit_source_cycle(source_id, source_types, &mut BTreeSet::new())?;
+        visit_source_cycle(source_id, source_types, &mut BTreeSet::new(), &mut done)?;
     }
     Ok(())
 }
@@ -1253,7 +1254,11 @@ fn visit_source_cycle(
     source_id: &str,
     source_types: &BTreeMap<String, SourceType>,
     active: &mut BTreeSet<String>,
+    done: &mut BTreeSet<String>,
 ) -> Result<(), FoundationValidationError> {
+    if done.contains(source_id) {
+        return Ok(());
+    }
     if !active.insert(source_id.to_owned()) {
         return Err(source_failure(FoundationErrorCode::SourceCycle));
     }
@@ -1261,9 +1266,10 @@ fn visit_source_cycle(
         .get(source_id)
         .ok_or_else(|| source_failure(FoundationErrorCode::UnknownSourceType))?;
     for member in &source.members {
-        visit_type_sources(&member.ty, source_types, active)?;
+        visit_type_sources(&member.ty, source_types, active, done)?;
     }
     active.remove(source_id);
+    done.insert(source_id.to_owned());
     Ok(())
 }
 
@@ -1271,13 +1277,14 @@ fn visit_type_sources(
     ty: &ClosedType,
     source_types: &BTreeMap<String, SourceType>,
     active: &mut BTreeSet<String>,
+    done: &mut BTreeSet<String>,
 ) -> Result<(), FoundationValidationError> {
     match ty {
         ClosedType::Primitive(_) => Ok(()),
-        ClosedType::Source(source_id) => visit_source_cycle(source_id, source_types, active),
+        ClosedType::Source(source_id) => visit_source_cycle(source_id, source_types, active, done),
         ClosedType::Instance { arguments, .. } => {
             for argument in arguments {
-                visit_type_sources(argument, source_types, active)?;
+                visit_type_sources(argument, source_types, active, done)?;
             }
             Ok(())
         }
@@ -1974,6 +1981,7 @@ pub enum ClosedOperationTag {
     FieldRead,
     ValueConstruct,
     SourceCall,
+    ConstructorExecute,
     BindingProject,
     BindingReconstruct,
     StructuralEqual,
@@ -1993,6 +2001,7 @@ impl ClosedOperationTag {
             Self::FieldRead => "field_read",
             Self::ValueConstruct => "value_construct",
             Self::SourceCall => "source_call",
+            Self::ConstructorExecute => "constructor_execute",
             Self::BindingProject => "binding_project",
             Self::BindingReconstruct => "binding_reconstruct",
             Self::StructuralEqual => "structural_equal",
@@ -2012,6 +2021,7 @@ impl ClosedOperationTag {
             "field_read" => Some(Self::FieldRead),
             "value_construct" => Some(Self::ValueConstruct),
             "source_call" => Some(Self::SourceCall),
+            "constructor_execute" => Some(Self::ConstructorExecute),
             "binding_project" => Some(Self::BindingProject),
             "binding_reconstruct" => Some(Self::BindingReconstruct),
             "structural_equal" => Some(Self::StructuralEqual),
@@ -2157,19 +2167,26 @@ pub fn validate_closed_operation_signature(
             }
         }
         ClosedOperationTag::FieldRead => {
-            if signature.argument_type_ids.len() != 1 {
-                return Err(vir_failure(phase, PracticalVirErrorCode::Arity));
+            let member_id = signature
+                .id
+                .strip_prefix("field.read.")
+                .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::UnknownOperation))?;
+            if *signature != source_field_operation(roots, closed_set, member_id)? {
+                return Err(vir_failure(phase, PracticalVirErrorCode::OperandType));
             }
         }
         ClosedOperationTag::ValueConstruct => {
-            if !roots
-                .source_types
-                .contains_key(&signature.normal_result_type_id)
+            if *signature
+                != source_value_constructor_operation(
+                    roots,
+                    closed_set,
+                    &signature.normal_result_type_id,
+                )?
             {
-                return Err(vir_failure(phase, PracticalVirErrorCode::ResultType));
+                return Err(vir_failure(phase, PracticalVirErrorCode::OperandType));
             }
         }
-        ClosedOperationTag::SourceCall => {
+        ClosedOperationTag::SourceCall | ClosedOperationTag::ConstructorExecute => {
             if !signature.id.starts_with("mpk.csharp.source.") {
                 return Err(vir_failure(phase, PracticalVirErrorCode::UnknownOperation));
             }
@@ -2200,7 +2217,101 @@ pub fn validate_closed_operation_signature(
             validate_boundary_format_signature(signature)?;
         }
         ClosedOperationTag::Data => {
-            if !is_closed_data_operation_id(&signature.id) {
+            if signature.id.starts_with("object.") {
+                if *signature
+                    != object_construction_signature(roots, closed_set, &signature.id)
+                        .map_err(|_| vir_failure(phase, PracticalVirErrorCode::OperandType))?
+                {
+                    return Err(vir_failure(phase, PracticalVirErrorCode::OperandType));
+                }
+            } else if signature.id.starts_with("integer.") || signature.id.starts_with("boolean.") {
+                if *signature != scalar_operation_signature(&signature.id)? {
+                    return Err(vir_failure(phase, PracticalVirErrorCode::OperandType));
+                }
+            } else if signature.id.starts_with("construction.complete.") {
+                if *signature
+                    != sequence_construction_complete_signature(closed_set, &signature.id)?
+                {
+                    return Err(vir_failure(phase, PracticalVirErrorCode::OperandType));
+                }
+            } else if signature.id.starts_with("reference.value.") {
+                if *signature
+                    != domain::reference_value_signature(roots, closed_set, &signature.id)
+                        .map_err(|_| vir_failure(phase, PracticalVirErrorCode::OperandType))?
+                {
+                    return Err(vir_failure(phase, PracticalVirErrorCode::OperandType));
+                }
+            } else if signature.id.starts_with("lifted.") {
+                if *signature
+                    != domain::lifted_operation_signature(
+                        roots,
+                        closed_set,
+                        &signature.id,
+                        &signature.argument_type_ids,
+                        &signature.normal_result_type_id,
+                    )
+                    .map_err(|_| vir_failure(phase, PracticalVirErrorCode::UnknownOperation))?
+                {
+                    return Err(vir_failure(phase, PracticalVirErrorCode::OperandType));
+                }
+            } else if signature.id.starts_with("string.") {
+                if *signature != strings::operation_signature(closed_set, &signature.id)? {
+                    return Err(vir_failure(phase, PracticalVirErrorCode::OperandType));
+                }
+            } else if signature.id.starts_with("decimal.")
+                || signature.id.starts_with("floating.")
+                || signature.id.starts_with("numeric.conversion.")
+            {
+                let operation = NumericOperation::new(
+                    &signature.id,
+                    &signature.argument_type_ids,
+                    &signature.normal_result_type_id,
+                    None,
+                )
+                .map_err(|_| vir_failure(phase, PracticalVirErrorCode::UnknownOperation))?;
+                if signature
+                    .ordered_checks
+                    .iter()
+                    .map(|check| check.failure_type_id.as_deref())
+                    .ne(operation.exception_types().into_iter().map(Some))
+                {
+                    return Err(vir_failure(phase, PracticalVirErrorCode::CheckOrder));
+                }
+            } else if [
+                "date.",
+                "time.",
+                "duration.",
+                "guid.",
+                "instant.",
+                "day_of_week.",
+            ]
+            .iter()
+            .any(|prefix| signature.id.starts_with(prefix))
+            {
+                let operation = BusinessOperation::new(
+                    &signature.id,
+                    &signature.argument_type_ids,
+                    &signature.normal_result_type_id,
+                )
+                .map_err(|_| vir_failure(phase, PracticalVirErrorCode::UnknownOperation))?;
+                let exceptions = signature
+                    .ordered_checks
+                    .iter()
+                    .filter(|check| check.tag == RequiredCheckTag::Exception)
+                    .map(|check| check.failure_type_id.as_deref());
+                let errors = signature
+                    .ordered_checks
+                    .iter()
+                    .filter(|check| check.tag == RequiredCheckTag::ErrorOutcome)
+                    .map(|check| check.id.as_str());
+                if exceptions.ne(operation.exception_types().into_iter().map(Some))
+                    || errors.ne(operation.ordered_errors())
+                    || signature.ordered_checks.len()
+                        != operation.exception_types().len() + operation.ordered_errors().len()
+                {
+                    return Err(vir_failure(phase, PracticalVirErrorCode::CheckOrder));
+                }
+            } else if !is_closed_data_operation_id(&signature.id) {
                 return Err(vir_failure(phase, PracticalVirErrorCode::UnknownOperation));
             }
         }
@@ -2300,8 +2411,8 @@ pub fn validate_operation_invocation(
 }
 
 fn validate_required_check(
-    roots: &ValidatedClosedRootSet,
-    closed_set: &ClosedInstanceSet,
+    _roots: &ValidatedClosedRootSet,
+    _closed_set: &ClosedInstanceSet,
     check: &RequiredCheck,
 ) -> Result<(), PracticalVirValidationError> {
     let phase = PracticalVirValidationPhase::Operation;
@@ -2321,15 +2432,6 @@ fn validate_required_check(
                 return Err(vir_failure(phase, PracticalVirErrorCode::CheckKind));
             }
         }
-        CheckFailureType::Closed => {
-            if !check
-                .failure_type_id
-                .as_deref()
-                .is_some_and(|type_id| known_concrete_type(roots, closed_set, type_id))
-            {
-                return Err(vir_failure(phase, PracticalVirErrorCode::CheckKind));
-            }
-        }
     }
     Ok(())
 }
@@ -2338,7 +2440,6 @@ fn validate_required_check(
 enum CheckFailureType {
     None,
     Exact(&'static str),
-    Closed,
 }
 
 #[derive(Clone, Copy)]
@@ -2414,7 +2515,7 @@ fn check_contract(id: &str) -> Option<CheckContract> {
     ) {
         return Some(CheckContract {
             tag: RequiredCheckTag::ErrorOutcome,
-            failure: CheckFailureType::Closed,
+            failure: CheckFailureType::None,
         });
     }
     None
@@ -2646,23 +2747,6 @@ fn is_closed_data_operation_id(id: &str) -> bool {
                 | "value_equality"
         );
     }
-    if let Some((carrier, operation)) = id
-        .strip_prefix("lifted.")
-        .and_then(|value| value.split_once('.'))
-    {
-        return matches!(carrier, "i32" | "i64" | "f32" | "f64" | "decimal")
-            && matches!(
-                operation,
-                "add"
-                    | "compare"
-                    | "divide"
-                    | "multiply"
-                    | "negate"
-                    | "plus"
-                    | "remainder"
-                    | "subtract"
-            );
-    }
     let floating_operation = id
         .strip_prefix("floating.single.")
         .or_else(|| id.strip_prefix("floating.double."));
@@ -2768,6 +2852,32 @@ pub struct CheckCommutation {
     pub failure_projection_id: Option<String>,
 }
 
+/// Finite mapping of an operation operand, without asserting a total inverse
+/// from every u32 to the source enum.
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(deny_unknown_fields)]
+pub struct RoundingOperandCommutation {
+    pub ordinal: u32,
+    pub source_type_id: String,
+    pub enum_arms: BTreeMap<String, String>,
+}
+
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(deny_unknown_fields)]
+pub struct ReturnedErrorCommutation {
+    pub ordinal: u32,
+    pub semantic_check_id: String,
+    pub source_carrier: String,
+}
+
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(deny_unknown_fields)]
+pub struct ReturnedResultCommutation {
+    pub success_projection_id: String,
+    pub error_type_id: String,
+    pub ordered_errors: Vec<ReturnedErrorCommutation>,
+}
+
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct BindingOperationCommutation {
@@ -2777,6 +2887,43 @@ pub struct BindingOperationCommutation {
     pub operand_projection_ids: Vec<String>,
     pub result_projection_id: String,
     pub ordered_outcomes: Vec<CheckCommutation>,
+    pub returned_result: Option<ReturnedResultCommutation>,
+    pub rounding_operands: Vec<RoundingOperandCommutation>,
+    /// Real source checks with no semantic outcome require a later proof of
+    /// unreachability under the binding invariant; they remain in source VIR.
+    pub unmatched_source_check_ids: Vec<String>,
+}
+
+pub(crate) fn binding_semantic_operation_id(semantic_type: &str, operation: &str) -> String {
+    if semantic_type == "mpk.csharp.value.instant.v1" {
+        format!("instant.{operation}")
+    } else {
+        format!("{semantic_type}.{operation}")
+    }
+}
+
+fn type_id_in_closed_set(ty: &ClosedType, closed: &ClosedInstanceSet) -> Option<String> {
+    match ty {
+        ClosedType::Primitive(name) => Some(format!("mpk.csharp.value.{name}.v1")),
+        ClosedType::Source(id) => Some(id.clone()),
+        ClosedType::Instance {
+            template,
+            arguments,
+        } => {
+            let args = arguments
+                .iter()
+                .map(|a| type_id_in_closed_set(a, closed))
+                .collect::<Option<Vec<_>>>()?;
+            closed
+                .metadata
+                .iter()
+                .find(|(_, m)| {
+                    m.template_id == format!("mpk.csharp.semantic.{template}.v1")
+                        && m.argument_ids == args
+                })
+                .map(|(id, _)| id.clone())
+        }
+    }
 }
 
 pub fn validate_binding_operation_commutation(
@@ -2838,105 +2985,191 @@ pub fn validate_binding_operation_commutation(
             PracticalVirErrorCode::BindingCommutation,
         ));
     }
-    for (ordinal, projection_id) in commutation.operand_projection_ids.iter().enumerate() {
-        let projection = by_id
-            .get(projection_id.as_str())
-            .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::BindingCommutation))?;
-        if projection.source_type_id != commutation.source_operation.argument_type_ids[ordinal]
-            || projection.semantic_type_id
-                != commutation.semantic_operation.argument_type_ids[ordinal]
+    let bad = || vir_failure(phase, PracticalVirErrorCode::BindingCommutation);
+    let check_order = || vir_failure(phase, PracticalVirErrorCode::CheckOrder);
+    let mut rounding = BTreeMap::new();
+    for route in &commutation.rounding_operands {
+        if rounding.insert(route.ordinal as usize, route).is_some() {
+            return Err(bad());
+        }
+        let en = roots
+            .source_types
+            .get(&route.source_type_id)
+            .filter(|s| s.kind == SourceKind::Enum)
+            .ok_or_else(bad)?;
+        if route
+            .enum_arms
+            .keys()
+            .map(String::as_str)
+            .collect::<BTreeSet<_>>()
+            != super::csharp_practical_source_artifacts::SEMANTIC_ROUNDING_LABELS
+                .iter()
+                .copied()
+                .collect()
+            || route.enum_arms.values().collect::<BTreeSet<_>>() != en.enum_values.iter().collect()
+            || route.enum_arms.values().collect::<BTreeSet<_>>().len() != route.enum_arms.len()
         {
-            return Err(vir_failure(
-                phase,
-                PracticalVirErrorCode::BindingCommutation,
-            ));
+            return Err(bad());
         }
     }
     if commutation
-        .operand_projection_ids
-        .first()
-        .and_then(|id| by_id.get(id.as_str()))
-        .is_none_or(|projection| projection.binding_id != commutation.binding_id)
+        .rounding_operands
+        .windows(2)
+        .any(|p| p[0].ordinal >= p[1].ordinal)
     {
-        return Err(vir_failure(
-            phase,
-            PracticalVirErrorCode::BindingCommutation,
-        ));
+        return Err(check_order());
     }
+    for (ordinal, projection_id) in commutation.operand_projection_ids.iter().enumerate() {
+        if let Some(route) = rounding.remove(&ordinal) {
+            if projection_id != &format!("enum.{}", route.source_type_id)
+                || route.source_type_id != commutation.source_operation.argument_type_ids[ordinal]
+                || commutation.semantic_operation.argument_type_ids[ordinal]
+                    != "mpk.csharp.value.u32.v1"
+            {
+                return Err(bad());
+            }
+        } else {
+            let projection = by_id.get(projection_id.as_str()).ok_or_else(bad)?;
+            if projection.source_type_id != commutation.source_operation.argument_type_ids[ordinal]
+                || projection.semantic_type_id
+                    != commutation.semantic_operation.argument_type_ids[ordinal]
+            {
+                return Err(bad());
+            }
+        }
+    }
+    if !rounding.is_empty() {
+        return Err(bad());
+    }
+    if !projections
+        .iter()
+        .any(|p| p.binding_id == commutation.binding_id)
+    {
+        return Err(bad());
+    }
+    // Factories (for example money.create) need not take their own type as the
+    // first operand. Binding ownership is established by the exact operation map.
     let result_projection = by_id
         .get(commutation.result_projection_id.as_str())
-        .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::BindingCommutation))?;
-    if result_projection.source_type_id != commutation.source_operation.normal_result_type_id
+        .ok_or_else(bad)?;
+    if result_projection.source_type_id != commutation.source_operation.normal_result_type_id {
+        return Err(bad());
+    }
+    let semantic_errors = commutation
+        .semantic_operation
+        .ordered_checks
+        .iter()
+        .filter(|c| c.tag == RequiredCheckTag::ErrorOutcome)
+        .collect::<Vec<_>>();
+    if let Some(returned) = &commutation.returned_result {
+        let result = closed_set
+            .metadata
+            .get(&result_projection.semantic_type_id)
+            .filter(|m| {
+                m.template_id == "mpk.csharp.semantic.result.v1" && m.argument_ids.len() == 2
+            })
+            .ok_or_else(bad)?;
+        let success = by_id
+            .get(returned.success_projection_id.as_str())
+            .ok_or_else(bad)?;
+        if semantic_errors.is_empty()
+            || success.semantic_type_id != result.argument_ids[0]
+            || success.semantic_type_id != commutation.semantic_operation.normal_result_type_id
+            || returned.error_type_id != result.argument_ids[1]
+            || returned.ordered_errors.len() != semantic_errors.len()
+        {
+            return Err(bad());
+        }
+        let en = roots
+            .source_types
+            .get(&returned.error_type_id)
+            .filter(|s| s.kind == SourceKind::Enum)
+            .ok_or_else(bad)?;
+        let mut carriers = BTreeSet::new();
+        for (ordinal, (route, semantic)) in returned
+            .ordered_errors
+            .iter()
+            .zip(&semantic_errors)
+            .enumerate()
+        {
+            if route.ordinal as usize != ordinal
+                || route.semantic_check_id != semantic.id
+                || !en.enum_values.contains(&route.source_carrier)
+                || !carriers.insert(&route.source_carrier)
+            {
+                return Err(check_order());
+            }
+        }
+    } else if !semantic_errors.is_empty()
         || result_projection.semantic_type_id
             != commutation.semantic_operation.normal_result_type_id
     {
-        return Err(vir_failure(
-            phase,
-            PracticalVirErrorCode::BindingCommutation,
-        ));
+        return Err(bad());
     }
-    if commutation.source_operation.ordered_checks.len()
-        != commutation.semantic_operation.ordered_checks.len()
-        || commutation.ordered_outcomes.len() != commutation.source_operation.ordered_checks.len()
-    {
-        return Err(vir_failure(
-            phase,
-            PracticalVirErrorCode::BindingCommutation,
-        ));
+    let semantics = commutation
+        .semantic_operation
+        .ordered_checks
+        .iter()
+        .filter(|c| c.tag != RequiredCheckTag::ErrorOutcome)
+        .collect::<Vec<_>>();
+    if commutation.ordered_outcomes.len() != semantics.len() {
+        return Err(check_order());
     }
-    for (ordinal, ((outcome, source), semantic)) in commutation
+    let sources = &commutation.source_operation.ordered_checks;
+    let mut used = BTreeSet::new();
+    let mut previous = None;
+    for (ordinal, (outcome, semantic)) in commutation
         .ordered_outcomes
         .iter()
-        .zip(&commutation.source_operation.ordered_checks)
-        .zip(&commutation.semantic_operation.ordered_checks)
+        .zip(semantics)
         .enumerate()
     {
-        if usize::try_from(outcome.ordinal).ok() != Some(ordinal)
-            || outcome.source_check_id != source.id
+        let (source_index, source) = sources
+            .iter()
+            .enumerate()
+            .find(|(_, c)| c.id == outcome.source_check_id)
+            .ok_or_else(bad)?;
+        if outcome.ordinal as usize != ordinal
             || outcome.semantic_check_id != semantic.id
             || source.tag != semantic.tag
+            || previous.is_some_and(|p| p >= source_index)
+            || !used.insert(source.id.as_str())
         {
-            return Err(vir_failure(phase, PracticalVirErrorCode::CheckOrder));
+            return Err(check_order());
         }
+        previous = Some(source_index);
         match (&source.failure_type_id, &semantic.failure_type_id) {
-            (None, None) => {
+            (a, b) if a == b => {
                 if outcome.failure_projection_id.is_some() {
-                    return Err(vir_failure(
-                        phase,
-                        PracticalVirErrorCode::BindingCommutation,
-                    ));
+                    return Err(bad());
                 }
             }
-            (Some(source_type), Some(semantic_type)) if source_type == semantic_type => {
-                if outcome.failure_projection_id.is_some() {
-                    return Err(vir_failure(
-                        phase,
-                        PracticalVirErrorCode::BindingCommutation,
-                    ));
-                }
-            }
-            (Some(source_type), Some(semantic_type)) => {
-                let projection = outcome
+            (Some(a), Some(b)) => {
+                let p = outcome
                     .failure_projection_id
                     .as_deref()
                     .and_then(|id| by_id.get(id))
-                    .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::BindingCommutation))?;
-                if &projection.source_type_id != source_type
-                    || &projection.semantic_type_id != semantic_type
-                {
-                    return Err(vir_failure(
-                        phase,
-                        PracticalVirErrorCode::BindingCommutation,
-                    ));
+                    .ok_or_else(bad)?;
+                if &p.source_type_id != a || &p.semantic_type_id != b {
+                    return Err(bad());
                 }
             }
-            _ => {
-                return Err(vir_failure(
-                    phase,
-                    PracticalVirErrorCode::BindingCommutation,
-                ));
-            }
+            _ => return Err(bad()),
         }
+    }
+    let unmatched = sources
+        .iter()
+        .filter(|c| !used.contains(c.id.as_str()))
+        .collect::<Vec<_>>();
+    if unmatched
+        .iter()
+        .any(|c| c.tag != RequiredCheckTag::Exception)
+        || unmatched.iter().map(|c| c.id.as_str()).ne(commutation
+            .unmatched_source_check_ids
+            .iter()
+            .map(String::as_str))
+    {
+        return Err(check_order());
     }
     Ok(())
 }
@@ -3414,6 +3647,44 @@ fn checked_construction_index(index: i32, length: u32) -> Result<u32, PracticalV
         })
 }
 
+/// Private source-lowering observation of the existing construction predicate.
+/// It neither publishes a state nor computes a second initialization bitmap.
+pub fn sequence_construction_complete_signature(
+    closed: &ClosedInstanceSet,
+    operation: &str,
+) -> Result<ClosedOperationSignature, PracticalVirValidationError> {
+    let id = operation
+        .strip_prefix("construction.complete.")
+        .ok_or_else(|| {
+            vir_failure(
+                PracticalVirValidationPhase::Operation,
+                PracticalVirErrorCode::UnknownOperation,
+            )
+        })?;
+    sequence_construction_metadata(closed, id)?;
+    Ok(ClosedOperationSignature {
+        id: operation.into(),
+        tag: ClosedOperationTag::Data,
+        argument_type_ids: vec![id.into()],
+        normal_result_type_id: "mpk.csharp.value.bool.v1".into(),
+        ordered_checks: vec![],
+    })
+}
+
+pub fn sequence_construction_complete(
+    closed: &ClosedInstanceSet,
+    state: &SequenceConstructionState,
+) -> Result<bool, PracticalVirValidationError> {
+    state.validate(closed)?;
+    if state.status != ConstructionStatus::Active {
+        return Err(vir_failure(
+            PracticalVirValidationPhase::Construction,
+            PracticalVirErrorCode::ConstructionState,
+        ));
+    }
+    Ok(construction_is_complete(state))
+}
+
 fn construction_is_complete(state: &SequenceConstructionState) -> bool {
     state.initialized_indices.len() == usize::try_from(state.length).unwrap_or(usize::MAX)
 }
@@ -3820,7 +4091,7 @@ pub fn validate_explicit_exception_value(
     Ok(())
 }
 
-fn builtin_exception_arms() -> Vec<ClosedExceptionArm> {
+pub(crate) fn builtin_exception_arms() -> Vec<ClosedExceptionArm> {
     const BUILTINS: [&str; 9] = [
         "System.DivideByZeroException",
         "System.OverflowException",
@@ -6722,3 +6993,99 @@ pub use business::{
 };
 
 use domain::source_observations_equal;
+
+#[path = "csharp_practical_data_phase.rs"]
+mod data_phase;
+pub(crate) use data_phase::{attach_data_contracts, derive_data_contract_roots};
+pub use data_phase::{
+    derive_data_type_routes, parse_data_contract_expression, validate_data_type_routes,
+    DataBindingClosure, DataContractEnvironment, DataPhaseError, DataTypeRoute,
+};
+
+#[path = "csharp_practical_data_source.rs"]
+mod data_source;
+pub use data_source::{
+    parse_data_type_key, DataSourceCallable, DataSourceInitializationPlan,
+    DataSourceInitializationStep, DataSourceOperation, SourceConstructorAssignment,
+    SourceDataObligation, ValidatedDataSource,
+};
+
+/// Field reads and product construction are generated from the same stored
+/// member table whose IDs and order were independently regenerated at import.
+pub fn source_field_operation(
+    roots: &ValidatedClosedRootSet,
+    closed: &ClosedInstanceSet,
+    member_id: &str,
+) -> Result<ClosedOperationSignature, PracticalVirValidationError> {
+    let (source, member) = roots
+        .source_types
+        .values()
+        .find_map(|source| {
+            source
+                .members
+                .iter()
+                .find(|m| m.id == member_id)
+                .map(|member| (source, member))
+        })
+        .ok_or_else(|| {
+            vir_failure(
+                PracticalVirValidationPhase::Operation,
+                PracticalVirErrorCode::UnknownOperation,
+            )
+        })?;
+    Ok(ClosedOperationSignature {
+        id: format!("field.read.{member_id}"),
+        tag: ClosedOperationTag::FieldRead,
+        argument_type_ids: vec![source.id.clone()],
+        normal_result_type_id: closed_type_id_for_operation(closed, roots, &member.ty)?,
+        ordered_checks: vec![],
+    })
+}
+pub fn source_value_constructor_operation(
+    roots: &ValidatedClosedRootSet,
+    closed: &ClosedInstanceSet,
+    type_id: &str,
+) -> Result<ClosedOperationSignature, PracticalVirValidationError> {
+    let source = roots
+        .source_types
+        .get(type_id)
+        .filter(|s| s.kind != SourceKind::Enum)
+        .ok_or_else(|| {
+            vir_failure(
+                PracticalVirValidationPhase::Operation,
+                PracticalVirErrorCode::ResultType,
+            )
+        })?;
+    Ok(ClosedOperationSignature {
+        id: format!("value.construct.{type_id}"),
+        tag: ClosedOperationTag::ValueConstruct,
+        argument_type_ids: source
+            .members
+            .iter()
+            .map(|m| closed_type_id_for_operation(closed, roots, &m.ty))
+            .collect::<Result<_, _>>()?,
+        normal_result_type_id: type_id.into(),
+        ordered_checks: vec![],
+    })
+}
+
+#[path = "csharp_practical_scalar_signatures.rs"]
+mod scalar_signatures;
+pub use scalar_signatures::scalar_operation_signature;
+
+#[path = "csharp_practical_data_sidecars.rs"]
+mod data_sidecars;
+pub use data_sidecars::DataSidecars;
+
+#[path = "csharp_practical_data_emission.rs"]
+mod data_emission;
+pub use data_emission::{emit_data_phase, EmittedDataPhase};
+
+#[path = "csharp_practical_object_construction.rs"]
+mod object_construction;
+pub use object_construction::{
+    object_construction_can_finalize, object_construction_constructor_member,
+    object_construction_root, object_construction_signature,
+    object_constructor_execution_signature, ObjectConstructionError, ObjectConstructionOperation,
+    ObjectConstructionState,
+};

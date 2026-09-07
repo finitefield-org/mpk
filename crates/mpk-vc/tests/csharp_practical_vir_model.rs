@@ -3,7 +3,8 @@ use mpk_vc::csharp_practical_vir_model::{
     csharp_practical_closed_instance_id, csharp_practical_declaration_id,
     csharp_practical_stored_member_id, derive_closed_exception_universe, derive_closed_instances,
     import_monomorphic_value, registered_foundation_definitions_transport,
-    registered_foundation_descriptor_transport, validate_binding_operation_commutation,
+    registered_foundation_descriptor_transport, sequence_construction_complete,
+    sequence_construction_complete_signature, validate_binding_operation_commutation,
     validate_closed_instance_set, validate_closed_operation_signature, validate_closed_root_set,
     validate_explicit_control_graph, validate_explicit_exception_value,
     validate_finally_completion, validate_foundation_structural_limit, validate_monomorphic_value,
@@ -266,7 +267,7 @@ fn csharp_03_t02_w02_executes_all_specialization_vectors_through_the_engine() {
     );
 
     let mut wrong_origin = roots.as_array().expect("root array")[0].clone();
-    wrong_origin["origin"] = Value::String("source_construction".to_owned());
+    wrong_origin["origin"] = Value::String("source_string".to_owned());
     actual.insert(
         "specialization.invalid_root_derivation".to_owned(),
         rejection(try_root_set(
@@ -885,6 +886,10 @@ fn csharp_03_t02_w03_closes_every_operation_control_and_pattern_tag() {
         ("field_read", ClosedOperationTag::FieldRead),
         ("value_construct", ClosedOperationTag::ValueConstruct),
         ("source_call", ClosedOperationTag::SourceCall),
+        (
+            "constructor_execute",
+            ClosedOperationTag::ConstructorExecute,
+        ),
         ("binding_project", ClosedOperationTag::BindingProject),
         (
             "binding_reconstruct",
@@ -1038,14 +1043,20 @@ fn csharp_03_t02_w03_validates_closed_operations_checks_and_edges() {
             &fixture.error_type_id,
         ),
         ClosedOperationSignature {
-            id: "field.read.value".to_owned(),
+            id: format!(
+                "field.read.{}",
+                serde_json::from_slice::<Value>(fixture.roots.canonical_json()).unwrap()
+                    ["source_types"][&fixture.source_type_id]["members"][0]["id"]
+                    .as_str()
+                    .unwrap()
+            ),
             tag: ClosedOperationTag::FieldRead,
             argument_type_ids: vec![fixture.source_type_id.clone()],
             normal_result_type_id: value_type_id("i32"),
             ordered_checks: Vec::new(),
         },
         ClosedOperationSignature {
-            id: "value.construct.source".to_owned(),
+            id: format!("value.construct.{}", fixture.source_type_id),
             tag: ClosedOperationTag::ValueConstruct,
             argument_type_ids: vec![value_type_id("i32")],
             normal_result_type_id: fixture.source_type_id.clone(),
@@ -1097,7 +1108,7 @@ fn csharp_03_t02_w03_validates_closed_operations_checks_and_edges() {
             )],
         },
         ClosedOperationSignature {
-            id: "lifted.i32.add".to_owned(),
+            id: "lifted.i32.add.checked".to_owned(),
             tag: ClosedOperationTag::Data,
             argument_type_ids: vec![option_i32_type_id.clone(), option_i32_type_id.clone()],
             normal_result_type_id: option_i32_type_id,
@@ -1303,6 +1314,9 @@ fn csharp_03_t02_w03_validates_application_binding_commutation() {
         &fixture.error_type_id,
     );
     let commutation = BindingOperationCommutation {
+        returned_result: None,
+        rounding_operands: vec![],
+        unmatched_source_check_ids: vec![],
         binding_id: "binding.sequence".to_owned(),
         source_operation: ClosedOperationSignature {
             id: "mpk.csharp.source.callable.sequence_read".to_owned(),
@@ -2245,7 +2259,7 @@ fn foundation_signature(
     }
 }
 
-fn w03_check(id: &str, error_type_id: &str) -> RequiredCheck {
+fn w03_check(id: &str, _error_type_id: &str) -> RequiredCheck {
     match id {
         "negative_length" => exception_check(id, "System.OverflowException"),
         "index_range" => exception_check(id, "System.IndexOutOfRangeException"),
@@ -2260,7 +2274,7 @@ fn w03_check(id: &str, error_type_id: &str) -> RequiredCheck {
         _ => RequiredCheck {
             id: id.to_owned(),
             tag: RequiredCheckTag::ErrorOutcome,
-            failure_type_id: Some(error_type_id.to_owned()),
+            failure_type_id: None,
         },
     }
 }
@@ -2819,6 +2833,136 @@ fn registered_bundle() -> ValidatedFoundationBundle {
     .expect("registered foundation bundle")
 }
 
+#[test]
+fn csharp_03_t03_w14_object_transaction_requires_assignment_before_publication() {
+    use mpk_vc::csharp_practical_vir_model::{
+        object_construction_root, ObjectConstructionError, ObjectConstructionState,
+    };
+    let bundle = registered_bundle();
+    let mut source = source_fixture(
+        "Initialized",
+        "sealed_class",
+        &[
+            ("Name", json!({"kind":"primitive","id":"string"})),
+            ("Count", json!({"kind":"primitive","id":"i32"})),
+            (
+                "Optional",
+                json!({"kind":"instance","template":"option","arguments":[{"kind":"primitive","id":"i32"}]}),
+            ),
+        ],
+        &[],
+    );
+    let owner = source["id"].as_str().unwrap().to_owned();
+    let mut defaults = Map::new();
+    for member in source["members"].as_array_mut().unwrap() {
+        member["storage"] = json!("init_auto");
+        member["required"] = json!(member["name"] == "Name");
+        member["id"] = json!(csharp_practical_stored_member_id(
+            &owner,
+            member["name"].as_str().unwrap(),
+            &member["type"],
+            "init_auto"
+        )
+        .unwrap());
+        defaults.insert(
+            member["id"].as_str().unwrap().into(),
+            if member["name"] == "Count" {
+                json!(0)
+            } else {
+                Value::Null
+            },
+        );
+    }
+    source["actual_default"] = json!(defaults);
+    source["public_default"] = json!(false);
+    let sources = json!({owner.clone():source});
+    let source_roots =
+        json!([{"origin":"contract","provenance_id":"owner","type":{"kind":"source","id":owner}}]);
+    let roots = root_set(&bundle, &source_roots, &sources);
+    let construction_root = object_construction_root(&roots, &owner).unwrap();
+    let roots = root_set(
+        &bundle,
+        &json!([source_roots[0].clone(), construction_root]),
+        &sources,
+    );
+    let closed = derive_closed_instances(&bundle, &roots).unwrap();
+    let name = source["members"][0]["id"].as_str().unwrap();
+    let optional = source["members"][2]["id"].as_str().unwrap();
+    let text = MonomorphicValue::String {
+        type_id: "mpk.csharp.value.string.v1".into(),
+        utf16: vec![111, 107],
+    };
+    let mut state = ObjectConstructionState::begin(&roots, &owner, "creation.0").unwrap();
+    assert_eq!(
+        state.read(&roots, name),
+        Err(ObjectConstructionError::Unassigned)
+    );
+    let empty_carrier = state.carrier(&bundle, &roots, &closed).unwrap();
+    assert!(ObjectConstructionState::begin(&roots, &owner, "creation.1")
+        .unwrap()
+        .finalize(&bundle, &roots, &closed)
+        .is_err());
+    assert_eq!(
+        state.write(
+            &bundle,
+            &roots,
+            &closed,
+            name,
+            MonomorphicValue::Bool {
+                type_id: "mpk.csharp.value.bool.v1".into(),
+                value: true
+            }
+        ),
+        Err(ObjectConstructionError::Payload)
+    );
+    assert_eq!(state.assigned_members(), 0);
+    state
+        .write(&bundle, &roots, &closed, name, text.clone())
+        .unwrap();
+    assert_eq!(state.read(&roots, name), Ok(&text));
+    assert_eq!(
+        state.write(&bundle, &roots, &closed, name, text.clone()),
+        Err(ObjectConstructionError::DuplicateAssignment)
+    );
+    let optional_type =
+        csharp_practical_closed_instance_id(&bundle, &json!({"kind":"instance","template":"option","arguments":[{"kind":"primitive","id":"i32"}]}))
+            .unwrap();
+    state
+        .write(
+            &bundle,
+            &roots,
+            &closed,
+            optional,
+            MonomorphicValue::Option {
+                type_id: optional_type,
+                arm: OptionArm::None,
+                value: None,
+            },
+        )
+        .unwrap();
+    assert_eq!(state.assigned_members(), 0b101);
+    assert_ne!(
+        state.carrier(&bundle, &roots, &closed).unwrap(),
+        empty_carrier
+    );
+    let result = state.finalize(&bundle, &roots, &closed).unwrap();
+    validate_monomorphic_value(&bundle, &roots, &closed, &result).unwrap();
+    let MonomorphicValue::Product { fields, .. } = result else {
+        panic!("final source product")
+    };
+    assert_eq!(*fields[0].value, text);
+    assert_eq!(
+        *fields[1].value,
+        MonomorphicValue::Signed {
+            type_id: "mpk.csharp.value.i32.v1".into(),
+            value: "0".into()
+        }
+    );
+    ObjectConstructionState::begin(&roots, &owner, "creation.2")
+        .unwrap()
+        .discard();
+}
+
 fn root_set(
     bundle: &ValidatedFoundationBundle,
     roots: &Value,
@@ -2986,4 +3130,244 @@ fn repo_path(relative: &str) -> PathBuf {
 #[allow(dead_code)]
 fn assert_closed_hash(closed: &ClosedInstanceSet, expected: &str) {
     assert_eq!(closed.closed_set_sha256(), expected);
+}
+
+#[test]
+fn csharp_03_t03_w14_returned_errors_are_distinct_from_source_exceptions() {
+    use mpk_vc::csharp_practical_vir_model::{ReturnedErrorCommutation, ReturnedResultCommutation};
+    let bundle = registered_bundle();
+    for (name, carriers) in [("ErrorA", [4, 9]), ("ErrorB", [-7, 103])] {
+        let en = source_fixture(name, "enum", &[], &carriers);
+        let error = en["id"].as_str().unwrap().to_owned();
+        let result_source = source_fixture(
+            "FallibleInstant",
+            "readonly_struct",
+            &[
+                ("value", primitive_type("instant")),
+                ("error", json!({"kind":"source","id":error})),
+            ],
+            &[],
+        );
+        let source_id = result_source["id"].as_str().unwrap().to_owned();
+        let result_ty = instance_type(
+            "result",
+            vec![
+                primitive_type("instant"),
+                json!({"kind":"source","id":error}),
+            ],
+        );
+        let roots = root_set(
+            &bundle,
+            &json!([
+                {"origin":"semantic_binding","provenance_id":source_id,"type":{"kind":"source","id":source_id}},
+                {"origin":"semantic_binding","provenance_id":source_id,"type":result_ty}
+            ]),
+            &json!({error.clone(): en, source_id.clone(): result_source}),
+        );
+        let closed = derive_closed_instances(&bundle, &roots).unwrap();
+        let complete_id = find_closed_instance(
+            &closed,
+            "result",
+            &[value_type_id("instant"), error.clone()],
+        );
+        let projection = |id: &str, source: &str, semantic: &str| BindingTypeProjection {
+            id: id.into(),
+            binding_id: "binding.instant".into(),
+            source_type_id: source.into(),
+            semantic_type_id: semantic.into(),
+            project: projection_signature(
+                &format!("binding.project.{id}"),
+                ClosedOperationTag::BindingProject,
+                source,
+                semantic,
+            ),
+            reconstruct: projection_signature(
+                &format!("binding.reconstruct.{id}"),
+                ClosedOperationTag::BindingReconstruct,
+                semantic,
+                source,
+            ),
+        };
+        let projections = vec![
+            projection(
+                "instant",
+                &value_type_id("instant"),
+                &value_type_id("instant"),
+            ),
+            projection(
+                "duration",
+                &value_type_id("duration"),
+                &value_type_id("duration"),
+            ),
+            projection("result", &source_id, &complete_id),
+        ];
+        let semantic = ClosedOperationSignature {
+            id: "instant.add_duration".into(),
+            tag: ClosedOperationTag::Data,
+            argument_type_ids: vec![value_type_id("instant"), value_type_id("duration")],
+            normal_result_type_id: value_type_id("instant"),
+            ordered_checks: ["precision", "range"]
+                .into_iter()
+                .map(|id| RequiredCheck {
+                    id: id.into(),
+                    tag: RequiredCheckTag::ErrorOutcome,
+                    failure_type_id: None,
+                })
+                .collect(),
+        };
+        validate_closed_operation_signature(&roots, &closed, &semantic).unwrap();
+        let source = ClosedOperationSignature {
+            id: "mpk.csharp.source.fallible_instant".into(),
+            tag: ClosedOperationTag::SourceCall,
+            argument_type_ids: semantic.argument_type_ids.clone(),
+            normal_result_type_id: source_id,
+            ordered_checks: vec![RequiredCheck {
+                id: "exception.overflow".into(),
+                tag: RequiredCheckTag::Exception,
+                failure_type_id: Some("System.OverflowException".into()),
+            }],
+        };
+        let commutation = BindingOperationCommutation {
+            binding_id: "binding.instant".into(),
+            source_operation: source,
+            semantic_operation: semantic,
+            operand_projection_ids: vec!["instant".into(), "duration".into()],
+            result_projection_id: "result".into(),
+            ordered_outcomes: vec![],
+            rounding_operands: vec![],
+            unmatched_source_check_ids: vec!["exception.overflow".into()],
+            returned_result: Some(ReturnedResultCommutation {
+                success_projection_id: "instant".into(),
+                error_type_id: error,
+                ordered_errors: ["precision", "range"]
+                    .into_iter()
+                    .zip(carriers)
+                    .enumerate()
+                    .map(|(ordinal, (id, carrier))| ReturnedErrorCommutation {
+                        ordinal: ordinal as u32,
+                        semantic_check_id: id.into(),
+                        source_carrier: carrier.to_string(),
+                    })
+                    .collect(),
+            }),
+        };
+        validate_binding_operation_commutation(&roots, &closed, &projections, &commutation)
+            .unwrap();
+        for mutation in 0..8 {
+            let mut changed = commutation.clone();
+            match mutation {
+                0 => changed.returned_result = None,
+                1 => {
+                    changed
+                        .returned_result
+                        .as_mut()
+                        .unwrap()
+                        .success_projection_id = "duration".into()
+                }
+                2 => changed.returned_result.as_mut().unwrap().error_type_id = value_type_id("i32"),
+                3 => changed
+                    .returned_result
+                    .as_mut()
+                    .unwrap()
+                    .ordered_errors
+                    .swap(0, 1),
+                4 => {
+                    changed.returned_result.as_mut().unwrap().ordered_errors[0].source_carrier =
+                        "999".into()
+                }
+                5 => changed.unmatched_source_check_ids.clear(),
+                6 => {
+                    changed.semantic_operation.ordered_checks[0].failure_type_id =
+                        Some(value_type_id("i32"))
+                }
+                7 => {
+                    changed.semantic_operation.ordered_checks[0].tag = RequiredCheckTag::Exception;
+                    changed.semantic_operation.ordered_checks[0].failure_type_id =
+                        Some("System.OverflowException".into());
+                }
+                _ => unreachable!(),
+            }
+            assert!(
+                validate_binding_operation_commutation(&roots, &closed, &projections, &changed)
+                    .is_err(),
+                "mutation {mutation}"
+            );
+        }
+    }
+}
+
+#[test]
+fn csharp_03_t03_w14_source_cycle_validation_visits_shared_dag_once() {
+    // Type-graph validation only. These model metadata rows do not claim
+    // default-value eligibility or actual-source acceptance for a huge value.
+    let b = registered_bundle();
+    let mut sources = Map::new();
+    let mut previous = json!({"kind":"primitive","id":"i32"});
+    for ordinal in 0..45 {
+        let row = source_fixture(
+            &format!("Dag{ordinal:02}"),
+            "readonly_struct",
+            &[("Left", previous.clone()), ("Right", previous)],
+            &[],
+        );
+        let id = row["id"].as_str().unwrap().to_owned();
+        previous = json!({"kind":"source","id":id});
+        sources.insert(id, row);
+    }
+    try_root_set(&b, &json!([]), &Value::Object(sources)).unwrap();
+}
+
+#[test]
+fn csharp_03_t03_w14_observes_the_shared_construction_completion_predicate() {
+    let fixture = w03_fixture();
+    let signature = sequence_construction_complete_signature(
+        &fixture.closed,
+        &format!("construction.complete.{}", fixture.construction_type_id),
+    )
+    .unwrap();
+    assert_eq!(
+        signature.argument_type_ids.as_slice(),
+        std::slice::from_ref(&fixture.construction_type_id)
+    );
+    assert_eq!(signature.normal_result_type_id, value_type_id("bool"));
+    assert!(sequence_construction_complete_signature(
+        &fixture.closed,
+        "construction.complete.mpk.csharp.value.i32.v1"
+    )
+    .is_err());
+    let mut state = SequenceConstructionState::allocate(
+        &fixture.closed,
+        "construction.observed",
+        &fixture.construction_type_id,
+        "owner.observed",
+        2,
+        false,
+        4096,
+    )
+    .unwrap();
+    for index in 0..2 {
+        assert!(!sequence_construction_complete(&fixture.closed, &state).unwrap());
+        state = state
+            .apply(
+                &fixture.closed,
+                &SequenceConstructionAction::Fill {
+                    actor_id: "owner.observed".into(),
+                    index,
+                    value_type_id: value_type_id("i32"),
+                },
+            )
+            .unwrap()
+            .state;
+    }
+    assert!(sequence_construction_complete(&fixture.closed, &state).unwrap());
+    state = state
+        .apply(
+            &fixture.closed,
+            &SequenceConstructionAction::Discard {
+                actor_id: "owner.observed".into(),
+            },
+        )
+        .unwrap()
+        .state;
+    assert!(sequence_construction_complete(&fixture.closed, &state).is_err());
 }

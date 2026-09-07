@@ -213,6 +213,7 @@ fn csharp_03_t02_w04_builds_a_complete_context_bound_artifact_graph() {
             "default_arm",
             "bounds",
             "operation_map",
+            "enum_arms",
             "binding_sha256",
         ]
     );
@@ -1509,6 +1510,7 @@ fn semantic_binding_input(
     })
     .unwrap();
     SemanticBindingInput {
+        enum_arms: Default::default(),
         source_type_id,
         source_content_sha256,
         role: "option".to_owned(),
@@ -1638,6 +1640,7 @@ fn published_binding_value(binding: &Value) -> PracticalJsonValue {
         ),
         ("bounds", bounds),
         ("operation_map", PracticalJsonValue::Object(Vec::new())),
+        ("enum_arms", PracticalJsonValue::Object(Vec::new())),
         (
             "binding_sha256",
             PracticalJsonValue::string(binding["binding_sha256"].as_str().unwrap()),
@@ -2257,5 +2260,85 @@ fn to_strict(value: &Value) -> StrictJsonValue {
                 .map(|(key, value)| (key.clone(), to_strict(value)))
                 .collect(),
         ),
+    }
+}
+
+#[test]
+fn csharp_03_t03_w14_enum_domains_are_required_canonical_and_hash_bound() {
+    let f = fixture();
+    let source_hash = f
+        .captures
+        .entries()
+        .iter()
+        .find(|e| e.kind() == OriginalInputKind::Source)
+        .unwrap()
+        .raw_sha256()
+        .to_owned();
+    let original = semantic_binding_input(source_hash.clone(), "mpk.csharp.value.i32.v1".into());
+    let en = source_type_id("ExplicitError");
+    let input = SemanticBindingInput {
+        source_type_id: original.source_type_id,
+        source_content_sha256: source_hash,
+        role: "instant".into(),
+        member_map: vec![SemanticBindingMember {
+            role: "milliseconds".into(),
+            member_id: original.member_map[0].member_id.clone(),
+        }],
+        tag_arms: vec![],
+        inferred_argument_ids: vec![],
+        default_arm: "ineligible".into(),
+        bounds: vec![],
+        operation_map: vec![],
+        enum_arms: BTreeMap::from([(
+            en.clone(),
+            BTreeMap::from([
+                ("precision".into(), "-7".into()),
+                ("range".into(), "103".into()),
+            ]),
+        )]),
+    };
+    // Transport shape test only: source reachability and operation-use checks
+    // are exercised by the W14 frontend/importer tests, not asserted here.
+    let first = build_semantic_bindings(&f.context, &f.captures, vec![input.clone()]).unwrap();
+    let mut changed = input.clone();
+    changed
+        .enum_arms
+        .get_mut(&en)
+        .unwrap()
+        .insert("precision".into(), "4".into());
+    let second = build_semantic_bindings(&f.context, &f.captures, vec![changed]).unwrap();
+    assert_ne!(first.hash(), second.hash());
+    let binding_hash = |a: &ValidatedPracticalArtifact| {
+        a.value().get("bindings").unwrap().as_array().unwrap()[0]
+            .get("binding_sha256")
+            .unwrap()
+            .as_str()
+            .unwrap()
+            .to_owned()
+    };
+    assert_ne!(binding_hash(&first), binding_hash(&second));
+    for mutation in 0..5 {
+        let mut changed = input.clone();
+        let arms = changed.enum_arms.get_mut(&en).unwrap();
+        match mutation {
+            0 => {
+                arms.insert("precision".into(), "103".into());
+            }
+            1 => {
+                arms.insert("precision".into(), "+4".into());
+            }
+            2 => {
+                arms.insert("unknown".into(), "9".into());
+            }
+            3 => {
+                arms.insert("ToEven".into(), "0".into());
+            }
+            4 => arms.clear(),
+            _ => unreachable!(),
+        }
+        assert!(
+            build_semantic_bindings(&f.context, &f.captures, vec![changed]).is_err(),
+            "enum map mutation {mutation}"
+        );
     }
 }

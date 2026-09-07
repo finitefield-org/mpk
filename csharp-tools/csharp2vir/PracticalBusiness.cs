@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Operations;
 namespace Mpk.CSharp2Vir;
-internal sealed record PracticalBusinessStep(string Site,string Operation,IReadOnlyList<IOperation> Operands,string ResultType,IReadOnlyList<string> Exceptions);
+internal sealed record PracticalBusinessStep(string Site,string Operation,IReadOnlyList<IOperation> Operands,string ResultType,IReadOnlyList<string> Exceptions) { internal IOperation Source { get; init; } = null!; }
 internal sealed record PracticalBusinessBinding(string SourceTypeId,string Role,IReadOnlyDictionary<string,string> Members,IReadOnlyDictionary<string,string> Operations,IReadOnlyDictionary<string,IReadOnlyDictionary<string,string>>? EnumArms=null);
 internal sealed record PracticalBusinessProjection(string SourceTypeId,string SourceSha256,string SemanticTypeId,string Role,IReadOnlyDictionary<string,string> Members,IReadOnlyDictionary<string,string> Operations,IReadOnlyDictionary<string,IReadOnlyDictionary<string,string>> EnumArms);
 internal sealed record PracticalBusiness(PracticalDomain Domain,IReadOnlyList<PracticalBusinessStep> Steps,IReadOnlyList<PracticalBusinessProjection> Projections,IReadOnlyList<PracticalDomainObligation> Obligations)
@@ -18,10 +18,10 @@ internal sealed record PracticalBusiness(PracticalDomain Domain,IReadOnlyList<Pr
 }
 internal static class CSharpPracticalBusiness
 {
- internal static PracticalBusiness Validate(PracticalSourceSelection selection,IEnumerable<PracticalCapturedInput> inputs,ImmutableArray<MetadataReference> references,IReadOnlyList<PracticalBusinessBinding>? bindings=null,IReadOnlyList<PracticalOutcomeBinding>? outcomes=null)
+ internal static PracticalBusiness Validate(PracticalSourceSelection selection,IEnumerable<PracticalCapturedInput> inputs,ImmutableArray<MetadataReference> references,IReadOnlyList<PracticalBusinessBinding>? bindings=null,IReadOnlyList<PracticalOutcomeBinding>? outcomes=null,Action<CSharpCompilation>? validatedCompilation=null,bool deferSidecarAttachment=false)
  {
   var steps=new List<PracticalBusinessStep>();CSharpCompilation? compilation=null;
-  var domain=CSharpPracticalDomain.Validate(selection,inputs,references,outcomes,c=>{compilation=c;Analyze(c,steps);});
+  var domain=CSharpPracticalDomain.Validate(selection,inputs,references,outcomes,c=>{compilation=c;Analyze(c,steps);},deferSidecarAttachment);
   var obligations=new List<PracticalDomainObligation>();var projections=Bind(domain,compilation!,bindings??Array.Empty<PracticalBusinessBinding>(),obligations);
   foreach(var step in domain.Steps.Where(s=>s.Operation=="nullable.value_or_default")) {
    if(projections.Any(p=>p.SourceTypeId==step.ResultType)){throw PracticalFailures.Type("business_nullable_default_ineligible");}
@@ -31,6 +31,7 @@ internal static class CSharpPracticalBusiness
   foreach(var tree in compilation!.SyntaxTrees){var model=compilation.GetSemanticModel(tree);foreach(var syntax in tree.GetRoot().DescendantNodes().OfType<ExpressionSyntax>()) {
    if(model.GetOperation(syntax) is IOperation op && (op is IDefaultValueOperation || op is IObjectCreationOperation {Constructor.IsImplicitlyDeclared:true,Arguments.Length:0}) && op.Type is not null && money.Contains(PracticalExactTypeNormalizer.Normalize(op.Type,compilation).Id)){throw PracticalFailures.Type("money_default_ineligible");}
   }}
+  validatedCompilation?.Invoke(compilation!);
   return new(domain,Array.AsReadOnly(steps.OrderBy(s=>s.Site,StringComparer.Ordinal).ThenBy(s=>s.Operation,StringComparer.Ordinal).ToArray()),projections,Array.AsReadOnly(obligations.OrderBy(o=>o.Site,StringComparer.Ordinal).ThenBy(o=>o.Kind,StringComparer.Ordinal).ThenBy(o=>o.Member,StringComparer.Ordinal).ToArray()));
  }
  internal static void ValidateCandidate(PracticalBusiness regenerated,ReadOnlySpan<byte> candidate){if(!candidate.SequenceEqual(regenerated.CopyCanonicalBytes())){throw PracticalFailures.Type("business_handoff_mismatch");}}
@@ -52,7 +53,7 @@ internal static class CSharpPracticalBusiness
      default:continue;
     }
     string[] exceptions=id is "date.construct" or "date.add_days" or "date.add_months" or "date.add_years" or "time.construct"?new[]{"System.ArgumentOutOfRangeException"}:id is "duration.add" or "duration.subtract" or "duration.negate"?new[]{"System.OverflowException"}:Array.Empty<string>();
-    steps.Add(new(site,id,Array.AsReadOnly(operands.ToArray()),PracticalExactTypeNormalizer.Normalize(op.Type!,c).Id,Array.AsReadOnly(exceptions)));
+    steps.Add(new(site,id,Array.AsReadOnly(operands.ToArray()),PracticalExactTypeNormalizer.Normalize(op.Type!,c).Id,Array.AsReadOnly(exceptions)) { Source = op });
    }
   }}
  }
@@ -72,6 +73,7 @@ internal static class CSharpPracticalBusiness
    foreach(string kind in new[]{"source_invariant_implies_projection","semantic_invariant_implies_reconstruction","source_round_trip","semantic_round_trip","distinct_arms","public_invariant","identity_unobservable"}){obligations.Add(new(source.Id,kind,semantic));}
    foreach(var member in source.Members.Where(m=>m.Stored)){obligations.Add(new(source.Id,"field_complete_reconstruction",semantic,member.Name));}
    string[] allowed=binding.Role=="instant"?new[]{"milliseconds","compare","add_duration","subtract_duration","difference"}:new[]{"create","amount","currency","add","subtract","multiply","divide","amount_compare","equal","compare"};
+   var usedEnums=new HashSet<string>(StringComparer.Ordinal);
    foreach(var operation in binding.Operations.OrderBy(p=>p.Key,StringComparer.Ordinal)) {
     if(!allowed.Contains(operation.Key,StringComparer.Ordinal)||!data.Syntax.Callables.Any(c=>c.Id==operation.Value)){throw PracticalFailures.Type("business_operation_identity");}
     var methods=compilation.SyntaxTrees.SelectMany(tree=>tree.GetRoot().DescendantNodes().OfType<TypeDeclarationSyntax>().Select(d=>(INamedTypeSymbol)compilation.GetSemanticModel(tree).GetDeclaredSymbol(d)!)).SelectMany(t=>t.GetMembers().OfType<IMethodSymbol>());
@@ -109,6 +111,7 @@ internal static class CSharpPracticalBusiness
     }
     foreach(string kind in new[]{"operation_normal_commutation","operation_error_commutation","operation_exception_commutation"}){obligations.Add(new(source.Id,kind,semantic,operation.Key+":"+operation.Value));}
     void ValidateEnum(string id,string[] required,bool rounding) {
+     usedEnums.Add(id);
      var en=data.Types.SingleOrDefault(t=>t.Id==id&&t.Kind=="enum");
      if(en is null||binding.EnumArms is null||!binding.EnumArms.TryGetValue(id,out var arms)){throw PracticalFailures.Type("business_enum_projection");}
      string[] allowedErrors=rounding?required:binding.Role=="instant"?new[]{"precision","range"}:new[]{"invalid_currency","invalid_scale","invalid_precision","currency_mismatch","invalid_rounding","division_by_zero","decimal_overflow"};
@@ -116,6 +119,7 @@ internal static class CSharpPracticalBusiness
      obligations.Add(new(source.Id,rounding?"exhaustive_rounding_projection":"exhaustive_error_projection",semantic,id));
     }
    }
+   if(binding.EnumArms is not null&&!usedEnums.SetEquals(binding.EnumArms.Keys)){throw PracticalFailures.Type("business_unused_enum_projection");}
    var closure=data.Syntax.SourceClosure;var declaration=closure.Declarations.Single(d=>d.Kind==PracticalDeclarationKind.Type&&d.Id==source.Id);
    IReadOnlyDictionary<string,string> Copy(IReadOnlyDictionary<string,string> map)=>new System.Collections.ObjectModel.ReadOnlyDictionary<string,string>(new SortedDictionary<string,string>(map.ToDictionary(p=>p.Key,p=>p.Value),StringComparer.Ordinal));
    result.Add(new(source.Id,closure.Sources[declaration.SourceOrdinal].RawSha256,semantic,binding.Role,Copy(binding.Members),Copy(binding.Operations),new System.Collections.ObjectModel.ReadOnlyDictionary<string,IReadOnlyDictionary<string,string>>(new SortedDictionary<string,IReadOnlyDictionary<string,string>>((binding.EnumArms??new Dictionary<string,IReadOnlyDictionary<string,string>>()).ToDictionary(p=>p.Key,p=>Copy(p.Value)),StringComparer.Ordinal))));

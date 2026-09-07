@@ -14,7 +14,10 @@ namespace Mpk.CSharp2Vir;
 // Predicates are obligations, never claims that T06 has discharged a proof.
 internal sealed record PracticalArrayStep(string Site, string Path, string Operation, IOperation Source,
     IReadOnlyList<string> Arrays, IOperation? Operand = null, string Predicate = "",
-    string Exception = "", PracticalNormalizedType? ElementType = null, string Method = "");
+    string Exception = "", PracticalNormalizedType? ElementType = null, string Method = "")
+{
+    internal string WriteMode { get; init; } = "";
+}
 internal sealed record PracticalArrays(PracticalConstruction Construction,
     IReadOnlyList<PracticalArrayStep> Steps)
 {
@@ -36,12 +39,12 @@ internal static class CSharpPracticalArrays
     internal static PracticalArrays Validate(PracticalSourceSelection selection,
         IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references,
         IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims = null, bool sequenceConstruction = false,
-        Action<CSharpCompilation>? validateStrings = null, bool domainOperations = false)
+        Action<CSharpCompilation>? validateStrings = null, bool domainOperations = false, bool deferSidecarAttachment = false)
     {
         var analyzer = new Analyzer(sequenceConstruction,domainOperations);
         PracticalConstruction construction = CSharpPracticalConstruction.Validate(selection, inputs, references,
             invariantClaims, allowInitializers: true, allowStructuralEquality: true,
-            validateArrays: (current, types) => { analyzer.Analyze(current, types); validateStrings?.Invoke(current); }, validateArrayLimits: ValidateLimits);
+            validateArrays: (current, types) => { analyzer.Analyze(current, types); validateStrings?.Invoke(current); }, validateArrayLimits: ValidateLimits, deferSidecarAttachment: deferSidecarAttachment);
         return new PracticalArrays(construction, Array.AsReadOnly(analyzer.Steps.ToArray()));
     }
 
@@ -407,6 +410,8 @@ internal static class CSharpPracticalArrays
             if (receiver is not ILocalReferenceOperation) { Fail("array_unique_local_write"); }
             Bounds(element,ids);
             int? index = ConstantInt(element.Indices[0]);
+            string mode=ids.All(id=>state.Arrays[id].Complete)||readModifyWrite ? "rewrite"
+                : ids.All(id=>!state.Arrays[id].SymbolicWrites && (state.Arrays[id].Length is not null || state.Arrays[id].PossiblyInitialized.Count==0)) ? "fill" : "fill_or_rewrite";
             foreach (string id in ids) {
                 Storage storage = state.Arrays[id]; RequireWritable(!storage.Frozen,false);
                 storage.Version = checked(storage.Version + 1);
@@ -425,6 +430,7 @@ internal static class CSharpPracticalArrays
                 }
             }
             Step(element,"functional_update",ids,element.Parent,predicate:"element_public_invariant");
+            Steps[^1]=Steps[^1] with {WriteMode=mode};
         }
         private void Publish(IOperation operation, IEnumerable<string> arrays, State state, string kind)
         {

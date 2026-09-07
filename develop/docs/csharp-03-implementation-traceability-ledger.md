@@ -53,7 +53,8 @@ T03-W11 adds exact numeric relations and typed source plans.
 T03-W12 adds nullable relations and pending application outcome projections.
 T03-W13 adds calendar/time/GUID and bound instant/money relations with pending
 source, currency and exhaustive error-projection obligations.
-`CSHARP-03-T03-W14` is ready and all later implementation items remain serially blocked. No public production acceptance
+T03-W14 completes private data emission and independent source/sidecar import
+(see section 37). `CSHARP-03-T04-W01` is ready; later items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
 This ledger is subordinate to
@@ -118,8 +119,8 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T03-W11` | `Complete` | `crates/mpk-cli/tests/csharp_practical_numbers.rs#CSHARP-03-T03-W11` | `2e384db5d97565dc25aec50e73d911950c315f66` |
 | `CSHARP-03-T03-W12` | `Complete` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W12` | `3e3c7813db8b2fc4a9472aa11efef03e3f3381bb` |
 | `CSHARP-03-T03-W13` | `Complete` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W13` | `78c8f7295f75baf3ea0efc68c684d31d95e6bc46` |
-| `CSHARP-03-T03-W14` | `Ready` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W14` | `—` |
-| `CSHARP-03-T04-W01` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W01` | `—` |
+| `CSHARP-03-T03-W14` | `Complete` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W14` | `SELF` |
+| `CSHARP-03-T04-W01` | `Ready` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W01` | `—` |
 | `CSHARP-03-T04-W02` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W02` | `—` |
 | `CSHARP-03-T04-W03` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W03` | `—` |
 | `CSHARP-03-T04-W04` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W04` | `—` |
@@ -4659,3 +4660,45 @@ this prerequisite receipt does not substitute for them.
 
 Amended freeze content SHA-256: `35602bd9a6e8febd68c96fc7abcd9839931b9a197ca2155d7e6b4591079154bc`.
 Published package raw SHA-256: `efd8b157de50b1fbd432ed34447c986839c9f033f73070cfcc9665c75a919aad`.
+
+
+## 37. CSHARP-03-T03-W14 completion record
+
+W14 closes actual-source data emission, all 33 contract expression forms,
+strict semantic-binding attachment, exact source-derived root/provenance
+closure and independent VIR import. Concrete definitions and shared structural,
+codec, nullable, numeric and business routes use the sole T02 engine. Canonical
+contracts and source obligations remain hashed pending VC subjects.
+
+The user-approved prerequisite changes include exhaustive enum/error/rounding
+commutations and owned constructor transactions with finalization-only source
+publication. Required-member initializers, delegation, early returns, nested
+transactions and exceptional ownership transfer now execute through real source
+capture, emission and independent validation. Historical codec prerequisite
+commit `a59bd66da8078e9ce4f7c3cb991cca5b04ff5271` and section 36 remain unchanged.
+
+The implementation and review receipt are in
+`develop/migrations/csharp-03/data-phase/integration-review.md`, with exact
+fixture hashes and gate outcomes in `verification.json`. All 13 existing T03
+stage harnesses retain their assertions. Their 777 distinct original source
+selections yield 403 native imports, 372 artifact-free source/sidecar rejections
+and the two exact W08 resource-limit rejections (33 allocations / 9 live).
+The corresponding 32 / 8 positive controls import successfully. Additional
+coverage includes 79 source regressions/fuzz cases, 21 actual sidecar cases,
+eight constructor cases and rehashed source/contract/ownership mutations.
+
+Final verification passed: 16 W14 native tests; two fresh isolated pinned Linux
+runs of the complete T03 source replay, source matrix/fuzz, sidecars,
+constructors and every legacy frontend fuzz seed; legacy subset, contracts,
+lowering and emission suites; frontend `--check`; private `--check-build-inputs`;
+and `./scripts/check-fast.sh`. Generated foundation/profile/vector artifacts
+and final diff checks passed. The final task review has zero findings.
+
+The 17 historical inventory mismatches were traced to recorded generated
+Python-cache paths. A separate correction receipt reconstructs every original
+hash preimage without rewriting historical bytes, ignoring real consumers or
+recreating caches. Earlier failed runs remain recorded as failures.
+
+The task's commit cell uses the ledger's `SELF` convention. T04-W01 is the sole
+ready item. Source handlers/loops, boundary invocation, proof construction and
+installed activation remain with T04, T05, T06 and T07/T08 respectively.

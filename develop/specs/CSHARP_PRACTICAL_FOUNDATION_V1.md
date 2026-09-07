@@ -127,19 +127,20 @@ descriptor's definition member (`mpk.csharp.foundation_definitions.v1`):
 | --- | --- | --- | --- |
 | bounded_sequence | 1 | none | array, string, binding, contract, boundary, transition; dependency |
 | sequence_construction | 1 | bounded_sequence(T) | source construction only |
-| ordered_entry | 2 | none | exact entry binding; map dependency |
+| ordered_entry | 2 | none | exact entry binding, approved source construction; map dependency |
 | ordered_map | 2 | ordered_entry(K,V), bounded_sequence(ordered_entry(K,V)), lookup(V) | binding |
 | ordered_set | 1 | bounded_sequence(T) | binding |
 | option | 1 | none | nullable, binding, contract, boundary; dependency |
 | lookup | 1 | none | binding; map dependency |
 | result | 2 | none | binding, codec-result root |
 | validation | 2 | bounded_sequence(E) | binding |
-| boundary_field | 1 | none | binding, boundary |
+| boundary_field | 1 | none | binding, boundary, approved source construction |
 | transition | 3 | bounded_sequence(E) | binding, transition |
 | money | 1 | none | binding |
 
 `ordered_entry` is an internal product template, not permission to name a
-generic key/value type. A standalone root requires an actual entry binding.
+generic key/value type. A standalone public root requires an actual entry binding; private source
+construction roots follow the approved handoff below.
 Primitive strings derive a char sequence; their construction/publication role
 retains the string bound, not the smaller ordinary sequence bound. A raw
 instant carrier derives the non-template instant classification, not a hidden
@@ -577,7 +578,7 @@ The local schema `mpk.csharp.semantic_binding.v1` has exactly:
 
 ```text
 schema, source_type_id, source_content_sha256, role, member_map, tag_arms,
-inferred_argument_ids, default_arm, bounds, operation_map, binding_sha256
+inferred_argument_ids, default_arm, bounds, operation_map, enum_arms, binding_sha256
 ```
 
 `binding_sha256` hashes the object with that field omitted. The table is sorted
@@ -632,6 +633,57 @@ the concrete operation signature. Source outcome projection supplies the
 normal type only after validating its separate result binding. This normalized
 view is recomputed from source and bindings, never accepted from the caller as
 an assertion that an untyped or differently typed method commutes.
+
+`enum_arms` is a required object, empty when no mapped operation uses an
+application error or rounding enum. Keys are exact reachable source enum IDs,
+sorted by ID. Each value maps semantic labels to canonical decimal carrier
+strings, sorted by label. The complete field participates in `binding_sha256`.
+Within each domain carriers are distinct and exhaust the enum's distinct
+values; aliases do not introduce another value. No unused domain is admitted.
+Instant error labels are `precision`, `range`; money error labels are
+`invalid_currency`, `invalid_scale`, `invalid_precision`, `currency_mismatch`,
+`invalid_rounding`, `division_by_zero`, `decimal_overflow`. A domain contains
+all errors used by its mapped operations and may contain other labels in that
+same role's list only to exhaust the actual enum. A rounding domain contains
+exactly `ToEven`, `AwayFromZero`, `ToZero`, `ToNegativeInfinity`,
+`ToPositiveInfinity`, mapping to semantic values 0 through 4 in that order.
+Rounding and error labels cannot be mixed in one domain. Labels are never
+inferred from source names or numeric carrier order.
+
+The T02 operation commutation record has the required ordered fields
+`binding_id`, `source_operation`, `semantic_operation`,
+`operand_projection_ids`, `result_projection_id`, `ordered_outcomes`,
+`returned_result`, `rounding_operands`, `unmatched_source_check_ids`.
+`result_projection_id` always projects the complete CLR return value.
+`returned_result` is null for a direct return. Otherwise it has exactly
+`success_projection_id`, `error_type_id`, `ordered_errors`: the complete return
+must have a separately attached Result binding, the success projection maps
+its actual source value member to the semantic success type, and the actual
+error member has the exact source enum type. Each ordered error has
+`ordinal`, `semantic_check_id`, `source_carrier`, in the semantic operation's
+frozen error precedence. Carriers must equal the owning binding's `enum_arms`.
+A returned error is an ordinary CLR return and adds no source throw/check edge.
+
+Semantic `ErrorOutcome` checks have `failure_type_id: null`: they carry the
+registered semantic label, not an arbitrary application enum. ParseError and
+Exception checks retain their actual failure types. All dispatched and
+undispatched foundation operation signatures use the same carrier-free shape.
+`ordered_outcomes` maps the remaining semantic checks in semantic order to
+actual source checks, preserving source order, tag and failure projection.
+Every remaining source check must be an actual exception, listed in original
+order in `unmatched_source_check_ids`; none is removed from the original VIR.
+The binding's exception commutation obligation must prove these unmatched
+paths unreachable under the source invariant. Attachment does not discharge it.
+
+A rounding operand uses the marker `enum.<source_type_id>` in its projection
+slot and a corresponding `rounding_operands` entry with exactly `ordinal`,
+`source_type_id`, `enum_arms`, ordered by operand ordinal. The semantic operand
+is u32 and the mapping is checked against the owning binding. This is a finite
+operand conversion; it does not assert a total inverse from arbitrary u32.
+Factory operations need not receive their own type as operand zero. Exact
+binding ownership is established by the source operation map, never by method
+names or an assumed receiver position. Instant primitive operations use the
+W13 `instant.<operation>` IDs; closed templates use `<instance_id>.<operation>`.
 
 ### 8.2 Proof obligations, not attestation
 
@@ -863,3 +915,57 @@ default-vs-source-null distinction, unused/inactive fields, source-operation
 commutation, duplicate-before-capacity precedence, ownership after publication,
 non-reflexive keys, exact time wrapping and decimal rounding. Passing a
 specification model cannot mark any production work item complete.
+## 11. W14 approved constructor transaction handoff
+
+The 2026-09-07 prerequisite amendment permits `source_construction` roots for
+the existing `boundary_field` and `ordered_entry` templates. It adds no template
+or expansion algorithm. For a source owner's stored members in canonical order,
+each private assigned slot uses `boundary_field<MemberType>`: `missing` means
+unassigned, `value` carries the assigned value, and `null` is forbidden. An
+assigned nullable member carries its existing nullable value inside `value`;
+it is distinct from an unassigned slot. A balanced `ordered_entry` tree combines
+slots, splitting each member range at `floor(length/2)`. One slot uses its own
+carrier and zero slots use unit. Existing specialization limits still apply.
+
+The carrier is an implementation representation, not an ownership capability.
+Unique origin and current SSA version must be checked separately, including when
+two owners have the same carrier type. Only private constructor execution,
+assigned-member reads, single member writes, normal constructor transfer,
+finalization and discard may use a live transaction. Ordinary products, field
+reads, calls, equality, codecs and selected returns cannot receive the carrier.
+Private execution must be explicitly linked to the unchanged source declaration
+and signature; it cannot authorize an unrelated callable or erase contracts.
+
+Begin has all slots unassigned. A write validates the exact stored-member type
+and rejects a second assignment. Reads require assignment on every incoming
+path. Delegation transfers the same owner and origin. On normal constructor
+return the transaction remains private and retains its construction-invariant
+obligation. Ordered initializers then assign their members. Finalization fills
+only optional, structurally eligible defaults through the shared generator,
+rejects missing required or non-defaultable members, and creates the ordinary
+source product with its public-invariant obligation. All initializer and
+constructor exception edges discard the live origin; no value is published.
+
+The ordinary function record may carry `object_protocol`, with exactly
+`constructor_owner` (source ID or null), `initializations` and
+`exceptional_discards`. Each initialization carries `source_node_ordinal`,
+`begin_node_id`, `constructor_node_id`, `assignment_node_ids` in source order,
+and `finalize_node_id`. Each exceptional discard carries `exit_node_id` and
+sorted unique `origin_value_ids`. These records are required precisely for
+functions executing the corresponding captured source construction plans or
+private constructor bodies. Source-free records do not authorize construction.
+Every recorded node must execute the exact owning operation, in dominance
+order, on the same source-bound origin. Each constructor/write returns the next
+SSA version; finalization consumes it. Branches preserve origin and merge the
+single live version with ordinary phis and intersect/union assignment masks.
+The exact union of live origins on exceptional incoming edges is discarded at
+Exit. A constructor callee owns the transferred receiver on its exceptional
+edge, preventing a caller's duplicate discard. Normal exits cannot leak state.
+
+The private operation tag is `constructor_execute`. Its ID remains the logical
+source constructor ID; the first argument and normal result are its derived
+transaction carrier, followed by its original parameters. Its source contracts
+and declaration subjects retain the original logical signature. W04 synthesized
+constructor plans are declaration proof roots, alongside W03 getter roots;
+they are validated without inventing caller invocations or publishing a value.
+An ordinary source callable cannot acquire this tag or receiver capability.

@@ -6,6 +6,7 @@ pub enum DomainError {
     Signature,
     OperandType,
     InactivePayload,
+    NullReceiver,
     EmptyInvalid,
     Bound,
     DefaultIneligible,
@@ -17,6 +18,7 @@ impl DomainError {
     pub fn exception_type(self) -> Option<&'static str> {
         match self {
             Self::InactivePayload => Some("System.InvalidOperationException"),
+            Self::NullReceiver => Some("System.NullReferenceException"),
             Self::Numeric(e) => e.exception_type(),
             _ => None,
         }
@@ -39,6 +41,149 @@ fn arms(role: &str) -> Option<&'static [&'static str]> {
         "validation" => &["valid", "invalid"],
         "boundary_field" => &["missing", "null", "value"],
         _ => return None,
+    })
+}
+
+fn lift_shape(token: &str, operation: &str) -> Option<(bool, bool)> {
+    let comparison = matches!(
+        operation,
+        "equal" | "not_equal" | "less" | "less_equal" | "greater" | "greater_equal"
+    );
+    let unary = matches!(operation, "plus" | "negate" | "not");
+    let allowed = if token == "bool" {
+        matches!(operation, "not" | "and" | "or" | "equal" | "not_equal")
+    } else {
+        matches!(token, "i32" | "i64" | "f32" | "f64" | "decimal")
+            && (comparison
+                || matches!(
+                    operation,
+                    "plus" | "negate" | "add" | "subtract" | "multiply" | "divide" | "remainder"
+                ))
+    };
+    allowed.then_some((unary, comparison))
+}
+
+/// Signature and failure order for the existing W12 lifted relation. The
+/// evaluator and source importer share the same admitted shape table.
+pub(crate) fn lifted_operation_signature(
+    roots: &ValidatedClosedRootSet,
+    closed: &ClosedInstanceSet,
+    id: &str,
+    args: &[String],
+    result: &str,
+) -> Result<ClosedOperationSignature, DomainError> {
+    let parts = id
+        .strip_prefix("lifted.")
+        .ok_or(DomainError::Signature)?
+        .split('.')
+        .collect::<Vec<_>>();
+    if parts.len() != 3 || !matches!(parts[2], "checked" | "unchecked") {
+        return Err(DomainError::Signature);
+    }
+    let (unary, comparison) = lift_shape(parts[0], parts[1]).ok_or(DomainError::Signature)?;
+    let option = args.first().ok_or(DomainError::Signature)?;
+    let metadata = closed.metadata.get(option).ok_or(DomainError::Signature)?;
+    if template_name(&metadata.template_id) != Some("option")
+        || metadata.argument_ids != [ty(parts[0])]
+        || args.len() != if unary { 1 } else { 2 }
+        || args.iter().any(|a| a != option)
+        || result
+            != if comparison {
+                BOOL_TYPE_ID
+            } else {
+                option.as_str()
+            }
+    {
+        return Err(DomainError::Signature);
+    }
+    let ordered_checks = if parts[0] == "bool" {
+        vec![]
+    } else if matches!(parts[0], "i32" | "i64") {
+        scalar_operation_signature(&format!("integer.{}.{}.{}", parts[0], parts[1], parts[2]))
+            .map_err(|_| DomainError::Signature)?
+            .ordered_checks
+    } else {
+        let prefix = match parts[0] {
+            "f32" => "floating.single",
+            "f64" => "floating.double",
+            _ => "decimal",
+        };
+        let operation = NumericOperation::new(
+            &format!("{prefix}.{}", parts[1]),
+            &vec![ty(parts[0]); args.len()],
+            if comparison {
+                BOOL_TYPE_ID
+            } else {
+                &metadata.argument_ids[0]
+            },
+            None,
+        )
+        .map_err(DomainError::Numeric)?;
+        operation
+            .exception_types()
+            .into_iter()
+            .map(|exception| {
+                let id = match exception {
+                    "System.DivideByZeroException" => "exception.division_by_zero",
+                    "System.OverflowException" => "exception.overflow",
+                    _ => unreachable!("numeric lifted checks are frozen"),
+                };
+                RequiredCheck {
+                    id: id.into(),
+                    tag: RequiredCheckTag::Exception,
+                    failure_type_id: Some(exception.into()),
+                }
+            })
+            .collect()
+    };
+    if !is_known_concrete_type(roots, closed, result) {
+        return Err(DomainError::Signature);
+    }
+    Ok(ClosedOperationSignature {
+        id: id.into(),
+        tag: ClosedOperationTag::Data,
+        argument_type_ids: args.to_vec(),
+        normal_result_type_id: result.into(),
+        ordered_checks,
+    })
+}
+
+pub(crate) fn reference_value_signature(
+    roots: &ValidatedClosedRootSet,
+    closed: &ClosedInstanceSet,
+    id: &str,
+) -> Result<ClosedOperationSignature, DomainError> {
+    let option = id
+        .strip_prefix("reference.value.")
+        .ok_or(DomainError::Signature)?;
+    let metadata = closed
+        .metadata
+        .get(option)
+        .filter(|m| template_name(&m.template_id) == Some("option"))
+        .ok_or(DomainError::Signature)?;
+    let payload = &metadata.argument_ids[0];
+    if payload != &ty("string")
+        && !roots
+            .source_types
+            .get(payload)
+            .is_some_and(|s| s.kind == SourceKind::SealedClass)
+        && !closed
+            .metadata
+            .get(payload)
+            .is_some_and(|m| template_name(&m.template_id) == Some("bounded_sequence"))
+    {
+        return Err(DomainError::Signature);
+    }
+    Ok(ClosedOperationSignature {
+        id: id.into(),
+        tag: ClosedOperationTag::Data,
+        argument_type_ids: vec![option.into()],
+        normal_result_type_id: payload.clone(),
+        ordered_checks: vec![RequiredCheck {
+            id: "exception.null_receiver".into(),
+            tag: RequiredCheckTag::Exception,
+            failure_type_id: Some("System.NullReferenceException".into()),
+        }],
     })
 }
 
@@ -181,6 +326,25 @@ impl<'a> OutcomeModel<'a> {
     }
     /// Fallback is already evaluated, unlike the lazy coalesce callback below.
     /// Its public invariant remains a source obligation even on the some arm.
+    /// Reference dereference uses the shared presence/payload relation and the
+    /// C# reference exception, rather than Nullable<T>.Value's exception.
+    pub fn reference_value(
+        &self,
+        value: &MonomorphicValue,
+    ) -> Result<MonomorphicValue, DomainError> {
+        reference_value_signature(
+            self.roots,
+            self.closed,
+            &format!("reference.value.{}", self.id),
+        )?;
+        self.read(value, "some").cloned().map_err(|e| {
+            if e == DomainError::InactivePayload {
+                DomainError::NullReceiver
+            } else {
+                e
+            }
+        })
+    }
     pub fn value_or(
         &self,
         value: &MonomorphicValue,
@@ -277,28 +441,8 @@ impl<'a> OutcomeModel<'a> {
             .strip_prefix("mpk.csharp.value.")
             .and_then(|s| s.strip_suffix(".v1"))
             .ok_or(DomainError::Signature)?;
-        let comparison = matches!(
-            operation,
-            "equal" | "not_equal" | "less" | "less_equal" | "greater" | "greater_equal"
-        );
-        let unary = matches!(operation, "plus" | "negate" | "not");
-        let allowed = if token == "bool" {
-            matches!(operation, "not" | "and" | "or" | "equal" | "not_equal")
-        } else {
-            matches!(token, "i32" | "i64" | "f32" | "f64" | "decimal")
-                && (comparison
-                    || matches!(
-                        operation,
-                        "plus"
-                            | "negate"
-                            | "add"
-                            | "subtract"
-                            | "multiply"
-                            | "divide"
-                            | "remainder"
-                    ))
-        };
-        if !allowed || operands.len() != if unary { 1 } else { 2 } {
+        let (unary, comparison) = lift_shape(token, operation).ok_or(DomainError::Signature)?;
+        if operands.len() != if unary { 1 } else { 2 } {
             return Err(DomainError::Signature);
         }
         let values: Vec<_> = operands
@@ -452,103 +596,141 @@ pub fn domain_default(
     c: &ClosedInstanceSet,
     id: &str,
 ) -> Result<MonomorphicValue, DomainError> {
-    let result = if let Some(source) = r.source_types.get(id) {
-        if !source.public_default || source.kind == SourceKind::SealedClass {
-            return Err(DomainError::DefaultIneligible);
+    default_with_obligations(b, r, c, id, true)
+}
+
+// W14 uses the same recursive algorithm after independently checking the
+// captured structural-default graph. A declared invariant stays pending.
+pub(super) fn default_with_obligations(
+    b: &ValidatedFoundationBundle,
+    r: &ValidatedClosedRootSet,
+    c: &ClosedInstanceSet,
+    id: &str,
+    require_public_default: bool,
+) -> Result<MonomorphicValue, DomainError> {
+    fn build(
+        b: &ValidatedFoundationBundle,
+        r: &ValidatedClosedRootSet,
+        c: &ClosedInstanceSet,
+        id: &str,
+        cells: &mut u64,
+        require_public_default: bool,
+    ) -> Result<MonomorphicValue, DomainError> {
+        *cells = cells.checked_add(1).ok_or(DomainError::Bound)?;
+        if *cells > TOTAL_VALUE_CELLS_MAX {
+            return Err(DomainError::Bound);
         }
-        if source.kind == SourceKind::Enum {
-            if !source.enum_values.iter().any(|v| v == "0") {
+        let result = if let Some(source) = r.source_types.get(id) {
+            if require_public_default && !source.public_default
+                || source.kind == SourceKind::SealedClass
+                || source.members.iter().any(|m| m.required)
+            {
                 return Err(DomainError::DefaultIneligible);
             }
-            MonomorphicValue::Enum {
-                type_id: id.into(),
-                underlying: source.enum_underlying.clone().unwrap(),
-                carrier: "0".into(),
+            if source.kind == SourceKind::Enum {
+                if !source.enum_values.iter().any(|v| v == "0") {
+                    return Err(DomainError::DefaultIneligible);
+                }
+                MonomorphicValue::Enum {
+                    type_id: id.into(),
+                    underlying: source.enum_underlying.clone().unwrap(),
+                    carrier: "0".into(),
+                }
+            } else {
+                let fields = source
+                    .members
+                    .iter()
+                    .map(|m| {
+                        Ok(NamedMonomorphicValue {
+                            name: m.name.clone(),
+                            value: Box::new(build(
+                                b,
+                                r,
+                                c,
+                                &closed_type_id(b, &m.ty)
+                                    .map_err(|_| DomainError::DefaultIneligible)?,
+                                cells,
+                                require_public_default,
+                            )?),
+                        })
+                    })
+                    .collect::<Result<_, DomainError>>()?;
+                MonomorphicValue::Product {
+                    type_id: id.into(),
+                    fields,
+                }
+            }
+        } else if let Some(meta) = c.metadata.get(id) {
+            match template_name(&meta.template_id) {
+                Some("option") => OutcomeModel::new(b, r, c, id)?.construct("none", None)?,
+                Some("lookup") => OutcomeModel::new(b, r, c, id)?.construct("missing_key", None)?,
+                _ => return Err(DomainError::DefaultIneligible),
             }
         } else {
-            let fields = source
-                .members
-                .iter()
-                .map(|m| {
-                    Ok(NamedMonomorphicValue {
-                        name: m.name.clone(),
-                        value: Box::new(domain_default(
-                            b,
-                            r,
-                            c,
-                            &closed_type_id(b, &m.ty)
-                                .map_err(|_| DomainError::DefaultIneligible)?,
-                        )?),
-                    })
-                })
-                .collect::<Result<_, DomainError>>()?;
-            MonomorphicValue::Product {
-                type_id: id.into(),
-                fields,
+            let token = id
+                .strip_prefix("mpk.csharp.value.")
+                .and_then(|s| s.strip_suffix(".v1"))
+                .ok_or(DomainError::DefaultIneligible)?;
+            match token {
+                "bool" => bool_value(false),
+                "unit" => MonomorphicValue::Unit { type_id: id.into() },
+                "day_of_week" => MonomorphicValue::Enum {
+                    type_id: id.into(),
+                    underlying: "i32".into(),
+                    carrier: "0".into(),
+                },
+                "char" => MonomorphicValue::Char {
+                    type_id: id.into(),
+                    utf16: 0,
+                },
+                "f32" => MonomorphicValue::F32Bits {
+                    type_id: id.into(),
+                    bits: "00000000".into(),
+                },
+                "f64" => MonomorphicValue::F64Bits {
+                    type_id: id.into(),
+                    bits: "0000000000000000".into(),
+                },
+                "decimal" => MonomorphicValue::DecimalBits {
+                    type_id: id.into(),
+                    negative: false,
+                    scale: 0,
+                    coefficient: "0".into(),
+                },
+                "date" => MonomorphicValue::Date {
+                    type_id: id.into(),
+                    day_number: 0,
+                },
+                "time" => MonomorphicValue::Time {
+                    type_id: id.into(),
+                    ticks: "0".into(),
+                },
+                "duration" => MonomorphicValue::Duration {
+                    type_id: id.into(),
+                    ticks: "0".into(),
+                },
+                "instant" => MonomorphicValue::Instant {
+                    type_id: id.into(),
+                    milliseconds: "0".into(),
+                },
+                "guid" => MonomorphicValue::Guid {
+                    type_id: id.into(),
+                    n: "0".repeat(32),
+                },
+                "i8" | "i16" | "i32" | "i64" => MonomorphicValue::Signed {
+                    type_id: id.into(),
+                    value: "0".into(),
+                },
+                "u8" | "u16" | "u32" | "u64" => MonomorphicValue::Unsigned {
+                    type_id: id.into(),
+                    value: "0".into(),
+                },
+                _ => return Err(DomainError::DefaultIneligible),
             }
-        }
-    } else if let Some(meta) = c.metadata.get(id) {
-        match template_name(&meta.template_id) {
-            Some("option") => OutcomeModel::new(b, r, c, id)?.construct("none", None)?,
-            Some("lookup") => OutcomeModel::new(b, r, c, id)?.construct("missing_key", None)?,
-            _ => return Err(DomainError::DefaultIneligible),
-        }
-    } else {
-        let token = id
-            .strip_prefix("mpk.csharp.value.")
-            .and_then(|s| s.strip_suffix(".v1"))
-            .ok_or(DomainError::DefaultIneligible)?;
-        match token {
-            "bool" => bool_value(false),
-            "char" => MonomorphicValue::Char {
-                type_id: id.into(),
-                utf16: 0,
-            },
-            "f32" => MonomorphicValue::F32Bits {
-                type_id: id.into(),
-                bits: "00000000".into(),
-            },
-            "f64" => MonomorphicValue::F64Bits {
-                type_id: id.into(),
-                bits: "0000000000000000".into(),
-            },
-            "decimal" => MonomorphicValue::DecimalBits {
-                type_id: id.into(),
-                negative: false,
-                scale: 0,
-                coefficient: "0".into(),
-            },
-            "date" => MonomorphicValue::Date {
-                type_id: id.into(),
-                day_number: 0,
-            },
-            "time" => MonomorphicValue::Time {
-                type_id: id.into(),
-                ticks: "0".into(),
-            },
-            "duration" => MonomorphicValue::Duration {
-                type_id: id.into(),
-                ticks: "0".into(),
-            },
-            "instant" => MonomorphicValue::Instant {
-                type_id: id.into(),
-                milliseconds: "0".into(),
-            },
-            "guid" => MonomorphicValue::Guid {
-                type_id: id.into(),
-                n: "0".repeat(32),
-            },
-            "i8" | "i16" | "i32" | "i64" => MonomorphicValue::Signed {
-                type_id: id.into(),
-                value: "0".into(),
-            },
-            "u8" | "u16" | "u32" | "u64" => MonomorphicValue::Unsigned {
-                type_id: id.into(),
-                value: "0".into(),
-            },
-            _ => return Err(DomainError::DefaultIneligible),
-        }
-    };
+        };
+        Ok(result)
+    }
+    let result = build(b, r, c, id, &mut 0, require_public_default)?;
     validate_monomorphic_value(b, r, c, &result).map_err(|_| DomainError::DefaultIneligible)?;
     Ok(result)
 }

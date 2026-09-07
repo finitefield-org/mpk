@@ -380,6 +380,7 @@ fn csharp_03_t01_w08_binding_schema_and_projection_obligations_are_not_proofs() 
                 "default_arm",
                 "bounds",
                 "operation_map",
+                "enum_arms",
                 "binding_sha256",
             ],
         );

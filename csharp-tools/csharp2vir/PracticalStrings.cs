@@ -12,7 +12,7 @@ namespace Mpk.CSharp2Vir;
 // Per-expression inventory; captured bodies determine control/execution order.
 internal sealed record PracticalStringStep(string Site, string Operation, string Relation,
     IReadOnlyList<IOperation> Operands, IReadOnlyList<int> ArgumentOrdinals,
-    IReadOnlyList<string> Checks, IReadOnlyList<string> Exceptions, string ResultTypeId);
+    IReadOnlyList<string> Checks, IReadOnlyList<string> Exceptions, string ResultTypeId) { internal IOperation Source { get; init; } = null!; }
 internal sealed record PracticalStringObligation(string Site,string Kind,bool Discharged=false);
 internal sealed record PracticalStrings(PracticalArrays Arrays, IReadOnlyList<PracticalStringStep> Steps, IReadOnlyList<PracticalStringObligation> Obligations)
 {
@@ -30,10 +30,10 @@ internal static class CSharpPracticalStrings
 {
     internal const int MaximumUtf16Units=16384;
     internal static PracticalStrings Validate(PracticalSourceSelection selection,IEnumerable<PracticalCapturedInput> inputs,
-        ImmutableArray<MetadataReference> references,IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims=null, Action<CSharpCompilation>? validateNumeric=null,bool domainOperations=false)
+        ImmutableArray<MetadataReference> references,IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims=null, Action<CSharpCompilation>? validateNumeric=null,bool domainOperations=false,bool deferSidecarAttachment=false)
     {
         var steps=new List<PracticalStringStep>();var obligations=new List<PracticalStringObligation>();
-        var arrays=CSharpPracticalArrays.Validate(selection,inputs,references,invariantClaims,true,current=>{Analyze(current,steps,obligations);validateNumeric?.Invoke(current);},domainOperations);
+        var arrays=CSharpPracticalArrays.Validate(selection,inputs,references,invariantClaims,true,current=>{Analyze(current,steps,obligations);validateNumeric?.Invoke(current);},domainOperations,deferSidecarAttachment);
         return new(arrays,Array.AsReadOnly(steps.OrderBy(s=>s.Site,StringComparer.Ordinal).ThenBy(s=>s.Operation,StringComparer.Ordinal).ToArray()),Array.AsReadOnly(obligations.Distinct().OrderBy(o=>o.Site,StringComparer.Ordinal).ThenBy(o=>o.Kind,StringComparer.Ordinal).ToArray()));
     }
     internal static void ValidateCandidate(PracticalStrings regenerated,ReadOnlySpan<byte> candidate)
@@ -109,7 +109,7 @@ internal static class CSharpPracticalStrings
                 if(!seen.Add(site+"/"+id)){continue;}
                 if(checks.Contains("obligation.output_bound")){obligations.Add(new(site,"output_utf16_length_le_16384"));}
                 steps.Add(new(site,id,relation.Length==0?id:relation,Array.AsReadOnly(operands.ToArray()),Array.AsReadOnly(ordinals.ToArray()),
-                    Array.AsReadOnly(checks.ToArray()),Array.AsReadOnly(exceptions.ToArray()),PracticalExactTypeNormalizer.Normalize(operation.Type!,compilation).Id));
+                    Array.AsReadOnly(checks.ToArray()),Array.AsReadOnly(exceptions.ToArray()),PracticalExactTypeNormalizer.Normalize(operation.Type!,compilation).Id) { Source = operation });
             }
         }
     }

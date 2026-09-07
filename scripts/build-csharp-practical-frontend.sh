@@ -22,6 +22,18 @@ case "$#:${1-}" in
   1:--test-syntax)
     action=test-syntax
     ;;
+  1:--test-data-phase-requests)
+    action=test-data-phase-requests
+    ;;
+  1:--test-data-phase-replay)
+    action=test-data-phase-replay
+    ;;
+  1:--test-data-phase-cases)
+    action=test-data-phase-cases
+    ;;
+  1:--test-data-phase)
+    action=test-data-phase
+    ;;
   1:--test-business)
     action=test-business
     ;;

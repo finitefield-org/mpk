@@ -96,9 +96,10 @@ internal sealed class PracticalNormalizedCallable
 {
     private readonly byte[] bodyBytes;
 
-    internal PracticalNormalizedCallable(string id, byte[] bodyBytes)
+    internal PracticalNormalizedCallable(string id, byte[] bodyBytes, IReadOnlyList<IOperation?> operationNodes)
     {
         Id = id;
+        OperationNodes = Array.AsReadOnly(operationNodes.ToArray());
         this.bodyBytes = (byte[])bodyBytes.Clone();
         BodySha256 = Convert.ToHexString(SHA256.HashData(this.bodyBytes)).ToLowerInvariant();
     }
@@ -106,6 +107,8 @@ internal sealed class PracticalNormalizedCallable
     internal string Id { get; }
 
     internal string BodySha256 { get; }
+
+    internal IReadOnlyList<IOperation?> OperationNodes { get; }
 
     internal byte[] CopyBodyBytes() => (byte[])bodyBytes.Clone();
 }
@@ -874,7 +877,7 @@ internal static class CSharpPracticalSyntaxNormalizer
                 callable.CollectLocals(exactTypes);
                 normalizedCallables.Add(new PracticalNormalizedCallable(
                     callable.Id,
-                    callable.CanonicalBody()));
+                    callable.CanonicalBody(), callable.OperationNodes));
             }
 
             PracticalNormalizedCallable[] callableArray = normalizedCallables.ToArray();
@@ -1183,8 +1186,11 @@ internal static class CSharpPracticalSyntaxNormalizer
                 return syntaxModel.NormalizeType(local.Type);
             }
 
+            internal List<IOperation?> OperationNodes { get; } = new();
+
             internal byte[] CanonicalBody()
             {
+                OperationNodes.Clear();
                 using var output = new MemoryStream();
                 using (var writer = CanonicalWriter(output))
                 {
@@ -1312,11 +1318,12 @@ internal static class CSharpPracticalSyntaxNormalizer
                 WriteOperation(writer, value);
             }
 
-            private static void WriteSyntheticNode(
+            private void WriteSyntheticNode(
                 Utf8JsonWriter writer,
                 string kind,
                 int childCount)
             {
+                OperationNodes.Add(null);
                 writer.WriteStartObject();
                 writer.WriteNull("constant");
                 writer.WriteNumber("child_count", childCount);
@@ -1354,6 +1361,7 @@ internal static class CSharpPracticalSyntaxNormalizer
                 IOperation operation,
                 int childCount)
             {
+                OperationNodes.Add(operation);
                 writer.WriteStartObject();
                 WriteConstant(writer, operation);
                 writer.WriteNumber("child_count", childCount);
@@ -1484,7 +1492,10 @@ internal static class CSharpPracticalSyntaxNormalizer
                 {
                     null => "null",
                     bool boolean => boolean ? "bool:true" : "bool:false",
-                    string text => "string:" + text,
+                    // JSON writers replace unpaired surrogates. Encode the exact
+                    // code units before transport so normalized bodies are lossless.
+                    string text => "string_utf16:" + string.Concat(text.Select(unit =>
+                        ((ushort)unit).ToString("x4", CultureInfo.InvariantCulture))),
                     char character => "char:"
                         + ((int)character).ToString(CultureInfo.InvariantCulture),
                     float number => "f32:"
@@ -1600,6 +1611,11 @@ internal static class CSharpPracticalSyntaxNormalizer
             {
                 IBinaryOperation value => value.OperatorKind + "|"
                     + value.IsChecked + "|" + value.IsLifted,
+                ICompoundAssignmentOperation value => value.OperatorKind + "|"
+                    + value.IsChecked + "|" + value.IsLifted + "|"
+                    + value.InConversion.IsIdentity + "|" + value.OutConversion.IsIdentity,
+                IIncrementOrDecrementOperation value => value.Kind + "|"
+                    + value.IsChecked + "|" + value.IsLifted + "|" + value.IsPostfix,
                 IUnaryOperation value => value.OperatorKind + "|"
                     + value.IsChecked + "|" + value.IsLifted,
                 IConversionOperation value => string.Join(

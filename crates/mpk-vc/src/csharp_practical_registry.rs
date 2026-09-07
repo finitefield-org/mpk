@@ -35,7 +35,7 @@ pub const CSHARP_PRACTICAL_PROFILE: &str = "mpk.csharp.practical.v1";
 pub const FOUNDATION_DESCRIPTOR_SCHEMA: &str = "mpk.csharp.foundation_descriptor.v1";
 pub const FOUNDATION_DESCRIPTOR_ID: &str = "mpk.csharp.practical.foundation.v1";
 pub const FOUNDATION_DESCRIPTOR_CONTENT_SHA256: &str =
-    "d8c2a023f1c445470123519f5024a17aaca1766553331a2fed4733fecf7deec1";
+    "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2";
 pub const SUCCESSOR_CANDIDATE_REVISION: u64 = 4;
 
 pub const SUCCESSOR_PROFILE_ENTRY_HASH_DOMAIN: HashDomain =
@@ -56,17 +56,17 @@ pub const SUCCESSOR_COMPILED_PROFILE_CONTRACT_HASH_DOMAIN: HashDomain =
 // Frozen from the canonical candidate asserted by the W01 production-owner
 // tests; validation also recomputes every digest before constructing a value.
 pub const CSHARP_PRACTICAL_ENTRY_SHA256: &str =
-    "9a5b4737e928a93dfa07f71e72d49181d32a84200e3e786fc3a8914914676661";
+    "b0c3cc5c2525c4b602de22bd99275be9c7f4a10a650b54900053e0acd8e9c9c3";
 pub const SUCCESSOR_CSHARP_SCALAR_ENTRY_SHA256: &str =
-    "ff99f04464d3485f7239460da0562b8b812abbf25577bbb35ce05f07c5273bc3";
+    "c630295d4261d66055ab04ba5b92de2e5a578d7e281a049e5d0129fd3e83d1c5";
 pub const SUCCESSOR_GO_FIXED_ENTRY_SHA256: &str =
-    "8fa92fb20f37a0aef96f496d68b8d6d62370be0ea25fb4590aa4bba716d0d986";
+    "88659da3c694de897bddbb3a4a3b4d6c18cc18281361f5f5c92bb630f668fc90";
 pub const SUCCESSOR_JAVA_SCALAR_ENTRY_SHA256: &str =
-    "cf6a4b2432a15f89196d0469ef67729d2d9d9a97dd5596ed48c43b905fa6fd51";
+    "02bb4d849fa0b27dc597595efe0b22b78e0c05350db6974893bb1488551bdc1a";
 pub const SUCCESSOR_RUST_CHECKED_ENTRY_SHA256: &str =
-    "a224764969f554caadf8b205a9a5f34db833dbb622d306ba048fc6d854725c75";
+    "68fab30033fccd980c65dc734b4b301ef8fd645288d27dfe7c7f88f56a1b452e";
 pub const SUCCESSOR_CANDIDATE_REGISTRY_SHA256: &str =
-    "1cad5b32ce432eac39655240a84ec83ba6f347c335452b5e143fca3ba2cb78c8";
+    "b675e26ad35f1a4604f77006cd11b63cc20c680c65eadd2b12a3d3b2df0f1e24";
 
 pub const SUCCESSOR_REGISTRY_CANONICAL_BYTES_MAX: u64 = REGISTRY_CANONICAL_BYTES_MAX;
 pub const SUCCESSOR_REGISTRY_TRANSPORT_BYTES_MAX: u64 = REGISTRY_TRANSPORT_BYTES_MAX;

@@ -67,6 +67,7 @@ struct Fixture {
 impl Fixture {
     fn import_context(&self) -> PracticalVirImportContext<'_> {
         PracticalVirImportContext {
+            data_source_facts: None,
             artifact_context: &self.context,
             captured_inputs: &self.captures,
             foundation_descriptor_transport: registered_foundation_descriptor_transport(),
@@ -170,15 +171,15 @@ fn csharp_03_t02_w06_round_trips_linked_vc_skeleton_and_assembly_plan() {
         .expect("ordinary-context assembly plan");
     assert_eq!(
         vc.hash(),
-        "2a66a554285ed4f5f2263a7996bfbb87c35da421c38e81052dbe5369db5df598"
+        "69100da854a1852ad35af2fae06808f1aecbb8c8230e6a4ba0cb73a4f9ee5320"
     );
     assert_eq!(
         skeleton.hash(),
-        "03dbe460131c1240bf35aac8b7b954b9cac5a215a184efef66eea0735fd2f420"
+        "cf1a6ed5dace9715b5e65b806801356905cb31bdf1271f01e1684ed441325ebf"
     );
     assert_eq!(
         assembly.hash(),
-        "90002cbc6f509d02365c2ec04c12c708112c7ab2ecaf3ad40448bf5ca7ac38c1"
+        "4ccbbb79c87935a7f615cac3a52cf07656bd74ad6212ac8d7b8aabe392b321c7"
     );
     let assembly_value: Value = serde_json::from_slice(assembly.canonical_bytes()).unwrap();
     assert_eq!(
@@ -334,6 +335,7 @@ fn csharp_03_t02_w06_routes_every_closed_w03_form_without_intrinsics() {
         ClosedOperationTag::FieldRead,
         ClosedOperationTag::ValueConstruct,
         ClosedOperationTag::SourceCall,
+        ClosedOperationTag::ConstructorExecute,
         ClosedOperationTag::BindingProject,
         ClosedOperationTag::BindingReconstruct,
         ClosedOperationTag::StructuralEqual,
@@ -345,7 +347,7 @@ fn csharp_03_t02_w06_routes_every_closed_w03_form_without_intrinsics() {
         ClosedOperationTag::ExceptionIsType,
         ClosedOperationTag::ExceptionPayload,
     ];
-    assert_eq!(operation_tags.len(), 14);
+    assert_eq!(operation_tags.len(), 15);
     for tag in operation_tags {
         let (_route, owner) = ordinary_operation_route(tag);
         assert!(owner.as_str().starts_with("CSHARP-03-T06-W"));
@@ -819,18 +821,11 @@ fn build_fixture_with_roots(compilation_id: &str, roots_value: Value) -> Fixture
     let context = bind_practical_artifact_context(&request, &foundation).expect("artifact context");
     let captures = capture_original_inputs(
         &context,
-        vec![
-            OriginalInput {
-                kind: OriginalInputKind::Source,
-                path: "src/Order.cs".into(),
-                bytes: SOURCE.to_vec(),
-            },
-            OriginalInput {
-                kind: OriginalInputKind::Sidecar,
-                path: "contracts/order.json".into(),
-                bytes: b"{}".to_vec(),
-            },
-        ],
+        vec![OriginalInput {
+            kind: OriginalInputKind::Source,
+            path: "src/Order.cs".into(),
+            bytes: SOURCE.to_vec(),
+        }],
     )
     .expect("captured inputs");
     let roots_transport =
@@ -940,10 +935,9 @@ fn foundation_check(id: &str) -> RequiredCheck {
         "capacity" | "currency_mismatch" | "decimal_overflow" | "division_by_zero"
         | "duplicate_element" | "duplicate_key" | "empty_errors" | "event_bound"
         | "invalid_currency" | "invalid_precision" | "invalid_rounding" | "invalid_scale"
-        | "missing_key" | "precision" | "range" | "validation_bound" => (
-            RequiredCheckTag::ErrorOutcome,
-            Some("mpk.csharp.value.i32.v1".to_owned()),
-        ),
+        | "missing_key" | "precision" | "range" | "validation_bound" => {
+            (RequiredCheckTag::ErrorOutcome, None)
+        }
         other => panic!("unregistered foundation check {other}"),
     };
     RequiredCheck {
@@ -956,6 +950,7 @@ fn foundation_check(id: &str) -> RequiredCheck {
 fn minimal_contents(function_id: &str, label: &str) -> PracticalVirContents {
     PracticalVirContents {
         functions: vec![PracticalVirFunction {
+            object_protocol: None,
             id: function_id.into(),
             parameter_values: Vec::new(),
             result_type_ids: Vec::new(),
@@ -1009,6 +1004,8 @@ fn empty_block(node: ControlNode) -> PracticalVirBlock {
     PracticalVirBlock {
         node,
         phi_values: Vec::new(),
+        literal_values: Vec::new(),
+        exception_values: Vec::new(),
         condition_value_id: None,
         return_value_ids: Vec::new(),
         abrupt_value_id: None,
@@ -1132,7 +1129,7 @@ fn practical_selection(compilation_id: &str, root_id: &str) -> Value {
         "compilation_id": compilation_id,
         "source_paths": ["src/Order.cs"],
         "selected_root_ids": [root_id],
-        "sidecar_paths": ["contracts/order.json"],
+        "sidecar_paths": [],
         "selection_sha256": ZERO_SHA256
     });
     selection["selection_sha256"] =

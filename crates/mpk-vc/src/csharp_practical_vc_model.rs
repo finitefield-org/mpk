@@ -965,6 +965,12 @@ fn collect_function_type_ids(function: &PracticalVirFunction, output: &mut BTree
             }
             insert_typed_value(output, &invocation.result);
         }
+        for literal in &block.literal_values {
+            insert_typed_value(output, &literal.result);
+        }
+        for exceptional in &block.exception_values {
+            insert_type_id(output, exceptional.value.type_id());
+        }
         for phi in &block.phi_values {
             insert_typed_value(output, &phi.value);
         }
@@ -1095,7 +1101,7 @@ pub const fn ordinary_operation_route(
             OrdinaryOperationRoute::RegisteredFoundationEquation,
             LaterProofOwner::OrdinaryFoundationAndAssembly,
         ),
-        ClosedOperationTag::SourceCall => (
+        ClosedOperationTag::SourceCall | ClosedOperationTag::ConstructorExecute => (
             OrdinaryOperationRoute::SourceBodyRelation,
             LaterProofOwner::ConstructionAndTypeInvariants,
         ),
@@ -1421,6 +1427,81 @@ fn build_obligation_groups(
                     "check:{}:{}",
                     operation.operation_id, check.check_id
                 ));
+        }
+    }
+    for (ordinal, o) in vir.source_obligations().iter().enumerate() {
+        let owner = match o.family.as_str() {
+            "construction" => LaterProofOwner::ConstructionAndTypeInvariants,
+            "business" => LaterProofOwner::BindingsAndSpecialization,
+            "domain"
+                if o.kind != "non_null_stored_field"
+                    && vir
+                        .binding_projections()
+                        .iter()
+                        .any(|p| p.source_type_id == o.site) =>
+            {
+                LaterProofOwner::BindingsAndSpecialization
+            }
+            _ => LaterProofOwner::DataAndCollections,
+        };
+        let function = vir
+            .functions()
+            .iter()
+            .any(|f| f.id == o.declaration_id)
+            .then(|| o.declaration_id.clone());
+        pending
+            .entry((function, owner))
+            .or_default()
+            .insert(format!(
+                "source_obligation:{ordinal:06}:{}:{}",
+                o.family, o.kind
+            ));
+    }
+    for document in vir.data_contracts() {
+        use crate::csharp_practical_source_artifacts::{
+            parse_canonical_practical_json, PracticalArtifactKind, PracticalJsonValue as J,
+        };
+        let contract = parse_canonical_practical_json(
+            PracticalArtifactKind::MethodContract,
+            document.as_bytes(),
+        )
+        .expect("VIR retained a validated canonical data contract");
+        let schema = contract
+            .get("schema")
+            .and_then(J::as_str)
+            .expect("validated schema");
+        let hash = contract
+            .get("contract_sha256")
+            .and_then(J::as_str)
+            .expect("validated contract hash");
+        let (function, owner) =
+            if schema == crate::csharp_practical_source_artifacts::METHOD_CONTRACT_SCHEMA {
+                (
+                    Some(
+                        contract
+                            .get("callable_id")
+                            .and_then(J::as_str)
+                            .expect("validated callable")
+                            .to_owned(),
+                    ),
+                    LaterProofOwner::DataAndCollections,
+                )
+            } else {
+                (None, LaterProofOwner::ConstructionAndTypeInvariants)
+            };
+        pending
+            .entry((function.clone(), owner))
+            .or_default()
+            .insert(format!("data_contract:{schema}:{hash}"));
+        if contract
+            .get("exceptional_cases")
+            .and_then(J::as_array)
+            .is_some_and(|a| !a.is_empty())
+        {
+            pending
+                .entry((function, LaterProofOwner::ExceptionalControl))
+                .or_default()
+                .insert(format!("exception_contract:{hash}"));
         }
     }
     for projection in vir.binding_projections() {

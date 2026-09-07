@@ -70,12 +70,12 @@ ROOT_ORIGINS = {
 DERIVATION_SOURCES = {
     "bounded_sequence": ["source_array", "source_string", "semantic_binding", "contract", "boundary", "transition", "dependency"],
     "sequence_construction": ["source_construction"],
-    "ordered_entry": ["semantic_binding", "dependency"],
+    "ordered_entry": ["semantic_binding", "dependency", "source_construction"],
     "ordered_map": ["semantic_binding"], "ordered_set": ["semantic_binding"],
     "option": ["source_nullable", "semantic_binding", "contract", "boundary", "dependency"],
     "lookup": ["semantic_binding", "dependency"],
     "result": ["semantic_binding", "codec_result"], "validation": ["semantic_binding"],
-    "boundary_field": ["semantic_binding", "boundary"], "transition": ["semantic_binding", "transition"],
+    "boundary_field": ["semantic_binding", "boundary", "source_construction"], "transition": ["semantic_binding", "transition"],
     "money": ["semantic_binding"],
 }
 ROLE_MEMBERS = {
@@ -677,7 +677,7 @@ def binding_obligations(binding: dict, sources: dict[str, dict]) -> list[dict]:
 
 def validate_binding(binding: dict, sources: dict[str, dict], declarations: dict[str, dict]) -> list[dict]:
     exact(binding, {"schema", "source_type_id", "source_content_sha256", "role", "member_map", "tag_arms",
-                    "inferred_argument_ids", "default_arm", "bounds", "operation_map", "binding_sha256"}, "binding_shape")
+                    "inferred_argument_ids", "default_arm", "bounds", "operation_map", "enum_arms", "binding_sha256"}, "binding_shape")
     if binding["schema"] != SCHEMAS["binding"]:
         raise ModelError("binding_schema")
     raw = {k: v for k, v in binding.items() if k != "binding_sha256"}
@@ -729,6 +729,21 @@ def validate_binding(binding: dict, sources: dict[str, dict], declarations: dict
         raise ModelError("binding_operation_set")
     if any(not isinstance(i, str) or i not in declarations for i in binding["operation_map"].values()):
         raise ModelError("binding_operation_identity")
+    # The source bridge retains returned-result and finite rounding mappings.
+    # This older projected-signature model cannot attest source attachment.
+    domains = binding["enum_arms"]
+    if not isinstance(domains, dict):
+        raise ModelError("binding_enum_projection")
+    rounding_labels = {"ToEven", "AwayFromZero", "ToZero", "ToNegativeInfinity", "ToPositiveInfinity"}
+    for enum_id, arms in domains.items():
+        enum = sources.get(enum_id, {})
+        allowed = {"precision", "range"} if role == "instant" else {"invalid_currency", "invalid_scale", "invalid_precision", "currency_mismatch", "invalid_rounding", "division_by_zero", "decimal_overflow"} if role == "money" else set()
+        if isinstance(arms, dict) and set(arms) & rounding_labels:
+            allowed = rounding_labels if role == "money" and set(arms) == rounding_labels else set()
+        if (enum.get("kind") != "enum" or not isinstance(arms, dict) or not arms
+                or not set(arms) <= allowed or len(set(arms.values())) != len(arms)
+                or set(arms.values()) != set(enum["enum_values"])):
+            raise ModelError("binding_enum_projection")
     for operation, target in binding["operation_map"].items():
         signature = declarations[target]
         exact(signature, {"argument_type_ids", "normal_result_type_id"}, "binding_operation_signature")

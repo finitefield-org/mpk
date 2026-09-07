@@ -408,6 +408,7 @@ fn binding_input(
     args: Vec<String>,
 ) -> SemanticBindingInput {
     SemanticBindingInput {
+        enum_arms: Default::default(),
         source_type_id: source["id"].as_str().unwrap().into(),
         source_content_sha256: source["source_sha256"].as_str().unwrap().into(),
         role: role.into(),

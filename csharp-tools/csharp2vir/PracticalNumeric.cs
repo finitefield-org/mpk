@@ -13,7 +13,7 @@ namespace Mpk.CSharp2Vir;
 // No recipe discharges its commutation VC or creates a checker primitive.
 internal sealed record PracticalNumericStep(string Site,string Operation,
     IReadOnlyList<IOperation> Operands,IReadOnlyList<string> ArgumentTypes,string ResultType,
-    string Rounding,IReadOnlyList<string> Exceptions,string Relation="bounded_integer_numeric");
+    string Rounding,IReadOnlyList<string> Exceptions,string Relation="bounded_integer_numeric") { internal IOperation Source { get; init; } = null!; }
 internal sealed record PracticalNumeric(PracticalStrings Strings,IReadOnlyList<PracticalNumericStep> Steps)
 {
     internal int ArtifactCount=>0;
@@ -25,10 +25,10 @@ internal sealed record PracticalNumeric(PracticalStrings Strings,IReadOnlyList<P
 internal static class CSharpPracticalNumeric
 {
     internal static PracticalNumeric Validate(PracticalSourceSelection selection,IEnumerable<PracticalCapturedInput> inputs,
-        ImmutableArray<MetadataReference> references, Action<CSharpCompilation>? validateDomain=null)
+        ImmutableArray<MetadataReference> references, Action<CSharpCompilation>? validateDomain=null,bool deferSidecarAttachment=false)
     {
         var steps=new List<PracticalNumericStep>();
-        var strings=CSharpPracticalStrings.Validate(selection,inputs,references,validateNumeric:c=>{Analyze(c,steps,validateDomain is not null);validateDomain?.Invoke(c);},domainOperations:validateDomain is not null);
+        var strings=CSharpPracticalStrings.Validate(selection,inputs,references,validateNumeric:c=>{Analyze(c,steps,validateDomain is not null);validateDomain?.Invoke(c);},domainOperations:validateDomain is not null,deferSidecarAttachment:deferSidecarAttachment);
         return new(strings,Array.AsReadOnly(steps.OrderBy(s=>s.Site,StringComparer.Ordinal).ThenBy(s=>s.Operation,StringComparer.Ordinal).ToArray()));
     }
     internal static void ValidateCandidate(PracticalNumeric regenerated,ReadOnlySpan<byte> candidate)
@@ -42,7 +42,7 @@ internal static class CSharpPracticalNumeric
         var seen=new HashSet<string>(StringComparer.Ordinal);
         foreach(var tree in compilation.SyntaxTrees) {
             var model=compilation.GetSemanticModel(tree);
-            foreach(var syntax in tree.GetRoot().DescendantNodes().OfType<ExpressionSyntax>()) {
+            foreach(var syntax in tree.GetRoot().DescendantNodes().Where(n=>n is ExpressionSyntax or StatementSyntax or ArrowExpressionClauseSyntax or EqualsValueClauseSyntax)) {
                 var first=model.GetOperation(syntax);if(first is null){continue;}
                 var pending=new Stack<IOperation>();pending.Push(first);
                 while(pending.Count!=0) {
@@ -86,7 +86,7 @@ internal static class CSharpPracticalNumeric
                         case ILiteralOperation literal when Numeric(literal.Type):id=Prefix(literal.Type)+"literal";operands.Add(literal);break;
                         default:continue;
                     }
-                    steps.Add(new(site,id,Array.AsReadOnly(operands.ToArray()),Array.AsReadOnly(operands.Select(o=>PracticalExactTypeNormalizer.Normalize(o.Type!,compilation).Id).ToArray()),PracticalExactTypeNormalizer.Normalize(operation.Type!,compilation).Id,rounding,Array.AsReadOnly(exceptions.ToArray())));
+                    steps.Add(new(site,id,Array.AsReadOnly(operands.ToArray()),Array.AsReadOnly(operands.Select(o=>PracticalExactTypeNormalizer.Normalize(o.Type!,compilation).Id).ToArray()),PracticalExactTypeNormalizer.Normalize(operation.Type!,compilation).Id,rounding,Array.AsReadOnly(exceptions.ToArray())) { Source = operation });
                 }
             }
         }

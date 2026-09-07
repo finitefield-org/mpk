@@ -626,6 +626,29 @@ impl NumericOperation {
         result: &str,
         rounding: Option<&str>,
     ) -> Result<Self, NumericError> {
+        // A source round call has a concrete, explicit mode and arity. These
+        // parameters participate in its operation ID and therefore every table
+        // and VIR preimage; decoding selects the existing W11 relation.
+        let encoded = id
+            .strip_prefix("decimal.round.")
+            .map(|suffix| {
+                let (mode, arity) = suffix.split_once('.').ok_or(NumericError::Signature)?;
+                if !matches!(arity, "1" | "2")
+                    || arity.parse::<usize>().ok() != Some(arguments.len())
+                    || rounding.is_some_and(|r| r != mode)
+                {
+                    return Err(NumericError::Signature);
+                }
+                CodecRounding::from_id(mode).map_err(|_| NumericError::Signature)?;
+                Ok(mode)
+            })
+            .transpose()?;
+        let id = if encoded.is_some() {
+            "decimal.round"
+        } else {
+            id
+        };
+        let rounding = encoded.or(rounding);
         let mode = rounding
             .map(CodecRounding::from_id)
             .transpose()

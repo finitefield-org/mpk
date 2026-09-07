@@ -62,6 +62,7 @@ struct Fixture {
 impl Fixture {
     fn import_context(&self) -> PracticalVirImportContext<'_> {
         PracticalVirImportContext {
+            data_source_facts: None,
             artifact_context: &self.context,
             captured_inputs: &self.captures,
             foundation_descriptor_transport: registered_foundation_descriptor_transport(),
@@ -500,18 +501,11 @@ fn csharp_03_t02_w05_recomputes_foundation_and_rejects_cross_artifact_splicing()
 
     let alternate_captures = capture_original_inputs(
         &fixture.context,
-        vec![
-            OriginalInput {
-                kind: OriginalInputKind::Source,
-                path: "src/Order.cs".into(),
-                bytes: b"public static class Order { public static int Run() => 2; }\n".to_vec(),
-            },
-            OriginalInput {
-                kind: OriginalInputKind::Sidecar,
-                path: "contracts/order.json".into(),
-                bytes: b"{}".to_vec(),
-            },
-        ],
+        vec![OriginalInput {
+            kind: OriginalInputKind::Source,
+            path: "src/Order.cs".into(),
+            bytes: b"public static class Order { public static int Run() => 2; }\n".to_vec(),
+        }],
     )
     .expect("alternate captured inputs");
     let mut context = fixture.import_context();
@@ -893,18 +887,11 @@ fn build_instant_binding_fixture(
     let context = bind_practical_artifact_context(&request, &foundation).expect("artifact context");
     let captures = capture_original_inputs(
         &context,
-        vec![
-            OriginalInput {
-                kind: OriginalInputKind::Source,
-                path: "src/Order.cs".into(),
-                bytes: SOURCE.to_vec(),
-            },
-            OriginalInput {
-                kind: OriginalInputKind::Sidecar,
-                path: "contracts/order.json".into(),
-                bytes: b"{}".to_vec(),
-            },
-        ],
+        vec![OriginalInput {
+            kind: OriginalInputKind::Source,
+            path: "src/Order.cs".into(),
+            bytes: SOURCE.to_vec(),
+        }],
     )
     .expect("captured inputs");
     let source_hash = captures
@@ -973,6 +960,7 @@ fn build_instant_binding_fixture(
         &context,
         &captures,
         vec![SemanticBindingInput {
+            enum_arms: Default::default(),
             source_type_id: source_type_id.clone(),
             source_content_sha256: source_hash,
             role: "instant".into(),
@@ -1067,18 +1055,11 @@ fn build_fixture_with_roots(
     let context = bind_practical_artifact_context(&request, &foundation).expect("artifact context");
     let captures = capture_original_inputs(
         &context,
-        vec![
-            OriginalInput {
-                kind: OriginalInputKind::Source,
-                path: "src/Order.cs".into(),
-                bytes: SOURCE.to_vec(),
-            },
-            OriginalInput {
-                kind: OriginalInputKind::Sidecar,
-                path: "contracts/order.json".into(),
-                bytes: b"{}".to_vec(),
-            },
-        ],
+        vec![OriginalInput {
+            kind: OriginalInputKind::Source,
+            path: "src/Order.cs".into(),
+            bytes: SOURCE.to_vec(),
+        }],
     )
     .expect("captured inputs");
     let roots_transport =
@@ -1178,6 +1159,7 @@ fn minimal_contents(function_id: &str, label: &str) -> PracticalVirContents {
 
 fn minimal_function(function_id: &str, label: &str) -> PracticalVirFunction {
     PracticalVirFunction {
+        object_protocol: None,
         id: function_id.into(),
         parameter_values: Vec::new(),
         result_type_ids: Vec::new(),
@@ -1221,6 +1203,7 @@ fn calling_function(
     let operation_node_id = format!("vir.node.{label}.call");
     let return_node_id = format!("vir.node.{label}.return");
     PracticalVirFunction {
+        object_protocol: None,
         id: function_id.into(),
         parameter_values: Vec::new(),
         result_type_ids: Vec::new(),
@@ -1241,6 +1224,8 @@ fn calling_function(
                     None,
                 ),
                 phi_values: Vec::new(),
+                literal_values: Vec::new(),
+                exception_values: Vec::new(),
                 condition_value_id: None,
                 return_value_ids: Vec::new(),
                 abrupt_value_id: None,
@@ -1323,6 +1308,7 @@ fn invoking_function(
         exceptional_successors: Vec::new(),
     });
     PracticalVirFunction {
+        object_protocol: None,
         id: function_id.into(),
         parameter_values: parameters,
         result_type_ids: Vec::new(),
@@ -1524,6 +1510,7 @@ fn construction_merge_function(fixture: &Fixture, label: &str) -> PracticalVirFu
     returned.ownership_out = vec![discarded];
 
     PracticalVirFunction {
+        object_protocol: None,
         id: fixture.root_id.clone(),
         parameter_values: vec![value_parameter, condition_parameter],
         result_type_ids: Vec::new(),
@@ -1596,6 +1583,7 @@ fn bypassed_result_function(
     branch.node.condition_type_id = Some(BOOL_TYPE_ID.into());
     branch.condition_value_id = Some(result.id);
     PracticalVirFunction {
+        object_protocol: None,
         id: function_id.into(),
         parameter_values: vec![parameter.clone()],
         result_type_ids: Vec::new(),
@@ -1693,6 +1681,8 @@ fn empty_block(node: ControlNode) -> PracticalVirBlock {
     PracticalVirBlock {
         node,
         phi_values: Vec::new(),
+        literal_values: Vec::new(),
+        exception_values: Vec::new(),
         condition_value_id: None,
         return_value_ids: Vec::new(),
         abrupt_value_id: None,
@@ -1867,7 +1857,7 @@ fn practical_selection(compilation_id: &str, root_id: &str) -> Value {
         "compilation_id": compilation_id,
         "source_paths": ["src/Order.cs"],
         "selected_root_ids": [root_id],
-        "sidecar_paths": ["contracts/order.json"],
+        "sidecar_paths": [],
         "selection_sha256": ZERO_SHA256
     });
     selection["selection_sha256"] =
@@ -1926,5 +1916,131 @@ fn to_strict(value: &Value) -> StrictJsonValue {
                 .map(|(key, value)| (key.clone(), to_strict(value)))
                 .collect(),
         ),
+    }
+}
+
+#[test]
+fn csharp_03_t03_w14_imports_ordinary_literals_and_rejects_value_and_dominance_mutations() {
+    use mpk_vc::csharp_practical_vir_model::MonomorphicValue;
+    use mpk_vc::csharp_practical_vir_validation::PracticalVirLiteral;
+    let root_id = source_declaration_id("Run");
+    let fixture = build_fixture(
+        "data.literals",
+        vec![ClosedOperationSignature {
+            normal_result_type_id: I32_TYPE_ID.into(),
+            ..source_call_signature(&root_id)
+        }],
+    );
+    let mut function = minimal_function(&root_id, "literal");
+    function.result_type_ids = vec![I32_TYPE_ID.into()];
+    function.blocks[1].node.abrupt = Some(AbruptCompletion::Return {
+        value_type_id: Some(I32_TYPE_ID.into()),
+    });
+    let literal = PracticalVirLiteral {
+        result: TypedValueRef {
+            id: "vir.value.literal.0".into(),
+            type_id: I32_TYPE_ID.into(),
+        },
+        value: MonomorphicValue::Signed {
+            type_id: I32_TYPE_ID.into(),
+            value: "42".into(),
+        },
+    };
+    function.blocks[1].return_value_ids = vec![literal.result.id.clone()];
+    function.blocks[1].literal_values = vec![literal.clone()];
+    let contents = |f| PracticalVirContents {
+        functions: vec![f],
+        ..PracticalVirContents::default()
+    };
+    let transport = fixture.transport(contents(function.clone()));
+    let imported = import_csharp_practical_vir_json(&transport, fixture.import_context()).unwrap();
+    assert_eq!(
+        imported.functions()[0].blocks[1].literal_values,
+        vec![literal.clone()]
+    );
+    for mutation in 0..5 {
+        let mut changed = function.clone();
+        match mutation {
+            0 => changed.blocks[1].literal_values[0].result.type_id = BOOL_TYPE_ID.into(),
+            1 => {
+                changed.blocks[1].literal_values[0].value = MonomorphicValue::Signed {
+                    type_id: I32_TYPE_ID.into(),
+                    value: "2147483648".into(),
+                }
+            }
+            2 => changed.blocks[1].literal_values.push(literal.clone()),
+            3 => {
+                changed.blocks[1].literal_values.clear();
+                changed.blocks[2].literal_values.push(literal.clone());
+            }
+            4 => {
+                changed.blocks[1].literal_values[0].value = MonomorphicValue::Signed {
+                    type_id: I32_TYPE_ID.into(),
+                    value: "+42".into(),
+                }
+            }
+            _ => unreachable!(),
+        }
+        assert!(
+            import_csharp_practical_vir_json(
+                &fixture.transport(contents(changed)),
+                fixture.import_context()
+            )
+            .is_err(),
+            "mutation {mutation}"
+        );
+    }
+}
+
+#[test]
+fn csharp_03_t03_w14_independent_import_checks_builtin_exception_literals() {
+    use mpk_vc::csharp_practical_vir_model::MonomorphicValue;
+    use mpk_vc::csharp_practical_vir_validation::PracticalVirLiteral;
+    let fixture = build_fixture("data.exception_literals", Vec::new());
+    for tag in 0..9 {
+        let mut contents = minimal_contents(&fixture.root_id, "exception_literal");
+        let literal = PracticalVirLiteral {
+            result: TypedValueRef {
+                id: "vir.value.exception.0".into(),
+                type_id: "mpk.csharp.value.exception.v1".into(),
+            },
+            value: MonomorphicValue::ClosedException {
+                type_id: "mpk.csharp.value.exception.v1".into(),
+                tag,
+                source_type_id: None,
+                payload: None,
+            },
+        };
+        contents.functions[0].blocks[0]
+            .literal_values
+            .push(literal.clone());
+        let transport = fixture.transport(contents.clone());
+        assert!(import_csharp_practical_vir_json(&transport, fixture.import_context()).is_ok());
+        for (bad_tag, source_type_id, payload) in [
+            (9, None, None),
+            (tag, Some(fixture.root_id.clone()), None),
+            (
+                tag,
+                None,
+                Some(Box::new(MonomorphicValue::Bool {
+                    type_id: BOOL_TYPE_ID.into(),
+                    value: false,
+                })),
+            ),
+        ] {
+            let mut changed = contents.clone();
+            changed.functions[0].blocks[0].literal_values[0].value =
+                MonomorphicValue::ClosedException {
+                    type_id: literal.result.type_id.clone(),
+                    tag: bad_tag,
+                    source_type_id,
+                    payload,
+                };
+            assert!(import_csharp_practical_vir_json(
+                &fixture.transport(changed),
+                fixture.import_context()
+            )
+            .is_err());
+        }
     }
 }

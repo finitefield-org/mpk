@@ -115,7 +115,7 @@ internal static class CSharpPracticalConstruction
         IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims = null, bool allowInitializers = false,
         bool allowStructuralEquality = false,
         Action<CSharpCompilation, IReadOnlyList<PracticalDataType>>? validateArrays = null,
-        Action<CSharpCompilation>? validateArrayLimits = null)
+        Action<CSharpCompilation>? validateArrayLimits = null, bool deferSidecarAttachment = false)
     {
         try
         {
@@ -124,10 +124,10 @@ internal static class CSharpPracticalConstruction
                 (current, closure, types) =>
                 {
                     model.Analyze(current);
-                    if (closure.Sidecars.Count != 0) { throw PracticalFailures.Object("unbound_invariant"); }
+                    if (closure.Sidecars.Count != 0 && !deferSidecarAttachment) { throw PracticalFailures.Object("unbound_invariant"); }
                     model.Finish(types, closure, invariantClaims);
                     validateArrays?.Invoke(current, types);
-                }, current => { ValidateLimits(current); validateArrayLimits?.Invoke(current); }, ValidateSignatures, deferDeclaredInvariantProof: invariantClaims is not null,
+                }, current => { ValidateLimits(current); validateArrayLimits?.Invoke(current); }, ValidateSignatures, deferDeclaredInvariantProof: invariantClaims is not null || deferSidecarAttachment,
                 allowInitializerConstruction: allowInitializers, allowStructuralEquality: allowStructuralEquality,
                 allowArrayConstruction: validateArrays is not null);
             return model.Build(data);

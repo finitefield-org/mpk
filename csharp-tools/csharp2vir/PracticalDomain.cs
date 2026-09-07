@@ -11,7 +11,7 @@ using Microsoft.CodeAnalysis.Operations;
 namespace Mpk.CSharp2Vir;
 
 internal sealed record PracticalDomainStep(string Site,string Operation,IReadOnlyList<IOperation> Operands,
-    string ResultType,string Evaluation,IReadOnlyList<string> Exceptions,bool Checked=false);
+    string ResultType,string Evaluation,IReadOnlyList<string> Exceptions,bool Checked=false) { internal IOperation? Source { get; init; } }
 internal sealed record PracticalDomainObligation(string Site,string Kind,string TypeId,string Member="",bool Discharged=false);
 // Typed selection over the frozen semantic-binding roles, not a new sidecar schema.
 internal sealed record PracticalOutcomeBinding(string SourceTypeId,string Role,IReadOnlyDictionary<string,string> Members,
@@ -31,11 +31,11 @@ internal static class CSharpPracticalDomain
 {
     private static readonly string[] BasicObligations={"source_invariant_implies_projection","semantic_invariant_implies_reconstruction","source_round_trip","semantic_round_trip","distinct_arms","public_invariant","identity_unobservable"};
     internal static PracticalDomain Validate(PracticalSourceSelection selection,IEnumerable<PracticalCapturedInput> inputs,
-        ImmutableArray<MetadataReference> references,IReadOnlyList<PracticalOutcomeBinding>? bindings=null,Action<CSharpCompilation>? validateBusiness=null)
+        ImmutableArray<MetadataReference> references,IReadOnlyList<PracticalOutcomeBinding>? bindings=null,Action<CSharpCompilation>? validateBusiness=null,bool deferSidecarAttachment=false)
     {
         var steps=new List<PracticalDomainStep>();var obligations=new List<PracticalDomainObligation>();
         CSharpCompilation? compilation=null;
-        var numeric=CSharpPracticalNumeric.Validate(selection,inputs,references,c=>{compilation=c;Analyze(c,steps,obligations);validateBusiness?.Invoke(c);});
+        var numeric=CSharpPracticalNumeric.Validate(selection,inputs,references,c=>{compilation=c;Analyze(c,steps,obligations);validateBusiness?.Invoke(c);},deferSidecarAttachment);
         var projections=Bind(numeric,compilation!,bindings??Array.Empty<PracticalOutcomeBinding>(),obligations);
         foreach(var step in steps.Where(s=>s.Operation=="nullable.value_or_default")) {
             var payload=Payload(step.Operands[0].Type)!;
@@ -121,7 +121,7 @@ internal static class CSharpPracticalDomain
                             id="reference.field_read";operands.Add(readField.Instance);exceptions.Add("System.NullReferenceException");break;
                         default:continue;
                     }
-                    steps.Add(new(site,id,Array.AsReadOnly(operands.ToArray()),op.Type is null?"":ValueId(op.Type,c),evaluation,Array.AsReadOnly(exceptions.ToArray()),isChecked));
+                    steps.Add(new(site,id,Array.AsReadOnly(operands.ToArray()),op.Type is null?"":ValueId(op.Type,c),evaluation,Array.AsReadOnly(exceptions.ToArray()),isChecked){Source=op});
                 }
             }
         }
