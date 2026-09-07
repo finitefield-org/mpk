@@ -7106,3 +7106,12 @@ pub use loop_lowering::{
     ExplicitExceptionExit, LoopControlFunction, LoopControlNode, LoopLoweringError,
     LoopSourceOperation, LoweredLoopControl, LoweredLoopRegion, OperationExceptionResult,
 };
+
+#[path = "csharp_practical_handler_lowering.rs"]
+mod handler_lowering;
+pub use handler_lowering::{
+    complete_handler_finally, prepare_handler_function, FilterOutcome, HandlerCandidate,
+    HandlerClause, HandlerCompletion, HandlerContext, HandlerError, HandlerFrame, HandlerFunction,
+    HandlerLocation, HandlerRegion, HandlerSearch, HandlerSearchStep, HandlerStackSearch,
+    HandlerStackStep, HandlerTransfer, PreparedHandlerFunction,
+};

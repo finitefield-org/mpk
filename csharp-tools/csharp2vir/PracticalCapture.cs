@@ -704,7 +704,7 @@ internal static class CSharpPracticalCapture
         Action<CSharpCompilation>? validateDataTypes = null,
         Action<CSharpCompilation>? validateDataLimits = null,
         Action<CSharpCompilation, PracticalSourceClosure>? validateConstruction = null,
-        bool allowLoopContractForeach = false, bool allowPatternControl = false, bool allowExceptionControl = false)
+        bool allowLoopContractForeach = false, bool allowPatternControl = false, bool allowExceptionControl = false, bool allowHandlers = false)
     {
         try
         {
@@ -734,7 +734,7 @@ internal static class CSharpPracticalCapture
             ValidateGlobalDeclarationExclusions(roslyn);
             validateDataDeclarations?.Invoke(roslyn.Compilation);
             ValidateSynthesizedMarkers(roslyn);
-            if (allowExceptionControl) ValidateExceptionSyntax(roslyn.Compilation);
+            if (allowExceptionControl) ValidateExceptionSyntax(roslyn.Compilation, allowHandlers);
             ValidateFrameworkApi(roslyn, allowExceptionControl);
             validateDataTypes?.Invoke(roslyn.Compilation);
             ValidateGenerics(roslyn, allowExceptionControl);
@@ -1813,14 +1813,16 @@ internal static class CSharpPracticalCapture
             || IsExceptionBase(method.ContainingType) && node is ConstructorInitializerSyntax {RawKind:(int)SyntaxKind.BaseConstructorInitializer});
     private static bool IsExceptionControlTypeReference(TypeSyntax node,SemanticModel model) =>
         node.AncestorsAndSelf().Any(n=> n is BaseTypeSyntax && IsExceptionBase(model.GetTypeInfo(node).Type)
+            || n is CatchDeclarationSyntax && IsClosedBuiltinException(model.GetTypeInfo(node).Type)
             || n is ObjectCreationExpressionSyntax creation && creation.Parent is ThrowStatementSyntax && IsClosedBuiltinException(model.GetTypeInfo(creation).Type));
-    private static void ValidateExceptionSyntax(CSharpCompilation compilation)
+    private static void ValidateExceptionSyntax(CSharpCompilation compilation, bool allowHandlers)
     {
         bool ExceptionType(ITypeSymbol? type) {
             for(var current=type as INamedTypeSymbol;current is not null;current=current.BaseType)
                 if(IsExceptionBase(current))return true;
             return false;
         }
+        if(allowHandlers)CSharpPracticalHandlerRules.Validate(compilation);
         int count=0;
         foreach(var tree in compilation.SyntaxTrees) {
             var model=compilation.GetSemanticModel(tree);
@@ -1831,12 +1833,12 @@ internal static class CSharpPracticalCapture
                         throw PracticalFailures.Declaration("exception_base");
                 }
                 if(node is ThrowExpressionSyntax)throw PracticalFailures.Type("exception_throw_expression");
-                if(node is ThrowStatementSyntax statement && !(statement.Expression is ObjectCreationExpressionSyntax creation
+                if(node is ThrowStatementSyntax statement && !(allowHandlers && statement.Expression is null && statement.Ancestors().OfType<CatchClauseSyntax>().Any()) && !(statement.Expression is ObjectCreationExpressionSyntax creation
                     && model.GetOperation(creation) is IObjectCreationOperation value && value.Constructor is not null
                     && (IsClosedBuiltinException(value.Type) && value.Arguments.IsEmpty
                         || value.Type is INamedTypeSymbol source && !source.DeclaringSyntaxReferences.IsEmpty && source.IsSealed && IsExceptionBase(source.BaseType))
                     && creation.Initializer is null))throw PracticalFailures.Type("exception_throw_shape");
-                if(node is CatchClauseSyntax or FinallyClauseSyntax)throw PracticalFailures.Type("exception_handler_later_owner");
+                if(!allowHandlers && node is (CatchClauseSyntax or FinallyClauseSyntax))throw PracticalFailures.Type("exception_handler_later_owner");
                 if(node is ObjectCreationExpressionSyntax allocation && ExceptionType(model.GetTypeInfo(allocation).Type)
                     && allocation.Parent is not ThrowStatementSyntax)throw PracticalFailures.Type("exception_object_escape");
                 if(node is ParameterSyntax parameter && ExceptionType(model.GetTypeInfo(parameter.Type!).Type)
@@ -3543,6 +3545,62 @@ internal static class CSharpPracticalCapture
         {
             int source = string.CompareOrdinal(left.SourceId, right.SourceId);
             return source != 0 ? source : string.CompareOrdinal(left.TargetId, right.TargetId);
+        }
+    }
+}
+
+// W05 syntax and transitive filter-effect gate. Compiler diagnostics already
+// enforce Boolean conversion and prohibit control leaving a finally.
+internal static class CSharpPracticalHandlerRules
+{
+    internal static void Validate(CSharpCompilation compilation)
+    {
+        bool Admitted(ITypeSymbol? type) => CSharpPracticalCapture.IsClosedBuiltinException(type)
+            || type is INamedTypeSymbol {IsSealed:true} source && !source.DeclaringSyntaxReferences.IsEmpty
+                && CSharpPracticalCapture.IsExceptionBase(source.BaseType);
+        void Pure(IOperation operation,bool filter,HashSet<ISymbol> visiting) {
+            if(operation is IAssignmentOperation assignment && (filter || assignment.Target is not (ILocalReferenceOperation or IParameterReferenceOperation))
+                || operation is IIncrementOrDecrementOperation increment && (filter || increment.Target is not (ILocalReferenceOperation or IParameterReferenceOperation)))
+                throw PracticalFailures.Type("exception_filter_impure");
+            IMethodSymbol? callee=operation is IInvocationOperation call?call.TargetMethod:
+                operation is IPropertyReferenceOperation property?property.Property.GetMethod:null;
+            if(callee is not null && !callee.DeclaringSyntaxReferences.IsEmpty && visiting.Add(callee)) {
+                foreach(var reference in callee.DeclaringSyntaxReferences) {
+                    var syntax=reference.GetSyntax();var model=compilation.GetSemanticModel(syntax.SyntaxTree);
+                    var body=model.GetOperation(syntax);
+                    if(body is null && syntax is PropertyDeclarationSyntax declaration) {
+                        if(declaration.ExpressionBody is not null)body=model.GetOperation(declaration.ExpressionBody.Expression);
+                        else foreach(var accessor in declaration.AccessorList!.Accessors)
+                            if(accessor.Body is not null)Pure(model.GetOperation(accessor.Body)!,false,visiting);
+                    }
+                    if(body is not null)Pure(body,false,visiting);
+                }
+            }
+            foreach(var child in operation.ChildOperations)Pure(child,filter,visiting);
+        }
+        foreach(var tree in compilation.SyntaxTrees) {
+            var model=compilation.GetSemanticModel(tree);
+            foreach(var caught in tree.GetRoot().DescendantNodes().OfType<CatchClauseSyntax>()) {
+                if(caught.Declaration is null || !Admitted(model.GetTypeInfo(caught.Declaration.Type).Type))
+                    throw PracticalFailures.Type("exception_catch_type");
+                if(model.GetDeclaredSymbol(caught.Declaration) is ILocalSymbol local) {
+                    foreach(var use in caught.DescendantNodes().OfType<IdentifierNameSyntax>().Where(n=>SymbolEqualityComparer.Default.Equals(model.GetSymbolInfo(n).Symbol,local))) {
+                        if(use.Parent is not MemberAccessExpressionSyntax access || access.Expression!=use)
+                            throw PracticalFailures.Type("exception_payload_only");
+                        var member=model.GetSymbolInfo(access).Symbol;
+                        bool stored=member is IFieldSymbol {IsReadOnly:true,IsStatic:false} field && SymbolEqualityComparer.Default.Equals(field.ContainingType,local.Type)
+                            || member is IPropertySymbol {IsStatic:false} property && SymbolEqualityComparer.Default.Equals(property.ContainingType,local.Type)
+                                && property.DeclaringSyntaxReferences.All(r=>r.GetSyntax() is PropertyDeclarationSyntax {ExpressionBody:null,AccessorList:not null} p
+                                    && p.AccessorList.Accessors.All(a=>a.Body is null && a.ExpressionBody is null && (a.IsKind(SyntaxKind.GetAccessorDeclaration) || a.IsKind(SyntaxKind.InitAccessorDeclaration))));
+                        if(!stored)throw PracticalFailures.Type("exception_payload_only");
+                    }
+                }
+                if(caught.Filter is not null) {
+                    var filter=model.GetOperation(caught.Filter.FilterExpression)!;
+                    if(filter.Type?.SpecialType!=SpecialType.System_Boolean)throw PracticalFailures.Type("exception_filter_boolean");
+                    Pure(filter,true,new HashSet<ISymbol>(SymbolEqualityComparer.Default));
+                }
+            }
         }
     }
 }

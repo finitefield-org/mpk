@@ -18,19 +18,19 @@ namespace Mpk.CSharp2Vir;
 internal static class CSharpPracticalLoopContracts
 {
     internal static byte[] Capture(PracticalSourceSelection selection,
-        IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references, bool allowPatternControl = false, bool allowExceptionControl = false)
+        IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references, bool allowPatternControl = false, bool allowExceptionControl = false, bool allowHandlers = false)
     {
-        try { return CaptureCore(selection, inputs, references, allowPatternControl, allowExceptionControl); }
+        try { return CaptureCore(selection, inputs, references, allowPatternControl, allowExceptionControl, allowHandlers); }
         catch (PracticalCaptureFailure) { throw; }
         catch (Exception) { throw PracticalFailures.Protocol("loop_contract_capture"); }
     }
     private static byte[] CaptureCore(PracticalSourceSelection selection,
-        IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references, bool allowPatternControl = false, bool allowExceptionControl = false)
+        IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references, bool allowPatternControl = false, bool allowExceptionControl = false, bool allowHandlers = false)
     {
         CSharpCompilation? compilation = null;
         var closure = CSharpPracticalCapture.Validate(selection, inputs, references,
             validateDataDeclarations: c => { compilation = c; CSharpPracticalSyntaxNormalizer.ValidateLoopContractPrerequisites(c); },
-            validateDataLimits: CheckLimits, allowLoopContractForeach: true, allowPatternControl: allowPatternControl, allowExceptionControl: allowExceptionControl);
+            validateDataLimits: CheckLimits, allowLoopContractForeach: true, allowPatternControl: allowPatternControl, allowExceptionControl: allowExceptionControl, allowHandlers: allowHandlers);
         var methods = new List<object>();
         foreach (var declaration in closure.ReachableDeclarations.Where(d =>
             d.Id.StartsWith("mpk.csharp.source.", StringComparison.Ordinal)
@@ -53,6 +53,9 @@ internal static class CSharpPracticalLoopContracts
             foreach (var node in loops.OfType<ForEachStatementSyntax>())
                 locals.Add(model.GetDeclaredSymbol(node)!, "local:" + locals.Count.ToString(CultureInfo.InvariantCulture));
             if(allowPatternControl)foreach (var node in syntax.DescendantNodes().OfType<SingleVariableDesignationSyntax>())
+                if(model.GetDeclaredSymbol(node) is ILocalSymbol local)
+                    locals.Add(local,"local:"+locals.Count.ToString(CultureInfo.InvariantCulture));
+            if(allowHandlers)foreach(var node in syntax.DescendantNodes().OfType<CatchDeclarationSyntax>())
                 if(model.GetDeclaredSymbol(node) is ILocalSymbol local)
                     locals.Add(local,"local:"+locals.Count.ToString(CultureInfo.InvariantCulture));
             string Binding(ISymbol symbol) => symbol is IParameterSymbol parameter
@@ -80,7 +83,7 @@ internal static class CSharpPracticalLoopContracts
                 }
                 var assigned = model.AnalyzeDataFlow(loop)!.DefinitelyAssignedOnEntry.ToHashSet(SymbolEqualityComparer.Default);
                 var visible = model.LookupSymbols(loop.SpanStart).ToHashSet(SymbolEqualityComparer.Default);
-                var scoped = locals.Keys.Where(s => assigned.Contains(s) && visible.Contains(s)).ToHashSet(SymbolEqualityComparer.Default);
+                var scoped = locals.Keys.Where(s => assigned.Contains(s) && visible.Contains(s) && !s.DeclaringSyntaxReferences.Any(r=>r.GetSyntax() is CatchDeclarationSyntax)).ToHashSet(SymbolEqualityComparer.Default);
                 if (loop is ForStatementSyntax { Declaration: not null } forLoop)
                     foreach (var variable in forLoop.Declaration.Variables.Where(v => v.Initializer is not null))
                         scoped.Add(model.GetDeclaredSymbol(variable)!);

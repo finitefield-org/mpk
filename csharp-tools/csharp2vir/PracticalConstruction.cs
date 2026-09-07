@@ -115,7 +115,7 @@ internal static class CSharpPracticalConstruction
         IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims = null, bool allowInitializers = false,
         bool allowStructuralEquality = false,
         Action<CSharpCompilation, IReadOnlyList<PracticalDataType>>? validateArrays = null,
-        Action<CSharpCompilation>? validateArrayLimits = null, bool deferSidecarAttachment = false, bool allowLoopControl = false, bool allowPatternControl = false, bool allowExceptionControl = false)
+        Action<CSharpCompilation>? validateArrayLimits = null, bool deferSidecarAttachment = false, bool allowLoopControl = false, bool allowPatternControl = false, bool allowExceptionControl = false, bool allowHandlers = false)
     {
         try
         {
@@ -129,7 +129,7 @@ internal static class CSharpPracticalConstruction
                     validateArrays?.Invoke(current, types);
                 }, current => { ValidateLimits(current); validateArrayLimits?.Invoke(current); }, ValidateSignatures, deferDeclaredInvariantProof: invariantClaims is not null || deferSidecarAttachment,
                 allowInitializerConstruction: allowInitializers, allowStructuralEquality: allowStructuralEquality,
-                allowArrayConstruction: validateArrays is not null, allowLoopControl: allowLoopControl, allowPatternControl: allowPatternControl, allowExceptionControl: allowExceptionControl);
+                allowArrayConstruction: validateArrays is not null, allowLoopControl: allowLoopControl, allowPatternControl: allowPatternControl, allowExceptionControl: allowExceptionControl, allowHandlers: allowHandlers);
             return model.Build(data);
         }
         catch (PracticalCaptureFailure) { throw; }

@@ -35,26 +35,35 @@ internal static partial class CSharpPracticalLoopLowering
         internal string Symbol => Fact.GetProperty("symbol").GetString()!;
     }
     internal static byte[] Capture(PracticalSourceSelection selection, IEnumerable<PracticalCapturedInput> supplied,
-        ImmutableArray<MetadataReference> references, bool allowPatterns = false, IReadOnlyList<string>? totalGetters = null, bool allowExceptions = false)
+        ImmutableArray<MetadataReference> references, bool allowPatterns = false, IReadOnlyList<string>? totalGetters = null, bool allowExceptions = false, bool allowHandlers = false)
     {
         try {
             var inputs=supplied.ToArray();
             CSharpCompilation? exceptionCompilation=null;
-            var facts=JsonSerializer.Deserialize<JsonElement>(CSharpPracticalLoopContracts.Capture(selection,inputs,references,allowPatterns,allowExceptions));
-            var sequence=CSharpPracticalSequences.Validate(selection,inputs,references,allowLoopControl:true, allowPatternControl:allowPatterns, allowExceptionControl:allowExceptions,
+            var facts=JsonSerializer.Deserialize<JsonElement>(CSharpPracticalLoopContracts.Capture(selection,inputs,references,allowPatterns,allowExceptions,allowHandlers));
+            var sequence=CSharpPracticalSequences.Validate(selection,inputs,references,allowLoopControl:true, allowPatternControl:allowPatterns, allowExceptionControl:allowExceptions, allowHandlers:allowHandlers,
                 validatedCompilation:c=>{exceptionCompilation=c;if(allowPatterns)ValidatePatterns(c,totalGetters??Array.Empty<string>());});
             var syntax=sequence.Arrays.Construction.Data.Syntax;
-            var functions=new List<Function>();
+            var functions=new List<Function>();var handlers=new List<object>();
             int closureBlocks=0;
             void CountBlock() { if(checked(++closureBlocks)>8192)throw PracticalFailures.Limit("cfg_blocks_per_closure"); }
             foreach(var callable in syntax.Callables) {
                 var method=facts.GetProperty("methods").EnumerateArray().Single(m=>m.GetProperty("callable_id").GetString()==callable.Id);
                 // Loop-free bodies retain their T03 normalized representation;
                 // W06 composes them with these control bodies at VIR emission.
-                if(!(allowExceptions && callable.OperationNodes.Any(o=>o is IThrowOperation)) && method.GetProperty("loops").GetArrayLength()==0 && !(allowPatterns && callable.OperationNodes.Any(o=>o is ISwitchOperation or ISwitchExpressionOperation or IIsPatternOperation)))continue;
+                if(!allowHandlers && !(allowExceptions && callable.OperationNodes.Any(o=>o is IThrowOperation)) && method.GetProperty("loops").GetArrayLength()==0 && !(allowPatterns && callable.OperationNodes.Any(o=>o is ISwitchOperation or ISwitchExpressionOperation or IIsPatternOperation)))continue;
                 var source=syntax.SourceClosure.Sources.Single(s=>s.Path==method.GetProperty("source_path").GetString());
-                functions.Add(new Builder(callable,method,source,CountBlock,allowPatterns,allowExceptions).Build());
+                var builder=new Builder(callable,method,source,CountBlock,allowPatterns,allowExceptions,allowHandlers);
+                functions.Add(builder.Build());if(allowHandlers)handlers.Add(builder.HandlerGraph());
             }
+            if(allowHandlers)return JsonSerializer.SerializeToUtf8Bytes(new {
+                schema="mpk.csharp_practical.t04_w05.handler_lowering.v1",facts,
+                normalized_syntax_sha256=syntax.SemanticSha256,
+                normalized_syntax_utf8=System.Text.Encoding.UTF8.GetString(syntax.CopyCanonicalBytes()),
+                sequence_handoff=JsonSerializer.Deserialize<JsonElement>(sequence.CopyCanonicalBytes()),functions,handlers,
+                total_getters=(totalGetters??Array.Empty<string>()).OrderBy(x=>x,StringComparer.Ordinal).ToArray(),
+                exception_definitions=ExceptionDefinitions(exceptionCompilation!,sequence.Arrays.Construction.Data.Types),
+            });
             if(allowExceptions)return JsonSerializer.SerializeToUtf8Bytes(new {
                 schema="mpk.csharp_practical.t04_w04.exception_lowering.v1", facts,
                 normalized_syntax_sha256=syntax.SemanticSha256,
@@ -93,6 +102,12 @@ internal static partial class CSharpPracticalLoopLowering
     {
         if(!candidate.SequenceEqual(Capture(selection,inputs,references,true,totalGetters,true)))throw Fail("exception_candidate_mismatch");
     }
+    internal static void ValidateHandlerCandidate(PracticalSourceSelection selection,
+        IEnumerable<PracticalCapturedInput> inputs,ImmutableArray<MetadataReference> references,
+        IReadOnlyList<string> totalGetters,ReadOnlySpan<byte> candidate)
+    {
+        if(!candidate.SequenceEqual(Capture(selection,inputs,references,true,totalGetters,true,true)))throw Fail("handler_candidate_mismatch");
+    }
     private static object[] ExceptionDefinitions(CSharpCompilation compilation,IReadOnlyList<PracticalDataType> types)
     {
         var result=new List<(string Id,object Value)>();
@@ -113,6 +128,11 @@ internal static partial class CSharpPracticalLoopLowering
         private void ExplicitThrow(Op op)
         {
             var thrown=(IThrowOperation)op.Source!;
+            if(allowHandlers && thrown.Exception is null) {
+                var active=handlerStack.LastOrDefault(f=>f.zone=="catch")??throw Fail("inactive_rethrow");
+                var rethrow=Append("rethrow",op);rethrow.slot=active.catch_id;
+                rethrow.exceptional_successors=new[]{Search(op).id};current=null;return;
+            }
             IOperation operand=thrown.Exception!;
             while(operand is IConversionOperation {IsImplicit:true} conversion)operand=conversion.Operand;
             var creation=operand as IObjectCreationOperation??throw Fail("exception_operand");
@@ -124,7 +144,7 @@ internal static partial class CSharpPracticalLoopLowering
             var payload=builtin?Array.Empty<string>():new[]{Expression(source)};
             string value=Eval("closed_exception",source,payload,slot:type);
             var edge=Append("explicit_throw",op);edge.inputs=new[]{value};edge.slot=type;
-            var exit=New("exception_exit",op);exit.slot=type;edge.exceptional_successors=new[]{exit.id};current=null;
+            var exit=allowHandlers?Search(op):New("exception_exit",op);if(!allowHandlers)exit.slot=type;edge.exceptional_successors=new[]{exit.id};current=null;
         }
         private readonly PracticalNormalizedCallable callable;
         private readonly JsonElement method;
@@ -139,9 +159,9 @@ internal static partial class CSharpPracticalLoopLowering
         private Node? current;
         private int nextValue,nextSlot;
         private Node? exception;
-        internal Builder(PracticalNormalizedCallable callable,JsonElement method,PracticalSourceFile source,Action countBlock,bool allowPatterns,bool allowExceptions)
+        internal Builder(PracticalNormalizedCallable callable,JsonElement method,PracticalSourceFile source,Action countBlock,bool allowPatterns,bool allowExceptions,bool allowHandlers)
         {
-            this.allowExceptions=allowExceptions;this.callable=callable;this.method=method;this.source=source;this.countBlock=countBlock;this.allowPatterns=allowPatterns;
+            this.allowHandlers=allowHandlers;this.allowExceptions=allowExceptions;this.callable=callable;this.method=method;this.source=source;this.countBlock=countBlock;this.allowPatterns=allowPatterns;
             operations=JsonSerializer.Deserialize<JsonElement[]>(callable.CopyBodyBytes())!;
             int offset=0;
             Op Read(int depth) {
@@ -157,7 +177,7 @@ internal static partial class CSharpPracticalLoopLowering
         private Node New(string kind,Op? op=null) {
             if(nodes.Count>=1024)throw PracticalFailures.Limit("cfg_blocks_per_method");
             countBlock();
-            var node=new Node{id=callable.Id+".node."+nodes.Count.ToString("D6",System.Globalization.CultureInfo.InvariantCulture),kind=kind,source_ordinal=op?.Ordinal};nodes.Add(node);return node;
+            var node=new Node{id=callable.Id+".node."+nodes.Count.ToString("D6",System.Globalization.CultureInfo.InvariantCulture),kind=kind,source_ordinal=op?.Ordinal};nodes.Add(node);if(allowHandlers)contexts.Add(node,handlerStack.ToArray());return node;
         }
         private void Link(Node from,Node to) { if(from.successors.Length!=0)throw Fail("duplicate_edge");from.successors=new[]{to.id}; }
         private Node Append(string kind,Op? op=null) {
@@ -168,7 +188,7 @@ internal static partial class CSharpPracticalLoopLowering
         private string Eval(string operation,Op? op,string[] inputs,bool mayThrow=false,string slot="") {
             var node=Append("evaluate",op);node.operation=operation;node.inputs=inputs;node.slot=slot;
             node.result=callable.Id+".value."+(nextValue++).ToString("D6",System.Globalization.CultureInfo.InvariantCulture);
-            if(mayThrow) { exception??=New("throw");node.exceptional_successors=new[]{exception.id}; }
+            if(mayThrow) { if(allowHandlers)node.exceptional_successors=new[]{Search(op).id};else{exception??=New("throw");node.exceptional_successors=new[]{exception.id};} }
             return node.result;
         }
         private string Load(string slot,Op? op=null)=>Eval("load",op,Array.Empty<string>(),slot:slot);
@@ -177,13 +197,14 @@ internal static partial class CSharpPracticalLoopLowering
         internal Function Build() {
             current=New("entry");
             foreach(var root in roots)Statement(root);
-            if(current is not null) { var end=Append("return");current=null; }
+            if(current is not null) { var end=Append("return");if(allowHandlers)Complete(end,"return",null);current=null; }
             // Empty joins after two abrupt arms have no incoming edge. Remove
             // them and regenerate IDs without changing any executable edge.
             var retained=nodes.Where(n=>n.kind!="unreachable").ToArray();
             var ids=retained.Select((n,i)=>(n.id,NewId:callable.Id+".node."+i.ToString("D6",System.Globalization.CultureInfo.InvariantCulture))).ToDictionary(p=>p.id,p=>p.NewId,StringComparer.Ordinal);
             foreach(var node in retained) {node.id=ids[node.id];node.successors=node.successors.Select(id=>ids[id]).ToArray();node.exceptional_successors=node.exceptional_successors.Select(id=>ids[id]).ToArray();}
             var mapped=regions.Select(r=>new Region(r.loop_id,r.parent,ids[r.header],ids[r.body],ids[r.continue_target],ids[r.exit],r.backedges.Select(id=>ids[id]).ToArray())).OrderBy(r=>r.loop_id,StringComparer.Ordinal).ToArray();
+            if(allowHandlers)FinishHandlers(retained);
             return new(callable.Id,operations,retained,mapped);
         }
         private void Statement(Op op) {
@@ -195,7 +216,7 @@ internal static partial class CSharpPracticalLoopLowering
                     if(op.Children.Length!=0)Store(op.Symbol,Expression(op.Children[0]),op);break;
                 case "ExpressionStatement":Expression(op.Children.Single());break;
                 case "Return":
-                    var result=op.Children.Select(Expression).ToArray();var returned=Append("return",op);returned.inputs=result;current=null;break;
+                    var result=op.Children.Select(Expression).ToArray();var returned=Append("return",op);returned.inputs=result;if(allowHandlers)Complete(returned,"return",null);current=null;break;
                 case "Conditional":
                     var test=Expression(op.Children[0]);var branch=Append("branch",op);branch.inputs=new[]{test};
                     Node yes=New("jump"),no=New("jump"),join=New("jump");branch.successors=new[]{yes.id,no.id};
@@ -207,12 +228,13 @@ internal static partial class CSharpPracticalLoopLowering
                 case "Branch":
                     var abrupt=(IBranchOperation)op.Source!;
                     if(allowPatterns && abrupt.BranchKind==BranchKind.Break && switchExits.TryGetValue(abrupt.Target,out var switchExit)) {
-                        var switchBreak=Append("jump",op);Link(switchBreak,switchExit);current=null;break;
+                        var switchBreak=Append("jump",op);Link(switchBreak,switchExit);if(allowHandlers)Complete(switchBreak,"normal",switchExit);current=null;break;
                     }
                     if(loops.Count==0||abrupt.BranchKind is not(BranchKind.Break or BranchKind.Continue))throw Fail("abrupt_target");
                     var target=loops.Peek();bool isBreak=abrupt.BranchKind==BranchKind.Break;
                     if(!SymbolEqualityComparer.Default.Equals(abrupt.Target,isBreak?target.Loop.ExitLabel:target.Loop.ContinueLabel))throw Fail("abrupt_target");
-                    var edge=Append(isBreak?"break":"continue",op);edge.slot=target.Id;Link(edge,isBreak?target.Exit:target.Continue);current=null;break;
+                    var edge=Append(isBreak?"break":"continue",op);edge.slot=target.Id;Link(edge,isBreak?target.Exit:target.Continue);if(allowHandlers)Complete(edge,isBreak?"break":"continue",isBreak?target.Exit:target.Continue);current=null;break;
+                case "Try" when allowHandlers:TryStatement(op);break;
                 case "Empty":break;
                 // Switch/exception source remains with its serial owner.
                 case "Throw" when allowExceptions:ExplicitThrow(op);break;
@@ -323,11 +345,119 @@ internal static partial class CSharpPracticalLoopLowering
                     }
                     return value;
                 }
-                case "PropertyReference":case "FieldReference":return Eval("member",op,op.Children.Select(Expression).ToArray(),true);
+                case "PropertyReference":case "FieldReference":
+                    if(allowHandlers && op.Children.Length==1 && op.Children[0].Source is ILocalReferenceOperation caught
+                        && caught.Local.DeclaringSyntaxReferences.Any(r=>r.GetSyntax() is Microsoft.CodeAnalysis.CSharp.Syntax.CatchDeclarationSyntax))
+                        return Eval("exception_payload",op,op.Children.Select(Expression).ToArray(),slot:op.Symbol);
+                    return Eval("member",op,op.Children.Select(Expression).ToArray(),true);
                 case "InstanceReference":return Load("this",op);
                 case "Invocation":case "ObjectCreation":return Eval(op.Kind=="Invocation"?"call":"construct",op,op.Children.Select(Expression).ToArray(),true);
                 default:throw Fail("expression_shape");
             }
         }
+    }
+}
+
+internal static partial class CSharpPracticalLoopLowering
+{
+    private sealed record HandlerFrame(string region,string zone,string catch_id);
+    private sealed class HandlerCatch
+    {
+        internal string Id="",Type="",Local="";
+        internal Node Entry=null!;
+        internal Node? Filter;
+    }
+    private sealed class HandlerRegion
+    {
+        internal string Id="";
+        internal int Ordinal;
+        internal Node Try=null!,Exit=null!;
+        internal Node? Finally;
+        internal readonly List<HandlerCatch> Catches=new();
+    }
+    private sealed partial class Builder
+    {
+        private readonly bool allowHandlers;
+        private readonly List<HandlerFrame> handlerStack=new();
+        private readonly Dictionary<Node,HandlerFrame[]> contexts=new();
+        private readonly List<HandlerRegion> handlerRegions=new();
+        private readonly Dictionary<Node,(string Kind,Node? Target)> completions=new();
+        private readonly List<object> transfers=new();
+        private Node Search(Op? op)=>New("handler_search",op);
+        private void Complete(Node node,string kind,Node? target) {
+            node.kind="handler_completion";node.operation=kind;node.successors=Array.Empty<string>();
+            completions.Add(node,(kind,target));
+        }
+        private void TryStatement(Op op) {
+            var tried=(ITryOperation)op.Source!;
+            var region=new HandlerRegion{Id=callable.Id+".handler."+handlerRegions.Count,Ordinal=op.Ordinal};handlerRegions.Add(region);
+            region.Exit=New("jump");
+            var before=current!;
+            handlerStack.Add(new(region.Id,"try",""));region.Try=New("jump",op);Link(before,region.Try);current=region.Try;
+            Statement(Get(tried.Body));
+            if(current is not null){var leave=Append("handler_completion",op);Complete(leave,"normal",region.Exit);}
+            handlerStack.RemoveAt(handlerStack.Count-1);
+            foreach(var clause in tried.Catches) {
+                var caught=new HandlerCatch{Id=region.Id+".catch."+region.Catches.Count,
+                    Type=CSharpPracticalCapture.IsClosedBuiltinException(clause.ExceptionType)?clause.ExceptionType!.ToDisplayString(SymbolDisplayFormat.CSharpErrorMessageFormat):PracticalIdentity.SourceTypeId(clause.ExceptionType!.ContainingNamespace.ToDisplayString(),clause.ExceptionType.Name)};
+                region.Catches.Add(caught);
+                if(clause.ExceptionDeclarationOrExpression is not null)caught.Local=Get(clause.ExceptionDeclarationOrExpression).Symbol;
+                if(clause.Filter is not null) {
+                    handlerStack.Add(new(region.Id,"filter",caught.Id));caught.Filter=New("handler_filter_entry",Get(clause));current=caught.Filter;
+                    var condition=Expression(Get(clause.Filter));var result=Append("handler_filter_result",Get(clause));result.inputs=new[]{condition};result.slot=caught.Id;
+                    handlerStack.RemoveAt(handlerStack.Count-1);
+                }
+                handlerStack.Add(new(region.Id,"catch",caught.Id));caught.Entry=New("handler_entry",Get(clause));caught.Entry.slot=caught.Local;current=caught.Entry;
+                Statement(Get(clause.Handler));
+                if(current is not null){var leave=Append("handler_completion",op);Complete(leave,"normal",region.Exit);}
+                handlerStack.RemoveAt(handlerStack.Count-1);
+            }
+            if(tried.Finally is not null) {
+                handlerStack.Add(new(region.Id,"finally",""));region.Finally=New("handler_finally_entry",Get(tried.Finally));current=region.Finally;
+                Statement(Get(tried.Finally));if(current is not null)Append("handler_resume",op);
+                handlerStack.RemoveAt(handlerStack.Count-1);
+            }
+            current=region.Exit;
+        }
+        private void FinishHandlers(Node[] retained) {
+            var byRegion=handlerRegions.ToDictionary(r=>r.Id,StringComparer.Ordinal);
+            string[] Finalies(IEnumerable<HandlerFrame> frames)=>frames.Reverse().Where(f=>f.zone!="finally" && byRegion[f.region].Finally is not null).Select(f=>byRegion[f.region].Finally!.id).ToArray();
+            // Each throwing operation has a dedicated search node. The table
+            // lists every typed/filter alternative and its exact unwind suffix.
+            // Filters are executed before any listed finally, never during unwind.
+            foreach(var node in retained.Where(n=>n.kind=="handler_search")) {
+                var frames=contexts[node];var candidates=new List<object>();var edges=new List<string>();
+                for(int depth=frames.Length-1;depth>=0;depth--) {
+                    var frame=frames[depth];if(frame.zone=="filter")break; // thrown filter => false at this boundary
+                    if(frame.zone!="try")continue;
+                    foreach(var caught in byRegion[frame.region].Catches) {
+                        var unwind=Finalies(frames.Skip(depth+1));
+                        candidates.Add(new{catch_id=caught.Id,type_id=caught.Type,filter=caught.Filter?.id,entry=caught.Entry.id,local=caught.Local,finally_entries=unwind});
+                        edges.Add(caught.Filter?.id??unwind.FirstOrDefault()??caught.Entry.id);
+                    }
+                }
+                string? filterCatch=frames.LastOrDefault(f=>f.zone=="filter")?.catch_id;
+                var escaping=filterCatch is null?Finalies(frames):Array.Empty<string>();edges.AddRange(escaping);
+                node.successors=edges.Distinct(StringComparer.Ordinal).ToArray();
+                transfers.Add(new{node=node.id,kind="throw",target=(string?)null,candidates,finally_entries=escaping,filter_catch=filterCatch});
+            }
+            foreach(var pair in completions) {
+                var frames=contexts[pair.Key];var destination=pair.Value.Target is null?Array.Empty<HandlerFrame>():contexts[pair.Value.Target];
+                int common=0;while(common<frames.Length && common<destination.Length && frames[common]==destination[common])common++;
+                if(frames.Skip(common).Any(f=>f.zone=="finally"))throw Fail("finally_abrupt");
+                var unwind=Finalies(frames.Skip(common));var target=pair.Value.Target?.id;
+                pair.Key.successors=unwind.Take(1).Concat(unwind.Length==0&&target is not null?new[]{target}:Array.Empty<string>()).ToArray();
+                transfers.Add(new{node=pair.Key.id,kind=pair.Value.Kind,target,candidates=Array.Empty<object>(),finally_entries=unwind,filter_catch=(string?)null});
+            }
+            var continuations=handlerRegions.SelectMany(r=>r.Catches.SelectMany(c=>c.Filter is null?new[]{c.Entry.id}:new[]{c.Entry.id,c.Filter.id}).Concat(new[]{r.Exit.id}).Concat(r.Finally is null?Array.Empty<string>():new[]{r.Finally.id}))
+                .Concat(completions.Values.Where(c=>c.Target is not null).Select(c=>c.Target!.id)).Distinct(StringComparer.Ordinal).OrderBy(x=>x,StringComparer.Ordinal).ToArray();
+            foreach(var node in retained.Where(n=>n.kind is "handler_resume" or "handler_filter_result"))node.successors=continuations;
+        }
+        internal object HandlerGraph()=>new {
+            callable_id=callable.Id,
+            regions=handlerRegions.Select(r=>new{id=r.Id,source_ordinal=r.Ordinal,try_entry=r.Try.id,exit=r.Exit.id,finally_entry=r.Finally?.id,
+                catches=r.Catches.Select(c=>new{id=c.Id,type_id=c.Type,local=c.Local,filter=c.Filter?.id,entry=c.Entry.id}).ToArray()}).ToArray(),
+            contexts=contexts.Where(p=>p.Key.kind!="unreachable").Select(p=>new{node=p.Key.id,frames=p.Value}).ToArray(),transfers,
+        };
     }
 }

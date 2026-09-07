@@ -1158,6 +1158,7 @@ def check_build_inputs() -> None:
     load_loop_lowering_inputs()
     load_pattern_lowering_inputs()
     load_exception_lowering_inputs()
+    load_handler_lowering_inputs()
     toolchain = active.exact_keys(
         descriptor["toolchain_inputs"], set(descriptor["toolchain_inputs"])
     )
@@ -2874,7 +2875,23 @@ def load_exception_lowering_inputs() -> dict[str, object]:
     return value
 
 
-def test_loop_contracts(*, lowering: bool = False, patterns: bool = False, exceptions: bool = False) -> bytes:
+def load_handler_lowering_inputs() -> dict[str, object]:
+    path = REPOSITORY_ROOT / "develop/migrations/csharp-03/handler-lowering/handler-lowering-inputs.json"
+    value = active.strict_json_file(path, canonical_transport=True)
+    if set(value) != {"schema", "work_item", "files"} or value["schema"] != "mpk.csharp_practical.t04_w05.handler_lowering_inputs.v1" or value["work_item"] != "CSHARP-03-T04-W05":
+        raise active.CSharpBuildFailure("CSHARP_PRACTICAL_LOOP_CONTRACT_INPUTS")
+    expected = ['crates/mpk-cli/tests/csharp_practical_handler_lowering_harness.cs', 'csharp-tools/csharp2vir/PracticalArrays.cs', 'csharp-tools/csharp2vir/PracticalCapture.cs', 'csharp-tools/csharp2vir/PracticalConstruction.cs', 'csharp-tools/csharp2vir/PracticalDataTypes.cs', 'csharp-tools/csharp2vir/PracticalLoopContracts.cs', 'csharp-tools/csharp2vir/PracticalLoopLowering.cs', 'csharp-tools/csharp2vir/PracticalPatternLowering.cs', 'csharp-tools/csharp2vir/PracticalSequences.cs', 'csharp-tools/csharp2vir/PracticalSyntaxNormalization.cs']
+    if [r["path"] for r in value["files"]] != expected:
+        raise active.CSharpBuildFailure("CSHARP_PRACTICAL_LOOP_CONTRACT_INPUTS")
+    for record in value["files"]:
+        active.exact_keys(record, {"path", "sha256", "size_bytes"})
+        size, digest, _ = active.hash_regular_file(REPOSITORY_ROOT / record["path"], 2 * 1024 * 1024)
+        if size != record["size_bytes"] or digest != record["sha256"]:
+            raise active.CSharpBuildFailure("CSHARP_PRACTICAL_LOOP_CONTRACT_INPUTS")
+    return value
+
+
+def test_loop_contracts(*, lowering: bool = False, patterns: bool = False, exceptions: bool = False, handlers: bool = False) -> bytes:
     active.validate_build_host()
     descriptor = load_descriptor()
     project_records: dict[str, dict[str, object]] = {}
@@ -2883,7 +2900,7 @@ def test_loop_contracts(*, lowering: bool = False, patterns: bool = False, excep
     for untyped in project_files:
         record = active.exact_keys(untyped, {"path", "sha256", "size_bytes"})
         project_records[active.validate_relative_path(active.text(record["path"]))] = record
-    manifest = load_exception_lowering_inputs() if exceptions else load_pattern_lowering_inputs() if patterns else load_loop_lowering_inputs() if lowering else load_loop_contract_inputs()
+    manifest = load_handler_lowering_inputs() if handlers else load_exception_lowering_inputs() if exceptions else load_pattern_lowering_inputs() if patterns else load_loop_lowering_inputs() if lowering else load_loop_contract_inputs()
     toolchain = active.exact_keys(
         descriptor["toolchain_inputs"], set(descriptor["toolchain_inputs"])
     )
@@ -2917,7 +2934,7 @@ def test_loop_contracts(*, lowering: bool = False, patterns: bool = False, excep
         arguments.extend(
             [
                 "/out:" + str(output),
-                "/main:Mpk.CSharp2Vir." + ("PracticalExceptionLoweringHarness" if exceptions else "PracticalPatternLoweringHarness" if patterns else "PracticalLoopLoweringHarness" if lowering else "PracticalLoopContractsHarness"),
+                "/main:Mpk.CSharp2Vir." + ("PracticalHandlerLoweringHarness" if handlers else "PracticalExceptionLoweringHarness" if exceptions else "PracticalPatternLoweringHarness" if patterns else "PracticalLoopLoweringHarness" if lowering else "PracticalLoopContractsHarness"),
                 "/pathmap:" + str(work) + "=/_/csharp-practical-loop-contracts",
             ]
         )
@@ -3525,6 +3542,8 @@ def main(argv: list[str]) -> int:
             sys.stdout.buffer.write(test_data_phase(replay=True))
         elif argv == ["test-data-phase-cases"]:
             sys.stdout.buffer.write(test_data_phase(case_matrix=True))
+        elif argv == ["test-handler-lowering"]:
+            sys.stdout.buffer.write(test_loop_contracts(handlers=True))
         elif argv == ["test-exception-lowering"]:
             sys.stdout.buffer.write(test_loop_contracts(exceptions=True))
         elif argv == ["test-pattern-lowering"]:

@@ -140,7 +140,9 @@ internal static partial class CSharpPracticalLoopLowering
             }
             // The same exact closed exception is retained even when Roslyn
             // reports exhaustive. An unreachable fallback is not a proof.
-            var unmatched=Append("throw",op);unmatched.slot="System.Runtime.CompilerServices.SwitchExpressionException";current=join;
+            var unmatched=Append("throw",op);unmatched.slot="System.Runtime.CompilerServices.SwitchExpressionException";
+            if(allowHandlers){unmatched.kind="builtin_throw";unmatched.exceptional_successors=new[]{Search(op).id};}
+            current=join;
             return Load(result,op);
         }
         private void SwitchStatement(Op op) {

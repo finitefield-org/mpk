@@ -857,3 +857,6 @@ mod patterns;
 
 #[path = "support/csharp_practical_exception_lowering.rs"]
 mod exceptions;
+
+#[path = "support/csharp_practical_handler_lowering.rs"]
+mod handlers;

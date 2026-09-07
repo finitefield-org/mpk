@@ -370,7 +370,7 @@ internal static class CSharpPracticalSyntaxNormalizer
         Action<CSharpCompilation>? validateDataTypes = null,
         Action<CSharpCompilation>? validateDataLimits = null,
         Action<CSharpCompilation, PracticalSourceClosure>? validateConstruction = null,
-        bool allowLoopControl = false, bool allowPatternControl = false, bool allowExceptionControl = false)
+        bool allowLoopControl = false, bool allowPatternControl = false, bool allowExceptionControl = false, bool allowHandlers = false)
     {
         try
         {
@@ -392,13 +392,13 @@ internal static class CSharpPracticalSyntaxNormalizer
                     validateDataDeclarations?.Invoke(current);
                 },
                 validateDataTypes,
-                validateDataLimits, validateConstruction, allowLoopContractForeach: allowLoopControl, allowPatternControl: allowPatternControl, allowExceptionControl: allowExceptionControl);
+                validateDataLimits, validateConstruction, allowLoopContractForeach: allowLoopControl, allowPatternControl: allowPatternControl, allowExceptionControl: allowExceptionControl, allowHandlers: allowHandlers);
             SyntaxState state = CreateState(selection, closure, references, allowPatternControl);
             ValidateImportsAndDirectives(state);
             ValidateExpressionBodies(state);
             if (allowLoopControl) { ValidateVarContexts(state, true); }
             else { ValidateVarContexts(state); }
-            return new PracticalSyntaxModel(state, closure, allowPatternControl).Build();
+            return new PracticalSyntaxModel(state, closure, allowPatternControl, allowHandlers).Build();
         }
         catch (PracticalCaptureFailure)
         {
@@ -874,9 +874,10 @@ internal static class CSharpPracticalSyntaxNormalizer
                 SymbolEqualityComparer.IncludeNullability);
 
         private readonly bool allowPatterns;
-        internal PracticalSyntaxModel(SyntaxState state, PracticalSourceClosure closure, bool allowPatterns)
+        private readonly bool allowHandlers;
+        internal PracticalSyntaxModel(SyntaxState state, PracticalSourceClosure closure, bool allowPatterns, bool allowHandlers)
         {
-            this.allowPatterns=allowPatterns;
+            this.allowPatterns=allowPatterns;this.allowHandlers=allowHandlers;
             this.state = state;
             this.closure = closure;
         }
@@ -1179,6 +1180,9 @@ internal static class CSharpPracticalSyntaxNormalizer
                         if(!localOrdinals.TryAdd(local,ordinal))throw PracticalFailures.Declaration("pattern_local_identity");
                         bindings.Add(new PracticalExactTypeBinding(Id,ordinal,syntaxModel.NormalizeType(local.Type)));
                     }
+                if(syntaxModel.allowHandlers)foreach(var declaration in Syntax.DescendantNodes().OfType<CatchDeclarationSyntax>())
+                    if(Model.GetDeclaredSymbol(declaration) is ILocalSymbol local)
+                        localOrdinals.Add(local,localOrdinals.Count); // closed control value, no data-instance binding
             }
 
             private void CollectForeachLocals(List<PracticalExactTypeBinding> bindings)
@@ -1439,7 +1443,7 @@ internal static class CSharpPracticalSyntaxNormalizer
                     || IsIntrinsicArgumentCarrier(type,"InvalidOperationException")
                     || IsIntrinsicArgumentCarrier(type,"ArgumentException")
                     || IsIntrinsicArgumentCarrier(type,"Exception"))
-                    && operation.Syntax.AncestorsAndSelf().Any(n=>n is ThrowStatementSyntax or ThrowExpressionSyntax or ConstructorInitializerSyntax))
+                    && operation.Syntax.AncestorsAndSelf().Any(n=>n is ThrowStatementSyntax or ThrowExpressionSyntax or ConstructorInitializerSyntax or CatchClauseSyntax))
                 {return "source_exception:"+type.ToDisplayString(SymbolDisplayFormat.CSharpErrorMessageFormat);}
                 // W10: only the compiler-inserted char boxing of an exact
                 // string/char + is normalized to its UTF-16 operand. Explicit

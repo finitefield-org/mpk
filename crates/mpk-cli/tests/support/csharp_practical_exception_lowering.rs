@@ -8,7 +8,7 @@ fn fixtures() -> Vec<Value> {
     ))
     .unwrap()
 }
-fn exception_roots(
+pub(super) fn exception_roots(
     b: &ValidatedFoundationBundle,
     case: &Value,
 ) -> (ValidatedClosedRootSet, ClosedInstanceSet) {
@@ -22,6 +22,8 @@ fn exception_roots(
         let id = definition["type_id"].as_str().unwrap();
         let storage = if case["id"] == "get_only" {
             "get_auto"
+        } else if case["id"] == "init_only" {
+            "init_auto"
         } else {
             "readonly_field"
         };

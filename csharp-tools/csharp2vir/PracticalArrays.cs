@@ -39,12 +39,12 @@ internal static class CSharpPracticalArrays
     internal static PracticalArrays Validate(PracticalSourceSelection selection,
         IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references,
         IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims = null, bool sequenceConstruction = false,
-        Action<CSharpCompilation>? validateStrings = null, bool domainOperations = false, bool deferSidecarAttachment = false, bool allowLoopControl = false, bool allowPatternControl = false, bool allowExceptionControl = false)
+        Action<CSharpCompilation>? validateStrings = null, bool domainOperations = false, bool deferSidecarAttachment = false, bool allowLoopControl = false, bool allowPatternControl = false, bool allowExceptionControl = false, bool allowHandlers = false)
     {
-        var analyzer = new Analyzer(sequenceConstruction,domainOperations,allowLoopControl,allowPatternControl);
+        var analyzer = new Analyzer(sequenceConstruction,domainOperations,allowLoopControl,allowPatternControl,allowHandlers);
         PracticalConstruction construction = CSharpPracticalConstruction.Validate(selection, inputs, references,
             invariantClaims, allowInitializers: true, allowStructuralEquality: true,
-            validateArrays: (current, types) => { analyzer.Analyze(current, types); validateStrings?.Invoke(current); }, validateArrayLimits: ValidateLimits, deferSidecarAttachment: deferSidecarAttachment, allowLoopControl: allowLoopControl, allowPatternControl: allowPatternControl, allowExceptionControl: allowExceptionControl);
+            validateArrays: (current, types) => { analyzer.Analyze(current, types); validateStrings?.Invoke(current); }, validateArrayLimits: ValidateLimits, deferSidecarAttachment: deferSidecarAttachment, allowLoopControl: allowLoopControl, allowPatternControl: allowPatternControl, allowExceptionControl: allowExceptionControl, allowHandlers: allowHandlers);
         return new PracticalArrays(construction, Array.AsReadOnly(analyzer.Steps.ToArray()));
     }
 
@@ -131,9 +131,10 @@ internal static class CSharpPracticalArrays
         internal readonly List<PracticalArrayStep> Steps = new();
         private readonly bool sequenceConstruction;
         private readonly bool domainOperations;
-        internal Analyzer(bool sequenceConstruction,bool domainOperations,bool allowLoopControl,bool allowPatternControl) { this.allowPatternControl=allowPatternControl; this.sequenceConstruction = sequenceConstruction; this.domainOperations=domainOperations; this.allowLoopControl=allowLoopControl; }
+        internal Analyzer(bool sequenceConstruction,bool domainOperations,bool allowLoopControl,bool allowPatternControl,bool allowHandlers) { this.allowHandlers=allowHandlers; this.allowPatternControl=allowPatternControl; this.sequenceConstruction = sequenceConstruction; this.domainOperations=domainOperations; this.allowLoopControl=allowLoopControl; }
         private readonly bool allowLoopControl;
         private readonly bool allowPatternControl;
+        private readonly bool allowHandlers;
         private readonly Stack<(ILabelSymbol Label,List<State> Exits)> switches = new();
         private readonly HashSet<string> activeBorrows = new(StringComparer.Ordinal);
         private readonly Stack<LoopState> loops = new();
@@ -242,6 +243,25 @@ internal static class CSharpPracticalArrays
                     (branch.BranchKind == BranchKind.Break ? loops.Peek().Breaks : loops.Peek().Continues).Add(state.Copy());
                     state.Live=false; return Empty();
                 case ILoopOperation: Fail("array_loop_handoff"); break;
+                case ITryOperation tried when allowHandlers:
+                    // W06 owns construction-state composition. Do not carry a
+                    // unique array across a handler boundary in this private stage.
+                    if(state.Arrays.Values.Any(a=>!a.Frozen) || tried.Syntax.DescendantNodes().Any(n=>n is ArrayCreationExpressionSyntax or ImplicitArrayCreationExpressionSyntax))
+                        Fail("array_exception_construction_handoff");
+                    var priorTry=state.Copy();var normalTry=state.Copy();Visit(tried.Body,normalTry);
+                    var alternatives=new List<State>{normalTry};string savedTryPath=path;
+                    foreach(var caught in tried.Catches) {
+                        var handlerState=priorTry.Copy();path=savedTryPath+":catch:"+alternatives.Count;
+                        if(caught.Filter is not null)Visit(caught.Filter,handlerState);
+                        Visit(caught.Handler,handlerState);alternatives.Add(handlerState);
+                    }
+                    var mergedTry=MergeStates(alternatives,priorTry);state.Join(mergedTry,mergedTry,false);
+                    if(tried.Finally is not null) {
+                        var cleanupState=state.Copy();cleanupState.Live=true;path=savedTryPath+":finally";
+                        Visit(tried.Finally,cleanupState);
+                        if(state.Live)state.Join(cleanupState,cleanupState,false);
+                    }
+                    path=savedTryPath;return Empty();
                 case ITryOperation: Fail("array_exception_control_handoff"); break;
                 case IConditionalOperation conditional:
                     Visit(conditional.Condition,state);

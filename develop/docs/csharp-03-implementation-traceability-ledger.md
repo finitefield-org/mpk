@@ -58,7 +58,8 @@ T03-W14 completes private data emission and independent source/sidecar import
 attachment after the approved amendment (sections 38/39). T04-W02 completes
 private structured-loop lowering (section 40). T04-W03 completes switch and
 pattern lowering (section 41). T04-W04 completes closed exception declarations,
-explicit throws and exceptional contracts (section 42). T04-W05 is ready;
+explicit throws and exceptional contracts (section 42). T04-W05 completes
+two-pass handler search, filters, finally and propagation (section 43). T04-W06 is ready;
 later items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
@@ -128,9 +129,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T04-W01` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W01` | `16946c6ae2a82004be03f49ba52726001dd3317f` |
 | `CSHARP-03-T04-W02` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W02` | `4c4030235fdb5f82aa3fc5b3df2b40727ab0b21e` |
 | `CSHARP-03-T04-W03` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W03` | `25c8a80b2fe59dc4400898f9a6f480dfd749be3e` |
-| `CSHARP-03-T04-W04` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W04` | `SELF` |
-| `CSHARP-03-T04-W05` | `Ready` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W05` | `—` |
-| `CSHARP-03-T04-W06` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W06` | `—` |
+| `CSHARP-03-T04-W04` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W04` | `80ac614043395370fb733d9c4ddc67a220e7a4a4` |
+| `CSHARP-03-T04-W05` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W05` | `SELF` |
+| `CSHARP-03-T04-W06` | `Ready` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W06` | `—` |
 | `CSHARP-03-T05-W01` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W01` | `—` |
 | `CSHARP-03-T05-W02` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W02` | `—` |
 | `CSHARP-03-T05-W03` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W03` | `—` |
@@ -4934,3 +4935,48 @@ executions compared with an independent CFG interpreter, closed-set/contract
 mutations and frozen-probe provenance. Final checks and hashes are recorded in
 `verification.json`. There are zero frontend-success, VIR or certificate
 artifacts. The task commit uses `SELF`; T04-W05 is the sole ready item.
+
+
+## 43. CSHARP-03-T04-W05 completion record
+
+W05 adds the opt-in `allowHandlers` source route and the private
+`mpk.csharp_practical.t04_w05.handler_lowering.v1` handoff. Existing W01–W04
+entry points retain their earlier admission and serialization. Each function
+retains normalized operations and its register CFG, explicit try/catch/filter/
+finally contexts, ordered typed search alternatives, and the exact finally
+entries for each handler choice or outward completion. The selected try's
+finally runs after its catch, not before it. Normal/return/break/continue
+transfers retain their destination and previously evaluated value.
+
+`csharp_practical_handler_lowering.rs` validates the routing tables against
+these contexts and the existing closed exception hierarchy. Its resumable
+search evaluates filters before unwinding, retains the original exception when
+a filter throws, and composes call frames in the same search pass. A new throw
+from finally restarts search and replaces the previous completion; normal
+cleanup preserves it. Rethrow resolves the exact active catch and original
+value. Boolean filter typing, transitive source-effect checks, and exact
+immutable catch payload access are enforced before source lowering. Resource
+catches, exception identity/message/escape, impure or ill-typed filters, inactive
+rethrow and control leaving finally reject without artifacts.
+
+The primary owner remains
+`crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W05`.
+`develop/migrations/csharp-03/handler-lowering/` retains original sources,
+canonical regions/edges, original CLR outcomes and instrumented CLR traces.
+Instrumentation outcomes are checked against uninstrumented execution before
+retention. The Rust register interpreter executes source helper CFGs and the
+native handler planner, including cross-call filter-before-finally order,
+filter exceptions and cleanup, rethrow payloads, finally overrides and loop
+control. Adversarial tests cover routing/type/edge/order mutations and all
+completion alternatives. `conformance.json` binds corpus, compiler probe and
+input manifest; `verification.json` records the local checks and reviewed files.
+
+This private stage emits zero frontend-success, VIR or certificate artifacts.
+Whole-control source/map/import closure, complete data-operation linkage and
+construction-state revalidation remain W06-owned. Unique array construction
+crossing a handler boundary still rejects at that explicit handoff. T06 owns
+reachability, throws-set, totality and other proof discharge. No profile freeze,
+active registry, installed frontend or workflow changes were made.
+
+Latest task review: no findings. The task commit uses `SELF`;
+T04-W06 is the sole ready item.
