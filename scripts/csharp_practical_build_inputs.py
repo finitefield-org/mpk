@@ -2891,7 +2891,25 @@ def load_handler_lowering_inputs() -> dict[str, object]:
     return value
 
 
-def test_loop_contracts(*, lowering: bool = False, patterns: bool = False, exceptions: bool = False, handlers: bool = False) -> bytes:
+def load_control_emission_inputs() -> dict[str, object]:
+    path = REPOSITORY_ROOT / "develop/migrations/csharp-03/control-emission/control-emission-inputs.json"
+    value = active.strict_json_file(path, canonical_transport=True)
+    if set(value) != {"schema", "work_item", "files"} or value["schema"] != "mpk.csharp_practical.t04_w06.control_emission_inputs.v1" or value["work_item"] != "CSHARP-03-T04-W06":
+        raise active.CSharpBuildFailure("CSHARP_PRACTICAL_LOOP_CONTRACT_INPUTS")
+    expected = ['crates/mpk-cli/tests/csharp_practical_arrays_harness.cs', 'crates/mpk-cli/tests/csharp_practical_business_harness.cs', 'crates/mpk-cli/tests/csharp_practical_capture_harness.cs', 'crates/mpk-cli/tests/csharp_practical_codecs_harness.cs', 'crates/mpk-cli/tests/csharp_practical_construction_harness.cs', 'crates/mpk-cli/tests/csharp_practical_control_emission_harness.cs', 'crates/mpk-cli/tests/csharp_practical_data_replay_harness.cs', 'crates/mpk-cli/tests/csharp_practical_domain_harness.cs', 'crates/mpk-cli/tests/csharp_practical_exception_lowering_harness.cs', 'crates/mpk-cli/tests/csharp_practical_handler_lowering_harness.cs', 'crates/mpk-cli/tests/csharp_practical_initialization_harness.cs', 'crates/mpk-cli/tests/csharp_practical_loop_lowering_harness.cs', 'crates/mpk-cli/tests/csharp_practical_numeric_harness.cs', 'crates/mpk-cli/tests/csharp_practical_ordered_harness.cs', 'crates/mpk-cli/tests/csharp_practical_pattern_lowering_harness.cs', 'crates/mpk-cli/tests/csharp_practical_sequences_harness.cs', 'crates/mpk-cli/tests/csharp_practical_structural_harness.cs', 'crates/mpk-cli/tests/csharp_practical_syntax_harness.cs', 'crates/mpk-cli/tests/csharp_practical_types_harness.cs', 'csharp-tools/csharp2vir/PracticalArrays.cs', 'csharp-tools/csharp2vir/PracticalBusiness.cs', 'csharp-tools/csharp2vir/PracticalCapture.cs', 'csharp-tools/csharp2vir/PracticalConstruction.cs', 'csharp-tools/csharp2vir/PracticalControlPhase.cs', 'csharp-tools/csharp2vir/PracticalDataPhase.cs', 'csharp-tools/csharp2vir/PracticalDataTypes.cs', 'csharp-tools/csharp2vir/PracticalDomain.cs', 'csharp-tools/csharp2vir/PracticalLoopContracts.cs', 'csharp-tools/csharp2vir/PracticalLoopLowering.cs', 'csharp-tools/csharp2vir/PracticalNumeric.cs', 'csharp-tools/csharp2vir/PracticalOrderedCollections.cs', 'csharp-tools/csharp2vir/PracticalPatternLowering.cs', 'csharp-tools/csharp2vir/PracticalSequences.cs', 'csharp-tools/csharp2vir/PracticalStrings.cs', 'csharp-tools/csharp2vir/PracticalStructural.cs', 'csharp-tools/csharp2vir/PracticalSyntaxNormalization.cs', 'develop/migrations/csharp-03/structural/source.cs', 'develop/probes/csharp-03/FoundationDataProbe.cs']
+    if [r["path"] for r in value["files"]] != expected:
+        raise active.CSharpBuildFailure("CSHARP_PRACTICAL_LOOP_CONTRACT_INPUTS")
+    for record in value["files"]:
+        active.exact_keys(record, {"path", "sha256", "size_bytes"})
+        size, digest, _ = active.hash_regular_file(REPOSITORY_ROOT / record["path"], 2 * 1024 * 1024)
+        if size != record["size_bytes"] or digest != record["sha256"]:
+            raise active.CSharpBuildFailure("CSHARP_PRACTICAL_LOOP_CONTRACT_INPUTS")
+    return value
+
+
+def test_loop_contracts(*, lowering: bool = False, patterns: bool = False, exceptions: bool = False, handlers: bool = False, control: bool = False, requests: bytes | None = None) -> bytes:
+    if requests is not None and (not control or len(requests) > 32 * 1024 * 1024):
+        raise active.CSharpBuildFailure("CSHARP_PRACTICAL_CONTROL_REQUESTS")
     active.validate_build_host()
     descriptor = load_descriptor()
     project_records: dict[str, dict[str, object]] = {}
@@ -2900,7 +2918,7 @@ def test_loop_contracts(*, lowering: bool = False, patterns: bool = False, excep
     for untyped in project_files:
         record = active.exact_keys(untyped, {"path", "sha256", "size_bytes"})
         project_records[active.validate_relative_path(active.text(record["path"]))] = record
-    manifest = load_handler_lowering_inputs() if handlers else load_exception_lowering_inputs() if exceptions else load_pattern_lowering_inputs() if patterns else load_loop_lowering_inputs() if lowering else load_loop_contract_inputs()
+    manifest = load_control_emission_inputs() if control else load_handler_lowering_inputs() if handlers else load_exception_lowering_inputs() if exceptions else load_pattern_lowering_inputs() if patterns else load_loop_lowering_inputs() if lowering else load_loop_contract_inputs()
     toolchain = active.exact_keys(
         descriptor["toolchain_inputs"], set(descriptor["toolchain_inputs"])
     )
@@ -2914,6 +2932,8 @@ def test_loop_contracts(*, lowering: bool = False, patterns: bool = False, excep
         )
         work = temporary_root / "work"
         work.mkdir(mode=0o700, parents=True, exist_ok=False)
+        if requests is not None:
+            (work / "control-requests.json").write_bytes(requests)
         copied: dict[str, Path] = {}
         for untyped in active.array(manifest["files"]):
             record = active.exact_keys(untyped, {"path", "sha256", "size_bytes"})
@@ -2934,7 +2954,7 @@ def test_loop_contracts(*, lowering: bool = False, patterns: bool = False, excep
         arguments.extend(
             [
                 "/out:" + str(output),
-                "/main:Mpk.CSharp2Vir." + ("PracticalHandlerLoweringHarness" if handlers else "PracticalExceptionLoweringHarness" if exceptions else "PracticalPatternLoweringHarness" if patterns else "PracticalLoopLoweringHarness" if lowering else "PracticalLoopContractsHarness"),
+                "/main:Mpk.CSharp2Vir." + ("PracticalControlEmissionHarness" if control else "PracticalHandlerLoweringHarness" if handlers else "PracticalExceptionLoweringHarness" if exceptions else "PracticalPatternLoweringHarness" if patterns else "PracticalLoopLoweringHarness" if lowering else "PracticalLoopContractsHarness"),
                 "/pathmap:" + str(work) + "=/_/csharp-practical-loop-contracts",
             ]
         )
@@ -3542,6 +3562,10 @@ def main(argv: list[str]) -> int:
             sys.stdout.buffer.write(test_data_phase(replay=True))
         elif argv == ["test-data-phase-cases"]:
             sys.stdout.buffer.write(test_data_phase(case_matrix=True))
+        elif argv == ["test-control-emission"]:
+            sys.stdout.buffer.write(test_loop_contracts(control=True))
+        elif argv == ["test-control-emission-requests"]:
+            sys.stdout.buffer.write(test_loop_contracts(control=True, requests=sys.stdin.buffer.read(32 * 1024 * 1024 + 1)))
         elif argv == ["test-handler-lowering"]:
             sys.stdout.buffer.write(test_loop_contracts(handlers=True))
         elif argv == ["test-exception-lowering"]:

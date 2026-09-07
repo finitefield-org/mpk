@@ -2316,6 +2316,19 @@ pub fn validate_closed_operation_signature(
             }
         }
         ClosedOperationTag::ExceptionConstruct => {
+            if let Some(exception) = signature
+                .id
+                .strip_prefix("mpk.csharp.value.exception.v1.construct.")
+            {
+                if !roots.source_types.contains_key(exception)
+                    || signature.argument_type_ids != [exception]
+                    || signature.normal_result_type_id != EXCEPTION_TYPE_ID
+                    || !signature.ordered_checks.is_empty()
+                {
+                    return Err(vir_failure(phase, PracticalVirErrorCode::OperandType));
+                }
+                return Ok(());
+            }
             if signature.id != "mpk.csharp.value.exception.v1.construct"
                 || signature.normal_result_type_id != EXCEPTION_TYPE_ID
             {
@@ -2323,6 +2336,20 @@ pub fn validate_closed_operation_signature(
             }
         }
         ClosedOperationTag::ExceptionIsType => {
+            if let Some(ty) = signature
+                .id
+                .strip_prefix("mpk.csharp.value.exception.v1.is_type.")
+            {
+                if (!builtin_exception_arms().iter().any(|a| a.type_id == ty)
+                    && !roots.source_types.contains_key(ty))
+                    || signature.argument_type_ids != [EXCEPTION_TYPE_ID]
+                    || signature.normal_result_type_id != BOOL_TYPE_ID
+                    || !signature.ordered_checks.is_empty()
+                {
+                    return Err(vir_failure(phase, PracticalVirErrorCode::OperandType));
+                }
+                return Ok(());
+            }
             if signature.id != "mpk.csharp.value.exception.v1.is_type"
                 || signature.argument_type_ids != [EXCEPTION_TYPE_ID]
                 || signature.normal_result_type_id != BOOL_TYPE_ID
@@ -2331,6 +2358,28 @@ pub fn validate_closed_operation_signature(
             }
         }
         ClosedOperationTag::ExceptionPayload => {
+            if let Some(member) = signature
+                .id
+                .strip_prefix("mpk.csharp.value.exception.v1.payload.")
+            {
+                let source_member = roots
+                    .source_types
+                    .values()
+                    .flat_map(|s| &s.members)
+                    .find(|m| m.id == member);
+                if signature.argument_type_ids != [EXCEPTION_TYPE_ID]
+                    || !signature.ordered_checks.is_empty()
+                    || source_member.is_none_or(|m| {
+                        closed_type_id_for_operation(closed_set, roots, &m.ty)
+                            .ok()
+                            .as_deref()
+                            != Some(signature.normal_result_type_id.as_str())
+                    })
+                {
+                    return Err(vir_failure(phase, PracticalVirErrorCode::OperandType));
+                }
+                return Ok(());
+            }
             if signature.id != "mpk.csharp.value.exception.v1.payload"
                 || signature.argument_type_ids != [EXCEPTION_TYPE_ID]
             {
@@ -2416,6 +2465,18 @@ fn validate_required_check(
     check: &RequiredCheck,
 ) -> Result<(), PracticalVirValidationError> {
     let phase = PracticalVirValidationPhase::Operation;
+    if let Some(exception) = check.id.strip_prefix("exception.closed.") {
+        if check.tag == RequiredCheckTag::Exception
+            && check.failure_type_id.as_deref() == Some(exception)
+            && (builtin_exception_arms()
+                .iter()
+                .any(|arm| arm.type_id == exception)
+                || _roots.source_types.contains_key(exception))
+        {
+            return Ok(());
+        }
+        return Err(vir_failure(phase, PracticalVirErrorCode::CheckKind));
+    }
     let expected = check_contract(&check.id)
         .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::UnknownCheck))?;
     if expected.tag != check.tag {
@@ -4175,10 +4236,24 @@ fn closed_type_id_for_operation(
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct ExceptionFilterRule {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub execution: Option<ExceptionFilterExecution>,
     pub condition_type_id: String,
     pub thrown_filter_exception_successor_id: String,
     pub throw_means_false: bool,
     pub preserves_original_exception: bool,
+}
+
+/// Explicit filter evaluation. The entry binds the original closed exception;
+/// failure resumes search without replacing that value or starting unwind.
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(deny_unknown_fields)]
+pub struct ExceptionFilterExecution {
+    pub selected_node_id: String,
+    pub entry_node_id: String,
+    pub result_node_id: String,
+    pub node_ids: Vec<String>,
+    pub next_search_node_id: String,
 }
 
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
@@ -4193,6 +4268,8 @@ pub struct CatchHandler {
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct ExceptionHandlerRegion {
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub search_entry_node_ids: Vec<String>,
     pub id: String,
     pub parent_region_id: Option<String>,
     pub nesting_depth: u32,
@@ -4204,6 +4281,8 @@ pub struct ExceptionHandlerRegion {
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct ExceptionUnwindPlan {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub search_entry_node_id: Option<String>,
     pub source_node_id: String,
     pub check_id: String,
     pub from_region_id: Option<String>,
@@ -4525,7 +4604,6 @@ fn validate_loops(
             || !nodes.contains_key(loop_region.body_entry_node_id.as_str())
             || !nodes.contains_key(loop_region.continue_target_node_id.as_str())
             || !nodes.contains_key(loop_region.break_target_node_id.as_str())
-            || loop_region.backedge_source_ids.is_empty()
         {
             return Err(vir_failure(phase, PracticalVirErrorCode::LoopShape));
         }
@@ -4771,6 +4849,22 @@ fn validate_exception_regions(
                 }) => {}
             _ => return Err(vir_failure(phase, PracticalVirErrorCode::HandlerShape)),
         }
+        if region
+            .search_entry_node_ids
+            .windows(2)
+            .any(|w| w[0] >= w[1])
+        {
+            return Err(vir_failure(phase, PracticalVirErrorCode::HandlerOrder));
+        }
+        for entry in &region.search_entry_node_ids {
+            if !handler_entry_ids.insert(entry.as_str())
+                || nodes
+                    .get(entry.as_str())
+                    .is_none_or(|n| n.tag != ControlNodeTag::HandlerEntry)
+            {
+                return Err(vir_failure(phase, PracticalVirErrorCode::HandlerShape));
+            }
+        }
         for (ordinal, catch) in region.catches.iter().enumerate() {
             if usize::try_from(catch.ordinal).ok() != Some(ordinal)
                 || !universe.admits_catch_type(&catch.exception_type_id)
@@ -4782,6 +4876,35 @@ fn validate_exception_regions(
                 return Err(vir_failure(phase, PracticalVirErrorCode::HandlerOrder));
             }
             if let Some(filter) = &catch.filter {
+                if let Some(execution) = &filter.execution {
+                    if !handler_entry_ids.insert(execution.entry_node_id.as_str())
+                        || nodes
+                            .get(execution.entry_node_id.as_str())
+                            .is_none_or(|n| n.tag != ControlNodeTag::HandlerEntry)
+                        || execution.node_ids.is_empty()
+                        || execution.node_ids.windows(2).any(|w| w[0] >= w[1])
+                        || !execution.node_ids.contains(&execution.entry_node_id)
+                        || !execution.node_ids.contains(&execution.result_node_id)
+                        || execution
+                            .node_ids
+                            .iter()
+                            .any(|id| !nodes.contains_key(id.as_str()))
+                        || filter.thrown_filter_exception_successor_id
+                            != execution.next_search_node_id
+                        || nodes
+                            .get(execution.result_node_id.as_str())
+                            .is_none_or(|n| {
+                                n.tag != ControlNodeTag::Branch
+                                    || n.normal_successor_ids
+                                        != [
+                                            execution.selected_node_id.clone(),
+                                            execution.next_search_node_id.clone(),
+                                        ]
+                            })
+                    {
+                        return Err(vir_failure(phase, PracticalVirErrorCode::HandlerShape));
+                    }
+                }
                 if filter.condition_type_id != BOOL_TYPE_ID
                     || !filter.throw_means_false
                     || !filter.preserves_original_exception
@@ -4893,6 +5016,39 @@ fn validate_unwind_plans(
         {
             return Err(vir_failure(phase, PracticalVirErrorCode::UnwindOrder));
         }
+        let active_filter = regions
+            .iter()
+            .flat_map(|r| &r.catches)
+            .filter_map(|c| c.filter.as_ref())
+            .filter_map(|f| f.execution.as_ref())
+            .find(|f| f.node_ids.contains(&plan.source_node_id));
+        if let Some(filter) = active_filter {
+            let destination = nodes
+                .get(plan.destination_node_id.as_str())
+                .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::UnwindOrder))?;
+            let selected = regions.iter().find(|r| {
+                r.catches.iter().any(|c| {
+                    c.handler_entry_node_id == plan.destination_node_id
+                        || c.filter
+                            .as_ref()
+                            .and_then(|f| f.execution.as_ref())
+                            .is_some_and(|f| f.entry_node_id == plan.destination_node_id)
+                })
+            });
+            if edge.target_id != filter.next_search_node_id
+                || plan.destination_node_id != edge.target_id
+                || !plan.finally_region_ids.is_empty()
+                || selected.map(|r| r.id.as_str()) != plan.selected_handler_region_id.as_deref()
+                || (selected.is_none()
+                    && !matches!(
+                        destination.tag,
+                        ControlNodeTag::Exit | ControlNodeTag::Jump | ControlNodeTag::Branch
+                    ))
+            {
+                return Err(vir_failure(phase, PracticalVirErrorCode::UnwindOrder));
+            }
+            continue;
+        }
         let mut expected = Vec::new();
         let mut current = plan.from_region_id.as_deref();
         while let Some(region_id) = current {
@@ -4938,8 +5094,52 @@ fn validate_unwind_plans(
             .first()
             .and_then(|region_id| by_id.get(region_id))
             .and_then(|region| region.finally_entry_node_id.as_deref())
+            .or_else(|| {
+                plan.selected_handler_region_id
+                    .as_deref()
+                    .and_then(|id| by_id.get(id))
+                    .and_then(|r| {
+                        r.catches
+                            .iter()
+                            .find(|c| c.handler_entry_node_id == plan.destination_node_id)
+                    })
+                    .and_then(|c| c.filter.as_ref())
+                    .and_then(|f| f.execution.as_ref())
+                    .map(|f| f.entry_node_id.as_str())
+            })
             .unwrap_or(plan.destination_node_id.as_str());
-        if edge.target_id != expected_first_target {
+        if let Some(search) = &plan.search_entry_node_id {
+            if edge.target_id != *search
+                || !regions
+                    .iter()
+                    .any(|r| r.search_entry_node_ids.contains(search))
+            {
+                return Err(vir_failure(phase, PracticalVirErrorCode::UnwindOrder));
+            }
+            let mut reachable = BTreeSet::new();
+            let mut pending = vec![search.as_str()];
+            while let Some(id) = pending.pop() {
+                if reachable.insert(id) && id != expected_first_target {
+                    let node = nodes
+                        .get(id)
+                        .ok_or_else(|| vir_failure(phase, PracticalVirErrorCode::UnwindOrder))?;
+                    if node.tag != ControlNodeTag::FinallyEntry {
+                        pending.extend(node.normal_successor_ids.iter().map(String::as_str));
+                    }
+                    if node.tag == ControlNodeTag::Throw {
+                        pending.extend(
+                            node.exceptional_successors
+                                .iter()
+                                .filter(|e| e.exception_type_id == edge.exception_type_id)
+                                .map(|e| e.target_id.as_str()),
+                        );
+                    }
+                }
+            }
+            if !reachable.contains(expected_first_target) {
+                return Err(vir_failure(phase, PracticalVirErrorCode::UnwindOrder));
+            }
+        } else if edge.target_id != expected_first_target {
             return Err(vir_failure(phase, PracticalVirErrorCode::UnwindOrder));
         }
     }
@@ -7103,8 +7303,9 @@ pub use loop_contracts::{
 mod loop_lowering;
 pub use loop_lowering::{
     prepare_exception_lowering, prepare_loop_lowering, prepare_pattern_lowering,
-    ExplicitExceptionExit, LoopControlFunction, LoopControlNode, LoopLoweringError,
-    LoopSourceOperation, LoweredLoopControl, LoweredLoopRegion, OperationExceptionResult,
+    ControlOperationLocation, ExplicitExceptionExit, LoopControlFunction, LoopControlNode,
+    LoopLoweringError, LoopSourceOperation, LoweredLoopControl, LoweredLoopRegion,
+    OperationExceptionResult,
 };
 
 #[path = "csharp_practical_handler_lowering.rs"]
@@ -7115,3 +7316,18 @@ pub use handler_lowering::{
     HandlerLocation, HandlerRegion, HandlerSearch, HandlerSearchStep, HandlerStackSearch,
     HandlerStackStep, HandlerTransfer, PreparedHandlerFunction,
 };
+
+#[path = "csharp_practical_control_source.rs"]
+mod control_source;
+pub use control_source::{
+    derive_control_termination, handler_control_graph, validate_control_source,
+    ValidatedControlSource,
+};
+
+#[path = "csharp_practical_control_ssa.rs"]
+mod control_ssa;
+pub use control_ssa::{derive_control_ssa, ControlPhi, ControlSsa, ControlSsaBlock};
+
+pub(crate) use data_emission::derive_source_control_functions;
+
+use control_ssa::derive_control_ssa_bounded;

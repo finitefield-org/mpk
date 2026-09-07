@@ -34,6 +34,12 @@ case "$#:${1-}" in
   1:--test-data-phase)
     action=test-data-phase
     ;;
+  1:--test-control-emission)
+    action=test-control-emission
+    ;;
+  1:--test-control-emission-requests)
+    action=test-control-emission-requests
+    ;;
   1:--test-handler-lowering)
     action=test-handler-lowering
     ;;

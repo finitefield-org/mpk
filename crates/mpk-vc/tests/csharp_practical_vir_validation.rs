@@ -141,6 +141,7 @@ fn csharp_03_t02_w05_round_trips_context_bound_monomorphic_vir() {
     handler.functions[0].blocks.insert(1, try_entry);
     handler.functions[0].blocks.insert(2, catch);
     handler.functions[0].exception_regions = vec![ExceptionHandlerRegion {
+        search_entry_node_ids: vec![],
         id: "region.handler".into(),
         parent_region_id: None,
         nesting_depth: 0,
@@ -752,6 +753,7 @@ fn csharp_03_t02_w05_rejects_bounded_parser_fuzz_seeds_and_structural_limits() {
     let mut exception_regions = minimal_contents(&fixture.root_id, "exception_region_limit");
     exception_regions.functions[0].exception_regions = (0..2)
         .map(|region| ExceptionHandlerRegion {
+            search_entry_node_ids: vec![],
             id: format!("region.limit.{region}"),
             parent_region_id: None,
             nesting_depth: 0,
@@ -1160,6 +1162,7 @@ fn minimal_contents(function_id: &str, label: &str) -> PracticalVirContents {
 fn minimal_function(function_id: &str, label: &str) -> PracticalVirFunction {
     PracticalVirFunction {
         object_protocol: None,
+        control_protocol: None,
         id: function_id.into(),
         parameter_values: Vec::new(),
         result_type_ids: Vec::new(),
@@ -1204,6 +1207,7 @@ fn calling_function(
     let return_node_id = format!("vir.node.{label}.return");
     PracticalVirFunction {
         object_protocol: None,
+        control_protocol: None,
         id: function_id.into(),
         parameter_values: Vec::new(),
         result_type_ids: Vec::new(),
@@ -1229,6 +1233,7 @@ fn calling_function(
                 condition_value_id: None,
                 return_value_ids: Vec::new(),
                 abrupt_value_id: None,
+                handler_exception_source_id: None,
                 handler_exception_value: None,
                 invocation: Some(OperationInvocation {
                     operation_id: signature.id.clone(),
@@ -1309,6 +1314,7 @@ fn invoking_function(
     });
     PracticalVirFunction {
         object_protocol: None,
+        control_protocol: None,
         id: function_id.into(),
         parameter_values: parameters,
         result_type_ids: Vec::new(),
@@ -1511,6 +1517,7 @@ fn construction_merge_function(fixture: &Fixture, label: &str) -> PracticalVirFu
 
     PracticalVirFunction {
         object_protocol: None,
+        control_protocol: None,
         id: fixture.root_id.clone(),
         parameter_values: vec![value_parameter, condition_parameter],
         result_type_ids: Vec::new(),
@@ -1584,6 +1591,7 @@ fn bypassed_result_function(
     branch.condition_value_id = Some(result.id);
     PracticalVirFunction {
         object_protocol: None,
+        control_protocol: None,
         id: function_id.into(),
         parameter_values: vec![parameter.clone()],
         result_type_ids: Vec::new(),
@@ -1686,6 +1694,7 @@ fn empty_block(node: ControlNode) -> PracticalVirBlock {
         condition_value_id: None,
         return_value_ids: Vec::new(),
         abrupt_value_id: None,
+        handler_exception_source_id: None,
         handler_exception_value: None,
         invocation: None,
         ownership_in: Vec::new(),

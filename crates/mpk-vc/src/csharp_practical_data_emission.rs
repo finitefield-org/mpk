@@ -4,6 +4,10 @@ use crate::csharp_practical_source_artifacts::{
     self as a, CapturedInputSet, PracticalArtifactContext,
 };
 use crate::csharp_practical_vir_validation as v;
+#[path = "csharp_practical_control_emission.rs"]
+mod control_emission;
+#[path = "csharp_practical_control_exceptions.rs"]
+mod control_exceptions;
 
 pub struct EmittedDataPhase {
     closure: DataBindingClosure,
@@ -91,33 +95,39 @@ struct Emitter<'a> {
     r: &'a ValidatedClosedRootSet,
     c: &'a ClosedInstanceSet,
     source: &'a ValidatedDataSource,
+    control: Option<std::sync::Arc<ValidatedControlSource>>,
     signatures: BTreeMap<String, ClosedOperationSignature>,
     functions: BTreeMap<String, v::PracticalVirFunction>,
     active: BTreeSet<String>,
 }
 struct Body {
+    expression_values: BTreeMap<usize, TypedValueRef>,
     function: v::PracticalVirFunction,
     current: usize,
     next_value: usize,
+    next_block: usize,
     ended: bool,
     variables: BTreeMap<String, TypedValueRef>,
     fields: BTreeMap<String, TypedValueRef>,
     constructor: bool,
     object_constructor: bool,
     live_objects: BTreeMap<String, TypedValueRef>,
-    exception_objects: BTreeSet<String>,
+    exception_object_origins: BTreeMap<String, BTreeSet<String>>,
     owner: String,
     live_constructions: BTreeMap<String, TypedValueRef>,
     construction_lengths: BTreeMap<String, TypedValueRef>,
     published_constructions: BTreeMap<String, TypedValueRef>,
-    exception_constructions: BTreeSet<String>,
+    exception_construction_origins: BTreeMap<String, BTreeSet<String>>,
+    normal_construction_origins: BTreeMap<String, BTreeSet<String>>,
 }
 impl Body {
     fn block(&mut self, tag: ControlNodeTag) -> usize {
         let ordinal = self.function.blocks.len();
+        let block_identity = self.next_block;
+        self.next_block += 1;
         self.function.blocks.push(v::PracticalVirBlock {
             node: ControlNode {
-                id: format!("{}.node.{ordinal:06}", self.function.id),
+                id: format!("{}.node.{block_identity:06}", self.function.id),
                 ordinal: ordinal as u32,
                 tag,
                 condition_type_id: None,
@@ -133,6 +143,7 @@ impl Body {
             condition_value_id: None,
             return_value_ids: vec![],
             abrupt_value_id: None,
+            handler_exception_source_id: None,
             handler_exception_value: None,
             invocation: None,
             ownership_in: vec![],
@@ -205,6 +216,68 @@ impl Body {
     }
 }
 impl Emitter<'_> {
+    fn compile_all(&mut self) -> Result<(), DataPhaseError> {
+        let source = self.source;
+        // The frozen closure admits long call chains. Schedule the already
+        // validated DAG explicitly so Rust expression frames do not accumulate
+        // across source calls; compile's recursive lookup then hits a finished body.
+        let ids = source
+            .callables()
+            .iter()
+            .map(|c| c.id())
+            .collect::<BTreeSet<_>>();
+        let getters = source
+            .callables()
+            .iter()
+            .filter(|c| c.is_property_getter())
+            .map(|c| {
+                (
+                    format!(
+                        "{}.{}",
+                        c.identity()["owner"].as_str().unwrap(),
+                        c.identity()["name"]
+                            .as_str()
+                            .unwrap()
+                            .strip_prefix("get_")
+                            .unwrap()
+                    ),
+                    c.id(),
+                )
+            })
+            .collect::<BTreeMap<_, _>>();
+        let mut active = BTreeSet::new();
+        for root in source.callables() {
+            let mut pending = vec![(root.id(), false)];
+            while let Some((id, finish)) = pending.pop() {
+                if self.functions.contains_key(id) {
+                    continue;
+                }
+                if finish {
+                    self.compile(id)?;
+                    active.remove(id);
+                    continue;
+                }
+                if !active.insert(id) {
+                    return Err(DataPhaseError::Cycle);
+                }
+                pending.push((id, true));
+                for node in source.body(id).ok_or(DataPhaseError::Source)?.iter().rev() {
+                    let target = if ids.contains(node.symbol()) {
+                        Some(node.symbol())
+                    } else if node.kind() == "PropertyReference" {
+                        getters.get(node.symbol()).copied()
+                    } else {
+                        None
+                    };
+                    if let Some(target) = target {
+                        pending.push((target, false));
+                    }
+                }
+            }
+        }
+        Ok(())
+    }
+
     fn invoke(
         &mut self,
         body: &mut Body,
@@ -241,32 +314,48 @@ impl Emitter<'_> {
                 .failure_type_id
                 .as_ref()
                 .ok_or(DataPhaseError::Emission)?;
-            let arm = builtin_exception_arms()
+            if let Some(arm) = builtin_exception_arms()
                 .into_iter()
                 .find(|arm| arm.type_id == *exception)
-                .ok_or(DataPhaseError::Emission)?;
-            body.function.blocks[current]
-                .exception_values
-                .push(v::PracticalVirExceptionValue {
-                    check_id: check.id.clone(),
-                    value: MonomorphicValue::ClosedException {
-                        type_id: EXCEPTION_TYPE_ID.into(),
-                        tag: arm.tag,
-                        source_type_id: None,
-                        payload: None,
+            {
+                body.function.blocks[current].exception_values.push(
+                    v::PracticalVirExceptionValue {
+                        check_id: check.id.clone(),
+                        value: MonomorphicValue::ClosedException {
+                            type_id: EXCEPTION_TYPE_ID.into(),
+                            tag: arm.tag,
+                            source_type_id: None,
+                            payload: None,
+                        },
                     },
-                });
-            body.exception_constructions
+                );
+            } else if !matches!(
+                signature.tag,
+                ClosedOperationTag::SourceCall | ClosedOperationTag::ConstructorExecute
+            ) || !self
+                .control
+                .as_ref()
+                .is_some_and(|c| c.universe().arm(exception).is_some())
+            {
+                return Err(DataPhaseError::Emission);
+            }
+            body.exception_construction_origins
+                .entry(body.function.blocks[current].node.id.clone())
+                .or_default()
                 .extend(body.live_constructions.keys().cloned());
-            body.exception_objects.extend(
-                body.live_objects
-                    .iter()
-                    .filter(|(_, v)| {
-                        signature.tag != ClosedOperationTag::ConstructorExecute
-                            || operands.first().is_none_or(|a| a.id != v.id)
-                    })
-                    .map(|(origin, _)| origin.clone()),
-            );
+            let discarded = body
+                .live_objects
+                .iter()
+                .filter(|(_, v)| {
+                    signature.tag != ClosedOperationTag::ConstructorExecute
+                        || operands.first().is_none_or(|a| a.id != v.id)
+                })
+                .map(|(origin, _)| origin.clone())
+                .collect::<BTreeSet<_>>();
+            body.exception_object_origins
+                .entry(body.function.blocks[current].node.id.clone())
+                .or_default()
+                .extend(discarded);
             exceptional.push(ExceptionalSuccessor {
                 check_id: check.id.clone(),
                 exception_type_id: exception.clone(),
@@ -489,7 +578,9 @@ impl Emitter<'_> {
             result
         };
         let mut body = Body {
+            expression_values: BTreeMap::new(),
             function: v::PracticalVirFunction {
+                control_protocol: None,
                 object_protocol: object_constructor.then(|| v::PracticalObjectProtocol {
                     constructor_owner: Some(owner.clone()),
                     initializations: vec![],
@@ -510,18 +601,20 @@ impl Emitter<'_> {
             },
             current: 0,
             next_value: 0,
+            next_block: 0,
             ended: false,
             variables: BTreeMap::new(),
             fields: BTreeMap::new(),
             constructor,
             object_constructor,
             live_objects: BTreeMap::new(),
-            exception_objects: BTreeSet::new(),
+            exception_object_origins: BTreeMap::new(),
             owner,
             live_constructions: BTreeMap::new(),
             construction_lengths: BTreeMap::new(),
             published_constructions: BTreeMap::new(),
-            exception_constructions: BTreeSet::new(),
+            exception_construction_origins: BTreeMap::new(),
+            normal_construction_origins: BTreeMap::new(),
         };
         if object_constructor {
             let value = body.value(&result);
@@ -572,8 +665,33 @@ impl Emitter<'_> {
                 body.finish(Some(value))?;
             }
         }
-        for node in trees(self.source.body(id).ok_or(DataPhaseError::Source)?)? {
-            self.statement(&mut body, &node)?;
+        let control = self.control.clone();
+        let graph = control
+            .as_ref()
+            .and_then(|c| c.functions().iter().find(|f| f.callable_id == id));
+        if let Some(graph) = graph.filter(|g| {
+            !g.loops.is_empty()
+                || g.nodes.iter().any(|n| {
+                    matches!(
+                        n.kind.as_str(),
+                        "pattern_decision"
+                            | "explicit_throw"
+                            | "handler_entry"
+                            | "handler_finally_entry"
+                    )
+                })
+        }) {
+            let control = control.as_ref().ok_or(DataPhaseError::Source)?;
+            let handler = control
+                .handlers()
+                .iter()
+                .find(|h| h.graph().callable_id == id)
+                .ok_or(DataPhaseError::Source)?;
+            self.control_body(&mut body, graph, handler, control.universe())?;
+        } else {
+            for node in trees(self.source.body(id).ok_or(DataPhaseError::Source)?)? {
+                self.statement(&mut body, &node)?;
+            }
         }
         if constructor && !body.ended {
             self.finish_constructor(&mut body)?;
@@ -584,25 +702,15 @@ impl Emitter<'_> {
         let exit = body.block(ControlNodeTag::Exit);
         let exit_id = body.function.blocks[exit].node.id.clone();
         body.function.blocks[exit].node.abrupt = Some(AbruptCompletion::Normal);
-        body.function.blocks[exit].construction_actions = body
-            .exception_constructions
-            .iter()
-            .map(|origin| v::PracticalConstructionAction::Discard {
-                construction_id: origin.clone(),
-                actor_id: body.function.id.clone(),
-            })
-            .collect();
-        if !body.exception_objects.is_empty() {
-            let origins = body.exception_objects.iter().cloned().collect();
-            body.object_protocol().exceptional_discards = vec![v::PracticalObjectDiscard {
-                exit_node_id: exit_id.clone(),
-                origin_value_ids: origins,
-            }];
-        }
         if let Some(protocol) = &mut body.function.object_protocol {
             protocol
                 .initializations
                 .sort_by_key(|i| i.source_node_ordinal);
+        }
+        for plan in &mut body.function.unwind_plans {
+            if plan.destination_node_id == "pending.exit" {
+                plan.destination_node_id = exit_id.clone();
+            }
         }
         let mut checks = BTreeMap::new();
         for block in &mut body.function.blocks {
@@ -623,10 +731,19 @@ impl Emitter<'_> {
                 invocation.exceptional_successors = block.node.exceptional_successors.clone();
             }
             for edge in &block.node.exceptional_successors {
+                if body
+                    .function
+                    .unwind_plans
+                    .iter()
+                    .any(|p| p.source_node_id == block.node.id && p.check_id == edge.check_id)
+                {
+                    continue;
+                }
                 body.function.unwind_plans.push(ExceptionUnwindPlan {
+                    search_entry_node_id: None,
                     source_node_id: block.node.id.clone(),
                     check_id: edge.check_id.clone(),
-                    from_region_id: None,
+                    from_region_id: block.node.region_stack.last().cloned(),
                     selected_handler_region_id: None,
                     finally_region_ids: vec![],
                     destination_node_id: edge.target_id.clone(),
@@ -635,6 +752,76 @@ impl Emitter<'_> {
             block
                 .literal_values
                 .sort_by(|a, b| a.result.id.cmp(&b.result.id));
+        }
+        let mut sequence_cleanup = BTreeMap::<String, BTreeSet<String>>::new();
+        for block in &body.function.blocks {
+            if let Some(origins) = body.exception_construction_origins.get(&block.node.id) {
+                for edge in &block.node.exceptional_successors {
+                    sequence_cleanup
+                        .entry(edge.target_id.clone())
+                        .or_default()
+                        .extend(origins.iter().cloned());
+                }
+            }
+        }
+        let finally_entries = body
+            .function
+            .blocks
+            .iter()
+            .filter(|b| b.node.tag == ControlNodeTag::FinallyEntry)
+            .map(|b| b.node.id.clone())
+            .collect::<BTreeSet<_>>();
+        for block in &body.function.blocks {
+            if let Some(origins) = body.normal_construction_origins.get(&block.node.id) {
+                for target in block
+                    .node
+                    .normal_successor_ids
+                    .iter()
+                    .filter(|id| finally_entries.contains(*id))
+                {
+                    sequence_cleanup
+                        .entry(target.clone())
+                        .or_default()
+                        .extend(origins.iter().cloned());
+                }
+            }
+        }
+        for block in &mut body.function.blocks {
+            if let Some(origins) = sequence_cleanup.remove(&block.node.id) {
+                for construction_id in origins {
+                    let action = v::PracticalConstructionAction::Discard {
+                        construction_id,
+                        actor_id: body.function.id.clone(),
+                    };
+                    if !block.construction_actions.contains(&action) {
+                        block.construction_actions.push(action);
+                    }
+                }
+            }
+        }
+        let mut cleanup = BTreeMap::<String, BTreeSet<String>>::new();
+        for block in &body.function.blocks {
+            if let Some(origins) = body
+                .exception_object_origins
+                .get(&block.node.id)
+                .filter(|o| !o.is_empty())
+            {
+                for edge in &block.node.exceptional_successors {
+                    cleanup
+                        .entry(edge.target_id.clone())
+                        .or_default()
+                        .extend(origins.iter().cloned());
+                }
+            }
+        }
+        if !cleanup.is_empty() {
+            body.object_protocol().exceptional_discards = cleanup
+                .into_iter()
+                .map(|(exit_node_id, origins)| v::PracticalObjectDiscard {
+                    exit_node_id,
+                    origin_value_ids: origins.into_iter().collect(),
+                })
+                .collect();
         }
         self.signatures.insert(
             id.into(),
@@ -991,6 +1178,15 @@ impl Emitter<'_> {
             return Err(DataPhaseError::Emission);
         }
         match node.operation.kind() {
+            "ConstructorInitializer"
+                if self.source.control_lowering().is_some()
+                    && node.children.len() == 1
+                    && node.children[0].operation.symbol()
+                        == "System.Runtime|System.Exception.Exception()"
+                    && validate_control_source(self.b, self.source)?
+                        .definitions()
+                        .iter()
+                        .any(|d| d.type_id == body.owner) => {}
             "Block" | "VariableDeclarationGroup" | "VariableDeclaration" => {
                 for child in &node.children {
                     self.statement(body, child)?;
@@ -999,6 +1195,7 @@ impl Emitter<'_> {
             "ExpressionStatement" => {
                 self.expression(body, node.children.first().ok_or(DataPhaseError::Emission)?)?;
             }
+            "Throw" if self.source.control_lowering().is_some() => self.source_throw(body, node)?,
             "Return" => {
                 if body.constructor && node.children.is_empty() {
                     return self.finish_constructor(body);
@@ -1148,6 +1345,9 @@ impl Emitter<'_> {
         body: &mut Body,
         node: &Expr<'_>,
     ) -> Result<TypedValueRef, DataPhaseError> {
+        if let Some(value) = body.expression_values.get(&node.ordinal) {
+            return Ok(value.clone());
+        }
         let fail = DataPhaseError::Emission;
         let op = node.operation;
         let get = |i| node.children.get(i).ok_or(DataPhaseError::Emission);
@@ -1552,7 +1752,10 @@ impl Emitter<'_> {
                         self.invoke(body, read, vec![receiver, index.clone()])?,
                         Some((origin, index)),
                     )
-                } else if target.operation.kind() == "LocalReference" {
+                } else if matches!(
+                    target.operation.kind(),
+                    "LocalReference" | "ParameterReference"
+                ) {
                     (self.expression(body, target)?, None)
                 } else {
                     return Err(fail);
@@ -2560,70 +2763,53 @@ fn emit_data_phase_inner(
         r: closure.roots(),
         c: closure.closed(),
         source,
+        control: source
+            .control_lowering()
+            .map(|_| validate_control_source(b, source).map(std::sync::Arc::new))
+            .transpose()?,
         signatures: foundation_signatures(closure.roots(), closure.closed())?,
         functions: BTreeMap::new(),
         active: BTreeSet::new(),
     };
-    // The frozen closure admits long call chains. Schedule the already
-    // validated DAG explicitly so Rust expression frames do not accumulate
-    // across source calls; compile's recursive lookup then hits a finished body.
-    let ids = source
-        .callables()
-        .iter()
-        .map(|c| c.id())
-        .collect::<BTreeSet<_>>();
-    let getters = source
-        .callables()
-        .iter()
-        .filter(|c| c.is_property_getter())
-        .map(|c| {
-            (
-                format!(
-                    "{}.{}",
-                    c.identity()["owner"].as_str().unwrap(),
-                    c.identity()["name"]
-                        .as_str()
-                        .unwrap()
-                        .strip_prefix("get_")
-                        .unwrap()
-                ),
-                c.id(),
-            )
-        })
-        .collect::<BTreeMap<_, _>>();
-    let mut active = BTreeSet::new();
-    for root in source.callables() {
-        let mut pending = vec![(root.id(), false)];
-        while let Some((id, finish)) = pending.pop() {
-            if emitter.functions.contains_key(id) {
-                continue;
-            }
-            if finish {
-                emitter.compile(id)?;
-                active.remove(id);
-                continue;
-            }
-            if !active.insert(id) {
-                return Err(DataPhaseError::Cycle);
-            }
-            pending.push((id, true));
-            for node in source.body(id).ok_or(DataPhaseError::Source)?.iter().rev() {
-                let target = if ids.contains(node.symbol()) {
-                    Some(node.symbol())
-                } else if node.kind() == "PropertyReference" {
-                    getters.get(node.symbol()).copied()
-                } else {
-                    None
-                };
-                if let Some(target) = target {
-                    pending.push((target, false));
-                }
-            }
-        }
-    }
+    emitter.compile_all()?;
     let (binding_projections, binding_commutations) =
         binding_emission(&closure, &sidecars, &mut emitter.signatures)?;
-    data_phase::attach_data_contracts(b, &closure, source, &sidecars, &emitter.signatures)?;
+    data_phase::attach_data_contracts(
+        b,
+        context,
+        captures,
+        &closure,
+        source,
+        &sidecars,
+        &emitter.signatures,
+    )?;
+    if source.control_lowering().is_some() {
+        let used = emitter
+            .functions
+            .values()
+            .flat_map(|f| {
+                std::iter::once(f.id.clone()).chain(
+                    f.blocks
+                        .iter()
+                        .filter_map(|b| b.invocation.as_ref().map(|i| i.operation_id.clone())),
+                )
+            })
+            .chain(
+                binding_projections
+                    .iter()
+                    .flat_map(|p| [p.project.id.clone(), p.reconstruct.id.clone()]),
+            )
+            .chain(binding_commutations.iter().flat_map(|c| {
+                [
+                    c.source_operation.id.clone(),
+                    c.semantic_operation.id.clone(),
+                ]
+            }))
+            .collect::<BTreeSet<_>>();
+        emitter.signatures.retain(|id, signature| {
+            signature.tag == ClosedOperationTag::Foundation || used.contains(id)
+        });
+    }
     let signatures = emitter.signatures.into_values().collect();
     let functions = emitter.functions.into_values().collect();
     let closed_ref =
@@ -2656,6 +2842,11 @@ fn emit_data_phase_inner(
             binding_projections,
             binding_commutations,
             source_obligations: source.source_obligations().to_vec(),
+            source_exceptions: if source.control_lowering().is_some() {
+                validate_control_source(b, source)?.definitions().to_vec()
+            } else {
+                vec![]
+            },
             data_contracts: sidecars
                 .contracts()
                 .iter()
@@ -2664,7 +2855,6 @@ fn emit_data_phase_inner(
                         .map_err(|_| DataPhaseError::Contract)
                 })
                 .collect::<Result<_, _>>()?,
-            ..v::PracticalVirContents::default()
         },
     )
     .map_err(|_| DataPhaseError::Emission)?;
@@ -3067,4 +3257,29 @@ fn binding_emission(
         (&a.binding_id, &a.source_operation.id).cmp(&(&b.binding_id, &b.source_operation.id))
     });
     Ok((projections, commutations))
+}
+
+/// Reconstruct source-bound control using captured operations, without Roslyn,
+/// artifact parsing, or an invocation of the VIR importer.
+pub(crate) fn derive_source_control_functions(
+    b: &ValidatedFoundationBundle,
+    r: &ValidatedClosedRootSet,
+    c: &ClosedInstanceSet,
+    source: &ValidatedDataSource,
+) -> Result<Vec<v::PracticalVirFunction>, DataPhaseError> {
+    let mut emitter = Emitter {
+        b,
+        r,
+        c,
+        source,
+        control: source
+            .control_lowering()
+            .map(|_| validate_control_source(b, source).map(std::sync::Arc::new))
+            .transpose()?,
+        signatures: foundation_signatures(r, c)?,
+        functions: BTreeMap::new(),
+        active: BTreeSet::new(),
+    };
+    emitter.compile_all()?;
+    Ok(emitter.functions.into_values().collect())
 }

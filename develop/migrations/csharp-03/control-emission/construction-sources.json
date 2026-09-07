@@ -1,0 +1,822 @@
+[
+  {
+    "id": "array_initializer_catch",
+    "accepted": true,
+    "source": "namespace Business;public static class Entry{public static int Run(int n,int[] a,string s){try{int[] v=new int[]{1,20/n};return v[1];}catch(System.DivideByZeroException){return 71;}}}\n",
+    "runs": [
+      {
+        "n": -1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 0,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 2,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 3,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 4,
+        "a": [],
+        "s": ""
+      }
+    ]
+  },
+  {
+    "id": "array_loop_catch",
+    "accepted": true,
+    "source": "namespace Business;public static class Entry{public static int Run(int n,int[] a,string s){try{int[] v=new int[3];for(int i=0;i<3;i++){v[i]=20/(n-i);}return v[2];}catch(System.DivideByZeroException){return 72;}}}\n",
+    "runs": [
+      {
+        "n": -1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 0,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 2,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 3,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 4,
+        "a": [],
+        "s": ""
+      }
+    ]
+  },
+  {
+    "id": "array_finally_abandon",
+    "accepted": true,
+    "source": "namespace Business;public static class Entry{public static int Run(int n,int[] a,string s){int answer=0;try{int[] v=new int[3];v[0]=20/n;answer=v[0];}finally{answer=answer+1;}return answer;}}\n",
+    "runs": [
+      {
+        "n": -1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 0,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 2,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 3,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 4,
+        "a": [],
+        "s": ""
+      }
+    ]
+  },
+  {
+    "id": "array_handler_observation",
+    "accepted": false,
+    "source": "namespace Business;public static class Entry{public static int Run(int n,int[] a,string s){int[] v=new int[3];try{v[0]=20/n;}catch(System.DivideByZeroException){return v[0];}return 1;}}\n",
+    "runs": [
+      {
+        "n": -1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 0,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 2,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 3,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 4,
+        "a": [],
+        "s": ""
+      }
+    ],
+    "diagnostic": "CSHARP_PRACTICAL_TYPE/array_handler_partial_observation"
+  },
+  {
+    "id": "array_finally_observation",
+    "accepted": false,
+    "source": "namespace Business;public static class Entry{public static int Run(int n,int[] a,string s){int[] v=new int[3];try{v[0]=20/n;}finally{n=v[0];}return n;}}\n",
+    "runs": [
+      {
+        "n": -1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 0,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 2,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 3,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 4,
+        "a": [],
+        "s": ""
+      }
+    ],
+    "diagnostic": "CSHARP_PRACTICAL_TYPE/array_handler_partial_observation"
+  },
+  {
+    "id": "array_publish_then_catch",
+    "accepted": true,
+    "source": "namespace Business;public static class Entry{private static int Read(int[] v){return v.Length;}public static int Run(int n,int[] a,string s){try{int[] v=new int[]{2,3};int count=Read(v);return count/n;}catch(System.DivideByZeroException){return 73;}}}\n",
+    "runs": [
+      {
+        "n": -1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 0,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 2,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 3,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 4,
+        "a": [],
+        "s": ""
+      }
+    ]
+  },
+  {
+    "id": "object_constructor_catch",
+    "accepted": true,
+    "source": "namespace Business;public sealed class Item{public int X{get;} public int Y{get;}public Item(int n){X=20/n;Y=4;}} public static class Entry{public static int Run(int n,int[] a,string s){try{Item item=new Item(n);return item.X+item.Y;}catch(System.DivideByZeroException){return 74;}}}\n",
+    "runs": [
+      {
+        "n": -1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 0,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 2,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 3,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 4,
+        "a": [],
+        "s": ""
+      }
+    ]
+  },
+  {
+    "id": "object_initializer_catch",
+    "accepted": true,
+    "source": "namespace Business;public sealed class Item{public int X{get;init;}public int Y{get;init;}}public static class Entry{public static int Run(int n,int[] a,string s){try{Item item=new Item(){X=20/n,Y=4};return item.X+item.Y;}catch(System.DivideByZeroException){return 74;}}}\n",
+    "runs": [
+      {
+        "n": -1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 0,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 2,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 3,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 4,
+        "a": [],
+        "s": ""
+      }
+    ]
+  },
+  {
+    "id": "object_initializer_effect_catch",
+    "accepted": true,
+    "source": "namespace Business;public sealed class Item{public int X{get;init;}public int Y{get;init;}}public static class Entry{public static int Run(int n,int[] a,string s){try{Item item=new Item(){X=n++,Y=20/n};return item.X+item.Y+n;}catch(System.DivideByZeroException){return n+75;}}}\n",
+    "runs": [
+      {
+        "n": -1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 0,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 2,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 3,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 4,
+        "a": [],
+        "s": ""
+      }
+    ]
+  },
+  {
+    "id": "excluded_system_exception_catch",
+    "accepted": false,
+    "source": "namespace Business;public static class Entry{public static int Run(int n,int[] a,string s){try{try{if(n==0)throw new System.ArgumentException();return 20/n;}catch(System.Exception){throw;}}catch(System.ArgumentException){return 76;}}}\n",
+    "runs": [
+      {
+        "n": -1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 0,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 2,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 3,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 4,
+        "a": [],
+        "s": ""
+      }
+    ],
+    "diagnostic": "CSHARP_PRACTICAL_TYPE/exception_catch_type"
+  },
+  {
+    "id": "closed_rethrow",
+    "accepted": true,
+    "source": "namespace Business;public static class Entry{public static int Run(int n,int[] a,string s){try{try{if(n==0)throw new System.ArgumentNullException();if(n==1)throw new System.ArgumentException();return 20/n;}catch(System.ArgumentException){throw;}}catch(System.ArgumentNullException){return 76;}catch(System.ArgumentException){return 77;}}}\n",
+    "runs": [
+      {
+        "n": -1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 0,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 2,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 3,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 4,
+        "a": [],
+        "s": ""
+      }
+    ]
+  },
+  {
+    "id": "object_constructor_loop",
+    "accepted": true,
+    "source": "namespace Business;public sealed class Item{public int X{get;}public int Y{get;}public Item(int n){int total=0;for(int i=0;i<n;i++){total+=i;}X=total;Y=20/n;}}public static class Entry{public static int Run(int n,int[] a,string s){try{Item v=new Item(n);return v.X+v.Y;}catch(System.DivideByZeroException){return 78;}}}\n",
+    "runs": [
+      {
+        "n": -1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 0,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 2,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 3,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 4,
+        "a": [],
+        "s": ""
+      }
+    ]
+  },
+  {
+    "id": "constructor_unfinished_read",
+    "accepted": false,
+    "source": "namespace Business;public readonly struct Item{public int X{get;}public int Y{get;}public Item(int n){int total=0;for(int i=0;i<n;i++){total+=i;}X=total;Y=X+20/n;}}public static class Entry{public static int Run(int n,int[] a,string s){try{Item v=new Item(n);return v.X+v.Y;}catch(System.DivideByZeroException){return 79;}}}\n",
+    "runs": [
+      {
+        "n": -1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 0,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 2,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 3,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 4,
+        "a": [],
+        "s": ""
+      }
+    ],
+    "diagnostic": "CSHARP_PRACTICAL_OBJECT/unfinished_receiver_escape"
+  },
+  {
+    "id": "partial_sequence_loop_catch",
+    "accepted": true,
+    "source": "namespace Business;public sealed class Item{public int X{get;}public Item(int n){X=20/n;}}public static class Entry{public static int Run(int n,int[] a,string s){try{Item[] v=new Item[3];for(int i=0;i<3;i++){v[i]=new Item(n-i);}return v[2].X;}catch(System.DivideByZeroException){return 80;}}}\n",
+    "runs": [
+      {
+        "n": -1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 0,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 2,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 3,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 4,
+        "a": [],
+        "s": ""
+      }
+    ]
+  },
+  {
+    "id": "value_constructor_loop",
+    "accepted": true,
+    "source": "namespace Business;public readonly struct Item{public int X{get;}public int Y{get;}public Item(int n){int total=0;for(int i=0;i<n;i++){total+=i;}X=total;Y=total+20/n;}}public static class Entry{public static int Run(int n,int[] a,string s){try{Item v=new Item(n);return v.X+v.Y;}catch(System.DivideByZeroException){return 79;}}}\n",
+    "runs": [
+      {
+        "n": -1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 0,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 2,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 3,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 4,
+        "a": [],
+        "s": ""
+      }
+    ]
+  },
+  {
+    "id": "array_return_finally",
+    "accepted": true,
+    "source": "namespace Business;public static class Entry{private static int[] Build(int n){try{return new int[]{20/n};}finally{n++;}}public static int Run(int n,int[] a,string s){try{return Build(n)[0];}catch(System.DivideByZeroException){return 81;}}}\n",
+    "runs": [
+      {
+        "n": -1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 0,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 2,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 3,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 4,
+        "a": [],
+        "s": ""
+      }
+    ]
+  },
+  {
+    "id": "array_alias_handler",
+    "accepted": true,
+    "source": "namespace Business;public static class Entry{public static int Run(int n,int[] a,string s){int[] v=new int[]{4,5};int[] copy=v;try{return copy[0]+20/n;}catch(System.DivideByZeroException){return copy[1];}}}\n",
+    "runs": [
+      {
+        "n": -1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 0,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 2,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 3,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 4,
+        "a": [],
+        "s": ""
+      }
+    ]
+  },
+  {
+    "id": "array_nullable_return_finally",
+    "accepted": true,
+    "source": "namespace Business;public static class Entry{private static int[]? Build(int n){try{if(n<0)return null;return new int[]{20/n};}finally{n++;}}public static int Run(int n,int[] a,string s){try{int[]? v=Build(n);return v is null?82:v[0];}catch(System.DivideByZeroException){return 83;}}}\n",
+    "runs": [
+      {
+        "n": -1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 0,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 2,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 3,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 4,
+        "a": [],
+        "s": ""
+      }
+    ]
+  },
+  {
+    "id": "value_constructor_finally",
+    "accepted": false,
+    "source": "namespace Business;public readonly struct Item{public int X{get;}public Item(int n){try{if(n>0)return;}finally{X=n+10;}}}public static class Entry{public static int Run(int n,int[] a,string s){Item v=new Item(n);return v.X;}}\n",
+    "runs": [
+      {
+        "n": -1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 0,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 2,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 3,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 4,
+        "a": [],
+        "s": ""
+      }
+    ],
+    "diagnostic": "CSHARP_PRACTICAL_OBJECT/unfinished_receiver_handler"
+  },
+  {
+    "id": "object_constructor_finally",
+    "accepted": false,
+    "source": "namespace Business;public sealed class Item{public int X{get;}public Item(int n){try{if(n>0)return;}finally{X=n+10;}}}public static class Entry{public static int Run(int n,int[] a,string s){Item v=new Item(n);return v.X;}}\n",
+    "runs": [
+      {
+        "n": -1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 0,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 2,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 3,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 4,
+        "a": [],
+        "s": ""
+      }
+    ],
+    "diagnostic": "CSHARP_PRACTICAL_OBJECT/unfinished_receiver_handler"
+  },
+  {
+    "id": "unreachable_catch_object",
+    "accepted": true,
+    "source": "namespace Business;public sealed class Item{public int X{get;}public Item(int n){X=n;}}public static class Entry{public static int Run(int n,int[] a,string s){try{return n>0?1:2;}catch(System.ArgumentException){Item v=new Item(n);return v.X;}}}\n",
+    "runs": [
+      {
+        "n": -1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 0,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 2,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 3,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 4,
+        "a": [],
+        "s": ""
+      }
+    ]
+  },
+  {
+    "id": "void_return_finally",
+    "accepted": true,
+    "source": "namespace Business;public static class Entry{public static void Cleanup(int n){try{return;}finally{int ignored=10/n;}}public static int Run(int n,int[] a,string s){try{Cleanup(n);return 7;}catch(System.DivideByZeroException){return 8;}}}\n",
+    "runs": [
+      {
+        "n": -1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 0,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 1,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 2,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 3,
+        "a": [],
+        "s": ""
+      },
+      {
+        "n": 4,
+        "a": [],
+        "s": ""
+      }
+    ]
+  }
+]

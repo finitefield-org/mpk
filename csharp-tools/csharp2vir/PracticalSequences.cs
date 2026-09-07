@@ -50,6 +50,11 @@ internal static class CSharpPracticalSequences
     {
         PracticalArrays arrays = CSharpPracticalArrays.Validate(selection, inputs, references, invariantClaims, sequenceConstruction:true, validateStrings:validatedCompilation,
             deferSidecarAttachment:allowLoopControl && selection.SidecarPaths.Count!=0, allowLoopControl: allowLoopControl, allowPatternControl: allowPatternControl, allowExceptionControl: allowExceptionControl, allowHandlers: allowHandlers);
+        return FromValidatedArrays(arrays, bindings);
+    }
+    internal static PracticalSequences FromValidatedArrays(PracticalArrays arrays,
+        IReadOnlyList<PracticalSequenceBinding>? bindings = null)
+    {
         var projections = new List<PracticalSequenceProjection>();
         foreach (PracticalSequenceBinding binding in bindings ?? Array.Empty<PracticalSequenceBinding>()) {
             PracticalDataType? type = arrays.Construction.Data.Types.SingleOrDefault(t => t.Id == binding.SourceTypeId);

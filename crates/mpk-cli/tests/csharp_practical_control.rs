@@ -1,6 +1,7 @@
 //! CSHARP-03-T04-W01: actual Roslyn source handoffs and retained sidecar mutations.
 //! CSHARP-03-T04-W02: structured CFGs, ownership and runtime differentials.
 //! CSHARP-03-T04-W03: switch and pattern decision graphs.
+//! CSHARP-03-T04-W06: ordinary control emission, import and construction ownership.
 use mpk_vc::csharp_practical_source_artifacts::{self as a, PracticalJsonValue as J};
 use mpk_vc::csharp_practical_vir_model::*;
 use mpk_vc::hash_domain_separated_raw;
@@ -860,3 +861,6 @@ mod exceptions;
 
 #[path = "support/csharp_practical_handler_lowering.rs"]
 mod handlers;
+
+#[path = "support/csharp_practical_control_emission.rs"]
+mod emission;

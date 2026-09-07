@@ -6,6 +6,8 @@ use crate::csharp_practical_source_artifacts::{CapturedInputSet, PracticalArtifa
 #[derive(Clone, Debug, Deserialize)]
 #[serde(deny_unknown_fields)]
 struct DataSourceWire {
+    #[serde(default)]
+    control_lowering: Option<Value>,
     compilation_id: String,
     input_files: Vec<DataSourceInput>,
     types: Vec<DataSourceType>,
@@ -300,6 +302,9 @@ impl ValidatedDataSource {
     }
     pub fn body(&self, id: &str) -> Option<&[DataSourceOperation]> {
         self.bodies.get(id).map(Vec::as_slice)
+    }
+    pub fn control_lowering(&self) -> Option<&Value> {
+        self.wire.control_lowering.as_ref()
     }
     pub fn source_roots(&self) -> &ValidatedClosedRootSet {
         &self.roots
@@ -652,6 +657,22 @@ impl ValidatedDataSource {
                         {
                             return Err(fail);
                         }
+                    } else if wire.control_lowering.is_some()
+                        && key.starts_with("source_exception:")
+                    {
+                        if !matches!(key.as_str(),
+                            "source_exception:System.Exception" |
+                            "source_exception:System.DivideByZeroException" |
+                            "source_exception:System.OverflowException" |
+                            "source_exception:System.IndexOutOfRangeException" |
+                            "source_exception:System.ArgumentException" |
+                            "source_exception:System.ArgumentOutOfRangeException" |
+                            "source_exception:System.ArgumentNullException" |
+                            "source_exception:System.InvalidOperationException" |
+                            "source_exception:System.NullReferenceException" |
+                            "source_exception:System.Runtime.CompilerServices.SwitchExpressionException") {
+                            return Err(fail);
+                        }
                     } else {
                         let ty = parse_data_type_key(b, key)?;
                         add_root(
@@ -688,13 +709,17 @@ impl ValidatedDataSource {
                     return Err(fail);
                 }
                 open.push(node.child_count);
-                if matches!(
-                    node.kind.as_str(),
-                    "Loop" | "ForEachLoop" | "WhileLoop" | "ForLoop"
-                ) {
+                if wire.control_lowering.is_none()
+                    && matches!(
+                        node.kind.as_str(),
+                        "Loop" | "ForEachLoop" | "WhileLoop" | "ForLoop"
+                    )
+                {
                     return Err(DataPhaseError::LaterOwner("CSHARP-03-T04-W01"));
                 }
-                if matches!(node.kind.as_str(), "Throw" | "Try" | "CatchClause") {
+                if wire.control_lowering.is_none()
+                    && matches!(node.kind.as_str(), "Throw" | "Try" | "CatchClause")
+                {
                     return Err(DataPhaseError::LaterOwner("CSHARP-03-T04-W05"));
                 }
             }
@@ -981,7 +1006,19 @@ impl ValidatedDataSource {
                     o.family.as_str(),
                     "construction" | "string" | "domain" | "business" | "array"
                 )
-                || !valid_obligation_kind(&o.family, &o.kind)
+                || !(valid_obligation_kind(&o.family, &o.kind)
+                    || wire.control_lowering.is_some()
+                        && o.family == "array"
+                        && o.type_id.is_empty()
+                        && matches!(
+                            (o.kind.as_str(), o.predicate.as_str()),
+                            ("loop_header", "ownership_and_initialized_prefix_invariant")
+                                | (
+                                    "loop_backedge",
+                                    "ownership_phi_and_initialized_prefix_preservation"
+                                )
+                                | ("loop_exit", "structured_exit_ownership_and_publication")
+                        ))
                 || (o.family == "array") != !o.predicate.is_empty()
                 || matches!(o.family.as_str(), "construction" | "domain" | "business")
                     && o.type_id.is_empty()
@@ -1002,6 +1039,30 @@ impl ValidatedDataSource {
                     &format!("{}.obligation.{ordinal:06}", o.declaration_id),
                     &mut root_values,
                 )?;
+            }
+        }
+        if wire.control_lowering.is_some() {
+            for callable in &wire.callables {
+                if wire
+                    .control_lowering
+                    .as_ref()
+                    .and_then(|c| c["handlers"].as_array())
+                    .is_some_and(|handlers| {
+                        handlers.iter().any(|h| {
+                            h["callable_id"] == callable.id
+                                && h["regions"].as_array().is_some_and(|rs| {
+                                    rs.iter().any(|r| r["finally_entry"].is_string())
+                                })
+                        })
+                    })
+                    && callable.result["template"] != "option"
+                {
+                    add_root(
+                        &json!({"kind":"instance","template":"option","arguments":[callable.result]}),
+                        &format!("{}.control.pending_return", callable.id),
+                        &mut root_values,
+                    )?;
+                }
             }
         }
         let constructor_assignments = derive_constructor_assignments(&wire, &bodies)?;
@@ -1028,7 +1089,7 @@ impl ValidatedDataSource {
                 )?;
             }
         }
-        Ok(Self {
+        let source = Self {
             captured_facts: bytes.to_vec(),
             wire,
             bodies,
@@ -1038,7 +1099,13 @@ impl ValidatedDataSource {
             semantic_context: context.semantic_context().clone(),
             selection_sha256: context.selection_sha256().into(),
             snapshot_sha256: captures.snapshot_sha256().into(),
-        })
+        };
+        if source.control_lowering().is_some() {
+            // The marker widens the admitted source vocabulary, so validation
+            // belongs at this boundary, before any caller can consume roots.
+            validate_control_source(b, &source)?;
+        }
+        Ok(source)
     }
 }
 /// Reconstruct the W05 ordering from the captured operation tree. The private
@@ -1430,6 +1497,26 @@ fn derive_constructor_assignments(
                 let call = nested[0];
                 if body[call].kind != "Invocation" {
                     return Err(DataPhaseError::Source);
+                }
+                if body[call].symbol == "System.Runtime|System.Exception.Exception()"
+                    && children[call].len() == 1
+                    && body[children[call][0]].kind == "InstanceReference"
+                    && body[children[call][0]].ty.as_deref()
+                        == Some("source_exception:System.Exception")
+                    && self
+                        .wire
+                        .control_lowering
+                        .as_ref()
+                        .and_then(|c| c["exception_definitions"].as_array())
+                        .is_some_and(|defs| {
+                            defs.iter().any(|d| {
+                                d["type_id"] == owner.id
+                                    && d["sealed_type"] == true
+                                    && d["direct_base_type_id"] == "System.Exception"
+                            })
+                        })
+                {
+                    return Ok(Some(state));
                 }
                 for argument in children[call]
                     .iter()

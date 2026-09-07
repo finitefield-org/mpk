@@ -28,7 +28,8 @@ internal static partial class CSharpPracticalLoopLowering
     }
     internal sealed record Region(string loop_id, string? parent, string header, string body,
         string continue_target, string exit, string[] backedges);
-    internal sealed record Function(string callable_id, JsonElement[] operations, Node[] nodes, Region[] loops);
+    internal sealed record Function(string callable_id, JsonElement[] operations, Node[] nodes, Region[] loops,
+        [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] object[]? operation_locations=null);
     internal sealed record Op(int Ordinal, JsonElement Fact, IOperation? Source, Op[] Children)
     {
         internal string Kind => Fact.GetProperty("kind").GetString()!;
@@ -43,6 +44,15 @@ internal static partial class CSharpPracticalLoopLowering
             var facts=JsonSerializer.Deserialize<JsonElement>(CSharpPracticalLoopContracts.Capture(selection,inputs,references,allowPatterns,allowExceptions,allowHandlers));
             var sequence=CSharpPracticalSequences.Validate(selection,inputs,references,allowLoopControl:true, allowPatternControl:allowPatterns, allowExceptionControl:allowExceptions, allowHandlers:allowHandlers,
                 validatedCompilation:c=>{exceptionCompilation=c;if(allowPatterns)ValidatePatterns(c,totalGetters??Array.Empty<string>());});
+            return CaptureValidated(sequence, facts, exceptionCompilation!, allowPatterns, totalGetters, allowExceptions, allowHandlers);
+        } catch(PracticalCaptureFailure) { throw; }
+        catch(Exception) { throw PracticalFailures.Protocol("loop_lowering_capture"); }
+    }
+    internal static byte[] CaptureValidated(PracticalSequences sequence, JsonElement facts,
+        CSharpCompilation exceptionCompilation, bool allowPatterns,
+        IReadOnlyList<string>? totalGetters, bool allowExceptions, bool allowHandlers, bool ssaConditions = false)
+    {
+        if(allowPatterns)ValidatePatterns(exceptionCompilation,totalGetters??Array.Empty<string>());
             var syntax=sequence.Arrays.Construction.Data.Syntax;
             var functions=new List<Function>();var handlers=new List<object>();
             int closureBlocks=0;
@@ -53,11 +63,11 @@ internal static partial class CSharpPracticalLoopLowering
                 // W06 composes them with these control bodies at VIR emission.
                 if(!allowHandlers && !(allowExceptions && callable.OperationNodes.Any(o=>o is IThrowOperation)) && method.GetProperty("loops").GetArrayLength()==0 && !(allowPatterns && callable.OperationNodes.Any(o=>o is ISwitchOperation or ISwitchExpressionOperation or IIsPatternOperation)))continue;
                 var source=syntax.SourceClosure.Sources.Single(s=>s.Path==method.GetProperty("source_path").GetString());
-                var builder=new Builder(callable,method,source,CountBlock,allowPatterns,allowExceptions,allowHandlers);
+                var builder=new Builder(callable,method,source,CountBlock,allowPatterns,allowExceptions,allowHandlers,ssaConditions,sequence.Arrays.Steps);
                 functions.Add(builder.Build());if(allowHandlers)handlers.Add(builder.HandlerGraph());
             }
             if(allowHandlers)return JsonSerializer.SerializeToUtf8Bytes(new {
-                schema="mpk.csharp_practical.t04_w05.handler_lowering.v1",facts,
+                schema=ssaConditions?"mpk.csharp_practical.t04_w06.control_lowering.v1":"mpk.csharp_practical.t04_w05.handler_lowering.v1",facts,
                 normalized_syntax_sha256=syntax.SemanticSha256,
                 normalized_syntax_utf8=System.Text.Encoding.UTF8.GetString(syntax.CopyCanonicalBytes()),
                 sequence_handoff=JsonSerializer.Deserialize<JsonElement>(sequence.CopyCanonicalBytes()),functions,handlers,
@@ -86,8 +96,6 @@ internal static partial class CSharpPracticalLoopLowering
                 sequence_handoff=JsonSerializer.Deserialize<JsonElement>(sequence.CopyCanonicalBytes()),
                 functions,
             });
-        } catch(PracticalCaptureFailure) { throw; }
-        catch(Exception) { throw PracticalFailures.Protocol("loop_lowering_capture"); }
     }
     internal static void ValidateCandidate(PracticalSourceSelection selection,
         IEnumerable<PracticalCapturedInput> inputs,ImmutableArray<MetadataReference> references,
@@ -151,6 +159,7 @@ internal static partial class CSharpPracticalLoopLowering
         private readonly PracticalSourceFile source;
         private readonly JsonElement[] operations;
         private readonly Action countBlock;
+        private readonly bool ssaConditions;
         private readonly Dictionary<IOperation,Op> original=new();
         private readonly List<Node> nodes=new();
         private readonly List<Region> regions=new();
@@ -159,9 +168,10 @@ internal static partial class CSharpPracticalLoopLowering
         private Node? current;
         private int nextValue,nextSlot;
         private Node? exception;
-        internal Builder(PracticalNormalizedCallable callable,JsonElement method,PracticalSourceFile source,Action countBlock,bool allowPatterns,bool allowExceptions,bool allowHandlers)
+        internal Builder(PracticalNormalizedCallable callable,JsonElement method,PracticalSourceFile source,Action countBlock,bool allowPatterns,bool allowExceptions,bool allowHandlers,bool ssaConditions = false,IReadOnlyList<PracticalArrayStep>? arraySteps=null)
         {
-            this.allowHandlers=allowHandlers;this.allowExceptions=allowExceptions;this.callable=callable;this.method=method;this.source=source;this.countBlock=countBlock;this.allowPatterns=allowPatterns;
+            aliasPublications=(arraySteps??Array.Empty<PracticalArrayStep>()).Where(s=>s.Operation=="alias_freeze").Select(s=>s.Site).ToHashSet(StringComparer.Ordinal);
+            this.ssaConditions=ssaConditions;this.allowHandlers=allowHandlers;this.allowExceptions=allowExceptions;this.callable=callable;this.method=method;this.source=source;this.countBlock=countBlock;this.allowPatterns=allowPatterns;
             operations=JsonSerializer.Deserialize<JsonElement[]>(callable.CopyBodyBytes())!;
             int offset=0;
             Op Read(int depth) {
@@ -184,6 +194,8 @@ internal static partial class CSharpPracticalLoopLowering
             if(current is null)throw Fail("unreachable_emission");
             var node=New(kind,op);Link(current,node);current=node;return node;
         }
+        private readonly HashSet<string> aliasPublications;
+        private bool AliasPublication(Op op)=>ssaConditions && op.Source is not null && aliasPublications.Contains(op.Source.Syntax.SyntaxTree.FilePath+":"+op.Source.Syntax.SpanStart.ToString(System.Globalization.CultureInfo.InvariantCulture)+":"+op.Source.Kind);
         private string Temp()=>"temporary:"+(nextSlot++).ToString(System.Globalization.CultureInfo.InvariantCulture);
         private string Eval(string operation,Op? op,string[] inputs,bool mayThrow=false,string slot="") {
             var node=Append("evaluate",op);node.operation=operation;node.inputs=inputs;node.slot=slot;
@@ -205,7 +217,11 @@ internal static partial class CSharpPracticalLoopLowering
             foreach(var node in retained) {node.id=ids[node.id];node.successors=node.successors.Select(id=>ids[id]).ToArray();node.exceptional_successors=node.exceptional_successors.Select(id=>ids[id]).ToArray();}
             var mapped=regions.Select(r=>new Region(r.loop_id,r.parent,ids[r.header],ids[r.body],ids[r.continue_target],ids[r.exit],r.backedges.Select(id=>ids[id]).ToArray())).OrderBy(r=>r.loop_id,StringComparer.Ordinal).ToArray();
             if(allowHandlers)FinishHandlers(retained);
-            return new(callable.Id,operations,retained,mapped);
+            object[]? locations=ssaConditions?callable.OperationNodes.Select(operation=>(object)new {
+                start_byte=operation is null?method.GetProperty("start_byte").GetInt32():source.ByteOffset(operation.Syntax.SpanStart),
+                end_byte=operation is null?method.GetProperty("end_byte").GetInt32():source.ByteOffset(operation.Syntax.Span.End),
+            }).ToArray():null;
+            return new(callable.Id,operations,retained,mapped,locations);
         }
         private void Statement(Op op) {
             if(current is null)return; // only a structurally unreachable suffix
@@ -213,13 +229,18 @@ internal static partial class CSharpPracticalLoopLowering
                 case "Block":case "VariableDeclarationGroup":case "VariableDeclaration":
                     foreach(var child in op.Children)Statement(child);break;
                 case "VariableDeclarator":
-                    if(op.Children.Length!=0)Store(op.Symbol,Expression(op.Children[0]),op);break;
+                    if(op.Children.Length!=0){var initial=op.Children[0];while(initial.Kind=="VariableInitializer")initial=initial.Children.Single();string value=Expression(initial);if(AliasPublication(op))value=Eval("publish",initial,new[]{value});Store(op.Symbol,value,op);}break;
                 case "ExpressionStatement":Expression(op.Children.Single());break;
                 case "Return":
                     var result=op.Children.Select(Expression).ToArray();var returned=Append("return",op);returned.inputs=result;if(allowHandlers)Complete(returned,"return",null);current=null;break;
                 case "Conditional":
-                    var test=Expression(op.Children[0]);var branch=Append("branch",op);branch.inputs=new[]{test};
-                    Node yes=New("jump"),no=New("jump"),join=New("jump");branch.successors=new[]{yes.id,no.id};
+                    Node yes,no,join;
+                    if(ssaConditions) {
+                        yes=New("jump");no=New("jump");join=New("jump");Condition(op.Children[0],yes,no);
+                    } else {
+                        var test=Expression(op.Children[0]);var branch=Append("branch",op);branch.inputs=new[]{test};
+                        yes=New("jump");no=New("jump");join=New("jump");branch.successors=new[]{yes.id,no.id};
+                    }
                     current=yes;Statement(op.Children[1]);bool yesLive=current is not null;if(yesLive)Link(current!,join);
                     current=no;if(op.Children.Length>2)Statement(op.Children[2]);bool noLive=current is not null;if(noLive)Link(current!,join);
                     if(!yesLive&&!noLive)join.kind="unreachable";
@@ -235,6 +256,14 @@ internal static partial class CSharpPracticalLoopLowering
                     if(!SymbolEqualityComparer.Default.Equals(abrupt.Target,isBreak?target.Loop.ExitLabel:target.Loop.ContinueLabel))throw Fail("abrupt_target");
                     var edge=Append(isBreak?"break":"continue",op);edge.slot=target.Id;Link(edge,isBreak?target.Exit:target.Continue);if(allowHandlers)Complete(edge,isBreak?"break":"continue",isBreak?target.Exit:target.Continue);current=null;break;
                 case "Try" when allowHandlers:TryStatement(op);break;
+                case "ConstructorInitializer" when allowExceptions && op.Children.Length==1
+                    && op.Children[0].Kind=="Invocation"
+                    && op.Children[0].Symbol=="System.Runtime|System.Exception.Exception()"
+                    && op.Children[0].Children.Length==1
+                    && op.Children[0].Children[0].Kind=="InstanceReference":
+                    // The capture owner has checked the sealed direct Exception
+                    // declaration. Its parameterless base has no observable state.
+                    break;
                 case "Empty":break;
                 // Switch/exception source remains with its serial owner.
                 case "Throw" when allowExceptions:ExplicitThrow(op);break;
@@ -267,6 +296,13 @@ internal static partial class CSharpPracticalLoopLowering
             if(bottom)Link(header,body);
             else {
                 current=header;
+                var sourceCondition=loop switch {
+                    IForLoopOperation conditional=>conditional.Condition,
+                    IWhileLoopOperation conditional=>conditional.Condition,
+                    _=>null,
+                };
+                if(ssaConditions && sourceCondition is not null)Condition(Get(sourceCondition),body,exit);
+                else {
                 string condition=loop switch {
                     IForEachLoopOperation=>Eval("less",op,new[]{Load(index),length}),
                     IForLoopOperation {Condition:not null} conditional=>Expression(Get(conditional.Condition)),
@@ -274,6 +310,7 @@ internal static partial class CSharpPracticalLoopLowering
                     _=>Eval("true",op,Array.Empty<string>()),
                 };
                 var branch=Append("branch",op);branch.inputs=new[]{condition};branch.successors=new[]{body.id,exit.id};
+                }
             }
             current=body;
             if(loop is IForEachLoopOperation iteration) {
@@ -287,13 +324,34 @@ internal static partial class CSharpPracticalLoopLowering
             if(loop is IForEachLoopOperation)Store(index,Eval("increment",op,new[]{Load(index)}),op);
             string backedge;
             if(bottom) {
+                if(ssaConditions) {
+                    // A single join is the declared backedge even when the
+                    // condition itself has several short-circuit exits.
+                    var back=New("jump");Condition(Get(((IWhileLoopOperation)loop).Condition!),back,exit);
+                    Link(back,header);backedge=back.id;
+                } else {
                 var condition=Expression(Get(((IWhileLoopOperation)loop).Condition!));
                 var branch=Append("branch",op);branch.inputs=new[]{condition};branch.successors=new[]{header.id,exit.id};backedge=branch.id;
+                }
             } else { Link(current!,header);backedge=current!.id; }
             header.successors=header.successors.Concat(new[]{exit.id}).ToArray();
             loops.Pop();regions.Add(new(id,parent,header.id,header.successors[0],tail.id,exit.id,new[]{backedge}));current=exit;
         }
         private string Conditional(Op op,Op test,Op yes,Op? no,bool shortCircuit=false) {
+            if(ssaConditions && shortCircuit) {
+                string result=Temp();var yesNode=New("jump");var noNode=New("jump");var joinNode=New("jump");
+                Condition(op,yesNode,noNode);
+                current=yesNode;Store(result,Eval("condition_true",op,Array.Empty<string>()),op);Link(current!,joinNode);
+                current=noNode;Store(result,Eval("condition_false",op,Array.Empty<string>()),op);Link(current!,joinNode);
+                current=joinNode;return Load(result,op);
+            }
+            if(ssaConditions && !shortCircuit) {
+                string result=Temp();Node yesNode=New("jump"),noNode=New("jump"),resultJoin=New("jump");
+                Condition(test,yesNode,noNode);
+                current=yesNode;Store(result,Eval("join_value",op,new[]{Expression(yes)}),op);Link(current!,resultJoin);
+                current=noNode;Store(result,Eval("join_value",op,new[]{Expression(no!)}),op);Link(current!,resultJoin);
+                current=resultJoin;return Load(result,op);
+            }
             string condition=Expression(test),slot=Temp();var branch=Append("branch",op);branch.inputs=new[]{condition};
             Node left=New("jump"),right=New("jump"),join=New("jump");branch.successors=new[]{left.id,right.id};
             bool and=op.Source is IBinaryOperation {OperatorKind:BinaryOperatorKind.ConditionalAnd};
@@ -308,6 +366,21 @@ internal static partial class CSharpPracticalLoopLowering
         }
         private string Read((string Slot,string[] Address) address,Op op)=>address.Slot.Length!=0?Load(address.Slot,op):Eval("element",op,address.Address,true);
         private string Write((string Slot,string[] Address) address,string value,Op op)=>address.Slot.Length!=0?Store(address.Slot,value,op):Eval("update",op,address.Address.Concat(new[]{value}).ToArray(),true);
+        private string InitializerTransaction(Op op) {
+            var creation=(IObjectCreationOperation)op.Source!;
+            var arguments=creation.Arguments.Select(argument=>{
+                string value=Expression(Get(argument));
+                return argument.Value.Type is IArrayTypeSymbol?Eval("publish",Get(argument.Value),new[]{value}):value;
+            }).ToArray();
+            string state=Eval("construction_begin",op,Array.Empty<string>());
+            state=Eval("construction_invoke",op,new[]{state}.Concat(arguments).ToArray(),true);
+            foreach(var item in creation.Initializer!.Initializers) {
+                if(item is not ISimpleAssignmentOperation assignment)throw Fail("initializer_assignment");
+                string value=Expression(Get(assignment.Value));
+                state=Eval("construction_write",Get(assignment),new[]{state,value},slot:op.Ordinal.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            }
+            return Eval("construction_finalize",op,new[]{state},true);
+        }
         private string Expression(Op op) {
             if(allowPatterns && op.Kind=="FieldReference" && op.Source?.ConstantValue.HasValue==true)return Eval("pattern_constant",op,Array.Empty<string>());
             switch(op.Kind) {
@@ -324,7 +397,7 @@ internal static partial class CSharpPracticalLoopLowering
                         var receiver=Expression(target.Children[0]);var assigned=Expression(op.Children[1]);
                         return Eval("construction_assign",op,new[]{receiver,assigned},slot:target.Symbol);
                     }
-                    var address=Address(target);var value=Expression(op.Children[1]);return Write(address,value,op);
+                    var address=Address(target);var value=Expression(op.Children[1]);if(AliasPublication(op))value=Eval("publish",op.Children[1],new[]{value});return Write(address,value,op);
                 }
                 case "CompoundAssignment": {var address=Address(op.Children[0]);var left=Read(address,op);var right=Expression(op.Children[1]);return Write(address,Eval("binary",op,new[]{left,right},true),op);}
                 case "Increment":case "Decrement": {var address=Address(op.Children.Single());var prior=Read(address,op);var value=Eval("unary_update",op,new[]{prior},true);Write(address,value,op);return ((IIncrementOrDecrementOperation)op.Source!).IsPostfix?prior:value;}
@@ -351,7 +424,14 @@ internal static partial class CSharpPracticalLoopLowering
                         return Eval("exception_payload",op,op.Children.Select(Expression).ToArray(),slot:op.Symbol);
                     return Eval("member",op,op.Children.Select(Expression).ToArray(),true);
                 case "InstanceReference":return Load("this",op);
-                case "Invocation":case "ObjectCreation":return Eval(op.Kind=="Invocation"?"call":"construct",op,op.Children.Select(Expression).ToArray(),true);
+                case "ObjectCreation" when ssaConditions && op.Source is IObjectCreationOperation {Initializer:not null}:return InitializerTransaction(op);
+                case "Invocation":case "ObjectCreation":
+                    var arguments=op.Children.Select(child=>{
+                        string value=Expression(child);
+                        return ssaConditions && child.Source is IArgumentOperation argument && argument.Value.Type is IArrayTypeSymbol
+                            ?Eval("publish",Get(argument.Value),new[]{value}):value;
+                    }).ToArray();
+                    return Eval(op.Kind=="Invocation"?"call":"construct",op,arguments,true);
                 default:throw Fail("expression_shape");
             }
         }

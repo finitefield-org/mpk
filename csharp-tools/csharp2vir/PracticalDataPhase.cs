@@ -26,10 +26,10 @@ internal static class CSharpPracticalDataPhase
     // those actual selected bytes and resolves stored-member IDs against this
     // compilation before invoking the existing W12/W13 source validators.
     internal static PracticalDataSource CaptureSelected(PracticalSourceSelection selection,
-        IEnumerable<PracticalCapturedInput> supplied, ImmutableArray<MetadataReference> references)
+        IEnumerable<PracticalCapturedInput> supplied, ImmutableArray<MetadataReference> references, bool allowControl = false, Action<PracticalBusiness,CSharpCompilation>? validatedSource = null)
     {
         var inputs=supplied.ToArray();
-        var initial=Capture(selection,inputs,references);
+        var initial=Capture(selection,inputs,references,allowControl:allowControl);
         using var facts=JsonDocument.Parse(initial.CopyBytes());
         var business=new List<PracticalBusinessBinding>();var outcomes=new List<PracticalOutcomeBinding>();
         foreach(var input in inputs.Where(i=>i.Kind==PracticalCapturedInputKind.Sidecar)) {
@@ -58,7 +58,7 @@ internal static class CSharpPracticalDataPhase
                 }
             }
         }
-        return Capture(selection,inputs,references,business,outcomes);
+        return Capture(selection,inputs,references,business,outcomes,allowControl,validatedSource);
     }
     private static string StoredMemberId(string owner,JsonElement member)
     {
@@ -80,22 +80,22 @@ internal static class CSharpPracticalDataPhase
     internal static PracticalDataSource Capture(PracticalSourceSelection selection,
         IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references,
         IReadOnlyList<PracticalBusinessBinding>? businessBindings = null,
-        IReadOnlyList<PracticalOutcomeBinding>? outcomeBindings = null)
+        IReadOnlyList<PracticalOutcomeBinding>? outcomeBindings = null, bool allowControl = false, Action<PracticalBusiness,CSharpCompilation>? validatedSource = null)
     {
         inputs=inputs.ToArray();
         CSharpCompilation? compilation = null;
         var business = CSharpPracticalBusiness.Validate(selection, inputs, references,
-            businessBindings, outcomeBindings, c => compilation = c, deferSidecarAttachment: selection.SidecarPaths.Count != 0);
+            businessBindings, outcomeBindings, c => compilation = c, deferSidecarAttachment: selection.SidecarPaths.Count != 0, allowControl: allowControl);
         var data = business.Domain.Numeric.Strings.Arrays.Construction.Data;
         var closure = data.Syntax.SourceClosure;
         foreach (var tree in compilation!.SyntaxTrees)
         {
             foreach (var node in tree.GetRoot().DescendantNodes())
             {
-                if (node is ForStatementSyntax or ForEachStatementSyntax or ForEachVariableStatementSyntax
-                    or WhileStatementSyntax or DoStatementSyntax)
+                if (!allowControl && node is (ForStatementSyntax or ForEachStatementSyntax or ForEachVariableStatementSyntax
+                    or WhileStatementSyntax or DoStatementSyntax))
                     throw PracticalFailures.Type("data_later_owner_T04_W01_W02");
-                if (node is TryStatementSyntax or ThrowStatementSyntax or ThrowExpressionSyntax)
+                if (!allowControl && node is (TryStatementSyntax or ThrowStatementSyntax or ThrowExpressionSyntax))
                     throw PracticalFailures.Type("data_later_owner_T04_W05");
             }
         }
@@ -107,7 +107,7 @@ internal static class CSharpPracticalDataPhase
             foreach (var declaration in tree.GetRoot().DescendantNodes().OfType<BaseTypeDeclarationSyntax>())
             {
                 var symbol = (INamedTypeSymbol)model.GetDeclaredSymbol(declaration)!;
-                if (CSharpPracticalDataTypes.ClassifySourceException(symbol) is not null)
+                if (!allowControl && CSharpPracticalDataTypes.ClassifySourceException(symbol) is not null)
                     throw PracticalFailures.Type("data_later_owner_T04_W04");
                 symbols.Add(PracticalIdentity.SourceTypeId(symbol.ContainingNamespace.ToDisplayString(), symbol.Name), symbol);
             }
@@ -183,7 +183,7 @@ internal static class CSharpPracticalDataPhase
                 body_utf8="[]",data_steps=Array.Empty<object>(),initialization_plans=Array.Empty<object>(),
             });
         }
-        return new PracticalDataSource(JsonSerializer.SerializeToUtf8Bytes(new {
+        var bytes = JsonSerializer.SerializeToUtf8Bytes(new {
             compilation_id=selection.CompilationId,
             input_files=inputs.OrderBy(i=>i.NormalizedPath,StringComparer.Ordinal).Select(i=>new {kind=i.Kind.ToString().ToLowerInvariant(),path=i.NormalizedPath,raw_sha256=i.RawSha256,size_bytes=i.SizeBytes}).ToArray(),
             types, callables=callables.OrderBy(c=>JsonSerializer.SerializeToElement(c).GetProperty("id").GetString(),StringComparer.Ordinal).ToArray(),
@@ -199,7 +199,9 @@ internal static class CSharpPracticalDataPhase
             selected_root_ids = selection.SelectedRootIds,
             reachable_declarations = closure.ReachableDeclarations.Select(d => d.Id).Concat(synthesized.Select(p=>p.Id)).Distinct(StringComparer.Ordinal).OrderBy(id=>id,StringComparer.Ordinal).ToArray(),
             exact_types = data.Syntax.ExactTypes.Select(t => new { callable_id = t.CallableId, local_ordinal = t.LocalOrdinal, type = CSharpPracticalStructural.TypeDescriptor(t.Type) }).ToArray(),
-        }));
+        });
+        validatedSource?.Invoke(business,compilation);
+        return new PracticalDataSource(bytes);
     }
 
     private static object[] Obligations(PracticalBusiness business)

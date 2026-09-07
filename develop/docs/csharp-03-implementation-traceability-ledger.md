@@ -59,7 +59,8 @@ attachment after the approved amendment (sections 38/39). T04-W02 completes
 private structured-loop lowering (section 40). T04-W03 completes switch and
 pattern lowering (section 41). T04-W04 completes closed exception declarations,
 explicit throws and exceptional contracts (section 42). T04-W05 completes
-two-pass handler search, filters, finally and propagation (section 43). T04-W06 is ready;
+two-pass handler search, filters, finally and propagation (section 43). T04-W06 completes
+ordinary control emission and independent import (section 44). T05-W01 is ready;
 later items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
@@ -130,9 +131,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T04-W02` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W02` | `4c4030235fdb5f82aa3fc5b3df2b40727ab0b21e` |
 | `CSHARP-03-T04-W03` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W03` | `25c8a80b2fe59dc4400898f9a6f480dfd749be3e` |
 | `CSHARP-03-T04-W04` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W04` | `80ac614043395370fb733d9c4ddc67a220e7a4a4` |
-| `CSHARP-03-T04-W05` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W05` | `SELF` |
-| `CSHARP-03-T04-W06` | `Ready` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W06` | `—` |
-| `CSHARP-03-T05-W01` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W01` | `—` |
+| `CSHARP-03-T04-W05` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W05` | `a2521cd71ef6f713d2f216ddbb579415ea44c1f1` |
+| `CSHARP-03-T04-W06` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W06` | `SELF` |
+| `CSHARP-03-T05-W01` | `Ready` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W01` | `—` |
 | `CSHARP-03-T05-W02` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W02` | `—` |
 | `CSHARP-03-T05-W03` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W03` | `—` |
 | `CSHARP-03-T05-W04` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_transition.rs#CSHARP-03-T05-W04` | `—` |
@@ -4978,5 +4979,58 @@ crossing a handler boundary still rejects at that explicit handoff. T06 owns
 reachability, throws-set, totality and other proof discharge. No profile freeze,
 active registry, installed frontend or workflow changes were made.
 
-Latest task review: no findings. The task commit uses `SELF`;
-T04-W06 is the sole ready item.
+Latest W05 task review: no findings. Published commit: `a2521cd71ef6f713d2f216ddbb579415ea44c1f1`.
+W06 was the sole ready item at that handoff.
+
+## 44. CSHARP-03-T04-W06 completion record
+
+W06 combines the validated data source with loop, pattern and closed-exception
+control, then emits ordinary typed VIR, source artifacts, declaration/member
+maps and manifests. Source UTF-8 operation spans additionally bind the control
+anchors. Pruned SSA tracks locals, handler subjects and loop-carried values;
+separate memory SSA tracks unique construction versions and immutable
+publication. The existing T02 specialization engine derives the complete
+source/contract/control root set, including pending return carriers. The
+importer recomputes that closure and checks concrete operation linkage.
+
+Ordinary validation checks dominance, loop and exception regions, ordered
+handler/filter search, finally resumptions and source-call exception signatures.
+Captured-source reconstruction binds the complete emitted graph and provenance
+without Roslyn; it shares the emitter, while the native graph/type/ownership
+validators and ordinary-VIR runtime observer perform separate checks. Partial
+callee metadata propagates through the captured call graph and rejects under a
+total caller. The emitted contracts retain proof obligations for T06.
+
+Construction cleanup is specific to the actual exceptional edge. A catch,
+finally, incompatible merge or public return cannot observe a private object,
+array or sequence-construction value. Normal publication freezes to the exact
+immutable type, including aliases and nullable array returns through finally.
+Looping object/value constructors participate in SSA. Source handlers inside a
+constructor reject with `unfinished_receiver_handler`: the unfinished receiver
+cannot cross that boundary. A caller may catch construction failure after the
+callee discards its receiver. Impossible native handler paths are removed along
+with their region, construction and operation metadata; the captured declaration
+closure remains complete and source-bound even when its last native call was
+pruned.
+
+The primary owner is
+`crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W06`.
+`develop/migrations/csharp-03/control-emission/` retains all 165 T04 selections
+(111 accepted, 54 artifact-free rejected), six real collection algorithms with
+159 CLR runs, and 22 construction/publication selections (16 accepted with 96
+CLR runs, six artifact-free rejected). The loop matrix adds 533 original CLR
+runs. All 29 handler cases compare the ordinary-VIR observer against original
+CLR outcomes and traces, including cross-call filter-before-finally order.
+Each accepted frontend selection and repeated native emission is deterministic.
+
+Mutations cover source linkage, dominance, targets, region/handler order,
+source spans and anchor inventories, closed roots/provenance, and missing or
+stale construction cleanup. Thirty-seven retained CFG fuzz seeds cover four
+mutation families. The 777-selection legacy data replay remains byte-identical.
+`conformance.json` binds retained evidence; `verification.json` records local
+commands and reviewed file hashes. The 709 published vectors, 26 specification
+vector sets, frozen profile and installed frontend are unchanged.
+
+Verification uses the full C# control suite, native data regression, frozen
+package/vector/input checks and `./scripts/check-fast.sh`. Latest task review:
+no findings. The task commit uses `SELF`; T05-W01 is the sole ready item.

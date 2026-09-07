@@ -37,34 +37,50 @@ pub fn context_with_sidecar(
     source: &[u8],
     build: impl FnOnce(&PracticalArtifactContext) -> Vec<u8>,
 ) -> (PracticalArtifactContext, CapturedInputSet) {
+    context_with_sidecars(
+        b,
+        root_id,
+        source,
+        vec!["contracts/data.json".into()],
+        |ctx| vec![build(ctx)],
+    )
+}
+pub fn context_with_sidecars(
+    b: &ValidatedFoundationBundle,
+    root_id: &str,
+    source: &[u8],
+    paths: Vec<String>,
+    build: impl FnOnce(&PracticalArtifactContext) -> Vec<Vec<u8>>,
+) -> (PracticalArtifactContext, CapturedInputSet) {
     let registry_value = candidate_registry();
     let registry = validate_candidate_successor_registry(
         &canonical_successor_registry_transport(&registry_value).unwrap(),
     )
     .unwrap();
     let mut selection = practical_selection("data", root_id);
-    selection["sidecar_paths"] = json!(["contracts/data.json"]);
+    selection["sidecar_paths"] = json!(paths);
     selection["selection_sha256"] = json!(csharp_practical_selection_hash(&selection).unwrap());
     let request = request_fixture(context_fixture(&registry_value), selection);
     let request = validate_successor_semantic_request(&registry, &canonical(&request)).unwrap();
     let context = bind_practical_artifact_context(&request, b).unwrap();
     let bytes = build(&context);
-    let captures = capture_original_inputs(
-        &context,
-        vec![
-            OriginalInput {
-                kind: OriginalInputKind::Source,
-                path: "src/Entry.cs".into(),
-                bytes: source.to_vec(),
-            },
-            OriginalInput {
+    assert_eq!(paths.len(), bytes.len());
+    let mut inputs = vec![OriginalInput {
+        kind: OriginalInputKind::Source,
+        path: "src/Entry.cs".into(),
+        bytes: source.to_vec(),
+    }];
+    inputs.extend(
+        paths
+            .into_iter()
+            .zip(bytes)
+            .map(|(path, bytes)| OriginalInput {
                 kind: OriginalInputKind::Sidecar,
-                path: "contracts/data.json".into(),
+                path,
                 bytes,
-            },
-        ],
-    )
-    .unwrap();
+            }),
+    );
+    let captures = capture_original_inputs(&context, inputs).unwrap();
     // Explicit fixture regeneration only; captured bytes are passed through
     // the pinned compiler, and responses are subsequently imported independently.
     if let Ok(path) = std::env::var("MPK_W14_REQUEST_OUTPUT") {

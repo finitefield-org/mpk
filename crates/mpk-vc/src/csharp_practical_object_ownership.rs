@@ -63,6 +63,22 @@ pub fn validate_object_construction_protocol(
         .object_protocol
         .as_ref()
         .ok_or_else(ownership_failure)?;
+    // Native pruning may remove an impossible handler's entire construction.
+    // Source-control correspondence independently requires exactly that pruning;
+    // every retained transaction must still match one captured source plan.
+    let plans = if source.control_lowering().is_some() {
+        plans
+            .into_iter()
+            .filter(|p| {
+                protocol
+                    .initializations
+                    .iter()
+                    .any(|i| i.source_node_ordinal == p.node_ordinal)
+            })
+            .collect::<Vec<_>>()
+    } else {
+        plans
+    };
     if protocol.constructor_owner.as_deref() != constructor.then_some(owner)
         || protocol
             .initializations
@@ -77,11 +93,7 @@ pub fn validate_object_construction_protocol(
         .iter()
         .map(|b| (b.node.id.as_str(), b))
         .collect::<BTreeMap<_, _>>();
-    if nodes.len() != function.blocks.len()
-        || function.blocks.is_empty()
-        || !function.loops.is_empty()
-        || !function.exception_regions.is_empty()
-    {
+    if nodes.len() != function.blocks.len() || function.blocks.is_empty() {
         return Err(ownership_failure());
     }
     let predecessors = control_predecessors(function, &nodes)?;
@@ -148,9 +160,14 @@ pub fn validate_object_construction_protocol(
     let mut previous = None;
     for row in &protocol.exceptional_discards {
         if previous.is_some_and(|p: &str| p >= row.exit_node_id.as_str())
-            || nodes
-                .get(row.exit_node_id.as_str())
-                .is_none_or(|b| b.node.tag != ControlNodeTag::Exit)
+            || nodes.get(row.exit_node_id.as_str()).is_none_or(|b| {
+                !matches!(
+                    b.node.tag,
+                    ControlNodeTag::Exit
+                        | ControlNodeTag::HandlerEntry
+                        | ControlNodeTag::FinallyEntry
+                )
+            })
             || row.origin_value_ids.is_empty()
             || row.origin_value_ids.windows(2).any(|p| p[0] >= p[1])
         {
@@ -221,6 +238,16 @@ pub fn validate_object_construction_protocol(
         }
     }
     let mut edges = BTreeMap::<(String, String), Live>::new();
+    let delayed_backedges = function
+        .loops
+        .iter()
+        .flat_map(|l| {
+            l.backedge_source_ids
+                .iter()
+                .map(move |source| (source.as_str(), l.header_node_id.as_str()))
+        })
+        .collect::<BTreeSet<_>>();
+    let mut entry_states = BTreeMap::<String, Live>::new();
     let mut processed = BTreeSet::new();
     let mut seen_origins = BTreeSet::new();
     let delegation = source
@@ -239,17 +266,26 @@ pub fn validate_object_construction_protocol(
         for block in &function.blocks {
             let id = block.node.id.as_str();
             if processed.contains(id)
-                || predecessors[id]
-                    .iter()
-                    .any(|p| !edges.contains_key(&(p.to_string(), id.into())))
+                || predecessors[id].iter().any(|p| {
+                    !edges.contains_key(&(p.to_string(), id.into()))
+                        && !delayed_backedges.contains(&(*p, id))
+                })
             {
                 continue;
             }
             let mut states = Vec::new();
             let mut discarded = BTreeSet::new();
             for predecessor in &predecessors[id] {
-                let mut state = edges[&(predecessor.to_string(), id.into())].clone();
-                if block.node.tag == ControlNodeTag::Exit {
+                let Some(mut state) = edges.get(&(predecessor.to_string(), id.into())).cloned()
+                else {
+                    continue;
+                };
+                if matches!(
+                    block.node.tag,
+                    ControlNodeTag::Exit
+                        | ControlNodeTag::HandlerEntry
+                        | ControlNodeTag::FinallyEntry
+                ) {
                     if !state.is_empty()
                         && nodes[predecessor]
                             .node
@@ -281,8 +317,10 @@ pub fn validate_object_construction_protocol(
                 }
                 states.push(state);
             }
-            if block.node.tag == ControlNodeTag::Exit
-                && cleanup.get(id).cloned().unwrap_or_default() != discarded
+            if matches!(
+                block.node.tag,
+                ControlNodeTag::Exit | ControlNodeTag::HandlerEntry | ControlNodeTag::FinallyEntry
+            ) && cleanup.get(id).cloned().unwrap_or_default() != discarded
             {
                 return Err(ownership_failure());
             }
@@ -304,6 +342,14 @@ pub fn validate_object_construction_protocol(
                     prior.may |= incoming.may;
                 }
             }
+            if matches!(
+                block.node.tag,
+                ControlNodeTag::HandlerEntry | ControlNodeTag::FinallyEntry
+            ) && !live.is_empty()
+            {
+                return Err(ownership_failure());
+            }
+            entry_states.insert(id.into(), live.clone());
             let mut exceptional = live.clone();
             if let Some(i) = &block.invocation {
                 let signature = operations
@@ -509,7 +555,14 @@ pub fn validate_object_construction_protocol(
             {
                 return Err(ownership_failure());
             }
-            for target in &block.node.normal_successor_ids {
+            let abrupt_target = match &block.node.abrupt {
+                Some(
+                    AbruptCompletion::Break { target_id, .. }
+                    | AbruptCompletion::Continue { target_id, .. },
+                ) => Some(target_id),
+                _ => None,
+            };
+            for target in block.node.normal_successor_ids.iter().chain(abrupt_target) {
                 if edges
                     .insert((id.into(), target.clone()), live.clone())
                     .is_some_and(|prior| prior != live)
@@ -529,6 +582,29 @@ pub fn validate_object_construction_protocol(
             progress = true;
         }
         if !progress {
+            return Err(ownership_failure());
+        }
+    }
+    for (source_id, target_id) in delayed_backedges {
+        let mut state = edges
+            .get(&(source_id.into(), target_id.into()))
+            .cloned()
+            .ok_or_else(ownership_failure)?;
+        for phi in &nodes[target_id].phi_values {
+            if tainted.contains(&phi.value.id) {
+                let incoming = phi
+                    .incoming
+                    .iter()
+                    .find(|i| i.predecessor_node_id == source_id)
+                    .ok_or_else(ownership_failure)?;
+                let object = state
+                    .values_mut()
+                    .find(|v| v.value == incoming.value_id)
+                    .ok_or_else(ownership_failure)?;
+                object.value = phi.value.id.clone();
+            }
+        }
+        if entry_states.get(target_id) != Some(&state) {
             return Err(ownership_failure());
         }
     }

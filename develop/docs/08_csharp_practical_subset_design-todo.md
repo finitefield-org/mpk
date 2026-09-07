@@ -35,7 +35,7 @@ normative but inactive specifications and, after the approved W14 codec
 parameter and W01 partial-loop amendments, 709 vectors.
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
 `CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12/W13/W14` are complete.
-`CSHARP-03-T04-W01/W02/W03/W04/W05` are complete; `CSHARP-03-T04-W06` is ready. Every later
+`CSHARP-03-T04-W01/W02/W03/W04/W05/W06` are complete; `CSHARP-03-T05-W01` is ready. Every later
 implementation work item remains blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
@@ -124,7 +124,8 @@ section 34. T03-W13 adds calendar/time/GUID and bound instant/money relations;
 see section 35. T03-W14 closes data emission and independent import; see
 section 37. T04-W01 completes loop-contract parsing and attachment after the
 approved partial-loop amendment; see sections 38 and 39. T04-W02 adds private
-structured-loop lowering; see section 40. T04-W03 is ready. This
+structured-loop lowering; see section 40. T04-W03–W06 completed pattern and
+exception control plus ordinary emission/import; see sections 41–44. T05-W01 is ready. This
 file remains planning material. W01 added its baseline and ledger; W02 added
 only the private consumer inventory, owner tests, ledger evidence, and current-
 status documentation; W03 added only private build-input evidence and its

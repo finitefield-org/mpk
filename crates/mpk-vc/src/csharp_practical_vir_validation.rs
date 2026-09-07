@@ -463,6 +463,8 @@ pub struct PracticalVirBlock {
     pub condition_value_id: Option<String>,
     pub return_value_ids: Vec<String>,
     pub abrupt_value_id: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub handler_exception_source_id: Option<String>,
     pub handler_exception_value: Option<TypedValueRef>,
     pub invocation: Option<OperationInvocation>,
     pub ownership_in: Vec<SequenceConstructionState>,
@@ -483,6 +485,31 @@ pub struct PracticalVirFunction {
     pub unwind_plans: Vec<ExceptionUnwindPlan>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub object_protocol: Option<PracticalObjectProtocol>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub control_protocol: Option<PracticalControlProtocol>,
+}
+
+/// Source-order control is lowered to ordinary typed operations and branches.
+/// Anchors retain source origin and evaluation boundaries. Escape checkpoints
+/// identify completed local handler search before unwinding a suspended frame.
+/// Import reconstructs both from captured source and checks the native graph.
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(deny_unknown_fields)]
+pub struct PracticalControlProtocol {
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub escape_search_node_ids: Vec<String>,
+    pub anchors: Vec<PracticalControlAnchor>,
+}
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+#[serde(deny_unknown_fields)]
+pub struct PracticalControlAnchor {
+    pub source_node_id: String,
+    pub source_ordinal: Option<usize>,
+    pub source_span: Option<crate::csharp_practical_vir_model::ControlOperationLocation>,
+    pub artifact_node_ids: Vec<String>,
+    pub entry_node_id: String,
+    pub exit_node_id: String,
+    pub result: Option<TypedValueRef>,
 }
 
 /// Private W05 handoff anchors. Source ordinals identify the original captured
@@ -984,7 +1011,7 @@ impl StrictJsonObserver for PracticalVirResourceObserver {
                 "practical_vir_binding_commutations",
                 CSHARP_PRACTICAL_VIR_BINDING_COMMUTATIONS_MAX,
             ))
-        } else if path_is_function_key(path, "blocks") {
+        } else if path_is_control_node_inventory(path) || path_is_function_key(path, "blocks") {
             Some((
                 "practical_vir_blocks_per_function",
                 CSHARP_PRACTICAL_VIR_BLOCKS_PER_FUNCTION_MAX,
@@ -1187,6 +1214,19 @@ fn add_observed_by_function(
     maximum: u64,
 ) -> Result<(), StrictJsonError> {
     add_observed_total(counters.entry(function).or_default(), add, limit, maximum)
+}
+
+// Bound each explicit search/filter inventory during transport scanning,
+// before serde retains it. The inventory references existing CFG blocks.
+fn path_is_control_node_inventory(path: &[StrictJsonPathSegment]) -> bool {
+    matches!(path,
+        [StrictJsonPathSegment::Key(f),StrictJsonPathSegment::Index(_),StrictJsonPathSegment::Key(p),StrictJsonPathSegment::Key(k)] if f=="functions" && p=="control_protocol" && (k=="escape_search_node_ids" || k=="anchors"))
+        || matches!(path,
+        [StrictJsonPathSegment::Key(f),StrictJsonPathSegment::Index(_),StrictJsonPathSegment::Key(p),StrictJsonPathSegment::Key(a),StrictJsonPathSegment::Index(_),StrictJsonPathSegment::Key(k)] if f=="functions" && p=="control_protocol" && a=="anchors" && k=="artifact_node_ids")
+        || matches!(path,
+        [StrictJsonPathSegment::Key(f),StrictJsonPathSegment::Index(_),StrictJsonPathSegment::Key(r),StrictJsonPathSegment::Index(_),StrictJsonPathSegment::Key(k)] if f=="functions" && r=="exception_regions" && k=="search_entry_node_ids")
+        || matches!(path,
+        [StrictJsonPathSegment::Key(f),StrictJsonPathSegment::Index(_),StrictJsonPathSegment::Key(r),StrictJsonPathSegment::Index(_),StrictJsonPathSegment::Key(c),StrictJsonPathSegment::Index(_),StrictJsonPathSegment::Key(filter),StrictJsonPathSegment::Key(e),StrictJsonPathSegment::Key(k)] if f=="functions" && r=="exception_regions" && c=="catches" && filter=="filter" && e=="execution" && k=="node_ids")
 }
 
 fn function_blocks_index(path: &[StrictJsonPathSegment]) -> Option<u64> {
@@ -1733,8 +1773,16 @@ fn prepare_inputs(
                 return Err(linkage_failure());
             }
         }
-        attach_data_contracts(&foundation, &derived, &source, &sidecars, &operations)
-            .map_err(|_| binding_failure())?;
+        attach_data_contracts(
+            &foundation,
+            context.artifact_context,
+            context.captured_inputs,
+            &derived,
+            &source,
+            &sidecars,
+            &operations,
+        )
+        .map_err(|_| binding_failure())?;
         actual_source = Some(source);
         sidecars
             .contracts()
@@ -3045,6 +3093,50 @@ fn validate_functions(
             PracticalVirImportErrorCode::Order,
         ));
     }
+    for signature in prepared.operations.values() {
+        if let Some(ty) = signature
+            .id
+            .strip_prefix("mpk.csharp.value.exception.v1.construct.")
+        {
+            if signature.tag != ClosedOperationTag::ExceptionConstruct
+                || universe.arm(ty).is_none_or(|a| a.tag < 9)
+            {
+                return Err(failure(
+                    PracticalVirImportPhase::Exception,
+                    PracticalVirImportErrorCode::Exception,
+                ));
+            }
+        }
+        if let Some(ty) = signature
+            .id
+            .strip_prefix("mpk.csharp.value.exception.v1.is_type.")
+        {
+            if signature.tag != ClosedOperationTag::ExceptionIsType || universe.arm(ty).is_none() {
+                return Err(failure(
+                    PracticalVirImportPhase::Exception,
+                    PracticalVirImportErrorCode::Exception,
+                ));
+            }
+        }
+        if let Some(member) = signature
+            .id
+            .strip_prefix("mpk.csharp.value.exception.v1.payload.")
+        {
+            if signature.tag != ClosedOperationTag::ExceptionPayload
+                || !universe.arms().iter().any(|a| {
+                    a.payload_member_ids
+                        .iter()
+                        .zip(&a.payload_type_ids)
+                        .any(|(id, ty)| id == member && ty == &signature.normal_result_type_id)
+                })
+            {
+                return Err(failure(
+                    PracticalVirImportPhase::Exception,
+                    PracticalVirImportErrorCode::Exception,
+                ));
+            }
+        }
+    }
     let function_ids = wire
         .functions
         .iter()
@@ -3146,7 +3238,45 @@ fn validate_functions(
         );
     }
     if reachable != function_ids {
-        return Err(call_graph_failure());
+        // Control pruning can erase an impossible catch's last call. Keep the
+        // exact captured declaration closure for complete maps and obligations;
+        // the source-correspondence check below rejects invented/orphan bodies.
+        let captured_closure = prepared
+            .actual_source
+            .as_ref()
+            .filter(|s| s.control_lowering().is_some())
+            .map(|s| {
+                s.callables()
+                    .iter()
+                    .map(|c| c.id())
+                    .collect::<BTreeSet<_>>()
+            });
+        if captured_closure.as_ref() != Some(&function_ids) {
+            return Err(call_graph_failure());
+        }
+    }
+    if let Some(source) = prepared
+        .actual_source
+        .as_ref()
+        .filter(|s| s.control_lowering().is_some())
+    {
+        let expected = crate::csharp_practical_vir_model::derive_source_control_functions(
+            &prepared.foundation,
+            &prepared.roots,
+            &prepared.closed,
+            source,
+        )
+        .map_err(|_| linkage_failure())?;
+        let control = crate::csharp_practical_vir_model::validate_control_source(
+            &prepared.foundation,
+            source,
+        )
+        .map_err(|_| linkage_failure())?;
+        if wire.functions != expected || wire.source_exceptions != control.definitions() {
+            return Err(linkage_failure());
+        }
+    } else if wire.functions.iter().any(|f| f.control_protocol.is_some()) {
+        return Err(linkage_failure());
     }
     Ok(())
 }
@@ -3171,6 +3301,32 @@ fn validate_function<'a>(
     if function.object_protocol.is_some() && prepared.actual_source.is_none() {
         return Err(ownership_failure());
     }
+    let has_emitted_handlers = function
+        .blocks
+        .iter()
+        .any(|b| b.handler_exception_source_id.is_some())
+        || function
+            .unwind_plans
+            .iter()
+            .any(|p| p.search_entry_node_id.is_some())
+        || function.exception_regions.iter().any(|r| {
+            !r.search_entry_node_ids.is_empty()
+                || r.catches
+                    .iter()
+                    .any(|c| c.filter.as_ref().is_some_and(|f| f.execution.is_some()))
+        });
+    if has_emitted_handlers
+        && !prepared
+            .actual_source
+            .as_ref()
+            .is_some_and(|s| s.control_lowering().is_some())
+    {
+        return Err(failure(
+            PracticalVirImportPhase::Exception,
+            PracticalVirImportErrorCode::Exception,
+        ));
+    }
+
     if !valid_source_declaration_id(&function.id)
         || function.blocks.is_empty()
         || function
@@ -3234,6 +3390,24 @@ fn validate_function<'a>(
         .collect::<BTreeMap<_, _>>();
     if nodes.len() != function.blocks.len() || nodes.keys().any(|id| !global_node_ids.insert(*id)) {
         return Err(identifier_failure());
+    }
+    if let Some(protocol) = &function.control_protocol {
+        if protocol
+            .escape_search_node_ids
+            .windows(2)
+            .any(|w| w[0] >= w[1])
+            || protocol.escape_search_node_ids.iter().any(|id| {
+                nodes.get(id.as_str()).is_none_or(|b| {
+                    b.node.tag != ControlNodeTag::HandlerEntry
+                        || b.handler_exception_source_id.is_none()
+                })
+            })
+        {
+            return Err(failure(
+                PracticalVirImportPhase::Exception,
+                PracticalVirImportErrorCode::Exception,
+            ));
+        }
     }
     let predecessors = control_predecessors(function, &nodes)?;
     let reachable = validate_control_reachability(function, &nodes)?;
@@ -3604,7 +3778,7 @@ fn validate_block_shape(block: &PracticalVirBlock) -> Result<(), PracticalVirImp
     match block.node.tag {
         ControlNodeTag::Operation if has_invocation != has_construction => {}
         ControlNodeTag::Operation => return Err(control_failure()),
-        ControlNodeTag::Exit
+        ControlNodeTag::Exit | ControlNodeTag::HandlerEntry | ControlNodeTag::FinallyEntry
             if !has_invocation
                 && block
                     .construction_actions
@@ -3623,7 +3797,10 @@ fn validate_block_shape(block: &PracticalVirBlock) -> Result<(), PracticalVirImp
     if block.node.tag != ControlNodeTag::Return && !block.return_value_ids.is_empty() {
         return Err(control_failure());
     }
-    if block.handler_exception_value.is_some() != (block.node.tag == ControlNodeTag::HandlerEntry) {
+    if block.handler_exception_value.is_some() != (block.node.tag == ControlNodeTag::HandlerEntry)
+        || block.handler_exception_source_id.is_some()
+            && block.node.tag != ControlNodeTag::HandlerEntry
+    {
         return Err(control_failure());
     }
     let abrupt_value_required = matches!(
@@ -3720,6 +3897,21 @@ fn validate_control_region_edges(
             if source_stack == target_stack {
                 continue;
             }
+            // Phase-one search may visit an outer filter while inner finally
+            // frames are suspended. Entering that filter does not unwind them.
+            if source_stack.starts_with(target_stack)
+                && function.exception_regions.iter().any(|r| {
+                    r.catches.iter().any(|c| {
+                        c.filter
+                            .as_ref()
+                            .and_then(|f| f.execution.as_ref())
+                            .is_some_and(|f| f.entry_node_id == target.node.id)
+                    })
+                })
+            {
+                continue;
+            }
+
             if target_stack.len() == source_stack.len() + 1
                 && target_stack.starts_with(source_stack)
             {
@@ -3877,6 +4069,22 @@ fn validate_block_values<'a>(
         for (value_id, type_id) in block.return_value_ids.iter().zip(&function.result_type_ids) {
             require_value_use(value_id, type_id, &block.node.id, definitions, dominators)?;
         }
+    }
+    if let Some(value_id) = block.handler_exception_source_id.as_deref() {
+        if block
+            .handler_exception_value
+            .as_ref()
+            .is_some_and(|v| v.id == value_id)
+        {
+            return Err(dominance_failure());
+        }
+        require_value_use(
+            value_id,
+            EXCEPTION_VALUE_TYPE_ID,
+            &block.node.id,
+            definitions,
+            dominators,
+        )?;
     }
     if let Some(value_id) = block.abrupt_value_id.as_deref() {
         require_value_use(
@@ -4109,11 +4317,10 @@ fn validate_symbolic_construction_ownership(
                 .map(|name| ((*instance).to_owned(), name.to_owned()))
         })
     };
-    if !function.loops.is_empty()
-        || function
-            .parameter_values
-            .iter()
-            .any(|p| instances.contains(p.type_id.as_str()))
+    if function
+        .parameter_values
+        .iter()
+        .any(|p| instances.contains(p.type_id.as_str()))
         || function
             .result_type_ids
             .iter()
@@ -4136,7 +4343,22 @@ fn validate_symbolic_construction_ownership(
         .collect::<BTreeMap<_, _>>();
     let mut allocations = BTreeSet::new();
     // origin allocation -> its sole live SSA version on this edge.
-    type Live = BTreeMap<String, (String, u32)>;
+    type Live = BTreeMap<String, String>;
+    // SSA versions form a finite invariant at each loop header. Seed it from
+    // the forward edge and require every delayed backedge to establish the
+    // identical ownership map after its explicit phis. Numeric write counts
+    // cannot serve this role because they increase on each loop iteration.
+    let backedges = function
+        .loops
+        .iter()
+        .flat_map(|r| {
+            r.backedge_source_ids
+                .iter()
+                .map(move |p| (p.clone(), r.header_node_id.clone()))
+        })
+        .collect::<BTreeSet<_>>();
+    let mut header_states = BTreeMap::<String, Live>::new();
+    let mut delayed = BTreeSet::new();
     let mut edges = BTreeMap::<(String, String), Live>::new();
     let mut processed = BTreeSet::new();
     while processed.len() < nodes.len() {
@@ -4147,16 +4369,19 @@ fn validate_symbolic_construction_ownership(
                 continue;
             }
             let incoming = &predecessors[id];
-            if incoming
-                .iter()
-                .any(|p| !edges.contains_key(&(p.to_string(), id.to_owned())))
-            {
+            if incoming.iter().any(|p| {
+                !edges.contains_key(&(p.to_string(), id.to_owned()))
+                    && !backedges.contains(&(p.to_string(), id.to_owned()))
+            }) {
                 continue;
             }
             let mut incoming_states = vec![];
             let mut exit_origins = BTreeSet::new();
             let mut cleanup = BTreeSet::new();
-            if block.node.tag == ControlNodeTag::Exit {
+            if matches!(
+                block.node.tag,
+                ControlNodeTag::Exit | ControlNodeTag::HandlerEntry | ControlNodeTag::FinallyEntry
+            ) {
                 for action in &block.construction_actions {
                     let PracticalConstructionAction::Discard {
                         construction_id,
@@ -4171,8 +4396,27 @@ fn validate_symbolic_construction_ownership(
                 }
             }
             for predecessor in incoming {
-                let mut live = edges[&(predecessor.to_string(), id.to_owned())].clone();
-                if block.node.tag == ControlNodeTag::Exit {
+                let key = (predecessor.to_string(), id.to_owned());
+                let Some(mut live) = edges.get(&key).cloned() else {
+                    delayed.insert(key);
+                    continue;
+                };
+                if matches!(
+                    block.node.tag,
+                    ControlNodeTag::Exit
+                        | ControlNodeTag::HandlerEntry
+                        | ControlNodeTag::FinallyEntry
+                ) {
+                    if !live.is_empty()
+                        && block.node.tag != ControlNodeTag::FinallyEntry
+                        && !nodes[*predecessor]
+                            .node
+                            .exceptional_successors
+                            .iter()
+                            .any(|e| e.target_id == id)
+                    {
+                        return Err(ownership_failure());
+                    }
                     exit_origins.extend(live.keys().cloned());
                     // Discard each live allocation on the incoming exceptional
                     // edge, before distinct lifetime states reach the exit.
@@ -4192,26 +4436,38 @@ fn validate_symbolic_construction_ownership(
                         .value_id;
                     let origin = live
                         .iter()
-                        .find(|(_, v)| &v.0 == old)
+                        .find(|(_, v)| *v == old)
                         .map(|(k, _)| k.clone())
                         .ok_or_else(ownership_failure)?;
-                    let version = live[&origin].1;
-                    live.insert(origin, (phi.value.id.clone(), version));
+                    live.insert(origin, phi.value.id.clone());
                 }
                 incoming_states.push(live);
             }
-            if block.node.tag == ControlNodeTag::Exit && cleanup != exit_origins {
+            if matches!(
+                block.node.tag,
+                ControlNodeTag::Exit | ControlNodeTag::HandlerEntry | ControlNodeTag::FinallyEntry
+            ) && cleanup != exit_origins
+            {
+                return Err(ownership_failure());
+            }
+            if !incoming.is_empty() && incoming_states.is_empty() {
                 return Err(ownership_failure());
             }
             let mut live = incoming_states.first().cloned().unwrap_or_default();
             if incoming_states.iter().any(|s| *s != live) {
                 return Err(ownership_failure());
             }
-            for action in block
-                .construction_actions
-                .iter()
-                .filter(|_| block.node.tag != ControlNodeTag::Exit)
-            {
+            if block.node.tag == ControlNodeTag::LoopHeader {
+                header_states.insert(id.to_owned(), live.clone());
+            }
+            for action in block.construction_actions.iter().filter(|_| {
+                !matches!(
+                    block.node.tag,
+                    ControlNodeTag::Exit
+                        | ControlNodeTag::HandlerEntry
+                        | ControlNodeTag::FinallyEntry
+                )
+            }) {
                 let PracticalConstructionAction::Discard {
                     construction_id,
                     actor_id,
@@ -4224,7 +4480,7 @@ fn validate_symbolic_construction_ownership(
                 }
                 let origin = live
                     .iter()
-                    .find(|(_, v)| &v.0 == construction_id)
+                    .find(|(_, v)| *v == construction_id)
                     .map(|(k, _)| k.clone())
                     .ok_or_else(ownership_failure)?;
                 live.remove(&origin);
@@ -4273,17 +4529,14 @@ fn validate_symbolic_construction_ownership(
                             {
                                 return Err(ownership_failure());
                             }
-                            live.insert(
-                                invocation.result.id.clone(),
-                                (invocation.result.id.clone(), 0),
-                            );
+                            live.insert(invocation.result.id.clone(), invocation.result.id.clone());
                         }
                         "read" | "fill" | "rewrite" | "freeze" => {
                             let receiver =
                                 invocation.operands.first().ok_or_else(ownership_failure)?;
                             let origin = live
                                 .iter()
-                                .find(|(_, v)| v.0 == receiver.id)
+                                .find(|(_, v)| **v == receiver.id)
                                 .map(|(k, _)| k.clone())
                                 .ok_or_else(ownership_failure)?;
                             if receiver.type_id != instance {
@@ -4291,11 +4544,7 @@ fn validate_symbolic_construction_ownership(
                             }
                             match name.as_str() {
                                 "fill" | "rewrite" => {
-                                    let version = live[&origin]
-                                        .1
-                                        .checked_add(1)
-                                        .ok_or_else(ownership_failure)?;
-                                    live.insert(origin, (invocation.result.id.clone(), version));
+                                    live.insert(origin, invocation.result.id.clone());
                                 }
                                 "freeze" => {
                                     live.remove(&origin);
@@ -4310,7 +4559,7 @@ fn validate_symbolic_construction_ownership(
                     .starts_with("construction.complete.")
                 {
                     let receiver = invocation.operands.first().ok_or_else(ownership_failure)?;
-                    if !live.values().any(|v| v.0 == receiver.id) {
+                    if !live.values().any(|v| *v == receiver.id) {
                         return Err(ownership_failure());
                     }
                 } else if invocation
@@ -4331,8 +4580,8 @@ fn validate_symbolic_construction_ownership(
                 block.node.tag,
                 ControlNodeTag::Return
                     | ControlNodeTag::Exit
-                    | ControlNodeTag::Throw
-                    | ControlNodeTag::Rethrow
+                    | ControlNodeTag::HandlerEntry
+                    | ControlNodeTag::FinallyEntry
             ) && !live.is_empty()
             {
                 return Err(ownership_failure());
@@ -4355,6 +4604,32 @@ fn validate_symbolic_construction_ownership(
             progress = true;
         }
         if !progress {
+            return Err(ownership_failure());
+        }
+    }
+    for (predecessor, header) in delayed {
+        let mut live = edges
+            .get(&(predecessor.clone(), header.clone()))
+            .cloned()
+            .ok_or_else(ownership_failure)?;
+        for phi in &nodes[header.as_str()].phi_values {
+            if !instances.contains(phi.value.type_id.as_str()) {
+                continue;
+            }
+            let old = &phi
+                .incoming
+                .iter()
+                .find(|v| v.predecessor_node_id == predecessor)
+                .ok_or_else(ownership_failure)?
+                .value_id;
+            let origin = live
+                .iter()
+                .find(|(_, value)| *value == old)
+                .map(|(origin, _)| origin.clone())
+                .ok_or_else(ownership_failure)?;
+            live.insert(origin, phi.value.id.clone());
+        }
+        if header_states.get(&header) != Some(&live) {
             return Err(ownership_failure());
         }
     }

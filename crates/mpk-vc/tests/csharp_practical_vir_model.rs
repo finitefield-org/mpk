@@ -1764,6 +1764,7 @@ fn csharp_03_t02_w03_validates_exception_values_handlers_and_explicit_control() 
             target_id: "handler.broad".to_owned(),
         });
     shared_handler.unwind_plans.push(ExceptionUnwindPlan {
+        search_entry_node_id: None,
         source_node_id: "try".to_owned(),
         check_id: "operation.range".to_owned(),
         from_region_id: Some("region.outer".to_owned()),
@@ -1843,6 +1844,7 @@ fn csharp_03_t02_w03_validates_exception_values_handlers_and_explicit_control() 
     non_exhaustive.patterns[0].non_exhaustive_exceptional_successor = Some(switch_edge.clone());
     non_exhaustive.nodes[6].exceptional_successors = vec![switch_edge];
     non_exhaustive.unwind_plans.push(ExceptionUnwindPlan {
+        search_entry_node_id: None,
         source_node_id: "pattern".to_owned(),
         check_id: "switch.non_exhaustive".to_owned(),
         from_region_id: Some("region.inner".to_owned()),
@@ -1894,6 +1896,7 @@ fn csharp_03_t02_w03_validates_exception_values_handlers_and_explicit_control() 
         patterns: Vec::new(),
         exception_regions: Vec::new(),
         unwind_plans: vec![ExceptionUnwindPlan {
+            search_entry_node_id: None,
             source_node_id: "root.throw".to_owned(),
             check_id: "root.explicit.throw".to_owned(),
             from_region_id: None,
@@ -2590,6 +2593,7 @@ fn valid_control_graph() -> ExplicitControlGraph {
         }],
         exception_regions: vec![
             ExceptionHandlerRegion {
+                search_entry_node_ids: vec![],
                 id: "region.outer".to_owned(),
                 parent_region_id: None,
                 nesting_depth: 0,
@@ -2599,6 +2603,7 @@ fn valid_control_graph() -> ExplicitControlGraph {
                         ordinal: 0,
                         exception_type_id: "System.ArgumentNullException".to_owned(),
                         filter: Some(ExceptionFilterRule {
+                            execution: None,
                             condition_type_id: value_type_id("bool"),
                             thrown_filter_exception_successor_id: "handler.broad".to_owned(),
                             throw_means_false: true,
@@ -2616,6 +2621,7 @@ fn valid_control_graph() -> ExplicitControlGraph {
                 finally_entry_node_id: Some("outer.finally".to_owned()),
             },
             ExceptionHandlerRegion {
+                search_entry_node_ids: vec![],
                 id: "region.inner".to_owned(),
                 parent_region_id: Some("region.outer".to_owned()),
                 nesting_depth: 1,
@@ -2626,6 +2632,7 @@ fn valid_control_graph() -> ExplicitControlGraph {
         ],
         unwind_plans: vec![
             ExceptionUnwindPlan {
+                search_entry_node_id: None,
                 source_node_id: "try".to_owned(),
                 check_id: "operation.exception".to_owned(),
                 from_region_id: Some("region.outer".to_owned()),
@@ -2634,6 +2641,7 @@ fn valid_control_graph() -> ExplicitControlGraph {
                 destination_node_id: "handler.broad".to_owned(),
             },
             ExceptionUnwindPlan {
+                search_entry_node_id: None,
                 source_node_id: "throw".to_owned(),
                 check_id: "explicit.throw".to_owned(),
                 from_region_id: Some("region.inner".to_owned()),

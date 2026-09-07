@@ -30,10 +30,10 @@ internal static class CSharpPracticalStrings
 {
     internal const int MaximumUtf16Units=16384;
     internal static PracticalStrings Validate(PracticalSourceSelection selection,IEnumerable<PracticalCapturedInput> inputs,
-        ImmutableArray<MetadataReference> references,IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims=null, Action<CSharpCompilation>? validateNumeric=null,bool domainOperations=false,bool deferSidecarAttachment=false)
+        ImmutableArray<MetadataReference> references,IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims=null, Action<CSharpCompilation>? validateNumeric=null,bool domainOperations=false,bool deferSidecarAttachment=false,bool allowControl=false)
     {
         var steps=new List<PracticalStringStep>();var obligations=new List<PracticalStringObligation>();
-        var arrays=CSharpPracticalArrays.Validate(selection,inputs,references,invariantClaims,true,current=>{Analyze(current,steps,obligations);validateNumeric?.Invoke(current);},domainOperations,deferSidecarAttachment);
+        var arrays=CSharpPracticalArrays.Validate(selection,inputs,references,invariantClaims,true,current=>{Analyze(current,steps,obligations);validateNumeric?.Invoke(current);},domainOperations,deferSidecarAttachment,allowLoopControl:allowControl,allowPatternControl:allowControl,allowExceptionControl:allowControl,allowHandlers:allowControl,completeControl:allowControl);
         return new(arrays,Array.AsReadOnly(steps.OrderBy(s=>s.Site,StringComparer.Ordinal).ThenBy(s=>s.Operation,StringComparer.Ordinal).ToArray()),Array.AsReadOnly(obligations.Distinct().OrderBy(o=>o.Site,StringComparer.Ordinal).ThenBy(o=>o.Kind,StringComparer.Ordinal).ToArray()));
     }
     internal static void ValidateCandidate(PracticalStrings regenerated,ReadOnlySpan<byte> candidate)

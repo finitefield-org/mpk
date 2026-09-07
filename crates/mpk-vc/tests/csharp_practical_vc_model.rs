@@ -951,6 +951,7 @@ fn minimal_contents(function_id: &str, label: &str) -> PracticalVirContents {
     PracticalVirContents {
         functions: vec![PracticalVirFunction {
             object_protocol: None,
+            control_protocol: None,
             id: function_id.into(),
             parameter_values: Vec::new(),
             result_type_ids: Vec::new(),
@@ -1009,6 +1010,7 @@ fn empty_block(node: ControlNode) -> PracticalVirBlock {
         condition_value_id: None,
         return_value_ids: Vec::new(),
         abrupt_value_id: None,
+        handler_exception_source_id: None,
         handler_exception_value: None,
         invocation: None,
         ownership_in: Vec::new(),

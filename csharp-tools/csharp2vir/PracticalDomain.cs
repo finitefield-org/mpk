@@ -31,11 +31,11 @@ internal static class CSharpPracticalDomain
 {
     private static readonly string[] BasicObligations={"source_invariant_implies_projection","semantic_invariant_implies_reconstruction","source_round_trip","semantic_round_trip","distinct_arms","public_invariant","identity_unobservable"};
     internal static PracticalDomain Validate(PracticalSourceSelection selection,IEnumerable<PracticalCapturedInput> inputs,
-        ImmutableArray<MetadataReference> references,IReadOnlyList<PracticalOutcomeBinding>? bindings=null,Action<CSharpCompilation>? validateBusiness=null,bool deferSidecarAttachment=false)
+        ImmutableArray<MetadataReference> references,IReadOnlyList<PracticalOutcomeBinding>? bindings=null,Action<CSharpCompilation>? validateBusiness=null,bool deferSidecarAttachment=false,bool allowControl=false)
     {
         var steps=new List<PracticalDomainStep>();var obligations=new List<PracticalDomainObligation>();
         CSharpCompilation? compilation=null;
-        var numeric=CSharpPracticalNumeric.Validate(selection,inputs,references,c=>{compilation=c;Analyze(c,steps,obligations);validateBusiness?.Invoke(c);},deferSidecarAttachment);
+        var numeric=CSharpPracticalNumeric.Validate(selection,inputs,references,c=>{compilation=c;Analyze(c,steps,obligations);validateBusiness?.Invoke(c);},deferSidecarAttachment,allowControl);
         var projections=Bind(numeric,compilation!,bindings??Array.Empty<PracticalOutcomeBinding>(),obligations);
         foreach(var step in steps.Where(s=>s.Operation=="nullable.value_or_default")) {
             var payload=Payload(step.Operands[0].Type)!;

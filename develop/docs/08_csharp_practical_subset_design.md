@@ -32,11 +32,12 @@ T03-W11 completed exact float/double/decimal relations and typed numeric source 
 T03-W12 completed nullable relations and application outcome projections with pending binding obligations.
 T03-W13 completed calendar/time/GUID and bound instant/money relations with pending source, currency, and error-projection obligations.
 T03-W14 completed private data emission and independent import. T04-W01 completed
-private loop-contract parsing, typing and attachment. T04-W02 completed private
-structured-loop lowering; T04-W03 is ready, while
+private loop-contract parsing, typing and attachment. T04-W02–W06 completed
+loop/pattern/exception lowering, ordinary VIR emission and independent import.
+T05-W01 is ready, while
 activation remains blocked through T08-W10.
 
-Prepared: 2026-09-02. Revised: 2026-09-07.
+Prepared: 2026-09-02. Revised: 2026-09-08.
 
 T01-W08 handoff: candidate foundation, specialization, binding and data
 semantics are now frozen in
@@ -183,7 +184,8 @@ T03-W11 completed exact float/double/decimal relations and typed numeric source 
 T03-W12 completed nullable relations and application outcome projections with pending binding obligations.
 T03-W13 completed calendar/time/GUID and bound instant/money relations with pending source, currency, and error-projection obligations.
 T03-W14 completed private data emission and independent import. T04-W01/W02
-completed private loop contracts and structured-loop lowering. T04-W03 is ready.
+completed private loop contracts and structured-loop lowering. T04-W03–W06
+completed patterns, handlers and ordinary control emission/import. T05-W01 is ready.
 DART-04
 waits for the complete CSHARP-03 release gate. This
 insertion records the user value of making the already released C# frontend
@@ -2264,8 +2266,8 @@ T03-W12 completed nullable relations and application outcome projections with pe
 T03-W13 completed calendar/time/GUID and bound instant/money relations with pending source, currency, and error-projection obligations.
 These handoffs remain private.
 T03-W14 completed private data emission and independent import.
-`CSHARP-03-T04-W01/W02` completed private loop contracts and structured-loop
-lowering; `CSHARP-03-T04-W03` is ready. Each
+`CSHARP-03-T04-W01–W06` completed private loop contracts, structured control,
+ordinary VIR emission and independent import; `CSHARP-03-T05-W01` is ready. Each
 later work item remains blocked until its serial predecessor and task-local
 entry gate are satisfied.
 No task may reintroduce a source-visible `Mpk.*` API, user-defined generic,

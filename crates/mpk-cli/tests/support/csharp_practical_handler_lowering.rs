@@ -821,12 +821,29 @@ fn csharp_03_t04_w05_conformance_binds_sources_graphs_and_pinned_inputs() {
     ))
     .unwrap();
     assert_eq!(conformance["work_item"], "CSHARP-03-T04-W05");
-    for key in ["source_cases", "frozen_probe", "input_manifest"] {
+    for key in ["source_cases", "frozen_probe"] {
         let binding = &conformance[key];
         let bytes = read(binding["path"].as_str().unwrap());
         assert_eq!(binding["sha256"], sha256_raw_file_bytes(&bytes).to_hex());
         assert_eq!(binding["size_bytes"], bytes.len());
     }
+    // W06 updates the live producer manifest. Retain W05's historical binding
+    // through its immutable verification receipt; check current inputs below.
+    let receipt: Value = serde_json::from_slice(&read(
+        "develop/migrations/csharp-03/handler-lowering/verification.json",
+    ))
+    .unwrap();
+    let historical = receipt["files"].as_array().unwrap();
+    let manifest = historical
+        .iter()
+        .find(|file| file["path"] == conformance["input_manifest"]["path"])
+        .unwrap();
+    assert_eq!(manifest, &conformance["input_manifest"]);
+    let path = "develop/migrations/csharp-03/handler-lowering/conformance.json";
+    let record = historical.iter().find(|file| file["path"] == path).unwrap();
+    let bytes = read(path);
+    assert_eq!(record["sha256"], sha256_raw_file_bytes(&bytes).to_hex());
+    assert_eq!(record["size_bytes"], bytes.len());
     let cases = fixtures();
     assert_eq!(cases.len(), conformance["cases"].as_array().unwrap().len());
     for (case, binding) in cases.iter().zip(conformance["cases"].as_array().unwrap()) {

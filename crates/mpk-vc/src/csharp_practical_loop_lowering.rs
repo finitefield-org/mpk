@@ -55,6 +55,14 @@ pub struct LoopControlFunction {
     pub operations: Vec<LoopSourceOperation>,
     pub nodes: Vec<LoopControlNode>,
     pub loops: Vec<LoweredLoopRegion>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub operation_locations: Option<Vec<ControlOperationLocation>>,
+}
+#[derive(Clone, Debug, Deserialize, Serialize, Eq, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct ControlOperationLocation {
+    pub start_byte: usize,
+    pub end_byte: usize,
 }
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -323,7 +331,7 @@ fn prepare_control_lowering(
         if blocks > 8192 {
             return Err(LoopLoweringError::Limit("cfg_blocks_per_closure"));
         }
-        validate_function(function, patterns, exception_universe)?;
+        validate_function(function, patterns, exception_universe, false)?;
         if function
             .nodes
             .iter()
@@ -404,10 +412,11 @@ fn prepare_control_lowering(
         total_getters: wire.total_getters.unwrap_or_default(),
     })
 }
-fn validate_function(
+pub(super) fn validate_function(
     f: &LoopControlFunction,
     patterns: bool,
     universe: Option<&ClosedExceptionUniverse>,
+    handlers: bool,
 ) -> Result<(), LoopLoweringError> {
     use LoopLoweringError::{Graph, Operand};
     if f.nodes.len() > 1024 {
@@ -433,6 +442,24 @@ fn validate_function(
             }
             let source_kind = n.source_ordinal.map(|i| f.operations[i].kind.as_str());
             let source_matches = match n.operation.as_str() {
+                "condition_true" | "condition_false" => {
+                    handlers
+                        && source_kind == Some("Binary")
+                        && n.source_ordinal.is_some_and(|i| {
+                            matches!(
+                                f.operations[i].traits.split('|').next(),
+                                Some("ConditionalAnd" | "ConditionalOr")
+                            )
+                        })
+                }
+                "publish" => {
+                    handlers
+                        && n.source_ordinal
+                            .is_some_and(|i| f.operations[i].type_key.is_some())
+                }
+                "join_value" => {
+                    handlers && matches!(source_kind, Some("Conditional" | "SwitchExpression"))
+                }
                 "pattern_constant" => {
                     patterns
                         && source_kind == Some("FieldReference")
@@ -486,6 +513,19 @@ fn validate_function(
                 "member" => matches!(source_kind, Some("PropertyReference" | "FieldReference")),
                 "call" => source_kind == Some("Invocation"),
                 "construct" => source_kind == Some("ObjectCreation"),
+                "construction_begin" | "construction_invoke" | "construction_finalize" => {
+                    handlers && source_kind == Some("ObjectCreation")
+                }
+                "construction_write" => {
+                    handlers
+                        && source_kind == Some("SimpleAssignment")
+                        && n.inputs.len() == 2
+                        && n.slot.parse::<usize>().ok().is_some_and(|i| {
+                            f.operations
+                                .get(i)
+                                .is_some_and(|o| o.kind == "ObjectCreation")
+                        })
+                }
                 "zero" | "true" | "less" | "increment" | "length" => source_kind == Some("Loop"),
                 "element" => matches!(
                     source_kind,
@@ -516,6 +556,9 @@ fn validate_function(
                                 matches!(o.kind.as_str(), "FieldReference" | "PropertyReference")
                                     && o.symbol == n.slot
                             })
+                }
+                "exception_payload" => {
+                    handlers && matches!(source_kind, Some("FieldReference" | "PropertyReference"))
                 }
                 "closed_exception" => universe.is_some() && source_kind == Some("ObjectCreation"),
                 "load" => {
@@ -570,12 +613,19 @@ fn validate_function(
 
             let arity = match n.operation.as_str() {
                 "load" | "constant" | "zero" | "true" | "initializer_index" | "pattern_true"
-                | "pattern_false" | "pattern_constant" => Some(0),
+                | "pattern_false" | "pattern_constant" | "condition_true" | "condition_false" => {
+                    Some(0)
+                }
                 "pattern_type" | "pattern_not_null" | "pattern_length" | "pattern_element"
-                | "pattern_member" | "pattern_bind" => Some(1),
-                "pattern_equal" | "pattern_relational" => Some(2),
+                | "pattern_member" | "pattern_bind" | "exception_payload" => Some(1),
+                "pattern_equal" | "pattern_relational" | "construction_write" => Some(2),
+                "construction_begin" => Some(0),
+                "construction_finalize" => Some(1),
+                "construction_invoke" => {
+                    Some(f.operations[n.source_ordinal.ok_or(Operand)?].child_count)
+                }
                 "store" | "unary" | "unary_update" | "increment" | "convert"
-                | "iteration_convert" | "length" | "allocate" => Some(1),
+                | "iteration_convert" | "length" | "allocate" | "join_value" | "publish" => Some(1),
                 "binary" | "less" | "element" | "construction_assign" => Some(2),
                 "update" => Some(3),
                 "member" | "call" | "construct" => None,
@@ -600,10 +650,11 @@ fn validate_function(
                 return Err(Operand);
             }
         } else if !n.result.is_empty()
-            || !n.operation.is_empty()
+            || !n.operation.is_empty() && !(handlers && n.kind == "handler_completion")
             || !n.exceptional_successors.is_empty()
                 && !(universe.is_some()
-                    && n.kind == "explicit_throw"
+                    && (n.kind == "explicit_throw"
+                        || handlers && matches!(n.kind.as_str(), "rethrow" | "builtin_throw"))
                     && n.exceptional_successors.len() == 1)
         {
             return Err(Graph);
@@ -635,6 +686,15 @@ fn validate_function(
             "throw" => (0, 0),
             "explicit_throw" if universe.is_some() => (0, 1),
             "exception_exit" if universe.is_some() => (0, 0),
+            "rethrow" | "builtin_throw" if handlers => (0, 0),
+            "handler_search" | "handler_resume" if handlers => (n.successors.len(), 0),
+            "handler_completion" if handlers && n.inputs.len() <= 1 => {
+                (n.successors.len(), n.inputs.len())
+            }
+            "handler_filter_result" if handlers => (n.successors.len(), 1),
+            "handler_entry" | "handler_filter_entry" | "handler_finally_entry" if handlers => {
+                (1, 0)
+            }
             "evaluate" => continue,
             _ => return Err(Graph),
         };
@@ -664,7 +724,7 @@ fn validate_function(
                 && f.nodes
                     .iter()
                     .filter(|n| {
-                        n.kind == "throw"
+                        (n.kind == "throw" || handlers && n.kind == "builtin_throw")
                             && n.source_ordinal == Some(ordinal)
                             && n.slot == "System.Runtime.CompilerServices.SwitchExpressionException"
                     })
@@ -688,7 +748,9 @@ fn validate_function(
         }
         for target in &n.exceptional_successors {
             if f.nodes[*by_id.get(target.as_str()).ok_or(Graph)?].kind
-                != if n.kind == "explicit_throw" {
+                != if handlers {
+                    "handler_search"
+                } else if n.kind == "explicit_throw" {
                     "exception_exit"
                 } else {
                     "throw"

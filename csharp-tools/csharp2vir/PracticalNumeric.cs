@@ -25,10 +25,10 @@ internal sealed record PracticalNumeric(PracticalStrings Strings,IReadOnlyList<P
 internal static class CSharpPracticalNumeric
 {
     internal static PracticalNumeric Validate(PracticalSourceSelection selection,IEnumerable<PracticalCapturedInput> inputs,
-        ImmutableArray<MetadataReference> references, Action<CSharpCompilation>? validateDomain=null,bool deferSidecarAttachment=false)
+        ImmutableArray<MetadataReference> references, Action<CSharpCompilation>? validateDomain=null,bool deferSidecarAttachment=false,bool allowControl=false)
     {
         var steps=new List<PracticalNumericStep>();
-        var strings=CSharpPracticalStrings.Validate(selection,inputs,references,validateNumeric:c=>{Analyze(c,steps,validateDomain is not null);validateDomain?.Invoke(c);},domainOperations:validateDomain is not null,deferSidecarAttachment:deferSidecarAttachment);
+        var strings=CSharpPracticalStrings.Validate(selection,inputs,references,validateNumeric:c=>{Analyze(c,steps,validateDomain is not null);validateDomain?.Invoke(c);},domainOperations:validateDomain is not null,deferSidecarAttachment:deferSidecarAttachment,allowControl:allowControl);
         return new(strings,Array.AsReadOnly(steps.OrderBy(s=>s.Site,StringComparer.Ordinal).ThenBy(s=>s.Operation,StringComparer.Ordinal).ToArray()));
     }
     internal static void ValidateCandidate(PracticalNumeric regenerated,ReadOnlySpan<byte> candidate)

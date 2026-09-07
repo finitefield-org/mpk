@@ -1622,6 +1622,7 @@ fn check_object_protocol_mutations(
             condition_value_id: None,
             return_value_ids: vec![],
             abrupt_value_id: None,
+            handler_exception_source_id: None,
             handler_exception_value: None,
             invocation: None,
             ownership_in: vec![],
@@ -1662,6 +1663,7 @@ fn check_object_protocol_mutations(
         .collect::<BTreeMap<_, _>>();
     operations.insert(callable.id().into(), callable.logical_signature(b).unwrap());
     let function = v::PracticalVirFunction {
+        control_protocol: None,
         id: callable.id().into(),
         parameter_values: vec![value(10, &plan.type_id)],
         result_type_ids: vec!["mpk.csharp.value.i32.v1".into()],

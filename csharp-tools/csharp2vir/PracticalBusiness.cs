@@ -18,10 +18,10 @@ internal sealed record PracticalBusiness(PracticalDomain Domain,IReadOnlyList<Pr
 }
 internal static class CSharpPracticalBusiness
 {
- internal static PracticalBusiness Validate(PracticalSourceSelection selection,IEnumerable<PracticalCapturedInput> inputs,ImmutableArray<MetadataReference> references,IReadOnlyList<PracticalBusinessBinding>? bindings=null,IReadOnlyList<PracticalOutcomeBinding>? outcomes=null,Action<CSharpCompilation>? validatedCompilation=null,bool deferSidecarAttachment=false)
+ internal static PracticalBusiness Validate(PracticalSourceSelection selection,IEnumerable<PracticalCapturedInput> inputs,ImmutableArray<MetadataReference> references,IReadOnlyList<PracticalBusinessBinding>? bindings=null,IReadOnlyList<PracticalOutcomeBinding>? outcomes=null,Action<CSharpCompilation>? validatedCompilation=null,bool deferSidecarAttachment=false,bool allowControl=false)
  {
   var steps=new List<PracticalBusinessStep>();CSharpCompilation? compilation=null;
-  var domain=CSharpPracticalDomain.Validate(selection,inputs,references,outcomes,c=>{compilation=c;Analyze(c,steps);},deferSidecarAttachment);
+  var domain=CSharpPracticalDomain.Validate(selection,inputs,references,outcomes,c=>{compilation=c;Analyze(c,steps);},deferSidecarAttachment,allowControl);
   var obligations=new List<PracticalDomainObligation>();var projections=Bind(domain,compilation!,bindings??Array.Empty<PracticalBusinessBinding>(),obligations);
   foreach(var step in domain.Steps.Where(s=>s.Operation=="nullable.value_or_default")) {
    if(projections.Any(p=>p.SourceTypeId==step.ResultType)){throw PracticalFailures.Type("business_nullable_default_ineligible");}

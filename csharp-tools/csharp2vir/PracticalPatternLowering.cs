@@ -122,6 +122,26 @@ internal static partial class CSharpPracticalLoopLowering
             }
             return Eval("pattern_member",Get(member),new[]{receiver});
         }
+        // Preserve definite-assignment paths while lowering a consumed Boolean
+        // condition. A pattern-bound value never joins an unmatched path.
+        private void Condition(Op op,Node yes,Node no) {
+            if(op.Source is IIsPatternOperation pattern) {
+                string value=Expression(Get(pattern.Value));Decision(op,value);
+                Match(pattern.Pattern,value,yes,no);return;
+            }
+            if(op.Source is IUnaryOperation {OperatorKind:UnaryOperatorKind.Not} unary) {
+                Condition(Get(unary.Operand),no,yes);return;
+            }
+            if(op.Source is IBinaryOperation binary && binary.OperatorKind is BinaryOperatorKind.ConditionalAnd or BinaryOperatorKind.ConditionalOr) {
+                var next=New("jump");bool and=binary.OperatorKind==BinaryOperatorKind.ConditionalAnd;
+                Condition(Get(binary.LeftOperand),and?next:yes,and?no:next);
+                current=next;Condition(Get(binary.RightOperand),yes,no);return;
+            }
+            if(op.Kind=="Parenthesized" || op.Source is IConversionOperation {Conversion.IsIdentity:true}) {
+                Condition(op.Children.Single(),yes,no);return;
+            }
+            Test(Expression(op),yes,no,op);
+        }
         private string IsPattern(Op op) {
             var expression=(IIsPatternOperation)op.Source!;string value=Expression(Get(expression.Value));Decision(op,value);
             var yes=New("jump");var no=New("jump");var join=New("jump");string result=Temp();
@@ -135,8 +155,9 @@ internal static partial class CSharpPracticalLoopLowering
             var join=New("jump");string result=Temp();
             foreach(var arm in expression.Arms) {
                 var matched=New("jump");var next=New("jump");Match(arm.Pattern,value,matched,next);current=matched;
-                if(arm.Guard is not null){var guarded=New("jump");Test(Expression(Get(arm.Guard)),guarded,next,Get(arm));current=guarded;}
-                Store(result,Expression(Get(arm.Value)),op);Link(current!,join);current=next;
+                if(arm.Guard is not null){var guarded=New("jump");if(ssaConditions)Condition(Get(arm.Guard),guarded,next);else Test(Expression(Get(arm.Guard)),guarded,next,Get(arm));current=guarded;}
+                string armValue=Expression(Get(arm.Value));
+                Store(result,ssaConditions?Eval("join_value",op,new[]{armValue}):armValue,op);Link(current!,join);current=next;
             }
             // The same exact closed exception is retained even when Roslyn
             // reports exhaustive. An unreachable fallback is not a proof.

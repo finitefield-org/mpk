@@ -31,6 +31,14 @@ internal static class CSharpPracticalLoopContracts
         var closure = CSharpPracticalCapture.Validate(selection, inputs, references,
             validateDataDeclarations: c => { compilation = c; CSharpPracticalSyntaxNormalizer.ValidateLoopContractPrerequisites(c); },
             validateDataLimits: CheckLimits, allowLoopContractForeach: true, allowPatternControl: allowPatternControl, allowExceptionControl: allowExceptionControl, allowHandlers: allowHandlers);
+        return CaptureValidated(selection, closure, compilation!, allowPatternControl, allowHandlers);
+    }
+    internal static byte[] CaptureValidated(PracticalSourceSelection selection,
+        PracticalSourceClosure closure, CSharpCompilation compilation,
+        bool allowPatternControl, bool allowHandlers)
+    {
+        CheckLimits(compilation);
+        CSharpPracticalSyntaxNormalizer.ValidateLoopContractPrerequisites(compilation);
         var methods = new List<object>();
         foreach (var declaration in closure.ReachableDeclarations.Where(d =>
             d.Id.StartsWith("mpk.csharp.source.", StringComparison.Ordinal)

@@ -11,6 +11,8 @@ use contract_values::decode_contract_value;
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum DataPhaseError {
+    ControlGraph(LoopLoweringError),
+    ControlHandler(HandlerError),
     Source,
     Sidecar,
     Binding,
@@ -1195,6 +1197,8 @@ fn validate_data_contract_value(
 /// any artifact. Proof discharge remains T06-owned; attachment is never proof.
 pub(crate) fn attach_data_contracts(
     b: &ValidatedFoundationBundle,
+    context: &PracticalArtifactContext,
+    captures: &CapturedInputSet,
     closure: &DataBindingClosure,
     source: &ValidatedDataSource,
     sidecars: &DataSidecars,
@@ -1254,6 +1258,50 @@ pub(crate) fn attach_data_contracts(
             (id.into(), closure.projections()[id].clone()),
         );
     }
+    if source.control_lowering().is_some() {
+        let control = validate_control_source(b, source)?;
+        let mut claims = sidecars
+            .contracts()
+            .iter()
+            .filter(|c| c.schema() == artifacts::METHOD_CONTRACT_SCHEMA)
+            .map(|c| {
+                Ok((
+                    c.value()
+                        .get("callable_id")
+                        .and_then(J::as_str)
+                        .ok_or(DataPhaseError::Contract)?
+                        .to_owned(),
+                    c.value()
+                        .get("termination")
+                        .and_then(J::as_str)
+                        .ok_or(DataPhaseError::Contract)?
+                        .to_owned(),
+                ))
+            })
+            .collect::<Result<BTreeMap<_, _>, DataPhaseError>>()?;
+        for getter in control.total_getters() {
+            if claims
+                .insert(getter.clone(), "total".into())
+                .is_some_and(|mode| mode != "total")
+            {
+                return Err(DataPhaseError::Contract);
+            }
+        }
+        derive_control_termination(source, &claims)?;
+        common.exception_universe = Some(control.universe().clone());
+        // W01 remains the sole owner of loop contract attachment and scope
+        // checking. Both emission and import use the complete data environment.
+        prepare_loop_contracts(
+            b,
+            r,
+            c,
+            context,
+            captures,
+            &serde_json::to_vec(control.facts()).map_err(|_| DataPhaseError::Source)?,
+            &common,
+        )
+        .map_err(|e| DataPhaseError::ControlGraph(LoopLoweringError::Contract(e)))?;
+    }
     fn clause(
         b: &ValidatedFoundationBundle,
         r: &ValidatedClosedRootSet,
@@ -1294,11 +1342,12 @@ pub(crate) fn attach_data_contracts(
             {
                 return Err(DataPhaseError::Source);
             }
-            if !value
-                .get("loops")
-                .and_then(J::as_array)
-                .ok_or(DataPhaseError::Contract)?
-                .is_empty()
+            if source.control_lowering().is_none()
+                && !value
+                    .get("loops")
+                    .and_then(J::as_array)
+                    .ok_or(DataPhaseError::Contract)?
+                    .is_empty()
             {
                 return Err(DataPhaseError::LaterOwner("CSHARP-03-T04-W01"));
             }
@@ -1627,6 +1676,7 @@ pub(crate) fn derive_data_contract_roots(
             "exceptional_cases",
             "construction_invariant",
             "invariants",
+            "loops",
         ] {
             if let Some(expression) = contract.value().get(name) {
                 walk(b, expression, contract.hash(), &mut ordinal, roots, 1)?;
