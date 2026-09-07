@@ -7089,3 +7089,10 @@ pub use object_construction::{
     object_constructor_execution_signature, ObjectConstructionError, ObjectConstructionOperation,
     ObjectConstructionState,
 };
+
+#[path = "csharp_practical_loop_contracts.rs"]
+mod loop_contracts;
+pub use loop_contracts::{
+    prepare_loop_contracts, AttachedLoopContract, LoopArrayAllocation, LoopCollectionClause,
+    LoopContractError, LoopExit, PreparedLoopContracts,
+};

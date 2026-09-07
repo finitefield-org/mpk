@@ -54,7 +54,9 @@ T03-W12 adds nullable relations and pending application outcome projections.
 T03-W13 adds calendar/time/GUID and bound instant/money relations with pending
 source, currency and exhaustive error-projection obligations.
 T03-W14 completes private data emission and independent source/sidecar import
-(see section 37). `CSHARP-03-T04-W01` is ready; later items remain serially blocked. No public production acceptance
+(see section 37). `CSHARP-03-T04-W01` completes private loop-contract
+attachment after the approved amendment (sections 38/39). T04-W02 is ready;
+later items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
 This ledger is subordinate to
@@ -119,9 +121,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T03-W11` | `Complete` | `crates/mpk-cli/tests/csharp_practical_numbers.rs#CSHARP-03-T03-W11` | `2e384db5d97565dc25aec50e73d911950c315f66` |
 | `CSHARP-03-T03-W12` | `Complete` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W12` | `3e3c7813db8b2fc4a9472aa11efef03e3f3381bb` |
 | `CSHARP-03-T03-W13` | `Complete` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W13` | `78c8f7295f75baf3ea0efc68c684d31d95e6bc46` |
-| `CSHARP-03-T03-W14` | `Complete` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W14` | `SELF` |
-| `CSHARP-03-T04-W01` | `Ready` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W01` | `—` |
-| `CSHARP-03-T04-W02` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W02` | `—` |
+| `CSHARP-03-T03-W14` | `Complete` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W14` | `5e2979c162e01a1e6b1e006aec4c5d9f566384ee` |
+| `CSHARP-03-T04-W01` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W01` | `SELF` |
+| `CSHARP-03-T04-W02` | `Ready` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W02` | `—` |
 | `CSHARP-03-T04-W03` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W03` | `—` |
 | `CSHARP-03-T04-W04` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W04` | `—` |
 | `CSHARP-03-T04-W05` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W05` | `—` |
@@ -4702,3 +4704,109 @@ recreating caches. Earlier failed runs remain recorded as failures.
 The task's commit cell uses the ledger's `SELF` convention. T04-W01 is the sole
 ready item. Source handlers/loops, boundary invocation, proof construction and
 installed activation remain with T04, T05, T06 and T07/T08 respectively.
+
+## 38. CSHARP-03-T04-W01 entry review — blocked
+
+`CSHARP-03-T04-W01-F01` (2026-09-07): partial-loop decreases acceptance
+conflicts with the normative frozen contract. T03-W14 is complete; the initial
+working tree was clean on `main`. W01 implementation has not begun.
+
+Evidence:
+
+- Source design section 13 explicitly permits a partial function to omit
+  decreases; total functions require a well-founded lexicographic decrease.
+  W01 owns optional decreases, and W02 repeats the partial-loop exception.
+- Published `CSHARP_PRACTICAL_PROFILE_V1.md` section 7 instead requires an
+  invariant and well-founded decreases proof for every admitted loop.
+- In `develop/specs/vectors/csharp-practical-profile-v1.json`, the frozen
+  `schema_type_system.nested_records` entry `loop_contract` requires
+  `decreases: ordered_nonempty_array<well_founded_contract_expression>`.
+  The field is required, with no optional fields. `termination.loops` repeats
+  the unconditional proof requirement.
+
+Minimal counterexample: an explicitly analysis-only partial method with
+`while (true) { }`, invariant `true`, no modified values and `decreases: []`.
+The source design permits this partial-correctness contract; the frozen field
+type forbids it. Omitting the field also violates the frozen required fields.
+This is a specification mismatch, not a claimed execution failure or proof of
+termination. The current T03 source and sidecar barriers still reject loops.
+
+The read-only Python entry probe loaded the actual published package, located
+the `loop_contract` record, asserted its exact decreases type and required/
+optional membership, and checked the source-design and task-document clauses.
+All assertions passed, confirming the mismatch. At review time the published
+package raw SHA-256 was
+`f53e93f71564662518d941f7f1f7aca70dd48e233c8afa456d7b16a1e587454c`;
+its frozen content SHA-256 was
+`135dce8e144a7a4cee00c6e42c09e77b1dbdd0942aa6c8f7ad7d971fcde9121c`.
+
+Proposed prerequisite amendment, pending user direction:
+
+1. Preserve the source design's analysis-only partial route. Keep the
+   `decreases` field required, but allow an empty array only for a containing
+   method with `termination: partial`. Require at least one well-founded
+   expression for `termination: total`.
+2. Qualify the published profile and frozen termination rule accordingly;
+   retain the total-only boundary, transition, example and installed routes.
+3. Record an explicit amendment to the W09 freeze and regenerate its W10
+   publication, manifests and hashes. Add partial-empty, partial-nonempty,
+   total-empty rejection and total-nonempty cases, retaining missing-field
+   rejection and partial-callee rejection on total routes.
+4. Recheck affected schema/termination consumers and generators, then resume
+   W01's source attachment, typing, nesting and collection-clause work.
+
+Alternatively, removing partial-loop support requires an explicit change to
+the source design and W01/W02 acceptance criteria. Neither decision is made
+implicitly here. The requested task-work-loop requires stopping for direction
+when a finding cannot be fixed safely within the single task's scope; changing
+the frozen predecessor contract is a prerequisite amendment. Only current
+status and this review record were edited. Historical completion receipts,
+implementation, frozen artifacts and installed routes remain unchanged.
+
+W01 remains incomplete with one open finding. There is no implementation
+commit or push, and no claim of production test coverage for W01.
+`./scripts/check-fast.sh` and the pinned frontend suites were not run: this
+entry review changes documentation only and leaves implementation blocked.
+
+
+Resolution of section 38: the user approved the proposed prerequisite amendment
+on 2026-09-07. `partial_loop_decreases` records the exact predecessor commit
+and hashes above. The required field now permits an empty array only for an
+analysis-only partial method; total routes and partial-callee exclusions are
+unchanged. W09/W10 generators, the normative profile, package, manifest and
+four production-owned termination vectors were updated together. F01 is closed.
+
+## 39. CSHARP-03-T04-W01 completion record
+
+The private frontend handoff now parses and attaches the retained method
+sidecars to original Roslyn loop sites. `PracticalLoopContracts.cs` captures
+canonical method-relative source ordinals for for/while/do and exact array or
+string foreach, byte spans, lexical and definitely assigned variables,
+transitive modifies, array allocation/length references, nesting and structured
+exit targets. The existing capture firewall retains its default foreach
+rejection; only the explicit W01 analysis entry permits the exact forms.
+
+`csharp_practical_loop_contracts.rs` binds source provenance and selected roots
+to the captured input set, validates the complete ordered loop inventory,
+and parses every retained loop record through the shared W14 expression
+validator. Missing, duplicate, wrong-target, stale, ill-typed, impure,
+out-of-scope and unknown facts reject. It retains optional partial decreases,
+requires total decreases, and enforces 32 loops, nesting 8 and 64 combined
+invariant/decreases clauses, plus existing expression budgets. Normal, return
+and built-in exceptional claims and ownership/modifies frames remain pending.
+
+Collection clauses retain exact allocation and length source spans and bindings,
+count/fill relations, initialized-prefix, bounds and complete publication
+requirements. Ordered collection clauses use the T03 projection and operation
+signatures, retaining source member identities, canonical order, uniqueness,
+duplicate rejection versus replacement and applicable insertion-order independence.
+Supporting invariants are typed clauses, not proof attestations. W02 owns CFG
+lowering and alias-aware ownership; T06 owns logical proof discharge. No
+loop-containing frontend success, VIR or certificate is emitted by this task.
+
+Evidence and verification are recorded in
+`develop/migrations/csharp-03/loop-contracts/review.md`. The primary owner is
+`crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W01`.
+The exact live source closure is pinned by `loop-contract-inputs.json`; original
+source cases and Roslyn facts are retained in `source-cases.json`. The task
+commit uses the ledger's `SELF` convention. T04-W02 is the sole ready item.

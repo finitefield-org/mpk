@@ -43,6 +43,7 @@ internal enum PracticalDiagnosticFamily
     CSHARP_PRACTICAL_GENERIC,
     CSHARP_PRACTICAL_OBJECT,
     CSHARP_PRACTICAL_EFFECT,
+    CSHARP_PRACTICAL_LOOP_CONTRACT,
 }
 
 internal sealed class PracticalCaptureFailure : Exception
@@ -701,7 +702,8 @@ internal static class CSharpPracticalCapture
         Action<CSharpCompilation>? validateDataDeclarations = null,
         Action<CSharpCompilation>? validateDataTypes = null,
         Action<CSharpCompilation>? validateDataLimits = null,
-        Action<CSharpCompilation, PracticalSourceClosure>? validateConstruction = null)
+        Action<CSharpCompilation, PracticalSourceClosure>? validateConstruction = null,
+        bool allowLoopContractForeach = false)
     {
         try
         {
@@ -740,7 +742,7 @@ internal static class CSharpPracticalCapture
                 captured.Sidecars,
                 roslyn);
             validateConstruction?.Invoke(roslyn.Compilation, closure);
-            ValidateEffectsAndConcurrency(roslyn);
+            ValidateEffectsAndConcurrency(roslyn, allowLoopContractForeach);
             return closure;
         }
         catch (PracticalCaptureFailure)
@@ -1533,7 +1535,7 @@ internal static class CSharpPracticalCapture
         }
     }
 
-    private static void ValidateEffectsAndConcurrency(RoslynState state)
+    private static void ValidateEffectsAndConcurrency(RoslynState state, bool allowLoopContractForeach)
     {
         foreach (SyntaxTree tree in state.Trees)
         {
@@ -1542,7 +1544,10 @@ internal static class CSharpPracticalCapture
             {
                 if (node is AwaitExpressionSyntax
                     || node is YieldStatementSyntax
-                    || node is ForEachStatementSyntax
+                    || node is ForEachStatementSyntax each && !(allowLoopContractForeach
+                        && each.AwaitKeyword.IsKind(SyntaxKind.None) && each.Type is not RefTypeSyntax
+                        && (model.GetTypeInfo(each.Expression).Type is IArrayTypeSymbol { Rank: 1, IsSZArray: true }
+                            || model.GetTypeInfo(each.Expression).Type?.SpecialType == SpecialType.System_String))
                     || node is ForEachVariableStatementSyntax
                     || node is LockStatementSyntax)
                 {

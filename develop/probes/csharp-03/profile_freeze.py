@@ -174,7 +174,7 @@ def schema_type_system() -> dict:
         nested_record("loop_contract", [
             ("loop_id", "canonical_source_identity"), ("invariants", "ordered_nonempty_array<contract_expression_bool>"),
             ("modifies", "ordered_unique_array<local_or_construction_state_id>"),
-            ("decreases", "ordered_nonempty_array<well_founded_contract_expression>")]),
+            ("decreases", "ordered_array<well_founded_contract_expression>")]),
         nested_record("boundary_field", [
             ("field_id", "canonical_id"), ("json_name", "utf16_string"), ("type_id", "closed_type_id"),
             ("required", "bool"), ("nullable", "bool"),
@@ -943,7 +943,7 @@ def make_freeze() -> dict:
         },
         "termination": {
             "call_graph": "finite and acyclic",
-            "loops": "every admitted loop has invariant and well-founded decreases proof",
+            "loops": "every admitted loop has an invariant; decreases is required and may be empty only when the containing method claims partial termination; total methods require nonempty well-founded decreases proofs",
             "total_required_routes": ["boundary", "transition", "example", "public practical profile"],
             "partial_callee_on_total_path": "reject",
             "bounded_quantifiers": "finite bounds evaluated before body traversal",
@@ -981,6 +981,15 @@ def make_freeze() -> dict:
             "base_commit": "78c8f7295f75baf3ea0efc68c684d31d95e6bc46",
             "rule": "decimal.fixed requires explicit non-null scale and rounding; every other registered codec requires both null; unknown, missing, duplicate or excess configuration rejects before parser invocation",
             "scope": "inactive T01-W09 freeze and T01-W10 republication; no installed profile or checker change",
+        }, {
+            "id": "partial_loop_decreases",
+            "date": "2026-09-07",
+            "previous_freeze_content_sha256": "135dce8e144a7a4cee00c6e42c09e77b1dbdd0942aa6c8f7ad7d971fcde9121c",
+            "previous_publication_raw_sha256": "f53e93f71564662518d941f7f1f7aca70dd48e233c8afa456d7b16a1e587454c",
+            "owner": "CSHARP-03-T04-W01",
+            "base_commit": "5e2979c162e01a1e6b1e006aec4c5d9f566384ee",
+            "rule": "decreases remains required; only analysis-only partial methods may use an empty array; total methods require nonempty well-founded decreases; partial callees remain forbidden on total routes",
+            "scope": "user-approved inactive W09/W10 prerequisite amendment; no installed profile or checker change",
         }],
         "publication_owner": "CSHARP-03-T01-W10",
         "content_hash_domain": DOMAIN,
@@ -1332,6 +1341,12 @@ def vector_rows(freeze: dict) -> list[dict]:
         ("partial_callee", {"route": "example", "reachable_partial_callee": True}, {"reject": "partial_callee_on_total_path"}),
     ]:
         add("termination", identity, inputs, expected)
+    for termination, count, expected in [
+        ("partial", 0, {"accept": True}), ("partial", 1, {"accept": True}),
+        ("total", 0, {"reject": "missing_decreases"}), ("total", 1, {"accept": True}),
+    ]:
+        add("termination", f"loop_{termination}_decreases_{count}",
+            {"termination": termination, "decreases_count": count}, expected, "CSHARP-03-T04-W01")
     rows.sort(key=lambda row: row["id"])
     return rows
 

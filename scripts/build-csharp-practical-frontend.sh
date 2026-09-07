@@ -34,6 +34,9 @@ case "$#:${1-}" in
   1:--test-data-phase)
     action=test-data-phase
     ;;
+  1:--test-loop-contracts)
+    action=test-loop-contracts
+    ;;
   1:--test-business)
     action=test-business
     ;;

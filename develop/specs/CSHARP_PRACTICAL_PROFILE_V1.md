@@ -19,7 +19,7 @@ The package contains, without semantic rewriting:
 
 - the complete W09 `frozen_contract`, including all names, strict shapes,
   diagnostic precedence, transition rules, termination rules, and limits;
-- the same 705 sorted conformance rows as the W09 private handoff;
+- the same 709 sorted conformance rows as the W09 private handoff;
 - raw hashes for every canonical W01-W09 evidence record and all three
   specification members;
 - one exact primary test owner for every freeze requirement and every T02-T08
@@ -184,7 +184,10 @@ expression variants listed in `frozen_contract.expression_union`. Unknown
 tags, wrong/missing/duplicate fields, ill-typed expressions, unbounded
 quantifiers, or an expression outside the selected context reject.
 
-Every admitted loop requires an invariant and well-founded decreases proof.
+Every admitted loop requires an invariant and a `decreases` field. The field
+may be an empty array only when the containing method explicitly claims
+analysis-only partial termination. Total methods require a nonempty array of
+well-founded decreases expressions and their proofs.
 Every admitted total route—boundary, transition, checked-in example, and
 public practical-profile route—MUST have a finite acyclic call graph and may
 not reach a partial callee. Bounded quantifier ranges are evaluated before

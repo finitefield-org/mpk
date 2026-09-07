@@ -32,10 +32,11 @@ by W08's reviewed binary-addressed Boolean-cube and static concrete-transformer
 expansion (ledger section 11). Both checkers accept all W09 capacity cases
 through each frozen limit plus one without a core change. W10 publishes the
 normative but inactive specifications and, after the approved W14 codec
-parameter amendment, 705 vectors.
+parameter and W01 partial-loop amendments, 709 vectors.
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
-`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12/W13/W14` are complete, `CSHARP-03-T04-W01` is ready, and every
-later implementation work item remains blocked by its serial predecessor.
+`CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12/W13/W14` are complete.
+`CSHARP-03-T04-W01` is complete; `CSHARP-03-T04-W02` is ready. Every later
+implementation work item remains blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
 
@@ -121,7 +122,8 @@ see section 32. T03-W11 adds exact numeric relations and source plans; see
 section 33. T03-W12 adds nullable and application outcome relations; see
 section 34. T03-W13 adds calendar/time/GUID and bound instant/money relations;
 see section 35. T03-W14 closes data emission and independent import; see
-section 37. T04-W01 is ready. This
+section 37. T04-W01 completes loop-contract parsing and attachment after the
+approved partial-loop amendment; see sections 38 and 39. T04-W02 is ready. This
 file remains planning material. W01 added its baseline and ledger; W02 added
 only the private consumer inventory, owner tests, ledger evidence, and current-
 status documentation; W03 added only private build-input evidence and its
@@ -178,7 +180,7 @@ T03-W09 adds canonical ordered map/set projections and typed operation handoffs.
 T03-W10 adds UTF-16 string plans and the shared typed boundary codec relation.
 T03-W11 adds exact numeric relations and source plans.
 T03-W12 adds nullable and closed application outcome relations.
-The next serial work is T04-W01's loop-contract attachment.
+The next serial work is T04-W02's structured-loop lowering.
 
 The following are unconditional stop conditions:
 
@@ -1427,7 +1429,11 @@ T07/T08.
 
 Depends on: T03-W14.
 
-Current status: `Ready`.
+Current status: `Complete`; see ledger sections 38 and 39. The approved
+`partial_loop_decreases` amendment resolves `CSHARP-03-T04-W01-F01`:
+`decreases` remains required but may be empty for an explicitly partial method.
+Total methods require a nonempty array. The private source/sidecar handoff
+emits no CFG, proof, certificate, or frontend success artifact.
 
 Owns: loop invariant, optional decreases, modifies/ownership facts, normal and
 abrupt exit claims, strict loop-to-sidecar attachment, expression typing, and
@@ -1445,6 +1451,8 @@ and nested-loop mutation cases.
 ### CSHARP-03-T04-W02 — Lower structured loops and abrupt edges
 
 Depends on: T04-W01.
+
+Current status: `Ready`.
 
 Owns: canonical CFG for admitted `for`, `while`, `do`, and exact compiler-
 recognized `foreach` over arrays or strings; stable IDs, invariant entry/back-

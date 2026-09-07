@@ -82,8 +82,8 @@ fn csharp_03_t03_w01_capture_inputs_and_private_routing_are_exact() {
     assert!(wrapper.contains("--test-capture"));
     assert!(script.contains("def test_capture()"));
     assert!(script.contains("/main:Mpk.CSharp2Vir.PracticalCaptureHarness"));
-    assert_eq!(script.matches("active.validate_project_files").count(), 16);
-    assert_eq!(script.matches("copy_bound_file(").count(), 29);
+    assert_eq!(script.matches("active.validate_project_files").count(), 17);
+    assert_eq!(script.matches("copy_bound_file(").count(), 31);
     assert!(script.contains("active.materialize_closure"));
     assert!(script.contains("active.closed_dotnet_environment"));
     assert!(script.contains("active.execute_isolated"));
@@ -143,7 +143,7 @@ fn csharp_03_t03_w01_gate_owns_every_frozen_capture_and_closure_rule() {
         .unwrap();
     let generics = source.find("ValidateGenerics(roslyn)").unwrap();
     let effects = source
-        .find("ValidateEffectsAndConcurrency(roslyn)")
+        .find("ValidateEffectsAndConcurrency(roslyn, allowLoopContractForeach)")
         .unwrap();
     assert!(dependency < diagnostics);
     assert!(diagnostics < declarations);

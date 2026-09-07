@@ -940,7 +940,7 @@ fn contract_codec(id: &str, ty: &str, value: &Value) -> Result<BoundaryCodec, Da
     .map_err(|_| DataPhaseError::Contract)
 }
 
-fn data_contract_limit(id: &str) -> usize {
+pub(super) fn data_contract_limit(id: &str) -> usize {
     static LIMITS: std::sync::OnceLock<BTreeMap<String, usize>> = std::sync::OnceLock::new();
     LIMITS.get_or_init(|| {
         let package: Value = serde_json::from_str(include_str!(concat!(

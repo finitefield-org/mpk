@@ -149,11 +149,20 @@ fn csharp_03_t03_w02_normalizer_owns_the_complete_closed_handoff() {
         assert!(source.contains(required), "missing W02 rule {required}");
     }
 
-    let capture = source.find("CSharpPracticalCapture.Validate").unwrap();
-    let imports = source.find("ValidateImportsAndDirectives(state)").unwrap();
-    let arrows = source.find("ValidateExpressionBodies(state)").unwrap();
-    let inference = source.find("ValidateVarContexts(state)").unwrap();
-    let artifact = source
+    let normalize = source
+        .split_once("internal static PracticalNormalizedSyntax Normalize(")
+        .unwrap()
+        .1
+        .split_once("private static SyntaxState CreateState(")
+        .unwrap()
+        .0;
+    let capture = normalize.find("CSharpPracticalCapture.Validate").unwrap();
+    let imports = normalize
+        .find("ValidateImportsAndDirectives(state)")
+        .unwrap();
+    let arrows = normalize.find("ValidateExpressionBodies(state)").unwrap();
+    let inference = normalize.find("ValidateVarContexts(state)").unwrap();
+    let artifact = normalize
         .find("new PracticalSyntaxModel(state, closure).Build()")
         .unwrap();
     assert!(capture < imports);

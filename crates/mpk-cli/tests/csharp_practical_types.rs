@@ -171,7 +171,7 @@ fn csharp_03_t03_w03_harness_covers_shapes_defaults_limits_and_runtime() {
     assert!(
         types
             < capture
-                .find("ValidateEffectsAndConcurrency(roslyn)")
+                .find("ValidateEffectsAndConcurrency(roslyn, allowLoopContractForeach)")
                 .unwrap()
     );
 }
@@ -264,7 +264,7 @@ fn csharp_03_t03_w04_constructor_manifest_and_private_route() {
     assert!(
         capture.find("validateConstruction?.Invoke").unwrap()
             < capture
-                .find("ValidateEffectsAndConcurrency(roslyn)")
+                .find("ValidateEffectsAndConcurrency(roslyn, allowLoopContractForeach)")
                 .unwrap()
     );
 }

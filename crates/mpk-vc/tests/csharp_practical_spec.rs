@@ -590,7 +590,7 @@ fn csharp_03_t01_w09_successor_identities_schemas_and_owners_are_frozen() {
     assert_eq!(freeze["activation"], "candidate_only");
     assert_eq!(freeze["semantic_profile"], "mpk.csharp.practical.v1");
     assert_eq!(freeze["publication_owner"], "CSHARP-03-T01-W10");
-    assert_eq!(array(&freeze["amendments"]).len(), 1);
+    assert_eq!(array(&freeze["amendments"]).len(), 2);
     let amendment = &freeze["amendments"][0];
     assert_eq!(amendment["id"], "explicit_codec_parameters");
     assert_eq!(amendment["owner"], "CSHARP-03-T03-W14");
@@ -606,6 +606,33 @@ fn csharp_03_t01_w09_successor_identities_schemas_and_owners_are_frozen() {
         amendment["previous_publication_raw_sha256"],
         "dd3b45276d91086b62dce8757cef4f79e16fe1dedcfce398af0ff979ad2489ac"
     );
+    let partial = &freeze["amendments"][1];
+    assert_eq!(partial["id"], "partial_loop_decreases");
+    assert_eq!(partial["owner"], "CSHARP-03-T04-W01");
+    assert_eq!(
+        partial["base_commit"],
+        "5e2979c162e01a1e6b1e006aec4c5d9f566384ee"
+    );
+    assert_eq!(
+        partial["previous_freeze_content_sha256"],
+        "135dce8e144a7a4cee00c6e42c09e77b1dbdd0942aa6c8f7ad7d971fcde9121c"
+    );
+    assert_eq!(
+        partial["previous_publication_raw_sha256"],
+        "f53e93f71564662518d941f7f1f7aca70dd48e233c8afa456d7b16a1e587454c"
+    );
+    let loop_record = array(&freeze["schema_type_system"]["nested_records"])
+        .iter()
+        .find(|r| r["id"] == "loop_contract")
+        .unwrap();
+    assert_eq!(
+        loop_record["field_types"]["decreases"],
+        "ordered_array<well_founded_contract_expression>"
+    );
+    assert!(array(&loop_record["required_fields"])
+        .iter()
+        .any(|v| v == "decreases"));
+    assert!(array(&loop_record["optional_fields"]).is_empty());
     let mut preimage = freeze.clone();
     preimage.as_object_mut().unwrap().remove("content_sha256");
     assert_eq!(
@@ -1526,8 +1553,8 @@ fn csharp_03_t01_w10_publication_reproduces_the_complete_private_freeze() {
         .map(|row| text(&row["id"]))
         .collect::<Vec<_>>();
     assert!(ids.windows(2).all(|pair| pair[0] < pair[1]));
-    assert_eq!(ids.len(), 705);
-    assert_eq!(ids.iter().copied().collect::<BTreeSet<_>>().len(), 705);
+    assert_eq!(ids.len(), 709);
+    assert_eq!(ids.iter().copied().collect::<BTreeSet<_>>().len(), 709);
     assert_eq!(package["vector_ids_sha256"], sha(&canonical(&json!(ids))));
 
     let source = &package["source_w09"];

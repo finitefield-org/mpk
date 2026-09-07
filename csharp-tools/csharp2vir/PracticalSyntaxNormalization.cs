@@ -351,6 +351,17 @@ internal static class CSharpPracticalSyntaxNormalizer
     private static readonly byte[] ReferenceInventoryDomain = Encoding.ASCII.GetBytes(
         "MPK-CSHARP-REFERENCE-INVENTORY-0.1\0");
 
+    // W01 runs the same prerequisite syntax firewall before retaining loop
+    // facts. The exact foreach source route is checked by capture; only that
+    // route permits var in an iteration binding before W02 normalization.
+    internal static void ValidateLoopContractPrerequisites(CSharpCompilation compilation)
+    {
+        var state = new SyntaxState(compilation, compilation.SyntaxTrees.ToImmutableArray());
+        ValidateImportsAndDirectives(state);
+        ValidateExpressionBodies(state);
+        ValidateVarContexts(state, allowLoopContractForeach: true);
+    }
+
     internal static PracticalNormalizedSyntax Normalize(
         PracticalSourceSelection selection,
         IEnumerable<PracticalCapturedInput> capturedInputs,
@@ -679,7 +690,7 @@ internal static class CSharpPracticalSyntaxNormalizer
         }
     }
 
-    private static void ValidateVarContexts(SyntaxState state)
+    private static void ValidateVarContexts(SyntaxState state, bool allowLoopContractForeach = false)
     {
         foreach (SyntaxTree tree in state.Trees)
         {
@@ -707,6 +718,7 @@ internal static class CSharpPracticalSyntaxNormalizer
                     continue;
                 }
 
+                if (allowLoopContractForeach && identifier.Parent is ForEachStatementSyntax) { continue; }
                 if (identifier.Parent is ForEachStatementSyntax
                         or DeclarationExpressionSyntax
                         or DeclarationPatternSyntax)

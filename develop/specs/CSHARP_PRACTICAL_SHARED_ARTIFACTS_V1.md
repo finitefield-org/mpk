@@ -198,7 +198,7 @@ unknown-field preservation, best-effort conversion, or legacy fallback exists.
 
 ## 9. Conformance and activation gate
 
-The 705 published rows are minimum mandatory conformance cases. All applicable
+The 709 published rows are minimum mandatory conformance cases. All applicable
 retained predecessor vectors also run. Passing a model test without executing
 the named production owner is insufficient. Every exact path/identity/domain
 listed in the package is immutable for v1.
