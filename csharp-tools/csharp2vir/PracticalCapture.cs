@@ -44,6 +44,7 @@ internal enum PracticalDiagnosticFamily
     CSHARP_PRACTICAL_OBJECT,
     CSHARP_PRACTICAL_EFFECT,
     CSHARP_PRACTICAL_LOOP_CONTRACT,
+    CSHARP_PRACTICAL_LOWERING,
 }
 
 internal sealed class PracticalCaptureFailure : Exception

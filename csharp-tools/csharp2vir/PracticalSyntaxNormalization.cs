@@ -369,7 +369,8 @@ internal static class CSharpPracticalSyntaxNormalizer
         Action<CSharpCompilation>? validateDataDeclarations = null,
         Action<CSharpCompilation>? validateDataTypes = null,
         Action<CSharpCompilation>? validateDataLimits = null,
-        Action<CSharpCompilation, PracticalSourceClosure>? validateConstruction = null)
+        Action<CSharpCompilation, PracticalSourceClosure>? validateConstruction = null,
+        bool allowLoopControl = false)
     {
         try
         {
@@ -386,16 +387,17 @@ internal static class CSharpPracticalSyntaxNormalizer
                         var prerequisite = new SyntaxState(current, current.SyntaxTrees.ToImmutableArray());
                         ValidateImportsAndDirectives(prerequisite);
                         ValidateExpressionBodies(prerequisite);
-                        ValidateVarContexts(prerequisite);
+                        ValidateVarContexts(prerequisite, allowLoopControl);
                     }
                     validateDataDeclarations?.Invoke(current);
                 },
                 validateDataTypes,
-                validateDataLimits, validateConstruction);
+                validateDataLimits, validateConstruction, allowLoopContractForeach: allowLoopControl);
             SyntaxState state = CreateState(selection, closure, references);
             ValidateImportsAndDirectives(state);
             ValidateExpressionBodies(state);
-            ValidateVarContexts(state);
+            if (allowLoopControl) { ValidateVarContexts(state, true); }
+            else { ValidateVarContexts(state); }
             return new PracticalSyntaxModel(state, closure).Build();
         }
         catch (PracticalCaptureFailure)
@@ -1167,6 +1169,19 @@ internal static class CSharpPracticalSyntaxNormalizer
                         ordinal,
                         NormalizeLocalType(variable, local)));
                 }
+                CollectForeachLocals(bindings);
+            }
+
+            private void CollectForeachLocals(List<PracticalExactTypeBinding> bindings)
+            {
+                foreach (var syntax in Syntax.DescendantNodes().OfType<ForEachStatementSyntax>())
+                {
+                    var local = Model.GetDeclaredSymbol(syntax) ?? throw PracticalFailures.Declaration("foreach_local_identity");
+                    int ordinal = localOrdinals.Count;
+                    if (!localOrdinals.TryAdd(local, ordinal)) { throw PracticalFailures.Declaration("foreach_local_identity"); }
+                    bindings.Add(new PracticalExactTypeBinding(Id, ordinal,
+                        syntaxModel.NormalizeType(local.Type)));
+                }
             }
 
             private PracticalNormalizedType NormalizeLocalType(
@@ -1397,6 +1412,16 @@ internal static class CSharpPracticalSyntaxNormalizer
             private string CanonicalOperationType(IOperation operation)
             {
                 ITypeSymbol type = operation.Type!;
+                // The exact array/string foreach protocol has a compiler-only
+                // collection conversion. Retain its source carrier; this does
+                // not admit IEnumerable or an explicit interface conversion.
+                if (operation is IConversionOperation { IsImplicit: true } enumeration
+                    && operation.Parent is IForEachLoopOperation each
+                    && ReferenceEquals(each.Collection, operation)
+                    && (enumeration.Operand.Type is IArrayTypeSymbol { Rank: 1, IsSZArray: true }
+                        || enumeration.Operand.Type?.SpecialType == SpecialType.System_String))
+                { return syntaxModel.NormalizeType(enumeration.Operand.Type!).CanonicalKey; }
+
                 // W12 exceptions are retained as control operands, never as
                 // registered values or source-visible exception parameters.
                 if((IsIntrinsicArgumentCarrier(type,"InvalidOperationException")

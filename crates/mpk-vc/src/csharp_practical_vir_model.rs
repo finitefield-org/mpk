@@ -7096,3 +7096,10 @@ pub use loop_contracts::{
     prepare_loop_contracts, AttachedLoopContract, LoopArrayAllocation, LoopCollectionClause,
     LoopContractError, LoopExit, PreparedLoopContracts,
 };
+
+#[path = "csharp_practical_loop_lowering.rs"]
+mod loop_lowering;
+pub use loop_lowering::{
+    prepare_loop_lowering, LoopControlFunction, LoopControlNode, LoopLoweringError,
+    LoopSourceOperation, LoweredLoopControl, LoweredLoopRegion,
+};

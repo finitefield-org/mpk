@@ -1,4 +1,5 @@
 //! CSHARP-03-T04-W01: actual Roslyn source handoffs and retained sidecar mutations.
+//! CSHARP-03-T04-W02: structured CFGs, ownership and runtime differentials.
 use mpk_vc::csharp_practical_source_artifacts::{self as a, PracticalJsonValue as J};
 use mpk_vc::csharp_practical_vir_model::*;
 use mpk_vc::hash_domain_separated_raw;
@@ -511,235 +512,254 @@ fn csharp_03_t04_w01_input_inventory_and_pinned_frontend_when_available() {
 
 #[test]
 fn csharp_03_t04_w01_collection_clauses_use_source_bound_t03_projections() {
+    for name in ["set_add", "set_count", "map_add", "map_replace"] {
+        check_collection_projection_source(name, case(name));
+    }
+}
+fn check_collection_projection_source(name: &str, source: Value) {
     use std::collections::BTreeMap;
     let b = bundle();
-    for name in ["set_add", "set_count", "map_add", "map_replace"] {
-        let source = case(name);
-        let map = name.starts_with("map");
-        let source_hash = source["facts"]["sources"][0]["raw_sha256"]
-            .as_str()
-            .unwrap();
-        let primitive = |id: &str| json!({"kind":"primitive","id":id});
-        let seq =
-            |t: Value| json!({"kind":"instance","template":"bounded_sequence","arguments":[t]});
-        let source_type = |name: &str, kind: &str, members: Vec<(&str, Value)>| {
-            let identity = json!({"kind":"type","namespace":"Business","owner":"","name":name,"parameter_type_ids":[],"result_type_id":""});
-            let id = csharp_practical_declaration_id(&identity).unwrap();
-            let mut defaults = serde_json::Map::new();
-            let members=members.into_iter().enumerate().map(|(ordinal,(name,ty))|{
+    let map = name.starts_with("map");
+    let source_hash = source["facts"]["sources"][0]["raw_sha256"]
+        .as_str()
+        .unwrap();
+    let primitive = |id: &str| json!({"kind":"primitive","id":id});
+    let seq = |t: Value| json!({"kind":"instance","template":"bounded_sequence","arguments":[t]});
+    let source_type = |name: &str, kind: &str, members: Vec<(&str, Value)>| {
+        let identity = json!({"kind":"type","namespace":"Business","owner":"","name":name,"parameter_type_ids":[],"result_type_id":""});
+        let id = csharp_practical_declaration_id(&identity).unwrap();
+        let mut defaults = serde_json::Map::new();
+        let members=members.into_iter().enumerate().map(|(ordinal,(name,ty))|{
                 let mid=csharp_practical_stored_member_id(&id,name,&ty,"readonly_field").unwrap();
                 defaults.insert(mid.clone(),if ty["kind"]=="primitive" {json!(0)} else {Value::Null});
                 json!({"id":mid,"name":name,"type":ty,"storage":"readonly_field","ordinal":ordinal,"required":false})
             }).collect::<Vec<_>>();
-            json!({"id":id,"identity":identity,"kind":kind,"members":members,"enum_values":[],"enum_underlying":null,"actual_default":defaults,"public_default":kind=="readonly_struct","identity_sensitive":false,"source_sha256":source_hash})
-        };
-        let pair = source_type(
-            "Pair",
-            "readonly_struct",
-            vec![("Key", primitive("i32")), ("Value", primitive("i32"))],
-        );
-        let elements = seq(if map {
-            json!({"kind":"source","id":pair["id"]})
-        } else {
-            primitive("i32")
-        });
-        let wrapper = source_type(
-            if map { "Map" } else { "Set" },
-            "sealed_class",
-            vec![("Items", elements)],
-        );
-        let mut sources = serde_json::Map::new();
-        sources.insert(wrapper["id"].as_str().unwrap().into(), wrapper.clone());
-        if map {
-            sources.insert(pair["id"].as_str().unwrap().into(), pair.clone());
-        }
-        let roots_json = json!([{"origin":"semantic_binding","provenance_id":"loop.collection","type":{"kind":"source","id":wrapper["id"]}}]);
-        let root_bytes =
-            canonical_closed_root_set_transport(&b, &roots_json, &json!(sources)).unwrap();
-        let r = validate_closed_root_set(&b, &root_bytes).unwrap();
-        let c = derive_closed_instances(&b, &r).unwrap();
-        let operation = if name.ends_with("replace") {
-            "replace"
-        } else if name.ends_with("count") {
-            "count"
-        } else {
-            "add"
-        };
-        let binding =
-            |source: &Value,
-             role: &str,
-             mappings: Vec<(&str, usize)>,
-             args: Vec<String>,
-             ops: Vec<a::SemanticOperationMapping>| a::SemanticBindingInput {
-                source_type_id: source["id"].as_str().unwrap().into(),
-                source_content_sha256: source_hash.into(),
-                role: role.into(),
-                member_map: mappings
-                    .into_iter()
-                    .map(|(role, index)| a::SemanticBindingMember {
-                        role: role.into(),
-                        member_id: source["members"][index]["id"].as_str().unwrap().into(),
-                    })
-                    .collect(),
-                tag_arms: vec![],
-                inferred_argument_ids: args,
-                default_arm: "ineligible".into(),
-                bounds: if role == "ordered_entry" {
-                    vec![]
-                } else {
-                    vec![a::SemanticBound {
-                        id: "length".into(),
-                        maximum: 4096,
-                    }]
-                },
-                operation_map: ops,
-                enum_arms: BTreeMap::new(),
-            };
-        let mut bindings = vec![binding(
-            &wrapper,
-            if map { "ordered_map" } else { "ordered_set" },
-            vec![(if map { "entries" } else { "elements" }, 0)],
-            if map {
-                vec![ty("i32"), ty("i32")]
+        json!({"id":id,"identity":identity,"kind":kind,"members":members,"enum_values":[],"enum_underlying":null,"actual_default":defaults,"public_default":kind=="readonly_struct","identity_sensitive":false,"source_sha256":source_hash})
+    };
+    let pair = source_type(
+        "Pair",
+        "readonly_struct",
+        vec![("Key", primitive("i32")), ("Value", primitive("i32"))],
+    );
+    let elements = seq(if map {
+        json!({"kind":"source","id":pair["id"]})
+    } else {
+        primitive("i32")
+    });
+    let wrapper = source_type(
+        if map { "Map" } else { "Set" },
+        "sealed_class",
+        vec![("Items", elements)],
+    );
+    let mut sources = serde_json::Map::new();
+    sources.insert(wrapper["id"].as_str().unwrap().into(), wrapper.clone());
+    if map {
+        sources.insert(pair["id"].as_str().unwrap().into(), pair.clone());
+    }
+    let roots_json = json!([{"origin":"semantic_binding","provenance_id":"loop.collection","type":{"kind":"source","id":wrapper["id"]}}]);
+    let root_bytes = canonical_closed_root_set_transport(&b, &roots_json, &json!(sources)).unwrap();
+    let r = validate_closed_root_set(&b, &root_bytes).unwrap();
+    let c = derive_closed_instances(&b, &r).unwrap();
+    let operation = if name.ends_with("replace") {
+        "replace"
+    } else if name.ends_with("count") {
+        "count"
+    } else {
+        "add"
+    };
+    let binding =
+        |source: &Value,
+         role: &str,
+         mappings: Vec<(&str, usize)>,
+         args: Vec<String>,
+         ops: Vec<a::SemanticOperationMapping>| a::SemanticBindingInput {
+            source_type_id: source["id"].as_str().unwrap().into(),
+            source_content_sha256: source_hash.into(),
+            role: role.into(),
+            member_map: mappings
+                .into_iter()
+                .map(|(role, index)| a::SemanticBindingMember {
+                    role: role.into(),
+                    member_id: source["members"][index]["id"].as_str().unwrap().into(),
+                })
+                .collect(),
+            tag_arms: vec![],
+            inferred_argument_ids: args,
+            default_arm: "ineligible".into(),
+            bounds: if role == "ordered_entry" {
+                vec![]
             } else {
-                vec![ty("i32")]
+                vec![a::SemanticBound {
+                    id: "length".into(),
+                    maximum: 4096,
+                }]
             },
-            vec![a::SemanticOperationMapping {
-                operation: operation.into(),
-                member_id: source["root"].as_str().unwrap().into(),
-            }],
-        )];
+            operation_map: ops,
+            enum_arms: BTreeMap::new(),
+        };
+    let mut bindings = vec![binding(
+        &wrapper,
+        if map { "ordered_map" } else { "ordered_set" },
+        vec![(if map { "entries" } else { "elements" }, 0)],
         if map {
-            bindings.push(binding(
-                &pair,
-                "ordered_entry",
-                vec![("key", 0), ("value", 1)],
-                vec![ty("i32"), ty("i32")],
-                vec![],
-            ));
-        }
-        let empty_ctx = context_support::context(
-            &b,
-            source["root"].as_str().unwrap(),
-            source["source"].as_str().unwrap().as_bytes(),
-        );
-        let semantic =
-            a::build_semantic_bindings(&empty_ctx.0, &empty_ctx.1, bindings.clone()).unwrap();
-        let semantic_row = semantic
-            .value()
-            .get("bindings")
-            .unwrap()
-            .as_array()
-            .unwrap()
-            .iter()
-            .find(|row| row.get("source_type_id").unwrap().as_str() == wrapper["id"].as_str())
-            .unwrap();
-        let semantic_type = csharp_practical_closed_instance_id(&b, &json!({"kind":"instance","template":if map{"ordered_map"}else{"ordered_set"},"arguments":if map{vec![primitive("i32"),primitive("i32")]}else{vec![primitive("i32")]}})).unwrap();
-        let projection = J::object(vec![
-            ("tag", J::string("source_project")),
-            ("type_id", J::string(semantic_type)),
-            (
-                "binding_id",
-                J::string(format!(
-                    "binding.{}",
-                    semantic_row
-                        .get("binding_sha256")
-                        .unwrap()
-                        .as_str()
-                        .unwrap()
-                )),
-            ),
-            (
-                "source_value",
-                J::object(vec![
-                    ("tag", J::string("variable")),
-                    ("type_id", J::string(wrapper["id"].as_str().unwrap())),
-                    ("binding_id", J::string("parameter:0")),
-                ]),
-            ),
-        ]);
-        let contains = J::object(vec![
-            (
-                "tag",
-                J::string(if map { "map_contains" } else { "set_contains" }),
-            ),
-            ("type_id", J::string(ty("bool"))),
-            (if map { "map" } else { "set" }, projection),
-            (if map { "key" } else { "element" }, integer()),
-        ]);
-        let mut loop_rows = rows(&source);
-        set(&mut loop_rows[0], "invariants", J::Array(vec![contains]));
-        let doc = hashed(document(&empty_ctx.0, &source, "total", loop_rows));
-        // The context's semantic identity is independent of the sidecar paths;
-        // the final capture hashes and byte membership are rebound below.
-        let request = json!({"compilation_id":"data","roots":[source["root"]],"inputs":[
-            {"kind":"source","path":"src/Entry.cs","utf8":source["source"]},
-            {"kind":"sidecar","path":"contracts/a.json","utf8":String::from_utf8(doc).unwrap()},
-            {"kind":"sidecar","path":"contracts/b.json","utf8":std::str::from_utf8(semantic.canonical_bytes()).unwrap()}
-        ]});
-        let (context, captures) = context_support::replay_context(&b, &request);
-        let result = prepare_loop_contracts(
+            vec![ty("i32"), ty("i32")]
+        } else {
+            vec![ty("i32")]
+        },
+        vec![a::SemanticOperationMapping {
+            operation: operation.into(),
+            member_id: source["root"].as_str().unwrap().into(),
+        }],
+    )];
+    if map {
+        bindings.push(binding(
+            &pair,
+            "ordered_entry",
+            vec![("key", 0), ("value", 1)],
+            vec![ty("i32"), ty("i32")],
+            vec![],
+        ));
+    }
+    let empty_ctx = context_support::context(
+        &b,
+        source["root"].as_str().unwrap(),
+        source["source"].as_str().unwrap().as_bytes(),
+    );
+    let semantic =
+        a::build_semantic_bindings(&empty_ctx.0, &empty_ctx.1, bindings.clone()).unwrap();
+    let semantic_row = semantic
+        .value()
+        .get("bindings")
+        .unwrap()
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|row| row.get("source_type_id").unwrap().as_str() == wrapper["id"].as_str())
+        .unwrap();
+    let semantic_type = csharp_practical_closed_instance_id(&b, &json!({"kind":"instance","template":if map{"ordered_map"}else{"ordered_set"},"arguments":if map{vec![primitive("i32"),primitive("i32")]}else{vec![primitive("i32")]}})).unwrap();
+    let projection = J::object(vec![
+        ("tag", J::string("source_project")),
+        ("type_id", J::string(semantic_type)),
+        (
+            "binding_id",
+            J::string(format!(
+                "binding.{}",
+                semantic_row
+                    .get("binding_sha256")
+                    .unwrap()
+                    .as_str()
+                    .unwrap()
+            )),
+        ),
+        (
+            "source_value",
+            J::object(vec![
+                ("tag", J::string("variable")),
+                ("type_id", J::string(wrapper["id"].as_str().unwrap())),
+                ("binding_id", J::string("parameter:0")),
+            ]),
+        ),
+    ]);
+    let contains = J::object(vec![
+        (
+            "tag",
+            J::string(if map { "map_contains" } else { "set_contains" }),
+        ),
+        ("type_id", J::string(ty("bool"))),
+        (if map { "map" } else { "set" }, projection),
+        (if map { "key" } else { "element" }, integer()),
+    ]);
+    let mut loop_rows = rows(&source);
+    set(&mut loop_rows[0], "invariants", J::Array(vec![contains]));
+    let doc = hashed(document(&empty_ctx.0, &source, "total", loop_rows));
+    // The context's semantic identity is independent of the sidecar paths;
+    // the final capture hashes and byte membership are rebound below.
+    let request = json!({"compilation_id":"data","roots":[source["root"]],"inputs":[
+        {"kind":"source","path":"src/Entry.cs","utf8":source["source"]},
+        {"kind":"sidecar","path":"contracts/a.json","utf8":String::from_utf8(doc).unwrap()},
+        {"kind":"sidecar","path":"contracts/b.json","utf8":std::str::from_utf8(semantic.canonical_bytes()).unwrap()}
+    ]});
+    let (context, captures) = context_support::replay_context(&b, &request);
+    let result = prepare_loop_contracts(
+        &b,
+        &r,
+        &c,
+        &context,
+        &captures,
+        &serde_json::to_vec(&source["facts"]).unwrap(),
+        &DataContractEnvironment::default(),
+    )
+    .unwrap_or_else(|e| panic!("{name}:{e:?}"));
+    if source["lowering"].is_object() {
+        let lowered = prepare_loop_lowering(
             &b,
             &r,
             &c,
             &context,
             &captures,
             &serde_json::to_vec(&source["facts"]).unwrap(),
+            &serde_json::to_vec(&source["lowering"]).unwrap(),
             &DataContractEnvironment::default(),
         )
-        .unwrap_or_else(|e| panic!("{name}:{e:?}"));
-        if operation != "count" {
-            let mut wrong = bindings.clone();
-            wrong[0].operation_map[0].operation = "count".into();
-            let artifact = a::build_semantic_bindings(&empty_ctx.0, &empty_ctx.1, wrong).unwrap();
-            let mut changed = request.clone();
-            changed["inputs"][2]["utf8"] =
-                json!(std::str::from_utf8(artifact.canonical_bytes()).unwrap());
-            let (ctx, cap) = context_support::replay_context(&b, &changed);
-            assert_eq!(
-                prepare_loop_contracts(
-                    &b,
-                    &r,
-                    &c,
-                    &ctx,
-                    &cap,
-                    &serde_json::to_vec(&source["facts"]).unwrap(),
-                    &DataContractEnvironment::default()
-                )
-                .unwrap_err(),
-                LoopContractError::Attachment
-            );
-        }
-        let loop_ = &result.loops()[0];
-        let clause = loop_
-            .collection_clauses
-            .iter()
-            .find(|clause| clause.subject_id == wrapper["id"])
-            .unwrap();
-        assert_eq!(clause.operation, operation);
+        .unwrap();
+        assert_eq!(lowered.contracts().loops(), result.loops());
+        assert_eq!(lowered.functions().len(), 1);
         assert_eq!(
-            clause.member_ids,
-            vec![wrapper["members"][0]["id"].as_str().unwrap()]
+            lowered.functions()[0].loops.len(),
+            method(&source)["loops"].as_array().unwrap().len()
         );
-        assert_eq!(clause.supporting_invariants, loop_.invariants);
-        assert!(clause.predicates.contains(&"canonical_order".into()));
-        assert!(clause.predicates.contains(&"uniqueness".into()));
-        if operation == "add" {
-            assert!(clause
-                .predicates
-                .contains(&"duplicate_policy_reject".into()));
-            assert!(clause
-                .predicates
-                .contains(&"insertion_order_independence".into()));
-        }
-        if operation == "replace" {
-            assert!(clause
-                .predicates
-                .contains(&"duplicate_policy_replace".into()));
-            assert!(!clause
-                .predicates
-                .contains(&"insertion_order_independence".into()));
-        }
+    }
+    if operation != "count" {
+        let mut wrong = bindings.clone();
+        wrong[0].operation_map[0].operation = "count".into();
+        let artifact = a::build_semantic_bindings(&empty_ctx.0, &empty_ctx.1, wrong).unwrap();
+        let mut changed = request.clone();
+        changed["inputs"][2]["utf8"] =
+            json!(std::str::from_utf8(artifact.canonical_bytes()).unwrap());
+        let (ctx, cap) = context_support::replay_context(&b, &changed);
+        assert_eq!(
+            prepare_loop_contracts(
+                &b,
+                &r,
+                &c,
+                &ctx,
+                &cap,
+                &serde_json::to_vec(&source["facts"]).unwrap(),
+                &DataContractEnvironment::default()
+            )
+            .unwrap_err(),
+            LoopContractError::Attachment
+        );
+    }
+    let loop_ = &result.loops()[0];
+    let clause = loop_
+        .collection_clauses
+        .iter()
+        .find(|clause| clause.subject_id == wrapper["id"])
+        .unwrap();
+    assert_eq!(clause.operation, operation);
+    assert_eq!(
+        clause.member_ids,
+        vec![wrapper["members"][0]["id"].as_str().unwrap()]
+    );
+    assert_eq!(clause.supporting_invariants, loop_.invariants);
+    assert!(clause.predicates.contains(&"canonical_order".into()));
+    assert!(clause.predicates.contains(&"uniqueness".into()));
+    if operation == "add" {
+        assert!(clause
+            .predicates
+            .contains(&"duplicate_policy_reject".into()));
+        assert!(clause
+            .predicates
+            .contains(&"insertion_order_independence".into()));
+    }
+    if operation == "replace" {
+        assert!(clause
+            .predicates
+            .contains(&"duplicate_policy_replace".into()));
+        assert!(!clause
+            .predicates
+            .contains(&"insertion_order_independence".into()));
     }
 }
 
@@ -827,3 +847,6 @@ fn csharp_03_t04_w01_each_form_attachment_typing_and_bounded_facts() {
     invalid["facts"]["methods"][0]["allocations"][0]["length_binding"] = json!("local:999");
     assert!(run(&invalid, "total", rows(&invalid)).is_err());
 }
+
+#[path = "support/csharp_practical_loop_lowering.rs"]
+mod lowering;

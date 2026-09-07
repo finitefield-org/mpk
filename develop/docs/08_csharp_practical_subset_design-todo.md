@@ -35,7 +35,7 @@ normative but inactive specifications and, after the approved W14 codec
 parameter and W01 partial-loop amendments, 709 vectors.
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
 `CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12/W13/W14` are complete.
-`CSHARP-03-T04-W01` is complete; `CSHARP-03-T04-W02` is ready. Every later
+`CSHARP-03-T04-W02` is complete; `CSHARP-03-T04-W03` is ready. Every later
 implementation work item remains blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
@@ -123,7 +123,8 @@ section 33. T03-W12 adds nullable and application outcome relations; see
 section 34. T03-W13 adds calendar/time/GUID and bound instant/money relations;
 see section 35. T03-W14 closes data emission and independent import; see
 section 37. T04-W01 completes loop-contract parsing and attachment after the
-approved partial-loop amendment; see sections 38 and 39. T04-W02 is ready. This
+approved partial-loop amendment; see sections 38 and 39. T04-W02 adds private
+structured-loop lowering; see section 40. T04-W03 is ready. This
 file remains planning material. W01 added its baseline and ledger; W02 added
 only the private consumer inventory, owner tests, ledger evidence, and current-
 status documentation; W03 added only private build-input evidence and its
@@ -180,7 +181,7 @@ T03-W09 adds canonical ordered map/set projections and typed operation handoffs.
 T03-W10 adds UTF-16 string plans and the shared typed boundary codec relation.
 T03-W11 adds exact numeric relations and source plans.
 T03-W12 adds nullable and closed application outcome relations.
-The next serial work is T04-W02's structured-loop lowering.
+The next serial work is T04-W03's switch and pattern lowering.
 
 The following are unconditional stop conditions:
 
@@ -1452,7 +1453,9 @@ and nested-loop mutation cases.
 
 Depends on: T04-W01.
 
-Current status: `Ready`.
+Current status: `Complete`; see ledger section 40. The private typed CFG and
+T03 data/ownership handoff retain pending contracts and obligations; W06 owns
+whole-control VIR emission and independent import, and T06 owns discharge.
 
 Owns: canonical CFG for admitted `for`, `while`, `do`, and exact compiler-
 recognized `foreach` over arrays or strings; stable IDs, invariant entry/back-
@@ -1483,6 +1486,8 @@ positive/negative collection-loop source cases routed from T03-W08/W09.
 ### CSHARP-03-T04-W03 — Lower switch and admitted patterns
 
 Depends on: T04-W02.
+
+Current status: `Ready`.
 
 Owns: source-order arms/guards, exhaustiveness, null/type/property/list patterns,
 constant/discard/`var`/relational/parenthesized/logical patterns, bindings and

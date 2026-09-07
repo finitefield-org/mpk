@@ -55,7 +55,8 @@ T03-W13 adds calendar/time/GUID and bound instant/money relations with pending
 source, currency and exhaustive error-projection obligations.
 T03-W14 completes private data emission and independent source/sidecar import
 (see section 37). `CSHARP-03-T04-W01` completes private loop-contract
-attachment after the approved amendment (sections 38/39). T04-W02 is ready;
+attachment after the approved amendment (sections 38/39). T04-W02 completes
+private structured-loop lowering (section 40). T04-W03 is ready;
 later items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
@@ -122,9 +123,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T03-W12` | `Complete` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W12` | `3e3c7813db8b2fc4a9472aa11efef03e3f3381bb` |
 | `CSHARP-03-T03-W13` | `Complete` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W13` | `78c8f7295f75baf3ea0efc68c684d31d95e6bc46` |
 | `CSHARP-03-T03-W14` | `Complete` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W14` | `5e2979c162e01a1e6b1e006aec4c5d9f566384ee` |
-| `CSHARP-03-T04-W01` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W01` | `SELF` |
-| `CSHARP-03-T04-W02` | `Ready` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W02` | `—` |
-| `CSHARP-03-T04-W03` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W03` | `—` |
+| `CSHARP-03-T04-W01` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W01` | `16946c6ae2a82004be03f49ba52726001dd3317f` |
+| `CSHARP-03-T04-W02` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W02` | `SELF` |
+| `CSHARP-03-T04-W03` | `Ready` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W03` | `—` |
 | `CSHARP-03-T04-W04` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W04` | `—` |
 | `CSHARP-03-T04-W05` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W05` | `—` |
 | `CSHARP-03-T04-W06` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W06` | `—` |
@@ -4810,3 +4811,41 @@ Evidence and verification are recorded in
 The exact live source closure is pinned by `loop-contract-inputs.json`; original
 source cases and Roslyn facts are retained in `source-cases.json`. The task
 commit uses the ledger's `SELF` convention. T04-W02 is the sole ready item.
+
+## 40. CSHARP-03-T04-W02 completion record
+
+`PracticalLoopLowering.cs` lowers original normalized Roslyn operations into a
+private typed CFG with stable node/value IDs and explicit local slots. For,
+while, do and exact array/string foreach have canonical headers, source-order
+guards and updates, nested break/continue targets and return/exception exits.
+Foreach evaluates its collection once and retains exact explicit/var element
+types and UTF-16 string iteration. Structural headers precede guard effects;
+do's source condition is evaluated at its continuation target.
+
+The opt-in T04 route consumes the existing T03 syntax, type, construction,
+array and sequence pipeline. Array analysis retains branch and abrupt states,
+checks the active array read borrow and freezes on continuing paths, and emits
+pending ownership/initialized-prefix conditions. Ordinary data bodies and
+closed representations remain with T03. The normalized types, original source
+facts and sequence steps accompany the CFG for W06's whole-control emission.
+
+`prepare_loop_lowering` first enforces phase-0 CFG budgets and W01's strict
+contract attachment. It checks the normalized-body hash linkage, complete loop
+inventory, parent/entry/backedge/exit identities, register dominance, structured
+targets and reducibility. It retains W01 partial/total metadata and the exact
+source-bound count/fill and ordered collection clauses. This private handoff
+has zero frontend-success, VIR or certificate artifacts. W06 remains responsible
+for whole-control VIR emission/import and T06 for obligation discharge.
+
+The pinned Linux runner retains 32 original source cases: 26 private handoffs
+and six artifact-free rejections. An independent Rust interpreter agrees with
+the original CLR executions for 528 input cases, including guard side effects,
+UTF-16, early exits, nested targets, array updates, sort/dedup and count/fill
+disagreements. Four additional map/set binding handoffs retain their source
+member and operation clauses; their advertised commutation is not assumed.
+Current tests also cover explicit/var equivalence, partial/total decreases,
+1023/1024/1025 CFG blocks, precedence, source/hash/operand/target mutations,
+and source-regeneration mismatch rejection. See
+`develop/migrations/csharp-03/loop-lowering/review.md` and `verification.json`.
+
+The task commit uses `SELF`; T04-W03 is the sole ready item.

@@ -45,9 +45,11 @@ internal static class CSharpPracticalSequences
     internal static PracticalSequences Validate(PracticalSourceSelection selection,
         IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references,
         IReadOnlyList<PracticalSequenceBinding>? bindings = null,
-        IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims = null)
+        IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims = null, bool allowLoopControl = false,
+        Action<Microsoft.CodeAnalysis.CSharp.CSharpCompilation>? validatedCompilation = null)
     {
-        PracticalArrays arrays = CSharpPracticalArrays.Validate(selection, inputs, references, invariantClaims, sequenceConstruction:true);
+        PracticalArrays arrays = CSharpPracticalArrays.Validate(selection, inputs, references, invariantClaims, sequenceConstruction:true, validateStrings:validatedCompilation,
+            deferSidecarAttachment:allowLoopControl && selection.SidecarPaths.Count!=0, allowLoopControl:allowLoopControl);
         var projections = new List<PracticalSequenceProjection>();
         foreach (PracticalSequenceBinding binding in bindings ?? Array.Empty<PracticalSequenceBinding>()) {
             PracticalDataType? type = arrays.Construction.Data.Types.SingleOrDefault(t => t.Id == binding.SourceTypeId);

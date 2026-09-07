@@ -39,12 +39,12 @@ internal static class CSharpPracticalArrays
     internal static PracticalArrays Validate(PracticalSourceSelection selection,
         IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references,
         IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims = null, bool sequenceConstruction = false,
-        Action<CSharpCompilation>? validateStrings = null, bool domainOperations = false, bool deferSidecarAttachment = false)
+        Action<CSharpCompilation>? validateStrings = null, bool domainOperations = false, bool deferSidecarAttachment = false, bool allowLoopControl = false)
     {
-        var analyzer = new Analyzer(sequenceConstruction,domainOperations);
+        var analyzer = new Analyzer(sequenceConstruction,domainOperations,allowLoopControl);
         PracticalConstruction construction = CSharpPracticalConstruction.Validate(selection, inputs, references,
             invariantClaims, allowInitializers: true, allowStructuralEquality: true,
-            validateArrays: (current, types) => { analyzer.Analyze(current, types); validateStrings?.Invoke(current); }, validateArrayLimits: ValidateLimits, deferSidecarAttachment: deferSidecarAttachment);
+            validateArrays: (current, types) => { analyzer.Analyze(current, types); validateStrings?.Invoke(current); }, validateArrayLimits: ValidateLimits, deferSidecarAttachment: deferSidecarAttachment, allowLoopControl: allowLoopControl);
         return new PracticalArrays(construction, Array.AsReadOnly(analyzer.Steps.ToArray()));
     }
 
@@ -131,7 +131,11 @@ internal static class CSharpPracticalArrays
         internal readonly List<PracticalArrayStep> Steps = new();
         private readonly bool sequenceConstruction;
         private readonly bool domainOperations;
-        internal Analyzer(bool sequenceConstruction,bool domainOperations) { this.sequenceConstruction = sequenceConstruction; this.domainOperations=domainOperations; }
+        internal Analyzer(bool sequenceConstruction,bool domainOperations,bool allowLoopControl) { this.sequenceConstruction = sequenceConstruction; this.domainOperations=domainOperations; this.allowLoopControl=allowLoopControl; }
+        private readonly bool allowLoopControl;
+        private readonly HashSet<string> activeBorrows = new(StringComparer.Ordinal);
+        private readonly Stack<LoopState> loops = new();
+        private sealed class LoopState { internal ILoopOperation Operation = null!; internal readonly List<State> Breaks = new(); internal readonly List<State> Continues = new(); }
         private CSharpCompilation compilation = null!;
         private IReadOnlyList<PracticalDataType> types = null!;
         private string path = "entry";
@@ -221,6 +225,13 @@ internal static class CSharpPracticalArrays
         {
             if (!state.Live) { return Empty(); }
             switch (operation) {
+                case ILoopOperation loop when allowLoopControl: return VisitLoop(loop,state);
+                case IBranchOperation branch when allowLoopControl:
+                    if (loops.Count == 0 || branch.BranchKind is not (BranchKind.Break or BranchKind.Continue)) { Fail("loop_abrupt_target"); }
+                    if (!SymbolEqualityComparer.Default.Equals(branch.Target, branch.BranchKind == BranchKind.Break
+                        ? loops.Peek().Operation.ExitLabel : loops.Peek().Operation.ContinueLabel)) { Fail("loop_abrupt_target"); }
+                    (branch.BranchKind == BranchKind.Break ? loops.Peek().Breaks : loops.Peek().Continues).Add(state.Copy());
+                    state.Live=false; return Empty();
                 case ILoopOperation: Fail("array_loop_handoff"); break;
                 case ITryOperation: Fail("array_exception_control_handoff"); break;
                 case IConditionalOperation conditional:
@@ -230,7 +241,7 @@ internal static class CSharpPracticalArrays
                     var yesValue = Visit(conditional.WhenTrue,yes);
                     path = previous + "/" + Site(operation) + ":false";
                     var noValue = conditional.WhenFalse is null ? Empty() : Visit(conditional.WhenFalse,no);
-                    path = previous; state.Join(yes,no,sequenceConstruction);
+                    path = previous; state.Join(yes,no,sequenceConstruction && loops.Count==0);
                     Step(operation,"merge",yesValue.Concat(noValue)); yesValue.UnionWith(noValue); return yesValue;
                 case IBinaryOperation binary when binary.OperatorKind is BinaryOperatorKind.ConditionalAnd or BinaryOperatorKind.ConditionalOr:
                     Visit(binary.LeftOperand,state); State skip = state.Copy(), execute = state.Copy();
@@ -330,6 +341,54 @@ internal static class CSharpPracticalArrays
             }
             return Empty();
         }
+        private HashSet<string> VisitLoop(ILoopOperation operation, State state)
+        {
+            if (operation is IForLoopOperation before)
+                foreach (var item in before.Before) { Visit(item,state); }
+            var borrowed=Empty();
+            if (operation is IForEachLoopOperation each) {
+                borrowed=Visit(each.Collection,state);
+                Step(operation,"foreach_read_borrow",borrowed);
+            }
+            if (operation is IForLoopOperation {Condition:not null} f) { Visit(f.Condition,state); }
+            if (operation is IWhileLoopOperation {ConditionIsTop:true,Condition:not null} w) { Visit(w.Condition,state); }
+            State entry=state.Copy();
+            var frame=new LoopState { Operation=operation };
+            var savedBorrows=new HashSet<string>(activeBorrows,StringComparer.Ordinal);
+            activeBorrows.UnionWith(borrowed); loops.Push(frame);
+            int first=Steps.Count;
+            Step(operation,"loop_header",state.Arrays.Keys,predicate:"ownership_and_initialized_prefix_invariant");
+            Visit(operation.Body,state);
+            if (state.Live) { frame.Continues.Add(state.Copy()); }
+            State? back=null;
+            foreach (var next in frame.Continues) {
+                if (operation is IForLoopOperation after)
+                    foreach (var item in after.AtLoopBottom) { Visit(item,next); }
+                if (operation is IWhileLoopOperation {ConditionIsTop:false,Condition:not null} tail) { Visit(tail.Condition,next); }
+                if (next.Live) {
+                    if (back is null) { back=next.Copy(); }
+                    else { var merged=new State(); merged.Join(back,next,false); back=merged; }
+                }
+            }
+            var writes=Steps.Skip(first).Where(s=>s.Operation=="functional_update").SelectMany(s=>s.Arrays).ToHashSet(StringComparer.Ordinal);
+            // A freeze on any continuing path makes the next iteration's write
+            // invalid, even if the first iteration happened to be unique.
+            if (back is not null && writes.Any(id=>back.Arrays.TryGetValue(id,out var a) && a.Frozen))
+                { Fail("loop_frozen_backedge_write"); }
+            if (back is not null) { Step(operation,"loop_backedge",back.Arrays.Keys,predicate:"ownership_phi_and_initialized_prefix_preservation"); }
+            loops.Pop(); activeBorrows.Clear(); activeBorrows.UnionWith(savedBorrows);
+            State? exit=operation is IWhileLoopOperation {ConditionIsTop:false} ? back : entry;
+            if (back is not null && exit is not null) { var merged=new State(); merged.Join(exit,back,false); exit=merged; }
+            foreach (var broken in frame.Breaks) {
+                if (exit is null) { exit=broken.Copy(); }
+                else { var merged=new State(); merged.Join(exit,broken,false); exit=merged; }
+            }
+            if (exit is null) { state.Live=false; }
+            else { state.Live=exit.Live; state.Locals=exit.Locals; state.Arrays=exit.Arrays; }
+            Step(operation,"loop_exit",state.Arrays.Keys,predicate:"structured_exit_ownership_and_publication");
+            return Empty();
+        }
+
         private static bool FreshExpression(IOperation operation) => operation switch {
             IArrayCreationOperation => true,
             IConditionalOperation { WhenFalse: not null } c => FreshExpression(c.WhenTrue) && FreshExpression(c.WhenFalse),
@@ -413,7 +472,7 @@ internal static class CSharpPracticalArrays
             string mode=ids.All(id=>state.Arrays[id].Complete)||readModifyWrite ? "rewrite"
                 : ids.All(id=>!state.Arrays[id].SymbolicWrites && (state.Arrays[id].Length is not null || state.Arrays[id].PossiblyInitialized.Count==0)) ? "fill" : "fill_or_rewrite";
             foreach (string id in ids) {
-                Storage storage = state.Arrays[id]; RequireWritable(!storage.Frozen,false);
+                Storage storage = state.Arrays[id]; RequireWritable(!storage.Frozen,activeBorrows.Contains(id));
                 storage.Version = checked(storage.Version + 1);
                 if (!storage.Complete) {
                     bool uncertainComplete = storage.Length is null || storage.SymbolicWrites;
