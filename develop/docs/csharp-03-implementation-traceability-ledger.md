@@ -56,7 +56,8 @@ source, currency and exhaustive error-projection obligations.
 T03-W14 completes private data emission and independent source/sidecar import
 (see section 37). `CSHARP-03-T04-W01` completes private loop-contract
 attachment after the approved amendment (sections 38/39). T04-W02 completes
-private structured-loop lowering (section 40). T04-W03 is ready;
+private structured-loop lowering (section 40). T04-W03 completes switch and
+pattern lowering (section 41). T04-W04 is ready;
 later items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
@@ -124,9 +125,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T03-W13` | `Complete` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W13` | `78c8f7295f75baf3ea0efc68c684d31d95e6bc46` |
 | `CSHARP-03-T03-W14` | `Complete` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W14` | `5e2979c162e01a1e6b1e006aec4c5d9f566384ee` |
 | `CSHARP-03-T04-W01` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W01` | `16946c6ae2a82004be03f49ba52726001dd3317f` |
-| `CSHARP-03-T04-W02` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W02` | `SELF` |
-| `CSHARP-03-T04-W03` | `Ready` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W03` | `—` |
-| `CSHARP-03-T04-W04` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W04` | `—` |
+| `CSHARP-03-T04-W02` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W02` | `4c4030235fdb5f82aa3fc5b3df2b40727ab0b21e` |
+| `CSHARP-03-T04-W03` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W03` | `SELF` |
+| `CSHARP-03-T04-W04` | `Ready` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W04` | `—` |
 | `CSHARP-03-T04-W05` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W05` | `—` |
 | `CSHARP-03-T04-W06` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W06` | `—` |
 | `CSHARP-03-T05-W01` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W01` | `—` |
@@ -4849,3 +4850,45 @@ and source-regeneration mismatch rejection. See
 `develop/migrations/csharp-03/loop-lowering/review.md` and `verification.json`.
 
 The task commit uses `SELF`; T04-W03 is the sole ready item.
+
+
+## 41. CSHARP-03-T04-W03 completion record
+
+The opt-in `PracticalPatternLowering.cs` route extends the private W02 CFG
+with one governing evaluation, ordered arms and guards, correct textual-default
+selection, exact switch/loop abrupt targets, and explicit unmatched behavior.
+It lowers constant/discard/var, null/not-null, relational, parenthesized/logical,
+exact closed type, immutable property/tag and bounded non-slice array patterns.
+Successful bindings retain incoming values and narrowed source-local identities;
+W06 composes these with the final SSA/block-parameter representation. Every
+expression switch retains the pinned `SwitchExpressionException` fallback,
+including a pending unreachable path when Roslyn reports exhaustiveness.
+
+Shared data validation still owns closed type families, immutable storage and
+purity. Exact getter totality claims are retained and independently matched by
+native attachment; T06-W04 must discharge them before verified acceptance.
+Selection/guard read borrows prevent mutation of governing arrays between
+potentially cached list reads, while selected bodies can use their remaining
+unique ownership. Source-order guard effects reach a default even when its
+section appears first. Pattern-local array aliases retain freeze behavior.
+
+Native attachment reuses W01 source/contract checks and W02 structural budgets,
+then checks decision/fallback inventory, source-kind/operand linkage, list
+length/index correspondence, dominance, loop targets and getter claims. Source
+regeneration rejects reordered guard successors, changed bindings and changed
+exception tags. Guarded var/discard arms are ordered candidates in the existing
+foundation validator; they cannot themselves establish an exhaustive fallback.
+
+Evidence is in `develop/migrations/csharp-03/pattern-lowering/`. The pinned
+Linux harness retains 52 source cases (35 private handoffs, 17 rejections),
+including 2,940 original CLR executions compared with the independent native
+CFG interpreter. Coverage includes null/nullable, enum, strings, list lengths,
+property/type bindings, nested control, guards that throw or update locals,
+read-borrow conflicts, NaN constant matching and decimal comparisons. The
+frozen probe and generated graphs are bound by `conformance.json`; exact final
+checks and hashes are recorded in `verification.json`.
+
+This is a private handoff with zero frontend-success, VIR or certificate
+artifacts. W06 owns whole-control emission/import and construction-state
+revalidation; T06 owns proof discharge. The task commit uses `SELF` and
+T04-W04 is the sole ready item.

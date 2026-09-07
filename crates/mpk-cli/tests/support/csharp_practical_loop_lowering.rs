@@ -58,6 +58,10 @@ enum R {
     Array(Rc<RefCell<Vec<R>>>),
     Text(Vec<u16>),
     Null,
+    // Test fixture immutable value; T03 construction is independently tested.
+    BoxValue(i64),
+    Float(f64),
+    Decimal(i128, u32),
 }
 impl R {
     fn number(&self) -> Result<i64, String> {
@@ -103,14 +107,15 @@ fn evaluate(
             .get(&n.slot)
             .cloned()
             .ok_or_else(|| format!("missing_slot:{}", n.slot)),
-        "store" => {
+        "store" | "pattern_bind" => {
             slots.insert(n.slot.clone(), v[0].clone());
             Ok(v[0].clone())
         }
         "zero" => Ok(R::Number(0)),
-        "true" => Ok(R::Bool(true)),
+        "true" | "pattern_true" => Ok(R::Bool(true)),
+        "pattern_false" => Ok(R::Bool(false)),
         "initializer_index" => Ok(R::Number(n.slot.parse().map_err(|_| fail())?)),
-        "constant" => {
+        "constant" | "pattern_constant" => {
             let value = source
                 .and_then(|s| s.constant.as_deref())
                 .ok_or_else(fail)?;
@@ -120,6 +125,19 @@ fn evaluate(
             let (tag, value) = value.split_once(':').ok_or_else(fail)?;
             match tag {
                 "bool" => Ok(R::Bool(value == "true")),
+                "f64" => Ok(R::Float(f64::from_bits(u64::from_str_radix(value,16).map_err(|_|fail())?))),
+                "f32" => Ok(R::Float(f32::from_bits(u32::from_str_radix(value,16).map_err(|_|fail())?) as f64)),
+                "decimal" => {
+                    let bits=value.split(',').map(|s|u32::from_str_radix(s,16).unwrap()).collect::<Vec<_>>();
+                    let magnitude=i128::from(bits[0])+(i128::from(bits[1])<<32)+(i128::from(bits[2])<<64);
+                    Ok(R::Decimal(if bits[3]>>31==1 {-magnitude}else{magnitude},(bits[3]>>16)&255))
+                },
+                "string_utf16" => Ok(R::Text(
+                    (0..value.len())
+                        .step_by(4)
+                        .map(|i| u16::from_str_radix(&value[i..i + 4], 16).unwrap())
+                        .collect(),
+                )),
                 "System.Int32" | "char" => Ok(R::Number(value.parse().map_err(|_| fail())?)),
                 _ => Err(fail()),
             }
@@ -140,6 +158,9 @@ fn evaluate(
             _ => Err(fail()),
         },
         "binary" => {
+            if let (R::Float(a),R::Float(b))=(&v[0],&v[1]) {
+                return match op {"Divide"=>Ok(R::Float(a/b)),_=>Err(fail())};
+            }
             let a = v[0].number()?;
             let b = v[1].number()?;
             match op {
@@ -164,7 +185,58 @@ fn evaluate(
                 _ => Err(format!("binary:{op}")),
             }
         }
-        "length" | "member" => int(v[0].length()? as i64),
+        "pattern_not_null" | "pattern_type" => Ok(R::Bool(!matches!(v[0], R::Null))),
+        "pattern_equal" => Ok(R::Bool(match (&v[0], &v[1]) {
+            (R::Null, R::Null) => true,
+            (R::Float(a),R::Float(b))=>a==b || a.is_nan()&&b.is_nan(),
+            (R::Decimal(a,sa),R::Decimal(b,sb))=>a*10i128.pow(*sb)==b*10i128.pow(*sa),
+            (R::Number(a), R::Number(b)) => a == b,
+            (R::Bool(a), R::Bool(b)) => a == b,
+            (R::Text(a), R::Text(b)) => a == b,
+            _ => false,
+        })),
+        "pattern_relational" => {
+            if let (R::Float(a),R::Float(b))=(&v[0],&v[1]) {return Ok(R::Bool(match op {"GreaterThan"=>a>b,"LessThan"=>a<b,"GreaterThanOrEqual"=>a>=b,"LessThanOrEqual"=>a<=b,_=>return Err(fail())}));}
+            if let (R::Decimal(a,sa),R::Decimal(b,sb))=(&v[0],&v[1]) {let a=a*10i128.pow(*sb);let b=b*10i128.pow(*sa);return Ok(R::Bool(match op {"GreaterThan"=>a>b,"LessThan"=>a<b,"GreaterThanOrEqual"=>a>=b,"LessThanOrEqual"=>a<=b,_=>return Err(fail())}));}
+            if matches!(v[0], R::Null) {
+                return Ok(R::Bool(false));
+            }
+            let a = v[0].number()?;
+            let b = v[1].number()?;
+            Ok(R::Bool(match op {
+                "LessThan" => a < b,
+                "LessThanOrEqual" => a <= b,
+                "GreaterThan" => a > b,
+                "GreaterThanOrEqual" => a >= b,
+                _ => return Err(fail()),
+            }))
+        }
+        "pattern_length" => Ok(R::Bool(
+            v[0].length()? == n.slot.parse::<usize>().map_err(|_| fail())?,
+        )),
+        "pattern_element" => {
+            let index = n.slot.parse::<usize>().map_err(|_| fail())?;
+            if let R::Array(a) = &v[0] {
+                a.borrow().get(index).cloned().ok_or_else(fail)
+            } else {
+                Err(fail())
+            }
+        }
+        "construct" if source.is_some_and(|s| s.symbol == csharp_practical_declaration_id(&json!({"kind":"constructor","namespace":"Business","owner":csharp_practical_declaration_id(&json!({"kind":"type","namespace":"Business","owner":"","name":"Box","parameter_type_ids":[],"result_type_id":""})).unwrap(),"name":"Box","parameter_type_ids":[ty("i32")],"result_type_id":csharp_practical_declaration_id(&json!({"kind":"type","namespace":"Business","owner":"","name":"Box","parameter_type_ids":[],"result_type_id":""})).unwrap()})).unwrap()) => {
+            Ok(R::BoxValue(v[0].number()?))
+        }
+        "length" | "member" | "pattern_member" => {
+            if let R::BoxValue(value) = v[0] {
+                if !source
+                    .is_some_and(|s| s.symbol.ends_with(".Stored") || s.symbol.ends_with(".Value"))
+                {
+                    return Err(fail());
+                }
+                int(value)
+            } else {
+                int(v[0].length()? as i64)
+            }
+        }
         "allocate" => {
             let count = v[0].number()?;
             if count < 0 {
@@ -200,7 +272,7 @@ fn evaluate(
         _ => Err(format!("interpreter:{}", n.operation)),
     }
 }
-fn interpret(f: &LoopControlFunction, run: &Value) -> Result<i64, String> {
+pub(super) fn interpret(f: &LoopControlFunction, run: &Value) -> Result<i64, String> {
     let mut slots = BTreeMap::from([
         ("parameter:0".into(), R::Number(run["n"].as_i64().unwrap())),
         (
@@ -240,7 +312,15 @@ fn interpret(f: &LoopControlFunction, run: &Value) -> Result<i64, String> {
             .collect::<Result<Vec<_>, _>>()?;
         match current.kind.as_str() {
             "return" => return inputs.first().ok_or("missing_return")?.number(),
-            "throw" => return Err(pending.take().ok_or("missing_exception")?),
+            "throw" => {
+                return Err(
+                    if current.slot == "System.Runtime.CompilerServices.SwitchExpressionException" {
+                        "SwitchExpressionException".into()
+                    } else {
+                        pending.take().ok_or("missing_exception")?
+                    },
+                )
+            }
             "branch" | "loop_header" => {
                 current = nodes[current.successors[usize::from(!inputs[0].boolean()?)].as_str()];
                 continue;
@@ -263,7 +343,7 @@ fn interpret(f: &LoopControlFunction, run: &Value) -> Result<i64, String> {
                     continue;
                 }
             },
-            "entry" | "jump" | "break" | "continue" => (),
+            "entry" | "jump" | "break" | "continue" | "pattern_decision" => (),
             kind => return Err(format!("interpreter_node:{kind}")),
         }
         current = nodes[current.successors.first().ok_or("missing_edge")?.as_str()];

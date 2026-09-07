@@ -4659,9 +4659,11 @@ fn validate_patterns(
                     return Err(vir_failure(phase, PracticalVirErrorCode::PatternShape));
                 }
                 PatternTag::Discard | PatternTag::Var
-                    if ordinal + 1 != decision.arms.len()
-                        || !decision.exhaustive
-                        || arm.guard_ordinal.is_some() =>
+                    if arm.guard_ordinal.is_none()
+                        && (ordinal + 1 != decision.arms.len() || !decision.exhaustive)
+                        || arm.guard_ordinal.is_some()
+                            && ordinal + 1 == decision.arms.len()
+                            && decision.exhaustive =>
                 {
                     return Err(vir_failure(phase, PracticalVirErrorCode::PatternOrder));
                 }
@@ -7100,6 +7102,6 @@ pub use loop_contracts::{
 #[path = "csharp_practical_loop_lowering.rs"]
 mod loop_lowering;
 pub use loop_lowering::{
-    prepare_loop_lowering, LoopControlFunction, LoopControlNode, LoopLoweringError,
-    LoopSourceOperation, LoweredLoopControl, LoweredLoopRegion,
+    prepare_loop_lowering, prepare_pattern_lowering, LoopControlFunction, LoopControlNode,
+    LoopLoweringError, LoopSourceOperation, LoweredLoopControl, LoweredLoopRegion,
 };

@@ -1487,7 +1487,13 @@ positive/negative collection-loop source cases routed from T03-W08/W09.
 
 Depends on: T04-W02.
 
-Current status: `Ready`.
+Current status: `Complete`.
+
+Implemented by the private pattern CFG and native attachment in
+`PracticalPatternLowering.cs` and `csharp_practical_loop_lowering.rs`.
+Source/decision goldens, CLR differentials and review evidence are retained in
+`develop/migrations/csharp-03/pattern-lowering/`; ledger section 41 records the
+W03 handoff and remaining W06/T06 ownership.
 
 Owns: source-order arms/guards, exhaustiveness, null/type/property/list patterns,
 constant/discard/`var`/relational/parenthesized/logical patterns, bindings and

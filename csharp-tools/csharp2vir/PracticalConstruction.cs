@@ -115,11 +115,11 @@ internal static class CSharpPracticalConstruction
         IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims = null, bool allowInitializers = false,
         bool allowStructuralEquality = false,
         Action<CSharpCompilation, IReadOnlyList<PracticalDataType>>? validateArrays = null,
-        Action<CSharpCompilation>? validateArrayLimits = null, bool deferSidecarAttachment = false, bool allowLoopControl = false)
+        Action<CSharpCompilation>? validateArrayLimits = null, bool deferSidecarAttachment = false, bool allowLoopControl = false, bool allowPatternControl = false)
     {
         try
         {
-            var model = new Model(allowInitializers, allowStructuralEquality);
+            var model = new Model(allowInitializers, allowStructuralEquality, allowPatternControl);
             PracticalDataTypes data = CSharpPracticalDataTypes.Validate(selection, inputs, references,
                 (current, closure, types) =>
                 {
@@ -129,7 +129,7 @@ internal static class CSharpPracticalConstruction
                     validateArrays?.Invoke(current, types);
                 }, current => { ValidateLimits(current); validateArrayLimits?.Invoke(current); }, ValidateSignatures, deferDeclaredInvariantProof: invariantClaims is not null || deferSidecarAttachment,
                 allowInitializerConstruction: allowInitializers, allowStructuralEquality: allowStructuralEquality,
-                allowArrayConstruction: validateArrays is not null, allowLoopControl: allowLoopControl);
+                allowArrayConstruction: validateArrays is not null, allowLoopControl: allowLoopControl, allowPatternControl: allowPatternControl);
             return model.Build(data);
         }
         catch (PracticalCaptureFailure) { throw; }
@@ -194,8 +194,9 @@ internal static class CSharpPracticalConstruction
         private readonly bool allowInitializers;
         private readonly bool allowStructuralEquality;
         private readonly List<PracticalSourceEquality> sourceEqualities = new();
-        internal Model(bool allowInitializers, bool allowStructuralEquality)
-        { this.allowInitializers = allowInitializers; this.allowStructuralEquality = allowStructuralEquality; }
+        private readonly bool allowPatternControl;
+        internal Model(bool allowInitializers, bool allowStructuralEquality, bool allowPatternControl)
+        { this.allowPatternControl=allowPatternControl; this.allowInitializers = allowInitializers; this.allowStructuralEquality = allowStructuralEquality; }
         private readonly List<(IObjectCreationOperation Operation, INamedTypeSymbol Type, PracticalConstructorPlan Constructor)> initializers = new();
         private readonly List<PracticalInitializationPlan> initializationPlans = new();
         private CSharpCompilation compilation = null!;
@@ -726,7 +727,11 @@ internal static class CSharpPracticalConstruction
         private void ValidateEmittedSynthesis(IEnumerable<INamedTypeSymbol> types)
         {
             using var stream = new MemoryStream();
-            if (!compilation.Emit(stream).Success) { throw PracticalFailures.Object("synthesized_emit"); }
+            // Synthesis inspection only. Source diagnostic validation already
+            // allowed exactly these W03 warnings with modeled unmatched paths.
+            var emitted=allowPatternControl ? compilation.WithOptions(compilation.Options.WithSpecificDiagnosticOptions(
+                new Dictionary<string,ReportDiagnostic>{{"CS8509",ReportDiagnostic.Warn},{"CS8524",ReportDiagnostic.Warn}})) : compilation;
+            if (!emitted.Emit(stream).Success) { throw PracticalFailures.Object("synthesized_emit"); }
             stream.Position = 0;
             using var pe = new PEReader(stream);
             MetadataReader reader = pe.GetMetadataReader();

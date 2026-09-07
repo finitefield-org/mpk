@@ -124,7 +124,7 @@ internal static class CSharpPracticalDataTypes
         Action<CSharpCompilation>? validateConstructorLimits = null,
         Action<CSharpCompilation>? validateSignatures = null,
         bool deferDeclaredInvariantProof = false, bool allowInitializerConstruction = false,
-        bool allowStructuralEquality = false, bool allowArrayConstruction = false, bool allowLoopControl = false)
+        bool allowStructuralEquality = false, bool allowArrayConstruction = false, bool allowLoopControl = false, bool allowPatternControl = false)
     {
         try
         {
@@ -139,7 +139,7 @@ internal static class CSharpPracticalDataTypes
                 model.ValidateTypes,
                 current => { model.ValidateLimits(current); validateConstructorLimits?.Invoke(current); },
                 validateConstruction is null ? null :
-                    (current, closure) => validateConstruction(current, closure, model.GetTypes()), allowLoopControl);
+                    (current, closure) => validateConstruction(current, closure, model.GetTypes()), allowLoopControl, allowPatternControl);
             return model.Build(syntax);
         }
         catch (PracticalCaptureFailure) { throw; }

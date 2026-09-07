@@ -137,7 +137,9 @@ fn csharp_03_t03_w01_gate_owns_every_frozen_capture_and_closure_rule() {
         assert!(source.contains(required), "missing W01 rule {required}");
     }
     let dependency = source.find("ValidateDependencies(roslyn)").unwrap();
-    let diagnostics = source.find("ValidateCompilerDiagnostics(roslyn)").unwrap();
+    let diagnostics = source
+        .find("ValidateCompilerDiagnostics(roslyn, allowPatternControl)")
+        .unwrap();
     let declarations = source
         .find("ValidateGlobalDeclarationExclusions(roslyn)")
         .unwrap();

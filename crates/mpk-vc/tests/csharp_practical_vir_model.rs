@@ -1807,6 +1807,15 @@ fn csharp_03_t02_w03_validates_exception_values_handlers_and_explicit_control() 
         validate_explicit_control_graph(&fixture.roots, &fixture.closed, &universe, &variant)
             .unwrap_or_else(|error| panic!("{} pattern: {error:?}", tag.as_str()));
     }
+    // W03: a guarded var/discard is an ordered candidate, not a catch-all.
+    for tag in [PatternTag::Var, PatternTag::Discard] {
+        let mut guarded = graph.clone();
+        guarded.patterns[0].arms[0].tag = tag;
+        guarded.patterns[0].arms[0].guard_ordinal = Some(0);
+        guarded.patterns[0].arms[0].guard_type_id = Some(value_type_id("bool"));
+        validate_explicit_control_graph(&fixture.roots, &fixture.closed, &universe, &guarded)
+            .expect("guarded catch-all before fallback");
+    }
     let mut var_pattern = graph.clone();
     var_pattern.patterns[0].arms = vec![PatternArm {
         ordinal: 0,

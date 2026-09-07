@@ -704,7 +704,7 @@ internal static class CSharpPracticalCapture
         Action<CSharpCompilation>? validateDataTypes = null,
         Action<CSharpCompilation>? validateDataLimits = null,
         Action<CSharpCompilation, PracticalSourceClosure>? validateConstruction = null,
-        bool allowLoopContractForeach = false)
+        bool allowLoopContractForeach = false, bool allowPatternControl = false)
     {
         try
         {
@@ -730,7 +730,7 @@ internal static class CSharpPracticalCapture
             // later scan must never mask an earlier dependency/declaration/generic
             // finding merely because Roslyn happened to enumerate it first.
             ValidateDependencies(roslyn);
-            ValidateCompilerDiagnostics(roslyn);
+            ValidateCompilerDiagnostics(roslyn, allowPatternControl);
             ValidateGlobalDeclarationExclusions(roslyn);
             validateDataDeclarations?.Invoke(roslyn.Compilation);
             ValidateSynthesizedMarkers(roslyn);
@@ -1187,7 +1187,7 @@ internal static class CSharpPracticalCapture
         }
     }
 
-    private static void ValidateCompilerDiagnostics(RoslynState state)
+    private static void ValidateCompilerDiagnostics(RoslynState state, bool allowPatternControl = false)
     {
         foreach (Diagnostic diagnostic in state.Compilation.GetDiagnostics(CancellationToken.None))
         {
@@ -1202,6 +1202,10 @@ internal static class CSharpPracticalCapture
             }
 
             ValidateDiagnosticLocation(diagnostic, state);
+            // Only the W03 consumer retains a typed unmatched exception path.
+            if (allowPatternControl && diagnostic.Id is "CS8509" or "CS8524"
+                && diagnostic.Location.SourceTree?.GetRoot().FindNode(diagnostic.Location.SourceSpan)
+                    .AncestorsAndSelf().Any(n => n is SwitchExpressionSyntax) == true) { continue; }
             if (diagnostic.Severity == DiagnosticSeverity.Error
                 || diagnostic.Severity == DiagnosticSeverity.Warning)
             {

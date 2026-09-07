@@ -12,7 +12,7 @@ namespace Mpk.CSharp2Vir;
 // W02's private, typed register/slot CFG. W06 owns SSA/VIR publication and
 // independent whole-control import. Every expression operand is evaluated in
 // source order; slots are explicit local state, never hidden source execution.
-internal static class CSharpPracticalLoopLowering
+internal static partial class CSharpPracticalLoopLowering
 {
     internal sealed class Node
     {
@@ -35,12 +35,13 @@ internal static class CSharpPracticalLoopLowering
         internal string Symbol => Fact.GetProperty("symbol").GetString()!;
     }
     internal static byte[] Capture(PracticalSourceSelection selection, IEnumerable<PracticalCapturedInput> supplied,
-        ImmutableArray<MetadataReference> references)
+        ImmutableArray<MetadataReference> references, bool allowPatterns = false, IReadOnlyList<string>? totalGetters = null)
     {
         try {
             var inputs=supplied.ToArray();
-            var facts=JsonSerializer.Deserialize<JsonElement>(CSharpPracticalLoopContracts.Capture(selection,inputs,references));
-            var sequence=CSharpPracticalSequences.Validate(selection,inputs,references,allowLoopControl:true);
+            var facts=JsonSerializer.Deserialize<JsonElement>(CSharpPracticalLoopContracts.Capture(selection,inputs,references,allowPatterns));
+            var sequence=CSharpPracticalSequences.Validate(selection,inputs,references,allowLoopControl:true, allowPatternControl:allowPatterns,
+                validatedCompilation:allowPatterns ? c=>ValidatePatterns(c,totalGetters??Array.Empty<string>()) : null);
             var syntax=sequence.Arrays.Construction.Data.Syntax;
             var functions=new List<Function>();
             int closureBlocks=0;
@@ -49,10 +50,17 @@ internal static class CSharpPracticalLoopLowering
                 var method=facts.GetProperty("methods").EnumerateArray().Single(m=>m.GetProperty("callable_id").GetString()==callable.Id);
                 // Loop-free bodies retain their T03 normalized representation;
                 // W06 composes them with these control bodies at VIR emission.
-                if(method.GetProperty("loops").GetArrayLength()==0)continue;
+                if(method.GetProperty("loops").GetArrayLength()==0 && !(allowPatterns && callable.OperationNodes.Any(o=>o is ISwitchOperation or ISwitchExpressionOperation or IIsPatternOperation)))continue;
                 var source=syntax.SourceClosure.Sources.Single(s=>s.Path==method.GetProperty("source_path").GetString());
-                functions.Add(new Builder(callable,method,source,CountBlock).Build());
+                functions.Add(new Builder(callable,method,source,CountBlock,allowPatterns).Build());
             }
+            if(allowPatterns)return JsonSerializer.SerializeToUtf8Bytes(new {
+                schema="mpk.csharp_practical.t04_w03.pattern_lowering.v1", facts,
+                normalized_syntax_sha256=syntax.SemanticSha256,
+                normalized_syntax_utf8=System.Text.Encoding.UTF8.GetString(syntax.CopyCanonicalBytes()),
+                sequence_handoff=JsonSerializer.Deserialize<JsonElement>(sequence.CopyCanonicalBytes()),functions,
+                total_getters=(totalGetters??Array.Empty<string>()).OrderBy(x=>x,StringComparer.Ordinal).ToArray(),
+            });
             return JsonSerializer.SerializeToUtf8Bytes(new {
                 schema="mpk.csharp_practical.t04_w02.loop_lowering.v1", facts,
                 normalized_syntax_sha256=syntax.SemanticSha256,
@@ -71,7 +79,7 @@ internal static class CSharpPracticalLoopLowering
     }
     private static PracticalCaptureFailure Fail(string code) =>
         new(8,PracticalDiagnosticFamily.CSHARP_PRACTICAL_LOWERING,"loop_lowering_"+code);
-    private sealed class Builder
+    private sealed partial class Builder
     {
         private readonly PracticalNormalizedCallable callable;
         private readonly JsonElement method;
@@ -86,9 +94,9 @@ internal static class CSharpPracticalLoopLowering
         private Node? current;
         private int nextValue,nextSlot;
         private Node? exception;
-        internal Builder(PracticalNormalizedCallable callable,JsonElement method,PracticalSourceFile source,Action countBlock)
+        internal Builder(PracticalNormalizedCallable callable,JsonElement method,PracticalSourceFile source,Action countBlock,bool allowPatterns)
         {
-            this.callable=callable;this.method=method;this.source=source;this.countBlock=countBlock;
+            this.callable=callable;this.method=method;this.source=source;this.countBlock=countBlock;this.allowPatterns=allowPatterns;
             operations=JsonSerializer.Deserialize<JsonElement[]>(callable.CopyBodyBytes())!;
             int offset=0;
             Op Read(int depth) {
@@ -153,12 +161,16 @@ internal static class CSharpPracticalLoopLowering
                 case "Loop":case "ForLoop":case "WhileLoop":case "ForEachLoop":Loop(op);break;
                 case "Branch":
                     var abrupt=(IBranchOperation)op.Source!;
+                    if(allowPatterns && abrupt.BranchKind==BranchKind.Break && switchExits.TryGetValue(abrupt.Target,out var switchExit)) {
+                        var switchBreak=Append("jump",op);Link(switchBreak,switchExit);current=null;break;
+                    }
                     if(loops.Count==0||abrupt.BranchKind is not(BranchKind.Break or BranchKind.Continue))throw Fail("abrupt_target");
                     var target=loops.Peek();bool isBreak=abrupt.BranchKind==BranchKind.Break;
                     if(!SymbolEqualityComparer.Default.Equals(abrupt.Target,isBreak?target.Loop.ExitLabel:target.Loop.ContinueLabel))throw Fail("abrupt_target");
                     var edge=Append(isBreak?"break":"continue",op);edge.slot=target.Id;Link(edge,isBreak?target.Exit:target.Continue);current=null;break;
                 case "Empty":break;
                 // Switch/exception source remains with its serial owner.
+                case "Switch" when allowPatterns:SwitchStatement(op);break;
                 case "Switch":case "SwitchExpression":case "Try":case "Throw":case "Labeled":throw Fail("later_control_owner");
                 default:Expression(op);break;
             }
@@ -229,7 +241,10 @@ internal static class CSharpPracticalLoopLowering
         private string Read((string Slot,string[] Address) address,Op op)=>address.Slot.Length!=0?Load(address.Slot,op):Eval("element",op,address.Address,true);
         private string Write((string Slot,string[] Address) address,string value,Op op)=>address.Slot.Length!=0?Store(address.Slot,value,op):Eval("update",op,address.Address.Concat(new[]{value}).ToArray(),true);
         private string Expression(Op op) {
+            if(allowPatterns && op.Kind=="FieldReference" && op.Source?.ConstantValue.HasValue==true)return Eval("pattern_constant",op,Array.Empty<string>());
             switch(op.Kind) {
+                case "SwitchExpression" when allowPatterns:return SwitchExpression(op);
+                case "IsPattern" when allowPatterns:return IsPattern(op);
                 case "LocalReference":case "ParameterReference":return Load(op.Symbol,op);
                 case "VariableInitializer":case "Argument":case "Parenthesized":return Expression(op.Children.Single());
                 case "Literal":case "DefaultValue":return Eval("constant",op,Array.Empty<string>());

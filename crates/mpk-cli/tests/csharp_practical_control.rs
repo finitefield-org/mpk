@@ -1,5 +1,6 @@
 //! CSHARP-03-T04-W01: actual Roslyn source handoffs and retained sidecar mutations.
 //! CSHARP-03-T04-W02: structured CFGs, ownership and runtime differentials.
+//! CSHARP-03-T04-W03: switch and pattern decision graphs.
 use mpk_vc::csharp_practical_source_artifacts::{self as a, PracticalJsonValue as J};
 use mpk_vc::csharp_practical_vir_model::*;
 use mpk_vc::hash_domain_separated_raw;
@@ -850,3 +851,6 @@ fn csharp_03_t04_w01_each_form_attachment_typing_and_bounded_facts() {
 
 #[path = "support/csharp_practical_loop_lowering.rs"]
 mod lowering;
+
+#[path = "support/csharp_practical_pattern_lowering.rs"]
+mod patterns;

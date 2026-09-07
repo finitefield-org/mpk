@@ -34,6 +34,9 @@ case "$#:${1-}" in
   1:--test-data-phase)
     action=test-data-phase
     ;;
+  1:--test-pattern-lowering)
+    action=test-pattern-lowering
+    ;;
   1:--test-loop-lowering)
     action=test-loop-lowering
     ;;

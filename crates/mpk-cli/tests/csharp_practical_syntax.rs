@@ -163,7 +163,7 @@ fn csharp_03_t03_w02_normalizer_owns_the_complete_closed_handoff() {
     let arrows = normalize.find("ValidateExpressionBodies(state)").unwrap();
     let inference = normalize.find("ValidateVarContexts(state)").unwrap();
     let artifact = normalize
-        .find("new PracticalSyntaxModel(state, closure).Build()")
+        .find("new PracticalSyntaxModel(state, closure, allowPatternControl).Build()")
         .unwrap();
     assert!(capture < imports);
     assert!(imports < arrows);

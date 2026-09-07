@@ -65,6 +65,8 @@ struct Wire {
     normalized_syntax_utf8: String,
     sequence_handoff: Value,
     functions: Vec<LoopControlFunction>,
+    #[serde(default)]
+    total_getters: Option<Vec<String>>,
 }
 #[derive(Clone, Debug)]
 pub struct LoweredLoopControl {
@@ -73,6 +75,7 @@ pub struct LoweredLoopControl {
     sequence_handoff: Value,
     source_facts: Value,
     normalized_syntax: Value,
+    total_getters: Vec<String>,
 }
 impl LoweredLoopControl {
     pub fn functions(&self) -> &[LoopControlFunction] {
@@ -89,6 +92,10 @@ impl LoweredLoopControl {
     }
     pub fn normalized_syntax(&self) -> &Value {
         &self.normalized_syntax
+    }
+    /// Pending totality claims; T06-W04 owns semantic discharge.
+    pub fn total_getters(&self) -> &[String] {
+        &self.total_getters
     }
     pub fn artifact_count(&self) -> usize {
         0
@@ -107,6 +114,57 @@ pub fn prepare_loop_lowering(
     lowering: &[u8],
     environment: &DataContractEnvironment,
 ) -> Result<LoweredLoopControl, LoopLoweringError> {
+    prepare_control_lowering(
+        b,
+        r,
+        c,
+        context,
+        captures,
+        loop_source,
+        lowering,
+        environment,
+        None,
+    )
+}
+/// W03 private handoff. Claims must be supplied independently by the caller;
+/// they are not accepted as proofs and no frontend-success artifact is emitted.
+#[allow(clippy::too_many_arguments)]
+pub fn prepare_pattern_lowering(
+    b: &ValidatedFoundationBundle,
+    r: &ValidatedClosedRootSet,
+    c: &ClosedInstanceSet,
+    context: &PracticalArtifactContext,
+    captures: &CapturedInputSet,
+    loop_source: &[u8],
+    lowering: &[u8],
+    environment: &DataContractEnvironment,
+    total_getters: &BTreeSet<String>,
+) -> Result<LoweredLoopControl, LoopLoweringError> {
+    prepare_control_lowering(
+        b,
+        r,
+        c,
+        context,
+        captures,
+        loop_source,
+        lowering,
+        environment,
+        Some(total_getters),
+    )
+}
+#[allow(clippy::too_many_arguments)]
+fn prepare_control_lowering(
+    b: &ValidatedFoundationBundle,
+    r: &ValidatedClosedRootSet,
+    c: &ClosedInstanceSet,
+    context: &PracticalArtifactContext,
+    captures: &CapturedInputSet,
+    loop_source: &[u8],
+    lowering: &[u8],
+    environment: &DataContractEnvironment,
+    total_getters: Option<&BTreeSet<String>>,
+) -> Result<LoweredLoopControl, LoopLoweringError> {
+    let patterns = total_getters.is_some();
     // Frozen structural budgets have phase-0 precedence over a malformed
     // phase-7 contract. Other graph errors remain behind contract attachment.
     if lowering.len() > 32 * 1024 * 1024 {
@@ -130,12 +188,28 @@ pub fn prepare_loop_lowering(
     }
     let contracts = prepare_loop_contracts(b, r, c, context, captures, loop_source, environment)
         .map_err(LoopLoweringError::Contract)?;
+    if !patterns
+        && serde_json::from_slice::<Value>(lowering)
+            .ok()
+            .is_some_and(|v| v.get("total_getters").is_some())
+    {
+        return Err(LoopLoweringError::Source);
+    }
     let wire: Wire = serde_json::from_slice(lowering).map_err(|_| LoopLoweringError::Source)?;
     let expected: Value =
         serde_json::from_slice(loop_source).map_err(|_| LoopLoweringError::Source)?;
     let actual: Value =
         serde_json::from_str(wire.facts.get()).map_err(|_| LoopLoweringError::Source)?;
-    if wire.schema != "mpk.csharp_practical.t04_w02.loop_lowering.v1"
+    if wire.schema
+        != if patterns {
+            "mpk.csharp_practical.t04_w03.pattern_lowering.v1"
+        } else {
+            "mpk.csharp_practical.t04_w02.loop_lowering.v1"
+        }
+        || wire.total_getters.as_ref()
+            != total_getters
+                .map(|s| s.iter().cloned().collect::<Vec<_>>())
+                .as_ref()
         || actual != expected
         || sha256_raw_file_bytes(wire.normalized_syntax_utf8.as_bytes()).to_hex()
             != wire.normalized_syntax_sha256
@@ -148,11 +222,37 @@ pub fn prepare_loop_lowering(
     let callables = syntax["callables"]
         .as_array()
         .ok_or(LoopLoweringError::Source)?;
+    if wire.total_getters.as_ref().is_some_and(|claims| {
+        claims
+            .iter()
+            .any(|id| !callables.iter().any(|c| c["id"] == *id))
+    }) {
+        return Err(LoopLoweringError::Source);
+    }
     let expected_functions = expected["methods"]
         .as_array()
         .ok_or(LoopLoweringError::Source)?
         .iter()
-        .filter(|m| m["loops"].as_array().is_some_and(|l| !l.is_empty()))
+        .filter(|m| {
+            m["loops"].as_array().is_some_and(|l| !l.is_empty())
+                || patterns
+                    && callables.iter().any(|c| {
+                        c["id"] == m["callable_id"]
+                            && c["body"]
+                                .as_str()
+                                .and_then(|body| {
+                                    serde_json::from_str::<Vec<LoopSourceOperation>>(body).ok()
+                                })
+                                .is_some_and(|ops| {
+                                    ops.iter().any(|op| {
+                                        matches!(
+                                            op.kind.as_str(),
+                                            "IsPattern" | "Switch" | "SwitchExpression"
+                                        )
+                                    })
+                                })
+                    })
+        })
         .map(|m| m["callable_id"].as_str().ok_or(LoopLoweringError::Source))
         .collect::<Result<BTreeSet<_>, _>>()?;
     if expected_functions.len() != wire.functions.len() {
@@ -185,7 +285,7 @@ pub fn prepare_loop_lowering(
         if blocks > 8192 {
             return Err(LoopLoweringError::Limit("cfg_blocks_per_closure"));
         }
-        validate_function(function)?;
+        validate_function(function, patterns)?;
         for region in &function.loops {
             let contract = contracts
                 .loops()
@@ -212,9 +312,10 @@ pub fn prepare_loop_lowering(
         sequence_handoff: wire.sequence_handoff,
         source_facts: expected,
         normalized_syntax: syntax,
+        total_getters: wire.total_getters.unwrap_or_default(),
     })
 }
-fn validate_function(f: &LoopControlFunction) -> Result<(), LoopLoweringError> {
+fn validate_function(f: &LoopControlFunction, patterns: bool) -> Result<(), LoopLoweringError> {
     use LoopLoweringError::{Graph, Operand};
     if f.nodes.len() > 1024 {
         return Err(LoopLoweringError::Limit("cfg_blocks_per_method"));
@@ -239,6 +340,49 @@ fn validate_function(f: &LoopControlFunction) -> Result<(), LoopLoweringError> {
             }
             let source_kind = n.source_ordinal.map(|i| f.operations[i].kind.as_str());
             let source_matches = match n.operation.as_str() {
+                "pattern_constant" => {
+                    patterns
+                        && source_kind == Some("FieldReference")
+                        && n.source_ordinal
+                            .is_some_and(|i| f.operations[i].constant.is_some())
+                }
+                "pattern_true" | "pattern_false" => patterns && source_kind == Some("IsPattern"),
+                "pattern_equal" => {
+                    patterns && matches!(source_kind, Some("ConstantPattern" | "CaseClause"))
+                }
+                "pattern_relational" => patterns && source_kind == Some("RelationalPattern"),
+                "pattern_type" => {
+                    patterns
+                        && matches!(
+                            source_kind,
+                            Some("DeclarationPattern" | "TypePattern" | "RecursivePattern")
+                        )
+                }
+                "pattern_not_null" => {
+                    patterns
+                        && matches!(
+                            source_kind,
+                            Some("ListPattern" | "PropertyReference" | "FieldReference")
+                        )
+                }
+                "pattern_length" | "pattern_element" => {
+                    patterns
+                        && source_kind == Some("ListPattern")
+                        && n.slot.parse::<usize>().is_ok_and(|i| i <= 4096)
+                }
+                "pattern_member" => {
+                    patterns && matches!(source_kind, Some("PropertyReference" | "FieldReference"))
+                }
+                "pattern_bind" => {
+                    patterns
+                        && matches!(
+                            source_kind,
+                            Some("DeclarationPattern" | "RecursivePattern" | "ListPattern")
+                        )
+                        && n.source_ordinal.is_some_and(|i| {
+                            f.operations[i].symbol == n.slot && n.slot.starts_with("local:")
+                        })
+                }
                 "constant" => matches!(source_kind, Some("Literal" | "DefaultValue")),
                 "binary" => matches!(source_kind, Some("Binary" | "CompoundAssignment")),
                 "unary" => source_kind == Some("Unary"),
@@ -270,32 +414,38 @@ fn validate_function(f: &LoopControlFunction) -> Result<(), LoopLoweringError> {
                             | "ArrayCreation"
                     )
                 ),
-                "load" => matches!(
-                    source_kind,
-                    None | Some(
-                        "LocalReference"
-                            | "ParameterReference"
-                            | "InstanceReference"
-                            | "CompoundAssignment"
-                            | "Increment"
-                            | "Decrement"
-                            | "Conditional"
-                            | "Binary"
-                    )
-                ),
-                "store" => matches!(
-                    source_kind,
-                    Some(
-                        "VariableDeclarator"
-                            | "SimpleAssignment"
-                            | "CompoundAssignment"
-                            | "Increment"
-                            | "Decrement"
-                            | "Conditional"
-                            | "Binary"
-                            | "Loop"
-                    )
-                ),
+                "load" => {
+                    patterns && matches!(source_kind, Some("IsPattern" | "SwitchExpression"))
+                        || matches!(
+                            source_kind,
+                            None | Some(
+                                "LocalReference"
+                                    | "ParameterReference"
+                                    | "InstanceReference"
+                                    | "CompoundAssignment"
+                                    | "Increment"
+                                    | "Decrement"
+                                    | "Conditional"
+                                    | "Binary"
+                            )
+                        )
+                }
+                "store" => {
+                    patterns && matches!(source_kind, Some("IsPattern" | "SwitchExpression"))
+                        || matches!(
+                            source_kind,
+                            Some(
+                                "VariableDeclarator"
+                                    | "SimpleAssignment"
+                                    | "CompoundAssignment"
+                                    | "Increment"
+                                    | "Decrement"
+                                    | "Conditional"
+                                    | "Binary"
+                                    | "Loop"
+                            )
+                        )
+                }
                 "initializer_index" => {
                     source_kind.is_some() && n.slot.parse::<usize>().is_ok_and(|i| i < 4096)
                 }
@@ -304,8 +454,22 @@ fn validate_function(f: &LoopControlFunction) -> Result<(), LoopLoweringError> {
             if !source_matches {
                 return Err(Operand);
             }
+            if matches!(n.operation.as_str(), "pattern_length" | "pattern_element") {
+                let count = f.operations[n.source_ordinal.ok_or(Operand)?].child_count;
+                let index = n.slot.parse::<usize>().map_err(|_| Operand)?;
+                if n.operation == "pattern_length" && index != count
+                    || n.operation == "pattern_element" && index >= count
+                {
+                    return Err(Operand);
+                }
+            }
+
             let arity = match n.operation.as_str() {
-                "load" | "constant" | "zero" | "true" | "initializer_index" => Some(0),
+                "load" | "constant" | "zero" | "true" | "initializer_index" | "pattern_true"
+                | "pattern_false" | "pattern_constant" => Some(0),
+                "pattern_type" | "pattern_not_null" | "pattern_length" | "pattern_element"
+                | "pattern_member" | "pattern_bind" => Some(1),
+                "pattern_equal" | "pattern_relational" => Some(2),
                 "store" | "unary" | "unary_update" | "increment" | "convert"
                 | "iteration_convert" | "length" | "allocate" => Some(1),
                 "binary" | "less" | "element" => Some(2),
@@ -333,7 +497,27 @@ fn validate_function(f: &LoopControlFunction) -> Result<(), LoopLoweringError> {
         {
             return Err(Graph);
         }
+        if n.kind == "throw"
+            && !n.slot.is_empty()
+            && !(patterns
+                && n.slot == "System.Runtime.CompilerServices.SwitchExpressionException"
+                && n.source_ordinal
+                    .is_some_and(|i| f.operations[i].kind == "SwitchExpression"))
+        {
+            return Err(Graph);
+        }
         let (edges, inputs) = match n.kind.as_str() {
+            "pattern_decision"
+                if patterns
+                    && n.source_ordinal.is_some_and(|i| {
+                        matches!(
+                            f.operations[i].kind.as_str(),
+                            "Switch" | "SwitchExpression" | "IsPattern"
+                        )
+                    }) =>
+            {
+                (1, 1)
+            }
             "entry" | "jump" | "break" | "continue" => (1, 0),
             "branch" | "loop_header" => (2, 1),
             "return" => (0, n.inputs.len()),
@@ -346,6 +530,36 @@ fn validate_function(f: &LoopControlFunction) -> Result<(), LoopLoweringError> {
             || n.kind == "return" && n.inputs.len() > 1
         {
             return Err(Graph);
+        }
+    }
+    if patterns {
+        for (ordinal, op) in f.operations.iter().enumerate().filter(|(_, op)| {
+            matches!(
+                op.kind.as_str(),
+                "IsPattern" | "Switch" | "SwitchExpression"
+            )
+        }) {
+            if f.nodes
+                .iter()
+                .filter(|n| n.kind == "pattern_decision" && n.source_ordinal == Some(ordinal))
+                .count()
+                != 1
+            {
+                return Err(Graph);
+            }
+            if op.kind == "SwitchExpression"
+                && f.nodes
+                    .iter()
+                    .filter(|n| {
+                        n.kind == "throw"
+                            && n.source_ordinal == Some(ordinal)
+                            && n.slot == "System.Runtime.CompilerServices.SwitchExpressionException"
+                    })
+                    .count()
+                    != 1
+            {
+                return Err(Graph);
+            }
         }
     }
     let mut predecessors = vec![BTreeSet::new(); f.nodes.len()];

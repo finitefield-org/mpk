@@ -39,12 +39,12 @@ internal static class CSharpPracticalArrays
     internal static PracticalArrays Validate(PracticalSourceSelection selection,
         IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references,
         IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims = null, bool sequenceConstruction = false,
-        Action<CSharpCompilation>? validateStrings = null, bool domainOperations = false, bool deferSidecarAttachment = false, bool allowLoopControl = false)
+        Action<CSharpCompilation>? validateStrings = null, bool domainOperations = false, bool deferSidecarAttachment = false, bool allowLoopControl = false, bool allowPatternControl = false)
     {
-        var analyzer = new Analyzer(sequenceConstruction,domainOperations,allowLoopControl);
+        var analyzer = new Analyzer(sequenceConstruction,domainOperations,allowLoopControl,allowPatternControl);
         PracticalConstruction construction = CSharpPracticalConstruction.Validate(selection, inputs, references,
             invariantClaims, allowInitializers: true, allowStructuralEquality: true,
-            validateArrays: (current, types) => { analyzer.Analyze(current, types); validateStrings?.Invoke(current); }, validateArrayLimits: ValidateLimits, deferSidecarAttachment: deferSidecarAttachment, allowLoopControl: allowLoopControl);
+            validateArrays: (current, types) => { analyzer.Analyze(current, types); validateStrings?.Invoke(current); }, validateArrayLimits: ValidateLimits, deferSidecarAttachment: deferSidecarAttachment, allowLoopControl: allowLoopControl, allowPatternControl: allowPatternControl);
         return new PracticalArrays(construction, Array.AsReadOnly(analyzer.Steps.ToArray()));
     }
 
@@ -131,8 +131,10 @@ internal static class CSharpPracticalArrays
         internal readonly List<PracticalArrayStep> Steps = new();
         private readonly bool sequenceConstruction;
         private readonly bool domainOperations;
-        internal Analyzer(bool sequenceConstruction,bool domainOperations,bool allowLoopControl) { this.sequenceConstruction = sequenceConstruction; this.domainOperations=domainOperations; this.allowLoopControl=allowLoopControl; }
+        internal Analyzer(bool sequenceConstruction,bool domainOperations,bool allowLoopControl,bool allowPatternControl) { this.allowPatternControl=allowPatternControl; this.sequenceConstruction = sequenceConstruction; this.domainOperations=domainOperations; this.allowLoopControl=allowLoopControl; }
         private readonly bool allowLoopControl;
+        private readonly bool allowPatternControl;
+        private readonly Stack<(ILabelSymbol Label,List<State> Exits)> switches = new();
         private readonly HashSet<string> activeBorrows = new(StringComparer.Ordinal);
         private readonly Stack<LoopState> loops = new();
         private sealed class LoopState { internal ILoopOperation Operation = null!; internal readonly List<State> Breaks = new(); internal readonly List<State> Continues = new(); }
@@ -225,6 +227,13 @@ internal static class CSharpPracticalArrays
         {
             if (!state.Live) { return Empty(); }
             switch (operation) {
+                case ISwitchOperation sw when allowPatternControl: return VisitSwitch(sw,state);
+                case ISwitchExpressionOperation sw when allowPatternControl: return VisitSwitchExpression(sw,state);
+                case IIsPatternOperation pattern when allowPatternControl:
+                    var patternValue=Visit(pattern.Value,state); BindPattern(pattern.Pattern,patternValue,state); return Empty();
+                case IBranchOperation {BranchKind:BranchKind.Break} branch when allowPatternControl && switches.Count!=0
+                    && SymbolEqualityComparer.Default.Equals(branch.Target,switches.Peek().Label):
+                    switches.Peek().Exits.Add(state.Copy());state.Live=false;return Empty();
                 case ILoopOperation loop when allowLoopControl: return VisitLoop(loop,state);
                 case IBranchOperation branch when allowLoopControl:
                     if (loops.Count == 0 || branch.BranchKind is not (BranchKind.Break or BranchKind.Continue)) { Fail("loop_abrupt_target"); }
@@ -340,6 +349,63 @@ internal static class CSharpPracticalArrays
                     return External(operation,state);
             }
             return Empty();
+        }
+        private void BindPattern(IPatternOperation pattern,HashSet<string> value,State state) {
+            // An array captured by a pattern aliases its source. Freeze before
+            // splitting paths so a failed guard cannot resurrect uniqueness.
+            ILocalSymbol? local=pattern switch {
+                IDeclarationPatternOperation d=>d.DeclaredSymbol as ILocalSymbol,
+                IRecursivePatternOperation r=>r.DeclaredSymbol as ILocalSymbol,
+                IListPatternOperation l=>l.DeclaredSymbol as ILocalSymbol,_=>null,
+            };
+            if(local?.Type is IArrayTypeSymbol) {
+                Publish(pattern,value,state,"alias_freeze");state.Locals[local]=new(value);
+            }
+            foreach(var child in pattern.ChildOperations) {
+                if(child is IPropertySubpatternOperation property)BindPattern(property.Pattern,External(property.Member,state),state);
+                else if(child is IPatternOperation nested)BindPattern(nested,value,state);
+            }
+        }
+        private State MergeStates(IEnumerable<State> states,State fallback) {
+            var result=fallback.Copy();result.Live=false;
+            foreach(var item in states){var prior=result.Copy();result.Join(prior,item,false);}
+            return result;
+        }
+        private HashSet<string> VisitSwitchExpression(ISwitchExpressionOperation sw,State state) {
+            var value=Visit(sw.Value,state);var remaining=state.Copy();var exits=new List<State>();var result=Empty();string saved=path;
+            var savedBorrows=new HashSet<string>(activeBorrows,StringComparer.Ordinal);
+            foreach(var arm in sw.Arms) {
+                activeBorrows.UnionWith(value);
+                var matched=remaining.Copy();path=saved+"/"+Site(sw)+":arm:"+Site(arm);BindPattern(arm.Pattern,value,matched);
+                if(arm.Guard is not null) {Visit(arm.Guard,matched);var skipped=remaining.Copy();remaining.Join(skipped,matched,false);}
+                activeBorrows.Clear();activeBorrows.UnionWith(savedBorrows);
+                result.UnionWith(Visit(arm.Value,matched));exits.Add(matched);
+            }
+            path=saved;var merged=MergeStates(exits,state);state.Join(merged,merged,false);Step(sw,"merge",result);return result;
+        }
+        private HashSet<string> VisitSwitch(ISwitchOperation sw,State state) {
+            var value=Visit(sw.Value,state);var remaining=state.Copy();var exits=new List<State>();switches.Push((sw.ExitLabel,exits));string saved=path;
+            var savedBorrows=new HashSet<string>(activeBorrows,StringComparer.Ordinal);activeBorrows.UnionWith(value);
+            var candidates=sw.Cases.ToDictionary(section=>section,_=>new List<State>());
+            ISwitchCaseOperation? defaultSection=null;
+            // Select candidates first. A textual default before a guarded case
+            // still observes the effects of every failed guard.
+            foreach(var section in sw.Cases)foreach(var clause in section.Clauses) {
+                if(clause is IDefaultCaseClauseOperation){defaultSection=section;continue;}
+                var candidate=remaining.Copy();path=saved+"/"+Site(sw)+":clause:"+Site(clause);
+                if(clause is IPatternCaseClauseOperation pc) {
+                    BindPattern(pc.Pattern,value,candidate);
+                    if(pc.Guard is not null){Visit(pc.Guard,candidate);var skipped=remaining.Copy();remaining.Join(skipped,candidate,false);}
+                }
+                candidates[section].Add(candidate);
+            }
+            if(defaultSection is not null)candidates[defaultSection].Add(remaining);else exits.Add(remaining);
+            activeBorrows.Clear();activeBorrows.UnionWith(savedBorrows);
+            foreach(var section in sw.Cases) {
+                path=saved+"/"+Site(sw)+":case:"+Site(section);
+                var body=MergeStates(candidates[section],state);foreach(var operation in section.Body)Visit(operation,body);exits.Add(body);
+            }
+            switches.Pop();path=saved;var merged=MergeStates(exits,state);state.Join(merged,merged,false);Step(sw,"merge");return Empty();
         }
         private HashSet<string> VisitLoop(ILoopOperation operation, State state)
         {

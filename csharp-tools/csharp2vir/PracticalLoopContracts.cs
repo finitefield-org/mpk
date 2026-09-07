@@ -18,19 +18,19 @@ namespace Mpk.CSharp2Vir;
 internal static class CSharpPracticalLoopContracts
 {
     internal static byte[] Capture(PracticalSourceSelection selection,
-        IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references)
+        IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references, bool allowPatternControl = false)
     {
-        try { return CaptureCore(selection, inputs, references); }
+        try { return CaptureCore(selection, inputs, references, allowPatternControl); }
         catch (PracticalCaptureFailure) { throw; }
         catch (Exception) { throw PracticalFailures.Protocol("loop_contract_capture"); }
     }
     private static byte[] CaptureCore(PracticalSourceSelection selection,
-        IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references)
+        IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references, bool allowPatternControl = false)
     {
         CSharpCompilation? compilation = null;
         var closure = CSharpPracticalCapture.Validate(selection, inputs, references,
             validateDataDeclarations: c => { compilation = c; CSharpPracticalSyntaxNormalizer.ValidateLoopContractPrerequisites(c); },
-            validateDataLimits: CheckLimits, allowLoopContractForeach: true);
+            validateDataLimits: CheckLimits, allowLoopContractForeach: true, allowPatternControl: allowPatternControl);
         var methods = new List<object>();
         foreach (var declaration in closure.ReachableDeclarations.Where(d =>
             d.Id.StartsWith("mpk.csharp.source.", StringComparison.Ordinal)
@@ -52,6 +52,9 @@ internal static class CSharpPracticalLoopContracts
                     locals.Add(local, "local:" + locals.Count.ToString(CultureInfo.InvariantCulture));
             foreach (var node in loops.OfType<ForEachStatementSyntax>())
                 locals.Add(model.GetDeclaredSymbol(node)!, "local:" + locals.Count.ToString(CultureInfo.InvariantCulture));
+            if(allowPatternControl)foreach (var node in syntax.DescendantNodes().OfType<SingleVariableDesignationSyntax>())
+                if(model.GetDeclaredSymbol(node) is ILocalSymbol local)
+                    locals.Add(local,"local:"+locals.Count.ToString(CultureInfo.InvariantCulture));
             string Binding(ISymbol symbol) => symbol is IParameterSymbol parameter
                 ? "parameter:" + parameter.Ordinal.ToString(CultureInfo.InvariantCulture)
                 : locals.TryGetValue(symbol, out var id) ? id : throw Failure("binding");

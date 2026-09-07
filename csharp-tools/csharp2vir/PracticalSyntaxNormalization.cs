@@ -370,7 +370,7 @@ internal static class CSharpPracticalSyntaxNormalizer
         Action<CSharpCompilation>? validateDataTypes = null,
         Action<CSharpCompilation>? validateDataLimits = null,
         Action<CSharpCompilation, PracticalSourceClosure>? validateConstruction = null,
-        bool allowLoopControl = false)
+        bool allowLoopControl = false, bool allowPatternControl = false)
     {
         try
         {
@@ -392,13 +392,13 @@ internal static class CSharpPracticalSyntaxNormalizer
                     validateDataDeclarations?.Invoke(current);
                 },
                 validateDataTypes,
-                validateDataLimits, validateConstruction, allowLoopContractForeach: allowLoopControl);
-            SyntaxState state = CreateState(selection, closure, references);
+                validateDataLimits, validateConstruction, allowLoopContractForeach: allowLoopControl, allowPatternControl: allowPatternControl);
+            SyntaxState state = CreateState(selection, closure, references, allowPatternControl);
             ValidateImportsAndDirectives(state);
             ValidateExpressionBodies(state);
             if (allowLoopControl) { ValidateVarContexts(state, true); }
             else { ValidateVarContexts(state); }
-            return new PracticalSyntaxModel(state, closure).Build();
+            return new PracticalSyntaxModel(state, closure, allowPatternControl).Build();
         }
         catch (PracticalCaptureFailure)
         {
@@ -413,7 +413,7 @@ internal static class CSharpPracticalSyntaxNormalizer
     private static SyntaxState CreateState(
         PracticalSourceSelection selection,
         PracticalSourceClosure closure,
-        ImmutableArray<MetadataReference> references)
+        ImmutableArray<MetadataReference> references, bool allowPatternControl = false)
     {
         ImmutableArray<MetadataReference> snapshots = SnapshotReferences(references);
         var parseOptions = new CSharpParseOptions(
@@ -451,6 +451,7 @@ internal static class CSharpPracticalSyntaxNormalizer
             options);
         if (compilation.GetDiagnostics(CancellationToken.None).Any(diagnostic =>
             !diagnostic.IsSuppressed
+            && !(allowPatternControl && diagnostic.Id is "CS8509" or "CS8524")
             && diagnostic.Severity is DiagnosticSeverity.Error or DiagnosticSeverity.Warning))
         {
             throw PracticalFailures.Protocol("syntax_recompile");
@@ -872,8 +873,10 @@ internal static class CSharpPracticalSyntaxNormalizer
             new Dictionary<ITypeSymbol, PracticalNormalizedType>(
                 SymbolEqualityComparer.IncludeNullability);
 
-        internal PracticalSyntaxModel(SyntaxState state, PracticalSourceClosure closure)
+        private readonly bool allowPatterns;
+        internal PracticalSyntaxModel(SyntaxState state, PracticalSourceClosure closure, bool allowPatterns)
         {
+            this.allowPatterns=allowPatterns;
             this.state = state;
             this.closure = closure;
         }
@@ -1170,6 +1173,12 @@ internal static class CSharpPracticalSyntaxNormalizer
                         NormalizeLocalType(variable, local)));
                 }
                 CollectForeachLocals(bindings);
+                if(syntaxModel.allowPatterns)foreach(var designation in Syntax.DescendantNodes().OfType<SingleVariableDesignationSyntax>())
+                    if(Model.GetDeclaredSymbol(designation) is ILocalSymbol local) {
+                        int ordinal=localOrdinals.Count;
+                        if(!localOrdinals.TryAdd(local,ordinal))throw PracticalFailures.Declaration("pattern_local_identity");
+                        bindings.Add(new PracticalExactTypeBinding(Id,ordinal,syntaxModel.NormalizeType(local.Type)));
+                    }
             }
 
             private void CollectForeachLocals(List<PracticalExactTypeBinding> bindings)
@@ -1412,6 +1421,8 @@ internal static class CSharpPracticalSyntaxNormalizer
             private string CanonicalOperationType(IOperation operation)
             {
                 ITypeSymbol type = operation.Type!;
+                if(syntaxModel.allowPatterns && type.IsReferenceType && operation is IInstanceReferenceOperation {ReferenceKind:InstanceReferenceKind.PatternInput})
+                    return syntaxModel.NormalizeType(type.WithNullableAnnotation(NullableAnnotation.NotAnnotated)).CanonicalKey;
                 // The exact array/string foreach protocol has a compiler-only
                 // collection conversion. Retain its source carrier; this does
                 // not admit IEnumerable or an explicit interface conversion.
@@ -1568,6 +1579,9 @@ internal static class CSharpPracticalSyntaxNormalizer
                     IEventReferenceOperation value => SymbolKey(value.Event),
                     ILocalReferenceOperation value => LocalKey(value.Local),
                     IVariableDeclaratorOperation value => LocalKey(value.Symbol),
+                    IDeclarationPatternOperation {DeclaredSymbol:ILocalSymbol local} when syntaxModel.allowPatterns => LocalKey(local),
+                    IRecursivePatternOperation {DeclaredSymbol:ILocalSymbol local} when syntaxModel.allowPatterns => LocalKey(local),
+                    IListPatternOperation {DeclaredSymbol:ILocalSymbol local} when syntaxModel.allowPatterns => LocalKey(local),
                     IParameterReferenceOperation value => "parameter:"
                         + value.Parameter.Ordinal.ToString(CultureInfo.InvariantCulture),
                     IArgumentOperation value when value.Parameter is not null => "argument:"
@@ -1644,7 +1658,7 @@ internal static class CSharpPracticalSyntaxNormalizer
                     + symbol.ToDisplayString(SymbolDisplayFormat.CSharpErrorMessageFormat);
             }
 
-            private static string Traits(IOperation operation) => operation switch
+            private string Traits(IOperation operation) => operation switch
             {
                 IBinaryOperation value => value.OperatorKind + "|"
                     + value.IsChecked + "|" + value.IsLifted,
@@ -1671,6 +1685,12 @@ internal static class CSharpPracticalSyntaxNormalizer
                 IInstanceReferenceOperation value => value.ReferenceKind.ToString(),
                 IBranchOperation value => value.BranchKind.ToString(),
                 ILoopOperation value => value.LoopKind.ToString(),
+                IRelationalPatternOperation value when syntaxModel.allowPatterns => value.OperatorKind.ToString(),
+                IBinaryPatternOperation value when syntaxModel.allowPatterns => value.OperatorKind.ToString(),
+                IDeclarationPatternOperation value when syntaxModel.allowPatterns => (value.MatchesNull ? "var|" : "type|") + syntaxModel.NormalizeType(value.NarrowedType.IsReferenceType?value.NarrowedType.WithNullableAnnotation(value.MatchesNull && value.DeclaredSymbol is ILocalSymbol local ? local.NullableAnnotation : NullableAnnotation.NotAnnotated):value.NarrowedType).CanonicalKey,
+                ITypePatternOperation value when syntaxModel.allowPatterns => syntaxModel.NormalizeType(value.MatchedType.IsReferenceType?value.MatchedType.WithNullableAnnotation(NullableAnnotation.NotAnnotated):value.MatchedType).CanonicalKey,
+                IRecursivePatternOperation value when syntaxModel.allowPatterns => syntaxModel.NormalizeType(value.MatchedType.IsReferenceType?value.MatchedType.WithNullableAnnotation(NullableAnnotation.NotAnnotated):value.MatchedType).CanonicalKey,
+                ISwitchExpressionOperation value when syntaxModel.allowPatterns => value.IsExhaustive.ToString(),
                 IConditionalOperation value => value.IsRef.ToString(),
                 IArrayCreationOperation value => value.DimensionSizes.Length.ToString(
                     CultureInfo.InvariantCulture),
