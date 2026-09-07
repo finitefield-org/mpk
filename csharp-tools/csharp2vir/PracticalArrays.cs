@@ -39,12 +39,12 @@ internal static class CSharpPracticalArrays
     internal static PracticalArrays Validate(PracticalSourceSelection selection,
         IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references,
         IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims = null, bool sequenceConstruction = false,
-        Action<CSharpCompilation>? validateStrings = null, bool domainOperations = false, bool deferSidecarAttachment = false, bool allowLoopControl = false, bool allowPatternControl = false)
+        Action<CSharpCompilation>? validateStrings = null, bool domainOperations = false, bool deferSidecarAttachment = false, bool allowLoopControl = false, bool allowPatternControl = false, bool allowExceptionControl = false)
     {
         var analyzer = new Analyzer(sequenceConstruction,domainOperations,allowLoopControl,allowPatternControl);
         PracticalConstruction construction = CSharpPracticalConstruction.Validate(selection, inputs, references,
             invariantClaims, allowInitializers: true, allowStructuralEquality: true,
-            validateArrays: (current, types) => { analyzer.Analyze(current, types); validateStrings?.Invoke(current); }, validateArrayLimits: ValidateLimits, deferSidecarAttachment: deferSidecarAttachment, allowLoopControl: allowLoopControl, allowPatternControl: allowPatternControl);
+            validateArrays: (current, types) => { analyzer.Analyze(current, types); validateStrings?.Invoke(current); }, validateArrayLimits: ValidateLimits, deferSidecarAttachment: deferSidecarAttachment, allowLoopControl: allowLoopControl, allowPatternControl: allowPatternControl, allowExceptionControl: allowExceptionControl);
         return new PracticalArrays(construction, Array.AsReadOnly(analyzer.Steps.ToArray()));
     }
 

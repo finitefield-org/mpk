@@ -35,13 +35,14 @@ internal static partial class CSharpPracticalLoopLowering
         internal string Symbol => Fact.GetProperty("symbol").GetString()!;
     }
     internal static byte[] Capture(PracticalSourceSelection selection, IEnumerable<PracticalCapturedInput> supplied,
-        ImmutableArray<MetadataReference> references, bool allowPatterns = false, IReadOnlyList<string>? totalGetters = null)
+        ImmutableArray<MetadataReference> references, bool allowPatterns = false, IReadOnlyList<string>? totalGetters = null, bool allowExceptions = false)
     {
         try {
             var inputs=supplied.ToArray();
-            var facts=JsonSerializer.Deserialize<JsonElement>(CSharpPracticalLoopContracts.Capture(selection,inputs,references,allowPatterns));
-            var sequence=CSharpPracticalSequences.Validate(selection,inputs,references,allowLoopControl:true, allowPatternControl:allowPatterns,
-                validatedCompilation:allowPatterns ? c=>ValidatePatterns(c,totalGetters??Array.Empty<string>()) : null);
+            CSharpCompilation? exceptionCompilation=null;
+            var facts=JsonSerializer.Deserialize<JsonElement>(CSharpPracticalLoopContracts.Capture(selection,inputs,references,allowPatterns,allowExceptions));
+            var sequence=CSharpPracticalSequences.Validate(selection,inputs,references,allowLoopControl:true, allowPatternControl:allowPatterns, allowExceptionControl:allowExceptions,
+                validatedCompilation:c=>{exceptionCompilation=c;if(allowPatterns)ValidatePatterns(c,totalGetters??Array.Empty<string>());});
             var syntax=sequence.Arrays.Construction.Data.Syntax;
             var functions=new List<Function>();
             int closureBlocks=0;
@@ -50,10 +51,18 @@ internal static partial class CSharpPracticalLoopLowering
                 var method=facts.GetProperty("methods").EnumerateArray().Single(m=>m.GetProperty("callable_id").GetString()==callable.Id);
                 // Loop-free bodies retain their T03 normalized representation;
                 // W06 composes them with these control bodies at VIR emission.
-                if(method.GetProperty("loops").GetArrayLength()==0 && !(allowPatterns && callable.OperationNodes.Any(o=>o is ISwitchOperation or ISwitchExpressionOperation or IIsPatternOperation)))continue;
+                if(!(allowExceptions && callable.OperationNodes.Any(o=>o is IThrowOperation)) && method.GetProperty("loops").GetArrayLength()==0 && !(allowPatterns && callable.OperationNodes.Any(o=>o is ISwitchOperation or ISwitchExpressionOperation or IIsPatternOperation)))continue;
                 var source=syntax.SourceClosure.Sources.Single(s=>s.Path==method.GetProperty("source_path").GetString());
-                functions.Add(new Builder(callable,method,source,CountBlock,allowPatterns).Build());
+                functions.Add(new Builder(callable,method,source,CountBlock,allowPatterns,allowExceptions).Build());
             }
+            if(allowExceptions)return JsonSerializer.SerializeToUtf8Bytes(new {
+                schema="mpk.csharp_practical.t04_w04.exception_lowering.v1", facts,
+                normalized_syntax_sha256=syntax.SemanticSha256,
+                normalized_syntax_utf8=System.Text.Encoding.UTF8.GetString(syntax.CopyCanonicalBytes()),
+                sequence_handoff=JsonSerializer.Deserialize<JsonElement>(sequence.CopyCanonicalBytes()),functions,
+                total_getters=(totalGetters??Array.Empty<string>()).OrderBy(x=>x,StringComparer.Ordinal).ToArray(),
+                exception_definitions=ExceptionDefinitions(exceptionCompilation!,sequence.Arrays.Construction.Data.Types),
+            });
             if(allowPatterns)return JsonSerializer.SerializeToUtf8Bytes(new {
                 schema="mpk.csharp_practical.t04_w03.pattern_lowering.v1", facts,
                 normalized_syntax_sha256=syntax.SemanticSha256,
@@ -77,10 +86,46 @@ internal static partial class CSharpPracticalLoopLowering
     {
         if(!candidate.SequenceEqual(Capture(selection,inputs,references)))throw Fail("candidate_mismatch");
     }
+
+    internal static void ValidateExceptionCandidate(PracticalSourceSelection selection,
+        IEnumerable<PracticalCapturedInput> inputs,ImmutableArray<MetadataReference> references,
+        IReadOnlyList<string> totalGetters,ReadOnlySpan<byte> candidate)
+    {
+        if(!candidate.SequenceEqual(Capture(selection,inputs,references,true,totalGetters,true)))throw Fail("exception_candidate_mismatch");
+    }
+    private static object[] ExceptionDefinitions(CSharpCompilation compilation,IReadOnlyList<PracticalDataType> types)
+    {
+        var result=new List<(string Id,object Value)>();
+        foreach(var tree in compilation.SyntaxTrees)foreach(var declaration in tree.GetRoot().DescendantNodes().OfType<Microsoft.CodeAnalysis.CSharp.Syntax.TypeDeclarationSyntax>()) {
+            var symbol=compilation.GetSemanticModel(tree).GetDeclaredSymbol(declaration)!;
+            if(!CSharpPracticalCapture.IsExceptionBase(symbol.BaseType))continue;
+            string id=PracticalIdentity.SourceTypeId(symbol.ContainingNamespace.ToDisplayString(),symbol.Name);
+            var type=types.Single(t=>t.Id==id);
+            result.Add((id,new {type_id=id,sealed_type=symbol.IsSealed,direct_base_type_id="System.Exception",payload_member_names=type.Members.Where(m=>m.Stored).Select(m=>m.Name).ToArray()}));
+        }
+        return result.OrderBy(r=>r.Id,StringComparer.Ordinal).Select(r=>r.Value).ToArray();
+    }
     private static PracticalCaptureFailure Fail(string code) =>
         new(8,PracticalDiagnosticFamily.CSHARP_PRACTICAL_LOWERING,"loop_lowering_"+code);
     private sealed partial class Builder
     {
+        private readonly bool allowExceptions;
+        private void ExplicitThrow(Op op)
+        {
+            var thrown=(IThrowOperation)op.Source!;
+            IOperation operand=thrown.Exception!;
+            while(operand is IConversionOperation {IsImplicit:true} conversion)operand=conversion.Operand;
+            var creation=operand as IObjectCreationOperation??throw Fail("exception_operand");
+            var source=Get(creation);
+            bool builtin=CSharpPracticalCapture.IsClosedBuiltinException(creation.Type);
+            string type=builtin?creation.Type!.ToDisplayString(SymbolDisplayFormat.CSharpErrorMessageFormat):PracticalIdentity.SourceTypeId(creation.Type!.ContainingNamespace.ToDisplayString(),creation.Type.Name);
+            // The source payload uses the T03 constructor transaction. The
+            // exception wrapper is a tagged value, never a CLR allocation.
+            var payload=builtin?Array.Empty<string>():new[]{Expression(source)};
+            string value=Eval("closed_exception",source,payload,slot:type);
+            var edge=Append("explicit_throw",op);edge.inputs=new[]{value};edge.slot=type;
+            var exit=New("exception_exit",op);exit.slot=type;edge.exceptional_successors=new[]{exit.id};current=null;
+        }
         private readonly PracticalNormalizedCallable callable;
         private readonly JsonElement method;
         private readonly PracticalSourceFile source;
@@ -94,9 +139,9 @@ internal static partial class CSharpPracticalLoopLowering
         private Node? current;
         private int nextValue,nextSlot;
         private Node? exception;
-        internal Builder(PracticalNormalizedCallable callable,JsonElement method,PracticalSourceFile source,Action countBlock,bool allowPatterns)
+        internal Builder(PracticalNormalizedCallable callable,JsonElement method,PracticalSourceFile source,Action countBlock,bool allowPatterns,bool allowExceptions)
         {
-            this.callable=callable;this.method=method;this.source=source;this.countBlock=countBlock;this.allowPatterns=allowPatterns;
+            this.allowExceptions=allowExceptions;this.callable=callable;this.method=method;this.source=source;this.countBlock=countBlock;this.allowPatterns=allowPatterns;
             operations=JsonSerializer.Deserialize<JsonElement[]>(callable.CopyBodyBytes())!;
             int offset=0;
             Op Read(int depth) {
@@ -170,6 +215,7 @@ internal static partial class CSharpPracticalLoopLowering
                     var edge=Append(isBreak?"break":"continue",op);edge.slot=target.Id;Link(edge,isBreak?target.Exit:target.Continue);current=null;break;
                 case "Empty":break;
                 // Switch/exception source remains with its serial owner.
+                case "Throw" when allowExceptions:ExplicitThrow(op);break;
                 case "Switch" when allowPatterns:SwitchStatement(op);break;
                 case "Switch":case "SwitchExpression":case "Try":case "Throw":case "Labeled":throw Fail("later_control_owner");
                 default:Expression(op);break;
@@ -248,7 +294,16 @@ internal static partial class CSharpPracticalLoopLowering
                 case "LocalReference":case "ParameterReference":return Load(op.Symbol,op);
                 case "VariableInitializer":case "Argument":case "Parenthesized":return Expression(op.Children.Single());
                 case "Literal":case "DefaultValue":return Eval("constant",op,Array.Empty<string>());
-                case "SimpleAssignment": {var address=Address(op.Children[0]);var value=Expression(op.Children[1]);return Write(address,value,op);}
+                case "SimpleAssignment": {
+                    var target=op.Children[0];
+                    if(allowExceptions && target.Kind is "FieldReference" or "PropertyReference"
+                        && target.Children.Length==1 && target.Children[0].Source is IInstanceReferenceOperation
+                        && op.Source!.Syntax.Ancestors().Any(n=>n is Microsoft.CodeAnalysis.CSharp.Syntax.ConstructorDeclarationSyntax)) {
+                        var receiver=Expression(target.Children[0]);var assigned=Expression(op.Children[1]);
+                        return Eval("construction_assign",op,new[]{receiver,assigned},slot:target.Symbol);
+                    }
+                    var address=Address(target);var value=Expression(op.Children[1]);return Write(address,value,op);
+                }
                 case "CompoundAssignment": {var address=Address(op.Children[0]);var left=Read(address,op);var right=Expression(op.Children[1]);return Write(address,Eval("binary",op,new[]{left,right},true),op);}
                 case "Increment":case "Decrement": {var address=Address(op.Children.Single());var prior=Read(address,op);var value=Eval("unary_update",op,new[]{prior},true);Write(address,value,op);return ((IIncrementOrDecrementOperation)op.Source!).IsPostfix?prior:value;}
                 case "Binary":

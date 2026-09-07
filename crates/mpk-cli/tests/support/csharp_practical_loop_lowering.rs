@@ -52,7 +52,7 @@ fn prepare_with(
     )
 }
 #[derive(Clone, Debug)]
-enum R {
+pub(super) enum R {
     Number(i64),
     Bool(bool),
     Array(Rc<RefCell<Vec<R>>>),
@@ -64,14 +64,14 @@ enum R {
     Decimal(i128, u32),
 }
 impl R {
-    fn number(&self) -> Result<i64, String> {
+    pub(super) fn number(&self) -> Result<i64, String> {
         if let Self::Number(n) = self {
             Ok(*n)
         } else {
             Err("interpreter_number".into())
         }
     }
-    fn boolean(&self) -> Result<bool, String> {
+    pub(super) fn boolean(&self) -> Result<bool, String> {
         if let Self::Bool(n) = self {
             Ok(*n)
         } else {
@@ -92,7 +92,7 @@ fn int(n: i64) -> Result<R, String> {
         .map(|v| R::Number(v.into()))
         .map_err(|_| "OverflowException".into())
 }
-fn evaluate(
+pub(super) fn evaluate(
     n: &LoopControlNode,
     source: Option<&LoopSourceOperation>,
     v: &[R],

@@ -57,7 +57,8 @@ T03-W14 completes private data emission and independent source/sidecar import
 (see section 37). `CSHARP-03-T04-W01` completes private loop-contract
 attachment after the approved amendment (sections 38/39). T04-W02 completes
 private structured-loop lowering (section 40). T04-W03 completes switch and
-pattern lowering (section 41). T04-W04 is ready;
+pattern lowering (section 41). T04-W04 completes closed exception declarations,
+explicit throws and exceptional contracts (section 42). T04-W05 is ready;
 later items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
@@ -126,9 +127,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T03-W14` | `Complete` | `crates/mpk-cli/tests/csharp_practical_domain.rs#CSHARP-03-T03-W14` | `5e2979c162e01a1e6b1e006aec4c5d9f566384ee` |
 | `CSHARP-03-T04-W01` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W01` | `16946c6ae2a82004be03f49ba52726001dd3317f` |
 | `CSHARP-03-T04-W02` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W02` | `4c4030235fdb5f82aa3fc5b3df2b40727ab0b21e` |
-| `CSHARP-03-T04-W03` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W03` | `SELF` |
-| `CSHARP-03-T04-W04` | `Ready` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W04` | `—` |
-| `CSHARP-03-T04-W05` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W05` | `—` |
+| `CSHARP-03-T04-W03` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W03` | `25c8a80b2fe59dc4400898f9a6f480dfd749be3e` |
+| `CSHARP-03-T04-W04` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W04` | `SELF` |
+| `CSHARP-03-T04-W05` | `Ready` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W05` | `—` |
 | `CSHARP-03-T04-W06` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W06` | `—` |
 | `CSHARP-03-T05-W01` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W01` | `—` |
 | `CSHARP-03-T05-W02` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W02` | `—` |
@@ -4892,3 +4893,44 @@ This is a private handoff with zero frontend-success, VIR or certificate
 artifacts. W06 owns whole-control emission/import and construction-state
 revalidation; T06 owns proof discharge. The task commit uses `SELF` and
 T04-W04 is the sole ready item.
+
+
+## 42. CSHARP-03-T04-W04 completion record
+
+The opt-in exception route extends the reserved source-exception declaration
+validation with sealed classes directly over the exact `System.Exception`.
+Existing T03 immutable payload, constructor definite-assignment, synthesized
+IL, publication and purity checks remain in use. An implicit or explicit
+parameterless base call is permitted. Built-in explicit construction accepts
+only the nine frozen exact exception types and their parameterless constructors.
+Standalone `throw new` evaluates source payload arguments in order, constructs
+the T03 immutable value, wraps it in the closed sum and follows one typed
+exception edge. Runtime messages, stack traces, inner exceptions and identity
+are never emitted as exception values. Stored/reused objects, throw expressions,
+unknown/resource exceptions and runtime-state constructors reject.
+
+`prepare_exception_lowering` binds source definitions to the retained source
+hashes and registered immutable member identities, then derives the existing
+closed universe. Native validation checks source operands, constructor type,
+exact tags, value/edge pairing, dominance and complete explicit-throw inventory.
+The distinct type IDs in the strict method sidecar's ordered
+`exceptional_cases` are the exact
+`throws` set. Each case receives its pending exceptional postconditions and a
+scoped `exception` binding. Payload projection tracks the exact exception arm
+through typed aliases and rejects another arm's members, runtime-state fields,
+wrong types, normal-result scope and pre-state exception access.
+
+Every exit outside that set retains a catch-or-unreachable obligation. These
+flags are classifications and never discharge proofs. The operation-result
+consumer validates T03 operation signatures/invocations and retains their
+original check/type/successor triples without a second exception conversion.
+W05 owns catches, filters, finally and rethrow; W06 composes source/data edges
+and revalidates construction state; T06 discharges exception freedom and
+exceptional postconditions independently of normal outcomes and termination.
+
+Evidence is in `develop/migrations/csharp-03/exception-lowering/`: 39 original
+source cases (18 private handoffs, 21 artifact-free rejections), 90 original CLR
+executions compared with an independent CFG interpreter, closed-set/contract
+mutations and frozen-probe provenance. Final checks and hashes are recorded in
+`verification.json`. There are zero frontend-success, VIR or certificate
+artifacts. The task commit uses `SELF`; T04-W05 is the sole ready item.

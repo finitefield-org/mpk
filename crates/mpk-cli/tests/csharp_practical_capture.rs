@@ -143,7 +143,9 @@ fn csharp_03_t03_w01_gate_owns_every_frozen_capture_and_closure_rule() {
     let declarations = source
         .find("ValidateGlobalDeclarationExclusions(roslyn)")
         .unwrap();
-    let generics = source.find("ValidateGenerics(roslyn)").unwrap();
+    let generics = source
+        .find("ValidateGenerics(roslyn, allowExceptionControl)")
+        .unwrap();
     let effects = source
         .find("ValidateEffectsAndConcurrency(roslyn, allowLoopContractForeach)")
         .unwrap();

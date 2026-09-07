@@ -18,19 +18,19 @@ namespace Mpk.CSharp2Vir;
 internal static class CSharpPracticalLoopContracts
 {
     internal static byte[] Capture(PracticalSourceSelection selection,
-        IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references, bool allowPatternControl = false)
+        IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references, bool allowPatternControl = false, bool allowExceptionControl = false)
     {
-        try { return CaptureCore(selection, inputs, references, allowPatternControl); }
+        try { return CaptureCore(selection, inputs, references, allowPatternControl, allowExceptionControl); }
         catch (PracticalCaptureFailure) { throw; }
         catch (Exception) { throw PracticalFailures.Protocol("loop_contract_capture"); }
     }
     private static byte[] CaptureCore(PracticalSourceSelection selection,
-        IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references, bool allowPatternControl = false)
+        IEnumerable<PracticalCapturedInput> inputs, ImmutableArray<MetadataReference> references, bool allowPatternControl = false, bool allowExceptionControl = false)
     {
         CSharpCompilation? compilation = null;
         var closure = CSharpPracticalCapture.Validate(selection, inputs, references,
             validateDataDeclarations: c => { compilation = c; CSharpPracticalSyntaxNormalizer.ValidateLoopContractPrerequisites(c); },
-            validateDataLimits: CheckLimits, allowLoopContractForeach: true, allowPatternControl: allowPatternControl);
+            validateDataLimits: CheckLimits, allowLoopContractForeach: true, allowPatternControl: allowPatternControl, allowExceptionControl: allowExceptionControl);
         var methods = new List<object>();
         foreach (var declaration in closure.ReachableDeclarations.Where(d =>
             d.Id.StartsWith("mpk.csharp.source.", StringComparison.Ordinal)

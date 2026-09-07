@@ -35,7 +35,7 @@ normative but inactive specifications and, after the approved W14 codec
 parameter and W01 partial-loop amendments, 709 vectors.
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
 `CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12/W13/W14` are complete.
-`CSHARP-03-T04-W02` is complete; `CSHARP-03-T04-W03` is ready. Every later
+`CSHARP-03-T04-W01/W02/W03/W04` are complete; `CSHARP-03-T04-W05` is ready. Every later
 implementation work item remains blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.
@@ -1515,6 +1515,11 @@ binding scope, runtime differential, and compiler-upgrade cases.
 ### CSHARP-03-T04-W04 — Admit closed exception declarations and explicit throw sites
 
 Depends on: T04-W03.
+
+Current status: `Complete`; see ledger section 42. The private source/contract
+handoff retains exact closed values, exception edges and pending
+catch-or-unreachable obligations; W05 owns handler search and W06/T06 own
+whole-control emission and proof discharge.
 
 Owns: extension of declaration validation for the exact source-exception base
 clauses reserved by T03-W03; the closed exception sum; parameterless admitted

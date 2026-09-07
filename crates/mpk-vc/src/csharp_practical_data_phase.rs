@@ -444,6 +444,8 @@ impl DataBindingClosure {
 /// derives this environment from captured declarations and validated bindings.
 #[derive(Clone, Debug, Default)]
 pub struct DataContractEnvironment {
+    pub exception_universe: Option<ClosedExceptionUniverse>,
+    pub exception_type: Option<String>,
     pub variables: BTreeMap<String, String>,
     pub result: Option<String>,
     pub operations: BTreeMap<String, ClosedOperationSignature>,
@@ -509,6 +511,7 @@ fn check_normalized_data_expression(
         c: &'a ClosedInstanceSet,
         env: &'a DataContractEnvironment,
         shapes: &'a BTreeMap<String, Vec<String>>,
+        exception_bindings: BTreeMap<String, String>,
         nodes: usize,
     }
     impl Check<'_> {
@@ -549,6 +552,7 @@ fn check_normalized_data_expression(
             if quantifiers > data_contract_limit("bounded_quantifier_nesting") {
                 return Err(fail);
             }
+            let allow_exception = self.env.exception_universe.is_some();
             let mut child =
                 |name: &str| self.expression(&v[name], variables, depth + 1, old, quantifiers);
             let expected = match tag {
@@ -557,12 +561,23 @@ fn check_normalized_data_expression(
                         serde_json::from_value(v["value"].clone()).map_err(|_| fail.clone())?;
                     validate_monomorphic_value(self.b, self.r, self.c, &literal)
                         .map_err(|_| fail.clone())?;
+                    if let Some(universe) = self.env.exception_universe.as_ref() {
+                        if matches!(literal, MonomorphicValue::ClosedException { .. }) {
+                            validate_explicit_exception_value(
+                                self.b, self.r, self.c, universe, &literal,
+                            )
+                            .map_err(|_| fail.clone())?;
+                        }
+                    }
                     literal.type_id().to_owned()
                 }
-                "variable" => variables
-                    .get(text("binding_id")?)
-                    .cloned()
-                    .ok_or(fail.clone())?,
+                "variable" => {
+                    let id = text("binding_id")?;
+                    if old && own == EXCEPTION_TYPE_ID {
+                        return Err(fail);
+                    }
+                    variables.get(id).cloned().ok_or(fail.clone())?
+                }
                 "result" => self.env.result.clone().ok_or(fail.clone())?,
                 "old" => {
                     if !self.env.allow_old || old {
@@ -576,10 +591,18 @@ fn check_normalized_data_expression(
                     if variables.contains_key(id) {
                         return Err(fail);
                     }
+                    if val == EXCEPTION_TYPE_ID && allow_exception {
+                        if let Ok(subject) =
+                            self.exception_subject(&v["value"], &self.exception_bindings)
+                        {
+                            self.exception_bindings.insert(id.into(), subject);
+                        }
+                    }
                     variables.insert(id.into(), val);
                     let body =
                         self.expression(&v["body"], variables, depth + 1, old, quantifiers)?;
                     variables.remove(id);
+                    self.exception_bindings.remove(id);
                     body
                 }
                 "bounded_forall" | "bounded_exists" => {
@@ -835,7 +858,30 @@ fn check_normalized_data_expression(
                     STRING_TYPE_ID.into()
                 }
                 "exception_is" | "exception_payload" => {
-                    return Err(DataPhaseError::LaterOwner("CSHARP-03-T04-W05"))
+                    if !allow_exception {
+                        return Err(DataPhaseError::LaterOwner("CSHARP-03-T04-W05"));
+                    }
+                    if old || child("value")? != EXCEPTION_TYPE_ID {
+                        return Err(fail);
+                    }
+                    let universe = self.env.exception_universe.as_ref().ok_or(fail.clone())?;
+                    self.env.exception_type.as_ref().ok_or(fail.clone())?;
+                    if tag == "exception_is" {
+                        if universe.arm(text("exception_type_id")?).is_none() {
+                            return Err(fail);
+                        }
+                        BOOL_TYPE_ID.into()
+                    } else {
+                        let subject =
+                            self.exception_subject(&v["value"], &self.exception_bindings)?;
+                        let arm = universe.arm(&subject).ok_or(fail.clone())?;
+                        let index = arm
+                            .payload_member_ids
+                            .iter()
+                            .position(|id| id == text("member_id").unwrap_or(""))
+                            .ok_or(fail.clone())?;
+                        arm.payload_type_ids[index].clone()
+                    }
                 }
                 _ => return Err(fail),
             };
@@ -843,6 +889,49 @@ fn check_normalized_data_expression(
                 return Err(fail);
             }
             Ok(own)
+        }
+        fn exception_subject(
+            &self,
+            value: &Value,
+            bindings: &BTreeMap<String, String>,
+        ) -> Result<String, DataPhaseError> {
+            let fail = DataPhaseError::Contract;
+            match value["tag"].as_str() {
+                Some("variable") => bindings
+                    .get(value["binding_id"].as_str().ok_or(fail.clone())?)
+                    .cloned()
+                    .ok_or(fail),
+                Some("literal") => {
+                    let literal: MonomorphicValue =
+                        serde_json::from_value(value["value"].clone()).map_err(|_| fail.clone())?;
+                    let universe = self.env.exception_universe.as_ref().ok_or(fail.clone())?;
+                    validate_explicit_exception_value(self.b, self.r, self.c, universe, &literal)
+                        .map_err(|_| fail.clone())?;
+                    let MonomorphicValue::ClosedException { tag, .. } = literal else {
+                        return Err(fail);
+                    };
+                    Ok(universe.arms()[tag as usize].type_id.clone())
+                }
+                Some("conditional") => {
+                    let yes = self.exception_subject(&value["when_true"], bindings)?;
+                    if yes != self.exception_subject(&value["when_false"], bindings)? {
+                        return Err(fail);
+                    }
+                    Ok(yes)
+                }
+                Some("let") => {
+                    let mut bindings = bindings.clone();
+                    if value["value"]["type_id"] == EXCEPTION_TYPE_ID {
+                        let subject = self.exception_subject(&value["value"], &bindings)?;
+                        bindings.insert(
+                            value["binding_id"].as_str().ok_or(fail.clone())?.into(),
+                            subject,
+                        );
+                    }
+                    self.exception_subject(&value["body"], &bindings)
+                }
+                _ => Err(fail),
+            }
         }
         fn payload_type(&self, id: &str, arm: &str) -> Result<Option<String>, DataPhaseError> {
             let meta = self.c.metadata.get(id).ok_or(DataPhaseError::Contract)?;
@@ -877,6 +966,11 @@ fn check_normalized_data_expression(
         c,
         env: environment,
         shapes,
+        exception_bindings: environment
+            .exception_type
+            .as_ref()
+            .map(|id| BTreeMap::from([("exception".into(), id.clone())]))
+            .unwrap_or_default(),
         nodes: 0,
     };
     let type_id = checker.expression(value, &mut environment.variables.clone(), 1, false, 0)?;

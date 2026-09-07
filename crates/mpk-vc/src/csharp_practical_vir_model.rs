@@ -7102,6 +7102,7 @@ pub use loop_contracts::{
 #[path = "csharp_practical_loop_lowering.rs"]
 mod loop_lowering;
 pub use loop_lowering::{
-    prepare_loop_lowering, prepare_pattern_lowering, LoopControlFunction, LoopControlNode,
-    LoopLoweringError, LoopSourceOperation, LoweredLoopControl, LoweredLoopRegion,
+    prepare_exception_lowering, prepare_loop_lowering, prepare_pattern_lowering,
+    ExplicitExceptionExit, LoopControlFunction, LoopControlNode, LoopLoweringError,
+    LoopSourceOperation, LoweredLoopControl, LoweredLoopRegion, OperationExceptionResult,
 };

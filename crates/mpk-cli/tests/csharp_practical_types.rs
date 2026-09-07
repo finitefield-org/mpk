@@ -167,7 +167,12 @@ fn csharp_03_t03_w03_harness_covers_shapes_defaults_limits_and_runtime() {
             < declaration
     );
     assert!(declaration < types);
-    assert!(types < capture.find("ValidateGenerics(roslyn)").unwrap());
+    assert!(
+        types
+            < capture
+                .find("ValidateGenerics(roslyn, allowExceptionControl)")
+                .unwrap()
+    );
     assert!(
         types
             < capture

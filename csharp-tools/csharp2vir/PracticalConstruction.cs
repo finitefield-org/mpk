@@ -115,11 +115,11 @@ internal static class CSharpPracticalConstruction
         IReadOnlyList<PracticalTypeInvariantClaim>? invariantClaims = null, bool allowInitializers = false,
         bool allowStructuralEquality = false,
         Action<CSharpCompilation, IReadOnlyList<PracticalDataType>>? validateArrays = null,
-        Action<CSharpCompilation>? validateArrayLimits = null, bool deferSidecarAttachment = false, bool allowLoopControl = false, bool allowPatternControl = false)
+        Action<CSharpCompilation>? validateArrayLimits = null, bool deferSidecarAttachment = false, bool allowLoopControl = false, bool allowPatternControl = false, bool allowExceptionControl = false)
     {
         try
         {
-            var model = new Model(allowInitializers, allowStructuralEquality, allowPatternControl);
+            var model = new Model(allowInitializers, allowStructuralEquality, allowPatternControl, allowExceptionControl);
             PracticalDataTypes data = CSharpPracticalDataTypes.Validate(selection, inputs, references,
                 (current, closure, types) =>
                 {
@@ -129,7 +129,7 @@ internal static class CSharpPracticalConstruction
                     validateArrays?.Invoke(current, types);
                 }, current => { ValidateLimits(current); validateArrayLimits?.Invoke(current); }, ValidateSignatures, deferDeclaredInvariantProof: invariantClaims is not null || deferSidecarAttachment,
                 allowInitializerConstruction: allowInitializers, allowStructuralEquality: allowStructuralEquality,
-                allowArrayConstruction: validateArrays is not null, allowLoopControl: allowLoopControl, allowPatternControl: allowPatternControl);
+                allowArrayConstruction: validateArrays is not null, allowLoopControl: allowLoopControl, allowPatternControl: allowPatternControl, allowExceptionControl: allowExceptionControl);
             return model.Build(data);
         }
         catch (PracticalCaptureFailure) { throw; }
@@ -195,8 +195,9 @@ internal static class CSharpPracticalConstruction
         private readonly bool allowStructuralEquality;
         private readonly List<PracticalSourceEquality> sourceEqualities = new();
         private readonly bool allowPatternControl;
-        internal Model(bool allowInitializers, bool allowStructuralEquality, bool allowPatternControl)
-        { this.allowPatternControl=allowPatternControl; this.allowInitializers = allowInitializers; this.allowStructuralEquality = allowStructuralEquality; }
+        private readonly bool allowExceptionControl;
+        internal Model(bool allowInitializers, bool allowStructuralEquality, bool allowPatternControl, bool allowExceptionControl)
+        { this.allowExceptionControl=allowExceptionControl; this.allowPatternControl=allowPatternControl; this.allowInitializers = allowInitializers; this.allowStructuralEquality = allowStructuralEquality; }
         private readonly List<(IObjectCreationOperation Operation, INamedTypeSymbol Type, PracticalConstructorPlan Constructor)> initializers = new();
         private readonly List<PracticalInitializationPlan> initializationPlans = new();
         private CSharpCompilation compilation = null!;
@@ -342,7 +343,7 @@ internal static class CSharpPracticalConstruction
             {
                 if (constructor.Parameters.Length != 0 || constructor.IsStatic || constructor.IsExtern
                     || constructor.DeclaredAccessibility != Accessibility.Public
-                    || type.TypeKind == TypeKind.Class && (type.BaseType?.SpecialType != SpecialType.System_Object
+                    || type.TypeKind == TypeKind.Class && (type.BaseType?.SpecialType != SpecialType.System_Object && !(allowExceptionControl && CSharpPracticalCapture.IsExceptionBase(type.BaseType))
                         || type.InstanceConstructors.Any(candidate => !candidate.IsImplicitlyDeclared)))
                 { throw PracticalFailures.Object("synthesized_constructor"); }
                 var implicitPlan = new PracticalConstructorPlan(id, TypeId(type), null, true,
@@ -356,7 +357,7 @@ internal static class CSharpPracticalConstruction
             State initial = new(0, 0);
             string? delegatesTo = null;
             bool delegatedReturns = true;
-            if (syntax.Initializer is not null)
+            if (syntax.Initializer is not null && !(allowExceptionControl && syntax.Initializer.IsKind(SyntaxKind.BaseConstructorInitializer) && CSharpPracticalCapture.IsExceptionBase(type.BaseType) && syntax.Initializer.ArgumentList.Arguments.Count == 0))
             {
                 if (!syntax.Initializer.IsKind(SyntaxKind.ThisConstructorInitializer)
                     || semantic.GetSymbolInfo(syntax.Initializer).Symbol is not IMethodSymbol target
@@ -502,8 +503,8 @@ internal static class CSharpPracticalConstruction
                     state = new(state.Must | delegated.Must, state.May | delegated.May);
                     steps?.Add(new("delegate", CallableId(call.TargetMethod, compilation), steps.Count));
                 }
-                else if (!call.IsImplicit || call.TargetMethod.ContainingType.SpecialType != SpecialType.System_Object
-                    || call.Arguments.Length != 0)
+                else if (!(allowExceptionControl && CSharpPracticalCapture.IsExceptionBase(call.TargetMethod.ContainingType) && call.Arguments.Length == 0) && (!call.IsImplicit || call.TargetMethod.ContainingType.SpecialType != SpecialType.System_Object
+                    || call.Arguments.Length != 0))
                 { throw PracticalFailures.Object("constructor_base"); }
                 return;
             }
@@ -764,7 +765,7 @@ internal static class CSharpPracticalConstruction
                             || !reader.GetBlobBytes(reference.Signature).SequenceEqual(new byte[] { 0x20, 0, 1 }))
                         { throw PracticalFailures.Object("synthesized_constructor_il"); }
                         TypeReference parent = reader.GetTypeReference((TypeReferenceHandle)reference.Parent);
-                        if (reader.GetString(parent.Name) != "Object" || reader.GetString(parent.Namespace) != "System"
+                        if (reader.GetString(parent.Name) != (allowExceptionControl && CSharpPracticalCapture.IsExceptionBase(type.BaseType) ? "Exception" : "Object") || reader.GetString(parent.Namespace) != "System"
                             || parent.ResolutionScope.Kind != HandleKind.AssemblyReference
                             || reader.GetString(reader.GetAssemblyReference((AssemblyReferenceHandle)parent.ResolutionScope).Name) != "System.Runtime")
                         { throw PracticalFailures.Object("synthesized_constructor_il"); }

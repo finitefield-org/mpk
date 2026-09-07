@@ -704,7 +704,7 @@ internal static class CSharpPracticalCapture
         Action<CSharpCompilation>? validateDataTypes = null,
         Action<CSharpCompilation>? validateDataLimits = null,
         Action<CSharpCompilation, PracticalSourceClosure>? validateConstruction = null,
-        bool allowLoopContractForeach = false, bool allowPatternControl = false)
+        bool allowLoopContractForeach = false, bool allowPatternControl = false, bool allowExceptionControl = false)
     {
         try
         {
@@ -734,9 +734,10 @@ internal static class CSharpPracticalCapture
             ValidateGlobalDeclarationExclusions(roslyn);
             validateDataDeclarations?.Invoke(roslyn.Compilation);
             ValidateSynthesizedMarkers(roslyn);
-            ValidateFrameworkApi(roslyn);
+            if (allowExceptionControl) ValidateExceptionSyntax(roslyn.Compilation);
+            ValidateFrameworkApi(roslyn, allowExceptionControl);
             validateDataTypes?.Invoke(roslyn.Compilation);
-            ValidateGenerics(roslyn);
+            ValidateGenerics(roslyn, allowExceptionControl);
             PracticalSourceClosure closure = BuildClosure(
                 selection,
                 captured.Sources,
@@ -1491,7 +1492,7 @@ internal static class CSharpPracticalCapture
         && type.DeclaringSyntaxReferences.IsEmpty
         && string.Equals(type.ContainingAssembly?.Identity.Name, "System.Runtime", StringComparison.Ordinal);
 
-    private static void ValidateGenerics(RoslynState state)
+    private static void ValidateGenerics(RoslynState state, bool allowExceptionControl)
     {
         foreach (SyntaxTree tree in state.Trees)
         {
@@ -1520,7 +1521,7 @@ internal static class CSharpPracticalCapture
                         type,
                         state.Compilation,
                         IsWithinEffectReference(typeSyntax, model),
-                        IsWithinIntrinsicConstantReference(typeSyntax, model));
+                        IsWithinIntrinsicConstantReference(typeSyntax, model) || allowExceptionControl && IsExceptionControlTypeReference(typeSyntax, model));
                 }
 
                 if (node is InvocationExpressionSyntax invocation
@@ -1580,7 +1581,7 @@ internal static class CSharpPracticalCapture
         }
     }
 
-    private static void ValidateFrameworkApi(RoslynState state)
+    private static void ValidateFrameworkApi(RoslynState state, bool allowExceptionControl)
     {
         foreach (SyntaxTree tree in state.Trees)
         {
@@ -1607,6 +1608,7 @@ internal static class CSharpPracticalCapture
                     && externalMethod.MethodKind != MethodKind.Conversion
                     && (!IsAllowlistedFrameworkMember(externalMethod)
                         && !IsOutcomeThrowConstructor(externalMethod, node)
+                        && !(allowExceptionControl && IsExceptionControlConstructor(externalMethod, node))
                         || !HasExactIntrinsicArguments(externalMethod, node, model)))
                 {
                     throw PracticalFailures.Type("framework_api");
@@ -1795,6 +1797,56 @@ internal static class CSharpPracticalCapture
         return false;
     }
 
+    // Exact runtime identities, shared by declaration validation and the W04
+    // source-control gate. No runtime exception instance is retained.
+    internal static bool IsExceptionBase(ITypeSymbol? type) => type is not null && IsExactSystemRuntimeType(type,"Exception");
+    internal static bool IsClosedBuiltinException(ITypeSymbol? type) => type is INamedTypeSymbol named
+        && named.DeclaringSyntaxReferences.IsEmpty && named.ContainingAssembly.Identity.Name=="System.Runtime"
+        && named.ToDisplayString(SymbolDisplayFormat.CSharpErrorMessageFormat) is
+            "System.DivideByZeroException" or "System.OverflowException" or "System.IndexOutOfRangeException"
+            or "System.ArgumentException" or "System.ArgumentOutOfRangeException" or "System.ArgumentNullException"
+            or "System.InvalidOperationException" or "System.NullReferenceException"
+            or "System.Runtime.CompilerServices.SwitchExpressionException";
+    private static bool IsExceptionControlConstructor(IMethodSymbol method,SyntaxNode node) =>
+        method.MethodKind==MethodKind.Constructor && method.Parameters.Length==0
+        && (IsClosedBuiltinException(method.ContainingType) && node is ObjectCreationExpressionSyntax {Parent:ThrowStatementSyntax}
+            || IsExceptionBase(method.ContainingType) && node is ConstructorInitializerSyntax {RawKind:(int)SyntaxKind.BaseConstructorInitializer});
+    private static bool IsExceptionControlTypeReference(TypeSyntax node,SemanticModel model) =>
+        node.AncestorsAndSelf().Any(n=> n is BaseTypeSyntax && IsExceptionBase(model.GetTypeInfo(node).Type)
+            || n is ObjectCreationExpressionSyntax creation && creation.Parent is ThrowStatementSyntax && IsClosedBuiltinException(model.GetTypeInfo(creation).Type));
+    private static void ValidateExceptionSyntax(CSharpCompilation compilation)
+    {
+        bool ExceptionType(ITypeSymbol? type) {
+            for(var current=type as INamedTypeSymbol;current is not null;current=current.BaseType)
+                if(IsExceptionBase(current))return true;
+            return false;
+        }
+        int count=0;
+        foreach(var tree in compilation.SyntaxTrees) {
+            var model=compilation.GetSemanticModel(tree);
+            foreach(var node in tree.GetRoot().DescendantNodes()) {
+                if(node is TypeDeclarationSyntax declaration && model.GetDeclaredSymbol(declaration) is INamedTypeSymbol type && ExceptionType(type)) {
+                    if(++count>32)throw PracticalFailures.Limit("source_exception_types");
+                    if(!type.IsSealed || !IsExceptionBase(type.BaseType) || type.IsGenericType || type.Interfaces.Length!=0)
+                        throw PracticalFailures.Declaration("exception_base");
+                }
+                if(node is ThrowExpressionSyntax)throw PracticalFailures.Type("exception_throw_expression");
+                if(node is ThrowStatementSyntax statement && !(statement.Expression is ObjectCreationExpressionSyntax creation
+                    && model.GetOperation(creation) is IObjectCreationOperation value && value.Constructor is not null
+                    && (IsClosedBuiltinException(value.Type) && value.Arguments.IsEmpty
+                        || value.Type is INamedTypeSymbol source && !source.DeclaringSyntaxReferences.IsEmpty && source.IsSealed && IsExceptionBase(source.BaseType))
+                    && creation.Initializer is null))throw PracticalFailures.Type("exception_throw_shape");
+                if(node is CatchClauseSyntax or FinallyClauseSyntax)throw PracticalFailures.Type("exception_handler_later_owner");
+                if(node is ObjectCreationExpressionSyntax allocation && ExceptionType(model.GetTypeInfo(allocation).Type)
+                    && allocation.Parent is not ThrowStatementSyntax)throw PracticalFailures.Type("exception_object_escape");
+                if(node is ParameterSyntax parameter && ExceptionType(model.GetTypeInfo(parameter.Type!).Type)
+                    || node is VariableDeclarationSyntax variable && ExceptionType(model.GetTypeInfo(variable.Type).Type)
+                    || node is MethodDeclarationSyntax method && ExceptionType(model.GetTypeInfo(method.ReturnType).Type))
+                    throw PracticalFailures.Type("exception_value_api");
+            }
+        }
+    }
+
     // W12 source helpers may construct these exact exceptions only as the
     // immediate operand of throw. This admits no exception-valued API/catch.
     private static bool IsOutcomeThrowConstructor(IMethodSymbol method,SyntaxNode syntax) =>
@@ -1809,7 +1861,8 @@ internal static class CSharpPracticalCapture
         || IsExactSystemRuntimeType(type, "Math")
         || IsExactSystemRuntimeType(type, "MathF")
         || IsExactSystemRuntimeType(type,"InvalidOperationException")
-        || IsExactSystemRuntimeType(type,"ArgumentException");
+        || IsExactSystemRuntimeType(type,"ArgumentException")
+        || IsClosedBuiltinException(type) || IsExceptionBase(type);
 
     private static bool IsAdmittedPredefinedType(ITypeSymbol type) => type.SpecialType is
         SpecialType.System_Void

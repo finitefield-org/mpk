@@ -128,10 +128,14 @@ pub struct AttachedLoopContract {
 }
 #[derive(Clone, Debug)]
 pub struct PreparedLoopContracts {
+    exceptional_cases: BTreeMap<String, Vec<J>>,
     loops: Vec<AttachedLoopContract>,
     snapshot_sha256: String,
 }
 impl PreparedLoopContracts {
+    pub fn exceptional_cases(&self) -> &BTreeMap<String, Vec<J>> {
+        &self.exceptional_cases
+    }
     pub fn loops(&self) -> &[AttachedLoopContract] {
         &self.loops
     }
@@ -166,6 +170,7 @@ fn environment(
     let mut env = common.clone();
     env.variables.clear();
     env.result = None;
+    env.exception_type = None;
     env.allow_old = false;
     for binding in bindings {
         if !known_concrete_type(r, c, &binding.type_id)
@@ -509,6 +514,7 @@ pub fn prepare_loop_contracts(
         }
     }
     let mut attached = Vec::new();
+    let mut exceptional_cases = BTreeMap::new();
     for method in &source.methods {
         let Some(contract) = contracts.get(method.callable_id.as_str()) else {
             if !method.loops.is_empty() {
@@ -560,11 +566,25 @@ pub fn prepare_loop_contracts(
                 .iter()
                 .map(|(k, _)| k.as_str())
                 .ne(["exception_type_id", "path_condition", "ensures"])
-                || !builtin_exception_arms()
-                    .iter()
-                    .any(|arm| arm.type_id == text(case, "exception_type_id").unwrap_or(""))
+                || !common.exception_universe.as_ref().map_or_else(
+                    || {
+                        builtin_exception_arms()
+                            .iter()
+                            .any(|arm| arm.type_id == text(case, "exception_type_id").unwrap_or(""))
+                    },
+                    |universe| {
+                        universe
+                            .arm(text(case, "exception_type_id").unwrap_or(""))
+                            .is_some()
+                    },
+                )
             {
                 return Err(LoopContractError::Expression);
+            }
+            if common.exception_universe.is_some() {
+                env.exception_type = Some(text(case, "exception_type_id")?.into());
+                env.variables
+                    .insert("exception".into(), EXCEPTION_TYPE_ID.into());
             }
             expressions(
                 b,
@@ -580,6 +600,9 @@ pub fn prepare_loop_contracts(
             )?;
             expressions(b, r, c, &env, array(case, "ensures")?, false, &mut nodes)?;
         }
+        env.exception_type = None;
+        env.variables.remove("exception");
+        exceptional_cases.insert(method.callable_id.clone(), exceptional.to_vec());
         for (loop_, row) in method.loops.iter().zip(rows) {
             let fields = row.as_object().ok_or(LoopContractError::Sidecar)?;
             if fields.iter().map(|(k, _)| k.as_str()).ne([
@@ -723,6 +746,7 @@ pub fn prepare_loop_contracts(
         }
     }
     Ok(PreparedLoopContracts {
+        exceptional_cases,
         loops: attached,
         snapshot_sha256: captures.snapshot_sha256().into(),
     })

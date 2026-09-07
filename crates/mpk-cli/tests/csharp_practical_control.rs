@@ -854,3 +854,6 @@ mod lowering;
 
 #[path = "support/csharp_practical_pattern_lowering.rs"]
 mod patterns;
+
+#[path = "support/csharp_practical_exception_lowering.rs"]
+mod exceptions;

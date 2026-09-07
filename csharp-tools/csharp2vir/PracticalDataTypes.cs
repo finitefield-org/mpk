@@ -124,7 +124,7 @@ internal static class CSharpPracticalDataTypes
         Action<CSharpCompilation>? validateConstructorLimits = null,
         Action<CSharpCompilation>? validateSignatures = null,
         bool deferDeclaredInvariantProof = false, bool allowInitializerConstruction = false,
-        bool allowStructuralEquality = false, bool allowArrayConstruction = false, bool allowLoopControl = false, bool allowPatternControl = false)
+        bool allowStructuralEquality = false, bool allowArrayConstruction = false, bool allowLoopControl = false, bool allowPatternControl = false, bool allowExceptionControl = false)
     {
         try
         {
@@ -132,14 +132,14 @@ internal static class CSharpPracticalDataTypes
             if ((deferDeclaredInvariantProof || allowInitializerConstruction || allowStructuralEquality || allowArrayConstruction) && validateConstruction is null)
             { throw PracticalFailures.Protocol("missing_invariant_obligation_consumer"); }
             var model = new DataModel(selection.SidecarPaths.Count != 0 || deferDeclaredInvariantProof,
-                deferDeclaredInvariantProof, allowInitializerConstruction, allowStructuralEquality, allowArrayConstruction);
+                deferDeclaredInvariantProof, allowInitializerConstruction, allowStructuralEquality, allowArrayConstruction, allowExceptionControl);
             PracticalNormalizedSyntax syntax = CSharpPracticalSyntaxNormalizer.Normalize(
                 selection, inputs, references,
                 current => { model.ValidateDeclarations(current); validateSignatures?.Invoke(current); },
                 model.ValidateTypes,
                 current => { model.ValidateLimits(current); validateConstructorLimits?.Invoke(current); },
                 validateConstruction is null ? null :
-                    (current, closure) => validateConstruction(current, closure, model.GetTypes()), allowLoopControl, allowPatternControl);
+                    (current, closure) => validateConstruction(current, closure, model.GetTypes()), allowLoopControl, allowPatternControl, allowExceptionControl);
             return model.Build(syntax);
         }
         catch (PracticalCaptureFailure) { throw; }
@@ -204,6 +204,7 @@ internal static class CSharpPracticalDataTypes
 
     private sealed class DataModel
     {
+        private readonly bool allowExceptionControl;
         private readonly bool hasSidecars;
         private readonly bool deferDeclaredInvariantProof;
         private readonly bool allowInitializerConstruction;
@@ -215,9 +216,9 @@ internal static class CSharpPracticalDataTypes
         private CSharpCompilation compilation = null!;
         private PracticalDataType? dayOfWeek;
 
-        internal DataModel(bool hasSidecars, bool deferDeclaredInvariantProof, bool allowInitializerConstruction, bool allowStructuralEquality, bool allowArrayConstruction)
+        internal DataModel(bool hasSidecars, bool deferDeclaredInvariantProof, bool allowInitializerConstruction, bool allowStructuralEquality, bool allowArrayConstruction, bool allowExceptionControl)
         {
-            this.hasSidecars = hasSidecars; this.deferDeclaredInvariantProof = deferDeclaredInvariantProof;
+            this.allowExceptionControl = allowExceptionControl; this.hasSidecars = hasSidecars; this.deferDeclaredInvariantProof = deferDeclaredInvariantProof;
             this.allowInitializerConstruction = allowInitializerConstruction;
             this.allowStructuralEquality = allowStructuralEquality;
             this.allowArrayConstruction = allowArrayConstruction;
@@ -317,7 +318,7 @@ internal static class CSharpPracticalDataTypes
                     record.ExceptionCandidate = ClassifySourceException(symbol) is not null;
                 }
             }
-            foreach (TypeRecord record in records.Where(record => !record.ExceptionCandidate))
+            foreach (TypeRecord record in records.Where(record => !record.ExceptionCandidate || allowExceptionControl))
             { ValidateDeclaration(record); }
         }
 
@@ -340,7 +341,7 @@ internal static class CSharpPracticalDataTypes
                 record.Kind = "enum";
                 return;
             }
-            if (syntax.BaseList is not null)
+            if (syntax.BaseList is not null && !(allowExceptionControl && record.ExceptionCandidate && symbol.IsSealed && CSharpPracticalCapture.IsExceptionBase(symbol.BaseType)))
             { throw PracticalFailures.Declaration("data_base_list"); }
             if (syntax is StructDeclarationSyntax && symbol.TypeKind == TypeKind.Struct
                 && symbol.IsReadOnly && !symbol.IsStatic
@@ -349,8 +350,9 @@ internal static class CSharpPracticalDataTypes
             { record.Kind = "readonly_struct"; }
             else if (syntax is ClassDeclarationSyntax && symbol.TypeKind == TypeKind.Class
                 && (symbol.IsSealed || symbol.IsStatic)
-                && SymbolEqualityComparer.Default.Equals(symbol.BaseType,
-                    compilation.GetSpecialType(SpecialType.System_Object)))
+                && (SymbolEqualityComparer.Default.Equals(symbol.BaseType,
+                    compilation.GetSpecialType(SpecialType.System_Object))
+                    || allowExceptionControl && record.ExceptionCandidate && CSharpPracticalCapture.IsExceptionBase(symbol.BaseType)))
             { record.Kind = symbol.IsStatic ? "static_container" : "sealed_class"; }
             else { throw PracticalFailures.Declaration("data_type_kind"); }
 
@@ -388,7 +390,7 @@ internal static class CSharpPracticalDataTypes
                     case ConstructorDeclarationSyntax constructor:
                         Modifiers(constructor.Modifiers, SyntaxKind.PublicKeyword,
                             SyntaxKind.InternalKeyword, SyntaxKind.PrivateKeyword);
-                        if (constructor.Initializer?.IsKind(SyntaxKind.BaseConstructorInitializer) == true)
+                        if (constructor.Initializer?.IsKind(SyntaxKind.BaseConstructorInitializer) == true && !(allowExceptionControl && record.ExceptionCandidate && constructor.Initializer.ArgumentList.Arguments.Count == 0))
                         { throw PracticalFailures.Declaration("data_base_constructor"); }
                         break;
                     default: throw PracticalFailures.Declaration("data_member");
@@ -442,7 +444,7 @@ internal static class CSharpPracticalDataTypes
         internal void ValidateTypes(CSharpCompilation current)
         {
             if (!ReferenceEquals(current, compilation)) { throw PracticalFailures.Protocol("data_compilation"); }
-            foreach (TypeRecord record in records.Where(record => !record.ExceptionCandidate && !record.Symbol.IsGenericType))
+            foreach (TypeRecord record in records.Where(record => (!record.ExceptionCandidate || allowExceptionControl) && !record.Symbol.IsGenericType))
             {
                 foreach (var member in record.Members)
                 {
@@ -506,7 +508,7 @@ internal static class CSharpPracticalDataTypes
         private void DependencyOrder()
         {
             var colors = new Dictionary<TypeRecord, int>();
-            foreach (TypeRecord root in records.Where(record => !record.ExceptionCandidate && !record.Symbol.IsGenericType))
+            foreach (TypeRecord root in records.Where(record => (!record.ExceptionCandidate || allowExceptionControl) && !record.Symbol.IsGenericType))
             {
                 var pending = new Stack<(TypeRecord Record, bool Exit)>();
                 pending.Push((root, false));
@@ -946,7 +948,7 @@ internal static class CSharpPracticalDataTypes
 
         internal PracticalDataTypes Build(PracticalNormalizedSyntax syntax)
         {
-            if (records.Any(record => record.ExceptionCandidate))
+            if (!allowExceptionControl && records.Any(record => record.ExceptionCandidate))
             { throw PracticalFailures.Protocol("exception_handoff_required"); }
             var types = ordered.Where(record => record.Output is not null).Select(record => record.Output!).ToList();
             if (dayOfWeek is not null) { types.Insert(0, dayOfWeek); }
