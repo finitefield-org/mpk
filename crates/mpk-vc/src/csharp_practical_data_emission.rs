@@ -14,11 +14,15 @@ pub struct EmittedDataPhase {
     operations: a::ConcreteOperationTables,
     vir: v::ValidatedPracticalVir,
     routes: Vec<DataTypeRoute>,
+    boundaries: Vec<ValidatedBoundaryContract>,
     source_map: a::ValidatedPracticalArtifact,
     manifest: a::ValidatedPracticalArtifact,
     artifacts: a::ValidatedPracticalArtifact,
 }
 impl EmittedDataPhase {
+    pub fn boundaries(&self) -> &[ValidatedBoundaryContract] {
+        &self.boundaries
+    }
     pub fn vir(&self) -> &v::ValidatedPracticalVir {
         &self.vir
     }
@@ -2810,6 +2814,15 @@ fn emit_data_phase_inner(
             signature.tag == ClosedOperationTag::Foundation || used.contains(id)
         });
     }
+    let boundaries = boundary::attach_boundary_contracts(
+        b,
+        context,
+        source,
+        &closure,
+        &sidecars,
+        &emitter.signatures,
+    )
+    .map_err(DataPhaseError::Boundary)?;
     let signatures = emitter.signatures.into_values().collect();
     let functions = emitter.functions.into_values().collect();
     let closed_ref =
@@ -2863,6 +2876,10 @@ fn emit_data_phase_inner(
             phase: e.phase().as_str(),
             code: e.code().as_str(),
         })?;
+    let boundary_refs = boundaries
+        .iter()
+        .map(|b| b.artifact().artifact_ref())
+        .collect::<Vec<_>>();
     let routes = derive_data_type_routes(b, closure.roots(), closure.closed())?;
     let source_map = a::build_practical_source_map(
         context,
@@ -2889,7 +2906,7 @@ fn emit_data_phase_inner(
                 .map(|c| c.artifact_ref())
                 .collect(),
             semantic_bindings: closure.bindings().artifact_ref(),
-            boundary_contracts: vec![],
+            boundary_contracts: boundary_refs.clone(),
             boundary_inputs: vec![],
             boundary_outputs: vec![],
             transition_contracts: vec![],
@@ -2910,7 +2927,7 @@ fn emit_data_phase_inner(
             source_manifest: &manifest,
             semantic_bindings: &closure.bindings().artifact_ref(),
             closed_instances: &closed_ref,
-            boundary_contracts: vec![],
+            boundary_contracts: boundary_refs.clone(),
             transition_contracts: vec![],
         },
     )
@@ -2920,6 +2937,7 @@ fn emit_data_phase_inner(
         operations,
         vir,
         routes,
+        boundaries,
         source_map,
         manifest,
         artifacts,

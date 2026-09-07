@@ -63,10 +63,15 @@ impl DataSidecars {
                 "mpk.csharp.contract.v1" => {
                     (a::PracticalArtifactKind::MethodContract, "callable_id")
                 }
-                "mpk.csharp.boundary.v1"
-                | "mpk.csharp.boundary_input.v1"
-                | "mpk.csharp.boundary_output.v1" => {
-                    return Err(DataPhaseError::LaterOwner("CSHARP-03-T05-W01"))
+                "mpk.csharp.boundary.v1" => (
+                    a::PracticalArtifactKind::BoundaryContract,
+                    "selected_callable_id",
+                ),
+                "mpk.csharp.boundary_input.v1" => {
+                    return Err(DataPhaseError::LaterOwner("CSHARP-03-T05-W02"))
+                }
+                "mpk.csharp.boundary_output.v1" => {
+                    return Err(DataPhaseError::LaterOwner("CSHARP-03-T05-W03"))
                 }
                 "mpk.csharp.transition.v1" => {
                     return Err(DataPhaseError::LaterOwner("CSHARP-03-T05-W04"))

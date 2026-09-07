@@ -7331,3 +7331,10 @@ pub use control_ssa::{derive_control_ssa, ControlPhi, ControlSsa, ControlSsaBloc
 pub(crate) use data_emission::derive_source_control_functions;
 
 use control_ssa::derive_control_ssa_bounded;
+
+#[path = "csharp_practical_boundary.rs"]
+mod boundary;
+pub use boundary::{
+    BoundaryError, BoundaryField, BoundaryMissingRule, BoundaryPresenceBinding, BoundaryValueState,
+    ValidatedBoundaryContract,
+};

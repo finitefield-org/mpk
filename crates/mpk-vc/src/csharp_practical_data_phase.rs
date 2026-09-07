@@ -7,6 +7,7 @@ use crate::csharp_practical_source_artifacts::{
     self as artifacts, CapturedInputSet, PracticalArtifactContext, SemanticBindingInput,
     ValidatedPracticalArtifact,
 };
+pub(super) use contract_values::decode_boundary_default;
 use contract_values::decode_contract_value;
 
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -16,6 +17,7 @@ pub enum DataPhaseError {
     Source,
     Sidecar,
     Binding,
+    Boundary(BoundaryError),
     Unreachable,
     Cycle,
     Arguments,
@@ -332,9 +334,16 @@ impl DataBindingClosure {
         }
         let mut root_values:Vec<Value>=source_roots.roots.iter().map(|r|json!({"origin":r.origin,"provenance_id":r.provenance_id,"type":r.ty.to_value()})).collect();
         for (id, ty) in &resolved {
-            root_values.push(json!({"origin":"semantic_binding","provenance_id":id,"type":{"kind":"source","id":id}}));
-            root_values
-                .push(json!({"origin":"semantic_binding","provenance_id":id,"type":ty.to_value()}));
+            // Control contract attachment may revalidate an already expanded
+            // closure. Preserve each exact root/provenance pair once.
+            for root in [
+                json!({"origin":"semantic_binding","provenance_id":id,"type":{"kind":"source","id":id}}),
+                json!({"origin":"semantic_binding","provenance_id":id,"type":ty.to_value()}),
+            ] {
+                if !root_values.contains(&root) {
+                    root_values.push(root);
+                }
+            }
         }
         let source_value: Value = serde_json::from_slice(&source_roots.canonical_json)
             .map_err(|_| DataPhaseError::Source)?;
@@ -1324,6 +1333,9 @@ pub(crate) fn attach_data_contracts(
         Ok(())
     }
     for contract in sidecars.contracts() {
+        if contract.schema() == artifacts::BOUNDARY_CONTRACT_SCHEMA {
+            continue;
+        }
         let value = contract.value();
         let mut env = common.clone();
         let mut nodes = 0;
@@ -1520,6 +1532,8 @@ pub(crate) fn attach_data_contracts(
             }
         }
     }
+    boundary::attach_boundary_contracts(b, context, source, closure, sidecars, operations)
+        .map_err(DataPhaseError::Boundary)?;
     Ok(())
 }
 

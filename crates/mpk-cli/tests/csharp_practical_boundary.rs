@@ -1,0 +1,889 @@
+//! CSHARP-03-T05-W01: strict captured boundary sidecars and typed presence plans.
+use mpk_vc::csharp_practical_source_artifacts::*;
+use mpk_vc::csharp_practical_vir_model::*;
+use serde_json::{json, Value};
+use sha2::{Digest, Sha256};
+use std::{collections::BTreeMap, fs, path::Path};
+#[allow(dead_code)]
+#[path = "support/csharp_practical_data_context.rs"]
+mod support;
+fn bundle() -> ValidatedFoundationBundle {
+    validate_registered_foundation_bundle(
+        registered_foundation_descriptor_transport(),
+        registered_foundation_definitions_transport(),
+    )
+    .unwrap()
+}
+fn ty(s: &str) -> String {
+    format!("mpk.csharp.value.{s}.v1")
+}
+fn decl(kind: &str, name: &str, owner: &str, params: &[String], result: &str) -> String {
+    csharp_practical_declaration_id(&json!({"kind":kind,"namespace":"Boundary","owner":owner,"name":name,"parameter_type_ids":params,"result_type_id":result})).unwrap()
+}
+fn obj(fields: Vec<(&str, PracticalJsonValue)>) -> PracticalJsonValue {
+    PracticalJsonValue::object(fields)
+}
+fn j(s: &str) -> PracticalJsonValue {
+    PracticalJsonValue::string(s)
+}
+fn hashed(domain: &str, mut fields: Vec<(&str, PracticalJsonValue)>) -> Vec<u8> {
+    let bytes = canonical_practical_json_bytes(&obj(fields.clone())).unwrap();
+    let mut h = Sha256::new();
+    h.update(domain);
+    h.update([0]);
+    h.update(bytes);
+    fields.push(("contract_sha256", j(&format!("{:x}", h.finalize()))));
+    canonical_practical_json_bytes(&obj(fields)).unwrap()
+}
+fn field(id: &str, t: &str) -> PracticalJsonValue {
+    use PracticalJsonValue as J;
+    obj(vec![
+        ("field_id", j(id)),
+        ("json_name", j(id)),
+        ("type_id", j(t)),
+        ("required", J::Bool(true)),
+        ("nullable", J::Bool(false)),
+        ("missing_rule", obj(vec![("mode", j("reject"))])),
+        ("codec_id", J::Null),
+        ("codec_parameters", J::Null),
+    ])
+}
+fn set(v: &mut PracticalJsonValue, key: &str, value: PracticalJsonValue) {
+    let PracticalJsonValue::Object(fields) = v else {
+        panic!()
+    };
+    fields.iter_mut().find(|(k, _)| k == key).unwrap().1 = value;
+}
+fn freeze(v: PracticalJsonValue) -> PracticalJsonValue {
+    obj(vec![("mode", j("use_frozen_typed_default")), ("value", v)])
+}
+fn source(presence: bool, nullable: bool) -> String {
+    if presence {
+        "namespace Boundary;public enum Tag{Missing=0,Null=1,Value=2}public readonly struct Presence{public readonly Tag Tag;public readonly int Value;public Presence(Tag tag,int value){Tag=tag;Value=value;}}public static class Entry{public static int Run(Presence p){return new Presence(p.Tag,p.Value).Value;}}\n".into()
+    } else if nullable {
+        "namespace Boundary;public static class Entry{public static int Run(int? p){return 0;}}\n"
+            .into()
+    } else {
+        "namespace Boundary;public static class Entry{public static int Run(int n,long timestamp){return n;}}\n".into()
+    }
+}
+fn configuration(b: &ValidatedFoundationBundle, case: &str) -> (String, Vec<String>, String, bool) {
+    let presence = case.starts_with("presence");
+    let nullable = case.starts_with("nullable");
+    let types = if case.starts_with("decimal") {
+        vec![ty("decimal"), ty("i64")]
+    } else if case.starts_with("enum") {
+        vec![decl("type", "Color", "", &[], "")]
+    } else if presence {
+        vec![decl("type", "Presence", "", &[], "")]
+    } else if nullable {
+        vec![csharp_practical_closed_instance_id(b,&json!({"kind":"instance","template":"option","arguments":[{"kind":"primitive","id":"i32"}]})).unwrap()]
+    } else {
+        vec![ty("i32"), ty("i64")]
+    };
+    let owner = decl("type", "Entry", "", &[], "");
+    let root = decl("method", "Run", &owner, &types, &ty("i32"));
+    let src = if case.starts_with("decimal") {
+        "namespace Boundary;public static class Entry{public static int Run(decimal n,long timestamp){return 0;}}\n".into()
+    } else if case.starts_with("enum") {
+        "namespace Boundary;public enum Color{Red=0,Blue=1}public static class Entry{public static int Run(Color n){return 0;}}\n".into()
+    } else {
+        source(presence, nullable)
+    };
+    let src = if case == "presence_instant" {
+        "namespace Boundary;public enum Tag{Missing=0,Null=1,Value=2}public readonly struct Instant{public readonly long Milliseconds;public Instant(long milliseconds){Milliseconds=milliseconds;}}public readonly struct Presence{public readonly Tag Tag;public readonly Instant Value;public Presence(Tag tag,Instant value){Tag=tag;Value=value;}}public static class Entry{public static int Run(Presence p){return (int)new Presence(p.Tag,new Instant(p.Value.Milliseconds)).Value.Milliseconds;}}\n".into()
+    } else {
+        src
+    };
+    let src = if case == "presence_nonmissing_zero" {
+        src.replace("Missing=0,Null=1", "Missing=1,Null=0")
+    } else {
+        src
+    };
+    (src, types, root, presence)
+}
+fn cases() -> Vec<(&'static str, bool)> {
+    vec![
+        ("required", true),
+        ("decimal_default", true),
+        ("decimal_wrong_scale", false),
+        ("enum_default", true),
+        ("enum_unknown", false),
+        ("enum_noncanonical", false),
+        ("nullable_nonnull", true),
+        ("surrogate_name", true),
+        ("missing_schema_field", false),
+        ("optional_default", true),
+        ("raw_instant", true),
+        ("nullable_required", true),
+        ("nullable_default", true),
+        ("nullable_none_default", false),
+        ("presence_exposed", true),
+        ("presence_required", true),
+        ("presence_instant", true),
+        ("presence_nonmissing_zero", true),
+        ("presence_default", true),
+        ("presence_missing_default", true),
+        ("presence_inactive_default", false),
+        ("presence_bad_tag", false),
+        ("presence_wrong_member", false),
+        ("unknown_field", false),
+        ("duplicate_field", false),
+        ("duplicate_name", false),
+        ("unknown_missing", false),
+        ("required_default", false),
+        ("optional_reject", false),
+        ("ordinary_expose", false),
+        ("nonnull", false),
+        ("wrong_type", false),
+        ("wrong_order", false),
+        ("unknown_codec", false),
+        ("codec_parameters", false),
+        ("bad_default_type", false),
+        ("bad_default_range", false),
+        ("string_i32_default", false),
+        ("field_limit", false),
+        ("bad_id", false),
+        ("unknown_root", false),
+        ("profile", false),
+        ("schema", false),
+        ("compilation", false),
+        ("context", false),
+        ("partial", false),
+        ("stale_hash", false),
+        ("stale_source", false),
+        ("duplicate_json", false),
+        ("output_type", false),
+        ("output_count", false),
+        ("default_depth", false),
+        ("default_cells", false),
+        ("unknown_root_field", false),
+        ("reordered_field", false),
+        ("noncanonical", false),
+    ]
+}
+fn setup(
+    b: &ValidatedFoundationBundle,
+    case: &str,
+) -> (PracticalArtifactContext, CapturedInputSet) {
+    use PracticalJsonValue as J;
+    let (src, types, root, presence) = configuration(b, case);
+    let paths = if presence {
+        vec![
+            "contracts/binding.json".into(),
+            "contracts/boundary.json".into(),
+            "contracts/method.json".into(),
+        ]
+    } else {
+        vec![
+            "contracts/boundary.json".into(),
+            "contracts/method.json".into(),
+        ]
+    };
+    support::context_with_sidecars(b, &root, src.as_bytes(), paths.clone(), |ctx| {
+        let mut fields = types
+            .iter()
+            .enumerate()
+            .map(|(i, t)| field(&format!("field{i}"), t))
+            .collect::<Vec<_>>();
+        if case.starts_with("nullable") || presence {
+            set(&mut fields[0], "nullable", J::Bool(true));
+        }
+        match case {
+            "decimal_default" | "decimal_wrong_scale" => {
+                set(&mut fields[0], "required", J::Bool(false));
+                set(&mut fields[0], "codec_id", j("decimal.fixed"));
+                set(
+                    &mut fields[0],
+                    "codec_parameters",
+                    obj(vec![("scale", J::U64(3)), ("rounding", j("ToEven"))]),
+                );
+                set(
+                    &mut fields[0],
+                    "missing_rule",
+                    freeze(j(if case == "decimal_default" {
+                        "1.250"
+                    } else {
+                        "1.25"
+                    })),
+                );
+            }
+            "enum_default" | "enum_unknown" | "enum_noncanonical" => {
+                set(&mut fields[0], "required", J::Bool(false));
+                set(
+                    &mut fields[0],
+                    "missing_rule",
+                    freeze(j(match case {
+                        "enum_default" => "1",
+                        "enum_unknown" => "9",
+                        _ => "01",
+                    })),
+                );
+            }
+            "nullable_nonnull" => set(&mut fields[0], "nullable", J::Bool(false)),
+            "surrogate_name" => set(&mut fields[0], "json_name", J::Utf16String(vec![0xd800])),
+            "optional_default" => {
+                set(&mut fields[0], "required", J::Bool(false));
+                set(&mut fields[0], "missing_rule", freeze(J::I64(7)));
+            }
+            "raw_instant" => {
+                set(&mut fields[1], "codec_id", j("unix_milliseconds"));
+                set(
+                    &mut fields[1],
+                    "codec_parameters",
+                    obj(vec![("scale", J::Null), ("rounding", J::Null)]),
+                );
+            }
+            "nullable_default" | "nullable_none_default" => {
+                set(&mut fields[0], "required", J::Bool(false));
+                set(
+                    &mut fields[0],
+                    "missing_rule",
+                    freeze(if case == "nullable_default" {
+                        obj(vec![("tag", j("some")), ("payload", J::I64(7))])
+                    } else {
+                        obj(vec![("tag", j("none"))])
+                    }),
+                );
+            }
+            "presence_missing_default" => {
+                set(&mut fields[0], "required", J::Bool(false));
+                set(
+                    &mut fields[0],
+                    "missing_rule",
+                    freeze(obj(vec![("tag", j("missing"))])),
+                );
+            }
+            "presence_exposed" => {
+                set(&mut fields[0], "required", J::Bool(false));
+                set(
+                    &mut fields[0],
+                    "missing_rule",
+                    obj(vec![("mode", j("expose_missing"))]),
+                );
+            }
+            "presence_default" | "presence_inactive_default" | "presence_bad_tag" => {
+                set(&mut fields[0], "required", J::Bool(false));
+                set(
+                    &mut fields[0],
+                    "missing_rule",
+                    freeze(obj(vec![
+                        (
+                            "tag",
+                            j(if case == "presence_bad_tag" {
+                                "invalid"
+                            } else if case == "presence_inactive_default" {
+                                "missing"
+                            } else {
+                                "value"
+                            }),
+                        ),
+                        ("payload", J::I64(7)),
+                    ])),
+                );
+            }
+            "unknown_field" => {
+                let J::Object(x) = &mut fields[0] else {
+                    panic!()
+                };
+                x.push(("unknown".into(), J::Null));
+            }
+            "duplicate_field" => {
+                let id = fields[0].get("field_id").unwrap().clone();
+                set(&mut fields[1], "field_id", id);
+            }
+            "duplicate_name" => set(&mut fields[1], "json_name", j("field0")),
+            "unknown_missing" => set(
+                &mut fields[0],
+                "missing_rule",
+                obj(vec![("mode", j("collapse"))]),
+            ),
+            "required_default" => set(&mut fields[0], "missing_rule", freeze(J::I64(7))),
+            "optional_reject" => set(&mut fields[0], "required", J::Bool(false)),
+            "ordinary_expose" => {
+                set(&mut fields[0], "required", J::Bool(false));
+                set(
+                    &mut fields[0],
+                    "missing_rule",
+                    obj(vec![("mode", j("expose_missing"))]),
+                );
+            }
+            "nonnull" => set(&mut fields[0], "nullable", J::Bool(true)),
+            "wrong_type" => set(&mut fields[0], "type_id", j(&ty("bool"))),
+            "wrong_order" => fields.swap(0, 1),
+            "unknown_codec" => set(&mut fields[0], "codec_id", j("local.parse")),
+            "codec_parameters" => set(&mut fields[0], "codec_parameters", obj(vec![])),
+            "bad_default_type" | "bad_default_range" | "string_i32_default" => {
+                set(&mut fields[0], "required", J::Bool(false));
+                set(
+                    &mut fields[0],
+                    "missing_rule",
+                    freeze(match case {
+                        "bad_default_type" => J::Bool(true),
+                        "bad_default_range" => J::U64(2147483648),
+                        _ => j("7"),
+                    }),
+                );
+            }
+            "default_depth" | "default_cells" => {
+                let mut value = J::I64(7);
+                if case == "default_depth" {
+                    for _ in 0..33 {
+                        value = J::Array(vec![value]);
+                    }
+                } else {
+                    value = J::Array(vec![value; 65536]);
+                }
+                set(&mut fields[0], "required", J::Bool(false));
+                set(&mut fields[0], "missing_rule", freeze(value));
+            }
+            "field_limit" => fields = vec![fields[0].clone(); 257],
+            "bad_id" => set(&mut fields[0], "field_id", j("../host")),
+            "reordered_field" => {
+                let J::Object(xs) = &mut fields[0] else {
+                    panic!()
+                };
+                xs.swap(0, 1);
+            }
+            _ => {}
+        }
+        let mut output = vec![field("result", &ty("i32"))];
+        if case == "output_type" {
+            set(&mut output[0], "type_id", j(&ty("i64")));
+        }
+        if case == "output_count" {
+            output.clear();
+        }
+        let mut boundary = vec![
+            (
+                "schema",
+                j(if case == "schema" {
+                    "mpk.csharp.boundary.v2"
+                } else {
+                    BOUNDARY_CONTRACT_SCHEMA
+                }),
+            ),
+            (
+                "semantic_context",
+                if case == "context" {
+                    obj(vec![])
+                } else {
+                    ctx.semantic_context().clone()
+                },
+            ),
+            (
+                "compilation_id",
+                j(if case == "compilation" {
+                    "other"
+                } else {
+                    ctx.compilation_id()
+                }),
+            ),
+            ("boundary_id", j("boundary.entry")),
+            (
+                "selected_callable_id",
+                j(if case == "unknown_root" {
+                    "mpk.csharp.source.0000000000000000000000000000000000000000000000000000000000000000"
+                } else {
+                    &root
+                }),
+            ),
+            ("input_fields", J::Array(fields)),
+            ("output_fields", J::Array(output)),
+            (
+                "canonical_json_profile",
+                j(if case == "profile" {
+                    "other"
+                } else {
+                    "mpk.csharp.canonical_json.v1"
+                }),
+            ),
+            ("parse_format_profile", j("mpk.csharp.parse_format.v1")),
+            (
+                "evidence_linkage",
+                obj(vec![
+                    ("raw_input_domain", j("MPK-CSHARP-BOUNDARY-INPUT-1.0")),
+                    (
+                        "canonical_value_domain",
+                        j("MPK-CSHARP-CANONICAL-VALUE-1.0"),
+                    ),
+                    (
+                        "canonical_output_domain",
+                        j("MPK-CSHARP-BOUNDARY-OUTPUT-1.0"),
+                    ),
+                    ("reparse_equality", j("typed_field_complete")),
+                ]),
+            ),
+        ];
+        if case == "missing_schema_field" {
+            boundary.retain(|(key, _)| *key != "parse_format_profile");
+        }
+        if case == "unknown_root_field" {
+            boundary.push(("maximum_bytes", J::U64(1)));
+        }
+        let mut bytes = hashed("MPK-CSHARP-BOUNDARY-CONTRACT-1.0", boundary);
+        if case == "stale_hash" {
+            let s = String::from_utf8(bytes).unwrap();
+            bytes = s.replace("boundary.entry", "boundary.other").into_bytes();
+        }
+        if case == "duplicate_json" {
+            let s = String::from_utf8(bytes).unwrap();
+            bytes = s
+                .replace("\"required\":true", "\"required\":true,\"required\":true")
+                .into_bytes();
+        }
+        if case == "noncanonical" {
+            bytes.push(b'\n');
+        }
+        let source_hash = format!("{:x}", Sha256::digest(src.as_bytes()));
+        let method = hashed(
+            "MPK-CSHARP-METHOD-CONTRACT-1.0",
+            vec![
+                ("schema", j(METHOD_CONTRACT_SCHEMA)),
+                ("semantic_context", ctx.semantic_context().clone()),
+                ("compilation_id", j(ctx.compilation_id())),
+                ("callable_id", j(&root)),
+                (
+                    "source_content_sha256",
+                    j(if case == "stale_source" {
+                        "0000000000000000000000000000000000000000000000000000000000000000"
+                    } else {
+                        &source_hash
+                    }),
+                ),
+                (
+                    "termination",
+                    j(if case == "partial" {
+                        "partial"
+                    } else {
+                        "total"
+                    }),
+                ),
+                ("requires", J::Array(vec![])),
+                ("ensures", J::Array(vec![])),
+                ("exceptional_cases", J::Array(vec![])),
+                ("modifies", J::Array(vec![])),
+                ("loops", J::Array(vec![])),
+            ],
+        );
+        let mut outputs = vec![];
+        if presence {
+            let preliminary = capture_original_inputs(
+                ctx,
+                std::iter::once(OriginalInput {
+                    kind: OriginalInputKind::Source,
+                    path: "src/Entry.cs".into(),
+                    bytes: src.as_bytes().to_vec(),
+                })
+                .chain(paths.iter().map(|path| OriginalInput {
+                    kind: OriginalInputKind::Sidecar,
+                    path: path.clone(),
+                    bytes: b"{}".to_vec(),
+                }))
+                .collect(),
+            )
+            .unwrap();
+            let tag_id = decl("type", "Tag", "", &[], "");
+            let members = [
+                ("tag", "Tag", json!({"kind":"source","id":tag_id})),
+                (
+                    "value",
+                    "Value",
+                    if case == "presence_instant" {
+                        json!({"kind":"source","id":decl("type","Instant","",&[],"")})
+                    } else {
+                        json!({"kind":"primitive","id":"i32"})
+                    },
+                ),
+            ]
+            .into_iter()
+            .map(|(role, name, t)| SemanticBindingMember {
+                role: role.into(),
+                member_id: csharp_practical_stored_member_id(
+                    &types[0],
+                    if case == "presence_wrong_member" && name == "Value" {
+                        "Invented"
+                    } else {
+                        name
+                    },
+                    &t,
+                    "readonly_field",
+                )
+                .unwrap(),
+            })
+            .collect();
+            let mut bindings = vec![SemanticBindingInput {
+                source_type_id: types[0].clone(),
+                source_content_sha256: source_hash.clone(),
+                role: "boundary_field".into(),
+                member_map: members,
+                tag_arms: ["missing", "null", "value"]
+                    .into_iter()
+                    .enumerate()
+                    .map(|(i, arm)| SemanticArmMapping {
+                        source_tag: (if case == "presence_nonmissing_zero" && i < 2 {
+                            1 - i
+                        } else {
+                            i
+                        })
+                        .to_string(),
+                        semantic_arm: arm.into(),
+                    })
+                    .collect(),
+                inferred_argument_ids: vec![ty(if case == "presence_instant" {
+                    "instant"
+                } else {
+                    "i32"
+                })],
+                default_arm: "ineligible".into(),
+                bounds: vec![],
+                operation_map: vec![],
+                enum_arms: BTreeMap::new(),
+            }];
+            if case == "presence_instant" {
+                let id = decl("type", "Instant", "", &[], "");
+                bindings.push(SemanticBindingInput {
+                    source_type_id: id.clone(),
+                    source_content_sha256: source_hash.clone(),
+                    role: "instant".into(),
+                    member_map: vec![SemanticBindingMember {
+                        role: "milliseconds".into(),
+                        member_id: csharp_practical_stored_member_id(
+                            &id,
+                            "Milliseconds",
+                            &json!({"kind":"primitive","id":"i64"}),
+                            "readonly_field",
+                        )
+                        .unwrap(),
+                    }],
+                    tag_arms: vec![],
+                    inferred_argument_ids: vec![],
+                    default_arm: "ineligible".into(),
+                    bounds: vec![],
+                    operation_map: vec![],
+                    enum_arms: BTreeMap::new(),
+                });
+            }
+            outputs.push(
+                build_semantic_bindings(ctx, &preliminary, bindings)
+                    .unwrap()
+                    .canonical_bytes()
+                    .to_vec(),
+            );
+        }
+        outputs.extend([bytes, method]);
+        outputs
+    })
+}
+#[test]
+fn csharp_03_t05_w01_real_source_boundary_matrix() {
+    let b = bundle();
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let generation = std::env::var("MPK_CSHARP_BOUNDARY_REQUESTS_OUT").ok();
+    let responses: Vec<Value> = if generation.is_some() {
+        vec![]
+    } else {
+        serde_json::from_slice(
+            &fs::read(root.join("develop/migrations/csharp-03/boundary-attachment/responses.json"))
+                .unwrap(),
+        )
+        .unwrap()
+    };
+    let mut requests = vec![];
+    let mut accepted = 0;
+    for (case, expected) in cases() {
+        let (context, captures) = setup(&b, case);
+        requests.push(json!({"case":case,"expected_attachment":expected,"id":captures.snapshot_sha256(),"compilation_id":context.compilation_id(),"roots":context.selected_root_ids(),"inputs":captures.entries().iter().map(|e|json!({"kind":if e.kind()==OriginalInputKind::Source{"source"}else{"sidecar"},"path":e.path(),"utf8":std::str::from_utf8(e.bytes()).unwrap()})).collect::<Vec<_>>() }));
+        if generation.is_some() {
+            continue;
+        }
+        let row = responses
+            .iter()
+            .find(|r| r["id"] == captures.snapshot_sha256())
+            .unwrap_or_else(|| panic!("missing actual capture: {case}"));
+        if row.get("facts").is_none() {
+            assert_eq!(case, "presence_wrong_member");
+            assert!(!expected);
+            assert_eq!(row["reject"], "CSHARP_PRACTICAL_TYPE/business_member");
+            assert_eq!(row["artifact_count"], 0);
+            continue;
+        }
+        assert!(row["facts"].is_object(), "{case}: {row}");
+        let source = ValidatedDataSource::import_captured_facts(
+            &b,
+            &context,
+            &captures,
+            &serde_json::to_vec(&row["facts"]).unwrap(),
+        )
+        .unwrap();
+        let emitted = emit_data_phase(&b, &context, &captures, &source);
+        assert_eq!(
+            emitted.is_ok(),
+            expected,
+            "{case}: {:?}",
+            emitted.as_ref().err()
+        );
+        if !expected {
+            assert!(
+                matches!(
+                    emitted.as_ref().err(),
+                    Some(DataPhaseError::Boundary(_) | DataPhaseError::Sidecar)
+                ),
+                "wrong rejection owner for {case}: {:?}",
+                emitted.as_ref().err()
+            );
+        }
+        if matches!(case, "field_limit" | "default_depth" | "default_cells") {
+            assert!(
+                matches!(
+                    emitted.as_ref().err(),
+                    Some(DataPhaseError::Boundary(BoundaryError::Limit))
+                ),
+                "{case}: {:?}",
+                emitted.as_ref().err()
+            );
+        }
+        if let Ok(emitted) = emitted {
+            accepted += 1;
+            assert_eq!(emitted.boundaries().len(), 1);
+            let boundary = &emitted.boundaries()[0];
+            assert_eq!(boundary.maximum_document_bytes(), 1_048_576);
+            assert_eq!(boundary.maximum_value_depth(), 32);
+            assert_eq!(boundary.maximum_value_cells(), 65_536);
+            assert_eq!(
+                emitted
+                    .manifest()
+                    .value()
+                    .get("boundary_contracts")
+                    .unwrap()
+                    .as_array()
+                    .unwrap()
+                    .len(),
+                1
+            );
+            assert_eq!(
+                emitted
+                    .artifacts()
+                    .value()
+                    .get("boundary_contracts")
+                    .unwrap()
+                    .as_array()
+                    .unwrap()
+                    .len(),
+                1
+            );
+            assert!(boundary.obligations().iter().all(|o| !o.discharged));
+            let f = &boundary.input_fields()[0];
+            let r = emitted.closure().roots();
+            let c = emitted.closure().closed();
+            assert_eq!(
+                f.check_state(&b, r, c, &BoundaryValueState::Missing)
+                    .is_ok(),
+                !f.required()
+            );
+            assert_eq!(
+                f.check_state(&b, r, c, &BoundaryValueState::Null).is_ok(),
+                f.nullable()
+            );
+            let value = if case == "presence_instant" {
+                MonomorphicValue::Instant {
+                    type_id: ty("instant"),
+                    milliseconds: "7".into(),
+                }
+            } else if case.starts_with("decimal") {
+                MonomorphicValue::DecimalBits {
+                    type_id: ty("decimal"),
+                    negative: false,
+                    scale: 3,
+                    coefficient: "1250".into(),
+                }
+            } else if case.starts_with("enum") {
+                MonomorphicValue::Enum {
+                    type_id: f.payload_type_id().into(),
+                    underlying: "i32".into(),
+                    carrier: "1".into(),
+                }
+            } else {
+                MonomorphicValue::Signed {
+                    type_id: ty("i32"),
+                    value: "7".into(),
+                }
+            };
+            assert!(f
+                .check_state(&b, r, c, &BoundaryValueState::Value(value))
+                .is_ok());
+            assert!(f
+                .check_state(
+                    &b,
+                    r,
+                    c,
+                    &BoundaryValueState::Value(MonomorphicValue::Bool {
+                        type_id: ty("bool"),
+                        value: true
+                    })
+                )
+                .is_err());
+            if case == "raw_instant" {
+                assert!(boundary.input_fields()[1].is_raw_instant());
+            } else {
+                assert!(boundary.input_fields().iter().all(|f| !f.is_raw_instant()));
+            }
+            assert_eq!(f.presence_binding().is_some(), case.starts_with("presence"));
+            if case.starts_with("presence") {
+                assert_eq!(
+                    f.presence_default_candidate().is_some(),
+                    case != "presence_nonmissing_zero"
+                );
+                assert_eq!(
+                    boundary
+                        .obligations()
+                        .iter()
+                        .any(|o| o.kind == "boundary_actual_default_public_invariant"),
+                    case != "presence_nonmissing_zero"
+                );
+            }
+        }
+    }
+    if let Some(path) = generation {
+        fs::write(path, serde_json::to_vec(&requests).unwrap()).unwrap();
+        return;
+    }
+    let retained: Value = serde_json::from_slice(
+        &fs::read(root.join("develop/migrations/csharp-03/boundary-attachment/requests.json"))
+            .unwrap(),
+    )
+    .unwrap();
+    assert_eq!(json!(requests), retained);
+    assert_eq!(accepted, 15);
+}
+
+#[test]
+fn csharp_03_t05_w01_boundary_links_cannot_be_removed_or_moved() {
+    use mpk_vc::csharp_practical_vir_validation as v;
+    if std::env::var_os("MPK_CSHARP_BOUNDARY_REQUESTS_OUT").is_some() {
+        return;
+    }
+    let b = bundle();
+    let (context, captures) = setup(&b, "required");
+    let rows: Vec<Value> = serde_json::from_slice(
+        &fs::read(
+            Path::new(env!("CARGO_MANIFEST_DIR"))
+                .join("../../develop/migrations/csharp-03/boundary-attachment/responses.json"),
+        )
+        .unwrap(),
+    )
+    .unwrap();
+    let row = rows
+        .iter()
+        .find(|r| r["id"] == captures.snapshot_sha256())
+        .unwrap();
+    let source = ValidatedDataSource::import_captured_facts(
+        &b,
+        &context,
+        &captures,
+        &serde_json::to_vec(&row["facts"]).unwrap(),
+    )
+    .unwrap();
+    let e = emit_data_phase(&b, &context, &captures, &source).unwrap();
+    let input = v::PracticalVirImportContext {
+        data_source_facts: Some(source.captured_facts()),
+        artifact_context: &context,
+        captured_inputs: &captures,
+        foundation_descriptor_transport: registered_foundation_descriptor_transport(),
+        foundation_definitions_transport: registered_foundation_definitions_transport(),
+        closed_roots_transport: e.closure().roots().canonical_json(),
+        closed_instances_transport: e.closure().closed().canonical_json(),
+        semantic_bindings_transport: e.closure().bindings().canonical_bytes(),
+        required_checks_transport: e.operations().required_checks().canonical_bytes(),
+        operations_transport: e.operations().operations().canonical_bytes(),
+    };
+    v::import_csharp_practical_vir_json(e.vir().canonical_bytes(), input).unwrap();
+    let valid = v::PracticalVirContents {
+        functions: e.vir().functions().to_vec(),
+        binding_projections: e.vir().binding_projections().to_vec(),
+        binding_commutations: e.vir().binding_commutations().to_vec(),
+        source_exceptions: e.vir().source_exceptions().to_vec(),
+        source_obligations: e.vir().source_obligations().to_vec(),
+        data_contracts: e.vir().data_contracts().to_vec(),
+    };
+    for mutation in 0..3 {
+        let mut changed = valid.clone();
+        match mutation {
+            0 => changed
+                .data_contracts
+                .retain(|s| !s.contains(BOUNDARY_CONTRACT_SCHEMA)),
+            1 => {
+                let boundary = changed
+                    .data_contracts
+                    .iter_mut()
+                    .find(|s| s.contains(BOUNDARY_CONTRACT_SCHEMA))
+                    .unwrap();
+                *boundary = boundary.replace("boundary.entry", "boundary.other");
+            }
+            _ => changed.data_contracts.reverse(),
+        }
+        if let Ok(bytes) = v::canonical_csharp_practical_vir_transport(input, changed) {
+            assert!(v::import_csharp_practical_vir_json(&bytes, input).is_err());
+        }
+    }
+    let (other_context, other_captures) = setup(&b, "optional_default");
+    assert!(ValidatedDataSource::import_captured_facts(
+        &b,
+        &other_context,
+        &other_captures,
+        source.captured_facts()
+    )
+    .is_err());
+    let input = v::PracticalVirImportContext {
+        data_source_facts: None,
+        ..input
+    };
+    assert!(v::import_csharp_practical_vir_json(e.vir().canonical_bytes(), input).is_err());
+}
+
+#[test]
+fn csharp_03_t05_w01_retained_evidence_and_frozen_limits() {
+    if std::env::var_os("MPK_CSHARP_BOUNDARY_REQUESTS_OUT").is_some() {
+        return;
+    }
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let record: Value = serde_json::from_slice(
+        &fs::read(root.join("develop/migrations/csharp-03/boundary-attachment/conformance.json"))
+            .unwrap(),
+    )
+    .unwrap();
+    assert_eq!(record["work_item"], "CSHARP-03-T05-W01");
+    assert_eq!(record["source_snapshots"], cases().len());
+    assert_eq!(
+        record["accepted_attachments"],
+        cases().iter().filter(|(_, ok)| *ok).count()
+    );
+    assert_eq!(record["rejected_attachments"], 41);
+    assert_eq!(record["deterministic_source_captures"], 55);
+    assert_eq!(record["source_rejections"], 1);
+    assert_eq!(record["files"].as_array().unwrap().len(), 3);
+    for file in record["files"].as_array().unwrap() {
+        let bytes = fs::read(root.join(file["path"].as_str().unwrap())).unwrap();
+        assert_eq!(file["sha256"], format!("{:x}", Sha256::digest(&bytes)));
+        assert_eq!(file["size_bytes"], bytes.len());
+    }
+    let package: Value = serde_json::from_slice(
+        &fs::read(root.join("develop/specs/vectors/csharp-practical-profile-v1.json")).unwrap(),
+    )
+    .unwrap();
+    let limits = package["frozen_contract"]["limits"]["practical"]
+        .as_array()
+        .unwrap();
+    for (id, max) in [
+        ("boundary_fields", 256),
+        ("boundary_nesting", 32),
+        ("boundary_canonical_bytes", 1_048_576),
+        ("total_collection_cells", 65_536),
+        ("string_utf16_units", 16_384),
+    ] {
+        assert_eq!(
+            limits.iter().find(|r| r["id"] == id).unwrap()["inclusive_maximum"],
+            max
+        );
+    }
+}

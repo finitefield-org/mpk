@@ -60,7 +60,7 @@ private structured-loop lowering (section 40). T04-W03 completes switch and
 pattern lowering (section 41). T04-W04 completes closed exception declarations,
 explicit throws and exceptional contracts (section 42). T04-W05 completes
 two-pass handler search, filters, finally and propagation (section 43). T04-W06 completes
-ordinary control emission and independent import (section 44). T05-W01 is ready;
+ordinary control emission and independent import (section 44). T05-W01 completes boundary sidecar and presence attachment (section 45). T05-W02 is ready;
 later items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
@@ -132,9 +132,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T04-W03` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W03` | `25c8a80b2fe59dc4400898f9a6f480dfd749be3e` |
 | `CSHARP-03-T04-W04` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W04` | `80ac614043395370fb733d9c4ddc67a220e7a4a4` |
 | `CSHARP-03-T04-W05` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W05` | `a2521cd71ef6f713d2f216ddbb579415ea44c1f1` |
-| `CSHARP-03-T04-W06` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W06` | `SELF` |
-| `CSHARP-03-T05-W01` | `Ready` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W01` | `—` |
-| `CSHARP-03-T05-W02` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W02` | `—` |
+| `CSHARP-03-T04-W06` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W06` | `c6549dd0ba8f7c91e383ea22b3fd7b2c8bc3992b` |
+| `CSHARP-03-T05-W01` | `Complete` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W01` | `SELF` |
+| `CSHARP-03-T05-W02` | `Ready` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W02` | `—` |
 | `CSHARP-03-T05-W03` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W03` | `—` |
 | `CSHARP-03-T05-W04` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_transition.rs#CSHARP-03-T05-W04` | `—` |
 | `CSHARP-03-T05-W05` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_transition.rs#CSHARP-03-T05-W05` | `—` |
@@ -5033,4 +5033,41 @@ vector sets, frozen profile and installed frontend are unchanged.
 
 Verification uses the full C# control suite, native data regression, frozen
 package/vector/input checks and `./scripts/check-fast.sh`. Latest task review:
-no findings. The task commit uses `SELF`; T05-W01 is the sole ready item.
+no findings. This historical W06 task was published as `c6549dd0ba8f7c91e383ea22b3fd7b2c8bc3992b`; T05-W01 was the next ready item at that checkpoint.
+
+## 45. CSHARP-03-T05-W01 completion record
+
+W01 attaches the frozen `mpk.csharp.boundary.v1` sidecar to the selected original
+method through the private data/control route. Exact field schemas, per-direction
+field/name uniqueness, ordered argument/result correspondence, admitted types,
+semantic context, source/contract hashes, profiles and total method contracts
+are checked. The ordinary VIR importer repeats source attachment and rejects
+missing or altered boundary links; manifests and source artifact sets include
+the exact boundary reference.
+
+Required/optional/non-null states, frozen typed defaults and application-owned
+missing/null/value presence bindings share the existing value, codec, binding
+and specialization validators. Boundary defaults preserve their frozen integer
+token grammar and selected scalar codec configuration. The actual CLR default
+is retained as a presence candidate only when its source tag maps to missing;
+source invariants and projection/default obligations remain pending for T06.
+This does not silently promote the historical semantic binding default marker.
+Exact raw Int64 fields are classified as instant carriers only by the explicit
+`unix_milliseconds` field codec. Their source signatures remain unchanged.
+
+The owner is `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W01`.
+The retained `boundary-attachment/` evidence contains 56 real-source snapshots,
+55 deterministic compiler captures, one artifact-free source binding rejection,
+and a native attachment matrix with 15 accepted and 41 rejected cases. It covers
+presence/Instant composition, missing versus null defaults, fixed decimal scale,
+enums, UTF-16 names, typed state checks, field/hash/profile/source mutations and
+resource boundaries. VIR-link and source-snapshot mutations also reject.
+
+Verification uses the pinned local Linux control-capture action, the boundary
+suite, frozen package/input checks and `./scripts/check-fast.sh`. The exact final
+results and reviewed-file hashes are in `boundary-attachment/verification.json`;
+`review.md` records the local review and resolved findings. The 709 published
+vectors and 26 specification vector sets remain unchanged. W02/W03 retain
+canonical document input/output ownership, and W06/T06 retain cumulative
+boundary roots and proof/evidence completion. The task commit uses `SELF`;
+T05-W02 is the next ready item.

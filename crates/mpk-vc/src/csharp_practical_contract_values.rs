@@ -3,13 +3,36 @@
 use super::*;
 use crate::csharp_practical_source_artifacts::PracticalJsonValue as J;
 
-pub(super) fn decode_contract_value(
+pub(in crate::csharp_practical_vir_model) fn decode_contract_value(
     b: &ValidatedFoundationBundle,
     r: &ValidatedClosedRootSet,
     c: &ClosedInstanceSet,
     id: &str,
     value: &J,
 ) -> Result<MonomorphicValue, DataPhaseError> {
+    decode_value_profile(b, r, c, id, value, false, None)
+}
+
+pub(in crate::csharp_practical_vir_model) fn decode_boundary_default(
+    b: &ValidatedFoundationBundle,
+    r: &ValidatedClosedRootSet,
+    c: &ClosedInstanceSet,
+    id: &str,
+    value: &J,
+    codec: Option<&BoundaryCodec>,
+) -> Result<MonomorphicValue, DataPhaseError> {
+    decode_value_profile(b, r, c, id, value, true, codec)
+}
+fn decode_value_profile(
+    b: &ValidatedFoundationBundle,
+    r: &ValidatedClosedRootSet,
+    c: &ClosedInstanceSet,
+    id: &str,
+    value: &J,
+    boundary: bool,
+    codec: Option<&BoundaryCodec>,
+) -> Result<MonomorphicValue, DataPhaseError> {
+    #[allow(clippy::too_many_arguments)]
     fn decode(
         b: &ValidatedFoundationBundle,
         r: &ValidatedClosedRootSet,
@@ -18,10 +41,12 @@ pub(super) fn decode_contract_value(
         v: &J,
         cells: &mut u64,
         depth: usize,
+        boundary: bool,
+        field_codec: Option<&BoundaryCodec>,
     ) -> Result<MonomorphicValue, DataPhaseError> {
         let fail = DataPhaseError::Contract;
         *cells += 1;
-        if *cells > TOTAL_VALUE_CELLS_MAX || depth > 64 {
+        if *cells > TOTAL_VALUE_CELLS_MAX || depth > if boundary { 32 } else { 64 } {
             return Err(fail);
         }
         let type_id = id.to_owned();
@@ -31,7 +56,8 @@ pub(super) fn decode_contract_value(
             J::Utf16String(s) => Ok(s.clone()),
             _ => Err(DataPhaseError::Contract),
         };
-        let mut child = |ty: &str, v: &J| decode(b, r, c, ty, v, cells, depth + 1);
+        let mut child =
+            |ty: &str, v: &J| decode(b, r, c, ty, v, cells, depth + 1, boundary, field_codec);
         if let Some(token) = id
             .strip_prefix("mpk.csharp.value.")
             .and_then(|s| s.strip_suffix(".v1"))
@@ -74,7 +100,7 @@ pub(super) fn decode_contract_value(
                     Ok(MonomorphicValue::ParseError { type_id, arm })
                 }
                 _ => {
-                    let codec = match token {
+                    let codec_id = match token {
                         "i8" | "u8" | "i16" | "u16" | "i32" | "u32" | "i64" | "u64" => {
                             format!("integer.{token}")
                         }
@@ -88,9 +114,22 @@ pub(super) fn decode_contract_value(
                         "guid" => "guid.n".into(),
                         _ => return Err(fail),
                     };
-                    BoundaryCodec::new(&codec, id, None, None)
-                        .map_err(|_| fail.clone())?
-                        .parse(&utf16()?)
+                    let default_codec =
+                        BoundaryCodec::new(&codec_id, id, None, None).map_err(|_| fail.clone())?;
+                    field_codec
+                        .filter(|codec| codec.type_id() == id)
+                        .unwrap_or(&default_codec)
+                        .parse(&if boundary
+                            && matches!(token, "i8" | "u8" | "i16" | "u16" | "i32" | "u32")
+                        {
+                            match v {
+                                J::I64(n) => n.to_string().encode_utf16().collect(),
+                                J::U64(n) => n.to_string().encode_utf16().collect(),
+                                _ => return Err(fail),
+                            }
+                        } else {
+                            utf16()?
+                        })
                         .map_err(|_| fail)
                 }
             };
@@ -262,7 +301,7 @@ pub(super) fn decode_contract_value(
             _ => Err(fail),
         }
     }
-    let decoded = decode(b, r, c, id, value, &mut 0, 0)?;
+    let decoded = decode(b, r, c, id, value, &mut 0, 0, boundary, codec)?;
     validate_monomorphic_value(b, r, c, &decoded).map_err(|_| DataPhaseError::Contract)?;
     Ok(decoded)
 }

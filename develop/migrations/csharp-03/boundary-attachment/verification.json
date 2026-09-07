@@ -1,0 +1,144 @@
+{
+  "baseline_commit": "c6549dd0ba8f7c91e383ea22b3fd7b2c8bc3992b",
+  "boundary_tests": {
+    "accepted_attachments": 15,
+    "command": "cargo test -p mpk-cli --test csharp_practical_boundary",
+    "rejected_attachments": 41,
+    "source_snapshots": 56,
+    "status": "passed within final standard gate",
+    "tests": 3
+  },
+  "conformance": {
+    "path": "develop/migrations/csharp-03/boundary-attachment/conformance.json",
+    "sha256": "e9f2ada3e0f052e6c9226741d882262fbe0b3835a0d9f0408119a0a6443623fd",
+    "size_bytes": 943
+  },
+  "files": [
+    {
+      "path": "crates/mpk-cli/tests/csharp_practical_boundary.rs",
+      "sha256": "8c8dfeeebf4bddd98b4cb97021c4b75ea2f5ff02c1aab390e0564b63ee89b85e",
+      "size_bytes": 35012
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_boundary.rs",
+      "sha256": "e41644d35ec907b1bc5bcaf2c3add36a14a4b5c2d526db21510e0fe2388fe44b",
+      "size_bytes": 21747
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_contract_values.rs",
+      "sha256": "32ab849aa8e9450f8221bca496d0c05b08d64dc7b7abf94feb17a52ce5ead185",
+      "size_bytes": 12680
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_data_emission.rs",
+      "sha256": "3facf3ed89e63da0ce9db39a4b2505aba38449ebac7217a4ad47dd16f883cd40",
+      "size_bytes": 136783
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_data_phase.rs",
+      "sha256": "fecb00427784723ae4dbbc80d8e693ba5d7969a4f118b66429a815a2bf04eb78",
+      "size_bytes": 67244
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_data_sidecars.rs",
+      "sha256": "9ca6c083eedbfda52f5cfc9a8ac871159540bfdca712602386021f66e8944d50",
+      "size_bytes": 7326
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "701877d99725cdec0913119a29e1a164a763a34d7aa6be968dcfa08d069cdf28",
+      "size_bytes": 259526
+    },
+    {
+      "path": "crates/mpk-vc/tests/csharp_practical_inventory.rs",
+      "sha256": "4994fc56574af80c5a0f062687acd693fe36d5b368923ac0ecbded5de20c8551",
+      "size_bytes": 77865
+    },
+    {
+      "path": "develop/docs/08_csharp_practical_subset_design-todo.md",
+      "sha256": "2fa731cd0c1afc1c9e199b973308c2ee20d992fdd9fd596c97781089a6b604ec",
+      "size_bytes": 132538
+    },
+    {
+      "path": "develop/docs/08_csharp_practical_subset_design.md",
+      "sha256": "e352053da9610525c2dde18e76bf3669b7c6c390ab9fc7ef96971fa1371cebba",
+      "size_bytes": 149508
+    },
+    {
+      "path": "develop/docs/csharp-03-implementation-traceability-ledger.md",
+      "sha256": "77ee428b8fbc13ad313383291867b7001d0834076ce25cfcee39fa613aab9bc0",
+      "size_bytes": 309891
+    },
+    {
+      "path": "develop/migrations/csharp-03/boundary-attachment/README.md",
+      "sha256": "6643c4f6a1ba556e027bdd86c09ec2c6c5430a3e1437e933dda9e671df20a24f",
+      "size_bytes": 4565
+    },
+    {
+      "path": "develop/migrations/csharp-03/boundary-attachment/conformance.json",
+      "sha256": "e9f2ada3e0f052e6c9226741d882262fbe0b3835a0d9f0408119a0a6443623fd",
+      "size_bytes": 943
+    },
+    {
+      "path": "develop/migrations/csharp-03/boundary-attachment/requests.json",
+      "sha256": "59357c9e616d9a0e67c56894af2833a4eaadb59b572ece3302ed8bb1ce45446c",
+      "size_bytes": 457368
+    },
+    {
+      "path": "develop/migrations/csharp-03/boundary-attachment/responses.json",
+      "sha256": "ab50aeaee8f8d98c8af2569a048adfcce95fd293f527f3d64e9f56bece2e8098",
+      "size_bytes": 768625
+    },
+    {
+      "path": "develop/migrations/csharp-03/boundary-attachment/review.md",
+      "sha256": "8c6b0381c7e66ee5f6a1070ff8505348f63d35152064500011d29b962dae4b6e",
+      "size_bytes": 2439
+    }
+  ],
+  "frozen_checks": [
+    {
+      "command": "python3 -B develop/probes/csharp-03/profile_freeze.py --check",
+      "log_sha256": "95b08d88f074db4db94c2d732b6ce68412a1eee6bd1ee1fa4760f9f45629a700",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -B develop/probes/csharp-03/profile_package.py --check",
+      "log_sha256": "3313c2c0b190e7b0d28afe092167124c25ef3da79083a87dfe225c6088a4f25a",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -B scripts/check-spec-vectors.py --check",
+      "log_sha256": "6a36635a61354d3bc570fa1790181a89a32676de9a414b09b9ca54c83375e523",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -B scripts/csharp_practical_build_inputs.py check-build-inputs",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "passed"
+    }
+  ],
+  "linux_capture": {
+    "artifact_free_source_rejections": 1,
+    "command": "./scripts/build-csharp-practical-frontend.sh --test-control-emission-requests < requests.json",
+    "deterministic_source_captures": 55,
+    "image": "mpk-java-t10-gate:local",
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "network": "none",
+    "platform": "linux/amd64",
+    "status": "passed"
+  },
+  "published_vectors": 709,
+  "review_findings": 0,
+  "review_record": "develop/migrations/csharp-03/boundary-attachment/review.md",
+  "schema": "mpk.csharp_practical.t05_w01.verification.v1",
+  "spec_vector_sets": 26,
+  "standard_gate": {
+    "command": "./scripts/check-fast.sh",
+    "completed_test_suites": 120,
+    "ignored_tests": 8,
+    "log_sha256": "717b7413502a489ae6a6f4d724451a7817949da1c4cb2b1dd4c639e54e703ddb",
+    "passed_tests": 895,
+    "status": "passed"
+  },
+  "work_item": "CSHARP-03-T05-W01"
+}
