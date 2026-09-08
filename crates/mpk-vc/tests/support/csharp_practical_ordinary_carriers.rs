@@ -1321,3 +1321,236 @@ fn csharp_03_t06_w09_structural_source_linkage_rejects_substitution() {
         );
     }
 }
+
+#[test]
+fn csharp_03_t06_w09_scalar_domains_original_sources_and_mutations() {
+    let bundle = b();
+    let fixture_root = Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../../develop/migrations/csharp-03/ordinary-foundation/scalar-domains");
+    let output = std::env::var_os("MPK_W09_SCALAR_DOMAINS_OUT").map(std::path::PathBuf::from);
+    if let Some(dir) = &output {
+        fs::create_dir_all(dir).unwrap();
+    }
+    let mut metrics = vec![];
+    let mut previous: Option<(Vec<u8>, Vec<u8>)> = None;
+    let mut saw_enum = false;
+    let mut saw_decimal = false;
+    for family in [
+        "binding-vc",
+        "exception-vc",
+        "transition-vc",
+        "construction-vc",
+    ] {
+        let requests = read(&format!("{family}/requests.json"));
+        let responses = read(&format!("{family}/responses.json"));
+        for req in requests.as_array().unwrap() {
+            let response = responses
+                .as_array()
+                .unwrap()
+                .iter()
+                .find(|r| r["id"] == req["id"])
+                .unwrap();
+            if response.get("reject").is_some() {
+                continue;
+            }
+            let id = format!("{family}-{}", req["id"].as_str().unwrap());
+            let (context, captures) = support::replay_context(&bundle, req);
+            let source = ValidatedDataSource::import_captured_facts(
+                &bundle,
+                &context,
+                &captures,
+                &serde_json::to_vec(&response["facts"]).unwrap(),
+            )
+            .unwrap();
+            let emitted = emit_data_phase(&bundle, &context, &captures, &source).unwrap();
+            let vir = emitted.vir();
+            let carriers = generate_csharp_practical_ordinary_carriers(vir).unwrap();
+            let p = generate_csharp_practical_ordinary_scalar_domains(vir).unwrap();
+            let expected = carriers
+                .carriers()
+                .iter()
+                .filter(|c| {
+                    matches!(c.shape, OrdinaryShape::Bits { .. })
+                        || c.type_id == "mpk.csharp.value.decimal.v1"
+                })
+                .collect::<Vec<_>>();
+            assert_eq!(
+                p.definitions()
+                    .iter()
+                    .map(|d| &d.carrier)
+                    .collect::<Vec<_>>(),
+                expected
+            );
+            for d in p.definitions() {
+                if let OrdinaryScalarDomainRule::DeclaredEnum { values } = &d.rule {
+                    saw_enum = true;
+                    let ty = response["facts"]["types"]
+                        .as_array()
+                        .unwrap()
+                        .iter()
+                        .find(|t| t["id"] == d.carrier.type_id)
+                        .unwrap();
+                    assert_eq!(ty["kind"], "enum");
+                    assert_eq!(ty["enum_values"], json!(values));
+                }
+                saw_decimal |= d.rule == OrdinaryScalarDomainRule::Decimal;
+            }
+            let metadata = p.canonical_bytes();
+            let bytes = p.certificate_bytes();
+            assert_eq!(
+                import_csharp_practical_ordinary_scalar_domains(&metadata, bytes, vir).unwrap(),
+                p
+            );
+            let c = mpk_cert::decode_canonical_certificate(bytes).unwrap();
+            validate_csharp_practical_certificate_structure(&c).unwrap();
+            let original: Value = serde_json::from_slice(&metadata).unwrap();
+            for key in [
+                "source_ir_sha256",
+                "foundation_sha256",
+                "certificate_sha256",
+                "schema",
+            ] {
+                let mut m = original.clone();
+                m[key] = json!("forged");
+                assert!(import_csharp_practical_ordinary_scalar_domains(
+                    &serde_json::to_vec(&m).unwrap(),
+                    bytes,
+                    vir
+                )
+                .is_err());
+            }
+            // Mutating the rule must reject even while retaining the original valid bytes/hash.
+            for index in 0..p.definitions().len() {
+                let mut m = original.clone();
+                m["definitions"][index]["rule"] = json!({"kind":"forged"});
+                assert!(import_csharp_practical_ordinary_scalar_domains(
+                    &serde_json::to_vec(&m).unwrap(),
+                    bytes,
+                    vir
+                )
+                .is_err());
+            }
+            let mut bad = bytes.to_vec();
+            *bad.last_mut().unwrap() ^= 1;
+            assert!(import_csharp_practical_ordinary_scalar_domains(&metadata, &bad, vir).is_err());
+            if let Some((m, c)) = &previous {
+                if m != &metadata {
+                    assert!(import_csharp_practical_ordinary_scalar_domains(m, c, vir).is_err());
+                }
+            }
+            previous = Some((metadata, bytes.to_vec()));
+            let file = format!("{id}.hex");
+            let hex = bytes.iter().map(|b| format!("{b:02x}")).collect::<String>() + "\n";
+            if let Some(dir) = &output {
+                fs::write(dir.join(&file), hex).unwrap();
+            } else {
+                assert_eq!(fs::read_to_string(fixture_root.join(&file)).unwrap(), hex);
+            }
+            metrics.push(json!({"id":id,"file":file,"terms":c.term_table.len(),"declarations":c.declarations.len(),"metadata":original}));
+        }
+    }
+    assert_eq!(metrics.len(), 24);
+    assert!(saw_enum && saw_decimal);
+    if let Some(dir) = output {
+        fs::write(
+            dir.join("metrics.json"),
+            serde_json::to_vec_pretty(&metrics).unwrap(),
+        )
+        .unwrap();
+    } else {
+        assert_eq!(
+            serde_json::from_slice::<Value>(&fs::read(fixture_root.join("metrics.json")).unwrap())
+                .unwrap(),
+            json!(metrics)
+        );
+    }
+}
+
+#[test]
+fn csharp_03_t06_w09_scalar_domains_ranges_from_original_sources() {
+    let bundle = b();
+    let rows = read("data-phase/data-stage-replay.json");
+    let fixture = Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../../develop/migrations/csharp-03/ordinary-foundation/scalar-domain-ranges");
+    let output = std::env::var_os("MPK_W09_SCALAR_DOMAIN_RANGES_OUT").map(std::path::PathBuf::from);
+    if let Some(p) = &output {
+        fs::create_dir_all(p).unwrap();
+    }
+    let mut metrics = vec![];
+    for (id, required) in [
+        (
+            "dec3e56d4ee60ff5a7696151300fdf3cb592d5dee385e0da40e9b2a8ce46ebc9",
+            vec![("time", 863_999_999_999u64)],
+        ),
+        (
+            "05e148b20eb9017bdab9a113ab247301fa596ef171961443f1c68727025fe98f",
+            vec![("date", 3_652_058u64), ("day_of_week", 6u64)],
+        ),
+    ] {
+        let row = rows
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|r| r["id"] == id)
+            .unwrap();
+        let (context, captures) = support::replay_context(&bundle, row);
+        let source = ValidatedDataSource::import_captured_facts(
+            &bundle,
+            &context,
+            &captures,
+            &serde_json::to_vec(&row["outcome"]["facts"]).unwrap(),
+        )
+        .unwrap();
+        let emitted = emit_data_phase(&bundle, &context, &captures, &source).unwrap();
+        let vir = emitted.vir();
+        let p = generate_csharp_practical_ordinary_scalar_domains(vir).unwrap();
+        for (token, maximum) in required {
+            let definition = p
+                .definitions()
+                .iter()
+                .find(|d| d.carrier.type_id == format!("mpk.csharp.value.{token}.v1"))
+                .unwrap();
+            assert_eq!(definition.rule, OrdinaryScalarDomainRule::Range { maximum });
+        }
+        let metadata = p.canonical_bytes();
+        let bytes = p.certificate_bytes();
+        assert_eq!(
+            import_csharp_practical_ordinary_scalar_domains(&metadata, bytes, vir).unwrap(),
+            p
+        );
+        let mut forged: Value = serde_json::from_slice(&metadata).unwrap();
+        for definition in forged["definitions"].as_array_mut().unwrap() {
+            if definition["rule"]["kind"] == "range" {
+                definition["rule"]["maximum"] = json!(0);
+            }
+        }
+        assert!(import_csharp_practical_ordinary_scalar_domains(
+            &serde_json::to_vec(&forged).unwrap(),
+            bytes,
+            vir
+        )
+        .is_err());
+        let c = mpk_cert::decode_canonical_certificate(bytes).unwrap();
+        let hex = bytes.iter().map(|b| format!("{b:02x}")).collect::<String>() + "\n";
+        let file = format!("{id}.hex");
+        if let Some(dir) = &output {
+            fs::write(dir.join(&file), hex).unwrap();
+        } else {
+            assert_eq!(fs::read_to_string(fixture.join(&file)).unwrap(), hex);
+        }
+        metrics.push(json!({"id":id,"file":file,"terms":c.term_table.len(),"declarations":c.declarations.len(),"metadata":serde_json::from_slice::<Value>(&metadata).unwrap()}));
+    }
+    if let Some(dir) = output {
+        fs::write(
+            dir.join("metrics.json"),
+            serde_json::to_vec_pretty(&metrics).unwrap(),
+        )
+        .unwrap();
+    } else {
+        assert_eq!(
+            serde_json::from_slice::<Value>(&fs::read(fixture.join("metrics.json")).unwrap())
+                .unwrap(),
+            json!(metrics)
+        );
+    }
+}

@@ -1169,9 +1169,12 @@ mod scalar_bits;
 #[path = "csharp_practical_ordinary_structural.rs"]
 mod structural;
 pub use structural::{
-    generate_csharp_practical_ordinary_structural, import_csharp_practical_ordinary_structural,
-    OrdinaryArmOperations, OrdinaryProductOperations, OrdinaryProjection,
-    OrdinaryStructuralDefinition, OrdinaryStructuralOperations, OrdinaryStructuralProgram,
+    generate_csharp_practical_ordinary_scalar_domains,
+    generate_csharp_practical_ordinary_structural, import_csharp_practical_ordinary_scalar_domains,
+    import_csharp_practical_ordinary_structural, OrdinaryArmOperations, OrdinaryProductOperations,
+    OrdinaryProjection, OrdinaryScalarDomainDefinition, OrdinaryScalarDomainProgram,
+    OrdinaryScalarDomainRule, OrdinaryStructuralDefinition, OrdinaryStructuralOperations,
+    OrdinaryStructuralProgram,
 };
 
 pub use scalar_bits::{

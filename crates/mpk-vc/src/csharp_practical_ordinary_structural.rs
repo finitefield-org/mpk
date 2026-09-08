@@ -769,3 +769,11 @@ mod tests {
         }
     }
 }
+
+#[path = "csharp_practical_ordinary_scalar_domains.rs"]
+mod scalar_domains;
+pub use scalar_domains::{
+    generate_csharp_practical_ordinary_scalar_domains,
+    import_csharp_practical_ordinary_scalar_domains, OrdinaryScalarDomainDefinition,
+    OrdinaryScalarDomainProgram, OrdinaryScalarDomainRule,
+};

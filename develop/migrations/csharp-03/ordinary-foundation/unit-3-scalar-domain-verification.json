@@ -1,0 +1,230 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.scalar_domain_verification.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 3,
+  "component": "primitive scalar and source-enum representation domains",
+  "status": "component complete; unit 3 and W09 incomplete",
+  "baseline_commit": "e0cb5fa",
+  "completion_commit": "SELF",
+  "date": "2026-09-09",
+  "review": "unit-3-scalar-domain-review.md",
+  "review_findings": 0,
+  "source_cases": 26,
+  "source_max_terms": 1317,
+  "source_max_declarations": 15,
+  "core": {
+    "definitions": 24,
+    "terms": 1821,
+    "declarations": 32,
+    "certificate_sha256": "b60b44a046bc0901bd4415ae5013ab044ed2ef3a503af110d3eeb1383477e276"
+  },
+  "verification": [
+    {
+      "command": "cargo check -p mpk-vc --lib",
+      "result": "passed",
+      "log": "/tmp/mpk-w09-scalar-domains-check.log",
+      "log_sha256": "3b41c5e1e1924d2073b4ca5e3a82e6817d95eb82dacd5ebc02ec8ac479092512"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib scalar_domains_",
+      "result": "3 passed",
+      "log": "/tmp/mpk-w09-scalar-domains-core-replay.log",
+      "log_sha256": "48c15b8a4f4a91bd6d588260ff2d3d02007a5b091eee44bfc8aee738a4bda584"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_scalar_domains_ (before additional range test)",
+      "result": "1 passed; 24 original sources",
+      "log": "/tmp/mpk-w09-scalar-domains-source-replay.log",
+      "log_sha256": "21c181b993e4b091841b2dd8f0261d1d9f318c897f268f03bb46aed42175dd0b"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_scalar_domains_ranges_",
+      "result": "1 passed; 2 original sources",
+      "log": "/tmp/mpk-w09-scalar-domains-range-replay.log",
+      "log_sha256": "49f5312d63ec5ea5e80a547ef174a0301820b6aa153e7ac8b25ab411955981cf"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --tests -- -D warnings",
+      "result": "passed",
+      "log": "/tmp/mpk-w09-scalar-domains-clippy.log",
+      "log_sha256": "3167303452002d45d9975ce0aaccc79950130696df7fdb1d6e844803a8b5a19f"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --test csharp_practical_vc -- -D warnings",
+      "result": "passed after added range-source coverage",
+      "log": "/tmp/mpk-w09-scalar-domains-range-clippy.log",
+      "log_sha256": "7252d32ea234a7e85a25d0fa27a0c875957a9777a2ac509a7a927d66bb896266"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "result": "5 passed; no fingerprint changes",
+      "log": "/tmp/mpk-w09-scalar-domains-inventory.log",
+      "log_sha256": "0fdf8d8232dcc4a50ec24d11763c454e6c894698289fc7733785fdb9b93e7f99"
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true (changed Rust files)",
+      "result": "passed",
+      "log": "/tmp/mpk-w09-scalar-domains-format.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true crates/mpk-vc/tests/support/csharp_practical_ordinary_carriers.rs",
+      "result": "passed after added range-source test",
+      "log": "/tmp/mpk-w09-scalar-domains-range-format.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-t06-w09-go-cache go test -v -count=1 -timeout 25m -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIScalarDomains$' .",
+      "result": "25 same-byte certificates accepted with zero axioms; 25 corruptions rejected by both checkers",
+      "log": "/tmp/mpk-w09-scalar-domains-checkers.log",
+      "log_sha256": "67ab5bb823f388a68b456682f18437912495ae1b61dcdc8c484da2aa5b86ff1a"
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-t06-w09-go-cache go test -v -count=1 -timeout 25m -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIScalarDomainRanges$' .",
+      "result": "2 same-byte certificates accepted with zero axioms; 2 corruptions rejected by both checkers",
+      "log": "/tmp/mpk-w09-scalar-domains-range-checkers.log",
+      "log_sha256": "cf2f480a32d4867d250ba3218f43bc567386ab3556b5392eea53c42b77938bbc"
+    }
+  ],
+  "go_format": "gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go returned no paths",
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "result": "deferred",
+    "owner": "CSHARP-03-T06-W12"
+  },
+  "remaining_scope": "unit-3-progress.md",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_domains.rs",
+      "sha256": "097c4d9452f3fd5da40ff58e63a6af2a01bb5bc58c94ce16316afb13f5a667fd"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/unit-3-progress.md",
+      "sha256": "d93ef27d47835375d64fb265d6b51199edad6fca3ba3dd890333b3f29bd0bcd5"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/unit-3-scalar-domain-review.md",
+      "sha256": "7b8c5ecd4fbd6ec62071edcc14c18829a1bad571bdb4117f0c481e3a2e158406"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/binding-vc-boundary_field.hex",
+      "sha256": "d369f8103d9cf2d0172540f4ca5ce657f6066970dae9d9c93f7bea54cca9eab8"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/binding-vc-bounded_sequence.hex",
+      "sha256": "aa75e12bad22dfa5b211730b5f855fccee00568009792767e300013f1af38235"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/binding-vc-instant.hex",
+      "sha256": "dcee054999f6d13ed46866636931aad6e37624dc1755626f3ecb8cfd5ea85112"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/binding-vc-lookup.hex",
+      "sha256": "478dcc31ed31f186d6238254b00a8bc77d1386a53da0724e6ad04898566ac3d4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/binding-vc-money.hex",
+      "sha256": "f216feb1104fc17874c17d0612032077dd8ef90dbf77fdc2d7b59a98e979d11f"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/binding-vc-option.hex",
+      "sha256": "478dcc31ed31f186d6238254b00a8bc77d1386a53da0724e6ad04898566ac3d4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/binding-vc-ordered_entry.hex",
+      "sha256": "23b9d7ed85516d65de88ff45b6b541bc1224e509c6b96cc8fb91e15922ca3c5a"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/binding-vc-ordered_map.hex",
+      "sha256": "aa75e12bad22dfa5b211730b5f855fccee00568009792767e300013f1af38235"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/binding-vc-ordered_set.hex",
+      "sha256": "aa75e12bad22dfa5b211730b5f855fccee00568009792767e300013f1af38235"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/binding-vc-result.hex",
+      "sha256": "478dcc31ed31f186d6238254b00a8bc77d1386a53da0724e6ad04898566ac3d4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/binding-vc-transition.hex",
+      "sha256": "aa75e12bad22dfa5b211730b5f855fccee00568009792767e300013f1af38235"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/binding-vc-validation.hex",
+      "sha256": "e52d7b0464bdeb0c7a26c3029358bcae29c6d5fbb7bdf7d9b23d11cb519396ff"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/construction-vc-broken_constructor.hex",
+      "sha256": "1590894e1dfc7b6b04b45fe579d08b996bb5264cf9e403f4f4d31417fbda983e"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/construction-vc-broken_default.hex",
+      "sha256": "1590894e1dfc7b6b04b45fe579d08b996bb5264cf9e403f4f4d31417fbda983e"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/construction-vc-broken_initializer.hex",
+      "sha256": "aa75e12bad22dfa5b211730b5f855fccee00568009792767e300013f1af38235"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/construction-vc-enum_zero.hex",
+      "sha256": "803d05b243a05302e8b6cb93cf77edbdb48a563b7803711ce784a76a1d3d7688"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/construction-vc-positive_constructor.hex",
+      "sha256": "1590894e1dfc7b6b04b45fe579d08b996bb5264cf9e403f4f4d31417fbda983e"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/construction-vc-positive_default.hex",
+      "sha256": "1590894e1dfc7b6b04b45fe579d08b996bb5264cf9e403f4f4d31417fbda983e"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/construction-vc-positive_initializer.hex",
+      "sha256": "aa75e12bad22dfa5b211730b5f855fccee00568009792767e300013f1af38235"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/core-metrics.json",
+      "sha256": "0eab12ee65ca7c16be2de008ca7d33aca374e2c9747a8b106232e4de4b0cd18e"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/exception-vc-allowed.hex",
+      "sha256": "23b9d7ed85516d65de88ff45b6b541bc1224e509c6b96cc8fb91e15922ca3c5a"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/exception-vc-broken.hex",
+      "sha256": "23b9d7ed85516d65de88ff45b6b541bc1224e509c6b96cc8fb91e15922ca3c5a"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/exception-vc-empty.hex",
+      "sha256": "23b9d7ed85516d65de88ff45b6b541bc1224e509c6b96cc8fb91e15922ca3c5a"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/metrics.json",
+      "sha256": "ab6cb393194a730be3ea2f0a16a49676f8f702076f491700649c230037a41584"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/scalar-domains.hex",
+      "sha256": "d59fd90cbdad861f83215aa048b617a94e20dff1d74a9d260ff628fb652fe9ab"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/transition-vc-business_history_capacity.hex",
+      "sha256": "3b8dc386554667185612bd2ac92242bde6a2caf00bf0b174cb780c91f8cf93c0"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domains/transition-vc-business_idempotency_conflict.hex",
+      "sha256": "3b8dc386554667185612bd2ac92242bde6a2caf00bf0b174cb780c91f8cf93c0"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domain-ranges/05e148b20eb9017bdab9a113ab247301fa596ef171961443f1c68727025fe98f.hex",
+      "sha256": "d6f9b5a349c7dd9f5035f2ad7dc8fb33deef28ac47fd395ade9fece19fb35550"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domain-ranges/dec3e56d4ee60ff5a7696151300fdf3cb592d5dee385e0da40e9b2a8ce46ebc9.hex",
+      "sha256": "9d32edcec0e311e8c1bd641b51aeb47d7384ece65780409a8fa48aad2204756f"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/scalar-domain-ranges/metrics.json",
+      "sha256": "4fe3846847b3960225e63c24fcccc225cd96423e0493c8e47e5146df4a262b8b"
+    }
+  ]
+}

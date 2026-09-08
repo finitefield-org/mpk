@@ -122,3 +122,12 @@ targeted source, carrier, inventory and same-byte dual-checker verification.
 See `unit-3-storage-verification.json` and `unit-3-storage-review.md`. This is
 one component of unit 3; the complete remaining scope is retained in
 `unit-3-progress.md`. Units 3-8 and W09 acceptance remain open.
+
+### Unit 3 scalar-domain checkpoint
+
+Primitive scalar and source-enum representation domains passed direct review,
+core boundary/padding tests, original-source replay and mutation tests, inventory,
+lint and same-byte dual checking of 27 certificates. See
+`unit-3-scalar-domain-verification.json` and `unit-3-scalar-domain-review.md`.
+Recursive domains/default eligibility and the remaining unit 3 operations stay
+open in `unit-3-progress.md`; this does not complete unit 3 or W09.

@@ -57,11 +57,42 @@ linked historical inventory raw hash changes with it; cache paths are unchanged.
 The inventory test also retained the old aggregate count: correcting 4,928 to
 4,929 closed its final finding, and all five inventory tests then passed.
 
+## Primitive scalar and source-enum representation domains
+
+The scalar-domain generator reconstructs all reachable Bits carriers and the
+closed decimal product from validated VIR. It retains each source enum's exact
+canonical declared values. Fixed-width integer/IEEE/Guid/duration/instant
+carriers admit every bit pattern, including IEEE NaNs and signed zero. Unit
+admits only storage false. Date, time, DayOfWeek and ParseError enforce their
+frozen inclusive bounds. Decimal checks scale 0..28 and all unused product and
+coefficient addresses; sign and scale are not normalized away. Negative zero
+and trailing-zero representations remain valid, as in the existing value model.
+
+Each predicate has a concrete carrier-to-Bool type and uses only finite
+ordinary Boolean expressions. There is no function equality, extensionality
+axiom, generic recursor, trusted host observation or application proof.
+Imports independently regenerate exact metadata, domain rules and bytes.
+String/exception/collection/product domains, source public clauses and default
+eligibility remain explicit later work; this component does not claim them.
+
+Core tests passed for all 21 primitive scalar kinds, all 256 underlying i8
+enum values, high-bit u64 enums, all 256 decimal scales at zero/max coefficient
+and both signs, and every unused decimal address. Original-source generation
+and metadata/rule/context/hash mutation tests passed over 24 captures. Review
+added two original time/date/weekday captures to cover range-rule selection.
+All 27 certificates (26 sources plus one core corpus) pass both checkers with
+zero axioms; corruptions reject. Pinned replay, lint and all five inventory
+tests passed. See `unit-3-scalar-domain-verification.json` and
+`unit-3-scalar-domain-review.md`. This closes the scalar representation-domain
+component only; unit 3 and W09 remain incomplete.
+
 ## Remaining unit 3 work
 
 - Complete semantic domains/default eligibility for all concrete values,
-  including canonical padding and inactive storage, enum/tag ranges, nullable
-  payloads, decimal/calendar/string bounds and role-specific sequence bounds.
+  including recursive canonical padding and inactive storage, sum tags, nullable
+  payloads, string bounds and role-specific sequence bounds. Primitive scalar
+  and source-enum representation domains are implemented as described above;
+  source public clauses and default eligibility still require assembly.
 - Field/active-payload/element semantic equality and canonical ordering,
   including non-reflexive scalar cases and complete source-snapshot observation.
 - Unit/parse-error/exception operations and semantic constructors/accessors over
