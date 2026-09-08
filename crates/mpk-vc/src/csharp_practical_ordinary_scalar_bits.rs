@@ -1082,3 +1082,10 @@ pub use temporal::{
     generate_csharp_practical_ordinary_temporal, import_csharp_practical_ordinary_temporal,
     OrdinaryTemporalProgram,
 };
+
+#[path = "csharp_practical_ordinary_calendar.rs"]
+mod calendar;
+pub use calendar::{
+    generate_csharp_practical_ordinary_calendar, import_csharp_practical_ordinary_calendar,
+    OrdinaryCalendarProgram,
+};

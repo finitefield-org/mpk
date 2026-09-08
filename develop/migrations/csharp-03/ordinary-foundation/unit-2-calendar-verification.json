@@ -1,0 +1,114 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.calendar_increment_verification.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 2,
+  "component": "Date, Guid and DayOfWeek operations",
+  "component_status": "implemented and reviewed",
+  "unit_2_status": "in progress",
+  "w09_status": "Ready/in progress",
+  "date": "2026-09-08",
+  "baseline_commit": "905a9c1",
+  "checks": [
+    {
+      "command": "MPK_W09_CALENDAR_OUT=/tmp/mpk-w09-calendar-fixtures cargo test -p mpk-vc --lib calendar_circuits_",
+      "result": "passed",
+      "tests_passed": 4,
+      "log_sha256": "10183fb832763e09dc14ba7883fbbc4b068e0a8741d86cdffaa9e8391ee214ca"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib circuits_emit_",
+      "result": "passed",
+      "tests_passed": 3,
+      "log_sha256": "6f0c64009036a02918951862719f6386de40a477afa6a75e2a26f51e88266b32"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc calendar_source_linkage",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "04c8aaefa8f04a29022e1fd5b7474e085086c7460d793a9898e661fd2994486b"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "result": "passed",
+      "tests_passed": 5,
+      "log_sha256": "d0f30a19871c69eb5e56509bba21e6370f3d6a2dfece2a82145ed7daca25ff1f"
+    },
+    {
+      "command": "cd go-tools/mpk-checker-ref && GOCACHE=/tmp/mpk-t06-w09-go-cache go test -count=1 -tags checkeragreement -run TestCheckerAgreementWithRustCLICalendarCircuits .",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "0047984332807426bb902cf46a1c6f1331c93c864079682f088ac23aed8c03b1"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc --test csharp_practical_inventory -- -D warnings",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "efcf096b858b6a6d83edfb497b02d3d0dbc21fb1345efbde8cce149548b3ba91"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --tests -- -D warnings",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "94d8957ce236b2c5176bfb5abfe6793efc58686fff68603f9b84f9e1028b5c7b"
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true (six changed Rust files); gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "coverage": {
+    "unique_scoped_rust_tests": 12,
+    "scoped_rust_test_executions": 13,
+    "calendar_operations": 27,
+    "complete_gregorian_cycle_days": 146097,
+    "t03_oracle_cases": 9311,
+    "source_linkage_programs": 7,
+    "unchanged_integer_certificates": 7,
+    "unchanged_temporal_certificates": 4,
+    "unchanged_temporal_definition_metrics": 43,
+    "calendar_certificates_checked_by_both": 5,
+    "positive_zero_axiom_acceptance_per_checker": 5,
+    "hash_mutation_rejections_per_checker": 5,
+    "maximum_terms": 53128,
+    "maximum_declarations": 532,
+    "component_review_findings": 0
+  },
+  "verification_note": "The four calendar tests first produced candidate fixtures; the subsequent three-test circuit-emission run regenerated and compared the final calendar fixtures and all existing integer/temporal fixture bytes and metrics. It repeats one calendar test, hence 13 executions of 12 distinct Rust tests. The original-source assertion was corrected to preserve existing enum comparison IDs and separately exercise Date day-of-week projection. Unit-test code was included in the scoped mpk-vc Clippy run. Neither production checker nor Certificate v0 changed.",
+  "remaining": [
+    "Unit 2: float and decimal arithmetic/predicates/conversions and UTF-16 string operations.",
+    "Input-domain predicates, expansion of all reachable concrete definitions including uninvoked operations, application VC proofs and the remaining units 3-8."
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "result": "deferred",
+    "owner": "CSHARP-03-T06-W12"
+  },
+  "files": [
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/calendar-circuits/date.add_months.hex",
+      "sha256": "84d1d4850ed7b2bc4fc234b8531ce602f0c5ad3e33d68172eb79475febc9fc76"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/calendar-circuits/date.add_years.hex",
+      "sha256": "00ba5ab58e90d39738d42280286d84d5baa7fc802c02ddbde827055402f778fa"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/calendar-circuits/date.construct.hex",
+      "sha256": "811cc5f793f69d1d5ea4b57552b2d9128ed3fb7445df127824f3750495abfb59"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/calendar-circuits/guid.compare.hex",
+      "sha256": "1e3e93f16995558bfe6ea0182a6feb451dbfb4cb8994904e9e8d74c94b210861"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/calendar-circuits/guid.empty.hex",
+      "sha256": "305aecfbf010c3cf47c4183c36e8c705ef2b82396d1ea56b6bab497072752aac"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/calendar-circuits/metrics.json",
+      "sha256": "b6afc1242555ef21817dff484f0513607c50ee7610920c44d301f2dc10789283"
+    }
+  ]
+}

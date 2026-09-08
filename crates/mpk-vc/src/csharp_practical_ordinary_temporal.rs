@@ -1,14 +1,14 @@
 //! Finite Time, Duration and Instant circuits; no runtime observation is a proof.
 use super::*;
 const DAY: u128 = 864_000_000_000;
-fn literal(n: u128, width: usize) -> Word {
+pub(super) fn literal(n: u128, width: usize) -> Word {
     (0..width)
         .map(|i| if n & (1 << i) == 0 { F } else { T })
         .collect()
 }
 // A constant-divisor restoring circuit needs only divisor_bits + 1 remainder
 // bits. No lookup table or host evaluation of an input participates in emission.
-fn divide_constant(c: &mut Circuit, a: &[Bit], divisor: u128) -> (Word, Word) {
+pub(super) fn divide_constant(c: &mut Circuit, a: &[Bit], divisor: u128) -> (Word, Word) {
     assert!(divisor > 0);
     let width = (128 - divisor.leading_zeros()) as usize + 1;
     let d = literal(divisor, width);
@@ -77,6 +77,13 @@ fn temporal_signature(id: &str) -> R<ClosedOperationSignature> {
         }
         _ => return Err(OrdinaryCarrierError::Shape),
     };
+    business_signature(id, args, result)
+}
+pub(super) fn business_signature(
+    id: &str,
+    args: Vec<String>,
+    result: String,
+) -> R<ClosedOperationSignature> {
     let recipe =
         BusinessOperation::new(id, &args, &result).map_err(|_| OrdinaryCarrierError::Shape)?;
     let mut checks = vec![];

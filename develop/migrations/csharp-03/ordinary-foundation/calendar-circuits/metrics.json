@@ -1,0 +1,675 @@
+[
+  {
+    "declarations": 279,
+    "definition": {
+      "boolean_gates": 8390,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.i32.v1",
+          "mpk.csharp.value.i32.v1",
+          "mpk.csharp.value.i32.v1"
+        ],
+        "id": "date.construct",
+        "normal_result_type_id": "mpk.csharp.value.date.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.ArgumentOutOfRangeException",
+            "id": "exception.range",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Calendar.O646174652e636f6e737472756374.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e636f6e737472756374.Result",
+      "state_depth": 14,
+      "static_transformers": 263,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e636f6e737472756374.Success"
+    },
+    "hash": "92cad220d3293f9a7f77798b8c6209968b39c521da4ef6060f03cad6ebeafea8",
+    "id": "date.construct",
+    "terms": 26823
+  },
+  {
+    "declarations": 32,
+    "definition": {
+      "boolean_gates": 499,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.date.v1",
+          "mpk.csharp.value.i32.v1"
+        ],
+        "id": "date.add_days",
+        "normal_result_type_id": "mpk.csharp.value.date.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.ArgumentOutOfRangeException",
+            "id": "exception.range",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Calendar.O646174652e6164645f64617973.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e6164645f64617973.Result",
+      "state_depth": 10,
+      "static_transformers": 16,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e6164645f64617973.Success"
+    },
+    "hash": "16629d4cec7ac66b67dd8d2a0b6f914df7ef6761954ed85f0c9cf1bec013589d",
+    "id": "date.add_days",
+    "terms": 2244
+  },
+  {
+    "declarations": 532,
+    "definition": {
+      "boolean_gates": 16485,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.date.v1",
+          "mpk.csharp.value.i32.v1"
+        ],
+        "id": "date.add_months",
+        "normal_result_type_id": "mpk.csharp.value.date.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.ArgumentOutOfRangeException",
+            "id": "exception.range",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Calendar.O646174652e6164645f6d6f6e746873.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e6164645f6d6f6e746873.Result",
+      "state_depth": 15,
+      "static_transformers": 516,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e6164645f6d6f6e746873.Success"
+    },
+    "hash": "22f7fe5f6c0259c65fbbd1e14f847cb64563ee85a70a86ae4288da4d2fb64099",
+    "id": "date.add_months",
+    "terms": 53128
+  },
+  {
+    "declarations": 491,
+    "definition": {
+      "boolean_gates": 15198,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.date.v1",
+          "mpk.csharp.value.i32.v1"
+        ],
+        "id": "date.add_years",
+        "normal_result_type_id": "mpk.csharp.value.date.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.ArgumentOutOfRangeException",
+            "id": "exception.range",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Calendar.O646174652e6164645f7965617273.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e6164645f7965617273.Result",
+      "state_depth": 14,
+      "static_transformers": 475,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e6164645f7965617273.Success"
+    },
+    "hash": "82c25631f8bcb534836ea624094c22240015d818bbea960dced7ca166af4cf74",
+    "id": "date.add_years",
+    "terms": 47916
+  },
+  {
+    "declarations": 136,
+    "definition": {
+      "boolean_gates": 3842,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.date.v1"
+        ],
+        "id": "date.year",
+        "normal_result_type_id": "mpk.csharp.value.i32.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e79656172.Result",
+      "state_depth": 12,
+      "static_transformers": 121,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e79656172.Success"
+    },
+    "hash": "1ca7bf96af8d0a24b0134023a57c6cac7611394ecb843db95cce8fd9c903308b",
+    "id": "date.year",
+    "terms": 13491
+  },
+  {
+    "declarations": 245,
+    "definition": {
+      "boolean_gates": 7335,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.date.v1"
+        ],
+        "id": "date.month",
+        "normal_result_type_id": "mpk.csharp.value.i32.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e6d6f6e7468.Result",
+      "state_depth": 13,
+      "static_transformers": 230,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e6d6f6e7468.Success"
+    },
+    "hash": "dcffe8e069f9fd062bbdc00966a32298c7ccd27f3b24b58f9073932ee6c4e6d8",
+    "id": "date.month",
+    "terms": 23366
+  },
+  {
+    "declarations": 253,
+    "definition": {
+      "boolean_gates": 7616,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.date.v1"
+        ],
+        "id": "date.day",
+        "normal_result_type_id": "mpk.csharp.value.i32.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e646179.Result",
+      "state_depth": 13,
+      "static_transformers": 238,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e646179.Success"
+    },
+    "hash": "706aa01fa6d09fd200d4775b556f1aa36fbe7b3963171a80bcd243ba2e24837b",
+    "id": "date.day",
+    "terms": 24243
+  },
+  {
+    "declarations": 15,
+    "definition": {
+      "boolean_gates": 0,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.date.v1"
+        ],
+        "id": "date.day_number",
+        "normal_result_type_id": "mpk.csharp.value.i32.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e6461795f6e756d626572.Result",
+      "state_depth": 6,
+      "static_transformers": 0,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e6461795f6e756d626572.Success"
+    },
+    "hash": "b12bb088f9bd81e0e938b84a26c6b361611e0f3fe4dcf9538bdd2983c9a7aaa4",
+    "id": "date.day_number",
+    "terms": 288
+  },
+  {
+    "declarations": 29,
+    "definition": {
+      "boolean_gates": 448,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.date.v1"
+        ],
+        "id": "date.day_of_week",
+        "normal_result_type_id": "mpk.csharp.value.day_of_week.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e6461795f6f665f7765656b.Result",
+      "state_depth": 9,
+      "static_transformers": 14,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e6461795f6f665f7765656b.Success"
+    },
+    "hash": "67990f2ae1aa5f83ea501f3053559d2f4447428be800d6bea29ee23cba5faeeb",
+    "id": "date.day_of_week",
+    "terms": 1703
+  },
+  {
+    "declarations": 30,
+    "definition": {
+      "boolean_gates": 449,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.date.v1",
+          "mpk.csharp.value.date.v1"
+        ],
+        "id": "date.compare",
+        "normal_result_type_id": "mpk.csharp.value.i32.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e636f6d70617265.Result",
+      "state_depth": 10,
+      "static_transformers": 15,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e636f6d70617265.Success"
+    },
+    "hash": "3d1b2c433268e1a047edf04e96585cd4811221b9752be4aa764cb30850ddd008",
+    "id": "date.compare",
+    "terms": 1948
+  },
+  {
+    "declarations": 19,
+    "definition": {
+      "boolean_gates": 126,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.date.v1",
+          "mpk.csharp.value.date.v1"
+        ],
+        "id": "date.equal",
+        "normal_result_type_id": "mpk.csharp.value.bool.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e657175616c.Result",
+      "state_depth": 8,
+      "static_transformers": 4,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e657175616c.Success"
+    },
+    "hash": "c5ac05cc68f57e9b57e189e9c3f3c2b690bcced92e9336f5e1a81044e922b407",
+    "id": "date.equal",
+    "terms": 951
+  },
+  {
+    "declarations": 19,
+    "definition": {
+      "boolean_gates": 125,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.date.v1",
+          "mpk.csharp.value.date.v1"
+        ],
+        "id": "date.not_equal",
+        "normal_result_type_id": "mpk.csharp.value.bool.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e6e6f745f657175616c.Result",
+      "state_depth": 8,
+      "static_transformers": 4,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e6e6f745f657175616c.Success"
+    },
+    "hash": "76dd27452db3ff0a2c4fee21d98683804189f7ba4b1db9956598b0fdbe9b0b5d",
+    "id": "date.not_equal",
+    "terms": 953
+  },
+  {
+    "declarations": 22,
+    "definition": {
+      "boolean_gates": 224,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.date.v1",
+          "mpk.csharp.value.date.v1"
+        ],
+        "id": "date.less",
+        "normal_result_type_id": "mpk.csharp.value.bool.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e6c657373.Result",
+      "state_depth": 9,
+      "static_transformers": 7,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e6c657373.Success"
+    },
+    "hash": "9284b7d272b06676ac8b3e32e07e87d1d63316ee762f07747ade870b563d2578",
+    "id": "date.less",
+    "terms": 1185
+  },
+  {
+    "declarations": 27,
+    "definition": {
+      "boolean_gates": 353,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.date.v1",
+          "mpk.csharp.value.date.v1"
+        ],
+        "id": "date.less_equal",
+        "normal_result_type_id": "mpk.csharp.value.bool.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e6c6573735f657175616c.Result",
+      "state_depth": 9,
+      "static_transformers": 12,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e6c6573735f657175616c.Success"
+    },
+    "hash": "7d68c0fb3e3d3f678f3bf41d0c7f3e1d93df0f75f89b8ce56c09a618bbda584c",
+    "id": "date.less_equal",
+    "terms": 1692
+  },
+  {
+    "declarations": 22,
+    "definition": {
+      "boolean_gates": 224,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.date.v1",
+          "mpk.csharp.value.date.v1"
+        ],
+        "id": "date.greater",
+        "normal_result_type_id": "mpk.csharp.value.bool.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e67726561746572.Result",
+      "state_depth": 9,
+      "static_transformers": 7,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e67726561746572.Success"
+    },
+    "hash": "ccafb9278bfa63403028f5a112a59d9781ae60edd26372ebf77a0fa01ce781c3",
+    "id": "date.greater",
+    "terms": 1185
+  },
+  {
+    "declarations": 27,
+    "definition": {
+      "boolean_gates": 353,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.date.v1",
+          "mpk.csharp.value.date.v1"
+        ],
+        "id": "date.greater_equal",
+        "normal_result_type_id": "mpk.csharp.value.bool.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e677265617465725f657175616c.Result",
+      "state_depth": 9,
+      "static_transformers": 12,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O646174652e677265617465725f657175616c.Success"
+    },
+    "hash": "62fb39657e20260c07c71ec63cce3f31c9431625fe8614009549a2873a98f0ee",
+    "id": "date.greater_equal",
+    "terms": 1693
+  },
+  {
+    "declarations": 15,
+    "definition": {
+      "boolean_gates": 0,
+      "operation": {
+        "argument_type_ids": [],
+        "id": "guid.empty",
+        "normal_result_type_id": "mpk.csharp.value.guid.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O677569642e656d707479.Result",
+      "state_depth": 5,
+      "static_transformers": 0,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O677569642e656d707479.Success"
+    },
+    "hash": "c139cd2822706714866a00fb79d3c908bd659d40190326e87f6c0f54df7cc6c0",
+    "id": "guid.empty",
+    "terms": 128
+  },
+  {
+    "declarations": 72,
+    "definition": {
+      "boolean_gates": 1793,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.guid.v1",
+          "mpk.csharp.value.guid.v1"
+        ],
+        "id": "guid.compare",
+        "normal_result_type_id": "mpk.csharp.value.i32.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O677569642e636f6d70617265.Result",
+      "state_depth": 12,
+      "static_transformers": 57,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O677569642e636f6d70617265.Success"
+    },
+    "hash": "e483c3f1651a418a264cb3714fde1e21bd842d8e78fd68ee2c8b617c54e26780",
+    "id": "guid.compare",
+    "terms": 7168
+  },
+  {
+    "declarations": 31,
+    "definition": {
+      "boolean_gates": 510,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.guid.v1",
+          "mpk.csharp.value.guid.v1"
+        ],
+        "id": "guid.equal",
+        "normal_result_type_id": "mpk.csharp.value.bool.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O677569642e657175616c.Result",
+      "state_depth": 10,
+      "static_transformers": 16,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O677569642e657175616c.Success"
+    },
+    "hash": "0c7c1e68ab87f0e26f5367ad9198d27677961c8f986d81b7298890712d673dab",
+    "id": "guid.equal",
+    "terms": 3221
+  },
+  {
+    "declarations": 31,
+    "definition": {
+      "boolean_gates": 509,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.guid.v1",
+          "mpk.csharp.value.guid.v1"
+        ],
+        "id": "guid.not_equal",
+        "normal_result_type_id": "mpk.csharp.value.bool.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O677569642e6e6f745f657175616c.Result",
+      "state_depth": 10,
+      "static_transformers": 16,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O677569642e6e6f745f657175616c.Success"
+    },
+    "hash": "3679b52dbd869a5b909af0d189d6ba294af2a5cab9e3e215824d51c072db85fe",
+    "id": "guid.not_equal",
+    "terms": 3223
+  },
+  {
+    "declarations": 30,
+    "definition": {
+      "boolean_gates": 452,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.day_of_week.v1",
+          "mpk.csharp.value.day_of_week.v1"
+        ],
+        "id": "day_of_week.compare",
+        "normal_result_type_id": "mpk.csharp.value.i32.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O6461795f6f665f7765656b2e636f6d70617265.Result",
+      "state_depth": 10,
+      "static_transformers": 15,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O6461795f6f665f7765656b2e636f6d70617265.Success"
+    },
+    "hash": "c607d466edde527df929d23bafbf4a1bc64ae666e06fe5fbaba9c5b0affd3edf",
+    "id": "day_of_week.compare",
+    "terms": 1980
+  },
+  {
+    "declarations": 19,
+    "definition": {
+      "boolean_gates": 126,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.day_of_week.v1",
+          "mpk.csharp.value.day_of_week.v1"
+        ],
+        "id": "day_of_week.equal",
+        "normal_result_type_id": "mpk.csharp.value.bool.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O6461795f6f665f7765656b2e657175616c.Result",
+      "state_depth": 8,
+      "static_transformers": 4,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O6461795f6f665f7765656b2e657175616c.Success"
+    },
+    "hash": "f7e2c2342dc5036fd4822ac9a60d139417b3ab7af533865c7348ef8bdacd348e",
+    "id": "day_of_week.equal",
+    "terms": 951
+  },
+  {
+    "declarations": 19,
+    "definition": {
+      "boolean_gates": 125,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.day_of_week.v1",
+          "mpk.csharp.value.day_of_week.v1"
+        ],
+        "id": "day_of_week.not_equal",
+        "normal_result_type_id": "mpk.csharp.value.bool.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O6461795f6f665f7765656b2e6e6f745f657175616c.Result",
+      "state_depth": 8,
+      "static_transformers": 4,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O6461795f6f665f7765656b2e6e6f745f657175616c.Success"
+    },
+    "hash": "88b1016a5cbcce604d115c60a4c5ae3626759e5f4f6bad50b4e2b7d3b18eed23",
+    "id": "day_of_week.not_equal",
+    "terms": 953
+  },
+  {
+    "declarations": 23,
+    "definition": {
+      "boolean_gates": 226,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.day_of_week.v1",
+          "mpk.csharp.value.day_of_week.v1"
+        ],
+        "id": "day_of_week.less",
+        "normal_result_type_id": "mpk.csharp.value.bool.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O6461795f6f665f7765656b2e6c657373.Result",
+      "state_depth": 9,
+      "static_transformers": 8,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O6461795f6f665f7765656b2e6c657373.Success"
+    },
+    "hash": "36076c6686f682b231dd1f1e34a0e1890031c3ff3751f1d4b564f83a22ad5c08",
+    "id": "day_of_week.less",
+    "terms": 1219
+  },
+  {
+    "declarations": 27,
+    "definition": {
+      "boolean_gates": 354,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.day_of_week.v1",
+          "mpk.csharp.value.day_of_week.v1"
+        ],
+        "id": "day_of_week.less_equal",
+        "normal_result_type_id": "mpk.csharp.value.bool.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O6461795f6f665f7765656b2e6c6573735f657175616c.Result",
+      "state_depth": 9,
+      "static_transformers": 12,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O6461795f6f665f7765656b2e6c6573735f657175616c.Success"
+    },
+    "hash": "57b82f8d2bd4a3ac68035d08802a23814981522687f18a8fee160a9b94b948e4",
+    "id": "day_of_week.less_equal",
+    "terms": 1701
+  },
+  {
+    "declarations": 23,
+    "definition": {
+      "boolean_gates": 226,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.day_of_week.v1",
+          "mpk.csharp.value.day_of_week.v1"
+        ],
+        "id": "day_of_week.greater",
+        "normal_result_type_id": "mpk.csharp.value.bool.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O6461795f6f665f7765656b2e67726561746572.Result",
+      "state_depth": 9,
+      "static_transformers": 8,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O6461795f6f665f7765656b2e67726561746572.Success"
+    },
+    "hash": "da0831d60c2e6dfd24da7fd1283c23544c9f092d87e23d0318a2c3be281fc5e9",
+    "id": "day_of_week.greater",
+    "terms": 1218
+  },
+  {
+    "declarations": 27,
+    "definition": {
+      "boolean_gates": 354,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.day_of_week.v1",
+          "mpk.csharp.value.day_of_week.v1"
+        ],
+        "id": "day_of_week.greater_equal",
+        "normal_result_type_id": "mpk.csharp.value.bool.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Calendar.O6461795f6f665f7765656b2e677265617465725f657175616c.Result",
+      "state_depth": 9,
+      "static_transformers": 12,
+      "success_definition": "Mpk.CSharp.Ordinary.Calendar.O6461795f6f665f7765656b2e677265617465725f657175616c.Success"
+    },
+    "hash": "44fe7b4db161c5839a24a53593a1a4e3ff7cfd5d9f03477c557bc9dfd34d13b0",
+    "id": "day_of_week.greater_equal",
+    "terms": 1702
+  }
+]
