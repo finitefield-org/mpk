@@ -1,0 +1,121 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.floating_increment_verification.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 2,
+  "component": "Binary32 and binary64 floating operations",
+  "component_status": "implemented and reviewed",
+  "unit_2_status": "in progress",
+  "w09_status": "Ready/in progress",
+  "date": "2026-09-08",
+  "baseline_commit": "1acc875",
+  "checks": [
+    {
+      "command": "cargo test -p mpk-vc --lib floating_circuits_",
+      "result": "passed",
+      "tests_passed": 3,
+      "log_sha256": "d078d0bf80483f52f9f90ba6d61014b5d36bc5295a3fd931954f6645f2786729"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib floating_circuits_match_t03_numeric_oracle",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "b20b2d343e1ddc057856bb16efadde2b732d295f580a53dce8b844510347c8ad"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc floating_source_linkage",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "4f5f825e0126ca7690185d66e324798e0547fea2bd803db47e7e99247a69a924"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "result": "passed",
+      "tests_passed": 5,
+      "log_sha256": "54be5d460363570e806dcd3f089ca7d66bbe657489099c56b92cbf5bac70ec7d"
+    },
+    {
+      "command": "cd go-tools/mpk-checker-ref && GOCACHE=/tmp/mpk-t06-w09-go-cache go test -count=1 -timeout 25m -tags checkeragreement -run TestCheckerAgreementWithRustCLIFloatingCircuits .",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "7676284c7076977d09344a57f8a9de9d106319c562e1b45575348f4ba89b5755"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --tests -- -D warnings",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "b7314e567254444690f453f84be95abeb33e17f1170b9e9e2f8097dcb760a7ce"
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true (six changed Rust files); gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "coverage": {
+    "unique_scoped_rust_tests": 9,
+    "scoped_rust_test_executions": 10,
+    "floating_operations": 38,
+    "t03_oracle_evaluations": 44440,
+    "actual_core_cases": 9,
+    "source_linkage_programs": 8,
+    "floating_certificates_checked_by_both": 8,
+    "positive_zero_axiom_acceptance_per_checker": 8,
+    "hash_mutation_rejections_per_checker": 8,
+    "maximum_terms": 158773,
+    "maximum_declarations": 1665,
+    "binary32_remainder_steps": 276,
+    "binary64_remainder_steps": 2097,
+    "binary64_remainder_terms": 35415,
+    "binary64_remainder_total_transformers": 2360,
+    "component_review_findings": 0
+  },
+  "verification_note": "The three floating unit tests reproduced all 38 definition metrics and eight pinned certificates. The oracle test was then expanded with deterministic random and cancellation-focused pairs and rerun independently, bringing the final oracle coverage to 44,440 evaluations. No production circuit or fixture bytes changed during this test expansion. Both unchanged checkers accepted identical bytes with zero axioms and rejected the hash mutation for each of eight fixtures. The final inventory run followed removal of unrelated JSON formatting changes. Neither production checker nor Certificate v0 changed.",
+  "remaining": [
+    "Unit 2: float conversions, decimal operations/conversions and UTF-16 string operations.",
+    "Input-domain predicates, expansion of all reachable concrete definitions including uninvoked operations, application VC proofs and the remaining units 3-8."
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "result": "deferred",
+    "owner": "CSHARP-03-T06-W12"
+  },
+  "files": [
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/floating-circuits/floating.double.add.hex",
+      "sha256": "cf06f01401085a772eaeb20fb55ff648897b2ddbb5997bf87eb068e8ea985015"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/floating-circuits/floating.double.divide.hex",
+      "sha256": "d6c8ac89fcc5ac41bcced7062b658b0b6df07001ac92700782ca2f15dde1abe1"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/floating-circuits/floating.double.min.hex",
+      "sha256": "71e17071a1ee2a9bcaa3f918808a706235906192b08befcb5d801897e5f71c10"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/floating-circuits/floating.double.multiply.hex",
+      "sha256": "79c64a9c97788f50a31a8a1478d664b96333c8616fef20b57d36f3c43a522f80"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/floating-circuits/floating.double.remainder.hex",
+      "sha256": "be26adbe4d18553594e5bd4c79ef0062cfad46fa19da405329f6aecb0ee1c37b"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/floating-circuits/floating.single.add.hex",
+      "sha256": "541d137b07fe8a999518e648f56eefcf4188885fc235bb5417666adbdb10f4e2"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/floating-circuits/floating.single.is_nan.hex",
+      "sha256": "f1999a2897d75064a21874b24581932d303a7868c19a15c0bbb2ea60a0fcc8f1"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/floating-circuits/floating.single.remainder.hex",
+      "sha256": "dbdb6510c00b22d187003c7eb0ac68e9f1b3ced6c7aded3b118c4dc4c06fd3d5"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/floating-circuits/metrics.json",
+      "sha256": "75d05cc8e4dde101c0d9a30e3cc3546866f651d16824d5e4abac87e9da77c5c1"
+    }
+  ]
+}

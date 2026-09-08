@@ -256,6 +256,10 @@ func TestCheckerAgreementWithRustCLICalendarCircuits(t *testing.T) {
 	checkOrdinaryCertificates(t, "calendar-circuits", 5)
 }
 
+func TestCheckerAgreementWithRustCLIFloatingCircuits(t *testing.T) {
+	checkOrdinaryCertificates(t, "floating-circuits", 8)
+}
+
 func checkOrdinaryCertificates(t *testing.T, directory string, expectedCount int) {
 	t.Helper()
 	root := absoluteRepoRoot(t)

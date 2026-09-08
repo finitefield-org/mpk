@@ -508,3 +508,131 @@ fn csharp_03_t06_w09_calendar_source_linkage_rejects_substitution() {
         previous = Some((bytes, p.certificate_bytes().to_vec()));
     }
 }
+
+#[test]
+fn csharp_03_t06_w09_floating_source_linkage_rejects_substitution() {
+    let bundle = b();
+    let rows = read("data-phase/data-stage-replay.json");
+    let mut previous: Option<(Vec<u8>, Vec<u8>)> = None;
+    for (id, required) in [
+        (
+            "56d52302cbf3bc6a7c0fe7c798f4960eedb8f823995ca2c01ccf5ce6b07b1c9f",
+            "floating.single.add",
+        ),
+        (
+            "c82e3b158e3982bea08ddfe71a06694592de5168b44380230ff10a3b8458e147",
+            "floating.double.add",
+        ),
+        (
+            "5d7655018362332f047f20374264f504b2892846562721bb1f8934e65380b79a",
+            "floating.double.multiply",
+        ),
+        (
+            "cb6d43ad84c0eec06f922b7b4d3849f227b45722ea88c76c2dde2965257c9009",
+            "floating.double.divide",
+        ),
+        (
+            "64d4ee463fcfbe531f822913c1d498d9cab513f964110c22017f7c3d6a664338",
+            "floating.single.remainder",
+        ),
+        (
+            "bfa98c70faaf4387583af786ee1aaf47e6b0c231485e2a881a7d336e626d3278",
+            "floating.double.remainder",
+        ),
+        (
+            "b89ed5e739f259d8204156cfd7c2940dbc3389d8aeecc7af20319c5c9253289a",
+            "floating.double.min",
+        ),
+        (
+            "1cc09aad4452c4d54ad182b6f8bc97dea22a35c74e32262819e6ddf42f622776",
+            "floating.single.is_nan",
+        ),
+    ] {
+        let row = rows
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|r| r["id"] == id)
+            .unwrap();
+        let (context, captures) = support::replay_context(&bundle, row);
+        let source = ValidatedDataSource::import_captured_facts(
+            &bundle,
+            &context,
+            &captures,
+            &serde_json::to_vec(&row["outcome"]["facts"]).unwrap(),
+        )
+        .unwrap();
+        let emitted = emit_data_phase(&bundle, &context, &captures, &source).unwrap();
+        let vir = emitted.vir();
+        let p = generate_csharp_practical_ordinary_floating(vir).unwrap();
+        let bytes = p.canonical_bytes();
+        let actual = p
+            .definitions()
+            .iter()
+            .map(|d| d.operation.id.as_str())
+            .collect::<BTreeSet<_>>();
+        assert!(actual.contains(required), "{id}: {actual:?}");
+        let wire: Value =
+            serde_json::from_slice(emitted.operations().operations().canonical_bytes()).unwrap();
+        let expected = wire["operations"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|s| s["id"].as_str().unwrap())
+            .filter(|id| {
+                ["floating.single.", "floating.double."]
+                    .iter()
+                    .any(|prefix| id.starts_with(prefix))
+            })
+            .collect::<BTreeSet<_>>();
+        assert_eq!(actual, expected);
+        assert_eq!(
+            import_csharp_practical_ordinary_floating(&bytes, p.certificate_bytes(), vir).unwrap(),
+            p
+        );
+        let original: Value = serde_json::from_slice(&bytes).unwrap();
+        for key in [
+            "source_ir_sha256",
+            "foundation_sha256",
+            "certificate_sha256",
+        ] {
+            let mut changed = original.clone();
+            changed[key] = json!("0".repeat(64));
+            assert!(import_csharp_practical_ordinary_floating(
+                &serde_json::to_vec(&changed).unwrap(),
+                p.certificate_bytes(),
+                vir
+            )
+            .is_err());
+        }
+        for mutation in 0..4 {
+            let mut changed = original.clone();
+            match mutation {
+                0 => changed["definitions"] = json!([]),
+                1 => {
+                    changed["definitions"][0]["operation"]["ordered_checks"] = json!([{"id":"forged","tag":"exception","failure_type_id":"System.OverflowException"}])
+                }
+                2 => changed["definitions"][0]["result_definition"] = json!("forged"),
+                _ => {
+                    changed["definitions"][0]["operation"]["normal_result_type_id"] =
+                        json!("mpk.csharp.value.string.v1")
+                }
+            }
+            if changed != original {
+                assert!(import_csharp_practical_ordinary_floating(
+                    &serde_json::to_vec(&changed).unwrap(),
+                    p.certificate_bytes(),
+                    vir
+                )
+                .is_err());
+            }
+        }
+        let mut bad = p.certificate_bytes().to_vec();
+        *bad.last_mut().unwrap() ^= 1;
+        assert!(import_csharp_practical_ordinary_floating(&bytes, &bad, vir).is_err());
+        if let Some((metadata, certificate)) = &previous {
+            assert!(import_csharp_practical_ordinary_floating(metadata, certificate, vir).is_err());
+        }
+        previous = Some((bytes, p.certificate_bytes().to_vec()));
+    }
+}

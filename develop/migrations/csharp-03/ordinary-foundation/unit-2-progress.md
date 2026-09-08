@@ -2,9 +2,9 @@
 
 Unit 2 is **in progress**, not complete. This increment implements the Boolean
 and fixed-width integer portion of the approved scalar work unit, followed by
-the Time/Duration/Instant and Date/Guid/DayOfWeek components below. Float,
-decimal, string operations and the remaining numeric conversions still belong
-to unit 2.
+the Time/Duration/Instant, Date/Guid/DayOfWeek and floating-operation components
+below. Float conversions, decimal operations/conversions and UTF-16 string
+operations still belong to unit 2.
 Units 3-8 and W09's exit condition are unchanged. This record is not a W09 completion receipt.
 
 ## Implemented component
@@ -180,4 +180,63 @@ remains deferred to T06-W12.
 
 ```sh
 MPK_W09_CALENDAR_OUT=/tmp/mpk-w09-calendar-fixtures cargo test -p mpk-vc --lib calendar_circuits_
+```
+
+## Binary32 and binary64 floating-operation component
+
+The floating generator covers the 38 registered binary32/binary64 operations:
+sign, absolute value, classification, equality/order, min/max, addition,
+subtraction, multiplication, division and remainder. Source signatures and
+ordered-check tables are independently reconstructed through the closed numeric
+registry. Import reconstructs the original-source/foundation metadata and exact
+ordinary certificate bytes. Numeric conversions remain unfinished.
+
+The operations preserve the frozen T03 rules for signaling-before-quiet NaN
+propagation in arithmetic, unchanged unary/min/max payloads, positive invalid
+NaNs, signed zero and nearest-even rounding. Addition aligns bounded
+significands with sticky bits; multiplication uses the full significand product;
+division retains a quotient and sticky remainder. Packing normalizes, shifts
+into the subnormal range, rounds once using guard/round/sticky bits and handles
+carry and overflow. No host floating-point result enters an ordinary definition.
+
+Remainder uses three ordinary helper definitions: initialize normalized
+significands and the exponent difference, apply one modular-doubling state step,
+and finish by packing the remainder and applying the special-value rules. Each
+helper's internal metadata describes its concrete Boolean-cube types. The
+public operation retains the original scalar signature. Static composition
+reuses the same step term 276 times for binary32 and 2,097 times for binary64.
+For finite nonzero operands, these are the maximum normalized exponent gaps.
+Every occurrence counts toward the transformer bound before DAG sharing; a zero
+counter makes subsequent steps identities. This is finite ordinary composition
+with no recursive theorem, observation axiom or new checker rule.
+
+The 38 individual certificates and measured costs are reproducible. Binary64
+division is the largest at 158,773 terms and 1,665 declarations. Binary64
+remainder uses 35,415 terms and 2,360 total transformer occurrences, including
+its helpers and 2,097 repeated steps. Eight representative certificates are
+pinned as exact bytes for same-byte dual-checker validation.
+
+Verification includes the T03 numeric oracle on a 30-value boundary/sample
+matrix per format, plus 1,024 deterministic random or cancellation-focused pairs
+per arithmetic operation and format (44,440 oracle evaluations overall).
+Cases include signaling and quiet NaNs, both zeros, subnormal/normal boundaries,
+overflow, halfway rounding, near cancellation and extreme exponent gaps.
+The staged remainder observer checks the zero-counter identity as well as the
+final value. Actual-core evaluation covers nine cases, including both signs of
+binary32 remainder through the full 276-step composition, nearest-even ties,
+negative zero, NaN payload priority in min and NaN classification.
+
+Eight original source captures exercise both addition widths, binary64
+multiply/divide/min, both remainder widths and binary32 NaN classification.
+Operation/type/check/definition/source/foundation/certificate mutations reject.
+The additional direct Bool consumer is recorded in the consumer inventory;
+its historical-cache link and total are updated consistently.
+
+See `unit-2-floating-verification.json` and `unit-2-floating-review.md`.
+This component does not complete numeric conversions, unit 2, foundation-wide
+expansion, application VC proofs or W09. The full T06 gate remains deferred
+to T06-W12.
+
+```sh
+MPK_W09_FLOAT_OUT=/tmp/mpk-w09-float-fixtures cargo test -p mpk-vc --lib floating_circuits_
 ```

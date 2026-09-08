@@ -1089,3 +1089,10 @@ pub use calendar::{
     generate_csharp_practical_ordinary_calendar, import_csharp_practical_ordinary_calendar,
     OrdinaryCalendarProgram,
 };
+
+#[path = "csharp_practical_ordinary_float.rs"]
+mod floating;
+pub use floating::{
+    generate_csharp_practical_ordinary_floating, import_csharp_practical_ordinary_floating,
+    OrdinaryFloatingProgram,
+};
