@@ -104,7 +104,7 @@ must not be presented as completion of W09.
 Unit 1 is complete as an internal implementation unit. See `README.md`,
 `unit-1-verification.json` and `unit-1-review.md` for its exact coverage and
 local checks. Unit 2 has Boolean/integer, Time/Duration/Instant and
-Date/Guid/DayOfWeek and floating-operation increments, documented in
-`unit-2-progress.md`; float conversions, decimal operations/conversions, UTF-16
+Date/Guid/DayOfWeek, floating-operation and numeric-conversion increments, documented in
+`unit-2-progress.md`; decimal operations/conversions, UTF-16
 string operations and units 3-8 remain outstanding. W09 remains Ready/in progress and W10-W12 remain
 Blocked. No W09 completion receipt is issued by this unit.

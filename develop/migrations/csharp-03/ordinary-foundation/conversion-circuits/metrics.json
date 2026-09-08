@@ -1,0 +1,156 @@
+[
+  {
+    "declarations": 84,
+    "definition": {
+      "boolean_gates": 2195,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.i32.v1"
+        ],
+        "id": "numeric.conversion.int32_to_single",
+        "normal_result_type_id": "mpk.csharp.value.f32.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Floating.O6e756d657269632e636f6e76657273696f6e2e696e7433325f746f5f73696e676c65.Result",
+      "state_depth": 12,
+      "static_transformers": 69,
+      "success_definition": "Mpk.CSharp.Ordinary.Floating.O6e756d657269632e636f6e76657273696f6e2e696e7433325f746f5f73696e676c65.Success"
+    },
+    "hash": "76c45c845f1a250c9a44ad20b0484acac48b261b5fd0784427ee3871fccff0cb",
+    "id": "numeric.conversion.int32_to_single",
+    "terms": 8953
+  },
+  {
+    "declarations": 151,
+    "definition": {
+      "boolean_gates": 4336,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.i64.v1"
+        ],
+        "id": "numeric.conversion.int64_to_double",
+        "normal_result_type_id": "mpk.csharp.value.f64.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Floating.O6e756d657269632e636f6e76657273696f6e2e696e7436345f746f5f646f75626c65.Result",
+      "state_depth": 13,
+      "static_transformers": 136,
+      "success_definition": "Mpk.CSharp.Ordinary.Floating.O6e756d657269632e636f6e76657273696f6e2e696e7436345f746f5f646f75626c65.Success"
+    },
+    "hash": "ffe565c902c1064fe9d8d070141d4ded8ecd0dbe29c62d101a3299614af32752",
+    "id": "numeric.conversion.int64_to_double",
+    "terms": 17627
+  },
+  {
+    "declarations": 129,
+    "definition": {
+      "boolean_gates": 3647,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.f32.v1"
+        ],
+        "id": "numeric.conversion.single_to_double",
+        "normal_result_type_id": "mpk.csharp.value.f64.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Floating.O6e756d657269632e636f6e76657273696f6e2e73696e676c655f746f5f646f75626c65.Result",
+      "state_depth": 12,
+      "static_transformers": 114,
+      "success_definition": "Mpk.CSharp.Ordinary.Floating.O6e756d657269632e636f6e76657273696f6e2e73696e676c655f746f5f646f75626c65.Success"
+    },
+    "hash": "80b3687e349610ef00f6cb26dd246b15c7cb445eadd0c060a6a8e74e5f001b88",
+    "id": "numeric.conversion.single_to_double",
+    "terms": 14118
+  },
+  {
+    "declarations": 103,
+    "definition": {
+      "boolean_gates": 2808,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.f64.v1"
+        ],
+        "id": "numeric.conversion.double_to_single",
+        "normal_result_type_id": "mpk.csharp.value.f32.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Floating.O6e756d657269632e636f6e76657273696f6e2e646f75626c655f746f5f73696e676c65.Result",
+      "state_depth": 12,
+      "static_transformers": 88,
+      "success_definition": "Mpk.CSharp.Ordinary.Floating.O6e756d657269632e636f6e76657273696f6e2e646f75626c655f746f5f73696e676c65.Success"
+    },
+    "hash": "904cd768698a9312d301225bfb5007169ac985e556021dd5337d9a7bb4c2e405",
+    "id": "numeric.conversion.double_to_single",
+    "terms": 11495
+  },
+  {
+    "declarations": 73,
+    "definition": {
+      "boolean_gates": 1818,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.f32.v1"
+        ],
+        "id": "numeric.conversion.single_to_int32.checked",
+        "normal_result_type_id": "mpk.csharp.value.i32.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.OverflowException",
+            "id": "exception.overflow",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Floating.O6e756d657269632e636f6e76657273696f6e2e73696e676c655f746f5f696e7433322e636865636b6564.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Floating.O6e756d657269632e636f6e76657273696f6e2e73696e676c655f746f5f696e7433322e636865636b6564.Result",
+      "state_depth": 11,
+      "static_transformers": 57,
+      "success_definition": "Mpk.CSharp.Ordinary.Floating.O6e756d657269632e636f6e76657273696f6e2e73696e676c655f746f5f696e7433322e636865636b6564.Success"
+    },
+    "hash": "274aa2729671b5e0998c1865c68a6cad73cce112d78371a4e761b6306a196511",
+    "id": "numeric.conversion.single_to_int32.checked",
+    "terms": 7411
+  },
+  {
+    "declarations": 124,
+    "definition": {
+      "boolean_gates": 3431,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.f64.v1"
+        ],
+        "id": "numeric.conversion.double_to_int64.checked",
+        "normal_result_type_id": "mpk.csharp.value.i64.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.OverflowException",
+            "id": "exception.overflow",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Floating.O6e756d657269632e636f6e76657273696f6e2e646f75626c655f746f5f696e7436342e636865636b6564.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Floating.O6e756d657269632e636f6e76657273696f6e2e646f75626c655f746f5f696e7436342e636865636b6564.Result",
+      "state_depth": 12,
+      "static_transformers": 108,
+      "success_definition": "Mpk.CSharp.Ordinary.Floating.O6e756d657269632e636f6e76657273696f6e2e646f75626c655f746f5f696e7436342e636865636b6564.Success"
+    },
+    "hash": "3bc7f73cb7164b108ee15c34095f4a0e9cf66968c1284ed7abb277f7ee1728c1",
+    "id": "numeric.conversion.double_to_int64.checked",
+    "terms": 14076
+  }
+]

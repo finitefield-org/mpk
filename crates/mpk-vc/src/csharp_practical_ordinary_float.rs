@@ -2,6 +2,8 @@
 //! circuitry; the T03 evaluator is used only as an independent test oracle.
 use super::temporal::literal;
 use super::*;
+#[path = "csharp_practical_ordinary_float_conversion.rs"]
+mod conversion;
 const EW: usize = 16;
 fn exp(n: i32) -> Word {
     literal(n as u128, EW)
@@ -478,6 +480,9 @@ fn remainder_stages(id: &str) -> R<(Format, [IntegerCircuit; 3])> {
     Ok((fmt, [initial, step, stage(id, "Finish", c, raw)]))
 }
 fn emit_floating(b: &mut Builder, id: &str) -> R<OrdinaryScalarDefinition> {
+    if id.starts_with("numeric.conversion.") {
+        return emit_circuit(b, conversion::circuit(id)?, "Floating");
+    }
     if !id.ends_with(".remainder") {
         return emit_circuit(b, floating_circuit(id)?, "Floating");
     }
@@ -538,8 +543,8 @@ fn emit_floating(b: &mut Builder, id: &str) -> R<OrdinaryScalarDefinition> {
             + fmt.bound(),
     })
 }
-/// W09 floating operations over binary32/binary64 carriers. Numeric conversions,
-/// whole-foundation expansion and application VC proofs remain separate work.
+/// W09 floating operations and six numeric conversions over binary32/binary64
+/// carriers. Whole-foundation expansion and application VC proofs remain separate work.
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct OrdinaryFloatingProgram {
     schema: String,
@@ -569,11 +574,20 @@ pub fn generate_csharp_practical_ordinary_floating(
     let signatures = vir
         .operation_signatures()
         .iter()
-        .filter(|s| s.id.starts_with("floating.single.") || s.id.starts_with("floating.double."))
+        .filter(|s| {
+            s.id.starts_with("floating.single.")
+                || s.id.starts_with("floating.double.")
+                || s.id.starts_with("numeric.conversion.")
+        })
         .map(|s| (s.id.clone(), s))
         .collect::<BTreeMap<_, _>>();
     for (id, signature) in signatures {
-        if &floating_signature(&id)?.1 != signature {
+        let expected = if id.starts_with("numeric.conversion.") {
+            conversion::signature(&id)?
+        } else {
+            floating_signature(&id)?.1
+        };
+        if &expected != signature {
             return Err(OrdinaryCarrierError::Linkage);
         }
         definitions.push(emit_floating(&mut b, &id)?);

@@ -2,8 +2,8 @@
 
 Unit 2 is **in progress**, not complete. This increment implements the Boolean
 and fixed-width integer portion of the approved scalar work unit, followed by
-the Time/Duration/Instant, Date/Guid/DayOfWeek and floating-operation components
-below. Float conversions, decimal operations/conversions and UTF-16 string
+the Time/Duration/Instant, Date/Guid/DayOfWeek, floating-operation and numeric
+conversion components below. Decimal operations/conversions and UTF-16 string
 operations still belong to unit 2.
 Units 3-8 and W09's exit condition are unchanged. This record is not a W09 completion receipt.
 
@@ -189,7 +189,7 @@ sign, absolute value, classification, equality/order, min/max, addition,
 subtraction, multiplication, division and remainder. Source signatures and
 ordered-check tables are independently reconstructed through the closed numeric
 registry. Import reconstructs the original-source/foundation metadata and exact
-ordinary certificate bytes. Numeric conversions remain unfinished.
+ordinary certificate bytes. Numeric conversions are implemented in the following component.
 
 The operations preserve the frozen T03 rules for signaling-before-quiet NaN
 propagation in arithmetic, unchanged unary/min/max payloads, positive invalid
@@ -233,10 +233,51 @@ The additional direct Bool consumer is recorded in the consumer inventory;
 its historical-cache link and total are updated consistently.
 
 See `unit-2-floating-verification.json` and `unit-2-floating-review.md`.
-This component does not complete numeric conversions, unit 2, foundation-wide
+This floating-operation component does not complete unit 2, foundation-wide
 expansion, application VC proofs or W09. The full T06 gate remains deferred
 to T06-W12.
 
 ```sh
 MPK_W09_FLOAT_OUT=/tmp/mpk-w09-float-fixtures cargo test -p mpk-vc --lib floating_circuits_
 ```
+
+## Six numeric conversions
+
+The floating generator also reconstructs all six frozen `numeric.conversion.*`
+signatures: int32-to-single, int64-to-double, single-to-double, double-to-single,
+checked single-to-int32 and checked double-to-int64. Decimal conversions remain
+in the decimal component. The exact argument/result types and ordered overflow
+check come from the independent numeric registry. The same importer regenerates
+metadata and canonical bytes for source, foundation and certificate linkage.
+
+Signed integer inputs are converted to unsigned magnitudes before the existing
+ordinary packer applies nearest-even rounding. Integer minimum magnitudes are
+retained in the full unsigned source width. Float width changes use the source
+significand and exponent with the target packer; special values preserve sign,
+shift the payload and quiet every NaN even when narrowing discards all payload
+bits. Signed zero and subnormal inputs retain the frozen T03 semantics.
+
+Checked integer conversion uses saturating logical shifts with every exponent
+bit, followed by a sign-dependent range check on the truncated magnitude. An
+independent highest-set-bit bound rejects large exponents even if a left shift
+has discarded every one. Special values always overflow. A negative exact
+minimum is admitted; positive values at that same magnitude overflow. The
+ordinary emitter gives failed conversions one overflow predicate, false success
+and a canonical zero normal result. No host conversion result defines a term.
+
+Verification covers 63,396 oracle evaluations: every source float exponent with
+representative mantissas and signs, neighbours of integer limits and float32
+rounding/underflow/overflow thresholds, signed integer power-of-two boundaries,
+and deterministic random values. Twenty actual-core observations exercise all
+six conversions, nearest-even ties, integer minima, subnormal rounding, signed
+zero, NaN payload quieting, successful truncation and overflow with a zero result.
+Six original source captures exercise all six signatures and reject linkage and
+ordered-check mutations. Six certificates and their costs are pinned in
+`conversion-circuits/`; the largest has 17,627 terms and 151 declarations.
+Existing floating-operation certificate bytes and all 38 cost records are
+reproduced unchanged.
+
+See `unit-2-conversion-verification.json` and `unit-2-conversion-review.md`.
+Unit 2 remains in progress for decimal operations/conversions and UTF-16 strings.
+Input-domain predicates, all-instance expansion, application VC proofs and the
+remaining W09 units are still outstanding. The full gate stays at T06-W12.

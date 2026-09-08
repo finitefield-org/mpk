@@ -1,0 +1,126 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.numeric_conversion_increment_verification.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 2,
+  "component": "Six non-decimal numeric conversions",
+  "component_status": "implemented and reviewed",
+  "unit_2_status": "in progress",
+  "w09_status": "Ready/in progress",
+  "date": "2026-09-08",
+  "baseline_commit": "2b8a5f3",
+  "checks": [
+    {
+      "command": "MPK_W09_CONVERSION_OUT=/tmp/mpk-w09-conversion-fixtures cargo test -p mpk-vc --lib floating_conversion_circuits_ -- --nocapture",
+      "result": "passed",
+      "tests_passed": 3,
+      "log_sha256": "31f34e7cc15394c884b4e4054c6caa6e5e2360dceb328eee8eb271d204bfc345"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib circuits_emit_all_signatures",
+      "result": "passed",
+      "tests_passed": 4,
+      "log_sha256": "d5b06ffece3373ddfbb6687bd8ce3584a6b09df8f05cb6a49a2d45f5ffc96c9c"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc floating_conversion_source_linkage",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "2ec055dbe0524ce8881d38d62d33594bb832d46765f34e73b74ed18488cc716d"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_floating_source_linkage_rejects_substitution",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "c956f6290ea1f341b5f6bdc77ac878d9c449ba6cf7ea7d8cd8cd3b3931ff8cc9"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "result": "passed",
+      "tests_passed": 5,
+      "log_sha256": "0b9ca8136092477e19ae5a29215ac8b36abe5c424d2117027d5043e82a17b3a6"
+    },
+    {
+      "command": "cd go-tools/mpk-checker-ref && GOCACHE=/tmp/mpk-t06-w09-go-cache go test -count=1 -timeout 20m -tags checkeragreement -run TestCheckerAgreementWithRustCLIFloatingConversions .",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "04d342274c8502dfb78967f50de1a61b0a95468842d9f58b8966247e68da0355"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "38ab902139bf1c94382487317fc65882b2554a94f0c3e889ae6d105df2821159"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --tests -- -D warnings",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "98bab5735be7ca92df055675b517b69e792ddb1bf960a05cec499926131d6830"
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true (three changed Rust files); gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "coverage": {
+    "unique_scoped_rust_tests": 13,
+    "scoped_rust_test_executions": 14,
+    "numeric_conversions": 6,
+    "t03_oracle_evaluations": 63396,
+    "actual_core_cases": 20,
+    "conversion_source_linkage_programs": 6,
+    "existing_floating_source_linkage_programs": 8,
+    "unchanged_temporal_definition_metrics": 43,
+    "unchanged_calendar_definition_metrics": 27,
+    "unchanged_floating_definition_metrics": 38,
+    "conversion_certificates_checked_by_both": 6,
+    "positive_zero_axiom_acceptance_per_checker": 6,
+    "hash_mutation_rejections_per_checker": 6,
+    "maximum_terms": 17627,
+    "maximum_declarations": 151,
+    "maximum_static_transformers": 136,
+    "component_review_findings": 0
+  },
+  "verification_note": "Three conversion tests generated candidate fixtures and tested T03 semantics and actual core result/success/overflow observations. The four-test emission replay reproduced all six final conversion fixtures and the existing temporal, calendar and floating-operation fixtures/metrics; it repeats one conversion test. Source linkage covers all six original conversion captures and eight existing floating captures. Inventory passed without baseline edits. Scoped Clippy includes unit test code. Both production checkers and Certificate v0 remain unchanged.",
+  "remaining": [
+    "Unit 2: decimal operations/conversions and UTF-16 string operations.",
+    "Input-domain predicates, expansion of all reachable concrete definitions including uninvoked operations, application VC proofs and the remaining units 3-8."
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "result": "deferred",
+    "owner": "CSHARP-03-T06-W12"
+  },
+  "files": [
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/conversion-circuits/metrics.json",
+      "sha256": "d44faf9e5319c008e037c3891f9a96c22f6f7736222d562501a88062bb9f4663"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/conversion-circuits/numeric.conversion.double_to_int64.checked.hex",
+      "sha256": "2e4e1edd5590f7b08d25533550385a57d2a7faa1171e5826eae9ae6f0ebf37cf"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/conversion-circuits/numeric.conversion.double_to_single.hex",
+      "sha256": "244409d0c51855976f4b30afcd1dc5a3b6b58314b46987d46b13cdf23c2999df"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/conversion-circuits/numeric.conversion.int32_to_single.hex",
+      "sha256": "06fe25ca78f9948735d219cbd48f31c64f362e6bdad0aeeba08329ff4feb26ae"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/conversion-circuits/numeric.conversion.int64_to_double.hex",
+      "sha256": "878841009254579fb892f107a291aff686028253705fbb1378c6e9c547181ca4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/conversion-circuits/numeric.conversion.single_to_double.hex",
+      "sha256": "fd85010be960003b4447fe7a5a0a60b8c97b4077d97bd960aa8407ba5ee1a6ef"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/conversion-circuits/numeric.conversion.single_to_int32.checked.hex",
+      "sha256": "46f7d25383904f117f219c2f509758b1aa363267c6570014152e08215f408802"
+    }
+  ]
+}

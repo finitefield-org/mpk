@@ -511,10 +511,7 @@ fn csharp_03_t06_w09_calendar_source_linkage_rejects_substitution() {
 
 #[test]
 fn csharp_03_t06_w09_floating_source_linkage_rejects_substitution() {
-    let bundle = b();
-    let rows = read("data-phase/data-stage-replay.json");
-    let mut previous: Option<(Vec<u8>, Vec<u8>)> = None;
-    for (id, required) in [
+    floating_source_linkage(&[
         (
             "56d52302cbf3bc6a7c0fe7c798f4960eedb8f823995ca2c01ccf5ce6b07b1c9f",
             "floating.single.add",
@@ -547,7 +544,44 @@ fn csharp_03_t06_w09_floating_source_linkage_rejects_substitution() {
             "1cc09aad4452c4d54ad182b6f8bc97dea22a35c74e32262819e6ddf42f622776",
             "floating.single.is_nan",
         ),
-    ] {
+    ]);
+}
+
+#[test]
+fn csharp_03_t06_w09_floating_conversion_source_linkage_rejects_substitution() {
+    floating_source_linkage(&[
+        (
+            "0f374d42b0b7af270138710ba14df3757ee3c519d7dc69b252630177e90d5caf",
+            "numeric.conversion.single_to_double",
+        ),
+        (
+            "1dcb0a84b0cc293550e207354eda7487ae16c11893e0791820a258eae96d9907",
+            "numeric.conversion.int32_to_single",
+        ),
+        (
+            "33463313175964d2809ec3d900bca3369925857eb1aaa146a86fac094824243f",
+            "numeric.conversion.double_to_single",
+        ),
+        (
+            "3f7473c4146111708d02d884348caaab33f8f538e493b6aa0a23ea2a6b2819a1",
+            "numeric.conversion.int64_to_double",
+        ),
+        (
+            "6873354712737a52c876eaad9734d1be9227e9eb319fb097a65fe3263e25c50f",
+            "numeric.conversion.double_to_int64.checked",
+        ),
+        (
+            "b470b0c18a66cc7d324d1b65064827d48ccf2003af4180c4ee11d4955498ec92",
+            "numeric.conversion.single_to_int32.checked",
+        ),
+    ]);
+}
+
+fn floating_source_linkage(cases: &[(&str, &str)]) {
+    let bundle = b();
+    let rows = read("data-phase/data-stage-replay.json");
+    let mut previous: Option<(Vec<u8>, Vec<u8>)> = None;
+    for &(id, required) in cases {
         let row = rows
             .as_array()
             .unwrap()
@@ -580,9 +614,13 @@ fn csharp_03_t06_w09_floating_source_linkage_rejects_substitution() {
             .iter()
             .map(|s| s["id"].as_str().unwrap())
             .filter(|id| {
-                ["floating.single.", "floating.double."]
-                    .iter()
-                    .any(|prefix| id.starts_with(prefix))
+                [
+                    "floating.single.",
+                    "floating.double.",
+                    "numeric.conversion.",
+                ]
+                .iter()
+                .any(|prefix| id.starts_with(prefix))
             })
             .collect::<BTreeSet<_>>();
         assert_eq!(actual, expected);
@@ -605,7 +643,7 @@ fn csharp_03_t06_w09_floating_source_linkage_rejects_substitution() {
             )
             .is_err());
         }
-        for mutation in 0..4 {
+        for mutation in 0..5 {
             let mut changed = original.clone();
             match mutation {
                 0 => changed["definitions"] = json!([]),
@@ -613,10 +651,11 @@ fn csharp_03_t06_w09_floating_source_linkage_rejects_substitution() {
                     changed["definitions"][0]["operation"]["ordered_checks"] = json!([{"id":"forged","tag":"exception","failure_type_id":"System.OverflowException"}])
                 }
                 2 => changed["definitions"][0]["result_definition"] = json!("forged"),
-                _ => {
+                3 => {
                     changed["definitions"][0]["operation"]["normal_result_type_id"] =
                         json!("mpk.csharp.value.string.v1")
                 }
+                _ => changed["definitions"][0]["operation"]["ordered_checks"] = json!([]),
             }
             if changed != original {
                 assert!(import_csharp_practical_ordinary_floating(
