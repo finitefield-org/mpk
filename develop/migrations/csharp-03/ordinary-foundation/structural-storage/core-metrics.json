@@ -1,0 +1,187 @@
+{
+  "certificate_sha256": "477bd5272779eb5743fa98c6453cbd9af32b485ddf842ec3df015c83725fb0b8",
+  "declarations": 27,
+  "definitions": [
+    {
+      "carrier": {
+        "depth": 5,
+        "shape": {
+          "fields": [
+            {
+              "id": "flag",
+              "shape": {
+                "kind": "bits",
+                "width": 1
+              }
+            },
+            {
+              "id": "small",
+              "shape": {
+                "kind": "bits",
+                "width": 3
+              }
+            },
+            {
+              "id": "byte",
+              "shape": {
+                "kind": "bits",
+                "width": 8
+              }
+            }
+          ],
+          "kind": "product"
+        },
+        "type_id": "Test.Product"
+      },
+      "operations": {
+        "kind": "product",
+        "operations": {
+          "fields": [
+            {
+              "definition": "Mpk.CSharp.Ordinary.Structural.T546573742e50726f64756374.Field.F0",
+              "depth": 0,
+              "field_id": "flag"
+            },
+            {
+              "definition": "Mpk.CSharp.Ordinary.Structural.T546573742e50726f64756374.Field.F1",
+              "depth": 2,
+              "field_id": "small"
+            },
+            {
+              "definition": "Mpk.CSharp.Ordinary.Structural.T546573742e50726f64756374.Field.F2",
+              "depth": 3,
+              "field_id": "byte"
+            }
+          ],
+          "make_definition": "Mpk.CSharp.Ordinary.Structural.T546573742e50726f64756374.MakeStorage"
+        }
+      }
+    },
+    {
+      "carrier": {
+        "depth": 0,
+        "shape": {
+          "fields": [],
+          "kind": "product"
+        },
+        "type_id": "Test.Empty"
+      },
+      "operations": {
+        "kind": "product",
+        "operations": {
+          "fields": [],
+          "make_definition": "Mpk.CSharp.Ordinary.Structural.T546573742e456d707479.MakeStorage"
+        }
+      }
+    },
+    {
+      "carrier": {
+        "depth": 6,
+        "shape": {
+          "arms": [
+            {
+              "fields": [],
+              "id": "none",
+              "tag": 0
+            },
+            {
+              "fields": [
+                {
+                  "id": "flag",
+                  "shape": {
+                    "kind": "bits",
+                    "width": 1
+                  }
+                },
+                {
+                  "id": "small",
+                  "shape": {
+                    "kind": "bits",
+                    "width": 3
+                  }
+                },
+                {
+                  "id": "byte",
+                  "shape": {
+                    "kind": "bits",
+                    "width": 8
+                  }
+                }
+              ],
+              "id": "fields",
+              "tag": 7
+            },
+            {
+              "fields": [
+                {
+                  "id": "bit",
+                  "shape": {
+                    "kind": "bits",
+                    "width": 1
+                  }
+                }
+              ],
+              "id": "high",
+              "tag": 2147483648
+            }
+          ],
+          "kind": "sum"
+        },
+        "type_id": "Test.Sum"
+      },
+      "operations": {
+        "arms": [
+          {
+            "arm_id": "none",
+            "fields": [],
+            "invalid_operation_definition": "Mpk.CSharp.Ordinary.Structural.T546573742e53756d.Arm.A0.InvalidOperation",
+            "is_active_definition": "Mpk.CSharp.Ordinary.Structural.T546573742e53756d.Arm.A0.IsActive",
+            "make_definition": "Mpk.CSharp.Ordinary.Structural.T546573742e53756d.Arm.A0.MakeStorage",
+            "tag": 0
+          },
+          {
+            "arm_id": "fields",
+            "fields": [
+              {
+                "definition": "Mpk.CSharp.Ordinary.Structural.T546573742e53756d.Arm.A7.Field.F0",
+                "depth": 0,
+                "field_id": "flag"
+              },
+              {
+                "definition": "Mpk.CSharp.Ordinary.Structural.T546573742e53756d.Arm.A7.Field.F1",
+                "depth": 2,
+                "field_id": "small"
+              },
+              {
+                "definition": "Mpk.CSharp.Ordinary.Structural.T546573742e53756d.Arm.A7.Field.F2",
+                "depth": 3,
+                "field_id": "byte"
+              }
+            ],
+            "invalid_operation_definition": "Mpk.CSharp.Ordinary.Structural.T546573742e53756d.Arm.A7.InvalidOperation",
+            "is_active_definition": "Mpk.CSharp.Ordinary.Structural.T546573742e53756d.Arm.A7.IsActive",
+            "make_definition": "Mpk.CSharp.Ordinary.Structural.T546573742e53756d.Arm.A7.MakeStorage",
+            "tag": 7
+          },
+          {
+            "arm_id": "high",
+            "fields": [
+              {
+                "definition": "Mpk.CSharp.Ordinary.Structural.T546573742e53756d.Arm.A2147483648.Field.F0",
+                "depth": 0,
+                "field_id": "bit"
+              }
+            ],
+            "invalid_operation_definition": "Mpk.CSharp.Ordinary.Structural.T546573742e53756d.Arm.A2147483648.InvalidOperation",
+            "is_active_definition": "Mpk.CSharp.Ordinary.Structural.T546573742e53756d.Arm.A2147483648.IsActive",
+            "make_definition": "Mpk.CSharp.Ordinary.Structural.T546573742e53756d.Arm.A2147483648.MakeStorage",
+            "tag": 2147483648
+          }
+        ],
+        "kind": "sum",
+        "tag_definition": "Mpk.CSharp.Ordinary.Structural.T546573742e53756d.Tag"
+      }
+    }
+  ],
+  "terms": 367
+}

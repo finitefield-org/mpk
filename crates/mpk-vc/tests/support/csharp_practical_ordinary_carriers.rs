@@ -1155,3 +1155,169 @@ fn csharp_03_t06_w09_string_construction_source_linkage_rejects_substitution() {
         &[20],
     );
 }
+
+#[test]
+fn csharp_03_t06_w09_structural_source_linkage_rejects_substitution() {
+    let bundle = b();
+    let fixture_root = Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../../develop/migrations/csharp-03/ordinary-foundation/structural-storage");
+    let output = std::env::var_os("MPK_W09_STRUCTURAL_OUT").map(std::path::PathBuf::from);
+    if let Some(dir) = &output {
+        fs::create_dir_all(dir).unwrap();
+    }
+    let mut metrics = vec![];
+    let mut previous: Option<(Vec<u8>, Vec<u8>)> = None;
+    let mut products = 0;
+    let mut sums = 0;
+    for family in [
+        "binding-vc",
+        "exception-vc",
+        "transition-vc",
+        "construction-vc",
+    ] {
+        let requests = read(&format!("{family}/requests.json"));
+        let responses = read(&format!("{family}/responses.json"));
+        for req in requests.as_array().unwrap() {
+            let response = responses
+                .as_array()
+                .unwrap()
+                .iter()
+                .find(|r| r["id"] == req["id"])
+                .unwrap();
+            if response.get("reject").is_some() {
+                continue;
+            }
+            let id = format!("{family}-{}", req["id"].as_str().unwrap());
+            let (context, captures) = support::replay_context(&bundle, req);
+            let source = ValidatedDataSource::import_captured_facts(
+                &bundle,
+                &context,
+                &captures,
+                &serde_json::to_vec(&response["facts"]).unwrap(),
+            )
+            .unwrap();
+            let emitted = emit_data_phase(&bundle, &context, &captures, &source).unwrap();
+            let vir = emitted.vir();
+            let carriers = generate_csharp_practical_ordinary_carriers(vir).unwrap();
+            let p = generate_csharp_practical_ordinary_structural(vir)
+                .unwrap_or_else(|e| panic!("{id}: {e:?}"));
+            let expected = carriers
+                .carriers()
+                .iter()
+                .filter(|c| {
+                    matches!(
+                        c.shape,
+                        OrdinaryShape::Product { .. } | OrdinaryShape::Sum { .. }
+                    )
+                })
+                .collect::<Vec<_>>();
+            assert_eq!(
+                p.definitions()
+                    .iter()
+                    .map(|d| &d.carrier)
+                    .collect::<Vec<_>>(),
+                expected
+            );
+            for d in p.definitions() {
+                match (&d.carrier.shape, &d.operations) {
+                    (
+                        OrdinaryShape::Product { fields },
+                        OrdinaryStructuralOperations::Product { operations },
+                    ) => {
+                        products += 1;
+                        assert_eq!(
+                            fields.iter().map(|f| &f.id).collect::<Vec<_>>(),
+                            operations
+                                .fields
+                                .iter()
+                                .map(|f| &f.field_id)
+                                .collect::<Vec<_>>()
+                        );
+                    }
+                    (
+                        OrdinaryShape::Sum { arms },
+                        OrdinaryStructuralOperations::Sum { arms: ops, .. },
+                    ) => {
+                        sums += 1;
+                        assert_eq!(
+                            arms.iter().map(|a| (a.tag, &a.id)).collect::<Vec<_>>(),
+                            ops.iter().map(|a| (a.tag, &a.arm_id)).collect::<Vec<_>>()
+                        );
+                        for (a, op) in arms.iter().zip(ops) {
+                            assert_eq!(
+                                a.fields.iter().map(|f| &f.id).collect::<Vec<_>>(),
+                                op.fields.iter().map(|f| &f.field_id).collect::<Vec<_>>()
+                            );
+                        }
+                    }
+                    _ => panic!("shape/operation mismatch"),
+                }
+            }
+            let metadata = p.canonical_bytes();
+            let bytes = p.certificate_bytes();
+            assert_eq!(
+                import_csharp_practical_ordinary_structural(&metadata, bytes, vir).unwrap(),
+                p
+            );
+            let c = mpk_cert::decode_canonical_certificate(bytes).unwrap();
+            validate_csharp_practical_certificate_structure(&c).unwrap();
+            let original: Value = serde_json::from_slice(&metadata).unwrap();
+            for mutation in 0..6 {
+                let mut m = original.clone();
+                match mutation {
+                    0 => m["source_ir_sha256"] = json!("0".repeat(64)),
+                    1 => m["foundation_sha256"] = json!("0".repeat(64)),
+                    2 => m["certificate_sha256"] = json!("0".repeat(64)),
+                    3 => m["definitions"] = json!([]),
+                    4 if !p.definitions().is_empty() => {
+                        m["definitions"][0]["carrier"]["depth"] = json!(254)
+                    }
+                    5 if !p.definitions().is_empty() => {
+                        m["definitions"][0]["carrier"]["type_id"] = json!("Forged")
+                    }
+                    _ => m["definitions"] = json!([{"kind": "forged"}]),
+                }
+                if m != original {
+                    assert!(import_csharp_practical_ordinary_structural(
+                        &serde_json::to_vec(&m).unwrap(),
+                        bytes,
+                        vir
+                    )
+                    .is_err());
+                }
+            }
+            let mut bad = bytes.to_vec();
+            *bad.last_mut().unwrap() ^= 1;
+            assert!(import_csharp_practical_ordinary_structural(&metadata, &bad, vir).is_err());
+            if let Some((m, c)) = &previous {
+                if m != &metadata {
+                    assert!(import_csharp_practical_ordinary_structural(m, c, vir).is_err());
+                }
+            }
+            previous = Some((metadata.clone(), bytes.to_vec()));
+            let file = format!("{id}.hex");
+            let hex = bytes.iter().map(|b| format!("{b:02x}")).collect::<String>() + "\n";
+            if let Some(dir) = &output {
+                fs::write(dir.join(&file), hex).unwrap();
+            } else {
+                assert_eq!(fs::read_to_string(fixture_root.join(&file)).unwrap(), hex);
+            }
+            metrics.push(json!({"id":id,"file":file,"terms":c.term_table.len(),"declarations":c.declarations.len(),"metadata":original}));
+        }
+    }
+    assert_eq!(metrics.len(), 24);
+    assert!(products > 0 && sums > 0);
+    if let Some(dir) = output {
+        fs::write(
+            dir.join("metrics.json"),
+            serde_json::to_vec_pretty(&metrics).unwrap(),
+        )
+        .unwrap();
+    } else {
+        assert_eq!(
+            serde_json::from_slice::<Value>(&fs::read(fixture_root.join("metrics.json")).unwrap())
+                .unwrap(),
+            json!(metrics)
+        );
+    }
+}

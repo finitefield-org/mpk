@@ -114,3 +114,11 @@ Units 3-8 remain outstanding. W09 remains Ready/in progress and W10-W12 remain
 Blocked. No W09 completion receipt is issued by these internal units. The next
 work is structural/collection domains, defaults, equality/order, constructors,
 accessors and every operation of each reachable concrete foundation instance.
+
+### Unit 3 storage checkpoint
+
+The product/sum storage constructors and projections passed direct review and
+targeted source, carrier, inventory and same-byte dual-checker verification.
+See `unit-3-storage-verification.json` and `unit-3-storage-review.md`. This is
+one component of unit 3; the complete remaining scope is retained in
+`unit-3-progress.md`. Units 3-8 and W09 acceptance remain open.

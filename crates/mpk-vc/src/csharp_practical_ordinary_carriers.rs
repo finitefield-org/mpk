@@ -1166,6 +1166,14 @@ mod tests {
 #[path = "csharp_practical_ordinary_scalar_bits.rs"]
 mod scalar_bits;
 
+#[path = "csharp_practical_ordinary_structural.rs"]
+mod structural;
+pub use structural::{
+    generate_csharp_practical_ordinary_structural, import_csharp_practical_ordinary_structural,
+    OrdinaryArmOperations, OrdinaryProductOperations, OrdinaryProjection,
+    OrdinaryStructuralDefinition, OrdinaryStructuralOperations, OrdinaryStructuralProgram,
+};
+
 pub use scalar_bits::{
     generate_csharp_practical_ordinary_calendar, generate_csharp_practical_ordinary_decimal,
     generate_csharp_practical_ordinary_floating, generate_csharp_practical_ordinary_integers,

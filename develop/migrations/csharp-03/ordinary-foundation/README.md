@@ -9,6 +9,10 @@ relations and application proof assembly remain units 3-8 in
 `implementation-plan.md`. Checking these carrier certificates does not
 discharge an application VC.
 
+Unit 3 has completed its product/sum storage component; see
+`unit-3-storage-verification.json` and `unit-3-progress.md` for verification
+and the remaining semantic/collection work.
+
 ## Representation and trust boundary
 
 `generate_csharp_practical_ordinary_carriers` consumes only a validated original

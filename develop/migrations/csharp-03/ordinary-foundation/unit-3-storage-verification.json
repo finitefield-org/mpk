@@ -1,0 +1,201 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.structural_storage_verification.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 3,
+  "component": "product/sum storage construction and projection",
+  "status": "component complete; unit 3 and W09 incomplete",
+  "baseline_commit": "d29673a",
+  "completion_commit": "SELF",
+  "date": "2026-09-09",
+  "review": "unit-3-storage-review.md",
+  "review_findings": 0,
+  "source_cases": 24,
+  "source_max_terms": 1960,
+  "source_max_declarations": 98,
+  "verification": [
+    {
+      "command": "cargo check -p mpk-vc --lib",
+      "result": "passed",
+      "log": "/tmp/mpk-w09-structural-check.log",
+      "log_sha256": "015ee158412a0188d112f7b3a8df348cd6ec630ddd75414c6bc40d82334a3a25"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib structural_storage_",
+      "result": "4 passed",
+      "log": "/tmp/mpk-w09-structural-core-replay.log",
+      "log_sha256": "ae0fd364dc6fb8671891e4bda1f41a2b4c1dc31617f21a54ab2198cb8a42ddaa"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_structural_",
+      "result": "1 passed; 24 original sources",
+      "log": "/tmp/mpk-w09-structural-source-replay.log",
+      "log_sha256": "eaa8c4a80c8460ee74af4019c7a555e715e3dbdc1a8e13a12adc3668d0a19876"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_carriers_original_inputs_and_mutations",
+      "result": "1 passed",
+      "log": "/tmp/mpk-w09-structural-carrier-regression.log",
+      "log_sha256": "0a8b8926d7c4363dc43f8f4ef965bdc381f27ed5b3f760f7b865970008ec5e79"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "result": "5 passed",
+      "log": "/tmp/mpk-w09-structural-inventory-reviewed.log",
+      "log_sha256": "ab4f8483bd60d94b9b40efdda0945f1271316f6073f3b0e062a7e7f056ed1701"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --tests -- -D warnings",
+      "result": "passed",
+      "log": "/tmp/mpk-w09-structural-clippy-final.log",
+      "log_sha256": "9d45e96123e7ea2009ff1e846180f0cb0802a91ddd6ecd6499a0bbe66ae53b0d"
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true (changed Rust files); gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "result": "passed; inventory test format separately passed after aggregate-only correction",
+      "log": "/tmp/mpk-w09-structural-format.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-t06-w09-go-cache go test -v -count=1 -timeout 25m -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIStructuralStorage$' .",
+      "result": "26 same-byte accepted with zero axioms; 26 hash corruptions rejected by both checkers",
+      "log": "/tmp/mpk-w09-structural-checkers.log",
+      "log_sha256": "2abcff06ffb77c76ceb14157348dfca459c993cff67b23657cd7c1b71e0379e8"
+    }
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "result": "deferred",
+    "owner": "CSHARP-03-T06-W12"
+  },
+  "remaining_scope": "unit-3-progress.md",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_structural.rs",
+      "sha256": "69f28a6ffdd753de6c1fe1e6386a66991510238ee7f73fb0856d0cb71125afbe"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/unit-3-storage-review.md",
+      "sha256": "dd264455ce532233b60cb9d801d7f34750b73001c8d29896142107f06777dd6e"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/unit-3-progress.md",
+      "sha256": "6bcbda096b6a5cbc1589645a2303ff8241c3c8d98893fb44247354c5abab6a27"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/binder-boundary.hex",
+      "sha256": "51df21568196f5c81edc0aabdbc9b2595c22d08dbc237941cda586bde913a2be"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/binder-metrics.json",
+      "sha256": "89d46fee4e19cb564abeae6c60f2f3f252b231e52fbd81d760526fd2390acf72"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/binding-vc-boundary_field.hex",
+      "sha256": "bedd73f1ebdadaf3efed2bdaa72a8ead5df806913fbb08222d1115ab413e0084"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/binding-vc-bounded_sequence.hex",
+      "sha256": "4d59690ac44fd94e662e0c698941b91ef99ca7e5c46f345f9de4d8ef4a6521d8"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/binding-vc-instant.hex",
+      "sha256": "74715d2da2988876458fd2ad80d4a1e7b644b9873ffd1c0fa58b8d5503f8631f"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/binding-vc-lookup.hex",
+      "sha256": "74f1adfd8d6284f98192351224dc1c48fc3ad83580dbeb61b9ba53d7416251a5"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/binding-vc-money.hex",
+      "sha256": "e87aa87fee5a345b438d4aba949cc7f0e9da9ef116535a094028be39ac43d66b"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/binding-vc-option.hex",
+      "sha256": "f372a8de712453d6583c7171d9cda7d9782db84b0e6f3e1cb20f936dd9ef8f96"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/binding-vc-ordered_entry.hex",
+      "sha256": "36e473a38b6a3dbd12ff90328a54a460e020e67f773639e3b4a9beb219d76501"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/binding-vc-ordered_map.hex",
+      "sha256": "083e8a37fe5ec6d4386541304f88892eef4d63537f8bb710e59de83e5ce95ed4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/binding-vc-ordered_set.hex",
+      "sha256": "4d59690ac44fd94e662e0c698941b91ef99ca7e5c46f345f9de4d8ef4a6521d8"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/binding-vc-result.hex",
+      "sha256": "d62111e812966bb7c84cf82e6c322c6176c69c56080faa9470314276956cadd7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/binding-vc-transition.hex",
+      "sha256": "036602ffe3186e8e97fec7e7d749db99c058131221eafb8a75a27b6c06ff70b4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/binding-vc-validation.hex",
+      "sha256": "2fa1f78f876cc6fbd12939fdef2e17c2e2d2db204b9690e4e2a6d62e33002e67"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/construction-vc-broken_constructor.hex",
+      "sha256": "a6147c441fac78f8db3aed8be360c1758d8c873b7c00ddb24176a4449d180e12"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/construction-vc-broken_default.hex",
+      "sha256": "17177651b0a283fc66faa16d439dae0a4569d9fd751efa7e36c66e39db06b6d1"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/construction-vc-broken_initializer.hex",
+      "sha256": "e3c40a9b3df2f4712898450906ce80183aa3e82e095b7622ed61dd6b58837f10"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/construction-vc-enum_zero.hex",
+      "sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/construction-vc-positive_constructor.hex",
+      "sha256": "17177651b0a283fc66faa16d439dae0a4569d9fd751efa7e36c66e39db06b6d1"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/construction-vc-positive_default.hex",
+      "sha256": "17177651b0a283fc66faa16d439dae0a4569d9fd751efa7e36c66e39db06b6d1"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/construction-vc-positive_initializer.hex",
+      "sha256": "e3c40a9b3df2f4712898450906ce80183aa3e82e095b7622ed61dd6b58837f10"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/constructors.hex",
+      "sha256": "8711f0feab939d649951864229d826403196e49cbf3048cca3e008768cb3965c"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/core-metrics.json",
+      "sha256": "c6a0d9763a071314212f5ff9c7069bff7bc80bafa5b6362ac0fffa66ebd07cd5"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/exception-vc-allowed.hex",
+      "sha256": "1307d04724074f8486379d9a082ae9cb57bd88fcd483c1422a726d705c98ec30"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/exception-vc-broken.hex",
+      "sha256": "1307d04724074f8486379d9a082ae9cb57bd88fcd483c1422a726d705c98ec30"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/exception-vc-empty.hex",
+      "sha256": "1307d04724074f8486379d9a082ae9cb57bd88fcd483c1422a726d705c98ec30"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/metrics.json",
+      "sha256": "85ac7b1dec629b3bcf52401ca047dd6d8dcf4b6bcd7f5ff1f6eea5970ced706e"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/transition-vc-business_history_capacity.hex",
+      "sha256": "ddaf4978e9e1b2d4de2e4eefbe856945aad0520a70573246119e0985af2fae84"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/structural-storage/transition-vc-business_idempotency_conflict.hex",
+      "sha256": "ddaf4978e9e1b2d4de2e4eefbe856945aad0520a70573246119e0985af2fae84"
+    }
+  ]
+}

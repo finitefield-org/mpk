@@ -7430,6 +7430,12 @@ pub use ordinary_carriers::{
 };
 
 pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_structural, import_csharp_practical_ordinary_structural,
+    OrdinaryArmOperations, OrdinaryProductOperations, OrdinaryProjection,
+    OrdinaryStructuralDefinition, OrdinaryStructuralOperations, OrdinaryStructuralProgram,
+};
+
+pub use ordinary_carriers::{
     generate_csharp_practical_ordinary_calendar, generate_csharp_practical_ordinary_decimal,
     generate_csharp_practical_ordinary_floating, generate_csharp_practical_ordinary_integers,
     generate_csharp_practical_ordinary_temporal, import_csharp_practical_ordinary_calendar,

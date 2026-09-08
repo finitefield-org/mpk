@@ -1,0 +1,62 @@
+{
+  "accepted_binder_depth": 256,
+  "certificate_sha256": "d41c4f1155582be209a6c3cd8f112d318453f5889e066d45bce6ccfa9d1621e4",
+  "declarations": 13,
+  "definition": {
+    "carrier": {
+      "depth": 253,
+      "shape": {
+        "fields": [
+          {
+            "id": "first",
+            "shape": {
+              "kind": "bits",
+              "width": 1
+            }
+          },
+          {
+            "id": "deep",
+            "shape": {
+              "kind": "reference",
+              "type_id": "Test.Deep"
+            }
+          },
+          {
+            "id": "last",
+            "shape": {
+              "kind": "bits",
+              "width": 1
+            }
+          }
+        ],
+        "kind": "product"
+      },
+      "type_id": "Test.Boundary"
+    },
+    "operations": {
+      "kind": "product",
+      "operations": {
+        "fields": [
+          {
+            "definition": "Mpk.CSharp.Ordinary.Structural.T546573742e426f756e64617279.Field.F0",
+            "depth": 0,
+            "field_id": "first"
+          },
+          {
+            "definition": "Mpk.CSharp.Ordinary.Structural.T546573742e426f756e64617279.Field.F1",
+            "depth": 251,
+            "field_id": "deep"
+          },
+          {
+            "definition": "Mpk.CSharp.Ordinary.Structural.T546573742e426f756e64617279.Field.F2",
+            "depth": 0,
+            "field_id": "last"
+          }
+        ],
+        "make_definition": "Mpk.CSharp.Ordinary.Structural.T546573742e426f756e64617279.MakeStorage"
+      }
+    }
+  },
+  "rejected_binder_depth": 257,
+  "terms": 1609
+}
