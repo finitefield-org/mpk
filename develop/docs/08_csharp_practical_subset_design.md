@@ -34,7 +34,8 @@ T03-W13 completed calendar/time/GUID and bound instant/money relations with pend
 T03-W14 completed private data emission and independent import. T04-W01 completed
 private loop-contract parsing, typing and attachment. T04-W02–W06 completed
 loop/pattern/exception lowering, ordinary VIR emission and independent import.
-T05-W01 completes boundary sidecar and presence attachment; T05-W02 is ready, while
+T05-W01 completes boundary sidecar and presence attachment; T05-W02 completes
+canonical input capture, typed conversion and evidence linkage. T05-W03 is ready, while
 activation remains blocked through T08-W10.
 
 Prepared: 2026-09-02. Revised: 2026-09-08.

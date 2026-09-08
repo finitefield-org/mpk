@@ -88,6 +88,11 @@ fn decode_value_profile(
                     type_id,
                     utf16: utf16()?,
                 }),
+                "day_of_week" => Ok(MonomorphicValue::Enum {
+                    type_id,
+                    underlying: "i32".into(),
+                    carrier: text()?.into(),
+                }),
                 "parse_error" => {
                     let arm = match text()? {
                         "input_bound" => ParseErrorArm::InputBound,

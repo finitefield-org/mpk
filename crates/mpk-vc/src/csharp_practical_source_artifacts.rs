@@ -390,6 +390,8 @@ pub enum PracticalJsonValue {
     /// exact C# UTF-16 value that Rust's UTF-8 `String` cannot represent.
     Utf16String(Vec<u16>),
     Array(Vec<PracticalJsonValue>),
+    /// Keys are scalar names or internal lossless name tokens. Use `object`
+    /// or `from_utf16_members` to construct arbitrary (rather than schema) names.
     Object(Vec<(String, PracticalJsonValue)>),
 }
 
@@ -398,7 +400,12 @@ impl PracticalJsonValue {
         Self::Object(
             entries
                 .into_iter()
-                .map(|(name, value)| (name.to_owned(), value))
+                .map(|(name, value)| {
+                    (
+                        encode_practical_name(&name.encode_utf16().collect::<Vec<_>>()),
+                        value,
+                    )
+                })
                 .collect(),
         )
     }
@@ -412,6 +419,13 @@ impl PracticalJsonValue {
     }
 
     pub fn get(&self, name: &str) -> Option<&Self> {
+        let encoded;
+        let name = if name.starts_with('\0') {
+            encoded = encode_practical_name(&name.encode_utf16().collect::<Vec<_>>());
+            encoded.as_str()
+        } else {
+            name
+        };
         self.as_object()?
             .iter()
             .find_map(|(candidate, value)| (candidate == name).then_some(value))
@@ -422,6 +436,26 @@ impl PracticalJsonValue {
             Self::Object(entries) => Some(entries),
             _ => None,
         }
+    }
+
+    /// Lossless member names. `as_object` is for closed ASCII schemas; its
+    /// String keys may be internal name tokens when UTF-16 requires them.
+    pub fn utf16_members(&self) -> Option<Vec<(Vec<u16>, &Self)>> {
+        self.as_object().map(|entries| {
+            entries
+                .iter()
+                .map(|(key, value)| (decode_practical_name(key), value))
+                .collect()
+        })
+    }
+
+    pub fn from_utf16_members(entries: Vec<(Vec<u16>, Self)>) -> Self {
+        Self::Object(
+            entries
+                .into_iter()
+                .map(|(key, value)| (encode_practical_name(&key), value))
+                .collect(),
+        )
     }
 
     pub fn as_array(&self) -> Option<&[PracticalJsonValue]> {
@@ -454,6 +488,45 @@ impl PracticalJsonValue {
         }
         Some(Self::Object(entries[..entries.len() - 1].to_vec()))
     }
+}
+
+// Internal Object-name tokens only. They never appear in canonical transport.
+// A literal name beginning with NUL is escaped, so no input string can alias a
+// surrogate token. All untrusted keys enter through the visitor below; boundary
+// producers use from_utf16_members. Ordinary closed-schema names stay unchanged.
+fn encode_practical_name(units: &[u16]) -> String {
+    match String::from_utf16(units) {
+        Ok(name) if name.starts_with('\0') => format!("\0n{name}"),
+        Ok(name) => name,
+        Err(_) => {
+            use std::fmt::Write;
+            let mut name = String::from("\0s");
+            for unit in units {
+                write!(&mut name, "{unit:04x}").expect("writing a string");
+            }
+            name
+        }
+    }
+}
+fn decode_practical_name(name: &str) -> Vec<u16> {
+    if let Some(literal) = name.strip_prefix("\0n") {
+        return literal.encode_utf16().collect();
+    }
+    if let Some(hex) = name.strip_prefix("\0s") {
+        if hex.len().is_multiple_of(4) {
+            if let Some(units) = hex
+                .as_bytes()
+                .chunks_exact(4)
+                .map(decode_hex_quad)
+                .collect::<Option<Vec<_>>>()
+            {
+                if String::from_utf16(&units).is_err() {
+                    return units;
+                }
+            }
+        }
+    }
+    name.encode_utf16().collect()
 }
 
 struct PracticalJsonVisitor;
@@ -515,7 +588,10 @@ impl<'de> Visitor<'de> for PracticalJsonVisitor {
                 )));
             }
             let value = map.next_value_seed(PracticalJsonSeed)?;
-            entries.push((name, value));
+            entries.push((
+                encode_practical_name(&name.encode_utf16().collect::<Vec<_>>()),
+                value,
+            ));
         }
         Ok(PracticalJsonValue::Object(entries))
     }
@@ -637,13 +713,14 @@ fn write_practical_json(
             let mut names = BTreeSet::new();
             output.push(b'{');
             for (index, (name, value)) in entries.iter().enumerate() {
-                if !names.insert(name) {
+                let units = decode_practical_name(name);
+                if !names.insert(units.clone()) {
                     return Err(PracticalArtifactErrorCode::DuplicateField);
                 }
                 if index != 0 {
                     output.push(b',');
                 }
-                write_practical_string(name, output)?;
+                write_practical_utf16_string(&units, output)?;
                 output.push(b':');
                 write_practical_json(value, output, depth + 1)?;
             }
@@ -849,15 +926,25 @@ fn decode_surrogate_markers(value: &mut PracticalJsonValue) -> Result<(), ()> {
             }
         }
         PracticalJsonValue::Object(entries) => {
-            for (name, value) in entries {
-                let mut decoded_name = PracticalJsonValue::String(name.clone());
-                decode_surrogate_markers(&mut decoded_name)?;
-                *name = match decoded_name {
-                    PracticalJsonValue::String(name) => name,
+            let mut decoded = Vec::with_capacity(entries.len());
+            let mut names = BTreeSet::new();
+            for (name, mut item) in std::mem::take(entries) {
+                let mut name = PracticalJsonValue::String(
+                    String::from_utf16(&decode_practical_name(&name)).map_err(|_| ())?,
+                );
+                decode_surrogate_markers(&mut name)?;
+                let units = match name {
+                    PracticalJsonValue::String(s) => s.encode_utf16().collect(),
+                    PracticalJsonValue::Utf16String(s) => s,
                     _ => return Err(()),
                 };
-                decode_surrogate_markers(value)?;
+                if !names.insert(units.clone()) {
+                    return Err(());
+                }
+                decode_surrogate_markers(&mut item)?;
+                decoded.push((units, item));
             }
+            *value = PracticalJsonValue::from_utf16_members(decoded);
         }
         _ => {}
     }
@@ -4618,11 +4705,44 @@ pub fn build_boundary_input_capture(
         ));
     }
     let canonical_value = parse_canonical_practical_json(kind, canonical_document)?;
-    if !matches!(canonical_value, PracticalJsonValue::Object(_)) {
+    if canonical_value.utf16_members().is_none() {
         return Err(failure(
             kind,
             PracticalArtifactPhase::Boundary,
             PracticalArtifactErrorCode::BoundaryValue,
+        ));
+    }
+    build_typed_boundary_input_capture(
+        context,
+        boundary_contract,
+        provenance_id,
+        raw_bytes,
+        canonical_document,
+        canonical_value,
+    )
+}
+
+// Only W02's sealed byte decoder may supply the independently typed value.
+// The public T02 byte-only helper above remains a transport receipt, not typed
+// invocation evidence. W02 never accepts that helper's result as input.
+pub(crate) fn build_typed_boundary_input_capture(
+    context: &PracticalArtifactContext,
+    boundary_contract: &ArtifactRef,
+    provenance_id: &str,
+    raw_bytes: &[u8],
+    canonical_document: &[u8],
+    canonical_value: PracticalJsonValue,
+) -> Result<BoundaryInputCapture, PracticalArtifactError> {
+    let kind = PracticalArtifactKind::BoundaryInput;
+    require_linkage(context, kind, boundary_contract)?;
+    if boundary_contract.schema != BOUNDARY_CONTRACT_SCHEMA
+        || !valid_canonical_id(provenance_id)
+        || u32::try_from(raw_bytes.len()).is_err()
+    {
+        return Err(failure(
+            kind,
+            PracticalArtifactPhase::Boundary,
+            PracticalArtifactErrorCode::BoundaryBytes,
         ));
     }
     let raw_digest = raw_sha256(raw_bytes);

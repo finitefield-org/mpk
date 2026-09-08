@@ -20,6 +20,75 @@ pub struct EmittedDataPhase {
     artifacts: a::ValidatedPracticalArtifact,
 }
 impl EmittedDataPhase {
+    pub(super) fn boundary_input_artifacts(
+        &self,
+        b: &ValidatedFoundationBundle,
+        context: &PracticalArtifactContext,
+        captures: &CapturedInputSet,
+        capture: &a::ValidatedPracticalArtifact,
+    ) -> Result<(a::ValidatedPracticalArtifact, a::ValidatedPracticalArtifact), BoundaryInputError>
+    {
+        let fail = |_| BoundaryInputError::Linkage;
+        let sidecars = DataSidecars::capture(context, captures).map_err(fail)?;
+        let closed = a::bind_closed_instances(
+            context,
+            b,
+            captures,
+            self.closure.roots(),
+            self.closure.closed(),
+        )
+        .map_err(|_| BoundaryInputError::Linkage)?;
+        let boundary_contracts = self
+            .boundaries
+            .iter()
+            .map(|b| b.artifact().artifact_ref())
+            .collect::<Vec<_>>();
+        let manifest = a::build_frontend_source_manifest(
+            context,
+            b,
+            captures,
+            a::FrontendManifestArtifacts {
+                type_contracts: sidecars
+                    .contracts()
+                    .iter()
+                    .filter(|c| c.schema() == a::TYPE_CONTRACT_SCHEMA)
+                    .map(|c| c.artifact_ref())
+                    .collect(),
+                method_contracts: sidecars
+                    .contracts()
+                    .iter()
+                    .filter(|c| c.schema() == a::METHOD_CONTRACT_SCHEMA)
+                    .map(|c| c.artifact_ref())
+                    .collect(),
+                semantic_bindings: self.closure.bindings().artifact_ref(),
+                boundary_contracts: boundary_contracts.clone(),
+                boundary_inputs: vec![capture.artifact_ref()],
+                boundary_outputs: vec![],
+                transition_contracts: vec![],
+                closed_instances: closed.clone(),
+                operations: self.operations.operations().artifact_ref(),
+                required_checks: self.operations.required_checks().artifact_ref(),
+                vir: self.vir.artifact_ref(),
+                source_map: self.source_map.artifact_ref(),
+            },
+        )
+        .map_err(|_| BoundaryInputError::Linkage)?;
+        let artifacts = a::build_frontend_source_artifacts(
+            context,
+            b,
+            a::FrontendSourceArtifactLinks {
+                vir: &self.vir.artifact_ref(),
+                source_map: &self.source_map.artifact_ref(),
+                source_manifest: &manifest,
+                semantic_bindings: &self.closure.bindings().artifact_ref(),
+                closed_instances: &closed,
+                boundary_contracts,
+                transition_contracts: vec![],
+            },
+        )
+        .map_err(|_| BoundaryInputError::Linkage)?;
+        Ok((manifest, artifacts))
+    }
     pub fn boundaries(&self) -> &[ValidatedBoundaryContract] {
         &self.boundaries
     }

@@ -68,6 +68,33 @@ fn source(presence: bool, nullable: bool) -> String {
     }
 }
 fn configuration(b: &ValidatedFoundationBundle, case: &str) -> (String, Vec<String>, String, bool) {
+    if matches!(case, "input_limits" | "input_byte_limits") {
+        let array = csharp_practical_closed_instance_id(b, &json!({"kind":"instance","template":"bounded_sequence","arguments":[{"kind":"primitive","id":if case=="input_byte_limits" {"i64"} else {"i32"}}]})).unwrap();
+        let types = (0..32)
+            .map(|i| if i < 16 { array.clone() } else { ty("string") })
+            .collect::<Vec<_>>();
+        let parameters = (0..32)
+            .map(|i| {
+                format!(
+                    "{} p{i}",
+                    if i < 16 {
+                        if case == "input_byte_limits" {
+                            "long[]"
+                        } else {
+                            "int[]"
+                        }
+                    } else {
+                        "string"
+                    }
+                )
+            })
+            .collect::<Vec<_>>()
+            .join(",");
+        let src = format!("namespace Boundary;public static class Entry{{public static int Run({parameters}){{return 0;}}}}\n");
+        let owner = decl("type", "Entry", "", &[], "");
+        let root = decl("method", "Run", &owner, &types, &ty("i32"));
+        return (src, types, root, false);
+    }
     let presence = case.starts_with("presence");
     let nullable = case.starts_with("nullable");
     let types = if case.starts_with("decimal") {
@@ -884,6 +911,537 @@ fn csharp_03_t05_w01_retained_evidence_and_frozen_limits() {
         assert_eq!(
             limits.iter().find(|r| r["id"] == id).unwrap()["inclusive_maximum"],
             max
+        );
+    }
+}
+
+fn input_fixture(
+    b: &ValidatedFoundationBundle,
+    case: &str,
+) -> (PracticalArtifactContext, CapturedInputSet, EmittedDataPhase) {
+    let (context, captures) = setup(b, case);
+    if matches!(case, "input_limits" | "input_byte_limits") {
+        let requests: Vec<Value> = serde_json::from_slice(
+            &fs::read(
+                Path::new(env!("CARGO_MANIFEST_DIR"))
+                    .join("../../develop/migrations/csharp-03/boundary-input/source-requests.json"),
+            )
+            .unwrap(),
+        )
+        .unwrap();
+        let request = requests
+            .iter()
+            .find(|r| r["id"] == captures.snapshot_sha256())
+            .unwrap();
+        let expected = json!({"id":captures.snapshot_sha256(),"compilation_id":context.compilation_id(),"roots":context.selected_root_ids(),"inputs":captures.entries().iter().map(|e|json!({"kind":if e.kind()==OriginalInputKind::Source {"source"}else{"sidecar"},"path":e.path(),"utf8":std::str::from_utf8(e.bytes()).unwrap()})).collect::<Vec<_>>()});
+        assert_eq!(request, &expected);
+    }
+    let path = if matches!(case, "input_limits" | "input_byte_limits") {
+        "boundary-input/source-responses.json"
+    } else {
+        "boundary-attachment/responses.json"
+    };
+    let rows: Vec<Value> = serde_json::from_slice(
+        &fs::read(
+            Path::new(env!("CARGO_MANIFEST_DIR"))
+                .join("../../develop/migrations/csharp-03")
+                .join(path),
+        )
+        .unwrap(),
+    )
+    .unwrap();
+    let row = rows
+        .iter()
+        .find(|r| r["id"] == captures.snapshot_sha256())
+        .unwrap();
+    let source = ValidatedDataSource::import_captured_facts(
+        b,
+        &context,
+        &captures,
+        &serde_json::to_vec(&row["facts"]).unwrap(),
+    )
+    .unwrap();
+    let emitted = emit_data_phase(b, &context, &captures, &source).unwrap();
+    (context, captures, emitted)
+}
+fn input_bytes<'a>(
+    emitted: &'a EmittedDataPhase,
+    raw: &'a [u8],
+    document: &'a [u8],
+) -> BoundaryInputBytes<'a> {
+    BoundaryInputBytes {
+        boundary_id: emitted.boundaries()[0]
+            .artifact()
+            .value()
+            .get("boundary_id")
+            .unwrap()
+            .as_str()
+            .unwrap(),
+        provenance_id: "test.canonical",
+        raw_bytes: raw,
+        canonical_document: document,
+    }
+}
+#[test]
+fn csharp_03_t05_w02_real_source_input_matrix_and_two_run_identity() {
+    let b = bundle();
+    let rows = [
+        (
+            "required",
+            vec![
+                r#"{"field0":7,"field1":"0"}"#,
+                r#"{"field0":-2147483648,"field1":"9223372036854775807"}"#,
+            ],
+            vec![
+                r#"{"field0":"7","field1":"0"}"#,
+                r#"{"field0":2147483648,"field1":"0"}"#,
+                r#"{"field0":7,"field1":0}"#,
+                r#"{"field0":7,"field1":"00"}"#,
+                r#"{"field0":null,"field1":"0"}"#,
+                r#"{"field1":"0"}"#,
+            ],
+        ),
+        (
+            "optional_default",
+            vec![r#"{"field1":"0"}"#, r#"{"field0":7,"field1":"0"}"#],
+            vec![r#"{"field0":null,"field1":"0"}"#],
+        ),
+        (
+            "raw_instant",
+            vec![r#"{"field0":0,"field1":"-9223372036854775808"}"#],
+            vec![r#"{"field0":0,"field1":"9223372036854775808"}"#],
+        ),
+        (
+            "nullable_required",
+            vec![r#"{"field0":null}"#, r#"{"field0":7}"#],
+            vec!["{}", r#"{"field0":{"tag":"none"}}"#],
+        ),
+        (
+            "nullable_default",
+            vec!["{}", r#"{"field0":7}"#, r#"{"field0":null}"#],
+            vec![r#"{"field0":"7"}"#],
+        ),
+        (
+            "nullable_nonnull",
+            vec![r#"{"field0":7}"#],
+            vec![r#"{"field0":null}"#],
+        ),
+        (
+            "presence_exposed",
+            vec!["{}", r#"{"field0":null}"#, r#"{"field0":7}"#],
+            vec![
+                r#"{"field0":{"tag":"value","payload":7}}"#,
+                r#"{"field0":{"tag":"unknown"}}"#,
+            ],
+        ),
+        (
+            "presence_required",
+            vec![r#"{"field0":null}"#, r#"{"field0":7}"#],
+            vec!["{}"],
+        ),
+        (
+            "presence_default",
+            vec!["{}", r#"{"field0":null}"#, r#"{"field0":7}"#],
+            vec![r#"{"field0":"7"}"#],
+        ),
+        (
+            "presence_missing_default",
+            vec!["{}", r#"{"field0":null}"#],
+            vec![r#"{"field0":false}"#],
+        ),
+        (
+            "presence_nonmissing_zero",
+            vec![r#"{"field0":null}"#],
+            vec!["{}", r#"{"field0":true}"#],
+        ),
+        (
+            "presence_instant",
+            vec![r#"{"field0":null}"#, r#"{"field0":"1234"}"#],
+            vec!["{}", r#"{"field0":1234}"#],
+        ),
+        (
+            "decimal_default",
+            vec![r#"{"field1":"0"}"#, r#"{"field0":"1.250","field1":"0"}"#],
+            vec![
+                r#"{"field0":"1.25","field1":"0"}"#,
+                r#"{"field0":1,"field1":"0"}"#,
+            ],
+        ),
+        (
+            "enum_default",
+            vec!["{}", r#"{"field0":"0"}"#],
+            vec![
+                r#"{"field0":"9"}"#,
+                r#"{"field0":"Red"}"#,
+                r#"{"field0":0}"#,
+            ],
+        ),
+        (
+            "surrogate_name",
+            vec![r#"{"\ud800":7,"field1":"0"}"#],
+            vec![
+                r#"{"\uD800":7,"field1":"0"}"#,
+                r#"{"\ud800":7,"\ud800":8,"field1":"0"}"#,
+            ],
+        ),
+    ];
+    let mut accepted = 0;
+    let mut rejected = 0;
+    let mut evidence = vec![];
+    for (case, good, bad) in rows {
+        let (context, captures, emitted) = input_fixture(&b, case);
+        for doc in good {
+            let input = || input_bytes(&emitted, doc.as_bytes(), doc.as_bytes());
+            let first = emitted
+                .capture_boundary_input(&b, &context, &captures, input())
+                .unwrap_or_else(|e| panic!("{case} {doc}: {e:?}"));
+            let second = emitted
+                .validate_boundary_input_run(&b, &context, &captures, input(), &first)
+                .unwrap();
+            assert_eq!(
+                first.capture().artifact().canonical_bytes(),
+                second.capture().artifact().canonical_bytes()
+            );
+            assert_eq!(
+                first.manifest().canonical_bytes(),
+                second.manifest().canonical_bytes()
+            );
+            assert_eq!(
+                first.artifacts().canonical_bytes(),
+                second.artifacts().canonical_bytes()
+            );
+            assert_eq!(
+                first.arguments().len(),
+                emitted.boundaries()[0].input_fields().len()
+            );
+            assert_eq!(
+                first
+                    .manifest()
+                    .value()
+                    .get("boundary_inputs")
+                    .unwrap()
+                    .as_array()
+                    .unwrap()
+                    .len(),
+                1
+            );
+            for arg in first.arguments() {
+                if let Some(reconstruct) = arg.reconstruction() {
+                    assert_eq!(reconstruct.argument_type_ids, [arg.value().type_id()]);
+                    assert_eq!(reconstruct.normal_result_type_id, arg.source_type_id());
+                    assert_eq!(reconstruct.tag, ClosedOperationTag::BindingReconstruct);
+                } else {
+                    assert_eq!(arg.source_type_id(), arg.value().type_id());
+                }
+            }
+            assert!(first.obligations().iter().all(|o| !o.discharged));
+            evidence.push(json!({"case":case,"source_snapshot_sha256":captures.snapshot_sha256(),"document_utf8":doc,"capture_utf8":std::str::from_utf8(first.capture().artifact().canonical_bytes()).unwrap(),"manifest_sha256":first.manifest().hash(),"artifacts_sha256":first.artifacts().hash(),"arguments":first.arguments().iter().map(|a| json!({"source_type_id":a.source_type_id(),"value":a.value(),"reconstruction":a.reconstruction()})).collect::<Vec<_>>()}));
+            accepted += 1;
+        }
+        for doc in bad {
+            assert!(
+                emitted
+                    .capture_boundary_input(
+                        &b,
+                        &context,
+                        &captures,
+                        input_bytes(&emitted, doc.as_bytes(), doc.as_bytes())
+                    )
+                    .is_err(),
+                "{case}: {doc}"
+            );
+            rejected += 1;
+        }
+    }
+    assert_eq!((accepted, rejected), (29, 28));
+    let retained = json!({"work_item":"CSHARP-03-T05-W02","accepted_inputs":accepted,"rejected_inputs":rejected,"source_cases":15,"runs":evidence});
+    if let Ok(path) = std::env::var("MPK_W02_INPUT_EVIDENCE_OUT") {
+        fs::write(path, serde_json::to_vec_pretty(&retained).unwrap()).unwrap();
+    } else {
+        let expected: Value = serde_json::from_slice(
+            &fs::read(
+                Path::new(env!("CARGO_MANIFEST_DIR"))
+                    .join("../../develop/migrations/csharp-03/boundary-input/conformance.json"),
+            )
+            .unwrap(),
+        )
+        .unwrap();
+        assert_eq!(retained, expected);
+    }
+}
+#[test]
+fn csharp_03_t05_w02_provenance_linkage_and_byte_parser_cannot_be_bypassed() {
+    let b = bundle();
+    let (context, captures, emitted) = input_fixture(&b, "optional_default");
+    let doc = br#"{"field1":"0"}"#;
+    let raw = b"untrusted adapter media";
+    let first = emitted
+        .capture_boundary_input(&b, &context, &captures, input_bytes(&emitted, raw, doc))
+        .unwrap();
+    assert_eq!(first.capture().raw_bytes(), raw);
+    assert_eq!(first.capture().canonical_document(), doc);
+    let explicit = br#"{"field0":7,"field1":"0"}"#;
+    let second = emitted
+        .capture_boundary_input(
+            &b,
+            &context,
+            &captures,
+            input_bytes(&emitted, raw, explicit),
+        )
+        .unwrap();
+    assert_eq!(
+        first
+            .capture()
+            .artifact()
+            .value()
+            .get("canonical_value_sha256"),
+        second
+            .capture()
+            .artifact()
+            .value()
+            .get("canonical_value_sha256")
+    );
+    assert_ne!(
+        first.capture().artifact().hash(),
+        second.capture().artifact().hash()
+    );
+    let import = |capture: &[u8], manifest: &[u8], artifacts: &[u8]| {
+        emitted.import_boundary_input_run(
+            &b,
+            &context,
+            &captures,
+            input_bytes(&emitted, raw, doc),
+            BoundaryInputEvidence {
+                capture,
+                manifest,
+                artifacts,
+            },
+        )
+    };
+    import(
+        first.capture().artifact().canonical_bytes(),
+        first.manifest().canonical_bytes(),
+        first.artifacts().canonical_bytes(),
+    )
+    .unwrap();
+    for field in [
+        "boundary_contract_sha256",
+        "canonical_document_utf8_sha256",
+        "canonical_value_sha256",
+    ] {
+        let mut mutated = first.capture().artifact().value().clone();
+        set(&mut mutated, field, j(&"0".repeat(64)));
+        let PracticalJsonValue::Object(fields) = &mut mutated else {
+            panic!()
+        };
+        fields.pop();
+        let preimage = canonical_practical_json_bytes(&mutated).unwrap();
+        let mut hash = Sha256::new();
+        hash.update(b"MPK-CSHARP-BOUNDARY-INPUT-1.0\0");
+        hash.update(preimage);
+        let PracticalJsonValue::Object(fields) = &mut mutated else {
+            panic!()
+        };
+        fields.push((
+            "capture_sha256".into(),
+            j(&format!("{:x}", hash.finalize())),
+        ));
+        assert!(import(
+            &canonical_practical_json_bytes(&mutated).unwrap(),
+            first.manifest().canonical_bytes(),
+            first.artifacts().canonical_bytes()
+        )
+        .is_err());
+    }
+    let mut missing_link = first.manifest().value().clone();
+    set(
+        &mut missing_link,
+        "boundary_inputs",
+        PracticalJsonValue::Array(vec![]),
+    );
+    assert!(import(
+        first.capture().artifact().canonical_bytes(),
+        &canonical_practical_json_bytes(&missing_link).unwrap(),
+        first.artifacts().canonical_bytes()
+    )
+    .is_err());
+    assert!(import(
+        first.capture().artifact().canonical_bytes(),
+        first.manifest().canonical_bytes(),
+        emitted.artifacts().canonical_bytes()
+    )
+    .is_err());
+    let byte_only = build_boundary_input_capture(
+        &context,
+        &emitted.boundaries()[0].artifact().artifact_ref(),
+        "test.canonical",
+        raw,
+        doc,
+    )
+    .unwrap();
+    assert!(import(
+        byte_only.artifact().canonical_bytes(),
+        first.manifest().canonical_bytes(),
+        first.artifacts().canonical_bytes()
+    )
+    .is_err());
+    let changed_raw = emitted
+        .capture_boundary_input(
+            &b,
+            &context,
+            &captures,
+            input_bytes(&emitted, b"changed", doc),
+        )
+        .unwrap();
+    assert_ne!(first.manifest().hash(), changed_raw.manifest().hash());
+    assert_ne!(first.artifacts().hash(), changed_raw.artifacts().hash());
+    assert!(emitted
+        .validate_boundary_input_run(
+            &b,
+            &context,
+            &captures,
+            input_bytes(&emitted, b"changed", doc),
+            &first
+        )
+        .is_err());
+    let mut provenance = input_bytes(&emitted, raw, doc);
+    provenance.provenance_id = "test.other";
+    assert!(emitted
+        .validate_boundary_input_run(&b, &context, &captures, provenance, &first)
+        .is_err());
+    let mut wrong = input_bytes(&emitted, raw, doc);
+    wrong.boundary_id = "other.boundary";
+    assert!(emitted
+        .capture_boundary_input(&b, &context, &captures, wrong)
+        .is_err());
+    let (other_context, other_captures, _) = input_fixture(&b, "required");
+    assert!(emitted
+        .capture_boundary_input(
+            &b,
+            &other_context,
+            &other_captures,
+            input_bytes(&emitted, raw, doc)
+        )
+        .is_err());
+    // An adapter object/evidence blob is not a canonical argument document.
+    for bad in [
+        b"".as_slice(),
+        br#"{"field0":7,"field0":8,"field1":"0"}"#,
+        br#"{"field1":"0","field0":7}"#,
+        br#"{"unknown":0,"field1":"0"}"#,
+        br#"{"field1":"0","unknown":0}"#,
+        br#"{"field1":"0"} "#,
+        br#"{"field1": "0"}"#,
+        br#"{"field0":-0,"field1":"0"}"#,
+        br#"{"field0":1.0,"field1":"0"}"#,
+        br#"{"field0":1e0,"field1":"0"}"#,
+        b"\xef\xbb\xbf{}",
+        b"\xff",
+        first.capture().artifact().canonical_bytes(),
+    ] {
+        assert!(emitted
+            .capture_boundary_input(&b, &context, &captures, input_bytes(&emitted, raw, bad))
+            .is_err());
+    }
+    assert!(validate_contract_artifact(
+        &context,
+        &captures,
+        PracticalArtifactKind::BoundaryInput,
+        first.capture().artifact().canonical_bytes()
+    )
+    .is_err());
+    let oversized = vec![b' '; 1_048_577];
+    assert_eq!(
+        emitted
+            .capture_boundary_input(
+                &b,
+                &context,
+                &captures,
+                input_bytes(&emitted, raw, &oversized)
+            )
+            .unwrap_err(),
+        BoundaryInputError::Limit
+    );
+}
+
+#[test]
+fn csharp_03_t05_w02_actual_source_aggregate_and_document_limits() {
+    use PracticalJsonValue as J;
+    let b = bundle();
+    if let Ok(path) = std::env::var("MPK_W02_LIMIT_REQUESTS_OUT") {
+        let requests = ["input_limits","input_byte_limits"].iter().map(|case| {
+            let (context,captures) = setup(&b,case);
+            json!({"id":captures.snapshot_sha256(),"compilation_id":context.compilation_id(),"roots":context.selected_root_ids(),"inputs":captures.entries().iter().map(|e|json!({"kind":if e.kind()==OriginalInputKind::Source {"source"} else {"sidecar"},"path":e.path(),"utf8":std::str::from_utf8(e.bytes()).unwrap()})).collect::<Vec<_>>()})
+        }).collect::<Vec<_>>();
+        fs::write(path, serde_json::to_vec(&requests).unwrap()).unwrap();
+        return;
+    }
+    let (context, captures, emitted) = input_fixture(&b, "input_limits");
+    let base = || {
+        J::Object(
+            (0..32)
+                .map(|i| {
+                    (
+                        format!("field{i}"),
+                        if i < 16 { J::Array(vec![]) } else { j("") },
+                    )
+                })
+                .collect(),
+        )
+    };
+    for target in [65_535, 65_536, 65_537] {
+        let mut doc = base();
+        let mut remaining = target - 33;
+        for i in 0..16 {
+            let n = remaining.min(4096);
+            set(&mut doc, &format!("field{i}"), J::Array(vec![J::U64(0); n]));
+            remaining -= n;
+        }
+        assert_eq!(remaining, 0);
+        let bytes = canonical_practical_json_bytes(&doc).unwrap();
+        let result = emitted.capture_boundary_input(
+            &b,
+            &context,
+            &captures,
+            input_bytes(&emitted, &bytes, &bytes),
+        );
+        assert_eq!(
+            result.is_ok(),
+            target <= 65_536,
+            "cells {target}: {:?}",
+            result.as_ref().err()
+        );
+    }
+    let (context, captures, emitted) = input_fixture(&b, "input_byte_limits");
+    for target in [1_048_575, 1_048_576, 1_048_577] {
+        let mut doc = base();
+        let mut remaining = target - canonical_practical_json_bytes(&doc).unwrap().len();
+        for i in 0..16 {
+            let n = ((remaining + 1) / 23).min(4096);
+            if n > 0 {
+                set(
+                    &mut doc,
+                    &format!("field{i}"),
+                    J::Array(vec![j("-9223372036854775808"); n]),
+                );
+                remaining -= 23 * n - 1;
+            }
+        }
+        assert!(remaining < 23);
+        set(&mut doc, "field16", j(&"x".repeat(remaining)));
+        let bytes = canonical_practical_json_bytes(&doc).unwrap();
+        assert_eq!(bytes.len(), target);
+        let result = emitted.capture_boundary_input(
+            &b,
+            &context,
+            &captures,
+            input_bytes(&emitted, &bytes, &bytes),
+        );
+        assert_eq!(
+            result.is_ok(),
+            target <= 1_048_576,
+            "bytes {target}: {:?}",
+            result.as_ref().err()
         );
     }
 }

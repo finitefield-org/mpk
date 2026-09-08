@@ -12,6 +12,7 @@ use contract_values::decode_contract_value;
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum DataPhaseError {
+    BoundaryInput(BoundaryInputError),
     ControlGraph(LoopLoweringError),
     ControlHandler(HandlerError),
     Source,

@@ -60,7 +60,7 @@ private structured-loop lowering (section 40). T04-W03 completes switch and
 pattern lowering (section 41). T04-W04 completes closed exception declarations,
 explicit throws and exceptional contracts (section 42). T04-W05 completes
 two-pass handler search, filters, finally and propagation (section 43). T04-W06 completes
-ordinary control emission and independent import (section 44). T05-W01 completes boundary sidecar and presence attachment (section 45). T05-W02 is ready;
+ordinary control emission and independent import (section 44). T05-W01 completes boundary sidecar and presence attachment (section 45). T05-W02 completes canonical input capture and typed evidence linkage (section 46). T05-W03 is ready;
 later items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
@@ -133,9 +133,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T04-W04` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W04` | `80ac614043395370fb733d9c4ddc67a220e7a4a4` |
 | `CSHARP-03-T04-W05` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W05` | `a2521cd71ef6f713d2f216ddbb579415ea44c1f1` |
 | `CSHARP-03-T04-W06` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W06` | `c6549dd0ba8f7c91e383ea22b3fd7b2c8bc3992b` |
-| `CSHARP-03-T05-W01` | `Complete` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W01` | `SELF` |
-| `CSHARP-03-T05-W02` | `Ready` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W02` | `—` |
-| `CSHARP-03-T05-W03` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W03` | `—` |
+| `CSHARP-03-T05-W01` | `Complete` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W01` | `b0c9a5d5a9616e107200731f62a5abac91828538` |
+| `CSHARP-03-T05-W02` | `Complete` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W02` | `SELF` |
+| `CSHARP-03-T05-W03` | `Ready` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W03` | `—` |
 | `CSHARP-03-T05-W04` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_transition.rs#CSHARP-03-T05-W04` | `—` |
 | `CSHARP-03-T05-W05` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_transition.rs#CSHARP-03-T05-W05` | `—` |
 | `CSHARP-03-T05-W06` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_boundary_transition.rs#CSHARP-03-T05-W06` | `—` |
@@ -5070,4 +5070,46 @@ results and reviewed-file hashes are in `boundary-attachment/verification.json`;
 vectors and 26 specification vector sets remain unchanged. W02/W03 retain
 canonical document input/output ownership, and W06/T06 retain cumulative
 boundary roots and proof/evidence completion. The task commit uses `SELF`;
-T05-W02 is the next ready item.
+At the W01 checkpoint, T05-W02 was the next ready item.
+
+
+## 46. CSHARP-03-T05-W02 completion record
+
+W02 adds an immutable, byte-only input handoff to the privately emitted original
+method. It parses one canonical UTF-8 document, checks names independently of
+member order, enforces the frozen contract order, and decodes exact scalar,
+product, entry-array and active-tag values with the shared typed decoder.
+Required/optional presence and nullable mapping use W01's attached rules.
+The source argument type and the ordinary imported reconstruction operation
+remain attached when an application-owned binding projects a semantic value.
+Those operations retain their source invariant/commutation obligations; W02
+does not invent an application constructor or discharge a T06 proof condition.
+
+The capture retains the original bytes and provenance separately from the
+canonical document, its byte hash, and the complete typed canonical value/hash.
+Both the frontend manifest and source-artifact chain retain the new input
+identity before a later internal verification wrapper can use the arguments.
+Reproduction reparses the bytes and checks complete values and all three
+artifacts. An evidence-shaped sidecar, a transport-only T02 receipt, direct
+object injection, stale context/source linkage and rehashed identity mutations
+cannot produce a W02 run. No public diagnostic contains parser exception text.
+
+The shared practical JSON representation now preserves UTF-16 member names as
+well as values, including lone surrogates without marker collisions. The
+boundary gate checks canonical bytes, depth, UTF-16 units, collection bounds
+and aggregate typed cells. Canonical document size and typed evidence size
+are distinct: explicit default/tag evidence remains under its artifact bound.
+
+Owner: `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W02`.
+Evidence: `develop/migrations/csharp-03/boundary-input/`. Fifteen unchanged W01
+source captures exercise 29 accepted and 28 rejected input documents with
+repeat byte/value/hash equality. Two new actual-source captures with 32 array/string
+arguments each cover limit-minus-one/exact/plus-one for 65,536 cells and 1 MiB.
+Additional tests cover scalar/text/date/time/GUID codecs, all admitted sum tags,
+map/set ordering, invalid UTF-8, surrogate escapes, depth/string/array bounds,
+adapter provenance and independently rebuilt evidence mutations.
+
+The local review has no open findings. `verification.json` records the final
+local gate, frozen-profile checks and reviewed file hashes. Frozen 709 vectors,
+26 specification vector sets, public activation, source output encoding and
+proof discharge remain unchanged. T05-W03 is the next ready item.

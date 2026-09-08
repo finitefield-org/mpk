@@ -7338,3 +7338,10 @@ pub use boundary::{
     BoundaryError, BoundaryField, BoundaryMissingRule, BoundaryPresenceBinding, BoundaryValueState,
     ValidatedBoundaryContract,
 };
+
+#[path = "csharp_practical_boundary_input.rs"]
+mod boundary_input;
+pub use boundary_input::{
+    BoundaryInputBytes, BoundaryInputError, BoundaryInputEvidence, CapturedBoundaryRun,
+    DecodedBoundaryArgument,
+};

@@ -68,7 +68,8 @@ impl DataSidecars {
                     "selected_callable_id",
                 ),
                 "mpk.csharp.boundary_input.v1" => {
-                    return Err(DataPhaseError::LaterOwner("CSHARP-03-T05-W02"))
+                    // An evidence-shaped sidecar cannot bypass the W02 byte parser.
+                    return Err(DataPhaseError::BoundaryInput(BoundaryInputError::Linkage));
                 }
                 "mpk.csharp.boundary_output.v1" => {
                     return Err(DataPhaseError::LaterOwner("CSHARP-03-T05-W03"))
