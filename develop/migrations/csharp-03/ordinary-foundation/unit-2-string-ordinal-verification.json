@@ -1,0 +1,164 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.string_ordinal_verification.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 2,
+  "component": "Ordinal UTF-16 comparison and search",
+  "component_status": "implemented, verified and reviewed",
+  "unit_2_status": "in progress",
+  "w09_status": "Ready/in progress",
+  "baseline_commit": "ef4056b",
+  "date": "2026-09-09",
+  "checks": [
+    {
+      "command": "MPK_W09_STRING_ORDINAL_OUT=/tmp/mpk-w09-ordinal-final-fixtures cargo test -p mpk-vc --lib string_ordinal_ -- --nocapture",
+      "result": "passed",
+      "tests_passed": 5,
+      "log_sha256": "cc1dd3db0a3bed17c7adfdd8d182e6e2a425f5d1d5d5ea584a5133f991a68a72"
+    },
+    {
+      "command": "MPK_W09_STRING_ORDINAL_OUT=/tmp/mpk-w09-ordinal-final-fixtures cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_string_ordinal_",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "e1364fc64bf5b9951fb82fd5016d1a504ee04f8d6292f51f4a7f70ce6dc4ac88"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_string_",
+      "result": "passed",
+      "tests_passed": 3,
+      "log_sha256": "a9e19dc8f0274f3d5fd75656ac2d0391da41c72049066aa3acf98dcb2a798b91"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib string_ordinal_certificates_are_reproducible",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "ca369f4cec299e5ff36f19117c58731fccf55691daa09a162bff696c4e07dcff"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "result": "passed",
+      "tests_passed": 5,
+      "log_sha256": "bae89a38889caf58bcc7aa2d364fb8b8525741e4921f24bea8bc27259da90832"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --tests -- -D warnings",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "e3543ee27208a554da6d70f56631d634638d950b04d01cb1d2e1e95dd0536363"
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true (five changed Rust files); gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "cd go-tools/mpk-checker-ref && GOCACHE=/tmp/mpk-t06-w09-go-cache go test -v -count=1 -timeout 25m -tags checkeragreement -run TestCheckerAgreementWithRustCLIStringOrdinal .",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "9f5e2ccb61281af7d92af846dfad2bdf7610fb9a2d0a3633b588f523e6845717"
+    }
+  ],
+  "review": "unit-2-string-ordinal-review.md",
+  "coverage": {
+    "new_signatures": 8,
+    "actual_core_matrix_cases_passed": 680,
+    "actual_core_boundary_cases_passed": 40,
+    "source_cases": 8,
+    "source_carrier_depths": [
+      19,
+      20
+    ],
+    "prior_basic_and_construction_source_cases_replayed": 16,
+    "combined_certificate_terms": [
+      5735,
+      5738
+    ],
+    "combined_certificate_declarations": 140,
+    "source_certificate_maximum_terms": 5688,
+    "source_certificate_maximum_declarations": 121,
+    "any_fold_boundary_cases_passed": 405,
+    "full_capacity_cases_passed": 1,
+    "certificates_checked_by_both": 10,
+    "zero_axiom_acceptances_per_checker": 10,
+    "hash_mutation_rejections_per_checker": 10,
+    "review_findings": 0
+  },
+  "consumer_inventory": {
+    "query": "foundation.std_namespace",
+    "added_path": "crates/mpk-vc/src/csharp_practical_ordinary_string_ordinal.rs",
+    "previous_count": 104,
+    "current_count": 105,
+    "previous_paths_sha256": "78273c2b1a4ca331b0d901cda63be49e75f3d6b7051815feae216c19ef251990",
+    "current_paths_sha256": "4408451aa18bb39cac2886ffc7b020ccbf753522a35251cbcbbb13639898b963",
+    "aggregate_count": 4928,
+    "delta_verified": "Removing the sole new source path reproduces the prior count/hash. Existing cache paths remain unchanged."
+  },
+  "remaining": [
+    "Unit 2 final scalar coverage audit.",
+    "Input domains, typed literal bodies, every reachable foundation definition, application VC proofs and W09 units 3-8."
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "result": "deferred",
+    "owner": "CSHARP-03-T06-W12"
+  },
+  "files": [
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-ordinal-circuits/core-metrics.json",
+      "sha256": "2173edc93f8af39fa32a00a90932fce856017b949dcdcfd3b91e0ebc18bd22c7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-ordinal-circuits/metrics.json",
+      "sha256": "0516402a924cd262e142d5eb4c54ad757d500937f7665335dd4357253242e330"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-ordinal-circuits/string.compare.ordinal.76de5d4d.hex",
+      "sha256": "81623d1bb254b7e203474940f598c61400d322619c932eba70e8fb01d729fcb5"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-ordinal-circuits/string.contains.ordinal.9aeebaac.hex",
+      "sha256": "c02e401b83770520dfbd146ef48c6e72279d6368fe0d299fb19a1eb38c73175b"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-ordinal-circuits/string.ends_with.ordinal.abda15b6.hex",
+      "sha256": "9a69925d77272071af1dd2e9616452a53d177a3352638b6823b78a3b5f6e8252"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-ordinal-circuits/string.equality.operator.04089ad4.hex",
+      "sha256": "1ede55a7ce2ee2e926105ac1ab387d71ec59ef289bfeb07570d5b1079847ad6d"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-ordinal-circuits/string.equals.instance.ordinal.0bc1c0c0.hex",
+      "sha256": "aacfac4af11e1e10fb9b50f9d51c27436607a61d156e9efad026e7c9e74dad21"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-ordinal-circuits/string.equals.ordinal.02182a7a.hex",
+      "sha256": "5d58029bfba4efb61e7d3031ff49e4bcc53caaf53a5a638acab9f7634c9184e4"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-ordinal-circuits/string.inequality.operator.ce54b60f.hex",
+      "sha256": "9617d26786ed5dac7a1516f591bb2d64a4ae0d26ce50c00178201d9b3ec49b9d"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-ordinal-circuits/string.ordinal.n0.hex",
+      "sha256": "1c62ebdb1d41521d568857f42c726907d7c9898e69aa20193a4f9c36598550e2"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-ordinal-circuits/string.ordinal.n1.hex",
+      "sha256": "b21bad485ef348f6a20d9a403784a22b26c980df1e7c07b0fa8a8bdc7aee02b2"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-ordinal-circuits/string.starts_with.ordinal.edde2f36.hex",
+      "sha256": "f6567a3d52fbee012c81d5a8c57364c4116378aeae99a5cf70ca10063cc81f48"
+    },
+    {
+      "path": "develop/migrations/csharp-03/artifact-consumer-inventory.json",
+      "sha256": "9d5178e5ba813b3371cae2f8c93916ff30a22d9a0bb219b9b5156691b87ac5e6"
+    },
+    {
+      "path": "develop/migrations/csharp-03/data-phase/historical-inventory-cache-correction.json",
+      "sha256": "18783b9104e46d6d5bff8efab36dd1a775fbf4b43ff2eb166da87b47506b32ff"
+    }
+  ],
+  "verification_note": "Full 16,384-unit actual-core equality passed in 329.62 seconds. All ten same-byte dual-checker cases passed in 174.545 seconds. Initial source cohort expectation {20} failed because ordinal original sources include both {19,20}; the test now pins the independently observed forms for each cohort. Previous basic/construction source cohorts and bytes remain unchanged. The first direct Any-fold test supplied a selector cube for depth zero, whose type is a Bool leaf. Its test input was corrected to V::Bit; no production term or checker changed. The initial Any-fold boundary test passed after its Bool input fix in 337.35 seconds. Fold counts were then changed to bounded bit splitting to remove per-node subtraction and arithmetic comparison. A subtraction-free intermediate run was superseded by the final bit-only branching version; its identified process was terminated intentionally, not counted as a test failure or checker rejection. The final bit-split implementation passed all five core test functions in 233.97 seconds, including the full-capacity case and all 405 Any-fold boundary cases. All ten final certificates passed same-byte dual checking in 64.555 seconds. Final source replay, fixture replay, inventory, lint and format passed."
+}

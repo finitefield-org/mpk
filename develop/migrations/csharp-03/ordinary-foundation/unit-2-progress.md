@@ -468,3 +468,42 @@ binder assumption and basic-string receipt log hashes; the final review has zero
 findings. See `unit-2-string-construction-review.md` and
 `unit-2-string-construction-verification.json`. Ordinal comparison/search and
 W09 units 3-8 remain outstanding. The full gate remains at T06-W12.
+
+## Ordinal UTF-16 comparison and search
+
+The eight remaining registered string operation families now lower to ordinary
+core definitions: equality/inequality, static and instance ordinal Equals,
+ordinal Compare, Contains, StartsWith and EndsWith. Concrete First.D0..D14 and
+Any.D0..D14 definitions fold over the complete finite address space. Each depth
+has a fixed cube type and refers only to smaller depths. No template, recursive
+global or new checker rule is introduced.
+
+The most significant index split preserves increasing UTF-16 index order.
+First returns the first nonzero 32-bit code-unit difference; Compare falls back
+to length difference only after an equal common prefix. Window comparison adds
+the actual left offset and preserves every code-unit bit. Search uses exact
+candidate counts, short-circuits an empty needle before the maximum count could
+exceed the address space, and handles null receiver before null argument.
+Static equality and Compare retain their nullable rules; instance Equals reports
+null-receiver failure. Failed Boolean results are false.
+
+The 680-case actual-core oracle matrix, forty address/length boundary cases,
+405 Any-fold boundary cases and equal strings at the full 16,384-unit capacity
+passed actual-core observation. The final five-test core group completed in
+233.97 seconds. The source cohort covers all eight signatures
+and both nullable/non-null physical carriers. The prior sixteen basic and
+construction source cases replayed with unchanged bytes. Two combined-operation
+and eight actual-source certificates passed both unchanged checkers, with zero
+axioms and rejection of hash-corrupted bytes. Inventory, lint and format passed.
+The final additional Any-fold boundary regression passed. Fold counts and
+branch enablement use bounded bit splitting instead of per-node subtraction
+and arithmetic comparison. This retains the full capacity and the exact
+midpoint/last-index behavior. Final direct review has zero findings.
+
+The standard-namespace inventory adds only the ordinal implementation, from
+104 to 105 paths, while preserving the prior path-set preimage and historical
+cache paths. See `unit-2-string-ordinal-review.md` and
+`unit-2-string-ordinal-verification.json` for exact verification scope.
+A final scalar coverage audit is still required before closing internal unit 2.
+Input domains, typed literals, whole-foundation expansion, application proofs
+and W09 units 3-8 remain outstanding. The full gate remains at T06-W12.

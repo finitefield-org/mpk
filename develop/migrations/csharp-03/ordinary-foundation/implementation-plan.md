@@ -106,6 +106,7 @@ Unit 1 is complete as an internal implementation unit. See `README.md`,
 local checks. Unit 2 has Boolean/integer, Time/Duration/Instant and
 Date/Guid/DayOfWeek, floating-operation, numeric-conversion and decimal
 conversion/rounding/arithmetic/comparison, basic UTF-16 length/index/null-or-empty,
-and substring/concatenation/interpolation increments, documented in `unit-2-progress.md`; remaining UTF-16 operations and
-units 3-8 remain outstanding. W09 remains Ready/in progress and W10-W12 remain
+substring/concatenation/interpolation and ordinal comparison/search increments,
+documented in `unit-2-progress.md`; the scalar coverage audit and units 3-8
+remain outstanding. W09 remains Ready/in progress and W10-W12 remain
 Blocked. No W09 completion receipt is issued by this unit.

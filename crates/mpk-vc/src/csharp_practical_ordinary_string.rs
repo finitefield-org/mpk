@@ -1,10 +1,12 @@
 //! Ordinary UTF-16 operations over the complete fixed-capacity string carrier.
-//! Length, indexing and construction have ordinary definitions. Ordinal
-//! comparison and search remain fail-closed until their definitions are supplied.
+//! Length, indexing, construction, ordinal comparison and search are lowered
+//! to finite ordinary definitions; domains and literal bodies remain separate.
 use super::*;
 
 #[path = "csharp_practical_ordinary_string_construct.rs"]
 mod construct;
+#[path = "csharp_practical_ordinary_string_ordinal.rs"]
+mod ordinal;
 
 const TEXT_DEPTH: u32 = 19;
 const BASIC: &[&str] = &["string.length", "string.index", "string.is_null_or_empty"];
@@ -46,6 +48,7 @@ struct Helpers {
     range: OrdinaryScalarDefinition,
     empty: OrdinaryScalarDefinition,
     construct: Option<construct::Aux>,
+    ordinal: Option<ordinal::Aux>,
 }
 fn call(b: &mut Builder, name: &str, args: Vec<u32>) -> R<u32> {
     let f = b.constant(name)?;
@@ -139,6 +142,7 @@ impl Helpers {
             range,
             empty,
             construct: None,
+            ordinal: None,
         })
     }
     fn emit(
@@ -151,6 +155,12 @@ impl Helpers {
                 self.construct = Some(construct::Aux::new(b)?);
             }
             return construct::emit(b, self, self.construct.as_ref().unwrap(), signature);
+        }
+        if ordinal::OPS.contains(&signature.id.as_str()) {
+            if self.ordinal.is_none() {
+                self.ordinal = Some(ordinal::Aux::new(b, self)?);
+            }
+            return ordinal::emit(b, self, self.ordinal.as_ref().unwrap(), signature);
         }
         let id = signature.id.as_str();
         if !BASIC.contains(&id) {
@@ -242,7 +252,10 @@ pub fn generate_csharp_practical_ordinary_strings(
         if &signature != expected {
             return Err(OrdinaryCarrierError::Linkage);
         }
-        if !BASIC.contains(&id.as_str()) && !construct::supports(&id) {
+        if !BASIC.contains(&id.as_str())
+            && !construct::supports(&id)
+            && !ordinal::OPS.contains(&id.as_str())
+        {
             return Err(OrdinaryCarrierError::Shape);
         }
         if helpers.is_none() {

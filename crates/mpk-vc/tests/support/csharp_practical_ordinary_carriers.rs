@@ -919,10 +919,15 @@ fn csharp_03_t06_w09_string_basic_source_linkage_rejects_substitution() {
             "string.length",
         ),
     ];
-    string_source_linkage(&cases, "string-basic-circuits", "MPK_W09_STRING_OUT");
+    string_source_linkage(&cases, "string-basic-circuits", "MPK_W09_STRING_OUT", &[20]);
 }
 
-fn string_source_linkage(cases: &[(&str, &str)], directory: &str, output_env: &str) {
+fn string_source_linkage(
+    cases: &[(&str, &str)],
+    directory: &str,
+    output_env: &str,
+    expected_depths: &[u32],
+) {
     let mut depths = BTreeSet::new();
     let fixture_root = Path::new(env!("CARGO_MANIFEST_DIR")).join(format!(
         "../../develop/migrations/csharp-03/ordinary-foundation/{directory}"
@@ -1048,9 +1053,8 @@ fn string_source_linkage(cases: &[(&str, &str)], directory: &str, output_env: &s
         }
         previous = Some((metadata, p.certificate_bytes().to_vec()));
     }
-    // These original captures all close option<string>; the independent core
-    // cases also exercise the non-null string carrier.
-    assert_eq!(depths, BTreeSet::from([20]));
+    // Pin the actual carrier forms of each original source cohort.
+    assert_eq!(depths, expected_depths.iter().copied().collect());
     if let Some(dir) = output {
         fs::write(
             dir.join("metrics.json"),
@@ -1067,36 +1071,45 @@ fn string_source_linkage(cases: &[(&str, &str)], directory: &str, output_env: &s
 }
 
 #[test]
-fn csharp_03_t06_w09_string_unimplemented_source_fails_closed() {
-    let bundle = b();
-    let rows = read("data-phase/data-stage-replay.json");
-    // Actual source contains ordinal search, whose ordinary definition is
-    // still pending. It must fail closed.
-    let row = rows
-        .as_array()
-        .unwrap()
-        .iter()
-        .find(|r| r["id"] == "9aeebaac704d50a85728a423d1d6411c702677b31514bee6108394d4fcaf9142")
-        .unwrap();
-    let (context, captures) = support::replay_context(&bundle, row);
-    let source = ValidatedDataSource::import_captured_facts(
-        &bundle,
-        &context,
-        &captures,
-        &serde_json::to_vec(&row["outcome"]["facts"]).unwrap(),
-    )
-    .unwrap();
-    let emitted = emit_data_phase(&bundle, &context, &captures, &source).unwrap();
-    let operations: Value =
-        serde_json::from_slice(emitted.operations().operations().canonical_bytes()).unwrap();
-    assert!(operations["operations"]
-        .as_array()
-        .unwrap()
-        .iter()
-        .any(|op| op["id"] == "string.contains.ordinal"));
-    assert_eq!(
-        generate_csharp_practical_ordinary_strings(emitted.vir()),
-        Err(OrdinaryCarrierError::Shape)
+fn csharp_03_t06_w09_string_ordinal_source_linkage_rejects_substitution() {
+    string_source_linkage(
+        &[
+            (
+                "04089ad467c60b8d1e43ffd42d2cc38da74dad54aedff050fde19dd409c8e33e",
+                "string.equality.operator",
+            ),
+            (
+                "ce54b60f5c0c18c31094869566c99c43188c101a3d5e8006c211e34f7029dfed",
+                "string.inequality.operator",
+            ),
+            (
+                "02182a7a664c19a27525493f29cc5201bf0be1c5c91e7b2577609d4294c23e1a",
+                "string.equals.ordinal",
+            ),
+            (
+                "0bc1c0c07287e9cbf86bd6b3fbdbb1e726156d19596811c4f31e3e6184d35015",
+                "string.equals.instance.ordinal",
+            ),
+            (
+                "76de5d4d6d2c6a3bdae3af0d89b9bf62dfcaafc0c0b4ecc2d1d330f887bad009",
+                "string.compare.ordinal",
+            ),
+            (
+                "9aeebaac704d50a85728a423d1d6411c702677b31514bee6108394d4fcaf9142",
+                "string.contains.ordinal",
+            ),
+            (
+                "edde2f36630ba55e891f35d901c2dbf178dbd721b4477cc1c45fe2b73da6e364",
+                "string.starts_with.ordinal",
+            ),
+            (
+                "abda15b63719a81e5eec2f45bbc198e01a167ef4224f99434e1833a8f1a600d7",
+                "string.ends_with.ordinal",
+            ),
+        ],
+        "string-ordinal-circuits",
+        "MPK_W09_STRING_ORDINAL_OUT",
+        &[19, 20],
     );
 }
 
@@ -1135,5 +1148,6 @@ fn csharp_03_t06_w09_string_construction_source_linkage_rejects_substitution() {
         ],
         "string-construction-circuits",
         "MPK_W09_STRING_CONSTRUCT_OUT",
+        &[20],
     );
 }

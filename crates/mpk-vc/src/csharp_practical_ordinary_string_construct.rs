@@ -12,7 +12,7 @@ pub(super) fn supports(id: &str) -> bool {
             | "string.concat.operator.char_string"
     ) || id.starts_with("string.interpolation.restricted.")
 }
-fn word_operation(
+pub(super) fn word_operation(
     b: &mut Builder,
     id: &str,
     c: Circuit,
