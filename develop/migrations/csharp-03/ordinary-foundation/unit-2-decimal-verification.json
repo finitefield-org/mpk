@@ -1,0 +1,131 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.decimal_conversion_rounding_verification.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 2,
+  "component": "Decimal unary operations, rounding and integer conversions",
+  "component_status": "implemented and reviewed",
+  "unit_2_status": "in progress",
+  "w09_status": "Ready/in progress",
+  "date": "2026-09-09",
+  "baseline_commit": "a0a2b27",
+  "checks": [
+    {
+      "command": "cargo test -p mpk-vc --lib decimal_circuits_match_numeric_oracle -- --nocapture",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "5e5f148da79a2aacdcbf739a36832da58311c857af1956ee76b8fdefa3978b16"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib decimal_circuits_emit_supported_signatures",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "b5e89893c22ad12786db31eff297c40fdeaa57ff446fe56443ebda5b7cc4f732"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_decimal_",
+      "result": "passed",
+      "tests_passed": 2,
+      "log_sha256": "8d5c415531774f27ac7ac5eda0f2b288121aad2f89a4da40ad9905c308e9a63d"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "result": "passed",
+      "tests_passed": 5,
+      "log_sha256": "759d171cd3a125f80addb389a3d7518969f0e4afd6881befa61a0a301b2e133b"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib ordinary_cube_helpers_preserve_order_and_zero_padding",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "1d72a89657153f49fa5aae4a98d2b16144ba65233b45c958e07a92d0f7cec96a"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib circuits_core_",
+      "result": "passed",
+      "tests_passed": 7,
+      "log_sha256": "a23979d90bb7e44a9d55b7b42bf4d5ec96e9ce8c9f45b3d7101adca1d33b3c5c"
+    },
+    {
+      "command": "cd go-tools/mpk-checker-ref && GOCACHE=/tmp/mpk-t06-w09-go-cache go test -count=1 -timeout 20m -tags checkeragreement -run TestCheckerAgreementWithRustCLIDecimalCircuits .",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "48cdcc6548d0624c8937944ecfb689f0f7bc9475d681f97d7f1d73757d7b8dc2"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --tests -- -D warnings",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "a24eb11dae76bfcc245aa0c03afe454f20b8c022301ca61cdfbe8a6a2661c55b"
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true (five changed Rust files); gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "coverage": {
+    "unique_scoped_rust_tests": 17,
+    "decimal_definitions": 33,
+    "integer_decimal_conversions": 18,
+    "rounding_mode_arity_signatures": 10,
+    "t03_oracle_cases": 68400,
+    "decimal_actual_core_cases": 8,
+    "original_source_positive_cases": 14,
+    "original_source_unimplemented_rejections": 1,
+    "decimal_certificates_checked_by_both": 7,
+    "positive_zero_axiom_acceptance_per_checker": 7,
+    "hash_mutation_rejections_per_checker": 7,
+    "decimal_carrier_depth": 9,
+    "decimal_physical_addresses": 512,
+    "static_digit_reduction_steps": 28,
+    "maximum_terms": 14491,
+    "maximum_declarations": 139,
+    "maximum_static_transformers": 130,
+    "component_review_findings": 0
+  },
+  "verification_note": "Resource-heavy actual-core observation attempts were interrupted while live and are not counted as passing commands or deterministic proof failures. The final test-only evaluator shares Boolean-array storage and uses call-by-need with memoized core arguments/let values in their captured environments; unused Bool branches remain unevaluated. The final seven-test core run covers decimal and all affected integer, temporal, calendar, floating and conversion core observers. Final oracle and fixture commands remain separate. Initial compile/lint issues and positive source fixture selection were corrected. Vec-to-slice lint fixes leave all 33 metrics and seven pinned bytes identical. Consumer inventory needs no baseline changes. Certificate v0 and both production checkers remain unchanged.",
+  "remaining": [
+    "Unit 2: decimal arithmetic/comparisons and UTF-16 string operations.",
+    "Input domains and typed literal bodies, every reachable foundation operation including uninvoked definitions, application VC proofs and units 3-8."
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "result": "deferred",
+    "owner": "CSHARP-03-T06-W12"
+  },
+  "files": [
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/decimal-circuits/decimal.conversion.char_to_decimal.hex",
+      "sha256": "a35bdfdf603011fb4b8c0dea6ba66355bbc4553807bbadc0825f3d7050e90ddb"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/decimal-circuits/decimal.conversion.decimal_to_int64.hex",
+      "sha256": "136aa52264cca87c5a4ae549c903bdefbfb64e72c7aa6a0361cfeb61e1b5834e"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/decimal-circuits/decimal.conversion.decimal_to_uint64.hex",
+      "sha256": "aed239ac62504d51c0de97898143935730dc028314b617e5d44fe4adb9bb7edd"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/decimal-circuits/decimal.floor.hex",
+      "sha256": "c35cea780c14dbcf5bbeda203ee71c03f87ea21efa5897b7701c78fdd75d17f7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/decimal-circuits/decimal.negate.hex",
+      "sha256": "e6cdf55bd5aa9b3ed603679a659ab483b56db414c3cebd3405d1fff347fd814d"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/decimal-circuits/decimal.round.AwayFromZero.1.hex",
+      "sha256": "538c53ad6ba43bccf7d27c8db978834eeefef70f65bf052659db9877140f1b70"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/decimal-circuits/decimal.round.ToEven.2.hex",
+      "sha256": "930972c19ba784cb5f19e6b979b91a0b86476f6744332374618e94b19d8f5f68"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/decimal-circuits/metrics.json",
+      "sha256": "85306baf13727586d6271f4f16ff7ead5dc0e69d0ffbfaad820fdd662344dc8d"
+    }
+  ]
+}

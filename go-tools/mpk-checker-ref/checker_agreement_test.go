@@ -264,6 +264,10 @@ func TestCheckerAgreementWithRustCLIFloatingConversions(t *testing.T) {
 	checkOrdinaryCertificates(t, "conversion-circuits", 6)
 }
 
+func TestCheckerAgreementWithRustCLIDecimalCircuits(t *testing.T) {
+	checkOrdinaryCertificates(t, "decimal-circuits", 7)
+}
+
 func checkOrdinaryCertificates(t *testing.T, directory string, expectedCount int) {
 	t.Helper()
 	root := absoluteRepoRoot(t)

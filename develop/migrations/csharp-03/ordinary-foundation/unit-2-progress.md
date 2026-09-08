@@ -3,8 +3,8 @@
 Unit 2 is **in progress**, not complete. This increment implements the Boolean
 and fixed-width integer portion of the approved scalar work unit, followed by
 the Time/Duration/Instant, Date/Guid/DayOfWeek, floating-operation and numeric
-conversion components below. Decimal operations/conversions and UTF-16 string
-operations still belong to unit 2.
+conversion and decimal conversion/rounding components below. Decimal arithmetic/
+comparisons and UTF-16 string operations still belong to unit 2.
 Units 3-8 and W09's exit condition are unchanged. This record is not a W09 completion receipt.
 
 ## Implemented component
@@ -281,3 +281,56 @@ See `unit-2-conversion-verification.json` and `unit-2-conversion-review.md`.
 Unit 2 remains in progress for decimal operations/conversions and UTF-16 strings.
 Input-domain predicates, all-instance expansion, application VC proofs and the
 remaining W09 units are still outstanding. The full gate stays at T06-W12.
+
+## Decimal conversion and rounding component
+
+The decimal generator implements 33 signatures: plus/negate, truncate/floor/
+ceiling, all five rounding modes at both frozen arities, and both directions
+between decimal and the nine integer/char carriers. Decimal arithmetic,
+comparisons and literal bodies remain unfinished; a source containing such an
+operation fails closed rather than receiving a partial decimal program.
+
+The public carrier remains unit 1's depth-nine Boolean cube. Field selectors
+precede child selectors. Sign is at address 0, scale bit i at `1 + 64*i`, and
+coefficient bit i at `2 + 4*i`; every unused field/child address is zero on output.
+Integer-to-decimal conversion preserves the unsigned magnitude of signed minima
+and emits scale zero. Unary operations preserve decimal scale and signed zero.
+
+Rounding and decimal-to-integer conversion use three ordinary helpers. The
+initializer derives the target scale and a finite digit count. A single helper
+step divides the 96-bit coefficient by ten, records the last discarded digit,
+retains a sticky bit for earlier nonzero digits, and decrements the count. The
+root statically composes 28 steps. After count zero, a step is the identity.
+For valid decimal scales 0-28, the composition consumes every requested digit;
+invalid input-scale domains still belong to the later domain work.
+
+The finalizer rounds once using the retained digit and sticky bit, with the
+original sign and requested mode. It preserves scale when no reduction is
+needed. Round's two-argument variants reject negative or greater-than-28 digits
+through the original ordered range predicate. Decimal-to-integer conversion
+truncates first, checks signed/unsigned bounds, accepts a negative fractional
+value that truncates to zero for unsigned targets, and rejects a remaining
+negative unsigned value. Failures have a false Success, one ordered failure
+predicate and an all-zero normal result. The internal state helpers use concrete
+cube signatures; public metadata retains the original decimal signatures.
+
+Verification covers 68,400 T03 oracle cases over every scale, coefficient/range
+boundaries, both signs, all rounding modes/arities and invalid requested digits.
+A bit-sliced test observer evaluates the same Boolean gates for 64 independent
+cases at a time. It compares every physical result address, including padding,
+and verifies the zero-counter identity. Eight actual-core observations cover
+signed zero, char construction, nearest-even rounding without double rounding,
+range failure, unsigned zero after truncation and overflow. Fourteen original
+source captures cover all operation families and rounding modes; an additional
+source combining conversion with unimplemented equality is rejected explicitly.
+
+All 33 individual certificates fit unchanged limits. Seven representative
+certificates are pinned in `decimal-circuits/`; the largest definition has 14,491
+terms, 139 declarations and 130 static transformer occurrences including its
+28 steps. Source/foundation/signature/check/definition/certificate substitutions
+are rejected by regeneration. Consumer inventory baselines remain unchanged.
+See `unit-2-decimal-verification.json` and `unit-2-decimal-review.md`.
+
+This component leaves decimal arithmetic/comparisons, UTF-16 strings, input
+domains, all-instance expansion, application proofs and W09 units 3-8 unfinished.
+The full T06 gate stays deferred to T06-W12.

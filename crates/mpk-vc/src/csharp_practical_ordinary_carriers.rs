@@ -782,12 +782,18 @@ mod tests {
     pub(super) enum V {
         Bit(bool),
         Cube(Vec<bool>),
+        SharedCube(Rc<Vec<bool>>, usize, usize),
         Lambda(u32, Rc<Vec<V>>, BoolMemo),
+        Thunk(u32, Rc<Vec<V>>, Rc<RefCell<Option<V>>>),
         Rec(Vec<V>),
     }
     pub(super) fn apply(c: &Certificate, f: V, x: V) -> V {
-        match f {
+        match force(c, f) {
             V::Lambda(body, env, memo) => {
+                let x = match x {
+                    V::Cube(bits) => V::SharedCube(Rc::new(bits), 0, 1),
+                    x => x,
+                };
                 // A cache belongs to one pure closure, including its captured
                 // environment. Repeated cube reads share it through V::clone.
                 let key = if let V::Bit(bit) = &x {
@@ -800,7 +806,7 @@ mod tests {
                 }
                 let mut e = vec![x];
                 e.extend(env.iter().cloned());
-                let value = eval(c, body, &e);
+                let value = force(c, eval(c, body, &e));
                 if let Some(key) = key {
                     memo.borrow_mut().insert(key, value.clone());
                 }
@@ -809,30 +815,52 @@ mod tests {
             V::Rec(mut xs) => {
                 xs.push(x);
                 if xs.len() == 3 {
-                    match xs.pop().unwrap() {
-                        V::Bit(b) => xs[usize::from(b)].clone(),
+                    match force(c, xs.pop().unwrap()) {
+                        V::Bit(b) => force(c, xs[usize::from(b)].clone()),
                         _ => panic!("non-Bool major"),
                     }
                 } else {
                     V::Rec(xs)
                 }
             }
-            V::Cube(bits) => {
-                let V::Bit(selector) = x else {
+            V::Cube(bits) => apply(c, V::SharedCube(Rc::new(bits), 0, 1), x),
+            V::SharedCube(bits, offset, stride) => {
+                let V::Bit(selector) = force(c, x) else {
                     panic!("non-Bool selector")
                 };
-                let bits = bits
-                    .into_iter()
-                    .skip(usize::from(selector))
-                    .step_by(2)
-                    .collect::<Vec<_>>();
-                if bits.len() == 1 {
-                    V::Bit(bits[0])
+                let offset = offset + usize::from(selector) * stride;
+                let stride = 2 * stride;
+                if stride >= bits.len() {
+                    V::Bit(bits[offset])
                 } else {
-                    V::Cube(bits)
+                    V::SharedCube(bits, offset, stride)
                 }
             }
             V::Bit(_) => panic!("applied a leaf"),
+            V::Thunk(..) => unreachable!("force returns a value"),
+        }
+    }
+    // Call-by-need evaluates the actual core term only when demanded. Each
+    // suspended term owns its captured environment and memoized value. This
+    // neither recognizes generated operation names nor supplies host results.
+    fn force(c: &Certificate, v: V) -> V {
+        if let V::Thunk(term, env, memo) = v {
+            let cached = memo.borrow().clone();
+            if let Some(value) = cached {
+                return value;
+            }
+            let value = force(c, eval(c, term, &env));
+            *memo.borrow_mut() = Some(value.clone());
+            value
+        } else {
+            v
+        }
+    }
+    fn defer(c: &Certificate, term: u32, env: &[V]) -> V {
+        match &c.term_table[term as usize] {
+            TermNode::Var(i) => env[*i as usize].clone(),
+            TermNode::Const { .. } => eval(c, term, env),
+            _ => V::Thunk(term, Rc::new(env.to_vec()), Rc::new(RefCell::new(None))),
         }
     }
     fn eval(c: &Certificate, t: u32, env: &[V]) -> V {
@@ -859,10 +887,10 @@ mod tests {
                 function,
                 arguments,
             } => arguments.iter().fold(eval(c, *function, env), |f, a| {
-                apply(c, f, eval(c, *a, env))
+                apply(c, f, defer(c, *a, env))
             }),
             TermNode::Let { value, body, .. } => {
-                let mut e = vec![eval(c, *value, env)];
+                let mut e = vec![defer(c, *value, env)];
                 e.extend_from_slice(env);
                 eval(c, *body, &e)
             }
@@ -878,8 +906,11 @@ mod tests {
         let DeclarationKind::Def { value, .. } = d.kind else {
             panic!()
         };
-        args.into_iter()
-            .fold(eval(c, value, &[]), |f, a| apply(c, f, a))
+        force(
+            c,
+            args.into_iter()
+                .fold(eval(c, value, &[]), |f, a| apply(c, f, a)),
+        )
     }
     pub(super) fn bit(v: V) -> bool {
         let V::Bit(v) = v else { panic!() };
@@ -1000,10 +1031,12 @@ mod tests {
 mod scalar_bits;
 
 pub use scalar_bits::{
-    generate_csharp_practical_ordinary_calendar, generate_csharp_practical_ordinary_floating,
-    generate_csharp_practical_ordinary_integers, generate_csharp_practical_ordinary_temporal,
-    import_csharp_practical_ordinary_calendar, import_csharp_practical_ordinary_floating,
+    generate_csharp_practical_ordinary_calendar, generate_csharp_practical_ordinary_decimal,
+    generate_csharp_practical_ordinary_floating, generate_csharp_practical_ordinary_integers,
+    generate_csharp_practical_ordinary_temporal, import_csharp_practical_ordinary_calendar,
+    import_csharp_practical_ordinary_decimal, import_csharp_practical_ordinary_floating,
     import_csharp_practical_ordinary_integers, import_csharp_practical_ordinary_temporal,
-    OrdinaryCalendarProgram, OrdinaryFloatingProgram, OrdinaryIntegerDefinition,
-    OrdinaryIntegerProgram, OrdinaryScalarDefinition, OrdinaryTemporalProgram,
+    OrdinaryCalendarProgram, OrdinaryDecimalProgram, OrdinaryFloatingProgram,
+    OrdinaryIntegerDefinition, OrdinaryIntegerProgram, OrdinaryScalarDefinition,
+    OrdinaryTemporalProgram,
 };

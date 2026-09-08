@@ -1096,3 +1096,10 @@ pub use floating::{
     generate_csharp_practical_ordinary_floating, import_csharp_practical_ordinary_floating,
     OrdinaryFloatingProgram,
 };
+
+#[path = "csharp_practical_ordinary_decimal.rs"]
+mod decimal;
+pub use decimal::{
+    generate_csharp_practical_ordinary_decimal, import_csharp_practical_ordinary_decimal,
+    OrdinaryDecimalProgram,
+};

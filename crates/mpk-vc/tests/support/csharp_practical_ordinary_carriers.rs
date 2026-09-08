@@ -675,3 +675,182 @@ fn floating_source_linkage(cases: &[(&str, &str)]) {
         previous = Some((bytes, p.certificate_bytes().to_vec()));
     }
 }
+
+#[test]
+fn csharp_03_t06_w09_decimal_source_linkage_rejects_substitution() {
+    let bundle = b();
+    let rows = read("data-phase/data-stage-replay.json");
+    let mut previous: Option<(Vec<u8>, Vec<u8>)> = None;
+    for (id, required) in [
+        (
+            "37665fd6c9e9c3eee21b0fc6700d87bef8045cd225000647f47e5f6b996c1f2e",
+            "decimal.conversion.int32_to_decimal",
+        ),
+        (
+            "5cd2156d6da7d76ac732315a572313f25d66ec695aed6200fe51417952e99a9f",
+            "decimal.conversion.int64_to_decimal",
+        ),
+        (
+            "376c32018fa43b298d056ab4198e20059f75f51e8cbfad61d19d74f7d49b57ec",
+            "decimal.conversion.decimal_to_int32",
+        ),
+        (
+            "9163f49d1ce6de8951bda3216e8225768075d0460823b44c4ba16a86cd0f6894",
+            "decimal.negate",
+        ),
+        (
+            "c10b65a25ffc662d82649dea01d4b8c047a70cab24589ff879b6ae68616ee7c0",
+            "decimal.plus",
+        ),
+        (
+            "9eaef94b95284094b781e90d04b5f29cd9c0652480e3e0f97189c30342c8fda2",
+            "decimal.floor",
+        ),
+        (
+            "c06e389076390e84a5231a1e8af2d207d6ca2c410f753bc56f352309e34d9c9d",
+            "decimal.truncate",
+        ),
+        (
+            "c390fed93b3738e099050079d9e192384d1bfc0a60dc40e2673032459176bb07",
+            "decimal.ceiling",
+        ),
+        (
+            "37b1e1ef34ab5cc62f2950586c2383091eec483b1f59d07a47ecc24523c1ca11",
+            "decimal.round.ToEven.2",
+        ),
+        (
+            "8fc5631c055a1bfd6e5ee1a6b6c9eb652ffaab35922bdf21882f10150beb8994",
+            "decimal.round.ToEven.1",
+        ),
+        (
+            "39d435c3683125074f80a3d49c19663bdf8ae9900283a424830c393ed821c4e1",
+            "decimal.round.ToPositiveInfinity.2",
+        ),
+        (
+            "81f0473d7fb5133dd1967f6107881471330ffe62a308efa6824e556b9a99b980",
+            "decimal.round.ToZero.2",
+        ),
+        (
+            "8e9060e789c3a2b948cf75af9d62f2ec394d0d073c301baa74d0bdbf8556e7f2",
+            "decimal.round.ToNegativeInfinity.2",
+        ),
+        (
+            "a995ddf1cc51e65cd9c7fbe6c2512b0b813663a52a69f97bff15d4691a27e1e5",
+            "decimal.round.AwayFromZero.2",
+        ),
+    ] {
+        let row = rows
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|r| r["id"] == id)
+            .unwrap();
+        let (context, captures) = support::replay_context(&bundle, row);
+        let source = ValidatedDataSource::import_captured_facts(
+            &bundle,
+            &context,
+            &captures,
+            &serde_json::to_vec(&row["outcome"]["facts"]).unwrap(),
+        )
+        .unwrap();
+        let emitted = emit_data_phase(&bundle, &context, &captures, &source).unwrap();
+        let vir = emitted.vir();
+        let carriers = generate_csharp_practical_ordinary_carriers(vir).unwrap();
+        let decimal = carriers
+            .carriers()
+            .iter()
+            .find(|c| c.type_id == "mpk.csharp.value.decimal.v1")
+            .unwrap();
+        assert_eq!(decimal.depth, 9);
+        let p = generate_csharp_practical_ordinary_decimal(vir)
+            .unwrap_or_else(|e| panic!("{id}: {e:?}"));
+        let metadata = p.canonical_bytes();
+        let actual = p
+            .definitions()
+            .iter()
+            .map(|d| d.operation.id.as_str())
+            .collect::<BTreeSet<_>>();
+        assert!(actual.contains(required), "{id}: {actual:?}");
+        let wire: Value =
+            serde_json::from_slice(emitted.operations().operations().canonical_bytes()).unwrap();
+        let expected = wire["operations"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|s| s["id"].as_str().unwrap())
+            .filter(|s| s.starts_with("decimal."))
+            .collect::<BTreeSet<_>>();
+        assert_eq!(actual, expected);
+        assert_eq!(
+            import_csharp_practical_ordinary_decimal(&metadata, p.certificate_bytes(), vir)
+                .unwrap(),
+            p
+        );
+        let original: Value = serde_json::from_slice(&metadata).unwrap();
+        for mutation in 0..8 {
+            let mut changed = original.clone();
+            match mutation {
+                0 => changed["source_ir_sha256"] = json!("0".repeat(64)),
+                1 => changed["foundation_sha256"] = json!("0".repeat(64)),
+                2 => changed["certificate_sha256"] = json!("0".repeat(64)),
+                3 => changed["definitions"] = json!([]),
+                4 => changed["definitions"][0]["operation"]["ordered_checks"] = json!([]),
+                5 => {
+                    changed["definitions"][0]["operation"]["normal_result_type_id"] =
+                        json!("mpk.csharp.value.i64.v1")
+                }
+                6 => changed["definitions"][0]["result_definition"] = json!("forged"),
+                _ => changed["definitions"][0]["operation"]["id"] = json!("decimal.round.ToEven.3"),
+            }
+            if changed != original {
+                assert!(import_csharp_practical_ordinary_decimal(
+                    &serde_json::to_vec(&changed).unwrap(),
+                    p.certificate_bytes(),
+                    vir
+                )
+                .is_err());
+            }
+        }
+        let mut bad = p.certificate_bytes().to_vec();
+        *bad.last_mut().unwrap() ^= 1;
+        assert!(import_csharp_practical_ordinary_decimal(&metadata, &bad, vir).is_err());
+        if let Some((m, c)) = &previous {
+            assert!(import_csharp_practical_ordinary_decimal(m, c, vir).is_err());
+        }
+        previous = Some((metadata, p.certificate_bytes().to_vec()));
+    }
+}
+
+#[test]
+fn csharp_03_t06_w09_decimal_unimplemented_source_fails_closed() {
+    let bundle = b();
+    let rows = read("data-phase/data-stage-replay.json");
+    // The original source combines the implemented integer conversion with a
+    // decimal equality that has no ordinary definition in this increment.
+    let row = rows
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|r| r["id"] == "259be2f4eb7992db7f06a6c7d4385b0563852afda806de33709b627be83e6c82")
+        .unwrap();
+    let (context, captures) = support::replay_context(&bundle, row);
+    let source = ValidatedDataSource::import_captured_facts(
+        &bundle,
+        &context,
+        &captures,
+        &serde_json::to_vec(&row["outcome"]["facts"]).unwrap(),
+    )
+    .unwrap();
+    let emitted = emit_data_phase(&bundle, &context, &captures, &source).unwrap();
+    let operations: Value =
+        serde_json::from_slice(emitted.operations().operations().canonical_bytes()).unwrap();
+    assert!(operations["operations"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .any(|s| s["id"] == "decimal.equal"));
+    assert_eq!(
+        generate_csharp_practical_ordinary_decimal(emitted.vir()),
+        Err(OrdinaryCarrierError::Shape)
+    );
+}

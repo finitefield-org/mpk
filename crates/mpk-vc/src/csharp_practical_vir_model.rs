@@ -7430,10 +7430,12 @@ pub use ordinary_carriers::{
 };
 
 pub use ordinary_carriers::{
-    generate_csharp_practical_ordinary_calendar, generate_csharp_practical_ordinary_floating,
-    generate_csharp_practical_ordinary_integers, generate_csharp_practical_ordinary_temporal,
-    import_csharp_practical_ordinary_calendar, import_csharp_practical_ordinary_floating,
+    generate_csharp_practical_ordinary_calendar, generate_csharp_practical_ordinary_decimal,
+    generate_csharp_practical_ordinary_floating, generate_csharp_practical_ordinary_integers,
+    generate_csharp_practical_ordinary_temporal, import_csharp_practical_ordinary_calendar,
+    import_csharp_practical_ordinary_decimal, import_csharp_practical_ordinary_floating,
     import_csharp_practical_ordinary_integers, import_csharp_practical_ordinary_temporal,
-    OrdinaryCalendarProgram, OrdinaryFloatingProgram, OrdinaryIntegerDefinition,
-    OrdinaryIntegerProgram, OrdinaryScalarDefinition, OrdinaryTemporalProgram,
+    OrdinaryCalendarProgram, OrdinaryDecimalProgram, OrdinaryFloatingProgram,
+    OrdinaryIntegerDefinition, OrdinaryIntegerProgram, OrdinaryScalarDefinition,
+    OrdinaryTemporalProgram,
 };
