@@ -7430,14 +7430,15 @@ pub use ordinary_carriers::{
 };
 
 pub use ordinary_carriers::{
-    generate_csharp_practical_ordinary_ordered_folds,
+    generate_csharp_practical_ordinary_ordered_folds, generate_csharp_practical_ordinary_relations,
     generate_csharp_practical_ordinary_scalar_domains,
     generate_csharp_practical_ordinary_structural, import_csharp_practical_ordinary_ordered_folds,
-    import_csharp_practical_ordinary_scalar_domains, import_csharp_practical_ordinary_structural,
-    OrdinaryArmOperations, OrdinaryOrderedFoldDefinition, OrdinaryOrderedFoldProgram,
-    OrdinaryProductOperations, OrdinaryProjection, OrdinaryScalarDomainDefinition,
-    OrdinaryScalarDomainProgram, OrdinaryScalarDomainRule, OrdinaryStructuralDefinition,
-    OrdinaryStructuralOperations, OrdinaryStructuralProgram,
+    import_csharp_practical_ordinary_relations, import_csharp_practical_ordinary_scalar_domains,
+    import_csharp_practical_ordinary_structural, OrdinaryArmOperations,
+    OrdinaryOrderedFoldDefinition, OrdinaryOrderedFoldProgram, OrdinaryProductOperations,
+    OrdinaryProjection, OrdinaryRelationDefinition, OrdinaryRelationProgram,
+    OrdinaryScalarDomainDefinition, OrdinaryScalarDomainProgram, OrdinaryScalarDomainRule,
+    OrdinaryStructuralDefinition, OrdinaryStructuralOperations, OrdinaryStructuralProgram,
 };
 
 pub use ordinary_carriers::{

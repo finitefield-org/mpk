@@ -292,6 +292,10 @@ func TestCheckerAgreementWithRustCLIOrderedFolds(t *testing.T) {
 	checkOrdinaryCertificates(t, "ordered-folds", 6)
 }
 
+func TestCheckerAgreementWithRustCLIStructuralRelations(t *testing.T) {
+	checkOrdinaryCertificates(t, "relations", 22)
+}
+
 func TestCheckerAgreementWithRustCLIScalarDomainRanges(t *testing.T) {
 	checkOrdinaryCertificates(t, "scalar-domain-ranges", 2)
 }

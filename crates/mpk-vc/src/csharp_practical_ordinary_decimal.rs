@@ -303,7 +303,7 @@ fn stages(id: &str) -> R<[IntegerCircuit; 3]> {
     let finish = helper(id, "Finish", c, output, signature.ordered_checks, failures);
     Ok([initial, step, finish])
 }
-fn emit_decimal(b: &mut Builder, id: &str) -> R<OrdinaryScalarDefinition> {
+pub(super) fn emit_decimal(b: &mut Builder, id: &str) -> R<OrdinaryScalarDefinition> {
     if arithmetic::operation(id).is_some() {
         return arithmetic::emit(b, id);
     }

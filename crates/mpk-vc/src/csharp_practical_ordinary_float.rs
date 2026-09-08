@@ -250,7 +250,7 @@ fn divide(c: &mut Circuit, n: &[Bit], d: &[Bit]) -> (Word, Word) {
     r.pop();
     (q, r)
 }
-fn floating_circuit(id: &str) -> R<IntegerCircuit> {
+pub(super) fn floating_circuit(id: &str) -> R<IntegerCircuit> {
     let (fmt, signature) = floating_signature(id)?;
     let op = id.rsplit('.').next().unwrap();
     if op == "remainder" {

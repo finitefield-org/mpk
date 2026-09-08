@@ -1698,3 +1698,10 @@ fn csharp_03_t06_w09_ordered_folds_source_replay_and_mutations() {
         );
     }
 }
+
+#[allow(dead_code)]
+#[path = "../../src/csharp_practical_ordinary_test_eval.rs"]
+mod core_eval;
+
+#[path = "csharp_practical_ordinary_relation_tests.rs"]
+mod relation_tests;

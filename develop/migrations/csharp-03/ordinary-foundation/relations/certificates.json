@@ -1,0 +1,2270 @@
+[
+  {
+    "declarations": 89,
+    "file": "binding-vc-option.hex",
+    "id": "binding-vc-option",
+    "metadata": {
+      "certificate_sha256": "425ef8579600243875435dfd3dfe75c795c4250220848f28fe9fa4d1d602ca9d",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "none",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "some",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.9f7acdcf062807a2fd9542fe16184fa682ff33a6e64bd43974b14953447f7338"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e39663761636463663036323830376132666439353432666531363138346661363832666633336136653634626434333937346231343935333434376637333338.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e39663761636463663036323830376132666439353432666531363138346661363832666633336136653634626434333937346231343935333434376637333338.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.source.4d598580caab300c4353997b50997a36fd7b35e47e29624640abf41337575789"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "fields": [
+                {
+                  "id": "mpk.csharp.member.c9354f18100e08470b0ced05d662806ef7021bdcc55bcef4abf68adc66e16c4b",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.source.4d598580caab300c4353997b50997a36fd7b35e47e29624640abf41337575789"
+                  }
+                },
+                {
+                  "id": "mpk.csharp.member.581971a70e381c8c4bc34869d0df5bc39694263a648e094b5fc8f7ad6304c20b",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 0,
+            "shape": {
+              "kind": "bits",
+              "width": 1
+            },
+            "type_id": "mpk.csharp.value.bool.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_relations.v1",
+      "source_ir_sha256": "cfe62f1acf2a56c7536d75f1b1ef22faa41127c528517e6abfafb32006eaed52",
+      "static_transformers": 33
+    },
+    "observations": 0,
+    "terms": 2818
+  },
+  {
+    "declarations": 89,
+    "file": "binding-vc-lookup.hex",
+    "id": "binding-vc-lookup",
+    "metadata": {
+      "certificate_sha256": "5c1f1db7050bc8cba36bd5dc6bf4ded30df19288fcb4ad59701ab44ede6aca28",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "missing_key",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "found",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.source.4d598580caab300c4353997b50997a36fd7b35e47e29624640abf41337575789"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "fields": [
+                {
+                  "id": "mpk.csharp.member.c9354f18100e08470b0ced05d662806ef7021bdcc55bcef4abf68adc66e16c4b",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.source.4d598580caab300c4353997b50997a36fd7b35e47e29624640abf41337575789"
+                  }
+                },
+                {
+                  "id": "mpk.csharp.member.581971a70e381c8c4bc34869d0df5bc39694263a648e094b5fc8f7ad6304c20b",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 0,
+            "shape": {
+              "kind": "bits",
+              "width": 1
+            },
+            "type_id": "mpk.csharp.value.bool.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_relations.v1",
+      "source_ir_sha256": "cde2736b40fb66e89c0005e7a1414d2297ad68e348340bb083b23a0068002040",
+      "static_transformers": 33
+    },
+    "observations": 0,
+    "terms": 2818
+  },
+  {
+    "declarations": 91,
+    "file": "binding-vc-result.hex",
+    "id": "binding-vc-result",
+    "metadata": {
+      "certificate_sha256": "861be041319c41eaf932d310bdf50aa6126a8cca765b4d7d0590c4fa9efc30fc",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "ok",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "error",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.2ada0d81676b91c3e6d4529237992a3665e0b6306d8b9edb72dd7864e1308c87"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e32616461306438313637366239316333653664343532393233373939326133363635653062363330366438623965646237326464373836346531333038633837.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e32616461306438313637366239316333653664343532393233373939326133363635653062363330366438623965646237326464373836346531333038633837.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.source.4d598580caab300c4353997b50997a36fd7b35e47e29624640abf41337575789"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 7,
+            "shape": {
+              "fields": [
+                {
+                  "id": "mpk.csharp.member.c9354f18100e08470b0ced05d662806ef7021bdcc55bcef4abf68adc66e16c4b",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.source.4d598580caab300c4353997b50997a36fd7b35e47e29624640abf41337575789"
+                  }
+                },
+                {
+                  "id": "mpk.csharp.member.581971a70e381c8c4bc34869d0df5bc39694263a648e094b5fc8f7ad6304c20b",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                },
+                {
+                  "id": "mpk.csharp.member.1ce9198ef148b4dcc061ea431dadb638efd00e7ae2337c53c020afb37af3f226",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 0,
+            "shape": {
+              "kind": "bits",
+              "width": 1
+            },
+            "type_id": "mpk.csharp.value.bool.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_relations.v1",
+      "source_ir_sha256": "46ec8a2a72516cfaaec458023e908792957de44bdd2e55ea1b4b132914c5e000",
+      "static_transformers": 33
+    },
+    "observations": 0,
+    "terms": 2860
+  },
+  {
+    "declarations": 111,
+    "file": "binding-vc-validation.hex",
+    "id": "binding-vc-validation",
+    "metadata": {
+      "certificate_sha256": "8795bb674b8635027c71ab99b537ef5e08ee58a4b6d426c5f63844c734faa9b5",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 19,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "valid",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "role_bound",
+                        "maximum": 256,
+                        "value": {
+                          "kind": "reference",
+                          "type_id": "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"
+                        }
+                      }
+                    }
+                  ],
+                  "id": "invalid",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.26cd63aa1a84577b59c10ffd686e3b24a35abc4043d64ab5a6a53f4a880d6f58"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e32366364363361613161383435373762353963313066666436383665336232346133356162633430343364363461623561366135336634613838306436663538.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e32366364363361613161383435373762353963313066666436383665336232346133356162633430343364363461623561366135336634613838306436663538.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 18,
+            "shape": {
+              "capacity": 4096,
+              "element": {
+                "kind": "reference",
+                "type_id": "mpk.csharp.value.i32.v1"
+              },
+              "kind": "sequence"
+            },
+            "type_id": "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e65643138333364376465393935663835313035306364613932303837376534663131346338636565646437616432353031303230356535323338626337366333.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e65643138333364376465393935663835313035306364613932303837376534663131346338636565646437616432353031303230356535323338626337366333.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.source.4d598580caab300c4353997b50997a36fd7b35e47e29624640abf41337575789"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 20,
+            "shape": {
+              "fields": [
+                {
+                  "id": "mpk.csharp.member.c9354f18100e08470b0ced05d662806ef7021bdcc55bcef4abf68adc66e16c4b",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.source.4d598580caab300c4353997b50997a36fd7b35e47e29624640abf41337575789"
+                  }
+                },
+                {
+                  "id": "mpk.csharp.member.581971a70e381c8c4bc34869d0df5bc39694263a648e094b5fc8f7ad6304c20b",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                },
+                {
+                  "id": "mpk.csharp.member.c73e45c752421ecd9e03ffaaa3c5f5d0edf11d4312905f2576a39c86edc62dd0",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 0,
+            "shape": {
+              "kind": "bits",
+              "width": 1
+            },
+            "type_id": "mpk.csharp.value.bool.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.u32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e66616c73652e657175616c.Result"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_relations.v1",
+      "source_ir_sha256": "c88fb2387f575db148dfd94ca4d89f38f33925f008f677e680e543944c53cafe",
+      "static_transformers": 8225
+    },
+    "observations": 0,
+    "terms": 3758
+  },
+  {
+    "declarations": 92,
+    "file": "binding-vc-boundary_field.hex",
+    "id": "binding-vc-boundary_field",
+    "metadata": {
+      "certificate_sha256": "96ca27ebb09a6d7286edd090547e7994a09d8172ddf079263809a5a650ccdbf9",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "missing",
+                  "tag": 0
+                },
+                {
+                  "fields": [],
+                  "id": "null",
+                  "tag": 1
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "value",
+                  "tag": 2
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.b82463e0c4162ceab115a2382e0ee90aac8c2b675cc636a0c6d4e27dc96b746b"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e62383234363365306334313632636561623131356132333832653065653930616163386332623637356363363336613063366434653237646339366237343662.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e62383234363365306334313632636561623131356132333832653065653930616163386332623637356363363336613063366434653237646339366237343662.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.source.4d598580caab300c4353997b50997a36fd7b35e47e29624640abf41337575789"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "fields": [
+                {
+                  "id": "mpk.csharp.member.c9354f18100e08470b0ced05d662806ef7021bdcc55bcef4abf68adc66e16c4b",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.source.4d598580caab300c4353997b50997a36fd7b35e47e29624640abf41337575789"
+                  }
+                },
+                {
+                  "id": "mpk.csharp.member.581971a70e381c8c4bc34869d0df5bc39694263a648e094b5fc8f7ad6304c20b",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 0,
+            "shape": {
+              "kind": "bits",
+              "width": 1
+            },
+            "type_id": "mpk.csharp.value.bool.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.u32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e66616c73652e657175616c.Result"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_relations.v1",
+      "source_ir_sha256": "4cc5fd034b66b707695f83da1202d44232047bd8410c20f0e7b4fb7ac7ee848f",
+      "static_transformers": 33
+    },
+    "observations": 0,
+    "terms": 2839
+  },
+  {
+    "declarations": 105,
+    "file": "binding-vc-transition.hex",
+    "id": "binding-vc-transition",
+    "metadata": {
+      "certificate_sha256": "a24d5eff4428cd3aaa3effcf244b362a4d5f305d7ebc9e522e1881fec607c277",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 20,
+            "shape": {
+              "fields": [
+                {
+                  "id": "state",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                },
+                {
+                  "id": "events",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"
+                  }
+                },
+                {
+                  "id": "response",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.instance.720010bcf87f03772a036f777722e45b1930ec91c9f10be452202bf88ca2befb"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e37323030313062636638376630333737326130333666373737373232653435623139333065633931633966313062653435323230326266383863613262656662.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e37323030313062636638376630333737326130333666373737373232653435623139333065633931633966313062653435323230326266383863613262656662.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 18,
+            "shape": {
+              "capacity": 4096,
+              "element": {
+                "kind": "reference",
+                "type_id": "mpk.csharp.value.i32.v1"
+              },
+              "kind": "sequence"
+            },
+            "type_id": "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e65643138333364376465393935663835313035306364613932303837376534663131346338636565646437616432353031303230356535323338626337366333.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e65643138333364376465393935663835313035306364613932303837376534663131346338636565646437616432353031303230356535323338626337366333.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 20,
+            "shape": {
+              "fields": [
+                {
+                  "id": "mpk.csharp.member.03a2d5ebe6220705c73611a8af9b1bf793ae114f036375b292bd4d6c094267c4",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                },
+                {
+                  "id": "mpk.csharp.member.5a541943915b5e546e6a4a92d7bb4bbffda15a0499f160cecdaea85213da636a",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"
+                  }
+                },
+                {
+                  "id": "mpk.csharp.member.11b3d4457fce10df86ba17f264d1dc2f8ef9aa47ed338c9870f4f51391cbdb00",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 0,
+            "shape": {
+              "kind": "bits",
+              "width": 1
+            },
+            "type_id": "mpk.csharp.value.bool.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.u32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e66616c73652e657175616c.Result"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_relations.v1",
+      "source_ir_sha256": "033dae645bf662233303b43260d43eb2e3b763f9936bcaa88d84573f39c84638",
+      "static_transformers": 8225
+    },
+    "observations": 0,
+    "terms": 3659
+  },
+  {
+    "declarations": 85,
+    "file": "binding-vc-instant.hex",
+    "id": "binding-vc-instant",
+    "metadata": {
+      "certificate_sha256": "539ce62962ba955107080188a59d4157815de789fc88799a2c88608b02245573",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "fields": [
+                {
+                  "id": "mpk.csharp.member.c327204ba4f88b33049e308e00c7664b51e9de9490dc3d585731eeca3e01a16a",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i64.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "kind": "bits",
+              "width": 64
+            },
+            "type_id": "mpk.csharp.value.i64.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e36342e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e36342e747275652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "kind": "bits",
+              "width": 64
+            },
+            "type_id": "mpk.csharp.value.instant.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e36342e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e36342e747275652e657175616c.Result"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_relations.v1",
+      "source_ir_sha256": "4fe895fba3ec261015681e96c86bf8dcf4094edf1c7d7d097bb5398aacf955f7",
+      "static_transformers": 46
+    },
+    "observations": 0,
+    "terms": 6626
+  },
+  {
+    "declarations": 441,
+    "file": "binding-vc-money.hex",
+    "id": "binding-vc-money",
+    "metadata": {
+      "certificate_sha256": "edf06c56c90d06711cb09802d7559b35dfb07ad26acf1a2fd8656922c1a7a74c",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 20,
+            "shape": {
+              "fields": [
+                {
+                  "id": "amount",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.decimal.v1"
+                  }
+                },
+                {
+                  "id": "currency",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.string.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.instance.cb9225bd77630716243d687750efcb08868c0728f3d9d8d2b8dbcb7610fac95b"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e63623932323562643737363330373136323433643638373735306566636230383836386330373238663364396438643262386462636237363130666163393562.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e63623932323562643737363330373136323433643638373735306566636230383836386330373238663364396438643262386462636237363130666163393562.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 20,
+            "shape": {
+              "fields": [
+                {
+                  "id": "mpk.csharp.member.4bdfdf19acef9c3de9982447abb48db9028a8ff9287462c500fc307831daa40e",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.decimal.v1"
+                  }
+                },
+                {
+                  "id": "mpk.csharp.member.458de81e1f38ecd30e99f2cb0f0ac55a5a722c4e2b0f092b5565c0f43a3afd47",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.string.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 0,
+            "shape": {
+              "kind": "bits",
+              "width": 1
+            },
+            "type_id": "mpk.csharp.value.bool.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 9,
+            "shape": {
+              "fields": [
+                {
+                  "id": "negative",
+                  "shape": {
+                    "kind": "bits",
+                    "width": 1
+                  }
+                },
+                {
+                  "id": "scale",
+                  "shape": {
+                    "kind": "bits",
+                    "width": 8
+                  }
+                },
+                {
+                  "id": "coefficient",
+                  "shape": {
+                    "kind": "bits",
+                    "width": 96
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.value.decimal.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.DecimalCompare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 19,
+            "shape": {
+              "capacity": 16384,
+              "element": {
+                "kind": "bits",
+                "width": 16
+              },
+              "kind": "sequence"
+            },
+            "type_id": "mpk.csharp.value.string.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e76616c75652e737472696e672e7631.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e76616c75652e737472696e672e7631.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.u32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e66616c73652e657175616c.Result"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_relations.v1",
+      "source_ir_sha256": "f77204c2a00427fcb6a751294aa81ab810942a8faaaebec14f62ba278a59ce11",
+      "static_transformers": 8577
+    },
+    "observations": 0,
+    "terms": 41180
+  },
+  {
+    "declarations": 98,
+    "file": "binding-vc-bounded_sequence.hex",
+    "id": "binding-vc-bounded_sequence",
+    "metadata": {
+      "certificate_sha256": "5c6c7833c8ad7648a02247bc08c43e59935f2bd6ed78dc4ae287f74652ba443d",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 18,
+            "shape": {
+              "capacity": 4096,
+              "element": {
+                "kind": "reference",
+                "type_id": "mpk.csharp.value.i32.v1"
+              },
+              "kind": "sequence"
+            },
+            "type_id": "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e65643138333364376465393935663835313035306364613932303837376534663131346338636565646437616432353031303230356535323338626337366333.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e65643138333364376465393935663835313035306364613932303837376534663131346338636565646437616432353031303230356535323338626337366333.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 18,
+            "shape": {
+              "fields": [
+                {
+                  "id": "mpk.csharp.member.26944cab928a9cbe4e25e43f2a1a103fdbeb5b13f956b5bd0ce8aae836f0e377",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 0,
+            "shape": {
+              "kind": "bits",
+              "width": 1
+            },
+            "type_id": "mpk.csharp.value.bool.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.u32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e66616c73652e657175616c.Result"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_relations.v1",
+      "source_ir_sha256": "a87efbbae90152d6188a4a5fc17cd0e8fd56fc325310669b3a072fa9781cbcaf",
+      "static_transformers": 8225
+    },
+    "observations": 0,
+    "terms": 3596
+  },
+  {
+    "declarations": 83,
+    "file": "binding-vc-ordered_entry.hex",
+    "id": "binding-vc-ordered_entry",
+    "metadata": {
+      "certificate_sha256": "1153b8b88e16681d64c36f7c66d256aab5bd68be0978d935df67787f0d332b65",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "fields": [
+                {
+                  "id": "key",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                },
+                {
+                  "id": "value",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.instance.47b8289c5aa67f60646ad8ef236353f089f8fa4f48b10ac2609b19e4c45c1c87"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e34376238323839633561613637663630363436616438656632333633353366303839663866613466343862313061633236303962313965346334356331633837.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e34376238323839633561613637663630363436616438656632333633353366303839663866613466343862313061633236303962313965346334356331633837.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "fields": [
+                {
+                  "id": "mpk.csharp.member.f7e331157ef7b8e43eacfeffaa86221956f2f5b7c1289dac027c6233efdba131",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                },
+                {
+                  "id": "mpk.csharp.member.581971a70e381c8c4bc34869d0df5bc39694263a648e094b5fc8f7ad6304c20b",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 0,
+            "shape": {
+              "kind": "bits",
+              "width": 1
+            },
+            "type_id": "mpk.csharp.value.bool.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_relations.v1",
+      "source_ir_sha256": "f2e8f3289077db7b35dfa9c247a919aa3b5a4d2b3087ab183b6fbea40d7c5ecd",
+      "static_transformers": 33
+    },
+    "observations": 0,
+    "terms": 2773
+  },
+  {
+    "declarations": 128,
+    "file": "binding-vc-ordered_map.hex",
+    "id": "binding-vc-ordered_map",
+    "metadata": {
+      "certificate_sha256": "ac89f6a5a79b66fc03adf7a7f031a5643c0804c1b900451491b8293f1976b229",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 19,
+            "shape": {
+              "capacity": 4096,
+              "element": {
+                "fields": [
+                  {
+                    "id": "key",
+                    "shape": {
+                      "kind": "reference",
+                      "type_id": "mpk.csharp.value.i32.v1"
+                    }
+                  },
+                  {
+                    "id": "value",
+                    "shape": {
+                      "kind": "reference",
+                      "type_id": "mpk.csharp.value.i32.v1"
+                    }
+                  }
+                ],
+                "kind": "product"
+              },
+              "kind": "sequence"
+            },
+            "type_id": "mpk.csharp.instance.02793d345122ecfb71f097e67c41492a8a92c65d6716cc5d2acc466089218728"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e30323739336433343531323265636662373166303937653637633431343932613861393263363564363731366363356432616363343636303839323138373238.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e30323739336433343531323265636662373166303937653637633431343932613861393263363564363731366363356432616363343636303839323138373238.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "fields": [
+                {
+                  "id": "key",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                },
+                {
+                  "id": "value",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.instance.47b8289c5aa67f60646ad8ef236353f089f8fa4f48b10ac2609b19e4c45c1c87"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e34376238323839633561613637663630363436616438656632333633353366303839663866613466343862313061633236303962313965346334356331633837.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e34376238323839633561613637663630363436616438656632333633353366303839663866613466343862313061633236303962313965346334356331633837.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 19,
+            "shape": {
+              "capacity": 4096,
+              "element": {
+                "kind": "reference",
+                "type_id": "mpk.csharp.source.a21b0b484f6daea7c4670cab3eb882c9cb69815fd5cfb04f364a67f8c77c9877"
+              },
+              "kind": "sequence"
+            },
+            "type_id": "mpk.csharp.instance.4cac0be04b1b7b464b43fa5db913d1f4967b028959c09c724dc31ce6e57f8578"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e34636163306265303462316237623436346234336661356462393133643166343936376230323839353963303963373234646333316365366535376638353738.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e34636163306265303462316237623436346234336661356462393133643166343936376230323839353963303963373234646333316365366535376638353738.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "missing_key",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      }
+                    }
+                  ],
+                  "id": "found",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.bf414cccc5e081ceb35996182ca4b03e0e40ee14c9ef260fc62418799be5389d"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e62663431346363636335653038316365623335393936313832636134623033653065343065653134633965663236306663363234313837393962653533383964.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 19,
+            "shape": {
+              "capacity": 4096,
+              "element": {
+                "kind": "reference",
+                "type_id": "mpk.csharp.instance.47b8289c5aa67f60646ad8ef236353f089f8fa4f48b10ac2609b19e4c45c1c87"
+              },
+              "kind": "sequence"
+            },
+            "type_id": "mpk.csharp.instance.e3a0b3b50864a2ddb258c0b4808b87c9ac021b5ad763ce927fc124d097aab5a5"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e65336130623362353038363461326464623235386330623438303862383763396163303231623561643736336365393237666331323464303937616162356135.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e65336130623362353038363461326464623235386330623438303862383763396163303231623561643736336365393237666331323464303937616162356135.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "fields": [
+                {
+                  "id": "mpk.csharp.member.8f2c0aeaef227e6acf66c4ae94cc2669c9bbcaa74a11350675b6f32a1fc73894",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                },
+                {
+                  "id": "mpk.csharp.member.e7668eacd6f789e5423fdd3ed6e4bc2c9471cc0f3f015b9a5def03702a111ff5",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.source.a21b0b484f6daea7c4670cab3eb882c9cb69815fd5cfb04f364a67f8c77c9877"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e61323162306234383466366461656137633436373063616233656238383263396362363938313566643563666230346633363461363766386337376339383737.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e61323162306234383466366461656137633436373063616233656238383263396362363938313566643563666230346633363461363766386337376339383737.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 19,
+            "shape": {
+              "fields": [
+                {
+                  "id": "mpk.csharp.member.5e6246edc009be3af2b16f5b825a39160dd3f31a3db3b07ff7412766a4431c70",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.instance.4cac0be04b1b7b464b43fa5db913d1f4967b028959c09c724dc31ce6e57f8578"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 0,
+            "shape": {
+              "kind": "bits",
+              "width": 1
+            },
+            "type_id": "mpk.csharp.value.bool.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.u32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e66616c73652e657175616c.Result"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_relations.v1",
+      "source_ir_sha256": "31095a5e4f83d6127bf3345d5b73b852f075842c132f29f2b7dbcd937b3a0590",
+      "static_transformers": 8225
+    },
+    "observations": 0,
+    "terms": 3826
+  },
+  {
+    "declarations": 102,
+    "file": "binding-vc-ordered_set.hex",
+    "id": "binding-vc-ordered_set",
+    "metadata": {
+      "certificate_sha256": "8512879ca6db2ae8f9df693711760fe846ce33ea2d65ca6d61796959e3281ff5",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 18,
+            "shape": {
+              "capacity": 4096,
+              "element": {
+                "kind": "reference",
+                "type_id": "mpk.csharp.value.i32.v1"
+              },
+              "kind": "sequence"
+            },
+            "type_id": "mpk.csharp.instance.6a8c3b47c67a9f408ba6ed95014218dd82a3a25bca1b6f4f629dca07cc2e974b"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e36613863336234376336376139663430386261366564393530313432313864643832613361323562636131623666346636323964636130376363326539373462.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e36613863336234376336376139663430386261366564393530313432313864643832613361323562636131623666346636323964636130376363326539373462.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 18,
+            "shape": {
+              "capacity": 4096,
+              "element": {
+                "kind": "reference",
+                "type_id": "mpk.csharp.value.i32.v1"
+              },
+              "kind": "sequence"
+            },
+            "type_id": "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e65643138333364376465393935663835313035306364613932303837376534663131346338636565646437616432353031303230356535323338626337366333.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e65643138333364376465393935663835313035306364613932303837376534663131346338636565646437616432353031303230356535323338626337366333.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 18,
+            "shape": {
+              "fields": [
+                {
+                  "id": "mpk.csharp.member.26944cab928a9cbe4e25e43f2a1a103fdbeb5b13f956b5bd0ce8aae836f0e377",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.instance.ed1833d7de995f851050cda920877e4f114c8ceedd7ad25010205e5238bc76c3"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.source.c912fedec302ca99dfd67280f6d6f74cf7cc8f43afc2a3af788b5ace3fbf1818"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63393132666564656333303263613939646664363732383066366436663734636637636338663433616663326133616637383862356163653366626631383138.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 0,
+            "shape": {
+              "kind": "bits",
+              "width": 1
+            },
+            "type_id": "mpk.csharp.value.bool.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.u32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e66616c73652e657175616c.Result"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_relations.v1",
+      "source_ir_sha256": "29b1a4cce62a4358a442bcb32f6c40fcf5858ac94c9a9f3cdb4651bc75d840c5",
+      "static_transformers": 8225
+    },
+    "observations": 0,
+    "terms": 3641
+  },
+  {
+    "declarations": 66,
+    "file": "construction-vc-positive_constructor.hex",
+    "id": "construction-vc-positive_constructor",
+    "metadata": {
+      "certificate_sha256": "eb6419ebaa63b42bb9345f962ecbab144d486fc273e0a70bb341a68bafa62ded",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "fields": [
+                {
+                  "id": "mpk.csharp.member.9f3c02b1f1375cb27870b3e9c882f7a540ea1010017de45277dbf37110cc0594",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e33316461613438666533383061353939663736386238363135653265383037356235306232386163306136663932666639623664373635643461346330663336.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e33316461613438666533383061353939663736386238363135653265383037356235306232386163306136663932666639623664373635643461346330663336.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_relations.v1",
+      "source_ir_sha256": "dc3c9669d88943ace38fc2f37ec9253520b96654160de7c30b845ccc1f4b357a",
+      "static_transformers": 31
+    },
+    "observations": 0,
+    "terms": 2572
+  },
+  {
+    "declarations": 54,
+    "file": "construction-vc-enum_zero.hex",
+    "id": "construction-vc-enum_zero",
+    "metadata": {
+      "certificate_sha256": "9670e8e60f6b04ad73d62d8af01bad24685196a5ea2433cb729575182fc8fedc",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 0,
+            "shape": {
+              "kind": "bits",
+              "width": 1
+            },
+            "type_id": "mpk.csharp.value.bool.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_relations.v1",
+      "source_ir_sha256": "156261e236ca455e56536c5f8b58129f3a0ee874c51675e30ca05a7fab2decde",
+      "static_transformers": 18
+    },
+    "observations": 0,
+    "terms": 2611
+  },
+  {
+    "declarations": 104,
+    "file": "exception-vc-allowed.hex",
+    "id": "exception-vc-allowed",
+    "metadata": {
+      "certificate_sha256": "8d38c86dcb3a6b867d9953aa4e64664e07bd8c5578ac65bcc8c8693716e14089",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 0,
+            "shape": {
+              "kind": "bits",
+              "width": 1
+            },
+            "type_id": "mpk.csharp.value.bool.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "System.DivideByZeroException",
+                  "tag": 0
+                },
+                {
+                  "fields": [],
+                  "id": "System.OverflowException",
+                  "tag": 1
+                },
+                {
+                  "fields": [],
+                  "id": "System.IndexOutOfRangeException",
+                  "tag": 2
+                },
+                {
+                  "fields": [],
+                  "id": "System.ArgumentException",
+                  "tag": 3
+                },
+                {
+                  "fields": [],
+                  "id": "System.ArgumentOutOfRangeException",
+                  "tag": 4
+                },
+                {
+                  "fields": [],
+                  "id": "System.ArgumentNullException",
+                  "tag": 5
+                },
+                {
+                  "fields": [],
+                  "id": "System.InvalidOperationException",
+                  "tag": 6
+                },
+                {
+                  "fields": [],
+                  "id": "System.NullReferenceException",
+                  "tag": 7
+                },
+                {
+                  "fields": [],
+                  "id": "System.Runtime.CompilerServices.SwitchExpressionException",
+                  "tag": 8
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.value.exception.v1"
+          },
+          "compare_definition": null,
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e76616c75652e657863657074696f6e2e7631.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_relations.v1",
+      "source_ir_sha256": "b8a5ddc466eae72f9cf6b5a62363008eecb626f9518e1ae704cb7cebae295ed9",
+      "static_transformers": 33
+    },
+    "observations": 0,
+    "terms": 2862
+  },
+  {
+    "declarations": 76,
+    "file": "nullable-float.hex",
+    "id": "nullable-float",
+    "metadata": {
+      "certificate_sha256": "03c5e43a12f9b0492575aa1761f7fa5c987c99dec674c535ef3c303929262e31",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "none",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.f32.v1"
+                      }
+                    }
+                  ],
+                  "id": "some",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.335c76b32eabd6b74657dca5edec4dd2624b82c15ed919966e3a7c2a2e8934b2"
+          },
+          "compare_definition": null,
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e33333563373662333265616264366237343635376463613565646563346464323632346238326331356564393139393636653361376332613265383933346232.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 0,
+            "shape": {
+              "kind": "bits",
+              "width": 1
+            },
+            "type_id": "mpk.csharp.value.bool.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.f32.v1"
+          },
+          "compare_definition": null,
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O666c6f6174696e672e73696e676c652e657175616c.Result"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_relations.v1",
+      "source_ir_sha256": "c86308a58815cf5b285d115fd0d947ee404bffaa3f110ce0b9b419d9f99f9b40",
+      "static_transformers": 29
+    },
+    "observations": 0,
+    "terms": 3795
+  },
+  {
+    "declarations": 124,
+    "file": "floats.hex",
+    "id": "floats",
+    "metadata": {
+      "certificate_sha256": "d2b0b622dfea4a43c353b70335a11af8d2941d5ee47f613d0eb7eb7389bf9161",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.f32.v1"
+          },
+          "compare_definition": null,
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O666c6f6174696e672e73696e676c652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "kind": "bits",
+              "width": 64
+            },
+            "type_id": "mpk.csharp.value.f64.v1"
+          },
+          "compare_definition": null,
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O666c6f6174696e672e646f75626c652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "kind": "bits",
+              "width": 64
+            },
+            "type_id": "mpk.csharp.value.i64.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e36342e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e36342e747275652e657175616c.Result"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_relations.v1",
+      "source_ir_sha256": "9f4ff2195a8b6aaba9bff2ecaebdb1cbc8ca283baa348088ad59c4921580b157",
+      "static_transformers": 82
+    },
+    "observations": 0,
+    "terms": 9909
+  },
+  {
+    "declarations": 142,
+    "file": "nested-box.hex",
+    "id": "nested-box",
+    "metadata": {
+      "certificate_sha256": "11b2ec81c36b3b3b39d988a6d8b9925829ca824a446d52d928b27192695ad1ad",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 19,
+            "shape": {
+              "capacity": 4096,
+              "element": {
+                "kind": "reference",
+                "type_id": "mpk.csharp.source.a21b0b484f6daea7c4670cab3eb882c9cb69815fd5cfb04f364a67f8c77c9877"
+              },
+              "kind": "sequence"
+            },
+            "type_id": "mpk.csharp.instance.4cac0be04b1b7b464b43fa5db913d1f4967b028959c09c724dc31ce6e57f8578"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e34636163306265303462316237623436346234336661356462393133643166343936376230323839353963303963373234646333316365366535376638353738.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e34636163306265303462316237623436346234336661356462393133643166343936376230323839353963303963373234646333316365366535376638353738.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 20,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "none",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.instance.4cac0be04b1b7b464b43fa5db913d1f4967b028959c09c724dc31ce6e57f8578"
+                      }
+                    }
+                  ],
+                  "id": "some",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.c5c10ebf30919056be558da494844678244d5a1976c5d47e7057cf336f788c58"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e63356331306562663330393139303536626535353864613439343834343637383234346435613139373663356434376537303537636633333666373838633538.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e63356331306562663330393139303536626535353864613439343834343637383234346435613139373663356434376537303537636633333666373838633538.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "fields": [
+                {
+                  "id": "mpk.csharp.member.8f2c0aeaef227e6acf66c4ae94cc2669c9bbcaa74a11350675b6f32a1fc73894",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                },
+                {
+                  "id": "mpk.csharp.member.e7668eacd6f789e5423fdd3ed6e4bc2c9471cc0f3f015b9a5def03702a111ff5",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.source.a21b0b484f6daea7c4670cab3eb882c9cb69815fd5cfb04f364a67f8c77c9877"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e61323162306234383466366461656137633436373063616233656238383263396362363938313566643563666230346633363461363766386337376339383737.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e61323162306234383466366461656137633436373063616233656238383263396362363938313566643563666230346633363461363766386337376339383737.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 20,
+            "shape": {
+              "fields": [
+                {
+                  "id": "mpk.csharp.member.879fd09ba7a3617081131b410d353537b102eb4c7128ebfffe8880ba5b6c6931",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.instance.4cac0be04b1b7b464b43fa5db913d1f4967b028959c09c724dc31ce6e57f8578"
+                  }
+                },
+                {
+                  "id": "mpk.csharp.member.c331a03de3bc14493f6eab5147b2c43c5efe625dfecb599b9051ca19f0655bf0",
+                  "shape": {
+                    "kind": "reference",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  }
+                }
+              ],
+              "kind": "product"
+            },
+            "type_id": "mpk.csharp.source.cfc9b967d284b63de913eac641d29f09b2c00c790e81beda517d2cb7daacbba7"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63666339623936376432383462363364653931336561633634316432396630396232633030633739306538316265646135313764326362376461616362626137.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e736f757263652e63666339623936376432383462363364653931336561633634316432396630396232633030633739306538316265646135313764326362376461616362626137.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 0,
+            "shape": {
+              "kind": "bits",
+              "width": 1
+            },
+            "type_id": "mpk.csharp.value.bool.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "System.DivideByZeroException",
+                  "tag": 0
+                },
+                {
+                  "fields": [],
+                  "id": "System.OverflowException",
+                  "tag": 1
+                },
+                {
+                  "fields": [],
+                  "id": "System.IndexOutOfRangeException",
+                  "tag": 2
+                },
+                {
+                  "fields": [],
+                  "id": "System.ArgumentException",
+                  "tag": 3
+                },
+                {
+                  "fields": [],
+                  "id": "System.ArgumentOutOfRangeException",
+                  "tag": 4
+                },
+                {
+                  "fields": [],
+                  "id": "System.ArgumentNullException",
+                  "tag": 5
+                },
+                {
+                  "fields": [],
+                  "id": "System.InvalidOperationException",
+                  "tag": 6
+                },
+                {
+                  "fields": [],
+                  "id": "System.NullReferenceException",
+                  "tag": 7
+                },
+                {
+                  "fields": [],
+                  "id": "System.Runtime.CompilerServices.SwitchExpressionException",
+                  "tag": 8
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.value.exception.v1"
+          },
+          "compare_definition": null,
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e76616c75652e657863657074696f6e2e7631.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.u32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e66616c73652e657175616c.Result"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_relations.v1",
+      "source_ir_sha256": "0532d6cfb811641717af5586c1ad6dfdf36a047cad7987230af4836fe8f6f04c",
+      "static_transformers": 8225
+    },
+    "observations": 0,
+    "terms": 3870
+  },
+  {
+    "declarations": 152,
+    "file": "string.hex",
+    "id": "string",
+    "metadata": {
+      "certificate_sha256": "e3467c7fe60883b4e22226d1d1581e7b59225241dc403dc1e3d677dfdf9a48b2",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 20,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "none",
+                  "tag": 0
+                },
+                {
+                  "fields": [
+                    {
+                      "id": "0",
+                      "shape": {
+                        "kind": "reference",
+                        "type_id": "mpk.csharp.value.string.v1"
+                      }
+                    }
+                  ],
+                  "id": "some",
+                  "tag": 1
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.instance.adfa327cb9065921ad0b1f76f3a1fb74e495f9bb57affca01068135b6b89dfeb"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e61646661333237636239303635393231616430623166373666336131666237346534393566396262353761666663613031303638313335623662383964666562.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e696e7374616e63652e61646661333237636239303635393231616430623166373666336131666237346534393566396262353761666663613031303638313335623662383964666562.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 0,
+            "shape": {
+              "kind": "bits",
+              "width": 1
+            },
+            "type_id": "mpk.csharp.value.bool.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e312e66616c73652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 4,
+            "shape": {
+              "kind": "bits",
+              "width": 16
+            },
+            "type_id": "mpk.csharp.value.char.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e31362e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e31362e66616c73652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 6,
+            "shape": {
+              "arms": [
+                {
+                  "fields": [],
+                  "id": "System.DivideByZeroException",
+                  "tag": 0
+                },
+                {
+                  "fields": [],
+                  "id": "System.OverflowException",
+                  "tag": 1
+                },
+                {
+                  "fields": [],
+                  "id": "System.IndexOutOfRangeException",
+                  "tag": 2
+                },
+                {
+                  "fields": [],
+                  "id": "System.ArgumentException",
+                  "tag": 3
+                },
+                {
+                  "fields": [],
+                  "id": "System.ArgumentOutOfRangeException",
+                  "tag": 4
+                },
+                {
+                  "fields": [],
+                  "id": "System.ArgumentNullException",
+                  "tag": 5
+                },
+                {
+                  "fields": [],
+                  "id": "System.InvalidOperationException",
+                  "tag": 6
+                },
+                {
+                  "fields": [],
+                  "id": "System.NullReferenceException",
+                  "tag": 7
+                },
+                {
+                  "fields": [],
+                  "id": "System.Runtime.CompilerServices.SwitchExpressionException",
+                  "tag": 8
+                }
+              ],
+              "kind": "sum"
+            },
+            "type_id": "mpk.csharp.value.exception.v1"
+          },
+          "compare_definition": null,
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e76616c75652e657863657074696f6e2e7631.Equal"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 19,
+            "shape": {
+              "capacity": 16384,
+              "element": {
+                "kind": "bits",
+                "width": 16
+              },
+              "kind": "sequence"
+            },
+            "type_id": "mpk.csharp.value.string.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e76616c75652e737472696e672e7631.Compare",
+          "equality_definition": "Mpk.CSharp.Ordinary.Relation.T6d706b2e6373686172702e76616c75652e737472696e672e7631.Equal"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_relations.v1",
+      "source_ir_sha256": "4a7e60e56cb94b6b0cabc213f31967cfb431ae9e72a367094876902d01d1ebf9",
+      "static_transformers": 8233
+    },
+    "observations": 0,
+    "terms": 4883
+  },
+  {
+    "declarations": 41,
+    "file": "date.hex",
+    "id": "date",
+    "metadata": {
+      "certificate_sha256": "0d26483712a60d68fd227f661be3802872df7977e977080539915cf1047bbdc3",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.date.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e66616c73652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.day_of_week.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e66616c73652e657175616c.Result"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_relations.v1",
+      "source_ir_sha256": "68114b462d2393c19200ff334c22a8caf9acc31f2fa0458e7f8d78d621186d59",
+      "static_transformers": 15
+    },
+    "observations": 0,
+    "terms": 2426
+  },
+  {
+    "declarations": 116,
+    "file": "guid.hex",
+    "id": "guid",
+    "metadata": {
+      "certificate_sha256": "3b6e016858d4f531528303dfd5eae098dd674b9a8a4881f64a8d0076dc41f29f",
+      "definitions": [
+        {
+          "carrier": {
+            "depth": 7,
+            "shape": {
+              "kind": "bits",
+              "width": 128
+            },
+            "type_id": "mpk.csharp.value.guid.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e3132382e66616c73652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e3132382e66616c73652e657175616c.Result"
+        },
+        {
+          "carrier": {
+            "depth": 5,
+            "shape": {
+              "kind": "bits",
+              "width": 32
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "compare_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e636f6d70617265.Result",
+          "equality_definition": "Mpk.CSharp.Ordinary.StructuralScalar.O7374727563747572616c2e7363616c61722e7261772e33322e747275652e657175616c.Result"
+        }
+      ],
+      "foundation_sha256": "230c708601f4b89feeae28af23da10ccb11eec998d990b5133cf9336369e15a2",
+      "schema": "mpk.csharp.ordinary_relations.v1",
+      "source_ir_sha256": "bb95b06514ad09a7dc864ba3018ab1656d7002d6499e588c874fd89d15edd3fc",
+      "static_transformers": 76
+    },
+    "observations": 0,
+    "terms": 11155
+  }
+]

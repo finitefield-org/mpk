@@ -139,6 +139,18 @@ counted StepTwo occurrences. Full 16,384/16,383 execution, source reconstruction
 mutation, pinned replay, lint, inventory and six same-byte dual-checker cases
 passed after fixing exponential syntax growth in the auxiliary comparison.
 See `unit-3-ordered-fold-verification.json` and `unit-3-ordered-fold-review.md`.
-Element relations, full structural/collection operations and all other remaining
-W09 work remain open; `unit-3-comparison-notes.md` records inspected next-step
-requirements without claiming implementation.
+At that checkpoint, element relations and full structural/collection operations
+remained open. The relation checkpoint below adds equality/order; the remaining
+W09 scope is preserved in `unit-3-progress.md`.
+
+### Unit 3 relation checkpoint
+
+Structural/element equality and eligible canonical ordering passed direct review,
+21-source replay and metadata mutations, 979 source value-pair/storage checks,
+two Money tie/equivalence cases, 260 scalar boundary pairs, generated upper
+index-bit checks, inventory and lint. All 22 pinned certificates passed both
+unchanged checkers with zero axioms; hash corruptions reject. See
+`unit-3-relations-verification.json` and `unit-3-relations-review.md`.
+Domains, defaults, collection mutations and all remaining foundation operations
+stay open. These definitions are not application-VC proofs. Unit 3 and W09 are
+not complete and W10-W12 remain blocked.

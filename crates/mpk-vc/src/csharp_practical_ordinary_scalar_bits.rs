@@ -1249,3 +1249,7 @@ pub use utf16::{
     generate_csharp_practical_ordinary_strings, import_csharp_practical_ordinary_strings,
     OrdinaryStringDefinition, OrdinaryStringProgram,
 };
+
+#[path = "csharp_practical_ordinary_scalar_relations.rs"]
+mod scalar_relations;
+pub(super) use scalar_relations::{bits_relation, special_relation, ScalarRelations};

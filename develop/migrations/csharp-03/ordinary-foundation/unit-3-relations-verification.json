@@ -1,0 +1,240 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.relations_verification.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 3,
+  "component": "structural semantic equality and eligible canonical ordering",
+  "status": "relation component complete; unit 3 and W09 incomplete",
+  "baseline_commit": "3a78aab",
+  "date": "2026-09-09",
+  "source_cases": 21,
+  "source_relation_roots": 102,
+  "certificates": 22,
+  "scalar_observations": 260,
+  "verification": [
+    {
+      "command": "MPK_W09_RELATIONS_OUT=/tmp/mpk-w09-relation-fixtures cargo test -p mpk-vc --lib ordinary_scalar_relation_",
+      "result": "passed: 260 signed/unsigned core observations",
+      "log": "/tmp/mpk-w09-relations-scalar-generation.log",
+      "log_sha256": "69f88faea7808c5613abb302e9750cac9bc36962900db4dd8b6db0c08b7a29b0"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib ordinary_scalar_relation_",
+      "result": "passed: exact pinned scalar certificate and metrics",
+      "log": "/tmp/mpk-w09-relations-scalar-replay.log",
+      "log_sha256": "4c93f0b8bd940dfd354cbcf142e411f0a22fcb88292f24d872bedbe9a050a692"
+    },
+    {
+      "command": "MPK_W09_RELATIONS_OUT=/tmp/mpk-w09-relation-fixtures cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_relations_original_source_certificates -- --nocapture",
+      "result": "passed: 21 original source certificates and metadata/context/hash mutations",
+      "log": "/tmp/mpk-w09-relations-certificates-generation.log",
+      "log_sha256": "bc80127131ce8808adf1647ae8b82dde4c2b320a5946f368e4e61d51143083ef"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_relations_original_source_certificates -- --nocapture",
+      "result": "passed: exact pinned certificate replay, all sample value validation, generated index expressions through 4096/16384 boundaries",
+      "log": "/tmp/mpk-w09-relations-index-boundaries.log",
+      "log_sha256": "353ac314b3bcdd5e118eeabbcf900b3ede7931f9a0efd7f893d67077db93c288"
+    },
+    {
+      "command": "MPK_W09_RELATIONS_OUT=/tmp/mpk-w09-relation-fixtures cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_relations_original_sources_and_semantics -- --nocapture",
+      "result": "passed initial corpus: 408 core pairs, 804.30 seconds; superseded by strengthened successful corpus below",
+      "log": "/tmp/mpk-w09-relations-generation-v3.log",
+      "log_sha256": "fcc8eb78ec238cf034978ffbba15f2e1e00cde7ed22043044f9ca88d0be2ccec"
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-t06-w09-go-cache go test -v -count=1 -timeout 25m -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIStructuralRelations$' .",
+      "result": "passed: 22 same-byte certificates accepted with zero axioms; all 22 hash corruptions rejected by both checkers",
+      "log": "/tmp/mpk-w09-relations-checkers.log",
+      "log_sha256": "fc16033ca7e06ff539da0f1f9e869d902834d4c4593288a5f12e85fc8a95922a"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib structural_storage_",
+      "result": "passed: 4 existing storage tests",
+      "log": "/tmp/mpk-w09-relations-storage-regression.log",
+      "log_sha256": "3d5cbbcf03c224ce0e2d9b0bbb0de9324158bb316425c7c2e8ce2cfe790eb6a5"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "result": "passed: 5 inventory tests",
+      "log": "/tmp/mpk-w09-relations-inventory-final.log",
+      "log_sha256": "0ab1a2f364b2479a53bb3a2c58c0a721f680b2f4805812417a1816ac4efad51e"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+      "result": "passed",
+      "log": "/tmp/mpk-w09-relations-clippy-complete.log",
+      "log_sha256": "625fddc0e0b4b9b6ab6902a68adeec0f028a4d685f0761f122fbe064e98672a8"
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true (13 changed Rust files)",
+      "result": "passed; empty diff",
+      "log": "/tmp/mpk-w09-relations-format-final.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "gofmt -d go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "result": "passed; empty diff",
+      "log": "/tmp/mpk-w09-relations-go-format.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "MPK_W09_RELATIONS_OUT=/tmp/mpk-w09-relation-fixtures cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_relations_original_sources_and_semantics -- --nocapture",
+      "result": "passed: 979 source value-pair/storage observations; 1859.76 seconds; original run retained to completion",
+      "log": "/tmp/mpk-w09-relations-generation-v4.log",
+      "log_sha256": "748bd6f18b0eecbfbb2b2c60a60a3aa09745d215257601b635404dd82d47f2b0"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_money_relation_ties_and_numeric_equality -- --nocapture",
+      "result": "passed: two same-currency Money pairs; 223.50 seconds; subsequent lint-only Box allocation cleanup compiled under clippy",
+      "log": "/tmp/mpk-w09-relations-money-ties.log",
+      "log_sha256": "43f1740658fc2917c73d0fa2212f0563e8e873ec40d1ebdcca0ba29f0b1518c3"
+    }
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "result": "deferred",
+    "owner": "CSHARP-03-T06-W12"
+  },
+  "remaining_scope": "unit-3-progress.md",
+  "review": "unit-3-relations-review.md",
+  "source_relation_roots_note": "102 root occurrences across 21 source contexts, not a cross-context distinct-type count",
+  "completion_commit": "SELF",
+  "review_findings": 0,
+  "source_observations": 979,
+  "money_tie_observations": 2,
+  "observation_reconciliation": "All 21 metrics rows match certificates.json except the intentional observations counts, and all regenerated bytes equal the pinned dual-checked files.",
+  "initial_failed_runs": [
+    {
+      "log": "/tmp/mpk-w09-relations-generation.log",
+      "reason": "sample construction attempted to read nonexistent raw source member IDs",
+      "log_sha256": "3a20f0d7ef2ae49d28e3c59a22ccf320a75afa6d142b958310d0a486d695745a"
+    },
+    {
+      "log": "/tmp/mpk-w09-relations-generation-v2.log",
+      "reason": "native default test stack overflow in Money observations; matched existing decimal tests with a 64 MiB stack",
+      "log_sha256": "9208ed031ceb62da58b4d3a09f187d6d370146a2e7305c50ec2903791b8c14c8"
+    }
+  ],
+  "files": [
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/relations/binding-vc-boundary_field.hex",
+      "sha256": "37e5185ef4440259e2ab1269142427f5a8f06f67e63a1f368fedf90c916e4766"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/relations/binding-vc-bounded_sequence.hex",
+      "sha256": "842b254b00519f9767fdc566be1ec3d604c7b75c6e263562c6d09331cd8340f2"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/relations/binding-vc-instant.hex",
+      "sha256": "32b13744dc5d6411fee7c0358005fb8d5f31a25ee19bda97860421a231d3bf9d"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/relations/binding-vc-lookup.hex",
+      "sha256": "c0de063acd85343007458c3e3f54bcca93de6a4f33798e88a80a076874350e1b"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/relations/binding-vc-money.hex",
+      "sha256": "6c9ac662b993fb550783eba7aa8e02376ea181ad594f079275e7a33f864c66ef"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/relations/binding-vc-option.hex",
+      "sha256": "6571c99325ad1fc4eb246b93aed5bc3aef088addbb6f21029447c34bcc879a0d"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/relations/binding-vc-ordered_entry.hex",
+      "sha256": "95e49694259c88095adf3a64a56d3dc89d1535bde4c5a9f9aac17661fec3e7e1"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/relations/binding-vc-ordered_map.hex",
+      "sha256": "042433c6999b2d825face19ca2353a3808c58af2e60ab20c289dfe77633e91a6"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/relations/binding-vc-ordered_set.hex",
+      "sha256": "5b01424fcfab4ebbc5c593c73309ac9cbaee522a1f78e7a720180958e416f685"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/relations/binding-vc-result.hex",
+      "sha256": "685234fadd0ba9afbb5d22f2db8be26fa5de855da8b9c20581551434bc388a18"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/relations/binding-vc-transition.hex",
+      "sha256": "75011b471df2ac6775b461c8c4c7b3d660a3fcf8fa61880c9bdc01bdfcfc7111"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/relations/binding-vc-validation.hex",
+      "sha256": "a7f1c08ac46bf133c8ec010330f4c7edb418b0e3818718bfe204c6b997e412f6"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/relations/certificates.json",
+      "sha256": "0551e5d5ea5373950002058a26d377485d955463f77b884dfcc97c4083d81280"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/relations/construction-vc-enum_zero.hex",
+      "sha256": "65a18575862e2b4429089e33bd75e8c7ecf27371186e0d424d1f3f39540fd1c5"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/relations/construction-vc-positive_constructor.hex",
+      "sha256": "26572bef6d0bd16c2530b10925dfb1a4c6da98761f1c229ae85d9e6b4d46551b"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/relations/date.hex",
+      "sha256": "da2d12038f9fb08a090ae89a4c5a64871e7e47bfed5048abcb2e9623daeb03b0"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/relations/exception-vc-allowed.hex",
+      "sha256": "d71a114b9b2e6ec39e86c32f3e15678bfe165004d80dc87cb5c49adbb28170f5"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/relations/floats.hex",
+      "sha256": "2308baac16f930695b064763034fae8a632b1ca926e0e57d73a529244ff1e67c"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/relations/guid.hex",
+      "sha256": "8c03e204114d29cb4daaba45bb527b0aba7eccd7a1877afcea7f2459b03d73f0"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/relations/metrics.json",
+      "sha256": "5c5409754c8f4e9837595411e6a079d3ecbe177aca51db38e02bccfbaa165486"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/relations/nested-box.hex",
+      "sha256": "389f520e6123e435d9ba84cae4e102b19953700272cc4a4ea37f19941cdcc869"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/relations/nullable-float.hex",
+      "sha256": "3af2682533614157fe8b0d3aa097fa863b3cf4968e06306d97fabbc284906468"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/relations/scalar-core.hex",
+      "sha256": "b2884648af5067307e0289678f0e5a3e4a86086a33c838d4c23362e9e4c17c95"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/relations/scalar-core.json",
+      "sha256": "df137b9b4d6aaa9634251d069d38606e00b9d5d16eff444215b1a8743b0a747d"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/relations/string.hex",
+      "sha256": "cf2607aec38d7697688755e78073cb0b22f4cb16b4307a6944daf350d46e102c"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_relations.rs",
+      "sha256": "e3c7fca52b11821d88ae23d32eb58963dee96f651946cbc9c424d7ae874e6693"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_scalar_relations.rs",
+      "sha256": "a08c82c00c36f943402e172b77c03433e1b0b2b5b6bf6673f4021def9f5927f9"
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_test_eval.rs",
+      "sha256": "c4ac97277bae60e2338a67974dc5c18b92a74cc928be93936a1b5e8e4d93256f"
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_ordinary_relation_tests.rs",
+      "sha256": "b7606836d7950cc5b4e079627157bc6fcb7ec671fae9ba58bfd6b248757a1d22"
+    },
+    {
+      "path": "go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "sha256": "6353a5a8ca329215a8e0b72b9907ac43119606f051bb5ca255b89fa83bfb3ba0"
+    }
+  ]
+}

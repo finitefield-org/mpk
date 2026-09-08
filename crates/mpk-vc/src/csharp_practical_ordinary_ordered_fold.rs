@@ -23,7 +23,7 @@ fn read_bit(b: &mut Builder, value: u32, index: u32) -> R<u32> {
         .collect::<R<Vec<_>>>()?;
     b.app(value, address)
 }
-fn word(b: &mut Builder, value: u32) -> R<u32> {
+pub(super) fn word(b: &mut Builder, value: u32) -> R<u32> {
     let mut result = bit(b, false)?;
     for i in 0..32 {
         if value & (1 << i) != 0 {

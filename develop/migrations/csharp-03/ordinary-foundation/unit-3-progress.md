@@ -124,15 +124,69 @@ began. The inventory also passed without a fingerprint change. See
 This completes the common fold component only. No structural equality, canonical
 order, recursive domain or application proof is claimed by these fold helpers.
 
+## Structural equality and eligible canonical order
+
+The relation generator reconstructs all storable reachable carriers from the
+validated original VIR, including uninvoked concrete instances. It lowers scalar
+value equality/order through the existing finite integer, IEEE and decimal
+circuits. Products compare stored fields, sums compare tags and active payloads,
+and length-bearing sequences use the common ordered fold over their shared
+prefix before comparing full lengths. Money compares currency before its numeric
+decimal amount. Internal construction state receives no storable relation.
+
+Canonical ordering is absent for IEEE values, closed exceptions and every
+containing type, including absent options and empty sequences. Representation
+padding, valid tags/lengths, map/set canonicality and public source invariants
+remain caller obligations; these helpers do not establish their domains or
+prove application VCs. Exact metadata and certificate bytes are reconstructed
+on import. Neither checker nor its acceptance rules are changed.
+
+The original-source observation suite initially used nonexistent IDs in raw
+source member facts; matching the recorded declaration order fixes that sample
+construction error. An initial Money observation exhausted the default native
+test stack; the suite now uses the existing decimal tests' 64 MiB thread stack.
+A live sample confirmed that the longer run was reducing ordinary terms in the
+test observer. The initial 21-source suite subsequently passed 408 core value
+pairs in 804.30 seconds. The strengthened suite now includes same-length element
+differences, later source fields, nullable IEEE NaN/zero cases, signed/scaled
+decimal zero, user-exception payloads and ignored empty storage. It passed
+979 value-pair/storage observations in 1,859.76 seconds. Two additional Money
+cases passed in 223.50 seconds: equal currencies with numerically equivalent
+decimal representations, and equal currencies with different amounts. These
+close the relation component only; unit 3 and W09 remain incomplete.
+
+Source certificate generation/import mutations and exact pinned replay passed
+for all 21 captures and 102 relation-root occurrences across those contexts. A supplementary scalar
+certificate passed 260 signed/unsigned boundary pairs over widths 0..128, with
+normalized -1/0/1 results. All 22 certificate bytes are pinned in `relations/`;
+both checkers accepted all 22 with zero axioms and rejected all 22 hash
+corruptions in 355.53 seconds. The source certificate pass separately
+validates every test sample against the existing value model before deep core
+observation. Its `certificates.json` records zero value-pair observations intentionally;
+the extracted index-word checks are separate from those value-pair metrics.
+Only the full semantic pass emits value-pair observation metrics.
+
+The extracted test observer matches its committed implementation after formatting
+and the visibility change to `eval`. Existing lazy-argument and four structural
+storage regression tests passed. Scoped lint passed after replacing three
+manual divisibility expressions and two unnecessary Box reallocations in test code. The namespace inventory adds only
+`csharp_practical_ordinary_test_eval.rs`: removing it reconstructs the old
+106-path fingerprint exactly. The updated 107-path fingerprint, aggregate count
+4,930 and linked raw inventory hash passed all five inventory tests; historical
+cache entries are unchanged. See `unit-3-relations-verification.json` and
+`unit-3-relations-review.md`. The full T06 gate remains deferred to W12.
+
 ## Remaining unit 3 work
+
+Inspected next-component requirements, including logical cell-count exceptions
+for map entries and transition events, are in `unit-3-domain-notes.md`. These
+notes do not implement the missing domains or defaults.
 
 - Complete semantic domains/default eligibility for all concrete values,
   including recursive canonical padding and inactive storage, sum tags, nullable
   payloads, string bounds and role-specific sequence bounds. Primitive scalar
   and source-enum representation domains are implemented as described above;
   source public clauses and default eligibility still require assembly.
-- Field/active-payload/element semantic equality and canonical ordering,
-  including non-reflexive scalar cases and complete source-snapshot observation.
 - Unit/parse-error/exception operations and semantic constructors/accessors over
   these helpers, retaining domain, validation and ordered failure obligations.
 - Bounded sequence and construction-state operations, ownership/initialization,

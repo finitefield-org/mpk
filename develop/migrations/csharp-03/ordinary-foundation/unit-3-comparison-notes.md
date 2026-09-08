@@ -1,7 +1,9 @@
 # W09 unit 3 comparison implementation notes
 
-These notes record inspected requirements, not implementation or completion.
-The ordered-fold helper is being verified before relation assembly.
+The ordinary relation component has passed source replay, direct core
+observations and same-byte dual checking. See `unit-3-relations-verification.json`
+and `unit-3-relations-review.md` for actual coverage and results. These retained
+requirements explain the implementation; they do not close all of unit 3 or W09.
 
 - Reconstruct the reachable carrier/closed-instance set from validated VIR.
   Source enums compare underlying numeric carriers, including signed widths.

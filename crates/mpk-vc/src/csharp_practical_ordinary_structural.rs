@@ -785,3 +785,10 @@ pub use ordered_fold::{
     import_csharp_practical_ordinary_ordered_folds, OrdinaryOrderedFoldDefinition,
     OrdinaryOrderedFoldProgram,
 };
+
+#[path = "csharp_practical_ordinary_relations.rs"]
+mod relations;
+pub use relations::{
+    generate_csharp_practical_ordinary_relations, import_csharp_practical_ordinary_relations,
+    OrdinaryRelationDefinition, OrdinaryRelationProgram,
+};
