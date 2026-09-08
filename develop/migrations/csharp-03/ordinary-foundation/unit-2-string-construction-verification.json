@@ -1,0 +1,149 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.string_construction_verification.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 2,
+  "component": "UTF-16 substring, concatenation and restricted interpolation",
+  "component_status": "implemented, verified and reviewed",
+  "unit_2_status": "in progress",
+  "w09_status": "Ready/in progress",
+  "baseline_commit": "06996db",
+  "date": "2026-09-09",
+  "checks": [
+    {
+      "command": "cargo test -p mpk-vc --lib string_construction_ -- --nocapture",
+      "result": "passed",
+      "tests_passed": 2,
+      "log_sha256": "91e80c483fdd95736be34d9ab36e73692cfcc9bf9835199a7977e932c3cada85"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_string_",
+      "result": "passed",
+      "tests_passed": 3,
+      "log_sha256": "faf765e6c72e130eabc68d2e9c21758ed81dd2050e97a23754c22efa240a3aac"
+    },
+    {
+      "command": "cd go-tools/mpk-checker-ref && GOCACHE=/tmp/mpk-t06-w09-go-cache go test -v -count=1 -timeout 25m -tags checkeragreement -run TestCheckerAgreementWithRustCLIStringConstruction .",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "c2a36c7cdae78135d905af685248669688c19f71b4f584e13ec7652e3dbcfa6f"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "result": "passed",
+      "tests_passed": 5,
+      "log_sha256": "5d8d90cc12322a8f78d7a8a023aca94aa3668c8d5126585b252d6a70b9ae5643"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --tests -- -D warnings",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "1dda35b49a45826adccf796b4b07872cb5ff5af0e2cd7adb0cd58a08c416dd27"
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true (nine changed Rust files); gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "coverage": {
+    "actual_core_oracle_cases_passed": 44,
+    "core_carrier_depths": [
+      19,
+      20
+    ],
+    "binder_acceptances": [
+      65,
+      231
+    ],
+    "binder_rejections": [
+      232,
+      257
+    ],
+    "registered_binder_limit": 256,
+    "original_construction_source_cases": 7,
+    "previous_basic_source_cases_replayed": 9,
+    "ordinal_search_source_rejections": 1,
+    "original_source_carrier_depth": 20,
+    "source_certificate_maximum_terms": 5323,
+    "source_certificate_maximum_declarations": 105,
+    "binder_certificate_terms": 8211,
+    "binder_certificate_declarations": 100,
+    "certificates_checked_by_both": 8,
+    "zero_axiom_acceptances_per_checker": 8,
+    "hash_mutation_rejections_per_checker": 8,
+    "review_findings": 0
+  },
+  "observation_scope": "Core tests compare all success/failure and result-length bits, thirteen single-bit header-padding probes, and sixteen bits per sampled content cell. Samples include the first 32 cells, last active/first inactive, final storage slot and neighbours of every binary carry. Long output contents are sampled, not exhaustively enumerated.",
+  "verification_note": "An intermediate test incorrectly assumed binder limit 64 and expected 40 arguments to reject. Actual registered limit is 256; the guard and boundary assertions were corrected. Final core group passed both functions in 169.00 seconds. All eight dual-checker cases passed in 155.899 seconds, including the 231-argument boundary certificate. Historical basic-string log hashes were corrected against each actual log during direct review.",
+  "review": "unit-2-string-construction-review.md",
+  "consumer_inventory": {
+    "query": "foundation.std_namespace",
+    "added_path": "crates/mpk-vc/src/csharp_practical_ordinary_string_construct.rs",
+    "previous_count": 103,
+    "current_count": 104,
+    "previous_paths_sha256": "7ecd8d84a3e6ed159fcfa9e0e93c22a035bee88ad123d5abf9b9eba2ae2a7740",
+    "current_paths_sha256": "78273c2b1a4ca331b0d901cda63be49e75f3d6b7051815feae216c19ef251990",
+    "aggregate_count": 4927,
+    "delta_verified": "Removing the sole new path reproduces the basic-component count/hash. Historical cache paths remain unchanged; its inventory hash link was updated."
+  },
+  "remaining": [
+    "Unit 2: ordinal string comparison and search.",
+    "Input domains, typed literals, all reachable foundation definitions, application proofs and W09 units 3-8."
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "result": "deferred",
+    "owner": "CSHARP-03-T06-W12"
+  },
+  "files": [
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-construction-circuits/binder-limit.json",
+      "sha256": "abc12c1cea5e4a008e3c669402531fd7f53fb273e9a1f02f00cc7fd61aa942a0"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-construction-circuits/metrics.json",
+      "sha256": "1a6eb278253fde516ae0a23fadfcf0f6e982a5015679341efc00008213e8cb86"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-construction-circuits/string.concat.operator.char_string.304b28cd.hex",
+      "sha256": "5efbedb1b22403c960d3186fd155434fa70d1015caffaa7b1a8ab7d8c1579bdf"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-construction-circuits/string.concat.operator.string_char.c0c19a7b.hex",
+      "sha256": "cba07c3c5910c2f58fc9c9c3a2e104f9cae0352342de1ec43138c35a13667bb8"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-construction-circuits/string.concat.operator.string_string.f09a5ff3.hex",
+      "sha256": "dd867f89d6ed5ac2e4f74920c5f3c8e5583719d0b09d499827e9c97f4db4e0ea"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-construction-circuits/string.concat.string4.eb35be66.hex",
+      "sha256": "4159a78a1b6b32544e6ba6422a1cac8f34906b7a7332a2a01558ee72ea95ca23"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-construction-circuits/string.interpolation.binder_limit.hex",
+      "sha256": "aa252c86f7240bb818262cabecd5139321d9a63460cc915b34e3d9b5e20c7dee"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-construction-circuits/string.interpolation.restricted.63bb510b.hex",
+      "sha256": "f75e09da261124ac4c5f5fffe2dc8f0455fa5726341471be81d775e07e509274"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-construction-circuits/string.interpolation.restricted.90ec9e7b.hex",
+      "sha256": "6017a06b154a0d91017a18a14b74850f8964b8e0ff164da8363f40873565be61"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-construction-circuits/string.substring.start_length.f57dee68.hex",
+      "sha256": "3e399d59958125ca5cba38cafa41961aa213c8c2788bf6b8417cd6b388b6f1f5"
+    },
+    {
+      "path": "develop/migrations/csharp-03/artifact-consumer-inventory.json",
+      "sha256": "49d4bc9abd5ff13e6f526e8359bd8f57c44494adb5dcf921a4af6ab8339f4915"
+    },
+    {
+      "path": "develop/migrations/csharp-03/data-phase/historical-inventory-cache-correction.json",
+      "sha256": "8336827129724929bda2dc166b6c1d2fac17578ab17271bb5fe5928eb8ad1a3b"
+    }
+  ]
+}

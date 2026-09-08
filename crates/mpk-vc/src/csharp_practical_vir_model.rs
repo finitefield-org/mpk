@@ -7439,3 +7439,8 @@ pub use ordinary_carriers::{
     OrdinaryIntegerDefinition, OrdinaryIntegerProgram, OrdinaryScalarDefinition,
     OrdinaryTemporalProgram,
 };
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_strings, import_csharp_practical_ordinary_strings,
+    OrdinaryStringDefinition, OrdinaryStringProgram,
+};

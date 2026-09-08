@@ -678,10 +678,7 @@ fn floating_source_linkage(cases: &[(&str, &str)]) {
 
 #[test]
 fn csharp_03_t06_w09_decimal_source_linkage_rejects_substitution() {
-    let bundle = b();
-    let rows = read("data-phase/data-stage-replay.json");
-    let mut previous: Option<(Vec<u8>, Vec<u8>)> = None;
-    for (id, required) in [
+    decimal_source_linkage(&[
         (
             "37665fd6c9e9c3eee21b0fc6700d87bef8045cd225000647f47e5f6b996c1f2e",
             "decimal.conversion.int32_to_decimal",
@@ -738,7 +735,14 @@ fn csharp_03_t06_w09_decimal_source_linkage_rejects_substitution() {
             "a995ddf1cc51e65cd9c7fbe6c2512b0b813663a52a69f97bff15d4691a27e1e5",
             "decimal.round.AwayFromZero.2",
         ),
-    ] {
+    ]);
+}
+
+fn decimal_source_linkage(cases: &[(&str, &str)]) {
+    let bundle = b();
+    let rows = read("data-phase/data-stage-replay.json");
+    let mut previous: Option<(Vec<u8>, Vec<u8>)> = None;
+    for &(id, required) in cases {
         let row = rows
             .as_array()
             .unwrap()
@@ -822,16 +826,257 @@ fn csharp_03_t06_w09_decimal_source_linkage_rejects_substitution() {
 }
 
 #[test]
-fn csharp_03_t06_w09_decimal_unimplemented_source_fails_closed() {
+fn csharp_03_t06_w09_decimal_arithmetic_source_linkage_rejects_substitution() {
+    decimal_source_linkage(&[
+        (
+            "072499d479575581ac35f2f8f4890b04df24427f5043591a586129eb1a188238",
+            "decimal.remainder",
+        ),
+        (
+            "12fd6ef71100b3141a5f195dc9fed18b7fad26052f32d394536b4afa37dd9353",
+            "decimal.less",
+        ),
+        (
+            "300c49bdb94b3da7c6b766b8b981dc9c1d3e1314ffba1ab9e35a1dba4eab5365",
+            "decimal.greater",
+        ),
+        (
+            "550ba0310e316b190e013bad80b230c4d727b19d86fee7745690b2b0ac6cbe4b",
+            "decimal.multiply",
+        ),
+        (
+            "6040e7b6fe806e2b5a7aa78f43e37f9a3ebceb67dbe5be8b922dc6e80a9a1b22",
+            "decimal.add",
+        ),
+        (
+            "8c85e8172f2e3be2bef8622eb6fcbe1cfd3cf83bc9dc30cb324bfe9ab106bf55",
+            "decimal.equal",
+        ),
+        (
+            "a662f2d29c2e22873d15bee55e4bf204f94039a02dca5d702eaef8972551563c",
+            "decimal.greater_equal",
+        ),
+        (
+            "cfd713dba7b564e51e8a7412681721b6d6c7ee52bf103b493640fc28581ec241",
+            "decimal.not_equal",
+        ),
+        (
+            "d3bfc038e46a90e05f2b4d64b37b2d42d4d66b7aac729db7c668a38f4baf1140",
+            "decimal.less_equal",
+        ),
+        (
+            "d7c2d9c04df90b2e3d6d2b9e90dffc8ecfdaffc407a88086a1347d4f35f0aca6",
+            "decimal.subtract",
+        ),
+        (
+            "e3a7f6683c7f700fa22c8998fb907fd03433b4cfc53a65018eb76d5ec13de5ee",
+            "decimal.divide",
+        ),
+        (
+            "259be2f4eb7992db7f06a6c7d4385b0563852afda806de33709b627be83e6c82",
+            "decimal.equal",
+        ),
+    ]);
+}
+
+#[test]
+fn csharp_03_t06_w09_string_basic_source_linkage_rejects_substitution() {
+    let cases = [
+        (
+            "15a93564d8819ba33b2c3c752501c69a1dc5aa3dda240c595db8eff7abd05f7f",
+            "string.is_null_or_empty",
+        ),
+        (
+            "422102785bc05b7b701aaa79b90ad51dfb452955b538a13450244d01eb549fd4",
+            "string.length",
+        ),
+        (
+            "4b3aea39a57210c852642e12b9b206dab57a6811628f5080b520934e7cae77f8",
+            "string.length",
+        ),
+        (
+            "58192b52bd4bf5c30ff78ffab9fd8a6d02293bcfd723822d7701ba338f0f9673",
+            "string.length",
+        ),
+        (
+            "5c9185c954edd922bee4892b0ad4a612ee6efe729b9d0a907ea0b083dc32effc",
+            "string.index",
+        ),
+        (
+            "784052557e7e5768a3617cb28ecdbf9e7b31bf51df84ed6d95b0878b3626bff4",
+            "string.length",
+        ),
+        (
+            "85983195c27c7992e8a87d99c134fcd0efef4d57bbc6dc2ebc868a0651b205bf",
+            "string.length",
+        ),
+        (
+            "87b745463754ae3dbf72720245889117da7547adcb795bc61c74d3d7b39ce021",
+            "string.index",
+        ),
+        (
+            "b863eb406b3aa79c8ad88cc0bb04c8e6b39c983f77270bf3e6c206588161f5d8",
+            "string.length",
+        ),
+    ];
+    string_source_linkage(&cases, "string-basic-circuits", "MPK_W09_STRING_OUT");
+}
+
+fn string_source_linkage(cases: &[(&str, &str)], directory: &str, output_env: &str) {
+    let mut depths = BTreeSet::new();
+    let fixture_root = Path::new(env!("CARGO_MANIFEST_DIR")).join(format!(
+        "../../develop/migrations/csharp-03/ordinary-foundation/{directory}"
+    ));
+    let output = std::env::var_os(output_env).map(std::path::PathBuf::from);
+    if let Some(dir) = &output {
+        fs::create_dir_all(dir).unwrap();
+    }
+    let mut metrics = vec![];
     let bundle = b();
     let rows = read("data-phase/data-stage-replay.json");
-    // The original source combines the implemented integer conversion with a
-    // decimal equality that has no ordinary definition in this increment.
+    let mut previous: Option<(Vec<u8>, Vec<u8>)> = None;
+    for &(id, required) in cases {
+        let row = rows
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|r| r["id"] == id)
+            .unwrap();
+        let (context, captures) = support::replay_context(&bundle, row);
+        let source = ValidatedDataSource::import_captured_facts(
+            &bundle,
+            &context,
+            &captures,
+            &serde_json::to_vec(&row["outcome"]["facts"]).unwrap(),
+        )
+        .unwrap();
+        let emitted = emit_data_phase(&bundle, &context, &captures, &source).unwrap();
+        let vir = emitted.vir();
+        let carriers = generate_csharp_practical_ordinary_carriers(vir).unwrap();
+        let text = carriers
+            .carriers()
+            .iter()
+            .find(|c| c.type_id == "mpk.csharp.value.string.v1")
+            .unwrap();
+        assert_eq!(text.depth, 19);
+        let p = generate_csharp_practical_ordinary_strings(vir)
+            .unwrap_or_else(|e| panic!("{id}: {e:?}"));
+        for d in p.definitions() {
+            for text in &d.operation.argument_type_ids {
+                let carrier = carriers
+                    .carriers()
+                    .iter()
+                    .find(|c| &c.type_id == text)
+                    .unwrap();
+                if carrier.depth >= 19 {
+                    depths.insert(carrier.depth);
+                }
+            }
+        }
+        let metadata = p.canonical_bytes();
+        let actual = p
+            .definitions()
+            .iter()
+            .map(|d| d.operation.id.as_str())
+            .collect::<BTreeSet<_>>();
+        assert!(
+            actual
+                .iter()
+                .any(|op| *op == required || op.starts_with(&format!("{required}."))),
+            "{id}: {actual:?}"
+        );
+        let wire: Value =
+            serde_json::from_slice(emitted.operations().operations().canonical_bytes()).unwrap();
+        let expected = wire["operations"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|s| s["id"].as_str().unwrap())
+            .filter(|s| s.starts_with("string."))
+            .collect::<BTreeSet<_>>();
+        assert_eq!(actual, expected);
+        assert_eq!(
+            import_csharp_practical_ordinary_strings(&metadata, p.certificate_bytes(), vir)
+                .unwrap(),
+            p
+        );
+        let cert = mpk_cert::decode_canonical_certificate(p.certificate_bytes()).unwrap();
+        validate_csharp_practical_certificate_structure(&cert).unwrap();
+        let file = format!("{required}.{}.hex", &id[..8]);
+        let hex = p
+            .certificate_bytes()
+            .iter()
+            .map(|byte| format!("{byte:02x}"))
+            .collect::<String>()
+            + "\n";
+        if let Some(dir) = &output {
+            fs::write(dir.join(&file), &hex).unwrap();
+        } else {
+            assert_eq!(fs::read_to_string(fixture_root.join(&file)).unwrap(), hex);
+        }
+        metrics.push(json!({"source":id,"file":file,"terms":cert.term_table.len(),"declarations":cert.declarations.len(),"metadata":serde_json::from_slice::<Value>(&metadata).unwrap()}));
+        let original: Value = serde_json::from_slice(&metadata).unwrap();
+        for mutation in 0..8 {
+            let mut changed = original.clone();
+            match mutation {
+                0 => changed["source_ir_sha256"] = json!("0".repeat(64)),
+                1 => changed["foundation_sha256"] = json!("0".repeat(64)),
+                2 => changed["certificate_sha256"] = json!("0".repeat(64)),
+                3 => changed["definitions"] = json!([]),
+                4 => changed["definitions"][0]["operation"]["ordered_checks"] = json!([]),
+                5 => {
+                    changed["definitions"][0]["operation"]["normal_result_type_id"] =
+                        json!("mpk.csharp.value.i64.v1")
+                }
+                6 => changed["definitions"][0]["result_definition"] = json!("forged"),
+                _ => changed["definitions"][0]["operation"]["id"] = json!("string.unimplemented"),
+            }
+            if changed != original {
+                assert!(import_csharp_practical_ordinary_strings(
+                    &serde_json::to_vec(&changed).unwrap(),
+                    p.certificate_bytes(),
+                    vir
+                )
+                .is_err());
+            }
+        }
+        let mut bad = p.certificate_bytes().to_vec();
+        *bad.last_mut().unwrap() ^= 1;
+        assert!(import_csharp_practical_ordinary_strings(&metadata, &bad, vir).is_err());
+        if let Some((m, c)) = &previous {
+            assert!(import_csharp_practical_ordinary_strings(m, c, vir).is_err());
+        }
+        previous = Some((metadata, p.certificate_bytes().to_vec()));
+    }
+    // These original captures all close option<string>; the independent core
+    // cases also exercise the non-null string carrier.
+    assert_eq!(depths, BTreeSet::from([20]));
+    if let Some(dir) = output {
+        fs::write(
+            dir.join("metrics.json"),
+            serde_json::to_vec_pretty(&metrics).unwrap(),
+        )
+        .unwrap();
+    } else {
+        assert_eq!(
+            serde_json::from_slice::<Value>(&fs::read(fixture_root.join("metrics.json")).unwrap())
+                .unwrap(),
+            json!(metrics)
+        );
+    }
+}
+
+#[test]
+fn csharp_03_t06_w09_string_unimplemented_source_fails_closed() {
+    let bundle = b();
+    let rows = read("data-phase/data-stage-replay.json");
+    // Actual source contains ordinal search, whose ordinary definition is
+    // still pending. It must fail closed.
     let row = rows
         .as_array()
         .unwrap()
         .iter()
-        .find(|r| r["id"] == "259be2f4eb7992db7f06a6c7d4385b0563852afda806de33709b627be83e6c82")
+        .find(|r| r["id"] == "9aeebaac704d50a85728a423d1d6411c702677b31514bee6108394d4fcaf9142")
         .unwrap();
     let (context, captures) = support::replay_context(&bundle, row);
     let source = ValidatedDataSource::import_captured_facts(
@@ -848,9 +1093,47 @@ fn csharp_03_t06_w09_decimal_unimplemented_source_fails_closed() {
         .as_array()
         .unwrap()
         .iter()
-        .any(|s| s["id"] == "decimal.equal"));
+        .any(|op| op["id"] == "string.contains.ordinal"));
     assert_eq!(
-        generate_csharp_practical_ordinary_decimal(emitted.vir()),
+        generate_csharp_practical_ordinary_strings(emitted.vir()),
         Err(OrdinaryCarrierError::Shape)
+    );
+}
+
+#[test]
+fn csharp_03_t06_w09_string_construction_source_linkage_rejects_substitution() {
+    string_source_linkage(
+        &[
+            (
+                "304b28cd651bf51eea71d91bd718875fd27af3310db3d2fee97db2cf14b3f92f",
+                "string.concat.operator.char_string",
+            ),
+            (
+                "63bb510bd024f2abd2fb68a5569710929d69aaaacc2fa3043d1cf571901609a4",
+                "string.interpolation.restricted",
+            ),
+            (
+                "90ec9e7b48c233a20391174dd3ebe4e231edacf05e279d5d58908262757ae878",
+                "string.interpolation.restricted",
+            ),
+            (
+                "c0c19a7b58bba12700f3de83a3d155fd9cdfca541a9c9c146f372dd0519a98fe",
+                "string.concat.operator.string_char",
+            ),
+            (
+                "eb35be66582a7e6f92940b23f56212ef0941b4b4f50405fc977facea99fd02fa",
+                "string.concat.string4",
+            ),
+            (
+                "f09a5ff3dbc39178dca2c649cfa1b5dccecd5d5a642955c5c930a699536b64b2",
+                "string.concat.operator.string_string",
+            ),
+            (
+                "f57dee68d8fc8e5603fb3757146330a3fc4de9f68fd684297fa4b1b835a10bd0",
+                "string.substring.start_length",
+            ),
+        ],
+        "string-construction-circuits",
+        "MPK_W09_STRING_CONSTRUCT_OUT",
     );
 }

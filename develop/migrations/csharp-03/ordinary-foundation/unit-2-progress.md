@@ -3,8 +3,8 @@
 Unit 2 is **in progress**, not complete. This increment implements the Boolean
 and fixed-width integer portion of the approved scalar work unit, followed by
 the Time/Duration/Instant, Date/Guid/DayOfWeek, floating-operation and numeric
-conversion and decimal conversion/rounding components below. Decimal arithmetic/
-comparisons and UTF-16 string operations still belong to unit 2.
+conversion and complete non-literal decimal operation components below. UTF-16
+string operations still belong to unit 2.
 Units 3-8 and W09's exit condition are unchanged. This record is not a W09 completion receipt.
 
 ## Implemented component
@@ -286,9 +286,9 @@ remaining W09 units are still outstanding. The full gate stays at T06-W12.
 
 The decimal generator implements 33 signatures: plus/negate, truncate/floor/
 ceiling, all five rounding modes at both frozen arities, and both directions
-between decimal and the nine integer/char carriers. Decimal arithmetic,
-comparisons and literal bodies remain unfinished; a source containing such an
-operation fails closed rather than receiving a partial decimal program.
+between decimal and the nine integer/char carriers. Decimal arithmetic/comparisons are added in the following component; literal
+bodies remain separate work. At this increment, unsupported decimal signatures
+failed closed rather than producing a partial decimal program.
 
 The public carrier remains unit 1's depth-nine Boolean cube. Field selectors
 precede child selectors. Sign is at address 0, scale bit i at `1 + 64*i`, and
@@ -322,7 +322,8 @@ and verifies the zero-counter identity. Eight actual-core observations cover
 signed zero, char construction, nearest-even rounding without double rounding,
 range failure, unsigned zero after truncation and overflow. Fourteen original
 source captures cover all operation families and rounding modes; an additional
-source combining conversion with unimplemented equality is rejected explicitly.
+source combining conversion with then-unimplemented equality was rejected. The
+following arithmetic component now covers that original capture positively.
 
 All 33 individual certificates fit unchanged limits. Seven representative
 certificates are pinned in `decimal-circuits/`; the largest definition has 14,491
@@ -334,3 +335,136 @@ See `unit-2-decimal-verification.json` and `unit-2-decimal-review.md`.
 This component leaves decimal arithmetic/comparisons, UTF-16 strings, input
 domains, all-instance expansion, application proofs and W09 units 3-8 unfinished.
 The full T06 gate stays deferred to T06-W12.
+
+## Decimal arithmetic, comparisons and shared assembly
+
+The remaining twelve non-literal decimal signatures are implemented: equality,
+value equality, inequality, four ordering relations, add/subtract/multiply/divide/
+remainder. Together with the previous component, the generator covers all 45
+non-literal decimal signatures. Literal bodies and input-domain predicates remain
+separate work.
+
+Alignment expands 96-bit coefficients into 192-bit words and applies at most 28
+conditional multiplications by ten, preserving the original signs and choosing
+the maximum source scale. Comparisons use the aligned magnitudes; differently
+scaled and signed zeros compare equal. Addition/subtraction preserve the frozen
+left-sign rule for exact cancellation. Multiplication uses 96 finite shift/add
+steps and retains the full 192-bit product and summed scale.
+
+Division and remainder use 288 restoring steps with a 193-bit remainder. Division
+first scales the aligned numerator by ten 28 times in a 288-bit word, retaining
+its quotient and exact nonzero/halfway residue information. Remainder uses the
+aligned dividend and retains the dividend sign. No host arithmetic result defines
+an emitted result.
+
+A shared fit step chooses the greatest admissible scale, with at most 57 steps
+for the maximum input product scale of 56. It retains the last discarded digit
+and sticky residue and rounds once using nearest-even. For division, the initial
+rounding decision uses the full binary remainder/divisor comparison; subsequent
+decimal reductions preserve that fractional residue in the sticky bit. Completed
+fit states are identities. Divide-by-zero precedes overflow, and failed normal
+results are zero. Valid remainder operands cannot require overflow: after scale
+alignment, either the dividend or divisor remains a 96-bit coefficient.
+
+Internal helper sharing uses an exact serialized key containing every gate,
+input width, physical output/failure mapping, type and ordered check. It does not
+use source names or mathematical observations as an equivalence test. Shared
+helpers remain ordinary definitions. Every explicit repeated step in each public
+pipeline is counted; sharing removes duplicate helper declarations. Individual
+certificates and metrics for the previous 33 definitions remain byte-identical.
+
+A single certificate containing all 45 public operation definitions fits the
+unchanged bounds: 173,588 terms, 2,270 declarations and 3,858 static transformer
+occurrences, with 45 distinct internal helper circuits. The twelve new individual
+certificates also fit; division is largest at 76,879 terms and 646 declarations.
+Seven representative individual certificates and the combined certificate are
+pinned in `decimal-arithmetic-circuits/`. This is foundation-definition assembly,
+not an application-VC completion receipt or whole-foundation publication.
+
+Verification includes 30,108 independent T03 oracle cases, all scale-pair
+combinations with boundary coefficients, signed/scaled zero, representable and
+unrepresentable results, division by zero and deterministic random pairs. Bit-
+sliced observations check the terminal identities of alignment, multiplication
+and fitting and full physical results. The shared-certificate observer test contains
+16 actual-core cases, including prior rounding/conversion definitions that must
+remain distinct under sharing. Twelve original captures cover eleven directly
+emitted arithmetic/comparison signatures plus a mixed conversion/equality case;
+value equality is also covered as a foundation signature. The preceding fourteen
+original decimal source cases remain covered.
+
+The test-only core observer uses an explicit continuation stack and shared Boolean
+arrays. Captured environments use shared binding lists. Each closure owns a
+compact two-slot Boolean memo; suspended arguments remain lazy, including unused
+Boolean arguments. A poison-suspension regression checks that unused arguments
+and unselected Bool branches are never demanded. Deep term evaluation no longer consumes the native recursive stack.
+An earlier observer stack overflow and a memory-heavy observation attempt are
+recorded as observer limitations, not checker rejections. No checker or Certificate
+v0 rule was changed. Existing core observers are included in the scoped regression
+checks; the final observer regression passed all eight test functions in 3628.93 seconds,
+and all eight same-byte dual-checker fixtures passed with zero axioms.
+
+See `unit-2-decimal-arithmetic-verification.json` and
+`unit-2-decimal-arithmetic-review.md`. UTF-16 strings, input domains, typed literal
+bodies, all reachable foundation instances, application proofs and W09 units 3-8
+remain outstanding. The full T06 gate remains deferred to T06-W12.
+
+## Basic UTF-16 operations
+
+`string.length`, `string.index` and `string.is_null_or_empty` now have ordinary
+core definitions for the full 16,384-unit string carrier and its nullable option.
+Indexing uses the actual cube with dynamic index selectors; it preserves UTF-16
+code units, validates the signed index before exposing a character, orders null
+before range failure, and zeroes the failed result. The public importer rebuilds
+source/context/foundation/signature/certificate links exactly.
+
+The independent core observer passed 77 cases across nullable and non-null
+carriers, including maximum length and isolated surrogates. Nine original source
+captures passed regeneration and linkage-mutation checks. Their actual nullable
+source certificates are pinned in `string-basic-circuits/`; the largest has 1,852
+terms and 44 declarations. Final fixture replay, dual checking, inventory, lint
+and format passed. The original mixed Length/concatenation case becomes positive in the next
+construction increment; an ordinal-search source remains fail-closed. The consumer inventory adds exactly the new string
+implementation and retains its add/remove rejection tests. Direct review has
+zero findings; decimal arithmetic verification has also passed. See `unit-2-string-basic-review.md` and
+`unit-2-string-basic-verification.json` for the reviewed address map
+and remaining work. This component does not complete scalar strings or W09.
+
+## UTF-16 substring, concatenation and interpolation
+
+Substring(start, length), two/three/four-string concatenation, the three
+string/char operator combinations and admitted restricted interpolation shapes
+now generate ordinary result, success and ordered failure definitions. Null
+strings contribute zero length to concatenation; character arguments preserve
+all UTF-16 code units. Empty interpolation returns an empty string.
+
+The full depth-19 output cube selects a source character dynamically from all
+fourteen index bits. Substring adds the requested start; concatenation selects
+the first segment whose prefix end exceeds the index and subtracts that segment's
+start. Length-header padding and inactive content are zero. Range checks avoid
+signed addition overflow, and output length is bounded by 16,384. Failure results
+are zero, with null receiver before substring range failure. Domain predicates
+and literal bodies remain subsequent work.
+
+The composed binder depth is N + 25 for N construction arguments. The corrected
+limit test uses the registered cap 256, accepts 65 and 231 arguments and rejects
+232 and 257. A pinned 231-argument certificate is accepted by both unchanged
+checkers; it has 8,211 terms and 100 declarations. This preserves the ordinary
+limits rather than imposing an unrelated lower argument cap.
+
+Forty-four oracle comparisons observe actual core results in both physical
+carrier modes. They cover maximum length, overflow, index extremes, nullable
+priority, binary index carries, surrogates, NUL and interpolation shapes. All
+length bits and selected content/padding addresses are observed; large outputs
+are sampled as specified in the review, not claimed exhaustively enumerated.
+Seven original source captures regenerate pinned certificates and reject linkage
+mutations. The previous nine basic captures retain their bytes. One original
+ordinal-search source still fails closed. All eight construction certificates,
+including the binder boundary, passed same-byte dual checking with zero axioms
+and hash-mutation rejection. Source replay, inventory, lint and format passed.
+
+The consumer inventory adds exactly the construction implementation, increasing
+its standard-namespace path count from 103 to 104. Direct review corrected the
+binder assumption and basic-string receipt log hashes; the final review has zero
+findings. See `unit-2-string-construction-review.md` and
+`unit-2-string-construction-verification.json`. Ordinal comparison/search and
+W09 units 3-8 remain outstanding. The full gate remains at T06-W12.

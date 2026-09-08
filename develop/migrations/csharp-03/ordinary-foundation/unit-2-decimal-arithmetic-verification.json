@@ -1,0 +1,142 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.decimal_arithmetic_verification.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 2,
+  "component": "Decimal arithmetic, comparisons and exact helper sharing",
+  "component_status": "implemented, verified and reviewed",
+  "unit_2_status": "in progress",
+  "w09_status": "Ready/in progress",
+  "date": "2026-09-09",
+  "baseline_commit": "06996db",
+  "checks": [
+    {
+      "command": "cargo test -p mpk-vc --lib decimal_arithmetic_circuits_match_numeric_oracle -- --nocapture",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "326e9fb944db5bffa3c97e5b66e722d4219f532b73fee8ab53a81cb174b7544f"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib decimal_ -- --skip core --skip match",
+      "result": "passed",
+      "tests_passed": 3,
+      "log_sha256": "ff8221c1c32c40056bb1c096738e2ca4b5d5dfb3fab6ba21da0676e7f5f6cda8"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_decimal_",
+      "result": "passed",
+      "tests_passed": 2,
+      "log_sha256": "8b434b5a1690d7308729ee8a104519031d01831aff52c52a3bf8e058889747f5"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "result": "passed",
+      "tests_passed": 5,
+      "log_sha256": "a7f6ad2acb40ec9aa2c267ba11c77fbfc501db840f4d79da7b0a86bd862bb720"
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true (four changed Rust files)",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib circuits_core_ -- --nocapture",
+      "result": "passed",
+      "tests_passed": 8,
+      "log_sha256": "dd9910b6f9894d14716aa1dd93bba3932b77bc880d6088ad1f69c89cc91599eb"
+    },
+    {
+      "command": "cd go-tools/mpk-checker-ref && GOCACHE=/tmp/mpk-t06-w09-go-cache go test -v -count=1 -timeout 60m -tags checkeragreement -run TestCheckerAgreementWithRustCLIDecimalArithmetic .",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "8695e35aff2fba49caacbe2f420bc8a77545a9de3dd08d00882deee2778bce67"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --tests -- -D warnings",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "5c992ff504acc6990a7753ffc75ad971bed5b021e9912496046a622d3ce4c783"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib ordinary_cube_helpers_preserve_order_and_zero_padding",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "a5ab866e7e714ffca35a26071005548891ef710033394c435675666a976e917b"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib ordinary_core_observer_preserves_unused_arguments",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "eb803c958f922412b9f5bf05a1a4a3b9a604e3c1974306c1ba2ff7d65cbe959d"
+    }
+  ],
+  "coverage": {
+    "new_decimal_definitions": 12,
+    "combined_nonliteral_decimal_definitions": 45,
+    "oracle_cases_passed": 30108,
+    "source_cases_passed": 26,
+    "previous_source_cases": 14,
+    "new_source_cases": 12,
+    "combined_terms": 173588,
+    "combined_declarations": 2270,
+    "combined_static_transformers": 3858,
+    "distinct_shared_internal_helpers": 45,
+    "previous_33_individual_certificates_and_metrics": "unchanged",
+    "certificates_checked_by_both": 8,
+    "zero_axiom_acceptances_per_checker": 8,
+    "hash_mutation_rejections_per_checker": 8,
+    "combined_core_cases_passed": 16
+  },
+  "verification_note": "The original recursive observer overflowed its native stack. The first explicit-stack run was deliberately stopped at about 17 GB to correct suspended Boolean argument memoization. Neither attempt counts as a passing check or a checker rejection. The initial dual-checker test terminated at its 25-minute harness timeout after build waits, during decimal.divide.hex; it is not a deterministic proof rejection. The final verbose run passed all eight certificates in 1137.820 seconds. Certificate v0 and production checker rules remain unchanged. The Boolean-memo run passed all seven previous core test functions but was deliberately stopped as arithmetic observation grew to about 10 GB. The current observer also shares captured environments as persistent binding lists instead of cloning vectors at each binding; its final full regression passed as recorded below. The shared-environment run again grew to about 13 GB during addition, so the Boolean memo was reduced to two fixed slots. A subsequent review found eager Boolean argument forcing violated the intended lazy strategy; it was removed and a poison-suspension regression was added. The final observer preserves laziness, shares environments and uses compact memo slots. The final lazy observer completed all eight core test functions, including all sixteen combined-certificate cases, in 3628.93 seconds.",
+  "remaining": [
+    "Unit 2: UTF-16 string operations.",
+    "Input domains, typed literal bodies, every reachable foundation operation including uninvoked definitions, application VC proofs and units 3-8."
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "result": "deferred",
+    "owner": "CSHARP-03-T06-W12"
+  },
+  "files": [
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/decimal-arithmetic-circuits/all-operations.json",
+      "sha256": "b6e91238857fc3b974e225e87a2d9fbe046e0d2c1c175f875966890a46626bce"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/decimal-arithmetic-circuits/decimal.add.hex",
+      "sha256": "7fcd0e63926a4fd248ba2e316560c329328728559dc4fd1f2e720ad14c6e6ff1"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/decimal-arithmetic-circuits/decimal.all_operations.hex",
+      "sha256": "e7088c92e7c5c7bfd173b95b3ebf4330f15e3114dc7af7f57f842a481a6b8fef"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/decimal-arithmetic-circuits/decimal.divide.hex",
+      "sha256": "7f7838b9692e3d42caf8cff3d503720bf3661ecb3f4c2165a99ba60baef3c639"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/decimal-arithmetic-circuits/decimal.equal.hex",
+      "sha256": "b6dc5fa2bf02a87478e198873c79f66184e4a34b73edeff6a7af12af1520d2aa"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/decimal-arithmetic-circuits/decimal.less.hex",
+      "sha256": "091662656958c0dbc61db77c36e382ac46a8b157f9db4d7131eb68e2b151e709"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/decimal-arithmetic-circuits/decimal.multiply.hex",
+      "sha256": "cae94e4d3a23c2e79a2f5118e06bb59c68bce6a653171284163fb0a4f8e0d41e"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/decimal-arithmetic-circuits/decimal.remainder.hex",
+      "sha256": "a3c6627425e64240406d9b679e70b798da04b2e888b3f1ad6b231c1c0e90d86b"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/decimal-arithmetic-circuits/decimal.subtract.hex",
+      "sha256": "935ad4cb89918a3694df1bb822bdfa4f56341eb814dfd3d85b0275f8386b25a9"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/decimal-arithmetic-circuits/metrics.json",
+      "sha256": "7ce9355b6360dbfb8ca20f861b95c0548218c4bfe9e52721b66a434084851b3d"
+    }
+  ]
+}

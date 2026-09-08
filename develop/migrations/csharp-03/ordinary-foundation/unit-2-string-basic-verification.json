@@ -1,0 +1,150 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.string_basic_verification.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 2,
+  "component": "UTF-16 length, index and null-or-empty",
+  "component_status": "implemented, verified and reviewed",
+  "unit_2_status": "in progress",
+  "w09_status": "Ready/in progress",
+  "baseline_commit": "06996db",
+  "date": "2026-09-09",
+  "checks": [
+    {
+      "command": "cargo test -p mpk-vc --lib string_basic_core_matches_utf16_oracle",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "974b0ef1b8781f4af5202e528393941603671df1cb01568c7e49461f0c9213df"
+    },
+    {
+      "command": "MPK_W09_STRING_OUT=/tmp/mpk-w09-string-fixtures cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_string_basic_ -- --nocapture",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "0e1d37354022a13f40d28cd3803dec55b177d06fd768a6af7772883d03902db3"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_string_basic_",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "d355379adf1d9124e9a86a33c5924620d5f47f80beb466e747bc64c5a41a9b0e"
+    },
+    {
+      "command": "cd go-tools/mpk-checker-ref && GOCACHE=/tmp/mpk-t06-w09-go-cache go test -v -count=1 -timeout 20m -tags checkeragreement -run TestCheckerAgreementWithRustCLIStringBasics .",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "f9d6b6325a034f009ee372c382bc737ec47e8bd992d9450537a6024c83ab0008"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "result": "passed",
+      "tests_passed": 5,
+      "log_sha256": "5d8d90cc12322a8f78d7a8a023aca94aa3668c8d5126585b252d6a70b9ae5643"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --tests -- -D warnings",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "bfef06a8404f2780ef4969b490f08c870d7823176b0480e5c4223a582f9f9bfe"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_string_",
+      "result": "passed",
+      "tests_passed": 3,
+      "log_sha256": "faf765e6c72e130eabc68d2e9c21758ed81dd2050e97a23754c22efa240a3aac",
+      "scope_note": "Final shared source replay: nine basic captures, seven construction captures and one ordinal-search rejection."
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true (six affected Rust files); gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "coverage": {
+    "ordinary_string_operations": 3,
+    "actual_core_oracle_cases_passed": 77,
+    "core_carrier_depths": [
+      19,
+      20
+    ],
+    "original_source_positive_cases": 9,
+    "original_source_carrier_depth": 20,
+    "source_certificate_maximum_terms": 1852,
+    "source_certificate_maximum_declarations": 44,
+    "source_certificates": 9,
+    "original_source_unimplemented_rejections": 1,
+    "certificates_checked_by_both": 9,
+    "zero_axiom_acceptances_per_checker": 9,
+    "hash_mutation_rejections_per_checker": 9,
+    "review_findings": 0
+  },
+  "review": "unit-2-string-basic-review.md",
+  "remaining": [
+    "Other UTF-16 string operations, domains and literals.",
+    "All reachable foundation definitions, application proofs and W09 units 3-8."
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "result": "deferred",
+    "owner": "CSHARP-03-T06-W12"
+  },
+  "files": [
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-basic-circuits/metrics.json",
+      "sha256": "701d515f6ce0c7b3eda1c4528b4344aff118cc881f73a2759b7648e3a2f96513"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-basic-circuits/string.index.5c9185c9.hex",
+      "sha256": "edf79439628f7c86c24a96fff4a418c074a34d2e347f09d36c3444a03c33acbb"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-basic-circuits/string.index.87b74546.hex",
+      "sha256": "edf79439628f7c86c24a96fff4a418c074a34d2e347f09d36c3444a03c33acbb"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-basic-circuits/string.is_null_or_empty.15a93564.hex",
+      "sha256": "18998f3895b3433e752034e5a9df09d47e04e7a633ec3aaec098743fdd35193d"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-basic-circuits/string.length.42210278.hex",
+      "sha256": "60c74e36f91bce72de155a4ef4c13eae56ba84b671e420c22fecda720d46c7a2"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-basic-circuits/string.length.4b3aea39.hex",
+      "sha256": "60c74e36f91bce72de155a4ef4c13eae56ba84b671e420c22fecda720d46c7a2"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-basic-circuits/string.length.58192b52.hex",
+      "sha256": "60c74e36f91bce72de155a4ef4c13eae56ba84b671e420c22fecda720d46c7a2"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-basic-circuits/string.length.78405255.hex",
+      "sha256": "60c74e36f91bce72de155a4ef4c13eae56ba84b671e420c22fecda720d46c7a2"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-basic-circuits/string.length.85983195.hex",
+      "sha256": "60c74e36f91bce72de155a4ef4c13eae56ba84b671e420c22fecda720d46c7a2"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/string-basic-circuits/string.length.b863eb40.hex",
+      "sha256": "60c74e36f91bce72de155a4ef4c13eae56ba84b671e420c22fecda720d46c7a2"
+    },
+    {
+      "path": "develop/migrations/csharp-03/artifact-consumer-inventory.json",
+      "sha256": "49d4bc9abd5ff13e6f526e8359bd8f57c44494adb5dcf921a4af6ab8339f4915"
+    },
+    {
+      "path": "develop/migrations/csharp-03/data-phase/historical-inventory-cache-correction.json",
+      "sha256": "8336827129724929bda2dc166b6c1d2fac17578ab17271bb5fe5928eb8ad1a3b"
+    }
+  ],
+  "consumer_inventory": {
+    "query": "foundation.std_namespace",
+    "added_path": "crates/mpk-vc/src/csharp_practical_ordinary_string.rs",
+    "previous_count": 102,
+    "current_count": 103,
+    "previous_paths_sha256": "e762faa7043453742b9e0434510976770d65e73d4e88ebd2a7fa18e32b0c7948",
+    "current_paths_sha256": "7ecd8d84a3e6ed159fcfa9e0e93c22a035bee88ad123d5abf9b9eba2ae2a7740",
+    "delta_verified": "Removing the sole new path reproduces the prior count/hash. Aggregate count and inventory hash binding updated; cache paths unchanged.",
+    "scope": "Historical delta for basic string component; construction adds one further path. File hashes below describe the current combined inventory."
+  }
+}

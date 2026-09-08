@@ -1,0 +1,949 @@
+{
+  "declarations": 2270,
+  "definitions": [
+    {
+      "boolean_gates": 16371,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1",
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.add",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.OverflowException",
+            "id": "exception.overflow",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e616464.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e616464.Result",
+      "state_depth": 14,
+      "static_transformers": 599,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e616464.Success"
+    },
+    {
+      "boolean_gates": 2509,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.ceiling",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e6365696c696e67.Result",
+      "state_depth": 12,
+      "static_transformers": 108,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e6365696c696e67.Success"
+    },
+    {
+      "boolean_gates": 0,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.u8.v1"
+        ],
+        "id": "decimal.conversion.byte_to_decimal",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e627974655f746f5f646563696d616c.Result",
+      "state_depth": 5,
+      "static_transformers": 0,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e627974655f746f5f646563696d616c.Success"
+    },
+    {
+      "boolean_gates": 0,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.char.v1"
+        ],
+        "id": "decimal.conversion.char_to_decimal",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e636861725f746f5f646563696d616c.Result",
+      "state_depth": 5,
+      "static_transformers": 0,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e636861725f746f5f646563696d616c.Success"
+    },
+    {
+      "boolean_gates": 2838,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.conversion.decimal_to_byte",
+        "normal_result_type_id": "mpk.csharp.value.u8.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.OverflowException",
+            "id": "exception.overflow",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f62797465.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f62797465.Result",
+      "state_depth": 12,
+      "static_transformers": 118,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f62797465.Success"
+    },
+    {
+      "boolean_gates": 2894,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.conversion.decimal_to_char",
+        "normal_result_type_id": "mpk.csharp.value.char.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.OverflowException",
+            "id": "exception.overflow",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f63686172.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f63686172.Result",
+      "state_depth": 12,
+      "static_transformers": 120,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f63686172.Success"
+    },
+    {
+      "boolean_gates": 2637,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.conversion.decimal_to_int16",
+        "normal_result_type_id": "mpk.csharp.value.i16.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.OverflowException",
+            "id": "exception.overflow",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f696e743136.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f696e743136.Result",
+      "state_depth": 12,
+      "static_transformers": 112,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f696e743136.Success"
+    },
+    {
+      "boolean_gates": 2781,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.conversion.decimal_to_int32",
+        "normal_result_type_id": "mpk.csharp.value.i32.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.OverflowException",
+            "id": "exception.overflow",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f696e743332.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f696e743332.Result",
+      "state_depth": 12,
+      "static_transformers": 116,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f696e743332.Success"
+    },
+    {
+      "boolean_gates": 3069,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.conversion.decimal_to_int64",
+        "normal_result_type_id": "mpk.csharp.value.i64.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.OverflowException",
+            "id": "exception.overflow",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f696e743634.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f696e743634.Result",
+      "state_depth": 12,
+      "static_transformers": 125,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f696e743634.Success"
+    },
+    {
+      "boolean_gates": 2565,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.conversion.decimal_to_sbyte",
+        "normal_result_type_id": "mpk.csharp.value.i8.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.OverflowException",
+            "id": "exception.overflow",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f7362797465.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f7362797465.Result",
+      "state_depth": 12,
+      "static_transformers": 110,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f7362797465.Success"
+    },
+    {
+      "boolean_gates": 2894,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.conversion.decimal_to_uint16",
+        "normal_result_type_id": "mpk.csharp.value.u16.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.OverflowException",
+            "id": "exception.overflow",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f75696e743136.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f75696e743136.Result",
+      "state_depth": 12,
+      "static_transformers": 120,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f75696e743136.Success"
+    },
+    {
+      "boolean_gates": 3006,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.conversion.decimal_to_uint32",
+        "normal_result_type_id": "mpk.csharp.value.u32.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.OverflowException",
+            "id": "exception.overflow",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f75696e743332.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f75696e743332.Result",
+      "state_depth": 12,
+      "static_transformers": 123,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f75696e743332.Success"
+    },
+    {
+      "boolean_gates": 3230,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.conversion.decimal_to_uint64",
+        "normal_result_type_id": "mpk.csharp.value.u64.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.OverflowException",
+            "id": "exception.overflow",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f75696e743634.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f75696e743634.Result",
+      "state_depth": 12,
+      "static_transformers": 130,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e646563696d616c5f746f5f75696e743634.Success"
+    },
+    {
+      "boolean_gates": 60,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.i16.v1"
+        ],
+        "id": "decimal.conversion.int16_to_decimal",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e696e7431365f746f5f646563696d616c.Result",
+      "state_depth": 7,
+      "static_transformers": 2,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e696e7431365f746f5f646563696d616c.Success"
+    },
+    {
+      "boolean_gates": 124,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.i32.v1"
+        ],
+        "id": "decimal.conversion.int32_to_decimal",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e696e7433325f746f5f646563696d616c.Result",
+      "state_depth": 8,
+      "static_transformers": 4,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e696e7433325f746f5f646563696d616c.Success"
+    },
+    {
+      "boolean_gates": 252,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.i64.v1"
+        ],
+        "id": "decimal.conversion.int64_to_decimal",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e696e7436345f746f5f646563696d616c.Result",
+      "state_depth": 9,
+      "static_transformers": 8,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e696e7436345f746f5f646563696d616c.Success"
+    },
+    {
+      "boolean_gates": 28,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.i8.v1"
+        ],
+        "id": "decimal.conversion.sbyte_to_decimal",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e73627974655f746f5f646563696d616c.Result",
+      "state_depth": 6,
+      "static_transformers": 1,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e73627974655f746f5f646563696d616c.Success"
+    },
+    {
+      "boolean_gates": 0,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.u16.v1"
+        ],
+        "id": "decimal.conversion.uint16_to_decimal",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e75696e7431365f746f5f646563696d616c.Result",
+      "state_depth": 5,
+      "static_transformers": 0,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e75696e7431365f746f5f646563696d616c.Success"
+    },
+    {
+      "boolean_gates": 0,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.u32.v1"
+        ],
+        "id": "decimal.conversion.uint32_to_decimal",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e75696e7433325f746f5f646563696d616c.Result",
+      "state_depth": 6,
+      "static_transformers": 0,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e75696e7433325f746f5f646563696d616c.Success"
+    },
+    {
+      "boolean_gates": 0,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.u64.v1"
+        ],
+        "id": "decimal.conversion.uint64_to_decimal",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e75696e7436345f746f5f646563696d616c.Result",
+      "state_depth": 7,
+      "static_transformers": 0,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e636f6e76657273696f6e2e75696e7436345f746f5f646563696d616c.Success"
+    },
+    {
+      "boolean_gates": 18561,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1",
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.divide",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.DivideByZeroException",
+            "id": "exception.division_by_zero",
+            "tag": "exception"
+          },
+          {
+            "failure_type_id": "System.OverflowException",
+            "id": "exception.overflow",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e646976696465.Failure.F0",
+        "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e646976696465.Failure.F1"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e646976696465.Result",
+      "state_depth": 14,
+      "static_transformers": 986,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e646976696465.Success"
+    },
+    {
+      "boolean_gates": 5240,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1",
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.equal",
+        "normal_result_type_id": "mpk.csharp.value.bool.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e657175616c.Result",
+      "state_depth": 12,
+      "static_transformers": 194,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e657175616c.Success"
+    },
+    {
+      "boolean_gates": 2508,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.floor",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e666c6f6f72.Result",
+      "state_depth": 12,
+      "static_transformers": 108,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e666c6f6f72.Success"
+    },
+    {
+      "boolean_gates": 7935,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1",
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.greater",
+        "normal_result_type_id": "mpk.csharp.value.bool.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e67726561746572.Result",
+      "state_depth": 13,
+      "static_transformers": 278,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e67726561746572.Success"
+    },
+    {
+      "boolean_gates": 7160,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1",
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.greater_equal",
+        "normal_result_type_id": "mpk.csharp.value.bool.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e677265617465725f657175616c.Result",
+      "state_depth": 13,
+      "static_transformers": 254,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e677265617465725f657175616c.Success"
+    },
+    {
+      "boolean_gates": 7159,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1",
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.less",
+        "normal_result_type_id": "mpk.csharp.value.bool.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e6c657373.Result",
+      "state_depth": 13,
+      "static_transformers": 254,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e6c657373.Success"
+    },
+    {
+      "boolean_gates": 7934,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1",
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.less_equal",
+        "normal_result_type_id": "mpk.csharp.value.bool.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e6c6573735f657175616c.Result",
+      "state_depth": 13,
+      "static_transformers": 278,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e6c6573735f657175616c.Success"
+    },
+    {
+      "boolean_gates": 10364,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1",
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.multiply",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.OverflowException",
+            "id": "exception.overflow",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e6d756c7469706c79.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e6d756c7469706c79.Result",
+      "state_depth": 14,
+      "static_transformers": 479,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e6d756c7469706c79.Success"
+    },
+    {
+      "boolean_gates": 1,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.negate",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e6e6567617465.Result",
+      "state_depth": 10,
+      "static_transformers": 1,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e6e6567617465.Success"
+    },
+    {
+      "boolean_gates": 5241,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1",
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.not_equal",
+        "normal_result_type_id": "mpk.csharp.value.bool.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e6e6f745f657175616c.Result",
+      "state_depth": 12,
+      "static_transformers": 194,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e6e6f745f657175616c.Success"
+    },
+    {
+      "boolean_gates": 0,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.plus",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e706c7573.Result",
+      "state_depth": 10,
+      "static_transformers": 0,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e706c7573.Success"
+    },
+    {
+      "boolean_gates": 13879,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1",
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.remainder",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.DivideByZeroException",
+            "id": "exception.division_by_zero",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e72656d61696e646572.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e72656d61696e646572.Result",
+      "state_depth": 14,
+      "static_transformers": 810,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e72656d61696e646572.Success"
+    },
+    {
+      "boolean_gates": 2522,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.round.AwayFromZero.1",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e726f756e642e4177617946726f6d5a65726f2e31.Result",
+      "state_depth": 12,
+      "static_transformers": 108,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e726f756e642e4177617946726f6d5a65726f2e31.Success"
+    },
+    {
+      "boolean_gates": 2745,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1",
+          "mpk.csharp.value.i32.v1"
+        ],
+        "id": "decimal.round.AwayFromZero.2",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.ArgumentOutOfRangeException",
+            "id": "exception.range",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e726f756e642e4177617946726f6d5a65726f2e32.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e726f756e642e4177617946726f6d5a65726f2e32.Result",
+      "state_depth": 12,
+      "static_transformers": 116,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e726f756e642e4177617946726f6d5a65726f2e32.Success"
+    },
+    {
+      "boolean_gates": 2526,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.round.ToEven.1",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e726f756e642e546f4576656e2e31.Result",
+      "state_depth": 12,
+      "static_transformers": 108,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e726f756e642e546f4576656e2e31.Success"
+    },
+    {
+      "boolean_gates": 2749,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1",
+          "mpk.csharp.value.i32.v1"
+        ],
+        "id": "decimal.round.ToEven.2",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.ArgumentOutOfRangeException",
+            "id": "exception.range",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e726f756e642e546f4576656e2e32.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e726f756e642e546f4576656e2e32.Result",
+      "state_depth": 12,
+      "static_transformers": 116,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e726f756e642e546f4576656e2e32.Success"
+    },
+    {
+      "boolean_gates": 2508,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.round.ToNegativeInfinity.1",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e726f756e642e546f4e65676174697665496e66696e6974792e31.Result",
+      "state_depth": 12,
+      "static_transformers": 108,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e726f756e642e546f4e65676174697665496e66696e6974792e31.Success"
+    },
+    {
+      "boolean_gates": 2731,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1",
+          "mpk.csharp.value.i32.v1"
+        ],
+        "id": "decimal.round.ToNegativeInfinity.2",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.ArgumentOutOfRangeException",
+            "id": "exception.range",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e726f756e642e546f4e65676174697665496e66696e6974792e32.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e726f756e642e546f4e65676174697665496e66696e6974792e32.Result",
+      "state_depth": 12,
+      "static_transformers": 115,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e726f756e642e546f4e65676174697665496e66696e6974792e32.Success"
+    },
+    {
+      "boolean_gates": 2509,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.round.ToPositiveInfinity.1",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e726f756e642e546f506f736974697665496e66696e6974792e31.Result",
+      "state_depth": 12,
+      "static_transformers": 108,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e726f756e642e546f506f736974697665496e66696e6974792e31.Success"
+    },
+    {
+      "boolean_gates": 2732,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1",
+          "mpk.csharp.value.i32.v1"
+        ],
+        "id": "decimal.round.ToPositiveInfinity.2",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.ArgumentOutOfRangeException",
+            "id": "exception.range",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e726f756e642e546f506f736974697665496e66696e6974792e32.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e726f756e642e546f506f736974697665496e66696e6974792e32.Result",
+      "state_depth": 12,
+      "static_transformers": 115,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e726f756e642e546f506f736974697665496e66696e6974792e32.Success"
+    },
+    {
+      "boolean_gates": 2304,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.round.ToZero.1",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e726f756e642e546f5a65726f2e31.Result",
+      "state_depth": 12,
+      "static_transformers": 101,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e726f756e642e546f5a65726f2e31.Success"
+    },
+    {
+      "boolean_gates": 2527,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1",
+          "mpk.csharp.value.i32.v1"
+        ],
+        "id": "decimal.round.ToZero.2",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.ArgumentOutOfRangeException",
+            "id": "exception.range",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e726f756e642e546f5a65726f2e32.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e726f756e642e546f5a65726f2e32.Result",
+      "state_depth": 12,
+      "static_transformers": 109,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e726f756e642e546f5a65726f2e32.Success"
+    },
+    {
+      "boolean_gates": 16372,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1",
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.subtract",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.OverflowException",
+            "id": "exception.overflow",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e7375627472616374.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e7375627472616374.Result",
+      "state_depth": 14,
+      "static_transformers": 600,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e7375627472616374.Success"
+    },
+    {
+      "boolean_gates": 2304,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.truncate",
+        "normal_result_type_id": "mpk.csharp.value.decimal.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e7472756e63617465.Result",
+      "state_depth": 12,
+      "static_transformers": 101,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e7472756e63617465.Success"
+    },
+    {
+      "boolean_gates": 5240,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.decimal.v1",
+          "mpk.csharp.value.decimal.v1"
+        ],
+        "id": "decimal.value_equality",
+        "normal_result_type_id": "mpk.csharp.value.bool.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e76616c75655f657175616c697479.Result",
+      "state_depth": 12,
+      "static_transformers": 194,
+      "success_definition": "Mpk.CSharp.Ordinary.Decimal.O646563696d616c2e76616c75655f657175616c697479.Success"
+    }
+  ],
+  "hash": "92d76ddea4f0f58c23ae304f87461357650487651883d2973f4dd94aaaa1744c",
+  "shared_helpers": 45,
+  "static_transformers": 3858,
+  "terms": 173588
+}

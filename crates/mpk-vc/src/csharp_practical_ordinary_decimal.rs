@@ -1,6 +1,8 @@
 //! Ordinary decimal conversions and rounding over the frozen product carrier.
 use super::temporal::{divide_constant, literal};
 use super::*;
+#[path = "csharp_practical_ordinary_decimal_arithmetic.rs"]
+mod arithmetic;
 const WIDTH: usize = 512;
 const STATE: usize = 119;
 const TOKENS: &[(&str, &str)] = &[
@@ -18,7 +20,16 @@ fn ty(token: &str) -> String {
     format!("mpk.csharp.value.{token}.v1")
 }
 fn signature(id: &str) -> R<ClosedOperationSignature> {
-    let (args, result) = if let Some(suffix) = id.strip_prefix("decimal.conversion.") {
+    let (args, result) = if let Some(op) = arithmetic::operation(id) {
+        (
+            vec![ty("decimal"); 2],
+            ty(if arithmetic::comparison(op) {
+                "bool"
+            } else {
+                "decimal"
+            }),
+        )
+    } else if let Some(suffix) = id.strip_prefix("decimal.conversion.") {
         let (from, to) = suffix
             .split_once("_to_")
             .ok_or(OrdinaryCarrierError::Shape)?;
@@ -60,6 +71,7 @@ fn signature(id: &str) -> R<ClosedOperationSignature> {
         .map(|exception| {
             let name = match exception {
                 "System.OverflowException" => "exception.overflow",
+                "System.DivideByZeroException" => "exception.division_by_zero",
                 "System.ArgumentOutOfRangeException" => "exception.range",
                 _ => return Err(OrdinaryCarrierError::Shape),
             };
@@ -153,6 +165,39 @@ fn helper(
         output,
         failures,
     }
+}
+// Only internal helpers use this cache. Equality covers the entire circuit,
+// physical input/output mapping and ordered checks, not an operation name/hash.
+fn emit_shared(b: &mut Builder, p: IntegerCircuit, namespace: &str) -> R<OrdinaryScalarDefinition> {
+    let gates = p
+        .circuit
+        .gates
+        .iter()
+        .map(|g| match *g {
+            Gate::False => [0, 0, 0, 0],
+            Gate::True => [1, 0, 0, 0],
+            Gate::Input(a, b) => [2, a, b, 0],
+            Gate::Not(a) => [3, a, 0, 0],
+            Gate::And(a, b) => [4, a, b, 0],
+            Gate::Xor(a, b) => [5, a, b, 0],
+            Gate::Mux(c, t, e) => [6, c, t, e],
+        })
+        .collect::<Vec<_>>();
+    let key = serde_json::to_vec(&serde_json::json!({
+        "widths":p.circuit.inputs.iter().map(Vec::len).collect::<Vec<_>>(),
+        "start":p.circuit.start,"gates":gates,"output":p.output,"failures":p.failures,
+        "arguments":p.signature.argument_type_ids,"result":p.signature.normal_result_type_id,
+        "tag":p.signature.tag,"checks":p.signature.ordered_checks,
+    }))
+    .expect("typed circuit key");
+    if let Some(cached) = b.shared_scalar_circuits.get(&key) {
+        let mut d = cached.clone();
+        d.operation = p.signature;
+        return Ok(d);
+    }
+    let d = emit_circuit(b, p, namespace)?;
+    b.shared_scalar_circuits.insert(key, d.clone());
+    Ok(d)
 }
 fn stages(id: &str) -> R<[IntegerCircuit; 3]> {
     let signature = signature(id)?;
@@ -259,6 +304,9 @@ fn stages(id: &str) -> R<[IntegerCircuit; 3]> {
     Ok([initial, step, finish])
 }
 fn emit_decimal(b: &mut Builder, id: &str) -> R<OrdinaryScalarDefinition> {
+    if arithmetic::operation(id).is_some() {
+        return arithmetic::emit(b, id);
+    }
     let signature = signature(id)?;
     if matches!(id, "decimal.plus" | "decimal.negate")
         || signature.argument_type_ids[0] != ty("decimal")
@@ -267,7 +315,7 @@ fn emit_decimal(b: &mut Builder, id: &str) -> R<OrdinaryScalarDefinition> {
     }
     let definitions = stages(id)?
         .into_iter()
-        .map(|p| emit_circuit(b, p, "DecimalSteps"))
+        .map(|p| emit_shared(b, p, "DecimalSteps"))
         .collect::<R<Vec<_>>>()?;
     let d = address_bits(STATE as u32);
     if !b
@@ -340,8 +388,8 @@ fn emit_decimal(b: &mut Builder, id: &str) -> R<OrdinaryScalarDefinition> {
             + 28,
     })
 }
-/// Partial W09 decimal scalar definitions. Arithmetic, comparisons and literals
-/// still fail closed until their ordinary definitions are implemented.
+/// W09 decimal scalar definitions. Literal bodies, input domains and application
+/// proofs remain separate work.
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct OrdinaryDecimalProgram {
     schema: String,
@@ -429,7 +477,7 @@ mod tests {
         "decimal.conversion.decimal_to_uint64",
         "decimal.conversion.char_to_decimal",
     ];
-    fn ids() -> Vec<String> {
+    pub(super) fn ids() -> Vec<String> {
         let mut ids = ["plus", "negate", "truncate", "floor", "ceiling"]
             .map(|s| format!("decimal.{s}"))
             .to_vec();
@@ -444,7 +492,7 @@ mod tests {
         }
         ids
     }
-    fn decimal(sign: bool, n: u128, scale: u8) -> MonomorphicValue {
+    pub(super) fn decimal(sign: bool, n: u128, scale: u8) -> MonomorphicValue {
         MonomorphicValue::DecimalBits {
             type_id: ty("decimal"),
             negative: sign,
@@ -474,7 +522,7 @@ mod tests {
     }
     // Independent physical encoding of the unit-1 product contract. Do not use
     // the production read/product functions to validate their address mapping.
-    fn physical(v: &MonomorphicValue) -> Vec<bool> {
+    pub(super) fn physical(v: &MonomorphicValue) -> Vec<bool> {
         match v {
             MonomorphicValue::DecimalBits {
                 negative,
@@ -509,7 +557,7 @@ mod tests {
             _ => unreachable!(),
         }
     }
-    fn prune(mut p: IntegerCircuit) -> IntegerCircuit {
+    pub(super) fn prune(mut p: IntegerCircuit) -> IntegerCircuit {
         let mut roots = p
             .output
             .iter()
@@ -522,7 +570,7 @@ mod tests {
         p.failures.copy_from_slice(&roots[p.output.len()..]);
         p
     }
-    fn observe(p: &IntegerCircuit, inputs: &[Vec<u64>]) -> (Vec<u64>, Vec<u64>) {
+    pub(super) fn observe(p: &IntegerCircuit, inputs: &[Vec<u64>]) -> (Vec<u64>, Vec<u64>) {
         let mut values: Vec<u64> = vec![];
         for gate in &p.circuit.gates {
             let v = match *gate {
@@ -745,7 +793,7 @@ mod tests {
             "decimal.round.unknown.1",
             "decimal.conversion.int32_to_uint32",
             "decimal.conversion.decimal_to_bool",
-            "decimal.add",
+            "decimal.power",
         ] {
             assert!(signature(unknown).is_err(), "{unknown}");
         }

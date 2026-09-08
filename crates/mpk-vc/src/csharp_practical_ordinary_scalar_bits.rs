@@ -1103,3 +1103,10 @@ pub use decimal::{
     generate_csharp_practical_ordinary_decimal, import_csharp_practical_ordinary_decimal,
     OrdinaryDecimalProgram,
 };
+
+#[path = "csharp_practical_ordinary_string.rs"]
+mod utf16;
+pub use utf16::{
+    generate_csharp_practical_ordinary_strings, import_csharp_practical_ordinary_strings,
+    OrdinaryStringDefinition, OrdinaryStringProgram,
+};

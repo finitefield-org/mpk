@@ -268,6 +268,18 @@ func TestCheckerAgreementWithRustCLIDecimalCircuits(t *testing.T) {
 	checkOrdinaryCertificates(t, "decimal-circuits", 7)
 }
 
+func TestCheckerAgreementWithRustCLIDecimalArithmetic(t *testing.T) {
+	checkOrdinaryCertificates(t, "decimal-arithmetic-circuits", 8)
+}
+
+func TestCheckerAgreementWithRustCLIStringBasics(t *testing.T) {
+	checkOrdinaryCertificates(t, "string-basic-circuits", 9)
+}
+
+func TestCheckerAgreementWithRustCLIStringConstruction(t *testing.T) {
+	checkOrdinaryCertificates(t, "string-construction-circuits", 8)
+}
+
 func checkOrdinaryCertificates(t *testing.T, directory string, expectedCount int) {
 	t.Helper()
 	root := absoluteRepoRoot(t)
