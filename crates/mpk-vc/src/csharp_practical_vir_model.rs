@@ -7430,6 +7430,8 @@ pub use ordinary_carriers::{
 };
 
 pub use ordinary_carriers::{
-    generate_csharp_practical_ordinary_integers, import_csharp_practical_ordinary_integers,
-    OrdinaryIntegerDefinition, OrdinaryIntegerProgram,
+    generate_csharp_practical_ordinary_integers, generate_csharp_practical_ordinary_temporal,
+    import_csharp_practical_ordinary_integers, import_csharp_practical_ordinary_temporal,
+    OrdinaryIntegerDefinition, OrdinaryIntegerProgram, OrdinaryScalarDefinition,
+    OrdinaryTemporalProgram,
 };

@@ -1,10 +1,10 @@
-# W09 internal unit 2: Boolean/integer component
+# W09 internal unit 2: scalar progress
 
 Unit 2 is **in progress**, not complete. This increment implements the Boolean
-and fixed-width integer portion of the approved scalar work unit. Float,
-decimal, string operations, Guid, date/time/duration/instant and their remaining
-numeric conversions still belong to unit 2. Units 3-8 and W09's exit condition
-are unchanged. This record is not a W09 completion receipt.
+and fixed-width integer portion of the approved scalar work unit, followed by
+the Time/Duration/Instant component below. Float, decimal, string operations,
+Guid, Date and the remaining numeric conversions still belong to unit 2.
+Units 3-8 and W09's exit condition are unchanged. This record is not a W09 completion receipt.
 
 ## Implemented component
 
@@ -82,3 +82,51 @@ Candidate fixtures can be regenerated for review with:
 ```sh
 MPK_W09_INTEGER_OUT=/tmp/mpk-w09-integers cargo test -p mpk-vc --lib integer_circuits_
 ```
+
+## Time, Duration and Instant component
+
+The temporal generator reconstructs exactly the retained Time/Duration/Instant
+signatures, including their ordered exception/error tables, from the validated
+VIR. It shares the ordinary Boolean-circuit emitter with the integer generator;
+the integer API/schema/names and seven pinned certificates remain unchanged.
+The temporal importer regenerates both canonical metadata and certificate bytes
+and rejects operation/type/error/definition/source/foundation/certificate changes.
+
+All 43 operations in these three scalar families are implemented: construction
+where defined, component/tick/millisecond access, comparison and equality,
+Time addition/subtraction modulo one day, checked Duration arithmetic and
+Instant duration arithmetic/difference. Constant-divisor restoring circuits use
+bounded remainder registers. Duration division truncates toward zero, including
+negative component remainders. Time arithmetic uses a 65-bit intermediate and
+Euclidean day remainder. Instant differences preserve 79 signed bits through
+multiplication by 10,000 before checking the i64 range. Precision failure precedes
+range failure, and the normal result is canonical zero on either failure.
+
+Input domain membership, foundation-wide expansion of uninvoked definitions and
+application invariant proofs remain later W09 work. These operation definitions
+consume valid domain values; they do not themselves certify an input domain or
+complete a VC. Date and all other unfinished scalar families remain outstanding.
+
+Verification covers widened arithmetic at 31 deterministic boundary/sample
+values (961 operand pairs per operation), the independent T03 BusinessOperation
+oracle at eight pairs per operation, emitted-core evaluation and explicit
+precision-before-range checks. All 43 individual certificates regenerate within
+the practical limits; their term/declaration/transformer measurements are pinned
+in `temporal-circuits/metrics.json`. Four representative certificates are pinned
+as bytes and must pass both unchanged checkers with zero axioms, with actual
+hash corruption rejected by each. Four original source/sidecar captures exercise
+Duration addition, Time wrapping and two Instant error-enum layouts.
+
+See `unit-2-temporal-verification.json` for the targeted results. The full T06
+gate stays deferred to T06-W12. W09 is still in progress, and W10-W12 stay Blocked.
+
+```sh
+MPK_W09_TEMPORAL_OUT=/tmp/mpk-w09-temporal-fixtures cargo test -p mpk-vc --lib temporal_circuits_
+```
+
+The test-only core interpreter memoizes Bool applications within each captured
+closure; caches never cross environments. The two temporal core-evaluation tests
+use a bounded 32 MiB test-thread stack for their recursive interpreter. The expanded
+uncached run was stopped for runtime, and the initial memoized run exposed the
+default test stack limit. These test execution changes do not alter emitted
+bytes, the practical certificate bounds or either production checker.

@@ -776,20 +776,35 @@ impl Builder {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::rc::Rc;
+    use std::{cell::RefCell, rc::Rc};
+    type BoolMemo = Rc<RefCell<BTreeMap<bool, V>>>;
     #[derive(Clone)]
     pub(super) enum V {
         Bit(bool),
         Cube(Vec<bool>),
-        Lambda(u32, Rc<Vec<V>>),
+        Lambda(u32, Rc<Vec<V>>, BoolMemo),
         Rec(Vec<V>),
     }
     pub(super) fn apply(c: &Certificate, f: V, x: V) -> V {
         match f {
-            V::Lambda(body, env) => {
+            V::Lambda(body, env, memo) => {
+                // A cache belongs to one pure closure, including its captured
+                // environment. Repeated cube reads share it through V::clone.
+                let key = if let V::Bit(bit) = &x {
+                    Some(*bit)
+                } else {
+                    None
+                };
+                if let Some(value) = key.and_then(|k| memo.borrow().get(&k).cloned()) {
+                    return value;
+                }
                 let mut e = vec![x];
                 e.extend(env.iter().cloned());
-                eval(c, body, &e)
+                let value = eval(c, body, &e);
+                if let Some(key) = key {
+                    memo.borrow_mut().insert(key, value.clone());
+                }
+                value
             }
             V::Rec(mut xs) => {
                 xs.push(x);
@@ -835,7 +850,11 @@ mod tests {
                     },
                 }
             }
-            TermNode::Lam { body, .. } => V::Lambda(*body, Rc::new(env.to_vec())),
+            TermNode::Lam { body, .. } => V::Lambda(
+                *body,
+                Rc::new(env.to_vec()),
+                Rc::new(RefCell::new(BTreeMap::new())),
+            ),
             TermNode::App {
                 function,
                 arguments,
@@ -981,6 +1000,8 @@ mod tests {
 mod scalar_bits;
 
 pub use scalar_bits::{
-    generate_csharp_practical_ordinary_integers, import_csharp_practical_ordinary_integers,
-    OrdinaryIntegerDefinition, OrdinaryIntegerProgram,
+    generate_csharp_practical_ordinary_integers, generate_csharp_practical_ordinary_temporal,
+    import_csharp_practical_ordinary_integers, import_csharp_practical_ordinary_temporal,
+    OrdinaryIntegerDefinition, OrdinaryIntegerProgram, OrdinaryScalarDefinition,
+    OrdinaryTemporalProgram,
 };

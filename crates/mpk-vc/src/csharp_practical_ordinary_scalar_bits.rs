@@ -526,7 +526,7 @@ fn input_type(b: &mut Builder, shapes: &[usize], mut result: u32) -> R<u32> {
     Ok(result)
 }
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
-pub struct OrdinaryIntegerDefinition {
+pub struct OrdinaryScalarDefinition {
     pub operation: ClosedOperationSignature,
     pub result_definition: String,
     pub success_definition: String,
@@ -535,8 +535,15 @@ pub struct OrdinaryIntegerDefinition {
     pub state_depth: u32,
     pub static_transformers: usize,
 }
+pub type OrdinaryIntegerDefinition = OrdinaryScalarDefinition;
 fn emit_integer(b: &mut Builder, id: &str) -> R<OrdinaryIntegerDefinition> {
-    let mut p = integer_circuit(id)?;
+    emit_circuit(b, integer_circuit(id)?, "Integer")
+}
+fn emit_circuit(
+    b: &mut Builder,
+    mut p: IntegerCircuit,
+    namespace: &str,
+) -> R<OrdinaryScalarDefinition> {
     let mut success = T;
     for f in &mut p.failures {
         let raw = *f;
@@ -575,8 +582,10 @@ fn emit_integer(b: &mut Builder, id: &str) -> R<OrdinaryIntegerDefinition> {
         b.helpers(d)?;
     }
     let name = format!(
-        "{PREFIX}.Integer.O{}",
-        id.as_bytes()
+        "{PREFIX}.{namespace}.O{}",
+        p.signature
+            .id
+            .as_bytes()
             .iter()
             .map(|b| format!("{b:02x}"))
             .collect::<String>()
@@ -1066,3 +1075,10 @@ mod tests {
         }
     }
 }
+
+#[path = "csharp_practical_ordinary_temporal.rs"]
+mod temporal;
+pub use temporal::{
+    generate_csharp_practical_ordinary_temporal, import_csharp_practical_ordinary_temporal,
+    OrdinaryTemporalProgram,
+};

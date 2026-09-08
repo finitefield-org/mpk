@@ -1,0 +1,101 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.temporal_increment_verification.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 2,
+  "component": "Time, Duration and Instant operations",
+  "component_status": "implemented and reviewed",
+  "unit_2_status": "in progress",
+  "w09_status": "Ready/in progress",
+  "date": "2026-09-08",
+  "baseline_commit": "8100908",
+  "checks": [
+    {
+      "command": "cargo test -p mpk-vc --lib ordinary_carriers::",
+      "result": "passed",
+      "tests_passed": 12,
+      "log_sha256": "afec7f2f4346ba716972b7c5dd12b7b39eed2a9c3f8ccac070d457f980bfc34a"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc temporal_source_linkage",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "83047b56cfb66b4049d4741108859dc4359c3fb3941bf19c193e68d3cee7193f"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc integer_source_linkage",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "740a8bc72bd2adbe8077b4576e4c979f1c1a58d5a68bf6b9ec8accae20538373"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "result": "passed",
+      "tests_passed": 5,
+      "log_sha256": "6db71e5833daf4165cda61b2aa4ee3528f7900a5c53f27a1235bc8c8603c0a89"
+    },
+    {
+      "command": "cd go-tools/mpk-checker-ref && GOCACHE=/tmp/mpk-t06-w09-go-cache go test -count=1 -tags checkeragreement -run TestCheckerAgreementWithRustCLITemporalCircuits .",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "2703777cf46ce6759c6958e94b69b4704907c20ccda8c84ff268bd1cc173494e"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc --test csharp_practical_inventory -- -D warnings",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "818bd63d0a3910a9cfff04e22da277e71feeac00d709ee0aeea28ca1c7b574c7"
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true (five changed Rust files); gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "coverage": {
+    "scoped_rust_tests": 19,
+    "temporal_operations": 43,
+    "widened_reference_pairs_per_operation": 961,
+    "t03_oracle_pairs_per_operation": 8,
+    "source_linkage_programs": 4,
+    "unchanged_integer_certificates": 7,
+    "temporal_certificates_checked_by_both": 4,
+    "positive_zero_axiom_acceptance_per_checker": 4,
+    "hash_mutation_rejections_per_checker": 4,
+    "maximum_terms": 29826,
+    "maximum_declarations": 277,
+    "component_review_findings": 0
+  },
+  "verification_note": "The final carrier-library run covers five temporal tests, four existing integer tests and three carrier/builder tests. Bool memoization is scoped to the captured test closure; the temporal core-evaluation test threads use 32 MiB stacks. The expanded uncached run was stopped for runtime; the initial memoized default-stack run failed with stack overflow, then the final bounded-stack run passed. Neither the emitted bytes nor either production checker changes for this test-only evaluator adjustment. Source linkage uses exact existing source/sidecar captures, including two Instant error-enum layouts.",
+  "remaining": [
+    "Unit 2: float and decimal arithmetic/predicates/conversions, UTF-16 string operations, Guid and Date semantics.",
+    "Complete input domains, all reachable concrete definitions including uninvoked operations, source/VC proof assembly and the remaining units 3-8."
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "result": "deferred",
+    "owner": "CSHARP-03-T06-W12"
+  },
+  "files": [
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/temporal-circuits/duration.milliseconds.hex",
+      "sha256": "412b332eff94d6d3af86fa22c20ea761ac38fb22f2a938899d3883b0ede97108"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/temporal-circuits/instant.add_duration.hex",
+      "sha256": "dac68fd7b6faf03aa1ad764ca6bff47d4bd7b6867661631dfc72a8aa557d0357"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/temporal-circuits/instant.difference.hex",
+      "sha256": "ad01f3445501629466ede9fad6518b0ab98f628e864a2dc55d8912a6635e1cee"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/temporal-circuits/metrics.json",
+      "sha256": "f56d5ffe1ebbc33aae1735ffa85fa4fa32c0ee5d04e8c5546122876e7d261acd"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/temporal-circuits/time.add_duration.hex",
+      "sha256": "51c69617e2fd2f7626e5e5c02a0a320fdaeeca06b59311ddcff0f61052c88ea0"
+    }
+  ]
+}
