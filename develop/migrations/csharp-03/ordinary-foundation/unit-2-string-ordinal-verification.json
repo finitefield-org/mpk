@@ -2,48 +2,72 @@
   "schema": "mpk.csharp_practical.t06_w09.string_ordinal_verification.v1",
   "work_item": "CSHARP-03-T06-W09",
   "internal_unit": 2,
-  "component": "Ordinal UTF-16 comparison and search",
+  "component": "Ordinal UTF-16 comparison/search: frozen transformer contract correction",
   "component_status": "implemented, verified and reviewed",
-  "unit_2_status": "in progress",
+  "unit_2_status": "complete (internal unit only)",
   "w09_status": "Ready/in progress",
-  "baseline_commit": "ef4056b",
+  "baseline_commit": "31d69a3",
   "date": "2026-09-09",
   "checks": [
     {
-      "command": "MPK_W09_STRING_ORDINAL_OUT=/tmp/mpk-w09-ordinal-final-fixtures cargo test -p mpk-vc --lib string_ordinal_ -- --nocapture",
-      "result": "passed",
-      "tests_passed": 5,
-      "log_sha256": "cc1dd3db0a3bed17c7adfdd8d182e6e2a425f5d1d5d5ea584a5133f991a68a72"
-    },
-    {
-      "command": "MPK_W09_STRING_ORDINAL_OUT=/tmp/mpk-w09-ordinal-final-fixtures cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_string_ordinal_",
+      "command": "MPK_W09_STRING_ORDINAL_OUT=/tmp/mpk-w09-transformer-context-fixtures cargo test -p mpk-vc --lib string_ordinal_certificates_are_reproducible",
       "result": "passed",
       "tests_passed": 1,
-      "log_sha256": "e1364fc64bf5b9951fb82fd5016d1a504ee04f8d6292f51f4a7f70ce6dc4ac88"
+      "log_sha256": "5f2c50da5a6b73df1b003348cee4b73952be9ba8ab77a304aa68f4b1b979800f"
     },
     {
-      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_string_",
+      "command": "MPK_W09_STRING_ORDINAL_OUT=/tmp/mpk-w09-transformer-context-fixtures cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_string_ordinal_source_linkage_rejects_substitution",
       "result": "passed",
-      "tests_passed": 3,
-      "log_sha256": "a9e19dc8f0274f3d5fd75656ac2d0391da41c72049066aa3acf98dcb2a798b91"
+      "tests_passed": 1,
+      "log_sha256": "ba508db65fdd8fe45102a03ea4ab29cc3c2c14b91e010c5541a728935cea9f7e"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib string_ordinal_core_ -- --nocapture",
+      "result": "passed",
+      "tests_passed": 4,
+      "log_sha256": "969a06a22e95d95cf4b7df9034e63f813f83e7f334ca9b127768a3b4b7b6ed0c"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib string_ordinal_transformer_pair_order_and_terminal_identity",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "50ab944957515b79461d7bf0f65ec43ec2949566f1ba4a7e5971dc1a7afc095b"
     },
     {
       "command": "cargo test -p mpk-vc --lib string_ordinal_certificates_are_reproducible",
       "result": "passed",
       "tests_passed": 1,
-      "log_sha256": "ca369f4cec299e5ff36f19117c58731fccf55691daa09a162bff696c4e07dcff"
+      "log_sha256": "8423d270f3c4a17bcb67265d6f637747918d64d680b55ee907a2a7e31fbd2c02"
     },
     {
-      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_string_",
       "result": "passed",
-      "tests_passed": 5,
-      "log_sha256": "bae89a38889caf58bcc7aa2d364fb8b8525741e4921f24bea8bc27259da90832"
+      "tests_passed": 3,
+      "log_sha256": "3ae2974748f72212f3ac919e3a9f7f659ab5810a236a8293a3acc19bf75e7a93"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib ordinary_static_composition_counts_occurrences_before_sharing",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "6258f1316b9172ec3c5c129bdc3fa557b089dc328bf3dc6a9a76c211ecb91491"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib ordinary_cube_helpers_preserve_order_and_zero_padding",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "315e94c31e1fa18e093d593c2e54319e55f92b24160b0e9e3f84434a32d97f2f"
+    },
+    {
+      "command": "cd go-tools/mpk-checker-ref && GOCACHE=/tmp/mpk-t06-w09-go-cache go test -v -count=1 -timeout 25m -tags checkeragreement -run 'TestCheckerAgreementWithRustCLI(StringOrdinal|Boolean)$' .",
+      "result": "passed",
+      "tests_passed": 2,
+      "log_sha256": "215b2368056c577ab3793d1bba4edd6a31606e14c719f9c5c7261078b6c232df"
     },
     {
       "command": "cargo clippy -p mpk-vc --lib --tests -- -D warnings",
       "result": "passed",
       "tests_passed": null,
-      "log_sha256": "e3543ee27208a554da6d70f56631d634638d950b04d01cb1d2e1e95dd0536363"
+      "log_sha256": "98bab5735be7ca92df055675b517b69e792ddb1bf960a05cec499926131d6830"
     },
     {
       "command": "rustfmt --check --edition 2021 --config skip_children=true (five changed Rust files); gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go",
@@ -52,17 +76,21 @@
       "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
-      "command": "cd go-tools/mpk-checker-ref && GOCACHE=/tmp/mpk-t06-w09-go-cache go test -v -count=1 -timeout 25m -tags checkeragreement -run TestCheckerAgreementWithRustCLIStringOrdinal .",
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
       "result": "passed",
-      "tests_passed": null,
-      "log_sha256": "9f5e2ccb61281af7d92af846dfad2bdf7610fb9a2d0a3633b588f523e6845717"
+      "tests_passed": 5,
+      "log_sha256": "0535752ef0c3fe9a26fd6f86f850e2c61590caa6d88106d5f4d1f3b95a6a935d"
     }
   ],
   "review": "unit-2-string-ordinal-review.md",
   "coverage": {
-    "new_signatures": 8,
+    "signatures": 8,
     "actual_core_matrix_cases_passed": 680,
     "actual_core_boundary_cases_passed": 40,
+    "any_fold_boundary_cases_passed": 405,
+    "full_capacity_cases_passed": 1,
+    "direct_step_state_cases_passed": 6,
+    "distinct_transformer_composition_cases_passed": 3,
     "source_cases": 8,
     "source_carrier_depths": [
       19,
@@ -70,31 +98,37 @@
     ],
     "prior_basic_and_construction_source_cases_replayed": 16,
     "combined_certificate_terms": [
-      5735,
-      5738
+      5360,
+      5363
     ],
-    "combined_certificate_declarations": 140,
-    "source_certificate_maximum_terms": 5688,
-    "source_certificate_maximum_declarations": 121,
-    "any_fold_boundary_cases_passed": 405,
-    "full_capacity_cases_passed": 1,
+    "combined_certificate_declarations": 152,
+    "combined_static_transformers": 8234,
+    "pipeline_step_occurrences": 8192,
+    "source_certificate_maximum_terms": 5314,
+    "source_certificate_maximum_declarations": 133,
     "certificates_checked_by_both": 10,
     "zero_axiom_acceptances_per_checker": 10,
     "hash_mutation_rejections_per_checker": 10,
-    "review_findings": 0
+    "review_findings": 0,
+    "core_command_elapsed_seconds": 2349.95
+  },
+  "construction_contract": {
+    "authority": "develop/migrations/csharp-03/foundation/foundation-definitions.json#ordinary_core.folds",
+    "state": "C6: Word32 index and first nonzero Word32 result",
+    "fixed_value_arguments": [
+      "C19 predicate",
+      "C5 length"
+    ],
+    "pipeline": "Balanced ordered guarded composition of 8192 concrete StepTwo S->S values; outer ordinary declaration closes all binders. Every occurrence counted before DAG sharing.",
+    "prior_finding": "The previous predicate/value reducers violated the frozen transformer construction contract despite kernel acceptance and passing observations. Those implementation receipts and zero-finding conclusion are superseded."
   },
   "consumer_inventory": {
     "query": "foundation.std_namespace",
-    "added_path": "crates/mpk-vc/src/csharp_practical_ordinary_string_ordinal.rs",
-    "previous_count": 104,
-    "current_count": 105,
-    "previous_paths_sha256": "78273c2b1a4ca331b0d901cda63be49e75f3d6b7051815feae216c19ef251990",
-    "current_paths_sha256": "4408451aa18bb39cac2886ffc7b020ccbf753522a35251cbcbbb13639898b963",
-    "aggregate_count": 4928,
-    "delta_verified": "Removing the sole new source path reproduces the prior count/hash. Existing cache paths remain unchanged."
+    "count": 105,
+    "paths_sha256": "4408451aa18bb39cac2886ffc7b020ccbf753522a35251cbcbbb13639898b963",
+    "changed_by_this_correction": false
   },
   "remaining": [
-    "Unit 2 final scalar coverage audit.",
     "Input domains, typed literal bodies, every reachable foundation definition, application VC proofs and W09 units 3-8."
   ],
   "full_gate": {
@@ -105,60 +139,52 @@
   "files": [
     {
       "path": "develop/migrations/csharp-03/ordinary-foundation/string-ordinal-circuits/core-metrics.json",
-      "sha256": "2173edc93f8af39fa32a00a90932fce856017b949dcdcfd3b91e0ebc18bd22c7"
+      "sha256": "ecbe762663f05cea8e41812cd634b534f2693eb5b2f412dcde8369c3c432b1b1"
     },
     {
       "path": "develop/migrations/csharp-03/ordinary-foundation/string-ordinal-circuits/metrics.json",
-      "sha256": "0516402a924cd262e142d5eb4c54ad757d500937f7665335dd4357253242e330"
+      "sha256": "6c6cd66e842b6180adc9224c90cf51b2270fba451e3c4144eea041076ecfbf04"
     },
     {
       "path": "develop/migrations/csharp-03/ordinary-foundation/string-ordinal-circuits/string.compare.ordinal.76de5d4d.hex",
-      "sha256": "81623d1bb254b7e203474940f598c61400d322619c932eba70e8fb01d729fcb5"
+      "sha256": "bc49979a37adc8cfe0a8fd6242c241ce1191271f8494f137795ba0e68c847740"
     },
     {
       "path": "develop/migrations/csharp-03/ordinary-foundation/string-ordinal-circuits/string.contains.ordinal.9aeebaac.hex",
-      "sha256": "c02e401b83770520dfbd146ef48c6e72279d6368fe0d299fb19a1eb38c73175b"
+      "sha256": "3b42a49bf43fb65bb60d0100d1104b55788e2ef0dce3205d5869775c77e62a6e"
     },
     {
       "path": "develop/migrations/csharp-03/ordinary-foundation/string-ordinal-circuits/string.ends_with.ordinal.abda15b6.hex",
-      "sha256": "9a69925d77272071af1dd2e9616452a53d177a3352638b6823b78a3b5f6e8252"
+      "sha256": "4c9dbbb6587c257daf277bdc369b855293fbba5f58d7c3794b95c4e18884498e"
     },
     {
       "path": "develop/migrations/csharp-03/ordinary-foundation/string-ordinal-circuits/string.equality.operator.04089ad4.hex",
-      "sha256": "1ede55a7ce2ee2e926105ac1ab387d71ec59ef289bfeb07570d5b1079847ad6d"
+      "sha256": "8e083b36f8a8d7f1d60071160bced5ecfc9940fd95364a874350906f734cbc28"
     },
     {
       "path": "develop/migrations/csharp-03/ordinary-foundation/string-ordinal-circuits/string.equals.instance.ordinal.0bc1c0c0.hex",
-      "sha256": "aacfac4af11e1e10fb9b50f9d51c27436607a61d156e9efad026e7c9e74dad21"
+      "sha256": "17fe0186fd6bd64c47ead6f228ac494551e50782f9d8859826a5203fe3eb874d"
     },
     {
       "path": "develop/migrations/csharp-03/ordinary-foundation/string-ordinal-circuits/string.equals.ordinal.02182a7a.hex",
-      "sha256": "5d58029bfba4efb61e7d3031ff49e4bcc53caaf53a5a638acab9f7634c9184e4"
+      "sha256": "23bd2bc499489dc33c715f4b63f6353517c2a9529cceaa6f3b72e5870877614c"
     },
     {
       "path": "develop/migrations/csharp-03/ordinary-foundation/string-ordinal-circuits/string.inequality.operator.ce54b60f.hex",
-      "sha256": "9617d26786ed5dac7a1516f591bb2d64a4ae0d26ce50c00178201d9b3ec49b9d"
+      "sha256": "1c5b5de8cc6610d41f4d6f386cc131324d5c70c72652565d218e236563505b7d"
     },
     {
       "path": "develop/migrations/csharp-03/ordinary-foundation/string-ordinal-circuits/string.ordinal.n0.hex",
-      "sha256": "1c62ebdb1d41521d568857f42c726907d7c9898e69aa20193a4f9c36598550e2"
+      "sha256": "f1676ae789a2445aec83f6fb9d0a641fec9b83eb07f56e9c99aae1d9fa616a12"
     },
     {
       "path": "develop/migrations/csharp-03/ordinary-foundation/string-ordinal-circuits/string.ordinal.n1.hex",
-      "sha256": "b21bad485ef348f6a20d9a403784a22b26c980df1e7c07b0fa8a8bdc7aee02b2"
+      "sha256": "7a0717a266bbb2a8b67d5826195a033c7a22a67ea26e222c00589d70e9be0abb"
     },
     {
       "path": "develop/migrations/csharp-03/ordinary-foundation/string-ordinal-circuits/string.starts_with.ordinal.edde2f36.hex",
-      "sha256": "f6567a3d52fbee012c81d5a8c57364c4116378aeae99a5cf70ca10063cc81f48"
-    },
-    {
-      "path": "develop/migrations/csharp-03/artifact-consumer-inventory.json",
-      "sha256": "9d5178e5ba813b3371cae2f8c93916ff30a22d9a0bb219b9b5156691b87ac5e6"
-    },
-    {
-      "path": "develop/migrations/csharp-03/data-phase/historical-inventory-cache-correction.json",
-      "sha256": "18783b9104e46d6d5bff8efab36dd1a775fbf4b43ff2eb166da87b47506b32ff"
+      "sha256": "de0ca95267d0f5c170a89d39e4f3a35042acee59a84c7dcedf4298dbc1c2eb5d"
     }
   ],
-  "verification_note": "Full 16,384-unit actual-core equality passed in 329.62 seconds. All ten same-byte dual-checker cases passed in 174.545 seconds. Initial source cohort expectation {20} failed because ordinal original sources include both {19,20}; the test now pins the independently observed forms for each cohort. Previous basic/construction source cohorts and bytes remain unchanged. The first direct Any-fold test supplied a selector cube for depth zero, whose type is a Bool leaf. Its test input was corrected to V::Bit; no production term or checker changed. The initial Any-fold boundary test passed after its Bool input fix in 337.35 seconds. Fold counts were then changed to bounded bit splitting to remove per-node subtraction and arithmetic comparison. A subtraction-free intermediate run was superseded by the final bit-only branching version; its identified process was terminated intentionally, not counted as a test failure or checker rejection. The final bit-split implementation passed all five core test functions in 233.97 seconds, including the full-capacity case and all 405 Any-fold boundary cases. All ten final certificates passed same-byte dual checking in 64.555 seconds. Final source replay, fixture replay, inventory, lint and format passed."
+  "verification_note": "The earlier C21 transformer prototype passed matrix/address/source/checker observations but is superseded by the C6 state with immutable ordinary arguments. Its full-capacity process PID 83966 was deliberately stopped after confirming it was live, because production had changed to C6; that stop is neither a deterministic test failure nor checker rejection. A mistakenly broad ordinary_ test filter was deliberately stopped and replaced by exact builder budget/order tests. Final C6 core observations use the original uninterrupted string_ordinal_core_ process. No evaluator, frozen contract, production checker or Certificate v0 acceptance rule changed in this correction. Test-only additions after that process started add distinct-transformer observations and full integer emission coverage without changing the observed ordinal definitions."
 }

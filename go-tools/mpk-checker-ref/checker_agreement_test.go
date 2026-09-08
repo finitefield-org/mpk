@@ -284,6 +284,10 @@ func TestCheckerAgreementWithRustCLIStringOrdinal(t *testing.T) {
 	checkOrdinaryCertificates(t, "string-ordinal-circuits", 10)
 }
 
+func TestCheckerAgreementWithRustCLIBoolean(t *testing.T) {
+	checkOrdinaryCertificates(t, "boolean-circuits", 1)
+}
+
 func checkOrdinaryCertificates(t *testing.T, directory string, expectedCount int) {
 	t.Helper()
 	root := absoluteRepoRoot(t)

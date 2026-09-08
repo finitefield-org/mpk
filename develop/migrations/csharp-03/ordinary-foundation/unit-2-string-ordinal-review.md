@@ -1,6 +1,13 @@
 # W09 internal unit 2: ordinal UTF-16 comparison and search
 
-Baseline: `ef4056b`. This is a component review, not a W09 completion receipt.
+Correction baseline: `31d69a3`. This is a component review, not a W09 completion receipt.
+
+The scalar coverage audit reopened this component: the previously accepted
+predicate/value reducers did not satisfy the frozen `ordinary_core.folds`
+requirement for static balanced ordered composition of concrete S->S
+transformers. Passing kernel checks and semantic observations did not prove
+that construction contract. The current implementation replaces those reducers;
+the previous zero-finding conclusion is superseded.
 
 ## Implementation
 
@@ -10,27 +17,33 @@ StartsWith and EndsWith. The original closed string signature determines the
 input carrier, result type and ordered checks. Source/foundation metadata and
 canonical bytes are independently regenerated on import.
 
-The generated First.D0..D14 and Any.D0..D14 helpers have concrete Boolean cube
-argument/result types. Each definition references only a preceding, smaller
-depth. There is no recursive global, unresolved template, type variable or new
-checker rule. All branching uses the existing Bool-result eliminator; word
-selection applies that eliminator pointwise. These are predicate/value folds,
-not repeated state-transformer composition or a trusted host search routine.
+The generated First.D0..D14 and Any.D0..D14 adapters use one shared ordinary
+pipeline. State S is the concrete C6 cube containing a Word32 index and Word32
+first nonzero result. The read-only C19 predicate and Word32 length are fixed
+ordinary value arguments; the pipeline declaration closes all binders. There
+are no type arguments, templates, recursive globals or new checker rules.
 
 ## Direct review
 
-- Splitting binds the most significant index bit while retaining physical
-  least-significant-first order for the remaining bits and all result selectors.
-  Thus the first differing character in increasing index order wins.
-- A count at depth D is bounded by 2^D. The low count is clamped to half
-  capacity using its two high bits; the high count clears the split bit, or
-  selects half capacity when the whole range is full. High traversal is enabled
-  by those same two bits. At exactly half capacity the high count is zero, so
-  the enabled empty high fold is harmless. Count zero gives zero/false at the
-  leaf. A local let shares the low result before selecting the high result.
-  This removes per-node subtraction and arithmetic comparison while retaining
-  the complete address space. Public windows/candidate counts establish the
-  bounded-count premise; an empty needle bypasses its 16,385 candidate count.
+- Each StepTwo instance has concrete S->S type after fixing predicate and
+  length. It visits index and index+1 in that order with fixed-width arithmetic;
+  the second read contributes only when index+1 is below length. A completed
+  input state is returned unchanged. A first nonzero result wins over the
+  second. The pipeline starts at zero, so its even indices advance to at most 16384.
+- GuardedCompose fixes the concrete length, applies f before g, shares the
+  intermediate state with an ordinary Let, and skips g when the index is out
+  of range or a nonzero result was found. The builder creates a balanced tree
+  of 8192 explicit StepTwo occurrences and counts all of them before DAG
+  sharing, plus 42 helper transformers. The existing inclusive 16384 limit
+  remains enforced. A guarded composition test uses distinct f and g
+  predicates to expose reversed order or wrong de Bruijn binder references.
+- First.Dd widens the predicate to C19 by retaining low index selectors and
+  all result selectors, and clamps the count to 2^d. Any.Dd encodes its Boolean
+  predicate in bit zero of a Word32 and uses the same First pipeline. Thus it
+  adds no second 8192-occurrence pipeline. Zero count returns zero/false;
+  odd counts mask the extra read. Tests include count boundaries and the last
+  address include/exclude pair. An empty needle bypasses its 16385 candidate
+  count before applying the adapter.
 - Char subtraction zero-extends both sixteen-bit code units to 32 bits before
   subtraction. The signed difference therefore covers -65,535 through 65,535,
   preserving NUL, high bits and isolated surrogates. Compare uses length
@@ -62,20 +75,18 @@ not repeated state-transformer composition or a trusted host search routine.
 
 ## Verification
 
-The actual-core oracle matrix passed 680 cases across both carrier modes and
-all eight operations. Forty additional boundary cases cover maximum receivers,
-empty needles, final UTF-16 positions, prefix differences after binary carries
-and earlier-difference priority. A separate full-capacity test compares equal
-16,384-unit strings through the actual core, with no host replacement of results.
+The C6 correction passed the 680-case actual-core oracle matrix, 40 address
+boundary cases, 405 Any-fold cases, full 16384-unit equality, and nine direct
+step/composition state cases. The final direct review has zero findings.
 
-Two combined eight-operation certificates have 5,735/5,738 terms and 140
-declarations. Eight original-source certificates have at most 5,688 terms and 121
-declarations. All ten are pinned for same-byte dual checking, zero-axiom
-acceptance and hash-corruption rejection. This verifies the ordinary definitions;
-it does not discharge application invariants or W09's complete foundation gate.
+The combined certificates have 5360/5363 terms, 152 declarations and 8234
+counted transformer occurrences. All ten ordinal certificates passed same-byte
+zero-axiom checking and corrupted-hash rejection in both unchanged checkers.
+Source replay covered the eight original ordinal captures and retained the
+sixteen basic/construction captures and their bytes. Builder budget/order,
+fixture replay, inventory, lint and format checks also passed. Exact commands
+and artifact/log hashes are in `unit-2-string-ordinal-verification.json`.
 
-The final bit-split implementation passed the matrix, address boundaries and
-405 Any-fold cases, including the last-index include/exclude pair. Full-capacity observation and all ten final same-byte checker cases also passed.
-The final direct review has zero findings. Other scoped
-results are recorded in `unit-2-string-ordinal-verification.json`. The full
-`check-fast.sh` gate remains deferred to T06-W12.
+The final scalar reconciliation is recorded in `unit-2-review.md` and
+`unit-2-coverage-audit.json`; internal unit 2 is complete. W09 units 3-8 remain
+outstanding. The full `check-fast.sh` gate remains deferred to T06-W12.

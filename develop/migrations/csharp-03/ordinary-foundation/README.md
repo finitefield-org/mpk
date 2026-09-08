@@ -2,9 +2,12 @@
 
 This directory records the first of eight user-approved internal W09 units.
 It contains actual ordinary carrier/helper definitions and regression fixtures.
-W09 is still in progress; operations, predicates and application proof assembly
-remain units 2-8 in `implementation-plan.md`. Checking these carrier certificates
-does not discharge an application VC.
+Internal unit 2 (scalar operations/checks) is also complete; see
+`unit-2-verification.json` and `unit-2-review.md`. W09 is still in progress:
+structural/collection foundations, domains, bindings/codecs, control/transition
+relations and application proof assembly remain units 3-8 in
+`implementation-plan.md`. Checking these carrier certificates does not
+discharge an application VC.
 
 ## Representation and trust boundary
 
@@ -70,7 +73,7 @@ Targeted commands and results are recorded in `unit-1-verification.json`.
 To regenerate candidate fixtures for review, run:
 
 ```sh
-MPK_W09_CARRIERS_OUT=/tmp/mpk-w09-carriers cargo test -p mpk-vc --test csharp_practical_vc ordinary_carriers::
+MPK_W09_CARRIERS_OUT=/tmp/mpk-w09-carriers cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_carriers_original_inputs_and_mutations
 ```
 
 Normal tests compare checked-in bytes and layouts without updating them.

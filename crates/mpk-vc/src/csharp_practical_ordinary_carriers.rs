@@ -678,10 +678,30 @@ impl Builder {
         let identity = self.compose(d, &[])?;
         self.define(&format!("{PREFIX}.Cube.D{d}.Identity"), ss, identity)
     }
-    // Inputs are concrete, closed S -> S terms. Count every occurrence before
+    // Inputs are concrete S -> S terms in their surrounding value-binder
+    // context; certificate declarations close those binders. Count occurrences before
     // DAG sharing; repeated equal leaves cannot evade the expansion budget.
     // A balanced tree preserves left-to-right state flow without linear depth.
     fn compose(&mut self, d: u32, steps: &[u32]) -> R<u32> {
+        self.compose_using(d, &format!("{PREFIX}.Cube.D{d}.Compose"), steps)
+    }
+    // The caller supplies an ordinary, concrete (S->S)->(S->S)->S->S
+    // definition. Counting and balanced expansion are identical for guarded
+    // and unconditional composition; sharing cannot remove occurrences.
+    fn compose_using(&mut self, d: u32, name: &str, steps: &[u32]) -> R<u32> {
+        // Keep the predecessor term insertion order, including the empty case.
+        self.compose_in_context(d, Some(name), None, steps)
+    }
+    fn compose_term(&mut self, d: u32, composition: u32, steps: &[u32]) -> R<u32> {
+        self.compose_in_context(d, None, Some(composition), steps)
+    }
+    fn compose_in_context(
+        &mut self,
+        d: u32,
+        name: Option<&str>,
+        composition: Option<u32>,
+        steps: &[u32],
+    ) -> R<u32> {
         let count = self
             .static_transformers
             .checked_add(steps.len())
@@ -709,7 +729,11 @@ impl Builder {
                 return Err(OrdinaryCarrierError::Shape);
             }
         }
-        let c = self.constant(&format!("{PREFIX}.Cube.D{d}.Compose"))?;
+        let c = match (name, composition) {
+            (Some(name), None) => self.constant(name)?,
+            (None, Some(term)) if self.c.term_table.get(term as usize).is_some() => term,
+            _ => return Err(OrdinaryCarrierError::Shape),
+        };
         tree(self, c, steps)
     }
     fn lift(&mut self, from: u32, to: u32) -> R<()> {

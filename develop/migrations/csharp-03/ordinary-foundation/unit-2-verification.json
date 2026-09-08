@@ -1,0 +1,100 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.scalar_unit_verification.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 2,
+  "status": "complete in this reviewed commit",
+  "completion_commit": "SELF",
+  "w09_status": "Ready/in progress",
+  "baseline_commit": "31d69a3",
+  "date": "2026-09-09",
+  "fixed_nonliteral_signatures": 505,
+  "parameterized_family": "string.interpolation.restricted.{empty|[sc]+}",
+  "review": "unit-2-review.md",
+  "review_findings": 0,
+  "coverage_audit": "unit-2-coverage-audit.json",
+  "verification_receipts": [
+    "unit-2-calendar-verification.json",
+    "unit-2-conversion-verification.json",
+    "unit-2-coverage-verification.json",
+    "unit-2-decimal-arithmetic-verification.json",
+    "unit-2-decimal-verification.json",
+    "unit-2-floating-verification.json",
+    "unit-2-integer-verification.json",
+    "unit-2-string-basic-verification.json",
+    "unit-2-string-construction-verification.json",
+    "unit-2-string-ordinal-verification.json",
+    "unit-2-temporal-verification.json"
+  ],
+  "evidence_interpretation": "Historical component receipts record their targeted runs and checkpoint status. The final correction and coverage receipts replace the ordinal construction finding and add the audit coverage. This is an internal operation/check implementation receipt, not a universal application proof, complete reachable-instance expansion or W09 acceptance receipt.",
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "result": "deferred",
+    "owner": "CSHARP-03-T06-W12"
+  },
+  "remaining_w09_internal_units": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "files": [
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/unit-2-review.md",
+      "sha256": "6fd364cf820701170f6d86d7a00dba9c236a607264c78e57b4feb38fd5f64a97"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/unit-2-coverage-audit.json",
+      "sha256": "05953b54bd25fc7dea27096651be8471d195d4fd5d62b1f83df9b7a61ddd4138"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/integer-coverage.json",
+      "sha256": "d687667c8dcabedd5f39e9ca9ad1a7e1503323d38fc09893b1f425eee60fc0fd"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/unit-2-calendar-verification.json",
+      "sha256": "d55d248ae513c31a255736afb857c0eb21658ab64a54b60e2616a9e70301d8ab"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/unit-2-conversion-verification.json",
+      "sha256": "09cf366b87fba7a8c51931c92dbd67bdb5e53a421794a192d8e5f3a35491b4d6"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/unit-2-coverage-verification.json",
+      "sha256": "d4ba827586ba97f934272b992130ef5286ee45c6370dd9e40778fa112d47aff5"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/unit-2-decimal-arithmetic-verification.json",
+      "sha256": "0117cadd0fc53718b8b5255bb97a0608277954afaa1ecb27c7ec7331fe2a0565"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/unit-2-decimal-verification.json",
+      "sha256": "8c9af34ac3ad4caa904948c634a5e870f3e474bd4127f783e41a0caee2532b9f"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/unit-2-floating-verification.json",
+      "sha256": "fe91e0a47459cfa9364d9be561613901cc44ba4369dd2b5c3bf45070c1a02341"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/unit-2-integer-verification.json",
+      "sha256": "17812b44b89114571bdb00348a520fb99489241c4f289c957e130e57187db076"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/unit-2-string-basic-verification.json",
+      "sha256": "c381e77cf49b1aa2ee68db9a500ddf8f37f352a575c530e59d2f8f325b505b19"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/unit-2-string-construction-verification.json",
+      "sha256": "21bafc438a7958d4841111b0f6c13452d85f0135ad7ce2d71b159feed7a2c985"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/unit-2-string-ordinal-verification.json",
+      "sha256": "4b31942fc94f1c3770762a2005848e8d165838143522f5a9bdfd7e5b3a205a6c"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/unit-2-temporal-verification.json",
+      "sha256": "a276ed9a11c8fa5022b1d9dc89216b5367b2529f084ecd44698c2106e510902e"
+    }
+  ]
+}

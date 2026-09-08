@@ -1,0 +1,97 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.scalar_coverage_verification.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 2,
+  "component": "Boolean truth tables and complete integer lowering inventory",
+  "component_status": "verified and reviewed",
+  "unit_2_status": "complete (internal unit only)",
+  "baseline_commit": "31d69a3",
+  "date": "2026-09-09",
+  "checks": [
+    {
+      "command": "MPK_W09_BOOLEAN_OUT=/tmp/mpk-w09-boolean-fixtures cargo test -p mpk-vc --lib boolean_circuits_core_exhaustive_truth_tables",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "8e7c53eb40d0212074b7c253607587d95de6e051974a2ef0e3651b93ade6a95a"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib boolean_circuits_core_exhaustive_truth_tables",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "dbdf78d214c61026f8c90b24c707659e134c3b31ea004a21749053b3d8cd0554"
+    },
+    {
+      "command": "MPK_W09_INTEGER_COVERAGE_OUT=/tmp/mpk-w09-integer-coverage.json cargo test -p mpk-vc --lib integer_circuits_emit_every_closed_signature_within_limits",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "dee0bd59d46449db8aab7a31472d3144b3ac068793b72f24a4fc95874b341a61"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib integer_circuits_emit_",
+      "result": "passed",
+      "tests_passed": 2,
+      "log_sha256": "9df2eb281842dd67ee36632b78ae27873a530f728aa23b5abce472dd243ac5eb"
+    },
+    {
+      "command": "cd go-tools/mpk-checker-ref && GOCACHE=/tmp/mpk-t06-w09-go-cache go test -v -count=1 -timeout 25m -tags checkeragreement -run 'TestCheckerAgreementWithRustCLI(StringOrdinal|Boolean)$' .",
+      "result": "passed",
+      "tests_passed": 2,
+      "log_sha256": "215b2368056c577ab3793d1bba4edd6a31606e14c719f9c5c7261078b6c232df"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --tests -- -D warnings",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "98bab5735be7ca92df055675b517b69e792ddb1bf960a05cec499926131d6830"
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true (five changed Rust files); gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "result": "passed",
+      "tests_passed": 5,
+      "log_sha256": "0535752ef0c3fe9a26fd6f86f850e2c61590caa6d88106d5f4d1f3b95a6a935d"
+    }
+  ],
+  "coverage": {
+    "boolean_operations": 6,
+    "boolean_truth_cases": 22,
+    "integer_operations": 160,
+    "integer_conversions": 162,
+    "independent_integer_certificates_generated_and_structurally_checked": 322,
+    "integer_max_terms": 104708,
+    "integer_max_declarations": 1086,
+    "integer_max_static_transformers": 1070,
+    "previous_integer_fixture_cases_replayed": 7,
+    "boolean_certificates_accepted_by_each_checker": 1,
+    "boolean_corrupted_hash_rejections_by_each_checker": 1
+  },
+  "limitations": [
+    "Integer family generation/structure/hash coverage does not mean both kernels checked all 322 certificates or that application propositions were proved.",
+    "Existing arithmetic/conversion network and representative actual-core semantic receipts remain separate evidence.",
+    "Internal unit 2 is complete. W09 units 3-8 and its complete acceptance gate are outstanding."
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "result": "deferred",
+    "owner": "CSHARP-03-T06-W12"
+  },
+  "files": [
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/integer-coverage.json",
+      "sha256": "d687667c8dcabedd5f39e9ca9ad1a7e1503323d38fc09893b1f425eee60fc0fd"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/boolean-circuits/boolean.all.hex",
+      "sha256": "e7f9b726a2f5020fde95fb3e8ba7e0314c6949be76f15585dfe6fd5758081854"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/boolean-circuits/metrics.json",
+      "sha256": "4c299db86e96ee147270276f3a4d15270d1d42c69cde78cb99055dacda219000"
+    }
+  ]
+}

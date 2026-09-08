@@ -101,12 +101,16 @@ must not be presented as completion of W09.
 
 ## Approved execution status
 
-Unit 1 is complete as an internal implementation unit. See `README.md`,
-`unit-1-verification.json` and `unit-1-review.md` for its exact coverage and
-local checks. Unit 2 has Boolean/integer, Time/Duration/Instant and
-Date/Guid/DayOfWeek, floating-operation, numeric-conversion and decimal
-conversion/rounding/arithmetic/comparison, basic UTF-16 length/index/null-or-empty,
-substring/concatenation/interpolation and ordinal comparison/search increments,
-documented in `unit-2-progress.md`; the scalar coverage audit and units 3-8
-remain outstanding. W09 remains Ready/in progress and W10-W12 remain
-Blocked. No W09 completion receipt is issued by this unit.
+Units 1 and 2 are complete as internal implementation units. See `README.md`,
+`unit-1-verification.json` and `unit-1-review.md` for carrier coverage. Scalar
+operation/check coverage and the final audit are in `unit-2-verification.json`,
+`unit-2-review.md`, `unit-2-coverage-audit.json` and the chronological
+`unit-2-progress.md`. The audit corrected a mismatch between the previous
+ordinal reducers and the frozen concrete S->S transformer construction, added
+all-Boolean truth cases and all-integer certificate generation, and passed
+full-capacity core evaluation and same-byte dual checking.
+
+Units 3-8 remain outstanding. W09 remains Ready/in progress and W10-W12 remain
+Blocked. No W09 completion receipt is issued by these internal units. The next
+work is structural/collection domains, defaults, equality/order, constructors,
+accessors and every operation of each reachable concrete foundation instance.

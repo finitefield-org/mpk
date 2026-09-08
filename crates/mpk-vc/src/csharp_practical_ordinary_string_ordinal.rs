@@ -1,4 +1,4 @@
-//! Concrete finite folds for ordinal UTF-16 comparison and search.
+//! Ordinal UTF-16 operations via statically composed concrete state transformers.
 use super::*;
 pub(super) const OPS: &[&str] = &[
     "string.equality.operator",
@@ -37,45 +37,6 @@ fn mux_word(b: &mut Builder, condition: u32, yes: u32, no: u32) -> R<u32> {
         &format!("{PREFIX}.Cube.D5.Mux"),
         vec![condition, yes, no],
     )
-}
-// Select the most significant index bit, retaining least-significant-first
-// physical selector order and all output selectors. Extra counts local lets.
-fn half(b: &mut Builder, depth: u32, output: u32, high: bool, extra: u32) -> R<u32> {
-    let selectors = depth - 1 + output;
-    let input = b.var(selectors + 1 + extra)?;
-    let mut args = (0..depth - 1)
-        .map(|i| b.var(selectors - 1 - i))
-        .collect::<R<Vec<_>>>()?;
-    args.push(b.constant(if high {
-        "Std.Bool.true"
-    } else {
-        "Std.Bool.false"
-    })?);
-    args.extend(b.selectors(output)?);
-    let body = b.app(input, args)?;
-    b.wrap_selectors(selectors, body)
-}
-// Counts in a depth-D fold are bounded by 2^D. Clamp the low count to
-// half capacity and clear the high index bit for the high count. Selecting
-// bits avoids a 32-bit subtractor at every node of the finite fold.
-fn split_count(b: &mut Builder, depth: u32, extra: u32) -> R<(u32, u32, u32)> {
-    let len = b.var(extra)?;
-    let full = core_read(b, len, depth as usize, 5)?;
-    let upper = core_read(b, len, (depth - 1) as usize, 5)?;
-    let upper = call(b, "Std.Bool.or", vec![full, upper])?;
-    let midpoint = word(b, 1 << (depth - 1))?;
-    let low = mux_word(b, upper, midpoint, len)?;
-    // Within these five selectors the captured count has five extra binders.
-    let len = b.var(extra + 5)?;
-    let f = b.constant("Std.Bool.false")?;
-    let mut bits = vec![f; 32];
-    for (i, bit) in bits.iter_mut().enumerate().take((depth - 1) as usize) {
-        *bit = core_read(b, len, i, 5)?;
-    }
-    let body = core_select(b, &bits, 5, 0, 5, f)?;
-    let lower = b.wrap_selectors(5, body)?;
-    let high = mux_word(b, full, midpoint, lower)?;
-    Ok((low, high, upper))
 }
 pub(super) struct Aux {
     add: String,
@@ -162,69 +123,173 @@ impl Aux {
         Ok(aux)
     }
     fn folds(&self, b: &mut Builder, h: &Helpers) -> R<()> {
-        // Each level has a fixed concrete cube type and references only the
-        // preceding level. No recursion, template or polymorphic core survives.
-        for output in [0, 5] {
-            let kind = if output == 0 { "Any" } else { "First" };
-            let input = b.var(1)?;
-            let len = b.var(0)?;
-            let empty = call(b, &h.empty.result_definition, vec![len])?;
-            let zero = if output == 0 {
-                b.constant("Std.Bool.false")?
+        // Read-only predicate and length values are fixed ordinary arguments.
+        // Mutable state S=C6 contains just the index and first nonzero result.
+        // Every instantiated step has the same concrete S->S type; the outer
+        // definition closes all value binders and has no type parameters.
+        const STATE: u32 = 6;
+        if !b
+            .globals
+            .contains_key(&format!("{PREFIX}.Cube.D{STATE}.Mux"))
+        {
+            b.helpers(STATE)?;
+        }
+        for (field, role) in [("Index", false), ("Value", true)] {
+            let source = b.var(5)?;
+            let selector = b.constant(if role {
+                "Std.Bool.true"
             } else {
-                word(b, 0)?
-            };
-            let body = if output == 0 {
-                core_mux(b, empty, zero, input)?
-            } else {
-                mux_word(b, empty, zero, input)?
-            };
+                "Std.Bool.false"
+            })?;
+            let mut args = vec![selector];
+            args.extend(b.selectors(5)?);
+            let body = b.app(source, args)?;
+            let body = b.wrap_selectors(5, body)?;
+            define(b, &name(field), &[1 << STATE], 5, body)?;
+        }
+        // Make(index,value) uses one role bit and five word selectors.
+        let index = b.var(7)?;
+        let value = b.var(6)?;
+        let selectors = b.selectors(5)?;
+        let index = b.app(index, selectors.clone())?;
+        let value = b.app(value, selectors)?;
+        let role = b.var(5)?;
+        let body = core_mux(b, role, value, index)?;
+        let body = b.wrap_selectors(STATE, body)?;
+        define(b, &name("Make"), &[32, 32], STATE, body)?;
+        // Active(length,state) requires both an unvisited index and zero result.
+        let length = b.var(1)?;
+        let state = b.var(0)?;
+        let index = call(b, &name("Index"), vec![state])?;
+        let value = call(b, &name("Value"), vec![state])?;
+        let within = call(b, &h.range.result_definition, vec![index, length])?;
+        let empty = call(b, &h.empty.result_definition, vec![value])?;
+        let body = call(b, "Std.Bool.and", vec![within, empty])?;
+        define(b, &name("Active"), &[32, 1 << STATE], 0, body)?;
+        let predicate = b.var(6)?;
+        let index = b.var(5)?;
+        let mut args = (0..14)
+            .map(|i| core_read(b, index, i, 5))
+            .collect::<R<Vec<_>>>()?;
+        args.extend(b.selectors(5)?);
+        let body = b.app(predicate, args)?;
+        let body = b.wrap_selectors(5, body)?;
+        define(b, &name("ReadAt"), &[1 << 19, 32], 5, body)?;
+        // StepTwo(predicate,length) is a concrete S->S value. Two ordered
+        // reads are a finite circuit, not two hidden composition occurrences.
+        let predicate = b.var(2)?;
+        let length = b.var(1)?;
+        let state = b.var(0)?;
+        let index = call(b, &name("Index"), vec![state])?;
+        let one = word(b, 1)?;
+        let two = word(b, 2)?;
+        let zero = word(b, 0)?;
+        let next = call(b, &self.add, vec![index, one])?;
+        let after = call(b, &self.add, vec![index, two])?;
+        let first = call(b, &name("ReadAt"), vec![predicate, index])?;
+        let second = call(b, &name("ReadAt"), vec![predicate, next])?;
+        let second_within = call(b, &h.range.result_definition, vec![next, length])?;
+        let second = mux_word(b, second_within, second, zero)?;
+        let empty = call(b, &h.empty.result_definition, vec![first])?;
+        let value = mux_word(b, empty, second, first)?;
+        let updated = call(b, &name("Make"), vec![after, value])?;
+        let active = call(b, &name("Active"), vec![length, state])?;
+        let body = call(
+            b,
+            &format!("{PREFIX}.Cube.D{STATE}.Mux"),
+            vec![active, updated, state],
+        )?;
+        define(b, &name("StepTwo"), &[1 << 19, 32, 1 << STATE], STATE, body)?;
+        // GuardedCompose(length,f,g,state): f precedes g, and a completed
+        // intermediate state skips the right subtree by ordinary Bool mux.
+        let state_type = b.cube(STATE)?;
+        let transformer = b.pi(state_type, state_type)?;
+        let word_type = b.cube(5)?;
+        let f = b.var(2)?;
+        let state = b.var(0)?;
+        let first = b.app(f, vec![state])?;
+        let length = b.var(4)?;
+        let g = b.var(2)?;
+        let intermediate = b.var(0)?;
+        let next = b.app(g, vec![intermediate])?;
+        let active = call(b, &name("Active"), vec![length, intermediate])?;
+        let body = call(
+            b,
+            &format!("{PREFIX}.Cube.D{STATE}.Mux"),
+            vec![active, next, intermediate],
+        )?;
+        let body = b.term(TermNode::Let {
+            ty: state_type,
+            value: first,
+            body,
+        })?;
+        let body = b.lam(state_type, body)?;
+        let body = b.lam(transformer, body)?;
+        let body = b.lam(transformer, body)?;
+        let body = b.lam(word_type, body)?;
+        let ty = b.pi(transformer, transformer)?;
+        let ty = b.pi(transformer, ty)?;
+        let ty = b.pi(word_type, ty)?;
+        b.define(&name("GuardedCompose"), ty, body)?;
+        let predicate = b.var(1)?;
+        let length = b.var(0)?;
+        let step = call(b, &name("StepTwo"), vec![predicate, length])?;
+        let composition = call(b, &name("GuardedCompose"), vec![length])?;
+        let pipeline = b.compose_term(STATE, composition, &vec![step; 8192])?;
+        let body = b.lam(word_type, pipeline)?;
+        let predicate_type = b.cube(19)?;
+        let body = b.lam(predicate_type, body)?;
+        let ty = b.pi(word_type, transformer)?;
+        let ty = b.pi(predicate_type, ty)?;
+        b.define(&name("Pipeline"), ty, body)?;
+        for depth in 0..=14 {
+            let input = b.var(20)?;
+            let mut args = (0..depth).map(|i| b.var(18 - i)).collect::<R<Vec<_>>>()?;
+            args.extend(b.selectors(5)?);
+            let body = b.app(input, args)?;
+            let predicate = b.wrap_selectors(19, body)?;
+            let count = b.var(0)?;
+            let cap = word(b, 1 << depth)?;
+            let count = call(b, &self.min, vec![count, cap])?;
+            let initial = call(b, &name("Make"), vec![zero, zero])?;
+            let final_state = call(b, &name("Pipeline"), vec![predicate, count, initial])?;
+            let value = call(b, &name("Value"), vec![final_state])?;
             define(
                 b,
-                &name(&format!("{kind}.D0")),
-                &[1 << output, 32],
-                output,
-                body,
+                &name(&format!("First.D{depth}")),
+                &[1 << (depth + 5), 32],
+                5,
+                value,
             )?;
-            for depth in 1..=14 {
-                let previous = name(&format!("{kind}.D{}", depth - 1));
-                let low = half(b, depth, output, false, 0)?;
-                let (low_count, _, _) = split_count(b, depth, 0)?;
-                let first = call(b, &previous, vec![low, low_count])?;
-                // One let shares the left fold before asking whether the right
-                // half is needed. The count check also avoids underflow demand.
-                let high = half(b, depth, output, true, 1)?;
-                // At exactly the midpoint the high count is zero, so enabling
-                // that empty fold is safe; no arithmetic comparison is needed.
-                let (_, remaining, enabled) = split_count(b, depth, 1)?;
-                let right = call(b, &previous, vec![high, remaining])?;
-                let first_value = b.var(0)?;
-                let body = if output == 0 {
-                    let right = core_mux(b, enabled, right, zero)?;
-                    core_mux(b, first_value, first_value, right)?
-                } else {
-                    let right = mux_word(b, enabled, right, zero)?;
-                    let empty = call(b, &h.empty.result_definition, vec![first_value])?;
-                    mux_word(b, empty, right, first_value)?
-                };
-                let ty = b.cube(output)?;
-                let body = b.term(TermNode::Let {
-                    ty,
-                    value: first,
-                    body,
-                })?;
-                define(
-                    b,
-                    &name(&format!("{kind}.D{depth}")),
-                    &[1 << (depth + output), 32],
-                    output,
-                    body,
-                )?;
+            let input = b.var(depth + 6)?;
+            let args = (0..depth)
+                .map(|i| b.var(depth + 4 - i))
+                .collect::<R<Vec<_>>>()?;
+            let leaf = b.app(input, args)?;
+            let f = b.constant("Std.Bool.false")?;
+            let mut padding = f;
+            for i in 0..5 {
+                let bit = b.var(i)?;
+                padding = call(b, "Std.Bool.or", vec![padding, bit])?;
             }
+            let leaf = core_mux(b, padding, f, leaf)?;
+            let predicate = b.wrap_selectors(depth + 5, leaf)?;
+            let count = b.var(0)?;
+            let first = call(b, &name(&format!("First.D{depth}")), vec![predicate, count])?;
+            let empty = call(b, &h.empty.result_definition, vec![first])?;
+            let value = call(b, "Std.Bool.not", vec![empty])?;
+            define(
+                b,
+                &name(&format!("Any.D{depth}")),
+                &[1 << depth, 32],
+                0,
+                value,
+            )?;
         }
         Ok(())
     }
 }
+
 pub(super) fn emit(
     b: &mut Builder,
     h: &Helpers,
@@ -394,18 +459,20 @@ mod tests {
                 .collect(),
         }
     }
-    fn generated(nullable: bool) -> (Certificate, Vec<OrdinaryStringDefinition>, Vec<u8>) {
+    fn generated(nullable: bool) -> (Certificate, Vec<OrdinaryStringDefinition>, Vec<u8>, usize) {
         let mut b = Builder::new().unwrap();
         let mut h = Helpers::new(&mut b, nullable).unwrap();
         let definitions = OPS
             .iter()
             .map(|id| h.emit(&mut b, signature(id, nullable)).unwrap())
             .collect::<Vec<_>>();
+        let transformers = b.static_transformers;
+        assert!((8192..=16_384).contains(&transformers));
         let bytes = b.finish().unwrap();
         let cert = decode_canonical_certificate(&bytes).unwrap();
         crate::csharp_practical_vc_model::validate_csharp_practical_certificate_structure(&cert)
             .unwrap();
-        (cert, definitions, bytes)
+        (cert, definitions, bytes, transformers)
     }
     fn observe(
         cert: &Certificate,
@@ -484,7 +551,7 @@ mod tests {
         ];
         let mut cases = 0;
         for nullable in [false, true] {
-            let (cert, definitions, _) = generated(nullable);
+            let (cert, definitions, _, _) = generated(nullable);
             for d in &definitions {
                 for a in &texts {
                     for v in &texts {
@@ -509,7 +576,7 @@ mod tests {
             .map(|i| (i as u16).wrapping_add(0x8000))
             .collect::<Vec<_>>();
         for nullable in [false, true] {
-            let (cert, definitions, _) = generated(nullable);
+            let (cert, definitions, _, _) = generated(nullable);
             for d in &definitions {
                 // Compare/search a maximum-size receiver with an early match.
                 observe(&cert, d, Some(&maximum), Some(&maximum[..1]), nullable);
@@ -546,7 +613,7 @@ mod tests {
     }
     #[test]
     fn string_ordinal_core_fold_boundaries() {
-        let (cert, _, _) = generated(false);
+        let (cert, _, _, _) = generated(false);
         let length = |n: usize| V::Cube((0..32).map(|i| n & (1 << i) != 0).collect());
         let mut cases = 0;
         for depth in 0..=4 {
@@ -590,8 +657,102 @@ mod tests {
         }
     }
     #[test]
+    fn string_ordinal_transformer_pair_order_and_terminal_identity() {
+        let (cert, _, _, _) = generated(false);
+        let word = |n: u32| V::Cube((0..32).map(|i| n & (1 << i) != 0).collect());
+        let observe_word = |value: V| -> u32 {
+            (0..32).fold(0, |out, i| {
+                let mut value = value.clone();
+                for j in 0..5 {
+                    value = apply(&cert, value, V::Bit(i & (1 << j) != 0));
+                }
+                out | (u32::from(bit(value)) << i)
+            })
+        };
+        for (first, second, index, length, prior, expected, expected_index) in [
+            (0, 9, 0, 1, 0, 0, 2),
+            (7, 9, 0, 2, 0, 7, 2),
+            (0, 9, 0, 2, 0, 9, 2),
+            (0, 0, 0, 2, 0, 0, 2),
+            (7, 9, 5, 3, 0, 0, 5),
+            (7, 9, 0, 3, 11, 11, 0),
+        ] {
+            let mut predicate = vec![false; 1 << 19];
+            for (i, value) in [first, second].into_iter().enumerate() {
+                for j in 0..32 {
+                    predicate[i + (j << 14)] = value & (1 << j) != 0;
+                }
+            }
+            let predicate = V::Cube(predicate);
+            let state = run(&cert, &name("Make"), vec![word(index), word(prior)]);
+            let next = run(
+                &cert,
+                &name("StepTwo"),
+                vec![predicate.clone(), word(length), state],
+            );
+            for (field, expected) in [("Index", expected_index), ("Value", expected)] {
+                assert_eq!(
+                    observe_word(run(&cert, &name(field), vec![next.clone()])),
+                    expected,
+                    "{field}"
+                );
+            }
+            // Every case is now complete by length or first nonzero result.
+            let again = run(
+                &cert,
+                &name("StepTwo"),
+                vec![predicate.clone(), word(length), next.clone()],
+            );
+            for field in ["Index", "Value"] {
+                assert_eq!(
+                    observe_word(run(&cert, &name(field), vec![again.clone()])),
+                    observe_word(run(&cert, &name(field), vec![next.clone()]))
+                );
+            }
+            for (i, expected) in [first, second].into_iter().enumerate() {
+                let actual = run(
+                    &cert,
+                    &name("ReadAt"),
+                    vec![predicate.clone(), word(i as u32)],
+                );
+                assert_eq!(observe_word(actual), expected);
+            }
+        }
+        // Different concrete steps expose reversed composition and a wrong
+        // f/g binder even though the production pipeline repeats StepTwo.
+        for (first, length, expected, expected_index) in [(0, 4, 9, 4), (7, 4, 7, 2), (0, 2, 0, 2)]
+        {
+            let predicate = |at: usize, value: u32| {
+                let mut bits = vec![false; 1 << 19];
+                for j in 0..32 {
+                    bits[at + (j << 14)] = value & (1 << j) != 0;
+                }
+                V::Cube(bits)
+            };
+            let f = run(
+                &cert,
+                &name("StepTwo"),
+                vec![predicate(0, first), word(length)],
+            );
+            let g = run(&cert, &name("StepTwo"), vec![predicate(2, 9), word(length)]);
+            let state = run(&cert, &name("Make"), vec![word(0), word(0)]);
+            let next = run(
+                &cert,
+                &name("GuardedCompose"),
+                vec![word(length), f, g, state],
+            );
+            for (field, expected) in [("Index", expected_index), ("Value", expected)] {
+                assert_eq!(
+                    observe_word(run(&cert, &name(field), vec![next.clone()])),
+                    expected,
+                    "composition {field}"
+                );
+            }
+        }
+    }
+    #[test]
     fn string_ordinal_core_full_capacity() {
-        let (cert, definitions, _) = generated(true);
+        let (cert, definitions, _, _) = generated(true);
         let maximum = vec![0x1234; 16384];
         let equal = definitions
             .iter()
@@ -606,7 +767,7 @@ mod tests {
         let output = std::env::var_os("MPK_W09_STRING_ORDINAL_OUT").map(std::path::PathBuf::from);
         let mut metrics = vec![];
         for nullable in [false, true] {
-            let (cert, _, bytes) = generated(nullable);
+            let (cert, _, bytes, transformers) = generated(nullable);
             let file = format!("string.ordinal.n{}.hex", u8::from(nullable));
             let hex = bytes.iter().map(|b| format!("{b:02x}")).collect::<String>() + "\n";
             if let Some(out) = &output {
@@ -615,7 +776,7 @@ mod tests {
             } else {
                 assert_eq!(std::fs::read_to_string(directory.join(&file)).unwrap(), hex);
             }
-            metrics.push(serde_json::json!({"nullable":nullable,"terms":cert.term_table.len(),"declarations":cert.declarations.len(),"certificate_sha256":mpk_cert::hash_hex(&mpk_cert::certificate_hash(&bytes))}));
+            metrics.push(serde_json::json!({"nullable":nullable,"static_transformers":transformers,"terms":cert.term_table.len(),"declarations":cert.declarations.len(),"certificate_sha256":mpk_cert::hash_hex(&mpk_cert::certificate_hash(&bytes))}));
         }
         if let Some(out) = output {
             std::fs::write(

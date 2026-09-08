@@ -1,11 +1,11 @@
 # W09 internal unit 2: scalar progress
 
-Unit 2 is **in progress**, not complete. This increment implements the Boolean
-and fixed-width integer portion of the approved scalar work unit, followed by
-the Time/Duration/Instant, Date/Guid/DayOfWeek, floating-operation and numeric
-conversion and complete non-literal decimal operation components below. UTF-16
-string operations still belong to unit 2.
-Units 3-8 and W09's exit condition are unchanged. This record is not a W09 completion receipt.
+Unit 2 is **complete as an internal implementation unit**. The final scalar
+coverage audit and transformer-contract correction are recorded at the end of
+this chronological log and in `unit-2-review.md`, `unit-2-coverage-audit.json`
+and `unit-2-verification.json`. Earlier sections describe their checkpoint
+status and are retained as history. W09 units 3-8 and its exit condition are
+unchanged. This is not a W09 completion receipt.
 
 ## Implemented component
 
@@ -507,3 +507,31 @@ cache paths. See `unit-2-string-ordinal-review.md` and
 A final scalar coverage audit is still required before closing internal unit 2.
 Input domains, typed literals, whole-foundation expansion, application proofs
 and W09 units 3-8 remain outstanding. The full gate remains at T06-W12.
+
+## Scalar coverage audit: transformer contract correction
+
+The audit reopened the ordinal component from `31d69a3`: accepting the
+previous predicate/value folds in both checkers did not satisfy the frozen
+`ordinary_core.folds` concrete S->S composition requirement. The replacement
+uses one shared balanced pipeline with 8192 ordered StepTwo occurrences, C6
+index/result state and fixed C19 predicate/Word32 length arguments. It counts
+8234 transformers including helpers before DAG sharing. See the updated
+ordinal review and verification receipt for the correction checks.
+
+The audit also adds exhaustive emitted-core truth observations for all six
+Boolean operations (22 cases) and generation/limit/hash coverage for all 322
+integer operation and conversion signatures. The previous seven checker
+examples alone did not establish full integer generation coverage.
+`unit-2-coverage-audit.json` records 505 fixed nonliteral signatures, the
+parameterized interpolation family, and the remaining audit/owner boundaries.
+These inventories and generated definitions are not application proof receipts.
+
+The correction, Boolean truth tables and all-integer generation coverage
+passed their scoped verification. Final direct review has zero findings;
+see `unit-2-coverage-verification.json` and the ordinal correction receipt.
+The final semantic/core reconciliation covers all 505 fixed canonical
+nonliteral signatures and restricted interpolation. Full 16384-unit equality
+passed in the uninterrupted four-test command (2349.95 seconds total).
+Internal unit 2 is complete with zero final review findings. W09 is not
+complete: units 3-8 remain outstanding, W10-W12 remain blocked, and
+`check-fast.sh` stays deferred to T06-W12.

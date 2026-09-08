@@ -978,6 +978,10 @@ fn string_source_linkage(
                 }
             }
         }
+        if directory == "string-ordinal-circuits" {
+            // Count all StepTwo occurrences before DAG sharing, plus helpers.
+            assert_eq!(p.static_transformers(), 8234);
+        }
         let metadata = p.canonical_bytes();
         let actual = p
             .definitions()

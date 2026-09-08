@@ -27,10 +27,16 @@ pub struct OrdinaryStringProgram {
     certificate_sha256: String,
     #[serde(skip)]
     certificate: Vec<u8>,
+    #[serde(skip)]
+    static_transformers: usize,
 }
 impl OrdinaryStringProgram {
     pub fn definitions(&self) -> &[OrdinaryStringDefinition] {
         &self.definitions
+    }
+    /// Explicit transformer occurrences, counted before DAG sharing.
+    pub fn static_transformers(&self) -> usize {
+        self.static_transformers
     }
     pub fn certificate_bytes(&self) -> &[u8] {
         &self.certificate
@@ -269,9 +275,11 @@ pub fn generate_csharp_practical_ordinary_strings(
         }
         definitions.push(helpers.as_mut().unwrap().emit(&mut b, signature)?);
     }
+    let static_transformers = b.static_transformers;
     let certificate = b.finish()?;
     let p = OrdinaryStringProgram {
         schema: "mpk.csharp.ordinary_strings.v1".into(),
+        static_transformers,
         source_ir_sha256: vir.hash().into(),
         foundation_sha256: vir.construction_context().0.content_sha256().into(),
         definitions,

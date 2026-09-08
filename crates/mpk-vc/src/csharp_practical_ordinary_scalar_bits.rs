@@ -966,6 +966,71 @@ mod tests {
         }
     }
     #[test]
+    fn boolean_circuits_core_exhaustive_truth_tables() {
+        use super::super::tests::{bit, run, V};
+        let mut b = Builder::new().unwrap();
+        let defs = ["not", "and", "or", "xor", "equal", "not_equal"]
+            .map(|op| emit_integer(&mut b, &format!("boolean.{op}")).unwrap());
+        let bytes = b.finish().unwrap();
+        let cert = decode_canonical_certificate(&bytes).unwrap();
+        let mut cases = 0;
+        for d in &defs {
+            for a in [false, true] {
+                for v in [false, true] {
+                    let op = d.operation.id.strip_prefix("boolean.").unwrap();
+                    if op == "not" && v {
+                        continue;
+                    }
+                    let expected = match op {
+                        "not" => !a,
+                        "and" => a && v,
+                        "or" => a || v,
+                        "xor" => a ^ v,
+                        "equal" => a == v,
+                        "not_equal" => a != v,
+                        _ => unreachable!(),
+                    };
+                    let args = if op == "not" {
+                        vec![V::Bit(a)]
+                    } else {
+                        vec![V::Bit(a), V::Bit(v)]
+                    };
+                    assert!(d.ordered_failure_definitions.is_empty());
+                    assert!(bit(run(&cert, &d.success_definition, args.clone())));
+                    assert_eq!(
+                        bit(run(&cert, &d.result_definition, args)),
+                        expected,
+                        "{op} {a} {v}"
+                    );
+                    cases += 1;
+                }
+            }
+        }
+        assert_eq!(cases, 22);
+        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("../../develop/migrations/csharp-03/ordinary-foundation/boolean-circuits");
+        let out = std::env::var_os("MPK_W09_BOOLEAN_OUT").map(std::path::PathBuf::from);
+        let hex = bytes.iter().map(|b| format!("{b:02x}")).collect::<String>() + "\n";
+        let metrics = serde_json::json!({"operations":defs,"terms":cert.term_table.len(),"declarations":cert.declarations.len(),"certificate_sha256":mpk_cert::hash_hex(&mpk_cert::certificate_hash(&bytes)),"truth_cases":cases});
+        if let Some(out) = out {
+            std::fs::create_dir_all(&out).unwrap();
+            std::fs::write(out.join("boolean.all.hex"), hex).unwrap();
+            std::fs::write(
+                out.join("metrics.json"),
+                serde_json::to_vec_pretty(&metrics).unwrap(),
+            )
+            .unwrap();
+        } else {
+            assert_eq!(
+                std::fs::read_to_string(root.join("boolean.all.hex")).unwrap(),
+                hex
+            );
+            let expected: Value =
+                serde_json::from_slice(&std::fs::read(root.join("metrics.json")).unwrap()).unwrap();
+            assert_eq!(metrics, expected);
+        }
+    }
+    #[test]
     fn integer_circuits_core_evaluation_matches_network() {
         use super::super::tests::{apply, bit, run, V};
         for id in [
@@ -1022,6 +1087,80 @@ mod tests {
                     );
                 }
             }
+        }
+    }
+    #[test]
+    fn integer_circuits_emit_every_closed_signature_within_limits() {
+        // The seven pinned checker examples do not establish that every
+        // retained width/mode/conversion can actually be lowered within the
+        // frozen certificate limits. Exercise the complete closed family.
+        let mut ids = vec![];
+        for token in ["i32", "u32", "i64", "u64"] {
+            for op in [
+                "plus",
+                "negate",
+                "not",
+                "equal",
+                "not_equal",
+                "less",
+                "less_equal",
+                "greater",
+                "greater_equal",
+                "left_shift",
+                "right_shift",
+                "unsigned_right_shift",
+                "add",
+                "subtract",
+                "multiply",
+                "divide",
+                "remainder",
+                "and",
+                "or",
+                "xor",
+            ] {
+                for mode in ["checked", "unchecked"] {
+                    ids.push(format!("integer.{token}.{op}.{mode}"));
+                }
+            }
+        }
+        let tokens = ["i8", "u8", "i16", "u16", "char", "i32", "u32", "i64", "u64"];
+        for from in tokens {
+            for to in tokens {
+                for mode in ["checked", "unchecked"] {
+                    ids.push(format!("integer.convert.{from}.{to}.{mode}"));
+                }
+            }
+        }
+        ids.sort();
+        ids.dedup();
+        assert_eq!(ids.len(), 322);
+        let mut metrics = vec![];
+        for id in ids {
+            let mut b = Builder::new().unwrap();
+            let definition = emit_integer(&mut b, &id).unwrap_or_else(|e| panic!("{id}: {e:?}"));
+            let static_transformers = b.static_transformers;
+            let bytes = b.finish().unwrap_or_else(|e| panic!("{id}: {e:?}"));
+            let cert = decode_canonical_certificate(&bytes).unwrap();
+            crate::csharp_practical_vc_model::validate_csharp_practical_certificate_structure(
+                &cert,
+            )
+            .unwrap_or_else(|e| panic!("{id}: {e:?}"));
+            metrics.push(serde_json::json!({
+                "id": id, "definition": definition,
+                "terms": cert.term_table.len(), "declarations": cert.declarations.len(),
+                "static_transformers": static_transformers,
+                "certificate_sha256": mpk_cert::hash_hex(&mpk_cert::certificate_hash(&bytes))
+            }));
+        }
+        let metrics = serde_json::json!(metrics);
+        if let Some(out) = std::env::var_os("MPK_W09_INTEGER_COVERAGE_OUT") {
+            std::fs::write(out, serde_json::to_vec_pretty(&metrics).unwrap()).unwrap();
+        } else {
+            let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join(
+                "../../develop/migrations/csharp-03/ordinary-foundation/integer-coverage.json",
+            );
+            let expected: Value = serde_json::from_slice(&std::fs::read(path).unwrap()).unwrap();
+            assert_eq!(metrics, expected);
         }
     }
     #[test]
