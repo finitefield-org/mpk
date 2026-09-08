@@ -743,3 +743,6 @@ mod boundary;
 
 #[path = "support/csharp_practical_transition_vc.rs"]
 mod transition;
+
+#[path = "support/csharp_practical_ordinary_carriers.rs"]
+mod ordinary_carriers;

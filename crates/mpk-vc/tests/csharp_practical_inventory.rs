@@ -575,7 +575,7 @@ fn csharp_03_t01_w02_inventory_closes_every_artifact_and_consumer_edge() {
                     .expect("search count must be an unsigned integer")
             })
             .sum::<u64>(),
-        4_922,
+        4_923,
         "family-to-path inventory total drift"
     );
     let fixture_by_id = search_fixtures

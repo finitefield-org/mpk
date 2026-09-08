@@ -11,7 +11,7 @@ use std::collections::{BTreeMap, BTreeSet};
 use std::error::Error;
 use std::fmt;
 
-use mpk_cert::encode::DeclarationKind;
+use mpk_cert::encode::{DeclarationKind, TermNode};
 use mpk_cert::{build_axiom_report, Certificate};
 use serde::{Deserialize, Serialize};
 use serde_json::value::RawValue;
@@ -1247,7 +1247,7 @@ fn expected_vc(source: PracticalVcSource<'_>) -> Result<WirePracticalVcDocument,
     Ok(wire)
 }
 
-fn build_type_encodings(
+pub(crate) fn build_type_encodings(
     vir: &ValidatedPracticalVir,
 ) -> Result<Vec<PracticalTypeEncoding>, PracticalVcError> {
     let mut type_ids = BTreeSet::new();
@@ -2569,6 +2569,7 @@ fn expected_assembly(
 pub fn validate_csharp_practical_certificate_structure(
     certificate: &Certificate,
 ) -> Result<(), PracticalVcError> {
+    validate_csharp_practical_certificate_limits(certificate)?;
     if !certificate.imports.is_empty()
         || !certificate.proof_node_table.is_empty()
         || !certificate.theory_certificates.is_empty()
@@ -2603,6 +2604,54 @@ pub fn validate_csharp_practical_certificate_structure(
             PracticalVcValidationPhase::Assembly,
             PracticalVcErrorCode::AxiomReport,
         ));
+    }
+    Ok(())
+}
+
+// Count the actual ordinary term DAG, not just the pre-assembly reservation.
+// A shared subtree may occur below different binders; its intrinsic maximum
+// is composed at each parent, so sharing cannot hide a deep binder path.
+fn validate_csharp_practical_certificate_limits(
+    certificate: &Certificate,
+) -> Result<(), PracticalVcError> {
+    if certificate.term_table.len() as u64 > ORDINARY_TERM_NODES_MAX
+        || certificate.declarations.len() as u64 > GENERATED_DECLARATIONS_MAX
+    {
+        return Err(limit_error());
+    }
+    let mut depths: Vec<u64> = Vec::with_capacity(certificate.term_table.len());
+    for term in &certificate.term_table {
+        let child = |id: u32| {
+            depths.get(id as usize).copied().ok_or_else(|| {
+                failure(
+                    PracticalVcValidationPhase::Assembly,
+                    PracticalVcErrorCode::CertificateStructure,
+                )
+            })
+        };
+        let depth = match term {
+            TermNode::Sort(_) | TermNode::Var(_) | TermNode::Const { .. } => 0,
+            TermNode::App {
+                function,
+                arguments,
+            } => {
+                let mut maximum = child(*function)?;
+                for argument in arguments {
+                    maximum = maximum.max(child(*argument)?);
+                }
+                maximum
+            }
+            TermNode::Lam { ty, body } | TermNode::Pi { ty, body } => {
+                child(*ty)?.max(child(*body)? + 1)
+            }
+            TermNode::Let { ty, value, body } => {
+                child(*ty)?.max(child(*value)?).max(child(*body)? + 1)
+            }
+        };
+        if depth > BINDER_DEPTH_MAX {
+            return Err(limit_error());
+        }
+        depths.push(depth);
     }
     Ok(())
 }

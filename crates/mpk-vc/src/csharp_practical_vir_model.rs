@@ -7420,3 +7420,11 @@ pub use transition_vc::{
     TransitionPathVc, TransitionSequent, TransitionSnapshotNode, TransitionVcError,
     TransitionVcProgram,
 };
+
+#[path = "csharp_practical_ordinary_carriers.rs"]
+mod ordinary_carriers;
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_carriers, import_csharp_practical_ordinary_carriers,
+    OrdinaryArm, OrdinaryCarrier, OrdinaryCarrierError, OrdinaryCarrierProgram, OrdinaryField,
+    OrdinaryShape,
+};

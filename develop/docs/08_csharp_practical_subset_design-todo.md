@@ -1925,6 +1925,12 @@ version conflict/capacity and broken invariant/event/response/equality cases.
 
 Depends on: T06-W08.
 
+Execution note: the user approved eight internal implementation/review/commit
+units in [the W09 work plan](../migrations/csharp-03/ordinary-foundation/implementation-plan.md).
+Each internal unit may be pushed separately. W09's exit gate is unchanged;
+partial carrier/helper certificates do not complete W09 or unblock W10.
+
+
 Owns: translation of every already-expanded concrete foundation definition in
 monomorphic VIR into ordinary core definitions and proof terms for all new
 finite values and operations; the successor program-assembly profile;

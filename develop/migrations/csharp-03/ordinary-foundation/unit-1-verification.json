@@ -1,0 +1,183 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.internal_unit_verification.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 1,
+  "date": "2026-09-08",
+  "baseline_commit": "1e1f6a4ea4f1721bb479f4f9f157ebcb83fedff1",
+  "status": "Complete",
+  "w09_status": "Ready/in progress",
+  "checks": [
+    {
+      "command": "cargo test -p mpk-vc --lib ordinary_",
+      "result": "passed",
+      "tests_passed": 3,
+      "log_sha256": "1bd835e4e02084916d619b91b79fd0c9a2e6df70f24d5e028ffff74320615cf2"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc ordinary_carriers::",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "7dd71a64ddea5132b403363cc4b2a738c4bb6a127ccbf85744086b4d0c9d283d"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc_model --test csharp_practical_inventory",
+      "result": "passed",
+      "tests_passed": 11,
+      "log_sha256": "2b6a194b365a991e49a47fb0ace3e3a744a6501bcaa859880ac03fea3d75065c"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vir_validation csharp_03_t02_w05_enforces_the_generic_free_barrier",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "b5ea01f9840fc51a40729e21b5085120825f341413279d52a62c156ca96a2b99"
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-t06-w09-go-cache ./scripts/checker-agreement.sh",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "0d26c2cfd0af0826c0c0195d1ee3bab2fd0c40a398d5ccac3c30f46eb31eeeaf"
+    },
+    {
+      "command": "cd go-tools/mpk-checker-ref && GOCACHE=/tmp/mpk-t06-w09-go-cache go test -count=1 -tags checkeragreement -run 'TestCheckerAgreementWithRustCLI(CSharpCarriers|ReportProtocol)$' .",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "b6aaadc876279e8beaee0a68cfb57c4c5f0086f509b8b016a43fbafe1d64b041"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc --test csharp_practical_vc_model --test csharp_practical_inventory -- -D warnings",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "81f4b940f5f3423b7aa853ceb5e8af3ab3785dc077ab92ae52fdef7528c25cf8"
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true (seven changed Rust files); gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "coverage": {
+    "scoped_rust_tests": 16,
+    "original_input_carrier_certificates": 24,
+    "same_byte_zero_axiom_acceptance": 24,
+    "hash_corruption_rejections_per_checker": 24,
+    "maximum_certificate_terms": 1241,
+    "maximum_certificate_declarations": 128,
+    "static_transformer_boundary": 16384,
+    "review_findings": 0
+  },
+  "notes": [
+    "Final carrier/protocol run verifies the last change rejecting Go internal errors as proof rejections.",
+    "Checker agreement includes the full predecessor certificate corpus; acceptance rules and Certificate v0 remain unchanged.",
+    "The 24 positives prove carrier/helper typing only, including source cases whose application invariants are intentionally broken. Units 2-8 remain outstanding.",
+    "Recorded Roslyn/CLR captures are reused exactly; no fresh frontend build is needed for these ordinary carrier changes."
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "result": "deferred",
+    "owner": "CSHARP-03-T06-W12",
+    "reason": "Intermediate W/internal unit; repository instructions require the full gate at the final W of T06."
+  },
+  "files": [
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/carriers/binding-vc-boundary_field.hex",
+      "sha256": "d7e9f341f650c75fdd13584a9846af2bc281898aae06c8f518d7f91f66479112"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/carriers/binding-vc-bounded_sequence.hex",
+      "sha256": "36659f97db08b09cc9009a9bfd420165d6cf7639d0a47bf46dc2af19721fbeec"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/carriers/binding-vc-instant.hex",
+      "sha256": "9f4bd0fb194ee9cf82e3ce3324e933bcafb34c9ba4f465a3fee9742a607dc44f"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/carriers/binding-vc-lookup.hex",
+      "sha256": "a45b16bcddd4df0b702769d349e7ebd27a714c3570b3b6a569cf72e557b945b7"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/carriers/binding-vc-money.hex",
+      "sha256": "f3c6e931d88dd0b6250ef5407d59f2978250ee36c43bd20e9c323e7f48b634fb"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/carriers/binding-vc-option.hex",
+      "sha256": "120bdc2386102203151cd570de1d11a063f502912b44b367f1c2add629004fca"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/carriers/binding-vc-ordered_entry.hex",
+      "sha256": "19738b6b048c693e84c899241590c327803159016b908e236828ee4ad756e850"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/carriers/binding-vc-ordered_map.hex",
+      "sha256": "5c32d04c62a17c2fdd11ea1294f50944c6ef8d4d7bebc61b8f279c183c62f814"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/carriers/binding-vc-ordered_set.hex",
+      "sha256": "93a211fbf79156c2a7774ead43b7de96cb9c78f8c159980f9902cf70a7a8cd7c"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/carriers/binding-vc-result.hex",
+      "sha256": "5f9fbce60a15e38f514d51714f4e3a8193a14e73c2e78f1dd809b33e860ef749"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/carriers/binding-vc-transition.hex",
+      "sha256": "4f754a8481008db4c12f5ff7620cea8b61905c455cb443f1fc9c2a9241dc3045"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/carriers/binding-vc-validation.hex",
+      "sha256": "408446be0fba160fd4902494f3bfce916bcdf82f86357094907c7efb2c134328"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/carriers/construction-vc-broken_constructor.hex",
+      "sha256": "49b518966b379e4923d665ab70ec25896ba791795d56139ee0fea1d144c0e066"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/carriers/construction-vc-broken_default.hex",
+      "sha256": "d5541b9ba007f2c74f4b0058d430582cbdc992553a225fa579729498d40967a6"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/carriers/construction-vc-broken_initializer.hex",
+      "sha256": "4f2733d6b819f3576d9600cd098452aa2b209dd17ccbcad3ee51edff59db573f"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/carriers/construction-vc-enum_zero.hex",
+      "sha256": "37b0170f7ceabd40412eceb7b1eb210d76596b246c73c807fb680accf050eebc"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/carriers/construction-vc-positive_constructor.hex",
+      "sha256": "d5541b9ba007f2c74f4b0058d430582cbdc992553a225fa579729498d40967a6"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/carriers/construction-vc-positive_default.hex",
+      "sha256": "d5541b9ba007f2c74f4b0058d430582cbdc992553a225fa579729498d40967a6"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/carriers/construction-vc-positive_initializer.hex",
+      "sha256": "4f2733d6b819f3576d9600cd098452aa2b209dd17ccbcad3ee51edff59db573f"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/carriers/exception-vc-allowed.hex",
+      "sha256": "8f59e146337131a316c42a2033756e963d5e27d24ce5747b106fbcf3468fb5ac"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/carriers/exception-vc-broken.hex",
+      "sha256": "8f59e146337131a316c42a2033756e963d5e27d24ce5747b106fbcf3468fb5ac"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/carriers/exception-vc-empty.hex",
+      "sha256": "8f59e146337131a316c42a2033756e963d5e27d24ce5747b106fbcf3468fb5ac"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/carriers/goldens.json",
+      "sha256": "0a30ddc6678f6c82648345396afe2184a0f3acf597d3b024c6dbad0aaef45822"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/carriers/transition-vc-business_history_capacity.hex",
+      "sha256": "44204369db847cbecd5ece3550a3a10a1d14909f7a05d4db2b6953a286d24fb2"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/carriers/transition-vc-business_idempotency_conflict.hex",
+      "sha256": "44204369db847cbecd5ece3550a3a10a1d14909f7a05d4db2b6953a286d24fb2"
+    }
+  ]
+}

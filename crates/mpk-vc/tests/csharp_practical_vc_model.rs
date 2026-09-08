@@ -1242,3 +1242,64 @@ fn replace_first_resized(bytes: &mut Vec<u8>, from: &[u8], to: &[u8]) {
         .expect("replacement source");
     bytes.splice(start..start + from.len(), to.iter().copied());
 }
+
+#[test]
+fn csharp_03_t06_w09_counts_actual_certificate_terms_and_binders() {
+    use mpk_cert::encode::TermNode;
+    // This is the structural pre-check, not kernel acceptance of these open terms.
+    let mut c = empty_certificate();
+    c.term_table = vec![TermNode::Var(0); ORDINARY_TERM_NODES_MAX as usize];
+    validate_csharp_practical_certificate_structure(&c).unwrap();
+    c.term_table.push(TermNode::Var(0));
+    assert_vc_error(
+        validate_csharp_practical_certificate_structure(&c),
+        PracticalVcValidationPhase::Limits,
+        PracticalVcErrorCode::Limit,
+    );
+    for kind in ["lambda", "pi", "let"] {
+        let mut c = empty_certificate();
+        c.term_table.push(TermNode::Var(0));
+        for i in 0..=BINDER_DEPTH_MAX as u32 {
+            if i == BINDER_DEPTH_MAX as u32 {
+                validate_csharp_practical_certificate_structure(&c).unwrap();
+            }
+            c.term_table.push(match kind {
+                "lambda" => TermNode::Lam { ty: 0, body: i },
+                "pi" => TermNode::Pi { ty: 0, body: i },
+                _ => TermNode::Let {
+                    ty: 0,
+                    value: 0,
+                    body: i,
+                },
+            });
+        }
+        assert_vc_error(
+            validate_csharp_practical_certificate_structure(&c),
+            PracticalVcValidationPhase::Limits,
+            PracticalVcErrorCode::Limit,
+        );
+    }
+    let mut c = empty_certificate();
+    c.term_table.push(TermNode::App {
+        function: 0,
+        arguments: vec![],
+    });
+    assert_vc_error(
+        validate_csharp_practical_certificate_structure(&c),
+        PracticalVcValidationPhase::Assembly,
+        PracticalVcErrorCode::CertificateStructure,
+    );
+    let mut c = empty_certificate();
+    c.declarations = vec![
+        Declaration {
+            name: 0,
+            kind: DeclarationKind::Theorem { ty: 0, proof: 0 },
+        };
+        GENERATED_DECLARATIONS_MAX as usize + 1
+    ];
+    assert_vc_error(
+        validate_csharp_practical_certificate_structure(&c),
+        PracticalVcValidationPhase::Limits,
+        PracticalVcErrorCode::Limit,
+    );
+}
