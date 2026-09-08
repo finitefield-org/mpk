@@ -466,7 +466,13 @@ pub(crate) fn generate_exception_vcs(
     let docs = vir
         .data_contracts()
         .iter()
-        .map(|d| serde_json::from_str::<J>(d).map_err(|_| bad()))
+        .map(|d| {
+            a::parse_canonical_practical_json(
+                a::PracticalArtifactKind::MethodContract,
+                d.as_bytes(),
+            )
+            .map_err(|_| bad())
+        })
         .collect::<Result<Vec<_>, _>>()?;
     let signatures = vir
         .operation_signatures()

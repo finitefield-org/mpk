@@ -990,7 +990,13 @@ pub(crate) fn generate_control_vcs(
     let docs = vir
         .data_contracts()
         .iter()
-        .map(|s| serde_json::from_str::<J>(s).map_err(|_| fail()))
+        .map(|s| {
+            a::parse_canonical_practical_json(
+                a::PracticalArtifactKind::MethodContract,
+                s.as_bytes(),
+            )
+            .map_err(|_| fail())
+        })
         .collect::<Result<Vec<_>, _>>()?;
     let claims = docs
         .iter()

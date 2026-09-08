@@ -1,0 +1,190 @@
+{
+  "schema": "mpk.csharp_practical.t06_w07.verification.v0",
+  "work_item": "CSHARP-03-T06-W07",
+  "date": "2026-09-08",
+  "baseline_commit": "594c5e7b5f9210775b55284b05035151155225af",
+  "checks": [
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc --test csharp_practical_vc_model --test csharp_practical_inventory",
+      "result": "passed",
+      "tests_passed": 28,
+      "log_sha256": "9b1807125fae3b99aa81d75b12a7628f3c660867a306b377d0fef066c1b51348"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib boundary_",
+      "result": "passed",
+      "tests_passed": 5,
+      "log_sha256": "10c3932c1831210b39a44d3e3f5a7535792431fcb0118469fd0a10f5a7abc6ae"
+    },
+    {
+      "command": "cargo test -p mpk-cli --test csharp_practical_boundary",
+      "result": "passed",
+      "tests_passed": 9,
+      "log_sha256": "4a34295b750ba3f4b3ccfcc2f1bf68a06e581f364a6a1cf2cd470a26c3332f67"
+    },
+    {
+      "command": "MPK_T06_W07_GOLDEN_OUT=develop/migrations/csharp-03/boundary-vc/goldens.json MPK_T06_W07_RUN_OUT=develop/migrations/csharp-03/boundary-vc/run-goldens.json cargo test -p mpk-vc --test csharp_practical_vc boundary::",
+      "result": "passed",
+      "tests_passed": 3,
+      "log_sha256": "cbcfb7c7bc1f8c58bca7be9243ecd353fcb8b55c08cf08ffc36f4e5c933e98cd"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc boundary::",
+      "result": "passed",
+      "tests_passed": 3,
+      "log_sha256": "4e5339626ca8300470e690ab0de0ad9c2031806f8e69e1f0ebef811f07a442c1"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "result": "passed",
+      "tests_passed": 5,
+      "log_sha256": "8aa4eecd574337656118703743cf9aaadc1664c061810af997e07fcda6698f50"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc --test csharp_practical_vc_model --test csharp_practical_inventory -- -D warnings",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "f4d86773e22ebfbcd4c0db1f76a5d2605bd08d617e2b99c75121ef8b1e6454c9"
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true (all nine changed Rust files)",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "coverage": {
+    "distinct_scoped_tests_passed": 42,
+    "original_attachment_corpus": 56,
+    "accepted_boundary_programs": 15,
+    "boundary_sequents": 50,
+    "captured_round_trip_programs": 2,
+    "captured_sequents": 3,
+    "deterministic_single_byte_mutations": 261,
+    "review_findings": 0
+  },
+  "capture": {
+    "result": "Replayed existing original Roslyn captures; no capture facts edited or regenerated.",
+    "reused_files": [
+      {
+        "path": "develop/migrations/csharp-03/boundary-attachment/requests.json",
+        "sha256": "59357c9e616d9a0e67c56894af2833a4eaadb59b572ece3302ed8bb1ce45446c",
+        "size_bytes": 457368
+      },
+      {
+        "path": "develop/migrations/csharp-03/boundary-attachment/responses.json",
+        "sha256": "ab50aeaee8f8d98c8af2569a048adfcce95fd293f527f3d64e9f56bece2e8098",
+        "size_bytes": 768625
+      },
+      {
+        "path": "develop/migrations/csharp-03/boundary-output/source-requests.json",
+        "sha256": "70146f8048068f5c3674e048133c933f5d687963227f9f1e52b50ca4a75f89c3",
+        "size_bytes": 14521
+      },
+      {
+        "path": "develop/migrations/csharp-03/boundary-output/source-responses.json",
+        "sha256": "d3fffb239e9fe2d4dd287d3ca974f8d28e47a1f36a09a30c12ee48cc8a6a4260",
+        "size_bytes": 602878
+      },
+      {
+        "path": "develop/migrations/csharp-03/boundary-input/source-requests.json",
+        "sha256": "497013cf15c005b03eb2c3a011c8f149f436211e9794dfde69e8894b90bffc3a",
+        "size_bytes": 24373
+      },
+      {
+        "path": "develop/migrations/csharp-03/boundary-input/source-responses.json",
+        "sha256": "a3aaf6fdfbfa938d2897e93b484edb0dc373574d5383ebfe65601a92e87a6513",
+        "size_bytes": 107591
+      }
+    ]
+  },
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "status": "deferred",
+    "owner": "CSHARP-03-T06-W12",
+    "reason": "Intermediate W: targeted checks only. W12 is the last W of T06."
+  },
+  "proof_status": "Pending source-bound ordinary boundary recipes and typed run relations. Parser/evidence checks, Boolean truth tables and finite encoder countermodels are not semantic or kernel proof receipts and do not prove source execution or serializer correctness. W09 owns ordinary expansion, proof construction and both checker runs.",
+  "preserved": {
+    "frozen_producer_sha256": "b4c6c55dd29f9a2983231ab67b0c9263f42becfbd620ef3daa4e3098944c2077",
+    "frozen_vector_sha256": "de401830e1cd4221465d25c6fe31dad7d704ae8959edfc1145db8099f7bfffa6",
+    "earlier_handoffs": "Earlier handoff goldens and receipt files unchanged."
+  },
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_boundary_vc.rs",
+      "sha256": "794aa0e508d1ac7592b76a9d19e8ae18042548b72d7f9398b7325a8f0f558e41",
+      "size_bytes": 18206
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_control_vc.rs",
+      "sha256": "8b0ba935236d866c3e8ffc3019ede67e4faa29a274c8a66fb75fb62eb8b21500",
+      "size_bytes": 54949
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_exception_vc.rs",
+      "sha256": "3ef15e5e54567dbfdc4296c371a4c9e8e93121cfc7fe8753d5d643a13180578e",
+      "size_bytes": 35008
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vc_model.rs",
+      "sha256": "adb71c8437e716eb5a9877094ae20263d9a730e10c0736318cdf3d877f35be8a",
+      "size_bytes": 103613
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "8bcd9f32fdb38618cedca3865dd6bc6d6731765defceb2cfc78f0f56e10c7289",
+      "size_bytes": 262339
+    },
+    {
+      "path": "crates/mpk-vc/tests/csharp_practical_inventory.rs",
+      "sha256": "739a517d5fbfc309050f61f6aa18576b99f8da061b4db1919eda28b7fed10c13",
+      "size_bytes": 79125
+    },
+    {
+      "path": "crates/mpk-vc/tests/csharp_practical_vc.rs",
+      "sha256": "c3e030598b9008a6e7231fcfe1472a41b15c1a7570bda1079a17fd3c56b81282",
+      "size_bytes": 26099
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_boundary_vc.rs",
+      "sha256": "86b48330f7df14b3044d1ffc0a0761800e2c90a145d606a23fee9ddd4705b28c",
+      "size_bytes": 18252
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_construction_vc.rs",
+      "sha256": "876a840a456c61dfa282fd2b912a3645135aedfaa45ed77eb63cddebf8180cf9",
+      "size_bytes": 23949
+    },
+    {
+      "path": "develop/docs/08_csharp_practical_subset_design-todo.md",
+      "sha256": "115d23c11df6c627e9b7c9ddc3ed01f60d725d808ddf768f2ee2b9e19680be51",
+      "size_bytes": 133690
+    },
+    {
+      "path": "develop/docs/csharp-03-implementation-traceability-ledger.md",
+      "sha256": "14d18c020d73ed0cc183aadb04ed9088337c2b43a1ae02691a539e5b6aa85d4e",
+      "size_bytes": 344393
+    },
+    {
+      "path": "develop/migrations/csharp-03/boundary-vc/README.md",
+      "sha256": "2babb8a3ba9c8f6851166158e03b1a4577763aab83cd6ffa17364b068a58d6ff",
+      "size_bytes": 4099
+    },
+    {
+      "path": "develop/migrations/csharp-03/boundary-vc/review.md",
+      "sha256": "870c1b977d26c141a3a25e67ec5e15c2705fc8200e3ee70af0fc87135545259b",
+      "size_bytes": 3060
+    },
+    {
+      "path": "develop/migrations/csharp-03/boundary-vc/goldens.json",
+      "sha256": "a0fb46146ba8df18ea637775bf0997bdc1b7a0da86cd950c3c0ffa69fe45776e",
+      "size_bytes": 2942
+    },
+    {
+      "path": "develop/migrations/csharp-03/boundary-vc/run-goldens.json",
+      "sha256": "a6443e245d9b19cda81a66443e1f87ba76100e9e533dbcae0339dae3e624a062",
+      "size_bytes": 418
+    }
+  ]
+}

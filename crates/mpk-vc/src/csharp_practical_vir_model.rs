@@ -7404,3 +7404,11 @@ pub(crate) use binding_vc::{generate_binding_vcs, BindingVcError};
 pub use binding_vc::{
     BindingRepresentationVc, BindingSequent, BindingVcProgram, FoundationInstanceVc,
 };
+
+#[path = "csharp_practical_boundary_vc.rs"]
+mod boundary_vc;
+pub(crate) use boundary_vc::generate_boundary_vcs;
+pub use boundary_vc::{
+    BoundaryRunVcProgram, BoundarySequent, BoundaryValueDefinition, BoundaryVcError,
+    BoundaryVcProgram,
+};

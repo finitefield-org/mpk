@@ -1,3 +1,4 @@
+//! CSHARP-03-T06-W07: canonical boundary and captured round-trip VCs.
 //! CSHARP-03-T06-W06: binding and concrete foundation equivalence VCs.
 //! CSHARP-03-T06-W05: exceptional outcomes, search/unwind and postcondition VCs.
 //! CSHARP-03-T06-W04: loop cutpoints, decreases and ordered pattern VCs.
@@ -735,3 +736,6 @@ mod exception;
 
 #[path = "support/csharp_practical_binding_vc.rs"]
 mod binding;
+
+#[path = "support/csharp_practical_boundary_vc.rs"]
+mod boundary;

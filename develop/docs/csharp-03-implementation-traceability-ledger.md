@@ -60,7 +60,7 @@ private structured-loop lowering (section 40). T04-W03 completes switch and
 pattern lowering (section 41). T04-W04 completes closed exception declarations,
 explicit throws and exceptional contracts (section 42). T04-W05 completes
 two-pass handler search, filters, finally and propagation (section 43). T04-W06 completes
-ordinary control emission and independent import (section 44). T05-W01 completes boundary sidecar and presence attachment (section 45). T05-W02 completes canonical input capture and typed evidence linkage (section 46). T05-W03 completes source output encoding and typed reparse (section 47). T05-W04 completes pure transition attachment and pending obligations (section 48). T05-W05 completes full-snapshot idempotency attachment and pending obligations (section 49). T05-W06 closes boundary/transition emission and data-route totality (section 50). T06-W01 completes independent contract-expression import and ordinary-term encoding (section 51). T06-W02 completes construction/type-invariant VC generation (section 52). T06-W03 completes data/check/ownership and contract-definedness VC generation (section 53). T06-W04 completes source-bound loop and ordered pattern VC generation (section 54). T06-W05 completes closed exceptional outcome and two-pass handler VC generation (section 55). T06-W06 completes source-binding and concrete foundation equivalence VC generation (section 56). T06-W07 is ready;
+ordinary control emission and independent import (section 44). T05-W01 completes boundary sidecar and presence attachment (section 45). T05-W02 completes canonical input capture and typed evidence linkage (section 46). T05-W03 completes source output encoding and typed reparse (section 47). T05-W04 completes pure transition attachment and pending obligations (section 48). T05-W05 completes full-snapshot idempotency attachment and pending obligations (section 49). T05-W06 closes boundary/transition emission and data-route totality (section 50). T06-W01 completes independent contract-expression import and ordinary-term encoding (section 51). T06-W02 completes construction/type-invariant VC generation (section 52). T06-W03 completes data/check/ownership and contract-definedness VC generation (section 53). T06-W04 completes source-bound loop and ordered pattern VC generation (section 54). T06-W05 completes closed exceptional outcome and two-pass handler VC generation (section 55). T06-W06 completes source-binding and concrete foundation equivalence VC generation (section 56). T06-W07 completes canonical boundary and captured round-trip VC generation (section 57). T06-W08 is ready;
 later items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
@@ -144,9 +144,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T06-W03` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W03` | `b605e2b1a7abca43ca0e8b15a8f1eb14a9d37d82` |
 | `CSHARP-03-T06-W04` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W04` | `5d0aec77ffbc42fda871edacc654d4531582fddd` |
 | `CSHARP-03-T06-W05` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W05` | `470cccc75eb64af381547e0e91886375a7f65b36` |
-| `CSHARP-03-T06-W06` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W06` | `SELF` |
-| `CSHARP-03-T06-W07` | `Ready` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W07` | `—` |
-| `CSHARP-03-T06-W08` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W08` | `—` |
+| `CSHARP-03-T06-W06` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W06` | `594c5e7b5f9210775b55284b05035151155225af` |
+| `CSHARP-03-T06-W07` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W07` | `SELF` |
+| `CSHARP-03-T06-W08` | `Ready` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W08` | `—` |
 | `CSHARP-03-T06-W09` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W09` | `—` |
 | `CSHARP-03-T06-W10` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_policy_verify.rs#CSHARP-03-T06-W10` | `—` |
 | `CSHARP-03-T06-W11` | `Blocked` | `crates/mpk-api/tests/csharp_practical_api.rs#CSHARP-03-T06-W11` | `—` |
@@ -5541,5 +5541,49 @@ Only current construction whole-VC hashes change to include W06; earlier
 handoff hashes, receipts and frozen producer/vector bytes remain unchanged.
 These are pending VCs and exact recipes, not semantic/kernel proof receipts.
 W09 owns ordinary expansion, proof construction and both checker runs. The full
-`./scripts/check-fast.sh` gate is deferred to T06-W12. W05 records its published
-commit, W06 uses `SELF`, and W07 is the sole ready work item.
+`./scripts/check-fast.sh` gate is deferred to T06-W12. At the W06 checkpoint, W05 recorded its published
+commit, W06 used `SELF`, and W07 became the sole ready work item.
+
+
+## 57. CSHARP-03-T06-W07 completion record
+
+W07 generates canonical boundary and captured round-trip VCs in
+`crates/mpk-vc/src/csharp_practical_boundary_vc.rs`. Exact source boundary
+contracts determine input acceptance, decoded-name uniqueness, unknown/member
+order rules, required/missing/null/value behavior, typed payload conversion,
+source reconstruction and frozen codec/default linkage. Document bytes, depth,
+JSON syntax cells, decoded aggregate cells, parsed UTF-16 strings/names and
+collection counts retain their distinct fixed bounds.
+
+Output obligations relate the complete returned source value to canonical
+encoding and typed reparse, scoped by the exact selected-source reachable-return
+summary under accepted inputs and method preconditions. Source observation equality preserves every stored
+field, tag, order and floating bit while allowing the frozen decimal value and
+array-snapshot equivalences. Formatting-defined does not assume equality.
+Control and exception readers use the existing lossless canonical parser so
+boundary contracts with lone-surrogate field names remain admissible.
+
+A run-specific handoff independently replays the T05 input/output import before
+retaining exact contracts, canonical documents, both captures, cumulative
+manifest/artifacts and typed literal bodies. Raw byte hash/length/provenance,
+source VIR and static boundary-program identity remain bound. Reconstruction
+and output equality remain pending ordinary goals. Literal cells, formula
+nodes, declarations, binders and transport bytes have bounded accounting.
+Strict import reconstructs the complete program; changed bytes, omitted goals,
+wrong typed values or spliced contexts cannot acquire a validated handoff.
+
+Evidence in `develop/migrations/csharp-03/boundary-vc/` reuses the original T05
+captures without editing their facts. Stable hashes cover 15 accepted boundary
+contracts and complete product/unit runs. Tests check typed terms/signatures,
+three-state truth tables, positive/broken encoder equations, complete literal
+bodies, hostile serializers and deterministic byte mutations. The existing
+boundary parser/codec corpus, source linkage and limit tests are rerun locally;
+commands/results and final direct review are retained in `verification.json`
+and `review.md`.
+
+Earlier handoff goldens, receipts and frozen producer/vector bytes are
+preserved. These are pending ordinary recipes and structural checks, not proof
+that an application ran or that a serializer is correct. W09 owns ordinary
+expansion, proof construction and both checker runs. The full
+`./scripts/check-fast.sh` gate is deferred to T06-W12. W06 records its published
+commit, W07 uses `SELF`, and W08 is the sole ready work item.
