@@ -60,7 +60,7 @@ private structured-loop lowering (section 40). T04-W03 completes switch and
 pattern lowering (section 41). T04-W04 completes closed exception declarations,
 explicit throws and exceptional contracts (section 42). T04-W05 completes
 two-pass handler search, filters, finally and propagation (section 43). T04-W06 completes
-ordinary control emission and independent import (section 44). T05-W01 completes boundary sidecar and presence attachment (section 45). T05-W02 completes canonical input capture and typed evidence linkage (section 46). T05-W03 completes source output encoding and typed reparse (section 47). T05-W04 completes pure transition attachment and pending obligations (section 48). T05-W05 completes full-snapshot idempotency attachment and pending obligations (section 49). T05-W06 closes boundary/transition emission and data-route totality (section 50). T06-W01 completes independent contract-expression import and ordinary-term encoding (section 51). T06-W02 completes construction/type-invariant VC generation (section 52). T06-W03 is ready;
+ordinary control emission and independent import (section 44). T05-W01 completes boundary sidecar and presence attachment (section 45). T05-W02 completes canonical input capture and typed evidence linkage (section 46). T05-W03 completes source output encoding and typed reparse (section 47). T05-W04 completes pure transition attachment and pending obligations (section 48). T05-W05 completes full-snapshot idempotency attachment and pending obligations (section 49). T05-W06 closes boundary/transition emission and data-route totality (section 50). T06-W01 completes independent contract-expression import and ordinary-term encoding (section 51). T06-W02 completes construction/type-invariant VC generation (section 52). T06-W03 completes data/check/ownership and contract-definedness VC generation (section 53). T06-W04 is ready;
 later items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
@@ -140,9 +140,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T05-W05` | `Complete` | `crates/mpk-cli/tests/csharp_practical_transition.rs#CSHARP-03-T05-W05` | `40cf7d0c182bf786dad82565f105537cdae6c5b7` |
 | `CSHARP-03-T05-W06` | `Complete` | `crates/mpk-cli/tests/csharp_practical_boundary_transition.rs#CSHARP-03-T05-W06` | `4a8cec4ce746ac65db745480ad76b6b174d67fe5` |
 | `CSHARP-03-T06-W01` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W01` | `d875314cf1d51add12313017ee922b963f485396` |
-| `CSHARP-03-T06-W02` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W02` | `SELF` |
-| `CSHARP-03-T06-W03` | `Ready` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W03` | `—` |
-| `CSHARP-03-T06-W04` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W04` | `—` |
+| `CSHARP-03-T06-W02` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W02` | `781ebe3ba614b0ad1a21ea62c3ad031352a89dd3` |
+| `CSHARP-03-T06-W03` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W03` | `SELF` |
+| `CSHARP-03-T06-W04` | `Ready` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W04` | `—` |
 | `CSHARP-03-T06-W05` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W05` | `—` |
 | `CSHARP-03-T06-W06` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W06` | `—` |
 | `CSHARP-03-T06-W07` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W07` | `—` |
@@ -5356,3 +5356,48 @@ Targeted local verification and review have passed, with no remaining findings.
 `./scripts/check-fast.sh` is deferred to T06-W09 under AGENTS.md. W02 uses `SELF`,
 W01 records its published commit, and T06-W03 is ready. Frozen source producer,
 709 vectors, old receipts, core/checkers, and installed activation are unchanged.
+
+
+## 53. CSHARP-03-T06-W03 completion record
+
+W03 adds the private `DataVcProgram` capability, independently reconstructed from
+validated VIR and its retained closed set. Each invoked data operation binds
+actual SSA operands/result, exact signature, ordered checks, normal successor,
+exception targets/payloads and tagged failure relations. Every static check is a
+conditional goal; runtime failure guards are retained rather than assumed away.
+Ownership evidence reuses independent VIR replay, and construction carriers never
+enter public structural comparison. Source obligations keep their original
+owners and remain pending; no producer-supplied discharge is accepted.
+
+Definitions retain instantiated foundation equations, structural DAGs and exact
+finite carrier parameters for integers, float bits, decimals, strings, sums,
+collections and calendar/time/GUID/money values. Relation/failure references are
+pending definition requirements, not axioms. W09 retains translation to ordinary
+core, proof construction and same-byte dual checking. W03 does not issue a
+semantic proof receipt or activate a profile.
+
+W01 contract attachments gain typed definedness bodies for checked arithmetic,
+indexing, payload extraction, formatting and bounded quantifiers. Conditionals
+preserve branch guards; lets/quantifiers preserve binder scopes. These conditions
+retain their original attachment and must be instantiated at its use point.
+The unchanged VC/skeleton formats bind the complete program digest and all
+operation/check/ownership/contract IDs, with function-to-global data dependencies.
+Term nodes, ordinary references, declarations, binders and bytes remain bounded.
+
+The retained `data-vc/goldens.json` replays 208 original frontend captures and
+218 distinct data-step rows. Typed success/failing-relation witnesses and
+simultaneous-error cases exercise every generated sequent. These prove Boolean
+guard composition over semantic atoms, not numeric/library/kernel acceptance.
+Schema-order-preserving hostile mutations reject altered checks, guards, targets,
+subjects, goals, carrier definitions, reference inventories and lineage. Unit
+cases cover conditional definedness, lexical binders and binder limits. Existing
+W01/W02 consumers remain covered; only current W02 VC hash goldens change.
+See `develop/migrations/csharp-03/data-vc/verification.json` and `review.md` for
+scoped validation and review records.
+
+W03 uses `SELF`; W02 records its published commit and W04 becomes ready.
+`./scripts/check-fast.sh` and equivalent workspace-wide checks were not run.
+The full gate is deferred to T06's final W12, correcting the W09 scheduling label
+in earlier records while preserving W09's proof-assembly responsibility. Frozen
+producer/vector bytes, historical receipts, public schemas and checker acceptance
+remain unchanged.

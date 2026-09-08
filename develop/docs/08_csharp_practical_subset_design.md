@@ -1,7 +1,7 @@
 # C# Practical Subset Expansion Design
 
 Status: normative freeze package published through `CSHARP-03-T01-W10` and
-private implementation complete through `CSHARP-03-T04-W02`.
+private implementation complete through `CSHARP-03-T06-W03`.
 This document does not
 change the active `mpk.csharp.scalar.v0` profile, register a new profile, or
 authorize a practical-profile public route. The active release is registry
@@ -42,7 +42,8 @@ T05-W05 completes optional complete-snapshot idempotency attachment and pending 
 T05-W06 closes cumulative boundary/transition emission, independent import and totality on both source capture routes.
 T06-W01 completes independent contract-expression import, typed ordinary-term encoding and attachment identity recomputation.
 T06-W02 completes construction/type-invariant VC generation, exact publication and preservation conditions, and bounded importer reconstruction.
-T06-W03 is ready, while
+T06-W03 completes typed data/check/ownership and contract-definedness obligations, concrete carrier recipes, and bounded handoff reconstruction.
+T06-W04 is ready, while
 activation remains blocked through T08-W10.
 
 Prepared: 2026-09-02. Revised: 2026-09-08.

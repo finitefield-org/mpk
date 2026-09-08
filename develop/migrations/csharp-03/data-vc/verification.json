@@ -1,0 +1,143 @@
+{
+  "schema": "mpk.csharp_practical.t06_w03.verification.v0",
+  "work_item": "CSHARP-03-T06-W03",
+  "date": "2026-09-08",
+  "baseline_commit": "781ebe3ba614b0ad1a21ea62c3ad031352a89dd3",
+  "checks": [
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc --test csharp_practical_vc_model --test csharp_practical_inventory",
+      "result": "passed",
+      "tests_passed": 19,
+      "log_sha256": "42c3bc28995f56ed6cdbad3619b6b3dccaa326623004a7d30fa2a389063a50b6"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib data_vc",
+      "result": "passed",
+      "tests_passed": 2,
+      "log_sha256": "e78f14f2fdaa282a80f56f01e6e10341d7caee96e6b1fe96e118e6254274a92e"
+    },
+    {
+      "command": "cargo test -p mpk-cli --test csharp_practical_domain csharp_03_t03_w14_source_case_matrix_emits_and_independently_imports",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "e9f2a7b5a25fcb4a51243542e98bbee42b43f018e4d65b87cb111665fe22bfcf"
+    },
+    {
+      "command": "cargo test -p mpk-cli --test csharp_practical_domain csharp_03_t03_w14_attaches_",
+      "result": "passed",
+      "tests_passed": 2,
+      "log_sha256": "b9d624d1e51fd229247545e287e4de9877969e8ed89d836dba0f3abf6da18d5d"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc --test csharp_practical_vc_model --test csharp_practical_inventory -- -D warnings",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "c0f6368b5b02e80e997215120f719c56c2e0d2fb446b8dfa02eb89d8a07b0bae"
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true (all eight changed Rust files)",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "coverage": {
+    "distinct_scoped_tests_passed": 24,
+    "original_capture_cases": 208,
+    "distinct_data_step_rows": 218,
+    "operation_sequents": 280,
+    "ordered_checks": 106,
+    "handoff_mutations": 9,
+    "review_findings": 0
+  },
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "status": "deferred",
+    "owner": "CSHARP-03-T06-W12",
+    "reason": "Intermediate W: targeted tests only. W12 is the final W of T06; W09 owns ordinary proof assembly."
+  },
+  "proof_status": "Pending data definitions and VCs; Boolean guard proofs/counterexamples over semantic atoms only. No semantic/kernel receipt. Ordinary expansion, proof construction and dual checking remain T06-W09.",
+  "preserved": {
+    "construction_handoffs": 7,
+    "construction_golden_changes": "Only current VC hashes changed; source VIR hashes and construction programs are identical.",
+    "frozen_producer_sha256": "b4c6c55dd29f9a2983231ab67b0c9263f42becfbd620ef3daa4e3098944c2077",
+    "frozen_vector_sha256": "de401830e1cd4221465d25c6fe31dad7d704ae8959edfc1145db8099f7bfffa6"
+  },
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_data_vc.rs",
+      "sha256": "55aeaa6e43a20bdd9dbfd4563eec47f949b5c3f8e881afabe6a04f4ff80cf7e6",
+      "size_bytes": 33356
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vc_model.rs",
+      "sha256": "68e161a051bcb16c0eeb65fc23a0be2f75c226df94f2b9af7dd61abf4cdbadd0",
+      "size_bytes": 88063
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "78098f3170f2b603addadde2878090f53dc15683910e6d60cf71d5b914cdb4f4",
+      "size_bytes": 261195
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_validation.rs",
+      "sha256": "739646b9d9eb2cb1685f7b96b5a6b4bbf3b15b46a65b164b29832659d116bc5d",
+      "size_bytes": 181428
+    },
+    {
+      "path": "crates/mpk-vc/tests/csharp_practical_inventory.rs",
+      "sha256": "cecd83e2f57f86cefdfbcf1281b0fb1ed5554d464123be0b4a23929705b0a2c4",
+      "size_bytes": 78697
+    },
+    {
+      "path": "crates/mpk-vc/tests/csharp_practical_vc.rs",
+      "sha256": "f875a3923284b38e7682c3efad32334a7160b8ac7014c6188ea36f9346a63553",
+      "size_bytes": 25534
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_construction_vc.rs",
+      "sha256": "a79d13e82557fa31044aa51f3e8f2138afe144a77227ed0f0405cca5e952e1fb",
+      "size_bytes": 23142
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_data_vc.rs",
+      "sha256": "a042ce8200bf99fe72cb91092358d9ed1a1289f333dbfcab692b97908a789b8b",
+      "size_bytes": 12022
+    },
+    {
+      "path": "develop/docs/08_csharp_practical_subset_design-todo.md",
+      "sha256": "4c4f79f6937fe4683aa2d0886a9bfba0a049b379ab141e36229c570150cc0ea7",
+      "size_bytes": 133674
+    },
+    {
+      "path": "develop/docs/08_csharp_practical_subset_design.md",
+      "sha256": "2ed502b4543105e74d90fec1619e67639586ffcdadbe0fa8e1f3b5890a006910",
+      "size_bytes": 150411
+    },
+    {
+      "path": "develop/docs/csharp-03-implementation-traceability-ledger.md",
+      "sha256": "540cb0c8f7956ef7a8cd455ec5a955bdec55316678669967379ee81046b4e810",
+      "size_bytes": 332189
+    },
+    {
+      "path": "develop/migrations/csharp-03/construction-vc/goldens.json",
+      "sha256": "acc4f0e090965e5dd540890d1f38d132937f136eb84fe18469325785b2ef97b2",
+      "size_bytes": 371337
+    },
+    {
+      "path": "develop/migrations/csharp-03/data-vc/README.md",
+      "sha256": "4152caa22e83cacb53e0af11e3e7056f153f3c3cda0ff88ecc8da1111584ed98",
+      "size_bytes": 5918
+    },
+    {
+      "path": "develop/migrations/csharp-03/data-vc/review.md",
+      "sha256": "47157e96a437983e166533c1639ef985bc974a7fb2c87975d1ad1a395a6a0f0d",
+      "size_bytes": 2470
+    },
+    {
+      "path": "develop/migrations/csharp-03/data-vc/goldens.json",
+      "sha256": "8e51c5c32b1ce3196f16d6f96459d2ff63bda2175ea13dad577803a99113f0a4",
+      "size_bytes": 60983
+    }
+  ]
+}

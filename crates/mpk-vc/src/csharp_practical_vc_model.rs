@@ -462,6 +462,7 @@ struct WirePracticalVcDocument {
 
 pub struct ValidatedPracticalVc {
     construction_vcs: crate::csharp_practical_vir_model::ConstructionVcProgram,
+    data_vcs: crate::csharp_practical_vir_model::DataVcProgram,
     wire: WirePracticalVcDocument,
     canonical_bytes: Vec<u8>,
     artifact_ref: ArtifactRef,
@@ -469,6 +470,9 @@ pub struct ValidatedPracticalVc {
 }
 
 impl ValidatedPracticalVc {
+    pub fn data_vcs(&self) -> &crate::csharp_practical_vir_model::DataVcProgram {
+        &self.data_vcs
+    }
     pub fn construction_vcs(&self) -> &crate::csharp_practical_vir_model::ConstructionVcProgram {
         &self.construction_vcs
     }
@@ -842,6 +846,7 @@ pub fn import_csharp_practical_vc_json(
     })?;
     Ok(ValidatedPracticalVc {
         construction_vcs: construction_vcs(source.vir)?,
+        data_vcs: data_vcs(source.vir)?,
         contract_expressions: source.vir.contract_expressions().to_vec(),
         wire,
         canonical_bytes: input.to_vec(),
@@ -879,6 +884,37 @@ pub fn import_csharp_practical_construction_vcs(
     Ok(expected)
 }
 
+fn data_vcs(
+    vir: &ValidatedPracticalVir,
+) -> Result<crate::csharp_practical_vir_model::DataVcProgram, PracticalVcError> {
+    crate::csharp_practical_vir_model::generate_data_vcs(vir).map_err(|e| match e {
+        crate::csharp_practical_vir_model::DataVcError::Limit => limit_error(),
+        crate::csharp_practical_vir_model::DataVcError::Contract => failure(
+            PracticalVcValidationPhase::Obligations,
+            PracticalVcErrorCode::Obligation,
+        ),
+    })
+}
+
+/// Reconstruct every data definition, ordered check and SSA/ownership binding
+/// from the independently validated source VIR; caller-supplied discharge is
+/// never accepted. The unchanged VC wire commits this complete handoff digest.
+pub fn import_csharp_practical_data_vcs(
+    input: &[u8],
+    source: PracticalVcSource<'_>,
+) -> Result<crate::csharp_practical_vir_model::DataVcProgram, PracticalVcError> {
+    validate_source(source)?;
+    require_transport_bound(input)?;
+    let expected = data_vcs(source.vir)?;
+    if input != expected.canonical_bytes() {
+        return Err(failure(
+            PracticalVcValidationPhase::Obligations,
+            PracticalVcErrorCode::Obligation,
+        ));
+    }
+    Ok(expected)
+}
+
 fn expected_vc(source: PracticalVcSource<'_>) -> Result<WirePracticalVcDocument, PracticalVcError> {
     validate_source(source)?;
     let semantic_context = canonical_context_raw(source.artifact_context)?;
@@ -889,9 +925,11 @@ fn expected_vc(source: PracticalVcSource<'_>) -> Result<WirePracticalVcDocument,
     let operation_encodings = build_operation_encodings(source.vir.operation_signatures())?;
     let control_encodings = build_control_encodings(source.vir.functions());
     let construction = construction_vcs(source.vir)?;
+    let data = data_vcs(source.vir)?;
     let obligation_groups = build_obligation_groups(
         source.vir,
         &construction,
+        &data,
         &type_encodings,
         &operation_encodings,
         &control_encodings,
@@ -909,13 +947,15 @@ fn expected_vc(source: PracticalVcSource<'_>) -> Result<WirePracticalVcDocument,
         .iter()
         .map(|e| e.term().nodes() as u64)
         .sum::<u64>();
-    let definitions = source
+    let mut definitions = source
         .vir
         .contract_expressions()
         .iter()
         .flat_map(|e| e.definitions())
         .map(|d| &d.name)
         .collect::<BTreeSet<_>>();
+    definitions.extend(construction.definition_names());
+    definitions.extend(data.definition_names());
     resource_reservation.ordinary_term_nodes_minimum = resource_reservation
         .ordinary_term_nodes_minimum
         .checked_add(expression_nodes)
@@ -936,11 +976,16 @@ fn expected_vc(source: PracticalVcSource<'_>) -> Result<WirePracticalVcDocument,
             .unwrap_or(0),
     );
     resource_reservation.ordinary_term_nodes_minimum += construction.nodes() as u64;
-    resource_reservation.generated_declarations_minimum +=
-        (construction.sequents().len() + construction.definition_names().len()) as u64;
+    resource_reservation.generated_declarations_minimum += construction.sequents().len() as u64;
     resource_reservation.binder_depth_minimum = resource_reservation
         .binder_depth_minimum
         .max(construction.binder_depth() as u64);
+    resource_reservation.ordinary_term_nodes_minimum += data.nodes() as u64;
+    resource_reservation.generated_declarations_minimum +=
+        (data.declarations() - data.definition_names().len()) as u64;
+    resource_reservation.binder_depth_minimum = resource_reservation
+        .binder_depth_minimum
+        .max(data.binder_depth() as u64);
     validate_resource_reservation(&resource_reservation)?;
     let mut wire = WirePracticalVcDocument {
         schema: SUCCESSOR_VC_SCHEMA.to_owned(),
@@ -1482,6 +1527,7 @@ fn construction_action_tag(action: &PracticalConstructionAction) -> &'static str
 fn build_obligation_groups(
     vir: &ValidatedPracticalVir,
     construction: &crate::csharp_practical_vir_model::ConstructionVcProgram,
+    data: &crate::csharp_practical_vir_model::DataVcProgram,
     types: &[PracticalTypeEncoding],
     operations: &[PracticalOperationEncoding],
     controls: &[PracticalControlEncoding],
@@ -1517,6 +1563,36 @@ fn build_obligation_groups(
                 ))
                 .or_default()
                 .insert(sequent.id.clone());
+        }
+    }
+    let data_present = !data.operations().is_empty()
+        || !data.ownership().is_empty()
+        || !data.contract_expressions().is_empty();
+    if data_present {
+        let global = pending
+            .entry((None, LaterProofOwner::DataAndCollections))
+            .or_default();
+        global.insert(format!("data_program:{}", data.hash()));
+        global.extend(data.definitions().iter().map(|d| d.id.clone()));
+        global.extend(data.contracts().iter().map(|c| c.id.clone()));
+        for operation in data.operations() {
+            let subjects = pending
+                .entry((
+                    Some(operation.function_id.clone()),
+                    LaterProofOwner::DataAndCollections,
+                ))
+                .or_default();
+            subjects.insert(operation.id.clone());
+            subjects.extend(operation.checks.iter().map(|c| c.id.clone()));
+        }
+        for ownership in data.ownership() {
+            pending
+                .entry((
+                    Some(ownership.function_id.clone()),
+                    LaterProofOwner::DataAndCollections,
+                ))
+                .or_default()
+                .insert(ownership.id.clone());
         }
     }
     for operation in operations {
@@ -1673,6 +1749,12 @@ fn build_obligation_groups(
         if function_id.is_some()
             && proof_owner == LaterProofOwner::ConstructionAndTypeInvariants
             && (!construction.sequents().is_empty() || !construction.types().is_empty())
+        {
+            dependencies.push(format!("vc.group.{:04}.global", proof_owner.order()));
+        }
+        if function_id.is_some()
+            && proof_owner == LaterProofOwner::DataAndCollections
+            && data_present
         {
             dependencies.push(format!("vc.group.{:04}.global", proof_owner.order()));
         }

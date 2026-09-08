@@ -7373,3 +7373,11 @@ pub use construction_vc::{
     ConstructionEvidence, ConstructionMember, ConstructionPredicate, ConstructionSequent,
     ConstructionSubject, ConstructionTypeInvariant, ConstructionVcProgram,
 };
+
+#[path = "csharp_practical_data_vc.rs"]
+mod data_vc;
+pub(crate) use data_vc::{generate_data_vcs, DataVcError};
+pub use data_vc::{
+    DataCheckVc, DataContractVc, DataDefinitionFamily, DataOperationVc, DataOwnershipVc,
+    DataSemanticDefinition, DataVcProgram,
+};

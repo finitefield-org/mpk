@@ -24,7 +24,7 @@ fn read(path: &str) -> Value {
 }
 // Preserve the original schema ordering while editing values. Assert an
 // unchanged round trip first so rejection cannot be due to reordered JSON.
-fn edited_bytes(original: &[u8], changed: &Value) -> Vec<u8> {
+pub(super) fn edited_bytes(original: &[u8], changed: &Value) -> Vec<u8> {
     use mpk_vc::csharp_practical_source_artifacts::PracticalJsonValue as J;
     fn order(shape: &J, v: &Value) -> J {
         if let Some(form) = v.get("form").and_then(Value::as_str) {
@@ -83,7 +83,7 @@ fn edited_bytes(original: &[u8], changed: &Value) -> Vec<u8> {
     ))
     .unwrap()
 }
-fn assert_typed(term: &ContractTerm, binders: &[String]) {
+pub(super) fn assert_typed(term: &ContractTerm, binders: &[String]) {
     match term {
         ContractTerm::Var { index, type_id } => assert_eq!(type_id, &binders[*index]),
         ContractTerm::App {
@@ -228,7 +228,8 @@ fn csharp_03_t06_w02_actual_source_goldens_and_failing_conditions() {
         {
             assert_typed(&goal.term, std::slice::from_ref(&goal.subject.type_id));
         }
-        let expected_nodes = vc.type_encodings().len()
+        let expected_nodes = super::data::nodes(vc.data_vcs())
+            + vc.type_encodings().len()
             + vc.operation_encodings().len()
             + vc.control_encodings().len()
             + vc.obligation_groups().len()
@@ -252,6 +253,29 @@ fn csharp_03_t06_w02_actual_source_goldens_and_failing_conditions() {
         assert_eq!(
             vc.resource_reservation().ordinary_term_nodes_minimum(),
             expected_nodes as u64
+        );
+        let names = vc
+            .contract_expressions()
+            .iter()
+            .flat_map(|e| e.definitions().iter().map(|d| &d.name))
+            .chain(p.definition_names())
+            .chain(vc.data_vcs().definition_names())
+            .collect::<std::collections::BTreeSet<_>>();
+        let declarations = vc.type_encodings().len()
+            + vc.operation_encodings().len()
+            + vc.obligation_groups().len()
+            + names.len()
+            + p.sequents().len()
+            + vc.data_vcs()
+                .operations()
+                .iter()
+                .map(|o| 1 + o.checks.len())
+                .sum::<usize>()
+            + vc.data_vcs().ownership().len()
+            + vc.data_vcs().contracts().len();
+        assert_eq!(
+            vc.resource_reservation().generated_declarations_minimum(),
+            declarations as u64
         );
         let t = &p.types()[0];
         if id == "enum_zero" {
