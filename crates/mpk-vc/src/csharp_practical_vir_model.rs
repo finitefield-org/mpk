@@ -7428,3 +7428,8 @@ pub use ordinary_carriers::{
     OrdinaryArm, OrdinaryCarrier, OrdinaryCarrierError, OrdinaryCarrierProgram, OrdinaryField,
     OrdinaryShape,
 };
+
+pub use ordinary_carriers::{
+    generate_csharp_practical_ordinary_integers, import_csharp_practical_ordinary_integers,
+    OrdinaryIntegerDefinition, OrdinaryIntegerProgram,
+};

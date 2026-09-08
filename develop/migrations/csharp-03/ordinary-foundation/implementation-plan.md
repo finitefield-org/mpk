@@ -103,5 +103,6 @@ must not be presented as completion of W09.
 
 Unit 1 is complete as an internal implementation unit. See `README.md`,
 `unit-1-verification.json` and `unit-1-review.md` for its exact coverage and
-local checks. Units 2-8 remain outstanding; W09 remains Ready/in progress and
+local checks. Unit 2 has a Boolean/integer implementation increment, documented in
+`unit-2-progress.md`; its other scalar categories and units 3-8 remain outstanding; W09 remains Ready/in progress and
 W10-W12 remain Blocked. No W09 completion receipt is issued by this unit.

@@ -160,3 +160,96 @@ fn csharp_03_t06_w09_carriers_original_inputs_and_mutations() {
         );
     }
 }
+
+#[test]
+fn csharp_03_t06_w09_integer_source_linkage_rejects_substitution() {
+    let bundle = b();
+    let requests = read("construction-vc/requests.json");
+    let responses = read("construction-vc/responses.json");
+    let mut previous: Option<(Vec<u8>, Vec<u8>)> = None;
+    let mut definitions = 0;
+    for id in [
+        "positive_constructor",
+        "broken_constructor",
+        "positive_initializer",
+    ] {
+        let request = requests
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|r| r["id"] == id)
+            .unwrap();
+        let response = responses
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|r| r["id"] == id)
+            .unwrap();
+        let (context, captures) = support::replay_context(&bundle, request);
+        let source = ValidatedDataSource::import_captured_facts(
+            &bundle,
+            &context,
+            &captures,
+            &serde_json::to_vec(&response["facts"]).unwrap(),
+        )
+        .unwrap();
+        let emitted = emit_data_phase(&bundle, &context, &captures, &source).unwrap();
+        let vir = emitted.vir();
+        let p = generate_csharp_practical_ordinary_integers(vir).unwrap();
+        let bytes = p.canonical_bytes();
+        definitions += p.definitions().len();
+        let operation_wire: Value =
+            serde_json::from_slice(emitted.operations().operations().canonical_bytes()).unwrap();
+        let expected = operation_wire["operations"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|s| s["id"].as_str().unwrap())
+            .filter(|id| id.starts_with("integer.") || id.starts_with("boolean."))
+            .collect::<BTreeSet<_>>();
+        assert_eq!(
+            p.definitions()
+                .iter()
+                .map(|d| d.operation.id.as_str())
+                .collect::<BTreeSet<_>>(),
+            expected
+        );
+        assert_eq!(
+            import_csharp_practical_ordinary_integers(&bytes, p.certificate_bytes(), vir).unwrap(),
+            p
+        );
+        let original: Value = serde_json::from_slice(&bytes).unwrap();
+        for key in [
+            "source_ir_sha256",
+            "foundation_sha256",
+            "certificate_sha256",
+        ] {
+            let mut changed = original.clone();
+            changed[key] = json!("0".repeat(64));
+            assert!(import_csharp_practical_ordinary_integers(
+                &serde_json::to_vec(&changed).unwrap(),
+                p.certificate_bytes(),
+                vir
+            )
+            .is_err());
+        }
+        let mut changed = original;
+        changed["definitions"] = json!([]);
+        if !p.definitions().is_empty() {
+            assert!(import_csharp_practical_ordinary_integers(
+                &serde_json::to_vec(&changed).unwrap(),
+                p.certificate_bytes(),
+                vir
+            )
+            .is_err());
+        }
+        let mut bad = p.certificate_bytes().to_vec();
+        *bad.last_mut().unwrap() ^= 1;
+        assert!(import_csharp_practical_ordinary_integers(&bytes, &bad, vir).is_err());
+        if let Some((metadata, certificate)) = &previous {
+            assert!(import_csharp_practical_ordinary_integers(metadata, certificate, vir).is_err());
+        }
+        previous = Some((bytes, p.certificate_bytes().to_vec()));
+    }
+    assert!(definitions > 0);
+}

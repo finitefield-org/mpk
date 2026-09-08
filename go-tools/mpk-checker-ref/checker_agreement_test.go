@@ -241,9 +241,18 @@ func TestCheckerAgreementWithRustCLIReportProtocol(t *testing.T) {
 // These are regenerated from original validated practical VIR by the Rust
 // carrier tests. Agreement on rejection is not sufficient for this corpus.
 func TestCheckerAgreementWithRustCLICSharpCarriers(t *testing.T) {
+	checkOrdinaryCertificates(t, "carriers", 24)
+}
+
+func TestCheckerAgreementWithRustCLIIntegerCircuits(t *testing.T) {
+	checkOrdinaryCertificates(t, "integer-circuits", 7)
+}
+
+func checkOrdinaryCertificates(t *testing.T, directory string, expectedCount int) {
+	t.Helper()
 	root := absoluteRepoRoot(t)
-	fixtures, err := filepath.Glob(filepath.Join(root, "develop/migrations/csharp-03/ordinary-foundation/carriers/*.hex"))
-	if err != nil || len(fixtures) != 24 {
+	fixtures, err := filepath.Glob(filepath.Join(root, "develop/migrations/csharp-03/ordinary-foundation", directory, "*.hex"))
+	if err != nil || len(fixtures) != expectedCount {
 		t.Fatalf("incomplete ordinary carrier corpus: count=%d error=%v", len(fixtures), err)
 	}
 	for _, path := range fixtures {

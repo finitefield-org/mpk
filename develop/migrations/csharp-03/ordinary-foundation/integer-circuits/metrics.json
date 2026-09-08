@@ -1,0 +1,215 @@
+[
+  {
+    "declarations": 16,
+    "definition": {
+      "boolean_gates": 1,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.bool.v1",
+          "mpk.csharp.value.bool.v1"
+        ],
+        "id": "boolean.xor",
+        "normal_result_type_id": "mpk.csharp.value.bool.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Integer.O626f6f6c65616e2e786f72.Result",
+      "state_depth": 6,
+      "static_transformers": 1,
+      "success_definition": "Mpk.CSharp.Ordinary.Integer.O626f6f6c65616e2e786f72.Success"
+    },
+    "hash": "7b2e17289ca293430e39345d72abeef229747ac99e5616e64ba1518639a8301b",
+    "id": "boolean.xor",
+    "terms": 166
+  },
+  {
+    "declarations": 24,
+    "definition": {
+      "boolean_gates": 254,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.i32.v1",
+          "mpk.csharp.value.i32.v1"
+        ],
+        "id": "integer.i32.add.checked",
+        "normal_result_type_id": "mpk.csharp.value.i32.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.OverflowException",
+            "id": "exception.overflow",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Integer.O696e74656765722e6933322e6164642e636865636b6564.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Integer.O696e74656765722e6933322e6164642e636865636b6564.Result",
+      "state_depth": 9,
+      "static_transformers": 8,
+      "success_definition": "Mpk.CSharp.Ordinary.Integer.O696e74656765722e6933322e6164642e636865636b6564.Success"
+    },
+    "hash": "ef30109265f77ff4233d3db0a83bfb7aa2ef68ce0e734b29a3f87d7da993bd8b",
+    "id": "integer.i32.add.checked",
+    "terms": 1381
+  },
+  {
+    "declarations": 1086,
+    "definition": {
+      "boolean_gates": 34220,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.i64.v1",
+          "mpk.csharp.value.i64.v1"
+        ],
+        "id": "integer.i64.multiply.checked",
+        "normal_result_type_id": "mpk.csharp.value.i64.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.OverflowException",
+            "id": "exception.overflow",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Integer.O696e74656765722e6936342e6d756c7469706c792e636865636b6564.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Integer.O696e74656765722e6936342e6d756c7469706c792e636865636b6564.Result",
+      "state_depth": 16,
+      "static_transformers": 1070,
+      "success_definition": "Mpk.CSharp.Ordinary.Integer.O696e74656765722e6936342e6d756c7469706c792e636865636b6564.Success"
+    },
+    "hash": "e832f9faf561cbb639261f0365c079fc05b021e2be8c480aa798e248b16dda6b",
+    "id": "integer.i64.multiply.checked",
+    "terms": 104708
+  },
+  {
+    "declarations": 1044,
+    "definition": {
+      "boolean_gates": 32894,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.u64.v1",
+          "mpk.csharp.value.u64.v1"
+        ],
+        "id": "integer.u64.divide.unchecked",
+        "normal_result_type_id": "mpk.csharp.value.u64.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.DivideByZeroException",
+            "id": "exception.division_by_zero",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Integer.O696e74656765722e7536342e6469766964652e756e636865636b6564.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Integer.O696e74656765722e7536342e6469766964652e756e636865636b6564.Result",
+      "state_depth": 16,
+      "static_transformers": 1028,
+      "success_definition": "Mpk.CSharp.Ordinary.Integer.O696e74656765722e7536342e6469766964652e756e636865636b6564.Success"
+    },
+    "hash": "518dc3f4976f056ebd82f62d302d6d475eaefd163e9d0eee2678c71ffb0860cc",
+    "id": "integer.u64.divide.unchecked",
+    "terms": 95936
+  },
+  {
+    "declarations": 295,
+    "definition": {
+      "boolean_gates": 8879,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.i32.v1",
+          "mpk.csharp.value.i32.v1"
+        ],
+        "id": "integer.i32.remainder.unchecked",
+        "normal_result_type_id": "mpk.csharp.value.i32.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.DivideByZeroException",
+            "id": "exception.division_by_zero",
+            "tag": "exception"
+          },
+          {
+            "failure_type_id": "System.OverflowException",
+            "id": "exception.overflow",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Integer.O696e74656765722e6933322e72656d61696e6465722e756e636865636b6564.Failure.F0",
+        "Mpk.CSharp.Ordinary.Integer.O696e74656765722e6933322e72656d61696e6465722e756e636865636b6564.Failure.F1"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Integer.O696e74656765722e6933322e72656d61696e6465722e756e636865636b6564.Result",
+      "state_depth": 14,
+      "static_transformers": 278,
+      "success_definition": "Mpk.CSharp.Ordinary.Integer.O696e74656765722e6933322e72656d61696e6465722e756e636865636b6564.Success"
+    },
+    "hash": "78c5eca7ec1049901349926361cdadc079ebe7d9caba85015da97aa9091576e6",
+    "id": "integer.i32.remainder.unchecked",
+    "terms": 27011
+  },
+  {
+    "declarations": 22,
+    "definition": {
+      "boolean_gates": 177,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.i64.v1"
+        ],
+        "id": "integer.convert.i64.u8.checked",
+        "normal_result_type_id": "mpk.csharp.value.u8.v1",
+        "ordered_checks": [
+          {
+            "failure_type_id": "System.OverflowException",
+            "id": "exception.overflow",
+            "tag": "exception"
+          }
+        ],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [
+        "Mpk.CSharp.Ordinary.Integer.O696e74656765722e636f6e766572742e6936342e75382e636865636b6564.Failure.F0"
+      ],
+      "result_definition": "Mpk.CSharp.Ordinary.Integer.O696e74656765722e636f6e766572742e6936342e75382e636865636b6564.Result",
+      "state_depth": 9,
+      "static_transformers": 6,
+      "success_definition": "Mpk.CSharp.Ordinary.Integer.O696e74656765722e636f6e766572742e6936342e75382e636865636b6564.Success"
+    },
+    "hash": "9665309d109d722ee809a86653cb6abf1cb20ea783d1af1c159b88a427bebebf",
+    "id": "integer.convert.i64.u8.checked",
+    "terms": 1179
+  },
+  {
+    "declarations": 27,
+    "definition": {
+      "boolean_gates": 378,
+      "operation": {
+        "argument_type_ids": [
+          "mpk.csharp.value.i64.v1",
+          "mpk.csharp.value.i32.v1"
+        ],
+        "id": "integer.i64.right_shift.unchecked",
+        "normal_result_type_id": "mpk.csharp.value.i64.v1",
+        "ordered_checks": [],
+        "tag": "data"
+      },
+      "ordered_failure_definitions": [],
+      "result_definition": "Mpk.CSharp.Ordinary.Integer.O696e74656765722e6936342e72696768745f73686966742e756e636865636b6564.Result",
+      "state_depth": 9,
+      "static_transformers": 12,
+      "success_definition": "Mpk.CSharp.Ordinary.Integer.O696e74656765722e6936342e72696768745f73686966742e756e636865636b6564.Success"
+    },
+    "hash": "d948027e8aaae91246d1682aed80613bf7c6bdae0cde0861f0c6f061cb332f2a",
+    "id": "integer.i64.right_shift.unchecked",
+    "terms": 2607
+  }
+]

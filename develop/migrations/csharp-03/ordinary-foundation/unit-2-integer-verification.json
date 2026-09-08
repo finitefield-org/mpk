@@ -1,0 +1,111 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.integer_increment_verification.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 2,
+  "component": "Boolean and fixed-width integers",
+  "component_status": "implemented and reviewed",
+  "unit_2_status": "in progress",
+  "w09_status": "Ready/in progress",
+  "date": "2026-09-08",
+  "baseline_commit": "39d603f95db3e187bd5a185892bcb197f6591555",
+  "checks": [
+    {
+      "command": "cargo test -p mpk-vc --lib integer_circuits_",
+      "result": "passed",
+      "tests_passed": 4,
+      "log_sha256": "995c86232fcd48dad79f53e96ddbba28ab60bb463bf7658e8e814555be155a77"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc ordinary_carriers::",
+      "result": "passed",
+      "tests_passed": 2,
+      "log_sha256": "ec066d8a85c5141b63bf3218294d8064885c2a82740575aae7c4d63c71ef7e39"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "result": "passed",
+      "tests_passed": 5,
+      "log_sha256": "7e4236620cf99fc9037a4954878d92393ad75da11f0104ef7bd2b9d79174bc0c"
+    },
+    {
+      "command": "cd go-tools/mpk-checker-ref && GOCACHE=/tmp/mpk-t06-w09-go-cache go test -count=1 -tags checkeragreement -run TestCheckerAgreementWithRustCLIIntegerCircuits .",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "7a470de7f0228e6553aea803a7f55f0a75e922c986b4bb5a22a92b6668f855b6"
+    },
+    {
+      "command": "cd go-tools/mpk-checker-ref && GOCACHE=/tmp/mpk-t06-w09-go-cache go test -count=1 -tags checkeragreement -run 'TestCheckerAgreementWithRustCLIIntegerCircuits/integer.i64.multiply.checked.hex$' .",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "2ba059f7f10189cfaa82111a378b5caf345d8edba9c2df8c0d8b26c1c18c7f71"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc --test csharp_practical_inventory -- -D warnings",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "7623e874ef3b747ea8c03999149086c24719762aaa0e635243b121436669bd4a"
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true (five changed Rust files); gofmt -l go-tools/mpk-checker-ref/checker_agreement_test.go",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "coverage": {
+    "scoped_rust_tests": 11,
+    "conversion_forms": 162,
+    "source_linkage_programs": 3,
+    "unchanged_carrier_goldens": 24,
+    "integer_certificates": 7,
+    "positive_zero_axiom_acceptance_per_checker": 7,
+    "hash_mutation_rejections_per_checker": 7,
+    "maximum_terms": 104708,
+    "maximum_declarations": 1086,
+    "component_review_findings": 0
+  },
+  "verification_note": "The seven-certificate run passed before multiplication optimization. Only integer.i64.multiply.checked.hex changed; the optimized bytes then passed both unchanged checkers with hash rejection in the targeted follow-up. The other six certificate files remained byte-identical. All seven final fixtures were regenerated and compared by the final Rust unit test.",
+  "remaining": [
+    "Unit 2: floating-point and decimal arithmetic/predicates/conversions, remaining UTF-16/Guid/date/time/duration/instant semantics.",
+    "Units 3-8, including complete ordinary foundation/VC proof assembly and the W09 exit gate."
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "result": "deferred",
+    "owner": "CSHARP-03-T06-W12"
+  },
+  "files": [
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/integer-circuits/boolean.xor.hex",
+      "sha256": "39f36eccc3949e58c2fb35b8e23b8082438ff336e809d23614b3d0c6a4c6b82a"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/integer-circuits/integer.convert.i64.u8.checked.hex",
+      "sha256": "9f92cd1f0bba99b26004bed3fd7007599441f7cc6ce4e6deb6ce0e5c7c601295"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/integer-circuits/integer.i32.add.checked.hex",
+      "sha256": "31d40fd4bd6205f58e2c216105b7c2f233b4ce180f351b82f7e1d20d17f47692"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/integer-circuits/integer.i32.remainder.unchecked.hex",
+      "sha256": "600d3842e03627cd3c56e6f55251354496a4b58b239fb620cb57722cdbfbe28b"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/integer-circuits/integer.i64.multiply.checked.hex",
+      "sha256": "168bb75416d13d81867b2aa7597b82e261d9d83c4a709f932e5af848c8fccad1"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/integer-circuits/integer.i64.right_shift.unchecked.hex",
+      "sha256": "dbdaebe7188feb028bd5363456f48db406bcd61a75aa6f0a4b157d3ccd89fdc8"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/integer-circuits/integer.u64.divide.unchecked.hex",
+      "sha256": "1a0e565bcdb4e4cb74f19aeb024935958cd267585ddc81d97942c30e29ab1009"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/integer-circuits/metrics.json",
+      "sha256": "005766ef622824555d962729bbadd80482aed51162fdb93d477fed75adf56d7b"
+    }
+  ]
+}

@@ -778,12 +778,13 @@ mod tests {
     use super::*;
     use std::rc::Rc;
     #[derive(Clone)]
-    enum V {
+    pub(super) enum V {
         Bit(bool),
+        Cube(Vec<bool>),
         Lambda(u32, Rc<Vec<V>>),
         Rec(Vec<V>),
     }
-    fn apply(c: &Certificate, f: V, x: V) -> V {
+    pub(super) fn apply(c: &Certificate, f: V, x: V) -> V {
         match f {
             V::Lambda(body, env) => {
                 let mut e = vec![x];
@@ -799,6 +800,21 @@ mod tests {
                     }
                 } else {
                     V::Rec(xs)
+                }
+            }
+            V::Cube(bits) => {
+                let V::Bit(selector) = x else {
+                    panic!("non-Bool selector")
+                };
+                let bits = bits
+                    .into_iter()
+                    .skip(usize::from(selector))
+                    .step_by(2)
+                    .collect::<Vec<_>>();
+                if bits.len() == 1 {
+                    V::Bit(bits[0])
+                } else {
+                    V::Cube(bits)
                 }
             }
             V::Bit(_) => panic!("applied a leaf"),
@@ -834,7 +850,7 @@ mod tests {
             _ => panic!("evaluated a type"),
         }
     }
-    fn run(c: &Certificate, name: &str, args: Vec<V>) -> V {
+    pub(super) fn run(c: &Certificate, name: &str, args: Vec<V>) -> V {
         let d = c
             .declarations
             .iter()
@@ -846,7 +862,7 @@ mod tests {
         args.into_iter()
             .fold(eval(c, value, &[]), |f, a| apply(c, f, a))
     }
-    fn bit(v: V) -> bool {
+    pub(super) fn bit(v: V) -> bool {
         let V::Bit(v) = v else { panic!() };
         v
     }
@@ -960,3 +976,11 @@ mod tests {
         assert_eq!(b.helpers(254), Err(OrdinaryCarrierError::Limit));
     }
 }
+
+#[path = "csharp_practical_ordinary_scalar_bits.rs"]
+mod scalar_bits;
+
+pub use scalar_bits::{
+    generate_csharp_practical_ordinary_integers, import_csharp_practical_ordinary_integers,
+    OrdinaryIntegerDefinition, OrdinaryIntegerProgram,
+};
