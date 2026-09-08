@@ -1,0 +1,183 @@
+{
+  "baseline_commit": "40cf7d0c182bf786dad82565f105537cdae6c5b7",
+  "capture": {
+    "accepted_inputs_captured_twice": true,
+    "control_capture_batches": [
+      9,
+      1
+    ],
+    "control_cases": 10,
+    "control_command": "./scripts/build-csharp-practical-frontend.sh --test-control-emission-requests",
+    "control_source_rejections": 5,
+    "data_cases": 4,
+    "data_command": "./scripts/build-csharp-practical-frontend.sh --test-data-phase-requests",
+    "environment": "local pinned Linux/amd64 container; network none"
+  },
+  "checks": [
+    {
+      "command": "MPK_W06_EVIDENCE_OUT=/tmp/mpk-w06-evidence-A.json cargo test -p mpk-cli --test csharp_practical_boundary_transition",
+      "elapsed_seconds": 578.89,
+      "log_sha256": "eb6142f5e37069ddca0f2b8621997092e3ab3b95a1c237d32a87a5507c93a908",
+      "result": "passed",
+      "tests_passed": 14
+    },
+    {
+      "command": "MPK_W06_EVIDENCE_OUT=/tmp/mpk-w06-evidence-B.json cargo test -p mpk-cli --test csharp_practical_boundary_transition",
+      "elapsed_seconds": 578.17,
+      "log_sha256": "fb1116d709c5cd071731e7a04e792b07b71c195043ce5c3d56eaaf9ebe3d3a48",
+      "result": "passed",
+      "tests_passed": 14
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "elapsed_seconds": 15.21,
+      "log_sha256": "40b1f406f8964d0bf7b635d8c190a9fb0fd31bbd867b403e10cf9eabc52be4d5",
+      "result": "passed",
+      "tests_passed": 5
+    },
+    {
+      "command": "cargo test -p mpk-cli --test csharp_practical_domain csharp_03_t03_w14_attaches_captured_method_contracts_before_artifacts",
+      "elapsed_seconds": 0.52,
+      "log_sha256": "31fa1cc9fbe2db1bec78324e33beb46a384d4f18c099a15814e93c712dc26993",
+      "result": "passed",
+      "tests_passed": 1
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib -- -D warnings",
+      "log_sha256": "bcf8d18108fceebf6e8d4c531e3476ade81c0531ab969c89bff958e90eef7649",
+      "result": "passed"
+    },
+    {
+      "command": "cargo clippy -p mpk-cli --test csharp_practical_boundary_transition -- -D warnings",
+      "log_sha256": "76b98abfe562a4f0bb0a2336a9e7c140e0070d2173b8933b81b5cc105f9f57ad",
+      "result": "passed"
+    },
+    {
+      "command": "rustfmt --check --edition 2021 crates/mpk-vc/src/csharp_practical_data_phase.rs crates/mpk-vc/tests/csharp_practical_inventory.rs crates/mpk-cli/tests/csharp_practical_boundary_transition.rs",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result": "passed"
+    },
+    {
+      "command": "docker run --rm --platform linux/amd64 --network none --cap-add SYS_ADMIN --security-opt seccomp=unconfined -v /Users/kazuyoshitoshiya/mpk:/repo:ro -w /repo mpk-java-t10-gate:local ./scripts/build-csharp-frontend.sh --check",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result": "passed"
+    }
+  ],
+  "date": "2026-09-08",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_data_phase.rs",
+      "sha256": "188b016e7e41a6e9829c68649e2a6ace9094c1273180eb3e02d5cd7fece8f8b4",
+      "size_bytes": 68435
+    },
+    {
+      "path": "crates/mpk-cli/tests/csharp_practical_transition.rs",
+      "sha256": "b252445e75fd61d9bdf4f3cddbfafa386449f12462bb33a31fe7de4939654087",
+      "size_bytes": 36326
+    },
+    {
+      "path": "crates/mpk-cli/tests/csharp_practical_boundary_transition.rs",
+      "sha256": "eb14e1fa482d0ab913f0f9543806c5664d0d9fb8d5a5f9270002327372da2db4",
+      "size_bytes": 26774
+    },
+    {
+      "path": "crates/mpk-vc/tests/csharp_practical_inventory.rs",
+      "sha256": "9bcc71c5d1f5ffab83cb48ee5548b8344523e8b46bac7d0971873d521b348327",
+      "size_bytes": 78382
+    },
+    {
+      "path": "develop/docs/08_csharp_practical_subset_design-todo.md",
+      "sha256": "8de88ad97faaa97943c0f3e622fc5534d11e549e360acabd7437288bee12d30b",
+      "size_bytes": 133632
+    },
+    {
+      "path": "develop/docs/08_csharp_practical_subset_design.md",
+      "sha256": "a5b555ce72bbb63ca1f1a190c01b2a0fc09b0ab9804a3db102e26160b4f67c7c",
+      "size_bytes": 149995
+    },
+    {
+      "path": "develop/docs/csharp-03-implementation-traceability-ledger.md",
+      "sha256": "850b41f1d853e176bf2cc5d78d16462aed322fed6c2ab0737ca0e65098e001a3",
+      "size_bytes": 322439
+    },
+    {
+      "path": "develop/migrations/csharp-03/boundary-transition/README.md",
+      "sha256": "171507328e75117110209ee633b4ab47114da799f2b32fbe2555b750945e05d9",
+      "size_bytes": 5355
+    },
+    {
+      "path": "develop/migrations/csharp-03/boundary-transition/control-requests.json",
+      "sha256": "e64ae8251085b434f348ee81969314ca68c02477262d6bdc180d30db56138a9a",
+      "size_bytes": 211489
+    },
+    {
+      "path": "develop/migrations/csharp-03/boundary-transition/control-responses.json",
+      "sha256": "55ca3ea78e8a054792f780ea29905efa3bdae6c41c7919b1ec8c5df597a23028",
+      "size_bytes": 3628176
+    },
+    {
+      "path": "develop/migrations/csharp-03/boundary-transition/data-requests.json",
+      "sha256": "b31d2ea69242be061a908b4b0952ebf4baca3750f907b8e1ea36af03245d31c7",
+      "size_bytes": 24371
+    },
+    {
+      "path": "develop/migrations/csharp-03/boundary-transition/data-responses.json",
+      "sha256": "dc69281a594f4d8b4e0fe695960f91ec19fa6c0ef6de3d7d43333206d8f65a96",
+      "size_bytes": 50489
+    },
+    {
+      "path": "develop/migrations/csharp-03/boundary-transition/evidence.json",
+      "sha256": "ea08cdccc9546af398d2782e9dfa49e8cc3556c1675c8ca09ca1e4322fdd709c",
+      "size_bytes": 56561
+    },
+    {
+      "path": "develop/migrations/csharp-03/boundary-transition/review.md",
+      "sha256": "2cd37bbc6c17367a60938cbb44ebff6982cb730e4b39673f1fb30b3e0f7a06b7",
+      "size_bytes": 3480
+    }
+  ],
+  "frozen": [
+    {
+      "path": "crates/mpk-cli/src/csharp_practical_frontend_protocol.rs",
+      "sha256": "b4c6c55dd29f9a2983231ab67b0c9263f42becfbd620ef3daa4e3098944c2077",
+      "size_bytes": 61921
+    },
+    {
+      "path": "develop/migrations/csharp-03/probes/recursor-feasibility.json",
+      "sha256": "b0cd0fd692749d34dabe2065a8d5efba79c36968275b72dc7dbe50450bdcf36d",
+      "size_bytes": 66558
+    },
+    {
+      "path": "develop/migrations/csharp-03/probes/checker-capacity.json",
+      "sha256": "8f9c40c19e2af7fd209975528a72b66010d81ac78823542db0d9acdc37ac8ad5",
+      "size_bytes": 39138
+    }
+  ],
+  "overall_gate": {
+    "command": "./scripts/check-fast.sh",
+    "historical_gate_is_not_current_validation": true,
+    "reason": "User requested skipping the overall check for T05-W06 because it ran at T05-W04.",
+    "result": "skipped_by_explicit_user_instruction",
+    "workspace_wide_substitute_run": false
+  },
+  "results": {
+    "bounded_fuzz_seeds": 112,
+    "closed_counters": {
+      "declarations": 9,
+      "operations": 54,
+      "recipe_nodes": 554
+    },
+    "complete_suite_runs": 2,
+    "evidence_byte_identical": true,
+    "new_w06_tests": 2,
+    "proof_discharge": "pending T06",
+    "review_findings": 0,
+    "root_count": 33,
+    "source_type_count": 9,
+    "tests_per_run": 14,
+    "w06_control_cases": 10,
+    "w06_data_cases": 4
+  },
+  "schema": "mpk.csharp_practical.t05_w06.verification.v1",
+  "work_item": "CSHARP-03-T05-W06"
+}

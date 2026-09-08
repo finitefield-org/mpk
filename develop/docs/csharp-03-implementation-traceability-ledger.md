@@ -60,7 +60,7 @@ private structured-loop lowering (section 40). T04-W03 completes switch and
 pattern lowering (section 41). T04-W04 completes closed exception declarations,
 explicit throws and exceptional contracts (section 42). T04-W05 completes
 two-pass handler search, filters, finally and propagation (section 43). T04-W06 completes
-ordinary control emission and independent import (section 44). T05-W01 completes boundary sidecar and presence attachment (section 45). T05-W02 completes canonical input capture and typed evidence linkage (section 46). T05-W03 completes source output encoding and typed reparse (section 47). T05-W04 completes pure transition attachment and pending obligations (section 48). T05-W05 completes full-snapshot idempotency attachment and pending obligations (section 49). T05-W06 is ready;
+ordinary control emission and independent import (section 44). T05-W01 completes boundary sidecar and presence attachment (section 45). T05-W02 completes canonical input capture and typed evidence linkage (section 46). T05-W03 completes source output encoding and typed reparse (section 47). T05-W04 completes pure transition attachment and pending obligations (section 48). T05-W05 completes full-snapshot idempotency attachment and pending obligations (section 49). T05-W06 closes boundary/transition emission and data-route totality (section 50). T06-W01 is ready;
 later items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
@@ -137,9 +137,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T05-W02` | `Complete` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W02` | `f8ec3c6b036908eccf02e4782a5f68a0e2855822` |
 | `CSHARP-03-T05-W03` | `Complete` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W03` | `9aa555a6d88ea55cd4e2dc41940059746dd968bf` |
 | `CSHARP-03-T05-W04` | `Complete` | `crates/mpk-cli/tests/csharp_practical_transition.rs#CSHARP-03-T05-W04` | `33b95cd59817b4bbc330a66971e35c2e092cd92e` |
-| `CSHARP-03-T05-W05` | `Complete` | `crates/mpk-cli/tests/csharp_practical_transition.rs#CSHARP-03-T05-W05` | `SELF` |
-| `CSHARP-03-T05-W06` | `Ready` | `crates/mpk-cli/tests/csharp_practical_boundary_transition.rs#CSHARP-03-T05-W06` | `—` |
-| `CSHARP-03-T06-W01` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W01` | `—` |
+| `CSHARP-03-T05-W05` | `Complete` | `crates/mpk-cli/tests/csharp_practical_transition.rs#CSHARP-03-T05-W05` | `40cf7d0c182bf786dad82565f105537cdae6c5b7` |
+| `CSHARP-03-T05-W06` | `Complete` | `crates/mpk-cli/tests/csharp_practical_boundary_transition.rs#CSHARP-03-T05-W06` | `SELF` |
+| `CSHARP-03-T06-W01` | `Ready` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W01` | `—` |
 | `CSHARP-03-T06-W02` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W02` | `—` |
 | `CSHARP-03-T06-W03` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W03` | `—` |
 | `CSHARP-03-T06-W04` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W04` | `—` |
@@ -5211,9 +5211,51 @@ C# captures, CLR observations, strict sidecars, review, and verification receipt
 are retained under `develop/migrations/csharp-03/idempotency/`. The W04 disabled
 matrix and W05 independent import linkage are also checked.
 
-The task uses the ledger's `SELF` marker; W04 records its published commit.
-T05-W06 is ready and owns the T05-wide `./scripts/check-fast.sh` gate. This
-intermediate W runs targeted checks only under the cadence established in
+At the W05 checkpoint, the task used the ledger's `SELF` marker and W04 recorded
+its published commit. T05-W06 was ready and owned the T05-wide
+`./scripts/check-fast.sh` gate. This intermediate W ran targeted checks only
+under the cadence established in
 `93fab5694e60200d7c7ce4cb65862ac4a9a0861b`; it does not claim a full-gate pass.
 The 709 frozen vectors, 26 vector sets, source producer, historical receipts,
 and active Java lane remain unchanged.
+
+## 50. CSHARP-03-T05-W06 completion record
+
+T05's frontend closure gate composes the complete W01–W05 boundary and
+transition suites and adds actual-source boundary/transition/codec interaction,
+data-route totality, independent-import linkage and bounded mutation coverage.
+`crates/mpk-cli/tests/csharp_practical_boundary_transition.rs#CSHARP-03-T05-W06`
+is the executable owner. Captured requests/responses, cumulative input/output
+artifacts, source map, counters, review and verification are retained under
+`develop/migrations/csharp-03/boundary-transition/`.
+
+The shared total-termination traversal now runs for straight-line data captures
+as well as control captures. Captured partial method, constructor and getter
+callees cannot hide behind a missing control handoff on a total boundary root.
+The control route still uses the existing total getter claims, exception
+universe and loop-contract owner. A partial loop/root cannot enter boundary or
+transition emission. Independent import uses the same original-input contract
+attachment and reconstructs the complete cumulative closed set.
+
+The combined source introduces two provenance-distinct codec result roots from
+method and transition clauses. T02-W02 alone performs specialization, ordering,
+deduplication and limit checks. The retained example has 33 roots, nine source
+types and shared counters of nine declarations, 54 operations and 554 recipe
+nodes. Boundary input/output evidence preserves both contract families and the
+original source map/closed-instance linkage. Source dependency/effect/serializer/
+async/iterator cases reject with their frozen owning diagnostics; 112 bounded
+sidecar, adapter and protocol mutation seeds cannot publish artifacts.
+
+The composed boundary/transition suite is run twice with byte-identical W06
+evidence, together with targeted consumers, lint/format and the local Linux
+`./scripts/build-csharp-frontend.sh --check`. The user explicitly requested
+skipping the overall check for this W06, citing the T05-W04 run. Therefore
+`./scripts/check-fast.sh` is skipped by instruction, not claimed to pass on the
+current changes. This task-specific exception supersedes the normal T-final
+cadence without changing AGENTS.md or later tasks' gates.
+
+The task uses `SELF`; W05 records its published commit. T05 is complete under
+the explicit verification exception and T06-W01 is ready. Semantic proof and
+proof counterexamples remain T06-owned, and release activation remains blocked
+through T08-W10. The frozen 709 vectors, 26 vector sets, source producer,
+historical receipts and Java lane are unchanged.

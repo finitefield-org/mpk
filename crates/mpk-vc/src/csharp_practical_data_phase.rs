@@ -1283,27 +1283,33 @@ pub(crate) fn attach_data_contracts(
     let r = closure.roots();
     let c = closure.closed();
     let mut common = data_contract_environment(b, source, closure, operations)?;
-    if source.control_lowering().is_some() {
-        let control = validate_control_source(b, source)?;
-        let mut claims = sidecars
-            .contracts()
-            .iter()
-            .filter(|c| c.schema() == artifacts::METHOD_CONTRACT_SCHEMA)
-            .map(|c| {
-                Ok((
-                    c.value()
-                        .get("callable_id")
-                        .and_then(J::as_str)
-                        .ok_or(DataPhaseError::Contract)?
-                        .to_owned(),
-                    c.value()
-                        .get("termination")
-                        .and_then(J::as_str)
-                        .ok_or(DataPhaseError::Contract)?
-                        .to_owned(),
-                ))
-            })
-            .collect::<Result<BTreeMap<_, _>, DataPhaseError>>()?;
+    // Total contracts apply to every source capture route, including the data
+    // route without a CFG. Boundary/transition roots cannot hide a partial
+    // callee merely by omitting the optional control handoff.
+    let mut claims = sidecars
+        .contracts()
+        .iter()
+        .filter(|c| c.schema() == artifacts::METHOD_CONTRACT_SCHEMA)
+        .map(|c| {
+            Ok((
+                c.value()
+                    .get("callable_id")
+                    .and_then(J::as_str)
+                    .ok_or(DataPhaseError::Contract)?
+                    .to_owned(),
+                c.value()
+                    .get("termination")
+                    .and_then(J::as_str)
+                    .ok_or(DataPhaseError::Contract)?
+                    .to_owned(),
+            ))
+        })
+        .collect::<Result<BTreeMap<_, _>, DataPhaseError>>()?;
+    let control = source
+        .control_lowering()
+        .map(|_| validate_control_source(b, source))
+        .transpose()?;
+    if let Some(control) = &control {
         for getter in control.total_getters() {
             if claims
                 .insert(getter.clone(), "total".into())
@@ -1312,7 +1318,9 @@ pub(crate) fn attach_data_contracts(
                 return Err(DataPhaseError::Contract);
             }
         }
-        derive_control_termination(source, &claims)?;
+    }
+    derive_control_termination(source, &claims)?;
+    if let Some(control) = control {
         common.exception_universe = Some(control.universe().clone());
         // W01 remains the sole owner of loop contract attachment and scope
         // checking. Both emission and import use the complete data environment.

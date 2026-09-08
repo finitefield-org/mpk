@@ -39,7 +39,8 @@ canonical input capture, typed conversion and evidence linkage. T05-W03 complete
 source output encoding, independent typed reparse and cumulative evidence linkage.
 T05-W04 completes pure transition attachment and pending typed obligations.
 T05-W05 completes optional complete-snapshot idempotency attachment and pending replay/equality obligations.
-T05-W06 is ready, while
+T05-W06 closes cumulative boundary/transition emission, independent import and totality on both source capture routes.
+T06-W01 is ready, while
 activation remains blocked through T08-W10.
 
 Prepared: 2026-09-02. Revised: 2026-09-08.
