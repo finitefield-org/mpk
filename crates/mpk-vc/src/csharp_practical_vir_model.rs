@@ -7381,3 +7381,11 @@ pub use data_vc::{
     DataCheckVc, DataContractVc, DataDefinitionFamily, DataOperationVc, DataOwnershipVc,
     DataSemanticDefinition, DataVcProgram,
 };
+
+#[path = "csharp_practical_control_vc.rs"]
+mod control_vc;
+pub(crate) use control_vc::{generate_control_vcs, ControlVcError};
+pub use control_vc::{
+    ControlBinding, ControlFlowEdge, ControlFunctionVc, ControlPredicate, ControlSequent,
+    ControlSlotTransfer, ControlVcProgram, LoopEdgeVc, LoopVc, PatternStepVc, PatternVc,
+};

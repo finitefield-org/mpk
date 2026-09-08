@@ -68,6 +68,8 @@ pub struct ContractDefinition {
 pub struct VerifiedContractExpression {
     #[serde(skip)]
     owner: String,
+    #[serde(skip)]
+    allows_old: bool,
     expression_sha256: String,
     attachment_sha256: String,
     canonical_expression: String,
@@ -76,6 +78,9 @@ pub struct VerifiedContractExpression {
     subject_bindings: Vec<(String, String)>,
 }
 impl VerifiedContractExpression {
+    pub(crate) fn allows_old(&self) -> bool {
+        self.allows_old
+    }
     pub(crate) fn owner(&self) -> &str {
         &self.owner
     }
@@ -282,6 +287,7 @@ pub fn import_verification_contract_expression(
     let definitions = compiler.definitions.into_values().collect();
     Ok(VerifiedContractExpression {
         owner: env.verification_owner.clone(),
+        allows_old: env.allow_old,
         expression_sha256,
         attachment_sha256,
         canonical_expression: String::from_utf8(bytes.to_vec())

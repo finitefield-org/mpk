@@ -1,3 +1,4 @@
+//! CSHARP-03-T06-W04: loop cutpoints, decreases and ordered pattern VCs.
 //! CSHARP-03-T06-W01: verification expression union and original-input attachment.
 use mpk_vc::csharp_practical_source_artifacts::*;
 use mpk_vc::csharp_practical_vc_model::*;
@@ -723,3 +724,6 @@ mod construction;
 
 #[path = "support/csharp_practical_data_vc.rs"]
 mod data;
+
+#[path = "support/csharp_practical_control_vc.rs"]
+mod control;

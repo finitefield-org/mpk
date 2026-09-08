@@ -211,8 +211,9 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             | "CSHARP-03-T04-W04" | "CSHARP-03-T04-W05" | "CSHARP-03-T04-W06"
             | "CSHARP-03-T05-W01" | "CSHARP-03-T05-W02" | "CSHARP-03-T05-W03"
             | "CSHARP-03-T05-W04" | "CSHARP-03-T05-W05" | "CSHARP-03-T05-W06"
-            | "CSHARP-03-T06-W01" | "CSHARP-03-T06-W02" | "CSHARP-03-T06-W03" => "Complete",
-            "CSHARP-03-T06-W04" => "Ready",
+            | "CSHARP-03-T06-W01" | "CSHARP-03-T06-W02" | "CSHARP-03-T06-W03"
+            | "CSHARP-03-T06-W04" => "Complete",
+            "CSHARP-03-T06-W05" => "Ready",
             _ => "Blocked",
         };
         assert_eq!(row.status, expected_status, "status drift for {work_item}");
@@ -264,7 +265,8 @@ fn csharp_03_t01_w01_ledger_has_one_owner_and_status_per_work_item() {
             "CSHARP-03-T05-W06" => "4a8cec4ce746ac65db745480ad76b6b174d67fe5",
             "CSHARP-03-T06-W01" => "d875314cf1d51add12313017ee922b963f485396",
             "CSHARP-03-T06-W02" => "781ebe3ba614b0ad1a21ea62c3ad031352a89dd3",
-            "CSHARP-03-T06-W03" => "SELF",
+            "CSHARP-03-T06-W03" => "b605e2b1a7abca43ca0e8b15a8f1eb14a9d37d82",
+            "CSHARP-03-T06-W04" => "SELF",
             _ => "—",
         };
         assert_eq!(

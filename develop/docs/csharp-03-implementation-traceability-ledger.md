@@ -60,7 +60,7 @@ private structured-loop lowering (section 40). T04-W03 completes switch and
 pattern lowering (section 41). T04-W04 completes closed exception declarations,
 explicit throws and exceptional contracts (section 42). T04-W05 completes
 two-pass handler search, filters, finally and propagation (section 43). T04-W06 completes
-ordinary control emission and independent import (section 44). T05-W01 completes boundary sidecar and presence attachment (section 45). T05-W02 completes canonical input capture and typed evidence linkage (section 46). T05-W03 completes source output encoding and typed reparse (section 47). T05-W04 completes pure transition attachment and pending obligations (section 48). T05-W05 completes full-snapshot idempotency attachment and pending obligations (section 49). T05-W06 closes boundary/transition emission and data-route totality (section 50). T06-W01 completes independent contract-expression import and ordinary-term encoding (section 51). T06-W02 completes construction/type-invariant VC generation (section 52). T06-W03 completes data/check/ownership and contract-definedness VC generation (section 53). T06-W04 is ready;
+ordinary control emission and independent import (section 44). T05-W01 completes boundary sidecar and presence attachment (section 45). T05-W02 completes canonical input capture and typed evidence linkage (section 46). T05-W03 completes source output encoding and typed reparse (section 47). T05-W04 completes pure transition attachment and pending obligations (section 48). T05-W05 completes full-snapshot idempotency attachment and pending obligations (section 49). T05-W06 closes boundary/transition emission and data-route totality (section 50). T06-W01 completes independent contract-expression import and ordinary-term encoding (section 51). T06-W02 completes construction/type-invariant VC generation (section 52). T06-W03 completes data/check/ownership and contract-definedness VC generation (section 53). T06-W04 completes source-bound loop and ordered pattern VC generation (section 54). T06-W05 is ready;
 later items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
@@ -141,9 +141,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T05-W06` | `Complete` | `crates/mpk-cli/tests/csharp_practical_boundary_transition.rs#CSHARP-03-T05-W06` | `4a8cec4ce746ac65db745480ad76b6b174d67fe5` |
 | `CSHARP-03-T06-W01` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W01` | `d875314cf1d51add12313017ee922b963f485396` |
 | `CSHARP-03-T06-W02` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W02` | `781ebe3ba614b0ad1a21ea62c3ad031352a89dd3` |
-| `CSHARP-03-T06-W03` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W03` | `SELF` |
-| `CSHARP-03-T06-W04` | `Ready` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W04` | `—` |
-| `CSHARP-03-T06-W05` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W05` | `—` |
+| `CSHARP-03-T06-W03` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W03` | `b605e2b1a7abca43ca0e8b15a8f1eb14a9d37d82` |
+| `CSHARP-03-T06-W04` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W04` | `SELF` |
+| `CSHARP-03-T06-W05` | `Ready` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W05` | `—` |
 | `CSHARP-03-T06-W06` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W06` | `—` |
 | `CSHARP-03-T06-W07` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W07` | `—` |
 | `CSHARP-03-T06-W08` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W08` | `—` |
@@ -5401,3 +5401,48 @@ The full gate is deferred to T06's final W12, correcting the W09 scheduling labe
 in earlier records while preserving W09's proof-assembly responsibility. Frozen
 producer/vector bytes, historical receipts, public schemas and checker acceptance
 remain unchanged.
+
+
+## 54. CSHARP-03-T06-W04 completion record
+
+W04 generates an independently reconstructed control handoff from the validated
+original source graph, native VIR and W01/W03 contract/definedness terms.
+`crates/mpk-vc/src/csharp_practical_control_vc.rs` owns loop cutpoints,
+entry/backedge/normal/break/continue/return/exception edge classification,
+lexicographic decreases, definite-assignment observations, normal return clauses,
+and ordered source-to-native pattern step obligations. Source slots are joined
+under the actual native edge guards; an explicit edge identity distinguishes
+post-update observations from the previous header snapshot. Contract free
+indices use W01's reverse declaration order. Generated construction loops retain
+header phis and W03 ownership identities as pending rank requirements.
+
+Each loop incident edge is recorded once per loop; each non-internal edge has
+one sequent. Each retained pattern source step belongs to its innermost decision
+and has one obligation. Original connectors, SSA result bindings, branch order,
+property getter identities and explicit no-match exception paths are retained.
+Normal postconditions occur once per method return, including returns reached
+through normal loop exits. Partialness propagates over the original call closure;
+partial loops may omit decreases and total loops may not. Requested total mode
+is never a discharged proof flag.
+
+`mpk.vc.v3` binds the complete control digest and sequent IDs without a schema
+change. Control groups depend on their global handoff and applicable W03 data
+groups. The exact resource reservation includes all generated control terms,
+free/local binders, sequents and the union of definition names. The standalone
+control importer compares complete canonical bytes against original-input
+reconstruction. The bounded closed built-in exception routing also covers a
+nonexhaustive switch's `SwitchExpressionException`.
+
+Evidence is in `develop/migrations/csharp-03/control-vc/`: 27 retained loop
+captures, 34 retained pattern captures, four new total/partial/variable-measure
+captures, stable hashes, typed-term and exact edge coverage, Boolean branch
+partition tests, lexicographic positive/counterexample tests and hostile handoff
+mutations. These are pending VCs and test oracles, not semantic or kernel proof
+receipts. W05 owns exceptional search/unwind composition; W09 owns expansion of
+these recipes to ordinary definitions, proof assembly and both checker runs.
+
+Targeted verification and direct review are recorded in `verification.json`
+and `review.md`. The full `./scripts/check-fast.sh` gate is deferred to T06-W12,
+the last W of T06. W03 records its published hash, W04 uses `SELF`, and W05 is
+ready. The frozen source producer/vector package and earlier receipt contents
+are unchanged.

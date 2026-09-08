@@ -228,7 +228,8 @@ fn csharp_03_t06_w02_actual_source_goldens_and_failing_conditions() {
         {
             assert_typed(&goal.term, std::slice::from_ref(&goal.subject.type_id));
         }
-        let expected_nodes = super::data::nodes(vc.data_vcs())
+        let expected_nodes = super::control::nodes(vc.control_vcs())
+            + super::data::nodes(vc.data_vcs())
             + vc.type_encodings().len()
             + vc.operation_encodings().len()
             + vc.control_encodings().len()
@@ -260,6 +261,7 @@ fn csharp_03_t06_w02_actual_source_goldens_and_failing_conditions() {
             .flat_map(|e| e.definitions().iter().map(|d| &d.name))
             .chain(p.definition_names())
             .chain(vc.data_vcs().definition_names())
+            .chain(vc.control_vcs().definition_names())
             .collect::<std::collections::BTreeSet<_>>();
         let declarations = vc.type_encodings().len()
             + vc.operation_encodings().len()
@@ -272,7 +274,8 @@ fn csharp_03_t06_w02_actual_source_goldens_and_failing_conditions() {
                 .map(|o| 1 + o.checks.len())
                 .sum::<usize>()
             + vc.data_vcs().ownership().len()
-            + vc.data_vcs().contracts().len();
+            + vc.data_vcs().contracts().len()
+            + vc.control_vcs().sequents().len();
         assert_eq!(
             vc.resource_reservation().generated_declarations_minimum(),
             declarations as u64

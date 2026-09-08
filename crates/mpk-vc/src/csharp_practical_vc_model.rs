@@ -463,6 +463,7 @@ struct WirePracticalVcDocument {
 pub struct ValidatedPracticalVc {
     construction_vcs: crate::csharp_practical_vir_model::ConstructionVcProgram,
     data_vcs: crate::csharp_practical_vir_model::DataVcProgram,
+    control_vcs: crate::csharp_practical_vir_model::ControlVcProgram,
     wire: WirePracticalVcDocument,
     canonical_bytes: Vec<u8>,
     artifact_ref: ArtifactRef,
@@ -470,6 +471,9 @@ pub struct ValidatedPracticalVc {
 }
 
 impl ValidatedPracticalVc {
+    pub fn control_vcs(&self) -> &crate::csharp_practical_vir_model::ControlVcProgram {
+        &self.control_vcs
+    }
     pub fn data_vcs(&self) -> &crate::csharp_practical_vir_model::DataVcProgram {
         &self.data_vcs
     }
@@ -844,9 +848,12 @@ pub fn import_csharp_practical_vc_json(
             PracticalVcErrorCode::Linkage,
         )
     })?;
+    let data_program = data_vcs(source.vir)?;
+    let control_program = control_vcs(source.vir, &data_program)?;
     Ok(ValidatedPracticalVc {
         construction_vcs: construction_vcs(source.vir)?,
-        data_vcs: data_vcs(source.vir)?,
+        data_vcs: data_program,
+        control_vcs: control_program,
         contract_expressions: source.vir.contract_expressions().to_vec(),
         wire,
         canonical_bytes: input.to_vec(),
@@ -915,6 +922,36 @@ pub fn import_csharp_practical_data_vcs(
     Ok(expected)
 }
 
+fn control_vcs(
+    vir: &ValidatedPracticalVir,
+    data: &crate::csharp_practical_vir_model::DataVcProgram,
+) -> Result<crate::csharp_practical_vir_model::ControlVcProgram, PracticalVcError> {
+    crate::csharp_practical_vir_model::generate_control_vcs(vir, data).map_err(|e| match e {
+        crate::csharp_practical_vir_model::ControlVcError::Limit => limit_error(),
+        crate::csharp_practical_vir_model::ControlVcError::Contract => failure(
+            PracticalVcValidationPhase::Obligations,
+            PracticalVcErrorCode::Obligation,
+        ),
+    })
+}
+/// Reconstruct the complete source-bound control handoff. No caller-supplied
+/// proof status, edge, snapshot, order, or contract attachment is accepted.
+pub fn import_csharp_practical_control_vcs(
+    input: &[u8],
+    source: PracticalVcSource<'_>,
+) -> Result<crate::csharp_practical_vir_model::ControlVcProgram, PracticalVcError> {
+    validate_source(source)?;
+    require_transport_bound(input)?;
+    let expected = control_vcs(source.vir, &data_vcs(source.vir)?)?;
+    if input != expected.canonical_bytes() {
+        return Err(failure(
+            PracticalVcValidationPhase::Obligations,
+            PracticalVcErrorCode::Obligation,
+        ));
+    }
+    Ok(expected)
+}
+
 fn expected_vc(source: PracticalVcSource<'_>) -> Result<WirePracticalVcDocument, PracticalVcError> {
     validate_source(source)?;
     let semantic_context = canonical_context_raw(source.artifact_context)?;
@@ -926,10 +963,12 @@ fn expected_vc(source: PracticalVcSource<'_>) -> Result<WirePracticalVcDocument,
     let control_encodings = build_control_encodings(source.vir.functions());
     let construction = construction_vcs(source.vir)?;
     let data = data_vcs(source.vir)?;
+    let control = control_vcs(source.vir, &data)?;
     let obligation_groups = build_obligation_groups(
         source.vir,
         &construction,
         &data,
+        &control,
         &type_encodings,
         &operation_encodings,
         &control_encodings,
@@ -956,6 +995,7 @@ fn expected_vc(source: PracticalVcSource<'_>) -> Result<WirePracticalVcDocument,
         .collect::<BTreeSet<_>>();
     definitions.extend(construction.definition_names());
     definitions.extend(data.definition_names());
+    definitions.extend(control.definition_names());
     resource_reservation.ordinary_term_nodes_minimum = resource_reservation
         .ordinary_term_nodes_minimum
         .checked_add(expression_nodes)
@@ -986,6 +1026,12 @@ fn expected_vc(source: PracticalVcSource<'_>) -> Result<WirePracticalVcDocument,
     resource_reservation.binder_depth_minimum = resource_reservation
         .binder_depth_minimum
         .max(data.binder_depth() as u64);
+    resource_reservation.ordinary_term_nodes_minimum += control.nodes() as u64;
+    resource_reservation.generated_declarations_minimum +=
+        (control.declarations() - control.definition_names().len()) as u64;
+    resource_reservation.binder_depth_minimum = resource_reservation
+        .binder_depth_minimum
+        .max(control.binder_depth() as u64);
     validate_resource_reservation(&resource_reservation)?;
     let mut wire = WirePracticalVcDocument {
         schema: SUCCESSOR_VC_SCHEMA.to_owned(),
@@ -1265,6 +1311,20 @@ pub fn ordinary_check_route(
     check_id: &str,
     tag: RequiredCheckTag,
 ) -> Result<(OrdinaryCheckRoute, LaterProofOwner), PracticalVcError> {
+    if tag == RequiredCheckTag::Exception
+        && check_id
+            .strip_prefix("exception.closed.")
+            .is_some_and(|id| {
+                crate::csharp_practical_vir_model::builtin_exception_arms()
+                    .iter()
+                    .any(|arm| arm.type_id == id)
+            })
+    {
+        return Ok((
+            OrdinaryCheckRoute::ClosedExceptionalEdge,
+            LaterProofOwner::ExceptionalControl,
+        ));
+    }
     let (expected_tag, route, owner) = match check_id {
         "already_initialized"
         | "construction_bound"
@@ -1528,6 +1588,7 @@ fn build_obligation_groups(
     vir: &ValidatedPracticalVir,
     construction: &crate::csharp_practical_vir_model::ConstructionVcProgram,
     data: &crate::csharp_practical_vir_model::DataVcProgram,
+    control: &crate::csharp_practical_vir_model::ControlVcProgram,
     types: &[PracticalTypeEncoding],
     operations: &[PracticalOperationEncoding],
     controls: &[PracticalControlEncoding],
@@ -1593,6 +1654,28 @@ fn build_obligation_groups(
                 ))
                 .or_default()
                 .insert(ownership.id.clone());
+        }
+    }
+    let control_present = !control.functions().is_empty();
+    if control_present {
+        let global = pending
+            .entry((None, LaterProofOwner::LoopSwitchAndPatterns))
+            .or_default();
+        global.insert(format!("control_program:{}", control.hash()));
+        global.extend(
+            control
+                .unresolved_regions()
+                .iter()
+                .map(|r| format!("unresolved_control:{r}")),
+        );
+        for s in control.sequents() {
+            pending
+                .entry((
+                    Some(s.function_id.clone()),
+                    LaterProofOwner::LoopSwitchAndPatterns,
+                ))
+                .or_default()
+                .insert(s.id.clone());
         }
     }
     for operation in operations {
@@ -1740,6 +1823,7 @@ fn build_obligation_groups(
         dependencies: Vec::new(),
         proof_owner: LaterProofOwner::OrdinaryFoundationAndAssembly,
     }];
+    let group_keys = pending.keys().cloned().collect::<BTreeSet<_>>();
     for ((function_id, proof_owner), subjects) in pending {
         let scope = match &function_id {
             Some(function_id) => format!("function.{function_id}"),
@@ -1758,6 +1842,25 @@ fn build_obligation_groups(
         {
             dependencies.push(format!("vc.group.{:04}.global", proof_owner.order()));
         }
+        if proof_owner == LaterProofOwner::LoopSwitchAndPatterns && control_present {
+            if function_id.is_some() {
+                dependencies.push("vc.group.0400.global".into());
+            }
+            for key in [
+                (None, LaterProofOwner::DataAndCollections),
+                (function_id.clone(), LaterProofOwner::DataAndCollections),
+            ] {
+                if group_keys.contains(&key) {
+                    let scope = key
+                        .0
+                        .map(|f| format!("function.{f}"))
+                        .unwrap_or_else(|| "global".into());
+                    dependencies.push(format!("vc.group.0300.{scope}"));
+                }
+            }
+        }
+        dependencies.sort();
+        dependencies.dedup();
         groups.push(PracticalObligationGroup {
             id: format!("vc.group.{:04}.{scope}", proof_owner.order()),
             kind: group_kind(proof_owner),
