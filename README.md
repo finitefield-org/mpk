@@ -166,11 +166,21 @@ materializes one installed release, runs all four registered frontends,
 checks both source-free verifiers, and repeats the installed-release pass
 twice.
 
-Ordinary development:
+For development organized into stages (`Tnn`) and work items (`Wnn`), run
+targeted tests for the changed code and affected consumers, appropriate
+lint/format checks, and review for each W. Run the following workspace gate
+only in the final W of a T, covering all changes in that T:
 
 ```sh
 ./scripts/check-fast.sh
 ```
+
+Do not reproduce the full gate by running all its components separately for
+each W. Record targeted results separately from the full gate deferred to T
+completion. The final W and its T cannot be marked complete, and the next T
+cannot begin, until the gate passes after any required fixes. An explicit user
+request to run the full gate takes precedence over this cadence. This cadence
+does not change the release checks below.
 
 The fast gate fails if `.github/workflows/` contains any entry.
 

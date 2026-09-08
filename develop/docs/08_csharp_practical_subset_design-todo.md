@@ -243,8 +243,16 @@ Every work item follows this common contract:
    structural or transport over-limit input before emitting downstream
    artifacts. Represent an admitted run-time semantic bound with its frozen
    predicate and VC; do not claim verified acceptance until it is proved.
-5. Run the targeted command listed below, then `./scripts/check-fast.sh`.
-   Native Linux commands are additionally required only where stated.
+5. Run the targeted checks listed below for the changed code and affected
+   consumers, with appropriate lint/format checks. Run `./scripts/check-fast.sh`
+   only in the final W of the current T, covering that T's cumulative changes.
+   Earlier W items do not run the full gate or recreate it by running every
+   component separately. Record their targeted results and explicitly defer
+   the full gate to T completion. The final W and its T cannot be marked
+   `Complete`, and the next T cannot become `Ready`, until the full gate passes
+   after any required fixes. This cadence applies to all `check-fast.sh`
+   references below; an explicit user request to run it takes precedence.
+   Other named targeted checks and required native Linux checks remain required.
 6. Review the complete diff for contradictions, stale assumptions, missing
    negative cases, accidental public routes, ambient dependencies, and
    predecessor regressions; fix until the finding ledger is empty.
@@ -2375,8 +2383,10 @@ owner/gate has been reached:
 - Which application semantic bindings changed, and where are total projection,
   arm distinction, round-trip, invariant, default, and operation-commutation
   obligations discharged?
-- Which targeted commands and `./scripts/check-fast.sh` ran, on what host, and
-  with what result? If native Linux evidence is required, where is its receipt?
+- Which targeted commands ran, on what host, and with what result? For an
+  intermediate W, explicitly record that `./scripts/check-fast.sh` is deferred
+  to the final W of its T; for the final W, record the full gate's passing
+  result. If native Linux evidence is required, where is its receipt?
 - How was absence of an active/public/staging/ambient route checked?
 - What review findings were found, how were they fixed, and where is the final
   zero-finding result?
