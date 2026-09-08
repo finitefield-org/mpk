@@ -777,3 +777,11 @@ pub use scalar_domains::{
     import_csharp_practical_ordinary_scalar_domains, OrdinaryScalarDomainDefinition,
     OrdinaryScalarDomainProgram, OrdinaryScalarDomainRule,
 };
+
+#[path = "csharp_practical_ordinary_ordered_fold.rs"]
+mod ordered_fold;
+pub use ordered_fold::{
+    generate_csharp_practical_ordinary_ordered_folds,
+    import_csharp_practical_ordinary_ordered_folds, OrdinaryOrderedFoldDefinition,
+    OrdinaryOrderedFoldProgram,
+};

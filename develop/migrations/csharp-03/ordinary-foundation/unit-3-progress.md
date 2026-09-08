@@ -86,6 +86,44 @@ tests passed. See `unit-3-scalar-domain-verification.json` and
 `unit-3-scalar-domain-review.md`. This closes the scalar representation-domain
 component only; unit 3 and W09 remain incomplete.
 
+## Shared ordered folds for subsequent relations
+
+An ordinary ordered-fold program now reconstructs the index widths needed by
+all reachable array/sequence carriers, including referenced and uninvoked
+instances. A single closed C6 state pipeline carries a u32 index and the first
+nonzero i32 word. Each StepTwo is a concrete C6->C6 value under fixed predicate
+and length arguments. Balanced guarded composition preserves source index order
+and counts all 8,192 leaves before sharing, even when only a smaller capacity is
+used. All index widths 0..14 share this same checked definition.
+
+First returns the first nonzero word unchanged. Any and All embed Boolean
+predicates in the low word bit and retain false/true respectively for empty
+input. Every wrapper clamps count to its power-of-two capacity, and the second
+read of an odd final pair is guarded. This clamping is not proof that an
+application length is valid: callers must separately enforce their real domain
+and role bounds. Validation's shared sequence still uses the 4,096-slot carrier;
+its 256-error bound remains a separate domain requirement.
+
+The original direct unsigned-comparison expression duplicated the lower-bit
+subexpression, causing exponential syntactic dependency traversal while building
+the axiom inventory. The two old verification processes were explicitly stopped
+after diagnosing that construction issue, and their logs were preserved. A
+linear expression now references the lower result once. A regression counts
+expanded syntax without enumerating it, rejects exponential growth before
+certificate construction, and checks boundary comparisons. Neither checker nor
+its acceptance/performance behavior was changed.
+
+Small order/count/carry cases, Boolean truth tables, source generation/mutations,
+syntax-growth regression and lint have passed. Original sources cover bounded
+sequences, validation, ordered maps, UTF-16 indexing and a no-fold scalar case.
+The full 16,384-element execution, the odd 16,383-element exclusion case,
+pinned replay and all six same-byte dual-checker cases passed. The core suite
+completed in 324.77 seconds; it was not restarted after the corrected run
+began. The inventory also passed without a fingerprint change. See
+`unit-3-ordered-fold-verification.json` and `unit-3-ordered-fold-review.md`.
+This completes the common fold component only. No structural equality, canonical
+order, recursive domain or application proof is claimed by these fold helpers.
+
 ## Remaining unit 3 work
 
 - Complete semantic domains/default eligibility for all concrete values,

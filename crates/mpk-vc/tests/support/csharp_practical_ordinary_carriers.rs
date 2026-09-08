@@ -1554,3 +1554,147 @@ fn csharp_03_t06_w09_scalar_domains_ranges_from_original_sources() {
         );
     }
 }
+
+#[test]
+fn csharp_03_t06_w09_ordered_folds_source_replay_and_mutations() {
+    let bundle = b();
+    let fixture = Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("../../develop/migrations/csharp-03/ordinary-foundation/ordered-folds");
+    let output = std::env::var_os("MPK_W09_ORDERED_FOLD_OUT").map(std::path::PathBuf::from);
+    if let Some(p) = &output {
+        fs::create_dir_all(p).unwrap();
+    }
+    let mut cases = vec![];
+    for (family, id, expected) in [
+        ("binding-vc", "bounded_sequence", vec![12u32]),
+        ("binding-vc", "validation", vec![12]),
+        ("binding-vc", "ordered_map", vec![12]),
+        ("construction-vc", "positive_constructor", vec![]),
+    ] {
+        let requests = read(&format!("{family}/requests.json"));
+        let responses = read(&format!("{family}/responses.json"));
+        let row = requests
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|r| r["id"] == id)
+            .unwrap()
+            .clone();
+        let response = responses
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|r| r["id"] == id)
+            .unwrap();
+        cases.push((
+            format!("{family}-{id}"),
+            row,
+            response["facts"].clone(),
+            expected,
+        ));
+    }
+    let replay = read("data-phase/data-stage-replay.json");
+    let row = replay
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|r| r["id"] == "5c9185c954edd922bee4892b0ad4a612ee6efe729b9d0a907ea0b083dc32effc")
+        .unwrap();
+    cases.push((
+        "string-index".to_owned(),
+        row.clone(),
+        row["outcome"]["facts"].clone(),
+        vec![14],
+    ));
+    let mut metrics = vec![];
+    let mut previous: Option<(Vec<u8>, Vec<u8>)> = None;
+    for (id, row, facts, expected) in cases {
+        let (context, captures) = support::replay_context(&bundle, &row);
+        let source = ValidatedDataSource::import_captured_facts(
+            &bundle,
+            &context,
+            &captures,
+            &serde_json::to_vec(&facts).unwrap(),
+        )
+        .unwrap();
+        let emitted = emit_data_phase(&bundle, &context, &captures, &source).unwrap();
+        let vir = emitted.vir();
+        let p = generate_csharp_practical_ordinary_ordered_folds(vir).unwrap();
+        assert_eq!(
+            p.definitions()
+                .iter()
+                .map(|d| d.index_bits)
+                .collect::<Vec<_>>(),
+            expected,
+            "{id}"
+        );
+        let metadata = p.canonical_bytes();
+        let bytes = p.certificate_bytes();
+        assert_eq!(
+            import_csharp_practical_ordinary_ordered_folds(&metadata, bytes, vir).unwrap(),
+            p
+        );
+        let original: Value = serde_json::from_slice(&metadata).unwrap();
+        assert_eq!(
+            original["static_transformers"],
+            if expected.is_empty() { 0 } else { 8192 }
+        );
+        for key in [
+            "schema",
+            "source_ir_sha256",
+            "foundation_sha256",
+            "certificate_sha256",
+            "static_transformers",
+        ] {
+            let mut changed = original.clone();
+            changed[key] = json!("forged");
+            assert!(import_csharp_practical_ordinary_ordered_folds(
+                &serde_json::to_vec(&changed).unwrap(),
+                bytes,
+                vir
+            )
+            .is_err());
+        }
+        let mut changed = original.clone();
+        changed["definitions"] = json!([{"index_bits":15,"capacity":32768}]);
+        assert!(import_csharp_practical_ordinary_ordered_folds(
+            &serde_json::to_vec(&changed).unwrap(),
+            bytes,
+            vir
+        )
+        .is_err());
+        let mut bad = bytes.to_vec();
+        *bad.last_mut().unwrap() ^= 1;
+        assert!(import_csharp_practical_ordinary_ordered_folds(&metadata, &bad, vir).is_err());
+        if let Some((m, c)) = &previous {
+            if m != &metadata {
+                assert!(import_csharp_practical_ordinary_ordered_folds(m, c, vir).is_err());
+            }
+        }
+        previous = Some((metadata, bytes.to_vec()));
+        let c = mpk_cert::decode_canonical_certificate(bytes).unwrap();
+        validate_csharp_practical_certificate_structure(&c).unwrap();
+        let file = format!("{id}.hex");
+        let hex = bytes.iter().map(|b| format!("{b:02x}")).collect::<String>() + "\n";
+        if let Some(p) = &output {
+            fs::write(p.join(&file), hex).unwrap();
+        } else {
+            assert_eq!(fs::read_to_string(fixture.join(&file)).unwrap(), hex);
+        }
+        metrics.push(json!({"id":id,"file":file,"terms":c.term_table.len(),"declarations":c.declarations.len(),"metadata":original}));
+    }
+    assert_eq!(metrics.len(), 5);
+    if let Some(p) = output {
+        fs::write(
+            p.join("metrics.json"),
+            serde_json::to_vec_pretty(&metrics).unwrap(),
+        )
+        .unwrap();
+    } else {
+        assert_eq!(
+            serde_json::from_slice::<Value>(&fs::read(fixture.join("metrics.json")).unwrap())
+                .unwrap(),
+            json!(metrics)
+        );
+    }
+}

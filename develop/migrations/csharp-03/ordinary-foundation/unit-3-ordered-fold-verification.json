@@ -1,0 +1,141 @@
+{
+  "schema": "mpk.csharp_practical.t06_w09.ordered_fold_verification.v1",
+  "work_item": "CSHARP-03-T06-W09",
+  "internal_unit": 3,
+  "component": "shared finite ordered state-transformer folds",
+  "status": "component complete; unit 3 and W09 incomplete",
+  "baseline_commit": "1b27a3a",
+  "completion_commit": "SELF",
+  "date": "2026-09-09",
+  "review": "unit-3-ordered-fold-review.md",
+  "review_findings": 0,
+  "source_cases": 5,
+  "core_metrics": {
+    "certificate_sha256": "9675908972e526a8bb08b1c24ac26050e3079b79f6e1f043da4796a4995cdb07",
+    "declarations": 44,
+    "inclusive_transformer_bound": 16384,
+    "rejected_transformer_count": 16385,
+    "static_transformers": 8192,
+    "terms": 1174
+  },
+  "verification": [
+    {
+      "command": "MPK_W09_ORDERED_FOLD_OUT=/tmp/mpk-w09-ordered-fold-fixtures cargo test -p mpk-vc --lib ordered_fold_",
+      "result": "4 passed, including actual full 16,384 and odd 16,383 execution; 324.77 seconds",
+      "log": "/tmp/mpk-w09-ordered-fold-core-generation-fixed.log",
+      "log_sha256": "a9cb8ec5b788c97e472655cba8b91fadbe3a69403a64ef23f00c1cc7e92f7c63"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib ordered_fold_comparator_has_linear_",
+      "result": "1 passed; expanded-syntax growth and 256 comparison boundary pairs",
+      "log": "/tmp/mpk-w09-ordered-fold-comparator-regression.log",
+      "log_sha256": "3b04a8a1a9ae74976067ea8aeb675a85b844f5719532bc633bbf1a94cebcb70a"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib ordered_fold_certificate_replays_and_limits",
+      "result": "1 passed; pinned certificate/metadata, repeated generation and cumulative occurrence limits",
+      "log": "/tmp/mpk-w09-ordered-fold-core-replay.log",
+      "log_sha256": "b2360811e387173a8d4fa778358b0fe76c752b05ab3d6159e079a370bc7ed3ed"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w09_ordered_folds_",
+      "result": "1 passed; five original sources and substitutions",
+      "log": "/tmp/mpk-w09-ordered-fold-source-replay.log",
+      "log_sha256": "3a53fa70e3d28c410390dae4d67aaa4784e1499d7d85eabc131dacc3dcc3240f"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc -- -D warnings",
+      "result": "passed",
+      "log": "/tmp/mpk-w09-ordered-fold-clippy.log",
+      "log_sha256": "9d45e96123e7ea2009ff1e846180f0cb0802a91ddd6ecd6499a0bbe66ae53b0d"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "result": "5 passed",
+      "log": "/tmp/mpk-w09-ordered-fold-inventory.log",
+      "log_sha256": "d9a240c9cfb49ce611225a36d4c246c4ea6478205d78e35f814d7561b40db310"
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true (five changed Rust files)",
+      "result": "passed",
+      "log": "/tmp/mpk-w09-ordered-fold-format.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "GOCACHE=/tmp/mpk-t06-w09-go-cache go test -v -count=1 -timeout 25m -tags checkeragreement -run '^TestCheckerAgreementWithRustCLIOrderedFolds$' .",
+      "result": "6 same-byte certificates accepted with zero axioms; 6 hash corruptions rejected by both checkers",
+      "log": "/tmp/mpk-w09-ordered-fold-checkers.log",
+      "log_sha256": "0bd02c1e00c570b9f0ae4d0770c4ae50dd38a0517dbab084c2fb4ff1f99cc281"
+    }
+  ],
+  "superseded_runs": [
+    {
+      "pid": 34040,
+      "result": "explicitly terminated after diagnosing exponential comparator syntax; superseded implementation, not a timeout result",
+      "log": "/tmp/mpk-w09-ordered-fold-core-generation.log",
+      "log_sha256": "351a9b196eda168d92fa60d4ef55ccaddcb3ed538d80863cbb962cb332ef94d4"
+    },
+    {
+      "pid": 34966,
+      "result": "explicitly terminated after diagnosing exponential comparator syntax; superseded implementation, not a timeout result",
+      "log": "/tmp/mpk-w09-ordered-fold-source-generation.log",
+      "log_sha256": "3730a687b131320b44f183f1f12385390f2de75442a3b82d51589045785df822"
+    }
+  ],
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "result": "deferred",
+    "owner": "CSHARP-03-T06-W12"
+  },
+  "remaining_scope": "unit-3-progress.md",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_ordinary_ordered_fold.rs",
+      "sha256": "98084d6f9cdb33219d84d94721e9c41d1699279c74e014d24aea0cb25e9b3482"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/unit-3-progress.md",
+      "sha256": "367c6daaa2f9106737baf4ad2135b830f8f371134bbba9d5f17b3168525e9fd5"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/unit-3-comparison-notes.md",
+      "sha256": "a06270819679a60359017843c86b44b0999120ca4b413c053ea0346503d21ed0"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/unit-3-ordered-fold-review.md",
+      "sha256": "07e2bf498953390ffa905cec66abfa9c1d46f73313f7da699212da537833ed47"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/ordered-folds/binding-vc-bounded_sequence.hex",
+      "sha256": "3fcb87a8701941d86360420ddda28a3b2e601d455bab07c3d9e8899b53e90d20"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/ordered-folds/binding-vc-ordered_map.hex",
+      "sha256": "3fcb87a8701941d86360420ddda28a3b2e601d455bab07c3d9e8899b53e90d20"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/ordered-folds/binding-vc-validation.hex",
+      "sha256": "3fcb87a8701941d86360420ddda28a3b2e601d455bab07c3d9e8899b53e90d20"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/ordered-folds/construction-vc-positive_constructor.hex",
+      "sha256": "93ae7ea5217263cc20f3f9b3d11780d81392764648c13ce85e0c8deada99b08d"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/ordered-folds/core-metrics.json",
+      "sha256": "5e385ed972ac5e583d942809cf0358276250b649a28f3a27143a89a45122b298"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/ordered-folds/metrics.json",
+      "sha256": "c91f697baee99875dd8dde9f6489b6cc8216c12d859661d16d3e9970b5660110"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/ordered-folds/ordered-fold.hex",
+      "sha256": "a5ac4f2cb0e94c1850e89f23fbaae9750644c544fcf8887be47b9e559ebf4a61"
+    },
+    {
+      "path": "develop/migrations/csharp-03/ordinary-foundation/ordered-folds/string-index.hex",
+      "sha256": "2076ee26e3498f6ab34e8f51d59612e99783fbee2893372644e8f09412127e42"
+    }
+  ]
+}

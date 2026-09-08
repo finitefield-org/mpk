@@ -288,6 +288,10 @@ func TestCheckerAgreementWithRustCLIBoolean(t *testing.T) {
 	checkOrdinaryCertificates(t, "boolean-circuits", 1)
 }
 
+func TestCheckerAgreementWithRustCLIOrderedFolds(t *testing.T) {
+	checkOrdinaryCertificates(t, "ordered-folds", 6)
+}
+
 func TestCheckerAgreementWithRustCLIScalarDomainRanges(t *testing.T) {
 	checkOrdinaryCertificates(t, "scalar-domain-ranges", 2)
 }

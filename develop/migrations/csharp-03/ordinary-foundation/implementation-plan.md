@@ -131,3 +131,14 @@ lint and same-byte dual checking of 27 certificates. See
 `unit-3-scalar-domain-verification.json` and `unit-3-scalar-domain-review.md`.
 Recursive domains/default eligibility and the remaining unit 3 operations stay
 open in `unit-3-progress.md`; this does not complete unit 3 or W09.
+
+### Unit 3 ordered-fold checkpoint
+
+Common First/Any/All helpers now use a concrete C6 state pipeline with 8,192
+counted StepTwo occurrences. Full 16,384/16,383 execution, source reconstruction,
+mutation, pinned replay, lint, inventory and six same-byte dual-checker cases
+passed after fixing exponential syntax growth in the auxiliary comparison.
+See `unit-3-ordered-fold-verification.json` and `unit-3-ordered-fold-review.md`.
+Element relations, full structural/collection operations and all other remaining
+W09 work remain open; `unit-3-comparison-notes.md` records inspected next-step
+requirements without claiming implementation.
