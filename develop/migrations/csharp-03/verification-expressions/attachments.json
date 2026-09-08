@@ -1,0 +1,1138 @@
+[
+  {
+    "expressions": [
+      {
+        "attachment_sha256": "c64df83896f4c000bc66d3ddbea2a3e1bcb37bedf2e67007ef616ac6fcb04353",
+        "canonical_expression": "{\"tag\":\"binary\",\"type_id\":\"mpk.csharp.value.bool.v1\",\"operation_id\":\"integer.i32.greater_equal.checked\",\"left\":{\"tag\":\"field\",\"type_id\":\"mpk.csharp.value.i32.v1\",\"receiver\":{\"tag\":\"variable\",\"type_id\":\"mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36\",\"binding_id\":\"this\"},\"member_id\":\"mpk.csharp.member.9f3c02b1f1375cb27870b3e9c882f7a540ea1010017de45277dbf37110cc0594\"},\"right\":{\"tag\":\"literal\",\"type_id\":\"mpk.csharp.value.i32.v1\",\"value\":\"0\"}}",
+        "definitions": [
+          {
+            "argument_types": [],
+            "name": "contract.def.8d834dcb097fefecf6faa2768233a04eab477291c35dac084cf0529ea3af0413",
+            "ordered_checks": [],
+            "parameters": "{\"value\":\"0\"}",
+            "result_type": "mpk.csharp.value.i32.v1",
+            "tag": "literal"
+          },
+          {
+            "argument_types": [
+              "mpk.csharp.value.i32.v1",
+              "mpk.csharp.value.i32.v1"
+            ],
+            "name": "contract.def.932a554b2e413269cc2ad27eeebf7a4101892e7d3e27833653a7cff24255a2be",
+            "ordered_checks": [],
+            "parameters": "{\"operation_id\":\"integer.i32.greater_equal.checked\"}",
+            "result_type": "mpk.csharp.value.bool.v1",
+            "tag": "binary"
+          },
+          {
+            "argument_types": [
+              "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36"
+            ],
+            "name": "contract.def.c14c455075fb8ae5e23b3b8d65a4e01a6bc406788764ac0ca74b7cb456b4f0d3",
+            "ordered_checks": [],
+            "parameters": "{\"member_id\":\"mpk.csharp.member.9f3c02b1f1375cb27870b3e9c882f7a540ea1010017de45277dbf37110cc0594\"}",
+            "result_type": "mpk.csharp.value.i32.v1",
+            "tag": "field"
+          }
+        ],
+        "expression_sha256": "52a46a6bad88cc1e66ccfb17654ec7c172764c9cf391166170234312e24f680b",
+        "subject_bindings": [
+          [
+            "current:this",
+            "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36"
+          ]
+        ],
+        "term": {
+          "argument": {
+            "form": "const",
+            "name": "contract.def.8d834dcb097fefecf6faa2768233a04eab477291c35dac084cf0529ea3af0413",
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "form": "app",
+          "function": {
+            "argument": {
+              "argument": {
+                "form": "var",
+                "index": 0,
+                "type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36"
+              },
+              "form": "app",
+              "function": {
+                "form": "const",
+                "name": "contract.def.c14c455075fb8ae5e23b3b8d65a4e01a6bc406788764ac0ca74b7cb456b4f0d3",
+                "type_id": "(mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36->mpk.csharp.value.i32.v1)"
+              },
+              "type_id": "mpk.csharp.value.i32.v1"
+            },
+            "form": "app",
+            "function": {
+              "form": "const",
+              "name": "contract.def.932a554b2e413269cc2ad27eeebf7a4101892e7d3e27833653a7cff24255a2be",
+              "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+            },
+            "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+          },
+          "type_id": "mpk.csharp.value.bool.v1"
+        }
+      },
+      {
+        "attachment_sha256": "c64df83896f4c000bc66d3ddbea2a3e1bcb37bedf2e67007ef616ac6fcb04353",
+        "canonical_expression": "{\"tag\":\"binary\",\"type_id\":\"mpk.csharp.value.bool.v1\",\"operation_id\":\"integer.i32.greater_equal.checked\",\"left\":{\"tag\":\"field\",\"type_id\":\"mpk.csharp.value.i32.v1\",\"receiver\":{\"tag\":\"variable\",\"type_id\":\"mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36\",\"binding_id\":\"this\"},\"member_id\":\"mpk.csharp.member.9f3c02b1f1375cb27870b3e9c882f7a540ea1010017de45277dbf37110cc0594\"},\"right\":{\"tag\":\"literal\",\"type_id\":\"mpk.csharp.value.i32.v1\",\"value\":\"0\"}}",
+        "definitions": [
+          {
+            "argument_types": [],
+            "name": "contract.def.8d834dcb097fefecf6faa2768233a04eab477291c35dac084cf0529ea3af0413",
+            "ordered_checks": [],
+            "parameters": "{\"value\":\"0\"}",
+            "result_type": "mpk.csharp.value.i32.v1",
+            "tag": "literal"
+          },
+          {
+            "argument_types": [
+              "mpk.csharp.value.i32.v1",
+              "mpk.csharp.value.i32.v1"
+            ],
+            "name": "contract.def.932a554b2e413269cc2ad27eeebf7a4101892e7d3e27833653a7cff24255a2be",
+            "ordered_checks": [],
+            "parameters": "{\"operation_id\":\"integer.i32.greater_equal.checked\"}",
+            "result_type": "mpk.csharp.value.bool.v1",
+            "tag": "binary"
+          },
+          {
+            "argument_types": [
+              "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36"
+            ],
+            "name": "contract.def.c14c455075fb8ae5e23b3b8d65a4e01a6bc406788764ac0ca74b7cb456b4f0d3",
+            "ordered_checks": [],
+            "parameters": "{\"member_id\":\"mpk.csharp.member.9f3c02b1f1375cb27870b3e9c882f7a540ea1010017de45277dbf37110cc0594\"}",
+            "result_type": "mpk.csharp.value.i32.v1",
+            "tag": "field"
+          }
+        ],
+        "expression_sha256": "52a46a6bad88cc1e66ccfb17654ec7c172764c9cf391166170234312e24f680b",
+        "subject_bindings": [
+          [
+            "current:this",
+            "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36"
+          ]
+        ],
+        "term": {
+          "argument": {
+            "form": "const",
+            "name": "contract.def.8d834dcb097fefecf6faa2768233a04eab477291c35dac084cf0529ea3af0413",
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "form": "app",
+          "function": {
+            "argument": {
+              "argument": {
+                "form": "var",
+                "index": 0,
+                "type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36"
+              },
+              "form": "app",
+              "function": {
+                "form": "const",
+                "name": "contract.def.c14c455075fb8ae5e23b3b8d65a4e01a6bc406788764ac0ca74b7cb456b4f0d3",
+                "type_id": "(mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36->mpk.csharp.value.i32.v1)"
+              },
+              "type_id": "mpk.csharp.value.i32.v1"
+            },
+            "form": "app",
+            "function": {
+              "form": "const",
+              "name": "contract.def.932a554b2e413269cc2ad27eeebf7a4101892e7d3e27833653a7cff24255a2be",
+              "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+            },
+            "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+          },
+          "type_id": "mpk.csharp.value.bool.v1"
+        }
+      }
+    ],
+    "input_sha256": "e05bd1faa8341ee33ae4e900e1da31d40523831938d11e58d87d35202efca26f",
+    "requests": "verification-expressions/type-requests.json",
+    "reservation": {
+      "binder_depth_minimum": 1,
+      "generated_declarations_minimum": 18,
+      "ordinary_term_nodes_minimum": 62,
+      "static_transformers_minimum": 0
+    },
+    "vc_sha256": "4c68337bdf045b9693a392b11e7b68c76d37809a17e32ce98a117d874c6c8a59",
+    "vir_sha256": "dd1a8a670bbd74965049ddadd3c211ed8a7a873ad657a38fac831c3ce61ebdc7"
+  },
+  {
+    "expressions": [],
+    "input_sha256": "1edcaf5c99a2c31ffbc37fa2f36d0423657e2592864990b2231648bc7459172b",
+    "requests": "boundary-transition/data-requests.json",
+    "reservation": {
+      "binder_depth_minimum": 1,
+      "generated_declarations_minimum": 22,
+      "ordinary_term_nodes_minimum": 69,
+      "static_transformers_minimum": 0
+    },
+    "vc_sha256": "696c38e0830a635766ab087eff8c399bc6f7cec7067c150fb2dd601f6313fde0",
+    "vir_sha256": "58b581d209e2dbd5dd7d5251aca59a8ca6135bcb6fab5f5c9a72082326832c5f"
+  },
+  {
+    "expressions": [
+      {
+        "attachment_sha256": "e0a20f4d260eaab87ae05bc4cc959524f5fc5589486c90d19ff5a7cc47f38d7e",
+        "canonical_expression": "{\"tag\":\"tagged_is\",\"type_id\":\"mpk.csharp.value.bool.v1\",\"value\":{\"tag\":\"codec_parse\",\"type_id\":\"mpk.csharp.instance.12da4d54165e9ced4eb198971323d65c64389a859114565dec13c18a2e8a3c7d\",\"codec_id\":\"integer.i32\",\"codec_parameters\":{\"scale\":null,\"rounding\":null},\"text\":{\"tag\":\"literal\",\"type_id\":\"mpk.csharp.value.string.v1\",\"value\":\"42\"}},\"arm\":\"ok\"}",
+        "definitions": [
+          {
+            "argument_types": [
+              "mpk.csharp.value.string.v1"
+            ],
+            "name": "contract.def.001ed1c1b002f70385068181760631017abdb2be84153586a34432d72c742d64",
+            "ordered_checks": [],
+            "parameters": "{\"codec_id\":\"integer.i32\",\"codec_parameters\":{\"scale\":null,\"rounding\":null}}",
+            "result_type": "mpk.csharp.instance.12da4d54165e9ced4eb198971323d65c64389a859114565dec13c18a2e8a3c7d",
+            "tag": "codec_parse"
+          },
+          {
+            "argument_types": [],
+            "name": "contract.def.2057d62eed53a2a94a8307db00c10e5eb8b3cc4787567e088fbfd1aa52792730",
+            "ordered_checks": [],
+            "parameters": "{\"value\":\"42\"}",
+            "result_type": "mpk.csharp.value.string.v1",
+            "tag": "literal"
+          },
+          {
+            "argument_types": [
+              "mpk.csharp.instance.12da4d54165e9ced4eb198971323d65c64389a859114565dec13c18a2e8a3c7d"
+            ],
+            "name": "contract.def.2d9ee6a9e32044b9a2e7f395b87acb15fa86342f4292f41c98eb8ca8c7ea1c8c",
+            "ordered_checks": [],
+            "parameters": "{\"arm\":\"ok\"}",
+            "result_type": "mpk.csharp.value.bool.v1",
+            "tag": "tagged_is"
+          }
+        ],
+        "expression_sha256": "25af0b6604afc3a708675381f168aa7cce524f66fc4507107fb4cbaaffb319ee",
+        "subject_bindings": [
+          [
+            "current:parameter:0",
+            "mpk.csharp.source.c6a54e94ea27d44897d9fef8e3c8e3ac02fd55203eeb69a06ea2ed68d0154929"
+          ],
+          [
+            "current:parameter:1",
+            "mpk.csharp.source.df72bc44d4342bea7d6d8bb7913d0009e9539a943d8d3177d1b2effbb66b52ee"
+          ],
+          [
+            "current:parameter:2",
+            "mpk.csharp.source.108067e0c3ca6c52732e5af99845e7a060f28acdd8eafafc134fd9c4a291f4ef"
+          ]
+        ],
+        "term": {
+          "argument": {
+            "argument": {
+              "form": "const",
+              "name": "contract.def.2057d62eed53a2a94a8307db00c10e5eb8b3cc4787567e088fbfd1aa52792730",
+              "type_id": "mpk.csharp.value.string.v1"
+            },
+            "form": "app",
+            "function": {
+              "form": "const",
+              "name": "contract.def.001ed1c1b002f70385068181760631017abdb2be84153586a34432d72c742d64",
+              "type_id": "(mpk.csharp.value.string.v1->mpk.csharp.instance.12da4d54165e9ced4eb198971323d65c64389a859114565dec13c18a2e8a3c7d)"
+            },
+            "type_id": "mpk.csharp.instance.12da4d54165e9ced4eb198971323d65c64389a859114565dec13c18a2e8a3c7d"
+          },
+          "form": "app",
+          "function": {
+            "form": "const",
+            "name": "contract.def.2d9ee6a9e32044b9a2e7f395b87acb15fa86342f4292f41c98eb8ca8c7ea1c8c",
+            "type_id": "(mpk.csharp.instance.12da4d54165e9ced4eb198971323d65c64389a859114565dec13c18a2e8a3c7d->mpk.csharp.value.bool.v1)"
+          },
+          "type_id": "mpk.csharp.value.bool.v1"
+        }
+      },
+      {
+        "attachment_sha256": "39775dac781aab14d4ee84c5336866bc34029b98bb8dd26523114f14ef31e690",
+        "canonical_expression": "{\"tag\":\"binary\",\"type_id\":\"mpk.csharp.value.bool.v1\",\"operation_id\":\"integer.i32.greater_equal.checked\",\"left\":{\"tag\":\"field\",\"type_id\":\"mpk.csharp.value.i32.v1\",\"receiver\":{\"tag\":\"variable\",\"type_id\":\"mpk.csharp.source.c6a54e94ea27d44897d9fef8e3c8e3ac02fd55203eeb69a06ea2ed68d0154929\",\"binding_id\":\"state\"},\"member_id\":\"mpk.csharp.member.47e320bebdf339e01462de1ae539bf5d19b4024698f2fc7e88c08e60f89777b0\"},\"right\":{\"tag\":\"literal\",\"type_id\":\"mpk.csharp.value.i32.v1\",\"value\":\"0\"}}",
+        "definitions": [
+          {
+            "argument_types": [
+              "mpk.csharp.source.c6a54e94ea27d44897d9fef8e3c8e3ac02fd55203eeb69a06ea2ed68d0154929"
+            ],
+            "name": "contract.def.87ba6738c931eeb1cea69e2ef2de4dc393e32bb091177988737deab6b514014f",
+            "ordered_checks": [],
+            "parameters": "{\"member_id\":\"mpk.csharp.member.47e320bebdf339e01462de1ae539bf5d19b4024698f2fc7e88c08e60f89777b0\"}",
+            "result_type": "mpk.csharp.value.i32.v1",
+            "tag": "field"
+          },
+          {
+            "argument_types": [],
+            "name": "contract.def.8d834dcb097fefecf6faa2768233a04eab477291c35dac084cf0529ea3af0413",
+            "ordered_checks": [],
+            "parameters": "{\"value\":\"0\"}",
+            "result_type": "mpk.csharp.value.i32.v1",
+            "tag": "literal"
+          },
+          {
+            "argument_types": [
+              "mpk.csharp.value.i32.v1",
+              "mpk.csharp.value.i32.v1"
+            ],
+            "name": "contract.def.932a554b2e413269cc2ad27eeebf7a4101892e7d3e27833653a7cff24255a2be",
+            "ordered_checks": [],
+            "parameters": "{\"operation_id\":\"integer.i32.greater_equal.checked\"}",
+            "result_type": "mpk.csharp.value.bool.v1",
+            "tag": "binary"
+          }
+        ],
+        "expression_sha256": "5dff748108c17d368e1f40e302c0d20169b1056da5d010626b7f6db26e84335b",
+        "subject_bindings": [
+          [
+            "current:state",
+            "mpk.csharp.source.c6a54e94ea27d44897d9fef8e3c8e3ac02fd55203eeb69a06ea2ed68d0154929"
+          ]
+        ],
+        "term": {
+          "argument": {
+            "form": "const",
+            "name": "contract.def.8d834dcb097fefecf6faa2768233a04eab477291c35dac084cf0529ea3af0413",
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "form": "app",
+          "function": {
+            "argument": {
+              "argument": {
+                "form": "var",
+                "index": 0,
+                "type_id": "mpk.csharp.source.c6a54e94ea27d44897d9fef8e3c8e3ac02fd55203eeb69a06ea2ed68d0154929"
+              },
+              "form": "app",
+              "function": {
+                "form": "const",
+                "name": "contract.def.87ba6738c931eeb1cea69e2ef2de4dc393e32bb091177988737deab6b514014f",
+                "type_id": "(mpk.csharp.source.c6a54e94ea27d44897d9fef8e3c8e3ac02fd55203eeb69a06ea2ed68d0154929->mpk.csharp.value.i32.v1)"
+              },
+              "type_id": "mpk.csharp.value.i32.v1"
+            },
+            "form": "app",
+            "function": {
+              "form": "const",
+              "name": "contract.def.932a554b2e413269cc2ad27eeebf7a4101892e7d3e27833653a7cff24255a2be",
+              "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+            },
+            "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+          },
+          "type_id": "mpk.csharp.value.bool.v1"
+        }
+      },
+      {
+        "attachment_sha256": "2332ac67babb702048df2d1337aaa40d1dfb6b49a1e4bd21df958fc4bc33926e",
+        "canonical_expression": "{\"tag\":\"tagged_is\",\"type_id\":\"mpk.csharp.value.bool.v1\",\"value\":{\"tag\":\"codec_parse\",\"type_id\":\"mpk.csharp.instance.12da4d54165e9ced4eb198971323d65c64389a859114565dec13c18a2e8a3c7d\",\"codec_id\":\"integer.i32\",\"codec_parameters\":{\"scale\":null,\"rounding\":null},\"text\":{\"tag\":\"literal\",\"type_id\":\"mpk.csharp.value.string.v1\",\"value\":\"42\"}},\"arm\":\"ok\"}",
+        "definitions": [
+          {
+            "argument_types": [
+              "mpk.csharp.value.string.v1"
+            ],
+            "name": "contract.def.001ed1c1b002f70385068181760631017abdb2be84153586a34432d72c742d64",
+            "ordered_checks": [],
+            "parameters": "{\"codec_id\":\"integer.i32\",\"codec_parameters\":{\"scale\":null,\"rounding\":null}}",
+            "result_type": "mpk.csharp.instance.12da4d54165e9ced4eb198971323d65c64389a859114565dec13c18a2e8a3c7d",
+            "tag": "codec_parse"
+          },
+          {
+            "argument_types": [],
+            "name": "contract.def.2057d62eed53a2a94a8307db00c10e5eb8b3cc4787567e088fbfd1aa52792730",
+            "ordered_checks": [],
+            "parameters": "{\"value\":\"42\"}",
+            "result_type": "mpk.csharp.value.string.v1",
+            "tag": "literal"
+          },
+          {
+            "argument_types": [
+              "mpk.csharp.instance.12da4d54165e9ced4eb198971323d65c64389a859114565dec13c18a2e8a3c7d"
+            ],
+            "name": "contract.def.2d9ee6a9e32044b9a2e7f395b87acb15fa86342f4292f41c98eb8ca8c7ea1c8c",
+            "ordered_checks": [],
+            "parameters": "{\"arm\":\"ok\"}",
+            "result_type": "mpk.csharp.value.bool.v1",
+            "tag": "tagged_is"
+          }
+        ],
+        "expression_sha256": "25af0b6604afc3a708675381f168aa7cce524f66fc4507107fb4cbaaffb319ee",
+        "subject_bindings": [
+          [
+            "current:command",
+            "mpk.csharp.source.df72bc44d4342bea7d6d8bb7913d0009e9539a943d8d3177d1b2effbb66b52ee"
+          ],
+          [
+            "current:context",
+            "mpk.csharp.source.108067e0c3ca6c52732e5af99845e7a060f28acdd8eafafc134fd9c4a291f4ef"
+          ],
+          [
+            "current:state",
+            "mpk.csharp.source.c6a54e94ea27d44897d9fef8e3c8e3ac02fd55203eeb69a06ea2ed68d0154929"
+          ]
+        ],
+        "term": {
+          "argument": {
+            "argument": {
+              "form": "const",
+              "name": "contract.def.2057d62eed53a2a94a8307db00c10e5eb8b3cc4787567e088fbfd1aa52792730",
+              "type_id": "mpk.csharp.value.string.v1"
+            },
+            "form": "app",
+            "function": {
+              "form": "const",
+              "name": "contract.def.001ed1c1b002f70385068181760631017abdb2be84153586a34432d72c742d64",
+              "type_id": "(mpk.csharp.value.string.v1->mpk.csharp.instance.12da4d54165e9ced4eb198971323d65c64389a859114565dec13c18a2e8a3c7d)"
+            },
+            "type_id": "mpk.csharp.instance.12da4d54165e9ced4eb198971323d65c64389a859114565dec13c18a2e8a3c7d"
+          },
+          "form": "app",
+          "function": {
+            "form": "const",
+            "name": "contract.def.2d9ee6a9e32044b9a2e7f395b87acb15fa86342f4292f41c98eb8ca8c7ea1c8c",
+            "type_id": "(mpk.csharp.instance.12da4d54165e9ced4eb198971323d65c64389a859114565dec13c18a2e8a3c7d->mpk.csharp.value.bool.v1)"
+          },
+          "type_id": "mpk.csharp.value.bool.v1"
+        }
+      },
+      {
+        "attachment_sha256": "c1e8e1bcb89e05151db7aba6ce89fc62fab4d3a03238b2eeb54db4d950a8618e",
+        "canonical_expression": "{\"tag\":\"binary\",\"type_id\":\"mpk.csharp.value.bool.v1\",\"operation_id\":\"integer.i32.less.checked\",\"left\":{\"tag\":\"field\",\"type_id\":\"mpk.csharp.value.i32.v1\",\"receiver\":{\"tag\":\"variable\",\"type_id\":\"mpk.csharp.source.df72bc44d4342bea7d6d8bb7913d0009e9539a943d8d3177d1b2effbb66b52ee\",\"binding_id\":\"command\"},\"member_id\":\"mpk.csharp.member.7f86992c1e02eff085d4696c55ef2e74f127c52bfabe7aaa2660b62d2a07f1ff\"},\"right\":{\"tag\":\"literal\",\"type_id\":\"mpk.csharp.value.i32.v1\",\"value\":\"0\"}}",
+        "definitions": [
+          {
+            "argument_types": [
+              "mpk.csharp.source.df72bc44d4342bea7d6d8bb7913d0009e9539a943d8d3177d1b2effbb66b52ee"
+            ],
+            "name": "contract.def.3ace91082bf4628e4cd43960cb01dd80c0bf66eefab2e0d1c644610ac157262d",
+            "ordered_checks": [],
+            "parameters": "{\"member_id\":\"mpk.csharp.member.7f86992c1e02eff085d4696c55ef2e74f127c52bfabe7aaa2660b62d2a07f1ff\"}",
+            "result_type": "mpk.csharp.value.i32.v1",
+            "tag": "field"
+          },
+          {
+            "argument_types": [],
+            "name": "contract.def.8d834dcb097fefecf6faa2768233a04eab477291c35dac084cf0529ea3af0413",
+            "ordered_checks": [],
+            "parameters": "{\"value\":\"0\"}",
+            "result_type": "mpk.csharp.value.i32.v1",
+            "tag": "literal"
+          },
+          {
+            "argument_types": [
+              "mpk.csharp.value.i32.v1",
+              "mpk.csharp.value.i32.v1"
+            ],
+            "name": "contract.def.fa43dd1e34986d837bb1c4235d4f6bb5b8df8adb2c71847f23e0b72191cdfe53",
+            "ordered_checks": [],
+            "parameters": "{\"operation_id\":\"integer.i32.less.checked\"}",
+            "result_type": "mpk.csharp.value.bool.v1",
+            "tag": "binary"
+          }
+        ],
+        "expression_sha256": "4a768d1f3f6752c13466f6223c74e3e5a9af541fe0b29733083e755a3b86cf57",
+        "subject_bindings": [
+          [
+            "current:command",
+            "mpk.csharp.source.df72bc44d4342bea7d6d8bb7913d0009e9539a943d8d3177d1b2effbb66b52ee"
+          ],
+          [
+            "current:context",
+            "mpk.csharp.source.108067e0c3ca6c52732e5af99845e7a060f28acdd8eafafc134fd9c4a291f4ef"
+          ],
+          [
+            "current:state",
+            "mpk.csharp.source.c6a54e94ea27d44897d9fef8e3c8e3ac02fd55203eeb69a06ea2ed68d0154929"
+          ]
+        ],
+        "term": {
+          "argument": {
+            "form": "const",
+            "name": "contract.def.8d834dcb097fefecf6faa2768233a04eab477291c35dac084cf0529ea3af0413",
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "form": "app",
+          "function": {
+            "argument": {
+              "argument": {
+                "form": "var",
+                "index": 2,
+                "type_id": "mpk.csharp.source.df72bc44d4342bea7d6d8bb7913d0009e9539a943d8d3177d1b2effbb66b52ee"
+              },
+              "form": "app",
+              "function": {
+                "form": "const",
+                "name": "contract.def.3ace91082bf4628e4cd43960cb01dd80c0bf66eefab2e0d1c644610ac157262d",
+                "type_id": "(mpk.csharp.source.df72bc44d4342bea7d6d8bb7913d0009e9539a943d8d3177d1b2effbb66b52ee->mpk.csharp.value.i32.v1)"
+              },
+              "type_id": "mpk.csharp.value.i32.v1"
+            },
+            "form": "app",
+            "function": {
+              "form": "const",
+              "name": "contract.def.fa43dd1e34986d837bb1c4235d4f6bb5b8df8adb2c71847f23e0b72191cdfe53",
+              "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+            },
+            "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+          },
+          "type_id": "mpk.csharp.value.bool.v1"
+        }
+      },
+      {
+        "attachment_sha256": "54e2739d6b891f2862adf4fc17acedb9052b860207d9f6b6cc8c9eeb111f92a7",
+        "canonical_expression": "{\"tag\":\"binary\",\"type_id\":\"mpk.csharp.value.bool.v1\",\"operation_id\":\"boolean.and\",\"left\":{\"tag\":\"binary\",\"type_id\":\"mpk.csharp.value.bool.v1\",\"operation_id\":\"integer.i32.equal.checked\",\"left\":{\"tag\":\"sequence_length\",\"type_id\":\"mpk.csharp.value.i32.v1\",\"sequence\":{\"tag\":\"variable\",\"type_id\":\"mpk.csharp.instance.1817a0b0221b9ff910ca05eb41a7ea498ff82924510c00adeaf16c0f6632f220\",\"binding_id\":\"events\"}},\"right\":{\"tag\":\"literal\",\"type_id\":\"mpk.csharp.value.i32.v1\",\"value\":\"2\"}},\"right\":{\"tag\":\"binary\",\"type_id\":\"mpk.csharp.value.bool.v1\",\"operation_id\":\"boolean.and\",\"left\":{\"tag\":\"binary\",\"type_id\":\"mpk.csharp.value.bool.v1\",\"operation_id\":\"integer.i32.equal.checked\",\"left\":{\"tag\":\"field\",\"type_id\":\"mpk.csharp.value.i32.v1\",\"receiver\":{\"tag\":\"sequence_index\",\"type_id\":\"mpk.csharp.source.2f6fa4a1535fa148953429b7df6f2e421fccef4ca9718224cc5ee47c427d62ad\",\"sequence\":{\"tag\":\"variable\",\"type_id\":\"mpk.csharp.instance.1817a0b0221b9ff910ca05eb41a7ea498ff82924510c00adeaf16c0f6632f220\",\"binding_id\":\"events\"},\"index\":{\"tag\":\"literal\",\"type_id\":\"mpk.csharp.value.i32.v1\",\"value\":\"0\"}},\"member_id\":\"mpk.csharp.member.edd8d2747f7455bd17f2391239d16341c79207f41f86fcc0d56a33c9d4b9e67b\"},\"right\":{\"tag\":\"field\",\"type_id\":\"mpk.csharp.value.i32.v1\",\"receiver\":{\"tag\":\"variable\",\"type_id\":\"mpk.csharp.source.df72bc44d4342bea7d6d8bb7913d0009e9539a943d8d3177d1b2effbb66b52ee\",\"binding_id\":\"command\"},\"member_id\":\"mpk.csharp.member.7f86992c1e02eff085d4696c55ef2e74f127c52bfabe7aaa2660b62d2a07f1ff\"}},\"right\":{\"tag\":\"binary\",\"type_id\":\"mpk.csharp.value.bool.v1\",\"operation_id\":\"boolean.and\",\"left\":{\"tag\":\"binary\",\"type_id\":\"mpk.csharp.value.bool.v1\",\"operation_id\":\"integer.i32.equal.checked\",\"left\":{\"tag\":\"field\",\"type_id\":\"mpk.csharp.value.i32.v1\",\"receiver\":{\"tag\":\"sequence_index\",\"type_id\":\"mpk.csharp.source.2f6fa4a1535fa148953429b7df6f2e421fccef4ca9718224cc5ee47c427d62ad\",\"sequence\":{\"tag\":\"variable\",\"type_id\":\"mpk.csharp.instance.1817a0b0221b9ff910ca05eb41a7ea498ff82924510c00adeaf16c0f6632f220\",\"binding_id\":\"events\"},\"index\":{\"tag\":\"literal\",\"type_id\":\"mpk.csharp.value.i32.v1\",\"value\":\"1\"}},\"member_id\":\"mpk.csharp.member.edd8d2747f7455bd17f2391239d16341c79207f41f86fcc0d56a33c9d4b9e67b\"},\"right\":{\"tag\":\"literal\",\"type_id\":\"mpk.csharp.value.i32.v1\",\"value\":\"0\"}},\"right\":{\"tag\":\"binary\",\"type_id\":\"mpk.csharp.value.bool.v1\",\"operation_id\":\"integer.i64.equal.checked\",\"left\":{\"tag\":\"field\",\"type_id\":\"mpk.csharp.value.i64.v1\",\"receiver\":{\"tag\":\"sequence_index\",\"type_id\":\"mpk.csharp.source.2f6fa4a1535fa148953429b7df6f2e421fccef4ca9718224cc5ee47c427d62ad\",\"sequence\":{\"tag\":\"variable\",\"type_id\":\"mpk.csharp.instance.1817a0b0221b9ff910ca05eb41a7ea498ff82924510c00adeaf16c0f6632f220\",\"binding_id\":\"events\"},\"index\":{\"tag\":\"literal\",\"type_id\":\"mpk.csharp.value.i32.v1\",\"value\":\"0\"}},\"member_id\":\"mpk.csharp.member.236035a02a466838aed55acbad4b592740e818c4ce6edaff14aba33010e1c29a\"},\"right\":{\"tag\":\"field\",\"type_id\":\"mpk.csharp.value.i64.v1\",\"receiver\":{\"tag\":\"variable\",\"type_id\":\"mpk.csharp.source.108067e0c3ca6c52732e5af99845e7a060f28acdd8eafafc134fd9c4a291f4ef\",\"binding_id\":\"context\"},\"member_id\":\"mpk.csharp.member.b433a709e091c52638c68fee4a0391e61d0e66782eac42bb014315b153b35578\"}}}}}",
+        "definitions": [
+          {
+            "argument_types": [
+              "mpk.csharp.value.i32.v1",
+              "mpk.csharp.value.i32.v1"
+            ],
+            "name": "contract.def.083c47be2b875ef6d9444f93091fc53755128b83d3fc9aae8f052f30cd04571a",
+            "ordered_checks": [],
+            "parameters": "{\"operation_id\":\"integer.i32.equal.checked\"}",
+            "result_type": "mpk.csharp.value.bool.v1",
+            "tag": "binary"
+          },
+          {
+            "argument_types": [
+              "mpk.csharp.instance.1817a0b0221b9ff910ca05eb41a7ea498ff82924510c00adeaf16c0f6632f220",
+              "mpk.csharp.value.i32.v1"
+            ],
+            "name": "contract.def.0a503a97754a7a6674bed676514116f72eeba88eb49df8b8a2b6282e4187db8b",
+            "ordered_checks": [],
+            "parameters": "{}",
+            "result_type": "mpk.csharp.source.2f6fa4a1535fa148953429b7df6f2e421fccef4ca9718224cc5ee47c427d62ad",
+            "tag": "sequence_index"
+          },
+          {
+            "argument_types": [
+              "mpk.csharp.source.108067e0c3ca6c52732e5af99845e7a060f28acdd8eafafc134fd9c4a291f4ef"
+            ],
+            "name": "contract.def.0bc24e56487ef5fd9fa31fce7bf180d5f75bfbf5d204d3554b3582e98bffefe7",
+            "ordered_checks": [],
+            "parameters": "{\"member_id\":\"mpk.csharp.member.b433a709e091c52638c68fee4a0391e61d0e66782eac42bb014315b153b35578\"}",
+            "result_type": "mpk.csharp.value.i64.v1",
+            "tag": "field"
+          },
+          {
+            "argument_types": [],
+            "name": "contract.def.2bb875e87215bba7055b9d9c21978624dbe2266b8d79cc1a90e883d1484d6a9e",
+            "ordered_checks": [],
+            "parameters": "{\"value\":\"1\"}",
+            "result_type": "mpk.csharp.value.i32.v1",
+            "tag": "literal"
+          },
+          {
+            "argument_types": [
+              "mpk.csharp.source.df72bc44d4342bea7d6d8bb7913d0009e9539a943d8d3177d1b2effbb66b52ee"
+            ],
+            "name": "contract.def.3ace91082bf4628e4cd43960cb01dd80c0bf66eefab2e0d1c644610ac157262d",
+            "ordered_checks": [],
+            "parameters": "{\"member_id\":\"mpk.csharp.member.7f86992c1e02eff085d4696c55ef2e74f127c52bfabe7aaa2660b62d2a07f1ff\"}",
+            "result_type": "mpk.csharp.value.i32.v1",
+            "tag": "field"
+          },
+          {
+            "argument_types": [
+              "mpk.csharp.value.i64.v1",
+              "mpk.csharp.value.i64.v1"
+            ],
+            "name": "contract.def.53e27d0308e632a931cbf01af653ae9d4841bd5566decd4aa8b9b48c885184ab",
+            "ordered_checks": [],
+            "parameters": "{\"operation_id\":\"integer.i64.equal.checked\"}",
+            "result_type": "mpk.csharp.value.bool.v1",
+            "tag": "binary"
+          },
+          {
+            "argument_types": [],
+            "name": "contract.def.726970238fe3b4d5b8fa81a42c2a3b5ebc8d9d6c68a3a49c170dd38f06a149c9",
+            "ordered_checks": [],
+            "parameters": "{\"value\":\"2\"}",
+            "result_type": "mpk.csharp.value.i32.v1",
+            "tag": "literal"
+          },
+          {
+            "argument_types": [
+              "mpk.csharp.source.2f6fa4a1535fa148953429b7df6f2e421fccef4ca9718224cc5ee47c427d62ad"
+            ],
+            "name": "contract.def.8010fc80ef34b2a080f7bee051639c1f427d6e940ec9a3e6d271ff54586b7335",
+            "ordered_checks": [],
+            "parameters": "{\"member_id\":\"mpk.csharp.member.edd8d2747f7455bd17f2391239d16341c79207f41f86fcc0d56a33c9d4b9e67b\"}",
+            "result_type": "mpk.csharp.value.i32.v1",
+            "tag": "field"
+          },
+          {
+            "argument_types": [
+              "mpk.csharp.value.bool.v1",
+              "mpk.csharp.value.bool.v1"
+            ],
+            "name": "contract.def.82af93f9300a9c931604ded5d02335764e7f2eece953c6a2d34533f22f74c6ea",
+            "ordered_checks": [],
+            "parameters": "{\"operation_id\":\"boolean.and\"}",
+            "result_type": "mpk.csharp.value.bool.v1",
+            "tag": "binary"
+          },
+          {
+            "argument_types": [],
+            "name": "contract.def.8d834dcb097fefecf6faa2768233a04eab477291c35dac084cf0529ea3af0413",
+            "ordered_checks": [],
+            "parameters": "{\"value\":\"0\"}",
+            "result_type": "mpk.csharp.value.i32.v1",
+            "tag": "literal"
+          },
+          {
+            "argument_types": [
+              "mpk.csharp.source.2f6fa4a1535fa148953429b7df6f2e421fccef4ca9718224cc5ee47c427d62ad"
+            ],
+            "name": "contract.def.d47ea1bb04bcca46c7454418fb5c88ceb2f68eb774e2c6f6bd78112a0ae7dcfc",
+            "ordered_checks": [],
+            "parameters": "{\"member_id\":\"mpk.csharp.member.236035a02a466838aed55acbad4b592740e818c4ce6edaff14aba33010e1c29a\"}",
+            "result_type": "mpk.csharp.value.i64.v1",
+            "tag": "field"
+          },
+          {
+            "argument_types": [
+              "mpk.csharp.instance.1817a0b0221b9ff910ca05eb41a7ea498ff82924510c00adeaf16c0f6632f220"
+            ],
+            "name": "contract.def.efbc3d308ff95332e78fceb8c851076d9a2eb7b94e0ae97ec095a9da0eae653a",
+            "ordered_checks": [],
+            "parameters": "{}",
+            "result_type": "mpk.csharp.value.i32.v1",
+            "tag": "sequence_length"
+          }
+        ],
+        "expression_sha256": "64201fe25296430d29e93e6dcc6dffc1bdce212e8b262d3b9ed485992a108a82",
+        "subject_bindings": [
+          [
+            "current:command",
+            "mpk.csharp.source.df72bc44d4342bea7d6d8bb7913d0009e9539a943d8d3177d1b2effbb66b52ee"
+          ],
+          [
+            "current:context",
+            "mpk.csharp.source.108067e0c3ca6c52732e5af99845e7a060f28acdd8eafafc134fd9c4a291f4ef"
+          ],
+          [
+            "current:events",
+            "mpk.csharp.instance.1817a0b0221b9ff910ca05eb41a7ea498ff82924510c00adeaf16c0f6632f220"
+          ],
+          [
+            "current:next_state",
+            "mpk.csharp.source.c6a54e94ea27d44897d9fef8e3c8e3ac02fd55203eeb69a06ea2ed68d0154929"
+          ],
+          [
+            "current:response",
+            "mpk.csharp.source.2ab02a87dc84f548b49d0ca4873740b3fe36811f14c43c0f6f615c901f5d1f26"
+          ],
+          [
+            "current:state",
+            "mpk.csharp.source.c6a54e94ea27d44897d9fef8e3c8e3ac02fd55203eeb69a06ea2ed68d0154929"
+          ]
+        ],
+        "term": {
+          "argument": {
+            "argument": {
+              "argument": {
+                "argument": {
+                  "argument": {
+                    "form": "var",
+                    "index": 4,
+                    "type_id": "mpk.csharp.source.108067e0c3ca6c52732e5af99845e7a060f28acdd8eafafc134fd9c4a291f4ef"
+                  },
+                  "form": "app",
+                  "function": {
+                    "form": "const",
+                    "name": "contract.def.0bc24e56487ef5fd9fa31fce7bf180d5f75bfbf5d204d3554b3582e98bffefe7",
+                    "type_id": "(mpk.csharp.source.108067e0c3ca6c52732e5af99845e7a060f28acdd8eafafc134fd9c4a291f4ef->mpk.csharp.value.i64.v1)"
+                  },
+                  "type_id": "mpk.csharp.value.i64.v1"
+                },
+                "form": "app",
+                "function": {
+                  "argument": {
+                    "argument": {
+                      "argument": {
+                        "form": "const",
+                        "name": "contract.def.8d834dcb097fefecf6faa2768233a04eab477291c35dac084cf0529ea3af0413",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      },
+                      "form": "app",
+                      "function": {
+                        "argument": {
+                          "form": "var",
+                          "index": 3,
+                          "type_id": "mpk.csharp.instance.1817a0b0221b9ff910ca05eb41a7ea498ff82924510c00adeaf16c0f6632f220"
+                        },
+                        "form": "app",
+                        "function": {
+                          "form": "const",
+                          "name": "contract.def.0a503a97754a7a6674bed676514116f72eeba88eb49df8b8a2b6282e4187db8b",
+                          "type_id": "(mpk.csharp.instance.1817a0b0221b9ff910ca05eb41a7ea498ff82924510c00adeaf16c0f6632f220->(mpk.csharp.value.i32.v1->mpk.csharp.source.2f6fa4a1535fa148953429b7df6f2e421fccef4ca9718224cc5ee47c427d62ad))"
+                        },
+                        "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.source.2f6fa4a1535fa148953429b7df6f2e421fccef4ca9718224cc5ee47c427d62ad)"
+                      },
+                      "type_id": "mpk.csharp.source.2f6fa4a1535fa148953429b7df6f2e421fccef4ca9718224cc5ee47c427d62ad"
+                    },
+                    "form": "app",
+                    "function": {
+                      "form": "const",
+                      "name": "contract.def.d47ea1bb04bcca46c7454418fb5c88ceb2f68eb774e2c6f6bd78112a0ae7dcfc",
+                      "type_id": "(mpk.csharp.source.2f6fa4a1535fa148953429b7df6f2e421fccef4ca9718224cc5ee47c427d62ad->mpk.csharp.value.i64.v1)"
+                    },
+                    "type_id": "mpk.csharp.value.i64.v1"
+                  },
+                  "form": "app",
+                  "function": {
+                    "form": "const",
+                    "name": "contract.def.53e27d0308e632a931cbf01af653ae9d4841bd5566decd4aa8b9b48c885184ab",
+                    "type_id": "(mpk.csharp.value.i64.v1->(mpk.csharp.value.i64.v1->mpk.csharp.value.bool.v1))"
+                  },
+                  "type_id": "(mpk.csharp.value.i64.v1->mpk.csharp.value.bool.v1)"
+                },
+                "type_id": "mpk.csharp.value.bool.v1"
+              },
+              "form": "app",
+              "function": {
+                "argument": {
+                  "argument": {
+                    "form": "const",
+                    "name": "contract.def.8d834dcb097fefecf6faa2768233a04eab477291c35dac084cf0529ea3af0413",
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  },
+                  "form": "app",
+                  "function": {
+                    "argument": {
+                      "argument": {
+                        "argument": {
+                          "form": "const",
+                          "name": "contract.def.2bb875e87215bba7055b9d9c21978624dbe2266b8d79cc1a90e883d1484d6a9e",
+                          "type_id": "mpk.csharp.value.i32.v1"
+                        },
+                        "form": "app",
+                        "function": {
+                          "argument": {
+                            "form": "var",
+                            "index": 3,
+                            "type_id": "mpk.csharp.instance.1817a0b0221b9ff910ca05eb41a7ea498ff82924510c00adeaf16c0f6632f220"
+                          },
+                          "form": "app",
+                          "function": {
+                            "form": "const",
+                            "name": "contract.def.0a503a97754a7a6674bed676514116f72eeba88eb49df8b8a2b6282e4187db8b",
+                            "type_id": "(mpk.csharp.instance.1817a0b0221b9ff910ca05eb41a7ea498ff82924510c00adeaf16c0f6632f220->(mpk.csharp.value.i32.v1->mpk.csharp.source.2f6fa4a1535fa148953429b7df6f2e421fccef4ca9718224cc5ee47c427d62ad))"
+                          },
+                          "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.source.2f6fa4a1535fa148953429b7df6f2e421fccef4ca9718224cc5ee47c427d62ad)"
+                        },
+                        "type_id": "mpk.csharp.source.2f6fa4a1535fa148953429b7df6f2e421fccef4ca9718224cc5ee47c427d62ad"
+                      },
+                      "form": "app",
+                      "function": {
+                        "form": "const",
+                        "name": "contract.def.8010fc80ef34b2a080f7bee051639c1f427d6e940ec9a3e6d271ff54586b7335",
+                        "type_id": "(mpk.csharp.source.2f6fa4a1535fa148953429b7df6f2e421fccef4ca9718224cc5ee47c427d62ad->mpk.csharp.value.i32.v1)"
+                      },
+                      "type_id": "mpk.csharp.value.i32.v1"
+                    },
+                    "form": "app",
+                    "function": {
+                      "form": "const",
+                      "name": "contract.def.083c47be2b875ef6d9444f93091fc53755128b83d3fc9aae8f052f30cd04571a",
+                      "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+                    },
+                    "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+                  },
+                  "type_id": "mpk.csharp.value.bool.v1"
+                },
+                "form": "app",
+                "function": {
+                  "form": "const",
+                  "name": "contract.def.82af93f9300a9c931604ded5d02335764e7f2eece953c6a2d34533f22f74c6ea",
+                  "type_id": "(mpk.csharp.value.bool.v1->(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1))"
+                },
+                "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+              },
+              "type_id": "mpk.csharp.value.bool.v1"
+            },
+            "form": "app",
+            "function": {
+              "argument": {
+                "argument": {
+                  "argument": {
+                    "form": "var",
+                    "index": 5,
+                    "type_id": "mpk.csharp.source.df72bc44d4342bea7d6d8bb7913d0009e9539a943d8d3177d1b2effbb66b52ee"
+                  },
+                  "form": "app",
+                  "function": {
+                    "form": "const",
+                    "name": "contract.def.3ace91082bf4628e4cd43960cb01dd80c0bf66eefab2e0d1c644610ac157262d",
+                    "type_id": "(mpk.csharp.source.df72bc44d4342bea7d6d8bb7913d0009e9539a943d8d3177d1b2effbb66b52ee->mpk.csharp.value.i32.v1)"
+                  },
+                  "type_id": "mpk.csharp.value.i32.v1"
+                },
+                "form": "app",
+                "function": {
+                  "argument": {
+                    "argument": {
+                      "argument": {
+                        "form": "const",
+                        "name": "contract.def.8d834dcb097fefecf6faa2768233a04eab477291c35dac084cf0529ea3af0413",
+                        "type_id": "mpk.csharp.value.i32.v1"
+                      },
+                      "form": "app",
+                      "function": {
+                        "argument": {
+                          "form": "var",
+                          "index": 3,
+                          "type_id": "mpk.csharp.instance.1817a0b0221b9ff910ca05eb41a7ea498ff82924510c00adeaf16c0f6632f220"
+                        },
+                        "form": "app",
+                        "function": {
+                          "form": "const",
+                          "name": "contract.def.0a503a97754a7a6674bed676514116f72eeba88eb49df8b8a2b6282e4187db8b",
+                          "type_id": "(mpk.csharp.instance.1817a0b0221b9ff910ca05eb41a7ea498ff82924510c00adeaf16c0f6632f220->(mpk.csharp.value.i32.v1->mpk.csharp.source.2f6fa4a1535fa148953429b7df6f2e421fccef4ca9718224cc5ee47c427d62ad))"
+                        },
+                        "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.source.2f6fa4a1535fa148953429b7df6f2e421fccef4ca9718224cc5ee47c427d62ad)"
+                      },
+                      "type_id": "mpk.csharp.source.2f6fa4a1535fa148953429b7df6f2e421fccef4ca9718224cc5ee47c427d62ad"
+                    },
+                    "form": "app",
+                    "function": {
+                      "form": "const",
+                      "name": "contract.def.8010fc80ef34b2a080f7bee051639c1f427d6e940ec9a3e6d271ff54586b7335",
+                      "type_id": "(mpk.csharp.source.2f6fa4a1535fa148953429b7df6f2e421fccef4ca9718224cc5ee47c427d62ad->mpk.csharp.value.i32.v1)"
+                    },
+                    "type_id": "mpk.csharp.value.i32.v1"
+                  },
+                  "form": "app",
+                  "function": {
+                    "form": "const",
+                    "name": "contract.def.083c47be2b875ef6d9444f93091fc53755128b83d3fc9aae8f052f30cd04571a",
+                    "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+                  },
+                  "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+                },
+                "type_id": "mpk.csharp.value.bool.v1"
+              },
+              "form": "app",
+              "function": {
+                "form": "const",
+                "name": "contract.def.82af93f9300a9c931604ded5d02335764e7f2eece953c6a2d34533f22f74c6ea",
+                "type_id": "(mpk.csharp.value.bool.v1->(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1))"
+              },
+              "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+            },
+            "type_id": "mpk.csharp.value.bool.v1"
+          },
+          "form": "app",
+          "function": {
+            "argument": {
+              "argument": {
+                "form": "const",
+                "name": "contract.def.726970238fe3b4d5b8fa81a42c2a3b5ebc8d9d6c68a3a49c170dd38f06a149c9",
+                "type_id": "mpk.csharp.value.i32.v1"
+              },
+              "form": "app",
+              "function": {
+                "argument": {
+                  "argument": {
+                    "form": "var",
+                    "index": 3,
+                    "type_id": "mpk.csharp.instance.1817a0b0221b9ff910ca05eb41a7ea498ff82924510c00adeaf16c0f6632f220"
+                  },
+                  "form": "app",
+                  "function": {
+                    "form": "const",
+                    "name": "contract.def.efbc3d308ff95332e78fceb8c851076d9a2eb7b94e0ae97ec095a9da0eae653a",
+                    "type_id": "(mpk.csharp.instance.1817a0b0221b9ff910ca05eb41a7ea498ff82924510c00adeaf16c0f6632f220->mpk.csharp.value.i32.v1)"
+                  },
+                  "type_id": "mpk.csharp.value.i32.v1"
+                },
+                "form": "app",
+                "function": {
+                  "form": "const",
+                  "name": "contract.def.083c47be2b875ef6d9444f93091fc53755128b83d3fc9aae8f052f30cd04571a",
+                  "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+                },
+                "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+              },
+              "type_id": "mpk.csharp.value.bool.v1"
+            },
+            "form": "app",
+            "function": {
+              "form": "const",
+              "name": "contract.def.82af93f9300a9c931604ded5d02335764e7f2eece953c6a2d34533f22f74c6ea",
+              "type_id": "(mpk.csharp.value.bool.v1->(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1))"
+            },
+            "type_id": "(mpk.csharp.value.bool.v1->mpk.csharp.value.bool.v1)"
+          },
+          "type_id": "mpk.csharp.value.bool.v1"
+        }
+      },
+      {
+        "attachment_sha256": "a3136be3872486224644646e0825b45350cc173070a8d7343438716138cbee25",
+        "canonical_expression": "{\"tag\":\"binary\",\"type_id\":\"mpk.csharp.value.bool.v1\",\"operation_id\":\"integer.i32.equal.checked\",\"left\":{\"tag\":\"field\",\"type_id\":\"mpk.csharp.value.i32.v1\",\"receiver\":{\"tag\":\"variable\",\"type_id\":\"mpk.csharp.source.2ab02a87dc84f548b49d0ca4873740b3fe36811f14c43c0f6f615c901f5d1f26\",\"binding_id\":\"response\"},\"member_id\":\"mpk.csharp.member.f0ae78771389a7bacc11d1cfd77ef22ebcb9f68e5a2aca0c105fcb0af9efc86f\"},\"right\":{\"tag\":\"field\",\"type_id\":\"mpk.csharp.value.i32.v1\",\"receiver\":{\"tag\":\"variable\",\"type_id\":\"mpk.csharp.source.c6a54e94ea27d44897d9fef8e3c8e3ac02fd55203eeb69a06ea2ed68d0154929\",\"binding_id\":\"next_state\"},\"member_id\":\"mpk.csharp.member.47e320bebdf339e01462de1ae539bf5d19b4024698f2fc7e88c08e60f89777b0\"}}",
+        "definitions": [
+          {
+            "argument_types": [
+              "mpk.csharp.value.i32.v1",
+              "mpk.csharp.value.i32.v1"
+            ],
+            "name": "contract.def.083c47be2b875ef6d9444f93091fc53755128b83d3fc9aae8f052f30cd04571a",
+            "ordered_checks": [],
+            "parameters": "{\"operation_id\":\"integer.i32.equal.checked\"}",
+            "result_type": "mpk.csharp.value.bool.v1",
+            "tag": "binary"
+          },
+          {
+            "argument_types": [
+              "mpk.csharp.source.2ab02a87dc84f548b49d0ca4873740b3fe36811f14c43c0f6f615c901f5d1f26"
+            ],
+            "name": "contract.def.6f618b070b68f58134dceb1b804e4bfd342efb313ec99de44950f08760413f99",
+            "ordered_checks": [],
+            "parameters": "{\"member_id\":\"mpk.csharp.member.f0ae78771389a7bacc11d1cfd77ef22ebcb9f68e5a2aca0c105fcb0af9efc86f\"}",
+            "result_type": "mpk.csharp.value.i32.v1",
+            "tag": "field"
+          },
+          {
+            "argument_types": [
+              "mpk.csharp.source.c6a54e94ea27d44897d9fef8e3c8e3ac02fd55203eeb69a06ea2ed68d0154929"
+            ],
+            "name": "contract.def.87ba6738c931eeb1cea69e2ef2de4dc393e32bb091177988737deab6b514014f",
+            "ordered_checks": [],
+            "parameters": "{\"member_id\":\"mpk.csharp.member.47e320bebdf339e01462de1ae539bf5d19b4024698f2fc7e88c08e60f89777b0\"}",
+            "result_type": "mpk.csharp.value.i32.v1",
+            "tag": "field"
+          }
+        ],
+        "expression_sha256": "e9b82044eaa514617e3177007278775e46cb22f90f20d25b516b13dde2d9435b",
+        "subject_bindings": [
+          [
+            "current:command",
+            "mpk.csharp.source.df72bc44d4342bea7d6d8bb7913d0009e9539a943d8d3177d1b2effbb66b52ee"
+          ],
+          [
+            "current:context",
+            "mpk.csharp.source.108067e0c3ca6c52732e5af99845e7a060f28acdd8eafafc134fd9c4a291f4ef"
+          ],
+          [
+            "current:events",
+            "mpk.csharp.instance.1817a0b0221b9ff910ca05eb41a7ea498ff82924510c00adeaf16c0f6632f220"
+          ],
+          [
+            "current:next_state",
+            "mpk.csharp.source.c6a54e94ea27d44897d9fef8e3c8e3ac02fd55203eeb69a06ea2ed68d0154929"
+          ],
+          [
+            "current:response",
+            "mpk.csharp.source.2ab02a87dc84f548b49d0ca4873740b3fe36811f14c43c0f6f615c901f5d1f26"
+          ],
+          [
+            "current:state",
+            "mpk.csharp.source.c6a54e94ea27d44897d9fef8e3c8e3ac02fd55203eeb69a06ea2ed68d0154929"
+          ]
+        ],
+        "term": {
+          "argument": {
+            "argument": {
+              "form": "var",
+              "index": 2,
+              "type_id": "mpk.csharp.source.c6a54e94ea27d44897d9fef8e3c8e3ac02fd55203eeb69a06ea2ed68d0154929"
+            },
+            "form": "app",
+            "function": {
+              "form": "const",
+              "name": "contract.def.87ba6738c931eeb1cea69e2ef2de4dc393e32bb091177988737deab6b514014f",
+              "type_id": "(mpk.csharp.source.c6a54e94ea27d44897d9fef8e3c8e3ac02fd55203eeb69a06ea2ed68d0154929->mpk.csharp.value.i32.v1)"
+            },
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "form": "app",
+          "function": {
+            "argument": {
+              "argument": {
+                "form": "var",
+                "index": 1,
+                "type_id": "mpk.csharp.source.2ab02a87dc84f548b49d0ca4873740b3fe36811f14c43c0f6f615c901f5d1f26"
+              },
+              "form": "app",
+              "function": {
+                "form": "const",
+                "name": "contract.def.6f618b070b68f58134dceb1b804e4bfd342efb313ec99de44950f08760413f99",
+                "type_id": "(mpk.csharp.source.2ab02a87dc84f548b49d0ca4873740b3fe36811f14c43c0f6f615c901f5d1f26->mpk.csharp.value.i32.v1)"
+              },
+              "type_id": "mpk.csharp.value.i32.v1"
+            },
+            "form": "app",
+            "function": {
+              "form": "const",
+              "name": "contract.def.083c47be2b875ef6d9444f93091fc53755128b83d3fc9aae8f052f30cd04571a",
+              "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+            },
+            "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+          },
+          "type_id": "mpk.csharp.value.bool.v1"
+        }
+      },
+      {
+        "attachment_sha256": "9df82cd395d5ff66df94737a722fb55d50d2932f8c32d8b5f8cb07028fe9f68e",
+        "canonical_expression": "{\"tag\":\"binary\",\"type_id\":\"mpk.csharp.value.bool.v1\",\"operation_id\":\"integer.i32.greater_equal.checked\",\"left\":{\"tag\":\"field\",\"type_id\":\"mpk.csharp.value.i32.v1\",\"receiver\":{\"tag\":\"variable\",\"type_id\":\"mpk.csharp.source.c6a54e94ea27d44897d9fef8e3c8e3ac02fd55203eeb69a06ea2ed68d0154929\",\"binding_id\":\"next_state\"},\"member_id\":\"mpk.csharp.member.47e320bebdf339e01462de1ae539bf5d19b4024698f2fc7e88c08e60f89777b0\"},\"right\":{\"tag\":\"literal\",\"type_id\":\"mpk.csharp.value.i32.v1\",\"value\":\"0\"}}",
+        "definitions": [
+          {
+            "argument_types": [
+              "mpk.csharp.source.c6a54e94ea27d44897d9fef8e3c8e3ac02fd55203eeb69a06ea2ed68d0154929"
+            ],
+            "name": "contract.def.87ba6738c931eeb1cea69e2ef2de4dc393e32bb091177988737deab6b514014f",
+            "ordered_checks": [],
+            "parameters": "{\"member_id\":\"mpk.csharp.member.47e320bebdf339e01462de1ae539bf5d19b4024698f2fc7e88c08e60f89777b0\"}",
+            "result_type": "mpk.csharp.value.i32.v1",
+            "tag": "field"
+          },
+          {
+            "argument_types": [],
+            "name": "contract.def.8d834dcb097fefecf6faa2768233a04eab477291c35dac084cf0529ea3af0413",
+            "ordered_checks": [],
+            "parameters": "{\"value\":\"0\"}",
+            "result_type": "mpk.csharp.value.i32.v1",
+            "tag": "literal"
+          },
+          {
+            "argument_types": [
+              "mpk.csharp.value.i32.v1",
+              "mpk.csharp.value.i32.v1"
+            ],
+            "name": "contract.def.932a554b2e413269cc2ad27eeebf7a4101892e7d3e27833653a7cff24255a2be",
+            "ordered_checks": [],
+            "parameters": "{\"operation_id\":\"integer.i32.greater_equal.checked\"}",
+            "result_type": "mpk.csharp.value.bool.v1",
+            "tag": "binary"
+          }
+        ],
+        "expression_sha256": "16464eae79edd79b1522af0742462d8d6c6bc5a55e2498092db1d436bf44e16a",
+        "subject_bindings": [
+          [
+            "current:next_state",
+            "mpk.csharp.source.c6a54e94ea27d44897d9fef8e3c8e3ac02fd55203eeb69a06ea2ed68d0154929"
+          ]
+        ],
+        "term": {
+          "argument": {
+            "form": "const",
+            "name": "contract.def.8d834dcb097fefecf6faa2768233a04eab477291c35dac084cf0529ea3af0413",
+            "type_id": "mpk.csharp.value.i32.v1"
+          },
+          "form": "app",
+          "function": {
+            "argument": {
+              "argument": {
+                "form": "var",
+                "index": 0,
+                "type_id": "mpk.csharp.source.c6a54e94ea27d44897d9fef8e3c8e3ac02fd55203eeb69a06ea2ed68d0154929"
+              },
+              "form": "app",
+              "function": {
+                "form": "const",
+                "name": "contract.def.87ba6738c931eeb1cea69e2ef2de4dc393e32bb091177988737deab6b514014f",
+                "type_id": "(mpk.csharp.source.c6a54e94ea27d44897d9fef8e3c8e3ac02fd55203eeb69a06ea2ed68d0154929->mpk.csharp.value.i32.v1)"
+              },
+              "type_id": "mpk.csharp.value.i32.v1"
+            },
+            "form": "app",
+            "function": {
+              "form": "const",
+              "name": "contract.def.932a554b2e413269cc2ad27eeebf7a4101892e7d3e27833653a7cff24255a2be",
+              "type_id": "(mpk.csharp.value.i32.v1->(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1))"
+            },
+            "type_id": "(mpk.csharp.value.i32.v1->mpk.csharp.value.bool.v1)"
+          },
+          "type_id": "mpk.csharp.value.bool.v1"
+        }
+      }
+    ],
+    "input_sha256": "32dcdf04df6ad164df3873787bb17e013f8521fa24c531cca1a642477030fab6",
+    "requests": "boundary-transition/control-requests.json",
+    "reservation": {
+      "binder_depth_minimum": 6,
+      "generated_declarations_minimum": 183,
+      "ordinary_term_nodes_minimum": 978,
+      "static_transformers_minimum": 0
+    },
+    "vc_sha256": "3cae9153846ab1fcb98eb697adec21b44406dd3eabcff0b72bf5aac700a90efe",
+    "vir_sha256": "deeb749de06986289e2b32e31dcb321a1498399b8145c7820aad4fda9d33e743"
+  },
+  {
+    "expressions": [
+      {
+        "attachment_sha256": "756ee0e9d07818625406d4313d5a6c455933d5b386c1dd196fa750e15ef378d5",
+        "canonical_expression": "{\"tag\":\"tagged_is\",\"type_id\":\"mpk.csharp.value.bool.v1\",\"value\":{\"tag\":\"codec_parse\",\"type_id\":\"mpk.csharp.instance.12da4d54165e9ced4eb198971323d65c64389a859114565dec13c18a2e8a3c7d\",\"codec_id\":\"integer.i32\",\"codec_parameters\":{\"scale\":null,\"rounding\":null},\"text\":{\"tag\":\"literal\",\"type_id\":\"mpk.csharp.value.string.v1\",\"value\":\"42\"}},\"arm\":\"ok\"}",
+        "definitions": [
+          {
+            "argument_types": [
+              "mpk.csharp.value.string.v1"
+            ],
+            "name": "contract.def.001ed1c1b002f70385068181760631017abdb2be84153586a34432d72c742d64",
+            "ordered_checks": [],
+            "parameters": "{\"codec_id\":\"integer.i32\",\"codec_parameters\":{\"scale\":null,\"rounding\":null}}",
+            "result_type": "mpk.csharp.instance.12da4d54165e9ced4eb198971323d65c64389a859114565dec13c18a2e8a3c7d",
+            "tag": "codec_parse"
+          },
+          {
+            "argument_types": [],
+            "name": "contract.def.2057d62eed53a2a94a8307db00c10e5eb8b3cc4787567e088fbfd1aa52792730",
+            "ordered_checks": [],
+            "parameters": "{\"value\":\"42\"}",
+            "result_type": "mpk.csharp.value.string.v1",
+            "tag": "literal"
+          },
+          {
+            "argument_types": [
+              "mpk.csharp.instance.12da4d54165e9ced4eb198971323d65c64389a859114565dec13c18a2e8a3c7d"
+            ],
+            "name": "contract.def.2d9ee6a9e32044b9a2e7f395b87acb15fa86342f4292f41c98eb8ca8c7ea1c8c",
+            "ordered_checks": [],
+            "parameters": "{\"arm\":\"ok\"}",
+            "result_type": "mpk.csharp.value.bool.v1",
+            "tag": "tagged_is"
+          }
+        ],
+        "expression_sha256": "25af0b6604afc3a708675381f168aa7cce524f66fc4507107fb4cbaaffb319ee",
+        "subject_bindings": [
+          [
+            "current:parameter:0",
+            "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36"
+          ]
+        ],
+        "term": {
+          "argument": {
+            "argument": {
+              "form": "const",
+              "name": "contract.def.2057d62eed53a2a94a8307db00c10e5eb8b3cc4787567e088fbfd1aa52792730",
+              "type_id": "mpk.csharp.value.string.v1"
+            },
+            "form": "app",
+            "function": {
+              "form": "const",
+              "name": "contract.def.001ed1c1b002f70385068181760631017abdb2be84153586a34432d72c742d64",
+              "type_id": "(mpk.csharp.value.string.v1->mpk.csharp.instance.12da4d54165e9ced4eb198971323d65c64389a859114565dec13c18a2e8a3c7d)"
+            },
+            "type_id": "mpk.csharp.instance.12da4d54165e9ced4eb198971323d65c64389a859114565dec13c18a2e8a3c7d"
+          },
+          "form": "app",
+          "function": {
+            "form": "const",
+            "name": "contract.def.2d9ee6a9e32044b9a2e7f395b87acb15fa86342f4292f41c98eb8ca8c7ea1c8c",
+            "type_id": "(mpk.csharp.instance.12da4d54165e9ced4eb198971323d65c64389a859114565dec13c18a2e8a3c7d->mpk.csharp.value.bool.v1)"
+          },
+          "type_id": "mpk.csharp.value.bool.v1"
+        }
+      }
+    ],
+    "input_sha256": "fb04f2de27110a045ba8afd4895bcb05046b88783649550d249285267460cc7a",
+    "requests": "data-phase/data-sidecar-requests.json",
+    "reservation": {
+      "binder_depth_minimum": 1,
+      "generated_declarations_minimum": 29,
+      "ordinary_term_nodes_minimum": 76,
+      "static_transformers_minimum": 0
+    },
+    "vc_sha256": "134e4c8ea196f70f73d3d03493cf7d514a0d3fa22155167c1ae5ade4f85b3782",
+    "vir_sha256": "b0cee5dc6f6fcf416a86a1904b51303159dba5f8762393e0dd38e20e0174b78f"
+  }
+]

@@ -2922,6 +2922,7 @@ fn emit_data_phase_inner(
         &closure,
         &sidecars,
         &emitter.signatures,
+        None,
     )?;
     let transition_refs = transitions
         .iter()

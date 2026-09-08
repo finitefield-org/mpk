@@ -60,7 +60,7 @@ private structured-loop lowering (section 40). T04-W03 completes switch and
 pattern lowering (section 41). T04-W04 completes closed exception declarations,
 explicit throws and exceptional contracts (section 42). T04-W05 completes
 two-pass handler search, filters, finally and propagation (section 43). T04-W06 completes
-ordinary control emission and independent import (section 44). T05-W01 completes boundary sidecar and presence attachment (section 45). T05-W02 completes canonical input capture and typed evidence linkage (section 46). T05-W03 completes source output encoding and typed reparse (section 47). T05-W04 completes pure transition attachment and pending obligations (section 48). T05-W05 completes full-snapshot idempotency attachment and pending obligations (section 49). T05-W06 closes boundary/transition emission and data-route totality (section 50). T06-W01 is ready;
+ordinary control emission and independent import (section 44). T05-W01 completes boundary sidecar and presence attachment (section 45). T05-W02 completes canonical input capture and typed evidence linkage (section 46). T05-W03 completes source output encoding and typed reparse (section 47). T05-W04 completes pure transition attachment and pending obligations (section 48). T05-W05 completes full-snapshot idempotency attachment and pending obligations (section 49). T05-W06 closes boundary/transition emission and data-route totality (section 50). T06-W01 completes independent contract-expression import and ordinary-term encoding (section 51). T06-W02 is ready;
 later items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
@@ -138,9 +138,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T05-W03` | `Complete` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W03` | `9aa555a6d88ea55cd4e2dc41940059746dd968bf` |
 | `CSHARP-03-T05-W04` | `Complete` | `crates/mpk-cli/tests/csharp_practical_transition.rs#CSHARP-03-T05-W04` | `33b95cd59817b4bbc330a66971e35c2e092cd92e` |
 | `CSHARP-03-T05-W05` | `Complete` | `crates/mpk-cli/tests/csharp_practical_transition.rs#CSHARP-03-T05-W05` | `40cf7d0c182bf786dad82565f105537cdae6c5b7` |
-| `CSHARP-03-T05-W06` | `Complete` | `crates/mpk-cli/tests/csharp_practical_boundary_transition.rs#CSHARP-03-T05-W06` | `SELF` |
-| `CSHARP-03-T06-W01` | `Ready` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W01` | `—` |
-| `CSHARP-03-T06-W02` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W02` | `—` |
+| `CSHARP-03-T05-W06` | `Complete` | `crates/mpk-cli/tests/csharp_practical_boundary_transition.rs#CSHARP-03-T05-W06` | `4a8cec4ce746ac65db745480ad76b6b174d67fe5` |
+| `CSHARP-03-T06-W01` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W01` | `SELF` |
+| `CSHARP-03-T06-W02` | `Ready` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W02` | `—` |
 | `CSHARP-03-T06-W03` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W03` | `—` |
 | `CSHARP-03-T06-W04` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W04` | `—` |
 | `CSHARP-03-T06-W05` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W05` | `—` |
@@ -5254,8 +5254,50 @@ skipping the overall check for this W06, citing the T05-W04 run. Therefore
 current changes. This task-specific exception supersedes the normal T-final
 cadence without changing AGENTS.md or later tasks' gates.
 
-The task uses `SELF`; W05 records its published commit. T05 is complete under
-the explicit verification exception and T06-W01 is ready. Semantic proof and
+At the W06 checkpoint the task used `SELF` and W05 recorded its published commit.
+T05 completed under the explicit verification exception and T06-W01 became ready. Semantic proof and
 proof counterexamples remain T06-owned, and release activation remains blocked
 through T08-W10. The frozen 709 vectors, 26 vector sets, source producer,
 historical receipts and Java lane are unchanged.
+
+## 51. CSHARP-03-T06-W01 completion record
+
+The verification-side importer independently consumes strict canonical expression
+bytes and reuses concrete typing/value semantics without invoking the frontend
+expression parser or rebuilding source-side attachment rules. Its complete
+33-tag union lowers to typed ordinary var/const/app/lam/let forms. Local binders
+use de Bruijn indices; current/entry/result subjects remain distinct. Exact
+source, semantic-binding, specialized operation, codec, literal and exception
+identities survive in definition recipes and the recomputed attachment digest.
+Definition bodies and proof discharge remain with T06-W02 through W09.
+
+Original-input VIR import collects these encodings through the existing method,
+type, loop/exception and transition scope owners. Control method clauses are
+recorded once. Boundary documents introduce linkage rather than an additional
+expression grammar. T02-W02 still owns closed specialization. Its existing root
+walk now also enforces the retained 8,192-node closure limit. The verification
+parser enforces file/depth/node/quantifier bounds and ordinary binder bounds;
+partial constructors and old-state result references reject before VC output.
+Checked arithmetic retains its ordered definedness checks for T06-W03 instead
+of being treated as a proved total operation.
+
+VC generation/import retains the verified expression capability, binds its
+attachment and definition identities in ordinary-foundation subjects, and counts
+ordinary nodes, definitions and binder depth in the existing reservation fields.
+Boundary and transition contract subjects retain their W07/W08 proof owners.
+Existing VIR/VC wire schemas, frozen source producer, historical receipts and
+release gates remain unchanged; no proof or Certificate v0 body is fabricated.
+
+`crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W01` owns exhaustive tag
+and result typing comparisons, alpha normalization, scope/partial/unknown
+rejections, 128 bounded parser mutation seeds, specialized-operation identity,
+inclusive depth/node/binder/quantifier boundaries, and original C# attachment
+through T03/T05 captures into VC import. Retained encodings, attachments, review
+and verification live under `develop/migrations/csharp-03/verification-expressions/`.
+Affected legacy VC, source contract, control and transition tests are scoped
+local checks. `./scripts/check-fast.sh` is deferred to the final W of T06 under
+AGENTS.md; the W05/W06-specific prior waiver is not reused for this T.
+
+The task uses `SELF`, T05-W06 records its published commit, and T06-W02 is ready.
+The task diff review has zero remaining findings. Activation remains blocked
+through T08-W10 and semantic obligation generation remains with later T06 owners.

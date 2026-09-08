@@ -40,7 +40,8 @@ source output encoding, independent typed reparse and cumulative evidence linkag
 T05-W04 completes pure transition attachment and pending typed obligations.
 T05-W05 completes optional complete-snapshot idempotency attachment and pending replay/equality obligations.
 T05-W06 closes cumulative boundary/transition emission, independent import and totality on both source capture routes.
-T06-W01 is ready, while
+T06-W01 completes independent contract-expression import, typed ordinary-term encoding and attachment identity recomputation.
+T06-W02 is ready, while
 activation remains blocked through T08-W10.
 
 Prepared: 2026-09-02. Revised: 2026-09-08.

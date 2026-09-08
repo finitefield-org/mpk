@@ -150,7 +150,7 @@ fn setup(
         |_, _, rows| rows,
     )
 }
-pub(super) fn setup_variant(
+pub(crate) fn setup_variant(
     b: &ValidatedFoundationBundle,
     case: &str,
     mut source: String,

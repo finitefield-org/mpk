@@ -532,6 +532,7 @@ pub fn prepare_loop_contracts(
         let termination = text(contract, "termination")?;
         let mut nodes = 0;
         let mut env = environment(common, &method.parameters, r, c)?;
+        env.verification_owner = text(contract, "contract_sha256")?.into();
         expressions(
             b,
             r,

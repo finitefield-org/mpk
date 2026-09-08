@@ -308,6 +308,7 @@ fn source_id(ty: &ClosedType) -> Result<String, TransitionError> {
         _ => Err(TransitionError::Type),
     }
 }
+#[allow(clippy::too_many_arguments)]
 pub(super) fn attach_transition_contracts(
     b: &ValidatedFoundationBundle,
     context: &a::PracticalArtifactContext,
@@ -315,6 +316,7 @@ pub(super) fn attach_transition_contracts(
     closure: &DataBindingClosure,
     sidecars: &DataSidecars,
     operations: &BTreeMap<String, ClosedOperationSignature>,
+    verification_environment: Option<&DataContractEnvironment>,
 ) -> Result<Vec<ValidatedTransitionContract>, DataPhaseError> {
     let mut result = vec![];
     let mut ids = BTreeSet::new();
@@ -323,7 +325,16 @@ pub(super) fn attach_transition_contracts(
         .iter()
         .filter(|a| a.schema() == a::TRANSITION_CONTRACT_SCHEMA)
     {
-        let plan = attach(b, context, source, closure, sidecars, operations, artifact)?;
+        let plan = attach(
+            b,
+            context,
+            source,
+            closure,
+            sidecars,
+            operations,
+            artifact,
+            verification_environment,
+        )?;
         if !ids.insert(
             text(artifact.value(), "transition_id")
                 .map_err(DataPhaseError::Transition)?
@@ -335,6 +346,7 @@ pub(super) fn attach_transition_contracts(
     }
     Ok(result)
 }
+#[allow(clippy::too_many_arguments)]
 fn attach(
     b: &ValidatedFoundationBundle,
     context: &a::PracticalArtifactContext,
@@ -343,6 +355,7 @@ fn attach(
     sidecars: &DataSidecars,
     operations: &BTreeMap<String, ClosedOperationSignature>,
     artifact: &a::ValidatedPracticalArtifact,
+    verification_environment: Option<&DataContractEnvironment>,
 ) -> Result<ValidatedTransitionContract, DataPhaseError> {
     use TransitionError as E;
     let run = || -> Result<ValidatedTransitionContract, E> {
@@ -506,8 +519,13 @@ fn attach(
         } else {
             &["version_conflict", "version_exhausted"]
         };
-        let common = data_phase::data_contract_environment(b, source, closure, operations)
-            .map_err(|_| E::Predicate)?;
+        let mut common = if let Some(common) = verification_environment {
+            common.clone()
+        } else {
+            data_phase::data_contract_environment(b, source, closure, operations)
+                .map_err(|_| E::Predicate)?
+        };
+        common.verification_owner = text(artifact.value(), "contract_sha256")?.to_owned();
         let mut env = DataContractEnvironment {
             variables: BTreeMap::from([
                 ("state".into(), state.into()),

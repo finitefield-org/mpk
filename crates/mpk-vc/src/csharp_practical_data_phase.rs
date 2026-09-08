@@ -458,6 +458,9 @@ impl DataBindingClosure {
 /// derives this environment from captured declarations and validated bindings.
 #[derive(Clone, Debug, Default)]
 pub struct DataContractEnvironment {
+    pub verification_capture: Option<ContractExpressionCapture>,
+    pub verification_owner: String,
+    pub partial_callables: BTreeSet<String>,
     pub exception_universe: Option<ClosedExceptionUniverse>,
     pub exception_type: Option<String>,
     pub variables: BTreeMap<String, String>,
@@ -1152,10 +1155,16 @@ pub fn parse_data_contract_expression(
         Ok(())
     }
     shape(&value, shapes)?;
-    validate_data_contract_value(b, r, c, env, &value)
+    let result = validate_data_contract_value(b, r, c, env, &value)?;
+    if let Some(capture) = &env.verification_capture {
+        capture.record(import_verification_contract_expression(
+            b, r, c, env, bytes,
+        )?)?;
+    }
+    Ok(result)
 }
 
-fn validate_data_contract_value(
+pub(super) fn validate_data_contract_value(
     b: &ValidatedFoundationBundle,
     r: &ValidatedClosedRootSet,
     c: &ClosedInstanceSet,
@@ -1277,12 +1286,14 @@ pub(crate) fn attach_data_contracts(
     source: &ValidatedDataSource,
     sidecars: &DataSidecars,
     operations: &BTreeMap<String, ClosedOperationSignature>,
-) -> Result<(), DataPhaseError> {
+) -> Result<Vec<VerifiedContractExpression>, DataPhaseError> {
     source.validate_source_call_signatures(b, operations)?;
     use artifacts::PracticalJsonValue as J;
     let r = closure.roots();
     let c = closure.closed();
+    let capture = ContractExpressionCapture::default();
     let mut common = data_contract_environment(b, source, closure, operations)?;
+    common.verification_capture = Some(capture.clone());
     // Total contracts apply to every source capture route, including the data
     // route without a CFG. Boundary/transition roots cannot hide a partial
     // callee merely by omitting the optional control handoff.
@@ -1319,7 +1330,11 @@ pub(crate) fn attach_data_contracts(
             }
         }
     }
-    derive_control_termination(source, &claims)?;
+    common.partial_callables = derive_control_termination(source, &claims)?
+        .into_iter()
+        .filter(|(_, mode)| mode == "partial")
+        .map(|(id, _)| id)
+        .collect();
     if let Some(control) = control {
         common.exception_universe = Some(control.universe().clone());
         // W01 remains the sole owner of loop contract attachment and scope
@@ -1365,8 +1380,19 @@ pub(crate) fn attach_data_contracts(
         }
         let value = contract.value();
         let mut env = common.clone();
+        env.verification_owner = contract
+            .value()
+            .get("contract_sha256")
+            .and_then(J::as_str)
+            .ok_or(DataPhaseError::Contract)?
+            .to_owned();
         let mut nodes = 0;
         if contract.schema() == artifacts::METHOD_CONTRACT_SCHEMA {
+            // The control owner already imported these method/loop clauses in
+            // their exact scopes above. Avoid recording a second attachment.
+            if source.control_lowering().is_some() {
+                env.verification_capture = None;
+            }
             let id = value
                 .get("callable_id")
                 .and_then(J::as_str)
@@ -1561,8 +1587,16 @@ pub(crate) fn attach_data_contracts(
     }
     boundary::attach_boundary_contracts(b, context, source, closure, sidecars, operations)
         .map_err(DataPhaseError::Boundary)?;
-    transition::attach_transition_contracts(b, context, source, closure, sidecars, operations)?;
-    Ok(())
+    transition::attach_transition_contracts(
+        b,
+        context,
+        source,
+        closure,
+        sidecars,
+        operations,
+        Some(&common),
+    )?;
+    capture.finish()
 }
 
 /// CLR zeros are metadata even when they are outside the public value domain.
@@ -1710,6 +1744,7 @@ pub(crate) fn derive_data_contract_roots(
         }
         Ok(())
     }
+    let mut closure_nodes = 0usize;
     for contract in sidecars.contracts() {
         let mut ordinal = 0;
         for name in [
@@ -1728,6 +1763,12 @@ pub(crate) fn derive_data_contract_roots(
             if let Some(expression) = contract.value().get(name) {
                 walk(b, expression, contract.hash(), &mut ordinal, roots, 1)?;
             }
+        }
+        closure_nodes = closure_nodes
+            .checked_add(ordinal)
+            .ok_or(DataPhaseError::Contract)?;
+        if closure_nodes > data_contract_limit("contract_nodes_per_closure") {
+            return Err(DataPhaseError::Contract);
         }
     }
     let bytes = canonical_closed_root_set_transport(b, &value["roots"], &value["source_types"])

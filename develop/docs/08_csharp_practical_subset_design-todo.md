@@ -35,7 +35,7 @@ normative but inactive specifications and, after the approved W14 codec
 parameter and W01 partial-loop amendments, 709 vectors.
 `CSHARP-03-T02-W01/W02/W03/W04/W05/W06/W07/W08/W09` and
 `CSHARP-03-T03-W01/W02/W03/W04/W05/W06/W07/W08/W09/W10/W11/W12/W13/W14` are complete.
-`CSHARP-03-T04-W01/W02/W03/W04/W05/W06` and `CSHARP-03-T05-W01/W02/W03/W04/W05/W06` are complete; `CSHARP-03-T06-W01` is ready. Every later
+`CSHARP-03-T04-W01/W02/W03/W04/W05/W06` and `CSHARP-03-T05-W01/W02/W03/W04/W05/W06` are complete; `CSHARP-03-T06-W01` is complete; `CSHARP-03-T06-W02` is ready. Every later
 implementation work item remains blocked by its serial predecessor.
 
 Source design: `08_csharp_practical_subset_design.md`.

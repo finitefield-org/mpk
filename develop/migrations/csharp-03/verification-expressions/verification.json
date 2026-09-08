@@ -1,0 +1,243 @@
+{
+  "baseline_commit": "4a8cec4ce746ac65db745480ad76b6b174d67fe5",
+  "capture": {
+    "accepted_capture_repetitions": 2,
+    "actual_type_invariant_requests": 1,
+    "command": "docker run --rm -i --platform linux/amd64 --network none --cap-add SYS_ADMIN --security-opt seccomp=unconfined -v /Users/kazuyoshitoshiya/mpk:/repo:ro -w /repo mpk-java-t10-gate:local ./scripts/build-csharp-practical-frontend.sh --test-data-phase-requests",
+    "responses": "type-responses.json",
+    "result": "passed"
+  },
+  "checks": [
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc",
+      "elapsed_seconds": 7.31,
+      "log_sha256": "559a2216a80dd10e56e9ae279ca546f10cda43ebab798fc08a8da24f14b2f9cf",
+      "result": "passed",
+      "tests_passed": 4
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc_model",
+      "elapsed_seconds": 0.18,
+      "log_sha256": "64127a27a1698cda88a2f108a9065b0ee51bed31f8576edb372ddd69bc7a384e",
+      "result": "passed",
+      "tests_passed": 5
+    },
+    {
+      "command": "cargo test -p mpk-cli --test csharp_practical_control emission::csharp_03_t04_w06_actual_source_",
+      "elapsed_seconds": 29.58,
+      "log_sha256": "c852e7bfef1774c839ec0cd9e7e1e208e5e36e4d5221cb1cea05c6cd68ae8ecc",
+      "result": "passed",
+      "tests_passed": 5
+    },
+    {
+      "command": "cargo test -p mpk-cli --test csharp_practical_transition csharp_03_t05_w04_",
+      "elapsed_seconds": 136.49,
+      "log_sha256": "72106a6d5955e4d3c5b117004a96679b1f43cb13de920646d280c48aa8fa394e",
+      "result": "passed",
+      "tests_passed": 2
+    },
+    {
+      "command": "cargo test -p mpk-cli --test csharp_practical_domain contract_",
+      "elapsed_seconds": 0.36,
+      "log_sha256": "f5b7f0cebeb264546b0974c334cc0053f50352418dfb584d8c064f27be857cfd",
+      "result": "passed",
+      "tests_passed": 3
+    },
+    {
+      "command": "cargo test -p mpk-cli --test csharp_practical_domain csharp_03_t03_w14_attaches_captured_method_contracts_before_artifacts",
+      "elapsed_seconds": 0.56,
+      "log_sha256": "4ce3ba3325331a738fcd405ca2ee893daad76e46a7b9a485628d56e448041e55",
+      "result": "passed",
+      "tests_passed": 1
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "elapsed_seconds": 15.46,
+      "log_sha256": "08c29002d68c364e98f2a6bab26a5413f01ff81d7ae076a7fd4f2e12a59463b9",
+      "result": "passed",
+      "tests_passed": 5
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc --test csharp_practical_inventory -- -D warnings",
+      "log_sha256": "8ab0e2de87f8d19685920b3afe2d52d75d5ef61e33867946409ce4522412ade2",
+      "result": "passed"
+    },
+    {
+      "command": "cargo clippy -p mpk-cli --test csharp_practical_transition --test csharp_practical_boundary_transition -- -D warnings",
+      "log_sha256": "2ba8ae658d28b2ff3dfdd2fa55a2dddc3f15f63433d44c036fe23c701eeb2244",
+      "result": "passed"
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true (all changed Rust files)",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result": "passed"
+    }
+  ],
+  "coverage": {
+    "actual_attachment_cases": 4,
+    "encoding_mutations": 33,
+    "expression_tags": 33,
+    "limits_checked": {
+      "binder_depth": [
+        255,
+        256,
+        257
+      ],
+      "bounded_quantifier_nesting": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "contract_depth": [
+        31,
+        32,
+        33
+      ],
+      "contract_nodes_per_method": [
+        1023,
+        1024,
+        1025
+      ]
+    },
+    "negative_result_types": 33,
+    "parser_fuzz_seeds": 128,
+    "review_findings": 0,
+    "scoped_tests_passed": 25
+  },
+  "date": "2026-09-08",
+  "files": [
+    {
+      "path": "crates/mpk-cli/tests/csharp_practical_transition.rs",
+      "sha256": "c2f755defa0517252594760516819646c9bf75f0dee80d3def3e64bec6fbff24",
+      "size_bytes": 36326
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_contract_import.rs",
+      "sha256": "e4ccb3f390a1eb86580b38abf2a99b7d28a69823508a86cbec8ea6bfae71593c",
+      "size_bytes": 17503
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_data_emission.rs",
+      "sha256": "301bed29270600fdc8878fb36989acd77e392ceff2a3b7c0fd24b355a2da72d1",
+      "size_bytes": 140952
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_data_phase.rs",
+      "sha256": "464817838c274447d4e106ce03c43b64f7fe920362ad5ef34445636b8488f36f",
+      "size_bytes": 69935
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_loop_contracts.rs",
+      "sha256": "7ac0061d438849d3178a389dea215b253cf1fe7a9ff500ba337191ab3e37145d",
+      "size_bytes": 28581
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_transition.rs",
+      "sha256": "b9f54ea922821aec862df39d51009c5fb6c1acf44cc29ff0e2b91848e8fd1b82",
+      "size_bytes": 27696
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vc_model.rs",
+      "sha256": "0d486fc011e1cdac07023bc7e503c7ada31ab87e1ea9c356cab16c41160b946c",
+      "size_bytes": 81566
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "650cc833a5f5c9d5ecaaa2ec03bf6826e489c9155f27764a39b0424d9a0e2ffc",
+      "size_bytes": 260582
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_validation.rs",
+      "sha256": "001d2114aa250594de759dc3714579c0eda46d569ece3e5e6a9214342920aa24",
+      "size_bytes": 180547
+    },
+    {
+      "path": "crates/mpk-vc/tests/csharp_practical_vc.rs",
+      "sha256": "02faccefd112b2c3d8760cc0d370b3d05ef5a323fca525f3a181ad75624632e0",
+      "size_bytes": 25400
+    },
+    {
+      "path": "crates/mpk-vc/tests/csharp_practical_inventory.rs",
+      "sha256": "3dcfa0fbddfc0549467a3f877a064e6af43da91d4c32d7861ce6acda424f8539",
+      "size_bytes": 78495
+    },
+    {
+      "path": "develop/docs/08_csharp_practical_subset_design-todo.md",
+      "sha256": "452b8f89352c38ad626b08a5efccfd05cd390349acb59cfeda1abcdabcf33bee",
+      "size_bytes": 133665
+    },
+    {
+      "path": "develop/docs/08_csharp_practical_subset_design.md",
+      "sha256": "92b9e7aea3003a8ecdf89c83fd4c63c8f47258f8642f1fc321f50f4d5f22c179",
+      "size_bytes": 150121
+    },
+    {
+      "path": "develop/docs/csharp-03-implementation-traceability-ledger.md",
+      "sha256": "2567c02ee6e9d64c98a37f63109fa9ba9eef13414c399aa1764ef3c6684aa86d",
+      "size_bytes": 325368
+    },
+    {
+      "path": "develop/migrations/csharp-03/verification-expressions/README.md",
+      "sha256": "4d2e66aab1cb25fd3910bd3472a84c238ae731542db33265f6faa71a2c79f195",
+      "size_bytes": 4256
+    },
+    {
+      "path": "develop/migrations/csharp-03/verification-expressions/attachments.json",
+      "sha256": "c13e9d8dcc9d37f99a8c5cf3ae881031b52ea509cae2d698a122149981a0b758",
+      "size_bytes": 59556
+    },
+    {
+      "path": "develop/migrations/csharp-03/verification-expressions/encodings.json",
+      "sha256": "92b28041bed89506e3f29d4ed442fe4395a2d8afd3f2269e8510820fa3024fdc",
+      "size_bytes": 120482
+    },
+    {
+      "path": "develop/migrations/csharp-03/verification-expressions/review.md",
+      "sha256": "87151e9b62c4ef832ea73b985fa7a3e4a1ee64de93ea563132bb51f7b7fc632f",
+      "size_bytes": 3401
+    },
+    {
+      "path": "develop/migrations/csharp-03/verification-expressions/type-requests.json",
+      "sha256": "e9f1f5c325c769e10ada7ba01b88ec47a328b487ecc44284f06cff06b9e123fc",
+      "size_bytes": 3375
+    },
+    {
+      "path": "develop/migrations/csharp-03/verification-expressions/type-responses.json",
+      "sha256": "3fdd0c10f5a267a75db3093878a55a3541ff9cd8e6fc026d2c5ee6391aa5e7b8",
+      "size_bytes": 9188
+    }
+  ],
+  "frozen": [
+    {
+      "path": "crates/mpk-cli/src/csharp_practical_frontend_protocol.rs",
+      "sha256": "b4c6c55dd29f9a2983231ab67b0c9263f42becfbd620ef3daa4e3098944c2077",
+      "size_bytes": 61921
+    },
+    {
+      "path": "develop/migrations/csharp-03/probes/recursor-feasibility.json",
+      "sha256": "b0cd0fd692749d34dabe2065a8d5efba79c36968275b72dc7dbe50450bdcf36d",
+      "size_bytes": 66558
+    },
+    {
+      "path": "develop/migrations/csharp-03/probes/checker-capacity.json",
+      "sha256": "8f9c40c19e2af7fd209975528a72b66010d81ac78823542db0d9acdc37ac8ad5",
+      "size_bytes": 39138
+    },
+    {
+      "path": "develop/specs/vectors/csharp-practical-profile-v1.json",
+      "sha256": "de401830e1cd4221465d25c6fe31dad7d704ae8959edfc1145db8099f7bfffa6",
+      "size_bytes": 528089
+    }
+  ],
+  "overall_gate": {
+    "command": "./scripts/check-fast.sh",
+    "reason": "Intermediate W: repository AGENTS.md requires scoped verification only.",
+    "result": "deferred_to_T06_completion",
+    "workspace_wide_substitute_run": false
+  },
+  "proof_discharge": "pending later T06 owners",
+  "schema": "mpk.csharp_practical.t06_w01.verification.v1",
+  "work_item": "CSHARP-03-T06-W01"
+}

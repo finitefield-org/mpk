@@ -595,6 +595,7 @@ pub struct ValidatedPracticalVir {
     canonical_bytes: Vec<u8>,
     artifact_ref: ArtifactRef,
     operation_signatures: Vec<ClosedOperationSignature>,
+    contract_expressions: Vec<crate::csharp_practical_vir_model::VerifiedContractExpression>,
 }
 
 impl ValidatedPracticalVir {
@@ -613,6 +614,11 @@ impl ValidatedPracticalVir {
     /// Complete canonical contract documents, including lossless UTF-16 literals.
     pub fn source_obligations(&self) -> &[SourceDataObligation] {
         &self.wire.source_obligations
+    }
+    pub fn contract_expressions(
+        &self,
+    ) -> &[crate::csharp_practical_vir_model::VerifiedContractExpression] {
+        &self.contract_expressions
     }
     pub fn data_contracts(&self) -> &[String] {
         &self.wire.data_contracts
@@ -656,6 +662,7 @@ struct PreparedInputs {
     actual_source: Option<crate::csharp_practical_vir_model::ValidatedDataSource>,
     source_property_roots: BTreeSet<String>,
     data_contracts: Vec<String>,
+    contract_expressions: Vec<crate::csharp_practical_vir_model::VerifiedContractExpression>,
     source_obligations: Vec<SourceDataObligation>,
 }
 
@@ -834,6 +841,7 @@ pub fn import_csharp_practical_vir_json(
         canonical_bytes: input.to_vec(),
         artifact_ref,
         operation_signatures,
+        contract_expressions: prepared.contract_expressions,
     })
 }
 
@@ -1722,6 +1730,7 @@ fn prepare_inputs(
     let mut actual_source = None;
     let mut source_obligations = vec![];
     let mut source_property_roots = BTreeSet::new();
+    let mut contract_expressions = vec![];
     let data_contracts = if let Some(facts) = context.data_source_facts {
         use crate::csharp_practical_vir_model::{
             attach_data_contracts, derive_data_contract_roots, DataBindingClosure, DataSidecars,
@@ -1773,7 +1782,7 @@ fn prepare_inputs(
                 return Err(linkage_failure());
             }
         }
-        attach_data_contracts(
+        contract_expressions = attach_data_contracts(
             &foundation,
             context.artifact_context,
             context.captured_inputs,
@@ -1818,6 +1827,7 @@ fn prepare_inputs(
         actual_source,
         source_property_roots,
         data_contracts,
+        contract_expressions,
         source_obligations,
     })
 }

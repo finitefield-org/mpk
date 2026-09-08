@@ -7196,6 +7196,13 @@ pub use business::{
 
 use domain::source_observations_equal;
 
+#[path = "csharp_practical_contract_import.rs"]
+mod contract_import;
+pub use contract_import::{
+    import_verification_contract_encoding, import_verification_contract_expression,
+    ContractDefinition, ContractExpressionCapture, ContractTerm, VerifiedContractExpression,
+};
+
 #[path = "csharp_practical_data_phase.rs"]
 mod data_phase;
 pub(crate) use data_phase::{attach_data_contracts, derive_data_contract_roots};

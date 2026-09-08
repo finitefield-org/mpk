@@ -464,9 +464,15 @@ pub struct ValidatedPracticalVc {
     wire: WirePracticalVcDocument,
     canonical_bytes: Vec<u8>,
     artifact_ref: ArtifactRef,
+    contract_expressions: Vec<crate::csharp_practical_vir_model::VerifiedContractExpression>,
 }
 
 impl ValidatedPracticalVc {
+    pub fn contract_expressions(
+        &self,
+    ) -> &[crate::csharp_practical_vir_model::VerifiedContractExpression] {
+        &self.contract_expressions
+    }
     pub fn canonical_bytes(&self) -> &[u8] {
         &self.canonical_bytes
     }
@@ -831,6 +837,7 @@ pub fn import_csharp_practical_vc_json(
         )
     })?;
     Ok(ValidatedPracticalVc {
+        contract_expressions: source.vir.contract_expressions().to_vec(),
         wire,
         canonical_bytes: input.to_vec(),
         artifact_ref,
@@ -852,13 +859,45 @@ fn expected_vc(source: PracticalVcSource<'_>) -> Result<WirePracticalVcDocument,
         &operation_encodings,
         &control_encodings,
     );
-    let resource_reservation = resource_reservation(
+    let mut resource_reservation = resource_reservation(
         source.vir.functions(),
         &type_encodings,
         &operation_encodings,
         &control_encodings,
         &obligation_groups,
     )?;
+    let expression_nodes = source
+        .vir
+        .contract_expressions()
+        .iter()
+        .map(|e| e.term().nodes() as u64)
+        .sum::<u64>();
+    let definitions = source
+        .vir
+        .contract_expressions()
+        .iter()
+        .flat_map(|e| e.definitions())
+        .map(|d| &d.name)
+        .collect::<BTreeSet<_>>();
+    resource_reservation.ordinary_term_nodes_minimum = resource_reservation
+        .ordinary_term_nodes_minimum
+        .checked_add(expression_nodes)
+        .ok_or_else(|| {
+            failure(
+                PracticalVcValidationPhase::Limits,
+                PracticalVcErrorCode::Limit,
+            )
+        })?;
+    resource_reservation.generated_declarations_minimum += definitions.len() as u64;
+    resource_reservation.binder_depth_minimum = resource_reservation.binder_depth_minimum.max(
+        source
+            .vir
+            .contract_expressions()
+            .iter()
+            .map(|e| e.binder_depth() as u64)
+            .max()
+            .unwrap_or(0),
+    );
     validate_resource_reservation(&resource_reservation)?;
     let mut wire = WirePracticalVcDocument {
         schema: SUCCESSOR_VC_SCHEMA.to_owned(),
@@ -1407,6 +1446,18 @@ fn build_obligation_groups(
         .iter()
         .map(|encoding| format!("type:{}", encoding.type_id))
         .collect::<BTreeSet<_>>();
+    for expression in vir.contract_expressions() {
+        foundation_subjects.insert(format!(
+            "contract_expression:{}",
+            expression.attachment_sha256()
+        ));
+        foundation_subjects.extend(
+            expression
+                .definitions()
+                .iter()
+                .map(|d| format!("contract_definition:{}", d.name)),
+        );
+    }
     let mut pending: BTreeMap<(Option<String>, LaterProofOwner), BTreeSet<String>> =
         BTreeMap::new();
     for operation in operations {
@@ -1487,7 +1538,16 @@ fn build_obligation_groups(
                     LaterProofOwner::DataAndCollections,
                 )
             } else {
-                (None, LaterProofOwner::ConstructionAndTypeInvariants)
+                let owner = match schema {
+                    crate::csharp_practical_source_artifacts::BOUNDARY_CONTRACT_SCHEMA => {
+                        LaterProofOwner::BoundaryRoundTrip
+                    }
+                    crate::csharp_practical_source_artifacts::TRANSITION_CONTRACT_SCHEMA => {
+                        LaterProofOwner::PureTransition
+                    }
+                    _ => LaterProofOwner::ConstructionAndTypeInvariants,
+                };
+                (None, owner)
             };
         pending
             .entry((function.clone(), owner))
