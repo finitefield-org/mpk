@@ -7202,6 +7202,7 @@ pub(crate) use data_phase::{attach_data_contracts, derive_data_contract_roots};
 pub use data_phase::{
     derive_data_type_routes, parse_data_contract_expression, validate_data_type_routes,
     DataBindingClosure, DataContractEnvironment, DataPhaseError, DataTypeRoute,
+    ValidatedDataExpression,
 };
 
 #[path = "csharp_practical_data_source.rs"]
@@ -7349,3 +7350,10 @@ pub use boundary_input::{
 #[path = "csharp_practical_boundary_output.rs"]
 mod boundary_output;
 pub use boundary_output::{BoundaryOutputError, BoundaryOutputEvidence, CapturedBoundaryOutputRun};
+
+#[path = "csharp_practical_transition.rs"]
+mod transition;
+pub use transition::{
+    TransitionBusinessError, TransitionCommandCase, TransitionError, TransitionObligation,
+    TransitionObligationKind, TransitionPath, TransitionVersionRule, ValidatedTransitionContract,
+};

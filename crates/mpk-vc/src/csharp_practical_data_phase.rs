@@ -12,6 +12,7 @@ use contract_values::decode_contract_value;
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum DataPhaseError {
+    Transition(TransitionError),
     BoundaryInput(BoundaryInputError),
     BoundaryOutput(BoundaryOutputError),
     ControlGraph(LoopLoweringError),
@@ -1204,21 +1205,15 @@ fn validate_data_contract_value(
     check_normalized_data_expression(b, r, c, env, &typed, original)
 }
 
-/// Attach captured contracts to their original declarations before publishing
-/// any artifact. Proof discharge remains T06-owned; attachment is never proof.
-pub(crate) fn attach_data_contracts(
+/// The shared source/member/binding scope for every data contract owner.
+pub(super) fn data_contract_environment(
     b: &ValidatedFoundationBundle,
-    context: &PracticalArtifactContext,
-    captures: &CapturedInputSet,
-    closure: &DataBindingClosure,
     source: &ValidatedDataSource,
-    sidecars: &DataSidecars,
+    closure: &DataBindingClosure,
     operations: &BTreeMap<String, ClosedOperationSignature>,
-) -> Result<(), DataPhaseError> {
-    source.validate_source_call_signatures(b, operations)?;
+) -> Result<DataContractEnvironment, DataPhaseError> {
     use artifacts::PracticalJsonValue as J;
     let r = closure.roots();
-    let c = closure.closed();
     let mut common = DataContractEnvironment {
         operations: operations.clone(),
         ..Default::default()
@@ -1269,6 +1264,25 @@ pub(crate) fn attach_data_contracts(
             (id.into(), closure.projections()[id].clone()),
         );
     }
+    Ok(common)
+}
+
+/// Attach captured contracts to their original declarations before publishing
+/// any artifact. Proof discharge remains T06-owned; attachment is never proof.
+pub(crate) fn attach_data_contracts(
+    b: &ValidatedFoundationBundle,
+    context: &PracticalArtifactContext,
+    captures: &CapturedInputSet,
+    closure: &DataBindingClosure,
+    source: &ValidatedDataSource,
+    sidecars: &DataSidecars,
+    operations: &BTreeMap<String, ClosedOperationSignature>,
+) -> Result<(), DataPhaseError> {
+    source.validate_source_call_signatures(b, operations)?;
+    use artifacts::PracticalJsonValue as J;
+    let r = closure.roots();
+    let c = closure.closed();
+    let mut common = data_contract_environment(b, source, closure, operations)?;
     if source.control_lowering().is_some() {
         let control = validate_control_source(b, source)?;
         let mut claims = sidecars
@@ -1335,7 +1349,10 @@ pub(crate) fn attach_data_contracts(
         Ok(())
     }
     for contract in sidecars.contracts() {
-        if contract.schema() == artifacts::BOUNDARY_CONTRACT_SCHEMA {
+        if matches!(
+            contract.schema(),
+            artifacts::BOUNDARY_CONTRACT_SCHEMA | artifacts::TRANSITION_CONTRACT_SCHEMA
+        ) {
             continue;
         }
         let value = contract.value();
@@ -1536,6 +1553,7 @@ pub(crate) fn attach_data_contracts(
     }
     boundary::attach_boundary_contracts(b, context, source, closure, sidecars, operations)
         .map_err(DataPhaseError::Boundary)?;
+    transition::attach_transition_contracts(b, context, source, closure, sidecars, operations)?;
     Ok(())
 }
 
@@ -1693,6 +1711,11 @@ pub(crate) fn derive_data_contract_roots(
             "construction_invariant",
             "invariants",
             "loops",
+            "state_invariant",
+            "accepted_commands",
+            "event_relation",
+            "response_relation",
+            "errors",
         ] {
             if let Some(expression) = contract.value().get(name) {
                 walk(b, expression, contract.hash(), &mut ordinal, roots, 1)?;

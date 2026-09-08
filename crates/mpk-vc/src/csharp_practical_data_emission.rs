@@ -15,6 +15,7 @@ pub struct EmittedDataPhase {
     vir: v::ValidatedPracticalVir,
     routes: Vec<DataTypeRoute>,
     boundaries: Vec<ValidatedBoundaryContract>,
+    transitions: Vec<ValidatedTransitionContract>,
     source_map: a::ValidatedPracticalArtifact,
     manifest: a::ValidatedPracticalArtifact,
     artifacts: a::ValidatedPracticalArtifact,
@@ -75,7 +76,11 @@ impl EmittedDataPhase {
                 boundary_contracts: boundary_contracts.clone(),
                 boundary_inputs: vec![capture.artifact_ref()],
                 boundary_outputs: output.map(|a| vec![a.artifact_ref()]).unwrap_or_default(),
-                transition_contracts: vec![],
+                transition_contracts: self
+                    .transitions
+                    .iter()
+                    .map(|t| t.artifact().artifact_ref())
+                    .collect(),
                 closed_instances: closed.clone(),
                 operations: self.operations.operations().artifact_ref(),
                 required_checks: self.operations.required_checks().artifact_ref(),
@@ -94,11 +99,18 @@ impl EmittedDataPhase {
                 semantic_bindings: &self.closure.bindings().artifact_ref(),
                 closed_instances: &closed,
                 boundary_contracts,
-                transition_contracts: vec![],
+                transition_contracts: self
+                    .transitions
+                    .iter()
+                    .map(|t| t.artifact().artifact_ref())
+                    .collect(),
             },
         )
         .map_err(|_| BoundaryInputError::Linkage)?;
         Ok((manifest, artifacts))
+    }
+    pub fn transitions(&self) -> &[ValidatedTransitionContract] {
+        &self.transitions
     }
     pub fn boundaries(&self) -> &[ValidatedBoundaryContract] {
         &self.boundaries
@@ -2903,6 +2915,18 @@ fn emit_data_phase_inner(
         &emitter.signatures,
     )
     .map_err(DataPhaseError::Boundary)?;
+    let transitions = transition::attach_transition_contracts(
+        b,
+        context,
+        source,
+        &closure,
+        &sidecars,
+        &emitter.signatures,
+    )?;
+    let transition_refs = transitions
+        .iter()
+        .map(|t| t.artifact().artifact_ref())
+        .collect::<Vec<_>>();
     let signatures = emitter.signatures.into_values().collect();
     let functions = emitter.functions.into_values().collect();
     let closed_ref =
@@ -2989,7 +3013,7 @@ fn emit_data_phase_inner(
             boundary_contracts: boundary_refs.clone(),
             boundary_inputs: vec![],
             boundary_outputs: vec![],
-            transition_contracts: vec![],
+            transition_contracts: transition_refs.clone(),
             closed_instances: closed_ref.clone(),
             operations: operations.operations().artifact_ref(),
             required_checks: operations.required_checks().artifact_ref(),
@@ -3008,7 +3032,7 @@ fn emit_data_phase_inner(
             semantic_bindings: &closure.bindings().artifact_ref(),
             closed_instances: &closed_ref,
             boundary_contracts: boundary_refs.clone(),
-            transition_contracts: vec![],
+            transition_contracts: transition_refs.clone(),
         },
     )
     .map_err(|_| DataPhaseError::Emission)?;
@@ -3018,6 +3042,7 @@ fn emit_data_phase_inner(
         vir,
         routes,
         boundaries,
+        transitions,
         source_map,
         manifest,
         artifacts,

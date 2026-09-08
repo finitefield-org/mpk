@@ -52,12 +52,22 @@ pub fn context_with_sidecars(
     paths: Vec<String>,
     build: impl FnOnce(&PracticalArtifactContext) -> Vec<Vec<u8>>,
 ) -> (PracticalArtifactContext, CapturedInputSet) {
+    context_with_sidecars_for_roots(b, &[root_id.to_owned()], source, paths, build)
+}
+pub fn context_with_sidecars_for_roots(
+    b: &ValidatedFoundationBundle,
+    root_ids: &[String],
+    source: &[u8],
+    paths: Vec<String>,
+    build: impl FnOnce(&PracticalArtifactContext) -> Vec<Vec<u8>>,
+) -> (PracticalArtifactContext, CapturedInputSet) {
     let registry_value = candidate_registry();
     let registry = validate_candidate_successor_registry(
         &canonical_successor_registry_transport(&registry_value).unwrap(),
     )
     .unwrap();
-    let mut selection = practical_selection("data", root_id);
+    let mut selection = practical_selection("data", &root_ids[0]);
+    selection["selected_root_ids"] = json!(root_ids);
     selection["sidecar_paths"] = json!(paths);
     selection["selection_sha256"] = json!(csharp_practical_selection_hash(&selection).unwrap());
     let request = request_fixture(context_fixture(&registry_value), selection);

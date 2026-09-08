@@ -74,9 +74,10 @@ impl DataSidecars {
                 "mpk.csharp.boundary_output.v1" => {
                     return Err(DataPhaseError::BoundaryOutput(BoundaryOutputError::Linkage))
                 }
-                "mpk.csharp.transition.v1" => {
-                    return Err(DataPhaseError::LaterOwner("CSHARP-03-T05-W04"))
-                }
+                "mpk.csharp.transition.v1" => (
+                    a::PracticalArtifactKind::TransitionContract,
+                    "selected_callable_id",
+                ),
                 _ => return Err(DataPhaseError::Sidecar),
             };
             let artifact = a::validate_contract_artifact(context, captures, kind, bytes)
