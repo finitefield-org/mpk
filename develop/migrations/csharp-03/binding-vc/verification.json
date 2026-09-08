@@ -1,0 +1,195 @@
+{
+  "schema": "mpk.csharp_practical.t06_w06.verification.v0",
+  "work_item": "CSHARP-03-T06-W06",
+  "date": "2026-09-08",
+  "baseline_commit": "470cccc75eb64af381547e0e91886375a7f65b36",
+  "checks": [
+    {
+      "command": "MPK_T06_W02_GOLDEN_OUT=develop/migrations/csharp-03/construction-vc/goldens.json cargo test -p mpk-vc --test csharp_practical_vc --test csharp_practical_vc_model --test csharp_practical_inventory",
+      "result": "passed",
+      "tests_passed": 25,
+      "log_sha256": "abbbcb57e35058b212b918bbaa059a4d9805963ec0f1e5210ca2cbfd26cee599"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc binding::",
+      "result": "passed",
+      "tests_passed": 2,
+      "log_sha256": "aa7c0e5ab9f2867d7602d662e65a3b0b6cabdc65baea4becb8376b17c2851f8c"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib binding_vc",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "30564a585440450bcbf3c16cbf7c8308a55cf624bee1a328daaf9ff2a78143fa"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w02_actual_source_goldens_and_failing_conditions",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "4a95398583cf1fae4fe6a1b02f353236d7a5f5329f923ffe7ad7ce85f2ad6581"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vir_model csharp_03_t02_w02",
+      "result": "passed",
+      "tests_passed": 4,
+      "log_sha256": "c724ddd77ea9664818f7d9e6454a71e199760418ca95e40603ff337c9e0ff02a"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vir_validation csharp_03_t02_w05_recomputes_foundation",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "1a25d849f13d83e2cd24c442c0f0dee2636c95729646759f8c71ea4dd28ad5bb"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vir_validation csharp_03_t02_w05_enforces_the_generic_free_barrier",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "deb75a5d6f0c56da9b8447374120c068edaf669810b4c830c4d987e5fab11a95"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vir_validation csharp_03_t02_w05_rejects_control_dominance_ownership_exception_and_binding_mutations",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "94e55d965cfe72a39c3fe2d7e337b737476ecbbdc380bd937135939f2b1e88a0"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "result": "passed",
+      "tests_passed": 5,
+      "log_sha256": "5540098bbf67031513a18fc8970201341777aa3a9dfb31af1eda8388f3789261"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc --test csharp_practical_vc_model --test csharp_practical_inventory -- -D warnings",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "b0340de579abce34e78e37272d89030b0bd7f6693918e6de698c8297bf7926ef"
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true (all eight changed Rust files)",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "coverage": {
+    "distinct_scoped_tests_passed": 33,
+    "original_role_captures": 12,
+    "existing_operation_captures": 2,
+    "roles": [
+      "option",
+      "lookup",
+      "result",
+      "validation",
+      "boundary_field",
+      "transition",
+      "instant",
+      "money",
+      "bounded_sequence",
+      "ordered_entry",
+      "ordered_map",
+      "ordered_set"
+    ],
+    "representations": 13,
+    "instances": 18,
+    "sequents": 288,
+    "review_findings": 0
+  },
+  "capture": {
+    "command": "docker run --rm -i --platform linux/amd64 --network none --cap-add SYS_ADMIN --security-opt seccomp=unconfined -v /Users/kazuyoshitoshiya/mpk:/repo:ro -w /repo mpk-java-t10-gate:local ./scripts/build-csharp-practical-frontend.sh --test-control-emission-requests < develop/migrations/csharp-03/binding-vc/requests.json",
+    "result": "passed; twelve original Roslyn captures"
+  },
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "status": "deferred",
+    "owner": "CSHARP-03-T06-W12",
+    "reason": "Intermediate W: targeted checks only. W12 is the last W of T06."
+  },
+  "proof_status": "Pending source-binding and concrete foundation VCs and exact recipes. Finite formula countermodels and importer acceptance are not semantic or kernel proof receipts. W09 owns ordinary expansion, proof construction and both checker runs.",
+  "preserved": {
+    "frozen_producer_sha256": "b4c6c55dd29f9a2983231ab67b0c9263f42becfbd620ef3daa4e3098944c2077",
+    "frozen_vector_sha256": "de401830e1cd4221465d25c6fe31dad7d704ae8959edfc1145db8099f7bfffa6",
+    "existing_handoffs": "Construction/data/control/exception handoff hashes and earlier receipt files unchanged; only two current construction golden whole-VC hashes include W06."
+  },
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_binding_vc.rs",
+      "sha256": "0a522f79bc6ad21bee9ff504ad06ef3fbc1cde62cfb38809d11501ad8b23e2b7",
+      "size_bytes": 35807
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vc_model.rs",
+      "sha256": "a38b7d5265c10c7d1bccc5c5418a84ca7c9b6ab937abddd96cba29c54319c4a5",
+      "size_bytes": 100415
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "ffbb51888939efb90341efb43f82d01eea2068a283ea4cb656d90d58679a45f0",
+      "size_bytes": 262092
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_validation.rs",
+      "sha256": "38d4944f3554ddba3dd3801dc3bee3e6eb6355d0fe9bb42e8a37d78e76c408d7",
+      "size_bytes": 181716
+    },
+    {
+      "path": "crates/mpk-vc/tests/csharp_practical_inventory.rs",
+      "sha256": "f5889ddefe50c103c1e7833344816ff0f507aa6f61b838a9d5881772f45688de",
+      "size_bytes": 79012
+    },
+    {
+      "path": "crates/mpk-vc/tests/csharp_practical_vc.rs",
+      "sha256": "cca954073494c02d04e83cec688a39f0fff3d6a2793eff0e0136bbde30a9b079",
+      "size_bytes": 25961
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_construction_vc.rs",
+      "sha256": "41cb6be1f3e6dfda493ebfcbb9f7c75a645989c531a34cb9558d9266a1c02388",
+      "size_bytes": 23624
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_binding_vc.rs",
+      "sha256": "e5cd98fdee21c8e373651fc69459ff1f9def1eb3c4acd7b0206c767fd1fa1317",
+      "size_bytes": 11166
+    },
+    {
+      "path": "develop/docs/08_csharp_practical_subset_design-todo.md",
+      "sha256": "9c08b71e0ba91bfd1ea1e7e6c4c0c285abd68dd5ef984d21c2ee79291abe558e",
+      "size_bytes": 133686
+    },
+    {
+      "path": "develop/docs/csharp-03-implementation-traceability-ledger.md",
+      "sha256": "5e0c5f1dcaaadaa02ff58ad7ba6bb0fed1582c1d560da51603908d103cea4100",
+      "size_bytes": 341519
+    },
+    {
+      "path": "develop/migrations/csharp-03/construction-vc/goldens.json",
+      "sha256": "6bd0983a0bea73da22ede988972a58b8f22ce71c75085319d58718b472dcbb3f",
+      "size_bytes": 371337
+    },
+    {
+      "path": "develop/migrations/csharp-03/binding-vc/README.md",
+      "sha256": "a918aac401f8ebf4409239b61584241d5facdbb9738a2e5e8f07f25e7d44798c",
+      "size_bytes": 3654
+    },
+    {
+      "path": "develop/migrations/csharp-03/binding-vc/review.md",
+      "sha256": "5221434f230e9e0bc875ecda8f8ed0710f2e8f4ab1b5157857301fdf8a38130b",
+      "size_bytes": 2840
+    },
+    {
+      "path": "develop/migrations/csharp-03/binding-vc/goldens.json",
+      "sha256": "ab408cf75af18cfcfcb156e14398a462466ab11abb73db9e2155212c56d41181",
+      "size_bytes": 2252
+    },
+    {
+      "path": "develop/migrations/csharp-03/binding-vc/requests.json",
+      "sha256": "2b07c65f81e24d5dadd1afb3daa25adb2fa5bc7623162d3fb5a9b073fb1ae2c3",
+      "size_bytes": 30566
+    },
+    {
+      "path": "develop/migrations/csharp-03/binding-vc/responses.json",
+      "sha256": "ab24876c534b39fa651222615c75b1e52d489063626efde8bd895e6b6c5a1e07",
+      "size_bytes": 159951
+    }
+  ]
+}

@@ -595,6 +595,7 @@ pub struct ValidatedPracticalVir {
     construction_foundation: ValidatedFoundationBundle,
     construction_roots: ValidatedClosedRootSet,
     data_closed: ClosedInstanceSet,
+    binding_source: PracticalJsonValue,
     wire: WirePracticalVirModule,
     canonical_bytes: Vec<u8>,
     artifact_ref: ArtifactRef,
@@ -603,6 +604,9 @@ pub struct ValidatedPracticalVir {
 }
 
 impl ValidatedPracticalVir {
+    pub(crate) fn binding_source(&self) -> &PracticalJsonValue {
+        &self.binding_source
+    }
     pub(crate) fn data_closed(&self) -> &ClosedInstanceSet {
         &self.data_closed
     }
@@ -678,6 +682,7 @@ struct PreparedInputs {
     expanded_foundation: Vec<ExpandedFoundationEntry>,
     operations: BTreeMap<String, ClosedOperationSignature>,
     binding_expectations: Vec<BindingExpectation>,
+    binding_source: PracticalJsonValue,
     actual_data_source: bool,
     actual_source: Option<crate::csharp_practical_vir_model::ValidatedDataSource>,
     source_property_roots: BTreeSet<String>,
@@ -861,6 +866,7 @@ pub fn import_csharp_practical_vir_json(
         construction_foundation: prepared.foundation,
         construction_roots: prepared.roots,
         data_closed: prepared.closed,
+        binding_source: prepared.binding_source,
         wire,
         canonical_bytes: input.to_vec(),
         artifact_ref,
@@ -1847,6 +1853,7 @@ fn prepare_inputs(
         expanded_foundation,
         operations,
         binding_expectations,
+        binding_source: semantic_bindings.value().clone(),
         actual_data_source: context.data_source_facts.is_some(),
         actual_source,
         source_property_roots,

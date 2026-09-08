@@ -1,3 +1,4 @@
+//! CSHARP-03-T06-W06: binding and concrete foundation equivalence VCs.
 //! CSHARP-03-T06-W05: exceptional outcomes, search/unwind and postcondition VCs.
 //! CSHARP-03-T06-W04: loop cutpoints, decreases and ordered pattern VCs.
 //! CSHARP-03-T06-W01: verification expression union and original-input attachment.
@@ -731,3 +732,6 @@ mod control;
 
 #[path = "support/csharp_practical_exception_vc.rs"]
 mod exception;
+
+#[path = "support/csharp_practical_binding_vc.rs"]
+mod binding;

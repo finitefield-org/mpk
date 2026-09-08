@@ -7397,3 +7397,10 @@ pub use exception_vc::{
     ExceptionCandidateVc, ExceptionCompletionKind, ExceptionEdgeVc, ExceptionFinallyRule,
     ExceptionFunctionVc, ExceptionSearchVc, ExceptionVcProgram,
 };
+
+#[path = "csharp_practical_binding_vc.rs"]
+mod binding_vc;
+pub(crate) use binding_vc::{generate_binding_vcs, BindingVcError};
+pub use binding_vc::{
+    BindingRepresentationVc, BindingSequent, BindingVcProgram, FoundationInstanceVc,
+};

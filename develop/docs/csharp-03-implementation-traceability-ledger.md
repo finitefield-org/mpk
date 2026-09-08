@@ -60,7 +60,7 @@ private structured-loop lowering (section 40). T04-W03 completes switch and
 pattern lowering (section 41). T04-W04 completes closed exception declarations,
 explicit throws and exceptional contracts (section 42). T04-W05 completes
 two-pass handler search, filters, finally and propagation (section 43). T04-W06 completes
-ordinary control emission and independent import (section 44). T05-W01 completes boundary sidecar and presence attachment (section 45). T05-W02 completes canonical input capture and typed evidence linkage (section 46). T05-W03 completes source output encoding and typed reparse (section 47). T05-W04 completes pure transition attachment and pending obligations (section 48). T05-W05 completes full-snapshot idempotency attachment and pending obligations (section 49). T05-W06 closes boundary/transition emission and data-route totality (section 50). T06-W01 completes independent contract-expression import and ordinary-term encoding (section 51). T06-W02 completes construction/type-invariant VC generation (section 52). T06-W03 completes data/check/ownership and contract-definedness VC generation (section 53). T06-W04 completes source-bound loop and ordered pattern VC generation (section 54). T06-W05 completes closed exceptional outcome and two-pass handler VC generation (section 55). T06-W06 is ready;
+ordinary control emission and independent import (section 44). T05-W01 completes boundary sidecar and presence attachment (section 45). T05-W02 completes canonical input capture and typed evidence linkage (section 46). T05-W03 completes source output encoding and typed reparse (section 47). T05-W04 completes pure transition attachment and pending obligations (section 48). T05-W05 completes full-snapshot idempotency attachment and pending obligations (section 49). T05-W06 closes boundary/transition emission and data-route totality (section 50). T06-W01 completes independent contract-expression import and ordinary-term encoding (section 51). T06-W02 completes construction/type-invariant VC generation (section 52). T06-W03 completes data/check/ownership and contract-definedness VC generation (section 53). T06-W04 completes source-bound loop and ordered pattern VC generation (section 54). T06-W05 completes closed exceptional outcome and two-pass handler VC generation (section 55). T06-W06 completes source-binding and concrete foundation equivalence VC generation (section 56). T06-W07 is ready;
 later items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
@@ -143,9 +143,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T06-W02` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W02` | `781ebe3ba614b0ad1a21ea62c3ad031352a89dd3` |
 | `CSHARP-03-T06-W03` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W03` | `b605e2b1a7abca43ca0e8b15a8f1eb14a9d37d82` |
 | `CSHARP-03-T06-W04` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W04` | `5d0aec77ffbc42fda871edacc654d4531582fddd` |
-| `CSHARP-03-T06-W05` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W05` | `SELF` |
-| `CSHARP-03-T06-W06` | `Ready` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W06` | `—` |
-| `CSHARP-03-T06-W07` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W07` | `—` |
+| `CSHARP-03-T06-W05` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W05` | `470cccc75eb64af381547e0e91886375a7f65b36` |
+| `CSHARP-03-T06-W06` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W06` | `SELF` |
+| `CSHARP-03-T06-W07` | `Ready` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W07` | `—` |
 | `CSHARP-03-T06-W08` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W08` | `—` |
 | `CSHARP-03-T06-W09` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W09` | `—` |
 | `CSHARP-03-T06-W10` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_policy_verify.rs#CSHARP-03-T06-W10` | `—` |
@@ -5495,5 +5495,51 @@ Only current whole-VC hashes in construction goldens change to include W05;
 construction/data/control handoff hashes, old receipts and frozen producer/vector
 bytes remain unchanged. This is a pending VC/recipe handoff, not semantic/kernel
 proof acceptance: W09 owns ordinary expansion and both checker runs. The full
-`./scripts/check-fast.sh` gate is deferred to T06-W12. W04 records its published
-commit, W05 uses `SELF`, and W06 is the sole ready work item.
+`./scripts/check-fast.sh` gate is deferred to T06-W12. At the W05 checkpoint, W04 recorded its published
+commit, W05 used `SELF`, and W06 became the sole ready work item.
+
+
+## 56. CSHARP-03-T06-W06 completion record
+
+W06 generates source-binding and concrete foundation equivalence VCs in
+`crates/mpk-vc/src/csharp_practical_binding_vc.rs`. Each representation retains
+validated source/member provenance, exact role and mapping, W02 invariant,
+projection/reconstruction, default eligibility and bounds. Typed goals cover
+total projection, both round trips, every observable stored field, tag
+partition/distinctness, payload/member agreement and collection predicates.
+Default ineligibility is a pending use restriction; eligible defaults must
+satisfy the source invariant and map to the required semantic arm.
+
+Operation commutation binds actual native/source functions and signatures,
+projects returned Result success payloads and preserves returned errors,
+exception checks, rounding and identity operands. Source and semantic error
+prefixes are separate; unmatched source checks must be unreachable when reached.
+Reverse outcome goals prevent a one-way success equation from implying full
+equivalence. Contextual IDs distinguish separate semantic mappings of the same
+source method, and generated duplicate IDs are rejected.
+
+The generator rederives the registered foundation's complete reachable table
+and compares it with the validated importer table. Descriptor/root/closed-set
+hashes, dependency/provenance IDs and counters remain bound. All reachable
+concrete definitions, including uninvoked operations and outcome behavior,
+receive equivalence goals. No template value or theorem enters the concrete
+term table. The existing VC wire commits W06's complete digest and sequent IDs;
+groups depend on applicable W02-W05 obligations. Node, declaration, binder and
+byte accounting includes W06 and the shared definition-name union.
+
+Evidence in `develop/migrations/csharp-03/binding-vc/` includes 12 fresh Linux
+Roslyn captures spanning every binding role, plus replay of two existing real
+instant/money operation captures. Tests check typed terms, native/VC table
+agreement, stable hashes and hostile handoff mutations. Finite equation
+countermodels separately break projection, reconstruction and commutation for
+all roles. Existing registered-descriptor, specialization/closure/limit and
+residual-generic importer tests are rerun. The 33 distinct scoped tests, lint,
+format checks and final direct review are recorded in `verification.json` and
+`review.md`; the final review has no findings.
+
+Only current construction whole-VC hashes change to include W06; earlier
+handoff hashes, receipts and frozen producer/vector bytes remain unchanged.
+These are pending VCs and exact recipes, not semantic/kernel proof receipts.
+W09 owns ordinary expansion, proof construction and both checker runs. The full
+`./scripts/check-fast.sh` gate is deferred to T06-W12. W05 records its published
+commit, W06 uses `SELF`, and W07 is the sole ready work item.
