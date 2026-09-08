@@ -93,7 +93,7 @@ pub struct DataContractVc {
     pub subjects: Vec<(String, String)>,
     pub definedness: ContractTerm,
 }
-fn definedness(
+pub(super) fn definedness(
     t: &ContractTerm,
     definitions: &[ContractDefinition],
 ) -> Result<ContractTerm, DataVcError> {

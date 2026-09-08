@@ -228,13 +228,13 @@ fn csharp_03_t06_w02_actual_source_goldens_and_failing_conditions() {
         {
             assert_typed(&goal.term, std::slice::from_ref(&goal.subject.type_id));
         }
-        let expected_nodes = vc
-            .boundary_vcs()
-            .sequents()
-            .iter()
-            .flat_map(|s| s.assumptions.iter().chain(&s.goals))
-            .map(ContractTerm::nodes)
-            .sum::<usize>()
+        let expected_nodes = super::transition::nodes(vc.transition_vcs())
+            + vc.boundary_vcs()
+                .sequents()
+                .iter()
+                .flat_map(|s| s.assumptions.iter().chain(&s.goals))
+                .map(ContractTerm::nodes)
+                .sum::<usize>()
             + super::binding::nodes(vc.binding_vcs())
             + super::exception::nodes(vc.exception_vcs())
             + super::control::nodes(vc.control_vcs())
@@ -274,6 +274,7 @@ fn csharp_03_t06_w02_actual_source_goldens_and_failing_conditions() {
             .chain(vc.exception_vcs().definition_names())
             .chain(vc.binding_vcs().definition_names())
             .chain(vc.boundary_vcs().definition_names())
+            .chain(vc.transition_vcs().definition_names())
             .collect::<std::collections::BTreeSet<_>>();
         let declarations = vc.type_encodings().len()
             + vc.operation_encodings().len()
@@ -290,7 +291,8 @@ fn csharp_03_t06_w02_actual_source_goldens_and_failing_conditions() {
             + vc.control_vcs().sequents().len()
             + vc.exception_vcs().sequents().len()
             + vc.binding_vcs().sequents().len()
-            + vc.boundary_vcs().sequents().len();
+            + vc.boundary_vcs().sequents().len()
+            + vc.transition_vcs().sequents().len();
         assert_eq!(
             vc.resource_reservation().generated_declarations_minimum(),
             declarations as u64

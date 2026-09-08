@@ -7412,3 +7412,11 @@ pub use boundary_vc::{
     BoundaryRunVcProgram, BoundarySequent, BoundaryValueDefinition, BoundaryVcError,
     BoundaryVcProgram,
 };
+
+#[path = "csharp_practical_transition_vc.rs"]
+mod transition_vc;
+pub(crate) use transition_vc::generate_transition_vcs;
+pub use transition_vc::{
+    TransitionPathVc, TransitionSequent, TransitionSnapshotNode, TransitionVcError,
+    TransitionVcProgram,
+};

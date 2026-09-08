@@ -467,6 +467,7 @@ pub struct ValidatedPracticalVc {
     exception_vcs: crate::csharp_practical_vir_model::ExceptionVcProgram,
     binding_vcs: crate::csharp_practical_vir_model::BindingVcProgram,
     boundary_vcs: crate::csharp_practical_vir_model::BoundaryVcProgram,
+    transition_vcs: crate::csharp_practical_vir_model::TransitionVcProgram,
     wire: WirePracticalVcDocument,
     canonical_bytes: Vec<u8>,
     artifact_ref: ArtifactRef,
@@ -474,6 +475,9 @@ pub struct ValidatedPracticalVc {
 }
 
 impl ValidatedPracticalVc {
+    pub fn transition_vcs(&self) -> &crate::csharp_practical_vir_model::TransitionVcProgram {
+        &self.transition_vcs
+    }
     pub fn boundary_vcs(&self) -> &crate::csharp_practical_vir_model::BoundaryVcProgram {
         &self.boundary_vcs
     }
@@ -870,6 +874,7 @@ pub fn import_csharp_practical_vc_json(
         boundary_vcs: boundary_vcs(source.vir)?,
         exception_vcs: exception_program,
         construction_vcs: construction_program,
+        transition_vcs: transition_vcs(source.vir)?,
         data_vcs: data_program,
         control_vcs: control_program,
         contract_expressions: source.vir.contract_expressions().to_vec(),
@@ -1065,6 +1070,41 @@ pub fn import_csharp_practical_boundary_vcs(
     Ok(expected)
 }
 
+fn transition_vcs(
+    vir: &ValidatedPracticalVir,
+) -> Result<crate::csharp_practical_vir_model::TransitionVcProgram, PracticalVcError> {
+    crate::csharp_practical_vir_model::generate_transition_vcs(vir).map_err(|e| match e {
+        crate::csharp_practical_vir_model::TransitionVcError::Limit => limit_error(),
+        _ => failure(
+            PracticalVcValidationPhase::Obligations,
+            PracticalVcErrorCode::Obligation,
+        ),
+    })
+}
+/// Generate only W08 obligations from independently validated source inputs.
+pub fn generate_csharp_practical_transition_vcs(
+    source: PracticalVcSource<'_>,
+) -> Result<crate::csharp_practical_vir_model::TransitionVcProgram, PracticalVcError> {
+    validate_source(source)?;
+    transition_vcs(source.vir)
+}
+/// Recompute exact source transition and complete-snapshot proof obligations.
+pub fn import_csharp_practical_transition_vcs(
+    input: &[u8],
+    source: PracticalVcSource<'_>,
+) -> Result<crate::csharp_practical_vir_model::TransitionVcProgram, PracticalVcError> {
+    validate_source(source)?;
+    require_transport_bound(input)?;
+    let expected = transition_vcs(source.vir)?;
+    if input != expected.canonical_bytes() {
+        return Err(failure(
+            PracticalVcValidationPhase::Obligations,
+            PracticalVcErrorCode::Obligation,
+        ));
+    }
+    Ok(expected)
+}
+
 fn expected_vc(source: PracticalVcSource<'_>) -> Result<WirePracticalVcDocument, PracticalVcError> {
     validate_source(source)?;
     let semantic_context = canonical_context_raw(source.artifact_context)?;
@@ -1083,6 +1123,7 @@ fn expected_vc(source: PracticalVcSource<'_>) -> Result<WirePracticalVcDocument,
     let exception = exception_vcs(source.vir, &data, &control)?;
     let binding = binding_vcs(source.vir, &construction)?;
     let boundary = boundary_vcs(source.vir)?;
+    let transition = transition_vcs(source.vir)?;
     let obligation_groups = build_obligation_groups(
         source.vir,
         (
@@ -1092,6 +1133,7 @@ fn expected_vc(source: PracticalVcSource<'_>) -> Result<WirePracticalVcDocument,
             &exception,
             &binding,
             &boundary,
+            &transition,
         ),
         &type_encodings,
         &operation_encodings,
@@ -1123,6 +1165,7 @@ fn expected_vc(source: PracticalVcSource<'_>) -> Result<WirePracticalVcDocument,
     definitions.extend(exception.definition_names());
     definitions.extend(binding.definition_names());
     definitions.extend(boundary.definition_names());
+    definitions.extend(transition.definition_names());
     resource_reservation.ordinary_term_nodes_minimum = resource_reservation
         .ordinary_term_nodes_minimum
         .checked_add(expression_nodes)
@@ -1176,6 +1219,11 @@ fn expected_vc(source: PracticalVcSource<'_>) -> Result<WirePracticalVcDocument,
     resource_reservation.binder_depth_minimum = resource_reservation
         .binder_depth_minimum
         .max(boundary.binder_depth() as u64);
+    resource_reservation.ordinary_term_nodes_minimum += transition.nodes() as u64;
+    resource_reservation.generated_declarations_minimum += transition.sequents().len() as u64;
+    resource_reservation.binder_depth_minimum = resource_reservation
+        .binder_depth_minimum
+        .max(transition.binder_depth() as u64);
     validate_resource_reservation(&resource_reservation)?;
     let mut wire = WirePracticalVcDocument {
         schema: SUCCESSOR_VC_SCHEMA.to_owned(),
@@ -1753,12 +1801,13 @@ fn build_obligation_groups(
         &crate::csharp_practical_vir_model::ExceptionVcProgram,
         &crate::csharp_practical_vir_model::BindingVcProgram,
         &crate::csharp_practical_vir_model::BoundaryVcProgram,
+        &crate::csharp_practical_vir_model::TransitionVcProgram,
     ),
     types: &[PracticalTypeEncoding],
     operations: &[PracticalOperationEncoding],
     controls: &[PracticalControlEncoding],
 ) -> Vec<PracticalObligationGroup> {
-    let (construction, data, control, exception, binding, boundary) = handoffs;
+    let (construction, data, control, exception, binding, boundary, transition) = handoffs;
     let mut foundation_subjects = types
         .iter()
         .map(|encoding| format!("type:{}", encoding.type_id))
@@ -1875,6 +1924,14 @@ fn build_obligation_groups(
             .or_default();
         global.insert(format!("boundary_program:{}", boundary.hash()));
         global.extend(boundary.sequents().iter().map(|s| s.id.clone()));
+    }
+    let transition_present = !transition.contracts().is_empty();
+    if transition_present {
+        let global = pending
+            .entry((None, LaterProofOwner::PureTransition))
+            .or_default();
+        global.insert(format!("transition_program:{}", transition.hash()));
+        global.extend(transition.sequents().iter().map(|s| s.id.clone()));
     }
     for operation in operations {
         let subject = format!("operation:{}", operation.operation_id);
@@ -2107,6 +2164,28 @@ fn build_obligation_groups(
                         | LaterProofOwner::LoopSwitchAndPatterns
                         | LaterProofOwner::ExceptionalControl
                         | LaterProofOwner::BindingsAndSpecialization
+                ) {
+                    let label = scope
+                        .as_ref()
+                        .map(|f| format!("function.{f}"))
+                        .unwrap_or_else(|| "global".into());
+                    dependencies.push(format!("vc.group.{:04}.{label}", owner.order()));
+                }
+            }
+        }
+        if proof_owner == LaterProofOwner::PureTransition && transition_present {
+            if function_id.is_some() {
+                dependencies.push("vc.group.0800.global".into());
+            }
+            for (scope, owner) in &group_keys {
+                if matches!(
+                    owner,
+                    LaterProofOwner::ConstructionAndTypeInvariants
+                        | LaterProofOwner::DataAndCollections
+                        | LaterProofOwner::LoopSwitchAndPatterns
+                        | LaterProofOwner::ExceptionalControl
+                        | LaterProofOwner::BindingsAndSpecialization
+                        | LaterProofOwner::BoundaryRoundTrip
                 ) {
                     let label = scope
                         .as_ref()
