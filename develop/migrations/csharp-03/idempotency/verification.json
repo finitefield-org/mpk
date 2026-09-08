@@ -1,0 +1,175 @@
+{
+  "baseline_commit": "93fab5694e60200d7c7ce4cb65862ac4a9a0861b",
+  "files": [
+    {
+      "path": "crates/mpk-cli/tests/csharp_practical_transition.rs",
+      "sha256": "1a3a10e5297a48bd67213fbd2955088b369e3573cd0cb1096df00db011558ff4",
+      "size_bytes": 36315
+    },
+    {
+      "path": "crates/mpk-cli/tests/support/csharp_practical_idempotency.rs",
+      "sha256": "d215984f7feb8a27fa3ece88893fdf089d279e0bee12dd1085466b38d95620eb",
+      "size_bytes": 23366
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_idempotency.rs",
+      "sha256": "c1483f07d95f4398b2dd3f1dca3cf94003ceaf6fbc1ae7831a7d63df6c09bdee",
+      "size_bytes": 9064
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_transition.rs",
+      "sha256": "4862392dce7ef42803f1482fc77e27fbe452fdc3d805c9eb1c3d4543cb5e3a5f",
+      "size_bytes": 27147
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "805328af351c93ca683dafcc76ccd548340ce5221c3062448581961b2ed3b14a",
+      "size_bytes": 260305
+    },
+    {
+      "path": "crates/mpk-vc/tests/csharp_practical_inventory.rs",
+      "sha256": "51412f9f4346486c66b5503f97c22552c05c8e3ef74e943fe9adb32b995a8e35",
+      "size_bytes": 78281
+    },
+    {
+      "path": "develop/docs/08_csharp_practical_subset_design-todo.md",
+      "sha256": "1823738fb1ae26b165ffa6e12653447abe7bdb29062e81114e2ac65b762e7269",
+      "size_bytes": 133316
+    },
+    {
+      "path": "develop/docs/08_csharp_practical_subset_design.md",
+      "sha256": "15db59d95fa46ee24a1059a55deb58d52313509cc8614e09530c2fefccd24658",
+      "size_bytes": 149876
+    },
+    {
+      "path": "develop/docs/csharp-03-implementation-traceability-ledger.md",
+      "sha256": "3af1a4eb65a76f658d895edf3c84dc762d170e4218a220c932e30bc8e47fcbfb",
+      "size_bytes": 319693
+    },
+    {
+      "path": "develop/migrations/csharp-03/idempotency/Entry.cs",
+      "sha256": "0ec5550742d2479a6dce5d082f852df9fdf1bf24899095c0b4d7c956119aa363",
+      "size_bytes": 6678
+    },
+    {
+      "path": "develop/migrations/csharp-03/idempotency/README.md",
+      "sha256": "92270043aa01b494d54b4ff21241851bc434380293d68ef6e4f92f9228d12d54",
+      "size_bytes": 6286
+    },
+    {
+      "path": "develop/migrations/csharp-03/idempotency/loops.json",
+      "sha256": "3d1a452ba3b73336ed2a995fd41964e82cbdde08677ca5487e2dc943b9c4f6b1",
+      "size_bytes": 867
+    },
+    {
+      "path": "develop/migrations/csharp-03/idempotency/requests.json",
+      "sha256": "57545059059901c132b8fde82006ce84a3258ac13fcd2c28fb843b8959ae33fe",
+      "size_bytes": 596232
+    },
+    {
+      "path": "develop/migrations/csharp-03/idempotency/responses.json",
+      "sha256": "ccd36a7f0a902e3bfd7b6ad8bacd512b31130c8f215fb363d1ba43150f5ac844",
+      "size_bytes": 36295721
+    },
+    {
+      "path": "develop/migrations/csharp-03/idempotency/review.md",
+      "sha256": "64c1ce518cef24447a3f920c4a23e07620514cff036aec930e69bc5f130b577a",
+      "size_bytes": 3178
+    }
+  ],
+  "frozen_source_and_probe_records": [
+    {
+      "path": "crates/mpk-cli/src/csharp_practical_frontend_protocol.rs",
+      "sha256": "b4c6c55dd29f9a2983231ab67b0c9263f42becfbd620ef3daa4e3098944c2077",
+      "size_bytes": 61921
+    },
+    {
+      "path": "develop/migrations/csharp-03/probes/recursor-feasibility.json",
+      "sha256": "b0cd0fd692749d34dabe2065a8d5efba79c36968275b72dc7dbe50450bdcf36d",
+      "size_bytes": 66558
+    },
+    {
+      "path": "develop/migrations/csharp-03/probes/checker-capacity.json",
+      "sha256": "8f9c40c19e2af7fd209975528a72b66010d81ac78823542db0d9acdc37ac8ad5",
+      "size_bytes": 39138
+    }
+  ],
+  "linux_capture": {
+    "accepted_attachment_cases": 2,
+    "batches": [
+      {
+        "cases": 21,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "retained_rows": 20
+      },
+      {
+        "cases": 1,
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "retained_rows": 1
+      }
+    ],
+    "clr_integer_observations": 416,
+    "command": "./scripts/build-csharp-practical-frontend.sh --test-control-emission-requests",
+    "image": "mpk-java-t10-gate:local",
+    "network": "none",
+    "platform": "linux/amd64",
+    "rejected_attachment_cases": 19,
+    "source_fact_cases": 21,
+    "source_sidecar_cases": 21,
+    "status": "passed"
+  },
+  "proof_discharge": "pending; T06-W08",
+  "published_vectors": 709,
+  "review_findings": 0,
+  "review_record": "develop/migrations/csharp-03/idempotency/review.md",
+  "schema": "mpk.csharp_practical.t05_w05.verification.v1",
+  "spec_vector_sets": 26,
+  "standard_gate": {
+    "command": "./scripts/check-fast.sh",
+    "owner": "CSHARP-03-T05-W06",
+    "reason": "Intermediate W cadence in AGENTS.md; no equivalent full gate assembled from individual commands.",
+    "status": "deferred"
+  },
+  "targeted_checks": [
+    {
+      "command": "cargo test -p mpk-cli --test csharp_practical_transition csharp_03_t05_w05",
+      "log_sha256": "569615c200df81f533b3b83b750623a49222c39bf1e40fac959503e65c0d5023",
+      "passed_tests": 1,
+      "status": "passed"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_inventory",
+      "log_sha256": "59affe701737510c190cb9471bdd0b95094dddb3ed89821665ff28c10961adbf",
+      "passed_tests": 5,
+      "status": "passed"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib csharp_03_t05_w04",
+      "log_sha256": "516d08144fc72b6bdf8af56b32188c794f60b19058ab6fe67a41c546f2f3e229",
+      "passed_tests": 1,
+      "status": "passed"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib -- -D warnings",
+      "log_sha256": "b30c433d08d535659c149d1fd23fb997c13b9577cd6ce8a2cb3ffb35939a91dd",
+      "status": "passed"
+    },
+    {
+      "command": "cargo clippy -p mpk-cli --test csharp_practical_transition -- -D warnings",
+      "log_sha256": "99f0b88a7e16429246c4467a07e33d8d30a202cd00a53e29ca58dcdb4438820f",
+      "status": "passed"
+    },
+    {
+      "command": "cargo fmt --all -- --check",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "passed"
+    },
+    {
+      "command": "cargo test -p mpk-cli --test csharp_practical_transition",
+      "log_sha256": "7f561b879e8238b13ab8942a9739b79636196d7df4fe24c2ecd1612b237382b1",
+      "passed_tests": 2,
+      "status": "two W04 tests passed; unfinished W05 superseded by final targeted W05 rerun after fixes"
+    }
+  ],
+  "work_item": "CSHARP-03-T05-W05"
+}

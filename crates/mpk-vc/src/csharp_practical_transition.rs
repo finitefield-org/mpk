@@ -1,9 +1,17 @@
-//! W04: source-bound pure transitions and pending, path-specific obligations.
+//! W04/W05: source-bound pure transitions and pending, path-specific obligations.
 use super::*;
 use crate::csharp_practical_source_artifacts::{self as a, PracticalJsonValue as J};
+#[path = "csharp_practical_idempotency.rs"]
+mod idempotency;
+pub use idempotency::{
+    SnapshotEncodingNode, SnapshotEqualityObligation, TransitionCheck, ValidatedIdempotency,
+};
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum TransitionError {
     Shape,
+    Snapshot,
+    SnapshotHelper,
+    NonReflexive,
     Method,
     Binding,
     Type,
@@ -16,6 +24,7 @@ pub enum TransitionError {
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum TransitionPath {
     NewSuccess,
+    Replay,
     Error(String),
 }
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -30,6 +39,12 @@ pub enum TransitionObligationKind {
     ResponseRelation,
     EventAndValueBounds,
     UnchangedInputState,
+    SnapshotEqualityEquivalence,
+    RetainedKeyUniqueness,
+    ReplayNoEvents,
+    ReplayStoredResponse,
+    AppendCompleteSnapshot,
+    PreserveRetainedHistory,
 }
 /// Each recipe is tied to a complete source/contract plan. It is a requirement,
 /// never a proof result or a caller-provided assertion of successful execution.
@@ -126,6 +141,7 @@ pub struct ValidatedTransitionContract {
     result_semantic: String,
     transition_semantic: String,
     version: TransitionVersionRule,
+    idempotency: Option<ValidatedIdempotency>,
     commands: Vec<TransitionCommandCase>,
     errors: Vec<TransitionBusinessError>,
     obligations: Vec<TransitionObligation>,
@@ -173,8 +189,32 @@ impl ValidatedTransitionContract {
     pub fn accepted_commands(&self) -> &[TransitionCommandCase] {
         &self.commands
     }
-    /// Disabled idempotency precedence: version conflict, exhaustion, then all
-    /// sidecar business errors in declaration order, then a new success.
+    pub fn idempotency(&self) -> Option<&ValidatedIdempotency> {
+        self.idempotency.as_ref()
+    }
+    pub fn check_order(&self) -> &'static [TransitionCheck] {
+        use TransitionCheck::*;
+        if self.idempotency.is_some() {
+            &[
+                RetainedKeyLookup,
+                SnapshotEquality,
+                ExpectedVersion,
+                HistoryCapacity,
+                VersionExhaustion,
+                BusinessErrors,
+                NewSuccess,
+            ]
+        } else {
+            &[
+                ExpectedVersion,
+                VersionExhaustion,
+                BusinessErrors,
+                NewSuccess,
+            ]
+        }
+    }
+    /// Fixed infrastructure errors followed by source-declared business errors.
+    /// Replay precedes this list when full snapshots are enabled.
     pub fn errors(&self) -> &[TransitionBusinessError] {
         &self.errors
     }
@@ -442,11 +482,30 @@ fn attach(
         {
             return Err(E::Time);
         }
-        let idem = v.get("idempotency").ok_or(E::Shape)?;
-        exact(idem, &["mode"])?;
-        if text(idem, "mode")? != "disabled" {
-            return Err(E::Shape);
-        }
+        let idempotency = idempotency::attach(
+            b,
+            source,
+            closure,
+            sidecars,
+            idempotency::TransitionTypes {
+                apply: id,
+                state,
+                command,
+                context: ctx,
+                response: &response,
+            },
+            v.get("idempotency").ok_or(E::Shape)?,
+        )?;
+        let fixed_errors: &[&str] = if idempotency.is_some() {
+            &[
+                "idempotency_conflict",
+                "version_conflict",
+                "history_capacity",
+                "version_exhausted",
+            ]
+        } else {
+            &["version_conflict", "version_exhausted"]
+        };
         let common = data_phase::data_contract_environment(b, source, closure, operations)
             .map_err(|_| E::Predicate)?;
         let mut env = DataContractEnvironment {
@@ -520,8 +579,8 @@ fn attach(
                 return Err(E::Coverage);
             }
             let condition = row.get("condition").ok_or(E::Shape)?;
-            let condition = if i < 2 {
-                if code != ["version_conflict", "version_exhausted"][i] || condition != &J::Null {
+            let condition = if i < fixed_errors.len() {
+                if code != fixed_errors[i] || condition != &J::Null {
                     return Err(E::Coverage);
                 }
                 None
@@ -534,7 +593,7 @@ fn attach(
                 condition,
             });
         }
-        if errors.len() < 2
+        if errors.len() < fixed_errors.len()
             || errors.len() > 256
             || carriers != en.enum_values.iter().cloned().collect()
         {
@@ -598,6 +657,28 @@ fn attach(
         ] {
             add(Some(TransitionPath::NewSuccess), kind, predicate);
         }
+        if idempotency.is_some() {
+            add(
+                None,
+                TransitionObligationKind::SnapshotEqualityEquivalence,
+                None,
+            );
+            add(None, TransitionObligationKind::RetainedKeyUniqueness, None);
+            for kind in [
+                TransitionObligationKind::UnchangedInputState,
+                TransitionObligationKind::ReplayNoEvents,
+                TransitionObligationKind::ReplayStoredResponse,
+                TransitionObligationKind::EventAndValueBounds,
+            ] {
+                add(Some(TransitionPath::Replay), kind, None);
+            }
+            for kind in [
+                TransitionObligationKind::AppendCompleteSnapshot,
+                TransitionObligationKind::PreserveRetainedHistory,
+            ] {
+                add(Some(TransitionPath::NewSuccess), kind, None);
+            }
+        }
         for error in &errors {
             add(
                 Some(TransitionPath::Error(error.code.clone())),
@@ -625,21 +706,12 @@ fn attach(
                 effective_codec: codec.into(),
                 raw_instant: raw,
             },
+            idempotency,
             commands,
             errors,
             obligations,
         })
     };
-    // Idempotency has a separate serial owner, even for otherwise valid input.
-    if artifact
-        .value()
-        .get("idempotency")
-        .and_then(|v| v.get("mode"))
-        .and_then(J::as_str)
-        == Some("complete_snapshot")
-    {
-        return Err(DataPhaseError::LaterOwner("CSHARP-03-T05-W05"));
-    }
     run().map_err(DataPhaseError::Transition)
 }
 

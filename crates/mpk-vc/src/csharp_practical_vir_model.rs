@@ -7354,6 +7354,7 @@ pub use boundary_output::{BoundaryOutputError, BoundaryOutputEvidence, CapturedB
 #[path = "csharp_practical_transition.rs"]
 mod transition;
 pub use transition::{
-    TransitionBusinessError, TransitionCommandCase, TransitionError, TransitionObligation,
-    TransitionObligationKind, TransitionPath, TransitionVersionRule, ValidatedTransitionContract,
+    SnapshotEncodingNode, SnapshotEqualityObligation, TransitionBusinessError, TransitionCheck,
+    TransitionCommandCase, TransitionError, TransitionObligation, TransitionObligationKind,
+    TransitionPath, TransitionVersionRule, ValidatedIdempotency, ValidatedTransitionContract,
 };

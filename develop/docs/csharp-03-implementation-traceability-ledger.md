@@ -60,7 +60,7 @@ private structured-loop lowering (section 40). T04-W03 completes switch and
 pattern lowering (section 41). T04-W04 completes closed exception declarations,
 explicit throws and exceptional contracts (section 42). T04-W05 completes
 two-pass handler search, filters, finally and propagation (section 43). T04-W06 completes
-ordinary control emission and independent import (section 44). T05-W01 completes boundary sidecar and presence attachment (section 45). T05-W02 completes canonical input capture and typed evidence linkage (section 46). T05-W03 completes source output encoding and typed reparse (section 47). T05-W04 completes pure transition attachment and pending obligations (section 48). T05-W05 is ready;
+ordinary control emission and independent import (section 44). T05-W01 completes boundary sidecar and presence attachment (section 45). T05-W02 completes canonical input capture and typed evidence linkage (section 46). T05-W03 completes source output encoding and typed reparse (section 47). T05-W04 completes pure transition attachment and pending obligations (section 48). T05-W05 completes full-snapshot idempotency attachment and pending obligations (section 49). T05-W06 is ready;
 later items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
@@ -136,9 +136,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T05-W01` | `Complete` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W01` | `b0c9a5d5a9616e107200731f62a5abac91828538` |
 | `CSHARP-03-T05-W02` | `Complete` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W02` | `f8ec3c6b036908eccf02e4782a5f68a0e2855822` |
 | `CSHARP-03-T05-W03` | `Complete` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W03` | `9aa555a6d88ea55cd4e2dc41940059746dd968bf` |
-| `CSHARP-03-T05-W04` | `Complete` | `crates/mpk-cli/tests/csharp_practical_transition.rs#CSHARP-03-T05-W04` | `SELF` |
-| `CSHARP-03-T05-W05` | `Ready` | `crates/mpk-cli/tests/csharp_practical_transition.rs#CSHARP-03-T05-W05` | `—` |
-| `CSHARP-03-T05-W06` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_boundary_transition.rs#CSHARP-03-T05-W06` | `—` |
+| `CSHARP-03-T05-W04` | `Complete` | `crates/mpk-cli/tests/csharp_practical_transition.rs#CSHARP-03-T05-W04` | `33b95cd59817b4bbc330a66971e35c2e092cd92e` |
+| `CSHARP-03-T05-W05` | `Complete` | `crates/mpk-cli/tests/csharp_practical_transition.rs#CSHARP-03-T05-W05` | `SELF` |
+| `CSHARP-03-T05-W06` | `Ready` | `crates/mpk-cli/tests/csharp_practical_boundary_transition.rs#CSHARP-03-T05-W06` | `—` |
 | `CSHARP-03-T06-W01` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W01` | `—` |
 | `CSHARP-03-T06-W02` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W02` | `—` |
 | `CSHARP-03-T06-W03` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W03` | `—` |
@@ -5183,4 +5183,37 @@ shape and recipe semantics, local review and final verification hashes. Tests
 cover source/binding/signature/contract mutations, all error paths and priority
 conflicts, explicit time, ordered events, each postcondition counterexample,
 source-effect rejection, deterministic emission and independent import mutations.
-The frozen 709 vectors and 26 vector sets remain unchanged. T05-W05 is ready.
+The frozen 709 vectors and 26 vector sets remain unchanged. At the W04 checkpoint, T05-W05 was ready.
+
+## 49. CSHARP-03-T05-W05 completion record
+
+The optional `complete_snapshot` transition mode now requires a bounded State
+history record containing the exact key, entire Command and Context source
+values, and complete stored Response. Its captured total source equality helper
+must have the exact four-snapshot signature and be reachable from Apply.
+Strict attachment rejects member/type substitution, projection and digest or
+collision-assumption extensions, helper-contract/closure mismatches, malformed
+fixed error precedence, and recursively non-reflexive snapshot storage.
+
+The shared structural DAG produces complete field/encoding equivalence
+obligations, including inactive storage and bound Missing/null distinctions.
+The source helper's equivalence remains pending. Replay precedes version,
+capacity, exhaustion and business checks; replay and all errors preserve State.
+New success appends the complete record and preserves prior history and order.
+Replay emits no events and returns the stored response. W04's new-success
+invariant, checked version, ordered events, response and bounds remain in force.
+Every transition/equality obligation remains undischarged; T06-W08 owns proof.
+
+The executable owner is
+`crates/mpk-cli/tests/csharp_practical_transition.rs#CSHARP-03-T05-W05`, with its
+support matrix in `tests/support/csharp_practical_idempotency.rs`. Actual pinned
+C# captures, CLR observations, strict sidecars, review, and verification receipts
+are retained under `develop/migrations/csharp-03/idempotency/`. The W04 disabled
+matrix and W05 independent import linkage are also checked.
+
+The task uses the ledger's `SELF` marker; W04 records its published commit.
+T05-W06 is ready and owns the T05-wide `./scripts/check-fast.sh` gate. This
+intermediate W runs targeted checks only under the cadence established in
+`93fab5694e60200d7c7ce4cb65862ac4a9a0861b`; it does not claim a full-gate pass.
+The 709 frozen vectors, 26 vector sets, source producer, historical receipts,
+and active Java lane remain unchanged.

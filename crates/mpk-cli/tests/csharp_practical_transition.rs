@@ -142,8 +142,21 @@ fn setup(
     b: &ValidatedFoundationBundle,
     case: &str,
 ) -> (PracticalArtifactContext, CapturedInputSet) {
-    let mut source =
-        include_str!("../../../develop/migrations/csharp-03/transition/Entry.cs").to_owned();
+    setup_variant(
+        b,
+        case,
+        include_str!("../../../develop/migrations/csharp-03/transition/Entry.cs").to_owned(),
+        vec![],
+        |_, _, rows| rows,
+    )
+}
+fn setup_variant(
+    b: &ValidatedFoundationBundle,
+    case: &str,
+    mut source: String,
+    extra_paths: Vec<String>,
+    amend: impl FnOnce(&PracticalArtifactContext, &str, Vec<Vec<u8>>) -> Vec<Vec<u8>>,
+) -> (PracticalArtifactContext, CapturedInputSet) {
     match case {
         "mutant_invariant" => source = source.replace("state.Balance + command.Amount", "-1"),
         "mutant_version" => source = source.replace("state.Version + 1UL", "state.Version + 2UL"),
@@ -217,11 +230,12 @@ fn setup(
     );
     let mut roots = vec![apply.clone(), run.clone()];
     roots.sort();
-    let paths = vec![
+    let mut paths = vec![
         "contracts/bindings.json".into(),
         "contracts/method.json".into(),
         "contracts/transition.json".into(),
     ];
+    paths.extend(extra_paths);
     support::context_with_sidecars_for_roots(b, &roots, source.as_bytes(), paths.clone(), |ctx| {
         let sha = format!("{:x}", Sha256::digest(source.as_bytes()));
         let pre = capture_original_inputs(
@@ -265,6 +279,15 @@ fn setup(
                         source_tag: "1".into(),
                     },
                 ]
+            } else if role == "boundary_field" {
+                ["missing", "null", "value"]
+                    .iter()
+                    .enumerate()
+                    .map(|(i, arm)| SemanticArmMapping {
+                        semantic_arm: (*arm).into(),
+                        source_tag: i.to_string(),
+                    })
+                    .collect()
             } else {
                 vec![]
             },
@@ -281,33 +304,40 @@ fn setup(
             operation_map: vec![],
             enum_arms: BTreeMap::new(),
         };
-        let bindings = build_semantic_bindings(
-            ctx,
-            &pre,
-            vec![
-                binding(
-                    "Change",
-                    "transition",
-                    vec![
-                        ("state", "State", source_ty("State")),
-                        ("events", "Events", array(source_ty("Event"))),
-                        ("response", "Response", source_ty("Response")),
-                    ],
-                    vec![src("State"), src("Event"), src("Response")],
-                ),
-                binding(
-                    "ApplyResult",
-                    "result",
-                    vec![
-                        ("tag", "Tag", source_ty("Tag")),
-                        ("value", "Value", source_ty("Change")),
-                        ("error", "Error", source_ty("DomainError")),
-                    ],
-                    vec![transition_type, src("DomainError")],
-                ),
-            ],
-        )
-        .unwrap();
+        let mut binding_rows = vec![
+            binding(
+                "Change",
+                "transition",
+                vec![
+                    ("state", "State", source_ty("State")),
+                    ("events", "Events", array(source_ty("Event"))),
+                    ("response", "Response", source_ty("Response")),
+                ],
+                vec![src("State"), src("Event"), src("Response")],
+            ),
+            binding(
+                "ApplyResult",
+                "result",
+                vec![
+                    ("tag", "Tag", source_ty("Tag")),
+                    ("value", "Value", source_ty("Change")),
+                    ("error", "Error", source_ty("DomainError")),
+                ],
+                vec![transition_type, src("DomainError")],
+            ),
+        ];
+        if source.contains("enum PresenceTag") {
+            binding_rows.push(binding(
+                "Presence",
+                "boundary_field",
+                vec![
+                    ("tag", "Tag", source_ty("PresenceTag")),
+                    ("value", "Value", prim("i32")),
+                ],
+                vec![ty("i32")],
+            ));
+        }
+        let bindings = build_semantic_bindings(ctx, &pre, binding_rows).unwrap();
         let binding_id = |name: &str| {
             format!(
                 "binding.{}",
@@ -572,11 +602,15 @@ fn setup(
         if case == "extra" {
             fields.push(("extra", J::Null));
         }
-        vec![
-            bindings.canonical_bytes().to_vec(),
-            method,
-            hash("MPK-CSHARP-TRANSITION-CONTRACT-1.0", fields),
-        ]
+        amend(
+            ctx,
+            &sha,
+            vec![
+                bindings.canonical_bytes().to_vec(),
+                method,
+                hash("MPK-CSHARP-TRANSITION-CONTRACT-1.0", fields),
+            ],
+        )
     })
 }
 fn runs() -> Vec<Value> {
@@ -682,6 +716,16 @@ fn csharp_03_t05_w04_actual_source_matrix_and_finite_clr_traces() {
         );
         assert_eq!(emitted.transitions().len(), 1);
         let plan = &emitted.transitions()[0];
+        assert!(plan.idempotency().is_none());
+        assert_eq!(
+            plan.check_order(),
+            &[
+                TransitionCheck::ExpectedVersion,
+                TransitionCheck::VersionExhaustion,
+                TransitionCheck::BusinessErrors,
+                TransitionCheck::NewSuccess
+            ]
+        );
         assert_eq!(plan.state_type_id(), src("State"));
         assert_eq!(plan.command_type_id(), src("Command"));
         assert_eq!(plan.context_type_id(), src("Context"));
@@ -951,3 +995,6 @@ fn csharp_03_t05_w04_independent_import_requires_original_transition_contract() 
     )
     .is_err());
 }
+
+#[path = "support/csharp_practical_idempotency.rs"]
+mod idempotency;
