@@ -461,6 +461,7 @@ struct WirePracticalVcDocument {
 }
 
 pub struct ValidatedPracticalVc {
+    construction_vcs: crate::csharp_practical_vir_model::ConstructionVcProgram,
     wire: WirePracticalVcDocument,
     canonical_bytes: Vec<u8>,
     artifact_ref: ArtifactRef,
@@ -468,6 +469,9 @@ pub struct ValidatedPracticalVc {
 }
 
 impl ValidatedPracticalVc {
+    pub fn construction_vcs(&self) -> &crate::csharp_practical_vir_model::ConstructionVcProgram {
+        &self.construction_vcs
+    }
     pub fn contract_expressions(
         &self,
     ) -> &[crate::csharp_practical_vir_model::VerifiedContractExpression] {
@@ -837,11 +841,42 @@ pub fn import_csharp_practical_vc_json(
         )
     })?;
     Ok(ValidatedPracticalVc {
+        construction_vcs: construction_vcs(source.vir)?,
         contract_expressions: source.vir.contract_expressions().to_vec(),
         wire,
         canonical_bytes: input.to_vec(),
         artifact_ref,
     })
+}
+
+fn construction_vcs(
+    vir: &ValidatedPracticalVir,
+) -> Result<crate::csharp_practical_vir_model::ConstructionVcProgram, PracticalVcError> {
+    crate::csharp_practical_vir_model::generate_construction_vcs(vir).map_err(|e| match e {
+        crate::csharp_practical_vir_model::ConstructionVcError::Limit => limit_error(),
+        crate::csharp_practical_vir_model::ConstructionVcError::Contract => failure(
+            PracticalVcValidationPhase::Obligations,
+            PracticalVcErrorCode::Obligation,
+        ),
+    })
+}
+
+/// Compare the complete typed construction handoff against reconstruction from
+/// original inputs. The VC wire binds its digest and every sequent identity.
+pub fn import_csharp_practical_construction_vcs(
+    input: &[u8],
+    source: PracticalVcSource<'_>,
+) -> Result<crate::csharp_practical_vir_model::ConstructionVcProgram, PracticalVcError> {
+    validate_source(source)?;
+    require_transport_bound(input)?;
+    let expected = construction_vcs(source.vir)?;
+    if input != expected.canonical_bytes() {
+        return Err(failure(
+            PracticalVcValidationPhase::Obligations,
+            PracticalVcErrorCode::Obligation,
+        ));
+    }
+    Ok(expected)
 }
 
 fn expected_vc(source: PracticalVcSource<'_>) -> Result<WirePracticalVcDocument, PracticalVcError> {
@@ -853,8 +888,10 @@ fn expected_vc(source: PracticalVcSource<'_>) -> Result<WirePracticalVcDocument,
     let type_encodings = build_type_encodings(source.vir)?;
     let operation_encodings = build_operation_encodings(source.vir.operation_signatures())?;
     let control_encodings = build_control_encodings(source.vir.functions());
+    let construction = construction_vcs(source.vir)?;
     let obligation_groups = build_obligation_groups(
         source.vir,
+        &construction,
         &type_encodings,
         &operation_encodings,
         &control_encodings,
@@ -898,6 +935,12 @@ fn expected_vc(source: PracticalVcSource<'_>) -> Result<WirePracticalVcDocument,
             .max()
             .unwrap_or(0),
     );
+    resource_reservation.ordinary_term_nodes_minimum += construction.nodes() as u64;
+    resource_reservation.generated_declarations_minimum +=
+        (construction.sequents().len() + construction.definition_names().len()) as u64;
+    resource_reservation.binder_depth_minimum = resource_reservation
+        .binder_depth_minimum
+        .max(construction.binder_depth() as u64);
     validate_resource_reservation(&resource_reservation)?;
     let mut wire = WirePracticalVcDocument {
         schema: SUCCESSOR_VC_SCHEMA.to_owned(),
@@ -1438,6 +1481,7 @@ fn construction_action_tag(action: &PracticalConstructionAction) -> &'static str
 
 fn build_obligation_groups(
     vir: &ValidatedPracticalVir,
+    construction: &crate::csharp_practical_vir_model::ConstructionVcProgram,
     types: &[PracticalTypeEncoding],
     operations: &[PracticalOperationEncoding],
     controls: &[PracticalControlEncoding],
@@ -1460,6 +1504,21 @@ fn build_obligation_groups(
     }
     let mut pending: BTreeMap<(Option<String>, LaterProofOwner), BTreeSet<String>> =
         BTreeMap::new();
+    if !construction.sequents().is_empty() || !construction.types().is_empty() {
+        pending
+            .entry((None, LaterProofOwner::ConstructionAndTypeInvariants))
+            .or_default()
+            .insert(format!("construction_program:{}", construction.hash()));
+        for sequent in construction.sequents() {
+            pending
+                .entry((
+                    Some(sequent.function_id.clone()),
+                    LaterProofOwner::ConstructionAndTypeInvariants,
+                ))
+                .or_default()
+                .insert(sequent.id.clone());
+        }
+    }
     for operation in operations {
         let subject = format!("operation:{}", operation.operation_id);
         if operation.operation_tag == ClosedOperationTag::Foundation {
@@ -1483,6 +1542,9 @@ fn build_obligation_groups(
     for (ordinal, o) in vir.source_obligations().iter().enumerate() {
         let owner = match o.family.as_str() {
             "construction" => LaterProofOwner::ConstructionAndTypeInvariants,
+            "domain" if o.kind == "non_null_stored_field" => {
+                LaterProofOwner::ConstructionAndTypeInvariants
+            }
             "business" => LaterProofOwner::BindingsAndSpecialization,
             "domain"
                 if o.kind != "non_null_stored_field"
@@ -1607,12 +1669,19 @@ fn build_obligation_groups(
             Some(function_id) => format!("function.{function_id}"),
             None => "global".to_owned(),
         };
+        let mut dependencies = vec![FOUNDATION_GROUP_ID.to_owned()];
+        if function_id.is_some()
+            && proof_owner == LaterProofOwner::ConstructionAndTypeInvariants
+            && (!construction.sequents().is_empty() || !construction.types().is_empty())
+        {
+            dependencies.push(format!("vc.group.{:04}.global", proof_owner.order()));
+        }
         groups.push(PracticalObligationGroup {
             id: format!("vc.group.{:04}.{scope}", proof_owner.order()),
             kind: group_kind(proof_owner),
             function_id,
             subject_ids: subjects.into_iter().collect(),
-            dependencies: vec![FOUNDATION_GROUP_ID.to_owned()],
+            dependencies,
             proof_owner,
         });
     }

@@ -1,0 +1,168 @@
+{
+  "schema": "mpk.csharp_practical.t06_w02.verification.v0",
+  "work_item": "CSHARP-03-T06-W02",
+  "date": "2026-09-08",
+  "baseline_commit": "d875314cf1d51add12313017ee922b963f485396",
+  "checks": [
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc --test csharp_practical_vc_model --test csharp_practical_inventory",
+      "result": "passed",
+      "tests_passed": 17,
+      "log_sha256": "45a71341509bf46c10068c5fc247fff5dda741b21985038ab3ff9e0895ad95e6"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc",
+      "result": "passed",
+      "tests_passed": 7,
+      "log_sha256": "dc36474980e01fff368c67cb9b42d8fd7cd113188602658c8f691196481b9ce9"
+    },
+    {
+      "command": "cargo test -p mpk-vc --lib construction_vc",
+      "result": "passed",
+      "tests_passed": 2,
+      "log_sha256": "26dd138c31feb18d5d74b27a15764a7f087c2bc00ab18766c7edfa6c1214cfe5"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc construction::csharp_03_t06_w02_hostile_construction_and_preservation_handoffs",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "996ddc0faeffdbfd30bd0baaf771218485557801db9ed450348057da1d2b6e74"
+    },
+    {
+      "command": "cargo test -p mpk-cli --test csharp_practical_control construction_",
+      "result": "passed",
+      "tests_passed": 2,
+      "log_sha256": "a05f3ac15fe9c83e610099ee89f17ab8c94cb54eb5472f587ee3cb07175fa103"
+    },
+    {
+      "command": "cargo test -p mpk-cli --test csharp_practical_domain attaches_type_contract_member_and_default_facts",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "920677a5f2273bba4b5434913630adcaf2e472f491455cf69c3ae5bdce8648d5"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc --test csharp_practical_inventory -- -D warnings",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "fc3802546535b62b69552d34f659ebd86797d92a13bfbb581069eb45705eafdd"
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true (all eight changed Rust files)",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "coverage": {
+    "distinct_scoped_tests_passed": 22,
+    "actual_capture_requests": 9,
+    "accepted_capture_cases": 7,
+    "source_rejections": 2,
+    "capture_repetitions_equal": 2,
+    "existing_construction_capture_cases": 8,
+    "generated_goldens": 7,
+    "review_findings": 0
+  },
+  "capture_command": "docker run --rm -i --platform linux/amd64 --network none --cap-add SYS_ADMIN --security-opt seccomp=unconfined -v /Users/kazuyoshitoshiya/mpk:/repo:ro -w /repo mpk-java-t10-gate:local ./scripts/build-csharp-practical-frontend.sh --test-data-phase-requests",
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "status": "deferred",
+    "owner": "CSHARP-03-T06-W09",
+    "reason": "Intermediate W: targeted checks only under AGENTS.md."
+  },
+  "proof_status": "Concrete pending construction/type-invariant VCs; no semantic proof receipt or public certificate. Complete assembly/checker execution remains T06-W09.",
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_construction_vc.rs",
+      "sha256": "3d2157b96aba2212d57dae8510edca5471cef8bfdba0c2029364290fe91d8552",
+      "size_bytes": 39590
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_contract_import.rs",
+      "sha256": "57ffeccdc60613bdbd896dc0cc7dfc6c1baccd519e07d68be8a03eec620d44e4",
+      "size_bytes": 17838
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vc_model.rs",
+      "sha256": "3e6e095fd0faa40a928124e768d4270adf72edc2177bc85d45cfab972a877d1e",
+      "size_bytes": 84658
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "0fa10a11000b829751b87f1ed06c6939d522a3a6a8b00cb0b94b69dc397b215e",
+      "size_bytes": 260929
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_validation.rs",
+      "sha256": "dc455e80b1bcdc6ff20ff3c7b315ac13f7613374ca10e325362fed0413255be5",
+      "size_bytes": 181261
+    },
+    {
+      "path": "crates/mpk-vc/tests/csharp_practical_inventory.rs",
+      "sha256": "586453befe8d06fb7455da316109d92ea62926ddc9188dd5d1bf9227f0803cb1",
+      "size_bytes": 78596
+    },
+    {
+      "path": "crates/mpk-vc/tests/csharp_practical_vc.rs",
+      "sha256": "68b79b0ddbdf24ef5956fb120d971b138c2169722d42d96e3ded3e29770a18ae",
+      "size_bytes": 25475
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_construction_vc.rs",
+      "sha256": "967407a47bac86c459e078dbfd7b2fdcae30dd31585ed0f8831ac1fd98951704",
+      "size_bytes": 22188
+    },
+    {
+      "path": "develop/docs/08_csharp_practical_subset_design-todo.md",
+      "sha256": "3455857b6aafc594fc512ad5d2a2f55ec4fb5f51b0a36810f00dcd8907bd956c",
+      "size_bytes": 133670
+    },
+    {
+      "path": "develop/docs/08_csharp_practical_subset_design.md",
+      "sha256": "a623ce820ad079284592412f40583c20b8e663f1a44bdc91beab80c4f35f7fec",
+      "size_bytes": 150266
+    },
+    {
+      "path": "develop/docs/csharp-03-implementation-traceability-ledger.md",
+      "sha256": "f44b483d714fc5dcb9bfc92cd0a9dd09f6fee6ea5ab9be701f7fe17b4c02e4e6",
+      "size_bytes": 329230
+    },
+    {
+      "path": "develop/migrations/csharp-03/construction-vc/README.md",
+      "sha256": "cbaa8c632a7e999260d87f000dc08b695b76f1a5278598b71df76b8de72df745",
+      "size_bytes": 6792
+    },
+    {
+      "path": "develop/migrations/csharp-03/construction-vc/goldens.json",
+      "sha256": "8c3cd95acb56ec7f22532d4e73601d0d5a8c97072b87f47cda66bf64991e2779",
+      "size_bytes": 371337
+    },
+    {
+      "path": "develop/migrations/csharp-03/construction-vc/requests.json",
+      "sha256": "99fa4df497b31a309a968d2cd06db6b5784d0775c3fb1b107567c19fbd904b70",
+      "size_bytes": 24931
+    },
+    {
+      "path": "develop/migrations/csharp-03/construction-vc/responses.json",
+      "sha256": "c1b9f90778b58bc2708355cf9b399f9639803806e12d0bfd93c6709460981b06",
+      "size_bytes": 74072
+    },
+    {
+      "path": "develop/migrations/csharp-03/construction-vc/review.md",
+      "sha256": "18ad528363eb6a9810ae10e68fa7ffffb8ba8b0440d01b09e85f909eb225ee54",
+      "size_bytes": 2038
+    }
+  ],
+  "frozen_files": [
+    {
+      "path": "crates/mpk-cli/src/csharp_practical_frontend_protocol.rs",
+      "sha256": "b4c6c55dd29f9a2983231ab67b0c9263f42becfbd620ef3daa4e3098944c2077",
+      "size_bytes": 61921
+    },
+    {
+      "path": "develop/specs/vectors/csharp-practical-profile-v1.json",
+      "sha256": "de401830e1cd4221465d25c6fe31dad7d704ae8959edfc1145db8099f7bfffa6",
+      "size_bytes": 528089
+    }
+  ]
+}

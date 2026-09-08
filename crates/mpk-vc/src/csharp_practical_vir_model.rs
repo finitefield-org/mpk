@@ -7365,3 +7365,11 @@ pub use transition::{
     TransitionCommandCase, TransitionError, TransitionObligation, TransitionObligationKind,
     TransitionPath, TransitionVersionRule, ValidatedIdempotency, ValidatedTransitionContract,
 };
+
+#[path = "csharp_practical_construction_vc.rs"]
+mod construction_vc;
+pub(crate) use construction_vc::{generate_construction_vcs, ConstructionVcError};
+pub use construction_vc::{
+    ConstructionEvidence, ConstructionMember, ConstructionPredicate, ConstructionSequent,
+    ConstructionSubject, ConstructionTypeInvariant, ConstructionVcProgram,
+};

@@ -717,3 +717,6 @@ fn csharp_03_t06_w01_specialization_and_inclusive_limits() {
         );
     }
 }
+
+#[path = "support/csharp_practical_construction_vc.rs"]
+mod construction;

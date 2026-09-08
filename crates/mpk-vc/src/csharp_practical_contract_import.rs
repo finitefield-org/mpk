@@ -66,6 +66,8 @@ pub struct ContractDefinition {
 }
 #[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct VerifiedContractExpression {
+    #[serde(skip)]
+    owner: String,
     expression_sha256: String,
     attachment_sha256: String,
     canonical_expression: String,
@@ -74,6 +76,15 @@ pub struct VerifiedContractExpression {
     subject_bindings: Vec<(String, String)>,
 }
 impl VerifiedContractExpression {
+    pub(crate) fn owner(&self) -> &str {
+        &self.owner
+    }
+    pub(crate) fn expression(&self) -> &str {
+        &self.canonical_expression
+    }
+    pub(crate) fn subjects(&self) -> &[(String, String)] {
+        &self.subject_bindings
+    }
     pub fn term(&self) -> &ContractTerm {
         &self.term
     }
@@ -270,6 +281,7 @@ pub fn import_verification_contract_expression(
     );
     let definitions = compiler.definitions.into_values().collect();
     Ok(VerifiedContractExpression {
+        owner: env.verification_owner.clone(),
         expression_sha256,
         attachment_sha256,
         canonical_expression: String::from_utf8(bytes.to_vec())

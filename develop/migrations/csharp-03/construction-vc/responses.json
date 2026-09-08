@@ -1,0 +1,1680 @@
+[
+  {
+    "id": "positive_constructor",
+    "facts": {
+      "compilation_id": "data",
+      "input_files": [
+        {
+          "kind": "sidecar",
+          "path": "contracts/data.json",
+          "raw_sha256": "201ff7fa0014b24b7675408b0bbc38fd12db0af8c6ae4336549a58b0cd4e8903",
+          "size_bytes": 2631
+        },
+        {
+          "kind": "source",
+          "path": "src/Entry.cs",
+          "raw_sha256": "1acc8718c3a1a93fd577b30b853cda391afd5bbc1a021abb202a2ad45d27a91b",
+          "size_bytes": 209
+        }
+      ],
+      "types": [
+        {
+          "id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+          "kind": "readonly_struct",
+          "name": "Value",
+          "namespace": "Data",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "1acc8718c3a1a93fd577b30b853cda391afd5bbc1a021abb202a2ad45d27a91b",
+          "start_byte": 15,
+          "end_byte": 107,
+          "enum_underlying": "",
+          "enum_values": [],
+          "members": [
+            {
+              "name": "Amount",
+              "type": {
+                "id": "i32",
+                "kind": "primitive"
+              },
+              "required": false,
+              "storage": "readonly_field",
+              "start_byte": 64,
+              "end_byte": 70
+            }
+          ],
+          "recursive_default": {
+            "root": 1,
+            "nodes": [
+              {
+                "type_id": "mpk.csharp.value.i32.v1",
+                "kind": "scalar",
+                "scalar": "0",
+                "members": []
+              },
+              {
+                "type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+                "kind": "product",
+                "scalar": "",
+                "members": [
+                  0
+                ]
+              }
+            ]
+          },
+          "public_default": false
+        }
+      ],
+      "callables": [
+        {
+          "identity": {
+            "kind": "method",
+            "name": "Run",
+            "namespace": "Data",
+            "owner": "mpk.csharp.source.ef9dad116eb157e28868edde486a3113267ca175e30c263db0196b10aa97f023",
+            "parameter_type_ids": [
+              "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36"
+            ],
+            "result_type_id": "mpk.csharp.value.i32.v1"
+          },
+          "is_static": true,
+          "is_property_getter": false,
+          "is_synthesized_constructor": false,
+          "parameters": [
+            {
+              "id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+              "kind": "source"
+            }
+          ],
+          "result": {
+            "id": "i32",
+            "kind": "primitive"
+          },
+          "id": "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "1acc8718c3a1a93fd577b30b853cda391afd5bbc1a021abb202a2ad45d27a91b",
+          "start_byte": 133,
+          "end_byte": 207,
+          "body_sha256": "2c8d4b51ca70ae9db2b9819aa425a3d8c68919bdd0aa6032f69d0bc797fe4689",
+          "body_utf8": "[{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Return\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"FieldReference\",\"symbol\":\"mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36.Amount\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"ObjectCreation\",\"symbol\":\"mpk.csharp.source.dc1d4909b08cca10175307e5fad10ee11469c136e812e6a56b7fec79684dcc5d\",\"traits\":\"\",\"type\":\"82:mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f365:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Argument\",\"symbol\":\"argument:0\",\"traits\":\"Explicit|0\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"FieldReference\",\"symbol\":\"mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36.Amount\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"ParameterReference\",\"symbol\":\"parameter:0\",\"traits\":\"\",\"type\":\"82:mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f365:value0:\"}]",
+          "data_steps": [],
+          "initialization_plans": [
+            {
+              "node_ordinal": 2,
+              "site": "src/Entry.cs:175:23",
+              "type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+              "constructor_id": "mpk.csharp.source.dc1d4909b08cca10175307e5fad10ee11469c136e812e6a56b7fec79684dcc5d",
+              "member_order": [
+                "Amount"
+              ],
+              "definitely_assigned": 1,
+              "possibly_assigned": 1,
+              "has_normal_exit": true,
+              "steps": [
+                {
+                  "kind": "EvaluateArgument",
+                  "target": "argument:0",
+                  "expression_ordinal": 4,
+                  "exceptional_exit": "no_value"
+                },
+                {
+                  "kind": "Begin",
+                  "target": "src/Entry.cs:175:23",
+                  "expression_ordinal": null,
+                  "exceptional_exit": "no_value"
+                },
+                {
+                  "kind": "InvokeConstructor",
+                  "target": "mpk.csharp.source.dc1d4909b08cca10175307e5fad10ee11469c136e812e6a56b7fec79684dcc5d",
+                  "expression_ordinal": null,
+                  "exceptional_exit": "discard"
+                },
+                {
+                  "kind": "PublicInvariant",
+                  "target": "src/Entry.cs:175:23",
+                  "expression_ordinal": null,
+                  "exceptional_exit": "discard"
+                },
+                {
+                  "kind": "Finalize",
+                  "target": "src/Entry.cs:175:23",
+                  "expression_ordinal": null,
+                  "exceptional_exit": "discard"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "identity": {
+            "kind": "constructor",
+            "name": "Value",
+            "namespace": "Data",
+            "owner": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+            "parameter_type_ids": [
+              "mpk.csharp.value.i32.v1"
+            ],
+            "result_type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36"
+          },
+          "is_static": false,
+          "is_property_getter": false,
+          "is_synthesized_constructor": false,
+          "parameters": [
+            {
+              "id": "i32",
+              "kind": "primitive"
+            }
+          ],
+          "result": {
+            "id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+            "kind": "source"
+          },
+          "id": "mpk.csharp.source.dc1d4909b08cca10175307e5fad10ee11469c136e812e6a56b7fec79684dcc5d",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "1acc8718c3a1a93fd577b30b853cda391afd5bbc1a021abb202a2ad45d27a91b",
+          "start_byte": 71,
+          "end_byte": 106,
+          "body_sha256": "5e6a85c242e1fb8110ab3e8168b66a55a2f9ba207f2d97ab1f75fb6f68cfb9dd",
+          "body_utf8": "[{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"ExpressionStatement\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":2,\"implicit\":false,\"kind\":\"SimpleAssignment\",\"symbol\":\"\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"FieldReference\",\"symbol\":\"mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36.Amount\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":true,\"kind\":\"InstanceReference\",\"symbol\":\"\",\"traits\":\"ContainingTypeInstance\",\"type\":\"82:mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f365:value0:\"},{\"constant\":\"System.Int32:1\",\"child_count\":0,\"implicit\":false,\"kind\":\"Literal\",\"symbol\":\"\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"}]",
+          "data_steps": [],
+          "initialization_plans": []
+        }
+      ],
+      "source_obligations": [
+        {
+          "family": "construction",
+          "site": "mpk.csharp.source.dc1d4909b08cca10175307e5fad10ee11469c136e812e6a56b7fec79684dcc5d",
+          "kind": "public_invariant",
+          "type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+          "members": [
+            "Amount"
+          ],
+          "predicate": "",
+          "discharged": false,
+          "declaration_id": "mpk.csharp.source.dc1d4909b08cca10175307e5fad10ee11469c136e812e6a56b7fec79684dcc5d",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "1acc8718c3a1a93fd577b30b853cda391afd5bbc1a021abb202a2ad45d27a91b",
+          "start_byte": 71,
+          "end_byte": 106
+        },
+        {
+          "family": "construction",
+          "site": "src/Entry.cs:175:23",
+          "kind": "public_invariant",
+          "type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+          "members": [
+            "Amount"
+          ],
+          "predicate": "",
+          "discharged": false,
+          "declaration_id": "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "1acc8718c3a1a93fd577b30b853cda391afd5bbc1a021abb202a2ad45d27a91b",
+          "start_byte": 175,
+          "end_byte": 198
+        }
+      ],
+      "source_containers": [
+        {
+          "id": "mpk.csharp.source.ef9dad116eb157e28868edde486a3113267ca175e30c263db0196b10aa97f023",
+          "name": "Entry",
+          "namespace": "Data",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "1acc8718c3a1a93fd577b30b853cda391afd5bbc1a021abb202a2ad45d27a91b",
+          "start_byte": 107,
+          "end_byte": 208
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/Entry.cs",
+          "raw_sha256": "1acc8718c3a1a93fd577b30b853cda391afd5bbc1a021abb202a2ad45d27a91b",
+          "size_bytes": 209
+        }
+      ],
+      "selected_root_ids": [
+        "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33"
+      ],
+      "reachable_declarations": [
+        "Data.Value.Amount",
+        "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+        "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+        "mpk.csharp.source.dc1d4909b08cca10175307e5fad10ee11469c136e812e6a56b7fec79684dcc5d",
+        "mpk.csharp.source.ef9dad116eb157e28868edde486a3113267ca175e30c263db0196b10aa97f023"
+      ],
+      "exact_types": []
+    }
+  },
+  {
+    "id": "broken_constructor",
+    "facts": {
+      "compilation_id": "data",
+      "input_files": [
+        {
+          "kind": "sidecar",
+          "path": "contracts/data.json",
+          "raw_sha256": "3f76f381e3ace3e7a2b635bac72f9ecde6766e39ca8f55ebcb89c502d32cb619",
+          "size_bytes": 2631
+        },
+        {
+          "kind": "source",
+          "path": "src/Entry.cs",
+          "raw_sha256": "94d7acad2862526ef329696430d94406d7ac930959e5983ed38aa7a4b9463865",
+          "size_bytes": 210
+        }
+      ],
+      "types": [
+        {
+          "id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+          "kind": "readonly_struct",
+          "name": "Value",
+          "namespace": "Data",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "94d7acad2862526ef329696430d94406d7ac930959e5983ed38aa7a4b9463865",
+          "start_byte": 15,
+          "end_byte": 108,
+          "enum_underlying": "",
+          "enum_values": [],
+          "members": [
+            {
+              "name": "Amount",
+              "type": {
+                "id": "i32",
+                "kind": "primitive"
+              },
+              "required": false,
+              "storage": "readonly_field",
+              "start_byte": 64,
+              "end_byte": 70
+            }
+          ],
+          "recursive_default": {
+            "root": 1,
+            "nodes": [
+              {
+                "type_id": "mpk.csharp.value.i32.v1",
+                "kind": "scalar",
+                "scalar": "0",
+                "members": []
+              },
+              {
+                "type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+                "kind": "product",
+                "scalar": "",
+                "members": [
+                  0
+                ]
+              }
+            ]
+          },
+          "public_default": false
+        }
+      ],
+      "callables": [
+        {
+          "identity": {
+            "kind": "method",
+            "name": "Run",
+            "namespace": "Data",
+            "owner": "mpk.csharp.source.ef9dad116eb157e28868edde486a3113267ca175e30c263db0196b10aa97f023",
+            "parameter_type_ids": [
+              "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36"
+            ],
+            "result_type_id": "mpk.csharp.value.i32.v1"
+          },
+          "is_static": true,
+          "is_property_getter": false,
+          "is_synthesized_constructor": false,
+          "parameters": [
+            {
+              "id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+              "kind": "source"
+            }
+          ],
+          "result": {
+            "id": "i32",
+            "kind": "primitive"
+          },
+          "id": "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "94d7acad2862526ef329696430d94406d7ac930959e5983ed38aa7a4b9463865",
+          "start_byte": 134,
+          "end_byte": 208,
+          "body_sha256": "2c8d4b51ca70ae9db2b9819aa425a3d8c68919bdd0aa6032f69d0bc797fe4689",
+          "body_utf8": "[{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Return\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"FieldReference\",\"symbol\":\"mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36.Amount\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"ObjectCreation\",\"symbol\":\"mpk.csharp.source.dc1d4909b08cca10175307e5fad10ee11469c136e812e6a56b7fec79684dcc5d\",\"traits\":\"\",\"type\":\"82:mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f365:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Argument\",\"symbol\":\"argument:0\",\"traits\":\"Explicit|0\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"FieldReference\",\"symbol\":\"mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36.Amount\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"ParameterReference\",\"symbol\":\"parameter:0\",\"traits\":\"\",\"type\":\"82:mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f365:value0:\"}]",
+          "data_steps": [],
+          "initialization_plans": [
+            {
+              "node_ordinal": 2,
+              "site": "src/Entry.cs:176:23",
+              "type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+              "constructor_id": "mpk.csharp.source.dc1d4909b08cca10175307e5fad10ee11469c136e812e6a56b7fec79684dcc5d",
+              "member_order": [
+                "Amount"
+              ],
+              "definitely_assigned": 1,
+              "possibly_assigned": 1,
+              "has_normal_exit": true,
+              "steps": [
+                {
+                  "kind": "EvaluateArgument",
+                  "target": "argument:0",
+                  "expression_ordinal": 4,
+                  "exceptional_exit": "no_value"
+                },
+                {
+                  "kind": "Begin",
+                  "target": "src/Entry.cs:176:23",
+                  "expression_ordinal": null,
+                  "exceptional_exit": "no_value"
+                },
+                {
+                  "kind": "InvokeConstructor",
+                  "target": "mpk.csharp.source.dc1d4909b08cca10175307e5fad10ee11469c136e812e6a56b7fec79684dcc5d",
+                  "expression_ordinal": null,
+                  "exceptional_exit": "discard"
+                },
+                {
+                  "kind": "PublicInvariant",
+                  "target": "src/Entry.cs:176:23",
+                  "expression_ordinal": null,
+                  "exceptional_exit": "discard"
+                },
+                {
+                  "kind": "Finalize",
+                  "target": "src/Entry.cs:176:23",
+                  "expression_ordinal": null,
+                  "exceptional_exit": "discard"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "identity": {
+            "kind": "constructor",
+            "name": "Value",
+            "namespace": "Data",
+            "owner": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+            "parameter_type_ids": [
+              "mpk.csharp.value.i32.v1"
+            ],
+            "result_type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36"
+          },
+          "is_static": false,
+          "is_property_getter": false,
+          "is_synthesized_constructor": false,
+          "parameters": [
+            {
+              "id": "i32",
+              "kind": "primitive"
+            }
+          ],
+          "result": {
+            "id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+            "kind": "source"
+          },
+          "id": "mpk.csharp.source.dc1d4909b08cca10175307e5fad10ee11469c136e812e6a56b7fec79684dcc5d",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "94d7acad2862526ef329696430d94406d7ac930959e5983ed38aa7a4b9463865",
+          "start_byte": 71,
+          "end_byte": 107,
+          "body_sha256": "3e290a4cee768db1893d794b82a4de96646d596b9184e3f853cbfd1d57c388fd",
+          "body_utf8": "[{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"ExpressionStatement\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":2,\"implicit\":false,\"kind\":\"SimpleAssignment\",\"symbol\":\"\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"FieldReference\",\"symbol\":\"mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36.Amount\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":true,\"kind\":\"InstanceReference\",\"symbol\":\"\",\"traits\":\"ContainingTypeInstance\",\"type\":\"82:mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f365:value0:\"},{\"constant\":\"System.Int32:-1\",\"child_count\":1,\"implicit\":false,\"kind\":\"Unary\",\"symbol\":\"\",\"traits\":\"Minus|True|False\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":\"System.Int32:1\",\"child_count\":0,\"implicit\":false,\"kind\":\"Literal\",\"symbol\":\"\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"}]",
+          "data_steps": [],
+          "initialization_plans": []
+        }
+      ],
+      "source_obligations": [
+        {
+          "family": "construction",
+          "site": "mpk.csharp.source.dc1d4909b08cca10175307e5fad10ee11469c136e812e6a56b7fec79684dcc5d",
+          "kind": "public_invariant",
+          "type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+          "members": [
+            "Amount"
+          ],
+          "predicate": "",
+          "discharged": false,
+          "declaration_id": "mpk.csharp.source.dc1d4909b08cca10175307e5fad10ee11469c136e812e6a56b7fec79684dcc5d",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "94d7acad2862526ef329696430d94406d7ac930959e5983ed38aa7a4b9463865",
+          "start_byte": 71,
+          "end_byte": 107
+        },
+        {
+          "family": "construction",
+          "site": "src/Entry.cs:176:23",
+          "kind": "public_invariant",
+          "type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+          "members": [
+            "Amount"
+          ],
+          "predicate": "",
+          "discharged": false,
+          "declaration_id": "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "94d7acad2862526ef329696430d94406d7ac930959e5983ed38aa7a4b9463865",
+          "start_byte": 176,
+          "end_byte": 199
+        }
+      ],
+      "source_containers": [
+        {
+          "id": "mpk.csharp.source.ef9dad116eb157e28868edde486a3113267ca175e30c263db0196b10aa97f023",
+          "name": "Entry",
+          "namespace": "Data",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "94d7acad2862526ef329696430d94406d7ac930959e5983ed38aa7a4b9463865",
+          "start_byte": 108,
+          "end_byte": 209
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/Entry.cs",
+          "raw_sha256": "94d7acad2862526ef329696430d94406d7ac930959e5983ed38aa7a4b9463865",
+          "size_bytes": 210
+        }
+      ],
+      "selected_root_ids": [
+        "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33"
+      ],
+      "reachable_declarations": [
+        "Data.Value.Amount",
+        "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+        "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+        "mpk.csharp.source.dc1d4909b08cca10175307e5fad10ee11469c136e812e6a56b7fec79684dcc5d",
+        "mpk.csharp.source.ef9dad116eb157e28868edde486a3113267ca175e30c263db0196b10aa97f023"
+      ],
+      "exact_types": []
+    }
+  },
+  {
+    "id": "broken_default",
+    "facts": {
+      "compilation_id": "data",
+      "input_files": [
+        {
+          "kind": "sidecar",
+          "path": "contracts/data.json",
+          "raw_sha256": "214454bb4d25b251665fe5a9ae56ac1d227678c6dcdb17967563588c1693606e",
+          "size_bytes": 2631
+        },
+        {
+          "kind": "source",
+          "path": "src/Entry.cs",
+          "raw_sha256": "04b5f1cfb1c9dcc361354a93bdac786af23d35dd511b2b26641ea785ec374203",
+          "size_bytes": 165
+        }
+      ],
+      "types": [
+        {
+          "id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+          "kind": "readonly_struct",
+          "name": "Value",
+          "namespace": "Data",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "04b5f1cfb1c9dcc361354a93bdac786af23d35dd511b2b26641ea785ec374203",
+          "start_byte": 15,
+          "end_byte": 72,
+          "enum_underlying": "",
+          "enum_values": [],
+          "members": [
+            {
+              "name": "Amount",
+              "type": {
+                "id": "i32",
+                "kind": "primitive"
+              },
+              "required": false,
+              "storage": "readonly_field",
+              "start_byte": 64,
+              "end_byte": 70
+            }
+          ],
+          "recursive_default": {
+            "root": 1,
+            "nodes": [
+              {
+                "type_id": "mpk.csharp.value.i32.v1",
+                "kind": "scalar",
+                "scalar": "0",
+                "members": []
+              },
+              {
+                "type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+                "kind": "product",
+                "scalar": "",
+                "members": [
+                  0
+                ]
+              }
+            ]
+          },
+          "public_default": false
+        }
+      ],
+      "callables": [
+        {
+          "identity": {
+            "kind": "method",
+            "name": "Run",
+            "namespace": "Data",
+            "owner": "mpk.csharp.source.ef9dad116eb157e28868edde486a3113267ca175e30c263db0196b10aa97f023",
+            "parameter_type_ids": [
+              "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36"
+            ],
+            "result_type_id": "mpk.csharp.value.i32.v1"
+          },
+          "is_static": true,
+          "is_property_getter": false,
+          "is_synthesized_constructor": false,
+          "parameters": [
+            {
+              "id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+              "kind": "source"
+            }
+          ],
+          "result": {
+            "id": "i32",
+            "kind": "primitive"
+          },
+          "id": "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "04b5f1cfb1c9dcc361354a93bdac786af23d35dd511b2b26641ea785ec374203",
+          "start_byte": 98,
+          "end_byte": 163,
+          "body_sha256": "23c6d713dbef837722a692b4d05bf421404fdd9d5dbe56b3cf3c8ffbb5dd6072",
+          "body_utf8": "[{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Return\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"FieldReference\",\"symbol\":\"mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36.Amount\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"DefaultValue\",\"symbol\":\"\",\"traits\":\"\",\"type\":\"82:mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f365:value0:\"}]",
+          "data_steps": [],
+          "initialization_plans": []
+        }
+      ],
+      "source_obligations": [
+        {
+          "family": "construction",
+          "site": "src/Entry.cs:140:14",
+          "kind": "default_public_invariant",
+          "type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+          "members": [
+            "Amount"
+          ],
+          "predicate": "",
+          "discharged": false,
+          "declaration_id": "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "04b5f1cfb1c9dcc361354a93bdac786af23d35dd511b2b26641ea785ec374203",
+          "start_byte": 140,
+          "end_byte": 154
+        }
+      ],
+      "source_containers": [
+        {
+          "id": "mpk.csharp.source.ef9dad116eb157e28868edde486a3113267ca175e30c263db0196b10aa97f023",
+          "name": "Entry",
+          "namespace": "Data",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "04b5f1cfb1c9dcc361354a93bdac786af23d35dd511b2b26641ea785ec374203",
+          "start_byte": 72,
+          "end_byte": 164
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/Entry.cs",
+          "raw_sha256": "04b5f1cfb1c9dcc361354a93bdac786af23d35dd511b2b26641ea785ec374203",
+          "size_bytes": 165
+        }
+      ],
+      "selected_root_ids": [
+        "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33"
+      ],
+      "reachable_declarations": [
+        "Data.Value.Amount",
+        "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+        "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+        "mpk.csharp.source.ef9dad116eb157e28868edde486a3113267ca175e30c263db0196b10aa97f023"
+      ],
+      "exact_types": []
+    }
+  },
+  {
+    "id": "positive_default",
+    "facts": {
+      "compilation_id": "data",
+      "input_files": [
+        {
+          "kind": "sidecar",
+          "path": "contracts/data.json",
+          "raw_sha256": "2728490cbf174a8d4f6d503e1f32befaa5be31cc95a0dc333fd535982bf14671",
+          "size_bytes": 2637
+        },
+        {
+          "kind": "source",
+          "path": "src/Entry.cs",
+          "raw_sha256": "04b5f1cfb1c9dcc361354a93bdac786af23d35dd511b2b26641ea785ec374203",
+          "size_bytes": 165
+        }
+      ],
+      "types": [
+        {
+          "id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+          "kind": "readonly_struct",
+          "name": "Value",
+          "namespace": "Data",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "04b5f1cfb1c9dcc361354a93bdac786af23d35dd511b2b26641ea785ec374203",
+          "start_byte": 15,
+          "end_byte": 72,
+          "enum_underlying": "",
+          "enum_values": [],
+          "members": [
+            {
+              "name": "Amount",
+              "type": {
+                "id": "i32",
+                "kind": "primitive"
+              },
+              "required": false,
+              "storage": "readonly_field",
+              "start_byte": 64,
+              "end_byte": 70
+            }
+          ],
+          "recursive_default": {
+            "root": 1,
+            "nodes": [
+              {
+                "type_id": "mpk.csharp.value.i32.v1",
+                "kind": "scalar",
+                "scalar": "0",
+                "members": []
+              },
+              {
+                "type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+                "kind": "product",
+                "scalar": "",
+                "members": [
+                  0
+                ]
+              }
+            ]
+          },
+          "public_default": false
+        }
+      ],
+      "callables": [
+        {
+          "identity": {
+            "kind": "method",
+            "name": "Run",
+            "namespace": "Data",
+            "owner": "mpk.csharp.source.ef9dad116eb157e28868edde486a3113267ca175e30c263db0196b10aa97f023",
+            "parameter_type_ids": [
+              "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36"
+            ],
+            "result_type_id": "mpk.csharp.value.i32.v1"
+          },
+          "is_static": true,
+          "is_property_getter": false,
+          "is_synthesized_constructor": false,
+          "parameters": [
+            {
+              "id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+              "kind": "source"
+            }
+          ],
+          "result": {
+            "id": "i32",
+            "kind": "primitive"
+          },
+          "id": "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "04b5f1cfb1c9dcc361354a93bdac786af23d35dd511b2b26641ea785ec374203",
+          "start_byte": 98,
+          "end_byte": 163,
+          "body_sha256": "23c6d713dbef837722a692b4d05bf421404fdd9d5dbe56b3cf3c8ffbb5dd6072",
+          "body_utf8": "[{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Return\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"FieldReference\",\"symbol\":\"mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36.Amount\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"DefaultValue\",\"symbol\":\"\",\"traits\":\"\",\"type\":\"82:mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f365:value0:\"}]",
+          "data_steps": [],
+          "initialization_plans": []
+        }
+      ],
+      "source_obligations": [
+        {
+          "family": "construction",
+          "site": "src/Entry.cs:140:14",
+          "kind": "default_public_invariant",
+          "type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+          "members": [
+            "Amount"
+          ],
+          "predicate": "",
+          "discharged": false,
+          "declaration_id": "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "04b5f1cfb1c9dcc361354a93bdac786af23d35dd511b2b26641ea785ec374203",
+          "start_byte": 140,
+          "end_byte": 154
+        }
+      ],
+      "source_containers": [
+        {
+          "id": "mpk.csharp.source.ef9dad116eb157e28868edde486a3113267ca175e30c263db0196b10aa97f023",
+          "name": "Entry",
+          "namespace": "Data",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "04b5f1cfb1c9dcc361354a93bdac786af23d35dd511b2b26641ea785ec374203",
+          "start_byte": 72,
+          "end_byte": 164
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/Entry.cs",
+          "raw_sha256": "04b5f1cfb1c9dcc361354a93bdac786af23d35dd511b2b26641ea785ec374203",
+          "size_bytes": 165
+        }
+      ],
+      "selected_root_ids": [
+        "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33"
+      ],
+      "reachable_declarations": [
+        "Data.Value.Amount",
+        "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+        "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+        "mpk.csharp.source.ef9dad116eb157e28868edde486a3113267ca175e30c263db0196b10aa97f023"
+      ],
+      "exact_types": []
+    }
+  },
+  {
+    "id": "positive_initializer",
+    "facts": {
+      "compilation_id": "data",
+      "input_files": [
+        {
+          "kind": "sidecar",
+          "path": "contracts/data.json",
+          "raw_sha256": "f6ab26237c953da23691290886abfbe39bc6e8f012f006d0eff9cb500bdecb7b",
+          "size_bytes": 2548
+        },
+        {
+          "kind": "source",
+          "path": "src/Entry.cs",
+          "raw_sha256": "603b52ac7608c4746fab3d4849d120c1452840f169a1b1b7a1797535ed938381",
+          "size_bytes": 232
+        }
+      ],
+      "types": [
+        {
+          "id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+          "kind": "sealed_class",
+          "name": "Value",
+          "namespace": "Data",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "603b52ac7608c4746fab3d4849d120c1452840f169a1b1b7a1797535ed938381",
+          "start_byte": 15,
+          "end_byte": 124,
+          "enum_underlying": "",
+          "enum_values": [],
+          "members": [
+            {
+              "name": "Name",
+              "type": {
+                "id": "string",
+                "kind": "primitive"
+              },
+              "required": true,
+              "storage": "init_auto",
+              "start_byte": 41,
+              "end_byte": 79
+            },
+            {
+              "name": "Amount",
+              "type": {
+                "id": "i32",
+                "kind": "primitive"
+              },
+              "required": false,
+              "storage": "init_auto",
+              "start_byte": 79,
+              "end_byte": 107
+            }
+          ],
+          "recursive_default": null,
+          "public_default": false
+        }
+      ],
+      "callables": [
+        {
+          "identity": {
+            "kind": "constructor",
+            "name": "Value",
+            "namespace": "Data",
+            "owner": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+            "parameter_type_ids": [],
+            "result_type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36"
+          },
+          "is_static": false,
+          "is_property_getter": false,
+          "is_synthesized_constructor": false,
+          "parameters": [],
+          "result": {
+            "id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+            "kind": "source"
+          },
+          "id": "mpk.csharp.source.0813953b657ae7e05276d4cc52ff2947e06d1d0fb5e2f80ed7f9cbb69191a200",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "603b52ac7608c4746fab3d4849d120c1452840f169a1b1b7a1797535ed938381",
+          "start_byte": 107,
+          "end_byte": 123,
+          "body_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "body_utf8": "[]",
+          "data_steps": [],
+          "initialization_plans": []
+        },
+        {
+          "identity": {
+            "kind": "method",
+            "name": "Run",
+            "namespace": "Data",
+            "owner": "mpk.csharp.source.ef9dad116eb157e28868edde486a3113267ca175e30c263db0196b10aa97f023",
+            "parameter_type_ids": [
+              "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36"
+            ],
+            "result_type_id": "mpk.csharp.value.i32.v1"
+          },
+          "is_static": true,
+          "is_property_getter": false,
+          "is_synthesized_constructor": false,
+          "parameters": [
+            {
+              "id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+              "kind": "source"
+            }
+          ],
+          "result": {
+            "id": "i32",
+            "kind": "primitive"
+          },
+          "id": "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "603b52ac7608c4746fab3d4849d120c1452840f169a1b1b7a1797535ed938381",
+          "start_byte": 150,
+          "end_byte": 230,
+          "body_sha256": "7a112c300b9eb5aad045778da166ab4ad69c1e112db192aefe9be485a44c2c31",
+          "body_utf8": "[{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Return\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"PropertyReference\",\"symbol\":\"mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36.Amount\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"ObjectCreation\",\"symbol\":\"mpk.csharp.source.0813953b657ae7e05276d4cc52ff2947e06d1d0fb5e2f80ed7f9cbb69191a200\",\"traits\":\"\",\"type\":\"82:mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f3613:not_annotated0:\"},{\"constant\":null,\"child_count\":2,\"implicit\":false,\"kind\":\"ObjectOrCollectionInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":\"82:mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f3613:not_annotated0:\"},{\"constant\":null,\"child_count\":2,\"implicit\":false,\"kind\":\"SimpleAssignment\",\"symbol\":\"\",\"traits\":\"\",\"type\":\"26:mpk.csharp.value.string.v113:not_annotated0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"PropertyReference\",\"symbol\":\"mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36.Name\",\"traits\":\"\",\"type\":\"26:mpk.csharp.value.string.v113:not_annotated0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":true,\"kind\":\"InstanceReference\",\"symbol\":\"\",\"traits\":\"ImplicitReceiver\",\"type\":\"82:mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f3613:not_annotated0:\"},{\"constant\":\"string_utf16:006f006b\",\"child_count\":0,\"implicit\":false,\"kind\":\"Literal\",\"symbol\":\"\",\"traits\":\"\",\"type\":\"26:mpk.csharp.value.string.v113:not_annotated0:\"},{\"constant\":null,\"child_count\":2,\"implicit\":false,\"kind\":\"SimpleAssignment\",\"symbol\":\"\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"PropertyReference\",\"symbol\":\"mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36.Amount\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":true,\"kind\":\"InstanceReference\",\"symbol\":\"\",\"traits\":\"ImplicitReceiver\",\"type\":\"82:mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f3613:not_annotated0:\"},{\"constant\":\"System.Int32:1\",\"child_count\":0,\"implicit\":false,\"kind\":\"Literal\",\"symbol\":\"\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"}]",
+          "data_steps": [
+            {
+              "node_ordinal": 7,
+              "family": "string",
+              "operation": "string.literal.decode",
+              "operand_ordinals": [
+                7
+              ],
+              "argument_ordinals": [
+                0
+              ],
+              "rounding": ""
+            }
+          ],
+          "initialization_plans": [
+            {
+              "node_ordinal": 2,
+              "site": "src/Entry.cs:192:29",
+              "type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+              "constructor_id": "mpk.csharp.source.0813953b657ae7e05276d4cc52ff2947e06d1d0fb5e2f80ed7f9cbb69191a200",
+              "member_order": [
+                "Name",
+                "Amount"
+              ],
+              "definitely_assigned": 3,
+              "possibly_assigned": 3,
+              "has_normal_exit": true,
+              "steps": [
+                {
+                  "kind": "Begin",
+                  "target": "src/Entry.cs:192:29",
+                  "expression_ordinal": null,
+                  "exceptional_exit": "no_value"
+                },
+                {
+                  "kind": "InvokeConstructor",
+                  "target": "mpk.csharp.source.0813953b657ae7e05276d4cc52ff2947e06d1d0fb5e2f80ed7f9cbb69191a200",
+                  "expression_ordinal": null,
+                  "exceptional_exit": "discard"
+                },
+                {
+                  "kind": "ConstructionInvariant",
+                  "target": "mpk.csharp.source.0813953b657ae7e05276d4cc52ff2947e06d1d0fb5e2f80ed7f9cbb69191a200",
+                  "expression_ordinal": null,
+                  "exceptional_exit": "discard"
+                },
+                {
+                  "kind": "EvaluateInitializer",
+                  "target": "Name",
+                  "expression_ordinal": 7,
+                  "exceptional_exit": "discard"
+                },
+                {
+                  "kind": "Assign",
+                  "target": "Name",
+                  "expression_ordinal": null,
+                  "exceptional_exit": "discard"
+                },
+                {
+                  "kind": "EvaluateInitializer",
+                  "target": "Amount",
+                  "expression_ordinal": 11,
+                  "exceptional_exit": "discard"
+                },
+                {
+                  "kind": "Assign",
+                  "target": "Amount",
+                  "expression_ordinal": null,
+                  "exceptional_exit": "discard"
+                },
+                {
+                  "kind": "PublicInvariant",
+                  "target": "src/Entry.cs:192:29",
+                  "expression_ordinal": null,
+                  "exceptional_exit": "discard"
+                },
+                {
+                  "kind": "Finalize",
+                  "target": "src/Entry.cs:192:29",
+                  "expression_ordinal": null,
+                  "exceptional_exit": "discard"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "identity": {
+            "kind": "method",
+            "name": "get_Name",
+            "namespace": "Data",
+            "owner": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+            "parameter_type_ids": [],
+            "result_type_id": "mpk.csharp.value.string.v1"
+          },
+          "is_static": false,
+          "is_property_getter": true,
+          "is_synthesized_constructor": false,
+          "parameters": [],
+          "result": {
+            "id": "string",
+            "kind": "primitive"
+          },
+          "id": "mpk.csharp.source.d3fc76c5b8fafdc6da52f5b6bc6ce47969d7e1cbe2ce6c6c8315275c3e19f982",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "603b52ac7608c4746fab3d4849d120c1452840f169a1b1b7a1797535ed938381",
+          "start_byte": 41,
+          "end_byte": 79,
+          "body_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "body_utf8": "[]",
+          "data_steps": [],
+          "initialization_plans": []
+        },
+        {
+          "identity": {
+            "kind": "method",
+            "name": "get_Amount",
+            "namespace": "Data",
+            "owner": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+            "parameter_type_ids": [],
+            "result_type_id": "mpk.csharp.value.i32.v1"
+          },
+          "is_static": false,
+          "is_property_getter": true,
+          "is_synthesized_constructor": false,
+          "parameters": [],
+          "result": {
+            "id": "i32",
+            "kind": "primitive"
+          },
+          "id": "mpk.csharp.source.dcb114d8d71b68c8fabb116d093b5508f6655f29704c9da24656d9251a1fb362",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "603b52ac7608c4746fab3d4849d120c1452840f169a1b1b7a1797535ed938381",
+          "start_byte": 79,
+          "end_byte": 107,
+          "body_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "body_utf8": "[]",
+          "data_steps": [],
+          "initialization_plans": []
+        }
+      ],
+      "source_obligations": [
+        {
+          "family": "construction",
+          "site": "mpk.csharp.source.0813953b657ae7e05276d4cc52ff2947e06d1d0fb5e2f80ed7f9cbb69191a200",
+          "kind": "construction_invariant",
+          "type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+          "members": [],
+          "predicate": "",
+          "discharged": false,
+          "declaration_id": "mpk.csharp.source.0813953b657ae7e05276d4cc52ff2947e06d1d0fb5e2f80ed7f9cbb69191a200",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "603b52ac7608c4746fab3d4849d120c1452840f169a1b1b7a1797535ed938381",
+          "start_byte": 107,
+          "end_byte": 123
+        },
+        {
+          "family": "construction",
+          "site": "src/Entry.cs:192:29",
+          "kind": "public_invariant",
+          "type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+          "members": [
+            "Name",
+            "Amount"
+          ],
+          "predicate": "",
+          "discharged": false,
+          "declaration_id": "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "603b52ac7608c4746fab3d4849d120c1452840f169a1b1b7a1797535ed938381",
+          "start_byte": 192,
+          "end_byte": 221
+        },
+        {
+          "family": "domain",
+          "site": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+          "kind": "non_null_stored_field",
+          "type_id": "mpk.csharp.value.string.v1",
+          "members": [
+            "Name"
+          ],
+          "predicate": "",
+          "discharged": false,
+          "declaration_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "603b52ac7608c4746fab3d4849d120c1452840f169a1b1b7a1797535ed938381",
+          "start_byte": 15,
+          "end_byte": 124
+        },
+        {
+          "family": "domain",
+          "site": "src/Entry.cs:172:11",
+          "kind": "explicit_not_null_precondition",
+          "type_id": "mpk.csharp.instance.279e87056fce47eacd7c4852c2e2e8728574e06fd082748a720bb597cfca0678",
+          "members": [],
+          "predicate": "",
+          "discharged": false,
+          "declaration_id": "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "603b52ac7608c4746fab3d4849d120c1452840f169a1b1b7a1797535ed938381",
+          "start_byte": 172,
+          "end_byte": 183
+        },
+        {
+          "family": "string",
+          "site": "src/Entry.cs:207:4",
+          "kind": "output_utf16_length_le_16384",
+          "type_id": "",
+          "members": [],
+          "predicate": "",
+          "discharged": false,
+          "declaration_id": "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "603b52ac7608c4746fab3d4849d120c1452840f169a1b1b7a1797535ed938381",
+          "start_byte": 207,
+          "end_byte": 211
+        }
+      ],
+      "source_containers": [
+        {
+          "id": "mpk.csharp.source.ef9dad116eb157e28868edde486a3113267ca175e30c263db0196b10aa97f023",
+          "name": "Entry",
+          "namespace": "Data",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "603b52ac7608c4746fab3d4849d120c1452840f169a1b1b7a1797535ed938381",
+          "start_byte": 124,
+          "end_byte": 231
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/Entry.cs",
+          "raw_sha256": "603b52ac7608c4746fab3d4849d120c1452840f169a1b1b7a1797535ed938381",
+          "size_bytes": 232
+        }
+      ],
+      "selected_root_ids": [
+        "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33"
+      ],
+      "reachable_declarations": [
+        "Data.Value.Amount",
+        "Data.Value.Name",
+        "mpk.csharp.source.0813953b657ae7e05276d4cc52ff2947e06d1d0fb5e2f80ed7f9cbb69191a200",
+        "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+        "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+        "mpk.csharp.source.d3fc76c5b8fafdc6da52f5b6bc6ce47969d7e1cbe2ce6c6c8315275c3e19f982",
+        "mpk.csharp.source.dcb114d8d71b68c8fabb116d093b5508f6655f29704c9da24656d9251a1fb362",
+        "mpk.csharp.source.ef9dad116eb157e28868edde486a3113267ca175e30c263db0196b10aa97f023"
+      ],
+      "exact_types": []
+    }
+  },
+  {
+    "id": "broken_initializer",
+    "facts": {
+      "compilation_id": "data",
+      "input_files": [
+        {
+          "kind": "sidecar",
+          "path": "contracts/data.json",
+          "raw_sha256": "0b4d8e3c416065734b0caa1e368661f271e3b51701d3b54f336af42240c89a2c",
+          "size_bytes": 2548
+        },
+        {
+          "kind": "source",
+          "path": "src/Entry.cs",
+          "raw_sha256": "8f45f426df563cfc08394a1641bdff21c858b8bd94d4c85c34d1cea03fa81070",
+          "size_bytes": 223
+        }
+      ],
+      "types": [
+        {
+          "id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+          "kind": "sealed_class",
+          "name": "Value",
+          "namespace": "Data",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "8f45f426df563cfc08394a1641bdff21c858b8bd94d4c85c34d1cea03fa81070",
+          "start_byte": 15,
+          "end_byte": 124,
+          "enum_underlying": "",
+          "enum_values": [],
+          "members": [
+            {
+              "name": "Name",
+              "type": {
+                "id": "string",
+                "kind": "primitive"
+              },
+              "required": true,
+              "storage": "init_auto",
+              "start_byte": 41,
+              "end_byte": 79
+            },
+            {
+              "name": "Amount",
+              "type": {
+                "id": "i32",
+                "kind": "primitive"
+              },
+              "required": false,
+              "storage": "init_auto",
+              "start_byte": 79,
+              "end_byte": 107
+            }
+          ],
+          "recursive_default": null,
+          "public_default": false
+        }
+      ],
+      "callables": [
+        {
+          "identity": {
+            "kind": "constructor",
+            "name": "Value",
+            "namespace": "Data",
+            "owner": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+            "parameter_type_ids": [],
+            "result_type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36"
+          },
+          "is_static": false,
+          "is_property_getter": false,
+          "is_synthesized_constructor": false,
+          "parameters": [],
+          "result": {
+            "id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+            "kind": "source"
+          },
+          "id": "mpk.csharp.source.0813953b657ae7e05276d4cc52ff2947e06d1d0fb5e2f80ed7f9cbb69191a200",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "8f45f426df563cfc08394a1641bdff21c858b8bd94d4c85c34d1cea03fa81070",
+          "start_byte": 107,
+          "end_byte": 123,
+          "body_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "body_utf8": "[]",
+          "data_steps": [],
+          "initialization_plans": []
+        },
+        {
+          "identity": {
+            "kind": "method",
+            "name": "Run",
+            "namespace": "Data",
+            "owner": "mpk.csharp.source.ef9dad116eb157e28868edde486a3113267ca175e30c263db0196b10aa97f023",
+            "parameter_type_ids": [
+              "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36"
+            ],
+            "result_type_id": "mpk.csharp.value.i32.v1"
+          },
+          "is_static": true,
+          "is_property_getter": false,
+          "is_synthesized_constructor": false,
+          "parameters": [
+            {
+              "id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+              "kind": "source"
+            }
+          ],
+          "result": {
+            "id": "i32",
+            "kind": "primitive"
+          },
+          "id": "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "8f45f426df563cfc08394a1641bdff21c858b8bd94d4c85c34d1cea03fa81070",
+          "start_byte": 150,
+          "end_byte": 221,
+          "body_sha256": "9c5a907c441e5ddf5ee8015d4bd307c9bed28e4cbffda28f5415b557cecd2044",
+          "body_utf8": "[{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Return\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"PropertyReference\",\"symbol\":\"mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36.Amount\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"ObjectCreation\",\"symbol\":\"mpk.csharp.source.0813953b657ae7e05276d4cc52ff2947e06d1d0fb5e2f80ed7f9cbb69191a200\",\"traits\":\"\",\"type\":\"82:mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f3613:not_annotated0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"ObjectOrCollectionInitializer\",\"symbol\":\"\",\"traits\":\"\",\"type\":\"82:mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f3613:not_annotated0:\"},{\"constant\":null,\"child_count\":2,\"implicit\":false,\"kind\":\"SimpleAssignment\",\"symbol\":\"\",\"traits\":\"\",\"type\":\"26:mpk.csharp.value.string.v113:not_annotated0:\"},{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"PropertyReference\",\"symbol\":\"mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36.Name\",\"traits\":\"\",\"type\":\"26:mpk.csharp.value.string.v113:not_annotated0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":true,\"kind\":\"InstanceReference\",\"symbol\":\"\",\"traits\":\"ImplicitReceiver\",\"type\":\"82:mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f3613:not_annotated0:\"},{\"constant\":\"string_utf16:006f006b\",\"child_count\":0,\"implicit\":false,\"kind\":\"Literal\",\"symbol\":\"\",\"traits\":\"\",\"type\":\"26:mpk.csharp.value.string.v113:not_annotated0:\"}]",
+          "data_steps": [
+            {
+              "node_ordinal": 7,
+              "family": "string",
+              "operation": "string.literal.decode",
+              "operand_ordinals": [
+                7
+              ],
+              "argument_ordinals": [
+                0
+              ],
+              "rounding": ""
+            }
+          ],
+          "initialization_plans": [
+            {
+              "node_ordinal": 2,
+              "site": "src/Entry.cs:192:20",
+              "type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+              "constructor_id": "mpk.csharp.source.0813953b657ae7e05276d4cc52ff2947e06d1d0fb5e2f80ed7f9cbb69191a200",
+              "member_order": [
+                "Name",
+                "Amount"
+              ],
+              "definitely_assigned": 1,
+              "possibly_assigned": 1,
+              "has_normal_exit": true,
+              "steps": [
+                {
+                  "kind": "Begin",
+                  "target": "src/Entry.cs:192:20",
+                  "expression_ordinal": null,
+                  "exceptional_exit": "no_value"
+                },
+                {
+                  "kind": "InvokeConstructor",
+                  "target": "mpk.csharp.source.0813953b657ae7e05276d4cc52ff2947e06d1d0fb5e2f80ed7f9cbb69191a200",
+                  "expression_ordinal": null,
+                  "exceptional_exit": "discard"
+                },
+                {
+                  "kind": "ConstructionInvariant",
+                  "target": "mpk.csharp.source.0813953b657ae7e05276d4cc52ff2947e06d1d0fb5e2f80ed7f9cbb69191a200",
+                  "expression_ordinal": null,
+                  "exceptional_exit": "discard"
+                },
+                {
+                  "kind": "EvaluateInitializer",
+                  "target": "Name",
+                  "expression_ordinal": 7,
+                  "exceptional_exit": "discard"
+                },
+                {
+                  "kind": "Assign",
+                  "target": "Name",
+                  "expression_ordinal": null,
+                  "exceptional_exit": "discard"
+                },
+                {
+                  "kind": "PublicInvariant",
+                  "target": "src/Entry.cs:192:20",
+                  "expression_ordinal": null,
+                  "exceptional_exit": "discard"
+                },
+                {
+                  "kind": "Finalize",
+                  "target": "src/Entry.cs:192:20",
+                  "expression_ordinal": null,
+                  "exceptional_exit": "discard"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "identity": {
+            "kind": "method",
+            "name": "get_Name",
+            "namespace": "Data",
+            "owner": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+            "parameter_type_ids": [],
+            "result_type_id": "mpk.csharp.value.string.v1"
+          },
+          "is_static": false,
+          "is_property_getter": true,
+          "is_synthesized_constructor": false,
+          "parameters": [],
+          "result": {
+            "id": "string",
+            "kind": "primitive"
+          },
+          "id": "mpk.csharp.source.d3fc76c5b8fafdc6da52f5b6bc6ce47969d7e1cbe2ce6c6c8315275c3e19f982",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "8f45f426df563cfc08394a1641bdff21c858b8bd94d4c85c34d1cea03fa81070",
+          "start_byte": 41,
+          "end_byte": 79,
+          "body_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "body_utf8": "[]",
+          "data_steps": [],
+          "initialization_plans": []
+        },
+        {
+          "identity": {
+            "kind": "method",
+            "name": "get_Amount",
+            "namespace": "Data",
+            "owner": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+            "parameter_type_ids": [],
+            "result_type_id": "mpk.csharp.value.i32.v1"
+          },
+          "is_static": false,
+          "is_property_getter": true,
+          "is_synthesized_constructor": false,
+          "parameters": [],
+          "result": {
+            "id": "i32",
+            "kind": "primitive"
+          },
+          "id": "mpk.csharp.source.dcb114d8d71b68c8fabb116d093b5508f6655f29704c9da24656d9251a1fb362",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "8f45f426df563cfc08394a1641bdff21c858b8bd94d4c85c34d1cea03fa81070",
+          "start_byte": 79,
+          "end_byte": 107,
+          "body_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "body_utf8": "[]",
+          "data_steps": [],
+          "initialization_plans": []
+        }
+      ],
+      "source_obligations": [
+        {
+          "family": "construction",
+          "site": "mpk.csharp.source.0813953b657ae7e05276d4cc52ff2947e06d1d0fb5e2f80ed7f9cbb69191a200",
+          "kind": "construction_invariant",
+          "type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+          "members": [],
+          "predicate": "",
+          "discharged": false,
+          "declaration_id": "mpk.csharp.source.0813953b657ae7e05276d4cc52ff2947e06d1d0fb5e2f80ed7f9cbb69191a200",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "8f45f426df563cfc08394a1641bdff21c858b8bd94d4c85c34d1cea03fa81070",
+          "start_byte": 107,
+          "end_byte": 123
+        },
+        {
+          "family": "construction",
+          "site": "src/Entry.cs:192:20",
+          "kind": "public_invariant",
+          "type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+          "members": [
+            "Name",
+            "Amount"
+          ],
+          "predicate": "",
+          "discharged": false,
+          "declaration_id": "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "8f45f426df563cfc08394a1641bdff21c858b8bd94d4c85c34d1cea03fa81070",
+          "start_byte": 192,
+          "end_byte": 212
+        },
+        {
+          "family": "construction",
+          "site": "src/Entry.cs:192:20",
+          "kind": "recursive_default",
+          "type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+          "members": [
+            "Amount"
+          ],
+          "predicate": "",
+          "discharged": false,
+          "declaration_id": "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "8f45f426df563cfc08394a1641bdff21c858b8bd94d4c85c34d1cea03fa81070",
+          "start_byte": 192,
+          "end_byte": 212
+        },
+        {
+          "family": "domain",
+          "site": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+          "kind": "non_null_stored_field",
+          "type_id": "mpk.csharp.value.string.v1",
+          "members": [
+            "Name"
+          ],
+          "predicate": "",
+          "discharged": false,
+          "declaration_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "8f45f426df563cfc08394a1641bdff21c858b8bd94d4c85c34d1cea03fa81070",
+          "start_byte": 15,
+          "end_byte": 124
+        },
+        {
+          "family": "domain",
+          "site": "src/Entry.cs:172:11",
+          "kind": "explicit_not_null_precondition",
+          "type_id": "mpk.csharp.instance.279e87056fce47eacd7c4852c2e2e8728574e06fd082748a720bb597cfca0678",
+          "members": [],
+          "predicate": "",
+          "discharged": false,
+          "declaration_id": "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "8f45f426df563cfc08394a1641bdff21c858b8bd94d4c85c34d1cea03fa81070",
+          "start_byte": 172,
+          "end_byte": 183
+        },
+        {
+          "family": "string",
+          "site": "src/Entry.cs:207:4",
+          "kind": "output_utf16_length_le_16384",
+          "type_id": "",
+          "members": [],
+          "predicate": "",
+          "discharged": false,
+          "declaration_id": "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "8f45f426df563cfc08394a1641bdff21c858b8bd94d4c85c34d1cea03fa81070",
+          "start_byte": 207,
+          "end_byte": 211
+        }
+      ],
+      "source_containers": [
+        {
+          "id": "mpk.csharp.source.ef9dad116eb157e28868edde486a3113267ca175e30c263db0196b10aa97f023",
+          "name": "Entry",
+          "namespace": "Data",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "8f45f426df563cfc08394a1641bdff21c858b8bd94d4c85c34d1cea03fa81070",
+          "start_byte": 124,
+          "end_byte": 222
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/Entry.cs",
+          "raw_sha256": "8f45f426df563cfc08394a1641bdff21c858b8bd94d4c85c34d1cea03fa81070",
+          "size_bytes": 223
+        }
+      ],
+      "selected_root_ids": [
+        "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33"
+      ],
+      "reachable_declarations": [
+        "Data.Value.Amount",
+        "Data.Value.Name",
+        "mpk.csharp.source.0813953b657ae7e05276d4cc52ff2947e06d1d0fb5e2f80ed7f9cbb69191a200",
+        "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+        "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+        "mpk.csharp.source.d3fc76c5b8fafdc6da52f5b6bc6ce47969d7e1cbe2ce6c6c8315275c3e19f982",
+        "mpk.csharp.source.dcb114d8d71b68c8fabb116d093b5508f6655f29704c9da24656d9251a1fb362",
+        "mpk.csharp.source.ef9dad116eb157e28868edde486a3113267ca175e30c263db0196b10aa97f023"
+      ],
+      "exact_types": []
+    }
+  },
+  {
+    "id": "missing_required",
+    "reject": "CSHARP_PRACTICAL_DECLARATION/compiler_diagnostic"
+  },
+  {
+    "id": "enum_zero",
+    "facts": {
+      "compilation_id": "data",
+      "input_files": [
+        {
+          "kind": "source",
+          "path": "src/Entry.cs",
+          "raw_sha256": "ac5ee951a9f42f73f23471d183e7c4e271f21775811f9c48da79bf33107a9ac1",
+          "size_bytes": 143
+        }
+      ],
+      "types": [
+        {
+          "id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+          "kind": "enum",
+          "name": "Value",
+          "namespace": "Data",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "ac5ee951a9f42f73f23471d183e7c4e271f21775811f9c48da79bf33107a9ac1",
+          "start_byte": 15,
+          "end_byte": 46,
+          "enum_underlying": "mpk.csharp.value.i32.v1",
+          "enum_values": [
+            "0",
+            "1"
+          ],
+          "members": [],
+          "recursive_default": {
+            "root": 0,
+            "nodes": [
+              {
+                "type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+                "kind": "enum",
+                "scalar": "0",
+                "members": []
+              }
+            ]
+          },
+          "public_default": true
+        }
+      ],
+      "callables": [
+        {
+          "identity": {
+            "kind": "method",
+            "name": "Run",
+            "namespace": "Data",
+            "owner": "mpk.csharp.source.ef9dad116eb157e28868edde486a3113267ca175e30c263db0196b10aa97f023",
+            "parameter_type_ids": [
+              "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36"
+            ],
+            "result_type_id": "mpk.csharp.value.i32.v1"
+          },
+          "is_static": true,
+          "is_property_getter": false,
+          "is_synthesized_constructor": false,
+          "parameters": [
+            {
+              "id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+              "kind": "source"
+            }
+          ],
+          "result": {
+            "id": "i32",
+            "kind": "primitive"
+          },
+          "id": "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "ac5ee951a9f42f73f23471d183e7c4e271f21775811f9c48da79bf33107a9ac1",
+          "start_byte": 72,
+          "end_byte": 141,
+          "body_sha256": "7d265ee7fa81513b9691bea43fb585c2a7c15e7f697cb6475ae077495fb13d8a",
+          "body_utf8": "[{\"constant\":null,\"child_count\":1,\"implicit\":false,\"kind\":\"Return\",\"symbol\":\"\",\"traits\":\"\",\"type\":null},{\"constant\":null,\"child_count\":3,\"implicit\":false,\"kind\":\"Conditional\",\"symbol\":\"\",\"traits\":\"False\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":null,\"child_count\":2,\"implicit\":false,\"kind\":\"Binary\",\"symbol\":\"\",\"traits\":\"Equals|False|False\",\"type\":\"24:mpk.csharp.value.bool.v15:value0:\"},{\"constant\":\"System.Int32:0\",\"child_count\":0,\"implicit\":false,\"kind\":\"DefaultValue\",\"symbol\":\"\",\"traits\":\"\",\"type\":\"82:mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f365:value0:\"},{\"constant\":null,\"child_count\":0,\"implicit\":false,\"kind\":\"ParameterReference\",\"symbol\":\"parameter:0\",\"traits\":\"\",\"type\":\"82:mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f365:value0:\"},{\"constant\":\"System.Int32:1\",\"child_count\":0,\"implicit\":false,\"kind\":\"Literal\",\"symbol\":\"\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"},{\"constant\":\"System.Int32:0\",\"child_count\":0,\"implicit\":false,\"kind\":\"Literal\",\"symbol\":\"\",\"traits\":\"\",\"type\":\"23:mpk.csharp.value.i32.v15:value0:\"}]",
+          "data_steps": [
+            {
+              "node_ordinal": 2,
+              "family": "structural",
+              "operation": "structural_equal",
+              "operand_ordinals": [
+                3,
+                4
+              ],
+              "argument_ordinals": [
+                0,
+                1
+              ],
+              "rounding": ""
+            }
+          ],
+          "initialization_plans": []
+        }
+      ],
+      "source_obligations": [
+        {
+          "family": "construction",
+          "site": "src/Entry.cs:114:14",
+          "kind": "default_public_invariant",
+          "type_id": "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+          "members": [],
+          "predicate": "",
+          "discharged": false,
+          "declaration_id": "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "ac5ee951a9f42f73f23471d183e7c4e271f21775811f9c48da79bf33107a9ac1",
+          "start_byte": 114,
+          "end_byte": 128
+        }
+      ],
+      "source_containers": [
+        {
+          "id": "mpk.csharp.source.ef9dad116eb157e28868edde486a3113267ca175e30c263db0196b10aa97f023",
+          "name": "Entry",
+          "namespace": "Data",
+          "source_path": "src/Entry.cs",
+          "source_sha256": "ac5ee951a9f42f73f23471d183e7c4e271f21775811f9c48da79bf33107a9ac1",
+          "start_byte": 46,
+          "end_byte": 142
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/Entry.cs",
+          "raw_sha256": "ac5ee951a9f42f73f23471d183e7c4e271f21775811f9c48da79bf33107a9ac1",
+          "size_bytes": 143
+        }
+      ],
+      "selected_root_ids": [
+        "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33"
+      ],
+      "reachable_declarations": [
+        "Data.Value.One",
+        "Data.Value.Zero",
+        "mpk.csharp.source.31daa48fe380a599f768b8615e2e8075b50b28ac0a6f92ff9b6d765d4a4c0f36",
+        "mpk.csharp.source.b096f3c92957f175461aa0d50264aca62d8cd9447e2602560984e844b4902a33",
+        "mpk.csharp.source.ef9dad116eb157e28868edde486a3113267ca175e30c263db0196b10aa97f023"
+      ],
+      "exact_types": []
+    }
+  },
+  {
+    "id": "enum_no_zero",
+    "reject": "CSHARP_PRACTICAL_TYPE/ineligible_default"
+  }
+]

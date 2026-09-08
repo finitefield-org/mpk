@@ -591,6 +591,9 @@ pub struct PracticalVirImportContext<'a> {
 }
 
 pub struct ValidatedPracticalVir {
+    construction_source: Option<crate::csharp_practical_vir_model::ValidatedDataSource>,
+    construction_foundation: ValidatedFoundationBundle,
+    construction_roots: ValidatedClosedRootSet,
     wire: WirePracticalVirModule,
     canonical_bytes: Vec<u8>,
     artifact_ref: ArtifactRef,
@@ -599,6 +602,19 @@ pub struct ValidatedPracticalVir {
 }
 
 impl ValidatedPracticalVir {
+    pub(crate) fn construction_context(
+        &self,
+    ) -> (
+        &ValidatedFoundationBundle,
+        &ValidatedClosedRootSet,
+        Option<&crate::csharp_practical_vir_model::ValidatedDataSource>,
+    ) {
+        (
+            &self.construction_foundation,
+            &self.construction_roots,
+            self.construction_source.as_ref(),
+        )
+    }
     pub fn canonical_bytes(&self) -> &[u8] {
         &self.canonical_bytes
     }
@@ -837,6 +853,9 @@ pub fn import_csharp_practical_vir_json(
     })?;
     let operation_signatures = prepared.operations.into_values().collect();
     Ok(ValidatedPracticalVir {
+        construction_source: prepared.actual_source,
+        construction_foundation: prepared.foundation,
+        construction_roots: prepared.roots,
         wire,
         canonical_bytes: input.to_vec(),
         artifact_ref,

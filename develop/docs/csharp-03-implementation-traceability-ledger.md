@@ -60,7 +60,7 @@ private structured-loop lowering (section 40). T04-W03 completes switch and
 pattern lowering (section 41). T04-W04 completes closed exception declarations,
 explicit throws and exceptional contracts (section 42). T04-W05 completes
 two-pass handler search, filters, finally and propagation (section 43). T04-W06 completes
-ordinary control emission and independent import (section 44). T05-W01 completes boundary sidecar and presence attachment (section 45). T05-W02 completes canonical input capture and typed evidence linkage (section 46). T05-W03 completes source output encoding and typed reparse (section 47). T05-W04 completes pure transition attachment and pending obligations (section 48). T05-W05 completes full-snapshot idempotency attachment and pending obligations (section 49). T05-W06 closes boundary/transition emission and data-route totality (section 50). T06-W01 completes independent contract-expression import and ordinary-term encoding (section 51). T06-W02 is ready;
+ordinary control emission and independent import (section 44). T05-W01 completes boundary sidecar and presence attachment (section 45). T05-W02 completes canonical input capture and typed evidence linkage (section 46). T05-W03 completes source output encoding and typed reparse (section 47). T05-W04 completes pure transition attachment and pending obligations (section 48). T05-W05 completes full-snapshot idempotency attachment and pending obligations (section 49). T05-W06 closes boundary/transition emission and data-route totality (section 50). T06-W01 completes independent contract-expression import and ordinary-term encoding (section 51). T06-W02 completes construction/type-invariant VC generation (section 52). T06-W03 is ready;
 later items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
@@ -139,9 +139,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T05-W04` | `Complete` | `crates/mpk-cli/tests/csharp_practical_transition.rs#CSHARP-03-T05-W04` | `33b95cd59817b4bbc330a66971e35c2e092cd92e` |
 | `CSHARP-03-T05-W05` | `Complete` | `crates/mpk-cli/tests/csharp_practical_transition.rs#CSHARP-03-T05-W05` | `40cf7d0c182bf786dad82565f105537cdae6c5b7` |
 | `CSHARP-03-T05-W06` | `Complete` | `crates/mpk-cli/tests/csharp_practical_boundary_transition.rs#CSHARP-03-T05-W06` | `4a8cec4ce746ac65db745480ad76b6b174d67fe5` |
-| `CSHARP-03-T06-W01` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W01` | `SELF` |
-| `CSHARP-03-T06-W02` | `Ready` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W02` | `—` |
-| `CSHARP-03-T06-W03` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W03` | `—` |
+| `CSHARP-03-T06-W01` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W01` | `d875314cf1d51add12313017ee922b963f485396` |
+| `CSHARP-03-T06-W02` | `Complete` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W02` | `SELF` |
+| `CSHARP-03-T06-W03` | `Ready` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W03` | `—` |
 | `CSHARP-03-T06-W04` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W04` | `—` |
 | `CSHARP-03-T06-W05` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W05` | `—` |
 | `CSHARP-03-T06-W06` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W06` | `—` |
@@ -5298,6 +5298,61 @@ Affected legacy VC, source contract, control and transition tests are scoped
 local checks. `./scripts/check-fast.sh` is deferred to the final W of T06 under
 AGENTS.md; the W05/W06-specific prior waiver is not reused for this T.
 
-The task uses `SELF`, T05-W06 records its published commit, and T06-W02 is ready.
+At the W01 checkpoint the task used `SELF`, T05-W06 recorded its published commit, and T06-W02 became ready.
 The task diff review has zero remaining findings. Activation remains blocked
 through T08-W10 and semantic obligation generation remains with later T06 owners.
+
+
+## 52. CSHARP-03-T06-W02 completion record
+
+W02 generates bounded construction and type-invariant sequents from the original
+captured source, the independently validated object protocol, and W01's exact
+verified contract expressions. The VIR capability retains validated construction
+context; it does not accept a new source-fact format or a caller assertion of
+proof discharge. The canonical construction handoff is bound to the source VIR
+hash, closed roots, source hashes, type contracts, member identities, normal and
+exceptional program points, and exact typed SSA observations. Private receiver clauses are rebound to the actual
+slot carrier with typed slot reads and logical assigned/finalized snapshots.
+
+Public domain equations use ordinary constant/application/variable terms for
+source shape, recursive field domains, exact enum arms, and every public clause.
+They retain CLR member zeros and structural default eligibility separately from
+public invariant obligations. Construction-only clauses require definite slots
+for their actual receiver observations, respecting local binders. Constructor
+returns prove the construction invariant for init-bearing types and the public
+invariant otherwise. Finalization requires the public domain and all exact public
+clauses before the private transaction becomes usable. Initializer RHS assignments
+have member-domain goals; required/unique writes, Must/May, order, normal exits,
+and exceptional discards reuse validated source/VIR evidence.
+
+Each ordinary operation checks public arguments and its produced public value;
+function entry assumes public parameter/receiver domains and every return or
+exceptional function exit re-establishes them. Private constructor receivers never
+receive a public entry assumption. Complete enum/default literals retain semantic
+invariant goals after their structural decoder succeeds. Source non-null stored
+field obligations now route to the construction/type-invariant owner.
+
+The existing VC wire binds the complete handoff digest and all sequent IDs.
+Function construction groups depend on the common type-definition group, and
+skeletons preserve these dependencies and goals. Import independently regenerates
+the handoff; deleting publication/preservation goals or changing a predicate,
+subject, required flag, default, or lineage rejects. Nodes, definition references,
+sequent declarations, binders, and transport obey the existing bounded VC profile.
+This is obligation generation, not a proof receipt: ordinary primitive/structural
+recipes and complete proof assembly/checker execution remain with T06-W03..W09.
+No successful public certificate or activation is claimed by an emitted VC.
+
+The primary test owner remains `csharp_practical_vc.rs#CSHARP-03-T06-W02`, via its
+construction test module. Nine pinned Linux C# requests include seven accepted
+captures and two source rejections. Goldens cover good/broken constructors,
+good/broken defaults, good/broken object initializers, and closed enum membership;
+a small test-only ordinary-term oracle witnesses false invariant and preservation
+conditions. Eight existing construction captures cover delegation, nullable and
+array members, early return and exceptional discard. Scope/limit unit cases and
+hostile handoff edits supplement the affected source and VC consumer tests.
+Evidence lives under `develop/migrations/csharp-03/construction-vc/`.
+
+Targeted local verification and review have passed, with no remaining findings.
+`./scripts/check-fast.sh` is deferred to T06-W09 under AGENTS.md. W02 uses `SELF`,
+W01 records its published commit, and T06-W03 is ready. Frozen source producer,
+709 vectors, old receipts, core/checkers, and installed activation are unchanged.
