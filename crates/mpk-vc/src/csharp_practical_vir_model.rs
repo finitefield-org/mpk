@@ -7345,3 +7345,7 @@ pub use boundary_input::{
     BoundaryInputBytes, BoundaryInputError, BoundaryInputEvidence, CapturedBoundaryRun,
     DecodedBoundaryArgument,
 };
+
+#[path = "csharp_practical_boundary_output.rs"]
+mod boundary_output;
+pub use boundary_output::{BoundaryOutputError, BoundaryOutputEvidence, CapturedBoundaryOutputRun};

@@ -28,6 +28,17 @@ impl EmittedDataPhase {
         capture: &a::ValidatedPracticalArtifact,
     ) -> Result<(a::ValidatedPracticalArtifact, a::ValidatedPracticalArtifact), BoundaryInputError>
     {
+        self.boundary_run_artifacts(b, context, captures, capture, None)
+    }
+    pub(super) fn boundary_run_artifacts(
+        &self,
+        b: &ValidatedFoundationBundle,
+        context: &PracticalArtifactContext,
+        captures: &CapturedInputSet,
+        capture: &a::ValidatedPracticalArtifact,
+        output: Option<&a::ValidatedPracticalArtifact>,
+    ) -> Result<(a::ValidatedPracticalArtifact, a::ValidatedPracticalArtifact), BoundaryInputError>
+    {
         let fail = |_| BoundaryInputError::Linkage;
         let sidecars = DataSidecars::capture(context, captures).map_err(fail)?;
         let closed = a::bind_closed_instances(
@@ -63,7 +74,7 @@ impl EmittedDataPhase {
                 semantic_bindings: self.closure.bindings().artifact_ref(),
                 boundary_contracts: boundary_contracts.clone(),
                 boundary_inputs: vec![capture.artifact_ref()],
-                boundary_outputs: vec![],
+                boundary_outputs: output.map(|a| vec![a.artifact_ref()]).unwrap_or_default(),
                 transition_contracts: vec![],
                 closed_instances: closed.clone(),
                 operations: self.operations.operations().artifact_ref(),

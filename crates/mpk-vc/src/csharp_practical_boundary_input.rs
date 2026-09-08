@@ -298,7 +298,7 @@ impl EmittedDataPhase {
 // Count depth and values before serde allocates a tree. Syntax and escapes are
 // still checked by the sole canonical parser. Strings used as names are not
 // value cells; names and string lengths receive the exact UTF-16 check below.
-fn preflight(bytes: &[u8]) -> Result<(), BoundaryInputError> {
+pub(super) fn preflight(bytes: &[u8]) -> Result<(), BoundaryInputError> {
     if bytes.len() > 1_048_576 {
         return Err(BoundaryInputError::Limit);
     }
@@ -357,7 +357,7 @@ fn preflight(bytes: &[u8]) -> Result<(), BoundaryInputError> {
     }
     Ok(())
 }
-fn value_limits(v: &J, depth: usize, cells: &mut u64) -> Result<(), BoundaryInputError> {
+pub(super) fn value_limits(v: &J, depth: usize, cells: &mut u64) -> Result<(), BoundaryInputError> {
     *cells += 1;
     if depth > 32 || *cells > TOTAL_VALUE_CELLS_MAX * 4 {
         return Err(BoundaryInputError::Limit);
@@ -384,9 +384,9 @@ fn value_limits(v: &J, depth: usize, cells: &mut u64) -> Result<(), BoundaryInpu
     Ok(())
 }
 
-// Canonical typed-value identity for input evidence. This operates only on
-// independently decoded values. W03 owns encoding returned source values.
-fn typed_json(
+// Shared frozen value encoder. Callers must first validate the complete typed
+// value. W02 supplies decoded input; W03 independently reparses returned output.
+pub(super) fn typed_json(
     b: &ValidatedFoundationBundle,
     r: &ValidatedClosedRootSet,
     c: &ClosedInstanceSet,
@@ -520,9 +520,9 @@ fn string_units(units: Vec<u16>) -> J {
 }
 
 #[cfg(test)]
-mod tests {
+pub(super) mod tests {
     use super::*;
-    fn fixture() -> (
+    pub(in crate::csharp_practical_vir_model) fn fixture() -> (
         ValidatedFoundationBundle,
         ValidatedClosedRootSet,
         ClosedInstanceSet,
@@ -537,6 +537,7 @@ mod tests {
             json!({"kind":"instance","template":"bounded_sequence","arguments":[p("i32")]}),
             json!({"kind":"instance","template":"bounded_sequence","arguments":[p("string")]}),
             json!({"kind":"instance","template":"ordered_map","arguments":[p("i32"),p("string")]}),
+            json!({"kind":"instance","template":"ordered_entry","arguments":[p("i32"),p("string")]}),
             json!({"kind":"instance","template":"ordered_set","arguments":[p("i32")]}),
             json!({"kind":"instance","template":"option","arguments":[p("i32")]}),
             json!({"kind":"instance","template":"lookup","arguments":[p("i32")]}),

@@ -35,7 +35,9 @@ T03-W14 completed private data emission and independent import. T04-W01 complete
 private loop-contract parsing, typing and attachment. T04-W02–W06 completed
 loop/pattern/exception lowering, ordinary VIR emission and independent import.
 T05-W01 completes boundary sidecar and presence attachment; T05-W02 completes
-canonical input capture, typed conversion and evidence linkage. T05-W03 is ready, while
+canonical input capture, typed conversion and evidence linkage. T05-W03 completes
+source output encoding, independent typed reparse and cumulative evidence linkage.
+T05-W04 is ready, while
 activation remains blocked through T08-W10.
 
 Prepared: 2026-09-02. Revised: 2026-09-08.

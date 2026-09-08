@@ -60,7 +60,7 @@ private structured-loop lowering (section 40). T04-W03 completes switch and
 pattern lowering (section 41). T04-W04 completes closed exception declarations,
 explicit throws and exceptional contracts (section 42). T04-W05 completes
 two-pass handler search, filters, finally and propagation (section 43). T04-W06 completes
-ordinary control emission and independent import (section 44). T05-W01 completes boundary sidecar and presence attachment (section 45). T05-W02 completes canonical input capture and typed evidence linkage (section 46). T05-W03 is ready;
+ordinary control emission and independent import (section 44). T05-W01 completes boundary sidecar and presence attachment (section 45). T05-W02 completes canonical input capture and typed evidence linkage (section 46). T05-W03 completes source output encoding and typed reparse (section 47). T05-W04 is ready;
 later items remain serially blocked. No public production acceptance
 path, installed candidate, or active registry entry was introduced.
 
@@ -134,9 +134,9 @@ it does not freeze a new profile or alter an active release.
 | `CSHARP-03-T04-W05` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W05` | `a2521cd71ef6f713d2f216ddbb579415ea44c1f1` |
 | `CSHARP-03-T04-W06` | `Complete` | `crates/mpk-cli/tests/csharp_practical_control.rs#CSHARP-03-T04-W06` | `c6549dd0ba8f7c91e383ea22b3fd7b2c8bc3992b` |
 | `CSHARP-03-T05-W01` | `Complete` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W01` | `b0c9a5d5a9616e107200731f62a5abac91828538` |
-| `CSHARP-03-T05-W02` | `Complete` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W02` | `SELF` |
-| `CSHARP-03-T05-W03` | `Ready` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W03` | `—` |
-| `CSHARP-03-T05-W04` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_transition.rs#CSHARP-03-T05-W04` | `—` |
+| `CSHARP-03-T05-W02` | `Complete` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W02` | `f8ec3c6b036908eccf02e4782a5f68a0e2855822` |
+| `CSHARP-03-T05-W03` | `Complete` | `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W03` | `SELF` |
+| `CSHARP-03-T05-W04` | `Ready` | `crates/mpk-cli/tests/csharp_practical_transition.rs#CSHARP-03-T05-W04` | `—` |
 | `CSHARP-03-T05-W05` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_transition.rs#CSHARP-03-T05-W05` | `—` |
 | `CSHARP-03-T05-W06` | `Blocked` | `crates/mpk-cli/tests/csharp_practical_boundary_transition.rs#CSHARP-03-T05-W06` | `—` |
 | `CSHARP-03-T06-W01` | `Blocked` | `crates/mpk-vc/tests/csharp_practical_vc.rs#CSHARP-03-T06-W01` | `—` |
@@ -5112,4 +5112,43 @@ adapter provenance and independently rebuilt evidence mutations.
 The local review has no open findings. `verification.json` records the final
 local gate, frozen-profile checks and reviewed file hashes. Frozen 709 vectors,
 26 specification vector sets, public activation, source output encoding and
-proof discharge remain unchanged. T05-W03 is the next ready item.
+proof discharge remain unchanged. At the W02 checkpoint, T05-W03 was the next ready item.
+
+
+## 47. CSHARP-03-T05-W03 completion record
+
+W03 encodes the selected method's complete returned source value through the
+shared frozen value/JSON codecs. The declared output type, all stored source
+fields, field/tag order, exact integer tokens, UTF-16 units and floating-point
+bits are retained. No source binding projection may erase unmapped or inactive
+storage. Source-array/immutable-sequence representation and the already frozen
+decimal value equivalence use their existing semantics; a lossy selected codec
+cannot pass the independent decode and field-complete equality check.
+
+The immutable output run revalidates W02's original byte-only input run, checks
+value cells, depth, string and collection bounds, encodes at most 1 MiB, and
+independently reparses both the typed value and entire output document before
+building evidence. Void returns require the exact unit type and an empty output
+schema/document. The output capture links the source/reparsed value hashes,
+byte hash and boundary contract. Its frontend manifest retains both input and
+output captures with the original VIR/source map; the source-artifact root
+binds that full manifest. Persisted imports rebuild the entire chain and reject
+byte mutations, context/hash splices and missing/stale input or output links.
+Errors return closed codes and no output run or partial artifacts.
+
+The owner remains `crates/mpk-cli/tests/csharp_practical_boundary.rs#CSHARP-03-T05-W03`;
+its output cases live in `tests/support/csharp_practical_boundary_output.rs`.
+`develop/migrations/csharp-03/boundary-output/` retains three pinned actual-source
+captures for a constructed product, a 32-field array/string product and void.
+The output matrix covers source storage and surrogate names/values, typed
+reparse, two-run artifact equality, hostile serializer bytes and rehashed roots.
+Actual-source output values isolate 65,536 cells and 1 MiB at minus-one/exact/
+plus-one. Shared unit goldens cover primitive codecs, enum/parse-error carriers,
+arrays, entries/maps/sets, all outcome/presence arms, money and transition values.
+
+The local task review and final verification commands/hashes are retained in
+`review.md` and `verification.json`. The frozen CLI/probe inventories, published
+709 vectors and 26 vector sets remain unchanged. W03 does not execute an
+external serializer or assert that a caller invoked the selected application;
+source execution, invariants, postconditions and projection commutation retain
+the existing VIR/T06 owners. T05-W04 is the next ready item.

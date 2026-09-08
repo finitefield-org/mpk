@@ -72,7 +72,7 @@ impl DataSidecars {
                     return Err(DataPhaseError::BoundaryInput(BoundaryInputError::Linkage));
                 }
                 "mpk.csharp.boundary_output.v1" => {
-                    return Err(DataPhaseError::LaterOwner("CSHARP-03-T05-W03"))
+                    return Err(DataPhaseError::BoundaryOutput(BoundaryOutputError::Linkage))
                 }
                 "mpk.csharp.transition.v1" => {
                     return Err(DataPhaseError::LaterOwner("CSHARP-03-T05-W04"))

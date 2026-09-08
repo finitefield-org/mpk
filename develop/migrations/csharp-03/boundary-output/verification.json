@@ -1,0 +1,184 @@
+{
+  "baseline_commit": "f8ec3c6b036908eccf02e4782a5f68a0e2855822",
+  "files": [
+    {
+      "path": "crates/mpk-cli/tests/csharp_practical_boundary.rs",
+      "sha256": "70fcca568f0b6cdefced9acd28261033dbb979855ae84c61f88e38d3cbf36462",
+      "size_bytes": 54901
+    },
+    {
+      "path": "crates/mpk-cli/tests/support/csharp_practical_boundary_output.rs",
+      "sha256": "0bf4daeeeab30b05c944914bb8c84d838d0a52315114deb286701c1b87a9e183",
+      "size_bytes": 18061
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_boundary_input.rs",
+      "sha256": "2f881c454b43dde90f2c55e3acb89a52ced84bc2bf2ccd14515e3b3cb8a6dfef",
+      "size_bytes": 32634
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_boundary_output.rs",
+      "sha256": "4a7eb21bf4868cbf9c591097e0e2bb857537e84c44f7dc20184f992e2dc2489f",
+      "size_bytes": 16608
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_data_emission.rs",
+      "sha256": "efc3ec9725d72f6b2c0c29b6d9f8afa0c2ad5a6c4371421823b1a8a8f7c6c6c3",
+      "size_bytes": 140127
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_data_phase.rs",
+      "sha256": "33deb746e4c80632df9137017ac4da29238d7712d1e424078e2f7c3964062f0a",
+      "size_bytes": 67324
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_data_sidecars.rs",
+      "sha256": "c2781dd0664d781fa4f6840d9a7be848ad16fef9f3c549f03375ffaf833c3d63",
+      "size_bytes": 7436
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "66ec97f4ff34aca7dd2ca8ede4bb2f231775f2d12909e5a5ea4926155a487ece",
+      "size_bytes": 259909
+    },
+    {
+      "path": "crates/mpk-vc/tests/csharp_practical_inventory.rs",
+      "sha256": "98d17e89b83d535f52bae76970bf1c5181056f6cd3f1491b2c1b960e6c068e31",
+      "size_bytes": 78067
+    },
+    {
+      "path": "develop/docs/08_csharp_practical_subset_design-todo.md",
+      "sha256": "4f57f6b4300a27ee719a2d33c38cab05bc37453a8ece5e61eab78d06d15216cd",
+      "size_bytes": 132546
+    },
+    {
+      "path": "develop/docs/08_csharp_practical_subset_design.md",
+      "sha256": "0dcd1e7756ee6ab37984fccce215c872a49c2474810fe7fb63a7575a8f11cc8c",
+      "size_bytes": 149691
+    },
+    {
+      "path": "develop/docs/csharp-03-implementation-traceability-ledger.md",
+      "sha256": "fa05e5021712369857643da815acce3628e9edd3badedeb8ba70731db240b743",
+      "size_bytes": 315359
+    },
+    {
+      "path": "develop/migrations/csharp-03/boundary-output/README.md",
+      "sha256": "6ae021ebecdf865e38b271de2c4c175667be080e54dc9647db232ca4e352b46d",
+      "size_bytes": 4641
+    },
+    {
+      "path": "develop/migrations/csharp-03/boundary-output/conformance.json",
+      "sha256": "0a31ca07a8abe48f88b6569044624aa9f0093e33249b4ae8b55b120cd6720c6f",
+      "size_bytes": 16868
+    },
+    {
+      "path": "develop/migrations/csharp-03/boundary-output/review.md",
+      "sha256": "e85a11b698bd948f8a07ae42ae64c653d16f397a9db26f2b59c004996243300a",
+      "size_bytes": 2204
+    },
+    {
+      "path": "develop/migrations/csharp-03/boundary-output/source-requests.json",
+      "sha256": "70146f8048068f5c3674e048133c933f5d687963227f9f1e52b50ca4a75f89c3",
+      "size_bytes": 14521
+    },
+    {
+      "path": "develop/migrations/csharp-03/boundary-output/source-responses.json",
+      "sha256": "d3fffb239e9fe2d4dd287d3ca974f8d28e47a1f36a09a30c12ee48cc8a6a4260",
+      "size_bytes": 602878
+    }
+  ],
+  "frozen_checks": [
+    {
+      "command": "python3 -B develop/probes/csharp-03/profile_freeze.py --check",
+      "log_sha256": "95b08d88f074db4db94c2d732b6ce68412a1eee6bd1ee1fa4760f9f45629a700",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -B develop/probes/csharp-03/profile_package.py --check",
+      "log_sha256": "3313c2c0b190e7b0d28afe092167124c25ef3da79083a87dfe225c6088a4f25a",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -B scripts/check-spec-vectors.py --check",
+      "log_sha256": "6a36635a61354d3bc570fa1790181a89a32676de9a414b09b9ca54c83375e523",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -B scripts/csharp_practical_build_inputs.py check-build-inputs",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "status": "passed"
+    }
+  ],
+  "frozen_source_and_probe_records": [
+    {
+      "path": "crates/mpk-cli/src/csharp_practical_frontend_protocol.rs",
+      "sha256": "b4c6c55dd29f9a2983231ab67b0c9263f42becfbd620ef3daa4e3098944c2077",
+      "size_bytes": 61921
+    },
+    {
+      "path": "develop/migrations/csharp-03/probes/recursor-feasibility.json",
+      "sha256": "b0cd0fd692749d34dabe2065a8d5efba79c36968275b72dc7dbe50450bdcf36d",
+      "size_bytes": 66558
+    },
+    {
+      "path": "develop/migrations/csharp-03/probes/checker-capacity.json",
+      "sha256": "8f9c40c19e2af7fd209975528a72b66010d81ac78823542db0d9acdc37ac8ad5",
+      "size_bytes": 39138
+    }
+  ],
+  "linux_capture": {
+    "command": "./scripts/build-csharp-practical-frontend.sh --test-control-emission-requests < source-requests.json",
+    "image": "mpk-java-t10-gate:local",
+    "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "network": "none",
+    "platform": "linux/amd64",
+    "status": "passed"
+  },
+  "published_vectors": 709,
+  "reused_dependencies": [
+    {
+      "path": "develop/migrations/csharp-03/boundary-attachment/requests.json",
+      "sha256": "59357c9e616d9a0e67c56894af2833a4eaadb59b572ece3302ed8bb1ce45446c",
+      "size_bytes": 457368
+    },
+    {
+      "path": "develop/migrations/csharp-03/boundary-attachment/responses.json",
+      "sha256": "ab50aeaee8f8d98c8af2569a048adfcce95fd293f527f3d64e9f56bece2e8098",
+      "size_bytes": 768625
+    },
+    {
+      "path": "develop/migrations/csharp-03/boundary-input/conformance.json",
+      "sha256": "0d8c5d473a1503025735cd4d46146ddee511d55152f6a63fb94de39091c05e1c",
+      "size_bytes": 82971
+    },
+    {
+      "path": "develop/migrations/csharp-03/control-emission/control-emission-inputs.json",
+      "sha256": "aa0e27df19d25501aa4dc6a4cbf6e82951ccf6ce6d93806dceeb0e38ca9ca8b7",
+      "size_bytes": 6181
+    }
+  ],
+  "review_findings": 0,
+  "review_record": "develop/migrations/csharp-03/boundary-output/review.md",
+  "schema": "mpk.csharp_practical.t05_w03.verification.v1",
+  "spec_vector_sets": 26,
+  "standard_gate": {
+    "command": "./scripts/check-fast.sh",
+    "completed_test_suites": 120,
+    "ignored_tests": 8,
+    "log_sha256": "a113f502593d7b7d6fe7064397f6142fcdbe33e386ad90830f74d1c2c9d724b2",
+    "passed_tests": 906,
+    "status": "passed"
+  },
+  "targeted_tests": {
+    "actual_source_captures": 3,
+    "boundary_command": "cargo test -p mpk-cli --test csharp_practical_boundary csharp_03_t05_w03",
+    "boundary_tests": 3,
+    "codec_command": "cargo test -p mpk-vc --lib csharp_03_t05_w03",
+    "codec_tests": 2,
+    "inclusive_output_cells": 65536,
+    "inclusive_output_document_bytes": 1048576,
+    "output_golden_runs": 2,
+    "status": "passed; repeated in the final full gate"
+  },
+  "work_item": "CSHARP-03-T05-W03"
+}

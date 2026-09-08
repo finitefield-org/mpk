@@ -1445,3 +1445,6 @@ fn csharp_03_t05_w02_actual_source_aggregate_and_document_limits() {
         );
     }
 }
+
+#[path = "support/csharp_practical_boundary_output.rs"]
+mod output;
