@@ -1,0 +1,191 @@
+{
+  "schema": "mpk.csharp_practical.t06_w05.verification.v0",
+  "work_item": "CSHARP-03-T06-W05",
+  "date": "2026-09-08",
+  "baseline_commit": "5d0aec77ffbc42fda871edacc654d4531582fddd",
+  "checks": [
+    {
+      "command": "MPK_T06_W05_GOLDEN_OUT=develop/migrations/csharp-03/exception-vc/goldens.json MPK_T06_W02_GOLDEN_OUT=develop/migrations/csharp-03/construction-vc/goldens.json cargo test -p mpk-vc --test csharp_practical_vc --test csharp_practical_vc_model --test csharp_practical_inventory",
+      "result": "passed",
+      "tests_passed": 23,
+      "log_sha256": "28b3065a9342efbd48cdcdf0b42f8f7fc999af3aaa28e1a5b67547bdc404bc3e"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc exception::",
+      "result": "passed",
+      "tests_passed": 2,
+      "log_sha256": "e504c8c325c4eaae7b767a5db1863325da648f7ef4e3696d35c8a1d092f32387"
+    },
+    {
+      "command": "cargo test -p mpk-vc --test csharp_practical_vc csharp_03_t06_w02_actual_source_goldens_and_failing_conditions",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "3d947db894bad83502a9c3f9a1da6e05390349f435aad64a9d599edc0402fa24"
+    },
+    {
+      "command": "cargo test -p mpk-cli --test csharp_practical_control handlers::",
+      "result": "passed",
+      "tests_passed": 6,
+      "log_sha256": "e66d6f1985c0e0c2158ef6f8d3c8b26bc16bc50c036f360acaedcc0009de8fb2"
+    },
+    {
+      "command": "cargo test -p mpk-cli --test csharp_practical_control csharp_03_t04_w06_filter_and_finally_mutations_reject_without_roslyn",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "f6c6a93e1be63b2f055cb3f9f1d360d95f4e0a25fedf812416fec42884c55052"
+    },
+    {
+      "command": "cargo test -p mpk-cli --test csharp_practical_control csharp_03_t04_w06_construction_exception_paths_emit_and_discard",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "b7f03bf67dd0e269ceb0ca6ba6a93dc687032d7e1383aa16ec5837e129b5f15b"
+    },
+    {
+      "command": "cargo test -p mpk-cli --test csharp_practical_control csharp_03_t04_w06_actual_source_exceptions_emit_ordinary_vir",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "07036816b258e69fd30deb81adc06baefc7cf7efe02a88ba293fa83796f1578e"
+    },
+    {
+      "command": "cargo test -p mpk-cli --test csharp_practical_control csharp_03_t04_w06_actual_source_catches_emit_ordinary_vir",
+      "result": "passed",
+      "tests_passed": 1,
+      "log_sha256": "012b3f170b28f1784320d80e974d7f30865e46e7eae7b3e78c62f288d03b03c9"
+    },
+    {
+      "command": "cargo clippy -p mpk-vc --lib --test csharp_practical_vc --test csharp_practical_vc_model --test csharp_practical_inventory -- -D warnings",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "3ebf6bdb9b0cb66735ff1c448c14bb90abd917cf6996f5d49691a1fdcf803356"
+    },
+    {
+      "command": "rustfmt --check --edition 2021 --config skip_children=true (all nine changed Rust files)",
+      "result": "passed",
+      "tests_passed": null,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "coverage": {
+    "distinct_scoped_tests_passed": 33,
+    "original_exception_handler_captures": 46,
+    "additional_postcondition_captures": 3,
+    "functions": 53,
+    "searches": 117,
+    "sequents": 3929,
+    "kinds": [
+      "callee_exception_set",
+      "exception_transfer",
+      "filter_throw_preserves_original",
+      "finally_completion",
+      "handler_selection",
+      "normal_result",
+      "normal_transfer",
+      "search_exhausted",
+      "uncaught_result"
+    ],
+    "review_findings": 0
+  },
+  "capture": {
+    "command": "docker run --rm -i --platform linux/amd64 --network none --cap-add SYS_ADMIN --security-opt seccomp=unconfined -v /Users/kazuyoshitoshiya/mpk:/repo:ro -w /repo mpk-java-t10-gate:local ./scripts/build-csharp-practical-frontend.sh --test-control-emission-requests < develop/migrations/csharp-03/exception-vc/requests.json",
+    "result": "passed; three original Roslyn captures"
+  },
+  "full_gate": {
+    "command": "./scripts/check-fast.sh",
+    "status": "deferred",
+    "owner": "CSHARP-03-T06-W12",
+    "reason": "Intermediate W: targeted checks only. W12 is the last W of T06."
+  },
+  "proof_status": "Pending exceptional VCs and exact source/native recipes. Boolean/completion oracles and importer counterexamples are not semantic or kernel receipts. W09 owns ordinary expansion, proof construction and both checker runs.",
+  "preserved": {
+    "frozen_producer_sha256": "b4c6c55dd29f9a2983231ab67b0c9263f42becfbd620ef3daa4e3098944c2077",
+    "frozen_vector_sha256": "de401830e1cd4221465d25c6fe31dad7d704ae8959edfc1145db8099f7bfffa6",
+    "existing_handoffs": "Construction/data/control hashes unchanged; current construction golden whole-VC hashes include W05."
+  },
+  "files": [
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_exception_vc.rs",
+      "sha256": "b07f9cc4c511ec338198492d3f2d74aa3c3286ca2d0d664fcbd3daf771d32802",
+      "size_bytes": 34863
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_contract_import.rs",
+      "sha256": "5207bf310a8d898e4c5e6fe4ddb2c2b4b5673e5f5cfe004419193d9f4416f8a2",
+      "size_bytes": 18204
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_control_vc.rs",
+      "sha256": "8dcc9f8800efc9a7149a51bf26909753899529674305c5be09992f8fafc619a8",
+      "size_bytes": 54804
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vc_model.rs",
+      "sha256": "aa1242e211e9083a2bfba5ea8f6e76565a40e6a40ad87930ed0e766526ceeef2",
+      "size_bytes": 96928
+    },
+    {
+      "path": "crates/mpk-vc/src/csharp_practical_vir_model.rs",
+      "sha256": "de630c773a47447d77dea5c23d7477dcd9d01b5569f926a4624d5d260c22d914",
+      "size_bytes": 261855
+    },
+    {
+      "path": "crates/mpk-vc/tests/csharp_practical_inventory.rs",
+      "sha256": "7522557a60577ff1829ac27bd18b83e6afe1ca8ca32d7a3d69df045dc533cbc6",
+      "size_bytes": 78911
+    },
+    {
+      "path": "crates/mpk-vc/tests/csharp_practical_vc.rs",
+      "sha256": "5fe074c87d2d000b8991363e066f45ed80e456508acf5507b140fda9359726ae",
+      "size_bytes": 25824
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_construction_vc.rs",
+      "sha256": "1a10fb8e4799b7e1bc847eab7242b3d85efd042a246eac7687396edcf131b9ce",
+      "size_bytes": 23466
+    },
+    {
+      "path": "crates/mpk-vc/tests/support/csharp_practical_exception_vc.rs",
+      "sha256": "94b5af61ac49e59dbfe952c5af9192075d516ecb768f4e47be0da12b49852139",
+      "size_bytes": 16990
+    },
+    {
+      "path": "develop/docs/08_csharp_practical_subset_design-todo.md",
+      "sha256": "778cf1af34ab72905cab8cf594a564e713aa983b21b2cb78af9c0c36c8f4bd02",
+      "size_bytes": 133682
+    },
+    {
+      "path": "develop/docs/csharp-03-implementation-traceability-ledger.md",
+      "sha256": "2f4435aa8cedd68a5aa18993791d82ec9920a06eaa97c08ea59d0b1296eb6346",
+      "size_bytes": 338478
+    },
+    {
+      "path": "develop/migrations/csharp-03/construction-vc/goldens.json",
+      "sha256": "4dbe8704974103343e44484b0e24ee777346ff5a1128319a6a6e959003f08ec9",
+      "size_bytes": 371337
+    },
+    {
+      "path": "develop/migrations/csharp-03/exception-vc/README.md",
+      "sha256": "d61086db423065b3649a7b45d1f2143c6269436c027740d8cb394e51cc3a429f",
+      "size_bytes": 3442
+    },
+    {
+      "path": "develop/migrations/csharp-03/exception-vc/review.md",
+      "sha256": "e3d898166ae0eb67ec6f8a2df93a26feeebac2f4c8673ab27cf9cb5d089ca0be",
+      "size_bytes": 3183
+    },
+    {
+      "path": "develop/migrations/csharp-03/exception-vc/goldens.json",
+      "sha256": "98034b87cc15cd625a5565d98c1d242eed04063613eb10c4c6bc7d9fdf6e3281",
+      "size_bytes": 18348
+    },
+    {
+      "path": "develop/migrations/csharp-03/exception-vc/requests.json",
+      "sha256": "98b309d5e0e68a4e7f9119d5b9096c77edc676ef603bb98692ddebe409a98194",
+      "size_bytes": 6553
+    },
+    {
+      "path": "develop/migrations/csharp-03/exception-vc/responses.json",
+      "sha256": "14a658e6217585a354144a5e71a123ca704fc0afb52ba7233da520e134810b87",
+      "size_bytes": 58264
+    }
+  ]
+}

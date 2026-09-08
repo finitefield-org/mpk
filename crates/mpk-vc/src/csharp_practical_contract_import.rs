@@ -70,6 +70,8 @@ pub struct VerifiedContractExpression {
     owner: String,
     #[serde(skip)]
     allows_old: bool,
+    #[serde(skip)]
+    exception_scope: Option<String>,
     expression_sha256: String,
     attachment_sha256: String,
     canonical_expression: String,
@@ -78,6 +80,9 @@ pub struct VerifiedContractExpression {
     subject_bindings: Vec<(String, String)>,
 }
 impl VerifiedContractExpression {
+    pub(crate) fn exception_scope(&self) -> Option<&str> {
+        self.exception_scope.as_deref()
+    }
     pub(crate) fn allows_old(&self) -> bool {
         self.allows_old
     }
@@ -288,6 +293,7 @@ pub fn import_verification_contract_expression(
     Ok(VerifiedContractExpression {
         owner: env.verification_owner.clone(),
         allows_old: env.allow_old,
+        exception_scope: env.exception_type.clone(),
         expression_sha256,
         attachment_sha256,
         canonical_expression: String::from_utf8(bytes.to_vec())

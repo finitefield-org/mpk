@@ -193,13 +193,13 @@ fn text<'a>(j: &'a J, key: &str) -> Result<&'a str, ControlVcError> {
 fn array<'a>(j: &'a J, key: &str) -> Result<&'a [J], ControlVcError> {
     j.get(key).and_then(J::as_array).ok_or_else(fail)
 }
-fn boolean(v: bool) -> ContractTerm {
+pub(super) fn boolean(v: bool) -> ContractTerm {
     ContractTerm::Const {
         name: format!("Mpk.CSharp.Bool.{v}"),
         type_id: BOOL.into(),
     }
 }
-fn apply(name: &str, args: Vec<ContractTerm>, result: &str) -> ContractTerm {
+pub(super) fn apply(name: &str, args: Vec<ContractTerm>, result: &str) -> ContractTerm {
     let ty = |a: &[ContractTerm]| {
         a.iter()
             .rev()
@@ -218,10 +218,10 @@ fn apply(name: &str, args: Vec<ContractTerm>, result: &str) -> ContractTerm {
     }
     t
 }
-fn not(t: ContractTerm) -> ContractTerm {
+pub(super) fn not(t: ContractTerm) -> ContractTerm {
     apply("Mpk.CSharp.Bool.Not", vec![t], BOOL)
 }
-fn combine(ts: &[ContractTerm], and: bool) -> ContractTerm {
+pub(super) fn combine(ts: &[ContractTerm], and: bool) -> ContractTerm {
     match ts.len() {
         0 => boolean(and),
         1 => ts[0].clone(),
@@ -236,7 +236,7 @@ fn combine(ts: &[ContractTerm], and: bool) -> ContractTerm {
         ),
     }
 }
-fn bound(v: &TypedValueRef, node: &str) -> ControlBinding {
+pub(super) fn bound(v: &TypedValueRef, node: &str) -> ControlBinding {
     ControlBinding {
         edge_id: None,
         kind: "ssa".into(),
@@ -283,7 +283,7 @@ fn exception_guard(node: &str, check: &str) -> ControlPredicate {
         ),
     }
 }
-fn conjoin(mut a: ControlPredicate, b: ControlPredicate) -> ControlPredicate {
+pub(super) fn conjoin(mut a: ControlPredicate, b: ControlPredicate) -> ControlPredicate {
     if a.bindings.is_empty() && a.term == boolean(true) {
         return b;
     }
@@ -292,7 +292,7 @@ fn conjoin(mut a: ControlPredicate, b: ControlPredicate) -> ControlPredicate {
     a.term = combine(&[a.term, second], true);
     a
 }
-fn edges(
+pub(super) fn edges(
     f: &PracticalVirFunction,
     data: &DataVcProgram,
 ) -> Result<Vec<ControlFlowEdge>, ControlVcError> {
@@ -417,7 +417,7 @@ fn clause(
         .cloned()
         .ok_or_else(fail)
 }
-fn predicate(
+pub(super) fn predicate(
     e: &VerifiedContractExpression,
     node: &str,
     entry: &str,
@@ -483,7 +483,7 @@ fn free_slots(t: &ContractTerm, depth: usize, out: &mut BTreeSet<usize>) {
         _ => {}
     }
 }
-fn assigned(p: &ControlPredicate) -> Vec<ControlPredicate> {
+pub(super) fn assigned(p: &ControlPredicate) -> Vec<ControlPredicate> {
     let mut used = BTreeSet::new();
     free_slots(&p.term, 0, &mut used);
     used.into_iter()
@@ -505,7 +505,7 @@ fn assigned(p: &ControlPredicate) -> Vec<ControlPredicate> {
         .collect()
 }
 /// Shift only free binders when combining previous/current snapshots.
-fn shift(t: &ContractTerm, offset: usize, depth: usize) -> ContractTerm {
+pub(super) fn shift(t: &ContractTerm, offset: usize, depth: usize) -> ContractTerm {
     match t {
         ContractTerm::Var { index, type_id } => ContractTerm::Var {
             index: if *index >= depth {
@@ -682,7 +682,12 @@ fn classify(
         _ => "normal_exit",
     })
 }
-fn register_term(t: &ContractTerm, names: &mut BTreeSet<String>, depth: usize, max: &mut usize) {
+pub(super) fn register_term(
+    t: &ContractTerm,
+    names: &mut BTreeSet<String>,
+    depth: usize,
+    max: &mut usize,
+) {
     *max = (*max).max(depth);
     match t {
         ContractTerm::Const { name, .. } => {

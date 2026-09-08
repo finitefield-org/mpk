@@ -464,6 +464,7 @@ pub struct ValidatedPracticalVc {
     construction_vcs: crate::csharp_practical_vir_model::ConstructionVcProgram,
     data_vcs: crate::csharp_practical_vir_model::DataVcProgram,
     control_vcs: crate::csharp_practical_vir_model::ControlVcProgram,
+    exception_vcs: crate::csharp_practical_vir_model::ExceptionVcProgram,
     wire: WirePracticalVcDocument,
     canonical_bytes: Vec<u8>,
     artifact_ref: ArtifactRef,
@@ -471,6 +472,9 @@ pub struct ValidatedPracticalVc {
 }
 
 impl ValidatedPracticalVc {
+    pub fn exception_vcs(&self) -> &crate::csharp_practical_vir_model::ExceptionVcProgram {
+        &self.exception_vcs
+    }
     pub fn control_vcs(&self) -> &crate::csharp_practical_vir_model::ControlVcProgram {
         &self.control_vcs
     }
@@ -850,7 +854,9 @@ pub fn import_csharp_practical_vc_json(
     })?;
     let data_program = data_vcs(source.vir)?;
     let control_program = control_vcs(source.vir, &data_program)?;
+    let exception_program = exception_vcs(source.vir, &data_program, &control_program)?;
     Ok(ValidatedPracticalVc {
+        exception_vcs: exception_program,
         construction_vcs: construction_vcs(source.vir)?,
         data_vcs: data_program,
         control_vcs: control_program,
@@ -952,6 +958,41 @@ pub fn import_csharp_practical_control_vcs(
     Ok(expected)
 }
 
+fn exception_vcs(
+    vir: &ValidatedPracticalVir,
+    data: &crate::csharp_practical_vir_model::DataVcProgram,
+    control: &crate::csharp_practical_vir_model::ControlVcProgram,
+) -> Result<crate::csharp_practical_vir_model::ExceptionVcProgram, PracticalVcError> {
+    crate::csharp_practical_vir_model::generate_exception_vcs(vir, data, control).map_err(|e| {
+        match e {
+            crate::csharp_practical_vir_model::ExceptionVcError::Limit => limit_error(),
+            _ => failure(
+                PracticalVcValidationPhase::Obligations,
+                PracticalVcErrorCode::Obligation,
+            ),
+        }
+    })
+}
+/// Reconstruct all exceptional outcomes, original-value bindings, handler order
+/// and contract goals. Neither altered routes nor asserted discharge is accepted.
+pub fn import_csharp_practical_exception_vcs(
+    input: &[u8],
+    source: PracticalVcSource<'_>,
+) -> Result<crate::csharp_practical_vir_model::ExceptionVcProgram, PracticalVcError> {
+    validate_source(source)?;
+    require_transport_bound(input)?;
+    let data = data_vcs(source.vir)?;
+    let control = control_vcs(source.vir, &data)?;
+    let expected = exception_vcs(source.vir, &data, &control)?;
+    if input != expected.canonical_bytes() {
+        return Err(failure(
+            PracticalVcValidationPhase::Obligations,
+            PracticalVcErrorCode::Obligation,
+        ));
+    }
+    Ok(expected)
+}
+
 fn expected_vc(source: PracticalVcSource<'_>) -> Result<WirePracticalVcDocument, PracticalVcError> {
     validate_source(source)?;
     let semantic_context = canonical_context_raw(source.artifact_context)?;
@@ -959,16 +1000,18 @@ fn expected_vc(source: PracticalVcSource<'_>) -> Result<WirePracticalVcDocument,
     let source_ir_ref = source.vir.artifact_ref();
     let source_ir = PracticalArtifactLink::from_validated(&source_ir_ref);
     let type_encodings = build_type_encodings(source.vir)?;
-    let operation_encodings = build_operation_encodings(source.vir.operation_signatures())?;
+    let operation_encodings = build_operation_encodings(
+        source.vir.operation_signatures(),
+        source.vir.source_exceptions(),
+    )?;
     let control_encodings = build_control_encodings(source.vir.functions());
     let construction = construction_vcs(source.vir)?;
     let data = data_vcs(source.vir)?;
     let control = control_vcs(source.vir, &data)?;
+    let exception = exception_vcs(source.vir, &data, &control)?;
     let obligation_groups = build_obligation_groups(
         source.vir,
-        &construction,
-        &data,
-        &control,
+        (&construction, &data, &control, &exception),
         &type_encodings,
         &operation_encodings,
         &control_encodings,
@@ -996,6 +1039,7 @@ fn expected_vc(source: PracticalVcSource<'_>) -> Result<WirePracticalVcDocument,
     definitions.extend(construction.definition_names());
     definitions.extend(data.definition_names());
     definitions.extend(control.definition_names());
+    definitions.extend(exception.definition_names());
     resource_reservation.ordinary_term_nodes_minimum = resource_reservation
         .ordinary_term_nodes_minimum
         .checked_add(expression_nodes)
@@ -1032,6 +1076,12 @@ fn expected_vc(source: PracticalVcSource<'_>) -> Result<WirePracticalVcDocument,
     resource_reservation.binder_depth_minimum = resource_reservation
         .binder_depth_minimum
         .max(control.binder_depth() as u64);
+    resource_reservation.ordinary_term_nodes_minimum += exception.nodes() as u64;
+    resource_reservation.generated_declarations_minimum +=
+        (exception.declarations() - exception.definition_names().len()) as u64;
+    resource_reservation.binder_depth_minimum = resource_reservation
+        .binder_depth_minimum
+        .max(exception.binder_depth() as u64);
     validate_resource_reservation(&resource_reservation)?;
     let mut wire = WirePracticalVcDocument {
         schema: SUCCESSOR_VC_SCHEMA.to_owned(),
@@ -1235,6 +1285,7 @@ pub fn ordinary_type_route(type_id: &str) -> Result<OrdinaryTypeRoute, Practical
 
 fn build_operation_encodings(
     operations: &[ClosedOperationSignature],
+    exceptions: &[crate::csharp_practical_vir_model::SourceExceptionDefinition],
 ) -> Result<Vec<PracticalOperationEncoding>, PracticalVcError> {
     operations
         .iter()
@@ -1249,7 +1300,22 @@ fn build_operation_encodings(
                     .ordered_checks
                     .iter()
                     .map(|check| {
-                        let (route, proof_owner) = ordinary_check_route(&check.id, check.tag)?;
+                        let (route, proof_owner) = if check.tag
+                            == crate::csharp_practical_vir_model::RequiredCheckTag::Exception
+                            && check
+                                .id
+                                .strip_prefix("exception.closed.")
+                                .is_some_and(|id| {
+                                    exceptions.iter().any(|e| e.type_id == id)
+                                        && check.failure_type_id.as_deref() == Some(id)
+                                }) {
+                            (
+                                OrdinaryCheckRoute::ClosedExceptionalEdge,
+                                LaterProofOwner::ExceptionalControl,
+                            )
+                        } else {
+                            ordinary_check_route(&check.id, check.tag)?
+                        };
                         Ok(PracticalCheckEncoding {
                             check_id: check.id.clone(),
                             route,
@@ -1586,13 +1652,17 @@ fn construction_action_tag(action: &PracticalConstructionAction) -> &'static str
 
 fn build_obligation_groups(
     vir: &ValidatedPracticalVir,
-    construction: &crate::csharp_practical_vir_model::ConstructionVcProgram,
-    data: &crate::csharp_practical_vir_model::DataVcProgram,
-    control: &crate::csharp_practical_vir_model::ControlVcProgram,
+    handoffs: (
+        &crate::csharp_practical_vir_model::ConstructionVcProgram,
+        &crate::csharp_practical_vir_model::DataVcProgram,
+        &crate::csharp_practical_vir_model::ControlVcProgram,
+        &crate::csharp_practical_vir_model::ExceptionVcProgram,
+    ),
     types: &[PracticalTypeEncoding],
     operations: &[PracticalOperationEncoding],
     controls: &[PracticalControlEncoding],
 ) -> Vec<PracticalObligationGroup> {
+    let (construction, data, control, exception) = handoffs;
     let mut foundation_subjects = types
         .iter()
         .map(|encoding| format!("type:{}", encoding.type_id))
@@ -1673,6 +1743,22 @@ fn build_obligation_groups(
                 .entry((
                     Some(s.function_id.clone()),
                     LaterProofOwner::LoopSwitchAndPatterns,
+                ))
+                .or_default()
+                .insert(s.id.clone());
+        }
+    }
+    let exception_present = !exception.functions().is_empty();
+    if exception_present {
+        pending
+            .entry((None, LaterProofOwner::ExceptionalControl))
+            .or_default()
+            .insert(format!("exception_program:{}", exception.hash()));
+        for s in exception.sequents() {
+            pending
+                .entry((
+                    Some(s.function_id.clone()),
+                    LaterProofOwner::ExceptionalControl,
                 ))
                 .or_default()
                 .insert(s.id.clone());
@@ -1856,6 +1942,24 @@ fn build_obligation_groups(
                         .map(|f| format!("function.{f}"))
                         .unwrap_or_else(|| "global".into());
                     dependencies.push(format!("vc.group.0300.{scope}"));
+                }
+            }
+        }
+        if proof_owner == LaterProofOwner::ExceptionalControl && exception_present {
+            if function_id.is_some() {
+                dependencies.push("vc.group.0500.global".into());
+            }
+            for owner in [
+                LaterProofOwner::DataAndCollections,
+                LaterProofOwner::LoopSwitchAndPatterns,
+            ] {
+                for scope in [None, function_id.clone()] {
+                    if group_keys.contains(&(scope.clone(), owner)) {
+                        let label = scope
+                            .map(|id| format!("function.{id}"))
+                            .unwrap_or_else(|| "global".into());
+                        dependencies.push(format!("vc.group.{:04}.{label}", owner.order()));
+                    }
                 }
             }
         }

@@ -4010,7 +4010,7 @@ pub struct SourceExceptionDefinition {
     pub payload_member_ids: Vec<String>,
 }
 
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Eq, PartialEq, Serialize)]
 pub struct ClosedExceptionArm {
     pub tag: u32,
     pub type_id: String,
@@ -7388,4 +7388,12 @@ pub(crate) use control_vc::{generate_control_vcs, ControlVcError};
 pub use control_vc::{
     ControlBinding, ControlFlowEdge, ControlFunctionVc, ControlPredicate, ControlSequent,
     ControlSlotTransfer, ControlVcProgram, LoopEdgeVc, LoopVc, PatternStepVc, PatternVc,
+};
+
+#[path = "csharp_practical_exception_vc.rs"]
+mod exception_vc;
+pub(crate) use exception_vc::{generate_exception_vcs, ExceptionVcError};
+pub use exception_vc::{
+    ExceptionCandidateVc, ExceptionCompletionKind, ExceptionEdgeVc, ExceptionFinallyRule,
+    ExceptionFunctionVc, ExceptionSearchVc, ExceptionVcProgram,
 };
